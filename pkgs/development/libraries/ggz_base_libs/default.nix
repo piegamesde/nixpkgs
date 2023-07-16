@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, intltool, openssl, expat, libgcrypt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  intltool,
+  openssl,
+  expat,
+  libgcrypt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ggz-base-libs";

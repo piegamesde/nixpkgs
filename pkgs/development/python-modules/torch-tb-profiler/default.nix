@@ -1,5 +1,13 @@
-{ buildPythonPackage, fetchFromGitHub, lib, pandas, pytestCheckHook, torch
-, tensorboard, torchvision }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  pandas,
+  pytestCheckHook,
+  torch,
+  tensorboard,
+  torchvision,
+}:
 
 let
   version = "0.3.1";

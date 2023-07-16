@@ -1,4 +1,11 @@
-{ lib, buildPythonApplication, fetchPypi, pyserial, pyudev, pythonOlder }:
+{
+  lib,
+  buildPythonApplication,
+  fetchPypi,
+  pyserial,
+  pyudev,
+  pythonOlder,
+}:
 
 buildPythonApplication rec {
   pname = "rshell";

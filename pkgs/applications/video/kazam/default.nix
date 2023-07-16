@@ -1,6 +1,20 @@
-{ lib, fetchFromGitHub, substituteAll, python3Packages, gst_all_1, wrapGAppsHook
-, gobject-introspection, gtk3, libwnck, keybinder3, intltool, libcanberra-gtk3
-, libappindicator-gtk3, libpulseaudio, libgudev }:
+{
+  lib,
+  fetchFromGitHub,
+  substituteAll,
+  python3Packages,
+  gst_all_1,
+  wrapGAppsHook,
+  gobject-introspection,
+  gtk3,
+  libwnck,
+  keybinder3,
+  intltool,
+  libcanberra-gtk3,
+  libappindicator-gtk3,
+  libpulseaudio,
+  libgudev,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "kazam";

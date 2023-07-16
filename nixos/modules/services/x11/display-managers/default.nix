@@ -7,7 +7,13 @@
 # (e.g., KDE, Gnome or a plain xterm), and optionally the *window
 # manager* (e.g. kwin or twm).
 
-{ config, lib, options, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -350,26 +356,31 @@ in {
 
       # Configuration for automatic login. Common for all DM.
       autoLogin = mkOption {
-        type = types.submodule ({ config, options, ... }: {
-          options = {
-            enable = mkOption {
-              type = types.bool;
-              default = config.user != null;
-              defaultText = literalExpression "config.${options.user} != null";
-              description = lib.mdDoc ''
-                Automatically log in as {option}`autoLogin.user`.
-              '';
-            };
+        type = types.submodule ({
+            config,
+            options,
+            ...
+          }: {
+            options = {
+              enable = mkOption {
+                type = types.bool;
+                default = config.user != null;
+                defaultText =
+                  literalExpression "config.${options.user} != null";
+                description = lib.mdDoc ''
+                  Automatically log in as {option}`autoLogin.user`.
+                '';
+              };
 
-            user = mkOption {
-              type = types.nullOr types.str;
-              default = null;
-              description = lib.mdDoc ''
-                User to be used for the automatic login.
-              '';
+              user = mkOption {
+                type = types.nullOr types.str;
+                default = null;
+                description = lib.mdDoc ''
+                  User to be used for the automatic login.
+                '';
+              };
             };
-          };
-        });
+          });
 
         default = { };
         description = lib.mdDoc ''
@@ -403,17 +414,24 @@ in {
     warnings = mkIf (dmDefault != null || wmDefault != null) [''
       The following options are deprecated:
         ${
-          concatStringsSep "\n  " (map ({ c, t }: t)
-            (filter ({ c, t }: c != null) [
-              {
-                c = dmDefault;
-                t = "- services.xserver.desktopManager.default";
-              }
-              {
-                c = wmDefault;
-                t = "- services.xserver.windowManager.default";
-              }
-            ]))
+          concatStringsSep "\n  " (map ({
+              c,
+              t,
+            }:
+            t) (filter ({
+                c,
+                t,
+              }:
+              c != null) [
+                {
+                  c = dmDefault;
+                  t = "- services.xserver.desktopManager.default";
+                }
+                {
+                  c = wmDefault;
+                  t = "- services.xserver.windowManager.default";
+                }
+              ]))
         }
       Please use
         services.xserver.displayManager.defaultSession = "${defaultSessionFromLegacyOptions}";
@@ -473,7 +491,10 @@ in {
           exit 0
         '';
       # We will generate every possible pair of WM and DM.
-    in concatLists (builtins.map ({ dm, wm }:
+    in concatLists (builtins.map ({
+        dm,
+        wm,
+      }:
       let
         sessionName =
           "${dm.name}${optionalString (wm.name != "none") ("+" + wm.name)}";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, fetchpatch, pam, openssl, libkrb5 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pam,
+  openssl,
+  libkrb5,
+}:
 
 stdenv.mkDerivation rec {
   pname = "uw-imap";

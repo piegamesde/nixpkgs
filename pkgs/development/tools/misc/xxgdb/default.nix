@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, imake, gccmakedep, libX11, libXaw, libXext, libXmu
-, libXt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  imake,
+  gccmakedep,
+  libX11,
+  libXaw,
+  libXext,
+  libXmu,
+  libXt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xxgdb";

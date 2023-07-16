@@ -1,5 +1,22 @@
-{ stdenv, lib, fetchsvn, autoreconfHook, autoconf, automake, libtool, flex, perl
-, check, pkg-config, python3, version, rev, sha256, maps, arch }:
+{
+  stdenv,
+  lib,
+  fetchsvn,
+  autoreconfHook,
+  autoconf,
+  automake,
+  libtool,
+  flex,
+  perl,
+  check,
+  pkg-config,
+  python3,
+  version,
+  rev,
+  sha256,
+  maps,
+  arch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "crossfire-server";

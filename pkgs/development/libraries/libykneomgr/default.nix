@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, pcsclite, libzip, help2man }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  pcsclite,
+  libzip,
+  help2man,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libykneomgr";

@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, substituteAll, appstream-glib, gettext, pkg-config
-, wrapGAppsHook, gtk3, ibus, libhangul, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  substituteAll,
+  appstream-glib,
+  gettext,
+  pkg-config,
+  wrapGAppsHook,
+  gtk3,
+  ibus,
+  libhangul,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ibus-hangul";

@@ -1,4 +1,9 @@
-{ lib, git, gnupg1, python3Packages }:
+{
+  lib,
+  git,
+  gnupg1,
+  python3Packages,
+}:
 
 with python3Packages;
 buildPythonApplication rec {

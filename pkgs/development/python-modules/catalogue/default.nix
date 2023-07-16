@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonAtLeast
-, pythonOlder, typing-extensions, zipp }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+  typing-extensions,
+  zipp,
+}:
 
 buildPythonPackage rec {
   pname = "catalogue";

@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, which, fltk
-, mbedtls_2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  which,
+  fltk,
+  mbedtls_2,
+}:
 
 stdenv.mkDerivation {
   pname = "dillong";

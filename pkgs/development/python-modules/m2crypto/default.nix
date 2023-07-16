@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, swig2, openssl, typing
-, parameterized }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  swig2,
+  openssl,
+  typing,
+  parameterized,
+}:
 
 buildPythonPackage rec {
   version = "0.38.0";

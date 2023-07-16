@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, python3Packages, perl, zip
-, gitMinimal, ffmpeg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  python3Packages,
+  perl,
+  zip,
+  gitMinimal,
+  ffmpeg,
+}:
 
 let
 

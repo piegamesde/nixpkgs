@@ -1,7 +1,24 @@
-{ lib, mkDerivation, fetchurl, makeFontsConf, appimageTools, qtbase, qtsvg
-, qtmultimedia, qtwebsockets, qtimageformats, autoPatchelfHook
-, desktop-file-utils, imagemagick, twemoji-color-font, xorg, libsodium, libopus
-, libGL, alsa-lib }:
+{
+  lib,
+  mkDerivation,
+  fetchurl,
+  makeFontsConf,
+  appimageTools,
+  qtbase,
+  qtsvg,
+  qtmultimedia,
+  qtwebsockets,
+  qtimageformats,
+  autoPatchelfHook,
+  desktop-file-utils,
+  imagemagick,
+  twemoji-color-font,
+  xorg,
+  libsodium,
+  libopus,
+  libGL,
+  alsa-lib,
+}:
 
 mkDerivation rec {
   pname = "ripcord";

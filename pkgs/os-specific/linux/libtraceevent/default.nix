@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchgit, pkg-config, asciidoc, xmlto, docbook_xml_dtd_45
-, docbook_xsl, coreutils }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  pkg-config,
+  asciidoc,
+  xmlto,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+  coreutils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libtraceevent";

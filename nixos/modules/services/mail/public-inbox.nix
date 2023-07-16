@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 
 with lib;
 
@@ -167,64 +172,67 @@ in {
         Inboxes to configure, where attribute names are inbox names.
       '';
       default = { };
-      type = types.attrsOf (types.submodule ({ name, ... }: {
-        freeformType = types.attrsOf iniAtom;
-        options.inboxdir = mkOption {
-          type = types.str;
-          default = "${stateDir}/inboxes/${name}";
-          description = lib.mdDoc
-            "The absolute path to the directory which hosts the public-inbox.";
-        };
-        options.address = mkOption {
-          type = with types; listOf str;
-          example = "example-discuss@example.org";
-          description = lib.mdDoc "The email addresses of the public-inbox.";
-        };
-        options.url = mkOption {
-          type = with types; nullOr str;
-          default = null;
-          example = "https://example.org/lists/example-discuss";
-          description =
-            lib.mdDoc "URL where this inbox can be accessed over HTTP.";
-        };
-        options.description = mkOption {
-          type = types.str;
-          example = "user/dev discussion of public-inbox itself";
-          description =
-            lib.mdDoc "User-visible description for the repository.";
-          apply = pkgs.writeText "public-inbox-description-${name}";
-        };
-        options.newsgroup = mkOption {
-          type = with types; nullOr str;
-          default = null;
-          description = lib.mdDoc "NNTP group name for the inbox.";
-        };
-        options.watch = mkOption {
-          type = with types; listOf str;
-          default = [ ];
-          description = lib.mdDoc
-            "Paths for {manpage}`public-inbox-watch(1)` to monitor for new mail.";
-          example = [ "maildir:/path/to/test.example.com.git" ];
-        };
-        options.watchheader = mkOption {
-          type = with types; nullOr str;
-          default = null;
-          example = "List-Id:<test@example.com>";
-          description = lib.mdDoc ''
-            If specified, {manpage}`public-inbox-watch(1)` will only process
-            mail containing a matching header.
-          '';
-        };
-        options.coderepo = mkOption {
-          type = (types.listOf (types.enum (attrNames cfg.settings.coderepo)))
-            // {
-              description = "list of coderepo names";
-            };
-          default = [ ];
-          description = lib.mdDoc
-            "Nicknames of a 'coderepo' section associated with the inbox.";
-        };
-      }));
+      type = types.attrsOf (types.submodule ({
+          name,
+          ...
+        }: {
+          freeformType = types.attrsOf iniAtom;
+          options.inboxdir = mkOption {
+            type = types.str;
+            default = "${stateDir}/inboxes/${name}";
+            description = lib.mdDoc
+              "The absolute path to the directory which hosts the public-inbox.";
+          };
+          options.address = mkOption {
+            type = with types; listOf str;
+            example = "example-discuss@example.org";
+            description = lib.mdDoc "The email addresses of the public-inbox.";
+          };
+          options.url = mkOption {
+            type = with types; nullOr str;
+            default = null;
+            example = "https://example.org/lists/example-discuss";
+            description =
+              lib.mdDoc "URL where this inbox can be accessed over HTTP.";
+          };
+          options.description = mkOption {
+            type = types.str;
+            example = "user/dev discussion of public-inbox itself";
+            description =
+              lib.mdDoc "User-visible description for the repository.";
+            apply = pkgs.writeText "public-inbox-description-${name}";
+          };
+          options.newsgroup = mkOption {
+            type = with types; nullOr str;
+            default = null;
+            description = lib.mdDoc "NNTP group name for the inbox.";
+          };
+          options.watch = mkOption {
+            type = with types; listOf str;
+            default = [ ];
+            description = lib.mdDoc
+              "Paths for {manpage}`public-inbox-watch(1)` to monitor for new mail.";
+            example = [ "maildir:/path/to/test.example.com.git" ];
+          };
+          options.watchheader = mkOption {
+            type = with types; nullOr str;
+            default = null;
+            example = "List-Id:<test@example.com>";
+            description = lib.mdDoc ''
+              If specified, {manpage}`public-inbox-watch(1)` will only process
+              mail containing a matching header.
+            '';
+          };
+          options.coderepo = mkOption {
+            type = (types.listOf (types.enum (attrNames cfg.settings.coderepo)))
+              // {
+                description = "list of coderepo names";
+              };
+            default = [ ];
+            description = lib.mdDoc
+              "Nicknames of a 'coderepo' section associated with the inbox.";
+          };
+        }));
     };
     imap = {
       enable = mkEnableOption (lib.mdDoc "the public-inbox IMAP server");

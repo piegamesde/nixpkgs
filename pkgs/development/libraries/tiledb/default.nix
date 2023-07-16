@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, cmake, zlib, lz4, bzip2, zstd, spdlog, tbb
-, openssl, boost, libpqxx, clang-tools, catch2, python3, gtest, doxygen
-, fixDarwinDylibNames }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  zlib,
+  lz4,
+  bzip2,
+  zstd,
+  spdlog,
+  tbb,
+  openssl,
+  boost,
+  libpqxx,
+  clang-tools,
+  catch2,
+  python3,
+  gtest,
+  doxygen,
+  fixDarwinDylibNames,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tiledb";

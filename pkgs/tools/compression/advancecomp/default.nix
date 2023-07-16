@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "advancecomp";

@@ -1,4 +1,10 @@
-{ lib, mkCoqDerivation, coq, stdpp, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  stdpp,
+  version ? null
+}:
 
 mkCoqDerivation rec {
   pname = "iris";

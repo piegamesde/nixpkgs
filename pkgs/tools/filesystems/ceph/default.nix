@@ -1,30 +1,92 @@
-{ lib, stdenv, runCommand, fetchurl, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  runCommand,
+  fetchurl,
+  fetchFromGitHub
 
-# Build time
-, cmake, ensureNewerSourcesHook, fmt, git, makeWrapper, pkg-config, which
+  # Build time
+  ,
+  cmake,
+  ensureNewerSourcesHook,
+  fmt,
+  git,
+  makeWrapper,
+  pkg-config,
+  which
 
-# Tests
-, nixosTests
+  # Tests
+  ,
+  nixosTests
 
-# Runtime dependencies
-, arrow-cpp, babeltrace, boost179, bzip2, cryptsetup, cimg, cunit, doxygen
-, gperf, graphviz, gtest, icu, jsoncpp, libcap_ng, libnl, libxml2, lttng-ust
-, lua, lz4, oath-toolkit, openldap, python310, rdkafka, rocksdb, snappy, sqlite
-, utf8proc, zlib, zstd
+  # Runtime dependencies
+  ,
+  arrow-cpp,
+  babeltrace,
+  boost179,
+  bzip2,
+  cryptsetup,
+  cimg,
+  cunit,
+  doxygen,
+  gperf,
+  graphviz,
+  gtest,
+  icu,
+  jsoncpp,
+  libcap_ng,
+  libnl,
+  libxml2,
+  lttng-ust,
+  lua,
+  lz4,
+  oath-toolkit,
+  openldap,
+  python310,
+  rdkafka,
+  rocksdb,
+  snappy,
+  sqlite,
+  utf8proc,
+  zlib,
+  zstd
 
-# Optional Dependencies
-, curl ? null, expat ? null, fuse ? null, libatomic_ops ? null, libedit ? null
-, libs3 ? null, yasm ? null
+  # Optional Dependencies
+  ,
+  curl ? null,
+  expat ? null,
+  fuse ? null,
+  libatomic_ops ? null,
+  libedit ? null,
+  libs3 ? null,
+  yasm ? null
 
-  # Mallocs
-, gperftools ? null, jemalloc ? null
+    # Mallocs
+  ,
+  gperftools ? null,
+  jemalloc ? null
 
-  # Crypto Dependencies
-, cryptopp ? null, nspr ? null, nss ? null
+    # Crypto Dependencies
+  ,
+  cryptopp ? null,
+  nspr ? null,
+  nss ? null
 
-  # Linux Only Dependencies
-, linuxHeaders, util-linux, libuuid, udev, keyutils, rdma-core, rabbitmq-c
-, libaio ? null, libxfs ? null, liburing ? null, zfs ? null, ... }:
+    # Linux Only Dependencies
+  ,
+  linuxHeaders,
+  util-linux,
+  libuuid,
+  udev,
+  keyutils,
+  rdma-core,
+  rabbitmq-c,
+  libaio ? null,
+  libxfs ? null,
+  liburing ? null,
+  zfs ? null,
+  ...
+}:
 
 # We must have one crypto library
 assert cryptopp != null || (nss != null && nspr != null);

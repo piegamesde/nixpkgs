@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, makeWrapper
-, runCommandCC, runCommand, vapoursynth, writeText, patchelf, buildEnv, zimg
-, libass, python3, libiconv, testers, ApplicationServices }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+  makeWrapper,
+  runCommandCC,
+  runCommand,
+  vapoursynth,
+  writeText,
+  patchelf,
+  buildEnv,
+  zimg,
+  libass,
+  python3,
+  libiconv,
+  testers,
+  ApplicationServices,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vapoursynth";

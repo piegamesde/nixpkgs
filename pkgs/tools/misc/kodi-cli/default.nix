@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, curl, bash, jq, youtube-dl, gnome
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  curl,
+  bash,
+  jq,
+  youtube-dl,
+  gnome,
 }:
 
 stdenv.mkDerivation rec {

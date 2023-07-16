@@ -1,5 +1,17 @@
-{ stdenv, a2ps, lib, fetchurl, dpkg, makeWrapper, coreutils, file, gawk
-, ghostscript, gnused, pkgsi686Linux }:
+{
+  stdenv,
+  a2ps,
+  lib,
+  fetchurl,
+  dpkg,
+  makeWrapper,
+  coreutils,
+  file,
+  gawk,
+  ghostscript,
+  gnused,
+  pkgsi686Linux,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mfc5890cnlpr";

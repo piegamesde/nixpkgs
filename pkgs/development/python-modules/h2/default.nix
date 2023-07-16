@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, fetchpatch, hpack, hyperframe
-, pytestCheckHook, hypothesis }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  fetchpatch,
+  hpack,
+  hyperframe,
+  pytestCheckHook,
+  hypothesis,
+}:
 
 buildPythonPackage rec {
   pname = "h2";

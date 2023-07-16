@@ -1,4 +1,10 @@
-{ lib, stdenv, cosmopolitan, unzip, bintools-unwrapped }:
+{
+  lib,
+  stdenv,
+  cosmopolitan,
+  unzip,
+  bintools-unwrapped,
+}:
 
 stdenv.mkDerivation rec {
   pname = "python-cosmopolitan";

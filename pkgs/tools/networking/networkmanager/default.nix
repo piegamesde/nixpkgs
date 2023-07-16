@@ -1,11 +1,58 @@
-{ lib, stdenv, fetchurl, substituteAll, gettext, pkg-config, fetchpatch, dbus
-, gnome, systemd, libuuid, polkit, gnutls, ppp, dhcpcd, iptables, nftables
-, python3, vala, libgcrypt, dnsmasq, bluez5, readline, libselinux, audit
-, gobject-introspection, perl, modemmanager, openresolv, libndp, newt, libsoup
-, ethtool, gnused, iputils, kmod, jansson, elfutils, gtk-doc, libxslt
-, docbook_xsl, docbook_xml_dtd_412, docbook_xml_dtd_42, docbook_xml_dtd_43
-, openconnect, curl, meson, mesonEmulatorHook, ninja, libpsl
-, mobile-broadband-provider-info, runtimeShell, buildPackages }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  substituteAll,
+  gettext,
+  pkg-config,
+  fetchpatch,
+  dbus,
+  gnome,
+  systemd,
+  libuuid,
+  polkit,
+  gnutls,
+  ppp,
+  dhcpcd,
+  iptables,
+  nftables,
+  python3,
+  vala,
+  libgcrypt,
+  dnsmasq,
+  bluez5,
+  readline,
+  libselinux,
+  audit,
+  gobject-introspection,
+  perl,
+  modemmanager,
+  openresolv,
+  libndp,
+  newt,
+  libsoup,
+  ethtool,
+  gnused,
+  iputils,
+  kmod,
+  jansson,
+  elfutils,
+  gtk-doc,
+  libxslt,
+  docbook_xsl,
+  docbook_xml_dtd_412,
+  docbook_xml_dtd_42,
+  docbook_xml_dtd_43,
+  openconnect,
+  curl,
+  meson,
+  mesonEmulatorHook,
+  ninja,
+  libpsl,
+  mobile-broadband-provider-info,
+  runtimeShell,
+  buildPackages,
+}:
 
 let
   pythonForDocs =

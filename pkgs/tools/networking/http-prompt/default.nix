@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, python3Packages, httpie }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  httpie,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "http-prompt";

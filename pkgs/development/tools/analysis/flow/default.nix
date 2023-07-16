@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, ocamlPackages, CoreServices }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ocamlPackages,
+  CoreServices,
+}:
 
 stdenv.mkDerivation rec {
   pname = "flow";

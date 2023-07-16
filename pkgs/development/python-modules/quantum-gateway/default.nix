@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, esprima, fetchFromGitHub, pytestCheckHook
-, pythonOlder, requests, requests-mock, setuptools-scm, urllib3 }:
+{
+  lib,
+  buildPythonPackage,
+  esprima,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-mock,
+  setuptools-scm,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "quantum-gateway";

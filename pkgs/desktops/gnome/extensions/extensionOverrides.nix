@@ -1,6 +1,27 @@
-{ lib, ddcutil, gjs, gnome, gobject-introspection, gsound, hddtemp, libgda
-, liquidctl, lm_sensors, netcat-gnu, nvme-cli, procps, pulseaudio, libgtop
-, python3, smartmontools, substituteAll, touchegg, vte, wrapGAppsHook, xprop }:
+{
+  lib,
+  ddcutil,
+  gjs,
+  gnome,
+  gobject-introspection,
+  gsound,
+  hddtemp,
+  libgda,
+  liquidctl,
+  lm_sensors,
+  netcat-gnu,
+  nvme-cli,
+  procps,
+  pulseaudio,
+  libgtop,
+  python3,
+  smartmontools,
+  substituteAll,
+  touchegg,
+  vte,
+  wrapGAppsHook,
+  xprop,
+}:
 let
   # Helper method to reduce redundancy
   patchExtension = name: override: super:

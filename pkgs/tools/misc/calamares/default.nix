@@ -1,7 +1,32 @@
-{ lib, fetchurl, boost, cmake, extra-cmake-modules, kparts, kpmcore, kirigami2
-, kservice, libatasmart, libxcb, yaml-cpp, libpwquality, parted, polkit-qt
-, python, qtbase, qtquickcontrols, qtsvg, qttools, qtwebengine, util-linux
-, tzdata, ckbcomp, xkeyboard_config, mkDerivation, nixos-extensions ? false }:
+{
+  lib,
+  fetchurl,
+  boost,
+  cmake,
+  extra-cmake-modules,
+  kparts,
+  kpmcore,
+  kirigami2,
+  kservice,
+  libatasmart,
+  libxcb,
+  yaml-cpp,
+  libpwquality,
+  parted,
+  polkit-qt,
+  python,
+  qtbase,
+  qtquickcontrols,
+  qtsvg,
+  qttools,
+  qtwebengine,
+  util-linux,
+  tzdata,
+  ckbcomp,
+  xkeyboard_config,
+  mkDerivation,
+  nixos-extensions ? false
+}:
 
 mkDerivation rec {
   pname = "calamares";

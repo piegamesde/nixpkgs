@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, cogapp, datasette, fetchFromGitHub, pytest-mock
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  cogapp,
+  datasette,
+  fetchFromGitHub,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "datasette-publish-fly";

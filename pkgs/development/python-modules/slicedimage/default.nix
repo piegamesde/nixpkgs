@@ -1,5 +1,19 @@
-{ lib, buildPythonPackage, fetchFromGitHub, boto3, diskcache, enum34, packaging
-, pathlib, numpy, requests, scikitimage, six, pytestCheckHook, isPy27, tifffile
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  boto3,
+  diskcache,
+  enum34,
+  packaging,
+  pathlib,
+  numpy,
+  requests,
+  scikitimage,
+  six,
+  pytestCheckHook,
+  isPy27,
+  tifffile,
 }:
 
 buildPythonPackage rec {

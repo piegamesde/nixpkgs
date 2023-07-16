@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchurl, meson, mesonEmulatorHook, ninja, amtk, gnome
-, gobject-introspection, gtk3, gtksourceview4, icu, pkg-config, gtk-doc
-, docbook-xsl-nons }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  mesonEmulatorHook,
+  ninja,
+  amtk,
+  gnome,
+  gobject-introspection,
+  gtk3,
+  gtksourceview4,
+  icu,
+  pkg-config,
+  gtk-doc,
+  docbook-xsl-nons,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tepl";

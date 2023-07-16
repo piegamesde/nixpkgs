@@ -1,5 +1,12 @@
-{ lib, aiounittest, buildPythonPackage, fetchFromGitHub, flit-core
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiounittest,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flit-core,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aiosqlite";

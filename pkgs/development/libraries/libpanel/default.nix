@@ -1,5 +1,18 @@
-{ stdenv, lib, fetchurl, meson, ninja, pkg-config, gobject-introspection, vala
-, gi-docgen, glib, gtk4, libadwaita, gnome }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  gobject-introspection,
+  vala,
+  gi-docgen,
+  glib,
+  gtk4,
+  libadwaita,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libpanel";

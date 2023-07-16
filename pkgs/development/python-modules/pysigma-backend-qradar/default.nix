@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pysigma
-, pysigma-pipeline-sysmon, pytestCheckHook, pythonOlder, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pysigma,
+  pysigma-pipeline-sysmon,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "pysigma-backend-qradar";

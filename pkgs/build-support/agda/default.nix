@@ -1,12 +1,24 @@
 # Builder for Agda packages.
 
-{ stdenv, lib, self, Agda, runCommand, makeWrapper, writeText, ghcWithPackages
-, nixosTests }:
+{
+  stdenv,
+  lib,
+  self,
+  Agda,
+  runCommand,
+  makeWrapper,
+  writeText,
+  ghcWithPackages,
+  nixosTests,
+}:
 
 with lib.strings;
 
 let
-  withPackages' = { pkgs, ghc ? ghcWithPackages (p: with p; [ ieee754 ]) }:
+  withPackages' = {
+      pkgs,
+      ghc ? ghcWithPackages (p: with p; [ ieee754 ])
+    }:
     let
       pkgs' = if builtins.isList pkgs then pkgs else pkgs self;
       library-file = writeText "libraries" ''
@@ -53,10 +65,19 @@ let
     "lagda.tex"
   ];
 
-  defaults = { pname, meta, buildInputs ? [ ]
-    , everythingFile ? "./Everything.agda", includePaths ? [ ]
-    , libraryName ? pname, libraryFile ? "${libraryName}.agda-lib"
-    , buildPhase ? null, installPhase ? null, extraExtensions ? [ ], ... }:
+  defaults = {
+      pname,
+      meta,
+      buildInputs ? [ ],
+      everythingFile ? "./Everything.agda",
+      includePaths ? [ ],
+      libraryName ? pname,
+      libraryFile ? "${libraryName}.agda-lib",
+      buildPhase ? null,
+      installPhase ? null,
+      extraExtensions ? [ ],
+      ...
+    }:
     let
       agdaWithArgs =
         withPackages (builtins.filter (p: p ? isAgdaDerivation) buildInputs);

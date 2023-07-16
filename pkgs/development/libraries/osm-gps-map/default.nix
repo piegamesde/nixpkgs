@@ -1,5 +1,14 @@
-{ cairo, fetchzip, glib, gnome, gtk3, gobject-introspection, pkg-config, lib
-, stdenv }:
+{
+  cairo,
+  fetchzip,
+  glib,
+  gnome,
+  gtk3,
+  gobject-introspection,
+  pkg-config,
+  lib,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "osm-gps-map";

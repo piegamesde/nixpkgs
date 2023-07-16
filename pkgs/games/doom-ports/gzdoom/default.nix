@@ -1,7 +1,28 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, makeDesktopItem, copyDesktopItems
-, SDL2, bzip2, cmake, fluidsynth, game-music-emu, gtk3, libGL, libjpeg
-, libsndfile, libvpx, mpg123, ninja, openal, pkg-config, vulkan-loader, zlib
-, zmusic }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  SDL2,
+  bzip2,
+  cmake,
+  fluidsynth,
+  game-music-emu,
+  gtk3,
+  libGL,
+  libjpeg,
+  libsndfile,
+  libvpx,
+  mpg123,
+  ninja,
+  openal,
+  pkg-config,
+  vulkan-loader,
+  zlib,
+  zmusic,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gzdoom";

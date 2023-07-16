@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, libaom, cmake, pkg-config, zlib, libpng, libjpeg
-, dav1d, libyuv }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libaom,
+  cmake,
+  pkg-config,
+  zlib,
+  libpng,
+  libjpeg,
+  dav1d,
+  libyuv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libavif";

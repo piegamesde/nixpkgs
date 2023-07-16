@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, numpy, pillow }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  numpy,
+  pillow,
+}:
 
 buildPythonPackage rec {
   pname = "minexr";

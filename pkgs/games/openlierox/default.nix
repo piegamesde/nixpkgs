@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, libX11, xorgproto, gd, SDL, SDL_image, SDL_mixer, zlib
-, libxml2, pkg-config, curl, cmake, libzip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libX11,
+  xorgproto,
+  gd,
+  SDL,
+  SDL_image,
+  SDL_mixer,
+  zlib,
+  libxml2,
+  pkg-config,
+  curl,
+  cmake,
+  libzip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openlierox";

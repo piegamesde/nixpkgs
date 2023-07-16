@@ -1,5 +1,15 @@
-{ lib, fetchFromGitHub, buildPythonPackage, jax, jaxlib, numpy, parameterized
-, pillow, scipy, tensorboard }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  jax,
+  jaxlib,
+  numpy,
+  parameterized,
+  pillow,
+  scipy,
+  tensorboard,
+}:
 
 buildPythonPackage rec {
   pname = "objax";

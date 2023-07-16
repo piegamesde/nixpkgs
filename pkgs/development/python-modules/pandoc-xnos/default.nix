@@ -1,4 +1,11 @@
-{ buildPythonPackage, fetchFromGitHub, lib, pandocfilters, psutil, setuptools }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  pandocfilters,
+  psutil,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "pandoc-xnos";

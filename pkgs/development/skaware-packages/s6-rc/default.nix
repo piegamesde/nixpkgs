@@ -1,4 +1,9 @@
-{ lib, stdenv, skawarePackages, targetPackages }:
+{
+  lib,
+  stdenv,
+  skawarePackages,
+  targetPackages,
+}:
 
 with skawarePackages;
 

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, requests, beautifulsoup4
-, pyuseragents, safeio, inquirer, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  requests,
+  beautifulsoup4,
+  pyuseragents,
+  safeio,
+  inquirer,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "translatepy";

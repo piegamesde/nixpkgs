@@ -1,7 +1,32 @@
-{ stdenv, lib, fetchurl, fetchpatch, gettext, pkg-config, meson, ninja, gnome
-, glib, gtk3, gtk4, gtkVersion ? "3", gobject-introspection, vala, python3
-, gi-docgen, libxml2, gnutls, gperf, pango, pcre2, fribidi, zlib, icu, systemd
-, systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd, nixosTests
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  gettext,
+  pkg-config,
+  meson,
+  ninja,
+  gnome,
+  glib,
+  gtk3,
+  gtk4,
+  gtkVersion ? "3",
+  gobject-introspection,
+  vala,
+  python3,
+  gi-docgen,
+  libxml2,
+  gnutls,
+  gperf,
+  pango,
+  pcre2,
+  fribidi,
+  zlib,
+  icu,
+  systemd,
+  systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
+  nixosTests,
 }:
 
 stdenv.mkDerivation rec {

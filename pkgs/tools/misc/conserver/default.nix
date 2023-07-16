@@ -1,7 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, libxcrypt
-, gssapiSupport ? false, libkrb5, freeipmiSupport ? false, freeipmi
-, ipv6Support ? true, opensslSupport ? true, openssl
-, trustUdsCredSupport ? false, udsSupport ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  libxcrypt,
+  gssapiSupport ? false,
+  libkrb5,
+  freeipmiSupport ? false,
+  freeipmi,
+  ipv6Support ? true,
+  opensslSupport ? true,
+  openssl,
+  trustUdsCredSupport ? false,
+  udsSupport ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "conserver";

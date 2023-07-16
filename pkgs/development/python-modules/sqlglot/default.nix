@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
-, python-dateutil, duckdb, pyspark }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  python-dateutil,
+  duckdb,
+  pyspark,
+}:
 buildPythonPackage rec {
   pname = "sqlglot";
   version = "10.5.2";

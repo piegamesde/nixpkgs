@@ -1,5 +1,16 @@
-{ lib, fetchFromGitHub, buildPythonPackage, certifi, geckodriver
-, pytestCheckHook, pythonOlder, trio, trio-websocket, urllib3, nixosTests }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  certifi,
+  geckodriver,
+  pytestCheckHook,
+  pythonOlder,
+  trio,
+  trio-websocket,
+  urllib3,
+  nixosTests,
+}:
 
 buildPythonPackage rec {
   pname = "selenium";

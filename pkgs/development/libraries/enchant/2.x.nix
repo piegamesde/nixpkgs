@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchurl, aspell, groff, pkg-config, glib, hunspell, hspell
-, nuspell, unittest-cpp }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  aspell,
+  groff,
+  pkg-config,
+  glib,
+  hunspell,
+  hspell,
+  nuspell,
+  unittest-cpp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "enchant";

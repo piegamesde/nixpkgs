@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, obs-studio, cmake, qtbase }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  obs-studio,
+  cmake,
+  qtbase,
+}:
 
 stdenv.mkDerivation rec {
   pname = "obs-multi-rtmp";

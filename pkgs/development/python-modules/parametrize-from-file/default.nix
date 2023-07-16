@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, pytestCheckHook, coveralls
-, numpy, decopatch, more-itertools, nestedtext, pyyaml, tidyexc, toml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  pytestCheckHook,
+  coveralls,
+  numpy,
+  decopatch,
+  more-itertools,
+  nestedtext,
+  pyyaml,
+  tidyexc,
+  toml,
+}:
 
 buildPythonPackage rec {
   pname = "parametrize-from-file";

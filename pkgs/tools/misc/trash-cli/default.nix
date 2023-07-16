@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, installShellFiles, python3Packages }:
+{
+  lib,
+  fetchFromGitHub,
+  installShellFiles,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "trash-cli";

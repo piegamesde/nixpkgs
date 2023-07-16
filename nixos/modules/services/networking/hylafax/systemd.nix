@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
 
@@ -24,17 +29,25 @@ let
   globalConfigPath = mkConfigFile "" cfg.faxqConfig;
 
   modemConfigPath = let
-    mkModemConfigFile = { config, name, ... }:
+    mkModemConfigFile = {
+        config,
+        name,
+        ...
+      }:
       mkConfigFile ".${name}" (cfg.commonModemConfig // config);
-    mkLine = { name, type, ... }@modem: ''
-      # check if modem config file exists:
-      test -f "${pkgs.hylafaxplus}/spool/config/${type}"
-      ln \
-        --symbolic \
-        --no-target-directory \
-        "${mkModemConfigFile modem}" \
-        "$out/config.${name}"
-    '';
+    mkLine = {
+        name,
+        type,
+        ...
+      }@modem: ''
+        # check if modem config file exists:
+        test -f "${pkgs.hylafaxplus}/spool/config/${type}"
+        ln \
+          --symbolic \
+          --no-target-directory \
+          "${mkModemConfigFile modem}" \
+          "$out/config.${name}"
+      '';
   in pkgs.runCommand "hylafax-config-modems" { preferLocalBuild = true; }
   ''mkdir --parents "$out/" ${concatStringsSep "\n" (mapModems mkLine)}'';
 
@@ -138,7 +151,11 @@ let
     documentation = [ "man:faxq(8)" ];
     requires = [ "hylafax-spool.service" ];
     after = [ "hylafax-spool.service" ];
-    wants = mapModems ({ name, ... }: "hylafax-faxgetty@${name}.service");
+    wants = mapModems ({
+        name,
+        ...
+      }:
+      "hylafax-faxgetty@${name}.service");
     wantedBy = mkIf cfg.autostart [ "multi-user.target" ];
     serviceConfig.Type = "forking";
     serviceConfig.ExecStart =
@@ -210,7 +227,10 @@ let
     ];
   };
 
-  mkFaxgettyService = { name, ... }:
+  mkFaxgettyService = {
+      name,
+      ...
+    }:
     lib.nameValuePair "hylafax-faxgetty@${name}" rec {
       description = "HylaFAX faxgetty for %I";
       documentation = [ "man:faxgetty(8)" ];

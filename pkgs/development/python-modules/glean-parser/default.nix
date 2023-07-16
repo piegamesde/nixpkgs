@@ -1,5 +1,18 @@
-{ lib, appdirs, buildPythonPackage, click, diskcache, fetchPypi, jinja2
-, jsonschema, pytestCheckHook, pythonOlder, pyyaml, setuptools-scm, yamllint }:
+{
+  lib,
+  appdirs,
+  buildPythonPackage,
+  click,
+  diskcache,
+  fetchPypi,
+  jinja2,
+  jsonschema,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  setuptools-scm,
+  yamllint,
+}:
 
 buildPythonPackage rec {
   pname = "glean-parser";

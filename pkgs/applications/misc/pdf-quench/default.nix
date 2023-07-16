@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, pkgs, python3, wrapGAppsHook, gobject-introspection }:
+{
+  lib,
+  fetchFromGitHub,
+  pkgs,
+  python3,
+  wrapGAppsHook,
+  gobject-introspection,
+}:
 
 python3.pkgs.buildPythonApplication {
   pname = "pdf-quench";

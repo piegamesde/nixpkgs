@@ -1,4 +1,10 @@
-{ lib, stdenv, writeScriptBin, jupyter, wolfram-for-jupyter-kernel }:
+{
+  lib,
+  stdenv,
+  writeScriptBin,
+  jupyter,
+  wolfram-for-jupyter-kernel,
+}:
 
 let
   wolfram-jupyter = jupyter.override {

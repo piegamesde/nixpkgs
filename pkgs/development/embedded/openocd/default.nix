@@ -1,9 +1,20 @@
-{ stdenv, lib, fetchurl, pkg-config, hidapi, libusb1, libgpiod
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  hidapi,
+  libusb1,
+  libgpiod
 
-, enableFtdi ? true, libftdi1
+  ,
+  enableFtdi ? true,
+  libftdi1
 
-# Allow selection the hardware targets (SBCs, JTAG Programmers, JTAG Adapters)
-, extraHardwareSupport ? [ ] }:
+  # Allow selection the hardware targets (SBCs, JTAG Programmers, JTAG Adapters)
+  ,
+  extraHardwareSupport ? [ ]
+}:
 
 stdenv.mkDerivation rec {
   pname = "openocd";

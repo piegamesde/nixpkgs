@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, libxml2, libxslt, curl, libvorbis, libtheora, speex
-, libkate, libopus }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libxml2,
+  libxslt,
+  curl,
+  libvorbis,
+  libtheora,
+  speex,
+  libkate,
+  libopus,
+}:
 
 stdenv.mkDerivation rec {
   pname = "icecast";

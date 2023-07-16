@@ -1,5 +1,18 @@
-{ lib, async-timeout, buildPythonPackage, curio, fetchFromGitHub, anyio, flask
-, pytest-asyncio, pytest-trio, pythonOlder, pytestCheckHook, trio, trustme, yarl
+{
+  lib,
+  async-timeout,
+  buildPythonPackage,
+  curio,
+  fetchFromGitHub,
+  anyio,
+  flask,
+  pytest-asyncio,
+  pytest-trio,
+  pythonOlder,
+  pytestCheckHook,
+  trio,
+  trustme,
+  yarl,
 }:
 
 buildPythonPackage rec {

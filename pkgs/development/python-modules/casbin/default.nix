@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
-, simpleeval, wcmatch }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  simpleeval,
+  wcmatch,
+}:
 
 buildPythonPackage rec {
   pname = "casbin";

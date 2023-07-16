@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, boost, icu, libpng, librevenge, zlib, doxygen
-, pkg-config, cppunit }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  boost,
+  icu,
+  libpng,
+  librevenge,
+  zlib,
+  doxygen,
+  pkg-config,
+  cppunit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libzmf";

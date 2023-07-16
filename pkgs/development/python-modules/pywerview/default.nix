@@ -1,5 +1,16 @@
-{ lib, beautifulsoup4, buildPythonPackage, fetchFromGitHub, gssapi, impacket
-, ldap3, lxml, pyasn1, pycryptodome, pythonOlder }:
+{
+  lib,
+  beautifulsoup4,
+  buildPythonPackage,
+  fetchFromGitHub,
+  gssapi,
+  impacket,
+  ldap3,
+  lxml,
+  pyasn1,
+  pycryptodome,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pywerview";

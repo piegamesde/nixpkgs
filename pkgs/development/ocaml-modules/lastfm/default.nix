@@ -1,5 +1,13 @@
-{ lib, buildDunePackage, fetchFromGitHub, pkg-config, dune-configurator
-, xmlplaylist, ocaml_pcre, ocamlnet }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  pkg-config,
+  dune-configurator,
+  xmlplaylist,
+  ocaml_pcre,
+  ocamlnet,
+}:
 
 buildDunePackage rec {
   pname = "lastfm";

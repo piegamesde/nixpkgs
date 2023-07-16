@@ -1,4 +1,9 @@
-{ fetchFromGitHub, gitUpdater, lib, stdenvNoCC }:
+{
+  fetchFromGitHub,
+  gitUpdater,
+  lib,
+  stdenvNoCC,
+}:
 
 stdenvNoCC.mkDerivation {
   pname = "sweet-nova";

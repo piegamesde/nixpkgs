@@ -1,7 +1,27 @@
-{ lib, buildPythonPackage, toPythonModule, pythonOlder, pythonAtLeast
-, fetchFromGitHub, pyparsing, opencascade, stdenv, python, cmake, swig, smesh
-, freetype, libGL, libGLU, libX11, six, pytest, makeFontsConf, freefont_ttf
-, Cocoa }:
+{
+  lib,
+  buildPythonPackage,
+  toPythonModule,
+  pythonOlder,
+  pythonAtLeast,
+  fetchFromGitHub,
+  pyparsing,
+  opencascade,
+  stdenv,
+  python,
+  cmake,
+  swig,
+  smesh,
+  freetype,
+  libGL,
+  libGLU,
+  libX11,
+  six,
+  pytest,
+  makeFontsConf,
+  freefont_ttf,
+  Cocoa,
+}:
 
 let
   pythonocc-core-cadquery = toPythonModule (stdenv.mkDerivation {

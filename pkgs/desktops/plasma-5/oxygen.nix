@@ -1,6 +1,21 @@
-{ mkDerivation, extra-cmake-modules, frameworkintegration, kcmutils, kcompletion
-, kconfig, kdecoration, kguiaddons, ki18n, kwidgetsaddons, kservice, kwayland
-, kwindowsystem, qtdeclarative, qtx11extras, libXdmcp }:
+{
+  mkDerivation,
+  extra-cmake-modules,
+  frameworkintegration,
+  kcmutils,
+  kcompletion,
+  kconfig,
+  kdecoration,
+  kguiaddons,
+  ki18n,
+  kwidgetsaddons,
+  kservice,
+  kwayland,
+  kwindowsystem,
+  qtdeclarative,
+  qtx11extras,
+  libXdmcp,
+}:
 
 mkDerivation {
   pname = "oxygen";

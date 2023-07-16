@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, cheroot, colorama, fetchFromGitHub, fsspec, hatch-vcs
-, hatchling, httpx, pytest-xdist, pytestCheckHook, python-dateutil, pythonOlder
-, wsgidav }:
+{
+  lib,
+  buildPythonPackage,
+  cheroot,
+  colorama,
+  fetchFromGitHub,
+  fsspec,
+  hatch-vcs,
+  hatchling,
+  httpx,
+  pytest-xdist,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  wsgidav,
+}:
 
 buildPythonPackage rec {
   pname = "webdav4";

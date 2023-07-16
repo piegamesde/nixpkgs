@@ -1,15 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, perl, python3
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  perl,
+  python3
 
-# Enable BLAS interface with 64-bit integer width.
-, blas64 ? false
+  # Enable BLAS interface with 64-bit integer width.
+  ,
+  blas64 ? false
 
-  # Target architecture. "amd64" compiles kernels for all Zen
-  # generations. To build kernels for specific Zen generations,
-  # use "zen", "zen2", or "zen3".
-, withArchitecture ? "amd64"
+    # Target architecture. "amd64" compiles kernels for all Zen
+    # generations. To build kernels for specific Zen generations,
+    # use "zen", "zen2", or "zen3".
+  ,
+  withArchitecture ? "amd64"
 
-  # Enable OpenMP-based threading.
-, withOpenMP ? true }:
+    # Enable OpenMP-based threading.
+  ,
+  withOpenMP ? true
+}:
 
 let
   threadingSuffix = lib.optionalString withOpenMP "-mt";

@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, readline }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  readline,
+}:
 
 let version = "1.5c";
 in stdenv.mkDerivation rec {

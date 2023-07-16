@@ -1,5 +1,13 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, stdenv, darwin, libxkbcommon
-, wayland }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  stdenv,
+  darwin,
+  libxkbcommon,
+  wayland,
+}:
 
 rustPlatform.buildRustPackage {
   pname = "cargo-bundle";

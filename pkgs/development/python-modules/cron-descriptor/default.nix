@@ -1,4 +1,11 @@
-{ lib, python, buildPythonPackage, fetchFromGitHub, mock, pytestCheckHook }:
+{
+  lib,
+  python,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "cron_descriptor";

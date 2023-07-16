@@ -1,1 +1,6 @@
-{ config, ... }: { settingsDict.a = config.settingsDict.b; }
+{
+  config,
+  ...
+}: {
+  settingsDict.a = config.settingsDict.b;
+}

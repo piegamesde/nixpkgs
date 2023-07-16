@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, pkg-config, glib, libsoup, libxml2
-, gobject-introspection, gtk-doc, docbook-xsl-nons, docbook_xml_dtd_412, gnome
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  glib,
+  libsoup,
+  libxml2,
+  gobject-introspection,
+  gtk-doc,
+  docbook-xsl-nons,
+  docbook_xml_dtd_412,
+  gnome,
 }:
 
 stdenv.mkDerivation rec {

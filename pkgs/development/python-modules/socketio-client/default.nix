@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, requests, six, websocket-client, fetchFromGitHub }:
+{
+  lib,
+  buildPythonPackage,
+  requests,
+  six,
+  websocket-client,
+  fetchFromGitHub,
+}:
 
 buildPythonPackage rec {
   pname = "socketio-client";

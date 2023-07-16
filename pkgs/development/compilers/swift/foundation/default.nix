@@ -3,7 +3,18 @@
 # This is separate because the CF build is completely different and part of
 # stdenv. Merging the two was kept outside of the scope of Swift work.
 
-{ lib, stdenv, callPackage, cmake, ninja, swift, Dispatch, icu, libxml2, curl }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  cmake,
+  ninja,
+  swift,
+  Dispatch,
+  icu,
+  libxml2,
+  curl,
+}:
 
 let sources = callPackage ../sources.nix { };
 in stdenv.mkDerivation {

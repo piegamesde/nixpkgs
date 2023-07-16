@@ -14,7 +14,9 @@
 # e.g. exhaustive cases. Its more a sanity check to make sure nobody defines
 # systems that overlap with existing ones and won't notice something amiss.
 #
-{ lib }:
+{
+  lib,
+}:
 with lib.lists;
 with lib.types;
 with lib.attrsets;
@@ -674,7 +676,12 @@ in rec {
     description =
       "fully parsed representation of llvm- or nix-style platform tuple";
     merge = mergeOneOption;
-    check = { cpu, vendor, kernel, abi }:
+    check = {
+        cpu,
+        vendor,
+        kernel,
+        abi,
+      }:
       types.cpuType.check cpu && types.vendor.check vendor
       && types.kernel.check kernel && types.abi.check abi;
   };
@@ -748,10 +755,13 @@ in rec {
       "system string has invalid number of hyphen-separated components");
 
   # This should revert the job done by config.guess from the gcc compiler.
-  mkSystemFromSkeleton = { cpu, # Optional, but fallback too complex for here.
-    # Inferred below instead.
-    vendor ? assert false; null, kernel, # Also inferred below
-    abi ? assert false; null }@args:
+  mkSystemFromSkeleton = {
+      cpu, # Optional, but fallback too complex for here.
+      # Inferred below instead.
+      vendor ? assert false; null,
+      kernel, # Also inferred below
+      abi ? assert false; null
+    }@args:
     let
       getCpu = name: cpuTypes.${name} or (throw "Unknown CPU type: ${name}");
       getVendor = name: vendors.${name} or (throw "Unknown vendor: ${name}");
@@ -798,7 +808,12 @@ in rec {
 
   kernelName = kernel: kernel.name + toString (kernel.version or "");
 
-  doubleFromSystem = { cpu, kernel, abi, ... }:
+  doubleFromSystem = {
+      cpu,
+      kernel,
+      abi,
+      ...
+    }:
     if abi == abis.cygnus then
       "${cpu.name}-cygwin"
     else if kernel.families ? darwin then
@@ -806,7 +821,13 @@ in rec {
     else
       "${cpu.name}-${kernelName kernel}";
 
-  tripleFromSystem = { cpu, vendor, kernel, abi, ... }@sys:
+  tripleFromSystem = {
+      cpu,
+      vendor,
+      kernel,
+      abi,
+      ...
+    }@sys:
     assert isSystem sys;
     let
       optExecFormat = lib.optionalString (kernel.name == "netbsd"

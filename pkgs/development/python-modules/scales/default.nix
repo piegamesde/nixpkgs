@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, nose, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nose,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "scales";

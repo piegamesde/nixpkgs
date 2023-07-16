@@ -1,4 +1,9 @@
-{ pkgs, lib, nodejs, stdenv }:
+{
+  pkgs,
+  lib,
+  nodejs,
+  stdenv,
+}:
 
 let
   inherit (lib) composeManyExtensions extends makeExtensible mapAttrs;

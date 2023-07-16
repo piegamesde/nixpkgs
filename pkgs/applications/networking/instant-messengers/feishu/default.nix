@@ -1,14 +1,66 @@
-{ addOpenGLRunpath, alsa-lib, at-spi2-atk, at-spi2-core, atk, autoPatchelfHook
-, cairo, cups, dbus, dpkg, expat, fetchurl, fontconfig, freetype, gdk-pixbuf
-, glib, glibc, gnutls, gtk3, lib, libGL, libX11, libXScrnSaver, libXcomposite
-, libXcursor, libXdamage, libXext, libXfixes, libXi, libXrandr, libXrender
-, libXtst, libappindicator-gtk3, libcxx, libdbusmenu, libdrm, libgcrypt
-, libglvnd, libnotify, libuuid, libxcb, libxkbcommon, libxkbfile, libxshmfence
-, makeShellWrapper, mesa, nspr, nss, pango, pciutils, pipewire, pixman, stdenv
-, systemd, wayland, wrapGAppsHook, xdg-utils
+{
+  addOpenGLRunpath,
+  alsa-lib,
+  at-spi2-atk,
+  at-spi2-core,
+  atk,
+  autoPatchelfHook,
+  cairo,
+  cups,
+  dbus,
+  dpkg,
+  expat,
+  fetchurl,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  glibc,
+  gnutls,
+  gtk3,
+  lib,
+  libGL,
+  libX11,
+  libXScrnSaver,
+  libXcomposite,
+  libXcursor,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXi,
+  libXrandr,
+  libXrender,
+  libXtst,
+  libappindicator-gtk3,
+  libcxx,
+  libdbusmenu,
+  libdrm,
+  libgcrypt,
+  libglvnd,
+  libnotify,
+  libuuid,
+  libxcb,
+  libxkbcommon,
+  libxkbfile,
+  libxshmfence,
+  makeShellWrapper,
+  mesa,
+  nspr,
+  nss,
+  pango,
+  pciutils,
+  pipewire,
+  pixman,
+  stdenv,
+  systemd,
+  wayland,
+  wrapGAppsHook,
+  xdg-utils
 
-# for custom command line arguments, e.g. "--use-gl=desktop"
-, commandLineArgs ? "" }:
+  # for custom command line arguments, e.g. "--use-gl=desktop"
+  ,
+  commandLineArgs ? ""
+}:
 
 stdenv.mkDerivation rec {
   version = "5.18.11";

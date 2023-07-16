@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, curl, libmrss, podofo, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  curl,
+  libmrss,
+  podofo,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "offrss";

@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, einops, emoji, flax, ftfy, jax, jaxlib
-, pillow, transformers, unidecode, wandb }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  einops,
+  emoji,
+  flax,
+  ftfy,
+  jax,
+  jaxlib,
+  pillow,
+  transformers,
+  unidecode,
+  wandb,
+}:
 
 buildPythonPackage rec {
   pname = "dalle-mini";

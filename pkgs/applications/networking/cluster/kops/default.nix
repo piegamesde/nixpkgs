@@ -1,6 +1,16 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+}:
 let
-  generic = { version, sha256, rev ? version, ... }@attrs:
+  generic = {
+      version,
+      sha256,
+      rev ? version,
+      ...
+    }@attrs:
     let attrs' = builtins.removeAttrs attrs [ "version" "sha256" "rev" ];
     in buildGoModule {
       pname = "kops";

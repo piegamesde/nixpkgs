@@ -1,5 +1,8 @@
 # Generated file.
-args@{ fetchurl, ... }: rec {
+args@{
+  fetchurl,
+  ...
+}: rec {
   baseName = "generic-cl_dot_arithmetic";
   version = "generic-cl-20211020-git";
 

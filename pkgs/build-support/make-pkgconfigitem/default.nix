@@ -1,12 +1,26 @@
-{ lib, writeTextFile, buildPackages }:
+{
+  lib,
+  writeTextFile,
+  buildPackages,
+}:
 
 # See https://people.freedesktop.org/~dbn/pkg-config-guide.html#concepts
-{ name # The name of the pc file
-# keywords
-# provide a default description for convenience. it's not important but still required by pkg-config.
-, description ? "A pkg-config file for ${name}", url ? "", version ? ""
-, requires ? [ ], requiresPrivate ? [ ], conflicts ? [ ], cflags ? [ ]
-, libs ? [ ], libsPrivate ? [ ], variables ? { } }:
+{
+  name # The name of the pc file
+  # keywords
+  # provide a default description for convenience. it's not important but still required by pkg-config.
+  ,
+  description ? "A pkg-config file for ${name}",
+  url ? "",
+  version ? "",
+  requires ? [ ],
+  requiresPrivate ? [ ],
+  conflicts ? [ ],
+  cflags ? [ ],
+  libs ? [ ],
+  libsPrivate ? [ ],
+  variables ? { }
+}:
 
 let
   # only 'out' has to be changed, otherwise it would be replaced by the out of the writeTextFile

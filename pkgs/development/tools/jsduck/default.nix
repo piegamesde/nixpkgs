@@ -1,4 +1,10 @@
-{ stdenv, lib, bundlerEnv, makeWrapper, bundlerUpdateScript }:
+{
+  stdenv,
+  lib,
+  bundlerEnv,
+  makeWrapper,
+  bundlerUpdateScript,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jsduck";

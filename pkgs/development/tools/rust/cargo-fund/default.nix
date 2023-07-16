@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, rustPlatform, Security, curl
-, openssl, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  rustPlatform,
+  Security,
+  curl,
+  openssl,
+  libiconv,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-fund";

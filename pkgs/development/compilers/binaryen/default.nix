@@ -1,5 +1,15 @@
-{ lib, stdenv, cmake, python3, fetchFromGitHub, emscripten, gtest, lit, nodejs
-, filecheck }:
+{
+  lib,
+  stdenv,
+  cmake,
+  python3,
+  fetchFromGitHub,
+  emscripten,
+  gtest,
+  lit,
+  nodejs,
+  filecheck,
+}:
 
 stdenv.mkDerivation rec {
   pname = "binaryen";

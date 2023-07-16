@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, re2 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  re2,
+}:
 
 buildPythonPackage rec {
   pname = "fb-re2";

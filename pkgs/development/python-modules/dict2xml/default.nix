@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, hatchling }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  hatchling,
+}:
 
 buildPythonPackage rec {
   pname = "dict2xml";

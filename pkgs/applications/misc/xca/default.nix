@@ -1,5 +1,17 @@
-{ stdenv, mkDerivation, lib, fetchFromGitHub, fetchpatch, autoreconfHook
-, pkg-config, libtool, openssl, qtbase, qttools, sphinx }:
+{
+  stdenv,
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  pkg-config,
+  libtool,
+  openssl,
+  qtbase,
+  qttools,
+  sphinx,
+}:
 
 mkDerivation rec {
   pname = "xca";

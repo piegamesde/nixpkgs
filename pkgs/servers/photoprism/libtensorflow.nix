@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, ... }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ...
+}:
 let inherit (stdenv.hostPlatform) system;
 in stdenv.mkDerivation rec {
   pname = "libtensorflow-photoprism";

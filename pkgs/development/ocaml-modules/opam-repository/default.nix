@@ -1,4 +1,10 @@
-{ lib, buildDunePackage, unzip, opam-format, curl }:
+{
+  lib,
+  buildDunePackage,
+  unzip,
+  opam-format,
+  curl,
+}:
 
 buildDunePackage rec {
   pname = "opam-repository";

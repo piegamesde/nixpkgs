@@ -1,5 +1,16 @@
-{ lib, fetchFromGitHub, buildPythonPackage, authlib, requests, nose, pyjwt
-, pythonOlder, pytz, responses, zeep }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  authlib,
+  requests,
+  nose,
+  pyjwt,
+  pythonOlder,
+  pytz,
+  responses,
+  zeep,
+}:
 
 buildPythonPackage rec {
   pname = "simple-salesforce";

@@ -1,5 +1,14 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, asyncio-mqtt, pydantic
-, pythonOlder, setuptools, tenacity }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  asyncio-mqtt,
+  pydantic,
+  pythonOlder,
+  setuptools,
+  tenacity,
+}:
 
 buildPythonPackage rec {
   pname = "yolink-api";

@@ -1,9 +1,31 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost, pkg-config, doxygen, qt48Full
-, libharu, pango, fcgi, firebird, libmysqlclient, postgresql, graphicsmagick
-, glew, openssl, pcre, harfbuzz, icu }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  pkg-config,
+  doxygen,
+  qt48Full,
+  libharu,
+  pango,
+  fcgi,
+  firebird,
+  libmysqlclient,
+  postgresql,
+  graphicsmagick,
+  glew,
+  openssl,
+  pcre,
+  harfbuzz,
+  icu,
+}:
 
 let
-  generic = { version, sha256 }:
+  generic = {
+      version,
+      sha256,
+    }:
     stdenv.mkDerivation {
       pname = "wt";
       inherit version;

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, dub, ncurses, ldc, zlib, removeReferencesTo }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dub,
+  ncurses,
+  ldc,
+  zlib,
+  removeReferencesTo,
+}:
 
 let
   _d_ae_ver = "0.0.3228";

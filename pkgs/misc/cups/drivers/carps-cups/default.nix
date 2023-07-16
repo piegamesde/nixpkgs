@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, cups }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cups,
+}:
 
 stdenv.mkDerivation {
   pname = "carps-cups";

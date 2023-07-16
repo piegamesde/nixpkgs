@@ -1,4 +1,9 @@
-{ stdenv, pkgs, lib, nodejs_14 }:
+{
+  stdenv,
+  pkgs,
+  lib,
+  nodejs_14,
+}:
 
 let
   nodejs = nodejs_14;

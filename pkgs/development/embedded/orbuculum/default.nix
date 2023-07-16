@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, czmq, libusb1, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  czmq,
+  libusb1,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "orbuculum";

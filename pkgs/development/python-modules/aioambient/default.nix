@@ -1,6 +1,18 @@
-{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, poetry-core
-, pytest-aiohttp, pytest-asyncio, pytestCheckHook, python-engineio
-, python-socketio, pythonOlder, websockets }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytestCheckHook,
+  python-engineio,
+  python-socketio,
+  pythonOlder,
+  websockets,
+}:
 
 buildPythonPackage rec {
   pname = "aioambient";

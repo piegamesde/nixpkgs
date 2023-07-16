@@ -1,5 +1,13 @@
-{ lib, stdenv, rustPlatform, fetchFromSourcehut, pkg-config, ncurses, openssl
-, Security }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromSourcehut,
+  pkg-config,
+  ncurses,
+  openssl,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "asuka";

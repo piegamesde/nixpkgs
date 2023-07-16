@@ -1,4 +1,10 @@
-{ capnproto, lib, fetchFromGitHub, protobuf, rustPlatform }:
+{
+  capnproto,
+  lib,
+  fetchFromGitHub,
+  protobuf,
+  rustPlatform,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "conmon-rs";

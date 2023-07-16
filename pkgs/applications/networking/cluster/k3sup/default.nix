@@ -1,5 +1,12 @@
-{ lib, buildGoModule, fetchFromGitHub, makeWrapper, installShellFiles, bash
-, openssh }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  makeWrapper,
+  installShellFiles,
+  bash,
+  openssh,
+}:
 
 buildGoModule rec {
   pname = "k3sup";

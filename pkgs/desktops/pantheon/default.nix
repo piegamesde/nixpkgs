@@ -1,4 +1,9 @@
-{ config, pkgs, lib, gnome }:
+{
+  config,
+  pkgs,
+  lib,
+  gnome,
+}:
 
 lib.makeScope pkgs.newScope (self:
   with self; {

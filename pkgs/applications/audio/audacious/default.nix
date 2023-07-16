@@ -1,5 +1,15 @@
-{ lib, stdenv, audacious-plugins, fetchurl, gettext, meson, ninja, pkg-config
-, qtbase, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  audacious-plugins,
+  fetchurl,
+  gettext,
+  meson,
+  ninja,
+  pkg-config,
+  qtbase,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "audacious";

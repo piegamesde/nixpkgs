@@ -1,6 +1,20 @@
-{ appstream-glib, blueprint-compiler, desktop-file-utils, fetchFromGitLab
-, gst_all_1, gtk4, lib, libadwaita, meson, ninja, nix-update-script, pkg-config
-, rustPlatform, stdenv, wrapGAppsHook4 }:
+{
+  appstream-glib,
+  blueprint-compiler,
+  desktop-file-utils,
+  fetchFromGitLab,
+  gst_all_1,
+  gtk4,
+  lib,
+  libadwaita,
+  meson,
+  ninja,
+  nix-update-script,
+  pkg-config,
+  rustPlatform,
+  stdenv,
+  wrapGAppsHook4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "identity";

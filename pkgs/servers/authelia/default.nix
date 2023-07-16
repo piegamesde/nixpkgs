@@ -1,5 +1,11 @@
-{ lib, fetchFromGitHub, buildGoModule, installShellFiles, callPackage
-, nixosTests }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  installShellFiles,
+  callPackage,
+  nixosTests,
+}:
 
 let
   inherit (import ./sources.nix { inherit fetchFromGitHub; })

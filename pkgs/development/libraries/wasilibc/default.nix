@@ -1,5 +1,11 @@
-{ stdenv, buildPackages, fetchFromGitHub, lib, firefox-unwrapped
-, firefox-esr-unwrapped }:
+{
+  stdenv,
+  buildPackages,
+  fetchFromGitHub,
+  lib,
+  firefox-unwrapped,
+  firefox-esr-unwrapped,
+}:
 
 let
   pname = "wasilibc";

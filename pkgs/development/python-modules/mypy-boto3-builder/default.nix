@@ -1,6 +1,20 @@
-{ lib, black, boto3, buildPythonPackage, fetchFromGitHub, isort, jinja2, md-toc
-, mdformat, newversion, poetry-core, pyparsing, pytestCheckHook, pythonOlder
-, setuptools }:
+{
+  lib,
+  black,
+  boto3,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isort,
+  jinja2,
+  md-toc,
+  mdformat,
+  newversion,
+  poetry-core,
+  pyparsing,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "mypy-boto3-builder";

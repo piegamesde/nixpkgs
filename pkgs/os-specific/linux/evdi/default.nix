@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, kernel, libdrm }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  kernel,
+  libdrm,
+}:
 
 stdenv.mkDerivation rec {
   pname = "evdi";

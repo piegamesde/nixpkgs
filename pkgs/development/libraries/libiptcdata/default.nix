@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, libiconv, libintl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  libiconv,
+  libintl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libiptcdata";

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, imageio, napari-plugin-engine
-, pythonOlder, setuptools-scm, vispy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  imageio,
+  napari-plugin-engine,
+  pythonOlder,
+  setuptools-scm,
+  vispy,
+}:
 
 buildPythonPackage rec {
   pname = "napari-svg";

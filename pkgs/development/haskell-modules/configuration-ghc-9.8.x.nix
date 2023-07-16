@@ -5,7 +5,10 @@
 ##  2. llvm 6
 ##  3. disabled library update: parallel
 ##
-{ pkgs, haskellLib }:
+{
+  pkgs,
+  haskellLib,
+}:
 
 with haskellLib;
 

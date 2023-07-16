@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchFromGitLab, gi-docgen, gobject-introspection, meson, ninja
-, pkg-config, vala, glib, liburing, gnome }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  gi-docgen,
+  gobject-introspection,
+  meson,
+  ninja,
+  pkg-config,
+  vala,
+  glib,
+  liburing,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libdex";

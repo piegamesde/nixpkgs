@@ -1,4 +1,12 @@
-{ cmake, fetchFromGitHub, lib, ninja, stdenv, testers, quick-lint-js }:
+{
+  cmake,
+  fetchFromGitHub,
+  lib,
+  ninja,
+  stdenv,
+  testers,
+  quick-lint-js,
+}:
 
 stdenv.mkDerivation rec {
   pname = "quick-lint-js";

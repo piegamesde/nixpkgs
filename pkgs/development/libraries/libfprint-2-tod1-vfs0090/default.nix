@@ -1,5 +1,19 @@
-{ stdenv, lib, fetchFromGitLab, pkg-config, libfprint, libfprint-tod, gusb, udev
-, nss, openssl, meson, pixman, ninja, glib }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  pkg-config,
+  libfprint,
+  libfprint-tod,
+  gusb,
+  udev,
+  nss,
+  openssl,
+  meson,
+  pixman,
+  ninja,
+  glib,
+}:
 stdenv.mkDerivation {
   pname = "libfprint-2-tod1-vfs0090";
   version = "0.8.5";

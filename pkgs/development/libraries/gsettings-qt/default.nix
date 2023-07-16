@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitLab, pkg-config, qmake, qtbase, qtdeclarative
-, wrapQtAppsHook, glib, gobject-introspection, gitUpdater }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  pkg-config,
+  qmake,
+  qtbase,
+  qtdeclarative,
+  wrapQtAppsHook,
+  glib,
+  gobject-introspection,
+  gitUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gsettings-qt";

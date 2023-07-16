@@ -1,6 +1,14 @@
-{ lib, rustPlatform, fetchFromGitHub, makeWrapper
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  makeWrapper
 
-, cargo, nix, nix-prefetch-git }:
+  ,
+  cargo,
+  nix,
+  nix-prefetch-git,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "crate2nix";

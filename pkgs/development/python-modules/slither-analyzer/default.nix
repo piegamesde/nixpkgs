@@ -1,5 +1,17 @@
-{ lib, stdenv, buildPythonPackage, crytic-compile, fetchFromGitHub, makeWrapper
-, packaging, prettytable, pythonOlder, setuptools, solc, withSolc ? false }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  crytic-compile,
+  fetchFromGitHub,
+  makeWrapper,
+  packaging,
+  prettytable,
+  pythonOlder,
+  setuptools,
+  solc,
+  withSolc ? false
+}:
 
 buildPythonPackage rec {
   pname = "slither-analyzer";

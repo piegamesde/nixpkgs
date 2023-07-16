@@ -1,4 +1,11 @@
-{ lib, python3, fetchFromGitHub, dbus, signal-cli, xclip }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  dbus,
+  signal-cli,
+  xclip,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "scli";

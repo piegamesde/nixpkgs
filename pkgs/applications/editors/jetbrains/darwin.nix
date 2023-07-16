@@ -1,6 +1,19 @@
-{ lib, stdenvNoCC, undmg, ... }:
+{
+  lib,
+  stdenvNoCC,
+  undmg,
+  ...
+}:
 
-{ meta, pname, product, productShort ? product, src, version, ... }:
+{
+  meta,
+  pname,
+  product,
+  productShort ? product,
+  src,
+  version,
+  ...
+}:
 
 let loname = lib.toLower productShort;
 in stdenvNoCC.mkDerivation {

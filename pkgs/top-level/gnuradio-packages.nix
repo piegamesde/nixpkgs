@@ -1,4 +1,9 @@
-{ lib, stdenv, newScope, gnuradio # unwrapped gnuradio
+{
+  lib,
+  stdenv,
+  newScope,
+  gnuradio # unwrapped gnuradio
+  ,
 }:
 
 lib.makeScope newScope (self:

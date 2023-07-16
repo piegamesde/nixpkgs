@@ -1,5 +1,18 @@
-{ bazel, bazelTest, bazel-examples, stdenv, darwin, lib, openjdk8
-, jdk11_headless, runLocal, runtimeShell, writeScript, writeText, distDir }:
+{
+  bazel,
+  bazelTest,
+  bazel-examples,
+  stdenv,
+  darwin,
+  lib,
+  openjdk8,
+  jdk11_headless,
+  runLocal,
+  runtimeShell,
+  writeScript,
+  writeText,
+  distDir,
+}:
 
 let
 

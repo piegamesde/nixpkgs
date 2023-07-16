@@ -1,7 +1,18 @@
-pkgargs@{ stdenv, lib, haskellPackages, writeText, gawk }:
+pkgargs@{
+  stdenv,
+  lib,
+  haskellPackages,
+  writeText,
+  gawk,
+}:
 let generic-fetcher = import ./generic-fetcher.nix pkgargs;
 
-in args@{ repository ? "library", imageName, tag, ... }:
+in args@{
+  repository ? "library",
+  imageName,
+  tag,
+  ...
+}:
 
 generic-fetcher ({
   fetcher = "hocker-config";

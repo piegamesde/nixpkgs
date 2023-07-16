@@ -1,8 +1,24 @@
-{ lib, stdenv, runCommand, glib, gtk3, dtkcommon, dde-dock, startdde
-, dde-launcher, dde-session-shell, dde-session-ui, dde-control-center
-, dde-file-manager, deepin-desktop-schemas, deepin-movie-reborn
-, deepin-screen-recorder, deepin-system-monitor, extraGSettingsOverrides ? ""
-, extraGSettingsOverridePackages ? [ ] }:
+{
+  lib,
+  stdenv,
+  runCommand,
+  glib,
+  gtk3,
+  dtkcommon,
+  dde-dock,
+  startdde,
+  dde-launcher,
+  dde-session-shell,
+  dde-session-ui,
+  dde-control-center,
+  dde-file-manager,
+  deepin-desktop-schemas,
+  deepin-movie-reborn,
+  deepin-screen-recorder,
+  deepin-system-monitor,
+  extraGSettingsOverrides ? "",
+  extraGSettingsOverridePackages ? [ ]
+}:
 
 let
   gsettingsOverridePackages = [

@@ -1,6 +1,19 @@
-{ lib, buildPythonApplication, fetchFromGitHub, wrapGAppsHook
-, gobject-introspection, gtk3, pango, pillow, pycurl, beautifulsoup4, pygeoip
-, pygobject3, cairocffi, selenium }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  wrapGAppsHook,
+  gobject-introspection,
+  gtk3,
+  pango,
+  pillow,
+  pycurl,
+  beautifulsoup4,
+  pygeoip,
+  pygobject3,
+  cairocffi,
+  selenium,
+}:
 
 buildPythonApplication rec {
   pname = "xsser";

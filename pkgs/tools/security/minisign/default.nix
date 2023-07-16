@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libsodium }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libsodium,
+}:
 
 stdenv.mkDerivation rec {
   pname = "minisign";

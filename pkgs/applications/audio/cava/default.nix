@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, alsa-lib, fftw, libpulseaudio
-, ncurses, iniparser }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  alsa-lib,
+  fftw,
+  libpulseaudio,
+  ncurses,
+  iniparser,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cava";

@@ -1,21 +1,58 @@
-{ lib, pkgs, stdenv
+{
+  lib,
+  pkgs,
+  stdenv
 
-# Build-time dependencies:
-, addOpenGLRunpath, bazel_5, binutils, buildBazelPackage, buildPythonPackage
-, cctools, curl, cython, fetchFromGitHub, git, IOKit, jsoncpp, nsync, openssl
-, pybind11, setuptools, symlinkJoin, wheel, which
+  # Build-time dependencies:
+  ,
+  addOpenGLRunpath,
+  bazel_5,
+  binutils,
+  buildBazelPackage,
+  buildPythonPackage,
+  cctools,
+  curl,
+  cython,
+  fetchFromGitHub,
+  git,
+  IOKit,
+  jsoncpp,
+  nsync,
+  openssl,
+  pybind11,
+  setuptools,
+  symlinkJoin,
+  wheel,
+  which
 
-# Python dependencies:
-, absl-py, flatbuffers, numpy, scipy, six
+  # Python dependencies:
+  ,
+  absl-py,
+  flatbuffers,
+  numpy,
+  scipy,
+  six
 
-# Runtime dependencies:
-, double-conversion, giflib, grpc, libjpeg_turbo, protobuf, python, snappy, zlib
+  # Runtime dependencies:
+  ,
+  double-conversion,
+  giflib,
+  grpc,
+  libjpeg_turbo,
+  protobuf,
+  python,
+  snappy,
+  zlib
 
-# CUDA flags:
-, cudaSupport ? false, cudaPackages ? { }
+  # CUDA flags:
+  ,
+  cudaSupport ? false,
+  cudaPackages ? { }
 
-  # MKL:
-, mklSupport ? true }:
+    # MKL:
+  ,
+  mklSupport ? true
+}:
 
 let
   inherit (cudaPackages) backendStdenv cudatoolkit cudaFlags cudnn nccl;

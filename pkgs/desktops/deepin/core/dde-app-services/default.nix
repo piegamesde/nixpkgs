@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, dtkwidget, qt5integration, qt5platform-plugins
-, cmake, wrapQtAppsHook, qtbase }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  dtkwidget,
+  qt5integration,
+  qt5platform-plugins,
+  cmake,
+  wrapQtAppsHook,
+  qtbase,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dde-app-services";

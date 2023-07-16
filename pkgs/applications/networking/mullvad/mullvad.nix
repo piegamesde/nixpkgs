@@ -1,6 +1,23 @@
-{ lib, stdenv, writeText, rustPlatform, fetchFromGitHub, fetchpatch, pkg-config
-, protobuf, makeWrapper, git, dbus, libnftnl, libmnl, libwg
-, enableOpenvpn ? true, openvpn-mullvad, shadowsocks-rust, installShellFiles }:
+{
+  lib,
+  stdenv,
+  writeText,
+  rustPlatform,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  protobuf,
+  makeWrapper,
+  git,
+  dbus,
+  libnftnl,
+  libmnl,
+  libwg,
+  enableOpenvpn ? true,
+  openvpn-mullvad,
+  shadowsocks-rust,
+  installShellFiles,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "mullvad";
   version = "2023.3";

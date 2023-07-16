@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, acl, glib, intltool, pkg-config, udev
-, util-linux }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  acl,
+  glib,
+  intltool,
+  pkg-config,
+  udev,
+  util-linux,
+}:
 
 stdenv.mkDerivation rec {
   pname = "udevil";

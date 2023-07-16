@@ -1,4 +1,13 @@
-{ lib, mkDerivation, fetchFromBitbucket, docutils, bison, flex, qmake, qtbase }:
+{
+  lib,
+  mkDerivation,
+  fetchFromBitbucket,
+  docutils,
+  bison,
+  flex,
+  qmake,
+  qtbase,
+}:
 
 mkDerivation rec {
   pname = "xxdiff";

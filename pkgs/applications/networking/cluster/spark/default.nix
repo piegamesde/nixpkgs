@@ -1,9 +1,25 @@
-{ lib, stdenv, fetchzip, makeWrapper, jdk8, python3Packages
-, extraPythonPackages ? [ ], coreutils, hadoopSupport ? true, hadoop
-, RSupport ? true, R }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  makeWrapper,
+  jdk8,
+  python3Packages,
+  extraPythonPackages ? [ ],
+  coreutils,
+  hadoopSupport ? true,
+  hadoop,
+  RSupport ? true,
+  R,
+}:
 
 let
-  spark = { pname, version, sha256, extraMeta ? { } }:
+  spark = {
+      pname,
+      version,
+      sha256,
+      extraMeta ? { }
+    }:
     stdenv.mkDerivation rec {
       inherit pname version;
       jdk = if hadoopSupport then hadoop.jdk else jdk8;

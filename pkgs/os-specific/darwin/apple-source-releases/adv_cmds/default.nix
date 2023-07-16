@@ -1,4 +1,11 @@
-{ lib, appleDerivation, xcbuild, ncurses, libutil, Libc }:
+{
+  lib,
+  appleDerivation,
+  xcbuild,
+  ncurses,
+  libutil,
+  Libc,
+}:
 
 appleDerivation {
   # We can't just run the root build, because https://github.com/facebook/xcbuild/issues/264

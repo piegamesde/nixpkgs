@@ -1,6 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, jdk11, gradle_6, makeDesktopItem
-, copyDesktopItems, perl, writeText, runtimeShell, makeWrapper, glib
-, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  jdk11,
+  gradle_6,
+  makeDesktopItem,
+  copyDesktopItems,
+  perl,
+  writeText,
+  runtimeShell,
+  makeWrapper,
+  glib,
+  wrapGAppsHook,
+}:
 let
   gradle = gradle_6;
 

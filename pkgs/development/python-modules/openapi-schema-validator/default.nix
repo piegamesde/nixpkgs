@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pytestCheckHook
-, isodate, jsonschema, rfc3339-validator }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+  isodate,
+  jsonschema,
+  rfc3339-validator,
+}:
 
 buildPythonPackage rec {
   pname = "openapi-schema-validator";

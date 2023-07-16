@@ -1,5 +1,14 @@
-{ mkDerivation, lib, extra-cmake-modules, cmake, karchive, ki18n, kiconthemes
-, kdelibs4support, ktexteditor }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  cmake,
+  karchive,
+  ki18n,
+  kiconthemes,
+  kdelibs4support,
+  ktexteditor,
+}:
 
 mkDerivation {
   pname = "umbrello";

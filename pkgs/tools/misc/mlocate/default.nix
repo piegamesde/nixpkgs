@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  config,
+}:
 
 let dbfile = lib.attrByPath [ "locate" "dbfile" ] "/var/cache/locatedb" config;
 in stdenv.mkDerivation rec {

@@ -1,4 +1,12 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, openssl, stdenv, darwin }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  stdenv,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "lunatic";

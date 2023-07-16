@@ -1,6 +1,23 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi
-, karchive, kcontacts, kcrash, kidentitymanagement, kio, kmailtransport, kwallet
-, mailcommon, mailimporter, messagelib, qtkeychain, libsecret }:
+{
+  mkDerivation,
+  lib,
+  kdepimTeam,
+  extra-cmake-modules,
+  kdoctools,
+  akonadi,
+  karchive,
+  kcontacts,
+  kcrash,
+  kidentitymanagement,
+  kio,
+  kmailtransport,
+  kwallet,
+  mailcommon,
+  mailimporter,
+  messagelib,
+  qtkeychain,
+  libsecret,
+}:
 
 mkDerivation {
   pname = "akonadi-import-wizard";

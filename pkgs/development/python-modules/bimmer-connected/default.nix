@@ -1,5 +1,17 @@
-{ lib, aiofile, buildPythonPackage, pythonOlder, fetchFromGitHub, pbr, httpx
-, pycryptodome, pyjwt, pytestCheckHook, respx, time-machine }:
+{
+  lib,
+  aiofile,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pbr,
+  httpx,
+  pycryptodome,
+  pyjwt,
+  pytestCheckHook,
+  respx,
+  time-machine,
+}:
 
 buildPythonPackage rec {
   pname = "bimmer-connected";

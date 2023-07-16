@@ -1,5 +1,17 @@
-{ lib, fetchFromGitLab, installShellFiles, libsodium, pkg-config, protobuf
-, rustPlatform, fetchYarnDeps, fixup_yarn_lock, stdenv, yarn, nodejs }:
+{
+  lib,
+  fetchFromGitLab,
+  installShellFiles,
+  libsodium,
+  pkg-config,
+  protobuf,
+  rustPlatform,
+  fetchYarnDeps,
+  fixup_yarn_lock,
+  stdenv,
+  yarn,
+  nodejs,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "ratman";

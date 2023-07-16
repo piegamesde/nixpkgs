@@ -1,4 +1,12 @@
-{ stdenv, lib, buildPackages, fetchFromGitHub, perl, buildLinux, rpiVersion, ...
+{
+  stdenv,
+  lib,
+  buildPackages,
+  fetchFromGitHub,
+  perl,
+  buildLinux,
+  rpiVersion,
+  ...
 }@args:
 
 let

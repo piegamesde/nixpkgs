@@ -1,5 +1,15 @@
-{ lib, stdenv, which, coreutils, perl, fetchurl, makeWrapper, diffutils
-, writeScriptBin, bzip2 }:
+{
+  lib,
+  stdenv,
+  which,
+  coreutils,
+  perl,
+  fetchurl,
+  makeWrapper,
+  diffutils,
+  writeScriptBin,
+  bzip2,
+}:
 
 # quick usage:
 # storeBackup.pl --sourceDir /home/user --backupDir /tmp/my_backup_destination

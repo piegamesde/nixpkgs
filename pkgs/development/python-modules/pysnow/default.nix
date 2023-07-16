@@ -1,5 +1,17 @@
-{ lib, brotli, buildPythonPackage, fetchFromGitHub, fetchpatch, httpretty, ijson
-, poetry-core, python-magic, pytz, pytestCheckHook, requests-oauthlib }:
+{
+  lib,
+  brotli,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  httpretty,
+  ijson,
+  poetry-core,
+  python-magic,
+  pytz,
+  pytestCheckHook,
+  requests-oauthlib,
+}:
 
 buildPythonPackage rec {
   pname = "pysnow";

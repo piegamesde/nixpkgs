@@ -1,5 +1,19 @@
-{ alsa-lib, autoPatchelfHook, callPackage, fetchzip, gtk2, gtk3, lib, mesa, nss
-, stdenv, udev, unzip, wrapGAppsHook, xorg }:
+{
+  alsa-lib,
+  autoPatchelfHook,
+  callPackage,
+  fetchzip,
+  gtk2,
+  gtk3,
+  lib,
+  mesa,
+  nss,
+  stdenv,
+  udev,
+  unzip,
+  wrapGAppsHook,
+  xorg,
+}:
 
 let
   availableBinaries = {

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, ncurses, buildPackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  ncurses,
+  buildPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mg";

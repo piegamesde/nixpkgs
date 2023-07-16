@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, libconfig, pkg-config, libevent, openssl
-, libxcrypt }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libconfig,
+  pkg-config,
+  libevent,
+  openssl,
+  libxcrypt,
+}:
 
 stdenv.mkDerivation {
   pname = "nntp-proxy";

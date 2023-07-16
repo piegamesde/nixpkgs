@@ -1,6 +1,18 @@
-{ lib, python3Packages, enableOCR ? false, qemu_pkg ? qemu_test, coreutils
-, imagemagick_light, libtiff, netpbm, qemu_test, socat, tesseract4, vde2
-, extraPythonPackages ? (_: [ ]) }:
+{
+  lib,
+  python3Packages,
+  enableOCR ? false,
+  qemu_pkg ? qemu_test,
+  coreutils,
+  imagemagick_light,
+  libtiff,
+  netpbm,
+  qemu_test,
+  socat,
+  tesseract4,
+  vde2,
+  extraPythonPackages ? (_: [ ])
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "nixos-test-driver";

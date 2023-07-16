@@ -1,8 +1,14 @@
-{ lib, skawarePackages
+{
+  lib,
+  skawarePackages
 
-# Whether to build the TLS/SSL tools and what library to use
-# acceptable values: "bearssl", "libressl", false
-, sslSupport ? "bearssl", libressl, bearssl }:
+  # Whether to build the TLS/SSL tools and what library to use
+  # acceptable values: "bearssl", "libressl", false
+  ,
+  sslSupport ? "bearssl",
+  libressl,
+  bearssl,
+}:
 
 with skawarePackages;
 let

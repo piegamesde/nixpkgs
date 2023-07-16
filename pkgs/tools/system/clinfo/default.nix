@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, ocl-icd, opencl-headers, OpenCL }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ocl-icd,
+  opencl-headers,
+  OpenCL,
+}:
 
 stdenv.mkDerivation rec {
   pname = "clinfo";

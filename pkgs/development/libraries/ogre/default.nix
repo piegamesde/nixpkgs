@@ -1,12 +1,42 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, unzip, SDL2, boost, freeimage
-, freetype, libpng, ois, pugixml, zziplib
-# linux
-, freeglut, libGL, libGLU, libICE, libSM, libX11, libXaw, libXmu, libXrandr
-, libXrender, libXt, libXxf86vm, xorgproto
-# darwin
-, Cocoa
-# optional
-, withNvidiaCg ? false, nvidia_cg_toolkit, withSamples ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  unzip,
+  SDL2,
+  boost,
+  freeimage,
+  freetype,
+  libpng,
+  ois,
+  pugixml,
+  zziplib
+  # linux
+  ,
+  freeglut,
+  libGL,
+  libGLU,
+  libICE,
+  libSM,
+  libX11,
+  libXaw,
+  libXmu,
+  libXrandr,
+  libXrender,
+  libXt,
+  libXxf86vm,
+  xorgproto
+  # darwin
+  ,
+  Cocoa
+  # optional
+  ,
+  withNvidiaCg ? false,
+  nvidia_cg_toolkit,
+  withSamples ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "ogre";

@@ -1,7 +1,25 @@
-{ stdenv, config, lib, fetchFromGitHub, fetchpatch, cmake, libusb1, ninja
-, pkg-config, gcc, mesa, gtk3, glfw, libGLU, curl
-, cudaSupport ? config.cudaSupport or false, cudaPackages ? { }
-, enablePython ? false, pythonPackages ? null, enableGUI ? false, }:
+{
+  stdenv,
+  config,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  libusb1,
+  ninja,
+  pkg-config,
+  gcc,
+  mesa,
+  gtk3,
+  glfw,
+  libGLU,
+  curl,
+  cudaSupport ? config.cudaSupport or false,
+  cudaPackages ? { },
+  enablePython ? false,
+  pythonPackages ? null,
+  enableGUI ? false,
+}:
 
 assert cudaSupport
   -> (cudaPackages ? cudatoolkit && cudaPackages.cudatoolkit != null);

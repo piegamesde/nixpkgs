@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, buildDunePackage, yojson, logs, lsp, ppx_yojson_conv_lib
+{
+  lib,
+  fetchFromGitHub,
+  buildDunePackage,
+  yojson,
+  logs,
+  lsp,
+  ppx_yojson_conv_lib,
 }:
 
 buildDunePackage rec {

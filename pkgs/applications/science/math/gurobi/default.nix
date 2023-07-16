@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchurl, autoPatchelfHook, python3 }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gurobi";

@@ -1,4 +1,12 @@
-{ stdenv, lib, rustPlatform, fetchCrate, pkg-config, installShellFiles, fuse }:
+{
+  stdenv,
+  lib,
+  rustPlatform,
+  fetchCrate,
+  pkg-config,
+  installShellFiles,
+  fuse,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "sandboxfs";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost, tbb, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  tbb,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "PotreeConverter";

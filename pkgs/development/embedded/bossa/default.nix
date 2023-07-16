@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, wxGTK32, libX11, readline, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  wxGTK32,
+  libX11,
+  readline,
+  darwin,
+}:
 
 let
   # BOSSA needs a "bin2c" program to embed images.

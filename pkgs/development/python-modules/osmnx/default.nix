@@ -1,6 +1,22 @@
-{ lib, buildPythonPackage, fetchFromGitHub, folium, gdal, geopandas, matplotlib
-, networkx, numpy, pandas, pythonOlder, rasterio, requests, rtree, scikit-learn
-, scipy, shapely }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  folium,
+  gdal,
+  geopandas,
+  matplotlib,
+  networkx,
+  numpy,
+  pandas,
+  pythonOlder,
+  rasterio,
+  requests,
+  rtree,
+  scikit-learn,
+  scipy,
+  shapely,
+}:
 
 buildPythonPackage rec {
   pname = "osmnx";

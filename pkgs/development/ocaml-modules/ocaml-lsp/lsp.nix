@@ -1,7 +1,27 @@
-{ buildDunePackage, lib, cppo, stdlib-shims, ppx_yojson_conv_lib
-, ocaml-syntax-shims, jsonrpc, omd, octavius, dune-build-info, dune-rpc, uutf
-, dyn, re, stdune, chrome-trace, dune_3, csexp, pp, cmdliner, ordering
-, ocamlformat-rpc-lib }:
+{
+  buildDunePackage,
+  lib,
+  cppo,
+  stdlib-shims,
+  ppx_yojson_conv_lib,
+  ocaml-syntax-shims,
+  jsonrpc,
+  omd,
+  octavius,
+  dune-build-info,
+  dune-rpc,
+  uutf,
+  dyn,
+  re,
+  stdune,
+  chrome-trace,
+  dune_3,
+  csexp,
+  pp,
+  cmdliner,
+  ordering,
+  ocamlformat-rpc-lib,
+}:
 
 buildDunePackage rec {
   pname = "lsp";

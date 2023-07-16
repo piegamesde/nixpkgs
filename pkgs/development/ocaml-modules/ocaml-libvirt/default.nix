@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitLab, libvirt, AppKit, Foundation, autoreconfHook
-, pkg-config, ocaml, findlib, perl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  libvirt,
+  AppKit,
+  Foundation,
+  autoreconfHook,
+  pkg-config,
+  ocaml,
+  findlib,
+  perl,
+}:
 
 lib.throwIfNot (lib.versionAtLeast ocaml.version "4.02")
 "libvirt is not available for OCaml ${ocaml.version}"

@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, python, characteristic, six, twisted }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python,
+  characteristic,
+  six,
+  twisted,
+}:
 
 buildPythonPackage rec {
   pname = "tubes";

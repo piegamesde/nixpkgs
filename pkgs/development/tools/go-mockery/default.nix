@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, go-mockery, runCommand, go }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  go-mockery,
+  runCommand,
+  go,
+}:
 
 buildGoModule rec {
   pname = "go-mockery";

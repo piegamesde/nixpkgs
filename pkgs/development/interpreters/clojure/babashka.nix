@@ -1,5 +1,11 @@
-{ lib, buildGraalvmNativeImage, graalvmCEPackages, removeReferencesTo, fetchurl
-, writeScript }:
+{
+  lib,
+  buildGraalvmNativeImage,
+  graalvmCEPackages,
+  removeReferencesTo,
+  fetchurl,
+  writeScript,
+}:
 
 buildGraalvmNativeImage rec {
   pname = "babashka";

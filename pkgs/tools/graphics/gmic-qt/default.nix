@@ -1,7 +1,29 @@
-{ lib, stdenv, fetchzip, cimg, cmake, curl, fftw, gimp, gimpPlugins, gmic
-, graphicsmagick, libjpeg, libpng, libtiff, ninja, nix-update-script, opencv3
-, openexr, pkg-config, qtbase, qttools, wrapQtAppsHook, zlib
-, variant ? "standalone" }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  cimg,
+  cmake,
+  curl,
+  fftw,
+  gimp,
+  gimpPlugins,
+  gmic,
+  graphicsmagick,
+  libjpeg,
+  libpng,
+  libtiff,
+  ninja,
+  nix-update-script,
+  opencv3,
+  openexr,
+  pkg-config,
+  qtbase,
+  qttools,
+  wrapQtAppsHook,
+  zlib,
+  variant ? "standalone"
+}:
 
 let
   variants = {

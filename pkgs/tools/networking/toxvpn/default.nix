@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake, nlohmann_json, libtoxcore, libsodium
-, libcap, zeromq, systemd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  nlohmann_json,
+  libtoxcore,
+  libsodium,
+  libcap,
+  zeromq,
+  systemd,
+}:
 
 stdenv.mkDerivation {
   pname = "toxvpn";

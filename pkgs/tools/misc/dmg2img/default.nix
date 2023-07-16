@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, zlib, bzip2, openssl, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zlib,
+  bzip2,
+  openssl,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dmg2img";

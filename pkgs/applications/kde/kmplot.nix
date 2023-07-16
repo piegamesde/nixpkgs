@@ -1,5 +1,15 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, kcrash, kguiaddons, ki18n
-, kparts, kwidgetsaddons, kdbusaddons }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  kcrash,
+  kguiaddons,
+  ki18n,
+  kparts,
+  kwidgetsaddons,
+  kdbusaddons,
+}:
 
 mkDerivation {
   pname = "kmplot";

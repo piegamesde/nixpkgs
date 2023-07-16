@@ -1,5 +1,12 @@
-{ lib, fetchFromGitHub, buildDunePackage, base, stdio, dune-configurator
-, secp256k1 }:
+{
+  lib,
+  fetchFromGitHub,
+  buildDunePackage,
+  base,
+  stdio,
+  dune-configurator,
+  secp256k1,
+}:
 
 buildDunePackage rec {
   pname = "secp256k1";

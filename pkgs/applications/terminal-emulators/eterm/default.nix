@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, imlib2, libX11, libXaw, libXext
-, libast, pkg-config, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  imlib2,
+  libX11,
+  libXaw,
+  libXext,
+  libast,
+  pkg-config,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "eterm";

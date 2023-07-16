@@ -1,4 +1,10 @@
-{ nixosTests, pkgs, poetry2nix, lib, overrides ? (self: super: { }) }:
+{
+  nixosTests,
+  pkgs,
+  poetry2nix,
+  lib,
+  overrides ? (self: super: { })
+}:
 
 let
 

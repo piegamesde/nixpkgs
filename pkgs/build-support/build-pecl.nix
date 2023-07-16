@@ -1,10 +1,29 @@
-{ stdenv, lib, php, autoreconfHook, fetchurl, re2c, nix-update-script }:
+{
+  stdenv,
+  lib,
+  php,
+  autoreconfHook,
+  fetchurl,
+  re2c,
+  nix-update-script,
+}:
 
-{ pname, version, internalDeps ? [ ], peclDeps ? [ ], buildInputs ? [ ]
-, nativeBuildInputs ? [ ], postPhpize ? "", makeFlags ? [ ], src ? fetchurl {
-  url = "https://pecl.php.net/get/${pname}-${version}.tgz";
-  inherit (args) sha256;
-}, passthru ? { }, ... }@args:
+{
+  pname,
+  version,
+  internalDeps ? [ ],
+  peclDeps ? [ ],
+  buildInputs ? [ ],
+  nativeBuildInputs ? [ ],
+  postPhpize ? "",
+  makeFlags ? [ ],
+  src ? fetchurl {
+    url = "https://pecl.php.net/get/${pname}-${version}.tgz";
+    inherit (args) sha256;
+  },
+  passthru ? { },
+  ...
+}@args:
 
 stdenv.mkDerivation (args // {
   name = "php-${pname}-${version}";

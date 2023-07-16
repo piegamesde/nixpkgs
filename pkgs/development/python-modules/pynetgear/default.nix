@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, requests, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  requests,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pynetgear";

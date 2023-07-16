@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, fetchpatch, click
-, click-default-group, docformatter, jinja2, toposort, lxml, requests
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  fetchpatch,
+  click,
+  click-default-group,
+  docformatter,
+  jinja2,
+  toposort,
+  lxml,
+  requests,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "xsdata";

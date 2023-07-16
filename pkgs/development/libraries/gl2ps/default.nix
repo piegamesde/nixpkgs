@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, cmake, zlib, libGL, libGLU, libpng, freeglut }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  zlib,
+  libGL,
+  libGLU,
+  libpng,
+  freeglut,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gl2ps";

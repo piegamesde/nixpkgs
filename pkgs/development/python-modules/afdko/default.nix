@@ -1,9 +1,37 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, fetchpatch, pythonOlder, fonttools
-, defcon, lxml, fs, unicodedata2, zopfli, brotlipy, fontpens, brotli, fontmath
-, mutatormath, booleanoperations, ufoprocessor, ufonormalizer, psautohint, tqdm
-, setuptools-scm, scikit-build, cmake, antlr4_9, libxml2, pytestCheckHook
-# Enables some expensive tests, useful for verifying an update
-, runAllTests ? false, afdko }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  pythonOlder,
+  fonttools,
+  defcon,
+  lxml,
+  fs,
+  unicodedata2,
+  zopfli,
+  brotlipy,
+  fontpens,
+  brotli,
+  fontmath,
+  mutatormath,
+  booleanoperations,
+  ufoprocessor,
+  ufonormalizer,
+  psautohint,
+  tqdm,
+  setuptools-scm,
+  scikit-build,
+  cmake,
+  antlr4_9,
+  libxml2,
+  pytestCheckHook
+  # Enables some expensive tests, useful for verifying an update
+  ,
+  runAllTests ? false,
+  afdko,
+}:
 
 buildPythonPackage rec {
   pname = "afdko";

@@ -1,4 +1,7 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
 
   let
     exampleScript = pkgs.writeTextFile {
@@ -30,22 +33,26 @@ import ./make-test-python.nix ({ pkgs, ... }:
   in {
     name = "systemd-misc";
 
-    nodes.machine = { pkgs, lib, ... }: {
-      boot.extraSystemdUnitPaths = [ "/etc/systemd-rw/system" ];
+    nodes.machine = {
+        pkgs,
+        lib,
+        ...
+      }: {
+        boot.extraSystemdUnitPaths = [ "/etc/systemd-rw/system" ];
 
-      users.users.limited = {
-        isNormalUser = true;
-        uid = 1000;
-      };
+        users.users.limited = {
+          isNormalUser = true;
+          uid = 1000;
+        };
 
-      systemd.units."user-1000.slice.d/limits.conf" = {
-        text = ''
-          [Slice]
-          TasksAccounting=yes
-          TasksMax=100
-        '';
+        systemd.units."user-1000.slice.d/limits.conf" = {
+          text = ''
+            [Slice]
+            TasksAccounting=yes
+            TasksMax=100
+          '';
+        };
       };
-    };
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, click, click-completion, click-default-group
-, cucumber-tag-expressions, fetchFromGitHub, pluggy, poetry-core, pprintpp
-, pythonOlder, pythonRelaxDepsHook, rich, tomli }:
+{
+  lib,
+  buildPythonPackage,
+  click,
+  click-completion,
+  click-default-group,
+  cucumber-tag-expressions,
+  fetchFromGitHub,
+  pluggy,
+  poetry-core,
+  pprintpp,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  rich,
+  tomli,
+}:
 
 buildPythonPackage rec {
   pname = "ward";

@@ -1,4 +1,11 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, IOKit, Security }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  IOKit,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "oxigraph";

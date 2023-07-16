@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, zlib, blas, lapack, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  zlib,
+  blas,
+  lapack,
+  darwin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "plink-ng";

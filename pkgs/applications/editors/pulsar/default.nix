@@ -1,7 +1,26 @@
-{ lib, stdenv, git, runtimeShell, fetchurl, wrapGAppsHook, glib, gtk3, atomEnv
-, xorg, libxkbcommon, hunspell, hunspellDicts, useHunspell ? true
-, languages ? [ "en_US" ], withNemoAction ? true, makeDesktopItem
-, copyDesktopItems, makeWrapper, nodePackages, python3 }:
+{
+  lib,
+  stdenv,
+  git,
+  runtimeShell,
+  fetchurl,
+  wrapGAppsHook,
+  glib,
+  gtk3,
+  atomEnv,
+  xorg,
+  libxkbcommon,
+  hunspell,
+  hunspellDicts,
+  useHunspell ? true,
+  languages ? [ "en_US" ],
+  withNemoAction ? true,
+  makeDesktopItem,
+  copyDesktopItems,
+  makeWrapper,
+  nodePackages,
+  python3,
+}:
 
 let
   pname = "pulsar";

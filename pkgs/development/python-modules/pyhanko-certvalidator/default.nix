@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, aiohttp, asn1crypto
-, cryptography, freezegun, oscrypto, requests, uritools, openssl, pytest-asyncio
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  aiohttp,
+  asn1crypto,
+  cryptography,
+  freezegun,
+  oscrypto,
+  requests,
+  uritools,
+  openssl,
+  pytest-asyncio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pyhanko-certvalidator";

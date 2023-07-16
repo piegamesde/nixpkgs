@@ -1,8 +1,41 @@
-{ stdenv, lib, fetchFromGitHub, gitUpdater, cmake, pkg-config, python3, doxygen
-, libxslt, boost, egl-wayland, freetype, glib, glm, glog, libdrm, libepoxy
-, libevdev, libglvnd, libinput, libuuid, libxcb, libxkbcommon, libxmlxx
-, yaml-cpp, lttng-ust, mesa, nettle, udev, wayland, xorg, xwayland, dbus, gtest
-, umockdev, wlcs }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  gitUpdater,
+  cmake,
+  pkg-config,
+  python3,
+  doxygen,
+  libxslt,
+  boost,
+  egl-wayland,
+  freetype,
+  glib,
+  glm,
+  glog,
+  libdrm,
+  libepoxy,
+  libevdev,
+  libglvnd,
+  libinput,
+  libuuid,
+  libxcb,
+  libxkbcommon,
+  libxmlxx,
+  yaml-cpp,
+  lttng-ust,
+  mesa,
+  nettle,
+  udev,
+  wayland,
+  xorg,
+  xwayland,
+  dbus,
+  gtest,
+  umockdev,
+  wlcs,
+}:
 
 let
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;

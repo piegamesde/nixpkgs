@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, curl, python3, python3Packages, trurl, testers
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  curl,
+  python3,
+  python3Packages,
+  trurl,
+  testers,
 }:
 
 stdenv.mkDerivation rec {

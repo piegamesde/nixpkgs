@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pygame, pyglet, pysdl2
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pygame,
+  pyglet,
+  pysdl2,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pytmx";

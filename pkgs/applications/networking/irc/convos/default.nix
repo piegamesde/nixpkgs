@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, perl, perlPackages, makeWrapper
-, shortenPerlShebang, openssl, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  perl,
+  perlPackages,
+  makeWrapper,
+  shortenPerlShebang,
+  openssl,
+  nixosTests,
+}:
 
 perlPackages.buildPerlPackage rec {
   pname = "convos";

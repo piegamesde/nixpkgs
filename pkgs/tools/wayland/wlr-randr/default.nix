@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromSourcehut, meson, ninja, pkg-config, wayland
-, wayland-scanner }:
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  meson,
+  ninja,
+  pkg-config,
+  wayland,
+  wayland-scanner,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wlr-randr";

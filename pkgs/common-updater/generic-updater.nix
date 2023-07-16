@@ -1,9 +1,24 @@
-{ stdenv, writeScript, coreutils, gnugrep, gnused, common-updater-scripts, nix
+{
+  stdenv,
+  writeScript,
+  coreutils,
+  gnugrep,
+  gnused,
+  common-updater-scripts,
+  nix,
 }:
 
-{ name ? null, pname ? null, version ? null, attrPath ? null, versionLister
-, ignoredVersions ? "", rev-prefix ? "", odd-unstable ? false
-, patchlevel-unstable ? false }:
+{
+  name ? null,
+  pname ? null,
+  version ? null,
+  attrPath ? null,
+  versionLister,
+  ignoredVersions ? "",
+  rev-prefix ? "",
+  odd-unstable ? false,
+  patchlevel-unstable ? false
+}:
 
 let
   # where to print git commands and debugging messages

@@ -1,4 +1,9 @@
-{ stdenv, pkgsBuildBuild, fetchFromGitHub, lib }:
+{
+  stdenv,
+  pkgsBuildBuild,
+  fetchFromGitHub,
+  lib,
+}:
 
 let
   generator = pkgsBuildBuild.buildGoModule rec {

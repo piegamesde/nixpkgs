@@ -1,5 +1,13 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, openssl, pkg-config, libiconv
-, Security }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  openssl,
+  pkg-config,
+  libiconv,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "so";

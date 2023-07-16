@@ -1,8 +1,26 @@
-{ stdenv, lib, callPackage }:
+{
+  stdenv,
+  lib,
+  callPackage,
+}:
 let
   common = arch:
-    callPackage ({ bison, callPackage, curl, fetchgit, flex, getopt, git, gnat11
-      , gcc, lib, perl, stdenvNoCC, zlib, withAda ? true }:
+    callPackage ({
+        bison,
+        callPackage,
+        curl,
+        fetchgit,
+        flex,
+        getopt,
+        git,
+        gnat11,
+        gcc,
+        lib,
+        perl,
+        stdenvNoCC,
+        zlib,
+        withAda ? true
+      }:
 
       stdenvNoCC.mkDerivation rec {
         pname = "coreboot-toolchain-${arch}";

@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, boost, freetype, libuuid, ois
-, withOgre ? false, ogre, libGL, libGLU, libX11, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  boost,
+  freetype,
+  libuuid,
+  ois,
+  withOgre ? false,
+  ogre,
+  libGL,
+  libGLU,
+  libX11,
+  Cocoa,
+}:
 
 let renderSystem = if withOgre then "3" else "4";
 in stdenv.mkDerivation rec {

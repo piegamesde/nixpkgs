@@ -1,5 +1,13 @@
-{ lib, stdenv, buildPythonPackage, fetchFromSourcehut, pytestCheckHook
-, pythonOlder, sqlparse, wrapt }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromSourcehut,
+  pytestCheckHook,
+  pythonOlder,
+  sqlparse,
+  wrapt,
+}:
 
 buildPythonPackage rec {
   pname = "embrace";

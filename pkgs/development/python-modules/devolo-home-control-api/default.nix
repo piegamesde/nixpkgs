@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest-mock, pytestCheckHook
-, pythonOlder, requests, setuptools-scm, websocket-client, zeroconf }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  setuptools-scm,
+  websocket-client,
+  zeroconf,
+}:
 
 buildPythonPackage rec {
   pname = "devolo-home-control-api";

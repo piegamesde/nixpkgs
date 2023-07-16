@@ -1,4 +1,10 @@
-{ lib, buildDunePackage, fetchurl, seq, stdlib-shims }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  seq,
+  stdlib-shims,
+}:
 
 buildDunePackage rec {
   pname = "ptmap";

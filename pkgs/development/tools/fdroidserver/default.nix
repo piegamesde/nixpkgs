@@ -1,4 +1,9 @@
-{ lib, fetchFromGitLab, python, apksigner }:
+{
+  lib,
+  fetchFromGitLab,
+  python,
+  apksigner,
+}:
 
 python.pkgs.buildPythonApplication rec {
   pname = "fdroidserver";

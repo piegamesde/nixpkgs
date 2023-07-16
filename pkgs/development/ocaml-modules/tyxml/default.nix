@@ -1,4 +1,10 @@
-{ lib, buildDunePackage, fetchurl, re, uutf }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  re,
+  uutf,
+}:
 
 buildDunePackage rec {
   pname = "tyxml";

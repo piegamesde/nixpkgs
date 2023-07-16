@@ -1,5 +1,13 @@
-{ buildPythonPackage, fetchPypi, lib, nbconvert, nbformat, notebook
-, pandoc-attributes, six }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  lib,
+  nbconvert,
+  nbformat,
+  notebook,
+  pandoc-attributes,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "notedown";

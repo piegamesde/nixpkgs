@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchurl, dpkg, makeWrapper, coreutils, file, gawk, ghostscript
-, gnused, pkgsi686Linux }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  dpkg,
+  makeWrapper,
+  coreutils,
+  file,
+  gawk,
+  ghostscript,
+  gnused,
+  pkgsi686Linux,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mfc9140cdnlpr";

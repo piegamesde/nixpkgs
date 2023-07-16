@@ -1,4 +1,8 @@
-{ lib, buildFHSEnv, sparrow-unwrapped }:
+{
+  lib,
+  buildFHSEnv,
+  sparrow-unwrapped,
+}:
 
 buildFHSEnv {
   name = "sparrow";

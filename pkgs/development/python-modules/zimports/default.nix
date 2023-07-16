@@ -1,5 +1,15 @@
-{ lib, isPy3k, fetchFromGitHub, buildPythonPackage, flake8-import-order
-, pyflakes, tomli, setuptools, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  isPy3k,
+  fetchFromGitHub,
+  buildPythonPackage,
+  flake8-import-order,
+  pyflakes,
+  tomli,
+  setuptools,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "zimports";

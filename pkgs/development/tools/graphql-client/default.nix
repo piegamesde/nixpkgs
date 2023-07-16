@@ -1,4 +1,12 @@
-{ lib, stdenv, rustPlatform, fetchCrate, pkg-config, openssl, Security }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchCrate,
+  pkg-config,
+  openssl,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "graphql-client";

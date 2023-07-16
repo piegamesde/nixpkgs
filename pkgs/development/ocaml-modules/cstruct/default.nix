@@ -1,4 +1,11 @@
-{ lib, fetchurl, buildDunePackage, fmt, alcotest, crowbar }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  fmt,
+  alcotest,
+  crowbar,
+}:
 
 buildDunePackage rec {
   pname = "cstruct";

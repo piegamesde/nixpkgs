@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, scons, libX11, pkg-config, libusb1, boost, glib
-, dbus-glib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  scons,
+  libX11,
+  pkg-config,
+  libusb1,
+  boost,
+  glib,
+  dbus-glib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xboxdrv";

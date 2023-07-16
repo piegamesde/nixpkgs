@@ -1,4 +1,9 @@
-{ buildPythonPackage, fetchPypi, lib, tornado }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  lib,
+  tornado,
+}:
 
 buildPythonPackage rec {
   pname = "threadloop";

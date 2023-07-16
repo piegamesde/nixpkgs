@@ -1,7 +1,11 @@
 # Functions to build elisp files to locally configure emcas buffers.
 # See https://github.com/shlevy/nix-buffer
 
-{ lib, writeText, inherit-local }:
+{
+  lib,
+  writeText,
+  inherit-local,
+}:
 
 rec {
   withPackages = pkgs':
@@ -62,10 +66,15 @@ rec {
     '';
   # nix-buffer function for a project with a bunch of haskell packages
   # in one directory
-  haskellMonoRepo = { project-root # The monorepo root
-    , haskellPackages # The composed haskell packages set that contains all of the packages
+  haskellMonoRepo = {
+      project-root # The monorepo root
+      ,
+      haskellPackages # The composed haskell packages set that contains all of the packages
+      ,
     }:
-    { root }:
+    {
+      root,
+    }:
     let # The haskell paths.
       haskell-paths = lib.filesystem.haskellPathsInDir project-root;
       # Find the haskell package that the 'root' is in, if any.

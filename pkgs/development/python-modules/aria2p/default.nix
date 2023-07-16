@@ -1,6 +1,24 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pdm-pep517, appdirs
-, loguru, requests, setuptools, toml, websocket-client, asciimatics, pyperclip
-, aria2, fastapi, pytest-xdist, pytestCheckHook, responses, uvicorn }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pdm-pep517,
+  appdirs,
+  loguru,
+  requests,
+  setuptools,
+  toml,
+  websocket-client,
+  asciimatics,
+  pyperclip,
+  aria2,
+  fastapi,
+  pytest-xdist,
+  pytestCheckHook,
+  responses,
+  uvicorn,
+}:
 
 buildPythonPackage rec {
   pname = "aria2p";

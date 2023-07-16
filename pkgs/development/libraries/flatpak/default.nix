@@ -1,11 +1,58 @@
-{ lib, stdenv, fetchurl, autoreconfHook, docbook_xml_dtd_45, docbook-xsl-nons
-, which, libxml2, gobject-introspection, gtk-doc, intltool, libxslt, pkg-config
-, xmlto, substituteAll, runCommand, bison, xdg-dbus-proxy, p11-kit, appstream
-, bubblewrap, bzip2, curl, dbus, glib, gpgme, json-glib, libarchive, libcap
-, libseccomp, coreutils, socat, gettext, hicolor-icon-theme, shared-mime-info
-, desktop-file-utils, gtk3, fuse3, nixosTests, xz, zstd, ostree, polkit, python3
-, systemd, xorg, valgrind, glib-networking, wrapGAppsNoGuiHook, dconf
-, gsettings-desktop-schemas, librsvg, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  docbook_xml_dtd_45,
+  docbook-xsl-nons,
+  which,
+  libxml2,
+  gobject-introspection,
+  gtk-doc,
+  intltool,
+  libxslt,
+  pkg-config,
+  xmlto,
+  substituteAll,
+  runCommand,
+  bison,
+  xdg-dbus-proxy,
+  p11-kit,
+  appstream,
+  bubblewrap,
+  bzip2,
+  curl,
+  dbus,
+  glib,
+  gpgme,
+  json-glib,
+  libarchive,
+  libcap,
+  libseccomp,
+  coreutils,
+  socat,
+  gettext,
+  hicolor-icon-theme,
+  shared-mime-info,
+  desktop-file-utils,
+  gtk3,
+  fuse3,
+  nixosTests,
+  xz,
+  zstd,
+  ostree,
+  polkit,
+  python3,
+  systemd,
+  xorg,
+  valgrind,
+  glib-networking,
+  wrapGAppsNoGuiHook,
+  dconf,
+  gsettings-desktop-schemas,
+  librsvg,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "flatpak";

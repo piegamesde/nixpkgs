@@ -1,119 +1,136 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; } }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; }
+}:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 let
-  mkSpec = { host, service ? null, action }: {
-    inherit action;
-    authority = {
-      file = {
+  mkSpec = {
+      host,
+      service ? null,
+      action,
+    }: {
+      inherit action;
+      authority = {
+        file = {
+          group = "nginx";
+          owner = "nginx";
+          path = "/var/ssl/${host}-ca.pem";
+        };
+        label = "www_ca";
+        profile = "three-month";
+        remote = "localhost:8888";
+      };
+      certificate = {
         group = "nginx";
         owner = "nginx";
-        path = "/var/ssl/${host}-ca.pem";
+        path = "/var/ssl/${host}-cert.pem";
       };
-      label = "www_ca";
-      profile = "three-month";
-      remote = "localhost:8888";
-    };
-    certificate = {
-      group = "nginx";
-      owner = "nginx";
-      path = "/var/ssl/${host}-cert.pem";
-    };
-    private_key = {
-      group = "nginx";
-      mode = "0600";
-      owner = "nginx";
-      path = "/var/ssl/${host}-key.pem";
-    };
-    request = {
-      CN = host;
-      hosts = [ host "www.${host}" ];
-      key = {
-        algo = "rsa";
-        size = 2048;
+      private_key = {
+        group = "nginx";
+        mode = "0600";
+        owner = "nginx";
+        path = "/var/ssl/${host}-key.pem";
       };
-      names = [{
-        C = "US";
-        L = "San Francisco";
-        O = "Example, LLC";
-        ST = "CA";
-      }];
+      request = {
+        CN = host;
+        hosts = [ host "www.${host}" ];
+        key = {
+          algo = "rsa";
+          size = 2048;
+        };
+        names = [{
+          C = "US";
+          L = "San Francisco";
+          O = "Example, LLC";
+          ST = "CA";
+        }];
+      };
+      inherit service;
     };
-    inherit service;
-  };
 
-  mkCertmgrTest = { svcManager, specs, testScript }:
+  mkCertmgrTest = {
+      svcManager,
+      specs,
+      testScript,
+    }:
     makeTest {
       name = "certmgr-" + svcManager;
       nodes = {
-        machine = { config, lib, pkgs, ... }: {
-          networking.firewall.allowedTCPPorts = with config.services; [
-            cfssl.port
-            certmgr.metricsPort
-          ];
-          networking.extraHosts = "127.0.0.1 imp.example.org decl.example.org";
+        machine = {
+            config,
+            lib,
+            pkgs,
+            ...
+          }: {
+            networking.firewall.allowedTCPPorts = with config.services; [
+              cfssl.port
+              certmgr.metricsPort
+            ];
+            networking.extraHosts =
+              "127.0.0.1 imp.example.org decl.example.org";
 
-          services.cfssl.enable = true;
-          systemd.services.cfssl.after =
-            [ "cfssl-init.service" "networking.target" ];
+            services.cfssl.enable = true;
+            systemd.services.cfssl.after =
+              [ "cfssl-init.service" "networking.target" ];
 
-          systemd.tmpfiles.rules = [ "d /var/ssl 777 root root" ];
+            systemd.tmpfiles.rules = [ "d /var/ssl 777 root root" ];
 
-          systemd.services.cfssl-init = {
-            description = "Initialize the cfssl CA";
-            wantedBy = [ "multi-user.target" ];
-            serviceConfig = {
-              User = "cfssl";
-              Type = "oneshot";
-              WorkingDirectory = config.services.cfssl.dataDir;
-            };
-            script = ''
-              ${pkgs.cfssl}/bin/cfssl genkey -initca ${
-                pkgs.writeText "ca.json" (builtins.toJSON {
-                  hosts = [ "ca.example.com" ];
-                  key = {
-                    algo = "rsa";
-                    size = 4096;
-                  };
-                  names = [{
-                    C = "US";
-                    L = "San Francisco";
-                    O = "Internet Widgets, LLC";
-                    OU = "Certificate Authority";
-                    ST = "California";
-                  }];
-                })
-              } | ${pkgs.cfssl}/bin/cfssljson -bare ca
-            '';
-          };
-
-          services.nginx = {
-            enable = true;
-            virtualHosts = lib.mkMerge (map (host: {
-              ${host} = {
-                sslCertificate = "/var/ssl/${host}-cert.pem";
-                sslCertificateKey = "/var/ssl/${host}-key.pem";
-                extraConfig = ''
-                  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-                '';
-                onlySSL = true;
-                serverName = host;
-                root = pkgs.writeTextDir "index.html" "It works!";
+            systemd.services.cfssl-init = {
+              description = "Initialize the cfssl CA";
+              wantedBy = [ "multi-user.target" ];
+              serviceConfig = {
+                User = "cfssl";
+                Type = "oneshot";
+                WorkingDirectory = config.services.cfssl.dataDir;
               };
-            }) [ "imp.example.org" "decl.example.org" ]);
+              script = ''
+                ${pkgs.cfssl}/bin/cfssl genkey -initca ${
+                  pkgs.writeText "ca.json" (builtins.toJSON {
+                    hosts = [ "ca.example.com" ];
+                    key = {
+                      algo = "rsa";
+                      size = 4096;
+                    };
+                    names = [{
+                      C = "US";
+                      L = "San Francisco";
+                      O = "Internet Widgets, LLC";
+                      OU = "Certificate Authority";
+                      ST = "California";
+                    }];
+                  })
+                } | ${pkgs.cfssl}/bin/cfssljson -bare ca
+              '';
+            };
+
+            services.nginx = {
+              enable = true;
+              virtualHosts = lib.mkMerge (map (host: {
+                ${host} = {
+                  sslCertificate = "/var/ssl/${host}-cert.pem";
+                  sslCertificateKey = "/var/ssl/${host}-key.pem";
+                  extraConfig = ''
+                    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+                  '';
+                  onlySSL = true;
+                  serverName = host;
+                  root = pkgs.writeTextDir "index.html" "It works!";
+                };
+              }) [ "imp.example.org" "decl.example.org" ]);
+            };
+
+            systemd.services.nginx.wantedBy = lib.mkForce [ ];
+
+            systemd.services.certmgr.after = [ "cfssl.service" ];
+            services.certmgr = {
+              enable = true;
+              inherit svcManager;
+              inherit specs;
+            };
+
           };
-
-          systemd.services.nginx.wantedBy = lib.mkForce [ ];
-
-          systemd.services.certmgr.after = [ "cfssl.service" ];
-          services.certmgr = {
-            enable = true;
-            inherit svcManager;
-            inherit specs;
-          };
-
-        };
       };
       inherit testScript;
     };

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, cmake, openssl, libplist, pkg-config
-, wrapGAppsHook, avahi, avahi-compat, gst_all_1 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  openssl,
+  libplist,
+  pkg-config,
+  wrapGAppsHook,
+  avahi,
+  avahi-compat,
+  gst_all_1,
+}:
 
 stdenv.mkDerivation rec {
   pname = "uxplay";

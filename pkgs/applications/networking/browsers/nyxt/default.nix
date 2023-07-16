@@ -1,6 +1,22 @@
-{ stdenv, lib, sbclPackages, makeWrapper, wrapGAppsHook, gst_all_1, glib
-, gdk-pixbuf, cairo, mailcap, pango, gtk3, glib-networking
-, gsettings-desktop-schemas, xclip, notify-osd, enchant }:
+{
+  stdenv,
+  lib,
+  sbclPackages,
+  makeWrapper,
+  wrapGAppsHook,
+  gst_all_1,
+  glib,
+  gdk-pixbuf,
+  cairo,
+  mailcap,
+  pango,
+  gtk3,
+  glib-networking,
+  gsettings-desktop-schemas,
+  xclip,
+  notify-osd,
+  enchant,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nyxt";

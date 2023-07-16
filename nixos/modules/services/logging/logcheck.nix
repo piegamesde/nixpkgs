@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -36,7 +41,11 @@ let
   '';
 
   writeIgnoreRule = name:
-    { level, regex, ... }:
+    {
+      level,
+      regex,
+      ...
+    }:
     pkgs.writeTextFile {
       inherit name;
       destination = "/ignore.d.${level}/${name}";
@@ -46,7 +55,13 @@ let
     };
 
   writeIgnoreCronRule = name:
-    { level, user, regex, cmdline, ... }:
+    {
+      level,
+      user,
+      regex,
+      cmdline,
+      ...
+    }:
     let
       escapeRegex = escape (stringToCharacters "\\[]{}()^$?*+|.");
       cmdline_ = builtins.unsafeDiscardStringContext cmdline;
@@ -232,9 +247,19 @@ in {
     '';
 
     services.cron.systemCronJobs = let
-      withTime = name: { timeArgs, ... }: timeArgs != null;
+      withTime = name:
+        {
+          timeArgs,
+          ...
+        }:
+        timeArgs != null;
       mkCron = name:
-        { user, cmdline, timeArgs, ... }: ''
+        {
+          user,
+          cmdline,
+          timeArgs,
+          ...
+        }: ''
           ${timeArgs} ${user} ${cmdline}
         '';
     in mapAttrsToList mkCron (filterAttrs withTime cfg.ignoreCron)

@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pyhcl, requests, six, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pyhcl,
+  requests,
+  six,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "hvac";

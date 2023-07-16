@@ -1,7 +1,28 @@
-{ lib, ase, buildPythonPackage, cython, datamodeldict, fetchFromGitHub
-, matplotlib, numericalunits, numpy, pandas, phonopy, potentials, pymatgen
-, pytest, pytestCheckHook, pythonOlder, pythonAtLeast, requests, scipy
-, setuptools, toolz, xmltodict, pythonRelaxDepsHook }:
+{
+  lib,
+  ase,
+  buildPythonPackage,
+  cython,
+  datamodeldict,
+  fetchFromGitHub,
+  matplotlib,
+  numericalunits,
+  numpy,
+  pandas,
+  phonopy,
+  potentials,
+  pymatgen,
+  pytest,
+  pytestCheckHook,
+  pythonOlder,
+  pythonAtLeast,
+  requests,
+  scipy,
+  setuptools,
+  toolz,
+  xmltodict,
+  pythonRelaxDepsHook,
+}:
 
 buildPythonPackage rec {
   version = "1.4.6";

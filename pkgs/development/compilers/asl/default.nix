@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchzip, tex, buildDocs ? false }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  tex,
+  buildDocs ? false
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "asl";

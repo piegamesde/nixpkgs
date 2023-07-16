@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, buildBazelPackage, bazel_4, flex, bison, python3
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildBazelPackage,
+  bazel_4,
+  flex,
+  bison,
+  python3,
 }:
 
 let system = stdenv.hostPlatform.system;

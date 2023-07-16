@@ -1,8 +1,24 @@
-{ lib, stdenv, fetchFromGitLab, cmake, gfortran, perl, blas-ilp64, hdf5-cpp
-, python3, texlive, armadillo, libxc, makeWrapper
-# Note that the CASPT2 module is broken with MPI
-# See https://gitlab.com/Molcas/OpenMolcas/-/issues/169
-, enableMpi ? false, mpi, globalarrays }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  cmake,
+  gfortran,
+  perl,
+  blas-ilp64,
+  hdf5-cpp,
+  python3,
+  texlive,
+  armadillo,
+  libxc,
+  makeWrapper
+  # Note that the CASPT2 module is broken with MPI
+  # See https://gitlab.com/Molcas/OpenMolcas/-/issues/169
+  ,
+  enableMpi ? false,
+  mpi,
+  globalarrays,
+}:
 
 assert blas-ilp64.isILP64;
 assert lib.elem blas-ilp64.passthru.implementation [ "openblas" "mkl" ];

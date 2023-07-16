@@ -1,8 +1,35 @@
-{ asciidoc, dbus, docbook_xml_dtd_45, docbook_xsl, fetchFromGitHub, lib
-, libconfig, libdrm, libev, libGL, libX11, libxcb, libxdg_basedir, libXext
-, libXinerama, libxml2, libxslt, makeWrapper, meson, ninja, pcre, pixman
-, pkg-config, stdenv, uthash, xcbutilimage, xcbutilrenderutil, xorgproto
-, xwininfo, withDebug ? false }:
+{
+  asciidoc,
+  dbus,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+  fetchFromGitHub,
+  lib,
+  libconfig,
+  libdrm,
+  libev,
+  libGL,
+  libX11,
+  libxcb,
+  libxdg_basedir,
+  libXext,
+  libXinerama,
+  libxml2,
+  libxslt,
+  makeWrapper,
+  meson,
+  ninja,
+  pcre,
+  pixman,
+  pkg-config,
+  stdenv,
+  uthash,
+  xcbutilimage,
+  xcbutilrenderutil,
+  xorgproto,
+  xwininfo,
+  withDebug ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "picom";

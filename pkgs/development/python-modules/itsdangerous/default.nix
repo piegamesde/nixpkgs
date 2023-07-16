@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, freezegun, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  freezegun,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "itsdangerous";

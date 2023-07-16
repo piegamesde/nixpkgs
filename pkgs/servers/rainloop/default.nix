@@ -1,7 +1,17 @@
-{ lib, stdenv, fetchurl, unzip, writeText, dos2unix
-, dataPath ? "/var/lib/rainloop" }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  writeText,
+  dos2unix,
+  dataPath ? "/var/lib/rainloop"
+}:
 let
-  common = { edition, sha256 }:
+  common = {
+      edition,
+      sha256,
+    }:
     stdenv.mkDerivation (rec {
       pname = "rainloop${lib.optionalString (edition != "") "-${edition}"}";
       version = "1.16.0";

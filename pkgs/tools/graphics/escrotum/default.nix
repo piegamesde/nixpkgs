@@ -1,5 +1,12 @@
-{ lib, python3Packages, fetchFromGitHub, gtk3, pango, gobject-introspection
-, wrapGAppsHook }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  gtk3,
+  pango,
+  gobject-introspection,
+  wrapGAppsHook,
+}:
 
 with python3Packages;
 buildPythonApplication {

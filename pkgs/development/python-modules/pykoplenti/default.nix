@@ -1,5 +1,14 @@
-{ lib, aiohttp, buildPythonPackage, click, fetchFromGitHub, prompt-toolkit
-, pycryptodome, pythonOlder, setuptools }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  prompt-toolkit,
+  pycryptodome,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "pykoplenti";

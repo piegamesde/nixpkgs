@@ -1,6 +1,25 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, jinja2, lxml, mock
-, ncclient, netaddr, nose, ntc-templates, paramiko, pyparsing, pyserial
-, pythonOlder, pyyaml, scp, six, transitions, yamlordereddictloader }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  jinja2,
+  lxml,
+  mock,
+  ncclient,
+  netaddr,
+  nose,
+  ntc-templates,
+  paramiko,
+  pyparsing,
+  pyserial,
+  pythonOlder,
+  pyyaml,
+  scp,
+  six,
+  transitions,
+  yamlordereddictloader,
+}:
 
 buildPythonPackage rec {
   pname = "junos-eznc";

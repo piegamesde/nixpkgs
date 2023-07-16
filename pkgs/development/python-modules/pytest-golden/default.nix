@@ -1,7 +1,19 @@
-{ lib, atomicwrites, buildPythonPackage, fetchFromGitHub
-#, hatchling
-, ruamel-yaml, poetry-core, pytest, pytest-asyncio, pytestCheckHook, pythonOlder
-, pythonRelaxDepsHook, testfixtures }:
+{
+  lib,
+  atomicwrites,
+  buildPythonPackage,
+  fetchFromGitHub
+  #, hatchling
+  ,
+  ruamel-yaml,
+  poetry-core,
+  pytest,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  testfixtures,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-golden";

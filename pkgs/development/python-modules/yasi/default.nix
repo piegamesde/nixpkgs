@@ -1,4 +1,10 @@
-{ lib, buildPythonApplication, colorama, fetchFromGitHub, pytestCheckHook }:
+{
+  lib,
+  buildPythonApplication,
+  colorama,
+  fetchFromGitHub,
+  pytestCheckHook,
+}:
 
 buildPythonApplication rec {
   pname = "yasi";

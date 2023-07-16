@@ -1,6 +1,21 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, flit-core, filelock
-, packaging, pyproject-hooks, pytest-mock, pytest-rerunfailures, pytest-xdist
-, pytestCheckHook, pythonOlder, setuptools, toml, tomli }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flit-core,
+  filelock,
+  packaging,
+  pyproject-hooks,
+  pytest-mock,
+  pytest-rerunfailures,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  toml,
+  tomli,
+}:
 
 buildPythonPackage rec {
   pname = "build";

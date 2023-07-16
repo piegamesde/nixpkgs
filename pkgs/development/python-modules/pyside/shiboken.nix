@@ -1,6 +1,20 @@
-{ lib, fetchFromGitHub, buildPythonPackage, cmake, fetchurl, isPy3k, libxml2
-, libxslt, pkg-config, pysideApiextractor, pysideGeneratorrunner, python
-, pythonAtLeast, qt4, sphinx }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  cmake,
+  fetchurl,
+  isPy3k,
+  libxml2,
+  libxslt,
+  pkg-config,
+  pysideApiextractor,
+  pysideGeneratorrunner,
+  python,
+  pythonAtLeast,
+  qt4,
+  sphinx,
+}:
 
 buildPythonPackage rec {
   pname = "pyside-shiboken";

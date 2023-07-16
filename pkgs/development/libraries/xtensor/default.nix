@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gtest, xsimd, xtl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gtest,
+  xsimd,
+  xtl,
+}:
 stdenv.mkDerivation rec {
   pname = "xtensor";
   version = "0.23.10";

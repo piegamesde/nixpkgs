@@ -1,5 +1,16 @@
-{ lib, buildGoModule, fetchFromGitHub, makeWrapper, git, bash, gzip, openssh
-, pam, sqliteSupport ? true, pamSupport ? true }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  makeWrapper,
+  git,
+  bash,
+  gzip,
+  openssh,
+  pam,
+  sqliteSupport ? true,
+  pamSupport ? true
+}:
 
 with lib;
 

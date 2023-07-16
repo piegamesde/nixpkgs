@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pytz, requests, six, tenacity }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytz,
+  requests,
+  six,
+  tenacity,
+}:
 
 buildPythonPackage rec {
   pname = "plotly";

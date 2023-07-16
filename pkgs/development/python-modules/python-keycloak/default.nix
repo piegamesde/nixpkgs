@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, python-jose
-, pythonOlder, requests, requests-toolbelt, urllib3 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  python-jose,
+  pythonOlder,
+  requests,
+  requests-toolbelt,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "python-keycloak";

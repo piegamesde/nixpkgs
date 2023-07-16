@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, autoconf, automake, puredata }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoconf,
+  automake,
+  puredata,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zexy";

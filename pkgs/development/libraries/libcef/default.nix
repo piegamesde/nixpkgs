@@ -1,7 +1,34 @@
-{ lib, stdenv, fetchurl, cmake, glib, nss, nspr, atk, at-spi2-atk, libdrm, expat
-, libxcb, libxkbcommon, libX11, libXcomposite, libXdamage, libXext, libXfixes
-, libXrandr, mesa, gtk3, pango, cairo, alsa-lib, dbus, at-spi2-core, cups
-, libxshmfence, obs-studio }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  glib,
+  nss,
+  nspr,
+  atk,
+  at-spi2-atk,
+  libdrm,
+  expat,
+  libxcb,
+  libxkbcommon,
+  libX11,
+  libXcomposite,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXrandr,
+  mesa,
+  gtk3,
+  pango,
+  cairo,
+  alsa-lib,
+  dbus,
+  at-spi2-core,
+  cups,
+  libxshmfence,
+  obs-studio,
+}:
 
 let
   rpath = lib.makeLibraryPath [

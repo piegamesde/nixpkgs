@@ -1,5 +1,18 @@
-{ stdenv, rustPlatform, lib, fetchFromGitHub, fetchpatch, cargo, expat
-, fontconfig, libXft, libXinerama, m4, pkg-config, python3 }:
+{
+  stdenv,
+  rustPlatform,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  cargo,
+  expat,
+  fontconfig,
+  libXft,
+  libXinerama,
+  m4,
+  pkg-config,
+  python3,
+}:
 
 # The dmenu-rs package has extensive plugin support. However, this derivation
 # only builds the package with the default set of plugins. If you'd like to

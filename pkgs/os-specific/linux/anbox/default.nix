@@ -1,8 +1,37 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, cmake, pkg-config, dbus, makeWrapper
-, boost, elfutils # for libdw
-, git, glib, glm, gtest, libbfd, libcap, libdwarf, libGL, libglvnd, lxc, mesa
-, properties-cpp, protobuf, protobufc, python3, runtimeShell, SDL2, SDL2_image
-, systemd, writeText, writeScript }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  cmake,
+  pkg-config,
+  dbus,
+  makeWrapper,
+  boost,
+  elfutils # for libdw
+  ,
+  git,
+  glib,
+  glm,
+  gtest,
+  libbfd,
+  libcap,
+  libdwarf,
+  libGL,
+  libglvnd,
+  lxc,
+  mesa,
+  properties-cpp,
+  protobuf,
+  protobufc,
+  python3,
+  runtimeShell,
+  SDL2,
+  SDL2_image,
+  systemd,
+  writeText,
+  writeScript,
+}:
 
 let
 

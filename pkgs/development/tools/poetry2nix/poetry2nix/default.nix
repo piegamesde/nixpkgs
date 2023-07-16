@@ -1,7 +1,11 @@
-{ pkgs ? import <nixpkgs> { }, lib ? pkgs.lib, poetryLib ? import ./lib.nix {
-  inherit lib pkgs;
-  stdenv = pkgs.stdenv;
-} }:
+{
+  pkgs ? import <nixpkgs> { },
+  lib ? pkgs.lib,
+  poetryLib ? import ./lib.nix {
+    inherit lib pkgs;
+    stdenv = pkgs.stdenv;
+  }
+}:
 let
   # Poetry2nix version
   version = "1.41.0";
@@ -27,10 +31,16 @@ let
   nixpkgsBuildSystems =
     lib.subtractLists [ "poetry" "poetry-core" ] knownBuildSystems;
 
-  mkInputAttrs = { py, pyProject, attrs, includeBuildSystem ? true, groups ? [ ]
-    , checkGroups ? [ "dev" ], extras ? [
-      "*"
-    ] # * means all extras, otherwise include the dependencies for a given extra
+  mkInputAttrs = {
+      py,
+      pyProject,
+      attrs,
+      includeBuildSystem ? true,
+      groups ? [ ],
+      checkGroups ? [ "dev" ],
+      extras ? [
+        "*"
+      ] # * means all extras, otherwise include the dependencies for a given extra
     }:
     let
       getInputs = attr: attrs.${attr} or [ ];
@@ -98,35 +108,53 @@ in lib.makeScope pkgs.newScope (self: {
      In editablePackageSources you can pass a mapping from package name to source directory to have
      those packages available in the resulting environment, whose source changes are immediately available.
   */
-  mkPoetryEditablePackage = { projectDir ? null
-    , pyproject ? projectDir + "/pyproject.toml", python ? pkgs.python3
-    , pyProject ? readTOML pyproject
-      # Example: { my-app = ./src; }
-    , editablePackageSources }:
+  mkPoetryEditablePackage = {
+      projectDir ? null,
+      pyproject ? projectDir + "/pyproject.toml",
+      python ? pkgs.python3,
+      pyProject ? readTOML pyproject
+        # Example: { my-app = ./src; }
+      ,
+      editablePackageSources,
+    }:
     assert editablePackageSources != { };
     import ./editable.nix {
       inherit pyProject python pkgs lib poetryLib editablePackageSources;
     };
 
   # Returns a package containing scripts defined in tool.poetry.scripts.
-  mkPoetryScriptsPackage = { projectDir ? null
-    , pyproject ? projectDir + "/pyproject.toml", python ? pkgs.python3
-    , pyProject ? readTOML pyproject, scripts ? pyProject.tool.poetry.scripts }:
+  mkPoetryScriptsPackage = {
+      projectDir ? null,
+      pyproject ? projectDir + "/pyproject.toml",
+      python ? pkgs.python3,
+      pyProject ? readTOML pyproject,
+      scripts ? pyProject.tool.poetry.scripts
+    }:
     assert scripts != { };
     import ./shell-scripts.nix { inherit lib python scripts; };
 
   # Returns an attrset { python, poetryPackages, pyProject, poetryLock } for the given pyproject/lockfile.
-  mkPoetryPackages = { projectDir ? null
-    , pyproject ? projectDir + "/pyproject.toml"
-    , poetrylock ? projectDir + "/poetry.lock", poetrylockPos ? {
-      file = toString poetrylock;
-      line = 0;
-      column = 0;
-    }, overrides ? self.defaultPoetryOverrides, python ? pkgs.python3
-    , pwd ? projectDir, preferWheels ? false
-      # Example: { my-app = ./src; }
-    , editablePackageSources ? { }, pyProject ? readTOML pyproject, groups ? [ ]
-    , checkGroups ? [ "dev" ], extras ? [ "*" ] }:
+  mkPoetryPackages = {
+      projectDir ? null,
+      pyproject ? projectDir + "/pyproject.toml",
+      poetrylock ? projectDir + "/poetry.lock",
+      poetrylockPos ? {
+        file = toString poetrylock;
+        line = 0;
+        column = 0;
+      },
+      overrides ? self.defaultPoetryOverrides,
+      python ? pkgs.python3,
+      pwd ? projectDir,
+      preferWheels ? false
+        # Example: { my-app = ./src; }
+      ,
+      editablePackageSources ? { },
+      pyProject ? readTOML pyproject,
+      groups ? [ ],
+      checkGroups ? [ "dev" ],
+      extras ? [ "*" ]
+    }:
     let
       # The default list of poetry2nix override overlays
       mkEvalPep508 = import ./pep508.nix {
@@ -300,11 +328,19 @@ in lib.makeScope pkgs.newScope (self: {
      Example:
      poetry2nix.mkPoetryEnv { poetrylock = ./poetry.lock; python = python3; }
   */
-  mkPoetryEnv = { projectDir ? null, pyproject ? projectDir + "/pyproject.toml"
-    , poetrylock ? projectDir + "/poetry.lock"
-    , overrides ? self.defaultPoetryOverrides, pwd ? projectDir
-    , python ? pkgs.python3, preferWheels ? false, editablePackageSources ? { }
-    , extraPackages ? ps: [ ], groups ? [ "dev" ], extras ? [ "*" ] }:
+  mkPoetryEnv = {
+      projectDir ? null,
+      pyproject ? projectDir + "/pyproject.toml",
+      poetrylock ? projectDir + "/poetry.lock",
+      overrides ? self.defaultPoetryOverrides,
+      pwd ? projectDir,
+      python ? pkgs.python3,
+      preferWheels ? false,
+      editablePackageSources ? { },
+      extraPackages ? ps: [ ],
+      groups ? [ "dev" ],
+      extras ? [ "*" ]
+    }:
     let
       inherit (lib) hasAttr;
 
@@ -358,17 +394,26 @@ in lib.makeScope pkgs.newScope (self: {
      you rely on dependencies to invoke your modules for deployment: e.g. this
      allows `gunicorn my-module:app`.
   */
-  mkPoetryApplication = { projectDir ? null, src ? (
-    # Assume that a project which is the result of a derivation is already adequately filtered
-    if lib.isDerivation projectDir then
-      projectDir
-    else
-      self.cleanPythonSources { src = projectDir; })
-    , pyproject ? projectDir + "/pyproject.toml"
-    , poetrylock ? projectDir + "/poetry.lock"
-    , overrides ? self.defaultPoetryOverrides, meta ? { }, python ? pkgs.python3
-    , pwd ? projectDir, preferWheels ? false, groups ? [ ]
-    , checkGroups ? [ "dev" ], extras ? [ "*" ], ... }@attrs:
+  mkPoetryApplication = {
+      projectDir ? null,
+      src ? (
+        # Assume that a project which is the result of a derivation is already adequately filtered
+        if lib.isDerivation projectDir then
+          projectDir
+        else
+          self.cleanPythonSources { src = projectDir; }),
+      pyproject ? projectDir + "/pyproject.toml",
+      poetrylock ? projectDir + "/poetry.lock",
+      overrides ? self.defaultPoetryOverrides,
+      meta ? { },
+      python ? pkgs.python3,
+      pwd ? projectDir,
+      preferWheels ? false,
+      groups ? [ ],
+      checkGroups ? [ "dev" ],
+      extras ? [ "*" ],
+      ...
+    }@attrs:
     let
       poetryPython = self.mkPoetryPackages {
         inherit pyproject poetrylock overrides python pwd preferWheels groups
@@ -411,7 +456,10 @@ in lib.makeScope pkgs.newScope (self: {
 
         passthru = {
           python = py;
-          dependencyEnv = (lib.makeOverridable ({ app, ... }@attrs:
+          dependencyEnv = (lib.makeOverridable ({
+              app,
+              ...
+            }@attrs:
             let
               args = builtins.removeAttrs attrs [ "app" ] // {
                 extraLibs = [ app ];

@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, perl, makeWrapper, version, sha256, patches ? [ ]
-, extraBuildInputs ? [ ], ... }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  makeWrapper,
+  version,
+  sha256,
+  patches ? [ ],
+  extraBuildInputs ? [ ],
+  ...
+}:
 stdenv.mkDerivation rec {
   pname = "patchutils";
   inherit version patches;

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, py, pytestCheckHook, python, pythonOlder
-, tornado, zeromq }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  py,
+  pytestCheckHook,
+  python,
+  pythonOlder,
+  tornado,
+  zeromq,
+}:
 
 buildPythonPackage rec {
   pname = "pyzmq";

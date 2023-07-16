@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, importlib-metadata, keyring
-, pkginfo, readme_renderer, requests, requests-toolbelt, rich, rfc3986
-, setuptools-scm, urllib3 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  importlib-metadata,
+  keyring,
+  pkginfo,
+  readme_renderer,
+  requests,
+  requests-toolbelt,
+  rich,
+  rfc3986,
+  setuptools-scm,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "twine";

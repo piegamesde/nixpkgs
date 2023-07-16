@@ -29,7 +29,13 @@
    ```
 */
 
-{ lib, lndir, makeWrapper, runCommand, gcc }:
+{
+  lib,
+  lndir,
+  makeWrapper,
+  runCommand,
+  gcc,
+}:
 self:
 
 with lib;

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, xorg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  xorg,
+}:
 
 stdenv.mkDerivation {
   pname = "spectrwm";

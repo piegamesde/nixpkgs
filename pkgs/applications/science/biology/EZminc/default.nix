@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libminc, bicpl, itk
-, fftwFloat, gsl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libminc,
+  bicpl,
+  itk,
+  fftwFloat,
+  gsl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "EZminc";

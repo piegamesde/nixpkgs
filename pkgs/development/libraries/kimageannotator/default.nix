@@ -1,4 +1,12 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, qtbase, kcolorpicker, qttools }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  qtbase,
+  kcolorpicker,
+  qttools,
+}:
 
 mkDerivation rec {
   pname = "kimageannotator";

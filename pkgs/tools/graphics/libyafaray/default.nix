@@ -1,5 +1,21 @@
-{ cmake, fetchFromGitHub, freetype, ilmbase, lib, libjpeg, libtiff, libxml2
-, opencv, openexr, pkg-config, stdenv, swig, zlib, withPython ? true, python3 }:
+{
+  cmake,
+  fetchFromGitHub,
+  freetype,
+  ilmbase,
+  lib,
+  libjpeg,
+  libtiff,
+  libxml2,
+  opencv,
+  openexr,
+  pkg-config,
+  stdenv,
+  swig,
+  zlib,
+  withPython ? true,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libyafaray";

@@ -1,12 +1,61 @@
-{ lib, stdenv, fetchFromGitHub, substituteAll, accountsservice, budgie-desktop
-, clutter, clutter-gtk, colord, colord-gtk, cups, docbook-xsl-nons, fontconfig
-, gcr, gdk-pixbuf, gettext, glib, glib-networking, glibc, gnome, gnome-desktop
-, gnome-online-accounts, gsettings-desktop-schemas, gsound, gtk3, ibus
-, libcanberra-gtk3, libepoxy, libgnomekbd, libgtop, libgudev, libhandy, libkrb5
-, libnma, libpulseaudio, libpwquality, librsvg, libsecret, libwacom, libxml2
-, libxslt, meson, modemmanager, networkmanager, networkmanagerapplet, ninja
-, pkg-config, polkit, samba, shadow, shared-mime-info, tzdata, udisks2, upower
-, webp-pixbuf-loader, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  substituteAll,
+  accountsservice,
+  budgie-desktop,
+  clutter,
+  clutter-gtk,
+  colord,
+  colord-gtk,
+  cups,
+  docbook-xsl-nons,
+  fontconfig,
+  gcr,
+  gdk-pixbuf,
+  gettext,
+  glib,
+  glib-networking,
+  glibc,
+  gnome,
+  gnome-desktop,
+  gnome-online-accounts,
+  gsettings-desktop-schemas,
+  gsound,
+  gtk3,
+  ibus,
+  libcanberra-gtk3,
+  libepoxy,
+  libgnomekbd,
+  libgtop,
+  libgudev,
+  libhandy,
+  libkrb5,
+  libnma,
+  libpulseaudio,
+  libpwquality,
+  librsvg,
+  libsecret,
+  libwacom,
+  libxml2,
+  libxslt,
+  meson,
+  modemmanager,
+  networkmanager,
+  networkmanagerapplet,
+  ninja,
+  pkg-config,
+  polkit,
+  samba,
+  shadow,
+  shared-mime-info,
+  tzdata,
+  udisks2,
+  upower,
+  webp-pixbuf-loader,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "budgie-control-center";

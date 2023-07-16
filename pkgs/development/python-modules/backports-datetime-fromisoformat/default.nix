@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytz, unittestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytz,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "backports-datetime-fromisoformat";

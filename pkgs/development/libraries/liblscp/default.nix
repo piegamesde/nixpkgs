@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, autoconf, automake, libtool, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoconf,
+  automake,
+  libtool,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "liblscp";

@@ -1,4 +1,12 @@
-{ lib, rustPlatform, fetchFromGitLab, pkg-config, openssl, stdenv, darwin }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitLab,
+  pkg-config,
+  openssl,
+  stdenv,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-info";

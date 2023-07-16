@@ -1,4 +1,10 @@
-{ lib, fetchurl, stdenv, testers, cmake }:
+{
+  lib,
+  fetchurl,
+  stdenv,
+  testers,
+  cmake,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "geos";

@@ -1,11 +1,30 @@
-{ lib, stdenvNoCC, fetchFromGitHub, fetchurl, glib, gnome-shell
-, gtk-engine-murrine, gtk_engines, inkscape, jdupes, optipng, sassc, which
-, buttonSizeVariants ? [ ] # default to standard
-, buttonVariants ? [ ] # default to all
-, colorVariants ? [ ] # default to all
-, opacityVariants ? [ ] # default to all
-, themeVariants ? [ ] # default to MacOS blue
-, wallpapers ? false, gitUpdater }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  fetchurl,
+  glib,
+  gnome-shell,
+  gtk-engine-murrine,
+  gtk_engines,
+  inkscape,
+  jdupes,
+  optipng,
+  sassc,
+  which,
+  buttonSizeVariants ? [ ] # default to standard
+  ,
+  buttonVariants ? [ ] # default to all
+  ,
+  colorVariants ? [ ] # default to all
+  ,
+  opacityVariants ? [ ] # default to all
+  ,
+  themeVariants ? [ ] # default to MacOS blue
+  ,
+  wallpapers ? false,
+  gitUpdater,
+}:
 
 let pname = "mojave-gtk-theme";
 in lib.checkListOfEnum "${pname}: button size variants" [ "standard" "small" ]

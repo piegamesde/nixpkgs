@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, pkg-config, libnl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libnl,
+}:
 
 let cfg = import ./version.nix;
 

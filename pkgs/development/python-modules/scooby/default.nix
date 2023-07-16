@@ -1,6 +1,16 @@
-{ lib, beautifulsoup4, buildPythonPackage, fetchFromGitHub, numpy
-, pytest-console-scripts, pytestCheckHook, pythonOlder, pyvips, scipy
-, setuptools-scm }:
+{
+  lib,
+  beautifulsoup4,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  pytest-console-scripts,
+  pytestCheckHook,
+  pythonOlder,
+  pyvips,
+  scipy,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "scooby";

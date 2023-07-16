@@ -1,4 +1,10 @@
-{ lib, python3, stdenv, substituteAll, fetchFromGitHub }:
+{
+  lib,
+  python3,
+  stdenv,
+  substituteAll,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "novnc";

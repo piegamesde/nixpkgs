@@ -1,7 +1,13 @@
 # This module defines a global environment configuration and
 # a common configuration for all shells.
 
-{ config, lib, utils, pkgs, ... }:
+{
+  config,
+  lib,
+  utils,
+  pkgs,
+  ...
+}:
 
 with lib;
 

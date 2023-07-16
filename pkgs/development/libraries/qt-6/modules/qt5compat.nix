@@ -1,4 +1,11 @@
-{ qtModule, qtbase, qtdeclarative, libiconv, icu, openssl }:
+{
+  qtModule,
+  qtbase,
+  qtdeclarative,
+  libiconv,
+  icu,
+  openssl,
+}:
 
 qtModule {
   pname = "qt5compat";

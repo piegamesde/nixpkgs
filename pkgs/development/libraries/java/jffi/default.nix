@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, jdk, jre, ant, libffi, texinfo, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  jdk,
+  jre,
+  ant,
+  libffi,
+  texinfo,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jffi";

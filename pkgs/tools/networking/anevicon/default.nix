@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, rustPlatform, libiconv, Security }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  rustPlatform,
+  libiconv,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "anevicon";

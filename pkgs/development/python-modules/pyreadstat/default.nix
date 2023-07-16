@@ -1,5 +1,16 @@
-{ lib, stdenv, buildPythonPackage, cython, fetchFromGitHub, libiconv, pandas
-, python, pythonOlder, readstat, zlib }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  cython,
+  fetchFromGitHub,
+  libiconv,
+  pandas,
+  python,
+  pythonOlder,
+  readstat,
+  zlib,
+}:
 
 buildPythonPackage rec {
   pname = "pyreadstat";

@@ -1,5 +1,15 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, poetry-core, pytest-aiohttp
-, pytestCheckHook, pythonOlder, voluptuous, vcrpy }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
+  voluptuous,
+  vcrpy,
+}:
 
 buildPythonPackage rec {
   pname = "python-awair";

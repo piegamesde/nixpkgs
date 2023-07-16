@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -39,7 +44,10 @@ let
       cat ${poolOpts.phpPackage}/etc/php.ini $phpOptionsPath > $out
     '';
 
-  poolOpts = { name, ... }:
+  poolOpts = {
+      name,
+      ...
+    }:
     let poolOpts = cfg.pools.${name};
     in {
       options = {

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchzip, jq, openjdk11 }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  jq,
+  openjdk11,
+}:
 
 stdenv.mkDerivation rec {
   pname = "eclair";

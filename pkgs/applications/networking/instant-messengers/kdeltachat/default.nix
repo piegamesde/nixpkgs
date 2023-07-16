@@ -1,5 +1,17 @@
-{ lib, mkDerivation, fetchFromSourcehut, cmake, extra-cmake-modules, pkg-config
-, kirigami2, libdeltachat, qtbase, qtimageformats, qtmultimedia, qtwebengine }:
+{
+  lib,
+  mkDerivation,
+  fetchFromSourcehut,
+  cmake,
+  extra-cmake-modules,
+  pkg-config,
+  kirigami2,
+  libdeltachat,
+  qtbase,
+  qtimageformats,
+  qtmultimedia,
+  qtwebengine,
+}:
 
 mkDerivation rec {
   pname = "kdeltachat";

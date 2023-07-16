@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, numpy, nunavut
-, pyserial, pytest, ruamel-yaml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  numpy,
+  nunavut,
+  pyserial,
+  pytest,
+  ruamel-yaml,
+}:
 
 buildPythonPackage rec {
   pname = "pyuavcan";

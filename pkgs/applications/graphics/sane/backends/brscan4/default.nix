@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchurl, callPackage, patchelf, makeWrapper, libusb-compat-0_1
+{
+  stdenv,
+  lib,
+  fetchurl,
+  callPackage,
+  patchelf,
+  makeWrapper,
+  libusb-compat-0_1,
 }:
 let
   myPatchElf = file:

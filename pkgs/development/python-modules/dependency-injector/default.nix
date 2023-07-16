@@ -1,6 +1,21 @@
-{ lib, aiohttp, buildPythonPackage, fastapi, fetchFromGitHub, flask, httpx
-, mypy-boto3-s3, numpy, pydantic, pytest-asyncio, pytestCheckHook, pythonOlder
-, pyyaml, scipy, six }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fastapi,
+  fetchFromGitHub,
+  flask,
+  httpx,
+  mypy-boto3-s3,
+  numpy,
+  pydantic,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  scipy,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "dependency-injector";

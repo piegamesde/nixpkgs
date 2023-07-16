@@ -1,7 +1,10 @@
 # This module adds the calamares installer to the basic graphical NixOS
 # installation CD.
 
-{ pkgs, ... }:
+{
+  pkgs,
+  ...
+}:
 let
   calamares-nixos-autostart = pkgs.makeAutostartItem {
     name = "io.calamares.calamares";

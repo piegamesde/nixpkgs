@@ -1,6 +1,24 @@
-{ stdenv, lib, fetchFromGitHub, python, makeWrapper, eigen, fftw, libtiff
-, libpng, zlib, ants, bc, qt5, libGL, libGLU, libX11, libXext, withGui ? true
-, less }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  python,
+  makeWrapper,
+  eigen,
+  fftw,
+  libtiff,
+  libpng,
+  zlib,
+  ants,
+  bc,
+  qt5,
+  libGL,
+  libGLU,
+  libX11,
+  libXext,
+  withGui ? true,
+  less,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mrtrix";

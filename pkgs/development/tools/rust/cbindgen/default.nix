@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, python3Packages, Security }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  python3Packages,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rust-cbindgen";

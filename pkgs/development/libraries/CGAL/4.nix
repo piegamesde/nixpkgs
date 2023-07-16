@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, boost, gmp, mpfr }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  boost,
+  gmp,
+  mpfr,
+}:
 
 stdenv.mkDerivation rec {
   version = "4.14.2";

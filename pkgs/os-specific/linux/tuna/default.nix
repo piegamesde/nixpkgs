@@ -1,6 +1,17 @@
-{ lib, buildPythonApplication, fetchgit, pygobject3, pytestCheckHook, gdk-pixbuf
-, glib, gobject-introspection, gtk3, python-linux-procfs, python-ethtool
-, wrapGAppsHook }:
+{
+  lib,
+  buildPythonApplication,
+  fetchgit,
+  pygobject3,
+  pytestCheckHook,
+  gdk-pixbuf,
+  glib,
+  gobject-introspection,
+  gtk3,
+  python-linux-procfs,
+  python-ethtool,
+  wrapGAppsHook,
+}:
 
 buildPythonApplication rec {
   pname = "tuna";

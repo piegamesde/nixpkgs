@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, gfortran, blas, lapack }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gfortran,
+  blas,
+  lapack,
+}:
 
 let int_t = if blas.isILP64 then "int64_t" else "int32_t";
 in stdenv.mkDerivation rec {

@@ -1,4 +1,7 @@
-import ./make-test-python.nix ({ lib, ... }:
+import ./make-test-python.nix ({
+    lib,
+    ...
+  }:
 
   with lib;
 
@@ -6,7 +9,12 @@ import ./make-test-python.nix ({ lib, ... }:
     name = "jirafeau";
     meta.maintainers = with maintainers; [ davidtwco ];
 
-    nodes.machine = { pkgs, ... }: { services.jirafeau = { enable = true; }; };
+    nodes.machine = {
+        pkgs,
+        ...
+      }: {
+        services.jirafeau = { enable = true; };
+      };
 
     testScript = ''
       machine.start()

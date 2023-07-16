@@ -1,5 +1,15 @@
-{ stdenv, bash, abseil-cpp, fetchFromGitHub, fetchFromGitLab, fetchpatch
-, fetchurl, flatbuffers, lib, zlib }:
+{
+  stdenv,
+  bash,
+  abseil-cpp,
+  fetchFromGitHub,
+  fetchFromGitLab,
+  fetchpatch,
+  fetchurl,
+  flatbuffers,
+  lib,
+  zlib,
+}:
 let
   tflite-eigen = fetchFromGitLab {
     owner = "libeigen";

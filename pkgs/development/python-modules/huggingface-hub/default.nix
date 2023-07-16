@@ -1,6 +1,17 @@
-{ lib, fetchFromGitHub, buildPythonPackage, pythonOlder, filelock
-, importlib-metadata, packaging, pyyaml, requests, ruamel-yaml, tqdm
-, typing-extensions }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pythonOlder,
+  filelock,
+  importlib-metadata,
+  packaging,
+  pyyaml,
+  requests,
+  ruamel-yaml,
+  tqdm,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "huggingface-hub";

@@ -1,7 +1,10 @@
-{ system ? builtins.currentSystem, pkgs ? import ../.. {
-  inherit system;
-  config = { };
-} }:
+{
+  system ? builtins.currentSystem,
+  pkgs ? import ../.. {
+    inherit system;
+    config = { };
+  }
+}:
 
 let
   inherit (pkgs.lib) concatMapStrings listToAttrs optionals optionalString;
@@ -16,10 +19,13 @@ let
       inherit name;
       meta = with pkgs.lib.maintainers; { maintainers = [ chkno ]; };
 
-      nodes.machine = { pkgs, ... }: {
-        environment.systemPackages = [ pkgs."${packageSet}"."${variant}" ];
-        virtualisation.diskSize = 800;
-      };
+      nodes.machine = {
+          pkgs,
+          ...
+        }: {
+          environment.systemPackages = [ pkgs."${packageSet}"."${variant}" ];
+          virtualisation.diskSize = 800;
+        };
 
       testScript = ''
         machine.wait_for_unit("multi-user.target")

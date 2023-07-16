@@ -1,7 +1,24 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, capstone, cmsis-pack-manager
-, colorama, intelhex, intervaltree, natsort, prettytable, pyelftools
-, pylink-square, pyusb, pyyaml, typing-extensions, stdenv, hidapi
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  capstone,
+  cmsis-pack-manager,
+  colorama,
+  intelhex,
+  intervaltree,
+  natsort,
+  prettytable,
+  pyelftools,
+  pylink-square,
+  pyusb,
+  pyyaml,
+  typing-extensions,
+  stdenv,
+  hidapi,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pyocd";

@@ -1,4 +1,11 @@
-{ lib, stdenv, makeWrapper, retroarch, symlinkJoin, cores ? [ ] }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  retroarch,
+  symlinkJoin,
+  cores ? [ ]
+}:
 
 let
   # All cores should be located in the same path after symlinkJoin,

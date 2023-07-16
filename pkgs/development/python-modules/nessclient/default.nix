@@ -1,5 +1,14 @@
-{ lib, asynctest, buildPythonPackage, click, fetchFromGitHub, justbackoff
-, pythonOlder, pytest-asyncio, pytestCheckHook }:
+{
+  lib,
+  asynctest,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  justbackoff,
+  pythonOlder,
+  pytest-asyncio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "nessclient";

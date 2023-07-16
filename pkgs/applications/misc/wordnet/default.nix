@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, tcl, tk, Cocoa, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  tcl,
+  tk,
+  Cocoa,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   version = "3.0";

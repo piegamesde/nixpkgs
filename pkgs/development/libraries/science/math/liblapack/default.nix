@@ -1,6 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, gfortran, cmake, shared ? true
-  # Compile with ILP64 interface
-, blas64 ? false, testers }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gfortran,
+  cmake,
+  shared ? true
+    # Compile with ILP64 interface
+  ,
+  blas64 ? false,
+  testers,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "liblapack";

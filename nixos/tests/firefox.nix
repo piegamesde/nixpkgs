@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ pkgs, firefoxPackage, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    firefoxPackage,
+    ...
+  }:
   let
     firefoxPackage' = firefoxPackage.override (args: {
       extraPrefsFiles = (args.extraPrefsFiles or [ ]) ++ [
@@ -12,7 +16,10 @@ import ./make-test-python.nix ({ pkgs, firefoxPackage, ... }:
     name = firefoxPackage'.unwrapped.pname;
     meta = with pkgs.lib.maintainers; { maintainers = [ eelco shlevy ]; };
 
-    nodes.machine = { pkgs, ... }:
+    nodes.machine = {
+        pkgs,
+        ...
+      }:
 
       {
         imports = [ ./common/x11.nix ];

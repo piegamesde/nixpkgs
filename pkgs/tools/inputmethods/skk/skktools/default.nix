@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, gdbm, glib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  gdbm,
+  glib,
+}:
 
 # Note (2017-10-24, yuriaisaka):
 # - Version 1.3.3 dates from Jul. 19, 2013.

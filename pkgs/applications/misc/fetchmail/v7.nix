@@ -1,4 +1,8 @@
-{ lib, stdenv, pkgs }:
+{
+  lib,
+  stdenv,
+  pkgs,
+}:
 
 stdenv.mkDerivation {
   pname = "fetchmail";

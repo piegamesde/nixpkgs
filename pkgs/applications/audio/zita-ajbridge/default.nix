@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, alsa-lib, libjack2, zita-alsa-pcmi, zita-resampler }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  alsa-lib,
+  libjack2,
+  zita-alsa-pcmi,
+  zita-resampler,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zita-ajbridge";

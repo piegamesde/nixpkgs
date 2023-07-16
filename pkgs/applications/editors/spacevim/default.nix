@@ -1,5 +1,17 @@
-{ ripgrep, git, fzf, makeWrapper, vim-full, vimPlugins, fetchFromGitHub, lib
-, stdenv, formats, runCommand, spacevim_config ? import ./init.nix }:
+{
+  ripgrep,
+  git,
+  fzf,
+  makeWrapper,
+  vim-full,
+  vimPlugins,
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  formats,
+  runCommand,
+  spacevim_config ? import ./init.nix
+}:
 
 let
   format = formats.toml { };

@@ -1,5 +1,15 @@
-{ buildPythonPackage, build, git, gnupg, pbr, sphinx, stestr, testresources
-, testscenarios, virtualenv }:
+{
+  buildPythonPackage,
+  build,
+  git,
+  gnupg,
+  pbr,
+  sphinx,
+  stestr,
+  testresources,
+  testscenarios,
+  virtualenv,
+}:
 
 buildPythonPackage rec {
   pname = "pbr";

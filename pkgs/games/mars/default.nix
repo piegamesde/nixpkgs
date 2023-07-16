@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libGLU, libGL, sfml, fribidi, taglib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libGLU,
+  libGL,
+  sfml,
+  fribidi,
+  taglib,
+}:
 stdenv.mkDerivation rec {
   pname = "mars";
   version = "unstable-17.10.2021";

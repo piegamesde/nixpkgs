@@ -1,6 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, importlib-metadata, markdown-it-py
-, poetry-core, pytestCheckHook, pythonOlder, setuptools, tomli
-, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  importlib-metadata,
+  markdown-it-py,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  tomli,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "mdformat";

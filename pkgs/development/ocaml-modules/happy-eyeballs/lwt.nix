@@ -1,5 +1,16 @@
-{ buildDunePackage, happy-eyeballs, cmdliner, dns-client-lwt, duration
-, domain-name, ipaddr, fmt, logs, lwt, mtime }:
+{
+  buildDunePackage,
+  happy-eyeballs,
+  cmdliner,
+  dns-client-lwt,
+  duration,
+  domain-name,
+  ipaddr,
+  fmt,
+  logs,
+  lwt,
+  mtime,
+}:
 
 buildDunePackage {
   pname = "happy-eyeballs-lwt";

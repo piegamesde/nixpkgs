@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, meson, ninja, boost, libbacktrace
-, unstableGitUpdater }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  boost,
+  libbacktrace,
+  unstableGitUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libsegfault";

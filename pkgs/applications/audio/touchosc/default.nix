@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchurl, makeWrapper, autoPatchelfHook, dpkg, alsa-lib, curl
-, avahi, jack2, libxcb, libX11, libXcursor, libXext, libXi, libXinerama
-, libXrandr, libXrender, libXxf86vm, libglvnd, gnome }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  autoPatchelfHook,
+  dpkg,
+  alsa-lib,
+  curl,
+  avahi,
+  jack2,
+  libxcb,
+  libX11,
+  libXcursor,
+  libXext,
+  libXi,
+  libXinerama,
+  libXrandr,
+  libXrender,
+  libXxf86vm,
+  libglvnd,
+  gnome,
+}:
 
 let
   runLibDeps = [

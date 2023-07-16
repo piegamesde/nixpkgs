@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, six, snowflake-connector-python
-, sqlalchemy, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  snowflake-connector-python,
+  sqlalchemy,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "snowflake-sqlalchemy";

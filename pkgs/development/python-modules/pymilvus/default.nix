@@ -1,6 +1,20 @@
-{ lib, buildPythonPackage, environs, fetchFromGitHub, grpcio, grpcio-testing
-, mmh3, pandas, pytestCheckHook, python, pythonOlder, pythonRelaxDepsHook
-, scikit-learn, setuptools-scm, ujson }:
+{
+  lib,
+  buildPythonPackage,
+  environs,
+  fetchFromGitHub,
+  grpcio,
+  grpcio-testing,
+  mmh3,
+  pandas,
+  pytestCheckHook,
+  python,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  scikit-learn,
+  setuptools-scm,
+  ujson,
+}:
 
 buildPythonPackage rec {
   pname = "pymilvus";

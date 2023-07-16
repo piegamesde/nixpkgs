@@ -1,6 +1,17 @@
-{ stdenv, lib, buildGoModule, fetchFromGitHub, pcsclite, pkg-config
-, installShellFiles, PCSC, pivKeySupport ? true, pkcs11Support ? true, testers
-, cosign }:
+{
+  stdenv,
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  pcsclite,
+  pkg-config,
+  installShellFiles,
+  PCSC,
+  pivKeySupport ? true,
+  pkcs11Support ? true,
+  testers,
+  cosign,
+}:
 buildGoModule rec {
   pname = "cosign";
   version = "2.0.2";

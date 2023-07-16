@@ -1,4 +1,10 @@
-{ lib, stdenv, symlinkJoin, buildGoModule, kubo-migrator-unwrapped }:
+{
+  lib,
+  stdenv,
+  symlinkJoin,
+  buildGoModule,
+  kubo-migrator-unwrapped,
+}:
 
 # This package contains all the individual migrations in the bin directory.
 # This is used by fs-repo-migrations and could also be used by Kubo itself

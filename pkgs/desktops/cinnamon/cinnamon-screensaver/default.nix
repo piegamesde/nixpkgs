@@ -1,7 +1,32 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, meson, ninja, glib, dbus, gettext
-, cinnamon-desktop, cinnamon-common, intltool, libxslt, gtk3, libgnomekbd, gnome
-, libtool, wrapGAppsHook, gobject-introspection, python3, pam, accountsservice
-, cairo, xapp, xdotool, xorg, iso-flags-png-320x420 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  meson,
+  ninja,
+  glib,
+  dbus,
+  gettext,
+  cinnamon-desktop,
+  cinnamon-common,
+  intltool,
+  libxslt,
+  gtk3,
+  libgnomekbd,
+  gnome,
+  libtool,
+  wrapGAppsHook,
+  gobject-introspection,
+  python3,
+  pam,
+  accountsservice,
+  cairo,
+  xapp,
+  xdotool,
+  xorg,
+  iso-flags-png-320x420,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cinnamon-screensaver";

@@ -1,6 +1,16 @@
-{ stdenv, lib, fossil, cacert }:
+{
+  stdenv,
+  lib,
+  fossil,
+  cacert,
+}:
 
-{ name ? null, url, rev, sha256 }:
+{
+  name ? null,
+  url,
+  rev,
+  sha256,
+}:
 
 stdenv.mkDerivation {
   name = "fossil-archive" + (lib.optionalString (name != null) "-${name}");

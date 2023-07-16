@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, clang, llvmPackages, perl, makeWrapper, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  clang,
+  llvmPackages,
+  perl,
+  makeWrapper,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "clang-analyzer";

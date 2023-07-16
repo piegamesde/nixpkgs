@@ -1,8 +1,42 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, dpkg, makeWrapper, wrapGAppsHook
-, alsa-lib, at-spi2-atk, at-spi2-core, atk, cairo, cups, dbus, expat, ffmpeg
-, fontconfig, freetype, gdk-pixbuf, glib, gtk3, libappindicator-gtk3
-, libdbusmenu, libdrm, libnotify, libpulseaudio, libsecret, libuuid
-, libxkbcommon, mesa, nss, pango, systemd, xdg-utils, xorg, wayland, pipewire }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  dpkg,
+  makeWrapper,
+  wrapGAppsHook,
+  alsa-lib,
+  at-spi2-atk,
+  at-spi2-core,
+  atk,
+  cairo,
+  cups,
+  dbus,
+  expat,
+  ffmpeg,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  libappindicator-gtk3,
+  libdbusmenu,
+  libdrm,
+  libnotify,
+  libpulseaudio,
+  libsecret,
+  libuuid,
+  libxkbcommon,
+  mesa,
+  nss,
+  pango,
+  systemd,
+  xdg-utils,
+  xorg,
+  wayland,
+  pipewire,
+}:
 
 stdenv.mkDerivation rec {
   pname = "armcord";

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, installShellFiles, pcre, python3, libxslt
-, docbook_xsl, docbook_xml_dtd_45, which, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  installShellFiles,
+  pcre,
+  python3,
+  libxslt,
+  docbook_xsl,
+  docbook_xml_dtd_45,
+  which,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cppcheck";

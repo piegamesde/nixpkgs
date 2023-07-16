@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, fetchpatch, poetry-core
-, requests, urllib3, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  fetchpatch,
+  poetry-core,
+  requests,
+  urllib3,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "synologydsm-api";

@@ -1,6 +1,14 @@
-{ stdenv, lib, fetchurl }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+}:
 
-{ elmPackages, registryDat, elmVersion }:
+{
+  elmPackages,
+  registryDat,
+  elmVersion,
+}:
 
 let
   makeDotElm =

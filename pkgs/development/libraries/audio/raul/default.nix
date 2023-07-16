@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchgit, boost, gtk2, pkg-config, python3, wafHook }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  boost,
+  gtk2,
+  pkg-config,
+  python3,
+  wafHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "raul";

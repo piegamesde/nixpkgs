@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, requests-mock
-, oauthlib, requests-oauthlib, requests, pyaml, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  requests-mock,
+  oauthlib,
+  requests-oauthlib,
+  requests,
+  pyaml,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pleroma-bot";

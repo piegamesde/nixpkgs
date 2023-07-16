@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
   let
     inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
 
@@ -18,18 +22,26 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
   in {
     name = "tmate-ssh-server";
     nodes = {
-      server = { ... }: {
-        services.tmate-ssh-server = {
-          enable = true;
-          port = 2223;
+      server = {
+          ...
+        }: {
+          services.tmate-ssh-server = {
+            enable = true;
+            port = 2223;
+          };
         };
-      };
-      client = { ... }: {
-        environment.systemPackages = [ pkgs.tmate ];
-        services.openssh.enable = true;
-        users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
-      };
-      client2 = { ... }: { environment.systemPackages = [ pkgs.openssh ]; };
+      client = {
+          ...
+        }: {
+          environment.systemPackages = [ pkgs.tmate ];
+          services.openssh.enable = true;
+          users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
+        };
+      client2 = {
+          ...
+        }: {
+          environment.systemPackages = [ pkgs.openssh ];
+        };
     };
     testScript = ''
       start_all()

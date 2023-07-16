@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchgit, autoreconfHook, pkg-config, glib, dbus, ell, systemd
-, bluez, mobile-broadband-provider-info }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  autoreconfHook,
+  pkg-config,
+  glib,
+  dbus,
+  ell,
+  systemd,
+  bluez,
+  mobile-broadband-provider-info,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ofono";

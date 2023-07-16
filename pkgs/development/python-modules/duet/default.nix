@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {

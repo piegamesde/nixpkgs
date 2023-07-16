@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, flask, karton-core
-, mistune, networkx, prometheus-client, pythonOlder, pythonRelaxDepsHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  flask,
+  karton-core,
+  mistune,
+  networkx,
+  prometheus-client,
+  pythonOlder,
+  pythonRelaxDepsHook,
+}:
 
 buildPythonPackage rec {
   pname = "karton-dashboard";

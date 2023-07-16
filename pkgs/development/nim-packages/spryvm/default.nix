@@ -1,4 +1,9 @@
-{ lib, buildNimPackage, fetchFromGitHub, sqlite }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitHub,
+  sqlite,
+}:
 
 buildNimPackage rec {
   pname = "spryvm";

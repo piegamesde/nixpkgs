@@ -1,5 +1,15 @@
-{ mkDerivation, extra-cmake-modules, fetchFromGitHub, kiconthemes, kio
-, kjobwidgets, kxmlgui, lib, testers, k4dirstat }:
+{
+  mkDerivation,
+  extra-cmake-modules,
+  fetchFromGitHub,
+  kiconthemes,
+  kio,
+  kjobwidgets,
+  kxmlgui,
+  lib,
+  testers,
+  k4dirstat,
+}:
 
 mkDerivation rec {
   pname = "k4dirstat";

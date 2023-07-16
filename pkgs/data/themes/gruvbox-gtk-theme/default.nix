@@ -1,4 +1,10 @@
-{ lib, stdenvNoCC, fetchFromGitHub, gnome-themes-extra, gtk-engine-murrine }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  gnome-themes-extra,
+  gtk-engine-murrine,
+}:
 stdenvNoCC.mkDerivation rec {
   pname = "gruvbox-gtk-theme";
   version = "unstable-2022-12-09";

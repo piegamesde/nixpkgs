@@ -1,4 +1,11 @@
-{ buildPythonPackage, acme, boto3, certbot, pytestCheckHook, pythonOlder }:
+{
+  buildPythonPackage,
+  acme,
+  boto3,
+  certbot,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "certbot-dns-route53";

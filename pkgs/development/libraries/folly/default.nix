@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, boost, cmake, double-conversion, fetchpatch
-, fmt_8, gflags, glog, libevent, libiberty, libunwind, lz4, openssl, pkg-config
-, xz, zlib, zstd, jemalloc, follyMobile ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  boost,
+  cmake,
+  double-conversion,
+  fetchpatch,
+  fmt_8,
+  gflags,
+  glog,
+  libevent,
+  libiberty,
+  libunwind,
+  lz4,
+  openssl,
+  pkg-config,
+  xz,
+  zlib,
+  zstd,
+  jemalloc,
+  follyMobile ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "folly";

@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, libX11, perl, libXtst, xorgproto
-, libXi, libXinerama, libxkbcommon, libXext }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  libX11,
+  perl,
+  libXtst,
+  xorgproto,
+  libXi,
+  libXinerama,
+  libxkbcommon,
+  libXext,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xdotool";

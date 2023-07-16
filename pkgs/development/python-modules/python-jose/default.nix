@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, ecdsa, rsa, pycrypto, pyasn1
-, pycryptodome, cryptography, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  ecdsa,
+  rsa,
+  pycrypto,
+  pyasn1,
+  pycryptodome,
+  cryptography,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "python-jose";

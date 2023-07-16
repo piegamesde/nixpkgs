@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, buildDunePackage, ocaml, owee }:
+{
+  lib,
+  fetchFromGitHub,
+  buildDunePackage,
+  ocaml,
+  owee,
+}:
 
 lib.throwIfNot (lib.versionAtLeast "4.12" ocaml.version)
 "spacetime_lib is not available for OCaml ${ocaml.version}"

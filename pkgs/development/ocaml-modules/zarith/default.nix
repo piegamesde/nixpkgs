@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, ocaml, findlib, pkg-config, gmp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+  pkg-config,
+  gmp,
+}:
 
 if lib.versionOlder ocaml.version "4.04" then
   throw "zarith is not available for OCaml ${ocaml.version}"

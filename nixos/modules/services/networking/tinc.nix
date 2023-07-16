@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let
@@ -86,73 +91,76 @@ let
     };
   };
 
-  hostSubmodule = { config, ... }: {
-    options = {
-      addresses = mkOption {
-        type = types.listOf (types.submodule addressSubmodule);
-        default = [ ];
-        description = lib.mdDoc ''
-          The external address where the host can be reached. This will set this
-          host's {option}`settings.Address` option.
+  hostSubmodule = {
+      config,
+      ...
+    }: {
+      options = {
+        addresses = mkOption {
+          type = types.listOf (types.submodule addressSubmodule);
+          default = [ ];
+          description = lib.mdDoc ''
+            The external address where the host can be reached. This will set this
+            host's {option}`settings.Address` option.
 
-          This variable is only required if you want to connect to this host.
-        '';
+            This variable is only required if you want to connect to this host.
+          '';
+        };
+
+        subnets = mkOption {
+          type = types.listOf (types.submodule subnetSubmodule);
+          default = [ ];
+          description = lib.mdDoc ''
+            The subnets which this tinc daemon will serve. This will set this
+            host's {option}`settings.Subnet` option.
+
+            Tinc tries to look up which other daemon it should send a packet to by
+            searching the appropriate subnet. If the packet matches a subnet, it
+            will be sent to the daemon who has this subnet in his host
+            configuration file.
+          '';
+        };
+
+        rsaPublicKey = mkOption {
+          type = types.str;
+          default = "";
+          description = lib.mdDoc ''
+            Legacy RSA public key of the host in PEM format, including start and
+            end markers.
+
+            This will be appended as-is in the host's configuration file.
+
+            The ed25519 public key can be specified using the
+            {option}`settings.Ed25519PublicKey` option instead.
+          '';
+        };
+
+        settings = mkOption {
+          default = { };
+          type = types.submodule { freeformType = tincConfType; };
+          description = lib.mdDoc ''
+            Configuration for this host.
+
+            See <https://tinc-vpn.org/documentation-1.1/Host-configuration-variables.html>
+            for supported values.
+          '';
+        };
       };
 
-      subnets = mkOption {
-        type = types.listOf (types.submodule subnetSubmodule);
-        default = [ ];
-        description = lib.mdDoc ''
-          The subnets which this tinc daemon will serve. This will set this
-          host's {option}`settings.Subnet` option.
+      config.settings = {
+        Address = mkDefault
+          (map (address: "${address.address} ${toString address.port}")
+            config.addresses);
 
-          Tinc tries to look up which other daemon it should send a packet to by
-          searching the appropriate subnet. If the packet matches a subnet, it
-          will be sent to the daemon who has this subnet in his host
-          configuration file.
-        '';
-      };
-
-      rsaPublicKey = mkOption {
-        type = types.str;
-        default = "";
-        description = lib.mdDoc ''
-          Legacy RSA public key of the host in PEM format, including start and
-          end markers.
-
-          This will be appended as-is in the host's configuration file.
-
-          The ed25519 public key can be specified using the
-          {option}`settings.Ed25519PublicKey` option instead.
-        '';
-      };
-
-      settings = mkOption {
-        default = { };
-        type = types.submodule { freeformType = tincConfType; };
-        description = lib.mdDoc ''
-          Configuration for this host.
-
-          See <https://tinc-vpn.org/documentation-1.1/Host-configuration-variables.html>
-          for supported values.
-        '';
+        Subnet = mkDefault (map (subnet:
+          if subnet.prefixLength == null then
+            "${subnet.address}#${toString subnet.weight}"
+          else
+            "${subnet.address}/${toString subnet.prefixLength}#${
+              toString subnet.weight
+            }") config.subnets);
       };
     };
-
-    config.settings = {
-      Address = mkDefault
-        (map (address: "${address.address} ${toString address.port}")
-          config.addresses);
-
-      Subnet = mkDefault (map (subnet:
-        if subnet.prefixLength == null then
-          "${subnet.address}#${toString subnet.weight}"
-        else
-          "${subnet.address}/${toString subnet.prefixLength}#${
-            toString subnet.weight
-          }") config.subnets);
-    };
-  };
 
 in {
 
@@ -165,185 +173,188 @@ in {
       networks = mkOption {
         default = { };
         type = with types;
-          attrsOf (submodule ({ config, ... }: {
-            options = {
+          attrsOf (submodule ({
+              config,
+              ...
+            }: {
+              options = {
 
-              extraConfig = mkOption {
-                default = "";
-                type = types.lines;
-                description = lib.mdDoc ''
-                  Extra lines to add to the tinc service configuration file.
+                extraConfig = mkOption {
+                  default = "";
+                  type = types.lines;
+                  description = lib.mdDoc ''
+                    Extra lines to add to the tinc service configuration file.
 
-                  Note that using the declarative {option}`service.tinc.networks.<name>.settings`
-                  option is preferred.
-                '';
-              };
+                    Note that using the declarative {option}`service.tinc.networks.<name>.settings`
+                    option is preferred.
+                  '';
+                };
 
-              name = mkOption {
-                default = null;
-                type = types.nullOr types.str;
-                description = lib.mdDoc ''
-                  The name of the node which is used as an identifier when communicating
-                  with the remote nodes in the mesh. If null then the hostname of the system
-                  is used to derive a name (note that tinc may replace non-alphanumeric characters in
-                  hostnames by underscores).
-                '';
-              };
+                name = mkOption {
+                  default = null;
+                  type = types.nullOr types.str;
+                  description = lib.mdDoc ''
+                    The name of the node which is used as an identifier when communicating
+                    with the remote nodes in the mesh. If null then the hostname of the system
+                    is used to derive a name (note that tinc may replace non-alphanumeric characters in
+                    hostnames by underscores).
+                  '';
+                };
 
-              ed25519PrivateKeyFile = mkOption {
-                default = null;
-                type = types.nullOr types.path;
-                description = lib.mdDoc ''
-                  Path of the private ed25519 keyfile.
-                '';
-              };
+                ed25519PrivateKeyFile = mkOption {
+                  default = null;
+                  type = types.nullOr types.path;
+                  description = lib.mdDoc ''
+                    Path of the private ed25519 keyfile.
+                  '';
+                };
 
-              rsaPrivateKeyFile = mkOption {
-                default = null;
-                type = types.nullOr types.path;
-                description = lib.mdDoc ''
-                  Path of the private RSA keyfile.
-                '';
-              };
+                rsaPrivateKeyFile = mkOption {
+                  default = null;
+                  type = types.nullOr types.path;
+                  description = lib.mdDoc ''
+                    Path of the private RSA keyfile.
+                  '';
+                };
 
-              debugLevel = mkOption {
-                default = 0;
-                type = types.addCheck types.int (l: l >= 0 && l <= 5);
-                description = lib.mdDoc ''
-                  The amount of debugging information to add to the log. 0 means little
-                  logging while 5 is the most logging. {command}`man tincd` for
-                  more details.
-                '';
-              };
+                debugLevel = mkOption {
+                  default = 0;
+                  type = types.addCheck types.int (l: l >= 0 && l <= 5);
+                  description = lib.mdDoc ''
+                    The amount of debugging information to add to the log. 0 means little
+                    logging while 5 is the most logging. {command}`man tincd` for
+                    more details.
+                  '';
+                };
 
-              hosts = mkOption {
-                default = { };
-                type = types.attrsOf types.lines;
-                description = lib.mdDoc ''
-                  The name of the host in the network as well as the configuration for that host.
-                  This name should only contain alphanumerics and underscores.
+                hosts = mkOption {
+                  default = { };
+                  type = types.attrsOf types.lines;
+                  description = lib.mdDoc ''
+                    The name of the host in the network as well as the configuration for that host.
+                    This name should only contain alphanumerics and underscores.
 
-                  Note that using the declarative {option}`service.tinc.networks.<name>.hostSettings`
-                  option is preferred.
-                '';
-              };
+                    Note that using the declarative {option}`service.tinc.networks.<name>.hostSettings`
+                    option is preferred.
+                  '';
+                };
 
-              hostSettings = mkOption {
-                default = { };
-                example = literalExpression ''
-                  {
-                    host1 = {
-                      addresses = [
-                        { address = "192.168.1.42"; }
-                        { address = "192.168.1.42"; port = 1655; }
-                      ];
-                      subnets = [ { address = "10.0.0.42"; } ];
-                      rsaPublicKey = "...";
-                      settings = {
-                        Ed25519PublicKey = "...";
+                hostSettings = mkOption {
+                  default = { };
+                  example = literalExpression ''
+                    {
+                      host1 = {
+                        addresses = [
+                          { address = "192.168.1.42"; }
+                          { address = "192.168.1.42"; port = 1655; }
+                        ];
+                        subnets = [ { address = "10.0.0.42"; } ];
+                        rsaPublicKey = "...";
+                        settings = {
+                          Ed25519PublicKey = "...";
+                        };
                       };
-                    };
-                    host2 = {
-                      subnets = [ { address = "10.0.1.0"; prefixLength = 24; weight = 2; } ];
-                      rsaPublicKey = "...";
-                      settings = {
-                        Compression = 10;
+                      host2 = {
+                        subnets = [ { address = "10.0.1.0"; prefixLength = 24; weight = 2; } ];
+                        rsaPublicKey = "...";
+                        settings = {
+                          Compression = 10;
+                        };
                       };
-                    };
-                  }
-                '';
-                type = types.attrsOf (types.submodule hostSubmodule);
-                description = lib.mdDoc ''
-                  The name of the host in the network as well as the configuration for that host.
-                  This name should only contain alphanumerics and underscores.
-                '';
+                    }
+                  '';
+                  type = types.attrsOf (types.submodule hostSubmodule);
+                  description = lib.mdDoc ''
+                    The name of the host in the network as well as the configuration for that host.
+                    This name should only contain alphanumerics and underscores.
+                  '';
+                };
+
+                interfaceType = mkOption {
+                  default = "tun";
+                  type = types.enum [ "tun" "tap" ];
+                  description = lib.mdDoc ''
+                    The type of virtual interface used for the network connection.
+                  '';
+                };
+
+                listenAddress = mkOption {
+                  default = null;
+                  type = types.nullOr types.str;
+                  description = lib.mdDoc ''
+                    The ip address to listen on for incoming connections.
+                  '';
+                };
+
+                bindToAddress = mkOption {
+                  default = null;
+                  type = types.nullOr types.str;
+                  description = lib.mdDoc ''
+                    The ip address to bind to (both listen on and send packets from).
+                  '';
+                };
+
+                package = mkOption {
+                  type = types.package;
+                  default = pkgs.tinc_pre;
+                  defaultText = literalExpression "pkgs.tinc_pre";
+                  description = lib.mdDoc ''
+                    The package to use for the tinc daemon's binary.
+                  '';
+                };
+
+                chroot = mkOption {
+                  default = false;
+                  type = types.bool;
+                  description = lib.mdDoc ''
+                    Change process root directory to the directory where the config file is located (/etc/tinc/netname/), for added security.
+                    The chroot is performed after all the initialization is done, after writing pid files and opening network sockets.
+
+                    Note that this currently breaks dns resolution and tinc can't run scripts anymore (such as tinc-down or host-up), unless it is setup to be runnable inside chroot environment.
+                  '';
+                };
+
+                settings = mkOption {
+                  default = { };
+                  type = types.submodule { freeformType = tincConfType; };
+                  example = literalExpression ''
+                    {
+                      Interface = "custom.interface";
+                      DirectOnly = true;
+                      Mode = "switch";
+                    }
+                  '';
+                  description = lib.mdDoc ''
+                    Configuration of the Tinc daemon for this network.
+
+                    See <https://tinc-vpn.org/documentation-1.1/Main-configuration-variables.html>
+                    for supported values.
+                  '';
+                };
               };
 
-              interfaceType = mkOption {
-                default = "tun";
-                type = types.enum [ "tun" "tap" ];
-                description = lib.mdDoc ''
-                  The type of virtual interface used for the network connection.
-                '';
+              config = {
+                hosts = mapAttrs (hostname: host: ''
+                  ${toTincConf host.settings}
+                  ${host.rsaPublicKey}
+                '') config.hostSettings;
+
+                settings = {
+                  DeviceType = mkDefault config.interfaceType;
+                  Name = mkDefault
+                    (if config.name == null then "$HOST" else config.name);
+                  Ed25519PrivateKeyFile =
+                    mkIf (config.ed25519PrivateKeyFile != null)
+                    (mkDefault config.ed25519PrivateKeyFile);
+                  PrivateKeyFile = mkIf (config.rsaPrivateKeyFile != null)
+                    (mkDefault config.rsaPrivateKeyFile);
+                  ListenAddress = mkIf (config.listenAddress != null)
+                    (mkDefault config.listenAddress);
+                  BindToAddress = mkIf (config.bindToAddress != null)
+                    (mkDefault config.bindToAddress);
+                };
               };
-
-              listenAddress = mkOption {
-                default = null;
-                type = types.nullOr types.str;
-                description = lib.mdDoc ''
-                  The ip address to listen on for incoming connections.
-                '';
-              };
-
-              bindToAddress = mkOption {
-                default = null;
-                type = types.nullOr types.str;
-                description = lib.mdDoc ''
-                  The ip address to bind to (both listen on and send packets from).
-                '';
-              };
-
-              package = mkOption {
-                type = types.package;
-                default = pkgs.tinc_pre;
-                defaultText = literalExpression "pkgs.tinc_pre";
-                description = lib.mdDoc ''
-                  The package to use for the tinc daemon's binary.
-                '';
-              };
-
-              chroot = mkOption {
-                default = false;
-                type = types.bool;
-                description = lib.mdDoc ''
-                  Change process root directory to the directory where the config file is located (/etc/tinc/netname/), for added security.
-                  The chroot is performed after all the initialization is done, after writing pid files and opening network sockets.
-
-                  Note that this currently breaks dns resolution and tinc can't run scripts anymore (such as tinc-down or host-up), unless it is setup to be runnable inside chroot environment.
-                '';
-              };
-
-              settings = mkOption {
-                default = { };
-                type = types.submodule { freeformType = tincConfType; };
-                example = literalExpression ''
-                  {
-                    Interface = "custom.interface";
-                    DirectOnly = true;
-                    Mode = "switch";
-                  }
-                '';
-                description = lib.mdDoc ''
-                  Configuration of the Tinc daemon for this network.
-
-                  See <https://tinc-vpn.org/documentation-1.1/Main-configuration-variables.html>
-                  for supported values.
-                '';
-              };
-            };
-
-            config = {
-              hosts = mapAttrs (hostname: host: ''
-                ${toTincConf host.settings}
-                ${host.rsaPublicKey}
-              '') config.hostSettings;
-
-              settings = {
-                DeviceType = mkDefault config.interfaceType;
-                Name = mkDefault
-                  (if config.name == null then "$HOST" else config.name);
-                Ed25519PrivateKeyFile =
-                  mkIf (config.ed25519PrivateKeyFile != null)
-                  (mkDefault config.ed25519PrivateKeyFile);
-                PrivateKeyFile = mkIf (config.rsaPrivateKeyFile != null)
-                  (mkDefault config.rsaPrivateKeyFile);
-                ListenAddress = mkIf (config.listenAddress != null)
-                  (mkDefault config.listenAddress);
-                BindToAddress = mkIf (config.bindToAddress != null)
-                  (mkDefault config.bindToAddress);
-              };
-            };
-          }));
+            }));
 
         description = lib.mdDoc ''
           Defines the tinc networks which will be started.

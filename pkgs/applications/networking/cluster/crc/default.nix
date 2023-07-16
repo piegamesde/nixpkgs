@@ -1,5 +1,14 @@
-{ lib, buildGoModule, fetchFromGitHub, git, stdenv, testers, crc, runtimeShell
-, coreutils }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  git,
+  stdenv,
+  testers,
+  crc,
+  runtimeShell,
+  coreutils,
+}:
 
 let
   openShiftVersion = "4.12.5";

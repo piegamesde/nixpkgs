@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, m4, cmake, perl, writeScript
-, enableUnstable ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  m4,
+  cmake,
+  perl,
+  writeScript,
+  enableUnstable ? false
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ath9k-htc-blobless-firmware";

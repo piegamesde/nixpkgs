@@ -1,5 +1,19 @@
-{ lib, stdenv, maven, pkgs }:
-{ mavenDeps, src, name, meta, m2Path, skipTests ? true, quiet ? true, ... }:
+{
+  lib,
+  stdenv,
+  maven,
+  pkgs,
+}:
+{
+  mavenDeps,
+  src,
+  name,
+  meta,
+  m2Path,
+  skipTests ? true,
+  quiet ? true,
+  ...
+}:
 
 with builtins;
 with lib;

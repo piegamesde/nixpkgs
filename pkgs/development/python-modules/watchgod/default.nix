@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, anyio }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  anyio,
+}:
 
 buildPythonPackage rec {
   pname = "watchgod";

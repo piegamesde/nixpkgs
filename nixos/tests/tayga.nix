@@ -22,7 +22,11 @@
 #        |         Route:   192.0.2.0/24 via 100.64.0.1
 #        +------
 
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   {
     name = "tayga";

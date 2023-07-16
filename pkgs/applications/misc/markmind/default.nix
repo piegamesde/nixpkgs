@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, appimageTools, makeWrapper, electron }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  appimageTools,
+  makeWrapper,
+  electron,
+}:
 
 stdenv.mkDerivation rec {
   pname = "markmind";

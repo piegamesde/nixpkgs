@@ -1,8 +1,34 @@
-{ lib, stdenv, fetchurl, bison, pkg-config, glib, gettext, perl, libgdiplus
-, libX11, callPackage, ncurses, zlib, withLLVM ? false, cacert, Foundation
-, libobjc, python3, version, sha256, autoconf, libtool, automake, cmake, which
-, gnumake42, enableParallelBuilding ? true, srcArchiveSuffix ? "tar.bz2"
-, extraPatches ? [ ] }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bison,
+  pkg-config,
+  glib,
+  gettext,
+  perl,
+  libgdiplus,
+  libX11,
+  callPackage,
+  ncurses,
+  zlib,
+  withLLVM ? false,
+  cacert,
+  Foundation,
+  libobjc,
+  python3,
+  version,
+  sha256,
+  autoconf,
+  libtool,
+  automake,
+  cmake,
+  which,
+  gnumake42,
+  enableParallelBuilding ? true,
+  srcArchiveSuffix ? "tar.bz2",
+  extraPatches ? [ ]
+}:
 
 let llvm = callPackage ./llvm.nix { };
 in stdenv.mkDerivation rec {

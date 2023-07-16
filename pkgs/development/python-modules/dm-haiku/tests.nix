@@ -1,6 +1,24 @@
-{ stdenv, buildPythonPackage, dm-haiku, chex, cloudpickle, dill, dm-tree, jaxlib
-, pytest-xdist, pytestCheckHook, tensorflow, bsuite, frozendict, dm-env
-, scikitimage, rlax, distrax, tensorflow-probability, optax }:
+{
+  stdenv,
+  buildPythonPackage,
+  dm-haiku,
+  chex,
+  cloudpickle,
+  dill,
+  dm-tree,
+  jaxlib,
+  pytest-xdist,
+  pytestCheckHook,
+  tensorflow,
+  bsuite,
+  frozendict,
+  dm-env,
+  scikitimage,
+  rlax,
+  distrax,
+  tensorflow-probability,
+  optax,
+}:
 
 buildPythonPackage rec {
   pname = "dm-haiku-tests";

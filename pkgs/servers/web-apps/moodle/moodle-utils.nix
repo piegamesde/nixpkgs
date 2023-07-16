@@ -1,8 +1,20 @@
-{ stdenv, unzip, ... }:
+{
+  stdenv,
+  unzip,
+  ...
+}:
 
 let
-  buildMoodlePlugin = a@{ name, src, pluginType, configurePhase ? ":"
-    , buildPhase ? ":", buildInputs ? [ ], nativeBuildInputs ? [ ], ... }:
+  buildMoodlePlugin = a@{
+      name,
+      src,
+      pluginType,
+      configurePhase ? ":",
+      buildPhase ? ":",
+      buildInputs ? [ ],
+      nativeBuildInputs ? [ ],
+      ...
+    }:
     stdenv.mkDerivation (a // {
       name = name;
 

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, fst-pso, numpy, pandas, pythonOlder, scipy
-, simpful }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fst-pso,
+  numpy,
+  pandas,
+  pythonOlder,
+  scipy,
+  simpful,
+}:
 
 buildPythonPackage rec {
   pname = "pyfume";

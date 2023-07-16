@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, jinja2, ply, verilog
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  jinja2,
+  ply,
+  verilog,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pyverilog";

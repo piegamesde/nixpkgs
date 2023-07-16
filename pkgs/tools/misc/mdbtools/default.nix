@@ -1,5 +1,18 @@
-{ stdenv, lib, fetchFromGitHub, glib, readline, bison, flex, pkg-config
-, autoreconfHook, libxslt, makeWrapper, txt2man, which }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  glib,
+  readline,
+  bison,
+  flex,
+  pkg-config,
+  autoreconfHook,
+  libxslt,
+  makeWrapper,
+  txt2man,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mdbtools";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, bison, lzo, db4 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bison,
+  lzo,
+  db4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "netboot";

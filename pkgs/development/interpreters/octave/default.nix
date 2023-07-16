@@ -1,27 +1,79 @@
-{ stdenv, pkgs, lib
-# Note: either stdenv.mkDerivation or, for octaveFull, the qt-5 mkDerivation
-# with wrapQtAppsHook (comes from libsForQt5.callPackage)
-, mkDerivation, fetchurl, gfortran, ncurses, perl, flex, texinfo, qhull
-, libsndfile, portaudio, libX11, graphicsmagick, pcre2, pkg-config, libGL
-, libGLU, fltk
-# Both are needed for discrete Fourier transform
-, fftw, fftwSinglePrec, zlib, curl, rapidjson, blas, lapack
-# These two should use the same lapack and blas as the above
-, qrupdate, arpack, suitesparse ? null
-  # If set to true, the above 5 deps are overridden to use the blas and lapack
-  # with 64 bit indexes support. If all are not compatible, the build will fail.
-, use64BitIdx ? false, libwebp, gl2ps, ghostscript ? null, hdf5 ? null
-, glpk ? null, gnuplot ? null
-  # - Include support for GNU readline:
-, enableReadline ? true, readline ? null
-  # - Build Java interface:
-, enableJava ? true, jdk ? null, python ? null, overridePlatforms ? null
-, sundials ? null
-  # - Packages required for building extra packages.
-, newScope, callPackage, makeSetupHook, makeWrapper
-# - Build Octave Qt GUI:
-, enableQt ? false, qtbase ? null, qtsvg ? null, qtscript ? null
-, qscintilla ? null, qttools ? null, libiconv, darwin }:
+{
+  stdenv,
+  pkgs,
+  lib
+  # Note: either stdenv.mkDerivation or, for octaveFull, the qt-5 mkDerivation
+  # with wrapQtAppsHook (comes from libsForQt5.callPackage)
+  ,
+  mkDerivation,
+  fetchurl,
+  gfortran,
+  ncurses,
+  perl,
+  flex,
+  texinfo,
+  qhull,
+  libsndfile,
+  portaudio,
+  libX11,
+  graphicsmagick,
+  pcre2,
+  pkg-config,
+  libGL,
+  libGLU,
+  fltk
+  # Both are needed for discrete Fourier transform
+  ,
+  fftw,
+  fftwSinglePrec,
+  zlib,
+  curl,
+  rapidjson,
+  blas,
+  lapack
+  # These two should use the same lapack and blas as the above
+  ,
+  qrupdate,
+  arpack,
+  suitesparse ? null
+    # If set to true, the above 5 deps are overridden to use the blas and lapack
+    # with 64 bit indexes support. If all are not compatible, the build will fail.
+  ,
+  use64BitIdx ? false,
+  libwebp,
+  gl2ps,
+  ghostscript ? null,
+  hdf5 ? null,
+  glpk ? null,
+  gnuplot ? null
+    # - Include support for GNU readline:
+  ,
+  enableReadline ? true,
+  readline ? null
+    # - Build Java interface:
+  ,
+  enableJava ? true,
+  jdk ? null,
+  python ? null,
+  overridePlatforms ? null,
+  sundials ? null
+    # - Packages required for building extra packages.
+  ,
+  newScope,
+  callPackage,
+  makeSetupHook,
+  makeWrapper
+  # - Build Octave Qt GUI:
+  ,
+  enableQt ? false,
+  qtbase ? null,
+  qtsvg ? null,
+  qtscript ? null,
+  qscintilla ? null,
+  qttools ? null,
+  libiconv,
+  darwin,
+}:
 
 let
 

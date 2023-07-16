@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, pkg-config }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "flux";

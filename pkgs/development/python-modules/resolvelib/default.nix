@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, commentjson, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  commentjson,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "resolvelib";

@@ -1,17 +1,66 @@
 let
   # shared across all versions
-  generic = { version, hash, lib, stdenv, fetchurl, nixosTests, buildPackages
-    # Native buildInputs components
-    , bison, boost, cmake, fixDarwinDylibNames, flex, makeWrapper, pkg-config
-    # Common components
-    , curl, libiconv, ncurses, openssl, openssl_1_1, pcre, pcre2, libkrb5
-    , libaio, liburing, systemd, CoreServices, cctools, perl, jemalloc, less
-    , libedit
-    # Server components
-    , bzip2, lz4, lzo, snappy, xz, zlib, zstd, cracklib, judy, libevent, libxml2
-    , linux-pam, numactl, fmt_8, withStorageMroonga ? true, kytea, libsodium
-    , msgpack, zeromq, withStorageRocks ? true, withEmbedded ? false
-    , withNuma ? false }:
+  generic = {
+      version,
+      hash,
+      lib,
+      stdenv,
+      fetchurl,
+      nixosTests,
+      buildPackages
+      # Native buildInputs components
+      ,
+      bison,
+      boost,
+      cmake,
+      fixDarwinDylibNames,
+      flex,
+      makeWrapper,
+      pkg-config
+      # Common components
+      ,
+      curl,
+      libiconv,
+      ncurses,
+      openssl,
+      openssl_1_1,
+      pcre,
+      pcre2,
+      libkrb5,
+      libaio,
+      liburing,
+      systemd,
+      CoreServices,
+      cctools,
+      perl,
+      jemalloc,
+      less,
+      libedit
+      # Server components
+      ,
+      bzip2,
+      lz4,
+      lzo,
+      snappy,
+      xz,
+      zlib,
+      zstd,
+      cracklib,
+      judy,
+      libevent,
+      libxml2,
+      linux-pam,
+      numactl,
+      fmt_8,
+      withStorageMroonga ? true,
+      kytea,
+      libsodium,
+      msgpack,
+      zeromq,
+      withStorageRocks ? true,
+      withEmbedded ? false,
+      withNuma ? false
+    }:
 
     let
       isCross = stdenv.buildPlatform != stdenv.hostPlatform;

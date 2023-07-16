@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchhg, pkg-config, meson, ninja, gtk3, json_c, libpulseaudio
-, wayland, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchhg,
+  pkg-config,
+  meson,
+  ninja,
+  gtk3,
+  json_c,
+  libpulseaudio,
+  wayland,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rootbar";

@@ -1,4 +1,10 @@
-{ lib, fetchurl, buildDunePackage, camlp-streams, easy-format }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  camlp-streams,
+  easy-format,
+}:
 
 buildDunePackage rec {
   pname = "biniou";

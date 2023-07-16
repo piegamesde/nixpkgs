@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, pkg-config, yara }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  pkg-config,
+  yara,
+}:
 
 buildGoModule rec {
   pname = "spyre";

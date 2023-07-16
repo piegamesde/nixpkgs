@@ -1,6 +1,21 @@
-{ lib, buildPythonPackage, fetchFromGitHub, rustPlatform, stdenv, libiconv
-, brotli, hypothesis, lz4, memory_profiler, numpy, py, pytest-benchmark
-, pytestCheckHook, python-snappy, zstd }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  rustPlatform,
+  stdenv,
+  libiconv,
+  brotli,
+  hypothesis,
+  lz4,
+  memory_profiler,
+  numpy,
+  py,
+  pytest-benchmark,
+  pytestCheckHook,
+  python-snappy,
+  zstd,
+}:
 
 buildPythonPackage rec {
   pname = "cramjam";

@@ -1,4 +1,11 @@
-{ lib, bash, buildGoModule, fetchFromGitHub, getent, nix-update-script, stdenv
+{
+  lib,
+  bash,
+  buildGoModule,
+  fetchFromGitHub,
+  getent,
+  nix-update-script,
+  stdenv,
 }:
 
 buildGoModule rec {

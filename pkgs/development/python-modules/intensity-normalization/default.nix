@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, pytestCheckHook, matplotlib
-, nibabel, numpy, scikit-fuzzy, scikitimage, scikit-learn, scipy, statsmodels }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  pytestCheckHook,
+  matplotlib,
+  nibabel,
+  numpy,
+  scikit-fuzzy,
+  scikitimage,
+  scikit-learn,
+  scipy,
+  statsmodels,
+}:
 
 buildPythonPackage rec {
   pname = "intensity-normalization";

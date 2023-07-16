@@ -1,4 +1,11 @@
-{ lib, melpaBuild, fetchFromGitHub, pkg-config, libffi, writeText }:
+{
+  lib,
+  melpaBuild,
+  fetchFromGitHub,
+  pkg-config,
+  libffi,
+  writeText,
+}:
 
 let rev = "da37c516a0e59bdce63fb2dc006a231dee62a1d9";
 in melpaBuild {

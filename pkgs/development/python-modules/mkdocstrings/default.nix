@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, jinja2, markdown, markupsafe, mkdocs
-, mkdocs-autorefs, pymdown-extensions, pytestCheckHook, pdm-pep517, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jinja2,
+  markdown,
+  markupsafe,
+  mkdocs,
+  mkdocs-autorefs,
+  pymdown-extensions,
+  pytestCheckHook,
+  pdm-pep517,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

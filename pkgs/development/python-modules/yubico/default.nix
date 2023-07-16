@@ -1,4 +1,11 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, pytestCheckHook, pyusb }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pyusb,
+}:
 
 buildPythonPackage rec {
   pname = "python-yubico";

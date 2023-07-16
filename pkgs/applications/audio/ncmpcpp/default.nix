@@ -1,8 +1,25 @@
-{ lib, stdenv, fetchurl, boost, libmpdclient, ncurses, pkg-config, readline
-, libiconv, icu, curl, outputsSupport ? true # outputs screen
-, visualizerSupport ? false, fftw # visualizer screen
-, clockSupport ? true # clock screen
-, taglibSupport ? true, taglib # tag editor
+{
+  lib,
+  stdenv,
+  fetchurl,
+  boost,
+  libmpdclient,
+  ncurses,
+  pkg-config,
+  readline,
+  libiconv,
+  icu,
+  curl,
+  outputsSupport ? true # outputs screen
+  ,
+  visualizerSupport ? false,
+  fftw # visualizer screen
+  ,
+  clockSupport ? true # clock screen
+  ,
+  taglibSupport ? true,
+  taglib # tag editor
+  ,
 }:
 
 stdenv.mkDerivation rec {

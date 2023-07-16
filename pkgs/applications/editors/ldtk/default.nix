@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, makeWrapper, makeDesktopItem, copyDesktopItems, unzip
-, appimage-run }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  unzip,
+  appimage-run,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ldtk";

@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, buildPythonPackage, wxPython_4_2, python }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  wxPython_4_2,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "humblewx";

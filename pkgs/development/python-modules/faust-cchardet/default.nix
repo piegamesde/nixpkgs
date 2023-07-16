@@ -1,5 +1,15 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, cython, pkgconfig
-, setuptools, wheel, pytestCheckHook, python }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cython,
+  pkgconfig,
+  setuptools,
+  wheel,
+  pytestCheckHook,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "faust-cchardet";

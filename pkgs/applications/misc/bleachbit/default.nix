@@ -1,5 +1,14 @@
-{ lib, python3Packages, fetchurl, gettext, gobject-introspection, wrapGAppsHook
-, glib, gtk3, libnotify }:
+{
+  lib,
+  python3Packages,
+  fetchurl,
+  gettext,
+  gobject-introspection,
+  wrapGAppsHook,
+  glib,
+  gtk3,
+  libnotify,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "bleachbit";

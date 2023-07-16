@@ -1,4 +1,11 @@
-{ fetchurl, lib, stdenv, pkg-config, boost, lua }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  pkg-config,
+  boost,
+  lua,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ansifilter";

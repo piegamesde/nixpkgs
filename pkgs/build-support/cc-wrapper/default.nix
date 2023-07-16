@@ -5,53 +5,75 @@
 # script that sets up the right environment variables so that the
 # compiler and the linker just "work".
 
-{ name ? "", lib, stdenvNoCC, cc ? null, libc ? null, bintools, coreutils ? null
-, shell ? stdenvNoCC.shell, zlib ? null, nativeTools, noLibc ? false, nativeLibc
-, nativePrefix ? "", propagateDoc ? cc != null && cc ? man, extraTools ? [ ]
-, extraPackages ? [ ], extraBuildCommands ? "", nixSupport ? { }, isGNU ? false
-, isClang ? cc.isClang or false, isCcache ? cc.isCcache or false, gnugrep ? null
-, buildPackages ? { }, libcxx ? null
+{
+  name ? "",
+  lib,
+  stdenvNoCC,
+  cc ? null,
+  libc ? null,
+  bintools,
+  coreutils ? null,
+  shell ? stdenvNoCC.shell,
+  zlib ? null,
+  nativeTools,
+  noLibc ? false,
+  nativeLibc,
+  nativePrefix ? "",
+  propagateDoc ? cc != null && cc ? man,
+  extraTools ? [ ],
+  extraPackages ? [ ],
+  extraBuildCommands ? "",
+  nixSupport ? { },
+  isGNU ? false,
+  isClang ? cc.isClang or false,
+  isCcache ? cc.isCcache or false,
+  gnugrep ? null,
+  buildPackages ? { },
+  libcxx ? null
 
-  # Whether or not to add `-B` and `-L` to `nix-support/cc-{c,ld}flags`
-, useCcForLibs ?
+    # Whether or not to add `-B` and `-L` to `nix-support/cc-{c,ld}flags`
+  ,
+  useCcForLibs ?
 
-# Always add these flags for Clang, because in order to compile (most
-# software) it needs libraries that are shipped and compiled with gcc.
-  if isClang then
-    true
+  # Always add these flags for Clang, because in order to compile (most
+  # software) it needs libraries that are shipped and compiled with gcc.
+    if isClang then
+      true
 
-    # Never add these flags for a build!=host cross-compiler or a host!=target
-    # ("cross-built-native") compiler; currently nixpkgs has a special build
-    # path for these (`crossStageStatic`).  Hopefully at some point that build
-    # path will be merged with this one and this conditional will be removed.
-  else if (with stdenvNoCC;
-    buildPlatform != hostPlatform || hostPlatform != targetPlatform) then
-    false
+      # Never add these flags for a build!=host cross-compiler or a host!=target
+      # ("cross-built-native") compiler; currently nixpkgs has a special build
+      # path for these (`crossStageStatic`).  Hopefully at some point that build
+      # path will be merged with this one and this conditional will be removed.
+    else if (with stdenvNoCC;
+      buildPlatform != hostPlatform || hostPlatform != targetPlatform) then
+      false
 
-    # Never add these flags when wrapping the bootstrapFiles' compiler; it has a
-    # /usr/-like layout with everything smashed into a single outpath, so it has
-    # no trouble finding its own libraries.
-  else if (cc.passthru.isFromBootstrapFiles or false) then
-    false
+      # Never add these flags when wrapping the bootstrapFiles' compiler; it has a
+      # /usr/-like layout with everything smashed into a single outpath, so it has
+      # no trouble finding its own libraries.
+    else if (cc.passthru.isFromBootstrapFiles or false) then
+      false
 
-    # Add these flags when wrapping `xgcc` (the first compiler that nixpkgs builds)
-  else if (cc.passthru.isXgcc or false) then
-    true
+      # Add these flags when wrapping `xgcc` (the first compiler that nixpkgs builds)
+    else if (cc.passthru.isXgcc or false) then
+      true
 
-    # Add these flags when wrapping `stdenv.cc`
-  else if (cc.stdenv.cc.cc.passthru.isXgcc or false) then
-    true
+      # Add these flags when wrapping `stdenv.cc`
+    else if (cc.stdenv.cc.cc.passthru.isXgcc or false) then
+      true
 
-    # Do not add these flags in any other situation.  This is `false` mainly to
-    # prevent these flags from being added when wrapping *old* versions of gcc
-    # (e.g. `gcc6Stdenv`), since they will cause the old gcc to get `-B` and
-    # `-L` flags pointing at the new gcc's libstdc++ headers.  Example failure:
-    # https://hydra.nixos.org/build/213125495
-  else
-    false
+      # Do not add these flags in any other situation.  This is `false` mainly to
+      # prevent these flags from being added when wrapping *old* versions of gcc
+      # (e.g. `gcc6Stdenv`), since they will cause the old gcc to get `-B` and
+      # `-L` flags pointing at the new gcc's libstdc++ headers.  Example failure:
+      # https://hydra.nixos.org/build/213125495
+    else
+      false
 
-    # the derivation at which the `-B` and `-L` flags added by `useCcForLibs` will point
-, gccForLibs ? if useCcForLibs then cc else null }:
+      # the derivation at which the `-B` and `-L` flags added by `useCcForLibs` will point
+  ,
+  gccForLibs ? if useCcForLibs then cc else null
+}:
 
 with lib;
 

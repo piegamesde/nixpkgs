@@ -1,10 +1,42 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, wrapQtAppsHook, alsa-lib
-, boost, chromaprint, fftw, gnutls, libcdio, libmtp, libpthreadstubs, libtasn1
-, libXdmcp, ninja, pcre, protobuf, sqlite, taglib, libgpod, libidn2
-, libpulseaudio, libselinux, libsepol, p11-kit, util-linux, qtbase
-, qtx11extras ? null # doesn't exist in qt6
-, qttools, withGstreamer ? true, glib-networking, gst_all_1, withVlc ? true
-, libvlc }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  wrapQtAppsHook,
+  alsa-lib,
+  boost,
+  chromaprint,
+  fftw,
+  gnutls,
+  libcdio,
+  libmtp,
+  libpthreadstubs,
+  libtasn1,
+  libXdmcp,
+  ninja,
+  pcre,
+  protobuf,
+  sqlite,
+  taglib,
+  libgpod,
+  libidn2,
+  libpulseaudio,
+  libselinux,
+  libsepol,
+  p11-kit,
+  util-linux,
+  qtbase,
+  qtx11extras ? null # doesn't exist in qt6
+  ,
+  qttools,
+  withGstreamer ? true,
+  glib-networking,
+  gst_all_1,
+  withVlc ? true,
+  libvlc,
+}:
 
 let inherit (lib) optionals;
 

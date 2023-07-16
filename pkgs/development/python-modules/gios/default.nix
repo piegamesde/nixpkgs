@@ -1,5 +1,15 @@
-{ lib, aiohttp, aioresponses, buildPythonPackage, dacite, fetchFromGitHub
-, pytest-asyncio, pytest-error-for-skips, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  buildPythonPackage,
+  dacite,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytest-error-for-skips,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "gios";

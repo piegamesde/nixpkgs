@@ -1,5 +1,15 @@
-{ lib, async-timeout, attrs, buildPythonPackage, fetchFromGitHub, httpx, orjson
-, packaging, pythonOlder, xmltodict }:
+{
+  lib,
+  async-timeout,
+  attrs,
+  buildPythonPackage,
+  fetchFromGitHub,
+  httpx,
+  orjson,
+  packaging,
+  pythonOlder,
+  xmltodict,
+}:
 
 buildPythonPackage rec {
   pname = "axis";

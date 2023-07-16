@@ -1,5 +1,18 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, pkg-config, cmake, git, doxygen
-, help2man, ncurses, tecla, libusb1, udev }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  cmake,
+  git,
+  doxygen,
+  help2man,
+  ncurses,
+  tecla,
+  libusb1,
+  udev,
+}:
 let
   # fetch submodule
   noos = fetchFromGitHub {

@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, pkg-config, boost, nixosTests, openssl, systemd, lua
-, luajit, protobuf, enableProtoBuf ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  boost,
+  nixosTests,
+  openssl,
+  systemd,
+  lua,
+  luajit,
+  protobuf,
+  enableProtoBuf ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "pdns-recursor";

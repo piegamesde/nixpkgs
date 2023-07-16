@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, mock, psutil, pyopenssl, pysendfile
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  mock,
+  psutil,
+  pyopenssl,
+  pysendfile,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pyftpdlib";

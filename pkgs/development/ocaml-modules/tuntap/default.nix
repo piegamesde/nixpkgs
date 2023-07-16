@@ -1,4 +1,11 @@
-{ lib, buildDunePackage, fetchurl, ipaddr, macaddr, cmdliner }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  ipaddr,
+  macaddr,
+  cmdliner,
+}:
 
 buildDunePackage rec {
   pname = "tuntap";

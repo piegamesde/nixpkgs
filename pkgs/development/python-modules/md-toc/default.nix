@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fpyutils, pyfakefs, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fpyutils,
+  pyfakefs,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "md-toc";

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, dacite, python-dateutil, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  dacite,
+  python-dateutil,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "soundcloud-v2";

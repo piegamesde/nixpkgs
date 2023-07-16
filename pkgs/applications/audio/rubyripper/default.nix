@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, cdparanoia, cddiscid, ruby }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  cdparanoia,
+  cddiscid,
+  ruby,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.8.0rc3";

@@ -1,4 +1,14 @@
-{ stdenv, lib, cmake, fetchFromGitHub, glog, folly, fmt_8, boost, gtest }:
+{
+  stdenv,
+  lib,
+  cmake,
+  fetchFromGitHub,
+  glog,
+  folly,
+  fmt_8,
+  boost,
+  gtest,
+}:
 
 stdenv.mkDerivation rec {
   pname = "edencommon";

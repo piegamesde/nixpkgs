@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, boost, cmake, fftw, fftwSinglePrec, hdf5
-, ilmbase, libjpeg, libpng, libtiff, openexr, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  boost,
+  cmake,
+  fftw,
+  fftwSinglePrec,
+  hdf5,
+  ilmbase,
+  libjpeg,
+  libpng,
+  libtiff,
+  openexr,
+  python3,
+}:
 
 let python = python3.withPackages (py: with py; [ numpy ]);
 in stdenv.mkDerivation rec {

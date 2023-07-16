@@ -1,5 +1,15 @@
-{ stdenv, lib, buildPythonPackage, pythonOlder, isPyPy, fetchPypi, postgresql
-, openssl, sphinxHook, sphinx-better-theme }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  isPyPy,
+  fetchPypi,
+  postgresql,
+  openssl,
+  sphinxHook,
+  sphinx-better-theme,
+}:
 
 buildPythonPackage rec {
   pname = "psycopg2";

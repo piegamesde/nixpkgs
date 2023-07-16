@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -430,7 +435,11 @@ in {
         type = types.attrsOf (types.submodule (let
           referenceAttrs = with types;
             attrsOf (oneOf [ str int bool path package ]);
-        in { config, name, ... }: {
+        in {
+          config,
+          name,
+          ...
+        }: {
           options = {
             from = mkOption {
               type = referenceAttrs;

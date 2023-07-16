@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, ocaml, perl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocaml,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ekrhyper";

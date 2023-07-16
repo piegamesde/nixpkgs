@@ -1,7 +1,30 @@
-{ lib, stdenv, llvm_meta, runCommand, fetch, cmake, zlib, ncurses, swig, which
-, libedit, libxml2, libllvm, libclang, python3, version, libobjc, xpc
-, Foundation, bootstrap_cmds, Carbon, Cocoa, lit, makeWrapper
-, enableManpages ? false }:
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  runCommand,
+  fetch,
+  cmake,
+  zlib,
+  ncurses,
+  swig,
+  which,
+  libedit,
+  libxml2,
+  libllvm,
+  libclang,
+  python3,
+  version,
+  libobjc,
+  xpc,
+  Foundation,
+  bootstrap_cmds,
+  Carbon,
+  Cocoa,
+  lit,
+  makeWrapper,
+  enableManpages ? false
+}:
 
 stdenv.mkDerivation (rec {
   pname = "lldb";

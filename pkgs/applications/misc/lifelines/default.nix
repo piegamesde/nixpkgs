@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, gettext, libiconv, bison, ncurses
-, perl, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  gettext,
+  libiconv,
+  bison,
+  ncurses,
+  perl,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lifelines";

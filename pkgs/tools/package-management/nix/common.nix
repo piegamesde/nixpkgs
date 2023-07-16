@@ -1,10 +1,17 @@
-{ lib, fetchFromGitHub, version, suffix ? "", sha256 ? null, src ?
-  fetchFromGitHub {
+{
+  lib,
+  fetchFromGitHub,
+  version,
+  suffix ? "",
+  sha256 ? null,
+  src ? fetchFromGitHub {
     owner = "NixOS";
     repo = "nix";
     rev = version;
     inherit sha256;
-  }, patches ? [ ] }:
+  },
+  patches ? [ ]
+}:
 assert (sha256 == null) -> (src != null);
 let
   atLeast24 = lib.versionAtLeast version "2.4pre";
@@ -13,22 +20,61 @@ let
   atLeast210 = lib.versionAtLeast version "2.10pre";
   atLeast213 = lib.versionAtLeast version "2.13pre";
   atLeast214 = lib.versionAtLeast version "2.14pre";
-in { stdenv, autoconf-archive, autoreconfHook, bash, bison, boehmgc, boost
-, brotli, busybox-sandbox-shell, bzip2, callPackage, coreutils, curl, editline
-, flex, gnutar, gtest, gzip, jq, lib, libarchive, libcpuid, libsodium, lowdown
-, mdbook, mdbook-linkcheck, nlohmann_json, openssl, perl, pkg-config, rapidcheck
-, Security, sqlite, util-linuxMinimal, xz
+in {
+  stdenv,
+  autoconf-archive,
+  autoreconfHook,
+  bash,
+  bison,
+  boehmgc,
+  boost,
+  brotli,
+  busybox-sandbox-shell,
+  bzip2,
+  callPackage,
+  coreutils,
+  curl,
+  editline,
+  flex,
+  gnutar,
+  gtest,
+  gzip,
+  jq,
+  lib,
+  libarchive,
+  libcpuid,
+  libsodium,
+  lowdown,
+  mdbook,
+  mdbook-linkcheck,
+  nlohmann_json,
+  openssl,
+  perl,
+  pkg-config,
+  rapidcheck,
+  Security,
+  sqlite,
+  util-linuxMinimal,
+  xz
 
-, enableDocumentation ? !atLeast24 || stdenv.hostPlatform
-  == stdenv.buildPlatform, enableStatic ? stdenv.hostPlatform.isStatic
-, withAWS ? !enableStatic && (stdenv.isLinux || stdenv.isDarwin), aws-sdk-cpp
-, withLibseccomp ? lib.meta.availableOn stdenv.hostPlatform libseccomp
-, libseccomp
+  ,
+  enableDocumentation ? !atLeast24 || stdenv.hostPlatform
+    == stdenv.buildPlatform,
+  enableStatic ? stdenv.hostPlatform.isStatic,
+  withAWS ? !enableStatic && (stdenv.isLinux || stdenv.isDarwin),
+  aws-sdk-cpp,
+  withLibseccomp ? lib.meta.availableOn stdenv.hostPlatform libseccomp,
+  libseccomp
 
-, confDir, stateDir, storeDir
+  ,
+  confDir,
+  stateDir,
+  storeDir
 
-# passthru tests
-, pkgsi686Linux }:
+  # passthru tests
+  ,
+  pkgsi686Linux,
+}:
 let
   self = stdenv.mkDerivation {
     pname = "nix";

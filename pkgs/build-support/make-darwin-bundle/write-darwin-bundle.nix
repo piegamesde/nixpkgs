@@ -1,4 +1,8 @@
-{ writeScriptBin, lib, ... }:
+{
+  writeScriptBin,
+  lib,
+  ...
+}:
 
 let
   pListText = lib.generators.toPlist { } {

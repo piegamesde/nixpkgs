@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, attrs, flake8, pytestCheckHook
-, pythonOlder, hypothesis, hypothesmith }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  attrs,
+  flake8,
+  pytestCheckHook,
+  pythonOlder,
+  hypothesis,
+  hypothesmith,
+}:
 
 buildPythonPackage rec {
   pname = "flake8-bugbear";

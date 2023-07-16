@@ -1,4 +1,11 @@
-{ stdenv, lib, buildPythonPackage, isPy3k, fetchFromGitHub, openssl }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  isPy3k,
+  fetchFromGitHub,
+  openssl,
+}:
 
 buildPythonPackage rec {
   pname = "bitcoinlib";

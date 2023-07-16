@@ -1,7 +1,20 @@
-{ lib, stdenv, fetchurl, fetchpatch, autoconf
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  autoconf
 
-# for passthru.tests
-, audacity, mpd, mpg321, normalize, ocamlPackages, streamripper, vlc }:
+  # for passthru.tests
+  ,
+  audacity,
+  mpd,
+  mpg321,
+  normalize,
+  ocamlPackages,
+  streamripper,
+  vlc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libmad";

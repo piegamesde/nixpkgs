@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, libyaml }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  libyaml,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libcyaml";

@@ -1,6 +1,21 @@
-{ lib, boto, buildPythonPackage, fasteners, fetchFromGitHub, freezegun
-, google-reauth, httplib2, oauth2client, pyopenssl, pytestCheckHook, pythonOlder
-, pythonRelaxDepsHook, retry_decorator, rsa, six }:
+{
+  lib,
+  boto,
+  buildPythonPackage,
+  fasteners,
+  fetchFromGitHub,
+  freezegun,
+  google-reauth,
+  httplib2,
+  oauth2client,
+  pyopenssl,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  retry_decorator,
+  rsa,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "gcs-oauth2-boto-plugin";

@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitLab, appstream-glib, desktop-file-utils, itstool
-, meson, ninja, pkg-config, python3, rustPlatform, wrapGAppsHook4, glib, gtk4
-, libadwaita }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  appstream-glib,
+  desktop-file-utils,
+  itstool,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  rustPlatform,
+  wrapGAppsHook4,
+  glib,
+  gtk4,
+  libadwaita,
+}:
 
 stdenv.mkDerivation rec {
   pname = "warp";

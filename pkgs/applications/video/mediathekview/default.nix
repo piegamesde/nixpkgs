@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, makeWrapper, libglvnd, libnotify, jre, zip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  libglvnd,
+  libnotify,
+  jre,
+  zip,
+}:
 
 stdenv.mkDerivation rec {
   version = "13.9.1";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, meson, ninja, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  meson,
+  ninja,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rlottie";

@@ -1,4 +1,10 @@
-{ lib, python3, ffmpeg, makeWrapper, nix-update-script }:
+{
+  lib,
+  python3,
+  ffmpeg,
+  makeWrapper,
+  nix-update-script,
+}:
 
 with python3.pkgs;
 

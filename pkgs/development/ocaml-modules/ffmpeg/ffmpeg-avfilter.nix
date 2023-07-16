@@ -1,6 +1,19 @@
-{ lib, buildDunePackage, dune-configurator, pkg-config, fetchFromGitHub
-, callPackage, AppKit, CoreImage, ffmpeg-base ? callPackage ./base.nix { }
-, ffmpeg-avutil, ffmpeg, OpenGL, stdenv, VideoToolbox }:
+{
+  lib,
+  buildDunePackage,
+  dune-configurator,
+  pkg-config,
+  fetchFromGitHub,
+  callPackage,
+  AppKit,
+  CoreImage,
+  ffmpeg-base ? callPackage ./base.nix { },
+  ffmpeg-avutil,
+  ffmpeg,
+  OpenGL,
+  stdenv,
+  VideoToolbox,
+}:
 
 buildDunePackage {
   pname = "ffmpeg-avfilter";

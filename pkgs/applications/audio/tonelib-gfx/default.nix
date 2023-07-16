@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, dpkg, alsa-lib, freetype, libglvnd
-, curl, libXcursor, libXinerama, libXrandr, libXrender, libjack2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  dpkg,
+  alsa-lib,
+  freetype,
+  libglvnd,
+  curl,
+  libXcursor,
+  libXinerama,
+  libXrandr,
+  libXrender,
+  libjack2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tonelib-gfx";

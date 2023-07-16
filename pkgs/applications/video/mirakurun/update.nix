@@ -1,4 +1,14 @@
-{ pname, version, homepage, lib, gitUpdater, writers, jq, yarn, yarn2nix }:
+{
+  pname,
+  version,
+  homepage,
+  lib,
+  gitUpdater,
+  writers,
+  jq,
+  yarn,
+  yarn2nix,
+}:
 
 let
   updater = gitUpdater {

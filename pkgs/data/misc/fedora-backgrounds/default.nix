@@ -1,4 +1,8 @@
-{ callPackage, lib, fetchurl }:
+{
+  callPackage,
+  lib,
+  fetchurl,
+}:
 
 let fedoraBackground = callPackage ./generic.nix { };
 in {

@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, hypothesis
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  hypothesis,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "hpack";

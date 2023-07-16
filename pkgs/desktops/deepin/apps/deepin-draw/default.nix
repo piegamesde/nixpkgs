@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchFromGitHub, cmake, qttools, pkg-config, wrapQtAppsHook
-, qtbase, qtsvg, dtkwidget, qt5integration, qt5platform-plugins }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  qttools,
+  pkg-config,
+  wrapQtAppsHook,
+  qtbase,
+  qtsvg,
+  dtkwidget,
+  qt5integration,
+  qt5platform-plugins,
+}:
 
 stdenv.mkDerivation rec {
   pname = "deepin-draw";

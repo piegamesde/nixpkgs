@@ -1,5 +1,13 @@
-{ lib, isPy27, buildPythonPackage, fetchFromGitHub, fetchpatch, scikit-learn
-, pytestCheckHook, pytest-randomly }:
+{
+  lib,
+  isPy27,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  scikit-learn,
+  pytestCheckHook,
+  pytest-randomly,
+}:
 
 buildPythonPackage rec {
   pname = "mlrose";

@@ -1,5 +1,14 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, chardet
-, cssselect, lxml, timeout-decorator }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  chardet,
+  cssselect,
+  lxml,
+  timeout-decorator,
+}:
 
 buildPythonPackage rec {
   pname = "readability-lxml";

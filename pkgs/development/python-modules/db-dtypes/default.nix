@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, numpy, packaging, pandas, pyarrow
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  packaging,
+  pandas,
+  pyarrow,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "db-dtypes";

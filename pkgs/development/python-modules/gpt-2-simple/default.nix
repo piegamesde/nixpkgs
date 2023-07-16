@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, regex, requests, tqdm, numpy
-, toposort, tensorflow }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  regex,
+  requests,
+  tqdm,
+  numpy,
+  toposort,
+  tensorflow,
+}:
 
 buildPythonPackage rec {
   pname = "gpt-2-simple";

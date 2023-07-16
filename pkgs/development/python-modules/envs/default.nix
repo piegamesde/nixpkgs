@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, click, fetchPypi, jinja2, mock, nose, poetry-core
-, pythonOlder, terminaltables }:
+{
+  lib,
+  buildPythonPackage,
+  click,
+  fetchPypi,
+  jinja2,
+  mock,
+  nose,
+  poetry-core,
+  pythonOlder,
+  terminaltables,
+}:
 
 buildPythonPackage rec {
   pname = "envs";

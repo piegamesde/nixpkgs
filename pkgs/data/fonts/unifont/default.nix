@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, xorg, libfaketime }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  xorg,
+  libfaketime,
+}:
 
 stdenv.mkDerivation rec {
   pname = "unifont";

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, wrapQtAppsHook, glm, eigen, qtbase }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  wrapQtAppsHook,
+  glm,
+  eigen,
+  qtbase,
+}:
 
 stdenv.mkDerivation rec {
   pname = "calcmysky";

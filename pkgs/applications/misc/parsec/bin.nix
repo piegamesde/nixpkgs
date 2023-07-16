@@ -1,6 +1,23 @@
-{ stdenvNoCC, stdenv, lib, dpkg, autoPatchelfHook, makeWrapper, fetchurl
-, alsa-lib, openssl, udev, libglvnd, libX11, libXcursor, libXi, libXrandr
-, libpulseaudio, libva, ffmpeg }:
+{
+  stdenvNoCC,
+  stdenv,
+  lib,
+  dpkg,
+  autoPatchelfHook,
+  makeWrapper,
+  fetchurl,
+  alsa-lib,
+  openssl,
+  udev,
+  libglvnd,
+  libX11,
+  libXcursor,
+  libXi,
+  libXrandr,
+  libpulseaudio,
+  libva,
+  ffmpeg,
+}:
 
 stdenvNoCC.mkDerivation {
   pname = "parsec-bin";

@@ -1,4 +1,7 @@
-{ udis86, fetchFromGitHub }:
+{
+  udis86,
+  fetchFromGitHub,
+}:
 udis86.overrideAttrs (old: {
   version = "unstable-2022-10-13";
 

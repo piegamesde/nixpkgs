@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, six, mock }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  six,
+  mock,
+}:
 
 buildPythonPackage rec {
   version = "2.0.2";

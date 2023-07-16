@@ -1,8 +1,23 @@
-{ stdenv, toKodiAddon, addonDir, cmake, kodi, kodi-platform, libcec_platform }:
-{ name ? "${attrs.pname}-${attrs.version}", namespace, version
-, extraNativeBuildInputs ? [ ], extraBuildInputs ? [ ]
-, extraRuntimeDependencies ? [ ], extraCMakeFlags ? [ ], extraInstallPhase ? ""
-, ... }@attrs:
+{
+  stdenv,
+  toKodiAddon,
+  addonDir,
+  cmake,
+  kodi,
+  kodi-platform,
+  libcec_platform,
+}:
+{
+  name ? "${attrs.pname}-${attrs.version}",
+  namespace,
+  version,
+  extraNativeBuildInputs ? [ ],
+  extraBuildInputs ? [ ],
+  extraRuntimeDependencies ? [ ],
+  extraCMakeFlags ? [ ],
+  extraInstallPhase ? "",
+  ...
+}@attrs:
 toKodiAddon (stdenv.mkDerivation ({
   name = "kodi-" + name;
 

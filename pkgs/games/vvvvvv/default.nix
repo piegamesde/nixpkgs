@@ -1,6 +1,21 @@
-{ stdenv, lib, fetchFromGitHub, fetchurl, cmake, makeWrapper, copyDesktopItems
-, makeDesktopItem, physfs, SDL2, SDL2_mixer, tinyxml-2, utf8cpp, Foundation
-, IOKit, makeAndPlay ? false }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  cmake,
+  makeWrapper,
+  copyDesktopItems,
+  makeDesktopItem,
+  physfs,
+  SDL2,
+  SDL2_mixer,
+  tinyxml-2,
+  utf8cpp,
+  Foundation,
+  IOKit,
+  makeAndPlay ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "vvvvvv";

@@ -1,5 +1,7 @@
 # Functions for working with paths, see ./path.md
-{ lib }:
+{
+  lib,
+}:
 let
 
   inherit (builtins) isString isPath split match;

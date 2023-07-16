@@ -1,6 +1,21 @@
-{ lib, buildPythonPackage, certifi, click, elastic-transport, elasticsearch8
-, fetchFromGitHub, hatchling, mock, pytest-asyncio, pytestCheckHook, pythonOlder
-, pyyaml, requests, six, voluptuous }:
+{
+  lib,
+  buildPythonPackage,
+  certifi,
+  click,
+  elastic-transport,
+  elasticsearch8,
+  fetchFromGitHub,
+  hatchling,
+  mock,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  requests,
+  six,
+  voluptuous,
+}:
 
 buildPythonPackage rec {
   pname = "es-client";

@@ -1,7 +1,24 @@
 { # GHC source tree to build hadrian from
-ghcSrc ? null, ghcVersion ? null, mkDerivation, base, bytestring, Cabal
-, containers, directory, extra, filepath, lib, mtl, parsec, shake, text
-, transformers, unordered-containers, userSettings ? null, writeText }:
+  ghcSrc ? null,
+  ghcVersion ? null,
+  mkDerivation,
+  base,
+  bytestring,
+  Cabal,
+  containers,
+  directory,
+  extra,
+  filepath,
+  lib,
+  mtl,
+  parsec,
+  shake,
+  text,
+  transformers,
+  unordered-containers,
+  userSettings ? null,
+  writeText,
+}:
 
 if ghcSrc == null || ghcVersion == null then
   throw "hadrian: need to specify ghcSrc and ghcVersion arguments manually"

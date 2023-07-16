@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, bash, bison, flex, which, perl, sensord ? false
-, rrdtool ? null }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bash,
+  bison,
+  flex,
+  which,
+  perl,
+  sensord ? false,
+  rrdtool ? null
+}:
 
 assert sensord -> rrdtool != null;
 

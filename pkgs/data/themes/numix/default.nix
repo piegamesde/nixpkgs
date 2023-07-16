@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, sass, glib, libxml2, gdk-pixbuf
-, gtk-engine-murrine }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  sass,
+  glib,
+  libxml2,
+  gdk-pixbuf,
+  gtk-engine-murrine,
+}:
 
 stdenv.mkDerivation rec {
   version = "2.6.7";

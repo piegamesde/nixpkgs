@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, libX11, gtk2, fig2dev, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libX11,
+  gtk2,
+  fig2dev,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "chemtool";

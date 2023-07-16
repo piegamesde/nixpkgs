@@ -1,4 +1,11 @@
-{ fetchurl, lib, stdenv, ncurses, pkg-config, gtk2 }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  ncurses,
+  pkg-config,
+  gtk2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mp3info";

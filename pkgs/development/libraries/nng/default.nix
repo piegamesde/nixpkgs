@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ninja, mbedtlsSupport ? true, mbedtls }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  mbedtlsSupport ? true,
+  mbedtls,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nng";

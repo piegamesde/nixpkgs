@@ -1,5 +1,18 @@
-{ lib, gitUpdater, fetchFromGitHub, meson, ninja, gettext, wrapGAppsHook
-, gobject-introspection, pango, gdk-pixbuf, python3, atk, gtk3 }:
+{
+  lib,
+  gitUpdater,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  gettext,
+  wrapGAppsHook,
+  gobject-introspection,
+  pango,
+  gdk-pixbuf,
+  python3,
+  atk,
+  gtk3,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "diffuse";

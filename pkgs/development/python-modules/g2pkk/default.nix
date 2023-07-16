@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, jamo, nltk }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  jamo,
+  nltk,
+}:
 
 buildPythonPackage rec {
   pname = "g2pkk";

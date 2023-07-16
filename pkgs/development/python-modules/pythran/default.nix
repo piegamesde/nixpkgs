@@ -1,5 +1,19 @@
-{ lib, python, buildPythonPackage, fetchFromGitHub, openmp, ply, networkx
-, decorator, gast, six, numpy, beniget, isPy3k, substituteAll }:
+{
+  lib,
+  python,
+  buildPythonPackage,
+  fetchFromGitHub,
+  openmp,
+  ply,
+  networkx,
+  decorator,
+  gast,
+  six,
+  numpy,
+  beniget,
+  isPy3k,
+  substituteAll,
+}:
 
 let inherit (python) stdenv;
 

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, libX11, libXext, libXcursor, libXrandr, libjack2
-, alsa-lib, mpg123, releasePath ? null }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libX11,
+  libXext,
+  libXcursor,
+  libXrandr,
+  libjack2,
+  alsa-lib,
+  mpg123,
+  releasePath ? null
+}:
 
 # To use the full release version:
 # 1) Sign into https://backstage.renoise.com and download the release version to some stable location.

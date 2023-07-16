@@ -1,14 +1,17 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; }
-, channelMap ? { # Maps "channels" to packages
-  stable = pkgs.chromium;
-  beta = pkgs.chromiumBeta;
-  dev = pkgs.chromiumDev;
-  ungoogled = pkgs.ungoogled-chromium;
-  chrome-stable = pkgs.google-chrome;
-  chrome-beta = pkgs.google-chrome-beta;
-  chrome-dev = pkgs.google-chrome-dev;
-} }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; },
+  channelMap ? { # Maps "channels" to packages
+    stable = pkgs.chromium;
+    beta = pkgs.chromiumBeta;
+    dev = pkgs.chromiumDev;
+    ungoogled = pkgs.ungoogled-chromium;
+    chrome-stable = pkgs.google-chrome;
+    chrome-beta = pkgs.google-chrome-beta;
+    chrome-dev = pkgs.google-chrome-dev;
+  }
+}:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -47,15 +50,17 @@ in mapAttrs (channel: chromiumPkg:
 
     enableOCR = true;
 
-    nodes.machine = { ... }: {
-      imports = [ ./common/user-account.nix ./common/x11.nix ];
-      virtualisation.memorySize = 2047;
-      test-support.displayManager.auto.user = user;
-      environment = {
-        systemPackages = [ chromiumPkg ];
-        variables."XAUTHORITY" = "/home/alice/.Xauthority";
+    nodes.machine = {
+        ...
+      }: {
+        imports = [ ./common/user-account.nix ./common/x11.nix ];
+        virtualisation.memorySize = 2047;
+        test-support.displayManager.auto.user = user;
+        environment = {
+          systemPackages = [ chromiumPkg ];
+          variables."XAUTHORITY" = "/home/alice/.Xauthority";
+        };
       };
-    };
 
     testScript = let
       xdo = name: text:

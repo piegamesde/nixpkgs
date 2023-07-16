@@ -1,5 +1,12 @@
-{ lib, mkCoqDerivation, coq, mathcomp-algebra, coq-elpi, mathcomp-zify
-, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  mathcomp-algebra,
+  coq-elpi,
+  mathcomp-zify,
+  version ? null
+}:
 
 mkCoqDerivation {
   namePrefix = [ "coq" "mathcomp" ];

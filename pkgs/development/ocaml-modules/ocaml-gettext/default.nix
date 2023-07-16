@@ -1,4 +1,12 @@
-{ lib, fetchurl, buildDunePackage, cppo, gettext, fileutils, ounit }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  cppo,
+  gettext,
+  fileutils,
+  ounit,
+}:
 
 buildDunePackage rec {
   pname = "gettext";

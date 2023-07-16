@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, ocaml, eprover, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocaml,
+  eprover,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "iprover";

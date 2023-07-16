@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, cln, pkg-config, readline, gmp, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cln,
+  pkg-config,
+  readline,
+  gmp,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ginac";

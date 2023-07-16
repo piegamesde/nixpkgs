@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, check }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  check,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ding-libs";

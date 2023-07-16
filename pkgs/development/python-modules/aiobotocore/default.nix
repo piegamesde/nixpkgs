@@ -1,5 +1,17 @@
-{ lib, aiohttp, aioitertools, botocore, buildPythonPackage, dill
-, fetchFromGitHub, moto, pytest-asyncio, pytestCheckHook, pythonOlder, wrapt }:
+{
+  lib,
+  aiohttp,
+  aioitertools,
+  botocore,
+  buildPythonPackage,
+  dill,
+  fetchFromGitHub,
+  moto,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  wrapt,
+}:
 
 buildPythonPackage rec {
   pname = "aiobotocore";

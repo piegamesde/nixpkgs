@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, fixedPoint ? false, withCustomModes ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fixedPoint ? false,
+  withCustomModes ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "libopus";

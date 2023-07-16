@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, flake8, mock, nose, pytest, cryptography
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flake8,
+  mock,
+  nose,
+  pytest,
+  cryptography,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "py-vapid";

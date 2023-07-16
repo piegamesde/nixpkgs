@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, fetchpatch, unzip, mpg123 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  unzip,
+  mpg123,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mp3gain";

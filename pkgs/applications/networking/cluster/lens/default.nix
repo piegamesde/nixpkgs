@@ -1,4 +1,7 @@
-{ stdenv, callPackage }:
+{
+  stdenv,
+  callPackage,
+}:
 
 if stdenv.isDarwin then
   callPackage ./darwin.nix { }

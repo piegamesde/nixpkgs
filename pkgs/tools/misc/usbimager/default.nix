@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitLab, pkg-config, wrapGAppsHook, withLibui ? true
-, gtk3, withUdisks ? stdenv.isLinux, udisks, glib, libX11 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  pkg-config,
+  wrapGAppsHook,
+  withLibui ? true,
+  gtk3,
+  withUdisks ? stdenv.isLinux,
+  udisks,
+  glib,
+  libX11,
+}:
 
 stdenv.mkDerivation rec {
   pname = "usbimager";

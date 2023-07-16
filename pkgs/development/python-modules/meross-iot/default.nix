@@ -1,5 +1,14 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, paho-mqtt, pytestCheckHook
-, pythonOlder, requests, retrying }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  paho-mqtt,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  retrying,
+}:
 
 buildPythonPackage rec {
   pname = "meross-iot";

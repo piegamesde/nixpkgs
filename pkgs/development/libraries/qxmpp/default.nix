@@ -1,5 +1,12 @@
-{ mkDerivation, lib, fetchFromGitHub, cmake, pkg-config, withGstreamer ? true
-, gst_all_1 }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  withGstreamer ? true,
+  gst_all_1,
+}:
 
 mkDerivation rec {
   pname = "qxmpp";

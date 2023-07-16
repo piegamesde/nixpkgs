@@ -1,6 +1,12 @@
-{ lib, stdenv }:
+{
+  lib,
+  stdenv,
+}:
 
-{ paths, disabledDefaultBackends ? [ ] }:
+{
+  paths,
+  disabledDefaultBackends ? [ ]
+}:
 
 with lib;
 let

@@ -1,8 +1,37 @@
-{ stdenv, lib, fetchFromGitHub, substituteAll, cairo, cinnamon-desktop, dbus
-, desktop-file-utils, glib, gnome, gobject-introspection, graphene, gtk3
-, json-glib, libcanberra, libdrm, libgnomekbd, libgudev, libinput
-, libstartup_notification, libwacom, libXdamage, libxkbcommon, libXtst, mesa
-, meson, ninja, pipewire, pkg-config, python3, udev, wrapGAppsHook, xorgserver
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  substituteAll,
+  cairo,
+  cinnamon-desktop,
+  dbus,
+  desktop-file-utils,
+  glib,
+  gnome,
+  gobject-introspection,
+  graphene,
+  gtk3,
+  json-glib,
+  libcanberra,
+  libdrm,
+  libgnomekbd,
+  libgudev,
+  libinput,
+  libstartup_notification,
+  libwacom,
+  libXdamage,
+  libxkbcommon,
+  libXtst,
+  mesa,
+  meson,
+  ninja,
+  pipewire,
+  pkg-config,
+  python3,
+  udev,
+  wrapGAppsHook,
+  xorgserver,
 }:
 
 stdenv.mkDerivation rec {

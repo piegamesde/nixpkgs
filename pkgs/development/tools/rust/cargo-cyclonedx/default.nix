@@ -1,5 +1,15 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, openssl, Security
-, SystemConfiguration, CoreFoundation, curl }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  Security,
+  SystemConfiguration,
+  CoreFoundation,
+  curl,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-cyclonedx";

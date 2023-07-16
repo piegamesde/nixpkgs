@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, llvmPackages, getconf }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  llvmPackages,
+  getconf,
+}:
 
 buildGoModule rec {
   pname = "gllvm";

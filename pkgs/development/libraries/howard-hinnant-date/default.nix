@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, tzdata, fetchpatch, substituteAll }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  tzdata,
+  fetchpatch,
+  substituteAll,
+}:
 
 stdenv.mkDerivation rec {
   pname = "howard-hinnant-date";

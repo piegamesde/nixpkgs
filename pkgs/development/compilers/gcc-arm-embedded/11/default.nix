@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, ncurses5, python38, libxcrypt-legacy, runtimeShell }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses5,
+  python38,
+  libxcrypt-legacy,
+  runtimeShell,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gcc-arm-embedded";

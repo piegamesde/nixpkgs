@@ -1,5 +1,14 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles, makeWrapper, bash
-, coreutils, git, pandoc }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  makeWrapper,
+  bash,
+  coreutils,
+  git,
+  pandoc,
+}:
 
 let
   version = "1.3.0";

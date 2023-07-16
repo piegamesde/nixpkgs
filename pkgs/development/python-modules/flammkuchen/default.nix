@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, numpy, scipy, tables, pandas, nose
-, configparser }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  numpy,
+  scipy,
+  tables,
+  pandas,
+  nose,
+  configparser,
+}:
 
 buildPythonPackage rec {
   pname = "flammkuchen";

@@ -1,4 +1,8 @@
-{ lib, stdenvNoCC, callPackage }:
+{
+  lib,
+  stdenvNoCC,
+  callPackage,
+}:
 
 let common = callPackage ./common.nix { };
 in stdenvNoCC.mkDerivation rec {

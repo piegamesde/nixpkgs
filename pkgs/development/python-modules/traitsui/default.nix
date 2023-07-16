@@ -1,4 +1,11 @@
-{ lib, fetchPypi, buildPythonPackage, traits, pyface, pythonOlder }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  traits,
+  pyface,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "traitsui";

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, hatchling, pytestCheckHook, markdown
-, pyyaml, pygments }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatchling,
+  pytestCheckHook,
+  markdown,
+  pyyaml,
+  pygments,
+}:
 
 let
   extensions = [

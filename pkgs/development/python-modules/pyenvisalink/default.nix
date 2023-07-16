@@ -1,5 +1,12 @@
-{ lib, async-timeout, buildPythonPackage, colorlog, fetchPypi, pyserial
-, pythonOlder }:
+{
+  lib,
+  async-timeout,
+  buildPythonPackage,
+  colorlog,
+  fetchPypi,
+  pyserial,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pyenvisalink";

@@ -1,5 +1,14 @@
-{ lib, mkDerivation, fetchFromGitHub, fetchurl, povray, qmake, qttools
-, substituteAll, zlib }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  fetchurl,
+  povray,
+  qmake,
+  qttools,
+  substituteAll,
+  zlib,
+}:
 
 /* To use aditional parts libraries
    set the variable LEOCAD_LIB=/path/to/libs/ or use option -l /path/to/libs/

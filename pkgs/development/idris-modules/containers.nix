@@ -1,4 +1,10 @@
-{ build-idris-package, fetchFromGitHub, effects, test, lib }:
+{
+  build-idris-package,
+  fetchFromGitHub,
+  effects,
+  test,
+  lib,
+}:
 build-idris-package {
   pname = "containers";
   version = "2017-09-10";

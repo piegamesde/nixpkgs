@@ -1,4 +1,11 @@
-{ stdenv, fetchFromGitHub, lib, db, file, libnsl }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  db,
+  file,
+  libnsl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "re-Isearch";

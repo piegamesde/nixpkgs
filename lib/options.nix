@@ -1,5 +1,7 @@
 # Nixpkgs/NixOS option handling.
-{ lib }:
+{
+  lib,
+}:
 
 let
   inherit (lib)
@@ -35,25 +37,26 @@ in rec {
   */
   mkOption = {
     # Default value used when no definition is given in the configuration.
-    default ? null,
-    # Textual representation of the default, for the manual.
-    defaultText ? null,
-    # Example value used in the manual.
-    example ? null,
-    # String describing the option.
-    description ? null,
-    # Related packages used in the manual (see `genRelatedPackages` in ../nixos/lib/make-options-doc/default.nix).
-    relatedPackages ? null,
-    # Option type, providing type-checking and value merging.
-    type ? null,
-    # Function that converts the option value to something else.
-    apply ? null,
-    # Whether the option is for NixOS developers only.
-    internal ? null,
-    # Whether the option shows up in the manual. Default: true. Use false to hide the option and any sub-options from submodules. Use "shallow" to hide only sub-options.
-    visible ? null,
-    # Whether the option can be set only once
-    readOnly ? null, }@attrs:
+      default ? null,
+      # Textual representation of the default, for the manual.
+      defaultText ? null,
+      # Example value used in the manual.
+      example ? null,
+      # String describing the option.
+      description ? null,
+      # Related packages used in the manual (see `genRelatedPackages` in ../nixos/lib/make-options-doc/default.nix).
+      relatedPackages ? null,
+      # Option type, providing type-checking and value merging.
+      type ? null,
+      # Function that converts the option value to something else.
+      apply ? null,
+      # Whether the option is for NixOS developers only.
+      internal ? null,
+      # Whether the option shows up in the manual. Default: true. Use false to hide the option and any sub-options from submodules. Use "shallow" to hide only sub-options.
+      visible ? null,
+      # Whether the option can be set only once
+      readOnly ? null,
+    }@attrs:
     attrs // {
       _type = "option";
     };
@@ -126,11 +129,12 @@ in rec {
     name:
     {
     # The attribute path where the default package is located (may be omitted)
-    default ? name,
-    # A string or an attribute path to use as an example (may be omitted)
-    example ? null,
-    # Additional text to include in the option description (may be omitted)
-    extraDescription ? "", }:
+      default ? name,
+      # A string or an attribute path to use as an example (may be omitted)
+      example ? null,
+      # Additional text to include in the option description (may be omitted)
+      extraDescription ? "",
+    }:
     let
       name' = if isList name then last name else name;
       default' = if isList default then default else [ default ];
@@ -202,7 +206,9 @@ in rec {
 
   mergeOneOption = mergeUniqueOption { message = ""; };
 
-  mergeUniqueOption = { message }:
+  mergeUniqueOption = {
+      message,
+    }:
     loc: defs:
     if length defs == 1 then
       (head defs).value

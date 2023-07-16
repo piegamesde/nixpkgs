@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, python ? null, swig, llvmPackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  python ? null,
+  swig,
+  llvmPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "plfit";

@@ -1,5 +1,13 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, qtbase, qtsvg, lxqt-build-tools
-, gitUpdater }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  qtbase,
+  qtsvg,
+  lxqt-build-tools,
+  gitUpdater,
+}:
 
 mkDerivation rec {
   pname = "libqtxdg";

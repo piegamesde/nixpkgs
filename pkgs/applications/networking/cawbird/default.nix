@@ -1,6 +1,27 @@
-{ lib, stdenv, fetchFromGitHub, glib, gtk3, json-glib, sqlite, libsoup, liboauth
-, gettext, gspell, vala, meson, ninja, pkg-config, dconf, gst_all_1
-, wrapGAppsHook, gobject-introspection, glib-networking, librest, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  glib,
+  gtk3,
+  json-glib,
+  sqlite,
+  libsoup,
+  liboauth,
+  gettext,
+  gspell,
+  vala,
+  meson,
+  ninja,
+  pkg-config,
+  dconf,
+  gst_all_1,
+  wrapGAppsHook,
+  gobject-introspection,
+  glib-networking,
+  librest,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.5";

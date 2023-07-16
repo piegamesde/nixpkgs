@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, matplotlib, numpy, pandas
-, pillow, pytest, pytest-datadir, pytestCheckHook, pyyaml, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  matplotlib,
+  numpy,
+  pandas,
+  pillow,
+  pytest,
+  pytest-datadir,
+  pytestCheckHook,
+  pyyaml,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-regressions";

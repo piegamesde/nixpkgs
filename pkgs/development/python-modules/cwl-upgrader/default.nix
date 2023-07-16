@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, mypy-extensions, pytest-xdist
-, pytestCheckHook, pythonOlder, ruamel-yaml, schema-salad }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mypy-extensions,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  ruamel-yaml,
+  schema-salad,
+}:
 
 buildPythonPackage rec {
   pname = "cwl-upgrader";

@@ -1,16 +1,45 @@
-{ lib, stdenv, targetPackages
+{
+  lib,
+  stdenv,
+  targetPackages
 
-, crossStageStatic, libcCross, threadsCross, version
+  ,
+  crossStageStatic,
+  libcCross,
+  threadsCross,
+  version
 
-, binutils, gmp, mpfr, libmpc, isl, cloog ? null
+  ,
+  binutils,
+  gmp,
+  mpfr,
+  libmpc,
+  isl,
+  cloog ? null
 
-, enableLTO, enableMultilib, enablePlugin, disableGdbPlugin ? !enablePlugin
-, enableShared
+  ,
+  enableLTO,
+  enableMultilib,
+  enablePlugin,
+  disableGdbPlugin ? !enablePlugin,
+  enableShared
 
-, langC, langCC, langD ? false, langFortran, langJava ? false
-, javaAwtGtk ? false, javaAntlr ? null, javaEcj ? null, langAda ? false, langGo
-, langObjC, langObjCpp, langJit
-, disableBootstrap ? stdenv.targetPlatform != stdenv.hostPlatform }:
+  ,
+  langC,
+  langCC,
+  langD ? false,
+  langFortran,
+  langJava ? false,
+  javaAwtGtk ? false,
+  javaAntlr ? null,
+  javaEcj ? null,
+  langAda ? false,
+  langGo,
+  langObjC,
+  langObjCpp,
+  langJit,
+  disableBootstrap ? stdenv.targetPlatform != stdenv.hostPlatform
+}:
 
 assert !enablePlugin -> disableGdbPlugin;
 assert langJava -> lib.versionOlder version "7";

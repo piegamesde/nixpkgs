@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cups, coreutils, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cups,
+  coreutils,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cups-pdf-to-pdf";

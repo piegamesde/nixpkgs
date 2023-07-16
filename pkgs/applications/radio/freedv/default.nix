@@ -1,8 +1,27 @@
-{ config, lib, stdenv, fetchFromGitHub, cmake, macdylibbundler, makeWrapper
-, darwin, codec2, libpulseaudio, libsamplerate, libsndfile, lpcnetfreedv
-, portaudio, speexdsp, hamlib_4, wxGTK32
-, pulseSupport ? config.pulseaudio or stdenv.isLinux, AppKit, AVFoundation
-, Cocoa, CoreMedia }:
+{
+  config,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  macdylibbundler,
+  makeWrapper,
+  darwin,
+  codec2,
+  libpulseaudio,
+  libsamplerate,
+  libsndfile,
+  lpcnetfreedv,
+  portaudio,
+  speexdsp,
+  hamlib_4,
+  wxGTK32,
+  pulseSupport ? config.pulseaudio or stdenv.isLinux,
+  AppKit,
+  AVFoundation,
+  Cocoa,
+  CoreMedia,
+}:
 
 stdenv.mkDerivation rec {
   pname = "freedv";

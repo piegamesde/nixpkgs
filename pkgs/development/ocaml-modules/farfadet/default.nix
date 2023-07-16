@@ -1,4 +1,13 @@
-{ stdenv, lib, fetchurl, ocaml, findlib, ocamlbuild, topkg, faraday }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  topkg,
+  faraday,
+}:
 
 if lib.versionOlder ocaml.version "4.3" then
   throw "farfadet is not available for OCaml ${ocaml.version}"

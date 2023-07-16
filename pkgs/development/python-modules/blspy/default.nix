@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, fetchFromGitHub, setuptools-scm
-, substituteAll, cmake, boost, gmp, pybind11, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchFromGitHub,
+  setuptools-scm,
+  substituteAll,
+  cmake,
+  boost,
+  gmp,
+  pybind11,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "blspy";

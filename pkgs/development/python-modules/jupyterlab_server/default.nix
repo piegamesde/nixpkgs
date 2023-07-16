@@ -1,6 +1,22 @@
-{ lib, buildPythonPackage, fetchPypi, hatchling, jsonschema, pythonOlder
-, requests, pytestCheckHook, json5, babel, jupyter-server, tomli, openapi-core
-, pytest-timeout, pytest-tornasync, ruamel-yaml, importlib-metadata }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  hatchling,
+  jsonschema,
+  pythonOlder,
+  requests,
+  pytestCheckHook,
+  json5,
+  babel,
+  jupyter-server,
+  tomli,
+  openapi-core,
+  pytest-timeout,
+  pytest-tornasync,
+  ruamel-yaml,
+  importlib-metadata,
+}:
 
 buildPythonPackage rec {
   pname = "jupyterlab_server";

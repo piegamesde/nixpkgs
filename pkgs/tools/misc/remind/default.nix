@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, tk, tcllib, tcl, tkremind ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  tk,
+  tcllib,
+  tcl,
+  tkremind ? true
+}:
 
 let
   inherit (lib) optional optionals optionalString;

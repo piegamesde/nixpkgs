@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, atk, glibmm, pkg-config, gnome, meson, ninja, python3
+{
+  lib,
+  stdenv,
+  fetchurl,
+  atk,
+  glibmm,
+  pkg-config,
+  gnome,
+  meson,
+  ninja,
+  python3,
 }:
 
 stdenv.mkDerivation rec {

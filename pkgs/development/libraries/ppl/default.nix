@@ -1,4 +1,12 @@
-{ fetchurl, fetchpatch, lib, stdenv, gmpxx, perl, gnum4 }:
+{
+  fetchurl,
+  fetchpatch,
+  lib,
+  stdenv,
+  gmpxx,
+  perl,
+  gnum4,
+}:
 
 let version = "1.2";
 

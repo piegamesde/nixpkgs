@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pam, gnupg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pam,
+  gnupg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pam_gnupg";

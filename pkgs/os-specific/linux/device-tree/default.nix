@@ -1,4 +1,8 @@
-{ lib, stdenvNoCC, dtc }:
+{
+  lib,
+  stdenvNoCC,
+  dtc,
+}:
 
 with lib; {
   applyOverlays = (base: overlays':

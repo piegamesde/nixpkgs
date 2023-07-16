@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, prevo-tools }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  prevo-tools,
+}:
 
 stdenv.mkDerivation rec {
   pname = "prevo-data";

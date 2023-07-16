@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, fetchpatch, cmake, pkg-config, qt4, taglib, chromaprint
-, ffmpeg_4 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  qt4,
+  taglib,
+  chromaprint,
+  ffmpeg_4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "acoustid-fingerprinter";

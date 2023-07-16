@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, packaging, pandas, pytestCheckHook
-, pythonOlder, setuptoolsBuildHook, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  packaging,
+  pandas,
+  pytestCheckHook,
+  pythonOlder,
+  setuptoolsBuildHook,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "xarray";

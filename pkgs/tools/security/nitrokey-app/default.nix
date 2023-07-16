@@ -1,5 +1,14 @@
-{ lib, stdenv, cmake, fetchFromGitHub, pkg-config, qttranslations
-, wrapQtAppsHook, libnitrokey, cppcodec }:
+{
+  lib,
+  stdenv,
+  cmake,
+  fetchFromGitHub,
+  pkg-config,
+  qttranslations,
+  wrapQtAppsHook,
+  libnitrokey,
+  cppcodec,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nitrokey-app";

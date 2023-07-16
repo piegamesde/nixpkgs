@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, cython, fetchPypi, mock, numpy, scipy, smart-open
-, testfixtures, pyemd, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  cython,
+  fetchPypi,
+  mock,
+  numpy,
+  scipy,
+  smart-open,
+  testfixtures,
+  pyemd,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "gensim";

@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, buildPythonPackage, django, coreschema, itypes
-, uritemplate, requests, pytest, }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  django,
+  coreschema,
+  itypes,
+  uritemplate,
+  requests,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "coreapi";

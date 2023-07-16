@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, qt4, udev, config
-, acceptLicense ? config.segger-jlink.acceptLicense or false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  qt4,
+  udev,
+  config,
+  acceptLicense ? config.segger-jlink.acceptLicense or false
+}:
 
 let
   supported = {

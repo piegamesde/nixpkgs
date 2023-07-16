@@ -1,5 +1,15 @@
-{ stdenv, buildDunePackage, dune-configurator, fetchFromGitHub, alcotest, eigen
-, stdio, openblasCompat, owl-base, npy }:
+{
+  stdenv,
+  buildDunePackage,
+  dune-configurator,
+  fetchFromGitHub,
+  alcotest,
+  eigen,
+  stdio,
+  openblasCompat,
+  owl-base,
+  npy,
+}:
 
 buildDunePackage rec {
   pname = "owl";

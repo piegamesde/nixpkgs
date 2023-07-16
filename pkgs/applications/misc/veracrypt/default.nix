@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, pkg-config, makeself, yasm, fuse, wxGTK, lvm2
-, substituteAll, e2fsprogs, exfat, ntfs3g, btrfs-progs, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  makeself,
+  yasm,
+  fuse,
+  wxGTK,
+  lvm2,
+  substituteAll,
+  e2fsprogs,
+  exfat,
+  ntfs3g,
+  btrfs-progs,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "veracrypt";

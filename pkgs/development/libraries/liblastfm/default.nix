@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, pkg-config, which, cmake
-, fftwSinglePrec, libsamplerate, qtbase, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  which,
+  cmake,
+  fftwSinglePrec,
+  libsamplerate,
+  qtbase,
+  darwin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "liblastfm-unstable";

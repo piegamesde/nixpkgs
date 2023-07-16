@@ -1,6 +1,19 @@
-{ stdenv, lib, fetchurl, autoreconfHook, autoconf-archive, pkg-config, perl
-, python3, dbus, polkit, systemdMinimal, IOKit, pname ? "pcsclite"
-, polkitSupport ? false }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoreconfHook,
+  autoconf-archive,
+  pkg-config,
+  perl,
+  python3,
+  dbus,
+  polkit,
+  systemdMinimal,
+  IOKit,
+  pname ? "pcsclite",
+  polkitSupport ? false
+}:
 
 stdenv.mkDerivation rec {
   inherit pname;

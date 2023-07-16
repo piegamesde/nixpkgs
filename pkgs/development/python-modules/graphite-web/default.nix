@@ -1,6 +1,24 @@
-{ lib, stdenv, buildPythonPackage, python, cairocffi, django, django_tagging
-, fetchFromGitHub, fetchpatch, gunicorn, mock, pyparsing, python-memcached
-, pythonOlder, pytz, six, txamqp, urllib3, whisper }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  python,
+  cairocffi,
+  django,
+  django_tagging,
+  fetchFromGitHub,
+  fetchpatch,
+  gunicorn,
+  mock,
+  pyparsing,
+  python-memcached,
+  pythonOlder,
+  pytz,
+  six,
+  txamqp,
+  urllib3,
+  whisper,
+}:
 
 buildPythonPackage rec {
   pname = "graphite-web";

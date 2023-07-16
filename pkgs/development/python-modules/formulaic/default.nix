@@ -1,6 +1,20 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, hatchling
-, hatch-vcs, git, astor, interface-meta, numpy, pandas, scipy, sympy, wrapt
-, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  hatchling,
+  hatch-vcs,
+  git,
+  astor,
+  interface-meta,
+  numpy,
+  pandas,
+  scipy,
+  sympy,
+  wrapt,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "formulaic";

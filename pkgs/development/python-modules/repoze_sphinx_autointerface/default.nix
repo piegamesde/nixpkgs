@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, zope_interface, sphinx }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  zope_interface,
+  sphinx,
+}:
 
 buildPythonPackage rec {
   pname = "repoze.sphinx.autointerface";

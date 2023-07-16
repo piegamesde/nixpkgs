@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, flex, bison, buildsystem }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  flex,
+  bison,
+  buildsystem,
+}:
 
 stdenv.mkDerivation rec {
   pname = "netsurf-${libname}";

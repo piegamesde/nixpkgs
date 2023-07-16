@@ -1,4 +1,10 @@
-{ fetchFromGitHub, lib, stdenv, cmake, qt4 }:
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  cmake,
+  qt4,
+}:
 
 stdenv.mkDerivation {
   pname = "resim";

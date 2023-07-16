@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchurl, python3Packages, cmake, python3 }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  python3Packages,
+  cmake,
+  python3,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "obitools3";

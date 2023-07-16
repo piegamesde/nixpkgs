@@ -1,5 +1,14 @@
-{ stdenv, lib, cmake, fetchFromGitHub, fetchpatch, wrapQtAppsHook, qtbase
-, qtquickcontrols2, qtgraphicaleffects }:
+{
+  stdenv,
+  lib,
+  cmake,
+  fetchFromGitHub,
+  fetchpatch,
+  wrapQtAppsHook,
+  qtbase,
+  qtquickcontrols2,
+  qtgraphicaleffects,
+}:
 
 stdenv.mkDerivation rec {
   pname = "graphia";

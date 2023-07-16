@@ -1,6 +1,12 @@
 nvidia_x11: sha256:
 
-{ stdenv, lib, fetchFromGitHub, m4, libtirpc }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  m4,
+  libtirpc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nvidia-persistenced";

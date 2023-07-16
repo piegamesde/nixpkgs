@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, msrest, msrestazure
-, azure-common, azure-mgmt-core }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  msrest,
+  msrestazure,
+  azure-common,
+  azure-mgmt-core,
+}:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-monitor";

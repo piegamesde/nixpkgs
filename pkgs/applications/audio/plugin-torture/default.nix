@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, boost, ladspaH, lilv, lv2, pkg-config, serd
-, sord, sratom }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  boost,
+  ladspaH,
+  lilv,
+  lv2,
+  pkg-config,
+  serd,
+  sord,
+  sratom,
+}:
 
 stdenv.mkDerivation {
   pname = "plugin-torture";

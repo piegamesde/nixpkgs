@@ -1,12 +1,35 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gettext, msgpack, libtermkey, libiconv
-, fetchpatch, libuv, lua, ncurses, pkg-config, unibilium, gperf, libvterm-neovim
-, tree-sitter, fetchurl
-, treesitter-parsers ? import ./treesitter-parsers.nix { inherit fetchurl; }
-, CoreServices, glibcLocales ? null, procps ? null
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gettext,
+  msgpack,
+  libtermkey,
+  libiconv,
+  fetchpatch,
+  libuv,
+  lua,
+  ncurses,
+  pkg-config,
+  unibilium,
+  gperf,
+  libvterm-neovim,
+  tree-sitter,
+  fetchurl,
+  treesitter-parsers ? import ./treesitter-parsers.nix { inherit fetchurl; },
+  CoreServices,
+  glibcLocales ? null,
+  procps ? null
 
-  # now defaults to false because some tests can be flaky (clipboard etc), see
-  # also: https://github.com/neovim/neovim/issues/16233
-, doCheck ? false, nodejs ? null, fish ? null, python3 ? null }:
+    # now defaults to false because some tests can be flaky (clipboard etc), see
+    # also: https://github.com/neovim/neovim/issues/16233
+  ,
+  doCheck ? false,
+  nodejs ? null,
+  fish ? null,
+  python3 ? null
+}:
 
 let
   neovimLuaEnv = lua.withPackages (ps:

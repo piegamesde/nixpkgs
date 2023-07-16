@@ -1,35 +1,117 @@
-{ config, lib, stdenv, fetchFromGitHub, fetchpatch, addOpenGLRunpath, docutils
-, meson, ninja, pkg-config, python3, ffmpeg_5, freefont_ttf, freetype, libass
-, libpthreadstubs, nv-codec-headers, lua, libuchardet, libiconv, xcbuild
+{
+  config,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  addOpenGLRunpath,
+  docutils,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  ffmpeg_5,
+  freefont_ttf,
+  freetype,
+  libass,
+  libpthreadstubs,
+  nv-codec-headers,
+  lua,
+  libuchardet,
+  libiconv,
+  xcbuild
 
-, waylandSupport ? stdenv.isLinux, wayland, wayland-protocols, wayland-scanner
-, libxkbcommon
+  ,
+  waylandSupport ? stdenv.isLinux,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+  libxkbcommon
 
-, x11Support ? stdenv.isLinux, libGLU, libGL, libX11, libXext, libXxf86vm
-, libXrandr, libXpresent
+  ,
+  x11Support ? stdenv.isLinux,
+  libGLU,
+  libGL,
+  libX11,
+  libXext,
+  libXxf86vm,
+  libXrandr,
+  libXpresent
 
-, cddaSupport ? false, libcdio, libcdio-paranoia
+  ,
+  cddaSupport ? false,
+  libcdio,
+  libcdio-paranoia
 
-, vulkanSupport ? stdenv.isLinux, libplacebo, shaderc # instead of spirv-cross
-, vulkan-headers, vulkan-loader
+  ,
+  vulkanSupport ? stdenv.isLinux,
+  libplacebo,
+  shaderc # instead of spirv-cross
+  ,
+  vulkan-headers,
+  vulkan-loader
 
-, drmSupport ? stdenv.isLinux, libdrm, mesa
+  ,
+  drmSupport ? stdenv.isLinux,
+  libdrm,
+  mesa
 
-, alsaSupport ? stdenv.isLinux, alsa-lib, archiveSupport ? true, libarchive
-, bluraySupport ? true, libbluray, bs2bSupport ? true, libbs2b
-, cacaSupport ? true, libcaca, cmsSupport ? true, lcms2
-, dvdnavSupport ? stdenv.isLinux, libdvdnav, dvbinSupport ? stdenv.isLinux
-, jackaudioSupport ? false, libjack2, javascriptSupport ? true, mujs
-, libpngSupport ? true, libpng, openalSupport ? true, openalSoft
-, pulseSupport ? config.pulseaudio or stdenv.isLinux, libpulseaudio
-, pipewireSupport ? stdenv.isLinux, pipewire, rubberbandSupport ? true
-, rubberband, screenSaverSupport ? true, libXScrnSaver, sdl2Support ? true, SDL2
-, sixelSupport ? false, libsixel, speexSupport ? true, speex
-, swiftSupport ? stdenv.isDarwin && stdenv.isAarch64, swift
-, theoraSupport ? true, libtheora, vaapiSupport ? stdenv.isLinux, libva
-, vapoursynthSupport ? false, vapoursynth, vdpauSupport ? true, libvdpau
-, xineramaSupport ? stdenv.isLinux, libXinerama, xvSupport ? stdenv.isLinux
-, libXv, zimgSupport ? true, zimg, darwin }:
+  ,
+  alsaSupport ? stdenv.isLinux,
+  alsa-lib,
+  archiveSupport ? true,
+  libarchive,
+  bluraySupport ? true,
+  libbluray,
+  bs2bSupport ? true,
+  libbs2b,
+  cacaSupport ? true,
+  libcaca,
+  cmsSupport ? true,
+  lcms2,
+  dvdnavSupport ? stdenv.isLinux,
+  libdvdnav,
+  dvbinSupport ? stdenv.isLinux,
+  jackaudioSupport ? false,
+  libjack2,
+  javascriptSupport ? true,
+  mujs,
+  libpngSupport ? true,
+  libpng,
+  openalSupport ? true,
+  openalSoft,
+  pulseSupport ? config.pulseaudio or stdenv.isLinux,
+  libpulseaudio,
+  pipewireSupport ? stdenv.isLinux,
+  pipewire,
+  rubberbandSupport ? true,
+  rubberband,
+  screenSaverSupport ? true,
+  libXScrnSaver,
+  sdl2Support ? true,
+  SDL2,
+  sixelSupport ? false,
+  libsixel,
+  speexSupport ? true,
+  speex,
+  swiftSupport ? stdenv.isDarwin && stdenv.isAarch64,
+  swift,
+  theoraSupport ? true,
+  libtheora,
+  vaapiSupport ? stdenv.isLinux,
+  libva,
+  vapoursynthSupport ? false,
+  vapoursynth,
+  vdpauSupport ? true,
+  libvdpau,
+  xineramaSupport ? stdenv.isLinux,
+  libXinerama,
+  xvSupport ? stdenv.isLinux,
+  libXv,
+  zimgSupport ? true,
+  zimg,
+  darwin,
+}:
 
 let
   inherit (darwin.apple_sdk_11_0.frameworks)

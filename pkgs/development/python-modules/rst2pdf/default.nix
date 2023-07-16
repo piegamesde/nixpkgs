@@ -1,6 +1,21 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools, docutils, importlib-metadata
-, jinja2, packaging, pygments, pyyaml, reportlab, smartypants, pillow
-, pytestCheckHook, pymupdf, sphinx }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  docutils,
+  importlib-metadata,
+  jinja2,
+  packaging,
+  pygments,
+  pyyaml,
+  reportlab,
+  smartypants,
+  pillow,
+  pytestCheckHook,
+  pymupdf,
+  sphinx,
+}:
 
 buildPythonPackage rec {
   pname = "rst2pdf";

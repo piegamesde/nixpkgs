@@ -1,6 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, isPyPy
-, lazy-object-proxy, setuptools, typing-extensions, typed-ast, pylint
-, pytestCheckHook, wrapt }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  isPyPy,
+  lazy-object-proxy,
+  setuptools,
+  typing-extensions,
+  typed-ast,
+  pylint,
+  pytestCheckHook,
+  wrapt,
+}:
 
 buildPythonPackage rec {
   pname = "astroid";

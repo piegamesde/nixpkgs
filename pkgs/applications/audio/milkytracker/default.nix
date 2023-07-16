@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, makeWrapper, SDL2, alsa-lib
-, libjack2, lhasa, perl, rtmidi, zlib, zziplib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  makeWrapper,
+  SDL2,
+  alsa-lib,
+  libjack2,
+  lhasa,
+  perl,
+  rtmidi,
+  zlib,
+  zziplib,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.03.00";

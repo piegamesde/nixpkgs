@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, makeWrapper, opencl-headers, ocl-icd, xxHash }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  opencl-headers,
+  ocl-icd,
+  xxHash,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hashcat";

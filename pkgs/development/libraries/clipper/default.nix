@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, cmake, ninja, unzip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  ninja,
+  unzip,
+}:
 
 stdenv.mkDerivation rec {
   version = "6.4.2";

@@ -1,5 +1,16 @@
-{ lib, aio-geojson-client, aiohttp, aresponses, mock, buildPythonPackage
-, fetchFromGitHub, pytest-asyncio, pytestCheckHook, pytz, pythonOlder }:
+{
+  lib,
+  aio-geojson-client,
+  aiohttp,
+  aresponses,
+  mock,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pytz,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aio-geojson-geonetnz-volcano";

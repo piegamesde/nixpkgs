@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, makeWrapper, perl, perlPackages, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  perl,
+  perlPackages,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation rec {
   pname = "findimagedupes";

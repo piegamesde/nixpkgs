@@ -1,6 +1,21 @@
-{ lib, fetchFromGitHub, buildPythonApplication, python3Packages, wrapGAppsHook
-, xflux, librsvg, gtk3, gobject-introspection, pango, gdk-pixbuf, atk, pexpect
-, pygobject3, pyxdg, libappindicator-gtk3 }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonApplication,
+  python3Packages,
+  wrapGAppsHook,
+  xflux,
+  librsvg,
+  gtk3,
+  gobject-introspection,
+  pango,
+  gdk-pixbuf,
+  atk,
+  pexpect,
+  pygobject3,
+  pyxdg,
+  libappindicator-gtk3,
+}:
 buildPythonApplication rec {
   pname = "xflux-gui";
   version = "1.2.0";

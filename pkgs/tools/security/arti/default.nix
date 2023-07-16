@@ -1,5 +1,13 @@
-{ lib, stdenv, rustPlatform, fetchFromGitLab, pkg-config, sqlite, openssl
-, CoreServices }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitLab,
+  pkg-config,
+  sqlite,
+  openssl,
+  CoreServices,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "arti";

@@ -1,4 +1,10 @@
-{ options, config, lib, pkgs, ... }:
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -53,15 +59,19 @@ let
   templatesFileOrDir = generateAlertingProvisioningYaml "templates";
   muteTimingsFileOrDir = generateAlertingProvisioningYaml "muteTimings";
 
-  ln = { src, dir, filename }: ''
-    if [[ -d "${src}" ]]; then
-      pushd $out/${dir} &>/dev/null
-        lndir "${src}"
-      popd &>/dev/null
-    else
-      ln -sf ${src} $out/${dir}/${filename}.yaml
-    fi
-  '';
+  ln = {
+      src,
+      dir,
+      filename,
+    }: ''
+      if [[ -d "${src}" ]]; then
+        pushd $out/${dir} &>/dev/null
+          lndir "${src}"
+        popd &>/dev/null
+      else
+        ln -sf ${src} $out/${dir}/${filename}.yaml
+      fi
+    '';
   provisionConfDir = pkgs.runCommand "grafana-provisioning" {
     nativeBuildInputs = [ pkgs.xorg.lndir ];
   } ''
@@ -1563,7 +1573,10 @@ in {
       datasourcesToCheck =
         optionals (cfg.provision.datasources.settings != null)
         cfg.provision.datasources.settings.datasources;
-      declarationUnsafe = { secureJsonData, ... }:
+      declarationUnsafe = {
+          secureJsonData,
+          ...
+        }:
         secureJsonData != null
         && any (flip doesntUseFileProvider null) (attrValues secureJsonData);
     in any declarationUnsafe datasourcesToCheck) ''
@@ -1584,9 +1597,12 @@ in {
       {
         assertion = let
           prometheusIsNotDirect = opt:
-            all
-            ({ type, access, ... }: type == "prometheus" -> access != "direct")
-            opt;
+            all ({
+                type,
+                access,
+                ...
+              }:
+              type == "prometheus" -> access != "direct") opt;
         in cfg.provision.datasources.settings == null
         || prometheusIsNotDirect cfg.provision.datasources.settings.datasources;
         message =

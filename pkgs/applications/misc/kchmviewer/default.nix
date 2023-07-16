@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, qmake, wrapQtAppsHook, chmlib
-, libzip, qtwebengine }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  qmake,
+  wrapQtAppsHook,
+  chmlib,
+  libzip,
+  qtwebengine,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kchmviewer";

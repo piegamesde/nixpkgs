@@ -1,6 +1,29 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, setuptools, pkg-config, which
-, cairo, pango, python, doxygen, ncurses, libintl, wxGTK, gtk3, IOKit, Carbon
-, Cocoa, AudioToolbox, OpenGL, CoreFoundation, pillow, numpy, six }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  pkg-config,
+  which,
+  cairo,
+  pango,
+  python,
+  doxygen,
+  ncurses,
+  libintl,
+  wxGTK,
+  gtk3,
+  IOKit,
+  Carbon,
+  Cocoa,
+  AudioToolbox,
+  OpenGL,
+  CoreFoundation,
+  pillow,
+  numpy,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "wxPython";

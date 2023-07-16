@@ -1,7 +1,25 @@
-{ lib, stdenv, mkDerivation, fetchFromGitHub, symlinkJoin, qttools, cmake
-, clang_8, grpc, protobuf, openssl, pkg-config, c-ares, libGL, zlib, curl, v2ray
-, v2ray-geoip, v2ray-domain-list-community
-, assets ? [ v2ray-geoip v2ray-domain-list-community ] }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchFromGitHub,
+  symlinkJoin,
+  qttools,
+  cmake,
+  clang_8,
+  grpc,
+  protobuf,
+  openssl,
+  pkg-config,
+  c-ares,
+  libGL,
+  zlib,
+  curl,
+  v2ray,
+  v2ray-geoip,
+  v2ray-domain-list-community,
+  assets ? [ v2ray-geoip v2ray-domain-list-community ]
+}:
 
 mkDerivation rec {
   pname = "qv2ray";

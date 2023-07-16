@@ -1,8 +1,19 @@
-{ lua, hello, wrapLua, lib, fetchFromGitHub, fetchFromGitLab, pkgs }:
+{
+  lua,
+  hello,
+  wrapLua,
+  lib,
+  fetchFromGitHub,
+  fetchFromGitLab,
+  pkgs,
+}:
 let
 
   runTest = lua:
-    { name, command }:
+    {
+      name,
+      command,
+    }:
     pkgs.runCommandLocal "test-${lua.name}" ({
       nativeBuildInputs = [ lua ];
       meta.platforms = lua.meta.platforms;

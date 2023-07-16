@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, zlib, openssl, pam, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zlib,
+  openssl,
+  pam,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ngircd";

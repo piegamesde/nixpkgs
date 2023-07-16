@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, oauth2 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  oauth2,
+}:
 
 buildPythonPackage rec {
   pname = "evernote";

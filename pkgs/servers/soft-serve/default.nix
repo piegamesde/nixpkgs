@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, makeWrapper, git }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  makeWrapper,
+  git,
+}:
 
 buildGoModule rec {
   pname = "soft-serve";

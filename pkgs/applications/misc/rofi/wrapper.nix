@@ -1,5 +1,15 @@
-{ symlinkJoin, lib, rofi-unwrapped, makeWrapper, wrapGAppsHook, gdk-pixbuf
-, hicolor-icon-theme, theme ? null, plugins ? [ ], symlink-dmenu ? false }:
+{
+  symlinkJoin,
+  lib,
+  rofi-unwrapped,
+  makeWrapper,
+  wrapGAppsHook,
+  gdk-pixbuf,
+  hicolor-icon-theme,
+  theme ? null,
+  plugins ? [ ],
+  symlink-dmenu ? false
+}:
 
 symlinkJoin {
   name = "rofi-${rofi-unwrapped.version}";

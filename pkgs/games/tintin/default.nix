@@ -1,5 +1,13 @@
-{ stdenv, fetchFromGitHub, lib, zlib, pcre, memorymappingHook, memstreamHook
-, gnutls }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  zlib,
+  pcre,
+  memorymappingHook,
+  memstreamHook,
+  gnutls,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tintin";

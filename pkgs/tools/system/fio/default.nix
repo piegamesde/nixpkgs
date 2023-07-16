@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, libaio, python3, zlib
-, withGnuplot ? false, gnuplot ? null }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  libaio,
+  python3,
+  zlib,
+  withGnuplot ? false,
+  gnuplot ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "fio";

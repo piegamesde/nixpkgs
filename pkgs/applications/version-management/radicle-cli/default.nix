@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, cmake
-, installShellFiles, asciidoctor, DarwinTools, openssl, libusb1, AppKit, git
-, openssh, testers, radicle-cli }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  cmake,
+  installShellFiles,
+  asciidoctor,
+  DarwinTools,
+  openssl,
+  libusb1,
+  AppKit,
+  git,
+  openssh,
+  testers,
+  radicle-cli,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "radicle-cli";

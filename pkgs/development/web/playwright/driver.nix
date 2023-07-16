@@ -1,5 +1,18 @@
-{ lib, stdenv, chromium, ffmpeg, git, jq, nodejs, fetchFromGitHub, fetchurl
-, makeFontsConf, makeWrapper, runCommand, unzip }:
+{
+  lib,
+  stdenv,
+  chromium,
+  ffmpeg,
+  git,
+  jq,
+  nodejs,
+  fetchFromGitHub,
+  fetchurl,
+  makeFontsConf,
+  makeWrapper,
+  runCommand,
+  unzip,
+}:
 let
   inherit (stdenv.hostPlatform) system;
 
@@ -88,7 +101,9 @@ let
     meta.platforms = lib.platforms.darwin;
   };
 
-  browsers-linux = { withChromium ? true }:
+  browsers-linux = {
+      withChromium ? true
+    }:
     let fontconfig = makeFontsConf { fontDirectories = [ ]; };
     in runCommand
     ("playwright-browsers" + lib.optionalString withChromium "-chromium") {

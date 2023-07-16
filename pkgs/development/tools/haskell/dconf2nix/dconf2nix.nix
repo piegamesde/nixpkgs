@@ -1,5 +1,16 @@
-{ mkDerivation, base, containers, emojis, fetchgit, hedgehog, lib
-, optparse-applicative, parsec, template-haskell, text }:
+{
+  mkDerivation,
+  base,
+  containers,
+  emojis,
+  fetchgit,
+  hedgehog,
+  lib,
+  optparse-applicative,
+  parsec,
+  template-haskell,
+  text,
+}:
 mkDerivation {
   pname = "dconf2nix";
   version = "0.0.12";

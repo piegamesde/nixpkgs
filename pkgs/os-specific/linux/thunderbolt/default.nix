@@ -1,4 +1,12 @@
-{ lib, stdenv, boost, cmake, fetchFromGitHub, pkg-config, txt2tags }:
+{
+  lib,
+  stdenv,
+  boost,
+  cmake,
+  fetchFromGitHub,
+  pkg-config,
+  txt2tags,
+}:
 
 stdenv.mkDerivation rec {
   pname = "thunderbolt";

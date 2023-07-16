@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, openssl, perl, trousers, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  openssl,
+  perl,
+  trousers,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tboot";

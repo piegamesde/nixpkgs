@@ -1,10 +1,44 @@
-{ lib, aiohttp, asgiref, backports-cached-property, buildPythonPackage, chalice
-, channels, click, daphne, django, email-validator, fastapi, fetchFromGitHub
-, fetchpatch, flask, freezegun, graphql-core, libcst, mypy, poetry-core
-, pydantic, pygments, pyinstrument, pytest-aiohttp, pytest-asyncio
-, pytest-django, pytest-emoji, pytest-flask, pytest-snapshot, pytestCheckHook
-, python-dateutil, python-multipart, pythonOlder, rich, sanic, sanic-testing
-, starlette, typing-extensions, uvicorn }:
+{
+  lib,
+  aiohttp,
+  asgiref,
+  backports-cached-property,
+  buildPythonPackage,
+  chalice,
+  channels,
+  click,
+  daphne,
+  django,
+  email-validator,
+  fastapi,
+  fetchFromGitHub,
+  fetchpatch,
+  flask,
+  freezegun,
+  graphql-core,
+  libcst,
+  mypy,
+  poetry-core,
+  pydantic,
+  pygments,
+  pyinstrument,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytest-django,
+  pytest-emoji,
+  pytest-flask,
+  pytest-snapshot,
+  pytestCheckHook,
+  python-dateutil,
+  python-multipart,
+  pythonOlder,
+  rich,
+  sanic,
+  sanic-testing,
+  starlette,
+  typing-extensions,
+  uvicorn,
+}:
 
 buildPythonPackage rec {
   pname = "strawberry-graphql";

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools, nose }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  nose,
+}:
 
 buildPythonPackage rec {
   version = "0.6.0";

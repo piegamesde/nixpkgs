@@ -1,4 +1,12 @@
-{ lib, stdenv, pkg-config, fetchFromGitHub, opencv2, ncurses, portaudio }:
+{
+  lib,
+  stdenv,
+  pkg-config,
+  fetchFromGitHub,
+  opencv2,
+  ncurses,
+  portaudio,
+}:
 
 stdenv.mkDerivation {
   pname = "p2pvc";

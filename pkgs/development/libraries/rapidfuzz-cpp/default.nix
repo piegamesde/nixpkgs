@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cmake, catch2_3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  catch2_3,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rapidfuzz-cpp";

@@ -1,6 +1,20 @@
-{ stdenv, lib, fetchFromGitHub, docbook_xml_dtd_43, docbook-xsl-nons, glib
-, gobject-introspection, gtk-doc, meson, ninja, pkg-config, python3
-, shared-mime-info, nixosTests, xz }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  docbook_xml_dtd_43,
+  docbook-xsl-nons,
+  glib,
+  gobject-introspection,
+  gtk-doc,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  shared-mime-info,
+  nixosTests,
+  xz,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libxmlb";

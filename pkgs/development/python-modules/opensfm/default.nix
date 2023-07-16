@@ -1,8 +1,39 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, fetchpatch, cmake, opencv4
-, ceres-solver, suitesparse, metis, eigen, pkg-config, pybind11, numpy, pyyaml
-, lapack, gtest, gflags, glog, pytestCheckHook, networkx, pillow, exifread
-, gpxpy, pyproj, python-dateutil, joblib, repoze_lru, xmltodict, cloudpickle
-, scipy, sphinx, matplotlib, fpdf, }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  opencv4,
+  ceres-solver,
+  suitesparse,
+  metis,
+  eigen,
+  pkg-config,
+  pybind11,
+  numpy,
+  pyyaml,
+  lapack,
+  gtest,
+  gflags,
+  glog,
+  pytestCheckHook,
+  networkx,
+  pillow,
+  exifread,
+  gpxpy,
+  pyproj,
+  python-dateutil,
+  joblib,
+  repoze_lru,
+  xmltodict,
+  cloudpickle,
+  scipy,
+  sphinx,
+  matplotlib,
+  fpdf,
+}:
 
 let
   ceresSplit = (builtins.length ceres-solver.outputs) > 1;

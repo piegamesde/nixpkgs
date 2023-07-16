@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, openssl, ncurses, libiconv, tcl, coreutils, fetchpatch
-, libxcrypt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  openssl,
+  ncurses,
+  libiconv,
+  tcl,
+  coreutils,
+  fetchpatch,
+  libxcrypt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "epic5";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, glib, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  glib,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gamin";

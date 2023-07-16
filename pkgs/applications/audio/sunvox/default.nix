@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, unzip, alsa-lib, libX11, libXi, SDL2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  alsa-lib,
+  libX11,
+  libXi,
+  SDL2,
+}:
 
 let
   libPath = lib.makeLibraryPath [ stdenv.cc.cc alsa-lib libX11 libXi SDL2 ];

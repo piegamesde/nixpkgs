@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, boost, libwpd, libwpg, pkg-config, zlib, gperf
-, librevenge, libxml2, icu, perl, cppunit, doxygen }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  boost,
+  libwpd,
+  libwpg,
+  pkg-config,
+  zlib,
+  gperf,
+  librevenge,
+  libxml2,
+  icu,
+  perl,
+  cppunit,
+  doxygen,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libvisio";

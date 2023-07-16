@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, makeWrapper, meson, ninja
-, wayland-scanner, libjpeg, libpng, xorg, libX11, libGL, libdrm, udev, wayland
-, wayland-protocols, mesa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  makeWrapper,
+  meson,
+  ninja,
+  wayland-scanner,
+  libjpeg,
+  libpng,
+  xorg,
+  libX11,
+  libGL,
+  libdrm,
+  udev,
+  wayland,
+  wayland-protocols,
+  mesa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "glmark2";

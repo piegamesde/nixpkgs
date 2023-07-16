@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ lib, pkgs, ... }:
+import ./make-test-python.nix ({
+    lib,
+    pkgs,
+    ...
+  }:
   let
 
     v2rayUser = {
@@ -64,17 +68,20 @@ import ./make-test-python.nix ({ lib, pkgs, ... }:
   in {
     name = "v2ray";
     meta = with lib.maintainers; { maintainers = [ servalcatty ]; };
-    nodes.machine = { pkgs, ... }: {
-      environment.systemPackages = [ pkgs.curl ];
-      services.v2ray = {
-        enable = true;
-        config = v2rayConfig;
+    nodes.machine = {
+        pkgs,
+        ...
+      }: {
+        environment.systemPackages = [ pkgs.curl ];
+        services.v2ray = {
+          enable = true;
+          config = v2rayConfig;
+        };
+        services.httpd = {
+          enable = true;
+          adminAddr = "foo@example.org";
+        };
       };
-      services.httpd = {
-        enable = true;
-        adminAddr = "foo@example.org";
-      };
-    };
 
     testScript = ''
       start_all()

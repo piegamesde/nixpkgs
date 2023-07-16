@@ -1,7 +1,34 @@
-{ qtModule, stdenv, lib, fetchurl, qtbase, qtdeclarative, qtlocation
-, qtmultimedia, qtsensors, qtwebchannel, fontconfig, libwebp, libxml2, libxslt
-, sqlite, systemd, glib, gst_all_1, cmake, bison, flex, gdb, gperf, perl
-, pkg-config, python38, ruby, ICU, OpenGL }:
+{
+  qtModule,
+  stdenv,
+  lib,
+  fetchurl,
+  qtbase,
+  qtdeclarative,
+  qtlocation,
+  qtmultimedia,
+  qtsensors,
+  qtwebchannel,
+  fontconfig,
+  libwebp,
+  libxml2,
+  libxslt,
+  sqlite,
+  systemd,
+  glib,
+  gst_all_1,
+  cmake,
+  bison,
+  flex,
+  gdb,
+  gperf,
+  perl,
+  pkg-config,
+  python38,
+  ruby,
+  ICU,
+  OpenGL,
+}:
 
 let
   hyphen = stdenv.mkDerivation rec {

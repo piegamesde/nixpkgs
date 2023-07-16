@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, scons, rubberband, boost, libjack2
-, liblo, libsamplerate, libsndfile }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  scons,
+  rubberband,
+  boost,
+  libjack2,
+  liblo,
+  libsamplerate,
+  libsndfile,
+}:
 
 stdenv.mkDerivation rec {
   pname = "klick";

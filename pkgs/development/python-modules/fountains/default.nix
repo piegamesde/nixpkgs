@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools, bitlist, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  bitlist,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "fountains";

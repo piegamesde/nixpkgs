@@ -1,8 +1,42 @@
-{ lib, stdenv, fetchurl, fetchpatch, xorgproto, libX11, bison, ksh, perl, gnum4
-, libXinerama, libXt, libXext, libtirpc, motif, libXft, xbitmaps, libjpeg
-, libXmu, libXdmcp, libXScrnSaver, symlinkJoin, bdftopcf, ncompress, mkfontdir
-, tcl, libXaw, libxcrypt, gcc, glibcLocales, autoPatchelfHook, libredirect
-, makeWrapper, xset, xrdb, fakeroot, rpcsvc-proto }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  xorgproto,
+  libX11,
+  bison,
+  ksh,
+  perl,
+  gnum4,
+  libXinerama,
+  libXt,
+  libXext,
+  libtirpc,
+  motif,
+  libXft,
+  xbitmaps,
+  libjpeg,
+  libXmu,
+  libXdmcp,
+  libXScrnSaver,
+  symlinkJoin,
+  bdftopcf,
+  ncompress,
+  mkfontdir,
+  tcl,
+  libXaw,
+  libxcrypt,
+  gcc,
+  glibcLocales,
+  autoPatchelfHook,
+  libredirect,
+  makeWrapper,
+  xset,
+  xrdb,
+  fakeroot,
+  rpcsvc-proto,
+}:
 
 let
   x11ProjectRoot = symlinkJoin {

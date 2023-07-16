@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, pkg-config, libusb1 }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  pkg-config,
+  libusb1,
+}:
 
 buildGoModule rec {
   pname = "wally-cli";

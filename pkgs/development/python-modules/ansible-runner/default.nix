@@ -1,6 +1,24 @@
-{ lib, stdenv, ansible-core, buildPythonPackage, fetchPypi, glibcLocales, mock
-, openssh, pbr, pexpect, psutil, pytest-mock, pytest-timeout, pytest-xdist
-, pytestCheckHook, pythonOlder, python-daemon, pyyaml, six }:
+{
+  lib,
+  stdenv,
+  ansible-core,
+  buildPythonPackage,
+  fetchPypi,
+  glibcLocales,
+  mock,
+  openssh,
+  pbr,
+  pexpect,
+  psutil,
+  pytest-mock,
+  pytest-timeout,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  python-daemon,
+  pyyaml,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "ansible-runner";

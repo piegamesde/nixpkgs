@@ -1,5 +1,17 @@
-{ lib, fetchFromSourcehut, buildGoModule, buildPythonPackage, srht, redis
-, alembic, pystache, pytest, factory_boy, python, unzip }:
+{
+  lib,
+  fetchFromSourcehut,
+  buildGoModule,
+  buildPythonPackage,
+  srht,
+  redis,
+  alembic,
+  pystache,
+  pytest,
+  factory_boy,
+  python,
+  unzip,
+}:
 
 buildPythonPackage rec {
   pname = "todosrht";

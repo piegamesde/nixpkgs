@@ -1,6 +1,21 @@
-{ lib, stdenv, buildPythonPackage, pythonOlder, fetchFromGitHub, substituteAll
-, alsa-utils, libnotify, which, poetry-core, pythonRelaxDepsHook, jeepney
-, loguru, pytest, dbus, coreutils }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  substituteAll,
+  alsa-utils,
+  libnotify,
+  which,
+  poetry-core,
+  pythonRelaxDepsHook,
+  jeepney,
+  loguru,
+  pytest,
+  dbus,
+  coreutils,
+}:
 
 buildPythonPackage rec {
   pname = "notify-py";

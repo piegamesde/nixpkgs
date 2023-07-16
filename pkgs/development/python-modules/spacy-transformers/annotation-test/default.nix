@@ -1,4 +1,8 @@
-{ stdenv, pytest, spacy_models }:
+{
+  stdenv,
+  pytest,
+  spacy_models,
+}:
 
 stdenv.mkDerivation {
   name = "spacy-transformers-annotation-test";

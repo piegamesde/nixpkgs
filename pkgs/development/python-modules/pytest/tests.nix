@@ -1,4 +1,10 @@
-{ buildPythonPackage, isPyPy, pytest, hypothesis, pygments }:
+{
+  buildPythonPackage,
+  isPyPy,
+  pytest,
+  hypothesis,
+  pygments,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-tests";

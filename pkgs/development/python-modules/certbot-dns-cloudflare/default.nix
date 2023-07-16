@@ -1,4 +1,11 @@
-{ buildPythonPackage, acme, certbot, cloudflare, pytestCheckHook, pythonOlder }:
+{
+  buildPythonPackage,
+  acme,
+  certbot,
+  cloudflare,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "certbot-dns-cloudflare";

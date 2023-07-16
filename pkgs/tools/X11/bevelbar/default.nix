@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, libX11, libXft, libXrandr, }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libX11,
+  libXft,
+  libXrandr,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "bevelbar";

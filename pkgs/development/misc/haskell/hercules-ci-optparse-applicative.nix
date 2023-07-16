@@ -1,5 +1,14 @@
-{ mkDerivation, ansi-wl-pprint, base, fetchFromGitHub, lib, process, QuickCheck
-, transformers, transformers-compat }:
+{
+  mkDerivation,
+  ansi-wl-pprint,
+  base,
+  fetchFromGitHub,
+  lib,
+  process,
+  QuickCheck,
+  transformers,
+  transformers-compat,
+}:
 mkDerivation {
   pname = "hercules-ci-optparse-applicative";
   version = "0.16.1.0";

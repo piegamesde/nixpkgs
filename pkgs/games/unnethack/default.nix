@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, util-linux, ncurses, flex, bison }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  util-linux,
+  ncurses,
+  flex,
+  bison,
+}:
 
 stdenv.mkDerivation rec {
   pname = "unnethack";

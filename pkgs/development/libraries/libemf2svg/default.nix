@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, fontconfig, freetype, libpng }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  fontconfig,
+  freetype,
+  libpng,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libemf2svg";

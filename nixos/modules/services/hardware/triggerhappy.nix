@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -9,7 +14,12 @@ let
   socket = "/run/thd.socket";
 
   configFile = pkgs.writeText "triggerhappy.conf" ''
-    ${concatMapStringsSep "\n" ({ keys, event, cmd, ... }:
+    ${concatMapStringsSep "\n" ({
+        keys,
+        event,
+        cmd,
+        ...
+      }:
       "${concatMapStringsSep "+" (x: "KEY_" + x) keys} ${
         toString {
           press = 1;
@@ -20,28 +30,30 @@ let
     ${cfg.extraConfig}
   '';
 
-  bindingCfg = { ... }: {
-    options = {
+  bindingCfg = {
+      ...
+    }: {
+      options = {
 
-      keys = mkOption {
-        type = types.listOf types.str;
-        description = lib.mdDoc
-          "List of keys to match.  Key names as defined in linux/input-event-codes.h";
+        keys = mkOption {
+          type = types.listOf types.str;
+          description = lib.mdDoc
+            "List of keys to match.  Key names as defined in linux/input-event-codes.h";
+        };
+
+        event = mkOption {
+          type = types.enum [ "press" "hold" "release" ];
+          default = "press";
+          description = lib.mdDoc "Event to match.";
+        };
+
+        cmd = mkOption {
+          type = types.str;
+          description = lib.mdDoc "What to run.";
+        };
+
       };
-
-      event = mkOption {
-        type = types.enum [ "press" "hold" "release" ];
-        default = "press";
-        description = lib.mdDoc "Event to match.";
-      };
-
-      cmd = mkOption {
-        type = types.str;
-        description = lib.mdDoc "What to run.";
-      };
-
     };
-  };
 
 in {
 

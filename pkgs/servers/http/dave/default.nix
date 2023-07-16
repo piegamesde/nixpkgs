@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, mage }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  mage,
+}:
 
 buildGoModule rec {
   pname = "dave";

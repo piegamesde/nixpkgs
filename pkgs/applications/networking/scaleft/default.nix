@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, rpmextract, patchelf, bash }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  rpmextract,
+  patchelf,
+  bash,
+}:
 
 stdenv.mkDerivation rec {
   pname = "scaleft";

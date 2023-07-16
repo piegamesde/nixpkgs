@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, zlib, lzo, bzip2, lz4, nasm
-, perl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  zlib,
+  lzo,
+  bzip2,
+  lz4,
+  nasm,
+  perl,
+}:
 
 let inherit (stdenv.hostPlatform) isx86;
 in stdenv.mkDerivation rec {

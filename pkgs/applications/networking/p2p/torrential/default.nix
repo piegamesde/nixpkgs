@@ -1,7 +1,29 @@
-{ stdenv, lib, fetchFromGitHub, nix-update-script, desktop-file-utils, meson
-, ninja, pkg-config, python3, vala, wrapGAppsHook4, curl, dht, glib, gtk4
-, libb64, libevent, libgee, libnatpmp, libtransmission, libutp, miniupnpc
-, openssl, pantheon }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  nix-update-script,
+  desktop-file-utils,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  vala,
+  wrapGAppsHook4,
+  curl,
+  dht,
+  glib,
+  gtk4,
+  libb64,
+  libevent,
+  libgee,
+  libnatpmp,
+  libtransmission,
+  libutp,
+  miniupnpc,
+  openssl,
+  pantheon,
+}:
 
 stdenv.mkDerivation rec {
   pname = "torrential";

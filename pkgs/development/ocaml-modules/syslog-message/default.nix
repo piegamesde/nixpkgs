@@ -1,4 +1,12 @@
-{ lib, buildDunePackage, fetchurl, astring, ptime, rresult, qcheck }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  astring,
+  ptime,
+  rresult,
+  qcheck,
+}:
 
 buildDunePackage rec {
   pname = "syslog-message";

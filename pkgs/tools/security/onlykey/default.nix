@@ -1,5 +1,13 @@
-{ fetchgit, lib, makeDesktopItem, node_webkit, pkgs, runCommand, stdenv
-, writeShellScript }:
+{
+  fetchgit,
+  lib,
+  makeDesktopItem,
+  node_webkit,
+  pkgs,
+  runCommand,
+  stdenv,
+  writeShellScript,
+}:
 
 let
   # parse the version from package.json

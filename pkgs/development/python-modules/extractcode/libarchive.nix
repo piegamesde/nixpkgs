@@ -1,5 +1,17 @@
-{ lib, fetchFromGitHub, buildPythonPackage, libarchive, libb2, bzip2, expat, lz4
-, xz, zlib, zstd, plugincode }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  libarchive,
+  libb2,
+  bzip2,
+  expat,
+  lz4,
+  xz,
+  zlib,
+  zstd,
+  plugincode,
+}:
 
 buildPythonPackage rec {
   pname = "extractcode-libarchive";

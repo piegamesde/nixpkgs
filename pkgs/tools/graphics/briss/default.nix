@@ -1,6 +1,12 @@
 # The releases of this project are apparently precompiled to .jar files.
 
-{ lib, stdenv, fetchurl, jre, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jre,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "briss";

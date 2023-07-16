@@ -1,6 +1,20 @@
-{ lib, aiohttp, amqtt, buildPythonPackage, certifi, docopt, fetchFromGitHub
-, fetchpatch, geopy, mock, pytest-asyncio, pytestCheckHook, pythonOlder
-, setuptools, websockets }:
+{
+  lib,
+  aiohttp,
+  amqtt,
+  buildPythonPackage,
+  certifi,
+  docopt,
+  fetchFromGitHub,
+  fetchpatch,
+  geopy,
+  mock,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  websockets,
+}:
 
 buildPythonPackage rec {
   pname = "volvooncall";

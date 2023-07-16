@@ -1,13 +1,23 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27
 
-# buildtime
-, setuptools-scm
+  # buildtime
+  ,
+  setuptools-scm
 
-# runtime
-, django, python-ldap
+  # runtime
+  ,
+  django,
+  python-ldap
 
-# tests
-, python, pkgs }:
+  # tests
+  ,
+  python,
+  pkgs,
+}:
 
 buildPythonPackage rec {
   pname = "django-auth-ldap";

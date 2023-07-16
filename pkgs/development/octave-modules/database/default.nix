@@ -1,4 +1,10 @@
-{ buildOctavePackage, lib, fetchurl, struct, postgresql }:
+{
+  buildOctavePackage,
+  lib,
+  fetchurl,
+  struct,
+  postgresql,
+}:
 
 buildOctavePackage rec {
   pname = "database";

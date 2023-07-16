@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, dnspython, fetchPypi, filelock, idna, platformdirs
-, pytestCheckHook, pythonOlder, uritools }:
+{
+  lib,
+  buildPythonPackage,
+  dnspython,
+  fetchPypi,
+  filelock,
+  idna,
+  platformdirs,
+  pytestCheckHook,
+  pythonOlder,
+  uritools,
+}:
 
 buildPythonPackage rec {
   pname = "urlextract";

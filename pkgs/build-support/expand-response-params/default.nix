@@ -1,4 +1,6 @@
-{ stdenv }:
+{
+  stdenv,
+}:
 
 stdenv.mkDerivation {
   name = "expand-response-params";

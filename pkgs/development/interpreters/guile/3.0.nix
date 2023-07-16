@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchurl, fetchpatch, boehmgc, buildPackages
-, coverageAnalysis ? null, gawk, gmp, libffi, libtool, libunistring, makeWrapper
-, pkg-config, pkgsBuildBuild, readline, writeScript }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  boehmgc,
+  buildPackages,
+  coverageAnalysis ? null,
+  gawk,
+  gmp,
+  libffi,
+  libtool,
+  libunistring,
+  makeWrapper,
+  pkg-config,
+  pkgsBuildBuild,
+  readline,
+  writeScript,
+}:
 
 let
   # Do either a coverage analysis build or a standard build.

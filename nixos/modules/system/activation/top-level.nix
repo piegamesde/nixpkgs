@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -136,7 +141,10 @@ let
     showWarnings config.warnings baseSystem;
 
   # Replace runtime dependencies
-  system = foldr ({ oldDependency, newDependency }:
+  system = foldr ({
+      oldDependency,
+      newDependency,
+    }:
     drv:
     pkgs.replaceDependency { inherit oldDependency newDependency drv; })
     baseSystemAssertWarn config.system.replaceRuntimeDependencies;
@@ -283,21 +291,27 @@ in {
       default = [ ];
       example = lib.literalExpression
         "[ ({ original = pkgs.openssl; replacement = pkgs.callPackage /path/to/openssl { }; }) ]";
-      type = types.listOf (types.submodule ({ ... }: {
-        options.original = mkOption {
-          type = types.package;
-          description = lib.mdDoc "The original package to override.";
-        };
+      type = types.listOf (types.submodule ({
+          ...
+        }: {
+          options.original = mkOption {
+            type = types.package;
+            description = lib.mdDoc "The original package to override.";
+          };
 
-        options.replacement = mkOption {
-          type = types.package;
-          description = lib.mdDoc "The replacement package.";
-        };
-      }));
-      apply = map ({ original, replacement, ... }: {
-        oldDependency = original;
-        newDependency = replacement;
-      });
+          options.replacement = mkOption {
+            type = types.package;
+            description = lib.mdDoc "The replacement package.";
+          };
+        }));
+      apply = map ({
+          original,
+          replacement,
+          ...
+        }: {
+          oldDependency = original;
+          newDependency = replacement;
+        });
       description = lib.mdDoc ''
         List of packages to override without doing a full rebuild.
         The original derivation and replacement derivation must have the same

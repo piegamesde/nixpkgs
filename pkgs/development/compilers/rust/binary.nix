@@ -1,5 +1,18 @@
-{ lib, stdenv, makeWrapper, bash, curl, darwin, zlib, autoPatchelfHook, gcc
-, version, src, platform, versionType }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  bash,
+  curl,
+  darwin,
+  zlib,
+  autoPatchelfHook,
+  gcc,
+  version,
+  src,
+  platform,
+  versionType,
+}:
 
 let
   inherit (lib) optionalString;

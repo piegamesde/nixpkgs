@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, mono, glib, pango, gtk3
-, libxml2, monoDLLFixer }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  mono,
+  glib,
+  pango,
+  gtk3,
+  libxml2,
+  monoDLLFixer,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gtk-sharp";

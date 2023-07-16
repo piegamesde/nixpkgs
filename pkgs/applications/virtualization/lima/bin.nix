@@ -1,5 +1,13 @@
-{ stdenvNoCC, lib, fetchurl, writeScript, installShellFiles, qemu
-, makeBinaryWrapper, autoPatchelfHook }:
+{
+  stdenvNoCC,
+  lib,
+  fetchurl,
+  writeScript,
+  installShellFiles,
+  qemu,
+  makeBinaryWrapper,
+  autoPatchelfHook,
+}:
 
 let
   version = "0.15.0";

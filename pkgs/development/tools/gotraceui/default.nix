@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, buildGoModule, libGL, libX11
-, libXcursor, libXfixes, libxkbcommon, vulkan-headers, wayland, }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  buildGoModule,
+  libGL,
+  libX11,
+  libXcursor,
+  libXfixes,
+  libxkbcommon,
+  vulkan-headers,
+  wayland,
+}:
 
 buildGoModule rec {
   pname = "gotraceui";

@@ -1,4 +1,7 @@
-{ lib, datadog-agent }:
+{
+  lib,
+  datadog-agent,
+}:
 datadog-agent.overrideAttrs (attrs: {
   pname = "datadog-process-agent";
   meta = with lib;

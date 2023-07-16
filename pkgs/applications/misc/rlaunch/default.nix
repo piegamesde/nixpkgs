@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, fetchpatch, rustPlatform, xorg }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  rustPlatform,
+  xorg,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rlaunch";

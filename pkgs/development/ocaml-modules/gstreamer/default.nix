@@ -1,5 +1,15 @@
-{ lib, stdenv, buildDunePackage, fetchFromGitHub, dune-configurator, AppKit
-, Foundation, pkg-config, glib, gst_all_1 }:
+{
+  lib,
+  stdenv,
+  buildDunePackage,
+  fetchFromGitHub,
+  dune-configurator,
+  AppKit,
+  Foundation,
+  pkg-config,
+  glib,
+  gst_all_1,
+}:
 
 buildDunePackage rec {
   pname = "gstreamer";

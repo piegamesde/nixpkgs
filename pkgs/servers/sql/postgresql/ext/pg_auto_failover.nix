@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, postgresql, openssl, zlib, readline, libkrb5 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  postgresql,
+  openssl,
+  zlib,
+  readline,
+  libkrb5,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pg_auto_failover";

@@ -1,10 +1,19 @@
-{ lib, dotnet-sdk, stdenv, substituteAll,
+{
+  lib,
+  dotnet-sdk,
+  stdenv,
+  substituteAll,
 
-buildDotnetModule, fetchFromGitHub,
+  buildDotnetModule,
+  fetchFromGitHub,
 
-dotnetCorePackages,
+  dotnetCorePackages,
 
-libX11, libICE, libSM, fontconfig, }:
+  libX11,
+  libICE,
+  libSM,
+  fontconfig,
+}:
 
 buildDotnetModule rec {
   pname = "BeatSaberModManager";

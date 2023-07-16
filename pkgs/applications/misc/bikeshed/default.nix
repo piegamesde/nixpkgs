@@ -1,8 +1,26 @@
-{ lib, buildPythonApplication, fetchPypi
-# build inputs
-, aiofiles, aiohttp, attrs, certifi, cssselect, html5lib, isodate
-, json-home-client, lxml, pillow, pygments, requests, result, setuptools
-, tenacity, widlparser }:
+{
+  lib,
+  buildPythonApplication,
+  fetchPypi
+  # build inputs
+  ,
+  aiofiles,
+  aiohttp,
+  attrs,
+  certifi,
+  cssselect,
+  html5lib,
+  isodate,
+  json-home-client,
+  lxml,
+  pillow,
+  pygments,
+  requests,
+  result,
+  setuptools,
+  tenacity,
+  widlparser,
+}:
 
 buildPythonApplication rec {
   pname = "bikeshed";

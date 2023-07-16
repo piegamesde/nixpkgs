@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, qmake, qtbase, qtxmlpatterns, qtsvg, qtscxml
-, qtquick1, libGLU }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qmake,
+  qtbase,
+  qtxmlpatterns,
+  qtsvg,
+  qtscxml,
+  qtquick1,
+  libGLU,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qxmledit";

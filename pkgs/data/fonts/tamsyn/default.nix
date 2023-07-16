@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, fontforge, xorg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fontforge,
+  xorg,
+}:
 
 let version = "1.11";
 in stdenv.mkDerivation {

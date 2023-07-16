@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchzip, SDL, pkg-config, libSM }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  SDL,
+  pkg-config,
+  libSM,
+}:
 stdenv.mkDerivation rec {
   pname = "synaesthesia";
   version = "2.4";

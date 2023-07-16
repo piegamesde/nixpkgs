@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, qtsvg, qttools, exiv2, wrapQtAppsHook, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qtsvg,
+  qttools,
+  exiv2,
+  wrapQtAppsHook,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pineapple-pictures";

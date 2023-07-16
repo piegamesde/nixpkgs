@@ -1,6 +1,17 @@
-{ lib, aiohttp, buildPythonPackage, fetchPypi, google-auth
-, google-cloud-testutils, google-crc32c, mock, pytest-asyncio, pytestCheckHook
-, pythonOlder, requests }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchPypi,
+  google-auth,
+  google-cloud-testutils,
+  google-crc32c,
+  mock,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "google-resumable-media";

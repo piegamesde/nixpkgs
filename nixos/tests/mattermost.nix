@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
   let
     host = "smoke.test";
     port = "8065";
@@ -6,7 +10,10 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
     siteName = "NixOS Smoke Tests, Inc.";
 
     makeMattermost = mattermostConfig:
-      { config, ... }: {
+      {
+        config,
+        ...
+      }: {
         environment.systemPackages = [ pkgs.mattermost pkgs.curl pkgs.jq ];
         networking.hosts = { "127.0.0.1" = [ host ]; };
         services.mattermost = lib.recursiveUpdate {

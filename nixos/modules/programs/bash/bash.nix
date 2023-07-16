@@ -1,7 +1,12 @@
 # This module defines global configuration for the Bash shell, in
 # particular /etc/bashrc and /etc/profile.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

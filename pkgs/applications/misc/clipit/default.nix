@@ -1,5 +1,16 @@
-{ fetchFromGitHub, lib, stdenv, autoreconfHook, intltool, pkg-config, gtk3
-, libayatana-appindicator, xdotool, which, wrapGAppsHook }:
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  autoreconfHook,
+  intltool,
+  pkg-config,
+  gtk3,
+  libayatana-appindicator,
+  xdotool,
+  which,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "clipit";

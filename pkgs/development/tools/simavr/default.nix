@@ -1,5 +1,18 @@
-{ lib, stdenv, makeSetupHook, fetchFromGitHub, libelf, which, pkg-config
-, freeglut, avrgcc, avrlibc, libGLU, libGL, GLUT }:
+{
+  lib,
+  stdenv,
+  makeSetupHook,
+  fetchFromGitHub,
+  libelf,
+  which,
+  pkg-config,
+  freeglut,
+  avrgcc,
+  avrlibc,
+  libGLU,
+  libGL,
+  GLUT,
+}:
 
 let
   setupHookDarwin = makeSetupHook {

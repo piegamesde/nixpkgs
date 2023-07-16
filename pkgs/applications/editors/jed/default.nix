@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchzip, pkg-config, gpm, libXext, libXft, libXt, ncurses5
-, slang }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  pkg-config,
+  gpm,
+  libXext,
+  libXft,
+  libXt,
+  ncurses5,
+  slang,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jed";

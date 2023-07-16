@@ -1,6 +1,25 @@
-{ lib, stdenv, libXScrnSaver, makeWrapper, fetchurl, wrapGAppsHook, glib, gtk3
-, unzip, atomEnv, libuuid, at-spi2-atk, at-spi2-core, libdrm, mesa, libxkbcommon
-, libappindicator-gtk3, libxshmfence, libglvnd, wayland }:
+{
+  lib,
+  stdenv,
+  libXScrnSaver,
+  makeWrapper,
+  fetchurl,
+  wrapGAppsHook,
+  glib,
+  gtk3,
+  unzip,
+  atomEnv,
+  libuuid,
+  at-spi2-atk,
+  at-spi2-core,
+  libdrm,
+  mesa,
+  libxkbcommon,
+  libappindicator-gtk3,
+  libxshmfence,
+  libglvnd,
+  wayland,
+}:
 
 version: hashes:
 let

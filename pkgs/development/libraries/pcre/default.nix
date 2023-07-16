@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, pcre, windows ? null, variant ? null }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pcre,
+  windows ? null,
+  variant ? null
+}:
 
 assert lib.elem variant [ null "cpp" "pcre16" "pcre32" ];
 

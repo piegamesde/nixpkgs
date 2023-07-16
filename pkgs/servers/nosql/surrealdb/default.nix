@@ -1,5 +1,17 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, openssl, llvmPackages
-, rocksdb, testers, surrealdb, SystemConfiguration, protobuf }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  llvmPackages,
+  rocksdb,
+  testers,
+  surrealdb,
+  SystemConfiguration,
+  protobuf,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "surrealdb";

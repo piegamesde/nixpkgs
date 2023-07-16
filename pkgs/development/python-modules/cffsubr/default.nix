@@ -1,5 +1,12 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, fonttools, pytestCheckHook
-, setuptools-scm }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fonttools,
+  pytestCheckHook,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "cffsubr";

@@ -1,6 +1,27 @@
-{ lib, stdenv, buildPythonPackage, cython, eventlet, fetchFromGitHub, geomet
-, gevent, gremlinpython, iana-etc, libev, libredirect, mock, nose
-, pytestCheckHook, pythonOlder, pytz, pyyaml, scales, six, sure, twisted }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  cython,
+  eventlet,
+  fetchFromGitHub,
+  geomet,
+  gevent,
+  gremlinpython,
+  iana-etc,
+  libev,
+  libredirect,
+  mock,
+  nose,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  pyyaml,
+  scales,
+  six,
+  sure,
+  twisted,
+}:
 
 buildPythonPackage rec {
   pname = "cassandra-driver";

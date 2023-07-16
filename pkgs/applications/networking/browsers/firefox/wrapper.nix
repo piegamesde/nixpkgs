@@ -1,37 +1,85 @@
-{ stdenv, lib, makeDesktopItem, makeWrapper, makeBinaryWrapper, lndir, config
-, buildPackages, jq, xdg-utils, writeText
+{
+  stdenv,
+  lib,
+  makeDesktopItem,
+  makeWrapper,
+  makeBinaryWrapper,
+  lndir,
+  config,
+  buildPackages,
+  jq,
+  xdg-utils,
+  writeText
 
-## various stuff that can be plugged in
-, ffmpeg_5, xorg, alsa-lib, libpulseaudio, libcanberra-gtk3, libglvnd, libnotify
-, opensc, gnome # .gnome-shell
-, browserpass, gnome-browser-connector, uget-integrator, plasma5Packages
-, bukubrow, web-eid-app, pipewire, tridactyl-native, fx_cast_bridge, udev
-, libkrb5, libva, mesa # firefox wants gbm for drm+dmabuf
-, cups, pciutils, sndio, libjack2, speechd }:
+  ## various stuff that can be plugged in
+  ,
+  ffmpeg_5,
+  xorg,
+  alsa-lib,
+  libpulseaudio,
+  libcanberra-gtk3,
+  libglvnd,
+  libnotify,
+  opensc,
+  gnome # .gnome-shell
+  ,
+  browserpass,
+  gnome-browser-connector,
+  uget-integrator,
+  plasma5Packages,
+  bukubrow,
+  web-eid-app,
+  pipewire,
+  tridactyl-native,
+  fx_cast_bridge,
+  udev,
+  libkrb5,
+  libva,
+  mesa # firefox wants gbm for drm+dmabuf
+  ,
+  cups,
+  pciutils,
+  sndio,
+  libjack2,
+  speechd,
+}:
 
 ## configurability of the wrapper itself
 
 browser:
 
 let
-  wrapper = { applicationName ? browser.binaryName or (lib.getName browser)
-    , pname ? applicationName, version ? lib.getVersion browser
-    , desktopName ? # applicationName with first letter capitalized
-      (lib.toUpper (lib.substring 0 1 applicationName)
-        + lib.substring 1 (-1) applicationName), nameSuffix ? ""
-    , icon ? applicationName, wmClass ? applicationName
-    , extraNativeMessagingHosts ? [ ], pkcs11Modules ? [ ], useGlvnd ? true
-    , cfg ? config.${applicationName} or { }
+  wrapper = {
+      applicationName ? browser.binaryName or (lib.getName browser),
+      pname ? applicationName,
+      version ? lib.getVersion browser,
+      desktopName ? # applicationName with first letter capitalized
+        (lib.toUpper (lib.substring 0 1 applicationName)
+          + lib.substring 1 (-1) applicationName),
+      nameSuffix ? "",
+      icon ? applicationName,
+      wmClass ? applicationName,
+      extraNativeMessagingHosts ? [ ],
+      pkcs11Modules ? [ ],
+      useGlvnd ? true,
+      cfg ? config.${applicationName} or { }
 
-      ## Following options are needed for extra prefs & policies
-      # For more information about anti tracking (german website)
-      # visit https://wiki.kairaven.de/open/app/firefox
-    , extraPrefs ? "", extraPrefsFiles ? [ ]
-      # For more information about policies visit
-      # https://github.com/mozilla/policy-templates#enterprisepoliciesenabled
-    , extraPolicies ? { }, extraPoliciesFiles ? [ ], libName ?
-      browser.libName or "firefox" # Important for tor package or the like
-    , nixExtensions ? null }:
+        ## Following options are needed for extra prefs & policies
+        # For more information about anti tracking (german website)
+        # visit https://wiki.kairaven.de/open/app/firefox
+      ,
+      extraPrefs ? "",
+      extraPrefsFiles ? [ ]
+        # For more information about policies visit
+        # https://github.com/mozilla/policy-templates#enterprisepoliciesenabled
+      ,
+      extraPolicies ? { },
+      extraPoliciesFiles ? [ ],
+      libName ?
+        browser.libName or "firefox" # Important for tor package or the like
+      ,
+      nixExtensions ? null
+    }:
 
     let
       ffmpegSupport = browser.ffmpegSupport or false;

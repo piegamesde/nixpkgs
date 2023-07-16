@@ -1,4 +1,13 @@
-{ stdenv, lib, autoreconfHook, boost, fuse, log4cxx, zookeeper, zookeeper_mt }:
+{
+  stdenv,
+  lib,
+  autoreconfHook,
+  boost,
+  fuse,
+  log4cxx,
+  zookeeper,
+  zookeeper_mt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zkfuse";

@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, gfortran, cmake, test-drive }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  gfortran,
+  cmake,
+  test-drive,
+}:
 
 stdenv.mkDerivation rec {
   pname = "toml-f";

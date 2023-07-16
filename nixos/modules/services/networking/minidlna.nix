@@ -1,5 +1,10 @@
 # Module for MiniDLNA, a simple DLNA server.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 
 let

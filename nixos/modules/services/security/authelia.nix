@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 
 let
   cfg = config.services.authelia;
@@ -7,7 +12,10 @@ let
   configFile = format.generate "config.yml" cfg.settings;
 
   autheliaOpts = with lib;
-    { name, ... }: {
+    {
+      name,
+      ...
+    }: {
       options = {
         enable = mkEnableOption (mdDoc "Authelia instance");
 

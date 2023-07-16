@@ -1,9 +1,35 @@
-{ stdenv, lib, fetchurl, fetchpatch, meson, ninja, gettext, gst_all_1
-, python3Packages, shared-mime-info, pkg-config, gtk3, glib
-, gobject-introspection, totem-pl-parser, wrapGAppsHook, itstool, libxml2, vala
-, gnome, grilo, grilo-plugins, libpeas, libportal-gtk3, libhandy
-, adwaita-icon-theme, gnome-desktop, gsettings-desktop-schemas, gdk-pixbuf
-, xvfb-run }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  meson,
+  ninja,
+  gettext,
+  gst_all_1,
+  python3Packages,
+  shared-mime-info,
+  pkg-config,
+  gtk3,
+  glib,
+  gobject-introspection,
+  totem-pl-parser,
+  wrapGAppsHook,
+  itstool,
+  libxml2,
+  vala,
+  gnome,
+  grilo,
+  grilo-plugins,
+  libpeas,
+  libportal-gtk3,
+  libhandy,
+  adwaita-icon-theme,
+  gnome-desktop,
+  gsettings-desktop-schemas,
+  gdk-pixbuf,
+  xvfb-run,
+}:
 
 stdenv.mkDerivation rec {
   pname = "totem";

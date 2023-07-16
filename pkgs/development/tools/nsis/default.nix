@@ -1,4 +1,13 @@
-{ lib, stdenv, symlinkJoin, fetchurl, fetchzip, scons, zlib, libiconv }:
+{
+  lib,
+  stdenv,
+  symlinkJoin,
+  fetchurl,
+  fetchzip,
+  scons,
+  zlib,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nsis";

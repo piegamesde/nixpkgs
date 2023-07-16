@@ -1,5 +1,14 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, setuptools, wheel, packaging, ply
-, toml }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  wheel,
+  packaging,
+  ply,
+  toml,
+}:
 
 buildPythonPackage rec {
   pname = "sip";

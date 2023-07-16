@@ -1,6 +1,21 @@
-{ async_generator, buildPythonPackage, fetchFromGitHub, hatchling, ipykernel
-, ipywidgets, jupyter-client, lib, nbconvert, nbformat, nest-asyncio
-, pytest-asyncio, pytestCheckHook, pythonOlder, testpath, traitlets, xmltodict
+{
+  async_generator,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatchling,
+  ipykernel,
+  ipywidgets,
+  jupyter-client,
+  lib,
+  nbconvert,
+  nbformat,
+  nest-asyncio,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  testpath,
+  traitlets,
+  xmltodict,
 }:
 
 let

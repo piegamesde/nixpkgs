@@ -1,5 +1,12 @@
-{ lib, aiohttp, beautifulsoup4, buildPythonPackage, fetchFromGitHub, pkce
-, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  beautifulsoup4,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pkce,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pymyq";

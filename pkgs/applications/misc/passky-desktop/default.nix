@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, appimageTools, undmg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  appimageTools,
+  undmg,
+}:
 
 let
   pname = "passky-desktop";

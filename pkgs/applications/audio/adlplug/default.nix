@@ -1,13 +1,44 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, fmt, liblo
-, alsa-lib, freetype, libX11, libXrandr, libXinerama, libXext, libXcursor
-, Foundation, Cocoa, Carbon, CoreServices, ApplicationServices, CoreAudio
-, CoreMIDI, AudioToolbox, Accelerate, CoreImage, IOKit, AudioUnit, QuartzCore
-, WebKit, DiscRecording, CoreAudioKit
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  fmt,
+  liblo,
+  alsa-lib,
+  freetype,
+  libX11,
+  libXrandr,
+  libXinerama,
+  libXext,
+  libXcursor,
+  Foundation,
+  Cocoa,
+  Carbon,
+  CoreServices,
+  ApplicationServices,
+  CoreAudio,
+  CoreMIDI,
+  AudioToolbox,
+  Accelerate,
+  CoreImage,
+  IOKit,
+  AudioUnit,
+  QuartzCore,
+  WebKit,
+  DiscRecording,
+  CoreAudioKit
 
-# Enabling JACK requires a JACK server at runtime, no fallback mechanism
-, withJack ? false, jack
+  # Enabling JACK requires a JACK server at runtime, no fallback mechanism
+  ,
+  withJack ? false,
+  jack
 
-, type ? "ADL" }:
+  ,
+  type ? "ADL"
+}:
 
 assert lib.assertOneOf "type" type [ "ADL" "OPN" ];
 let

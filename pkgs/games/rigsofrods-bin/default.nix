@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, makeWrapper, unzip, libGL, libICE
-, libSM, libX11, libXrandr, zlib, alsa-lib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  makeWrapper,
+  unzip,
+  libGL,
+  libICE,
+  libSM,
+  libX11,
+  libXrandr,
+  zlib,
+  alsa-lib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rigsofrods-bin";

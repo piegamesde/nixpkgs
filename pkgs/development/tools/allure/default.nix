@@ -1,4 +1,10 @@
-{ lib, stdenv, makeWrapper, fetchurl, jre }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  fetchurl,
+  jre,
+}:
 
 let
   pname = "allure";

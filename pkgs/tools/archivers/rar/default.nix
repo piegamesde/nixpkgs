@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  installShellFiles,
+}:
 
 let
   version = "6.21";

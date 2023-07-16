@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, azure-common, azure-mgmt-core, msrest
-, msrestazure, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  azure-common,
+  azure-mgmt-core,
+  msrest,
+  msrestazure,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   version = "22.2.0";

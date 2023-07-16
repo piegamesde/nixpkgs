@@ -1,6 +1,11 @@
 # Global configuration for yubikey-agent.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

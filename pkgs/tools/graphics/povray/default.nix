@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, boost, zlib, libX11, libICE
-, libSM, libpng, libjpeg, libtiff, SDL }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  boost,
+  zlib,
+  libX11,
+  libICE,
+  libSM,
+  libpng,
+  libjpeg,
+  libtiff,
+  SDL,
+}:
 
 stdenv.mkDerivation rec {
   pname = "povray";

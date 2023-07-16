@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, wrapQtAppsHook, cmake, qtbase, qtsvg, qttools
-, testers, zint }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  wrapQtAppsHook,
+  cmake,
+  qtbase,
+  qtsvg,
+  qttools,
+  testers,
+  zint,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zint";

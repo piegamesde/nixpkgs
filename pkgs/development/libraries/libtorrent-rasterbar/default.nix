@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake, zlib, boost, openssl, python, ncurses
-, SystemConfiguration }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  zlib,
+  boost,
+  openssl,
+  python,
+  ncurses,
+  SystemConfiguration,
+}:
 
 let
   version = "2.0.8";

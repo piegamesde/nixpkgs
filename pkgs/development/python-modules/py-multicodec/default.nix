@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest-runner, pytestCheckHook
-, pythonOlder, morphys, six, varint }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-runner,
+  pytestCheckHook,
+  pythonOlder,
+  morphys,
+  six,
+  varint,
+}:
 
 buildPythonPackage rec {
   pname = "py-multicodec";

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, urllib3, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  urllib3,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "downloader-cli";

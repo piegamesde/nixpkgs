@@ -1,4 +1,10 @@
-{ lib, stdenv, bundlerEnv, ruby, bundlerUpdateScript }:
+{
+  lib,
+  stdenv,
+  bundlerEnv,
+  ruby,
+  bundlerUpdateScript,
+}:
 
 let
   papertrail-env = bundlerEnv {

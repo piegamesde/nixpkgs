@@ -1,4 +1,11 @@
-{ lib, rustPlatform, fetchFromGitHub, gmp, mpfr, libmpc }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  gmp,
+  mpfr,
+  libmpc,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "kalker";

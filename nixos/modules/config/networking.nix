@@ -1,6 +1,12 @@
 # /etc files related to networking, such as /etc/services.
 
-{ config, lib, options, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 
 with lib;
 

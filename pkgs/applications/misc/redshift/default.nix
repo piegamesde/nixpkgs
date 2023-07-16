@@ -1,17 +1,50 @@
-{ lib, stdenv, fetchFromGitHub, fetchFromGitLab, autoconf, automake, gettext
-, intltool, libtool, pkg-config, wrapGAppsHook, wrapPython
-, gobject-introspection, gtk3, python, pygobject3, pyxdg
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchFromGitLab,
+  autoconf,
+  automake,
+  gettext,
+  intltool,
+  libtool,
+  pkg-config,
+  wrapGAppsHook,
+  wrapPython,
+  gobject-introspection,
+  gtk3,
+  python,
+  pygobject3,
+  pyxdg
 
-, withQuartz ? stdenv.isDarwin, ApplicationServices, withRandr ? stdenv.isLinux
-, libxcb, withDrm ? stdenv.isLinux, libdrm
+  ,
+  withQuartz ? stdenv.isDarwin,
+  ApplicationServices,
+  withRandr ? stdenv.isLinux,
+  libxcb,
+  withDrm ? stdenv.isLinux,
+  libdrm
 
-, withGeolocation ? true, withCoreLocation ? withGeolocation && stdenv.isDarwin
-, CoreLocation, Foundation, Cocoa
-, withGeoclue ? withGeolocation && stdenv.isLinux, geoclue
-, withAppIndicator ? stdenv.isLinux, libappindicator, libayatana-appindicator }:
+  ,
+  withGeolocation ? true,
+  withCoreLocation ? withGeolocation && stdenv.isDarwin,
+  CoreLocation,
+  Foundation,
+  Cocoa,
+  withGeoclue ? withGeolocation && stdenv.isLinux,
+  geoclue,
+  withAppIndicator ? stdenv.isLinux,
+  libappindicator,
+  libayatana-appindicator,
+}:
 
 let
-  mkRedshift = { pname, version, src, meta }:
+  mkRedshift = {
+      pname,
+      version,
+      src,
+      meta,
+    }:
     stdenv.mkDerivation rec {
       inherit pname version src meta;
 

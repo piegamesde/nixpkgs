@@ -1,5 +1,21 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, xz, pkg-config, openssl, dbus
-, glib, udev, cairo, pango, atk, gdk-pixbuf, gtk3, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  xz,
+  pkg-config,
+  openssl,
+  dbus,
+  glib,
+  udev,
+  cairo,
+  pango,
+  atk,
+  gdk-pixbuf,
+  gtk3,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "firmware-manager";

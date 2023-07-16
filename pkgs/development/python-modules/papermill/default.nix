@@ -1,7 +1,26 @@
-{ lib, ansiwrap, azure-datalake-store, azure-storage-blob, boto3
-, buildPythonPackage, click, entrypoints, fetchPypi, gcsfs, nbclient, nbformat
-, pyarrow, pygithub, pytest-mock, pytestCheckHook, pythonOlder, pyyaml, requests
-, tenacity, tqdm }:
+{
+  lib,
+  ansiwrap,
+  azure-datalake-store,
+  azure-storage-blob,
+  boto3,
+  buildPythonPackage,
+  click,
+  entrypoints,
+  fetchPypi,
+  gcsfs,
+  nbclient,
+  nbformat,
+  pyarrow,
+  pygithub,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  requests,
+  tenacity,
+  tqdm,
+}:
 
 buildPythonPackage rec {
   pname = "papermill";

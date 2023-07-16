@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pyserial, pytestCheckHook
-, pythonOlder, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyserial,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "umodbus";

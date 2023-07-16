@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pathlib, py-cpuinfo, pytest
-, pythonOlder, statistics }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pathlib,
+  py-cpuinfo,
+  pytest,
+  pythonOlder,
+  statistics,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-benchmark";

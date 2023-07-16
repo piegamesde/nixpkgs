@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, slurp, grim, gnome, wl-clipboard, imagemagick
-, makeWrapper, bash }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  slurp,
+  grim,
+  gnome,
+  wl-clipboard,
+  imagemagick,
+  makeWrapper,
+  bash,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wl-color-picker";

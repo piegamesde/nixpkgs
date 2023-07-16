@@ -1,5 +1,12 @@
-{ lib, mkFranzDerivation, fetchurl, xorg, xdg-utils, buildEnv
-, writeShellScriptBin }:
+{
+  lib,
+  mkFranzDerivation,
+  fetchurl,
+  xorg,
+  xdg-utils,
+  buildEnv,
+  writeShellScriptBin,
+}:
 
 let
   mkFranzDerivation' = mkFranzDerivation.override {

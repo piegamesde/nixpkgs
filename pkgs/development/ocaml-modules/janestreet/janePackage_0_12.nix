@@ -1,6 +1,16 @@
-{ lib, fetchFromGitHub, buildDunePackage, defaultVersion ? "0.12.0" }:
+{
+  lib,
+  fetchFromGitHub,
+  buildDunePackage,
+  defaultVersion ? "0.12.0"
+}:
 
-{ pname, version ? defaultVersion, hash, ... }@args:
+{
+  pname,
+  version ? defaultVersion,
+  hash,
+  ...
+}@args:
 
 buildDunePackage (args // {
   inherit version;

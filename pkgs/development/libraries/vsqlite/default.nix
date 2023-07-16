@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, boost, sqlite }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  boost,
+  sqlite,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vsqlite";

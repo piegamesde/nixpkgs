@@ -1,6 +1,19 @@
-{ lib, aiohttp, aioresponses, buildPythonPackage, click, dateparser
-, fetchFromGitHub, marshmallow-dataclass, poetry-core, pyjwt, pythonOlder
-, pytest-asyncio, pytestCheckHook, tabulate }:
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  buildPythonPackage,
+  click,
+  dateparser,
+  fetchFromGitHub,
+  marshmallow-dataclass,
+  poetry-core,
+  pyjwt,
+  pythonOlder,
+  pytest-asyncio,
+  pytestCheckHook,
+  tabulate,
+}:
 
 buildPythonPackage rec {
   pname = "renault-api";

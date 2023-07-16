@@ -1,7 +1,28 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, kconfig, kcoreaddons
-, kcrash, kdbusaddons, kdnssd, knotifications, kwallet, kwidgetsaddons
-, kwindowsystem, kxmlgui, kwayland, kpipewire, libvncserver, libXtst, libXdamage
-, qtx11extras, pipewire, plasma-wayland-protocols, wayland }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  kconfig,
+  kcoreaddons,
+  kcrash,
+  kdbusaddons,
+  kdnssd,
+  knotifications,
+  kwallet,
+  kwidgetsaddons,
+  kwindowsystem,
+  kxmlgui,
+  kwayland,
+  kpipewire,
+  libvncserver,
+  libXtst,
+  libXdamage,
+  qtx11extras,
+  pipewire,
+  plasma-wayland-protocols,
+  wayland,
+}:
 
 mkDerivation {
   pname = "krfb";

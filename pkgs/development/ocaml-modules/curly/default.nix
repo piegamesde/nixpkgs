@@ -1,5 +1,16 @@
-{ stdenv, lib, buildDunePackage, fetchurl, ocaml, result, alcotest
-, cohttp-lwt-unix, odoc, curl, cacert }:
+{
+  stdenv,
+  lib,
+  buildDunePackage,
+  fetchurl,
+  ocaml,
+  result,
+  alcotest,
+  cohttp-lwt-unix,
+  odoc,
+  curl,
+  cacert,
+}:
 
 buildDunePackage rec {
   pname = "curly";

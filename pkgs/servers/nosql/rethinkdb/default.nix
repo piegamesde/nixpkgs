@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, which, m4, protobuf, boost170, zlib, curl, openssl, icu
-, jemalloc, libtool, python2Packages, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  which,
+  m4,
+  protobuf,
+  boost170,
+  zlib,
+  curl,
+  openssl,
+  icu,
+  jemalloc,
+  libtool,
+  python2Packages,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rethinkdb";

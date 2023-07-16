@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, libX11, libXext, libXt, imake, gccmakedep }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libX11,
+  libXext,
+  libXt,
+  imake,
+  gccmakedep,
+}:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

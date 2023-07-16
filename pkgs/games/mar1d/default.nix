@@ -1,5 +1,15 @@
-{ stdenv, lib, SDL2, SDL2_mixer, libGLU, libconfig, meson, ninja, pkg-config
-, fetchFromGitHub }:
+{
+  stdenv,
+  lib,
+  SDL2,
+  SDL2_mixer,
+  libGLU,
+  libconfig,
+  meson,
+  ninja,
+  pkg-config,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "MAR1D";

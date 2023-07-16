@@ -1,6 +1,21 @@
-{ curl, dbus, fetchFromGitHub, fetchpatch, glib, json-glib, lib
-, nix-update-script, openssl, pkg-config, stdenv, meson, ninja, util-linux
-, libnl, systemd }:
+{
+  curl,
+  dbus,
+  fetchFromGitHub,
+  fetchpatch,
+  glib,
+  json-glib,
+  lib,
+  nix-update-script,
+  openssl,
+  pkg-config,
+  stdenv,
+  meson,
+  ninja,
+  util-linux,
+  libnl,
+  systemd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rauc";

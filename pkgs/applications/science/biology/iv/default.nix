@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, neuron-version, libX11, libXext, patchelf }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  neuron-version,
+  libX11,
+  libXext,
+  patchelf,
+}:
 
 stdenv.mkDerivation rec {
   pname = "iv";

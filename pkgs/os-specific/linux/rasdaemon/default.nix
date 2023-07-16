@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, glibcLocales, kmod, coreutils
-, perl, dmidecode, hwdata, sqlite, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  glibcLocales,
+  kmod,
+  coreutils,
+  perl,
+  dmidecode,
+  hwdata,
+  sqlite,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rasdaemon";

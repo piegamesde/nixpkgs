@@ -1,5 +1,12 @@
-{ lib, argcomplete, buildPythonPackage, fetchFromGitHub, pytestCheckHook
-, pythonOlder, typeguard }:
+{
+  lib,
+  argcomplete,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  typeguard,
+}:
 
 buildPythonPackage rec {
   pname = "enhancements";

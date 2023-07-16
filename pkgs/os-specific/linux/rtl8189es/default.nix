@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, kernel, bc, nukeReferences }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  kernel,
+  bc,
+  nukeReferences,
+}:
 
 stdenv.mkDerivation rec {
   name = "rtl8189es-${kernel.version}-${version}";

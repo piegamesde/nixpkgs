@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, ApplicationServices }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  ApplicationServices,
+}:
 
 stdenv.mkDerivation rec {
   pname = "duti";

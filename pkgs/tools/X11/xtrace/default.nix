@@ -1,4 +1,12 @@
-{ lib, stdenv, autoreconfHook, fetchFromGitLab, libX11, xauth, makeWrapper }:
+{
+  lib,
+  stdenv,
+  autoreconfHook,
+  fetchFromGitLab,
+  libX11,
+  xauth,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xtrace";

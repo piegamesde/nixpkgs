@@ -1,5 +1,13 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, pythonOlder, importlib-metadata
-, packaging, pyxdg }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  importlib-metadata,
+  packaging,
+  pyxdg,
+}:
 
 buildPythonPackage rec {
   pname = "show-in-file-manager";

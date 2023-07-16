@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, perl, makeWrapper, makeDesktopItem, which
-, perlPackages, boost, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  perl,
+  makeWrapper,
+  makeDesktopItem,
+  which,
+  perlPackages,
+  boost,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.3.0";

@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, buildPythonPackage, python, dbus-python, sip_4, qt4
-, pkg-config, lndir, dbus, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  buildPythonPackage,
+  python,
+  dbus-python,
+  sip_4,
+  qt4,
+  pkg-config,
+  lndir,
+  dbus,
+  makeWrapper,
+}:
 
 buildPythonPackage rec {
   pname = "PyQt-x11-gpl";

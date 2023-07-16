@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, alsa-lib, glib, json-glib }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  alsa-lib,
+  glib,
+  json-glib,
+}:
 
 stdenv.mkDerivation {
   pname = "aseq2json";

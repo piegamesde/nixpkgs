@@ -1,7 +1,27 @@
-{ lib, rustPlatform, fetchFromGitLab, fetchpatch, openssl, libGL, vulkan-loader
-, wayland, wayland-protocols, libxkbcommon, libX11, libXrandr, libXi, libXcursor
-, udev, alsa-lib, stdenv, libxcb, pkg-config, makeWrapper, writeShellScript
-, patchelf }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitLab,
+  fetchpatch,
+  openssl,
+  libGL,
+  vulkan-loader,
+  wayland,
+  wayland-protocols,
+  libxkbcommon,
+  libX11,
+  libXrandr,
+  libXi,
+  libXcursor,
+  udev,
+  alsa-lib,
+  stdenv,
+  libxcb,
+  pkg-config,
+  makeWrapper,
+  writeShellScript,
+  patchelf,
+}:
 let
   version = "0.10.0";
   # Patch for airshipper to install veloren

@@ -1,7 +1,29 @@
-{ lib, android-backup, appdirs, attrs, buildPythonPackage, click, construct
-, croniter, cryptography, defusedxml, fetchPypi, fetchpatch, importlib-metadata
-, micloud, netifaces, poetry-core, pytest-asyncio, pytest-mock, pytestCheckHook
-, pythonOlder, pytz, pyyaml, tqdm, zeroconf }:
+{
+  lib,
+  android-backup,
+  appdirs,
+  attrs,
+  buildPythonPackage,
+  click,
+  construct,
+  croniter,
+  cryptography,
+  defusedxml,
+  fetchPypi,
+  fetchpatch,
+  importlib-metadata,
+  micloud,
+  netifaces,
+  poetry-core,
+  pytest-asyncio,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  pyyaml,
+  tqdm,
+  zeroconf,
+}:
 
 buildPythonPackage rec {
   pname = "python-miio";

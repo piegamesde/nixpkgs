@@ -1,11 +1,58 @@
-{ lib, stdenv, fetchFromGitHub, fetchgit, SDL2, cmake, espeak, ffmpeg, file
-, freetype, glib, gumbo, harfbuzz, jbig2dec, leptonica, libGL, libX11, libXau
-, libXcomposite, libXdmcp, libXfixes, libdrm, libffi, libusb1, libuvc, libvlc
-, libvncserver, libxcb, libxkbcommon, lua5_1, luajit, makeWrapper, mesa, mupdf
-, openal, openjpeg, pcre, pkg-config, sqlite, tesseract, valgrind, wayland
-, wayland-protocols, xcbutil, xcbutilwm, xz, buildManPages ? true, ruby
-, useBuiltinLua ? true, useStaticFreetype ? false, useStaticLibuvc ? false
-, useStaticOpenAL ? true, useStaticSqlite ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchgit,
+  SDL2,
+  cmake,
+  espeak,
+  ffmpeg,
+  file,
+  freetype,
+  glib,
+  gumbo,
+  harfbuzz,
+  jbig2dec,
+  leptonica,
+  libGL,
+  libX11,
+  libXau,
+  libXcomposite,
+  libXdmcp,
+  libXfixes,
+  libdrm,
+  libffi,
+  libusb1,
+  libuvc,
+  libvlc,
+  libvncserver,
+  libxcb,
+  libxkbcommon,
+  lua5_1,
+  luajit,
+  makeWrapper,
+  mesa,
+  mupdf,
+  openal,
+  openjpeg,
+  pcre,
+  pkg-config,
+  sqlite,
+  tesseract,
+  valgrind,
+  wayland,
+  wayland-protocols,
+  xcbutil,
+  xcbutilwm,
+  xz,
+  buildManPages ? true,
+  ruby,
+  useBuiltinLua ? true,
+  useStaticFreetype ? false,
+  useStaticLibuvc ? false,
+  useStaticOpenAL ? true,
+  useStaticSqlite ? false
+}:
 
 let
   cmakeFeatureFlag = feature: flag:

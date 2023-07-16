@@ -1,6 +1,23 @@
-{ lib, buildDunePackage, astring, cohttp-lwt, cohttp-lwt-unix, irmin, webmachine
-, fmt, jsonm, logs, lwt, uri, git-unix, irmin-git, irmin-test, irmin-fs
-, digestif, cacert }:
+{
+  lib,
+  buildDunePackage,
+  astring,
+  cohttp-lwt,
+  cohttp-lwt-unix,
+  irmin,
+  webmachine,
+  fmt,
+  jsonm,
+  logs,
+  lwt,
+  uri,
+  git-unix,
+  irmin-git,
+  irmin-test,
+  irmin-fs,
+  digestif,
+  cacert,
+}:
 
 buildDunePackage rec {
 

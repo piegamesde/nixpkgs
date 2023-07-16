@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, rustPlatform, pkg-config, openssl
-, runCommand, patchelf, zlib, Security }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  runCommand,
+  patchelf,
+  zlib,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-bisect-rustc";

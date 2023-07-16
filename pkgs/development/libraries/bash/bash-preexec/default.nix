@@ -1,4 +1,9 @@
-{ stdenvNoCC, lib, fetchFromGitHub, bats }:
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+  bats,
+}:
 
 let version = "0.5.0";
 in stdenvNoCC.mkDerivation {

@@ -1,5 +1,18 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, qtbase, qtmultimedia, qtx11extras
-, qttools, qtwebengine, libidn, qca-qt5, libXScrnSaver, hunspell }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  qtbase,
+  qtmultimedia,
+  qtx11extras,
+  qttools,
+  qtwebengine,
+  libidn,
+  qca-qt5,
+  libXScrnSaver,
+  hunspell,
+}:
 
 mkDerivation rec {
   pname = "psi";

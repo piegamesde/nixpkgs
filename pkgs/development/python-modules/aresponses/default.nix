@@ -1,5 +1,13 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pythonOlder, pytest
-, pytest-asyncio, pytestCheckHook }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytest,
+  pytest-asyncio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "aresponses";

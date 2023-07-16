@@ -1,5 +1,14 @@
-{ lib, async-timeout, buildPythonPackage, fetchFromGitHub, pytest-cov
-, pytestCheckHook, pytest-mypy, pythonOlder, tenacity }:
+{
+  lib,
+  async-timeout,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-cov,
+  pytestCheckHook,
+  pytest-mypy,
+  pythonOlder,
+  tenacity,
+}:
 
 buildPythonPackage rec {
   pname = "aiokef";

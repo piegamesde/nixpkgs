@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, lndconnect }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  lndconnect,
+}:
 buildGoModule rec {
   pname = "lndconnect";
   version = "0.2.1";

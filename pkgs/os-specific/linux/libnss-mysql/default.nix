@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, which, libmysqlclient }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  which,
+  libmysqlclient,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libnss-mysql";

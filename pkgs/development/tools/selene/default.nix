@@ -1,5 +1,13 @@
-{ lib, rustPlatform, fetchFromGitHub, robloxSupport ? true, pkg-config, openssl
-, stdenv, darwin }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  robloxSupport ? true,
+  pkg-config,
+  openssl,
+  stdenv,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "selene";

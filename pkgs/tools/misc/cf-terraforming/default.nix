@@ -1,4 +1,10 @@
-{ buildGoModule, fetchFromGitHub, lib, cf-terraforming, testers }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  cf-terraforming,
+  testers,
+}:
 
 buildGoModule rec {
   pname = "cf-terraforming";

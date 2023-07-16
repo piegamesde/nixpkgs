@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, requests, setuptools
-, six, stone, mock, pytest-mock, pytestCheckHook, sphinxHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  requests,
+  setuptools,
+  six,
+  stone,
+  mock,
+  pytest-mock,
+  pytestCheckHook,
+  sphinxHook,
+}:
 
 buildPythonPackage rec {
   pname = "dropbox";

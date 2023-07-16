@@ -1,4 +1,10 @@
-{ buildPythonPackage, lib, fetchPypi, glibcLocales, unittestCheckHook }:
+{
+  buildPythonPackage,
+  lib,
+  fetchPypi,
+  glibcLocales,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "u-msgpack-python";

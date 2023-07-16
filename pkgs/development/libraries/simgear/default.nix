@@ -1,6 +1,31 @@
-{ lib, stdenv, fetchurl, plib, freeglut, xorgproto, libX11, libXext, libXi
-, libICE, libSM, libXt, libXmu, libGLU, libGL, boost, zlib, libjpeg, freealut
-, openscenegraph, openal, expat, cmake, apr, xz, curl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  plib,
+  freeglut,
+  xorgproto,
+  libX11,
+  libXext,
+  libXi,
+  libICE,
+  libSM,
+  libXt,
+  libXmu,
+  libGLU,
+  libGL,
+  boost,
+  zlib,
+  libjpeg,
+  freealut,
+  openscenegraph,
+  openal,
+  expat,
+  cmake,
+  apr,
+  xz,
+  curl,
+}:
 let
   version = "2020.3.18";
   shortVersion = builtins.substring 0 6 version;

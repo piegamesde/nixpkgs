@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools, docutils, rich }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  docutils,
+  rich,
+}:
 
 buildPythonPackage rec {
   pname = "rich-rst";

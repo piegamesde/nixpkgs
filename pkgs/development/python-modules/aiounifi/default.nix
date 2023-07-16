@@ -1,5 +1,15 @@
-{ lib, aiohttp, aioresponses, buildPythonPackage, fetchFromGitHub, orjson
-, pytest-aiohttp, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  orjson,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aiounifi";

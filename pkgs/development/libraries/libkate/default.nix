@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libogg, libpng }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libogg,
+  libpng,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libkate";

@@ -1,4 +1,7 @@
-{ callPackage, ... }@args:
+{
+  callPackage,
+  ...
+}@args:
 
 callPackage ./generic.nix args {
   # Note: Please use the recommended version for Chromium, e.g.:

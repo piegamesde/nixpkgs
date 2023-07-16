@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools, django
-, djangorestframework, pytest, pytest-cov, pytest-django, ipdb, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  django,
+  djangorestframework,
+  pytest,
+  pytest-cov,
+  pytest-django,
+  ipdb,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "drf-nested-routers";

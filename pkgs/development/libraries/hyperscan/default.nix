@@ -1,6 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ragel, python3, util-linux, fetchpatch
-, boost, withStatic ?
-  false # build only shared libs by default, build static+shared if true
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ragel,
+  python3,
+  util-linux,
+  fetchpatch,
+  boost,
+  withStatic ?
+    false # build only shared libs by default, build static+shared if true
 }:
 
 # NOTICE: pkg-config, pcap and pcre intentionally omitted from build inputs

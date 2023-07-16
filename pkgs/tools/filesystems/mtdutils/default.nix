@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchgit, autoreconfHook, pkg-config, cmocka, acl, libuuid, lzo
-, zlib, zstd }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  autoreconfHook,
+  pkg-config,
+  cmocka,
+  acl,
+  libuuid,
+  lzo,
+  zlib,
+  zstd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mtd-utils";

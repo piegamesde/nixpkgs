@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, gtk3, wxGTK32, curl, gettext
-, glib, indi-full, libnova, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  gtk3,
+  wxGTK32,
+  curl,
+  gettext,
+  glib,
+  indi-full,
+  libnova,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "phd2";

@@ -1,8 +1,24 @@
-{ stdenv, lib, runCommand, patchelf, fetchFromGitHub, rustPlatform
-, makeBinaryWrapper, pkg-config, curl, Security, CoreServices, libiconv, xz
-, perl, substituteAll
-# for passthru.tests:
-, edgedb, testers }:
+{
+  stdenv,
+  lib,
+  runCommand,
+  patchelf,
+  fetchFromGitHub,
+  rustPlatform,
+  makeBinaryWrapper,
+  pkg-config,
+  curl,
+  Security,
+  CoreServices,
+  libiconv,
+  xz,
+  perl,
+  substituteAll
+  # for passthru.tests:
+  ,
+  edgedb,
+  testers,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "edgedb";

@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, jinja2, kubernetes, ruamel-yaml, six
-, python-string-utils, pytest-bdd, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jinja2,
+  kubernetes,
+  ruamel-yaml,
+  six,
+  python-string-utils,
+  pytest-bdd,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "openshift";

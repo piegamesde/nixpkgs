@@ -1,4 +1,11 @@
-{ lib, python3Packages, fetchFromGitHub, fetchurl, youtube-dl, git }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  fetchurl,
+  youtube-dl,
+  git,
+}:
 
 let
   install_freedesktop = fetchurl {

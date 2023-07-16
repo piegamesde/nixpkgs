@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchurl, pkg-config, glib, gobject-introspection }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  glib,
+  gobject-introspection,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libgmpris";

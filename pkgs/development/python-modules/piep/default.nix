@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, nose, pygments, isPy3k }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nose,
+  pygments,
+  isPy3k,
+}:
 
 buildPythonPackage rec {
   version = "0.10.0";

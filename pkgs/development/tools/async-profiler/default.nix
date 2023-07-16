@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, jdk, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  jdk,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "async-profiler";

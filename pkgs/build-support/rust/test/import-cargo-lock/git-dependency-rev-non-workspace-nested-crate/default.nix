@@ -1,4 +1,11 @@
-{ rustPlatform, pkg-config, openssl, lib, darwin, stdenv }:
+{
+  rustPlatform,
+  pkg-config,
+  openssl,
+  lib,
+  darwin,
+  stdenv,
+}:
 
 rustPlatform.buildRustPackage {
   pname = "git-dependency-rev-non-workspace-nested-crate";

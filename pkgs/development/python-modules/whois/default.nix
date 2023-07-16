@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, inetutils, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  inetutils,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "whois";

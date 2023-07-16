@@ -1,4 +1,10 @@
-{ stdenv, pkgs, lib, nodejs_16, runtimeShell }:
+{
+  stdenv,
+  pkgs,
+  lib,
+  nodejs_16,
+  runtimeShell,
+}:
 
 let
   nodejs = nodejs_16;

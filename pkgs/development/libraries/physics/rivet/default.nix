@@ -1,5 +1,21 @@
-{ lib, stdenv, fetchurl, fetchpatch, fastjet, fastjet-contrib, ghostscript
-, hepmc, imagemagick, less, python3, rsync, texlive, yoda, which, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  fastjet,
+  fastjet-contrib,
+  ghostscript,
+  hepmc,
+  imagemagick,
+  less,
+  python3,
+  rsync,
+  texlive,
+  yoda,
+  which,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rivet";

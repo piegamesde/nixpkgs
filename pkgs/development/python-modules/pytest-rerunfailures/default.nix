@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, setuptools, packaging, pytest
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  setuptools,
+  packaging,
+  pytest,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-rerunfailures";

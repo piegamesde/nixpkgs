@@ -1,7 +1,31 @@
-{ lib, buildPythonPackage, fetchFromGitHub, logbook, aiofiles, aiohttp
-, aiohttp-socks, aioresponses, atomicwrites, attrs, cachetools, faker, future
-, git, h11, h2, hypothesis, jsonschema, peewee, poetry-core, py, pycryptodome
-, pytest-aiohttp, pytest-benchmark, pytestCheckHook, python-olm, unpaddedbase64
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  logbook,
+  aiofiles,
+  aiohttp,
+  aiohttp-socks,
+  aioresponses,
+  atomicwrites,
+  attrs,
+  cachetools,
+  faker,
+  future,
+  git,
+  h11,
+  h2,
+  hypothesis,
+  jsonschema,
+  peewee,
+  poetry-core,
+  py,
+  pycryptodome,
+  pytest-aiohttp,
+  pytest-benchmark,
+  pytestCheckHook,
+  python-olm,
+  unpaddedbase64,
 }:
 
 buildPythonPackage rec {

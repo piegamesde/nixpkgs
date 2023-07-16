@@ -1,4 +1,7 @@
-{ lib, writeShellScript }:
+{
+  lib,
+  writeShellScript,
+}:
 let output = "hello";
 in (writeShellScript "test-script" ''
   echo ${lib.escapeShellArg output}

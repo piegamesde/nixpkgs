@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchgit, libtoxcore, conf ? null }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  libtoxcore,
+  conf ? null
+}:
 
 let
   configFile =

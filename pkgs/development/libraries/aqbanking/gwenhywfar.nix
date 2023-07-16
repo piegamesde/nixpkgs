@@ -1,13 +1,27 @@
-{ lib, stdenv, fetchurl, gnutls, openssl, libgcrypt, libgpg-error, pkg-config
-, gettext, which
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gnutls,
+  openssl,
+  libgcrypt,
+  libgpg-error,
+  pkg-config,
+  gettext,
+  which
 
-# GUI support
-, gtk2, gtk3, qt5
+  # GUI support
+  ,
+  gtk2,
+  gtk3,
+  qt5
 
-, pluginSearchPaths ? [
-  "/run/current-system/sw/lib/gwenhywfar/plugins"
-  ".nix-profile/lib/gwenhywfar/plugins"
-] }:
+  ,
+  pluginSearchPaths ? [
+    "/run/current-system/sw/lib/gwenhywfar/plugins"
+    ".nix-profile/lib/gwenhywfar/plugins"
+  ]
+}:
 
 let inherit ((import ./sources.nix).gwenhywfar) hash releaseId version;
 in stdenv.mkDerivation rec {

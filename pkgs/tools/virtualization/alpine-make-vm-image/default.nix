@@ -1,5 +1,18 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, apk-tools, coreutils, e2fsprogs
-, findutils, gnugrep, gnused, kmod, qemu-utils, util-linux }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  apk-tools,
+  coreutils,
+  e2fsprogs,
+  findutils,
+  gnugrep,
+  gnused,
+  kmod,
+  qemu-utils,
+  util-linux,
+}:
 
 stdenv.mkDerivation rec {
   pname = "alpine-make-vm-image";

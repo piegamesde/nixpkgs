@@ -1,4 +1,12 @@
-{ lib, stdenv, callPackage, fetchurl, fetchpatch, tcl, ... }@args:
+{
+  lib,
+  stdenv,
+  callPackage,
+  fetchurl,
+  fetchpatch,
+  tcl,
+  ...
+}@args:
 
 callPackage ./generic.nix (args // {
 

@@ -1,4 +1,9 @@
-{ lib, stdenv, haskellPackages, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  haskellPackages,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation {
   pname = "nix-script";

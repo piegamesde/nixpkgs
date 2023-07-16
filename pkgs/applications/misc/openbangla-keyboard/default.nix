@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, rustPlatform, wrapQtAppsHook
-, ibus, qtbase, zstd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  rustPlatform,
+  wrapQtAppsHook,
+  ibus,
+  qtbase,
+  zstd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openbangla-keyboard";

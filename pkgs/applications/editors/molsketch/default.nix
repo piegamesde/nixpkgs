@@ -1,5 +1,15 @@
-{ lib, stdenv, mkDerivation, fetchurl, cmake, pkg-config, hicolor-icon-theme
-, openbabel, desktop-file-utils, qttranslations }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchurl,
+  cmake,
+  pkg-config,
+  hicolor-icon-theme,
+  openbabel,
+  desktop-file-utils,
+  qttranslations,
+}:
 
 mkDerivation rec {
   pname = "molsketch";

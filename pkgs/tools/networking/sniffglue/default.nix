@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, rustPlatform, libpcap, libseccomp, pkg-config }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  libpcap,
+  libseccomp,
+  pkg-config,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "sniffglue";

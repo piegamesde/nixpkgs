@@ -1,9 +1,44 @@
-{ stdenv, lib, ctags, cmark, desktop-file-utils, editorconfig-core-c, fetchurl
-, flatpak, gnome, libgit2-glib, gi-docgen, gobject-introspection, enchant, icu
-, gtk4, gtksourceview5, json-glib, jsonrpc-glib, libadwaita, libdex, libpanel
-, libpeas, libportal-gtk4, libxml2, meson, ninja, ostree, d-spy, pcre2
-, pkg-config, python3, sysprof, template-glib, vala, vte-gtk4, webkitgtk_6_0
-, wrapGAppsHook4, dbus, xvfb-run }:
+{
+  stdenv,
+  lib,
+  ctags,
+  cmark,
+  desktop-file-utils,
+  editorconfig-core-c,
+  fetchurl,
+  flatpak,
+  gnome,
+  libgit2-glib,
+  gi-docgen,
+  gobject-introspection,
+  enchant,
+  icu,
+  gtk4,
+  gtksourceview5,
+  json-glib,
+  jsonrpc-glib,
+  libadwaita,
+  libdex,
+  libpanel,
+  libpeas,
+  libportal-gtk4,
+  libxml2,
+  meson,
+  ninja,
+  ostree,
+  d-spy,
+  pcre2,
+  pkg-config,
+  python3,
+  sysprof,
+  template-glib,
+  vala,
+  vte-gtk4,
+  webkitgtk_6_0,
+  wrapGAppsHook4,
+  dbus,
+  xvfb-run,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-builder";

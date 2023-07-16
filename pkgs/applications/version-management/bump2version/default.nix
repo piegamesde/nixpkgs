@@ -1,5 +1,11 @@
-{ lib, buildPythonApplication, fetchFromGitHub, pytestCheckHook, pythonOlder
-, testfixtures }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  testfixtures,
+}:
 
 buildPythonApplication rec {
   pname = "bump2version";

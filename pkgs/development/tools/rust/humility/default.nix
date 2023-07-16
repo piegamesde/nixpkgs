@@ -1,5 +1,14 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, libusb1, libftdi, cargo-readme
-, pkg-config, AppKit }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  libusb1,
+  libftdi,
+  cargo-readme,
+  pkg-config,
+  AppKit,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "humility";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, openssl, nix }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  openssl,
+  nix,
+}:
 
 stdenv.mkDerivation rec {
   pname = "s2n-tls";

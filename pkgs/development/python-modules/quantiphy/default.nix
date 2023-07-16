@@ -1,6 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, flitBuildHook, pytestCheckHook
-, pythonOlder, inform, parametrize-from-file, setuptools, voluptuous
-, quantiphy-eval, rkm-codes }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flitBuildHook,
+  pytestCheckHook,
+  pythonOlder,
+  inform,
+  parametrize-from-file,
+  setuptools,
+  voluptuous,
+  quantiphy-eval,
+  rkm-codes,
+}:
 
 buildPythonPackage rec {
   pname = "quantiphy";

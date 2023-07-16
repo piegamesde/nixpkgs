@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchgit, bash-completion, cmake, pkg-config, json_c, libdrm
-, libpciaccess, llvmPackages, nanomsg, ncurses, SDL2 }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  bash-completion,
+  cmake,
+  pkg-config,
+  json_c,
+  libdrm,
+  libpciaccess,
+  llvmPackages,
+  nanomsg,
+  ncurses,
+  SDL2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "umr";

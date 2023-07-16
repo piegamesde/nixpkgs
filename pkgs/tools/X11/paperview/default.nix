@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, libX11, SDL2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libX11,
+  SDL2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "paperview";

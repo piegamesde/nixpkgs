@@ -1,4 +1,10 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, withSimd ? stdenv.isx86_64 }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  withSimd ? stdenv.isx86_64
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rsonpath";

@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchurl, copyDesktopItems, makeDesktopItem, makeWrapper, jre
-, libpulseaudio, libXxf86vm }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  copyDesktopItems,
+  makeDesktopItem,
+  makeWrapper,
+  jre,
+  libpulseaudio,
+  libXxf86vm,
+}:
 let
   desktopItem = makeDesktopItem {
     name = "unciv";

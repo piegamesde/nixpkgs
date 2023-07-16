@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, python, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  python,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "awacs";

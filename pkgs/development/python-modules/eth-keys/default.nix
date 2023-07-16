@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, fetchFromGitHub, asn1tools, coincurve, eth-hash
-, eth-typing, eth-utils, factory_boy, hypothesis, isPyPy, pyasn1
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  asn1tools,
+  coincurve,
+  eth-hash,
+  eth-typing,
+  eth-utils,
+  factory_boy,
+  hypothesis,
+  isPyPy,
+  pyasn1,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "eth-keys";

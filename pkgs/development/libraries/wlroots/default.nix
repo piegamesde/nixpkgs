@@ -1,12 +1,41 @@
-{ lib, stdenv, fetchFromGitLab, meson, ninja, pkg-config, wayland-scanner, libGL
-, wayland, wayland-protocols, libinput, libxkbcommon, pixman, libcap, mesa, xorg
-, libpng, ffmpeg_4, hwdata, seatd, vulkan-loader, glslang, nixosTests
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  meson,
+  ninja,
+  pkg-config,
+  wayland-scanner,
+  libGL,
+  wayland,
+  wayland-protocols,
+  libinput,
+  libxkbcommon,
+  pixman,
+  libcap,
+  mesa,
+  xorg,
+  libpng,
+  ffmpeg_4,
+  hwdata,
+  seatd,
+  vulkan-loader,
+  glslang,
+  nixosTests
 
-, enableXWayland ? true, xwayland ? null }:
+  ,
+  enableXWayland ? true,
+  xwayland ? null
+}:
 
 let
-  generic = { version, hash, extraBuildInputs ? [ ]
-    , extraNativeBuildInputs ? [ ], extraPatch ? "" }:
+  generic = {
+      version,
+      hash,
+      extraBuildInputs ? [ ],
+      extraNativeBuildInputs ? [ ],
+      extraPatch ? ""
+    }:
     stdenv.mkDerivation rec {
       pname = "wlroots";
       inherit version;

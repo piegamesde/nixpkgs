@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, fetchurl, python310, nodePackages, wkhtmltopdf
-, nixosTests }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  python310,
+  nodePackages,
+  wkhtmltopdf,
+  nixosTests,
+}:
 
 let
   python = python310.override {

@@ -1,9 +1,30 @@
-{ lib, stdenv, fetchurl, fetchpatch, ncurses, which, perl, gdbm ? null
-, openssl ? null, cyrus_sasl ? null, gnupg ? null, gpgme ? null, libkrb5 ? null
-, headerCache ? true, sslSupport ? true, saslSupport ? true
-, smimeSupport ? false, gpgSupport ? false, gpgmeSupport ? true
-, imapSupport ? true, pop3Support ? true, smtpSupport ? true, withSidebar ? true
-, gssSupport ? true, writeScript }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  ncurses,
+  which,
+  perl,
+  gdbm ? null,
+  openssl ? null,
+  cyrus_sasl ? null,
+  gnupg ? null,
+  gpgme ? null,
+  libkrb5 ? null,
+  headerCache ? true,
+  sslSupport ? true,
+  saslSupport ? true,
+  smimeSupport ? false,
+  gpgSupport ? false,
+  gpgmeSupport ? true,
+  imapSupport ? true,
+  pop3Support ? true,
+  smtpSupport ? true,
+  withSidebar ? true,
+  gssSupport ? true,
+  writeScript,
+}:
 assert smimeSupport -> sslSupport;
 assert gpgmeSupport -> sslSupport;
 

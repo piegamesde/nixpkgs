@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, gettext, glib, gobject-introspection, gnome
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gettext,
+  glib,
+  gobject-introspection,
+  gnome,
 }:
 
 stdenv.mkDerivation rec {

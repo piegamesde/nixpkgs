@@ -1,5 +1,16 @@
-{ lib, aiofiles, buildPythonPackage, cached-property, colorama, fetchFromGitHub
-, git, jsonschema, pdm-backend, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiofiles,
+  buildPythonPackage,
+  cached-property,
+  colorama,
+  fetchFromGitHub,
+  git,
+  jsonschema,
+  pdm-backend,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "griffe";

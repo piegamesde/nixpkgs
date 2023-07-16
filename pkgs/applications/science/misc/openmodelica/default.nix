@@ -1,4 +1,9 @@
-{ lib, newScope, libsForQt5, clangStdenv }:
+{
+  lib,
+  newScope,
+  libsForQt5,
+  clangStdenv,
+}:
 lib.makeScope newScope (self:
   let
     callPackage = self.newScope { stdenv = clangStdenv; };

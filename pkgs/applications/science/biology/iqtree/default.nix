@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost, eigen, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  eigen,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "iqtree";

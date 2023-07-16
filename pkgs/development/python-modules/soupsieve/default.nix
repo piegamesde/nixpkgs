@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, hatchling, isPy3k
-, backports_functools_lru_cache }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  hatchling,
+  isPy3k,
+  backports_functools_lru_cache,
+}:
 
 buildPythonPackage rec {
   pname = "soupsieve";

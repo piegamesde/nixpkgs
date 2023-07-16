@@ -1,6 +1,22 @@
-{ acpica-tools, bash, bc, coreutils, fetchFromGitHub, gawk, gnugrep, gnused
-, linuxPackages, lib, pciutils, powertop, resholve, stdenv, util-linux, xorg
-, xxd, }:
+{
+  acpica-tools,
+  bash,
+  bc,
+  coreutils,
+  fetchFromGitHub,
+  gawk,
+  gnugrep,
+  gnused,
+  linuxPackages,
+  lib,
+  pciutils,
+  powertop,
+  resholve,
+  stdenv,
+  util-linux,
+  xorg,
+  xxd,
+}:
 resholve.mkDerivation {
   pname = "s0ix-selftest-tool";
   version = "unstable-2022-11-04";

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, sphinx, matplotlib, pytestCheckHook
-, pythonOlder, beautifulsoup4, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  sphinx,
+  matplotlib,
+  pytestCheckHook,
+  pythonOlder,
+  beautifulsoup4,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "sphinxext-opengraph";

@@ -1,4 +1,10 @@
-{ micro, expect, runCommand, writeScript, runtimeShell }:
+{
+  micro,
+  expect,
+  runCommand,
+  writeScript,
+  runtimeShell,
+}:
 
 let
   expect-script = writeScript "expect-script" ''

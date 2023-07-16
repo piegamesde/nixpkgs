@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, makeDesktopItem, jre, gtk3, glib, gnome, wrapGAppsHook
-, libXtst, which }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeDesktopItem,
+  jre,
+  gtk3,
+  glib,
+  gnome,
+  wrapGAppsHook,
+  libXtst,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   pname = "smartgithg";

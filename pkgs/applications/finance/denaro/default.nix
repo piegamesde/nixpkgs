@@ -1,6 +1,20 @@
-{ lib, stdenvNoCC, buildDotnetModule, fetchFromGitHub, fetchpatch
-, dotnetCorePackages, gtk4, libadwaita, pkg-config, wrapGAppsHook4, glib
-, shared-mime-info, python3, desktop-file-utils, gdk-pixbuf }:
+{
+  lib,
+  stdenvNoCC,
+  buildDotnetModule,
+  fetchFromGitHub,
+  fetchpatch,
+  dotnetCorePackages,
+  gtk4,
+  libadwaita,
+  pkg-config,
+  wrapGAppsHook4,
+  glib,
+  shared-mime-info,
+  python3,
+  desktop-file-utils,
+  gdk-pixbuf,
+}:
 
 buildDotnetModule rec {
   pname = "denaro";

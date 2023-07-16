@@ -1,10 +1,58 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, makeWrapper, glibc, augeas
-, dnsutils, c-ares, curl, cyrus_sasl, ding-libs, libnl, libunistring, nss, samba
-, nfs-utils, doxygen, python3, pam, popt, talloc, tdb, tevent, pkg-config, ldb
-, openldap, pcre2, libkrb5, cifs-utils, glib, keyutils, dbus, fakeroot, libxslt
-, libxml2, libuuid, systemd, nspr, check, cmocka, uid_wrapper, p11-kit
-, nss_wrapper, ncurses, Po4a, http-parser, jansson, jose, docbook_xsl
-, docbook_xml_dtd_44, nixosTests, withSudo ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  makeWrapper,
+  glibc,
+  augeas,
+  dnsutils,
+  c-ares,
+  curl,
+  cyrus_sasl,
+  ding-libs,
+  libnl,
+  libunistring,
+  nss,
+  samba,
+  nfs-utils,
+  doxygen,
+  python3,
+  pam,
+  popt,
+  talloc,
+  tdb,
+  tevent,
+  pkg-config,
+  ldb,
+  openldap,
+  pcre2,
+  libkrb5,
+  cifs-utils,
+  glib,
+  keyutils,
+  dbus,
+  fakeroot,
+  libxslt,
+  libxml2,
+  libuuid,
+  systemd,
+  nspr,
+  check,
+  cmocka,
+  uid_wrapper,
+  p11-kit,
+  nss_wrapper,
+  ncurses,
+  Po4a,
+  http-parser,
+  jansson,
+  jose,
+  docbook_xsl,
+  docbook_xml_dtd_44,
+  nixosTests,
+  withSudo ? false
+}:
 
 let
   docbookFiles =

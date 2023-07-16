@@ -1,11 +1,48 @@
-{ fetchurl, lib, stdenv, squashfsTools, xorg, alsa-lib, makeShellWrapper
-, wrapGAppsHook, openssl, freetype, glib, pango, cairo, atk, gdk-pixbuf, gtk3
-, cups, nspr, nss, libpng, libnotify, libgcrypt, systemd, fontconfig, dbus
-, expat, ffmpeg, curlWithGnuTls, zlib, gnome, at-spi2-atk, at-spi2-core
-, libpulseaudio, libdrm, mesa, libxkbcommon, pname, meta, harfbuzz
-# High-DPI support: Spotify's --force-device-scale-factor argument
-# not added if `null`, otherwise, should be a number.
-, deviceScaleFactor ? null }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  squashfsTools,
+  xorg,
+  alsa-lib,
+  makeShellWrapper,
+  wrapGAppsHook,
+  openssl,
+  freetype,
+  glib,
+  pango,
+  cairo,
+  atk,
+  gdk-pixbuf,
+  gtk3,
+  cups,
+  nspr,
+  nss,
+  libpng,
+  libnotify,
+  libgcrypt,
+  systemd,
+  fontconfig,
+  dbus,
+  expat,
+  ffmpeg,
+  curlWithGnuTls,
+  zlib,
+  gnome,
+  at-spi2-atk,
+  at-spi2-core,
+  libpulseaudio,
+  libdrm,
+  mesa,
+  libxkbcommon,
+  pname,
+  meta,
+  harfbuzz
+  # High-DPI support: Spotify's --force-device-scale-factor argument
+  # not added if `null`, otherwise, should be a number.
+  ,
+  deviceScaleFactor ? null
+}:
 
 let
   # TO UPDATE: just execute the ./update.sh script (won't do anything if there is no update)

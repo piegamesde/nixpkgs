@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, mock, pyyaml, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  mock,
+  pyyaml,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "python-multipart";

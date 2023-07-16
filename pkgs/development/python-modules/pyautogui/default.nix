@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, fetchFromGitHub, mouseinfo, pygetwindow, pymsgbox
-, pyperclip, pyscreeze, pytweening, tkinter, xlib, xvfb-run, scrot }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mouseinfo,
+  pygetwindow,
+  pymsgbox,
+  pyperclip,
+  pyscreeze,
+  pytweening,
+  tkinter,
+  xlib,
+  xvfb-run,
+  scrot,
+}:
 buildPythonPackage rec {
   pname = "pyautogui";
   version = "0.9.53";

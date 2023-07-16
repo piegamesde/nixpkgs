@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, SDL, curl, openssl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  SDL,
+  curl,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tinyemu";

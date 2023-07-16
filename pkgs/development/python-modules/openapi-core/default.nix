@@ -1,8 +1,30 @@
-{ lib, buildPythonPackage, django, djangorestframework, falcon, fetchFromGitHub
-, flask, httpx, isodate, jsonschema-spec, mock, more-itertools
-, openapi-schema-validator, openapi-spec-validator, parse, pathable, poetry-core
-, pytestCheckHook, pythonOlder, responses, requests, starlette
-, typing-extensions, webob, werkzeug }:
+{
+  lib,
+  buildPythonPackage,
+  django,
+  djangorestframework,
+  falcon,
+  fetchFromGitHub,
+  flask,
+  httpx,
+  isodate,
+  jsonschema-spec,
+  mock,
+  more-itertools,
+  openapi-schema-validator,
+  openapi-spec-validator,
+  parse,
+  pathable,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  responses,
+  requests,
+  starlette,
+  typing-extensions,
+  webob,
+  werkzeug,
+}:
 
 buildPythonPackage rec {
   pname = "openapi-core";

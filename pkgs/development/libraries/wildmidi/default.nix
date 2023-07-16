@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, alsa-lib, freepats }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  alsa-lib,
+  freepats,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wildmidi";

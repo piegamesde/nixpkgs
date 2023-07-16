@@ -1,5 +1,13 @@
-{ mkDerivation, lib, fetchFromGitHub, cmake, olm, openssl, qtmultimedia
-, qtkeychain }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  olm,
+  openssl,
+  qtmultimedia,
+  qtkeychain,
+}:
 
 mkDerivation rec {
   pname = "libquotient";

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, ifaddr, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  ifaddr,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aiosenseme";

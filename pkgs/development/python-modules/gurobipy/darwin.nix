@@ -1,4 +1,11 @@
-{ fetchurl, python, xar, cpio, cctools, insert_dylib }:
+{
+  fetchurl,
+  python,
+  xar,
+  cpio,
+  cctools,
+  insert_dylib,
+}:
 assert python.pkgs.isPy27 && python.ucsEncoding == 2;
 python.pkgs.buildPythonPackage {
   pname = "gurobipy";

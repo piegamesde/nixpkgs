@@ -1,12 +1,51 @@
-args@{ version, sha256, url ? "", name ? "", developerProgram ? false
-, runPatches ? [ ], autoPatchelfHook, autoAddOpenGLRunpathHook, addOpenGLRunpath
-, alsa-lib, expat, fetchurl, fontconfig, freetype, gdk-pixbuf, glib, glibc, gtk2
-, lib, libxkbcommon, libkrb5, krb5, makeWrapper, ncurses5, numactl, nss, perl
-, python3 # FIXME: CUDAToolkit 10 may still need python27
-, pulseaudio, requireFile, stdenv
-, backendStdenv # E.g. gcc11Stdenv, set in extension.nix
-, unixODBC, wayland, xorg, zlib, freeglut, libGLU, libsForQt5, libtiff
-, qt6Packages, rdma-core, ucx, rsync }:
+args@{
+  version,
+  sha256,
+  url ? "",
+  name ? "",
+  developerProgram ? false,
+  runPatches ? [ ],
+  autoPatchelfHook,
+  autoAddOpenGLRunpathHook,
+  addOpenGLRunpath,
+  alsa-lib,
+  expat,
+  fetchurl,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  glibc,
+  gtk2,
+  lib,
+  libxkbcommon,
+  libkrb5,
+  krb5,
+  makeWrapper,
+  ncurses5,
+  numactl,
+  nss,
+  perl,
+  python3 # FIXME: CUDAToolkit 10 may still need python27
+  ,
+  pulseaudio,
+  requireFile,
+  stdenv,
+  backendStdenv # E.g. gcc11Stdenv, set in extension.nix
+  ,
+  unixODBC,
+  wayland,
+  xorg,
+  zlib,
+  freeglut,
+  libGLU,
+  libsForQt5,
+  libtiff,
+  qt6Packages,
+  rdma-core,
+  ucx,
+  rsync,
+}:
 
 backendStdenv.mkDerivation rec {
   pname = "cudatoolkit";

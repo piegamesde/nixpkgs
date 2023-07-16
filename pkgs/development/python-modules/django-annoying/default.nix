@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, django, six
-, pytest-django, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  django,
+  six,
+  pytest-django,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "django-annoying";

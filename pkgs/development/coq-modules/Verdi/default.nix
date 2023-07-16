@@ -1,4 +1,12 @@
-{ lib, mkCoqDerivation, coq, Cheerios, InfSeqExt, ssreflect, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  Cheerios,
+  InfSeqExt,
+  ssreflect,
+  version ? null
+}:
 
 mkCoqDerivation {
   pname = "verdi";

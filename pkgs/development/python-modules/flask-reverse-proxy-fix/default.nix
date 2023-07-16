@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, flask, werkzeug }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy3k,
+  flask,
+  werkzeug,
+}:
 
 buildPythonPackage rec {
   pname = "flask-reverse-proxy-fix";

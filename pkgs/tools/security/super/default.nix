@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, fetchpatch, libxcrypt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  libxcrypt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "super";

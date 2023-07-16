@@ -1,14 +1,39 @@
-{ stdenv, lib, fetchFromSourcehut, asciidoc, cmocka, docbook_xsl, libxslt, meson
-, ninja, pkg-config, icu, pango, inih, withWindowSystem ? null, xorg
-, libxkbcommon, libGLU, wayland, withBackends ? [
-  "freeimage"
-  "libtiff"
-  "libjpeg"
-  "libpng"
-  "librsvg"
-  "libnsgif"
-  "libheif"
-], freeimage, libtiff, libjpeg_turbo, libpng, librsvg, netsurf, libheif }:
+{
+  stdenv,
+  lib,
+  fetchFromSourcehut,
+  asciidoc,
+  cmocka,
+  docbook_xsl,
+  libxslt,
+  meson,
+  ninja,
+  pkg-config,
+  icu,
+  pango,
+  inih,
+  withWindowSystem ? null,
+  xorg,
+  libxkbcommon,
+  libGLU,
+  wayland,
+  withBackends ? [
+    "freeimage"
+    "libtiff"
+    "libjpeg"
+    "libpng"
+    "librsvg"
+    "libnsgif"
+    "libheif"
+  ],
+  freeimage,
+  libtiff,
+  libjpeg_turbo,
+  libpng,
+  librsvg,
+  netsurf,
+  libheif,
+}:
 
 let
   # default value of withWindowSystem

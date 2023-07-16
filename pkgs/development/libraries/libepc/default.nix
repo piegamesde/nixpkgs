@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, pkg-config, intltool, gtk-doc, glib, avahi, gnutls
-, libuuid, libsoup, gtk3, gnome }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  intltool,
+  gtk-doc,
+  glib,
+  avahi,
+  gnutls,
+  libuuid,
+  libsoup,
+  gtk3,
+  gnome,
+}:
 
 let avahiWithGtk = avahi.override { gtk3Support = true; };
 in stdenv.mkDerivation rec {

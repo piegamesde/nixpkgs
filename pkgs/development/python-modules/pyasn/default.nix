@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, fetchFromGitHub, python, }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchFromGitHub,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "pyasn";

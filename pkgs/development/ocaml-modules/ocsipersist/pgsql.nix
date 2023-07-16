@@ -1,4 +1,10 @@
-{ buildDunePackage, ocsipersist-lib, lwt_log, ocsigen_server, pgocaml, xml-light
+{
+  buildDunePackage,
+  ocsipersist-lib,
+  lwt_log,
+  ocsigen_server,
+  pgocaml,
+  xml-light,
 }:
 
 buildDunePackage {

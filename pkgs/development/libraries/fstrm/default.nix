@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libevent, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  libevent,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fstrm";

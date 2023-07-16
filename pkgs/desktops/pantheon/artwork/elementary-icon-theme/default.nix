@@ -1,5 +1,16 @@
-{ lib, stdenvNoCC, fetchFromGitHub, nix-update-script, meson, python3, ninja
-, hicolor-icon-theme, gtk3, xcursorgen, librsvg }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  nix-update-script,
+  meson,
+  python3,
+  ninja,
+  hicolor-icon-theme,
+  gtk3,
+  xcursorgen,
+  librsvg,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "elementary-icon-theme";

@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, buildPackages, cmake
-, installShellFiles, boost, lua, protobuf, rapidjson, shapelib, sqlite, zlib
-, testers }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  buildPackages,
+  cmake,
+  installShellFiles,
+  boost,
+  lua,
+  protobuf,
+  rapidjson,
+  shapelib,
+  sqlite,
+  zlib,
+  testers,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "tilemaker";

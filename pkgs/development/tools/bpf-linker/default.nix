@@ -1,5 +1,13 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, llvmPackages_15, zlib, ncurses
-, libxml2 }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  llvmPackages_15,
+  zlib,
+  ncurses,
+  libxml2,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "bpf-linker";

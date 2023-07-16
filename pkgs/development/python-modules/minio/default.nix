@@ -1,5 +1,19 @@
-{ lib, buildPythonPackage, certifi, configparser, faker, fetchFromGitHub, future
-, mock, nose, pytestCheckHook, python-dateutil, pythonOlder, pytz, urllib3 }:
+{
+  lib,
+  buildPythonPackage,
+  certifi,
+  configparser,
+  faker,
+  fetchFromGitHub,
+  future,
+  mock,
+  nose,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  pytz,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "minio";

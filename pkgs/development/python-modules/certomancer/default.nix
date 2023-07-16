@@ -1,7 +1,24 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, asn1crypto, click
-, oscrypto, pyyaml, python-dateutil, tzlocal, pytest-aiohttp, pytz, freezegun
-, jinja2, pyhanko-certvalidator, requests, requests-mock, werkzeug
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  asn1crypto,
+  click,
+  oscrypto,
+  pyyaml,
+  python-dateutil,
+  tzlocal,
+  pytest-aiohttp,
+  pytz,
+  freezegun,
+  jinja2,
+  pyhanko-certvalidator,
+  requests,
+  requests-mock,
+  werkzeug,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "certomancer";

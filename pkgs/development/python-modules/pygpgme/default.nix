@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchurl, isPyPy, gpgme }:
+{
+  lib,
+  buildPythonPackage,
+  fetchurl,
+  isPyPy,
+  gpgme,
+}:
 
 buildPythonPackage rec {
   version = "0.3";

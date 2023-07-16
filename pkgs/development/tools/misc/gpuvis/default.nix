@@ -1,5 +1,15 @@
-{ fetchFromGitHub, freetype, gtk3, lib, meson, ninja, pkg-config, SDL2, stdenv
-, wrapGAppsHook }:
+{
+  fetchFromGitHub,
+  freetype,
+  gtk3,
+  lib,
+  meson,
+  ninja,
+  pkg-config,
+  SDL2,
+  stdenv,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gpuvis";

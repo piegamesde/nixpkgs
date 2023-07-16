@@ -1,5 +1,12 @@
-{ stdenv, lib, isPy3k, buildPythonPackage, fetchFromGitHub, zope_interface
-, twisted }:
+{
+  stdenv,
+  lib,
+  isPy3k,
+  buildPythonPackage,
+  fetchFromGitHub,
+  zope_interface,
+  twisted,
+}:
 
 buildPythonPackage rec {
   pname = "python3-application";

@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, dnspython, deprecat, fetchFromGitHub, loguru, passlib
-, poetry-core, pytestCheckHook, pythonOlder, toml }:
+{
+  lib,
+  buildPythonPackage,
+  dnspython,
+  deprecat,
+  fetchFromGitHub,
+  loguru,
+  passlib,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  toml,
+}:
 
 buildPythonPackage rec {
   pname = "ciscoconfparse";

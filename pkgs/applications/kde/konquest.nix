@@ -1,6 +1,18 @@
-{ lib, mkDerivation, extra-cmake-modules, kdoctools, kconfig, kcoreaddons
-, kcrash, kdbusaddons, kguiaddons, kxmlgui, kwidgetsaddons, libkdegames
-, qtquickcontrols }:
+{
+  lib,
+  mkDerivation,
+  extra-cmake-modules,
+  kdoctools,
+  kconfig,
+  kcoreaddons,
+  kcrash,
+  kdbusaddons,
+  kguiaddons,
+  kxmlgui,
+  kwidgetsaddons,
+  libkdegames,
+  qtquickcontrols,
+}:
 
 mkDerivation {
   pname = "konquest";

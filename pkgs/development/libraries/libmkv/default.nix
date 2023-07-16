@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, libtool, autoconf, automake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libtool,
+  autoconf,
+  automake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libmkv";

@@ -1,5 +1,14 @@
-{ lib, stdenv, buildPackages, appleDerivation, fetchFromGitHub, bsdmake, perl
-, flex, bison }:
+{
+  lib,
+  stdenv,
+  buildPackages,
+  appleDerivation,
+  fetchFromGitHub,
+  bsdmake,
+  perl,
+  flex,
+  bison,
+}:
 
 # this derivation sucks
 # locale data was removed after adv_cmds-118, so our base is that because it's easier than

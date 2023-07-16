@@ -1,4 +1,7 @@
-{ lib, kubernetes }:
+{
+  lib,
+  kubernetes,
+}:
 
 kubernetes.overrideAttrs (_: rec {
   pname = "kubectl";

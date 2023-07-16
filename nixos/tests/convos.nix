@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ lib, pkgs, ... }:
+import ./make-test-python.nix ({
+    lib,
+    pkgs,
+    ...
+  }:
 
   with lib;
   let port = 3333;
@@ -7,12 +11,15 @@ import ./make-test-python.nix ({ lib, pkgs, ... }:
     meta = with pkgs.lib.maintainers; { maintainers = [ sgo ]; };
 
     nodes = {
-      machine = { pkgs, ... }: {
-        services.convos = {
-          enable = true;
-          listenPort = port;
+      machine = {
+          pkgs,
+          ...
+        }: {
+          services.convos = {
+            enable = true;
+            listenPort = port;
+          };
         };
-      };
     };
 
     testScript = ''

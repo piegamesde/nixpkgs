@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, python3, popt }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  popt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "isomd5sum";

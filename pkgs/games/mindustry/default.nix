@@ -1,19 +1,42 @@
-{ lib, stdenv, fetchurl, makeWrapper, makeDesktopItem, copyDesktopItems
-, fetchFromGitHub, gradle, jdk, perl
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  fetchFromGitHub,
+  gradle,
+  jdk,
+  perl
 
-# for arc
-, SDL2, pkg-config, stb, ant, alsa-lib, alsa-plugins, glew
+  # for arc
+  ,
+  SDL2,
+  pkg-config,
+  stb,
+  ant,
+  alsa-lib,
+  alsa-plugins,
+  glew
 
-# for soloud
-, libpulseaudio ? null, libjack2 ? null
+  # for soloud
+  ,
+  libpulseaudio ? null,
+  libjack2 ? null
 
-, nixosTests
+  ,
+  nixosTests
 
-# Make the build version easily overridable.
-# Server and client build versions must match, and an empty build version means
-# any build is allowed, so this parameter acts as a simple whitelist.
-# Takes the package version and returns the build version.
-, makeBuildVersion ? (v: v), enableClient ? true, enableServer ? true }:
+  # Make the build version easily overridable.
+  # Server and client build versions must match, and an empty build version means
+  # any build is allowed, so this parameter acts as a simple whitelist.
+  # Takes the package version and returns the build version.
+  ,
+  makeBuildVersion ? (v: v),
+  enableClient ? true,
+  enableServer ? true
+}:
 
 let
   pname = "mindustry";

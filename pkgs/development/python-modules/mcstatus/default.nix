@@ -1,5 +1,16 @@
-{ lib, asyncio-dgram, buildPythonPackage, click, dnspython, fetchFromGitHub
-, mock, poetry-core, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  asyncio-dgram,
+  buildPythonPackage,
+  click,
+  dnspython,
+  fetchFromGitHub,
+  mock,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "mcstatus";

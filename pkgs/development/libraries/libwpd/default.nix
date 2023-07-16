@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, zlib, pkg-config, glib, libgsf, libxml2, librevenge }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zlib,
+  pkg-config,
+  glib,
+  libgsf,
+  libxml2,
+  librevenge,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libwpd";

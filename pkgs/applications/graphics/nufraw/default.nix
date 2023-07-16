@@ -1,9 +1,27 @@
-{ stdenv, fetchurl, lib
+{
+  stdenv,
+  fetchurl,
+  lib
 
-, autoreconfHook, bzip2, cfitsio, exiv2, gettext, gtk2, gtkimageview, lcms2
-, lensfun, libjpeg, libtiff, perl, pkg-config, zlib
+  ,
+  autoreconfHook,
+  bzip2,
+  cfitsio,
+  exiv2,
+  gettext,
+  gtk2,
+  gtkimageview,
+  lcms2,
+  lensfun,
+  libjpeg,
+  libtiff,
+  perl,
+  pkg-config,
+  zlib
 
-, addThumbnailer ? false }:
+  ,
+  addThumbnailer ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "nufraw";

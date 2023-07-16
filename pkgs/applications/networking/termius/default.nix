@@ -1,5 +1,16 @@
-{ atomEnv, autoPatchelfHook, squashfsTools, fetchurl, makeDesktopItem
-, makeWrapper, stdenv, lib, udev, wrapGAppsHook, libxshmfence }:
+{
+  atomEnv,
+  autoPatchelfHook,
+  squashfsTools,
+  fetchurl,
+  makeDesktopItem,
+  makeWrapper,
+  stdenv,
+  lib,
+  udev,
+  wrapGAppsHook,
+  libxshmfence,
+}:
 
 stdenv.mkDerivation rec {
   pname = "termius";

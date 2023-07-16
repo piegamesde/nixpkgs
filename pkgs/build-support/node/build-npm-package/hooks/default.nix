@@ -1,4 +1,11 @@
-{ lib, makeSetupHook, nodejs, srcOnly, buildPackages, makeWrapper }:
+{
+  lib,
+  makeSetupHook,
+  nodejs,
+  srcOnly,
+  buildPackages,
+  makeWrapper,
+}:
 
 {
   npmConfigHook = makeSetupHook {

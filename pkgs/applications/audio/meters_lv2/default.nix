@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, lv2, libGLU, libGL, gtk2, cairo
-, pango, fftwFloat, libjack2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  lv2,
+  libGLU,
+  libGL,
+  gtk2,
+  cairo,
+  pango,
+  fftwFloat,
+  libjack2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "meters.lv2";

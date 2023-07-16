@@ -1,4 +1,9 @@
-{ config, options, lib, ... }:
+{
+  config,
+  options,
+  lib,
+  ...
+}:
 let
   path = [ "deployment" "autoLuks" ];
   hasAutoLuksConfig = lib.hasAttrByPath path config

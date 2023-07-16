@@ -1,4 +1,11 @@
-{ lib, stdenv, makeWrapper, python, toposort, rpm }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  python,
+  toposort,
+  rpm,
+}:
 
 stdenv.mkDerivation {
   pname = "nix-template-rpm";

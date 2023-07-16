@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, cryptography, cython }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  cryptography,
+  cython,
+}:
 
 buildPythonPackage rec {
   pname = "oracledb";

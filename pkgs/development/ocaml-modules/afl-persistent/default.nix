@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, ocaml, findlib, opaline }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+  opaline,
+}:
 
 stdenv.mkDerivation rec {
   pname = "afl-persistent";

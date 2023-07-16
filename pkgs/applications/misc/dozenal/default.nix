@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, ncurses, hdate, lua5_2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ncurses,
+  hdate,
+  lua5_2,
+}:
 
 stdenv.mkDerivation rec {
   version = "12010904";

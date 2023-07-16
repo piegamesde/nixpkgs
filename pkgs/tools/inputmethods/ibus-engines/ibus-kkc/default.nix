@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, vala, intltool, pkg-config, libkkc, ibus, skk-dicts
-, gtk3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  vala,
+  intltool,
+  pkg-config,
+  libkkc,
+  ibus,
+  skk-dicts,
+  gtk3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ibus-kkc";

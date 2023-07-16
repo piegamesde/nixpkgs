@@ -1,5 +1,19 @@
-{ stdenv, lib, fetchurl, gtk3, meson, mesonEmulatorHook, ninja, pkg-config
-, gobject-introspection, gtk-doc, docbook-xsl-nons, gnome, dbus, xvfb-run }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  gtk3,
+  meson,
+  mesonEmulatorHook,
+  ninja,
+  pkg-config,
+  gobject-introspection,
+  gtk-doc,
+  docbook-xsl-nons,
+  gnome,
+  dbus,
+  xvfb-run,
+}:
 
 stdenv.mkDerivation rec {
   pname = "amtk";

@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, autoconf-archive, pkg-config
-, leptonica, libpng, libtiff, icu, pango, opencl-headers, fetchpatch, Accelerate
-, CoreGraphics, CoreVideo }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  autoconf-archive,
+  pkg-config,
+  leptonica,
+  libpng,
+  libtiff,
+  icu,
+  pango,
+  opencl-headers,
+  fetchpatch,
+  Accelerate,
+  CoreGraphics,
+  CoreVideo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tesseract";

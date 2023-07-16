@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -11,10 +16,13 @@ let
 
   postgresPackage = config.services.postgresql.package;
 
-  createDb = { statePath ? cfg.statePath
-    , localDatabaseUser ? cfg.localDatabaseUser
-    , localDatabasePassword ? cfg.localDatabasePassword
-    , localDatabaseName ? cfg.localDatabaseName, useSudo ? true }: ''
+  createDb = {
+      statePath ? cfg.statePath,
+      localDatabaseUser ? cfg.localDatabaseUser,
+      localDatabasePassword ? cfg.localDatabasePassword,
+      localDatabaseName ? cfg.localDatabaseName,
+      useSudo ? true
+    }: ''
       if ! test -e ${escapeShellArg "${statePath}/.db-created"}; then
         ${
           lib.optionalString useSudo "${pkgs.sudo}/bin/sudo -u ${

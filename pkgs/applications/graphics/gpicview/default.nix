@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, intltool, pkg-config, gtk2, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  intltool,
+  pkg-config,
+  gtk2,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gpicview";

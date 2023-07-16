@@ -1,9 +1,39 @@
-{ lib, stdenv, fetchFromGitLab, fetchFromGitHub, fetchurl, substituteAll
-, coreutils, curl, glxinfo, gnugrep, gnused, xdg-utils, dbus, hwdata, mangohud32
-, addOpenGLRunpath, appstream, glslang, mako, meson, ninja, pkg-config, unzip
-, libXNVCtrl, wayland, libX11, nlohmann_json, spdlog, glew, glfw, xorg
-, gamescopeSupport ? true # build mangoapp and mangohudctl
-, nix-update-script }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchFromGitHub,
+  fetchurl,
+  substituteAll,
+  coreutils,
+  curl,
+  glxinfo,
+  gnugrep,
+  gnused,
+  xdg-utils,
+  dbus,
+  hwdata,
+  mangohud32,
+  addOpenGLRunpath,
+  appstream,
+  glslang,
+  mako,
+  meson,
+  ninja,
+  pkg-config,
+  unzip,
+  libXNVCtrl,
+  wayland,
+  libX11,
+  nlohmann_json,
+  spdlog,
+  glew,
+  glfw,
+  xorg,
+  gamescopeSupport ? true # build mangoapp and mangohudctl
+  ,
+  nix-update-script,
+}:
 
 let
   # Derived from subprojects/cmocka.wrap

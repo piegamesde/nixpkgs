@@ -1,6 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, pkg-config
-, enableUdev ? stdenv.isLinux && !stdenv.targetPlatform.isStatic, udev, libobjc
-, IOKit, Security, withExamples ? false, withStatic ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  pkg-config,
+  enableUdev ? stdenv.isLinux && !stdenv.targetPlatform.isStatic,
+  udev,
+  libobjc,
+  IOKit,
+  Security,
+  withExamples ? false,
+  withStatic ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "libusb";

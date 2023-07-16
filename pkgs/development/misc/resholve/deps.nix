@@ -1,4 +1,10 @@
-{ lib, callPackage, fetchFromGitHub, python27, ... }:
+{
+  lib,
+  callPackage,
+  fetchFromGitHub,
+  python27,
+  ...
+}:
 
 /* Notes on specific dependencies:
    - if/when python2.7 is removed from nixpkgs, this may need to figure

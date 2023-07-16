@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, unstableGitUpdater, nixosTests, cmake
-, pkg-config, mir, libxkbcommon }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  unstableGitUpdater,
+  nixosTests,
+  cmake,
+  pkg-config,
+  mir,
+  libxkbcommon,
+}:
 
 stdenv.mkDerivation rec {
   pname = "miriway";

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, param, pytestCheckHook, pythonOlder
-, pyyaml, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  param,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "pyct";

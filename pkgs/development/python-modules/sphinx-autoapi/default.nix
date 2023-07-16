@@ -1,5 +1,18 @@
-{ lib, astroid, buildPythonPackage, fetchPypi, jinja2, mock, pytestCheckHook
-, pythonOlder, pyyaml, sphinx, stdenv, typing-extensions, unidecode }:
+{
+  lib,
+  astroid,
+  buildPythonPackage,
+  fetchPypi,
+  jinja2,
+  mock,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  sphinx,
+  stdenv,
+  typing-extensions,
+  unidecode,
+}:
 
 buildPythonPackage rec {
   pname = "sphinx-autoapi";

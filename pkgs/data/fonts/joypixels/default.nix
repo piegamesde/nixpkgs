@@ -1,5 +1,10 @@
-{ lib, stdenv, fetchurl, config
-, acceptLicense ? config.joypixels.acceptLicense or false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  config,
+  acceptLicense ? config.joypixels.acceptLicense or false
+}:
 
 let
   inherit (stdenv.hostPlatform.parsed) kernel;

@@ -1,4 +1,12 @@
-{ vimUtils, vim-full, writeText, vimPlugins, lib, fetchFromGitHub, pkgs }:
+{
+  vimUtils,
+  vim-full,
+  writeText,
+  vimPlugins,
+  lib,
+  fetchFromGitHub,
+  pkgs,
+}:
 let
   inherit (vimUtils) buildVimPluginFrom2Nix;
 

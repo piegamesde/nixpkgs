@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, python, pythonOlder, fetchFromGitHub, cmake, sip_4 }:
+{
+  lib,
+  buildPythonPackage,
+  python,
+  pythonOlder,
+  fetchFromGitHub,
+  cmake,
+  sip_4,
+}:
 
 buildPythonPackage rec {
   pname = "libsavitar";

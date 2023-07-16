@@ -1,6 +1,16 @@
-{ lib, buildPythonPackage, deprecated, fetchFromGitHub, importlib-metadata
-, jaconv, py-cpuinfo, pytest-benchmark, pytestCheckHook, pythonOlder
-, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  deprecated,
+  fetchFromGitHub,
+  importlib-metadata,
+  jaconv,
+  py-cpuinfo,
+  pytest-benchmark,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "pykakasi";

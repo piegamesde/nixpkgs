@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, ncurses, readline, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ncurses,
+  readline,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.7.2";

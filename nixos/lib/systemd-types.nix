@@ -1,4 +1,8 @@
-{ lib, systemdUtils, pkgs }:
+{
+  lib,
+  systemdUtils,
+  pkgs,
+}:
 
 with systemdUtils.lib;
 with systemdUtils.unitOptions;
@@ -6,10 +10,14 @@ with lib;
 
 rec {
   units = with types;
-    attrsOf (submodule ({ name, config, ... }: {
-      options = concreteUnitOptions;
-      config = { unit = mkDefault (systemdUtils.lib.makeUnit name config); };
-    }));
+    attrsOf (submodule ({
+        name,
+        config,
+        ...
+      }: {
+        options = concreteUnitOptions;
+        config = { unit = mkDefault (systemdUtils.lib.makeUnit name config); };
+      }));
 
   services = with types;
     attrsOf (submodule [ stage2ServiceOptions unitConfig stage2ServiceConfig ]);
@@ -47,8 +55,12 @@ rec {
   initrdAutomounts = with types;
     attrsOf (submodule [ stage1AutomountOptions unitConfig automountConfig ]);
 
-  initrdContents = types.attrsOf (types.submodule
-    ({ config, options, name, ... }: {
+  initrdContents = types.attrsOf (types.submodule ({
+      config,
+      options,
+      name,
+      ...
+    }: {
       options = {
         enable =
           mkEnableOption (lib.mdDoc "copying of this file and symlinking it")

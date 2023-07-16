@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, crashtest, poetry-core, pytest-mock
-, pytestCheckHook, pythonRelaxDepsHook, rapidfuzz }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  crashtest,
+  poetry-core,
+  pytest-mock,
+  pytestCheckHook,
+  pythonRelaxDepsHook,
+  rapidfuzz,
+}:
 
 buildPythonPackage rec {
   pname = "cleo";

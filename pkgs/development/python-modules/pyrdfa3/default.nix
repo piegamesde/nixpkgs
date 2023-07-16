@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, isPy27, rdflib, html5lib }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  isPy27,
+  rdflib,
+  html5lib,
+}:
 
 buildPythonPackage rec {
   pname = "pyrdfa3";

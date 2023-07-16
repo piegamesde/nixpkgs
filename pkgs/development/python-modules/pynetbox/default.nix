@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools-scm, requests, six
-, pytestCheckHook, pyyaml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools-scm,
+  requests,
+  six,
+  pytestCheckHook,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "pynetbox";

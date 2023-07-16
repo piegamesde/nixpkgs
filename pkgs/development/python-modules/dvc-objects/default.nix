@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, fetchFromGitHub, flatten-dict, fsspec, funcy, pygtrie
-, pytest-mock, pytestCheckHook, pythonOlder, setuptools-scm, shortuuid, tqdm
-, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flatten-dict,
+  fsspec,
+  funcy,
+  pygtrie,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+  shortuuid,
+  tqdm,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "dvc-objects";

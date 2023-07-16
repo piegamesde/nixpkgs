@@ -1,4 +1,9 @@
-{ lib, modulesPath, pkgs, ... }:
+{
+  lib,
+  modulesPath,
+  pkgs,
+  ...
+}:
 let
   ssh-keys = if builtins.pathExists ../../ssh-keys.nix then # Outside sandbox
     ../../ssh-keys.nix

@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, freedvSupport ? false, lpcnetfreedv
-, codec2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  freedvSupport ? false,
+  lpcnetfreedv,
+  codec2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "codec2";

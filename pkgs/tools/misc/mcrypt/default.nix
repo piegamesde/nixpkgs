@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libmcrypt, libmhash }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libmcrypt,
+  libmhash,
+}:
 
 stdenv.mkDerivation rec {
   version = "2.6.8";

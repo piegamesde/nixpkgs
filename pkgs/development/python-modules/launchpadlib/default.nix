@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, httplib2, keyring
-, lazr-restfulclient, lazr-uri, setuptools, six, testresources, wadllib
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  httplib2,
+  keyring,
+  lazr-restfulclient,
+  lazr-uri,
+  setuptools,
+  six,
+  testresources,
+  wadllib,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "launchpadlib";

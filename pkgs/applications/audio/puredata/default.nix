@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, autoreconfHook, gettext, makeWrapper, alsa-lib
-, libjack2, tk, fftw }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  gettext,
+  makeWrapper,
+  alsa-lib,
+  libjack2,
+  tk,
+  fftw,
+}:
 
 stdenv.mkDerivation rec {
   pname = "puredata";

@@ -1,5 +1,14 @@
-{ mkDerivation, lib, fetchFromGitHub, fetchpatch, cmake, extra-cmake-modules
-, kauth, krunner, pass }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  extra-cmake-modules,
+  kauth,
+  krunner,
+  pass,
+}:
 
 mkDerivation rec {
   pname = "krunner-pass";

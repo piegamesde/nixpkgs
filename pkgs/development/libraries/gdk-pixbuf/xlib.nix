@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitLab, meson, ninja, pkg-config, docbook-xsl-nons
-, docbook_xml_dtd_43, gtk-doc, gdk-pixbuf, libX11 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  meson,
+  ninja,
+  pkg-config,
+  docbook-xsl-nons,
+  docbook_xml_dtd_43,
+  gtk-doc,
+  gdk-pixbuf,
+  libX11,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gdk-pixbuf-xlib";

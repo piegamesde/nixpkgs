@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, ncurses5, zlib, gmp, makeWrapper
-, less }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  ncurses5,
+  zlib,
+  gmp,
+  makeWrapper,
+  less,
+}:
 
 stdenv.mkDerivation rec {
   pname = "unison-code-manager";

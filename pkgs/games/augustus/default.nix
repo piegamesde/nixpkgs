@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, SDL2, SDL2_mixer, libpng }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  SDL2,
+  SDL2_mixer,
+  libpng,
+}:
 
 stdenv.mkDerivation rec {
   pname = "augustus";

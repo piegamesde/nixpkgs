@@ -1,4 +1,10 @@
-{ lib, runCommand, makeBinaryWrapper, cargo, cargo-auditable }:
+{
+  lib,
+  runCommand,
+  makeBinaryWrapper,
+  cargo,
+  cargo-auditable,
+}:
 
 runCommand "auditable-${cargo.name}" {
   nativeBuildInputs = [ makeBinaryWrapper ];

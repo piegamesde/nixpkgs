@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, ruby, opencl-headers, addOpenGLRunpath
-, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ruby,
+  opencl-headers,
+  addOpenGLRunpath,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocl-icd";

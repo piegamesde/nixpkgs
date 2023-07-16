@@ -1,19 +1,32 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder
 
-# build-system
-, flit-core
+  # build-system
+  ,
+  flit-core
 
-# docs
-, sphinxHook, sphinx-rtd-theme, myst-parser
+  # docs
+  ,
+  sphinxHook,
+  sphinx-rtd-theme,
+  myst-parser
 
-# propagates
-, typing-extensions
+  # propagates
+  ,
+  typing-extensions
 
-# optionals
-, pycryptodome, pillow
+  # optionals
+  ,
+  pycryptodome,
+  pillow
 
-# tests
-, pytestCheckHook }:
+  # tests
+  ,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pypdf";

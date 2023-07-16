@@ -1,17 +1,47 @@
-{ lib, fetchurl, fetchFromGitLab, gettext, wrapGAppsHook
+{
+  lib,
+  fetchurl,
+  fetchFromGitLab,
+  gettext,
+  wrapGAppsHook
 
-# Native dependencies
-, python3, gtk3, gobject-introspection, gnome, gtksourceview4, glib-networking
+  # Native dependencies
+  ,
+  python3,
+  gtk3,
+  gobject-introspection,
+  gnome,
+  gtksourceview4,
+  glib-networking
 
-# Test dependencies
-, xvfb-run, dbus
+  # Test dependencies
+  ,
+  xvfb-run,
+  dbus
 
-# Optional dependencies
-, enableJingle ? true, farstream, gstreamer, gst-plugins-base, gst-libav
-, gst-plugins-good, libnice, enableE2E ? true, enableSecrets ? true, libsecret
-, enableRST ? true, docutils, enableSpelling ? true, gspell, enableUPnP ? true
-, gupnp-igd, enableOmemoPluginDependencies ? true, enableAppIndicator ? true
-, libappindicator-gtk3, extraPythonPackages ? ps: [ ] }:
+  # Optional dependencies
+  ,
+  enableJingle ? true,
+  farstream,
+  gstreamer,
+  gst-plugins-base,
+  gst-libav,
+  gst-plugins-good,
+  libnice,
+  enableE2E ? true,
+  enableSecrets ? true,
+  libsecret,
+  enableRST ? true,
+  docutils,
+  enableSpelling ? true,
+  gspell,
+  enableUPnP ? true,
+  gupnp-igd,
+  enableOmemoPluginDependencies ? true,
+  enableAppIndicator ? true,
+  libappindicator-gtk3,
+  extraPythonPackages ? ps: [ ]
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "gajim";

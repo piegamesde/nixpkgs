@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, ruamel-yaml, xmltodict, pygments
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  ruamel-yaml,
+  xmltodict,
+  pygments,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "jc";

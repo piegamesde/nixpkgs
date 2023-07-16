@@ -1,4 +1,9 @@
-{ lib, appimageTools, fetchurl, makeDesktopItem }:
+{
+  lib,
+  appimageTools,
+  fetchurl,
+  makeDesktopItem,
+}:
 
 let
   pname = "MyCrypto";

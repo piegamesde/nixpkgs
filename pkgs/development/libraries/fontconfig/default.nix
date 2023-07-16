@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchurl, pkg-config, python3, freetype, expat, libxslt, gperf
-, dejavu_fonts, autoreconfHook, CoreFoundation }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  python3,
+  freetype,
+  expat,
+  libxslt,
+  gperf,
+  dejavu_fonts,
+  autoreconfHook,
+  CoreFoundation,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fontconfig";

@@ -1,4 +1,11 @@
-{ autoPatchelfHook, electron, fetchurl, lib, makeWrapper, squashfsTools, stdenv
+{
+  autoPatchelfHook,
+  electron,
+  fetchurl,
+  lib,
+  makeWrapper,
+  squashfsTools,
+  stdenv,
 }:
 
 stdenv.mkDerivation rec {

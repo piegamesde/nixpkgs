@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, installShellFiles, python3, git, git-annex }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  installShellFiles,
+  python3,
+  git,
+  git-annex,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "datalad";

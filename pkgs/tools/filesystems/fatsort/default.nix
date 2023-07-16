@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, help2man, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  help2man,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.6.5.640";

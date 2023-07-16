@@ -1,4 +1,11 @@
-{ lib, python3Packages, fetchFromGitHub, wrapQtAppsHook, borgbackup, qt5 }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  wrapQtAppsHook,
+  borgbackup,
+  qt5,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "vorta";

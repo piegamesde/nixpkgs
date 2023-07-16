@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, cython, fetchFromGitHub, fetchpatch, matplotlib, mock
-, numpy, pillow, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  cython,
+  fetchFromGitHub,
+  fetchpatch,
+  matplotlib,
+  mock,
+  numpy,
+  pillow,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "wordcloud";

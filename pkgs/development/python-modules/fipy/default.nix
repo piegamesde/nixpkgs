@@ -1,5 +1,20 @@
-{ lib, buildPythonPackage, numpy, scipy, pyamg, future, matplotlib, tkinter
-, mpi4py, scikit-fmm, gmsh, python, stdenv, openssh, fetchFromGitHub }:
+{
+  lib,
+  buildPythonPackage,
+  numpy,
+  scipy,
+  pyamg,
+  future,
+  matplotlib,
+  tkinter,
+  mpi4py,
+  scikit-fmm,
+  gmsh,
+  python,
+  stdenv,
+  openssh,
+  fetchFromGitHub,
+}:
 
 buildPythonPackage rec {
   pname = "fipy";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, gtk3, wrapGAppsHook, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gtk3,
+  wrapGAppsHook,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xdaliclock";

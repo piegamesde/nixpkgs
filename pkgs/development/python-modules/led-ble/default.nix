@@ -1,5 +1,15 @@
-{ lib, async-timeout, bleak, bleak-retry-connector, buildPythonPackage
-, fetchFromGitHub, flux-led, poetry-core, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  async-timeout,
+  bleak,
+  bleak-retry-connector,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flux-led,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "led-ble";

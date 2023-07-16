@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, meson, ninja, pkg-config, gtk, zathura_core, girara
-, djvulibre, gettext }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  gtk,
+  zathura_core,
+  girara,
+  djvulibre,
+  gettext,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zathura-djvu";

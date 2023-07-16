@@ -1,4 +1,12 @@
-{ lib, buildPythonApplication, fetchFromGitHub, poetry-core, i3ipc, xlib, six }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  poetry-core,
+  i3ipc,
+  xlib,
+  six,
+}:
 
 buildPythonApplication rec {
   pname = "i3-swallow";

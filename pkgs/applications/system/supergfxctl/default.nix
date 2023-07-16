@@ -1,4 +1,11 @@
-{ lib, rustPlatform, fetchFromGitLab, fetchpatch, pkg-config, systemd }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitLab,
+  fetchpatch,
+  pkg-config,
+  systemd,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "supergfxctl";

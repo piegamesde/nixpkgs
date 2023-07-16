@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, httpx, pydantic, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  httpx,
+  pydantic,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pycfmodel";

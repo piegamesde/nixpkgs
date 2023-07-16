@@ -1,6 +1,22 @@
-{ mkDerivation, lib, fetchFromGitHub, fetchpatch, cmake, extra-cmake-modules
-, pkg-config, libxcb, libpthreadstubs, libXdmcp, libXau, qtbase, qtdeclarative
-, qtquickcontrols2, qttools, pam, systemd }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  extra-cmake-modules,
+  pkg-config,
+  libxcb,
+  libpthreadstubs,
+  libXdmcp,
+  libXau,
+  qtbase,
+  qtdeclarative,
+  qtquickcontrols2,
+  qttools,
+  pam,
+  systemd,
+}:
 
 let version = "0.19.0";
 

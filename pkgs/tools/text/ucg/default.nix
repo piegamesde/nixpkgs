@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, pcre }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  pcre,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ucg";

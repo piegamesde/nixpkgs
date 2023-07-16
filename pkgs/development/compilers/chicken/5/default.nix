@@ -1,11 +1,20 @@
-{ lib, newScope, fetchurl }:
+{
+  lib,
+  newScope,
+  fetchurl,
+}:
 let
   callPackage = newScope self;
 
   self = with lib; {
     inherit callPackage;
 
-    fetchegg = { pname, version, sha256, ... }:
+    fetchegg = {
+        pname,
+        version,
+        sha256,
+        ...
+      }:
       fetchurl {
         inherit sha256;
         url =
@@ -19,7 +28,13 @@ let
     };
 
     chickenEggs = recurseIntoAttrs (mapAttrs (pname:
-      eggData@{ version, synopsis, dependencies, license, ... }:
+      eggData@{
+        version,
+        synopsis,
+        dependencies,
+        license,
+        ...
+      }:
       self.eggDerivation {
         name = "${pname}-${version}";
         src = self.fetchegg (eggData // { inherit pname; });

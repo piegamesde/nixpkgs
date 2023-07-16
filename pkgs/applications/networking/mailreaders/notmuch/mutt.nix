@@ -1,4 +1,12 @@
-{ stdenv, lib, perl, perlPackages, makeWrapper, coreutils, notmuch }:
+{
+  stdenv,
+  lib,
+  perl,
+  perlPackages,
+  makeWrapper,
+  coreutils,
+  notmuch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "notmuch-mutt";

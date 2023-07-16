@@ -1,5 +1,14 @@
-{ mkDerivation, extra-cmake-modules, docbook_xml_dtd_45, docbook_xsl_ns
-, karchive, ki18n, qtbase, perl, perlPackages }:
+{
+  mkDerivation,
+  extra-cmake-modules,
+  docbook_xml_dtd_45,
+  docbook_xsl_ns,
+  karchive,
+  ki18n,
+  qtbase,
+  perl,
+  perlPackages,
+}:
 
 mkDerivation {
   pname = "kdoctools";

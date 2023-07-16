@@ -1,7 +1,14 @@
-{ lib, stdenv, swiProlog, makeWrapper, fetchFromGitHub
-, lexiconPath ? "prolog/lexicon/clex_lexicon.pl", pname ? "ape"
-, description ? "Parser for Attempto Controlled English (ACE)"
-, license ? with lib; licenses.lgpl3 }:
+{
+  lib,
+  stdenv,
+  swiProlog,
+  makeWrapper,
+  fetchFromGitHub,
+  lexiconPath ? "prolog/lexicon/clex_lexicon.pl",
+  pname ? "ape",
+  description ? "Parser for Attempto Controlled English (ACE)",
+  license ? with lib; licenses.lgpl3
+}:
 
 stdenv.mkDerivation rec {
   inherit pname;

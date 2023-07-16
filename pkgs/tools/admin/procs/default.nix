@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, installShellFiles, Security
-, libiconv, Libsystem }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  installShellFiles,
+  Security,
+  libiconv,
+  Libsystem,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "procs";

@@ -1,5 +1,19 @@
-{ lib, stdenv, buildPythonPackage, pythonOlder, fetchFromGitHub, substituteAll
-, ffmpeg, libopus, aiohttp, aiodns, brotli, faust-cchardet, orjson, pynacl }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  substituteAll,
+  ffmpeg,
+  libopus,
+  aiohttp,
+  aiodns,
+  brotli,
+  faust-cchardet,
+  orjson,
+  pynacl,
+}:
 
 buildPythonPackage rec {
   pname = "nextcord";

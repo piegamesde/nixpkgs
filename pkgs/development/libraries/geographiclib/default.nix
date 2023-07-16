@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cmake, doxygen }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  doxygen,
+}:
 
 stdenv.mkDerivation rec {
   pname = "geographiclib";

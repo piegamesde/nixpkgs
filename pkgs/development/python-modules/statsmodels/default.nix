@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, cython, fetchPypi, matplotlib, numpy, pandas, patsy
-, pythonOlder, scipy, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  cython,
+  fetchPypi,
+  matplotlib,
+  numpy,
+  pandas,
+  patsy,
+  pythonOlder,
+  scipy,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "statsmodels";

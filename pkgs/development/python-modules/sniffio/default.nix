@@ -1,5 +1,13 @@
-{ buildPythonPackage, lib, fetchPypi, glibcLocales, isPy3k, pythonOlder
-, pytestCheckHook, curio }:
+{
+  buildPythonPackage,
+  lib,
+  fetchPypi,
+  glibcLocales,
+  isPy3k,
+  pythonOlder,
+  pytestCheckHook,
+  curio,
+}:
 
 buildPythonPackage rec {
   pname = "sniffio";

@@ -1,4 +1,12 @@
-{ lib, stdenv, cmake, libGL, jsoncpp, fetchFromGitHub, fetchpatch2 }:
+{
+  lib,
+  stdenv,
+  cmake,
+  libGL,
+  jsoncpp,
+  fetchFromGitHub,
+  fetchpatch2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openvr";

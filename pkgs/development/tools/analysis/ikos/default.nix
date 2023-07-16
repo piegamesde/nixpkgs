@@ -1,5 +1,21 @@
-{ stdenv, lib, fetchFromGitHub, cmake, boost, tbb, gmp, llvm, clang, sqlite
-, python3, ocamlPackages, mpfr, ppl, doxygen, graphviz }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  tbb,
+  gmp,
+  llvm,
+  clang,
+  sqlite,
+  python3,
+  ocamlPackages,
+  mpfr,
+  ppl,
+  doxygen,
+  graphviz,
+}:
 
 let python = python3.withPackages (ps: with ps; [ pygments ]);
 

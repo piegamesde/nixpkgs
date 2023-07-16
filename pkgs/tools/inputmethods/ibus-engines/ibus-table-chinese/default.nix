@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchgit, fetchFromGitHub, pkg-config, ibus, ibus-table, python3
-, cmake }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  fetchFromGitHub,
+  pkg-config,
+  ibus,
+  ibus-table,
+  python3,
+  cmake,
+}:
 
 let
   src = fetchFromGitHub {

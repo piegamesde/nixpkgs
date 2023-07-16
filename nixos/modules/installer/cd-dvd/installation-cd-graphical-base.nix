@@ -1,7 +1,11 @@
 # This module contains the basic configuration for building a graphical NixOS
 # installation CD.
 
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder, pyyaml
-, iso8601, requests, pycryptodome }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  iso8601,
+  requests,
+  pycryptodome,
+}:
 
 buildPythonPackage rec {
   pname = "pycarwings2";

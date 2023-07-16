@@ -1,4 +1,13 @@
-{ lib, fetchurl, buildDunePackage, ocaml, findlib, alcotest, bos, rresult }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  ocaml,
+  findlib,
+  alcotest,
+  bos,
+  rresult,
+}:
 
 buildDunePackage rec {
   pname = "base64";

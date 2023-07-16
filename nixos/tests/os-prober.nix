@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
   let
     # A filesystem image with a (presumably) bootable debian
     debianImage = pkgs.vmTools.diskImageFuns.debian11i386 {
@@ -66,7 +70,11 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
   in {
     name = "os-prober";
 
-    nodes.machine = { config, pkgs, ... }:
+    nodes.machine = {
+        config,
+        pkgs,
+        ...
+      }:
       (simpleConfig // {
         imports = [
           ../modules/profiles/installation-device.nix

@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, python3, makeDesktopItem, copyDesktopItems }:
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  makeDesktopItem,
+  copyDesktopItems,
+}:
 
 with python3.pkgs;
 

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, cryptography
-, charset-normalizer, pythonOlder, typing-extensions, pytestCheckHook, ocrmypdf
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy3k,
+  cryptography,
+  charset-normalizer,
+  pythonOlder,
+  typing-extensions,
+  pytestCheckHook,
+  ocrmypdf,
 }:
 
 buildPythonPackage rec {

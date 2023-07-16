@@ -1,5 +1,13 @@
-{ lib, arrow, buildPythonPackage, fetchFromGitHub, hypothesis, isodate
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  arrow,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hypothesis,
+  isodate,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "isoduration";

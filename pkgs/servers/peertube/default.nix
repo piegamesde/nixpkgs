@@ -1,5 +1,18 @@
-{ lib, stdenv, callPackage, fetchurl, fetchFromGitHub, fetchYarnDeps, nixosTests
-, brotli, fixup_yarn_lock, jq, nodejs, which, yarn }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  fetchurl,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  nixosTests,
+  brotli,
+  fixup_yarn_lock,
+  jq,
+  nodejs,
+  which,
+  yarn,
+}:
 let
   arch = if stdenv.hostPlatform.system == "x86_64-linux" then
     "linux-x64"

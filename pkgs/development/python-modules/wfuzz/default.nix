@@ -1,5 +1,19 @@
-{ lib, stdenv, buildPythonPackage, chardet, colorama, fetchFromGitHub, netaddr
-, pycurl, pyparsing, pytest, pytestCheckHook, pythonOlder, setuptools, six }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  chardet,
+  colorama,
+  fetchFromGitHub,
+  netaddr,
+  pycurl,
+  pyparsing,
+  pytest,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "wfuzz";

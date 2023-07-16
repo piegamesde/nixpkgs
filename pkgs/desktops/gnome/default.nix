@@ -1,4 +1,8 @@
-{ config, pkgs, lib }:
+{
+  config,
+  pkgs,
+  lib,
+}:
 
 lib.makeScope pkgs.newScope (self:
   with self; {

@@ -1,6 +1,18 @@
-{ lib, aiohttp, awesomeversion, backoff, buildPythonPackage, pydantic
-, fetchFromGitHub, poetry-core, yarl, aresponses, pytest-asyncio
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  awesomeversion,
+  backoff,
+  buildPythonPackage,
+  pydantic,
+  fetchFromGitHub,
+  poetry-core,
+  yarl,
+  aresponses,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "demetriek";

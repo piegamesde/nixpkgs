@@ -1,4 +1,11 @@
-{ lib, rustPlatform, fetchCrate, installShellFiles, stdenv, darwin }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  installShellFiles,
+  stdenv,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "the-way";

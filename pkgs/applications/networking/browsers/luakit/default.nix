@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, wrapGAppsHook, help2man
-, glib-networking, gst_all_1, gtk3, luafilesystem, luajit, sqlite, webkitgtk }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  wrapGAppsHook,
+  help2man,
+  glib-networking,
+  gst_all_1,
+  gtk3,
+  luafilesystem,
+  luajit,
+  sqlite,
+  webkitgtk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "luakit";

@@ -1,8 +1,19 @@
-{ lib, buildPythonPackage, fetchPypi, attrs, fonttools, pytestCheckHook
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  attrs,
+  fonttools,
+  pytestCheckHook,
+  setuptools-scm
 
-# optionals
-, cattrs, lxml, orjson, msgpack }:
+  # optionals
+  ,
+  cattrs,
+  lxml,
+  orjson,
+  msgpack,
+}:
 
 buildPythonPackage rec {
   pname = "ufoLib2";

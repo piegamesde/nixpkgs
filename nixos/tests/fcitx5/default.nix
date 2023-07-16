@@ -1,36 +1,45 @@
-import ../make-test-python.nix ({ pkgs, ... }:
+import ../make-test-python.nix ({
+    pkgs,
+    ...
+  }:
   # copy_from_host works only for store paths
   rec {
     name = "fcitx5";
-    nodes.machine = { pkgs, ... }: {
-      imports = [ ../common/user-account.nix ];
+    nodes.machine = {
+        pkgs,
+        ...
+      }: {
+        imports = [ ../common/user-account.nix ];
 
-      environment.systemPackages = [
-        # To avoid clashing with xfce4-terminal
-        pkgs.alacritty
-      ];
+        environment.systemPackages = [
+          # To avoid clashing with xfce4-terminal
+          pkgs.alacritty
+        ];
 
-      services.xserver = {
-        enable = true;
+        services.xserver = {
+          enable = true;
 
-        displayManager = {
-          lightdm.enable = true;
-          autoLogin = {
-            enable = true;
-            user = "alice";
+          displayManager = {
+            lightdm.enable = true;
+            autoLogin = {
+              enable = true;
+              user = "alice";
+            };
           };
+
+          desktopManager.xfce.enable = true;
         };
 
-        desktopManager.xfce.enable = true;
+        i18n.inputMethod = {
+          enabled = "fcitx5";
+          fcitx5.addons = [ pkgs.fcitx5-m17n pkgs.fcitx5-chinese-addons ];
+        };
       };
 
-      i18n.inputMethod = {
-        enabled = "fcitx5";
-        fcitx5.addons = [ pkgs.fcitx5-m17n pkgs.fcitx5-chinese-addons ];
-      };
-    };
-
-    testScript = { nodes, ... }:
+    testScript = {
+        nodes,
+        ...
+      }:
       let
         user = nodes.machine.users.users.alice;
         xauth = "${user.home}/.Xauthority";

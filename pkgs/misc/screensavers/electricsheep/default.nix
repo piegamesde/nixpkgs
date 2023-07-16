@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, wxGTK32, ffmpeg_4, lua5_1, curl
-, libpng, xorg, pkg-config, flam3, libgtop, boost, tinyxml, freeglut, libGLU
-, libGL, glee }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  wxGTK32,
+  ffmpeg_4,
+  lua5_1,
+  curl,
+  libpng,
+  xorg,
+  pkg-config,
+  flam3,
+  libgtop,
+  boost,
+  tinyxml,
+  freeglut,
+  libGLU,
+  libGL,
+  glee,
+}:
 
 stdenv.mkDerivation rec {
   pname = "electricsheep";

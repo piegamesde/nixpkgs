@@ -1,4 +1,8 @@
-{ trivialBuild, lib, fetchFromGitHub }:
+{
+  trivialBuild,
+  lib,
+  fetchFromGitHub,
+}:
 
 trivialBuild {
   pname = "header-file-mode";

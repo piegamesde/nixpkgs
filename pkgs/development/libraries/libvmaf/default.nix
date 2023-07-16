@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, meson, ninja, nasm, xxd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  meson,
+  ninja,
+  nasm,
+  xxd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libvmaf";

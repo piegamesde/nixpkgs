@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, mypy-extensions, pytestCheckHook
-, pythonOlder, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  mypy-extensions,
+  pytestCheckHook,
+  pythonOlder,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "pyannotate";

@@ -1,4 +1,11 @@
-{ config, lib, options, pkgs, utils, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  utils,
+  ...
+}:
 #
 # TODO: zfs tunables
 
@@ -56,33 +63,37 @@ let
   # sufficient amount of time has passed that we can assume it won't be. In the
   # latter case it makes one last attempt at importing, allowing the system to
   # (eventually) boot even with a degraded pool.
-  importLib = { zpoolCmd, awkCmd, cfgZfs }: ''
-    for o in $(cat /proc/cmdline); do
-      case $o in
-        zfs_force|zfs_force=1|zfs_force=y)
-          ZFS_FORCE="-f"
-          ;;
-      esac
-    done
-    poolReady() {
-      pool="$1"
-      state="$("${zpoolCmd}" import 2>/dev/null | "${awkCmd}" "/pool: $pool/ { found = 1 }; /state:/ { if (found == 1) { print \$2; exit } }; END { if (found == 0) { print \"MISSING\" } }")"
-      if [[ "$state" = "ONLINE" ]]; then
-        return 0
-      else
-        echo "Pool $pool in state $state, waiting"
-        return 1
-      fi
-    }
-    poolImported() {
-      pool="$1"
-      "${zpoolCmd}" list "$pool" >/dev/null 2>/dev/null
-    }
-    poolImport() {
-      pool="$1"
-      "${zpoolCmd}" import -d "${cfgZfs.devNodes}" -N $ZFS_FORCE "$pool"
-    }
-  '';
+  importLib = {
+      zpoolCmd,
+      awkCmd,
+      cfgZfs,
+    }: ''
+      for o in $(cat /proc/cmdline); do
+        case $o in
+          zfs_force|zfs_force=1|zfs_force=y)
+            ZFS_FORCE="-f"
+            ;;
+        esac
+      done
+      poolReady() {
+        pool="$1"
+        state="$("${zpoolCmd}" import 2>/dev/null | "${awkCmd}" "/pool: $pool/ { found = 1 }; /state:/ { if (found == 1) { print \$2; exit } }; END { if (found == 0) { print \"MISSING\" } }")"
+        if [[ "$state" = "ONLINE" ]]; then
+          return 0
+        else
+          echo "Pool $pool in state $state, waiting"
+          return 1
+        fi
+      }
+      poolImported() {
+        pool="$1"
+        "${zpoolCmd}" list "$pool" >/dev/null 2>/dev/null
+      }
+      poolImport() {
+        pool="$1"
+        "${zpoolCmd}" import -d "${cfgZfs.devNodes}" -N $ZFS_FORCE "$pool"
+      }
+    '';
 
   getPoolFilesystems = pool:
     filter (x: x.fsType == "zfs" && (fsToPool x) == pool)
@@ -114,7 +125,12 @@ let
           }";
       };
 
-  createImportService = { pool, systemd, force, prefix ? "" }:
+  createImportService = {
+      pool,
+      systemd,
+      force,
+      prefix ? ""
+    }:
     nameValuePair "zfs-import-${pool}" {
       description = ''Import ZFS pool "${pool}"'';
       # we need systemd-udev-settle to ensure devices are available

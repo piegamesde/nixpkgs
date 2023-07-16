@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, libopensmtpd, openssl, mandoc }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libopensmtpd,
+  openssl,
+  mandoc,
+}:
 stdenv.mkDerivation rec {
   pname = "opensmtpd-filter-dkimsign";
   version = "0.6";

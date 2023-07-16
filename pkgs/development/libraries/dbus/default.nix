@@ -1,8 +1,22 @@
-{ stdenv, lib, fetchurl, pkg-config, expat
-, enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemdMinimal
-, systemdMinimal, audit, libapparmor, dbus, docbook_xml_dtd_44, docbook-xsl-nons
-, xmlto, autoreconfHook, autoconf-archive
-, x11Support ? (stdenv.isLinux || stdenv.isDarwin), xorg }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  expat,
+  enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemdMinimal,
+  systemdMinimal,
+  audit,
+  libapparmor,
+  dbus,
+  docbook_xml_dtd_44,
+  docbook-xsl-nons,
+  xmlto,
+  autoreconfHook,
+  autoconf-archive,
+  x11Support ? (stdenv.isLinux || stdenv.isDarwin),
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dbus";

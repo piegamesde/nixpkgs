@@ -1,5 +1,14 @@
-{ deployAndroidPackage, lib, package, autoPatchelfHook, makeWrapper, os, pkgs
-, pkgsi686Linux, postInstall }:
+{
+  deployAndroidPackage,
+  lib,
+  package,
+  autoPatchelfHook,
+  makeWrapper,
+  os,
+  pkgs,
+  pkgsi686Linux,
+  postInstall,
+}:
 
 deployAndroidPackage {
   name = "androidsdk";

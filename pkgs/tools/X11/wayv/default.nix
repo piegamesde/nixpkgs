@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, libX11 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  libX11,
+}:
 stdenv.mkDerivation rec {
   pname = "wayv";
   version = "0.3";

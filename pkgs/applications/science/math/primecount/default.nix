@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cmake, primesieve }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  primesieve,
+}:
 
 stdenv.mkDerivation rec {
   pname = "primecount";

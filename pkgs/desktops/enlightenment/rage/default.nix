@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, meson, ninja, pkg-config, efl, gst_all_1, wrapGAppsHook
-, directoryListingUpdater }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  efl,
+  gst_all_1,
+  wrapGAppsHook,
+  directoryListingUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rage";

@@ -1,5 +1,17 @@
-{ lib, fetchurl, makeWrapper, patchelf, pkgs, stdenv, SDL, libglvnd, libogg
-, libvorbis, curl, openal }:
+{
+  lib,
+  fetchurl,
+  makeWrapper,
+  patchelf,
+  pkgs,
+  stdenv,
+  SDL,
+  libglvnd,
+  libogg,
+  libvorbis,
+  curl,
+  openal,
+}:
 
 stdenv.mkDerivation {
   pname = "openarena";

@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, rustPlatform, ncurses ? null, darwin ? null }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  ncurses ? null,
+  darwin ? null
+}:
 
 let useNcurses = !stdenv.hostPlatform.isWindows;
 

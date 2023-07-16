@@ -1,5 +1,14 @@
-{ lib, stdenv, meson, ninja, fetchFromGitHub, which, python3, fetchpatch
-, libiconv }:
+{
+  lib,
+  stdenv,
+  meson,
+  ninja,
+  fetchFromGitHub,
+  which,
+  python3,
+  fetchpatch,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ksh";

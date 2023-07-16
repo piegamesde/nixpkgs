@@ -1,11 +1,30 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, gi-docgen, glib
-, libxml2, gobject-introspection
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  gi-docgen,
+  glib,
+  libxml2,
+  gobject-introspection
 
-, enableGstPlugin ? true, enableViewer ? true, gst_all_1, gtk3, wrapGAppsHook
+  ,
+  enableGstPlugin ? true,
+  enableViewer ? true,
+  gst_all_1,
+  gtk3,
+  wrapGAppsHook
 
-, enableUsb ? true, libusb1
+  ,
+  enableUsb ? true,
+  libusb1
 
-, enablePacketSocket ? true, enableFastHeartbeat ? false }:
+  ,
+  enablePacketSocket ? true,
+  enableFastHeartbeat ? false
+}:
 
 assert enableGstPlugin -> gst_all_1 != null;
 assert enableViewer -> enableGstPlugin;

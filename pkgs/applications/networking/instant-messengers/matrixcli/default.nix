@@ -1,5 +1,17 @@
-{ lib, fetchFromGitHub, buildPythonApplication, buildPythonPackage, pygobject3
-, pytest-runner, requests, responses, pytest, python-olm, canonicaljson, olm }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonApplication,
+  buildPythonPackage,
+  pygobject3,
+  pytest-runner,
+  requests,
+  responses,
+  pytest,
+  python-olm,
+  canonicaljson,
+  olm,
+}:
 let
   mainsrc = fetchFromGitHub {
     owner = "saadnpq";

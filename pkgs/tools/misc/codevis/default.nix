@@ -1,4 +1,10 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, oniguruma }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  oniguruma,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "codevis";

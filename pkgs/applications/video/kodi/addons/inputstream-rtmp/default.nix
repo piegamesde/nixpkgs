@@ -1,4 +1,12 @@
-{ lib, rel, buildKodiBinaryAddon, fetchFromGitHub, openssl, rtmpdump, zlib }:
+{
+  lib,
+  rel,
+  buildKodiBinaryAddon,
+  fetchFromGitHub,
+  openssl,
+  rtmpdump,
+  zlib,
+}:
 
 buildKodiBinaryAddon rec {
   pname = "inputstream-rtmp";

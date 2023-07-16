@@ -1,15 +1,25 @@
-{ lib, stdenv, fetchurl, unzip, elasticsearch }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  elasticsearch,
+}:
 
 let
   esVersion = elasticsearch.version;
 
-  esPlugin = a@{ pluginName, installPhase ? ''
-    mkdir -p $out/config
-    mkdir -p $out/plugins
-    ln -s ${elasticsearch}/lib ${elasticsearch}/modules $out
-    ES_HOME=$out ${elasticsearch}/bin/elasticsearch-plugin install --batch -v file://$src
-    rm $out/lib $out/modules
-  '', ... }:
+  esPlugin = a@{
+      pluginName,
+      installPhase ? ''
+        mkdir -p $out/config
+        mkdir -p $out/plugins
+        ln -s ${elasticsearch}/lib ${elasticsearch}/modules $out
+        ES_HOME=$out ${elasticsearch}/bin/elasticsearch-plugin install --batch -v file://$src
+        rm $out/lib $out/modules
+      '',
+      ...
+    }:
     stdenv.mkDerivation (a // {
       inherit installPhase;
       pname = "elasticsearch-${pluginName}";

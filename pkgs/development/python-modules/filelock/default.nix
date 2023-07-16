@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, hatch-vcs, hatchling, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  hatch-vcs,
+  hatchling,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "filelock";

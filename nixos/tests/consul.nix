@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   let
     # Settings for both servers and agents
@@ -22,7 +26,10 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
     };
 
     client = index:
-      { pkgs, ... }:
+      {
+        pkgs,
+        ...
+      }:
       let ip = builtins.elemAt allConsensusClientHosts index;
       in {
         environment.systemPackages = [ pkgs.consul ];
@@ -45,7 +52,10 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
       };
 
     server = index:
-      { pkgs, ... }:
+      {
+        pkgs,
+        ...
+      }:
       let
         numConsensusServers = builtins.length allConsensusServerHosts;
         thisConsensusServerHost = builtins.elemAt allConsensusServerHosts index;

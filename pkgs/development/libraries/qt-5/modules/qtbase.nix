@@ -1,25 +1,99 @@
-{ stdenv, lib, src, patches, version, qtCompatVersion
+{
+  stdenv,
+  lib,
+  src,
+  patches,
+  version,
+  qtCompatVersion
 
-, coreutils, bison, flex, gdb, gperf, lndir, perl, pkg-config, python3, which
-# darwin support
-, libiconv, libobjc, xcbuild, AGL, AppKit, ApplicationServices, AVFoundation
-, Carbon, Cocoa, CoreAudio, CoreBluetooth, CoreLocation, CoreServices
-, DiskArbitration, Foundation, OpenGL, MetalKit, IOKit
+  ,
+  coreutils,
+  bison,
+  flex,
+  gdb,
+  gperf,
+  lndir,
+  perl,
+  pkg-config,
+  python3,
+  which
+  # darwin support
+  ,
+  libiconv,
+  libobjc,
+  xcbuild,
+  AGL,
+  AppKit,
+  ApplicationServices,
+  AVFoundation,
+  Carbon,
+  Cocoa,
+  CoreAudio,
+  CoreBluetooth,
+  CoreLocation,
+  CoreServices,
+  DiskArbitration,
+  Foundation,
+  OpenGL,
+  MetalKit,
+  IOKit
 
-, dbus, fontconfig, freetype, glib, harfbuzz, icu, libdrm, libX11, libXcomposite
-, libXcursor, libXext, libXi, libXrender, libinput, libjpeg, libpng, libxcb
-, libxkbcommon, libxml2, libxslt, openssl, pcre2, sqlite, udev, xcbutil
-, xcbutilimage, xcbutilkeysyms, xcbutilrenderutil, xcbutilwm, zlib, at-spi2-core
+  ,
+  dbus,
+  fontconfig,
+  freetype,
+  glib,
+  harfbuzz,
+  icu,
+  libdrm,
+  libX11,
+  libXcomposite,
+  libXcursor,
+  libXext,
+  libXi,
+  libXrender,
+  libinput,
+  libjpeg,
+  libpng,
+  libxcb,
+  libxkbcommon,
+  libxml2,
+  libxslt,
+  openssl,
+  pcre2,
+  sqlite,
+  udev,
+  xcbutil,
+  xcbutilimage,
+  xcbutilkeysyms,
+  xcbutilrenderutil,
+  xcbutilwm,
+  zlib,
+  at-spi2-core
 
-# optional dependencies
-, cups ? null, postgresql ? null, withGtk3 ? false, dconf, gtk3
+  # optional dependencies
+  ,
+  cups ? null,
+  postgresql ? null,
+  withGtk3 ? false,
+  dconf,
+  gtk3
 
-# options
-, libGLSupported ? !stdenv.isDarwin, libGL
-# qmake detection for libmysqlclient does not seem to work when cross compiling
-, mysqlSupport ? stdenv.hostPlatform == stdenv.buildPlatform, libmysqlclient
-, buildExamples ? false, buildTests ? false, debug ? false
-, developerBuild ? false, decryptSslTraffic ? false, testers }:
+  # options
+  ,
+  libGLSupported ? !stdenv.isDarwin,
+  libGL
+  # qmake detection for libmysqlclient does not seem to work when cross compiling
+  ,
+  mysqlSupport ? stdenv.hostPlatform == stdenv.buildPlatform,
+  libmysqlclient,
+  buildExamples ? false,
+  buildTests ? false,
+  debug ? false,
+  developerBuild ? false,
+  decryptSslTraffic ? false,
+  testers,
+}:
 
 let debugSymbols = debug || developerBuild;
 

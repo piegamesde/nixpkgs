@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, aiohttp
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  aiohttp,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "huisbaasje-client";

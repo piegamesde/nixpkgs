@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "Genshi";

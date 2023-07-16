@@ -1,6 +1,23 @@
-{ lib, stdenv, bcrypt, buildPythonPackage, cryptography, fetchPypi, fido2
-, gssapi, libnacl, libsodium, nettle, openssh, openssl, pyopenssl
-, pytestCheckHook, python-pkcs11, pythonOlder, typing-extensions }:
+{
+  lib,
+  stdenv,
+  bcrypt,
+  buildPythonPackage,
+  cryptography,
+  fetchPypi,
+  fido2,
+  gssapi,
+  libnacl,
+  libsodium,
+  nettle,
+  openssh,
+  openssl,
+  pyopenssl,
+  pytestCheckHook,
+  python-pkcs11,
+  pythonOlder,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "asyncssh";

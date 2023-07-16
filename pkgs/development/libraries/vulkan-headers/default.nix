@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+}:
 stdenv.mkDerivation rec {
   pname = "vulkan-headers";
   version = "1.3.249";

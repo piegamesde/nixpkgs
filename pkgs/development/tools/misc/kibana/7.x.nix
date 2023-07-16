@@ -1,5 +1,14 @@
-{ elk7Version, enableUnfree ? true, lib, stdenv, makeWrapper, fetchurl
-, nodejs_16, coreutils, which }:
+{
+  elk7Version,
+  enableUnfree ? true,
+  lib,
+  stdenv,
+  makeWrapper,
+  fetchurl,
+  nodejs_16,
+  coreutils,
+  which,
+}:
 
 let
   nodejs = nodejs_16;

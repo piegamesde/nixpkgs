@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, cargo, sphinx, Security, libiconv
-, prefix ? "uutils-", buildMulticallBinary ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  cargo,
+  sphinx,
+  Security,
+  libiconv,
+  prefix ? "uutils-",
+  buildMulticallBinary ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "uutils-coreutils";

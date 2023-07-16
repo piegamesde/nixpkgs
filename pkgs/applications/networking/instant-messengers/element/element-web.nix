@@ -1,5 +1,16 @@
-{ lib, stdenv, runCommand, fetchFromGitHub, fetchYarnDeps, writeText, jq, yarn
-, fixup_yarn_lock, nodejs, jitsi-meet }:
+{
+  lib,
+  stdenv,
+  runCommand,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  writeText,
+  jq,
+  yarn,
+  fixup_yarn_lock,
+  nodejs,
+  jitsi-meet,
+}:
 
 let
   pinData = import ./pin.nix;

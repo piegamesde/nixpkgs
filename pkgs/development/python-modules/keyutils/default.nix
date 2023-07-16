@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, keyutils, pytest-runner, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  keyutils,
+  pytest-runner,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "keyutils";

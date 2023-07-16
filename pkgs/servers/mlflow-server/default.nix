@@ -1,4 +1,8 @@
-{ lib, python3, writeText }:
+{
+  lib,
+  python3,
+  writeText,
+}:
 
 let py = python3.pkgs;
 in py.toPythonApplication (py.mlflow.overridePythonAttrs (old: rec {

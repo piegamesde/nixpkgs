@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, intltool, pkg-config, qmake, wrapQtAppsHook
-, libqalculate, qtbase, qttools, qtsvg, qtwayland }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  intltool,
+  pkg-config,
+  qmake,
+  wrapQtAppsHook,
+  libqalculate,
+  qtbase,
+  qttools,
+  qtsvg,
+  qtwayland,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qalculate-qt";

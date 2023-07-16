@@ -1,26 +1,40 @@
-{ fetchgit, fetchurl, lib, writers, python3Packages, runCommand, cargo, jq }:
+{
+  fetchgit,
+  fetchurl,
+  lib,
+  writers,
+  python3Packages,
+  runCommand,
+  cargo,
+  jq,
+}:
 
 {
 # Cargo lock file
-lockFile ? null
+  lockFile ? null
 
-  # Cargo lock file contents as string
-, lockFileContents ? null
+    # Cargo lock file contents as string
+  ,
+  lockFileContents ? null
 
-  # Allow `builtins.fetchGit` to be used to not require hashes for git dependencies
-, allowBuiltinFetchGit ? false
+    # Allow `builtins.fetchGit` to be used to not require hashes for git dependencies
+  ,
+  allowBuiltinFetchGit ? false
 
-  # Additional registries to pull sources from
-  #   { "https://<registry index URL>" = "https://<registry download URL>"; }
-  # where:
-  # - "index URL" is the "index" value of the configuration entry for that registry
-  #   https://doc.rust-lang.org/cargo/reference/registries.html#using-an-alternate-registry
-  # - "download URL" is the "dl" value of its associated index configuration
-  #   https://doc.rust-lang.org/cargo/reference/registry-index.html#index-configuration
-, extraRegistries ? { }
+    # Additional registries to pull sources from
+    #   { "https://<registry index URL>" = "https://<registry download URL>"; }
+    # where:
+    # - "index URL" is the "index" value of the configuration entry for that registry
+    #   https://doc.rust-lang.org/cargo/reference/registries.html#using-an-alternate-registry
+    # - "download URL" is the "dl" value of its associated index configuration
+    #   https://doc.rust-lang.org/cargo/reference/registry-index.html#index-configuration
+  ,
+  extraRegistries ? { }
 
-  # Hashes for git dependencies.
-, outputHashes ? { } }@args:
+    # Hashes for git dependencies.
+  ,
+  outputHashes ? { }
+}@args:
 
 assert (lockFile == null) != (lockFileContents == null);
 

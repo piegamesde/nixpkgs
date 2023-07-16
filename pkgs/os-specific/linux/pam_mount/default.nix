@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, autoreconfHook, pkg-config, libtool, pam, libHX
-, libxml2, pcre2, perl, openssl, cryptsetup, util-linux }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  libtool,
+  pam,
+  libHX,
+  libxml2,
+  pcre2,
+  perl,
+  openssl,
+  cryptsetup,
+  util-linux,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pam_mount";

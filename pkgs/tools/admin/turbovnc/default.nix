@@ -1,12 +1,35 @@
-{ lib, stdenv, fetchFromGitHub, nixosTests
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nixosTests
 
-# Dependencies
-, bzip2, cmake, freetype, libGL, libjpeg_turbo, makeWrapper
-, mesa # for built-in 3D software rendering using swrast
-, openjdk # for the client with Java GUI
-, openjdk_headless # for the server
-, openssh, openssl, pam, perl, python3, which, xkbcomp, xkeyboard_config, xorg
-, xterm, zlib }:
+  # Dependencies
+  ,
+  bzip2,
+  cmake,
+  freetype,
+  libGL,
+  libjpeg_turbo,
+  makeWrapper,
+  mesa # for built-in 3D software rendering using swrast
+  ,
+  openjdk # for the client with Java GUI
+  ,
+  openjdk_headless # for the server
+  ,
+  openssh,
+  openssl,
+  pam,
+  perl,
+  python3,
+  which,
+  xkbcomp,
+  xkeyboard_config,
+  xorg,
+  xterm,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "turbovnc";

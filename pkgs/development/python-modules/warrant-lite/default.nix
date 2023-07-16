@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, boto3, envs, python-jose
-, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  boto3,
+  envs,
+  python-jose,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "warrant-lite";

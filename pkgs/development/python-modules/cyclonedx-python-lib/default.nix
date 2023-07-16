@@ -1,7 +1,25 @@
-{ lib, buildPythonPackage, ddt, fetchFromGitHub, importlib-metadata, jsonschema
-, lxml, packageurl-python, py-serializable, pythonRelaxDepsHook, poetry-core
-, pytestCheckHook, pythonOlder, requirements-parser, sortedcontainers
-, setuptools, toml, types-setuptools, types-toml, xmldiff }:
+{
+  lib,
+  buildPythonPackage,
+  ddt,
+  fetchFromGitHub,
+  importlib-metadata,
+  jsonschema,
+  lxml,
+  packageurl-python,
+  py-serializable,
+  pythonRelaxDepsHook,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  requirements-parser,
+  sortedcontainers,
+  setuptools,
+  toml,
+  types-setuptools,
+  types-toml,
+  xmldiff,
+}:
 
 buildPythonPackage rec {
   pname = "cyclonedx-python-lib";

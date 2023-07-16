@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, libglvnd, xorg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libglvnd,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cnping";

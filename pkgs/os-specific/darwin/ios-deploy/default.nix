@@ -1,4 +1,9 @@
-{ lib, stdenvNoCC, rsync, fetchFromGitHub }:
+{
+  lib,
+  stdenvNoCC,
+  rsync,
+  fetchFromGitHub,
+}:
 
 # Note this is impure, using system XCode to build ios-deploy. We
 # should have a special flag for users to enable this.

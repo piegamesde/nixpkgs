@@ -1,6 +1,23 @@
-{ stdenv, lib, fetchurl, cmake, coreutils, curl, file, glibc, makeWrapper
-, nixosTests, protobuf, python3, sgx-sdk, shadow, systemd, util-linux, which
-, debug ? false }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  cmake,
+  coreutils,
+  curl,
+  file,
+  glibc,
+  makeWrapper,
+  nixosTests,
+  protobuf,
+  python3,
+  sgx-sdk,
+  shadow,
+  systemd,
+  util-linux,
+  which,
+  debug ? false
+}:
 stdenv.mkDerivation rec {
   inherit (sgx-sdk) version versionTag src;
   pname = "sgx-psw";

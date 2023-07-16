@@ -1,9 +1,28 @@
-{ lib, fetchFromGitHub, libpulseaudio, libconfig
-# Needs a gnuradio built with qt gui support
-, gnuradio3_8, thrift
-# Not gnuradioPackages'
-, codec2, gmp, gsm, libopus, libjpeg, libsndfile, libftdi, limesuite
-, soapysdr-with-plugins, protobuf, speex, speexdsp, cppzmq }:
+{
+  lib,
+  fetchFromGitHub,
+  libpulseaudio,
+  libconfig
+  # Needs a gnuradio built with qt gui support
+  ,
+  gnuradio3_8,
+  thrift
+  # Not gnuradioPackages'
+  ,
+  codec2,
+  gmp,
+  gsm,
+  libopus,
+  libjpeg,
+  libsndfile,
+  libftdi,
+  limesuite,
+  soapysdr-with-plugins,
+  protobuf,
+  speex,
+  speexdsp,
+  cppzmq,
+}:
 
 gnuradio3_8.pkgs.mkDerivation rec {
   pname = "qradiolink";

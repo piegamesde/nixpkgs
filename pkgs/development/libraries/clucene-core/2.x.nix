@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, cmake, boost, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  boost,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "clucene-core";

@@ -1,8 +1,33 @@
-{ lib, stdenv, buildPythonPackage, pythonOlder, fetchPypi, fetchzip, alembic
-, async_generator, certipy, python-dateutil, entrypoints, jinja2
-, jupyter-telemetry, oauthlib, pamela, prometheus-client, requests, sqlalchemy
-, tornado, traitlets, nodePackages, beautifulsoup4, cryptography, notebook
-, pytest-asyncio, pytestCheckHook, requests-mock, virtualenv }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  fetchzip,
+  alembic,
+  async_generator,
+  certipy,
+  python-dateutil,
+  entrypoints,
+  jinja2,
+  jupyter-telemetry,
+  oauthlib,
+  pamela,
+  prometheus-client,
+  requests,
+  sqlalchemy,
+  tornado,
+  traitlets,
+  nodePackages,
+  beautifulsoup4,
+  cryptography,
+  notebook,
+  pytest-asyncio,
+  pytestCheckHook,
+  requests-mock,
+  virtualenv,
+}:
 
 let
   # js/css assets that setup.py tries to fetch via `npm install` when building

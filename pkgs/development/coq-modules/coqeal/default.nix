@@ -1,5 +1,14 @@
-{ coq, mkCoqDerivation, mathcomp, bignums, paramcoq, multinomials
-, mathcomp-real-closed, lib, version ? null }:
+{
+  coq,
+  mkCoqDerivation,
+  mathcomp,
+  bignums,
+  paramcoq,
+  multinomials,
+  mathcomp-real-closed,
+  lib,
+  version ? null
+}:
 
 (mkCoqDerivation {
 

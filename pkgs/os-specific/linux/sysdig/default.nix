@@ -1,6 +1,30 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, kernel, installShellFiles
-, pkg-config, luajit, ncurses, perl, jsoncpp, libb64, openssl, curl, jq, gcc
-, elfutils, tbb, protobuf, grpc, yaml-cpp, nlohmann_json, re2, zstd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  kernel,
+  installShellFiles,
+  pkg-config,
+  luajit,
+  ncurses,
+  perl,
+  jsoncpp,
+  libb64,
+  openssl,
+  curl,
+  jq,
+  gcc,
+  elfutils,
+  tbb,
+  protobuf,
+  grpc,
+  yaml-cpp,
+  nlohmann_json,
+  re2,
+  zstd,
+}:
 
 let
   # Compare with https://github.com/draios/sysdig/blob/dev/cmake/modules/falcosecurity-libs.cmake

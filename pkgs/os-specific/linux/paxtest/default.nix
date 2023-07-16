@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, paxctl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  paxctl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "paxtest";

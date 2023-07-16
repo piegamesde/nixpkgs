@@ -1,4 +1,8 @@
-{ callPackage, libjack2, ... }@args:
+{
+  callPackage,
+  libjack2,
+  ...
+}@args:
 
 callPackage ./generic.nix (args // rec {
   pname = "patchmatrix";

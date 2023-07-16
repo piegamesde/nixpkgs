@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitLab, pkg-config, libbsd, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  pkg-config,
+  libbsd,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation rec {
   pname = "netcat-openbsd";

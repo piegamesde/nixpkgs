@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-cmake
-, rocm-opencl-runtime, texlive, doxygen, sphinx, openblas, python3Packages
-, buildDocs ? true, buildTests ? false, buildBenchmarks ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  cmake,
+  rocm-cmake,
+  rocm-opencl-runtime,
+  texlive,
+  doxygen,
+  sphinx,
+  openblas,
+  python3Packages,
+  buildDocs ? true,
+  buildTests ? false,
+  buildBenchmarks ? false
+}:
 
 let
   latex = lib.optionalAttrs buildDocs texlive.combine {

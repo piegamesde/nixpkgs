@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, nx-libs, xorg, getopt, gnugrep
-, gawk, ps, mount, iproute2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  nx-libs,
+  xorg,
+  getopt,
+  gnugrep,
+  gawk,
+  ps,
+  mount,
+  iproute2,
+}:
 stdenv.mkDerivation rec {
   pname = "x11docker";
   version = "7.6.0";

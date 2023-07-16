@@ -1,7 +1,27 @@
-{ lib, boto3, buildPythonPackage, fetchFromGitHub, ftfy, mailchecker, openpyxl
-, orjson, phonenumbers, pytestCheckHook, python-dateutil, python-decouple
-, python-fsutil, python-slugify, pythonOlder, pythonRelaxDepsHook, pyyaml
-, requests, six, toml, xlrd, xmltodict }:
+{
+  lib,
+  boto3,
+  buildPythonPackage,
+  fetchFromGitHub,
+  ftfy,
+  mailchecker,
+  openpyxl,
+  orjson,
+  phonenumbers,
+  pytestCheckHook,
+  python-dateutil,
+  python-decouple,
+  python-fsutil,
+  python-slugify,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  pyyaml,
+  requests,
+  six,
+  toml,
+  xlrd,
+  xmltodict,
+}:
 
 buildPythonPackage rec {
   pname = "python-benedict";

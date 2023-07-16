@@ -1,4 +1,10 @@
-{ lib, symlinkJoin, pidgin, makeWrapper, plugins }:
+{
+  lib,
+  symlinkJoin,
+  pidgin,
+  makeWrapper,
+  plugins,
+}:
 
 let extraArgs = map (x: x.wrapArgs or "") plugins;
 in symlinkJoin {

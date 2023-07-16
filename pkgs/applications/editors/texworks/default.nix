@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, wrapQtAppsHook, hunspell
-, poppler, qt5compat, qttools, withLua ? true, lua, withPython ? true, python3
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  wrapQtAppsHook,
+  hunspell,
+  poppler,
+  qt5compat,
+  qttools,
+  withLua ? true,
+  lua,
+  withPython ? true,
+  python3,
 }:
 
 stdenv.mkDerivation rec {

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, glib, python2, gtk2, readline }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  glib,
+  python2,
+  gtk2,
+  readline,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnubg";

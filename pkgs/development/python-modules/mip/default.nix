@@ -1,10 +1,24 @@
-{ lib, buildPythonPackage, cffi, dos2unix, fetchPypi, matplotlib, networkx
-, numpy, pytestCheckHook, pythonOlder, gurobi, gurobipy
-# Enable support for the commercial Gurobi solver (requires a license)
-, gurobiSupport ? false
-  # If Gurobi has already been installed outside of the Nix store, specify its
-  # installation directory here
-, gurobiHome ? null }:
+{
+  lib,
+  buildPythonPackage,
+  cffi,
+  dos2unix,
+  fetchPypi,
+  matplotlib,
+  networkx,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  gurobi,
+  gurobipy
+  # Enable support for the commercial Gurobi solver (requires a license)
+  ,
+  gurobiSupport ? false
+    # If Gurobi has already been installed outside of the Nix store, specify its
+    # installation directory here
+  ,
+  gurobiHome ? null
+}:
 
 buildPythonPackage rec {
   pname = "mip";

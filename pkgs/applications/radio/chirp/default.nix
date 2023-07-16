@@ -1,5 +1,12 @@
-{ lib, fetchFromGitHub, glib, gsettings-desktop-schemas, python3
-, unstableGitUpdater, wrapGAppsHook }:
+{
+  lib,
+  fetchFromGitHub,
+  glib,
+  gsettings-desktop-schemas,
+  python3,
+  unstableGitUpdater,
+  wrapGAppsHook,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "chirp";

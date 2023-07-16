@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libxcb
-, xcbutilkeysyms, xcbutilimage, pam, libX11, libev, cairo, libxkbcommon
-, libxkbfile, libjpeg_turbo, xcbutilxrm }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  libxcb,
+  xcbutilkeysyms,
+  xcbutilimage,
+  pam,
+  libX11,
+  libev,
+  cairo,
+  libxkbcommon,
+  libxkbfile,
+  libjpeg_turbo,
+  xcbutilxrm,
+}:
 
 stdenv.mkDerivation rec {
   version = "2.13.c.4";

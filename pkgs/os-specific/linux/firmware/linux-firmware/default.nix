@@ -1,5 +1,9 @@
 let source = import ./source.nix;
-in { stdenvNoCC, fetchzip, lib, }:
+in {
+  stdenvNoCC,
+  fetchzip,
+  lib,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "linux-firmware";

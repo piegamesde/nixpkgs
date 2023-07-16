@@ -1,4 +1,7 @@
-{ lib, systemdUtils }:
+{
+  lib,
+  systemdUtils,
+}:
 
 with systemdUtils.lib;
 with lib;
@@ -295,141 +298,145 @@ in rec {
   };
   stage1CommonUnitOptions = commonUnitOptions;
 
-  serviceOptions = { name, config, ... }: {
-    options = {
+  serviceOptions = {
+      name,
+      config,
+      ...
+    }: {
+      options = {
 
-      environment = mkOption {
-        default = { };
-        type = with types; attrsOf (nullOr (oneOf [ str path package ]));
-        example = {
-          PATH = "/foo/bar/bin";
-          LANG = "nl_NL.UTF-8";
+        environment = mkOption {
+          default = { };
+          type = with types; attrsOf (nullOr (oneOf [ str path package ]));
+          example = {
+            PATH = "/foo/bar/bin";
+            LANG = "nl_NL.UTF-8";
+          };
+          description = lib.mdDoc
+            "Environment variables passed to the service's processes.";
         };
-        description =
-          lib.mdDoc "Environment variables passed to the service's processes.";
+
+        path = mkOption {
+          default = [ ];
+          type = with types; listOf (oneOf [ package str ]);
+          description = lib.mdDoc ''
+            Packages added to the service's {env}`PATH`
+            environment variable.  Both the {file}`bin`
+            and {file}`sbin` subdirectories of each
+            package are added.
+          '';
+        };
+
+        serviceConfig = mkOption {
+          default = { };
+          example = { RestartSec = 5; };
+          type = types.addCheck (types.attrsOf unitOption) checkService;
+          description = lib.mdDoc ''
+            Each attribute in this set specifies an option in the
+            `[Service]` section of the unit.  See
+            {manpage}`systemd.service(5)` for details.
+          '';
+        };
+
+        script = mkOption {
+          type = types.lines;
+          default = "";
+          description =
+            lib.mdDoc "Shell commands executed as the service's main process.";
+        };
+
+        scriptArgs = mkOption {
+          type = types.str;
+          default = "";
+          example = "%i";
+          description = lib.mdDoc ''
+            Arguments passed to the main process script.
+            Can contain specifiers (`%` placeholders expanded by systemd, see {manpage}`systemd.unit(5)`).
+          '';
+        };
+
+        preStart = mkOption {
+          type = types.lines;
+          default = "";
+          description = lib.mdDoc ''
+            Shell commands executed before the service's main process
+            is started.
+          '';
+        };
+
+        postStart = mkOption {
+          type = types.lines;
+          default = "";
+          description = lib.mdDoc ''
+            Shell commands executed after the service's main process
+            is started.
+          '';
+        };
+
+        reload = mkOption {
+          type = types.lines;
+          default = "";
+          description = lib.mdDoc ''
+            Shell commands executed when the service's main process
+            is reloaded.
+          '';
+        };
+
+        preStop = mkOption {
+          type = types.lines;
+          default = "";
+          description = lib.mdDoc ''
+            Shell commands executed to stop the service.
+          '';
+        };
+
+        postStop = mkOption {
+          type = types.lines;
+          default = "";
+          description = lib.mdDoc ''
+            Shell commands executed after the service's main process
+            has exited.
+          '';
+        };
+
+        jobScripts = mkOption {
+          type = with types; coercedTo path singleton (listOf path);
+          internal = true;
+          description =
+            lib.mdDoc "A list of all job script derivations of this unit.";
+          default = [ ];
+        };
+
       };
 
-      path = mkOption {
-        default = [ ];
-        type = with types; listOf (oneOf [ package str ]);
-        description = lib.mdDoc ''
-          Packages added to the service's {env}`PATH`
-          environment variable.  Both the {file}`bin`
-          and {file}`sbin` subdirectories of each
-          package are added.
-        '';
-      };
-
-      serviceConfig = mkOption {
-        default = { };
-        example = { RestartSec = 5; };
-        type = types.addCheck (types.attrsOf unitOption) checkService;
-        description = lib.mdDoc ''
-          Each attribute in this set specifies an option in the
-          `[Service]` section of the unit.  See
-          {manpage}`systemd.service(5)` for details.
-        '';
-      };
-
-      script = mkOption {
-        type = types.lines;
-        default = "";
-        description =
-          lib.mdDoc "Shell commands executed as the service's main process.";
-      };
-
-      scriptArgs = mkOption {
-        type = types.str;
-        default = "";
-        example = "%i";
-        description = lib.mdDoc ''
-          Arguments passed to the main process script.
-          Can contain specifiers (`%` placeholders expanded by systemd, see {manpage}`systemd.unit(5)`).
-        '';
-      };
-
-      preStart = mkOption {
-        type = types.lines;
-        default = "";
-        description = lib.mdDoc ''
-          Shell commands executed before the service's main process
-          is started.
-        '';
-      };
-
-      postStart = mkOption {
-        type = types.lines;
-        default = "";
-        description = lib.mdDoc ''
-          Shell commands executed after the service's main process
-          is started.
-        '';
-      };
-
-      reload = mkOption {
-        type = types.lines;
-        default = "";
-        description = lib.mdDoc ''
-          Shell commands executed when the service's main process
-          is reloaded.
-        '';
-      };
-
-      preStop = mkOption {
-        type = types.lines;
-        default = "";
-        description = lib.mdDoc ''
-          Shell commands executed to stop the service.
-        '';
-      };
-
-      postStop = mkOption {
-        type = types.lines;
-        default = "";
-        description = lib.mdDoc ''
-          Shell commands executed after the service's main process
-          has exited.
-        '';
-      };
-
-      jobScripts = mkOption {
-        type = with types; coercedTo path singleton (listOf path);
-        internal = true;
-        description =
-          lib.mdDoc "A list of all job script derivations of this unit.";
-        default = [ ];
-      };
+      config = mkMerge [
+        (mkIf (config.preStart != "") rec {
+          jobScripts = makeJobScript "${name}-pre-start" config.preStart;
+          serviceConfig.ExecStartPre = [ jobScripts ];
+        })
+        (mkIf (config.script != "") rec {
+          jobScripts = makeJobScript "${name}-start" config.script;
+          serviceConfig.ExecStart = jobScripts + " " + config.scriptArgs;
+        })
+        (mkIf (config.postStart != "") rec {
+          jobScripts = (makeJobScript "${name}-post-start" config.postStart);
+          serviceConfig.ExecStartPost = [ jobScripts ];
+        })
+        (mkIf (config.reload != "") rec {
+          jobScripts = makeJobScript "${name}-reload" config.reload;
+          serviceConfig.ExecReload = jobScripts;
+        })
+        (mkIf (config.preStop != "") rec {
+          jobScripts = makeJobScript "${name}-pre-stop" config.preStop;
+          serviceConfig.ExecStop = jobScripts;
+        })
+        (mkIf (config.postStop != "") rec {
+          jobScripts = makeJobScript "${name}-post-stop" config.postStop;
+          serviceConfig.ExecStopPost = jobScripts;
+        })
+      ];
 
     };
-
-    config = mkMerge [
-      (mkIf (config.preStart != "") rec {
-        jobScripts = makeJobScript "${name}-pre-start" config.preStart;
-        serviceConfig.ExecStartPre = [ jobScripts ];
-      })
-      (mkIf (config.script != "") rec {
-        jobScripts = makeJobScript "${name}-start" config.script;
-        serviceConfig.ExecStart = jobScripts + " " + config.scriptArgs;
-      })
-      (mkIf (config.postStart != "") rec {
-        jobScripts = (makeJobScript "${name}-post-start" config.postStart);
-        serviceConfig.ExecStartPost = [ jobScripts ];
-      })
-      (mkIf (config.reload != "") rec {
-        jobScripts = makeJobScript "${name}-reload" config.reload;
-        serviceConfig.ExecReload = jobScripts;
-      })
-      (mkIf (config.preStop != "") rec {
-        jobScripts = makeJobScript "${name}-pre-stop" config.preStop;
-        serviceConfig.ExecStop = jobScripts;
-      })
-      (mkIf (config.postStop != "") rec {
-        jobScripts = makeJobScript "${name}-post-stop" config.postStop;
-        serviceConfig.ExecStopPost = jobScripts;
-      })
-    ];
-
-  };
 
   stage2ServiceOptions = {
     imports = [ stage2CommonUnitOptions serviceOptions ];

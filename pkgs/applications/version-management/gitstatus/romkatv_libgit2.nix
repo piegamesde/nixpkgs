@@ -1,4 +1,8 @@
-{ fetchFromGitHub, libgit2, ... }:
+{
+  fetchFromGitHub,
+  libgit2,
+  ...
+}:
 
 libgit2.overrideAttrs (oldAttrs: {
   cmakeFlags = oldAttrs.cmakeFlags ++ [

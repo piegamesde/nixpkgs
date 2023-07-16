@@ -1,8 +1,36 @@
-{ lib, stdenv, autopep8, buildPythonPackage, docstring-to-markdown
-, fetchFromGitHub, flake8, flaky, jedi, matplotlib, mccabe, numpy, pandas
-, pluggy, pycodestyle, pydocstyle, pyflakes, pylint, pyqt5, pytestCheckHook
-, pythonRelaxDepsHook, python-lsp-jsonrpc, pythonOlder, rope, setuptools
-, setuptools-scm, toml, ujson, websockets, whatthepatch, yapf }:
+{
+  lib,
+  stdenv,
+  autopep8,
+  buildPythonPackage,
+  docstring-to-markdown,
+  fetchFromGitHub,
+  flake8,
+  flaky,
+  jedi,
+  matplotlib,
+  mccabe,
+  numpy,
+  pandas,
+  pluggy,
+  pycodestyle,
+  pydocstyle,
+  pyflakes,
+  pylint,
+  pyqt5,
+  pytestCheckHook,
+  pythonRelaxDepsHook,
+  python-lsp-jsonrpc,
+  pythonOlder,
+  rope,
+  setuptools,
+  setuptools-scm,
+  toml,
+  ujson,
+  websockets,
+  whatthepatch,
+  yapf,
+}:
 
 buildPythonPackage rec {
   pname = "python-lsp-server";

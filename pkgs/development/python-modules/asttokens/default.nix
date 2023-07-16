@@ -1,5 +1,12 @@
-{ lib, fetchPypi, buildPythonPackage, setuptools-scm, six, astroid
-, pytestCheckHook }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  setuptools-scm,
+  six,
+  astroid,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "asttokens";

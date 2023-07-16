@@ -1,6 +1,26 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder, torch
-, torchvision, opencv4, yapf, packaging, pillow, addict, ninja, which, onnx
-, onnxruntime, scipy, pyturbojpeg, tifffile, lmdb, symlinkJoin }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  torch,
+  torchvision,
+  opencv4,
+  yapf,
+  packaging,
+  pillow,
+  addict,
+  ninja,
+  which,
+  onnx,
+  onnxruntime,
+  scipy,
+  pyturbojpeg,
+  tifffile,
+  lmdb,
+  symlinkJoin,
+}:
 
 let
   inherit (torch) cudaCapabilities cudaPackages cudaSupport;

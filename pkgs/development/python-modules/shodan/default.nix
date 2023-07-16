@@ -1,5 +1,14 @@
-{ lib, fetchPypi, buildPythonPackage, click-plugins, colorama, requests
-, setuptools, pythonOlder, xlsxwriter }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  click-plugins,
+  colorama,
+  requests,
+  setuptools,
+  pythonOlder,
+  xlsxwriter,
+}:
 
 buildPythonPackage rec {
   pname = "shodan";

@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, python39 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python39,
+}:
 
 stdenv.mkDerivation {
   pname = "monoid";

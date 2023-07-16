@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, asn1crypto, cbor2, pythonOlder
-, pydantic, pyopenssl, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  asn1crypto,
+  cbor2,
+  pythonOlder,
+  pydantic,
+  pyopenssl,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "webauthn";

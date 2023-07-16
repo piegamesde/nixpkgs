@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, fetchFromGitHub, msgpack, poetry-core
-, pytestCheckHook, pythonOlder, pyyaml, ruamel-yaml, setuptools, toml, tomli
-, tomli-w }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  msgpack,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  ruamel-yaml,
+  setuptools,
+  toml,
+  tomli,
+  tomli-w,
+}:
 
 buildPythonPackage rec {
   pname = "python-box";

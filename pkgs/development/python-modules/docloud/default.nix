@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, requests, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "docloud";

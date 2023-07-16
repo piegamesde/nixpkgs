@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, linkFarm, makeWrapper, rustPlatform, tree-sitter }:
+{
+  lib,
+  fetchFromGitHub,
+  linkFarm,
+  makeWrapper,
+  rustPlatform,
+  tree-sitter,
+}:
 
 let
   # based on https://github.com/NixOS/nixpkgs/blob/aa07b78b9606daf1145a37f6299c6066939df075/pkgs/development/tools/parsing/tree-sitter/default.nix#L85-L104

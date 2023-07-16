@@ -1,4 +1,12 @@
-{ lib, bash, autoconf, automake, mkCoqDerivation, coq, version ? null }:
+{
+  lib,
+  bash,
+  autoconf,
+  automake,
+  mkCoqDerivation,
+  coq,
+  version ? null
+}:
 
 mkCoqDerivation {
   pname = "flocq";

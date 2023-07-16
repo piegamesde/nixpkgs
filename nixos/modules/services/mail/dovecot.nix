@@ -1,4 +1,10 @@
-{ options, config, lib, pkgs, ... }:
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -125,48 +131,51 @@ let
       special_use = \${toString mailbox.specialUse}
     '' + "}";
 
-  mailboxes = { name, ... }: {
-    options = {
-      name = mkOption {
-        type = types.strMatching ''[^"]+'';
-        example = "Spam";
-        default = name;
-        readOnly = true;
-        description = lib.mdDoc "The name of the mailbox.";
-      };
-      auto = mkOption {
-        type = types.enum [ "no" "create" "subscribe" ];
-        default = "no";
-        example = "subscribe";
-        description = lib.mdDoc
-          "Whether to automatically create or create and subscribe to the mailbox or not.";
-      };
-      specialUse = mkOption {
-        type = types.nullOr (types.enum [
-          "All"
-          "Archive"
-          "Drafts"
-          "Flagged"
-          "Junk"
-          "Sent"
-          "Trash"
-        ]);
-        default = null;
-        example = "Junk";
-        description = lib.mdDoc
-          "Null if no special use flag is set. Other than that every use flag mentioned in the RFC is valid.";
-      };
-      autoexpunge = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        example = "60d";
-        description = lib.mdDoc ''
-          To automatically remove all email from the mailbox which is older than the
-          specified time.
-        '';
+  mailboxes = {
+      name,
+      ...
+    }: {
+      options = {
+        name = mkOption {
+          type = types.strMatching ''[^"]+'';
+          example = "Spam";
+          default = name;
+          readOnly = true;
+          description = lib.mdDoc "The name of the mailbox.";
+        };
+        auto = mkOption {
+          type = types.enum [ "no" "create" "subscribe" ];
+          default = "no";
+          example = "subscribe";
+          description = lib.mdDoc
+            "Whether to automatically create or create and subscribe to the mailbox or not.";
+        };
+        specialUse = mkOption {
+          type = types.nullOr (types.enum [
+            "All"
+            "Archive"
+            "Drafts"
+            "Flagged"
+            "Junk"
+            "Sent"
+            "Trash"
+          ]);
+          default = null;
+          example = "Junk";
+          description = lib.mdDoc
+            "Null if no special use flag is set. Other than that every use flag mentioned in the RFC is valid.";
+        };
+        autoexpunge = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+          example = "60d";
+          description = lib.mdDoc ''
+            To automatically remove all email from the mailbox which is older than the
+            specified time.
+          '';
+        };
       };
     };
-  };
 in {
   imports = [ (mkRemovedOptionModule [ "services" "dovecot2" "package" ] "") ];
 

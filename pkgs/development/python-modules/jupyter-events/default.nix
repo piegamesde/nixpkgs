@@ -1,16 +1,30 @@
-{ lib, buildPythonPackage, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub
 
-# build
-, hatchling
+  # build
+  ,
+  hatchling
 
-# runtime
-, jsonschema, python-json-logger, pyyaml, traitlets
+  # runtime
+  ,
+  jsonschema,
+  python-json-logger,
+  pyyaml,
+  traitlets
 
-# optionals
-, click, rich
+  # optionals
+  ,
+  click,
+  rich
 
-# tests
-, pytest-asyncio, pytest-console-scripts, pytestCheckHook }:
+  # tests
+  ,
+  pytest-asyncio,
+  pytest-console-scripts,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "jupyter-events";

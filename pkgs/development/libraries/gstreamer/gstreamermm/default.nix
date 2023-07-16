@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, file, glibmm, gst_all_1, gnome
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  file,
+  glibmm,
+  gst_all_1,
+  gnome,
 }:
 
 stdenv.mkDerivation rec {

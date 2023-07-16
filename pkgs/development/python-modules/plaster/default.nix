@@ -1,4 +1,9 @@
-{ buildPythonPackage, fetchPypi, pytest, pytest-cov }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  pytest-cov,
+}:
 
 buildPythonPackage rec {
   pname = "plaster";

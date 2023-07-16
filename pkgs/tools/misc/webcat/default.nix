@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitea, asciidoctor, installShellFiles }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitea,
+  asciidoctor,
+  installShellFiles,
+}:
 
 buildGoModule rec {
   pname = "webcat";

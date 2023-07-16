@@ -1,4 +1,11 @@
-{ lib, rustPlatform, fetchFromGitHub, libclang, stdenv, Security }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  libclang,
+  stdenv,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-spellcheck";

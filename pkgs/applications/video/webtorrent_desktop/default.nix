@@ -1,7 +1,15 @@
 # # FIXME: see ../../../servers/code-server/ for a proper yarn packaging
 ##  - export ELECTRON_SKIP_BINARY_DOWNLOAD=1
 ##  - jq "del(.scripts.preinstall)" node_modules/shellcheck/package.json | sponge node_modules/shellcheck/package.json
-{ lib, stdenv, buildFHSEnv, runCommand, writeScript, fetchurl, fetchzip }:
+{
+  lib,
+  stdenv,
+  buildFHSEnv,
+  runCommand,
+  writeScript,
+  fetchurl,
+  fetchzip,
+}:
 let
   pname = "webtorrent-desktop";
   version = "0.21.0";

@@ -1,4 +1,10 @@
-{ lib, stdenv, buildEnv, fetchzip, mono }:
+{
+  lib,
+  stdenv,
+  buildEnv,
+  fetchzip,
+  mono,
+}:
 
 let
   version = "2.6";

@@ -1,13 +1,19 @@
-import ./make-test-python.nix ({ lib, pkgs, ... }:
+import ./make-test-python.nix ({
+    lib,
+    pkgs,
+    ...
+  }:
 
   {
     name = "jellyfin";
     meta.maintainers = with lib.maintainers; [ minijackson ];
 
-    nodes.machine = { ... }: {
-      services.jellyfin.enable = true;
-      environment.systemPackages = with pkgs; [ ffmpeg ];
-    };
+    nodes.machine = {
+        ...
+      }: {
+        services.jellyfin.enable = true;
+        environment.systemPackages = with pkgs; [ ffmpeg ];
+      };
 
     # Documentation of the Jellyfin API: https://api.jellyfin.org/
     # Beware, this link can be resource intensive

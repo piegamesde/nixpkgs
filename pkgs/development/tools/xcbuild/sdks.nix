@@ -1,5 +1,13 @@
-{ runCommand, lib, toolchainName, sdkName, writeText, xcodePlatform, sdkVer
-, productBuildVer }:
+{
+  runCommand,
+  lib,
+  toolchainName,
+  sdkName,
+  writeText,
+  xcodePlatform,
+  sdkVer,
+  productBuildVer,
+}:
 
 let
   inherit (lib.generators) toPlist toJSON;

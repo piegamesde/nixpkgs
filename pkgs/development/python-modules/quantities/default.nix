@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, pytestCheckHook, pythonOlder
-, setuptools, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "quantities";

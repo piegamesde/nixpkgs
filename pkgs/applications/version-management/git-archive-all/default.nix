@@ -1,5 +1,11 @@
-{ lib, buildPythonApplication, fetchFromGitHub, git, pytestCheckHook
-, pytest-mock }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  git,
+  pytestCheckHook,
+  pytest-mock,
+}:
 
 buildPythonApplication rec {
   pname = "git-archive-all";

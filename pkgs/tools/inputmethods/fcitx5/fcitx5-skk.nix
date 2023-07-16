@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, extra-cmake-modules, gettext
-, fcitx5, fcitx5-qt, libskk, qtbase, skk-dicts, wrapQtAppsHook, enableQt ? false
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  extra-cmake-modules,
+  gettext,
+  fcitx5,
+  fcitx5-qt,
+  libskk,
+  qtbase,
+  skk-dicts,
+  wrapQtAppsHook,
+  enableQt ? false
 }:
 
 stdenv.mkDerivation rec {

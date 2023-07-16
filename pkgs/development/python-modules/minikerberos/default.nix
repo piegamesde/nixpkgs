@@ -1,5 +1,15 @@
-{ lib, asn1crypto, asysocks, buildPythonPackage, fetchPypi, oscrypto
-, pythonOlder, six, tqdm, unicrypto }:
+{
+  lib,
+  asn1crypto,
+  asysocks,
+  buildPythonPackage,
+  fetchPypi,
+  oscrypto,
+  pythonOlder,
+  six,
+  tqdm,
+  unicrypto,
+}:
 
 buildPythonPackage rec {
   pname = "minikerberos";

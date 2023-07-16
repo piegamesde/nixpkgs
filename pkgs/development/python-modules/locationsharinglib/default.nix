@@ -1,5 +1,16 @@
-{ lib, betamax, buildPythonPackage, cachetools, coloredlogs, emoji, fetchPypi
-, nose, pythonOlder, pytz, requests }:
+{
+  lib,
+  betamax,
+  buildPythonPackage,
+  cachetools,
+  coloredlogs,
+  emoji,
+  fetchPypi,
+  nose,
+  pythonOlder,
+  pytz,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "locationsharinglib";

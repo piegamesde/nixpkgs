@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -16,51 +21,55 @@ let
       value = zone;
     }));
 
-  bindZoneOptions = { name, config, ... }: {
-    options = {
-      name = mkOption {
-        type = types.str;
-        default = name;
-        description = lib.mdDoc "Name of the zone.";
-      };
-      master = mkOption {
-        description = lib.mdDoc "Master=false means slave server";
-        type = types.bool;
-      };
-      file = mkOption {
-        type = types.either types.str types.path;
-        description = lib.mdDoc
-          "Zone file resource records contain columns of data, separated by whitespace, that define the record.";
-      };
-      masters = mkOption {
-        type = types.listOf types.str;
-        description = lib.mdDoc
-          "List of servers for inclusion in stub and secondary zones.";
-      };
-      slaves = mkOption {
-        type = types.listOf types.str;
-        description = lib.mdDoc "Addresses who may request zone transfers.";
-        default = [ ];
-      };
-      allowQuery = mkOption {
-        type = types.listOf types.str;
-        description = lib.mdDoc ''
-          List of address ranges allowed to query this zone. Instead of the address(es), this may instead
-          contain the single string "any".
+  bindZoneOptions = {
+      name,
+      config,
+      ...
+    }: {
+      options = {
+        name = mkOption {
+          type = types.str;
+          default = name;
+          description = lib.mdDoc "Name of the zone.";
+        };
+        master = mkOption {
+          description = lib.mdDoc "Master=false means slave server";
+          type = types.bool;
+        };
+        file = mkOption {
+          type = types.either types.str types.path;
+          description = lib.mdDoc
+            "Zone file resource records contain columns of data, separated by whitespace, that define the record.";
+        };
+        masters = mkOption {
+          type = types.listOf types.str;
+          description = lib.mdDoc
+            "List of servers for inclusion in stub and secondary zones.";
+        };
+        slaves = mkOption {
+          type = types.listOf types.str;
+          description = lib.mdDoc "Addresses who may request zone transfers.";
+          default = [ ];
+        };
+        allowQuery = mkOption {
+          type = types.listOf types.str;
+          description = lib.mdDoc ''
+            List of address ranges allowed to query this zone. Instead of the address(es), this may instead
+            contain the single string "any".
 
-          NOTE: This overrides the global-level `allow-query` setting, which is set to the contents
-          of `cachenetworks`.
-        '';
-        default = [ "any" ];
-      };
-      extraConfig = mkOption {
-        type = types.str;
-        description = lib.mdDoc
-          "Extra zone config to be appended at the end of the zone section.";
-        default = "";
+            NOTE: This overrides the global-level `allow-query` setting, which is set to the contents
+            of `cachenetworks`.
+          '';
+          default = [ "any" ];
+        };
+        extraConfig = mkOption {
+          type = types.str;
+          description = lib.mdDoc
+            "Extra zone config to be appended at the end of the zone section.";
+          default = "";
+        };
       };
     };
-  };
 
   confFile = pkgs.writeText "named.conf" ''
     include "/etc/bind/rndc.key";
@@ -91,8 +100,15 @@ let
 
     ${cfg.extraConfig}
 
-    ${concatMapStrings ({ name, file, master ? true, slaves ? [ ], masters ? [ ]
-      , allowQuery ? [ ], extraConfig ? "" }: ''
+    ${concatMapStrings ({
+        name,
+        file,
+        master ? true,
+        slaves ? [ ],
+        masters ? [ ],
+        allowQuery ? [ ],
+        extraConfig ? ""
+      }: ''
         zone "${name}" {
           type ${if master then "master" else "slave"};
           file "${file}";

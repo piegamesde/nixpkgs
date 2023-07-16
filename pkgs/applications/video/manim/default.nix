@@ -1,8 +1,15 @@
-{ lib, fetchFromGitHub
+{
+  lib,
+  fetchFromGitHub
 
-, cairo, ffmpeg, texlive
+  ,
+  cairo,
+  ffmpeg,
+  texlive
 
-, python3 }:
+  ,
+  python3,
+}:
 
 let
   # According to ManimCommunity documentation manim uses tex-packages packaged

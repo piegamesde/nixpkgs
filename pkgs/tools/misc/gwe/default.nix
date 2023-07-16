@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchFromGitLab, wrapGAppsHook, makeWrapper, pkg-config, meson
-, ninja, cmake, gobject-introspection, desktop-file-utils, python3, gtk3
-, libdazzle, libappindicator-gtk3, libnotify, nvidia_x11 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  wrapGAppsHook,
+  makeWrapper,
+  pkg-config,
+  meson,
+  ninja,
+  cmake,
+  gobject-introspection,
+  desktop-file-utils,
+  python3,
+  gtk3,
+  libdazzle,
+  libappindicator-gtk3,
+  libnotify,
+  nvidia_x11,
+}:
 
 let
   pythonEnv = python3.withPackages (pypkgs:

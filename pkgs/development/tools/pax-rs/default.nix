@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, fetchurl, rustPlatform, runCommand }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  rustPlatform,
+  runCommand,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "pax-rs";

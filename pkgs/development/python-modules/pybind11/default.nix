@@ -1,5 +1,19 @@
-{ stdenv, lib, buildPythonPackage, pythonOlder, fetchFromGitHub, cmake, boost
-, eigen, python, catch, numpy, pytestCheckHook, libxcrypt, makeSetupHook }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  eigen,
+  python,
+  catch,
+  numpy,
+  pytestCheckHook,
+  libxcrypt,
+  makeSetupHook,
+}:
 let
   setupHook = makeSetupHook {
     name = "pybind11-setup-hook";

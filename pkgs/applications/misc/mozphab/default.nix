@@ -1,7 +1,14 @@
-{ lib, fetchFromGitHub, python3
+{
+  lib,
+  fetchFromGitHub,
+  python3
 
-# tests
-, git, mercurial, patch }:
+  # tests
+  ,
+  git,
+  mercurial,
+  patch,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "mozphab";

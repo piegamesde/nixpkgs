@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, python3, makeWrapper, libtorrent-rasterbar-1_2_x, qt5
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python3,
+  makeWrapper,
+  libtorrent-rasterbar-1_2_x,
+  qt5,
 }:
 
 let

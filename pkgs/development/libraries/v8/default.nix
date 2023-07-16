@@ -1,5 +1,20 @@
-{ stdenv, lib, fetchgit, fetchFromGitHub, gn, ninja, python3, glib, pkg-config
-, icu, xcbuild, darwin, fetchpatch, llvmPackages, symlinkJoin }:
+{
+  stdenv,
+  lib,
+  fetchgit,
+  fetchFromGitHub,
+  gn,
+  ninja,
+  python3,
+  glib,
+  pkg-config,
+  icu,
+  xcbuild,
+  darwin,
+  fetchpatch,
+  llvmPackages,
+  symlinkJoin,
+}:
 
 # Use update.sh to update all checksums.
 

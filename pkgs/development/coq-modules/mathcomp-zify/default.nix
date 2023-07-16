@@ -1,5 +1,12 @@
-{ lib, mkCoqDerivation, coq, mathcomp-algebra, mathcomp-ssreflect
-, mathcomp-fingroup, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  mathcomp-algebra,
+  mathcomp-ssreflect,
+  mathcomp-fingroup,
+  version ? null
+}:
 
 mkCoqDerivation rec {
   namePrefix = [ "coq" "mathcomp" ];

@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, protobuf }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  protobuf,
+}:
 
 buildPythonPackage rec {
   pname = "snakebite";

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, ogre, cegui, boost, sfml, openal, cmake, ois
-, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ogre,
+  cegui,
+  boost,
+  sfml,
+  openal,
+  cmake,
+  ois,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "opendungeons";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, pkg-config, libtool }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  pkg-config,
+  libtool,
+}:
 
 stdenv.mkDerivation rec {
   version = "3.2p4";

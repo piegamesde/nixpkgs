@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, ant, jdk, nettools, hdf4, hdf5, makeDesktopItem
-, copyDesktopItems }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ant,
+  jdk,
+  nettools,
+  hdf4,
+  hdf5,
+  makeDesktopItem,
+  copyDesktopItems,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hdfview";

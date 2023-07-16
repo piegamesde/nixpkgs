@@ -1,4 +1,11 @@
-{ lib, callPackage, mkCoqDerivation, coq, coq-ext-lib, version ? null }:
+{
+  lib,
+  callPackage,
+  mkCoqDerivation,
+  coq,
+  coq-ext-lib,
+  version ? null
+}:
 
 mkCoqDerivation {
   pname = "simple-io";

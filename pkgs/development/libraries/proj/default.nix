@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, buildPackages
-, callPackage, sqlite, libtiff, curl, gtest, nlohmann_json, python3, cacert }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  buildPackages,
+  callPackage,
+  sqlite,
+  libtiff,
+  curl,
+  gtest,
+  nlohmann_json,
+  python3,
+  cacert,
+}:
 
 stdenv.mkDerivation (finalAttrs: rec {
   pname = "proj";

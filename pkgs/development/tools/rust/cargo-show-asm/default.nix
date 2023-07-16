@@ -1,5 +1,12 @@
-{ lib, rustPlatform, fetchFromGitHub, installShellFiles, stdenv
-, nix-update-script, callPackage }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  stdenv,
+  nix-update-script,
+  callPackage,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-asm";

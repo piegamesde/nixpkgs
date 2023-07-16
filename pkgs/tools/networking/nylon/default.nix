@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libevent, buildEnv }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libevent,
+  buildEnv,
+}:
 let
   # failed to find a better way to make it work
   libevent-comb = buildEnv {

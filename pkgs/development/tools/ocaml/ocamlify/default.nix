@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, ocaml, findlib, ocamlbuild }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocaml,
+  findlib,
+  ocamlbuild,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocamlify";

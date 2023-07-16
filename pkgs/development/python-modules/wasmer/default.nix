@@ -1,9 +1,25 @@
-{ stdenv, lib, rustPlatform, callPackage, fetchFromGitHub, buildPythonPackage
-, libiconv, libffi, libxml2, ncurses, zlib }:
+{
+  stdenv,
+  lib,
+  rustPlatform,
+  callPackage,
+  fetchFromGitHub,
+  buildPythonPackage,
+  libiconv,
+  libffi,
+  libxml2,
+  ncurses,
+  zlib,
+}:
 
 let
-  common = { pname, buildAndTestSubdir, cargoHash, extraNativeBuildInputs ? [ ]
-    , extraBuildInputs ? [ ] }:
+  common = {
+      pname,
+      buildAndTestSubdir,
+      cargoHash,
+      extraNativeBuildInputs ? [ ],
+      extraBuildInputs ? [ ]
+    }:
     buildPythonPackage rec {
       inherit pname;
       version = "1.1.0";

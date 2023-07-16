@@ -1,6 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, ocamlPackages, ncurses, copyDesktopItems
-, makeDesktopItem, wrapGAppsHook, glib, gsettings-desktop-schemas, zlib
-, enableX11 ? true, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ocamlPackages,
+  ncurses,
+  copyDesktopItems,
+  makeDesktopItem,
+  wrapGAppsHook,
+  glib,
+  gsettings-desktop-schemas,
+  zlib,
+  enableX11 ? true,
+  Cocoa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "unison";

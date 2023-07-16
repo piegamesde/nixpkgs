@@ -1,4 +1,8 @@
-{ runCommand, glibc, glibc32 }:
+{
+  runCommand,
+  glibc,
+  glibc32,
+}:
 
 let
   nameVersion = builtins.parseDrvName glibc.name;

@@ -1,4 +1,9 @@
-{ lib, wrapFirefox, gpgme, gnupg }:
+{
+  lib,
+  wrapFirefox,
+  gpgme,
+  gnupg,
+}:
 
 browser: args:
 

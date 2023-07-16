@@ -1,7 +1,32 @@
-{ lib, stdenv, brotli, brotlicffi, buildPythonPackage, certifi, chardet, click
-, fetchFromGitHub, h2, hatch-fancy-pypi-readme, hatchling, httpcore, isPyPy
-, multipart, pygments, python, pythonOlder, rfc3986, rich, sniffio, socksio
-, pytestCheckHook, pytest-asyncio, pytest-trio, trustme, uvicorn }:
+{
+  lib,
+  stdenv,
+  brotli,
+  brotlicffi,
+  buildPythonPackage,
+  certifi,
+  chardet,
+  click,
+  fetchFromGitHub,
+  h2,
+  hatch-fancy-pypi-readme,
+  hatchling,
+  httpcore,
+  isPyPy,
+  multipart,
+  pygments,
+  python,
+  pythonOlder,
+  rfc3986,
+  rich,
+  sniffio,
+  socksio,
+  pytestCheckHook,
+  pytest-asyncio,
+  pytest-trio,
+  trustme,
+  uvicorn,
+}:
 
 buildPythonPackage rec {
   pname = "httpx";

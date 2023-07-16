@@ -1,5 +1,14 @@
-{ lib, fetchzip, mkCoqDerivation, recurseIntoAttrs, single ? false, coqPackages
-, coq, equations, version ? null }@args:
+{
+  lib,
+  fetchzip,
+  mkCoqDerivation,
+  recurseIntoAttrs,
+  single ? false,
+  coqPackages,
+  coq,
+  equations,
+  version ? null
+}@args:
 with builtins // lib;
 let
   repo = "metacoq";

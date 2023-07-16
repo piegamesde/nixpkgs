@@ -1,4 +1,11 @@
-{ lib, stdenv, libxml2, pidgin, pkg-config, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  libxml2,
+  pidgin,
+  pkg-config,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pidgin-carbons";

@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchurl, openssl, perl, pps-tools, libcap }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  openssl,
+  perl,
+  pps-tools,
+  libcap,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ntp";

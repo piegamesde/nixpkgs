@@ -1,4 +1,9 @@
-{ pkgs, makeScope, libsForQt5, qt5 }:
+{
+  pkgs,
+  makeScope,
+  libsForQt5,
+  qt5,
+}:
 let
   packages = self:
     with self; {

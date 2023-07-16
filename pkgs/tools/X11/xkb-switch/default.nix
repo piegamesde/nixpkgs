@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libX11, libxkbfile }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libX11,
+  libxkbfile,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xkb-switch";

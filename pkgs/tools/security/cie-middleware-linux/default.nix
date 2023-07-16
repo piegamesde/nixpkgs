@@ -1,6 +1,23 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, strip-nondeterminism, meson, ninja
-, pkg-config, gradle_7, curl, cryptopp, fontconfig, jre, libxml2, openssl
-, pcsclite, podofo, ghostscript }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  strip-nondeterminism,
+  meson,
+  ninja,
+  pkg-config,
+  gradle_7,
+  curl,
+  cryptopp,
+  fontconfig,
+  jre,
+  libxml2,
+  openssl,
+  pcsclite,
+  podofo,
+  ghostscript,
+}:
 
 let
   pname = "cie-middleware-linux";

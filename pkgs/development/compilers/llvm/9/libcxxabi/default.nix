@@ -1,5 +1,15 @@
-{ lib, stdenv, llvm_meta, cmake, fetch, libcxx, libunwind, llvm, version
-, enableShared ? !stdenv.hostPlatform.isStatic }:
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  cmake,
+  fetch,
+  libcxx,
+  libunwind,
+  llvm,
+  version,
+  enableShared ? !stdenv.hostPlatform.isStatic
+}:
 
 stdenv.mkDerivation {
   pname = "libcxxabi";

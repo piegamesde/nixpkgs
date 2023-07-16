@@ -1,5 +1,15 @@
-{ lib, stdenv, beamPackages, fetchFromGitHub, glibcLocales, cacert
-, mkYarnModules, fetchYarnDeps, nodejs, nixosTests }:
+{
+  lib,
+  stdenv,
+  beamPackages,
+  fetchFromGitHub,
+  glibcLocales,
+  cacert,
+  mkYarnModules,
+  fetchYarnDeps,
+  nodejs,
+  nixosTests,
+}:
 
 let
   pname = "plausible";

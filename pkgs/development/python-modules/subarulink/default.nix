@@ -1,5 +1,14 @@
-{ lib, aiohttp, buildPythonPackage, cryptography, fetchFromGitHub
-, pytest-asyncio, pytestCheckHook, pythonOlder, stdiomask }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  stdiomask,
+}:
 
 buildPythonPackage rec {
   pname = "subarulink";

@@ -1,6 +1,16 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, dataclasses-json
-, pycryptodome, setuptools-scm, pytest-asyncio, pytest-cases, pytestCheckHook
-, pytz }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  dataclasses-json,
+  pycryptodome,
+  setuptools-scm,
+  pytest-asyncio,
+  pytest-cases,
+  pytestCheckHook,
+  pytz,
+}:
 
 buildPythonPackage rec {
   pname = "pysiaalarm";

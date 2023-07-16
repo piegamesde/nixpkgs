@@ -1,4 +1,7 @@
-{ lib, pkgs }:
+{
+  lib,
+  pkgs,
+}:
 
 lib.makeScope pkgs.newScope (self: {
   alsa-firmware = self.callPackage ./alsa-firmware { };

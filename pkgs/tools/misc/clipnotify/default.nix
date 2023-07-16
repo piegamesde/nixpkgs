@@ -1,4 +1,10 @@
-{ libX11, libXfixes, lib, stdenv, fetchFromGitHub }:
+{
+  libX11,
+  libXfixes,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+}:
 stdenv.mkDerivation rec {
   pname = "clipnotify";
   version = "unstable-2018-02-20";

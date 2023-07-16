@@ -1,7 +1,29 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, appdirs, asn1crypto, cffi
-, cryptography, furl, idna, orderedmultidict, packaging, peewee, py, pyasn1
-, pycparser, pyparsing, pyscrypt, python-dateutil, pytz, requests, six, vobject
-, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  appdirs,
+  asn1crypto,
+  cffi,
+  cryptography,
+  furl,
+  idna,
+  orderedmultidict,
+  packaging,
+  peewee,
+  py,
+  pyasn1,
+  pycparser,
+  pyparsing,
+  pyscrypt,
+  python-dateutil,
+  pytz,
+  requests,
+  six,
+  vobject,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "etesync";

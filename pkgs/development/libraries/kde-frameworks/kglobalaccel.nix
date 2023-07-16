@@ -1,5 +1,17 @@
-{ mkDerivation, extra-cmake-modules, kconfig, kcoreaddons, kcrash, kdbusaddons
-, kservice, kwindowsystem, qtbase, qttools, qtx11extras, libXdmcp, }:
+{
+  mkDerivation,
+  extra-cmake-modules,
+  kconfig,
+  kcoreaddons,
+  kcrash,
+  kdbusaddons,
+  kservice,
+  kwindowsystem,
+  qtbase,
+  qttools,
+  qtx11extras,
+  libXdmcp,
+}:
 
 mkDerivation {
   pname = "kglobalaccel";

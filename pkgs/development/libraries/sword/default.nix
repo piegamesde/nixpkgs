@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, icu, clucene_core, curl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  icu,
+  clucene_core,
+  curl,
+}:
 
 stdenv.mkDerivation rec {
 

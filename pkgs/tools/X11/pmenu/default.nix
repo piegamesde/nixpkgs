@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, writeText, fontconfig, imlib2, libX11, libXext
-, libXft, libXinerama, libXrender, conf ? null }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  writeText,
+  fontconfig,
+  imlib2,
+  libX11,
+  libXext,
+  libXft,
+  libXinerama,
+  libXrender,
+  conf ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "pmenu";

@@ -1,6 +1,23 @@
-{ lib, buildPythonPackage, cmake, fetchFromGitHub, isPy3k, pytestCheckHook
-, nbconvert, joblib, jupyter, jupyter-client, numpy, scipy, pandas, matplotlib
-, ninja, numba, pybind11, scikit-build }:
+{
+  lib,
+  buildPythonPackage,
+  cmake,
+  fetchFromGitHub,
+  isPy3k,
+  pytestCheckHook,
+  nbconvert,
+  joblib,
+  jupyter,
+  jupyter-client,
+  numpy,
+  scipy,
+  pandas,
+  matplotlib,
+  ninja,
+  numba,
+  pybind11,
+  scikit-build,
+}:
 
 buildPythonPackage rec {
   pname = "phik";

@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, flit-core, dufte, matplotlib, numpy
-, pipdate, tqdm, rich, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flit-core,
+  dufte,
+  matplotlib,
+  numpy,
+  pipdate,
+  tqdm,
+  rich,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "perfplot";

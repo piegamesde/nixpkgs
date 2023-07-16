@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, meson, ninja, pkg-config, gupnp }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  gupnp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dleyna-core";

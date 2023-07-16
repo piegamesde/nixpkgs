@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, intltool, gtk3, gnome, librsvg, pkg-config, pango, atk
-, gtk2, gdk-pixbuf, hicolor-icon-theme }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  intltool,
+  gtk3,
+  gnome,
+  librsvg,
+  pkg-config,
+  pango,
+  atk,
+  gtk2,
+  gdk-pixbuf,
+  hicolor-icon-theme,
+}:
 
 let
   pname = "gnome-themes-extra";

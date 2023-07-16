@@ -1,15 +1,42 @@
-{ monolithic ? true # build monolithic Quassel
-, enableDaemon ? false # build Quassel daemon
-, client ? false # build Quassel client
-, tag ? "-kf5" # tag added to the package name
-, static ? false # link statically
+{
+  monolithic ? true # build monolithic Quassel
+  ,
+  enableDaemon ? false # build Quassel daemon
+  ,
+  client ? false # build Quassel client
+  ,
+  tag ? "-kf5" # tag added to the package name
+  ,
+  static ? false # link statically
 
-, lib, stdenv, fetchFromGitHub, cmake, makeWrapper, dconf, mkDerivation, qtbase
-, boost, zlib, qtscript, phonon, libdbusmenu, qca-qt5
+  ,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  makeWrapper,
+  dconf,
+  mkDerivation,
+  qtbase,
+  boost,
+  zlib,
+  qtscript,
+  phonon,
+  libdbusmenu,
+  qca-qt5
 
-, withKDE ? true # enable KDE integration
-, extra-cmake-modules, kconfigwidgets, kcoreaddons, knotifications
-, knotifyconfig, ktextwidgets, kwidgetsaddons, kxmlgui }:
+  ,
+  withKDE ? true # enable KDE integration
+  ,
+  extra-cmake-modules,
+  kconfigwidgets,
+  kcoreaddons,
+  knotifications,
+  knotifyconfig,
+  ktextwidgets,
+  kwidgetsaddons,
+  kxmlgui,
+}:
 
 let
   buildClient = monolithic || client;

@@ -1,4 +1,11 @@
-{ lib, mkDerivation, fetchgit, autoreconfHook, pkg-config, qtbase }:
+{
+  lib,
+  mkDerivation,
+  fetchgit,
+  autoreconfHook,
+  pkg-config,
+  qtbase,
+}:
 
 mkDerivation {
   pname = "ofono-phonesim";

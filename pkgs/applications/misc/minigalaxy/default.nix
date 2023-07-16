@@ -1,6 +1,19 @@
-{ lib, fetchFromGitHub, docutils, gettext, glibcLocales, glib-networking
-, gobject-introspection, gtk3, python3, python3Packages, steam-run, unzip
-, webkitgtk, wrapGAppsHook }:
+{
+  lib,
+  fetchFromGitHub,
+  docutils,
+  gettext,
+  glibcLocales,
+  glib-networking,
+  gobject-introspection,
+  gtk3,
+  python3,
+  python3Packages,
+  steam-run,
+  unzip,
+  webkitgtk,
+  wrapGAppsHook,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "minigalaxy";

@@ -1,5 +1,15 @@
-{ lib, astroid, buildPythonPackage, fetchFromGitHub, packaging, poetry-core
-, poetry-semver, pytestCheckHook, pythonOlder, toml }:
+{
+  lib,
+  astroid,
+  buildPythonPackage,
+  fetchFromGitHub,
+  packaging,
+  poetry-core,
+  poetry-semver,
+  pytestCheckHook,
+  pythonOlder,
+  toml,
+}:
 
 buildPythonPackage rec {
   pname = "requirements-detector";

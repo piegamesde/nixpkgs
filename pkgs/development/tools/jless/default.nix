@@ -1,4 +1,12 @@
-{ lib, fetchFromGitHub, rustPlatform, stdenv, python3, AppKit, libxcb }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  stdenv,
+  python3,
+  AppKit,
+  libxcb,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "jless";

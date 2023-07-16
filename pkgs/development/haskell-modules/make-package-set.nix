@@ -2,40 +2,42 @@
 # a full package set out of that.
 
 { # package-set used for build tools (all of nixpkgs)
-buildPackages
+  buildPackages
 
-, # A haskell package set for Setup.hs, compiler plugins, and similar
-# build-time uses.
-buildHaskellPackages
+  , # A haskell package set for Setup.hs, compiler plugins, and similar
+  # build-time uses.
+  buildHaskellPackages
 
-, # package-set used for non-haskell dependencies (all of nixpkgs)
-pkgs
+  , # package-set used for non-haskell dependencies (all of nixpkgs)
+  pkgs
 
-, # stdenv provides our build and host platforms
-stdenv
+  , # stdenv provides our build and host platforms
+  stdenv
 
-, # this module provides the list of known licenses and maintainers
-lib
+  , # this module provides the list of known licenses and maintainers
+  lib
 
-# needed for overrideCabal & packageSourceOverrides
-, haskellLib
+  # needed for overrideCabal & packageSourceOverrides
+  ,
+  haskellLib
 
-, # hashes for downloading Hackage packages
-# This is either a directory or a .tar.gz containing the cabal files and
-# hashes of Hackage as exemplified by this repository:
-# https://github.com/commercialhaskell/all-cabal-hashes/tree/hackage
-all-cabal-hashes
+  , # hashes for downloading Hackage packages
+  # This is either a directory or a .tar.gz containing the cabal files and
+  # hashes of Hackage as exemplified by this repository:
+  # https://github.com/commercialhaskell/all-cabal-hashes/tree/hackage
+  all-cabal-hashes
 
-, # compiler to use
-ghc
+  , # compiler to use
+  ghc
 
-, # A function that takes `{ pkgs, lib, callPackage }` as the first arg and
-# `self` as second, and returns a set of haskell packages
-package-set
+  , # A function that takes `{ pkgs, lib, callPackage }` as the first arg and
+  # `self` as second, and returns a set of haskell packages
+  package-set
 
-, # The final, fully overridden package set usable with the nixpkgs fixpoint
-# overriding functionality
-extensible-self }:
+  , # The final, fully overridden package set usable with the nixpkgs fixpoint
+  # overriding functionality
+  extensible-self,
+}:
 
 # return value: a function from self to the package set
 self:
@@ -129,7 +131,12 @@ let
   callPackage = drv: args: callPackageWithScope defaultScope drv args;
 
   # Use cabal2nix to create a default.nix for the package sources found at 'src'.
-  haskellSrc2nix = { name, src, sha256 ? null, extraCabal2nixOptions ? "" }:
+  haskellSrc2nix = {
+      name,
+      src,
+      sha256 ? null,
+      extraCabal2nixOptions ? ""
+    }:
     let
       sha256Arg =
         if sha256 == null then "--sha256=" else ''--sha256="${sha256}"'';
@@ -212,7 +219,11 @@ in package-set { inherit pkgs lib callPackage; } self // {
   # for any version that has been released on hackage as opposed to only
   # versions released before whatever version of all-cabal-hashes you happen
   # to be currently using.
-  callHackageDirect = { pkg, ver, sha256 }:
+  callHackageDirect = {
+      pkg,
+      ver,
+      sha256,
+    }:
     let pkgver = "${pkg}-${ver}";
     in self.callCabal2nix pkg (pkgs.fetchzip {
       url = "mirror://hackage/${pkgver}/${pkgver}.tar.gz";
@@ -265,12 +276,17 @@ in package-set { inherit pkgs lib callPackage; } self // {
   # 'cabal2nixOptions' can contain extra command line arguments to pass to
   # 'cabal2nix' when generating the package derivation, for example setting
   # a cabal flag with '--flag=myflag'.
-  developPackage = { root, name ?
-      lib.optionalString (builtins.typeOf root == "path")
-      (builtins.baseNameOf root), source-overrides ? { }
-    , overrides ? self: super: { }, modifier ? drv: drv
-    , returnShellEnv ? pkgs.lib.inNixShell, withHoogle ? returnShellEnv
-    , cabal2nixOptions ? "" }:
+  developPackage = {
+      root,
+      name ? lib.optionalString (builtins.typeOf root == "path")
+        (builtins.baseNameOf root),
+      source-overrides ? { },
+      overrides ? self: super: { },
+      modifier ? drv: drv,
+      returnShellEnv ? pkgs.lib.inNixShell,
+      withHoogle ? returnShellEnv,
+      cabal2nixOptions ? ""
+    }:
     let
       drv = (extensible-self.extend (pkgs.lib.composeExtensions
         (self.packageSourceOverrides source-overrides)
@@ -308,7 +324,9 @@ in package-set { inherit pkgs lib callPackage; } self // {
   # echo *.cabal | entr -r -- nix-shell --run 'hoogle server --local'
   hoogleWithPackages =
     self.callPackage ./hoogle.nix { haskellPackages = self; };
-  hoogleLocal = { packages ? [ ] }:
+  hoogleLocal = {
+      packages ? [ ]
+    }:
     lib.warn "hoogleLocal is deprecated, use hoogleWithPackages instead"
     (self.hoogleWithPackages (_: packages));
   # This is like a combination of ghcWithPackages and hoogleWithPackages.
@@ -357,56 +375,60 @@ in package-set { inherit pkgs lib callPackage; } self // {
   shellFor =
     { # Packages to create this development shell for.  These are usually
     # your local packages.
-    packages, # Whether or not to generate a Hoogle database for all the
-    # dependencies.
-    withHoogle ? false
-    , # Whether or not to include benchmark dependencies of your local
-    # packages.  You should set this to true if you have benchmarks defined
-    # in your local packages that you want to be able to run with cabal benchmark
-    doBenchmark ? false
-      # An optional function that can modify the generic builder arguments
-      # for the fake package that shellFor uses to construct its environment.
+      packages, # Whether or not to generate a Hoogle database for all the
+      # dependencies.
+      withHoogle ?
+        false, # Whether or not to include benchmark dependencies of your local
+      # packages.  You should set this to true if you have benchmarks defined
+      # in your local packages that you want to be able to run with cabal benchmark
+      doBenchmark ? false
+        # An optional function that can modify the generic builder arguments
+        # for the fake package that shellFor uses to construct its environment.
+        #
+        # Example:
+        #   let
+        #     # elided...
+        #     haskellPkgs = pkgs.haskell.packages.ghc884.override (hpArgs: {
+        #       overrides = pkgs.lib.composeExtensions (hpArgs.overrides or (_: _: { })) (
+        #         _hfinal: hprev: {
+        #           mkDerivation = args: hprev.mkDerivation ({
+        #             doCheck = false;
+        #             doBenchmark = false;
+        #             doHoogle = true;
+        #             doHaddock = true;
+        #             enableLibraryProfiling = false;
+        #             enableExecutableProfiling = false;
+        #           } // args);
+        #         }
+        #       );
+        #     });
+        #   in
+        #   haskellPkgs.shellFor {
+        #     packages = p: [ p.foo ];
+        #     genericBuilderArgsModifier = args: args // { doCheck = true; doBenchmark = true };
+        #   }
+        #
+        # This will disable tests and benchmarks for everything in "haskellPkgs"
+        # (which will invalidate the binary cache), and then re-enable them
+        # for the "shellFor" environment (ensuring that any test/benchmark
+        # dependencies for "foo" will be available within the nix-shell).
+      ,
+      genericBuilderArgsModifier ? (args: args)
+
+      # Extra dependencies, in the form of cabal2nix build attributes.
+      #
+      # An example use case is when you have Haskell scripts that use
+      # libraries that don't occur in your packages' dependencies.
       #
       # Example:
-      #   let
-      #     # elided...
-      #     haskellPkgs = pkgs.haskell.packages.ghc884.override (hpArgs: {
-      #       overrides = pkgs.lib.composeExtensions (hpArgs.overrides or (_: _: { })) (
-      #         _hfinal: hprev: {
-      #           mkDerivation = args: hprev.mkDerivation ({
-      #             doCheck = false;
-      #             doBenchmark = false;
-      #             doHoogle = true;
-      #             doHaddock = true;
-      #             enableLibraryProfiling = false;
-      #             enableExecutableProfiling = false;
-      #           } // args);
-      #         }
-      #       );
-      #     });
-      #   in
-      #   haskellPkgs.shellFor {
-      #     packages = p: [ p.foo ];
-      #     genericBuilderArgsModifier = args: args // { doCheck = true; doBenchmark = true };
-      #   }
       #
-      # This will disable tests and benchmarks for everything in "haskellPkgs"
-      # (which will invalidate the binary cache), and then re-enable them
-      # for the "shellFor" environment (ensuring that any test/benchmark
-      # dependencies for "foo" will be available within the nix-shell).
-    , genericBuilderArgsModifier ? (args: args)
-
-    # Extra dependencies, in the form of cabal2nix build attributes.
-    #
-    # An example use case is when you have Haskell scripts that use
-    # libraries that don't occur in your packages' dependencies.
-    #
-    # Example:
-    #
-    #   extraDependencies = p: {
-    #     libraryHaskellDepends = [ p.releaser ];
-    #   };
-    , extraDependencies ? p: { }, ... }@args:
+      #   extraDependencies = p: {
+      #     libraryHaskellDepends = [ p.releaser ];
+      #   };
+      ,
+      extraDependencies ? p: { },
+      ...
+    }@args:
     let
       # A list of the packages we want to build a development shell for.
       # This is a list of Haskell package derivations.
@@ -561,8 +583,9 @@ in package-set { inherit pkgs lib callPackage; } self // {
      to be present, as it uses `cabal-install` instead of building `Setup.hs`.
      This makes `cabalSdist` faster than `sdistTarball`.
   */
-  cabalSdist = { src
-    , name ? if src ? name then "${src.name}-sdist.tar.gz" else "source.tar.gz"
+  cabalSdist = {
+      src,
+      name ? if src ? name then "${src.name}-sdist.tar.gz" else "source.tar.gz"
     }:
     pkgs.runCommandLocal name {
       inherit src;
@@ -612,7 +635,9 @@ in package-set { inherit pkgs lib callPackage; } self // {
 
       Type: [str] -> drv -> drv
   */
-  generateOptparseApplicativeCompletions = self.callPackage ({ stdenv }:
+  generateOptparseApplicativeCompletions = self.callPackage ({
+      stdenv,
+    }:
 
     commands: pkg:
 

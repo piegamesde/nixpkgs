@@ -1,8 +1,29 @@
-{ stdenv, lib, fetchurl, docbook_xsl, docbook_xsl_ns, gettext, libxslt
-, glibcLocales, docbook_xml_dtd_412, docbook_sgml_dtd_41, opensp, bash, perl
-, buildPerlPackage, ModuleBuild, TextWrapI18N, LocaleGettext, TermReadKey
-, SGMLSpm, UnicodeLineBreak, PodParser, YAMLTiny, fetchpatch
-, writeShellScriptBin }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  docbook_xsl,
+  docbook_xsl_ns,
+  gettext,
+  libxslt,
+  glibcLocales,
+  docbook_xml_dtd_412,
+  docbook_sgml_dtd_41,
+  opensp,
+  bash,
+  perl,
+  buildPerlPackage,
+  ModuleBuild,
+  TextWrapI18N,
+  LocaleGettext,
+  TermReadKey,
+  SGMLSpm,
+  UnicodeLineBreak,
+  PodParser,
+  YAMLTiny,
+  fetchpatch,
+  writeShellScriptBin,
+}:
 
 buildPerlPackage rec {
   pname = "po4a";

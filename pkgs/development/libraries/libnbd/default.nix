@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, bash-completion, pkg-config, perl, libxml2, fuse, fuse3
-, gnutls }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bash-completion,
+  pkg-config,
+  perl,
+  libxml2,
+  fuse,
+  fuse3,
+  gnutls,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libnbd";

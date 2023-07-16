@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, hamlib, rtaudio, alsa-lib
-, libpulseaudio, libjack2, libusb1, soapysdr, Accelerate, CoreAudio }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  hamlib,
+  rtaudio,
+  alsa-lib,
+  libpulseaudio,
+  libjack2,
+  libusb1,
+  soapysdr,
+  Accelerate,
+  CoreAudio,
+}:
 
 stdenv.mkDerivation rec {
   pname = "soapyaudio";

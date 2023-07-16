@@ -1,4 +1,8 @@
-{ lib, stdenv, requireFile }:
+{
+  lib,
+  stdenv,
+  requireFile,
+}:
 
 let
   message = ''

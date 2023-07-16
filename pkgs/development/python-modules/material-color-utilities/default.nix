@@ -1,4 +1,11 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, pillow, regex }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pillow,
+  regex,
+}:
 
 buildPythonPackage rec {
   pname = "material-color-utilities-python";

@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, rustPlatform, makeWrapper, openssh, nix-serve }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  makeWrapper,
+  openssh,
+  nix-serve,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "nix-simple-deploy";

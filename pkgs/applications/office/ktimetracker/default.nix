@@ -1,6 +1,24 @@
-{ mkDerivation, lib, fetchurl, cmake, pkg-config, extra-cmake-modules, kconfig
-, kconfigwidgets, kdbusaddons, kdoctools, ki18n, kidletime, kjobwidgets, kio
-, knotifications, kwindowsystem, kxmlgui, ktextwidgets, kcalendarcore }:
+{
+  mkDerivation,
+  lib,
+  fetchurl,
+  cmake,
+  pkg-config,
+  extra-cmake-modules,
+  kconfig,
+  kconfigwidgets,
+  kdbusaddons,
+  kdoctools,
+  ki18n,
+  kidletime,
+  kjobwidgets,
+  kio,
+  knotifications,
+  kwindowsystem,
+  kxmlgui,
+  ktextwidgets,
+  kcalendarcore,
+}:
 
 mkDerivation rec {
   pname = "ktimetracker";

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, lml, isPy3k }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  lml,
+  isPy3k,
+}:
 
 buildPythonPackage rec {
   pname = "pyexcel-io";

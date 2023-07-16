@@ -1,8 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, pythonRelaxDepsHook, setuptools-scm
-# install requirements
-, fido2, keyring, cryptography
-# test requirements
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonRelaxDepsHook,
+  setuptools-scm
+  # install requirements
+  ,
+  fido2,
+  keyring,
+  cryptography
+  # test requirements
+  ,
+  pytestCheckHook,
+}:
 
 let
   fido2_0 = fido2.overridePythonAttrs (oldAttrs: rec {

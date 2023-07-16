@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, grpcio, protobuf, pythonOlder
-, pythonRelaxDepsHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  grpcio,
+  protobuf,
+  pythonOlder,
+  pythonRelaxDepsHook,
+}:
 
 buildPythonPackage rec {
   pname = "grpcio-testing";

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, libredirect, systemd, pkg-config
-, pytest, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  libredirect,
+  systemd,
+  pkg-config,
+  pytest,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "systemd";

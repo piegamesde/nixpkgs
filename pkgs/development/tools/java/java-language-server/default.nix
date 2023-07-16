@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, jdk, maven, runtimeShell, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  jdk,
+  maven,
+  runtimeShell,
+  makeWrapper,
+}:
 
 let
   platform = if stdenv.isLinux then

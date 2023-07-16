@@ -1,6 +1,25 @@
-{ clang, cmake, CoreFoundation, fetchFromGitHub, fetchurl, lib, lighthouse
-, nix-update-script, nodePackages, perl, pkg-config, postgresql, protobuf
-, rustPlatform, Security, sqlite, stdenv, SystemConfiguration, testers, unzip }:
+{
+  clang,
+  cmake,
+  CoreFoundation,
+  fetchFromGitHub,
+  fetchurl,
+  lib,
+  lighthouse,
+  nix-update-script,
+  nodePackages,
+  perl,
+  pkg-config,
+  postgresql,
+  protobuf,
+  rustPlatform,
+  Security,
+  sqlite,
+  stdenv,
+  SystemConfiguration,
+  testers,
+  unzip,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "lighthouse";

@@ -1,5 +1,15 @@
-{ lib, stdenv, backports-cached-property, blessed, buildPythonPackage, cwcwidth
-, fetchPypi, pyte, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  stdenv,
+  backports-cached-property,
+  blessed,
+  buildPythonPackage,
+  cwcwidth,
+  fetchPypi,
+  pyte,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "curtsies";

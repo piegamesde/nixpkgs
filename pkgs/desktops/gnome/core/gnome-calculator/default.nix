@@ -1,7 +1,28 @@
-{ stdenv, lib, meson, ninja, vala, gettext, itstool, fetchurl, pkg-config
-, libxml2, gtk4, glib, gtksourceview5, wrapGAppsHook4, gobject-introspection
-, gnome, mpfr, gmp, libsoup_3, libmpc, libadwaita, gsettings-desktop-schemas
-, libgee }:
+{
+  stdenv,
+  lib,
+  meson,
+  ninja,
+  vala,
+  gettext,
+  itstool,
+  fetchurl,
+  pkg-config,
+  libxml2,
+  gtk4,
+  glib,
+  gtksourceview5,
+  wrapGAppsHook4,
+  gobject-introspection,
+  gnome,
+  mpfr,
+  gmp,
+  libsoup_3,
+  libmpc,
+  libadwaita,
+  gsettings-desktop-schemas,
+  libgee,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-calculator";

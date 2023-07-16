@@ -1,4 +1,12 @@
-{ lib, fetchFromGitHub, fetchpatch, python3Packages, gnupg, pass, makeWrapper }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  python3Packages,
+  gnupg,
+  pass,
+  makeWrapper,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "pass-import";

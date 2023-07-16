@@ -1,4 +1,6 @@
-{ fetchMaven }:
+{
+  fetchMaven,
+}:
 
 {
   mojoJavaBootClasspathDetector_1_11 = map (obj:

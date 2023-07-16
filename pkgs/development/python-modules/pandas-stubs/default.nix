@@ -1,7 +1,27 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, jinja2, matplotlib, odfpy
-, openpyxl, pandas, poetry-core, pyarrow, pyreadstat, pytestCheckHook
-, pythonOlder, scipy, sqlalchemy, tables, tabulate, types-pytz
-, typing-extensions, xarray, xlsxwriter }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jinja2,
+  matplotlib,
+  odfpy,
+  openpyxl,
+  pandas,
+  poetry-core,
+  pyarrow,
+  pyreadstat,
+  pytestCheckHook,
+  pythonOlder,
+  scipy,
+  sqlalchemy,
+  tables,
+  tabulate,
+  types-pytz,
+  typing-extensions,
+  xarray,
+  xlsxwriter,
+}:
 
 buildPythonPackage rec {
   pname = "pandas-stubs";

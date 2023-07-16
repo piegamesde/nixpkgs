@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchzip, cmake, tbb, python3, ispc }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  cmake,
+  tbb,
+  python3,
+  ispc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openimagedenoise";

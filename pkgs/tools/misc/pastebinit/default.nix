@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, fetchpatch, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.5";

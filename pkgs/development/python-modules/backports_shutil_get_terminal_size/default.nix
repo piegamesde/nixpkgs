@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest,
+  pythonOlder,
+}:
 
 if !(pythonOlder "3.3") then
   null

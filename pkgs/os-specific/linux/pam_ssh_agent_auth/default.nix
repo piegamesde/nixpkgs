@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchpatch, fetchFromGitHub, pam, openssl, perl }:
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchFromGitHub,
+  pam,
+  openssl,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pam_ssh_agent_auth";

@@ -1,6 +1,23 @@
-{ lib, mkDerivation, dbus, dbus_cplusplus, desktop-file-utils, fetchurl, glibmm
-, kernel, libavc1394, libconfig, libiec61883, libraw1394, libxmlxx3, pkg-config
-, python3, scons, which, wrapQtAppsHook }:
+{
+  lib,
+  mkDerivation,
+  dbus,
+  dbus_cplusplus,
+  desktop-file-utils,
+  fetchurl,
+  glibmm,
+  kernel,
+  libavc1394,
+  libconfig,
+  libiec61883,
+  libraw1394,
+  libxmlxx3,
+  pkg-config,
+  python3,
+  scons,
+  which,
+  wrapQtAppsHook,
+}:
 
 let
   inherit (python3.pkgs) pyqt5 dbus-python;

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchzip, makeWrapper, jre }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  makeWrapper,
+  jre,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jacoco";

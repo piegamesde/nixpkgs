@@ -1,4 +1,12 @@
-{ lib, apksigner, bash, fetchFromGitHub, installShellFiles, pandoc, python3 }:
+{
+  lib,
+  apksigner,
+  bash,
+  fetchFromGitHub,
+  installShellFiles,
+  pandoc,
+  python3,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "apksigcopier";

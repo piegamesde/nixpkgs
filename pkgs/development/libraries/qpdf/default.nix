@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, libjpeg, zlib, cmake, perl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libjpeg,
+  zlib,
+  cmake,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qpdf";

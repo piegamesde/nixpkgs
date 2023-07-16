@@ -1,4 +1,8 @@
-{ stdenvNoCC, lib, fetchFromGitHub }:
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+}:
 stdenvNoCC.mkDerivation rec {
   pname = "deepin-desktop-base";
   version = "2022.11.15-deepin";

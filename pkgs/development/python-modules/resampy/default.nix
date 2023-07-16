@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, cython, fetchFromGitHub, numba, numpy
-, pytestCheckHook, pythonOlder, scipy }:
+{
+  lib,
+  buildPythonPackage,
+  cython,
+  fetchFromGitHub,
+  numba,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  scipy,
+}:
 
 buildPythonPackage rec {
   pname = "resampy";

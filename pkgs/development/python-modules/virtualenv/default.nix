@@ -1,7 +1,24 @@
-{ lib, buildPythonPackage, pythonOlder, isPy27, isPyPy, cython, distlib
-, fetchPypi, filelock, flaky, hatch-vcs, hatchling, importlib-metadata
-, importlib-resources, platformdirs, pytest-freezegun, pytest-mock
-, pytest-timeout, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  isPy27,
+  isPyPy,
+  cython,
+  distlib,
+  fetchPypi,
+  filelock,
+  flaky,
+  hatch-vcs,
+  hatchling,
+  importlib-metadata,
+  importlib-resources,
+  platformdirs,
+  pytest-freezegun,
+  pytest-mock,
+  pytest-timeout,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "virtualenv";

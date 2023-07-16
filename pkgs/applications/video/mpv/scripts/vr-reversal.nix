@@ -1,4 +1,9 @@
-{ lib, stdenvNoCC, fetchFromGitHub, ffmpeg }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  ffmpeg,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "vr-reversal";

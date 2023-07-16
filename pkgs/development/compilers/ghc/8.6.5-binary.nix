@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, perl, gcc, ncurses5, ncurses6, gmp, glibc, libiconv
-, llvmPackages, coreutils, targetPackages }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  gcc,
+  ncurses5,
+  ncurses6,
+  gmp,
+  glibc,
+  libiconv,
+  llvmPackages,
+  coreutils,
+  targetPackages,
+}:
 
 # Prebuilt only does native
 assert stdenv.targetPlatform == stdenv.hostPlatform;

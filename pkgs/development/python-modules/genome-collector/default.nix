@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, appdirs, biopython, fetchPypi, proglog }:
+{
+  lib,
+  buildPythonPackage,
+  appdirs,
+  biopython,
+  fetchPypi,
+  proglog,
+}:
 
 buildPythonPackage rec {
   pname = "genome_collector";

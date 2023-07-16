@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, perl, perlPackages, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  perlPackages,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "swaks";

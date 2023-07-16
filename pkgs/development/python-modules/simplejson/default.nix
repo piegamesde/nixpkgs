@@ -1,4 +1,10 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

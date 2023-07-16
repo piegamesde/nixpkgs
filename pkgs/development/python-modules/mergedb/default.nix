@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, colorama, fetchPypi, jinja2, pytestCheckHook
-, pythonOlder, pyyaml, setuptools, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  colorama,
+  fetchPypi,
+  jinja2,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  setuptools,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "mergedb";

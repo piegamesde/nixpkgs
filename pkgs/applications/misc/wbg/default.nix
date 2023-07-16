@@ -1,7 +1,22 @@
-{ stdenv, lib, fetchFromGitea, pkg-config, meson, ninja, pixman, tllist, wayland
-, wayland-scanner, wayland-protocols, enablePNG ? true, enableJPEG ? true
-  # Optional dependencies
-, libpng, libjpeg }:
+{
+  stdenv,
+  lib,
+  fetchFromGitea,
+  pkg-config,
+  meson,
+  ninja,
+  pixman,
+  tllist,
+  wayland,
+  wayland-scanner,
+  wayland-protocols,
+  enablePNG ? true,
+  enableJPEG ? true
+    # Optional dependencies
+  ,
+  libpng,
+  libjpeg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wbg";

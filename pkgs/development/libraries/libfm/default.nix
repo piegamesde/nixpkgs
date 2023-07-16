@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, glib, intltool, menu-cache, pango, pkg-config, vala
-, extraOnly ? false, withGtk3 ? false, gtk2, gtk3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  glib,
+  intltool,
+  menu-cache,
+  pango,
+  pkg-config,
+  vala,
+  extraOnly ? false,
+  withGtk3 ? false,
+  gtk2,
+  gtk3,
+}:
 
 let
   gtk = if withGtk3 then gtk3 else gtk2;

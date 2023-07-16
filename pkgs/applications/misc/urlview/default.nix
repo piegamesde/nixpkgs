@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, ncurses, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "urlview";

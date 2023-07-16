@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, wrapQtAppsHook, qtbase }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  wrapQtAppsHook,
+  qtbase,
+}:
 
 stdenv.mkDerivation rec {
   pname = "QtRVSim";

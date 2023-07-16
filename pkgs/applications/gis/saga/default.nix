@@ -1,10 +1,36 @@
-{ stdenv, mkDerivation, lib, fetchurl
-# native
-, cmake, pkg-config
-# not native
-, gdal, wxGTK32, proj, dxflib, curl, libiodbc, xz, libharu, opencv, vigra
-, postgresql, Cocoa, unixODBC, poppler, hdf5, netcdf, sqlite, qhull, giflib
-, libsvm, fftw }:
+{
+  stdenv,
+  mkDerivation,
+  lib,
+  fetchurl
+  # native
+  ,
+  cmake,
+  pkg-config
+  # not native
+  ,
+  gdal,
+  wxGTK32,
+  proj,
+  dxflib,
+  curl,
+  libiodbc,
+  xz,
+  libharu,
+  opencv,
+  vigra,
+  postgresql,
+  Cocoa,
+  unixODBC,
+  poppler,
+  hdf5,
+  netcdf,
+  sqlite,
+  qhull,
+  giflib,
+  libsvm,
+  fftw,
+}:
 
 mkDerivation rec {
   pname = "saga";

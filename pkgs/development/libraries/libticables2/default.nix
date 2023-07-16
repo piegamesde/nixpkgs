@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchurl, fetchpatch, pkg-config, autoreconfHook, glib, libusb1
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  autoreconfHook,
+  glib,
+  libusb1,
 }:
 
 stdenv.mkDerivation rec {

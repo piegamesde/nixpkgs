@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, substituteAll, fetchPypi, hatch-vcs, hatchling }:
+{
+  lib,
+  buildPythonPackage,
+  substituteAll,
+  fetchPypi,
+  hatch-vcs,
+  hatchling,
+}:
 
 buildPythonPackage rec {
   pname = "iniconfig";

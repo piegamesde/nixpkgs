@@ -1,6 +1,19 @@
-{ lib, stdenv, fetchFromGitLab, cmake
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  cmake
 
-, arpa2cm, doxygen, e2fsprogs, graphviz, lmdb, openssl, pkg-config, ragel }:
+  ,
+  arpa2cm,
+  doxygen,
+  e2fsprogs,
+  graphviz,
+  lmdb,
+  openssl,
+  pkg-config,
+  ragel,
+}:
 
 stdenv.mkDerivation rec {
   pname = "arpa2common";

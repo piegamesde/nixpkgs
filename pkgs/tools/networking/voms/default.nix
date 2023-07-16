@@ -1,12 +1,25 @@
-{ lib, stdenv, fetchFromGitHub
-# Native build inputs
-, autoreconfHook, bison, flex, pkg-config
-# Build inputs
-, expat, gsoap, openssl, zlib
-# Configuration overridable with .override
-# If not null, the builder will
-# move "$out/etc" to "$out/etc.orig" and symlink "$out/etc" to externalEtc.
-, externalEtc ? "/etc" }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub
+  # Native build inputs
+  ,
+  autoreconfHook,
+  bison,
+  flex,
+  pkg-config
+  # Build inputs
+  ,
+  expat,
+  gsoap,
+  openssl,
+  zlib
+  # Configuration overridable with .override
+  # If not null, the builder will
+  # move "$out/etc" to "$out/etc.orig" and symlink "$out/etc" to externalEtc.
+  ,
+  externalEtc ? "/etc"
+}:
 
 stdenv.mkDerivation rec {
   pname = "voms-unstable";

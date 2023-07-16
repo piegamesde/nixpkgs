@@ -1,5 +1,14 @@
-{ lib, fetchPypi, buildPythonPackage, pythonOlder, boost, numpy, pytestCheckHook
-, pytest-benchmark, setuptools-scm }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pythonOlder,
+  boost,
+  numpy,
+  pytestCheckHook,
+  pytest-benchmark,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "boost-histogram";

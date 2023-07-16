@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, openssl, postgresql, zstd, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  openssl,
+  postgresql,
+  zstd,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "odyssey";

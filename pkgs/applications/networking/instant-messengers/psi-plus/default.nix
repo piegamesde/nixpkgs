@@ -1,17 +1,43 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, qtbase, qtmultimedia
-, qtimageformats, qtx11extras, qttools, libidn, qca-qt5, libXScrnSaver, hunspell
-, libsecret, libgcrypt, libotr, html-tidy, libgpg-error, libsignal-protocol-c
-, usrsctp
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  qtbase,
+  qtmultimedia,
+  qtimageformats,
+  qtx11extras,
+  qttools,
+  libidn,
+  qca-qt5,
+  libXScrnSaver,
+  hunspell,
+  libsecret,
+  libgcrypt,
+  libotr,
+  html-tidy,
+  libgpg-error,
+  libsignal-protocol-c,
+  usrsctp
 
-, chatType ? "basic" # See the assertion below for available options
-, qtwebkit, qtwebengine
+  ,
+  chatType ? "basic" # See the assertion below for available options
+  ,
+  qtwebkit,
+  qtwebengine
 
-, enablePlugins ? true
+  ,
+  enablePlugins ? true
 
-  # Voice messages
-, voiceMessagesSupport ? true, gst_all_1
+    # Voice messages
+  ,
+  voiceMessagesSupport ? true,
+  gst_all_1
 
-, enablePsiMedia ? false, pkg-config }:
+  ,
+  enablePsiMedia ? false,
+  pkg-config,
+}:
 
 assert builtins.elem (lib.toLower chatType) [
   "basic" # Basic implementation, no web stuff involved

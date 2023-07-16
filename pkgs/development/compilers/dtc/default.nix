@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchgit, fetchpatch, flex, bison, pkg-config, which
-, pythonSupport ? false, python ? null, swig, libyaml }:
+{
+  stdenv,
+  lib,
+  fetchgit,
+  fetchpatch,
+  flex,
+  bison,
+  pkg-config,
+  which,
+  pythonSupport ? false,
+  python ? null,
+  swig,
+  libyaml,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dtc";

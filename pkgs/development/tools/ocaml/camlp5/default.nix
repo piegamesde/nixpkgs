@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, ocaml, perl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ocaml,
+  perl,
+}:
 
 if lib.versionOlder ocaml.version "4.02"
 || lib.versionOlder "4.13" ocaml.version then

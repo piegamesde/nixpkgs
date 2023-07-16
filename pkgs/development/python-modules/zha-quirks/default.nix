@@ -1,5 +1,12 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pytestCheckHook
-, pythonOlder, zigpy }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  zigpy,
+}:
 
 buildPythonPackage rec {
   pname = "zha-quirks";

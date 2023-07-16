@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, beautifulsoup4, extruct
-, language-tags, regex, requests, pytestCheckHook, responses, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  beautifulsoup4,
+  extruct,
+  language-tags,
+  regex,
+  requests,
+  pytestCheckHook,
+  responses,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "recipe-scrapers";

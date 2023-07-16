@@ -1,8 +1,39 @@
-{ stdenv, lib, fetchurl, makeWrapper, nixosTests, buildPerlPackage, coreutils
-, curl, git, gnumake, highlight, libgit2, man, openssl, pkg-config, sqlite
-, xapian, AnyURIEscape, DBDSQLite, DBI, EmailAddressXS, EmailMIME, IOSocketSSL
-, IPCRun, Inline, InlineC, LinuxInotify2, MailIMAPClient, ParseRecDescent, Plack
-, PlackMiddlewareReverseProxy, SearchXapian, TimeDate, URI }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  makeWrapper,
+  nixosTests,
+  buildPerlPackage,
+  coreutils,
+  curl,
+  git,
+  gnumake,
+  highlight,
+  libgit2,
+  man,
+  openssl,
+  pkg-config,
+  sqlite,
+  xapian,
+  AnyURIEscape,
+  DBDSQLite,
+  DBI,
+  EmailAddressXS,
+  EmailMIME,
+  IOSocketSSL,
+  IPCRun,
+  Inline,
+  InlineC,
+  LinuxInotify2,
+  MailIMAPClient,
+  ParseRecDescent,
+  Plack,
+  PlackMiddlewareReverseProxy,
+  SearchXapian,
+  TimeDate,
+  URI,
+}:
 
 let
 

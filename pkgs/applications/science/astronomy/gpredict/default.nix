@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, intltool, gtk3, glib, curl
-, goocanvas2, gpsd, hamlib, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  intltool,
+  gtk3,
+  glib,
+  curl,
+  goocanvas2,
+  gpsd,
+  hamlib,
+  wrapGAppsHook,
+}:
 
 let version = "2.2.1";
 in stdenv.mkDerivation {

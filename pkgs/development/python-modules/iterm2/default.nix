@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, protobuf, websockets }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  protobuf,
+  websockets,
+}:
 
 buildPythonPackage rec {
   pname = "iterm2";

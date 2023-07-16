@@ -1,8 +1,13 @@
-{ system ? builtins.currentSystem, config ? { }, pkgs ? import ../.. {
-  inherit system config;
-}
-# bool: whether to use networkd in the tests
-, networkd }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. {
+    inherit system config;
+  }
+  # bool: whether to use networkd in the tests
+  ,
+  networkd,
+}:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -10,7 +15,12 @@ with pkgs.lib;
 let
   qemu-common = import ../lib/qemu-common.nix { inherit (pkgs) lib pkgs; };
 
-  router = { config, pkgs, lib, ... }:
+  router = {
+      config,
+      pkgs,
+      lib,
+      ...
+    }:
     with pkgs.lib;
     let vlanIfs = range 1 (length config.virtualisation.vlans);
     in {
@@ -81,7 +91,10 @@ let
   testCases = {
     loopback = {
       name = "Loopback";
-      nodes.client = { pkgs, ... }:
+      nodes.client = {
+          pkgs,
+          ...
+        }:
         with pkgs.lib; {
           networking.useDHCP = false;
           networking.useNetworkd = networkd;
@@ -97,7 +110,10 @@ let
     static = {
       name = "Static";
       nodes.router = router;
-      nodes.client = { pkgs, ... }:
+      nodes.client = {
+          pkgs,
+          ...
+        }:
         with pkgs.lib; {
           virtualisation.vlans = [ 1 2 ];
           networking = {
@@ -125,43 +141,48 @@ let
             }];
           };
         };
-      testScript = { ... }: ''
-        start_all()
+      testScript = {
+          ...
+        }: ''
+          start_all()
 
-        client.wait_for_unit("network.target")
-        router.wait_for_unit("network-online.target")
+          client.wait_for_unit("network.target")
+          router.wait_for_unit("network-online.target")
 
-        with subtest("Make sure dhcpcd is not started"):
-            client.fail("systemctl status dhcpcd.service")
+          with subtest("Make sure dhcpcd is not started"):
+              client.fail("systemctl status dhcpcd.service")
 
-        with subtest("Test vlan 1"):
-            client.wait_until_succeeds("ping -c 1 192.168.1.1")
-            client.wait_until_succeeds("ping -c 1 192.168.1.2")
-            client.wait_until_succeeds("ping -c 1 192.168.1.3")
-            client.wait_until_succeeds("ping -c 1 192.168.1.10")
+          with subtest("Test vlan 1"):
+              client.wait_until_succeeds("ping -c 1 192.168.1.1")
+              client.wait_until_succeeds("ping -c 1 192.168.1.2")
+              client.wait_until_succeeds("ping -c 1 192.168.1.3")
+              client.wait_until_succeeds("ping -c 1 192.168.1.10")
 
-            router.wait_until_succeeds("ping -c 1 192.168.1.1")
-            router.wait_until_succeeds("ping -c 1 192.168.1.2")
-            router.wait_until_succeeds("ping -c 1 192.168.1.3")
-            router.wait_until_succeeds("ping -c 1 192.168.1.10")
+              router.wait_until_succeeds("ping -c 1 192.168.1.1")
+              router.wait_until_succeeds("ping -c 1 192.168.1.2")
+              router.wait_until_succeeds("ping -c 1 192.168.1.3")
+              router.wait_until_succeeds("ping -c 1 192.168.1.10")
 
-        with subtest("Test vlan 2"):
-            client.wait_until_succeeds("ping -c 1 192.168.2.1")
-            client.wait_until_succeeds("ping -c 1 192.168.2.2")
+          with subtest("Test vlan 2"):
+              client.wait_until_succeeds("ping -c 1 192.168.2.1")
+              client.wait_until_succeeds("ping -c 1 192.168.2.2")
 
-            router.wait_until_succeeds("ping -c 1 192.168.2.1")
-            router.wait_until_succeeds("ping -c 1 192.168.2.2")
+              router.wait_until_succeeds("ping -c 1 192.168.2.1")
+              router.wait_until_succeeds("ping -c 1 192.168.2.2")
 
-        with subtest("Test default gateway"):
-            router.wait_until_succeeds("ping -c 1 192.168.3.1")
-            client.wait_until_succeeds("ping -c 1 192.168.3.1")
-            router.wait_until_succeeds("ping -c 1 fd00:1234:5678:3::1")
-            client.wait_until_succeeds("ping -c 1 fd00:1234:5678:3::1")
-      '';
+          with subtest("Test default gateway"):
+              router.wait_until_succeeds("ping -c 1 192.168.3.1")
+              client.wait_until_succeeds("ping -c 1 192.168.3.1")
+              router.wait_until_succeeds("ping -c 1 fd00:1234:5678:3::1")
+              client.wait_until_succeeds("ping -c 1 fd00:1234:5678:3::1")
+        '';
     };
     routeType = {
       name = "RouteType";
-      nodes.client = { pkgs, ... }:
+      nodes.client = {
+          pkgs,
+          ...
+        }:
         with pkgs.lib; {
           networking = {
             useDHCP = false;
@@ -182,12 +203,15 @@ let
     dhcpDefault = {
       name = "useDHCP-by-default";
       nodes.router = router;
-      nodes.client = { lib, ... }: {
-        # Disable test driver default config
-        networking.interfaces = lib.mkForce { };
-        networking.useNetworkd = networkd;
-        virtualisation.vlans = [ 1 ];
-      };
+      nodes.client = {
+          lib,
+          ...
+        }: {
+          # Disable test driver default config
+          networking.interfaces = lib.mkForce { };
+          networking.useNetworkd = networkd;
+          virtualisation.vlans = [ 1 ];
+        };
       testScript = ''
         start_all()
         client.wait_for_unit("multi-user.target")
@@ -202,7 +226,10 @@ let
     dhcpSimple = {
       name = "SimpleDHCP";
       nodes.router = router;
-      nodes.client = { pkgs, ... }:
+      nodes.client = {
+          pkgs,
+          ...
+        }:
         with pkgs.lib; {
           virtualisation.vlans = [ 1 2 ];
           networking = {
@@ -220,45 +247,50 @@ let
             };
           };
         };
-      testScript = { ... }: ''
-        start_all()
+      testScript = {
+          ...
+        }: ''
+          start_all()
 
-        client.wait_for_unit("network.target")
-        router.wait_for_unit("network-online.target")
+          client.wait_for_unit("network.target")
+          router.wait_for_unit("network-online.target")
 
-        with subtest("Wait until we have an ip address on each interface"):
-            client.wait_until_succeeds("ip addr show dev eth1 | grep -q '192.168.1'")
-            client.wait_until_succeeds("ip addr show dev eth1 | grep -q 'fd00:1234:5678:1:'")
-            client.wait_until_succeeds("ip addr show dev eth2 | grep -q '192.168.2'")
-            client.wait_until_succeeds("ip addr show dev eth2 | grep -q 'fd00:1234:5678:2:'")
+          with subtest("Wait until we have an ip address on each interface"):
+              client.wait_until_succeeds("ip addr show dev eth1 | grep -q '192.168.1'")
+              client.wait_until_succeeds("ip addr show dev eth1 | grep -q 'fd00:1234:5678:1:'")
+              client.wait_until_succeeds("ip addr show dev eth2 | grep -q '192.168.2'")
+              client.wait_until_succeeds("ip addr show dev eth2 | grep -q 'fd00:1234:5678:2:'")
 
-        with subtest("Test vlan 1"):
-            client.wait_until_succeeds("ping -c 1 192.168.1.1")
-            client.wait_until_succeeds("ping -c 1 192.168.1.2")
-            client.wait_until_succeeds("ping -c 1 fd00:1234:5678:1::1")
-            client.wait_until_succeeds("ping -c 1 fd00:1234:5678:1::2")
+          with subtest("Test vlan 1"):
+              client.wait_until_succeeds("ping -c 1 192.168.1.1")
+              client.wait_until_succeeds("ping -c 1 192.168.1.2")
+              client.wait_until_succeeds("ping -c 1 fd00:1234:5678:1::1")
+              client.wait_until_succeeds("ping -c 1 fd00:1234:5678:1::2")
 
-            router.wait_until_succeeds("ping -c 1 192.168.1.1")
-            router.wait_until_succeeds("ping -c 1 192.168.1.2")
-            router.wait_until_succeeds("ping -c 1 fd00:1234:5678:1::1")
-            router.wait_until_succeeds("ping -c 1 fd00:1234:5678:1::2")
+              router.wait_until_succeeds("ping -c 1 192.168.1.1")
+              router.wait_until_succeeds("ping -c 1 192.168.1.2")
+              router.wait_until_succeeds("ping -c 1 fd00:1234:5678:1::1")
+              router.wait_until_succeeds("ping -c 1 fd00:1234:5678:1::2")
 
-        with subtest("Test vlan 2"):
-            client.wait_until_succeeds("ping -c 1 192.168.2.1")
-            client.wait_until_succeeds("ping -c 1 192.168.2.2")
-            client.wait_until_succeeds("ping -c 1 fd00:1234:5678:2::1")
-            client.wait_until_succeeds("ping -c 1 fd00:1234:5678:2::2")
+          with subtest("Test vlan 2"):
+              client.wait_until_succeeds("ping -c 1 192.168.2.1")
+              client.wait_until_succeeds("ping -c 1 192.168.2.2")
+              client.wait_until_succeeds("ping -c 1 fd00:1234:5678:2::1")
+              client.wait_until_succeeds("ping -c 1 fd00:1234:5678:2::2")
 
-            router.wait_until_succeeds("ping -c 1 192.168.2.1")
-            router.wait_until_succeeds("ping -c 1 192.168.2.2")
-            router.wait_until_succeeds("ping -c 1 fd00:1234:5678:2::1")
-            router.wait_until_succeeds("ping -c 1 fd00:1234:5678:2::2")
-      '';
+              router.wait_until_succeeds("ping -c 1 192.168.2.1")
+              router.wait_until_succeeds("ping -c 1 192.168.2.2")
+              router.wait_until_succeeds("ping -c 1 fd00:1234:5678:2::1")
+              router.wait_until_succeeds("ping -c 1 fd00:1234:5678:2::2")
+        '';
     };
     dhcpOneIf = {
       name = "OneInterfaceDHCP";
       nodes.router = router;
-      nodes.client = { pkgs, ... }:
+      nodes.client = {
+          pkgs,
+          ...
+        }:
         with pkgs.lib; {
           virtualisation.vlans = [ 1 2 ];
           networking = {
@@ -272,37 +304,42 @@ let
             interfaces.eth2.ipv4.addresses = mkOverride 0 [ ];
           };
         };
-      testScript = { ... }: ''
-        start_all()
+      testScript = {
+          ...
+        }: ''
+          start_all()
 
-        with subtest("Wait for networking to come up"):
-            client.wait_for_unit("network.target")
-            router.wait_for_unit("network.target")
+          with subtest("Wait for networking to come up"):
+              client.wait_for_unit("network.target")
+              router.wait_for_unit("network.target")
 
-        with subtest("Wait until we have an ip address on each interface"):
-            client.wait_until_succeeds("ip addr show dev eth1 | grep -q '192.168.1'")
+          with subtest("Wait until we have an ip address on each interface"):
+              client.wait_until_succeeds("ip addr show dev eth1 | grep -q '192.168.1'")
 
-        with subtest("ensure MTU is set"):
-            assert "mtu 1343" in client.succeed("ip link show dev eth1")
+          with subtest("ensure MTU is set"):
+              assert "mtu 1343" in client.succeed("ip link show dev eth1")
 
-        with subtest("Test vlan 1"):
-            client.wait_until_succeeds("ping -c 1 192.168.1.1")
-            client.wait_until_succeeds("ping -c 1 192.168.1.2")
+          with subtest("Test vlan 1"):
+              client.wait_until_succeeds("ping -c 1 192.168.1.1")
+              client.wait_until_succeeds("ping -c 1 192.168.1.2")
 
-            router.wait_until_succeeds("ping -c 1 192.168.1.1")
-            router.wait_until_succeeds("ping -c 1 192.168.1.2")
+              router.wait_until_succeeds("ping -c 1 192.168.1.1")
+              router.wait_until_succeeds("ping -c 1 192.168.1.2")
 
-        with subtest("Test vlan 2"):
-            client.wait_until_succeeds("ping -c 1 192.168.2.1")
-            client.fail("ping -c 1 192.168.2.2")
+          with subtest("Test vlan 2"):
+              client.wait_until_succeeds("ping -c 1 192.168.2.1")
+              client.fail("ping -c 1 192.168.2.2")
 
-            router.wait_until_succeeds("ping -c 1 192.168.2.1")
-            router.fail("ping -c 1 192.168.2.2")
-      '';
+              router.wait_until_succeeds("ping -c 1 192.168.2.1")
+              router.fail("ping -c 1 192.168.2.2")
+        '';
     };
     bond = let
       node = address:
-        { pkgs, ... }:
+        {
+          pkgs,
+          ...
+        }:
         with pkgs.lib; {
           virtualisation.vlans = [ 1 2 ];
           networking = {
@@ -324,28 +361,36 @@ let
       name = "Bond";
       nodes.client1 = node "192.168.1.1";
       nodes.client2 = node "192.168.1.2";
-      testScript = { ... }: ''
-        start_all()
+      testScript = {
+          ...
+        }: ''
+          start_all()
 
-        with subtest("Wait for networking to come up"):
-            client1.wait_for_unit("network.target")
-            client2.wait_for_unit("network.target")
+          with subtest("Wait for networking to come up"):
+              client1.wait_for_unit("network.target")
+              client2.wait_for_unit("network.target")
 
-        with subtest("Test bonding"):
-            client1.wait_until_succeeds("ping -c 2 192.168.1.1")
-            client1.wait_until_succeeds("ping -c 2 192.168.1.2")
+          with subtest("Test bonding"):
+              client1.wait_until_succeeds("ping -c 2 192.168.1.1")
+              client1.wait_until_succeeds("ping -c 2 192.168.1.2")
 
-            client2.wait_until_succeeds("ping -c 2 192.168.1.1")
-            client2.wait_until_succeeds("ping -c 2 192.168.1.2")
+              client2.wait_until_succeeds("ping -c 2 192.168.1.1")
+              client2.wait_until_succeeds("ping -c 2 192.168.1.2")
 
-        with subtest("Verify bonding mode"):
-            for client in client1, client2:
-                client.succeed('grep -q "Bonding Mode: IEEE 802.3ad Dynamic link aggregation" /proc/net/bonding/bond0')
-      '';
+          with subtest("Verify bonding mode"):
+              for client in client1, client2:
+                  client.succeed('grep -q "Bonding Mode: IEEE 802.3ad Dynamic link aggregation" /proc/net/bonding/bond0')
+        '';
     };
     bridge = let
-      node = { address, vlan }:
-        { pkgs, ... }:
+      node = {
+          address,
+          vlan,
+        }:
+        {
+          pkgs,
+          ...
+        }:
         with pkgs.lib; {
           virtualisation.vlans = [ vlan ];
           networking = {
@@ -367,7 +412,10 @@ let
         address = "192.168.1.3";
         vlan = 2;
       };
-      nodes.router = { pkgs, ... }:
+      nodes.router = {
+          pkgs,
+          ...
+        }:
         with pkgs.lib; {
           virtualisation.vlans = [ 1 2 ];
           networking = {
@@ -382,31 +430,36 @@ let
             }];
           };
         };
-      testScript = { ... }: ''
-        start_all()
+      testScript = {
+          ...
+        }: ''
+          start_all()
 
-        with subtest("Wait for networking to come up"):
-            for machine in client1, client2, router:
-                machine.wait_for_unit("network.target")
+          with subtest("Wait for networking to come up"):
+              for machine in client1, client2, router:
+                  machine.wait_for_unit("network.target")
 
-        with subtest("Test bridging"):
-            client1.wait_until_succeeds("ping -c 1 192.168.1.1")
-            client1.wait_until_succeeds("ping -c 1 192.168.1.2")
-            client1.wait_until_succeeds("ping -c 1 192.168.1.3")
+          with subtest("Test bridging"):
+              client1.wait_until_succeeds("ping -c 1 192.168.1.1")
+              client1.wait_until_succeeds("ping -c 1 192.168.1.2")
+              client1.wait_until_succeeds("ping -c 1 192.168.1.3")
 
-            client2.wait_until_succeeds("ping -c 1 192.168.1.1")
-            client2.wait_until_succeeds("ping -c 1 192.168.1.2")
-            client2.wait_until_succeeds("ping -c 1 192.168.1.3")
+              client2.wait_until_succeeds("ping -c 1 192.168.1.1")
+              client2.wait_until_succeeds("ping -c 1 192.168.1.2")
+              client2.wait_until_succeeds("ping -c 1 192.168.1.3")
 
-            router.wait_until_succeeds("ping -c 1 192.168.1.1")
-            router.wait_until_succeeds("ping -c 1 192.168.1.2")
-            router.wait_until_succeeds("ping -c 1 192.168.1.3")
-      '';
+              router.wait_until_succeeds("ping -c 1 192.168.1.1")
+              router.wait_until_succeeds("ping -c 1 192.168.1.2")
+              router.wait_until_succeeds("ping -c 1 192.168.1.3")
+        '';
     };
     macvlan = {
       name = "MACVLAN";
       nodes.router = router;
-      nodes.client = { pkgs, ... }:
+      nodes.client = {
+          pkgs,
+          ...
+        }:
         with pkgs.lib; {
           environment.systemPackages =
             [ pkgs.iptables ]; # to debug firewall rules
@@ -426,74 +479,80 @@ let
             interfaces.macvlan = { useDHCP = true; };
           };
         };
-      testScript = { ... }: ''
-        start_all()
+      testScript = {
+          ...
+        }: ''
+          start_all()
 
-        with subtest("Wait for networking to come up"):
-            client.wait_for_unit("network.target")
-            router.wait_for_unit("network.target")
+          with subtest("Wait for networking to come up"):
+              client.wait_for_unit("network.target")
+              router.wait_for_unit("network.target")
 
-        with subtest("Wait until we have an ip address on each interface"):
-            client.wait_until_succeeds("ip addr show dev eth1 | grep -q '192.168.1'")
-            client.wait_until_succeeds("ip addr show dev macvlan | grep -q '192.168.1'")
+          with subtest("Wait until we have an ip address on each interface"):
+              client.wait_until_succeeds("ip addr show dev eth1 | grep -q '192.168.1'")
+              client.wait_until_succeeds("ip addr show dev macvlan | grep -q '192.168.1'")
 
-        with subtest("Print lots of diagnostic information"):
-            router.log("**********************************************")
-            router.succeed("ip addr >&2")
-            router.succeed("ip route >&2")
-            router.execute("iptables-save >&2")
-            client.log("==============================================")
-            client.succeed("ip addr >&2")
-            client.succeed("ip route >&2")
-            client.execute("iptables-save >&2")
-            client.log("##############################################")
+          with subtest("Print lots of diagnostic information"):
+              router.log("**********************************************")
+              router.succeed("ip addr >&2")
+              router.succeed("ip route >&2")
+              router.execute("iptables-save >&2")
+              client.log("==============================================")
+              client.succeed("ip addr >&2")
+              client.succeed("ip route >&2")
+              client.execute("iptables-save >&2")
+              client.log("##############################################")
 
-        with subtest("Test macvlan creates routable ips"):
-            client.wait_until_succeeds("ping -c 1 192.168.1.1")
-            client.wait_until_succeeds("ping -c 1 192.168.1.2")
-            client.wait_until_succeeds("ping -c 1 192.168.1.3")
+          with subtest("Test macvlan creates routable ips"):
+              client.wait_until_succeeds("ping -c 1 192.168.1.1")
+              client.wait_until_succeeds("ping -c 1 192.168.1.2")
+              client.wait_until_succeeds("ping -c 1 192.168.1.3")
 
-            router.wait_until_succeeds("ping -c 1 192.168.1.1")
-            router.wait_until_succeeds("ping -c 1 192.168.1.2")
-            router.wait_until_succeeds("ping -c 1 192.168.1.3")
-      '';
+              router.wait_until_succeeds("ping -c 1 192.168.1.1")
+              router.wait_until_succeeds("ping -c 1 192.168.1.2")
+              router.wait_until_succeeds("ping -c 1 192.168.1.3")
+        '';
     };
     fou = {
       name = "foo-over-udp";
-      nodes.machine = { ... }: {
-        virtualisation.vlans = [ 1 ];
-        networking = {
-          useNetworkd = networkd;
-          useDHCP = false;
-          interfaces.eth1.ipv4.addresses = mkOverride 0 [{
-            address = "192.168.1.1";
-            prefixLength = 24;
-          }];
-          fooOverUDP = {
-            fou1 = { port = 9001; };
-            fou2 = {
-              port = 9002;
-              protocol = 41;
-            };
-            fou3 = mkIf (!networkd) {
-              port = 9003;
-              local.address = "192.168.1.1";
-            };
-            fou4 = mkIf (!networkd) {
-              port = 9004;
-              local = {
-                address = "192.168.1.1";
-                dev = "eth1";
+      nodes.machine = {
+          ...
+        }: {
+          virtualisation.vlans = [ 1 ];
+          networking = {
+            useNetworkd = networkd;
+            useDHCP = false;
+            interfaces.eth1.ipv4.addresses = mkOverride 0 [{
+              address = "192.168.1.1";
+              prefixLength = 24;
+            }];
+            fooOverUDP = {
+              fou1 = { port = 9001; };
+              fou2 = {
+                port = 9002;
+                protocol = 41;
+              };
+              fou3 = mkIf (!networkd) {
+                port = 9003;
+                local.address = "192.168.1.1";
+              };
+              fou4 = mkIf (!networkd) {
+                port = 9004;
+                local = {
+                  address = "192.168.1.1";
+                  dev = "eth1";
+                };
               };
             };
           };
+          systemd.services = {
+            fou3-fou-encap.after =
+              optional (!networkd) "network-addresses-eth1.service";
+          };
         };
-        systemd.services = {
-          fou3-fou-encap.after =
-            optional (!networkd) "network-addresses-eth1.service";
-        };
-      };
-      testScript = { ... }:
+      testScript = {
+          ...
+        }:
         ''
           import json
 
@@ -518,8 +577,15 @@ let
         '';
     };
     sit = let
-      node = { address4, remote, address6 }:
-        { pkgs, ... }:
+      node = {
+          address4,
+          remote,
+          address6,
+        }:
+        {
+          pkgs,
+          ...
+        }:
         with pkgs.lib; {
           virtualisation.vlans = [ 1 ];
           networking = {
@@ -546,7 +612,10 @@ let
       # client1 sends SIT packets in UDP, but accepts only proto-41 incoming.
       # client2 does the reverse, sending in proto-41 and accepting only UDP incoming.
       # that way we'll notice when either SIT itself or FOU breaks.
-      nodes.client1 = args@{ pkgs, ... }:
+      nodes.client1 = args@{
+          pkgs,
+          ...
+        }:
         mkMerge [
           (node {
             address4 = "192.168.1.1";
@@ -563,7 +632,10 @@ let
             };
           }
         ];
-      nodes.client2 = args@{ pkgs, ... }:
+      nodes.client2 = args@{
+          pkgs,
+          ...
+        }:
         mkMerge [
           (node {
             address4 = "192.168.1.2";
@@ -580,27 +652,32 @@ let
             };
           }
         ];
-      testScript = { ... }: ''
-        start_all()
+      testScript = {
+          ...
+        }: ''
+          start_all()
 
-        with subtest("Wait for networking to be configured"):
-            client1.wait_for_unit("network.target")
-            client2.wait_for_unit("network.target")
+          with subtest("Wait for networking to be configured"):
+              client1.wait_for_unit("network.target")
+              client2.wait_for_unit("network.target")
 
-            # Print diagnostic information
-            client1.succeed("ip addr >&2")
-            client2.succeed("ip addr >&2")
+              # Print diagnostic information
+              client1.succeed("ip addr >&2")
+              client2.succeed("ip addr >&2")
 
-        with subtest("Test ipv6"):
-            client1.wait_until_succeeds("ping -c 1 fc00::1")
-            client1.wait_until_succeeds("ping -c 1 fc00::2")
+          with subtest("Test ipv6"):
+              client1.wait_until_succeeds("ping -c 1 fc00::1")
+              client1.wait_until_succeeds("ping -c 1 fc00::2")
 
-            client2.wait_until_succeeds("ping -c 1 fc00::1")
-            client2.wait_until_succeeds("ping -c 1 fc00::2")
-      '';
+              client2.wait_until_succeeds("ping -c 1 fc00::1")
+              client2.wait_until_succeeds("ping -c 1 fc00::2")
+        '';
     };
     gre = let
-      node = { pkgs, ... }:
+      node = {
+          pkgs,
+          ...
+        }:
         with pkgs.lib; {
           networking = {
             useNetworkd = networkd;
@@ -611,7 +688,10 @@ let
         };
     in {
       name = "GRE";
-      nodes.client1 = args@{ pkgs, ... }:
+      nodes.client1 = args@{
+          pkgs,
+          ...
+        }:
         mkMerge [
           (node args)
           {
@@ -650,7 +730,10 @@ let
             };
           }
         ];
-      nodes.client2 = args@{ pkgs, ... }:
+      nodes.client2 = args@{
+          pkgs,
+          ...
+        }:
         mkMerge [
           (node args)
           {
@@ -689,38 +772,43 @@ let
             };
           }
         ];
-      testScript = { ... }: ''
-        import json
-        start_all()
+      testScript = {
+          ...
+        }: ''
+          import json
+          start_all()
 
-        with subtest("Wait for networking to be configured"):
-            client1.wait_for_unit("network.target")
-            client2.wait_for_unit("network.target")
+          with subtest("Wait for networking to be configured"):
+              client1.wait_for_unit("network.target")
+              client2.wait_for_unit("network.target")
 
-            # Print diagnostic information
-            client1.succeed("ip addr >&2")
-            client2.succeed("ip addr >&2")
+              # Print diagnostic information
+              client1.succeed("ip addr >&2")
+              client2.succeed("ip addr >&2")
 
-        with subtest("Test GRE tunnel bridge over VLAN"):
-            client1.wait_until_succeeds("ping -c 1 192.168.1.2")
+          with subtest("Test GRE tunnel bridge over VLAN"):
+              client1.wait_until_succeeds("ping -c 1 192.168.1.2")
 
-            client2.wait_until_succeeds("ping -c 1 192.168.1.1")
+              client2.wait_until_succeeds("ping -c 1 192.168.1.1")
 
-            client1.wait_until_succeeds("ping -c 1 fc00::2")
+              client1.wait_until_succeeds("ping -c 1 fc00::2")
 
-            client2.wait_until_succeeds("ping -c 1 fc00::1")
+              client2.wait_until_succeeds("ping -c 1 fc00::1")
 
-        with subtest("Test GRE tunnel TTL"):
-            links = json.loads(client1.succeed("ip -details -json link show greTunnel"))
-            assert links[0]['linkinfo']['info_data']['ttl'] == 225, "ttl not set for greTunnel"
+          with subtest("Test GRE tunnel TTL"):
+              links = json.loads(client1.succeed("ip -details -json link show greTunnel"))
+              assert links[0]['linkinfo']['info_data']['ttl'] == 225, "ttl not set for greTunnel"
 
-            links = json.loads(client2.succeed("ip -details -json link show gre6Tunnel"))
-            assert links[0]['linkinfo']['info_data']['ttl'] == 255, "ttl not set for gre6Tunnel"
-      '';
+              links = json.loads(client2.succeed("ip -details -json link show gre6Tunnel"))
+              assert links[0]['linkinfo']['info_data']['ttl'] == 255, "ttl not set for gre6Tunnel"
+        '';
     };
     vlan = let
       node = address:
-        { pkgs, ... }:
+        {
+          pkgs,
+          ...
+        }:
         with pkgs.lib; {
           #virtualisation.vlans = [ 1 ];
           networking = {
@@ -742,17 +830,19 @@ let
       name = "vlan";
       nodes.client1 = node "192.168.1.1";
       nodes.client2 = node "192.168.1.2";
-      testScript = { ... }: ''
-        start_all()
+      testScript = {
+          ...
+        }: ''
+          start_all()
 
-        with subtest("Wait for networking to be configured"):
-            client1.wait_for_unit("network.target")
-            client2.wait_for_unit("network.target")
+          with subtest("Wait for networking to be configured"):
+              client1.wait_for_unit("network.target")
+              client2.wait_for_unit("network.target")
 
-        with subtest("Test vlan is setup"):
-            client1.succeed("ip addr show dev vlan >&2")
-            client2.succeed("ip addr show dev vlan >&2")
-      '';
+          with subtest("Test vlan is setup"):
+              client1.succeed("ip addr show dev vlan >&2")
+              client2.succeed("ip addr show dev vlan >&2")
+        '';
     };
     vlan-ping = let
       baseIP = number: "10.10.10.${number}";
@@ -760,7 +850,10 @@ let
       baseInterface = "eth1";
       vlanInterface = "vlan42";
       node = number:
-        { pkgs, ... }:
+        {
+          pkgs,
+          ...
+        }:
         with pkgs.lib; {
           virtualisation.vlans = [ 1 ];
           networking = {
@@ -788,29 +881,31 @@ let
       name = "vlan-ping";
       nodes.server = node serverNodeNum;
       nodes.client = node clientNodeNum;
-      testScript = { ... }: ''
-        start_all()
+      testScript = {
+          ...
+        }: ''
+          start_all()
 
-        with subtest("Wait for networking to be configured"):
-            server.wait_for_unit("network.target")
-            client.wait_for_unit("network.target")
+          with subtest("Wait for networking to be configured"):
+              server.wait_for_unit("network.target")
+              client.wait_for_unit("network.target")
 
-        with subtest("Test ping on base interface in setup"):
-            client.succeed("ping -I ${baseInterface} -c 1 ${
-              baseIP serverNodeNum
-            }")
-            server.succeed("ping -I ${baseInterface} -c 1 ${
-              baseIP clientNodeNum
-            }")
+          with subtest("Test ping on base interface in setup"):
+              client.succeed("ping -I ${baseInterface} -c 1 ${
+                baseIP serverNodeNum
+              }")
+              server.succeed("ping -I ${baseInterface} -c 1 ${
+                baseIP clientNodeNum
+              }")
 
-        with subtest("Test ping on vlan subinterface in setup"):
-            client.succeed("ping -I ${vlanInterface} -c 1 ${
-              vlanIP serverNodeNum
-            }")
-            server.succeed("ping -I ${vlanInterface} -c 1 ${
-              vlanIP clientNodeNum
-            }")
-      '';
+          with subtest("Test ping on vlan subinterface in setup"):
+              client.succeed("ping -I ${vlanInterface} -c 1 ${
+                vlanIP serverNodeNum
+              }")
+              server.succeed("ping -I ${vlanInterface} -c 1 ${
+                vlanIP clientNodeNum
+              }")
+        '';
     };
     virtual = {
       name = "Virtual";
@@ -886,34 +981,39 @@ let
     };
     privacy = {
       name = "Privacy";
-      nodes.router = { ... }: {
-        virtualisation.vlans = [ 1 ];
-        boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = true;
-        networking = {
-          useNetworkd = networkd;
-          useDHCP = false;
-          interfaces.eth1.ipv6.addresses = singleton {
-            address = "fd00:1234:5678:1::1";
-            prefixLength = 64;
+      nodes.router = {
+          ...
+        }: {
+          virtualisation.vlans = [ 1 ];
+          boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = true;
+          networking = {
+            useNetworkd = networkd;
+            useDHCP = false;
+            interfaces.eth1.ipv6.addresses = singleton {
+              address = "fd00:1234:5678:1::1";
+              prefixLength = 64;
+            };
+          };
+          services.radvd = {
+            enable = true;
+            config = ''
+              interface eth1 {
+                AdvSendAdvert on;
+                AdvManagedFlag on;
+                AdvOtherConfigFlag on;
+
+                prefix fd00:1234:5678:1::/64 {
+                  AdvAutonomous on;
+                  AdvOnLink on;
+                };
+              };
+            '';
           };
         };
-        services.radvd = {
-          enable = true;
-          config = ''
-            interface eth1 {
-              AdvSendAdvert on;
-              AdvManagedFlag on;
-              AdvOtherConfigFlag on;
-
-              prefix fd00:1234:5678:1::/64 {
-                AdvAutonomous on;
-                AdvOnLink on;
-              };
-            };
-          '';
-        };
-      };
-      nodes.client_with_privacy = { pkgs, ... }:
+      nodes.client_with_privacy = {
+          pkgs,
+          ...
+        }:
         with pkgs.lib; {
           virtualisation.vlans = [ 1 ];
           networking = {
@@ -927,7 +1027,10 @@ let
             };
           };
         };
-      nodes.client = { pkgs, ... }:
+      nodes.client = {
+          pkgs,
+          ...
+        }:
         with pkgs.lib; {
           virtualisation.vlans = [ 1 ];
           networking = {
@@ -941,33 +1044,35 @@ let
             };
           };
         };
-      testScript = { ... }: ''
-        start_all()
+      testScript = {
+          ...
+        }: ''
+          start_all()
 
-        client.wait_for_unit("network.target")
-        client_with_privacy.wait_for_unit("network.target")
-        router.wait_for_unit("network-online.target")
+          client.wait_for_unit("network.target")
+          client_with_privacy.wait_for_unit("network.target")
+          router.wait_for_unit("network-online.target")
 
-        with subtest("Wait until we have an ip address"):
-            client_with_privacy.wait_until_succeeds(
-                "ip addr show dev eth1 | grep -q 'fd00:1234:5678:1:'"
-            )
-            client.wait_until_succeeds("ip addr show dev eth1 | grep -q 'fd00:1234:5678:1:'")
+          with subtest("Wait until we have an ip address"):
+              client_with_privacy.wait_until_succeeds(
+                  "ip addr show dev eth1 | grep -q 'fd00:1234:5678:1:'"
+              )
+              client.wait_until_succeeds("ip addr show dev eth1 | grep -q 'fd00:1234:5678:1:'")
 
-        with subtest("Test vlan 1"):
-            client_with_privacy.wait_until_succeeds("ping -c 1 fd00:1234:5678:1::1")
-            client.wait_until_succeeds("ping -c 1 fd00:1234:5678:1::1")
+          with subtest("Test vlan 1"):
+              client_with_privacy.wait_until_succeeds("ping -c 1 fd00:1234:5678:1::1")
+              client.wait_until_succeeds("ping -c 1 fd00:1234:5678:1::1")
 
-        with subtest("Test address used is temporary"):
-            client_with_privacy.wait_until_succeeds(
-                "! ip route get fd00:1234:5678:1::1 | grep -q ':[a-f0-9]*ff:fe[a-f0-9]*:'"
-            )
+          with subtest("Test address used is temporary"):
+              client_with_privacy.wait_until_succeeds(
+                  "! ip route get fd00:1234:5678:1::1 | grep -q ':[a-f0-9]*ff:fe[a-f0-9]*:'"
+              )
 
-        with subtest("Test address used is EUI-64"):
-            client.wait_until_succeeds(
-                "ip route get fd00:1234:5678:1::1 | grep -q ':[a-f0-9]*ff:fe[a-f0-9]*:'"
-            )
-      '';
+          with subtest("Test address used is EUI-64"):
+              client.wait_until_succeeds(
+                  "ip route get fd00:1234:5678:1::1 | grep -q ':[a-f0-9]*ff:fe[a-f0-9]*:'"
+              )
+        '';
     };
     routes = {
       name = "routes";
@@ -1073,7 +1178,10 @@ let
     };
     rename = {
       name = "RenameInterface";
-      nodes.machine = { pkgs, ... }:
+      nodes.machine = {
+          pkgs,
+          ...
+        }:
         {
           virtualisation.vlans = [ 1 ];
           networking = {
@@ -1100,20 +1208,23 @@ let
     # (as it's handled by udev, not networkd)
     link = {
       name = "Link";
-      nodes.client = { pkgs, ... }: {
-        virtualisation.vlans = [ 1 ];
-        networking = {
-          useNetworkd = networkd;
-          useDHCP = false;
-        };
-        systemd.network.links."50-foo" = {
-          matchConfig = {
-            Name = "foo";
-            Driver = "dummy";
+      nodes.client = {
+          pkgs,
+          ...
+        }: {
+          virtualisation.vlans = [ 1 ];
+          networking = {
+            useNetworkd = networkd;
+            useDHCP = false;
           };
-          linkConfig.MTUBytes = "1442";
+          systemd.network.links."50-foo" = {
+            matchConfig = {
+              Name = "foo";
+              Driver = "dummy";
+            };
+            linkConfig.MTUBytes = "1442";
+          };
         };
-      };
       testScript = ''
         print(client.succeed("ip l add name foo type dummy"))
         print(client.succeed("stat /etc/systemd/network/50-foo.link"))
@@ -1124,16 +1235,19 @@ let
     wlanInterface = let testMac = "06:00:00:00:02:00";
     in {
       name = "WlanInterface";
-      nodes.machine = { pkgs, ... }: {
-        boot.kernelModules = [ "mac80211_hwsim" ];
-        networking.wlanInterfaces = {
-          wlan0 = { device = "wlan0"; };
-          wap0 = {
-            device = "wlan0";
-            mac = testMac;
+      nodes.machine = {
+          pkgs,
+          ...
+        }: {
+          boot.kernelModules = [ "mac80211_hwsim" ];
+          networking.wlanInterfaces = {
+            wlan0 = { device = "wlan0"; };
+            wap0 = {
+              device = "wlan0";
+              mac = testMac;
+            };
           };
         };
-      };
       testScript = ''
         machine.start()
         machine.wait_for_unit("network.target")

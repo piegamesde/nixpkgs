@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pdal, curl, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pdal,
+  curl,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "entwine";

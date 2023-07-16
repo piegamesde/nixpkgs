@@ -1,5 +1,13 @@
-{ mkDerivation, lib, fetchFromGitHub, qtbase, qtsvg, qmake, leptonica
-, tesseract4 }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  qtbase,
+  qtsvg,
+  qmake,
+  leptonica,
+  tesseract4,
+}:
 
 mkDerivation {
   pname = "qt-box-editor";

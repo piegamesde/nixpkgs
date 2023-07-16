@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, php, which, makeWrapper, gnumake, gcc, callPackage }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  php,
+  which,
+  makeWrapper,
+  gnumake,
+  gcc,
+  callPackage,
+}:
 
 stdenv.mkDerivation rec {
   pname = "phoronix-test-suite";

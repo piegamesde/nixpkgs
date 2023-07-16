@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, cmake, cpm-cmake, git, git2-cpp, cacert
-, boost179, icu, libarchive, libgit2, lz4, mitama-cpp-result, ninja, openssl_3
-, package-project-cmake, spdlog }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  cpm-cmake,
+  git,
+  git2-cpp,
+  cacert,
+  boost179,
+  icu,
+  libarchive,
+  libgit2,
+  lz4,
+  mitama-cpp-result,
+  ninja,
+  openssl_3,
+  package-project-cmake,
+  spdlog,
+}:
 
 let
   glob = fetchFromGitHub {

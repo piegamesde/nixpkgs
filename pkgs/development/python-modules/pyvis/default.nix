@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, fetchpatch, buildPythonPackage, networkx, jinja2
-, ipython, jsonpickle, numpy }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  buildPythonPackage,
+  networkx,
+  jinja2,
+  ipython,
+  jsonpickle,
+  numpy,
+}:
 
 buildPythonPackage rec {
   pname = "pyvis";

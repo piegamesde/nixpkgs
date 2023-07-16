@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, libX11, libXext, alsa-lib, autoPatchelfHook
-, releasePath ? null }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libX11,
+  libXext,
+  alsa-lib,
+  autoPatchelfHook,
+  releasePath ? null
+}:
 
 # To use the full release version (same as renoise):
 # 1) Sign into https://backstage.renoise.com and download the release version to some stable location.

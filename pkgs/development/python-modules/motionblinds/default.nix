@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pycryptodomex, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pycryptodomex,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "motionblinds";

@@ -1,6 +1,10 @@
 # Test for cntr tool
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; }, lib ? pkgs.lib }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; },
+  lib ? pkgs.lib
+}:
 
 let
   inherit (import ../lib/testing-python.nix { inherit system pkgs; }) makeTest;
@@ -12,17 +16,20 @@ let
       meta = { maintainers = with lib.maintainers; [ sorki mic92 ]; };
 
       nodes = {
-        ${backend} = { pkgs, ... }: {
-          environment.systemPackages = [ pkgs.cntr ];
-          virtualisation.oci-containers = {
-            inherit backend;
-            containers.nginx = {
-              image = "nginx-container";
-              imageFile = pkgs.dockerTools.examples.nginx;
-              ports = [ "8181:80" ];
+        ${backend} = {
+            pkgs,
+            ...
+          }: {
+            environment.systemPackages = [ pkgs.cntr ];
+            virtualisation.oci-containers = {
+              inherit backend;
+              containers.nginx = {
+                image = "nginx-container";
+                imageFile = pkgs.dockerTools.examples.nginx;
+                ports = [ "8181:80" ];
+              };
             };
           };
-        };
       };
 
       testScript = ''
@@ -46,16 +53,19 @@ let
 
     meta = with pkgs.lib.maintainers; { maintainers = [ sorki mic92 ]; };
 
-    nodes.machine = { lib, ... }: {
-      environment.systemPackages = [ pkgs.cntr ];
-      containers.test = {
-        autoStart = true;
-        privateNetwork = true;
-        hostAddress = "172.16.0.1";
-        localAddress = "172.16.0.2";
-        config = { };
+    nodes.machine = {
+        lib,
+        ...
+      }: {
+        environment.systemPackages = [ pkgs.cntr ];
+        containers.test = {
+          autoStart = true;
+          privateNetwork = true;
+          hostAddress = "172.16.0.1";
+          localAddress = "172.16.0.2";
+          config = { };
+        };
       };
-    };
 
     testScript = ''
       machine.start()

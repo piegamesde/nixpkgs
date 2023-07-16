@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, mkYarnPackage, nixosTests, writeText, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  mkYarnPackage,
+  nixosTests,
+  writeText,
+  python3,
+}:
 
 let
   version = "0.3.0";

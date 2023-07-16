@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, azure-common, azure-mgmt-core
-, msrest, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  azure-common,
+  azure-mgmt-core,
+  msrest,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-containerregistry";

@@ -1,7 +1,30 @@
-{ lib, stdenv, callPackage, buildPythonPackage, fetchPypi, rustPlatform
-, setuptools-rust, openssl, Security, packaging, six, isPyPy, cffi, pkg-config
-, pytestCheckHook, pytest-benchmark, pytest-subtests, pythonOlder, pretend
-, libiconv, libxcrypt, iso8601, py, pytz, hypothesis }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  buildPythonPackage,
+  fetchPypi,
+  rustPlatform,
+  setuptools-rust,
+  openssl,
+  Security,
+  packaging,
+  six,
+  isPyPy,
+  cffi,
+  pkg-config,
+  pytestCheckHook,
+  pytest-benchmark,
+  pytest-subtests,
+  pythonOlder,
+  pretend,
+  libiconv,
+  libxcrypt,
+  iso8601,
+  py,
+  pytz,
+  hypothesis,
+}:
 
 let cryptography-vectors = callPackage ./vectors.nix { };
 in buildPythonPackage rec {

@@ -4,7 +4,12 @@
 # for every Qt version. Qt applications are called from `all-packages.nix` via
 # this file.
 
-{ lib, pkgs, qt6, stdenv }:
+{
+  lib,
+  pkgs,
+  qt6,
+  stdenv,
+}:
 
 (lib.makeScope pkgs.newScope (self:
 

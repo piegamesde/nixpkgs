@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, libassuan, libgpg-error
-, libiconv, texinfo, common-updater-scripts, writers, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  libassuan,
+  libgpg-error,
+  libiconv,
+  texinfo,
+  common-updater-scripts,
+  writers,
+  Cocoa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pinentry-mac";

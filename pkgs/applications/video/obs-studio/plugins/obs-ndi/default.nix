@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, obs-studio, cmake, qtbase, ndi }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  obs-studio,
+  cmake,
+  qtbase,
+  ndi,
+}:
 
 stdenv.mkDerivation rec {
   pname = "obs-ndi";

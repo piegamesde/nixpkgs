@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, home-assistant-bluetooth
-, poetry-core, pytestCheckHook, pythonOlder, sensor-state-data }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  home-assistant-bluetooth,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  sensor-state-data,
+}:
 
 buildPythonPackage rec {
   pname = "sensor-state-data";

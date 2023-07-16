@@ -1,4 +1,10 @@
-{ lib, stdenv, bundlerEnv, ruby, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  bundlerEnv,
+  ruby,
+  fetchFromGitHub,
+}:
 let
   version = "1.1";
   gems = bundlerEnv {

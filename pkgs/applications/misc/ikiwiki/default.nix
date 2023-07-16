@@ -1,9 +1,32 @@
-{ lib, stdenv, fetchurl, fetchpatch, perlPackages, gettext, makeWrapper
-, ImageMagick, which, highlight, gitSupport ? false, git
-, docutilsSupport ? false, python, docutils, monotoneSupport ? false, monotone
-, bazaarSupport ? false, breezy, cvsSupport ? false, cvs, cvsps
-, subversionSupport ? false, subversion, mercurialSupport ? false, mercurial
-, extraUtils ? [ ] }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  perlPackages,
+  gettext,
+  makeWrapper,
+  ImageMagick,
+  which,
+  highlight,
+  gitSupport ? false,
+  git,
+  docutilsSupport ? false,
+  python,
+  docutils,
+  monotoneSupport ? false,
+  monotone,
+  bazaarSupport ? false,
+  breezy,
+  cvsSupport ? false,
+  cvs,
+  cvsps,
+  subversionSupport ? false,
+  subversion,
+  mercurialSupport ? false,
+  mercurial,
+  extraUtils ? [ ]
+}:
 
 stdenv.mkDerivation rec {
   pname = "ikiwiki";

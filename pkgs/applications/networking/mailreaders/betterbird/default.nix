@@ -1,5 +1,14 @@
-{ lib, buildMozillaMach, cacert, fetchFromGitHub, fetchurl, git
-, libdbusmenu-gtk3, runtimeShell, thunderbird-unwrapped }:
+{
+  lib,
+  buildMozillaMach,
+  cacert,
+  fetchFromGitHub,
+  fetchurl,
+  git,
+  libdbusmenu-gtk3,
+  runtimeShell,
+  thunderbird-unwrapped,
+}:
 
 ((buildMozillaMach rec {
   pname = "betterbird";

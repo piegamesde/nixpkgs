@@ -1,5 +1,19 @@
-{ lib, bcrypt, buildPythonPackage, cryptography, fetchpatch, fetchPypi, gssapi
-, invoke, mock, pyasn1, pynacl, pytest-relaxed, pytestCheckHook, six }:
+{
+  lib,
+  bcrypt,
+  buildPythonPackage,
+  cryptography,
+  fetchpatch,
+  fetchPypi,
+  gssapi,
+  invoke,
+  mock,
+  pyasn1,
+  pynacl,
+  pytest-relaxed,
+  pytestCheckHook,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "paramiko";

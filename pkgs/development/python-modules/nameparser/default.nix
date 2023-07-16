@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, glibcLocales }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  glibcLocales,
+}:
 
 buildPythonPackage rec {
   pname = "nameparser";

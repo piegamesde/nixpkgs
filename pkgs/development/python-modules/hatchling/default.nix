@@ -1,11 +1,26 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder
 
-# runtime
-, editables, importlib-metadata # < 3.8
-, packaging, pathspec, pluggy, tomli
+  # runtime
+  ,
+  editables,
+  importlib-metadata # < 3.8
+  ,
+  packaging,
+  pathspec,
+  pluggy,
+  tomli
 
-# tests
-, build, python, requests, virtualenv }:
+  # tests
+  ,
+  build,
+  python,
+  requests,
+  virtualenv,
+}:
 
 let
   pname = "hatchling";

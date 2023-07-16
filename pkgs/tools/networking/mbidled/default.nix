@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, meson, ninja, libev, openssl }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  libev,
+  openssl,
+}:
 stdenv.mkDerivation {
   pname = "mbidled";
   version = "unstable-2022-10-30";

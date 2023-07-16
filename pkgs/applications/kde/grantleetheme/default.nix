@@ -1,5 +1,17 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, grantlee, ki18n
-, kiconthemes, knewstuff, kservice, kxmlgui, qtbase, }:
+{
+  mkDerivation,
+  lib,
+  kdepimTeam,
+  extra-cmake-modules,
+  kdoctools,
+  grantlee,
+  ki18n,
+  kiconthemes,
+  knewstuff,
+  kservice,
+  kxmlgui,
+  qtbase,
+}:
 
 mkDerivation {
   pname = "grantleetheme";

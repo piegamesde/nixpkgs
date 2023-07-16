@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, rustPlatform, asciidoctor, installShellFiles }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  asciidoctor,
+  installShellFiles,
+}:
 
 let
   pname = "nux";

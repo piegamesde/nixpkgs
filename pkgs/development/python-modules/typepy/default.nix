@@ -1,5 +1,14 @@
-{ buildPythonPackage, fetchFromGitHub, lib, mbstrdecoder, python-dateutil, pytz
-, packaging, pytestCheckHook, tcolorpy }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  mbstrdecoder,
+  python-dateutil,
+  pytz,
+  packaging,
+  pytestCheckHook,
+  tcolorpy,
+}:
 
 buildPythonPackage rec {
   pname = "typepy";

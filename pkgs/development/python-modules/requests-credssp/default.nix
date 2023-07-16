@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, cryptography, fetchFromGitHub, gssapi, krb5, pyspnego
-, pytestCheckHook, pythonOlder, requests }:
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  gssapi,
+  krb5,
+  pyspnego,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "requests-credssp";

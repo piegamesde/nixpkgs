@@ -1,5 +1,17 @@
-{ lib, stdenv, callPackage, python27, installShellFiles, rSrc, version, oildev
-, configargparse, binlore, resholve, resholve-utils }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  python27,
+  installShellFiles,
+  rSrc,
+  version,
+  oildev,
+  configargparse,
+  binlore,
+  resholve,
+  resholve-utils,
+}:
 
 python27.pkgs.buildPythonApplication {
   pname = "resholve";

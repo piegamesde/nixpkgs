@@ -1,5 +1,12 @@
-{ lib, aiohttp, bluetooth-data-tools, buildPythonPackage, fetchFromGitHub
-, orjson, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  bluetooth-data-tools,
+  buildPythonPackage,
+  fetchFromGitHub,
+  orjson,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aioshelly";

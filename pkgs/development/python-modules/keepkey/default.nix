@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, buildPythonPackage, ecdsa, hidapi, libusb1, mnemonic
-, protobuf, pytest }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  ecdsa,
+  hidapi,
+  libusb1,
+  mnemonic,
+  protobuf,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "keepkey";

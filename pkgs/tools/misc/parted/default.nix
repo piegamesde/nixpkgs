@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchurl, fetchpatch, lvm2, libuuid, gettext, readline
-, dosfstools, e2fsprogs, perl, python3, util-linux, check
-, enableStatic ? stdenv.hostPlatform.isStatic }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  lvm2,
+  libuuid,
+  gettext,
+  readline,
+  dosfstools,
+  e2fsprogs,
+  perl,
+  python3,
+  util-linux,
+  check,
+  enableStatic ? stdenv.hostPlatform.isStatic
+}:
 
 stdenv.mkDerivation rec {
   pname = "parted";

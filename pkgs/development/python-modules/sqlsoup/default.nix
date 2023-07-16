@@ -1,4 +1,10 @@
-{ buildPythonPackage, fetchPypi, lib, sqlalchemy, nose }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  lib,
+  sqlalchemy,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "sqlsoup";

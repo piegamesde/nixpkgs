@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, openexr, libpng12, libjpeg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  openexr,
+  libpng12,
+  libjpeg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "exrtools";

@@ -1,8 +1,31 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, pkg-config, which, qtbase, qmake
-, qttools, qttranslations, wrapQtAppsHook, libusb1, shapelib, zlib
-, withGUI ? false, qtserialport, withMapPreview ? (!stdenv.isDarwin)
-, qtwebengine, withDoc ? false, docbook_xml_dtd_45, docbook_xsl, expat, fop
-, libxml2, libxslt, perl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  pkg-config,
+  which,
+  qtbase,
+  qmake,
+  qttools,
+  qttranslations,
+  wrapQtAppsHook,
+  libusb1,
+  shapelib,
+  zlib,
+  withGUI ? false,
+  qtserialport,
+  withMapPreview ? (!stdenv.isDarwin),
+  qtwebengine,
+  withDoc ? false,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+  expat,
+  fop,
+  libxml2,
+  libxslt,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gpsbabel";

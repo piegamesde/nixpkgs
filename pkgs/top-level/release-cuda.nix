@@ -9,13 +9,14 @@
 */
 
 { # The platforms for which we build Nixpkgs.
-supportedSystems ? [ "x86_64-linux" ], # Attributes passed to nixpkgs.
-nixpkgsArgs ? {
-  config = {
-    allowUnfree = true;
-    inHydra = true;
-  };
-} }:
+  supportedSystems ? [ "x86_64-linux" ], # Attributes passed to nixpkgs.
+  nixpkgsArgs ? {
+    config = {
+      allowUnfree = true;
+      inHydra = true;
+    };
+  }
+}:
 
 with import ./release-lib.nix { inherit supportedSystems nixpkgsArgs; };
 with lib;

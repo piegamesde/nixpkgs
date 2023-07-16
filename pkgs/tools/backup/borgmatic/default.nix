@@ -1,6 +1,15 @@
-{ lib, stdenv, borgbackup, coreutils, python3Packages, systemd
-, enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
-, installShellFiles, borgmatic, testers }:
+{
+  lib,
+  stdenv,
+  borgbackup,
+  coreutils,
+  python3Packages,
+  systemd,
+  enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
+  installShellFiles,
+  borgmatic,
+  testers,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "borgmatic";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ninja, secureBuild ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  secureBuild ? false
+}:
 
 let soext = stdenv.hostPlatform.extensions.sharedLibrary;
 in stdenv.mkDerivation rec {

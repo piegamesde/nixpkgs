@@ -1,5 +1,14 @@
-{ writeShellScript, writeText, writers, nix-prefetch-git, formats, lib
-, coreutils, curl, xe }:
+{
+  writeShellScript,
+  writeText,
+  writers,
+  nix-prefetch-git,
+  formats,
+  lib,
+  coreutils,
+  curl,
+  xe,
+}:
 
 # Grammar list:
 # https://github.com/tree-sitter/tree-sitter/blob/master/docs/index.md

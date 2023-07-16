@@ -1,5 +1,13 @@
-{ rustPlatform, lib, fetchFromGitHub, zlib, openssl, pkg-config, protobuf
-, llvmPackages }:
+{
+  rustPlatform,
+  lib,
+  fetchFromGitHub,
+  zlib,
+  openssl,
+  pkg-config,
+  protobuf,
+  llvmPackages,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "nearcore";
   version = "1.30.1";

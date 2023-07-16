@@ -1,4 +1,11 @@
-{ mkDerivation, lib, fetchFromGitHub, qtbase, qmake, exiv2 }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  qtbase,
+  qmake,
+  exiv2,
+}:
 
 mkDerivation rec {
   pname = "phototonic";

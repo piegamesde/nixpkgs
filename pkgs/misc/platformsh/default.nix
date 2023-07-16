@@ -1,5 +1,14 @@
-{ stdenv, fetchurl, makeWrapper, writeShellScript, lib, php, curl, jq
-, common-updater-scripts }:
+{
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  writeShellScript,
+  lib,
+  php,
+  curl,
+  jq,
+  common-updater-scripts,
+}:
 
 let
   pname = "platformsh";

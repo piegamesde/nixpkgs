@@ -1,5 +1,13 @@
-{ buildPythonPackage, fetchPypi, isPy27, lib, setuptools, setuptools-scm, py
-, pytestCheckHook }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  lib,
+  setuptools,
+  setuptools-scm,
+  py,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "simpy";

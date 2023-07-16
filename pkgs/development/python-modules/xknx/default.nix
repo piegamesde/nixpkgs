@@ -1,5 +1,15 @@
-{ lib, async-timeout, buildPythonPackage, fetchFromGitHub, cryptography, ifaddr
-, pytest-asyncio, pytestCheckHook, pythonOlder, setuptools }:
+{
+  lib,
+  async-timeout,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cryptography,
+  ifaddr,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "xknx";

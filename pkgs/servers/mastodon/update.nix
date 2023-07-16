@@ -1,5 +1,16 @@
-{ pkgs, runCommand, lib, makeWrapper, yarn2nix, bundix, coreutils, diffutils
-, nix-prefetch-git, gnused, jq }:
+{
+  pkgs,
+  runCommand,
+  lib,
+  makeWrapper,
+  yarn2nix,
+  bundix,
+  coreutils,
+  diffutils,
+  nix-prefetch-git,
+  gnused,
+  jq,
+}:
 let
   binPath = lib.makeBinPath [
     yarn2nix

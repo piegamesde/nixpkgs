@@ -1,6 +1,18 @@
-{ lib, aiounittest, buildPythonPackage, fetchPypi, google-api-core
-, google-cloud-core, google-cloud-testutils, mock, proto-plus, protobuf
-, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiounittest,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-core,
+  google-cloud-core,
+  google-cloud-testutils,
+  mock,
+  proto-plus,
+  protobuf,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "google-cloud-firestore";

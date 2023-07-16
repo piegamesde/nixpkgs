@@ -1,5 +1,15 @@
-{ coreutils, dpkg, fetchurl, gnugrep, gnused, makeWrapper, mfcl8690cdwlpr, perl
-, lib, stdenv }:
+{
+  coreutils,
+  dpkg,
+  fetchurl,
+  gnugrep,
+  gnused,
+  makeWrapper,
+  mfcl8690cdwlpr,
+  perl,
+  lib,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mfcl8690cdwcupswrapper";

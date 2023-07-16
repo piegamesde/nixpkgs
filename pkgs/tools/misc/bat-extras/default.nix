@@ -1,21 +1,45 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, bat
-# batdiff, batgrep, and batwatch
-, coreutils, getconf, less
-# tests
-, bash, zsh, fish
-# batgrep
-, ripgrep
-# prettybat
-, withShFmt ? shfmt != null, shfmt ? null
-, withPrettier ? nodePackages ? prettier, nodePackages ? null
-, withClangTools ? clang-tools != null, clang-tools ? null
-, withRustFmt ? rustfmt != null, rustfmt ? null
-  # batwatch
-, withEntr ? entr != null, entr ? null
-  # batdiff
-, gitMinimal, withDelta ? delta != null, delta ? null
-  # batman
-, util-linux }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  bat
+  # batdiff, batgrep, and batwatch
+  ,
+  coreutils,
+  getconf,
+  less
+  # tests
+  ,
+  bash,
+  zsh,
+  fish
+  # batgrep
+  ,
+  ripgrep
+  # prettybat
+  ,
+  withShFmt ? shfmt != null,
+  shfmt ? null,
+  withPrettier ? nodePackages ? prettier,
+  nodePackages ? null,
+  withClangTools ? clang-tools != null,
+  clang-tools ? null,
+  withRustFmt ? rustfmt != null,
+  rustfmt ? null
+    # batwatch
+  ,
+  withEntr ? entr != null,
+  entr ? null
+    # batdiff
+  ,
+  gitMinimal,
+  withDelta ? delta != null,
+  delta ? null
+    # batman
+  ,
+  util-linux,
+}:
 
 let
   # Core derivation that all the others are based on.

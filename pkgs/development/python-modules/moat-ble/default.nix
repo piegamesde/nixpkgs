@@ -1,6 +1,14 @@
-{ lib, bluetooth-sensor-state-data, buildPythonPackage, fetchFromGitHub
-, home-assistant-bluetooth, poetry-core, pytestCheckHook, pythonOlder
-, sensor-state-data }:
+{
+  lib,
+  bluetooth-sensor-state-data,
+  buildPythonPackage,
+  fetchFromGitHub,
+  home-assistant-bluetooth,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  sensor-state-data,
+}:
 
 buildPythonPackage rec {
   pname = "moat-ble";

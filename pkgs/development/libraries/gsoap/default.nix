@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, autoreconfHook, unzip, m4, bison, flex, openssl, zlib
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  unzip,
+  m4,
+  bison,
+  flex,
+  openssl,
+  zlib,
 }:
 
 let majorVersion = "2.8";

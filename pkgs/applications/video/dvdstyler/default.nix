@@ -1,11 +1,39 @@
-{ lib, stdenv, fetchurl, bison, cdrtools, docbook_xml_dtd_412, docbook-xsl-nons
-, dvdauthor, dvdplusrwtools, ffmpeg_4, flex, fontconfig, gettext, glib
-, gobject-introspection, libexif, libjpeg, pkg-config, wrapGAppsHook, wxGTK32
-, wxSVG, xine-ui, xmlto, zip
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bison,
+  cdrtools,
+  docbook_xml_dtd_412,
+  docbook-xsl-nons,
+  dvdauthor,
+  dvdplusrwtools,
+  ffmpeg_4,
+  flex,
+  fontconfig,
+  gettext,
+  glib,
+  gobject-introspection,
+  libexif,
+  libjpeg,
+  pkg-config,
+  wrapGAppsHook,
+  wxGTK32,
+  wxSVG,
+  xine-ui,
+  xmlto,
+  zip
 
-, dvdisasterSupport ? true, dvdisaster ? null, thumbnailSupport ? true
-, libgnomeui ? null, udevSupport ? true, udev ? null, dbusSupport ? true
-, dbus ? null }:
+  ,
+  dvdisasterSupport ? true,
+  dvdisaster ? null,
+  thumbnailSupport ? true,
+  libgnomeui ? null,
+  udevSupport ? true,
+  udev ? null,
+  dbusSupport ? true,
+  dbus ? null
+}:
 
 let inherit (lib) optionals makeBinPath;
 in stdenv.mkDerivation rec {

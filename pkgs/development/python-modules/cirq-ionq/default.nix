@@ -1,4 +1,9 @@
-{ buildPythonPackage, cirq-core, requests, pytestCheckHook }:
+{
+  buildPythonPackage,
+  cirq-core,
+  requests,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "cirq-ionq";

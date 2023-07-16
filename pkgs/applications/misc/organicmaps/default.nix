@@ -1,6 +1,24 @@
-{ lib, mkDerivation, stdenv, fetchFromGitHub, cmake, ninja, pkg-config, which
-, python3, rsync, qtbase, qtsvg, libGLU, libGL, zlib, icu, freetype, pugixml
-, nix-update-script }:
+{
+  lib,
+  mkDerivation,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  pkg-config,
+  which,
+  python3,
+  rsync,
+  qtbase,
+  qtsvg,
+  libGLU,
+  libGL,
+  zlib,
+  icu,
+  freetype,
+  pugixml,
+  nix-update-script,
+}:
 
 mkDerivation rec {
   pname = "organicmaps";

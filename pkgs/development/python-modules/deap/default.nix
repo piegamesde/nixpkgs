@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, matplotlib, nose }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  matplotlib,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "deap";

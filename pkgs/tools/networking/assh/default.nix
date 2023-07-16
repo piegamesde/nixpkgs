@@ -1,4 +1,12 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, openssh, makeWrapper, ps }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  openssh,
+  makeWrapper,
+  ps,
+}:
 
 buildGoModule rec {
   pname = "assh";

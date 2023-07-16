@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchgit, packaging, platformdirs, portalocker
-, pyparsing, sympy, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchgit,
+  packaging,
+  platformdirs,
+  portalocker,
+  pyparsing,
+  sympy,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "qmake2cmake";

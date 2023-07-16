@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, fetchFromGitHub, certifi, click, keyring
-, keyrings-alt, pytz, requests, six, tzlocal, pytest-mock, pytestCheckHook
-, future }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  certifi,
+  click,
+  keyring,
+  keyrings-alt,
+  pytz,
+  requests,
+  six,
+  tzlocal,
+  pytest-mock,
+  pytestCheckHook,
+  future,
+}:
 
 buildPythonPackage rec {
   pname = "pyicloud";

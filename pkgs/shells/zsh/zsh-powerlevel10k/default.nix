@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, substituteAll, pkgs, bash }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  substituteAll,
+  pkgs,
+  bash,
+}:
 
 # To make use of this derivation, use
 # `programs.zsh.promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";`

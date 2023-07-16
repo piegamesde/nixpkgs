@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, libXt, libXaw, libXtst, libXi, libXpm, pkg-config
-, xorgproto, Xaw3d }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libXt,
+  libXaw,
+  libXtst,
+  libXi,
+  libXpm,
+  pkg-config,
+  xorgproto,
+  Xaw3d,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xvkbd";

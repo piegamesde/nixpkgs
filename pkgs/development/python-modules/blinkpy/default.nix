@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, python-dateutil
-, python-slugify, pythonAtLeast, pythonOlder, requests, sortedcontainers }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  python-dateutil,
+  python-slugify,
+  pythonAtLeast,
+  pythonOlder,
+  requests,
+  sortedcontainers,
+}:
 
 buildPythonPackage rec {
   pname = "blinkpy";

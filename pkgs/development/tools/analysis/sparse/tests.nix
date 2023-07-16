@@ -1,4 +1,9 @@
-{ runCommand, gcc, sparse, writeText }:
+{
+  runCommand,
+  gcc,
+  sparse,
+  writeText,
+}:
 let
   src = writeText "CODE.c" ''
     #include <stdio.h>

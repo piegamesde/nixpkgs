@@ -1,8 +1,20 @@
-{ lib, buildGoModule, fetchurl, autoreconfHook, pkg-config, libiconv, openssl
-, pcre, zlib }:
+{
+  lib,
+  buildGoModule,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  libiconv,
+  openssl,
+  pcre,
+  zlib,
+}:
 
-import ./versions.nix ({ version, sha256
-  , vendorSha256 ? throw "unsupported version ${version} for zabbix-agent2", ...
+import ./versions.nix ({
+    version,
+    sha256,
+    vendorSha256 ? throw "unsupported version ${version} for zabbix-agent2",
+    ...
   }:
   buildGoModule {
     pname = "zabbix-agent2";

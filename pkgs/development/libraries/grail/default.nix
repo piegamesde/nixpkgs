@@ -1,4 +1,13 @@
-{ enableX11 ? true, lib, stdenv, fetchurl, pkg-config, xorg, python3, frame }:
+{
+  enableX11 ? true,
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  xorg,
+  python3,
+  frame,
+}:
 
 stdenv.mkDerivation rec {
   pname = "grail";

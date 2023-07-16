@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, cmake, sfml, libX11, glew, python3, fetchpatch
-, applyPatches, glm }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  sfml,
+  libX11,
+  glew,
+  python3,
+  fetchpatch,
+  applyPatches,
+  glm,
+}:
 
 let
 

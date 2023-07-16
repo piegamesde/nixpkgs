@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, love, lua, makeWrapper, makeDesktopItem }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  love,
+  lua,
+  makeWrapper,
+  makeDesktopItem,
+}:
 
 stdenv.mkDerivation rec {
   pname = "duckmarines";

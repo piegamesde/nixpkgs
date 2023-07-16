@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, poppler, libgcrypt, pcre, asciidoc }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  poppler,
+  libgcrypt,
+  pcre,
+  asciidoc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pdfgrep";

@@ -1,4 +1,12 @@
-{ fetchFromGitHub, elfutils, pkg-config, stdenv, zlib, lib, nixosTests }:
+{
+  fetchFromGitHub,
+  elfutils,
+  pkg-config,
+  stdenv,
+  zlib,
+  lib,
+  nixosTests,
+}:
 
 # update bot does not seem to limit updates here to 0.8.x despite
 # the all-packages derivation being libbpf_0 as the libbpf base alias

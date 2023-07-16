@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonAtLeast, basemap, cython, geos
-, numpy, matplotlib, pyproj, pyshp, python, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonAtLeast,
+  basemap,
+  cython,
+  geos,
+  numpy,
+  matplotlib,
+  pyproj,
+  pyshp,
+  python,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "basemap-data";

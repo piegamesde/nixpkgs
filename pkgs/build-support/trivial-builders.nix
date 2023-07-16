@@ -1,4 +1,12 @@
-{ lib, stdenv, stdenvNoCC, lndir, runtimeShell, shellcheck, haskell }:
+{
+  lib,
+  stdenv,
+  stdenvNoCC,
+  lndir,
+  runtimeShell,
+  shellcheck,
+  haskell,
+}:
 
 let inherit (lib) optionalAttrs warn;
 
@@ -67,14 +75,18 @@ in rec {
     defaultStdenv = stdenv;
   in {
   # which stdenv to use, defaults to a stdenv with a C compiler, pkgs.stdenv
-  stdenv ? defaultStdenv
-    # whether to build this derivation locally instead of substituting
-  , runLocal ? false
-    # extra arguments to pass to stdenv.mkDerivation
-  , derivationArgs ? { }
-    # name of the resulting derivation
-  , name
-  # TODO(@Artturin): enable strictDeps always
+    stdenv ? defaultStdenv
+      # whether to build this derivation locally instead of substituting
+    ,
+    runLocal ? false
+      # extra arguments to pass to stdenv.mkDerivation
+    ,
+    derivationArgs ? { }
+      # name of the resulting derivation
+    ,
+    name
+    # TODO(@Artturin): enable strictDeps always
+    ,
   }:
   buildCommand:
   stdenv.mkDerivation ({
@@ -111,11 +123,20 @@ in rec {
        destination = "/bin/my-file";
      }
   */
-  writeTextFile = { name # the name of the derivation
-    , text, executable ? false # run chmod +x ?
-    , destination ? "" # relative path appended to $out eg "/bin/foo"
-    , checkPhase ? "" # syntax checks, e.g. for scripts
-    , meta ? { }, allowSubstitutes ? false, preferLocalBuild ? true }:
+  writeTextFile = {
+      name # the name of the derivation
+      ,
+      text,
+      executable ? false # run chmod +x ?
+      ,
+      destination ? "" # relative path appended to $out eg "/bin/foo"
+      ,
+      checkPhase ? "" # syntax checks, e.g. for scripts
+      ,
+      meta ? { },
+      allowSubstitutes ? false,
+      preferLocalBuild ? true
+    }:
     runCommand name {
       inherit text executable checkPhase meta allowSubstitutes preferLocalBuild;
       passAsFile = [ "text" ];
@@ -277,8 +298,12 @@ in rec {
         '';
      }
   */
-  writeShellApplication =
-    { name, text, runtimeInputs ? [ ], checkPhase ? null }:
+  writeShellApplication = {
+      name,
+      text,
+      runtimeInputs ? [ ],
+      checkPhase ? null
+    }:
     writeTextFile {
       inherit name;
       executable = true;
@@ -351,11 +376,18 @@ in rec {
        destination = "/bin/my-file";
      }
   */
-  concatTextFile = { name # the name of the derivation
-    , files, executable ? false # run chmod +x ?
-    , destination ? "" # relative path appended to $out eg "/bin/foo"
-    , checkPhase ? "" # syntax checks, e.g. for scripts
-    , meta ? { } }:
+  concatTextFile = {
+      name # the name of the derivation
+      ,
+      files,
+      executable ? false # run chmod +x ?
+      ,
+      destination ? "" # relative path appended to $out eg "/bin/foo"
+      ,
+      checkPhase ? "" # syntax checks, e.g. for scripts
+      ,
+      meta ? { }
+    }:
     runCommandLocal name {
       inherit files executable checkPhase meta destination;
     } ''
@@ -436,8 +468,14 @@ in rec {
      other derivations.  A derivation created with linkFarm is often used in CI
      as a easy way to build multiple derivations at once.
   */
-  symlinkJoin = args_@{ name, paths, preferLocalBuild ? true
-    , allowSubstitutes ? false, postBuild ? "", ... }:
+  symlinkJoin = args_@{
+      name,
+      paths,
+      preferLocalBuild ? true,
+      allowSubstitutes ? false,
+      postBuild ? "",
+      ...
+    }:
     let
       args = removeAttrs args_ [ "name" "postBuild" ] // {
         inherit preferLocalBuild allowSubstitutes;
@@ -528,14 +566,21 @@ in rec {
     in linkFarm name (map mkEntryFromDrv drvs);
 
   # docs in doc/builders/special/makesetuphook.section.md
-  makeSetupHook = { name ?
-      lib.warn "calling makeSetupHook without passing a name is deprecated."
-      "hook", deps ? [ ]
-      # hooks go in nativeBuildInput so these will be nativeBuildInput
-    , propagatedBuildInputs ? [ ]
-      # these will be buildInputs
-    , depsTargetTargetPropagated ? [ ], meta ? { }, passthru ? { }
-    , substitutions ? { } }:
+  makeSetupHook = {
+      name ?
+        lib.warn "calling makeSetupHook without passing a name is deprecated."
+        "hook",
+      deps ? [ ]
+        # hooks go in nativeBuildInput so these will be nativeBuildInput
+      ,
+      propagatedBuildInputs ? [ ]
+        # these will be buildInputs
+      ,
+      depsTargetTargetPropagated ? [ ],
+      meta ? { },
+      passthru ? { },
+      substitutions ? { }
+    }:
     script:
     runCommand name (substitutions // {
       inherit meta;
@@ -687,8 +732,15 @@ in rec {
        sha256 = "ffffffffffffffffffffffffffffffffffffffffffffffffffff";
      }
   */
-  requireFile = { name ? null, sha256 ? null, sha1 ? null, hash ? null
-    , url ? null, message ? null, hashMode ? "flat" }:
+  requireFile = {
+      name ? null,
+      sha256 ? null,
+      sha1 ? null,
+      hash ? null,
+      url ? null,
+      message ? null,
+      hashMode ? "flat"
+    }:
     assert (message != null) || (url != null);
     assert (sha256 != null) || (sha1 != null) || (hash != null);
     assert (name != null) || (url != null);
@@ -758,14 +810,19 @@ in rec {
        ];
      }
   */
-  applyPatches = { src, name ? (if builtins.typeOf src == "path" then
-    builtins.baseNameOf src
-  else if builtins.isAttrs src && builtins.hasAttr "name" src then
-    src.name
-  else
-    throw
-    "applyPatches: please supply a `name` argument because a default name can only be computed when the `src` is a path or is an attribute set with a `name` attribute.")
-      + "-patched", patches ? [ ], postPatch ? "" }:
+  applyPatches = {
+      src,
+      name ? (if builtins.typeOf src == "path" then
+        builtins.baseNameOf src
+      else if builtins.isAttrs src && builtins.hasAttr "name" src then
+        src.name
+      else
+        throw
+        "applyPatches: please supply a `name` argument because a default name can only be computed when the `src` is a path or is an attribute set with a `name` attribute.")
+        + "-patched",
+      patches ? [ ],
+      postPatch ? ""
+    }:
     stdenvNoCC.mkDerivation {
       inherit name src patches postPatch;
       preferLocalBuild = true;

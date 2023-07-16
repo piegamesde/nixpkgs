@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, rustPlatform, cmake, openssl, pkg-config, stdenv
-, systemd, darwin }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  cmake,
+  openssl,
+  pkg-config,
+  stdenv,
+  systemd,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "openethereum";

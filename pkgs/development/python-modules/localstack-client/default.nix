@@ -1,7 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, boto3, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  boto3,
+  pytestCheckHook
 
-# downstream dependencies
-, localstack }:
+  # downstream dependencies
+  ,
+  localstack,
+}:
 
 buildPythonPackage rec {
   pname = "localstack-client";

@@ -1,11 +1,35 @@
-{ buildPythonPackage, fetchFromGitHub, stdenv, lib, isPyPy, pycrypto
-, ecdsa # TODO
-, mock, can, brotli, withOptionalDeps ? true, tcpdump, ipython
-, withCryptography ? true, cryptography, withVoipSupport ? true, sox
-, withPlottingSupport ? true, matplotlib, withGraphicsSupport ? false, pyx
-, texlive, graphviz, imagemagick, withManufDb ? false, wireshark, libpcap
-# 2D/3D graphics and graphs TODO: VPython
-# TODO: nmap, numpy
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  stdenv,
+  lib,
+  isPyPy,
+  pycrypto,
+  ecdsa # TODO
+  ,
+  mock,
+  can,
+  brotli,
+  withOptionalDeps ? true,
+  tcpdump,
+  ipython,
+  withCryptography ? true,
+  cryptography,
+  withVoipSupport ? true,
+  sox,
+  withPlottingSupport ? true,
+  matplotlib,
+  withGraphicsSupport ? false,
+  pyx,
+  texlive,
+  graphviz,
+  imagemagick,
+  withManufDb ? false,
+  wireshark,
+  libpcap
+  # 2D/3D graphics and graphs TODO: VPython
+  # TODO: nmap, numpy
+  ,
 }:
 
 buildPythonPackage rec {

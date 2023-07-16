@@ -1,6 +1,20 @@
-{ lib, buildDotnetModule, fetchFromGitHub, dotnetCorePackages, glibc, zlib
-, libX11, libICE, libSM, fontconfig, gtk3, copyDesktopItems, graphicsmagick
-, wrapGAppsHook, makeDesktopItem }:
+{
+  lib,
+  buildDotnetModule,
+  fetchFromGitHub,
+  dotnetCorePackages,
+  glibc,
+  zlib,
+  libX11,
+  libICE,
+  libSM,
+  fontconfig,
+  gtk3,
+  copyDesktopItems,
+  graphicsmagick,
+  wrapGAppsHook,
+  makeDesktopItem,
+}:
 
 buildDotnetModule rec {
   pname = "scarab";

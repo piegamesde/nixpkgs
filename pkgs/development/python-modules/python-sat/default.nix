@@ -1,4 +1,11 @@
-{ buildPythonPackage, fetchFromGitHub, lib, six, pypblib, pytestCheckHook }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  six,
+  pypblib,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "python-sat";

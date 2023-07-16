@@ -1,14 +1,40 @@
-{ stdenv, lib, fetchFromGitHub, gobject-introspection, makeWrapper
-, wrapGAppsHook, gtk3, gst_all_1, python3, gettext, gnome, help2man, keybinder3
-, libnotify, librsvg, streamripper, udisks, webkitgtk
-, iconTheme ? gnome.adwaita-icon-theme, deviceDetectionSupport ? true
-, documentationSupport ? true, notificationSupport ? true
-, scalableIconSupport ? true, translationSupport ? true
-, bpmCounterSupport ? false, ipythonSupport ? false, lastfmSupport ? false
-, lyricsManiaSupport ? false, lyricsWikiSupport ? false
-, multimediaKeySupport ? false, musicBrainzSupport ? false
-, podcastSupport ? false, streamripperSupport ? false, wikipediaSupport ? false
-, fetchpatch }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  gobject-introspection,
+  makeWrapper,
+  wrapGAppsHook,
+  gtk3,
+  gst_all_1,
+  python3,
+  gettext,
+  gnome,
+  help2man,
+  keybinder3,
+  libnotify,
+  librsvg,
+  streamripper,
+  udisks,
+  webkitgtk,
+  iconTheme ? gnome.adwaita-icon-theme,
+  deviceDetectionSupport ? true,
+  documentationSupport ? true,
+  notificationSupport ? true,
+  scalableIconSupport ? true,
+  translationSupport ? true,
+  bpmCounterSupport ? false,
+  ipythonSupport ? false,
+  lastfmSupport ? false,
+  lyricsManiaSupport ? false,
+  lyricsWikiSupport ? false,
+  multimediaKeySupport ? false,
+  musicBrainzSupport ? false,
+  podcastSupport ? false,
+  streamripperSupport ? false,
+  wikipediaSupport ? false,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "exaile";

@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, hatchling
-, hatch-nodejs-version, fastjsonschema, jsonschema, jupyter-core, traitlets
-, pep440, pytestCheckHook, testpath }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  hatchling,
+  hatch-nodejs-version,
+  fastjsonschema,
+  jsonschema,
+  jupyter-core,
+  traitlets,
+  pep440,
+  pytestCheckHook,
+  testpath,
+}:
 
 buildPythonPackage rec {
   pname = "nbformat";

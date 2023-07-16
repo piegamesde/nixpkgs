@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchurl, ocaml, findlib, ocamlbuild, topkg }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  topkg,
+}:
 
 let
   # Use astring 0.8.3 for OCaml < 4.05

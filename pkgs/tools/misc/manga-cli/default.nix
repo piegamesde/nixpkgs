@@ -1,4 +1,11 @@
-{ stdenvNoCC, lib, fetchFromGitHub, makeWrapper, img2pdf, zathura }:
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  img2pdf,
+  zathura,
+}:
 
 stdenvNoCC.mkDerivation {
   pname = "manga-cli";

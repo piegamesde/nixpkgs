@@ -1,5 +1,20 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, wrapQtAppsHook, qmake, pkg-config
-, qtbase, qtsvg, qttools, qtserialport, boost, libngspice, libgit2, quazip }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  wrapQtAppsHook,
+  qmake,
+  pkg-config,
+  qtbase,
+  qtsvg,
+  qttools,
+  qtserialport,
+  boost,
+  libngspice,
+  libgit2,
+  quazip,
+}:
 
 let
   # SHA256 of the fritzing-parts HEAD on the master branch,

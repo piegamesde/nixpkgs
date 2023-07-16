@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, fetchzip, p7zip }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchzip,
+  p7zip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "snap7";

@@ -1,20 +1,65 @@
-{ lib, stdenv, targetPackages, fetchurl, fetchpatch, noSysDirs, langC ? true
-, langCC ? true, langFortran ? false, langObjC ? stdenv.targetPlatform.isDarwin
-, langObjCpp ? stdenv.targetPlatform.isDarwin, langJava ? false, langGo ? false
-, reproducibleBuild ? true, profiledCompiler ? false, langJit ? false
-, staticCompiler ? false, enableShared ? !stdenv.targetPlatform.isStatic
-, enableLTO ? !stdenv.hostPlatform.isStatic, texinfo ? null
-, perl ? null # optional, for texi2pod (then pod2man); required for Java
-, gmp, mpfr, libmpc, gettext, which, patchelf, binutils, cloog ? null
-, isl ? null # optional, for the Graphite optimization framework.
-, zlib ? null, boehmgc ? null, zip ? null, unzip ? null, pkg-config ? null
-, gtk2 ? null, libart_lgpl ? null, libX11 ? null, libXt ? null, libSM ? null
-, libICE ? null, libXtst ? null, libXrender ? null, xorgproto ? null
-, libXrandr ? null, libXi ? null, x11Support ? langJava, enableMultilib ? false
-, enablePlugin ? stdenv.hostPlatform
-  == stdenv.buildPlatform # Whether to support user-supplied plug-ins
-, name ? "gcc", libcCross ? null, threadsCross ? null # for MinGW
-, crossStageStatic ? false, gnused ? null, buildPackages }:
+{
+  lib,
+  stdenv,
+  targetPackages,
+  fetchurl,
+  fetchpatch,
+  noSysDirs,
+  langC ? true,
+  langCC ? true,
+  langFortran ? false,
+  langObjC ? stdenv.targetPlatform.isDarwin,
+  langObjCpp ? stdenv.targetPlatform.isDarwin,
+  langJava ? false,
+  langGo ? false,
+  reproducibleBuild ? true,
+  profiledCompiler ? false,
+  langJit ? false,
+  staticCompiler ? false,
+  enableShared ? !stdenv.targetPlatform.isStatic,
+  enableLTO ? !stdenv.hostPlatform.isStatic,
+  texinfo ? null,
+  perl ? null # optional, for texi2pod (then pod2man); required for Java
+  ,
+  gmp,
+  mpfr,
+  libmpc,
+  gettext,
+  which,
+  patchelf,
+  binutils,
+  cloog ? null,
+  isl ? null # optional, for the Graphite optimization framework.
+  ,
+  zlib ? null,
+  boehmgc ? null,
+  zip ? null,
+  unzip ? null,
+  pkg-config ? null,
+  gtk2 ? null,
+  libart_lgpl ? null,
+  libX11 ? null,
+  libXt ? null,
+  libSM ? null,
+  libICE ? null,
+  libXtst ? null,
+  libXrender ? null,
+  xorgproto ? null,
+  libXrandr ? null,
+  libXi ? null,
+  x11Support ? langJava,
+  enableMultilib ? false,
+  enablePlugin ? stdenv.hostPlatform
+    == stdenv.buildPlatform # Whether to support user-supplied plug-ins
+  ,
+  name ? "gcc",
+  libcCross ? null,
+  threadsCross ? null # for MinGW
+  ,
+  crossStageStatic ? false,
+  gnused ? null,
+  buildPackages,
+}:
 
 assert langJava -> zip != null && unzip != null && zlib != null && boehmgc
   != null && perl != null; # for `--enable-java-home'

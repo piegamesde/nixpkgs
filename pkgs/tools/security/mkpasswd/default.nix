@@ -1,4 +1,11 @@
-{ lib, stdenv, whois, libxcrypt, perl, pkg-config }:
+{
+  lib,
+  stdenv,
+  whois,
+  libxcrypt,
+  perl,
+  pkg-config,
+}:
 
 stdenv.mkDerivation {
   pname = "mkpasswd";

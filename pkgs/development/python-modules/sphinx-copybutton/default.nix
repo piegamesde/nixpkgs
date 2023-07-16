@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchFromGitHub, sphinx }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  sphinx,
+}:
 
 buildPythonPackage rec {
   pname = "sphinx-copybutton";

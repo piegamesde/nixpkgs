@@ -1,8 +1,25 @@
-{ lib, stdenv, fetchFromGitLab, cmake, zlib, potrace, ffmpeg, libarchive
-, python3, qtbase, qttools, wrapQtAppsHook, testers, qtsvg, qtimageformats
-# For the tests
-, glaxnimate # Call itself, for the tests
-, xvfb-run }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  cmake,
+  zlib,
+  potrace,
+  ffmpeg,
+  libarchive,
+  python3,
+  qtbase,
+  qttools,
+  wrapQtAppsHook,
+  testers,
+  qtsvg,
+  qtimageformats
+  # For the tests
+  ,
+  glaxnimate # Call itself, for the tests
+  ,
+  xvfb-run,
+}:
 let
   # TODO: try to add a python library, see toPythonModule in doc/languages-frameworks/python.section.md
   python3WithLibs = python3.withPackages (ps:

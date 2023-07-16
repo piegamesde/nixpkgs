@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, pandoc, installShellFiles, withManpage ? false
-, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pandoc,
+  installShellFiles,
+  withManpage ? false,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "earlyoom";

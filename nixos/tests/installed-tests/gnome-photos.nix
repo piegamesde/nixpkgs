@@ -1,4 +1,8 @@
-{ pkgs, makeInstalledTest, ... }:
+{
+  pkgs,
+  makeInstalledTest,
+  ...
+}:
 
 makeInstalledTest {
   tested = pkgs.gnome-photos;

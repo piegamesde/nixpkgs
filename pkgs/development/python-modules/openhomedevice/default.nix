@@ -1,4 +1,10 @@
-{ lib, async-upnp-client, buildPythonPackage, fetchFromGitHub, lxml, pythonOlder
+{
+  lib,
+  async-upnp-client,
+  buildPythonPackage,
+  fetchFromGitHub,
+  lxml,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

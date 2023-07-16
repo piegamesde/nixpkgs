@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, makeWrapper, darwin, bootstrap-chicken ? null }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  darwin,
+  bootstrap-chicken ? null
+}:
 
 let
   version = "4.13.0";

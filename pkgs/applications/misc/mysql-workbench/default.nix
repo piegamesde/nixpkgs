@@ -1,9 +1,48 @@
-{ lib, stdenv, fetchurl, substituteAll, cmake, ninja, pkg-config, glibc, gtk3
-, gtkmm3, pcre, swig, antlr4_12, sudo, mysql, libxml2, libmysqlconnectorcpp
-, vsqlite, gdal, libiodbc, libpthreadstubs, libXdmcp, libuuid, libzip, libsecret
-, libssh, python3, jre, boost, libsigcxx, libX11, openssl, rapidjson, proj
-, cairo, libxkbcommon, libepoxy, wrapGAppsHook, at-spi2-core, dbus, bash
-, coreutils, zstd }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  substituteAll,
+  cmake,
+  ninja,
+  pkg-config,
+  glibc,
+  gtk3,
+  gtkmm3,
+  pcre,
+  swig,
+  antlr4_12,
+  sudo,
+  mysql,
+  libxml2,
+  libmysqlconnectorcpp,
+  vsqlite,
+  gdal,
+  libiodbc,
+  libpthreadstubs,
+  libXdmcp,
+  libuuid,
+  libzip,
+  libsecret,
+  libssh,
+  python3,
+  jre,
+  boost,
+  libsigcxx,
+  libX11,
+  openssl,
+  rapidjson,
+  proj,
+  cairo,
+  libxkbcommon,
+  libepoxy,
+  wrapGAppsHook,
+  at-spi2-core,
+  dbus,
+  bash,
+  coreutils,
+  zstd,
+}:
 
 let inherit (python3.pkgs) paramiko pycairo pyodbc;
 in stdenv.mkDerivation rec {

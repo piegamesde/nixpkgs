@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, lxml, pytestCheckHook
-, text-unidecode, xmlschema }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  lxml,
+  pytestCheckHook,
+  text-unidecode,
+  xmlschema,
+}:
 
 buildPythonPackage rec {
   pname = "sepaxml";

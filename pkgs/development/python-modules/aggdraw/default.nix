@@ -1,4 +1,12 @@
-{ lib, fetchFromGitHub, buildPythonPackage, pytest, python, pillow, numpy }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pytest,
+  python,
+  pillow,
+  numpy,
+}:
 
 buildPythonPackage rec {
   pname = "aggdraw";

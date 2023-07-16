@@ -1,6 +1,17 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, hatchling, aiofiles
-, aiosqlite, y-py, pytest-asyncio, pytestCheckHook, pythonRelaxDepsHook
-, websockets }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  hatchling,
+  aiofiles,
+  aiosqlite,
+  y-py,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonRelaxDepsHook,
+  websockets,
+}:
 
 buildPythonPackage rec {
   pname = "ypy-websocket";

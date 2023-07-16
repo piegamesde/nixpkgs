@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, dlms-cosem, fetchFromGitHub, pyserial
-, pyserial-asyncio, pytestCheckHook, pythonOlder, pytz, tailer }:
+{
+  lib,
+  buildPythonPackage,
+  dlms-cosem,
+  fetchFromGitHub,
+  pyserial,
+  pyserial-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  tailer,
+}:
 
 buildPythonPackage rec {
   pname = "dsmr-parser";

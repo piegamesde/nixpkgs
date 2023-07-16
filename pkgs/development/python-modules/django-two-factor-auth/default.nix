@@ -1,6 +1,20 @@
-{ lib, buildPythonPackage, django, django-formtools, django-otp
-, django-phonenumber-field, fetchFromGitHub, phonenumbers, pydantic, pythonOlder
-, pythonRelaxDepsHook, qrcode, setuptools-scm, twilio, webauthn }:
+{
+  lib,
+  buildPythonPackage,
+  django,
+  django-formtools,
+  django-otp,
+  django-phonenumber-field,
+  fetchFromGitHub,
+  phonenumbers,
+  pydantic,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  qrcode,
+  setuptools-scm,
+  twilio,
+  webauthn,
+}:
 
 buildPythonPackage rec {
   pname = "django-two-factor-auth";

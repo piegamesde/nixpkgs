@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, perl, gettext, buildPackages }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  gettext,
+  buildPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "texi2html";

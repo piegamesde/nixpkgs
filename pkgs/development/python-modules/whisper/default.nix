@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, mock, six, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  six,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "whisper";

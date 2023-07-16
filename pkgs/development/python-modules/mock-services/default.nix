@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, attrs, funcsigs
-, requests-mock, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  attrs,
+  funcsigs,
+  requests-mock,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "mock-services";

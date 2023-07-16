@@ -1,11 +1,52 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, wrapQtAppsHook, qtbase, bluez
-, ffmpeg, libao, libGLU, libGL, pcre, gettext, libXrandr, libusb1
-, libpthreadstubs, libXext, libXxf86vm, libXinerama, libSM, libXdmcp, readline
-, openal, udev, libevdev, portaudio, curl, alsa-lib, miniupnpc, enet, mbedtls_2
-, soundtouch, sfml, fmt, xz, vulkan-loader, libpulseaudio
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  wrapQtAppsHook,
+  qtbase,
+  bluez,
+  ffmpeg,
+  libao,
+  libGLU,
+  libGL,
+  pcre,
+  gettext,
+  libXrandr,
+  libusb1,
+  libpthreadstubs,
+  libXext,
+  libXxf86vm,
+  libXinerama,
+  libSM,
+  libXdmcp,
+  readline,
+  openal,
+  udev,
+  libevdev,
+  portaudio,
+  curl,
+  alsa-lib,
+  miniupnpc,
+  enet,
+  mbedtls_2,
+  soundtouch,
+  sfml,
+  fmt,
+  xz,
+  vulkan-loader,
+  libpulseaudio
 
-# - Inputs used for Darwin
-, CoreBluetooth, ForceFeedback, IOKit, OpenGL, libpng, hidapi }:
+  # - Inputs used for Darwin
+  ,
+  CoreBluetooth,
+  ForceFeedback,
+  IOKit,
+  OpenGL,
+  libpng,
+  hidapi,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dolphin-emu-primehack";

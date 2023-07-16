@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, sphinx, accessible-pygments
-, beautifulsoup4, docutils, packaging, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  sphinx,
+  accessible-pygments,
+  beautifulsoup4,
+  docutils,
+  packaging,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "pydata-sphinx-theme";

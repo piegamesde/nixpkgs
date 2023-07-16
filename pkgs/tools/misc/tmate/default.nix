@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, cmake, libtool, pkg-config, zlib
-, openssl, libevent, ncurses, ruby, msgpack, libssh }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  cmake,
+  libtool,
+  pkg-config,
+  zlib,
+  openssl,
+  libevent,
+  ncurses,
+  ruby,
+  msgpack,
+  libssh,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tmate";

@@ -1,4 +1,13 @@
-{ fetchFromGitHub, gperf, openssl, readline, zlib, cmake, lib, stdenv }:
+{
+  fetchFromGitHub,
+  gperf,
+  openssl,
+  readline,
+  zlib,
+  cmake,
+  lib,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tdlib";

@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ lib, pkgs, ... }:
+import ./make-test-python.nix ({
+    lib,
+    pkgs,
+    ...
+  }:
   let
     slurmconfig = {
       services.slurm = {
@@ -54,25 +58,34 @@ import ./make-test-python.nix ({ lib, pkgs, ... }:
     meta.maintainers = [ lib.maintainers.markuskowa ];
 
     nodes = let
-      computeNode = { ... }: {
-        imports = [ slurmconfig ];
-        # TODO slurmd port and slurmctld port should be configurations and
-        # automatically allowed by the  firewall.
-        services.slurm = { client.enable = true; };
-      };
+      computeNode = {
+          ...
+        }: {
+          imports = [ slurmconfig ];
+          # TODO slurmd port and slurmctld port should be configurations and
+          # automatically allowed by the  firewall.
+          services.slurm = { client.enable = true; };
+        };
     in {
 
-      control = { ... }: {
-        imports = [ slurmconfig ];
-        services.slurm = { server.enable = true; };
-      };
+      control = {
+          ...
+        }: {
+          imports = [ slurmconfig ];
+          services.slurm = { server.enable = true; };
+        };
 
-      submit = { ... }: {
-        imports = [ slurmconfig ];
-        services.slurm = { enableStools = true; };
-      };
+      submit = {
+          ...
+        }: {
+          imports = [ slurmconfig ];
+          services.slurm = { enableStools = true; };
+        };
 
-      dbd = { pkgs, ... }:
+      dbd = {
+          pkgs,
+          ...
+        }:
         let passFile = pkgs.writeText "dbdpassword" "password123";
         in {
           networking.firewall.enable = false;

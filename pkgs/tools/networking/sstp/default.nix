@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitLab, pkg-config, ppp, libevent, openssl
-, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  pkg-config,
+  ppp,
+  libevent,
+  openssl,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sstp-client";

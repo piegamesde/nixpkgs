@@ -1,4 +1,10 @@
-{ lib, buildPythonApplication, fetchFromGitHub, pyserial, halo }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  pyserial,
+  halo,
+}:
 
 buildPythonApplication rec {
   pname = "btlejack";

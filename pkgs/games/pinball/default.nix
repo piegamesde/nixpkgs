@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, autoreconfHook, pkg-config, libglvnd, SDL, SDL_image
-, SDL_mixer, xorg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  libglvnd,
+  SDL,
+  SDL_image,
+  SDL_mixer,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pinball";

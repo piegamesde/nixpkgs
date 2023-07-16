@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchurl, fetchpatch, autoreconfHook, xz, buildPackages }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  autoreconfHook,
+  xz,
+  buildPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libunwind";

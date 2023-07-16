@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, flex, bison, readline, libssh, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  flex,
+  bison,
+  readline,
+  libssh,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bird";

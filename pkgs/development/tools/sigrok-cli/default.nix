@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, glib, libsigrok, libsigrokdecode }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  glib,
+  libsigrok,
+  libsigrokdecode,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sigrok-cli";

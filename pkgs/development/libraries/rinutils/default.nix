@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchurl, cmake, perl }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  cmake,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rinutils";

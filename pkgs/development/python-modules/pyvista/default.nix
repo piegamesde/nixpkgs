@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, imageio, numpy, pillow, pooch
-, scooby, vtk }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  imageio,
+  numpy,
+  pillow,
+  pooch,
+  scooby,
+  vtk,
+}:
 
 buildPythonPackage rec {
   pname = "pyvista";

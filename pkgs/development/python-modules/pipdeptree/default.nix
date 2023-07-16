@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, diff-cover, graphviz
-, hatchling, hatch-vcs, pytest-mock, pytestCheckHook, pip, virtualenv }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  diff-cover,
+  graphviz,
+  hatchling,
+  hatch-vcs,
+  pytest-mock,
+  pytestCheckHook,
+  pip,
+  virtualenv,
+}:
 
 buildPythonPackage rec {
   pname = "pipdeptree";

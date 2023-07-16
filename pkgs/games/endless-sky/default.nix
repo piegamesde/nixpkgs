@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, SDL2, libpng, libjpeg, glew, openal, scons
-, libmad, libuuid }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL2,
+  libpng,
+  libjpeg,
+  glew,
+  openal,
+  scons,
+  libmad,
+  libuuid,
+}:
 
 stdenv.mkDerivation rec {
   pname = "endless-sky";

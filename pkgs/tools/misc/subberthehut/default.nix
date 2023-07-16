@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, xmlrpc_c, glib, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  xmlrpc_c,
+  glib,
+  zlib,
+}:
 stdenv.mkDerivation rec {
   pname = "subberthehut";
   version = "20";

@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchurl, autoreconfHook, mecab, kytea, libedit, pkg-config
-, libxcrypt, suggestSupport ? false, zeromq, libevent, msgpack, openssl
-, lz4Support ? false, lz4, zlibSupport ? true, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  mecab,
+  kytea,
+  libedit,
+  pkg-config,
+  libxcrypt,
+  suggestSupport ? false,
+  zeromq,
+  libevent,
+  msgpack,
+  openssl,
+  lz4Support ? false,
+  lz4,
+  zlibSupport ? true,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
 

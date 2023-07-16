@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, getopt, util-linuxMinimal, which, gperf
-, nix-update-script }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  getopt,
+  util-linuxMinimal,
+  which,
+  gperf,
+  nix-update-script,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libseccomp";

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, oauthlib, pythonOlder, requests
-, requests-oauthlib }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  oauthlib,
+  pythonOlder,
+  requests,
+  requests-oauthlib,
+}:
 
 buildPythonPackage rec {
   pname = "ondilo";

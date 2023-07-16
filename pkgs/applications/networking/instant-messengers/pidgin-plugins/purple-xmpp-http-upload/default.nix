@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pidgin, glib, libxml2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pidgin,
+  glib,
+  libxml2,
+}:
 
 stdenv.mkDerivation {
   pname = "purple-xmpp-upload";

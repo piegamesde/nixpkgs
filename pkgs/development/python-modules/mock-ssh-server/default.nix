@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, paramiko, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  paramiko,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "mock-ssh-server";

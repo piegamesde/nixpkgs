@@ -1,29 +1,76 @@
-{ stdenv, lib, fetchFromGitHub, cmake, wrapGAppsHook, readline, ncurses, zlib
-, gsl, openmp, graphicsmagick, fftw, fftwFloat, fftwLongDouble, proj, shapelib
-, expat, udunits, eigen, pslib, libpng, plplot, libtiff, libgeotiff, libjpeg
-# eccodes is broken on darwin
-, enableGRIB ? stdenv.isLinux, eccodes, enableGLPK ? stdenv.isLinux, glpk
-# We enable it in hdf4 and use libtirpc as a dependency here from the passthru
-# of hdf4
-, enableLibtirpc ? stdenv.isLinux, libtirpc, python3, enableMPI ?
-  (stdenv.isLinux || stdenv.isDarwin)
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  wrapGAppsHook,
+  readline,
+  ncurses,
+  zlib,
+  gsl,
+  openmp,
+  graphicsmagick,
+  fftw,
+  fftwFloat,
+  fftwLongDouble,
+  proj,
+  shapelib,
+  expat,
+  udunits,
+  eigen,
+  pslib,
+  libpng,
+  plplot,
+  libtiff,
+  libgeotiff,
+  libjpeg
+  # eccodes is broken on darwin
+  ,
+  enableGRIB ? stdenv.isLinux,
+  eccodes,
+  enableGLPK ? stdenv.isLinux,
+  glpk
+  # We enable it in hdf4 and use libtirpc as a dependency here from the passthru
+  # of hdf4
+  ,
+  enableLibtirpc ? stdenv.isLinux,
+  libtirpc,
+  python3,
+  enableMPI ? (stdenv.isLinux || stdenv.isDarwin)
   # Choose MPICH over OpenMPI because it currently builds on AArch and Darwin
-, mpi
-# Unfree optional dependency for hdf4 and hdf5
-, enableSzip ? false, szip, enableHDF4 ? true, hdf4, hdf4-forced ? null
-, enableHDF5 ? true
-  # HDF5 format version (API version) 1.10 and 1.12 is not fully compatible
-  # Specify if the API version should default to 1.10
-  # netcdf currently depends on hdf5 with `usev110Api=true`
-  # If you wish to use HDF5 API version 1.12 (`useHdf5v110Api=false`),
-  # you will need to turn NetCDF off.
-, useHdf5v110Api ? true, hdf5, hdf5-forced ? null, enableNetCDF ? true, netcdf
-, netcdf-forced ? null, plplot-forced ? null
-  # wxWidgets is preferred over X11 for this project but we only have it on Linux
-  # and Darwin.
-, enableWX ? (stdenv.isLinux || stdenv.isDarwin), wxGTK32, Cocoa
-# X11: OFF by default for platform consistency. Use X where WX is not available
-, enableXWin ? (!stdenv.isLinux && !stdenv.isDarwin) }:
+  ,
+  mpi
+  # Unfree optional dependency for hdf4 and hdf5
+  ,
+  enableSzip ? false,
+  szip,
+  enableHDF4 ? true,
+  hdf4,
+  hdf4-forced ? null,
+  enableHDF5 ? true
+    # HDF5 format version (API version) 1.10 and 1.12 is not fully compatible
+    # Specify if the API version should default to 1.10
+    # netcdf currently depends on hdf5 with `usev110Api=true`
+    # If you wish to use HDF5 API version 1.12 (`useHdf5v110Api=false`),
+    # you will need to turn NetCDF off.
+  ,
+  useHdf5v110Api ? true,
+  hdf5,
+  hdf5-forced ? null,
+  enableNetCDF ? true,
+  netcdf,
+  netcdf-forced ? null,
+  plplot-forced ? null
+    # wxWidgets is preferred over X11 for this project but we only have it on Linux
+    # and Darwin.
+  ,
+  enableWX ? (stdenv.isLinux || stdenv.isDarwin),
+  wxGTK32,
+  Cocoa
+  # X11: OFF by default for platform consistency. Use X where WX is not available
+  ,
+  enableXWin ? (!stdenv.isLinux && !stdenv.isDarwin)
+}:
 
 let
   hdf4-custom = if hdf4-forced != null then

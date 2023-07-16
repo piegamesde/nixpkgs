@@ -1,5 +1,20 @@
-{ buildPythonPackage, cython, fetchFromGitHub, fetchpatch, h5py, imgaug, ipython
-, keras, lib, matplotlib, numpy, opencv3, pillow, scikitimage, scipy, tensorflow
+{
+  buildPythonPackage,
+  cython,
+  fetchFromGitHub,
+  fetchpatch,
+  h5py,
+  imgaug,
+  ipython,
+  keras,
+  lib,
+  matplotlib,
+  numpy,
+  opencv3,
+  pillow,
+  scikitimage,
+  scipy,
+  tensorflow,
 }:
 
 buildPythonPackage rec {

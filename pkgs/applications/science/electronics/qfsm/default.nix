@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, qt4, cmake, graphviz, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  qt4,
+  cmake,
+  graphviz,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qfsm";

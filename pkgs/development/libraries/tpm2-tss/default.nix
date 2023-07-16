@@ -1,6 +1,24 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, autoconf-archive, pkg-config
-, doxygen, perl, openssl, json_c, curl, libgcrypt, cmocka, uthash, ibm-sw-tpm2
-, iproute2, procps, which, shadow }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  autoconf-archive,
+  pkg-config,
+  doxygen,
+  perl,
+  openssl,
+  json_c,
+  curl,
+  libgcrypt,
+  cmocka,
+  uthash,
+  ibm-sw-tpm2,
+  iproute2,
+  procps,
+  which,
+  shadow,
+}:
 let
   # Avoid a circular dependency on Linux systems (systemd depends on tpm2-tss,
   # tpm2-tss tests depend on procps, procps depends on systemd by default). This

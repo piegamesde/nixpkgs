@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchurl, zip, unzip, jdk, python2, confFile ? ""
-, extraLibraryPaths ? [ ], extraJars ? [ ] }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  zip,
+  unzip,
+  jdk,
+  python2,
+  confFile ? "",
+  extraLibraryPaths ? [ ],
+  extraJars ? [ ]
+}:
 
 stdenv.mkDerivation rec {
   pname = "apache-storm";

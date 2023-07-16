@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pillow, mock }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pillow,
+  mock,
+}:
 
 buildPythonPackage rec {
   pname = "pydenticon";

@@ -1,4 +1,12 @@
-{ stdenv, pname, version, src, meta, unzip, undmg }:
+{
+  stdenv,
+  pname,
+  version,
+  src,
+  meta,
+  unzip,
+  undmg,
+}:
 
 stdenv.mkDerivation {
   inherit pname version src meta;

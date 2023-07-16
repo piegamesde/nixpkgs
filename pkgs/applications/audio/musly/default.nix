@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, eigen, ffmpeg_4 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  eigen,
+  ffmpeg_4,
+}:
 stdenv.mkDerivation {
   pname = "musly";
   version = "unstable-2017-04-26";

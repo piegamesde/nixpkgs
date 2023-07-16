@@ -1,4 +1,9 @@
-{ lib, newScope, IOKit, CoreFoundation }:
+{
+  lib,
+  newScope,
+  IOKit,
+  CoreFoundation,
+}:
 
 lib.makeScope newScope (self:
   with self; {

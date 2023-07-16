@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, zlib, libarchive, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  zlib,
+  libarchive,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.0";

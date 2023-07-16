@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, python3, bdftopcf, xorg, libfaketime, }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  bdftopcf,
+  xorg,
+  libfaketime,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tewi-font";

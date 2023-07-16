@@ -1,5 +1,12 @@
-{ lib, stdenv, build2, fetchurl, libbutl
-, enableShared ? !stdenv.hostPlatform.isStatic, enableStatic ? !enableShared }:
+{
+  lib,
+  stdenv,
+  build2,
+  fetchurl,
+  libbutl,
+  enableShared ? !stdenv.hostPlatform.isStatic,
+  enableStatic ? !enableShared
+}:
 
 stdenv.mkDerivation rec {
   pname = "libbpkg";

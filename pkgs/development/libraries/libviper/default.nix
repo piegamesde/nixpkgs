@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, glib, ncurses, gpm }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  glib,
+  ncurses,
+  gpm,
+}:
 stdenv.mkDerivation rec {
   pname = "libviper";
   version = "1.4.6";

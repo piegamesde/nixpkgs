@@ -1,5 +1,14 @@
-{ lib, stdenv, requireFile, unzip, makeDesktopItem, SDL2, SDL2_mixer, libogg
-, libvorbis }:
+{
+  lib,
+  stdenv,
+  requireFile,
+  unzip,
+  makeDesktopItem,
+  SDL2,
+  SDL2_mixer,
+  libogg,
+  libvorbis,
+}:
 
 let
   arch = if stdenv.system == "x86_64-linux" then "x86_64" else "x86";

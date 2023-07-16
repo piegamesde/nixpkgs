@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, openssl, libevent, c-ares, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  openssl,
+  libevent,
+  c-ares,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pgbouncer";

@@ -1,11 +1,56 @@
-{ pname, dir, version, hash, stdenv, lib, fetchurl, autoPatchelfHook, dpkg
-, wrapGAppsHook, makeWrapper, nixosTests, gtk3, atk, at-spi2-atk, cairo, pango
-, gdk-pixbuf, glib, freetype, fontconfig, dbus, libX11, xorg, libXi, libXcursor
-, libXdamage, libXrandr, libXcomposite, libXext, libXfixes, libXrender, libXtst
-, libXScrnSaver, nss, nspr, alsa-lib, cups, expat, libuuid, at-spi2-core
-, libappindicator-gtk3, mesa
-# Runtime dependencies:
-, systemd, libnotify, libdbusmenu, libpulseaudio, xdg-utils, wayland }:
+{
+  pname,
+  dir,
+  version,
+  hash,
+  stdenv,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+  dpkg,
+  wrapGAppsHook,
+  makeWrapper,
+  nixosTests,
+  gtk3,
+  atk,
+  at-spi2-atk,
+  cairo,
+  pango,
+  gdk-pixbuf,
+  glib,
+  freetype,
+  fontconfig,
+  dbus,
+  libX11,
+  xorg,
+  libXi,
+  libXcursor,
+  libXdamage,
+  libXrandr,
+  libXcomposite,
+  libXext,
+  libXfixes,
+  libXrender,
+  libXtst,
+  libXScrnSaver,
+  nss,
+  nspr,
+  alsa-lib,
+  cups,
+  expat,
+  libuuid,
+  at-spi2-core,
+  libappindicator-gtk3,
+  mesa
+  # Runtime dependencies:
+  ,
+  systemd,
+  libnotify,
+  libdbusmenu,
+  libpulseaudio,
+  xdg-utils,
+  wayland,
+}:
 
 stdenv.mkDerivation rec {
   inherit pname version; # Please backport all updates to the stable channel.

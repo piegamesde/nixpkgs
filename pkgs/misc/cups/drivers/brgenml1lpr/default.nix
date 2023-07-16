@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, cups, perl, ghostscript, which, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cups,
+  perl,
+  ghostscript,
+  which,
+  makeWrapper,
+}:
 
 /* [Setup instructions](http://support.brother.com/g/s/id/linux/en/instruction_prn1a.html).
 

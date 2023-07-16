@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, bluez, fuse, obexftp }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  bluez,
+  fuse,
+  obexftp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "obexfs";

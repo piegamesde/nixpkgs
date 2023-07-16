@@ -1,4 +1,7 @@
-{ lib, collectd }:
+{
+  lib,
+  collectd,
+}:
 
 collectd.overrideAttrs (oldAttrs: {
   pname = "libcollectdclient";

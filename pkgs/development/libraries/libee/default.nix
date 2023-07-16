@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, pkg-config, libestr }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libestr,
+}:
 stdenv.mkDerivation rec {
   pname = "libee";
   version = "0.4.1";

@@ -1,8 +1,44 @@
-{ stdenv, lib, fetchurl, dpkg, atk, glib, pango, gdk-pixbuf, gtk3, cairo
-, freetype, fontconfig, dbus, libXi, libXcursor, libXdamage, libXrandr
-, libXcomposite, libXext, libXfixes, libXrender, libX11, libXtst, libXScrnSaver
-, libxcb, nss, nspr, alsa-lib, cups, expat, udev, libpulseaudio, at-spi2-atk
-, at-spi2-core, libxshmfence, libdrm, libxkbcommon, mesa, nixosTests }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  dpkg,
+  atk,
+  glib,
+  pango,
+  gdk-pixbuf,
+  gtk3,
+  cairo,
+  freetype,
+  fontconfig,
+  dbus,
+  libXi,
+  libXcursor,
+  libXdamage,
+  libXrandr,
+  libXcomposite,
+  libXext,
+  libXfixes,
+  libXrender,
+  libX11,
+  libXtst,
+  libXScrnSaver,
+  libxcb,
+  nss,
+  nspr,
+  alsa-lib,
+  cups,
+  expat,
+  udev,
+  libpulseaudio,
+  at-spi2-atk,
+  at-spi2-core,
+  libxshmfence,
+  libdrm,
+  libxkbcommon,
+  mesa,
+  nixosTests,
+}:
 
 let
   libPath = lib.makeLibraryPath [

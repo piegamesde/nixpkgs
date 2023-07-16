@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, cups, dpkg, gnused, makeWrapper, ghostscript, file
-, a2ps, coreutils, perl, gnugrep, which }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cups,
+  dpkg,
+  gnused,
+  makeWrapper,
+  ghostscript,
+  file,
+  a2ps,
+  coreutils,
+  perl,
+  gnugrep,
+  which,
+}:
 
 let
   version = "3.2.0-1";

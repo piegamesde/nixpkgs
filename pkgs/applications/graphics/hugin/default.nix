@@ -1,7 +1,40 @@
-{ lib, stdenv, cmake, fetchurl, gnumake, makeWrapper, pkg-config, autopanosiftc
-, boost, cairo, enblend-enfuse, exiv2, fftw, flann, gettext, glew-egl, ilmbase
-, lcms2, lensfun, libjpeg, libpng, libtiff, libX11, libXi, libXmu, libGLU, libGL
-, openexr, panotools, perlPackages, sqlite, vigra, wrapGAppsHook, wxGTK, zlib }:
+{
+  lib,
+  stdenv,
+  cmake,
+  fetchurl,
+  gnumake,
+  makeWrapper,
+  pkg-config,
+  autopanosiftc,
+  boost,
+  cairo,
+  enblend-enfuse,
+  exiv2,
+  fftw,
+  flann,
+  gettext,
+  glew-egl,
+  ilmbase,
+  lcms2,
+  lensfun,
+  libjpeg,
+  libpng,
+  libtiff,
+  libX11,
+  libXi,
+  libXmu,
+  libGLU,
+  libGL,
+  openexr,
+  panotools,
+  perlPackages,
+  sqlite,
+  vigra,
+  wrapGAppsHook,
+  wxGTK,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hugin";

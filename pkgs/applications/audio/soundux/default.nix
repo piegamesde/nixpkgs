@@ -1,8 +1,36 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, makeBinaryWrapper, pipewire
-, libpulseaudio, libappindicator, libstartup_notification, openssl, libwnck
-, pcre, util-linux, libselinux, libsepol, libthai, libdatrie, xorg, libxkbcommon
-, libepoxy, dbus, at-spi2-core, nlohmann_json, fancypp, httplib, semver-cpp
-, webkitgtk, yt-dlp, ffmpeg, lsb-release }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  makeBinaryWrapper,
+  pipewire,
+  libpulseaudio,
+  libappindicator,
+  libstartup_notification,
+  openssl,
+  libwnck,
+  pcre,
+  util-linux,
+  libselinux,
+  libsepol,
+  libthai,
+  libdatrie,
+  xorg,
+  libxkbcommon,
+  libepoxy,
+  dbus,
+  at-spi2-core,
+  nlohmann_json,
+  fancypp,
+  httplib,
+  semver-cpp,
+  webkitgtk,
+  yt-dlp,
+  ffmpeg,
+  lsb-release,
+}:
 
 stdenv.mkDerivation rec {
   pname = "soundux";

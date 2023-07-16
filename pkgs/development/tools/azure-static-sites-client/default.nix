@@ -1,7 +1,19 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, curl, icu70, libkrb5, lttng-ust
-, openssl_1_1, zlib, azure-static-sites-client
-# "latest", "stable" or "backup"
-, versionFlavor ? "stable" }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  curl,
+  icu70,
+  libkrb5,
+  lttng-ust,
+  openssl_1_1,
+  zlib,
+  azure-static-sites-client
+  # "latest", "stable" or "backup"
+  ,
+  versionFlavor ? "stable"
+}:
 let
   versions = lib.importJSON ./versions.json;
   flavor = with lib; head (filter (x: x.version == versionFlavor) versions);

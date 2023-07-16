@@ -1,5 +1,17 @@
-{ mkDerivation, lib, extra-cmake-modules, karchive, kcrash, ki18n, kio
-, libgcrypt, qca-qt5, solid, boost, gmp }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  karchive,
+  kcrash,
+  ki18n,
+  kio,
+  libgcrypt,
+  qca-qt5,
+  solid,
+  boost,
+  gmp,
+}:
 
 mkDerivation {
   pname = "libktorrent";

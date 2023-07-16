@@ -1,5 +1,13 @@
-{ lib, clangStdenv, stdenv, cmake, autoPatchelfHook, fetchFromGitHub
-, dotnetCorePackages, buildDotnetModule }:
+{
+  lib,
+  clangStdenv,
+  stdenv,
+  cmake,
+  autoPatchelfHook,
+  fetchFromGitHub,
+  dotnetCorePackages,
+  buildDotnetModule,
+}:
 let
   pname = "netcoredbg";
   version = "2.2.0-961";

@@ -1,4 +1,11 @@
-{ mkDerivation, fetchFromGitHub, makeWrapper, lib, php, php81 }:
+{
+  mkDerivation,
+  fetchFromGitHub,
+  makeWrapper,
+  lib,
+  php,
+  php81,
+}:
 let
   pname = "php-parallel-lint";
   version = "1.3.2";

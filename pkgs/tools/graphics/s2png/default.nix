@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, diffutils, gd, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  diffutils,
+  gd,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "s2png";

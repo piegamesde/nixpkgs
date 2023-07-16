@@ -1,5 +1,11 @@
-{ lib, stdenv, fetchurl, flex, bison
-, sendmailPath ? "/run/wrappers/bin/sendmail" }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  flex,
+  bison,
+  sendmailPath ? "/run/wrappers/bin/sendmail"
+}:
 
 stdenv.mkDerivation rec {
   pname = "petidomo";

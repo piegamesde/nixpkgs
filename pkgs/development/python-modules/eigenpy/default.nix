@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost, eigen, numpy }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  eigen,
+  numpy,
+}:
 
 stdenv.mkDerivation rec {
   pname = "eigenpy";

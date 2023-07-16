@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, which, ocaml, findlib, camlzip, extlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  which,
+  ocaml,
+  findlib,
+  camlzip,
+  extlib,
+}:
 
 lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
 "javalib is not available for OCaml ${ocaml.version}"

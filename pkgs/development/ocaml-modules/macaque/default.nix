@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, ocaml, findlib, ocamlbuild, pgocaml, camlp4 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  pgocaml,
+  camlp4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocaml-macaque";

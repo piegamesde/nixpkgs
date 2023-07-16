@@ -1,6 +1,9 @@
 # run the tests with nixt <absolutePath to parent dir> -v
 
-{ pkgs ? import <nixpkgs> { }, nixt }:
+{
+  pkgs ? import <nixpkgs> { },
+  nixt,
+}:
 let
   inherit (import ./update-utils.nix { inherit (pkgs) lib; })
     extractLatestVersionFromHtml extractSha256FromHtml getLatestStableVersion;

@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, wayland, cairo, pango, gtk
-, pkg-config, scdoc, libnotify, glib, wrapGAppsHook, hicolor-icon-theme }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  wayland,
+  cairo,
+  pango,
+  gtk,
+  pkg-config,
+  scdoc,
+  libnotify,
+  glib,
+  wrapGAppsHook,
+  hicolor-icon-theme,
+}:
 
 stdenv.mkDerivation rec {
   pname = "swappy";

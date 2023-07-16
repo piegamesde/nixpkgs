@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, SDL2, SDL2_image, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  SDL2,
+  SDL2_image,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "klystrack";

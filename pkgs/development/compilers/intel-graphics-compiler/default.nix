@@ -1,8 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, cmake, runCommandLocal, bison, flex
-, llvmPackages_11, opencl-clang, python3, spirv-tools, spirv-headers
-, spirv-llvm-translator
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  runCommandLocal,
+  bison,
+  flex,
+  llvmPackages_11,
+  opencl-clang,
+  python3,
+  spirv-tools,
+  spirv-headers,
+  spirv-llvm-translator
 
-, buildWithPatches ? true }:
+  ,
+  buildWithPatches ? true
+}:
 
 let
   vc_intrinsics_src = fetchFromGitHub {

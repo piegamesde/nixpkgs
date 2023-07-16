@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchurl, sconsPackages, boost, gperftools, pcre-cpp, snappy
-, zlib, yaml-cpp, sasl, openssl, libpcap, python3, curl, Security
-, CoreFoundation, cctools, xz }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  sconsPackages,
+  boost,
+  gperftools,
+  pcre-cpp,
+  snappy,
+  zlib,
+  yaml-cpp,
+  sasl,
+  openssl,
+  libpcap,
+  python3,
+  curl,
+  Security,
+  CoreFoundation,
+  cctools,
+  xz,
+}:
 
 # Note:
 #   The command line administrative tools are part of other packages:
@@ -8,7 +26,12 @@
 
 with lib;
 
-{ version, sha256, patches ? [ ], license ? lib.licenses.sspl }:
+{
+  version,
+  sha256,
+  patches ? [ ],
+  license ? lib.licenses.sspl
+}:
 
 let
   variants = if versionAtLeast version "6.0" then rec {

@@ -1,4 +1,11 @@
-{ lib, stdenv, windows, fetchurl, fetchpatch, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  windows,
+  fetchurl,
+  fetchpatch,
+  autoreconfHook,
+}:
 
 let version = "10.0.0";
 in stdenv.mkDerivation {

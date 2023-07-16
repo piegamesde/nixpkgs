@@ -1,5 +1,17 @@
-{ lib, stdenv, asgiref, autobahn, buildPythonPackage, django, fetchFromGitHub
-, hypothesis, pytest-asyncio, pytestCheckHook, pythonOlder, twisted }:
+{
+  lib,
+  stdenv,
+  asgiref,
+  autobahn,
+  buildPythonPackage,
+  django,
+  fetchFromGitHub,
+  hypothesis,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  twisted,
+}:
 
 buildPythonPackage rec {
   pname = "daphne";

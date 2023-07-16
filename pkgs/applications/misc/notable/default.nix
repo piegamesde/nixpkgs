@@ -1,4 +1,9 @@
-{ appimageTools, makeWrapper, fetchurl, lib }:
+{
+  appimageTools,
+  makeWrapper,
+  fetchurl,
+  lib,
+}:
 
 let
   pname = "notable";

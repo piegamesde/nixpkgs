@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, cmake, numpy, pybind11
-, scikit-build-core, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  cmake,
+  numpy,
+  pybind11,
+  scikit-build-core,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "awkward-cpp";

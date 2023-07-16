@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, flit-core, requests
-, tomli }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  flit-core,
+  requests,
+  tomli,
+}:
 
 buildPythonPackage rec {
   pname = "wn";

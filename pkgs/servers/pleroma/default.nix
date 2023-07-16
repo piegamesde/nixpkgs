@@ -1,5 +1,16 @@
-{ lib, beamPackages, fetchFromGitHub, fetchFromGitLab, fetchHex, file, cmake
-, libxcrypt-legacy, nixosTests, writeText, ... }:
+{
+  lib,
+  beamPackages,
+  fetchFromGitHub,
+  fetchFromGitLab,
+  fetchHex,
+  file,
+  cmake,
+  libxcrypt-legacy,
+  nixosTests,
+  writeText,
+  ...
+}:
 
 beamPackages.mixRelease rec {
   pname = "pleroma";

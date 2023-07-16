@@ -1,4 +1,8 @@
-{ system, bootstrapFiles, extraAttrs }:
+{
+  system,
+  bootstrapFiles,
+  extraAttrs,
+}:
 
 derivation ({
   name = "bootstrap-tools";

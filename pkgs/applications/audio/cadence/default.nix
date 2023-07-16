@@ -1,5 +1,15 @@
-{ lib, libjack2, fetchpatch, fetchFromGitHub, jack_capture, pkg-config
-, pulseaudioFull, qtbase, mkDerivation, python3 }:
+{
+  lib,
+  libjack2,
+  fetchpatch,
+  fetchFromGitHub,
+  jack_capture,
+  pkg-config,
+  pulseaudioFull,
+  qtbase,
+  mkDerivation,
+  python3,
+}:
 #ladish missing, claudia can't work.
 #pulseaudio needs fixes (patchShebangs .pa ...)
 #desktop needs icons and exec fixing.

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libuuid, unstableGitUpdater }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libuuid,
+  unstableGitUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "crossguid";

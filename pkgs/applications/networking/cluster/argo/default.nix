@@ -1,5 +1,12 @@
-{ lib, stdenv, buildGoModule, buildGoPackage, fetchFromGitHub, installShellFiles
-, pkgsBuildBuild }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  buildGoPackage,
+  fetchFromGitHub,
+  installShellFiles,
+  pkgsBuildBuild,
+}:
 
 let
   # Argo can package a static server in the CLI using the `staticfiles` go module.

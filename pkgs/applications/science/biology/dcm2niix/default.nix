@@ -1,6 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, substituteAll, cmake, openjpeg, yaml-cpp
-, batchVersion ? false, withJpegLs ? true, withOpenJpeg ? true
-, withCloudflareZlib ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  substituteAll,
+  cmake,
+  openjpeg,
+  yaml-cpp,
+  batchVersion ? false,
+  withJpegLs ? true,
+  withOpenJpeg ? true,
+  withCloudflareZlib ? true
+}:
 
 let
   cloudflareZlib = fetchFromGitHub {

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, jdk, jre, ant }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jdk,
+  jre,
+  ant,
+}:
 
 stdenv.mkDerivation rec {
   pname = "freemind";

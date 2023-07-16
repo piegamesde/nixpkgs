@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, cmake, extra-cmake-modules, qt5, ki18n, kconfig
-, kiconthemes, kxmlgui, kwindowsystem, qtbase, makeWrapper, }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  extra-cmake-modules,
+  qt5,
+  ki18n,
+  kconfig,
+  kiconthemes,
+  kxmlgui,
+  kwindowsystem,
+  qtbase,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kdbg";

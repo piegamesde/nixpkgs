@@ -1,5 +1,12 @@
-{ lib, buildPythonApplication, click, fetchFromGitHub, freezegun
-, pytestCheckHook, tqdm }:
+{
+  lib,
+  buildPythonApplication,
+  click,
+  fetchFromGitHub,
+  freezegun,
+  pytestCheckHook,
+  tqdm,
+}:
 
 buildPythonApplication rec {
   pname = "past-time";

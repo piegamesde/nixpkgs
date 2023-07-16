@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, fetchpatch, cmake, protobuf, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  cmake,
+  protobuf,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jumanpp";

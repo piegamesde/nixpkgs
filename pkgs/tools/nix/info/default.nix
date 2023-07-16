@@ -1,6 +1,16 @@
-{ stdenv, lib, coreutils, findutils, gnugrep, darwin, bash
-# Avoid having GHC in the build-time closure of all NixOS configurations
-, doCheck ? false, shellcheck }:
+{
+  stdenv,
+  lib,
+  coreutils,
+  findutils,
+  gnugrep,
+  darwin,
+  bash
+  # Avoid having GHC in the build-time closure of all NixOS configurations
+  ,
+  doCheck ? false,
+  shellcheck,
+}:
 
 stdenv.mkDerivation {
   name = "nix-info";

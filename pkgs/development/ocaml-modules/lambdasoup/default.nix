@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, buildDunePackage, ocaml, markup, ounit2 }:
+{
+  lib,
+  fetchFromGitHub,
+  buildDunePackage,
+  ocaml,
+  markup,
+  ounit2,
+}:
 
 buildDunePackage rec {
   pname = "lambdasoup";

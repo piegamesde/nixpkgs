@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-cmake, hip
-, gfortran, rocblas, rocsolver, gtest, lapack-reference, buildTests ? false
-, buildBenchmarks ? false, buildSamples ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  cmake,
+  rocm-cmake,
+  hip,
+  gfortran,
+  rocblas,
+  rocsolver,
+  gtest,
+  lapack-reference,
+  buildTests ? false,
+  buildBenchmarks ? false,
+  buildSamples ? false
+}:
 
 # Can also use cuSOLVER
 stdenv.mkDerivation (finalAttrs: {

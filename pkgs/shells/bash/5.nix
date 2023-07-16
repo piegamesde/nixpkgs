@@ -1,10 +1,23 @@
-{ lib, stdenv, buildPackages, fetchurl, binutils, bison, util-linux
+{
+  lib,
+  stdenv,
+  buildPackages,
+  fetchurl,
+  binutils,
+  bison,
+  util-linux
 
-# patch for cygwin requires readline support
-, interactive ? stdenv.isCygwin, readline, withDocs ? false, texinfo
-, forFHSEnv ? false
+  # patch for cygwin requires readline support
+  ,
+  interactive ? stdenv.isCygwin,
+  readline,
+  withDocs ? false,
+  texinfo,
+  forFHSEnv ? false
 
-, pkgsStatic }:
+  ,
+  pkgsStatic,
+}:
 
 let
   upstreamPatches = import ./bash-5.2-patches.nix (nr: sha256:

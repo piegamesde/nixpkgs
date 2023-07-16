@@ -1,7 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi
 
-# extra: websocket
-, websocket-client }:
+  # extra: websocket
+  ,
+  websocket-client,
+}:
 
 buildPythonPackage rec {
   pname = "samsungctl";

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, alsa-lib, libjack2, pkg-config, libpulseaudio, xorg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  alsa-lib,
+  libjack2,
+  pkg-config,
+  libpulseaudio,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bristol";

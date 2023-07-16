@@ -1,7 +1,23 @@
-{ lib, buildDunePackage, dune-configurator, pkg-config, fetchFromGitHub
-, callPackage, AppKit, AudioToolbox, AVFoundation, Cocoa, CoreImage
-, ForceFeedback, ffmpeg-base ? callPackage ./base.nix { }, ffmpeg-av, ffmpeg
-, OpenGL, stdenv, VideoToolbox }:
+{
+  lib,
+  buildDunePackage,
+  dune-configurator,
+  pkg-config,
+  fetchFromGitHub,
+  callPackage,
+  AppKit,
+  AudioToolbox,
+  AVFoundation,
+  Cocoa,
+  CoreImage,
+  ForceFeedback,
+  ffmpeg-base ? callPackage ./base.nix { },
+  ffmpeg-av,
+  ffmpeg,
+  OpenGL,
+  stdenv,
+  VideoToolbox,
+}:
 
 buildDunePackage {
   pname = "ffmpeg-avdevice";

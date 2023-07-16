@@ -1,5 +1,13 @@
-{ lib, mkDerivation, extra-cmake-modules, kdoctools, kdeclarative, knewstuff
-, libkdegames, libkmahjongg }:
+{
+  lib,
+  mkDerivation,
+  extra-cmake-modules,
+  kdoctools,
+  kdeclarative,
+  knewstuff,
+  libkdegames,
+  libkmahjongg,
+}:
 
 mkDerivation {
   pname = "kmahjongg";

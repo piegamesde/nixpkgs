@@ -1,4 +1,10 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, python }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "pysendfile";

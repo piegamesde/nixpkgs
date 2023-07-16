@@ -1,15 +1,49 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, pythonOlder, pythonRelaxDepsHook
-# python dependencies
-, click, python-dateutil, etelemetry, filelock, funcsigs, future, looseversion
-, mock, networkx, nibabel, numpy, packaging, prov, psutil, pybids, pydot, pytest
-, pytest-xdist, pytest-forked, rdflib, scipy, simplejson, traits, xvfbwrapper
-, codecov
-# other dependencies
-, which, bash, glibcLocales, callPackage
-# causes Python packaging conflict with any package requiring rdflib,
-# so use the unpatched rdflib by default (disables Nipype provenance tracking);
-# see https://github.com/nipy/nipype/issues/2888:
-, useNeurdflib ? false }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  pythonRelaxDepsHook
+  # python dependencies
+  ,
+  click,
+  python-dateutil,
+  etelemetry,
+  filelock,
+  funcsigs,
+  future,
+  looseversion,
+  mock,
+  networkx,
+  nibabel,
+  numpy,
+  packaging,
+  prov,
+  psutil,
+  pybids,
+  pydot,
+  pytest,
+  pytest-xdist,
+  pytest-forked,
+  rdflib,
+  scipy,
+  simplejson,
+  traits,
+  xvfbwrapper,
+  codecov
+  # other dependencies
+  ,
+  which,
+  bash,
+  glibcLocales,
+  callPackage
+  # causes Python packaging conflict with any package requiring rdflib,
+  # so use the unpatched rdflib by default (disables Nipype provenance tracking);
+  # see https://github.com/nipy/nipype/issues/2888:
+  ,
+  useNeurdflib ? false
+}:
 
 buildPythonPackage rec {
   pname = "nipype";

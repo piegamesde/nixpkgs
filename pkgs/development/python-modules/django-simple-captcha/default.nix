@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, python, testfixtures, django
-, django-ranged-response, pillow, withTTS ? true, flite }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python,
+  testfixtures,
+  django,
+  django-ranged-response,
+  pillow,
+  withTTS ? true,
+  flite,
+}:
 
 buildPythonPackage rec {
   pname = "django-simple-captcha";

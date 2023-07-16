@@ -1,4 +1,9 @@
-{ runtimeShell, symlinkJoin, writeShellScriptBin, npush }:
+{
+  runtimeShell,
+  symlinkJoin,
+  writeShellScriptBin,
+  npush,
+}:
 
 let
   runScript = writeShellScriptBin "run-npush" ''

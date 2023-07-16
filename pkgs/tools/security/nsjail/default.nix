@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, bison, flex, libtool, pkg-config
-, which, libnl, protobuf, protobufc, shadow, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  bison,
+  flex,
+  libtool,
+  pkg-config,
+  which,
+  libnl,
+  protobuf,
+  protobufc,
+  shadow,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nsjail";

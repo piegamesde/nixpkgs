@@ -4,9 +4,14 @@
 # "nix-store --load-db" and "nix-store --register-validity
 # --hash-given".
 
-{ stdenv, buildPackages }:
+{
+  stdenv,
+  buildPackages,
+}:
 
-{ rootPaths }:
+{
+  rootPaths,
+}:
 
 assert builtins.langVersion >= 5;
 

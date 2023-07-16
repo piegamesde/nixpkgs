@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, installShellFiles, pytestCheckHook, isPy3k
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  installShellFiles,
+  pytestCheckHook,
+  isPy3k,
 }:
 
 buildPythonPackage rec {

@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, matplotlib, niapy, numpy
-, poetry-core, pytestCheckHook, pythonOlder, scikit-learn, toml-adapt, torch }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  matplotlib,
+  niapy,
+  numpy,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  scikit-learn,
+  toml-adapt,
+  torch,
+}:
 
 buildPythonPackage rec {
   pname = "nianet";

@@ -1,5 +1,21 @@
-{ lib, stdenv, fetchFromGitLab, fetchpatch, cmake, installShellFiles, bison
-, boost, flex, gmp, libxml2, mpfi, mpfr, scalp, sollya, wcpg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch,
+  cmake,
+  installShellFiles,
+  bison,
+  boost,
+  flex,
+  gmp,
+  libxml2,
+  mpfi,
+  mpfr,
+  scalp,
+  sollya,
+  wcpg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "flopoco";

@@ -1,5 +1,13 @@
-{ fetchFromGitHub, lib, stdenv, autoreconfHook, libiconv, ncurses, SDL2
-, SDL2_mixer }:
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  autoreconfHook,
+  libiconv,
+  ncurses,
+  SDL2,
+  SDL2_mixer,
+}:
 
 stdenv.mkDerivation {
   version = "2016-07-06";

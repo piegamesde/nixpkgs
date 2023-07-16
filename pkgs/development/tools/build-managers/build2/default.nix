@@ -1,5 +1,14 @@
-{ stdenv, lib, build2, fetchurl, fixDarwinDylibNames, libbutl, libpkgconf
-, enableShared ? !stdenv.hostPlatform.isStatic, enableStatic ? !enableShared }:
+{
+  stdenv,
+  lib,
+  build2,
+  fetchurl,
+  fixDarwinDylibNames,
+  libbutl,
+  libpkgconf,
+  enableShared ? !stdenv.hostPlatform.isStatic,
+  enableStatic ? !enableShared
+}:
 let
   configSharedStatic = enableShared: enableStatic:
     if enableShared && enableStatic then

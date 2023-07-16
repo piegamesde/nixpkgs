@@ -1,5 +1,15 @@
-{ stdenvNoCC, lib, fetchFromGitHub, makeWrapper, python3, binutils-unwrapped
-, findutils, kmod, pciutils, libraspberrypi }:
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  python3,
+  binutils-unwrapped,
+  findutils,
+  kmod,
+  pciutils,
+  libraspberrypi,
+}:
 stdenvNoCC.mkDerivation rec {
   pname = "raspberrypi-eeprom";
   version = "2023.01.11-138c0";

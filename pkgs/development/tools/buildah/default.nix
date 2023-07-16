@@ -1,6 +1,20 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, go-md2man, installShellFiles
-, pkg-config, gpgme, lvm2, btrfs-progs, libapparmor, libselinux, libseccomp
-, testers, buildah }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  go-md2man,
+  installShellFiles,
+  pkg-config,
+  gpgme,
+  lvm2,
+  btrfs-progs,
+  libapparmor,
+  libselinux,
+  libseccomp,
+  testers,
+  buildah,
+}:
 
 buildGoModule rec {
   pname = "buildah";

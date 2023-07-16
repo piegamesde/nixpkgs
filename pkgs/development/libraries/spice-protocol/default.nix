@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, meson, ninja }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+}:
 
 stdenv.mkDerivation rec {
   pname = "spice-protocol";

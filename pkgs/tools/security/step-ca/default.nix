@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchFromGitHub, buildGoModule, coreutils, pcsclite, PCSC
-, pkg-config, hsmSupport ? true, nixosTests }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  coreutils,
+  pcsclite,
+  PCSC,
+  pkg-config,
+  hsmSupport ? true,
+  nixosTests,
+}:
 
 buildGoModule rec {
   pname = "step-ca";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, dtc, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  dtc,
+  openssl,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cloud-hypervisor";

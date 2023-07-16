@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, nodejs, yarn, yarn2nix-moretea }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  nodejs,
+  yarn,
+  yarn2nix-moretea,
+}:
 
 stdenv.mkDerivation rec {
   pname = "outline";

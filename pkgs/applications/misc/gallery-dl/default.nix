@@ -1,4 +1,11 @@
-{ lib, buildPythonApplication, fetchPypi, requests, yt-dlp, pytestCheckHook }:
+{
+  lib,
+  buildPythonApplication,
+  fetchPypi,
+  requests,
+  yt-dlp,
+  pytestCheckHook,
+}:
 
 buildPythonApplication rec {
   pname = "gallery-dl";

@@ -1,14 +1,29 @@
-{ lib, buildPythonPackage, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub
 
-# propagates
-, pyyaml
+  # propagates
+  ,
+  pyyaml
 
-# optionals
-, boto3, botocore, google-cloud-dataproc, google-cloud-logging
-, google-cloud-storage, python-rapidjson, simplejson, ujson
+  # optionals
+  ,
+  boto3,
+  botocore,
+  google-cloud-dataproc,
+  google-cloud-logging,
+  google-cloud-storage,
+  python-rapidjson,
+  simplejson,
+  ujson
 
-# tests
-, pyspark, unittestCheckHook, warcio }:
+  # tests
+  ,
+  pyspark,
+  unittestCheckHook,
+  warcio,
+}:
 
 buildPythonPackage rec {
   pname = "mrjob";

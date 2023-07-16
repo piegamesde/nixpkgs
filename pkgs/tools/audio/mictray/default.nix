@@ -1,5 +1,17 @@
-{ fetchFromGitHub, gtk3, lib, libgee, libnotify, meson, ninja, pkg-config
-, pulseaudio, stdenv, vala, wrapGAppsHook }:
+{
+  fetchFromGitHub,
+  gtk3,
+  lib,
+  libgee,
+  libnotify,
+  meson,
+  ninja,
+  pkg-config,
+  pulseaudio,
+  stdenv,
+  vala,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mictray";

@@ -1,5 +1,15 @@
-{ lib, stdenvNoCC, fetchFromGitHub, shellcheck, shellspec, busybox-sandbox-shell
-, ksh, mksh, yash, zsh }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  shellcheck,
+  shellspec,
+  busybox-sandbox-shell,
+  ksh,
+  mksh,
+  yash,
+  zsh,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "getoptions";

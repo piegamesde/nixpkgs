@@ -1,4 +1,7 @@
-import ./make-test-python.nix ({ lib, ... }:
+import ./make-test-python.nix ({
+    lib,
+    ...
+  }:
 
   with lib;
 
@@ -7,7 +10,12 @@ import ./make-test-python.nix ({ lib, ... }:
     name = "n8n";
     meta.maintainers = with maintainers; [ freezeboy k900 ];
 
-    nodes.machine = { pkgs, ... }: { services.n8n = { enable = true; }; };
+    nodes.machine = {
+        pkgs,
+        ...
+      }: {
+        services.n8n = { enable = true; };
+      };
 
     testScript = ''
       machine.wait_for_unit("n8n.service")

@@ -1,5 +1,13 @@
-{ buildPythonPackage, lib, fetchgit, requests, distro, makeWrapper
-, installShellFiles, extraHandlers ? [ ] }:
+{
+  buildPythonPackage,
+  lib,
+  fetchgit,
+  requests,
+  distro,
+  makeWrapper,
+  installShellFiles,
+  extraHandlers ? [ ]
+}:
 
 buildPythonPackage rec {
   pname = "ssh-import-id";

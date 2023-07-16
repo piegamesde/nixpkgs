@@ -1,19 +1,51 @@
-{ lib, stdenv, icu, expat, zlib, bzip2, zstd, xz, python ? null
-, fixDarwinDylibNames, libiconv, libxcrypt, boost-build, fetchpatch, which
-, toolset ?
-  if stdenv.cc.isClang then "clang" else if stdenv.cc.isGNU then "gcc" else null
-, enableRelease ? true, enableDebug ? false, enableSingleThreaded ? false
-, enableMultiThreaded ? true, enableShared ?
-  !(with stdenv.hostPlatform; isStatic || libc == "msvcrt") # problems for now
-, enableStatic ? !enableShared, enablePython ? false, enableNumpy ? false
-, enableIcu ? stdenv.hostPlatform == stdenv.buildPlatform, taggedLayout ?
-  ((enableRelease && enableDebug)
+{
+  lib,
+  stdenv,
+  icu,
+  expat,
+  zlib,
+  bzip2,
+  zstd,
+  xz,
+  python ? null,
+  fixDarwinDylibNames,
+  libiconv,
+  libxcrypt,
+  boost-build,
+  fetchpatch,
+  which,
+  toolset ? if stdenv.cc.isClang then
+    "clang"
+  else if stdenv.cc.isGNU then
+    "gcc"
+  else
+    null,
+  enableRelease ? true,
+  enableDebug ? false,
+  enableSingleThreaded ? false,
+  enableMultiThreaded ? true,
+  enableShared ?
+    !(with stdenv.hostPlatform; isStatic || libc == "msvcrt") # problems for now
+  ,
+  enableStatic ? !enableShared,
+  enablePython ? false,
+  enableNumpy ? false,
+  enableIcu ? stdenv.hostPlatform == stdenv.buildPlatform,
+  taggedLayout ? ((enableRelease && enableDebug)
     || (enableSingleThreaded && enableMultiThreaded)
-    || (enableShared && enableStatic)), patches ? [ ], boostBuildPatches ? [ ]
-, useMpi ? false, mpi, extraB2Args ? [ ]
+    || (enableShared && enableStatic)),
+  patches ? [ ],
+  boostBuildPatches ? [ ],
+  useMpi ? false,
+  mpi,
+  extraB2Args ? [ ]
 
-  # Attributes inherit from specific versions
-, version, src, ... }:
+    # Attributes inherit from specific versions
+  ,
+  version,
+  src,
+  ...
+}:
 
 # We must build at least one type of libraries
 assert enableShared || enableStatic;

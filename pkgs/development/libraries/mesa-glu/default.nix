@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, libGL, ApplicationServices, testers }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libGL,
+  ApplicationServices,
+  testers,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "glu";

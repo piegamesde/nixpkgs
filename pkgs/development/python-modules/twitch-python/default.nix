@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, requests, rx, pytestCheckHook, responses
-, isPy3k }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+  rx,
+  pytestCheckHook,
+  responses,
+  isPy3k,
+}:
 
 buildPythonPackage rec {
   pname = "twitch-python";

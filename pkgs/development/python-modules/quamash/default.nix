@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest, isPy3k, pyqt5, pyqt ? pyqt5
-, fetchpatch }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest,
+  isPy3k,
+  pyqt5,
+  pyqt ? pyqt5,
+  fetchpatch,
+}:
 
 buildPythonPackage rec {
   pname = "quamash";

@@ -1,7 +1,29 @@
-{ lib, buildPythonPackage, python, runCommand, fetchFromGitHub, configargparse
-, acme, configobj, cryptography, distro, josepy, parsedatetime, pyRFC3339
-, pyopenssl, pytz, requests, six, zope_component, zope_interface, dialog
-, gnureadline, pytest-xdist, pytestCheckHook, python-dateutil }:
+{
+  lib,
+  buildPythonPackage,
+  python,
+  runCommand,
+  fetchFromGitHub,
+  configargparse,
+  acme,
+  configobj,
+  cryptography,
+  distro,
+  josepy,
+  parsedatetime,
+  pyRFC3339,
+  pyopenssl,
+  pytz,
+  requests,
+  six,
+  zope_component,
+  zope_interface,
+  dialog,
+  gnureadline,
+  pytest-xdist,
+  pytestCheckHook,
+  python-dateutil,
+}:
 
 buildPythonPackage rec {
   pname = "certbot";

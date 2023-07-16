@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, click, fetchFromGitHub, mock, pytest-runner
-, pytestCheckHook, requests, websocket-client }:
+{
+  lib,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  mock,
+  pytest-runner,
+  pytestCheckHook,
+  requests,
+  websocket-client,
+}:
 
 buildPythonPackage rec {
   pname = "waterfurnace";

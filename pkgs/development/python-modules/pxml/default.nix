@@ -1,5 +1,13 @@
-{ lib, pythonAtLeast, buildPythonPackage, fetchPypi, blessings, six, nose
-, coverage }:
+{
+  lib,
+  pythonAtLeast,
+  buildPythonPackage,
+  fetchPypi,
+  blessings,
+  six,
+  nose,
+  coverage,
+}:
 
 buildPythonPackage rec {
   pname = "pxml";

@@ -1,4 +1,12 @@
-{ lib, fetchFromGitHub, rustPlatform, pkg-config, openssl, stdenv, Security }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  stdenv,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   version = "0.4.2";

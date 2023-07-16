@@ -1,6 +1,16 @@
-{ stdenv, lib, fetchurl, makeWrapper, perl, unzip, gzip, file
-# extractors which are added to unp’s PATH
-, extraBackends ? [ ] }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  makeWrapper,
+  perl,
+  unzip,
+  gzip,
+  file
+  # extractors which are added to unp’s PATH
+  ,
+  extraBackends ? [ ]
+}:
 
 let runtime_bins = [ file unzip gzip ] ++ extraBackends;
 

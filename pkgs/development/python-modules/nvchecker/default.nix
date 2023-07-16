@@ -1,6 +1,23 @@
-{ lib, aiohttp, platformdirs, buildPythonPackage, docutils, fetchFromGitHub
-, flaky, installShellFiles, packaging, pycurl, pytest-asyncio, pytest-httpbin
-, pytestCheckHook, pythonOlder, setuptools, structlog, tomli, tornado }:
+{
+  lib,
+  aiohttp,
+  platformdirs,
+  buildPythonPackage,
+  docutils,
+  fetchFromGitHub,
+  flaky,
+  installShellFiles,
+  packaging,
+  pycurl,
+  pytest-asyncio,
+  pytest-httpbin,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  structlog,
+  tomli,
+  tornado,
+}:
 
 buildPythonPackage rec {
   pname = "nvchecker";

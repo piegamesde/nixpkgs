@@ -1,7 +1,18 @@
 # This combines together OCF definitions from other derivations.
 # https://github.com/ClusterLabs/resource-agents/blob/master/doc/dev-guides/ra-dev-guide.asc
-{ stdenv, lib, runCommand, lndir, fetchFromGitHub, autoreconfHook, pkg-config
-, python3, glib, drbd, pacemaker }:
+{
+  stdenv,
+  lib,
+  runCommand,
+  lndir,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  python3,
+  glib,
+  drbd,
+  pacemaker,
+}:
 
 let
   drbdForOCF = drbd.override { forOCF = true; };

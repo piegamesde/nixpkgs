@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, qmake, pkg-config, qttools, qtbase, qtwebengine
-, wrapQtAppsHook, qmarkdowntextedit, md4c, hunspell }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qmake,
+  pkg-config,
+  qttools,
+  qtbase,
+  qtwebengine,
+  wrapQtAppsHook,
+  qmarkdowntextedit,
+  md4c,
+  hunspell,
+}:
 
 stdenv.mkDerivation rec {
   pname = "CuteMarkEd-NG";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, expat, nifticlib, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  expat,
+  nifticlib,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gifticlib";

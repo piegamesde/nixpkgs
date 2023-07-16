@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, libvorbis, speex, flac, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libvorbis,
+  speex,
+  flac,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libfishsound";

@@ -1,5 +1,12 @@
-{ lib, fetchFromGitHub, buildPythonApplication, click, pyfiglet, python-dateutil
-, setuptools }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonApplication,
+  click,
+  pyfiglet,
+  python-dateutil,
+  setuptools,
+}:
 
 buildPythonApplication rec {
   pname = "termdown";

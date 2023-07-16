@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cffi, h3, numba, numpy, poetry-core
-, pytestCheckHook, pythonOlder, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cffi,
+  h3,
+  numba,
+  numpy,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "timezonefinder";

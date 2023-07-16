@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, fonttools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fonttools,
+}:
 
 buildPythonPackage rec {
   pname = "fontPens";

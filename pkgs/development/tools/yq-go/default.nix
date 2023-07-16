@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles, runCommand, yq-go }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  runCommand,
+  yq-go,
+}:
 
 buildGoModule rec {
   pname = "yq-go";

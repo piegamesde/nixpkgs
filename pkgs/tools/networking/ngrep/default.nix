@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, libpcap, pcre }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  libpcap,
+  pcre,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ngrep";

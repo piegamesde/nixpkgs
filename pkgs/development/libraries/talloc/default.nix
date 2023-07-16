@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, python3, pkg-config, readline, libxslt, libxcrypt
-, docbook-xsl-nons, docbook_xml_dtd_42, fixDarwinDylibNames, wafHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python3,
+  pkg-config,
+  readline,
+  libxslt,
+  libxcrypt,
+  docbook-xsl-nons,
+  docbook_xml_dtd_42,
+  fixDarwinDylibNames,
+  wafHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "talloc";

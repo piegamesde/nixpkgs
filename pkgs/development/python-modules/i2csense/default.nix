@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, smbus-cffi }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  smbus-cffi,
+}:
 
 buildPythonPackage rec {
   pname = "i2csense";

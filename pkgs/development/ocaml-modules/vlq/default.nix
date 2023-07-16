@@ -1,4 +1,9 @@
-{ lib, buildDunePackage, fetchurl, dune-configurator }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  dune-configurator,
+}:
 
 buildDunePackage rec {
   pname = "vlq";

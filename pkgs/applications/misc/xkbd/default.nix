@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, freetype, libXrender, libXft, xorgproto, xinput
-, libXi, libXext, libXtst, libXpm, libX11, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  freetype,
+  libXrender,
+  libXft,
+  xorgproto,
+  xinput,
+  libXi,
+  libXext,
+  libXtst,
+  libXpm,
+  libX11,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xkbd";

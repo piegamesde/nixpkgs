@@ -1,4 +1,8 @@
-{ lib, python38, fetchFromGitHub }:
+{
+  lib,
+  python38,
+  fetchFromGitHub,
+}:
 let
   python = python38.override {
     self = python;

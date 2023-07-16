@@ -1,9 +1,35 @@
-{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, dejagnu, gettext, gnum4
-, pkg-config, texinfo, fribidi, gdbm, gnutls, gss, guile, libmysqlclient
-, mailcap, nettools, pam, readline, ncurses, python3, sasl, system-sendmail
-, libxcrypt, mkpasswd
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  autoreconfHook,
+  dejagnu,
+  gettext,
+  gnum4,
+  pkg-config,
+  texinfo,
+  fribidi,
+  gdbm,
+  gnutls,
+  gss,
+  guile,
+  libmysqlclient,
+  mailcap,
+  nettools,
+  pam,
+  readline,
+  ncurses,
+  python3,
+  sasl,
+  system-sendmail,
+  libxcrypt,
+  mkpasswd
 
-, pythonSupport ? true, guileSupport ? true }:
+  ,
+  pythonSupport ? true,
+  guileSupport ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "mailutils";

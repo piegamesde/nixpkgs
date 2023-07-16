@@ -1,8 +1,32 @@
-{ lib, buildPythonPackage, fetchFromGitHub, aiofiles, asgi-csrf, click
-, click-default-group, itsdangerous, janus, jinja2, hupper, mergedeep, pint
-, pluggy, python-baseconv, pyyaml, uvicorn, httpx, pytestCheckHook
-, pytest-asyncio, pytest-timeout, aiohttp, beautifulsoup4, asgiref, setuptools
-, trustme, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  aiofiles,
+  asgi-csrf,
+  click,
+  click-default-group,
+  itsdangerous,
+  janus,
+  jinja2,
+  hupper,
+  mergedeep,
+  pint,
+  pluggy,
+  python-baseconv,
+  pyyaml,
+  uvicorn,
+  httpx,
+  pytestCheckHook,
+  pytest-asyncio,
+  pytest-timeout,
+  aiohttp,
+  beautifulsoup4,
+  asgiref,
+  setuptools,
+  trustme,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "datasette";

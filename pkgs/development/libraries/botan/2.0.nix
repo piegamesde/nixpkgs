@@ -1,4 +1,8 @@
-{ callPackage, fetchpatch, ... }@args:
+{
+  callPackage,
+  fetchpatch,
+  ...
+}@args:
 
 callPackage ./generic.nix (args // {
   baseVersion = "2.19";

@@ -1,23 +1,56 @@
-{ lib, fetchFromGitHub, fetchpatch, tag ? ""
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  tag ? ""
 
-  # build time
-, gettext, gobject-introspection, wrapGAppsHook
+    # build time
+  ,
+  gettext,
+  gobject-introspection,
+  wrapGAppsHook
 
-# runtime
-, adwaita-icon-theme, gdk-pixbuf, glib, glib-networking, gtk3, gtksourceview
-, kakasi, keybinder3, libappindicator-gtk3, libmodplug, librsvg, libsoup
-, webkitgtk
+  # runtime
+  ,
+  adwaita-icon-theme,
+  gdk-pixbuf,
+  glib,
+  glib-networking,
+  gtk3,
+  gtksourceview,
+  kakasi,
+  keybinder3,
+  libappindicator-gtk3,
+  libmodplug,
+  librsvg,
+  libsoup,
+  webkitgtk
 
-# optional features
-, withDbusPython ? false, withPypresence ? false, withPyInotify ? false
-, withMusicBrainzNgs ? false, withPahoMqtt ? false, withSoco ? false
+  # optional features
+  ,
+  withDbusPython ? false,
+  withPypresence ? false,
+  withPyInotify ? false,
+  withMusicBrainzNgs ? false,
+  withPahoMqtt ? false,
+  withSoco ? false
 
-  # backends
-, withGstreamerBackend ? true, gst_all_1, withGstPlugins ? withGstreamerBackend
-, withXineBackend ? true, xine-lib
+    # backends
+  ,
+  withGstreamerBackend ? true,
+  gst_all_1,
+  withGstPlugins ? withGstreamerBackend,
+  withXineBackend ? true,
+  xine-lib
 
-# tests
-, dbus, glibcLocales, hicolor-icon-theme, python3, xvfb-run }:
+  # tests
+  ,
+  dbus,
+  glibcLocales,
+  hicolor-icon-theme,
+  python3,
+  xvfb-run,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "quodlibet${tag}";

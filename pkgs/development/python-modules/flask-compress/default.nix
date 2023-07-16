@@ -1,5 +1,12 @@
-{ lib, fetchPypi, buildPythonPackage, setuptools-scm, flask, brotli
-, pytestCheckHook }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  setuptools-scm,
+  flask,
+  brotli,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   version = "1.13";

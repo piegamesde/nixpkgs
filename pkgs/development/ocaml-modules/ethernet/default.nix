@@ -1,5 +1,15 @@
-{ lib, buildDunePackage, fetchurl, cstruct, logs, lwt, macaddr, mirage-net
-, mirage-profile, ppx_cstruct }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  cstruct,
+  logs,
+  lwt,
+  macaddr,
+  mirage-net,
+  mirage-profile,
+  ppx_cstruct,
+}:
 
 buildDunePackage rec {
   pname = "ethernet";

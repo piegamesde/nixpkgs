@@ -1,4 +1,11 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, perl, Security }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  perl,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "tickrs";

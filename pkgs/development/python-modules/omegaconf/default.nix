@@ -1,6 +1,17 @@
-{ lib, antlr4, antlr4-python3-runtime, buildPythonPackage, fetchFromGitHub
-, jre_minimal, pydevd, pytest-mock, pytestCheckHook, pythonOlder, pyyaml
-, substituteAll }:
+{
+  lib,
+  antlr4,
+  antlr4-python3-runtime,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jre_minimal,
+  pydevd,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  substituteAll,
+}:
 
 buildPythonPackage rec {
   pname = "omegaconf";

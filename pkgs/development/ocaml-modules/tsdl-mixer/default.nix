@@ -1,5 +1,12 @@
-{ buildDunePackage, dune-configurator, fetchFromGitHub, lib, SDL2, SDL2_mixer
-, tsdl }:
+{
+  buildDunePackage,
+  dune-configurator,
+  fetchFromGitHub,
+  lib,
+  SDL2,
+  SDL2_mixer,
+  tsdl,
+}:
 
 buildDunePackage rec {
   pname = "tsdl-mixer";

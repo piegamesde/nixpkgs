@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, libiconv, Security }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  libiconv,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "fastmod";

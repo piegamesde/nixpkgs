@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, coreutils, cpio, findutils, gzip, makeWrapper
-, util-linux }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  coreutils,
+  cpio,
+  findutils,
+  gzip,
+  makeWrapper,
+  util-linux,
+}:
 
 stdenv.mkDerivation rec {
   pname = "abootimg";

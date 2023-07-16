@@ -1,10 +1,31 @@
-{ lib, buildPythonPackage, fetchFromGitHub, dj-rest-auth, django, django-allauth
-, django-filter, django-oauth-toolkit, django-polymorphic, django-rest-auth
-, django-rest-polymorphic, djangorestframework, djangorestframework-camel-case
-, djangorestframework-dataclasses, djangorestframework-recursive
-, djangorestframework-simplejwt, drf-jwt, drf-nested-routers
-, drf-spectacular-sidecar, inflection, jsonschema, psycopg2, pytest-django
-, pytestCheckHook, pyyaml, uritemplate }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  dj-rest-auth,
+  django,
+  django-allauth,
+  django-filter,
+  django-oauth-toolkit,
+  django-polymorphic,
+  django-rest-auth,
+  django-rest-polymorphic,
+  djangorestframework,
+  djangorestframework-camel-case,
+  djangorestframework-dataclasses,
+  djangorestframework-recursive,
+  djangorestframework-simplejwt,
+  drf-jwt,
+  drf-nested-routers,
+  drf-spectacular-sidecar,
+  inflection,
+  jsonschema,
+  psycopg2,
+  pytest-django,
+  pytestCheckHook,
+  pyyaml,
+  uritemplate,
+}:
 
 buildPythonPackage rec {
   pname = "drf-spectacular";

@@ -1,4 +1,9 @@
-{ mkDiscoursePlugin, newScope, fetchFromGitHub, ... }@args:
+{
+  mkDiscoursePlugin,
+  newScope,
+  fetchFromGitHub,
+  ...
+}@args:
 let callPackage = newScope args;
 in {
   discourse-assign = callPackage ./discourse-assign { };

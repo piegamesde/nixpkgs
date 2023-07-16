@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchurl, makeWrapper, getconf, ocaml, unzip, ncurses, curl
-, bubblewrap, Foundation }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  makeWrapper,
+  getconf,
+  ocaml,
+  unzip,
+  ncurses,
+  curl,
+  bubblewrap,
+  Foundation,
+}:
 
 assert lib.versionAtLeast ocaml.version "4.02.3";
 

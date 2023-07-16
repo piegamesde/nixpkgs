@@ -1,4 +1,10 @@
-{ config, lib, options, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -152,27 +158,30 @@ in {
 
     endpoints = mkOption {
       type = (let
-        endpoint = { name, ... }: {
-          options = {
-            url = mkOption {
-              type = types.str;
-              default = endpointUrls.${name} or "";
-              description = lib.mdDoc
-                "The url endpoint where the scrobble API is listening.";
-            };
-            username = mkOption {
-              type = types.str;
-              description = lib.mdDoc ''
-                Username for the scrobble service.
-              '';
-            };
-            passwordFile = mkOption {
-              type = types.nullOr types.str;
-              description = lib.mdDoc
-                "File containing the password, either as MD5SUM or cleartext.";
+        endpoint = {
+            name,
+            ...
+          }: {
+            options = {
+              url = mkOption {
+                type = types.str;
+                default = endpointUrls.${name} or "";
+                description = lib.mdDoc
+                  "The url endpoint where the scrobble API is listening.";
+              };
+              username = mkOption {
+                type = types.str;
+                description = lib.mdDoc ''
+                  Username for the scrobble service.
+                '';
+              };
+              passwordFile = mkOption {
+                type = types.nullOr types.str;
+                description = lib.mdDoc
+                  "File containing the password, either as MD5SUM or cleartext.";
+              };
             };
           };
-        };
       in types.attrsOf (types.submodule endpoint));
       default = { };
       example = {

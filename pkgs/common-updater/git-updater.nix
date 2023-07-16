@@ -1,10 +1,22 @@
-{ lib, genericUpdater, common-updater-scripts }:
+{
+  lib,
+  genericUpdater,
+  common-updater-scripts,
+}:
 
-{ pname ? null, version ? null, attrPath ? null, ignoredVersions ? ""
-, rev-prefix ? "", odd-unstable ? false, patchlevel-unstable ? false
-  # an explicit url is needed when src.meta.homepage or src.url don't
-  # point to a git repo (eg. when using fetchurl, fetchzip, ...)
-, url ? null }:
+{
+  pname ? null,
+  version ? null,
+  attrPath ? null,
+  ignoredVersions ? "",
+  rev-prefix ? "",
+  odd-unstable ? false,
+  patchlevel-unstable ? false
+    # an explicit url is needed when src.meta.homepage or src.url don't
+    # point to a git repo (eg. when using fetchurl, fetchzip, ...)
+  ,
+  url ? null
+}:
 
 genericUpdater {
   inherit pname version attrPath ignoredVersions rev-prefix odd-unstable

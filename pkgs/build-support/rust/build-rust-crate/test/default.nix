@@ -1,5 +1,15 @@
-{ lib, buildPackages, buildRustCrate, callPackage, releaseTools, runCommand
-, runCommandCC, stdenv, symlinkJoin, writeTextFile }:
+{
+  lib,
+  buildPackages,
+  buildRustCrate,
+  callPackage,
+  releaseTools,
+  runCommand,
+  runCommandCC,
+  stdenv,
+  symlinkJoin,
+  writeTextFile,
+}:
 
 let
   mkCrate = buildRustCrate: args:
@@ -12,7 +22,11 @@ let
     in buildRustCrate p;
   mkHostCrate = mkCrate buildRustCrate;
 
-  mkCargoToml = { name, crateVersion ? "0.1.0", path ? "Cargo.toml" }:
+  mkCargoToml = {
+      name,
+      crateVersion ? "0.1.0",
+      path ? "Cargo.toml"
+    }:
     mkFile path ''
       [package]
       name = ${builtins.toJSON name}
@@ -133,7 +147,12 @@ let
      output is used but e.g. `output = "lib";` will cause the lib output
      to be checked instead. You do not need to specify any directories.
   */
-  assertOutputs = { name, crateArgs, expectedFiles, output ? null }:
+  assertOutputs = {
+      name,
+      crateArgs,
+      expectedFiles,
+      output ? null
+    }:
     assert (builtins.isString name);
     assert (builtins.isAttrs crateArgs);
     assert (builtins.isList expectedFiles);

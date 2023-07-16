@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytestCheckHook, future
-, numpy, pillow, fetchpatch, scipy, scikit-learn, scikitimage, threadpoolctl }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pytestCheckHook,
+  future,
+  numpy,
+  pillow,
+  fetchpatch,
+  scipy,
+  scikit-learn,
+  scikitimage,
+  threadpoolctl,
+}:
 
 buildPythonPackage rec {
   pname = "batchgenerators";

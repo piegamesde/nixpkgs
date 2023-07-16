@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, cmake, StormLib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  StormLib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "smpq";

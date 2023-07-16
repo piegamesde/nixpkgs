@@ -1,5 +1,18 @@
-{ lib, aiocontextvars, blinker, buildPythonPackage, fetchPypi, fetchpatch, httpx
-, mock, pytestCheckHook, requests, six, pythonOlder, webob }:
+{
+  lib,
+  aiocontextvars,
+  blinker,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  httpx,
+  mock,
+  pytestCheckHook,
+  requests,
+  six,
+  pythonOlder,
+  webob,
+}:
 
 buildPythonPackage rec {
   pname = "rollbar";

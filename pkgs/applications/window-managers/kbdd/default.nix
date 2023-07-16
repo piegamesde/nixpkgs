@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, dbus-glib, autoreconfHook, xorg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  dbus-glib,
+  autoreconfHook,
+  xorg,
+}:
 
 stdenv.mkDerivation {
   pname = "kbdd";

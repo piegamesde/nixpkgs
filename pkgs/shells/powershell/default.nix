@@ -1,5 +1,19 @@
-{ stdenv, lib, autoPatchelfHook, fetchzip, libunwind, libuuid, icu, curl, darwin
-, makeWrapper, less, openssl_1_1, pam, lttng-ust }:
+{
+  stdenv,
+  lib,
+  autoPatchelfHook,
+  fetchzip,
+  libunwind,
+  libuuid,
+  icu,
+  curl,
+  darwin,
+  makeWrapper,
+  less,
+  openssl_1_1,
+  pam,
+  lttng-ust,
+}:
 
 let
   archString = if stdenv.isAarch64 then

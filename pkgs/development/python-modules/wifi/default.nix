@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pbkdf2, pytestCheckHook, pythonOlder
-, substituteAll, wirelesstools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pbkdf2,
+  pytestCheckHook,
+  pythonOlder,
+  substituteAll,
+  wirelesstools,
+}:
 
 buildPythonPackage rec {
   pname = "wifi";

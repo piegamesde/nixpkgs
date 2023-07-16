@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, imake, gccmakedep, libX11, libXext
-, libXScrnSaver, xorgproto }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  imake,
+  gccmakedep,
+  libX11,
+  libXext,
+  libXScrnSaver,
+  xorgproto,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xautolock";

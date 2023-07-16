@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, gettext, intltool
-, pkg-config, glib, imagemagick, libpng, pstoedit, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  gettext,
+  intltool,
+  pkg-config,
+  glib,
+  imagemagick,
+  libpng,
+  pstoedit,
+  darwin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "autotrace";

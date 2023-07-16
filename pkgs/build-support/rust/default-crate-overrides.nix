@@ -1,9 +1,48 @@
-{ lib, stdenv, atk, pkg-config, curl, darwin, libgit2, gtk3, libssh2, openssl
-, sqlite, zlib, dbus, dbus-glib, gdk-pixbuf, cairo, python3, libsodium
-, postgresql, gmp, gobject-introspection, foundationdb, capnproto, nettle, gtk4
-, clang, llvmPackages, linux-pam, pango, cmake, glib, freetype, fontconfig
-, rdkafka, udev, libevdev, alsa-lib, graphene, protobuf, autoconf, automake
-, libtool, ... }:
+{
+  lib,
+  stdenv,
+  atk,
+  pkg-config,
+  curl,
+  darwin,
+  libgit2,
+  gtk3,
+  libssh2,
+  openssl,
+  sqlite,
+  zlib,
+  dbus,
+  dbus-glib,
+  gdk-pixbuf,
+  cairo,
+  python3,
+  libsodium,
+  postgresql,
+  gmp,
+  gobject-introspection,
+  foundationdb,
+  capnproto,
+  nettle,
+  gtk4,
+  clang,
+  llvmPackages,
+  linux-pam,
+  pango,
+  cmake,
+  glib,
+  freetype,
+  fontconfig,
+  rdkafka,
+  udev,
+  libevdev,
+  alsa-lib,
+  graphene,
+  protobuf,
+  autoconf,
+  automake,
+  libtool,
+  ...
+}:
 
 let inherit (darwin.apple_sdk.frameworks) CoreFoundation Security;
 in {

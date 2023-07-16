@@ -1,4 +1,9 @@
-{ stdenv, makeWrapper, haskellPackages, packages ? (pkgs: [ ]) }:
+{
+  stdenv,
+  makeWrapper,
+  haskellPackages,
+  packages ? (pkgs: [ ])
+}:
 
 let
   defaultPkgs = pkgs: [

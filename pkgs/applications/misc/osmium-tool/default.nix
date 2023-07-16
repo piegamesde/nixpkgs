@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, cmake, installShellFiles, pandoc, boost, bzip2
-, expat, libosmium, lz4, protozero, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  installShellFiles,
+  pandoc,
+  boost,
+  bzip2,
+  expat,
+  libosmium,
+  lz4,
+  protozero,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "osmium-tool";

@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, SDL2, qtbase, qtcharts, qtlocation, qtserialport
-, qtsvg, qtquickcontrols2, qtgraphicaleffects, qtspeech, qtx11extras, qmake
-, qttools, gst_all_1, wayland, pkg-config, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL2,
+  qtbase,
+  qtcharts,
+  qtlocation,
+  qtserialport,
+  qtsvg,
+  qtquickcontrols2,
+  qtgraphicaleffects,
+  qtspeech,
+  qtx11extras,
+  qmake,
+  qttools,
+  gst_all_1,
+  wayland,
+  pkg-config,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qgroundcontrol";

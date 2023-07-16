@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchurl, gettext, gobject-introspection, gtk-doc, docbook_xsl
-, docbook_xml_dtd_43, pkg-config, meson, ninja, vala, glib, zlib, gnome
-, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gettext,
+  gobject-introspection,
+  gtk-doc,
+  docbook_xsl,
+  docbook_xml_dtd_43,
+  pkg-config,
+  meson,
+  ninja,
+  vala,
+  glib,
+  zlib,
+  gnome,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gcab";

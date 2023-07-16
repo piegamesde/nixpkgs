@@ -1,7 +1,32 @@
-{ lib, stdenv, alsa-lib, cmake, fetchFromGitHub, gtkmm3, libepoxy, libpng
-, libselinux, libX11, libXdmcp, libXext, libXinerama, libXrandr, libXv, minizip
-, ninja, pcre2, pkg-config, portaudio, pulseaudio, python3, SDL2
-, util-linuxMinimal, wrapGAppsHook, zlib, withGtk ? false }:
+{
+  lib,
+  stdenv,
+  alsa-lib,
+  cmake,
+  fetchFromGitHub,
+  gtkmm3,
+  libepoxy,
+  libpng,
+  libselinux,
+  libX11,
+  libXdmcp,
+  libXext,
+  libXinerama,
+  libXrandr,
+  libXv,
+  minizip,
+  ninja,
+  pcre2,
+  pkg-config,
+  portaudio,
+  pulseaudio,
+  python3,
+  SDL2,
+  util-linuxMinimal,
+  wrapGAppsHook,
+  zlib,
+  withGtk ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = if withGtk then "snes9x-gtk" else "snes9x";

@@ -1,4 +1,11 @@
-{ lib, rustPlatform, fetchFromGitHub, libXNVCtrl, libX11, libXext }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  libXNVCtrl,
+  libX11,
+  libXext,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "nvfancontrol";

@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ninja, wrapGAppsHook, makeWrapper, wxGTK
-, Cocoa, unstableGitUpdater }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  wrapGAppsHook,
+  makeWrapper,
+  wxGTK,
+  Cocoa,
+  unstableGitUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "treesheets";

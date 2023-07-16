@@ -1,5 +1,16 @@
-{ lib, azure-common, azure-core, azure-storage-common, buildPythonPackage
-, cryptography, fetchPypi, isodate, msrest, pythonOlder, typing-extensions }:
+{
+  lib,
+  azure-common,
+  azure-core,
+  azure-storage-common,
+  buildPythonPackage,
+  cryptography,
+  fetchPypi,
+  isodate,
+  msrest,
+  pythonOlder,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "azure-storage-blob";

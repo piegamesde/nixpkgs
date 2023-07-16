@@ -1,4 +1,8 @@
-{ pkgs, withDoc ? false, requireSageTests ? true, extraPythonPackages ? ps: [ ]
+{
+  pkgs,
+  withDoc ? false,
+  requireSageTests ? true,
+  extraPythonPackages ? ps: [ ]
 }:
 
 # Here sage and its dependencies are put together. Some dependencies may be pinned

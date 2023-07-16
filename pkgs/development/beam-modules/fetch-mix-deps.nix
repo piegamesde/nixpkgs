@@ -1,8 +1,27 @@
-{ stdenvNoCC, lib, elixir, hex, rebar, rebar3, cacert, git }@inputs:
+{
+  stdenvNoCC,
+  lib,
+  elixir,
+  hex,
+  rebar,
+  rebar3,
+  cacert,
+  git,
+}@inputs:
 
-{ pname, version, sha256, src, mixEnv ? "prod", debug ? false, meta ? { }
-, patches ? [ ], elixir ? inputs.elixir
-, hex ? inputs.hex.override { inherit elixir; }, ... }@attrs:
+{
+  pname,
+  version,
+  sha256,
+  src,
+  mixEnv ? "prod",
+  debug ? false,
+  meta ? { },
+  patches ? [ ],
+  elixir ? inputs.elixir,
+  hex ? inputs.hex.override { inherit elixir; },
+  ...
+}@attrs:
 
 stdenvNoCC.mkDerivation (attrs // {
   nativeBuildInputs = [ elixir hex cacert git ];

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, aiohttp, python-dateutil, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  aiohttp,
+  python-dateutil,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pyplaato";

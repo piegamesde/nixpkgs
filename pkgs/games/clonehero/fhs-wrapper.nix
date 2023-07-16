@@ -1,4 +1,9 @@
-{ clonehero-unwrapped, makeDesktopItem, buildFHSEnv, liberation_ttf, callPackage
+{
+  clonehero-unwrapped,
+  makeDesktopItem,
+  buildFHSEnv,
+  liberation_ttf,
+  callPackage,
 }:
 
 let

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, pycryptodomex }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  pycryptodomex,
+}:
 
 buildPythonPackage rec {
   pname = "pyctr";

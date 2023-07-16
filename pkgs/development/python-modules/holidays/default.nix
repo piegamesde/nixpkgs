@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, convertdate, fetchFromGitHub, hijri-converter
-, korean-lunar-calendar, pytestCheckHook, python-dateutil, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  convertdate,
+  fetchFromGitHub,
+  hijri-converter,
+  korean-lunar-calendar,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "holidays";

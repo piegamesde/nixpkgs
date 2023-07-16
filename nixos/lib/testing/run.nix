@@ -1,4 +1,9 @@
-{ config, hostPkgs, lib, ... }:
+{
+  config,
+  hostPkgs,
+  lib,
+  ...
+}:
 let inherit (lib) types mkOption mdDoc;
 in {
   options = {

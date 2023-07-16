@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, cmake, buildPythonPackage, pysideGeneratorrunner
-, pysideShiboken, qt4, mesa, libGL }:
+{
+  lib,
+  fetchFromGitHub,
+  cmake,
+  buildPythonPackage,
+  pysideGeneratorrunner,
+  pysideShiboken,
+  qt4,
+  mesa,
+  libGL,
+}:
 
 buildPythonPackage rec {
   pname = "pyside";

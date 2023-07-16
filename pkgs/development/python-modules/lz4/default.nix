@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pkgconfig, psutil, pytestCheckHook
-, python, pythonOlder, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pkgconfig,
+  psutil,
+  pytestCheckHook,
+  python,
+  pythonOlder,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "python-lz4";

@@ -1,6 +1,20 @@
-{ pkgs, lib, stdenv, fetchFromGitHub, runCommand, rustPlatform, makeWrapper
-, llvmPackages, nodePackages, cmake, nodejs, unzip, python3, pkg-config
-, libsecret }:
+{
+  pkgs,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  runCommand,
+  rustPlatform,
+  makeWrapper,
+  llvmPackages,
+  nodePackages,
+  cmake,
+  nodejs,
+  unzip,
+  python3,
+  pkg-config,
+  libsecret,
+}:
 assert lib.versionAtLeast python3.version "3.5";
 let
   publisher = "vadimcn";

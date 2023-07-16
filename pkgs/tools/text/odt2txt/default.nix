@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, zlib, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zlib,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "odt2txt";

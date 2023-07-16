@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, patchelf, unzip, poco, openssl, SDL2, SDL2_mixer
-, ncurses, libpng, pngpp, libwebp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  patchelf,
+  unzip,
+  poco,
+  openssl,
+  SDL2,
+  SDL2_mixer,
+  ncurses,
+  libpng,
+  pngpp,
+  libwebp,
+}:
 
 let
   version = "2.7.3";

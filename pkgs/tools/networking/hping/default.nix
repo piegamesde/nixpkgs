@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, libpcap, withTcl ? true, tcl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  libpcap,
+  withTcl ? true,
+  tcl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hping";

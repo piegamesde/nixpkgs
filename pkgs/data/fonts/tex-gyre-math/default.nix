@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchzip }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+}:
 
 let
   variants = {
@@ -29,7 +33,12 @@ let
   };
 
   mkVariant = variant:
-    { displayName, version, sha256, outputHash }:
+    {
+      displayName,
+      version,
+      sha256,
+      outputHash,
+    }:
     let dotless_version = builtins.replaceStrings [ "." ] [ "" ] version;
     in stdenv.mkDerivation rec {
       name = "tex-gyre-${variant}-math-${version}";

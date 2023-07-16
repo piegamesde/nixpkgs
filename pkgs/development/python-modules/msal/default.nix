@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pyjwt, pythonOlder, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pyjwt,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "msal";

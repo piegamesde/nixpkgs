@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromSourcehut, scdoc, installShellFiles }:
+{
+  lib,
+  buildGoModule,
+  fetchFromSourcehut,
+  scdoc,
+  installShellFiles,
+}:
 
 buildGoModule rec {
   pname = "kiln";

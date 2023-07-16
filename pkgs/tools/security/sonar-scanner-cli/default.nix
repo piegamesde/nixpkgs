@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchurl, unzip, jre }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  unzip,
+  jre,
+}:
 
 let
 

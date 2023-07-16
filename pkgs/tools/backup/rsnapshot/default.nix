@@ -1,4 +1,12 @@
-{ fetchurl, lib, stdenv, perl, openssh, rsync, logger }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  perl,
+  openssh,
+  rsync,
+  logger,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rsnapshot";

@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitLab, gi-docgen, meson, ninja, pkg-config, sassc, vala
-, gobject-introspection, fribidi, glib, gtk4, gnome, gsettings-desktop-schemas
-, xvfb-run, AppKit, Foundation }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  gi-docgen,
+  meson,
+  ninja,
+  pkg-config,
+  sassc,
+  vala,
+  gobject-introspection,
+  fribidi,
+  glib,
+  gtk4,
+  gnome,
+  gsettings-desktop-schemas,
+  xvfb-run,
+  AppKit,
+  Foundation,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libadwaita";

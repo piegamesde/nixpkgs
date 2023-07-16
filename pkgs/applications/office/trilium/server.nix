@@ -1,4 +1,11 @@
-{ stdenv, lib, autoPatchelfHook, fetchurl, nixosTests, metaCommon }:
+{
+  stdenv,
+  lib,
+  autoPatchelfHook,
+  fetchurl,
+  nixosTests,
+  metaCommon,
+}:
 
 let
   serverSource.url =

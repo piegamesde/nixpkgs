@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, jupyterhub, escapism, docker }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  jupyterhub,
+  escapism,
+  docker,
+}:
 
 buildPythonPackage rec {
   pname = "dockerspawner";

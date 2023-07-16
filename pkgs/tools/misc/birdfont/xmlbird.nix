@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, python3, pkg-config, vala, glib, gobject-introspection
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python3,
+  pkg-config,
+  vala,
+  glib,
+  gobject-introspection,
 }:
 
 stdenv.mkDerivation rec {

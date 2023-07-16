@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, requests, gevent }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+  gevent,
+}:
 
 buildPythonPackage rec {
   pname = "grequests";

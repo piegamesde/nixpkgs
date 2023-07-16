@@ -4,44 +4,66 @@
 # additional configuration provided, and the namePrefix to use (based on the
 # pname and version of Octave), the octave package, etc.
 
-{ lib, stdenv, config, octave, texinfo, computeRequiredOctavePackages
-, writeRequiredOctavePackagesHook }:
+{
+  lib,
+  stdenv,
+  config,
+  octave,
+  texinfo,
+  computeRequiredOctavePackages,
+  writeRequiredOctavePackagesHook,
+}:
 
 # The inner function contains information required to build the individual
 # libraries.
-{ fullLibName ? "${attrs.pname}-${attrs.version}"
+{
+  fullLibName ? "${attrs.pname}-${attrs.version}"
 
-, src
+  ,
+  src
 
-, dontPatch ? false, patches ? [ ], patchPhase ? ""
+  ,
+  dontPatch ? false,
+  patches ? [ ],
+  patchPhase ? ""
 
-, enableParallelBuilding ? true
-  # Build-time dependencies for the package, which were compiled for the system compiling this.
-, nativeBuildInputs ? [ ]
+  ,
+  enableParallelBuilding ? true
+    # Build-time dependencies for the package, which were compiled for the system compiling this.
+  ,
+  nativeBuildInputs ? [ ]
 
-  # Build-time dependencies for the package, which may not have been compiled for the system compiling this.
-, buildInputs ? [ ]
+    # Build-time dependencies for the package, which may not have been compiled for the system compiling this.
+  ,
+  buildInputs ? [ ]
 
-  # Propagate build dependencies so in case we have A -> B -> C,
-  # C can import package A propagated by B
-  # Run-time dependencies for the package.
-, propagatedBuildInputs ? [ ]
+    # Propagate build dependencies so in case we have A -> B -> C,
+    # C can import package A propagated by B
+    # Run-time dependencies for the package.
+  ,
+  propagatedBuildInputs ? [ ]
 
-  # Octave packages that are required at runtime for this one.
-  # These behave similarly to propagatedBuildInputs, where if
-  # package A is needed by B, and C needs B, then C also requires A.
-  # The main difference between these and propagatedBuildInputs is
-  # during the package's installation into octave, where all
-  # requiredOctavePackages are ALSO installed into octave.
-, requiredOctavePackages ? [ ]
+    # Octave packages that are required at runtime for this one.
+    # These behave similarly to propagatedBuildInputs, where if
+    # package A is needed by B, and C needs B, then C also requires A.
+    # The main difference between these and propagatedBuildInputs is
+    # during the package's installation into octave, where all
+    # requiredOctavePackages are ALSO installed into octave.
+  ,
+  requiredOctavePackages ? [ ]
 
-, preBuild ? ""
+  ,
+  preBuild ? ""
 
-, meta ? { }
+  ,
+  meta ? { }
 
-, passthru ? { }
+  ,
+  passthru ? { }
 
-, ... }@attrs:
+  ,
+  ...
+}@attrs:
 
 let
   requiredOctavePackages' =

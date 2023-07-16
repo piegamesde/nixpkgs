@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, bash, cabextract, curl, gnupg, libX11, libGLU, libGL
-, wine-staging }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bash,
+  cabextract,
+  curl,
+  gnupg,
+  libX11,
+  libGLU,
+  libGL,
+  wine-staging,
+}:
 
 let
   wine_custom = wine-staging;

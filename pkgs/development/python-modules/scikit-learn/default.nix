@@ -1,6 +1,22 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, fetchpatch, gfortran, glibcLocales
-, numpy, scipy, pytestCheckHook, pytest-xdist, pillow, cython, joblib
-, llvmPackages, threadpoolctl, pythonOlder }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  gfortran,
+  glibcLocales,
+  numpy,
+  scipy,
+  pytestCheckHook,
+  pytest-xdist,
+  pillow,
+  cython,
+  joblib,
+  llvmPackages,
+  threadpoolctl,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "scikit-learn";

@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, rustPlatform, makeWrapper, ffmpeg }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  makeWrapper,
+  ffmpeg,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "alass";

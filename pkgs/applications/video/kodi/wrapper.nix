@@ -1,4 +1,11 @@
-{ lib, makeWrapper, buildEnv, kodi, addons, callPackage }:
+{
+  lib,
+  makeWrapper,
+  buildEnv,
+  kodi,
+  addons,
+  callPackage,
+}:
 
 let
   kodiPackages =

@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, ocamlPackages }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocamlPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "proverif";

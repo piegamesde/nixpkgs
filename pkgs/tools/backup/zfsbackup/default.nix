@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, zfs }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  zfs,
+}:
 
 buildGoModule rec {
   pname = "zfsbackup";

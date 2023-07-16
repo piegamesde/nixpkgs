@@ -1,5 +1,14 @@
-{ lib, aiohttp, async-timeout, buildPythonPackage, fetchFromGitHub, poetry-core
-, pytestCheckHook, pythonOlder, setuptools }:
+{
+  lib,
+  aiohttp,
+  async-timeout,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "py-synologydsm-api";

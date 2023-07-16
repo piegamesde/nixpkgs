@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, perlPackages, makeWrapper, zip, libxslt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perlPackages,
+  makeWrapper,
+  zip,
+  libxslt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "docbook2odf";

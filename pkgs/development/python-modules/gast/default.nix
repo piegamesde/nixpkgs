@@ -1,5 +1,11 @@
-{ lib, astunparse, buildPythonPackage, fetchFromGitHub, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  astunparse,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "gast";

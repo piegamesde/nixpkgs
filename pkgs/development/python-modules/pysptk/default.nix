@@ -1,5 +1,16 @@
-{ lib, stdenv, buildPythonPackage, cython, decorator, fetchPypi, numpy
-, pytestCheckHook, pythonOlder, scipy, six }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  cython,
+  decorator,
+  fetchPypi,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  scipy,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "pysptk";

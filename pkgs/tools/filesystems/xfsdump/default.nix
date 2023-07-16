@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, attr, gettext, autoconf, automake, ncurses, libtool
-, libuuid, libxfs }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  attr,
+  gettext,
+  autoconf,
+  automake,
+  ncurses,
+  libtool,
+  libuuid,
+  libxfs,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xfsdump";

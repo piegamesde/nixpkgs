@@ -1,8 +1,28 @@
-{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, libgpg-error, gnupg
-, pkg-config, glib, pth, libassuan, file, which, ncurses, texinfo, buildPackages
-, qtbase ? null, pythonSupport ? false, swig2 ? null
-  # only for passthru.tests
-, libsForQt5, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  autoreconfHook,
+  libgpg-error,
+  gnupg,
+  pkg-config,
+  glib,
+  pth,
+  libassuan,
+  file,
+  which,
+  ncurses,
+  texinfo,
+  buildPackages,
+  qtbase ? null,
+  pythonSupport ? false,
+  swig2 ? null
+    # only for passthru.tests
+  ,
+  libsForQt5,
+  python3,
+}:
 let inherit (stdenv.hostPlatform) system;
 in stdenv.mkDerivation rec {
   pname = "gpgme";

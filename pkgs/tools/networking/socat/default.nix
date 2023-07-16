@@ -1,4 +1,13 @@
-{ lib, fetchurl, nettools, openssl, readline, stdenv, which, buildPackages }:
+{
+  lib,
+  fetchurl,
+  nettools,
+  openssl,
+  readline,
+  stdenv,
+  which,
+  buildPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "socat";

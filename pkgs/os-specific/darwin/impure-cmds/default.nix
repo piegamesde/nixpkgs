@@ -1,4 +1,7 @@
-{ lib, runCommandLocal }:
+{
+  lib,
+  runCommandLocal,
+}:
 
 # On darwin, there are some commands neither opensource nor able to build in nixpkgs.
 # We have no choice but to use those system-shipped impure ones.

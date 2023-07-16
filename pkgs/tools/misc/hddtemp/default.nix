@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 let
   db = fetchurl {
     url = "mirror://savannah/hddtemp/hddtemp.db";

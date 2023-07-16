@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gnum4 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gnum4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "suitesparse-graphblas";

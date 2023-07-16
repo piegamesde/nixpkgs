@@ -1,4 +1,11 @@
-{ lib, stdenv, buildPackages, fetchurl, fetchpatch, zlib }:
+{
+  lib,
+  stdenv,
+  buildPackages,
+  fetchurl,
+  fetchpatch,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kexec-tools";

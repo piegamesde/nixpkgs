@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, erlang, icu, openssl, spidermonkey_91, coreutils, bash
-, python3, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  erlang,
+  icu,
+  openssl,
+  spidermonkey_91,
+  coreutils,
+  bash,
+  python3,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "couchdb";

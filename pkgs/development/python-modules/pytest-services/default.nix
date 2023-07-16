@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, requests, psutil, pytest
-, setuptools-scm, toml, zc_lockfile }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  requests,
+  psutil,
+  pytest,
+  setuptools-scm,
+  toml,
+  zc_lockfile,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-services";

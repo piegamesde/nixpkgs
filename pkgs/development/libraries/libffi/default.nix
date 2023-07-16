@@ -1,8 +1,17 @@
-{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  autoreconfHook
 
-# test suite depends on dejagnu which cannot be used during bootstrapping
-# dejagnu also requires tcl which can't be built statically at the moment
-, doCheck ? !(stdenv.hostPlatform.isStatic), dejagnu, nix-update-script }:
+  # test suite depends on dejagnu which cannot be used during bootstrapping
+  # dejagnu also requires tcl which can't be built statically at the moment
+  ,
+  doCheck ? !(stdenv.hostPlatform.isStatic),
+  dejagnu,
+  nix-update-script,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libffi";

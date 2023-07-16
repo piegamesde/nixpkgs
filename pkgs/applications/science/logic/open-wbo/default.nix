@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, zlib, gmp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  zlib,
+  gmp,
+}:
 
 stdenv.mkDerivation {
   pname = "open-wbo";

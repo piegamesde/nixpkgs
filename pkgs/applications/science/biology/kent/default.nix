@@ -1,5 +1,18 @@
-{ lib, stdenv, libpng, libuuid, zlib, bzip2, xz, openssl, curl, libmysqlclient
-, bash, fetchFromGitHub, which }:
+{
+  lib,
+  stdenv,
+  libpng,
+  libuuid,
+  zlib,
+  bzip2,
+  xz,
+  openssl,
+  curl,
+  libmysqlclient,
+  bash,
+  fetchFromGitHub,
+  which,
+}:
 stdenv.mkDerivation rec {
   pname = "kent";
   version = "446";

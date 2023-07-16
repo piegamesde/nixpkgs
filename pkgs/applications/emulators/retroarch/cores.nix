@@ -1,16 +1,58 @@
-{ lib, stdenv, alsa-lib, boost, bzip2, cmake, curl, fetchFromGitHub, ffmpeg
-, ffmpeg_4, fluidsynth, gettext, hexdump, hidapi, icu, libaio, libevdev, libGL
-, libGLU, libjpeg, libpcap, libpng, libvorbis, libxml2, libzip, makeWrapper
-, nasm, openssl, pcre, pkg-config, portaudio, python3, retroarch, sfml, snappy
-, udev, which, xorg, xxd, xz, zlib }:
+{
+  lib,
+  stdenv,
+  alsa-lib,
+  boost,
+  bzip2,
+  cmake,
+  curl,
+  fetchFromGitHub,
+  ffmpeg,
+  ffmpeg_4,
+  fluidsynth,
+  gettext,
+  hexdump,
+  hidapi,
+  icu,
+  libaio,
+  libevdev,
+  libGL,
+  libGLU,
+  libjpeg,
+  libpcap,
+  libpng,
+  libvorbis,
+  libxml2,
+  libzip,
+  makeWrapper,
+  nasm,
+  openssl,
+  pcre,
+  pkg-config,
+  portaudio,
+  python3,
+  retroarch,
+  sfml,
+  snappy,
+  udev,
+  which,
+  xorg,
+  xxd,
+  xz,
+  zlib,
+}:
 
 let
   hashesFile = builtins.fromJSON (builtins.readFile ./hashes.json);
 
   getCoreSrc = core: fetchFromGitHub (builtins.getAttr core hashesFile);
 
-  mkLibretroCore = { core, src ? (getCoreSrc core)
-    , version ? "unstable-2023-03-13", ... }@args:
+  mkLibretroCore = {
+      core,
+      src ? (getCoreSrc core),
+      version ? "unstable-2023-03-13",
+      ...
+    }@args:
     import ./mkLibretroCore.nix ({
       inherit lib stdenv core src version makeWrapper retroarch zlib;
     } // args);

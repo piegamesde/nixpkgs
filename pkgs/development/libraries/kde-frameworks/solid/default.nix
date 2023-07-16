@@ -1,5 +1,15 @@
-{ mkDerivation, lib, stdenv, bison, extra-cmake-modules, flex, media-player-info
-, qtbase, qtdeclarative, qttools }:
+{
+  mkDerivation,
+  lib,
+  stdenv,
+  bison,
+  extra-cmake-modules,
+  flex,
+  media-player-info,
+  qtbase,
+  qtdeclarative,
+  qttools,
+}:
 
 mkDerivation {
   pname = "solid";

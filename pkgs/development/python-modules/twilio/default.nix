@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, cryptography, django, fetchFromGitHub, mock
-, multidict, pyjwt, pytestCheckHook, pythonOlder, pytz, requests }:
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  django,
+  fetchFromGitHub,
+  mock,
+  multidict,
+  pyjwt,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "twilio";

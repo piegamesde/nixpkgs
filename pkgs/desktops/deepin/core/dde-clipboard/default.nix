@@ -1,6 +1,20 @@
-{ stdenv, lib, fetchFromGitHub, dtkwidget, qt5integration, qt5platform-plugins
-, dde-qt-dbus-factory, gio-qt, cmake, qttools, kwayland, pkg-config
-, wrapQtAppsHook, glibmm, gtest }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  dtkwidget,
+  qt5integration,
+  qt5platform-plugins,
+  dde-qt-dbus-factory,
+  gio-qt,
+  cmake,
+  qttools,
+  kwayland,
+  pkg-config,
+  wrapQtAppsHook,
+  glibmm,
+  gtest,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dde-clipboard";

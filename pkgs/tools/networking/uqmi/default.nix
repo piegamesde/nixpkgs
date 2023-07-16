@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchgit, cmake, perl, libubox, json_c }:
+{
+  stdenv,
+  lib,
+  fetchgit,
+  cmake,
+  perl,
+  libubox,
+  json_c,
+}:
 
 stdenv.mkDerivation {
   pname = "uqmi";

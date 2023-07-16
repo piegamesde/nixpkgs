@@ -1,7 +1,28 @@
-{ lib, buildPythonPackage, click, cloudpickle, dask, fetchFromGitHub, jinja2
-, locket, msgpack, packaging, psutil, pythonOlder, pyyaml, setuptools
-, setuptools-scm, sortedcontainers, tblib, toolz, tornado, urllib3, versioneer
-, wheel, zict }:
+{
+  lib,
+  buildPythonPackage,
+  click,
+  cloudpickle,
+  dask,
+  fetchFromGitHub,
+  jinja2,
+  locket,
+  msgpack,
+  packaging,
+  psutil,
+  pythonOlder,
+  pyyaml,
+  setuptools,
+  setuptools-scm,
+  sortedcontainers,
+  tblib,
+  toolz,
+  tornado,
+  urllib3,
+  versioneer,
+  wheel,
+  zict,
+}:
 
 buildPythonPackage rec {
   pname = "distributed";

@@ -1,5 +1,18 @@
-{ buildDunePackage, lib, fetchFromGitHub, ocaml, hpack, angstrom, faraday
-, base64, psq, httpaf, alcotest, yojson, hex }:
+{
+  buildDunePackage,
+  lib,
+  fetchFromGitHub,
+  ocaml,
+  hpack,
+  angstrom,
+  faraday,
+  base64,
+  psq,
+  httpaf,
+  alcotest,
+  yojson,
+  hex,
+}:
 
 let
   http2-frame-test-case = fetchFromGitHub {

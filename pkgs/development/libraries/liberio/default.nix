@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, systemd, pkg-config }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  systemd,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "liberio";

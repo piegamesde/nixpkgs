@@ -1,7 +1,19 @@
-{ stdenv, lib, fetchgit, rustPlatform, pkg-config, openssl, dbus, sqlite, file
-, makeWrapper, notmuch
-# Build with support for notmuch backend
-, withNotmuch ? true }:
+{
+  stdenv,
+  lib,
+  fetchgit,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  dbus,
+  sqlite,
+  file,
+  makeWrapper,
+  notmuch
+  # Build with support for notmuch backend
+  ,
+  withNotmuch ? true
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "meli";

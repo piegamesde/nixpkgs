@@ -1,5 +1,11 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pythonOlder
-, pytestCheckHook }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "aiolyric";

@@ -1,4 +1,11 @@
-{ lib, stdenv, libgcrypt, fetchFromGitHub, ocamlPackages, perl }:
+{
+  lib,
+  stdenv,
+  libgcrypt,
+  fetchFromGitHub,
+  ocamlPackages,
+  perl,
+}:
 stdenv.mkDerivation rec {
   pname = "obliv-c";
 

@@ -1,5 +1,16 @@
-{ lib, stdenvNoCC, fetchpatch, fetchzip, fetchFromGitHub, butler, electron_11
-, steam-run, makeWrapper, copyDesktopItems, makeDesktopItem }:
+{
+  lib,
+  stdenvNoCC,
+  fetchpatch,
+  fetchzip,
+  fetchFromGitHub,
+  butler,
+  electron_11,
+  steam-run,
+  makeWrapper,
+  copyDesktopItems,
+  makeDesktopItem,
+}:
 stdenvNoCC.mkDerivation rec {
   pname = "itch";
   version = "25.5.1";

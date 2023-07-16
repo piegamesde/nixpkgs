@@ -1,4 +1,8 @@
-{ build-idris-package, fetchFromGitHub, lib }:
+{
+  build-idris-package,
+  fetchFromGitHub,
+  lib,
+}:
 build-idris-package {
   pname = "union_type";
   version = "2018-01-30";

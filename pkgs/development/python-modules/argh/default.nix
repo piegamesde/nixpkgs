@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, flit-core, iocapture, mock
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  flit-core,
+  iocapture,
+  mock,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "argh";

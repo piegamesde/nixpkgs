@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, httpTwoLevelsUpdater }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  httpTwoLevelsUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xfwm4-themes";

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, libX11, libXi, libXtst, pkg-config, xorgproto }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libX11,
+  libXi,
+  libXtst,
+  pkg-config,
+  xorgproto,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libfakekey";

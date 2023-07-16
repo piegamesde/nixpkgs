@@ -1,5 +1,8 @@
 # Options that can be used for creating a jupyter kernel.
-{ lib, pkgs }:
+{
+  lib,
+  pkgs,
+}:
 
 with lib;
 

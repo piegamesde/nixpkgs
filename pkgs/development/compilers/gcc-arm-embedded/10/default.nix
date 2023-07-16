@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, ncurses5 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses5,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gcc-arm-embedded";

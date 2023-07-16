@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, geojson, pysocks, pythonOlder
-, requests, pytestCheckHook, pythonRelaxDepsHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  geojson,
+  pysocks,
+  pythonOlder,
+  requests,
+  pytestCheckHook,
+  pythonRelaxDepsHook,
+}:
 
 buildPythonPackage rec {
   pname = "pyowm";

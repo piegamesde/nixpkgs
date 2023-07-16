@@ -1,6 +1,20 @@
-{ buildGoModule, copyDesktopItems, fetchFromGitLab, lib, libGL, libX11
-, libXcursor, libXext, libXi, libXinerama, libXrandr, makeDesktopItem, mesa
-, pkg-config, stdenv }:
+{
+  buildGoModule,
+  copyDesktopItems,
+  fetchFromGitLab,
+  lib,
+  libGL,
+  libX11,
+  libXcursor,
+  libXext,
+  libXi,
+  libXinerama,
+  libXrandr,
+  makeDesktopItem,
+  mesa,
+  pkg-config,
+  stdenv,
+}:
 
 buildGoModule rec {
   pname = "clipqr";

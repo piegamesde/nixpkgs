@@ -1,5 +1,11 @@
-{ buildPythonPackage, fetchPypi, lib, pytest-asyncio, pytest-cov
-, pytestCheckHook }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  lib,
+  pytest-asyncio,
+  pytest-cov,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "aiorwlock";

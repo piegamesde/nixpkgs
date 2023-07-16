@@ -1,5 +1,13 @@
-{ lib, aiohttp, aioresponses, buildPythonPackage, fetchFromGitHub
-, pytest-aiohttp, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "rki-covid-parser";

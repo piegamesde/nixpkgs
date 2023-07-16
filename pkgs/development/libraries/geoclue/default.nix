@@ -1,8 +1,30 @@
-{ lib, stdenv, fetchFromGitLab, fetchpatch, intltool, meson, mesonEmulatorHook
-, ninja, pkg-config, gtk-doc, docbook-xsl-nons, docbook_xml_dtd_412, glib
-, json-glib, libsoup_3, libnotify, gdk-pixbuf, modemmanager, avahi
-, glib-networking, python3, wrapGAppsHook, gobject-introspection, vala
-, withDemoAgent ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch,
+  intltool,
+  meson,
+  mesonEmulatorHook,
+  ninja,
+  pkg-config,
+  gtk-doc,
+  docbook-xsl-nons,
+  docbook_xml_dtd_412,
+  glib,
+  json-glib,
+  libsoup_3,
+  libnotify,
+  gdk-pixbuf,
+  modemmanager,
+  avahi,
+  glib-networking,
+  python3,
+  wrapGAppsHook,
+  gobject-introspection,
+  vala,
+  withDemoAgent ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "geoclue";

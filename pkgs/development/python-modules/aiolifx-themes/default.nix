@@ -1,5 +1,15 @@
-{ lib, fetchFromGitHub, buildPythonPackage, pythonOlder, aiolifx, poetry-core
-, pytest-asyncio, pytestCheckHook, async-timeout, typer }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pythonOlder,
+  aiolifx,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+  async-timeout,
+  typer,
+}:
 
 buildPythonPackage rec {
   pname = "aiolifx-themes";

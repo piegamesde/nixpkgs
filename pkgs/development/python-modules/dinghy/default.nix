@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
-, aiofiles, aiohttp, click-log, emoji, glom, jinja2, pyyaml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  aiofiles,
+  aiohttp,
+  click-log,
+  emoji,
+  glom,
+  jinja2,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "dinghy";

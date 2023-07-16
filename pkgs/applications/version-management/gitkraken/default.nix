@@ -1,10 +1,54 @@
-{ lib, stdenv, libXcomposite, libgnome-keyring, makeWrapper, udev
-, curlWithGnuTls, alsa-lib, libXfixes, atk, gtk3, libXrender, pango, gnome
-, cairo, freetype, fontconfig, libX11, libXi, libxcb, libXext, libXcursor, glib
-, libXScrnSaver, libxkbfile, libXtst, nss, nspr, cups, fetchzip, expat
-, gdk-pixbuf, libXdamage, libXrandr, dbus, makeDesktopItem, openssl
-, wrapGAppsHook, at-spi2-atk, at-spi2-core, libuuid, e2fsprogs, krb5, libdrm
-, mesa, unzip, copyDesktopItems, libxshmfence, libxkbcommon }:
+{
+  lib,
+  stdenv,
+  libXcomposite,
+  libgnome-keyring,
+  makeWrapper,
+  udev,
+  curlWithGnuTls,
+  alsa-lib,
+  libXfixes,
+  atk,
+  gtk3,
+  libXrender,
+  pango,
+  gnome,
+  cairo,
+  freetype,
+  fontconfig,
+  libX11,
+  libXi,
+  libxcb,
+  libXext,
+  libXcursor,
+  glib,
+  libXScrnSaver,
+  libxkbfile,
+  libXtst,
+  nss,
+  nspr,
+  cups,
+  fetchzip,
+  expat,
+  gdk-pixbuf,
+  libXdamage,
+  libXrandr,
+  dbus,
+  makeDesktopItem,
+  openssl,
+  wrapGAppsHook,
+  at-spi2-atk,
+  at-spi2-core,
+  libuuid,
+  e2fsprogs,
+  krb5,
+  libdrm,
+  mesa,
+  unzip,
+  copyDesktopItems,
+  libxshmfence,
+  libxkbcommon,
+}:
 
 with lib;
 

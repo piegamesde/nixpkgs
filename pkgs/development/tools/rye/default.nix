@@ -1,5 +1,12 @@
-{ lib, fetchFromGitHub, rustPlatform, openssl, pkg-config, stdenv
-, SystemConfiguration }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  openssl,
+  pkg-config,
+  stdenv,
+  SystemConfiguration,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rye";

@@ -1,4 +1,10 @@
-{ qtModule, qtbase, qtquickcontrols, wayland, pkg-config }:
+{
+  qtModule,
+  qtbase,
+  qtquickcontrols,
+  wayland,
+  pkg-config,
+}:
 
 qtModule {
   pname = "qtwayland";

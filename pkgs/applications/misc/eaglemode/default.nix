@@ -1,6 +1,28 @@
-{ lib, stdenv, fetchurl, perl, libX11, libXinerama, libjpeg, libpng, libtiff
-, libwebp, pkg-config, librsvg, glib, gtk2, libXext, libXxf86vm, poppler, vlc
-, ghostscript, makeWrapper, tzdata, makeDesktopItem, copyDesktopItems }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  libX11,
+  libXinerama,
+  libjpeg,
+  libpng,
+  libtiff,
+  libwebp,
+  pkg-config,
+  librsvg,
+  glib,
+  gtk2,
+  libXext,
+  libXxf86vm,
+  poppler,
+  vlc,
+  ghostscript,
+  makeWrapper,
+  tzdata,
+  makeDesktopItem,
+  copyDesktopItems,
+}:
 
 stdenv.mkDerivation rec {
   pname = "eaglemode";

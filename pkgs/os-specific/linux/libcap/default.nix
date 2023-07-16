@@ -1,5 +1,14 @@
-{ stdenv, lib, buildPackages, fetchurl, attr, runtimeShell, usePam ? !isStatic
-, pam ? null, isStatic ? stdenv.hostPlatform.isStatic }:
+{
+  stdenv,
+  lib,
+  buildPackages,
+  fetchurl,
+  attr,
+  runtimeShell,
+  usePam ? !isStatic,
+  pam ? null,
+  isStatic ? stdenv.hostPlatform.isStatic
+}:
 
 assert usePam -> pam != null;
 

@@ -1,4 +1,8 @@
-{ pkgs, fetchFromGitHub, python3Packages }:
+{
+  pkgs,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 let pythonPackages = python3Packages;
 in pythonPackages.buildPythonApplication rec {

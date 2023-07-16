@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, libtool, pkg-config, automake, autoconf
-, intltool, glib, gobject-introspection, gtk2, gtk-doc, clutter, clutter-gtk }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libtool,
+  pkg-config,
+  automake,
+  autoconf,
+  intltool,
+  glib,
+  gobject-introspection,
+  gtk2,
+  gtk-doc,
+  clutter,
+  clutter-gtk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libmx";

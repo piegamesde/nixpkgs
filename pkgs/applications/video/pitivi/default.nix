@@ -1,6 +1,23 @@
-{ lib, fetchurl, pkg-config, gettext, itstool, python3, wrapGAppsHook, gst_all_1
-, gtk3, gobject-introspection, libpeas, librsvg, gnome, libnotify, gsound, meson
-, ninja, gsettings-desktop-schemas }:
+{
+  lib,
+  fetchurl,
+  pkg-config,
+  gettext,
+  itstool,
+  python3,
+  wrapGAppsHook,
+  gst_all_1,
+  gtk3,
+  gobject-introspection,
+  libpeas,
+  librsvg,
+  gnome,
+  libnotify,
+  gsound,
+  meson,
+  ninja,
+  gsettings-desktop-schemas,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "pitivi";

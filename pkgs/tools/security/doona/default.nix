@@ -1,4 +1,9 @@
-{ fetchFromGitHub, lib, stdenv, perl }:
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "doona";

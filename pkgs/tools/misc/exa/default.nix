@@ -1,5 +1,17 @@
-{ lib, gitSupport ? true, stdenv, fetchFromGitHub, rustPlatform, cmake, pandoc
-, pkg-config, zlib, Security, libiconv, installShellFiles }:
+{
+  lib,
+  gitSupport ? true,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  cmake,
+  pandoc,
+  pkg-config,
+  zlib,
+  Security,
+  libiconv,
+  installShellFiles,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "exa";

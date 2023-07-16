@@ -1,5 +1,15 @@
-{ lib, fetchFromGitHub, fetchpatch, buildPythonPackage, pythonOlder
-, pytestCheckHook, rustPlatform, stdenv, py-bip39-bindings, libiconv }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  buildPythonPackage,
+  pythonOlder,
+  pytestCheckHook,
+  rustPlatform,
+  stdenv,
+  py-bip39-bindings,
+  libiconv,
+}:
 
 buildPythonPackage rec {
   pname = "py-sr25519-bindings";

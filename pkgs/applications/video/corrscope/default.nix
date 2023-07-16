@@ -1,5 +1,14 @@
-{ lib, mkDerivationWith, python3Packages, fetchFromGitHub, wrapQtAppsHook
-, ffmpeg, qtbase, testers, corrscope }:
+{
+  lib,
+  mkDerivationWith,
+  python3Packages,
+  fetchFromGitHub,
+  wrapQtAppsHook,
+  ffmpeg,
+  qtbase,
+  testers,
+  corrscope,
+}:
 
 mkDerivationWith python3Packages.buildPythonApplication rec {
   pname = "corrscope";

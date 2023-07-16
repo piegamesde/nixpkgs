@@ -1,8 +1,39 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, shared-mime-info, exiv2
-, kactivities, kactivities-stats, karchive, kbookmarks, kconfig, kconfigwidgets
-, kcoreaddons, kdbusaddons, kdsoap, kguiaddons, kdnssd, kiconthemes, ki18n, kio
-, khtml, kpty, syntax-highlighting, libmtp, libssh, openexr, libtirpc, ilmbase
-, phonon, qtsvg, samba, solid, gperf, taglib }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  shared-mime-info,
+  exiv2,
+  kactivities,
+  kactivities-stats,
+  karchive,
+  kbookmarks,
+  kconfig,
+  kconfigwidgets,
+  kcoreaddons,
+  kdbusaddons,
+  kdsoap,
+  kguiaddons,
+  kdnssd,
+  kiconthemes,
+  ki18n,
+  kio,
+  khtml,
+  kpty,
+  syntax-highlighting,
+  libmtp,
+  libssh,
+  openexr,
+  libtirpc,
+  ilmbase,
+  phonon,
+  qtsvg,
+  samba,
+  solid,
+  gperf,
+  taglib,
+}:
 
 mkDerivation {
   pname = "kio-extras";

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromBitbucket, fetchpatch, libX11 }:
+{
+  lib,
+  stdenv,
+  fetchFromBitbucket,
+  fetchpatch,
+  libX11,
+}:
 stdenv.mkDerivation rec {
   pname = "xannotate";
   version = "20150301";

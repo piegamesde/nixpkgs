@@ -1,6 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder
 
-, keyring, setuptools-scm }:
+  ,
+  keyring,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "keyrings.passwordstore";

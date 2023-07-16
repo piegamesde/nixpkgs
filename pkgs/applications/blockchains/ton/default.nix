@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, cmake, git, pkg-config, gperf, libmicrohttpd
-, openssl, readline, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  git,
+  pkg-config,
+  gperf,
+  libmicrohttpd,
+  openssl,
+  readline,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ton";

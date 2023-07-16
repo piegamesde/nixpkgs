@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, qtwebengine, qttools, wrapGAppsHook
-, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  qtwebengine,
+  qttools,
+  wrapGAppsHook,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rssguard";

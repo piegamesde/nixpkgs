@@ -1,5 +1,15 @@
-{ stdenv, lib, buildFHSEnvChroot, fetchurl, gsettings-desktop-schemas
-, makeDesktopItem, makeWrapper, opensc, writeTextDir, configText ? "" }:
+{
+  stdenv,
+  lib,
+  buildFHSEnvChroot,
+  fetchurl,
+  gsettings-desktop-schemas,
+  makeDesktopItem,
+  makeWrapper,
+  opensc,
+  writeTextDir,
+  configText ? ""
+}:
 let
   version = "2303";
 

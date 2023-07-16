@@ -1,6 +1,15 @@
-{ lib, stdenv, buildPythonPackage, pythonOlder, flaky, ipykernel, ipyparallel
-, nose, pytestCheckHook
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  flaky,
+  ipykernel,
+  ipyparallel,
+  nose,
+  pytestCheckHook
 
+  ,
 }:
 
 buildPythonPackage rec {

@@ -1,6 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, asciidoc, docbook_xml_dtd_45
-, docbook_xsl, installShellFiles, libxslt, python3, re2c, buildPackages
-, buildDocs ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  asciidoc,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+  installShellFiles,
+  libxslt,
+  python3,
+  re2c,
+  buildPackages,
+  buildDocs ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "ninja";

@@ -1,6 +1,11 @@
 # Xen hypervisor (Dom0) support.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

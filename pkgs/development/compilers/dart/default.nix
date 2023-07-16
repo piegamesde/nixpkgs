@@ -1,6 +1,13 @@
-{ stdenv, lib, fetchurl, unzip, runCommand, darwin
-, sources ? import ./sources.nix { inherit fetchurl; }
-, version ? sources.versionUsed }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  unzip,
+  runCommand,
+  darwin,
+  sources ? import ./sources.nix { inherit fetchurl; },
+  version ? sources.versionUsed
+}:
 
 assert sources != null && (builtins.isAttrs sources);
 stdenv.mkDerivation (finalAttrs: {

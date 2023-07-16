@@ -1,7 +1,11 @@
 import ./make-test-python.nix {
   name = "systemd-confinement";
 
-  nodes.machine = { pkgs, lib, ... }:
+  nodes.machine = {
+      pkgs,
+      lib,
+      ...
+    }:
     let
       testServer = pkgs.writeScript "testserver.sh" ''
         #!${pkgs.runtimeShell}
@@ -19,7 +23,11 @@ import ./make-test-python.nix {
       '';
 
       mkTestStep = num:
-        { testScript, config ? { }, serviceName ? "test${toString num}", }: {
+        {
+          testScript,
+          config ? { },
+          serviceName ? "test${toString num}",
+        }: {
           systemd.sockets.${serviceName} = {
             description = "Socket for Test Service ${toString num}";
             wantedBy = [ "sockets.target" ];
@@ -191,7 +199,10 @@ import ./make-test-python.nix {
       };
     };
 
-  testScript = { nodes, ... }:
+  testScript = {
+      nodes,
+      ...
+    }:
     ''
       def assert_eq(a, b):
           assert a == b, f"{a} != {b}"

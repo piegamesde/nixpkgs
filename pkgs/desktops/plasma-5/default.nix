@@ -21,7 +21,14 @@
    4. Commit the changes and open a pull request.
 */
 
-{ libsForQt5, lib, config, fetchurl, gconf, gsettings-desktop-schemas }:
+{
+  libsForQt5,
+  lib,
+  config,
+  fetchurl,
+  gconf,
+  gsettings-desktop-schemas,
+}:
 
 let
   maintainers = with lib.maintainers; [ ttuegel nyanloutre ];
@@ -40,14 +47,19 @@ let
     mirror = "mirror://kde";
   };
 
-  qtStdenv = libsForQt5.callPackage ({ stdenv }: stdenv) { };
+  qtStdenv = libsForQt5.callPackage ({
+      stdenv,
+    }:
+    stdenv) { };
 
   packages = self:
     let
 
       propagate = out:
         let
-          setupHook = { writeScript }:
+          setupHook = {
+              writeScript,
+            }:
             writeScript "setup-hook" ''
               if [[ "''${hookName-}" != postHook ]]; then
                   postHooks+=("source @dev@/nix-support/setup-hook")

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, toolz, multipledispatch, py
-, pytestCheckHook, pytest-html, pytest-benchmark }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  toolz,
+  multipledispatch,
+  py,
+  pytestCheckHook,
+  pytest-html,
+  pytest-benchmark,
+}:
 
 buildPythonPackage rec {
   pname = "logical-unification";

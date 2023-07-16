@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, SDL2, cmake, ffmpeg, libedit, libelf, libepoxy
-, libzip, lua5_4, minizip, pkg-config, libsForQt5 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL2,
+  cmake,
+  ffmpeg,
+  libedit,
+  libelf,
+  libepoxy,
+  libzip,
+  lua5_4,
+  minizip,
+  pkg-config,
+  libsForQt5,
+}:
 
 let
   lua = lua5_4;

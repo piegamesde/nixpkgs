@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, factory_boy, faker, fetchFromGitHub
-, importlib-metadata, numpy, pytest-xdist, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  factory_boy,
+  faker,
+  fetchFromGitHub,
+  importlib-metadata,
+  numpy,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-randomly";

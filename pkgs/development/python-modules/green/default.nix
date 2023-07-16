@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, django, colorama, coverage
-, unidecode, lxml }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  django,
+  colorama,
+  coverage,
+  unidecode,
+  lxml,
+}:
 
 buildPythonPackage rec {
   pname = "green";

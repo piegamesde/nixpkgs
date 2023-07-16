@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, gobject-introspection, gtk3, libgee, libhandy
-, libsecret, libsoup, meson, ninja, nix-update-script, pantheon, pkg-config
-, python3, vala, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gobject-introspection,
+  gtk3,
+  libgee,
+  libhandy,
+  libsecret,
+  libsoup,
+  meson,
+  ninja,
+  nix-update-script,
+  pantheon,
+  pkg-config,
+  python3,
+  vala,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "taxi";

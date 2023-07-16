@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -32,7 +37,13 @@ let
         if m == null then throw "bad ip:ports `${IPPorts}'" else elemAt m 1;
     };
 
-  mkTable = { ipVer, dest, ipSet, forwardPorts, dmzHost }:
+  mkTable = {
+      ipVer,
+      dest,
+      ipSet,
+      forwardPorts,
+      dmzHost,
+    }:
     let
       # nftables does not support both port and port range as values in a dnat map.
       # e.g. "dnat th dport map { 80 : 10.0.0.1 . 80, 443 : 10.0.0.2 . 900-1000 }"

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, hatchling, pytestCheckHook
-, pythonOlder, requests, responses }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatchling,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  responses,
+}:
 
 buildPythonPackage rec {
   pname = "pywaterkotte";

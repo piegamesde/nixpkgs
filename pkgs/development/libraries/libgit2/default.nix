@@ -1,8 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, python3, zlib, libssh2
-, openssl, pcre, http-parser, libiconv, Security, staticBuild ?
-  stdenv.hostPlatform.isStatic
-  # for passthru.tests
-, libgit2-glib, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  python3,
+  zlib,
+  libssh2,
+  openssl,
+  pcre,
+  http-parser,
+  libiconv,
+  Security,
+  staticBuild ? stdenv.hostPlatform.isStatic
+    # for passthru.tests
+  ,
+  libgit2-glib,
+  python3Packages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libgit2";

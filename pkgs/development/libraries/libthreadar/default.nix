@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, gcc-unwrapped }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gcc-unwrapped,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.4.0";

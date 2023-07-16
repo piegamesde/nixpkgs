@@ -1,7 +1,23 @@
-{ stdenv, lib, fetchzip, autoconf, automake, docbook_xml_dtd_42
-, docbook_xml_dtd_43, docbook_xsl, gtk-doc, libtool, pkg-config, libxslt, xz
-, zstd, elf-header, withDevdoc ? stdenv.hostPlatform == stdenv.buildPlatform
-, withStatic ? stdenv.hostPlatform.isStatic, gitUpdater }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  autoconf,
+  automake,
+  docbook_xml_dtd_42,
+  docbook_xml_dtd_43,
+  docbook_xsl,
+  gtk-doc,
+  libtool,
+  pkg-config,
+  libxslt,
+  xz,
+  zstd,
+  elf-header,
+  withDevdoc ? stdenv.hostPlatform == stdenv.buildPlatform,
+  withStatic ? stdenv.hostPlatform.isStatic,
+  gitUpdater,
+}:
 
 let
   systems = [

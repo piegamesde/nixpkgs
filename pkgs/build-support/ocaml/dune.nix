@@ -1,6 +1,19 @@
-{ lib, stdenv, ocaml, findlib, dune_1, dune_2, dune_3 }:
+{
+  lib,
+  stdenv,
+  ocaml,
+  findlib,
+  dune_1,
+  dune_2,
+  dune_3,
+}:
 
-{ pname, version, nativeBuildInputs ? [ ], enableParallelBuilding ? true, ...
+{
+  pname,
+  version,
+  nativeBuildInputs ? [ ],
+  enableParallelBuilding ? true,
+  ...
 }@args:
 
 let

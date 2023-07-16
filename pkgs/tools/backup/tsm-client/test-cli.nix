@@ -1,4 +1,9 @@
-{ lib, writeText, runCommand, tsm-client }:
+{
+  lib,
+  writeText,
+  runCommand,
+  tsm-client,
+}:
 
 # Let the client try to connect to a server.
 # We can't simulate a server, so there's no more to test.

@@ -1,4 +1,10 @@
-{ lib, fetchFromGitLab, makeWrapper, python3, antlr4_9 }:
+{
+  lib,
+  fetchFromGitLab,
+  makeWrapper,
+  python3,
+  antlr4_9,
+}:
 
 let
 

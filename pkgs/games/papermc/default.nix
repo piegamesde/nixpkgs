@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, bash, jre }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bash,
+  jre,
+}:
 
 stdenv.mkDerivation rec {
   pname = "papermc";

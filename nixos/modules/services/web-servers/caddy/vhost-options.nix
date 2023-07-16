@@ -1,5 +1,12 @@
-{ cfg }:
-{ config, lib, name, ... }:
+{
+  cfg,
+}:
+{
+  config,
+  lib,
+  name,
+  ...
+}:
 let inherit (lib) literalExpression mkOption types;
 in {
   options = {

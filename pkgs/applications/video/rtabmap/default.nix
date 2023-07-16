@@ -1,7 +1,29 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, opencv, pcl, libusb1, eigen
-, wrapQtAppsHook, qtbase, g2o, ceres-solver, libpointmatcher, octomap, freenect
-, libdc1394, librealsense, libGL, libGLU, vtkWithQt5, wrapGAppsHook, liblapack
-, xorg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  opencv,
+  pcl,
+  libusb1,
+  eigen,
+  wrapQtAppsHook,
+  qtbase,
+  g2o,
+  ceres-solver,
+  libpointmatcher,
+  octomap,
+  freenect,
+  libdc1394,
+  librealsense,
+  libGL,
+  libGLU,
+  vtkWithQt5,
+  wrapGAppsHook,
+  liblapack,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rtabmap";

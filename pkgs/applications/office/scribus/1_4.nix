@@ -1,6 +1,29 @@
-{ lib, stdenv, fetchurl, pkg-config, freetype, lcms, libtiff, libxml2
-, libart_lgpl, qt4, python2, cups, fontconfig, libjpeg, zlib, libpng, xorg
-, cairo, podofo, hunspell, boost, cmake, imagemagick, ghostscript }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  freetype,
+  lcms,
+  libtiff,
+  libxml2,
+  libart_lgpl,
+  qt4,
+  python2,
+  cups,
+  fontconfig,
+  libjpeg,
+  zlib,
+  libpng,
+  xorg,
+  cairo,
+  podofo,
+  hunspell,
+  boost,
+  cmake,
+  imagemagick,
+  ghostscript,
+}:
 
 let
   icon = fetchurl {

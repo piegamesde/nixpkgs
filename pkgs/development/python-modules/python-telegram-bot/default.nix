@@ -1,6 +1,22 @@
-{ lib, aiolimiter, apscheduler, beautifulsoup4, buildPythonPackage, cachetools
-, cryptography, fetchFromGitHub, flaky, httpx, pytest-asyncio, pytest-timeout
-, pytest-xdist, pytestCheckHook, pythonOlder, pytz, tornado }:
+{
+  lib,
+  aiolimiter,
+  apscheduler,
+  beautifulsoup4,
+  buildPythonPackage,
+  cachetools,
+  cryptography,
+  fetchFromGitHub,
+  flaky,
+  httpx,
+  pytest-asyncio,
+  pytest-timeout,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  tornado,
+}:
 
 buildPythonPackage rec {
   pname = "python-telegram-bot";

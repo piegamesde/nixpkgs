@@ -1,5 +1,17 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi
-, akonadi-search, kconfig, kservice, kio, mailcommon, mailimporter, messagelib
+{
+  mkDerivation,
+  lib,
+  kdepimTeam,
+  extra-cmake-modules,
+  kdoctools,
+  akonadi,
+  akonadi-search,
+  kconfig,
+  kservice,
+  kio,
+  mailcommon,
+  mailimporter,
+  messagelib,
 }:
 
 mkDerivation {

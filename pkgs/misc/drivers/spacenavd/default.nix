@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, libX11, IOKit }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  libX11,
+  IOKit,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.8";

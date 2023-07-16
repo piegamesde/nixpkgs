@@ -1,7 +1,15 @@
-{ lib, stdenv, fetchurl, autoreconfHook, libuuid, zlib
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  libuuid,
+  zlib
 
-# tests
-, mu }:
+  # tests
+  ,
+  mu,
+}:
 
 let
   generic = version: hash:

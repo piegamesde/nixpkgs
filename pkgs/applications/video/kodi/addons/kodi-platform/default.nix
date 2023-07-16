@@ -1,4 +1,11 @@
-{ stdenv, fetchFromGitHub, cmake, kodi, libcec_platform, tinyxml }:
+{
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  kodi,
+  libcec_platform,
+  tinyxml,
+}:
 stdenv.mkDerivation rec {
   pname = "kodi-platform";
   version = "17.1";

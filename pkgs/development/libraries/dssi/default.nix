@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchurl, ladspaH, libjack2, liblo, alsa-lib, qt4, libX11
-, libsndfile, libSM, libsamplerate, libtool, autoconf, automake, xorgproto
-, libICE, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ladspaH,
+  libjack2,
+  liblo,
+  alsa-lib,
+  qt4,
+  libX11,
+  libsndfile,
+  libSM,
+  libsamplerate,
+  libtool,
+  autoconf,
+  automake,
+  xorgproto,
+  libICE,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dssi";

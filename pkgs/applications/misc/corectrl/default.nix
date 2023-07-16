@@ -1,7 +1,27 @@
-{ lib, stdenv, fetchFromGitLab, extra-cmake-modules, botan2, karchive, kauth
-, libdrm, hwdata, glxinfo, polkit, procps, util-linux, vulkan-tools, qtbase
-, qtcharts, qtquickcontrols2, qtsvg, qttools, qtxmlpatterns, quazip
-, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  extra-cmake-modules,
+  botan2,
+  karchive,
+  kauth,
+  libdrm,
+  hwdata,
+  glxinfo,
+  polkit,
+  procps,
+  util-linux,
+  vulkan-tools,
+  qtbase,
+  qtcharts,
+  qtquickcontrols2,
+  qtsvg,
+  qttools,
+  qtxmlpatterns,
+  quazip,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "corectrl";

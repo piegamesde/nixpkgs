@@ -1,5 +1,14 @@
-{ lib, rustPlatform, fetchFromGitHub, stdenv, AppKit, CoreFoundation
-, DiskArbitration, Foundation, IOKit }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  stdenv,
+  AppKit,
+  CoreFoundation,
+  DiskArbitration,
+  Foundation,
+  IOKit,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "freshfetch";

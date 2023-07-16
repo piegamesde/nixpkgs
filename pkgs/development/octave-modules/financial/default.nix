@@ -1,4 +1,10 @@
-{ buildOctavePackage, lib, fetchurl, io, statistics }:
+{
+  buildOctavePackage,
+  lib,
+  fetchurl,
+  io,
+  statistics,
+}:
 
 buildOctavePackage rec {
   pname = "financial";

@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, udev, runtimeShellPackage
-, runtimeShell, nixosTests, enablePrivSep ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  udev,
+  runtimeShellPackage,
+  runtimeShell,
+  nixosTests,
+  enablePrivSep ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "dhcpcd";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, pam, openssl, db }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pam,
+  openssl,
+  db,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pam_ccreds";

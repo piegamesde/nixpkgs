@@ -1,5 +1,10 @@
-{ fetchurl, stdenv, lib, enableStatic ? stdenv.hostPlatform.isStatic
-, enableShared ? !stdenv.hostPlatform.isStatic }:
+{
+  fetchurl,
+  stdenv,
+  lib,
+  enableStatic ? stdenv.hostPlatform.isStatic,
+  enableShared ? !stdenv.hostPlatform.isStatic
+}:
 
 # assert !stdenv.hostPlatform.isLinux || stdenv.hostPlatform != stdenv.buildPlatform; # TODO: improve on cross
 

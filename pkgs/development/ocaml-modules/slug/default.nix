@@ -1,4 +1,12 @@
-{ lib, fetchFromGitHub, buildDunePackage, re, uunf, uuseg, alcotest }:
+{
+  lib,
+  fetchFromGitHub,
+  buildDunePackage,
+  re,
+  uunf,
+  uuseg,
+  alcotest,
+}:
 
 buildDunePackage rec {
   pname = "slug";

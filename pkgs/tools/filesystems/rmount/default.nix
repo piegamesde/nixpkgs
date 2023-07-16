@@ -1,4 +1,13 @@
-{ lib, stdenv, nmap, jq, cifs-utils, sshfs, fetchFromGitHub, makeWrapper }:
+{
+  lib,
+  stdenv,
+  nmap,
+  jq,
+  cifs-utils,
+  sshfs,
+  fetchFromGitHub,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
 

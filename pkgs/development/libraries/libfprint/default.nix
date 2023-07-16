@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitLab, pkg-config, meson, python3, ninja, gusb, pixman
-, glib, nss, gobject-introspection, coreutils, cairo, libgudev, gtk-doc
-, docbook-xsl-nons, docbook_xml_dtd_43 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  pkg-config,
+  meson,
+  python3,
+  ninja,
+  gusb,
+  pixman,
+  glib,
+  nss,
+  gobject-introspection,
+  coreutils,
+  cairo,
+  libgudev,
+  gtk-doc,
+  docbook-xsl-nons,
+  docbook_xml_dtd_43,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libfprint";

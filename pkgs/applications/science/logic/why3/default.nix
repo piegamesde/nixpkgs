@@ -1,5 +1,14 @@
-{ callPackage, fetchurl, lib, stdenv, ocamlPackages, coqPackages, rubber, hevea
-, emacs }:
+{
+  callPackage,
+  fetchurl,
+  lib,
+  stdenv,
+  ocamlPackages,
+  coqPackages,
+  rubber,
+  hevea,
+  emacs,
+}:
 
 stdenv.mkDerivation rec {
   pname = "why3";

@@ -1,5 +1,15 @@
-{ lib, stdenv, cmake, fetchFromGitHub, i3, jsoncpp, libsigcxx, libX11
-, libxkbfile, pkg-config }:
+{
+  lib,
+  stdenv,
+  cmake,
+  fetchFromGitHub,
+  i3,
+  jsoncpp,
+  libsigcxx,
+  libX11,
+  libxkbfile,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xkb-switch-i3";

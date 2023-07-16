@@ -1,4 +1,12 @@
-{ lib, stdenv, nixosTests, fetchFromGitHub, rustPlatform, libiconv, Security }:
+{
+  lib,
+  stdenv,
+  nixosTests,
+  fetchFromGitHub,
+  rustPlatform,
+  libiconv,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "agate";

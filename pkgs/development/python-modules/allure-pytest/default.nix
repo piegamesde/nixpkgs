@@ -1,6 +1,21 @@
-{ lib, fetchPypi, buildPythonPackage, six, pythonOlder, allure-python-commons
-, pytest, pytestCheckHook, pytest-check, pytest-flakes, pytest-lazy-fixture
-, pytest-rerunfailures, pytest-xdist, pyhamcrest, mock, setuptools-scm }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  six,
+  pythonOlder,
+  allure-python-commons,
+  pytest,
+  pytestCheckHook,
+  pytest-check,
+  pytest-flakes,
+  pytest-lazy-fixture,
+  pytest-rerunfailures,
+  pytest-xdist,
+  pyhamcrest,
+  mock,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "allure-pytest";

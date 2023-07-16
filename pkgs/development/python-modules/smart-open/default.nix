@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, azure-common
-, azure-core, azure-storage-blob, boto3, google-cloud-storage, requests, moto
-, paramiko, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  azure-common,
+  azure-core,
+  azure-storage-blob,
+  boto3,
+  google-cloud-storage,
+  requests,
+  moto,
+  paramiko,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "smart-open";

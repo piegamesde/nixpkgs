@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, cmake, meson, ninja, pkg-config, python3, libGLU
-, libepoxy, libX11, libdrm, mesa }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  libGLU,
+  libepoxy,
+  libX11,
+  libdrm,
+  mesa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "virglrenderer";

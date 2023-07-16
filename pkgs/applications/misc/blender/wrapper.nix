@@ -1,5 +1,14 @@
-{ stdenv, lib, blender, makeWrapper, python39Packages }:
-{ name ? "wrapped", packages ? [ ] }:
+{
+  stdenv,
+  lib,
+  blender,
+  makeWrapper,
+  python39Packages,
+}:
+{
+  name ? "wrapped",
+  packages ? [ ]
+}:
 stdenv.mkDerivation {
   pname = "blender-${name}";
   inherit (blender) version;

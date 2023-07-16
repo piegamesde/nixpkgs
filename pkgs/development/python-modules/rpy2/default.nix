@@ -1,6 +1,28 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, isPyPy, R, rWrapper, rPackages
-, pcre, xz, bzip2, zlib, icu, ipython, jinja2, pytz, pandas, numpy, cffi
-, tzlocal, simplegeneric, pytestCheckHook, extraRPackages ? [ ] }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPyPy,
+  R,
+  rWrapper,
+  rPackages,
+  pcre,
+  xz,
+  bzip2,
+  zlib,
+  icu,
+  ipython,
+  jinja2,
+  pytz,
+  pandas,
+  numpy,
+  cffi,
+  tzlocal,
+  simplegeneric,
+  pytestCheckHook,
+  extraRPackages ? [ ]
+}:
 
 buildPythonPackage rec {
   version = "3.5.10";

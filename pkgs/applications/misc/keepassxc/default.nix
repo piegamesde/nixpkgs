@@ -1,17 +1,47 @@
-{ lib, stdenv, fetchFromGitHub, cmake, qttools
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  qttools
 
-, asciidoctor, botan2, curl, libXi, libXtst, libargon2, libusb1, minizip
-, pcsclite, pkg-config, qrencode, qtbase, qtmacextras, qtsvg, qtx11extras
-, readline, wrapGAppsHook, wrapQtAppsHook, zlib
+  ,
+  asciidoctor,
+  botan2,
+  curl,
+  libXi,
+  libXtst,
+  libargon2,
+  libusb1,
+  minizip,
+  pcsclite,
+  pkg-config,
+  qrencode,
+  qtbase,
+  qtmacextras,
+  qtsvg,
+  qtx11extras,
+  readline,
+  wrapGAppsHook,
+  wrapQtAppsHook,
+  zlib
 
-, LocalAuthentication
+  ,
+  LocalAuthentication
 
-, withKeePassBrowser ? true, withKeePassFDOSecrets ? true
-, withKeePassKeeShare ? true, withKeePassNetworking ? true
-, withKeePassSSHAgent ? true, withKeePassTouchID ? true, withKeePassX11 ? true
-, withKeePassYubiKey ? true
+  ,
+  withKeePassBrowser ? true,
+  withKeePassFDOSecrets ? true,
+  withKeePassKeeShare ? true,
+  withKeePassNetworking ? true,
+  withKeePassSSHAgent ? true,
+  withKeePassTouchID ? true,
+  withKeePassX11 ? true,
+  withKeePassYubiKey ? true
 
-, nixosTests }:
+  ,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "keepassxc";

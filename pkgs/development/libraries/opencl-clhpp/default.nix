@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, python3, opencl-headers }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  python3,
+  opencl-headers,
+}:
 
 stdenv.mkDerivation rec {
   pname = "opencl-clhpp";

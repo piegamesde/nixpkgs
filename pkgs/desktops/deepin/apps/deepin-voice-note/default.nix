@@ -1,6 +1,22 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, qttools, wrapQtAppsHook
-, qtbase, dtkwidget, qt5integration, qt5platform-plugins, dde-qt-dbus-factory
-, qtmultimedia, qtwebengine, libvlc, gst_all_1, gtest }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  qttools,
+  wrapQtAppsHook,
+  qtbase,
+  dtkwidget,
+  qt5integration,
+  qt5platform-plugins,
+  dde-qt-dbus-factory,
+  qtmultimedia,
+  qtwebengine,
+  libvlc,
+  gst_all_1,
+  gtest,
+}:
 stdenv.mkDerivation rec {
   pname = "deepin-voice-note";
   version = "5.11.1";

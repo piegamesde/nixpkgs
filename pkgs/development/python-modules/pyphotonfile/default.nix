@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pillow, numpy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pillow,
+  numpy,
+}:
 let version = "0.2.1";
 in buildPythonPackage {
   pname = "pyphotonfile";

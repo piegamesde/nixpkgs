@@ -1,8 +1,18 @@
-{ lib, runCommand, budgie-desktop, budgie-desktop-view, glib, gnome
-, gsettings-desktop-schemas, mate, nixos-artwork
-, nixos-background-light ? nixos-artwork.wallpapers.nineish
-, nixos-background-dark ? nixos-artwork.wallpapers.nineish-dark-gray
-, extraGSettingsOverrides ? "", extraGSettingsOverridePackages ? [ ] }:
+{
+  lib,
+  runCommand,
+  budgie-desktop,
+  budgie-desktop-view,
+  glib,
+  gnome,
+  gsettings-desktop-schemas,
+  mate,
+  nixos-artwork,
+  nixos-background-light ? nixos-artwork.wallpapers.nineish,
+  nixos-background-dark ? nixos-artwork.wallpapers.nineish-dark-gray,
+  extraGSettingsOverrides ? "",
+  extraGSettingsOverridePackages ? [ ]
+}:
 
 let
   inherit (lib) concatMapStringsSep;

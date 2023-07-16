@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, qmake, coreutils, xdg-utils, bash, makeWrapper
-, perlPackages, mkDerivation }:
+{
+  lib,
+  fetchFromGitHub,
+  qmake,
+  coreutils,
+  xdg-utils,
+  bash,
+  makeWrapper,
+  perlPackages,
+  mkDerivation,
+}:
 
 let
   pname = "qdirstat";

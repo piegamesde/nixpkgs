@@ -1,8 +1,40 @@
-{ stdenv, fetchurl, lib, mkDerivation, antiword, bison, catdoc, chmlib
-, djvulibre, file, gawk, ghostscript, gnugrep, gnused, gnutar, groff, gzip
-, libiconv, libwpd, libxslt, lyx, makeWrapper, perl, perlPackages, pkg-config
-, poppler_utils, python3Packages, qtbase, unrtf, untex, unzip, which, xapian
-, zlib, withGui ? true }:
+{
+  stdenv,
+  fetchurl,
+  lib,
+  mkDerivation,
+  antiword,
+  bison,
+  catdoc,
+  chmlib,
+  djvulibre,
+  file,
+  gawk,
+  ghostscript,
+  gnugrep,
+  gnused,
+  gnutar,
+  groff,
+  gzip,
+  libiconv,
+  libwpd,
+  libxslt,
+  lyx,
+  makeWrapper,
+  perl,
+  perlPackages,
+  pkg-config,
+  poppler_utils,
+  python3Packages,
+  qtbase,
+  unrtf,
+  untex,
+  unzip,
+  which,
+  xapian,
+  zlib,
+  withGui ? true
+}:
 
 mkDerivation rec {
   pname = "recoll";

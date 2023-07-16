@@ -1,4 +1,13 @@
-{ lib, stdenv, git, perl, ncurses, coreutils, fetchFromGitHub, makeWrapper, ...
+{
+  lib,
+  stdenv,
+  git,
+  perl,
+  ncurses,
+  coreutils,
+  fetchFromGitHub,
+  makeWrapper,
+  ...
 }:
 
 stdenv.mkDerivation rec {

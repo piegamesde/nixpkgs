@@ -1,11 +1,37 @@
-{ stdenv, lib, makeWrapper, writeScriptBin, fetchFromGitHub, fetchurl
-, runCommand, cmake, git, glew, SDL2, zlib, minizip, libjpeg, curl, lua, libogg
-, libtheora, freetype, libpng, sqlite, openal, unzip, cjson, }:
+{
+  stdenv,
+  lib,
+  makeWrapper,
+  writeScriptBin,
+  fetchFromGitHub,
+  fetchurl,
+  runCommand,
+  cmake,
+  git,
+  glew,
+  SDL2,
+  zlib,
+  minizip,
+  libjpeg,
+  curl,
+  lua,
+  libogg,
+  libtheora,
+  freetype,
+  libpng,
+  sqlite,
+  openal,
+  unzip,
+  cjson,
+}:
 let
   version = "2.81.1";
   pkgname = "etlegacy";
   mirror = "https://mirror.etlegacy.com";
-  fetchAsset = { asset, sha256, }:
+  fetchAsset = {
+      asset,
+      sha256,
+    }:
     fetchurl {
       url = mirror + "/etmain/" + asset;
       inherit sha256;

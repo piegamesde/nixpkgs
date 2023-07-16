@@ -1,6 +1,19 @@
-{ lib, stdenv, fetchpatch, fetchFromGitHub, pkg-config, autoreconfHook
-, wrapGAppsHook, gnome, avahi, gtk3, libayatana-appindicator, libnotify
-, libpulseaudio, gsettings-desktop-schemas }:
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+  wrapGAppsHook,
+  gnome,
+  avahi,
+  gtk3,
+  libayatana-appindicator,
+  libnotify,
+  libpulseaudio,
+  gsettings-desktop-schemas,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pasystray";

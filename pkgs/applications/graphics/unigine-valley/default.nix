@@ -1,11 +1,28 @@
-{ lib, stdenv, fetchurl
+{
+  lib,
+  stdenv,
+  fetchurl
 
-# Build-time dependencies
-, makeWrapper, file, makeDesktopItem, imagemagick, copyDesktopItems
+  # Build-time dependencies
+  ,
+  makeWrapper,
+  file,
+  makeDesktopItem,
+  imagemagick,
+  copyDesktopItems
 
-# Runtime dependencies
-, fontconfig, freetype, libX11, libXext, libXinerama, libXrandr, libXrender
-, libglvnd, openal }:
+  # Runtime dependencies
+  ,
+  fontconfig,
+  freetype,
+  libX11,
+  libXext,
+  libXinerama,
+  libXrandr,
+  libXrender,
+  libglvnd,
+  openal,
+}:
 
 let
   version = "1.0";

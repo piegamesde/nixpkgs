@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, cloudpickle, dill, fetchPypi, msgpack
-, pytestCheckHook, pythonAtLeast, serpent }:
+{
+  lib,
+  buildPythonPackage,
+  cloudpickle,
+  dill,
+  fetchPypi,
+  msgpack,
+  pytestCheckHook,
+  pythonAtLeast,
+  serpent,
+}:
 
 buildPythonPackage rec {
   pname = "pyro4";

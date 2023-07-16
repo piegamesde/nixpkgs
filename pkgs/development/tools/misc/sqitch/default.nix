@@ -1,6 +1,13 @@
-{ stdenv, lib, perlPackages, makeWrapper, shortenPerlShebang
-, mysqlSupport ? false, postgresqlSupport ? false
-, templateToolkitSupport ? false }:
+{
+  stdenv,
+  lib,
+  perlPackages,
+  makeWrapper,
+  shortenPerlShebang,
+  mysqlSupport ? false,
+  postgresqlSupport ? false,
+  templateToolkitSupport ? false
+}:
 
 let
   sqitch = perlPackages.AppSqitch;

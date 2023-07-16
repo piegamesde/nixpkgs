@@ -1,9 +1,29 @@
-{ lib, stdenv, fetchurl, substituteAll, meson, pkg-config, ninja
-, wayland-scanner, expat, libxml2
-, withLibraries ? stdenv.isLinux || stdenv.isDarwin, withTests ? stdenv.isLinux
-, libffi, epoll-shim, withDocumentation ? withLibraries && stdenv.hostPlatform
-  == stdenv.buildPlatform, graphviz-nox, doxygen, libxslt, xmlto, python3
-, docbook_xsl, docbook_xml_dtd_45, docbook_xml_dtd_42 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  substituteAll,
+  meson,
+  pkg-config,
+  ninja,
+  wayland-scanner,
+  expat,
+  libxml2,
+  withLibraries ? stdenv.isLinux || stdenv.isDarwin,
+  withTests ? stdenv.isLinux,
+  libffi,
+  epoll-shim,
+  withDocumentation ? withLibraries && stdenv.hostPlatform
+    == stdenv.buildPlatform,
+  graphviz-nox,
+  doxygen,
+  libxslt,
+  xmlto,
+  python3,
+  docbook_xsl,
+  docbook_xml_dtd_45,
+  docbook_xml_dtd_42,
+}:
 
 # Documentation is only built when building libraries.
 assert withDocumentation -> withLibraries;

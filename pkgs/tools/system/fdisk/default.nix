@@ -1,4 +1,12 @@
-{ fetchurl, lib, stdenv, parted, libuuid, gettext, guile }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  parted,
+  libuuid,
+  gettext,
+  guile,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnufdisk";

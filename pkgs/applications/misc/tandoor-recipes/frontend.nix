@@ -1,4 +1,10 @@
-{ stdenv, fetchYarnDeps, fixup_yarn_lock, callPackage, nodejs_16 }:
+{
+  stdenv,
+  fetchYarnDeps,
+  fixup_yarn_lock,
+  callPackage,
+  nodejs_16,
+}:
 let common = callPackage ./common.nix { };
 in stdenv.mkDerivation {
   pname = "tandoor-recipes-frontend";

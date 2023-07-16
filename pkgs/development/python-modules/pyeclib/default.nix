@@ -1,4 +1,11 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, liberasurecode, six }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  liberasurecode,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "pyeclib";

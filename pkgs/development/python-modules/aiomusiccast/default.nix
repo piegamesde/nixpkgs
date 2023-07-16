@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, aiohttp
-, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  aiohttp,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "aiomusiccast";

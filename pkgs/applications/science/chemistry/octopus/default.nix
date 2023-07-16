@@ -1,9 +1,25 @@
-{ lib, stdenv, fetchFromGitLab, gfortran, perl, procps, libyaml, libxc, fftw
-, blas, lapack, gsl, netcdf, arpack, autoreconfHook, python3
-, enableFma ? stdenv.hostPlatform.fmaSupport
-, enableFma4 ? stdenv.hostPlatform.fma4Support
-, enableAvx ? stdenv.hostPlatform.avx2Support
-, enableAvx512 ? stdenv.hostPlatform.avx512Support }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  gfortran,
+  perl,
+  procps,
+  libyaml,
+  libxc,
+  fftw,
+  blas,
+  lapack,
+  gsl,
+  netcdf,
+  arpack,
+  autoreconfHook,
+  python3,
+  enableFma ? stdenv.hostPlatform.fmaSupport,
+  enableFma4 ? stdenv.hostPlatform.fma4Support,
+  enableAvx ? stdenv.hostPlatform.avx2Support,
+  enableAvx512 ? stdenv.hostPlatform.avx512Support
+}:
 
 assert (!blas.isILP64) && (!lapack.isILP64);
 assert (blas.isILP64 == arpack.isILP64);

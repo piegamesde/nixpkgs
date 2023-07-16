@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, vte, gtk, pcre2, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  vte,
+  gtk,
+  pcre2,
+  nixosTests,
+}:
 
 stdenv.mkDerivation {
   pname = "stupidterm";

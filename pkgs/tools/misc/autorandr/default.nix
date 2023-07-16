@@ -1,5 +1,13 @@
-{ lib, python3, python3Packages, fetchFromGitHub, systemd, xrandr
-, installShellFiles, desktop-file-utils }:
+{
+  lib,
+  python3,
+  python3Packages,
+  fetchFromGitHub,
+  systemd,
+  xrandr,
+  installShellFiles,
+  desktop-file-utils,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "autorandr";

@@ -2,26 +2,64 @@
 # both in the same attribute named nixosTests.php
 
 let
-  generic = { callPackage, lib, stdenv, nixosTests, tests, fetchurl, makeWrapper
-    , symlinkJoin, writeText, autoconf, automake, bison, flex, libtool
-    , pkg-config, re2c, apacheHttpd, libargon2, libxml2, pcre2, systemd
-    , system-sendmail, valgrind, xcbuild, writeShellScript
-    , common-updater-scripts, curl, jq
+  generic = {
+      callPackage,
+      lib,
+      stdenv,
+      nixosTests,
+      tests,
+      fetchurl,
+      makeWrapper,
+      symlinkJoin,
+      writeText,
+      autoconf,
+      automake,
+      bison,
+      flex,
+      libtool,
+      pkg-config,
+      re2c,
+      apacheHttpd,
+      libargon2,
+      libxml2,
+      pcre2,
+      systemd,
+      system-sendmail,
+      valgrind,
+      xcbuild,
+      writeShellScript,
+      common-updater-scripts,
+      curl,
+      jq
 
-    , version, hash, extraPatches ? [ ], packageOverrides ? (final: prev: { })
-    , phpAttrsOverrides ? (attrs: { })
+      ,
+      version,
+      hash,
+      extraPatches ? [ ],
+      packageOverrides ? (final: prev: { }),
+      phpAttrsOverrides ? (attrs: { })
 
-    # Sapi flags
-    , cgiSupport ? true, cliSupport ? true, fpmSupport ? true
-    , pearSupport ? true, pharSupport ? true, phpdbgSupport ? true
+      # Sapi flags
+      ,
+      cgiSupport ? true,
+      cliSupport ? true,
+      fpmSupport ? true,
+      pearSupport ? true,
+      pharSupport ? true,
+      phpdbgSupport ? true
 
-      # Misc flags
-    , apxs2Support ? false, argon2Support ? true, cgotoSupport ? false
-    , embedSupport ? false, ipv6Support ? true
-    , systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd
-    , valgrindSupport ? !stdenv.isDarwin
-      && lib.meta.availableOn stdenv.hostPlatform valgrind
-    , ztsSupport ? apxs2Support }@args:
+        # Misc flags
+      ,
+      apxs2Support ? false,
+      argon2Support ? true,
+      cgotoSupport ? false,
+      embedSupport ? false,
+      ipv6Support ? true,
+      systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
+      valgrindSupport ? !stdenv.isDarwin
+        && lib.meta.availableOn stdenv.hostPlatform valgrind,
+      ztsSupport ? apxs2Support
+    }@args:
 
     let
       # Compose two functions of the type expected by 'overrideAttrs'
@@ -41,8 +79,15 @@ let
       # consecutive calls to buildEnv and overrides to work as
       # expected.
       mkBuildEnv = prevArgs: prevExtensionFunctions:
-        lib.makeOverridable ({ extensions ? ({ enabled, ... }: enabled)
-          , extraConfig ? "", ... }@innerArgs:
+        lib.makeOverridable ({
+            extensions ? ({
+                enabled,
+                ...
+              }:
+              enabled),
+            extraConfig ? "",
+            ...
+          }@innerArgs:
           let
             allArgs = args // prevArgs // innerArgs;
             filteredArgs =

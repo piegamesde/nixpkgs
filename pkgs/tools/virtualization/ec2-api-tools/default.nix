@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, unzip, makeWrapper, jre }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  makeWrapper,
+  jre,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ec2-api-tools";

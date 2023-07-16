@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, aiohttp, azure-common
-, azure-core, cryptography, msrest, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  aiohttp,
+  azure-common,
+  azure-core,
+  cryptography,
+  msrest,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "azure-keyvault-keys";

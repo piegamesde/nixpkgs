@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, glib, expat
-, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  glib,
+  expat,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation rec {
   pname = "prevo-tools";

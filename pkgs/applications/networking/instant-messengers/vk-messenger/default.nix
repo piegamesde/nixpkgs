@@ -1,5 +1,18 @@
-{ stdenv, lib, fetchurl, rpmextract, undmg, autoPatchelfHook, xorg, gtk3, nss
-, alsa-lib, udev, libnotify, wrapGAppsHook }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  rpmextract,
+  undmg,
+  autoPatchelfHook,
+  xorg,
+  gtk3,
+  nss,
+  alsa-lib,
+  udev,
+  libnotify,
+  wrapGAppsHook,
+}:
 
 let
   pname = "vk-messenger";

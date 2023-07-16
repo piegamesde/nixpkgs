@@ -1,27 +1,34 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   let apikey = "testapikey";
   in {
     name = "octoprint";
     meta.maintainers = with lib.maintainers; [ gador ];
 
-    nodes.machine = { pkgs, ... }: {
-      environment.systemPackages = with pkgs; [ jq ];
-      services.octoprint = {
-        enable = true;
-        extraConfig = {
-          server = { firstRun = false; };
-          api = {
-            enabled = true;
-            key = apikey;
-          };
-          plugins = {
-            # these need internet access and pollute the output with connection failed errors
-            _disabled = [ "softwareupdate" "announcements" "pluginmanager" ];
+    nodes.machine = {
+        pkgs,
+        ...
+      }: {
+        environment.systemPackages = with pkgs; [ jq ];
+        services.octoprint = {
+          enable = true;
+          extraConfig = {
+            server = { firstRun = false; };
+            api = {
+              enabled = true;
+              key = apikey;
+            };
+            plugins = {
+              # these need internet access and pollute the output with connection failed errors
+              _disabled = [ "softwareupdate" "announcements" "pluginmanager" ];
+            };
           };
         };
       };
-    };
 
     testScript = ''
       import json

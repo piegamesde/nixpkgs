@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools-scm, liberfa, packaging, numpy
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  liberfa,
+  packaging,
+  numpy,
 }:
 
 buildPythonPackage rec {

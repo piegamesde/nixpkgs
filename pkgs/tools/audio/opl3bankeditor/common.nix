@@ -1,7 +1,25 @@
-{ pname, chip, version, sha256, extraPatches ? [ ] }:
+{
+  pname,
+  chip,
+  version,
+  sha256,
+  extraPatches ? [ ]
+}:
 
-{ mkDerivation, stdenv, lib, fetchFromGitHub, dos2unix, cmake, pkg-config
-, qttools, qtbase, qwt6_1, rtaudio, rtmidi }:
+{
+  mkDerivation,
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  dos2unix,
+  cmake,
+  pkg-config,
+  qttools,
+  qtbase,
+  qwt6_1,
+  rtaudio,
+  rtmidi,
+}:
 
 let
   binname = "${chip} Bank Editor";

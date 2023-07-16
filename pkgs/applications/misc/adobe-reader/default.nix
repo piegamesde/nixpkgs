@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, libX11, cups, zlib, libxml2, pango, atk, gtk2, glib
-, gdk-pixbuf, gdk-pixbuf-xlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libX11,
+  cups,
+  zlib,
+  libxml2,
+  pango,
+  atk,
+  gtk2,
+  glib,
+  gdk-pixbuf,
+  gdk-pixbuf-xlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "adobe-reader";

@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, pkg-config, libiconv
-, gettext, xxd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  pkg-config,
+  libiconv,
+  gettext,
+  xxd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dosfstools";

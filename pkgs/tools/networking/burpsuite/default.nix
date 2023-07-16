@@ -1,4 +1,11 @@
-{ lib, fetchurl, jdk, buildFHSEnv, unzip, makeDesktopItem }:
+{
+  lib,
+  fetchurl,
+  jdk,
+  buildFHSEnv,
+  unzip,
+  makeDesktopItem,
+}:
 let
   version = "2023.3.5";
 

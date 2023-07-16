@@ -1,4 +1,11 @@
-{ lib, stdenv, makeWrapper, fetchzip, python3, python3Packages }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  fetchzip,
+  python3,
+  python3Packages,
+}:
 let
   threaded_servers = python3Packages.buildPythonPackage {
     name = "threaded_servers";

@@ -1,8 +1,20 @@
-{ lib, fetchurl
-# Optional due to unfree license.
-, faacSupport ? false, glib, python3Packages, gtk3, wrapGAppsHook
-, gsettings-desktop-schemas, intltool, xvfb-run, gobject-introspection
-, gst_all_1, fdk-aac-encoder }:
+{
+  lib,
+  fetchurl
+  # Optional due to unfree license.
+  ,
+  faacSupport ? false,
+  glib,
+  python3Packages,
+  gtk3,
+  wrapGAppsHook,
+  gsettings-desktop-schemas,
+  intltool,
+  xvfb-run,
+  gobject-introspection,
+  gst_all_1,
+  fdk-aac-encoder,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "soundconverter";

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, cloudscraper, fetchFromGitHub, pythonOlder, requests
+{
+  lib,
+  buildPythonPackage,
+  cloudscraper,
+  fetchFromGitHub,
+  pythonOlder,
+  requests,
 }:
 
 buildPythonPackage rec {

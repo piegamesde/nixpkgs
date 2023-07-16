@@ -1,5 +1,16 @@
-{ lib, fetchFromSourcehut, rustPlatform, pkg-config, wrapGAppsHook, openssl
-, gtk3, gdk-pixbuf, pango, atk, cairo }:
+{
+  lib,
+  fetchFromSourcehut,
+  rustPlatform,
+  pkg-config,
+  wrapGAppsHook,
+  openssl,
+  gtk3,
+  gdk-pixbuf,
+  pango,
+  atk,
+  cairo,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "castor";

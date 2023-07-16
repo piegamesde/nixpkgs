@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, autoreconfHook, pkg-config, libmediainfo, wxGTK32
-, desktop-file-utils, libSM, imagemagick, darwin }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  libmediainfo,
+  wxGTK32,
+  desktop-file-utils,
+  libSM,
+  imagemagick,
+  darwin,
+}:
 
 let inherit (darwin.apple_sdk.frameworks) Cocoa;
 in stdenv.mkDerivation rec {

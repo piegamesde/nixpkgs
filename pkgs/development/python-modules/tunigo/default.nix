@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, requests, mock, responses, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  requests,
+  mock,
+  responses,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "tunigo";

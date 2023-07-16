@@ -1,5 +1,13 @@
-{ lib, aiohttp, buildPythonPackage, elastic-transport, fetchPypi, pythonOlder
-, requests, urllib3 }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  elastic-transport,
+  fetchPypi,
+  pythonOlder,
+  requests,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "elasticsearch8";

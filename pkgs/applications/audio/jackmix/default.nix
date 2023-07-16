@@ -1,5 +1,16 @@
-{ mkDerivation, lib, fetchFromGitHub, pkg-config, scons, qtbase, lash, libjack2
-, jack ? libjack2, alsa-lib, fetchpatch }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  scons,
+  qtbase,
+  lash,
+  libjack2,
+  jack ? libjack2,
+  alsa-lib,
+  fetchpatch,
+}:
 
 mkDerivation rec {
   pname = "jackmix";

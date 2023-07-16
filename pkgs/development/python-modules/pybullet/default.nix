@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, libGLU, libGL, xorg, numpy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  libGLU,
+  libGL,
+  xorg,
+  numpy,
+}:
 
 buildPythonPackage rec {
   pname = "pybullet";

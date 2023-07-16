@@ -1,4 +1,9 @@
-{ stdenv, pkgs, lib, chickenEggs }:
+{
+  stdenv,
+  pkgs,
+  lib,
+  chickenEggs,
+}:
 let
   addToBuildInputs = pkg: old: {
     buildInputs = (old.buildInputs or [ ]) ++ lib.toList pkg;

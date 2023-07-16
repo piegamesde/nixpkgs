@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, gettext, gtk3, libxklavier
-, mateUpdateScript }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gettext,
+  gtk3,
+  libxklavier,
+  mateUpdateScript,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libmatekbd";

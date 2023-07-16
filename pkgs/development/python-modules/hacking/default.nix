@@ -1,4 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pbr, flake8, stestr, ddt, testscenarios }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pbr,
+  flake8,
+  stestr,
+  ddt,
+  testscenarios,
+}:
 
 buildPythonPackage rec {
   pname = "hacking";

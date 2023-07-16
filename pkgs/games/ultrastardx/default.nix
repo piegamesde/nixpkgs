@@ -1,6 +1,29 @@
-{ lib, stdenv, autoreconfHook, fetchFromGitHub, fetchpatch, pkg-config, lua, fpc
-, pcre, portaudio, freetype, libpng, SDL2, SDL2_image, SDL2_gfx, SDL2_mixer
-, SDL2_net, SDL2_ttf, ffmpeg_4, sqlite, zlib, libX11, libGLU, libGL }:
+{
+  lib,
+  stdenv,
+  autoreconfHook,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  lua,
+  fpc,
+  pcre,
+  portaudio,
+  freetype,
+  libpng,
+  SDL2,
+  SDL2_image,
+  SDL2_gfx,
+  SDL2_mixer,
+  SDL2_net,
+  SDL2_ttf,
+  ffmpeg_4,
+  sqlite,
+  zlib,
+  libX11,
+  libGLU,
+  libGL,
+}:
 
 let
   sharedLibs = [

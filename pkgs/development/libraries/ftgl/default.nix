@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, doxygen, freeglut, freetype
-, libGL, libGLU, pkg-config, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  doxygen,
+  freeglut,
+  freetype,
+  libGL,
+  libGLU,
+  pkg-config,
+  darwin,
+}:
 
 let inherit (darwin.apple_sdk.frameworks) OpenGL GLUT;
 in stdenv.mkDerivation rec {

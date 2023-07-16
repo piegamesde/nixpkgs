@@ -1,4 +1,11 @@
-{ bctoolbox, cmake, fetchFromGitLab, sqlite, lib, stdenv }:
+{
+  bctoolbox,
+  cmake,
+  fetchFromGitLab,
+  sqlite,
+  lib,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bzrtp";

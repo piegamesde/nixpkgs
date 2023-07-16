@@ -1,4 +1,9 @@
-{ buildOctavePackage, lib, fetchFromGitHub, io }:
+{
+  buildOctavePackage,
+  lib,
+  fetchFromGitHub,
+  io,
+}:
 
 buildOctavePackage rec {
   pname = "statistics";

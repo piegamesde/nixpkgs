@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libresolv, perl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libresolv,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.10";

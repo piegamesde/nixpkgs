@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, openssl, Security
-, CoreServices }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  Security,
+  CoreServices,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "shadowsocks-rust";

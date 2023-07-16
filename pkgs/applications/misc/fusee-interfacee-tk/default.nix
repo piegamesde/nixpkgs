@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, python3, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  makeWrapper,
+}:
 
 let pythonEnv = python3.withPackages (ps: [ ps.tkinter ps.pyusb ]);
 in stdenv.mkDerivation rec {

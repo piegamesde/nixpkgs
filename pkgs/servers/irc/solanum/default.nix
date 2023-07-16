@@ -1,5 +1,16 @@
-{ lib, stdenv, autoreconfHook, bison, fetchFromGitHub, flex, lksctp-tools
-, openssl, pkg-config, sqlite, util-linux }:
+{
+  lib,
+  stdenv,
+  autoreconfHook,
+  bison,
+  fetchFromGitHub,
+  flex,
+  lksctp-tools,
+  openssl,
+  pkg-config,
+  sqlite,
+  util-linux,
+}:
 
 stdenv.mkDerivation rec {
   pname = "solanum";

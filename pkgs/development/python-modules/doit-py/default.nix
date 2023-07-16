@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, buildPythonPackage, doit, configclass, mergedict
-, pytestCheckHook, hunspell, hunspellDicts }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  doit,
+  configclass,
+  mergedict,
+  pytestCheckHook,
+  hunspell,
+  hunspellDicts,
+}:
 
 buildPythonPackage rec {
   pname = "doit-py";

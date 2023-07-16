@@ -19,7 +19,12 @@
    - @K900, March 2023
 */
 
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 

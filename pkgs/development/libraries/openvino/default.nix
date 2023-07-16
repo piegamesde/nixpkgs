@@ -1,11 +1,31 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, fetchurl, substituteAll
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  fetchurl,
+  substituteAll
 
-# build
-, addOpenGLRunpath, autoPatchelfHook, cmake, git, libarchive, pkg-config, python
-, shellcheck
+  # build
+  ,
+  addOpenGLRunpath,
+  autoPatchelfHook,
+  cmake,
+  git,
+  libarchive,
+  pkg-config,
+  python,
+  shellcheck
 
-# runtime
-, libusb1, libxml2, opencv, protobuf, pugixml, tbb }:
+  # runtime
+  ,
+  libusb1,
+  libxml2,
+  opencv,
+  protobuf,
+  pugixml,
+  tbb,
+}:
 
 let
   # See FIRMWARE_PACKAGE_VERSION in src/plugins/intel_myriad/myriad_dependencies.cmake

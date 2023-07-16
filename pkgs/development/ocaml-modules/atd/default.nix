@@ -1,5 +1,13 @@
-{ lib, atdgen-codec-runtime, menhir, easy-format, buildDunePackage, re, yojson
-, nixosTests }:
+{
+  lib,
+  atdgen-codec-runtime,
+  menhir,
+  easy-format,
+  buildDunePackage,
+  re,
+  yojson,
+  nixosTests,
+}:
 
 buildDunePackage rec {
   pname = "atd";

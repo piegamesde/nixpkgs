@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, autoreconfHook, pkg-config, libusb1, pcsclite }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  libusb1,
+  pcsclite,
+}:
 
 let
   version = "3.99.5";

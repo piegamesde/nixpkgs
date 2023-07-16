@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, cryptography, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cryptography,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "broadlink";

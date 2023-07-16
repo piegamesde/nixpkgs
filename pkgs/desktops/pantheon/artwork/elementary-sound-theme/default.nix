@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  meson,
+  ninja,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "elementary-sound-theme";

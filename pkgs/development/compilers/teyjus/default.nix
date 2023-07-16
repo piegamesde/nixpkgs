@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, omake, ocaml, flex, bison }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  omake,
+  ocaml,
+  flex,
+  bison,
+}:
 
 stdenv.mkDerivation rec {
   pname = "teyjus";

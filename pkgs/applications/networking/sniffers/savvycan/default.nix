@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchFromGitHub, qtbase, qttools, qmake, qtserialbus
-, qtserialport, qtdeclarative, wrapQtAppsHook }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  qtbase,
+  qttools,
+  qmake,
+  qtserialbus,
+  qtserialport,
+  qtdeclarative,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
 

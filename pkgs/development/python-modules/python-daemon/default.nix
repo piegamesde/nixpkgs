@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchPypi, docutils, lockfile, pytestCheckHook
-, testscenarios, testtools, twine, python, pythonOlder, fetchpatch }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  docutils,
+  lockfile,
+  pytestCheckHook,
+  testscenarios,
+  testtools,
+  twine,
+  python,
+  pythonOlder,
+  fetchpatch,
+}:
 
 buildPythonPackage rec {
   pname = "python-daemon";

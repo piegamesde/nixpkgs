@@ -1,4 +1,11 @@
-{ lib, bzip2, patchelf, python3, gnutar, unzip }:
+{
+  lib,
+  bzip2,
+  patchelf,
+  python3,
+  gnutar,
+  unzip,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "auditwheel";

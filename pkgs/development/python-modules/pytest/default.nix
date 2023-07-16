@@ -1,11 +1,26 @@
-{ lib, buildPythonPackage, callPackage, pythonOlder, fetchPypi, isPyPy
-, writeText
+{
+  lib,
+  buildPythonPackage,
+  callPackage,
+  pythonOlder,
+  fetchPypi,
+  isPyPy,
+  writeText
 
-# build
-, setuptools-scm
+  # build
+  ,
+  setuptools-scm
 
-# propagates
-, attrs, exceptiongroup, iniconfig, packaging, pluggy, py, tomli }:
+  # propagates
+  ,
+  attrs,
+  exceptiongroup,
+  iniconfig,
+  packaging,
+  pluggy,
+  py,
+  tomli,
+}:
 
 buildPythonPackage rec {
   pname = "pytest";

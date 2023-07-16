@@ -1,4 +1,8 @@
-{ callPackage, lib, javaPackages }:
+{
+  callPackage,
+  lib,
+  javaPackages,
+}:
 let
   versions = lib.importJSON ./versions.json;
 

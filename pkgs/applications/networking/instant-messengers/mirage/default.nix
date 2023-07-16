@@ -1,6 +1,21 @@
-{ lib, stdenv, mkDerivation, fetchFromGitHub, libXScrnSaver, olm, pkg-config
-, pyotherside, python3Packages, qmake, qtbase, qtgraphicaleffects, qtkeychain
-, qtmultimedia, qtquickcontrols2, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchFromGitHub,
+  libXScrnSaver,
+  olm,
+  pkg-config,
+  pyotherside,
+  python3Packages,
+  qmake,
+  qtbase,
+  qtgraphicaleffects,
+  qtkeychain,
+  qtmultimedia,
+  qtquickcontrols2,
+  wrapQtAppsHook,
+}:
 
 mkDerivation rec {
   pname = "mirage";

@@ -1,15 +1,60 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, wrapQtAppsHook, alsa-lib
-, bluez, bzip2, cubeb, curl, enet, ffmpeg, fmt_8, hidapi, libevdev, libGL
-, libiconv, libpulseaudio, libspng, libusb1, libXdmcp, libXext, libXrandr
-, mbedtls_2, mgba, miniupnpc, minizip-ng, openal, pugixml, qtbase, sfml
-, soundtouch, udev, vulkan-loader, xxHash, xz
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  wrapQtAppsHook,
+  alsa-lib,
+  bluez,
+  bzip2,
+  cubeb,
+  curl,
+  enet,
+  ffmpeg,
+  fmt_8,
+  hidapi,
+  libevdev,
+  libGL,
+  libiconv,
+  libpulseaudio,
+  libspng,
+  libusb1,
+  libXdmcp,
+  libXext,
+  libXrandr,
+  mbedtls_2,
+  mgba,
+  miniupnpc,
+  minizip-ng,
+  openal,
+  pugixml,
+  qtbase,
+  sfml,
+  soundtouch,
+  udev,
+  vulkan-loader,
+  xxHash,
+  xz
 
-# Used in passthru
-, common-updater-scripts, dolphin-emu, jq, testers, writeShellScript
+  # Used in passthru
+  ,
+  common-updater-scripts,
+  dolphin-emu,
+  jq,
+  testers,
+  writeShellScript
 
-# Darwin-only dependencies
-, CoreBluetooth, ForceFeedback, IOBluetooth, IOKit, moltenvk, OpenGL
-, VideoToolbox }:
+  # Darwin-only dependencies
+  ,
+  CoreBluetooth,
+  ForceFeedback,
+  IOBluetooth,
+  IOKit,
+  moltenvk,
+  OpenGL,
+  VideoToolbox,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dolphin-emu";

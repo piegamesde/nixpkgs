@@ -1,8 +1,17 @@
-{ stdenv, lib, fetchzip, fetchFromGitHub, makeWrapper, substituteAll
-, perlPackages
-# Flags to enable processors
-# Currently, Markdown.pl does not work
-, usePandoc ? true, pandoc }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  fetchFromGitHub,
+  makeWrapper,
+  substituteAll,
+  perlPackages
+  # Flags to enable processors
+  # Currently, Markdown.pl does not work
+  ,
+  usePandoc ? true,
+  pandoc,
+}:
 
 let
   inherit (perlPackages) TextMarkdown;

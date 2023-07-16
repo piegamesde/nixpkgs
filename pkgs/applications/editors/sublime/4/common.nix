@@ -1,8 +1,33 @@
-{ buildVersion, aarch64sha256, x64sha256, dev ? false }:
+{
+  buildVersion,
+  aarch64sha256,
+  x64sha256,
+  dev ? false
+}:
 
-{ fetchurl, stdenv, lib, xorg, glib, libglvnd, glibcLocales, gtk3, cairo, pango
-, makeWrapper, wrapGAppsHook, writeShellScript, common-updater-scripts, curl
-, openssl_1_1, bzip2, bash, unzip, zip, sqlite }:
+{
+  fetchurl,
+  stdenv,
+  lib,
+  xorg,
+  glib,
+  libglvnd,
+  glibcLocales,
+  gtk3,
+  cairo,
+  pango,
+  makeWrapper,
+  wrapGAppsHook,
+  writeShellScript,
+  common-updater-scripts,
+  curl,
+  openssl_1_1,
+  bzip2,
+  bash,
+  unzip,
+  zip,
+  sqlite,
+}:
 
 let
   pnameBase = "sublimetext4";

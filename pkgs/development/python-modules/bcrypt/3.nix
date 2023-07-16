@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, setuptools, isPyPy, fetchPypi, pythonOlder, cffi
-, pytestCheckHook, six }:
+{
+  lib,
+  buildPythonPackage,
+  setuptools,
+  isPyPy,
+  fetchPypi,
+  pythonOlder,
+  cffi,
+  pytestCheckHook,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "bcrypt";

@@ -1,4 +1,10 @@
-{ lib, iosevka, fetchFromSourcehut, fetchFromGitHub, buildNpmPackage }:
+{
+  lib,
+  iosevka,
+  fetchFromSourcehut,
+  fetchFromGitHub,
+  buildNpmPackage,
+}:
 
 let
   sets = [

@@ -1,9 +1,23 @@
 srv:
-{ configIniOfService, srvsrht ?
-  "${srv}srht" # Because "buildsrht" does not follow that pattern (missing an "s").
-, iniKey ? "${srv}.sr.ht", webhooks ? false, extraTimers ? { }
-, mainService ? { }, extraServices ? { }, extraConfig ? { }, port }:
-{ config, lib, pkgs, ... }:
+{
+  configIniOfService,
+  srvsrht ?
+    "${srv}srht" # Because "buildsrht" does not follow that pattern (missing an "s").
+  ,
+  iniKey ? "${srv}.sr.ht",
+  webhooks ? false,
+  extraTimers ? { },
+  mainService ? { },
+  extraServices ? { },
+  extraConfig ? { },
+  port,
+}:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let
@@ -14,7 +28,9 @@ let
   configIni = configIniOfService srv;
   srvCfg = cfg.${srv};
   baseService = serviceName:
-    { allowStripe ? false }:
+    {
+      allowStripe ? false
+    }:
     extraService:
     let
       runDir = "/run/sourcehut/${serviceName}";

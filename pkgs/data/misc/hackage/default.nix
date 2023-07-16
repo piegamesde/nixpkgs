@@ -1,6 +1,9 @@
 # Hackage database snapshot, used by maintainers/scripts/regenerate-hackage-packages.sh
 # and callHackage
-{ lib, fetchurl }:
+{
+  lib,
+  fetchurl,
+}:
 let pin = builtins.fromJSON (builtins.readFile ./pin.json);
 in fetchurl {
   inherit (pin) url sha256;

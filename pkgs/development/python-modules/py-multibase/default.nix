@@ -1,5 +1,14 @@
-{ buildPythonPackage, fetchPypi, isPy27, lib, morphys, pytest, pytest-runner
-, python-baseconv, six }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  lib,
+  morphys,
+  pytest,
+  pytest-runner,
+  python-baseconv,
+  six,
+}:
 buildPythonPackage rec {
   pname = "py-multibase";
   version = "1.0.3";

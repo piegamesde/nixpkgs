@@ -1,12 +1,42 @@
-{ lib, stdenv, fetchurl, openssl, python, zlib, libuv, util-linux, http-parser
-, pkg-config, which, buildPackages
-# for `.pkgs` attribute
-, callPackage
-# Updater dependencies
-, writeScript, coreutils, gnugrep, jq, curl, common-updater-scripts, nix
-, runtimeShell, gnupg, darwin, xcbuild, procps, icu }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  openssl,
+  python,
+  zlib,
+  libuv,
+  util-linux,
+  http-parser,
+  pkg-config,
+  which,
+  buildPackages
+  # for `.pkgs` attribute
+  ,
+  callPackage
+  # Updater dependencies
+  ,
+  writeScript,
+  coreutils,
+  gnugrep,
+  jq,
+  curl,
+  common-updater-scripts,
+  nix,
+  runtimeShell,
+  gnupg,
+  darwin,
+  xcbuild,
+  procps,
+  icu,
+}:
 
-{ enableNpm ? true, version, sha256, patches ? [ ] }@args:
+{
+  enableNpm ? true,
+  version,
+  sha256,
+  patches ? [ ]
+}@args:
 
 let
   inherit (darwin.apple_sdk.frameworks) CoreServices ApplicationServices;

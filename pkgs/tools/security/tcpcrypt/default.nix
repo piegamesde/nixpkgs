@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, openssl, libcap, libpcap
-, libnfnetlink, libnetfilter_conntrack, libnetfilter_queue }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  openssl,
+  libcap,
+  libpcap,
+  libnfnetlink,
+  libnetfilter_conntrack,
+  libnetfilter_queue,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tcpcrypt";

@@ -1,5 +1,15 @@
-{ lib, stdenv, buildPythonPackage, pythonAtLeast, pythonOlder, fetchFromGitHub
-, attrs, django_3, pytestCheckHook, parso }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonAtLeast,
+  pythonOlder,
+  fetchFromGitHub,
+  attrs,
+  django_3,
+  pytestCheckHook,
+  parso,
+}:
 
 buildPythonPackage rec {
   pname = "jedi";

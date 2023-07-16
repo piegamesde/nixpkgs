@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, aiohttp
-, siobrultech-protocols, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  aiohttp,
+  siobrultech-protocols,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "greeneye-monitor";

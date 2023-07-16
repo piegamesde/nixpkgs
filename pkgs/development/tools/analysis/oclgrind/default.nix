@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, llvmPackages, readline, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  llvmPackages,
+  readline,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "oclgrind";

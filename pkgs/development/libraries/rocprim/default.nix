@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-cmake, hip, gtest
-, gbenchmark, buildTests ? false, buildBenchmarks ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  cmake,
+  rocm-cmake,
+  hip,
+  gtest,
+  gbenchmark,
+  buildTests ? false,
+  buildBenchmarks ? false
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocprim";

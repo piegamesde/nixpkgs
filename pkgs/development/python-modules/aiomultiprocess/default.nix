@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, flit-core, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flit-core,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aiomultiprocess";

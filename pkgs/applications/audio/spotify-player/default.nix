@@ -1,5 +1,14 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, openssl, cmake, alsa-lib, dbus
-, fontconfig }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  cmake,
+  alsa-lib,
+  dbus,
+  fontconfig,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "spotify-player";

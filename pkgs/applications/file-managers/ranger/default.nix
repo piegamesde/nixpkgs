@@ -1,6 +1,16 @@
-{ lib, fetchFromGitHub, python3Packages, file, less, highlight, w3m
-, imagePreviewSupport ? true, neoVimSupport ? true
-, improvedEncodingDetection ? true, rightToLeftTextSupport ? false }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  file,
+  less,
+  highlight,
+  w3m,
+  imagePreviewSupport ? true,
+  neoVimSupport ? true,
+  improvedEncodingDetection ? true,
+  rightToLeftTextSupport ? false
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "ranger";

@@ -1,7 +1,15 @@
-{ lib, stdenv, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 
 let
-  mkNixBackground = { name, src, description }:
+  mkNixBackground = {
+      name,
+      src,
+      description,
+    }:
 
     let
       pkg = stdenv.mkDerivation {

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, libosip, openssl, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libosip,
+  openssl,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libexosip2";

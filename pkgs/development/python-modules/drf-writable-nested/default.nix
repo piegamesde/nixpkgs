@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, django, djangorestframework
-, pytestCheckHook, pytest-django }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  django,
+  djangorestframework,
+  pytestCheckHook,
+  pytest-django,
+}:
 
 buildPythonPackage rec {
   pname = "drf-writable-nested";

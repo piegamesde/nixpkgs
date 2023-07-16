@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, httpretty, poetry-core
-, pytestCheckHook, pythonOlder, requests, requests-oauthlib }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  httpretty,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-oauthlib,
+}:
 
 buildPythonPackage rec {
   pname = "pymfy";

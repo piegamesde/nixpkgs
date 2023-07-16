@@ -1,5 +1,16 @@
-{ lib, aiohttp, aresponses, async-timeout, backoff, buildPythonPackage
-, fetchFromGitHub, poetry-core, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  async-timeout,
+  backoff,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aiogithubapi";

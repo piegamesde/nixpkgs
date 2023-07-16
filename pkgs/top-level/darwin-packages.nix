@@ -1,5 +1,13 @@
-{ lib, buildPackages, pkgs, targetPackages, generateSplicesForMkScope
-, makeScopeWithSplicing, stdenv, preLibcCrossHeaders }:
+{
+  lib,
+  buildPackages,
+  pkgs,
+  targetPackages,
+  generateSplicesForMkScope,
+  makeScopeWithSplicing,
+  stdenv,
+  preLibcCrossHeaders,
+}:
 
 let
   # Prefix for binaries. Customarily ends with a dash separator.

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, autoreconfHook, glib, db, pkg-config
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  autoreconfHook,
+  glib,
+  db,
+  pkg-config,
 }:
 
 let

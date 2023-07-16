@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, antlr4, antlr4-python3-runtime
-, igraph, pygments, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  antlr4,
+  antlr4-python3-runtime,
+  igraph,
+  pygments,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "explorerscript";

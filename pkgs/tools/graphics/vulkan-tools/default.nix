@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, glslang, libffi, libX11
-, libXau, libxcb, libXdmcp, libXrandr, vulkan-headers, vulkan-loader, wayland
-, wayland-protocols, moltenvk, AppKit, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  glslang,
+  libffi,
+  libX11,
+  libXau,
+  libxcb,
+  libXdmcp,
+  libXrandr,
+  vulkan-headers,
+  vulkan-loader,
+  wayland,
+  wayland-protocols,
+  moltenvk,
+  AppKit,
+  Cocoa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vulkan-tools";

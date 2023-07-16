@@ -1,6 +1,23 @@
-{ lib, stdenv, wrapGAppsHook, fetchFromGitHub, pkg-config, gtk3, json-glib, curl
-, glib, appstream-glib, desktop-file-utils, meson, ninja, geoip, gettext
-, libappindicator, libmrss, libproxy }:
+{
+  lib,
+  stdenv,
+  wrapGAppsHook,
+  fetchFromGitHub,
+  pkg-config,
+  gtk3,
+  json-glib,
+  curl,
+  glib,
+  appstream-glib,
+  desktop-file-utils,
+  meson,
+  ninja,
+  geoip,
+  gettext,
+  libappindicator,
+  libmrss,
+  libproxy,
+}:
 
 stdenv.mkDerivation rec {
   pname = "transmission-remote-gtk";

@@ -1,6 +1,23 @@
-{ fetchurl, fetchpatch, lib, stdenv, pkg-config, gettext, python3, SDL
-, SDL_image, SDL_gfx, SDL_mixer, libogg, libvorbis, lua5_3, libjpeg, libpng
-, zlib, libiconv }:
+{
+  fetchurl,
+  fetchpatch,
+  lib,
+  stdenv,
+  pkg-config,
+  gettext,
+  python3,
+  SDL,
+  SDL_image,
+  SDL_gfx,
+  SDL_mixer,
+  libogg,
+  libvorbis,
+  lua5_3,
+  libjpeg,
+  libpng,
+  zlib,
+  libiconv,
+}:
 
 let version = "0.16.1";
 in stdenv.mkDerivation {

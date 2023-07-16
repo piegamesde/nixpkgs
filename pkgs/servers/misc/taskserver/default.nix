@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, cmake, libuuid, gnutls, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  libuuid,
+  gnutls,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "taskserver";

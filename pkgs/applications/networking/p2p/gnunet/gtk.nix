@@ -1,5 +1,17 @@
-{ stdenv, fetchurl, glade, gnunet, gnutls, gtk3, libextractor, libgcrypt
-, libsodium, libxml2, pkg-config, wrapGAppsHook }:
+{
+  stdenv,
+  fetchurl,
+  glade,
+  gnunet,
+  gnutls,
+  gtk3,
+  libextractor,
+  libgcrypt,
+  libsodium,
+  libxml2,
+  pkg-config,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnunet-gtk";

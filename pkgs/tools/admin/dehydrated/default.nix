@@ -1,5 +1,17 @@
-{ lib, stdenv, coreutils, curl, diffutils, gawk, gnugrep, gnused, openssl
-, makeWrapper, fetchFromGitHub, installShellFiles }:
+{
+  lib,
+  stdenv,
+  coreutils,
+  curl,
+  diffutils,
+  gawk,
+  gnugrep,
+  gnused,
+  openssl,
+  makeWrapper,
+  fetchFromGitHub,
+  installShellFiles,
+}:
 stdenv.mkDerivation rec {
   pname = "dehydrated";
   version = "0.7.1";

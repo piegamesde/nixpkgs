@@ -1,5 +1,12 @@
-{ lib, fetchurl, buildPythonPackage, pymatgen, pytest-runner, pytestCheckHook
-, isPy3k }:
+{
+  lib,
+  fetchurl,
+  buildPythonPackage,
+  pymatgen,
+  pytest-runner,
+  pytestCheckHook,
+  isPy3k,
+}:
 
 buildPythonPackage rec {
   pname = "pymatgen-lammps";

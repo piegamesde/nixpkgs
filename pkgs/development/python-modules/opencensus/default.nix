@@ -1,5 +1,11 @@
-{ buildPythonPackage, fetchPypi, lib, unittestCheckHook, google-api-core
-, opencensus-context }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  lib,
+  unittestCheckHook,
+  google-api-core,
+  opencensus-context,
+}:
 
 buildPythonPackage rec {
   pname = "opencensus";

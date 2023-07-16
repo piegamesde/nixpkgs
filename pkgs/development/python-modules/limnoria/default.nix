@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, chardet, cryptography, feedparser, fetchPypi, mock
-, pysocks, pytestCheckHook, python-dateutil, python-gnupg, pythonOlder, pytz }:
+{
+  lib,
+  buildPythonPackage,
+  chardet,
+  cryptography,
+  feedparser,
+  fetchPypi,
+  mock,
+  pysocks,
+  pytestCheckHook,
+  python-dateutil,
+  python-gnupg,
+  pythonOlder,
+  pytz,
+}:
 
 buildPythonPackage rec {
   pname = "limnoria";

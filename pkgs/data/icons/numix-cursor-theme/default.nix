@@ -1,4 +1,10 @@
-{ lib, stdenvNoCC, fetchFromGitHub, inkscape, xcursorgen }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  inkscape,
+  xcursorgen,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "numix-cursor-theme";

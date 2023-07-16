@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, flit-core, pythonOlder, fetchPypi, tinycss2
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  flit-core,
+  pythonOlder,
+  fetchPypi,
+  tinycss2,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "cssselect2";

@@ -1,8 +1,33 @@
-{ stdenv, lib, fetchurl, fetchpatch, fetchFromGitHub, copyDesktopItems
-, makeDesktopItem, desktopToDarwinBundle, buildPackages, pkg-config, freetype
-, harfbuzz, openjpeg, jbig2dec, libjpeg, darwin, gumbo
-, enableX11 ? (!stdenv.isDarwin), libX11, libXext, libXi, libXrandr
-, enableCurl ? true, curl, openssl, enableGL ? true, freeglut, libGLU, xcbuild
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  fetchFromGitHub,
+  copyDesktopItems,
+  makeDesktopItem,
+  desktopToDarwinBundle,
+  buildPackages,
+  pkg-config,
+  freetype,
+  harfbuzz,
+  openjpeg,
+  jbig2dec,
+  libjpeg,
+  darwin,
+  gumbo,
+  enableX11 ? (!stdenv.isDarwin),
+  libX11,
+  libXext,
+  libXi,
+  libXrandr,
+  enableCurl ? true,
+  curl,
+  openssl,
+  enableGL ? true,
+  freeglut,
+  libGLU,
+  xcbuild,
 }:
 let
 

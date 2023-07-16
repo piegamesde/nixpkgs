@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, django, azure-storage-blob, boto3, dropbox
-, google-cloud-storage, libcloud, paramiko }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  django,
+  azure-storage-blob,
+  boto3,
+  dropbox,
+  google-cloud-storage,
+  libcloud,
+  paramiko,
+}:
 
 buildPythonPackage rec {
   pname = "django-storages";

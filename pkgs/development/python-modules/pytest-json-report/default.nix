@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest, pytest-metadata
-, pytest-xdist, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest,
+  pytest-metadata,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-json-report";

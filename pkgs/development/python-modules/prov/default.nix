@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, lxml, networkx, python-dateutil, rdflib
-, pydot }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  lxml,
+  networkx,
+  python-dateutil,
+  rdflib,
+  pydot,
+}:
 
 buildPythonPackage rec {
   pname = "prov";

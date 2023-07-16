@@ -1,4 +1,10 @@
-{ lib, fetchPypi, buildPythonPackage, pythonOlder, pytestCheckHook }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pythonOlder,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "mistletoe";

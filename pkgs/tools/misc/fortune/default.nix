@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, cmake, recode, perl, rinutils, withOffensive ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  recode,
+  perl,
+  rinutils,
+  withOffensive ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "fortune-mod";

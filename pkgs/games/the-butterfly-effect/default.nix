@@ -1,4 +1,13 @@
-{ lib, mkDerivation, fetchFromGitHub, qt5, box2d, which, cmake, gettext }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  qt5,
+  box2d,
+  which,
+  cmake,
+  gettext,
+}:
 
 mkDerivation rec {
   pname = "tbe";

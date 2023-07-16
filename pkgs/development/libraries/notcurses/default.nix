@@ -1,6 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libdeflate, libunistring, ncurses, pandoc
-, pkg-config, zlib, multimediaSupport ? true, ffmpeg, qrcodegenSupport ? true
-, qrcodegen }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libdeflate,
+  libunistring,
+  ncurses,
+  pandoc,
+  pkg-config,
+  zlib,
+  multimediaSupport ? true,
+  ffmpeg,
+  qrcodegenSupport ? true,
+  qrcodegen,
+}:
 
 stdenv.mkDerivation rec {
   pname = "notcurses";

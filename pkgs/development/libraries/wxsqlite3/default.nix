@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, wxGTK, sqlite, Cocoa, setfile
-, rez, derez }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  wxGTK,
+  sqlite,
+  Cocoa,
+  setfile,
+  rez,
+  derez,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wxsqlite3";

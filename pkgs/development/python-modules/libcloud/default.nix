@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pycrypto, pythonOlder, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pycrypto,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "apache-libcloud";

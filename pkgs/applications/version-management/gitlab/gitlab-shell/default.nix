@@ -1,4 +1,10 @@
-{ lib, fetchFromGitLab, buildGoModule, ruby, libkrb5 }:
+{
+  lib,
+  fetchFromGitLab,
+  buildGoModule,
+  ruby,
+  libkrb5,
+}:
 
 buildGoModule rec {
   pname = "gitlab-shell";

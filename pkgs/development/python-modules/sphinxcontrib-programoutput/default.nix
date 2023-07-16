@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, sphinx, sphinxcontrib-serializinghtml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  sphinx,
+  sphinxcontrib-serializinghtml,
+}:
 
 buildPythonPackage rec {
   pname = "sphinxcontrib-programoutput";

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, pkg-config, alsa-lib, dbus
-, libjack2, python3Packages, meson, ninja }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  pkg-config,
+  alsa-lib,
+  dbus,
+  libjack2,
+  python3Packages,
+  meson,
+  ninja,
+}:
 
 stdenv.mkDerivation rec {
   pname = "a2jmidid";

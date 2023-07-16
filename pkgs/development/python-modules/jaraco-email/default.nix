@@ -1,5 +1,16 @@
-{ lib, stdenv, buildPythonPackage, pythonOlder, fetchFromGitHub, setuptools
-, setuptools-scm, jaraco_text, jaraco_collections, keyring, pytestCheckHook }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  setuptools,
+  setuptools-scm,
+  jaraco_text,
+  jaraco_collections,
+  keyring,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "jaraco-email";

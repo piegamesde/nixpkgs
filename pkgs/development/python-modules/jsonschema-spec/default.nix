@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, poetry-core, jsonschema
-, pathable, pyyaml, typing-extensions, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  poetry-core,
+  jsonschema,
+  pathable,
+  pyyaml,
+  typing-extensions,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "jsonschema-spec";

@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, which, python3, help2man }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  which,
+  python3,
+  help2man,
+}:
 
 let pyEnv = python3.withPackages (ps: [ ps.setuptools ]);
 in stdenv.mkDerivation rec {

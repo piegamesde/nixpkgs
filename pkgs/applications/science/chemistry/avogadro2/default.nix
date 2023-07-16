@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, cmake, eigen, avogadrolibs, molequeue, hdf5
-, openbabel, qttools, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  eigen,
+  avogadrolibs,
+  molequeue,
+  hdf5,
+  openbabel,
+  qttools,
+  wrapQtAppsHook,
+}:
 
 let
   avogadroI18N = fetchFromGitHub {

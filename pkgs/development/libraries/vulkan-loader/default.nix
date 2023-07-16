@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libX11, libxcb, libXrandr
-, wayland, moltenvk, vulkan-headers, addOpenGLRunpath }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libX11,
+  libxcb,
+  libXrandr,
+  wayland,
+  moltenvk,
+  vulkan-headers,
+  addOpenGLRunpath,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vulkan-loader";

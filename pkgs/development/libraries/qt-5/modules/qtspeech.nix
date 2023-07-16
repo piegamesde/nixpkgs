@@ -1,4 +1,10 @@
-{ lib, qtModule, stdenv, speechd, pkg-config }:
+{
+  lib,
+  qtModule,
+  stdenv,
+  speechd,
+  pkg-config,
+}:
 
 qtModule {
   pname = "qtspeech";

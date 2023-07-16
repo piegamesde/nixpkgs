@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, libiconv, zlib
-, enableOcr ? true, makeWrapper, tesseract4, leptonica, ffmpeg_4 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  libiconv,
+  zlib,
+  enableOcr ? true,
+  makeWrapper,
+  tesseract4,
+  leptonica,
+  ffmpeg_4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ccextractor";

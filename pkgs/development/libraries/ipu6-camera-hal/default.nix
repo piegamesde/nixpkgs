@@ -1,10 +1,20 @@
-{ lib, stdenv, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  fetchFromGitHub
 
-# build
-, cmake, pkg-config
+  # build
+  ,
+  cmake,
+  pkg-config
 
-# runtime
-, expat, ipu6-camera-bin, libtool, gst_all_1 }:
+  # runtime
+  ,
+  expat,
+  ipu6-camera-bin,
+  libtool,
+  gst_all_1,
+}:
 
 stdenv.mkDerivation {
   pname = "${ipu6-camera-bin.ipuVersion}-camera-hal";

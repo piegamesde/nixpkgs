@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, eigen, libccd, octomap }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  eigen,
+  libccd,
+  octomap,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fcl";

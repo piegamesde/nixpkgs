@@ -1,6 +1,20 @@
-{ lib, adjusttext, buildPythonPackage, fetchPypi, geopandas, matplotlib, mizani
-, pandas, patsy, pytestCheckHook, pythonOlder, scikit-misc, scipy
-, setuptools-scm, statsmodels }:
+{
+  lib,
+  adjusttext,
+  buildPythonPackage,
+  fetchPypi,
+  geopandas,
+  matplotlib,
+  mizani,
+  pandas,
+  patsy,
+  pytestCheckHook,
+  pythonOlder,
+  scikit-misc,
+  scipy,
+  setuptools-scm,
+  statsmodels,
+}:
 
 buildPythonPackage rec {
   pname = "plotnine";

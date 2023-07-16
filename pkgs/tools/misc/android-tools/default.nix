@@ -1,5 +1,22 @@
-{ lib, stdenv, fetchurl, fetchpatch, cmake, pkg-config, perl, go, python3
-, protobuf, zlib, gtest, brotli, lz4, zstd, libusb1, pcre2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  perl,
+  go,
+  python3,
+  protobuf,
+  zlib,
+  gtest,
+  brotli,
+  lz4,
+  zstd,
+  libusb1,
+  pcre2,
+}:
 
 let pythonEnv = python3.withPackages (ps: [ ps.protobuf ]);
 

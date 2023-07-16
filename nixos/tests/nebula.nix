@@ -1,10 +1,17 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
   let
 
     # We'll need to be able to trade cert files between nodes via scp.
     inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
 
-    makeNebulaNode = { config, ... }:
+    makeNebulaNode = {
+        config,
+        ...
+      }:
       name: extraConfig:
       lib.mkMerge [
         {
@@ -33,7 +40,9 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
 
     nodes = {
 
-      lighthouse = { ... }@args:
+      lighthouse = {
+          ...
+        }@args:
         makeNebulaNode args "lighthouse" {
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [{
             address = "192.168.1.1";
@@ -58,7 +67,9 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
           };
         };
 
-      allowAny = { ... }@args:
+      allowAny = {
+          ...
+        }@args:
         makeNebulaNode args "allowAny" {
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [{
             address = "192.168.1.2";
@@ -85,7 +96,9 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
           };
         };
 
-      allowFromLighthouse = { ... }@args:
+      allowFromLighthouse = {
+          ...
+        }@args:
         makeNebulaNode args "allowFromLighthouse" {
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [{
             address = "192.168.1.3";
@@ -112,7 +125,9 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
           };
         };
 
-      allowToLighthouse = { ... }@args:
+      allowToLighthouse = {
+          ...
+        }@args:
         makeNebulaNode args "allowToLighthouse" {
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [{
             address = "192.168.1.4";
@@ -140,7 +155,9 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
           };
         };
 
-      disabled = { ... }@args:
+      disabled = {
+          ...
+        }@args:
         makeNebulaNode args "disabled" {
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [{
             address = "192.168.1.5";

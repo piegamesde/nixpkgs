@@ -1,6 +1,17 @@
-{ lib, assertpy, buildPythonPackage, fetchFromGitHub, poetry-core
-, pytest-asyncio, pytest-mockservers, pytest-resource-path, pytest-sugar
-, pytestCheckHook, pythonOlder, time-machine }:
+{
+  lib,
+  assertpy,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-asyncio,
+  pytest-mockservers,
+  pytest-resource-path,
+  pytest-sugar,
+  pytestCheckHook,
+  pythonOlder,
+  time-machine,
+}:
 
 buildPythonPackage rec {
   pname = "aioswitcher";

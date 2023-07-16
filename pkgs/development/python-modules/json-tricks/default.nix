@@ -1,5 +1,13 @@
-{ lib, fetchFromGitHub, buildPythonPackage, pythonOlder, pytestCheckHook, numpy
-, pandas, pytz }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pythonOlder,
+  pytestCheckHook,
+  numpy,
+  pandas,
+  pytz,
+}:
 
 buildPythonPackage rec {
   pname = "json-tricks";

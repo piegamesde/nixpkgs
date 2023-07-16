@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, qtbase, qmake, pkg-config, libssh
-, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qtbase,
+  qmake,
+  pkg-config,
+  libssh,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qjournalctl";

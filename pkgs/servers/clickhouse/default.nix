@@ -1,8 +1,40 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libtool, llvm-bintools, ninja, boost
-, brotli, capnproto, cctz, clang-unwrapped, double-conversion, icu, jemalloc
-, libcpuid, libxml2, lld, llvm, lz4, libmysqlclient, openssl, perl, poco
-, protobuf, python3, rapidjson, re2, rdkafka, readline, sparsehash, unixODBC
-, xxHash, zstd, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libtool,
+  llvm-bintools,
+  ninja,
+  boost,
+  brotli,
+  capnproto,
+  cctz,
+  clang-unwrapped,
+  double-conversion,
+  icu,
+  jemalloc,
+  libcpuid,
+  libxml2,
+  lld,
+  llvm,
+  lz4,
+  libmysqlclient,
+  openssl,
+  perl,
+  poco,
+  protobuf,
+  python3,
+  rapidjson,
+  re2,
+  rdkafka,
+  readline,
+  sparsehash,
+  unixODBC,
+  xxHash,
+  zstd,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "clickhouse";

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, hatchling, pyflakes, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  hatchling,
+  pyflakes,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "autoflake";

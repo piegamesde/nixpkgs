@@ -1,6 +1,29 @@
-{ lib, stdenv, fetchFromGitHub, gitUpdater, meson, ninja, vala, pkg-config
-, pantheon, python3, curl, gettext, glib, gtk3, json-glib, libwnck, libgee
-, libgtop, libhandy, sassc, udisks2, wrapGAppsHook, libX11, libXext, libXNVCtrl
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gitUpdater,
+  meson,
+  ninja,
+  vala,
+  pkg-config,
+  pantheon,
+  python3,
+  curl,
+  gettext,
+  glib,
+  gtk3,
+  json-glib,
+  libwnck,
+  libgee,
+  libgtop,
+  libhandy,
+  sassc,
+  udisks2,
+  wrapGAppsHook,
+  libX11,
+  libXext,
+  libXNVCtrl,
 }:
 
 stdenv.mkDerivation rec {

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pbr, pythonOlder, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pbr,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "icmplib";

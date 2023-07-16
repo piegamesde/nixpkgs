@@ -1,9 +1,34 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, unzip, zlib
-, enableGtk2 ? false, gtk2, enableJPEG ? true, libjpeg, enablePNG ? true, libpng
-, enableTIFF ? true, libtiff, enableEXR ? (!stdenv.isDarwin), openexr, ilmbase
-, enableFfmpeg ? false, ffmpeg, enableGStreamer ? false, gst_all_1
-, enableEigen ? true, eigen, enableUnfree ? false, AVFoundation, Cocoa, QTKit
-, Accelerate }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  unzip,
+  zlib,
+  enableGtk2 ? false,
+  gtk2,
+  enableJPEG ? true,
+  libjpeg,
+  enablePNG ? true,
+  libpng,
+  enableTIFF ? true,
+  libtiff,
+  enableEXR ? (!stdenv.isDarwin),
+  openexr,
+  ilmbase,
+  enableFfmpeg ? false,
+  ffmpeg,
+  enableGStreamer ? false,
+  gst_all_1,
+  enableEigen ? true,
+  eigen,
+  enableUnfree ? false,
+  AVFoundation,
+  Cocoa,
+  QTKit,
+  Accelerate,
+}:
 
 let
   opencvFlag = name: enabled:

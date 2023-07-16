@@ -1,5 +1,19 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, isPy27, pkg-config, alsa-lib
-, libjack2, tox, flake8, alabaster, CoreAudio, CoreMIDI, CoreServices }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  pkg-config,
+  alsa-lib,
+  libjack2,
+  tox,
+  flake8,
+  alabaster,
+  CoreAudio,
+  CoreMIDI,
+  CoreServices,
+}:
 
 buildPythonPackage rec {
   pname = "python-rtmidi";

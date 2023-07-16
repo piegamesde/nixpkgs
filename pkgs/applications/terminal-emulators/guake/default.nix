@@ -1,6 +1,18 @@
-{ lib, fetchFromGitHub, python3, glibcLocales, gobject-introspection
-, wrapGAppsHook, gtk3, keybinder3, libnotify, libutempter, vte, libwnck
-, nixosTests }:
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  glibcLocales,
+  gobject-introspection,
+  wrapGAppsHook,
+  gtk3,
+  keybinder3,
+  libnotify,
+  libutempter,
+  vte,
+  libwnck,
+  nixosTests,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "guake";

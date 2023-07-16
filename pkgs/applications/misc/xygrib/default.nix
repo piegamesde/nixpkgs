@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, wrapQtAppsHook, cmake, bzip2, qtbase, qttools
-, libnova, proj_7, libpng, openjpeg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  wrapQtAppsHook,
+  cmake,
+  bzip2,
+  qtbase,
+  qttools,
+  libnova,
+  proj_7,
+  libpng,
+  openjpeg,
+}:
 
 stdenv.mkDerivation rec {
   version = "unstable-2022-05-16";

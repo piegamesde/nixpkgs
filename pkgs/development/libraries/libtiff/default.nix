@@ -1,12 +1,31 @@
-{ lib, stdenv, fetchFromGitLab, fetchpatch, nix-update-script
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch,
+  nix-update-script
 
-, autoreconfHook, pkg-config, sphinx
+  ,
+  autoreconfHook,
+  pkg-config,
+  sphinx
 
-, libdeflate, libjpeg, xz, zlib
+  ,
+  libdeflate,
+  libjpeg,
+  xz,
+  zlib
 
-# for passthru.tests
-, libgeotiff, python3Packages, imagemagick, graphicsmagick, gdal, openimageio
-, freeimage }:
+  # for passthru.tests
+  ,
+  libgeotiff,
+  python3Packages,
+  imagemagick,
+  graphicsmagick,
+  gdal,
+  openimageio,
+  freeimage,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libtiff";

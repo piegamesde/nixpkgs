@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, libxkbcommon, pkg-config, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libxkbcommon,
+  pkg-config,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libtsm";

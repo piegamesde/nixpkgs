@@ -1,5 +1,18 @@
-{ appleDerivation', lib, stdenv, stdenvNoCC, buildPackages, bootstrap_cmds
-, bison, flex, gnum4, unifdef, perl, python3, headersOnly ? true }:
+{
+  appleDerivation',
+  lib,
+  stdenv,
+  stdenvNoCC,
+  buildPackages,
+  bootstrap_cmds,
+  bison,
+  flex,
+  gnum4,
+  unifdef,
+  perl,
+  python3,
+  headersOnly ? true
+}:
 
 appleDerivation' (if headersOnly then stdenvNoCC else stdenv)
 (let arch = if stdenv.isx86_64 then "x86_64" else "arm64";

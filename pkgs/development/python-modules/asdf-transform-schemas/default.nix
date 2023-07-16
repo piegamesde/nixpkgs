@@ -1,5 +1,12 @@
-{ lib, asdf-standard, buildPythonPackage, fetchPypi, importlib-resources
-, pythonOlder, setuptools-scm }:
+{
+  lib,
+  asdf-standard,
+  buildPythonPackage,
+  fetchPypi,
+  importlib-resources,
+  pythonOlder,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "asdf-transform-schemas";

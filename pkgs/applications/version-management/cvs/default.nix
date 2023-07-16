@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, fetchpatch, nano }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  nano,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cvs";

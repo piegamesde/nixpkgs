@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitea, autoreconfHook, validatePkgConfig, geos }:
+{
+  lib,
+  stdenv,
+  fetchFromGitea,
+  autoreconfHook,
+  validatePkgConfig,
+  geos,
+}:
 
 stdenv.mkDerivation rec {
   pname = "librttopo";

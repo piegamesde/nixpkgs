@@ -1,4 +1,10 @@
-{ build-idris-package, fetchFromGitHub, contrib, lightyear, lib }:
+{
+  build-idris-package,
+  fetchFromGitHub,
+  contrib,
+  lightyear,
+  lib,
+}:
 build-idris-package {
   pname = "tomladris";
   version = "2017-11-14";

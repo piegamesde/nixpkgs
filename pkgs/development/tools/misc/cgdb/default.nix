@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, ncurses, readline, flex, texinfo }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+  readline,
+  flex,
+  texinfo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cgdb";

@@ -1,5 +1,15 @@
-{ lib, bash, binutils-unwrapped, coreutils, gawk, libarchive, pv, squashfsTools
-, buildFHSEnv, pkgs }:
+{
+  lib,
+  bash,
+  binutils-unwrapped,
+  coreutils,
+  gawk,
+  libarchive,
+  pv,
+  squashfsTools,
+  buildFHSEnv,
+  pkgs,
+}:
 
 rec {
   appimage-exec = pkgs.substituteAll {
@@ -17,7 +27,11 @@ rec {
     ];
   };
 
-  extract = args@{ name ? "${args.pname}-${args.version}", src, ... }:
+  extract = args@{
+      name ? "${args.pname}-${args.version}",
+      src,
+      ...
+    }:
     pkgs.runCommand "${name}-extracted" { buildInputs = [ appimage-exec ]; } ''
       appimage-exec.sh -x $out ${src}
     '';
@@ -27,8 +41,13 @@ rec {
   extractType2 = extract;
   wrapType1 = wrapType2;
 
-  wrapAppImage = args@{ name ? "${args.pname}-${args.version}", src, extraPkgs
-    , meta ? { }, ... }:
+  wrapAppImage = args@{
+      name ? "${args.pname}-${args.version}",
+      src,
+      extraPkgs,
+      meta ? { },
+      ...
+    }:
     buildFHSEnv (defaultFhsEnvArgs // {
       inherit name;
 
@@ -44,8 +63,12 @@ rec {
     } // (removeAttrs args ([ "pname" "version" ]
       ++ (builtins.attrNames (builtins.functionArgs wrapAppImage)))));
 
-  wrapType2 = args@{ name ? "${args.pname}-${args.version}", src
-    , extraPkgs ? pkgs: [ ], ... }:
+  wrapType2 = args@{
+      name ? "${args.pname}-${args.version}",
+      src,
+      extraPkgs ? pkgs: [ ],
+      ...
+    }:
     wrapAppImage (args // {
       inherit name extraPkgs;
       src = extract { inherit name src; };

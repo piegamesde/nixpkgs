@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromSourcehut, fetchpatch, pixman, libpng, libjpeg, meson
-, ninja, pkg-config, scdoc, wayland, wayland-protocols, wayland-scanner }:
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  fetchpatch,
+  pixman,
+  libpng,
+  libjpeg,
+  meson,
+  ninja,
+  pkg-config,
+  scdoc,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+}:
 
 stdenv.mkDerivation rec {
   pname = "grim";

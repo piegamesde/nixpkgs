@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, autoconf, automake, SDL, SDL_mixer, libpng }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoconf,
+  automake,
+  SDL,
+  SDL_mixer,
+  libpng,
+}:
 
 stdenv.mkDerivation rec {
   pname = "powermanga";

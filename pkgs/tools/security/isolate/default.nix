@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, asciidoc, libcap, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  asciidoc,
+  libcap,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation rec {
   pname = "isolate";

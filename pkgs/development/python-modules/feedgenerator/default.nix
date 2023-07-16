@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, glibcLocales, pytestCheckHook, pythonOlder
-, pytz, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  glibcLocales,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "feedgenerator";

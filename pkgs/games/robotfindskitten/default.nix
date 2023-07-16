@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, pkg-config, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  ncurses,
+}:
 
 with lib;
 stdenv.mkDerivation rec {

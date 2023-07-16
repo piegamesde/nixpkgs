@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, curl, duktape, html-tidy, openssl, pcre, perl
-, pkg-config, quickjs, readline, which }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  curl,
+  duktape,
+  html-tidy,
+  openssl,
+  pcre,
+  perl,
+  pkg-config,
+  quickjs,
+  readline,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   pname = "edbrowse";

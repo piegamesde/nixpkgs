@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, unzip, jre8, copyDesktopItems, makeDesktopItem
-, iconConvTools }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  jre8,
+  copyDesktopItems,
+  makeDesktopItem,
+  iconConvTools,
+}:
 
 stdenv.mkDerivation rec {
   pname = "protege-distribution";

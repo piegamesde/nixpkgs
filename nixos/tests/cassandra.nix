@@ -1,4 +1,9 @@
-import ./make-test-python.nix ({ pkgs, lib, testPackage ? pkgs.cassandra, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    testPackage ? pkgs.cassandra,
+    ...
+  }:
   let
     clusterName = "NixOS Automated-Test Cluster";
 
@@ -37,7 +42,11 @@ import ./make-test-python.nix ({ pkgs, lib, testPackage ? pkgs.cassandra, ... }:
       inherit jmxPort;
     };
     nodeCfg = ipAddress: extra:
-      { pkgs, config, ... }: rec {
+      {
+        pkgs,
+        config,
+        ...
+      }: rec {
         environment.systemPackages = [ testPackage ];
         networking = {
           firewall.allowedTCPPorts = [ 7000 9042 services.cassandra.jmxPort ];

@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, gnugrep, ncurses, pkg-config, installShellFiles
-, readline, postgresql }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gnugrep,
+  ncurses,
+  pkg-config,
+  installShellFiles,
+  readline,
+  postgresql,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pspg";

@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, mono, libmediainfo, sqlite, curl, makeWrapper
-, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  mono,
+  libmediainfo,
+  sqlite,
+  curl,
+  makeWrapper,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sonarr";

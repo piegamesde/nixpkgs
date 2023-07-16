@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, pkg-config, autoconf-archive
-, makeWrapper, which, tpm2-tss, glib, dbus, cmocka }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  autoconf-archive,
+  makeWrapper,
+  which,
+  tpm2-tss,
+  glib,
+  dbus,
+  cmocka,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tpm2-abrmd";

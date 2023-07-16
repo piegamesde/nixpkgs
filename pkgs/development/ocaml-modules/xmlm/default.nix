@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, ocaml, findlib, ocamlbuild, topkg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  topkg,
+}:
 let
   pname = "xmlm";
   webpage = "https://erratique.ch/software/${pname}";

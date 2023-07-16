@@ -1,5 +1,12 @@
-{ lib, fetchFromGitHub, buildPgxExtension, postgresql, stdenv, nixosTests
-, cargo-pgx_0_6_1 }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPgxExtension,
+  postgresql,
+  stdenv,
+  nixosTests,
+  cargo-pgx_0_6_1,
+}:
 
 (buildPgxExtension.override { cargo-pgx = cargo-pgx_0_6_1; }) rec {
   inherit postgresql;

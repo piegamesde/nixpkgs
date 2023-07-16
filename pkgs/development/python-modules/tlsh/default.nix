@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cmake }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cmake,
+}:
 
 buildPythonPackage rec {
   pname = "tlsh";

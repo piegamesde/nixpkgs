@@ -1,5 +1,13 @@
-{ fetchFromGitHub, lib, protobuf, rocksdb, rustPlatform, stdenv, Security
-, SystemConfiguration }:
+{
+  fetchFromGitHub,
+  lib,
+  protobuf,
+  rocksdb,
+  rustPlatform,
+  stdenv,
+  Security,
+  SystemConfiguration,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "polkadot";
   version = "0.9.41";

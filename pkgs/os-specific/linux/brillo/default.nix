@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitLab, go-md2man, coreutils, substituteAll }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  go-md2man,
+  coreutils,
+  substituteAll,
+}:
 
 stdenv.mkDerivation rec {
   pname = "brillo";

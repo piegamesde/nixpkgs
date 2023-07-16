@@ -1,5 +1,13 @@
-{ lib, mkCoqDerivation, coq, mathcomp-ssreflect, mathcomp-algebra
-, mathcomp-fingroup, paramcoq, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  mathcomp-ssreflect,
+  mathcomp-algebra,
+  mathcomp-fingroup,
+  paramcoq,
+  version ? null
+}:
 
 mkCoqDerivation {
   pname = "addition-chains";

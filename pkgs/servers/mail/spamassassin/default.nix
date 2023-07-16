@@ -1,4 +1,13 @@
-{ lib, fetchurl, perlPackages, makeWrapper, gnupg, re2c, gcc, gnumake }:
+{
+  lib,
+  fetchurl,
+  perlPackages,
+  makeWrapper,
+  gnupg,
+  re2c,
+  gcc,
+  gnumake,
+}:
 
 perlPackages.buildPerlPackage rec {
   pname = "SpamAssassin";

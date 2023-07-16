@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cudd, gmp-static, gperf, autoreconfHook, libpoly
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cudd,
+  gmp-static,
+  gperf,
+  autoreconfHook,
+  libpoly,
 }:
 
 stdenv.mkDerivation rec {

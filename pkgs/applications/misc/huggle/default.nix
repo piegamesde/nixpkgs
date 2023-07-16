@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, ncurses, which, cmake, unzip
-, wrapQtAppsHook, qtwebengine, yaml-cpp, libirc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  ncurses,
+  which,
+  cmake,
+  unzip,
+  wrapQtAppsHook,
+  qtwebengine,
+  yaml-cpp,
+  libirc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "huggle";

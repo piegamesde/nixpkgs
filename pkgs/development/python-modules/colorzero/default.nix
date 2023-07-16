@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pkginfo, sphinxHook
-, sphinx-rtd-theme, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pkginfo,
+  sphinxHook,
+  sphinx-rtd-theme,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "colorzero";

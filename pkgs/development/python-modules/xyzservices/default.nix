@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchPypi, mercantile
-, pytestCheckHook, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchPypi,
+  mercantile,
+  pytestCheckHook,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "xyzservices";

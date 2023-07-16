@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, SDL_compat, libX11, libXext }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL_compat,
+  libX11,
+  libXext,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rvvm";

@@ -1,4 +1,10 @@
-{ lib, fetchFromSourcehut, buildPythonPackage, srht, pyyaml }:
+{
+  lib,
+  fetchFromSourcehut,
+  buildPythonPackage,
+  srht,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "hubsrht";

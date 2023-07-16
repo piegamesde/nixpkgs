@@ -1,5 +1,16 @@
-{ lib, mkCoqDerivation, autoconf, coq, coquelicot, flocq, mathcomp-ssreflect
-, mathcomp-fingroup, bignums ? null, gnuplot_qt, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  autoconf,
+  coq,
+  coquelicot,
+  flocq,
+  mathcomp-ssreflect,
+  mathcomp-fingroup,
+  bignums ? null,
+  gnuplot_qt,
+  version ? null
+}:
 
 mkCoqDerivation rec {
   pname = "interval";

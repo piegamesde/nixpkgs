@@ -1,4 +1,8 @@
-{ runCommandLocal, nix, lib }:
+{
+  runCommandLocal,
+  nix,
+  lib,
+}:
 
 # Replace a single dependency in the requisites tree of drv, propagating
 # the change all the way up the tree, without a full rebuild. This can be
@@ -17,7 +21,12 @@
 # };
 # This will rebuild glibc with your security patch, then copy over firefox
 # (and all of its dependencies) without rebuilding further.
-{ drv, oldDependency, newDependency, verbose ? true }:
+{
+  drv,
+  oldDependency,
+  newDependency,
+  verbose ? true
+}:
 
 with lib;
 

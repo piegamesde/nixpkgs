@@ -1,5 +1,15 @@
-{ lib, fetchFromGitHub, buildDunePackage, ocaml, dune-configurator, result, seq
-, mdx, ounit2, qcheck-core }:
+{
+  lib,
+  fetchFromGitHub,
+  buildDunePackage,
+  ocaml,
+  dune-configurator,
+  result,
+  seq,
+  mdx,
+  ounit2,
+  qcheck-core,
+}:
 
 buildDunePackage rec {
   pname = "iter";

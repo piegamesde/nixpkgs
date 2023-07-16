@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, nix-update-script, cmake, ninja, qtbase
-, qtwayland, qt5, xorg, useQt6 ? false }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  nix-update-script,
+  cmake,
+  ninja,
+  qtbase,
+  qtwayland,
+  qt5,
+  xorg,
+  useQt6 ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "adwaita-qt";

@@ -1,8 +1,22 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  makeWrapper
 
-, autoreconfHook, pkg-config
+  ,
+  autoreconfHook,
+  pkg-config
 
-, cairo, glib, libnotify, rofi-unwrapped, wl-clipboard, xclip, xsel }:
+  ,
+  cairo,
+  glib,
+  libnotify,
+  rofi-unwrapped,
+  wl-clipboard,
+  xclip,
+  xsel,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rofi-emoji";

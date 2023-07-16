@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, cmake, hdf5, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  cmake,
+  hdf5,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kallisto";

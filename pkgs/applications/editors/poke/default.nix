@@ -1,10 +1,30 @@
-{ lib, stdenv, fetchurl, autoreconfHook, gettext, help2man, pkg-config, texinfo
-, boehmgc, readline, guiSupport ? false, makeWrapper, tcl, tcllib, tk
-, miSupport ? true, json_c, nbdSupport ? !stdenv.isDarwin, libnbd
-, textStylingSupport ? true, dejagnu
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  gettext,
+  help2man,
+  pkg-config,
+  texinfo,
+  boehmgc,
+  readline,
+  guiSupport ? false,
+  makeWrapper,
+  tcl,
+  tcllib,
+  tk,
+  miSupport ? true,
+  json_c,
+  nbdSupport ? !stdenv.isDarwin,
+  libnbd,
+  textStylingSupport ? true,
+  dejagnu
 
-# update script only
-, writeScript }:
+  # update script only
+  ,
+  writeScript,
+}:
 
 let isCross = stdenv.hostPlatform != stdenv.buildPlatform;
 in stdenv.mkDerivation rec {

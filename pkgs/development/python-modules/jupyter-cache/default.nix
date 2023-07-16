@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, attrs, click, flit-core
-, importlib-metadata, nbclient, nbformat, pyyaml, sqlalchemy, tabulate
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  attrs,
+  click,
+  flit-core,
+  importlib-metadata,
+  nbclient,
+  nbformat,
+  pyyaml,
+  sqlalchemy,
+  tabulate,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "jupyter-cache";

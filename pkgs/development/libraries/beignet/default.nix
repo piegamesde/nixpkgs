@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libclang, libllvm, libdrm
-, libX11, libpthreadstubs, libXdmcp, libXdamage, libXext, python3, ocl-icd
-, libGL, makeWrapper, beignet }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libclang,
+  libllvm,
+  libdrm,
+  libX11,
+  libpthreadstubs,
+  libXdmcp,
+  libXdamage,
+  libXext,
+  python3,
+  ocl-icd,
+  libGL,
+  makeWrapper,
+  beignet,
+}:
 
 stdenv.mkDerivation rec {
   pname = "beignet";

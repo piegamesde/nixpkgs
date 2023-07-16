@@ -1,22 +1,81 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, unzip, zlib, pcre
-, hdf5, glog, boost, gflags, protobuf, config
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  unzip,
+  zlib,
+  pcre,
+  hdf5,
+  glog,
+  boost,
+  gflags,
+  protobuf,
+  config
 
-, enableJPEG ? true, libjpeg, enablePNG ? true, libpng, enableTIFF ? true
-, libtiff, enableWebP ? true, libwebp, enableEXR ? !stdenv.isDarwin, openexr
-, ilmbase, enableEigen ? true, eigen, enableOpenblas ? true, openblas, blas
-, lapack, enableContrib ? true
+  ,
+  enableJPEG ? true,
+  libjpeg,
+  enablePNG ? true,
+  libpng,
+  enableTIFF ? true,
+  libtiff,
+  enableWebP ? true,
+  libwebp,
+  enableEXR ? !stdenv.isDarwin,
+  openexr,
+  ilmbase,
+  enableEigen ? true,
+  eigen,
+  enableOpenblas ? true,
+  openblas,
+  blas,
+  lapack,
+  enableContrib ? true
 
-, enableCuda ? (config.cudaSupport or false) && stdenv.hostPlatform.isx86_64
-, cudaPackages ? { }, enableUnfree ? false, enableIpp ? false
-, enablePython ? false, pythonPackages ? null, enableGtk2 ? false, gtk2
-, enableGtk3 ? false, gtk3, enableVtk ? false, vtk_8, enableFfmpeg ? false
-, ffmpeg, enableGStreamer ? false, gst_all_1, enableTesseract ? false, tesseract
-, leptonica, enableTbb ? false, tbb, enableOvis ? false, ogre
-, enableGPhoto2 ? false, libgphoto2, enableDC1394 ? false, libdc1394
-, enableDocs ? false, doxygen, graphviz-nox
+  ,
+  enableCuda ? (config.cudaSupport or false) && stdenv.hostPlatform.isx86_64,
+  cudaPackages ? { },
+  enableUnfree ? false,
+  enableIpp ? false,
+  enablePython ? false,
+  pythonPackages ? null,
+  enableGtk2 ? false,
+  gtk2,
+  enableGtk3 ? false,
+  gtk3,
+  enableVtk ? false,
+  vtk_8,
+  enableFfmpeg ? false,
+  ffmpeg,
+  enableGStreamer ? false,
+  gst_all_1,
+  enableTesseract ? false,
+  tesseract,
+  leptonica,
+  enableTbb ? false,
+  tbb,
+  enableOvis ? false,
+  ogre,
+  enableGPhoto2 ? false,
+  libgphoto2,
+  enableDC1394 ? false,
+  libdc1394,
+  enableDocs ? false,
+  doxygen,
+  graphviz-nox
 
-, AVFoundation, Cocoa, VideoDecodeAcceleration, bzip2, CoreMedia, MediaToolbox
-, Accelerate }:
+  ,
+  AVFoundation,
+  Cocoa,
+  VideoDecodeAcceleration,
+  bzip2,
+  CoreMedia,
+  MediaToolbox,
+  Accelerate,
+}:
 
 assert blas.implementation == "openblas" && lapack.implementation == "openblas";
 

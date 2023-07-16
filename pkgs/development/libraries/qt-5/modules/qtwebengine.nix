@@ -1,19 +1,96 @@
-{ qtModule, qtdeclarative, qtquickcontrols, qtlocation, qtwebchannel
+{
+  qtModule,
+  qtdeclarative,
+  qtquickcontrols,
+  qtlocation,
+  qtwebchannel
 
-, bison, flex, git, gperf, ninja, pkg-config, python, which, nodejs, qtbase
-, perl
+  ,
+  bison,
+  flex,
+  git,
+  gperf,
+  ninja,
+  pkg-config,
+  python,
+  which,
+  nodejs,
+  qtbase,
+  perl
 
-, xorg, libXcursor, libXScrnSaver, libXrandr, libXtst, fontconfig, freetype
-, harfbuzz, icu, dbus, libdrm, zlib, minizip, libjpeg, libpng, libtiff, libwebp
-, libopus, jsoncpp, protobuf, libvpx, srtp, snappy, nss, libevent, alsa-lib
-, libcap, pciutils, systemd, enableProprietaryCodecs ? true, gn, cctools
-, libobjc, libpm, libunwind, sandbox, xnu, ApplicationServices, AVFoundation
-, Foundation, ForceFeedback, GameController, AppKit, ImageCaptureCore
-, CoreBluetooth, IOBluetooth, CoreWLAN, Quartz, Cocoa, LocalAuthentication
-, MediaPlayer, MediaAccessibility, SecurityInterface, Vision, CoreML
-, OpenDirectory, Accelerate, cups, openbsm, runCommand, xcbuild, writeScriptBin
-, ffmpeg_4 ? null, lib, stdenv, fetchpatch, version ? null, qtCompatVersion
-, pipewireSupport ? stdenv.isLinux, pipewire_0_2, postPatch ? "" }:
+  ,
+  xorg,
+  libXcursor,
+  libXScrnSaver,
+  libXrandr,
+  libXtst,
+  fontconfig,
+  freetype,
+  harfbuzz,
+  icu,
+  dbus,
+  libdrm,
+  zlib,
+  minizip,
+  libjpeg,
+  libpng,
+  libtiff,
+  libwebp,
+  libopus,
+  jsoncpp,
+  protobuf,
+  libvpx,
+  srtp,
+  snappy,
+  nss,
+  libevent,
+  alsa-lib,
+  libcap,
+  pciutils,
+  systemd,
+  enableProprietaryCodecs ? true,
+  gn,
+  cctools,
+  libobjc,
+  libpm,
+  libunwind,
+  sandbox,
+  xnu,
+  ApplicationServices,
+  AVFoundation,
+  Foundation,
+  ForceFeedback,
+  GameController,
+  AppKit,
+  ImageCaptureCore,
+  CoreBluetooth,
+  IOBluetooth,
+  CoreWLAN,
+  Quartz,
+  Cocoa,
+  LocalAuthentication,
+  MediaPlayer,
+  MediaAccessibility,
+  SecurityInterface,
+  Vision,
+  CoreML,
+  OpenDirectory,
+  Accelerate,
+  cups,
+  openbsm,
+  runCommand,
+  xcbuild,
+  writeScriptBin,
+  ffmpeg_4 ? null,
+  lib,
+  stdenv,
+  fetchpatch,
+  version ? null,
+  qtCompatVersion,
+  pipewireSupport ? stdenv.isLinux,
+  pipewire_0_2,
+  postPatch ? ""
+}:
 
 qtModule {
   pname = "qtwebengine";

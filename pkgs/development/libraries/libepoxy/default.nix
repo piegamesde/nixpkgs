@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, utilmacros, python3
-, libGL, libX11, Carbon, OpenGL, x11Support ? !stdenv.isDarwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  utilmacros,
+  python3,
+  libGL,
+  libX11,
+  Carbon,
+  OpenGL,
+  x11Support ? !stdenv.isDarwin
+}:
 
 let inherit (lib) getLib optional optionalString;
 

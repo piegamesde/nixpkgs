@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, fetchpatch, pkg-config, openssl
-, testers, gbl, Security }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  fetchpatch,
+  pkg-config,
+  openssl,
+  testers,
+  gbl,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "gbl";

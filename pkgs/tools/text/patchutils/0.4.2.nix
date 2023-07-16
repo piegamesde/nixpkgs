@@ -1,4 +1,8 @@
-{ callPackage, python3, ... }@args:
+{
+  callPackage,
+  python3,
+  ...
+}@args:
 
 callPackage ./generic.nix (args // {
   version = "0.4.2";

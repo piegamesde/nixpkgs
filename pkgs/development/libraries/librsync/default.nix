@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, perl, zlib, bzip2, popt }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  perl,
+  zlib,
+  bzip2,
+  popt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "librsync";

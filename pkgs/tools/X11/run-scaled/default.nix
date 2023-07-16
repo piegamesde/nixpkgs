@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, bc, xorgserver, xpra, xrandr }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  bc,
+  xorgserver,
+  xpra,
+  xrandr,
+}:
 
 stdenv.mkDerivation {
   version = "unstable-2018-06-03";

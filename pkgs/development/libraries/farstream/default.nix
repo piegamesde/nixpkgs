@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchurl, fetchpatch, libnice, pkg-config, autoreconfHook
-, gstreamer, gst-plugins-base, gupnp-igd, gobject-introspection
-, gst-plugins-good, gst-plugins-bad, gst-libav, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  libnice,
+  pkg-config,
+  autoreconfHook,
+  gstreamer,
+  gst-plugins-base,
+  gupnp-igd,
+  gobject-introspection,
+  gst-plugins-good,
+  gst-plugins-bad,
+  gst-libav,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "farstream";

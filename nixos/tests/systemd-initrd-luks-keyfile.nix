@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ lib, pkgs, ... }:
+import ./make-test-python.nix ({
+    lib,
+    pkgs,
+    ...
+  }:
   let
 
     keyfile = pkgs.writeText "luks-keyfile" ''
@@ -10,32 +14,35 @@ import ./make-test-python.nix ({ lib, pkgs, ... }:
   in {
     name = "systemd-initrd-luks-keyfile";
 
-    nodes.machine = { pkgs, ... }: {
-      # Use systemd-boot
-      virtualisation = {
-        emptyDiskImages = [ 512 ];
-        useBootLoader = true;
-        useEFIBoot = true;
-      };
-      boot.loader.systemd-boot.enable = true;
-
-      environment.systemPackages = with pkgs; [ cryptsetup ];
-      boot.initrd.systemd = {
-        enable = true;
-        emergencyAccess = true;
-      };
-
-      specialisation.boot-luks.configuration = {
-        boot.initrd.luks.devices = lib.mkVMOverride {
-          cryptroot = {
-            device = "/dev/vdb";
-            keyFile = "/etc/cryptroot.key";
-          };
+    nodes.machine = {
+        pkgs,
+        ...
+      }: {
+        # Use systemd-boot
+        virtualisation = {
+          emptyDiskImages = [ 512 ];
+          useBootLoader = true;
+          useEFIBoot = true;
         };
-        virtualisation.rootDevice = "/dev/mapper/cryptroot";
-        boot.initrd.secrets."/etc/cryptroot.key" = keyfile;
+        boot.loader.systemd-boot.enable = true;
+
+        environment.systemPackages = with pkgs; [ cryptsetup ];
+        boot.initrd.systemd = {
+          enable = true;
+          emergencyAccess = true;
+        };
+
+        specialisation.boot-luks.configuration = {
+          boot.initrd.luks.devices = lib.mkVMOverride {
+            cryptroot = {
+              device = "/dev/vdb";
+              keyFile = "/etc/cryptroot.key";
+            };
+          };
+          virtualisation.rootDevice = "/dev/mapper/cryptroot";
+          boot.initrd.secrets."/etc/cryptroot.key" = keyfile;
+        };
       };
-    };
 
     testScript = ''
       # Create encrypted volume

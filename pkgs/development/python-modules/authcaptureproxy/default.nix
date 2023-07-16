@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, aiohttp, beautifulsoup4
-, httpx, importlib-metadata, multidict, typer, yarl, pytest-asyncio
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  aiohttp,
+  beautifulsoup4,
+  httpx,
+  importlib-metadata,
+  multidict,
+  typer,
+  yarl,
+  pytest-asyncio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "authcaptureproxy";

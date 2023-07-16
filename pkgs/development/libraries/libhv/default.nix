@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, curl, openssl, Security }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  curl,
+  openssl,
+  Security,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libhv";

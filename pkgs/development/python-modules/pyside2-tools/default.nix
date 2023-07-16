@@ -1,4 +1,13 @@
-{ wrapPython, python, lib, stdenv, cmake, qt5, shiboken2, pyside2 }:
+{
+  wrapPython,
+  python,
+  lib,
+  stdenv,
+  cmake,
+  qt5,
+  shiboken2,
+  pyside2,
+}:
 
 stdenv.mkDerivation {
   pname = "pyside2-tools";

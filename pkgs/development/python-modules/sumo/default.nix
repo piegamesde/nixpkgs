@@ -1,6 +1,21 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, cython, h5py
-, matplotlib, numpy, phonopy, pymatgen, scipy, seekpath, spglib, castepxbin
-, pytestCheckHook, colormath }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  cython,
+  h5py,
+  matplotlib,
+  numpy,
+  phonopy,
+  pymatgen,
+  scipy,
+  seekpath,
+  spglib,
+  castepxbin,
+  pytestCheckHook,
+  colormath,
+}:
 
 buildPythonPackage rec {
   pname = "sumo";

@@ -1,8 +1,32 @@
-{ mkDerivation, lib, nixosTests, extra-cmake-modules, kdoctools, kbookmarks
-, kcompletion, kconfig, kconfigwidgets, kcoreaddons, kguiaddons, ki18n
-, kiconthemes, kinit, kio, knotifications, knotifyconfig, kparts, kpty, kservice
-, ktextwidgets, kwidgetsaddons, kwindowsystem, kxmlgui, qtscript, knewstuff
-, qtmultimedia }:
+{
+  mkDerivation,
+  lib,
+  nixosTests,
+  extra-cmake-modules,
+  kdoctools,
+  kbookmarks,
+  kcompletion,
+  kconfig,
+  kconfigwidgets,
+  kcoreaddons,
+  kguiaddons,
+  ki18n,
+  kiconthemes,
+  kinit,
+  kio,
+  knotifications,
+  knotifyconfig,
+  kparts,
+  kpty,
+  kservice,
+  ktextwidgets,
+  kwidgetsaddons,
+  kwindowsystem,
+  kxmlgui,
+  qtscript,
+  knewstuff,
+  qtmultimedia,
+}:
 
 mkDerivation {
   pname = "konsole";

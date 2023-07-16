@@ -1,8 +1,33 @@
-{ lib, stdenv, fetchurl, coreutils, gdk-pixbuf, gdk-pixbuf-xlib, gettext, gle
-, gtk3, intltool, libGL, libGLU, libX11, libXext, libXft, libXi, libXinerama
-, libXrandr, libXt, libXxf86vm, libxml2, makeWrapper, pam, perlPackages
-, pkg-config, systemd, forceInstallAllHacks ? false
-, withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  coreutils,
+  gdk-pixbuf,
+  gdk-pixbuf-xlib,
+  gettext,
+  gle,
+  gtk3,
+  intltool,
+  libGL,
+  libGLU,
+  libX11,
+  libXext,
+  libXft,
+  libXi,
+  libXinerama,
+  libXrandr,
+  libXt,
+  libXxf86vm,
+  libxml2,
+  makeWrapper,
+  pam,
+  perlPackages,
+  pkg-config,
+  systemd,
+  forceInstallAllHacks ? false,
+  withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "xscreensaver";

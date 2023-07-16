@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, gettext, pkg-config, icu }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gettext,
+  pkg-config,
+  icu,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dwdiff";

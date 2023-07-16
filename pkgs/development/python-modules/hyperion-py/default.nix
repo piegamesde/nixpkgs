@@ -1,5 +1,16 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, fetchpatch, pytestCheckHook
-, pythonOlder, pythonAtLeast, poetry-core, pytest-aiohttp, pytest-asyncio }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pytestCheckHook,
+  pythonOlder,
+  pythonAtLeast,
+  poetry-core,
+  pytest-aiohttp,
+  pytest-asyncio,
+}:
 
 buildPythonPackage rec {
   pname = "hyperion-py";

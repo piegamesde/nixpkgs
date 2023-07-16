@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-cmake
-, rocm-device-libs }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  cmake,
+  rocm-cmake,
+  rocm-device-libs,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "clang-ocl";

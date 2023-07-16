@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, unzip, jre, makeDesktopItem, copyDesktopItems }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  jre,
+  makeDesktopItem,
+  copyDesktopItems,
+}:
 
 let
   desktopItem = makeDesktopItem {

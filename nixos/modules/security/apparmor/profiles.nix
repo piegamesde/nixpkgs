@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let apparmor = config.security.apparmor;
 in {
   config.security.apparmor.packages = [ pkgs.apparmor-profiles ];

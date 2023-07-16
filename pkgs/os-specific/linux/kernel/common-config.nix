@@ -10,9 +10,14 @@
 # hardware problems with a new one.
 
 # Configuration
-{ lib, stdenv, version
+{
+  lib,
+  stdenv,
+  version
 
-, features ? { } }:
+  ,
+  features ? { }
+}:
 
 with lib;
 with lib.kernel;

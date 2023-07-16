@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, aiohttp, appdirs, ecdsa
-, ms-cv, pydantic, aresponses, pytest-asyncio, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  aiohttp,
+  appdirs,
+  ecdsa,
+  ms-cv,
+  pydantic,
+  aresponses,
+  pytest-asyncio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "xbox-webapi";

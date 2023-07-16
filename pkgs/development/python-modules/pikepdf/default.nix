@@ -1,7 +1,29 @@
-{ lib, attrs, buildPythonPackage, fetchFromGitHub, hypothesis, pythonOlder
-, importlib-metadata, jbig2dec, deprecation, lxml, mupdf, packaging, pillow
-, psutil, pybind11, pytest-xdist, pytestCheckHook, python-dateutil
-, python-xmp-toolkit, qpdf, setuptools, setuptools-scm, substituteAll, wheel }:
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hypothesis,
+  pythonOlder,
+  importlib-metadata,
+  jbig2dec,
+  deprecation,
+  lxml,
+  mupdf,
+  packaging,
+  pillow,
+  psutil,
+  pybind11,
+  pytest-xdist,
+  pytestCheckHook,
+  python-dateutil,
+  python-xmp-toolkit,
+  qpdf,
+  setuptools,
+  setuptools-scm,
+  substituteAll,
+  wheel,
+}:
 
 buildPythonPackage rec {
   pname = "pikepdf";

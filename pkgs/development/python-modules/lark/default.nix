@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, python, regex, pytestCheckHook
-, js2py }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python,
+  regex,
+  pytestCheckHook,
+  js2py,
+}:
 
 buildPythonPackage rec {
   pname = "lark";

@@ -1,6 +1,17 @@
-{ lib, stdenv, fetchgit, libxml2, libxslt, docbook-xsl, docbook_xml_dtd_44
-, perlPackages, makeWrapper, perl # for pod2man
-, darwin }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  libxml2,
+  libxslt,
+  docbook-xsl,
+  docbook_xml_dtd_44,
+  perlPackages,
+  makeWrapper,
+  perl # for pod2man
+  ,
+  darwin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "moreutils";

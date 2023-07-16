@@ -1,7 +1,27 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, util-linux, hexdump
-, autoSignDarwinBinariesHook, wrapQtAppsHook ? null, boost, libevent, miniupnpc
-, zeromq, zlib, db48, sqlite, qrencode, qtbase ? null, qttools ? null, python3
-, withGui, withWallet ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  util-linux,
+  hexdump,
+  autoSignDarwinBinariesHook,
+  wrapQtAppsHook ? null,
+  boost,
+  libevent,
+  miniupnpc,
+  zeromq,
+  zlib,
+  db48,
+  sqlite,
+  qrencode,
+  qtbase ? null,
+  qttools ? null,
+  python3,
+  withGui,
+  withWallet ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = if withGui then "elements" else "elementsd";

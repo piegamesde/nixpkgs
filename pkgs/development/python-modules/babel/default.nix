@@ -1,7 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, pythonAtLeast, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonAtLeast,
+  pythonOlder
 
-# tests
-, freezegun, pytestCheckHook, pytz }:
+  # tests
+  ,
+  freezegun,
+  pytestCheckHook,
+  pytz,
+}:
 
 buildPythonPackage rec {
   pname = "babel";

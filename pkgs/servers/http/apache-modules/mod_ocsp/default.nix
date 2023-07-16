@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, mod_ca, apr, aprutil }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  mod_ca,
+  apr,
+  aprutil,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mod_ocsp";

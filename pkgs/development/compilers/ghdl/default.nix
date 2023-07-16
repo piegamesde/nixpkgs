@@ -1,5 +1,14 @@
-{ stdenv, fetchFromGitHub, fetchpatch, callPackage, gnat, zlib, llvm, lib
-, backend ? "mcode" }:
+{
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  callPackage,
+  gnat,
+  zlib,
+  llvm,
+  lib,
+  backend ? "mcode"
+}:
 
 assert backend == "mcode" || backend == "llvm";
 

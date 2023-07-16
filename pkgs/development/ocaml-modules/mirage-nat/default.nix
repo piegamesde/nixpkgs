@@ -1,5 +1,16 @@
-{ lib, buildDunePackage, fetchurl, ipaddr, cstruct, logs, lru, tcpip, ethernet
-, alcotest, mirage-clock-unix }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  ipaddr,
+  cstruct,
+  logs,
+  lru,
+  tcpip,
+  ethernet,
+  alcotest,
+  mirage-clock-unix,
+}:
 
 buildDunePackage rec {
   pname = "mirage-nat";

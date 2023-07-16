@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, makeWrapper, erlang, python3, python3Packages
-, perlPackages, gnuplot }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  erlang,
+  python3,
+  python3Packages,
+  perlPackages,
+  gnuplot,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tsung";

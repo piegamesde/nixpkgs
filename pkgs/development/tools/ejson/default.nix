@@ -1,4 +1,10 @@
-{ lib, bundlerEnv, ruby, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  bundlerEnv,
+  ruby,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 let
   # needed for manpage generation
   gems = bundlerEnv {

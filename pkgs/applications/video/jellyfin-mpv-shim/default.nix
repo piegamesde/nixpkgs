@@ -1,6 +1,20 @@
-{ lib, buildPythonApplication, copyDesktopItems, fetchPypi
-, gobject-introspection, jellyfin-apiclient-python, jinja2, makeDesktopItem, mpv
-, pillow, pystray, python, python-mpv-jsonipc, pywebview, tkinter, wrapGAppsHook
+{
+  lib,
+  buildPythonApplication,
+  copyDesktopItems,
+  fetchPypi,
+  gobject-introspection,
+  jellyfin-apiclient-python,
+  jinja2,
+  makeDesktopItem,
+  mpv,
+  pillow,
+  pystray,
+  python,
+  python-mpv-jsonipc,
+  pywebview,
+  tkinter,
+  wrapGAppsHook,
 }:
 
 buildPythonApplication rec {

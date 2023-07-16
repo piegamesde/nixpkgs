@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, docutils, fetchFromGitHub, isPy27, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  docutils,
+  fetchFromGitHub,
+  isPy27,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   version = "1.0.10";

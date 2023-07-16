@@ -1,6 +1,13 @@
-{ lib, stdenv, fetchurl, perl
-# Update the enabled crypt scheme ids in passthru when the enabled hashes change
-, enableHashes ? "strong", nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl
+  # Update the enabled crypt scheme ids in passthru when the enabled hashes change
+  ,
+  enableHashes ? "strong",
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libxcrypt";

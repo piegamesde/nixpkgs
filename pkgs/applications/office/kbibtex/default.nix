@@ -1,13 +1,36 @@
-{ lib, mkDerivation, fetchurl
-# build-time
-, extra-cmake-modules, shared-mime-info
-# Qt
-, qtxmlpatterns, qtwebengine, qca-qt5, qtnetworkauth
-# KDE
-, ki18n, kxmlgui, kio, kiconthemes, kitemviews, kparts, kcoreaddons, kservice
-, ktexteditor, kdoctools, kwallet, kcrash
-# other
-, poppler, bibutils }:
+{
+  lib,
+  mkDerivation,
+  fetchurl
+  # build-time
+  ,
+  extra-cmake-modules,
+  shared-mime-info
+  # Qt
+  ,
+  qtxmlpatterns,
+  qtwebengine,
+  qca-qt5,
+  qtnetworkauth
+  # KDE
+  ,
+  ki18n,
+  kxmlgui,
+  kio,
+  kiconthemes,
+  kitemviews,
+  kparts,
+  kcoreaddons,
+  kservice,
+  ktexteditor,
+  kdoctools,
+  kwallet,
+  kcrash
+  # other
+  ,
+  poppler,
+  bibutils,
+}:
 
 mkDerivation rec {
   pname = "kbibtex";

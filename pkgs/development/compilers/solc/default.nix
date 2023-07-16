@@ -1,6 +1,22 @@
-{ lib, gccStdenv, fetchzip, pkgs, boost, cmake, coreutils, fetchpatch, jq
-, ncurses, python3, z3Support ? true, z3_4_11 ? null
-, cvc4Support ? gccStdenv.isLinux, cvc4 ? null, cln ? null, gmp ? null }:
+{
+  lib,
+  gccStdenv,
+  fetchzip,
+  pkgs,
+  boost,
+  cmake,
+  coreutils,
+  fetchpatch,
+  jq,
+  ncurses,
+  python3,
+  z3Support ? true,
+  z3_4_11 ? null,
+  cvc4Support ? gccStdenv.isLinux,
+  cvc4 ? null,
+  cln ? null,
+  gmp ? null
+}:
 
 # compiling source/libsmtutil/CVC4Interface.cpp breaks on clang on Darwin,
 # general commandline tests fail at abiencoderv2_no_warning/ on clang on NixOS

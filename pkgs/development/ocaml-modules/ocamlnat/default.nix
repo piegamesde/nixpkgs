@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchurl, ocaml, findlib, ounit }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  ocaml,
+  findlib,
+  ounit,
+}:
 
 # https://github.com/bmeurer/ocamlnat/issues/3
 assert lib.versionOlder ocaml.version "4";

@@ -1,8 +1,29 @@
-{ stdenv, lib, fetchFromGitHub, meson, pkg-config, ninja, wayland-scanner
-, libdrm, minimal ? false, libva-minimal, libX11, libXext, libXfixes, wayland
-, libffi, libGL, mesa
-# for passthru.tests
-, intel-compute-runtime, intel-media-driver, mpv, vaapiIntel, vlc }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  meson,
+  pkg-config,
+  ninja,
+  wayland-scanner,
+  libdrm,
+  minimal ? false,
+  libva-minimal,
+  libX11,
+  libXext,
+  libXfixes,
+  wayland,
+  libffi,
+  libGL,
+  mesa
+  # for passthru.tests
+  ,
+  intel-compute-runtime,
+  intel-media-driver,
+  mpv,
+  vaapiIntel,
+  vlc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libva" + lib.optionalString minimal "-minimal";

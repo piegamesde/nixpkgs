@@ -1,4 +1,10 @@
-{ lib, stdenv, binutils, fetchurl, ncurses5 }:
+{
+  lib,
+  stdenv,
+  binutils,
+  fetchurl,
+  ncurses5,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.0.30";

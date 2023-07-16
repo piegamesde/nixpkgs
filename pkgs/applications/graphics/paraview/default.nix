@@ -1,6 +1,29 @@
-{ lib, stdenv, fetchFromGitLab, fetchurl, boost, cmake, ffmpeg, wrapQtAppsHook
-, qtbase, qtx11extras, qttools, qtxmlpatterns, qtsvg, gdal, gfortran, libXt
-, makeWrapper, ninja, mpi, python3, tbb, libGLU, libGL, withDocs ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchurl,
+  boost,
+  cmake,
+  ffmpeg,
+  wrapQtAppsHook,
+  qtbase,
+  qtx11extras,
+  qttools,
+  qtxmlpatterns,
+  qtsvg,
+  gdal,
+  gfortran,
+  libXt,
+  makeWrapper,
+  ninja,
+  mpi,
+  python3,
+  tbb,
+  libGLU,
+  libGL,
+  withDocs ? true
+}:
 
 let
   version = "5.11.0";

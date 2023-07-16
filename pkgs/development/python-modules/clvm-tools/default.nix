@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, clvm, clvm-tools-rs
-, setuptools-scm, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  clvm,
+  clvm-tools-rs,
+  setuptools-scm,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "clvm_tools";

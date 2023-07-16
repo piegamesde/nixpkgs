@@ -1,5 +1,19 @@
-{ lib, bash, dbus, fetchFromGitHub, fetchpatch, installShellFiles, libgit2
-, libssh2, openssl, pkg-config, rustPlatform, systemd, xz, zlib }:
+{
+  lib,
+  bash,
+  dbus,
+  fetchFromGitHub,
+  fetchpatch,
+  installShellFiles,
+  libgit2,
+  libssh2,
+  openssl,
+  pkg-config,
+  rustPlatform,
+  systemd,
+  xz,
+  zlib,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "ciel";

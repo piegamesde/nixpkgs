@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pyserial, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pyserial,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pykwb";

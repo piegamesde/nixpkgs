@@ -1,6 +1,20 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, meson, ninja, pkg-config
-, gobject-introspection, vala, gi-docgen, glib, gtk3, gtk4, libsForQt5
-, variant ? null }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  meson,
+  ninja,
+  pkg-config,
+  gobject-introspection,
+  vala,
+  gi-docgen,
+  glib,
+  gtk3,
+  gtk4,
+  libsForQt5,
+  variant ? null
+}:
 
 assert variant == null || variant == "gtk3" || variant == "gtk4" || variant
   == "qt5";

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder, regex }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pythonOlder,
+  regex,
+}:
 
 buildPythonPackage rec {
   pname = "rebulk";

@@ -1,4 +1,10 @@
-{ buildPythonPackage, lib, fetchFromGitHub, pytestCheckHook, rustPlatform }:
+{
+  buildPythonPackage,
+  lib,
+  fetchFromGitHub,
+  pytestCheckHook,
+  rustPlatform,
+}:
 
 buildPythonPackage rec {
   pname = "chia-rs";

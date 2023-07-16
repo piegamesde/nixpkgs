@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchPypi, buildPythonPackage, aplpy, joblib, astropy
-, casa-formats-io, radio_beam, six, dask, pytestCheckHook, pytest-astropy
-, astropy-helpers, setuptools-scm }:
+{
+  lib,
+  stdenv,
+  fetchPypi,
+  buildPythonPackage,
+  aplpy,
+  joblib,
+  astropy,
+  casa-formats-io,
+  radio_beam,
+  six,
+  dask,
+  pytestCheckHook,
+  pytest-astropy,
+  astropy-helpers,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "spectral-cube";

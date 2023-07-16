@@ -1,5 +1,16 @@
-{ bazel, bazelTest, bazel-examples, stdenv, darwin, lib, runLocal, runtimeShell
-, writeScript, writeText, distDir }:
+{
+  bazel,
+  bazelTest,
+  bazel-examples,
+  stdenv,
+  darwin,
+  lib,
+  runLocal,
+  runtimeShell,
+  writeScript,
+  writeText,
+  distDir,
+}:
 
 let
 

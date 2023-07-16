@@ -1,6 +1,20 @@
-{ lib, fetchFromGitHub, fetchpatch, python3, wirelesstools, aircrack-ng
-, wireshark-cli, reaverwps-t6x, cowpatty, hashcat, hcxtools, hcxdumptool, which
-, bully, pixiewps }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  python3,
+  wirelesstools,
+  aircrack-ng,
+  wireshark-cli,
+  reaverwps-t6x,
+  cowpatty,
+  hashcat,
+  hcxtools,
+  hcxdumptool,
+  which,
+  bully,
+  pixiewps,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   version = "2.6.0";

@@ -1,5 +1,13 @@
-{ lib, fetchFromGitHub, mkDerivation, cmake, extra-cmake-modules, qtbase
-, kcoreaddons, kdecoration }:
+{
+  lib,
+  fetchFromGitHub,
+  mkDerivation,
+  cmake,
+  extra-cmake-modules,
+  qtbase,
+  kcoreaddons,
+  kdecoration,
+}:
 
 mkDerivation rec {
   pname = "kde2-decoration";

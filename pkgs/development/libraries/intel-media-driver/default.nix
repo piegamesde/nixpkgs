@@ -1,7 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, libva
-, libpciaccess, intel-gmmlib, libdrm, enableX11 ? stdenv.isLinux, libX11
-# for passhtru.tests
-, pkgsi686Linux }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  libva,
+  libpciaccess,
+  intel-gmmlib,
+  libdrm,
+  enableX11 ? stdenv.isLinux,
+  libX11
+  # for passhtru.tests
+  ,
+  pkgsi686Linux,
+}:
 
 stdenv.mkDerivation rec {
   pname = "intel-media-driver";

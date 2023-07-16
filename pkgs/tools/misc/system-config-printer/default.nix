@@ -1,8 +1,32 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, udev, intltool, pkg-config, glib
-, xmlto, wrapGAppsHook, docbook_xml_dtd_412, docbook_xsl, libxml2
-, desktop-file-utils, libusb1, cups, gdk-pixbuf, pango, atk, libnotify
-, gobject-introspection, libsecret, packagekit, cups-filters, python3Packages
-, autoreconfHook, bash }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  udev,
+  intltool,
+  pkg-config,
+  glib,
+  xmlto,
+  wrapGAppsHook,
+  docbook_xml_dtd_412,
+  docbook_xsl,
+  libxml2,
+  desktop-file-utils,
+  libusb1,
+  cups,
+  gdk-pixbuf,
+  pango,
+  atk,
+  libnotify,
+  gobject-introspection,
+  libsecret,
+  packagekit,
+  cups-filters,
+  python3Packages,
+  autoreconfHook,
+  bash,
+}:
 
 stdenv.mkDerivation rec {
   pname = "system-config-printer";

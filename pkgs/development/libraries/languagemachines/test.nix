@@ -1,4 +1,7 @@
-{ runCommand, languageMachines }:
+{
+  runCommand,
+  languageMachines,
+}:
 
 runCommand "frog-test" { } ''
   ${languageMachines.frog}/bin/frog >$out <<EOF

@@ -1,6 +1,26 @@
-{ ansicolors, attrs, autobahn, buildPythonPackage, fetchFromGitHub, jinja2, lib
-, mock, packaging, pexpect, psutil, pyserial, pytestCheckHook, pytest-dependency
-, pytest-mock, pyudev, pyusb, pyyaml, requests, setuptools-scm, xmodem }:
+{
+  ansicolors,
+  attrs,
+  autobahn,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jinja2,
+  lib,
+  mock,
+  packaging,
+  pexpect,
+  psutil,
+  pyserial,
+  pytestCheckHook,
+  pytest-dependency,
+  pytest-mock,
+  pyudev,
+  pyusb,
+  pyyaml,
+  requests,
+  setuptools-scm,
+  xmodem,
+}:
 
 buildPythonPackage rec {
   pname = "labgrid";

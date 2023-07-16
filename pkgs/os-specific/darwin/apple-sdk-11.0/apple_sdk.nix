@@ -1,5 +1,15 @@
-{ lib, stdenvNoCC, buildPackages, fetchurl, xar, cpio, pkgs, python3, pbzx
-, MacOSX-SDK }:
+{
+  lib,
+  stdenvNoCC,
+  buildPackages,
+  fetchurl,
+  xar,
+  cpio,
+  pkgs,
+  python3,
+  pbzx,
+  MacOSX-SDK,
+}:
 
 # TODO: reorganize to make this just frameworks, and move libs to default.nix
 
@@ -18,7 +28,10 @@ let
         const = lib.mergeAttrs (x.const or { }) (y.const or { });
       };
 
-      rewriteArgs = { prefix ? { }, const ? { } }:
+      rewriteArgs = {
+          prefix ? { },
+          const ? { }
+        }:
         lib.concatLists
         ((lib.mapAttrsToList (from: to: [ "-p" "${from}:${to}" ]) prefix)
           ++ (lib.mapAttrsToList (from: to: [ "-c" "${from}:${to}" ]) const));
@@ -28,7 +41,11 @@ let
           (lib.filter (dep: dep ? tbdRewrites) depList));
     in lib.escapeShellArgs (rewriteArgs (rewrites (builtins.attrValues deps)));
 
-  mkFramework = { name, deps, private ? false }:
+  mkFramework = {
+      name,
+      deps,
+      private ? false
+    }:
     let
       self = stdenv.mkDerivation {
         pname =

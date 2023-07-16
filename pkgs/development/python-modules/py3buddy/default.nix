@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, python, pyusb }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python,
+  pyusb,
+}:
 
 stdenv.mkDerivation rec {
   pname = "py3buddy";

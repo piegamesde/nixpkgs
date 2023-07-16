@@ -1,4 +1,11 @@
-{ buildPythonPackage, lib, pythonOlder, fetchPypi, six, enum34 }:
+{
+  buildPythonPackage,
+  lib,
+  pythonOlder,
+  fetchPypi,
+  six,
+  enum34,
+}:
 
 buildPythonPackage rec {
   pname = "absl-py";

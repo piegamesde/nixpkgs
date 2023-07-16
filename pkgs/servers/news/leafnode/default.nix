@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, pcre, libxcrypt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pcre,
+  libxcrypt,
+}:
 
 stdenv.mkDerivation {
   pname = "leafnode";

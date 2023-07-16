@@ -1,5 +1,17 @@
-{ buildDunePackage, cohttp, cohttp-lwt, mirage-flow, mirage-channel, mirage-kv
-, conduit, conduit-mirage, lwt, astring, magic-mime, ppx_sexp_conv }:
+{
+  buildDunePackage,
+  cohttp,
+  cohttp-lwt,
+  mirage-flow,
+  mirage-channel,
+  mirage-kv,
+  conduit,
+  conduit-mirage,
+  lwt,
+  astring,
+  magic-mime,
+  ppx_sexp_conv,
+}:
 
 buildDunePackage {
   pname = "cohttp-mirage";

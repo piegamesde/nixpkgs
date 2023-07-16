@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, dbus, doxygen, fontconfig
-, gettext, graphviz, help2man, pkg-config, sqlite, tinyxml, cppunit }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  autoreconfHook,
+  dbus,
+  doxygen,
+  fontconfig,
+  gettext,
+  graphviz,
+  help2man,
+  pkg-config,
+  sqlite,
+  tinyxml,
+  cppunit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "presage";

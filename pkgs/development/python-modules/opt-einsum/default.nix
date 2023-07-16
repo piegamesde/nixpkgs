@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   version = "3.3.0";

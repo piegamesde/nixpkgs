@@ -1,6 +1,23 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, fetchpatch, gitpython, isort
-, jupyter-client, jupyter-packaging, jupyterlab, markdown-it-py, mdit-py-plugins
-, nbformat, notebook, pytestCheckHook, pythonOlder, pyyaml, toml }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  gitpython,
+  isort,
+  jupyter-client,
+  jupyter-packaging,
+  jupyterlab,
+  markdown-it-py,
+  mdit-py-plugins,
+  nbformat,
+  notebook,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  toml,
+}:
 
 buildPythonPackage rec {
   pname = "jupytext";

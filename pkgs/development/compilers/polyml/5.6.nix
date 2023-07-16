@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, autoreconfHook, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  fetchpatch,
+}:
 
 let version = "5.6";
 

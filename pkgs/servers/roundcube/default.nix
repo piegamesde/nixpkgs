@@ -1,4 +1,11 @@
-{ fetchurl, lib, stdenv, buildEnv, roundcube, roundcubePlugins }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  buildEnv,
+  roundcube,
+  roundcubePlugins,
+}:
 
 stdenv.mkDerivation rec {
   pname = "roundcube";

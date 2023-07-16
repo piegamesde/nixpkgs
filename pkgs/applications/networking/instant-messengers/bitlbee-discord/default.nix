@@ -1,4 +1,12 @@
-{ lib, fetchFromGitHub, stdenv, bitlbee, autoreconfHook, pkg-config, glib }:
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  bitlbee,
+  autoreconfHook,
+  pkg-config,
+  glib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bitlbee-discord";

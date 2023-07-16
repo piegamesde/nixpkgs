@@ -1,6 +1,20 @@
-{ stdenv, lib, fetchpatch, fetchurl, meson, ninja, pkg-config
-, gobject-introspection, vala, gi-docgen, glib, gssdp_1_6, libsoup_3, libxml2
-, gnome }:
+{
+  stdenv,
+  lib,
+  fetchpatch,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  gobject-introspection,
+  vala,
+  gi-docgen,
+  glib,
+  gssdp_1_6,
+  libsoup_3,
+  libxml2,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gupnp";

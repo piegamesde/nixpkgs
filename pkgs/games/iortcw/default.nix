@@ -1,4 +1,8 @@
-{ buildEnv, callPackage, makeWrapper }:
+{
+  buildEnv,
+  callPackage,
+  makeWrapper,
+}:
 
 let
   sp = callPackage ./sp.nix { };

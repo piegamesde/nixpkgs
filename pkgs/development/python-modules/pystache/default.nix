@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, unittestCheckHook, fetchPypi, isPy3k, glibcLocales }:
+{
+  lib,
+  buildPythonPackage,
+  unittestCheckHook,
+  fetchPypi,
+  isPy3k,
+  glibcLocales,
+}:
 
 buildPythonPackage rec {
   pname = "pystache";

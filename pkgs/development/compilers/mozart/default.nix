@@ -1,5 +1,19 @@
-{ lib, fetchFromGitHub, fetchurl, cmake, unzip, makeWrapper, boost169
-, pinnedBoost ? boost169, llvmPackages, gmp, emacs, jre_headless, tcl, tk }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  cmake,
+  unzip,
+  makeWrapper,
+  boost169,
+  pinnedBoost ? boost169,
+  llvmPackages,
+  gmp,
+  emacs,
+  jre_headless,
+  tcl,
+  tk,
+}:
 
 let stdenv = llvmPackages.stdenv;
 

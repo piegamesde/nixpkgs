@@ -1,4 +1,10 @@
-{ lib, requests, buildPythonPackage, fetchPypi, prometheus-client, pythonOlder
+{
+  lib,
+  requests,
+  buildPythonPackage,
+  fetchPypi,
+  prometheus-client,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

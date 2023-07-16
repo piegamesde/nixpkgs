@@ -1,4 +1,8 @@
-{ buildDunePackage, gtkspell3, lablgtk3 }:
+{
+  buildDunePackage,
+  gtkspell3,
+  lablgtk3,
+}:
 
 buildDunePackage {
   pname = "lablgtk3-gtkspell3";

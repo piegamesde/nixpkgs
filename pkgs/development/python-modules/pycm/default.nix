@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, matplotlib, numpy, pytestCheckHook
-, pythonOlder, seaborn }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  matplotlib,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  seaborn,
+}:
 
 buildPythonPackage rec {
   pname = "pycm";

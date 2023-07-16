@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, ncurses, libX11, xorgproto, buildEnv, fetchpatch
-, useX11 ? stdenv.hostPlatform.isx86 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+  libX11,
+  xorgproto,
+  buildEnv,
+  fetchpatch,
+  useX11 ? stdenv.hostPlatform.isx86
+}:
 
 let
   x11deps = [ libX11 xorgproto ];

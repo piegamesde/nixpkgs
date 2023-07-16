@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, kernel, bc, nukeReferences }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  kernel,
+  bc,
+  nukeReferences,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rtl8812au";

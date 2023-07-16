@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, lv2, cairo, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  lv2,
+  cairo,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
 

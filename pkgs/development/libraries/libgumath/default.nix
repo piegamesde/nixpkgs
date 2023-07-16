@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, libndtypes, libxnd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libndtypes,
+  libxnd,
+}:
 
 stdenv.mkDerivation {
   pname = "libgumath";

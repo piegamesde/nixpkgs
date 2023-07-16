@@ -1,9 +1,21 @@
-{ lib, buildPythonPackage, fetchFromGitHub, flit-core, pythonImportsCheckHook
-# documentation build dependencies
-, sphinxHook, sphinx-prompt, sphinx-rtd-theme, sphinx-tabs, sphinx-autoapi
-, sphinxemoji
-# runtime dependencies
-, sphinx }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flit-core,
+  pythonImportsCheckHook
+  # documentation build dependencies
+  ,
+  sphinxHook,
+  sphinx-prompt,
+  sphinx-rtd-theme,
+  sphinx-tabs,
+  sphinx-autoapi,
+  sphinxemoji
+  # runtime dependencies
+  ,
+  sphinx,
+}:
 
 buildPythonPackage rec {
   pname = "sphinx-notfound-page";

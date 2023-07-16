@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, xen }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  xen,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qubes-core-vchan-xen";

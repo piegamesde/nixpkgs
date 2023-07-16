@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, libxml2, bzip2, openssl
-, dbus-glib, glib, gamin, cdparanoia, intltool, GConf, gnome_mime_data, avahi
-, acl, testers }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  libxml2,
+  bzip2,
+  openssl,
+  dbus-glib,
+  glib,
+  gamin,
+  cdparanoia,
+  intltool,
+  GConf,
+  gnome_mime_data,
+  avahi,
+  acl,
+  testers,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-vfs";

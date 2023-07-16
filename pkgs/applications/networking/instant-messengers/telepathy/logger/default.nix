@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchurl, dbus-glib, libxml2, sqlite, telepathy-glib, python3
-, pkg-config, dconf, makeWrapper, intltool, libxslt, gobject-introspection, dbus
-, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dbus-glib,
+  libxml2,
+  sqlite,
+  telepathy-glib,
+  python3,
+  pkg-config,
+  dconf,
+  makeWrapper,
+  intltool,
+  libxslt,
+  gobject-introspection,
+  dbus,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "telepathy-logger";

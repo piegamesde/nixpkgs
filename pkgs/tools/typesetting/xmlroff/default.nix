@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, gtk2, libxml2, libxslt, pango
-, perl, pkg-config, popt }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  gtk2,
+  libxml2,
+  libxslt,
+  pango,
+  perl,
+  pkg-config,
+  popt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xmlroff";

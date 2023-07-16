@@ -1,5 +1,13 @@
-{ lib, python3, fetchFromGitHub, fetchpatch, enableGoogle ? false
-, enableAWS ? false, enableAzure ? false, enableSSH ? false }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  fetchpatch,
+  enableGoogle ? false,
+  enableAWS ? false,
+  enableAzure ? false,
+  enableSSH ? false
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "dvc";

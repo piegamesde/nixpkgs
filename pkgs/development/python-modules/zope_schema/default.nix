@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, zope_location, zope_event, zope_interface
-, zope_testing }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  zope_location,
+  zope_event,
+  zope_interface,
+  zope_testing,
+}:
 
 buildPythonPackage rec {
   pname = "zope.schema";

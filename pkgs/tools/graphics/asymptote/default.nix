@@ -1,7 +1,33 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, fetchpatch, autoreconfHook, bison, glm
-, flex, freeglut, ghostscriptX, imagemagick, fftw, boehmgc, libGLU, libGL, mesa
-, ncurses, readline, gsl, libsigsegv, python3Packages, zlib, perl, curl, texLive
-, texinfo, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  fetchpatch,
+  autoreconfHook,
+  bison,
+  glm,
+  flex,
+  freeglut,
+  ghostscriptX,
+  imagemagick,
+  fftw,
+  boehmgc,
+  libGLU,
+  libGL,
+  mesa,
+  ncurses,
+  readline,
+  gsl,
+  libsigsegv,
+  python3Packages,
+  zlib,
+  perl,
+  curl,
+  texLive,
+  texinfo,
+  darwin,
+}:
 
 stdenv.mkDerivation rec {
   version = "2.85";

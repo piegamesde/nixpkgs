@@ -1,7 +1,36 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, ninja, pkg-config
-, rustPlatform, curl, freetype, libGLU, libnotify, libogg, libX11, opusfile
-, pcre, python3, SDL2, sqlite, wavpack, ffmpeg, x264, vulkan-headers
-, vulkan-loader, glslang, spirv-tools, gtest, Carbon, Cocoa, OpenGL, Security }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  ninja,
+  pkg-config,
+  rustPlatform,
+  curl,
+  freetype,
+  libGLU,
+  libnotify,
+  libogg,
+  libX11,
+  opusfile,
+  pcre,
+  python3,
+  SDL2,
+  sqlite,
+  wavpack,
+  ffmpeg,
+  x264,
+  vulkan-headers,
+  vulkan-loader,
+  glslang,
+  spirv-tools,
+  gtest,
+  Carbon,
+  Cocoa,
+  OpenGL,
+  Security,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ddnet";

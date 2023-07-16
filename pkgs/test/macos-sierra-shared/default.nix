@@ -1,4 +1,9 @@
-{ lib, clangStdenv, clang-sierraHack-stdenv, stdenvNoCC }:
+{
+  lib,
+  clangStdenv,
+  clang-sierraHack-stdenv,
+  stdenvNoCC,
+}:
 
 let
   makeBigExe = stdenv: prefix: rec {

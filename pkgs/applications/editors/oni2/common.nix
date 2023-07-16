@@ -1,13 +1,53 @@
-{ lib, stdenv, nodePackages
-# Fetch dependencies
-, fetchFromGitHub, gitMinimal, curlMinimal, cacert, yarn, unzip, xorg, nodejs
-, ripgrep, fontconfig, libGL, libGLU, ncurses, acl, harfbuzz, libjpeg, expat
-, icu58, libpng
-# Build
-, jq, perl, makeWrapper, bash, which, nasm, python2, gn, ninja, cmake, clang
-, fixup_yarn_lock, callPackage }:
+{
+  lib,
+  stdenv,
+  nodePackages
+  # Fetch dependencies
+  ,
+  fetchFromGitHub,
+  gitMinimal,
+  curlMinimal,
+  cacert,
+  yarn,
+  unzip,
+  xorg,
+  nodejs,
+  ripgrep,
+  fontconfig,
+  libGL,
+  libGLU,
+  ncurses,
+  acl,
+  harfbuzz,
+  libjpeg,
+  expat,
+  icu58,
+  libpng
+  # Build
+  ,
+  jq,
+  perl,
+  makeWrapper,
+  bash,
+  which,
+  nasm,
+  python2,
+  gn,
+  ninja,
+  cmake,
+  clang,
+  fixup_yarn_lock,
+  callPackage,
+}:
 
-{ variant, version, rev, sha256, fetchDepsSha256, license }:
+{
+  variant,
+  version,
+  rev,
+  sha256,
+  fetchDepsSha256,
+  license,
+}:
 
 let
   source = fetchFromGitHub {

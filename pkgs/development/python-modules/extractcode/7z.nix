@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, buildPythonPackage, plugincode, p7zip }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  plugincode,
+  p7zip,
+}:
 
 buildPythonPackage rec {
   pname = "extractcode-7z";

@@ -1,5 +1,13 @@
-{ lib, buildLinux, fetchurl, kernelPatches ? [ ], structuredExtraConfig ? { }
-, extraMeta ? { }, argsOverride ? { }, ... }@args:
+{
+  lib,
+  buildLinux,
+  fetchurl,
+  kernelPatches ? [ ],
+  structuredExtraConfig ? { },
+  extraMeta ? { },
+  argsOverride ? { },
+  ...
+}@args:
 
 let
   version = "6.1.19-rt8"; # updated by ./update-rt.sh

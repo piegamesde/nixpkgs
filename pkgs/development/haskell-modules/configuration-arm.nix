@@ -19,7 +19,10 @@
 # in practice since that is the only platform we can test on
 # Hydra. Also take care to group overrides by the issue they
 # solve, so refactors and updates to this file are less tedious.
-{ pkgs, haskellLib }:
+{
+  pkgs,
+  haskellLib,
+}:
 
 let inherit (pkgs) lib;
 
@@ -38,9 +41,12 @@ self: super:
   happy_1_19_12 = doDistribute (dontCheck super.happy_1_19_12);
 
   # add arm specific library
-  wiringPi = overrideCabal ({ librarySystemDepends ? [ ], ... }: {
-    librarySystemDepends = librarySystemDepends ++ [ pkgs.wiringpi ];
-  }) super.wiringPi;
+  wiringPi = overrideCabal ({
+      librarySystemDepends ? [ ],
+      ...
+    }: {
+      librarySystemDepends = librarySystemDepends ++ [ pkgs.wiringpi ];
+    }) super.wiringPi;
 
 } // lib.optionalAttrs pkgs.stdenv.hostPlatform.isAarch64 {
   # AARCH64-SPECIFIC OVERRIDES

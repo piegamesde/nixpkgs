@@ -1,6 +1,20 @@
-{ stdenv, lib, fetchFromGitHub, unstableGitUpdater, buildPackages, gnu-efi
-, mtools, openssl, perl, xorriso, xz, syslinux ? null, embedScript ? null
-, additionalTargets ? { }, additionalOptions ? [ ] }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  unstableGitUpdater,
+  buildPackages,
+  gnu-efi,
+  mtools,
+  openssl,
+  perl,
+  xorriso,
+  xz,
+  syslinux ? null,
+  embedScript ? null,
+  additionalTargets ? { },
+  additionalOptions ? [ ]
+}:
 
 let
   targets = additionalTargets // lib.optionalAttrs stdenv.isx86_64 {

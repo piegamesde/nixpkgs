@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, importlib-metadata, numpy, pybind11
-, pytestCheckHook, pythonOlder, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  importlib-metadata,
+  numpy,
+  pybind11,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "pyfma";

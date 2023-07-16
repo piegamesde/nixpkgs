@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, runCommand, inkcut, callPackage }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  runCommand,
+  inkcut,
+  callPackage,
+}:
 
 {
   applytransforms = callPackage ./extensions/applytransforms { };

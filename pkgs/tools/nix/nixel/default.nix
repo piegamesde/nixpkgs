@@ -1,4 +1,10 @@
-{ lib, rustPlatform, fetchFromGitHub, testers, nixel }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  testers,
+  nixel,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "nixel";

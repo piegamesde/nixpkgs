@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, prometheus-client, pyserial
-, pythonOlder, pyyaml, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  prometheus-client,
+  pyserial,
+  pythonOlder,
+  pyyaml,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "finitude";

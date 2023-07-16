@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, freezegun, hatchling, pytest
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  freezegun,
+  hatchling,
+  pytest,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-freezer";

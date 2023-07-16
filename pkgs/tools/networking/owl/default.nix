@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, cmake, libev, libnl, libpcap }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  libev,
+  libnl,
+  libpcap,
+}:
 
 stdenv.mkDerivation rec {
   pname = "owl";

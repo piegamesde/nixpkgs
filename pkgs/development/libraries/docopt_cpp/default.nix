@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.6.3";

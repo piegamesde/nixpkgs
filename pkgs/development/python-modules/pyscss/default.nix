@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, six, enum34
-, pathlib, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  six,
+  enum34,
+  pathlib,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pyScss";

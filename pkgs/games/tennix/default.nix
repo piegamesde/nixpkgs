@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchgit, which, SDL, SDL_mixer, SDL_image, SDL_ttf, SDL_net
-, python3 }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  which,
+  SDL,
+  SDL_mixer,
+  SDL_image,
+  SDL_ttf,
+  SDL_net,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tennix";

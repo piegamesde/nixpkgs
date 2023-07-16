@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, cffi, fetchFromGitHub, minidump, nose, pefile
-, pyelftools, pytestCheckHook, pythonOlder, pyvex, pyxbe, setuptools
-, sortedcontainers }:
+{
+  lib,
+  buildPythonPackage,
+  cffi,
+  fetchFromGitHub,
+  minidump,
+  nose,
+  pefile,
+  pyelftools,
+  pytestCheckHook,
+  pythonOlder,
+  pyvex,
+  pyxbe,
+  setuptools,
+  sortedcontainers,
+}:
 
 let
   # The binaries are following the argr projects release cycle

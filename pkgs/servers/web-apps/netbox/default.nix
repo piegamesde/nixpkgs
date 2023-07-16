@@ -1,4 +1,9 @@
-{ lib, nixosTests, callPackage, fetchpatch }:
+{
+  lib,
+  nixosTests,
+  callPackage,
+  fetchpatch,
+}:
 let generic = import ./generic.nix;
 in {
   netbox_3_3 = callPackage generic {

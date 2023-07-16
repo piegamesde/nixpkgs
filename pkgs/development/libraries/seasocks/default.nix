@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, python3, zlib, catch2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  python3,
+  zlib,
+  catch2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "seasocks";

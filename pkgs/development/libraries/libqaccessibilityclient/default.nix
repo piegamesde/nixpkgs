@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, cmake, qtbase, extra-cmake-modules }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  qtbase,
+  extra-cmake-modules,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libqaccessibilityclient";

@@ -1,7 +1,19 @@
-{ lib, fetchFromGitHub
-# Python bits:
-, buildPythonPackage, pytest, responses, docopt, flask, markdown
-, path-and-address, pygments, requests, tabulate }:
+{
+  lib,
+  fetchFromGitHub
+  # Python bits:
+  ,
+  buildPythonPackage,
+  pytest,
+  responses,
+  docopt,
+  flask,
+  markdown,
+  path-and-address,
+  pygments,
+  requests,
+  tabulate,
+}:
 
 buildPythonPackage rec {
   pname = "grip";

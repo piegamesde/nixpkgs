@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchurl, autoreconfHook, pkg-config, intltool, avahi, curl
-, dbus-glib, gettext, gtk3, libmpdclient, libsoup, libxml2, taglib
-, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  intltool,
+  avahi,
+  curl,
+  dbus-glib,
+  gettext,
+  gtk3,
+  libmpdclient,
+  libsoup,
+  libxml2,
+  taglib,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ario";

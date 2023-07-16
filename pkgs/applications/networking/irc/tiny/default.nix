@@ -1,7 +1,18 @@
-{ stdenv, lib, rustPlatform, fetchFromGitHub, pkg-config, Foundation
-, dbusSupport ? stdenv.isLinux, dbus
-# rustls will be used for TLS if useOpenSSL=false
-, useOpenSSL ? stdenv.isLinux, openssl, notificationSupport ? stdenv.isLinux }:
+{
+  stdenv,
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  Foundation,
+  dbusSupport ? stdenv.isLinux,
+  dbus
+  # rustls will be used for TLS if useOpenSSL=false
+  ,
+  useOpenSSL ? stdenv.isLinux,
+  openssl,
+  notificationSupport ? stdenv.isLinux
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "tiny";

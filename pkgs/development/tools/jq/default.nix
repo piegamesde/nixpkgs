@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, autoreconfHook, onigurumaSupport ? true, oniguruma }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  onigurumaSupport ? true,
+  oniguruma,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jq";

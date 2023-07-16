@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, faust2jaqt, faust2lv2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  faust2jaqt,
+  faust2lv2,
+}:
 stdenv.mkDerivation rec {
   pname = "faustCompressors";
   version = "1.2";

@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, importlib-resources, pythonOlder
-, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  importlib-resources,
+  pythonOlder,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "asdf-standard";

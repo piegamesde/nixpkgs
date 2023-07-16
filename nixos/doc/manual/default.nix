@@ -1,6 +1,15 @@
-{ pkgs, options, config, version, revision, extraSources ? [ ]
-, baseOptionsJSON ? null, warningsAreErrors ? true, allowDocBook ? true
-, prefix ? ../../.. }:
+{
+  pkgs,
+  options,
+  config,
+  version,
+  revision,
+  extraSources ? [ ],
+  baseOptionsJSON ? null,
+  warningsAreErrors ? true,
+  allowDocBook ? true,
+  prefix ? ../../..
+}:
 
 with pkgs;
 

@@ -1,4 +1,12 @@
-{ fetchzip, lib, stdenv, jdk, runtimeShell, glib, wrapGAppsHook }:
+{
+  fetchzip,
+  lib,
+  stdenv,
+  jdk,
+  runtimeShell,
+  glib,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   version = "5.5.2";

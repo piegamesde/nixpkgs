@@ -1,5 +1,13 @@
-{ stdenv, lib, dict }:
-({ dictlist, allowList ? [ "127.0.0.1" ], denyList ? [ ] }:
+{
+  stdenv,
+  lib,
+  dict,
+}:
+({
+    dictlist,
+    allowList ? [ "127.0.0.1" ],
+    denyList ? [ ]
+  }:
 
   /* dictlist is a list of form
      [ { filename = /path/to/files/basename;

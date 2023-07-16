@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, autoreconfHook, net-snmp }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  net-snmp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ifstat-legacy";

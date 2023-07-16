@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, setuptools, cyrus_sasl
-, openldap, typing-extensions, gevent, tornado, trio, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  setuptools,
+  cyrus_sasl,
+  openldap,
+  typing-extensions,
+  gevent,
+  tornado,
+  trio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "bonsai";

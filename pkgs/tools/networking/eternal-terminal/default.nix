@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gflags, libsodium, openssl, protobuf
-, zlib, catch2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gflags,
+  libsodium,
+  openssl,
+  protobuf,
+  zlib,
+  catch2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "eternal-terminal";

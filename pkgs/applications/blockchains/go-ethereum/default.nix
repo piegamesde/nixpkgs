@@ -1,4 +1,12 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, libobjc, IOKit, nixosTests }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  libobjc,
+  IOKit,
+  nixosTests,
+}:
 
 let
   # A list of binaries to put into separate outputs

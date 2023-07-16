@@ -1,6 +1,24 @@
-{ lib, stdenv, llvm_meta, fetch, cmake, zlib, ncurses, swig, which, libedit
-, libxml2, libllvm, libclang, python3, version, darwin, lit, makeWrapper
-, enableManpages ? false }:
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  fetch,
+  cmake,
+  zlib,
+  ncurses,
+  swig,
+  which,
+  libedit,
+  libxml2,
+  libllvm,
+  libclang,
+  python3,
+  version,
+  darwin,
+  lit,
+  makeWrapper,
+  enableManpages ? false
+}:
 
 stdenv.mkDerivation (rec {
   pname = "lldb";

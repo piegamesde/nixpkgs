@@ -1,6 +1,20 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, aiohttp
-, async-timeout, bleak, dbus-fast, mac-vendor-lookup, myst-parser
-, pytestCheckHook, sphinxHook, sphinx-rtd-theme, usb-devices }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  aiohttp,
+  async-timeout,
+  bleak,
+  dbus-fast,
+  mac-vendor-lookup,
+  myst-parser,
+  pytestCheckHook,
+  sphinxHook,
+  sphinx-rtd-theme,
+  usb-devices,
+}:
 
 buildPythonPackage rec {
   pname = "bluetooth-adapters";

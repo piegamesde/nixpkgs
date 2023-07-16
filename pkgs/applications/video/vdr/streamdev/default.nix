@@ -1,4 +1,9 @@
-{ stdenv, fetchFromGitHub, lib, vdr }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  vdr,
+}:
 stdenv.mkDerivation rec {
   pname = "vdr-streamdev";
   version = "0.6.3";

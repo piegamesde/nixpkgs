@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, imagemagick, jhead, meson, ninja }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  imagemagick,
+  jhead,
+  meson,
+  ninja,
+}:
 
 stdenv.mkDerivation rec {
   pname = "budgie-backgrounds";

@@ -1,18 +1,74 @@
-{ stdenv, lib, buildPackages, fetchFromGitLab, fetchpatch, python3, meson, ninja
-, eudev, systemd, enableSystemd ? true, pkg-config, docutils, doxygen, graphviz
-, glib, dbus, alsa-lib, libjack2, libusb1, udev, libsndfile, vulkan-headers
-, vulkan-loader, webrtc-audio-processing, ncurses
-, readline # meson can't find <7 as those versions don't have a .pc file
-, lilv, makeFontsConf, callPackage, nixosTests
-, withValgrind ? lib.meta.availableOn stdenv.hostPlatform valgrind, valgrind
-, libcameraSupport ? true, libcamera, libdrm, gstreamerSupport ? true, gst_all_1
-, ffmpegSupport ? true, ffmpeg, bluezSupport ? true, bluez, sbc, libfreeaptx
-, ldacbt, liblc3, fdk_aac, libopus, nativeHspSupport ? true
-, nativeHfpSupport ? true, nativeModemManagerSupport ? true, modemmanager
-, ofonoSupport ? true, hsphfpdSupport ? true, pulseTunnelSupport ? true
-, libpulseaudio, zeroconfSupport ? true, avahi, raopSupport ? true, openssl
-, rocSupport ? true, roc-toolkit, x11Support ? true, libcanberra, xorg
-, mysofaSupport ? true, libmysofa, tinycompress }:
+{
+  stdenv,
+  lib,
+  buildPackages,
+  fetchFromGitLab,
+  fetchpatch,
+  python3,
+  meson,
+  ninja,
+  eudev,
+  systemd,
+  enableSystemd ? true,
+  pkg-config,
+  docutils,
+  doxygen,
+  graphviz,
+  glib,
+  dbus,
+  alsa-lib,
+  libjack2,
+  libusb1,
+  udev,
+  libsndfile,
+  vulkan-headers,
+  vulkan-loader,
+  webrtc-audio-processing,
+  ncurses,
+  readline # meson can't find <7 as those versions don't have a .pc file
+  ,
+  lilv,
+  makeFontsConf,
+  callPackage,
+  nixosTests,
+  withValgrind ? lib.meta.availableOn stdenv.hostPlatform valgrind,
+  valgrind,
+  libcameraSupport ? true,
+  libcamera,
+  libdrm,
+  gstreamerSupport ? true,
+  gst_all_1,
+  ffmpegSupport ? true,
+  ffmpeg,
+  bluezSupport ? true,
+  bluez,
+  sbc,
+  libfreeaptx,
+  ldacbt,
+  liblc3,
+  fdk_aac,
+  libopus,
+  nativeHspSupport ? true,
+  nativeHfpSupport ? true,
+  nativeModemManagerSupport ? true,
+  modemmanager,
+  ofonoSupport ? true,
+  hsphfpdSupport ? true,
+  pulseTunnelSupport ? true,
+  libpulseaudio,
+  zeroconfSupport ? true,
+  avahi,
+  raopSupport ? true,
+  openssl,
+  rocSupport ? true,
+  roc-toolkit,
+  x11Support ? true,
+  libcanberra,
+  xorg,
+  mysofaSupport ? true,
+  libmysofa,
+  tinycompress,
+}:
 
 let
   mesonEnableFeature = b: if b then "enabled" else "disabled";

@@ -1,5 +1,17 @@
-{ lib, mkDerivation, fetchFromGitHub, fetchpatch, cmake, pkg-config, qtbase
-, curl, libuv, glfw3, rapidjson, stdenv }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  qtbase,
+  curl,
+  libuv,
+  glfw3,
+  rapidjson,
+  stdenv,
+}:
 
 mkDerivation rec {
   pname = "maplibre-gl-native";

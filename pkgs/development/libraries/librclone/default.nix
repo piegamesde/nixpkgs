@@ -1,4 +1,9 @@
-{ lib, stdenv, buildGoModule, rclone }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  rclone,
+}:
 
 let ext = stdenv.hostPlatform.extensions.sharedLibrary;
 in buildGoModule rec {

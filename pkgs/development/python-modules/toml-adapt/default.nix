@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, click, fetchFromGitHub, poetry-core, pytestCheckHook
-, pythonOlder, toml }:
+{
+  lib,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  toml,
+}:
 
 buildPythonPackage rec {
   pname = "toml-adapt";

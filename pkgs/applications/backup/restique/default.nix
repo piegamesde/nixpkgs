@@ -1,5 +1,13 @@
-{ lib, mkDerivation, fetchFromGitea, cmake, libsecret, qtkeychain, qttools
-, restic }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitea,
+  cmake,
+  libsecret,
+  qtkeychain,
+  qttools,
+  restic,
+}:
 
 mkDerivation rec {
   pname = "restique";

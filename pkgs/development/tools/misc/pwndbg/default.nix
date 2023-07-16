@@ -1,4 +1,11 @@
-{ lib, stdenv, python3, fetchFromGitHub, makeWrapper, gdb }:
+{
+  lib,
+  stdenv,
+  python3,
+  fetchFromGitHub,
+  makeWrapper,
+  gdb,
+}:
 
 let
   pythonPath = with python3.pkgs;

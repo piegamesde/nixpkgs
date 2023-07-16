@@ -1,9 +1,31 @@
-{ lib, stdenv, fetchurl, buildPackages, bzip2, curlMinimal, expat, libarchive
-, libuv, ncurses, openssl, pkg-config, ps, rhash, sphinx, texinfo, xz, zlib
-, isBootstrap ? false, useOpenSSL ? !isBootstrap
-, useSharedLibraries ? (!isBootstrap && !stdenv.isCygwin)
-, uiToolkits ? [ ] # can contain "ncurses" and/or "qt5"
-, buildDocs ? !(isBootstrap || (uiToolkits == [ ])), darwin, libsForQt5 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  buildPackages,
+  bzip2,
+  curlMinimal,
+  expat,
+  libarchive,
+  libuv,
+  ncurses,
+  openssl,
+  pkg-config,
+  ps,
+  rhash,
+  sphinx,
+  texinfo,
+  xz,
+  zlib,
+  isBootstrap ? false,
+  useOpenSSL ? !isBootstrap,
+  useSharedLibraries ? (!isBootstrap && !stdenv.isCygwin),
+  uiToolkits ? [ ] # can contain "ncurses" and/or "qt5"
+  ,
+  buildDocs ? !(isBootstrap || (uiToolkits == [ ])),
+  darwin,
+  libsForQt5,
+}:
 
 let
   inherit (darwin.apple_sdk.frameworks) SystemConfiguration;

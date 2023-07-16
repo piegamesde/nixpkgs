@@ -1,5 +1,13 @@
-{ lib, fetchFromGitHub, buildPythonPackage, orjson, httpx, typing-extensions
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  orjson,
+  httpx,
+  typing-extensions,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "bitcoinrpc";

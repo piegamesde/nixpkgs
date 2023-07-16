@@ -1,8 +1,20 @@
-{ lib, stdenv, buildPythonPackage, pythonOlder, fetchPypi, watchdog
-, ephemeral-port-reserve, pytest-timeout, pytest-xprocess, pytestCheckHook
-, markupsafe
-# for passthru.tests
-, moto, sentry-sdk }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  watchdog,
+  ephemeral-port-reserve,
+  pytest-timeout,
+  pytest-xprocess,
+  pytestCheckHook,
+  markupsafe
+  # for passthru.tests
+  ,
+  moto,
+  sentry-sdk,
+}:
 
 buildPythonPackage rec {
   pname = "werkzeug";

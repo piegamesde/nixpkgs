@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, fetchpatch
-, pytestCheckHook, fastprogress, jax, jaxlib, jaxopt, optax, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  fetchpatch,
+  pytestCheckHook,
+  fastprogress,
+  jax,
+  jaxlib,
+  jaxopt,
+  optax,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {

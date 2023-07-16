@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, flit-core, mutagen, pytestCheckHook
-, pythonOlder, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flit-core,
+  mutagen,
+  pytestCheckHook,
+  pythonOlder,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "mediafile";

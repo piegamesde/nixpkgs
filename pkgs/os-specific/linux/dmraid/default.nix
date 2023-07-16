@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, fetchpatch, lvm2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  lvm2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dmraid";

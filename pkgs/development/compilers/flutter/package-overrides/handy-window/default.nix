@@ -1,8 +1,17 @@
-{ lib, cairo, fribidi }:
+{
+  lib,
+  cairo,
+  fribidi,
+}:
 
-{ ... }:
+{
+  ...
+}:
 
-{ CFLAGS ? "", ... }:
+{
+  CFLAGS ? "",
+  ...
+}:
 
 {
   CFLAGS = "${CFLAGS} -isystem ${

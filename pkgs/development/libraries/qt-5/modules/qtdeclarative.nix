@@ -1,4 +1,10 @@
-{ qtModule, lib, python3, qtbase, qtsvg }:
+{
+  qtModule,
+  lib,
+  python3,
+  qtbase,
+  qtsvg,
+}:
 
 qtModule {
   pname = "qtdeclarative";

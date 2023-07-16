@@ -1,5 +1,18 @@
-{ lib, stdenv, autoPatchelfHook, fetchurl, glib-networking, glibc, gcc-unwrapped
-, gtk3, jre, libsecret, makeDesktopItem, webkitgtk, wrapGAppsHook, writeScript
+{
+  lib,
+  stdenv,
+  autoPatchelfHook,
+  fetchurl,
+  glib-networking,
+  glibc,
+  gcc-unwrapped,
+  gtk3,
+  jre,
+  libsecret,
+  makeDesktopItem,
+  webkitgtk,
+  wrapGAppsHook,
+  writeScript,
 }:
 let
   desktopItem = makeDesktopItem {

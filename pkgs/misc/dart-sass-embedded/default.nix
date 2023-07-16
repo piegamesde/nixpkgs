@@ -1,4 +1,12 @@
-{ lib, stdenvNoCC, fetchFromGitHub, dart, buf, callPackage, runtimeShell }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  dart,
+  buf,
+  callPackage,
+  runtimeShell,
+}:
 
 let
   embedded-protocol = fetchFromGitHub {

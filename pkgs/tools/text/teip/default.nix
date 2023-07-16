@@ -1,4 +1,11 @@
-{ lib, rustPlatform, fetchFromGitHub, installShellFiles, perl, stdenv }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  perl,
+  stdenv,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "teip";

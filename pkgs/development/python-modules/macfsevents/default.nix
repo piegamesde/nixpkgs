@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, CoreFoundation, CoreServices }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  CoreFoundation,
+  CoreServices,
+}:
 
 buildPythonPackage rec {
   pname = "MacFSEvents";

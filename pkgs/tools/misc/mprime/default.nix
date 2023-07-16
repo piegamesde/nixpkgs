@@ -1,4 +1,13 @@
-{ stdenv, lib, fetchurl, unzip, boost, curl, hwloc, gmp }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  unzip,
+  boost,
+  curl,
+  hwloc,
+  gmp,
+}:
 
 let
   throwSystem = throw "Unsupported system: ${stdenv.hostPlatform.system}";

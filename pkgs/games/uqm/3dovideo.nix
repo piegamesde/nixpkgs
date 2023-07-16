@@ -1,4 +1,11 @@
-{ stdenv, lib, requireFile, writeText, fetchFromGitHub, haskellPackages }:
+{
+  stdenv,
+  lib,
+  requireFile,
+  writeText,
+  fetchFromGitHub,
+  haskellPackages,
+}:
 
 let
   makeSpin = num:

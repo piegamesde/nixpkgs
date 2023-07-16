@@ -1,6 +1,27 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, meson, ninja, gettext
-, gobject-introspection, gtk-doc, docbook_xsl, glib, libsoup_3, libxml2, libxslt
-, check, curl, perl, hwdata, osinfo-db, substituteAll, vala ? null }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  meson,
+  ninja,
+  gettext,
+  gobject-introspection,
+  gtk-doc,
+  docbook_xsl,
+  glib,
+  libsoup_3,
+  libxml2,
+  libxslt,
+  check,
+  curl,
+  perl,
+  hwdata,
+  osinfo-db,
+  substituteAll,
+  vala ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "libosinfo";

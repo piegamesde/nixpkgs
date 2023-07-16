@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, mock, nose, pytest, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  mock,
+  nose,
+  pytest,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "mohawk";

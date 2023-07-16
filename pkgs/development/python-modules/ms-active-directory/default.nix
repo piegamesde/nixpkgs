@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, dnspython, fetchFromGitHub, ldap3, pyasn1
-, pycryptodome, pythonOlder, pytz, six }:
+{
+  lib,
+  buildPythonPackage,
+  dnspython,
+  fetchFromGitHub,
+  ldap3,
+  pyasn1,
+  pycryptodome,
+  pythonOlder,
+  pytz,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "ms-active-directory";

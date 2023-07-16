@@ -1,9 +1,30 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, libtool, libpcap
-, libcdada
-# Optional Dependencies
-, withJansson ? true, jansson, withNflog ? true, libnetfilter_log
-, withSQLite ? true, sqlite, withPgSQL ? true, postgresql, withMysql ? true
-, libmysqlclient, zlib, numactl, gnutlsSupport ? false, gnutls, testers, pmacct
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+  libtool,
+  libpcap,
+  libcdada
+  # Optional Dependencies
+  ,
+  withJansson ? true,
+  jansson,
+  withNflog ? true,
+  libnetfilter_log,
+  withSQLite ? true,
+  sqlite,
+  withPgSQL ? true,
+  postgresql,
+  withMysql ? true,
+  libmysqlclient,
+  zlib,
+  numactl,
+  gnutlsSupport ? false,
+  gnutls,
+  testers,
+  pmacct,
 }:
 
 stdenv.mkDerivation rec {

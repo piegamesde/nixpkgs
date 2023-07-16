@@ -1,4 +1,8 @@
-{ lib, fetchurl, perlPackages }:
+{
+  lib,
+  fetchurl,
+  perlPackages,
+}:
 
 perlPackages.buildPerlPackage rec {
   pname = "egypt";

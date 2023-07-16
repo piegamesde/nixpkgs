@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchgit, cmake, pkg-config }:
+{
+  stdenv,
+  lib,
+  fetchgit,
+  cmake,
+  pkg-config,
+}:
 
 stdenv.mkDerivation {
   pname = "libnl-tiny";

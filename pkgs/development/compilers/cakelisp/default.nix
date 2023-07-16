@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, gcc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gcc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cakelisp";

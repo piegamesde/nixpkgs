@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, hatchling, ipykernel, jedi, jupyter-core
-, pexpect, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  hatchling,
+  ipykernel,
+  jedi,
+  jupyter-core,
+  pexpect,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "metakernel";

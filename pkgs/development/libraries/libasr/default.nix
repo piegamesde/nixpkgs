@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libevent, openssl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libevent,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libasr";

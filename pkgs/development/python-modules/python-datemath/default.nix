@@ -1,5 +1,12 @@
-{ lib, arrow, buildPythonPackage, fetchFromGitHub, fetchpatch, pythonOlder
-, pytestCheckHook }:
+{
+  lib,
+  arrow,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pythonOlder,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "python-datemath";

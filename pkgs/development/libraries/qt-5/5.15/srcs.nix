@@ -1,4 +1,8 @@
-{ lib, fetchgit, fetchFromGitHub }:
+{
+  lib,
+  fetchgit,
+  fetchFromGitHub,
+}:
 
 let
   version = "5.15.9";

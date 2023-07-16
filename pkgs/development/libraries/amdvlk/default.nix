@@ -1,6 +1,25 @@
-{ stdenv, callPackage, lib, fetchRepoProject, writeScript, cmake
-, directx-shader-compiler, glslang, ninja, patchelf, perl, pkg-config, python3
-, expat, libdrm, ncurses, openssl, wayland, xorg, zlib }:
+{
+  stdenv,
+  callPackage,
+  lib,
+  fetchRepoProject,
+  writeScript,
+  cmake,
+  directx-shader-compiler,
+  glslang,
+  ninja,
+  patchelf,
+  perl,
+  pkg-config,
+  python3,
+  expat,
+  libdrm,
+  ncurses,
+  openssl,
+  wayland,
+  xorg,
+  zlib,
+}:
 let
 
   suffix = if stdenv.system == "x86_64-linux" then "64" else "32";

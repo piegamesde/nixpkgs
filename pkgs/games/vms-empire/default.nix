@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, ncurses, xmlto, docbook_xml_dtd_44, docbook_xsl
-, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+  xmlto,
+  docbook_xml_dtd_44,
+  docbook_xsl,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vms-empire";

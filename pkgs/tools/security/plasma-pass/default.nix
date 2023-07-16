@@ -1,5 +1,16 @@
-{ mkDerivation, lib, fetchFromGitLab, cmake, extra-cmake-modules, ki18n
-, kitemmodels, oath-toolkit, qgpgme, plasma-framework, qt5 }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitLab,
+  cmake,
+  extra-cmake-modules,
+  ki18n,
+  kitemmodels,
+  oath-toolkit,
+  qgpgme,
+  plasma-framework,
+  qt5,
+}:
 
 mkDerivation rec {
   pname = "plasma-pass";

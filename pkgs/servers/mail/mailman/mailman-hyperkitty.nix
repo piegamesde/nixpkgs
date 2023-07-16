@@ -1,4 +1,8 @@
-{ lib, python3, mailman }:
+{
+  lib,
+  python3,
+  mailman,
+}:
 
 with python3.pkgs;
 buildPythonPackage rec {

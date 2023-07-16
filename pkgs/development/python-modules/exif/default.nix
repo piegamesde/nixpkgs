@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitLab, isPy3k, plum-py, pytestCheckHook
-, baseline }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitLab,
+  isPy3k,
+  plum-py,
+  pytestCheckHook,
+  baseline,
+}:
 
 buildPythonPackage rec {
   pname = "exif";

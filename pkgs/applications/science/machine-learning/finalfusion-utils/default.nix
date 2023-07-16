@@ -1,5 +1,15 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, installShellFiles, blas, gfortran
-, lapack, openssl, Security }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  blas,
+  gfortran,
+  lapack,
+  openssl,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "finalfusion-utils";

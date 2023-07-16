@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, glib, libkrb5, libnl
-, libtool, pkg-config, withKerberos ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  glib,
+  libkrb5,
+  libnl,
+  libtool,
+  pkg-config,
+  withKerberos ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "ksmbd-tools";

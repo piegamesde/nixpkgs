@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pyutil, twisted }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pyutil,
+  twisted,
+}:
 
 buildPythonPackage rec {
   pname = "zfec";

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, pandas, imutils, progress
-, matplotlib }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  pandas,
+  imutils,
+  progress,
+  matplotlib,
+}:
 
 buildPythonPackage rec {
   version = "1.7.4";

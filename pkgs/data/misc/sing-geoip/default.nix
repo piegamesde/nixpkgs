@@ -1,4 +1,10 @@
-{ lib, stdenvNoCC, buildGoModule, fetchFromGitHub, clash-geoip }:
+{
+  lib,
+  stdenvNoCC,
+  buildGoModule,
+  fetchFromGitHub,
+  clash-geoip,
+}:
 
 let
   generator = buildGoModule rec {

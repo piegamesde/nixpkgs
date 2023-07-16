@@ -1,8 +1,26 @@
-{ lib, stdenv, fetchurl
-# Build depends
-, docutils, meson, ninja, pkg-config, python3
-# Runtime depends
-, glfw, SDL2, SDL2_mixer, cglm, freetype, libpng, libwebp, libzip, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl
+  # Build depends
+  ,
+  docutils,
+  meson,
+  ninja,
+  pkg-config,
+  python3
+  # Runtime depends
+  ,
+  glfw,
+  SDL2,
+  SDL2_mixer,
+  cglm,
+  freetype,
+  libpng,
+  libwebp,
+  libzip,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "taisei";

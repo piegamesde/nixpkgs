@@ -1,5 +1,11 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pytest-runner
-, pytestCheckHook }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-runner,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "token-bucket";

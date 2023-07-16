@@ -1,4 +1,10 @@
-{ config, options, lib, pkgs, ... }:
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let
@@ -7,224 +13,227 @@ let
 
   defaultBackend = options.virtualisation.oci-containers.backend.default;
 
-  containerOptions = { ... }: {
+  containerOptions = {
+      ...
+    }: {
 
-    options = {
+      options = {
 
-      image = mkOption {
-        type = with types; str;
-        description = lib.mdDoc "OCI image to run.";
-        example = "library/hello-world";
-      };
-
-      imageFile = mkOption {
-        type = with types; nullOr package;
-        default = null;
-        description = lib.mdDoc ''
-          Path to an image file to load before running the image. This can
-          be used to bypass pulling the image from the registry.
-
-          The `image` attribute must match the name and
-          tag of the image contained in this file, as they will be used to
-          run the container with that image. If they do not match, the
-          image will be pulled from the registry as usual.
-        '';
-        example = literalExpression "pkgs.dockerTools.buildImage {...};";
-      };
-
-      login = {
-
-        username = mkOption {
-          type = with types; nullOr str;
-          default = null;
-          description = lib.mdDoc "Username for login.";
+        image = mkOption {
+          type = with types; str;
+          description = lib.mdDoc "OCI image to run.";
+          example = "library/hello-world";
         };
 
-        passwordFile = mkOption {
-          type = with types; nullOr str;
+        imageFile = mkOption {
+          type = with types; nullOr package;
           default = null;
-          description = lib.mdDoc "Path to file containing password.";
-          example = "/etc/nixos/dockerhub-password.txt";
+          description = lib.mdDoc ''
+            Path to an image file to load before running the image. This can
+            be used to bypass pulling the image from the registry.
+
+            The `image` attribute must match the name and
+            tag of the image contained in this file, as they will be used to
+            run the container with that image. If they do not match, the
+            image will be pulled from the registry as usual.
+          '';
+          example = literalExpression "pkgs.dockerTools.buildImage {...};";
         };
 
-        registry = mkOption {
-          type = with types; nullOr str;
-          default = null;
-          description = lib.mdDoc "Registry where to login to.";
-          example = "https://docker.pkg.github.com";
+        login = {
+
+          username = mkOption {
+            type = with types; nullOr str;
+            default = null;
+            description = lib.mdDoc "Username for login.";
+          };
+
+          passwordFile = mkOption {
+            type = with types; nullOr str;
+            default = null;
+            description = lib.mdDoc "Path to file containing password.";
+            example = "/etc/nixos/dockerhub-password.txt";
+          };
+
+          registry = mkOption {
+            type = with types; nullOr str;
+            default = null;
+            description = lib.mdDoc "Registry where to login to.";
+            example = "https://docker.pkg.github.com";
+          };
+
         };
 
-      };
+        cmd = mkOption {
+          type = with types; listOf str;
+          default = [ ];
+          description = lib.mdDoc
+            "Commandline arguments to pass to the image's entrypoint.";
+          example = literalExpression ''
+            ["--port=9000"]
+          '';
+        };
 
-      cmd = mkOption {
-        type = with types; listOf str;
-        default = [ ];
-        description =
-          lib.mdDoc "Commandline arguments to pass to the image's entrypoint.";
-        example = literalExpression ''
-          ["--port=9000"]
-        '';
-      };
+        entrypoint = mkOption {
+          type = with types; nullOr str;
+          description =
+            lib.mdDoc "Override the default entrypoint of the image.";
+          default = null;
+          example = "/bin/my-app";
+        };
 
-      entrypoint = mkOption {
-        type = with types; nullOr str;
-        description = lib.mdDoc "Override the default entrypoint of the image.";
-        default = null;
-        example = "/bin/my-app";
-      };
-
-      environment = mkOption {
-        type = with types; attrsOf str;
-        default = { };
-        description =
-          lib.mdDoc "Environment variables to set for this container.";
-        example = literalExpression ''
-          {
-            DATABASE_HOST = "db.example.com";
-            DATABASE_PORT = "3306";
-          }
-        '';
-      };
-
-      environmentFiles = mkOption {
-        type = with types; listOf path;
-        default = [ ];
-        description = lib.mdDoc "Environment files for this container.";
-        example = literalExpression ''
-          [
-            /path/to/.env
-            /path/to/.env.secret
-          ]
-        '';
-      };
-
-      log-driver = mkOption {
-        type = types.str;
-        default = "journald";
-        description = lib.mdDoc ''
-          Logging driver for the container.  The default of
-          `"journald"` means that the container's logs will be
-          handled as part of the systemd unit.
-
-          For more details and a full list of logging drivers, refer to respective backends documentation.
-
-          For Docker:
-          [Docker engine documentation](https://docs.docker.com/engine/reference/run/#logging-drivers---log-driver)
-
-          For Podman:
-          Refer to the docker-run(1) man page.
-        '';
-      };
-
-      ports = mkOption {
-        type = with types; listOf str;
-        default = [ ];
-        description = lib.mdDoc ''
-          Network ports to publish from the container to the outer host.
-
-          Valid formats:
-          - `<ip>:<hostPort>:<containerPort>`
-          - `<ip>::<containerPort>`
-          - `<hostPort>:<containerPort>`
-          - `<containerPort>`
-
-          Both `hostPort` and `containerPort` can be specified as a range of
-          ports.  When specifying ranges for both, the number of container
-          ports in the range must match the number of host ports in the
-          range.  Example: `1234-1236:1234-1236/tcp`
-
-          When specifying a range for `hostPort` only, the `containerPort`
-          must *not* be a range.  In this case, the container port is published
-          somewhere within the specified `hostPort` range.
-          Example: `1234-1236:1234/tcp`
-
-          Refer to the
-          [Docker engine documentation](https://docs.docker.com/engine/reference/run/#expose-incoming-ports) for full details.
-        '';
-        example = literalExpression ''
-          [
-            "8080:9000"
-          ]
-        '';
-      };
-
-      user = mkOption {
-        type = with types; nullOr str;
-        default = null;
-        description = lib.mdDoc ''
-          Override the username or UID (and optionally groupname or GID) used
-          in the container.
-        '';
-        example = "nobody:nogroup";
-      };
-
-      volumes = mkOption {
-        type = with types; listOf str;
-        default = [ ];
-        description = lib.mdDoc ''
-          List of volumes to attach to this container.
-
-          Note that this is a list of `"src:dst"` strings to
-          allow for `src` to refer to `/nix/store` paths, which
-          would be difficult with an attribute set.  There are
-          also a variety of mount options available as a third
-          field; please refer to the
-          [docker engine documentation](https://docs.docker.com/engine/reference/run/#volume-shared-filesystems) for details.
-        '';
-        example = literalExpression ''
-          [
-            "volume_name:/path/inside/container"
-            "/path/on/host:/path/inside/container"
-          ]
-        '';
-      };
-
-      workdir = mkOption {
-        type = with types; nullOr str;
-        default = null;
-        description =
-          lib.mdDoc "Override the default working directory for the container.";
-        example = "/var/lib/hello_world";
-      };
-
-      dependsOn = mkOption {
-        type = with types; listOf str;
-        default = [ ];
-        description = lib.mdDoc ''
-          Define which other containers this one depends on. They will be added to both After and Requires for the unit.
-
-          Use the same name as the attribute under `virtualisation.oci-containers.containers`.
-        '';
-        example = literalExpression ''
-          virtualisation.oci-containers.containers = {
-            node1 = {};
-            node2 = {
-              dependsOn = [ "node1" ];
+        environment = mkOption {
+          type = with types; attrsOf str;
+          default = { };
+          description =
+            lib.mdDoc "Environment variables to set for this container.";
+          example = literalExpression ''
+            {
+              DATABASE_HOST = "db.example.com";
+              DATABASE_PORT = "3306";
             }
-          }
-        '';
-      };
+          '';
+        };
 
-      extraOptions = mkOption {
-        type = with types; listOf str;
-        default = [ ];
-        description =
-          lib.mdDoc "Extra options for {command}`${defaultBackend} run`.";
-        example = literalExpression ''
-          ["--network=host"]
-        '';
-      };
+        environmentFiles = mkOption {
+          type = with types; listOf path;
+          default = [ ];
+          description = lib.mdDoc "Environment files for this container.";
+          example = literalExpression ''
+            [
+              /path/to/.env
+              /path/to/.env.secret
+            ]
+          '';
+        };
 
-      autoStart = mkOption {
-        type = types.bool;
-        default = true;
-        description = lib.mdDoc ''
-          When enabled, the container is automatically started on boot.
-          If this option is set to false, the container has to be started on-demand via its service.
-        '';
+        log-driver = mkOption {
+          type = types.str;
+          default = "journald";
+          description = lib.mdDoc ''
+            Logging driver for the container.  The default of
+            `"journald"` means that the container's logs will be
+            handled as part of the systemd unit.
+
+            For more details and a full list of logging drivers, refer to respective backends documentation.
+
+            For Docker:
+            [Docker engine documentation](https://docs.docker.com/engine/reference/run/#logging-drivers---log-driver)
+
+            For Podman:
+            Refer to the docker-run(1) man page.
+          '';
+        };
+
+        ports = mkOption {
+          type = with types; listOf str;
+          default = [ ];
+          description = lib.mdDoc ''
+            Network ports to publish from the container to the outer host.
+
+            Valid formats:
+            - `<ip>:<hostPort>:<containerPort>`
+            - `<ip>::<containerPort>`
+            - `<hostPort>:<containerPort>`
+            - `<containerPort>`
+
+            Both `hostPort` and `containerPort` can be specified as a range of
+            ports.  When specifying ranges for both, the number of container
+            ports in the range must match the number of host ports in the
+            range.  Example: `1234-1236:1234-1236/tcp`
+
+            When specifying a range for `hostPort` only, the `containerPort`
+            must *not* be a range.  In this case, the container port is published
+            somewhere within the specified `hostPort` range.
+            Example: `1234-1236:1234/tcp`
+
+            Refer to the
+            [Docker engine documentation](https://docs.docker.com/engine/reference/run/#expose-incoming-ports) for full details.
+          '';
+          example = literalExpression ''
+            [
+              "8080:9000"
+            ]
+          '';
+        };
+
+        user = mkOption {
+          type = with types; nullOr str;
+          default = null;
+          description = lib.mdDoc ''
+            Override the username or UID (and optionally groupname or GID) used
+            in the container.
+          '';
+          example = "nobody:nogroup";
+        };
+
+        volumes = mkOption {
+          type = with types; listOf str;
+          default = [ ];
+          description = lib.mdDoc ''
+            List of volumes to attach to this container.
+
+            Note that this is a list of `"src:dst"` strings to
+            allow for `src` to refer to `/nix/store` paths, which
+            would be difficult with an attribute set.  There are
+            also a variety of mount options available as a third
+            field; please refer to the
+            [docker engine documentation](https://docs.docker.com/engine/reference/run/#volume-shared-filesystems) for details.
+          '';
+          example = literalExpression ''
+            [
+              "volume_name:/path/inside/container"
+              "/path/on/host:/path/inside/container"
+            ]
+          '';
+        };
+
+        workdir = mkOption {
+          type = with types; nullOr str;
+          default = null;
+          description = lib.mdDoc
+            "Override the default working directory for the container.";
+          example = "/var/lib/hello_world";
+        };
+
+        dependsOn = mkOption {
+          type = with types; listOf str;
+          default = [ ];
+          description = lib.mdDoc ''
+            Define which other containers this one depends on. They will be added to both After and Requires for the unit.
+
+            Use the same name as the attribute under `virtualisation.oci-containers.containers`.
+          '';
+          example = literalExpression ''
+            virtualisation.oci-containers.containers = {
+              node1 = {};
+              node2 = {
+                dependsOn = [ "node1" ];
+              }
+            }
+          '';
+        };
+
+        extraOptions = mkOption {
+          type = with types; listOf str;
+          default = [ ];
+          description =
+            lib.mdDoc "Extra options for {command}`${defaultBackend} run`.";
+          example = literalExpression ''
+            ["--network=host"]
+          '';
+        };
+
+        autoStart = mkOption {
+          type = types.bool;
+          default = true;
+          description = lib.mdDoc ''
+            When enabled, the container is automatically started on boot.
+            If this option is set to false, the container has to be started on-demand via its service.
+          '';
+        };
       };
     };
-  };
 
   isValidLogin = login:
     login.username != null && login.passwordFile != null && login.registry

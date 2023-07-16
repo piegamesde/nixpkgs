@@ -1,6 +1,19 @@
-{ mkDerivation, extra-cmake-modules, kcompletion, kcoreaddons, kdoctools, ki18n
-, kiconthemes, kio, kparts, kwidgetsaddons, kxmlgui, qtbase, qtscript
-, qtxmlpatterns, }:
+{
+  mkDerivation,
+  extra-cmake-modules,
+  kcompletion,
+  kcoreaddons,
+  kdoctools,
+  ki18n,
+  kiconthemes,
+  kio,
+  kparts,
+  kwidgetsaddons,
+  kxmlgui,
+  qtbase,
+  qtscript,
+  qtxmlpatterns,
+}:
 
 mkDerivation {
   pname = "kross";

@@ -1,5 +1,17 @@
-{ stdenv, lib, formats, nixosTests, rustPlatform, fetchFromGitHub
-, installShellFiles, pkg-config, udev, openssl, sqlite, pam }:
+{
+  stdenv,
+  lib,
+  formats,
+  nixosTests,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  pkg-config,
+  udev,
+  openssl,
+  sqlite,
+  pam,
+}:
 
 let arch = if stdenv.isx86_64 then "x86_64" else "generic";
 in rustPlatform.buildRustPackage rec {

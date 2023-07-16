@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, nclib, netaddr, netifaces
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  nclib,
+  netaddr,
+  netifaces,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "niko-home-control";

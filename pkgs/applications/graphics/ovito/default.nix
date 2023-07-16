@@ -1,6 +1,24 @@
-{ mkDerivation, lib, stdenv, fetchFromGitLab, cmake, boost, bzip2, ffmpeg
-, fftwSinglePrec, hdf5, muparser, netcdf, openssl, python3, qscintilla, qtbase
-, qtsvg, qttools, VideoDecodeAcceleration }:
+{
+  mkDerivation,
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  cmake,
+  boost,
+  bzip2,
+  ffmpeg,
+  fftwSinglePrec,
+  hdf5,
+  muparser,
+  netcdf,
+  openssl,
+  python3,
+  qscintilla,
+  qtbase,
+  qtsvg,
+  qttools,
+  VideoDecodeAcceleration,
+}:
 
 mkDerivation rec {
   pname = "ovito";

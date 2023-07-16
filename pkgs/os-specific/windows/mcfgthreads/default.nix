@@ -1,4 +1,8 @@
-{ stdenv, fetchFromGitHub, autoreconfHook }:
+{
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation {
   pname = "mcfgthreads";

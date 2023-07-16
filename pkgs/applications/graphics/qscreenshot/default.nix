@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, dos2unix, which, qt, Carbon }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dos2unix,
+  which,
+  qt,
+  Carbon,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qscreenshot";

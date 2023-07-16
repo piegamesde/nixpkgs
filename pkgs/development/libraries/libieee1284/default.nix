@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoconf, automake, libtool, xmlto
-, docbook_xml_dtd_412, docbook_xsl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoconf,
+  automake,
+  libtool,
+  xmlto,
+  docbook_xml_dtd_412,
+  docbook_xsl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libieee1284";

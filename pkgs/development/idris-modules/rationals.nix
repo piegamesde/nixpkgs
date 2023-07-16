@@ -1,4 +1,9 @@
-{ build-idris-package, fetchFromGitHub, contrib, lib }:
+{
+  build-idris-package,
+  fetchFromGitHub,
+  contrib,
+  lib,
+}:
 build-idris-package {
   pname = "rationals";
   version = "2017-04-29";

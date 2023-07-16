@@ -1,4 +1,10 @@
-{ buildPackages, nodejs, stdenv, src, version }:
+{
+  buildPackages,
+  nodejs,
+  stdenv,
+  src,
+  version,
+}:
 
 let
 

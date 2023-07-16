@@ -1,5 +1,17 @@
-{ lib, stdenv, buildPythonPackage, isPyPy, fetchPypi, fetchpatch, pythonOlder
-, curl, openssl, bottle, pytestCheckHook, flaky }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  isPyPy,
+  fetchPypi,
+  fetchpatch,
+  pythonOlder,
+  curl,
+  openssl,
+  bottle,
+  pytestCheckHook,
+  flaky,
+}:
 
 buildPythonPackage rec {
   pname = "pycurl";

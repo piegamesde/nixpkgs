@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, qt5, mkDerivation }:
+{
+  lib,
+  fetchFromGitHub,
+  qt5,
+  mkDerivation,
+}:
 
 mkDerivation rec {
   pname = "qtbitcointrader";

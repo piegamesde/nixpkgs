@@ -22,7 +22,10 @@
      secret. **DO NOT DO THIS IN A REAL WORLD DEPLOYMENT**.
 */
 
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
   let
     send-toot = pkgs.writeScriptBin "send-toot" ''
       set -eux
@@ -178,71 +181,84 @@ import ./make-test-python.nix ({ pkgs, ... }:
   in {
     name = "pleroma";
     nodes = {
-      client = { nodes, pkgs, config, ... }: {
-        security.pki.certificateFiles = [ "${tls-cert}/cert.pem" ];
-        networking.extraHosts = hosts nodes;
-        environment.systemPackages = with pkgs; [ toot send-toot ];
-      };
-      pleroma = { nodes, pkgs, config, ... }: {
-        security.pki.certificateFiles = [ "${tls-cert}/cert.pem" ];
-        networking.extraHosts = hosts nodes;
-        networking.firewall.enable = false;
-        environment.systemPackages = with pkgs; [
-          provision-db
-          provision-secrets
-          provision-user
-        ];
-        services = {
-          pleroma = {
-            enable = true;
-            configs = [ pleroma-conf ];
-          };
-          postgresql = {
-            enable = true;
-            package = pkgs.postgresql_12;
-          };
-          nginx = {
-            enable = true;
-            virtualHosts."pleroma.nixos.test" = {
-              addSSL = true;
-              sslCertificate = "${tls-cert}/cert.pem";
-              sslCertificateKey = "${tls-cert}/key.pem";
-              locations."/" = {
-                proxyPass = "http://127.0.0.1:4000";
-                extraConfig = ''
-                  add_header 'Access-Control-Allow-Origin' '*' always;
-                  add_header 'Access-Control-Allow-Methods' 'POST, PUT, DELETE, GET, PATCH, OPTIONS' always;
-                  add_header 'Access-Control-Allow-Headers' 'Authorization, Content-Type, Idempotency-Key' always;
-                  add_header 'Access-Control-Expose-Headers' 'Link, X-RateLimit-Reset, X-RateLimit-Limit, X-RateLimit-Remaining, X-Request-Id' always;
-                  if ($request_method = OPTIONS) {
-                      return 204;
-                  }
-                  add_header X-XSS-Protection "1; mode=block";
-                  add_header X-Permitted-Cross-Domain-Policies none;
-                  add_header X-Frame-Options DENY;
-                  add_header X-Content-Type-Options nosniff;
-                  add_header Referrer-Policy same-origin;
-                  add_header X-Download-Options noopen;
-                  proxy_http_version 1.1;
-                  proxy_set_header Upgrade $http_upgrade;
-                  proxy_set_header Connection "upgrade";
-                  proxy_set_header Host $host;
-                  client_max_body_size 16m;
-                '';
+      client = {
+          nodes,
+          pkgs,
+          config,
+          ...
+        }: {
+          security.pki.certificateFiles = [ "${tls-cert}/cert.pem" ];
+          networking.extraHosts = hosts nodes;
+          environment.systemPackages = with pkgs; [ toot send-toot ];
+        };
+      pleroma = {
+          nodes,
+          pkgs,
+          config,
+          ...
+        }: {
+          security.pki.certificateFiles = [ "${tls-cert}/cert.pem" ];
+          networking.extraHosts = hosts nodes;
+          networking.firewall.enable = false;
+          environment.systemPackages = with pkgs; [
+            provision-db
+            provision-secrets
+            provision-user
+          ];
+          services = {
+            pleroma = {
+              enable = true;
+              configs = [ pleroma-conf ];
+            };
+            postgresql = {
+              enable = true;
+              package = pkgs.postgresql_12;
+            };
+            nginx = {
+              enable = true;
+              virtualHosts."pleroma.nixos.test" = {
+                addSSL = true;
+                sslCertificate = "${tls-cert}/cert.pem";
+                sslCertificateKey = "${tls-cert}/key.pem";
+                locations."/" = {
+                  proxyPass = "http://127.0.0.1:4000";
+                  extraConfig = ''
+                    add_header 'Access-Control-Allow-Origin' '*' always;
+                    add_header 'Access-Control-Allow-Methods' 'POST, PUT, DELETE, GET, PATCH, OPTIONS' always;
+                    add_header 'Access-Control-Allow-Headers' 'Authorization, Content-Type, Idempotency-Key' always;
+                    add_header 'Access-Control-Expose-Headers' 'Link, X-RateLimit-Reset, X-RateLimit-Limit, X-RateLimit-Remaining, X-Request-Id' always;
+                    if ($request_method = OPTIONS) {
+                        return 204;
+                    }
+                    add_header X-XSS-Protection "1; mode=block";
+                    add_header X-Permitted-Cross-Domain-Policies none;
+                    add_header X-Frame-Options DENY;
+                    add_header X-Content-Type-Options nosniff;
+                    add_header Referrer-Policy same-origin;
+                    add_header X-Download-Options noopen;
+                    proxy_http_version 1.1;
+                    proxy_set_header Upgrade $http_upgrade;
+                    proxy_set_header Connection "upgrade";
+                    proxy_set_header Host $host;
+                    client_max_body_size 16m;
+                  '';
+                };
               };
             };
           };
         };
-      };
     };
 
-    testScript = { nodes, ... }: ''
-      pleroma.wait_for_unit("postgresql.service")
-      pleroma.succeed("provision-db")
-      pleroma.succeed("provision-secrets")
-      pleroma.systemctl("restart pleroma.service")
-      pleroma.wait_for_unit("pleroma.service")
-      pleroma.succeed("provision-user")
-      client.succeed("send-toot")
-    '';
+    testScript = {
+        nodes,
+        ...
+      }: ''
+        pleroma.wait_for_unit("postgresql.service")
+        pleroma.succeed("provision-db")
+        pleroma.succeed("provision-secrets")
+        pleroma.systemctl("restart pleroma.service")
+        pleroma.wait_for_unit("pleroma.service")
+        pleroma.succeed("provision-user")
+        client.succeed("send-toot")
+      '';
   })

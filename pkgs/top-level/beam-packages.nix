@@ -1,6 +1,15 @@
-{ lib, beam, callPackage, openssl_1_1, wxGTK32, buildPackages, stdenv
-, wxSupport ? true, systemd
-, systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd }:
+{
+  lib,
+  beam,
+  callPackage,
+  openssl_1_1,
+  wxGTK32,
+  buildPackages,
+  stdenv,
+  wxSupport ? true,
+  systemd,
+  systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd
+}:
 
 let
   self = beam;

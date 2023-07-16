@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gtkmm3, meson, ninja, nlohmann_json
-, pkg-config, swaylock, makeWrapper, gtk-layer-shell }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gtkmm3,
+  meson,
+  ninja,
+  nlohmann_json,
+  pkg-config,
+  swaylock,
+  makeWrapper,
+  gtk-layer-shell,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nwg-launchers";

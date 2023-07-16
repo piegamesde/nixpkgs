@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, rustPlatform, pkg-config, nix-update-script
-, Security, openssl }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  nix-update-script,
+  Security,
+  openssl,
+}:
 
 let
   pname = "gptcommit";

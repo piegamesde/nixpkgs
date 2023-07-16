@@ -1,4 +1,11 @@
-{ lib, symlinkJoin, makeWrapper, gimpPlugins, gnome, plugins ? null }:
+{
+  lib,
+  symlinkJoin,
+  makeWrapper,
+  gimpPlugins,
+  gnome,
+  plugins ? null
+}:
 
 let
   inherit (gimpPlugins) gimp;

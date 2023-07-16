@@ -1,5 +1,15 @@
-{ lib, rustPlatform, fetchFromGitHub, installShellFiles, makeBinaryWrapper
-, stdenv, darwin, gitMinimal, mercurial, nixVersions }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  makeBinaryWrapper,
+  stdenv,
+  darwin,
+  gitMinimal,
+  mercurial,
+  nixVersions,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "nurl";

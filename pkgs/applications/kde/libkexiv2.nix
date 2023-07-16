@@ -1,4 +1,10 @@
-{ mkDerivation, lib, exiv2, extra-cmake-modules, qtbase }:
+{
+  mkDerivation,
+  lib,
+  exiv2,
+  extra-cmake-modules,
+  qtbase,
+}:
 
 mkDerivation {
   pname = "libkexiv2";

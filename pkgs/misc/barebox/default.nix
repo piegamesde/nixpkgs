@@ -1,9 +1,25 @@
-{ stdenv, lib, fetchurl, bison, dtc, flex, libusb1, lzop, openssl, pkg-config
-, buildPackages }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  bison,
+  dtc,
+  flex,
+  libusb1,
+  lzop,
+  openssl,
+  pkg-config,
+  buildPackages,
+}:
 
 let
-  buildBarebox = { filesToInstall, installDir ? "$out", defconfig
-    , extraMeta ? { }, ... }@args:
+  buildBarebox = {
+      filesToInstall,
+      installDir ? "$out",
+      defconfig,
+      extraMeta ? { },
+      ...
+    }@args:
     stdenv.mkDerivation rec {
       pname = "barebox-${defconfig}";
 

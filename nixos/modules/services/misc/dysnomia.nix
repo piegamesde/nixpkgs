@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 with lib;
 
@@ -43,15 +48,17 @@ let
     '';
   };
 
-  linkMutableComponents = { containerName }: ''
-    mkdir ${containerName}
+  linkMutableComponents = {
+      containerName,
+    }: ''
+      mkdir ${containerName}
 
-    ${concatMapStrings (componentName:
-      let component = cfg.components.${containerName}.${componentName};
-      in ''
-        ln -s ${component} ${containerName}/${componentName}
-      '') (builtins.attrNames (cfg.components.${containerName} or { }))}
-  '';
+      ${concatMapStrings (componentName:
+        let component = cfg.components.${containerName}.${componentName};
+        in ''
+          ln -s ${component} ${containerName}/${componentName}
+        '') (builtins.attrNames (cfg.components.${containerName} or { }))}
+    '';
 
   componentsDir = pkgs.stdenv.mkDerivation {
     name = "dysnomia-components";

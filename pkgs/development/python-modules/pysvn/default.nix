@@ -1,5 +1,22 @@
-{ stdenv, lib, buildPythonPackage, fetchurl, isPy3k, python, apr, aprutil, bash
-, e2fsprogs, expat, gcc, glibcLocales, neon, openssl, pycxx, subversion }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchurl,
+  isPy3k,
+  python,
+  apr,
+  aprutil,
+  bash,
+  e2fsprogs,
+  expat,
+  gcc,
+  glibcLocales,
+  neon,
+  openssl,
+  pycxx,
+  subversion,
+}:
 
 buildPythonPackage rec {
   pname = "pysvn";

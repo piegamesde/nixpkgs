@@ -1,4 +1,11 @@
-{ buildPythonPackage, fetchFromGitHub, lib, pytest, cryptography, transitions }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  pytest,
+  cryptography,
+  transitions,
+}:
 
 buildPythonPackage rec {
   pname = "dissononce";

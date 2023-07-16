@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, python3 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  python3,
+}:
 
 let python = python3.withPackages (p: [ p.pexpect ]);
 in stdenv.mkDerivation rec {

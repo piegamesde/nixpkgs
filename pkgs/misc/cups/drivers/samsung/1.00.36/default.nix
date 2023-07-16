@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, cups, libusb-compat-0_1, libxml2, perl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cups,
+  libusb-compat-0_1,
+  libxml2,
+  perl,
+}:
 
 let
 

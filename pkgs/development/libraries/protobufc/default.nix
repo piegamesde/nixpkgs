@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, pkg-config, protobuf
-, zlib, buildPackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  pkg-config,
+  protobuf,
+  zlib,
+  buildPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "protobuf-c";

@@ -1,9 +1,44 @@
-{ lib, stdenv, fetchzip, fetchurl, fetchFromGitHub, autoreconfHook
-, bashInteractive, cacert, coreutils, dbus, docbook_xml_dtd_43, docbook_xsl
-, findutils, gettext, git, glib, glibc, glib-networking, gnused, gnutls
-, json-glib, krb5, libssh, libxcrypt, libxslt, makeWrapper, nodejs, nixosTests
-, openssh, openssl, pam, pkg-config, polkit, python3Packages, ripgrep
-, runtimeShell, systemd, udev, xmlto }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  fetchurl,
+  fetchFromGitHub,
+  autoreconfHook,
+  bashInteractive,
+  cacert,
+  coreutils,
+  dbus,
+  docbook_xml_dtd_43,
+  docbook_xsl,
+  findutils,
+  gettext,
+  git,
+  glib,
+  glibc,
+  glib-networking,
+  gnused,
+  gnutls,
+  json-glib,
+  krb5,
+  libssh,
+  libxcrypt,
+  libxslt,
+  makeWrapper,
+  nodejs,
+  nixosTests,
+  openssh,
+  openssl,
+  pam,
+  pkg-config,
+  polkit,
+  python3Packages,
+  ripgrep,
+  runtimeShell,
+  systemd,
+  udev,
+  xmlto,
+}:
 
 let
   pythonWithGobject =

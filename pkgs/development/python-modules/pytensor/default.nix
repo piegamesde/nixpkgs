@@ -1,6 +1,24 @@
-{ stdenv, lib, buildPythonPackage, cons, cython, etuples, fetchFromGitHub
-, filelock, jax, jaxlib, logical-unification, minikanren, numba, numba-scipy
-, numpy, pytestCheckHook, pythonOlder, scipy, typing-extensions }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  cons,
+  cython,
+  etuples,
+  fetchFromGitHub,
+  filelock,
+  jax,
+  jaxlib,
+  logical-unification,
+  minikanren,
+  numba,
+  numba-scipy,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  scipy,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "pytensor";

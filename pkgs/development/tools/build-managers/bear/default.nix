@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, grpc, protobuf, openssl
-, nlohmann_json, gtest, spdlog, c-ares, zlib, sqlite, re2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  grpc,
+  protobuf,
+  openssl,
+  nlohmann_json,
+  gtest,
+  spdlog,
+  c-ares,
+  zlib,
+  sqlite,
+  re2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bear";

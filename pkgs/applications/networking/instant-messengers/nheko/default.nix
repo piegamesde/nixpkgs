@@ -1,8 +1,36 @@
-{ lib, stdenv, fetchFromGitHub, cmake, asciidoc, pkg-config, boost17x, cmark
-, coeurl, curl, libevent, libsecret, lmdb, lmdbxx, mtxclient, nlohmann_json, olm
-, qtbase, qtgraphicaleffects, qtimageformats, qtkeychain, qtmacextras
-, qtmultimedia, qtquickcontrols2, qttools, re2, spdlog, wrapQtAppsHook
-, voipSupport ? true, gst_all_1, libnice }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  asciidoc,
+  pkg-config,
+  boost17x,
+  cmark,
+  coeurl,
+  curl,
+  libevent,
+  libsecret,
+  lmdb,
+  lmdbxx,
+  mtxclient,
+  nlohmann_json,
+  olm,
+  qtbase,
+  qtgraphicaleffects,
+  qtimageformats,
+  qtkeychain,
+  qtmacextras,
+  qtmultimedia,
+  qtquickcontrols2,
+  qttools,
+  re2,
+  spdlog,
+  wrapQtAppsHook,
+  voipSupport ? true,
+  gst_all_1,
+  libnice,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nheko";

@@ -9,7 +9,10 @@
 # nix run nixpkgs#nodePackages.node2nix -- -c node2nix -l package-lock.json -d
 # cp -v node-*.nix package*.json ${nixpkgs_path:?}/pkgs/tools/misc/fx_cast/
 # ```
-{ pkgs, stdenv }:
+{
+  pkgs,
+  stdenv,
+}:
 let
   nodeEnv = import ./node-env.nix {
     inherit (pkgs)

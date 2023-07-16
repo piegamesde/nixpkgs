@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, makeWrapper, cvs, perl, nettools, findutils, rsync
-, coreutils, diffutils }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  cvs,
+  perl,
+  nettools,
+  findutils,
+  rsync,
+  coreutils,
+  diffutils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cvsq";

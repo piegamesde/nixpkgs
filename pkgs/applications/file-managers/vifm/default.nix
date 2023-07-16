@@ -1,8 +1,24 @@
-{ stdenv, fetchurl, makeWrapper, perl # used to generate help tags
-, pkg-config, ncurses, libX11, util-linux, file, which, groff
+{
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  perl # used to generate help tags
+  ,
+  pkg-config,
+  ncurses,
+  libX11,
+  util-linux,
+  file,
+  which,
+  groff
 
-# adds support for handling removable media (vifm-media). Linux only!
-, mediaSupport ? false, python3 ? null, udisks2 ? null, lib ? null, gitUpdater
+  # adds support for handling removable media (vifm-media). Linux only!
+  ,
+  mediaSupport ? false,
+  python3 ? null,
+  udisks2 ? null,
+  lib ? null,
+  gitUpdater,
 }:
 
 let isFullPackage = mediaSupport;

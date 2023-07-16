@@ -1,5 +1,16 @@
-{ lib, blinker, botocore, buildPythonPackage, fetchFromGitHub, pytest-mock
-, pytestCheckHook, python-dateutil, pythonOlder, requests, typing-extensions }:
+{
+  lib,
+  blinker,
+  botocore,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-mock,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  requests,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "pynamodb";

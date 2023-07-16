@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitLab, meson, pkg-config, ninja, libdrm }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  meson,
+  pkg-config,
+  ninja,
+  libdrm,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libliftoff";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pandoc, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pandoc,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jo";

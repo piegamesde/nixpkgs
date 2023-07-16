@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, e2fsprogs, openldap, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  e2fsprogs,
+  openldap,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   version = "4.09";

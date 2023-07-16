@@ -1,8 +1,39 @@
-{ stdenv, lib, fetchurl, clang, llvm, pkg-config, makeWrapper, file, hyperscan
-, jansson, libbpf, libcap_ng, libelf, libevent, libmaxminddb, libnet
-, libnetfilter_log, libnetfilter_queue, libnfnetlink, libpcap, libyaml, luajit
-, lz4, nspr, nss, pcre, python, zlib, redisSupport ? true, redis, hiredis
-, rustSupport ? true, rustc, cargo }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  clang,
+  llvm,
+  pkg-config,
+  makeWrapper,
+  file,
+  hyperscan,
+  jansson,
+  libbpf,
+  libcap_ng,
+  libelf,
+  libevent,
+  libmaxminddb,
+  libnet,
+  libnetfilter_log,
+  libnetfilter_queue,
+  libnfnetlink,
+  libpcap,
+  libyaml,
+  luajit,
+  lz4,
+  nspr,
+  nss,
+  pcre,
+  python,
+  zlib,
+  redisSupport ? true,
+  redis,
+  hiredis,
+  rustSupport ? true,
+  rustc,
+  cargo,
+}:
 let
   libmagic = file;
   hyperscanSupport = stdenv.system == "x86_64-linux" || stdenv.system

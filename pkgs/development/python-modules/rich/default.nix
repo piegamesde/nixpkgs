@@ -1,8 +1,21 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, markdown-it-py
-, poetry-core, pygments, typing-extensions, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  markdown-it-py,
+  poetry-core,
+  pygments,
+  typing-extensions,
+  pytestCheckHook
 
-# for passthru.tests
-, enrich, httpie, rich-rst, textual }:
+  # for passthru.tests
+  ,
+  enrich,
+  httpie,
+  rich-rst,
+  textual,
+}:
 
 buildPythonPackage rec {
   pname = "rich";

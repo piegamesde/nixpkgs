@@ -1,4 +1,10 @@
-{ callPackage, lowPrio, Accelerate, CoreGraphics, CoreVideo }:
+{
+  callPackage,
+  lowPrio,
+  Accelerate,
+  CoreGraphics,
+  CoreVideo,
+}:
 
 let
   base3 = callPackage ./tesseract3.nix { };

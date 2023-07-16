@@ -1,4 +1,10 @@
-{ lib, buildEnv, git, fetchFromGitHub, gitwebTheme ? false }:
+{
+  lib,
+  buildEnv,
+  git,
+  fetchFromGitHub,
+  gitwebTheme ? false
+}:
 
 let
   gitwebThemeSrc = fetchFromGitHub {

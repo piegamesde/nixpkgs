@@ -1,4 +1,9 @@
-{ lib, stdenv, python3, installShellFiles }:
+{
+  lib,
+  stdenv,
+  python3,
+  installShellFiles,
+}:
 
 with python3.pkgs;
 

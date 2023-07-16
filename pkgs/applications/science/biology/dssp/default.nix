@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libcifpp, libmcfp, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libcifpp,
+  libmcfp,
+  zlib,
+}:
 let
   libcifpp' = libcifpp.overrideAttrs (oldAttrs: rec {
     # dssp 4.2.2.1 requires specific version "5.0.8" of libcifpp

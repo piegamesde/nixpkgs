@@ -1,5 +1,14 @@
-{ lib, appleDerivation, xcbuildHook, Libc, stdenv, macosPackages_11_0_1, xnu
-, fetchurl, libutil }:
+{
+  lib,
+  appleDerivation,
+  xcbuildHook,
+  Libc,
+  stdenv,
+  macosPackages_11_0_1,
+  xnu,
+  fetchurl,
+  libutil,
+}:
 
 let
   xnu-src = if stdenv.isAarch64 then macosPackages_11_0_1.xnu.src else xnu.src;

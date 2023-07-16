@@ -1,4 +1,9 @@
-{ pkgs, androidenv, xcodeenv, tiVersion ? "8.3.2.GA" }:
+{
+  pkgs,
+  androidenv,
+  xcodeenv,
+  tiVersion ? "8.3.2.GA"
+}:
 
 rec {
   titaniumsdk = let

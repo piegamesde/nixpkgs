@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, which, ocaml, findlib, javalib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  which,
+  ocaml,
+  findlib,
+  javalib,
+}:
 
 let
   pname = "sawja";

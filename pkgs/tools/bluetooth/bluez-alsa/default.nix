@@ -1,12 +1,27 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, alsa-lib, bluez
-, glib, sbc, dbus
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+  alsa-lib,
+  bluez,
+  glib,
+  sbc,
+  dbus
 
-# optional, but useful utils
-, readline, libbsd, ncurses
+  # optional, but useful utils
+  ,
+  readline,
+  libbsd,
+  ncurses
 
-# optional codecs
-, aacSupport ? true, fdk_aac
-# TODO: aptxSupport
+  # optional codecs
+  ,
+  aacSupport ? true,
+  fdk_aac
+  # TODO: aptxSupport
+  ,
 }:
 
 stdenv.mkDerivation rec {

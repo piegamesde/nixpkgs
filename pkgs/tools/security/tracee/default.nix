@@ -1,10 +1,22 @@
-{ lib, buildGoModule, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub
 
-, clang, pkg-config
+  ,
+  clang,
+  pkg-config
 
-, zlib, elfutils, libbpf
+  ,
+  zlib,
+  elfutils,
+  libbpf
 
-, nixosTests, testers, tracee }:
+  ,
+  nixosTests,
+  testers,
+  tracee,
+}:
 
 buildGoModule rec {
   pname = "tracee";

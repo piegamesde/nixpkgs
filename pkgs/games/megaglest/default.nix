@@ -1,7 +1,36 @@
-{ lib, stdenv, cmake, pkg-config, git, curl, SDL2, xercesc, openal, lua, libvlc
-, libjpeg, wxGTK32, cppunit, ftgl, glew, libogg, libvorbis, buildEnv, libpng
-, fontconfig, freetype, xorg, makeWrapper, bash, which, gnome, libGLU, glib
-, fetchFromGitHub, fetchpatch }:
+{
+  lib,
+  stdenv,
+  cmake,
+  pkg-config,
+  git,
+  curl,
+  SDL2,
+  xercesc,
+  openal,
+  lua,
+  libvlc,
+  libjpeg,
+  wxGTK32,
+  cppunit,
+  ftgl,
+  glew,
+  libogg,
+  libvorbis,
+  buildEnv,
+  libpng,
+  fontconfig,
+  freetype,
+  xorg,
+  makeWrapper,
+  bash,
+  which,
+  gnome,
+  libGLU,
+  glib,
+  fetchFromGitHub,
+  fetchpatch,
+}:
 let
   version = "3.13.0";
   lib-env = buildEnv {

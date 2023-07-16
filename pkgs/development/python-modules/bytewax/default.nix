@@ -1,6 +1,21 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, rustPlatform
-, setuptools-rust, openssl, pkg-config, cyrus_sasl, protobuf, cmake, gcc, dill
-, multiprocess, pytestCheckHook, pythonAtLeast }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  rustPlatform,
+  setuptools-rust,
+  openssl,
+  pkg-config,
+  cyrus_sasl,
+  protobuf,
+  cmake,
+  gcc,
+  dill,
+  multiprocess,
+  pytestCheckHook,
+  pythonAtLeast,
+}:
 
 buildPythonPackage rec {
   pname = "bytewax";

@@ -1,7 +1,30 @@
-{ lib, stdenv, buildPythonApplication, fetchPypi, pytestCheckHook, pkg-config
-, cmake, flex, glib, json-glib, libxml2, appdirs, dbus-deviation, faust-cchardet
-, feedgen, lxml, networkx, pkgconfig, pyyaml, schema, setuptools, toposort
-, wheezy-template, libclang, gst_all_1 }:
+{
+  lib,
+  stdenv,
+  buildPythonApplication,
+  fetchPypi,
+  pytestCheckHook,
+  pkg-config,
+  cmake,
+  flex,
+  glib,
+  json-glib,
+  libxml2,
+  appdirs,
+  dbus-deviation,
+  faust-cchardet,
+  feedgen,
+  lxml,
+  networkx,
+  pkgconfig,
+  pyyaml,
+  schema,
+  setuptools,
+  toposort,
+  wheezy-template,
+  libclang,
+  gst_all_1,
+}:
 
 buildPythonApplication rec {
   pname = "hotdoc";

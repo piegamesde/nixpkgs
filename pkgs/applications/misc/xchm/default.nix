@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, wxGTK32, chmlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  wxGTK32,
+  chmlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xchm";

@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pytestCheckHook
-, pythonOlder, python-dotenv, pytz, requests, typing-extensions, yarl }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  python-dotenv,
+  pytz,
+  requests,
+  typing-extensions,
+  yarl,
+}:
 
 buildPythonPackage rec {
   pname = "transmission-rpc";

@@ -1,4 +1,9 @@
-{ lib, buildDunePackage, fetchFromGitHub, stdlib-shims }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  stdlib-shims,
+}:
 
 buildDunePackage {
   pname = "bdd";

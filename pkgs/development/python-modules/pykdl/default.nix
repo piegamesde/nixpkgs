@@ -1,4 +1,12 @@
-{ lib, stdenv, toPythonModule, cmake, orocos-kdl, eigen, python }:
+{
+  lib,
+  stdenv,
+  toPythonModule,
+  cmake,
+  orocos-kdl,
+  eigen,
+  python,
+}:
 
 toPythonModule (stdenv.mkDerivation {
   pname = "pykdl";

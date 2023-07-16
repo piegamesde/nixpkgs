@@ -1,4 +1,11 @@
-{ lib, fetchPypi, buildPythonPackage, pytestCheckHook, flask, cachelib }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pytestCheckHook,
+  flask,
+  cachelib,
+}:
 
 buildPythonPackage rec {
   pname = "Flask-Session";

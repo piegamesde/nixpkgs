@@ -1,15 +1,30 @@
-{ lib, stdenv, fetchurl, autoreconfHook, gfortran, perl, mpi, blas, lapack
-, scalapack, openssh
-# CPU optimizations
-, avxSupport ? stdenv.hostPlatform.avxSupport
-, avx2Support ? stdenv.hostPlatform.avx2Support, avx512Support ?
-  stdenv.hostPlatform.avx512Support
-  # Enable NIVIA GPU support
-  # Note, that this needs to be built on a system with a GPU
-  # present for the tests to succeed.
-, enableCuda ? false
-  # type of GPU architecture
-, nvidiaArch ? "sm_60", cudatoolkit }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  gfortran,
+  perl,
+  mpi,
+  blas,
+  lapack,
+  scalapack,
+  openssh
+  # CPU optimizations
+  ,
+  avxSupport ? stdenv.hostPlatform.avxSupport,
+  avx2Support ? stdenv.hostPlatform.avx2Support,
+  avx512Support ? stdenv.hostPlatform.avx512Support
+    # Enable NIVIA GPU support
+    # Note, that this needs to be built on a system with a GPU
+    # present for the tests to succeed.
+  ,
+  enableCuda ? false
+    # type of GPU architecture
+  ,
+  nvidiaArch ? "sm_60",
+  cudatoolkit,
+}:
 
 assert blas.isILP64 == lapack.isILP64;
 assert blas.isILP64 == scalapack.isILP64;

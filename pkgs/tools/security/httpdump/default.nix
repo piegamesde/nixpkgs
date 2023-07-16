@@ -1,4 +1,9 @@
-{ buildGoModule, fetchFromGitHub, lib, libpcap }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  libpcap,
+}:
 
 buildGoModule rec {
   pname = "httpdump";

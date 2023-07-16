@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytest, click
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytest,
+  click,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-click";

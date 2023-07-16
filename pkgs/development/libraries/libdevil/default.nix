@@ -1,5 +1,21 @@
-{ lib, stdenv, fetchurl, libjpeg, libpng, libmng, lcms1, libtiff, openexr, libGL
-, libX11, pkg-config, OpenGL, runtimeShell, withXorg ? true, testers }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libjpeg,
+  libpng,
+  libmng,
+  lcms1,
+  libtiff,
+  openexr,
+  libGL,
+  libX11,
+  pkg-config,
+  OpenGL,
+  runtimeShell,
+  withXorg ? true,
+  testers,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libdevil";

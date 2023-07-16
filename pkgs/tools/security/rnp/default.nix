@@ -1,5 +1,18 @@
-{ lib, stdenv, asciidoctor, botan2, bzip2, cmake, fetchFromGitHub, gnupg, gtest
-, json_c, pkg-config, python3, zlib }:
+{
+  lib,
+  stdenv,
+  asciidoctor,
+  botan2,
+  bzip2,
+  cmake,
+  fetchFromGitHub,
+  gnupg,
+  gtest,
+  json_c,
+  pkg-config,
+  python3,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rnp";

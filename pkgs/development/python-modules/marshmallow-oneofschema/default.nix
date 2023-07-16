@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, marshmallow, pytestCheckHook
-, pythonOlder, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  marshmallow,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "marshmallow-oneofschema";

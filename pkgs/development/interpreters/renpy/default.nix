@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, python3, pkg-config, SDL2, libpng, ffmpeg
-, freetype, glew, libGL, libGLU, fribidi, zlib, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  pkg-config,
+  SDL2,
+  libpng,
+  ffmpeg,
+  freetype,
+  glew,
+  libGL,
+  libGLU,
+  fribidi,
+  zlib,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "renpy";

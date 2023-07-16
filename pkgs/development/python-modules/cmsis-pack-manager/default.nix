@@ -1,6 +1,19 @@
-{ lib, fetchPypi, rustPlatform, cffi, libiconv, stdenv, darwin
-, buildPythonPackage, appdirs, pyyaml, hypothesis, jinja2, pytestCheckHook
-, unzip }:
+{
+  lib,
+  fetchPypi,
+  rustPlatform,
+  cffi,
+  libiconv,
+  stdenv,
+  darwin,
+  buildPythonPackage,
+  appdirs,
+  pyyaml,
+  hypothesis,
+  jinja2,
+  pytestCheckHook,
+  unzip,
+}:
 
 buildPythonPackage rec {
   pname = "cmsis_pack_manager";

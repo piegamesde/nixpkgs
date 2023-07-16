@@ -1,6 +1,17 @@
-{ lib, stdenv, fetchurl, pkg-config, nettle, fetchpatch, libidn
-, libnetfilter_conntrack, buildPackages, dbusSupport ? stdenv.isLinux, dbus
-, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  nettle,
+  fetchpatch,
+  libidn,
+  libnetfilter_conntrack,
+  buildPackages,
+  dbusSupport ? stdenv.isLinux,
+  dbus,
+  nixosTests,
+}:
 
 let
   copts = lib.concatStringsSep " " ([ "-DHAVE_IDN" "-DHAVE_DNSSEC" ]

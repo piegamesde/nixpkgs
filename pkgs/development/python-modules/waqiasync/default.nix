@@ -1,4 +1,10 @@
-{ lib, aiohttp, async-timeout, buildPythonPackage, fetchPypi }:
+{
+  lib,
+  aiohttp,
+  async-timeout,
+  buildPythonPackage,
+  fetchPypi,
+}:
 
 buildPythonPackage rec {
   pname = "waqiasync";

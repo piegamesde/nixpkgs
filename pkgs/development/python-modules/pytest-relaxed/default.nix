@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, decorator, fetchPypi, invocations, invoke, pytest
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  decorator,
+  fetchPypi,
+  invocations,
+  invoke,
+  pytest,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-relaxed";

@@ -1,6 +1,14 @@
-{ buildGoModule, callPackage, doCheck ?
-  !stdenv.isDarwin # Can't start localhost test server in MacOS sandbox.
-, fetchFromGitHub, installShellFiles, lib, stdenv }:
+{
+  buildGoModule,
+  callPackage,
+  doCheck ?
+    !stdenv.isDarwin # Can't start localhost test server in MacOS sandbox.
+  ,
+  fetchFromGitHub,
+  installShellFiles,
+  lib,
+  stdenv,
+}:
 let
   version = "23.1.7";
   src = fetchFromGitHub {

@@ -1,4 +1,10 @@
-{ lib, stdenv, runCommand, substituteAll, coreutils }:
+{
+  lib,
+  stdenv,
+  runCommand,
+  substituteAll,
+  coreutils,
+}:
 
 let
   name = "service-wrapper-${version}";

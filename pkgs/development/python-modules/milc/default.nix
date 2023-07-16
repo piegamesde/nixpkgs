@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, appdirs, argcomplete, colorama, halo
-, nose2, semver }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  appdirs,
+  argcomplete,
+  colorama,
+  halo,
+  nose2,
+  semver,
+}:
 
 buildPythonPackage rec {
   pname = "milc";

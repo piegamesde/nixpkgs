@@ -1,5 +1,17 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, cliff, oslo-i18n, oslo-utils
-, openstacksdk, pbr, requests-mock, simplejson, stestr }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cliff,
+  oslo-i18n,
+  oslo-utils,
+  openstacksdk,
+  pbr,
+  requests-mock,
+  simplejson,
+  stestr,
+}:
 
 buildPythonPackage rec {
   pname = "osc-lib";

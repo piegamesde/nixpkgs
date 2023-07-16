@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, wrapGAppsHook, alsa-lib, gtk3
-, libpulseaudio }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  wrapGAppsHook,
+  alsa-lib,
+  gtk3,
+  libpulseaudio,
+}:
 
 stdenv.mkDerivation rec {
   pname = "praat";

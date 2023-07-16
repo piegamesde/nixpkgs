@@ -1,5 +1,20 @@
-{ gcc9Stdenv, lib, fetchFromGitLab, autoreconfHook, libpcap, db, glib, libnet
-, libnids, symlinkJoin, openssl, rpcsvc-proto, libtirpc, libnsl, libnl }:
+{
+  gcc9Stdenv,
+  lib,
+  fetchFromGitLab,
+  autoreconfHook,
+  libpcap,
+  db,
+  glib,
+  libnet,
+  libnids,
+  symlinkJoin,
+  openssl,
+  rpcsvc-proto,
+  libtirpc,
+  libnsl,
+  libnl,
+}:
 
 # We compile with GCC 9 since GCC 10 segfaults on the code
 # (see https://bugzilla.redhat.com/show_bug.cgi?id=1862809).

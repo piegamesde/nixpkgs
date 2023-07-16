@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, SDL2, wxGTK32, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  SDL2,
+  wxGTK32,
+  darwin,
+}:
 
 let inherit (darwin.apple_sdk.frameworks) Cocoa;
 in stdenv.mkDerivation {

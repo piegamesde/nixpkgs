@@ -1,7 +1,13 @@
 # To use this package with a CMake and pkg-config build:
 # pkg_check_modules(EASYLOGGINGPP REQUIRED easyloggingpp)
 # add_executable(main src/main.cpp ${EASYLOGGINGPP_PREFIX}/include/easylogging++.cc)
-{ lib, stdenv, fetchFromGitHub, cmake, gtest }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gtest,
+}:
 stdenv.mkDerivation rec {
   pname = "easyloggingpp";
   version = "9.97.0";

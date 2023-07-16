@@ -1,6 +1,14 @@
-{ lib, stdenvNoCC, fetchFromGitHub }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+}:
 let
-  font-awesome = { version, hash, rev ? version }:
+  font-awesome = {
+      version,
+      hash,
+      rev ? version
+    }:
     stdenvNoCC.mkDerivation {
       pname = "font-awesome";
       inherit version;

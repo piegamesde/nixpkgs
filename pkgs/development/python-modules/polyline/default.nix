@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, six, flake8, nose }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  flake8,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "polyline";

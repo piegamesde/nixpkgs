@@ -1,5 +1,8 @@
 # Generated file.
-args@{ fetchurl, ... }: rec {
+args@{
+  fetchurl,
+  ...
+}: rec {
   baseName = "glsl-docs";
   version = "glsl-spec-release-quicklisp-f04476f7-git";
 

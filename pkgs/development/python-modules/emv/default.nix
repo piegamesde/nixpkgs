@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, click, pyscard, pycountry
-, terminaltables, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  click,
+  pyscard,
+  pycountry,
+  terminaltables,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "emv";

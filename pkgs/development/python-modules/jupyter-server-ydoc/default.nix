@@ -1,6 +1,15 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, hatchling
-, jupyter-server-fileid, jupyter-ydoc, ypy-websocket, pytest-jupyter
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  hatchling,
+  jupyter-server-fileid,
+  jupyter-ydoc,
+  ypy-websocket,
+  pytest-jupyter,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "jupyter-server-ydoc";

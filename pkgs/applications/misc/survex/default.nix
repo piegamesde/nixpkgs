@@ -1,5 +1,23 @@
-{ lib, stdenv, fetchurl, fetchpatch, Carbon, Cocoa, ffmpeg, glib, libGLU, libICE
-, libX11, mesa, perl, pkg-config, proj, python3, wrapGAppsHook, wxGTK32 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  Carbon,
+  Cocoa,
+  ffmpeg,
+  glib,
+  libGLU,
+  libICE,
+  libX11,
+  mesa,
+  perl,
+  pkg-config,
+  proj,
+  python3,
+  wrapGAppsHook,
+  wxGTK32,
+}:
 
 stdenv.mkDerivation rec {
   pname = "survex";

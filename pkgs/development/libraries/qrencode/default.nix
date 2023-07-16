@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, SDL2, libpng, libiconv, libobjc }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  SDL2,
+  libpng,
+  libiconv,
+  libobjc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qrencode";

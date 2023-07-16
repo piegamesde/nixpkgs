@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, ocaml, writeText }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ocaml,
+  writeText,
+}:
 
 lib.throwIfNot (lib.versionAtLeast ocaml.version "4.03")
 "camlidl is not available for OCaml ${ocaml.version}"

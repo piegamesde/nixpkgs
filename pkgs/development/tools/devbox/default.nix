@@ -1,4 +1,9 @@
-{ buildGoModule, fetchFromGitHub, installShellFiles, lib }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  lib,
+}:
 buildGoModule rec {
   pname = "devbox";
   version = "0.4.8";

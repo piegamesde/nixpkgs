@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, which, python3, gfortran, cmake, perl, gnum4, libxml2
-, openssl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  which,
+  python3,
+  gfortran,
+  cmake,
+  perl,
+  gnum4,
+  libxml2,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "julia";

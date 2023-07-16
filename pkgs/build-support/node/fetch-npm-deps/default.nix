@@ -1,5 +1,17 @@
-{ lib, stdenvNoCC, rustPlatform, makeWrapper, Security, gnutar, gzip, nix
-, testers, fetchurl, prefetch-npm-deps, fetchNpmDeps }:
+{
+  lib,
+  stdenvNoCC,
+  rustPlatform,
+  makeWrapper,
+  Security,
+  gnutar,
+  gzip,
+  nix,
+  testers,
+  fetchurl,
+  prefetch-npm-deps,
+  fetchNpmDeps,
+}:
 
 {
   prefetch-npm-deps = rustPlatform.buildRustPackage {
@@ -25,7 +37,10 @@
     '';
 
     passthru.tests = let
-      makeTestSrc = { name, src }:
+      makeTestSrc = {
+          name,
+          src,
+        }:
         stdenvNoCC.mkDerivation {
           name = "${name}-src";
 
@@ -37,7 +52,12 @@
           '';
         };
 
-      makeTest = { name, src, hash, forceGitDeps ? false }:
+      makeTest = {
+          name,
+          src,
+          hash,
+          forceGitDeps ? false
+        }:
         testers.invalidateFetcherByDrvHash fetchNpmDeps {
           inherit name hash forceGitDeps;
 
@@ -128,8 +148,12 @@
     };
   };
 
-  fetchNpmDeps =
-    { name ? "npm-deps", hash ? "", forceGitDeps ? false, ... }@args:
+  fetchNpmDeps = {
+      name ? "npm-deps",
+      hash ? "",
+      forceGitDeps ? false,
+      ...
+    }@args:
     let
       hash_ = if hash != "" then {
         outputHash = hash;

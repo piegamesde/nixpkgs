@@ -1,9 +1,28 @@
-{ lib, fetchFromGitHub, cmake, pkg-config, qtbase, qtsvg, qtwayland
-, gnuradioMinimal, thrift, mpir, fftwFloat, alsa-lib, libjack2, wrapGAppsHook
-, wrapQtAppsHook
-# drivers (optional):
-, rtl-sdr, hackrf, pulseaudioSupport ? true, libpulseaudio
-, portaudioSupport ? false, portaudio }:
+{
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  qtbase,
+  qtsvg,
+  qtwayland,
+  gnuradioMinimal,
+  thrift,
+  mpir,
+  fftwFloat,
+  alsa-lib,
+  libjack2,
+  wrapGAppsHook,
+  wrapQtAppsHook
+  # drivers (optional):
+  ,
+  rtl-sdr,
+  hackrf,
+  pulseaudioSupport ? true,
+  libpulseaudio,
+  portaudioSupport ? false,
+  portaudio,
+}:
 
 assert pulseaudioSupport -> libpulseaudio != null;
 assert portaudioSupport -> portaudio != null;

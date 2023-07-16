@@ -1,5 +1,15 @@
-{ lib, asyncssh, bcrypt, buildPythonPackage, fetchFromGitHub, fsspec
-, mock-ssh-server, pytest-asyncio, pytestCheckHook, setuptools-scm }:
+{
+  lib,
+  asyncssh,
+  bcrypt,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fsspec,
+  mock-ssh-server,
+  pytest-asyncio,
+  pytestCheckHook,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "sshfs";

@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, chevron, decorator, fetchFromGitHub, mypy, pytest
-, pytestCheckHook, pythonOlder, pyyaml, regex }:
+{
+  lib,
+  buildPythonPackage,
+  chevron,
+  decorator,
+  fetchFromGitHub,
+  mypy,
+  pytest,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  regex,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-mypy-plugins";

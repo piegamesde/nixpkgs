@@ -1,4 +1,9 @@
-{ buildPythonPackage, lib, fetchFromBitbucket, parse }:
+{
+  buildPythonPackage,
+  lib,
+  fetchFromBitbucket,
+  parse,
+}:
 
 buildPythonPackage rec {
   pname = "pyparser";

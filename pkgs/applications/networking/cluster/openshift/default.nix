@@ -1,5 +1,12 @@
-{ lib, buildGoModule, fetchFromGitHub, gpgme, installShellFiles, testers
-, openshift }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  gpgme,
+  installShellFiles,
+  testers,
+  openshift,
+}:
 buildGoModule rec {
   pname = "openshift";
   version = "4.12.0";

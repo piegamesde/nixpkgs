@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, cryptography, fetchFromGitHub, pytest-asyncio
-, pytest-sugar, pytest-timeout, pytestCheckHook, pythonOlder, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytest-sugar,
+  pytest-timeout,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "pylutron-caseta";

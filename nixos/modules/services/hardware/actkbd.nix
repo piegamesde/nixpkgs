@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -7,41 +12,49 @@ let
   cfg = config.services.actkbd;
 
   configFile = pkgs.writeText "actkbd.conf" ''
-    ${concatMapStringsSep "\n" ({ keys, events, attributes, command, ... }:
+    ${concatMapStringsSep "\n" ({
+        keys,
+        events,
+        attributes,
+        command,
+        ...
+      }:
       "${concatMapStringsSep "+" toString keys}:${
         concatStringsSep "," events
       }:${concatStringsSep "," attributes}:${command}") cfg.bindings}
     ${cfg.extraConfig}
   '';
 
-  bindingCfg = { ... }: {
-    options = {
+  bindingCfg = {
+      ...
+    }: {
+      options = {
 
-      keys = mkOption {
-        type = types.listOf types.int;
-        description = lib.mdDoc "List of keycodes to match.";
+        keys = mkOption {
+          type = types.listOf types.int;
+          description = lib.mdDoc "List of keycodes to match.";
+        };
+
+        events = mkOption {
+          type = types.listOf (types.enum [ "key" "rep" "rel" ]);
+          default = [ "key" ];
+          description = lib.mdDoc "List of events to match.";
+        };
+
+        attributes = mkOption {
+          type = types.listOf types.str;
+          default = [ "exec" ];
+          description = lib.mdDoc "List of attributes.";
+        };
+
+        command = mkOption {
+          type = types.str;
+          default = "";
+          description = lib.mdDoc "What to run.";
+        };
+
       };
-
-      events = mkOption {
-        type = types.listOf (types.enum [ "key" "rep" "rel" ]);
-        default = [ "key" ];
-        description = lib.mdDoc "List of events to match.";
-      };
-
-      attributes = mkOption {
-        type = types.listOf types.str;
-        default = [ "exec" ];
-        description = lib.mdDoc "List of attributes.";
-      };
-
-      command = mkOption {
-        type = types.str;
-        default = "";
-        description = lib.mdDoc "What to run.";
-      };
-
     };
-  };
 
 in {
 

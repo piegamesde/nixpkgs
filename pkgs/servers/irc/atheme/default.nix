@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchgit, libmowgli, pkg-config, git, gettext, pcre, libidn
-, libxcrypt, cracklib, openssl }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  libmowgli,
+  pkg-config,
+  git,
+  gettext,
+  pcre,
+  libidn,
+  libxcrypt,
+  cracklib,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "atheme";

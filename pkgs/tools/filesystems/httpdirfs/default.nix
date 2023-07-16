@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, curl, expat, fuse, gumbo, libuuid }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  curl,
+  expat,
+  fuse,
+  gumbo,
+  libuuid,
+}:
 
 stdenv.mkDerivation rec {
   pname = "httpdirfs";

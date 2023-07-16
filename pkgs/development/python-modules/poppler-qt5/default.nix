@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, isPy3k, fetchPypi, sip, qtbase, qmake, pyqt5
-, pyqt-builder, poppler, pkg-config, setuptools, fetchpatch }:
+{
+  lib,
+  buildPythonPackage,
+  isPy3k,
+  fetchPypi,
+  sip,
+  qtbase,
+  qmake,
+  pyqt5,
+  pyqt-builder,
+  poppler,
+  pkg-config,
+  setuptools,
+  fetchpatch,
+}:
 
 buildPythonPackage rec {
   pname = "python-poppler-qt5";

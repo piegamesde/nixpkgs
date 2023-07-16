@@ -1,5 +1,12 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pyserial, pytestCheckHook
-, websockets }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyserial,
+  pytestCheckHook,
+  websockets,
+}:
 
 buildPythonPackage rec {
   pname = "aqualogic";

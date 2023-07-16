@@ -1,5 +1,12 @@
-{ mkDerivation, fetchFromGitLab, lib, extra-cmake-modules, qttools, qtbase
-, qtsvg, }:
+{
+  mkDerivation,
+  fetchFromGitLab,
+  lib,
+  extra-cmake-modules,
+  qttools,
+  qtbase,
+  qtsvg,
+}:
 
 mkDerivation rec {
   pname = "kdiagram";

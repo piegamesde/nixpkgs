@@ -1,8 +1,26 @@
-{ lib, stdenv, fetchurl, meson, ninja, pkg-config, gobject-introspection
-, buildPackages
-, withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
-, gsettings-desktop-schemas, makeWrapper, dbus, glib, dconf, libX11, libxml2
-, libXtst, libXi, libXext, gnome, systemd }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  gobject-introspection,
+  buildPackages,
+  withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages,
+  gsettings-desktop-schemas,
+  makeWrapper,
+  dbus,
+  glib,
+  dconf,
+  libX11,
+  libxml2,
+  libXtst,
+  libXi,
+  libXext,
+  gnome,
+  systemd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "at-spi2-core";

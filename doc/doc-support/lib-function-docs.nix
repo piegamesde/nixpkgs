@@ -1,6 +1,10 @@
 # Generates the documentation for library functions via nixdoc.
 
-{ pkgs, locationsXml, libsets }:
+{
+  pkgs,
+  locationsXml,
+  libsets,
+}:
 
 with pkgs;
 stdenv.mkDerivation {
@@ -26,9 +30,12 @@ stdenv.mkDerivation {
     <root xmlns:xi="http://www.w3.org/2001/XInclude">
     EOF
 
-    ${lib.concatMapStrings ({ name, description }: ''
-      docgen ${name} ${lib.escapeShellArg description}
-    '') libsets}
+    ${lib.concatMapStrings ({
+        name,
+        description,
+      }: ''
+        docgen ${name} ${lib.escapeShellArg description}
+      '') libsets}
 
     echo "</root>" >> "$out/index.xml"
 

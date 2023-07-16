@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, python3, withPlatform ? "generic"
-, withPayload ? null, withFDT ? null }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  withPlatform ? "generic",
+  withPayload ? null,
+  withFDT ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "opensbi";

@@ -1,4 +1,10 @@
-{ stdenv, python3, lib, src, version }:
+{
+  stdenv,
+  python3,
+  lib,
+  src,
+  version,
+}:
 
 let
   buildAzureCliPackage = with py.pkgs; buildPythonPackage;

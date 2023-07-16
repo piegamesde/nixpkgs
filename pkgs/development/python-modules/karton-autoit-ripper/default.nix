@@ -1,5 +1,13 @@
-{ lib, autoit-ripper, buildPythonPackage, fetchFromGitHub, karton-core, malduck
-, pythonOlder, regex }:
+{
+  lib,
+  autoit-ripper,
+  buildPythonPackage,
+  fetchFromGitHub,
+  karton-core,
+  malduck,
+  pythonOlder,
+  regex,
+}:
 
 buildPythonPackage rec {
   pname = "karton-autoit-ripper";

@@ -1,5 +1,15 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, fetchpatch, python, pkg-config
-, gdb, numpy, ncurses }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  python,
+  pkg-config,
+  gdb,
+  numpy,
+  ncurses,
+}:
 
 let
   excludedTests = [

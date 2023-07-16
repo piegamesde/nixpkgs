@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchgit, autoconf, automake, libtool, gmp }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  autoconf,
+  automake,
+  libtool,
+  gmp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "git-annex-utils";

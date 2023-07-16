@@ -1,4 +1,11 @@
-{ lib, aiohttp, buildPythonPackage, certifi, fetchFromGitHub, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  certifi,
+  fetchFromGitHub,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "crownstone-sse";

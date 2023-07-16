@@ -1,6 +1,18 @@
-{ stdenv, substituteAll, lib, buildGoModule, fetchFromGitHub, AVFoundation
-, AudioToolbox, ImageIO, CoreMedia, Foundation, CoreGraphics, MediaToolbox
-, gnupg }:
+{
+  stdenv,
+  substituteAll,
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  AVFoundation,
+  AudioToolbox,
+  ImageIO,
+  CoreMedia,
+  Foundation,
+  CoreGraphics,
+  MediaToolbox,
+  gnupg,
+}:
 
 buildGoModule rec {
   pname = "keybase";

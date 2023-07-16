@@ -1,5 +1,15 @@
-{ lib, asttokens, buildPythonPackage, executing, hatchling, fetchFromGitHub
-, pygments, pytest-mock, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  asttokens,
+  buildPythonPackage,
+  executing,
+  hatchling,
+  fetchFromGitHub,
+  pygments,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "devtools";

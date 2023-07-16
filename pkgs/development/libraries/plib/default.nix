@@ -1,5 +1,18 @@
-{ fetchurl, fetchpatch, lib, stdenv, libGLU, libGL, freeglut, SDL, libXi, libSM
-, libXmu, libXext, libX11 }:
+{
+  fetchurl,
+  fetchpatch,
+  lib,
+  stdenv,
+  libGLU,
+  libGL,
+  freeglut,
+  SDL,
+  libXi,
+  libSM,
+  libXmu,
+  libXext,
+  libX11,
+}:
 
 stdenv.mkDerivation rec {
   pname = "plib";

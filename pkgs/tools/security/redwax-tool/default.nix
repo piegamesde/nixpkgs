@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchsvn, autoreconfHook, pkg-config, txt2man, which, openssl
-, apr, aprutil }:
+{
+  lib,
+  stdenv,
+  fetchsvn,
+  autoreconfHook,
+  pkg-config,
+  txt2man,
+  which,
+  openssl,
+  apr,
+  aprutil,
+}:
 
 stdenv.mkDerivation rec {
   pname = "redwax-tool";

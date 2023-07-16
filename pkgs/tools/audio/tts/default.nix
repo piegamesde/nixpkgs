@@ -1,4 +1,11 @@
-{ lib, python3, fetchFromGitHub, fetchpatch, espeak-ng, tts }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  fetchpatch,
+  espeak-ng,
+  tts,
+}:
 
 let python = python3.override { packageOverrides = self: super: { }; };
 in python.pkgs.buildPythonApplication rec {

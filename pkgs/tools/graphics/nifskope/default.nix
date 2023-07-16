@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, qmake, qtbase, qttools, substituteAll, libGLU
-, wrapQtAppsHook, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qmake,
+  qtbase,
+  qttools,
+  substituteAll,
+  libGLU,
+  wrapQtAppsHook,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation {
   pname = "nifskope";

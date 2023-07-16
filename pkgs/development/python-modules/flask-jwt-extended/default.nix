@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, cryptography, flask, pyjwt
-, pytestCheckHook, python-dateutil, pythonOlder, werkzeug }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cryptography,
+  flask,
+  pyjwt,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  werkzeug,
+}:
 
 buildPythonPackage rec {
   pname = "flask-jwt-extended";

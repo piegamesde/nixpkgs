@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools-scm, certifi, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  certifi,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "twitter";

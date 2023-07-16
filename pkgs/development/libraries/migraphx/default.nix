@@ -1,7 +1,33 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, pkg-config, cmake, rocm-cmake
-, hip, clang-tools-extra, openmp, rocblas, rocmlir, miopengemm, miopen, protobuf
-, half, nlohmann_json, msgpack, sqlite, oneDNN, blaze, texlive, doxygen, sphinx
-, docutils, ghostscript, python3Packages, buildDocs ? false, buildTests ? false
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  pkg-config,
+  cmake,
+  rocm-cmake,
+  hip,
+  clang-tools-extra,
+  openmp,
+  rocblas,
+  rocmlir,
+  miopengemm,
+  miopen,
+  protobuf,
+  half,
+  nlohmann_json,
+  msgpack,
+  sqlite,
+  oneDNN,
+  blaze,
+  texlive,
+  doxygen,
+  sphinx,
+  docutils,
+  ghostscript,
+  python3Packages,
+  buildDocs ? false,
+  buildTests ? false
 }:
 
 let

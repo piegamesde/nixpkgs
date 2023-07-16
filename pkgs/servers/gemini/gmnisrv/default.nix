@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromSourcehut, pkg-config, openssl, mailcap, scdoc }:
+{
+  stdenv,
+  lib,
+  fetchFromSourcehut,
+  pkg-config,
+  openssl,
+  mailcap,
+  scdoc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gmnisrv";

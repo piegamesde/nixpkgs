@@ -1,7 +1,21 @@
-{ lib, stdenv, fetchurl, pkg-config, gtk3, gtkspell3, isocodes, goocanvas2
-, intltool, itstool, libxml2, gnome, python3, gobject-introspection
-, wrapGAppsHook, tesseract4
-, extraOcrEngines ? [ ] # other supported engines are: ocrad gocr cuneiform
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gtk3,
+  gtkspell3,
+  isocodes,
+  goocanvas2,
+  intltool,
+  itstool,
+  libxml2,
+  gnome,
+  python3,
+  gobject-introspection,
+  wrapGAppsHook,
+  tesseract4,
+  extraOcrEngines ? [ ] # other supported engines are: ocrad gocr cuneiform
 }:
 
 stdenv.mkDerivation rec {

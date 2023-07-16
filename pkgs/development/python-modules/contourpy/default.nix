@@ -1,16 +1,30 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder
 
-# build
-, pybind11, setuptools
+  # build
+  ,
+  pybind11,
+  setuptools
 
-# propagates
-, numpy
+  # propagates
+  ,
+  numpy
 
-# optionals
-, bokeh, chromedriver, selenium
+  # optionals
+  ,
+  bokeh,
+  chromedriver,
+  selenium
 
-# tests
-, matplotlib, pillow, pytestCheckHook }:
+  # tests
+  ,
+  matplotlib,
+  pillow,
+  pytestCheckHook,
+}:
 
 let
   countourpy = buildPythonPackage rec {

@@ -1,4 +1,8 @@
-{ haskell, haskellPackages, lib }:
+{
+  haskell,
+  haskellPackages,
+  lib,
+}:
 
 haskell.lib.compose.justStaticExecutables (haskell.lib.compose.overrideCabal
   (oldAttrs: {

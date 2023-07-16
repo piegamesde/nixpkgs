@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, qtbase, qttools, qtwayland
-, wrapQtAppsHook, gitUpdater }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  qtbase,
+  qttools,
+  qtwayland,
+  wrapQtAppsHook,
+  gitUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pokefinder";

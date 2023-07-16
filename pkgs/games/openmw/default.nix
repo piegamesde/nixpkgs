@@ -1,6 +1,25 @@
-{ lib, stdenv, mkDerivation, fetchFromGitHub, fetchpatch, cmake, pkg-config
-, wrapQtAppsHook, openscenegraph, mygui, bullet, ffmpeg, boost, SDL2, unshield
-, openal, libXt, lz4, recastnavigation, VideoDecodeAcceleration }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  wrapQtAppsHook,
+  openscenegraph,
+  mygui,
+  bullet,
+  ffmpeg,
+  boost,
+  SDL2,
+  unshield,
+  openal,
+  libXt,
+  lz4,
+  recastnavigation,
+  VideoDecodeAcceleration,
+}:
 
 let
   openscenegraph_openmw =

@@ -1,5 +1,16 @@
-{ stdenv, abseil-cpp, absl-py, attrs, buildPythonPackage, cmake, fetchFromGitHub
-, lib, numpy, pybind11, wrapt }:
+{
+  stdenv,
+  abseil-cpp,
+  absl-py,
+  attrs,
+  buildPythonPackage,
+  cmake,
+  fetchFromGitHub,
+  lib,
+  numpy,
+  pybind11,
+  wrapt,
+}:
 
 buildPythonPackage rec {
   pname = "dm-tree";

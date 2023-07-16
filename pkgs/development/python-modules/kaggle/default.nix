@@ -1,5 +1,15 @@
-{ buildPythonPackage, certifi, fetchPypi, lib, python-dateutil, python-slugify
-, six, requests, tqdm, urllib3 }:
+{
+  buildPythonPackage,
+  certifi,
+  fetchPypi,
+  lib,
+  python-dateutil,
+  python-slugify,
+  six,
+  requests,
+  tqdm,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "kaggle";

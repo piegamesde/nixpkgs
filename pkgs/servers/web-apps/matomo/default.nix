@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, makeWrapper, php }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  php,
+}:
 
 let
   versions = {
@@ -16,7 +22,11 @@ let
     };
   };
   common = pname:
-    { version, sha256, beta ? null }:
+    {
+      version,
+      sha256,
+      beta ? null
+    }:
     let
       fullVersion = version
         + lib.optionalString (beta != null) "-${toString beta}";

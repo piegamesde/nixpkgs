@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, distro, fetchFromGitHub, pytestCheckHook, pythonOlder
-, setuptools-scm, setuptools-scm-git-archive }:
+{
+  lib,
+  buildPythonPackage,
+  distro,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+  setuptools-scm-git-archive,
+}:
 
 buildPythonPackage rec {
   pname = "ruyaml";

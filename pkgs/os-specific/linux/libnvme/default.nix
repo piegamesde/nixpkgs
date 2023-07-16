@@ -1,5 +1,18 @@
-{ fetchFromGitHub, json_c, keyutils, lib, meson, ninja, openssl, perl
-, pkg-config, python3, stdenv, swig, systemd }:
+{
+  fetchFromGitHub,
+  json_c,
+  keyutils,
+  lib,
+  meson,
+  ninja,
+  openssl,
+  perl,
+  pkg-config,
+  python3,
+  stdenv,
+  swig,
+  systemd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libnvme";

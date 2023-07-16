@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, SDL, libjack2, libGLU, libGL, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  SDL,
+  libjack2,
+  libGLU,
+  libGL,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jack_oscrolloscope";

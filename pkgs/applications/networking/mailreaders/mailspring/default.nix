@@ -1,6 +1,25 @@
-{ stdenv, lib, fetchurl, autoPatchelfHook, alsa-lib, coreutils, db, dpkg, glib
-, gtk3, wrapGAppsHook, libkrb5, libsecret, nss, openssl, udev, xorg, mesa
-, libdrm, libappindicator }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+  alsa-lib,
+  coreutils,
+  db,
+  dpkg,
+  glib,
+  gtk3,
+  wrapGAppsHook,
+  libkrb5,
+  libsecret,
+  nss,
+  openssl,
+  udev,
+  xorg,
+  mesa,
+  libdrm,
+  libappindicator,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mailspring";

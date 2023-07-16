@@ -1,4 +1,7 @@
-{ trivialBuild, haskellPackages }:
+{
+  trivialBuild,
+  haskellPackages,
+}:
 
 trivialBuild rec {
   pname = "agda-mode";

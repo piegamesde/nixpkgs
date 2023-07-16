@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, colorama }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  colorama,
+}:
 
 buildPythonPackage rec {
   pname = "migen";

@@ -1,24 +1,72 @@
-{ stdenv, lib, pkg-config, fetchFromGitLab, gitUpdater, ffmpeg_5
+{
+  stdenv,
+  lib,
+  pkg-config,
+  fetchFromGitLab,
+  gitUpdater,
+  ffmpeg_5
 
-# for daemon
-, autoreconfHook, perl # for pod2man
-, alsa-lib, asio, dbus, dbus_cplusplus, fmt, gmp, gnutls, http-parser, jack
-, jsoncpp, libarchive, libgit2, libnatpmp, libpulseaudio, libupnp, yaml-cpp
-, msgpack, openssl, restinio, secp256k1, speex, udev, webrtc-audio-processing
-, zlib
+  # for daemon
+  ,
+  autoreconfHook,
+  perl # for pod2man
+  ,
+  alsa-lib,
+  asio,
+  dbus,
+  dbus_cplusplus,
+  fmt,
+  gmp,
+  gnutls,
+  http-parser,
+  jack,
+  jsoncpp,
+  libarchive,
+  libgit2,
+  libnatpmp,
+  libpulseaudio,
+  libupnp,
+  yaml-cpp,
+  msgpack,
+  openssl,
+  restinio,
+  secp256k1,
+  speex,
+  udev,
+  webrtc-audio-processing,
+  zlib
 
-# for client
-, cmake, networkmanager # for libnm
-, python3, qttools # for translations
-, wrapQtAppsHook, libnotify, qt5compat, qtbase, qtdeclarative, qrencode
-, qtmultimedia, qtnetworkauth, qtpositioning, qtsvg, qtwebengine, qtwebchannel
-, withWebengine ? true
+  # for client
+  ,
+  cmake,
+  networkmanager # for libnm
+  ,
+  python3,
+  qttools # for translations
+  ,
+  wrapQtAppsHook,
+  libnotify,
+  qt5compat,
+  qtbase,
+  qtdeclarative,
+  qrencode,
+  qtmultimedia,
+  qtnetworkauth,
+  qtpositioning,
+  qtsvg,
+  qtwebengine,
+  qtwebchannel,
+  withWebengine ? true
 
-  # for pjsip
-, fetchFromGitHub, pjsip
+    # for pjsip
+  ,
+  fetchFromGitHub,
+  pjsip
 
-# for opendht
-, opendht }:
+  # for opendht
+  ,
+  opendht,
+}:
 
 let
   readLinesToList = with builtins;

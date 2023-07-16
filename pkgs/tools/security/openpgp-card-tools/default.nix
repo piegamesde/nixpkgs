@@ -1,5 +1,15 @@
-{ lib, stdenv, rustPlatform, fetchCrate, pkg-config, pcsclite, nettle, PCSC
-, testers, openpgp-card-tools }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchCrate,
+  pkg-config,
+  pcsclite,
+  nettle,
+  PCSC,
+  testers,
+  openpgp-card-tools,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "openpgp-card-tools";

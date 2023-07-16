@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitLab, makeWrapper, ocamlPackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  makeWrapper,
+  ocamlPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "heptagon";

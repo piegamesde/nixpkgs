@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, pkg-config, jansson, openssl }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  jansson,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libjwt";

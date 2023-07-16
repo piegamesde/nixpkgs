@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, glib, mpv-unwrapped }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  glib,
+  mpv-unwrapped,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mpv-mpris";

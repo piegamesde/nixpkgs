@@ -1,5 +1,18 @@
-{ lib, python, buildPythonPackage, fetchFromGitHub, cython, pybind11, tiledb
-, numpy, wheel, isPy3k, setuptools-scm, psutil, pandas }:
+{
+  lib,
+  python,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cython,
+  pybind11,
+  tiledb,
+  numpy,
+  wheel,
+  isPy3k,
+  setuptools-scm,
+  psutil,
+  pandas,
+}:
 
 buildPythonPackage rec {
   pname = "tiledb";

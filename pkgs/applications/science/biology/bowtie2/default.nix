@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, tbb, zlib, python3, perl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  tbb,
+  zlib,
+  python3,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bowtie2";

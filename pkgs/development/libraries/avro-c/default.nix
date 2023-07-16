@@ -1,4 +1,14 @@
-{ lib, stdenv, cmake, fetchurl, pkg-config, jansson, snappy, xz, zlib }:
+{
+  lib,
+  stdenv,
+  cmake,
+  fetchurl,
+  pkg-config,
+  jansson,
+  snappy,
+  xz,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "avro-c";

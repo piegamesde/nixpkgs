@@ -1,4 +1,9 @@
-{ callPackage, fetchFromGitLab, fetchurl, darwin }:
+{
+  callPackage,
+  fetchFromGitLab,
+  fetchurl,
+  darwin,
+}:
 let
   common = opts:
     callPackage (import ./common.nix opts) {

@@ -1,5 +1,19 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytestCheckHook, arviz
-, blackjax, formulae, graphviz, numpy, numpyro, pandas, pymc, scipy }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pytestCheckHook,
+  arviz,
+  blackjax,
+  formulae,
+  graphviz,
+  numpy,
+  numpyro,
+  pandas,
+  pymc,
+  scipy,
+}:
 
 buildPythonPackage rec {
   pname = "bambi";

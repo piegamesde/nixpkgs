@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, cmake, nixosTests, alsa-lib, SDL2, libiconv
-, CoreAudio, CoreMIDI, CoreServices, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  nixosTests,
+  alsa-lib,
+  SDL2,
+  libiconv,
+  CoreAudio,
+  CoreMIDI,
+  CoreServices,
+  Cocoa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ft2-clone";

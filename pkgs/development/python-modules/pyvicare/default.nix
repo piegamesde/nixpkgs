@@ -1,5 +1,13 @@
-{ lib, authlib, buildPythonPackage, fetchFromGitHub, pkce, pytestCheckHook
-, pythonOlder, simplejson }:
+{
+  lib,
+  authlib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pkce,
+  pytestCheckHook,
+  pythonOlder,
+  simplejson,
+}:
 
 buildPythonPackage rec {
   pname = "pyvicare";

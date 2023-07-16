@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, perl, openldap, pam, db, cyrus_sasl, libcap, expat
-, libxml2, openssl, pkg-config, systemd, cppunit }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  openldap,
+  pam,
+  db,
+  cyrus_sasl,
+  libcap,
+  expat,
+  libxml2,
+  openssl,
+  pkg-config,
+  systemd,
+  cppunit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "squid";

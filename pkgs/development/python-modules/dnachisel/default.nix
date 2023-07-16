@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, fetchFromGitHub, biopython, docopt, flametree, numpy
-, proglog, pytestCheckHook, python-codon-tables, primer3, genome-collector
-, matplotlib }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  biopython,
+  docopt,
+  flametree,
+  numpy,
+  proglog,
+  pytestCheckHook,
+  python-codon-tables,
+  primer3,
+  genome-collector,
+  matplotlib,
+}:
 
 buildPythonPackage rec {
   pname = "dnachisel";

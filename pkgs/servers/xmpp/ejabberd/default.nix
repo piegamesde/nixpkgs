@@ -1,9 +1,39 @@
-{ stdenv, writeScriptBin, makeWrapper, lib, fetchurl, git, cacert, libpng
-, libjpeg, libwebp, erlang, openssl, expat, libyaml, bash, gnused, gnugrep
-, coreutils, util-linux, procps, gd, flock, autoreconfHook, nixosTests
-, withMysql ? false, withPgsql ? false, withSqlite ? false, sqlite
-, withPam ? false, pam, withZlib ? true, zlib, withTools ? false
-, withRedis ? false }:
+{
+  stdenv,
+  writeScriptBin,
+  makeWrapper,
+  lib,
+  fetchurl,
+  git,
+  cacert,
+  libpng,
+  libjpeg,
+  libwebp,
+  erlang,
+  openssl,
+  expat,
+  libyaml,
+  bash,
+  gnused,
+  gnugrep,
+  coreutils,
+  util-linux,
+  procps,
+  gd,
+  flock,
+  autoreconfHook,
+  nixosTests,
+  withMysql ? false,
+  withPgsql ? false,
+  withSqlite ? false,
+  sqlite,
+  withPam ? false,
+  pam,
+  withZlib ? true,
+  zlib,
+  withTools ? false,
+  withRedis ? false
+}:
 
 let
   ctlpath = lib.makeBinPath [ bash gnused gnugrep coreutils util-linux procps ];

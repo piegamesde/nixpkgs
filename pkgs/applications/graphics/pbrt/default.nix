@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, flex, bison, cmake, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  flex,
+  bison,
+  cmake,
+  zlib,
+}:
 
 stdenv.mkDerivation {
   version = "2018-08-15";

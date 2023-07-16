@@ -1,6 +1,22 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, substituteAll, hatchling
-, ipykernel, ipython, jupyter-client, jupyter-core, prompt-toolkit, pygments
-, pyzmq, traitlets, flaky, pexpect, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  substituteAll,
+  hatchling,
+  ipykernel,
+  ipython,
+  jupyter-client,
+  jupyter-core,
+  prompt-toolkit,
+  pygments,
+  pyzmq,
+  traitlets,
+  flaky,
+  pexpect,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "jupyter_console";

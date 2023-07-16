@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, kernel, runtimeShell }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  kernel,
+  runtimeShell,
+}:
 
 let
   baseName = "bbswitch";

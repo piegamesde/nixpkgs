@@ -1,7 +1,28 @@
-{ lib, autopep8, buildPythonPackage, django, factory_boy, fetchFromGitHub
-, fetchpatch, freezegun, gprof2dot, jinja2, mock, networkx, pillow, pydot
-, pygments, python, python-dateutil, pythonOlder, pytz, requests, setuptools-scm
-, simplejson, sqlparse }:
+{
+  lib,
+  autopep8,
+  buildPythonPackage,
+  django,
+  factory_boy,
+  fetchFromGitHub,
+  fetchpatch,
+  freezegun,
+  gprof2dot,
+  jinja2,
+  mock,
+  networkx,
+  pillow,
+  pydot,
+  pygments,
+  python,
+  python-dateutil,
+  pythonOlder,
+  pytz,
+  requests,
+  setuptools-scm,
+  simplejson,
+  sqlparse,
+}:
 
 buildPythonPackage rec {
   pname = "django-silk";

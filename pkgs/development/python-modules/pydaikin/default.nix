@@ -1,5 +1,15 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromBitbucket, freezegun, netifaces
-, pytest-aiohttp, pytestCheckHook, pythonOlder, urllib3 }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromBitbucket,
+  freezegun,
+  netifaces,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "pydaikin";

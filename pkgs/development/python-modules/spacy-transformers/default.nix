@@ -1,5 +1,16 @@
-{ lib, callPackage, fetchPypi, buildPythonPackage, pythonRelaxDepsHook, torch
-, pythonOlder, spacy, spacy-alignments, srsly, transformers }:
+{
+  lib,
+  callPackage,
+  fetchPypi,
+  buildPythonPackage,
+  pythonRelaxDepsHook,
+  torch,
+  pythonOlder,
+  spacy,
+  spacy-alignments,
+  srsly,
+  transformers,
+}:
 
 buildPythonPackage rec {
   pname = "spacy-transformers";

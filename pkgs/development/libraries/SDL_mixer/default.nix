@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchurl, SDL, libogg, libvorbis, smpeg, libmikmod, fluidsynth
-, pkg-config, enableNativeMidi ? false }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  SDL,
+  libogg,
+  libvorbis,
+  smpeg,
+  libmikmod,
+  fluidsynth,
+  pkg-config,
+  enableNativeMidi ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "SDL_mixer";

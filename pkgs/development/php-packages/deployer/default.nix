@@ -1,4 +1,11 @@
-{ mkDerivation, fetchurl, makeWrapper, installShellFiles, lib, php }:
+{
+  mkDerivation,
+  fetchurl,
+  makeWrapper,
+  installShellFiles,
+  lib,
+  php,
+}:
 
 mkDerivation rec {
   pname = "deployer";

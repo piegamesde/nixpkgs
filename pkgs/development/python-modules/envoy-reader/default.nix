@@ -1,6 +1,18 @@
-{ lib, beautifulsoup4, buildPythonPackage, envoy-utils, fetchFromGitHub
-, fetchpatch, httpx, pyjwt, pytest-asyncio, pytestCheckHook, pytest-raises
-, pythonOlder, respx }:
+{
+  lib,
+  beautifulsoup4,
+  buildPythonPackage,
+  envoy-utils,
+  fetchFromGitHub,
+  fetchpatch,
+  httpx,
+  pyjwt,
+  pytest-asyncio,
+  pytestCheckHook,
+  pytest-raises,
+  pythonOlder,
+  respx,
+}:
 
 buildPythonPackage rec {
   pname = "envoy-reader";

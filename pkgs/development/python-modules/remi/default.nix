@@ -1,5 +1,13 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, matplotlib
-, python-snap7, opencv4 }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  matplotlib,
+  python-snap7,
+  opencv4,
+}:
 
 buildPythonPackage rec {
   pname = "remi";

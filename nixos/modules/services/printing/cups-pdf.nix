@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
 
@@ -78,48 +83,52 @@ let
     };
   };
 
-  instanceConfig = { name, config, ... }: {
-    options = {
-      enable = (lib.mkEnableOption (lib.mdDoc "this cups-pdf instance")) // {
-        default = true;
-      };
-      installPrinter = (lib.mkEnableOption (lib.mdDoc ''
-        a CUPS printer queue for this instance.
-        The queue will be named after the instance and will use the {file}`CUPS-PDF_opt.ppd` ppd file.
-        If this is disabled, you need to add the queue yourself to use the instance
-      '')) // {
-        default = true;
-      };
-      confFileText = lib.mkOption {
-        type = lib.types.lines;
-        description = lib.mdDoc ''
-          This will contain the contents of {file}`cups-pdf.conf` for this instance, derived from {option}`settings`.
-          You can use this option to append text to the file.
-        '';
-      };
-      settings = lib.mkOption {
-        type = lib.types.submodule (instanceSettings name);
-        default = { };
-        example = {
-          Out = "\${HOME}/cups-pdf";
-          UserUMask = "0033";
+  instanceConfig = {
+      name,
+      config,
+      ...
+    }: {
+      options = {
+        enable = (lib.mkEnableOption (lib.mdDoc "this cups-pdf instance")) // {
+          default = true;
         };
-        description = lib.mdDoc ''
-          Settings for a cups-pdf instance, see the descriptions in the template config file in the cups-pdf package.
-          The key value pairs declared here will be translated into proper key value pairs for {file}`cups-pdf.conf`.
-          Setting a value to `null` disables the option and removes it from the file.
-        '';
+        installPrinter = (lib.mkEnableOption (lib.mdDoc ''
+          a CUPS printer queue for this instance.
+          The queue will be named after the instance and will use the {file}`CUPS-PDF_opt.ppd` ppd file.
+          If this is disabled, you need to add the queue yourself to use the instance
+        '')) // {
+          default = true;
+        };
+        confFileText = lib.mkOption {
+          type = lib.types.lines;
+          description = lib.mdDoc ''
+            This will contain the contents of {file}`cups-pdf.conf` for this instance, derived from {option}`settings`.
+            You can use this option to append text to the file.
+          '';
+        };
+        settings = lib.mkOption {
+          type = lib.types.submodule (instanceSettings name);
+          default = { };
+          example = {
+            Out = "\${HOME}/cups-pdf";
+            UserUMask = "0033";
+          };
+          description = lib.mdDoc ''
+            Settings for a cups-pdf instance, see the descriptions in the template config file in the cups-pdf package.
+            The key value pairs declared here will be translated into proper key value pairs for {file}`cups-pdf.conf`.
+            Setting a value to `null` disables the option and removes it from the file.
+          '';
+        };
       };
+      config.confFileText = lib.pipe config.settings [
+        (lib.filterAttrs (key: value: value != null))
+        (lib.mapAttrs (key: builtins.toString))
+        (lib.mapAttrsToList (key: value: ''
+          ${key} ${value}
+        ''))
+        lib.concatStrings
+      ];
     };
-    config.confFileText = lib.pipe config.settings [
-      (lib.filterAttrs (key: value: value != null))
-      (lib.mapAttrs (key: builtins.toString))
-      (lib.mapAttrsToList (key: value: ''
-        ${key} ${value}
-      ''))
-      lib.concatStrings
-    ];
-  };
 
   cupsPdfCfg = config.services.printing.cups-pdf;
 

@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, darwin, bison, flex, zlib, libxcrypt
-, usePAM ? stdenv.hostPlatform.isLinux, pam, useSSL ? true, openssl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  darwin,
+  bison,
+  flex,
+  zlib,
+  libxcrypt,
+  usePAM ? stdenv.hostPlatform.isLinux,
+  pam,
+  useSSL ? true,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "monit";

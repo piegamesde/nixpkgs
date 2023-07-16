@@ -1,5 +1,13 @@
-{ lib, stdenv, makeWrapper, binutils-unwrapped, cctools, llvm, clang-unwrapped
-, dualAs ? false }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  binutils-unwrapped,
+  cctools,
+  llvm,
+  clang-unwrapped,
+  dualAs ? false
+}:
 
 # Make sure both underlying packages claim to have prepended their binaries
 # with the same targetPrefix.

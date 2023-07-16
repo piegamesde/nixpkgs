@@ -1,6 +1,26 @@
-{ lib, overrideCC, stdenv, fetchurl, fetchFromGitHub, cctools, sigtool, cereal
-, libcxx, glslang, spirv-cross, spirv-headers, spirv-tools, vulkan-headers
-, xcbuild, AppKit, Foundation, Libsystem, MacOSX-SDK, Metal, QuartzCore }:
+{
+  lib,
+  overrideCC,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  cctools,
+  sigtool,
+  cereal,
+  libcxx,
+  glslang,
+  spirv-cross,
+  spirv-headers,
+  spirv-tools,
+  vulkan-headers,
+  xcbuild,
+  AppKit,
+  Foundation,
+  Libsystem,
+  MacOSX-SDK,
+  Metal,
+  QuartzCore,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "MoltenVK";

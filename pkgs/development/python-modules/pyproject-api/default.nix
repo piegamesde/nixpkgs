@@ -1,16 +1,34 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder
 
-# build time
-, hatchling, hatch-vcs, setuptools-scm
+  # build time
+  ,
+  hatchling,
+  hatch-vcs,
+  setuptools-scm
 
-# runtime
-, packaging, toml, tomli
+  # runtime
+  ,
+  packaging,
+  toml,
+  tomli
 
-# docs
-, sphinxHook, furo, sphinx-autodoc-typehints
+  # docs
+  ,
+  sphinxHook,
+  furo,
+  sphinx-autodoc-typehints
 
-# tests
-, pytest-mock, pytestCheckHook, virtualenv, wheel }:
+  # tests
+  ,
+  pytest-mock,
+  pytestCheckHook,
+  virtualenv,
+  wheel,
+}:
 
 buildPythonPackage rec {
   pname = "pyproject-api";

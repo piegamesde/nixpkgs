@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, hypothesis, mypy
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  hypothesis,
+  mypy,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "algebraic-data-types";

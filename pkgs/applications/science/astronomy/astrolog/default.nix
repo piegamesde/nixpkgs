@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchzip, fetchurl, xorg, withBigAtlas ? true
-, withEphemeris ? true, withMoonsEphemeris ? true }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  fetchurl,
+  xorg,
+  withBigAtlas ? true,
+  withEphemeris ? true,
+  withMoonsEphemeris ? true
+}:
 stdenv.mkDerivation rec {
   pname = "astrolog";
   version = "7.30";

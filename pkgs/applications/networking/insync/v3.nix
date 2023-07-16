@@ -1,6 +1,23 @@
-{ stdenv, lib, fetchurl, makeWrapper, dpkg, libxcb, libGL, nss, libthai, wayland
-, alsa-lib, qtvirtualkeyboard, qtwebchannel, qtwebsockets, qtlocation
-, qtwebengine, autoPatchelfHook, wrapQtAppsHook }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  makeWrapper,
+  dpkg,
+  libxcb,
+  libGL,
+  nss,
+  libthai,
+  wayland,
+  alsa-lib,
+  qtvirtualkeyboard,
+  qtwebchannel,
+  qtwebsockets,
+  qtlocation,
+  qtwebengine,
+  autoPatchelfHook,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "insync";

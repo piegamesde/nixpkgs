@@ -1,4 +1,8 @@
-{ stdenv, clonehero-unwrapped, writeScript }:
+{
+  stdenv,
+  clonehero-unwrapped,
+  writeScript,
+}:
 
 # Clone Hero doesn't have an installer, so it just stores configuration & data relative to the binary.
 # This wrapper works around that limitation, storing game configuration & data in XDG_CONFIG_HOME.

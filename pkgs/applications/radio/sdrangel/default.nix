@@ -1,10 +1,53 @@
-{ lib, stdenv, airspy, airspyhf, aptdec, boost, cm256cc, cmake, codec2, dab_lib
-, dsdcc, faad2, fetchFromGitHub, fftwFloat, glew, hackrf, hidapi, ffmpeg, libiio
-, libopus, libpulseaudio, libusb1, limesuite, libbladeRF, mbelib, ninja, ocl-icd
-, opencv3, pkg-config, qtcharts, qtdeclarative, qtgraphicaleffects, qtlocation
-, qtmultimedia, qtquickcontrols, qtquickcontrols2, qtserialport, qtspeech
-, qttools, qtwebsockets, qtwebengine, rtl-sdr, serialdv, sgp4
-, soapysdr-with-plugins, uhd, wrapQtAppsHook, zlib }:
+{
+  lib,
+  stdenv,
+  airspy,
+  airspyhf,
+  aptdec,
+  boost,
+  cm256cc,
+  cmake,
+  codec2,
+  dab_lib,
+  dsdcc,
+  faad2,
+  fetchFromGitHub,
+  fftwFloat,
+  glew,
+  hackrf,
+  hidapi,
+  ffmpeg,
+  libiio,
+  libopus,
+  libpulseaudio,
+  libusb1,
+  limesuite,
+  libbladeRF,
+  mbelib,
+  ninja,
+  ocl-icd,
+  opencv3,
+  pkg-config,
+  qtcharts,
+  qtdeclarative,
+  qtgraphicaleffects,
+  qtlocation,
+  qtmultimedia,
+  qtquickcontrols,
+  qtquickcontrols2,
+  qtserialport,
+  qtspeech,
+  qttools,
+  qtwebsockets,
+  qtwebengine,
+  rtl-sdr,
+  serialdv,
+  sgp4,
+  soapysdr-with-plugins,
+  uhd,
+  wrapQtAppsHook,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sdrangel";

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, attrs, pytest-benchmark, pytestCheckHook
-, setuptools-scm, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  attrs,
+  pytest-benchmark,
+  pytestCheckHook,
+  setuptools-scm,
+  six,
+}:
 
 let
   automat = buildPythonPackage rec {

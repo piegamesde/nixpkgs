@@ -1,5 +1,20 @@
-{ lib, fetchurl, buildDunePackage, alcotest, dedukti, bindlib, camlp-streams
-, cmdliner, menhir, pratter, sedlex, stdlib-shims, timed, why3, yojson }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  alcotest,
+  dedukti,
+  bindlib,
+  camlp-streams,
+  cmdliner,
+  menhir,
+  pratter,
+  sedlex,
+  stdlib-shims,
+  timed,
+  why3,
+  yojson,
+}:
 
 buildDunePackage rec {
   pname = "lambdapi";

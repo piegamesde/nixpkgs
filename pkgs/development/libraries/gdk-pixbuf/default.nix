@@ -1,8 +1,28 @@
-{ stdenv, fetchurl, nixosTests, fixDarwinDylibNames, meson, ninja, pkg-config
-, gettext, python3, docutils, gi-docgen, glib, libtiff, libjpeg, libpng, gnome
-, doCheck ? false, makeWrapper, lib, testers, buildPackages
-, withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
-, gobject-introspection }:
+{
+  stdenv,
+  fetchurl,
+  nixosTests,
+  fixDarwinDylibNames,
+  meson,
+  ninja,
+  pkg-config,
+  gettext,
+  python3,
+  docutils,
+  gi-docgen,
+  glib,
+  libtiff,
+  libjpeg,
+  libpng,
+  gnome,
+  doCheck ? false,
+  makeWrapper,
+  lib,
+  testers,
+  buildPackages,
+  withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages,
+  gobject-introspection,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gdk-pixbuf";

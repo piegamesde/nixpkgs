@@ -1,5 +1,13 @@
-{ config, lib, pkgs, fetchFromGitHub, rustPlatform, pkg-config, lz4
-, libxkbcommon }:
+{
+  config,
+  lib,
+  pkgs,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  lz4,
+  libxkbcommon,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "swww";
   version = "0.7.3";

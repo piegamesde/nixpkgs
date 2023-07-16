@@ -1,4 +1,11 @@
-{ lib, attrs, buildPythonPackage, fetchFromGitHub, voluptuous, pythonOlder }:
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  fetchFromGitHub,
+  voluptuous,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "hatasmota";

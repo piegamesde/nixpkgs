@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, openssl, rustPlatform, libiconv
-, Security, makeWrapper, bash }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  rustPlatform,
+  libiconv,
+  Security,
+  makeWrapper,
+  bash,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "websocat";

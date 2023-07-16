@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, packaging, setuptools-scm, shapely
-, sqlalchemy, alembic, psycopg2, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  packaging,
+  setuptools-scm,
+  shapely,
+  sqlalchemy,
+  alembic,
+  psycopg2,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "geoalchemy2";

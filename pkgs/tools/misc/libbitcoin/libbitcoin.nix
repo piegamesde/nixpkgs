@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, boost, secp256k1 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+  boost,
+  secp256k1,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libbitcoin";

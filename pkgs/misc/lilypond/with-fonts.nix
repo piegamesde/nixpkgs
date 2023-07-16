@@ -1,4 +1,10 @@
-{ lib, symlinkJoin, makeWrapper, lilypond, openlilylib-fonts }:
+{
+  lib,
+  symlinkJoin,
+  makeWrapper,
+  lilypond,
+  openlilylib-fonts,
+}:
 
 lib.appendToName "with-fonts" (symlinkJoin {
   inherit (lilypond) meta name version;

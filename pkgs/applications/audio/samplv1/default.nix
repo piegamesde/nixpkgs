@@ -1,5 +1,17 @@
-{ mkDerivation, lib, fetchurl, pkg-config, libjack2, alsa-lib, liblo, libsndfile
-, lv2, qtbase, qttools, rubberband }:
+{
+  mkDerivation,
+  lib,
+  fetchurl,
+  pkg-config,
+  libjack2,
+  alsa-lib,
+  liblo,
+  libsndfile,
+  lv2,
+  qtbase,
+  qttools,
+  rubberband,
+}:
 
 mkDerivation rec {
   pname = "samplv1";

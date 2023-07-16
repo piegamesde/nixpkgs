@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, validatePkgConfig, postgresql, sqlite }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  validatePkgConfig,
+  postgresql,
+  sqlite,
+}:
 
 stdenv.mkDerivation rec {
   pname = "virtualpg";

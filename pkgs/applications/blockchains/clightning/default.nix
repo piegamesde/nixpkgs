@@ -1,5 +1,23 @@
-{ lib, stdenv, darwin, fetchurl, autoconf, autogen, automake, gettext, libtool
-, lowdown, protobuf, unzip, which, gmp, libsodium, python3, sqlite, zlib }:
+{
+  lib,
+  stdenv,
+  darwin,
+  fetchurl,
+  autoconf,
+  autogen,
+  automake,
+  gettext,
+  libtool,
+  lowdown,
+  protobuf,
+  unzip,
+  which,
+  gmp,
+  libsodium,
+  python3,
+  sqlite,
+  zlib,
+}:
 let py3 = python3.withPackages (p: [ p.mako ]);
 in stdenv.mkDerivation rec {
   pname = "clightning";

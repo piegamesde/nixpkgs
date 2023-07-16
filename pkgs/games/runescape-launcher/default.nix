@@ -1,7 +1,30 @@
-{ stdenv, lib, autoPatchelfHook, buildFHSEnv, cairo, dpkg, fetchurl
-, gcc-unwrapped, glib, glibc, gnome2, gtk2-x11, libGL, libpulseaudio, libSM
-, libXxf86vm, libX11, openssl_1_1, pango, SDL2, wrapGAppsHook, xdg-utils, xorg
-, xorg_sys_opengl, zlib }:
+{
+  stdenv,
+  lib,
+  autoPatchelfHook,
+  buildFHSEnv,
+  cairo,
+  dpkg,
+  fetchurl,
+  gcc-unwrapped,
+  glib,
+  glibc,
+  gnome2,
+  gtk2-x11,
+  libGL,
+  libpulseaudio,
+  libSM,
+  libXxf86vm,
+  libX11,
+  openssl_1_1,
+  pango,
+  SDL2,
+  wrapGAppsHook,
+  xdg-utils,
+  xorg,
+  xorg_sys_opengl,
+  zlib,
+}:
 let
 
   runescape = stdenv.mkDerivation rec {

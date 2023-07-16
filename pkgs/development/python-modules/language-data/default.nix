@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, marisa-trie, poetry-core
-, pythonOlder, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  marisa-trie,
+  poetry-core,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "language-data";

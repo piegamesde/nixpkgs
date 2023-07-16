@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, cairocffi, cssselect2, defusedxml
-, pillow, tinycss2, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  cairocffi,
+  cssselect2,
+  defusedxml,
+  pillow,
+  tinycss2,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "CairoSVG";

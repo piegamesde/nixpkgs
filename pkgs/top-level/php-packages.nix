@@ -1,9 +1,53 @@
-{ stdenv, lib, pkgs, fetchgit, phpPackage, autoconf, pkg-config, aspell, bzip2
-, curl, cyrus_sasl, enchant2, fetchpatch, freetds, freetype, gd, gettext, gmp
-, html-tidy, icu64, libXpm, libffi, libiconv, libjpeg, libkrb5, libpng
-, libsodium, libwebp, libxml2, libxslt, libzip, net-snmp, nix-update-script
-, oniguruma, openldap, openssl_1_1, openssl, pam, pcre2, postgresql, re2c
-, readline, rsync, sqlite, unixODBC, uwimap, valgrind, zlib }:
+{
+  stdenv,
+  lib,
+  pkgs,
+  fetchgit,
+  phpPackage,
+  autoconf,
+  pkg-config,
+  aspell,
+  bzip2,
+  curl,
+  cyrus_sasl,
+  enchant2,
+  fetchpatch,
+  freetds,
+  freetype,
+  gd,
+  gettext,
+  gmp,
+  html-tidy,
+  icu64,
+  libXpm,
+  libffi,
+  libiconv,
+  libjpeg,
+  libkrb5,
+  libpng,
+  libsodium,
+  libwebp,
+  libxml2,
+  libxslt,
+  libzip,
+  net-snmp,
+  nix-update-script,
+  oniguruma,
+  openldap,
+  openssl_1_1,
+  openssl,
+  pam,
+  pcre2,
+  postgresql,
+  re2c,
+  readline,
+  rsync,
+  sqlite,
+  unixODBC,
+  uwimap,
+  valgrind,
+  zlib,
+}:
 
 lib.makeScope pkgs.newScope (self:
   with self; {
@@ -36,10 +80,17 @@ lib.makeScope pkgs.newScope (self:
     #
     # Build inputs is used for extra deps that may be needed. And zendExtension
     # will mark the extension as a zend extension or not.
-    mkExtension = lib.makeOverridable ({ name
-      , configureFlags ? [ "--enable-${extName}" ], internalDeps ? [ ]
-      , postPhpize ? "", buildInputs ? [ ], zendExtension ? false
-      , doCheck ? true, extName ? name, ... }@args:
+    mkExtension = lib.makeOverridable ({
+        name,
+        configureFlags ? [ "--enable-${extName}" ],
+        internalDeps ? [ ],
+        postPhpize ? "",
+        buildInputs ? [ ],
+        zendExtension ? false,
+        doCheck ? true,
+        extName ? name,
+        ...
+      }@args:
       stdenv.mkDerivation ((builtins.removeAttrs args [ "name" ]) // {
         pname = "php-${name}";
         extensionName = extName;

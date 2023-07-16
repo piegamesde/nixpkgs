@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ninja, automaticcomponenttoolkit
-, pkg-config, libzip, gtest, openssl, libuuid, libossp_uuid }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  automaticcomponenttoolkit,
+  pkg-config,
+  libzip,
+  gtest,
+  openssl,
+  libuuid,
+  libossp_uuid,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lib3mf";

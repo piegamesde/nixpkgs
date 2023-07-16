@@ -1,5 +1,12 @@
-{ lib, buildPythonApplication, fetchFromGitHub, bencoder, pyyaml, requests
-, setuptools }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  bencoder,
+  pyyaml,
+  requests,
+  setuptools,
+}:
 buildPythonApplication rec {
   pname = "gazelle-origin";
   version = "3.0.0";

@@ -1,4 +1,10 @@
-{ lib, python3, fetchFromGitHub, fetchpatch, wrapQtAppsHook }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  fetchpatch,
+  wrapQtAppsHook,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "sasview";

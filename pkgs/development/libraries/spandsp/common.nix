@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, audiofile, libtiff, buildPackages, fetchpatch
-, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  audiofile,
+  libtiff,
+  buildPackages,
+  fetchpatch,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "spandsp";

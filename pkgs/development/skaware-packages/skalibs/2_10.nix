@@ -1,4 +1,6 @@
-{ skawarePackages }:
+{
+  skawarePackages,
+}:
 
 skawarePackages.buildPackage {
   pname = "skalibs";

@@ -1,9 +1,39 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, pkg-config
-, cracklib, lmdb, json_c, linux-pam, libevent, libxcrypt, nspr, nss, openldap
-, withOpenldap ? true, db, withBdb ? true, cyrus_sasl, icu, net-snmp
-, withNetSnmp ? true, krb5, pcre2, python3, rustPlatform, openssl
-, withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd, zlib
-, rsync, withCockpit ? true, withAsan ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  libtool,
+  pkg-config,
+  cracklib,
+  lmdb,
+  json_c,
+  linux-pam,
+  libevent,
+  libxcrypt,
+  nspr,
+  nss,
+  openldap,
+  withOpenldap ? true,
+  db,
+  withBdb ? true,
+  cyrus_sasl,
+  icu,
+  net-snmp,
+  withNetSnmp ? true,
+  krb5,
+  pcre2,
+  python3,
+  rustPlatform,
+  openssl,
+  withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
+  systemd,
+  zlib,
+  rsync,
+  withCockpit ? true,
+  withAsan ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "389-ds-base";

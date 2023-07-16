@@ -1,7 +1,29 @@
-{ lib, copyDesktopItems, fetchFromGitHub, makeDesktopItem, stdenv, alsa-lib
-, gcc-unwrapped, git, godot-export-templates, godot-headless, libGLU, libX11
-, libXcursor, libXext, libXfixes, libXi, libXinerama, libXrandr, libXrender
-, libglvnd, libpulseaudio, perl, zlib, udev # for libudev
+{
+  lib,
+  copyDesktopItems,
+  fetchFromGitHub,
+  makeDesktopItem,
+  stdenv,
+  alsa-lib,
+  gcc-unwrapped,
+  git,
+  godot-export-templates,
+  godot-headless,
+  libGLU,
+  libX11,
+  libXcursor,
+  libXext,
+  libXfixes,
+  libXi,
+  libXinerama,
+  libXrandr,
+  libXrender,
+  libglvnd,
+  libpulseaudio,
+  perl,
+  zlib,
+  udev # for libudev
+  ,
 }:
 
 stdenv.mkDerivation rec {

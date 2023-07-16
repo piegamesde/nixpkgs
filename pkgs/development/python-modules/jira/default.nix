@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, fetchFromGitHub, defusedxml, flaky, keyring
-, requests-mock, requests-oauthlib, requests-toolbelt, setuptools-scm
-, setuptools-scm-git-archive, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  defusedxml,
+  flaky,
+  keyring,
+  requests-mock,
+  requests-oauthlib,
+  requests-toolbelt,
+  setuptools-scm,
+  setuptools-scm-git-archive,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "jira";

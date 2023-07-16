@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, glib, gtk2, popt, babeltrace }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  glib,
+  gtk2,
+  popt,
+  babeltrace,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lttv";

@@ -1,4 +1,8 @@
-{ pkgs, makeInstalledTest, ... }:
+{
+  pkgs,
+  makeInstalledTest,
+  ...
+}:
 
 makeInstalledTest {
   tested = pkgs.libsForQt5.appstream-qt;

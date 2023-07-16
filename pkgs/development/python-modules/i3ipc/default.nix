@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, xorgserver, pytest, pytest-xvfb, i3
-, xlib, xdpyinfo, makeFontsConf, coreutils }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  xorgserver,
+  pytest,
+  pytest-xvfb,
+  i3,
+  xlib,
+  xdpyinfo,
+  makeFontsConf,
+  coreutils,
+}:
 
 buildPythonPackage rec {
   pname = "i3ipc";

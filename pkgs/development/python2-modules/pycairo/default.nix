@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, meson, ninja, buildPythonPackage, pytest, pkg-config
-, cairo, python }:
+{
+  lib,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  buildPythonPackage,
+  pytest,
+  pkg-config,
+  cairo,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "pycairo";

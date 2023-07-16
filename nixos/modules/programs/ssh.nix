@@ -1,6 +1,11 @@
 # Global configuration for the SSH client.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -144,67 +149,72 @@ in {
 
       knownHosts = mkOption {
         default = { };
-        type = types.attrsOf (types.submodule ({ name, config, options, ... }: {
-          options = {
-            certAuthority = mkOption {
-              type = types.bool;
-              default = false;
-              description = lib.mdDoc ''
-                This public key is an SSH certificate authority, rather than an
-                individual host's key.
-              '';
+        type = types.attrsOf (types.submodule ({
+            name,
+            config,
+            options,
+            ...
+          }: {
+            options = {
+              certAuthority = mkOption {
+                type = types.bool;
+                default = false;
+                description = lib.mdDoc ''
+                  This public key is an SSH certificate authority, rather than an
+                  individual host's key.
+                '';
+              };
+              hostNames = mkOption {
+                type = types.listOf types.str;
+                default = [ name ] ++ config.extraHostNames;
+                defaultText = literalExpression
+                  "[ ${name} ] ++ config.${options.extraHostNames}";
+                description = lib.mdDoc ''
+                  A list of host names and/or IP numbers used for accessing
+                  the host's ssh service. This list includes the name of the
+                  containing `knownHosts` attribute by default
+                  for convenience. If you wish to configure multiple host keys
+                  for the same host use multiple `knownHosts`
+                  entries with different attribute names and the same
+                  `hostNames` list.
+                '';
+              };
+              extraHostNames = mkOption {
+                type = types.listOf types.str;
+                default = [ ];
+                description = lib.mdDoc ''
+                  A list of additional host names and/or IP numbers used for
+                  accessing the host's ssh service. This list is ignored if
+                  `hostNames` is set explicitly.
+                '';
+              };
+              publicKey = mkOption {
+                default = null;
+                type = types.nullOr types.str;
+                example = "ecdsa-sha2-nistp521 AAAAE2VjZHN...UEPg==";
+                description = lib.mdDoc ''
+                  The public key data for the host. You can fetch a public key
+                  from a running SSH server with the {command}`ssh-keyscan`
+                  command. The public key should not include any host names, only
+                  the key type and the key itself.
+                '';
+              };
+              publicKeyFile = mkOption {
+                default = null;
+                type = types.nullOr types.path;
+                description = lib.mdDoc ''
+                  The path to the public key file for the host. The public
+                  key file is read at build time and saved in the Nix store.
+                  You can fetch a public key file from a running SSH server
+                  with the {command}`ssh-keyscan` command. The content
+                  of the file should follow the same format as described for
+                  the `publicKey` option. Only a single key
+                  is supported. If a host has multiple keys, use
+                  {option}`programs.ssh.knownHostsFiles` instead.
+                '';
+              };
             };
-            hostNames = mkOption {
-              type = types.listOf types.str;
-              default = [ name ] ++ config.extraHostNames;
-              defaultText = literalExpression
-                "[ ${name} ] ++ config.${options.extraHostNames}";
-              description = lib.mdDoc ''
-                A list of host names and/or IP numbers used for accessing
-                the host's ssh service. This list includes the name of the
-                containing `knownHosts` attribute by default
-                for convenience. If you wish to configure multiple host keys
-                for the same host use multiple `knownHosts`
-                entries with different attribute names and the same
-                `hostNames` list.
-              '';
-            };
-            extraHostNames = mkOption {
-              type = types.listOf types.str;
-              default = [ ];
-              description = lib.mdDoc ''
-                A list of additional host names and/or IP numbers used for
-                accessing the host's ssh service. This list is ignored if
-                `hostNames` is set explicitly.
-              '';
-            };
-            publicKey = mkOption {
-              default = null;
-              type = types.nullOr types.str;
-              example = "ecdsa-sha2-nistp521 AAAAE2VjZHN...UEPg==";
-              description = lib.mdDoc ''
-                The public key data for the host. You can fetch a public key
-                from a running SSH server with the {command}`ssh-keyscan`
-                command. The public key should not include any host names, only
-                the key type and the key itself.
-              '';
-            };
-            publicKeyFile = mkOption {
-              default = null;
-              type = types.nullOr types.path;
-              description = lib.mdDoc ''
-                The path to the public key file for the host. The public
-                key file is read at build time and saved in the Nix store.
-                You can fetch a public key file from a running SSH server
-                with the {command}`ssh-keyscan` command. The content
-                of the file should follow the same format as described for
-                the `publicKey` option. Only a single key
-                is supported. If a host has multiple keys, use
-                {option}`programs.ssh.knownHostsFiles` instead.
-              '';
-            };
-          };
-        }));
+          }));
         description = lib.mdDoc ''
           The set of system-wide known SSH hosts. To make simple setups more
           convenient the name of an attribute in this set is used as a host name

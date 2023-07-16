@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, pytest, mock, brotli }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  pytest,
+  mock,
+  brotli,
+}:
 
 buildPythonPackage rec {
   pname = "logbook";

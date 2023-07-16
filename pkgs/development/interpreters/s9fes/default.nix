@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchurl, ncurses, buildPackages }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  ncurses,
+  buildPackages,
+}:
 
 let isCrossCompiling = stdenv.hostPlatform != stdenv.buildPlatform;
 

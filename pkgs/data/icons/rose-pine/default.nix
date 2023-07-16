@@ -1,4 +1,9 @@
-{ stdenvNoCC, lib, fetchFromGitHub, gtk3 }:
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+  gtk3,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "rose-pine-icon-theme";

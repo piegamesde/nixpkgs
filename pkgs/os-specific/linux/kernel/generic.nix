@@ -1,51 +1,71 @@
-{ buildPackages, callPackage, perl, bison ? null, flex ? null, gmp ? null
-, libmpc ? null, mpfr ? null, pahole, lib, stdenv
+{
+  buildPackages,
+  callPackage,
+  perl,
+  bison ? null,
+  flex ? null,
+  gmp ? null,
+  libmpc ? null,
+  mpfr ? null,
+  pahole,
+  lib,
+  stdenv
 
-, # The kernel source tarball.
-src
+  , # The kernel source tarball.
+  src
 
-, # The kernel version.
-version
+  , # The kernel version.
+  version
 
-, # Allows overriding the default defconfig
-defconfig ? null
+  , # Allows overriding the default defconfig
+  defconfig ? null
 
-, # Legacy overrides to the intermediate kernel config, as string
-extraConfig ? ""
+  , # Legacy overrides to the intermediate kernel config, as string
+  extraConfig ? ""
 
-  # Additional make flags passed to kbuild
-, extraMakeFlags ? [ ]
+    # Additional make flags passed to kbuild
+  ,
+  extraMakeFlags ? [ ]
 
-, # kernel intermediate config overrides, as a set
-structuredExtraConfig ? { }
+  , # kernel intermediate config overrides, as a set
+  structuredExtraConfig ? { }
 
-, # The version number used for the module directory
-# If unspecified, this is determined automatically from the version.
-modDirVersion ? null
+  , # The version number used for the module directory
+  # If unspecified, this is determined automatically from the version.
+  modDirVersion ? null
 
-, # An attribute set whose attributes express the availability of
-# certain features in this kernel.  E.g. `{iwlwifi = true;}'
-# indicates a kernel that provides Intel wireless support.  Used in
-# NixOS to implement kernel-specific behaviour.
-features ? { }
+  , # An attribute set whose attributes express the availability of
+  # certain features in this kernel.  E.g. `{iwlwifi = true;}'
+  # indicates a kernel that provides Intel wireless support.  Used in
+  # NixOS to implement kernel-specific behaviour.
+  features ? { }
 
-, # Custom seed used for CONFIG_GCC_PLUGIN_RANDSTRUCT if enabled. This is
-# automatically extended with extra per-version and per-config values.
-randstructSeed ? ""
+  , # Custom seed used for CONFIG_GCC_PLUGIN_RANDSTRUCT if enabled. This is
+  # automatically extended with extra per-version and per-config values.
+  randstructSeed ? ""
 
-, # A list of patches to apply to the kernel.  Each element of this list
-# should be an attribute set {name, patch} where `name' is a
-# symbolic name and `patch' is the actual patch.  The patch may
-# optionally be compressed with gzip or bzip2.
-kernelPatches ? [ ], ignoreConfigErrors ? stdenv.hostPlatform.linux-kernel.name
-  != "pc" || stdenv.hostPlatform != stdenv.buildPlatform, extraMeta ? { }
+  , # A list of patches to apply to the kernel.  Each element of this list
+  # should be an attribute set {name, patch} where `name' is a
+  # symbolic name and `patch' is the actual patch.  The patch may
+  # optionally be compressed with gzip or bzip2.
+  kernelPatches ? [ ],
+  ignoreConfigErrors ? stdenv.hostPlatform.linux-kernel.name != "pc"
+    || stdenv.hostPlatform != stdenv.buildPlatform,
+  extraMeta ? { }
 
-, isZen ? false, isLibre ? false, isHardened ? false
+  ,
+  isZen ? false,
+  isLibre ? false,
+  isHardened ? false
 
-  # easy overrides to stdenv.hostPlatform.linux-kernel members
-, autoModules ? stdenv.hostPlatform.linux-kernel.autoModules
-, preferBuiltin ? stdenv.hostPlatform.linux-kernel.preferBuiltin or false
-, kernelArch ? stdenv.hostPlatform.linuxArch, kernelTests ? [ ], nixosTests, ...
+    # easy overrides to stdenv.hostPlatform.linux-kernel members
+  ,
+  autoModules ? stdenv.hostPlatform.linux-kernel.autoModules,
+  preferBuiltin ? stdenv.hostPlatform.linux-kernel.preferBuiltin or false,
+  kernelArch ? stdenv.hostPlatform.linuxArch,
+  kernelTests ? [ ],
+  nixosTests,
+  ...
 }@args:
 
 # Note: this package is used for bootstrapping fetchurl, and thus
@@ -88,15 +108,21 @@ let
     # extra config in legacy string format
     + extraConfig + stdenv.hostPlatform.linux-kernel.extraConfig or "";
 
-  structuredConfigFromPatches = map ({ extraStructuredConfig ? { }, ... }: {
-    settings = extraStructuredConfig;
-  }) kernelPatches;
+  structuredConfigFromPatches = map ({
+      extraStructuredConfig ? { },
+      ...
+    }: {
+      settings = extraStructuredConfig;
+    }) kernelPatches;
 
   # appends kernel patches extraConfig
   kernelConfigFun = baseConfigStr:
     let
-      configFromPatches =
-        map ({ extraConfig ? "", ... }: extraConfig) kernelPatches;
+      configFromPatches = map ({
+          extraConfig ? "",
+          ...
+        }:
+        extraConfig) kernelPatches;
     in lib.concatStringsSep "\n" ([ baseConfigStr ] ++ configFromPatches);
 
   configfile = stdenv.mkDerivation {

@@ -1,4 +1,15 @@
-{ stdenv, lib, fetchurl, pkg-config, meson, ninja, lv2, lilv, curl, libelf }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  meson,
+  ninja,
+  lv2,
+  lilv,
+  curl,
+  libelf,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lv2lint";

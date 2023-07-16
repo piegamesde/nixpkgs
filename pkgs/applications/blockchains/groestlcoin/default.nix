@@ -1,7 +1,28 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, autoreconfHook, pkg-config, util-linux
-, hexdump, autoSignDarwinBinariesHook, wrapQtAppsHook ? null, boost, libevent
-, miniupnpc, zeromq, zlib, db53, sqlite, qrencode, qtbase ? null, qttools ? null
-, python3, withGui ? false, withWallet ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  util-linux,
+  hexdump,
+  autoSignDarwinBinariesHook,
+  wrapQtAppsHook ? null,
+  boost,
+  libevent,
+  miniupnpc,
+  zeromq,
+  zlib,
+  db53,
+  sqlite,
+  qrencode,
+  qtbase ? null,
+  qttools ? null,
+  python3,
+  withGui ? false,
+  withWallet ? true
+}:
 
 let
   desktop = fetchurl {

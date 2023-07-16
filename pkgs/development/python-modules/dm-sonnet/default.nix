@@ -1,5 +1,18 @@
-{ lib, absl-py, buildPythonPackage, dm-tree, docutils, etils, fetchFromGitHub
-, numpy, pythonOlder, tabulate, tensorflow, tensorflow-datasets, wrapt }:
+{
+  lib,
+  absl-py,
+  buildPythonPackage,
+  dm-tree,
+  docutils,
+  etils,
+  fetchFromGitHub,
+  numpy,
+  pythonOlder,
+  tabulate,
+  tensorflow,
+  tensorflow-datasets,
+  wrapt,
+}:
 
 buildPythonPackage rec {
   pname = "dm-sonnet";

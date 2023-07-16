@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, pam, libxcrypt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pam,
+  libxcrypt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "otpw";

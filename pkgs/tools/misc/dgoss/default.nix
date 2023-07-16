@@ -1,4 +1,13 @@
-{ lib, fetchFromGitHub, resholve, substituteAll, bash, coreutils, goss, which }:
+{
+  lib,
+  fetchFromGitHub,
+  resholve,
+  substituteAll,
+  bash,
+  coreutils,
+  goss,
+  which,
+}:
 
 resholve.mkDerivation rec {
   pname = "dgoss";

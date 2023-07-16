@@ -1,5 +1,17 @@
-{ lib, fetchFromGitHub, stdenv, ffmpeg, frei0r, sox, gtk3, python3
-, ladspaPlugins, gobject-introspection, makeWrapper, wrapGAppsHook }:
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  ffmpeg,
+  frei0r,
+  sox,
+  gtk3,
+  python3,
+  ladspaPlugins,
+  gobject-introspection,
+  makeWrapper,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "flowblade";

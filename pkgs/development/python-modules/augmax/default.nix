@@ -1,4 +1,11 @@
-{ buildPythonPackage, einops, fetchFromGitHub, jax, jaxlib, lib }:
+{
+  buildPythonPackage,
+  einops,
+  fetchFromGitHub,
+  jax,
+  jaxlib,
+  lib,
+}:
 
 buildPythonPackage rec {
   pname = "augmax";

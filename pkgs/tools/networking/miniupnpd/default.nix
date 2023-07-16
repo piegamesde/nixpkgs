@@ -1,5 +1,19 @@
-{ stdenv, lib, fetchurl, iptables-legacy, libuuid, openssl, pkg-config, which
-, iproute2, gnused, coreutils, gawk, makeWrapper, nixosTests }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  iptables-legacy,
+  libuuid,
+  openssl,
+  pkg-config,
+  which,
+  iproute2,
+  gnused,
+  coreutils,
+  gawk,
+  makeWrapper,
+  nixosTests,
+}:
 
 let
   scriptBinEnv =

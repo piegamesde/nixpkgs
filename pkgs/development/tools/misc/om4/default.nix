@@ -1,4 +1,10 @@
-{ stdenv, fetchFromGitHub, bison, flex, lib }:
+{
+  stdenv,
+  fetchFromGitHub,
+  bison,
+  flex,
+  lib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "om4";

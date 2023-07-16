@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, mateUpdateScript }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  mateUpdateScript,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mate-common";

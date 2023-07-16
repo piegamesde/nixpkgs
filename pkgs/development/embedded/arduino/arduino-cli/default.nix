@@ -1,5 +1,12 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, buildFHSEnv, installShellFiles
-, go-task }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  buildFHSEnv,
+  installShellFiles,
+  go-task,
+}:
 
 let
 

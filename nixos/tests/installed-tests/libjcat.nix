@@ -1,3 +1,7 @@
-{ pkgs, makeInstalledTest, ... }:
+{
+  pkgs,
+  makeInstalledTest,
+  ...
+}:
 
 makeInstalledTest { tested = pkgs.libjcat; }

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, flit-core, pyyaml, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flit-core,
+  pyyaml,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "confuse";

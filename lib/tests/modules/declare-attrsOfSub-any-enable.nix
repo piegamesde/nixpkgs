@@ -1,18 +1,23 @@
-{ lib, ... }:
+{
+  lib,
+  ...
+}:
 
 let
-  submod = { ... }: {
-    options = {
-      enable = lib.mkOption {
-        default = false;
-        example = true;
-        type = lib.types.bool;
-        description = ''
-          Some descriptive text
-        '';
+  submod = {
+      ...
+    }: {
+      options = {
+        enable = lib.mkOption {
+          default = false;
+          example = true;
+          type = lib.types.bool;
+          description = ''
+            Some descriptive text
+          '';
+        };
       };
     };
-  };
 
 in {
   options = {

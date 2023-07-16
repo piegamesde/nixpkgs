@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromSourcehut, fetchurl, curl, libarchive, libpkgconf
-, pkgconf, python3, samurai, scdoc, zlib, embedSamurai ? false, buildDocs ? true
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  fetchurl,
+  curl,
+  libarchive,
+  libpkgconf,
+  pkgconf,
+  python3,
+  samurai,
+  scdoc,
+  zlib,
+  embedSamurai ? false,
+  buildDocs ? true
 }:
 
 stdenv.mkDerivation (finalAttrs: {

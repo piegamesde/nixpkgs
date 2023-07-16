@@ -1,4 +1,12 @@
-{ stdenv, fetchurl, popt, ncurses, python39, readline, lib }:
+{
+  stdenv,
+  fetchurl,
+  popt,
+  ncurses,
+  python39,
+  readline,
+  lib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "OpenIPMI";

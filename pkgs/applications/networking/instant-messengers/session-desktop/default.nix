@@ -1,5 +1,12 @@
-{ lib, makeDesktopItem, copyDesktopItems, stdenvNoCC, fetchurl, appimageTools
-, makeWrapper }:
+{
+  lib,
+  makeDesktopItem,
+  copyDesktopItems,
+  stdenvNoCC,
+  fetchurl,
+  appimageTools,
+  makeWrapper,
+}:
 
 let
   version = "1.10.8";

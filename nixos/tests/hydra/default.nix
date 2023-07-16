@@ -1,5 +1,8 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../../.. { inherit system config; } }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../../.. { inherit system config; }
+}:
 
 with import ../../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -16,10 +19,14 @@ let
       name = "hydra-${name}";
       meta = with pkgs.lib.maintainers; { maintainers = [ lewo ma27 ]; };
 
-      nodes.machine = { pkgs, lib, ... }: {
-        imports = [ baseConfig ];
-        services.hydra = { inherit package; };
-      };
+      nodes.machine = {
+          pkgs,
+          lib,
+          ...
+        }: {
+          imports = [ baseConfig ];
+          services.hydra = { inherit package; };
+        };
 
       testScript = ''
         # let the system boot up

@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, allegro }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  allegro,
+}:
 
 stdenv.mkDerivation rec {
   pname = "atanks";

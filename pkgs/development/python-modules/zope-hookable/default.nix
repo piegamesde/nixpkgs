@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, zope_testing }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  zope_testing,
+}:
 
 buildPythonPackage rec {
   pname = "zope-hookable";

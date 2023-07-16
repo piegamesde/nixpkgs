@@ -1,6 +1,21 @@
-{ lib, buildPythonPackage, cryptography, defusedxml, fetchFromGitHub, httpretty
-, lxml, oauthlib, pyjwt, pytestCheckHook, python-jose, python3-openid
-, python3-saml, pythonOlder, requests, requests-oauthlib }:
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  defusedxml,
+  fetchFromGitHub,
+  httpretty,
+  lxml,
+  oauthlib,
+  pyjwt,
+  pytestCheckHook,
+  python-jose,
+  python3-openid,
+  python3-saml,
+  pythonOlder,
+  requests,
+  requests-oauthlib,
+}:
 
 buildPythonPackage rec {
   pname = "social-auth-core";

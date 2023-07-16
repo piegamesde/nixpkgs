@@ -1,4 +1,12 @@
-{ lib, stdenv, makeWrapper, fetchurl, djvulibre, ghostscript, which }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  fetchurl,
+  djvulibre,
+  ghostscript,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.9.2";

@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, stdenv, srt, zlib }:
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  srt,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "srt-live-server";

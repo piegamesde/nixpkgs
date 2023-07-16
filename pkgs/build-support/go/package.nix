@@ -1,49 +1,79 @@
-{ go, govers, lib, fetchgit, fetchhg, fetchbzr, rsync, fetchFromGitHub, stdenv
+{
+  go,
+  govers,
+  lib,
+  fetchgit,
+  fetchhg,
+  fetchbzr,
+  rsync,
+  fetchFromGitHub,
+  stdenv,
 }:
 
-{ buildInputs ? [ ], nativeBuildInputs ? [ ], passthru ? { }, preFixup ? ""
-, shellHook ? ""
+{
+  buildInputs ? [ ],
+  nativeBuildInputs ? [ ],
+  passthru ? { },
+  preFixup ? "",
+  shellHook ? ""
 
-  # Go linker flags, passed to go via -ldflags
-, ldflags ? [ ]
+    # Go linker flags, passed to go via -ldflags
+  ,
+  ldflags ? [ ]
 
-  # Go tags, passed to go via -tag
-, tags ? [ ]
+    # Go tags, passed to go via -tag
+  ,
+  tags ? [ ]
 
-  # We want parallel builds by default
-, enableParallelBuilding ? true
+    # We want parallel builds by default
+  ,
+  enableParallelBuilding ? true
 
-  # Go import path of the package
-, goPackagePath
+    # Go import path of the package
+  ,
+  goPackagePath
 
-# Go package aliases
-, goPackageAliases ? [ ]
+  # Go package aliases
+  ,
+  goPackageAliases ? [ ]
 
-  # Extra sources to include in the gopath
-, extraSrcs ? [ ]
+    # Extra sources to include in the gopath
+  ,
+  extraSrcs ? [ ]
 
-  # Extra gopaths containing src subfolder
-  # with sources to include in the gopath
-, extraSrcPaths ? [ ]
+    # Extra gopaths containing src subfolder
+    # with sources to include in the gopath
+  ,
+  extraSrcPaths ? [ ]
 
-  # go2nix dependency file
-, goDeps ? null
+    # go2nix dependency file
+  ,
+  goDeps ? null
 
-  # Whether to delete the vendor folder supplied with the source.
-, deleteVendor ? false
+    # Whether to delete the vendor folder supplied with the source.
+  ,
+  deleteVendor ? false
 
-, dontRenameImports ? false
+  ,
+  dontRenameImports ? false
 
-  # Do not enable this without good reason
-  # IE: programs coupled with the compiler
-, allowGoReference ? false
+    # Do not enable this without good reason
+    # IE: programs coupled with the compiler
+  ,
+  allowGoReference ? false
 
-, CGO_ENABLED ? go.CGO_ENABLED
+  ,
+  CGO_ENABLED ? go.CGO_ENABLED
 
-  # needed for buildFlags{,Array} warning
-, buildFlags ? "", buildFlagsArray ? ""
+    # needed for buildFlags{,Array} warning
+  ,
+  buildFlags ? "",
+  buildFlagsArray ? ""
 
-, meta ? { }, ... }@args:
+  ,
+  meta ? { },
+  ...
+}@args:
 
 with builtins;
 
@@ -62,7 +92,10 @@ let
       abort "Unrecognized package fetch type: ${goDep.fetch.type}";
   };
 
-  importGodeps = { depsFile }: map dep2src (import depsFile);
+  importGodeps = {
+      depsFile,
+    }:
+    map dep2src (import depsFile);
 
   goPath = if goDeps != null then
     importGodeps { depsFile = goDeps; } ++ extraSrcs
@@ -109,31 +142,34 @@ let
             echo "vendor folder exists, 'goDeps' is not needed"
             exit 10
           fi
-        '' + lib.flip lib.concatMapStrings goPath ({ src, goPackagePath }: ''
-          mkdir goPath
-          (cd goPath; unpackFile "${src}")
-          mkdir -p "go/src/$(dirname "${goPackagePath}")"
-          chmod -R u+w goPath/*
-          mv goPath/* "go/src/${goPackagePath}"
-          rmdir goPath
+        '' + lib.flip lib.concatMapStrings goPath ({
+            src,
+            goPackagePath,
+          }: ''
+            mkdir goPath
+            (cd goPath; unpackFile "${src}")
+            mkdir -p "go/src/$(dirname "${goPackagePath}")"
+            chmod -R u+w goPath/*
+            mv goPath/* "go/src/${goPackagePath}"
+            rmdir goPath
 
-        '') + (lib.optionalString (extraSrcPaths != [ ]) ''
-          ${rsync}/bin/rsync -a ${
-            lib.concatMapStringsSep " " (p: "${p}/src") extraSrcPaths
-          } go
+          '') + (lib.optionalString (extraSrcPaths != [ ]) ''
+            ${rsync}/bin/rsync -a ${
+              lib.concatMapStringsSep " " (p: "${p}/src") extraSrcPaths
+            } go
 
-        '') + ''
-          export GOPATH=$NIX_BUILD_TOP/go:$GOPATH
-          export GOCACHE=$TMPDIR/go-cache
+          '') + ''
+            export GOPATH=$NIX_BUILD_TOP/go:$GOPATH
+            export GOCACHE=$TMPDIR/go-cache
 
-          # currently pie is only enabled by default in pkgsMusl
-          # this will respect the `hardening{Disable,Enable}` flags if set
-          if [[ $NIX_HARDENING_ENABLE =~ "pie" ]]; then
-            export GOFLAGS="-buildmode=pie $GOFLAGS"
-          fi
+            # currently pie is only enabled by default in pkgsMusl
+            # this will respect the `hardening{Disable,Enable}` flags if set
+            if [[ $NIX_HARDENING_ENABLE =~ "pie" ]]; then
+              export GOFLAGS="-buildmode=pie $GOFLAGS"
+            fi
 
-          runHook postConfigure
-        '');
+            runHook postConfigure
+          '');
 
         renameImports = args.renameImports or (let
           inputsWithAliases = lib.filter (x: x ? goPackageAliases)

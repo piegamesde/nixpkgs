@@ -1,5 +1,14 @@
-{ lib, stdenv, callPackage, fetchgit, libplist, libxml2, openssl, CoreFoundation
-, Security }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  fetchgit,
+  libplist,
+  libxml2,
+  openssl,
+  CoreFoundation,
+  Security,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ldid";

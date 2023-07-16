@@ -1,4 +1,7 @@
-{ lib, callPackage }:
+{
+  lib,
+  callPackage,
+}:
 
 lib.recurseIntoAttrs {
   shellFor = callPackage ./shellFor { };

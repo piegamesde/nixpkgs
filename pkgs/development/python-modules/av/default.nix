@@ -1,13 +1,25 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder
 
-# build
-, cython, pkg-config, setuptools
+  # build
+  ,
+  cython,
+  pkg-config,
+  setuptools
 
-# runtime
-, ffmpeg
+  # runtime
+  ,
+  ffmpeg
 
-# tests
-, numpy, pillow, pytestCheckHook }:
+  # tests
+  ,
+  numpy,
+  pillow,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "av";

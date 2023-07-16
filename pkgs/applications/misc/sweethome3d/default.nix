@@ -1,7 +1,21 @@
-{ lib, stdenv, fetchurl, makeWrapper, makeDesktopItem
-# sweethome3d 6.5.2 does not yet fully build&run with jdk 9 and later?
-, jdk8, jre8, ant, gtk3, gsettings-desktop-schemas, p7zip, autoPatchelfHook
-, libXxf86vm, unzip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  makeDesktopItem
+  # sweethome3d 6.5.2 does not yet fully build&run with jdk 9 and later?
+  ,
+  jdk8,
+  jre8,
+  ant,
+  gtk3,
+  gsettings-desktop-schemas,
+  p7zip,
+  autoPatchelfHook,
+  libXxf86vm,
+  unzip,
+}:
 
 let
 
@@ -18,8 +32,16 @@ let
       }"
     '') icons);
 
-  mkSweetHome3D =
-    { pname, module, version, src, license, description, desktopName, icons }:
+  mkSweetHome3D = {
+      pname,
+      module,
+      version,
+      src,
+      license,
+      description,
+      desktopName,
+      icons,
+    }:
 
     stdenv.mkDerivation rec {
       inherit pname version src description;

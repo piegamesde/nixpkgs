@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchurl, registryDat }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  registryDat,
+}:
 
 ver: deps:
 let

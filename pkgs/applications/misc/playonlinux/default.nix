@@ -1,9 +1,37 @@
-{ lib, stdenv, makeWrapper, fetchurl, cabextract, gettext, glxinfo, gnupg
-, icoutils, imagemagick, netcat-gnu, p7zip, python3, unzip, wget, wine
-, xdg-user-dirs, xterm, pkgs, pkgsi686Linux, which, curl, jq, xorg, libGL
-, steam-run
-# needed for avoiding crash on file selector
-, gsettings-desktop-schemas, glib, wrapGAppsHook, hicolor-icon-theme }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  fetchurl,
+  cabextract,
+  gettext,
+  glxinfo,
+  gnupg,
+  icoutils,
+  imagemagick,
+  netcat-gnu,
+  p7zip,
+  python3,
+  unzip,
+  wget,
+  wine,
+  xdg-user-dirs,
+  xterm,
+  pkgs,
+  pkgsi686Linux,
+  which,
+  curl,
+  jq,
+  xorg,
+  libGL,
+  steam-run
+  # needed for avoiding crash on file selector
+  ,
+  gsettings-desktop-schemas,
+  glib,
+  wrapGAppsHook,
+  hicolor-icon-theme,
+}:
 
 let
   version = "4.4";

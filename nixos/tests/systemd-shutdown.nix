@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ pkgs, systemdStage1 ? false, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    systemdStage1 ? false,
+    ...
+  }:
   let msg = "Shutting down NixOS";
   in {
     name = "systemd-shutdown";

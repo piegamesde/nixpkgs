@@ -1,4 +1,12 @@
-{ lib, buildDunePackage, rpclib, alcotest, ppxlib, ppx_deriving, yojson }:
+{
+  lib,
+  buildDunePackage,
+  rpclib,
+  alcotest,
+  ppxlib,
+  ppx_deriving,
+  yojson,
+}:
 
 buildDunePackage rec {
   pname = "ppx_deriving_rpc";

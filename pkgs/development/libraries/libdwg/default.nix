@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, indent }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  indent,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libdwg";

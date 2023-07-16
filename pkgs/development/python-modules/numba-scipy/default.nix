@@ -1,5 +1,13 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, scipy, numba, pytestCheckHook
-, pythonOlder }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  scipy,
+  numba,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "numba-scipy";

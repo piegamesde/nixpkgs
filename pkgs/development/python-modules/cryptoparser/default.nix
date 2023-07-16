@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, attrs, six, asn1crypto, python-dateutil }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  attrs,
+  six,
+  asn1crypto,
+  python-dateutil,
+}:
 
 buildPythonPackage rec {
   pname = "cryptoparser";

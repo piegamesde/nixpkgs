@@ -1,4 +1,9 @@
-{ lib, python3Packages, fetchFromGitHub, godot-server }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  godot-server,
+}:
 
 let
   lark080 = python3Packages.lark.overrideAttrs (old: rec {

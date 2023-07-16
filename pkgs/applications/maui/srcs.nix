@@ -1,6 +1,9 @@
 # DO NOT EDIT! This file is generated automatically.
 # Command: ./maintainers/scripts/fetch-kde-qt.sh pkgs/applications/maui
-{ fetchurl, mirror }:
+{
+  fetchurl,
+  mirror,
+}:
 
 {
   agenda = {

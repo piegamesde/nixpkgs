@@ -1,4 +1,13 @@
-{ lib, stdenv, makeWrapper, fetchzip, runCommand, plantuml, plantuml-c4, jre }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  fetchzip,
+  runCommand,
+  plantuml,
+  plantuml-c4,
+  jre,
+}:
 
 # The C4-PlantUML docs say that it suffices to run plantuml with the
 # -DRELATIVE_INCLUDE="..." arg to make plantuml find the C4 templates

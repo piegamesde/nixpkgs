@@ -1,6 +1,22 @@
-{ lib, stdenv, attrs, beautifulsoup4, buildPythonPackage, click, fetchPypi
-, intbitset, pytest-xdist, pytestCheckHook, pythonAtLeast, pythonOlder, requests
-, saneyaml, setuptools-scm, text-unidecode, typing }:
+{
+  lib,
+  stdenv,
+  attrs,
+  beautifulsoup4,
+  buildPythonPackage,
+  click,
+  fetchPypi,
+  intbitset,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+  requests,
+  saneyaml,
+  setuptools-scm,
+  text-unidecode,
+  typing,
+}:
 
 buildPythonPackage rec {
   pname = "commoncode";

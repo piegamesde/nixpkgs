@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, fetchFromGitHub, numpy, pybind11
-, pytestCheckHook, setuptools, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchFromGitHub,
+  numpy,
+  pybind11,
+  pytestCheckHook,
+  setuptools,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "mapbox-earcut";

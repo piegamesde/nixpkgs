@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, freezegun, gettext
-, importlib-metadata, pytestCheckHook, pythonOlder, hatch-vcs, hatchling }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  freezegun,
+  gettext,
+  importlib-metadata,
+  pytestCheckHook,
+  pythonOlder,
+  hatch-vcs,
+  hatchling,
+}:
 
 buildPythonPackage rec {
   pname = "humanize";

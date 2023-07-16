@@ -1,6 +1,27 @@
-{ stdenv, lib, fetchurl, makeWrapper, writeText, fpc, gtk2, glib, pango, atk
-, gdk-pixbuf, libXi, xorgproto, libX11, libXext, gdb, gnumake, binutils
-, withQt ? false, qtbase ? null, libqt5pas ? null, wrapQtAppsHook ? null }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  makeWrapper,
+  writeText,
+  fpc,
+  gtk2,
+  glib,
+  pango,
+  atk,
+  gdk-pixbuf,
+  libXi,
+  xorgproto,
+  libX11,
+  libXext,
+  gdb,
+  gnumake,
+  binutils,
+  withQt ? false,
+  qtbase ? null,
+  libqt5pas ? null,
+  wrapQtAppsHook ? null
+}:
 
 # TODO:
 #  1. the build date is embedded in the binary through `$I %DATE%` - we should dump that

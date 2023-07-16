@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchurl, pkg-config, gnome, gtk3, wrapGAppsHook, librsvg, gsound
-, clutter-gtk, gettext, itstool, vala, libxml2, libgee, libgnome-games-support
-, meson, ninja, desktop-file-utils, hicolor-icon-theme }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gnome,
+  gtk3,
+  wrapGAppsHook,
+  librsvg,
+  gsound,
+  clutter-gtk,
+  gettext,
+  itstool,
+  vala,
+  libxml2,
+  libgee,
+  libgnome-games-support,
+  meson,
+  ninja,
+  desktop-file-utils,
+  hicolor-icon-theme,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-nibbles";

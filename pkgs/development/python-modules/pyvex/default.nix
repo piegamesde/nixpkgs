@@ -1,5 +1,16 @@
-{ lib, stdenv, archinfo, bitstring, buildPythonPackage, cffi, fetchPypi, future
-, pycparser, pythonOlder, setuptools }:
+{
+  lib,
+  stdenv,
+  archinfo,
+  bitstring,
+  buildPythonPackage,
+  cffi,
+  fetchPypi,
+  future,
+  pycparser,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "pyvex";

@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, python }:
+{
+  lib,
+  fetchFromGitHub,
+  python,
+}:
 
 python.pkgs.buildPythonApplication rec {
   version = "1.4.2";

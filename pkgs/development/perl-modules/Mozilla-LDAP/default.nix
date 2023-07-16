@@ -1,4 +1,9 @@
-{ lib, fetchurl, openldap, buildPerlPackage }:
+{
+  lib,
+  fetchurl,
+  openldap,
+  buildPerlPackage,
+}:
 
 buildPerlPackage rec {
   pname = "Mozilla-Ldap";

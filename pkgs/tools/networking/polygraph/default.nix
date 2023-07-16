@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, openssl, zlib, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  openssl,
+  zlib,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "polygraph";

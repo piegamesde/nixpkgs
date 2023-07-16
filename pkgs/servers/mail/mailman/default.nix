@@ -1,4 +1,8 @@
-{ newScope, lib, python3 }:
+{
+  newScope,
+  lib,
+  python3,
+}:
 
 let
   self = lib.makeExtensible (self:
@@ -18,9 +22,13 @@ let
 
       web = callPackage ./web.nix { };
 
-      buildEnvs = { web ? self.web, mailman ? self.mailman
-        , mailman-hyperkitty ? self.mailman-hyperkitty, withHyperkitty ? false
-        , withLDAP ? false }: {
+      buildEnvs = {
+          web ? self.web,
+          mailman ? self.mailman,
+          mailman-hyperkitty ? self.mailman-hyperkitty,
+          withHyperkitty ? false,
+          withLDAP ? false
+        }: {
           mailmanEnv = self.python3.withPackages (ps:
             [ mailman ps.psycopg2 ]
             ++ lib.optional withHyperkitty mailman-hyperkitty

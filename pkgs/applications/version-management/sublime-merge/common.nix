@@ -1,9 +1,30 @@
-{ buildVersion, x64sha256, dev ? false }:
+{
+  buildVersion,
+  x64sha256,
+  dev ? false
+}:
 
-{ fetchurl, lib, stdenv, xorg, glib, libGL, glibcLocales, gtk3, cairo, pango
-, libredirect, makeWrapper, wrapGAppsHook
-, pkexecPath ? "/run/wrappers/bin/pkexec", writeShellScript
-, common-updater-scripts, curl, gnugrep, coreutils }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  xorg,
+  glib,
+  libGL,
+  glibcLocales,
+  gtk3,
+  cairo,
+  pango,
+  libredirect,
+  makeWrapper,
+  wrapGAppsHook,
+  pkexecPath ? "/run/wrappers/bin/pkexec",
+  writeShellScript,
+  common-updater-scripts,
+  curl,
+  gnugrep,
+  coreutils,
+}:
 
 let
   pnameBase = "sublime-merge";

@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, python-json-logger
-, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  python-json-logger,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "daiquiri";

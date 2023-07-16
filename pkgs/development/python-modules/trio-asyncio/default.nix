@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, trio, outcome, sniffio, pytest-trio
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  trio,
+  outcome,
+  sniffio,
+  pytest-trio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "trio-asyncio";

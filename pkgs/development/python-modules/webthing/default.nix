@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, ifaddr, jsonschema, pyee
-, pythonOlder, tornado, zeroconf }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  ifaddr,
+  jsonschema,
+  pyee,
+  pythonOlder,
+  tornado,
+  zeroconf,
+}:
 
 buildPythonPackage rec {
   pname = "webthing";

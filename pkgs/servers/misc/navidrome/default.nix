@@ -1,5 +1,16 @@
-{ callPackage, buildGoModule, fetchFromGitHub, lib, pkg-config, stdenv
-, ffmpeg-headless, taglib, zlib, makeWrapper, nixosTests, ffmpegSupport ? true
+{
+  callPackage,
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  pkg-config,
+  stdenv,
+  ffmpeg-headless,
+  taglib,
+  zlib,
+  makeWrapper,
+  nixosTests,
+  ffmpegSupport ? true
 }:
 
 let

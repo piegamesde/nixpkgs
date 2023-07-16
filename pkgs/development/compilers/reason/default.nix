@@ -1,6 +1,23 @@
-{ lib, callPackage, stdenv, makeWrapper, fetchurl, ocaml, findlib, dune_3
-, ncurses, fix, menhir, menhirLib, menhirSdk, merlin-extend, ppxlib, utop, cppo
-, ppx_derivers }:
+{
+  lib,
+  callPackage,
+  stdenv,
+  makeWrapper,
+  fetchurl,
+  ocaml,
+  findlib,
+  dune_3,
+  ncurses,
+  fix,
+  menhir,
+  menhirLib,
+  menhirSdk,
+  merlin-extend,
+  ppxlib,
+  utop,
+  cppo,
+  ppx_derivers,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-reason";

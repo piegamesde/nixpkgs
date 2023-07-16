@@ -1,7 +1,14 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub
 
-# tests
-, ffmpeg-full, python }:
+  # tests
+  ,
+  ffmpeg-full,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "pydub";

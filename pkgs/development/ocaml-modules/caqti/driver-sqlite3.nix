@@ -1,4 +1,9 @@
-{ lib, buildDunePackage, caqti, ocaml_sqlite3 }:
+{
+  lib,
+  buildDunePackage,
+  caqti,
+  ocaml_sqlite3,
+}:
 
 buildDunePackage {
   pname = "caqti-driver-sqlite3";

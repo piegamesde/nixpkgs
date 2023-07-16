@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, decorator, ipython, isPyPy
-, tomli, setuptools, unittestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  decorator,
+  ipython,
+  isPyPy,
+  tomli,
+  setuptools,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "ipdb";

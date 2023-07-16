@@ -1,5 +1,13 @@
-{ lib, fetchFromGitHub, buildPythonPackage, requests, mock, pytest, pytest-cov
-, isPy3k }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  requests,
+  mock,
+  pytest,
+  pytest-cov,
+  isPy3k,
+}:
 
 buildPythonPackage rec {
   pname = "stups-tokens";

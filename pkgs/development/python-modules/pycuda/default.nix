@@ -1,6 +1,21 @@
-{ buildPythonPackage, addOpenGLRunpath, fetchPypi, fetchFromGitHub, mako, boost
-, numpy, pytools, pytest, decorator, appdirs, six, cudaPackages, python
-, mkDerivation, lib }:
+{
+  buildPythonPackage,
+  addOpenGLRunpath,
+  fetchPypi,
+  fetchFromGitHub,
+  mako,
+  boost,
+  numpy,
+  pytools,
+  pytest,
+  decorator,
+  appdirs,
+  six,
+  cudaPackages,
+  python,
+  mkDerivation,
+  lib,
+}:
 let
   compyte = import ./compyte.nix { inherit mkDerivation fetchFromGitHub; };
 

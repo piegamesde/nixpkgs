@@ -1,16 +1,34 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder
 
-# build
-, setuptools
+  # build
+  ,
+  setuptools
 
-# propagates
-, aiohttp, aiorun, coloredlogs, dacite, orjson, home-assistant-chip-clusters
+  # propagates
+  ,
+  aiohttp,
+  aiorun,
+  coloredlogs,
+  dacite,
+  orjson,
+  home-assistant-chip-clusters
 
-# optionals
-, cryptography, home-assistant-chip-core
+  # optionals
+  ,
+  cryptography,
+  home-assistant-chip-core
 
-# tests
-, python, pytest, pytest-aiohttp, pytestCheckHook }:
+  # tests
+  ,
+  python,
+  pytest,
+  pytest-aiohttp,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "python-matter-server";

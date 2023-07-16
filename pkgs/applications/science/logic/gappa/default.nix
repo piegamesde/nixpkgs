@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, gmp, mpfr, boost }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gmp,
+  mpfr,
+  boost,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gappa";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, autoreconfHook, gmp, flex, bison }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  gmp,
+  flex,
+  bison,
+}:
 
 stdenv.mkDerivation {
   pname = "veriT";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, ocaml, findlib, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocaml-curses";

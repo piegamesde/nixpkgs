@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchsvn, xorg }:
+{
+  lib,
+  stdenv,
+  fetchsvn,
+  xorg,
+}:
 
 stdenv.mkDerivation {
   pname = "xlife";

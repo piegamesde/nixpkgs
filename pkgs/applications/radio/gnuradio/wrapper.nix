@@ -1,24 +1,46 @@
-{ lib, stdenv
-# The unwrapped gnuradio derivation
-, unwrapped
-# If it's a minimal build, we don't want to wrap it with lndir and
-# wrapProgram..
-, doWrap ? true
-  # For the wrapper
-, makeWrapper
-# For lndir
-, xorg
-# To define a the gnuradio.pkgs scope
-, newScope
-# For Emulating wrapGAppsHook
-, gsettings-desktop-schemas, glib, hicolor-icon-theme, pango, json-glib, dconf
-, gobject-introspection, librsvg, gdk-pixbuf, harfbuzz, at-spi2-core, atk
-# For Adding additional GRC blocks
-, extraPackages ? [ ]
-  # For Adding additional python packaages
-, extraPythonPackages ? [ ]
-  # Allow to add whatever you want to the wrapper
-, extraMakeWrapperArgs ? [ ] }:
+{
+  lib,
+  stdenv
+  # The unwrapped gnuradio derivation
+  ,
+  unwrapped
+  # If it's a minimal build, we don't want to wrap it with lndir and
+  # wrapProgram..
+  ,
+  doWrap ? true
+    # For the wrapper
+  ,
+  makeWrapper
+  # For lndir
+  ,
+  xorg
+  # To define a the gnuradio.pkgs scope
+  ,
+  newScope
+  # For Emulating wrapGAppsHook
+  ,
+  gsettings-desktop-schemas,
+  glib,
+  hicolor-icon-theme,
+  pango,
+  json-glib,
+  dconf,
+  gobject-introspection,
+  librsvg,
+  gdk-pixbuf,
+  harfbuzz,
+  at-spi2-core,
+  atk
+  # For Adding additional GRC blocks
+  ,
+  extraPackages ? [ ]
+    # For Adding additional python packaages
+  ,
+  extraPythonPackages ? [ ]
+    # Allow to add whatever you want to the wrapper
+  ,
+  extraMakeWrapperArgs ? [ ]
+}:
 
 let
   # We don't check if `python-support` feature is on, as it's unlikely someone

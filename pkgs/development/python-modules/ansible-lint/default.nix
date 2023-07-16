@@ -1,6 +1,25 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools-scm, ansible-compat
-, ansible-core, black, enrich, filelock, flaky, jsonschema, pythonOlder, pytest
-, pytest-xdist, pytestCheckHook, pyyaml, rich, ruamel-yaml, wcmatch, yamllint }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  ansible-compat,
+  ansible-core,
+  black,
+  enrich,
+  filelock,
+  flaky,
+  jsonschema,
+  pythonOlder,
+  pytest,
+  pytest-xdist,
+  pytestCheckHook,
+  pyyaml,
+  rich,
+  ruamel-yaml,
+  wcmatch,
+  yamllint,
+}:
 
 buildPythonPackage rec {
   pname = "ansible-lint";

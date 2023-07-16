@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitLab, fetchzip, SDL2, SDL2_mixer, SDL2_net, gtk3
-, gobject-introspection, python3Packages, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchzip,
+  SDL2,
+  SDL2_mixer,
+  SDL2_net,
+  gtk3,
+  gobject-introspection,
+  python3Packages,
+  wrapGAppsHook,
+}:
 
 let
   data = fetchzip {

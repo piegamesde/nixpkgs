@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, gmp, libffi }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  gmp,
+  libffi,
+}:
 
 stdenv.mkDerivation rec {
   pname = "polyml";

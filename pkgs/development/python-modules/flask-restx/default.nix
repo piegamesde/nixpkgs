@@ -1,6 +1,22 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, aniso8601, jsonschema
-, flask, werkzeug, pytz, faker, mock, blinker, py, pytest-flask, pytest-mock
-, pytest-benchmark, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  aniso8601,
+  jsonschema,
+  flask,
+  werkzeug,
+  pytz,
+  faker,
+  mock,
+  blinker,
+  py,
+  pytest-flask,
+  pytest-mock,
+  pytest-benchmark,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "flask-restx";

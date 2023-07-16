@@ -1,4 +1,11 @@
-{ fetchurl, lib, stdenv, allegro, libjpeg, makeWrapper }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  allegro,
+  libjpeg,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "racer";

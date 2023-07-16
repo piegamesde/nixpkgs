@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, jinja2, pytestCheckHook, pythonOlder
-, setuptools-scm, selenium }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jinja2,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+  selenium,
+}:
 
 buildPythonPackage rec {
   pname = "branca";

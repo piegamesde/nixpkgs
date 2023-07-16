@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, hatch-vcs, hatchling, httpx
-, pytestCheckHook, pythonOlder, respx }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatch-vcs,
+  hatchling,
+  httpx,
+  pytestCheckHook,
+  pythonOlder,
+  respx,
+}:
 
 buildPythonPackage rec {
   pname = "iaqualink";

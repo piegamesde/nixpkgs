@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, autoreconfHook, pkg-config, gtk3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  gtk3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "screen-message";

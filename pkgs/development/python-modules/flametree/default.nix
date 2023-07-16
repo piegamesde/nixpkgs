@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fontconfig, matplotlib, pandas
-, pytestCheckHook, weasyprint }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fontconfig,
+  matplotlib,
+  pandas,
+  pytestCheckHook,
+  weasyprint,
+}:
 
 buildPythonPackage rec {
   pname = "flametree";

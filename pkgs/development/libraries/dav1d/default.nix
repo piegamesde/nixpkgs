@@ -1,7 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, nasm, pkg-config, xxHash
-, withTools ? false # "dav1d" binary
-, withExamples ? false, SDL2 # "dav1dplay" binary
-, useVulkan ? false, libplacebo, vulkan-loader, vulkan-headers }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  nasm,
+  pkg-config,
+  xxHash,
+  withTools ? false # "dav1d" binary
+  ,
+  withExamples ? false,
+  SDL2 # "dav1dplay" binary
+  ,
+  useVulkan ? false,
+  libplacebo,
+  vulkan-loader,
+  vulkan-headers,
+}:
 
 assert useVulkan -> withExamples;
 

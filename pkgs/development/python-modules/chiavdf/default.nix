@@ -1,5 +1,17 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, setuptools-scm, substituteAll
-, cmake, boost, gmp, pybind11, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  substituteAll,
+  cmake,
+  boost,
+  gmp,
+  pybind11,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "chiavdf";

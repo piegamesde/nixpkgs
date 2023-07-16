@@ -1,5 +1,15 @@
-{ lib, stdenv, buildDotnetModule, fetchFromGitHub, dotnetCorePackages, libkrb5
-, zlib, openssl, callPackage, stdenvNoCC }:
+{
+  lib,
+  stdenv,
+  buildDotnetModule,
+  fetchFromGitHub,
+  dotnetCorePackages,
+  libkrb5,
+  zlib,
+  openssl,
+  callPackage,
+  stdenvNoCC,
+}:
 
 buildDotnetModule rec {
   pname = "archisteamfarm";

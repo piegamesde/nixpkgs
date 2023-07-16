@@ -1,13 +1,27 @@
-{ lib, isPyPy, buildPythonPackage, fetchPypi
+{
+  lib,
+  isPyPy,
+  buildPythonPackage,
+  fetchPypi
 
-# build
-, pytest
+  # build
+  ,
+  pytest
 
-# runtime
-, setuptools-git, mock, path, execnet, termcolor, six
+  # runtime
+  ,
+  setuptools-git,
+  mock,
+  path,
+  execnet,
+  termcolor,
+  six
 
-# tests
-, cmdline, pytestCheckHook }:
+  # tests
+  ,
+  cmdline,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-shutil";

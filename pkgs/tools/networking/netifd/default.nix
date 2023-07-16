@@ -1,4 +1,15 @@
-{ lib, stdenv, cmake, fetchgit, libnl, libubox, uci, ubus, json_c, pkg-config }:
+{
+  lib,
+  stdenv,
+  cmake,
+  fetchgit,
+  libnl,
+  libubox,
+  uci,
+  ubus,
+  json_c,
+  pkg-config,
+}:
 
 stdenv.mkDerivation {
   pname = "netifd";

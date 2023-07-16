@@ -1,4 +1,7 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
   let
     # build a getent that itself doesn't see anything in /etc/hosts and
     # /etc/nsswitch.conf, by using libredirect to steer its own requests to
@@ -13,43 +16,53 @@ import ./make-test-python.nix ({ pkgs, ... }:
   in {
     name = "nscd";
 
-    nodes.machine = { pkgs, ... }: {
-      imports = [ common/user-account.nix ];
-      networking.extraHosts = ''
-        2001:db8::1 somehost.test
-        192.0.2.1 somehost.test
-      '';
+    nodes.machine = {
+        pkgs,
+        ...
+      }: {
+        imports = [ common/user-account.nix ];
+        networking.extraHosts = ''
+          2001:db8::1 somehost.test
+          192.0.2.1 somehost.test
+        '';
 
-      systemd.services.sockdump = {
-        wantedBy = [ "multi-user.target" ];
-        path = [
-          # necessary for bcc to unpack kernel headers and invoke modprobe
-          pkgs.gnutar
-          pkgs.xz.bin
-          pkgs.kmod
-        ];
-        environment.PYTHONUNBUFFERED = "1";
+        systemd.services.sockdump = {
+          wantedBy = [ "multi-user.target" ];
+          path = [
+            # necessary for bcc to unpack kernel headers and invoke modprobe
+            pkgs.gnutar
+            pkgs.xz.bin
+            pkgs.kmod
+          ];
+          environment.PYTHONUNBUFFERED = "1";
 
-        serviceConfig = {
-          ExecStart = "${pkgs.sockdump}/bin/sockdump /var/run/nscd/socket";
-          Restart = "on-failure";
-          RestartSec = "1";
-          Type = "simple";
+          serviceConfig = {
+            ExecStart = "${pkgs.sockdump}/bin/sockdump /var/run/nscd/socket";
+            Restart = "on-failure";
+            RestartSec = "1";
+            Type = "simple";
+          };
+        };
+
+        specialisation = {
+          withGlibcNscd.configuration = {
+              ...
+            }: {
+              services.nscd.enableNsncd = false;
+            };
+          withUnscd.configuration = {
+              ...
+            }: {
+              services.nscd.enableNsncd = false;
+              services.nscd.package = pkgs.unscd;
+            };
         };
       };
 
-      specialisation = {
-        withGlibcNscd.configuration = { ... }: {
-          services.nscd.enableNsncd = false;
-        };
-        withUnscd.configuration = { ... }: {
-          services.nscd.enableNsncd = false;
-          services.nscd.package = pkgs.unscd;
-        };
-      };
-    };
-
-    testScript = { nodes, ... }:
+    testScript = {
+        nodes,
+        ...
+      }:
       let
         specialisations =
           "${nodes.machine.system.build.toplevel}/specialisation";

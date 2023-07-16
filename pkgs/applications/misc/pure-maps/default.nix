@@ -1,6 +1,19 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, qttools, kirigami2
-, qtquickcontrols2, qtlocation, qtsensors, nemo-qml-plugin-dbus, mapbox-gl-qml
-, s2geometry, python3, pyotherside }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  qttools,
+  kirigami2,
+  qtquickcontrols2,
+  qtlocation,
+  qtsensors,
+  nemo-qml-plugin-dbus,
+  mapbox-gl-qml,
+  s2geometry,
+  python3,
+  pyotherside,
+}:
 
 mkDerivation rec {
   pname = "pure-maps";

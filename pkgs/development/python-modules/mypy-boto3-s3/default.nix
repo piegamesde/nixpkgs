@@ -1,4 +1,11 @@
-{ lib, boto3, buildPythonPackage, fetchPypi, pythonOlder, typing-extensions }:
+{
+  lib,
+  boto3,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "mypy-boto3-s3";

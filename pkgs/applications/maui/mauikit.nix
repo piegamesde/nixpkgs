@@ -1,5 +1,17 @@
-{ lib, mkDerivation, cmake, extra-cmake-modules, kconfig, kcoreaddons, ki18n
-, knotifications, mauiman, qtbase, qtquickcontrols2, qtx11extras }:
+{
+  lib,
+  mkDerivation,
+  cmake,
+  extra-cmake-modules,
+  kconfig,
+  kcoreaddons,
+  ki18n,
+  knotifications,
+  mauiman,
+  qtbase,
+  qtquickcontrols2,
+  qtx11extras,
+}:
 
 mkDerivation {
   pname = "mauikit";

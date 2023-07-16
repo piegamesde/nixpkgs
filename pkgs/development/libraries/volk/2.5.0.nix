@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, cmake, python3, enableModTool ? true
-, removeReferencesTo, fetchpatch }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  python3,
+  enableModTool ? true,
+  removeReferencesTo,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "volk";

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cmake, qt4, pyside, pysideShiboken
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cmake,
+  qt4,
+  pyside,
+  pysideShiboken,
 }:
 
 buildPythonPackage rec {

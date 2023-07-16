@@ -1,5 +1,12 @@
-{ lib, bleak, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
-, requests }:
+{
+  lib,
+  bleak,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "aranet4";

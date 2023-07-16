@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, lhapdf, nnpdf, prompt-toolkit, reportengine, requests
-, seaborn, validobj }:
+{
+  lib,
+  buildPythonPackage,
+  lhapdf,
+  nnpdf,
+  prompt-toolkit,
+  reportengine,
+  requests,
+  seaborn,
+  validobj,
+}:
 
 buildPythonPackage rec {
   pname = "validphys2";

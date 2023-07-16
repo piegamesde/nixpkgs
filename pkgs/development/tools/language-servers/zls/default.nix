@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, zig }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  zig,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zls";

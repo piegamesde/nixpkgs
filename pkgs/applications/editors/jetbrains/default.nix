@@ -1,6 +1,25 @@
-{ lib, stdenv, callPackage, fetchurl, jdk, cmake, gdb, zlib, python3, icu, lldb
-, dotnet-sdk_6, maven, autoPatchelfHook, libdbusmenu, patchelf, openssl, expat
-, libxcrypt-legacy, vmopts ? null }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  fetchurl,
+  jdk,
+  cmake,
+  gdb,
+  zlib,
+  python3,
+  icu,
+  lldb,
+  dotnet-sdk_6,
+  maven,
+  autoPatchelfHook,
+  libdbusmenu,
+  patchelf,
+  openssl,
+  expat,
+  libxcrypt-legacy,
+  vmopts ? null
+}:
 
 let
   platforms = lib.platforms.linux ++ [ "x86_64-darwin" "aarch64-darwin" ];
@@ -23,7 +42,15 @@ let
 
   # Sorted alphabetically
 
-  buildClion = { pname, version, src, license, description, wmClass, ... }:
+  buildClion = {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      ...
+    }:
     (mkJetBrainsProduct {
       inherit pname version src wmClass jdk;
       product = "CLion";
@@ -73,7 +100,15 @@ let
         '';
     });
 
-  buildDataGrip = { pname, version, src, license, description, wmClass, ... }:
+  buildDataGrip = {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      ...
+    }:
     (mkJetBrainsProduct {
       inherit pname version src wmClass jdk;
       product = "DataGrip";
@@ -89,8 +124,16 @@ let
       };
     });
 
-  buildGateway =
-    { pname, version, src, license, description, wmClass, product, ... }:
+  buildGateway = {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      product,
+      ...
+    }:
     (mkJetBrainsProduct {
       inherit pname version src wmClass jdk product;
       productShort = "Gateway";
@@ -106,7 +149,15 @@ let
       };
     });
 
-  buildGoland = { pname, version, src, license, description, wmClass, ... }:
+  buildGoland = {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      ...
+    }:
     (mkJetBrainsProduct {
       inherit pname version src wmClass jdk;
       product = "Goland";
@@ -134,8 +185,16 @@ let
       '';
     });
 
-  buildIdea =
-    { pname, version, src, license, description, wmClass, product, ... }:
+  buildIdea = {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      product,
+      ...
+    }:
     (mkJetBrainsProduct {
       inherit pname version src wmClass jdk product;
       productShort = "IDEA";
@@ -163,8 +222,16 @@ let
       };
     });
 
-  buildMps =
-    { pname, version, src, license, description, wmClass, product, ... }:
+  buildMps = {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      product,
+      ...
+    }:
     (mkJetBrainsProduct rec {
       inherit pname version src wmClass jdk product;
       productShort = "MPS";
@@ -182,7 +249,15 @@ let
       };
     });
 
-  buildPhpStorm = { pname, version, src, license, description, wmClass, ... }:
+  buildPhpStorm = {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      ...
+    }:
     (mkJetBrainsProduct {
       inherit pname version src wmClass jdk;
       product = "PhpStorm";
@@ -198,8 +273,17 @@ let
       };
     });
 
-  buildPycharm = { pname, version, src, license, description, wmClass, product
-    , cythonSpeedup ? stdenv.isLinux, ... }:
+  buildPycharm = {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      product,
+      cythonSpeedup ? stdenv.isLinux,
+      ...
+    }:
     (mkJetBrainsProduct {
       inherit pname version src wmClass jdk product;
       productShort = "PyCharm";
@@ -236,7 +320,15 @@ let
         # See https://www.jetbrains.com/help/pycharm/2022.1/cython-speedups.html
       });
 
-  buildRider = { pname, version, src, license, description, wmClass, ... }:
+  buildRider = {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      ...
+    }:
     (mkJetBrainsProduct {
       inherit pname version src wmClass jdk;
       product = "Rider";
@@ -267,7 +359,15 @@ let
       '');
     });
 
-  buildRubyMine = { pname, version, src, license, description, wmClass, ... }:
+  buildRubyMine = {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      ...
+    }:
     (mkJetBrainsProduct {
       inherit pname version src wmClass jdk;
       product = "RubyMine";
@@ -279,7 +379,15 @@ let
       };
     });
 
-  buildWebStorm = { pname, version, src, license, description, wmClass, ... }:
+  buildWebStorm = {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      ...
+    }:
     (mkJetBrainsProduct {
       inherit pname version src wmClass jdk;
       product = "WebStorm";

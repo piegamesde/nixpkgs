@@ -1,6 +1,19 @@
-{ lib, astroid, beautifulsoup4, buildPythonPackage, crossplane, fetchFromGitHub
-, jellyfish, jproperties, luhn, lxml, pytest-mock, pytestCheckHook, pythonOlder
-, pyyaml }:
+{
+  lib,
+  astroid,
+  beautifulsoup4,
+  buildPythonPackage,
+  crossplane,
+  fetchFromGitHub,
+  jellyfish,
+  jproperties,
+  luhn,
+  lxml,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "whispers";

@@ -1,5 +1,10 @@
-{ appimageTools, buildFHSEnv, makeDesktopItem, extraPkgs ? pkgs: [ ]
-, appimage-run-tests ? null }:
+{
+  appimageTools,
+  buildFHSEnv,
+  makeDesktopItem,
+  extraPkgs ? pkgs: [ ],
+  appimage-run-tests ? null
+}:
 
 let
   name = "appimage-run";

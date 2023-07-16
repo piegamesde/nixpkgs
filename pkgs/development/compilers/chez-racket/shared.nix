@@ -1,6 +1,16 @@
 args:
-{ stdenv, lib, fetchFromGitHub, coreutils, darwin, ncurses, libiconv, libX11
-, zlib, lz4 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  coreutils,
+  darwin,
+  ncurses,
+  libiconv,
+  libX11,
+  zlib,
+  lz4,
+}:
 
 stdenv.mkDerivation (args // {
   version = "unstable-2021-12-11";

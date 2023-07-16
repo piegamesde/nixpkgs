@@ -1,5 +1,15 @@
-{ lib, stdenv, graphviz, imagemagick, linux_latest, makeFontsConf, perl, python3
-, sphinx, which }:
+{
+  lib,
+  stdenv,
+  graphviz,
+  imagemagick,
+  linux_latest,
+  makeFontsConf,
+  perl,
+  python3,
+  sphinx,
+  which,
+}:
 
 stdenv.mkDerivation {
   pname = "linux-kernel-latest-htmldocs";

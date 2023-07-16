@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, perlPackages, txt2man
-, monitoring-plugins, wmic-bin ? null }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  perlPackages,
+  txt2man,
+  monitoring-plugins,
+  wmic-bin ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "check-wmiplus";

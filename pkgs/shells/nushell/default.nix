@@ -1,7 +1,27 @@
-{ stdenv, lib, fetchFromGitHub, rustPlatform, openssl, zlib, zstd, pkg-config
-, python3, xorg, libiconv, Libsystem, AppKit, Security, nghttp2, libgit2
-, doCheck ? true, withDefaultFeatures ? true, additionalFeatures ? (p: p)
-, testers, nushell, nix-update-script }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  openssl,
+  zlib,
+  zstd,
+  pkg-config,
+  python3,
+  xorg,
+  libiconv,
+  Libsystem,
+  AppKit,
+  Security,
+  nghttp2,
+  libgit2,
+  doCheck ? true,
+  withDefaultFeatures ? true,
+  additionalFeatures ? (p: p),
+  testers,
+  nushell,
+  nix-update-script,
+}:
 
 rustPlatform.buildRustPackage (let
   version = "0.79.0";

@@ -1,5 +1,10 @@
-{ maintainer, localSystem ? { system = args.system or builtins.currentSystem; }
-, system ? localSystem.system, crossSystem ? localSystem, ... }@args:
+{
+  maintainer,
+  localSystem ? { system = args.system or builtins.currentSystem; },
+  system ? localSystem.system,
+  crossSystem ? localSystem,
+  ...
+}@args:
 
 # based on update.nix
 # nix-build build.nix --argstr maintainer <yourname>

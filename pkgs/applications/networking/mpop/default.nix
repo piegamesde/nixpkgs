@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, gnutls, gsasl, libidn, pkg-config, Security }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gnutls,
+  gsasl,
+  libidn,
+  pkg-config,
+  Security,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mpop";

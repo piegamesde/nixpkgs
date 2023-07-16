@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, pytestCheckHook
-, pytest-asyncio, pytest-mock }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  pytestCheckHook,
+  pytest-asyncio,
+  pytest-mock,
+}:
 
 buildPythonPackage rec {
   pname = "async_stagger";

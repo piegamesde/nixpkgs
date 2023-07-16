@@ -1,6 +1,23 @@
-{ lib, meson, ninja, fetchFromGitHub, appstream-glib, desktop-file-utils
-, gdk-pixbuf, gettext, glib, gnome, gobject-introspection, gtk4, gtksourceview5
-, libadwaita, libxml2, pkg-config, python3Packages, wrapGAppsHook4 }:
+{
+  lib,
+  meson,
+  ninja,
+  fetchFromGitHub,
+  appstream-glib,
+  desktop-file-utils,
+  gdk-pixbuf,
+  gettext,
+  glib,
+  gnome,
+  gobject-introspection,
+  gtk4,
+  gtksourceview5,
+  libadwaita,
+  libxml2,
+  pkg-config,
+  python3Packages,
+  wrapGAppsHook4,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "bada-bib";

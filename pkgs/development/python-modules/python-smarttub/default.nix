@@ -1,5 +1,16 @@
-{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, inflection
-, pyjwt, pytest-asyncio, pytestCheckHook, python-dateutil, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  inflection,
+  pyjwt,
+  pytest-asyncio,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "python-smarttub";

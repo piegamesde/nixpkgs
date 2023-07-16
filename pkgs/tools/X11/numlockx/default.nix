@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, libX11, libXext, autoconf }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libX11,
+  libXext,
+  autoconf,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.2";

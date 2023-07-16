@@ -1,40 +1,115 @@
-{ version, sha256, versionModifier ? "", pname ? "emacs"
-, name ? "emacs-${version}${versionModifier}", patches ? _: [ ]
-, macportVersion ? null }:
-{ stdenv, llvmPackages_6, lib, fetchurl, fetchpatch, substituteAll, ncurses
-, libXaw, libXpm, Xaw3d, libXcursor, pkg-config, gettext, libXft, dbus, libpng
-, libjpeg, giflib, libtiff, librsvg, libwebp, gconf, libxml2, imagemagick
-, gnutls, libselinux, alsa-lib, cairo, acl, gpm, m17n_lib, libotf, sigtool
-, jansson, harfbuzz, sqlite, nixosTests, recurseIntoAttrs, emacsPackagesFor
-, libgccjit, makeWrapper # native-comp params
-, fetchFromSavannah, fetchFromBitbucket
+{
+  version,
+  sha256,
+  versionModifier ? "",
+  pname ? "emacs",
+  name ? "emacs-${version}${versionModifier}",
+  patches ? _: [ ],
+  macportVersion ? null
+}:
+{
+  stdenv,
+  llvmPackages_6,
+  lib,
+  fetchurl,
+  fetchpatch,
+  substituteAll,
+  ncurses,
+  libXaw,
+  libXpm,
+  Xaw3d,
+  libXcursor,
+  pkg-config,
+  gettext,
+  libXft,
+  dbus,
+  libpng,
+  libjpeg,
+  giflib,
+  libtiff,
+  librsvg,
+  libwebp,
+  gconf,
+  libxml2,
+  imagemagick,
+  gnutls,
+  libselinux,
+  alsa-lib,
+  cairo,
+  acl,
+  gpm,
+  m17n_lib,
+  libotf,
+  sigtool,
+  jansson,
+  harfbuzz,
+  sqlite,
+  nixosTests,
+  recurseIntoAttrs,
+  emacsPackagesFor,
+  libgccjit,
+  makeWrapper # native-comp params
+  ,
+  fetchFromSavannah,
+  fetchFromBitbucket
 
-# macOS dependencies for NS and macPort
-, AppKit, Carbon, Cocoa, IOKit, OSAKit, Quartz, QuartzCore, WebKit
-, ImageCaptureCore, GSS, ImageIO # These may be optional
+  # macOS dependencies for NS and macPort
+  ,
+  AppKit,
+  Carbon,
+  Cocoa,
+  IOKit,
+  OSAKit,
+  Quartz,
+  QuartzCore,
+  WebKit,
+  ImageCaptureCore,
+  GSS,
+  ImageIO # These may be optional
 
-, withX ? !stdenv.isDarwin && !withPgtk
-, withNS ? stdenv.isDarwin && !withMacport, withMacport ? macportVersion != null
-, withGTK2 ? false, gtk2-x11 ? null, withGTK3 ? withPgtk, gtk3-x11 ? null
-, gsettings-desktop-schemas ? null, withXwidgets ? false, webkitgtk ? null
-, wrapGAppsHook ? null, glib-networking ? null, withMotif ? false, motif ? null
-, withSQLite3 ? false, withCsrc ? true, withWebP ? false, srcRepo ? true
-, autoreconfHook ? null, texinfo ? null, siteStart ? ./site-start.el
-, nativeComp ? true, withAthena ? false, withToolkitScrollBars ? true
-, withPgtk ? false, gtk3 ? null
-, withXinput2 ? withX && lib.versionAtLeast version "29"
-, withImageMagick ? lib.versionOlder version "27" && (withX || withNS)
-, toolkit ? (if withGTK2 then
-  "gtk2"
-else if withGTK3 then
-  "gtk3"
-else if withMotif then
-  "motif"
-else if withAthena then
-  "athena"
-else
-  "lucid"), withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
-, systemd, withTreeSitter ? lib.versionAtLeast version "29", tree-sitter ? null
+  ,
+  withX ? !stdenv.isDarwin && !withPgtk,
+  withNS ? stdenv.isDarwin && !withMacport,
+  withMacport ? macportVersion != null,
+  withGTK2 ? false,
+  gtk2-x11 ? null,
+  withGTK3 ? withPgtk,
+  gtk3-x11 ? null,
+  gsettings-desktop-schemas ? null,
+  withXwidgets ? false,
+  webkitgtk ? null,
+  wrapGAppsHook ? null,
+  glib-networking ? null,
+  withMotif ? false,
+  motif ? null,
+  withSQLite3 ? false,
+  withCsrc ? true,
+  withWebP ? false,
+  srcRepo ? true,
+  autoreconfHook ? null,
+  texinfo ? null,
+  siteStart ? ./site-start.el,
+  nativeComp ? true,
+  withAthena ? false,
+  withToolkitScrollBars ? true,
+  withPgtk ? false,
+  gtk3 ? null,
+  withXinput2 ? withX && lib.versionAtLeast version "29",
+  withImageMagick ? lib.versionOlder version "27" && (withX || withNS),
+  toolkit ? (if withGTK2 then
+    "gtk2"
+  else if withGTK3 then
+    "gtk3"
+  else if withMotif then
+    "motif"
+  else if withAthena then
+    "athena"
+  else
+    "lucid"),
+  withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
+  systemd,
+  withTreeSitter ? lib.versionAtLeast version "29",
+  tree-sitter ? null
 }:
 
 assert (libXft != null) -> libpng != null; # probably a bug

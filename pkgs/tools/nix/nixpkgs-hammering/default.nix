@@ -1,4 +1,12 @@
-{ lib, fetchFromGitHub, rustPlatform, stdenv, makeWrapper, python3, nix }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  stdenv,
+  makeWrapper,
+  python3,
+  nix,
+}:
 
 let
   version = "unstable-2023-03-09";

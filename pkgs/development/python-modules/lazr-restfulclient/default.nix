@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, isPy27, fetchPypi, distro, httplib2, oauthlib
-, setuptools, six, wadllib, fixtures, lazr-uri, pytestCheckHook, wsgi-intercept
+{
+  lib,
+  buildPythonPackage,
+  isPy27,
+  fetchPypi,
+  distro,
+  httplib2,
+  oauthlib,
+  setuptools,
+  six,
+  wadllib,
+  fixtures,
+  lazr-uri,
+  pytestCheckHook,
+  wsgi-intercept,
 }:
 
 buildPythonPackage rec {

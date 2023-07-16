@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, zlib, apngSupport ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zlib,
+  apngSupport ? true
+}:
 
 assert zlib != null;
 

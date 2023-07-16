@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitLab, glm, glslang, meson, ninja, openxr-loader
-, pkg-config, vulkan-headers, vulkan-loader, xxd, SDL2, makeWrapper, libGL, glib
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  glm,
+  glslang,
+  meson,
+  ninja,
+  openxr-loader,
+  pkg-config,
+  vulkan-headers,
+  vulkan-loader,
+  xxd,
+  SDL2,
+  makeWrapper,
+  libGL,
+  glib,
 }:
 
 stdenv.mkDerivation rec {

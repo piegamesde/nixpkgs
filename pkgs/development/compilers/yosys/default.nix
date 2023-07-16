@@ -1,6 +1,25 @@
-{ stdenv, lib, abc-verifier, bash, bison, fetchFromGitHub, flex, libffi
-, makeWrapper, pkg-config, python3, readline, symlinkJoin, tcl, verilog, zlib
-, yosys, yosys-bluespec, yosys-ghdl, yosys-symbiflow }:
+{
+  stdenv,
+  lib,
+  abc-verifier,
+  bash,
+  bison,
+  fetchFromGitHub,
+  flex,
+  libffi,
+  makeWrapper,
+  pkg-config,
+  python3,
+  readline,
+  symlinkJoin,
+  tcl,
+  verilog,
+  zlib,
+  yosys,
+  yosys-bluespec,
+  yosys-ghdl,
+  yosys-symbiflow,
+}:
 
 # NOTE: as of late 2020, yosys has switched to an automation robot that
 # automatically tags their repository Makefile with a new build number every

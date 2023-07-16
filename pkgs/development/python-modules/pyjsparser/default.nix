@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, buildPythonPackage, pytestCheckHook, js2py }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pytestCheckHook,
+  js2py,
+}:
 
 let
   pyjsparser = buildPythonPackage rec {

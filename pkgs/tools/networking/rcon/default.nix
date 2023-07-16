@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, glib, libbsd, check, pcre }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  glib,
+  libbsd,
+  check,
+  pcre,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rcon";

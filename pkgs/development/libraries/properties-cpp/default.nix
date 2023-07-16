@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, cmake, pkg-config, gtest, doxygen, graphviz, lcov }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  pkg-config,
+  gtest,
+  doxygen,
+  graphviz,
+  lcov,
+}:
 
 stdenv.mkDerivation rec {
   pname = "properties-cpp";

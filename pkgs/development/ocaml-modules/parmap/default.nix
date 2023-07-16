@@ -1,4 +1,9 @@
-{ lib, fetchurl, buildDunePackage, dune-configurator }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  dune-configurator,
+}:
 
 buildDunePackage rec {
   pname = "parmap";

@@ -1,4 +1,11 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, networkx, pytestCheckHook }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  networkx,
+  pytestCheckHook,
+}:
 
 buildPythonPackage {
   pname = "importlab";

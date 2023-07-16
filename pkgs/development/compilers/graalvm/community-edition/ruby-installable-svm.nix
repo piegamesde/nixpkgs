@@ -1,5 +1,13 @@
-{ lib, stdenv, graalvmCEPackages, llvm-installable-svm, openssl, javaVersion
-, src, version }:
+{
+  lib,
+  stdenv,
+  graalvmCEPackages,
+  llvm-installable-svm,
+  openssl,
+  javaVersion,
+  src,
+  version,
+}:
 
 graalvmCEPackages.buildGraalvmProduct rec {
   inherit src javaVersion version;

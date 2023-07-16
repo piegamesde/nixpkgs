@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pycurl, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pycurl,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "urlgrabber";

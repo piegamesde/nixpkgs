@@ -1,7 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, bash, docbook_xml_dtd_42
-, docbook-xsl-nons, glib, gobject-introspection, gtk3, intltool, libnotify
-, libxml2, libxslt, networkmanagerapplet, pkg-config, python3
-, wrapGAppsNoGuiHook, withGui ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  bash,
+  docbook_xml_dtd_42,
+  docbook-xsl-nons,
+  glib,
+  gobject-introspection,
+  gtk3,
+  intltool,
+  libnotify,
+  libxml2,
+  libxslt,
+  networkmanagerapplet,
+  pkg-config,
+  python3,
+  wrapGAppsNoGuiHook,
+  withGui ? false
+}:
 
 let
   pythonPath = python3.withPackages (ps:

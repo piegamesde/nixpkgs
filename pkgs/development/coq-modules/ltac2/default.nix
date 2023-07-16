@@ -1,4 +1,10 @@
-{ lib, mkCoqDerivation, which, coq, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  which,
+  coq,
+  version ? null
+}:
 
 mkCoqDerivation {
   pname = "ltac2";

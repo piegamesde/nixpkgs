@@ -1,4 +1,7 @@
-{ runCommand, git }:
+{
+  runCommand,
+  git,
+}:
 src:
 
 let

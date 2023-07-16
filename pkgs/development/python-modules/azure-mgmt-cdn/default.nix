@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, msrest, msrestazure, azure-common
-, azure-mgmt-nspkg, azure-mgmt-core, isPy3k }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  msrest,
+  msrestazure,
+  azure-common,
+  azure-mgmt-nspkg,
+  azure-mgmt-core,
+  isPy3k,
+}:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-cdn";

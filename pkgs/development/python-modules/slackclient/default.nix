@@ -1,7 +1,26 @@
-{ lib, stdenv, aiohttp, boto3, buildPythonPackage, fetchFromGitHub, flask
-, flask-sockets, pythonOlder, mock, moto, psutil, pytest-cov, pytest-mock
-, pytestCheckHook, pytest-runner, requests, responses, sqlalchemy, websockets
-, websocket-client }:
+{
+  lib,
+  stdenv,
+  aiohttp,
+  boto3,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flask,
+  flask-sockets,
+  pythonOlder,
+  mock,
+  moto,
+  psutil,
+  pytest-cov,
+  pytest-mock,
+  pytestCheckHook,
+  pytest-runner,
+  requests,
+  responses,
+  sqlalchemy,
+  websockets,
+  websocket-client,
+}:
 
 buildPythonPackage rec {
   pname = "slackclient";

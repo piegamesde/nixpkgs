@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, cdcs, datamodeldict, fetchFromGitHub, ipython, lxml
-, numpy, pandas, pymongo, pytestCheckHook, pythonOlder, tqdm }:
+{
+  lib,
+  buildPythonPackage,
+  cdcs,
+  datamodeldict,
+  fetchFromGitHub,
+  ipython,
+  lxml,
+  numpy,
+  pandas,
+  pymongo,
+  pytestCheckHook,
+  pythonOlder,
+  tqdm,
+}:
 
 buildPythonPackage rec {
   pname = "yabadaba";

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, texinfo, lzip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  texinfo,
+  lzip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lzlib";

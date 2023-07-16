@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, glew, glm, libGLU
-, libGL, libX11, libXext, libXrender, icu, libSM }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  glew,
+  glm,
+  libGLU,
+  libGL,
+  libX11,
+  libXext,
+  libXrender,
+  icu,
+  libSM,
+}:
 
 stdenv.mkDerivation rec {
   pname = "slop";

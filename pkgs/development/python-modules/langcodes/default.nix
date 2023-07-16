@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, marisa-trie, pythonOlder, fetchPypi, poetry-core
-, pytestCheckHook, language-data, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  marisa-trie,
+  pythonOlder,
+  fetchPypi,
+  poetry-core,
+  pytestCheckHook,
+  language-data,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "langcodes";

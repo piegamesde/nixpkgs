@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, llvmPackages, libxml2, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  llvmPackages,
+  libxml2,
+  zlib,
+}:
 
 let
   zig_0_10_0 = fetchFromGitHub {

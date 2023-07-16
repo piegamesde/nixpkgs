@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, dbus, fpc, getopt, glib, lazarus, libX11
-, libqt5pas, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  dbus,
+  fpc,
+  getopt,
+  glib,
+  lazarus,
+  libX11,
+  libqt5pas,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "doublecmd";

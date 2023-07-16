@@ -1,4 +1,12 @@
-{ lib, fetchFromGitHub, buildPythonPackage, requests, pytest, flask, isPy27 }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  requests,
+  pytest,
+  flask,
+  isPy27,
+}:
 
 buildPythonPackage rec {
   version = "4.1";

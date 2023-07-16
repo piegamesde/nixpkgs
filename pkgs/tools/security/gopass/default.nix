@@ -1,5 +1,16 @@
-{ lib, stdenv, makeWrapper, buildGoModule, fetchFromGitHub, installShellFiles
-, git, gnupg, xclip, wl-clipboard, passAlias ? false }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  git,
+  gnupg,
+  xclip,
+  wl-clipboard,
+  passAlias ? false
+}:
 
 buildGoModule rec {
   pname = "gopass";

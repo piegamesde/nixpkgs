@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchzip, jre, makeWrapper, python3 }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  jre,
+  makeWrapper,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gatk";

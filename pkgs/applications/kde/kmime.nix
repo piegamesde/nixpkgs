@@ -1,4 +1,12 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, ki18n, kcodecs, qtbase, }:
+{
+  mkDerivation,
+  lib,
+  kdepimTeam,
+  extra-cmake-modules,
+  ki18n,
+  kcodecs,
+  qtbase,
+}:
 
 mkDerivation {
   pname = "kmime";

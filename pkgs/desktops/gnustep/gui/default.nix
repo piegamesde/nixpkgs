@@ -1,4 +1,8 @@
-{ gsmakeDerivation, fetchzip, base }:
+{
+  gsmakeDerivation,
+  fetchzip,
+  base,
+}:
 
 gsmakeDerivation rec {
   version = "0.29.0";

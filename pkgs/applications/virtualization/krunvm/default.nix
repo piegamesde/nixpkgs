@@ -1,5 +1,16 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, asciidoctor, buildah
-, buildah-unwrapped, libiconv, libkrun, makeWrapper, sigtool }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  asciidoctor,
+  buildah,
+  buildah-unwrapped,
+  libiconv,
+  libkrun,
+  makeWrapper,
+  sigtool,
+}:
 
 stdenv.mkDerivation rec {
   pname = "krunvm";

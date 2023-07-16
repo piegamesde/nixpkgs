@@ -1,7 +1,30 @@
-{ lib, stdenv, fetchurl, substituteAll, pkg-config, libxslt, ninja, gnome, gtk3
-, gtk4, glib, gettext, libxml2, xkeyboard_config, libxkbcommon, isocodes, meson
-, wayland, libseccomp, systemd, bubblewrap, gobject-introspection, gtk-doc
-, docbook-xsl-nons, gsettings-desktop-schemas }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  substituteAll,
+  pkg-config,
+  libxslt,
+  ninja,
+  gnome,
+  gtk3,
+  gtk4,
+  glib,
+  gettext,
+  libxml2,
+  xkeyboard_config,
+  libxkbcommon,
+  isocodes,
+  meson,
+  wayland,
+  libseccomp,
+  systemd,
+  bubblewrap,
+  gobject-introspection,
+  gtk-doc,
+  docbook-xsl-nons,
+  gsettings-desktop-schemas,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-desktop";

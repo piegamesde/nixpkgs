@@ -1,5 +1,15 @@
-{ lib, stdenv, llvm_meta, buildLlvmTools, fetch, libunwind, cmake, libxml2
-, libllvm, version }:
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  buildLlvmTools,
+  fetch,
+  libunwind,
+  cmake,
+  libxml2,
+  libllvm,
+  version,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lld";

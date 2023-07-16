@@ -1,5 +1,20 @@
-{ lib, buildPythonPackage, fetchFromGitHub, hdf5, numpy, opencv3, pillow, pyaml
-, pyclipper, python-bidi, torch, scikitimage, scipy, shapely, torchvision, onnx
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hdf5,
+  numpy,
+  opencv3,
+  pillow,
+  pyaml,
+  pyclipper,
+  python-bidi,
+  torch,
+  scikitimage,
+  scipy,
+  shapely,
+  torchvision,
+  onnx,
 }:
 
 buildPythonPackage rec {

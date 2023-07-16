@@ -1,6 +1,18 @@
-{ lib, mkDerivation, cmake, extra-cmake-modules, kcoreaddons, ki18n, kirigami2
-, mauikit, mauikit-filebrowsing, qtgraphicaleffects, qtmultimedia
-, qtquickcontrols2, gst_all_1 }:
+{
+  lib,
+  mkDerivation,
+  cmake,
+  extra-cmake-modules,
+  kcoreaddons,
+  ki18n,
+  kirigami2,
+  mauikit,
+  mauikit-filebrowsing,
+  qtgraphicaleffects,
+  qtmultimedia,
+  qtquickcontrols2,
+  gst_all_1,
+}:
 
 mkDerivation {
   pname = "booth";

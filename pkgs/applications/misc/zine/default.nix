@@ -1,5 +1,13 @@
-{ lib, rustPlatform, fetchCrate, pkg-config, openssl, stdenv, CoreServices
-, Security }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  pkg-config,
+  openssl,
+  stdenv,
+  CoreServices,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "zine";

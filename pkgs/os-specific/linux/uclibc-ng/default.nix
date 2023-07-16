@@ -1,5 +1,12 @@
-{ lib, stdenv, buildPackages, fetchurl, linuxHeaders, libiconvReal
-, extraConfig ? "" }:
+{
+  lib,
+  stdenv,
+  buildPackages,
+  fetchurl,
+  linuxHeaders,
+  libiconvReal,
+  extraConfig ? ""
+}:
 
 let
   isCross = (stdenv.buildPlatform != stdenv.hostPlatform);

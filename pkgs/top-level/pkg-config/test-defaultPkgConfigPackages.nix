@@ -1,6 +1,12 @@
 # cd nixpkgs
 # nix-build -A tests.pkg-config.defaultPkgConfigPackages
-{ lib, pkg-config, defaultPkgConfigPackages, runCommand, testers }:
+{
+  lib,
+  pkg-config,
+  defaultPkgConfigPackages,
+  runCommand,
+  testers,
+}:
 let
   inherit (lib.strings) escapeNixIdentifier;
 

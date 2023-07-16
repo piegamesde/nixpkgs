@@ -1,5 +1,22 @@
-{ stdenv, lib, fetchFromGitHub, fetchurl, clang-tools, cmake, bzip2, zlib, expat
-, boost, git, pandoc, gzip, postgresql_12, python3, python3Packages, php }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  clang-tools,
+  cmake,
+  bzip2,
+  zlib,
+  expat,
+  boost,
+  git,
+  pandoc,
+  gzip,
+  postgresql_12,
+  python3,
+  python3Packages,
+  php,
+}:
 
 let
   countryGrid = fetchurl {

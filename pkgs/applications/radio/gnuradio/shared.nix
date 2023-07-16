@@ -1,8 +1,20 @@
-{ lib, stdenv, python, qt, gtk, removeReferencesTo, featuresInfo, features
-, versionAttr, sourceSha256
-# If overridden. No need to set default values, as they are given defaults in
-# the main expressions
-, overrideSrc, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  python,
+  qt,
+  gtk,
+  removeReferencesTo,
+  featuresInfo,
+  features,
+  versionAttr,
+  sourceSha256
+  # If overridden. No need to set default values, as they are given defaults in
+  # the main expressions
+  ,
+  overrideSrc,
+  fetchFromGitHub,
+}:
 
 rec {
   version = builtins.concatStringsSep "."

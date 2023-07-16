@@ -1,22 +1,43 @@
-{ stdenv, lib, fetchFromGitHub, unstableGitUpdater, cmake, libiconv, zlib
-, enableShared ? true
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  unstableGitUpdater,
+  cmake,
+  libiconv,
+  zlib,
+  enableShared ? true
 
-, enableAudio ? true, withWaveWrite ? true
-, withWinMM ? stdenv.hostPlatform.isWindows
-, withDirectSound ? stdenv.hostPlatform.isWindows
-, withXAudio2 ? stdenv.hostPlatform.isWindows
-, withWASAPI ? stdenv.hostPlatform.isWindows
-, withOSS ? stdenv.hostPlatform.isFreeBSD
-, withSADA ? stdenv.hostPlatform.isSunOS, withALSA ? stdenv.hostPlatform.isLinux
-, alsa-lib, withPulseAudio ? stdenv.hostPlatform.isLinux, libpulseaudio
-, withCoreAudio ? stdenv.hostPlatform.isDarwin, CoreAudio, AudioToolbox
-, withLibao ? true, libao
+  ,
+  enableAudio ? true,
+  withWaveWrite ? true,
+  withWinMM ? stdenv.hostPlatform.isWindows,
+  withDirectSound ? stdenv.hostPlatform.isWindows,
+  withXAudio2 ? stdenv.hostPlatform.isWindows,
+  withWASAPI ? stdenv.hostPlatform.isWindows,
+  withOSS ? stdenv.hostPlatform.isFreeBSD,
+  withSADA ? stdenv.hostPlatform.isSunOS,
+  withALSA ? stdenv.hostPlatform.isLinux,
+  alsa-lib,
+  withPulseAudio ? stdenv.hostPlatform.isLinux,
+  libpulseaudio,
+  withCoreAudio ? stdenv.hostPlatform.isDarwin,
+  CoreAudio,
+  AudioToolbox,
+  withLibao ? true,
+  libao
 
-, enableEmulation ? true, withAllEmulators ? true, emulators ? [ ]
+  ,
+  enableEmulation ? true,
+  withAllEmulators ? true,
+  emulators ? [ ]
 
-, enableLibplayer ? true
+  ,
+  enableLibplayer ? true
 
-, enableTools ? false }:
+  ,
+  enableTools ? false
+}:
 
 assert enableTools -> enableAudio && enableEmulation && enableLibplayer;
 

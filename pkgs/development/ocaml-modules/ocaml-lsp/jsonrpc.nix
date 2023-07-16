@@ -1,5 +1,14 @@
-{ buildDunePackage, stdlib-shims, ppx_yojson_conv_lib, ocaml-syntax-shims
-, yojson, result, fetchurl, lib, ocaml }:
+{
+  buildDunePackage,
+  stdlib-shims,
+  ppx_yojson_conv_lib,
+  ocaml-syntax-shims,
+  yojson,
+  result,
+  fetchurl,
+  lib,
+  ocaml,
+}:
 
 let
   params = if lib.versionAtLeast ocaml.version "4.14" then {

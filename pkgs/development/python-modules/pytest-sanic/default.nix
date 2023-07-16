@@ -1,5 +1,15 @@
-{ lib, aiohttp, async_generator, buildPythonPackage, fetchFromGitHub, httpx
-, pytest, pytestCheckHook, sanic, websockets }:
+{
+  lib,
+  aiohttp,
+  async_generator,
+  buildPythonPackage,
+  fetchFromGitHub,
+  httpx,
+  pytest,
+  pytestCheckHook,
+  sanic,
+  websockets,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-sanic";

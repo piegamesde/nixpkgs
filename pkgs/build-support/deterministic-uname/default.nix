@@ -1,5 +1,12 @@
 # expr and script based on our lsb_release
-{ stdenv, lib, substituteAll, coreutils, getopt, modDirVersion ? "" }:
+{
+  stdenv,
+  lib,
+  substituteAll,
+  coreutils,
+  getopt,
+  modDirVersion ? ""
+}:
 
 substituteAll {
   name = "uname";

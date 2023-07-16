@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, unstableGitUpdater }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  unstableGitUpdater,
+}:
 
 stdenv.mkDerivation {
   name = "nixos-bgrt-plymouth";

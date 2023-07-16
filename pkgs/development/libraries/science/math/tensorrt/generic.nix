@@ -1,8 +1,21 @@
-{ lib, backendStdenv, requireFile, autoPatchelfHook, autoAddOpenGLRunpathHook
-, cudaVersion, cudatoolkit, cudnn }:
+{
+  lib,
+  backendStdenv,
+  requireFile,
+  autoPatchelfHook,
+  autoAddOpenGLRunpathHook,
+  cudaVersion,
+  cudatoolkit,
+  cudnn,
+}:
 
-{ fullVersion, fileVersionCudnn ? null, tarball, sha256
-, supportedCudaVersions ? [ ] }:
+{
+  fullVersion,
+  fileVersionCudnn ? null,
+  tarball,
+  sha256,
+  supportedCudaVersions ? [ ]
+}:
 
 assert fileVersionCudnn == null
   || lib.assertMsg (lib.strings.versionAtLeast cudnn.version fileVersionCudnn)

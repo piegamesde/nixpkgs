@@ -1,5 +1,12 @@
-{ mkDerivation, extra-cmake-modules, libdmtx, qrencode, qtbase, qtmultimedia
-, zxing-cpp }:
+{
+  mkDerivation,
+  extra-cmake-modules,
+  libdmtx,
+  qrencode,
+  qtbase,
+  qtmultimedia,
+  zxing-cpp,
+}:
 
 mkDerivation {
   pname = "prison";

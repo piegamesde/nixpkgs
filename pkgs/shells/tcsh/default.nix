@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, libxcrypt, ncurses, buildPackages }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libxcrypt,
+  ncurses,
+  buildPackages,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "tcsh";

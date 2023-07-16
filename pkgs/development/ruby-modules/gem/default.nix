@@ -18,28 +18,55 @@
 # Normal gem packages can be used outside of bundler; a binstub is created in
 # $out/bin.
 
-{ lib, fetchurl, fetchgit, makeWrapper, gitMinimal, libobjc, ruby, bundler
+{
+  lib,
+  fetchurl,
+  fetchgit,
+  makeWrapper,
+  gitMinimal,
+  libobjc,
+  ruby,
+  bundler,
 }@defs:
 
 lib.makeOverridable (
 
-  { name ? null, gemName, version ? null, type ? "gem"
-  , document ? [ ] # e.g. [ "ri" "rdoc" ]
-  , platform ? "ruby", ruby ? defs.ruby, stdenv ? ruby.stdenv, namePrefix ?
-    (let rubyName = builtins.parseDrvName ruby.name;
-    in "${rubyName.name}${rubyName.version}-"), nativeBuildInputs ? [ ]
-  , buildInputs ? [ ], meta ? { }, patches ? [ ], gemPath ? [ ], dontStrip ?
-    false
-    # Assume we don't have to build unless strictly necessary (e.g. the source is a
-    # git checkout).
-    # If you need to apply patches, make sure to set `dontBuild = false`;
-  , dontBuild ? true, dontInstallManpages ? false, propagatedBuildInputs ? [ ]
-  , propagatedUserEnvPkgs ? [ ], buildFlags ? [ ], passthru ? { }
-    # bundler expects gems to be stored in the cache directory for certain actions
-    # such as `bundler install --redownload`.
-    # At the cost of increasing the store size, you can keep the gems to have closer
-    # alignment with what Bundler expects.
-  , keepGemCache ? false, ... }@attrs:
+  {
+    name ? null,
+    gemName,
+    version ? null,
+    type ? "gem",
+    document ? [ ] # e.g. [ "ri" "rdoc" ]
+    ,
+    platform ? "ruby",
+    ruby ? defs.ruby,
+    stdenv ? ruby.stdenv,
+    namePrefix ? (let rubyName = builtins.parseDrvName ruby.name;
+    in "${rubyName.name}${rubyName.version}-"),
+    nativeBuildInputs ? [ ],
+    buildInputs ? [ ],
+    meta ? { },
+    patches ? [ ],
+    gemPath ? [ ],
+    dontStrip ? false
+      # Assume we don't have to build unless strictly necessary (e.g. the source is a
+      # git checkout).
+      # If you need to apply patches, make sure to set `dontBuild = false`;
+    ,
+    dontBuild ? true,
+    dontInstallManpages ? false,
+    propagatedBuildInputs ? [ ],
+    propagatedUserEnvPkgs ? [ ],
+    buildFlags ? [ ],
+    passthru ? { }
+      # bundler expects gems to be stored in the cache directory for certain actions
+      # such as `bundler install --redownload`.
+      # At the cost of increasing the store size, you can keep the gems to have closer
+      # alignment with what Bundler expects.
+    ,
+    keepGemCache ? false,
+    ...
+  }@attrs:
 
   let
     src = attrs.src or (if type == "gem" then

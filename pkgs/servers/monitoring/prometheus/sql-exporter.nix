@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, go, prometheus-sql-exporter, testers }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  go,
+  prometheus-sql-exporter,
+  testers,
+}:
 
 buildGoModule rec {
   pname = "sql_exporter";

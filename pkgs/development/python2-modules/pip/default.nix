@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, bootstrapped-pip, fetchFromGitHub, mock, scripttest
-, virtualenv, pretend, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  bootstrapped-pip,
+  fetchFromGitHub,
+  mock,
+  scripttest,
+  virtualenv,
+  pretend,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "pip";

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, aiohttp, python-dateutil
-, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  aiohttp,
+  python-dateutil,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "twitchapi";

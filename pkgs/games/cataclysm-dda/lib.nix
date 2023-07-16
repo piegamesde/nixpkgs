@@ -1,4 +1,6 @@
-{ callPackage }:
+{
+  callPackage,
+}:
 
 rec {
   buildMod = callPackage ./builder.nix { type = "mod"; };

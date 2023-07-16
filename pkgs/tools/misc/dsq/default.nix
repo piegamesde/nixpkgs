@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, buildGoModule, runCommand, nix-update-script
-, fetchurl, testers, python3, curl, jq, p7zip, dsq }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildGoModule,
+  runCommand,
+  nix-update-script,
+  fetchurl,
+  testers,
+  python3,
+  curl,
+  jq,
+  p7zip,
+  dsq,
+}:
 
 buildGoModule rec {
   pname = "dsq";

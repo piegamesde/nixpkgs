@@ -1,7 +1,27 @@
-{ lib, stdenv, fetchFromGitLab, meson, ninja, wrapGAppsHook, pkg-config
-, desktop-file-utils, appstream-glib, pythonPackages, glib
-, gobject-introspection, gtk3, webkitgtk, glib-networking, gnome, gspell
-, texlive, shared-mime-info, libhandy, fira, sassc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  meson,
+  ninja,
+  wrapGAppsHook,
+  pkg-config,
+  desktop-file-utils,
+  appstream-glib,
+  pythonPackages,
+  glib,
+  gobject-introspection,
+  gtk3,
+  webkitgtk,
+  glib-networking,
+  gnome,
+  gspell,
+  texlive,
+  shared-mime-info,
+  libhandy,
+  fira,
+  sassc,
+}:
 
 let
   pythonEnv = pythonPackages.python.withPackages (p:

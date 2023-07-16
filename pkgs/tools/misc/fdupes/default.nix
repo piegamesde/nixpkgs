@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, ncurses, pcre2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  ncurses,
+  pcre2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fdupes";

@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, glib, openssl, pkg-config, autoreconfHook
-, SystemConfiguration }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  glib,
+  openssl,
+  pkg-config,
+  autoreconfHook,
+  SystemConfiguration,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sofia-sip";

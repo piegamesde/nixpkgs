@@ -1,6 +1,24 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, numpy, scipy, matplotlib
-, pyparsing, tables, cython, python, sympy, meshio, mpi4py, psutil, openssh
-, pyvista, pytest, pythonOlder }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  scipy,
+  matplotlib,
+  pyparsing,
+  tables,
+  cython,
+  python,
+  sympy,
+  meshio,
+  mpi4py,
+  psutil,
+  openssh,
+  pyvista,
+  pytest,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "sfepy";

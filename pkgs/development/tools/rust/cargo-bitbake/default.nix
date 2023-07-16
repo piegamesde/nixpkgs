@@ -1,4 +1,10 @@
-{ lib, pkg-config, rustPlatform, fetchFromGitHub, openssl }:
+{
+  lib,
+  pkg-config,
+  rustPlatform,
+  fetchFromGitHub,
+  openssl,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-bitbake";

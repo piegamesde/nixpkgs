@@ -1,4 +1,7 @@
-{ pkgs ? (import ../.. { }), nixpkgs ? { } }:
+{
+  pkgs ? (import ../.. { }),
+  nixpkgs ? { }
+}:
 let
   inherit (pkgs) lib;
   inherit (lib) hasPrefix removePrefix;

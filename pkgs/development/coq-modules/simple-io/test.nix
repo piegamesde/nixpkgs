@@ -1,4 +1,8 @@
-{ stdenv, coq, simple-io }:
+{
+  stdenv,
+  coq,
+  simple-io,
+}:
 
 stdenv.mkDerivation {
   pname = "coq-simple-io-test";

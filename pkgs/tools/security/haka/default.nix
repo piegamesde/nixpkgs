@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, cmake, swig, wireshark, check, rsync, libpcap, gawk
-, libedit, pcre, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  swig,
+  wireshark,
+  check,
+  rsync,
+  libpcap,
+  gawk,
+  libedit,
+  pcre,
+  nixosTests,
+}:
 
 let version = "0.3.0";
 

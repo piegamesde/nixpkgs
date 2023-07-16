@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, autoconf, automake, libtool, bison, libasr, libevent
-, zlib, libressl, db, pam, libxcrypt, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoconf,
+  automake,
+  libtool,
+  bison,
+  libasr,
+  libevent,
+  zlib,
+  libressl,
+  db,
+  pam,
+  libxcrypt,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "opensmtpd";

@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, pkg-config, glib, libwnck, libnotify, dbus-glib
-, makeWrapper, gsettings-desktop-schemas }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  glib,
+  libwnck,
+  libnotify,
+  dbus-glib,
+  makeWrapper,
+  gsettings-desktop-schemas,
+}:
 
 stdenv.mkDerivation rec {
   pname = "notify-osd";

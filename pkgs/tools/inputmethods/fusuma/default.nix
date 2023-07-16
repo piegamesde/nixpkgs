@@ -1,4 +1,10 @@
-{ lib, bundlerApp, bundlerUpdateScript, makeWrapper, libinput }:
+{
+  lib,
+  bundlerApp,
+  bundlerUpdateScript,
+  makeWrapper,
+  libinput,
+}:
 
 bundlerApp {
   pname = "fusuma";

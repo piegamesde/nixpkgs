@@ -1,5 +1,13 @@
-{ mkDerivation, lib, fetchFromGitLab, libnotify, cmake, ninja, qtbase
-, qtconnectivity }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitLab,
+  libnotify,
+  cmake,
+  ninja,
+  qtbase,
+  qtconnectivity,
+}:
 
 mkDerivation rec {
   pname = "libcprime";

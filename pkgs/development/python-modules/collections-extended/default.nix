@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, hypothesis, poetry-core
-, pytestCheckHook, pythonOlder, pythonAtLeast }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hypothesis,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  pythonAtLeast,
+}:
 
 buildPythonPackage rec {
   pname = "collections-extended";

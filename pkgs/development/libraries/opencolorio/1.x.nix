@@ -1,4 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, cmake, boost, pkg-config, lcms2, tinyxml, git }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  pkg-config,
+  lcms2,
+  tinyxml,
+  git,
+}:
 
 stdenv.mkDerivation rec {
   pname = "opencolorio";

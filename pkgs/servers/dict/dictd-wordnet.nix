@@ -1,4 +1,10 @@
-{ lib, stdenv, python3, wordnet, writeScript }:
+{
+  lib,
+  stdenv,
+  python3,
+  wordnet,
+  writeScript,
+}:
 
 stdenv.mkDerivation rec {
   version = "542";

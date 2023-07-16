@@ -1,5 +1,21 @@
-{ lib, stdenv, fetchurl, meson, ninja, python3, vala, libxslt, pkg-config, glib
-, bash-completion, dbus, gnome, gtk-doc, docbook-xsl-nons, docbook_xml_dtd_42 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  python3,
+  vala,
+  libxslt,
+  pkg-config,
+  glib,
+  bash-completion,
+  dbus,
+  gnome,
+  gtk-doc,
+  docbook-xsl-nons,
+  docbook_xml_dtd_42,
+}:
 let isCross = (stdenv.hostPlatform != stdenv.buildPlatform);
 in stdenv.mkDerivation rec {
   pname = "dconf";

@@ -1,6 +1,19 @@
-{ lib, aenum, aiodns, aiohttp, buildPythonPackage, faust-cchardet
-, fetchFromGitHub, pyopenssl, pythonOlder, pytz, related, requests
-, uonet-request-signer-hebe, yarl }:
+{
+  lib,
+  aenum,
+  aiodns,
+  aiohttp,
+  buildPythonPackage,
+  faust-cchardet,
+  fetchFromGitHub,
+  pyopenssl,
+  pythonOlder,
+  pytz,
+  related,
+  requests,
+  uonet-request-signer-hebe,
+  yarl,
+}:
 
 buildPythonPackage rec {
   pname = "vulcan-api";

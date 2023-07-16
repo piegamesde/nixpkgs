@@ -1,6 +1,23 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, nix-update-script, pkg-config, meson
-, mesonEmulatorHook, ninja, python3, mutest, nixosTests, glib, gtk-doc
-, docbook_xsl, docbook_xml_dtd_43, gobject-introspection, makeWrapper }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  nix-update-script,
+  pkg-config,
+  meson,
+  mesonEmulatorHook,
+  ninja,
+  python3,
+  mutest,
+  nixosTests,
+  glib,
+  gtk-doc,
+  docbook_xsl,
+  docbook_xml_dtd_43,
+  gobject-introspection,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "graphene";

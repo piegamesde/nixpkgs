@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchurl, autoPatchelfHook, udev }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+  udev,
+}:
 let
   arch = if stdenv.isx86_64 then
     "x86_64"

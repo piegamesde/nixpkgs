@@ -1,4 +1,10 @@
-{ stdenv, buildGoModule, fetchFromGitHub, lib, git }:
+{
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  git,
+}:
 buildGoModule rec {
   pname = "garble";
   version = "0.8.0";

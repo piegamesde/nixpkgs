@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, fetchzip, appimageTools }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchzip,
+  appimageTools,
+}:
 
 let
   pname = "osu-lazer-bin";

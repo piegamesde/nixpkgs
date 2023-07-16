@@ -1,9 +1,30 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-cmake, hip
-, python3, tensile, msgpack, libxml2, gtest, gfortran, openmp, amd-blis
-, python3Packages, buildTensile ? true, buildTests ? false
-, buildBenchmarks ? false, tensileLogic ? "asm_full", tensileCOVersion ? "V3"
-, tensileSepArch ? true, tensileLazyLib ? true, tensileLibFormat ? "msgpack"
-, gpuTargets ? [ "all" ] }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  cmake,
+  rocm-cmake,
+  hip,
+  python3,
+  tensile,
+  msgpack,
+  libxml2,
+  gtest,
+  gfortran,
+  openmp,
+  amd-blis,
+  python3Packages,
+  buildTensile ? true,
+  buildTests ? false,
+  buildBenchmarks ? false,
+  tensileLogic ? "asm_full",
+  tensileCOVersion ? "V3",
+  tensileSepArch ? true,
+  tensileLazyLib ? true,
+  tensileLibFormat ? "msgpack",
+  gpuTargets ? [ "all" ]
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocblas";

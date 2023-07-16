@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchCrate, rustPlatform, openssl, CoreServices }:
+{
+  lib,
+  stdenv,
+  fetchCrate,
+  rustPlatform,
+  openssl,
+  CoreServices,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "mdbook-katex";

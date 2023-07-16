@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, autobahn, mock, twisted }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  autobahn,
+  mock,
+  twisted,
+}:
 
 buildPythonPackage rec {
   pname = "magic-wormhole-transit-relay";

@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, cmake, openssl, libusb1, libedit, curl
-, gengetopt, pkg-config, pcsclite, help2man, darwin, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  openssl,
+  libusb1,
+  libedit,
+  curl,
+  gengetopt,
+  pkg-config,
+  pcsclite,
+  help2man,
+  darwin,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "yubihsm-shell";

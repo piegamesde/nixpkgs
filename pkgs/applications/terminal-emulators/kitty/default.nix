@@ -1,10 +1,48 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages, libunistring, harfbuzz
-, fontconfig, pkg-config, ncurses, imagemagick, libstartup_notification, libGL
-, libX11, libXrandr, libXinerama, libXcursor, libxkbcommon, libXi, libXext
-, wayland-protocols, wayland, lcms2, librsync, openssl, installShellFiles, dbus
-, Libsystem, Cocoa, Kernel, UniformTypeIdentifiers, UserNotifications
-, libcanberra, libicns, libpng, python3, zlib, bashInteractive, zsh, fish
-, nixosTests, go, buildGoModule, nix-update-script }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3Packages,
+  libunistring,
+  harfbuzz,
+  fontconfig,
+  pkg-config,
+  ncurses,
+  imagemagick,
+  libstartup_notification,
+  libGL,
+  libX11,
+  libXrandr,
+  libXinerama,
+  libXcursor,
+  libxkbcommon,
+  libXi,
+  libXext,
+  wayland-protocols,
+  wayland,
+  lcms2,
+  librsync,
+  openssl,
+  installShellFiles,
+  dbus,
+  Libsystem,
+  Cocoa,
+  Kernel,
+  UniformTypeIdentifiers,
+  UserNotifications,
+  libcanberra,
+  libicns,
+  libpng,
+  python3,
+  zlib,
+  bashInteractive,
+  zsh,
+  fish,
+  nixosTests,
+  go,
+  buildGoModule,
+  nix-update-script,
+}:
 
 with python3Packages;
 buildPythonApplication rec {

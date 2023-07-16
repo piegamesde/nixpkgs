@@ -1,5 +1,14 @@
-{ lib, aesara, buildPythonPackage, fetchFromGitHub, numdifftools, numpy
-, pytestCheckHook, pythonOlder, scipy }:
+{
+  lib,
+  aesara,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numdifftools,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  scipy,
+}:
 
 buildPythonPackage rec {
   pname = "aeppl";

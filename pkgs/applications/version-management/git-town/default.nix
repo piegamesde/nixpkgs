@@ -1,5 +1,14 @@
-{ lib, buildGoModule, fetchFromGitHub, fetchpatch, installShellFiles, git
-, testers, git-town, makeWrapper }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchpatch,
+  installShellFiles,
+  git,
+  testers,
+  git-town,
+  makeWrapper,
+}:
 
 buildGoModule rec {
   pname = "git-town";

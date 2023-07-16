@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, qt4, gdb, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  qt4,
+  gdb,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "omapd";

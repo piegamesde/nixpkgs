@@ -1,6 +1,17 @@
-{ lib, buildPythonPackage, fetchPypi, requests, testfixtures, mock
-, requests-toolbelt, betamax, betamax-serializers, betamax-matchers
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+  testfixtures,
+  mock,
+  requests-toolbelt,
+  betamax,
+  betamax-serializers,
+  betamax-matchers,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "prawcore";

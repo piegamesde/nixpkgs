@@ -1,5 +1,13 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, libjpeg_turbo, numpy, python
-, substituteAll }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  libjpeg_turbo,
+  numpy,
+  python,
+  substituteAll,
+}:
 
 buildPythonPackage rec {
   pname = "pyturbojpeg";

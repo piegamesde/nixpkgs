@@ -1,7 +1,20 @@
-{ stdenv, lib, fetchFromGitHub, cmake, docbook_xsl, libxslt, c-ares, cjson
-, libuuid, libuv, libwebsockets, openssl
-, withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd
-, fetchpatch }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  docbook_xsl,
+  libxslt,
+  c-ares,
+  cjson,
+  libuuid,
+  libuv,
+  libwebsockets,
+  openssl,
+  withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
+  systemd,
+  fetchpatch,
+}:
 
 let
   # Mosquitto needs external poll enabled in libwebsockets.

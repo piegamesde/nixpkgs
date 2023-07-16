@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, unzip, findXMLCatalogs }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  findXMLCatalogs,
+}:
 
 let
   # Urgh, DocBook 4.1.2 doesn't come with an XML catalog.  Use the one

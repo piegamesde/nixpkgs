@@ -1,4 +1,9 @@
-{ lib, buildDunePackage, cstruct, lwt }:
+{
+  lib,
+  buildDunePackage,
+  cstruct,
+  lwt,
+}:
 
 if lib.versionOlder (cstruct.version or "1") "3" then
   cstruct

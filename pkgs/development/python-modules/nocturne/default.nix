@@ -1,5 +1,16 @@
-{ buildPythonPackage, cmake, fetchFromGitHub, gtest, hydra-core, lib
-, nlohmann_json, pybind11, pyvirtualdisplay, sfml, substituteAll }:
+{
+  buildPythonPackage,
+  cmake,
+  fetchFromGitHub,
+  gtest,
+  hydra-core,
+  lib,
+  nlohmann_json,
+  pybind11,
+  pyvirtualdisplay,
+  sfml,
+  substituteAll,
+}:
 
 buildPythonPackage rec {
   pname = "nocturne";

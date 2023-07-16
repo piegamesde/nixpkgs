@@ -1,4 +1,11 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, kio, libksane }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  kio,
+  libksane,
+}:
 
 mkDerivation {
   pname = "skanlite";

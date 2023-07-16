@@ -1,5 +1,14 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, kiconthemes, kparts
-, ktexteditor, kwidgetsaddons, libkomparediff2, }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  kiconthemes,
+  kparts,
+  ktexteditor,
+  kwidgetsaddons,
+  libkomparediff2,
+}:
 
 mkDerivation {
   pname = "kompare";

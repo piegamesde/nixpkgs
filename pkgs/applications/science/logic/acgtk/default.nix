@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitLab, dune_3, ocamlPackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  dune_3,
+  ocamlPackages,
+}:
 
 stdenv.mkDerivation {
 

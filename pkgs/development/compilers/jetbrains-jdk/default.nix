@@ -1,8 +1,33 @@
-{ lib, stdenv, fetchFromGitHub, jetbrains, openjdk17, openjdk17-bootstrap, git
-, autoconf, unzip, rsync, debugBuild ? false
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  jetbrains,
+  openjdk17,
+  openjdk17-bootstrap,
+  git,
+  autoconf,
+  unzip,
+  rsync,
+  debugBuild ? false
 
-, libXdamage, libXxf86vm, libXrandr, libXi, libXcursor, libXrender, libX11
-, libXext, libxcb, nss, nspr, libdrm, mesa, wayland, udev }:
+  ,
+  libXdamage,
+  libXxf86vm,
+  libXrandr,
+  libXi,
+  libXcursor,
+  libXrender,
+  libX11,
+  libXext,
+  libxcb,
+  nss,
+  nspr,
+  libdrm,
+  mesa,
+  wayland,
+  udev,
+}:
 
 openjdk17.overrideAttrs (oldAttrs: rec {
   pname = "jetbrains-jdk-jcef";

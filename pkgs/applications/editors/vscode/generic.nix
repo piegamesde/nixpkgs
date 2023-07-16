@@ -1,19 +1,49 @@
-{ stdenv, lib, makeDesktopItem, unzip, libsecret, libXScrnSaver, libxshmfence
-, buildPackages, atomEnv, at-spi2-atk, autoPatchelfHook, systemd, fontconfig
-, libdbusmenu, glib, buildFHSEnv, wayland
+{
+  stdenv,
+  lib,
+  makeDesktopItem,
+  unzip,
+  libsecret,
+  libXScrnSaver,
+  libxshmfence,
+  buildPackages,
+  atomEnv,
+  at-spi2-atk,
+  autoPatchelfHook,
+  systemd,
+  fontconfig,
+  libdbusmenu,
+  glib,
+  buildFHSEnv,
+  wayland
 
-# Populate passthru.tests
-, tests
+  # Populate passthru.tests
+  ,
+  tests
 
-# needed to fix "Save as Root"
-, nodePackages, bash
+  # needed to fix "Save as Root"
+  ,
+  nodePackages,
+  bash
 
-# Attributes inherit from specific versions
-, version, src, meta, sourceRoot, commandLineArgs, executableName, longName
-, shortName, pname, updateScript, dontFixup ? false
-  # sourceExecutableName is the name of the binary in the source archive, over
-  # which we have no control
-, sourceExecutableName ? executableName }:
+  # Attributes inherit from specific versions
+  ,
+  version,
+  src,
+  meta,
+  sourceRoot,
+  commandLineArgs,
+  executableName,
+  longName,
+  shortName,
+  pname,
+  updateScript,
+  dontFixup ? false
+    # sourceExecutableName is the name of the binary in the source archive, over
+    # which we have no control
+  ,
+  sourceExecutableName ? executableName
+}:
 
 let
   inherit (stdenv.hostPlatform) system;
@@ -155,7 +185,9 @@ let
   #
   # buildFHSEnv allows for users to use the existing vscode
   # extension tooling without significant pain.
-  fhs = { additionalPkgs ? pkgs: [ ] }:
+  fhs = {
+      additionalPkgs ? pkgs: [ ]
+    }:
     buildFHSEnv {
       # also determines the name of the wrapped command
       name = executableName;

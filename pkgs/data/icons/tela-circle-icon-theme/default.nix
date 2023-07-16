@@ -1,6 +1,16 @@
-{ lib, stdenvNoCC, fetchFromGitHub, adwaita-icon-theme, libsForQt5, gtk3
-, hicolor-icon-theme, jdupes, gitUpdater, allColorVariants ? false
-, circularFolder ? false, colorVariants ? [ ] # default is standard
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  adwaita-icon-theme,
+  libsForQt5,
+  gtk3,
+  hicolor-icon-theme,
+  jdupes,
+  gitUpdater,
+  allColorVariants ? false,
+  circularFolder ? false,
+  colorVariants ? [ ] # default is standard
 }:
 
 let pname = "tela-circle-icon-theme";

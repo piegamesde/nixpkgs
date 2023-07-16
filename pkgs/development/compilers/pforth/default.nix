@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation {
   version = "28";

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, scipy, pytest, pybind11
-, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  scipy,
+  pytest,
+  pybind11,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "pyamg";

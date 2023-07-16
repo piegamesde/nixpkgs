@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, cmake, neon, libdiscid }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  neon,
+  libdiscid,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libmusicbrainz";

@@ -1,5 +1,18 @@
-{ lib, mkDerivation, wrapQtAppsHook, fetchFromGitHub, cmake, ninja, pkg-config
-, eigen, zlib, libpng, boost, guile_3_0, stdenv }:
+{
+  lib,
+  mkDerivation,
+  wrapQtAppsHook,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  pkg-config,
+  eigen,
+  zlib,
+  libpng,
+  boost,
+  guile_3_0,
+  stdenv,
+}:
 
 mkDerivation {
   pname = "libfive-unstable";

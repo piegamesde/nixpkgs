@@ -1,4 +1,10 @@
-{ lib, buildNimPackage, fetchFromGitea, nimSHA2, preserves }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitea,
+  nimSHA2,
+  preserves,
+}:
 
 buildNimPackage rec {
   pname = "syndicate";

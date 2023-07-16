@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, cmake, bash-completion, pkg-config, libconfig
-, asciidoc, libusbgx }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  bash-completion,
+  pkg-config,
+  libconfig,
+  asciidoc,
+  libusbgx,
+}:
 stdenv.mkDerivation {
   pname = "gt";
   version = "unstable-2022-05-08";

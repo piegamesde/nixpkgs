@@ -1,4 +1,11 @@
-{ lib, buildPythonApplication, fetchPypi, psutil, matplotlib, pytest }:
+{
+  lib,
+  buildPythonApplication,
+  fetchPypi,
+  psutil,
+  matplotlib,
+  pytest,
+}:
 buildPythonApplication rec {
   pname = "psrecord";
   version = "1.2";

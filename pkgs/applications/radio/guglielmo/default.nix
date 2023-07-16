@@ -1,6 +1,20 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, pkg-config, airspy, rtl-sdr
-, fdk_aac, faad2, fftwFloat, libsndfile, libsamplerate, portaudio, qtmultimedia
-, qwt }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  airspy,
+  rtl-sdr,
+  fdk_aac,
+  faad2,
+  fftwFloat,
+  libsndfile,
+  libsamplerate,
+  portaudio,
+  qtmultimedia,
+  qwt,
+}:
 
 mkDerivation rec {
   pname = "guglielmo";

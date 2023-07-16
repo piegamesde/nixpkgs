@@ -1,4 +1,10 @@
-{ lib, rustPlatform, llvmPackages, clang, fetchFromGitHub }:
+{
+  lib,
+  rustPlatform,
+  llvmPackages,
+  clang,
+  fetchFromGitHub,
+}:
 
 rustPlatform.buildRustPackage {
   pname = "sonic-server";

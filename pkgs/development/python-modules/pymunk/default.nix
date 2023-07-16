@@ -1,5 +1,14 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, python, cffi, pytestCheckHook
-, pythonOlder, ApplicationServices }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python,
+  cffi,
+  pytestCheckHook,
+  pythonOlder,
+  ApplicationServices,
+}:
 
 buildPythonPackage rec {
   pname = "pymunk";

@@ -1,5 +1,19 @@
-{ lib, beautifulsoup4, buildPythonPackage, bunch, fetchPypi, kitchen, lockfile
-, munch, openidc-client, paver, pythonOlder, requests, six, urllib3 }:
+{
+  lib,
+  beautifulsoup4,
+  buildPythonPackage,
+  bunch,
+  fetchPypi,
+  kitchen,
+  lockfile,
+  munch,
+  openidc-client,
+  paver,
+  pythonOlder,
+  requests,
+  six,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "python-fedora";

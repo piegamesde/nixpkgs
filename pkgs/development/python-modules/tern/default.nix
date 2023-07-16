@@ -1,6 +1,22 @@
-{ lib, buildPythonPackage, debian-inspector, docker, dockerfile-parse, fetchPypi
-, gitpython, idna, license-expression, packageurl-python, pbr, prettytable
-, pythonOlder, pyyaml, regex, requests, stevedore }:
+{
+  lib,
+  buildPythonPackage,
+  debian-inspector,
+  docker,
+  dockerfile-parse,
+  fetchPypi,
+  gitpython,
+  idna,
+  license-expression,
+  packageurl-python,
+  pbr,
+  prettytable,
+  pythonOlder,
+  pyyaml,
+  regex,
+  requests,
+  stevedore,
+}:
 
 buildPythonPackage rec {
   pname = "tern";

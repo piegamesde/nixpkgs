@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config
-, p4est-withMetis ? true, metis, p4est-sc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  p4est-withMetis ? true,
+  metis,
+  p4est-sc,
+}:
 
 let
   inherit (p4est-sc) debugEnable mpiSupport;

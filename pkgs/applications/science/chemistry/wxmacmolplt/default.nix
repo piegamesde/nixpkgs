@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, wxGTK32, libGL, libGLU, pkg-config, xorg
-, autoreconfHook }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  wxGTK32,
+  libGL,
+  libGLU,
+  pkg-config,
+  xorg,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wxmacmolplt";

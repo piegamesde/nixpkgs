@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, fetchpatch, bzip2, zlib, newt, openssl, pkg-config
-, slang, libxcrypt, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  bzip2,
+  zlib,
+  newt,
+  openssl,
+  pkg-config,
+  slang,
+  libxcrypt,
+  autoreconfHook,
+}:
 stdenv.mkDerivation rec {
   pname = "partimage";
   version = "0.6.9";

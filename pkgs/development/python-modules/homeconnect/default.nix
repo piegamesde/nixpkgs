@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, requests, requests-oauthlib, pythonOlder
-, setuptools, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+  requests-oauthlib,
+  pythonOlder,
+  setuptools,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "homeconnect";

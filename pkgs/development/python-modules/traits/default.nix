@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, numpy, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  numpy,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "traits";

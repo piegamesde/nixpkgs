@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, typing-inspect, marshmallow-enum
-, hypothesis, mypy, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  typing-inspect,
+  marshmallow-enum,
+  hypothesis,
+  mypy,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "dataclasses-json";

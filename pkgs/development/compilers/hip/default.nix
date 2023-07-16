@@ -1,8 +1,37 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, rocmUpdateScript, substituteAll
-, makeWrapper, hip-common, hipcc, rocclr, roctracer, cmake, perl, llvm, rocminfo
-, rocm-thunk, rocm-comgr, rocm-device-libs, rocm-runtime, rocm-opencl-runtime
-, cudatoolkit, numactl, libxml2, libX11, libglvnd, doxygen, graphviz, fontconfig
-, python3Packages, buildDocs ? true, buildTests ? false, useNVIDIA ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  rocmUpdateScript,
+  substituteAll,
+  makeWrapper,
+  hip-common,
+  hipcc,
+  rocclr,
+  roctracer,
+  cmake,
+  perl,
+  llvm,
+  rocminfo,
+  rocm-thunk,
+  rocm-comgr,
+  rocm-device-libs,
+  rocm-runtime,
+  rocm-opencl-runtime,
+  cudatoolkit,
+  numactl,
+  libxml2,
+  libX11,
+  libglvnd,
+  doxygen,
+  graphviz,
+  fontconfig,
+  python3Packages,
+  buildDocs ? true,
+  buildTests ? false,
+  useNVIDIA ? false
+}:
 
 let
   hipPlatform = if useNVIDIA then "nvidia" else "amd";

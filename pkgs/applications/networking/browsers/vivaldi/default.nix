@@ -1,13 +1,66 @@
-{ lib, stdenv, fetchurl, zlib, libX11, libXext, libSM, libICE, libxkbcommon
-, libxshmfence, libXfixes, libXt, libXi, libXcursor, libXScrnSaver
-, libXcomposite, libXdamage, libXtst, libXrandr, alsa-lib, dbus, cups, libexif
-, ffmpeg, systemd, libva, libGL, freetype, fontconfig, libXft, libXrender
-, libxcb, expat, libuuid, libxml2, glib, gtk3, pango, gdk-pixbuf, cairo, atk
-, at-spi2-atk, at-spi2-core, qt5, libdrm, mesa, vulkan-loader, nss, nspr
-, patchelf, makeWrapper, wayland, pipewire, isSnapshot ? false
-, proprietaryCodecs ? false, vivaldi-ffmpeg-codecs ? null
-, enableWidevine ? false, widevine-cdm ? null, commandLineArgs ? ""
-, pulseSupport ? stdenv.isLinux, libpulseaudio }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zlib,
+  libX11,
+  libXext,
+  libSM,
+  libICE,
+  libxkbcommon,
+  libxshmfence,
+  libXfixes,
+  libXt,
+  libXi,
+  libXcursor,
+  libXScrnSaver,
+  libXcomposite,
+  libXdamage,
+  libXtst,
+  libXrandr,
+  alsa-lib,
+  dbus,
+  cups,
+  libexif,
+  ffmpeg,
+  systemd,
+  libva,
+  libGL,
+  freetype,
+  fontconfig,
+  libXft,
+  libXrender,
+  libxcb,
+  expat,
+  libuuid,
+  libxml2,
+  glib,
+  gtk3,
+  pango,
+  gdk-pixbuf,
+  cairo,
+  atk,
+  at-spi2-atk,
+  at-spi2-core,
+  qt5,
+  libdrm,
+  mesa,
+  vulkan-loader,
+  nss,
+  nspr,
+  patchelf,
+  makeWrapper,
+  wayland,
+  pipewire,
+  isSnapshot ? false,
+  proprietaryCodecs ? false,
+  vivaldi-ffmpeg-codecs ? null,
+  enableWidevine ? false,
+  widevine-cdm ? null,
+  commandLineArgs ? "",
+  pulseSupport ? stdenv.isLinux,
+  libpulseaudio,
+}:
 
 let
   branch = if isSnapshot then "snapshot" else "stable";

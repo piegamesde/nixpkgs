@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, bluez, libusb-compat-0_1, cmake }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  bluez,
+  libusb-compat-0_1,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openobex";

@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, cmake, cunit, ncurses, libev, nghttp3, quictls
-, withJemalloc ? false, jemalloc, curlHTTP3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  cunit,
+  ncurses,
+  libev,
+  nghttp3,
+  quictls,
+  withJemalloc ? false,
+  jemalloc,
+  curlHTTP3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ngtcp2";

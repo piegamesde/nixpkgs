@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, param, pyct, pytest-mpl, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  param,
+  pyct,
+  pytest-mpl,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {

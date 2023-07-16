@@ -1,8 +1,19 @@
-{ lib, pkg-config, libsecret, jsoncpp }:
+{
+  lib,
+  pkg-config,
+  libsecret,
+  jsoncpp,
+}:
 
-{ ... }:
+{
+  ...
+}:
 
-{ nativeBuildInputs ? [ ], buildInputs ? [ ], ... }:
+{
+  nativeBuildInputs ? [ ],
+  buildInputs ? [ ],
+  ...
+}:
 
 {
   nativeBuildInputs = [ pkg-config ] ++ nativeBuildInputs;

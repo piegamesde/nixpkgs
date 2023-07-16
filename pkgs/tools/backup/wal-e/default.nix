@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, python3Packages, lzop, postgresql, pv }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  lzop,
+  postgresql,
+  pv,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "wal-e";

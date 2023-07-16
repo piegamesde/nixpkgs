@@ -1,4 +1,9 @@
-{ lib, stdenv, vscode-utils, callPackage }:
+{
+  lib,
+  stdenv,
+  vscode-utils,
+  callPackage,
+}:
 let
   version = "1.8.1";
   rescript-editor-analysis =

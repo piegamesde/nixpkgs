@@ -1,4 +1,11 @@
-{ lib, stdenv, coreutils, fetchurl, makeWrapper, pkg-config }:
+{
+  lib,
+  stdenv,
+  coreutils,
+  fetchurl,
+  makeWrapper,
+  pkg-config,
+}:
 
 with lib.strings;
 
@@ -89,8 +96,12 @@ let
   };
 
   # Default values for faust2appl.
-  faust2ApplBase =
-    { baseName, dir ? "tools/faust2appls", scripts ? [ baseName ], ... }@args:
+  faust2ApplBase = {
+      baseName,
+      dir ? "tools/faust2appls",
+      scripts ? [ baseName ],
+      ...
+    }@args:
 
     args // {
       name = "${baseName}-${version}";
@@ -142,7 +153,11 @@ let
   #
   # The build input 'faust' is automatically added to the
   # propagatedBuildInputs.
-  wrapWithBuildEnv = { baseName, propagatedBuildInputs ? [ ], ... }@args:
+  wrapWithBuildEnv = {
+      baseName,
+      propagatedBuildInputs ? [ ],
+      ...
+    }@args:
 
     stdenv.mkDerivation ((faust2ApplBase args) // {
 
@@ -169,7 +184,11 @@ let
   # simply need to be wrapped with some dependencies on PATH.
   #
   # The build input 'faust' is automatically added to the PATH.
-  wrap = { baseName, runtimeInputs ? [ ], ... }@args:
+  wrap = {
+      baseName,
+      runtimeInputs ? [ ],
+      ...
+    }@args:
 
     let
 

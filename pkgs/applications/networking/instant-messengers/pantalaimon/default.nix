@@ -1,11 +1,34 @@
-{ lib, stdenv, buildPythonApplication, fetchFromGitHub, pythonOlder, attrs
-, aiohttp, appdirs, click, keyring, logbook, peewee, janus, prompt-toolkit
-, matrix-nio, dbus-python, pydbus, notify2, pygobject3, setuptools
-, installShellFiles, nixosTests,
+{
+  lib,
+  stdenv,
+  buildPythonApplication,
+  fetchFromGitHub,
+  pythonOlder,
+  attrs,
+  aiohttp,
+  appdirs,
+  click,
+  keyring,
+  logbook,
+  peewee,
+  janus,
+  prompt-toolkit,
+  matrix-nio,
+  dbus-python,
+  pydbus,
+  notify2,
+  pygobject3,
+  setuptools,
+  installShellFiles,
+  nixosTests,
 
-pytest, faker, pytest-aiohttp, aioresponses,
+  pytest,
+  faker,
+  pytest-aiohttp,
+  aioresponses,
 
-enableDbusUi ? true }:
+  enableDbusUi ? true
+}:
 
 buildPythonApplication rec {
   pname = "pantalaimon";

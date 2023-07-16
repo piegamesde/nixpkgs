@@ -1,4 +1,9 @@
-{ lib, python3Packages, fetchFromGitHub, qt5 }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  qt5,
+}:
 python3Packages.buildPythonApplication rec {
   pname = "labelImg";
   version = "1.8.3";

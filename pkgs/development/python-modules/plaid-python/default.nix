@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, nulltype, python-dateutil, urllib3
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nulltype,
+  python-dateutil,
+  urllib3,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "plaid-python";

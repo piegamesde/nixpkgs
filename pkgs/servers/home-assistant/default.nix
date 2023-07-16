@@ -1,24 +1,42 @@
-{ stdenv, lib, callPackage, fetchFromGitHub, fetchPypi, fetchpatch, python3
-, substituteAll, ffmpeg-headless, inetutils, nixosTests, home-assistant, testers
+{
+  stdenv,
+  lib,
+  callPackage,
+  fetchFromGitHub,
+  fetchPypi,
+  fetchpatch,
+  python3,
+  substituteAll,
+  ffmpeg-headless,
+  inetutils,
+  nixosTests,
+  home-assistant,
+  testers
 
-# Look up dependencies of specified components in component-packages.nix
-, extraComponents ? [ ]
+  # Look up dependencies of specified components in component-packages.nix
+  ,
+  extraComponents ? [ ]
 
-  # Additional packages to add to propagatedBuildInputs
-, extraPackages ? ps:
-  [ ]
+    # Additional packages to add to propagatedBuildInputs
+  ,
+  extraPackages ? ps:
+    [ ]
 
-  # Write out info about included extraComponents and extraPackages
-, writeText
+    # Write out info about included extraComponents and extraPackages
+  ,
+  writeText
 
-# Override Python packages using
-# self: super: { pkg = super.pkg.overridePythonAttrs (oldAttrs: { ... }); }
-# Applied after defaultOverrides
-, packageOverrides ? self: super:
-  { }
+  # Override Python packages using
+  # self: super: { pkg = super.pkg.overridePythonAttrs (oldAttrs: { ... }); }
+  # Applied after defaultOverrides
+  ,
+  packageOverrides ? self: super:
+    { }
 
-  # Skip pip install of required packages on startup
-, skipPip ? true }:
+    # Skip pip install of required packages on startup
+  ,
+  skipPip ? true
+}:
 
 let
   defaultOverrides = [

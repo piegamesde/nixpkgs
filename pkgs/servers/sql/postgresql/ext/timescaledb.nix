@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, postgresql, openssl, libkrb5
-, enableUnfree ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  postgresql,
+  openssl,
+  libkrb5,
+  enableUnfree ? true
+}:
 
 # # To enable on NixOS:
 # config.services.postgresql = let

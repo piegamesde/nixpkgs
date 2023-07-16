@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytest, pytestCheckHook
-, docutils, pygments, pytest-rerunfailures, pytest-asyncio, anyio }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pytest,
+  pytestCheckHook,
+  docutils,
+  pygments,
+  pytest-rerunfailures,
+  pytest-asyncio,
+  anyio,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-subprocess";

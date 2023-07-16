@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchzip, fetchFromGitHub, cmake, spirv-headers, vulkan-headers
-, vulkan-loader, glslang, libgcc, libwebp, ncnn }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  fetchFromGitHub,
+  cmake,
+  spirv-headers,
+  vulkan-headers,
+  vulkan-loader,
+  glslang,
+  libgcc,
+  libwebp,
+  ncnn,
+}:
 
 stdenv.mkDerivation rec {
   pname = "Real-ESRGAN-ncnn-vulkan";

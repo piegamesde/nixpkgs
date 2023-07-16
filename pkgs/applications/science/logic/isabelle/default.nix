@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchurl, coreutils, nettools, java, scala_3, polyml, veriT
-, vampire, eprover-ho, naproche, rlwrap, perl, makeDesktopItem
-, isabelle-components, symlinkJoin, fetchhg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  coreutils,
+  nettools,
+  java,
+  scala_3,
+  polyml,
+  veriT,
+  vampire,
+  eprover-ho,
+  naproche,
+  rlwrap,
+  perl,
+  makeDesktopItem,
+  isabelle-components,
+  symlinkJoin,
+  fetchhg,
+}:
 
 let
   sha1 = stdenv.mkDerivation {

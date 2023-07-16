@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonAtLeast, pythonOlder
-, backports-zoneinfo, python-dateutil, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonAtLeast,
+  pythonOlder,
+  backports-zoneinfo,
+  python-dateutil,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "time-machine";

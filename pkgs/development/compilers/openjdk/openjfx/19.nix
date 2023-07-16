@@ -1,7 +1,29 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, writeText, openjdk17_headless
-, openjdk19_headless, gradle_7, pkg-config, perl, cmake, gperf, gtk2, gtk3
-, libXtst, libXxf86vm, glib, alsa-lib, ffmpeg_4, python3, ruby, icu68
-, withMedia ? true, withWebKit ? false }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  writeText,
+  openjdk17_headless,
+  openjdk19_headless,
+  gradle_7,
+  pkg-config,
+  perl,
+  cmake,
+  gperf,
+  gtk2,
+  gtk3,
+  libXtst,
+  libXxf86vm,
+  glib,
+  alsa-lib,
+  ffmpeg_4,
+  python3,
+  ruby,
+  icu68,
+  withMedia ? true,
+  withWebKit ? false
+}:
 
 let
   major = "19";

@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, ocaml, findlib, withStatic ? false
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  ocaml,
+  findlib,
+  withStatic ? false
 }:
 
 stdenv.mkDerivation (rec {

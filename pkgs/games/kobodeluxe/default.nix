@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, SDL, SDL_image, libGLU, libGL }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  SDL,
+  SDL_image,
+  libGLU,
+  libGL,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kobodeluxe";

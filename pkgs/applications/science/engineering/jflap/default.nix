@@ -1,5 +1,12 @@
-{ lib, stdenvNoCC, fetchurl, jre8, makeWrapper, makeDesktopItem
-, copyDesktopItems }:
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  jre8,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "jflap";

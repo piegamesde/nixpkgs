@@ -1,6 +1,18 @@
-{ lib, aiofiles, aioftp, aiohttp, buildPythonPackage, fetchPypi, pytest-asyncio
-, pytest-localserver, pytest-socket, pytestCheckHook, pythonOlder
-, setuptools-scm, tqdm }:
+{
+  lib,
+  aiofiles,
+  aioftp,
+  aiohttp,
+  buildPythonPackage,
+  fetchPypi,
+  pytest-asyncio,
+  pytest-localserver,
+  pytest-socket,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+  tqdm,
+}:
 
 buildPythonPackage rec {
   pname = "parfive";

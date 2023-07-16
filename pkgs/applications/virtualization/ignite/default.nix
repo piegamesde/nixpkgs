@@ -1,5 +1,14 @@
-{ lib, cni-plugins, buildGoModule, firecracker, containerd, runc, makeWrapper
-, fetchFromGitHub, git }:
+{
+  lib,
+  cni-plugins,
+  buildGoModule,
+  firecracker,
+  containerd,
+  runc,
+  makeWrapper,
+  fetchFromGitHub,
+  git,
+}:
 
 buildGoModule rec {
   pname = "ignite";

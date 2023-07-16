@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, numpy, psutil, pytestCheckHook
-, pythonOlder, trio, untangle }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  psutil,
+  pytestCheckHook,
+  pythonOlder,
+  trio,
+  untangle,
+}:
 
 buildPythonPackage rec {
   pname = "pydevd";

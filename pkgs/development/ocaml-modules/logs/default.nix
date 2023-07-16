@@ -1,6 +1,19 @@
-{ lib, stdenv, fetchurl, ocaml, findlib, ocamlbuild, topkg, result, lwt
-, cmdliner, fmt, fmtSupport ? lib.versionAtLeast ocaml.version "4.08"
-, js_of_ocaml, jsooSupport ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  topkg,
+  result,
+  lwt,
+  cmdliner,
+  fmt,
+  fmtSupport ? lib.versionAtLeast ocaml.version "4.08",
+  js_of_ocaml,
+  jsooSupport ? true
+}:
 let
   pname = "logs";
   webpage = "https://erratique.ch/software/${pname}";

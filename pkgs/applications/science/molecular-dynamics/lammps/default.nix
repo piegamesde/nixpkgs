@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, libpng, gzip, fftw, blas, lapack
-, withMPI ? false, mpi }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libpng,
+  gzip,
+  fftw,
+  blas,
+  lapack,
+  withMPI ? false,
+  mpi,
+}:
 let
   packages = [
     "asphere"

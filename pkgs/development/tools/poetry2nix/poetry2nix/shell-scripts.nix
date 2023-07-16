@@ -1,4 +1,8 @@
-{ lib, scripts, python }:
+{
+  lib,
+  scripts,
+  python,
+}:
 let
   mkScript = bin: entrypoint:
     let

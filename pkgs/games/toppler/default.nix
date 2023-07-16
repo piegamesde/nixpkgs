@@ -1,8 +1,22 @@
-{ lib, stdenv, fetchFromGitLab
+{
+  lib,
+  stdenv,
+  fetchFromGitLab
 
-, pkg-config, gettext, povray, imagemagick, gimp
+  ,
+  pkg-config,
+  gettext,
+  povray,
+  imagemagick,
+  gimp
 
-, SDL2, SDL2_mixer, SDL2_image, libpng, zlib }:
+  ,
+  SDL2,
+  SDL2_mixer,
+  SDL2_image,
+  libpng,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "toppler";

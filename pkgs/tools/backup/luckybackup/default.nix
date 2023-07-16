@@ -1,4 +1,13 @@
-{ mkDerivation, lib, fetchurl, pkg-config, libtool, qmake, rsync, ssh }:
+{
+  mkDerivation,
+  lib,
+  fetchurl,
+  pkg-config,
+  libtool,
+  qmake,
+  rsync,
+  ssh,
+}:
 
 mkDerivation rec {
   pname = "luckybackup";

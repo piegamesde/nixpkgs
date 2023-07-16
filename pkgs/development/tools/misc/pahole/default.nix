@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchzip, pkg-config, libbpf, cmake, elfutils, zlib
-, argp-standalone, musl-obstack, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  pkg-config,
+  libbpf,
+  cmake,
+  elfutils,
+  zlib,
+  argp-standalone,
+  musl-obstack,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pahole";

@@ -1,7 +1,32 @@
-{ lib, buildDunePackage, fetchurl, makeWrapper, fetchpatch, curly, fmt, bos
-, cmdliner, re, rresult, logs, fpath, odoc, opam-format, opam-core, opam-state
-, yojson, astring, opam, git, findlib, mercurial, bzip2, gnutar, coreutils
-, alcotest }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  makeWrapper,
+  fetchpatch,
+  curly,
+  fmt,
+  bos,
+  cmdliner,
+  re,
+  rresult,
+  logs,
+  fpath,
+  odoc,
+  opam-format,
+  opam-core,
+  opam-state,
+  yojson,
+  astring,
+  opam,
+  git,
+  findlib,
+  mercurial,
+  bzip2,
+  gnutar,
+  coreutils,
+  alcotest,
+}:
 
 # don't include dune as runtime dep, so user can
 # choose between dune and dune_2

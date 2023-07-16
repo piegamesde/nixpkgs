@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, expat, gettext, gtk
-, libconfuse, pcre2, vte, makeWrapper, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  expat,
+  gettext,
+  gtk,
+  libconfuse,
+  pcre2,
+  vte,
+  makeWrapper,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tilda";

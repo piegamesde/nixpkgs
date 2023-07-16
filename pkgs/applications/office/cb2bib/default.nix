@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, qmake, qtbase, qtwebkit, qtx11extras, lzo, libX11
-, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  qmake,
+  qtbase,
+  qtwebkit,
+  qtx11extras,
+  lzo,
+  libX11,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cb2bib";

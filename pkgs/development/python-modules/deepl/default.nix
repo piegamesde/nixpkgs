@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, requests, poetry-core, keyring }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+  poetry-core,
+  keyring,
+}:
 
 buildPythonPackage rec {
   pname = "deepl";

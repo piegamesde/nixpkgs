@@ -1,4 +1,10 @@
-{ buildPythonPackage, cffi, fetchPypi, lib, pytestCheckHook }:
+{
+  buildPythonPackage,
+  cffi,
+  fetchPypi,
+  lib,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "reflink";

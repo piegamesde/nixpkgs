@@ -1,5 +1,14 @@
-{ stdenv, lib, async-timeout, buildPythonPackage, fetchFromGitHub
-, pytest-asyncio, pytest-mock, pytestCheckHook, pythonOlder }:
+{
+  stdenv,
+  lib,
+  async-timeout,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pescea";

@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, which, autoconf, automake, flex, bison, kernel, glibc
-, perl, libtool_2, libkrb5, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  which,
+  autoconf,
+  automake,
+  flex,
+  bison,
+  kernel,
+  glibc,
+  perl,
+  libtool_2,
+  libkrb5,
+  fetchpatch,
+}:
 
 with (import ./srcs.nix { inherit fetchurl; });
 

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, SDL2, IOKit, Foundation, cmake, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL2,
+  IOKit,
+  Foundation,
+  cmake,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bugdom";

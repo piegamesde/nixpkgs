@@ -1,6 +1,27 @@
-{ lib, stdenv, mkDerivation, fetchFromGitHub, pkg-config, cmake, openssl, db53
-, boost, zlib, miniupnpc, qtbase ? null, qttools ? null, util-linux, protobuf
-, qrencode, libevent, sqlite, withGui, python3, jemalloc, zeromq4 }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  openssl,
+  db53,
+  boost,
+  zlib,
+  miniupnpc,
+  qtbase ? null,
+  qttools ? null,
+  util-linux,
+  protobuf,
+  qrencode,
+  libevent,
+  sqlite,
+  withGui,
+  python3,
+  jemalloc,
+  zeromq4,
+}:
 
 mkDerivation rec {
   pname = "bitcoin" + lib.optionalString (!withGui) "d" + "-abc";

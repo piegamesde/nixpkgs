@@ -1,6 +1,25 @@
-{ stdenv, fetchurl, alsa-lib, cairo, dpkg, freetype, gdk-pixbuf, glib, gtk3, lib
-, xorg, libglvnd, libjack2, ffmpeg, libxkbcommon, xdg-utils, zlib, pulseaudio
-, wrapGAppsHook, makeWrapper }:
+{
+  stdenv,
+  fetchurl,
+  alsa-lib,
+  cairo,
+  dpkg,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  lib,
+  xorg,
+  libglvnd,
+  libjack2,
+  ffmpeg,
+  libxkbcommon,
+  xdg-utils,
+  zlib,
+  pulseaudio,
+  wrapGAppsHook,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bitwig-studio";

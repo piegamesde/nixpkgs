@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, makeDesktopItem, unzip, bash, jre8 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeDesktopItem,
+  unzip,
+  bash,
+  jre8,
+}:
 
 let
   pname = "diylc";

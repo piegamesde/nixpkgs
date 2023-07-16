@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchgit, bison, flex, rasdaemon }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  bison,
+  flex,
+  rasdaemon,
+}:
 
 {
   edac-inject = rasdaemon.inject;

@@ -1,5 +1,18 @@
-{ stdenv, lib, rustPlatform, fetchFromGitHub, fetchpatch, pkg-config, openssl
-, SystemConfiguration, CoreFoundation, Security, libiconv, testers, sqlx-cli }:
+{
+  stdenv,
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  openssl,
+  SystemConfiguration,
+  CoreFoundation,
+  Security,
+  libiconv,
+  testers,
+  sqlx-cli,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "sqlx-cli";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, libnl, openssl, sqlite ? null }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libnl,
+  openssl,
+  sqlite ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "hostapd";

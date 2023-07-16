@@ -1,6 +1,26 @@
-{ stdenv, lib, fetchurl, pkg-config, freetype, harfbuzz, openjpeg, jbig2dec
-, libjpeg, darwin, enableX11 ? true, libX11, libXext, libXi, libXrandr
-, enableCurl ? true, curl, openssl, enableGL ? true, freeglut, libGLU }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  freetype,
+  harfbuzz,
+  openjpeg,
+  jbig2dec,
+  libjpeg,
+  darwin,
+  enableX11 ? true,
+  libX11,
+  libXext,
+  libXi,
+  libXrandr,
+  enableCurl ? true,
+  curl,
+  openssl,
+  enableGL ? true,
+  freeglut,
+  libGLU,
+}:
 
 let
 

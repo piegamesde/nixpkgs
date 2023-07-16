@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, alsa-lib, libxmp, AudioUnit, CoreAudio }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  alsa-lib,
+  libxmp,
+  AudioUnit,
+  CoreAudio,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xmp";

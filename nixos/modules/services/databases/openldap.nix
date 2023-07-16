@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let
@@ -80,7 +85,12 @@ let
         "${attr}: ${lib.replaceStrings [ "\n" ] [ "\n " ] value}") listValues;
 
   attrsToLdif = dn:
-    { attrs, children, includes, ... }:
+    {
+      attrs,
+      children,
+      includes,
+      ...
+    }:
     [''
       dn: ${dn}
       ${lib.concatStringsSep "\n"
@@ -238,10 +248,16 @@ in {
   meta.maintainers = with lib.maintainers; [ kwohlfahrt ];
 
   config = let
-    dbSettings =
-      mapAttrs' (name: { attrs, ... }: nameValuePair attrs.olcSuffix attrs)
-      (filterAttrs (name:
-        { attrs, ... }:
+    dbSettings = mapAttrs' (name:
+      {
+        attrs,
+        ...
+      }:
+      nameValuePair attrs.olcSuffix attrs) (filterAttrs (name:
+        {
+          attrs,
+          ...
+        }:
         (hasPrefix "olcDatabase=" name) && attrs ? olcSuffix)
         cfg.settings.children);
     settingsFile = pkgs.writeText "config.ldif"
@@ -282,7 +298,10 @@ in {
         `olcDbDirectory` configured.
       '';
     }) (attrNames cfg.declarativeContents)) ++ (mapAttrsToList (dn:
-      { olcDbDirectory ? null, ... }: {
+      {
+        olcDbDirectory ? null,
+        ...
+      }: {
         # For forward compatibility with `DynamicUser`, and to avoid accidentally clobbering
         # directories with `declarativeContents`.
         assertion = (olcDbDirectory != null)
@@ -342,9 +361,11 @@ in {
         #   Got notification message from PID 6378, but reception only permitted for main PID 6377
         NotifyAccess = "all";
         RuntimeDirectory = "openldap";
-        StateDirectory = [ "openldap" ] ++ (map
-          ({ olcDbDirectory, ... }: removePrefix "/var/lib/" olcDbDirectory)
-          (attrValues dbSettings));
+        StateDirectory = [ "openldap" ] ++ (map ({
+            olcDbDirectory,
+            ...
+          }:
+          removePrefix "/var/lib/" olcDbDirectory) (attrValues dbSettings));
         StateDirectoryMode = "700";
         AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
         CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];

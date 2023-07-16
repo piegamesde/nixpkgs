@@ -1,4 +1,9 @@
-{ lib, buildPythonApplication, fetchFromGitHub, pythonOlder }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  pythonOlder,
+}:
 buildPythonApplication rec {
   pname = "djhtml";
   version = "3.0.5";

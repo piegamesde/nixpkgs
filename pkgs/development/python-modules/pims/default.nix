@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, imageio, numpy, pytestCheckHook
-, pythonOlder, scikitimage, slicerator }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  imageio,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  scikitimage,
+  slicerator,
+}:
 
 buildPythonPackage rec {
   pname = "pims";

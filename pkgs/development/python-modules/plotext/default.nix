@@ -1,4 +1,8 @@
-{ buildPythonPackage, fetchFromGitHub, lib }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+}:
 
 buildPythonPackage rec {
   pname = "plotext";

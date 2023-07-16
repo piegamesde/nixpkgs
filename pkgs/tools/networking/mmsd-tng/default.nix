@@ -1,6 +1,19 @@
-{ lib, stdenv, fetchFromGitLab, c-ares, dbus, glib, libphonenumber, libsoup
-, meson, mobile-broadband-provider-info, modemmanager, ninja, pkg-config
-, protobuf }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  c-ares,
+  dbus,
+  glib,
+  libphonenumber,
+  libsoup,
+  meson,
+  mobile-broadband-provider-info,
+  modemmanager,
+  ninja,
+  pkg-config,
+  protobuf,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mmsd-tng";

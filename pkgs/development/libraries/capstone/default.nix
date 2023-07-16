@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, fixDarwinDylibNames }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  fixDarwinDylibNames,
+}:
 
 stdenv.mkDerivation rec {
   pname = "capstone";

@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, curses }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  curses,
+}:
 
 stdenv.mkDerivation {
   pname = "stag";

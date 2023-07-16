@@ -1,4 +1,7 @@
-{ newScope, pkgs }:
+{
+  newScope,
+  pkgs,
+}:
 
 let
 

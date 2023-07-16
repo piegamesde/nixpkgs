@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, protobufc, libunwind, lzo
-, openssl, protobuf, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  protobufc,
+  libunwind,
+  lzo,
+  openssl,
+  protobuf,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zbackup";

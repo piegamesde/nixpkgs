@@ -1,6 +1,24 @@
-{ lib, attrs, buildPythonPackage, certifi, chardet, fetchFromGitHub, idna
-, iniconfig, more-itertools, packaging, pluggy, py, pyparsing, python-slugify
-, requests, six, text-unidecode, toml, urllib3 }:
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  certifi,
+  chardet,
+  fetchFromGitHub,
+  idna,
+  iniconfig,
+  more-itertools,
+  packaging,
+  pluggy,
+  py,
+  pyparsing,
+  python-slugify,
+  requests,
+  six,
+  text-unidecode,
+  toml,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "patrowl4py";

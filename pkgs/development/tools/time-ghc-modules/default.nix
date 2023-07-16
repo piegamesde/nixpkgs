@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, sqlite, python3, coreutils
-, findutils, gnused }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  sqlite,
+  python3,
+  coreutils,
+  findutils,
+  gnused,
+}:
 
 stdenv.mkDerivation rec {
   pname = "time-ghc-modules";

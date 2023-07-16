@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, gst_all_1, pciutils, pkg-config, meson, ninja
-, obs-studio }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gst_all_1,
+  pciutils,
+  pkg-config,
+  meson,
+  ninja,
+  obs-studio,
+}:
 
 stdenv.mkDerivation rec {
   pname = "obs-vaapi";

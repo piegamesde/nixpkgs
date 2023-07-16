@@ -1,4 +1,9 @@
-{ lib, mkDerivation, fetchFromGitHub, standard-library }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  standard-library,
+}:
 
 mkDerivation rec {
   version = "0.1.7.1a";

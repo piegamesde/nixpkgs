@@ -1,6 +1,23 @@
-{ stdenv, mkDerivation, lib, fetchFromGitHub, fetchpatch, brotli, lz4
-, pyotherside, python3, python3Packages, qtbase, qtcharts, qmake, qttools
-, rdbtools, snappy, wrapQtAppsHook, zstd }:
+{
+  stdenv,
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  brotli,
+  lz4,
+  pyotherside,
+  python3,
+  python3Packages,
+  qtbase,
+  qtcharts,
+  qmake,
+  qttools,
+  rdbtools,
+  snappy,
+  wrapQtAppsHook,
+  zstd,
+}:
 
 let
   rdbtools-patched = rdbtools.overridePythonAttrs (oldAttrs: {

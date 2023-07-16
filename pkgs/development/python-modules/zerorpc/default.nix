@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, future, gevent, msgpack, pyzmq }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  future,
+  gevent,
+  msgpack,
+  pyzmq,
+}:
 
 buildPythonPackage rec {
   pname = "zerorpc";

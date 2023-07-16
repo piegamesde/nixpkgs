@@ -1,5 +1,19 @@
-{ stdenv, fetchurl, lib, libX11, libXext, alsa-lib, freetype, brand, type
-, version, homepage, url, sha256, ... }:
+{
+  stdenv,
+  fetchurl,
+  lib,
+  libX11,
+  libXext,
+  alsa-lib,
+  freetype,
+  brand,
+  type,
+  version,
+  homepage,
+  url,
+  sha256,
+  ...
+}:
 stdenv.mkDerivation rec {
   pname = "${lib.toLower type}-edit";
   inherit version;

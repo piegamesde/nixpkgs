@@ -1,4 +1,8 @@
-{ lib, pythonPackages, fetchurl }:
+{
+  lib,
+  pythonPackages,
+  fetchurl,
+}:
 
 pythonPackages.buildPythonApplication rec {
   pname = "mir.qualia";

@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   let
     lxd-image = import ../release.nix {
@@ -19,21 +23,24 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
 
     meta = with pkgs.lib.maintainers; { maintainers = [ patryk27 ]; };
 
-    nodes.machine = { lib, ... }: {
-      virtualisation = {
-        diskSize = 4096;
+    nodes.machine = {
+        lib,
+        ...
+      }: {
+        virtualisation = {
+          diskSize = 4096;
 
-        # Since we're testing `limits.cpu`, we've gotta have a known number of
-        # cores to lean on
-        cores = 2;
+          # Since we're testing `limits.cpu`, we've gotta have a known number of
+          # cores to lean on
+          cores = 2;
 
-        # Ditto, for `limits.memory`
-        memorySize = 512;
+          # Ditto, for `limits.memory`
+          memorySize = 512;
 
-        lxc.lxcfs.enable = true;
-        lxd.enable = true;
+          lxc.lxcfs.enable = true;
+          lxd.enable = true;
+        };
       };
-    };
 
     testScript = ''
       machine.wait_for_unit("sockets.target")

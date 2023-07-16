@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, python, pythonImportsCheckHook
-, makeWrapper }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python,
+  pythonImportsCheckHook,
+  makeWrapper,
+}:
 
 buildPythonPackage rec {
   pname = "hjson";

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
 
@@ -32,44 +37,48 @@ let
 
   cfg = config.services.hylafax;
 
-  modemConfigOptions = { name, config, ... }: {
-    options = {
-      name = mkOption {
-        type = nonEmptyStr;
-        example = "ttyS1";
-        description = lib.mdDoc ''
-          Name of modem device,
-          will be searched for in {file}`/dev`.
-        '';
-      };
-      type = mkOption {
-        type = nonEmptyStr;
-        example = "cirrus";
-        description = lib.mdDoc ''
-          Name of modem configuration file,
-          will be searched for in {file}`config`
-          in the spooling area directory.
-        '';
-      };
-      config = mkOption {
-        type = configAttrType;
-        example = {
-          AreaCode = "49";
-          LocalCode = "30";
-          FAXNumber = "123456";
-          LocalIdentifier = "LostInBerlin";
+  modemConfigOptions = {
+      name,
+      config,
+      ...
+    }: {
+      options = {
+        name = mkOption {
+          type = nonEmptyStr;
+          example = "ttyS1";
+          description = lib.mdDoc ''
+            Name of modem device,
+            will be searched for in {file}`/dev`.
+          '';
         };
-        description = lib.mdDoc ''
-          Attribute set of values for the given modem.
-          ${commonDescr}
-          Options defined here override options in
-          {option}`commonModemConfig` for this modem.
-        '';
+        type = mkOption {
+          type = nonEmptyStr;
+          example = "cirrus";
+          description = lib.mdDoc ''
+            Name of modem configuration file,
+            will be searched for in {file}`config`
+            in the spooling area directory.
+          '';
+        };
+        config = mkOption {
+          type = configAttrType;
+          example = {
+            AreaCode = "49";
+            LocalCode = "30";
+            FAXNumber = "123456";
+            LocalIdentifier = "LostInBerlin";
+          };
+          description = lib.mdDoc ''
+            Attribute set of values for the given modem.
+            ${commonDescr}
+            Options defined here override options in
+            {option}`commonModemConfig` for this modem.
+          '';
+        };
       };
+      config.name = mkDefault name;
+      config.config.Include = [ "config/${config.type}" ];
     };
-    config.name = mkDefault name;
-    config.config.Include = [ "config/${config.type}" ];
-  };
 
   defaultConfig = let
     inherit (config.security) wrapperDir;

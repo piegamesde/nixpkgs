@@ -3,7 +3,10 @@
 #
 # Rscript generate-r-packages.R bioc >new && mv new bioc-packages.nix
 
-{ self, derive }:
+{
+  self,
+  derive,
+}:
 let derive2 = derive { biocVersion = "3.16"; };
 in with self; {
   ABSSeq = derive2 {

@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, libusb1, gtk3, pkg-config
-, wrapGAppsHook, withGUI ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  libusb1,
+  gtk3,
+  pkg-config,
+  wrapGAppsHook,
+  withGUI ? false
+}:
 
 let
   # The Darwin build of stlink explicitly refers to static libusb.

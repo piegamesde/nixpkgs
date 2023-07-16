@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, glib, ncurses
-, libmpdclient, gettext, boost, pcreSupport ? false, pcre ? null }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  glib,
+  ncurses,
+  libmpdclient,
+  gettext,
+  boost,
+  pcreSupport ? false,
+  pcre ? null
+}:
 
 assert pcreSupport -> pcre != null;
 

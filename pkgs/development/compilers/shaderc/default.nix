@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, python3, autoSignDarwinBinariesHook
-, cctools }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  python3,
+  autoSignDarwinBinariesHook,
+  cctools,
+}:
 # Like many google projects, shaderc doesn't gracefully support separately compiled dependencies, so we can't easily use
 # the versions of glslang and spirv-tools used by vulkan-loader. Exact revisions are taken from
 # https://github.com/google/shaderc/blob/known-good/known_good.json

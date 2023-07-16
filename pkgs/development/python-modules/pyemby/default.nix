@@ -1,4 +1,10 @@
-{ lib, aiohttp, async-timeout, buildPythonPackage, fetchFromGitHub }:
+{
+  lib,
+  aiohttp,
+  async-timeout,
+  buildPythonPackage,
+  fetchFromGitHub,
+}:
 
 buildPythonPackage rec {
   pname = "pyemby";

@@ -1,10 +1,20 @@
-{ buildPythonPackage, fetchPypi, lib
+{
+  buildPythonPackage,
+  fetchPypi,
+  lib
 
-# propagates
-, click, dlib, face-recognition-models, numpy, pillow
+  # propagates
+  ,
+  click,
+  dlib,
+  face-recognition-models,
+  numpy,
+  pillow
 
-# tests
-, pytestCheckHook }:
+  # tests
+  ,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "face-recognition";

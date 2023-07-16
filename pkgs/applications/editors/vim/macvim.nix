@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, runCommand, ncurses, gettext, pkg-config, cscope
-, ruby, tcl, perl, luajit, darwin, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  runCommand,
+  ncurses,
+  gettext,
+  pkg-config,
+  cscope,
+  ruby,
+  tcl,
+  perl,
+  luajit,
+  darwin,
+  python3,
+}:
 
 let
   # Building requires a few system tools to be in PATH.

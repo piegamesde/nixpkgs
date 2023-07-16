@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, bleach, mt-940
-, requests, sepaxml, pytestCheckHook, pytest-mock }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  bleach,
+  mt-940,
+  requests,
+  sepaxml,
+  pytestCheckHook,
+  pytest-mock,
+}:
 
 buildPythonPackage rec {
   version = "4.0.0";

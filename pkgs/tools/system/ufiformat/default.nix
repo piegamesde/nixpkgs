@@ -1,4 +1,9 @@
-{ stdenv, e2fsprogs, fetchFromGitHub, lib }:
+{
+  stdenv,
+  e2fsprogs,
+  fetchFromGitHub,
+  lib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ufiformat";

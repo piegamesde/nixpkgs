@@ -1,5 +1,14 @@
-{ lib, fetchPypi, buildPythonPackage, lxml, docopt, six, pytestCheckHook, mock
-, fetchpatch }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  lxml,
+  docopt,
+  six,
+  pytestCheckHook,
+  mock,
+  fetchpatch,
+}:
 
 buildPythonPackage rec {
   pname = "rnginline";

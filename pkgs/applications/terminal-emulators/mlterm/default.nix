@@ -1,65 +1,97 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, autoconf, makeDesktopItem
-, nixosTests, vte, harfbuzz # can be replaced with libotf
-, fribidi, m17n_lib, libssh2 # build-in ssh
-, fcitx5, fcitx5-gtk, ibus, uim # IME
-, wrapGAppsHook # color picker in mlconfig
-, gdk-pixbuf, gtk3, gtk ? gtk3
-  # List of gui libraries to use. According to `./configure --help` ran on
-  # release 3.9.3, options are: (xlib|win32|fb|quartz|console|wayland|sdl2|beos)
-, enableGuis ? {
-  xlib = enableX11;
-  fb = stdenv.isLinux;
-  quartz = stdenv.isDarwin;
-  wayland = stdenv.isLinux;
-  sdl2 = true;
-}, libxkbcommon, wayland # for the "wayland" --with-gui option
-, SDL2 # for the "sdl" --with-gui option
-# List of typing engines, the default list enables compiling all of the
-# available ones, as recorded on release 3.9.3
-, enableTypeEngines ? {
-  xcore = false; # Considered legacy
-  xft = enableX11;
-  cairo = true;
-}, libX11, libXft, cairo
-# List of external tools to create, this default list includes all default
-# tools, as recorded on release 3.9.3.
-, enableTools ? {
-  mlclient = true;
-  mlconfig = true;
-  mlcc = true;
-  mlterm-menu = true;
-  # Note that according to upstream's ./configure script, to disable
-  # mlimgloader you have to disable _all_ tools. See:
-  # https://github.com/arakiken/mlterm/issues/69
-  mlimgloader = true;
-  registobmp = true;
-  mlfc = true;
-}
-# Whether to enable the X window system
-, enableX11 ? stdenv.isLinux
-  # Most of the input methods and other build features are enabled by default,
-  # the following attribute set can be used to disable some of them. It's parsed
-  # when we set `configureFlags`. If you find other configure Flags that require
-  # dependencies, it'd be nice to make that contribution here.
-, enableFeatures ? {
-  uim = !stdenv.isDarwin;
-  ibus = !stdenv.isDarwin;
-  fcitx = !stdenv.isDarwin;
-  m17n = !stdenv.isDarwin;
-  ssh2 = true;
-  bidi = true;
-  # Open Type layout support, (substituting glyphs with opentype fonts)
-  otl = true;
-}
-# Configure the Exec directive in the generated .desktop file
-, desktopBinary ? (if enableGuis.xlib then
-  "mlterm"
-else if enableGuis.wayland then
-  "mlterm-wl"
-else if enableGuis.sdl2 then
-  "mlterm-sdl2"
-else
-  throw "mlterm: couldn't figure out what desktopBinary to use.") }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  autoconf,
+  makeDesktopItem,
+  nixosTests,
+  vte,
+  harfbuzz # can be replaced with libotf
+  ,
+  fribidi,
+  m17n_lib,
+  libssh2 # build-in ssh
+  ,
+  fcitx5,
+  fcitx5-gtk,
+  ibus,
+  uim # IME
+  ,
+  wrapGAppsHook # color picker in mlconfig
+  ,
+  gdk-pixbuf,
+  gtk3,
+  gtk ? gtk3
+    # List of gui libraries to use. According to `./configure --help` ran on
+    # release 3.9.3, options are: (xlib|win32|fb|quartz|console|wayland|sdl2|beos)
+  ,
+  enableGuis ? {
+    xlib = enableX11;
+    fb = stdenv.isLinux;
+    quartz = stdenv.isDarwin;
+    wayland = stdenv.isLinux;
+    sdl2 = true;
+  },
+  libxkbcommon,
+  wayland # for the "wayland" --with-gui option
+  ,
+  SDL2 # for the "sdl" --with-gui option
+  # List of typing engines, the default list enables compiling all of the
+  # available ones, as recorded on release 3.9.3
+  ,
+  enableTypeEngines ? {
+    xcore = false; # Considered legacy
+    xft = enableX11;
+    cairo = true;
+  },
+  libX11,
+  libXft,
+  cairo
+  # List of external tools to create, this default list includes all default
+  # tools, as recorded on release 3.9.3.
+  ,
+  enableTools ? {
+    mlclient = true;
+    mlconfig = true;
+    mlcc = true;
+    mlterm-menu = true;
+    # Note that according to upstream's ./configure script, to disable
+    # mlimgloader you have to disable _all_ tools. See:
+    # https://github.com/arakiken/mlterm/issues/69
+    mlimgloader = true;
+    registobmp = true;
+    mlfc = true;
+  }
+  # Whether to enable the X window system
+  ,
+  enableX11 ? stdenv.isLinux
+    # Most of the input methods and other build features are enabled by default,
+    # the following attribute set can be used to disable some of them. It's parsed
+    # when we set `configureFlags`. If you find other configure Flags that require
+    # dependencies, it'd be nice to make that contribution here.
+  ,
+  enableFeatures ? {
+    uim = !stdenv.isDarwin;
+    ibus = !stdenv.isDarwin;
+    fcitx = !stdenv.isDarwin;
+    m17n = !stdenv.isDarwin;
+    ssh2 = true;
+    bidi = true;
+    # Open Type layout support, (substituting glyphs with opentype fonts)
+    otl = true;
+  }
+  # Configure the Exec directive in the generated .desktop file
+  ,
+  desktopBinary ? (if enableGuis.xlib then
+    "mlterm"
+  else if enableGuis.wayland then
+    "mlterm-wl"
+  else if enableGuis.sdl2 then
+    "mlterm-sdl2"
+  else
+    throw "mlterm: couldn't figure out what desktopBinary to use.")
+}:
 
 let
   # Returns a --with-feature=<comma separated string list of all `true`

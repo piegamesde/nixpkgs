@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, hatchling
-, hatch-jupyter-builder, ipywidgets, jupyter-ui-poll, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  hatchling,
+  hatch-jupyter-builder,
+  ipywidgets,
+  jupyter-ui-poll,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "ipyniivue";

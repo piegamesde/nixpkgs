@@ -1,6 +1,17 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, ldc, installShellFiles
-, pkg-config, curl, sqlite, libnotify
-, withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  ldc,
+  installShellFiles,
+  pkg-config,
+  curl,
+  sqlite,
+  libnotify,
+  withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
+  systemd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "onedrive";

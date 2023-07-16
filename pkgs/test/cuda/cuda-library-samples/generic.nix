@@ -1,5 +1,12 @@
-{ lib, backendStdenv, fetchFromGitHub, cmake, addOpenGLRunpath, cudatoolkit
-, cutensor }:
+{
+  lib,
+  backendStdenv,
+  fetchFromGitHub,
+  cmake,
+  addOpenGLRunpath,
+  cudatoolkit,
+  cutensor,
+}:
 
 let
   rev = "5aab680905d853bce0dbad4c488e4f7e9f7b2302";

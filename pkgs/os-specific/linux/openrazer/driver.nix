@@ -1,4 +1,11 @@
-{ coreutils, fetchFromGitHub, kernel, stdenv, lib, util-linux }:
+{
+  coreutils,
+  fetchFromGitHub,
+  kernel,
+  stdenv,
+  lib,
+  util-linux,
+}:
 
 let
   common = import ../../../development/python-modules/openrazer/common.nix {

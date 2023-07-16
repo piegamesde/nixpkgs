@@ -1,4 +1,11 @@
-{ lib, mkCoqDerivation, coq, ssreflect, equations, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  ssreflect,
+  equations,
+  version ? null
+}:
 
 mkCoqDerivation {
 

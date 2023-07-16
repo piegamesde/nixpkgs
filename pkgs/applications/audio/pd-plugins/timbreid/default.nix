@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, unzip, puredata, fftw }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  puredata,
+  fftw,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.7.0";

@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, meson, ninja, pkg-config, ffmpeg-headless
-, libcdio, libcdio-paranoia, libmusicbrainz5, curl }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  ffmpeg-headless,
+  libcdio,
+  libcdio-paranoia,
+  libmusicbrainz5,
+  curl,
+}:
 stdenv.mkDerivation rec {
   pname = "cyanrip";
   version = "0.8.1";

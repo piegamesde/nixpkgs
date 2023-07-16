@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   let
     inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
@@ -36,16 +40,20 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
     meta = with lib.maintainers; { maintainers = [ lom ]; };
 
     nodes = {
-      server = { ... }: {
-        services.openssh.enable = true;
-        users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
-      };
+      server = {
+          ...
+        }: {
+          services.openssh.enable = true;
+          users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
+        };
 
-      client = { ... }: {
-        programs.zsh.enable = true;
-        users.users.root.shell = pkgs.zsh;
-        environment.systemPackages = with pkgs; [ xxh git ];
-      };
+      client = {
+          ...
+        }: {
+          programs.zsh.enable = true;
+          users.users.root.shell = pkgs.zsh;
+          environment.systemPackages = with pkgs; [ xxh git ];
+        };
     };
 
     testScript = ''

@@ -1,5 +1,16 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, webtest, markupsafe, jinja2
-, pytestCheckHook, zope_deprecation, pyramid, pythonOlder }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  webtest,
+  markupsafe,
+  jinja2,
+  pytestCheckHook,
+  zope_deprecation,
+  pyramid,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pyramid-jinja2";

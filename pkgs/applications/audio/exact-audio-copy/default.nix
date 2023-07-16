@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, makeDesktopItem, imagemagick, p7zip, wine
-, writeShellScriptBin, symlinkJoin, use64 ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeDesktopItem,
+  imagemagick,
+  p7zip,
+  wine,
+  writeShellScriptBin,
+  symlinkJoin,
+  use64 ? false
+}:
 
 let
   pname = "exact-audio-copy";

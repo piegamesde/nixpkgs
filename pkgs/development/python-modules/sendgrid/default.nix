@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, flask, pytestCheckHook
-, python-http-client, pythonOlder, pyyaml, starkbank-ecdsa, six, werkzeug }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flask,
+  pytestCheckHook,
+  python-http-client,
+  pythonOlder,
+  pyyaml,
+  starkbank-ecdsa,
+  six,
+  werkzeug,
+}:
 
 buildPythonPackage rec {
   pname = "sendgrid";

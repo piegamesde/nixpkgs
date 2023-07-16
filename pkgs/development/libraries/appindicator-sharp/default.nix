@@ -1,5 +1,13 @@
-{ autoreconfHook, fetchFromGitHub, lib, libappindicator, mono, gtk-sharp-3_0
-, pkg-config, stdenv, }:
+{
+  autoreconfHook,
+  fetchFromGitHub,
+  lib,
+  libappindicator,
+  mono,
+  gtk-sharp-3_0,
+  pkg-config,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "appindicator-sharp";

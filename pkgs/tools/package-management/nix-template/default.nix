@@ -1,5 +1,15 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, installShellFiles, makeWrapper
-, nix, openssl, pkg-config, Security }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  makeWrapper,
+  nix,
+  openssl,
+  pkg-config,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "nix-template";

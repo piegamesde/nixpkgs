@@ -1,5 +1,12 @@
-{ lib, gcc9Stdenv, fetchFromGitHub, autoreconfHook, cmake, ncurses6
-, runtimeShell }:
+{
+  lib,
+  gcc9Stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  cmake,
+  ncurses6,
+  runtimeShell,
+}:
 
 let savesDir = "~/.umoria";
 in gcc9Stdenv.mkDerivation rec {

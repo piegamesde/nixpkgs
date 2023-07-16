@@ -1,4 +1,15 @@
-{ fetchurl, lib, stdenv, libcdio, zlib, bzip2, readline, acl, attr, libiconv }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  libcdio,
+  zlib,
+  bzip2,
+  readline,
+  acl,
+  attr,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xorriso";

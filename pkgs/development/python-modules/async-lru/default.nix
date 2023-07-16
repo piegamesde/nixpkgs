@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, typing-extensions
-, pytestCheckHook, pytest-asyncio }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  typing-extensions,
+  pytestCheckHook,
+  pytest-asyncio,
+}:
 
 buildPythonPackage rec {
   pname = "async-lru";

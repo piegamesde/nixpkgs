@@ -1,4 +1,12 @@
-{ lib, rustPlatform, fetchCrate, stdenv, Security, libiconv, nixosTests }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  stdenv,
+  Security,
+  libiconv,
+  nixosTests,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "doh-proxy-rust";

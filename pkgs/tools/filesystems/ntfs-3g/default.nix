@@ -1,6 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, gettext, mount
-, libuuid, kmod, macfuse-stubs, DiskArbitration, crypto ? false, libgcrypt
-, gnutls }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  gettext,
+  mount,
+  libuuid,
+  kmod,
+  macfuse-stubs,
+  DiskArbitration,
+  crypto ? false,
+  libgcrypt,
+  gnutls,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ntfs3g";

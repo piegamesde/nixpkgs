@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, gettext, libxml2, pkg-config, gtk3, cmake, ninja
-, vala, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gettext,
+  libxml2,
+  pkg-config,
+  gtk3,
+  cmake,
+  ninja,
+  vala,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "plotinus";

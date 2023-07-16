@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, meson, cmake, ninja, libxkbcommon
-, wayland, wayland-scanner, wayland-protocols, wlroots, pixman, udev, libGL
-, libxml2, mesa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  meson,
+  cmake,
+  ninja,
+  libxkbcommon,
+  wayland,
+  wayland-scanner,
+  wayland-protocols,
+  wlroots,
+  pixman,
+  udev,
+  libGL,
+  libxml2,
+  mesa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "waybox";

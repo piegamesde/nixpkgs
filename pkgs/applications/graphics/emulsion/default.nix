@@ -1,7 +1,27 @@
-{ stdenv, lib, fetchFromGitHub, rustPlatform, installShellFiles, makeWrapper
-, pkg-config, python3, libGL, libX11, libXcursor, libXi, libXrandr, libXxf86vm
-, libxcb, libxkbcommon, wayland, AppKit, CoreGraphics, CoreServices, Foundation
-, OpenGL }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  installShellFiles,
+  makeWrapper,
+  pkg-config,
+  python3,
+  libGL,
+  libX11,
+  libXcursor,
+  libXi,
+  libXrandr,
+  libXxf86vm,
+  libxcb,
+  libxkbcommon,
+  wayland,
+  AppKit,
+  CoreGraphics,
+  CoreServices,
+  Foundation,
+  OpenGL,
+}:
 let
   rpathLibs = [ libGL libX11 libXcursor libXi libXrandr libXxf86vm libxcb ]
     ++ lib.optionals stdenv.isLinux [ libxkbcommon wayland ];

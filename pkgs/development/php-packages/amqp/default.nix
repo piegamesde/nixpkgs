@@ -1,4 +1,9 @@
-{ buildPecl, lib, rabbitmq-c, fetchFromGitHub }:
+{
+  buildPecl,
+  lib,
+  rabbitmq-c,
+  fetchFromGitHub,
+}:
 
 let version = "1.11.0";
 in buildPecl {

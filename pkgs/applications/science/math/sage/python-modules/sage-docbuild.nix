@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, sage-src, sphinx, jupyter-sphinx }:
+{
+  lib,
+  buildPythonPackage,
+  sage-src,
+  sphinx,
+  jupyter-sphinx,
+}:
 
 buildPythonPackage rec {
   version = src.version;

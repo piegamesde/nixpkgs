@@ -1,5 +1,14 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, installShellFiles, python3, libxcb
-, AppKit, SystemConfiguration }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  python3,
+  libxcb,
+  AppKit,
+  SystemConfiguration,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "kbs2";

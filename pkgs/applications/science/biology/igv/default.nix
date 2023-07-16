@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchzip, jdk11 }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  jdk11,
+}:
 
 stdenv.mkDerivation rec {
   pname = "igv";

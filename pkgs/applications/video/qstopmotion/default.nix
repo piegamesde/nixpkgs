@@ -1,7 +1,28 @@
-{ lib, stdenv, mkDerivation, fetchurl, qtbase, qtmultimedia, qtquickcontrols
-, qtimageformats, qtxmlpatterns, ffmpeg, guvcview, cmake, ninja, libxml2
-, gettext, pkg-config, libgphoto2, gphoto2, v4l-utils, libv4l, pcre, qwt
-, extra-cmake-modules }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchurl,
+  qtbase,
+  qtmultimedia,
+  qtquickcontrols,
+  qtimageformats,
+  qtxmlpatterns,
+  ffmpeg,
+  guvcview,
+  cmake,
+  ninja,
+  libxml2,
+  gettext,
+  pkg-config,
+  libgphoto2,
+  gphoto2,
+  v4l-utils,
+  libv4l,
+  pcre,
+  qwt,
+  extra-cmake-modules,
+}:
 
 mkDerivation rec {
   pname = "qstopmotion";

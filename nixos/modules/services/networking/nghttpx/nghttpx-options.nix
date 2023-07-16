@@ -1,4 +1,7 @@
-{ lib, ... }: {
+{
+  lib,
+  ...
+}: {
   options.services.nghttpx = {
     enable = lib.mkEnableOption (lib.mdDoc "nghttpx");
 

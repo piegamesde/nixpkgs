@@ -1,8 +1,26 @@
-{ stdenv, lib, fetchFromGitea, pkg-config, meson, ninja, wayland-scanner
-, wayland, pixman, wayland-protocols, libxkbcommon, scdoc, tllist, fcft
-, enableCairo ? true, svgSupport ? true, pngSupport ? true
-  # Optional dependencies
-, cairo, libpng }:
+{
+  stdenv,
+  lib,
+  fetchFromGitea,
+  pkg-config,
+  meson,
+  ninja,
+  wayland-scanner,
+  wayland,
+  pixman,
+  wayland-protocols,
+  libxkbcommon,
+  scdoc,
+  tllist,
+  fcft,
+  enableCairo ? true,
+  svgSupport ? true,
+  pngSupport ? true
+    # Optional dependencies
+  ,
+  cairo,
+  libpng,
+}:
 
 assert svgSupport -> enableCairo;
 

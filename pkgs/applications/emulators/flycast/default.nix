@@ -1,7 +1,31 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, makeWrapper, alsa-lib, curl
-, egl-wayland, libao, libdecor, libevdev, libffi, libGL, libpulseaudio, libX11
-, libXext, libxkbcommon, libzip, mesa, miniupnpc, udev, vulkan-headers
-, vulkan-loader, wayland, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  makeWrapper,
+  alsa-lib,
+  curl,
+  egl-wayland,
+  libao,
+  libdecor,
+  libevdev,
+  libffi,
+  libGL,
+  libpulseaudio,
+  libX11,
+  libXext,
+  libxkbcommon,
+  libzip,
+  mesa,
+  miniupnpc,
+  udev,
+  vulkan-headers,
+  vulkan-loader,
+  wayland,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "flycast";

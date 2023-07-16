@@ -1,4 +1,12 @@
-{ lib, mkDerivation, fetchgit, cmake, extra-cmake-modules, kio, fuse3 }:
+{
+  lib,
+  mkDerivation,
+  fetchgit,
+  cmake,
+  extra-cmake-modules,
+  kio,
+  fuse3,
+}:
 
 mkDerivation rec {
   pname = "kio-fuse";

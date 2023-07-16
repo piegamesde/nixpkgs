@@ -1,7 +1,27 @@
-{ lib, babel, buildPythonPackage, fetchFromGitLab, fetchpatch, gnupg, html2text
-, libyaml, lxml, nose, packaging, pillow, prettytable, pycountry
-, python-dateutil, pythonOlder, pyyaml, requests, termcolor, testers, unidecode
-, woob }:
+{
+  lib,
+  babel,
+  buildPythonPackage,
+  fetchFromGitLab,
+  fetchpatch,
+  gnupg,
+  html2text,
+  libyaml,
+  lxml,
+  nose,
+  packaging,
+  pillow,
+  prettytable,
+  pycountry,
+  python-dateutil,
+  pythonOlder,
+  pyyaml,
+  requests,
+  termcolor,
+  testers,
+  unidecode,
+  woob,
+}:
 
 buildPythonPackage rec {
   pname = "woob";

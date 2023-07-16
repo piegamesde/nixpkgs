@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, glib, meson, ninja, wrapGAppsHook
-, desktop-file-utils, gobject-introspection, gtk3, python3 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  glib,
+  meson,
+  ninja,
+  wrapGAppsHook,
+  desktop-file-utils,
+  gobject-introspection,
+  gtk3,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "siglo";

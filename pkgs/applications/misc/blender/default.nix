@@ -1,15 +1,73 @@
-{ config, stdenv, lib, fetchurl, fetchzip, boost, cmake, ffmpeg, gettext, glew
-, ilmbase, libepoxy, libXi, libX11, libXext, libXrender, libjpeg, libpng
-, libsamplerate, libsndfile, libtiff, libwebp, libGLU, libGL, openal
-, opencolorio, openexr, openimagedenoise, openimageio, openjpeg
-, python310Packages, openvdb, libXxf86vm, tbb, alembic, zlib, zstd, fftw
-, opensubdiv, freetype, jemalloc, ocl-icd, addOpenGLRunpath
-, jackaudioSupport ? false, libjack2, cudaSupport ? config.cudaSupport or false
-, cudaPackages ? { }, hipSupport ? false
-, hip # comes with a significantly larger closure size
-, colladaSupport ? true, opencollada, spaceNavSupport ? stdenv.isLinux, libspnav
-, makeWrapper, pugixml, llvmPackages, SDL, Cocoa, CoreGraphics, ForceFeedback
-, OpenAL, OpenGL, potrace, openxr-loader, embree, gmp, libharu }:
+{
+  config,
+  stdenv,
+  lib,
+  fetchurl,
+  fetchzip,
+  boost,
+  cmake,
+  ffmpeg,
+  gettext,
+  glew,
+  ilmbase,
+  libepoxy,
+  libXi,
+  libX11,
+  libXext,
+  libXrender,
+  libjpeg,
+  libpng,
+  libsamplerate,
+  libsndfile,
+  libtiff,
+  libwebp,
+  libGLU,
+  libGL,
+  openal,
+  opencolorio,
+  openexr,
+  openimagedenoise,
+  openimageio,
+  openjpeg,
+  python310Packages,
+  openvdb,
+  libXxf86vm,
+  tbb,
+  alembic,
+  zlib,
+  zstd,
+  fftw,
+  opensubdiv,
+  freetype,
+  jemalloc,
+  ocl-icd,
+  addOpenGLRunpath,
+  jackaudioSupport ? false,
+  libjack2,
+  cudaSupport ? config.cudaSupport or false,
+  cudaPackages ? { },
+  hipSupport ? false,
+  hip # comes with a significantly larger closure size
+  ,
+  colladaSupport ? true,
+  opencollada,
+  spaceNavSupport ? stdenv.isLinux,
+  libspnav,
+  makeWrapper,
+  pugixml,
+  llvmPackages,
+  SDL,
+  Cocoa,
+  CoreGraphics,
+  ForceFeedback,
+  OpenAL,
+  OpenGL,
+  potrace,
+  openxr-loader,
+  embree,
+  gmp,
+  libharu,
+}:
 
 let
   python = python310Packages.python;

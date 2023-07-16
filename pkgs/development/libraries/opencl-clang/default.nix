@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, git, llvmPackages_11
-, spirv-llvm-translator, buildWithPatches ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  git,
+  llvmPackages_11,
+  spirv-llvm-translator,
+  buildWithPatches ? true
+}:
 
 let
   llvmPkgs = llvmPackages_11 // { inherit spirv-llvm-translator; };

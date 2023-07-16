@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, imake, libX11, libXtst, libXext, gccmakedep }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  imake,
+  libX11,
+  libXtst,
+  libXext,
+  gccmakedep,
+}:
 
 stdenv.mkDerivation rec {
   pname = "x2x";

@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchgit, pkg-config, git, libmicrohttpd }:
+{
+  stdenv,
+  lib,
+  fetchgit,
+  pkg-config,
+  git,
+  libmicrohttpd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fileshare";

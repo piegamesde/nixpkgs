@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cached-property, eth-typing
-, eth-utils, mypy-extensions, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cached-property,
+  eth-typing,
+  eth-utils,
+  mypy-extensions,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "py-ecc";

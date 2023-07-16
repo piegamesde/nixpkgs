@@ -1,6 +1,24 @@
-{ stdenv, lib, fetchurl, autoPatchelfHook, wrapGAppsHook, makeWrapper, gnome
-, libsecret, git, curl, nss, nspr, xorg, libdrm, alsa-lib, cups, mesa, systemd
-, openssl }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+  wrapGAppsHook,
+  makeWrapper,
+  gnome,
+  libsecret,
+  git,
+  curl,
+  nss,
+  nspr,
+  xorg,
+  libdrm,
+  alsa-lib,
+  cups,
+  mesa,
+  systemd,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "github-desktop";

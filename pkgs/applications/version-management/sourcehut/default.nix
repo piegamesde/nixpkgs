@@ -1,4 +1,10 @@
-{ python3, callPackage, recurseIntoAttrs, nixosTests, config }:
+{
+  python3,
+  callPackage,
+  recurseIntoAttrs,
+  nixosTests,
+  config,
+}:
 
 # To expose the *srht modules, they have to be a python module so we use `buildPythonModule`
 # Then we expose them through all-packages.nix as an application through `toPythonApplication`

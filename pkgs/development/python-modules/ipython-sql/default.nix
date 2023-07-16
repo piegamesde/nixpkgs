@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, ipython
-, ipython_genutils, pandas, prettytable, pytest, sqlalchemy, sqlparse }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  ipython,
+  ipython_genutils,
+  pandas,
+  prettytable,
+  pytest,
+  sqlalchemy,
+  sqlparse,
+}:
 buildPythonPackage rec {
   pname = "ipython-sql";
   version = "0.4.0";

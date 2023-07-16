@@ -1,5 +1,15 @@
-{ copyDesktopItems, fetchurl, glib, gnome, gtk3, jre, lib, makeDesktopItem
-, stdenv, wrapGAppsHook }:
+{
+  copyDesktopItems,
+  fetchurl,
+  glib,
+  gnome,
+  gtk3,
+  jre,
+  lib,
+  makeDesktopItem,
+  stdenv,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "deepgit";

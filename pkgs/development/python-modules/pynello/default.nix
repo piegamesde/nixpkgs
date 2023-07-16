@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, python-dateutil, pythonOlder
-, requests, requests-oauthlib }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python-dateutil,
+  pythonOlder,
+  requests,
+  requests-oauthlib,
+}:
 
 buildPythonPackage rec {
   pname = "pynello";

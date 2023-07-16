@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, mkYarnPackage, buildGoModule, makeWrapper, v2ray
-, v2ray-geoip, v2ray-domain-list-community, symlinkJoin }:
+{
+  lib,
+  fetchFromGitHub,
+  mkYarnPackage,
+  buildGoModule,
+  makeWrapper,
+  v2ray,
+  v2ray-geoip,
+  v2ray-domain-list-community,
+  symlinkJoin,
+}:
 let
   pname = "v2raya";
   version = "2.0.2";

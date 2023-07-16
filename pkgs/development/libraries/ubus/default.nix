@@ -1,4 +1,11 @@
-{ lib, stdenv, cmake, fetchgit, libubox, libjson }:
+{
+  lib,
+  stdenv,
+  cmake,
+  fetchgit,
+  libubox,
+  libjson,
+}:
 
 stdenv.mkDerivation {
   pname = "ubus";

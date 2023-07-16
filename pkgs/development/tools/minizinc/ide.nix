@@ -1,5 +1,13 @@
-{ lib, mkDerivation, fetchFromGitHub, qtbase, qtwebengine, qtwebkit, qmake
-, minizinc }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  qtbase,
+  qtwebengine,
+  qtwebkit,
+  qmake,
+  minizinc,
+}:
 mkDerivation rec {
   pname = "minizinc-ide";
   version = "2.5.5";

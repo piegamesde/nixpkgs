@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, freetype, libtool, flex, bison, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  freetype,
+  libtool,
+  flex,
+  bison,
+  pkg-config,
+}:
 
 stdenv.mkDerivation {
   pname = "ttf-mkfontdir";

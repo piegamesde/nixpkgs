@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, mock, boto3, envs
-, python-jose, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  mock,
+  boto3,
+  envs,
+  python-jose,
+  requests,
+}:
 
 buildPythonPackage {
   pname = "warrant";

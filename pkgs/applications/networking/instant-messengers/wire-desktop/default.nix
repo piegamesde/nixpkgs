@@ -1,5 +1,19 @@
-{ atomEnv, autoPatchelfHook, dpkg, fetchurl, makeDesktopItem, makeWrapper
-, stdenv, lib, udev, wrapGAppsHook, cpio, xar, libdbusmenu, libxshmfence }:
+{
+  atomEnv,
+  autoPatchelfHook,
+  dpkg,
+  fetchurl,
+  makeDesktopItem,
+  makeWrapper,
+  stdenv,
+  lib,
+  udev,
+  wrapGAppsHook,
+  cpio,
+  xar,
+  libdbusmenu,
+  libxshmfence,
+}:
 
 let
 

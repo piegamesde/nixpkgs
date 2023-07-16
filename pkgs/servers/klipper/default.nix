@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, python3, unstableGitUpdater }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  python3,
+  unstableGitUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "klipper";

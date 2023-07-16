@@ -1,4 +1,10 @@
-{ lib, nettools, python3Packages, texinfo, fetchFromGitHub }:
+{
+  lib,
+  nettools,
+  python3Packages,
+  texinfo,
+  fetchFromGitHub,
+}:
 
 # FAILURES: The "running build_ext" phase fails to compile Twisted
 # plugins, because it tries to write them into Twisted's (immutable)

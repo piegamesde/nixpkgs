@@ -1,5 +1,19 @@
-{ lib, stdenv, callPackage, perl, which, coreutils, zenity, curl, cabextract
-, unzip, p7zip, gnused, gnugrep, bash }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  perl,
+  which,
+  coreutils,
+  zenity,
+  curl,
+  cabextract,
+  unzip,
+  p7zip,
+  gnused,
+  gnugrep,
+  bash,
+}:
 
 stdenv.mkDerivation rec {
   pname = "winetricks";

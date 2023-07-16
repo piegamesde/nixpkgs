@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pypng, pyzbar }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pypng,
+  pyzbar,
+}:
 
 buildPythonPackage rec {
   pname = "segno";

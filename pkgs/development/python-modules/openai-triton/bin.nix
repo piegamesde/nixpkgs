@@ -1,6 +1,21 @@
-{ lib, stdenv, addOpenGLRunpath, cudaPackages, buildPythonPackage, fetchurl
-, isPy38, isPy39, isPy310, isPy311, python, autoPatchelfHook, filelock, lit
-, pythonRelaxDepsHook, zlib }:
+{
+  lib,
+  stdenv,
+  addOpenGLRunpath,
+  cudaPackages,
+  buildPythonPackage,
+  fetchurl,
+  isPy38,
+  isPy39,
+  isPy310,
+  isPy311,
+  python,
+  autoPatchelfHook,
+  filelock,
+  lit,
+  pythonRelaxDepsHook,
+  zlib,
+}:
 
 buildPythonPackage rec {
   pname = "triton";

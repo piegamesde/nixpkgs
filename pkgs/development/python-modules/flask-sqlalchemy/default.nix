@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, flask, mock, pdm-pep517, pytestCheckHook
-, pythonOlder, sqlalchemy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  mock,
+  pdm-pep517,
+  pytestCheckHook,
+  pythonOlder,
+  sqlalchemy,
+}:
 
 buildPythonPackage rec {
   pname = "flask-sqlalchemy";

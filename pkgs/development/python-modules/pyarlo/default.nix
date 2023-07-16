@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, mock, pytestCheckHook, requests
-, requests-mock, sseclient-py }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  pytestCheckHook,
+  requests,
+  requests-mock,
+  sseclient-py,
+}:
 
 buildPythonPackage rec {
   pname = "pyarlo";

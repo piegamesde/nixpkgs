@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchgit, cmake, libjpeg }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  cmake,
+  libjpeg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libyuv";

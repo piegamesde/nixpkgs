@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, fetchzip, rocmUpdateScript, cmake, rocm-cmake
-, rocprim, hip, gfortran, git, gtest, boost, python3Packages, buildTests ? false
-, buildBenchmarks ? false # Seems to depend on tests
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchzip,
+  rocmUpdateScript,
+  cmake,
+  rocm-cmake,
+  rocprim,
+  hip,
+  gfortran,
+  git,
+  gtest,
+  boost,
+  python3Packages,
+  buildTests ? false,
+  buildBenchmarks ? false # Seems to depend on tests
 }:
 
 stdenv.mkDerivation (finalAttrs: {

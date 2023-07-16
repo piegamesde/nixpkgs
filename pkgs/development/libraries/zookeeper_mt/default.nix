@@ -1,6 +1,15 @@
-{ lib, stdenv, fetchurl, autoreconfHook, jre, openssl, pkg-config
-# We depend on ZooKeeper for the Jute compiler.
-, zookeeper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  jre,
+  openssl,
+  pkg-config
+  # We depend on ZooKeeper for the Jute compiler.
+  ,
+  zookeeper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zookeeper_mt";

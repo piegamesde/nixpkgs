@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pg8000, postgresql, psycopg2
-, pytestCheckHook, pythonOlder, sqlalchemy, testing-common-database }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pg8000,
+  postgresql,
+  psycopg2,
+  pytestCheckHook,
+  pythonOlder,
+  sqlalchemy,
+  testing-common-database,
+}:
 
 buildPythonPackage rec {
   pname = "testing-postgresql";

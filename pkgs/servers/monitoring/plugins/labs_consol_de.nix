@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, autoreconfHook, makeWrapper
-, perlPackages, coreutils, gnused, gnugrep }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  autoreconfHook,
+  makeWrapper,
+  perlPackages,
+  coreutils,
+  gnused,
+  gnugrep,
+}:
 
 let
   glplugin = fetchFromGitHub {
@@ -9,7 +19,14 @@ let
     sha256 = "047fwrycsl2vmpi4wl46fs6f8y191d6qc9ms5rvmrj1dm2r828ws";
   };
 
-  generic = { pname, version, sha256, description, buildInputs, ... }:
+  generic = {
+      pname,
+      version,
+      sha256,
+      description,
+      buildInputs,
+      ...
+    }:
     stdenv.mkDerivation {
       inherit pname version;
 

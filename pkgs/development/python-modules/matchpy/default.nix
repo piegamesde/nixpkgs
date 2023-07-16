@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, hopcroftkarp, multiset
-, pytestCheckHook, hypothesis, setuptools-scm, isPy27 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hopcroftkarp,
+  multiset,
+  pytestCheckHook,
+  hypothesis,
+  setuptools-scm,
+  isPy27,
+}:
 
 buildPythonPackage rec {
   pname = "matchpy";

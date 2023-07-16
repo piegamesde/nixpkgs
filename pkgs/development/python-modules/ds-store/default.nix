@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, mac_alias, pytestCheckHook
-, pythonOlder, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mac_alias,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "ds-store";

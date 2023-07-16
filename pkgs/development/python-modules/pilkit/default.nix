@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, mock, pillow, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  pillow,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pilkit";

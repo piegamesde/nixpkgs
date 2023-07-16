@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, unzip, makeWrapper, openjdk }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  makeWrapper,
+  openjdk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pmd";

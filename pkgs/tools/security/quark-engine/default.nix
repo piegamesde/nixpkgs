@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, gitMinimal, python3 }:
+{
+  lib,
+  fetchFromGitHub,
+  gitMinimal,
+  python3,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "quark-engine";

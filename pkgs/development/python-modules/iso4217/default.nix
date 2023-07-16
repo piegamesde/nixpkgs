@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchurl, importlib-resources
-, pytestCheckHook, python, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchurl,
+  importlib-resources,
+  pytestCheckHook,
+  python,
+  pythonOlder,
+}:
 let
   table = fetchurl {
     # See https://github.com/dahlia/iso4217/blob/main/setup.py#L19

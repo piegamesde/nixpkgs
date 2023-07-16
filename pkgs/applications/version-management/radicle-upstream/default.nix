@@ -1,4 +1,12 @@
-{ lib, stdenv, appimageTools, autoPatchelfHook, zlib, fetchurl, undmg }:
+{
+  lib,
+  stdenv,
+  appimageTools,
+  autoPatchelfHook,
+  zlib,
+  fetchurl,
+  undmg,
+}:
 
 let
   pname = "radicle-upstream";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchgit, cmake, ninja, perl, buildGoModule }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  cmake,
+  ninja,
+  perl,
+  buildGoModule,
+}:
 
 # reference: https://boringssl.googlesource.com/boringssl/+/2661/BUILDING.md
 buildGoModule {

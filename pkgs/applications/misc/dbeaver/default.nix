@@ -1,6 +1,24 @@
-{ lib, stdenv, copyDesktopItems, fetchFromGitHub, makeDesktopItem, makeWrapper
-, fontconfig, freetype, glib, gtk3, jdk17, libX11, libXrender, libXtst, zlib
-, maven, webkitgtk_4_1, glib-networking, javaPackages }:
+{
+  lib,
+  stdenv,
+  copyDesktopItems,
+  fetchFromGitHub,
+  makeDesktopItem,
+  makeWrapper,
+  fontconfig,
+  freetype,
+  glib,
+  gtk3,
+  jdk17,
+  libX11,
+  libXrender,
+  libXtst,
+  zlib,
+  maven,
+  webkitgtk_4_1,
+  glib-networking,
+  javaPackages,
+}:
 
 (javaPackages.mavenfod.override {
   inherit

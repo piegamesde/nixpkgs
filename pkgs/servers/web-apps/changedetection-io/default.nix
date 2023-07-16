@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, fetchurl, python3 }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  python3,
+}:
 python3.pkgs.buildPythonApplication rec {
   pname = "changedetection-io";
   version = "0.40.3";

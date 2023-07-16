@@ -1,4 +1,10 @@
-{ lib, buildGoModule, callPackage, fetchFromGitHub, woodpecker-frontend }:
+{
+  lib,
+  buildGoModule,
+  callPackage,
+  fetchFromGitHub,
+  woodpecker-frontend,
+}:
 let common = callPackage ./common.nix { };
 in buildGoModule {
   pname = "woodpecker-server";

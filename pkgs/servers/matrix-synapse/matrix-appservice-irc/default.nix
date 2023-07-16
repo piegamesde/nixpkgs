@@ -1,5 +1,12 @@
-{ lib, buildNpmPackage, fetchFromGitHub, python3, matrix-sdk-crypto-nodejs
-, nixosTests, nix-update-script }:
+{
+  lib,
+  buildNpmPackage,
+  fetchFromGitHub,
+  python3,
+  matrix-sdk-crypto-nodejs,
+  nixosTests,
+  nix-update-script,
+}:
 
 buildNpmPackage rec {
   pname = "matrix-appservice-irc";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, autoconf, automake, libtool }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoconf,
+  automake,
+  libtool,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libatomic_ops";

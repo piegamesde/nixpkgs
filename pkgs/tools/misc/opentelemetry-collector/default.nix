@@ -1,4 +1,9 @@
-{ buildGoModule, fetchFromGitHub, lib, writeScript }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  writeScript,
+}:
 
 let
   otelcontribcol = writeScript "otelcontribcol" ''

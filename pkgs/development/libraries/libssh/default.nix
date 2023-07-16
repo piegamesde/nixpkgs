@@ -1,7 +1,19 @@
-{ lib, stdenv, fetchurl, pkg-config, cmake, zlib, openssl, libsodium
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  cmake,
+  zlib,
+  openssl,
+  libsodium
 
-# for passthru.tests
-, ffmpeg, sshping, wireshark }:
+  # for passthru.tests
+  ,
+  ffmpeg,
+  sshping,
+  wireshark,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libssh";

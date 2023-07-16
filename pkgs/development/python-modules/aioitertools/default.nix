@@ -1,13 +1,22 @@
-{ lib, buildPythonPackage, fetchpatch, fetchPypi, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchpatch,
+  fetchPypi,
+  pythonOlder
 
-# native
-, flit-core
+  # native
+  ,
+  flit-core
 
-# propagates
-, typing-extensions
+  # propagates
+  ,
+  typing-extensions
 
-# tests
-, unittestCheckHook }:
+  # tests
+  ,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "aioitertools";

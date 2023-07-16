@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, alsa-lib, freetype, xorg, curl, libGL, libjack2
-, gnome, pkg-config, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  alsa-lib,
+  freetype,
+  xorg,
+  curl,
+  libGL,
+  libjack2,
+  gnome,
+  pkg-config,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "helio-workstation";

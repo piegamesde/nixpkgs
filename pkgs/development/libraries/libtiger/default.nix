@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchurl, autoreconfHook, pkg-config, libkate, pango, cairo
-, darwin }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  libkate,
+  pango,
+  cairo,
+  darwin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libtiger";

@@ -1,12 +1,36 @@
-{ lib, buildPythonPackage, fetchFromGitHub, future, networkx, pygments, lxml
-, colorama, matplotlib, asn1crypto, click, pydot, ipython, packaging, pyqt5
-, pyperclip, nose, nose-timer, mock, python-magic, codecov, coverage, qt5
-# This is usually used as a library, and it'd be a shame to force the GUI
-# libraries to the closure if GUI is not desired.
-, withGui ? false
-  # Tests take a very long time, and currently fail, but next release' tests
-  # shouldn't fail
-, doCheck ? false }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  future,
+  networkx,
+  pygments,
+  lxml,
+  colorama,
+  matplotlib,
+  asn1crypto,
+  click,
+  pydot,
+  ipython,
+  packaging,
+  pyqt5,
+  pyperclip,
+  nose,
+  nose-timer,
+  mock,
+  python-magic,
+  codecov,
+  coverage,
+  qt5
+  # This is usually used as a library, and it'd be a shame to force the GUI
+  # libraries to the closure if GUI is not desired.
+  ,
+  withGui ? false
+    # Tests take a very long time, and currently fail, but next release' tests
+    # shouldn't fail
+  ,
+  doCheck ? false
+}:
 
 buildPythonPackage rec {
   pname = "androguard";

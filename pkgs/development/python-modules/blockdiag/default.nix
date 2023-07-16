@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, docutils, fetchFromGitHub, funcparserlib, nose
-, pillow, ephem, pythonOlder, pytestCheckHook, reportlab, setuptools, webcolors
-, python }:
+{
+  lib,
+  buildPythonPackage,
+  docutils,
+  fetchFromGitHub,
+  funcparserlib,
+  nose,
+  pillow,
+  ephem,
+  pythonOlder,
+  pytestCheckHook,
+  reportlab,
+  setuptools,
+  webcolors,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "blockdiag";

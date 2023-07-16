@@ -1,4 +1,7 @@
-{ callPackage, makeSetupHook }:
+{
+  callPackage,
+  makeSetupHook,
+}:
 
 makeSetupHook {
   name = "postgresql-test-hook";

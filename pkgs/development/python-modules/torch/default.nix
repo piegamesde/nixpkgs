@@ -1,44 +1,103 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, buildPythonPackage, python
-, cudaSupport ? false, cudaPackages, magma, useSystemNccl ? true
-, MPISupport ? false, mpi, buildDocs ? false,
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  buildPythonPackage,
+  python,
+  cudaSupport ? false,
+  cudaPackages,
+  magma,
+  useSystemNccl ? true,
+  MPISupport ? false,
+  mpi,
+  buildDocs ? false,
 
-# Native build inputs
-cmake, util-linux, linkFarm, symlinkJoin, which, pybind11, removeReferencesTo
-, pythonRelaxDepsHook,
+  # Native build inputs
+  cmake,
+  util-linux,
+  linkFarm,
+  symlinkJoin,
+  which,
+  pybind11,
+  removeReferencesTo,
+  pythonRelaxDepsHook,
 
-# Build inputs
-numactl, Accelerate, CoreServices, libobjc,
+  # Build inputs
+  numactl,
+  Accelerate,
+  CoreServices,
+  libobjc,
 
-# Propagated build inputs
-filelock, jinja2, networkx, openai-triton, sympy, numpy, pyyaml, cffi, click
-, typing-extensions,
+  # Propagated build inputs
+  filelock,
+  jinja2,
+  networkx,
+  openai-triton,
+  sympy,
+  numpy,
+  pyyaml,
+  cffi,
+  click,
+  typing-extensions,
 
-# Unit tests
-hypothesis, psutil,
+  # Unit tests
+  hypothesis,
+  psutil,
 
-# Disable MKLDNN on aarch64-darwin, it negatively impacts performance,
-# this is also what official pytorch build does
-mklDnnSupport ? !(stdenv.isDarwin && stdenv.isAarch64),
+  # Disable MKLDNN on aarch64-darwin, it negatively impacts performance,
+  # this is also what official pytorch build does
+  mklDnnSupport ? !(stdenv.isDarwin && stdenv.isAarch64),
 
-# virtual pkg that consistently instantiates blas across nixpkgs
-# See https://github.com/NixOS/nixpkgs/pull/83888
-blas,
+  # virtual pkg that consistently instantiates blas across nixpkgs
+  # See https://github.com/NixOS/nixpkgs/pull/83888
+  blas,
 
-# ninja (https://ninja-build.org) must be available to run C++ extensions tests,
-ninja,
+  # ninja (https://ninja-build.org) must be available to run C++ extensions tests,
+  ninja,
 
-linuxHeaders_5_19,
+  linuxHeaders_5_19,
 
-# dependencies for torch.utils.tensorboard
-pillow, six, future, tensorboard, protobuf,
+  # dependencies for torch.utils.tensorboard
+  pillow,
+  six,
+  future,
+  tensorboard,
+  protobuf,
 
-isPy3k, pythonOlder,
+  isPy3k,
+  pythonOlder,
 
-# ROCm dependencies
-rocmSupport ? false, gpuTargets ? [ ], openmp, rocm-core, hip, rccl, miopen
-, miopengemm, rocrand, rocblas, rocfft, rocsparse, hipsparse, rocthrust, rocprim
-, hipcub, roctracer, rocsolver, hipfft, hipsolver, hipblas, rocminfo, rocm-thunk
-, rocm-comgr, rocm-device-libs, rocm-runtime, rocm-opencl-runtime, hipify }:
+  # ROCm dependencies
+  rocmSupport ? false,
+  gpuTargets ? [ ],
+  openmp,
+  rocm-core,
+  hip,
+  rccl,
+  miopen,
+  miopengemm,
+  rocrand,
+  rocblas,
+  rocfft,
+  rocsparse,
+  hipsparse,
+  rocthrust,
+  rocprim,
+  hipcub,
+  roctracer,
+  rocsolver,
+  hipfft,
+  hipsolver,
+  hipblas,
+  rocminfo,
+  rocm-thunk,
+  rocm-comgr,
+  rocm-device-libs,
+  rocm-runtime,
+  rocm-opencl-runtime,
+  hipify,
+}:
 
 let
   inherit (lib) lists strings trivial;

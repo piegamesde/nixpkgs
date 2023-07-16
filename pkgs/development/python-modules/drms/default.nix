@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, pandas, six, astropy
-, pytestCheckHook, pytest-doctestplus, pythonOlder, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  pandas,
+  six,
+  astropy,
+  pytestCheckHook,
+  pytest-doctestplus,
+  pythonOlder,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "drms";

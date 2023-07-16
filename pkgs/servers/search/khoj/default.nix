@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, python3, qt6 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  qt6,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "khoj";

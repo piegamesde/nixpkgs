@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, fetchPypi, flask, flask-login, flask-sqlalchemy
-, flexmock, psycopg2, pymysql, pytestCheckHook, pythonOlder, sqlalchemy
-, sqlalchemy-i18n, sqlalchemy-utils }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  flask-login,
+  flask-sqlalchemy,
+  flexmock,
+  psycopg2,
+  pymysql,
+  pytestCheckHook,
+  pythonOlder,
+  sqlalchemy,
+  sqlalchemy-i18n,
+  sqlalchemy-utils,
+}:
 
 buildPythonPackage rec {
   pname = "sqlalchemy-continuum";

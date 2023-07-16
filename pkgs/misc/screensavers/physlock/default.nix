@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, pam, systemd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pam,
+  systemd,
+}:
 
 stdenv.mkDerivation rec {
   version = "13";

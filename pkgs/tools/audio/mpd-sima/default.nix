@@ -1,4 +1,10 @@
-{ lib, buildPythonApplication, fetchFromGitLab, python-musicpd, requests }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitLab,
+  python-musicpd,
+  requests,
+}:
 
 buildPythonApplication rec {
   pname = "mpd-sima";

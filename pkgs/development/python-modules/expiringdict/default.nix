@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, dill, coverage, coveralls, mock
-, nose }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  dill,
+  coverage,
+  coveralls,
+  mock,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "expiringdict";

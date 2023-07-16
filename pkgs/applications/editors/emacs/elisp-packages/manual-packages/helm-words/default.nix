@@ -1,4 +1,11 @@
-{ lib, trivialBuild, fetchFromGitHub, dictionary, emacs, helm }:
+{
+  lib,
+  trivialBuild,
+  fetchFromGitHub,
+  dictionary,
+  emacs,
+  helm,
+}:
 
 trivialBuild rec {
   pname = "helm-words";

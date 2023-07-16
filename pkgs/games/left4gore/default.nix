@@ -1,4 +1,9 @@
-{ stdenvNoCC, lib, fetchurl, buildFHSEnv }:
+{
+  stdenvNoCC,
+  lib,
+  fetchurl,
+  buildFHSEnv,
+}:
 
 let
   version = "2.3";

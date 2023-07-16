@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, numpy, libsamplerate, fetchFromGitHub }:
+{
+  lib,
+  buildPythonPackage,
+  numpy,
+  libsamplerate,
+  fetchFromGitHub,
+}:
 
 buildPythonPackage {
   pname = "scikits-samplerate";

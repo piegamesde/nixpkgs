@@ -1,4 +1,11 @@
-{ libPath, pkgsLibPath, nixosPath, modules, stateVersion, release }:
+{
+  libPath,
+  pkgsLibPath,
+  nixosPath,
+  modules,
+  stateVersion,
+  release,
+}:
 
 let
   lib = import libPath;

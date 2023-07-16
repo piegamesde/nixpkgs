@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, zope_proxy, zope_testrunner }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  zope_proxy,
+  zope_testrunner,
+}:
 
 buildPythonPackage rec {
   pname = "zope-deferredimport";

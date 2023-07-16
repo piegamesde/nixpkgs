@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitLab, autoreconfHook, libsamplerate, SDL2, SDL2_mixer
-, readline }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  autoreconfHook,
+  libsamplerate,
+  SDL2,
+  SDL2_mixer,
+  readline,
+}:
 
 stdenv.mkDerivation rec {
   pname = "1oom";

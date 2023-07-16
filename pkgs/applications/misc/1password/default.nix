@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, fetchzip, autoPatchelfHook, installShellFiles, cpio
-, xar }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchzip,
+  autoPatchelfHook,
+  installShellFiles,
+  cpio,
+  xar,
+}:
 
 let
   inherit (stdenv.hostPlatform) system;

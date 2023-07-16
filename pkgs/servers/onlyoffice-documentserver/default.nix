@@ -1,5 +1,16 @@
-{ lib, stdenv, buildFHSEnv, corefonts, dejavu_fonts, dpkg, fetchurl
-, gcc-unwrapped, liberation_ttf_v1, writeScript, xorg }:
+{
+  lib,
+  stdenv,
+  buildFHSEnv,
+  corefonts,
+  dejavu_fonts,
+  dpkg,
+  fetchurl,
+  gcc-unwrapped,
+  liberation_ttf_v1,
+  writeScript,
+  xorg,
+}:
 
 let
   # var/www/onlyoffice/documentserver/server/DocService/docservice

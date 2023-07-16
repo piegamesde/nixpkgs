@@ -1,5 +1,21 @@
-{ stdenv, lib, fetchPypi, buildPythonPackage, cmake, python, zlib, ncurses
-, docutils, pygments, numpy, scipy, scikit-learn, spdlog, fmt, rapidjson }:
+{
+  stdenv,
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  cmake,
+  python,
+  zlib,
+  ncurses,
+  docutils,
+  pygments,
+  numpy,
+  scipy,
+  scikit-learn,
+  spdlog,
+  fmt,
+  rapidjson,
+}:
 
 buildPythonPackage rec {
   pname = "vowpalwabbit";

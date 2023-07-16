@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, cmake, ninja, cython
-, rapidfuzz-capi, scikit-build, setuptools, jarowinkler-cpp, hypothesis
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  cython,
+  rapidfuzz-capi,
+  scikit-build,
+  setuptools,
+  jarowinkler-cpp,
+  hypothesis,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "jarowinkler";

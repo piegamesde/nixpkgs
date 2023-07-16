@@ -1,4 +1,11 @@
-{ setuptools, mkdocs, mkdocs-macros, mkdocs-material, runCommand, callPackage }:
+{
+  setuptools,
+  mkdocs,
+  mkdocs-macros,
+  mkdocs-material,
+  runCommand,
+  callPackage,
+}:
 
 let
   inherit (mkdocs-macros) pname version src;

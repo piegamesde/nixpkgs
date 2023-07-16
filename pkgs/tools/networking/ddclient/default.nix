@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, perlPackages, autoreconfHook, iproute2, perl }:
+{
+  lib,
+  fetchFromGitHub,
+  perlPackages,
+  autoreconfHook,
+  iproute2,
+  perl,
+}:
 
 perlPackages.buildPerlPackage rec {
   pname = "ddclient";

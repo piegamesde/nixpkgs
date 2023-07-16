@@ -1,5 +1,17 @@
-{ lib, fetchFromGitHub, fetchurl, nixosTests, stdenv, dotnetCorePackages
-, buildDotnetModule, ffmpeg, fontconfig, freetype, jellyfin-web, sqlite }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  nixosTests,
+  stdenv,
+  dotnetCorePackages,
+  buildDotnetModule,
+  ffmpeg,
+  fontconfig,
+  freetype,
+  jellyfin-web,
+  sqlite,
+}:
 
 buildDotnetModule rec {
   pname = "jellyfin";

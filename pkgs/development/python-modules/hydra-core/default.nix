@@ -1,6 +1,18 @@
-{ stdenv, lib, antlr4, antlr4-python3-runtime, buildPythonPackage
-, fetchFromGitHub, importlib-resources, jre_headless, omegaconf, packaging
-, pytestCheckHook, pythonOlder, substituteAll }:
+{
+  stdenv,
+  lib,
+  antlr4,
+  antlr4-python3-runtime,
+  buildPythonPackage,
+  fetchFromGitHub,
+  importlib-resources,
+  jre_headless,
+  omegaconf,
+  packaging,
+  pytestCheckHook,
+  pythonOlder,
+  substituteAll,
+}:
 
 buildPythonPackage rec {
   pname = "hydra-core";

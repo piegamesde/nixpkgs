@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, bash, emacs, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bash,
+  emacs,
+  python3,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cask";

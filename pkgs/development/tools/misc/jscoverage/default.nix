@@ -1,4 +1,13 @@
-{ autoconf, fetchurl, makedepend, perl, python3, lib, stdenv, zip }:
+{
+  autoconf,
+  fetchurl,
+  makedepend,
+  perl,
+  python3,
+  lib,
+  stdenv,
+  zip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jscoverage";

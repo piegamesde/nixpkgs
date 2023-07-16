@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, unzip, libX11, libXt, libnsl, libxcrypt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  libX11,
+  libXt,
+  libnsl,
+  libxcrypt,
+}:
 
 stdenv.mkDerivation {
   pname = "unicon-lang";

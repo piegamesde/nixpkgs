@@ -1,6 +1,22 @@
-{ lib, buildDotnetModule, fetchFromGitHub, fetchurl, dotnetCorePackages, gtk3
-, libX11, libXrandr, libappindicator, libevdev, libnotify, udev
-, copyDesktopItems, makeDesktopItem, nixosTests, wrapGAppsHook, dpkg }:
+{
+  lib,
+  buildDotnetModule,
+  fetchFromGitHub,
+  fetchurl,
+  dotnetCorePackages,
+  gtk3,
+  libX11,
+  libXrandr,
+  libappindicator,
+  libevdev,
+  libnotify,
+  udev,
+  copyDesktopItems,
+  makeDesktopItem,
+  nixosTests,
+  wrapGAppsHook,
+  dpkg,
+}:
 
 buildDotnetModule rec {
   pname = "OpenTabletDriver";

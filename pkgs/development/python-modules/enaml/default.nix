@@ -1,5 +1,19 @@
-{ lib, atom, buildPythonPackage, bytecode, cppy, fetchFromGitHub, kiwisolver
-, pegen, ply, qtpy, setuptools, setuptools-scm, pythonOlder, sip_4 }:
+{
+  lib,
+  atom,
+  buildPythonPackage,
+  bytecode,
+  cppy,
+  fetchFromGitHub,
+  kiwisolver,
+  pegen,
+  ply,
+  qtpy,
+  setuptools,
+  setuptools-scm,
+  pythonOlder,
+  sip_4,
+}:
 
 buildPythonPackage rec {
   pname = "enaml";

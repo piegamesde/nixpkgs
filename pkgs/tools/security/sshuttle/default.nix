@@ -1,5 +1,14 @@
-{ lib, stdenv, python3Packages, makeWrapper, coreutils, iptables, nettools
-, openssh, procps }:
+{
+  lib,
+  stdenv,
+  python3Packages,
+  makeWrapper,
+  coreutils,
+  iptables,
+  nettools,
+  openssh,
+  procps,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "sshuttle";

@@ -7,8 +7,17 @@
 #  $ nix-build '<nixpkgs>' -A dockerTools.examples.redis
 #  $ docker load < result
 
-{ pkgs, buildImage, buildLayeredImage, fakeNss, pullImage, shadowSetup
-, buildImageWithNixDb, pkgsCross, streamNixShellImage }:
+{
+  pkgs,
+  buildImage,
+  buildLayeredImage,
+  fakeNss,
+  pullImage,
+  shadowSetup,
+  buildImageWithNixDb,
+  pkgsCross,
+  streamNixShellImage,
+}:
 
 let
   nixosLib = import ../../../nixos/lib {
@@ -464,7 +473,11 @@ in rec {
 
   # buildLayeredImage with non-root user
   bashLayeredWithUser = let
-    nonRootShadowSetup = { user, uid, gid ? uid }:
+    nonRootShadowSetup = {
+        user,
+        uid,
+        gid ? uid
+      }:
       with pkgs; [
         (writeTextDir "etc/shadow" ''
           root:!x:::::::
@@ -592,17 +605,20 @@ in rec {
 
   etc = let
     inherit (pkgs) lib;
-    nixosCore = (evalMinimalConfig ({ config, ... }: {
-      imports = [ pkgs.pkgsModule ../../../nixos/modules/system/etc/etc.nix ];
-      environment.etc."some-config-file" = {
-        text = ''
-          127.0.0.1 localhost
-          ::1 localhost
-        '';
-        # For executables:
-        # mode = "0755";
-      };
-    }));
+    nixosCore = (evalMinimalConfig ({
+        config,
+        ...
+      }: {
+        imports = [ pkgs.pkgsModule ../../../nixos/modules/system/etc/etc.nix ];
+        environment.etc."some-config-file" = {
+          text = ''
+            127.0.0.1 localhost
+            ::1 localhost
+          '';
+          # For executables:
+          # mode = "0755";
+        };
+      }));
   in pkgs.dockerTools.streamLayeredImage {
     name = "etc";
     tag = "latest";

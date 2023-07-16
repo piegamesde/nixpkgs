@@ -1,4 +1,9 @@
-{ stdenv, fetchFromGitHub, lib, xmrig }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  xmrig,
+}:
 
 xmrig.overrideAttrs (oldAttrs: rec {
   pname = "xmrig-mo";

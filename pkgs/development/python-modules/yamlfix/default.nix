@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, click, fetchFromGitHub, maison, pdm-pep517
-, pytest-xdist, pytestCheckHook, pythonOlder, ruyaml, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  maison,
+  pdm-pep517,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  ruyaml,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "yamlfix";

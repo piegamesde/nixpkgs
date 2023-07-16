@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchurl, libpcap }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  libpcap,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ucarp";

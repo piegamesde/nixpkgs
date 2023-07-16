@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pythonAtLeast, unittestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonAtLeast,
+  unittestCheckHook,
+}:
 
 if pythonAtLeast "3.4" then
   null

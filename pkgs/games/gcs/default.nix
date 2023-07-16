@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, runCommand, jdk8, ant, jre8, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  runCommand,
+  jdk8,
+  ant,
+  jre8,
+  makeWrapper,
+}:
 
 let
   gcs = fetchFromGitHub {

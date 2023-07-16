@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, mock, oauth2client, pytestCheckHook
-, pythonOlder, pyu2f }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  oauth2client,
+  pytestCheckHook,
+  pythonOlder,
+  pyu2f,
+}:
 
 buildPythonPackage rec {
   pname = "google-reauth";

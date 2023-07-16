@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, fetchpatch, buildPackages, bison, flex, pkg-config, db
-, iptables, libelf, libmnl, gitUpdater }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  buildPackages,
+  bison,
+  flex,
+  pkg-config,
+  db,
+  iptables,
+  libelf,
+  libmnl,
+  gitUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "iproute2";

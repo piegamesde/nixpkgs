@@ -1,4 +1,7 @@
-{ system ? builtins.currentSystem, pkgs ? import ../../.. { inherit system; } }:
+{
+  system ? builtins.currentSystem,
+  pkgs ? import ../../.. { inherit system; }
+}:
 let
   dns = import ./dns.nix { inherit system pkgs; };
   rbac = import ./rbac.nix { inherit system pkgs; };

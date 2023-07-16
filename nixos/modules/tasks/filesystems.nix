@@ -1,4 +1,10 @@
-{ config, lib, pkgs, utils, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  utils,
+  ...
+}:
 
 with lib;
 with utils;
@@ -33,133 +39,140 @@ let
     addCheckDesc "non-empty without trailing slash" types.str
     (s: isNonEmpty s && (builtins.match ".+/" s) == null);
 
-  coreFileSystemOpts = { name, config, ... }: {
+  coreFileSystemOpts = {
+      name,
+      config,
+      ...
+    }: {
 
-    options = {
-      mountPoint = mkOption {
-        example = "/mnt/usb";
-        type = nonEmptyWithoutTrailingSlash;
-        description = lib.mdDoc "Location of the mounted file system.";
+      options = {
+        mountPoint = mkOption {
+          example = "/mnt/usb";
+          type = nonEmptyWithoutTrailingSlash;
+          description = lib.mdDoc "Location of the mounted file system.";
+        };
+
+        device = mkOption {
+          default = null;
+          example = "/dev/sda";
+          type = types.nullOr nonEmptyStr;
+          description = lib.mdDoc "Location of the device.";
+        };
+
+        fsType = mkOption {
+          default = "auto";
+          example = "ext3";
+          type = nonEmptyStr;
+          description = lib.mdDoc "Type of the file system.";
+        };
+
+        options = mkOption {
+          default = [ "defaults" ];
+          example = [ "data=journal" ];
+          description = lib.mdDoc "Options used to mount the file system.";
+          type = types.nonEmptyListOf nonEmptyStr;
+        };
+
+        depends = mkOption {
+          default = [ ];
+          example = [ "/persist" ];
+          type = types.listOf nonEmptyWithoutTrailingSlash;
+          description = lib.mdDoc ''
+            List of paths that should be mounted before this one. This filesystem's
+            {option}`device` and {option}`mountPoint` are always
+            checked and do not need to be included explicitly. If a path is added
+            to this list, any other filesystem whose mount point is a parent of
+            the path will be mounted before this filesystem. The paths do not need
+            to actually be the {option}`mountPoint` of some other filesystem.
+          '';
+        };
+
       };
 
-      device = mkOption {
-        default = null;
-        example = "/dev/sda";
-        type = types.nullOr nonEmptyStr;
-        description = lib.mdDoc "Location of the device.";
-      };
-
-      fsType = mkOption {
-        default = "auto";
-        example = "ext3";
-        type = nonEmptyStr;
-        description = lib.mdDoc "Type of the file system.";
-      };
-
-      options = mkOption {
-        default = [ "defaults" ];
-        example = [ "data=journal" ];
-        description = lib.mdDoc "Options used to mount the file system.";
-        type = types.nonEmptyListOf nonEmptyStr;
-      };
-
-      depends = mkOption {
-        default = [ ];
-        example = [ "/persist" ];
-        type = types.listOf nonEmptyWithoutTrailingSlash;
-        description = lib.mdDoc ''
-          List of paths that should be mounted before this one. This filesystem's
-          {option}`device` and {option}`mountPoint` are always
-          checked and do not need to be included explicitly. If a path is added
-          to this list, any other filesystem whose mount point is a parent of
-          the path will be mounted before this filesystem. The paths do not need
-          to actually be the {option}`mountPoint` of some other filesystem.
-        '';
-      };
-
-    };
-
-    config = {
-      mountPoint = mkDefault name;
-      device =
-        mkIf (elem config.fsType specialFSTypes) (mkDefault config.fsType);
-    };
-
-  };
-
-  fileSystemOpts = { config, ... }: {
-
-    options = {
-
-      label = mkOption {
-        default = null;
-        example = "root-partition";
-        type = types.nullOr nonEmptyStr;
-        description = lib.mdDoc "Label of the device (if any).";
-      };
-
-      autoFormat = mkOption {
-        default = false;
-        type = types.bool;
-        description = lib.mdDoc ''
-          If the device does not currently contain a filesystem (as
-          determined by {command}`blkid`, then automatically
-          format it with the filesystem type specified in
-          {option}`fsType`.  Use with caution.
-        '';
-      };
-
-      formatOptions = mkOption {
-        default = "";
-        type = types.str;
-        description = lib.mdDoc ''
-          If {option}`autoFormat` option is set specifies
-          extra options passed to mkfs.
-        '';
-      };
-
-      autoResize = mkOption {
-        default = false;
-        type = types.bool;
-        description = lib.mdDoc ''
-          If set, the filesystem is grown to its maximum size before
-          being mounted. (This is typically the size of the containing
-          partition.) This is currently only supported for ext2/3/4
-          filesystems that are mounted during early boot.
-        '';
-      };
-
-      noCheck = mkOption {
-        default = false;
-        type = types.bool;
-        description = lib.mdDoc "Disable running fsck on this filesystem.";
+      config = {
+        mountPoint = mkDefault name;
+        device =
+          mkIf (elem config.fsType specialFSTypes) (mkDefault config.fsType);
       };
 
     };
 
-    config = let
-      defaultFormatOptions =
-        # -F needed to allow bare block device without partitions
-        if (builtins.substring 0 3 config.fsType) == "ext" then
-          "-F"
-          # -q needed for non-interactive operations
-        else if config.fsType == "jfs" then
-          "-q"
-          # (same here)
-        else if config.fsType == "reiserfs" then
-          "-q"
-        else
-          null;
-    in {
-      options = mkMerge [
-        (mkIf config.autoResize [ "x-nixos.autoresize" ])
-        (mkIf (utils.fsNeededForBoot config) [ "x-initrd.mount" ])
-      ];
-      formatOptions =
-        mkIf (defaultFormatOptions != null) (mkDefault defaultFormatOptions);
-    };
+  fileSystemOpts = {
+      config,
+      ...
+    }: {
 
-  };
+      options = {
+
+        label = mkOption {
+          default = null;
+          example = "root-partition";
+          type = types.nullOr nonEmptyStr;
+          description = lib.mdDoc "Label of the device (if any).";
+        };
+
+        autoFormat = mkOption {
+          default = false;
+          type = types.bool;
+          description = lib.mdDoc ''
+            If the device does not currently contain a filesystem (as
+            determined by {command}`blkid`, then automatically
+            format it with the filesystem type specified in
+            {option}`fsType`.  Use with caution.
+          '';
+        };
+
+        formatOptions = mkOption {
+          default = "";
+          type = types.str;
+          description = lib.mdDoc ''
+            If {option}`autoFormat` option is set specifies
+            extra options passed to mkfs.
+          '';
+        };
+
+        autoResize = mkOption {
+          default = false;
+          type = types.bool;
+          description = lib.mdDoc ''
+            If set, the filesystem is grown to its maximum size before
+            being mounted. (This is typically the size of the containing
+            partition.) This is currently only supported for ext2/3/4
+            filesystems that are mounted during early boot.
+          '';
+        };
+
+        noCheck = mkOption {
+          default = false;
+          type = types.bool;
+          description = lib.mdDoc "Disable running fsck on this filesystem.";
+        };
+
+      };
+
+      config = let
+        defaultFormatOptions =
+          # -F needed to allow bare block device without partitions
+          if (builtins.substring 0 3 config.fsType) == "ext" then
+            "-F"
+            # -q needed for non-interactive operations
+          else if config.fsType == "jfs" then
+            "-q"
+            # (same here)
+          else if config.fsType == "reiserfs" then
+            "-q"
+          else
+            null;
+      in {
+        options = mkMerge [
+          (mkIf config.autoResize [ "x-nixos.autoresize" ])
+          (mkIf (utils.fsNeededForBoot config) [ "x-initrd.mount" ])
+        ];
+        formatOptions =
+          mkIf (defaultFormatOptions != null) (mkDefault defaultFormatOptions);
+      };
+
+    };
 
   # Makes sequence of `specialMount device mountPoint options fsType` commands.
   # `systemMount` should be defined in the sourcing script.
@@ -209,7 +222,10 @@ let
     escape = string:
       builtins.replaceStrings [ " " "	" ] [ "\\040" "\\011" ] string;
   in fstabFileSystems:
-  { rootPrefix ? "", extraOpts ? (fs: [ ]) }:
+  {
+    rootPrefix ? "",
+    extraOpts ? (fs: [ ])
+  }:
   concatMapStrings (fs:
     (optionalString (isBindMount fs) (escape rootPrefix))
     + (if fs.device != null then

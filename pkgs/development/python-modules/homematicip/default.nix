@@ -1,6 +1,20 @@
-{ lib, aenum, aiohttp, aiohttp-wsgi, async-timeout, buildPythonPackage
-, fetchFromGitHub, pytestCheckHook, pythonAtLeast, pythonOlder, pytest-aiohttp
-, pytest-asyncio, requests, websocket-client, websockets }:
+{
+  lib,
+  aenum,
+  aiohttp,
+  aiohttp-wsgi,
+  async-timeout,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+  pytest-aiohttp,
+  pytest-asyncio,
+  requests,
+  websocket-client,
+  websockets,
+}:
 
 buildPythonPackage rec {
   pname = "homematicip";

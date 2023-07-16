@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, bison, flex, boost }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  bison,
+  flex,
+  boost,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kcc";

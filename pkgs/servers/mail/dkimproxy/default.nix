@@ -1,4 +1,9 @@
-{ lib, stdenv, perlPackages, fetchurl }:
+{
+  lib,
+  stdenv,
+  perlPackages,
+  fetchurl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dkimproxy";

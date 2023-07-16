@@ -1,8 +1,35 @@
-{ stdenv, lib, autoreconfHook, fetchurl, gettext, glib, gnome-bluetooth
-, gnome-desktop, gnome-panel, gnome-session, gnome, gsettings-desktop-schemas
-, gtk3, ibus, libcanberra-gtk3, libpulseaudio, libxkbfile, libxml2, pkg-config
-, polkit, gdm, systemd, upower, pam, wrapGAppsHook, writeTextFile
-, xkeyboard_config, xorg, runCommand, buildEnv }:
+{
+  stdenv,
+  lib,
+  autoreconfHook,
+  fetchurl,
+  gettext,
+  glib,
+  gnome-bluetooth,
+  gnome-desktop,
+  gnome-panel,
+  gnome-session,
+  gnome,
+  gsettings-desktop-schemas,
+  gtk3,
+  ibus,
+  libcanberra-gtk3,
+  libpulseaudio,
+  libxkbfile,
+  libxml2,
+  pkg-config,
+  polkit,
+  gdm,
+  systemd,
+  upower,
+  pam,
+  wrapGAppsHook,
+  writeTextFile,
+  xkeyboard_config,
+  xorg,
+  runCommand,
+  buildEnv,
+}:
 let
   pname = "gnome-flashback";
   version = "3.46.0";
@@ -105,8 +132,13 @@ let
         versionPolicy = "odd-unstable";
       };
 
-      mkSessionForWm =
-        { wmName, wmLabel, wmCommand, enableGnomePanel, panelModulePackages }:
+      mkSessionForWm = {
+          wmName,
+          wmLabel,
+          wmCommand,
+          enableGnomePanel,
+          panelModulePackages,
+        }:
         let
           wmApplication = writeTextFile {
             name = "gnome-flashback-${wmName}-wm";
@@ -196,7 +228,12 @@ let
           providedSessions = [ "gnome-flashback-${wmName}" ];
         };
 
-      mkSystemdTargetForWm = { wmName, wmLabel, wmCommand, enableGnomePanel }:
+      mkSystemdTargetForWm = {
+          wmName,
+          wmLabel,
+          wmCommand,
+          enableGnomePanel,
+        }:
         runCommand "gnome-flashback-${wmName}.target" { } ''
           mkdir -p $out/lib/systemd/user
           cp -r "${gnome-flashback}/lib/systemd/user/gnome-session@gnome-flashback-metacity.target.d" \

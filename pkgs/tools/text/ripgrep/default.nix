@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, asciidoctor, installShellFiles
-, pkg-config, Security, withPCRE2 ? true, pcre2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  asciidoctor,
+  installShellFiles,
+  pkg-config,
+  Security,
+  withPCRE2 ? true,
+  pcre2,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "ripgrep";

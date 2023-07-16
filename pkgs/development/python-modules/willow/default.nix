@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, six, pillow }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  six,
+  pillow,
+}:
 
 buildPythonPackage rec {
   pname = "willow";

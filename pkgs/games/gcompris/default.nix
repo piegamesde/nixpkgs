@@ -1,6 +1,23 @@
-{ stdenv, cmake, fetchurl, gettext, gst_all_1, lib, ninja, wrapQtAppsHook
-, qmlbox2d, qtbase, qtcharts, qtdeclarative, qtgraphicaleffects, qtmultimedia
-, qtquickcontrols2, qtsensors, qttools, qtxmlpatterns }:
+{
+  stdenv,
+  cmake,
+  fetchurl,
+  gettext,
+  gst_all_1,
+  lib,
+  ninja,
+  wrapQtAppsHook,
+  qmlbox2d,
+  qtbase,
+  qtcharts,
+  qtdeclarative,
+  qtgraphicaleffects,
+  qtmultimedia,
+  qtquickcontrols2,
+  qtsensors,
+  qttools,
+  qtxmlpatterns,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gcompris";

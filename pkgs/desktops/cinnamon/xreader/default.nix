@@ -1,16 +1,38 @@
-{ stdenv, lib, fetchFromGitHub, glib, gobject-introspection, intltool
-, shared-mime-info, gtk3, wrapGAppsHook, libxml2, xapp, meson, pkg-config, cairo
-, libsecret, poppler, libspectre, libgxps, webkitgtk, nodePackages, ninja
-, gsettings-desktop-schemas, djvulibre, backends ? [
-  "pdf"
-  "ps" # "dvi" "t1lib"
-  "djvu"
-  "tiff"
-  "pixbuf"
-  "comics"
-  "xps"
-  "epub"
-] }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  glib,
+  gobject-introspection,
+  intltool,
+  shared-mime-info,
+  gtk3,
+  wrapGAppsHook,
+  libxml2,
+  xapp,
+  meson,
+  pkg-config,
+  cairo,
+  libsecret,
+  poppler,
+  libspectre,
+  libgxps,
+  webkitgtk,
+  nodePackages,
+  ninja,
+  gsettings-desktop-schemas,
+  djvulibre,
+  backends ? [
+    "pdf"
+    "ps" # "dvi" "t1lib"
+    "djvu"
+    "tiff"
+    "pixbuf"
+    "comics"
+    "xps"
+    "epub"
+  ]
+}:
 
 stdenv.mkDerivation rec {
   pname = "xreader";

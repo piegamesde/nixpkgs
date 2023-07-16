@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, nix-update-script }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+}:
 
 stdenv.mkDerivation rec {
   pname = "elementary-redacted-script";

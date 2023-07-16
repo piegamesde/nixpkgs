@@ -1,6 +1,11 @@
 # Build a version of idris with a set of packages visible
 # packages: The packages visible to idris
-{ lib, idris, symlinkJoin, makeWrapper }:
+{
+  lib,
+  idris,
+  symlinkJoin,
+  makeWrapper,
+}:
 packages:
 
 let paths = lib.closePropagation packages;

@@ -1,5 +1,12 @@
-{ lib, requests, buildPythonPackage, fetchFromGitHub, pytestCheckHook
-, pythonOlder, requests-mock }:
+{
+  lib,
+  requests,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  requests-mock,
+}:
 
 buildPythonPackage rec {
   pname = "simplehound";

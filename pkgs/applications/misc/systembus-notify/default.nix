@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, formats, systemd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  formats,
+  systemd,
+}:
 
 let
   ini = formats.ini { };

@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchFromGitiles, libcap }:
+{
+  stdenv,
+  lib,
+  fetchFromGitiles,
+  libcap,
+}:
 
 stdenv.mkDerivation rec {
   pname = "minijail";

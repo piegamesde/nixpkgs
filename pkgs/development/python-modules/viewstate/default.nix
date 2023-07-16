@@ -1,4 +1,10 @@
-{ buildPythonPackage, fetchFromGitHub, isPy3k, lib, pytest }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy3k,
+  lib,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "viewstate";

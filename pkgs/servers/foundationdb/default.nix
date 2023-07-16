@@ -1,8 +1,31 @@
-{ gcc6Stdenv, gccStdenv, llvmPackages, lib, fetchurl, fetchpatch
-, fetchFromGitHub
+{
+  gcc6Stdenv,
+  gccStdenv,
+  llvmPackages,
+  lib,
+  fetchurl,
+  fetchpatch,
+  fetchFromGitHub
 
-, cmake, ninja, which, findutils, m4, gawk, python2, python3, openjdk, mono
-, libressl, openssl, boost168, boost178, pkg-config, msgpack, toml11 }@args:
+  ,
+  cmake,
+  ninja,
+  which,
+  findutils,
+  m4,
+  gawk,
+  python2,
+  python3,
+  openjdk,
+  mono,
+  libressl,
+  openssl,
+  boost168,
+  boost178,
+  pkg-config,
+  msgpack,
+  toml11,
+}@args:
 
 let
   vsmakeBuild = import ./vsmake.nix args;

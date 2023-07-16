@@ -1,5 +1,15 @@
-{ buildPythonPackage, blessed, fetchPypi, lib, mockito, nvidia-ml-py, psutil
-, pytest-runner, pythonRelaxDepsHook, pytestCheckHook }:
+{
+  buildPythonPackage,
+  blessed,
+  fetchPypi,
+  lib,
+  mockito,
+  nvidia-ml-py,
+  psutil,
+  pytest-runner,
+  pythonRelaxDepsHook,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "gpustat";

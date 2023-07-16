@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, qmake, qtbase, qttools, subversion, apr }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qmake,
+  qtbase,
+  qttools,
+  subversion,
+  apr,
+}:
 
 let version = "1.0.18";
 in stdenv.mkDerivation {

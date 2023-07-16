@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, openssl, pkg-config, rustPlatform, Security }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  openssl,
+  pkg-config,
+  rustPlatform,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "feroxbuster";

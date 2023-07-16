@@ -1,4 +1,10 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, gcc-unwrapped }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  gcc-unwrapped,
+}:
 buildPythonPackage rec {
   pname = "cxxfilt";
   version = "0.3.0";

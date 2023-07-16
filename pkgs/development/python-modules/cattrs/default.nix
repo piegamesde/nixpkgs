@@ -1,6 +1,23 @@
-{ lib, attrs, buildPythonPackage, fetchFromGitHub, exceptiongroup, hypothesis
-, immutables, motor, msgpack, orjson, poetry-core, pytest-xdist, pytestCheckHook
-, pythonOlder, pyyaml, tomlkit, typing-extensions, ujson }:
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  fetchFromGitHub,
+  exceptiongroup,
+  hypothesis,
+  immutables,
+  motor,
+  msgpack,
+  orjson,
+  poetry-core,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  tomlkit,
+  typing-extensions,
+  ujson,
+}:
 
 buildPythonPackage rec {
   pname = "cattrs";

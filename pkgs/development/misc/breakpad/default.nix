@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchgit }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+}:
 let
   lss = fetchgit {
     url = "https://chromium.googlesource.com/linux-syscall-support";

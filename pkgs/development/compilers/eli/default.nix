@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, symlinkJoin, makeWrapper, tcl, fontconfig, tk, ncurses
-, xorg, file }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  symlinkJoin,
+  makeWrapper,
+  tcl,
+  fontconfig,
+  tk,
+  ncurses,
+  xorg,
+  file,
+}:
 
 let
   # eli derives the location of the include folder from the location of the lib folder

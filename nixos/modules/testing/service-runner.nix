@@ -1,4 +1,8 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -104,17 +108,21 @@ let
       exit($mainRes & 127 ? 255 : $mainRes << 8);
     '';
 
-  opts = { config, name, ... }: {
-    options.runner = mkOption {
-      internal = true;
-      description = lib.mdDoc ''
-        A script that runs the service outside of systemd,
-        useful for testing or for using NixOS services outside
-        of NixOS.
-      '';
+  opts = {
+      config,
+      name,
+      ...
+    }: {
+      options.runner = mkOption {
+        internal = true;
+        description = lib.mdDoc ''
+          A script that runs the service outside of systemd,
+          useful for testing or for using NixOS services outside
+          of NixOS.
+        '';
+      };
+      config.runner = makeScript name config;
     };
-    config.runner = makeScript name config;
-  };
 
 in {
   options = {

@@ -7,7 +7,13 @@
 # the VM in the host.  On the other hand, the root filesystem is a
 # read/writable disk image persistent across VM reboots.
 
-{ config, lib, pkgs, options, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  options,
+  ...
+}:
 
 with lib;
 
@@ -23,46 +29,56 @@ let
 
   consoles = lib.concatMapStringsSep " " (c: "console=${c}") cfg.qemu.consoles;
 
-  driveOpts = { ... }: {
+  driveOpts = {
+      ...
+    }: {
 
-    options = {
+      options = {
 
-      file = mkOption {
-        type = types.str;
-        description = lib.mdDoc "The file image used for this drive.";
-      };
+        file = mkOption {
+          type = types.str;
+          description = lib.mdDoc "The file image used for this drive.";
+        };
 
-      driveExtraOpts = mkOption {
-        type = types.attrsOf types.str;
-        default = { };
-        description = lib.mdDoc "Extra options passed to drive flag.";
-      };
+        driveExtraOpts = mkOption {
+          type = types.attrsOf types.str;
+          default = { };
+          description = lib.mdDoc "Extra options passed to drive flag.";
+        };
 
-      deviceExtraOpts = mkOption {
-        type = types.attrsOf types.str;
-        default = { };
-        description = lib.mdDoc "Extra options passed to device flag.";
-      };
+        deviceExtraOpts = mkOption {
+          type = types.attrsOf types.str;
+          default = { };
+          description = lib.mdDoc "Extra options passed to device flag.";
+        };
 
-      name = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        description = lib.mdDoc
-          "A name for the drive. Must be unique in the drives list. Not passed to qemu.";
+        name = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+          description = lib.mdDoc
+            "A name for the drive. Must be unique in the drives list. Not passed to qemu.";
+        };
+
       };
 
     };
 
-  };
-
-  selectPartitionTableLayout = { useEFIBoot, useDefaultFilesystems }:
+  selectPartitionTableLayout = {
+      useEFIBoot,
+      useDefaultFilesystems,
+    }:
     if useDefaultFilesystems then
       if useEFIBoot then "efi" else "legacy"
     else
       "none";
 
   driveCmdline = idx:
-    { file, driveExtraOpts, deviceExtraOpts, ... }:
+    {
+      file,
+      driveExtraOpts,
+      deviceExtraOpts,
+      ...
+    }:
     let
       drvId = "drive${toString idx}";
       mkKeyValue = generators.mkKeyValueDefault { } "=";
@@ -932,16 +948,20 @@ in {
     };
 
     virtualisation.qemu.networkingOptions = let
-      forwardingOptions = flip concatMapStrings cfg.forwardPorts
-        ({ proto, from, host, guest }:
-          if from == "host" then
-            "hostfwd=${proto}:${host.address}:${toString host.port}-"
-            + "${guest.address}:${toString guest.port},"
-          else
-            "'guestfwd=${proto}:${guest.address}:${toString guest.port}-"
-            + "cmd:${pkgs.netcat}/bin/nc ${host.address} ${
-              toString host.port
-            }',");
+      forwardingOptions = flip concatMapStrings cfg.forwardPorts ({
+          proto,
+          from,
+          host,
+          guest,
+        }:
+        if from == "host" then
+          "hostfwd=${proto}:${host.address}:${toString host.port}-"
+          + "${guest.address}:${toString guest.port},"
+        else
+          "'guestfwd=${proto}:${guest.address}:${toString guest.port}-"
+          + "cmd:${pkgs.netcat}/bin/nc ${host.address} ${
+            toString host.port
+          }',");
       restrictNetworkOption =
         lib.optionalString cfg.restrictNetwork "restrict=on,";
     in [

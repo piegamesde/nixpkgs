@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pkg-config, igraph
-, texttable, unittestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pkg-config,
+  igraph,
+  texttable,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "igraph";

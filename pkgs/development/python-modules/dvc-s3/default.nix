@@ -1,5 +1,14 @@
-{ lib, aiobotocore, boto3, buildPythonPackage, fetchPypi, flatten-dict
-, pythonRelaxDepsHook, s3fs, setuptools-scm }:
+{
+  lib,
+  aiobotocore,
+  boto3,
+  buildPythonPackage,
+  fetchPypi,
+  flatten-dict,
+  pythonRelaxDepsHook,
+  s3fs,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "dvc-s3";

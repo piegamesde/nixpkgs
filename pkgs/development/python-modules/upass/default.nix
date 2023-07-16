@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pyperclip, urwid }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyperclip,
+  urwid,
+}:
 
 buildPythonPackage rec {
   pname = "upass";

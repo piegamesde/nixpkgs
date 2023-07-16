@@ -1,4 +1,10 @@
-{ lib, fetchPypi, buildPythonPackage, packaging, sip }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  packaging,
+  sip,
+}:
 
 buildPythonPackage rec {
   pname = "pyqt-builder";

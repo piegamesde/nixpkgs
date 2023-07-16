@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, imlib2, libX11, libXft, libXinerama }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  imlib2,
+  libX11,
+  libXft,
+  libXinerama,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xmenu";

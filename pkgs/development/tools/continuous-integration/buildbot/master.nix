@@ -1,9 +1,41 @@
-{ lib, stdenv, buildPythonPackage, buildPythonApplication, fetchPypi
-, makeWrapper, pythonOlder, python, twisted, jinja2, msgpack, zope_interface
-, sqlalchemy, alembic, python-dateutil, txaio, autobahn, pyjwt, pyyaml, treq
-, txrequests, pypugjs, boto3, moto, mock, lz4, setuptoolsTrial, buildbot-worker
-, buildbot-plugins, buildbot-pkg, parameterized, git, openssh, glibcLocales
-, nixosTests, callPackage }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  buildPythonApplication,
+  fetchPypi,
+  makeWrapper,
+  pythonOlder,
+  python,
+  twisted,
+  jinja2,
+  msgpack,
+  zope_interface,
+  sqlalchemy,
+  alembic,
+  python-dateutil,
+  txaio,
+  autobahn,
+  pyjwt,
+  pyyaml,
+  treq,
+  txrequests,
+  pypugjs,
+  boto3,
+  moto,
+  mock,
+  lz4,
+  setuptoolsTrial,
+  buildbot-worker,
+  buildbot-plugins,
+  buildbot-pkg,
+  parameterized,
+  git,
+  openssh,
+  glibcLocales,
+  nixosTests,
+  callPackage,
+}:
 
 let
   withPlugins = plugins:

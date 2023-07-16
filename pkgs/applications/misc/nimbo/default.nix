@@ -1,4 +1,10 @@
-{ lib, python3, fetchFromGitHub, installShellFiles, awscli }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  installShellFiles,
+  awscli,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "nimbo";

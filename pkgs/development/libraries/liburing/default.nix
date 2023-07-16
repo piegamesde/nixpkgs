@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchgit, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "liburing";

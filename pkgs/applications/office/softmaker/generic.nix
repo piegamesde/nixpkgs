@@ -1,18 +1,44 @@
-{ lib, stdenv, autoPatchelfHook, makeDesktopItem, makeWrapper, copyDesktopItems
+{
+  lib,
+  stdenv,
+  autoPatchelfHook,
+  makeDesktopItem,
+  makeWrapper,
+  copyDesktopItems
 
-# Dynamic Libraries
-, curl, libGL, libX11, libXext, libXmu, libXrandr, libXrender
+  # Dynamic Libraries
+  ,
+  curl,
+  libGL,
+  libX11,
+  libXext,
+  libXmu,
+  libXrandr,
+  libXrender
 
-# For fixing up execution of /bin/ls, which is necessary for
-# product unlocking.
-, coreutils, libredirect
+  # For fixing up execution of /bin/ls, which is necessary for
+  # product unlocking.
+  ,
+  coreutils,
+  libredirect
 
-# Extra utilities used by the SoftMaker applications.
-, gnugrep, util-linux, which
+  # Extra utilities used by the SoftMaker applications.
+  ,
+  gnugrep,
+  util-linux,
+  which
 
-, pname, version, edition, suiteName, src, archive
+  ,
+  pname,
+  version,
+  edition,
+  suiteName,
+  src,
+  archive
 
-, ... }:
+  ,
+  ...
+}:
 
 let
   desktopItems =

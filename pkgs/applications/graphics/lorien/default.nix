@@ -1,11 +1,31 @@
-{ lib, stdenv, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  fetchFromGitHub
 
-, copyDesktopItems, makeDesktopItem
+  ,
+  copyDesktopItems,
+  makeDesktopItem
 
-, godot-export-templates, godot-headless
+  ,
+  godot-export-templates,
+  godot-headless
 
-, alsa-lib, libGL, libGLU, libX11, libXcursor, libXext, libXfixes, libXi
-, libXinerama, libXrandr, libXrender, zlib, udev # for libudev
+  ,
+  alsa-lib,
+  libGL,
+  libGLU,
+  libX11,
+  libXcursor,
+  libXext,
+  libXfixes,
+  libXi,
+  libXinerama,
+  libXrandr,
+  libXrender,
+  zlib,
+  udev # for libudev
+  ,
 }:
 
 let

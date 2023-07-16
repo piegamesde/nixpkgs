@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, gtk2, openssh }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  gtk2,
+  openssh,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ssh-askpass-fullscreen";

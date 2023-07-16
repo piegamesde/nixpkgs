@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, python, fetchFromGitHub, hatchling, beautifulsoup4
-, lxml, jinja2, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  python,
+  fetchFromGitHub,
+  hatchling,
+  beautifulsoup4,
+  lxml,
+  jinja2,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "reqif";

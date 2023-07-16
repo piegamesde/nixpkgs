@@ -1,7 +1,32 @@
-{ lib, stdenv, fetchurl, pkg-config, gnutls, liburcu, lmdb, libcap_ng, libidn2
-, libunistring, systemd, nettle, libedit, zlib, libiconv, libintl, libmaxminddb
-, libbpf, nghttp2, libmnl, ngtcp2-gnutls, xdp-tools, autoreconfHook, nixosTests
-, knot-resolver, knot-dns, runCommandLocal }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gnutls,
+  liburcu,
+  lmdb,
+  libcap_ng,
+  libidn2,
+  libunistring,
+  systemd,
+  nettle,
+  libedit,
+  zlib,
+  libiconv,
+  libintl,
+  libmaxminddb,
+  libbpf,
+  nghttp2,
+  libmnl,
+  ngtcp2-gnutls,
+  xdp-tools,
+  autoreconfHook,
+  nixosTests,
+  knot-resolver,
+  knot-dns,
+  runCommandLocal,
+}:
 
 stdenv.mkDerivation rec {
   pname = "knot-dns";

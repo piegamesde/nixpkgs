@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchurl, makeWrapper, autoPatchelfHook, libX11, libXext
-, libXrandr, libXinerama, libglvnd, openal, glibc, makeDesktopItem
-, copyDesktopItems, imagemagick, liberation_ttf }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  autoPatchelfHook,
+  libX11,
+  libXext,
+  libXrandr,
+  libXinerama,
+  libglvnd,
+  openal,
+  glibc,
+  makeDesktopItem,
+  copyDesktopItems,
+  imagemagick,
+  liberation_ttf,
+}:
 stdenv.mkDerivation rec {
   pname = "unigine-sanctuary";
   version = "2.3";

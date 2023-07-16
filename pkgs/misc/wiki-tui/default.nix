@@ -1,5 +1,13 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, ncurses, openssl, pkg-config
-, Security }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  ncurses,
+  openssl,
+  pkg-config,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "wiki-tui";

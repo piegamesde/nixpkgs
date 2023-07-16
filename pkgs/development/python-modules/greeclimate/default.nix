@@ -1,5 +1,14 @@
-{ stdenv, lib, buildPythonPackage, pythonOlder, fetchFromGitHub, netifaces
-, pycryptodome, pytest-asyncio, pytestCheckHook }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  netifaces,
+  pycryptodome,
+  pytest-asyncio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "greeclimate";

@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchurl, fetchpatch, meson, ninja, pkg-config, python3
-, gobject-introspection, gtk-doc, docbook_xsl, docbook_xml_dtd_412, glib
-, gupnp-igd, gst_all_1, gnutls, graphviz }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  gobject-introspection,
+  gtk-doc,
+  docbook_xsl,
+  docbook_xml_dtd_412,
+  glib,
+  gupnp-igd,
+  gst_all_1,
+  gnutls,
+  graphviz,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libnice";

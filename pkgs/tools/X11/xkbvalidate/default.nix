@@ -1,4 +1,8 @@
-{ lib, runCommandCC, libxkbcommon }:
+{
+  lib,
+  runCommandCC,
+  libxkbcommon,
+}:
 
 runCommandCC "xkbvalidate" {
   buildInputs = [ libxkbcommon ];

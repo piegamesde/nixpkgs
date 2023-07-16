@@ -1,4 +1,7 @@
-{ lib, unwrapped }:
+{
+  lib,
+  unwrapped,
+}:
 
 mkDerivation:
 

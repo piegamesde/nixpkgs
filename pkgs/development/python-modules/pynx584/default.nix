@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, flask, mock, prettytable, pyserial
-, pytestCheckHook, pythonOlder, requests, stevedore }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flask,
+  mock,
+  prettytable,
+  pyserial,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  stevedore,
+}:
 
 buildPythonPackage rec {
   pname = "pynx584";

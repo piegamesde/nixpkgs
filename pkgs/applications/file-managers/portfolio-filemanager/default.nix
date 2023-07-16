@@ -1,6 +1,21 @@
-{ lib, python3, fetchFromGitHub, appstream-glib, desktop-file-utils, gettext
-, glib, gobject-introspection, gtk3, libhandy, librsvg, meson, ninja, pkg-config
-, wrapGAppsHook, nix-update-script }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  appstream-glib,
+  desktop-file-utils,
+  gettext,
+  glib,
+  gobject-introspection,
+  gtk3,
+  libhandy,
+  librsvg,
+  meson,
+  ninja,
+  pkg-config,
+  wrapGAppsHook,
+  nix-update-script,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "portfolio";

@@ -1,6 +1,21 @@
-{ lib, stdenv, cmake, fetchFromGitHub, freetype, gtk3-x11, mount, pcre
-, pkg-config, webkitgtk, xorg, llvmPackages, WebKit, MetalKit, CoreAudioKit
-, simd }:
+{
+  lib,
+  stdenv,
+  cmake,
+  fetchFromGitHub,
+  freetype,
+  gtk3-x11,
+  mount,
+  pcre,
+  pkg-config,
+  webkitgtk,
+  xorg,
+  llvmPackages,
+  WebKit,
+  MetalKit,
+  CoreAudioKit,
+  simd,
+}:
 stdenv.mkDerivation rec {
   pname = "rnnoise-plugin";
   version = "1.03";

@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, runCommand, rubies ? null }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  runCommand,
+  rubies ? null
+}:
 
 let
   rubiesEnv = runCommand "chruby-env" { preferLocalBuild = true; } ''

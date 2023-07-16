@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, stdenv, libsodium, cmake, substituteAll, python3Packages
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  libsodium,
+  cmake,
+  substituteAll,
+  python3Packages,
 }:
 
 stdenv.mkDerivation {

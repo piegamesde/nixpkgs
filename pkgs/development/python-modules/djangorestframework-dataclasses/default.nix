@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, djangorestframework, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  djangorestframework,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "djangorestframework-dataclasses";

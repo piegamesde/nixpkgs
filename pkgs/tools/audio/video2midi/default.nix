@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, pythonPackages, opencv3 }:
+{
+  lib,
+  fetchFromGitHub,
+  pythonPackages,
+  opencv3,
+}:
 
 let
   opencv3_ = pythonPackages.toPythonModule (opencv3.override {

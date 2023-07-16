@@ -1,13 +1,61 @@
-{ lib, stdenv, fetchurl, meson, nasm, ninja, pkg-config, python3
-, gst-plugins-base, orc, bzip2, gettext, libv4l, libdv, libavc1394, libiec61883
-, libvpx, speex, flac, taglib, libshout, cairo, gdk-pixbuf, aalib, libcaca
-, libsoup, libpulseaudio, libintl, Cocoa, lame, mpg123, twolame
-, gtkSupport ? false, gtk3, qt5Support ? false, qt5, qt6Support ? false, qt6
-, raspiCameraSupport ? false, libraspberrypi, enableJack ? true, libjack2
-, libXdamage, libXext, libXfixes, ncurses, wayland, wayland-protocols, xorg
-, libgudev, wavpack, glib
-# Checks meson.is_cross_build(), so even canExecute isn't enough.
-, enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform, hotdoc }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  nasm,
+  ninja,
+  pkg-config,
+  python3,
+  gst-plugins-base,
+  orc,
+  bzip2,
+  gettext,
+  libv4l,
+  libdv,
+  libavc1394,
+  libiec61883,
+  libvpx,
+  speex,
+  flac,
+  taglib,
+  libshout,
+  cairo,
+  gdk-pixbuf,
+  aalib,
+  libcaca,
+  libsoup,
+  libpulseaudio,
+  libintl,
+  Cocoa,
+  lame,
+  mpg123,
+  twolame,
+  gtkSupport ? false,
+  gtk3,
+  qt5Support ? false,
+  qt5,
+  qt6Support ? false,
+  qt6,
+  raspiCameraSupport ? false,
+  libraspberrypi,
+  enableJack ? true,
+  libjack2,
+  libXdamage,
+  libXext,
+  libXfixes,
+  ncurses,
+  wayland,
+  wayland-protocols,
+  xorg,
+  libgudev,
+  wavpack,
+  glib
+  # Checks meson.is_cross_build(), so even canExecute isn't enough.
+  ,
+  enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform,
+  hotdoc,
+}:
 
 assert raspiCameraSupport -> (stdenv.isLinux && stdenv.isAarch64);
 

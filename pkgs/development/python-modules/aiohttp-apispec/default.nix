@@ -1,6 +1,18 @@
-{ lib, aiohttp, apispec, buildPythonPackage, callPackage, fetchFromGitHub
-, fetchPypi, jinja2, packaging, pytest-aiohttp, pytestCheckHook, pythonOlder
-, webargs }:
+{
+  lib,
+  aiohttp,
+  apispec,
+  buildPythonPackage,
+  callPackage,
+  fetchFromGitHub,
+  fetchPypi,
+  jinja2,
+  packaging,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
+  webargs,
+}:
 
 buildPythonPackage rec {
   pname = "aiohttp-apispec";

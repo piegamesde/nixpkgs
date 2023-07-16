@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, openssl, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  openssl,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "capnproto";

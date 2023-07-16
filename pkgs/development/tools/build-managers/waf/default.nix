@@ -1,6 +1,13 @@
-{ lib, stdenv, fetchFromGitLab, python3, ensureNewerSourcesForZipFilesHook
-# optional list of extra waf tools, e.g. `[ "doxygen" "pytest" ]`
-, withTools ? null }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  python3,
+  ensureNewerSourcesForZipFilesHook
+  # optional list of extra waf tools, e.g. `[ "doxygen" "pytest" ]`
+  ,
+  withTools ? null
+}:
 let
   wafToolsArg = with lib.strings;
     optionalString (withTools != null)

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, jre, makeWrapper, ant, jdk }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  jre,
+  makeWrapper,
+  ant,
+  jdk,
+}:
 stdenv.mkDerivation rec {
   version = "1.6.3";
   pname = "jugglinglab";

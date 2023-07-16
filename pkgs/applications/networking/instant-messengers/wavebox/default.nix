@@ -1,5 +1,18 @@
-{ alsa-lib, autoPatchelfHook, fetchurl, gtk3, libnotify, makeDesktopItem
-, makeWrapper, nss, lib, stdenv, udev, xdg-utils, xorg }:
+{
+  alsa-lib,
+  autoPatchelfHook,
+  fetchurl,
+  gtk3,
+  libnotify,
+  makeDesktopItem,
+  makeWrapper,
+  nss,
+  lib,
+  stdenv,
+  udev,
+  xdg-utils,
+  xorg,
+}:
 
 let
   bits = "x86_64";

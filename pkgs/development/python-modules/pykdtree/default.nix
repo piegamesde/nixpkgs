@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, pytestCheckHook, openmp }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  pytestCheckHook,
+  openmp,
+}:
 
 buildPythonPackage rec {
   pname = "pykdtree";

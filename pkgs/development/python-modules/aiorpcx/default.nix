@@ -1,4 +1,10 @@
-{ lib, fetchPypi, buildPythonPackage, pythonOlder, attrs }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pythonOlder,
+  attrs,
+}:
 
 buildPythonPackage rec {
   pname = "aiorpcx";

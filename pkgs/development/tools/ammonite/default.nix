@@ -1,10 +1,25 @@
-{ lib, stdenv, fetchurl, jre, writeScript, common-updater-scripts, git, nixfmt
-, nix, coreutils, gnused, disableRemoteLogging ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jre,
+  writeScript,
+  common-updater-scripts,
+  git,
+  nixfmt,
+  nix,
+  coreutils,
+  gnused,
+  disableRemoteLogging ? true
+}:
 
 let
   repo = "git@github.com:lihaoyi/Ammonite.git";
 
-  common = { scalaVersion, sha256 }:
+  common = {
+      scalaVersion,
+      sha256,
+    }:
     stdenv.mkDerivation rec {
       pname = "ammonite";
       version = "2.5.3";

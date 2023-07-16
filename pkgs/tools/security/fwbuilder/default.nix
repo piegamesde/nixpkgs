@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ninja, wrapQtAppsHook, wayland
-, wayland-protocols, qtwayland }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  wrapQtAppsHook,
+  wayland,
+  wayland-protocols,
+  qtwayland,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fwbuilder";

@@ -1,4 +1,9 @@
-{ lib, fetchPypi, buildPythonPackage, nosexcover }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  nosexcover,
+}:
 
 buildPythonPackage rec {
   pname = "smmap";

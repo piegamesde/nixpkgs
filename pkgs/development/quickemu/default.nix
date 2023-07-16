@@ -1,6 +1,30 @@
-{ lib, fetchFromGitHub, stdenv, makeWrapper, qemu, gnugrep, gnused, lsb-release
-, jq, procps, python3, cdrtools, usbutils, util-linux, socat, spice-gtk, swtpm
-, unzip, wget, xdg-user-dirs, xrandr, zsync, OVMF, OVMFFull, quickemu, testers
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  makeWrapper,
+  qemu,
+  gnugrep,
+  gnused,
+  lsb-release,
+  jq,
+  procps,
+  python3,
+  cdrtools,
+  usbutils,
+  util-linux,
+  socat,
+  spice-gtk,
+  swtpm,
+  unzip,
+  wget,
+  xdg-user-dirs,
+  xrandr,
+  zsync,
+  OVMF,
+  OVMFFull,
+  quickemu,
+  testers,
 }:
 let
   runtimePaths = [

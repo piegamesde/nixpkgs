@@ -1,4 +1,10 @@
-{ lib, fetchurl, desktop-file-utils, file, python3Packages }:
+{
+  lib,
+  fetchurl,
+  desktop-file-utils,
+  file,
+  python3Packages,
+}:
 
 let version = "2022.7";
 in python3Packages.buildPythonApplication {

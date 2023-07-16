@@ -1,6 +1,17 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, pythonOlder, setuptools-scm
-, importlib-metadata, dbus-python, jaraco_classes, jeepney, secretstorage
-, pytestCheckHook }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools-scm,
+  importlib-metadata,
+  dbus-python,
+  jaraco_classes,
+  jeepney,
+  secretstorage,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "keyring";

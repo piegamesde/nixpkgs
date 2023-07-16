@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, flask, blinker, nose }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  blinker,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "Flask-Principal";

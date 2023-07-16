@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, python-json-logger
-, jsonschema, ruamel-yaml, traitlets }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  python-json-logger,
+  jsonschema,
+  ruamel-yaml,
+  traitlets,
+}:
 
 buildPythonPackage rec {
   pname = "jupyter_telemetry";

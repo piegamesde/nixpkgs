@@ -1,4 +1,9 @@
-{ lib, buildDunePackage, dune_2, dune-action-plugin }:
+{
+  lib,
+  buildDunePackage,
+  dune_2,
+  dune-action-plugin,
+}:
 
 buildDunePackage rec {
   pname = "dune-build-info";

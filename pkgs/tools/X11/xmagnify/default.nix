@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitLab, libX11, xorgproto }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  libX11,
+  xorgproto,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xmagnify";

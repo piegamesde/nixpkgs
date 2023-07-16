@@ -1,4 +1,8 @@
-{ lib, fetchzip, stdenv }:
+{
+  lib,
+  fetchzip,
+  stdenv,
+}:
 
 let
   _src = variant: suffix: hash:

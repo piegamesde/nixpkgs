@@ -1,5 +1,15 @@
-{ lib, stdenv, async-timeout, buildPythonPackage, fetchPypi, pytest-asyncio
-, pytestCheckHook, pythonOlder, siosocks, trustme }:
+{
+  lib,
+  stdenv,
+  async-timeout,
+  buildPythonPackage,
+  fetchPypi,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  siosocks,
+  trustme,
+}:
 
 buildPythonPackage rec {
   pname = "aioftp";

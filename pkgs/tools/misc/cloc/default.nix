@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, perlPackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  perlPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cloc";

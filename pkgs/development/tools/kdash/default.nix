@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, perl, python3, openssl
-, xorg, AppKit }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  perl,
+  python3,
+  openssl,
+  xorg,
+  AppKit,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "kdash";

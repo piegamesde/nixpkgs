@@ -1,6 +1,27 @@
-{ lib, stdenv, buildPackages, runCommand, nettools, bc, bison, flex, perl, rsync
-, gmp, libmpc, mpfr, openssl, libelf, cpio, elfutils, zstd, python3Minimal, zlib
-, pahole, fetchpatch }:
+{
+  lib,
+  stdenv,
+  buildPackages,
+  runCommand,
+  nettools,
+  bc,
+  bison,
+  flex,
+  perl,
+  rsync,
+  gmp,
+  libmpc,
+  mpfr,
+  openssl,
+  libelf,
+  cpio,
+  elfutils,
+  zstd,
+  python3Minimal,
+  zlib,
+  pahole,
+  fetchpatch,
+}:
 
 let
   lib_ = lib;
@@ -18,36 +39,42 @@ let
     '').outPath;
 in lib.makeOverridable ({
   # The kernel version
-  version,
-  # Position of the Linux build expression
-  pos ? null,
-  # Additional kernel make flags
-  extraMakeFlags ? [ ],
-  # The name of the kernel module directory
-  # Needs to be X.Y.Z[-extra], so pad with zeros if needed.
-  modDirVersion ? lib.versions.pad 3 version,
-  # The kernel source (tarball, git checkout, etc.)
-  src,
-  # a list of { name=..., patch=..., extraConfig=...} patches
-  kernelPatches ? [ ],
-  # The kernel .config file
-  configfile,
-  # Manually specified nixexpr representing the config
-  # If unspecified, this will be autodetected from the .config
-  config ? lib.optionalAttrs allowImportFromDerivation (readConfig configfile),
-  # Custom seed used for CONFIG_GCC_PLUGIN_RANDSTRUCT if enabled. This is
-  # automatically extended with extra per-version and per-config values.
-  randstructSeed ? "",
-  # Extra meta attributes
-  extraMeta ? { },
+    version,
+    # Position of the Linux build expression
+    pos ? null,
+    # Additional kernel make flags
+    extraMakeFlags ? [ ],
+    # The name of the kernel module directory
+    # Needs to be X.Y.Z[-extra], so pad with zeros if needed.
+    modDirVersion ? lib.versions.pad 3 version,
+    # The kernel source (tarball, git checkout, etc.)
+    src,
+    # a list of { name=..., patch=..., extraConfig=...} patches
+    kernelPatches ? [ ],
+    # The kernel .config file
+    configfile,
+    # Manually specified nixexpr representing the config
+    # If unspecified, this will be autodetected from the .config
+    config ?
+      lib.optionalAttrs allowImportFromDerivation (readConfig configfile),
+    # Custom seed used for CONFIG_GCC_PLUGIN_RANDSTRUCT if enabled. This is
+    # automatically extended with extra per-version and per-config values.
+    randstructSeed ? "",
+    # Extra meta attributes
+    extraMeta ? { },
 
-  # for module compatibility
-  isZen ? false, isLibre ? false, isHardened ? false,
+    # for module compatibility
+    isZen ? false,
+    isLibre ? false,
+    isHardened ? false,
 
-  # Whether to utilize the controversial import-from-derivation feature to parse the config
-  allowImportFromDerivation ? false,
-  # ignored
-  features ? null, lib ? lib_, stdenv ? stdenv_, }:
+    # Whether to utilize the controversial import-from-derivation feature to parse the config
+    allowImportFromDerivation ? false,
+    # ignored
+    features ? null,
+    lib ? lib_,
+    stdenv ? stdenv_,
+  }:
 
   let config_ = config;
 

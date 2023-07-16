@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, cmake, mpi }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  mpi,
+}:
 
 stdenv.mkDerivation rec {
   pname = "parmetis";

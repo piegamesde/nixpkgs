@@ -1,4 +1,10 @@
-{ ffmpeg_5-full, nv-codec-headers-11, chromaprint, fetchFromGitHub, lib }:
+{
+  ffmpeg_5-full,
+  nv-codec-headers-11,
+  chromaprint,
+  fetchFromGitHub,
+  lib,
+}:
 
 (ffmpeg_5-full.override {
   nv-codec-headers = nv-codec-headers-11;

@@ -1,9 +1,47 @@
-{ stdenv, lib, AppKit, DarwinTools, alsa-utils, at-spi2-core, cmake, curl, dbus
-, fetchFromGitHub, fetchpatch, flac, gtk3, jasper, libGLU, libarchive, libdatrie
-, libelf, libepoxy, libexif, libogg, libopus, libselinux, libsepol, libsndfile
-, libthai, libunarr, libusb1, libvorbis, libxkbcommon, lsb-release, lz4
-, makeWrapper, pcre, pkg-config, portaudio, sqlite, tinyxml, udev, util-linux
-, wxGTK32, xorg }:
+{
+  stdenv,
+  lib,
+  AppKit,
+  DarwinTools,
+  alsa-utils,
+  at-spi2-core,
+  cmake,
+  curl,
+  dbus,
+  fetchFromGitHub,
+  fetchpatch,
+  flac,
+  gtk3,
+  jasper,
+  libGLU,
+  libarchive,
+  libdatrie,
+  libelf,
+  libepoxy,
+  libexif,
+  libogg,
+  libopus,
+  libselinux,
+  libsepol,
+  libsndfile,
+  libthai,
+  libunarr,
+  libusb1,
+  libvorbis,
+  libxkbcommon,
+  lsb-release,
+  lz4,
+  makeWrapper,
+  pcre,
+  pkg-config,
+  portaudio,
+  sqlite,
+  tinyxml,
+  udev,
+  util-linux,
+  wxGTK32,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "opencpn";

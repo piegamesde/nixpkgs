@@ -1,4 +1,8 @@
-{ lib, appleDerivation', stdenv }:
+{
+  lib,
+  appleDerivation',
+  stdenv,
+}:
 
 appleDerivation' stdenv {
 

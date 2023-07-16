@@ -1,6 +1,24 @@
-{ stdenv, lib, fetchurl, substituteAll, openvpn, gettext, libxml2, pkg-config
-, file, networkmanager, libsecret, glib, gtk3, gtk4, withGnome ? true, gnome
-, kmod, libnma, libnma-gtk4 }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  substituteAll,
+  openvpn,
+  gettext,
+  libxml2,
+  pkg-config,
+  file,
+  networkmanager,
+  libsecret,
+  glib,
+  gtk3,
+  gtk4,
+  withGnome ? true,
+  gnome,
+  kmod,
+  libnma,
+  libnma-gtk4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "NetworkManager-openvpn";

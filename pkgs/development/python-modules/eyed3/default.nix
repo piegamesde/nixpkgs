@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, python, isPyPy, six, filetype, deprecation
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python,
+  isPyPy,
+  six,
+  filetype,
+  deprecation,
 }:
 
 buildPythonPackage rec {

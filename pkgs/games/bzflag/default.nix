@@ -1,5 +1,18 @@
-{ stdenv, lib, fetchurl, pkg-config, curl, SDL2, libGLU, libGL, glew, ncurses
-, c-ares, Carbon, CoreServices }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  curl,
+  SDL2,
+  libGLU,
+  libGL,
+  glew,
+  ncurses,
+  c-ares,
+  Carbon,
+  CoreServices,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bzflag";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, wine, glslang }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  wine,
+  glslang,
+}:
 
 let
   # these are both embedded in the output files

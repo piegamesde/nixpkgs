@@ -1,5 +1,13 @@
-{ lib, fetchPypi, buildPythonPackage, agate, openpyxl, xlrd, olefile
-, pytestCheckHook }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  agate,
+  openpyxl,
+  xlrd,
+  olefile,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "agate-excel";

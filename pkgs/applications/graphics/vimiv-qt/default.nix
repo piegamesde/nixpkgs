@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, python3, qt5, installShellFiles }:
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  qt5,
+  installShellFiles,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "vimiv-qt";

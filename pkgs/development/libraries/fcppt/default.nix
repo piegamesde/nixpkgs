@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost, catch2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  catch2,
+}:
 stdenv.mkDerivation rec {
   pname = "fcppt";
   version = "4.2.1";

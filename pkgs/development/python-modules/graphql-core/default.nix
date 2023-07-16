@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, py, pytest-benchmark, pytest-asyncio
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  py,
+  pytest-benchmark,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "graphql-core";

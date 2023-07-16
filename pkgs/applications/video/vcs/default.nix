@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, makeWrapper, coreutils, ffmpeg, gawk, gnugrep, gnused
-, imagemagick, mplayer, util-linux, getopt, dejavu_fonts }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  coreutils,
+  ffmpeg,
+  gawk,
+  gnugrep,
+  gnused,
+  imagemagick,
+  mplayer,
+  util-linux,
+  getopt,
+  dejavu_fonts,
+}:
 with lib;
 let
   version = "1.13.4";

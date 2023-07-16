@@ -1,5 +1,20 @@
-{ callPackage, gobject-introspection, cmake, pkg-config, glib, libsndfile, zlib
-, bzip2, xz, libsamplerate, intltool, pcre, util-linux, libselinux, libsepol }:
+{
+  callPackage,
+  gobject-introspection,
+  cmake,
+  pkg-config,
+  glib,
+  libsndfile,
+  zlib,
+  bzip2,
+  xz,
+  libsamplerate,
+  intltool,
+  pcre,
+  util-linux,
+  libselinux,
+  libsepol,
+}:
 
 let
   pkg = import ./base.nix {

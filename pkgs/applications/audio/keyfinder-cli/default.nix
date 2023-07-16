@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, ffmpeg, libkeyfinder }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ffmpeg,
+  libkeyfinder,
+}:
 
 stdenv.mkDerivation rec {
   pname = "keyfinder-cli";

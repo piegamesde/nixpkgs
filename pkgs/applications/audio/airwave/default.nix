@@ -1,5 +1,18 @@
-{ lib, stdenv, multiStdenv, fetchFromGitHub, requireFile, unzip, wine, cmake
-, makeWrapper, wrapQtAppsHook, file, libX11, qt5 }:
+{
+  lib,
+  stdenv,
+  multiStdenv,
+  fetchFromGitHub,
+  requireFile,
+  unzip,
+  wine,
+  cmake,
+  makeWrapper,
+  wrapQtAppsHook,
+  file,
+  libX11,
+  qt5,
+}:
 
 let
   version = "1.3.3";

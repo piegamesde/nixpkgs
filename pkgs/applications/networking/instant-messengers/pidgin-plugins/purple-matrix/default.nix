@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, pidgin, json-glib, glib, http-parser
-, sqlite, olm, libgcrypt }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  pidgin,
+  json-glib,
+  glib,
+  http-parser,
+  sqlite,
+  olm,
+  libgcrypt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "purple-matrix-unstable";

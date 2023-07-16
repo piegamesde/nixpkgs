@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-cmake
-, rocm-device-libs, libxml2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  cmake,
+  rocm-cmake,
+  rocm-device-libs,
+  libxml2,
+}:
 
 let
   llvmNativeTarget = if stdenv.isx86_64 then

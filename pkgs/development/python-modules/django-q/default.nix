@@ -1,6 +1,21 @@
-{ arrow, blessed, buildPythonPackage, croniter, django, django-redis
-, django-picklefield, fetchFromGitHub, future, lib, poetry-core, pytest-django
-, pytest-mock, pytestCheckHook, pkgs, stdenv }:
+{
+  arrow,
+  blessed,
+  buildPythonPackage,
+  croniter,
+  django,
+  django-redis,
+  django-picklefield,
+  fetchFromGitHub,
+  future,
+  lib,
+  poetry-core,
+  pytest-django,
+  pytest-mock,
+  pytestCheckHook,
+  pkgs,
+  stdenv,
+}:
 
 buildPythonPackage rec {
   pname = "django-q";

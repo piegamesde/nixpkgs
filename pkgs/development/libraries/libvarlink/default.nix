@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, python3, nix-update-script
-, testers }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  python3,
+  nix-update-script,
+  testers,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libvarlink";

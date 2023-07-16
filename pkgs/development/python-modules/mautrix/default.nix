@@ -1,10 +1,27 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
-# deps
-, aiohttp, attrs, yarl
-# optional deps
-, python-magic, python-olm, unpaddedbase64, pycryptodome
-# check deps
-, pytestCheckHook, pytest-asyncio, aiosqlite, sqlalchemy, asyncpg }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder
+  # deps
+  ,
+  aiohttp,
+  attrs,
+  yarl
+  # optional deps
+  ,
+  python-magic,
+  python-olm,
+  unpaddedbase64,
+  pycryptodome
+  # check deps
+  ,
+  pytestCheckHook,
+  pytest-asyncio,
+  aiosqlite,
+  sqlalchemy,
+  asyncpg,
+}:
 
 buildPythonPackage rec {
   pname = "mautrix";

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, krb5, liburcu, libtirpc, libnsl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  krb5,
+  liburcu,
+  libtirpc,
+  libnsl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ntirpc";

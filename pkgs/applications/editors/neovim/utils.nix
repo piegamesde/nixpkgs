@@ -1,5 +1,16 @@
-{ lib, callPackage, vimUtils, nodejs, neovim-unwrapped, bundlerEnv, ruby, lua
-, python3Packages, writeText, wrapNeovimUnstable }:
+{
+  lib,
+  callPackage,
+  vimUtils,
+  nodejs,
+  neovim-unwrapped,
+  bundlerEnv,
+  ruby,
+  lua,
+  python3Packages,
+  writeText,
+  wrapNeovimUnstable,
+}:
 let
   /* returns everything needed for the caller to wrap its own neovim:
      - the generated content of the future init.vim
@@ -11,20 +22,29 @@ let
      Indeed, note that wrapping with `-u init.vim` has sideeffects like .nvimrc wont be loaded
      anymore, $MYVIMRC wont be set etc
   */
-  makeNeovimConfig = { withPython3 ? true
-      # the function you would have passed to python3.withPackages
-    , extraPython3Packages ? (_: [ ]), withNodeJs ? false, withRuby ? true
-      # the function you would have passed to lua.withPackages
-    , extraLuaPackages ? (_: [ ])
+  makeNeovimConfig = {
+      withPython3 ? true
+        # the function you would have passed to python3.withPackages
+      ,
+      extraPython3Packages ? (_: [ ]),
+      withNodeJs ? false,
+      withRuby ? true
+        # the function you would have passed to lua.withPackages
+      ,
+      extraLuaPackages ? (_: [ ])
 
-    # expects a list of plugin configuration
-    # expects { plugin=far-vim; config = "let g:far#source='rg'"; optional = false; }
-    , plugins ? [ ]
-      # custom viml config appended after plugin-specific config
-    , customRC ? ""
+      # expects a list of plugin configuration
+      # expects { plugin=far-vim; config = "let g:far#source='rg'"; optional = false; }
+      ,
+      plugins ? [ ]
+        # custom viml config appended after plugin-specific config
+      ,
+      customRC ? ""
 
-      # for forward compability, when adding new environments, haskell etc.
-    , ... }@args:
+        # for forward compability, when adding new environments, haskell etc.
+      ,
+      ...
+    }@args:
     let
       rubyEnv = bundlerEnv {
         name = "neovim-ruby-env";
@@ -110,14 +130,25 @@ let
 
   # to keep backwards compatibility for people using neovim.override
   legacyWrapper = neovim:
-    { extraMakeWrapperArgs ? ""
+    {
+      extraMakeWrapperArgs ? ""
+        # the function you would have passed to python.withPackages
+      ,
+      extraPythonPackages ? (_: [ ])
       # the function you would have passed to python.withPackages
-    , extraPythonPackages ? (_: [ ])
-    # the function you would have passed to python.withPackages
-    , withPython3 ? true, extraPython3Packages ? (_: [ ])
-    # the function you would have passed to lua.withPackages
-    , extraLuaPackages ? (_: [ ]), withNodeJs ? false, withRuby ? true
-    , vimAlias ? false, viAlias ? false, configure ? { }, extraName ? "" }:
+      ,
+      withPython3 ? true,
+      extraPython3Packages ? (_: [ ])
+      # the function you would have passed to lua.withPackages
+      ,
+      extraLuaPackages ? (_: [ ]),
+      withNodeJs ? false,
+      withRuby ? true,
+      vimAlias ? false,
+      viAlias ? false,
+      configure ? { },
+      extraName ? ""
+    }:
     let
 
       # we convert from the old configure.format to
@@ -127,7 +158,10 @@ let
       else
         lib.flatten (lib.mapAttrsToList genPlugin (configure.packages or { }));
       genPlugin = packageName:
-        { start ? [ ], opt ? [ ] }:
+        {
+          start ? [ ],
+          opt ? [ ]
+        }:
         start ++ (map (p: {
           plugin = p;
           optional = true;
@@ -156,10 +190,15 @@ let
          let g:loaded_${prog}_provider=0
      While the latter tells nvim that this provider is not available
   */
-  generateProviderRc = { withPython3 ? true, withNodeJs ? false, withRuby ? true
+  generateProviderRc = {
+      withPython3 ? true,
+      withNodeJs ? false,
+      withRuby ? true
 
-      # so that we can pass the full neovim config while ignoring it
-    , ... }:
+        # so that we can pass the full neovim config while ignoring it
+      ,
+      ...
+    }:
     let
       hostprog_check_table = {
         node = withNodeJs;

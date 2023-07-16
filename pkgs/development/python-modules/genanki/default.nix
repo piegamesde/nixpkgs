@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, cached-property, chevron, fetchPypi, frozendict
-, pystache, pythonOlder, pyyaml }:
+{
+  lib,
+  buildPythonPackage,
+  cached-property,
+  chevron,
+  fetchPypi,
+  frozendict,
+  pystache,
+  pythonOlder,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "genanki";

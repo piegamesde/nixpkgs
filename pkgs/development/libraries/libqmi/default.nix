@@ -1,9 +1,27 @@
-{ lib, stdenv, fetchFromGitLab, fetchpatch2, meson, ninja, pkg-config
-, gobject-introspection, gtk-doc, docbook-xsl-nons, docbook_xml_dtd_43, help2man
-, glib, python3, mesonEmulatorHook, libgudev, bash-completion, libmbim
-, libqrtr-glib, buildPackages
-, withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
-, withMan ? stdenv.buildPlatform.canExecute stdenv.hostPlatform }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch2,
+  meson,
+  ninja,
+  pkg-config,
+  gobject-introspection,
+  gtk-doc,
+  docbook-xsl-nons,
+  docbook_xml_dtd_43,
+  help2man,
+  glib,
+  python3,
+  mesonEmulatorHook,
+  libgudev,
+  bash-completion,
+  libmbim,
+  libqrtr-glib,
+  buildPackages,
+  withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages,
+  withMan ? stdenv.buildPlatform.canExecute stdenv.hostPlatform
+}:
 
 stdenv.mkDerivation rec {
   pname = "libqmi";

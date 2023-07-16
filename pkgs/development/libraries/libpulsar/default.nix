@@ -1,8 +1,29 @@
-{ lib, clang-tools, llvmPackages, boost17x, protobuf, python3Support ? false
-, python3, log4cxxSupport ? false, log4cxx, snappySupport ? false, snappy
-, zlibSupport ? true, zlib, zstdSupport ? true, zstd, gtest
-, gtestSupport ? false, cmake, curl, fetchurl, jsoncpp, openssl, pkg-config
-, stdenv }:
+{
+  lib,
+  clang-tools,
+  llvmPackages,
+  boost17x,
+  protobuf,
+  python3Support ? false,
+  python3,
+  log4cxxSupport ? false,
+  log4cxx,
+  snappySupport ? false,
+  snappy,
+  zlibSupport ? true,
+  zlib,
+  zstdSupport ? true,
+  zstd,
+  gtest,
+  gtestSupport ? false,
+  cmake,
+  curl,
+  fetchurl,
+  jsoncpp,
+  openssl,
+  pkg-config,
+  stdenv,
+}:
 
 let
   /* Check if null or false

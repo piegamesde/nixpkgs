@@ -1,5 +1,13 @@
-{ buildPythonPackage, isPy27, fetchPypi, pytest-runner, setuptools-scm
-, pytestCheckHook, six, lib }:
+{
+  buildPythonPackage,
+  isPy27,
+  fetchPypi,
+  pytest-runner,
+  setuptools-scm,
+  pytestCheckHook,
+  six,
+  lib,
+}:
 
 buildPythonPackage rec {
   pname = "variants";

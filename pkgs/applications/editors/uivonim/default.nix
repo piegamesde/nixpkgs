@@ -1,4 +1,10 @@
-{ lib, mkYarnPackage, fetchFromGitHub, electron, makeWrapper }:
+{
+  lib,
+  mkYarnPackage,
+  fetchFromGitHub,
+  electron,
+  makeWrapper,
+}:
 
 mkYarnPackage rec {
   pname = "uivonim";

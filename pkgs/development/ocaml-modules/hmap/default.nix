@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchurl, findlib, ocaml, ocamlbuild, topkg }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  findlib,
+  ocaml,
+  ocamlbuild,
+  topkg,
+}:
 
 let minimumSupportedOcamlVersion = "4.02.0";
 in assert lib.versionOlder minimumSupportedOcamlVersion ocaml.version;

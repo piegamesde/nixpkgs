@@ -1,5 +1,13 @@
-{ lib, rustPlatform, fetchFromGitHub, makeBinaryWrapper, pkg-config, oniguruma
-, ffmpeg, git }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  makeBinaryWrapper,
+  pkg-config,
+  oniguruma,
+  ffmpeg,
+  git,
+}:
 
 rustPlatform.buildRustPackage {
   pname = "codemov";

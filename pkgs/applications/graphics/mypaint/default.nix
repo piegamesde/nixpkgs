@@ -1,6 +1,23 @@
-{ lib, fetchFromGitHub, fetchpatch, gtk3, gettext, json_c, lcms2, libpng
-, librsvg, gobject-introspection, libmypaint, hicolor-icon-theme
-, mypaint-brushes, gdk-pixbuf, pkg-config, python3, swig, wrapGAppsHook }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  gtk3,
+  gettext,
+  json_c,
+  lcms2,
+  libpng,
+  librsvg,
+  gobject-introspection,
+  libmypaint,
+  hicolor-icon-theme,
+  mypaint-brushes,
+  gdk-pixbuf,
+  pkg-config,
+  python3,
+  swig,
+  wrapGAppsHook,
+}:
 
 let inherit (python3.pkgs) pycairo pygobject3 numpy buildPythonApplication;
 in buildPythonApplication rec {

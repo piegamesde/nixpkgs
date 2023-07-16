@@ -1,5 +1,15 @@
-{ lib, mkDerivation, fetchFromGitHub, pkg-config, qtbase, qtsvg, qtcharts
-, wrapQtAppsHook, cmake, python3 }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  pkg-config,
+  qtbase,
+  qtsvg,
+  qtcharts,
+  wrapQtAppsHook,
+  cmake,
+  python3,
+}:
 
 mkDerivation rec {
   pname = "ripes";

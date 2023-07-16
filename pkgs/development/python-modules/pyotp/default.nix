@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, unittestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pyotp";

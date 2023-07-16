@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, requests, webob }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  requests,
+  webob,
+}:
 
 buildPythonPackage rec {
   pname = "tokenlib";

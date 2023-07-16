@@ -1,5 +1,13 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, libspatialindex, numpy
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  libspatialindex,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "rtree";

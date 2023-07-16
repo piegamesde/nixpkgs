@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchurl, pkg-config, libltc, libsndfile, libsamplerate, ftgl
-, freefont_ttf, libjack2, libGLU, lv2, gtk2, cairo, pango, fftwFloat
-, zita-convolver }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libltc,
+  libsndfile,
+  libsamplerate,
+  ftgl,
+  freefont_ttf,
+  libjack2,
+  libGLU,
+  lv2,
+  gtk2,
+  cairo,
+  pango,
+  fftwFloat,
+  zita-convolver,
+}:
 
 stdenv.mkDerivation rec {
   pname = "x42-plugins";

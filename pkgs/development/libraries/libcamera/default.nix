@@ -1,6 +1,24 @@
-{ stdenv, fetchgit, lib, meson, ninja, pkg-config, makeFontsConf, openssl
-, libdrm, libevent, libyaml, lttng-ust, gst_all_1, gtest, graphviz, doxygen
-, python3, python3Packages, systemd # for libudev
+{
+  stdenv,
+  fetchgit,
+  lib,
+  meson,
+  ninja,
+  pkg-config,
+  makeFontsConf,
+  openssl,
+  libdrm,
+  libevent,
+  libyaml,
+  lttng-ust,
+  gst_all_1,
+  gtest,
+  graphviz,
+  doxygen,
+  python3,
+  python3Packages,
+  systemd # for libudev
+  ,
 }:
 
 stdenv.mkDerivation rec {

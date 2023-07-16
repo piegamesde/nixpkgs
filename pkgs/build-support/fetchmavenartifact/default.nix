@@ -1,6 +1,10 @@
 # Adaptation of the MIT-licensed work on `sbt2nix` done by Charles O'Farrell
 
-{ lib, fetchurl, stdenv }:
+{
+  lib,
+  fetchurl,
+  stdenv,
+}:
 let
   defaultRepos = [
     "https://repo1.maven.org/maven2"
@@ -10,19 +14,21 @@ let
   ];
 
 in args@{ # Example: "org.apache.httpcomponents"
-groupId, # Example: "httpclient"
-artifactId, # Example: "4.3.6"
-version, # Example: "jdk11"
-classifier ? null
-, # List of maven repositories from where to fetch the artifact.
-# Example: [ http://oss.sonatype.org/content/repositories/public ].
-repos ? defaultRepos
-  # The `url` and `urls` parameters, if specified should point to the JAR
-  # file and will take precedence over the `repos` parameter. Only one of `url`
-  # and `urls` can be specified, not both.
-, url ? "", urls ? [ ]
-, # The rest of the arguments are just forwarded to `fetchurl`.
-... }:
+  groupId, # Example: "httpclient"
+  artifactId, # Example: "4.3.6"
+  version, # Example: "jdk11"
+  classifier ?
+    null, # List of maven repositories from where to fetch the artifact.
+  # Example: [ http://oss.sonatype.org/content/repositories/public ].
+  repos ? defaultRepos
+    # The `url` and `urls` parameters, if specified should point to the JAR
+    # file and will take precedence over the `repos` parameter. Only one of `url`
+    # and `urls` can be specified, not both.
+  ,
+  url ? "",
+  urls ? [ ], # The rest of the arguments are just forwarded to `fetchurl`.
+  ...
+}:
 
 # only one of url and urls can be specified at a time.
 assert (url == "") || (urls == [ ]);

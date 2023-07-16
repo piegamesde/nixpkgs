@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, writeText, glib, meson, ninja, pkg-config
-, python3, coreutils, gnome-desktop, gnupg, gtk3, systemdMinimal, udisks }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  writeText,
+  glib,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  coreutils,
+  gnome-desktop,
+  gnupg,
+  gtk3,
+  systemdMinimal,
+  udisks,
+}:
 
 stdenv.mkDerivation rec {
   pname = "eos-installer";

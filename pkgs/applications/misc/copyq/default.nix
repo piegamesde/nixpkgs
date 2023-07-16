@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ninja, extra-cmake-modules, qtbase, qtsvg
-, qttools, qtdeclarative, libXfixes, libXtst, qtwayland, wayland, wrapQtAppsHook
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  extra-cmake-modules,
+  qtbase,
+  qtsvg,
+  qttools,
+  qtdeclarative,
+  libXfixes,
+  libXtst,
+  qtwayland,
+  wayland,
+  wrapQtAppsHook,
 }:
 
 stdenv.mkDerivation rec {

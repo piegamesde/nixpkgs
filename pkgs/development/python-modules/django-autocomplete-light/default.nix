@@ -1,6 +1,22 @@
-{ lib, buildPythonPackage, fetchFromGitHub, django, six, pytestCheckHook
-, django-debug-toolbar, django-extensions, django-taggit, django_tagging, mock
-, pytest-django, selenium, splinter, sqlparse, tenacity, whitenoise }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  django,
+  six,
+  pytestCheckHook,
+  django-debug-toolbar,
+  django-extensions,
+  django-taggit,
+  django_tagging,
+  mock,
+  pytest-django,
+  selenium,
+  splinter,
+  sqlparse,
+  tenacity,
+  whitenoise,
+}:
 
 buildPythonPackage rec {
   pname = "django-autocomplete-light";

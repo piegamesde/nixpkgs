@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, python-dateutil, pythonOlder
-, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python-dateutil,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "kiwiki-client";

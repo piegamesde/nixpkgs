@@ -53,52 +53,60 @@
 # For a TUI (rather than CLI) view, you can use:
 #
 #     $ nix-tree --derivation $(nix-instantiate -A stdenv)
-{ lib, localSystem, crossSystem, config, overlays, crossOverlays ? [ ]
+{
+  lib,
+  localSystem,
+  crossSystem,
+  config,
+  overlays,
+  crossOverlays ? [ ]
 
-, bootstrapFiles ? let
-  table = {
-    glibc = {
-      i686-linux = import ./bootstrap-files/i686.nix;
-      x86_64-linux = import ./bootstrap-files/x86_64.nix;
-      armv5tel-linux = import ./bootstrap-files/armv5tel.nix;
-      armv6l-linux = import ./bootstrap-files/armv6l.nix;
-      armv7l-linux = import ./bootstrap-files/armv7l.nix;
-      aarch64-linux = import ./bootstrap-files/aarch64.nix;
-      mipsel-linux = import ./bootstrap-files/mipsel.nix;
-      mips64el-linux = import (if localSystem.isMips64n32 then
-        ./bootstrap-files/mips64el-n32.nix
+  ,
+  bootstrapFiles ? let
+    table = {
+      glibc = {
+        i686-linux = import ./bootstrap-files/i686.nix;
+        x86_64-linux = import ./bootstrap-files/x86_64.nix;
+        armv5tel-linux = import ./bootstrap-files/armv5tel.nix;
+        armv6l-linux = import ./bootstrap-files/armv6l.nix;
+        armv7l-linux = import ./bootstrap-files/armv7l.nix;
+        aarch64-linux = import ./bootstrap-files/aarch64.nix;
+        mipsel-linux = import ./bootstrap-files/mipsel.nix;
+        mips64el-linux = import (if localSystem.isMips64n32 then
+          ./bootstrap-files/mips64el-n32.nix
+        else
+          ./bootstrap-files/mips64el.nix);
+        powerpc64le-linux = import ./bootstrap-files/powerpc64le.nix;
+        riscv64-linux = import ./bootstrap-files/riscv64.nix;
+      };
+      musl = {
+        aarch64-linux = import ./bootstrap-files/aarch64-musl.nix;
+        armv6l-linux = import ./bootstrap-files/armv6l-musl.nix;
+        x86_64-linux = import ./bootstrap-files/x86_64-musl.nix;
+      };
+    };
+
+    # Try to find an architecture compatible with our current system. We
+    # just try every bootstrap we’ve got and test to see if it is
+    # compatible with or current architecture.
+    getCompatibleTools = lib.foldl (v: system:
+      if v != null then
+        v
+      else if localSystem.canExecute
+      (lib.systems.elaborate { inherit system; }) then
+        archLookupTable.${system}
       else
-        ./bootstrap-files/mips64el.nix);
-      powerpc64le-linux = import ./bootstrap-files/powerpc64le.nix;
-      riscv64-linux = import ./bootstrap-files/riscv64.nix;
-    };
-    musl = {
-      aarch64-linux = import ./bootstrap-files/aarch64-musl.nix;
-      armv6l-linux = import ./bootstrap-files/armv6l-musl.nix;
-      x86_64-linux = import ./bootstrap-files/x86_64-musl.nix;
-    };
-  };
+        null) null (lib.attrNames archLookupTable);
 
-  # Try to find an architecture compatible with our current system. We
-  # just try every bootstrap we’ve got and test to see if it is
-  # compatible with or current architecture.
-  getCompatibleTools = lib.foldl (v: system:
-    if v != null then
-      v
-    else if localSystem.canExecute
-    (lib.systems.elaborate { inherit system; }) then
-      archLookupTable.${system}
-    else
-      null) null (lib.attrNames archLookupTable);
-
-  archLookupTable = table.${localSystem.libc} or (abort
-    "unsupported libc for the pure Linux stdenv");
-  files =
-    archLookupTable.${localSystem.system} or (if getCompatibleTools != null then
+    archLookupTable = table.${localSystem.libc} or (abort
+      "unsupported libc for the pure Linux stdenv");
+    files = archLookupTable.${localSystem.system} or (if getCompatibleTools
+    != null then
       getCompatibleTools
     else
       (abort "unsupported platform for the pure Linux stdenv"));
-in files }:
+  in files
+}:
 
 assert crossSystem == localSystem;
 
@@ -160,7 +168,11 @@ let
   # the bootstrap.  In all stages, we build an stdenv and the package
   # set that can be built with that stdenv.
   stageFun = prevStage:
-    { name, overrides ? (self: super: { }), extraNativeBuildInputs ? [ ] }:
+    {
+      name,
+      overrides ? (self: super: { }),
+      extraNativeBuildInputs ? [ ]
+    }:
 
     let
 

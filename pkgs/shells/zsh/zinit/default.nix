@@ -1,4 +1,9 @@
-{ stdenvNoCC, lib, fetchFromGitHub, installShellFiles }:
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+  installShellFiles,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "zinit";

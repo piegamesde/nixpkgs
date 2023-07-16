@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, hatchling, pytestCheckHook
-, pythonOlder, pytz, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatchling,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "dirty-equals";

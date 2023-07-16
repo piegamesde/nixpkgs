@@ -1,4 +1,9 @@
-{ fetchurl, stdenv, lib, ncurses }:
+{
+  fetchurl,
+  stdenv,
+  lib,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "readline";

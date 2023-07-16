@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytz, tomlkit }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytz,
+  tomlkit,
+}:
 
 buildPythonPackage rec {
   pname = "neo4j";

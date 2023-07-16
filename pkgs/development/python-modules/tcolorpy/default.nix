@@ -1,4 +1,9 @@
-{ buildPythonPackage, fetchFromGitHub, lib, pytestCheckHook }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "tcolorpy";

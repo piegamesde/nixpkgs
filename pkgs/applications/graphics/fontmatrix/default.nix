@@ -1,4 +1,12 @@
-{ lib, mkDerivation, fetchpatch, fetchFromGitHub, cmake, qttools, qtwebkit }:
+{
+  lib,
+  mkDerivation,
+  fetchpatch,
+  fetchFromGitHub,
+  cmake,
+  qttools,
+  qtwebkit,
+}:
 
 mkDerivation rec {
   pname = "fontmatrix";

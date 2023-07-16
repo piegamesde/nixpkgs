@@ -1,8 +1,27 @@
-{ lib, stdenv, python3Packages, fetchFromGitHub, fetchurl, sd, curl, pkg-config
-, openssl, rustPlatform, fetchYarnDeps, yarn, nodejs, fixup_yarn_lock
-, glibcLocales, libiconv, CoreFoundation, CoreServices, Security
+{
+  lib,
+  stdenv,
+  python3Packages,
+  fetchFromGitHub,
+  fetchurl,
+  sd,
+  curl,
+  pkg-config,
+  openssl,
+  rustPlatform,
+  fetchYarnDeps,
+  yarn,
+  nodejs,
+  fixup_yarn_lock,
+  glibcLocales,
+  libiconv,
+  CoreFoundation,
+  CoreServices,
+  Security
 
-, enableMinimal ? false }:
+  ,
+  enableMinimal ? false
+}:
 
 let
   inherit (lib.importJSON ./deps.json) links version versionHash;

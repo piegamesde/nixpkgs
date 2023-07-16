@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchpatch, fetchurl, autoreconfHook, pkg-config, atk, cairo
-, glib, gnome-common, gtk2, pango, libxml2Python, perl, intltool, gettext
-, gtk-mac-integration-gtk2, testers }:
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  atk,
+  cairo,
+  glib,
+  gnome-common,
+  gtk2,
+  pango,
+  libxml2Python,
+  perl,
+  intltool,
+  gettext,
+  gtk-mac-integration-gtk2,
+  testers,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gtksourceview";

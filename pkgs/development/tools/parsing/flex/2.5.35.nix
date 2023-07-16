@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, autoreconfHook, flex, bison, texinfo, help2man, m4 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  flex,
+  bison,
+  texinfo,
+  help2man,
+  m4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "flex";

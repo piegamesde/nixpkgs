@@ -1,5 +1,14 @@
-{ lib, buildPythonApplication, fetchFromGitHub, cmake-format, pygls, cmake
-, pdm-pep517, pytest-datadir, pytestCheckHook }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  cmake-format,
+  pygls,
+  cmake,
+  pdm-pep517,
+  pytest-datadir,
+  pytestCheckHook,
+}:
 
 buildPythonApplication rec {
   pname = "cmake-language-server";

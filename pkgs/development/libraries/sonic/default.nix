@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, fftw, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fftw,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation {
   pname = "sonic-unstable";

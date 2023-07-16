@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, gnome, glib, libxml2, gtk-engine-murrine
-, gdk-pixbuf, librsvg, bc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gnome,
+  glib,
+  libxml2,
+  gtk-engine-murrine,
+  gdk-pixbuf,
+  librsvg,
+  bc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "equilux-theme";

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, flit-core, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flit-core,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aioprocessing";

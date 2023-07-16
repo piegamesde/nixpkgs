@@ -1,4 +1,11 @@
-{ stdenv, lib, buildGoModule, fetchFromGitHub, fetchpatch, libpcap }:
+{
+  stdenv,
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchpatch,
+  libpcap,
+}:
 
 buildGoModule rec {
   pname = "sx-go";

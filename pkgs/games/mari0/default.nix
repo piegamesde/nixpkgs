@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, zip, love, makeWrapper, makeDesktopItem
-, copyDesktopItems }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  zip,
+  love,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mari0";

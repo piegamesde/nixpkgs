@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, numpy, llvmPackages, wurlitzer
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  llvmPackages,
+  wurlitzer,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "wasserstein";

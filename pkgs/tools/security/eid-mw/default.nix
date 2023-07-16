@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, autoconf-archive, pkg-config
-, makeWrapper, curl, gtk3, libassuan, libbsd, libproxy, libxml2, openssl
-, p11-kit, pcsclite, nssTools, substituteAll }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  autoconf-archive,
+  pkg-config,
+  makeWrapper,
+  curl,
+  gtk3,
+  libassuan,
+  libbsd,
+  libproxy,
+  libxml2,
+  openssl,
+  p11-kit,
+  pcsclite,
+  nssTools,
+  substituteAll,
+}:
 
 stdenv.mkDerivation rec {
   pname = "eid-mw";

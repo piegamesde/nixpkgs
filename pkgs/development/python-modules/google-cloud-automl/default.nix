@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, fetchPypi, google-api-core, google-cloud-storage
-, google-cloud-testutils, libcst, mock, pandas, proto-plus, protobuf
-, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-core,
+  google-cloud-storage,
+  google-cloud-testutils,
+  libcst,
+  mock,
+  pandas,
+  proto-plus,
+  protobuf,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "google-cloud-automl";

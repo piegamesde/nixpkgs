@@ -1,4 +1,10 @@
-{ buildPythonPackage, fetchFromGitHub, lib, pytestCheckHook, matplotlib }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  pytestCheckHook,
+  matplotlib,
+}:
 
 buildPythonPackage rec {
   pname = "squarify";

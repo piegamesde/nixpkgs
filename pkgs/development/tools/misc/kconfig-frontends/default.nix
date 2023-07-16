@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, pkg-config, bison, flex, gperf, ncurses, python3, bash
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  bison,
+  flex,
+  gperf,
+  ncurses,
+  python3,
+  bash,
 }:
 
 stdenv.mkDerivation rec {

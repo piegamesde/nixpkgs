@@ -1,6 +1,16 @@
-{ lib, fetchFromGitHub, fetchurl, symlinkJoin, buildGoModule, runCommand
-, makeWrapper, nix-update-script, v2ray-geoip, v2ray-domain-list-community
-, assets ? [ v2ray-geoip v2ray-domain-list-community ] }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  symlinkJoin,
+  buildGoModule,
+  runCommand,
+  makeWrapper,
+  nix-update-script,
+  v2ray-geoip,
+  v2ray-domain-list-community,
+  assets ? [ v2ray-geoip v2ray-domain-list-community ]
+}:
 
 let
   assetsDrv = symlinkJoin {

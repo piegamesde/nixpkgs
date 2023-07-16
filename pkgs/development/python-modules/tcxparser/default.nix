@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, lxml, pytestCheckHook
-, python-dateutil, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  lxml,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "tcxparser";

@@ -1,4 +1,9 @@
-{ lib, fetchurl, callPackage, luajit }:
+{
+  lib,
+  fetchurl,
+  callPackage,
+  luajit,
+}:
 
 callPackage (import ./common.nix rec {
   pname = "cgit";

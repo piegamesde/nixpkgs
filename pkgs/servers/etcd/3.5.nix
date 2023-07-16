@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, symlinkJoin }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  symlinkJoin,
+}:
 
 let
   version = "3.5.7";

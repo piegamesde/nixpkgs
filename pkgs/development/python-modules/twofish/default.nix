@@ -1,7 +1,12 @@
-{ buildPythonPackage, fetchPypi, lib
+{
+  buildPythonPackage,
+  fetchPypi,
+  lib
 
-# pythonPackages
-, javaobj-py3 }:
+  # pythonPackages
+  ,
+  javaobj-py3,
+}:
 
 buildPythonPackage rec {
   pname = "twofish";

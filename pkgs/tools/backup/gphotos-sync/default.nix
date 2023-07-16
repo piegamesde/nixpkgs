@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, fetchpatch, python3, ffmpeg }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  python3,
+  ffmpeg,
+}:
 let
   py = python3.override {
     packageOverrides = self: super: {

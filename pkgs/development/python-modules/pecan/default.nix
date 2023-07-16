@@ -1,5 +1,19 @@
-{ lib, fetchPypi, buildPythonPackage, logutils, mako, webtest, pythonOlder
-, pytestCheckHook, genshi, gunicorn, jinja2, six, sqlalchemy, virtualenv }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  logutils,
+  mako,
+  webtest,
+  pythonOlder,
+  pytestCheckHook,
+  genshi,
+  gunicorn,
+  jinja2,
+  six,
+  sqlalchemy,
+  virtualenv,
+}:
 
 buildPythonPackage rec {
   pname = "pecan";

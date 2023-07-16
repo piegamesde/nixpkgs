@@ -1,8 +1,23 @@
-{ lib, pythonOlder, buildPythonPackage, fetchFromGitHub
-# Python Inputs
-, decorator, docplex, networkx, numpy, qiskit-terra, scipy
-# Check Inputs
-, pytestCheckHook, ddt, pylatexenc, qiskit-aer }:
+{
+  lib,
+  pythonOlder,
+  buildPythonPackage,
+  fetchFromGitHub
+  # Python Inputs
+  ,
+  decorator,
+  docplex,
+  networkx,
+  numpy,
+  qiskit-terra,
+  scipy
+  # Check Inputs
+  ,
+  pytestCheckHook,
+  ddt,
+  pylatexenc,
+  qiskit-aer,
+}:
 
 buildPythonPackage rec {
   pname = "qiskit-optimization";

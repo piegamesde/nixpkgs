@@ -1,5 +1,16 @@
-{ lib, arrow, buildPythonPackage, fetchFromGitHub, pytest-datafiles, pytest-vcr
-, pytestCheckHook, python-box, pythonOlder, responses, requests }:
+{
+  lib,
+  arrow,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-datafiles,
+  pytest-vcr,
+  pytestCheckHook,
+  python-box,
+  pythonOlder,
+  responses,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "restfly";

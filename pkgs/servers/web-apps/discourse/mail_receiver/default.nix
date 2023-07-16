@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, ruby, makeWrapper, replace }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  ruby,
+  makeWrapper,
+  replace,
+}:
 
 stdenv.mkDerivation rec {
   pname = "discourse-mail-receiver";

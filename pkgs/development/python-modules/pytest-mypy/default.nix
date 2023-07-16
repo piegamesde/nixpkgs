@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, filelock, pytest, mypy, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  filelock,
+  pytest,
+  mypy,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-mypy";

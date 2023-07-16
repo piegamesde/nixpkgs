@@ -1,5 +1,18 @@
-{ lib, curl, writeShellScript, jq, gnused, git, nix, coreutils }:
-{ platforms, pname, version }:
+{
+  lib,
+  curl,
+  writeShellScript,
+  jq,
+  gnused,
+  git,
+  nix,
+  coreutils,
+}:
+{
+  platforms,
+  pname,
+  version,
+}:
 
 writeShellScript "${pname}-update-script" ''
   set -o errexit

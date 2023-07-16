@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, unzip, ruby, openssl, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  ruby,
+  openssl,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ec2-ami-tools";

@@ -1,4 +1,11 @@
-{ python3Packages, fetchFromGitHub, lib, jre, qt5, wrapQtAppsHook }:
+{
+  python3Packages,
+  fetchFromGitHub,
+  lib,
+  jre,
+  qt5,
+  wrapQtAppsHook,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "eddy";

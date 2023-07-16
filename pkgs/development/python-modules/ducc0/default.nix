@@ -1,5 +1,13 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitLab, pythonOlder, pytestCheckHook
-, pybind11, numpy }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitLab,
+  pythonOlder,
+  pytestCheckHook,
+  pybind11,
+  numpy,
+}:
 
 buildPythonPackage rec {
   pname = "ducc0";

@@ -1,5 +1,14 @@
-{ lib, asn1crypto, buildPythonPackage, colorama, cryptography, fetchFromGitHub
-, impacket, pyasn1, pythonOlder }:
+{
+  lib,
+  asn1crypto,
+  buildPythonPackage,
+  colorama,
+  cryptography,
+  fetchFromGitHub,
+  impacket,
+  pyasn1,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "masky";

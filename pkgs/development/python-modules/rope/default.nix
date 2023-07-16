@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytoolconfig, pytest-timeout
-, pytestCheckHook, pythonOlder, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytoolconfig,
+  pytest-timeout,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "rope";

@@ -4,7 +4,11 @@
 # This test shows that an alias with a low priority is able to be overridden
 # with a non-aliased option.
 
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -39,9 +43,21 @@ with lib;
 
     # Disable the aliased option, but with a default (low) priority so it
     # should be able to be overridden by the next import.
-    ({ config, lib, ... }: { enableAlias = lib.mkDefault false; })
+    ({
+        config,
+        lib,
+        ...
+      }: {
+        enableAlias = lib.mkDefault false;
+      })
 
     # Enable the normal (non-aliased) option.
-    ({ config, lib, ... }: { enable = true; })
+    ({
+        config,
+        lib,
+        ...
+      }: {
+        enable = true;
+      })
   ];
 }

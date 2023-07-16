@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, bmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libfsm";

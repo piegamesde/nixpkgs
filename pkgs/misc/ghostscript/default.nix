@@ -1,12 +1,43 @@
-{ config, stdenv, lib, fetchurl, pkg-config, zlib, expat, openssl, autoconf
-, libjpeg, libpng, libtiff, freetype, fontconfig, libpaper, jbig2dec, libiconv
-, ijs, lcms2, callPackage, bash, buildPackages, openjpeg
-, cupsSupport ? config.ghostscript.cups or (!stdenv.isDarwin), cups
-, x11Support ? cupsSupport, xorg # with CUPS, X11 only adds very little
-, dynamicDrivers ? true
+{
+  config,
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  zlib,
+  expat,
+  openssl,
+  autoconf,
+  libjpeg,
+  libpng,
+  libtiff,
+  freetype,
+  fontconfig,
+  libpaper,
+  jbig2dec,
+  libiconv,
+  ijs,
+  lcms2,
+  callPackage,
+  bash,
+  buildPackages,
+  openjpeg,
+  cupsSupport ? config.ghostscript.cups or (!stdenv.isDarwin),
+  cups,
+  x11Support ? cupsSupport,
+  xorg # with CUPS, X11 only adds very little
+  ,
+  dynamicDrivers ? true
 
-  # for passthru.tests
-, graphicsmagick, imagemagick, libspectre, lilypond, pstoedit, python3 }:
+    # for passthru.tests
+  ,
+  graphicsmagick,
+  imagemagick,
+  libspectre,
+  lilypond,
+  pstoedit,
+  python3,
+}:
 
 let
   fonts = stdenv.mkDerivation {

@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, fetchpatch, ncurses, zlib, bzip2, sqlite, pkg-config
-, glib, gnutls, perl, libmaxminddb }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  ncurses,
+  zlib,
+  bzip2,
+  sqlite,
+  pkg-config,
+  glib,
+  gnutls,
+  perl,
+  libmaxminddb,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ncdc";

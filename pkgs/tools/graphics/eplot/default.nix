@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, gnuplot, ruby }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gnuplot,
+  ruby,
+}:
 
 stdenv.mkDerivation {
   pname = "eplot";

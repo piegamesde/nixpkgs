@@ -1,5 +1,13 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, makeWrapper
-, vulkan-loader, QuartzCore }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  makeWrapper,
+  vulkan-loader,
+  QuartzCore,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "wgpu-utils";

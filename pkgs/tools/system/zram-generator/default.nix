@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, rust, rustPlatform, pkg-config, ronn, systemd
-, kmod, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rust,
+  rustPlatform,
+  pkg-config,
+  ronn,
+  systemd,
+  kmod,
+  nixosTests,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "zram-generator";

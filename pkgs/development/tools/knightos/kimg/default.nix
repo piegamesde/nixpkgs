@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libxslt, asciidoc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libxslt,
+  asciidoc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kimg";

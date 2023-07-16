@@ -1,8 +1,30 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, swig, boost, spectra, libxml2
-, tbb, hmat-oss, nlopt, cminpack, ceres-solver, dlib, hdf5, primesieve, pagmo2
-, ipopt, Accelerate
-# tests take an hour to build on a 48-core machine
-, runTests ? false, enablePython ? false, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  swig,
+  boost,
+  spectra,
+  libxml2,
+  tbb,
+  hmat-oss,
+  nlopt,
+  cminpack,
+  ceres-solver,
+  dlib,
+  hdf5,
+  primesieve,
+  pagmo2,
+  ipopt,
+  Accelerate
+  # tests take an hour to build on a 48-core machine
+  ,
+  runTests ? false,
+  enablePython ? false,
+  python3Packages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openturns";

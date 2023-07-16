@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, perl, perlPackages, pxlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  perl,
+  perlPackages,
+  pxlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pxview";

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, libedit, autoreconfHook, zlib, unzip, libtommath
-, libtomcrypt, icu, superServer ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libedit,
+  autoreconfHook,
+  zlib,
+  unzip,
+  libtommath,
+  libtomcrypt,
+  icu,
+  superServer ? false
+}:
 
 let
   base = {

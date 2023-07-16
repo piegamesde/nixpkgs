@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromSourcehut }:
+{
+  lib,
+  buildGoModule,
+  fetchFromSourcehut,
+}:
 buildGoModule rec {
   pname = "undocker";
   version = "1.0.4";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, boost, cairo, lv2, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  boost,
+  cairo,
+  lv2,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "string-machine";

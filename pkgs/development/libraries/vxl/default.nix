@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, unzip, cmake, libtiff, expat, zlib, libpng
-, libjpeg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  unzip,
+  cmake,
+  libtiff,
+  expat,
+  zlib,
+  libpng,
+  libjpeg,
+}:
 stdenv.mkDerivation rec {
   pname = "vxl";
   version = "3.5.0";

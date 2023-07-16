@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, intltool, pkg-config, gtk3, fetchFromGitHub
-, autoreconfHook, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  intltool,
+  pkg-config,
+  gtk3,
+  fetchFromGitHub,
+  autoreconfHook,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   version = "unstable-2022-02-14";

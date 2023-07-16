@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, libX11, libXinerama, imlib2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libX11,
+  libXinerama,
+  imlib2,
+}:
 
 stdenv.mkDerivation {
   pname = "imlibsetroot";

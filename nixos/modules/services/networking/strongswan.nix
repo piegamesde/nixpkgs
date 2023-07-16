@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
 
@@ -13,7 +18,11 @@ let
     toFile "ipsec.secrets"
     (concatMapStringsSep "\n" (f: "include ${f}") secrets);
 
-  ipsecConf = { setup, connections, ca }:
+  ipsecConf = {
+      setup,
+      connections,
+      ca,
+    }:
     let
       # https://wiki.strongswan.org/projects/strongswan/wiki/IpsecConf
       makeSections = type: sections:
@@ -32,8 +41,14 @@ let
       ${caConf}
     '';
 
-  strongswanConf =
-    { setup, connections, ca, secretsFile, managePlugins, enabledPlugins }:
+  strongswanConf = {
+      setup,
+      connections,
+      ca,
+      secretsFile,
+      managePlugins,
+      enabledPlugins,
+    }:
     toFile "strongswan.conf" ''
       charon {
         ${optionalString managePlugins "load_modular = no"}

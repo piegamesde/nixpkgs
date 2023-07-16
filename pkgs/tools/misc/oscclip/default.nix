@@ -1,4 +1,10 @@
-{ fetchFromGitHub, python3Packages, stdenv, writeText, lib }:
+{
+  fetchFromGitHub,
+  python3Packages,
+  stdenv,
+  writeText,
+  lib,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "oscclip";

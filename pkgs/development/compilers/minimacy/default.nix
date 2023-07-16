@@ -1,5 +1,14 @@
-{ lib, stdenv, alsa-lib, fetchFromGitHub, libGL, libGLU, libX11, libXext
-, makeBinaryWrapper }:
+{
+  lib,
+  stdenv,
+  alsa-lib,
+  fetchFromGitHub,
+  libGL,
+  libGLU,
+  libX11,
+  libXext,
+  makeBinaryWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "minimacy";

@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, pkg-config, gtk3, intltool
-, gnome, enchant, isocodes, gsettings-desktop-schemas }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  autoreconfHook,
+  pkg-config,
+  gtk3,
+  intltool,
+  gnome,
+  enchant,
+  isocodes,
+  gsettings-desktop-schemas,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gtkhtml";

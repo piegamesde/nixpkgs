@@ -1,4 +1,7 @@
-{ lib, pkgs }: rec {
+{
+  lib,
+  pkgs,
+}: rec {
 
   /* Every following entry represents a format for program configuration files
      used for `settings`-style options (see https://github.com/NixOS/rfcs/pull/42).
@@ -48,7 +51,10 @@
       in valueType;
 
     generate = name: value:
-      pkgs.callPackage ({ runCommand, jq }:
+      pkgs.callPackage ({
+          runCommand,
+          jq,
+        }:
         runCommand name {
           nativeBuildInputs = [ jq ];
           value = builtins.toJSON value;
@@ -62,7 +68,10 @@
   yaml = { }: {
 
     generate = name: value:
-      pkgs.callPackage ({ runCommand, remarshal }:
+      pkgs.callPackage ({
+          runCommand,
+          remarshal,
+        }:
         runCommand name {
           nativeBuildInputs = [ remarshal ];
           value = builtins.toJSON value;
@@ -90,10 +99,12 @@
 
   ini = {
     # Represents lists as duplicate keys
-    listsAsDuplicateKeys ? false,
-    # Alternative to listsAsDuplicateKeys, converts list to non-list
-    # listToValue :: [IniAtom] -> IniAtom
-    listToValue ? null, ... }@args:
+      listsAsDuplicateKeys ? false,
+      # Alternative to listsAsDuplicateKeys, converts list to non-list
+      # listToValue :: [IniAtom] -> IniAtom
+      listToValue ? null,
+      ...
+    }@args:
     assert !listsAsDuplicateKeys || listToValue == null; {
 
       type = with lib.types;
@@ -135,10 +146,12 @@
 
   keyValue = {
     # Represents lists as duplicate keys
-    listsAsDuplicateKeys ? false,
-    # Alternative to listsAsDuplicateKeys, converts list to non-list
-    # listToValue :: [Atom] -> Atom
-    listToValue ? null, ... }@args:
+      listsAsDuplicateKeys ? false,
+      # Alternative to listsAsDuplicateKeys, converts list to non-list
+      # listToValue :: [Atom] -> Atom
+      listToValue ? null,
+      ...
+    }@args:
     assert !listsAsDuplicateKeys || listToValue == null; {
 
       type = with lib.types;
@@ -176,19 +189,23 @@
 
     };
 
-  gitIni = { listsAsDuplicateKeys ? false, ... }@args: {
+  gitIni = {
+      listsAsDuplicateKeys ? false,
+      ...
+    }@args: {
 
-    type = with lib.types;
-      let
+      type = with lib.types;
+        let
 
-        iniAtom = (ini args).type # attrsOf
-          .functor.wrapped # attrsOf
-          .functor.wrapped;
+          iniAtom = (ini args).type # attrsOf
+            .functor.wrapped # attrsOf
+            .functor.wrapped;
 
-      in attrsOf (attrsOf (either iniAtom (attrsOf iniAtom)));
+        in attrsOf (attrsOf (either iniAtom (attrsOf iniAtom)));
 
-    generate = name: value: pkgs.writeText name (lib.generators.toGitINI value);
-  };
+      generate = name: value:
+        pkgs.writeText name (lib.generators.toGitINI value);
+    };
 
   toml = { }:
     json { } // {
@@ -208,7 +225,10 @@
         in valueType;
 
       generate = name: value:
-        pkgs.callPackage ({ runCommand, remarshal }:
+        pkgs.callPackage ({
+            runCommand,
+            remarshal,
+          }:
           runCommand name {
             nativeBuildInputs = [ remarshal ];
             value = builtins.toJSON value;
@@ -251,7 +271,9 @@
      [List]: <https://hexdocs.pm/elixir/List.html>
      [Tuple]: <https://hexdocs.pm/elixir/Tuple.html>
   */
-  elixirConf = { elixir ? pkgs.elixir }:
+  elixirConf = {
+      elixir ? pkgs.elixir
+    }:
     with lib;
     let
       toElixir = value:
@@ -289,7 +311,10 @@
 
       list = values: "[" + (listContent values) + "]";
 
-      specialType = { value, _elixirType }:
+      specialType = {
+          value,
+          _elixirType,
+        }:
         if _elixirType == "raw" then
           value
         else if _elixirType == "atom" then
@@ -347,7 +372,10 @@
         inherit mkRaw;
 
         # Fetch an environment variable at runtime, with optional fallback
-        mkGetEnv = { envVariable, fallback ? null }:
+        mkGetEnv = {
+            envVariable,
+            fallback ? null
+          }:
           mkRaw "System.get_env(${toElixir envVariable}, ${toElixir fallback})";
 
         /* Make an Elixir atom.
@@ -442,7 +470,11 @@
         };
       in attrsOf valueType;
     generate = name: value:
-      pkgs.callPackage ({ runCommand, python3, black }:
+      pkgs.callPackage ({
+          runCommand,
+          python3,
+          black,
+        }:
         runCommand name {
           nativeBuildInputs = [ python3 black ];
           value = builtins.toJSON value;

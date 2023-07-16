@@ -1,4 +1,11 @@
-{ lib, less, ncurses, buildGoModule, fetchFromGitHub, makeWrapper }:
+{
+  lib,
+  less,
+  ncurses,
+  buildGoModule,
+  fetchFromGitHub,
+  makeWrapper,
+}:
 
 buildGoModule rec {
   pname = "circumflex";

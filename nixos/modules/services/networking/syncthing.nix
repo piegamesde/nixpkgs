@@ -1,4 +1,10 @@
-{ config, lib, options, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -125,54 +131,57 @@ in {
             addresses = [ "tcp://192.168.0.10:51820" ];
           };
         };
-        type = types.attrsOf (types.submodule ({ name, ... }: {
-          options = {
+        type = types.attrsOf (types.submodule ({
+            name,
+            ...
+          }: {
+            options = {
 
-            name = mkOption {
-              type = types.str;
-              default = name;
-              description = lib.mdDoc ''
-                The name of the device.
-              '';
+              name = mkOption {
+                type = types.str;
+                default = name;
+                description = lib.mdDoc ''
+                  The name of the device.
+                '';
+              };
+
+              addresses = mkOption {
+                type = types.listOf types.str;
+                default = [ ];
+                description = lib.mdDoc ''
+                  The addresses used to connect to the device.
+                  If this is left empty, dynamic configuration is attempted.
+                '';
+              };
+
+              id = mkOption {
+                type = types.str;
+                description = mdDoc ''
+                  The device ID. See <https://docs.syncthing.net/dev/device-ids.html>.
+                '';
+              };
+
+              introducer = mkOption {
+                type = types.bool;
+                default = false;
+                description = mdDoc ''
+                  Whether the device should act as an introducer and be allowed
+                  to add folders on this computer.
+                  See <https://docs.syncthing.net/users/introducer.html>.
+                '';
+              };
+
+              autoAcceptFolders = mkOption {
+                type = types.bool;
+                default = false;
+                description = mdDoc ''
+                  Automatically create or share folders that this device advertises at the default path.
+                  See <https://docs.syncthing.net/users/config.html?highlight=autoaccept#config-file-format>.
+                '';
+              };
+
             };
-
-            addresses = mkOption {
-              type = types.listOf types.str;
-              default = [ ];
-              description = lib.mdDoc ''
-                The addresses used to connect to the device.
-                If this is left empty, dynamic configuration is attempted.
-              '';
-            };
-
-            id = mkOption {
-              type = types.str;
-              description = mdDoc ''
-                The device ID. See <https://docs.syncthing.net/dev/device-ids.html>.
-              '';
-            };
-
-            introducer = mkOption {
-              type = types.bool;
-              default = false;
-              description = mdDoc ''
-                Whether the device should act as an introducer and be allowed
-                to add folders on this computer.
-                See <https://docs.syncthing.net/users/introducer.html>.
-              '';
-            };
-
-            autoAcceptFolders = mkOption {
-              type = types.bool;
-              default = false;
-              description = mdDoc ''
-                Automatically create or share folders that this device advertises at the default path.
-                See <https://docs.syncthing.net/users/config.html?highlight=autoaccept#config-file-format>.
-              '';
-            };
-
-          };
-        }));
+          }));
       };
 
       overrideFolders = mkOption {
@@ -203,193 +212,197 @@ in {
             };
           }
         '';
-        type = types.attrsOf (types.submodule ({ name, ... }: {
-          options = {
+        type = types.attrsOf (types.submodule ({
+            name,
+            ...
+          }: {
+            options = {
 
-            enable = mkOption {
-              type = types.bool;
-              default = true;
-              description = lib.mdDoc ''
-                Whether to share this folder.
-                This option is useful when you want to define all folders
-                in one place, but not every machine should share all folders.
-              '';
-            };
-
-            path = mkOption {
-              # TODO for release 23.05: allow relative paths again and set
-              # working directory to cfg.dataDir
-              type = types.str // {
-                check = x:
-                  types.str.check x
-                  && (substring 0 1 x == "/" || substring 0 2 x == "~/");
-                description = types.str.description + " starting with / or ~/";
+              enable = mkOption {
+                type = types.bool;
+                default = true;
+                description = lib.mdDoc ''
+                  Whether to share this folder.
+                  This option is useful when you want to define all folders
+                  in one place, but not every machine should share all folders.
+                '';
               };
-              default = name;
-              description = lib.mdDoc ''
-                The path to the folder which should be shared.
-                Only absolute paths (starting with `/`) and paths relative to
-                the [user](#opt-services.syncthing.user)'s home directory
-                (starting with `~/`) are allowed.
-              '';
-            };
 
-            id = mkOption {
-              type = types.str;
-              default = name;
-              description = lib.mdDoc ''
-                The ID of the folder. Must be the same on all devices.
-              '';
-            };
+              path = mkOption {
+                # TODO for release 23.05: allow relative paths again and set
+                # working directory to cfg.dataDir
+                type = types.str // {
+                  check = x:
+                    types.str.check x
+                    && (substring 0 1 x == "/" || substring 0 2 x == "~/");
+                  description = types.str.description
+                    + " starting with / or ~/";
+                };
+                default = name;
+                description = lib.mdDoc ''
+                  The path to the folder which should be shared.
+                  Only absolute paths (starting with `/`) and paths relative to
+                  the [user](#opt-services.syncthing.user)'s home directory
+                  (starting with `~/`) are allowed.
+                '';
+              };
 
-            label = mkOption {
-              type = types.str;
-              default = name;
-              description = lib.mdDoc ''
-                The label of the folder.
-              '';
-            };
+              id = mkOption {
+                type = types.str;
+                default = name;
+                description = lib.mdDoc ''
+                  The ID of the folder. Must be the same on all devices.
+                '';
+              };
 
-            devices = mkOption {
-              type = types.listOf types.str;
-              default = [ ];
-              description = mdDoc ''
-                The devices this folder should be shared with. Each device must
-                be defined in the [devices](#opt-services.syncthing.devices) option.
-              '';
-            };
+              label = mkOption {
+                type = types.str;
+                default = name;
+                description = lib.mdDoc ''
+                  The label of the folder.
+                '';
+              };
 
-            versioning = mkOption {
-              default = null;
-              description = mdDoc ''
-                How to keep changed/deleted files with Syncthing.
-                There are 4 different types of versioning with different parameters.
-                See <https://docs.syncthing.net/users/versioning.html>.
-              '';
-              example = literalExpression ''
-                [
-                  {
-                    versioning = {
-                      type = "simple";
-                      params.keep = "10";
-                    };
-                  }
-                  {
-                    versioning = {
-                      type = "trashcan";
-                      params.cleanoutDays = "1000";
-                    };
-                  }
-                  {
-                    versioning = {
-                      type = "staggered";
-                      fsPath = "/syncthing/backup";
-                      params = {
-                        cleanInterval = "3600";
-                        maxAge = "31536000";
+              devices = mkOption {
+                type = types.listOf types.str;
+                default = [ ];
+                description = mdDoc ''
+                  The devices this folder should be shared with. Each device must
+                  be defined in the [devices](#opt-services.syncthing.devices) option.
+                '';
+              };
+
+              versioning = mkOption {
+                default = null;
+                description = mdDoc ''
+                  How to keep changed/deleted files with Syncthing.
+                  There are 4 different types of versioning with different parameters.
+                  See <https://docs.syncthing.net/users/versioning.html>.
+                '';
+                example = literalExpression ''
+                  [
+                    {
+                      versioning = {
+                        type = "simple";
+                        params.keep = "10";
+                      };
+                    }
+                    {
+                      versioning = {
+                        type = "trashcan";
+                        params.cleanoutDays = "1000";
+                      };
+                    }
+                    {
+                      versioning = {
+                        type = "staggered";
+                        fsPath = "/syncthing/backup";
+                        params = {
+                          cleanInterval = "3600";
+                          maxAge = "31536000";
+                        };
+                      };
+                    }
+                    {
+                      versioning = {
+                        type = "external";
+                        params.versionsPath = pkgs.writers.writeBash "backup" '''
+                          folderpath="$1"
+                          filepath="$2"
+                          rm -rf "$folderpath/$filepath"
+                        ''';
+                      };
+                    }
+                  ]
+                '';
+                type = with types;
+                  nullOr (submodule {
+                    options = {
+                      type = mkOption {
+                        type =
+                          enum [ "external" "simple" "staggered" "trashcan" ];
+                        description = mdDoc ''
+                          The type of versioning.
+                          See <https://docs.syncthing.net/users/versioning.html>.
+                        '';
+                      };
+                      fsPath = mkOption {
+                        default = "";
+                        type = either str path;
+                        description = mdDoc ''
+                          Path to the versioning folder.
+                          See <https://docs.syncthing.net/users/versioning.html>.
+                        '';
+                      };
+                      params = mkOption {
+                        type = attrsOf (either str path);
+                        description = mdDoc ''
+                          The parameters for versioning. Structure depends on
+                          [versioning.type](#opt-services.syncthing.folders._name_.versioning.type).
+                          See <https://docs.syncthing.net/users/versioning.html>.
+                        '';
                       };
                     };
-                  }
-                  {
-                    versioning = {
-                      type = "external";
-                      params.versionsPath = pkgs.writers.writeBash "backup" '''
-                        folderpath="$1"
-                        filepath="$2"
-                        rm -rf "$folderpath/$filepath"
-                      ''';
-                    };
-                  }
-                ]
-              '';
-              type = with types;
-                nullOr (submodule {
-                  options = {
-                    type = mkOption {
-                      type =
-                        enum [ "external" "simple" "staggered" "trashcan" ];
-                      description = mdDoc ''
-                        The type of versioning.
-                        See <https://docs.syncthing.net/users/versioning.html>.
-                      '';
-                    };
-                    fsPath = mkOption {
-                      default = "";
-                      type = either str path;
-                      description = mdDoc ''
-                        Path to the versioning folder.
-                        See <https://docs.syncthing.net/users/versioning.html>.
-                      '';
-                    };
-                    params = mkOption {
-                      type = attrsOf (either str path);
-                      description = mdDoc ''
-                        The parameters for versioning. Structure depends on
-                        [versioning.type](#opt-services.syncthing.folders._name_.versioning.type).
-                        See <https://docs.syncthing.net/users/versioning.html>.
-                      '';
-                    };
-                  };
-                });
-            };
+                  });
+              };
 
-            rescanInterval = mkOption {
-              type = types.int;
-              default = 3600;
-              description = lib.mdDoc ''
-                How often the folder should be rescanned for changes.
-              '';
-            };
+              rescanInterval = mkOption {
+                type = types.int;
+                default = 3600;
+                description = lib.mdDoc ''
+                  How often the folder should be rescanned for changes.
+                '';
+              };
 
-            type = mkOption {
-              type = types.enum [
-                "sendreceive"
-                "sendonly"
-                "receiveonly"
-                "receiveencrypted"
-              ];
-              default = "sendreceive";
-              description = lib.mdDoc ''
-                Whether to only send changes for this folder, only receive them
-                or both. `receiveencrypted` can be used for untrusted devices. See
-                <https://docs.syncthing.net/users/untrusted.html> for reference.
-              '';
-            };
+              type = mkOption {
+                type = types.enum [
+                  "sendreceive"
+                  "sendonly"
+                  "receiveonly"
+                  "receiveencrypted"
+                ];
+                default = "sendreceive";
+                description = lib.mdDoc ''
+                  Whether to only send changes for this folder, only receive them
+                  or both. `receiveencrypted` can be used for untrusted devices. See
+                  <https://docs.syncthing.net/users/untrusted.html> for reference.
+                '';
+              };
 
-            watch = mkOption {
-              type = types.bool;
-              default = true;
-              description = lib.mdDoc ''
-                Whether the folder should be watched for changes by inotify.
-              '';
-            };
+              watch = mkOption {
+                type = types.bool;
+                default = true;
+                description = lib.mdDoc ''
+                  Whether the folder should be watched for changes by inotify.
+                '';
+              };
 
-            watchDelay = mkOption {
-              type = types.int;
-              default = 10;
-              description = lib.mdDoc ''
-                The delay after an inotify event is triggered.
-              '';
-            };
+              watchDelay = mkOption {
+                type = types.int;
+                default = 10;
+                description = lib.mdDoc ''
+                  The delay after an inotify event is triggered.
+                '';
+              };
 
-            ignorePerms = mkOption {
-              type = types.bool;
-              default = true;
-              description = lib.mdDoc ''
-                Whether to ignore permission changes.
-              '';
-            };
+              ignorePerms = mkOption {
+                type = types.bool;
+                default = true;
+                description = lib.mdDoc ''
+                  Whether to ignore permission changes.
+                '';
+              };
 
-            ignoreDelete = mkOption {
-              type = types.bool;
-              default = false;
-              description = mdDoc ''
-                Whether to skip deleting files that are deleted by peers.
-                See <https://docs.syncthing.net/advanced/folder-ignoredelete.html>.
-              '';
+              ignoreDelete = mkOption {
+                type = types.bool;
+                default = false;
+                description = mdDoc ''
+                  Whether to skip deleting files that are deleted by peers.
+                  See <https://docs.syncthing.net/advanced/folder-ignoredelete.html>.
+                '';
+              };
             };
-          };
-        }));
+          }));
       };
 
       extraOptions = mkOption {

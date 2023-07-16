@@ -1,4 +1,8 @@
-{ buildDunePackage, qcheck-core, alcotest }:
+{
+  buildDunePackage,
+  qcheck-core,
+  alcotest,
+}:
 
 buildDunePackage {
   pname = "qcheck-alcotest";

@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, py, pytest-benchmark
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  py,
+  pytest-benchmark,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "sqlitedict";

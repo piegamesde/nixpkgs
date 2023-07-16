@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, kernel }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  kernel,
+}:
 
 stdenv.mkDerivation rec {
   name = "exfat-nofuse-${version}-${kernel.version}";

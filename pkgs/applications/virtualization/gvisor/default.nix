@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, iproute2, iptables, makeWrapper, procps
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  iproute2,
+  iptables,
+  makeWrapper,
+  procps,
 }:
 
 buildGoModule rec {

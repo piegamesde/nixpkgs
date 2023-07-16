@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles, pandoc, go }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  pandoc,
+  go,
+}:
 
 buildGoModule rec {
   pname = "checkmake";

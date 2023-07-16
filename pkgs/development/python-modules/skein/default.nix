@@ -1,5 +1,17 @@
-{ buildPythonPackage, callPackage, fetchPypi, isPy27, lib, cryptography, grpcio
-, pyyaml, grpcio-tools, hadoop, pytestCheckHook, python }:
+{
+  buildPythonPackage,
+  callPackage,
+  fetchPypi,
+  isPy27,
+  lib,
+  cryptography,
+  grpcio,
+  pyyaml,
+  grpcio-tools,
+  hadoop,
+  pytestCheckHook,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "skein";

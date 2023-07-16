@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, autoreconfHook, pkg-config, libnfc, openssl
-, libobjc ? null, IOKit, Security }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  libnfc,
+  openssl,
+  libobjc ? null,
+  IOKit,
+  Security,
+}:
 
 stdenv.mkDerivation {
   pname = "libfreefare";

@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, stdenv, python3Packages }:
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "barman";

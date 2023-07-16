@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, capstone, freetype, glfw, dbus
-, hicolor-icon-theme, tbb, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  capstone,
+  freetype,
+  glfw,
+  dbus,
+  hicolor-icon-theme,
+  tbb,
+  darwin,
+}:
 
 let disableLTO = stdenv.cc.isClang && stdenv.isDarwin; # workaround issue #19098
 in stdenv.mkDerivation rec {

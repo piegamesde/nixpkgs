@@ -1,7 +1,29 @@
-{ stdenv, lib, fetchurl, pkg-config, meson, ninja, gettext, gnupg, p11-kit, glib
-, libgcrypt, libtasn1, gtk3, pango, libsecret, openssh, systemd
-, gobject-introspection, wrapGAppsHook, gi-docgen, vala, gnome, python3
-, shared-mime-info }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  meson,
+  ninja,
+  gettext,
+  gnupg,
+  p11-kit,
+  glib,
+  libgcrypt,
+  libtasn1,
+  gtk3,
+  pango,
+  libsecret,
+  openssh,
+  systemd,
+  gobject-introspection,
+  wrapGAppsHook,
+  gi-docgen,
+  vala,
+  gnome,
+  python3,
+  shared-mime-info,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gcr";

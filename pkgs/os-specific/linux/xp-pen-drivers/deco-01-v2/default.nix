@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchzip, libusb1, glibc, libGL, xorg, qtx11extras
-, wrapQtAppsHook, autoPatchelfHook, libX11, libXtst, libXi, libXrandr
-, libXinerama }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  libusb1,
+  glibc,
+  libGL,
+  xorg,
+  qtx11extras,
+  wrapQtAppsHook,
+  autoPatchelfHook,
+  libX11,
+  libXtst,
+  libXi,
+  libXrandr,
+  libXinerama,
+}:
 
 let dataDir = "var/lib/xppend1v2";
 in stdenv.mkDerivation rec {

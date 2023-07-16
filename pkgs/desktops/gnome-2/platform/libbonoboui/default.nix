@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, bison, pkg-config, popt, libxml2, gtk2, libtool
-, intltool, libbonobo, GConf, libgnomecanvas, libgnome, libglade }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bison,
+  pkg-config,
+  popt,
+  libxml2,
+  gtk2,
+  libtool,
+  intltool,
+  libbonobo,
+  GConf,
+  libgnomecanvas,
+  libgnome,
+  libglade,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libbonoboui";

@@ -1,4 +1,9 @@
-{ appleDerivation', stdenvNoCC, ed, unifdef }:
+{
+  appleDerivation',
+  stdenvNoCC,
+  ed,
+  unifdef,
+}:
 
 appleDerivation' stdenvNoCC {
   nativeBuildInputs = [ ed unifdef ];

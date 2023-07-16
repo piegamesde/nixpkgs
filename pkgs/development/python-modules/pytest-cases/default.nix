@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, makefun, decopatch, pythonOlder, pytest
-, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  makefun,
+  decopatch,
+  pythonOlder,
+  pytest,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-cases";

@@ -1,7 +1,28 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, fetchpatch, pkg-config
-, cython, docutils, kivy-garden, mesa, mtdev, SDL2, SDL2_image, SDL2_ttf
-, SDL2_mixer, ApplicationServices, AVFoundation, libcxx, withGstreamer ? true
-, gst_all_1, pillow, requests, pygments }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  cython,
+  docutils,
+  kivy-garden,
+  mesa,
+  mtdev,
+  SDL2,
+  SDL2_image,
+  SDL2_ttf,
+  SDL2_mixer,
+  ApplicationServices,
+  AVFoundation,
+  libcxx,
+  withGstreamer ? true,
+  gst_all_1,
+  pillow,
+  requests,
+  pygments,
+}:
 
 buildPythonPackage rec {
   pname = "Kivy";

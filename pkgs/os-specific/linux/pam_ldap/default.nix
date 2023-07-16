@@ -1,4 +1,10 @@
-{ stdenv, fetchurl, pam, openldap, perl }:
+{
+  stdenv,
+  fetchurl,
+  pam,
+  openldap,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pam_ldap";

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, httpbin, pytest, pytestCheckHook
-, pythonOlder, requests, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  httpbin,
+  pytest,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-httpbin";

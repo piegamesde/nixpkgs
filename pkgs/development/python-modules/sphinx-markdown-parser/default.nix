@@ -1,5 +1,18 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, sphinx, markdown, commonmark
-, recommonmark, pydash, pyyaml, unify, yapf, python }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  sphinx,
+  markdown,
+  commonmark,
+  recommonmark,
+  pydash,
+  pyyaml,
+  unify,
+  yapf,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "sphinx-markdown-parser";

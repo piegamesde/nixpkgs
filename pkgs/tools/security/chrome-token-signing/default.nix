@@ -1,4 +1,12 @@
-{ lib, mkDerivation, fetchFromGitHub, qmake, pcsclite, pkg-config, opensc }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  qmake,
+  pcsclite,
+  pkg-config,
+  opensc,
+}:
 
 mkDerivation rec {
   pname = "chrome-token-signing";

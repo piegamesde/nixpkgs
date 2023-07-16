@@ -1,4 +1,11 @@
-{ pkgs, nodejs, lib, python3Packages, fetchFromGitHub, nixosTests }:
+{
+  pkgs,
+  nodejs,
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  nixosTests,
+}:
 let
   nodeEnv = import ./node-env.nix {
     inherit (pkgs) stdenv lib python2 runCommand writeTextFile;

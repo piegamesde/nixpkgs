@@ -1,5 +1,15 @@
-{ lib, stdenv, makeWrapper, runCommand, wrapBintoolsWith, wrapCCWith
-, autoPatchelfHook, buildAndroidndk, androidndk, targetAndroidndkPkgs }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  runCommand,
+  wrapBintoolsWith,
+  wrapCCWith,
+  autoPatchelfHook,
+  buildAndroidndk,
+  androidndk,
+  targetAndroidndkPkgs,
+}:
 
 let
   # Mapping from a platform to information needed to unpack NDK stuff for that
@@ -11,7 +21,10 @@ let
   #
   # FIXME:
   # There's some dragons here. Build host and target concepts are being mixed up.
-  ndkInfoFun = { config, ... }:
+  ndkInfoFun = {
+      config,
+      ...
+    }:
     {
       x86_64-apple-darwin = { double = "darwin-x86_64"; };
       x86_64-unknown-linux-gnu = { double = "linux-x86_64"; };

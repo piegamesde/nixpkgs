@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, kubectl, stdenv }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  kubectl,
+  stdenv,
+}:
 
 buildGoModule rec {
   pname = "gsctl";

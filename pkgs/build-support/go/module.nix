@@ -1,54 +1,82 @@
-{ go, cacert, git, lib, stdenv }:
+{
+  go,
+  cacert,
+  git,
+  lib,
+  stdenv,
+}:
 
-{ name ? "${args'.pname}-${args'.version}", src, buildInputs ? [ ]
-, nativeBuildInputs ? [ ], passthru ? { }, patches ? [ ]
+{
+  name ? "${args'.pname}-${args'.version}",
+  src,
+  buildInputs ? [ ],
+  nativeBuildInputs ? [ ],
+  passthru ? { },
+  patches ? [ ]
 
-  # Go linker flags, passed to go via -ldflags
-, ldflags ? [ ]
+    # Go linker flags, passed to go via -ldflags
+  ,
+  ldflags ? [ ]
 
-  # Go tags, passed to go via -tag
-, tags ? [ ]
+    # Go tags, passed to go via -tag
+  ,
+  tags ? [ ]
 
-  # A function to override the go-modules derivation
-, overrideModAttrs ? (_oldAttrs: { })
+    # A function to override the go-modules derivation
+  ,
+  overrideModAttrs ? (_oldAttrs: { })
 
-# path to go.mod and go.sum directory
-, modRoot ? "./"
+  # path to go.mod and go.sum directory
+  ,
+  modRoot ? "./"
 
-  # vendorHash is the SRI hash of the vendored dependencies
-  #
-  # if vendorHash is null, then we won't fetch any dependencies and
-  # rely on the vendor folder within the source.
-, vendorHash ? "_unset"
-  # same as vendorHash, but outputHashAlgo is hardcoded to sha256
-  # so regular base32 sha256 hashes work
-, vendorSha256 ? "_unset"
-  # Whether to delete the vendor folder supplied with the source.
-, deleteVendor ? false
-  # Whether to fetch (go mod download) and proxy the vendor directory.
-  # This is useful if your code depends on c code and go mod tidy does not
-  # include the needed sources to build or if any dependency has case-insensitive
-  # conflicts which will produce platform dependant `vendorHash` checksums.
-, proxyVendor ? false
+    # vendorHash is the SRI hash of the vendored dependencies
+    #
+    # if vendorHash is null, then we won't fetch any dependencies and
+    # rely on the vendor folder within the source.
+  ,
+  vendorHash ? "_unset"
+    # same as vendorHash, but outputHashAlgo is hardcoded to sha256
+    # so regular base32 sha256 hashes work
+  ,
+  vendorSha256 ? "_unset"
+    # Whether to delete the vendor folder supplied with the source.
+  ,
+  deleteVendor ? false
+    # Whether to fetch (go mod download) and proxy the vendor directory.
+    # This is useful if your code depends on c code and go mod tidy does not
+    # include the needed sources to build or if any dependency has case-insensitive
+    # conflicts which will produce platform dependant `vendorHash` checksums.
+  ,
+  proxyVendor ? false
 
-  # We want parallel builds by default
-, enableParallelBuilding ? true
+    # We want parallel builds by default
+  ,
+  enableParallelBuilding ? true
 
-  # Do not enable this without good reason
-  # IE: programs coupled with the compiler
-, allowGoReference ? false
+    # Do not enable this without good reason
+    # IE: programs coupled with the compiler
+  ,
+  allowGoReference ? false
 
-, CGO_ENABLED ? go.CGO_ENABLED
+  ,
+  CGO_ENABLED ? go.CGO_ENABLED
 
-, meta ? { }
+  ,
+  meta ? { }
 
-  # Not needed with buildGoModule
-, goPackagePath ? ""
+    # Not needed with buildGoModule
+  ,
+  goPackagePath ? ""
 
-  # needed for buildFlags{,Array} warning
-, buildFlags ? "", buildFlagsArray ? ""
+    # needed for buildFlags{,Array} warning
+  ,
+  buildFlags ? "",
+  buildFlagsArray ? ""
 
-, ... }@args':
+  ,
+  ...
+}@args':
 
 with builtins;
 

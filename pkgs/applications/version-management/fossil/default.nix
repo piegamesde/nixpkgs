@@ -1,6 +1,21 @@
-{ lib, stdenv, installShellFiles, tcl, libiconv, fetchurl, buildPackages, zlib
-, openssl, readline, withInternalSqlite ? true, sqlite, ed, which, tcllib
-, withJson ? true }:
+{
+  lib,
+  stdenv,
+  installShellFiles,
+  tcl,
+  libiconv,
+  fetchurl,
+  buildPackages,
+  zlib,
+  openssl,
+  readline,
+  withInternalSqlite ? true,
+  sqlite,
+  ed,
+  which,
+  tcllib,
+  withJson ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "fossil";

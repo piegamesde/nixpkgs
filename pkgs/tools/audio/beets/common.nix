@@ -1,20 +1,49 @@
-{ stdenv, fetchpatch, bashInteractive, diffPlugins, glibcLocales
-, gobject-introspection, gst_all_1, lib, python3Packages, sphinxHook
-, runtimeShell, writeScript
+{
+  stdenv,
+  fetchpatch,
+  bashInteractive,
+  diffPlugins,
+  glibcLocales,
+  gobject-introspection,
+  gst_all_1,
+  lib,
+  python3Packages,
+  sphinxHook,
+  runtimeShell,
+  writeScript
 
-# plugin deps
-, aacgain, essentia-extractor, ffmpeg, flac, imagemagick, keyfinder-cli, mp3gain
-, mp3val
+  # plugin deps
+  ,
+  aacgain,
+  essentia-extractor,
+  ffmpeg,
+  flac,
+  imagemagick,
+  keyfinder-cli,
+  mp3gain,
+  mp3val
 
-, src, version, pluginOverrides ? { }, disableAllPlugins ? false
+  ,
+  src,
+  version,
+  pluginOverrides ? { },
+  disableAllPlugins ? false
 
-  # tests
-, runCommand, beets }@inputs:
+    # tests
+  ,
+  runCommand,
+  beets,
+}@inputs:
 let
   inherit (lib) attrNames attrValues concatMap;
 
-  mkPlugin = { enable ? !disableAllPlugins, builtin ? false
-    , propagatedBuildInputs ? [ ], testPaths ? [ ], wrapperBins ? [ ] }: {
+  mkPlugin = {
+      enable ? !disableAllPlugins,
+      builtin ? false,
+      propagatedBuildInputs ? [ ],
+      testPaths ? [ ],
+      wrapperBins ? [ ]
+    }: {
       inherit enable builtin propagatedBuildInputs testPaths wrapperBins;
     };
 

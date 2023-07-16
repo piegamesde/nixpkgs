@@ -1,6 +1,30 @@
-{ lib, stdenv, fetchurl, erlang, elixir, python3, libxml2, libxslt, xmlto
-, docbook_xml_dtd_45, docbook_xsl, zip, unzip, rsync, getconf, socat, procps
-, coreutils, gnused, systemd, glibcLocales, AppKit, Carbon, Cocoa, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  erlang,
+  elixir,
+  python3,
+  libxml2,
+  libxslt,
+  xmlto,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+  zip,
+  unzip,
+  rsync,
+  getconf,
+  socat,
+  procps,
+  coreutils,
+  gnused,
+  systemd,
+  glibcLocales,
+  AppKit,
+  Carbon,
+  Cocoa,
+  nixosTests,
+}:
 
 let
   runtimePath = lib.makeBinPath ([

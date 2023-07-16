@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, dnspython, fetchFromGitHub, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  dnspython,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "srvlookup";

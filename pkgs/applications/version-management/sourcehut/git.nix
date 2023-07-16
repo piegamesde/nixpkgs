@@ -1,5 +1,14 @@
-{ lib, fetchFromSourcehut, buildGoModule, buildPythonPackage, python, srht
-, pygit2, scmsrht, unzip }:
+{
+  lib,
+  fetchFromSourcehut,
+  buildGoModule,
+  buildPythonPackage,
+  python,
+  srht,
+  pygit2,
+  scmsrht,
+  unzip,
+}:
 let
   version = "0.78.20";
 

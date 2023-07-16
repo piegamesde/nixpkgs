@@ -1,5 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, cmake, git, gfortran, mpi, blas, liblapack
-, pkg-config, libGL, libGLU, opencascade, libsForQt5, tbb, vtkWithQt5 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  git,
+  gfortran,
+  mpi,
+  blas,
+  liblapack,
+  pkg-config,
+  libGL,
+  libGLU,
+  opencascade,
+  libsForQt5,
+  tbb,
+  vtkWithQt5,
+}:
 
 stdenv.mkDerivation rec {
   pname = "elmerfem";

@@ -1,6 +1,17 @@
-{ lib, buildPythonPackage, django, django-stubs-ext, fetchPypi, mypy
-, pytestCheckHook, pythonOlder, tomli, types-pytz, types-pyyaml
-, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  django,
+  django-stubs-ext,
+  fetchPypi,
+  mypy,
+  pytestCheckHook,
+  pythonOlder,
+  tomli,
+  types-pytz,
+  types-pyyaml,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "django-stubs";

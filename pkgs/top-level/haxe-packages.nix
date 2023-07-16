@@ -1,4 +1,13 @@
-{ stdenv, lib, fetchzip, fetchFromGitHub, haxe, neko, jdk, mono }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  fetchFromGitHub,
+  haxe,
+  neko,
+  jdk,
+  mono,
+}:
 
 let
   withCommas = lib.replaceStrings [ "." ] [ "," ];
@@ -11,15 +20,25 @@ let
     export HAXELIB_PATH="$HAXELIB_PATH:$devrepo"
   '';
 
-  installLibHaxe = { libname, version, files ? "*" }: ''
-    mkdir -p "$out/lib/haxe/${withCommas libname}/${withCommas version}"
-    echo -n "${version}" > $out/lib/haxe/${withCommas libname}/.current
-    cp -dpR ${files} "$out/lib/haxe/${withCommas libname}/${
-      withCommas version
-    }/"
-  '';
+  installLibHaxe = {
+      libname,
+      version,
+      files ? "*"
+    }: ''
+      mkdir -p "$out/lib/haxe/${withCommas libname}/${withCommas version}"
+      echo -n "${version}" > $out/lib/haxe/${withCommas libname}/.current
+      cp -dpR ${files} "$out/lib/haxe/${withCommas libname}/${
+        withCommas version
+      }/"
+    '';
 
-  buildHaxeLib = { libname, version, sha256, meta, ... }@attrs:
+  buildHaxeLib = {
+      libname,
+      version,
+      sha256,
+      meta,
+      ...
+    }@attrs:
     stdenv.mkDerivation (attrs // {
       name = "${libname}-${version}";
 

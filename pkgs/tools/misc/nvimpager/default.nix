@@ -1,5 +1,14 @@
-{ fetchFromGitHub, lib, stdenv, ncurses, neovim, procps, scdoc, lua51Packages
-, util-linux }:
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  ncurses,
+  neovim,
+  procps,
+  scdoc,
+  lua51Packages,
+  util-linux,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nvimpager";

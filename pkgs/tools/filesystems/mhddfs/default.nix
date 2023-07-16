@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, fuse, pkg-config, attr, uthash }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fuse,
+  pkg-config,
+  attr,
+  uthash,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mhddfs";

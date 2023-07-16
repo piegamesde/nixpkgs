@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, e2fsprogs }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  e2fsprogs,
+}:
 
 stdenv.mkDerivation rec {
   pname = "e2tools";

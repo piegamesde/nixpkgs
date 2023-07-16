@@ -1,13 +1,22 @@
-{ lib, buildPythonPackage, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub
 
-# build-system
-, cython
+  # build-system
+  ,
+  cython
 
-# optional
-, numpy
+  # optional
+  ,
+  numpy
 
-# tests
-, hypothesis, pytest-cov, pytestCheckHook }:
+  # tests
+  ,
+  hypothesis,
+  pytest-cov,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "ndindex";

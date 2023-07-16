@@ -1,4 +1,11 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, perl, Security ? null }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  perl,
+  Security ? null
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "kubectl-view-allocations";

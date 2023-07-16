@@ -1,5 +1,16 @@
-{ glib, haskellPackages, lib, nodePackages, perlPackages, pypy2Packages
-, python3Packages, pypy3Packages, runCommand, writers, writeText }:
+{
+  glib,
+  haskellPackages,
+  lib,
+  nodePackages,
+  perlPackages,
+  pypy2Packages,
+  python3Packages,
+  pypy3Packages,
+  runCommand,
+  writers,
+  writeText,
+}:
 with writers;
 let
 
@@ -173,7 +184,9 @@ let
     '';
 
     fsharp = makeFSharpWriter {
-      libraries = { fetchNuGet }:
+      libraries = {
+          fetchNuGet,
+        }:
         [
           (fetchNuGet {
             pname = "FSharp.SystemTextJson";

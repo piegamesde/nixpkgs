@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, makeWrapper, autoPatchelfHook, fixDarwinDylibNames
-, zlib, krb5, openssl, icu, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  autoPatchelfHook,
+  fixDarwinDylibNames,
+  zlib,
+  krb5,
+  openssl,
+  icu,
+  nixosTests,
+}:
 
 let
   os = if stdenv.isDarwin then "osx" else "linux";

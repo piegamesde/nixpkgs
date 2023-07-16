@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, qmake, vulkan-loader, wayland, wrapQtAppsHook
-, withX11 ? true, qtx11extras }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qmake,
+  vulkan-loader,
+  wayland,
+  wrapQtAppsHook,
+  withX11 ? true,
+  qtx11extras,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vulkan-caps-viewer";

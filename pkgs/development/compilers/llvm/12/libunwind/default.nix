@@ -1,5 +1,14 @@
-{ lib, stdenv, llvm_meta, version, fetch, libcxx, llvm, cmake
-, enableShared ? !stdenv.hostPlatform.isStatic }:
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  version,
+  fetch,
+  libcxx,
+  llvm,
+  cmake,
+  enableShared ? !stdenv.hostPlatform.isStatic
+}:
 
 stdenv.mkDerivation rec {
   pname = "libunwind";

@@ -1,4 +1,11 @@
-{ lib, stdenv, nix, jq, fetchFromGitHub, makeWrapper }:
+{
+  lib,
+  stdenv,
+  nix,
+  jq,
+  fetchFromGitHub,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nixos-shell";

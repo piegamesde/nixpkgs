@@ -1,4 +1,11 @@
-{ rustPlatform, lib, fetchFromSourcehut, pam, scdoc, installShellFiles }:
+{
+  rustPlatform,
+  lib,
+  fetchFromSourcehut,
+  pam,
+  scdoc,
+  installShellFiles,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "greetd";

@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, libcommuni, qmake, qtbase, wrapQtAppsHook }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  libcommuni,
+  qmake,
+  qtbase,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "communi";

@@ -1,5 +1,14 @@
 # Based on https://github.com/justinwoo/easy-purescript-nix/blob/master/psc-package-simple.nix
-{ stdenv, lib, fetchurl, gmp, zlib, libiconv, darwin, installShellFiles }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  gmp,
+  zlib,
+  libiconv,
+  darwin,
+  installShellFiles,
+}:
 
 let dynamic-linker = stdenv.cc.bintools.dynamicLinker;
 

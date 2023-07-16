@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, which, ocaml, findlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  which,
+  ocaml,
+  findlib,
+}:
 
 if lib.versionOlder ocaml.version "4.10" then
   throw "camlpdf is not available for OCaml ${ocaml.version}"

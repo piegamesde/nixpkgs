@@ -1,5 +1,13 @@
-{ buildPythonPackage, fetchFromGitHub, fetchpatch, lib, poetry-core, netaddr
-, six, unittestCheckHook }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  lib,
+  poetry-core,
+  netaddr,
+  six,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pyrad";

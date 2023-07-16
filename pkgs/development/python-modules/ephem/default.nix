@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, glibcLocales, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  glibcLocales,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "ephem";

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, ocaml, findlib, ocamlbuild, ocamlmod, ocamlify }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  ocamlmod,
+  ocamlify,
+}:
 
 stdenv.mkDerivation {
   version = "0.4.11";

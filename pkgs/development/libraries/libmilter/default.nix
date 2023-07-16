@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, m4, fixDarwinDylibNames }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  m4,
+  fixDarwinDylibNames,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libmilter";

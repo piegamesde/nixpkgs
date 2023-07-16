@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, jsonschema, pythonOlder, rfc3987
-, ruamel-yaml, setuptools-scm, libfdt }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jsonschema,
+  pythonOlder,
+  rfc3987,
+  ruamel-yaml,
+  setuptools-scm,
+  libfdt,
+}:
 
 buildPythonPackage rec {
   pname = "dtschema";

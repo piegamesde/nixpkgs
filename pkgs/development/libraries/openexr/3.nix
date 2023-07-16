@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, zlib, cmake, imath }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  zlib,
+  cmake,
+  imath,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openexr";

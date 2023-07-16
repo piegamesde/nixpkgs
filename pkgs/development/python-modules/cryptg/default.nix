@@ -1,5 +1,13 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder, rustPlatform
-, setuptools-rust, libiconv }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  rustPlatform,
+  setuptools-rust,
+  libiconv,
+}:
 
 buildPythonPackage rec {
   pname = "cryptg";

@@ -1,6 +1,20 @@
-{ lib, fetchurl, buildDunePackage, ocaml, dune-configurator, pkg-config, optint
-, fmt, rresult, bos, fpath, astring, alcotest, withFreestanding ? false
-, ocaml-freestanding }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  ocaml,
+  dune-configurator,
+  pkg-config,
+  optint,
+  fmt,
+  rresult,
+  bos,
+  fpath,
+  astring,
+  alcotest,
+  withFreestanding ? false,
+  ocaml-freestanding,
+}:
 
 buildDunePackage rec {
   version = "0.4.0";

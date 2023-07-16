@@ -1,6 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config
-# The two audio backends:
-, SDL2, jack2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config
+  # The two audio backends:
+  ,
+  SDL2,
+  jack2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "audiality2";

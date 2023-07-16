@@ -1,5 +1,12 @@
-{ lib, fetchFromGitHub, rustPlatform, stdenv, Security, installShellFiles
-, nix-update-script }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  stdenv,
+  Security,
+  installShellFiles,
+  nix-update-script,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rustic-rs";

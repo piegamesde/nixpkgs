@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, curl, libxml2, pam
-, sblim-sfcc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  curl,
+  libxml2,
+  pam,
+  sblim-sfcc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openwsman";

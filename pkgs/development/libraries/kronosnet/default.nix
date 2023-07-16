@@ -1,5 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libqb, libxml2
-, libnl, lksctp-tools, nss, openssl, bzip2, lzo, lz4, xz, zlib, zstd, doxygen }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  libqb,
+  libxml2,
+  libnl,
+  lksctp-tools,
+  nss,
+  openssl,
+  bzip2,
+  lzo,
+  lz4,
+  xz,
+  zlib,
+  zstd,
+  doxygen,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kronosnet";

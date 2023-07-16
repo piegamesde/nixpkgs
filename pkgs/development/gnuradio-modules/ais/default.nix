@@ -1,5 +1,21 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, pkg-config, python, boost, cppunit
-, logLib, osmosdr, gmp, mpir, fftwFloat, icu, gnuradio, thrift }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  python,
+  boost,
+  cppunit,
+  logLib,
+  osmosdr,
+  gmp,
+  mpir,
+  fftwFloat,
+  icu,
+  gnuradio,
+  thrift,
+}:
 
 mkDerivation rec {
   pname = "gr-ais";

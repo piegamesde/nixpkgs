@@ -1,5 +1,22 @@
-{ lib, stdenv, fetchurl, pkg-config, sphinx, zstd, acl, attr, e2fsprogs, libuuid
-, lzo, udev, zlib, runCommand, btrfs-progs, gitUpdater, udevSupport ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  sphinx,
+  zstd,
+  acl,
+  attr,
+  e2fsprogs,
+  libuuid,
+  lzo,
+  udev,
+  zlib,
+  runCommand,
+  btrfs-progs,
+  gitUpdater,
+  udevSupport ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "btrfs-progs";

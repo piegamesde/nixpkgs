@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, blas, lapack, gfortran, fixDarwinDylibNames }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  blas,
+  lapack,
+  gfortran,
+  fixDarwinDylibNames,
+}:
 
 assert (!blas.isILP64) && (!lapack.isILP64);
 

@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, bzip2, libxml2, libzip, boost
-, lua, luabind, tbb, expat }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  bzip2,
+  libxml2,
+  libzip,
+  boost,
+  lua,
+  luabind,
+  tbb,
+  expat,
+}:
 
 stdenv.mkDerivation rec {
   pname = "osrm-backend";

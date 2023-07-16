@@ -1,5 +1,16 @@
-{ lib, apptools, buildPythonPackage, fetchPypi, fetchpatch, ipython
-, pytestCheckHook, pythonAtLeast, pythonOlder, setuptools, traits }:
+{
+  lib,
+  apptools,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  ipython,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+  setuptools,
+  traits,
+}:
 
 buildPythonPackage rec {
   pname = "envisage";

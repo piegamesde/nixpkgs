@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, gtk2, lua, perl, python3Packages
-, pciutils, dbus-glib, libcanberra-gtk2, libproxy, enchant2, libnotify, openssl
-, isocodes, desktop-file-utils, meson, ninja, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  gtk2,
+  lua,
+  perl,
+  python3Packages,
+  pciutils,
+  dbus-glib,
+  libcanberra-gtk2,
+  libproxy,
+  enchant2,
+  libnotify,
+  openssl,
+  isocodes,
+  desktop-file-utils,
+  meson,
+  ninja,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hexchat";

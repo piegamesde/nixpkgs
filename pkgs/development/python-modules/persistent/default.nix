@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, cffi, fetchPypi, zope_interface, sphinx, manuel
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  cffi,
+  fetchPypi,
+  zope_interface,
+  sphinx,
+  manuel,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "persistent";

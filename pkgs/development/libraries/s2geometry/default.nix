@@ -1,4 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, cmake, pkg-config, openssl, gtest }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  openssl,
+  gtest,
+}:
 
 stdenv.mkDerivation rec {
   pname = "s2geometry";

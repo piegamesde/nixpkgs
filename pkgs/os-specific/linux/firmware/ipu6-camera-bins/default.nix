@@ -1,9 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, autoPatchelfHook, expat, zlib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoPatchelfHook,
+  expat,
+  zlib
 
-# Pick one of
-# - ipu6 (Tiger Lake)
-# - ipu6ep (Alder Lake)
-, ipuVersion ? "ipu6" }:
+  # Pick one of
+  # - ipu6 (Tiger Lake)
+  # - ipu6ep (Alder Lake)
+  ,
+  ipuVersion ? "ipu6"
+}:
 
 stdenv.mkDerivation {
   pname = "${ipuVersion}-camera-bin";

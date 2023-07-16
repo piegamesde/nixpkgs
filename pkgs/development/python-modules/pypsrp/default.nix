@@ -1,6 +1,24 @@
-{ lib, asyncssh, buildPythonPackage, cryptography, fetchFromGitHub, gssapi
-, httpcore, httpx, krb5, psrpcore, psutil, pyspnego, pytest-mock
-, pytestCheckHook, pythonOlder, pyyaml, requests, requests-credssp, xmldiff }:
+{
+  lib,
+  asyncssh,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  gssapi,
+  httpcore,
+  httpx,
+  krb5,
+  psrpcore,
+  psutil,
+  pyspnego,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  requests,
+  requests-credssp,
+  xmldiff,
+}:
 
 buildPythonPackage rec {
   pname = "pypsrp";

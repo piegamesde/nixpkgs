@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pretend, pyparsing, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pretend,
+  pyparsing,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "packvers";

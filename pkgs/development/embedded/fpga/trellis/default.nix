@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, python3, boost, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  boost,
+  cmake,
+}:
 
 let
   rev = "488f4e71073062de314c55a037ede7cf03a3324c";

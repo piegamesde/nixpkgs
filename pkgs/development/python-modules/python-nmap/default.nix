@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, nmap }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nmap,
+}:
 
 buildPythonPackage rec {
   pname = "python-nmap";

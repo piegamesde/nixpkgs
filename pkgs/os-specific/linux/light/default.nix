@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, coreutils }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  coreutils,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.2.2";

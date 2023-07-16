@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, cyrus_sasl, libevent, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cyrus_sasl,
+  libevent,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.6.19";

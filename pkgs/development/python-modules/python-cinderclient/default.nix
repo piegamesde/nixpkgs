@@ -1,6 +1,20 @@
-{ lib, buildPythonPackage, fetchPypi, ddt, keystoneauth1, oslo-i18n
-, oslo-serialization, oslo-utils, pbr, requests, prettytable, requests-mock
-, simplejson, stestr, stevedore }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  ddt,
+  keystoneauth1,
+  oslo-i18n,
+  oslo-serialization,
+  oslo-utils,
+  pbr,
+  requests,
+  prettytable,
+  requests-mock,
+  simplejson,
+  stestr,
+  stevedore,
+}:
 
 buildPythonPackage rec {
   pname = "python-cinderclient";

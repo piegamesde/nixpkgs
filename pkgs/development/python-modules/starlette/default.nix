@@ -1,11 +1,27 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, hatchling
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatchling
 
-# runtime
-, ApplicationServices, anyio, itsdangerous, jinja2, python-multipart, pyyaml
-, httpx, typing-extensions
+  # runtime
+  ,
+  ApplicationServices,
+  anyio,
+  itsdangerous,
+  jinja2,
+  python-multipart,
+  pyyaml,
+  httpx,
+  typing-extensions
 
-# tests
-, pytestCheckHook, pythonOlder, trio }:
+  # tests
+  ,
+  pytestCheckHook,
+  pythonOlder,
+  trio,
+}:
 
 buildPythonPackage rec {
   pname = "starlette";

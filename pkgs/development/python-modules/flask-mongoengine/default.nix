@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, email-validator, fetchFromGitHub, flask, flask-wtf
-, markupsafe, mongoengine, pythonOlder, setuptools, setuptools-scm
-, typing-extensions, wtforms }:
+{
+  lib,
+  buildPythonPackage,
+  email-validator,
+  fetchFromGitHub,
+  flask,
+  flask-wtf,
+  markupsafe,
+  mongoengine,
+  pythonOlder,
+  setuptools,
+  setuptools-scm,
+  typing-extensions,
+  wtforms,
+}:
 
 buildPythonPackage rec {
   pname = "flask-mongoengine";

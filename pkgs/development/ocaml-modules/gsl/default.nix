@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, buildDunePackage, pkg-config, gsl
-, darwin, dune-configurator }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  buildDunePackage,
+  pkg-config,
+  gsl,
+  darwin,
+  dune-configurator,
+}:
 
 buildDunePackage rec {
   pname = "gsl";

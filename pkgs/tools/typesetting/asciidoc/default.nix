@@ -1,26 +1,70 @@
-{ fetchurl, lib, stdenv, python3, fetchFromGitHub, autoreconfHook
-, installShellFiles, enableStandardFeatures ? false, sourceHighlight, highlight
-, pygments, graphviz, texlive, dblatexFull, libxslt, w3m, lynx, imagemagick
-, lilypond, libxml2, docbook_xml_dtd_45, docbook_xsl_ns, docbook_xsl, fop
-, epubcheck, gnused, coreutils
+{
+  fetchurl,
+  lib,
+  stdenv,
+  python3,
+  fetchFromGitHub,
+  autoreconfHook,
+  installShellFiles,
+  enableStandardFeatures ? false,
+  sourceHighlight,
+  highlight,
+  pygments,
+  graphviz,
+  texlive,
+  dblatexFull,
+  libxslt,
+  w3m,
+  lynx,
+  imagemagick,
+  lilypond,
+  libxml2,
+  docbook_xml_dtd_45,
+  docbook_xsl_ns,
+  docbook_xsl,
+  fop,
+  epubcheck,
+  gnused,
+  coreutils
 
-# if true, enable all the below filters and backends
-, enableExtraPlugins ? false
+  # if true, enable all the below filters and backends
+  ,
+  enableExtraPlugins ? false
 
-  # unzip is needed to extract filter and backend plugins
-, unzip
-# filters
-, enableDitaaFilter ? false, jre, enableMscgenFilter ? false, mscgen
-, enableDiagFilter ? false, blockdiag, seqdiag, actdiag, nwdiag
-, enableQrcodeFilter ? false, qrencode, enableMatplotlibFilter ? false
-, matplotlib, numpy, enableAafigureFilter ? false, aafigure, recursivePthLoader
-# backends
-, enableDeckjsBackend ? false, enableOdfBackend ? false
+    # unzip is needed to extract filter and backend plugins
+  ,
+  unzip
+  # filters
+  ,
+  enableDitaaFilter ? false,
+  jre,
+  enableMscgenFilter ? false,
+  mscgen,
+  enableDiagFilter ? false,
+  blockdiag,
+  seqdiag,
+  actdiag,
+  nwdiag,
+  enableQrcodeFilter ? false,
+  qrencode,
+  enableMatplotlibFilter ? false,
+  matplotlib,
+  numpy,
+  enableAafigureFilter ? false,
+  aafigure,
+  recursivePthLoader
+  # backends
+  ,
+  enableDeckjsBackend ? false,
+  enableOdfBackend ? false
 
-  # java is problematic on some platforms, where it is unfree
-, enableJava ? true
+    # java is problematic on some platforms, where it is unfree
+  ,
+  enableJava ? true
 
-, buildPackages }:
+  ,
+  buildPackages,
+}:
 
 let
 

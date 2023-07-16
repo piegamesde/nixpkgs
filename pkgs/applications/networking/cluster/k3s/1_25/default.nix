@@ -1,7 +1,33 @@
-{ stdenv, lib, makeWrapper, socat, iptables, iproute2, ipset, bridge-utils
-, btrfs-progs, conntrack-tools, buildGoModule, runc, rsync, kmod, libseccomp
-, pkg-config, ethtool, util-linux, fetchFromGitHub, fetchurl, fetchzip, fetchgit
-, zstd, yq-go, sqlite, nixosTests, pkgsBuildBuild, k3s }:
+{
+  stdenv,
+  lib,
+  makeWrapper,
+  socat,
+  iptables,
+  iproute2,
+  ipset,
+  bridge-utils,
+  btrfs-progs,
+  conntrack-tools,
+  buildGoModule,
+  runc,
+  rsync,
+  kmod,
+  libseccomp,
+  pkg-config,
+  ethtool,
+  util-linux,
+  fetchFromGitHub,
+  fetchurl,
+  fetchzip,
+  fetchgit,
+  zstd,
+  yq-go,
+  sqlite,
+  nixosTests,
+  pkgsBuildBuild,
+  k3s,
+}:
 
 # k3s is a kinda weird derivation. One of the main points of k3s is the
 # simplicity of it being one binary that can perform several tasks.

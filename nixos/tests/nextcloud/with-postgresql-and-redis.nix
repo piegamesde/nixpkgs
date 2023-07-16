@@ -1,6 +1,13 @@
-args@{ pkgs, nextcloudVersion ? 22, ... }:
+args@{
+  pkgs,
+  nextcloudVersion ? 22,
+  ...
+}:
 
-(import ../make-test-python.nix ({ pkgs, ... }:
+(import ../make-test-python.nix ({
+    pkgs,
+    ...
+  }:
   let
     adminpass = "hunter2";
     adminuser = "custom-admin-username";
@@ -10,44 +17,52 @@ args@{ pkgs, nextcloudVersion ? 22, ... }:
 
     nodes = {
       # The only thing the client needs to do is download a file.
-      client = { ... }: { };
+      client = {
+          ...
+        }:
+        { };
 
-      nextcloud = { config, pkgs, lib, ... }: {
-        networking.firewall.allowedTCPPorts = [ 80 ];
+      nextcloud = {
+          config,
+          pkgs,
+          lib,
+          ...
+        }: {
+          networking.firewall.allowedTCPPorts = [ 80 ];
 
-        services.nextcloud = {
-          enable = true;
-          hostName = "nextcloud";
-          package = pkgs.${"nextcloud" + (toString nextcloudVersion)};
-          caching = {
-            apcu = false;
-            redis = true;
-            memcached = false;
-          };
-          config = {
-            dbtype = "pgsql";
-            inherit adminuser;
-            adminpassFile = toString (pkgs.writeText "admin-pass-file" ''
-              ${adminpass}
-            '');
-            trustedProxies = [ "::1" ];
-          };
-          notify_push = {
+          services.nextcloud = {
             enable = true;
-            logLevel = "debug";
+            hostName = "nextcloud";
+            package = pkgs.${"nextcloud" + (toString nextcloudVersion)};
+            caching = {
+              apcu = false;
+              redis = true;
+              memcached = false;
+            };
+            config = {
+              dbtype = "pgsql";
+              inherit adminuser;
+              adminpassFile = toString (pkgs.writeText "admin-pass-file" ''
+                ${adminpass}
+              '');
+              trustedProxies = [ "::1" ];
+            };
+            notify_push = {
+              enable = true;
+              logLevel = "debug";
+            };
+            extraAppsEnable = true;
+            extraApps = {
+              inherit (pkgs."nextcloud${
+                  lib.versions.major config.services.nextcloud.package.version
+                }Packages".apps)
+                notify_push;
+            };
           };
-          extraAppsEnable = true;
-          extraApps = {
-            inherit (pkgs."nextcloud${
-                lib.versions.major config.services.nextcloud.package.version
-              }Packages".apps)
-              notify_push;
-          };
-        };
 
-        services.redis.servers."nextcloud".enable = true;
-        services.redis.servers."nextcloud".port = 6379;
-      };
+          services.redis.servers."nextcloud".enable = true;
+          services.redis.servers."nextcloud".port = 6379;
+        };
     };
 
     testScript = let

@@ -1,4 +1,12 @@
-{ stdenv, steamArch, lib, perl, pkgs, steam-runtime, runtimeOnly ? false }:
+{
+  stdenv,
+  steamArch,
+  lib,
+  perl,
+  pkgs,
+  steam-runtime,
+  runtimeOnly ? false
+}:
 
 let
   overridePkgs = lib.optionals (!runtimeOnly) (with pkgs; [

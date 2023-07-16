@@ -1,4 +1,14 @@
-{ fetchurl, lib, stdenv, pkg-config, libao, json_c, libgcrypt, ffmpeg, curl }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  pkg-config,
+  libao,
+  json_c,
+  libgcrypt,
+  ffmpeg,
+  curl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pianobar";

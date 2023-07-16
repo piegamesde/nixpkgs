@@ -1,5 +1,17 @@
-{ lib, fetchFromGitHub, git, libiconv, ncurses, openssl, pkg-config
-, rustPlatform, sqlite, stdenv, Security, SystemConfiguration }:
+{
+  lib,
+  fetchFromGitHub,
+  git,
+  libiconv,
+  ncurses,
+  openssl,
+  pkg-config,
+  rustPlatform,
+  sqlite,
+  stdenv,
+  Security,
+  SystemConfiguration,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "git-branchless";

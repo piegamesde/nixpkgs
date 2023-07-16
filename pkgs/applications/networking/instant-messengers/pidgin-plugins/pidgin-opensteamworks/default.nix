@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, pidgin, glib, json-glib, nss, nspr
-, libsecret }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  pidgin,
+  glib,
+  json-glib,
+  nss,
+  nspr,
+  libsecret,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pidgin-opensteamworks";

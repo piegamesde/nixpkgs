@@ -1,5 +1,14 @@
-{ lib, aiohttp, buildPythonPackage, click, fetchFromGitHub, incremental
-, pydantic, pythonOlder, typer }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  incremental,
+  pydantic,
+  pythonOlder,
+  typer,
+}:
 
 buildPythonPackage rec {
   pname = "ovoenergy";

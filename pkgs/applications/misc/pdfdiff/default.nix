@@ -1,4 +1,9 @@
-{ lib, python2Packages, fetchurl, xpdf }:
+{
+  lib,
+  python2Packages,
+  fetchurl,
+  xpdf,
+}:
 
 python2Packages.buildPythonApplication rec {
   pname = "pdfdiff";

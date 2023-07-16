@@ -1,5 +1,12 @@
-{ lib, async-timeout, buildPythonPackage, fetchFromGitHub, pythonOlder
-, pytest-asyncio, pytestCheckHook }:
+{
+  lib,
+  async-timeout,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytest-asyncio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "screenlogicpy";

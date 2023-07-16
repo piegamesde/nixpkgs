@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, binutils, chrpath, cmake, cxxopts, elfio
-, termcolor, gtest }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  binutils,
+  chrpath,
+  cmake,
+  cxxopts,
+  elfio,
+  termcolor,
+  gtest,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libtree";

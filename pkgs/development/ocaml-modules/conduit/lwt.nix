@@ -1,4 +1,10 @@
-{ buildDunePackage, ppx_sexp_conv, conduit, lwt, sexplib }:
+{
+  buildDunePackage,
+  ppx_sexp_conv,
+  conduit,
+  lwt,
+  sexplib,
+}:
 
 buildDunePackage {
   pname = "conduit-lwt";

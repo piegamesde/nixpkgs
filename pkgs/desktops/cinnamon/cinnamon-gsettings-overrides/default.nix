@@ -1,9 +1,25 @@
-{ lib, runCommand, nixos-artwork, glib, gnome, gtk3, gsettings-desktop-schemas
-, extraGSettingsOverrides ? "", extraGSettingsOverridePackages ? [ ]
-, mint-artwork
+{
+  lib,
+  runCommand,
+  nixos-artwork,
+  glib,
+  gnome,
+  gtk3,
+  gsettings-desktop-schemas,
+  extraGSettingsOverrides ? "",
+  extraGSettingsOverridePackages ? [ ],
+  mint-artwork
 
-, muffin, nemo, xapp, cinnamon-desktop, cinnamon-session
-, cinnamon-settings-daemon, cinnamon-common, bulky }:
+  ,
+  muffin,
+  nemo,
+  xapp,
+  cinnamon-desktop,
+  cinnamon-session,
+  cinnamon-settings-daemon,
+  cinnamon-common,
+  bulky,
+}:
 
 let
 

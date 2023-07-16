@@ -1,5 +1,14 @@
-{ lib, rustPlatform, fetchFromGitLab, pkg-config, gtk4, libadwaita
-, wrapGAppsHook4, glib, tzdata }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitLab,
+  pkg-config,
+  gtk4,
+  libadwaita,
+  wrapGAppsHook4,
+  glib,
+  tzdata,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "karlender";

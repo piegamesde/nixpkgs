@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, zlib, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  zlib,
+  Cocoa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "atomicparsley";

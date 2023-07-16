@@ -1,6 +1,26 @@
-{ stdenv, lib, makeWrapper, sage-env, blas, lapack, pkg-config, three, singular
-, gap, giac, maxima, pari, gmp, gfan, python3, flintqs, eclib, ntl, ecm
-, pythonEnv }:
+{
+  stdenv,
+  lib,
+  makeWrapper,
+  sage-env,
+  blas,
+  lapack,
+  pkg-config,
+  three,
+  singular,
+  gap,
+  giac,
+  maxima,
+  pari,
+  gmp,
+  gfan,
+  python3,
+  flintqs,
+  eclib,
+  ntl,
+  ecm,
+  pythonEnv,
+}:
 
 # lots of segfaults with (64 bit) blas
 assert (!blas.isILP64) && (!lapack.isILP64);

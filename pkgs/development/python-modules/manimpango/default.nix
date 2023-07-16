@@ -1,5 +1,16 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, python, pkg-config, pango
-, cython, AppKit, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python,
+  pkg-config,
+  pango,
+  cython,
+  AppKit,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "manimpango";

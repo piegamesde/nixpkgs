@@ -3,7 +3,12 @@
 # Changes to the structure of the document, or the semantics of the values should go through an RFC.
 #
 # See: https://github.com/NixOS/rfcs/pull/125
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.boot.bootspec;
   children = lib.mapAttrs

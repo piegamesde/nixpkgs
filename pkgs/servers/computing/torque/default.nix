@@ -1,5 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, openssl, flex, bison, pkg-config, groff, libxml2
-, util-linux, coreutils, file, libtool, which, boost, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  openssl,
+  flex,
+  bison,
+  pkg-config,
+  groff,
+  libxml2,
+  util-linux,
+  coreutils,
+  file,
+  libtool,
+  which,
+  boost,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "torque";

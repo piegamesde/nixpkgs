@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, fetchzip, meson, ninja, pkg-config, python3, icu
-, libuuid, xapian, xz, zstd, gtest }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchzip,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  icu,
+  libuuid,
+  xapian,
+  xz,
+  zstd,
+  gtest,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zimlib";

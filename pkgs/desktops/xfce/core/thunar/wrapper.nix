@@ -1,4 +1,10 @@
-{ lib, makeWrapper, symlinkJoin, thunar, thunarPlugins }:
+{
+  lib,
+  makeWrapper,
+  symlinkJoin,
+  thunar,
+  thunarPlugins,
+}:
 
 symlinkJoin {
   name = "thunar-with-plugins-${thunar.version}";

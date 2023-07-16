@@ -1,4 +1,8 @@
-{ lib, mkDerivation, fetchFromGitHub }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+}:
 
 mkDerivation rec {
   version = "unstable-2022-01-14";

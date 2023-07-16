@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, future, fetchFromGitHub, setuptools-scm, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  future,
+  fetchFromGitHub,
+  setuptools-scm,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

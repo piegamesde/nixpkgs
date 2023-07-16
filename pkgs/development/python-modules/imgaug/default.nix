@@ -1,5 +1,17 @@
-{ buildPythonPackage, fetchFromGitHub, imageio, imagecorruptions, numpy, opencv3
-, pytestCheckHook, scikitimage, scipy, shapely, six, lib }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  imageio,
+  imagecorruptions,
+  numpy,
+  opencv3,
+  pytestCheckHook,
+  scikitimage,
+  scipy,
+  shapely,
+  six,
+  lib,
+}:
 
 buildPythonPackage rec {
   pname = "imgaug";

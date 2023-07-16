@@ -1,5 +1,13 @@
-{ lib, fetchFromGitLab, python3, intltool, pandoc, gobject-introspection
-, wrapGAppsHook, gtk3 }:
+{
+  lib,
+  fetchFromGitLab,
+  python3,
+  intltool,
+  pandoc,
+  gobject-introspection,
+  wrapGAppsHook,
+  gtk3,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "bookletimposer";

@@ -1,5 +1,12 @@
-{ lib, mkDerivation, fetchFromGitHub, kcoreaddons, kwindowsystem
-, plasma-framework, systemsettings }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  kcoreaddons,
+  kwindowsystem,
+  plasma-framework,
+  systemsettings,
+}:
 
 mkDerivation rec {
   pname = "kwin-tiling";

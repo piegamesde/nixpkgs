@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools, numpy, lxml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  numpy,
+  lxml,
+}:
 
 buildPythonPackage rec {
   pname = "trimesh";

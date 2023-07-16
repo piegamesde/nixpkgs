@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.services.klipper;
@@ -217,7 +222,11 @@ in {
       let
         default = a: b: if a != null then a else b;
         firmwares = filterAttrs (n: v: v != null) (mapAttrs (mcu:
-          { enable, configFile, serial }:
+          {
+            enable,
+            configFile,
+            serial,
+          }:
           if enable then
             pkgs.klipper-firmware.override {
               mcu = lib.strings.sanitizeDerivationName mcu;

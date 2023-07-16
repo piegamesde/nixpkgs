@@ -1,5 +1,18 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, lxqt-build-tools, qtbase, qttools
-, qtsvg, qtx11extras, kwindowsystem, liblxqt, libqtxdg, gitUpdater }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  lxqt-build-tools,
+  qtbase,
+  qttools,
+  qtsvg,
+  qtx11extras,
+  kwindowsystem,
+  liblxqt,
+  libqtxdg,
+  gitUpdater,
+}:
 
 mkDerivation rec {
   pname = "lxqt-openssh-askpass";

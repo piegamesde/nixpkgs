@@ -1,5 +1,19 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, glib, cairo, pango, gdk-pixbuf
-, atk, gtk4, wrapGAppsHook4, gobject-introspection, xvfb-run, testers, czkawka
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  glib,
+  cairo,
+  pango,
+  gdk-pixbuf,
+  atk,
+  gtk4,
+  wrapGAppsHook4,
+  gobject-introspection,
+  xvfb-run,
+  testers,
+  czkawka,
 }:
 
 rustPlatform.buildRustPackage rec {

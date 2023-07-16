@@ -1,11 +1,31 @@
-{ stdenv, lib, fetchFromGitHub, meson, ninja, m4, gperf, getent, libcap, gettext
-, pkg-config, udev, eudev, libxslt, python3, docbook5, docbook_xsl
-, docbook_xsl_ns, docbook_xml_dtd_42, docbook_xml_dtd_45
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  m4,
+  gperf,
+  getent,
+  libcap,
+  gettext,
+  pkg-config,
+  udev,
+  eudev,
+  libxslt,
+  python3,
+  docbook5,
+  docbook_xsl,
+  docbook_xsl_ns,
+  docbook_xml_dtd_42,
+  docbook_xml_dtd_45
 
-# Defaulting to false because usually the rationale for using elogind is to
-# use it in situation where a systemd dependency does not work (especially
-# when building with musl, which elogind explicitly supports).
-, enableSystemd ? false }:
+  # Defaulting to false because usually the rationale for using elogind is to
+  # use it in situation where a systemd dependency does not work (especially
+  # when building with musl, which elogind explicitly supports).
+  ,
+  enableSystemd ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "elogind";

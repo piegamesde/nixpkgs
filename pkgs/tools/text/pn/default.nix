@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libphonenumber, icu, protobuf }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libphonenumber,
+  icu,
+  protobuf,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pn";

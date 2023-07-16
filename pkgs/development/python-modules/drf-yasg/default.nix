@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchPypi, inflection, ruamel-yaml, setuptools-scm
-, six, coreapi, djangorestframework, pytestCheckHook, pytest-django, datadiff }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  inflection,
+  ruamel-yaml,
+  setuptools-scm,
+  six,
+  coreapi,
+  djangorestframework,
+  pytestCheckHook,
+  pytest-django,
+  datadiff,
+}:
 
 buildPythonPackage rec {
   pname = "drf-yasg";

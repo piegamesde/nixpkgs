@@ -1,4 +1,11 @@
-{ lib, stdenv, darwin, fetchurl, openal, testers }:
+{
+  lib,
+  stdenv,
+  darwin,
+  fetchurl,
+  openal,
+  testers,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "freealut";

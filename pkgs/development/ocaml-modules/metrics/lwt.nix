@@ -1,4 +1,9 @@
-{ buildDunePackage, logs, lwt, metrics }:
+{
+  buildDunePackage,
+  logs,
+  lwt,
+  metrics,
+}:
 
 buildDunePackage {
   pname = "metrics-lwt";

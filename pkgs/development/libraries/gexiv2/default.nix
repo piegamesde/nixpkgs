@@ -1,6 +1,21 @@
-{ stdenv, lib, fetchurl, meson, mesonEmulatorHook, ninja, pkg-config, exiv2
-, glib, gnome, gobject-introspection, vala, gtk-doc, docbook-xsl-nons
-, docbook_xml_dtd_43, python3 }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  meson,
+  mesonEmulatorHook,
+  ninja,
+  pkg-config,
+  exiv2,
+  glib,
+  gnome,
+  gobject-introspection,
+  vala,
+  gtk-doc,
+  docbook-xsl-nons,
+  docbook_xml_dtd_43,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gexiv2";

@@ -1,4 +1,7 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
   let
     dbContents = ''
       dn: dc=example
@@ -52,71 +55,83 @@ import ./make-test-python.nix ({ pkgs, ... }:
   in {
     name = "openldap";
 
-    nodes.machine = { pkgs, ... }: {
-      environment.etc."openldap/root_password".text = "notapassword";
+    nodes.machine = {
+        pkgs,
+        ...
+      }: {
+        environment.etc."openldap/root_password".text = "notapassword";
 
-      users.ldap = ldapClientConfig;
+        users.ldap = ldapClientConfig;
 
-      services.openldap = {
-        enable = true;
-        urlList = [ "ldapi:///" "ldap://" ];
-        settings = {
-          children = {
-            "cn=schema".includes = [
-              "${pkgs.openldap}/etc/schema/core.ldif"
-              "${pkgs.openldap}/etc/schema/cosine.ldif"
-              "${pkgs.openldap}/etc/schema/inetorgperson.ldif"
-              "${pkgs.openldap}/etc/schema/nis.ldif"
-            ];
-            "olcDatabase={0}config" = {
-              attrs = {
-                objectClass = [ "olcDatabaseConfig" ];
-                olcDatabase = "{0}config";
-                olcRootDN = "cn=root,cn=config";
-                olcRootPW = "configpassword";
-              };
-            };
-            "olcDatabase={1}mdb" = {
-              # This tests string, base64 and path values, as well as lists of string values
-              attrs = {
-                objectClass = [ "olcDatabaseConfig" "olcMdbConfig" ];
-                olcDatabase = "{1}mdb";
-                olcDbDirectory = "/var/lib/openldap/db";
-                olcSuffix = "dc=example";
-                olcRootDN = {
-                  # cn=root,dc=example
-                  base64 = "Y249cm9vdCxkYz1leGFtcGxl";
+        services.openldap = {
+          enable = true;
+          urlList = [ "ldapi:///" "ldap://" ];
+          settings = {
+            children = {
+              "cn=schema".includes = [
+                "${pkgs.openldap}/etc/schema/core.ldif"
+                "${pkgs.openldap}/etc/schema/cosine.ldif"
+                "${pkgs.openldap}/etc/schema/inetorgperson.ldif"
+                "${pkgs.openldap}/etc/schema/nis.ldif"
+              ];
+              "olcDatabase={0}config" = {
+                attrs = {
+                  objectClass = [ "olcDatabaseConfig" ];
+                  olcDatabase = "{0}config";
+                  olcRootDN = "cn=root,cn=config";
+                  olcRootPW = "configpassword";
                 };
-                olcRootPW = { path = "/etc/openldap/root_password"; };
+              };
+              "olcDatabase={1}mdb" = {
+                # This tests string, base64 and path values, as well as lists of string values
+                attrs = {
+                  objectClass = [ "olcDatabaseConfig" "olcMdbConfig" ];
+                  olcDatabase = "{1}mdb";
+                  olcDbDirectory = "/var/lib/openldap/db";
+                  olcSuffix = "dc=example";
+                  olcRootDN = {
+                    # cn=root,dc=example
+                    base64 = "Y249cm9vdCxkYz1leGFtcGxl";
+                  };
+                  olcRootPW = { path = "/etc/openldap/root_password"; };
+                };
               };
             };
           };
         };
-      };
 
-      specialisation = {
-        declarativeContents.configuration = { ... }: {
-          services.openldap.declarativeContents."dc=example" = dbContents;
-        };
-        mutableConfig.configuration = { ... }: {
-          services.openldap = {
-            declarativeContents."dc=example" = dbContents;
-            mutableConfig = true;
-          };
-        };
-        manualConfigDir = {
-          inheritParentConfig = false;
-          configuration = { ... }: {
-            users.ldap = ldapClientConfig;
-            services.openldap = {
-              enable = true;
-              configDir = "/var/db/slapd.d";
+        specialisation = {
+          declarativeContents.configuration = {
+              ...
+            }: {
+              services.openldap.declarativeContents."dc=example" = dbContents;
             };
+          mutableConfig.configuration = {
+              ...
+            }: {
+              services.openldap = {
+                declarativeContents."dc=example" = dbContents;
+                mutableConfig = true;
+              };
+            };
+          manualConfigDir = {
+            inheritParentConfig = false;
+            configuration = {
+                ...
+              }: {
+                users.ldap = ldapClientConfig;
+                services.openldap = {
+                  enable = true;
+                  configDir = "/var/db/slapd.d";
+                };
+              };
           };
         };
       };
-    };
-    testScript = { nodes, ... }:
+    testScript = {
+        nodes,
+        ...
+      }:
       let
         specializations =
           "${nodes.machine.system.build.toplevel}/specialisation";

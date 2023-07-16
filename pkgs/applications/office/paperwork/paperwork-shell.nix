@@ -1,11 +1,24 @@
-{ buildPythonPackage, lib, fetchFromGitLab
+{
+  buildPythonPackage,
+  lib,
+  fetchFromGitLab
 
-, isPy3k, isPyPy
+  ,
+  isPy3k,
+  isPyPy
 
-, openpaperwork-core, openpaperwork-gtk, paperwork-backend, fabulous, getkey
-, psutil, shared-mime-info
+  ,
+  openpaperwork-core,
+  openpaperwork-gtk,
+  paperwork-backend,
+  fabulous,
+  getkey,
+  psutil,
+  shared-mime-info
 
-, pkgs }:
+  ,
+  pkgs,
+}:
 
 buildPythonPackage rec {
   pname = "paperwork-shell";

@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, alsa-lib, boost, glib, lash
-, libjack2, libarchive, libsndfile, lrdf, qt4 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  alsa-lib,
+  boost,
+  glib,
+  lash,
+  libjack2,
+  libarchive,
+  libsndfile,
+  lrdf,
+  qt4,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.9.7";

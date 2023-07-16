@@ -1,6 +1,28 @@
-{ stdenv, lib, fetchzip, glib, systemd, nss, nspr, gtk3-x11, pango, atk, cairo
-, gdk-pixbuf, xorg, xorg_sys_opengl, util-linux, alsa-lib, dbus, at-spi2-atk
-, cups, vivaldi-ffmpeg-codecs, libpulseaudio, at-spi2-core, libxkbcommon, mesa
+{
+  stdenv,
+  lib,
+  fetchzip,
+  glib,
+  systemd,
+  nss,
+  nspr,
+  gtk3-x11,
+  pango,
+  atk,
+  cairo,
+  gdk-pixbuf,
+  xorg,
+  xorg_sys_opengl,
+  util-linux,
+  alsa-lib,
+  dbus,
+  at-spi2-atk,
+  cups,
+  vivaldi-ffmpeg-codecs,
+  libpulseaudio,
+  at-spi2-core,
+  libxkbcommon,
+  mesa,
 }:
 
 stdenv.mkDerivation rec {

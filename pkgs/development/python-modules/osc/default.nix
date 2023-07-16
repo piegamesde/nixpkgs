@@ -1,5 +1,14 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, bashInteractive, rpm
-, urllib3, cryptography, diffstat }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  bashInteractive,
+  rpm,
+  urllib3,
+  cryptography,
+  diffstat,
+}:
 
 buildPythonPackage rec {
   pname = "osc";

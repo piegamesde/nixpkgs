@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, flit-core
-, markdown-it-py, pytest-regressions, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  flit-core,
+  markdown-it-py,
+  pytest-regressions,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "mdit-py-plugins";

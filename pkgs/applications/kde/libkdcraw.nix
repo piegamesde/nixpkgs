@@ -1,4 +1,10 @@
-{ mkDerivation, lib, extra-cmake-modules, libraw, qtbase }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  libraw,
+  qtbase,
+}:
 
 mkDerivation {
   pname = "libkdcraw";

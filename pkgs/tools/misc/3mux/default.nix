@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, fetchpatch, makeWrapper }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchpatch,
+  makeWrapper,
+}:
 
 buildGoModule rec {
   pname = "3mux";

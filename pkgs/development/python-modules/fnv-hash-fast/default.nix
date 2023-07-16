@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cython, poetry-core, setuptools
-, wheel, fnvhash, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cython,
+  poetry-core,
+  setuptools,
+  wheel,
+  fnvhash,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "fnv-hash-fast";

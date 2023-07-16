@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, runCommand }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  runCommand,
+}:
 
 let
   pname = "elvish";

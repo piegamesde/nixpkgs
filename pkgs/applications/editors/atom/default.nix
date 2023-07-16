@@ -1,4 +1,13 @@
-{ lib, stdenv, pkgs, fetchurl, wrapGAppsHook, glib, gtk3, atomEnv }:
+{
+  lib,
+  stdenv,
+  pkgs,
+  fetchurl,
+  wrapGAppsHook,
+  glib,
+  gtk3,
+  atomEnv,
+}:
 
 let
   versions = {
@@ -16,7 +25,12 @@ let
   };
 
   common = pname:
-    { version, sha256, beta ? null, broken ? false }:
+    {
+      version,
+      sha256,
+      beta ? null,
+      broken ? false
+    }:
     let
       fullVersion = version
         + lib.optionalString (beta != null) "-beta${toString beta}";

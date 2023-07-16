@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, pkg-config, glib, libxml2 }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  pkg-config,
+  glib,
+  libxml2,
+}:
 
 buildGoModule rec {
   pname = "ua";

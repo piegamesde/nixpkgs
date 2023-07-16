@@ -1,4 +1,12 @@
-{ gevent, buildPythonPackage, fetchFromGitHub, hostname, pytest, lib, stdenv }:
+{
+  gevent,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hostname,
+  pytest,
+  lib,
+  stdenv,
+}:
 
 buildPythonPackage rec {
   pname = "ruffus";

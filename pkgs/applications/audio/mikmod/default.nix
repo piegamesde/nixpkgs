@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libmikmod, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libmikmod,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mikmod";

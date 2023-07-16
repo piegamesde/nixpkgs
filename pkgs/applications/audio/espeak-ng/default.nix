@@ -1,7 +1,24 @@
-{ stdenv, lib, fetchFromGitHub, autoconf, automake, which, libtool, pkg-config
-, ronn, substituteAll, buildPackages, mbrolaSupport ? true, mbrola
-, pcaudiolibSupport ? true, pcaudiolib, sonicSupport ? true, sonic, alsa-plugins
-, makeWrapper }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  which,
+  libtool,
+  pkg-config,
+  ronn,
+  substituteAll,
+  buildPackages,
+  mbrolaSupport ? true,
+  mbrola,
+  pcaudiolibSupport ? true,
+  pcaudiolib,
+  sonicSupport ? true,
+  sonic,
+  alsa-plugins,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "espeak-ng";

@@ -1,7 +1,23 @@
-{ mkDerivation, lib, fetchFromGitHub, cmake, pkg-config, qtbase, qtcharts
-, qtmultimedia, qtquickcontrols, qtquickcontrols2, qtgraphicaleffects, faad2
-, rtl-sdr, soapysdr-with-plugins, libusb-compat-0_1, fftwSinglePrec, lame
-, mpg123 }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  qtbase,
+  qtcharts,
+  qtmultimedia,
+  qtquickcontrols,
+  qtquickcontrols2,
+  qtgraphicaleffects,
+  faad2,
+  rtl-sdr,
+  soapysdr-with-plugins,
+  libusb-compat-0_1,
+  fftwSinglePrec,
+  lame,
+  mpg123,
+}:
 
 mkDerivation rec {
   pname = "welle-io";

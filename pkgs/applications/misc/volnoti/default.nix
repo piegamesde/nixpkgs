@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, pkg-config, dbus, gdk-pixbuf, glib
-, libX11, gtk2, librsvg, dbus-glib, autoreconfHook, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  dbus,
+  gdk-pixbuf,
+  glib,
+  libX11,
+  gtk2,
+  librsvg,
+  dbus-glib,
+  autoreconfHook,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation {
   pname = "volnoti-unstable";

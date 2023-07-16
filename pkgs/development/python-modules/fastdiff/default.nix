@@ -1,5 +1,14 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, wasmer, wasmer-compiler-cranelift
-, py, pytestCheckHook, pytest-benchmark }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  wasmer,
+  wasmer-compiler-cranelift,
+  py,
+  pytestCheckHook,
+  pytest-benchmark,
+}:
 
 buildPythonPackage rec {
   pname = "fastdiff";

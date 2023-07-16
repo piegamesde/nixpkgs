@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, fetchpatch, makeDesktopItem, SDL2, SDL2_image
-, SDL2_mixer, SDL2_net }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  makeDesktopItem,
+  SDL2,
+  SDL2_image,
+  SDL2_mixer,
+  SDL2_net,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rocksndiamonds";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, docutils, pkg-config, freetype, pango }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  docutils,
+  pkg-config,
+  freetype,
+  pango,
+}:
 
 stdenv.mkDerivation rec {
   pname = "abcm2ps";

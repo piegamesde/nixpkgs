@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, flex, bison, llvmPackages
-, elfutils, libbfd, libbpf, libopcodes, bcc, cereal, asciidoctor, nixosTests
-, util-linux }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  flex,
+  bison,
+  llvmPackages,
+  elfutils,
+  libbfd,
+  libbpf,
+  libopcodes,
+  bcc,
+  cereal,
+  asciidoctor,
+  nixosTests,
+  util-linux,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bpftrace";

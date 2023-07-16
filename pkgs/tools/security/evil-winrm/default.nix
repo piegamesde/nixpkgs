@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, bundlerEnv }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  bundlerEnv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "evil-winrm";

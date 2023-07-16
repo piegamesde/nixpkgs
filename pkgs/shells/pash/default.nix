@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, buildDotnetPackage }:
+{
+  lib,
+  fetchFromGitHub,
+  buildDotnetPackage,
+}:
 
 buildDotnetPackage {
   pname = "pash";

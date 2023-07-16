@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, makeWrapper, itk, vtk, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  makeWrapper,
+  itk,
+  vtk,
+  Cocoa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ANTs";

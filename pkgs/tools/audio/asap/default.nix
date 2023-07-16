@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchzip, SDL }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  SDL,
+}:
 
 stdenv.mkDerivation rec {
   pname = "asap";

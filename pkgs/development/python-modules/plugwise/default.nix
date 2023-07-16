@@ -1,6 +1,24 @@
-{ lib, aiohttp, async-timeout, buildPythonPackage, crcmod, defusedxml
-, fetchFromGitHub, freezegun, jsonpickle, munch, mypy, pyserial, pytest-aiohttp
-, pytest-asyncio, pytestCheckHook, python-dateutil, pythonOlder, pytz, semver }:
+{
+  lib,
+  aiohttp,
+  async-timeout,
+  buildPythonPackage,
+  crcmod,
+  defusedxml,
+  fetchFromGitHub,
+  freezegun,
+  jsonpickle,
+  munch,
+  mypy,
+  pyserial,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  pytz,
+  semver,
+}:
 
 buildPythonPackage rec {
   pname = "plugwise";

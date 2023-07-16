@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchPypi, debtcollector, netaddr, oslo-i18n, pbr
-, pyyaml, requests, rfc3986, stevedore, callPackage }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  debtcollector,
+  netaddr,
+  oslo-i18n,
+  pbr,
+  pyyaml,
+  requests,
+  rfc3986,
+  stevedore,
+  callPackage,
+}:
 
 buildPythonPackage rec {
   pname = "oslo-config";

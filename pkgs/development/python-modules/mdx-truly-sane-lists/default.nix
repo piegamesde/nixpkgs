@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, markdown, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  markdown,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "mdx_truly_sane_lists";

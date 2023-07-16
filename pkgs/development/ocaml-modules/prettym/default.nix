@@ -1,5 +1,16 @@
-{ alcotest, base64, bigarray-overlap, bigstringaf, buildDunePackage, fetchurl
-, fmt, jsonm, ke, lib, ptime }:
+{
+  alcotest,
+  base64,
+  bigarray-overlap,
+  bigstringaf,
+  buildDunePackage,
+  fetchurl,
+  fmt,
+  jsonm,
+  ke,
+  lib,
+  ptime,
+}:
 
 buildDunePackage rec {
   pname = "prettym";

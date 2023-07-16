@@ -1,5 +1,18 @@
-{ lib, fetchFromGitHub, perl, buildPerlModule, makeWrapper, wrapGAppsHook
-, withGtk3 ? false, ffmpeg, wget, xdg-utils, youtube-dl, yt-dlp, TestPod, Gtk3
+{
+  lib,
+  fetchFromGitHub,
+  perl,
+  buildPerlModule,
+  makeWrapper,
+  wrapGAppsHook,
+  withGtk3 ? false,
+  ffmpeg,
+  wget,
+  xdg-utils,
+  youtube-dl,
+  yt-dlp,
+  TestPod,
+  Gtk3,
 }:
 let
   perlEnv = perl.withPackages (ps:

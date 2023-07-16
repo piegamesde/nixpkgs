@@ -1,7 +1,28 @@
-{ lib, stdenv, python3Packages, nix-update-script, pyrosimple, testers
-, fetchPypi, buildPythonPackage, bencode-py, apscheduler, jinja2, python-daemon
-, importlib-resources, parsimonious, prometheus-client, prompt-toolkit, requests
-, shtab, inotify, withInotify ? stdenv.isLinux, python-box, tomli, tomli-w }:
+{
+  lib,
+  stdenv,
+  python3Packages,
+  nix-update-script,
+  pyrosimple,
+  testers,
+  fetchPypi,
+  buildPythonPackage,
+  bencode-py,
+  apscheduler,
+  jinja2,
+  python-daemon,
+  importlib-resources,
+  parsimonious,
+  prometheus-client,
+  prompt-toolkit,
+  requests,
+  shtab,
+  inotify,
+  withInotify ? stdenv.isLinux,
+  python-box,
+  tomli,
+  tomli-w,
+}:
 
 let
   pname = "pyrosimple";

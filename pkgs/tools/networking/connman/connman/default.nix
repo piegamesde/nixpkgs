@@ -1,22 +1,62 @@
-{ lib, nixosTests, stdenv, fetchurl, fetchpatch, pkg-config, file, glib
-# always required runtime dependencies
-, dbus, libmnl, gnutls, readline
-# configureable options
-, firewallType ? "iptables" # or "nftables"
-, iptables ? null, libnftnl ? null # for nftables
-, dnsType ? "internal" # or "systemd-resolved"
-  # optional features which are turned *on* by default
-, enableOpenconnect ? true, openconnect ? null, enableOpenvpn ? true
-, openvpn ? null, enableVpnc ? true, vpnc ? true, enablePolkit ? true
-, polkit ? null, enablePptp ? true, pptp ? null, ppp ? null
-, enableLoopback ? true, enableEthernet ? true, enableWireguard ? true
-, enableGadget ? true, enableWifi ? true, enableBluetooth ? true
-, enableOfono ? true, enableDundee ? true, enablePacrunner ? true
-, enableNeard ? true, enableWispr ? true, enableTools ? true, enableStats ? true
-, enableClient ? true, enableDatafiles ? true
-  # optional features which are turned *off* by default
-, enableNetworkManager ? false, enableHh2serialGps ? false, enableL2tp ? false
-, enableIospm ? false, enableTist ? false }:
+{
+  lib,
+  nixosTests,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  file,
+  glib
+  # always required runtime dependencies
+  ,
+  dbus,
+  libmnl,
+  gnutls,
+  readline
+  # configureable options
+  ,
+  firewallType ? "iptables" # or "nftables"
+  ,
+  iptables ? null,
+  libnftnl ? null # for nftables
+  ,
+  dnsType ? "internal" # or "systemd-resolved"
+    # optional features which are turned *on* by default
+  ,
+  enableOpenconnect ? true,
+  openconnect ? null,
+  enableOpenvpn ? true,
+  openvpn ? null,
+  enableVpnc ? true,
+  vpnc ? true,
+  enablePolkit ? true,
+  polkit ? null,
+  enablePptp ? true,
+  pptp ? null,
+  ppp ? null,
+  enableLoopback ? true,
+  enableEthernet ? true,
+  enableWireguard ? true,
+  enableGadget ? true,
+  enableWifi ? true,
+  enableBluetooth ? true,
+  enableOfono ? true,
+  enableDundee ? true,
+  enablePacrunner ? true,
+  enableNeard ? true,
+  enableWispr ? true,
+  enableTools ? true,
+  enableStats ? true,
+  enableClient ? true,
+  enableDatafiles ? true
+    # optional features which are turned *off* by default
+  ,
+  enableNetworkManager ? false,
+  enableHh2serialGps ? false,
+  enableL2tp ? false,
+  enableIospm ? false,
+  enableTist ? false
+}:
 
 assert lib.asserts.assertOneOf "firewallType" firewallType [
   "iptables"

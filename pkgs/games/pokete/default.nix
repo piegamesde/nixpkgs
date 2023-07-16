@@ -1,4 +1,10 @@
-{ lib, python3, fetchFromGitHub, testers, pokete }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  testers,
+  pokete,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "pokete";

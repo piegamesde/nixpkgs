@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, libGL, libGLU, libXmu, cmake, ninja
-, pkg-config, fontconfig, freetype, expat, freeimage, vtk_8, gl2ps, tbb, OpenCL
-, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  libGL,
+  libGLU,
+  libXmu,
+  cmake,
+  ninja,
+  pkg-config,
+  fontconfig,
+  freetype,
+  expat,
+  freeimage,
+  vtk_8,
+  gl2ps,
+  tbb,
+  OpenCL,
+  Cocoa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "opencascade-oce";

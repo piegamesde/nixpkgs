@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, libpng, zlib, lcms2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  libpng,
+  zlib,
+  lcms2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pngquant";

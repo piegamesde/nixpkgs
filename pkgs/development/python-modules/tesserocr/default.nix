@@ -1,13 +1,23 @@
-{ buildPythonPackage, fetchPypi, lib
+{
+  buildPythonPackage,
+  fetchPypi,
+  lib
 
-# build dependencies
-, cython, leptonica, pkg-config, tesseract4
+  # build dependencies
+  ,
+  cython,
+  leptonica,
+  pkg-config,
+  tesseract4
 
-# propagates
-, pillow
+  # propagates
+  ,
+  pillow
 
-# tests
-, unittestCheckHook }:
+  # tests
+  ,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "tesserocr";

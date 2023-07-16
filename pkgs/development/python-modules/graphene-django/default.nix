@@ -1,8 +1,25 @@
-{ lib, buildPythonPackage, pythonAtLeast, pythonOlder, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  pythonAtLeast,
+  pythonOlder,
+  fetchFromGitHub
 
-, graphene, graphql-core, django, djangorestframework, promise, text-unidecode
+  ,
+  graphene,
+  graphql-core,
+  django,
+  djangorestframework,
+  promise,
+  text-unidecode
 
-, django-filter, mock, py, pytest-django, pytest-random-order, pytestCheckHook
+  ,
+  django-filter,
+  mock,
+  py,
+  pytest-django,
+  pytest-random-order,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {

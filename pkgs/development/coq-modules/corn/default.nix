@@ -1,4 +1,11 @@
-{ lib, mkCoqDerivation, coq, bignums, math-classes, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  bignums,
+  math-classes,
+  version ? null
+}:
 
 mkCoqDerivation rec {
   pname = "corn";

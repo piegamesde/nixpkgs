@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, nix, virt-viewer, fetchpatch, makeWrapper
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  nix,
+  virt-viewer,
+  fetchpatch,
+  makeWrapper,
 }:
 
 let

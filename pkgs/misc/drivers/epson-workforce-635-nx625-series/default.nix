@@ -1,4 +1,12 @@
-{ autoreconfHook, cups, libjpeg, rpmextract, fetchurl, lib, stdenv }:
+{
+  autoreconfHook,
+  cups,
+  libjpeg,
+  rpmextract,
+  fetchurl,
+  lib,
+  stdenv,
+}:
 
 let
   srcdirs = {

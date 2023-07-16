@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, SDL, libGL, libGLU, libpng, nasm, pkg-config
-, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL,
+  libGL,
+  libGLU,
+  libpng,
+  nasm,
+  pkg-config,
+  zlib,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "zsnes2";

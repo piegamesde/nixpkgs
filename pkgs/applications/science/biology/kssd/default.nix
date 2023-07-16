@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, zlib, automake, autoconf, libtool }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  zlib,
+  automake,
+  autoconf,
+  libtool,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kssd";

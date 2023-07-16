@@ -1,5 +1,15 @@
-{ lib, boost, cmake, fetchFromGitHub, meson, ninja, nix, nlohmann_json
-, pkg-config, stdenv }:
+{
+  lib,
+  boost,
+  cmake,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  nix,
+  nlohmann_json,
+  pkg-config,
+  stdenv,
+}:
 stdenv.mkDerivation rec {
   pname = "nix-eval-jobs";
   version = "2.14.0";

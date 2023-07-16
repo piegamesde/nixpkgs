@@ -1,4 +1,9 @@
-{ lib, fetchurl, appimageTools, wrapGAppsHook }:
+{
+  lib,
+  fetchurl,
+  appimageTools,
+  wrapGAppsHook,
+}:
 
 let
   pname = "openlens";

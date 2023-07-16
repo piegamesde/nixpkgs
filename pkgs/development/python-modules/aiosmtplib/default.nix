@@ -1,5 +1,15 @@
-{ lib, aiosmtpd, buildPythonPackage, fetchFromGitHub, hypothesis, poetry-core
-, pytest-asyncio, pytestCheckHook, pythonOlder, trustme }:
+{
+  lib,
+  aiosmtpd,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hypothesis,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  trustme,
+}:
 
 buildPythonPackage rec {
   pname = "aiosmtplib";

@@ -1,6 +1,25 @@
-{ lib, stdenv, rust, rustPlatform, fetchFromGitHub, substituteAll, fetchpatch
-, pkg-config, wrapGAppsHook4, cairo, gdk-pixbuf, glib, graphene, gtk3, gtk4
-, libadwaita, libappindicator-gtk3, librclone, pango, rclone }:
+{
+  lib,
+  stdenv,
+  rust,
+  rustPlatform,
+  fetchFromGitHub,
+  substituteAll,
+  fetchpatch,
+  pkg-config,
+  wrapGAppsHook4,
+  cairo,
+  gdk-pixbuf,
+  glib,
+  graphene,
+  gtk3,
+  gtk4,
+  libadwaita,
+  libappindicator-gtk3,
+  librclone,
+  pango,
+  rclone,
+}:
 
 let
   # https://github.com/trevyn/librclone/pull/8

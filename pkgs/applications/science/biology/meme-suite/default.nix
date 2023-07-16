@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, python3, perl, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python3,
+  perl,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "meme-suite";

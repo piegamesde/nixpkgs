@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, intltool, wrapGAppsHook, pkg-config, gtk, libxml2
-, enchant, gucharmap, python3, gnome }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  intltool,
+  wrapGAppsHook,
+  pkg-config,
+  gtk,
+  libxml2,
+  enchant,
+  gucharmap,
+  python3,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bluefish";

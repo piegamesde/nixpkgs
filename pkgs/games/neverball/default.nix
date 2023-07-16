@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, fetchpatch, SDL2, libGL, libpng, libjpeg, SDL2_ttf
-, libvorbis, gettext, physfs }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  SDL2,
+  libGL,
+  libpng,
+  libjpeg,
+  SDL2_ttf,
+  libvorbis,
+  gettext,
+  physfs,
+}:
 
 stdenv.mkDerivation rec {
   pname = "neverball";

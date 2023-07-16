@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, ocaml, findlib, pkg-config, gtk2
-, libgnomecanvas, gtksourceview, camlp-streams, gnumake42 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+  pkg-config,
+  gtk2,
+  libgnomecanvas,
+  gtksourceview,
+  camlp-streams,
+  gnumake42,
+}:
 
 let
   param = let check = lib.versionAtLeast ocaml.version;

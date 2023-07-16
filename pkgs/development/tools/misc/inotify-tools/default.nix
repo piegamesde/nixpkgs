@@ -1,4 +1,10 @@
-{ lib, stdenv, autoreconfHook, fetchFromGitHub, nix-update-script }:
+{
+  lib,
+  stdenv,
+  autoreconfHook,
+  fetchFromGitHub,
+  nix-update-script,
+}:
 
 stdenv.mkDerivation rec {
   pname = "inotify-tools";

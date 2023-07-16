@@ -1,4 +1,7 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
 
   let testString = "NixOS Gemini test successful";
   in {
@@ -8,7 +11,11 @@ import ./make-test-python.nix ({ pkgs, ... }:
 
     nodes = {
 
-      geminiServer = { config, pkgs, ... }:
+      geminiServer = {
+          config,
+          pkgs,
+          ...
+        }:
         let
           inherit (config.networking) hostName;
           cfg = config.services.molly-brown;

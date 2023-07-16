@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, hatch-vcs, hatchling
-, wcwidth, importlib-metadata, pytest-lazy-fixture, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  hatch-vcs,
+  hatchling,
+  wcwidth,
+  importlib-metadata,
+  pytest-lazy-fixture,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "prettytable";

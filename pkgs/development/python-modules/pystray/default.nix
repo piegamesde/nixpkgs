@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pillow, xlib, six, xvfb-run, sphinx
-, gobject-introspection, pygobject3, gtk3, libayatana-appindicator }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pillow,
+  xlib,
+  six,
+  xvfb-run,
+  sphinx,
+  gobject-introspection,
+  pygobject3,
+  gtk3,
+  libayatana-appindicator,
+}:
 
 buildPythonPackage rec {
   pname = "pystray";

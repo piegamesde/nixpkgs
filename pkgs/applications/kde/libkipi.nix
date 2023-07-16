@@ -1,4 +1,12 @@
-{ mkDerivation, lib, extra-cmake-modules, kconfig, ki18n, kservice, kxmlgui }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kconfig,
+  ki18n,
+  kservice,
+  kxmlgui,
+}:
 
 mkDerivation {
   pname = "libkipi";

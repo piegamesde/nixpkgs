@@ -1,4 +1,11 @@
-{ fetchurl, lib, stdenv, jre, makeWrapper, coreutils }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  jre,
+  makeWrapper,
+  coreutils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jmeter";

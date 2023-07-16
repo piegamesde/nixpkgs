@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchurl, pkg-config, which, ncurses, ocaml, findlib, ocaml_pcre
-, camlzip, gnutls, nettle }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  which,
+  ncurses,
+  ocaml,
+  findlib,
+  ocaml_pcre,
+  camlzip,
+  gnutls,
+  nettle,
+}:
 
 lib.throwIf (lib.versionOlder ocaml.version "4.02"
   || lib.versionAtLeast ocaml.version "5.0")

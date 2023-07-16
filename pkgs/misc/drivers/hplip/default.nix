@@ -1,9 +1,35 @@
-{ lib, stdenv, fetchurl, substituteAll, pkg-config, autoreconfHook, cups, zlib
-, libjpeg, libusb1, python3Packages, sane-backends, dbus, file, ghostscript
-, usbutils, net-snmp, openssl, perl, nettools, avahi, bash, util-linux
-# To remove references to gcc-unwrapped
-, removeReferencesTo, qt5, withQt5 ? true, withPlugin ? false
-, withStaticPPDInstall ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  substituteAll,
+  pkg-config,
+  autoreconfHook,
+  cups,
+  zlib,
+  libjpeg,
+  libusb1,
+  python3Packages,
+  sane-backends,
+  dbus,
+  file,
+  ghostscript,
+  usbutils,
+  net-snmp,
+  openssl,
+  perl,
+  nettools,
+  avahi,
+  bash,
+  util-linux
+  # To remove references to gcc-unwrapped
+  ,
+  removeReferencesTo,
+  qt5,
+  withQt5 ? true,
+  withPlugin ? false,
+  withStaticPPDInstall ? false
+}:
 
 let
 

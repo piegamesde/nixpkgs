@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, python3, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python3,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jbig2dec";

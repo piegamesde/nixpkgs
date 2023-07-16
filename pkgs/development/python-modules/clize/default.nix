@@ -1,6 +1,18 @@
-{ lib, attrs, buildPythonPackage, docutils, fetchPypi, od, pygments
-, pytestCheckHook, pythonOlder, python-dateutil, repeated-test, setuptools-scm
-, sigtools }:
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  docutils,
+  fetchPypi,
+  od,
+  pygments,
+  pytestCheckHook,
+  pythonOlder,
+  python-dateutil,
+  repeated-test,
+  setuptools-scm,
+  sigtools,
+}:
 
 buildPythonPackage rec {
   pname = "clize";

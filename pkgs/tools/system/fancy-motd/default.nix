@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchFromGitHub, bc, curl, figlet, fortune, gawk, iproute2
-, procps }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  bc,
+  curl,
+  figlet,
+  fortune,
+  gawk,
+  iproute2,
+  procps,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fancy-motd";

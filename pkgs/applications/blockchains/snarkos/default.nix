@@ -1,5 +1,14 @@
-{ stdenv, fetchFromGitHub, lib, rustPlatform, Security, curl, pkg-config
-, openssl, llvmPackages }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  rustPlatform,
+  Security,
+  curl,
+  pkg-config,
+  openssl,
+  llvmPackages,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "snarkos";
   version = "2.0.2";

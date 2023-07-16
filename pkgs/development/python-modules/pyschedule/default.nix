@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, pulp }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pulp,
+}:
 
 buildPythonPackage rec {
   pname = "pyschedule";

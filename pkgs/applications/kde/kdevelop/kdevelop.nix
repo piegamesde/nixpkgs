@@ -1,10 +1,48 @@
-{ mkDerivation, lib, cmake, gettext, pkg-config, extra-cmake-modules
-, qtquickcontrols, qttools, kde-cli-tools, qtbase, kconfig, kdeclarative
-, kdoctools, kiconthemes, ki18n, kitemmodels, kitemviews, kjobwidgets, kcmutils
-, kio, knewstuff, knotifyconfig, kparts, ktexteditor, threadweaver, kxmlgui
-, kwindowsystem, grantlee, kcrash, karchive, kguiaddons, plasma-framework
-, krunner, kdevelop-pg-qt, shared-mime-info, libkomparediff2, libksysguard
-, konsole, llvmPackages_13, makeWrapper, kpurpose, boost, qtwebengine, cppcheck
+{
+  mkDerivation,
+  lib,
+  cmake,
+  gettext,
+  pkg-config,
+  extra-cmake-modules,
+  qtquickcontrols,
+  qttools,
+  kde-cli-tools,
+  qtbase,
+  kconfig,
+  kdeclarative,
+  kdoctools,
+  kiconthemes,
+  ki18n,
+  kitemmodels,
+  kitemviews,
+  kjobwidgets,
+  kcmutils,
+  kio,
+  knewstuff,
+  knotifyconfig,
+  kparts,
+  ktexteditor,
+  threadweaver,
+  kxmlgui,
+  kwindowsystem,
+  grantlee,
+  kcrash,
+  karchive,
+  kguiaddons,
+  plasma-framework,
+  krunner,
+  kdevelop-pg-qt,
+  shared-mime-info,
+  libkomparediff2,
+  libksysguard,
+  konsole,
+  llvmPackages_13,
+  makeWrapper,
+  kpurpose,
+  boost,
+  qtwebengine,
+  cppcheck,
 }:
 
 let llvmPackages = llvmPackages_13;

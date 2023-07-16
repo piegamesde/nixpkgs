@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, makeWrapper, jre }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  jre,
+}:
 
 let
   playerglobal_ver = "27.0";

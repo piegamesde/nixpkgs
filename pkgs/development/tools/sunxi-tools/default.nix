@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, dtc, libusb1, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  dtc,
+  libusb1,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sunxi-tools";

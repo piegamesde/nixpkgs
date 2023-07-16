@@ -1,13 +1,26 @@
 # The cmake version of this build is meant to enable both cmake and .pc being exported
 # this is important because grpc exports a .cmake file which also expects for protobuf
 # to have been exported through cmake as well.
-{ lib, stdenv, abseil-cpp, buildPackages, cmake, fetchFromGitHub, fetchpatch
-, gtest, zlib, version, sha256
+{
+  lib,
+  stdenv,
+  abseil-cpp,
+  buildPackages,
+  cmake,
+  fetchFromGitHub,
+  fetchpatch,
+  gtest,
+  zlib,
+  version,
+  sha256
 
-# downstream dependencies
-, python3
+  # downstream dependencies
+  ,
+  python3
 
-, ... }:
+  ,
+  ...
+}:
 
 let
   self = stdenv.mkDerivation {

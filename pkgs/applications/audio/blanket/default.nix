@@ -1,6 +1,19 @@
-{ lib, fetchFromGitHub, meson, ninja, pkg-config, wrapGAppsHook4
-, desktop-file-utils, appstream-glib, python3Packages, glib, gtk4, libadwaita
-, gobject-introspection, gst_all_1 }:
+{
+  lib,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  wrapGAppsHook4,
+  desktop-file-utils,
+  appstream-glib,
+  python3Packages,
+  glib,
+  gtk4,
+  libadwaita,
+  gobject-introspection,
+  gst_all_1,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "blanket";

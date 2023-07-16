@@ -1,6 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
-# build inputs
-, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder
+  # build inputs
+  ,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "widlparser";

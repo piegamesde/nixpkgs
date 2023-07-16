@@ -1,6 +1,22 @@
-{ lib, fetchFromGitHub, python3Packages, dnsmasq, gawk, getent
-, gobject-introspection, gtk3, kmod, lxc, iproute2, iptables, util-linux, which
-, wrapGAppsHook, xclip, runtimeShell }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  dnsmasq,
+  gawk,
+  getent,
+  gobject-introspection,
+  gtk3,
+  kmod,
+  lxc,
+  iproute2,
+  iptables,
+  util-linux,
+  which,
+  wrapGAppsHook,
+  xclip,
+  runtimeShell,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "waydroid";

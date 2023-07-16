@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, cryptography, fetchFromGitHub, gssapi, krb5
-, ruamel-yaml, pytest-mock, pytestCheckHook, pythonOlder, glibcLocales }:
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  gssapi,
+  krb5,
+  ruamel-yaml,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  glibcLocales,
+}:
 
 buildPythonPackage rec {
   pname = "pyspnego";

@@ -1,5 +1,22 @@
-{ lib, stdenv, fetchurl, SDL2, SDL2_image, SDL2_mixer, fontconfig, freealut
-, freeglut, ftgl, gettext, glpng, libGL, libGLU, openal, pkg-config, quesoglc }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  SDL2,
+  SDL2_image,
+  SDL2_mixer,
+  fontconfig,
+  freealut,
+  freeglut,
+  ftgl,
+  gettext,
+  glpng,
+  libGL,
+  libGLU,
+  openal,
+  pkg-config,
+  quesoglc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "chromium-bsu";

@@ -1,6 +1,9 @@
 # Test configuration switching.
 
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
   let
 
     # Simple service that can either be socket-activated or that will
@@ -47,238 +50,26 @@ import ./make-test-python.nix ({ pkgs, ... }:
     meta = with pkgs.lib.maintainers; { maintainers = [ gleber das_j ]; };
 
     nodes = {
-      machine = { pkgs, lib, ... }: {
-        environment.systemPackages =
-          [ pkgs.socat ]; # for the socket activation stuff
-        users.mutableUsers = false;
+      machine = {
+          pkgs,
+          lib,
+          ...
+        }: {
+          environment.systemPackages =
+            [ pkgs.socat ]; # for the socket activation stuff
+          users.mutableUsers = false;
 
-        # For boot/switch testing
-        system.build.installBootLoader = lib.mkForce
-          (pkgs.writeShellScript "install-dummy-loader" ''
-            echo "installing dummy bootloader"
-            touch /tmp/bootloader-installed
-          '');
+          # For boot/switch testing
+          system.build.installBootLoader = lib.mkForce
+            (pkgs.writeShellScript "install-dummy-loader" ''
+              echo "installing dummy bootloader"
+              touch /tmp/bootloader-installed
+            '');
 
-        specialisation = rec {
-          simpleService.configuration = {
-            systemd.services.test = {
-              wantedBy = [ "multi-user.target" ];
-              serviceConfig = {
-                Type = "oneshot";
-                RemainAfterExit = true;
-                ExecStart = "${pkgs.coreutils}/bin/true";
-                ExecReload = "${pkgs.coreutils}/bin/true";
-              };
-            };
-          };
-
-          simpleServiceDifferentDescription.configuration = {
-            imports = [ simpleService.configuration ];
-            systemd.services.test.description = "Test unit";
-          };
-
-          simpleServiceModified.configuration = {
-            imports = [ simpleService.configuration ];
-            systemd.services.test.serviceConfig.X-Test = true;
-          };
-
-          simpleServiceNostop.configuration = {
-            imports = [ simpleService.configuration ];
-            systemd.services.test.stopIfChanged = false;
-          };
-
-          simpleServiceReload.configuration = {
-            imports = [ simpleService.configuration ];
-            systemd.services.test = {
-              reloadIfChanged = true;
-              serviceConfig.ExecReload = "${pkgs.coreutils}/bin/true";
-            };
-          };
-
-          simpleServiceNorestart.configuration = {
-            imports = [ simpleService.configuration ];
-            systemd.services.test.restartIfChanged = false;
-          };
-
-          simpleServiceFailing.configuration = {
-            imports = [ simpleServiceModified.configuration ];
-            systemd.services.test.serviceConfig.ExecStart =
-              lib.mkForce "${pkgs.coreutils}/bin/false";
-          };
-
-          autorestartService.configuration = {
-            # A service that immediately goes into restarting (but without failing)
-            systemd.services.autorestart = {
-              wantedBy = [ "multi-user.target" ];
-              serviceConfig = {
-                Type = "simple";
-                Restart = "always";
-                RestartSec = "20y"; # Should be long enough
-                ExecStart = "${pkgs.coreutils}/bin/true";
-              };
-            };
-          };
-
-          autorestartServiceFailing.configuration = {
-            imports = [ autorestartService.configuration ];
-            systemd.services.autorestart.serviceConfig = {
-              ExecStart = lib.mkForce "${pkgs.coreutils}/bin/false";
-            };
-          };
-
-          simpleServiceWithExtraSection.configuration = {
-            imports = [ simpleServiceNostop.configuration ];
-            systemd.packages = [
-              (pkgs.writeTextFile {
-                name = "systemd-extra-section";
-                destination = "/etc/systemd/system/test.service";
-                text = ''
-                  [X-Test]
-                  X-Test-Value=a
-                '';
-              })
-            ];
-          };
-
-          simpleServiceWithExtraSectionOtherName.configuration = {
-            imports = [ simpleServiceNostop.configuration ];
-            systemd.packages = [
-              (pkgs.writeTextFile {
-                name = "systemd-extra-section";
-                destination = "/etc/systemd/system/test.service";
-                text = ''
-                  [X-Test2]
-                  X-Test-Value=a
-                '';
-              })
-            ];
-          };
-
-          simpleServiceWithInstallSection.configuration = {
-            imports = [ simpleServiceNostop.configuration ];
-            systemd.packages = [
-              (pkgs.writeTextFile {
-                name = "systemd-extra-section";
-                destination = "/etc/systemd/system/test.service";
-                text = ''
-                  [Install]
-                  WantedBy=multi-user.target
-                '';
-              })
-            ];
-          };
-
-          simpleServiceWithExtraKey.configuration = {
-            imports = [ simpleServiceNostop.configuration ];
-            systemd.services.test.serviceConfig."X-Test" = "test";
-          };
-
-          simpleServiceWithExtraKeyOtherValue.configuration = {
-            imports = [ simpleServiceNostop.configuration ];
-            systemd.services.test.serviceConfig."X-Test" = "test2";
-          };
-
-          simpleServiceWithExtraKeyOtherName.configuration = {
-            imports = [ simpleServiceNostop.configuration ];
-            systemd.services.test.serviceConfig."X-Test2" = "test";
-          };
-
-          simpleServiceReloadTrigger.configuration = {
-            imports = [ simpleServiceNostop.configuration ];
-            systemd.services.test.reloadTriggers = [ "/dev/null" ];
-          };
-
-          simpleServiceReloadTriggerModified.configuration = {
-            imports = [ simpleServiceNostop.configuration ];
-            systemd.services.test.reloadTriggers = [ "/dev/zero" ];
-          };
-
-          simpleServiceReloadTriggerModifiedAndSomethingElse.configuration = {
-            imports = [ simpleServiceNostop.configuration ];
-            systemd.services.test = {
-              reloadTriggers = [ "/dev/zero" ];
-              serviceConfig."X-Test" = "test";
-            };
-          };
-
-          simpleServiceReloadTriggerModifiedSomethingElse.configuration = {
-            imports = [ simpleServiceNostop.configuration ];
-            systemd.services.test.serviceConfig."X-Test" = "test";
-          };
-
-          unitWithBackslash.configuration = {
-            systemd.services."escaped\\x2ddash" = {
-              wantedBy = [ "multi-user.target" ];
-              serviceConfig = {
-                Type = "oneshot";
-                RemainAfterExit = true;
-                ExecStart = "${pkgs.coreutils}/bin/true";
-                ExecReload = "${pkgs.coreutils}/bin/true";
-              };
-            };
-          };
-
-          unitWithBackslashModified.configuration = {
-            imports = [ unitWithBackslash.configuration ];
-            systemd.services."escaped\\x2ddash".serviceConfig.X-Test = "test";
-          };
-
-          unitStartingWithDash.configuration = {
-            systemd.services."-" = {
-              wantedBy = [ "multi-user.target" ];
-              serviceConfig = {
-                Type = "oneshot";
-                RemainAfterExit = true;
-                ExecStart = "${pkgs.coreutils}/bin/true";
-              };
-            };
-          };
-
-          unitStartingWithDashModified.configuration = {
-            imports = [ unitStartingWithDash.configuration ];
-            systemd.services."-" = {
-              reloadIfChanged = true;
-              serviceConfig.ExecReload = "${pkgs.coreutils}/bin/true";
-            };
-          };
-
-          unitWithRequirement.configuration = {
-            systemd.services.required-service = {
-              wantedBy = [ "multi-user.target" ];
-              serviceConfig = {
-                Type = "oneshot";
-                RemainAfterExit = true;
-                ExecStart = "${pkgs.coreutils}/bin/true";
-                ExecReload = "${pkgs.coreutils}/bin/true";
-              };
-            };
-            systemd.services.test-service = {
-              wantedBy = [ "multi-user.target" ];
-              requires = [ "required-service.service" ];
-              serviceConfig = {
-                Type = "oneshot";
-                RemainAfterExit = true;
-                ExecStart = "${pkgs.coreutils}/bin/true";
-                ExecReload = "${pkgs.coreutils}/bin/true";
-              };
-            };
-          };
-
-          unitWithRequirementModified.configuration = {
-            imports = [ unitWithRequirement.configuration ];
-            systemd.services.required-service.serviceConfig.X-Test = "test";
-            systemd.services.test-service.reloadTriggers = [ "test" ];
-          };
-
-          unitWithRequirementModifiedNostart.configuration = {
-            imports = [ unitWithRequirement.configuration ];
-            systemd.services.test-service.unitConfig.RefuseManualStart = true;
-          };
-
-          restart-and-reload-by-activation-script.configuration = {
-            systemd.services = rec {
-              simple-service = {
-                # No wantedBy so we can check if the activation script restart triggers them
+          specialisation = rec {
+            simpleService.configuration = {
+              systemd.services.test = {
+                wantedBy = [ "multi-user.target" ];
                 serviceConfig = {
                   Type = "oneshot";
                   RemainAfterExit = true;
@@ -286,210 +77,432 @@ import ./make-test-python.nix ({ pkgs, ... }:
                   ExecReload = "${pkgs.coreutils}/bin/true";
                 };
               };
+            };
 
-              simple-restart-service = simple-service // {
-                stopIfChanged = false;
-              };
+            simpleServiceDifferentDescription.configuration = {
+              imports = [ simpleService.configuration ];
+              systemd.services.test.description = "Test unit";
+            };
 
-              simple-reload-service = simple-service // {
+            simpleServiceModified.configuration = {
+              imports = [ simpleService.configuration ];
+              systemd.services.test.serviceConfig.X-Test = true;
+            };
+
+            simpleServiceNostop.configuration = {
+              imports = [ simpleService.configuration ];
+              systemd.services.test.stopIfChanged = false;
+            };
+
+            simpleServiceReload.configuration = {
+              imports = [ simpleService.configuration ];
+              systemd.services.test = {
                 reloadIfChanged = true;
+                serviceConfig.ExecReload = "${pkgs.coreutils}/bin/true";
               };
+            };
 
-              no-restart-service = simple-service // {
-                restartIfChanged = false;
-              };
+            simpleServiceNorestart.configuration = {
+              imports = [ simpleService.configuration ];
+              systemd.services.test.restartIfChanged = false;
+            };
 
-              reload-triggers = simple-service // {
+            simpleServiceFailing.configuration = {
+              imports = [ simpleServiceModified.configuration ];
+              systemd.services.test.serviceConfig.ExecStart =
+                lib.mkForce "${pkgs.coreutils}/bin/false";
+            };
+
+            autorestartService.configuration = {
+              # A service that immediately goes into restarting (but without failing)
+              systemd.services.autorestart = {
                 wantedBy = [ "multi-user.target" ];
+                serviceConfig = {
+                  Type = "simple";
+                  Restart = "always";
+                  RestartSec = "20y"; # Should be long enough
+                  ExecStart = "${pkgs.coreutils}/bin/true";
+                };
               };
+            };
 
-              reload-triggers-and-restart-by-as = simple-service;
+            autorestartServiceFailing.configuration = {
+              imports = [ autorestartService.configuration ];
+              systemd.services.autorestart.serviceConfig = {
+                ExecStart = lib.mkForce "${pkgs.coreutils}/bin/false";
+              };
+            };
 
-              reload-triggers-and-restart = simple-service // {
-                stopIfChanged = false; # easier to check for this
+            simpleServiceWithExtraSection.configuration = {
+              imports = [ simpleServiceNostop.configuration ];
+              systemd.packages = [
+                (pkgs.writeTextFile {
+                  name = "systemd-extra-section";
+                  destination = "/etc/systemd/system/test.service";
+                  text = ''
+                    [X-Test]
+                    X-Test-Value=a
+                  '';
+                })
+              ];
+            };
+
+            simpleServiceWithExtraSectionOtherName.configuration = {
+              imports = [ simpleServiceNostop.configuration ];
+              systemd.packages = [
+                (pkgs.writeTextFile {
+                  name = "systemd-extra-section";
+                  destination = "/etc/systemd/system/test.service";
+                  text = ''
+                    [X-Test2]
+                    X-Test-Value=a
+                  '';
+                })
+              ];
+            };
+
+            simpleServiceWithInstallSection.configuration = {
+              imports = [ simpleServiceNostop.configuration ];
+              systemd.packages = [
+                (pkgs.writeTextFile {
+                  name = "systemd-extra-section";
+                  destination = "/etc/systemd/system/test.service";
+                  text = ''
+                    [Install]
+                    WantedBy=multi-user.target
+                  '';
+                })
+              ];
+            };
+
+            simpleServiceWithExtraKey.configuration = {
+              imports = [ simpleServiceNostop.configuration ];
+              systemd.services.test.serviceConfig."X-Test" = "test";
+            };
+
+            simpleServiceWithExtraKeyOtherValue.configuration = {
+              imports = [ simpleServiceNostop.configuration ];
+              systemd.services.test.serviceConfig."X-Test" = "test2";
+            };
+
+            simpleServiceWithExtraKeyOtherName.configuration = {
+              imports = [ simpleServiceNostop.configuration ];
+              systemd.services.test.serviceConfig."X-Test2" = "test";
+            };
+
+            simpleServiceReloadTrigger.configuration = {
+              imports = [ simpleServiceNostop.configuration ];
+              systemd.services.test.reloadTriggers = [ "/dev/null" ];
+            };
+
+            simpleServiceReloadTriggerModified.configuration = {
+              imports = [ simpleServiceNostop.configuration ];
+              systemd.services.test.reloadTriggers = [ "/dev/zero" ];
+            };
+
+            simpleServiceReloadTriggerModifiedAndSomethingElse.configuration = {
+              imports = [ simpleServiceNostop.configuration ];
+              systemd.services.test = {
+                reloadTriggers = [ "/dev/zero" ];
+                serviceConfig."X-Test" = "test";
+              };
+            };
+
+            simpleServiceReloadTriggerModifiedSomethingElse.configuration = {
+              imports = [ simpleServiceNostop.configuration ];
+              systemd.services.test.serviceConfig."X-Test" = "test";
+            };
+
+            unitWithBackslash.configuration = {
+              systemd.services."escaped\\x2ddash" = {
                 wantedBy = [ "multi-user.target" ];
+                serviceConfig = {
+                  Type = "oneshot";
+                  RemainAfterExit = true;
+                  ExecStart = "${pkgs.coreutils}/bin/true";
+                  ExecReload = "${pkgs.coreutils}/bin/true";
+                };
               };
             };
 
-            system.activationScripts.restart-and-reload-test = {
-              supportsDryActivation = true;
-              deps = [ ];
-              text = ''
-                if [ "$NIXOS_ACTION" = dry-activate ]; then
-                  f=/run/nixos/dry-activation-restart-list
-                  g=/run/nixos/dry-activation-reload-list
-                else
-                  f=/run/nixos/activation-restart-list
-                  g=/run/nixos/activation-reload-list
-                fi
-                cat <<EOF >> "$f"
-                simple-service.service
-                simple-restart-service.service
-                simple-reload-service.service
-                no-restart-service.service
-                reload-triggers-and-restart-by-as.service
-                EOF
-
-                cat <<EOF >> "$g"
-                reload-triggers.service
-                reload-triggers-and-restart-by-as.service
-                reload-triggers-and-restart.service
-                EOF
-              '';
+            unitWithBackslashModified.configuration = {
+              imports = [ unitWithBackslash.configuration ];
+              systemd.services."escaped\\x2ddash".serviceConfig.X-Test = "test";
             };
-          };
 
-          restart-and-reload-by-activation-script-modified.configuration = {
-            imports = [ restart-and-reload-by-activation-script.configuration ];
-            systemd.services.reload-triggers-and-restart.serviceConfig.X-Modified =
-              "test";
-          };
-
-          simple-socket.configuration = {
-            systemd.services.socket-activated = {
-              description = "A socket-activated service";
-              stopIfChanged = lib.mkDefault false;
-              serviceConfig = {
-                ExecStart = socketTest;
-                ExecReload = "${pkgs.coreutils}/bin/true";
+            unitStartingWithDash.configuration = {
+              systemd.services."-" = {
+                wantedBy = [ "multi-user.target" ];
+                serviceConfig = {
+                  Type = "oneshot";
+                  RemainAfterExit = true;
+                  ExecStart = "${pkgs.coreutils}/bin/true";
+                };
               };
             };
-            systemd.sockets.socket-activated = {
-              wantedBy = [ "sockets.target" ];
-              listenStreams = [ "/run/test.sock" ];
-              socketConfig.SocketMode = lib.mkDefault "0777";
-            };
-          };
 
-          simple-socket-service-modified.configuration = {
-            imports = [ simple-socket.configuration ];
-            systemd.services.socket-activated.serviceConfig.X-Test = "test";
-          };
-
-          simple-socket-stop-if-changed.configuration = {
-            imports = [ simple-socket.configuration ];
-            systemd.services.socket-activated.stopIfChanged = true;
-          };
-
-          simple-socket-stop-if-changed-and-reloadtrigger.configuration = {
-            imports = [ simple-socket.configuration ];
-            systemd.services.socket-activated = {
-              stopIfChanged = true;
-              reloadTriggers = [ "test" ];
-            };
-          };
-
-          mount.configuration = {
-            systemd.mounts = [{
-              description = "Testmount";
-              what = "tmpfs";
-              type = "tmpfs";
-              where = "/testmount";
-              options = "size=1M";
-              wantedBy = [ "local-fs.target" ];
-            }];
-          };
-
-          mountModified.configuration = {
-            systemd.mounts = [{
-              description = "Testmount";
-              what = "tmpfs";
-              type = "tmpfs";
-              where = "/testmount";
-              options = "size=10M";
-              wantedBy = [ "local-fs.target" ];
-            }];
-          };
-
-          timer.configuration = {
-            systemd.timers.test-timer = {
-              wantedBy = [ "timers.target" ];
-              timerConfig.OnCalendar = "@1395716396"; # chosen by fair dice roll
-            };
-            systemd.services.test-timer = {
-              serviceConfig = {
-                Type = "oneshot";
-                ExecStart = "${pkgs.coreutils}/bin/true";
+            unitStartingWithDashModified.configuration = {
+              imports = [ unitStartingWithDash.configuration ];
+              systemd.services."-" = {
+                reloadIfChanged = true;
+                serviceConfig.ExecReload = "${pkgs.coreutils}/bin/true";
               };
             };
-          };
 
-          timerModified.configuration = {
-            imports = [ timer.configuration ];
-            systemd.timers.test-timer.timerConfig.OnCalendar =
-              lib.mkForce "Fri 2012-11-23 16:00:00";
-          };
-
-          hybridSleepModified.configuration = {
-            systemd.targets.hybrid-sleep.unitConfig.X-Test = true;
-          };
-
-          target.configuration = {
-            systemd.targets.test-target.wantedBy = [ "multi-user.target" ];
-            # We use this service to figure out whether the target was modified.
-            # This is the only way because targets are filtered and therefore not
-            # printed when they are started/stopped.
-            systemd.services.test-service = {
-              bindsTo = [ "test-target.target" ];
-              serviceConfig.ExecStart = "${pkgs.coreutils}/bin/sleep infinity";
-            };
-          };
-
-          targetModified.configuration = {
-            imports = [ target.configuration ];
-            systemd.targets.test-target.unitConfig.X-Test = true;
-          };
-
-          targetModifiedStopOnReconfig.configuration = {
-            imports = [ target.configuration ];
-            systemd.targets.test-target.unitConfig.X-StopOnReconfiguration =
-              true;
-          };
-
-          path.configuration = {
-            systemd.paths.test-watch = {
-              wantedBy = [ "paths.target" ];
-              pathConfig.PathExists = "/testpath";
-            };
-            systemd.services.test-watch = {
-              serviceConfig = {
-                Type = "oneshot";
-                RemainAfterExit = true;
-                ExecStart = "${pkgs.coreutils}/bin/touch /testpath-modified";
+            unitWithRequirement.configuration = {
+              systemd.services.required-service = {
+                wantedBy = [ "multi-user.target" ];
+                serviceConfig = {
+                  Type = "oneshot";
+                  RemainAfterExit = true;
+                  ExecStart = "${pkgs.coreutils}/bin/true";
+                  ExecReload = "${pkgs.coreutils}/bin/true";
+                };
+              };
+              systemd.services.test-service = {
+                wantedBy = [ "multi-user.target" ];
+                requires = [ "required-service.service" ];
+                serviceConfig = {
+                  Type = "oneshot";
+                  RemainAfterExit = true;
+                  ExecStart = "${pkgs.coreutils}/bin/true";
+                  ExecReload = "${pkgs.coreutils}/bin/true";
+                };
               };
             };
-          };
 
-          pathModified.configuration = {
-            imports = [ path.configuration ];
-            systemd.paths.test-watch.pathConfig.PathExists =
-              lib.mkForce "/testpath2";
-          };
+            unitWithRequirementModified.configuration = {
+              imports = [ unitWithRequirement.configuration ];
+              systemd.services.required-service.serviceConfig.X-Test = "test";
+              systemd.services.test-service.reloadTriggers = [ "test" ];
+            };
 
-          slice.configuration = {
-            systemd.slices.testslice.sliceConfig.MemoryMax =
-              "1"; # don't allow memory allocation
-            systemd.services.testservice = {
-              serviceConfig = {
-                Type = "oneshot";
-                RemainAfterExit = true;
-                ExecStart = "${pkgs.coreutils}/bin/true";
-                Slice = "testslice.slice";
+            unitWithRequirementModifiedNostart.configuration = {
+              imports = [ unitWithRequirement.configuration ];
+              systemd.services.test-service.unitConfig.RefuseManualStart = true;
+            };
+
+            restart-and-reload-by-activation-script.configuration = {
+              systemd.services = rec {
+                simple-service = {
+                  # No wantedBy so we can check if the activation script restart triggers them
+                  serviceConfig = {
+                    Type = "oneshot";
+                    RemainAfterExit = true;
+                    ExecStart = "${pkgs.coreutils}/bin/true";
+                    ExecReload = "${pkgs.coreutils}/bin/true";
+                  };
+                };
+
+                simple-restart-service = simple-service // {
+                  stopIfChanged = false;
+                };
+
+                simple-reload-service = simple-service // {
+                  reloadIfChanged = true;
+                };
+
+                no-restart-service = simple-service // {
+                  restartIfChanged = false;
+                };
+
+                reload-triggers = simple-service // {
+                  wantedBy = [ "multi-user.target" ];
+                };
+
+                reload-triggers-and-restart-by-as = simple-service;
+
+                reload-triggers-and-restart = simple-service // {
+                  stopIfChanged = false; # easier to check for this
+                  wantedBy = [ "multi-user.target" ];
+                };
+              };
+
+              system.activationScripts.restart-and-reload-test = {
+                supportsDryActivation = true;
+                deps = [ ];
+                text = ''
+                  if [ "$NIXOS_ACTION" = dry-activate ]; then
+                    f=/run/nixos/dry-activation-restart-list
+                    g=/run/nixos/dry-activation-reload-list
+                  else
+                    f=/run/nixos/activation-restart-list
+                    g=/run/nixos/activation-reload-list
+                  fi
+                  cat <<EOF >> "$f"
+                  simple-service.service
+                  simple-restart-service.service
+                  simple-reload-service.service
+                  no-restart-service.service
+                  reload-triggers-and-restart-by-as.service
+                  EOF
+
+                  cat <<EOF >> "$g"
+                  reload-triggers.service
+                  reload-triggers-and-restart-by-as.service
+                  reload-triggers-and-restart.service
+                  EOF
+                '';
               };
             };
-          };
 
-          sliceModified.configuration = {
-            imports = [ slice.configuration ];
-            systemd.slices.testslice.sliceConfig.MemoryMax = lib.mkForce null;
+            restart-and-reload-by-activation-script-modified.configuration = {
+              imports =
+                [ restart-and-reload-by-activation-script.configuration ];
+              systemd.services.reload-triggers-and-restart.serviceConfig.X-Modified =
+                "test";
+            };
+
+            simple-socket.configuration = {
+              systemd.services.socket-activated = {
+                description = "A socket-activated service";
+                stopIfChanged = lib.mkDefault false;
+                serviceConfig = {
+                  ExecStart = socketTest;
+                  ExecReload = "${pkgs.coreutils}/bin/true";
+                };
+              };
+              systemd.sockets.socket-activated = {
+                wantedBy = [ "sockets.target" ];
+                listenStreams = [ "/run/test.sock" ];
+                socketConfig.SocketMode = lib.mkDefault "0777";
+              };
+            };
+
+            simple-socket-service-modified.configuration = {
+              imports = [ simple-socket.configuration ];
+              systemd.services.socket-activated.serviceConfig.X-Test = "test";
+            };
+
+            simple-socket-stop-if-changed.configuration = {
+              imports = [ simple-socket.configuration ];
+              systemd.services.socket-activated.stopIfChanged = true;
+            };
+
+            simple-socket-stop-if-changed-and-reloadtrigger.configuration = {
+              imports = [ simple-socket.configuration ];
+              systemd.services.socket-activated = {
+                stopIfChanged = true;
+                reloadTriggers = [ "test" ];
+              };
+            };
+
+            mount.configuration = {
+              systemd.mounts = [{
+                description = "Testmount";
+                what = "tmpfs";
+                type = "tmpfs";
+                where = "/testmount";
+                options = "size=1M";
+                wantedBy = [ "local-fs.target" ];
+              }];
+            };
+
+            mountModified.configuration = {
+              systemd.mounts = [{
+                description = "Testmount";
+                what = "tmpfs";
+                type = "tmpfs";
+                where = "/testmount";
+                options = "size=10M";
+                wantedBy = [ "local-fs.target" ];
+              }];
+            };
+
+            timer.configuration = {
+              systemd.timers.test-timer = {
+                wantedBy = [ "timers.target" ];
+                timerConfig.OnCalendar =
+                  "@1395716396"; # chosen by fair dice roll
+              };
+              systemd.services.test-timer = {
+                serviceConfig = {
+                  Type = "oneshot";
+                  ExecStart = "${pkgs.coreutils}/bin/true";
+                };
+              };
+            };
+
+            timerModified.configuration = {
+              imports = [ timer.configuration ];
+              systemd.timers.test-timer.timerConfig.OnCalendar =
+                lib.mkForce "Fri 2012-11-23 16:00:00";
+            };
+
+            hybridSleepModified.configuration = {
+              systemd.targets.hybrid-sleep.unitConfig.X-Test = true;
+            };
+
+            target.configuration = {
+              systemd.targets.test-target.wantedBy = [ "multi-user.target" ];
+              # We use this service to figure out whether the target was modified.
+              # This is the only way because targets are filtered and therefore not
+              # printed when they are started/stopped.
+              systemd.services.test-service = {
+                bindsTo = [ "test-target.target" ];
+                serviceConfig.ExecStart =
+                  "${pkgs.coreutils}/bin/sleep infinity";
+              };
+            };
+
+            targetModified.configuration = {
+              imports = [ target.configuration ];
+              systemd.targets.test-target.unitConfig.X-Test = true;
+            };
+
+            targetModifiedStopOnReconfig.configuration = {
+              imports = [ target.configuration ];
+              systemd.targets.test-target.unitConfig.X-StopOnReconfiguration =
+                true;
+            };
+
+            path.configuration = {
+              systemd.paths.test-watch = {
+                wantedBy = [ "paths.target" ];
+                pathConfig.PathExists = "/testpath";
+              };
+              systemd.services.test-watch = {
+                serviceConfig = {
+                  Type = "oneshot";
+                  RemainAfterExit = true;
+                  ExecStart = "${pkgs.coreutils}/bin/touch /testpath-modified";
+                };
+              };
+            };
+
+            pathModified.configuration = {
+              imports = [ path.configuration ];
+              systemd.paths.test-watch.pathConfig.PathExists =
+                lib.mkForce "/testpath2";
+            };
+
+            slice.configuration = {
+              systemd.slices.testslice.sliceConfig.MemoryMax =
+                "1"; # don't allow memory allocation
+              systemd.services.testservice = {
+                serviceConfig = {
+                  Type = "oneshot";
+                  RemainAfterExit = true;
+                  ExecStart = "${pkgs.coreutils}/bin/true";
+                  Slice = "testslice.slice";
+                };
+              };
+            };
+
+            sliceModified.configuration = {
+              imports = [ slice.configuration ];
+              systemd.slices.testslice.sliceConfig.MemoryMax = lib.mkForce null;
+            };
           };
         };
-      };
 
       other = { users.mutableUsers = true; };
     };
 
-    testScript = { nodes, ... }:
+    testScript = {
+        nodes,
+        ...
+      }:
       let
         originalSystem = nodes.machine.config.system.build.toplevel;
         otherSystem = nodes.other.config.system.build.toplevel;

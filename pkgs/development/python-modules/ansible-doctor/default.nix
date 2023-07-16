@@ -1,6 +1,21 @@
-{ lib, anyconfig, appdirs, buildPythonPackage, colorama, environs
-, fetchFromGitHub, jinja2, jsonschema, nested-lookup, pathspec, poetry-core
-, python-json-logger, pythonOlder, pythonRelaxDepsHook, ruamel-yaml }:
+{
+  lib,
+  anyconfig,
+  appdirs,
+  buildPythonPackage,
+  colorama,
+  environs,
+  fetchFromGitHub,
+  jinja2,
+  jsonschema,
+  nested-lookup,
+  pathspec,
+  poetry-core,
+  python-json-logger,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  ruamel-yaml,
+}:
 
 buildPythonPackage rec {
   pname = "ansible-doctor";

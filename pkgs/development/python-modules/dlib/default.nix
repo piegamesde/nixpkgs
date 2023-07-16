@@ -1,6 +1,13 @@
-{ stdenv, buildPythonPackage, dlib, python, pytest, more-itertools
-, sse4Support ? stdenv.hostPlatform.sse4_1Support
-, avxSupport ? stdenv.hostPlatform.avxSupport }:
+{
+  stdenv,
+  buildPythonPackage,
+  dlib,
+  python,
+  pytest,
+  more-itertools,
+  sse4Support ? stdenv.hostPlatform.sse4_1Support,
+  avxSupport ? stdenv.hostPlatform.avxSupport
+}:
 
 buildPythonPackage {
   inherit (dlib) pname version src nativeBuildInputs buildInputs meta;

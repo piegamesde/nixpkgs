@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, guile, guile-commonmark, guile-reader, makeWrapper
-, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  guile,
+  guile-commonmark,
+  guile-reader,
+  makeWrapper,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "haunt";

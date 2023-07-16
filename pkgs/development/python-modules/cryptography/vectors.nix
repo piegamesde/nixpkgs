@@ -1,4 +1,9 @@
-{ buildPythonPackage, fetchPypi, lib, cryptography }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  lib,
+  cryptography,
+}:
 
 buildPythonPackage rec {
   pname = "cryptography-vectors";

@@ -1,4 +1,10 @@
-{ config, lib, pkgs, utils, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  utils,
+  ...
+}:
 
 let
   inherit (lib) mkDefault mkEnableOption mkIf mkOption types literalExpression;

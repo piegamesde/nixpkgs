@@ -1,6 +1,28 @@
-{ lib, stdenv, fetchurl, openssl, libcap, curl, which, eventlog, pkg-config
-, glib, python3, systemd, perl, riemann_c_client, protobufc, pcre, libnet
-, json_c, libuuid, libivykis, mongoc, rabbitmq-c, libesmtp }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  openssl,
+  libcap,
+  curl,
+  which,
+  eventlog,
+  pkg-config,
+  glib,
+  python3,
+  systemd,
+  perl,
+  riemann_c_client,
+  protobufc,
+  pcre,
+  libnet,
+  json_c,
+  libuuid,
+  libivykis,
+  mongoc,
+  rabbitmq-c,
+  libesmtp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "syslog-ng";

@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchurl, iosevka, unzip, variant ? "" }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  iosevka,
+  unzip,
+  variant ? ""
+}:
 
 let
   name = if lib.hasPrefix "sgr" variant then

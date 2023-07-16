@@ -1,6 +1,22 @@
-{ lib, stdenv, makeWrapper, fetchFromGitHub, writeShellScriptBin, imagemagick
-, i3lock-color, xdpyinfo, xrandr, bc, feh, procps, xrdb, xset, gnused, gnugrep
-, coreutils }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  fetchFromGitHub,
+  writeShellScriptBin,
+  imagemagick,
+  i3lock-color,
+  xdpyinfo,
+  xrandr,
+  bc,
+  feh,
+  procps,
+  xrdb,
+  xset,
+  gnused,
+  gnugrep,
+  coreutils,
+}:
 let
   i3lock = writeShellScriptBin "i3lock" ''
     ${i3lock-color}/bin/i3lock-color "$@"

@@ -1,5 +1,14 @@
-{ buildPythonPackage, fetchFromGitHub, fetchpatch, isPy27, libopus, nose, lib
-, stdenv, substituteAll, }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  isPy27,
+  libopus,
+  nose,
+  lib,
+  stdenv,
+  substituteAll,
+}:
 
 buildPythonPackage rec {
   pname = "opuslib";

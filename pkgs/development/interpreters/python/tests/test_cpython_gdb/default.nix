@@ -1,4 +1,10 @@
-{ interpreter, lib, gdb, writeText, runCommand }:
+{
+  interpreter,
+  lib,
+  gdb,
+  writeText,
+  runCommand,
+}:
 
 let
   crashme-py = writeText "crashme.py" ''

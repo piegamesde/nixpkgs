@@ -1,5 +1,17 @@
-{ fetchurl, fetchpatch, lib, stdenv, pkg-config, clutter, gtk3, glib, cogl
-, gnome, gdk-pixbuf, gobject-introspection }:
+{
+  fetchurl,
+  fetchpatch,
+  lib,
+  stdenv,
+  pkg-config,
+  clutter,
+  gtk3,
+  glib,
+  cogl,
+  gnome,
+  gdk-pixbuf,
+  gobject-introspection,
+}:
 
 stdenv.mkDerivation rec {
   pname = "clutter-gst";

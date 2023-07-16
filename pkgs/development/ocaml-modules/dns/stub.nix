@@ -1,6 +1,20 @@
-{ buildDunePackage, dns, dns-client-mirage, dns-mirage, dns-resolver, dns-tsig
-, dns-server, duration, randomconv, lwt, mirage-time, mirage-clock
-, mirage-random, tcpip, metrics }:
+{
+  buildDunePackage,
+  dns,
+  dns-client-mirage,
+  dns-mirage,
+  dns-resolver,
+  dns-tsig,
+  dns-server,
+  duration,
+  randomconv,
+  lwt,
+  mirage-time,
+  mirage-clock,
+  mirage-random,
+  tcpip,
+  metrics,
+}:
 
 buildDunePackage {
   pname = "dns-stub";

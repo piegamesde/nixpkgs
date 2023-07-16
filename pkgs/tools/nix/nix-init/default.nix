@@ -1,6 +1,23 @@
-{ lib, writeText, rustPlatform, fetchFromGitHub, curl, installShellFiles
-, makeBinaryWrapper, pkg-config, bzip2, libgit2_1_5, openssl, zlib, zstd, stdenv
-, darwin, spdx-license-list-data, nix, nurl }:
+{
+  lib,
+  writeText,
+  rustPlatform,
+  fetchFromGitHub,
+  curl,
+  installShellFiles,
+  makeBinaryWrapper,
+  pkg-config,
+  bzip2,
+  libgit2_1_5,
+  openssl,
+  zlib,
+  zstd,
+  stdenv,
+  darwin,
+  spdx-license-list-data,
+  nix,
+  nurl,
+}:
 
 let get-nix-license = import ./get-nix-license.nix { inherit lib writeText; };
 

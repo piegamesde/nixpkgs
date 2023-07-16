@@ -1,4 +1,12 @@
-{ stdenv, lib, buildEnv, buildRubyGem, ruby, gemConfig, makeBinaryWrapper }:
+{
+  stdenv,
+  lib,
+  buildEnv,
+  buildRubyGem,
+  ruby,
+  gemConfig,
+  makeBinaryWrapper,
+}:
 
 /* Example usage:
    nix-shell -E "(import <nixpkgs> {}).ruby.withPackages (pkgs: with pkgs; [ pry nokogiri ])"

@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, autoPatchelfHook, popt, libxcrypt-legacy }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoPatchelfHook,
+  popt,
+  libxcrypt-legacy,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wmic-bin";

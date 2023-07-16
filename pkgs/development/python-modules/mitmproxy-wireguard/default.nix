@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, stdenv, darwin, pytestCheckHook
-, pythonOlder, rustPlatform, setuptools-rust }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  stdenv,
+  darwin,
+  pytestCheckHook,
+  pythonOlder,
+  rustPlatform,
+  setuptools-rust,
+}:
 
 buildPythonPackage rec {
   pname = "mitmproxy-wireguard";

@@ -1,4 +1,12 @@
-{ stdenvNoCC, lib, fetchFromGitHub, nix-update-script, meson, ninja, sassc }:
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+  nix-update-script,
+  meson,
+  ninja,
+  sassc,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "adw-gtk3";

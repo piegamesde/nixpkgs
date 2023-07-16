@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, systemd, runtimeShell
-, python3, nixosTests }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  systemd,
+  runtimeShell,
+  python3,
+  nixosTests,
+}:
 
 let
   version = "2.4.2";

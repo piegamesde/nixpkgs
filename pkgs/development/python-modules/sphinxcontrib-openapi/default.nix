@@ -1,6 +1,17 @@
-{ lib, buildPythonPackage, deepmerge, fetchPypi, fetchpatch, isPy27
-, setuptools-scm, jsonschema, picobox, pyyaml, sphinx-mdinclude
-, sphinxcontrib_httpdomain }:
+{
+  lib,
+  buildPythonPackage,
+  deepmerge,
+  fetchPypi,
+  fetchpatch,
+  isPy27,
+  setuptools-scm,
+  jsonschema,
+  picobox,
+  pyyaml,
+  sphinx-mdinclude,
+  sphinxcontrib_httpdomain,
+}:
 
 buildPythonPackage rec {
   pname = "sphinxcontrib-openapi";

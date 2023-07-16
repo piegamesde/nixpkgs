@@ -1,11 +1,31 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, installShellFiles, pandoc
-, pythonOlder
-# BuildInputs
-, charset-normalizer, defusedxml, multidict, pygments, requests
-, requests-toolbelt, setuptools, rich, pysocks
-# CheckInputs
-, pytest-httpbin, pytest-lazy-fixture, pytest-mock, pytestCheckHook, responses
-, werkzeug }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  installShellFiles,
+  pandoc,
+  pythonOlder
+  # BuildInputs
+  ,
+  charset-normalizer,
+  defusedxml,
+  multidict,
+  pygments,
+  requests,
+  requests-toolbelt,
+  setuptools,
+  rich,
+  pysocks
+  # CheckInputs
+  ,
+  pytest-httpbin,
+  pytest-lazy-fixture,
+  pytest-mock,
+  pytestCheckHook,
+  responses,
+  werkzeug,
+}:
 
 buildPythonPackage rec {
   pname = "httpie";

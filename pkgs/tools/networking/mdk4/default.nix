@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, libnl, libpcap, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libnl,
+  libpcap,
+  pkg-config,
+}:
 
 stdenv.mkDerivation {
   pname = "mdk4";

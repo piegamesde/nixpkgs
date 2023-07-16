@@ -1,4 +1,9 @@
-{ bundlerEnv, ruby, lib, bundlerUpdateScript }:
+{
+  bundlerEnv,
+  ruby,
+  lib,
+  bundlerUpdateScript,
+}:
 
 bundlerEnv rec {
   name = "${pname}-${version}";

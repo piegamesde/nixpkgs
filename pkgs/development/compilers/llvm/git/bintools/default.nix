@@ -1,4 +1,11 @@
-{ lib, runCommand, stdenv, llvm, lld, version }:
+{
+  lib,
+  runCommand,
+  stdenv,
+  llvm,
+  lld,
+  version,
+}:
 
 let
   prefix = lib.optionalString (stdenv.hostPlatform != stdenv.targetPlatform)

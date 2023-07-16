@@ -1,5 +1,20 @@
-{ stdenv, fetchFromGitHub, lib, cmake, pkg-config, openjdk, libuuid, python3
-, silice, yosys, nextpnr, verilator, dfu-util, icestorm, trellis }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  cmake,
+  pkg-config,
+  openjdk,
+  libuuid,
+  python3,
+  silice,
+  yosys,
+  nextpnr,
+  verilator,
+  dfu-util,
+  icestorm,
+  trellis,
+}:
 
 stdenv.mkDerivation rec {
   pname = "silice";

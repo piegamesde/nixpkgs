@@ -1,13 +1,32 @@
-{ lib, stdenv, curl, jq, htmlq, xorg, alsa-lib, freetype, p7zip
-, autoPatchelfHook, writeShellScript, zlib, libjack2, makeWrapper }:
+{
+  lib,
+  stdenv,
+  curl,
+  jq,
+  htmlq,
+  xorg,
+  alsa-lib,
+  freetype,
+  p7zip,
+  autoPatchelfHook,
+  writeShellScript,
+  zlib,
+  libjack2,
+  makeWrapper,
+}:
 let
   versionForFile = v: builtins.replaceStrings [ "." ] [ "" ] v;
 
-  mkPianoteq = { name, src, version, archdir ?
-      if (stdenv.hostPlatform.system == "aarch64-linux") then
+  mkPianoteq = {
+      name,
+      src,
+      version,
+      archdir ? if (stdenv.hostPlatform.system == "aarch64-linux") then
         "arm-64bit"
       else
-        "x86-64bit", ... }:
+        "x86-64bit",
+      ...
+    }:
     stdenv.mkDerivation rec {
       inherit src version;
 
@@ -55,7 +74,12 @@ let
       };
     };
 
-  fetchWithCurlScript = { name, sha256, script, impureEnvVars ? [ ] }:
+  fetchWithCurlScript = {
+      name,
+      sha256,
+      script,
+      impureEnvVars ? [ ]
+    }:
     stdenv.mkDerivation {
       inherit name;
       builder = writeShellScript "builder.sh" ''
@@ -92,7 +116,10 @@ let
       ];
     };
 
-  fetchPianoteqTrial = { name, sha256 }:
+  fetchPianoteqTrial = {
+      name,
+      sha256,
+    }:
     fetchWithCurlScript {
       inherit name sha256;
       script = ''
@@ -125,7 +152,10 @@ let
       '';
     };
 
-  fetchPianoteqWithLogin = { name, sha256 }:
+  fetchPianoteqWithLogin = {
+      name,
+      sha256,
+    }:
     fetchWithCurlScript {
       inherit name sha256;
 

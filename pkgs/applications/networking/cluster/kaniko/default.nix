@@ -1,5 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, buildGoModule, installShellFiles, testers
-, kaniko }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  installShellFiles,
+  testers,
+  kaniko,
+}:
 
 buildGoModule rec {
   pname = "kaniko";

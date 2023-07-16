@@ -1,6 +1,20 @@
-{ lib, stdenv, anyio, buildPythonPackage, fetchFromGitHub, rustPlatform
-, setuptools-rust, pythonOlder, dirty-equals, pytest-mock, pytest-timeout
-, pytestCheckHook, python, CoreServices, libiconv }:
+{
+  lib,
+  stdenv,
+  anyio,
+  buildPythonPackage,
+  fetchFromGitHub,
+  rustPlatform,
+  setuptools-rust,
+  pythonOlder,
+  dirty-equals,
+  pytest-mock,
+  pytest-timeout,
+  pytestCheckHook,
+  python,
+  CoreServices,
+  libiconv,
+}:
 
 buildPythonPackage rec {
   pname = "watchfiles";

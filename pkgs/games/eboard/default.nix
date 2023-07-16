@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, perl, pkg-config, gtk2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  pkg-config,
+  gtk2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "eboard";

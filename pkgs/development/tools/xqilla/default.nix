@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, xercesc }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  xercesc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xqilla";

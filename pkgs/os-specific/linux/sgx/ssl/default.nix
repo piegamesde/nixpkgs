@@ -1,5 +1,14 @@
-{ stdenv, fetchFromGitHub, fetchpatch, fetchurl, lib, perl, sgx-sdk, which
-, debug ? false }:
+{
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  fetchurl,
+  lib,
+  perl,
+  sgx-sdk,
+  which,
+  debug ? false
+}:
 let
   sgxVersion = sgx-sdk.versionTag;
   opensslVersion = "1.1.1l";

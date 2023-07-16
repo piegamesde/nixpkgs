@@ -1,5 +1,20 @@
-{ lib, stdenv, buildPackages, fetchurl, autoconf, automake, gettext, libtool
-, pkg-config, icu, libuuid, readline, inih, liburcu, nixosTests }:
+{
+  lib,
+  stdenv,
+  buildPackages,
+  fetchurl,
+  autoconf,
+  automake,
+  gettext,
+  libtool,
+  pkg-config,
+  icu,
+  libuuid,
+  readline,
+  inih,
+  liburcu,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xfsprogs";

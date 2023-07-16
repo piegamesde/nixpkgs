@@ -1,7 +1,27 @@
-{ lib, fetchurl, gettext, pkg-config, texinfo, wrapGAppsHook
-, buildPythonApplication, pycairo, pygobject3, gdk-pixbuf, gobject-introspection
-, gtk3, librsvg, alsa-utils, timidity, mpg123, vorbis-tools, csound, lilypond
-, automake, autoconf, txt2man }:
+{
+  lib,
+  fetchurl,
+  gettext,
+  pkg-config,
+  texinfo,
+  wrapGAppsHook,
+  buildPythonApplication,
+  pycairo,
+  pygobject3,
+  gdk-pixbuf,
+  gobject-introspection,
+  gtk3,
+  librsvg,
+  alsa-utils,
+  timidity,
+  mpg123,
+  vorbis-tools,
+  csound,
+  lilypond,
+  automake,
+  autoconf,
+  txt2man,
+}:
 
 buildPythonApplication rec {
   pname = "solfege";

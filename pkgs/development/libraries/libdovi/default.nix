@@ -1,4 +1,11 @@
-{ lib, rustPlatform, fetchCrate, cargo-c, rust, stdenv }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  cargo-c,
+  rust,
+  stdenv,
+}:
 let rustTargetPlatformSpec = rust.toRustTargetSpec stdenv.hostPlatform;
 in rustPlatform.buildRustPackage rec {
   pname = "libdovi";

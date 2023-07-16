@@ -1,5 +1,13 @@
-{ lib, symlinkJoin, makeWrapper, fcitx5, fcitx5-configtool, fcitx5-qt
-, fcitx5-gtk, addons ? [ ] }:
+{
+  lib,
+  symlinkJoin,
+  makeWrapper,
+  fcitx5,
+  fcitx5-configtool,
+  fcitx5-qt,
+  fcitx5-gtk,
+  addons ? [ ]
+}:
 
 symlinkJoin {
   name = "fcitx5-with-addons-${fcitx5.version}";

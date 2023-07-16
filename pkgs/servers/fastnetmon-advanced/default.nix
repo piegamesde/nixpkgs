@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, bzip2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  bzip2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fastnetmon-advanced";

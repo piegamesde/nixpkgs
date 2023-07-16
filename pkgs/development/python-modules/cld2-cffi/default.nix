@@ -1,4 +1,12 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, six, cffi, nose }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  cffi,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "cld2-cffi";

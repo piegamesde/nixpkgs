@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, fetchpatch, makeWrapper, eprover, ocaml, camlp4, perl
-, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  makeWrapper,
+  eprover,
+  ocaml,
+  camlp4,
+  perl,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "leo2";

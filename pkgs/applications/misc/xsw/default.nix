@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, SDL, SDL_image, SDL_ttf, SDL_gfx
-, flex, bison }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  SDL,
+  SDL_image,
+  SDL_ttf,
+  SDL_gfx,
+  flex,
+  bison,
+}:
 
 let makeSDLFlags = map (p: "-I${lib.getDev p}/include/SDL");
 

@@ -1,58 +1,67 @@
 import ./make-test-python.nix {
   name = "dhparams";
 
-  nodes.machine = { pkgs, ... }: {
-    security.dhparams.enable = true;
-    environment.systemPackages = [ pkgs.openssl ];
+  nodes.machine = {
+      pkgs,
+      ...
+    }: {
+      security.dhparams.enable = true;
+      environment.systemPackages = [ pkgs.openssl ];
 
-    specialisation = {
-      gen1.configuration = { config, ... }: {
-        security.dhparams.params = {
-          # Use low values here because we don't want the test to run for ages.
-          foo.bits = 1024;
-          # Also use the old format to make sure the type is coerced in the right
-          # way.
-          bar = 1025;
-        };
+      specialisation = {
+        gen1.configuration = {
+            config,
+            ...
+          }: {
+            security.dhparams.params = {
+              # Use low values here because we don't want the test to run for ages.
+              foo.bits = 1024;
+              # Also use the old format to make sure the type is coerced in the right
+              # way.
+              bar = 1025;
+            };
 
-        systemd.services.foo = {
-          description = "Check systemd Ordering";
-          wantedBy = [ "multi-user.target" ];
-          unitConfig = {
-            # This is to make sure that the dhparams generation of foo occurs
-            # before this service so we need this service to start as early as
-            # possible to provoke a race condition.
-            DefaultDependencies = false;
+            systemd.services.foo = {
+              description = "Check systemd Ordering";
+              wantedBy = [ "multi-user.target" ];
+              unitConfig = {
+                # This is to make sure that the dhparams generation of foo occurs
+                # before this service so we need this service to start as early as
+                # possible to provoke a race condition.
+                DefaultDependencies = false;
 
-            # We check later whether the service has been started or not.
-            ConditionPathExists = config.security.dhparams.params.foo.path;
+                # We check later whether the service has been started or not.
+                ConditionPathExists = config.security.dhparams.params.foo.path;
+              };
+              serviceConfig.Type = "oneshot";
+              serviceConfig.RemainAfterExit = true;
+              # The reason we only provide an ExecStop here is to ensure that we don't
+              # accidentally trigger an error because a file system is not yet ready
+              # during very early startup (we might not even have the Nix store
+              # available, for example if future changes in NixOS use systemd mount
+              # units to do early file system initialisation).
+              serviceConfig.ExecStop = "${pkgs.coreutils}/bin/true";
+            };
           };
-          serviceConfig.Type = "oneshot";
-          serviceConfig.RemainAfterExit = true;
-          # The reason we only provide an ExecStop here is to ensure that we don't
-          # accidentally trigger an error because a file system is not yet ready
-          # during very early startup (we might not even have the Nix store
-          # available, for example if future changes in NixOS use systemd mount
-          # units to do early file system initialisation).
-          serviceConfig.ExecStop = "${pkgs.coreutils}/bin/true";
+        gen2.configuration = { security.dhparams.params.foo.bits = 1026; };
+        gen3.configuration = { };
+        gen4.configuration = {
+          security.dhparams.stateful = false;
+          security.dhparams.params.foo2.bits = 1027;
+          security.dhparams.params.bar2.bits = 1028;
         };
-      };
-      gen2.configuration = { security.dhparams.params.foo.bits = 1026; };
-      gen3.configuration = { };
-      gen4.configuration = {
-        security.dhparams.stateful = false;
-        security.dhparams.params.foo2.bits = 1027;
-        security.dhparams.params.bar2.bits = 1028;
-      };
-      gen5.configuration = {
-        security.dhparams.defaultBitSize = 1029;
-        security.dhparams.params.foo3 = { };
-        security.dhparams.params.bar3 = { };
+        gen5.configuration = {
+          security.dhparams.defaultBitSize = 1029;
+          security.dhparams.params.foo3 = { };
+          security.dhparams.params.bar3 = { };
+        };
       };
     };
-  };
 
-  testScript = { nodes, ... }:
+  testScript = {
+      nodes,
+      ...
+    }:
     let
       getParamPath = gen: name:
         let node = "gen${toString gen}";

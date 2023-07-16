@@ -1,5 +1,16 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, extra-cmake-modules, fcitx5
-, qtx11extras, libxcb, libXdmcp, qtbase, qt6 }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  extra-cmake-modules,
+  fcitx5,
+  qtx11extras,
+  libxcb,
+  libXdmcp,
+  qtbase,
+  qt6,
+}:
 
 mkDerivation rec {
   pname = "fcitx5-qt";

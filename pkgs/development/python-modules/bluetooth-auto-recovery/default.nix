@@ -1,5 +1,15 @@
-{ lib, async-timeout, btsocket, buildPythonPackage, fetchFromGitHub, poetry-core
-, pyric, pytestCheckHook, pythonOlder, usb-devices }:
+{
+  lib,
+  async-timeout,
+  btsocket,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pyric,
+  pytestCheckHook,
+  pythonOlder,
+  usb-devices,
+}:
 
 buildPythonPackage rec {
   pname = "bluetooth-auto-recovery";

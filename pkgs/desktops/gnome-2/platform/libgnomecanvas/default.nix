@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, gtk2, intltool, libart_lgpl, libglade }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gtk2,
+  intltool,
+  libart_lgpl,
+  libglade,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libgnomecanvas";

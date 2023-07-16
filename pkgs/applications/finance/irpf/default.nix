@@ -1,5 +1,14 @@
-{ lib, stdenvNoCC, fetchzip, copyDesktopItems, jdk11, makeDesktopItem
-, makeWrapper, unzip, xdg-utils }:
+{
+  lib,
+  stdenvNoCC,
+  fetchzip,
+  copyDesktopItems,
+  jdk11,
+  makeDesktopItem,
+  makeWrapper,
+  unzip,
+  xdg-utils,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "irpf";

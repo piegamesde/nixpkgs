@@ -7,7 +7,13 @@
 #   application which happens to be written in python.
 # * doCheck: Whether to run the test suites.
 lib: pythonPackages:
-{ src, info, meta ? { }, application ? false, doCheck ? true }:
+{
+  src,
+  info,
+  meta ? { },
+  application ? false,
+  doCheck ? true
+}:
 let
   build = if application then
     pythonPackages.buildPythonApplication

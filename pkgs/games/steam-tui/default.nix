@@ -1,5 +1,13 @@
-{ lib, rustPlatform, steamcmd, fetchFromGitHub, steam-run, runtimeShell
-, withWine ? false, wine }:
+{
+  lib,
+  rustPlatform,
+  steamcmd,
+  fetchFromGitHub,
+  steam-run,
+  runtimeShell,
+  withWine ? false,
+  wine,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "steam-tui";

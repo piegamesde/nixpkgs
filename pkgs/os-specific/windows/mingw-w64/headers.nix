@@ -1,4 +1,7 @@
-{ stdenvNoCC, mingw_w64 }:
+{
+  stdenvNoCC,
+  mingw_w64,
+}:
 
 stdenvNoCC.mkDerivation {
   name = "${mingw_w64.name}-headers";

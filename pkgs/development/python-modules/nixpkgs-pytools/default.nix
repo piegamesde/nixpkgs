@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, jinja2, setuptools, rope, isPy27 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  jinja2,
+  setuptools,
+  rope,
+  isPy27,
+}:
 
 buildPythonPackage rec {
   pname = "nixpkgs-pytools";

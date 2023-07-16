@@ -1,16 +1,52 @@
-{ stdenv, lib, fetchurl, fetchFromGitHub, fixDarwinDylibNames, autoconf
-, aws-sdk-cpp, boost, brotli, c-ares, cmake, crc32c, curl, flatbuffers, gflags
-, glog, google-cloud-cpp, grpc, gtest, libbacktrace, lz4, minio, ninja
-, nlohmann_json, openssl, perl, protobuf, python3, rapidjson, re2, snappy
-, sqlite, thrift, tzdata, utf8proc, which, zlib, zstd
-, enableShared ? !stdenv.hostPlatform.isStatic, enableFlight ? true
-, enableJemalloc ? !stdenv.isDarwin
-  # boost/process is broken in 1.69 on darwin, but fixed in 1.70 and
-  # non-existent in older versions
-  # see https://github.com/boostorg/process/issues/55
-, enableS3 ? (!stdenv.isDarwin) || (lib.versionOlder boost.version "1.69"
-  || lib.versionAtLeast boost.version "1.70"), enableGcs ? (!stdenv.isDarwin)
-  && (lib.versionAtLeast grpc.cxxStandard
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchFromGitHub,
+  fixDarwinDylibNames,
+  autoconf,
+  aws-sdk-cpp,
+  boost,
+  brotli,
+  c-ares,
+  cmake,
+  crc32c,
+  curl,
+  flatbuffers,
+  gflags,
+  glog,
+  google-cloud-cpp,
+  grpc,
+  gtest,
+  libbacktrace,
+  lz4,
+  minio,
+  ninja,
+  nlohmann_json,
+  openssl,
+  perl,
+  protobuf,
+  python3,
+  rapidjson,
+  re2,
+  snappy,
+  sqlite,
+  thrift,
+  tzdata,
+  utf8proc,
+  which,
+  zlib,
+  zstd,
+  enableShared ? !stdenv.hostPlatform.isStatic,
+  enableFlight ? true,
+  enableJemalloc ? !stdenv.isDarwin
+    # boost/process is broken in 1.69 on darwin, but fixed in 1.70 and
+    # non-existent in older versions
+    # see https://github.com/boostorg/process/issues/55
+  ,
+  enableS3 ? (!stdenv.isDarwin) || (lib.versionOlder boost.version "1.69"
+    || lib.versionAtLeast boost.version "1.70"),
+  enableGcs ? (!stdenv.isDarwin) && (lib.versionAtLeast grpc.cxxStandard
     "17") # google-cloud-cpp is not supported on darwin, needs to support C++17
 }:
 

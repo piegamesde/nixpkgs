@@ -1,5 +1,20 @@
-{ stdenv, lib, fetchFromGitHub, cmake, libetpan, icu, cyrus_sasl, libctemplate
-, libuchardet, pkg-config, glib, html-tidy, libxml2, libuuid, openssl }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  libetpan,
+  icu,
+  cyrus_sasl,
+  libctemplate,
+  libuchardet,
+  pkg-config,
+  glib,
+  html-tidy,
+  libxml2,
+  libuuid,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mailcore2";

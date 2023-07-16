@@ -1,6 +1,27 @@
-{ lib, stdenv, fetchurl, libjpeg, libexif, giflib, libtiff, libpng, libwebp
-, libdrm, pkg-config, freetype, fontconfig, which, imagemagick, curl
-, sane-backends, libXpm, libepoxy, poppler, mesa, lirc }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libjpeg,
+  libexif,
+  giflib,
+  libtiff,
+  libpng,
+  libwebp,
+  libdrm,
+  pkg-config,
+  freetype,
+  fontconfig,
+  which,
+  imagemagick,
+  curl,
+  sane-backends,
+  libXpm,
+  libepoxy,
+  poppler,
+  mesa,
+  lirc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fbida";

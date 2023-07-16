@@ -1,6 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, rustPlatform, pkg-config, openssl
-# darwin dependencies
-, darwin, libiconv, curl }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  openssl
+  # darwin dependencies
+  ,
+  darwin,
+  libiconv,
+  curl,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-geiger";

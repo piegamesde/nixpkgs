@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchurl, autoreconfHook, autoconf-archive, pkg-config, systemd
-, glib, dbus, libnl, python2Packages }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoreconfHook,
+  autoconf-archive,
+  pkg-config,
+  systemd,
+  glib,
+  dbus,
+  libnl,
+  python2Packages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "neard";

@@ -1,4 +1,7 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
 
   let
     mkConfig = name: keys: ''
@@ -58,20 +61,28 @@ import ./make-test-python.nix ({ pkgs, ... }:
       maintainers = [ nequissimus ivanbrennan ];
     };
 
-    nodes.machine = { pkgs, ... }: {
-      imports = [ ./common/x11.nix ./common/user-account.nix ];
-      test-support.displayManager.auto.user = "alice";
-      services.xserver.displayManager.defaultSession = "none+xmonad";
-      services.xserver.windowManager.xmonad = {
-        enable = true;
-        enableConfiguredRecompile = true;
-        enableContribAndExtras = true;
-        extraPackages = with pkgs.haskellPackages; haskellPackages: [ xmobar ];
-        config = mkConfig "oldXMonad" oldKeys;
+    nodes.machine = {
+        pkgs,
+        ...
+      }: {
+        imports = [ ./common/x11.nix ./common/user-account.nix ];
+        test-support.displayManager.auto.user = "alice";
+        services.xserver.displayManager.defaultSession = "none+xmonad";
+        services.xserver.windowManager.xmonad = {
+          enable = true;
+          enableConfiguredRecompile = true;
+          enableContribAndExtras = true;
+          extraPackages = with pkgs.haskellPackages;
+            haskellPackages:
+            [ xmobar ];
+          config = mkConfig "oldXMonad" oldKeys;
+        };
       };
-    };
 
-    testScript = { nodes, ... }:
+    testScript = {
+        nodes,
+        ...
+      }:
       let user = nodes.machine.config.users.users.alice;
       in ''
         machine.wait_for_x()

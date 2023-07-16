@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.services.zoneminder;
@@ -284,8 +289,11 @@ in {
       phpfpm = lib.mkIf useNginx {
         pools.zoneminder = {
           inherit user group;
-          phpPackage = pkgs.php.withExtensions
-            ({ enabled, all }: enabled ++ [ all.apcu all.sysvsem ]);
+          phpPackage = pkgs.php.withExtensions ({
+              enabled,
+              all,
+            }:
+            enabled ++ [ all.apcu all.sysvsem ]);
           phpOptions = ''
             date.timezone = "${config.time.timeZone}"
           '';

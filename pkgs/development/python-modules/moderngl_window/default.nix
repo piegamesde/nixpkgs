@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, numpy, moderngl, pyglet
-, pillow, pyrr, glcontext }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy3k,
+  numpy,
+  moderngl,
+  pyglet,
+  pillow,
+  pyrr,
+  glcontext,
+}:
 
 buildPythonPackage rec {
   pname = "moderngl_window";

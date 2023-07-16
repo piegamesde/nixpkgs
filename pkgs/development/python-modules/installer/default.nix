@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytestCheckHook
-, flit-core, mock }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pytestCheckHook,
+  flit-core,
+  mock,
+}:
 
 buildPythonPackage rec {
   pname = "installer";

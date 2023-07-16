@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, nose, numpy, pythonOlder
-, scipy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  nose,
+  numpy,
+  pythonOlder,
+  scipy,
+}:
 
 buildPythonPackage rec {
   pname = "ecos";

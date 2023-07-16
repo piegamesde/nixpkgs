@@ -1,5 +1,14 @@
-{ buildPythonPackage, fetchFromGitHub, lib, passlib, pytestCheckHook, setuptools
-, setuptools-git, twine, webtest }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  passlib,
+  pytestCheckHook,
+  setuptools,
+  setuptools-git,
+  twine,
+  webtest,
+}:
 
 buildPythonPackage rec {
   pname = "pypiserver";

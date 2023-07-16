@@ -1,10 +1,22 @@
-{ lib, stdenv, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  fetchFromGitHub
 
-, legacy ? false, libinput
+  ,
+  legacy ? false,
+  libinput
 
-, pkg-config, makeWrapper
+  ,
+  pkg-config,
+  makeWrapper
 
-, openal, alure, libXtst, libX11 }:
+  ,
+  openal,
+  alure,
+  libXtst,
+  libX11,
+}:
 
 let inherit (lib) optionals;
 in stdenv.mkDerivation rec {

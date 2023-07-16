@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, ipykernel, ipywidgets, matplotlib }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  ipykernel,
+  ipywidgets,
+  matplotlib,
+}:
 
 buildPythonPackage rec {
   pname = "ipympl";

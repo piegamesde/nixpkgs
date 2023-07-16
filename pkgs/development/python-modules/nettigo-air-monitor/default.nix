@@ -1,6 +1,17 @@
-{ lib, aiohttp, aioresponses, aqipy-atmotech, buildPythonPackage, dacite
-, fetchFromGitHub, orjson, pytest-asyncio, pytest-error-for-skips
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  aqipy-atmotech,
+  buildPythonPackage,
+  dacite,
+  fetchFromGitHub,
+  orjson,
+  pytest-asyncio,
+  pytest-error-for-skips,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "nettigo-air-monitor";

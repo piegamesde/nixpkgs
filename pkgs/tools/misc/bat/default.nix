@@ -1,5 +1,15 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, less, Security
-, libiconv, installShellFiles, makeWrapper }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  less,
+  Security,
+  libiconv,
+  installShellFiles,
+  makeWrapper,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "bat";

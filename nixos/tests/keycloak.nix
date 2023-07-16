@@ -6,7 +6,11 @@ let
   certs = import ./common/acme/server/snakeoil-certs.nix;
   frontendUrl = "https://${certs.domain}";
 
-  keycloakTest = import ./make-test-python.nix ({ pkgs, databaseType, ... }:
+  keycloakTest = import ./make-test-python.nix ({
+      pkgs,
+      databaseType,
+      ...
+    }:
     let
       initialAdminPassword = ''h4Iho"JFn't2>iQIR9'';
       adminPasswordFile =
@@ -16,33 +20,36 @@ let
       meta = with pkgs.lib.maintainers; { maintainers = [ talyz ]; };
 
       nodes = {
-        keycloak = { config, ... }: {
-          security.pki.certificateFiles = [ certs.ca.cert ];
+        keycloak = {
+            config,
+            ...
+          }: {
+            security.pki.certificateFiles = [ certs.ca.cert ];
 
-          networking.extraHosts = ''
-            127.0.0.1 ${certs.domain}
-          '';
+            networking.extraHosts = ''
+              127.0.0.1 ${certs.domain}
+            '';
 
-          services.keycloak = {
-            enable = true;
-            settings = { hostname = certs.domain; };
-            inherit initialAdminPassword;
-            sslCertificate = "${certs.${certs.domain}.cert}";
-            sslCertificateKey = "${certs.${certs.domain}.key}";
-            database = {
-              type = databaseType;
-              username = "bogus";
-              name = "also bogus";
-              passwordFile = "${pkgs.writeText "dbPassword"
-                "wzf6\\\"vO\"Cb\\nP>p#6;c&o?eu=q'THE''H'''E"}";
+            services.keycloak = {
+              enable = true;
+              settings = { hostname = certs.domain; };
+              inherit initialAdminPassword;
+              sslCertificate = "${certs.${certs.domain}.cert}";
+              sslCertificateKey = "${certs.${certs.domain}.key}";
+              database = {
+                type = databaseType;
+                username = "bogus";
+                name = "also bogus";
+                passwordFile = "${pkgs.writeText "dbPassword"
+                  "wzf6\\\"vO\"Cb\\nP>p#6;c&o?eu=q'THE''H'''E"}";
+              };
+              plugins = with config.services.keycloak.package.plugins; [
+                keycloak-discord
+                keycloak-metrics-spi
+              ];
             };
-            plugins = with config.services.keycloak.package.plugins; [
-              keycloak-discord
-              keycloak-metrics-spi
-            ];
+            environment.systemPackages = with pkgs; [ xmlstarlet html-tidy jq ];
           };
-          environment.systemPackages = with pkgs; [ xmlstarlet html-tidy jq ];
-        };
       };
 
       testScript = let

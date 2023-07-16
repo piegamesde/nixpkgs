@@ -1,4 +1,9 @@
-{ lib, python3, fetchFromGitHub, pkgs }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  pkgs,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "zkg";

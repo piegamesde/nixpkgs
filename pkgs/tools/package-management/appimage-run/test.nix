@@ -1,4 +1,11 @@
-{ runCommand, fetchurl, appimage-run, glibcLocales, file, xdg-utils }:
+{
+  runCommand,
+  fetchurl,
+  appimage-run,
+  glibcLocales,
+  file,
+  xdg-utils,
+}:
 let
   # any AppImage usable on cli, really
   sample-appImage = fetchurl {

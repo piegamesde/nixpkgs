@@ -1,4 +1,10 @@
-{ lib, buildPythonApplication, fetchFromGitHub, python-magic, python-dateutil }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  python-magic,
+  python-dateutil,
+}:
 
 buildPythonApplication rec {
   pname = "s3cmd";

@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, libsodium }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libsodium,
+}:
 
 stdenv.mkDerivation {
   pname = "quicktun";

@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, pkg-config
-, vala, libgee, granite, gtk3, cups, switchboard }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  meson,
+  ninja,
+  pkg-config,
+  vala,
+  libgee,
+  granite,
+  gtk3,
+  cups,
+  switchboard,
+}:
 
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-printers";

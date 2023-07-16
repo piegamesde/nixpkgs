@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pythonOlder,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "nocaselist";

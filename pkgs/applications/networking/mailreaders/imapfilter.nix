@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, openssl, lua, pcre2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  openssl,
+  lua,
+  pcre2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "imapfilter";

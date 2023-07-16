@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, python3, boost }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  python3,
+  boost,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cryptominisat";

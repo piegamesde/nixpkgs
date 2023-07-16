@@ -1,4 +1,8 @@
-{ buildOctavePackage, lib, fetchFromBitbucket }:
+{
+  buildOctavePackage,
+  lib,
+  fetchFromBitbucket,
+}:
 
 buildOctavePackage rec {
   pname = "octclip";

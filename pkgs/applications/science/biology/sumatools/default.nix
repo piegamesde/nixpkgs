@@ -1,4 +1,9 @@
-{ lib, gccStdenv, fetchFromGitLab, zlib }:
+{
+  lib,
+  gccStdenv,
+  fetchFromGitLab,
+  zlib,
+}:
 
 let
   stdenv = gccStdenv;

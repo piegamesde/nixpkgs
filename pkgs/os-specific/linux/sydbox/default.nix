@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchurl, pkg-config, autoreconfHook, python3, perl, libxslt
-, docbook_xsl, docbook_xml_dtd_42, libseccomp, installTests ? true, gnumake
-, which, debugBuild ? false, libunwind }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  autoreconfHook,
+  python3,
+  perl,
+  libxslt,
+  docbook_xsl,
+  docbook_xml_dtd_42,
+  libseccomp,
+  installTests ? true,
+  gnumake,
+  which,
+  debugBuild ? false,
+  libunwind,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sydbox-1";

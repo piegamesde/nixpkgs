@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, fetchpatch, python, root, makeWrapper, zlib
-, withRootSupport ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  python,
+  root,
+  makeWrapper,
+  zlib,
+  withRootSupport ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "yoda";

@@ -1,5 +1,16 @@
-{ lib, stdenv, appleDerivation', launchd, bootstrap_cmds, xnu, ppp, IOKit
-, eap8021x, Security, headersOnly ? false }:
+{
+  lib,
+  stdenv,
+  appleDerivation',
+  launchd,
+  bootstrap_cmds,
+  xnu,
+  ppp,
+  IOKit,
+  eap8021x,
+  Security,
+  headersOnly ? false
+}:
 
 appleDerivation' stdenv {
   meta.broken = stdenv.cc.nativeLibc;

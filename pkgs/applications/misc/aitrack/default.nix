@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, qmake, wrapQtAppsHook, opencv
-, spdlog, onnxruntime, qtx11extras }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  qmake,
+  wrapQtAppsHook,
+  opencv,
+  spdlog,
+  onnxruntime,
+  qtx11extras,
+}:
 stdenv.mkDerivation {
   pname = "aitrack";
   version = "0.6.5";

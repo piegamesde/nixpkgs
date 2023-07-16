@@ -1,4 +1,11 @@
-{ lib, localSystem, crossSystem, config, overlays, crossOverlays ? [ ] }:
+{
+  lib,
+  localSystem,
+  crossSystem,
+  config,
+  overlays,
+  crossOverlays ? [ ]
+}:
 
 let
   bootStages = import ../. {

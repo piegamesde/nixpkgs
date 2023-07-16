@@ -1,6 +1,9 @@
 # TODO(@Ericson2314): Remove `pkgs` param, which is only used for
 # `buildStackProject`, `justStaticExecutables` and `checkUnusedPackages`
-{ pkgs, lib }:
+{
+  pkgs,
+  lib,
+}:
 
 rec {
   /* The same functionality as this haskell.lib, except that the derivation

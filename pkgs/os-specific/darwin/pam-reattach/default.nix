@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, openpam, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  openpam,
+  darwin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pam_reattach";

@@ -1,4 +1,10 @@
-{ stdenv, lib, buildFHSEnv, writeScript, makeDesktopItem }:
+{
+  stdenv,
+  lib,
+  buildFHSEnv,
+  writeScript,
+  makeDesktopItem,
+}:
 
 let platforms = [ "i686-linux" "x86_64-linux" ];
 

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchgit, ncurses, conf ? null }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  ncurses,
+  conf ? null
+}:
 
 with lib;
 

@@ -1,5 +1,11 @@
-{ lib, stdenv, lapack-reference, openblas, isILP64 ? false
-, lapackProvider ? openblas }:
+{
+  lib,
+  stdenv,
+  lapack-reference,
+  openblas,
+  isILP64 ? false,
+  lapackProvider ? openblas
+}:
 
 let
 

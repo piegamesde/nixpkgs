@@ -1,4 +1,10 @@
-{ lib, mkCoqDerivation, coq, coq-elpi, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  coq-elpi,
+  version ? null
+}:
 
 mkCoqDerivation {
   pname = "trakt";

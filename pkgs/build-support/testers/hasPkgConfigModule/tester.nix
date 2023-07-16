@@ -1,8 +1,15 @@
 # Static arguments
-{ runCommand, pkg-config }:
+{
+  runCommand,
+  pkg-config,
+}:
 
 # Tester arguments
-{ package, moduleName, testName ? "check-pkg-config-${moduleName}", }:
+{
+  package,
+  moduleName,
+  testName ? "check-pkg-config-${moduleName}",
+}:
 
 runCommand testName {
   nativeBuildInputs = [ pkg-config ];

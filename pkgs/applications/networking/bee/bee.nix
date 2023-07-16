@@ -1,4 +1,9 @@
-{ version ? "release", lib, fetchFromGitHub, buildGoModule }:
+{
+  version ? "release",
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+}:
 
 let
 

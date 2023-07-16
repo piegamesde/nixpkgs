@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, kissfft }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  kissfft,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qm-dsp";

@@ -1,4 +1,7 @@
-{ lib, python3Packages }:
+{
+  lib,
+  python3Packages,
+}:
 
 let
   pname = "base16-shell-preview";

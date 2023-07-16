@@ -1,37 +1,58 @@
-{ stdenv, fetchFromGitLab, python, wafHook
+{
+  stdenv,
+  fetchFromGitLab,
+  python,
+  wafHook
 
-# for binding generation
-, castxml ? null
+  # for binding generation
+  ,
+  castxml ? null
 
-  # can take a long time, generates > 30000 images/graphs
-, enableDoxygen ? false
+    # can take a long time, generates > 30000 images/graphs
+  ,
+  enableDoxygen ? false
 
-  # e.g. "optimized" or "debug". If not set, use default one
-, build_profile ? null
+    # e.g. "optimized" or "debug". If not set, use default one
+  ,
+  build_profile ? null
 
-  # --enable-examples
-, withExamples ? false
+    # --enable-examples
+  ,
+  withExamples ? false
 
-  # very long
-, withManual ? false, doxygen ? null, graphviz ? null, imagemagick ? null
-  # for manual, tetex is used to get the eps2pdf binary
-  # texlive to get latexmk. building manual still fails though
-, dia, tetex ? null, ghostscript ? null, texlive ? null
+    # very long
+  ,
+  withManual ? false,
+  doxygen ? null,
+  graphviz ? null,
+  imagemagick ? null
+    # for manual, tetex is used to get the eps2pdf binary
+    # texlive to get latexmk. building manual still fails though
+  ,
+  dia,
+  tetex ? null,
+  ghostscript ? null,
+  texlive ? null
 
-  # generates python bindings
-, pythonSupport ? false, ncurses ? null
+    # generates python bindings
+  ,
+  pythonSupport ? false,
+  ncurses ? null
 
-  # All modules can be enabled by choosing 'all_modules'.
-  # we include here the DCE mandatory ones
-, modules ? [
-  "core"
-  "network"
-  "internet"
-  "point-to-point"
-  "point-to-point-layout"
-  "fd-net-device"
-  "netanim"
-], lib }:
+    # All modules can be enabled by choosing 'all_modules'.
+    # we include here the DCE mandatory ones
+  ,
+  modules ? [
+    "core"
+    "network"
+    "internet"
+    "point-to-point"
+    "point-to-point-layout"
+    "fd-net-device"
+    "netanim"
+  ],
+  lib,
+}:
 
 let
   pythonEnv = python.withPackages (ps:

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, ncurses, openssl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cbftp";

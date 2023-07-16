@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, mono, dotnetPackages, makeWrapper, gtk2, cups, timidity
+{
+  lib,
+  stdenv,
+  fetchurl,
+  mono,
+  dotnetPackages,
+  makeWrapper,
+  gtk2,
+  cups,
+  timidity,
 }:
 
 let version = "2.6";

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, click, fetchFromGitHub, pytestCheckHook, pythonOlder
-, pyyaml, six }:
+{
+  lib,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "cfn-flip";

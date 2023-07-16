@@ -1,23 +1,57 @@
-{ lib, stdenv, fetchurl, makeDesktopItem, copyDesktopItems, makeWrapper
-, writeText
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeDesktopItem,
+  copyDesktopItems,
+  makeWrapper,
+  writeText
 
-# Common run-time dependencies
-, zlib
+  # Common run-time dependencies
+  ,
+  zlib
 
-# libxul run-time dependencies
-, atk, cairo, dbus, dbus-glib, fontconfig, freetype, gdk-pixbuf, glib, gtk3
-, libxcb, libX11, libXext, libXrender, libXt, libXtst, mesa, pango, pciutils
+  # libxul run-time dependencies
+  ,
+  atk,
+  cairo,
+  dbus,
+  dbus-glib,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  libxcb,
+  libX11,
+  libXext,
+  libXrender,
+  libXt,
+  libXtst,
+  mesa,
+  pango,
+  pciutils
 
-, libnotifySupport ? stdenv.isLinux, libnotify
+  ,
+  libnotifySupport ? stdenv.isLinux,
+  libnotify
 
-, audioSupport ? mediaSupport, pulseaudioSupport ? mediaSupport, libpulseaudio
-, apulse, alsa-lib
+  ,
+  audioSupport ? mediaSupport,
+  pulseaudioSupport ? mediaSupport,
+  libpulseaudio,
+  apulse,
+  alsa-lib
 
-# Media support (implies audio support)
-, mediaSupport ? true, ffmpeg
+  # Media support (implies audio support)
+  ,
+  mediaSupport ? true,
+  ffmpeg
 
-# Extra preferences
-, extraPrefs ? "" }:
+  # Extra preferences
+  ,
+  extraPrefs ? ""
+}:
 
 let
   libPath = lib.makeLibraryPath ([

@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchurl, isPy27, renpy, cython, SDL2, SDL2_image
-, SDL2_ttf, SDL2_mixer, libjpeg, libpng }:
+{
+  lib,
+  buildPythonPackage,
+  fetchurl,
+  isPy27,
+  renpy,
+  cython,
+  SDL2,
+  SDL2_image,
+  SDL2_ttf,
+  SDL2_mixer,
+  libjpeg,
+  libpng,
+}:
 
 buildPythonPackage rec {
   pname = "pygame_sdl2";

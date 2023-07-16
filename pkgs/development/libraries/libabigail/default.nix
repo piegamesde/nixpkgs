@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, autoreconfHook, elfutils, libxml2, pkg-config, strace
-, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  elfutils,
+  libxml2,
+  pkg-config,
+  strace,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libabigail";

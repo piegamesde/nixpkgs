@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, makeWrapper, dpkg, glib, gnutar, gtk3-x11, luajit, sdcv
-, SDL2, noto-fonts, nerdfonts }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  dpkg,
+  glib,
+  gnutar,
+  gtk3-x11,
+  luajit,
+  sdcv,
+  SDL2,
+  noto-fonts,
+  nerdfonts,
+}:
 let font-droid = nerdfonts.override { fonts = [ "DroidSansMono" ]; };
 in stdenv.mkDerivation rec {
   pname = "koreader";

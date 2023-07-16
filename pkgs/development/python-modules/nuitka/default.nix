@@ -1,5 +1,15 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, vmprof, pyqt4, isPyPy, pkgs
-, scons, chrpath }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  vmprof,
+  pyqt4,
+  isPyPy,
+  pkgs,
+  scons,
+  chrpath,
+}:
 
 buildPythonPackage rec {
   pname = "nuitka";

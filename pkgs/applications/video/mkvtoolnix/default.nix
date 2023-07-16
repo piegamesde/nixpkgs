@@ -1,8 +1,37 @@
-{ lib, stdenv, fetchFromGitLab, fetchpatch, pkg-config, autoreconfHook, rake
-, boost, cmark, docbook_xsl, expat, file, flac, fmt, gettext, gmp, gtest
-, libdvdread, libebml, libiconv, libmatroska, libogg, libvorbis, libxslt
-, nlohmann_json, pugixml, qtbase, qtmultimedia, xdg-utils, zlib, withGUI ? true
-, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch,
+  pkg-config,
+  autoreconfHook,
+  rake,
+  boost,
+  cmark,
+  docbook_xsl,
+  expat,
+  file,
+  flac,
+  fmt,
+  gettext,
+  gmp,
+  gtest,
+  libdvdread,
+  libebml,
+  libiconv,
+  libmatroska,
+  libogg,
+  libvorbis,
+  libxslt,
+  nlohmann_json,
+  pugixml,
+  qtbase,
+  qtmultimedia,
+  xdg-utils,
+  zlib,
+  withGUI ? true,
+  wrapQtAppsHook,
+}:
 
 let
   inherit (lib) enableFeature optional optionals optionalString;

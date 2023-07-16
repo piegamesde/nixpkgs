@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, ncurses, glib, pkg-config, gtk2, util-linux }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+  glib,
+  pkg-config,
+  gtk2,
+  util-linux,
+}:
 
 stdenv.mkDerivation rec {
   pname = "latencytop";

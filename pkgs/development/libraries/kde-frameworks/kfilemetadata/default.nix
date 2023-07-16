@@ -1,5 +1,20 @@
-{ mkDerivation, lib, stdenv, extra-cmake-modules, attr, ebook_tools, exiv2
-, ffmpeg, karchive, kcoreaddons, ki18n, poppler, qtbase, qtmultimedia, taglib }:
+{
+  mkDerivation,
+  lib,
+  stdenv,
+  extra-cmake-modules,
+  attr,
+  ebook_tools,
+  exiv2,
+  ffmpeg,
+  karchive,
+  kcoreaddons,
+  ki18n,
+  poppler,
+  qtbase,
+  qtmultimedia,
+  taglib,
+}:
 
 mkDerivation {
   pname = "kfilemetadata";

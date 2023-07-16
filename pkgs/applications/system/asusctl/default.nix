@@ -1,5 +1,16 @@
-{ lib, rustPlatform, fetchFromGitLab, e2fsprogs, systemd, coreutils, pkg-config
-, cmake, fontconfig, gtk3, libappindicator }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitLab,
+  e2fsprogs,
+  systemd,
+  coreutils,
+  pkg-config,
+  cmake,
+  fontconfig,
+  gtk3,
+  libappindicator,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "asusctl";

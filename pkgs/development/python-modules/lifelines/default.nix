@@ -1,6 +1,23 @@
-{ lib, autograd, autograd-gamma, buildPythonPackage, dill, fetchFromGitHub
-, flaky, formulaic, jinja2, matplotlib, numpy, pandas, psutil, pytestCheckHook
-, pythonOlder, scikit-learn, scipy, sybil }:
+{
+  lib,
+  autograd,
+  autograd-gamma,
+  buildPythonPackage,
+  dill,
+  fetchFromGitHub,
+  flaky,
+  formulaic,
+  jinja2,
+  matplotlib,
+  numpy,
+  pandas,
+  psutil,
+  pytestCheckHook,
+  pythonOlder,
+  scikit-learn,
+  scipy,
+  sybil,
+}:
 
 buildPythonPackage rec {
   pname = "lifelines";

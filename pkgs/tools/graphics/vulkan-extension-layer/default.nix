@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, writeText, vulkan-headers, jq }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  writeText,
+  vulkan-headers,
+  jq,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vulkan-extension-layer";

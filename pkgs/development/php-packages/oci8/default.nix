@@ -1,4 +1,9 @@
-{ buildPecl, lib, oracle-instantclient, php }:
+{
+  buildPecl,
+  lib,
+  oracle-instantclient,
+  php,
+}:
 
 let
   versionData = if (lib.versionOlder php.version "8.1") then {

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -47,18 +52,22 @@ in {
         description = lib.mdDoc ''
           AppArmor policies.
         '';
-        type = types.attrsOf (types.submodule ({ name, config, ... }: {
-          options = {
-            enable = mkDisableOption "loading of the profile into the kernel";
-            enforce = mkDisableOption
-              "enforcing of the policy or only complain in the logs";
-            profile = mkOption {
-              description = lib.mdDoc "The policy of the profile.";
-              type = types.lines;
-              apply = pkgs.writeText name;
+        type = types.attrsOf (types.submodule ({
+            name,
+            config,
+            ...
+          }: {
+            options = {
+              enable = mkDisableOption "loading of the profile into the kernel";
+              enforce = mkDisableOption
+                "enforcing of the policy or only complain in the logs";
+              profile = mkOption {
+                description = lib.mdDoc "The policy of the profile.";
+                type = types.lines;
+                apply = pkgs.writeText name;
+              };
             };
-          };
-        }));
+          }));
         default = { };
       };
       includes = mkOption {

@@ -1,5 +1,14 @@
-{ lib, buildDunePackage, fetchurl, cstruct, zarith, bigarray-compat
-, stdlib-shims, ptime, alcotest }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  cstruct,
+  zarith,
+  bigarray-compat,
+  stdlib-shims,
+  ptime,
+  alcotest,
+}:
 
 buildDunePackage rec {
   minimalOCamlVersion = "4.08";

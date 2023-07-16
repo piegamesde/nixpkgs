@@ -1,12 +1,20 @@
-{ stdenv, lib, buildFHSEnvChroot, callPackage, makeDesktopItem, writeScript
-, supportedDevices ? [
-  "Arria II"
-  "Cyclone V"
-  "Cyclone IV"
-  "Cyclone 10 LP"
-  "MAX II/V"
-  "MAX 10 FPGA"
-], unwrapped ? callPackage ./quartus.nix { inherit supportedDevices; } }:
+{
+  stdenv,
+  lib,
+  buildFHSEnvChroot,
+  callPackage,
+  makeDesktopItem,
+  writeScript,
+  supportedDevices ? [
+    "Arria II"
+    "Cyclone V"
+    "Cyclone IV"
+    "Cyclone 10 LP"
+    "MAX II/V"
+    "MAX 10 FPGA"
+  ],
+  unwrapped ? callPackage ./quartus.nix { inherit supportedDevices; }
+}:
 
 let
   desktopItem = makeDesktopItem {

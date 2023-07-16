@@ -1,5 +1,13 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, kcalendarcore
-, kcalutils, kcontacts }:
+{
+  mkDerivation,
+  lib,
+  kdepimTeam,
+  extra-cmake-modules,
+  kdoctools,
+  kcalendarcore,
+  kcalutils,
+  kcontacts,
+}:
 
 mkDerivation {
   pname = "ktnef";

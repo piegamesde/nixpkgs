@@ -1,4 +1,10 @@
-{ lib, go, buildGoModule, fetchFromGitHub, installShellFiles }:
+{
+  lib,
+  go,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+}:
 
 buildGoModule rec {
   pname = "alertmanager";

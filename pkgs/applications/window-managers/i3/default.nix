@@ -1,8 +1,35 @@
-{ fetchurl, lib, stdenv, pkg-config, makeWrapper, meson, ninja
-, installShellFiles, libxcb, xcbutilkeysyms, xcbutil, xcbutilwm, xcbutilxrm
-, libstartup_notification, libX11, pcre2, libev, yajl, xcb-util-cursor, perl
-, pango, perlPackages, libxkbcommon, xorgserver, xvfb-run, asciidoc, xmlto
-, docbook_xml_dtd_45, docbook_xsl, findXMLCatalogs }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  pkg-config,
+  makeWrapper,
+  meson,
+  ninja,
+  installShellFiles,
+  libxcb,
+  xcbutilkeysyms,
+  xcbutil,
+  xcbutilwm,
+  xcbutilxrm,
+  libstartup_notification,
+  libX11,
+  pcre2,
+  libev,
+  yajl,
+  xcb-util-cursor,
+  perl,
+  pango,
+  perlPackages,
+  libxkbcommon,
+  xorgserver,
+  xvfb-run,
+  asciidoc,
+  xmlto,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+  findXMLCatalogs,
+}:
 
 stdenv.mkDerivation rec {
   pname = "i3";

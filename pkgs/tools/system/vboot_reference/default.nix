@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitiles, pkg-config, libuuid, openssl, libyaml, xz }:
+{
+  lib,
+  stdenv,
+  fetchFromGitiles,
+  pkg-config,
+  libuuid,
+  openssl,
+  libyaml,
+  xz,
+}:
 
 stdenv.mkDerivation rec {
   version = "111.15329";

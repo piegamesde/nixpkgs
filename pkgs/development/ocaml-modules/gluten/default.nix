@@ -1,4 +1,11 @@
-{ buildDunePackage, bigstringaf, faraday, fetchurl, lib, ke }:
+{
+  buildDunePackage,
+  bigstringaf,
+  faraday,
+  fetchurl,
+  lib,
+  ke,
+}:
 
 buildDunePackage rec {
   pname = "gluten";

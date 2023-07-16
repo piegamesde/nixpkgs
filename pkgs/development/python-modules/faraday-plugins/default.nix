@@ -1,6 +1,20 @@
-{ lib, beautifulsoup4, buildPythonPackage, click, colorama, fetchFromGitHub
-, html2text, lxml, pytestCheckHook, python-dateutil, pythonOlder, pytz, requests
-, simplejson, tabulate }:
+{
+  lib,
+  beautifulsoup4,
+  buildPythonPackage,
+  click,
+  colorama,
+  fetchFromGitHub,
+  html2text,
+  lxml,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  pytz,
+  requests,
+  simplejson,
+  tabulate,
+}:
 
 buildPythonPackage rec {
   pname = "faraday-plugins";

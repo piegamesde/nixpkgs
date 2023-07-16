@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, poetry-core, pytest-asyncio
-, pytestCheckHook, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "bite-parser";

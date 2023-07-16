@@ -1,8 +1,29 @@
-{ lib, argon2-cffi, buildPythonPackage, fetchPypi, ipykernel, ipython_genutils
-, jinja2, jupyter-client, jupyter-core, jupyter-server, nbconvert, nbformat
-, nest-asyncio, notebook-shim, prometheus-client, pytest-jupyter
-, pytest-tornasync, pytestCheckHook, pythonOlder, pyzmq, send2trash, terminado
-, tornado, traitlets }:
+{
+  lib,
+  argon2-cffi,
+  buildPythonPackage,
+  fetchPypi,
+  ipykernel,
+  ipython_genutils,
+  jinja2,
+  jupyter-client,
+  jupyter-core,
+  jupyter-server,
+  nbconvert,
+  nbformat,
+  nest-asyncio,
+  notebook-shim,
+  prometheus-client,
+  pytest-jupyter,
+  pytest-tornasync,
+  pytestCheckHook,
+  pythonOlder,
+  pyzmq,
+  send2trash,
+  terminado,
+  tornado,
+  traitlets,
+}:
 
 buildPythonPackage rec {
   pname = "nbclassic";

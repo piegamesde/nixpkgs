@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, sqlite, libtiff, curl, gtest
-, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  sqlite,
+  libtiff,
+  curl,
+  gtest,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "proj";

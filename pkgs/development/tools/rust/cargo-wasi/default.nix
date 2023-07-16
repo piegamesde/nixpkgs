@@ -1,4 +1,12 @@
-{ lib, rustPlatform, fetchCrate, pkg-config, stdenv, openssl, Security }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  pkg-config,
+  stdenv,
+  openssl,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-wasi";

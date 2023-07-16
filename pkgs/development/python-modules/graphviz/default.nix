@@ -1,6 +1,19 @@
-{ lib, stdenv, buildPythonPackage, pythonOlder, fetchFromGitHub, substituteAll
-, graphviz, xdg-utils, makeFontsConf, freefont_ttf, mock, pytest, pytest-mock
-, python }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  substituteAll,
+  graphviz,
+  xdg-utils,
+  makeFontsConf,
+  freefont_ttf,
+  mock,
+  pytest,
+  pytest-mock,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "graphviz";

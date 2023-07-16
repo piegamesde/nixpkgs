@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchurl, autoreconfHook, docbook_xsl, docbook_xml_dtd_43
-, gtk-doc, lzip, libidn2, libunistring, libxslt, pkg-config, python3, valgrind
-, publicsuffix-list }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  docbook_xsl,
+  docbook_xml_dtd_43,
+  gtk-doc,
+  lzip,
+  libidn2,
+  libunistring,
+  libxslt,
+  pkg-config,
+  python3,
+  valgrind,
+  publicsuffix-list,
+}:
 
 let
   enableValgrindTests = !stdenv.isDarwin

@@ -1,4 +1,6 @@
-{ python3 }:
+{
+  python3,
+}:
 
 python3.override {
   packageOverrides = self: super: {

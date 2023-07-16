@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, msgpack, numpy, pytest-asyncio
-, pytestCheckHook, python-rapidjson, pythonOlder, pyzmq, ruamel-yaml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  msgpack,
+  numpy,
+  pytest-asyncio,
+  pytestCheckHook,
+  python-rapidjson,
+  pythonOlder,
+  pyzmq,
+  ruamel-yaml,
+}:
 
 buildPythonPackage rec {
   pname = "rpcq";

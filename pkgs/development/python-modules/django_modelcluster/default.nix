@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, django, django-taggit, pytz
-, pythonOlder, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  django,
+  django-taggit,
+  pytz,
+  pythonOlder,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "django-modelcluster";

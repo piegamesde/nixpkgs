@@ -1,5 +1,17 @@
-{ stdenv, lib, unzip, autoPatchelfHook, fetchurl, atomEnv, makeWrapper
-, makeDesktopItem, copyDesktopItems, wrapGAppsHook, libxshmfence, metaCommon }:
+{
+  stdenv,
+  lib,
+  unzip,
+  autoPatchelfHook,
+  fetchurl,
+  atomEnv,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  wrapGAppsHook,
+  libxshmfence,
+  metaCommon,
+}:
 
 let
   pname = "trilium-desktop";

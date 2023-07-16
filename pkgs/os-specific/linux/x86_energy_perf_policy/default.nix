@@ -1,4 +1,8 @@
-{ lib, stdenv, kernel }:
+{
+  lib,
+  stdenv,
+  kernel,
+}:
 
 stdenv.mkDerivation {
   pname = "x86_energy_perf_policy";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, fetchpatch, buildPackages, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  buildPackages,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "apr";

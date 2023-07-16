@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, unzip, runtimeShell }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  runtimeShell,
+}:
 
 stdenv.mkDerivation rec {
   pname = "avr8-burn-omat";

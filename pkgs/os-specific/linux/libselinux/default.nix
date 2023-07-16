@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, fetchpatch, buildPackages, pcre, pkg-config, libsepol
-, enablePython ? !stdenv.hostPlatform.isStatic, swig ? null, python3 ? null, fts
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  buildPackages,
+  pcre,
+  pkg-config,
+  libsepol,
+  enablePython ? !stdenv.hostPlatform.isStatic,
+  swig ? null,
+  python3 ? null,
+  fts,
 }:
 
 assert enablePython -> swig != null && python3 != null;

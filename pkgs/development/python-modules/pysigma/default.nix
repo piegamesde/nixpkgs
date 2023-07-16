@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, packaging, poetry-core
-, pyparsing, pytestCheckHook, pythonOlder, pythonRelaxDepsHook, pyyaml, requests
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  packaging,
+  poetry-core,
+  pyparsing,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  pyyaml,
+  requests,
 }:
 
 buildPythonPackage rec {

@@ -1,5 +1,16 @@
-{ lib, fetchgit, pkg-config, gettext, runCommand, makeWrapper, cpio, elfutils
-, kernel, gnumake, python3 }:
+{
+  lib,
+  fetchgit,
+  pkg-config,
+  gettext,
+  runCommand,
+  makeWrapper,
+  cpio,
+  elfutils,
+  kernel,
+  gnumake,
+  python3,
+}:
 
 let
   ## fetchgit info

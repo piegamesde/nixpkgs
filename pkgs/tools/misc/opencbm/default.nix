@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cc65, ncurses, pkg-config, libusb1 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cc65,
+  ncurses,
+  pkg-config,
+  libusb1,
+}:
 
 stdenv.mkDerivation rec {
   pname = "opencbm";

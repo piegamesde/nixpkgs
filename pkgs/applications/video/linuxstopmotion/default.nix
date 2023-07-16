@@ -1,5 +1,16 @@
-{ mkDerivation, lib, fetchgit, pkg-config, qmake, qtbase, qttools, qtmultimedia
-, libvorbis, libtar, libxml2 }:
+{
+  mkDerivation,
+  lib,
+  fetchgit,
+  pkg-config,
+  qmake,
+  qtbase,
+  qttools,
+  qtmultimedia,
+  libvorbis,
+  libtar,
+  libxml2,
+}:
 
 mkDerivation rec {
   version = "0.8.5";

@@ -1,5 +1,15 @@
-{ lib, aiohttp, aioresponses, buildPythonPackage, fetchFromGitHub, expects
-, pytest-asyncio, pytest-mock, pytestCheckHook, yarl }:
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  expects,
+  pytest-asyncio,
+  pytest-mock,
+  pytestCheckHook,
+  yarl,
+}:
 
 buildPythonPackage rec {
   pname = "aiosyncthing";

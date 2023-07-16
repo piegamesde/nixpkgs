@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, buildPythonPackage, cython, pkg-config, libgbinder }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  cython,
+  pkg-config,
+  libgbinder,
+}:
 
 buildPythonPackage rec {
   pname = "gbinder-python";

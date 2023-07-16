@@ -1,5 +1,17 @@
-{ lib, cacert, curl, rustPlatform, fetchFromGitHub, makeWrapper, pkg-config
-, openssl, stdenv, CoreServices, Security, zig }:
+{
+  lib,
+  cacert,
+  curl,
+  rustPlatform,
+  fetchFromGitHub,
+  makeWrapper,
+  pkg-config,
+  openssl,
+  stdenv,
+  CoreServices,
+  Security,
+  zig,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-lambda";

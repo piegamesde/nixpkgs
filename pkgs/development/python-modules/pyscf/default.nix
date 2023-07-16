@@ -1,5 +1,19 @@
-{ buildPythonPackage, lib, fetchFromGitHub, cmake, blas, libcint, libxc, xcfun
-, cppe, h5py, numpy, scipy, nose, nose-exclude }:
+{
+  buildPythonPackage,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  blas,
+  libcint,
+  libxc,
+  xcfun,
+  cppe,
+  h5py,
+  numpy,
+  scipy,
+  nose,
+  nose-exclude,
+}:
 
 buildPythonPackage rec {
   pname = "pyscf";

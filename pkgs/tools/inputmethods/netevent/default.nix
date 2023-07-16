@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, docutils, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  docutils,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation {
   pname = "netevent";

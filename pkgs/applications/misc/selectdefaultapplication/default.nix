@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, qmake, qtbase, wrapQtAppsHook }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  qmake,
+  qtbase,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation {
   pname = "selectdefaultapplication";

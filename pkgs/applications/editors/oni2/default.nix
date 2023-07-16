@@ -1,4 +1,6 @@
-{ callPackage }:
+{
+  callPackage,
+}:
 
 let mkOni2 = callPackage ./common.nix { };
 in mkOni2 rec {

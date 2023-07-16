@@ -1,5 +1,14 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, click, pip, setuptools, wheel
-, pytestCheckHook }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  click,
+  pip,
+  setuptools,
+  wheel,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "shiv";

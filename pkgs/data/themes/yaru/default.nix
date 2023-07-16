@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, meson, sassc, pkg-config, glib, ninja, python3
-, gtk3, gnome, gtk-engine-murrine, humanity-icon-theme, hicolor-icon-theme }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  sassc,
+  pkg-config,
+  glib,
+  ninja,
+  python3,
+  gtk3,
+  gnome,
+  gtk-engine-murrine,
+  humanity-icon-theme,
+  hicolor-icon-theme,
+}:
 
 stdenv.mkDerivation rec {
   pname = "yaru";

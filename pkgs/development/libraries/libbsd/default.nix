@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, autoreconfHook, libmd, gitUpdater }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  libmd,
+  gitUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libbsd";

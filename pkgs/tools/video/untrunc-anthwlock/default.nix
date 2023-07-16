@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, ffmpeg_4, libui }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ffmpeg_4,
+  libui,
+}:
 
 stdenv.mkDerivation {
   pname = "untrunc-anthwlock";

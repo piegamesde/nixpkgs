@@ -1,4 +1,11 @@
-{ lib, runCommand, rustPlatform, fetchFromGitHub, stdenv, coreutils }:
+{
+  lib,
+  runCommand,
+  rustPlatform,
+  fetchFromGitHub,
+  stdenv,
+  coreutils,
+}:
 
 let
   # copied from flake.nix

@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, autoconf, gfortran, hepmc2, fastjet, lhapdf, rivet
-, sqlite }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoconf,
+  gfortran,
+  hepmc2,
+  fastjet,
+  lhapdf,
+  rivet,
+  sqlite,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sherpa";

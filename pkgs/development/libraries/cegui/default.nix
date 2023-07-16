@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, cmake, ogre, freetype, boost, expat, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  ogre,
+  freetype,
+  boost,
+  expat,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cegui";

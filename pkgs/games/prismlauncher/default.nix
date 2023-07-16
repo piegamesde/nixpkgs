@@ -1,7 +1,31 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ninja, jdk8, jdk17, zlib, file
-, wrapQtAppsHook, xorg, libpulseaudio, qtbase, qtsvg, qtwayland, libGL, quazip
-, glfw, openal, extra-cmake-modules, tomlplusplus, ghc_filesystem
-, msaClientID ? "", jdks ? [ jdk17 jdk8 ], gamemodeSupport ? true, gamemode }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  jdk8,
+  jdk17,
+  zlib,
+  file,
+  wrapQtAppsHook,
+  xorg,
+  libpulseaudio,
+  qtbase,
+  qtsvg,
+  qtwayland,
+  libGL,
+  quazip,
+  glfw,
+  openal,
+  extra-cmake-modules,
+  tomlplusplus,
+  ghc_filesystem,
+  msaClientID ? "",
+  jdks ? [ jdk17 jdk8 ],
+  gamemodeSupport ? true,
+  gamemode,
+}:
 
 let
   libnbtplusplus = fetchFromGitHub {

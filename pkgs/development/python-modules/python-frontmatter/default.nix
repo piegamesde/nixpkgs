@@ -1,4 +1,12 @@
-{ lib, fetchFromGitHub, buildPythonPackage, pyyaml, six, pytest, pyaml }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pyyaml,
+  six,
+  pytest,
+  pyaml,
+}:
 
 buildPythonPackage rec {
   pname = "python-frontmatter";

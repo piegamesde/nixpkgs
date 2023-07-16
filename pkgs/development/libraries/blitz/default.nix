@@ -1,15 +1,29 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, cmake, pkg-config, gfortran, texinfo
-, python3, boost
-# Select SIMD alignment width (in bytes) for vectorization.
-, simdWidth ? 1
-  # Pad arrays to simdWidth by default?
-  # Note: Only useful if simdWidth > 1
-, enablePadding ? false
-  # Activate serialization through Boost.Serialize?
-, enableSerialization ? true
-  # Activate test-suite?
-  # WARNING: Some of the tests require up to 1700MB of memory to compile.
-, doCheck ? true }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  gfortran,
+  texinfo,
+  python3,
+  boost
+  # Select SIMD alignment width (in bytes) for vectorization.
+  ,
+  simdWidth ? 1
+    # Pad arrays to simdWidth by default?
+    # Note: Only useful if simdWidth > 1
+  ,
+  enablePadding ? false
+    # Activate serialization through Boost.Serialize?
+  ,
+  enableSerialization ? true
+    # Activate test-suite?
+    # WARNING: Some of the tests require up to 1700MB of memory to compile.
+  ,
+  doCheck ? true
+}:
 
 let inherit (lib) optional optionals;
 in stdenv.mkDerivation rec {

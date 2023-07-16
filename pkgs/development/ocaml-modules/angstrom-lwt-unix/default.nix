@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, buildDunePackage, angstrom, lwt }:
+{
+  lib,
+  fetchFromGitHub,
+  buildDunePackage,
+  angstrom,
+  lwt,
+}:
 
 buildDunePackage rec {
   pname = "angstrom-lwt-unix";

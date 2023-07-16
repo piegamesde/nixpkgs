@@ -1,6 +1,19 @@
-{ lib, stdenv, llvm_meta, monorepoSrc, runCommand, substituteAll, cmake, libxml2
-, libllvm, version, python3, buildLlvmTools, fixDarwinDylibNames
-, enableManpages ? false }:
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  monorepoSrc,
+  runCommand,
+  substituteAll,
+  cmake,
+  libxml2,
+  libllvm,
+  version,
+  python3,
+  buildLlvmTools,
+  fixDarwinDylibNames,
+  enableManpages ? false
+}:
 
 let
   self = stdenv.mkDerivation (rec {

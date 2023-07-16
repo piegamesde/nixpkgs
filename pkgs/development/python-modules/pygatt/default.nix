@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, mock, nose, pexpect, pyserial
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  nose,
+  pexpect,
+  pyserial,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pygatt";

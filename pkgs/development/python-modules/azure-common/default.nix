@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, azure-nspkg, isPyPy, setuptools, python
-, isPy3k }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  azure-nspkg,
+  isPyPy,
+  setuptools,
+  python,
+  isPy3k,
+}:
 
 buildPythonPackage rec {
   version = "1.1.28";

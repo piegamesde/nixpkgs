@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, libck, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libck,
+  darwin,
+}:
 
 let
   version = "0.34.0";

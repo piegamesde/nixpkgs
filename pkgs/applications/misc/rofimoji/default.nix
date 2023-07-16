@@ -1,8 +1,22 @@
-{ buildPythonApplication, fetchFromGitHub, lib, python3, installShellFiles
+{
+  buildPythonApplication,
+  fetchFromGitHub,
+  lib,
+  python3,
+  installShellFiles
 
-, waylandSupport ? true, x11Support ? true
+  ,
+  waylandSupport ? true,
+  x11Support ? true
 
-, configargparse, rofi, wl-clipboard, wtype, xdotool, xsel }:
+  ,
+  configargparse,
+  rofi,
+  wl-clipboard,
+  wtype,
+  xdotool,
+  xsel,
+}:
 
 buildPythonApplication rec {
   pname = "rofimoji";

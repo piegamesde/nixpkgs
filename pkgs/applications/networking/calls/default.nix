@@ -1,8 +1,36 @@
-{ lib, stdenv, fetchFromGitLab, meson, ninja, pkg-config, libhandy, modemmanager
-, gtk3, gom, gsound, feedbackd, callaudiod, evolution-data-server, glib, folks
-, desktop-file-utils, appstream-glib, libpeas, libgdata, dbus, vala
-, wrapGAppsHook, xvfb-run, gtk-doc, docbook-xsl-nons, docbook_xml_dtd_43
-, docutils, gobject-introspection, gst_all_1, sofia_sip }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  meson,
+  ninja,
+  pkg-config,
+  libhandy,
+  modemmanager,
+  gtk3,
+  gom,
+  gsound,
+  feedbackd,
+  callaudiod,
+  evolution-data-server,
+  glib,
+  folks,
+  desktop-file-utils,
+  appstream-glib,
+  libpeas,
+  libgdata,
+  dbus,
+  vala,
+  wrapGAppsHook,
+  xvfb-run,
+  gtk-doc,
+  docbook-xsl-nons,
+  docbook_xml_dtd_43,
+  docutils,
+  gobject-introspection,
+  gst_all_1,
+  sofia_sip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "calls";

@@ -1,14 +1,32 @@
-{ lib, fetchFromGitHub, buildPythonPackage, substituteAll, cudaSupport ? false
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  substituteAll,
+  cudaSupport ? false
 
-  # runtime
-, ffmpeg
+    # runtime
+  ,
+  ffmpeg
 
-# propagates
-, numpy, torch, torchWithCuda, tqdm, more-itertools, transformers, ffmpeg-python
-, numba, openai-triton, scipy, tiktoken
+  # propagates
+  ,
+  numpy,
+  torch,
+  torchWithCuda,
+  tqdm,
+  more-itertools,
+  transformers,
+  ffmpeg-python,
+  numba,
+  openai-triton,
+  scipy,
+  tiktoken
 
-# tests
-, pytestCheckHook }:
+  # tests
+  ,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "whisper";

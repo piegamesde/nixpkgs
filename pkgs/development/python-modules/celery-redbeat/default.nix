@@ -1,5 +1,16 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, python-dateutil, celery
-, redis, tenacity, pytestCheckHook, fakeredis, mock }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python-dateutil,
+  celery,
+  redis,
+  tenacity,
+  pytestCheckHook,
+  fakeredis,
+  mock,
+}:
 
 buildPythonPackage rec {
   pname = "celery-redbeat";

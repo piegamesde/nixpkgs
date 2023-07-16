@@ -1,7 +1,24 @@
-{ lib, buildPythonPackage, fetchFromGitHub, freezegun, ical, parameterized
-, pycryptodome, pydantic, pytest-aiohttp, pytest-asyncio, pytest-golden
-, pytest-mock, pytestCheckHook, python-dateutil, pythonOlder, pyyaml, requests
-, requests-mock, responses }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  freezegun,
+  ical,
+  parameterized,
+  pycryptodome,
+  pydantic,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytest-golden,
+  pytest-mock,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  pyyaml,
+  requests,
+  requests-mock,
+  responses,
+}:
 
 buildPythonPackage rec {
   pname = "pyrainbird";

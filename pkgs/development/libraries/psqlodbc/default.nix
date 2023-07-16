@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, libiodbc, postgresql, openssl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libiodbc,
+  postgresql,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "psqlodbc";

@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchgit, graphviz, gtk2, gtkmm2, pkg-config, python3, wafHook }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  graphviz,
+  gtk2,
+  gtkmm2,
+  pkg-config,
+  python3,
+  wafHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ganv";

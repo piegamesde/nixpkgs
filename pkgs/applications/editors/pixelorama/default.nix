@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, godot-headless, godot-export-templates }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  godot-headless,
+  godot-export-templates,
+}:
 
 let
   preset = if stdenv.isLinux then

@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, gradle_7, perl, makeWrapper, writeText, jdk
-, gsettings-desktop-schemas }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gradle_7,
+  perl,
+  makeWrapper,
+  writeText,
+  jdk,
+  gsettings-desktop-schemas,
+}:
 
 let
   version = "1.2.0-1";

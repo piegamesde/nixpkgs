@@ -1,4 +1,11 @@
-{ lib, python3, fetchFromGitHub, makeWrapper, mpv, pulseaudio }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  makeWrapper,
+  mpv,
+  pulseaudio,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "cplay-ng";

@@ -1,4 +1,10 @@
-{ stdenv, buildGoModule, fetchFromGitHub, lib, symlinkJoin }:
+{
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  symlinkJoin,
+}:
 
 let
   p2 = buildGoModule rec {

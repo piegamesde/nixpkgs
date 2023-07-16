@@ -1,8 +1,24 @@
-{ lib, stdenv, fetchzip, php, writeText, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  php,
+  writeText,
+  nixosTests,
+}:
 
 let
-  phpExt = php.withExtensions
-    ({ enabled, all }: with all; [ filter mysqlnd mysqli pdo pdo_mysql ]);
+  phpExt = php.withExtensions ({
+      enabled,
+      all,
+    }:
+    with all; [
+      filter
+      mysqlnd
+      mysqli
+      pdo
+      pdo_mysql
+    ]);
 in stdenv.mkDerivation rec {
   pname = "engelsystem";
   version = "3.3.0";

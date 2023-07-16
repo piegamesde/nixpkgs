@@ -1,4 +1,13 @@
-{ fetchurl, lib, stdenv, ant, jdk, jre, python2, makeWrapper }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  ant,
+  jdk,
+  jre,
+  python2,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rabbitmq-java-client";

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, lua5_3, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  lua5_3,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bam";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, ncurses, libvorbis, SDL }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  ncurses,
+  libvorbis,
+  SDL,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mp3blaster";

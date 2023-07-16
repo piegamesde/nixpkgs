@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, librdf_raptor2, gmp, pkg-config, pcre, libxml2, perl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  librdf_raptor2,
+  gmp,
+  pkg-config,
+  pcre,
+  libxml2,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rasqal";

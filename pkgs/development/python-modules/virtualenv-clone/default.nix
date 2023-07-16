@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, virtualenv, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  virtualenv,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "virtualenv-clone";

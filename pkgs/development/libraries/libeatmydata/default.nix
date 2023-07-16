@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, strace, which }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  strace,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libeatmydata";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, fetchpatch, cyrus_sasl, libevent }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  cyrus_sasl,
+  libevent,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libmemcached";

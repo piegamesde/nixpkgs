@@ -1,9 +1,24 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, fsspec
-, lightning-utilities, numpy, packaging, pyyaml, tensorboardx, torch
-, torchmetrics, tqdm, traitlets
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  fsspec,
+  lightning-utilities,
+  numpy,
+  packaging,
+  pyyaml,
+  tensorboardx,
+  torch,
+  torchmetrics,
+  tqdm,
+  traitlets
 
-# tests
-, psutil, pytestCheckHook }:
+  # tests
+  ,
+  psutil,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pytorch-lightning";

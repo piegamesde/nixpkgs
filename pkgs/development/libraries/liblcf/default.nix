@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, expat, icu }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  expat,
+  icu,
+}:
 
 stdenv.mkDerivation rec {
   pname = "liblcf";

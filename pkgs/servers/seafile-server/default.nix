@@ -1,6 +1,24 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, python3, autoreconfHook, libuuid
-, sqlite, glib, libevent, libsearpc, openssl, fuse, libarchive, which, vala
-, cmake, oniguruma, nixosTests }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  python3,
+  autoreconfHook,
+  libuuid,
+  sqlite,
+  glib,
+  libevent,
+  libsearpc,
+  openssl,
+  fuse,
+  libarchive,
+  which,
+  vala,
+  cmake,
+  oniguruma,
+  nixosTests,
+}:
 
 let
   # seafile-server relies on a specific version of libevhtp.

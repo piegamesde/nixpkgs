@@ -1,6 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, ocaml, findlib, ocamlbuild, qtest, qcheck, num
-, camlp-streams
-, doCheck ? lib.versionAtLeast ocaml.version "4.08" && !stdenv.isAarch64 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  qtest,
+  qcheck,
+  num,
+  camlp-streams,
+  doCheck ? lib.versionAtLeast ocaml.version "4.08" && !stdenv.isAarch64
+}:
 
 if lib.versionOlder ocaml.version "4.02" then
   throw "batteries is not available for OCaml ${ocaml.version}"

@@ -1,4 +1,10 @@
-{ lib, fetchPypi, buildPythonPackage, fetchpatch, setuptools-scm }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  fetchpatch,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "elevate";

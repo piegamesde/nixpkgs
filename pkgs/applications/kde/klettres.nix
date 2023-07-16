@@ -1,5 +1,13 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, ki18n, kio, phonon
-, knewstuff }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  ki18n,
+  kio,
+  phonon,
+  knewstuff,
+}:
 
 mkDerivation {
   pname = "klettres";

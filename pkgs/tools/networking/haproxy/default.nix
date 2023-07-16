@@ -1,6 +1,18 @@
-{ useLua ? !stdenv.isDarwin, usePcre ? true, withPrometheusExporter ? true
-, stdenv, lib, fetchurl, nixosTests, openssl, zlib, libxcrypt, lua5_3 ? null
-, pcre ? null, systemd ? null }:
+{
+  useLua ? !stdenv.isDarwin,
+  usePcre ? true,
+  withPrometheusExporter ? true,
+  stdenv,
+  lib,
+  fetchurl,
+  nixosTests,
+  openssl,
+  zlib,
+  libxcrypt,
+  lua5_3 ? null,
+  pcre ? null,
+  systemd ? null
+}:
 
 assert useLua -> lua5_3 != null;
 assert usePcre -> pcre != null;

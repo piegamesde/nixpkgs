@@ -1,7 +1,28 @@
-{ lib, rustPlatform, clangStdenv, fetchFromGitHub, linkFarm, fetchgit
-, runCommand, gn, ninja, makeWrapper, pkg-config, python3, removeReferencesTo
-, xcbuild, SDL2, fontconfig, xorg, stdenv, darwin, libglvnd, libxkbcommon
-, enableWayland ? stdenv.isLinux, wayland }:
+{
+  lib,
+  rustPlatform,
+  clangStdenv,
+  fetchFromGitHub,
+  linkFarm,
+  fetchgit,
+  runCommand,
+  gn,
+  ninja,
+  makeWrapper,
+  pkg-config,
+  python3,
+  removeReferencesTo,
+  xcbuild,
+  SDL2,
+  fontconfig,
+  xorg,
+  stdenv,
+  darwin,
+  libglvnd,
+  libxkbcommon,
+  enableWayland ? stdenv.isLinux,
+  wayland,
+}:
 
 rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
   pname = "neovide";

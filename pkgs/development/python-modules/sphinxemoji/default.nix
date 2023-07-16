@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, sphinx, sphinxHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  sphinx,
+  sphinxHook,
+}:
 
 buildPythonPackage rec {
   pname = "sphinxemoji";

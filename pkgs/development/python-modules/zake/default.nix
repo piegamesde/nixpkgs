@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, kazoo, six, testtools, unittestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  kazoo,
+  six,
+  testtools,
+  unittestCheckHook,
 }:
 
 buildPythonPackage rec {

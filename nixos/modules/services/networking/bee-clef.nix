@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 # NOTE for now nothing is installed into /etc/bee-clef/. the config files are used as read-only from the nix store.
 

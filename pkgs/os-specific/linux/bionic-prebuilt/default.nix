@@ -1,6 +1,12 @@
-{ stdenv, stdenvNoCC, lib, fetchzip, pkgs
-, enableStatic ? stdenv.hostPlatform.isStatic
-, enableShared ? !stdenv.hostPlatform.isStatic }:
+{
+  stdenv,
+  stdenvNoCC,
+  lib,
+  fetchzip,
+  pkgs,
+  enableStatic ? stdenv.hostPlatform.isStatic,
+  enableShared ? !stdenv.hostPlatform.isStatic
+}:
 let
 
   choosePlatform = let pname = stdenv.targetPlatform.parsed.cpu.name;

@@ -1,5 +1,13 @@
-{ lib, substituteAll, mkDerivation, fetchFromGitLab
-, mobile-broadband-provider-info, qmake, qtbase, qtdeclarative }:
+{
+  lib,
+  substituteAll,
+  mkDerivation,
+  fetchFromGitLab,
+  mobile-broadband-provider-info,
+  qmake,
+  qtbase,
+  qtdeclarative,
+}:
 
 mkDerivation rec {
   pname = "libqofono";

@@ -1,4 +1,12 @@
-{ lib, fetchurl, yojson, csexp, buildDunePackage, merlin-lib, merlin }:
+{
+  lib,
+  fetchurl,
+  yojson,
+  csexp,
+  buildDunePackage,
+  merlin-lib,
+  merlin,
+}:
 
 buildDunePackage rec {
   pname = "dot-merlin-reader";

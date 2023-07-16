@@ -1,7 +1,12 @@
 # To run these tests:
 # nix-build -A tests.stdenv
 
-{ stdenv, pkgs, lib, testers }:
+{
+  stdenv,
+  pkgs,
+  lib,
+  testers,
+}:
 
 let
   # early enough not to rebuild gcc but late enough to have patchelf
@@ -20,7 +25,11 @@ let
 
   runCommand = earlierPkgs.runCommand;
 
-  ccWrapperSubstitutionsTest = { name, stdenv', extraAttrs ? { } }:
+  ccWrapperSubstitutionsTest = {
+      name,
+      stdenv',
+      extraAttrs ? { }
+    }:
 
     stdenv'.cc.overrideAttrs (previousAttrs:
       ({
@@ -41,7 +50,11 @@ let
         '';
       } // extraAttrs));
 
-  testEnvAttrset = { name, stdenv', extraAttrs ? { } }:
+  testEnvAttrset = {
+      name,
+      stdenv',
+      extraAttrs ? { }
+    }:
     stdenv'.mkDerivation ({
       inherit name;
       env = { string = "testing-string"; };
@@ -56,7 +69,11 @@ let
       '';
     } // extraAttrs);
 
-  testPrependAndAppendToVar = { name, stdenv', extraAttrs ? { } }:
+  testPrependAndAppendToVar = {
+      name,
+      stdenv',
+      extraAttrs ? { }
+    }:
     stdenv'.mkDerivation ({
       inherit name;
       env = { string = "testing-string"; };

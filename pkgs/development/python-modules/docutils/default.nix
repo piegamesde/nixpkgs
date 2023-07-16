@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchPypi, buildPythonPackage, python, pythonOlder }:
+{
+  stdenv,
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  python,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "docutils";

@@ -1,6 +1,18 @@
-{ stdenv, lib, buildGoModule, coreutils, fetchFromGitHub, installShellFiles, git
-# passthru
-, runCommand, makeWrapper, pulumi, pulumiPackages }:
+{
+  stdenv,
+  lib,
+  buildGoModule,
+  coreutils,
+  fetchFromGitHub,
+  installShellFiles,
+  git
+  # passthru
+  ,
+  runCommand,
+  makeWrapper,
+  pulumi,
+  pulumiPackages,
+}:
 
 buildGoModule rec {
   pname = "pulumi";

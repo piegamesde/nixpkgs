@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, glibc, go-md2man, installShellFiles }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  glibc,
+  go-md2man,
+  installShellFiles,
+}:
 
 buildGoModule rec {
   pname = "toolbox";

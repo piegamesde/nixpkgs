@@ -1,5 +1,19 @@
-{ buildPythonPackage, fetchPypi, pytest, tqdm, docopt, requests, jsonpatch
-, schema, responses, lib, glibcLocales, setuptools, urllib3, pythonOlder }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  tqdm,
+  docopt,
+  requests,
+  jsonpatch,
+  schema,
+  responses,
+  lib,
+  glibcLocales,
+  setuptools,
+  urllib3,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "internetarchive";

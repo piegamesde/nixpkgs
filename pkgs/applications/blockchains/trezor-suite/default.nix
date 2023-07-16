@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, appimageTools, tor, trezord }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  appimageTools,
+  tor,
+  trezord,
+}:
 
 let
   pname = "trezor-suite";

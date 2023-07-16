@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gettext, intltool, pkg-config
-, wrapGAppsHook, gtkmm3, libuuid, poppler, qpdf }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gettext,
+  intltool,
+  pkg-config,
+  wrapGAppsHook,
+  gtkmm3,
+  libuuid,
+  poppler,
+  qpdf,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pdfslicer";

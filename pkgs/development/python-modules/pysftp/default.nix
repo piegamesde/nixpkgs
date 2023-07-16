@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, isPyPy, paramiko }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPyPy,
+  paramiko,
+}:
 
 buildPythonPackage rec {
   pname = "pysftp";

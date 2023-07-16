@@ -1,5 +1,16 @@
-{ lib, stdenv, writeScript, fetchurl, requireFile, unzip, clang, mono, which
-, xorg, xdg-user-dirs }:
+{
+  lib,
+  stdenv,
+  writeScript,
+  fetchurl,
+  requireFile,
+  unzip,
+  clang,
+  mono,
+  which,
+  xorg,
+  xdg-user-dirs,
+}:
 
 let
   deps = import ./cdn-deps.nix { inherit fetchurl; };

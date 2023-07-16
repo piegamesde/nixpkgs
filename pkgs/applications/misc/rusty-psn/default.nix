@@ -1,5 +1,15 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, makeDesktopItem, copyDesktopItems
-, pkg-config, openssl, xorg, libGL, withGui ? false # build GUI version
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  makeDesktopItem,
+  copyDesktopItems,
+  pkg-config,
+  openssl,
+  xorg,
+  libGL,
+  withGui ? false # build GUI version
 }:
 
 rustPlatform.buildRustPackage rec {

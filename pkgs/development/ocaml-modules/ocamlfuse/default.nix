@@ -1,4 +1,11 @@
-{ lib, buildDunePackage, fetchFromGitHub, camlidl, fuse, dune-configurator }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  camlidl,
+  fuse,
+  dune-configurator,
+}:
 
 buildDunePackage rec {
   pname = "ocamlfuse";

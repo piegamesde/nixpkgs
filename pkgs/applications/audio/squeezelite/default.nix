@@ -1,7 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, alsa-lib, flac, libmad, libpulseaudio, libvorbis
-, mpg123, audioBackend ? "alsa", dsdSupport ? true, faad2Support ? true, faad2
-, ffmpegSupport ? true, ffmpeg, opusSupport ? true, opusfile
-, resampleSupport ? true, soxr, sslSupport ? true, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  alsa-lib,
+  flac,
+  libmad,
+  libpulseaudio,
+  libvorbis,
+  mpg123,
+  audioBackend ? "alsa",
+  dsdSupport ? true,
+  faad2Support ? true,
+  faad2,
+  ffmpegSupport ? true,
+  ffmpeg,
+  opusSupport ? true,
+  opusfile,
+  resampleSupport ? true,
+  soxr,
+  sslSupport ? true,
+  openssl,
+}:
 
 let
   inherit (lib) optional optionalString;

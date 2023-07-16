@@ -1,9 +1,30 @@
-{ lib, stdenv, runCommand, fetchzip, fetchurl, fetchFromGitHub, cmake
-, pkg-config, zlib, libpng, makeWrapper, enableGSL ? true, gsl
-, enableGhostScript ? true, ghostscript, enableMuPDF ? true, mupdf_1_17
-, enableDJVU ? true, djvulibre, enableGOCR ? false
-, gocr # Disabled by default due to crashes
-, enableTesseract ? true, leptonica, tesseract4 }:
+{
+  lib,
+  stdenv,
+  runCommand,
+  fetchzip,
+  fetchurl,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  zlib,
+  libpng,
+  makeWrapper,
+  enableGSL ? true,
+  gsl,
+  enableGhostScript ? true,
+  ghostscript,
+  enableMuPDF ? true,
+  mupdf_1_17,
+  enableDJVU ? true,
+  djvulibre,
+  enableGOCR ? false,
+  gocr # Disabled by default due to crashes
+  ,
+  enableTesseract ? true,
+  leptonica,
+  tesseract4,
+}:
 
 # k2pdfopt is a pain to package. It requires modified versions of mupdf,
 # leptonica, and tesseract.  Instead of shipping patches for these upstream
@@ -31,7 +52,11 @@
 
 let
   # Create a patch against src based on changes applied in patchCommands
-  mkPatch = { name, src, patchCommands }:
+  mkPatch = {
+      name,
+      src,
+      patchCommands,
+    }:
     runCommand "${name}-k2pdfopt.patch" { inherit src; } ''
       source $stdenv/setup
       unpackPhase
@@ -82,13 +107,16 @@ in stdenv.mkDerivation rec {
         cp ${k2pdfopt_src}/mupdf_mod/pdf-* ./source/pdf/
       '';
     };
-    mupdf_modded = mupdf_1_17.overrideAttrs ({ patches ? [ ], ... }: {
-      patches = patches ++ [ mupdf_patch ];
-      # This function is missing in font.c, see font-win32.c
-      postPatch = ''
-        echo "void pdf_install_load_system_font_funcs(fz_context *ctx) {}" >> source/fitz/font.c
-      '';
-    });
+    mupdf_modded = mupdf_1_17.overrideAttrs ({
+        patches ? [ ],
+        ...
+      }: {
+        patches = patches ++ [ mupdf_patch ];
+        # This function is missing in font.c, see font-win32.c
+        postPatch = ''
+          echo "void pdf_install_load_system_font_funcs(fz_context *ctx) {}" >> source/fitz/font.c
+        '';
+      });
 
     leptonica_patch = mkPatch {
       name = "leptonica";
@@ -98,8 +126,12 @@ in stdenv.mkDerivation rec {
       };
       patchCommands = "cp -r ${k2pdfopt_src}/leptonica_mod/. ./src/";
     };
-    leptonica_modded = leptonica.overrideAttrs
-      ({ patches ? [ ], ... }: { patches = patches ++ [ leptonica_patch ]; });
+    leptonica_modded = leptonica.overrideAttrs ({
+        patches ? [ ],
+        ...
+      }: {
+        patches = patches ++ [ leptonica_patch ];
+      });
 
     tesseract_patch = mkPatch {
       name = "tesseract";
@@ -120,8 +152,10 @@ in stdenv.mkDerivation rec {
       '';
     };
     tesseract_modded = tesseract4.override {
-      tesseractBase = tesseract4.tesseractBase.overrideAttrs
-        ({ patches ? [ ], ... }: {
+      tesseractBase = tesseract4.tesseractBase.overrideAttrs ({
+          patches ? [ ],
+          ...
+        }: {
           patches = patches ++ [ tesseract_patch ];
           # Additional compilation fixes
           postPatch = ''

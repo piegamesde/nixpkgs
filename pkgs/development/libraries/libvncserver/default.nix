@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, libjpeg, openssl, zlib
-, libgcrypt, libpng, systemd, Carbon }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  libjpeg,
+  openssl,
+  zlib,
+  libgcrypt,
+  libpng,
+  systemd,
+  Carbon,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libvncserver";

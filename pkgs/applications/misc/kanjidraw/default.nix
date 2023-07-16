@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, python3, bash }:
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  bash,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "kanjidraw";

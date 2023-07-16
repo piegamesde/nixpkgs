@@ -1,4 +1,10 @@
-{ lib, buildRubyGem, bundlerEnv, ruby, poppler_utils }:
+{
+  lib,
+  buildRubyGem,
+  bundlerEnv,
+  ruby,
+  poppler_utils,
+}:
 let
   deps = bundlerEnv rec {
     name = "anystyle-cli-${version}";

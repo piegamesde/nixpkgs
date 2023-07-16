@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, hypothesis, lark, libcst, parso
-, pytestCheckHook, pytest-xdist }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  hypothesis,
+  lark,
+  libcst,
+  parso,
+  pytestCheckHook,
+  pytest-xdist,
+}:
 
 buildPythonPackage rec {
   pname = "hypothesmith";

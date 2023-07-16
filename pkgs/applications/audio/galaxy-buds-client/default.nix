@@ -1,5 +1,16 @@
-{ lib, stdenv, buildDotnetModule, fetchFromGitHub, autoPatchelfHook, fontconfig
-, xorg, libglvnd, makeDesktopItem, copyDesktopItems, graphicsmagick }:
+{
+  lib,
+  stdenv,
+  buildDotnetModule,
+  fetchFromGitHub,
+  autoPatchelfHook,
+  fontconfig,
+  xorg,
+  libglvnd,
+  makeDesktopItem,
+  copyDesktopItems,
+  graphicsmagick,
+}:
 
 buildDotnetModule rec {
   pname = "galaxy-buds-client";

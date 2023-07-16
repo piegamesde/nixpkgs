@@ -1,5 +1,13 @@
-{ lib, python3, groff, less, fetchFromGitHub, nix-update-script, testers
-, awscli2 }:
+{
+  lib,
+  python3,
+  groff,
+  less,
+  fetchFromGitHub,
+  nix-update-script,
+  testers,
+  awscli2,
+}:
 
 let
   py = python3 // {

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, lark, pydot, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  lark,
+  pydot,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "amarna";

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, writeText, zlib, rpmextract, patchelf, which }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  writeText,
+  zlib,
+  rpmextract,
+  patchelf,
+  which,
+}:
 
 let
   p = if stdenv.is64bit then {

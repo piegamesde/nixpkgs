@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, cython, pytestCheckHook, hypothesis }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cython,
+  pytestCheckHook,
+  hypothesis,
+}:
 
 buildPythonPackage rec {
   pname = "datrie";

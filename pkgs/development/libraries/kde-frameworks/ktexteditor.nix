@@ -1,6 +1,22 @@
-{ mkDerivation, extra-cmake-modules, perl, karchive, kconfig, kguiaddons, ki18n
-, kiconthemes, kio, kparts, libgit2, qtscript, qtxmlpatterns, sonnet
-, syntax-highlighting, qtquickcontrols, editorconfig-core-c }:
+{
+  mkDerivation,
+  extra-cmake-modules,
+  perl,
+  karchive,
+  kconfig,
+  kguiaddons,
+  ki18n,
+  kiconthemes,
+  kio,
+  kparts,
+  libgit2,
+  qtscript,
+  qtxmlpatterns,
+  sonnet,
+  syntax-highlighting,
+  qtquickcontrols,
+  editorconfig-core-c,
+}:
 
 mkDerivation {
   pname = "ktexteditor";

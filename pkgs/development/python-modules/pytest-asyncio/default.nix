@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, callPackage, fetchFromGitHub, flaky, hypothesis
-, pytest, pytestCheckHook, pythonOlder, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  callPackage,
+  fetchFromGitHub,
+  flaky,
+  hypothesis,
+  pytest,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-asyncio";

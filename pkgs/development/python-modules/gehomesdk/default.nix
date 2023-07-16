@@ -1,5 +1,16 @@
-{ lib, aiohttp, bidict, buildPythonPackage, fetchPypi, humanize, lxml
-, pythonOlder, requests, slixmpp, websockets }:
+{
+  lib,
+  aiohttp,
+  bidict,
+  buildPythonPackage,
+  fetchPypi,
+  humanize,
+  lxml,
+  pythonOlder,
+  requests,
+  slixmpp,
+  websockets,
+}:
 
 buildPythonPackage rec {
   pname = "gehomesdk";

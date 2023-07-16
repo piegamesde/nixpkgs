@@ -1,4 +1,15 @@
-{ lib, stdenv, fetchurl, cmake, gfortran, blas, lapack, mpi, petsc, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  gfortran,
+  blas,
+  lapack,
+  mpi,
+  petsc,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "getdp";

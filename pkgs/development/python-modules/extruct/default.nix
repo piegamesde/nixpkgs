@@ -1,5 +1,19 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonRelaxDepsHook, html-text
-, jstyleson, lxml, mf2py, pyrdfa3, rdflib, six, w3lib, pytestCheckHook, mock }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonRelaxDepsHook,
+  html-text,
+  jstyleson,
+  lxml,
+  mf2py,
+  pyrdfa3,
+  rdflib,
+  six,
+  w3lib,
+  pytestCheckHook,
+  mock,
+}:
 
 buildPythonPackage rec {
   pname = "extruct";

@@ -1,5 +1,15 @@
-{ lib, fetchFromGitHub, atk, gdk-pixbuf, gobject-introspection, pango
-, python3Packages, txt2tags, wrapGAppsHook, gitUpdater }:
+{
+  lib,
+  fetchFromGitHub,
+  atk,
+  gdk-pixbuf,
+  gobject-introspection,
+  pango,
+  python3Packages,
+  txt2tags,
+  wrapGAppsHook,
+  gitUpdater,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "xdgmenumaker";

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, coreutils, fetchFromGitHub, icontract
-, pytestCheckHook, pythonOlder, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  coreutils,
+  fetchFromGitHub,
+  icontract,
+  pytestCheckHook,
+  pythonOlder,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "pylddwrap";

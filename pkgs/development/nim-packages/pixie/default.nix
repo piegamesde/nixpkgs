@@ -1,5 +1,14 @@
-{ lib, buildNimPackage, fetchFromGitHub, bumpy, chroma, flatty, nimsimd, vmath
-, zippy }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitHub,
+  bumpy,
+  chroma,
+  flatty,
+  nimsimd,
+  vmath,
+  zippy,
+}:
 
 buildNimPackage rec {
   pname = "pixie";

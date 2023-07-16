@@ -1,7 +1,17 @@
-{ stdenv, lib, fetchFromGitHub, libtool, automake, autoconf, ucx
-, enableCuda ? false, cudatoolkit, enableAvx ? stdenv.hostPlatform.avxSupport
-, enableSse41 ? stdenv.hostPlatform.sse4_1Support
-, enableSse42 ? stdenv.hostPlatform.sse4_2Support }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  libtool,
+  automake,
+  autoconf,
+  ucx,
+  enableCuda ? false,
+  cudatoolkit,
+  enableAvx ? stdenv.hostPlatform.avxSupport,
+  enableSse41 ? stdenv.hostPlatform.sse4_1Support,
+  enableSse42 ? stdenv.hostPlatform.sse4_2Support
+}:
 
 stdenv.mkDerivation rec {
   pname = "ucc";

@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchurl, pkg-config, gnome, gtk3, gjs, flex, bison, libxml2
-, intltool, gdl, libgda, gtksourceview, gsettings-desktop-schemas, itstool
-, python3, ncurses, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gnome,
+  gtk3,
+  gjs,
+  flex,
+  bison,
+  libxml2,
+  intltool,
+  gdl,
+  libgda,
+  gtksourceview,
+  gsettings-desktop-schemas,
+  itstool,
+  python3,
+  ncurses,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "anjuta";

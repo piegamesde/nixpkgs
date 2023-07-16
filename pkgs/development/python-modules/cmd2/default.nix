@@ -1,6 +1,20 @@
-{ lib, stdenv, attrs, buildPythonPackage, colorama, fetchPypi, glibcLocales
-, importlib-metadata, pyperclip, pytest-mock, pytestCheckHook, pythonOlder
-, setuptools-scm, typing-extensions, wcwidth }:
+{
+  lib,
+  stdenv,
+  attrs,
+  buildPythonPackage,
+  colorama,
+  fetchPypi,
+  glibcLocales,
+  importlib-metadata,
+  pyperclip,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+  typing-extensions,
+  wcwidth,
+}:
 
 buildPythonPackage rec {
   pname = "cmd2";

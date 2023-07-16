@@ -1,5 +1,13 @@
-{ fetchFromGitHub, git, jdk_headless, jre_headless, makeWrapper, python3
-, stdenvNoCC, lib }:
+{
+  fetchFromGitHub,
+  git,
+  jdk_headless,
+  jre_headless,
+  makeWrapper,
+  python3,
+  stdenvNoCC,
+  lib,
+}:
 
 let
   pname = "validator-nu";

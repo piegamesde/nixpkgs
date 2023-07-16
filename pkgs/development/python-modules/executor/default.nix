@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy27, coloredlogs, humanfriendly
-, property-manager, fasteners, six, pytestCheckHook, mock, virtualenv }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy27,
+  coloredlogs,
+  humanfriendly,
+  property-manager,
+  fasteners,
+  six,
+  pytestCheckHook,
+  mock,
+  virtualenv,
+}:
 
 buildPythonPackage rec {
   pname = "executor";

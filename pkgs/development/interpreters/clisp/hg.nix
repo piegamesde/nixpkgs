@@ -3,15 +3,35 @@
 # - base (default): contains readline and i18n, regexp and syscalls modules
 #   by default
 # - full: contains base plus modules in withModules
-{ lib, stdenv, fetchhg, libsigsegv, gettext, ncurses, readline, libX11, libXau
-, libXt, pcre, zlib, libXpm, xorgproto, libXext, libffi, libffcall, automake
-, coreutils
-# build options
-, threadSupport ? stdenv.hostPlatform.isx86
-, x11Support ? stdenv.hostPlatform.isx86, dllSupport ? true, withModules ?
-  [ "pcre" "rawsock" ]
-  ++ lib.optionals stdenv.isLinux [ "bindings/glibc" "zlib" ]
-  ++ lib.optional x11Support "clx/new-clx" }:
+{
+  lib,
+  stdenv,
+  fetchhg,
+  libsigsegv,
+  gettext,
+  ncurses,
+  readline,
+  libX11,
+  libXau,
+  libXt,
+  pcre,
+  zlib,
+  libXpm,
+  xorgproto,
+  libXext,
+  libffi,
+  libffcall,
+  automake,
+  coreutils
+  # build options
+  ,
+  threadSupport ? stdenv.hostPlatform.isx86,
+  x11Support ? stdenv.hostPlatform.isx86,
+  dllSupport ? true,
+  withModules ? [ "pcre" "rawsock" ]
+    ++ lib.optionals stdenv.isLinux [ "bindings/glibc" "zlib" ]
+    ++ lib.optional x11Support "clx/new-clx"
+}:
 
 assert x11Support -> (libX11 != null && libXau != null && libXt != null
   && libXpm != null && xorgproto != null && libXext != null);

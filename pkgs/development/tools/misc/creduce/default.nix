@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, cmake, makeWrapper, llvm, libclang, flex, zlib
-, perlPackages, util-linux }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  makeWrapper,
+  llvm,
+  libclang,
+  flex,
+  zlib,
+  perlPackages,
+  util-linux,
+}:
 
 stdenv.mkDerivation rec {
   pname = "creduce";

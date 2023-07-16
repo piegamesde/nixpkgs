@@ -1,4 +1,9 @@
-{ buildDunePackage, ocaml_gettext, dune-configurator, ounit }:
+{
+  buildDunePackage,
+  ocaml_gettext,
+  dune-configurator,
+  ounit,
+}:
 
 buildDunePackage rec {
 

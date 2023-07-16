@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pytestCheckHook
-, pythonOlder, pytz, requests, requests-mock, typing-extensions, urllib3 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  requests,
+  requests-mock,
+  typing-extensions,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "meteofrance-api";

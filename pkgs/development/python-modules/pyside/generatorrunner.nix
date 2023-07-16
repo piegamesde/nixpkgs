@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pysideApiextractor, python3, qt4 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pysideApiextractor,
+  python3,
+  qt4,
+}:
 
 # This derivation does not provide any Python module and should therefore be called via `all-packages.nix`.
 let pythonEnv = python3.withPackages (ps: with ps; [ sphinx ]);

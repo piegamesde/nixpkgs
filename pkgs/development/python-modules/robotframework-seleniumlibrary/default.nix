@@ -1,6 +1,17 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, python, robotframework
-, robotframework-pythonlibcore, selenium, approvaltests, pytest-mockito
-, pytestCheckHook, robotstatuschecker }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python,
+  robotframework,
+  robotframework-pythonlibcore,
+  selenium,
+  approvaltests,
+  pytest-mockito,
+  pytestCheckHook,
+  robotstatuschecker,
+}:
 
 buildPythonPackage rec {
   version = "6.0.0";

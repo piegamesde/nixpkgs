@@ -1,5 +1,13 @@
-{ lib, rustPlatform, fetchFromGitHub, cryptsetup, pkg-config, clang
-, llvmPackages, fetchpatch }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  cryptsetup,
+  pkg-config,
+  clang,
+  llvmPackages,
+  fetchpatch,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "fido2luks";

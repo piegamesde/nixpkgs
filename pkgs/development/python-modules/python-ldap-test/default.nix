@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, py4j }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  py4j,
+}:
 
 buildPythonPackage rec {
   pname = "python-ldap-test";

@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, isPy27, pytestCheckHook
-, nose, numpy, pandas, xarray, traitlets }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  isPy27,
+  pytestCheckHook,
+  nose,
+  numpy,
+  pandas,
+  xarray,
+  traitlets,
+}:
 
 buildPythonPackage rec {
   pname = "traittypes";

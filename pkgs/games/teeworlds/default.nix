@@ -1,6 +1,23 @@
-{ fetchFromGitHub, lib, stdenv, cmake, pkg-config, python3, alsa-lib, libX11
-, libGLU, SDL2, lua5_3, zlib, freetype, wavpack, icoutils, nixosTests, Carbon
-, Cocoa }:
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  cmake,
+  pkg-config,
+  python3,
+  alsa-lib,
+  libX11,
+  libGLU,
+  SDL2,
+  lua5_3,
+  zlib,
+  freetype,
+  wavpack,
+  icoutils,
+  nixosTests,
+  Carbon,
+  Cocoa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "teeworlds";

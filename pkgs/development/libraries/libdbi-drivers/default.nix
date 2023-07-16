@@ -1,6 +1,14 @@
-{ lib, stdenv, fetchurl, libdbi
-# TODO: migrate away from overriding packages to null
-, libmysqlclient ? null, sqlite ? null, postgresql ? null }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libdbi
+  # TODO: migrate away from overriding packages to null
+  ,
+  libmysqlclient ? null,
+  sqlite ? null,
+  postgresql ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "libdbi-drivers";

@@ -1,6 +1,22 @@
-{ lib, autograd, buildPythonPackage, cupy, cvxopt, cython, fetchPypi, matplotlib
-, numpy, tensorflow, pymanopt, pytestCheckHook, pythonOlder, scikit-learn, scipy
-, enableDimensionalityReduction ? false, enableGPU ? false }:
+{
+  lib,
+  autograd,
+  buildPythonPackage,
+  cupy,
+  cvxopt,
+  cython,
+  fetchPypi,
+  matplotlib,
+  numpy,
+  tensorflow,
+  pymanopt,
+  pytestCheckHook,
+  pythonOlder,
+  scikit-learn,
+  scipy,
+  enableDimensionalityReduction ? false,
+  enableGPU ? false
+}:
 
 buildPythonPackage rec {
   pname = "pot";

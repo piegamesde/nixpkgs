@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, chardet, html5lib, lxml, pytestCheckHook
-, pythonOlder, soupsieve, sphinxHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  chardet,
+  html5lib,
+  lxml,
+  pytestCheckHook,
+  pythonOlder,
+  soupsieve,
+  sphinxHook,
+}:
 
 buildPythonPackage rec {
   pname = "beautifulsoup4";

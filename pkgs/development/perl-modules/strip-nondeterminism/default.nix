@@ -1,5 +1,14 @@
-{ lib, stdenv, file, fetchFromGitLab, buildPerlPackage, ArchiveZip, ArchiveCpio
-, SubOverride, shortenPerlShebang }:
+{
+  lib,
+  stdenv,
+  file,
+  fetchFromGitLab,
+  buildPerlPackage,
+  ArchiveZip,
+  ArchiveCpio,
+  SubOverride,
+  shortenPerlShebang,
+}:
 
 buildPerlPackage rec {
   pname = "strip-nondeterminism";

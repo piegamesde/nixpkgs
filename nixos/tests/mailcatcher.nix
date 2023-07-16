@@ -1,22 +1,28 @@
-import ./make-test-python.nix ({ lib, ... }:
+import ./make-test-python.nix ({
+    lib,
+    ...
+  }:
 
   {
     name = "mailcatcher";
     meta.maintainers = [ lib.maintainers.aanderse ];
 
-    nodes.machine = { pkgs, ... }: {
-      services.mailcatcher.enable = true;
+    nodes.machine = {
+        pkgs,
+        ...
+      }: {
+        services.mailcatcher.enable = true;
 
-      programs.msmtp = {
-        enable = true;
-        accounts.default = {
-          host = "localhost";
-          port = 1025;
+        programs.msmtp = {
+          enable = true;
+          accounts.default = {
+            host = "localhost";
+            port = 1025;
+          };
         };
-      };
 
-      environment.systemPackages = [ pkgs.mailutils ];
-    };
+        environment.systemPackages = [ pkgs.mailutils ];
+      };
 
     testScript = ''
       start_all()

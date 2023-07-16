@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, cmake, libinput, zlib }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  libinput,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gebaar-libinput";

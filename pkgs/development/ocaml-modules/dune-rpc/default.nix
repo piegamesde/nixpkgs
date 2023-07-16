@@ -1,4 +1,14 @@
-{ lib, buildDunePackage, dune_3, csexp, stdune, ordering, pp, xdg, dyn }:
+{
+  lib,
+  buildDunePackage,
+  dune_3,
+  csexp,
+  stdune,
+  ordering,
+  pp,
+  xdg,
+  dyn,
+}:
 
 buildDunePackage rec {
   pname = "dune-rpc";

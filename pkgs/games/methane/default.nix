@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, SDL2, SDL2_image, SDL2_mixer
-, fontconfig, freealut, freeglut, gettext, libGL, libGLU, openal, quesoglc
-, clanlib, libXrender, libmikmod, alsa-lib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  SDL2,
+  SDL2_image,
+  SDL2_mixer,
+  fontconfig,
+  freealut,
+  freeglut,
+  gettext,
+  libGL,
+  libGLU,
+  openal,
+  quesoglc,
+  clanlib,
+  libXrender,
+  libmikmod,
+  alsa-lib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "methane";

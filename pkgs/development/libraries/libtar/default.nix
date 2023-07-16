@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchgit, fetchpatch, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  fetchpatch,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.2.20";

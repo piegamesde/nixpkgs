@@ -1,6 +1,24 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, entrypoints, glibcLocales, ipython
-, jinja2, jsonschema, numpy, pandas, pytestCheckHook, pythonOlder, recommonmark
-, six, sphinx, toolz, typing ? null, vega_datasets }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  entrypoints,
+  glibcLocales,
+  ipython,
+  jinja2,
+  jsonschema,
+  numpy,
+  pandas,
+  pytestCheckHook,
+  pythonOlder,
+  recommonmark,
+  six,
+  sphinx,
+  toolz,
+  typing ? null,
+  vega_datasets,
+}:
 
 buildPythonPackage rec {
   pname = "altair";

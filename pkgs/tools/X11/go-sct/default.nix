@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, xorg, wayland }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  xorg,
+  wayland,
+}:
 
 buildGoModule rec {
   pname = "go-sct";

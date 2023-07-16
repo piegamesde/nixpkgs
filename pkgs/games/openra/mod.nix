@@ -6,7 +6,15 @@
     The engine is relatively small and quick to build, so this is not much of a problem.
     Building a mod will result in a wrapper script that starts the mod inside the specified engine.
 */
-{ lib, stdenv, packageAttrs, patchEngine, wrapLaunchGame, mod, engine }:
+{
+  lib,
+  stdenv,
+  packageAttrs,
+  patchEngine,
+  wrapLaunchGame,
+  mod,
+  engine,
+}:
 
 with lib;
 

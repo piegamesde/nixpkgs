@@ -1,7 +1,34 @@
-{ lib, stdenv, fetchFromGitHub, bzip2, zlib, autoconf, automake, cmake, help2man
-, texinfo, libtool, cppzmq, libarchive, avro-cpp_llvm, boost, jansson, zeromq
-, openssl, pam, libiodbc, libkrb5, gcc, libcxx, which, catch2, nanodbc_llvm, fmt
-, nlohmann_json, spdlog }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bzip2,
+  zlib,
+  autoconf,
+  automake,
+  cmake,
+  help2man,
+  texinfo,
+  libtool,
+  cppzmq,
+  libarchive,
+  avro-cpp_llvm,
+  boost,
+  jansson,
+  zeromq,
+  openssl,
+  pam,
+  libiodbc,
+  libkrb5,
+  gcc,
+  libcxx,
+  which,
+  catch2,
+  nanodbc_llvm,
+  fmt,
+  nlohmann_json,
+  spdlog,
+}:
 
 let
   avro-cpp = avro-cpp_llvm;

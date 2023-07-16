@@ -1,13 +1,23 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; }, debug ? false
-, enableUnfree ? false, use64bitGuest ? true }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; },
+  debug ? false,
+  enableUnfree ? false,
+  use64bitGuest ? true
+}:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
 
 let
   testVMConfig = vmName: attrs:
-    { config, pkgs, lib, ... }:
+    {
+      config,
+      pkgs,
+      lib,
+      ...
+    }:
     let
       guestAdditions = pkgs.linuxPackages.virtualboxGuestAdditions;
 
@@ -344,21 +354,25 @@ let
     makeTest {
       name = "virtualbox-${name}";
 
-      nodes.machine = { lib, config, ... }: {
-        imports = let
-          mkVMConf = name: val: val.machine // { key = "${name}-config"; };
-          vmConfigs = mapAttrsToList mkVMConf vms;
-        in [ ./common/user-account.nix ./common/x11.nix ] ++ vmConfigs;
-        virtualisation.memorySize = 2048;
-        virtualisation.qemu.options = [ "-cpu" "kvm64,svm=on,vmx=on" ];
-        virtualisation.virtualbox.host.enable = true;
-        test-support.displayManager.auto.user = "alice";
-        users.users.alice.extraGroups =
-          let inherit (config.virtualisation.virtualbox.host) enableHardening;
-          in lib.mkIf enableHardening (lib.singleton "vboxusers");
-        virtualisation.virtualbox.host.enableExtensionPack = useExtensionPack;
-        nixpkgs.config.allowUnfree = useExtensionPack;
-      };
+      nodes.machine = {
+          lib,
+          config,
+          ...
+        }: {
+          imports = let
+            mkVMConf = name: val: val.machine // { key = "${name}-config"; };
+            vmConfigs = mapAttrsToList mkVMConf vms;
+          in [ ./common/user-account.nix ./common/x11.nix ] ++ vmConfigs;
+          virtualisation.memorySize = 2048;
+          virtualisation.qemu.options = [ "-cpu" "kvm64,svm=on,vmx=on" ];
+          virtualisation.virtualbox.host.enable = true;
+          test-support.displayManager.auto.user = "alice";
+          users.users.alice.extraGroups =
+            let inherit (config.virtualisation.virtualbox.host) enableHardening;
+            in lib.mkIf enableHardening (lib.singleton "vboxusers");
+          virtualisation.virtualbox.host.enableExtensionPack = useExtensionPack;
+          nixpkgs.config.allowUnfree = useExtensionPack;
+        };
 
       testScript = ''
         from shlex import quote

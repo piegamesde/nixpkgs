@@ -1,4 +1,11 @@
-{ lib, fetchPypi, buildPythonPackage, pytestCheckHook, requests, six }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pytestCheckHook,
+  requests,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "requests-file";

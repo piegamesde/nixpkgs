@@ -1,4 +1,11 @@
-{ buildGoModule, fetchFromGitHub, lib, installShellFiles, testers, cue }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  installShellFiles,
+  testers,
+  cue,
+}:
 
 buildGoModule rec {
   pname = "cue";

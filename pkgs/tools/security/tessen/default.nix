@@ -1,5 +1,15 @@
-{ lib, stdenvNoCC, fetchFromSourcehut, makeWrapper, installShellFiles, wtype
-, wl-clipboard, pass, bemenu, scdoc }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromSourcehut,
+  makeWrapper,
+  installShellFiles,
+  wtype,
+  wl-clipboard,
+  pass,
+  bemenu,
+  scdoc,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "tessen";

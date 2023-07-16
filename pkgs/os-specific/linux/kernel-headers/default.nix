@@ -1,5 +1,15 @@
-{ stdenvNoCC, lib, buildPackages, fetchurl, perl, elf-header, bison, flex, rsync
-, writeTextFile }:
+{
+  stdenvNoCC,
+  lib,
+  buildPackages,
+  fetchurl,
+  perl,
+  elf-header,
+  bison,
+  flex,
+  rsync,
+  writeTextFile,
+}:
 
 let
 
@@ -27,7 +37,11 @@ let
     destination = "/include/byteswap.h";
   };
 
-  makeLinuxHeaders = { src, version, patches ? [ ] }:
+  makeLinuxHeaders = {
+      src,
+      version,
+      patches ? [ ]
+    }:
     stdenvNoCC.mkDerivation {
       inherit src;
 

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, glib, jsoncpp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  glib,
+  jsoncpp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libgestures";

@@ -1,5 +1,14 @@
-{ fetchFromSourcehut, lib, meson, ninja, pkg-config, scdoc, stdenv
-, systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd }:
+{
+  fetchFromSourcehut,
+  lib,
+  meson,
+  ninja,
+  pkg-config,
+  scdoc,
+  stdenv,
+  systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
+  systemd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "seatd";

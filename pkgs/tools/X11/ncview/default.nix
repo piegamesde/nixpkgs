@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, expat, libpng, udunits, netcdf, xorg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  expat,
+  libpng,
+  udunits,
+  netcdf,
+  xorg,
+}:
 
 let
   pname = "ncview";

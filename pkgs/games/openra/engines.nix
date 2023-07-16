@@ -1,7 +1,15 @@
-{ buildOpenRAEngine, fetchFromGitHub, postFetch }:
+{
+  buildOpenRAEngine,
+  fetchFromGitHub,
+  postFetch,
+}:
 
 let
-  buildUpstreamOpenRAEngine = { version, rev, sha256 }:
+  buildUpstreamOpenRAEngine = {
+      version,
+      rev,
+      sha256,
+    }:
     name:
     (buildOpenRAEngine {
       inherit version;

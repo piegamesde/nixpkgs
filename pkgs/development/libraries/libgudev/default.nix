@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, pkg-config, meson, ninja, udev, glib, gnome, vala
-, gobject-introspection, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  meson,
+  ninja,
+  udev,
+  glib,
+  gnome,
+  vala,
+  gobject-introspection,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libgudev";

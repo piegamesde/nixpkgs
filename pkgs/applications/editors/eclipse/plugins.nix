@@ -1,11 +1,21 @@
-{ lib, stdenv, fetchurl, fetchzip, unzip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchzip,
+  unzip,
+}:
 
 rec {
 
   # A primitive builder of Eclipse plugins. This function is intended
   # to be used when building more advanced builders.
-  buildEclipsePluginBase =
-    { name, buildInputs ? [ ], passthru ? { }, ... }@attrs:
+  buildEclipsePluginBase = {
+      name,
+      buildInputs ? [ ],
+      passthru ? { },
+      ...
+    }@attrs:
     stdenv.mkDerivation (attrs // {
       name = "eclipse-plugin-" + name;
 
@@ -16,8 +26,13 @@ rec {
 
   # Helper for the common case where we have separate feature and
   # plugin JARs.
-  buildEclipsePlugin =
-    { name, srcFeature, srcPlugin ? null, srcPlugins ? [ ], ... }@attrs:
+  buildEclipsePlugin = {
+      name,
+      srcFeature,
+      srcPlugin ? null,
+      srcPlugins ? [ ],
+      ...
+    }@attrs:
     assert srcPlugin == null -> srcPlugins != [ ];
     assert srcPlugin != null -> srcPlugins == [ ];
 
@@ -45,7 +60,10 @@ rec {
   # Eclipse update site, that is, it contains the directories
   # `features` and `plugins`. All features and plugins inside these
   # directories will be installed.
-  buildEclipseUpdateSite = { name, ... }@attrs:
+  buildEclipseUpdateSite = {
+      name,
+      ...
+    }@attrs:
     buildEclipsePluginBase (attrs // {
       dontBuild = true;
       doCheck = false;
@@ -495,7 +513,10 @@ rec {
     };
 
     srcPlugins = let
-      fetch = { n, h }:
+      fetch = {
+          n,
+          h,
+        }:
         fetchurl {
           url =
             "https://boothen.github.io/Json-Eclipse-Plugin/plugins/jsonedit-${n}_${version}.jar";

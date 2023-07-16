@@ -1,5 +1,15 @@
-{ lib, buildPythonApplication, fetchFromGitHub, atk, gobject-introspection
-, wrapGAppsHook, click, hidapi, psutil, pygobject3 }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  atk,
+  gobject-introspection,
+  wrapGAppsHook,
+  click,
+  hidapi,
+  psutil,
+  pygobject3,
+}:
 
 buildPythonApplication rec {
   pname = "cm-rgb";

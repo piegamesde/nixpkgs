@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, perl, gettext, fuse, openssl
-, tinyxml2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  perl,
+  gettext,
+  fuse,
+  openssl,
+  tinyxml2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "encfs";

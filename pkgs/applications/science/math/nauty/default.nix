@@ -1,4 +1,8 @@
-{ stdenv, lib, fetchurl }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+}:
 stdenv.mkDerivation rec {
   pname = "nauty";
   version = "2.7r4";

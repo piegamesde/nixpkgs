@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchpatch, fetchFromGitHub, autoreconfHook, pkg-config, flint
-, gmp, python3, singular, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  flint,
+  gmp,
+  python3,
+  singular,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.7.29";

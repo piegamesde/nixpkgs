@@ -1,6 +1,20 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, pythonOlder, colorlog, pyvmomi
-, requests, verboselogs, pyopenssl, setuptools, mock, pytest-mock
-, pytestCheckHook, qemu }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  colorlog,
+  pyvmomi,
+  requests,
+  verboselogs,
+  pyopenssl,
+  setuptools,
+  mock,
+  pytest-mock,
+  pytestCheckHook,
+  qemu,
+}:
 
 buildPythonPackage rec {
   pname = "cot";

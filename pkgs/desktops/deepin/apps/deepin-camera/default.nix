@@ -1,7 +1,25 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, qttools, wrapQtAppsHook
-, dtkwidget, qt5integration, qt5platform-plugins, image-editor, qtbase
-, qtmultimedia, ffmpeg, ffmpegthumbnailer, libusb1, portaudio, libv4l, gst_all_1
-, systemd }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  qttools,
+  wrapQtAppsHook,
+  dtkwidget,
+  qt5integration,
+  qt5platform-plugins,
+  image-editor,
+  qtbase,
+  qtmultimedia,
+  ffmpeg,
+  ffmpegthumbnailer,
+  libusb1,
+  portaudio,
+  libv4l,
+  gst_all_1,
+  systemd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "deepin-camera";

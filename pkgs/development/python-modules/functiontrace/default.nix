@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools, toml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  toml,
+}:
 
 buildPythonPackage rec {
   pname = "functiontrace";

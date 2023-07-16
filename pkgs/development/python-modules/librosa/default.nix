@@ -1,14 +1,37 @@
-{ lib, buildPythonPackage, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub
 
-# build-system
-, setuptools
+  # build-system
+  ,
+  setuptools
 
-# runtime
-, audioread, decorator, joblib, lazy-loader, matplotlib, msgpack, numba, numpy
-, pooch, scikit-learn, scipy, soundfile, soxr, typing-extensions
+  # runtime
+  ,
+  audioread,
+  decorator,
+  joblib,
+  lazy-loader,
+  matplotlib,
+  msgpack,
+  numba,
+  numpy,
+  pooch,
+  scikit-learn,
+  scipy,
+  soundfile,
+  soxr,
+  typing-extensions
 
-# tests
-, ffmpeg-headless, packaging, pytest-mpl, pytestCheckHook, resampy, samplerate
+  # tests
+  ,
+  ffmpeg-headless,
+  packaging,
+  pytest-mpl,
+  pytestCheckHook,
+  resampy,
+  samplerate,
 }:
 
 buildPythonPackage rec {

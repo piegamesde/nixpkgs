@@ -1,21 +1,58 @@
-{ lib, stdenv, config, fetchurl, pkg-config, libGLSupported ?
-  lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms
-, openglSupport ? libGLSupported, libGL
-, alsaSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid, alsa-lib
-, x11Support ? !stdenv.targetPlatform.isWindows
-  && !stdenv.hostPlatform.isAndroid, libX11, xorgproto, libICE, libXi
-, libXScrnSaver, libXcursor, libXinerama, libXext, libXxf86vm, libXrandr
-, waylandSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid, wayland
-, wayland-protocols, wayland-scanner, drmSupport ? false, libdrm, mesa
-, libxkbcommon, dbusSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid
-, dbus, udevSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid, udev
-, ibusSupport ? false, ibus
-, libdecorSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid, libdecor
-, pipewireSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid
-, pipewire # NOTE: must be built with SDL2 without pipewire support
-, pulseaudioSupport ? config.pulseaudio or stdenv.isLinux
-  && !stdenv.hostPlatform.isAndroid, libpulseaudio, AudioUnit, Cocoa, CoreAudio
-, CoreServices, ForceFeedback, OpenGL, audiofile, libiconv, withStatic ? false
+{
+  lib,
+  stdenv,
+  config,
+  fetchurl,
+  pkg-config,
+  libGLSupported ?
+    lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
+  openglSupport ? libGLSupported,
+  libGL,
+  alsaSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
+  alsa-lib,
+  x11Support ? !stdenv.targetPlatform.isWindows
+    && !stdenv.hostPlatform.isAndroid,
+  libX11,
+  xorgproto,
+  libICE,
+  libXi,
+  libXScrnSaver,
+  libXcursor,
+  libXinerama,
+  libXext,
+  libXxf86vm,
+  libXrandr,
+  waylandSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+  drmSupport ? false,
+  libdrm,
+  mesa,
+  libxkbcommon,
+  dbusSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
+  dbus,
+  udevSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
+  udev,
+  ibusSupport ? false,
+  ibus,
+  libdecorSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
+  libdecor,
+  pipewireSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
+  pipewire # NOTE: must be built with SDL2 without pipewire support
+  ,
+  pulseaudioSupport ? config.pulseaudio or stdenv.isLinux
+    && !stdenv.hostPlatform.isAndroid,
+  libpulseaudio,
+  AudioUnit,
+  Cocoa,
+  CoreAudio,
+  CoreServices,
+  ForceFeedback,
+  OpenGL,
+  audiofile,
+  libiconv,
+  withStatic ? false
 }:
 
 # NOTE: When editing this expression see if the same change applies to

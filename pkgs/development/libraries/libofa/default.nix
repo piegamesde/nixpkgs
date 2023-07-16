@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, expat, curl, fftw }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  expat,
+  curl,
+  fftw,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libofa";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, pkg-config, readline, libxml2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  readline,
+  libxml2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "augeas";

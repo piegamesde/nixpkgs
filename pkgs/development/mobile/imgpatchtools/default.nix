@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, bzip2, openssl, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bzip2,
+  openssl,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "imgpatchtools";

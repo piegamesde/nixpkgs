@@ -1,5 +1,14 @@
-{ lib, atpublic, attrs, buildPythonPackage, fetchFromGitHub, pytest-mock
-, pytestCheckHook, pythonOlder, typing-extensions }:
+{
+  lib,
+  atpublic,
+  attrs,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "aiosmtpd";

@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, cmake, hidapi }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  hidapi,
+}:
 
 stdenv.mkDerivation rec {
   pname = "headsetcontrol";

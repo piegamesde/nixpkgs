@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchzip, nixosTests, iptables, iproute2, makeWrapper, openresolv
-, procps, bash }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  nixosTests,
+  iptables,
+  iproute2,
+  makeWrapper,
+  openresolv,
+  procps,
+  bash,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wireguard-tools";

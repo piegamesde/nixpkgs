@@ -1,4 +1,13 @@
-{ cmake, fetchFromGitHub, fetchFromGitLab, git, lib, libGL, stdenv, xorg }:
+{
+  cmake,
+  fetchFromGitHub,
+  fetchFromGitLab,
+  git,
+  lib,
+  libGL,
+  stdenv,
+  xorg,
+}:
 
 let
   # See https://github.com/deepmind/mujoco/blob/573d331b69845c5d651b70f5d1b0f3a0d2a3a233/cmake/MujocoDependencies.cmake#L21-L59

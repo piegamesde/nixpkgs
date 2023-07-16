@@ -1,7 +1,29 @@
-{ lib, fetchFromGitLab, mkDerivation, breeze-icons, breeze-qt5, cmake
-, extra-cmake-modules, ffmpeg-full, kconfig, kcoreaddons, kfilemetadata, ki18n
-, kiconthemes, kio, kirigami2, kxmlgui, kdoctools, mpv, pkg-config
-, wrapQtAppsHook, qqc2-desktop-style, qtbase, qtquickcontrols2, yt-dlp }:
+{
+  lib,
+  fetchFromGitLab,
+  mkDerivation,
+  breeze-icons,
+  breeze-qt5,
+  cmake,
+  extra-cmake-modules,
+  ffmpeg-full,
+  kconfig,
+  kcoreaddons,
+  kfilemetadata,
+  ki18n,
+  kiconthemes,
+  kio,
+  kirigami2,
+  kxmlgui,
+  kdoctools,
+  mpv,
+  pkg-config,
+  wrapQtAppsHook,
+  qqc2-desktop-style,
+  qtbase,
+  qtquickcontrols2,
+  yt-dlp,
+}:
 
 mkDerivation rec {
   pname = "haruna";

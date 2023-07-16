@@ -1,7 +1,34 @@
-{ lib, stdenv, fetchurl, fetchpatch, cmake, pkg-config, boost, freeimage
-, freetype, libpng, ois, zziplib, freeglut, libGL, libGLU, libICE, libSM, libX11
-, libXaw, libXmu, libXrandr, libXrender, libXt, libXxf86vm, xorgproto, darwin
-, withNvidiaCg ? false, nvidia_cg_toolkit, withSamples ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  boost,
+  freeimage,
+  freetype,
+  libpng,
+  ois,
+  zziplib,
+  freeglut,
+  libGL,
+  libGLU,
+  libICE,
+  libSM,
+  libX11,
+  libXaw,
+  libXmu,
+  libXrandr,
+  libXrender,
+  libXt,
+  libXxf86vm,
+  xorgproto,
+  darwin,
+  withNvidiaCg ? false,
+  nvidia_cg_toolkit,
+  withSamples ? false
+}:
 
 let inherit (darwin.apple_sdk.frameworks) AGL Cocoa;
 in stdenv.mkDerivation rec {

@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, gettext, libexif
-, libgphoto2, libjpeg, libtool, popt, readline }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  gettext,
+  libexif,
+  libgphoto2,
+  libjpeg,
+  libtool,
+  popt,
+  readline,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gphoto2";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, icu, libuuid, tzdata }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  icu,
+  libuuid,
+  tzdata,
+}:
 
 stdenv.mkDerivation rec {
   pname = "opencflite";

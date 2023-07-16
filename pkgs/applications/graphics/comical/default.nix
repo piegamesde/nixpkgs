@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, wxGTK32, util-linux, zlib, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  wxGTK32,
+  util-linux,
+  zlib,
+  Cocoa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "comical";

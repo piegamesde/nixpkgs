@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pkgs, qtbase, qmake, soqt }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pkgs,
+  qtbase,
+  qmake,
+  soqt,
+}:
 
 buildPythonPackage rec {
   pname = "pivy";

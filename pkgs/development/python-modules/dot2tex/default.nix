@@ -1,5 +1,13 @@
-{ lib, python, buildPythonPackage, fetchPypi, substituteAll, pyparsing, graphviz
-, texlive }:
+{
+  lib,
+  python,
+  buildPythonPackage,
+  fetchPypi,
+  substituteAll,
+  pyparsing,
+  graphviz,
+  texlive,
+}:
 
 buildPythonPackage rec {
   pname = "dot2tex";

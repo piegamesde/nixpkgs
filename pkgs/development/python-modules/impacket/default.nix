@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, chardet, fetchPypi, flask, ldapdomaindump, pyasn1
-, pycryptodomex, pyopenssl, pythonOlder, setuptools, six }:
+{
+  lib,
+  buildPythonPackage,
+  chardet,
+  fetchPypi,
+  flask,
+  ldapdomaindump,
+  pyasn1,
+  pycryptodomex,
+  pyopenssl,
+  pythonOlder,
+  setuptools,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "impacket";

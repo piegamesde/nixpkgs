@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -30,28 +35,30 @@ in {
         }];
 
         type = with types;
-          listOf (submodule ({ ... }: {
-            options = {
+          listOf (submodule ({
+              ...
+            }: {
+              options = {
 
-              mountPoint = mkOption {
-                type = types.str;
-                default = "/orangefs";
-                description = lib.mdDoc "Mount point.";
-              };
+                mountPoint = mkOption {
+                  type = types.str;
+                  default = "/orangefs";
+                  description = lib.mdDoc "Mount point.";
+                };
 
-              options = mkOption {
-                type = with types; listOf str;
-                default = [ ];
-                description = lib.mdDoc "Mount options";
-              };
+                options = mkOption {
+                  type = with types; listOf str;
+                  default = [ ];
+                  description = lib.mdDoc "Mount options";
+                };
 
-              target = mkOption {
-                type = types.str;
-                example = "tcp://server:3334/orangefs";
-                description = lib.mdDoc "Target URL";
+                target = mkOption {
+                  type = types.str;
+                  example = "tcp://server:3334/orangefs";
+                  description = lib.mdDoc "Target URL";
+                };
               };
-            };
-          }));
+            }));
       };
     };
   };

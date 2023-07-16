@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, jupyterhub, tornado, bash }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jupyterhub,
+  tornado,
+  bash,
+}:
 
 buildPythonPackage rec {
   pname = "jupyterhub-systemdspawner";

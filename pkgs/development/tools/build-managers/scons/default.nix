@@ -1,4 +1,8 @@
-{ callPackage, python2, python3 }:
+{
+  callPackage,
+  python2,
+  python3,
+}:
 
 let
   mkScons = args: callPackage (import ./common.nix args) { python = python3; };

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pyparsing, pytestCheckHook
-, hypothesis, hs-dbus-signature }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyparsing,
+  pytestCheckHook,
+  hypothesis,
+  hs-dbus-signature,
+}:
 
 buildPythonPackage rec {
   pname = "dbus-signature-pyparsing";

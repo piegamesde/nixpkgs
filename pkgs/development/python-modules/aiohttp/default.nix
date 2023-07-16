@@ -1,11 +1,36 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, fetchpatch, pythonOlder
-# install_requires
-, attrs, charset-normalizer, multidict, async-timeout, yarl, frozenlist
-, aiosignal, aiodns, brotli, faust-cchardet, asynctest, typing-extensions
-, idna-ssl
-# tests_require
-, async_generator, freezegun, gunicorn, pytest-mock, pytest-xdist
-, pytestCheckHook, re-assert, trustme }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  pythonOlder
+  # install_requires
+  ,
+  attrs,
+  charset-normalizer,
+  multidict,
+  async-timeout,
+  yarl,
+  frozenlist,
+  aiosignal,
+  aiodns,
+  brotli,
+  faust-cchardet,
+  asynctest,
+  typing-extensions,
+  idna-ssl
+  # tests_require
+  ,
+  async_generator,
+  freezegun,
+  gunicorn,
+  pytest-mock,
+  pytest-xdist,
+  pytestCheckHook,
+  re-assert,
+  trustme,
+}:
 
 buildPythonPackage rec {
   pname = "aiohttp";

@@ -1,8 +1,31 @@
-{ lib, buildPythonPackage, db-dtypes, fetchPypi, freezegun, google-api-core
-, google-cloud-bigquery-storage, google-cloud-core, google-cloud-datacatalog
-, google-cloud-storage, google-cloud-testutils, google-resumable-media, grpcio
-, ipython, mock, pandas, proto-plus, protobuf, psutil, pyarrow, pytest-xdist
-, pytestCheckHook, python-dateutil, pythonOlder, requests, tqdm }:
+{
+  lib,
+  buildPythonPackage,
+  db-dtypes,
+  fetchPypi,
+  freezegun,
+  google-api-core,
+  google-cloud-bigquery-storage,
+  google-cloud-core,
+  google-cloud-datacatalog,
+  google-cloud-storage,
+  google-cloud-testutils,
+  google-resumable-media,
+  grpcio,
+  ipython,
+  mock,
+  pandas,
+  proto-plus,
+  protobuf,
+  psutil,
+  pyarrow,
+  pytest-xdist,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  requests,
+  tqdm,
+}:
 
 buildPythonPackage rec {
   pname = "google-cloud-bigquery";

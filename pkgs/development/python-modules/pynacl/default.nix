@@ -1,5 +1,15 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, pytestCheckHook, sphinxHook
-, pythonOlder, libsodium, cffi, hypothesis }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  sphinxHook,
+  pythonOlder,
+  libsodium,
+  cffi,
+  hypothesis,
+}:
 
 buildPythonPackage rec {
   pname = "pynacl";

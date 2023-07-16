@@ -1,5 +1,12 @@
-{ lib, amply, buildPythonPackage, fetchFromGitHub, pyparsing, pythonOlder
-, pytestCheckHook }:
+{
+  lib,
+  amply,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyparsing,
+  pythonOlder,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pulp";

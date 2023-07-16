@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchgit, cmake, pkg-config, protobuf, python3Packages, ffmpeg
-, libopus, mkDerivation, qtbase, qtmultimedia, qtsvg, SDL2, libevdev, udev
-, qtmacextras }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  cmake,
+  pkg-config,
+  protobuf,
+  python3Packages,
+  ffmpeg,
+  libopus,
+  mkDerivation,
+  qtbase,
+  qtmultimedia,
+  qtsvg,
+  SDL2,
+  libevdev,
+  udev,
+  qtmacextras,
+}:
 
 mkDerivation rec {
   pname = "chiaki";

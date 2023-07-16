@@ -1,6 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, gfortran, python3, util-linux, which
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gfortran,
+  python3,
+  util-linux,
+  which
 
-, enableStatic ? stdenv.hostPlatform.isStatic }:
+  ,
+  enableStatic ? stdenv.hostPlatform.isStatic
+}:
 
 stdenv.mkDerivation rec {
   pname = "libxsmm";

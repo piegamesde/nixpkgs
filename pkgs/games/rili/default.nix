@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, fetchpatch, SDL_mixer, SDL, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  SDL_mixer,
+  SDL,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ri_li";

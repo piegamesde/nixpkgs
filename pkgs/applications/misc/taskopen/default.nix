@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, which, perl, perlPackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  which,
+  perl,
+  perlPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "taskopen";

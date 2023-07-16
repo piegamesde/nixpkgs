@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchurl, makeWrapper, makeDesktopItem, copyDesktopItems, _7zz
-, jdk }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  _7zz,
+  jdk,
+}:
 
 let
   inherit (stdenv.hostPlatform) system;

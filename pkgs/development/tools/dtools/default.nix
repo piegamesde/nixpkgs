@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, ldc, curl, gnumake42 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  ldc,
+  curl,
+  gnumake42,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dtools";

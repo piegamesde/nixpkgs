@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, boost, tcl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  boost,
+  tcl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "swig";

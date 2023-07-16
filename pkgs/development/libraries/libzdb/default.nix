@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, sqlite }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  sqlite,
+}:
 
 stdenv.mkDerivation rec {
   version = "3.2.3";

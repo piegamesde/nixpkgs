@@ -1,4 +1,11 @@
-{ lib, stdenv, buildPackages, newScope, overrideCC, crossLibcStdenv, libcCross
+{
+  lib,
+  stdenv,
+  buildPackages,
+  newScope,
+  overrideCC,
+  crossLibcStdenv,
+  libcCross,
 }:
 
 lib.makeScope newScope (self:

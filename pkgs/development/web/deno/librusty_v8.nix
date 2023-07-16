@@ -1,5 +1,9 @@
 # auto-generated file -- DO NOT EDIT!
-{ rust, stdenv, fetchurl }:
+{
+  rust,
+  stdenv,
+  fetchurl,
+}:
 
 let
   arch = rust.toRustTarget stdenv.hostPlatform;

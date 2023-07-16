@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchpatch, nixosTests, python3, radicale3 }:
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  nixosTests,
+  python3,
+  radicale3,
+}:
 
 let
   python = python3.override {

@@ -1,5 +1,15 @@
-{ lib, glibc, fetchFromGitLab, makeWrapper, buildGoPackage, linkFarm
-, writeShellScript, containerRuntimePath, configTemplate, libnvidia-container }:
+{
+  lib,
+  glibc,
+  fetchFromGitLab,
+  makeWrapper,
+  buildGoPackage,
+  linkFarm,
+  writeShellScript,
+  containerRuntimePath,
+  configTemplate,
+  libnvidia-container,
+}:
 let
   isolatedContainerRuntimePath = linkFarm "isolated_container_runtime_path" [{
     name = "runc";

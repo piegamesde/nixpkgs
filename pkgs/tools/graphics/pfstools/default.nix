@@ -1,6 +1,27 @@
-{ lib, stdenv, mkDerivation, fetchurl, cmake, pkg-config, darwin, openexr, zlib
-, imagemagick6, libGLU, libGL, freeglut, fftwFloat, fftw, gsl, libexif, perl
-, qtbase, netpbm, enableUnfree ? false, opencv2 }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchurl,
+  cmake,
+  pkg-config,
+  darwin,
+  openexr,
+  zlib,
+  imagemagick6,
+  libGLU,
+  libGL,
+  freeglut,
+  fftwFloat,
+  fftw,
+  gsl,
+  libexif,
+  perl,
+  qtbase,
+  netpbm,
+  enableUnfree ? false,
+  opencv2,
+}:
 
 mkDerivation rec {
   pname = "pfstools";

@@ -1,5 +1,15 @@
-{ lib, stdenv, autoreconfHook, pkg-config, SDL2, SDL2_mixer, SDL2_net
-, fetchFromGitHub, fetchpatch, python3 }:
+{
+  lib,
+  stdenv,
+  autoreconfHook,
+  pkg-config,
+  SDL2,
+  SDL2_mixer,
+  SDL2_net,
+  fetchFromGitHub,
+  fetchpatch,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "chocolate-doom";

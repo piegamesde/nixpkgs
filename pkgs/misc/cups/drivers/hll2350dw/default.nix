@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, dpkg, autoPatchelfHook, makeWrapper, perl, gnused
-, ghostscript, file, coreutils, gnugrep, which }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dpkg,
+  autoPatchelfHook,
+  makeWrapper,
+  perl,
+  gnused,
+  ghostscript,
+  file,
+  coreutils,
+  gnugrep,
+  which,
+}:
 
 let
   arches = [ "x86_64" "i686" "armv7l" ];

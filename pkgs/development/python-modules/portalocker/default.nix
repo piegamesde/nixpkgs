@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pytest-mypy, pythonOlder
-, redis }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pytest-mypy,
+  pythonOlder,
+  redis,
+}:
 
 buildPythonPackage rec {
   pname = "portalocker";

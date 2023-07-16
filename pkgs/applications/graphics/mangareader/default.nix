@@ -1,6 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, wrapQtAppsHook, extra-cmake-modules, cmake, kio
-, ki18n, kxmlgui, kconfig, karchive, kcoreaddons, kconfigwidgets
-, nix-update-script }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  wrapQtAppsHook,
+  extra-cmake-modules,
+  cmake,
+  kio,
+  ki18n,
+  kxmlgui,
+  kconfig,
+  karchive,
+  kcoreaddons,
+  kconfigwidgets,
+  nix-update-script,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mangareader";

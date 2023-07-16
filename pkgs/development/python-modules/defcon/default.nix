@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, setuptools-scm, fonttools
-, fontpens, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  setuptools-scm,
+  fonttools,
+  fontpens,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "defcon";

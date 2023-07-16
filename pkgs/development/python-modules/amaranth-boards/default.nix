@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, amaranth, setuptools, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  amaranth,
+  setuptools,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {

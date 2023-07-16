@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, cssselect, fetchPypi, lxml, pytestCheckHook
-, pythonOlder, requests, webob, webtest }:
+{
+  lib,
+  buildPythonPackage,
+  cssselect,
+  fetchPypi,
+  lxml,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  webob,
+  webtest,
+}:
 
 buildPythonPackage rec {
   pname = "pyquery";

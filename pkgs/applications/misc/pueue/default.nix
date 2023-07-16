@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, Libsystem, SystemConfiguration
-, installShellFiles, libiconv, rustPlatform }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  Libsystem,
+  SystemConfiguration,
+  installShellFiles,
+  libiconv,
+  rustPlatform,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "pueue";

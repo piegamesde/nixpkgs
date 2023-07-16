@@ -1,10 +1,31 @@
-{ stdenv, lib, composeXcodeWrapper }:
-{ name, src, sdkVersion ? "13.1", target ? null, configuration ? null
-, scheme ? null, sdk ? null, xcodeFlags ? "", release ? false
-, certificateFile ? null, certificatePassword ? null, provisioningProfile ? null
-, codeSignIdentity ? null, signMethod ? null, generateIPA ? false
-, generateXCArchive ? false, enableWirelessDistribution ? false
-, installURL ? null, bundleId ? null, appVersion ? null, ... }@args:
+{
+  stdenv,
+  lib,
+  composeXcodeWrapper,
+}:
+{
+  name,
+  src,
+  sdkVersion ? "13.1",
+  target ? null,
+  configuration ? null,
+  scheme ? null,
+  sdk ? null,
+  xcodeFlags ? "",
+  release ? false,
+  certificateFile ? null,
+  certificatePassword ? null,
+  provisioningProfile ? null,
+  codeSignIdentity ? null,
+  signMethod ? null,
+  generateIPA ? false,
+  generateXCArchive ? false,
+  enableWirelessDistribution ? false,
+  installURL ? null,
+  bundleId ? null,
+  appVersion ? null,
+  ...
+}@args:
 
 assert release -> certificateFile != null && certificatePassword != null
   && provisioningProfile != null && signMethod != null && codeSignIdentity

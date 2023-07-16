@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, openssl, curl, postgresql, yajl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  openssl,
+  curl,
+  postgresql,
+  yajl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kore";

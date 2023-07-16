@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, openssl, testers, smartdns }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  openssl,
+  testers,
+  smartdns,
+}:
 
 stdenv.mkDerivation rec {
   pname = "smartdns";

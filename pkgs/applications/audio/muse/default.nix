@@ -1,7 +1,30 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, qttools, wrapQtAppsHook
-, alsa-lib, dssi, fluidsynth, ladspaH, lash, libinstpatch, libjack2, liblo
-, libsamplerate, libsndfile, lilv, lrdf, lv2, qtsvg, rtaudio, rubberband, sord
-, serd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  qttools,
+  wrapQtAppsHook,
+  alsa-lib,
+  dssi,
+  fluidsynth,
+  ladspaH,
+  lash,
+  libinstpatch,
+  libjack2,
+  liblo,
+  libsamplerate,
+  libsndfile,
+  lilv,
+  lrdf,
+  lv2,
+  qtsvg,
+  rtaudio,
+  rubberband,
+  sord,
+  serd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "muse-sequencer";

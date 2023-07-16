@@ -1,4 +1,11 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, libiconv, Foundation }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  libiconv,
+  Foundation,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "dua";

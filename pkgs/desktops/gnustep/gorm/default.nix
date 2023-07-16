@@ -1,4 +1,10 @@
-{ fetchzip, base, back, gsmakeDerivation, gui }:
+{
+  fetchzip,
+  base,
+  back,
+  gsmakeDerivation,
+  gui,
+}:
 gsmakeDerivation rec {
   pname = "gorm";
   version = "1.2.28";

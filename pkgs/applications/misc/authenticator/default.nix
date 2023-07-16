@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchFromGitLab, appstream-glib, desktop-file-utils, meson, ninja
-, pkg-config, rustPlatform, wrapGAppsHook4, gdk-pixbuf, glib, gst_all_1, gtk4
-, libadwaita, openssl, pipewire, sqlite, wayland, zbar }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  appstream-glib,
+  desktop-file-utils,
+  meson,
+  ninja,
+  pkg-config,
+  rustPlatform,
+  wrapGAppsHook4,
+  gdk-pixbuf,
+  glib,
+  gst_all_1,
+  gtk4,
+  libadwaita,
+  openssl,
+  pipewire,
+  sqlite,
+  wayland,
+  zbar,
+}:
 
 stdenv.mkDerivation rec {
   pname = "authenticator";

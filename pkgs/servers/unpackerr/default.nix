@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, buildGoModule, Cocoa, WebKit }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildGoModule,
+  Cocoa,
+  WebKit,
+}:
 
 buildGoModule rec {
   pname = "unpackerr";

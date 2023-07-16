@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, fetchpatch, curl, ed, pkg-config
-, freetype, zlib, libX11, SDL2, SDL2_image, SDL2_mixer }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  fetchpatch,
+  curl,
+  ed,
+  pkg-config,
+  freetype,
+  zlib,
+  libX11,
+  SDL2,
+  SDL2_image,
+  SDL2_mixer,
+}:
 
 stdenv.mkDerivation rec {
   pname = "redeclipse";

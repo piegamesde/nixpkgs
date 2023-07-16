@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, meson, pkg-config, ninja, wayland-scanner, libdrm
-, wayland, wayland-protocols }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  pkg-config,
+  ninja,
+  wayland-scanner,
+  libdrm,
+  wayland,
+  wayland-protocols,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wayland-utils";

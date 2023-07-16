@@ -1,4 +1,10 @@
-{ config, lib, pkgs, generateSplicesForMkScope, makeScopeWithSplicing }:
+{
+  config,
+  lib,
+  pkgs,
+  generateSplicesForMkScope,
+  makeScopeWithSplicing,
+}:
 
 let
   keep = _self: { };

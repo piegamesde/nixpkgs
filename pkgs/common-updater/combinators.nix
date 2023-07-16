@@ -1,4 +1,6 @@
-{ lib }:
+{
+  lib,
+}:
 
 /* This is a set of tools to manipulate update scripts as recognized by update.nix.
    It is still very experimental with **instability** almost guaranteed so any use
@@ -37,7 +39,11 @@ let
   /* processArg : { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] } → (String|FilePath) → { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] }
      Helper reducer function for building a command arguments where file paths are replaced with argv[x] reference.
   */
-  processArg = { maxArgIndex, args, paths }:
+  processArg = {
+      maxArgIndex,
+      args,
+      paths,
+    }:
     arg:
     if builtins.isPath arg then {
       args = args
@@ -60,7 +66,11 @@ let
   /* processCommand : { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] } → [ (String|FilePath) ] → { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] }
      Helper reducer function for extracting file paths from individual commands.
   */
-  processCommand = { maxArgIndex, commands, paths }:
+  processCommand = {
+      maxArgIndex,
+      commands,
+      paths,
+    }:
     command:
     let new = extractPaths maxArgIndex command;
     in {
@@ -110,26 +120,40 @@ in rec {
     let scriptsNormalized = builtins.map normalize scripts;
     in let
       scripts = scriptsNormalized;
-      hasCommitSupport = lib.findSingle
-        ({ supportedFeatures, ... }: supportedFeatures == [ "commit" ]) null
-        null scripts != null;
+      hasCommitSupport = lib.findSingle ({
+          supportedFeatures,
+          ...
+        }:
+        supportedFeatures == [ "commit" ]) null null scripts != null;
       validateFeatures = if hasCommitSupport then
-        ({ supportedFeatures, ... }:
+        ({
+            supportedFeatures,
+            ...
+          }:
           supportedFeatures == [ "commit" ] || supportedFeatures
           == [ "silent" ])
       else
-        ({ supportedFeatures, ... }: supportedFeatures == [ ]);
+        ({
+            supportedFeatures,
+            ...
+          }:
+          supportedFeatures == [ ]);
 
     in assert lib.assertMsg (lib.all validateFeatures scripts)
       "Combining update scripts with features enabled (other than a single script with “commit” and all other with “silent”) is currently unsupported.";
-    assert lib.assertMsg (builtins.length
-      (lib.unique (builtins.map ({ attrPath ? null, ... }: attrPath) scripts))
-      == 1)
+    assert lib.assertMsg (builtins.length (lib.unique (builtins.map ({
+        attrPath ? null,
+        ...
+      }:
+      attrPath) scripts)) == 1)
       "Combining update scripts with different attr paths is currently unsupported.";
 
     {
-      command = commandsToShellInvocation
-        (builtins.map ({ command, ... }: command) scripts);
+      command = commandsToShellInvocation (builtins.map ({
+          command,
+          ...
+        }:
+        command) scripts);
       supportedFeatures = lib.optionals hasCommitSupport [ "commit" ];
     };
 

@@ -1,5 +1,15 @@
-{ lib, aiohttp, aioresponses, buildPythonPackage, fetchFromGitHub
-, pytest-asyncio, pytestCheckHook, python-dateutil, pythonOlder, pytz }:
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  pytz,
+}:
 
 buildPythonPackage rec {
   pname = "py-nightscout";

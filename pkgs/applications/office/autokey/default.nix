@@ -1,5 +1,13 @@
-{ lib, python3Packages, fetchFromGitHub, wrapGAppsHook, gobject-introspection
-, gtksourceview3, libappindicator-gtk3, libnotify }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  wrapGAppsHook,
+  gobject-introspection,
+  gtksourceview3,
+  libappindicator-gtk3,
+  libnotify,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "autokey";

@@ -1,29 +1,53 @@
-{ lib, stdenv, fetchNpmDeps, npmHooks, nodejs }:
+{
+  lib,
+  stdenv,
+  fetchNpmDeps,
+  npmHooks,
+  nodejs,
+}:
 
-{ name ? "${args.pname}-${args.version}", src ? null, srcs ? null
-, sourceRoot ? null, prePatch ? "", patches ? [ ], postPatch ? ""
-, nativeBuildInputs ? [ ], buildInputs ? [ ]
-  # The output hash of the dependencies for this project.
-  # Can be calculated in advance with prefetch-npm-deps.
-, npmDepsHash ? ""
-  # Whether to force the usage of Git dependencies that have install scripts, but not a lockfile.
-  # Use with care.
-, forceGitDeps ? false
-  # Whether to make the cache writable prior to installing dependencies.
-  # Don't set this unless npm tries to write to the cache directory, as it can slow down the build.
-, makeCacheWritable ? false
-  # The script to run to build the project.
-, npmBuildScript ? "build"
-  # Flags to pass to all npm commands.
-, npmFlags ? [ ]
-  # Flags to pass to `npm ci` and `npm prune`.
-, npmInstallFlags ? [ ]
-  # Flags to pass to `npm rebuild`.
-, npmRebuildFlags ? [ ]
-  # Flags to pass to `npm run ${npmBuildScript}`.
-, npmBuildFlags ? [ ]
-  # Flags to pass to `npm pack`.
-, npmPackFlags ? [ ], ... }@args:
+{
+  name ? "${args.pname}-${args.version}",
+  src ? null,
+  srcs ? null,
+  sourceRoot ? null,
+  prePatch ? "",
+  patches ? [ ],
+  postPatch ? "",
+  nativeBuildInputs ? [ ],
+  buildInputs ? [ ]
+    # The output hash of the dependencies for this project.
+    # Can be calculated in advance with prefetch-npm-deps.
+  ,
+  npmDepsHash ? ""
+    # Whether to force the usage of Git dependencies that have install scripts, but not a lockfile.
+    # Use with care.
+  ,
+  forceGitDeps ? false
+    # Whether to make the cache writable prior to installing dependencies.
+    # Don't set this unless npm tries to write to the cache directory, as it can slow down the build.
+  ,
+  makeCacheWritable ? false
+    # The script to run to build the project.
+  ,
+  npmBuildScript ? "build"
+    # Flags to pass to all npm commands.
+  ,
+  npmFlags ? [ ]
+    # Flags to pass to `npm ci` and `npm prune`.
+  ,
+  npmInstallFlags ? [ ]
+    # Flags to pass to `npm rebuild`.
+  ,
+  npmRebuildFlags ? [ ]
+    # Flags to pass to `npm run ${npmBuildScript}`.
+  ,
+  npmBuildFlags ? [ ]
+    # Flags to pass to `npm pack`.
+  ,
+  npmPackFlags ? [ ],
+  ...
+}@args:
 
 let
   npmDeps = fetchNpmDeps {

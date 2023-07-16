@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, cmake, enableWX ? false, wxGTK32, Cocoa
-, enableXWin ? false, xorg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  enableWX ? false,
+  wxGTK32,
+  Cocoa,
+  enableXWin ? false,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "plplot";

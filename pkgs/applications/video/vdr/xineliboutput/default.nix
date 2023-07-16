@@ -1,6 +1,22 @@
-{ stdenv, fetchurl, lib, vdr, libav, libcap, libvdpau, xine-lib, libjpeg
-, libextractor, libglvnd, libGLU, libX11, libXext, libXrender, libXrandr
-, makeWrapper }:
+{
+  stdenv,
+  fetchurl,
+  lib,
+  vdr,
+  libav,
+  libcap,
+  libvdpau,
+  xine-lib,
+  libjpeg,
+  libextractor,
+  libglvnd,
+  libGLU,
+  libX11,
+  libXext,
+  libXrender,
+  libXrandr,
+  makeWrapper,
+}:
 let
   makeXinePluginPath = l:
     lib.concatStringsSep ":" (map (p: "${p}/lib/xine/plugins") l);

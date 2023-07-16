@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, unzip, setJavaClassPath }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  setJavaClassPath,
+}:
 let
   # Details from https://www.azul.com/downloads/?version=java-17-lts&os=macos&package=jdk
   # Note that the latest build may differ by platform

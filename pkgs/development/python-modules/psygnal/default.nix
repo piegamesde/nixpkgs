@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, fetchFromGitHub, hatch-vcs, hatchling
-, mypy-extensions, numpy, pydantic, pytest-mypy-plugins, pytestCheckHook
-, pythonOlder, typing-extensions, wrapt }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatch-vcs,
+  hatchling,
+  mypy-extensions,
+  numpy,
+  pydantic,
+  pytest-mypy-plugins,
+  pytestCheckHook,
+  pythonOlder,
+  typing-extensions,
+  wrapt,
+}:
 
 buildPythonPackage rec {
   pname = "psygnal";

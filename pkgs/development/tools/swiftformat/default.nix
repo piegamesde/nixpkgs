@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, runCommand }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  runCommand,
+}:
 
 # This derivation is impure: it relies on an Xcode toolchain being installed
 # and available in the expected place. The values of sandboxProfile and

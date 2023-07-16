@@ -1,8 +1,20 @@
-{ lib, stdenv, fetchurl, darwin, gfortran, python3, blas, lapack
-, mpi # generic mpi dependency
-, openssh # required for openmpi tests
-, petsc-withp4est ? true, p4est
-, zlib # propagated by p4est but required by petsc
+{
+  lib,
+  stdenv,
+  fetchurl,
+  darwin,
+  gfortran,
+  python3,
+  blas,
+  lapack,
+  mpi # generic mpi dependency
+  ,
+  openssh # required for openmpi tests
+  ,
+  petsc-withp4est ? true,
+  p4est,
+  zlib # propagated by p4est but required by petsc
+  ,
 }:
 
 # This version of PETSc does not support a non-MPI p4est build

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitLab, autoreconfHook, pkg-config, libogg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  autoreconfHook,
+  pkg-config,
+  libogg,
+}:
 
 stdenv.mkDerivation {
   pname = "tremor";

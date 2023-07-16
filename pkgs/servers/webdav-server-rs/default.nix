@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, libtirpc, pam, rpcsvc-proto
-, enablePAM ? stdenv.isLinux }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  libtirpc,
+  pam,
+  rpcsvc-proto,
+  enablePAM ? stdenv.isLinux
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "webdav-server-rs";

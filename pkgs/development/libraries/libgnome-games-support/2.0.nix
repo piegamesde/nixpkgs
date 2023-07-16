@@ -1,5 +1,18 @@
-{ stdenv, lib, fetchurl, pkg-config, glib, gtk4, libgee, gettext, vala, gnome
-, libintl, meson, ninja }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  glib,
+  gtk4,
+  libgee,
+  gettext,
+  vala,
+  gnome,
+  libintl,
+  meson,
+  ninja,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libgnome-games-support";

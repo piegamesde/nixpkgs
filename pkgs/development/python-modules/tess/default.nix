@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cython, numpy, scipy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cython,
+  numpy,
+  scipy,
+}:
 
 buildPythonPackage {
   pname = "tess";

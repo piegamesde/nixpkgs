@@ -1,5 +1,12 @@
-{ lib, fetchFromGitHub, buildPythonPackage, pythonOlder, py-cid, pytestCheckHook
-, pytest-cov }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pythonOlder,
+  py-cid,
+  pytestCheckHook,
+  pytest-cov,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-cid";

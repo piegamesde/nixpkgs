@@ -1,4 +1,10 @@
-{ lib, buildDunePackage, fetchFromGitHub, xenstore, lwt }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  xenstore,
+  lwt,
+}:
 
 buildDunePackage rec {
   pname = "xenstore_transport";

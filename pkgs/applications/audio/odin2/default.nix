@@ -1,5 +1,20 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, alsa-lib, freetype, libjack2
-, lv2, libX11, libXcursor, libXext, libXinerama, libXrandr, libGL, gcc-unwrapped
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  alsa-lib,
+  freetype,
+  libjack2,
+  lv2,
+  libX11,
+  libXcursor,
+  libXext,
+  libXinerama,
+  libXrandr,
+  libGL,
+  gcc-unwrapped,
 }:
 
 stdenv.mkDerivation rec {

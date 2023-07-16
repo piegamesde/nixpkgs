@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, pkg-config, gnutls, libedit, nspr, nss, readline
-, texinfo, libcap, libseccomp, pps-tools }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gnutls,
+  libedit,
+  nspr,
+  nss,
+  readline,
+  texinfo,
+  libcap,
+  libseccomp,
+  pps-tools,
+}:
 
 stdenv.mkDerivation rec {
   pname = "chrony";

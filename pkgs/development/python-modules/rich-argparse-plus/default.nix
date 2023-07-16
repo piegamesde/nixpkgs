@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, flit-core, rich, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flit-core,
+  rich,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "rich-argparse-plus";

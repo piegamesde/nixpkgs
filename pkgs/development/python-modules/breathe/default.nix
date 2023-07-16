@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, docutils, fetchFromGitHub, fetchpatch
-, pytestCheckHook, pythonOlder, sphinx }:
+{
+  lib,
+  buildPythonPackage,
+  docutils,
+  fetchFromGitHub,
+  fetchpatch,
+  pytestCheckHook,
+  pythonOlder,
+  sphinx,
+}:
 
 buildPythonPackage rec {
   pname = "breathe";

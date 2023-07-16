@@ -1,5 +1,15 @@
-{ stdenv, clangStdenv, fetchFromGitHub, fetchpatch, libuuid, python3, bc
-, llvmPackages_9, lib, buildPackages }:
+{
+  stdenv,
+  clangStdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  libuuid,
+  python3,
+  bc,
+  llvmPackages_9,
+  lib,
+  buildPackages,
+}:
 
 let
   pythonEnv = buildPackages.python3.withPackages (ps: [ ps.tkinter ]);

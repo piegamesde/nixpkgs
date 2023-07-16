@@ -1,6 +1,20 @@
-{ stdenv, lib, fetchurl, pkg-config, perl, argp-standalone, libjpeg, udev
-, withUtils ? true, withGUI ? true, alsa-lib, libX11, qtbase, libGLU
-, wrapQtAppsHook }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  perl,
+  argp-standalone,
+  libjpeg,
+  udev,
+  withUtils ? true,
+  withGUI ? true,
+  alsa-lib,
+  libX11,
+  qtbase,
+  libGLU,
+  wrapQtAppsHook,
+}:
 
 # See libv4l in all-packages.nix for the libs only (overrides alsa, libX11 & QT)
 

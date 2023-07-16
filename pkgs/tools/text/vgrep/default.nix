@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, go-md2man, installShellFiles }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  go-md2man,
+  installShellFiles,
+}:
 
 buildGoModule rec {
   pname = "vgrep";

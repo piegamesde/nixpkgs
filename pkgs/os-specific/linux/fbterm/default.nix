@@ -1,5 +1,16 @@
-{ stdenv, autoreconfHook, fetchFromGitLab, fetchpatch, fetchurl, fontconfig
-, freetype, gpm, lib, ncurses, pkg-config }:
+{
+  stdenv,
+  autoreconfHook,
+  fetchFromGitLab,
+  fetchpatch,
+  fetchurl,
+  fontconfig,
+  freetype,
+  gpm,
+  lib,
+  ncurses,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.7-2";

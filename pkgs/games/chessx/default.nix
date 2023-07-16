@@ -1,5 +1,15 @@
-{ mkDerivation, lib, pkg-config, zlib, qtbase, qtsvg, qttools, qtmultimedia
-, qmake, fetchurl }:
+{
+  mkDerivation,
+  lib,
+  pkg-config,
+  zlib,
+  qtbase,
+  qtsvg,
+  qttools,
+  qtmultimedia,
+  qmake,
+  fetchurl,
+}:
 
 mkDerivation rec {
   pname = "chessx";

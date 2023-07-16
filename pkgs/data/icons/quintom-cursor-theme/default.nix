@@ -1,4 +1,8 @@
-{ stdenvNoCC, fetchFromGitLab, lib }:
+{
+  stdenvNoCC,
+  fetchFromGitLab,
+  lib,
+}:
 
 stdenvNoCC.mkDerivation {
   pname = "quintom-cursor-theme";

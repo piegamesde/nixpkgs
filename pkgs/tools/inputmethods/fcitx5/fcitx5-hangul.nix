@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, gettext, fcitx5
-, libhangul }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  extra-cmake-modules,
+  gettext,
+  fcitx5,
+  libhangul,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fcitx5-hangul";

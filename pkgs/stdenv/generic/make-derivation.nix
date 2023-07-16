@@ -1,4 +1,7 @@
-{ lib, config }:
+{
+  lib,
+  config,
+}:
 
 stdenv:
 
@@ -76,79 +79,113 @@ let
     # TODO(@Ericson2314): Stop using legacy dep attribute names
 
     #                                 host offset -> target offset
-    depsBuildBuild ? [ ] # -1 -> -1
-    , depsBuildBuildPropagated ? [ ] # -1 -> -1
-    , nativeBuildInputs ? [ ] # -1 ->  0  N.B. Legacy name
-    , propagatedNativeBuildInputs ? [ ] # -1 ->  0  N.B. Legacy name
-    , depsBuildTarget ? [ ] # -1 ->  1
-    , depsBuildTargetPropagated ? [ ] # -1 ->  1
+      depsBuildBuild ? [ ] # -1 -> -1
+      ,
+      depsBuildBuildPropagated ? [ ] # -1 -> -1
+      ,
+      nativeBuildInputs ? [ ] # -1 ->  0  N.B. Legacy name
+      ,
+      propagatedNativeBuildInputs ? [ ] # -1 ->  0  N.B. Legacy name
+      ,
+      depsBuildTarget ? [ ] # -1 ->  1
+      ,
+      depsBuildTargetPropagated ? [ ] # -1 ->  1
 
-    , depsHostHost ? [ ] # 0 ->  0
-    , depsHostHostPropagated ? [ ] # 0 ->  0
-    , buildInputs ? [ ] # 0 ->  1  N.B. Legacy name
-    , propagatedBuildInputs ? [ ] # 0 ->  1  N.B. Legacy name
+      ,
+      depsHostHost ? [ ] # 0 ->  0
+      ,
+      depsHostHostPropagated ? [ ] # 0 ->  0
+      ,
+      buildInputs ? [ ] # 0 ->  1  N.B. Legacy name
+      ,
+      propagatedBuildInputs ? [ ] # 0 ->  1  N.B. Legacy name
 
-    , depsTargetTarget ? [ ] # 1 ->  1
-    , depsTargetTargetPropagated ? [ ] # 1 ->  1
+      ,
+      depsTargetTarget ? [ ] # 1 ->  1
+      ,
+      depsTargetTargetPropagated ? [ ] # 1 ->  1
 
-    , checkInputs ? [ ], installCheckInputs ? [ ], nativeCheckInputs ? [ ]
-    , nativeInstallCheckInputs ? [ ]
+      ,
+      checkInputs ? [ ],
+      installCheckInputs ? [ ],
+      nativeCheckInputs ? [ ],
+      nativeInstallCheckInputs ? [ ]
 
-      # Configure Phase
-    , configureFlags ? [ ], cmakeFlags ? [ ], mesonFlags ? [ ]
-    , # Target is not included by default because most programs don't care.
-    # Including it then would cause needless mass rebuilds.
-    #
-    # TODO(@Ericson2314): Make [ "build" "host" ] always the default / resolve #87909
-    configurePlatforms ? lib.optionals (stdenv.hostPlatform
-      != stdenv.buildPlatform || config.configurePlatformsByDefault) [
-        "build"
-        "host"
-      ]
+        # Configure Phase
+      ,
+      configureFlags ? [ ],
+      cmakeFlags ? [ ],
+      mesonFlags ?
+        [ ], # Target is not included by default because most programs don't care.
+      # Including it then would cause needless mass rebuilds.
+      #
+      # TODO(@Ericson2314): Make [ "build" "host" ] always the default / resolve #87909
+      configurePlatforms ? lib.optionals (stdenv.hostPlatform
+        != stdenv.buildPlatform || config.configurePlatformsByDefault) [
+          "build"
+          "host"
+        ]
 
-      # TODO(@Ericson2314): Make unconditional / resolve #33599
-      # Check phase
-    , doCheck ? config.doCheckByDefault or false
+        # TODO(@Ericson2314): Make unconditional / resolve #33599
+        # Check phase
+      ,
+      doCheck ? config.doCheckByDefault or false
 
-      # TODO(@Ericson2314): Make unconditional / resolve #33599
-      # InstallCheck phase
-    , doInstallCheck ? config.doCheckByDefault or false
+        # TODO(@Ericson2314): Make unconditional / resolve #33599
+        # InstallCheck phase
+      ,
+      doInstallCheck ? config.doCheckByDefault or false
 
-    , # TODO(@Ericson2314): Make always true and remove / resolve #178468
-    strictDeps ? if config.strictDepsByDefault then
-      true
-    else
-      stdenv.hostPlatform != stdenv.buildPlatform
-
-    , enableParallelBuilding ? config.enableParallelBuildingByDefault
-
-    , meta ? { }, passthru ? { }
-    , pos ? # position used in error messages and for meta.position
-      (if attrs.meta.description or null != null then
-        builtins.unsafeGetAttrPos "description" attrs.meta
-      else if attrs.version or null != null then
-        builtins.unsafeGetAttrPos "version" attrs
+      , # TODO(@Ericson2314): Make always true and remove / resolve #178468
+      strictDeps ? if config.strictDepsByDefault then
+        true
       else
-        builtins.unsafeGetAttrPos "name" attrs), separateDebugInfo ? false
-    , outputs ? [ "out" ], __darwinAllowLocalNetworking ? false
-    , __impureHostDeps ? [ ], __propagatedImpureHostDeps ? [ ]
-    , sandboxProfile ? "", propagatedSandboxProfile ? ""
+        stdenv.hostPlatform != stdenv.buildPlatform
 
-    , hardeningEnable ? [ ], hardeningDisable ? [ ]
+      ,
+      enableParallelBuilding ? config.enableParallelBuildingByDefault
 
-    , patches ? [ ]
+      ,
+      meta ? { },
+      passthru ? { },
+      pos ? # position used in error messages and for meta.position
+        (if attrs.meta.description or null != null then
+          builtins.unsafeGetAttrPos "description" attrs.meta
+        else if attrs.version or null != null then
+          builtins.unsafeGetAttrPos "version" attrs
+        else
+          builtins.unsafeGetAttrPos "name" attrs),
+      separateDebugInfo ? false,
+      outputs ? [ "out" ],
+      __darwinAllowLocalNetworking ? false,
+      __impureHostDeps ? [ ],
+      __propagatedImpureHostDeps ? [ ],
+      sandboxProfile ? "",
+      propagatedSandboxProfile ? ""
 
-    , __contentAddressed ?
-      (!attrs ? outputHash) # Fixed-output drvs can't be content addressed too
-      && config.contentAddressedByDefault
+      ,
+      hardeningEnable ? [ ],
+      hardeningDisable ? [ ]
 
-      # Experimental.  For simple packages mostly just works,
-      # but for anything complex, be prepared to debug if enabling.
-    , __structuredAttrs ? config.structuredAttrsByDefault or false
+      ,
+      patches ? [ ]
 
-    , env ? { }
+      ,
+      __contentAddressed ?
+        (!attrs ? outputHash) # Fixed-output drvs can't be content addressed too
+        && config.contentAddressedByDefault
 
-    , ... }@attrs:
+        # Experimental.  For simple packages mostly just works,
+        # but for anything complex, be prepared to debug if enabling.
+      ,
+      __structuredAttrs ? config.structuredAttrsByDefault or false
+
+      ,
+      env ? { }
+
+      ,
+      ...
+    }@attrs:
 
     let
       # TODO(@oxij, @Ericson2314): This is here to keep the old semantics, remove when

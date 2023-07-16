@@ -1,4 +1,12 @@
-{ lib, stdenv, meson, ninja, vulkan-loader, vulkan-headers, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  meson,
+  ninja,
+  vulkan-loader,
+  vulkan-headers,
+  fetchFromGitHub,
+}:
 stdenv.mkDerivation rec {
   pname = "vkdisplayinfo";
   version = "0.1";

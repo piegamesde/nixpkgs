@@ -1,22 +1,29 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; }, systemdStage1 ? false }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; },
+  systemdStage1 ? false
+}:
 
 import ./make-test-python.nix {
   name = "fsck";
 
-  nodes.machine = { lib, ... }: {
-    virtualisation.emptyDiskImages = [ 1 ];
+  nodes.machine = {
+      lib,
+      ...
+    }: {
+      virtualisation.emptyDiskImages = [ 1 ];
 
-    virtualisation.fileSystems = {
-      "/mnt" = {
-        device = "/dev/vdb";
-        fsType = "ext4";
-        autoFormat = true;
+      virtualisation.fileSystems = {
+        "/mnt" = {
+          device = "/dev/vdb";
+          fsType = "ext4";
+          autoFormat = true;
+        };
       };
-    };
 
-    boot.initrd.systemd.enable = systemdStage1;
-  };
+      boot.initrd.systemd.enable = systemdStage1;
+    };
 
   testScript = ''
     machine.wait_for_unit("default.target")

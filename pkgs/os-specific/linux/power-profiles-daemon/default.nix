@@ -1,7 +1,30 @@
-{ stdenv, lib, pkg-config, meson, mesonEmulatorHook, ninja, fetchFromGitLab
-, fetchpatch, libgudev, glib, polkit, dbus, gobject-introspection, gettext
-, gtk-doc, docbook-xsl-nons, docbook_xml_dtd_412, libxml2, libxslt, upower
-, umockdev, systemd, python3, wrapGAppsNoGuiHook, nixosTests }:
+{
+  stdenv,
+  lib,
+  pkg-config,
+  meson,
+  mesonEmulatorHook,
+  ninja,
+  fetchFromGitLab,
+  fetchpatch,
+  libgudev,
+  glib,
+  polkit,
+  dbus,
+  gobject-introspection,
+  gettext,
+  gtk-doc,
+  docbook-xsl-nons,
+  docbook_xml_dtd_412,
+  libxml2,
+  libxslt,
+  upower,
+  umockdev,
+  systemd,
+  python3,
+  wrapGAppsNoGuiHook,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "power-profiles-daemon";

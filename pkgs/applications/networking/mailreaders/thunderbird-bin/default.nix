@@ -3,15 +3,68 @@
 # To update `thunderbird-bin`'s `release_sources.nix`, run from the nixpkgs root:
 #
 #     nix-shell maintainers/scripts/update.nix --argstr package pkgs.thunderbird-bin-unwrapped
-{ lib, stdenv, fetchurl, config, wrapGAppsHook, alsa-lib, atk, cairo, curl, cups
-, dbus-glib, dbus, fontconfig, freetype, gdk-pixbuf, glib, glibc, gtk2, gtk3
-, libkrb5, libX11, libXScrnSaver, libxcb, libXcomposite, libXcursor, libXdamage
-, libXext, libXfixes, libXi, libXinerama, libXrender, libXrandr, libXt, libXtst
-, libcanberra, libnotify, adwaita-icon-theme, libGLU, libGL, nspr, nss_latest
-, pango, pipewire, pciutils, heimdal, libpulseaudio, systemd, writeScript
-, writeText, xidel, coreutils, gnused, gnugrep, gnupg, ffmpeg, runtimeShell
-, mesa # thunderbird wants gbm for drm+dmabuf
-, systemLocale ? config.i18n.defaultLocale or "en_US", generated }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  config,
+  wrapGAppsHook,
+  alsa-lib,
+  atk,
+  cairo,
+  curl,
+  cups,
+  dbus-glib,
+  dbus,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  glibc,
+  gtk2,
+  gtk3,
+  libkrb5,
+  libX11,
+  libXScrnSaver,
+  libxcb,
+  libXcomposite,
+  libXcursor,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXi,
+  libXinerama,
+  libXrender,
+  libXrandr,
+  libXt,
+  libXtst,
+  libcanberra,
+  libnotify,
+  adwaita-icon-theme,
+  libGLU,
+  libGL,
+  nspr,
+  nss_latest,
+  pango,
+  pipewire,
+  pciutils,
+  heimdal,
+  libpulseaudio,
+  systemd,
+  writeScript,
+  writeText,
+  xidel,
+  coreutils,
+  gnused,
+  gnugrep,
+  gnupg,
+  ffmpeg,
+  runtimeShell,
+  mesa # thunderbird wants gbm for drm+dmabuf
+  ,
+  systemLocale ? config.i18n.defaultLocale or "en_US",
+  generated,
+}:
 
 let
   inherit (generated) version sources;

@@ -1,6 +1,28 @@
-{ buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook, dill, h5py
-, hickle, numpy, opencv4, pandas, pillow, pycm, pyyaml, scipy, requests
-, scikitimage, six, tabulate, torch, torchvision, tqdm, yacs, lib }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  dill,
+  h5py,
+  hickle,
+  numpy,
+  opencv4,
+  pandas,
+  pillow,
+  pycm,
+  pyyaml,
+  scipy,
+  requests,
+  scikitimage,
+  six,
+  tabulate,
+  torch,
+  torchvision,
+  tqdm,
+  yacs,
+  lib,
+}:
 
 buildPythonPackage rec {
   pname = "pywick";

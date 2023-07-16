@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
-, setuptools, numpy, packaging, psutil, pyyaml, torch, transformers, accelerate
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  setuptools,
+  numpy,
+  packaging,
+  psutil,
+  pyyaml,
+  torch,
+  transformers,
+  accelerate,
 }:
 
 buildPythonPackage rec {

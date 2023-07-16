@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, cmake, ninja, pkg-config }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libajantv2";

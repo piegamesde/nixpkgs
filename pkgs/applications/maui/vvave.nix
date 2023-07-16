@@ -1,6 +1,21 @@
-{ lib, mkDerivation, cmake, extra-cmake-modules, applet-window-buttons, karchive
-, kcoreaddons, ki18n, kio, kirigami2, mauikit, mauikit-accounts
-, mauikit-filebrowsing, qtmultimedia, qtquickcontrols2, taglib }:
+{
+  lib,
+  mkDerivation,
+  cmake,
+  extra-cmake-modules,
+  applet-window-buttons,
+  karchive,
+  kcoreaddons,
+  ki18n,
+  kio,
+  kirigami2,
+  mauikit,
+  mauikit-accounts,
+  mauikit-filebrowsing,
+  qtmultimedia,
+  qtquickcontrols2,
+  taglib,
+}:
 
 mkDerivation {
   pname = "vvave";

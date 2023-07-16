@@ -1,6 +1,24 @@
-{ stdenv, lib, fetchFromGitLab, autoconf, automake, libtool, which, pkg-config
-, python3, vala, avahi, gdk-pixbuf, gst_all_1, glib, gtk-doc, docbook-xsl-nons
-, docbook_xml_dtd_43, gobject-introspection, libsoup_3 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  autoconf,
+  automake,
+  libtool,
+  which,
+  pkg-config,
+  python3,
+  vala,
+  avahi,
+  gdk-pixbuf,
+  gst_all_1,
+  glib,
+  gtk-doc,
+  docbook-xsl-nons,
+  docbook_xml_dtd_43,
+  gobject-introspection,
+  libsoup_3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libdmapsharing";

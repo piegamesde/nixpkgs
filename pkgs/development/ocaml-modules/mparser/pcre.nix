@@ -1,4 +1,9 @@
-{ fetchFromGitHub, buildDunePackage, ocaml_pcre, mparser }:
+{
+  fetchFromGitHub,
+  buildDunePackage,
+  ocaml_pcre,
+  mparser,
+}:
 
 buildDunePackage rec {
   pname = "mparser-pcre";

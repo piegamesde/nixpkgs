@@ -1,4 +1,10 @@
-{ buildGoModule, fetchFromGitHub, pam, lib, nixosTests }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  pam,
+  lib,
+  nixosTests,
+}:
 
 buildGoModule rec {
   pname = "pam_ussh";

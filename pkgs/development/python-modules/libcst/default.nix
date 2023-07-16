@@ -1,6 +1,20 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, hypothesis, libiconv
-, pytestCheckHook, python, pythonOlder, pyyaml, rustPlatform, setuptools-rust
-, setuptools-scm, typing-extensions, typing-inspect }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hypothesis,
+  libiconv,
+  pytestCheckHook,
+  python,
+  pythonOlder,
+  pyyaml,
+  rustPlatform,
+  setuptools-rust,
+  setuptools-scm,
+  typing-extensions,
+  typing-inspect,
+}:
 
 buildPythonPackage rec {
   pname = "libcst";

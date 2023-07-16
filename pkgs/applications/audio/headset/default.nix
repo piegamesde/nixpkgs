@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, dpkg, makeWrapper, electron }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dpkg,
+  makeWrapper,
+  electron,
+}:
 
 stdenv.mkDerivation rec {
   pname = "headset";

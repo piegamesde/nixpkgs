@@ -1,4 +1,8 @@
-{ buildDunePackage, gluten, lwt }:
+{
+  buildDunePackage,
+  gluten,
+  lwt,
+}:
 
 buildDunePackage rec {
   pname = "gluten-lwt";

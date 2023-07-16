@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, decorator }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  decorator,
+}:
 
 buildPythonPackage rec {
   pname = "ratelim";

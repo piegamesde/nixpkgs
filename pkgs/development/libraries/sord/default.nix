@@ -1,5 +1,15 @@
-{ lib, stdenv, doxygen, fetchFromGitHub, meson, ninja, pcre, pkg-config, python3
-, serd }:
+{
+  lib,
+  stdenv,
+  doxygen,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pcre,
+  pkg-config,
+  python3,
+  serd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sord";

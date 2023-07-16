@@ -1,5 +1,14 @@
-{ stdenv, callPackage, lib, fetchpatch, sasl, boost, Security, CoreFoundation
-, cctools }:
+{
+  stdenv,
+  callPackage,
+  lib,
+  fetchpatch,
+  sasl,
+  boost,
+  Security,
+  CoreFoundation,
+  cctools,
+}:
 
 let
   buildMongoDB = callPackage ./mongodb.nix {

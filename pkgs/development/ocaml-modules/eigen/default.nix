@@ -1,4 +1,11 @@
-{ lib, stdenv, buildDunePackage, fetchFromGitHub, ctypes, libcxx }:
+{
+  lib,
+  stdenv,
+  buildDunePackage,
+  fetchFromGitHub,
+  ctypes,
+  libcxx,
+}:
 
 buildDunePackage rec {
   pname = "eigen";

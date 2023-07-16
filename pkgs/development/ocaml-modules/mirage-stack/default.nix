@@ -1,4 +1,9 @@
-{ lib, buildDunePackage, fetchurl, tcpip }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  tcpip,
+}:
 
 buildDunePackage rec {
   pname = "mirage-stack";

@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libconfuse
-, libxcrypt, testers, merecat, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  libconfuse,
+  libxcrypt,
+  testers,
+  merecat,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "merecat";

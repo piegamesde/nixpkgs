@@ -1,5 +1,16 @@
-{ fetchurl, lib, stdenv, meson, ninja, gettext, pkg-config, pulseaudioFull
-, glibmm, gtkmm3, wrapGAppsHook }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  meson,
+  ninja,
+  gettext,
+  pkg-config,
+  pulseaudioFull,
+  glibmm,
+  gtkmm3,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "paprefs";

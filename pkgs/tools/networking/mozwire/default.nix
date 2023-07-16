@@ -1,4 +1,11 @@
-{ rustPlatform, lib, stdenv, fetchFromGitHub, CoreServices, Security }:
+{
+  rustPlatform,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  CoreServices,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "MozWire";

@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core
-, beautifulsoup4, boto3, lxml, pdoc, pytestCheckHook, requests-mock }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  beautifulsoup4,
+  boto3,
+  lxml,
+  pdoc,
+  pytestCheckHook,
+  requests-mock,
+}:
 
 buildPythonPackage rec {
   pname = "bx-py-utils";

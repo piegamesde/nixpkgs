@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchgit, pkg-config, wrapGAppsHook, glib, gcr, glib-networking
-, gsettings-desktop-schemas, gtk, libsoup, webkitgtk, xorg, dmenu, findutils
-, gnused, coreutils, gst_all_1, patches ? null }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  pkg-config,
+  wrapGAppsHook,
+  glib,
+  gcr,
+  glib-networking,
+  gsettings-desktop-schemas,
+  gtk,
+  libsoup,
+  webkitgtk,
+  xorg,
+  dmenu,
+  findutils,
+  gnused,
+  coreutils,
+  gst_all_1,
+  patches ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "surf";

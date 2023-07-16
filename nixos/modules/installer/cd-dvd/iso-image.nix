@@ -2,7 +2,12 @@
 # configuration.  The derivation for the ISO image will be placed in
 # config.system.build.isoImage.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

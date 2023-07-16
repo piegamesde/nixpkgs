@@ -1,5 +1,19 @@
-{ bazel, bazelTest, fetchFromGitHub, fetchurl, stdenv, darwin, lib, openjdk8
-, jdk11_headless, runLocal, runtimeShell, writeScript, writeText, distDir }:
+{
+  bazel,
+  bazelTest,
+  fetchFromGitHub,
+  fetchurl,
+  stdenv,
+  darwin,
+  lib,
+  openjdk8,
+  jdk11_headless,
+  runLocal,
+  runtimeShell,
+  writeScript,
+  writeText,
+  distDir,
+}:
 
 let
   com_google_protobuf = fetchFromGitHub {

@@ -1,7 +1,31 @@
-{ autoPatchelfHook, fetchurl, lib, makeDesktopItem, makeWrapper, stdenv
-, wrapGAppsHook, at-spi2-core, atk, alsa-lib, cairo, cups, dbus, expat
-, gcc-unwrapped, gdk-pixbuf, glib, pango, gtk3-x11, libudev0-shim, libuuid, mesa
-, nss, nspr, xorg, streamlink }:
+{
+  autoPatchelfHook,
+  fetchurl,
+  lib,
+  makeDesktopItem,
+  makeWrapper,
+  stdenv,
+  wrapGAppsHook,
+  at-spi2-core,
+  atk,
+  alsa-lib,
+  cairo,
+  cups,
+  dbus,
+  expat,
+  gcc-unwrapped,
+  gdk-pixbuf,
+  glib,
+  pango,
+  gtk3-x11,
+  libudev0-shim,
+  libuuid,
+  mesa,
+  nss,
+  nspr,
+  xorg,
+  streamlink,
+}:
 let
   basename = "streamlink-twitch-gui";
   runtimeLibs = lib.makeLibraryPath [ gtk3-x11 libudev0-shim ];

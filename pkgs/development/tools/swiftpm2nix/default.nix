@@ -1,4 +1,11 @@
-{ lib, stdenv, callPackage, makeWrapper, jq, nix-prefetch-git }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  makeWrapper,
+  jq,
+  nix-prefetch-git,
+}:
 
 stdenv.mkDerivation {
   name = "swiftpm2nix";

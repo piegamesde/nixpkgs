@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libebml }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libebml,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libmatroska";

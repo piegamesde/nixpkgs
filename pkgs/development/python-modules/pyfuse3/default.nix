@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, cython, pkg-config
-, fuse3, trio, python, pytestCheckHook, pytest-trio, which }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  cython,
+  pkg-config,
+  fuse3,
+  trio,
+  python,
+  pytestCheckHook,
+  pytest-trio,
+  which,
+}:
 
 buildPythonPackage rec {
   pname = "pyfuse3";

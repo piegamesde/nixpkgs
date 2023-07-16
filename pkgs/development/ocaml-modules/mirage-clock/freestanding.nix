@@ -1,4 +1,8 @@
-{ lib, buildDunePackage, mirage-clock }:
+{
+  lib,
+  buildDunePackage,
+  mirage-clock,
+}:
 
 buildDunePackage {
   pname = "mirage-clock-freestanding";

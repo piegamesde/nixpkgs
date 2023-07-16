@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, libcap, acl, file, readline }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  libcap,
+  acl,
+  file,
+  readline,
+}:
 
 stdenv.mkDerivation rec {
   pname = "clifm";

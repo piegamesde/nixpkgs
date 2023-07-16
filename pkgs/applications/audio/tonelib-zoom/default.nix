@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, dpkg, alsa-lib, freetype, libglvnd
-, curl, libXcursor, libXinerama, libXrandr, libXrender, libjack2, webkitgtk }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  dpkg,
+  alsa-lib,
+  freetype,
+  libglvnd,
+  curl,
+  libXcursor,
+  libXinerama,
+  libXrandr,
+  libXrender,
+  libjack2,
+  webkitgtk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tonelib-zoom";

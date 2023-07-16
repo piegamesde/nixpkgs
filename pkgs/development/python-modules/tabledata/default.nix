@@ -1,5 +1,11 @@
-{ buildPythonPackage, fetchFromGitHub, lib, dataproperty, typepy
-, pytestCheckHook }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  dataproperty,
+  typepy,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "tabledata";

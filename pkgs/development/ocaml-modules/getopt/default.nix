@@ -1,4 +1,11 @@
-{ lib, fetchzip, stdenv, ocaml, findlib, ocamlbuild }:
+{
+  lib,
+  fetchzip,
+  stdenv,
+  ocaml,
+  findlib,
+  ocamlbuild,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-getopt";

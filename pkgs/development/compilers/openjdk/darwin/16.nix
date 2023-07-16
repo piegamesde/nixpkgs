@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, unzip, setJavaClassPath, enableJavaFX ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  setJavaClassPath,
+  enableJavaFX ? false
+}:
 let
   # Details from https://www.azul.com/downloads/?version=java-16-sts&os=macos&package=jdk
   # Note that the latest build may differ by platform

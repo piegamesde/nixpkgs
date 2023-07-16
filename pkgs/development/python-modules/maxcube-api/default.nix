@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, unittestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "maxcube-api";

@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, nose, tox, six, python-dateutil, kitchen
-, pytestCheckHook, pytz, pkgs }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nose,
+  tox,
+  six,
+  python-dateutil,
+  kitchen,
+  pytestCheckHook,
+  pytz,
+  pkgs,
+}:
 
 buildPythonPackage rec {
   pname = "taskw";

@@ -1,7 +1,28 @@
-{ buildPythonApplication, fetchPypi, gobject-introspection, gtk3, lib
-, libappindicator-gtk3, libnotify, click, dbus-python, ewmh, pulsectl
-, pygobject3, pyxdg, setproctitle, python3, procps, xset, xautolock
-, xscreensaver, xfce, glib, setuptools-scm, wrapGAppsHook }:
+{
+  buildPythonApplication,
+  fetchPypi,
+  gobject-introspection,
+  gtk3,
+  lib,
+  libappindicator-gtk3,
+  libnotify,
+  click,
+  dbus-python,
+  ewmh,
+  pulsectl,
+  pygobject3,
+  pyxdg,
+  setproctitle,
+  python3,
+  procps,
+  xset,
+  xautolock,
+  xscreensaver,
+  xfce,
+  glib,
+  setuptools-scm,
+  wrapGAppsHook,
+}:
 
 let
   click_7 = click.overridePythonAttrs (old: rec {

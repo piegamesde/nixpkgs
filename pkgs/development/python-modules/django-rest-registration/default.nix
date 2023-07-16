@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, django, djangorestframework, fetchFromGitHub
-, pytest-django, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  django,
+  djangorestframework,
+  fetchFromGitHub,
+  pytest-django,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "django-rest-registration";

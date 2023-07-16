@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, into-dbus-python, dbus-python
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  into-dbus-python,
+  dbus-python,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "dbus-python-client-gen";

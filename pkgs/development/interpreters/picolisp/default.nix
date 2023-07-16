@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, jdk, w3m, openssl, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jdk,
+  w3m,
+  openssl,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "picoLisp";

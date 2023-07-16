@@ -1,8 +1,17 @@
 # mkOpenModelicaDerivation is an mkDerivation function for packages
 # from OpenModelica suite.
 
-{ stdenv, lib, fetchgit, autoconf, automake, libtool, cmake, autoreconfHook
-, symlinkJoin }:
+{
+  stdenv,
+  lib,
+  fetchgit,
+  autoconf,
+  automake,
+  libtool,
+  cmake,
+  autoreconfHook,
+  symlinkJoin,
+}:
 pkg:
 let
   inherit (builtins) hasAttr getAttr length elemAt;

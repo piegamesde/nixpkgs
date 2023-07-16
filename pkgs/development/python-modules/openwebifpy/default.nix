@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, requests, zeroconf, wakeonlan
-, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  requests,
+  zeroconf,
+  wakeonlan,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "openwebifpy";

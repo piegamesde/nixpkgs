@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, nixosTests, nix-update-script }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  nixosTests,
+  nix-update-script,
+}:
 buildGoModule rec {
   pname = "mimir";
   version = "2.7.1";

@@ -1,6 +1,28 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, boost, miniupnpc, openssl
-, unbound, zeromq, pcsclite, readline, libsodium, hidapi, randomx, rapidjson
-, CoreData, IOKit, PCSC, trezorSupport ? true, libusb1, protobuf, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  boost,
+  miniupnpc,
+  openssl,
+  unbound,
+  zeromq,
+  pcsclite,
+  readline,
+  libsodium,
+  hidapi,
+  randomx,
+  rapidjson,
+  CoreData,
+  IOKit,
+  PCSC,
+  trezorSupport ? true,
+  libusb1,
+  protobuf,
+  python3,
+}:
 
 let
   # submodules

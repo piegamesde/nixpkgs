@@ -1,9 +1,40 @@
-{ stdenv, lib, fetchurl, buildEnv, makeWrapper
+{
+  stdenv,
+  lib,
+  fetchurl,
+  buildEnv,
+  makeWrapper
 
-, xorg, alsa-lib, at-spi2-core, dbus, glib, gtk3, atk, pango, freetype
-, fontconfig, gdk-pixbuf, cairo, mesa, nss, nspr, expat, systemd, libcap, libdrm
-, libxkbcommon, libnotify, ffmpeg, libxcb, cups, sqlite, udev, libuuid
-, sdk ? false }:
+  ,
+  xorg,
+  alsa-lib,
+  at-spi2-core,
+  dbus,
+  glib,
+  gtk3,
+  atk,
+  pango,
+  freetype,
+  fontconfig,
+  gdk-pixbuf,
+  cairo,
+  mesa,
+  nss,
+  nspr,
+  expat,
+  systemd,
+  libcap,
+  libdrm,
+  libxkbcommon,
+  libnotify,
+  ffmpeg,
+  libxcb,
+  cups,
+  sqlite,
+  udev,
+  libuuid,
+  sdk ? false
+}:
 let
   bits = if stdenv.hostPlatform.system == "x86_64-linux" then "x64" else "ia32";
 

@@ -1,5 +1,12 @@
-{ lib, buildFHSEnv, symlinkJoin, bottles-unwrapped, gst_all_1
-, extraPkgs ? pkgs: [ ], extraLibraries ? pkgs: [ ] }:
+{
+  lib,
+  buildFHSEnv,
+  symlinkJoin,
+  bottles-unwrapped,
+  gst_all_1,
+  extraPkgs ? pkgs: [ ],
+  extraLibraries ? pkgs: [ ]
+}:
 
 let
   fhsEnv = {

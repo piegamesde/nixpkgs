@@ -1,6 +1,20 @@
-{ lib, buildPythonPackage, colorful, fetchFromGitHub, git, httpx, packaging
-, poetry-core, pytestCheckHook, python-dateutil, pythonOlder, semver, rich
-, tomlkit, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  colorful,
+  fetchFromGitHub,
+  git,
+  httpx,
+  packaging,
+  poetry-core,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  semver,
+  rich,
+  tomlkit,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "pontos";

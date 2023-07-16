@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, asio, autoconf-archive, autoreconfHook, glib
-, gtest, jsoncpp, libcap_ng, libnl, libuuid, lz4, openssl, pkg-config, protobuf
-, python3, tinyxml-2, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  asio,
+  autoconf-archive,
+  autoreconfHook,
+  glib,
+  gtest,
+  jsoncpp,
+  libcap_ng,
+  libnl,
+  libuuid,
+  lz4,
+  openssl,
+  pkg-config,
+  protobuf,
+  python3,
+  tinyxml-2,
+  wrapGAppsHook,
+}:
 
 let
   openvpn3-core = fetchFromGitHub {

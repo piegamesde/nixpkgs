@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, SDL2, SDL2_ttf, libpcap, vde2, pcre }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL2,
+  SDL2_ttf,
+  libpcap,
+  vde2,
+  pcre,
+}:
 
 stdenv.mkDerivation rec {
   pname = "simh";

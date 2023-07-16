@@ -1,6 +1,23 @@
-{ stdenv, lib, fetchFromGitLab, gitUpdater, appstream-glib, desktop-file-utils
-, fwupd, gettext, glib, gtk4, libadwaita, libxmlb, meson, ninja, pkg-config
-, systemd, help2man, wrapGAppsHook4 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  gitUpdater,
+  appstream-glib,
+  desktop-file-utils,
+  fwupd,
+  gettext,
+  glib,
+  gtk4,
+  libadwaita,
+  libxmlb,
+  meson,
+  ninja,
+  pkg-config,
+  systemd,
+  help2man,
+  wrapGAppsHook4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-firmware";

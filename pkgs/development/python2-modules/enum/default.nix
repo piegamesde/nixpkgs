@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, isPyPy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  isPyPy,
+}:
 
 buildPythonPackage rec {
   pname = "enum";

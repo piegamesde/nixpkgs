@@ -1,4 +1,8 @@
-{ lib, fetchurl, pythonPackages }:
+{
+  lib,
+  fetchurl,
+  pythonPackages,
+}:
 
 pythonPackages.buildPythonApplication rec {
   pname = "nagstamon";

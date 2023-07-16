@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, cryptography, fetchFromGitHub, pytestCheckHook
-, python-dateutil, pythonOlder, pytz, ujson }:
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  pytz,
+  ujson,
+}:
 
 buildPythonPackage rec {
   pname = "ripe-atlas-sagan";

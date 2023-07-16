@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, isPy27, fetchPypi, progress, pyserial, pytest, mock
+{
+  lib,
+  buildPythonPackage,
+  isPy27,
+  fetchPypi,
+  progress,
+  pyserial,
+  pytest,
+  mock,
 }:
 
 buildPythonPackage rec {

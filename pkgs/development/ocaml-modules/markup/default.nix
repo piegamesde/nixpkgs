@@ -1,4 +1,12 @@
-{ lib, buildDunePackage, fetchFromGitHub, ocaml, uchar, uutf, ounit2 }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  ocaml,
+  uchar,
+  uutf,
+  ounit2,
+}:
 
 buildDunePackage rec {
   pname = "markup";

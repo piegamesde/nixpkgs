@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, six, httplib2, pyasn1-modules, rsa }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  httplib2,
+  pyasn1-modules,
+  rsa,
+}:
 
 buildPythonPackage rec {
   pname = "oauth2client";

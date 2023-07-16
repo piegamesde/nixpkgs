@@ -1,4 +1,12 @@
-{ fetchFromGitHub, lib, cmake, mkDerivation, libxcb, qtbase, qtsvg }:
+{
+  fetchFromGitHub,
+  lib,
+  cmake,
+  mkDerivation,
+  libxcb,
+  qtbase,
+  qtsvg,
+}:
 
 mkDerivation rec {
   pname = "spotify-qt";

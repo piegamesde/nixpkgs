@@ -1,4 +1,11 @@
-{ fetchurl, lib, autoreconfHook, pkg-config, stdenv, fetchpatch, fetchFromGitHub
+{
+  fetchurl,
+  lib,
+  autoreconfHook,
+  pkg-config,
+  stdenv,
+  fetchpatch,
+  fetchFromGitHub,
 }:
 
 stdenv.mkDerivation rec {

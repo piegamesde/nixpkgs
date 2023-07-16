@@ -1,13 +1,21 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder
 
-# build time
-, pdm-pep517
+  # build time
+  ,
+  pdm-pep517
 
-# runtime
-, packaging
+  # runtime
+  ,
+  packaging
 
-# tests
-, pytestCheckHook }:
+  # tests
+  ,
+  pytestCheckHook,
+}:
 
 let
   pname = "findpython";

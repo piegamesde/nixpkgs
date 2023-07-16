@@ -1,4 +1,11 @@
-{ lib, buildPythonApplication, fetchPypi, isPy3k, blessings, docopt }:
+{
+  lib,
+  buildPythonApplication,
+  fetchPypi,
+  isPy3k,
+  blessings,
+  docopt,
+}:
 
 buildPythonApplication rec {
   pname = "cbeams";

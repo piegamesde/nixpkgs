@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, libraw1394, libusb1, CoreServices }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libraw1394,
+  libusb1,
+  CoreServices,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libdc1394";

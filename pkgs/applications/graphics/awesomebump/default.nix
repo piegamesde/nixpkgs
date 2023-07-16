@@ -1,5 +1,14 @@
-{ mkDerivation, lib, fetchgit, qtbase, qmake, qtscript, flex, bison
-, qtdeclarative }:
+{
+  mkDerivation,
+  lib,
+  fetchgit,
+  qtbase,
+  qmake,
+  qtscript,
+  flex,
+  bison,
+  qtdeclarative,
+}:
 
 let
   version = "5.1";

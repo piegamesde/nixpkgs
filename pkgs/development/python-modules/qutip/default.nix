@@ -1,6 +1,22 @@
-{ lib, stdenv, buildPythonPackage, cvxopt, cvxpy, cython, doCheck ? true
-, fetchFromGitHub, ipython, matplotlib, numpy, packaging, pytest-rerunfailures
-, pytestCheckHook, python, pythonOlder, scipy }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  cvxopt,
+  cvxpy,
+  cython,
+  doCheck ? true,
+  fetchFromGitHub,
+  ipython,
+  matplotlib,
+  numpy,
+  packaging,
+  pytest-rerunfailures,
+  pytestCheckHook,
+  python,
+  pythonOlder,
+  scipy,
+}:
 
 buildPythonPackage rec {
   pname = "qutip";

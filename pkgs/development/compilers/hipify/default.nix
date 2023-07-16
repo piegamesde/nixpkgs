@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, libxml2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  cmake,
+  libxml2,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "hipify";

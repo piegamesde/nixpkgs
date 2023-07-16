@@ -1,4 +1,13 @@
-{ lib, fetchurl, buildDunePackage, logs, lwt, mirage-clock, ptime, alcotest }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  logs,
+  lwt,
+  mirage-clock,
+  ptime,
+  alcotest,
+}:
 
 buildDunePackage rec {
   pname = "mirage-logs";

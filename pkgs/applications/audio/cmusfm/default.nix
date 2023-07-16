@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, curl, libnotify
-, gdk-pixbuf, libnotifySupport ? stdenv.isLinux, debug ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  curl,
+  libnotify,
+  gdk-pixbuf,
+  libnotifySupport ? stdenv.isLinux,
+  debug ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "cmusfm";

@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, decorator, six, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  decorator,
+  six,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "validators";

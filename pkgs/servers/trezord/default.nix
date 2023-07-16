@@ -1,4 +1,11 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, trezor-udev-rules, AppKit }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  trezor-udev-rules,
+  AppKit,
+}:
 
 buildGoModule rec {
   pname = "trezord-go";

@@ -1,6 +1,18 @@
-{ lib, fetchPypi, buildPythonPackage, python-crontab, celery
-, django-timezone-field, tzdata, ephem, pytest-timeout, pytest-django, case
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  python-crontab,
+  celery,
+  django-timezone-field,
+  tzdata,
+  ephem,
+  pytest-timeout,
+  pytest-django,
+  case,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "django-celery-beat";

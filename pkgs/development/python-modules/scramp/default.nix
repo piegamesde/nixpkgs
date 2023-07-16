@@ -1,5 +1,14 @@
-{ lib, asn1crypto, buildPythonPackage, fetchFromGitHub, importlib-metadata
-, pytest-mock, pytestCheckHook, pythonOlder, setuptools }:
+{
+  lib,
+  asn1crypto,
+  buildPythonPackage,
+  fetchFromGitHub,
+  importlib-metadata,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "scramp";

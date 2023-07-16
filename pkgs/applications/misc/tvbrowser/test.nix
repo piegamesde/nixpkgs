@@ -1,4 +1,11 @@
-{ lib, xvfb-run, tvbrowser, runCommand, writeShellApplication, xorg }:
+{
+  lib,
+  xvfb-run,
+  tvbrowser,
+  runCommand,
+  writeShellApplication,
+  xorg,
+}:
 
 let
   testScript = writeShellApplication {

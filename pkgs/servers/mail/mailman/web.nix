@@ -1,4 +1,10 @@
-{ lib, python3, sassc, hyperkitty, postorius }:
+{
+  lib,
+  python3,
+  sassc,
+  hyperkitty,
+  postorius,
+}:
 
 with python3.pkgs;
 

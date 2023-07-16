@@ -5,12 +5,31 @@
 # - The exact version can be specified through the `version` argument to
 #   the derivation; it defaults to the latest stable version.
 
-{ lib, stdenv, fetchzip, writeText, pkg-config, gnumake42
-, customOCamlPackages ? null, ocamlPackages_4_05, ocamlPackages_4_09
-, ocamlPackages_4_10, ocamlPackages_4_12, ocamlPackages_4_14, ncurses
-, buildIde ? null # default is true for Coq < 8.14 and false for Coq >= 8.14
-, glib, gnome, wrapGAppsHook, makeDesktopItem, copyDesktopItems, csdp ? null
-, version, coq-version ? null }@args:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  writeText,
+  pkg-config,
+  gnumake42,
+  customOCamlPackages ? null,
+  ocamlPackages_4_05,
+  ocamlPackages_4_09,
+  ocamlPackages_4_10,
+  ocamlPackages_4_12,
+  ocamlPackages_4_14,
+  ncurses,
+  buildIde ? null # default is true for Coq < 8.14 and false for Coq >= 8.14
+  ,
+  glib,
+  gnome,
+  wrapGAppsHook,
+  makeDesktopItem,
+  copyDesktopItems,
+  csdp ? null,
+  version,
+  coq-version ? null
+}@args:
 let lib' = lib;
 in let lib = import ../../../../build-support/coq/extra-lib.nix { lib = lib'; };
 in with builtins;

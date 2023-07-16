@@ -1,7 +1,17 @@
-{ lib, stdenv, fetchurl, fetchpatch, libX11, libXaw }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  libX11,
+  libXaw,
+}:
 
 let
-  getPatch = { name, sha256 }:
+  getPatch = {
+      name,
+      sha256,
+    }:
     fetchpatch {
       inherit name sha256;
       url =

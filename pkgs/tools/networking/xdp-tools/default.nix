@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, libbpf, elfutils, zlib, libpcap
-, bpftools, llvmPackages, pkg-config, m4, emacs-nox, wireshark-cli
-, nukeReferences }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  libbpf,
+  elfutils,
+  zlib,
+  libpcap,
+  bpftools,
+  llvmPackages,
+  pkg-config,
+  m4,
+  emacs-nox,
+  wireshark-cli,
+  nukeReferences,
+}:
 stdenv.mkDerivation rec {
   pname = "xdp-tools";
   version = "1.3.1";

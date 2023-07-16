@@ -1,7 +1,26 @@
-{ mkDerivation, lib, fetchurl, extra-cmake-modules, kdoctools, wrapGAppsHook
-, qtscript, kconfig, kcrash, kdbusaddons, kdelibs4support, kguiaddons
-, kiconthemes, kinit, khtml, konsole, kparts, ktexteditor, kwindowsystem, okular
-, poppler }:
+{
+  mkDerivation,
+  lib,
+  fetchurl,
+  extra-cmake-modules,
+  kdoctools,
+  wrapGAppsHook,
+  qtscript,
+  kconfig,
+  kcrash,
+  kdbusaddons,
+  kdelibs4support,
+  kguiaddons,
+  kiconthemes,
+  kinit,
+  khtml,
+  konsole,
+  kparts,
+  ktexteditor,
+  kwindowsystem,
+  okular,
+  poppler,
+}:
 
 mkDerivation rec {
   pname = "kile";

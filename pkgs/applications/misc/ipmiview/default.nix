@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, makeDesktopItem, makeWrapper, patchelf, fontconfig
-, freetype, gcc, gcc-unwrapped, iputils, psmisc, xorg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeDesktopItem,
+  makeWrapper,
+  patchelf,
+  fontconfig,
+  freetype,
+  gcc,
+  gcc-unwrapped,
+  iputils,
+  psmisc,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "IPMIView";

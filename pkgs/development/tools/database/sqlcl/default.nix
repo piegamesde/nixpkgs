@@ -1,4 +1,11 @@
-{ lib, stdenv, makeWrapper, requireFile, unzip, jdk }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  requireFile,
+  unzip,
+  jdk,
+}:
 
 let
   version = "22.4.0.342.1212";

@@ -1,8 +1,39 @@
-{ lib, stdenv, fetchFromGitHub, accountsservice, alsa-lib, budgie-screensaver
-, docbook-xsl-nons, glib, gnome, gnome-desktop, gnome-menus, graphene, gst_all_1
-, gtk-doc, gtk3, ibus, intltool, libcanberra-gtk3, libgee, libGL, libnotify
-, libpeas, libpulseaudio, libuuid, libwnck, mesa, meson, ninja, pkg-config
-, polkit, sassc, upower, vala, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  accountsservice,
+  alsa-lib,
+  budgie-screensaver,
+  docbook-xsl-nons,
+  glib,
+  gnome,
+  gnome-desktop,
+  gnome-menus,
+  graphene,
+  gst_all_1,
+  gtk-doc,
+  gtk3,
+  ibus,
+  intltool,
+  libcanberra-gtk3,
+  libgee,
+  libGL,
+  libnotify,
+  libpeas,
+  libpulseaudio,
+  libuuid,
+  libwnck,
+  mesa,
+  meson,
+  ninja,
+  pkg-config,
+  polkit,
+  sassc,
+  upower,
+  vala,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "budgie-desktop";

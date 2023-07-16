@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, perl, boost, rdkafka, jansson, curl
-, avro-c, avro-cpp }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  perl,
+  boost,
+  rdkafka,
+  jansson,
+  curl,
+  avro-c,
+  avro-cpp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libserdes";

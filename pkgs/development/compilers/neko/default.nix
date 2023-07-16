@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, boehmgc, zlib, sqlite, pcre, cmake
-, pkg-config, git, apacheHttpd, apr, aprutil, libmysqlclient, mbedtls_2, openssl
-, pkgs, gtk2, libpthreadstubs }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  boehmgc,
+  zlib,
+  sqlite,
+  pcre,
+  cmake,
+  pkg-config,
+  git,
+  apacheHttpd,
+  apr,
+  aprutil,
+  libmysqlclient,
+  mbedtls_2,
+  openssl,
+  pkgs,
+  gtk2,
+  libpthreadstubs,
+}:
 
 stdenv.mkDerivation rec {
   pname = "neko";

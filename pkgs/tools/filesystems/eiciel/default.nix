@@ -1,5 +1,18 @@
-{ lib, fetchFromGitHub, stdenv, acl, gnome, glibmm_2_68, gtkmm4, meson, ninja
-, pkg-config, itstool, wrapGAppsHook4, gtk4 }:
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  acl,
+  gnome,
+  glibmm_2_68,
+  gtkmm4,
+  meson,
+  ninja,
+  pkg-config,
+  itstool,
+  wrapGAppsHook4,
+  gtk4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "eiciel";

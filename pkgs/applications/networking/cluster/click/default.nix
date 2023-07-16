@@ -1,4 +1,10 @@
-{ darwin, fetchFromGitHub, rustPlatform, lib, stdenv }:
+{
+  darwin,
+  fetchFromGitHub,
+  rustPlatform,
+  lib,
+  stdenv,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "click";

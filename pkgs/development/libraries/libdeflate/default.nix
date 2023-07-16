@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, fixDarwinDylibNames, pkgsStatic, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fixDarwinDylibNames,
+  pkgsStatic,
+  cmake,
+}:
 stdenv.mkDerivation rec {
   pname = "libdeflate";
   version = "1.18";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, llvmPackages, rapidjson, runtimeShell }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  llvmPackages,
+  rapidjson,
+  runtimeShell,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ccls";

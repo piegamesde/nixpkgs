@@ -1,6 +1,22 @@
-{ lib, fetchFromGitHub, rustPlatform, pkg-config, extra-cmake-modules, libX11
-, libXi, libXtst, libnotify, openssl, xclip, xdotool, makeWrapper, stdenv
-, AppKit, Cocoa, Foundation }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  extra-cmake-modules,
+  libX11,
+  libXi,
+  libXtst,
+  libnotify,
+  openssl,
+  xclip,
+  xdotool,
+  makeWrapper,
+  stdenv,
+  AppKit,
+  Cocoa,
+  Foundation,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "espanso";

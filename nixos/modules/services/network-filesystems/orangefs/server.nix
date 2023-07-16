@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -144,48 +149,50 @@ in {
           }
         '';
         type = with types;
-          attrsOf (submodule ({ ... }: {
-            options = {
-              id = mkOption {
-                type = types.int;
-                default = 1;
-                description = lib.mdDoc
-                  "File system ID (must be unique within configuration).";
-              };
+          attrsOf (submodule ({
+              ...
+            }: {
+              options = {
+                id = mkOption {
+                  type = types.int;
+                  default = 1;
+                  description = lib.mdDoc
+                    "File system ID (must be unique within configuration).";
+                };
 
-              rootHandle = mkOption {
-                type = types.int;
-                default = 3;
-                description = lib.mdDoc "File system root ID.";
-              };
+                rootHandle = mkOption {
+                  type = types.int;
+                  default = 3;
+                  description = lib.mdDoc "File system root ID.";
+                };
 
-              extraConfig = mkOption {
-                type = types.lines;
-                default = "";
-                description =
-                  lib.mdDoc "Extra config for `<FileSystem>` section.";
-              };
+                extraConfig = mkOption {
+                  type = types.lines;
+                  default = "";
+                  description =
+                    lib.mdDoc "Extra config for `<FileSystem>` section.";
+                };
 
-              troveSyncMeta = mkOption {
-                type = types.bool;
-                default = true;
-                description = lib.mdDoc "Sync meta data.";
-              };
+                troveSyncMeta = mkOption {
+                  type = types.bool;
+                  default = true;
+                  description = lib.mdDoc "Sync meta data.";
+                };
 
-              troveSyncData = mkOption {
-                type = types.bool;
-                default = false;
-                description = lib.mdDoc "Sync data.";
-              };
+                troveSyncData = mkOption {
+                  type = types.bool;
+                  default = false;
+                  description = lib.mdDoc "Sync data.";
+                };
 
-              extraStorageHints = mkOption {
-                type = types.lines;
-                default = "";
-                description =
-                  lib.mdDoc "Extra config for `<StorageHints>` section.";
+                extraStorageHints = mkOption {
+                  type = types.lines;
+                  default = "";
+                  description =
+                    lib.mdDoc "Extra config for `<StorageHints>` section.";
+                };
               };
-            };
-          }));
+            }));
       };
     };
   };

@@ -1,4 +1,11 @@
-{ lib, buildDunePackage, fetchurl, cstruct, mirage-crypto, alcotest }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  cstruct,
+  mirage-crypto,
+  alcotest,
+}:
 
 buildDunePackage rec {
   pname = "hkdf";

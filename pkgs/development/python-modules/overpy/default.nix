@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "overpy";

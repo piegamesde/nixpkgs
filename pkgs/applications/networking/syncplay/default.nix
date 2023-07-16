@@ -1,5 +1,13 @@
-{ lib, fetchFromGitHub, buildPythonApplication, pyside2, twisted, certifi, qt5
-, enableGUI ? true }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonApplication,
+  pyside2,
+  twisted,
+  certifi,
+  qt5,
+  enableGUI ? true
+}:
 
 buildPythonApplication rec {
   pname = "syncplay";

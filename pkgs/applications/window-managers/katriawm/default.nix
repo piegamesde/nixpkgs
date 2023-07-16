@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchzip, libX11, libXft, libXrandr, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  libX11,
+  libXft,
+  libXrandr,
+  pkg-config,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "katriawm";

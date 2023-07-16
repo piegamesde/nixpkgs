@@ -1,22 +1,86 @@
-{ lib, bash, bash-completion, bridge-utils, coreutils, curl, darwin, dbus
-, dnsmasq, docutils, fetchFromGitLab, gettext, glib, gnutls, iproute2, iptables
-, libgcrypt, libpcap, libtasn1, libxml2, libxslt, makeWrapper, meson, ninja
-, openssh, perl, perlPackages, polkit, pkg-config, pmutils, python3, readline
-, rpcsvc-proto, stdenv, substituteAll, xhtml1, yajl, writeScript, nixosTests
+{
+  lib,
+  bash,
+  bash-completion,
+  bridge-utils,
+  coreutils,
+  curl,
+  darwin,
+  dbus,
+  dnsmasq,
+  docutils,
+  fetchFromGitLab,
+  gettext,
+  glib,
+  gnutls,
+  iproute2,
+  iptables,
+  libgcrypt,
+  libpcap,
+  libtasn1,
+  libxml2,
+  libxslt,
+  makeWrapper,
+  meson,
+  ninja,
+  openssh,
+  perl,
+  perlPackages,
+  polkit,
+  pkg-config,
+  pmutils,
+  python3,
+  readline,
+  rpcsvc-proto,
+  stdenv,
+  substituteAll,
+  xhtml1,
+  yajl,
+  writeScript,
+  nixosTests
 
-# Linux
-, acl ? null, attr ? null, audit ? null, dmidecode ? null, fuse3 ? null
-, kmod ? null, libapparmor ? null, libcap_ng ? null, libnl ? null
-, libpciaccess ? null, libtirpc ? null, lvm2 ? null, numactl ? null
-, numad ? null, parted ? null, systemd ? null, util-linux ? null
+  # Linux
+  ,
+  acl ? null,
+  attr ? null,
+  audit ? null,
+  dmidecode ? null,
+  fuse3 ? null,
+  kmod ? null,
+  libapparmor ? null,
+  libcap_ng ? null,
+  libnl ? null,
+  libpciaccess ? null,
+  libtirpc ? null,
+  lvm2 ? null,
+  numactl ? null,
+  numad ? null,
+  parted ? null,
+  systemd ? null,
+  util-linux ? null
 
-  # Darwin
-, gmp, libiconv, qemu, Carbon, AppKit
+    # Darwin
+  ,
+  gmp,
+  libiconv,
+  qemu,
+  Carbon,
+  AppKit
 
-# Options
-, enableCeph ? false, ceph, enableGlusterfs ? false, glusterfs
-, enableIscsi ? false, openiscsi, libiscsi, enableXen ? false, xen
-, enableZfs ? stdenv.isLinux, zfs }:
+  # Options
+  ,
+  enableCeph ? false,
+  ceph,
+  enableGlusterfs ? false,
+  glusterfs,
+  enableIscsi ? false,
+  openiscsi,
+  libiscsi,
+  enableXen ? false,
+  xen,
+  enableZfs ? stdenv.isLinux,
+  zfs,
+}:
 
 let
   inherit (stdenv) isDarwin isLinux isx86_64;

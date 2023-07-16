@@ -1,5 +1,14 @@
-{ lib, blinker, buildPythonPackage, cryptography, fetchFromGitHub, mock, pyjwt
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  blinker,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  mock,
+  pyjwt,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "oauthlib";

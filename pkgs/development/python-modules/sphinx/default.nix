@@ -1,17 +1,43 @@
-{ stdenv, lib, buildPythonPackage, pythonOlder, fetchFromGitHub, fetchpatch
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  fetchpatch
 
-# nativeBuildInputs
-, flit-core
+  # nativeBuildInputs
+  ,
+  flit-core
 
-# propagatedBuildInputs
-, babel, alabaster, docutils, imagesize, importlib-metadata, jinja2, packaging
-, pygments, requests, snowballstemmer, sphinxcontrib-apidoc
-, sphinxcontrib-applehelp, sphinxcontrib-devhelp, sphinxcontrib-htmlhelp
-, sphinxcontrib-jsmath, sphinxcontrib-qthelp, sphinxcontrib-serializinghtml
-, sphinxcontrib-websupport
+  # propagatedBuildInputs
+  ,
+  babel,
+  alabaster,
+  docutils,
+  imagesize,
+  importlib-metadata,
+  jinja2,
+  packaging,
+  pygments,
+  requests,
+  snowballstemmer,
+  sphinxcontrib-apidoc,
+  sphinxcontrib-applehelp,
+  sphinxcontrib-devhelp,
+  sphinxcontrib-htmlhelp,
+  sphinxcontrib-jsmath,
+  sphinxcontrib-qthelp,
+  sphinxcontrib-serializinghtml,
+  sphinxcontrib-websupport
 
-# check phase
-, cython, html5lib, pytestCheckHook, typed-ast }:
+  # check phase
+  ,
+  cython,
+  html5lib,
+  pytestCheckHook,
+  typed-ast,
+}:
 
 buildPythonPackage rec {
   pname = "sphinx";

@@ -1,5 +1,17 @@
-{ lib, stdenv, csound, desktop-file-utils, fetchFromGitHub, python, python-qt
-, qmake, qtwebengine, qtxmlpatterns, rtmidi, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  csound,
+  desktop-file-utils,
+  fetchFromGitHub,
+  python,
+  python-qt,
+  qmake,
+  qtwebengine,
+  qtxmlpatterns,
+  rtmidi,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "csound-qt";

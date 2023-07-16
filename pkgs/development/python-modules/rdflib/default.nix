@@ -1,19 +1,32 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder
 
-# propagates
-, isodate, pyparsing
+  # propagates
+  ,
+  isodate,
+  pyparsing
 
-# propagates <3.8
-, importlib-metadata
+  # propagates <3.8
+  ,
+  importlib-metadata
 
-# extras: networkx
-, networkx
+  # extras: networkx
+  ,
+  networkx
 
-# extras: html
-, html5lib
+  # extras: html
+  ,
+  html5lib
 
-# tests
-, pytest-cov, pytestCheckHook }:
+  # tests
+  ,
+  pytest-cov,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "rdflib";

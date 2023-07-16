@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, grpcio }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  grpcio,
+}:
 
 buildPythonPackage rec {
   pname = "grpcio-gcp";

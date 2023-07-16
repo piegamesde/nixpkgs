@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pytest-runner }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pytest-runner,
+}:
 
 buildPythonPackage rec {
   pname = "mwparserfromhell";

@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, fetchpatch, makeBinaryWrapper, ffmpeg }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchpatch,
+  makeBinaryWrapper,
+  ffmpeg,
+}:
 
 buildGoModule rec {
   pname = "ytarchive";

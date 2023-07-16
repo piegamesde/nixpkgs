@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, ladspa-sdk }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ladspa-sdk,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "tap-plugins";

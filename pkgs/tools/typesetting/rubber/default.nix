@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitLab, python3Packages, texinfo }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  python3Packages,
+  texinfo,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "rubber";

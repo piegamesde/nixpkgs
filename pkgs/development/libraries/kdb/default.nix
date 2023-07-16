@@ -1,5 +1,17 @@
-{ mkDerivation, lib, fetchurl, fetchpatch, extra-cmake-modules, qtbase
-, qttranslations, kcoreaddons, python3, sqlite, postgresql, libmysqlclient }:
+{
+  mkDerivation,
+  lib,
+  fetchurl,
+  fetchpatch,
+  extra-cmake-modules,
+  qtbase,
+  qttranslations,
+  kcoreaddons,
+  python3,
+  sqlite,
+  postgresql,
+  libmysqlclient,
+}:
 
 mkDerivation rec {
   pname = "kdb";

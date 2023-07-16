@@ -1,6 +1,20 @@
-{ lib, fetchurl, intltool, python3Packages, gobject-introspection, gtk3, itstool
-, libwnck, keybinder3, desktop-file-utils, shared-mime-info, wrapGAppsHook
-, wafHook, bash, dbus }:
+{
+  lib,
+  fetchurl,
+  intltool,
+  python3Packages,
+  gobject-introspection,
+  gtk3,
+  itstool,
+  libwnck,
+  keybinder3,
+  desktop-file-utils,
+  shared-mime-info,
+  wrapGAppsHook,
+  wafHook,
+  bash,
+  dbus,
+}:
 
 with python3Packages;
 

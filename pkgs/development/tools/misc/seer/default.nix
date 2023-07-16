@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, qtcharts, qtbase, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  qtcharts,
+  qtbase,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "seer";

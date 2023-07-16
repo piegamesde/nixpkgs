@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, fetchpatch, boost, dash, freetype, libpng, pkg-config
-, SDL, which, zlib, nasm }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  boost,
+  dash,
+  freetype,
+  libpng,
+  pkg-config,
+  SDL,
+  which,
+  zlib,
+  nasm,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mupen64plus";

@@ -1,92 +1,102 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.awstats;
   package = pkgs.awstats;
-  configOpts = { name, config, ... }: {
-    options = {
-      type = mkOption {
-        type = types.enum [ "mail" "web" ];
-        default = "web";
-        example = "mail";
-        description = lib.mdDoc ''
-          The type of log being collected.
-        '';
-      };
-      domain = mkOption {
-        type = types.str;
-        default = name;
-        description = lib.mdDoc "The domain name to collect stats for.";
-        example = "example.com";
-      };
-
-      logFile = mkOption {
-        type = types.str;
-        example = "/var/log/nginx/access.log";
-        description = lib.mdDoc ''
-          The log file to be scanned.
-
-          For mail, set this to
-          ```
-          journalctl $OLD_CURSOR -u postfix.service | ''${pkgs.perl}/bin/perl ''${pkgs.awstats.out}/share/awstats/tools/maillogconvert.pl standard |
-          ```
-        '';
-      };
-
-      logFormat = mkOption {
-        type = types.str;
-        default = "1";
-        description = lib.mdDoc ''
-          The log format being used.
-
-          For mail, set this to
-          ```
-          %time2 %email %email_r %host %host_r %method %url %code %bytesd
-          ```
-        '';
-      };
-
-      hostAliases = mkOption {
-        type = types.listOf types.str;
-        default = [ ];
-        example = [ "www.example.org" ];
-        description = lib.mdDoc ''
-          List of aliases the site has.
-        '';
-      };
-
-      extraConfig = mkOption {
-        type = types.attrsOf types.str;
-        default = { };
-        example = literalExpression ''
-          {
-            "ValidHTTPCodes" = "404";
-          }
-        '';
-        description = lib.mdDoc
-          "Extra configuration to be appended to awstats.\${name}.conf.";
-      };
-
-      webService = {
-        enable = mkEnableOption (lib.mdDoc "awstats web service");
-
-        hostname = mkOption {
+  configOpts = {
+      name,
+      config,
+      ...
+    }: {
+      options = {
+        type = mkOption {
+          type = types.enum [ "mail" "web" ];
+          default = "web";
+          example = "mail";
+          description = lib.mdDoc ''
+            The type of log being collected.
+          '';
+        };
+        domain = mkOption {
           type = types.str;
-          default = config.domain;
-          description = lib.mdDoc "The hostname the web service appears under.";
+          default = name;
+          description = lib.mdDoc "The domain name to collect stats for.";
+          example = "example.com";
         };
 
-        urlPrefix = mkOption {
+        logFile = mkOption {
           type = types.str;
-          default = "/awstats";
-          description =
-            lib.mdDoc "The URL prefix under which the awstats pages appear.";
+          example = "/var/log/nginx/access.log";
+          description = lib.mdDoc ''
+            The log file to be scanned.
+
+            For mail, set this to
+            ```
+            journalctl $OLD_CURSOR -u postfix.service | ''${pkgs.perl}/bin/perl ''${pkgs.awstats.out}/share/awstats/tools/maillogconvert.pl standard |
+            ```
+          '';
+        };
+
+        logFormat = mkOption {
+          type = types.str;
+          default = "1";
+          description = lib.mdDoc ''
+            The log format being used.
+
+            For mail, set this to
+            ```
+            %time2 %email %email_r %host %host_r %method %url %code %bytesd
+            ```
+          '';
+        };
+
+        hostAliases = mkOption {
+          type = types.listOf types.str;
+          default = [ ];
+          example = [ "www.example.org" ];
+          description = lib.mdDoc ''
+            List of aliases the site has.
+          '';
+        };
+
+        extraConfig = mkOption {
+          type = types.attrsOf types.str;
+          default = { };
+          example = literalExpression ''
+            {
+              "ValidHTTPCodes" = "404";
+            }
+          '';
+          description = lib.mdDoc
+            "Extra configuration to be appended to awstats.\${name}.conf.";
+        };
+
+        webService = {
+          enable = mkEnableOption (lib.mdDoc "awstats web service");
+
+          hostname = mkOption {
+            type = types.str;
+            default = config.domain;
+            description =
+              lib.mdDoc "The hostname the web service appears under.";
+          };
+
+          urlPrefix = mkOption {
+            type = types.str;
+            default = "/awstats";
+            description =
+              lib.mdDoc "The URL prefix under which the awstats pages appear.";
+          };
         };
       };
     };
-  };
   webServices = filterAttrs (name: value: value.webService.enable) cfg.configs;
 in {
   imports = [

@@ -1,4 +1,10 @@
-{ fetchurl, lib, stdenv, libidn, libkrb5 }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  libidn,
+  libkrb5,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gsasl";

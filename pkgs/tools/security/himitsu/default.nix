@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromSourcehut, hare, scdoc }:
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  hare,
+  scdoc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "himitsu";

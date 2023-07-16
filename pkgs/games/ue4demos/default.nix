@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, unzip, patchelf, xorg, openal }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  patchelf,
+  xorg,
+  openal,
+}:
 
 let
   urls = file: [
@@ -7,7 +15,10 @@ let
     "https://web.archive.org/web/20140824192039/http://ue4linux.raxxy.com/${file}"
   ];
 
-  buildDemo = { name, src }:
+  buildDemo = {
+      name,
+      src,
+    }:
     stdenv.mkDerivation rec {
       inherit name src;
 

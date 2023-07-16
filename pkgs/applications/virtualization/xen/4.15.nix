@@ -1,15 +1,41 @@
-{ lib, callPackage, fetchurl, fetchpatch, fetchgit, ocaml-ng
-, withInternalQemu ? true, withInternalTraditionalQemu ? true
-, withInternalSeabios ? true, withSeabios ? !withInternalSeabios, seabios
-, withInternalOVMF ? false # FIXME: tricky to build
-, withOVMF ? false, OVMF, withLibHVM ? false
+{
+  lib,
+  callPackage,
+  fetchurl,
+  fetchpatch,
+  fetchgit,
+  ocaml-ng,
+  withInternalQemu ? true,
+  withInternalTraditionalQemu ? true,
+  withInternalSeabios ? true,
+  withSeabios ? !withInternalSeabios,
+  seabios,
+  withInternalOVMF ? false # FIXME: tricky to build
+  ,
+  withOVMF ? false,
+  OVMF,
+  withLibHVM ? false
 
-  # xen
-, python3Packages
+    # xen
+  ,
+  python3Packages
 
-# qemu
-, udev, pciutils, xorg, SDL, pixman, acl, glusterfs, spice-protocol, usbredir
-, alsa-lib, glib, python3, ... }@args:
+  # qemu
+  ,
+  udev,
+  pciutils,
+  xorg,
+  SDL,
+  pixman,
+  acl,
+  glusterfs,
+  spice-protocol,
+  usbredir,
+  alsa-lib,
+  glib,
+  python3,
+  ...
+}@args:
 
 assert withInternalSeabios -> !withSeabios;
 assert withInternalOVMF -> !withOVMF;

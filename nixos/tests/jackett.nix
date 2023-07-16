@@ -1,4 +1,7 @@
-import ./make-test-python.nix ({ lib, ... }:
+import ./make-test-python.nix ({
+    lib,
+    ...
+  }:
 
   with lib;
 
@@ -6,7 +9,12 @@ import ./make-test-python.nix ({ lib, ... }:
     name = "jackett";
     meta.maintainers = with maintainers; [ etu ];
 
-    nodes.machine = { pkgs, ... }: { services.jackett.enable = true; };
+    nodes.machine = {
+        pkgs,
+        ...
+      }: {
+        services.jackett.enable = true;
+      };
 
     testScript = ''
       machine.start()

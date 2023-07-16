@@ -1,16 +1,55 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, attrs, argon2-cffi, base58
-, cbor2, cffi, click, cryptography, ecdsa, eth-abi, eth-account, flatbuffers
-, jinja2, hkdf, hyperlink, mnemonic, mock, msgpack, passlib, py-ecc
-, py-eth-sig-utils, py-multihash, py-ubjson, pynacl, pygobject3, pyopenssl
-, qrcode, pytest-asyncio, python-snappy, pytestCheckHook, pythonOlder
-# , pytrie
-, rlp, service-identity, spake2, twisted, txaio, ujson
-# , web3
-# , wsaccel
-# , xbr
-, yapf
-# , zlmdb
-, zope_interface }@args:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  attrs,
+  argon2-cffi,
+  base58,
+  cbor2,
+  cffi,
+  click,
+  cryptography,
+  ecdsa,
+  eth-abi,
+  eth-account,
+  flatbuffers,
+  jinja2,
+  hkdf,
+  hyperlink,
+  mnemonic,
+  mock,
+  msgpack,
+  passlib,
+  py-ecc,
+  py-eth-sig-utils,
+  py-multihash,
+  py-ubjson,
+  pynacl,
+  pygobject3,
+  pyopenssl,
+  qrcode,
+  pytest-asyncio,
+  python-snappy,
+  pytestCheckHook,
+  pythonOlder
+  # , pytrie
+  ,
+  rlp,
+  service-identity,
+  spake2,
+  twisted,
+  txaio,
+  ujson
+  # , web3
+  # , wsaccel
+  # , xbr
+  ,
+  yapf
+  # , zlmdb
+  ,
+  zope_interface,
+}@args:
 
 buildPythonPackage rec {
   pname = "autobahn";

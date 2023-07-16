@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools, pytestCheckHook, pytz }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  pytestCheckHook,
+  pytz,
+}:
 
 buildPythonPackage rec {
   pname = "ciso8601";

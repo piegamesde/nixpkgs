@@ -1,18 +1,28 @@
 # Arguments that this derivation gets when it is created with `callPackage`
-{ stdenv, lib, makeWrapper, symlinkJoin, yt-dlp }:
+{
+  stdenv,
+  lib,
+  makeWrapper,
+  symlinkJoin,
+  yt-dlp,
+}:
 
 # the unwrapped mpv derivation - 1st argument to `wrapMpv`
 mpv:
 
 let
   # arguments to the function (exposed as `wrapMpv` in all-packages.nix)
-  wrapper = { extraMakeWrapperArgs ? [ ], youtubeSupport ? true,
-    # a set of derivations (probably from `mpvScripts`) where each is
-    # expected to have a `scriptName` passthru attribute that points to the
-    # name of the script that would reside in the script's derivation's
-    # `$out/share/mpv/scripts/`.
-    # A script can optionally also provide an `extraWrapperArgs` passthru attribute.
-    scripts ? [ ], extraUmpvWrapperArgs ? [ ] }:
+  wrapper = {
+      extraMakeWrapperArgs ? [ ],
+      youtubeSupport ? true,
+      # a set of derivations (probably from `mpvScripts`) where each is
+      # expected to have a `scriptName` passthru attribute that points to the
+      # name of the script that would reside in the script's derivation's
+      # `$out/share/mpv/scripts/`.
+      # A script can optionally also provide an `extraWrapperArgs` passthru attribute.
+      scripts ? [ ],
+      extraUmpvWrapperArgs ? [ ]
+    }:
     let
       binPath = lib.makeBinPath ([ mpv.luaEnv ]
         ++ lib.optionals youtubeSupport [ yt-dlp ]

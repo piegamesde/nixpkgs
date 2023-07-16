@@ -1,12 +1,65 @@
-{ lib, stdenv, fetchurl, config, wrapGAppsHook, alsa-lib, atk, cairo, curl, cups
-, dbus-glib, dbus, fontconfig, freetype, gdk-pixbuf, glib, glibc, gtk3, libkrb5
-, libX11, libXScrnSaver, libxcb, libXcomposite, libXcursor, libXdamage, libXext
-, libXfixes, libXi, libXinerama, libXrender, libXrandr, libXt, libXtst
-, libcanberra, libnotify, adwaita-icon-theme, libGLU, libGL, nspr, nss, pango
-, pipewire, pciutils, heimdal, libpulseaudio, systemd, channel, generated
-, writeScript, writeText, xidel, coreutils, gnused, gnugrep, gnupg, ffmpeg
-, runtimeShell, mesa # firefox wants gbm for drm+dmabuf
-, systemLocale ? config.i18n.defaultLocale or "en_US" }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  config,
+  wrapGAppsHook,
+  alsa-lib,
+  atk,
+  cairo,
+  curl,
+  cups,
+  dbus-glib,
+  dbus,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  glibc,
+  gtk3,
+  libkrb5,
+  libX11,
+  libXScrnSaver,
+  libxcb,
+  libXcomposite,
+  libXcursor,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXi,
+  libXinerama,
+  libXrender,
+  libXrandr,
+  libXt,
+  libXtst,
+  libcanberra,
+  libnotify,
+  adwaita-icon-theme,
+  libGLU,
+  libGL,
+  nspr,
+  nss,
+  pango,
+  pipewire,
+  pciutils,
+  heimdal,
+  libpulseaudio,
+  systemd,
+  channel,
+  generated,
+  writeScript,
+  writeText,
+  xidel,
+  coreutils,
+  gnused,
+  gnugrep,
+  gnupg,
+  ffmpeg,
+  runtimeShell,
+  mesa # firefox wants gbm for drm+dmabuf
+  ,
+  systemLocale ? config.i18n.defaultLocale or "en_US"
+}:
 
 let
 

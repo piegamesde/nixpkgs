@@ -1,5 +1,15 @@
-{ atomEnv, autoPatchelfHook, dpkg, fetchurl, makeDesktopItem, makeWrapper, lib
-, stdenv, udev, wrapGAppsHook }:
+{
+  atomEnv,
+  autoPatchelfHook,
+  dpkg,
+  fetchurl,
+  makeDesktopItem,
+  makeWrapper,
+  lib,
+  stdenv,
+  udev,
+  wrapGAppsHook,
+}:
 
 let
   inherit (stdenv.hostPlatform) system;

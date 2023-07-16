@@ -1,4 +1,9 @@
-{ build-idris-package, fetchFromGitHub, pruviloj, lib }:
+{
+  build-idris-package,
+  fetchFromGitHub,
+  pruviloj,
+  lib,
+}:
 build-idris-package {
   pname = "descncrunch";
   version = "2017-11-15";

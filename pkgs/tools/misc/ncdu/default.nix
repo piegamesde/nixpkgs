@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, zig, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zig,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ncdu";

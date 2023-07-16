@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, jsonpickle, mock, pytest
-, pytestCheckHook, requests, responses }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy3k,
+  jsonpickle,
+  mock,
+  pytest,
+  pytestCheckHook,
+  requests,
+  responses,
+}:
 
 buildPythonPackage rec {
   pname = "python-digitalocean";

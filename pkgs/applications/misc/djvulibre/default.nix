@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, libjpeg, libtiff, librsvg, libiconv, bash }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libjpeg,
+  libtiff,
+  librsvg,
+  libiconv,
+  bash,
+}:
 
 stdenv.mkDerivation rec {
   pname = "djvulibre";

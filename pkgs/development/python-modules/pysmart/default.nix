@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, smartmontools, humanfriendly
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  smartmontools,
+  humanfriendly,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pysmart";

@@ -1,4 +1,6 @@
-{ callPackage }:
+{
+  callPackage,
+}:
 
 rec {
   mlton20130715 = callPackage ./20130715.nix { };

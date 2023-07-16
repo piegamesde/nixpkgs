@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, intltool, pkg-config, glib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  intltool,
+  pkg-config,
+  glib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnu-mdk";

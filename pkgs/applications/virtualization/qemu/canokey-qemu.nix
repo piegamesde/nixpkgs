@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, cmake, }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+}:
 stdenv.mkDerivation rec {
   pname = "canokey-qemu";
   version = "unstable-2022-06-23";

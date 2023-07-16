@@ -1,4 +1,8 @@
-{ lib, rustPlatform, fetchgit }:
+{
+  lib,
+  rustPlatform,
+  fetchgit,
+}:
 
 let
   pname = "engage";

@@ -1,8 +1,30 @@
-{ lib, stdenv, fetchFromGitLab, fetchpatch, pkg-config, rsync, libxslt, meson
-, ninja, python3, dbus, umockdev, libeatmydata, gtk-doc, docbook-xsl-nons, udev
-, libgudev, libusb1, glib, gobject-introspection, gettext, systemd
-, useIMobileDevice ? true, libimobiledevice
-, withDocs ? (stdenv.buildPlatform == stdenv.hostPlatform) }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch,
+  pkg-config,
+  rsync,
+  libxslt,
+  meson,
+  ninja,
+  python3,
+  dbus,
+  umockdev,
+  libeatmydata,
+  gtk-doc,
+  docbook-xsl-nons,
+  udev,
+  libgudev,
+  libusb1,
+  glib,
+  gobject-introspection,
+  gettext,
+  systemd,
+  useIMobileDevice ? true,
+  libimobiledevice,
+  withDocs ? (stdenv.buildPlatform == stdenv.hostPlatform)
+}:
 
 stdenv.mkDerivation rec {
   pname = "upower";

@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchurl, makeWrapper, autoPatchelfHook, jdk8_headless
-, jdk11_headless, bash, coreutils, which, bzip2, cyrus_sasl, protobuf, snappy
-, zlib, zstd, openssl, glibc, nixosTests, sparkSupport ? true, spark }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  autoPatchelfHook,
+  jdk8_headless,
+  jdk11_headless,
+  bash,
+  coreutils,
+  which,
+  bzip2,
+  cyrus_sasl,
+  protobuf,
+  snappy,
+  zlib,
+  zstd,
+  openssl,
+  glibc,
+  nixosTests,
+  sparkSupport ? true,
+  spark,
+}:
 
 with lib;
 
@@ -12,8 +32,16 @@ assert elem stdenv.system [
 ];
 
 let
-  common = { pname, platformAttrs, untarDir ? "${pname}-${version}", jdk
-    , openssl ? null, nativeLibs ? [ ], libPatches ? "", tests }:
+  common = {
+      pname,
+      platformAttrs,
+      untarDir ? "${pname}-${version}",
+      jdk,
+      openssl ? null,
+      nativeLibs ? [ ],
+      libPatches ? "",
+      tests,
+    }:
     stdenv.mkDerivation rec {
       inherit pname jdk libPatches untarDir openssl;
       version = platformAttrs.${stdenv.system}.version or (throw

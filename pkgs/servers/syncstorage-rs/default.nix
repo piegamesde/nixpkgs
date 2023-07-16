@@ -1,5 +1,14 @@
-{ fetchFromGitHub, rustPlatform, pkg-config, python3, openssl, cmake
-, libmysqlclient, makeBinaryWrapper, lib }:
+{
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  python3,
+  openssl,
+  cmake,
+  libmysqlclient,
+  makeBinaryWrapper,
+  lib,
+}:
 
 let
   pyFxADeps = python3.withPackages (p: [

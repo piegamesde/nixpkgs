@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, go-bindata }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  go-bindata,
+}:
 
 buildGoModule rec {
   pname = "writefreely";

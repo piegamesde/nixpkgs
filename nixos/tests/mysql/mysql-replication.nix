@@ -1,5 +1,9 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../../.. { inherit system config; }, lib ? pkgs.lib }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../../.. { inherit system config; },
+  lib ? pkgs.lib
+}:
 
 let
   inherit (import ./common.nix { inherit pkgs lib; })
@@ -10,7 +14,10 @@ let
 
   makeTest = import ./../make-test-python.nix;
 
-  makeReplicationTest = { package, name ? mkTestName package, }:
+  makeReplicationTest = {
+      package,
+      name ? mkTestName package,
+    }:
     makeTest {
       name = "${name}-replication";
       meta = with pkgs.lib.maintainers; { maintainers = [ ajs124 das_j ]; };
@@ -32,29 +39,35 @@ let
           networking.firewall.allowedTCPPorts = [ 3306 ];
         };
 
-        secondary1 = { nodes, ... }: {
-          services.mysql = {
-            inherit package;
-            enable = true;
-            replication.role = "slave";
-            replication.serverId = 2;
-            replication.masterHost = nodes.primary.config.networking.hostName;
-            replication.masterUser = replicateUser;
-            replication.masterPassword = replicatePassword;
+        secondary1 = {
+            nodes,
+            ...
+          }: {
+            services.mysql = {
+              inherit package;
+              enable = true;
+              replication.role = "slave";
+              replication.serverId = 2;
+              replication.masterHost = nodes.primary.config.networking.hostName;
+              replication.masterUser = replicateUser;
+              replication.masterPassword = replicatePassword;
+            };
           };
-        };
 
-        secondary2 = { nodes, ... }: {
-          services.mysql = {
-            inherit package;
-            enable = true;
-            replication.role = "slave";
-            replication.serverId = 3;
-            replication.masterHost = nodes.primary.config.networking.hostName;
-            replication.masterUser = replicateUser;
-            replication.masterPassword = replicatePassword;
+        secondary2 = {
+            nodes,
+            ...
+          }: {
+            services.mysql = {
+              inherit package;
+              enable = true;
+              replication.role = "slave";
+              replication.serverId = 3;
+              replication.masterHost = nodes.primary.config.networking.hostName;
+              replication.masterUser = replicateUser;
+              replication.masterPassword = replicatePassword;
+            };
           };
-        };
       };
 
       testScript = ''

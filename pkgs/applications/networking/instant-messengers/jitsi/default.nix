@@ -1,6 +1,20 @@
-{ stdenv, lib, fetchFromGitHub, makeDesktopItem, unzip, ant, jdk8
-# Optional, Jitsi still runs without, but you may pass null:
-, alsa-lib, dbus, gtk2, libpulseaudio, openssl, xorg }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  makeDesktopItem,
+  unzip,
+  ant,
+  jdk8
+  # Optional, Jitsi still runs without, but you may pass null:
+  ,
+  alsa-lib,
+  dbus,
+  gtk2,
+  libpulseaudio,
+  openssl,
+  xorg,
+}:
 
 let jdk = jdk8;
 in stdenv.mkDerivation rec {

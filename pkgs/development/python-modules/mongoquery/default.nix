@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, six, isPy27 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  isPy27,
+}:
 
 buildPythonPackage rec {
   pname = "mongoquery";

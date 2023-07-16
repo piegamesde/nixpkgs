@@ -1,4 +1,12 @@
-{ fetchFromGitHub, bashInteractive, jq, makeWrapper, p7zip, lib, stdenv }:
+{
+  fetchFromGitHub,
+  bashInteractive,
+  jq,
+  makeWrapper,
+  p7zip,
+  lib,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "r2mod_cli";

@@ -1,5 +1,13 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, jsonrpc-base
-, pytest-aiohttp, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jsonrpc-base,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "jsonrpc-async";

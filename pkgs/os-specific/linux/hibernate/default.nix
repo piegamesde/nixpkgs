@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, gawk }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gawk,
+}:
 
 let version = "2.0";
 in stdenv.mkDerivation {

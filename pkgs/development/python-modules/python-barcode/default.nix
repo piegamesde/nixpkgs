@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools-scm, pillow
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools-scm,
+  pillow,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "python-barcode";

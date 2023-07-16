@@ -1,4 +1,9 @@
-{ appimageTools, lib, fetchurl, stdenv }:
+{
+  appimageTools,
+  lib,
+  fetchurl,
+  stdenv,
+}:
 let
 
   pname = "golden-cheetah";

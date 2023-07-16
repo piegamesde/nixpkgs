@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gtest }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gtest,
+}:
 stdenv.mkDerivation rec {
   pname = "xsimd";
   version = "9.0.1";

@@ -1,6 +1,9 @@
 # https://github.com/siers/nix-gitignore/
 
-{ lib, runCommand }:
+{
+  lib,
+  runCommand,
+}:
 
 # An interesting bit from the gitignore(5):
 # - A slash followed by two consecutive asterisks then a slash matches

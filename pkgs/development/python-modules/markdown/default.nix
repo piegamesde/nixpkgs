@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, importlib-metadata
-, pyyaml, setuptools, unittestCheckHook, wheel }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  importlib-metadata,
+  pyyaml,
+  setuptools,
+  unittestCheckHook,
+  wheel,
+}:
 
 buildPythonPackage rec {
   pname = "markdown";

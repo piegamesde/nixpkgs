@@ -1,5 +1,13 @@
-{ buildPythonPackage, fetchPypi, setuptools, h2, lib, pyjwt, pyopenssl
-, pythonOlder }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  h2,
+  lib,
+  pyjwt,
+  pyopenssl,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aioapns";

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, cryptography, pytestCheckHook, pythonOlder
-, sphinxHook, sphinx-rtd-theme, zope_interface }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cryptography,
+  pytestCheckHook,
+  pythonOlder,
+  sphinxHook,
+  sphinx-rtd-theme,
+  zope_interface,
+}:
 
 buildPythonPackage rec {
   pname = "pyjwt";

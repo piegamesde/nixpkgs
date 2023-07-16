@@ -1,5 +1,14 @@
-{ lib, fetchurl, buildDunePackage, alcotest, base64, cmdliner, rresult, xmlm
-, yojson }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  alcotest,
+  base64,
+  cmdliner,
+  rresult,
+  xmlm,
+  yojson,
+}:
 
 buildDunePackage rec {
   pname = "rpclib";

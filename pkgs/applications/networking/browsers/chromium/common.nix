@@ -1,36 +1,107 @@
-{ stdenv, lib, fetchurl, fetchpatch
-# Channel data:
-, channel, upstream-info
-# Helper functions:
-, chromiumVersionAtLeast, versionRange
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch
+  # Channel data:
+  ,
+  channel,
+  upstream-info
+  # Helper functions:
+  ,
+  chromiumVersionAtLeast,
+  versionRange
 
-# Native build inputs:
-, ninja, pkg-config, python3, perl, which, llvmPackages
-# postPatch:
-, pkgsBuildHost
-# configurePhase:
-, gnChromium
+  # Native build inputs:
+  ,
+  ninja,
+  pkg-config,
+  python3,
+  perl,
+  which,
+  llvmPackages
+  # postPatch:
+  ,
+  pkgsBuildHost
+  # configurePhase:
+  ,
+  gnChromium
 
-# Build inputs:
-, libpng, bzip2, flac, speex, libopus, libevent, expat, libjpeg, snappy, libcap
-, xdg-utils, minizip, libwebp, libusb1, re2, ffmpeg, libxslt, libxml2, nasm
-, nspr, nss, util-linux, alsa-lib, bison, gperf, libkrb5, glib, gtk3, dbus-glib
-, libXScrnSaver, libXcursor, libXtst, libxshmfence, libGLU, libGL, mesa
-, pciutils, protobuf, speechd, libXdamage, at-spi2-core, pipewire, libva, libdrm
-, wayland, libxkbcommon # Ozone
-, curl, libffi, libepoxy
-# postPatch:
-, glibc # gconv + locale
-# postFixup:
-, vulkan-loader
+  # Build inputs:
+  ,
+  libpng,
+  bzip2,
+  flac,
+  speex,
+  libopus,
+  libevent,
+  expat,
+  libjpeg,
+  snappy,
+  libcap,
+  xdg-utils,
+  minizip,
+  libwebp,
+  libusb1,
+  re2,
+  ffmpeg,
+  libxslt,
+  libxml2,
+  nasm,
+  nspr,
+  nss,
+  util-linux,
+  alsa-lib,
+  bison,
+  gperf,
+  libkrb5,
+  glib,
+  gtk3,
+  dbus-glib,
+  libXScrnSaver,
+  libXcursor,
+  libXtst,
+  libxshmfence,
+  libGLU,
+  libGL,
+  mesa,
+  pciutils,
+  protobuf,
+  speechd,
+  libXdamage,
+  at-spi2-core,
+  pipewire,
+  libva,
+  libdrm,
+  wayland,
+  libxkbcommon # Ozone
+  ,
+  curl,
+  libffi,
+  libepoxy
+  # postPatch:
+  ,
+  glibc # gconv + locale
+  # postFixup:
+  ,
+  vulkan-loader
 
-# Package customization:
-, cupsSupport ? true, cups ? null, proprietaryCodecs ? true
-, pulseSupport ? false, libpulseaudio ? null, ungoogled ? false
-, ungoogled-chromium
-# Optional dependencies:
-, libgcrypt ? null # cupsSupport
-, systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd }:
+  # Package customization:
+  ,
+  cupsSupport ? true,
+  cups ? null,
+  proprietaryCodecs ? true,
+  pulseSupport ? false,
+  libpulseaudio ? null,
+  ungoogled ? false,
+  ungoogled-chromium
+  # Optional dependencies:
+  ,
+  libgcrypt ? null # cupsSupport
+  ,
+  systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
+  systemd,
+}:
 
 buildFun:
 
@@ -47,7 +118,11 @@ let
   # source tree.
   extraAttrs = buildFun base;
 
-  githubPatch = { commit, sha256, revert ? false }:
+  githubPatch = {
+      commit,
+      sha256,
+      revert ? false
+    }:
     fetchpatch {
       url = "https://github.com/chromium/chromium/commit/${commit}.patch";
       inherit sha256 revert;

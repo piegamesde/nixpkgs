@@ -1,6 +1,17 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, wrapQtAppsHook
-, qtdeclarative, qtgraphicaleffects, qtquickcontrols2, kirigami2, kpurpose
-, gst_all_1, pcre }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  wrapQtAppsHook,
+  qtdeclarative,
+  qtgraphicaleffects,
+  qtquickcontrols2,
+  kirigami2,
+  kpurpose,
+  gst_all_1,
+  pcre,
+}:
 
 let
   gst = with gst_all_1; [

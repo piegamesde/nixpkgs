@@ -1,5 +1,10 @@
-{ lib, buildPythonApplication, nix-update-script, python3Packages
-, fetchFromGitHub }:
+{
+  lib,
+  buildPythonApplication,
+  nix-update-script,
+  python3Packages,
+  fetchFromGitHub,
+}:
 
 buildPythonApplication rec {
   pname = "vpn-slice";

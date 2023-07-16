@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, setuptools-scm, pydantic
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  setuptools-scm,
+  pydantic,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "inflect";

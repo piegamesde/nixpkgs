@@ -1,4 +1,12 @@
-{ lib, mkDerivation, fetchurl, libpulseaudio, alsa-lib, pkg-config, qtbase }:
+{
+  lib,
+  mkDerivation,
+  fetchurl,
+  libpulseaudio,
+  alsa-lib,
+  pkg-config,
+  qtbase,
+}:
 
 mkDerivation rec {
   pname = "unixcw";

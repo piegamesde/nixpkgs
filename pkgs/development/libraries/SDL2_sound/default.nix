@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, cmake, SDL2, flac, libmikmod
-, libvorbis, timidity, AudioToolbox, CoreAudio }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  SDL2,
+  flac,
+  libmikmod,
+  libvorbis,
+  timidity,
+  AudioToolbox,
+  CoreAudio,
+}:
 
 stdenv.mkDerivation rec {
   pname = "SDL2_sound";

@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, cython_3, fetchPypi, future, pytestCheckHook
-, pythonAtLeast, pythonOlder, setuptools, setuptools-scm, toolz }:
+{
+  lib,
+  buildPythonPackage,
+  cython_3,
+  fetchPypi,
+  future,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+  setuptools,
+  setuptools-scm,
+  toolz,
+}:
 
 buildPythonPackage rec {
   pname = "in-n-out";

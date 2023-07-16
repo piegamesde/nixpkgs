@@ -1,7 +1,11 @@
 # Checks derivation meta and attrs for problems (like brokenness,
 # licenses, etc).
 
-{ lib, config, hostPlatform }:
+{
+  lib,
+  config,
+  hostPlatform,
+}:
 
 let
   # If we're in hydra, we can dispense with the more verbose error
@@ -231,8 +235,14 @@ let
       (builtins.map (output: "  - ${output}\n") missingOutputs)}
     '';
 
-  handleEvalIssue = { meta, attrs }:
-    { reason, errormsg ? "" }:
+  handleEvalIssue = {
+      meta,
+      attrs,
+    }:
+    {
+      reason,
+      errormsg ? ""
+    }:
     let
       msg = if inHydra then
         "Failed to evaluate ${getName attrs}: «${reason}»: ${errormsg}"
@@ -250,8 +260,14 @@ let
         throw;
     in handler msg;
 
-  handleEvalWarning = { meta, attrs }:
-    { reason, errormsg ? "" }:
+  handleEvalWarning = {
+      meta,
+      attrs,
+    }:
+    {
+      reason,
+      errormsg ? ""
+    }:
     let
       remediationMsg = (builtins.getAttr reason remediation) attrs;
       msg = if inHydra then
@@ -470,7 +486,12 @@ let
   # Example:
   #   meta = checkMeta.commonMeta { inherit validity attrs pos references; };
   #   validity = checkMeta.assertValidity { inherit meta attrs; };
-  commonMeta = { validity, attrs, pos ? null, references ? [ ] }:
+  commonMeta = {
+      validity,
+      attrs,
+      pos ? null,
+      references ? [ ]
+    }:
     let outputs = attrs.outputs or [ "out" ];
     in {
       # `name` derivation attribute includes cross-compilation cruft,
@@ -506,7 +527,10 @@ let
           true);
     };
 
-  assertValidity = { meta, attrs }:
+  assertValidity = {
+      meta,
+      attrs,
+    }:
     let validity = checkValidity attrs;
     in validity // {
       # Throw an error if trying to evaluate a non-valid derivation

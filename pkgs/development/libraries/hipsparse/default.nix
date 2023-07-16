@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-cmake, rocsparse
-, hip, gfortran, git, gtest, openmp, buildTests ? false, buildSamples ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  cmake,
+  rocm-cmake,
+  rocsparse,
+  hip,
+  gfortran,
+  git,
+  gtest,
+  openmp,
+  buildTests ? false,
+  buildSamples ? false
+}:
 
 # This can also use cuSPARSE as a backend instead of rocSPARSE
 stdenv.mkDerivation (finalAttrs: {

@@ -1,5 +1,9 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; }, systemdStage1 ? false }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; },
+  systemdStage1 ? false
+}:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -7,8 +11,15 @@ with pkgs.lib;
 let
 
   # The configuration to install.
-  makeConfig = { bootLoader, grubVersion, grubDevice, grubIdentifier, grubUseEfi
-    , extraConfig, forceGrubReinstallCount ? 0 }:
+  makeConfig = {
+      bootLoader,
+      grubVersion,
+      grubDevice,
+      grubIdentifier,
+      grubUseEfi,
+      extraConfig,
+      forceGrubReinstallCount ? 0
+    }:
     pkgs.writeText "configuration.nix" ''
       { config, lib, pkgs, modulesPath, ... }:
 
@@ -71,9 +82,18 @@ let
   # disk, and then reboot from the hard disk.  It's parameterized with
   # a test script fragment `createPartitions', which must create
   # partitions and filesystems.
-  testScriptFun = { bootLoader, createPartitions, grubVersion, grubDevice
-    , grubUseEfi, grubIdentifier, preBootCommands, postBootCommands, extraConfig
-    , testSpecialisationConfig }:
+  testScriptFun = {
+      bootLoader,
+      createPartitions,
+      grubVersion,
+      grubDevice,
+      grubUseEfi,
+      grubIdentifier,
+      preBootCommands,
+      postBootCommands,
+      extraConfig,
+      testSpecialisationConfig,
+    }:
     let
       iface = if grubVersion == 1 then "ide" else "virtio";
       isEfi = bootLoader == "systemd-boot"
@@ -291,12 +311,22 @@ let
       '';
 
   makeInstallerTest = name:
-    { createPartitions, preBootCommands ? "", postBootCommands ? ""
-    , extraConfig ? "", extraInstallerConfig ? { }
-    , bootLoader ? "grub" # either "grub" or "systemd-boot"
-    , grubVersion ? 2, grubDevice ? "/dev/vda", grubIdentifier ? "uuid"
-    , grubUseEfi ? false, enableOCR ? false, meta ? { }
-    , testSpecialisationConfig ? false }:
+    {
+      createPartitions,
+      preBootCommands ? "",
+      postBootCommands ? "",
+      extraConfig ? "",
+      extraInstallerConfig ? { },
+      bootLoader ? "grub" # either "grub" or "systemd-boot"
+      ,
+      grubVersion ? 2,
+      grubDevice ? "/dev/vda",
+      grubIdentifier ? "uuid",
+      grubUseEfi ? false,
+      enableOCR ? false,
+      meta ? { },
+      testSpecialisationConfig ? false
+    }:
     makeTest {
       inherit enableOCR;
       name = "installer-" + name;
@@ -307,96 +337,99 @@ let
       nodes = {
 
         # The configuration of the machine used to run "nixos-install".
-        machine = { pkgs, ... }: {
-          imports = [
-            ../modules/profiles/installation-device.nix
-            ../modules/profiles/base.nix
-            extraInstallerConfig
-          ];
+        machine = {
+            pkgs,
+            ...
+          }: {
+            imports = [
+              ../modules/profiles/installation-device.nix
+              ../modules/profiles/base.nix
+              extraInstallerConfig
+            ];
 
-          # builds stuff in the VM, needs more juice
-          virtualisation.diskSize = 8 * 1024;
-          virtualisation.cores = 8;
-          virtualisation.memorySize = 1536;
+            # builds stuff in the VM, needs more juice
+            virtualisation.diskSize = 8 * 1024;
+            virtualisation.cores = 8;
+            virtualisation.memorySize = 1536;
 
-          boot.initrd.systemd.enable = systemdStage1;
+            boot.initrd.systemd.enable = systemdStage1;
 
-          # Use a small /dev/vdb as the root disk for the
-          # installer. This ensures the target disk (/dev/vda) is
-          # the same during and after installation.
-          virtualisation.emptyDiskImages = [ 512 ];
-          virtualisation.rootDevice = if grubVersion == 1 then
-            "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive2"
-          else
-            "/dev/vdb";
-          virtualisation.bootLoaderDevice = "/dev/vda";
-          virtualisation.qemu.diskInterface =
-            if grubVersion == 1 then "scsi" else "virtio";
+            # Use a small /dev/vdb as the root disk for the
+            # installer. This ensures the target disk (/dev/vda) is
+            # the same during and after installation.
+            virtualisation.emptyDiskImages = [ 512 ];
+            virtualisation.rootDevice = if grubVersion == 1 then
+              "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive2"
+            else
+              "/dev/vdb";
+            virtualisation.bootLoaderDevice = "/dev/vda";
+            virtualisation.qemu.diskInterface =
+              if grubVersion == 1 then "scsi" else "virtio";
 
-          # We don't want to have any networking in the guest whatsoever.
-          # Also, if any vlans are enabled, the guest will reboot
-          # (with a different configuration for legacy reasons),
-          # and spend 5 minutes waiting for the vlan interface to show up
-          # (which will never happen).
-          virtualisation.vlans = [ ];
+            # We don't want to have any networking in the guest whatsoever.
+            # Also, if any vlans are enabled, the guest will reboot
+            # (with a different configuration for legacy reasons),
+            # and spend 5 minutes waiting for the vlan interface to show up
+            # (which will never happen).
+            virtualisation.vlans = [ ];
 
-          boot.loader.systemd-boot.enable =
-            mkIf (bootLoader == "systemd-boot") true;
+            boot.loader.systemd-boot.enable =
+              mkIf (bootLoader == "systemd-boot") true;
 
-          hardware.enableAllFirmware = mkForce false;
+            hardware.enableAllFirmware = mkForce false;
 
-          # The test cannot access the network, so any packages we
-          # need must be included in the VM.
-          system.extraDependencies = with pkgs;
-            [
-              brotli
-              brotli.dev
-              brotli.lib
-              desktop-file-utils
-              docbook5
-              docbook_xsl_ns
-              (docbook-xsl-ns.override { withManOptDedupPatch = true; })
-              kbd.dev
-              kmod.dev
-              libarchive.dev
-              libxml2.bin
-              libxslt.bin
-              nixos-artwork.wallpapers.simple-dark-gray-bottom
-              ntp
-              perlPackages.ListCompare
-              perlPackages.XMLLibXML
-              python3Minimal
-              # make-options-doc/default.nix
-              (let
-                self = (pkgs.python3Minimal.override {
-                  inherit self;
-                  includeSiteCustomize = true;
-                });
-              in self.withPackages (p: [ p.mistune ]))
-              shared-mime-info
-              sudo
-              texinfo
-              unionfs-fuse
-              xorg.lndir
+            # The test cannot access the network, so any packages we
+            # need must be included in the VM.
+            system.extraDependencies = with pkgs;
+              [
+                brotli
+                brotli.dev
+                brotli.lib
+                desktop-file-utils
+                docbook5
+                docbook_xsl_ns
+                (docbook-xsl-ns.override { withManOptDedupPatch = true; })
+                kbd.dev
+                kmod.dev
+                libarchive.dev
+                libxml2.bin
+                libxslt.bin
+                nixos-artwork.wallpapers.simple-dark-gray-bottom
+                ntp
+                perlPackages.ListCompare
+                perlPackages.XMLLibXML
+                python3Minimal
+                # make-options-doc/default.nix
+                (let
+                  self = (pkgs.python3Minimal.override {
+                    inherit self;
+                    includeSiteCustomize = true;
+                  });
+                in self.withPackages (p: [ p.mistune ]))
+                shared-mime-info
+                sudo
+                texinfo
+                unionfs-fuse
+                xorg.lndir
 
-              # add curl so that rather than seeing the test attempt to download
-              # curl's tarball, we see what it's trying to download
-              curl
-            ] ++ optional (bootLoader == "grub" && grubVersion == 1) pkgs.grub
-            ++ optionals (bootLoader == "grub" && grubVersion == 2) (let
-              zfsSupport = lib.any (x: x == "zfs")
-                (extraInstallerConfig.boot.supportedFilesystems or [ ]);
-            in [
-              (pkgs.grub2.override { inherit zfsSupport; })
-              (pkgs.grub2_efi.override { inherit zfsSupport; })
-            ]);
+                # add curl so that rather than seeing the test attempt to download
+                # curl's tarball, we see what it's trying to download
+                curl
+              ] ++ optional (bootLoader == "grub" && grubVersion == 1) pkgs.grub
+              ++ optionals (bootLoader == "grub" && grubVersion == 2) (let
+                zfsSupport = lib.any (x: x == "zfs")
+                  (extraInstallerConfig.boot.supportedFilesystems or [ ]);
+              in [
+                (pkgs.grub2.override { inherit zfsSupport; })
+                (pkgs.grub2_efi.override { inherit zfsSupport; })
+              ]);
 
-          nix.settings = {
-            substituters = mkForce [ ];
-            hashed-mirrors = null;
-            connect-timeout = 1;
+            nix.settings = {
+              substituters = mkForce [ ];
+              hashed-mirrors = null;
+              connect-timeout = 1;
+            };
           };
-        };
 
       };
 

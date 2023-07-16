@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitLab, cmake, gfortran, perl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  cmake,
+  gfortran,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libxc";

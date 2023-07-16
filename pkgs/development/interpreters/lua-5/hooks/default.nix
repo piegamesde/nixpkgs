@@ -1,5 +1,11 @@
 # Hooks for building lua packages.
-{ lua, lib, makeSetupHook, findutils, runCommand }:
+{
+  lua,
+  lib,
+  makeSetupHook,
+  findutils,
+  runCommand,
+}:
 
 let
   callPackage = lua.pkgs.callPackage;
@@ -18,7 +24,9 @@ in {
       mv hook.sh $out
     '';
 
-  luarocksCheckHook = callPackage ({ luarocks }:
+  luarocksCheckHook = callPackage ({
+      luarocks,
+    }:
     makeSetupHook {
       name = "luarocks-check-hook";
       propagatedBuildInputs = [ luarocks ];

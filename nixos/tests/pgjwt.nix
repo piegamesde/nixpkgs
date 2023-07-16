@@ -1,19 +1,28 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   with pkgs; {
     name = "pgjwt";
     meta = with lib.maintainers; { maintainers = [ spinus willibutz ]; };
 
     nodes = {
-      master = { ... }: {
-        services.postgresql = {
-          enable = true;
-          extraPlugins = [ pgjwt pgtap ];
+      master = {
+          ...
+        }: {
+          services.postgresql = {
+            enable = true;
+            extraPlugins = [ pgjwt pgtap ];
+          };
         };
-      };
     };
 
-    testScript = { nodes, ... }:
+    testScript = {
+        nodes,
+        ...
+      }:
       let
         sqlSU = "${nodes.master.config.services.postgresql.superUser}";
         pgProve = "${pkgs.perlPackages.TAPParserSourceHandlerpgTAP}";

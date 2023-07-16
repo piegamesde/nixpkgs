@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, makeWrapper, writeText, graphviz, doxygen
-, ocamlPackages, ltl2ba, coq, why3, gdk-pixbuf, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  writeText,
+  graphviz,
+  doxygen,
+  ocamlPackages,
+  ltl2ba,
+  coq,
+  why3,
+  gdk-pixbuf,
+  wrapGAppsHook,
+}:
 
 let
   why3_1_5 = why3.overrideAttrs (o: rec {

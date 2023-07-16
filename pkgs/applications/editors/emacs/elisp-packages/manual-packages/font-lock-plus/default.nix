@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, trivialBuild }:
+{
+  lib,
+  fetchFromGitHub,
+  trivialBuild,
+}:
 
 trivialBuild {
   pname = "font-lock-plus";

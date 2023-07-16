@@ -1,4 +1,9 @@
-{ stdenv, fetchurl, lib, openssl }:
+{
+  stdenv,
+  fetchurl,
+  lib,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ibm-sw-tpm2";

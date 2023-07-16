@@ -1,8 +1,24 @@
 /* The reusable code, and package attributes, between OpenRA engine packages (engine.nix)
     and out-of-tree mod packages (mod.nix).
 */
-{ lib, makeSetupHook, curl, unzip, dos2unix, pkg-config, makeWrapper, lua, mono
-, dotnetPackages, python3, libGL, freetype, openal, SDL2, zenity }:
+{
+  lib,
+  makeSetupHook,
+  curl,
+  unzip,
+  dos2unix,
+  pkg-config,
+  makeWrapper,
+  lua,
+  mono,
+  dotnetPackages,
+  python3,
+  libGL,
+  freetype,
+  openal,
+  SDL2,
+  zenity,
+}:
 
 with lib;
 

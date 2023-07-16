@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, byacc, ncurses, readline
-, pkgsStatic, historySupport ? false, readlineSupport ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  byacc,
+  ncurses,
+  readline,
+  pkgsStatic,
+  historySupport ? false,
+  readlineSupport ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "rc";

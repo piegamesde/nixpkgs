@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, git, pytestCheckHook
-, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  git,
+  pytestCheckHook,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "pdm-pep517";

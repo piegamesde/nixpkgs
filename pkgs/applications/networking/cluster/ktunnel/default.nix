@@ -1,4 +1,9 @@
-{ stdenv, lib, buildGoModule, fetchFromGitHub }:
+{
+  stdenv,
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 let version = "1.5.2";
 in buildGoModule {
   pname = "ktunnel";

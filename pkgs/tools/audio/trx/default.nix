@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, alsa-lib, libopus, ortp, bctoolbox }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  alsa-lib,
+  libopus,
+  ortp,
+  bctoolbox,
+}:
 
 stdenv.mkDerivation rec {
   pname = "trx";

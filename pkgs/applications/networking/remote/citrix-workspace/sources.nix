@@ -1,8 +1,20 @@
-{ stdenv, lib }:
+{
+  stdenv,
+  lib,
+}:
 
 let
   mkVersionInfo = _:
-    { major, minor, patch, x64hash, x86hash, x64suffix, x86suffix, homepage }: {
+    {
+      major,
+      minor,
+      patch,
+      x64hash,
+      x86hash,
+      x64suffix,
+      x86suffix,
+      homepage,
+    }: {
       inherit homepage;
       version = "${major}.${minor}.${patch}.${
           if stdenv.is64bit then x64suffix else x86suffix

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, readline, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  readline,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "devtodo";

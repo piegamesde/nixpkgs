@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, jsonschema, poetry-core, pymacaroons
-, pytest-mock, pytestCheckHook, pythonOlder, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jsonschema,
+  poetry-core,
+  pymacaroons,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "pypitoken";

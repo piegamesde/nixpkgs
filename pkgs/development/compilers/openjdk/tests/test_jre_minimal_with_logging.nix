@@ -1,4 +1,9 @@
-{ runCommand, callPackage, jdk, jre_minimal }:
+{
+  runCommand,
+  callPackage,
+  jdk,
+  jre_minimal,
+}:
 
 let
   hello-logging = callPackage ./hello-logging.nix {

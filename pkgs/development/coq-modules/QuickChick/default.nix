@@ -1,4 +1,11 @@
-{ lib, mkCoqDerivation, coq, ssreflect, coq-ext-lib, simple-io, version ? null
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  ssreflect,
+  coq-ext-lib,
+  simple-io,
+  version ? null
 }:
 
 let recent = lib.versions.isGe "8.7" coq.coq-version;

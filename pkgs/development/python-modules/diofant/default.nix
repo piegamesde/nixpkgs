@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, gmpy2, isort, mpmath, numpy, pythonOlder
-, scipy, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  gmpy2,
+  isort,
+  mpmath,
+  numpy,
+  pythonOlder,
+  scipy,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "diofant";

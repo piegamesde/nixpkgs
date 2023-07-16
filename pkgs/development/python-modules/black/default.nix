@@ -1,7 +1,29 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, pythonOlder, pytestCheckHook
-, aiohttp, aiohttp-cors, click, colorama, hatch-fancy-pypi-readme, hatch-vcs
-, hatchling, ipython, mypy-extensions, packaging, pathspec, parameterized
-, platformdirs, tokenize-rt, tomli, typed-ast, typing-extensions, uvloop }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  pytestCheckHook,
+  aiohttp,
+  aiohttp-cors,
+  click,
+  colorama,
+  hatch-fancy-pypi-readme,
+  hatch-vcs,
+  hatchling,
+  ipython,
+  mypy-extensions,
+  packaging,
+  pathspec,
+  parameterized,
+  platformdirs,
+  tokenize-rt,
+  tomli,
+  typed-ast,
+  typing-extensions,
+  uvloop,
+}:
 
 buildPythonPackage rec {
   pname = "black";

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, pandas, pytestCheckHook
-, scikit-learn }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  pandas,
+  pytestCheckHook,
+  scikit-learn,
+}:
 
 buildPythonPackage rec {
   pname = "imbalanced-learn";

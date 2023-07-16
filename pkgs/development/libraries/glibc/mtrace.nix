@@ -1,4 +1,7 @@
-{ glibc, perl }:
+{
+  glibc,
+  perl,
+}:
 
 # Small wrapper which only exposes `mtrace(3)` from `glibc`. This can't be placed
 # into `glibc` itself because it depends on Perl which would mean that the final

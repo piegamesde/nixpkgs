@@ -1,9 +1,38 @@
-{ stdenv, lib, fetchurl, fetchpatch2, at-spi2-core, babl, dbus
-, desktop-file-utils, dleyna-renderer, gdk-pixbuf, gegl, geocode-glib_2, gettext
-, gexiv2, glib, gnome-online-accounts, gnome, gobject-introspection
-, gsettings-desktop-schemas, gtk3, itstool, libdazzle, libportal-gtk3, libhandy
-, libxml2, meson, ninja, nixosTests, pkg-config, python3, tracker
-, tracker-miners, wrapGAppsHook }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch2,
+  at-spi2-core,
+  babl,
+  dbus,
+  desktop-file-utils,
+  dleyna-renderer,
+  gdk-pixbuf,
+  gegl,
+  geocode-glib_2,
+  gettext,
+  gexiv2,
+  glib,
+  gnome-online-accounts,
+  gnome,
+  gobject-introspection,
+  gsettings-desktop-schemas,
+  gtk3,
+  itstool,
+  libdazzle,
+  libportal-gtk3,
+  libhandy,
+  libxml2,
+  meson,
+  ninja,
+  nixosTests,
+  pkg-config,
+  python3,
+  tracker,
+  tracker-miners,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-photos";

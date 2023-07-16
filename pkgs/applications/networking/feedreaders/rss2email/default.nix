@@ -1,4 +1,9 @@
-{ pythonPackages, fetchurl, lib, nixosTests }:
+{
+  pythonPackages,
+  fetchurl,
+  lib,
+  nixosTests,
+}:
 
 with pythonPackages;
 

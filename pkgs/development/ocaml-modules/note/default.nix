@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchurl, ocaml, findlib, ocamlbuild, topkg }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  topkg,
+}:
 
 lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
 "note is not available for OCaml ${ocaml.version}"

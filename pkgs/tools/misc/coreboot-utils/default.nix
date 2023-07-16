@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, pkg-config, zlib, pciutils, openssl, coreutils
-, acpica-tools, makeWrapper, gnugrep, gnused, file, buildEnv }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  zlib,
+  pciutils,
+  openssl,
+  coreutils,
+  acpica-tools,
+  makeWrapper,
+  gnugrep,
+  gnused,
+  file,
+  buildEnv,
+}:
 
 let
   version = "4.19";
@@ -12,7 +26,11 @@ let
     platforms = platforms.linux;
   };
 
-  generic = { pname, path ? "util/${pname}", ... }@args:
+  generic = {
+      pname,
+      path ? "util/${pname}",
+      ...
+    }@args:
     stdenv.mkDerivation (rec {
       inherit pname version;
 

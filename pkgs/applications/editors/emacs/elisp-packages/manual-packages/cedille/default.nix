@@ -1,4 +1,8 @@
-{ stdenv, cedille, emacs }:
+{
+  stdenv,
+  cedille,
+  emacs,
+}:
 
 stdenv.mkDerivation {
   pname = "cedille-mode";

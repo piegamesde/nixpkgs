@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchurl, libxkbcommon, systemd, xorg, electron_13, makeWrapper
-, makeDesktopItem }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  libxkbcommon,
+  systemd,
+  xorg,
+  electron_13,
+  makeWrapper,
+  makeDesktopItem,
+}:
 let
   desktopItem = makeDesktopItem rec {
     name = "Obinskit";

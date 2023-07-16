@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, click, fetchPypi, freezegun, hatchling, mock
-, pytest-vcr, pytestCheckHook, python-dateutil, pythonAtLeast, pythonOlder
-, requests, vcrpy }:
+{
+  lib,
+  buildPythonPackage,
+  click,
+  fetchPypi,
+  freezegun,
+  hatchling,
+  mock,
+  pytest-vcr,
+  pytestCheckHook,
+  python-dateutil,
+  pythonAtLeast,
+  pythonOlder,
+  requests,
+  vcrpy,
+}:
 
 buildPythonPackage rec {
   pname = "datadog";

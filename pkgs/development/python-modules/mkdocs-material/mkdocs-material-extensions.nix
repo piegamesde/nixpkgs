@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, buildPythonPackage, hatchling }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  hatchling,
+}:
 
 buildPythonPackage rec {
   pname = "mkdocs-material-extensions";

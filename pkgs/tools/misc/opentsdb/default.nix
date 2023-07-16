@@ -1,5 +1,19 @@
-{ lib, stdenv, autoconf, automake, bash, curl, fetchFromGitHub
-, fetchMavenArtifact, fetchurl, git, jdk8, makeWrapper, nettools, python3 }:
+{
+  lib,
+  stdenv,
+  autoconf,
+  automake,
+  bash,
+  curl,
+  fetchFromGitHub,
+  fetchMavenArtifact,
+  fetchurl,
+  git,
+  jdk8,
+  makeWrapper,
+  nettools,
+  python3,
+}:
 
 let
   jdk = jdk8;

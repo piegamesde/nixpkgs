@@ -1,9 +1,39 @@
-{ lib, stdenv, removeReferencesTo, pkgsBuildBuild, pkgsBuildHost
-, pkgsBuildTarget, llvmShared, llvmSharedForBuild, llvmSharedForHost
-, llvmSharedForTarget, llvmPackages, fetchurl, file, python3, darwin, cmake
-, rust, rustPlatform, pkg-config, openssl, xz, libiconv, which, libffi
-, withBundledLLVM ? false, enableRustcDev ? true, version, sha256, patches ? [ ]
-, fd, ripgrep, wezterm, firefox, thunderbird }:
+{
+  lib,
+  stdenv,
+  removeReferencesTo,
+  pkgsBuildBuild,
+  pkgsBuildHost,
+  pkgsBuildTarget,
+  llvmShared,
+  llvmSharedForBuild,
+  llvmSharedForHost,
+  llvmSharedForTarget,
+  llvmPackages,
+  fetchurl,
+  file,
+  python3,
+  darwin,
+  cmake,
+  rust,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  xz,
+  libiconv,
+  which,
+  libffi,
+  withBundledLLVM ? false,
+  enableRustcDev ? true,
+  version,
+  sha256,
+  patches ? [ ],
+  fd,
+  ripgrep,
+  wezterm,
+  firefox,
+  thunderbird,
+}:
 
 let
   inherit (lib) optionals optional optionalString concatStringsSep;

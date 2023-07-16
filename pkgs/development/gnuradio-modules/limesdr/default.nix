@@ -1,5 +1,21 @@
-{ lib, mkDerivation, fetchFromGitHub, gnuradio, thrift, cmake, pkg-config
-, doxygen, swig, python, logLib, mpir, boost, gmp, icu, limesuite }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  gnuradio,
+  thrift,
+  cmake,
+  pkg-config,
+  doxygen,
+  swig,
+  python,
+  logLib,
+  mpir,
+  boost,
+  gmp,
+  icu,
+  limesuite,
+}:
 
 let
   version = {

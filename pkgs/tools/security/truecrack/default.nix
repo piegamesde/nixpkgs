@@ -1,4 +1,10 @@
-{ lib, gccStdenv, fetchFromGitLab, cudatoolkit, cudaSupport ? false, pkg-config
+{
+  lib,
+  gccStdenv,
+  fetchFromGitLab,
+  cudatoolkit,
+  cudaSupport ? false,
+  pkg-config,
 }:
 
 gccStdenv.mkDerivation rec {

@@ -1,6 +1,22 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
-, deprecated, humanize, matplotlib, nibabel, numpy, parameterized, scipy
-, simpleitk, torch, tqdm, typer }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  deprecated,
+  humanize,
+  matplotlib,
+  nibabel,
+  numpy,
+  parameterized,
+  scipy,
+  simpleitk,
+  torch,
+  tqdm,
+  typer,
+}:
 
 buildPythonPackage rec {
   pname = "torchio";

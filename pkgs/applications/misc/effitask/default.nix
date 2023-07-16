@@ -1,4 +1,13 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, openssl, gtk3, stdenv, rust }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  gtk3,
+  stdenv,
+  rust,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "effitask";

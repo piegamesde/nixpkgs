@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, libpng, perl, perlPackages, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libpng,
+  perl,
+  perlPackages,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "icoutils";

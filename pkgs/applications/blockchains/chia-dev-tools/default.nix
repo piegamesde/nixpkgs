@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, substituteAll, python3Packages, chia, }:
+{
+  lib,
+  fetchFromGitHub,
+  substituteAll,
+  python3Packages,
+  chia,
+}:
 python3Packages.buildPythonApplication rec {
   pname = "chia-dev-tools";
   version = "1.1.5";

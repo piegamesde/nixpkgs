@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fastapi, fetchFromGitHub, flask, httpx
-, pytestCheckHook, pythonOlder, requests, sanic, uvicorn, wheel }:
+{
+  lib,
+  buildPythonPackage,
+  fastapi,
+  fetchFromGitHub,
+  flask,
+  httpx,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  sanic,
+  uvicorn,
+  wheel,
+}:
 
 buildPythonPackage rec {
   pname = "json-logging";

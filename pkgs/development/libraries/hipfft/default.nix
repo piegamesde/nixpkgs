@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-cmake, hip, git
-, rocfft, gtest, boost, fftw, fftwFloat, openmp, buildTests ? false
-, buildBenchmarks ? false, buildSamples ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  cmake,
+  rocm-cmake,
+  hip,
+  git,
+  rocfft,
+  gtest,
+  boost,
+  fftw,
+  fftwFloat,
+  openmp,
+  buildTests ? false,
+  buildBenchmarks ? false,
+  buildSamples ? false
+}:
 
 # Can also use cuFFT
 stdenv.mkDerivation (finalAttrs: {

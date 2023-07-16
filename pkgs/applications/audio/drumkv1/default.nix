@@ -1,5 +1,15 @@
-{ mkDerivation, lib, fetchurl, pkg-config, libjack2, alsa-lib, libsndfile, liblo
-, lv2, qt5 }:
+{
+  mkDerivation,
+  lib,
+  fetchurl,
+  pkg-config,
+  libjack2,
+  alsa-lib,
+  libsndfile,
+  liblo,
+  lv2,
+  qt5,
+}:
 
 mkDerivation rec {
   pname = "drumkv1";

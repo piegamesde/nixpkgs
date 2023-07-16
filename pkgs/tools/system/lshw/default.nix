@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, hwdata, gtk2, pkg-config, sqlite # compile GUI
-, withGUI ? false }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  hwdata,
+  gtk2,
+  pkg-config,
+  sqlite # compile GUI
+  ,
+  withGUI ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "lshw";

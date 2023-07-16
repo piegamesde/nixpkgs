@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libbfd, libnl
-, libpcap, ncurses, readline, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  libbfd,
+  libnl,
+  libpcap,
+  ncurses,
+  readline,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dropwatch";

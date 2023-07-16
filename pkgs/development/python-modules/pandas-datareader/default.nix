@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, pandas, lxml, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  pandas,
+  lxml,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "pandas-datareader";

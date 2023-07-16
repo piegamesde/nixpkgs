@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, cmake, pkg-config, gettext, gtk2, libcanberra
-, libnotify, pcre, sqlite, xorg, harfbuzz }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  pkg-config,
+  gettext,
+  gtk2,
+  libcanberra,
+  libnotify,
+  pcre,
+  sqlite,
+  xorg,
+  harfbuzz,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libgaminggear";

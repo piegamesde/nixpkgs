@@ -1,4 +1,12 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, python, pythonOlder, six }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  python,
+  pythonOlder,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "ppft";

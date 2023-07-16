@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, colorama, configobj, fetchPypi, packaging, pykwalify
-, pythonOlder, pyyaml }:
+{
+  lib,
+  buildPythonPackage,
+  colorama,
+  configobj,
+  fetchPypi,
+  packaging,
+  pykwalify,
+  pythonOlder,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "west";

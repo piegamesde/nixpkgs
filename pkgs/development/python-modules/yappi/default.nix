@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, gevent, python, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  gevent,
+  python,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "yappi";

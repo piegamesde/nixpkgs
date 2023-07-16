@@ -1,6 +1,20 @@
-{ trivialBuild, lib, fetchFromGitHub, avy, json-rpc-server, f, nav-flash, helm
-, cl-lib, porthole, default-text-scale, bind-key, yasnippet, company
-, company-quickhelp }:
+{
+  trivialBuild,
+  lib,
+  fetchFromGitHub,
+  avy,
+  json-rpc-server,
+  f,
+  nav-flash,
+  helm,
+  cl-lib,
+  porthole,
+  default-text-scale,
+  bind-key,
+  yasnippet,
+  company,
+  company-quickhelp,
+}:
 
 trivialBuild {
   pname = "voicemacs";

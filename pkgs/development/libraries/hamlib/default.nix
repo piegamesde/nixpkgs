@@ -1,7 +1,24 @@
-{ lib, stdenv, fetchurl, perl, swig, gd, ncurses, python3, libxml2, tcl
-, libusb-compat-0_1, pkg-config, boost, libtool, perlPackages
-, pythonBindings ? true, tclBindings ? true
-, perlBindings ? stdenv.buildPlatform == stdenv.hostPlatform, buildPackages }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  swig,
+  gd,
+  ncurses,
+  python3,
+  libxml2,
+  tcl,
+  libusb-compat-0_1,
+  pkg-config,
+  boost,
+  libtool,
+  perlPackages,
+  pythonBindings ? true,
+  tclBindings ? true,
+  perlBindings ? stdenv.buildPlatform == stdenv.hostPlatform,
+  buildPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hamlib";

@@ -1,13 +1,40 @@
-{ asio, cmake, curl, fetchFromGitHub, fetchpatch, ffmpeg, gnutls, lame, lib
-, libev, game-music-emu, libmicrohttpd, libopenmpt, mpg123, ncurses, pkg-config
-, portaudio, stdenv, taglib
-# Linux Dependencies
-, alsa-lib, pipewireSupport ? !stdenv.hostPlatform.isDarwin, pipewire
-, pulseaudio, sndioSupport ? true, sndio, systemd, systemdSupport ?
-  lib.meta.availableOn stdenv.hostPlatform systemd
-  # Darwin Dependencies
-, Cocoa, SystemConfiguration, coreaudioSupport ? stdenv.hostPlatform.isDarwin
-, CoreAudio }:
+{
+  asio,
+  cmake,
+  curl,
+  fetchFromGitHub,
+  fetchpatch,
+  ffmpeg,
+  gnutls,
+  lame,
+  lib,
+  libev,
+  game-music-emu,
+  libmicrohttpd,
+  libopenmpt,
+  mpg123,
+  ncurses,
+  pkg-config,
+  portaudio,
+  stdenv,
+  taglib
+  # Linux Dependencies
+  ,
+  alsa-lib,
+  pipewireSupport ? !stdenv.hostPlatform.isDarwin,
+  pipewire,
+  pulseaudio,
+  sndioSupport ? true,
+  sndio,
+  systemd,
+  systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd
+    # Darwin Dependencies
+  ,
+  Cocoa,
+  SystemConfiguration,
+  coreaudioSupport ? stdenv.hostPlatform.isDarwin,
+  CoreAudio,
+}:
 
 stdenv.mkDerivation rec {
   pname = "musikcube";

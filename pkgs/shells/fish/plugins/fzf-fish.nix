@@ -1,5 +1,15 @@
-{ lib, stdenv, pkgs, buildFishPlugin, fetchFromGitHub, fd, util-linux, procps
-, clownfish, fishtape_3, }:
+{
+  lib,
+  stdenv,
+  pkgs,
+  buildFishPlugin,
+  fetchFromGitHub,
+  fd,
+  util-linux,
+  procps,
+  clownfish,
+  fishtape_3,
+}:
 let
   # we want `pkgs.fzf`, not `fishPlugins.fzf`
   inherit (pkgs) fzf;

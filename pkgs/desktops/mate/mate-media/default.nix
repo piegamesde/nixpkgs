@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, pkg-config, gettext, libtool, libxml2, libcanberra-gtk3
-, gtk3, mate, wrapGAppsHook, mateUpdateScript }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gettext,
+  libtool,
+  libxml2,
+  libcanberra-gtk3,
+  gtk3,
+  mate,
+  wrapGAppsHook,
+  mateUpdateScript,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mate-media";

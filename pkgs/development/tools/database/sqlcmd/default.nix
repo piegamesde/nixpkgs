@@ -1,4 +1,11 @@
-{ buildGoModule, fetchFromGitHub, installShellFiles, lib, sqlcmd, testers }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  lib,
+  sqlcmd,
+  testers,
+}:
 
 buildGoModule rec {
   pname = "sqlcmd";

@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, jupyter-packaging }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  jupyter-packaging,
+}:
 
 buildPythonPackage rec {
   pname = "jupyterlab-widgets";

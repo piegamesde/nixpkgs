@@ -1,7 +1,12 @@
 # This module creates netboot media containing the given NixOS
 # configuration.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

@@ -1,5 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, curl, db, libgeotiff
-, xorg, motif, pcre, perl, proj, rastermagick, shapelib, libax25 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  curl,
+  db,
+  libgeotiff,
+  xorg,
+  motif,
+  pcre,
+  perl,
+  proj,
+  rastermagick,
+  shapelib,
+  libax25,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xastir";

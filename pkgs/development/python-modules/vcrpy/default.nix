@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, mock, pytest-httpbin, pytestCheckHook
-, pythonOlder, pyyaml, six, yarl, wrapt }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  mock,
+  pytest-httpbin,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  six,
+  yarl,
+  wrapt,
+}:
 
 buildPythonPackage rec {
   pname = "vcrpy";

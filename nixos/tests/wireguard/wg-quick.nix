@@ -1,5 +1,10 @@
-import ../make-test-python.nix
-({ pkgs, lib, kernelPackages ? null, nftables ? false, ... }:
+import ../make-test-python.nix ({
+    pkgs,
+    lib,
+    kernelPackages ? null,
+    nftables ? false,
+    ...
+  }:
   let
     wg-snakeoil-keys = import ./snakeoil-keys.nix;
     peer = import ./make-peer.nix { inherit lib; };

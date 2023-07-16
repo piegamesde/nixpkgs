@@ -1,4 +1,8 @@
-{ lib, attemptoClex, callPackage }:
+{
+  lib,
+  attemptoClex,
+  callPackage,
+}:
 
 callPackage ./. {
   pname = "ape-clex";

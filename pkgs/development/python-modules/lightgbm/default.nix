@@ -1,6 +1,20 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, cmake, numpy, scipy, scikit-learn
-, llvmPackages ? null, pythonOlder, python, ocl-icd, opencl-headers, boost
-, gpuSupport ? true }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  cmake,
+  numpy,
+  scipy,
+  scikit-learn,
+  llvmPackages ? null,
+  pythonOlder,
+  python,
+  ocl-icd,
+  opencl-headers,
+  boost,
+  gpuSupport ? true
+}:
 
 buildPythonPackage rec {
   pname = "lightgbm";

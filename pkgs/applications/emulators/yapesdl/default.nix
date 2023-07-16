@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, SDL2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  SDL2,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "yapesdl";

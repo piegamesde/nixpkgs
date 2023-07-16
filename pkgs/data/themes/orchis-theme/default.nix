@@ -1,8 +1,18 @@
-{ lib, stdenvNoCC, fetchFromGitHub, gtk3, gnome-themes-extra, gtk-engine-murrine
-, sassc, border-radius ? null # Suggested: 2 < value < 16
-, tweaks ?
-  [ ] # can be "solid" "compact" "black" "primary" "macos" "submenu" "nord|dracula"
-, withWallpapers ? false }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  gtk3,
+  gnome-themes-extra,
+  gtk-engine-murrine,
+  sassc,
+  border-radius ? null # Suggested: 2 < value < 16
+  ,
+  tweaks ?
+    [ ] # can be "solid" "compact" "black" "primary" "macos" "submenu" "nord|dracula"
+  ,
+  withWallpapers ? false
+}:
 
 let
   pname = "orchis-theme";

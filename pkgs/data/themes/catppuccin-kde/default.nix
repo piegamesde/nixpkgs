@@ -1,5 +1,11 @@
-{ lib, stdenvNoCC, fetchFromGitHub, flavour ? [ "frappe" ], accents ? [ "blue" ]
-, winDecStyles ? [ "modern" ] }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  flavour ? [ "frappe" ],
+  accents ? [ "blue" ],
+  winDecStyles ? [ "modern" ]
+}:
 
 let
   validFlavours = [ "mocha" "macchiato" "frappe" "latte" ];

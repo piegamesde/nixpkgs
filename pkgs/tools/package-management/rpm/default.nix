@@ -1,6 +1,29 @@
-{ stdenv, lib, pkg-config, autoreconfHook, fetchurl, cpio, zlib, bzip2, file
-, elfutils, libbfd, libgcrypt, libarchive, nspr, nss, popt, db, xz, python, lua
-, llvmPackages, sqlite, zstd, libcap }:
+{
+  stdenv,
+  lib,
+  pkg-config,
+  autoreconfHook,
+  fetchurl,
+  cpio,
+  zlib,
+  bzip2,
+  file,
+  elfutils,
+  libbfd,
+  libgcrypt,
+  libarchive,
+  nspr,
+  nss,
+  popt,
+  db,
+  xz,
+  python,
+  lua,
+  llvmPackages,
+  sqlite,
+  zstd,
+  libcap,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rpm";

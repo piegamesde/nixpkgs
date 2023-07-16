@@ -1,4 +1,11 @@
-{ lib, stdenv, c-blosc, cmake, hdf5, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  c-blosc,
+  cmake,
+  hdf5,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hdf5-blosc";

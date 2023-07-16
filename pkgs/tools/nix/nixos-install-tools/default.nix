@@ -1,7 +1,14 @@
-{ buildEnv, lib, man, nixos,
-# TODO: replace indirect self-reference by proper self-reference
-#       https://github.com/NixOS/nixpkgs/pull/119942
-nixos-install-tools, runCommand, nixosTests, }:
+{
+  buildEnv,
+  lib,
+  man,
+  nixos,
+  # TODO: replace indirect self-reference by proper self-reference
+  #       https://github.com/NixOS/nixpkgs/pull/119942
+  nixos-install-tools,
+  runCommand,
+  nixosTests,
+}:
 let
   inherit (nixos { }) config;
   version = config.system.nixos.version;

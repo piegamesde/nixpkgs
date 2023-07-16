@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, django, django-js-asset, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  django,
+  django-js-asset,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "django-mptt";

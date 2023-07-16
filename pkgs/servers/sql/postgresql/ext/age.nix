@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, bison, flex, postgresql }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bison,
+  flex,
+  postgresql,
+}:
 
 stdenv.mkDerivation rec {
   pname = "age";

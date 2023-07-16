@@ -1,6 +1,18 @@
-{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, packaging
-, poetry-core, pydantic, pytest-asyncio, pytest-mock, pytestCheckHook
-, pythonOlder, yarl }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  packaging,
+  poetry-core,
+  pydantic,
+  pytest-asyncio,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  yarl,
+}:
 
 buildPythonPackage rec {
   pname = "python-bsblan";

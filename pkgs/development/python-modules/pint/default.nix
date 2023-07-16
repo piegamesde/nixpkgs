@@ -1,7 +1,19 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools-scm
-, importlib-metadata, packaging
-# Check Inputs
-, pytestCheckHook, pytest-subtests, numpy, matplotlib, uncertainties }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools-scm,
+  importlib-metadata,
+  packaging
+  # Check Inputs
+  ,
+  pytestCheckHook,
+  pytest-subtests,
+  numpy,
+  matplotlib,
+  uncertainties,
+}:
 
 buildPythonPackage rec {
   pname = "pint";

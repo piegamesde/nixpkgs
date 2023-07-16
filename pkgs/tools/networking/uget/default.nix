@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, pkg-config, intltool, openssl, curl, libnotify
-, libappindicator-gtk3, gst_all_1, gtk3, dconf, wrapGAppsHook, aria2 ? null }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  intltool,
+  openssl,
+  curl,
+  libnotify,
+  libappindicator-gtk3,
+  gst_all_1,
+  gtk3,
+  dconf,
+  wrapGAppsHook,
+  aria2 ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "uget";

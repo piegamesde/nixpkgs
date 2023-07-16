@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, authlib, tqdm, validators }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  authlib,
+  tqdm,
+  validators,
+}:
 
 buildPythonPackage rec {
   pname = "weaviate-client";

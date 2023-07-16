@@ -1,7 +1,18 @@
-{ lib, writeShellApplication, fish, writeTextFile }:
+{
+  lib,
+  writeShellApplication,
+  fish,
+  writeTextFile,
+}:
 
-lib.makeOverridable ({ completionDirs ? [ ], functionDirs ? [ ], confDirs ? [ ]
-  , pluginPkgs ? [ ], localConfig ? "", shellAliases ? { }, runtimeInputs ? [ ]
+lib.makeOverridable ({
+    completionDirs ? [ ],
+    functionDirs ? [ ],
+    confDirs ? [ ],
+    pluginPkgs ? [ ],
+    localConfig ? "",
+    shellAliases ? { },
+    runtimeInputs ? [ ]
   }:
 
   let

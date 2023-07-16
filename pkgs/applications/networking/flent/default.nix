@@ -1,4 +1,12 @@
-{ lib, buildPythonApplication, fetchPypi, procps, python, qt5, xvfb-run, }:
+{
+  lib,
+  buildPythonApplication,
+  fetchPypi,
+  procps,
+  python,
+  qt5,
+  xvfb-run,
+}:
 buildPythonApplication rec {
   pname = "flent";
   version = "2.1.1";

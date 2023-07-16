@@ -1,4 +1,15 @@
-{ lib, stdenv, fetchurl, gawk, fetchpatch, undmg, cpio, xar, darwin, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gawk,
+  fetchpatch,
+  undmg,
+  cpio,
+  xar,
+  darwin,
+  libiconv,
+}:
 
 let
   startFPC =

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools, setuptools-scm
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  setuptools-scm,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "dissect-cstruct";

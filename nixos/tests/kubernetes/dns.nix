@@ -1,4 +1,7 @@
-{ system ? builtins.currentSystem, pkgs ? import ../../.. { inherit system; } }:
+{
+  system ? builtins.currentSystem,
+  pkgs ? import ../../.. { inherit system; }
+}:
 with import ./base.nix { inherit system; };
 let
   domain = "my.zyx";
@@ -69,13 +72,18 @@ let
     config.Entrypoint = [ "/bin/tail" ];
   };
 
-  extraConfiguration = { config, pkgs, lib, ... }: {
-    environment.systemPackages = [ pkgs.bind.host ];
-    services.dnsmasq.enable = true;
-    services.dnsmasq.settings.server = [
-      "/cluster.local/${config.services.kubernetes.addons.dns.clusterIp}#53"
-    ];
-  };
+  extraConfiguration = {
+      config,
+      pkgs,
+      lib,
+      ...
+    }: {
+      environment.systemPackages = [ pkgs.bind.host ];
+      services.dnsmasq.enable = true;
+      services.dnsmasq.settings.server = [
+        "/cluster.local/${config.services.kubernetes.addons.dns.clusterIp}#53"
+      ];
+    };
 
   base = {
     name = "dns";

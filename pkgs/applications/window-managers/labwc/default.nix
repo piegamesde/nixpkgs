@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, cairo, glib, libdrm, libinput, libxcb
-, libxkbcommon, libxml2, gettext, meson, ninja, pango, pkg-config, scdoc
-, wayland-scanner, wayland, wayland-protocols, wlroots_0_16, xcbutilwm, xwayland
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cairo,
+  glib,
+  libdrm,
+  libinput,
+  libxcb,
+  libxkbcommon,
+  libxml2,
+  gettext,
+  meson,
+  ninja,
+  pango,
+  pkg-config,
+  scdoc,
+  wayland-scanner,
+  wayland,
+  wayland-protocols,
+  wlroots_0_16,
+  xcbutilwm,
+  xwayland,
 }:
 
 let wlroots = wlroots_0_16;

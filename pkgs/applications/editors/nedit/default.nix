@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, motif, libXpm, libXt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  motif,
+  libXpm,
+  libXt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nedit";

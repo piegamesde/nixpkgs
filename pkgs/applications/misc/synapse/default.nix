@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, gettext, pkg-config, glib, libnotify, gtk3, libgee
-, keybinder3, json-glib, zeitgeist, vala, gobject-introspection }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gettext,
+  pkg-config,
+  glib,
+  libnotify,
+  gtk3,
+  libgee,
+  keybinder3,
+  json-glib,
+  zeitgeist,
+  vala,
+  gobject-introspection,
+}:
 
 let version = "0.2.99.4";
 in stdenv.mkDerivation rec {

@@ -1,7 +1,28 @@
-{ fetchFromGitHub, cinnamon-desktop, cinnamon-settings-daemon
-, cinnamon-translations, dbus-glib, glib, gsettings-desktop-schemas, gtk3
-, libcanberra, libxslt, makeWrapper, meson, ninja, pkg-config, python3, lib
-, stdenv, systemd, wrapGAppsHook, xapp, xorg, libexecinfo, pango }:
+{
+  fetchFromGitHub,
+  cinnamon-desktop,
+  cinnamon-settings-daemon,
+  cinnamon-translations,
+  dbus-glib,
+  glib,
+  gsettings-desktop-schemas,
+  gtk3,
+  libcanberra,
+  libxslt,
+  makeWrapper,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  lib,
+  stdenv,
+  systemd,
+  wrapGAppsHook,
+  xapp,
+  xorg,
+  libexecinfo,
+  pango,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cinnamon-session";

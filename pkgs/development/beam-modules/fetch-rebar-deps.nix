@@ -1,6 +1,16 @@
-{ lib, stdenv, rebar3 }:
+{
+  lib,
+  stdenv,
+  rebar3,
+}:
 
-{ name, version, sha256, src, meta ? { } }:
+{
+  name,
+  version,
+  sha256,
+  src,
+  meta ? { }
+}:
 
 stdenv.mkDerivation ({
   pname = "rebar-deps-${name}";

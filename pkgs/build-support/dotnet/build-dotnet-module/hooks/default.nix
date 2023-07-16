@@ -1,5 +1,16 @@
-{ lib, callPackage, makeSetupHook, makeWrapper, dotnet-sdk, dotnet-test-sdk
-, disabledTests, nuget-source, dotnet-runtime, runtimeDeps, buildType, runtimeId
+{
+  lib,
+  callPackage,
+  makeSetupHook,
+  makeWrapper,
+  dotnet-sdk,
+  dotnet-test-sdk,
+  disabledTests,
+  nuget-source,
+  dotnet-runtime,
+  runtimeDeps,
+  buildType,
+  runtimeId,
 }:
 assert (builtins.isString runtimeId);
 

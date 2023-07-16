@@ -1,5 +1,19 @@
-{ stdenv, lib, fetchFromGitHub, makeDesktopItem, python3, python3Packages
-, netcdf, glew, glm, libpng, libxml2, freetype, msgpack, qt5 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  makeDesktopItem,
+  python3,
+  python3Packages,
+  netcdf,
+  glew,
+  glm,
+  libpng,
+  libxml2,
+  freetype,
+  msgpack,
+  qt5,
+}:
 let
   pname = "pymol";
   description = "A Python-enhanced molecular graphics tool";

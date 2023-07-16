@@ -1,7 +1,16 @@
-{ lib, stdenv, cmake, fetchFromGitHub, static ? stdenv.hostPlatform.isStatic }:
+{
+  lib,
+  stdenv,
+  cmake,
+  fetchFromGitHub,
+  static ? stdenv.hostPlatform.isStatic
+}:
 
 let
-  generic = { version, hash }:
+  generic = {
+      version,
+      hash,
+    }:
     stdenv.mkDerivation rec {
       inherit version;
       pname = "h3";

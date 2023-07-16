@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, gitUpdater, cmake, python3
-, withDynarec ? stdenv.hostPlatform.isAarch64, runCommand, hello-x86_64, box64
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gitUpdater,
+  cmake,
+  python3,
+  withDynarec ? stdenv.hostPlatform.isAarch64,
+  runCommand,
+  hello-x86_64,
+  box64,
 }:
 
 # Currently only supported on ARM

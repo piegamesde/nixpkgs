@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, flit-core, sphinx }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  flit-core,
+  sphinx,
+}:
 
 buildPythonPackage rec {
   pname = "sphinx-design";

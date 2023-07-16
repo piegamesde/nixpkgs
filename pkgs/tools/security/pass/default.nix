@@ -1,13 +1,41 @@
-{ stdenv, lib, pkgs, fetchurl, buildEnv, coreutils, findutils, gnugrep, gnused
-, getopt, git, tree, gnupg, openssl, which, openssh, procps, qrencode
-, makeWrapper, pass, symlinkJoin
+{
+  stdenv,
+  lib,
+  pkgs,
+  fetchurl,
+  buildEnv,
+  coreutils,
+  findutils,
+  gnugrep,
+  gnused,
+  getopt,
+  git,
+  tree,
+  gnupg,
+  openssl,
+  which,
+  openssh,
+  procps,
+  qrencode,
+  makeWrapper,
+  pass,
+  symlinkJoin
 
-, xclip ? null, xdotool ? null, dmenu ? null, x11Support ? !stdenv.isDarwin
-, dmenuSupport ? (x11Support || waylandSupport), waylandSupport ? false
-, wl-clipboard ? null, ydotool ? null, dmenu-wayland ? null
+  ,
+  xclip ? null,
+  xdotool ? null,
+  dmenu ? null,
+  x11Support ? !stdenv.isDarwin,
+  dmenuSupport ? (x11Support || waylandSupport),
+  waylandSupport ? false,
+  wl-clipboard ? null,
+  ydotool ? null,
+  dmenu-wayland ? null
 
-  # For backwards-compatibility
-, tombPluginSupport ? false }:
+    # For backwards-compatibility
+  ,
+  tombPluginSupport ? false
+}:
 
 assert x11Support -> xclip != null;
 assert waylandSupport -> wl-clipboard != null;

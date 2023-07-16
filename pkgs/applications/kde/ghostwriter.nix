@@ -1,5 +1,18 @@
-{ lib, mkDerivation, extra-cmake-modules, qttools, qtwebengine, kcoreaddons
-, kconfigwidgets, sonnet, kxmlgui, hunspell, cmark, multimarkdown, pandoc }:
+{
+  lib,
+  mkDerivation,
+  extra-cmake-modules,
+  qttools,
+  qtwebengine,
+  kcoreaddons,
+  kconfigwidgets,
+  sonnet,
+  kxmlgui,
+  hunspell,
+  cmark,
+  multimarkdown,
+  pandoc,
+}:
 
 mkDerivation {
   pname = "ghostwriter";

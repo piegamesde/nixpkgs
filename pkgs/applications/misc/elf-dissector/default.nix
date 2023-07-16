@@ -1,5 +1,15 @@
-{ mkDerivation, fetchgit, lib, cmake, extra-cmake-modules, kitemmodels
-, libiberty, libelf, libdwarf, libopcodes }:
+{
+  mkDerivation,
+  fetchgit,
+  lib,
+  cmake,
+  extra-cmake-modules,
+  kitemmodels,
+  libiberty,
+  libelf,
+  libdwarf,
+  libopcodes,
+}:
 
 mkDerivation rec {
   pname = "elf-dissector";

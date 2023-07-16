@@ -1,4 +1,8 @@
-{ stdenv, requireFile, lib }:
+{
+  stdenv,
+  requireFile,
+  lib,
+}:
 
 let
   requireXcode = version: sha256:

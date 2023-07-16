@@ -1,7 +1,21 @@
-{ lib, stdenv, pythonOlder, buildPythonPackage, fetchPypi, cvxopt, ecos, numpy
-, osqp, scipy, scs, setuptools, useOpenmp ? (!stdenv.isDarwin)
-# Check inputs
-, pytestCheckHook }:
+{
+  lib,
+  stdenv,
+  pythonOlder,
+  buildPythonPackage,
+  fetchPypi,
+  cvxopt,
+  ecos,
+  numpy,
+  osqp,
+  scipy,
+  scs,
+  setuptools,
+  useOpenmp ? (!stdenv.isDarwin)
+  # Check inputs
+  ,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "cvxpy";

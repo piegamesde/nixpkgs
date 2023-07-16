@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, aenum, aiohttp, importlib-metadata
-, isodate, nest-asyncio, pytestCheckHook, mock, pyhamcrest, radish-bdd }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  aenum,
+  aiohttp,
+  importlib-metadata,
+  isodate,
+  nest-asyncio,
+  pytestCheckHook,
+  mock,
+  pyhamcrest,
+  radish-bdd,
+}:
 
 buildPythonPackage rec {
   pname = "gremlinpython";

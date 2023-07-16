@@ -1,114 +1,124 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   let configDir = "/var/lib/foobar";
   in {
     name = "home-assistant";
     meta.maintainers = lib.teams.home-assistant.members;
 
-    nodes.hass = { pkgs, ... }: {
-      services.postgresql = {
-        enable = true;
-        ensureDatabases = [ "hass" ];
-        ensureUsers = [{
-          name = "hass";
-          ensurePermissions = { "DATABASE hass" = "ALL PRIVILEGES"; };
-        }];
-      };
-
-      services.home-assistant = {
-        enable = true;
-        inherit configDir;
-
-        # provide dependencies through package overrides
-        package = (pkgs.home-assistant.override {
-          extraPackages = ps: with ps; [ colorama ];
-          extraComponents = [
-            # test char-tty device allow propagation into the service
-            "zha"
-          ];
-        });
-
-        # provide component dependencies explicitly from the module
-        extraComponents = [ "mqtt" ];
-
-        # provide package for postgresql support
-        extraPackages = python3Packages: with python3Packages; [ psycopg2 ];
-
-        config = {
-          homeassistant = {
-            name = "Home";
-            time_zone = "UTC";
-            latitude = "0.0";
-            longitude = "0.0";
-            elevation = 0;
-          };
-
-          # configure the recorder component to use the postgresql db
-          recorder.db_url = "postgresql://@/hass";
-
-          # we can't load default_config, because the updater requires
-          # network access and would cause an error, so load frontend
-          # here explicitly.
-          # https://www.home-assistant.io/integrations/frontend/
-          frontend = { };
-
-          # include some popular integrations, that absolutely shouldn't break
-          esphome = { };
-          knx = { };
-          matter = { };
-          shelly = { };
-          zha = { };
-
-          # set up a wake-on-lan switch to test capset capability required
-          # for the ping suid wrapper
-          # https://www.home-assistant.io/integrations/wake_on_lan/
-          switch = [{
-            platform = "wake_on_lan";
-            mac = "00:11:22:33:44:55";
-            host = "127.0.0.1";
+    nodes.hass = {
+        pkgs,
+        ...
+      }: {
+        services.postgresql = {
+          enable = true;
+          ensureDatabases = [ "hass" ];
+          ensureUsers = [{
+            name = "hass";
+            ensurePermissions = { "DATABASE hass" = "ALL PRIVILEGES"; };
           }];
-
-          # test component-based capability assignment (CAP_NET_BIND_SERVICE)
-          # https://www.home-assistant.io/integrations/emulated_hue/
-          emulated_hue = {
-            host_ip = "127.0.0.1";
-            listen_port = 80;
-          };
-
-          # https://www.home-assistant.io/integrations/logger/
-          logger = { default = "info"; };
         };
 
-        # configure the sample lovelace dashboard
-        lovelaceConfig = {
-          title = "My Awesome Home";
-          views = [{
-            title = "Example";
-            cards = [{
-              type = "markdown";
-              title = "Lovelace";
-              content = "Welcome to your **Lovelace UI**.";
+        services.home-assistant = {
+          enable = true;
+          inherit configDir;
+
+          # provide dependencies through package overrides
+          package = (pkgs.home-assistant.override {
+            extraPackages = ps: with ps; [ colorama ];
+            extraComponents = [
+              # test char-tty device allow propagation into the service
+              "zha"
+            ];
+          });
+
+          # provide component dependencies explicitly from the module
+          extraComponents = [ "mqtt" ];
+
+          # provide package for postgresql support
+          extraPackages = python3Packages: with python3Packages; [ psycopg2 ];
+
+          config = {
+            homeassistant = {
+              name = "Home";
+              time_zone = "UTC";
+              latitude = "0.0";
+              longitude = "0.0";
+              elevation = 0;
+            };
+
+            # configure the recorder component to use the postgresql db
+            recorder.db_url = "postgresql://@/hass";
+
+            # we can't load default_config, because the updater requires
+            # network access and would cause an error, so load frontend
+            # here explicitly.
+            # https://www.home-assistant.io/integrations/frontend/
+            frontend = { };
+
+            # include some popular integrations, that absolutely shouldn't break
+            esphome = { };
+            knx = { };
+            matter = { };
+            shelly = { };
+            zha = { };
+
+            # set up a wake-on-lan switch to test capset capability required
+            # for the ping suid wrapper
+            # https://www.home-assistant.io/integrations/wake_on_lan/
+            switch = [{
+              platform = "wake_on_lan";
+              mac = "00:11:22:33:44:55";
+              host = "127.0.0.1";
             }];
-          }];
+
+            # test component-based capability assignment (CAP_NET_BIND_SERVICE)
+            # https://www.home-assistant.io/integrations/emulated_hue/
+            emulated_hue = {
+              host_ip = "127.0.0.1";
+              listen_port = 80;
+            };
+
+            # https://www.home-assistant.io/integrations/logger/
+            logger = { default = "info"; };
+          };
+
+          # configure the sample lovelace dashboard
+          lovelaceConfig = {
+            title = "My Awesome Home";
+            views = [{
+              title = "Example";
+              cards = [{
+                type = "markdown";
+                title = "Lovelace";
+                content = "Welcome to your **Lovelace UI**.";
+              }];
+            }];
+          };
+          lovelaceConfigWritable = true;
         };
-        lovelaceConfigWritable = true;
+
+        # Cause a configuration change inside `configuration.yml` and verify that the process is being reloaded.
+        specialisation.differentName = {
+          inheritParentConfig = true;
+          configuration.services.home-assistant.config.homeassistant.name =
+            lib.mkForce "Test Home";
+        };
+
+        # Cause a configuration change that requires a service restart as we added a new runtime dependency
+        specialisation.newFeature = {
+          inheritParentConfig = true;
+          configuration.services.home-assistant.config.backup = { };
+        };
       };
 
-      # Cause a configuration change inside `configuration.yml` and verify that the process is being reloaded.
-      specialisation.differentName = {
-        inheritParentConfig = true;
-        configuration.services.home-assistant.config.homeassistant.name =
-          lib.mkForce "Test Home";
-      };
-
-      # Cause a configuration change that requires a service restart as we added a new runtime dependency
-      specialisation.newFeature = {
-        inheritParentConfig = true;
-        configuration.services.home-assistant.config.backup = { };
-      };
-    };
-
-    testScript = { nodes, ... }:
+    testScript = {
+        nodes,
+        ...
+      }:
       let system = nodes.hass.system.build.toplevel;
       in ''
         import json

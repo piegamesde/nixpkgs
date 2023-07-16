@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, h5py, numpy, six, wasserstein
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  h5py,
+  numpy,
+  six,
+  wasserstein,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "EnergyFlow";

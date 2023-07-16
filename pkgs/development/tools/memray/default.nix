@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, libunwind, lz4, pkg-config, python3 }:
+{
+  lib,
+  fetchFromGitHub,
+  libunwind,
+  lz4,
+  pkg-config,
+  python3,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "memray";

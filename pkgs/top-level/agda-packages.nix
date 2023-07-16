@@ -1,4 +1,9 @@
-{ pkgs, lib, newScope, Agda }:
+{
+  pkgs,
+  lib,
+  newScope,
+  Agda,
+}:
 
 let
   mkAgdaPackages = Agda: lib.makeScope newScope (mkAgdaPackages' Agda);

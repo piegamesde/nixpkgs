@@ -1,10 +1,43 @@
-{ lib, stdenv, mkDerivation, fetchurl, fetchpatch, fetchFromGitHub
-, makeDesktopItem, copyDesktopItems, cmake, boost, zlib, openssl, R, qtbase
-, qtxmlpatterns, qtsensors, qtwebengine, qtwebchannel, libuuid, hunspellDicts
-, unzip, ant, jdk, gnumake, makeWrapper, pandoc, llvmPackages, yaml-cpp, soci
-, postgresql, nodejs, mkYarnModules, qmake
-, server ? false # build server version
-, sqlite, pam, nixosTests }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchurl,
+  fetchpatch,
+  fetchFromGitHub,
+  makeDesktopItem,
+  copyDesktopItems,
+  cmake,
+  boost,
+  zlib,
+  openssl,
+  R,
+  qtbase,
+  qtxmlpatterns,
+  qtsensors,
+  qtwebengine,
+  qtwebchannel,
+  libuuid,
+  hunspellDicts,
+  unzip,
+  ant,
+  jdk,
+  gnumake,
+  makeWrapper,
+  pandoc,
+  llvmPackages,
+  yaml-cpp,
+  soci,
+  postgresql,
+  nodejs,
+  mkYarnModules,
+  qmake,
+  server ? false # build server version
+  ,
+  sqlite,
+  pam,
+  nixosTests,
+}:
 
 let
   pname = "RStudio";

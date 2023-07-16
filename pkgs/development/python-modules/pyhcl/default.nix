@@ -1,7 +1,14 @@
-{ buildPythonPackage, fetchFromGitHub, isPy3k, lib
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy3k,
+  lib
 
-# pythonPackages
-, coverage, pytest }:
+  # pythonPackages
+  ,
+  coverage,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "pyhcl";

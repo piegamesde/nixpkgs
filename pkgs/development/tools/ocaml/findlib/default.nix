@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, ncurses, ocaml, writeText }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+  ocaml,
+  writeText,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-findlib";

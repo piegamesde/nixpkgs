@@ -1,4 +1,11 @@
-{ lib, buildDunePackage, fetchFromGitHub, dune-configurator, ctypes, lilv }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  dune-configurator,
+  ctypes,
+  lilv,
+}:
 
 buildDunePackage rec {
   pname = "lilv";

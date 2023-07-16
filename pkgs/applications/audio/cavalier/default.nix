@@ -1,6 +1,20 @@
-{ lib, python3, fetchFromGitHub, meson, ninja, pkg-config, gobject-introspection
-, glib, gtk4, librsvg, libadwaita, wrapGAppsHook4, appstream-glib
-, desktop-file-utils, cava }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  gobject-introspection,
+  glib,
+  gtk4,
+  librsvg,
+  libadwaita,
+  wrapGAppsHook4,
+  appstream-glib,
+  desktop-file-utils,
+  cava,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "cavalier";

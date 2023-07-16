@@ -1,4 +1,8 @@
-{ lib, stdenv, substituteAll }:
+{
+  lib,
+  stdenv,
+  substituteAll,
+}:
 
 # Provides a facility to hook into rfkill changes.
 #

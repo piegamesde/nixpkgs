@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libusb1, udev, Cocoa, IOKit
-, testers }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libusb1,
+  udev,
+  Cocoa,
+  IOKit,
+  testers,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "hidapi";

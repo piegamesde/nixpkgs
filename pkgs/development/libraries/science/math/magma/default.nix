@@ -1,4 +1,8 @@
-args@{ callPackage, lib, ... }:
+args@{
+  callPackage,
+  lib,
+  ...
+}:
 
 # Type aliases
 # Release = {

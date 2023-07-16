@@ -1,6 +1,19 @@
-{ stdenv, lib, fetchFromGitHub, nix-update-script, autoreconfHook, pkg-config
-, perl, unittest-cpp, xa, libgcrypt, libexsid, docSupport ? true, doxygen
-, graphviz }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  nix-update-script,
+  autoreconfHook,
+  pkg-config,
+  perl,
+  unittest-cpp,
+  xa,
+  libgcrypt,
+  libexsid,
+  docSupport ? true,
+  doxygen,
+  graphviz,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libsidplayfp";

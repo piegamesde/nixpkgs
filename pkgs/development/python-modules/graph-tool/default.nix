@@ -1,8 +1,27 @@
-{ buildPythonPackage, lib, fetchurl
+{
+  buildPythonPackage,
+  lib,
+  fetchurl
 
-, autoreconfHook, boost, cairomm, cgal, expat, gmp, gobject-introspection, gtk3
-, matplotlib, mpfr, numpy, pkg-config, pycairo, pygobject3, python, scipy
-, sparsehash }:
+  ,
+  autoreconfHook,
+  boost,
+  cairomm,
+  cgal,
+  expat,
+  gmp,
+  gobject-introspection,
+  gtk3,
+  matplotlib,
+  mpfr,
+  numpy,
+  pkg-config,
+  pycairo,
+  pygobject3,
+  python,
+  scipy,
+  sparsehash,
+}:
 
 buildPythonPackage rec {
   pname = "graph-tool";

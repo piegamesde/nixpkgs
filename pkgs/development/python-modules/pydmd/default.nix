@@ -1,5 +1,16 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, future, matplotlib, numpy
-, pytestCheckHook, pythonOlder, scipy, ezyrb }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  future,
+  matplotlib,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  scipy,
+  ezyrb,
+}:
 
 buildPythonPackage rec {
   pname = "pydmd";

@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, buildPythonPackage, isPy3k, flit-core, flit-scm, sympy
-, pytestCheckHook, sphinx }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  isPy3k,
+  flit-core,
+  flit-scm,
+  sympy,
+  pytestCheckHook,
+  sphinx,
+}:
 
 buildPythonPackage rec {
   pname = "measurement";

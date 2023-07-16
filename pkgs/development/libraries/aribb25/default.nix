@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchFromGitLab, fetchpatch, autoreconfHook, pkg-config, pcsclite
-, PCSC, xcbuild }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  fetchpatch,
+  autoreconfHook,
+  pkg-config,
+  pcsclite,
+  PCSC,
+  xcbuild,
+}:
 
 stdenv.mkDerivation rec {
   pname = "aribb25";

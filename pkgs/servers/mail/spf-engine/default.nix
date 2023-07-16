@@ -1,4 +1,12 @@
-{ lib, buildPythonApplication, fetchurl, pyspf, dnspython, authres, pymilter }:
+{
+  lib,
+  buildPythonApplication,
+  fetchurl,
+  pyspf,
+  dnspython,
+  authres,
+  pymilter,
+}:
 
 buildPythonApplication rec {
   pname = "spf-engine";

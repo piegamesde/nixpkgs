@@ -1,9 +1,13 @@
 f:
-{ system ? builtins.currentSystem, pkgs ? import ../.. {
-  inherit system;
-  config = { };
-  overlays = [ ];
-}, ... }@args:
+{
+  system ? builtins.currentSystem,
+  pkgs ? import ../.. {
+    inherit system;
+    config = { };
+    overlays = [ ];
+  },
+  ...
+}@args:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 

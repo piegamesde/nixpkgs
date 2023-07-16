@@ -1,4 +1,9 @@
-{ lib, fetchurl, buildDunePackage, ocaml }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  ocaml,
+}:
 
 lib.throwIf (lib.versionAtLeast ocaml.version "5.0")
 "facile is not available for OCaml ≥ 5.0"

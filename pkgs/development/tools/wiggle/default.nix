@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, ncurses, groff }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ncurses,
+  groff,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wiggle";

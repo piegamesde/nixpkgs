@@ -1,12 +1,25 @@
-{ lib, stdenv, fetchurl, zlib, readline, ncurses
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zlib,
+  readline,
+  ncurses
 
-# for tests
-, python3Packages, sqldiff, sqlite-analyzer, tracker
+  # for tests
+  ,
+  python3Packages,
+  sqldiff,
+  sqlite-analyzer,
+  tracker
 
-# uses readline & ncurses for a better interactive experience if set to true
-, interactive ? false
-  # TODO: can be removed since 3.36 since it is the default now.
-, enableDeserialize ? false }:
+  # uses readline & ncurses for a better interactive experience if set to true
+  ,
+  interactive ? false
+    # TODO: can be removed since 3.36 since it is the default now.
+  ,
+  enableDeserialize ? false
+}:
 
 let archiveVersion = import ./archive-version.nix lib;
 

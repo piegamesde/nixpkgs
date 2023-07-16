@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, mercurial }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  mercurial,
+}:
 
 buildPythonPackage rec {
   pname = "hg-evolve";

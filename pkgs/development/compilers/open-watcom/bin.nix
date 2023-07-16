@@ -1,5 +1,15 @@
-{ lib, stdenvNoCC, fetchurl, qemu, expect, writeScript, writeScriptBin, ncurses
-, bash, coreutils }:
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  qemu,
+  expect,
+  writeScript,
+  writeScriptBin,
+  ncurses,
+  bash,
+  coreutils,
+}:
 
 let
 

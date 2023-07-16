@@ -1,9 +1,44 @@
-{ lib, stdenv, fetchFromGitHub, cmake, irrlichtmt, coreutils, libpng, bzip2
-, curl, libogg, jsoncpp, libjpeg, libGLU, openal, libvorbis, sqlite, luajit
-, freetype, gettext, doxygen, ncurses, graphviz, xorg, gmp, libspatialindex
-, leveldb, postgresql, hiredis, libiconv, zlib, libXrandr, libX11, ninja
-, prometheus-cpp, OpenGL, OpenAL ? openal, Carbon, Cocoa
-, withTouchSupport ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  irrlichtmt,
+  coreutils,
+  libpng,
+  bzip2,
+  curl,
+  libogg,
+  jsoncpp,
+  libjpeg,
+  libGLU,
+  openal,
+  libvorbis,
+  sqlite,
+  luajit,
+  freetype,
+  gettext,
+  doxygen,
+  ncurses,
+  graphviz,
+  xorg,
+  gmp,
+  libspatialindex,
+  leveldb,
+  postgresql,
+  hiredis,
+  libiconv,
+  zlib,
+  libXrandr,
+  libX11,
+  ninja,
+  prometheus-cpp,
+  OpenGL,
+  OpenAL ? openal,
+  Carbon,
+  Cocoa,
+  withTouchSupport ? false
+}:
 
 with lib;
 
@@ -12,8 +47,15 @@ let
 
   irrlichtmtInput = irrlichtmt.override { inherit withTouchSupport; };
 
-  generic = { version, rev ? version, sha256, dataRev ? version, dataSha256
-    , buildClient ? true, buildServer ? false }:
+  generic = {
+      version,
+      rev ? version,
+      sha256,
+      dataRev ? version,
+      dataSha256,
+      buildClient ? true,
+      buildServer ? false
+    }:
     let
       sources = {
         src = fetchFromGitHub {

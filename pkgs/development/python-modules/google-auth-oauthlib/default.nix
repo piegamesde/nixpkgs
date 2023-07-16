@@ -1,5 +1,15 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, click, mock, pytestCheckHook
-, google-auth, requests-oauthlib, pythonOlder }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  click,
+  mock,
+  pytestCheckHook,
+  google-auth,
+  requests-oauthlib,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "google-auth-oauthlib";

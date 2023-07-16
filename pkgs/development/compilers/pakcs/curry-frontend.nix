@@ -1,6 +1,23 @@
-{ mkDerivation, base, bytestring, Cabal, containers, curry-base, directory
-, extra, file-embed, filepath, mtl, network-uri, pretty, process, set-extra, lib
-, template-haskell, transformers }:
+{
+  mkDerivation,
+  base,
+  bytestring,
+  Cabal,
+  containers,
+  curry-base,
+  directory,
+  extra,
+  file-embed,
+  filepath,
+  mtl,
+  network-uri,
+  pretty,
+  process,
+  set-extra,
+  lib,
+  template-haskell,
+  transformers,
+}:
 mkDerivation {
   pname = "curry-frontend";
   version = "1.0.4";

@@ -1,7 +1,20 @@
-{ stdenv, lib, config, fetchFromGitHub, cmake, pkg-config
-, alsaSupport ? stdenv.isLinux, alsa-lib
-, pulseSupport ? config.pulseaudio or stdenv.isLinux, libpulseaudio
-, jackSupport ? false, libjack2, soxr, pcapSupport ? false, libpcap }:
+{
+  stdenv,
+  lib,
+  config,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  alsaSupport ? stdenv.isLinux,
+  alsa-lib,
+  pulseSupport ? config.pulseaudio or stdenv.isLinux,
+  libpulseaudio,
+  jackSupport ? false,
+  libjack2,
+  soxr,
+  pcapSupport ? false,
+  libpcap,
+}:
 
 stdenv.mkDerivation rec {
   pname = "scream";

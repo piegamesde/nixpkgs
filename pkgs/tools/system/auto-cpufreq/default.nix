@@ -1,4 +1,9 @@
-{ lib, python3Packages, fetchFromGitHub, substituteAll }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  substituteAll,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "auto-cpufreq";

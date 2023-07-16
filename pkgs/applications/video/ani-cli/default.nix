@@ -1,5 +1,15 @@
-{ fetchFromGitHub, makeWrapper, stdenvNoCC, lib, gnugrep, gnused, wget, fzf, mpv
-, aria2 }:
+{
+  fetchFromGitHub,
+  makeWrapper,
+  stdenvNoCC,
+  lib,
+  gnugrep,
+  gnused,
+  wget,
+  fzf,
+  mpv,
+  aria2,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "ani-cli";

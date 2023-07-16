@@ -1,4 +1,10 @@
-{ lib, aiohttp, buildPythonPackage, fetchPypi, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "advantage-air";

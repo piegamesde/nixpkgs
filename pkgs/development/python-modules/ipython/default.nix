@@ -1,14 +1,34 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, fetchpatch, pythonOlder
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  pythonOlder
 
-# Build dependencies
-, setuptools
+  # Build dependencies
+  ,
+  setuptools
 
-# Runtime dependencies
-, appnope, backcall, decorator, jedi, matplotlib-inline, pexpect, pickleshare
-, prompt-toolkit, pygments, stack-data, traitlets
+  # Runtime dependencies
+  ,
+  appnope,
+  backcall,
+  decorator,
+  jedi,
+  matplotlib-inline,
+  pexpect,
+  pickleshare,
+  prompt-toolkit,
+  pygments,
+  stack-data,
+  traitlets
 
-# Test dependencies
-, pytestCheckHook, testpath }:
+  # Test dependencies
+  ,
+  pytestCheckHook,
+  testpath,
+}:
 
 buildPythonPackage rec {
   pname = "ipython";

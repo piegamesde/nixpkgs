@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, ocaml }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocaml,
+}:
 
 stdenv.mkDerivation rec {
   pname = "statverif";

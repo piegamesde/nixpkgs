@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchsvn, imake, bison, flex, xorg }:
+{
+  lib,
+  stdenv,
+  fetchsvn,
+  imake,
+  bison,
+  flex,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xspim";

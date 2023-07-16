@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchzip, fetchFromGitHub, cmake, fftw, fftwFloat
-, enablePython ? false, pythonPackages ? null, llvmPackages }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  fetchFromGitHub,
+  cmake,
+  fftw,
+  fftwFloat,
+  enablePython ? false,
+  pythonPackages ? null,
+  llvmPackages,
+}:
 let
   # CMake recipes are needed to build galario
   # Build process would usually download them

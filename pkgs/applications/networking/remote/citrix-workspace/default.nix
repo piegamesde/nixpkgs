@@ -1,4 +1,7 @@
-{ lib, callPackage }:
+{
+  lib,
+  callPackage,
+}:
 
 # For detailed information about the Citrix source-tarball, please refer to the OEM
 # reference guide: https://developer-docs.citrix.com/projects/workspace-app-for-linux-oem-guide/en/latest/

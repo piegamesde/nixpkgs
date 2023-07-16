@@ -1,7 +1,25 @@
-{ lib, stdenv, fetchFromGitLab, fetchFromGitHub, fetchpatch, file, libxslt
-, docbook_xml_dtd_412, docbook_xsl, xmlto, w3m, gnugrep, gnused, coreutils, xset
-, perlPackages, mimiSupport ? false, gawk, glib
-, withXdgOpenUsePortalPatch ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchFromGitHub,
+  fetchpatch,
+  file,
+  libxslt,
+  docbook_xml_dtd_412,
+  docbook_xsl,
+  xmlto,
+  w3m,
+  gnugrep,
+  gnused,
+  coreutils,
+  xset,
+  perlPackages,
+  mimiSupport ? false,
+  gawk,
+  glib,
+  withXdgOpenUsePortalPatch ? true
+}:
 
 let
   # A much better xdg-open

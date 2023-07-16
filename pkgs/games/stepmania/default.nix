@@ -1,5 +1,20 @@
-{ stdenv, lib, fetchFromGitHub, cmake, nasm, gtk2, glib, ffmpeg_4, alsa-lib
-, libmad, libogg, libvorbis, glew, libpulseaudio, udev }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  nasm,
+  gtk2,
+  glib,
+  ffmpeg_4,
+  alsa-lib,
+  libmad,
+  libogg,
+  libvorbis,
+  glew,
+  libpulseaudio,
+  udev,
+}:
 
 stdenv.mkDerivation rec {
   pname = "stepmania";

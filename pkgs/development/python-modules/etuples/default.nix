@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cons, multipledispatch, py
-, pytestCheckHook, pytest-html }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cons,
+  multipledispatch,
+  py,
+  pytestCheckHook,
+  pytest-html,
+}:
 
 buildPythonPackage rec {
   pname = "etuples";

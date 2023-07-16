@@ -1,7 +1,34 @@
-{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, pkg-config
-, vala, desktop-file-utils, gtk3, libexif, libgee, libhandy, geocode-glib
-, gexiv2, libgphoto2, granite, gst_all_1, libgudev, json-glib, libraw, librest
-, libsoup, sqlite, python3, webkitgtk, libwebp, appstream, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  meson,
+  ninja,
+  pkg-config,
+  vala,
+  desktop-file-utils,
+  gtk3,
+  libexif,
+  libgee,
+  libhandy,
+  geocode-glib,
+  gexiv2,
+  libgphoto2,
+  granite,
+  gst_all_1,
+  libgudev,
+  json-glib,
+  libraw,
+  librest,
+  libsoup,
+  sqlite,
+  python3,
+  webkitgtk,
+  libwebp,
+  appstream,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "elementary-photos";

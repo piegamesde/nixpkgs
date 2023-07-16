@@ -1,4 +1,9 @@
-{ linkFarm, hello, writeTextFile, runCommand }:
+{
+  linkFarm,
+  hello,
+  writeTextFile,
+  runCommand,
+}:
 let
   foo = writeTextFile {
     name = "foo";

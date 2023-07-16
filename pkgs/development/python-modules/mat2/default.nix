@@ -1,7 +1,26 @@
-{ lib, stdenv, buildPythonPackage, unittestCheckHook, pythonOlder
-, fetchFromGitLab, substituteAll, bubblewrap, exiftool, ffmpeg, mailcap
-, wrapGAppsHook, gdk-pixbuf, gobject-introspection, librsvg, poppler_gi, mutagen
-, pygobject3, pycairo, dolphinIntegration ? false, plasma5Packages }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  unittestCheckHook,
+  pythonOlder,
+  fetchFromGitLab,
+  substituteAll,
+  bubblewrap,
+  exiftool,
+  ffmpeg,
+  mailcap,
+  wrapGAppsHook,
+  gdk-pixbuf,
+  gobject-introspection,
+  librsvg,
+  poppler_gi,
+  mutagen,
+  pygobject3,
+  pycairo,
+  dolphinIntegration ? false,
+  plasma5Packages,
+}:
 
 buildPythonPackage rec {
   pname = "mat2";

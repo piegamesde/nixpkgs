@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, glib, dbus, libgcrypt, pkg-config, intltool, testers }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  glib,
+  dbus,
+  libgcrypt,
+  pkg-config,
+  intltool,
+  testers,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libgnome-keyring";

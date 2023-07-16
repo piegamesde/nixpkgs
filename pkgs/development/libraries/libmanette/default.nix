@@ -1,7 +1,22 @@
-{ lib, stdenv, fetchurl, ninja, meson, mesonEmulatorHook, pkg-config, vala
-, gobject-introspection, buildPackages
-, withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
-, gtk-doc, docbook-xsl-nons, docbook_xml_dtd_43, glib, libgudev, libevdev, gnome
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ninja,
+  meson,
+  mesonEmulatorHook,
+  pkg-config,
+  vala,
+  gobject-introspection,
+  buildPackages,
+  withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages,
+  gtk-doc,
+  docbook-xsl-nons,
+  docbook_xml_dtd_43,
+  glib,
+  libgudev,
+  libevdev,
+  gnome,
 }:
 
 stdenv.mkDerivation rec {

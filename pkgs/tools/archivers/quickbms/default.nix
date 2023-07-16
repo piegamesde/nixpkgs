@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchzip, bzip2, lzo, openssl, zlib }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  bzip2,
+  lzo,
+  openssl,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.11.0";

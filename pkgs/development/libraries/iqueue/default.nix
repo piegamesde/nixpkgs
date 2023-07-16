@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, pkg-config, libbsd, microsoft_gsl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libbsd,
+  microsoft_gsl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "iqueue";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, libkrb5, openssl, postgresql }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libkrb5,
+  openssl,
+  postgresql,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pgaudit";

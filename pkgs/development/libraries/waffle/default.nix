@@ -1,6 +1,25 @@
-{ stdenv, fetchFromGitLab, lib, cmake, meson, ninja, bash-completion, libGL
-, libglvnd, makeWrapper, pkg-config, python3, x11Support ? true, libxcb, libX11
-, waylandSupport ? true, wayland, wayland-protocols, useGbm ? true, mesa, udev
+{
+  stdenv,
+  fetchFromGitLab,
+  lib,
+  cmake,
+  meson,
+  ninja,
+  bash-completion,
+  libGL,
+  libglvnd,
+  makeWrapper,
+  pkg-config,
+  python3,
+  x11Support ? true,
+  libxcb,
+  libX11,
+  waylandSupport ? true,
+  wayland,
+  wayland-protocols,
+  useGbm ? true,
+  mesa,
+  udev,
 }:
 
 stdenv.mkDerivation rec {

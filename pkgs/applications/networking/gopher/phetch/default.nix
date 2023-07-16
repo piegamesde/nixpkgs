@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, installShellFiles, rustPlatform, pkg-config
-, openssl, scdoc, Security, which }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  installShellFiles,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  scdoc,
+  Security,
+  which,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "phetch";

@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, python, pythonOlder, pytestCheckHook
-, setuptools, torch, einops, lion-pytorch, scipy, symlinkJoin }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python,
+  pythonOlder,
+  pytestCheckHook,
+  setuptools,
+  torch,
+  einops,
+  lion-pytorch,
+  scipy,
+  symlinkJoin,
+}:
 
 let
   pname = "bitsandbytes";

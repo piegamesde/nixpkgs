@@ -1,14 +1,30 @@
 # similar to interpreters/python/default.nix
-{ stdenv, lib, callPackage, fetchFromGitHub, fetchurl, fetchpatch
-, makeBinaryWrapper }:
+{
+  stdenv,
+  lib,
+  callPackage,
+  fetchFromGitHub,
+  fetchurl,
+  fetchpatch,
+  makeBinaryWrapper,
+}:
 
 let
 
   # Common passthru for all lua interpreters.
   # copied from python
-  passthruFun = { executable, luaversion, packageOverrides, luaOnBuildForBuild
-    , luaOnBuildForHost, luaOnBuildForTarget, luaOnHostForHost
-    , luaOnTargetForTarget, luaAttr ? null, self # is luaOnHostForTarget
+  passthruFun = {
+      executable,
+      luaversion,
+      packageOverrides,
+      luaOnBuildForBuild,
+      luaOnBuildForHost,
+      luaOnBuildForTarget,
+      luaOnHostForHost,
+      luaOnTargetForTarget,
+      luaAttr ? null,
+      self # is luaOnHostForTarget
+      ,
     }:
     let
       luaPackages = callPackage
@@ -16,7 +32,12 @@ let
         # - imports lua-packages.nix
         # - adds spliced package sets to the package set
         # - applies overrides from `packageOverrides`
-        ({ lua, overrides, callPackage, makeScopeWithSplicing }:
+        ({
+            lua,
+            overrides,
+            callPackage,
+            makeScopeWithSplicing,
+          }:
           let
             luaPackagesFun =
               callPackage ../../../top-level/lua-packages.nix { lua = self; };

@@ -1,5 +1,12 @@
-{ lib, buildGoModule, fetchFromGitHub, makeBinaryWrapper, xdg-utils
-, installShellFiles, git }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  makeBinaryWrapper,
+  xdg-utils,
+  installShellFiles,
+  git,
+}:
 
 buildGoModule rec {
   pname = "lab";

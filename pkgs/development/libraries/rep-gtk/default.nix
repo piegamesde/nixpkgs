@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, autoreconfHook, gtk2, librep, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  gtk2,
+  librep,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rep-gtk";

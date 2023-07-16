@@ -1,5 +1,14 @@
-{ lib, fetchPypi, buildPythonPackage, pkg-config, gtk3, gobject-introspection
-, pygobject3, goocanvas2, isPy3k }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pkg-config,
+  gtk3,
+  gobject-introspection,
+  pygobject3,
+  goocanvas2,
+  isPy3k,
+}:
 
 buildPythonPackage rec {
   pname = "GooCalendar";

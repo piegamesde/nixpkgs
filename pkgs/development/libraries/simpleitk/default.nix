@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, swig4, lua, itk }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  swig4,
+  lua,
+  itk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "simpleitk";

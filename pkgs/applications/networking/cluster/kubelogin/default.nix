@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, buildGoModule, go }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  go,
+}:
 
 buildGoModule rec {
   pname = "kubelogin";

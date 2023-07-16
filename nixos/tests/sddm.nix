@@ -1,5 +1,8 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; } }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; }
+}:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 
@@ -10,17 +13,22 @@ let
     default = {
       name = "sddm";
 
-      nodes.machine = { ... }: {
-        imports = [ ./common/user-account.nix ];
-        services.xserver.enable = true;
-        services.xserver.displayManager.sddm.enable = true;
-        services.xserver.displayManager.defaultSession = "none+icewm";
-        services.xserver.windowManager.icewm.enable = true;
-      };
+      nodes.machine = {
+          ...
+        }: {
+          imports = [ ./common/user-account.nix ];
+          services.xserver.enable = true;
+          services.xserver.displayManager.sddm.enable = true;
+          services.xserver.displayManager.defaultSession = "none+icewm";
+          services.xserver.windowManager.icewm.enable = true;
+        };
 
       enableOCR = true;
 
-      testScript = { nodes, ... }:
+      testScript = {
+          nodes,
+          ...
+        }:
         let user = nodes.machine.config.users.users.alice;
         in ''
           start_all()
@@ -37,21 +45,26 @@ let
       name = "sddm-autologin";
       meta = with pkgs.lib.maintainers; { maintainers = [ ttuegel ]; };
 
-      nodes.machine = { ... }: {
-        imports = [ ./common/user-account.nix ];
-        services.xserver.enable = true;
-        services.xserver.displayManager = {
-          sddm.enable = true;
-          autoLogin = {
-            enable = true;
-            user = "alice";
+      nodes.machine = {
+          ...
+        }: {
+          imports = [ ./common/user-account.nix ];
+          services.xserver.enable = true;
+          services.xserver.displayManager = {
+            sddm.enable = true;
+            autoLogin = {
+              enable = true;
+              user = "alice";
+            };
           };
+          services.xserver.displayManager.defaultSession = "none+icewm";
+          services.xserver.windowManager.icewm.enable = true;
         };
-        services.xserver.displayManager.defaultSession = "none+icewm";
-        services.xserver.windowManager.icewm.enable = true;
-      };
 
-      testScript = { nodes, ... }:
+      testScript = {
+          nodes,
+          ...
+        }:
         let user = nodes.machine.config.users.users.alice;
         in ''
           start_all()

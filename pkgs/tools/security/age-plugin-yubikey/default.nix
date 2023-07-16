@@ -1,5 +1,15 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, openssl, pcsclite
-, PCSC, Foundation, IOKit }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  pcsclite,
+  PCSC,
+  Foundation,
+  IOKit,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "age-plugin-yubikey";

@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchgit, ocamlPackages, autoreconfHook, libxml2, pkg-config
-, getopt }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  ocamlPackages,
+  autoreconfHook,
+  libxml2,
+  pkg-config,
+  getopt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "virt-top";

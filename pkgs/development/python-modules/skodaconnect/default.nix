@@ -1,5 +1,15 @@
-{ lib, aiohttp, beautifulsoup4, buildPythonPackage, cryptography
-, fetchFromGitHub, lxml, pyjwt, pythonOlder, setuptools-scm }:
+{
+  lib,
+  aiohttp,
+  beautifulsoup4,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  lxml,
+  pyjwt,
+  pythonOlder,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "skodaconnect";

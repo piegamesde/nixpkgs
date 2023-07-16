@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+}:
 
 stdenv.mkDerivation {
   pname = "elementary-cmake-modules";

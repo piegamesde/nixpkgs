@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, gnulib, perl, autoconf, automake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gnulib,
+  perl,
+  autoconf,
+  automake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lbzip2";

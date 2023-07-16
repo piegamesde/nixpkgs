@@ -1,5 +1,19 @@
-{ lib, fetchFromGitHub, stdenv, cmake, extra-cmake-modules, libarchive, libpcap
-, libslirp, pkg-config, qtbase, qtmultimedia, SDL2, wayland, wrapQtAppsHook }:
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  cmake,
+  extra-cmake-modules,
+  libarchive,
+  libpcap,
+  libslirp,
+  pkg-config,
+  qtbase,
+  qtmultimedia,
+  SDL2,
+  wayland,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "melonDS";

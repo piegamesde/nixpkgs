@@ -1,4 +1,8 @@
-{ runCommand, fetchurl, lib }:
+{
+  runCommand,
+  fetchurl,
+  lib,
+}:
 runCommand "glasstty-ttf" {
   src = fetchurl {
     url =

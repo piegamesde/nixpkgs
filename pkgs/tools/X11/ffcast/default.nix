@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, makeWrapper, perl, ffmpeg-full
-, imagemagick, xdpyinfo, xprop, xrectsel, xwininfo }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  makeWrapper,
+  perl,
+  ffmpeg-full,
+  imagemagick,
+  xdpyinfo,
+  xprop,
+  xrectsel,
+  xwininfo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ffcast";

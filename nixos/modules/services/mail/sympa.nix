@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -117,41 +122,45 @@ in {
     };
 
     domains = mkOption {
-      type = attrsOf (submodule ({ name, config, ... }: {
-        options = {
-          webHost = mkOption {
-            type = nullOr str;
-            default = null;
-            example = "archive.example.org";
-            description = lib.mdDoc ''
-              Domain part of the web interface URL (no web interface for this domain if `null`).
-              DNS record of type A (or AAAA or CNAME) has to exist with this value.
-            '';
+      type = attrsOf (submodule ({
+          name,
+          config,
+          ...
+        }: {
+          options = {
+            webHost = mkOption {
+              type = nullOr str;
+              default = null;
+              example = "archive.example.org";
+              description = lib.mdDoc ''
+                Domain part of the web interface URL (no web interface for this domain if `null`).
+                DNS record of type A (or AAAA or CNAME) has to exist with this value.
+              '';
+            };
+            webLocation = mkOption {
+              type = str;
+              default = "/";
+              example = "/sympa";
+              description = lib.mdDoc "URL path part of the web interface.";
+            };
+            settings = mkOption {
+              type = attrsOf (oneOf [ str int bool ]);
+              default = { };
+              example = { default_max_list_members = 3; };
+              description = lib.mdDoc ''
+                The {file}`robot.conf` configuration file as key value set.
+                See <https://sympa-community.github.io/gpldoc/man/sympa.conf.5.html>
+                for list of configuration parameters.
+              '';
+            };
           };
-          webLocation = mkOption {
-            type = str;
-            default = "/";
-            example = "/sympa";
-            description = lib.mdDoc "URL path part of the web interface.";
-          };
-          settings = mkOption {
-            type = attrsOf (oneOf [ str int bool ]);
-            default = { };
-            example = { default_max_list_members = 3; };
-            description = lib.mdDoc ''
-              The {file}`robot.conf` configuration file as key value set.
-              See <https://sympa-community.github.io/gpldoc/man/sympa.conf.5.html>
-              for list of configuration parameters.
-            '';
-          };
-        };
 
-        config.settings = mkIf (cfg.web.enable && config.webHost != null) {
-          wwsympa_url = mkDefault "https://${config.webHost}${
-              strings.removeSuffix "/" config.webLocation
-            }";
-        };
-      }));
+          config.settings = mkIf (cfg.web.enable && config.webHost != null) {
+            wwsympa_url = mkDefault "https://${config.webHost}${
+                strings.removeSuffix "/" config.webLocation
+              }";
+          };
+        }));
 
       description = lib.mdDoc ''
         Email domains handled by this instance. There have
@@ -303,28 +312,32 @@ in {
     };
 
     settingsFile = mkOption {
-      type = attrsOf (submodule ({ name, config, ... }: {
-        options = {
-          enable = mkOption {
-            type = bool;
-            default = true;
-            description = lib.mdDoc
-              "Whether this file should be generated. This option allows specific files to be disabled.";
+      type = attrsOf (submodule ({
+          name,
+          config,
+          ...
+        }: {
+          options = {
+            enable = mkOption {
+              type = bool;
+              default = true;
+              description = lib.mdDoc
+                "Whether this file should be generated. This option allows specific files to be disabled.";
+            };
+            text = mkOption {
+              default = null;
+              type = nullOr lines;
+              description = lib.mdDoc "Text of the file.";
+            };
+            source = mkOption {
+              type = path;
+              description = lib.mdDoc "Path of the source file.";
+            };
           };
-          text = mkOption {
-            default = null;
-            type = nullOr lines;
-            description = lib.mdDoc "Text of the file.";
-          };
-          source = mkOption {
-            type = path;
-            description = lib.mdDoc "Path of the source file.";
-          };
-        };
 
-        config.source = mkIf (config.text != null)
-          (mkDefault (pkgs.writeText "sympa-${baseNameOf name}" config.text));
-      }));
+          config.source = mkIf (config.text != null)
+            (mkDefault (pkgs.writeText "sympa-${baseNameOf name}" config.text));
+        }));
       default = { };
       example = literalExpression ''
         {

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, requireFile, cmake, pkg-config, SDL2
-, SDL2_image, audiality2, useProprietaryAssets ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  requireFile,
+  cmake,
+  pkg-config,
+  SDL2,
+  SDL2_image,
+  audiality2,
+  useProprietaryAssets ? true
+}:
 
 with lib;
 stdenv.mkDerivation rec {

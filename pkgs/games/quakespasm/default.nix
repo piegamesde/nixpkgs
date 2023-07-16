@@ -1,7 +1,27 @@
-{ lib, stdenv, SDL, SDL2, fetchurl, gzip, libvorbis, libmad, flac, libopus
-, opusfile, libogg, libxmp, Cocoa, CoreAudio, CoreFoundation, IOKit, OpenGL
-, copyDesktopItems, makeDesktopItem, pkg-config, useSDL2 ?
-  stdenv.isDarwin # TODO: CoreAudio fails to initialize with SDL 1.x for some reason.
+{
+  lib,
+  stdenv,
+  SDL,
+  SDL2,
+  fetchurl,
+  gzip,
+  libvorbis,
+  libmad,
+  flac,
+  libopus,
+  opusfile,
+  libogg,
+  libxmp,
+  Cocoa,
+  CoreAudio,
+  CoreFoundation,
+  IOKit,
+  OpenGL,
+  copyDesktopItems,
+  makeDesktopItem,
+  pkg-config,
+  useSDL2 ?
+    stdenv.isDarwin # TODO: CoreAudio fails to initialize with SDL 1.x for some reason.
 }:
 
 stdenv.mkDerivation rec {

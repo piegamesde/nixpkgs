@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, jre, unzip, runtimeShell }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jre,
+  unzip,
+  runtimeShell,
+}:
 
 let
   major = "15";

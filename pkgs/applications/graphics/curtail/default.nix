@@ -1,6 +1,21 @@
-{ lib, python3, fetchFromGitHub, wrapGAppsHook, appstream-glib
-, desktop-file-utils, gettext, gtk3, meson, ninja, pkg-config
-, gobject-introspection, jpegoptim, libwebp, optipng, pngquant }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  wrapGAppsHook,
+  appstream-glib,
+  desktop-file-utils,
+  gettext,
+  gtk3,
+  meson,
+  ninja,
+  pkg-config,
+  gobject-introspection,
+  jpegoptim,
+  libwebp,
+  optipng,
+  pngquant,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "curtail";

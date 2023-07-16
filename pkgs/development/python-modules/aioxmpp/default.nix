@@ -1,6 +1,21 @@
-{ lib, buildPythonPackage, fetchFromGitHub, aiosasl, aioopenssl, babel
-, dnspython, lxml, multidict, pyasn1, pyasn1-modules, pyopenssl, pytz
-, sortedcollections, tzlocal, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  aiosasl,
+  aioopenssl,
+  babel,
+  dnspython,
+  lxml,
+  multidict,
+  pyasn1,
+  pyasn1-modules,
+  pyopenssl,
+  pytz,
+  sortedcollections,
+  tzlocal,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "aioxmpp";

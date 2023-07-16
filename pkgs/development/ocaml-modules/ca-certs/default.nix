@@ -1,5 +1,18 @@
-{ lib, buildDunePackage, fetchurl, bos, fpath, ptime, mirage-crypto, x509
-, astring, logs, cacert, alcotest, fmt }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  bos,
+  fpath,
+  ptime,
+  mirage-crypto,
+  x509,
+  astring,
+  logs,
+  cacert,
+  alcotest,
+  fmt,
+}:
 
 buildDunePackage rec {
   pname = "ca-certs";

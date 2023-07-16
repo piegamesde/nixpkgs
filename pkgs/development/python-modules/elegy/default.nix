@@ -1,7 +1,27 @@
-{ lib, buildPythonPackage, cloudpickle, deepdish, deepmerge, dm-haiku
-, fetchFromGitHub, fetchpatch, jaxlib, poetry-core, pytestCheckHook, pythonOlder
-, pyyaml, sh, tables, tabulate, tensorboardx, tensorflow, toolz, torch, treex
-, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  cloudpickle,
+  deepdish,
+  deepmerge,
+  dm-haiku,
+  fetchFromGitHub,
+  fetchpatch,
+  jaxlib,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  sh,
+  tables,
+  tabulate,
+  tensorboardx,
+  tensorflow,
+  toolz,
+  torch,
+  treex,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "elegy";

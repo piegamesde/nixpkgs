@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchzip, ocaml, findlib, ocamlbuild, ocaml_pcre }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  ocaml_pcre,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-benchmark";

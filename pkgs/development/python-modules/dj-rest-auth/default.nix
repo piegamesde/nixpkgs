@@ -1,6 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, django, django-allauth
-, djangorestframework, djangorestframework-simplejwt, responses
-, unittest-xml-reporting, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  django,
+  django-allauth,
+  djangorestframework,
+  djangorestframework-simplejwt,
+  responses,
+  unittest-xml-reporting,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "dj-rest-auth";

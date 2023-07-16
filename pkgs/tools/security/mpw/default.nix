@@ -1,4 +1,13 @@
-{ lib, stdenv, cmake, fetchFromGitLab, json_c, libsodium, libxml2, ncurses }:
+{
+  lib,
+  stdenv,
+  cmake,
+  fetchFromGitLab,
+  json_c,
+  libsodium,
+  libxml2,
+  ncurses,
+}:
 
 let rev = "22796663dcad81684ab24308d9db570f6781ba2c";
 

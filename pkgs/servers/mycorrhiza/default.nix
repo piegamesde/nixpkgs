@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, buildGoModule, makeWrapper, git }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  makeWrapper,
+  git,
+}:
 
 buildGoModule rec {
   pname = "mycorrhiza";

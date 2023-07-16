@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, six, unidecode, nose, yanc }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  unidecode,
+  nose,
+  yanc,
+}:
 
 buildPythonPackage rec {
   pname = "preggy";

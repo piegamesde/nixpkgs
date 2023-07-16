@@ -1,5 +1,12 @@
-{ lib, fetchFromGitHub, makeRustPlatform, rustc, cargo, installShellFiles
-, stdenv }:
+{
+  lib,
+  fetchFromGitHub,
+  makeRustPlatform,
+  rustc,
+  cargo,
+  installShellFiles,
+  stdenv,
+}:
 
 let
   args = rec {

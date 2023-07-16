@@ -1,4 +1,11 @@
-{ stdenv, pkgs, fetchurl, zlib, gmp, lib }:
+{
+  stdenv,
+  pkgs,
+  fetchurl,
+  zlib,
+  gmp,
+  lib,
+}:
 
 # from justinwoo/easy-purescript-nix
 # https://github.com/justinwoo/easy-purescript-nix/blob/d383972c82620a712ead4033db14110497bc2c9c/purs.nix

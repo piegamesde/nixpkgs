@@ -1,5 +1,18 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, libpcap, openssl, stdenv
-, alsa-lib, expat, fontconfig, vulkan-loader, xorg, darwin }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  libpcap,
+  openssl,
+  stdenv,
+  alsa-lib,
+  expat,
+  fontconfig,
+  vulkan-loader,
+  xorg,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "sniffnet";

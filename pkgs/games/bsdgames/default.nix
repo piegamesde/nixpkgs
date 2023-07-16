@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, ncurses, openssl, flex, bison, less, miscfiles }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+  openssl,
+  flex,
+  bison,
+  less,
+  miscfiles,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bsd-games";

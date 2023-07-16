@@ -1,6 +1,15 @@
-{ lib, fetchurl, buildDunePackage, ocaml, ounit, ppx_deriving, ppx_sexp_conv
-, ppxlib, version ?
-  if lib.versionAtLeast ocaml.version "4.11" then "1.10.0" else "1.9.1" }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  ocaml,
+  ounit,
+  ppx_deriving,
+  ppx_sexp_conv,
+  ppxlib,
+  version ?
+    if lib.versionAtLeast ocaml.version "4.11" then "1.10.0" else "1.9.1"
+}:
 
 let
   param = {

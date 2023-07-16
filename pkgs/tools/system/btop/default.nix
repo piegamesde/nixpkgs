@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, runCommand, darwin, removeReferencesTo }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  runCommand,
+  darwin,
+  removeReferencesTo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "btop";

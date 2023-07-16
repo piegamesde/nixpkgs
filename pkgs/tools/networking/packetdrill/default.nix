@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, bison, flex, cmake, libpcap }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  bison,
+  flex,
+  cmake,
+  libpcap,
+}:
 stdenv.mkDerivation rec {
   pname = "packetdrill";
   version = "unstable-2020-08-22";

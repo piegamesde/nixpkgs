@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, python, glibcLocales, fetchFromGitHub, six
-, simplejson }:
+{
+  lib,
+  buildPythonPackage,
+  python,
+  glibcLocales,
+  fetchFromGitHub,
+  six,
+  simplejson,
+}:
 
 buildPythonPackage rec {
   pname = "mail-parser";

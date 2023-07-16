@@ -1,5 +1,17 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pipInstallHook, writeText
-, blessed, docutils, libcxx, llvm, pytestCheckHook, typesentry }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pipInstallHook,
+  writeText,
+  blessed,
+  docutils,
+  libcxx,
+  llvm,
+  pytestCheckHook,
+  typesentry,
+}:
 
 buildPythonPackage rec {
   pname = "datatable";

@@ -1,4 +1,11 @@
-{ lib, fetchpatch, python3Packages, fetchFromGitHub, wrapQtAppsHook, cups }:
+{
+  lib,
+  fetchpatch,
+  python3Packages,
+  fetchFromGitHub,
+  wrapQtAppsHook,
+  cups,
+}:
 
 with python3Packages;
 

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, perl, AppKit, Cocoa, ScriptingBridge }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  perl,
+  AppKit,
+  Cocoa,
+  ScriptingBridge,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.9.2";

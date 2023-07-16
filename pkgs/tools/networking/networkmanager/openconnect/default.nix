@@ -1,6 +1,26 @@
-{ stdenv, lib, fetchurl, substituteAll, glib, libxml2, openconnect, intltool
-, pkg-config, autoreconfHook, networkmanager, gcr, libsecret, file, gtk3, libnma
-, libnma-gtk4, gtk4, withGnome ? true, gnome, kmod }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  substituteAll,
+  glib,
+  libxml2,
+  openconnect,
+  intltool,
+  pkg-config,
+  autoreconfHook,
+  networkmanager,
+  gcr,
+  libsecret,
+  file,
+  gtk3,
+  libnma,
+  libnma-gtk4,
+  gtk4,
+  withGnome ? true,
+  gnome,
+  kmod,
+}:
 
 stdenv.mkDerivation rec {
   pname = "NetworkManager-openconnect";

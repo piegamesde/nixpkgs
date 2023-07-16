@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, libde265 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libde265,
+}:
 
 stdenv.mkDerivation {
   pname = "libde265-test-corpus-decode";

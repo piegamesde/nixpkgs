@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, coreutils, scrot, imagemagick, gawk
-, i3lock-color, getopt, fontconfig }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  coreutils,
+  scrot,
+  imagemagick,
+  gawk,
+  i3lock-color,
+  getopt,
+  fontconfig,
+}:
 
 stdenv.mkDerivation rec {
   pname = "i3lock-fancy";

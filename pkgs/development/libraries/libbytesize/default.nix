@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, docbook_xml_dtd_43, docbook_xsl
-, gettext, gmp, gtk-doc, libxslt, mpfr, pcre2, pkg-config, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  docbook_xml_dtd_43,
+  docbook_xsl,
+  gettext,
+  gmp,
+  gtk-doc,
+  libxslt,
+  mpfr,
+  pcre2,
+  pkg-config,
+  python3,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libbytesize";

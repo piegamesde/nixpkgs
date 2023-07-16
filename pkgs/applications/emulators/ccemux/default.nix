@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, makeDesktopItem, makeWrapper, jre, useCCTweaked ? true
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeDesktopItem,
+  makeWrapper,
+  jre,
+  useCCTweaked ? true
 }:
 
 let

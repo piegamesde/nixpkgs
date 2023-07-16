@@ -1,4 +1,10 @@
-{ buildOctavePackage, lib, fetchurl, libv4l, fltk }:
+{
+  buildOctavePackage,
+  lib,
+  fetchurl,
+  libv4l,
+  fltk,
+}:
 
 buildOctavePackage rec {
   pname = "image-acquisition";

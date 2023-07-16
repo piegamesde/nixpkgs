@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  ...
+}:
 let
   inherit (pkgs) lib;
 
@@ -17,27 +20,40 @@ let
   testsForPackage = lib.makeOverridable
     (args: lib.recurseIntoAttrs { legacyNetwork = testLegacyNetwork args; });
 
-  testLegacyNetwork = { nixopsPkg }:
+  testLegacyNetwork = {
+      nixopsPkg,
+    }:
     pkgs.nixosTest ({
       name = "nixops-legacy-network";
       nodes = {
-        deployer = { config, lib, nodes, pkgs, ... }: {
-          imports = [ ../../modules/installer/cd-dvd/channel.nix ];
-          environment.systemPackages = [ nixopsPkg ];
-          nix.settings.substituters = lib.mkForce [ ];
-          users.users.person.isNormalUser = true;
-          virtualisation.writableStore = true;
-          virtualisation.additionalPaths = [ pkgs.hello pkgs.figlet ];
+        deployer = {
+            config,
+            lib,
+            nodes,
+            pkgs,
+            ...
+          }: {
+            imports = [ ../../modules/installer/cd-dvd/channel.nix ];
+            environment.systemPackages = [ nixopsPkg ];
+            nix.settings.substituters = lib.mkForce [ ];
+            users.users.person.isNormalUser = true;
+            virtualisation.writableStore = true;
+            virtualisation.additionalPaths = [ pkgs.hello pkgs.figlet ];
 
-          # TODO: make this efficient, https://github.com/NixOS/nixpkgs/issues/180529
-          system.includeBuildDependencies = true;
-        };
-        server = { lib, ... }: {
-          imports = [ ./legacy/base-configuration.nix ];
-        };
+            # TODO: make this efficient, https://github.com/NixOS/nixpkgs/issues/180529
+            system.includeBuildDependencies = true;
+          };
+        server = {
+            lib,
+            ...
+          }: {
+            imports = [ ./legacy/base-configuration.nix ];
+          };
       };
 
-      testScript = { nodes }:
+      testScript = {
+          nodes,
+        }:
         let
           deployerSetup = pkgs.writeScript "deployerSetup" ''
             #!${pkgs.runtimeShell}

@@ -1,4 +1,9 @@
-{ lib, python3Packages, python3, xvfb-run }:
+{
+  lib,
+  python3Packages,
+  python3,
+  xvfb-run,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "keepmenu";

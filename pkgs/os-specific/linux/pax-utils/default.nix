@@ -1,7 +1,20 @@
-{ stdenv, lib, fetchurl, buildPackages, docbook_xml_dtd_44, docbook_xsl, libcap
-, pkg-config, meson, ninja, xmlto, python3
+{
+  stdenv,
+  lib,
+  fetchurl,
+  buildPackages,
+  docbook_xml_dtd_44,
+  docbook_xsl,
+  libcap,
+  pkg-config,
+  meson,
+  ninja,
+  xmlto,
+  python3
 
-, gitUpdater }:
+  ,
+  gitUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pax-utils";

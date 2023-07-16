@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, pari, perl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pari,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gp2c";

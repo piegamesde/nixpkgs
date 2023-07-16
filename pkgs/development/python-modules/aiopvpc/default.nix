@@ -1,6 +1,17 @@
-{ lib, aiohttp, async-timeout, backports-zoneinfo, buildPythonPackage
-, fetchFromGitHub, poetry-core, pytest-asyncio, pytest-timeout, pytestCheckHook
-, pythonOlder, python-dotenv }:
+{
+  lib,
+  aiohttp,
+  async-timeout,
+  backports-zoneinfo,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-asyncio,
+  pytest-timeout,
+  pytestCheckHook,
+  pythonOlder,
+  python-dotenv,
+}:
 
 buildPythonPackage rec {
   pname = "aiopvpc";

@@ -1,4 +1,10 @@
-{ buildDunePackage, letsencrypt, emile, http-mirage-client, paf }:
+{
+  buildDunePackage,
+  letsencrypt,
+  emile,
+  http-mirage-client,
+  paf,
+}:
 
 buildDunePackage {
   pname = "letsencrypt-mirage";

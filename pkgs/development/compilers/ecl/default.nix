@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchurl, fetchpatch, libtool, autoconf, automake, texinfo, gmp
-, mpfr, libffi, makeWrapper, noUnicode ? false, gcc, threadSupport ? true
-, useBoehmgc ? false, boehmgc }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  libtool,
+  autoconf,
+  automake,
+  texinfo,
+  gmp,
+  mpfr,
+  libffi,
+  makeWrapper,
+  noUnicode ? false,
+  gcc,
+  threadSupport ? true,
+  useBoehmgc ? false,
+  boehmgc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ecl";

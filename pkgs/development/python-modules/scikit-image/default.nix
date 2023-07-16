@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, buildPythonPackage, python, cython, pythran
-, numpy, scipy, matplotlib, networkx, six, pillow, pywavelets, dask, cloudpickle
-, imageio, tifffile, pytestCheckHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildPythonPackage,
+  python,
+  cython,
+  pythran,
+  numpy,
+  scipy,
+  matplotlib,
+  networkx,
+  six,
+  pillow,
+  pywavelets,
+  dask,
+  cloudpickle,
+  imageio,
+  tifffile,
+  pytestCheckHook,
+}:
 
 let
   installedPackageRoot = "${builtins.placeholder "out"}/${python.sitePackages}";

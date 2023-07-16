@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, zope_proxy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  zope_proxy,
+}:
 
 buildPythonPackage rec {
   pname = "zope.location";

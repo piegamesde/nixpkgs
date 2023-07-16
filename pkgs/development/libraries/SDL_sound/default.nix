@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchurl, SDL, libvorbis, flac, libmikmod }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  SDL,
+  libvorbis,
+  flac,
+  libmikmod,
+}:
 
 stdenv.mkDerivation rec {
   pname = "SDL_sound";

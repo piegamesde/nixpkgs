@@ -1,7 +1,17 @@
-{ lib, stdenv, fetchurl, libxml2, pkg-config, compressionSupport ? true
-, zlib ? null, sslSupport ? true, openssl ? null
-, static ? stdenv.hostPlatform.isStatic, shared ? !stdenv.hostPlatform.isStatic
-, bash }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libxml2,
+  pkg-config,
+  compressionSupport ? true,
+  zlib ? null,
+  sslSupport ? true,
+  openssl ? null,
+  static ? stdenv.hostPlatform.isStatic,
+  shared ? !stdenv.hostPlatform.isStatic,
+  bash,
+}:
 
 assert compressionSupport -> zlib != null;
 assert sslSupport -> openssl != null;

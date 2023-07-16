@@ -1,5 +1,15 @@
-{ lib, mkDerivation, fetchFromGitHub, kcoreaddons, kwindowsystem
-, plasma-framework, systemsettings, cmake, extra-cmake-modules, esbuild }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  kcoreaddons,
+  kwindowsystem,
+  plasma-framework,
+  systemsettings,
+  cmake,
+  extra-cmake-modules,
+  esbuild,
+}:
 
 mkDerivation rec {
   pname = "bismuth";

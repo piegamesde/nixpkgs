@@ -1,4 +1,11 @@
-{ lib, bundlerApp, ruby, bundlerUpdateScript, defaultGemConfig, nixosTests }:
+{
+  lib,
+  bundlerApp,
+  ruby,
+  bundlerUpdateScript,
+  defaultGemConfig,
+  nixosTests,
+}:
 
 bundlerApp {
   inherit ruby;

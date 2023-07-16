@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, gmic, gmic-qt }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gmic,
+  gmic-qt,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cimg";

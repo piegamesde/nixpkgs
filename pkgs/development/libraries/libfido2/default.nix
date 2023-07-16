@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, cmake, pkg-config, hidapi, libcbor, openssl, udev, zlib
-, withPcsclite ? true, pcsclite }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  pkg-config,
+  hidapi,
+  libcbor,
+  openssl,
+  udev,
+  zlib,
+  withPcsclite ? true,
+  pcsclite,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libfido2";

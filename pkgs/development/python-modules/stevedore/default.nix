@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, importlib-metadata, pbr
-, setuptools, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  importlib-metadata,
+  pbr,
+  setuptools,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "stevedore";

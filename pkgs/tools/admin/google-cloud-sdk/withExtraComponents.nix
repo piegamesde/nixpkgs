@@ -1,4 +1,10 @@
-{ lib, google-cloud-sdk, callPackage, runCommand, components }:
+{
+  lib,
+  google-cloud-sdk,
+  callPackage,
+  runCommand,
+  components,
+}:
 
 comps_:
 

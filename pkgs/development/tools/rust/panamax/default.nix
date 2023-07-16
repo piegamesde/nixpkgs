@@ -1,5 +1,14 @@
-{ lib, rustPlatform, fetchCrate, pkg-config, libgit2, openssl, zlib, stdenv
-, darwin }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  pkg-config,
+  libgit2,
+  openssl,
+  zlib,
+  stdenv,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "panamax";

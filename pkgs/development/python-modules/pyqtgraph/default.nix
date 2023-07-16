@@ -1,5 +1,18 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, scipy, numpy, pyqt5
-, pyopengl, qt5, pytestCheckHook, freefont_ttf, makeFontsConf, fetchpatch }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  scipy,
+  numpy,
+  pyqt5,
+  pyopengl,
+  qt5,
+  pytestCheckHook,
+  freefont_ttf,
+  makeFontsConf,
+  fetchpatch,
+}:
 
 let fontsConf = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
 in buildPythonPackage rec {

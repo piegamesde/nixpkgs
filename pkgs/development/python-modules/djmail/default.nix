@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, glibcLocales, celery, django, psycopg2 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  glibcLocales,
+  celery,
+  django,
+  psycopg2,
+}:
 
 buildPythonPackage rec {
   pname = "djmail";

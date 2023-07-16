@@ -1,4 +1,11 @@
-{ lib, fetchPypi, buildPythonPackage, tzlocal, six, pyjsparser }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  tzlocal,
+  six,
+  pyjsparser,
+}:
 
 buildPythonPackage rec {
   pname = "js2py";

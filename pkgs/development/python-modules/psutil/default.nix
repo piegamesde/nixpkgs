@@ -1,5 +1,14 @@
-{ lib, stdenv, buildPythonPackage, CoreFoundation, fetchPypi, IOKit
-, pytestCheckHook, python, pythonOlder }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  CoreFoundation,
+  fetchPypi,
+  IOKit,
+  pytestCheckHook,
+  python,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "psutil";

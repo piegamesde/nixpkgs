@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchurl, unzip, qtbase, qtmacextras, qmake, fixDarwinDylibNames
+{
+  stdenv,
+  lib,
+  fetchurl,
+  unzip,
+  qtbase,
+  qtmacextras,
+  qmake,
+  fixDarwinDylibNames,
 }:
 
 stdenv.mkDerivation rec {

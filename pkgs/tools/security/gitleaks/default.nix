@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, gitleaks, installShellFiles, testers }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  gitleaks,
+  installShellFiles,
+  testers,
+}:
 
 buildGoModule rec {
   pname = "gitleaks";

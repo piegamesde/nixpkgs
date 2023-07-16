@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, xalanc, xercesc, openssl, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  xalanc,
+  xercesc,
+  openssl,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xml-security-c";

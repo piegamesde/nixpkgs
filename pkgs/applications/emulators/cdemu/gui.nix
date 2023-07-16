@@ -1,5 +1,17 @@
-{ callPackage, makeWrapper, gobject-introspection, cmake, python3Packages, gtk3
-, glib, libnotify, intltool, gnome, gdk-pixbuf, librsvg }:
+{
+  callPackage,
+  makeWrapper,
+  gobject-introspection,
+  cmake,
+  python3Packages,
+  gtk3,
+  glib,
+  libnotify,
+  intltool,
+  gnome,
+  gdk-pixbuf,
+  librsvg,
+}:
 let
   pkg = import ./base.nix {
     version = "3.2.5";

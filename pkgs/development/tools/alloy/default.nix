@@ -1,7 +1,17 @@
-{ lib, stdenv, fetchurl, jre, makeWrapper, makeDesktopItem }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jre,
+  makeWrapper,
+  makeDesktopItem,
+}:
 
 let
-  generic = { version, sha256 }:
+  generic = {
+      version,
+      sha256,
+    }:
     stdenv.mkDerivation rec {
       pname = "alloy${lib.versions.major version}";
       inherit version;

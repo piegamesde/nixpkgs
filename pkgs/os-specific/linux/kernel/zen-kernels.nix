@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, buildLinux, ... }@args:
+{
+  lib,
+  fetchFromGitHub,
+  buildLinux,
+  ...
+}@args:
 
 let
   # comments with variant added for update script
@@ -16,7 +21,12 @@ let
     sha256 = "18c95lal9f2hak49rw888sc454pj7bmh1wnphlwb7sp8j944g8cf"; # lqx
     isLqx = true;
   };
-  zenKernelsFor = { version, suffix, sha256, isLqx }:
+  zenKernelsFor = {
+      version,
+      suffix,
+      sha256,
+      isLqx,
+    }:
     buildLinux (args // {
       inherit version;
       modDirVersion = lib.versions.pad 3 "${version}-${suffix}";

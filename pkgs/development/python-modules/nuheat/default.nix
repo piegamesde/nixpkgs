@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, mock, parameterized, pytestCheckHook
-, pythonOlder, requests, responses }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  parameterized,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  responses,
+}:
 
 buildPythonPackage rec {
   pname = "nuheat";

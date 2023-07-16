@@ -1,6 +1,17 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, uritemplate, pyjwt
-, pytestCheckHook, aiohttp, httpx, importlib-resources, pytest-asyncio
-, pytest-tornasync }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  uritemplate,
+  pyjwt,
+  pytestCheckHook,
+  aiohttp,
+  httpx,
+  importlib-resources,
+  pytest-asyncio,
+  pytest-tornasync,
+}:
 
 buildPythonPackage rec {
   pname = "gidgethub";

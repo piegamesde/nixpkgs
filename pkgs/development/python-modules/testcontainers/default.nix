@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, buildPythonPackage, deprecation, docker, wrapt }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  deprecation,
+  docker,
+  wrapt,
+}:
 
 buildPythonPackage rec {
   pname = "testcontainers";

@@ -1,10 +1,23 @@
-{ lib, makeOverridable, stdenv, gitMinimal, nim, cacert }:
+{
+  lib,
+  makeOverridable,
+  stdenv,
+  gitMinimal,
+  nim,
+  cacert,
+}:
 
 makeOverridable (
 
-  { pname, version, hash ? lib.fakeHash,
+  {
+    pname,
+    version,
+    hash ? lib.fakeHash,
 
-  meta ? { }, passthru ? { }, preferLocalBuild ? true }:
+    meta ? { },
+    passthru ? { },
+    preferLocalBuild ? true
+  }:
   stdenv.mkDerivation {
     inherit version meta passthru preferLocalBuild;
     pname = pname + "-src";

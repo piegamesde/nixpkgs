@@ -1,5 +1,14 @@
-{ lib, fetchurl, buildDunePackage, ppx_sexp_conv, sexplib, astring, uri, ipaddr
-, ipaddr-sexp }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  ppx_sexp_conv,
+  sexplib,
+  astring,
+  uri,
+  ipaddr,
+  ipaddr-sexp,
+}:
 
 buildDunePackage rec {
   pname = "conduit";

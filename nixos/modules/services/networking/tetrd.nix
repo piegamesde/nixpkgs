@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.services.tetrd.enable = lib.mkEnableOption (lib.mdDoc "tetrd");

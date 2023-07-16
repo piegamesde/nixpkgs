@@ -1,7 +1,35 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, SDL, ffmpeg_4, frei0r, libjack2
-, libdv, libsamplerate, libexif, libvorbis, libxml2, movit, pkg-config, sox
-, fftw, opencv4, SDL2, gtk2, gitUpdater, libebur128, rubberband, jack2
-, ladspa-sdk, swig, which, ncurses, enablePython ? false, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  SDL,
+  ffmpeg_4,
+  frei0r,
+  libjack2,
+  libdv,
+  libsamplerate,
+  libexif,
+  libvorbis,
+  libxml2,
+  movit,
+  pkg-config,
+  sox,
+  fftw,
+  opencv4,
+  SDL2,
+  gtk2,
+  gitUpdater,
+  libebur128,
+  rubberband,
+  jack2,
+  ladspa-sdk,
+  swig,
+  which,
+  ncurses,
+  enablePython ? false,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mlt";

@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, autoreconfHook, gtk3, mate, hicolor-icon-theme
-, gitUpdater }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  gtk3,
+  mate,
+  hicolor-icon-theme,
+  gitUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mate-icon-theme-faenza";

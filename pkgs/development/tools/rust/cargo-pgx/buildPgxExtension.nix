@@ -27,8 +27,15 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-{ lib, cargo-pgx, pkg-config, rustPlatform, stdenv, Security
-, writeShellScriptBin }:
+{
+  lib,
+  cargo-pgx,
+  pkg-config,
+  rustPlatform,
+  stdenv,
+  Security,
+  writeShellScriptBin,
+}:
 
 # The idea behind: Use it mostly like rustPlatform.buildRustPackage and so
 # we hand most of the arguments down.
@@ -41,12 +48,19 @@
 #                      unnecessary and heavy dependency. If you set this to true, you also
 #                      have to add `rustfmt` to `nativeBuildInputs`.
 
-{ buildAndTestSubdir ? null, buildType ? "release", buildFeatures ? [ ]
-, cargoBuildFlags ? [ ], postgresql
-# cargo-pgx calls rustfmt on generated bindings, this is not strictly necessary, so we avoid the
-# dependency here. Set to false and provide rustfmt in nativeBuildInputs, if you need it, e.g.
-# if you include the generated code in the output via postInstall.
-, useFakeRustfmt ? true, ... }@args:
+{
+  buildAndTestSubdir ? null,
+  buildType ? "release",
+  buildFeatures ? [ ],
+  cargoBuildFlags ? [ ],
+  postgresql
+  # cargo-pgx calls rustfmt on generated bindings, this is not strictly necessary, so we avoid the
+  # dependency here. Set to false and provide rustfmt in nativeBuildInputs, if you need it, e.g.
+  # if you include the generated code in the output via postInstall.
+  ,
+  useFakeRustfmt ? true,
+  ...
+}@args:
 let
   rustfmtInNativeBuildInputs = lib.lists.any (dep: lib.getName dep == "rustfmt")
     (args.nativeBuildInputs or [ ]);

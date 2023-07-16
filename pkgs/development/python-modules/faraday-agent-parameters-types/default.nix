@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, marshmallow, packaging, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  marshmallow,
+  packaging,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "faraday-agent-parameters-types";

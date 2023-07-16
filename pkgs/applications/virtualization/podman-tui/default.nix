@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, buildGoModule, testers, podman-tui }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildGoModule,
+  testers,
+  podman-tui,
+}:
 
 buildGoModule rec {
   pname = "podman-tui";

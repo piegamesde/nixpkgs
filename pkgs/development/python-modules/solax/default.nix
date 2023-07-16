@@ -1,5 +1,15 @@
-{ lib, aiohttp, buildPythonPackage, fetchPypi, pytest-asyncio, pytest-cov
-, pytest-httpserver, pytestCheckHook, setuptools-scm, voluptuous }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchPypi,
+  pytest-asyncio,
+  pytest-cov,
+  pytest-httpserver,
+  pytestCheckHook,
+  setuptools-scm,
+  voluptuous,
+}:
 
 buildPythonPackage rec {
   pname = "solax";

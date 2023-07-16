@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, rustPlatform, setuptools-rust
-, json-stream-rs-tokenizer, json-stream }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  rustPlatform,
+  setuptools-rust,
+  json-stream-rs-tokenizer,
+  json-stream,
+}:
 
 buildPythonPackage rec {
   pname = "json-stream-rs-tokenizer";

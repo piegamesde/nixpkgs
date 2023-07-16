@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, buildPackages, linuxHeaders, perl, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  buildPackages,
+  linuxHeaders,
+  perl,
+  nixosTests,
+}:
 
 let commonMakeFlags = [ "prefix=$(out)" "SHLIBDIR=$(out)/lib" ];
 

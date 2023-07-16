@@ -1,4 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, flex, bison, qt4, libX11, cmake, gperf, adms }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  flex,
+  bison,
+  qt4,
+  libX11,
+  cmake,
+  gperf,
+  adms,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.0.19";

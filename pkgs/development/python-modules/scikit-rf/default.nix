@@ -1,7 +1,34 @@
-{ stdenv, lib, pythonOlder, buildPythonPackage, fetchFromGitHub, numpy, scipy
-, pandas, matplotlib, tox, coverage, flake8, nbval, pyvisa, networkx, ipython
-, ipykernel, ipywidgets, jupyter-client, sphinx-rtd-theme, sphinx, nbsphinx
-, openpyxl, qtpy, pyqtgraph, pyqt5, setuptools, pytestCheckHook, pytest-cov }:
+{
+  stdenv,
+  lib,
+  pythonOlder,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  scipy,
+  pandas,
+  matplotlib,
+  tox,
+  coverage,
+  flake8,
+  nbval,
+  pyvisa,
+  networkx,
+  ipython,
+  ipykernel,
+  ipywidgets,
+  jupyter-client,
+  sphinx-rtd-theme,
+  sphinx,
+  nbsphinx,
+  openpyxl,
+  qtpy,
+  pyqtgraph,
+  pyqt5,
+  setuptools,
+  pytestCheckHook,
+  pytest-cov,
+}:
 
 buildPythonPackage rec {
   pname = "scikit-rf";

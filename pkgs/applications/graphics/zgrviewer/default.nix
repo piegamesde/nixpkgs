@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, jre, unzip, runtimeShell }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jre,
+  unzip,
+  runtimeShell,
+}:
 stdenv.mkDerivation rec {
   version = "0.9.0";
   pname = "zgrviewer";

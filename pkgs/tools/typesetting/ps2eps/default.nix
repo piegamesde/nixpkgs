@@ -1,5 +1,11 @@
-{ lib, fetchFromGitHub, perlPackages, substituteAll, ghostscript
-, installShellFiles }:
+{
+  lib,
+  fetchFromGitHub,
+  perlPackages,
+  substituteAll,
+  ghostscript,
+  installShellFiles,
+}:
 
 perlPackages.buildPerlPackage rec {
   pname = "ps2eps";

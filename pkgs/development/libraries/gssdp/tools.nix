@@ -1,5 +1,15 @@
-{ stdenv, lib, substituteAll, meson, ninja, pkg-config, wrapGAppsHook4
-, gssdp_1_6, gtk4, libsoup_3 }:
+{
+  stdenv,
+  lib,
+  substituteAll,
+  meson,
+  ninja,
+  pkg-config,
+  wrapGAppsHook4,
+  gssdp_1_6,
+  gtk4,
+  libsoup_3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gssdp-tools";

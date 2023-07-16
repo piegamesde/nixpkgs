@@ -1,4 +1,10 @@
-{ lib, buildPythonApplication, fetchFromGitHub, i3ipc, importlib-metadata }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  i3ipc,
+  importlib-metadata,
+}:
 
 buildPythonApplication rec {
   pname = "autotiling";

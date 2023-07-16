@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, SDL, which, installTool ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL,
+  which,
+  installTool ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "azimuth";

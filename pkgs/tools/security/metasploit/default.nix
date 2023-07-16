@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, ruby, bundlerEnv, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  ruby,
+  bundlerEnv,
+  python3,
+}:
 
 let
   env = bundlerEnv {

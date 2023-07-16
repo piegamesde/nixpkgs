@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, capnproto, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  capnproto,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "capnproto-java";

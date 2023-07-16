@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchpatch, fetchurl, nettle }:
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchurl,
+  nettle,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rdfind";

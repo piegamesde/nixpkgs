@@ -1,4 +1,9 @@
-{ lib, buildNimPackage, fetchFromGitHub, SDL2 }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitHub,
+  SDL2,
+}:
 
 buildNimPackage rec {
   pname = "c2nim";

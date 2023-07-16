@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, mpi, python3Packages, autoconf, automake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  mpi,
+  python3Packages,
+  autoconf,
+  automake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hp2p";

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, argcomplete, requests
-, requests-toolbelt, pyyaml }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  argcomplete,
+  requests,
+  requests-toolbelt,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "python-gitlab";

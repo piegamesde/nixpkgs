@@ -1,5 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, python3
-, enableSystemd ? lib.meta.availableOn stdenv.hostPlatform python3.pkgs.systemd
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  python3,
+  enableSystemd ? lib.meta.availableOn stdenv.hostPlatform python3.pkgs.systemd
 }:
 
 python3.pkgs.buildPythonPackage rec {

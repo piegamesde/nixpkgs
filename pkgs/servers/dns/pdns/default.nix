@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchurl, pkg-config, nixosTests, boost, yaml-cpp, libsodium
-, sqlite, protobuf, openssl, systemd, mariadb-connector-c, postgresql, lua
-, openldap, geoip, curl, unixODBC, lmdb, tinycdb }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  nixosTests,
+  boost,
+  yaml-cpp,
+  libsodium,
+  sqlite,
+  protobuf,
+  openssl,
+  systemd,
+  mariadb-connector-c,
+  postgresql,
+  lua,
+  openldap,
+  geoip,
+  curl,
+  unixODBC,
+  lmdb,
+  tinycdb,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pdns";

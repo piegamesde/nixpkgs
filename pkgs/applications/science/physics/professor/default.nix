@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, eigen, makeWrapper, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  eigen,
+  makeWrapper,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "professor";

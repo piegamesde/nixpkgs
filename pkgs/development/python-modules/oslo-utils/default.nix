@@ -1,6 +1,26 @@
-{ lib, buildPythonPackage, fetchPypi, ddt, debtcollector, eventlet, fixtures
-, iso8601, netaddr, netifaces, oslo-i18n, oslotest, packaging, pbr, pyparsing
-, pytz, stestr, testscenarios, pyyaml, iana-etc, libredirect }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  ddt,
+  debtcollector,
+  eventlet,
+  fixtures,
+  iso8601,
+  netaddr,
+  netifaces,
+  oslo-i18n,
+  oslotest,
+  packaging,
+  pbr,
+  pyparsing,
+  pytz,
+  stestr,
+  testscenarios,
+  pyyaml,
+  iana-etc,
+  libredirect,
+}:
 
 buildPythonPackage rec {
   pname = "oslo-utils";

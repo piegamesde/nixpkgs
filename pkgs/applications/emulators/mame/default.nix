@@ -1,8 +1,39 @@
-{ lib, stdenv, fetchFromGitHub, alsa-lib, SDL2, SDL2_ttf, copyDesktopItems
-, expat, flac, fontconfig, glm, installShellFiles, libXi, libXinerama, libjpeg
-, libpcap, libpulseaudio, lua5_3, makeDesktopItem, makeWrapper
-, papirus-icon-theme, pkg-config, portaudio, portmidi, pugixml, python3, qtbase
-, rapidjson, sqlite, utf8proc, which, writeScript, zlib, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  alsa-lib,
+  SDL2,
+  SDL2_ttf,
+  copyDesktopItems,
+  expat,
+  flac,
+  fontconfig,
+  glm,
+  installShellFiles,
+  libXi,
+  libXinerama,
+  libjpeg,
+  libpcap,
+  libpulseaudio,
+  lua5_3,
+  makeDesktopItem,
+  makeWrapper,
+  papirus-icon-theme,
+  pkg-config,
+  portaudio,
+  portmidi,
+  pugixml,
+  python3,
+  qtbase,
+  rapidjson,
+  sqlite,
+  utf8proc,
+  which,
+  writeScript,
+  zlib,
+  darwin,
+}:
 
 let inherit (darwin.apple_sdk.frameworks) CoreAudioKit ForceFeedback;
 in stdenv.mkDerivation rec {

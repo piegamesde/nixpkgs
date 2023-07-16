@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchhg, autoconf, sqlite }:
+{
+  lib,
+  stdenv,
+  fetchhg,
+  autoconf,
+  sqlite,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vcprompt";

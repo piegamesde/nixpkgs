@@ -1,4 +1,10 @@
-{ lib, fetchurl, buildDunePackage, rdkafka, zlib }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  rdkafka,
+  zlib,
+}:
 
 buildDunePackage rec {
   pname = "kafka";

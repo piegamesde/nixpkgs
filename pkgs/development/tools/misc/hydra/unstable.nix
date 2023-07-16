@@ -1,10 +1,54 @@
-{ stdenv, lib, nix, perlPackages, buildEnv, makeWrapper, libtool, unzip
-, pkg-config, sqlite, libpqxx, top-git, mercurial, darcs, subversion, breezy
-, openssl, bzip2, libxslt, perl, postgresql, prometheus-cpp, nukeReferences, git
-, boehmgc, nlohmann_json, docbook_xsl, openssh, openldap, gnused, coreutils
-, findutils, gzip, xz, gnutar, rpm, dpkg, cdrkit, pixz, boost, autoreconfHook
-, mdbook, foreman, python3, libressl, cacert, glibcLocales, fetchFromGitHub
-, nixosTests }:
+{
+  stdenv,
+  lib,
+  nix,
+  perlPackages,
+  buildEnv,
+  makeWrapper,
+  libtool,
+  unzip,
+  pkg-config,
+  sqlite,
+  libpqxx,
+  top-git,
+  mercurial,
+  darcs,
+  subversion,
+  breezy,
+  openssl,
+  bzip2,
+  libxslt,
+  perl,
+  postgresql,
+  prometheus-cpp,
+  nukeReferences,
+  git,
+  boehmgc,
+  nlohmann_json,
+  docbook_xsl,
+  openssh,
+  openldap,
+  gnused,
+  coreutils,
+  findutils,
+  gzip,
+  xz,
+  gnutar,
+  rpm,
+  dpkg,
+  cdrkit,
+  pixz,
+  boost,
+  autoreconfHook,
+  mdbook,
+  foreman,
+  python3,
+  libressl,
+  cacert,
+  glibcLocales,
+  fetchFromGitHub,
+  nixosTests,
+}:
 
 let
   perlDeps = buildEnv {

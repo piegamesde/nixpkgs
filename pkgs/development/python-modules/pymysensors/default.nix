@@ -1,6 +1,21 @@
-{ lib, awesomeversion, buildPythonPackage, click, crcmod, fetchFromGitHub
-, getmac, intelhex, paho-mqtt, pyserial, pyserial-asyncio, pytest-sugar
-, pytest-timeout, pytestCheckHook, pythonOlder, voluptuous }:
+{
+  lib,
+  awesomeversion,
+  buildPythonPackage,
+  click,
+  crcmod,
+  fetchFromGitHub,
+  getmac,
+  intelhex,
+  paho-mqtt,
+  pyserial,
+  pyserial-asyncio,
+  pytest-sugar,
+  pytest-timeout,
+  pytestCheckHook,
+  pythonOlder,
+  voluptuous,
+}:
 
 buildPythonPackage rec {
   pname = "pymysensors";

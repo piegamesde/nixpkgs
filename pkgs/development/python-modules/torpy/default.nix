@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, cryptography
-, pytestCheckHook, requests }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  cryptography,
+  pytestCheckHook,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "torpy";

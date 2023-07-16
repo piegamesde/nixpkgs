@@ -1,4 +1,13 @@
-{ lib, fetchurl, buildDunePackage, fmt, alcotest, hxd, crowbar, bigstringaf }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  fmt,
+  alcotest,
+  hxd,
+  crowbar,
+  bigstringaf,
+}:
 
 buildDunePackage rec {
   pname = "duff";

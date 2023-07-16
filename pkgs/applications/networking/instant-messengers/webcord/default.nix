@@ -1,5 +1,16 @@
-{ lib, stdenv, buildNpmPackage, fetchFromGitHub, copyDesktopItems, python3
-, pipewire, libpulseaudio, xdg-utils, electron_24, makeDesktopItem }:
+{
+  lib,
+  stdenv,
+  buildNpmPackage,
+  fetchFromGitHub,
+  copyDesktopItems,
+  python3,
+  pipewire,
+  libpulseaudio,
+  xdg-utils,
+  electron_24,
+  makeDesktopItem,
+}:
 
 buildNpmPackage rec {
   pname = "webcord";

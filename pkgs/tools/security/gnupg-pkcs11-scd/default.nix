@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, libgpg-error, libassuan, libgcrypt, pkcs11helper
-, pkg-config, openssl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libgpg-error,
+  libassuan,
+  libgcrypt,
+  pkcs11helper,
+  pkg-config,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnupg-pkcs11-scd";

@@ -1,5 +1,14 @@
-{ fetchFromGitHub, glib, gobject-introspection, meson, ninja, pkg-config, lib
-, stdenv, wrapGAppsHook }:
+{
+  fetchFromGitHub,
+  glib,
+  gobject-introspection,
+  meson,
+  ninja,
+  pkg-config,
+  lib,
+  stdenv,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cinnamon-menus";

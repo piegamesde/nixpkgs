@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cmake, help2man }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  help2man,
+}:
 
 stdenv.mkDerivation rec {
   pname = "postsrsd";

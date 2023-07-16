@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, crystal, coreutils, makeWrapper, bash }:
+{
+  lib,
+  fetchFromGitHub,
+  crystal,
+  coreutils,
+  makeWrapper,
+  bash,
+}:
 
 crystal.buildCrystalPackage rec {
   pname = "scry";

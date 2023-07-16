@@ -1,4 +1,12 @@
-{ lib, rustPlatform, fetchFromGitHub, stdenv, pkg-config, openssl, darwin }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  stdenv,
+  pkg-config,
+  openssl,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "oha";

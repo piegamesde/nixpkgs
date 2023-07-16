@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, asciidoc, libxcb, xcbutil, xcbutilkeysyms
-, xcbutilwm }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  asciidoc,
+  libxcb,
+  xcbutil,
+  xcbutilkeysyms,
+  xcbutilwm,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "sxhkd";

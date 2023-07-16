@@ -1,5 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, fmt
-, staticBuild ? stdenv.hostPlatform.isStatic }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  fmt,
+  staticBuild ? stdenv.hostPlatform.isStatic
+}:
 
 stdenv.mkDerivation rec {
   pname = "spdlog";

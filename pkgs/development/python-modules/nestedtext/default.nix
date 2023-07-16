@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, docopt, fetchFromGitHub, flitBuildHook, hypothesis
-, inform, nestedtext, pytestCheckHook, pythonOlder, quantiphy, voluptuous }:
+{
+  lib,
+  buildPythonPackage,
+  docopt,
+  fetchFromGitHub,
+  flitBuildHook,
+  hypothesis,
+  inform,
+  nestedtext,
+  pytestCheckHook,
+  pythonOlder,
+  quantiphy,
+  voluptuous,
+}:
 
 buildPythonPackage rec {
   pname = "nestedtext";

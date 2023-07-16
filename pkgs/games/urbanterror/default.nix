@@ -1,4 +1,15 @@
-{ lib, stdenv, fetchurl, unzip, SDL, libGLU, libGL, openal, curl, libXxf86vm }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  SDL,
+  libGLU,
+  libGL,
+  openal,
+  curl,
+  libXxf86vm,
+}:
 
 stdenv.mkDerivation rec {
   pname = "urbanterror";

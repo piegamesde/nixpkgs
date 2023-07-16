@@ -1,4 +1,10 @@
-{ lib, stdenvNoCC, fetchFromGitHub, bash, scdoc }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  bash,
+  scdoc,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "fetchutils";

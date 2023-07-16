@@ -1,5 +1,16 @@
-{ fetchFromGitHub, installShellFiles, lib, pkg-config, rustPlatform, stdenv
-, withSixel ? false, libsixel, xorg, AppKit, withSki ? true }:
+{
+  fetchFromGitHub,
+  installShellFiles,
+  lib,
+  pkg-config,
+  rustPlatform,
+  stdenv,
+  withSixel ? false,
+  libsixel,
+  xorg,
+  AppKit,
+  withSki ? true
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "menyoki";

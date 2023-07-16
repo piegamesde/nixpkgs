@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+}:
 
 let
   options = rec {

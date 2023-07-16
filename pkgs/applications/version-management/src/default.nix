@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, python, rcs, git, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python,
+  rcs,
+  git,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "src";

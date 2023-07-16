@@ -1,13 +1,31 @@
 let execFormatIsELF = platform: platform.parsed.kernel.execFormat.name == "elf";
 
-in { stdenv, autoreconfHook, autoconf269, automake, libtool, bison
-, buildPackages, fetchFromGitHub, fetchurl, flex, gettext, lib, noSysDirs, perl
-, substitute, texinfo, zlib
+in {
+  stdenv,
+  autoreconfHook,
+  autoconf269,
+  automake,
+  libtool,
+  bison,
+  buildPackages,
+  fetchFromGitHub,
+  fetchurl,
+  flex,
+  gettext,
+  lib,
+  noSysDirs,
+  perl,
+  substitute,
+  texinfo,
+  zlib
 
-, enableGold ? execFormatIsELF stdenv.targetPlatform, enableShared ?
-  !stdenv.hostPlatform.isStatic
-  # WARN: Enabling all targets increases output size to a multiple.
-, withAllTargets ? false }:
+  ,
+  enableGold ? execFormatIsELF stdenv.targetPlatform,
+  enableShared ? !stdenv.hostPlatform.isStatic
+    # WARN: Enabling all targets increases output size to a multiple.
+  ,
+  withAllTargets ? false
+}:
 
 # WARN: configure silently disables ld.gold if it's unsupported, so we need to
 # make sure that intent matches result ourselves.

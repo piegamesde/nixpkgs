@@ -1,4 +1,11 @@
-{ lib, callPackage, buildPythonPackage, fetchPypi, pythonOlder, setuptools }:
+{
+  lib,
+  callPackage,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "attrs";

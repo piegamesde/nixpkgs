@@ -1,4 +1,8 @@
-{ lib, crystal, fetchFromGitHub }:
+{
+  lib,
+  crystal,
+  fetchFromGitHub,
+}:
 
 crystal.buildCrystalPackage rec {
   pname = "thicket";

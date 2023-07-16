@@ -1,19 +1,83 @@
-{ lib, stdenv, python, buildPythonPackage, fetchFromGitHub, alembic, argcomplete
-, attrs, blinker, cached-property, cattrs, clickclick, colorlog, configupdater
-, connexion, cron-descriptor, croniter, cryptography, deprecated, dill, flask
-, flask-login, flask-appbuilder, flask-caching, flask-session, flask-wtf
-, gitpython, graphviz, gunicorn, httpx, iso8601, importlib-resources
-, importlib-metadata, inflection, itsdangerous, jinja2, jsonschema
-, lazy-object-proxy, linkify-it-py, lockfile, markdown, markupsafe
-, marshmallow-oneofschema, mdit-py-plugins, numpy, openapi-spec-validator
-, pandas, pathspec, pendulum, psutil, pygments, pyjwt, python-daemon
-, python-dateutil, python-nvd3, python-slugify, python3-openid, pythonOlder
-, pyyaml, rich, setproctitle, sqlalchemy, sqlalchemy-jsonfield
-, swagger-ui-bundle, tabulate, tenacity, termcolor, typing-extensions
-, unicodecsv, werkzeug, pytestCheckHook, freezegun, mkYarnPackage, writeScript
+{
+  lib,
+  stdenv,
+  python,
+  buildPythonPackage,
+  fetchFromGitHub,
+  alembic,
+  argcomplete,
+  attrs,
+  blinker,
+  cached-property,
+  cattrs,
+  clickclick,
+  colorlog,
+  configupdater,
+  connexion,
+  cron-descriptor,
+  croniter,
+  cryptography,
+  deprecated,
+  dill,
+  flask,
+  flask-login,
+  flask-appbuilder,
+  flask-caching,
+  flask-session,
+  flask-wtf,
+  gitpython,
+  graphviz,
+  gunicorn,
+  httpx,
+  iso8601,
+  importlib-resources,
+  importlib-metadata,
+  inflection,
+  itsdangerous,
+  jinja2,
+  jsonschema,
+  lazy-object-proxy,
+  linkify-it-py,
+  lockfile,
+  markdown,
+  markupsafe,
+  marshmallow-oneofschema,
+  mdit-py-plugins,
+  numpy,
+  openapi-spec-validator,
+  pandas,
+  pathspec,
+  pendulum,
+  psutil,
+  pygments,
+  pyjwt,
+  python-daemon,
+  python-dateutil,
+  python-nvd3,
+  python-slugify,
+  python3-openid,
+  pythonOlder,
+  pyyaml,
+  rich,
+  setproctitle,
+  sqlalchemy,
+  sqlalchemy-jsonfield,
+  swagger-ui-bundle,
+  tabulate,
+  tenacity,
+  termcolor,
+  typing-extensions,
+  unicodecsv,
+  werkzeug,
+  pytestCheckHook,
+  freezegun,
+  mkYarnPackage,
+  writeScript
 
-# Extra airflow providers to enable
-, enabledProviders ? [ ] }:
+  # Extra airflow providers to enable
+  ,
+  enabledProviders ? [ ]
+}:
 let
   version = "2.5.1";
 

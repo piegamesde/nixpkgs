@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, ninja, useFloat ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  ninja,
+  useFloat ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "fuzzylite";

@@ -1,30 +1,59 @@
-{ enableMultiThreading ? true, enableInventor ? false
-, enableQT ? false # deprecated name
-, enableQt ? enableQT, enableXM ? false, enableOpenGLX11 ? true
-, enablePython ? false, enableRaytracerX11 ? false
+{
+  enableMultiThreading ? true,
+  enableInventor ? false,
+  enableQT ? false # deprecated name
+  ,
+  enableQt ? enableQT,
+  enableXM ? false,
+  enableOpenGLX11 ? true,
+  enablePython ? false,
+  enableRaytracerX11 ? false
 
-  # Standard build environment with cmake.
-, lib, stdenv, fetchurl, fetchpatch, cmake
+    # Standard build environment with cmake.
+  ,
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  cmake
 
-, clhep, expat, xercesc, zlib
+  ,
+  clhep,
+  expat,
+  xercesc,
+  zlib
 
-# For enableQt.
-, qtbase, wrapQtAppsHook
+  # For enableQt.
+  ,
+  qtbase,
+  wrapQtAppsHook
 
-# For enableXM.
-, motif
+  # For enableXM.
+  ,
+  motif
 
-# For enableInventor
-, coin3d, soxt, libXpm
+  # For enableInventor
+  ,
+  coin3d,
+  soxt,
+  libXpm
 
-# For enableQt, enableXM, enableOpenGLX11, enableRaytracerX11.
-, libGLU, libGL, libXext, libXmu
+  # For enableQt, enableXM, enableOpenGLX11, enableRaytracerX11.
+  ,
+  libGLU,
+  libGL,
+  libXext,
+  libXmu
 
-# For enablePython
-, boost, python3
+  # For enablePython
+  ,
+  boost,
+  python3
 
-# For tests
-, callPackage }:
+  # For tests
+  ,
+  callPackage,
+}:
 
 let
   boost_python = boost.override {

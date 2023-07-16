@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, buildPythonPackage, nose, minimock }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildPythonPackage,
+  nose,
+  minimock,
+}:
 
 buildPythonPackage rec {
   pname = "mypgoclient";

@@ -1,4 +1,6 @@
-{ lib }:
+{
+  lib,
+}:
 let
   inherit (lib) lists;
   inherit (lib.systems) parse;

@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   let
     addrShared = "192.168.0.1";
@@ -6,7 +10,12 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
     addrHostB = "192.168.0.11";
 
     mkUcarpHost = addr:
-      { config, pkgs, lib, ... }: {
+      {
+        config,
+        pkgs,
+        lib,
+        ...
+      }: {
         networking.interfaces.eth1.ipv4.addresses = lib.mkForce [{
           address = addr;
           prefixLength = 24;

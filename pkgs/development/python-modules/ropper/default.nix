@@ -1,5 +1,13 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, capstone, filebytes
-, pytestCheckHook, pythonOlder }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  capstone,
+  filebytes,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "ropper";

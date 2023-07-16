@@ -1,4 +1,7 @@
-{ pkgs, lib }:
+{
+  pkgs,
+  lib,
+}:
 
 let
 
@@ -9,7 +12,14 @@ let
   getExecutable = pkgs: pkgFun: exec:
     "${pkgFun pkgs}${exec}${pkgs.stdenv.hostPlatform.extensions.executable}";
 
-  compareTest = { emulator, pkgFun, hostPkgs, crossPkgs, exec, args ? [ ] }:
+  compareTest = {
+      emulator,
+      pkgFun,
+      hostPkgs,
+      crossPkgs,
+      exec,
+      args ? [ ]
+    }:
     let
       pkgName = (pkgFun hostPkgs).name;
       args' = lib.concatStringsSep " " args;
@@ -78,7 +88,11 @@ let
 
   tests = {
 
-    file = { platformFun, crossPkgs, emulator }:
+    file = {
+        platformFun,
+        crossPkgs,
+        emulator,
+      }:
       compareTest {
         inherit emulator crossPkgs;
         hostPkgs = pkgs;
@@ -90,7 +104,11 @@ let
         pkgFun = pkgs: platformFun pkgs.file;
       };
 
-    hello = { platformFun, crossPkgs, emulator }:
+    hello = {
+        platformFun,
+        crossPkgs,
+        emulator,
+      }:
       compareTest {
         inherit emulator crossPkgs;
         hostPkgs = pkgs;
@@ -98,7 +116,11 @@ let
         pkgFun = pkgs: pkgs.hello;
       };
 
-    pkg-config = { platformFun, crossPkgs, emulator }:
+    pkg-config = {
+        platformFun,
+        crossPkgs,
+        emulator,
+      }:
       crossPkgs.runCommand "test-pkg-config-${crossPkgs.hostPlatform.config}" {
         depsBuildBuild = [ crossPkgs.pkgsBuildBuild.pkg-config ];
         nativeBuildInputs =

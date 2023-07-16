@@ -1,6 +1,18 @@
-{ lib, aiohttp, buildPythonPackage, certifi, fetchFromGitHub, mock
-, pytest-asyncio, pytest-httpserver, pytestCheckHook, pythonOlder, requests
-, trustme, urllib3 }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  certifi,
+  fetchFromGitHub,
+  mock,
+  pytest-asyncio,
+  pytest-httpserver,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  trustme,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "elastic-transport";

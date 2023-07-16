@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, makeWrapper, perlPackages, libminc, EBTKS
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  makeWrapper,
+  perlPackages,
+  libminc,
+  EBTKS,
 }:
 
 stdenv.mkDerivation rec {

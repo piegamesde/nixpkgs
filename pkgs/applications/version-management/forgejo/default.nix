@@ -1,6 +1,24 @@
-{ bash, brotli, buildGoModule, forgejo, git, gzip, lib, makeWrapper, nixosTests
-, openssh, pam, pamSupport ? true, sqliteSupport ? true, xorg, runCommand
-, stdenv, fetchFromGitea, buildNpmPackage, writeShellApplication }:
+{
+  bash,
+  brotli,
+  buildGoModule,
+  forgejo,
+  git,
+  gzip,
+  lib,
+  makeWrapper,
+  nixosTests,
+  openssh,
+  pam,
+  pamSupport ? true,
+  sqliteSupport ? true,
+  xorg,
+  runCommand,
+  stdenv,
+  fetchFromGitea,
+  buildNpmPackage,
+  writeShellApplication,
+}:
 
 let
   frontend = buildNpmPackage rec {

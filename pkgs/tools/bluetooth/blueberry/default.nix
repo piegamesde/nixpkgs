@@ -1,6 +1,17 @@
-{ stdenv, lib, fetchFromGitHub, bluez-tools, cinnamon, gnome
-, gobject-introspection, intltool, pavucontrol, python3Packages, util-linux
-, wrapGAppsHook }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  bluez-tools,
+  cinnamon,
+  gnome,
+  gobject-introspection,
+  intltool,
+  pavucontrol,
+  python3Packages,
+  util-linux,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "blueberry";

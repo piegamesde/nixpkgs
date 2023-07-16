@@ -1,5 +1,11 @@
-{ lib, fetchurl, fetchzip, ocaml-ng, version ? "0.24.1"
-, tarballName ? "ocamlformat-${version}.tbz", }:
+{
+  lib,
+  fetchurl,
+  fetchzip,
+  ocaml-ng,
+  version ? "0.24.1",
+  tarballName ? "ocamlformat-${version}.tbz",
+}:
 
 let
   src = fetchurl {

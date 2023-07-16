@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ lib, pkgs, ... }:
+import ./make-test-python.nix ({
+    lib,
+    pkgs,
+    ...
+  }:
   let
     gpgKeyring =
       (pkgs.runCommand "gpg-keyring" { buildInputs = [ pkgs.gnupg ]; } ''
@@ -25,21 +29,23 @@ import ./make-test-python.nix ({ lib, pkgs, ... }:
     name = "hockeypuck";
     meta.maintainers = with lib.maintainers; [ etu ];
 
-    nodes.machine = { ... }: {
-      # Used for test
-      environment.systemPackages = [ pkgs.gnupg ];
+    nodes.machine = {
+        ...
+      }: {
+        # Used for test
+        environment.systemPackages = [ pkgs.gnupg ];
 
-      services.hockeypuck.enable = true;
+        services.hockeypuck.enable = true;
 
-      services.postgresql = {
-        enable = true;
-        ensureDatabases = [ "hockeypuck" ];
-        ensureUsers = [{
-          name = "hockeypuck";
-          ensurePermissions."DATABASE hockeypuck" = "ALL PRIVILEGES";
-        }];
+        services.postgresql = {
+          enable = true;
+          ensureDatabases = [ "hockeypuck" ];
+          ensureUsers = [{
+            name = "hockeypuck";
+            ensurePermissions."DATABASE hockeypuck" = "ALL PRIVILEGES";
+          }];
+        };
       };
-    };
 
     testScript = ''
       machine.wait_for_unit("hockeypuck.service")

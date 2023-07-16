@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchpatch, fetchFromGitHub, python, django, nodejs
-, js2py, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchpatch,
+  fetchFromGitHub,
+  python,
+  django,
+  nodejs,
+  js2py,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "django-js-reverse";

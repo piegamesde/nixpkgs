@@ -1,8 +1,34 @@
-{ lib, stdenv, fetchFromGitHub, substituteAll, autoreconfHook, pkg-config
-, gtk-doc, docbook_xml_dtd_43, python3, gobject-introspection, glib, udev, kmod
-, parted, cryptsetup, lvm2, dmraid, util-linux, libbytesize, libndctl, nss
-, volume_key, libxslt, docbook_xsl, gptfdisk, libyaml, autoconf-archive
-, thin-provisioning-tools, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  substituteAll,
+  autoreconfHook,
+  pkg-config,
+  gtk-doc,
+  docbook_xml_dtd_43,
+  python3,
+  gobject-introspection,
+  glib,
+  udev,
+  kmod,
+  parted,
+  cryptsetup,
+  lvm2,
+  dmraid,
+  util-linux,
+  libbytesize,
+  libndctl,
+  nss,
+  volume_key,
+  libxslt,
+  docbook_xsl,
+  gptfdisk,
+  libyaml,
+  autoconf-archive,
+  thin-provisioning-tools,
+  makeWrapper,
+}:
 stdenv.mkDerivation rec {
   pname = "libblockdev";
   version = "2.28";

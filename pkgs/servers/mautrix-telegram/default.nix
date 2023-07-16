@@ -1,4 +1,9 @@
-{ lib, python3, fetchFromGitHub, withE2BE ? true }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  withE2BE ? true
+}:
 
 let
   python = python3.override {

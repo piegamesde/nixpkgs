@@ -1,9 +1,29 @@
-{ config, lib, stdenv, fetchurl, autoPatchelfHook, makeWrapper
+{
+  config,
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  makeWrapper
 
-, alsa-lib, curl, gtk3, lame, libxml2, ffmpeg, vlc, xdg-utils, xdotool, which
+  ,
+  alsa-lib,
+  curl,
+  gtk3,
+  lame,
+  libxml2,
+  ffmpeg,
+  vlc,
+  xdg-utils,
+  xdotool,
+  which
 
-, jackSupport ? true, jackLibrary, pulseaudioSupport ? config.pulseaudio or true
-, libpulseaudio }:
+  ,
+  jackSupport ? true,
+  jackLibrary,
+  pulseaudioSupport ? config.pulseaudio or true,
+  libpulseaudio,
+}:
 
 let
   url_for_platform = version: arch:

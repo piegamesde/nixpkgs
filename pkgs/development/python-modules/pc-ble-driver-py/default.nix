@@ -1,6 +1,19 @@
-{ lib, boost, buildPythonPackage, cmake, cryptography, fetchFromGitHub, git
-, pc-ble-driver, pythonAtLeast, pythonOlder, scikit-build, setuptools, swig
-, wrapt }:
+{
+  lib,
+  boost,
+  buildPythonPackage,
+  cmake,
+  cryptography,
+  fetchFromGitHub,
+  git,
+  pc-ble-driver,
+  pythonAtLeast,
+  pythonOlder,
+  scikit-build,
+  setuptools,
+  swig,
+  wrapt,
+}:
 
 buildPythonPackage rec {
   pname = "pc-ble-driver-py";

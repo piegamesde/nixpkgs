@@ -1,4 +1,9 @@
-{ lib, buildNimPackage, fetchNimble, SDL2 }:
+{
+  lib,
+  buildNimPackage,
+  fetchNimble,
+  SDL2,
+}:
 
 buildNimPackage rec {
   pname = "sdl2";

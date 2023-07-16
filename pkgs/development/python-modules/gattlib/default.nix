@@ -1,11 +1,22 @@
-{ lib, buildPythonPackage, fetchFromGitHub, substituteAll
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  substituteAll
 
-# build
-, pkg-config, glibc, python
+  # build
+  ,
+  pkg-config,
+  glibc,
+  python
 
-# runtime
-, bluez, boost, glib
+  # runtime
+  ,
+  bluez,
+  boost,
+  glib
 
+  ,
 }:
 
 let

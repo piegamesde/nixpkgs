@@ -1,4 +1,8 @@
-{ stdenv, lib, fetchzip }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+}:
 
 let
   os = if stdenv.isDarwin then "macos" else "linux";

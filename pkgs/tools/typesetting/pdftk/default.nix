@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitLab, gradle, jre, perl, writeText, runtimeShell }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  gradle,
+  jre,
+  perl,
+  writeText,
+  runtimeShell,
+}:
 
 let
   pname = "pdftk";

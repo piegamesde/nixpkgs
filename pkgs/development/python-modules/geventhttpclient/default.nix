@@ -1,5 +1,16 @@
-{ lib, brotli, buildPythonPackage, certifi, dpkt, fetchPypi, gevent
-, pytestCheckHook, pythonOlder, six, urllib3 }:
+{
+  lib,
+  brotli,
+  buildPythonPackage,
+  certifi,
+  dpkt,
+  fetchPypi,
+  gevent,
+  pytestCheckHook,
+  pythonOlder,
+  six,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "geventhttpclient";

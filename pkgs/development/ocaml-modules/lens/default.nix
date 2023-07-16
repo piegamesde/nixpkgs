@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, ppx_deriving, ppxlib, buildDunePackage, ounit }:
+{
+  lib,
+  fetchFromGitHub,
+  ppx_deriving,
+  ppxlib,
+  buildDunePackage,
+  ounit,
+}:
 
 buildDunePackage rec {
   pname = "lens";

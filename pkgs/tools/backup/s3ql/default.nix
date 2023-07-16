@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, python3Packages, sqlite, which }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  sqlite,
+  which,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "s3ql";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, apacheAnt, jdk, axis2, dbus_java }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  apacheAnt,
+  jdk,
+  axis2,
+  dbus_java,
+}:
 
 stdenv.mkDerivation rec {
   pname = "DisnixWebService";

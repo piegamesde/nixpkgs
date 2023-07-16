@@ -1,4 +1,8 @@
-{ lib, buildPythonPackage, libusbsio }:
+{
+  lib,
+  buildPythonPackage,
+  libusbsio,
+}:
 
 buildPythonPackage rec {
   pname = "libusbsio";

@@ -1,7 +1,31 @@
-{ mkDerivation, lib, fetchurl, cmake, extra-cmake-modules, qtwebengine, qtscript
-, grantlee, kxmlgui, kwallet, kparts, kdoctools, kjobwidgets, kdesignerplugin
-, kiconthemes, knewstuff, sqlcipher, qca-qt5, kactivities, karchive, kguiaddons
-, knotifyconfig, krunner, kwindowsystem, libofx, shared-mime-info }:
+{
+  mkDerivation,
+  lib,
+  fetchurl,
+  cmake,
+  extra-cmake-modules,
+  qtwebengine,
+  qtscript,
+  grantlee,
+  kxmlgui,
+  kwallet,
+  kparts,
+  kdoctools,
+  kjobwidgets,
+  kdesignerplugin,
+  kiconthemes,
+  knewstuff,
+  sqlcipher,
+  qca-qt5,
+  kactivities,
+  karchive,
+  kguiaddons,
+  knotifyconfig,
+  krunner,
+  kwindowsystem,
+  libofx,
+  shared-mime-info,
+}:
 
 mkDerivation rec {
   pname = "skrooge";

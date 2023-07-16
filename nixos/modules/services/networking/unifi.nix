@@ -1,4 +1,11 @@
-{ config, options, lib, pkgs, utils, ... }:
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  utils,
+  ...
+}:
 with lib;
 let
   cfg = config.services.unifi;

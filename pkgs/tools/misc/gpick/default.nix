@@ -1,5 +1,16 @@
-{ stdenv, fetchFromGitHub, cmake, wrapGAppsHook, boost, pkg-config, gtk3, ragel
-, lua, fetchpatch, lib }:
+{
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  wrapGAppsHook,
+  boost,
+  pkg-config,
+  gtk3,
+  ragel,
+  lua,
+  fetchpatch,
+  lib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gpick";

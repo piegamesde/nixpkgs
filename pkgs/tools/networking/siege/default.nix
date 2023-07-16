@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, openssl, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  openssl,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "siege";

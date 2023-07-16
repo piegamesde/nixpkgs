@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, setuptools-scm, kombu
-, shortuuid, celery, funcy, pytest-celery, pytest-mock, pytest-test-utils
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  setuptools-scm,
+  kombu,
+  shortuuid,
+  celery,
+  funcy,
+  pytest-celery,
+  pytest-mock,
+  pytest-test-utils,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "dvc-task";

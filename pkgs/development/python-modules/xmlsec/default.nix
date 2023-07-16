@@ -1,5 +1,18 @@
-{ lib, fetchPypi, buildPythonPackage, pytestCheckHook, libxslt, libxml2, libtool
-, pkg-config, xmlsec, pkgconfig, setuptools-scm, lxml, hypothesis }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pytestCheckHook,
+  libxslt,
+  libxml2,
+  libtool,
+  pkg-config,
+  xmlsec,
+  pkgconfig,
+  setuptools-scm,
+  lxml,
+  hypothesis,
+}:
 
 buildPythonPackage rec {
   pname = "xmlsec";

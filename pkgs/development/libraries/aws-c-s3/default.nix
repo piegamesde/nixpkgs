@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, aws-c-auth, aws-c-cal, aws-c-common
-, aws-c-compression, aws-c-http, aws-c-io, aws-checksums, cmake, nix, s2n-tls }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  aws-c-auth,
+  aws-c-cal,
+  aws-c-common,
+  aws-c-compression,
+  aws-c-http,
+  aws-c-io,
+  aws-checksums,
+  cmake,
+  nix,
+  s2n-tls,
+}:
 
 stdenv.mkDerivation rec {
   pname = "aws-c-s3";

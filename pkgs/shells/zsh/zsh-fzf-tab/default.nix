@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, ncurses }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  ncurses,
+}:
 
 let INSTALL_PATH = "${placeholder "out"}/share/fzf-tab";
 in stdenv.mkDerivation rec {

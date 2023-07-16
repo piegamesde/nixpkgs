@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchgit, ncurses, tcl, openssl, pam, libkrb5, openldap
-, libxcrypt, gitUpdater }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  ncurses,
+  tcl,
+  openssl,
+  pam,
+  libkrb5,
+  openldap,
+  libxcrypt,
+  gitUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "alpine";

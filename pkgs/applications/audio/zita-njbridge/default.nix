@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libjack2, zita-resampler }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libjack2,
+  zita-resampler,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.4.8";

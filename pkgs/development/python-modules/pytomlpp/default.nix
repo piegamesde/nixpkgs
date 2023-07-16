@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pybind11
-, pytestCheckHook, python-dateutil, doxygen, python, pelican, matplotlib }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pybind11,
+  pytestCheckHook,
+  python-dateutil,
+  doxygen,
+  python,
+  pelican,
+  matplotlib,
+}:
 
 buildPythonPackage rec {
   pname = "pytomlpp";

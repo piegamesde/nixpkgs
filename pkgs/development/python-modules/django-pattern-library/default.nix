@@ -1,5 +1,14 @@
-{ beautifulsoup4, buildPythonPackage, django, fetchFromGitHub, lib, markdown
-, poetry-core, python, pyyaml }:
+{
+  beautifulsoup4,
+  buildPythonPackage,
+  django,
+  fetchFromGitHub,
+  lib,
+  markdown,
+  poetry-core,
+  python,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "django-pattern-library";

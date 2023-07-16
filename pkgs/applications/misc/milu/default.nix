@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, unzip, pkg-config, glib, llvmPackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  unzip,
+  pkg-config,
+  glib,
+  llvmPackages,
+}:
 
 stdenv.mkDerivation {
   pname = "milu-nightly";

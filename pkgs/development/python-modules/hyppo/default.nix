@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytestCheckHook
-, autograd, numba, numpy, scikit-learn, scipy, matplotlib, seaborn }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pytestCheckHook,
+  autograd,
+  numba,
+  numpy,
+  scikit-learn,
+  scipy,
+  matplotlib,
+  seaborn,
+}:
 
 buildPythonPackage rec {
   pname = "hyppo";

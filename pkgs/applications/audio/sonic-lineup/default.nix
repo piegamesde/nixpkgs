@@ -1,7 +1,32 @@
-{ lib, stdenv, fetchurl, fetchpatch2, alsa-lib, boost, bzip2, fftw, fftwFloat
-, libfishsound, libid3tag, liblo, libmad, liboggz, libpulseaudio, libsamplerate
-, libsndfile, lrdf, opusfile, portaudio, rubberband, serd, sord, capnproto
-, wrapQtAppsHook, pkg-config, libjack2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch2,
+  alsa-lib,
+  boost,
+  bzip2,
+  fftw,
+  fftwFloat,
+  libfishsound,
+  libid3tag,
+  liblo,
+  libmad,
+  liboggz,
+  libpulseaudio,
+  libsamplerate,
+  libsndfile,
+  lrdf,
+  opusfile,
+  portaudio,
+  rubberband,
+  serd,
+  sord,
+  capnproto,
+  wrapQtAppsHook,
+  pkg-config,
+  libjack2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sonic-lineup";

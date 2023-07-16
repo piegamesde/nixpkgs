@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, unzip, setfile }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  setfile,
+}:
 
 stdenv.mkDerivation rec {
   pname = "muparser";

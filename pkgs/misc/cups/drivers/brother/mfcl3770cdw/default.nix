@@ -1,5 +1,17 @@
-{ pkgsi686Linux, stdenv, fetchurl, dpkg, makeWrapper, coreutils, ghostscript
-, gnugrep, gnused, which, perl, lib }:
+{
+  pkgsi686Linux,
+  stdenv,
+  fetchurl,
+  dpkg,
+  makeWrapper,
+  coreutils,
+  ghostscript,
+  gnugrep,
+  gnused,
+  which,
+  perl,
+  lib,
+}:
 
 let
   model = "mfcl3770cdw";

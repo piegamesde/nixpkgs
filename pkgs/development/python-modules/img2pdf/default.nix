@@ -1,6 +1,22 @@
-{ lib, buildPythonPackage, isPy27, fetchPypi, fetchpatch, pikepdf, pillow
-, stdenv, exiftool, ghostscript, imagemagick, mupdf, netpbm, numpy
-, poppler_utils, pytestCheckHook, scipy }:
+{
+  lib,
+  buildPythonPackage,
+  isPy27,
+  fetchPypi,
+  fetchpatch,
+  pikepdf,
+  pillow,
+  stdenv,
+  exiftool,
+  ghostscript,
+  imagemagick,
+  mupdf,
+  netpbm,
+  numpy,
+  poppler_utils,
+  pytestCheckHook,
+  scipy,
+}:
 
 buildPythonPackage rec {
   pname = "img2pdf";

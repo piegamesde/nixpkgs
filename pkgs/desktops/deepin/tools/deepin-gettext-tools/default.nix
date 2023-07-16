@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, gettext, python3Packages, perlPackages }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  gettext,
+  python3Packages,
+  perlPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "deepin-gettext-tools";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, stanc, python3, buildPackages, runtimeShell }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  stanc,
+  python3,
+  buildPackages,
+  runtimeShell,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cmdstan";

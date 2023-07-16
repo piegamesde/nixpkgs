@@ -1,5 +1,13 @@
-{ stdenv, toKodiAddon, addonDir }:
-{ name ? "${attrs.pname}-${attrs.version}", namespace, sourceDir ? "", ...
+{
+  stdenv,
+  toKodiAddon,
+  addonDir,
+}:
+{
+  name ? "${attrs.pname}-${attrs.version}",
+  namespace,
+  sourceDir ? "",
+  ...
 }@attrs:
 toKodiAddon (stdenv.mkDerivation ({
   name = "kodi-" + name;

@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, pkg-config, libxml2, ncurses, libsigcxx, libpar2
-, gnutls, libgcrypt, zlib, openssl, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libxml2,
+  ncurses,
+  libsigcxx,
+  libpar2,
+  gnutls,
+  libgcrypt,
+  zlib,
+  openssl,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nzbget";

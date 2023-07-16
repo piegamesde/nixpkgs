@@ -1,5 +1,15 @@
-{ lib, stdenvNoCC, fetchFromGitHub, fetchpatch, coreutils, gnused, libnotify
-, pulseaudio, sound-theme-freedesktop, xprop }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  fetchpatch,
+  coreutils,
+  gnused,
+  libnotify,
+  pulseaudio,
+  sound-theme-freedesktop,
+  xprop,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "undistract-me";

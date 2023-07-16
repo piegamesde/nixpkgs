@@ -1,4 +1,8 @@
-{ runCommand, python3, coreutils }:
+{
+  runCommand,
+  python3,
+  coreutils,
+}:
 # Write the references of `path' to a file, in order of how "popular" each
 # reference is. Nix 2 only.
 path:

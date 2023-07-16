@@ -1,4 +1,10 @@
-{ buildPythonPackage, pythonOlder, fetchPypi, lib, python }:
+{
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  lib,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "pycodestyle";

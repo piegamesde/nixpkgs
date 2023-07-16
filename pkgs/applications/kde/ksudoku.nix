@@ -1,5 +1,12 @@
-{ lib, mkDerivation, extra-cmake-modules, libGLU, kdoctools, kdeclarative
-, libkdegames }:
+{
+  lib,
+  mkDerivation,
+  extra-cmake-modules,
+  libGLU,
+  kdoctools,
+  kdeclarative,
+  libkdegames,
+}:
 
 mkDerivation {
   pname = "ksudoku";

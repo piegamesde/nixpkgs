@@ -1,5 +1,14 @@
-{ fetchFromGitHub, fetchgit, fetchHex, rebar3WithPlugins, rebar3-nix, rebar3Relx
-, buildRebar3, writeScript, lib }:
+{
+  fetchFromGitHub,
+  fetchgit,
+  fetchHex,
+  rebar3WithPlugins,
+  rebar3-nix,
+  rebar3Relx,
+  buildRebar3,
+  writeScript,
+  lib,
+}:
 
 let
   owner = "inaka";

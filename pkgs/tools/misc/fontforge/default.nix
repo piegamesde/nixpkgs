@@ -1,8 +1,37 @@
-{ stdenv, fetchpatch, fetchFromGitHub, lib, cmake, perl, uthash, pkg-config
-, gettext, python, freetype, zlib, glib, giflib, libpng, libjpeg, libtiff
-, libxml2, cairo, pango, readline, woff2, zeromq, withSpiro ? false, libspiro
-, withGTK ? false, gtk3, withGUI ? withGTK, withPython ? true, withExtras ? true
-, Carbon, Cocoa }:
+{
+  stdenv,
+  fetchpatch,
+  fetchFromGitHub,
+  lib,
+  cmake,
+  perl,
+  uthash,
+  pkg-config,
+  gettext,
+  python,
+  freetype,
+  zlib,
+  glib,
+  giflib,
+  libpng,
+  libjpeg,
+  libtiff,
+  libxml2,
+  cairo,
+  pango,
+  readline,
+  woff2,
+  zeromq,
+  withSpiro ? false,
+  libspiro,
+  withGTK ? false,
+  gtk3,
+  withGUI ? withGTK,
+  withPython ? true,
+  withExtras ? true,
+  Carbon,
+  Cocoa,
+}:
 
 assert withGTK -> withGUI;
 

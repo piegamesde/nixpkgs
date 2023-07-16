@@ -1,6 +1,19 @@
-{ lib, arrow, buildPythonPackage, fetchPypi, importlib-metadata, logfury
-, pyfakefs, pytestCheckHook, pytest-lazy-fixture, pytest-mock, pythonOlder
-, requests, setuptools-scm, tqdm }:
+{
+  lib,
+  arrow,
+  buildPythonPackage,
+  fetchPypi,
+  importlib-metadata,
+  logfury,
+  pyfakefs,
+  pytestCheckHook,
+  pytest-lazy-fixture,
+  pytest-mock,
+  pythonOlder,
+  requests,
+  setuptools-scm,
+  tqdm,
+}:
 
 buildPythonPackage rec {
   pname = "b2sdk";

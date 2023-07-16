@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ninja, obs-studio, pipewire, pkg-config
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  obs-studio,
+  pipewire,
+  pkg-config,
 }:
 
 stdenv.mkDerivation rec {

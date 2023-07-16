@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, automake, autoconf, libtool }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  automake,
+  autoconf,
+  libtool,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libdnet";

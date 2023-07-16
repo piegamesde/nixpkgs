@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, glibc }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  glibc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libax25";

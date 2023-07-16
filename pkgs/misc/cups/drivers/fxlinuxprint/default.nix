@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchzip, dpkg, autoPatchelfHook, cups }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  dpkg,
+  autoPatchelfHook,
+  cups,
+}:
 let
   debPlatform = if stdenv.hostPlatform.system == "x86_64-linux" then
     "amd64"

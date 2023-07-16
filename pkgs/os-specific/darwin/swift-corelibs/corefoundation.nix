@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, ninja, python3, curl, libxml2, objc4
-, ICU }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  ninja,
+  python3,
+  curl,
+  libxml2,
+  objc4,
+  ICU,
+}:
 
 let
   # 10.12 adds a new sysdir.h that our version of CF in the main derivation depends on, but

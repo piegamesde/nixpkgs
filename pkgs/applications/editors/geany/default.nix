@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, gtk3, which, pkg-config, intltool, file, libintl
-, hicolor-icon-theme, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gtk3,
+  which,
+  pkg-config,
+  intltool,
+  file,
+  libintl,
+  hicolor-icon-theme,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "geany";

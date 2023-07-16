@@ -1,8 +1,20 @@
-{ lib, stdenv, fetchurl, libX11, libXt
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libX11,
+  libXt
 
-, libjpeg ? null, libpng ? null, libtiff ? null
+  ,
+  libjpeg ? null,
+  libpng ? null,
+  libtiff ? null
 
-, withJpegSupport ? true, withPngSupport ? true, withTiffSupport ? true }:
+  ,
+  withJpegSupport ? true,
+  withPngSupport ? true,
+  withTiffSupport ? true
+}:
 
 assert withJpegSupport -> libjpeg != null;
 assert withPngSupport -> libpng != null;

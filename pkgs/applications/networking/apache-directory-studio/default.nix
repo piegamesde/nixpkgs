@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, jdk, makeWrapper, autoPatchelfHook, makeDesktopItem
-, glib, libsecret, webkitgtk }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jdk,
+  makeWrapper,
+  autoPatchelfHook,
+  makeDesktopItem,
+  glib,
+  libsecret,
+  webkitgtk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "apache-directory-studio";

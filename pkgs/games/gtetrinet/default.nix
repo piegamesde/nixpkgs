@@ -1,5 +1,14 @@
-{ fetchFromGitHub, lib, stdenv, autoreconfHook, intltool, pkg-config, libgnome
-, libgnomeui, GConf }:
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  autoreconfHook,
+  intltool,
+  pkg-config,
+  libgnome,
+  libgnomeui,
+  GConf,
+}:
 
 stdenv.mkDerivation {
   pname = "gtetrinet";

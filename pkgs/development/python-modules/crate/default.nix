@@ -1,5 +1,15 @@
-{ lib, fetchPypi, buildPythonPackage, urllib3, geojson, pythonOlder, sqlalchemy
-, pytestCheckHook, pytz, stdenv }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  urllib3,
+  geojson,
+  pythonOlder,
+  sqlalchemy,
+  pytestCheckHook,
+  pytz,
+  stdenv,
+}:
 
 buildPythonPackage rec {
   pname = "crate";

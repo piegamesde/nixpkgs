@@ -1,5 +1,18 @@
-{ lib, stdenv, python3, libffi, git, cmake, zlib, fetchgit, makeWrapper
-, runCommand, llvmPackages_5, glibc, ncurses }:
+{
+  lib,
+  stdenv,
+  python3,
+  libffi,
+  git,
+  cmake,
+  zlib,
+  fetchgit,
+  makeWrapper,
+  runCommand,
+  llvmPackages_5,
+  glibc,
+  ncurses,
+}:
 
 let
   unwrapped = stdenv.mkDerivation rec {

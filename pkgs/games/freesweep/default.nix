@@ -1,5 +1,12 @@
-{ fetchFromGitHub, fetchpatch, ncurses, lib, stdenv
-, updateAutotoolsGnuConfigScriptsHook, installShellFiles }:
+{
+  fetchFromGitHub,
+  fetchpatch,
+  ncurses,
+  lib,
+  stdenv,
+  updateAutotoolsGnuConfigScriptsHook,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation rec {
   pname = "freesweep";

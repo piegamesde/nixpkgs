@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, hidapi, nose }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  hidapi,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "hid";

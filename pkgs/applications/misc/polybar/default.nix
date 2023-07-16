@@ -1,13 +1,47 @@
-{ config, cairo, cmake, fetchFromGitHub, libuv, libXdmcp, libpthreadstubs
-, libxcb, pcre, pkg-config, python3, python3Packages # sphinx-build
-, lib, stdenv, xcbproto, xcbutil, xcbutilcursor, xcbutilimage, xcbutilrenderutil
-, xcbutilwm, xcbutilxrm, makeWrapper, removeReferencesTo, alsa-lib, curl
-, libmpdclient, libpulseaudio, wirelesstools, libnl, i3, jsoncpp
+{
+  config,
+  cairo,
+  cmake,
+  fetchFromGitHub,
+  libuv,
+  libXdmcp,
+  libpthreadstubs,
+  libxcb,
+  pcre,
+  pkg-config,
+  python3,
+  python3Packages # sphinx-build
+  ,
+  lib,
+  stdenv,
+  xcbproto,
+  xcbutil,
+  xcbutilcursor,
+  xcbutilimage,
+  xcbutilrenderutil,
+  xcbutilwm,
+  xcbutilxrm,
+  makeWrapper,
+  removeReferencesTo,
+  alsa-lib,
+  curl,
+  libmpdclient,
+  libpulseaudio,
+  wirelesstools,
+  libnl,
+  i3,
+  jsoncpp
 
-# override the variables ending in 'Support' to enable or disable modules
-, alsaSupport ? true, githubSupport ? false, mpdSupport ? false
-, pulseSupport ? config.pulseaudio or false, iwSupport ? false, nlSupport ? true
-, i3Support ? false }:
+  # override the variables ending in 'Support' to enable or disable modules
+  ,
+  alsaSupport ? true,
+  githubSupport ? false,
+  mpdSupport ? false,
+  pulseSupport ? config.pulseaudio or false,
+  iwSupport ? false,
+  nlSupport ? true,
+  i3Support ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "polybar";

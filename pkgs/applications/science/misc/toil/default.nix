@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, python3, rsync }:
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  rsync,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "toil";

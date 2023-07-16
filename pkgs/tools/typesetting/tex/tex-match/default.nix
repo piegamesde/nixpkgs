@@ -1,4 +1,11 @@
-{ rustPlatform, fetchFromGitHub, gtk3, pkg-config, glib, lib }:
+{
+  rustPlatform,
+  fetchFromGitHub,
+  gtk3,
+  pkg-config,
+  glib,
+  lib,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "tex-match";

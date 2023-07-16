@@ -1,7 +1,30 @@
-{ lib, stdenv, callPackage, overrideCC, wrapCCWith, wrapBintoolsWith, runCommand
-, lit, glibc, spirv-llvm-translator, xz, swig, lua5_3, gtest, hip, rocm-comgr
-, vulkan-loader, vulkan-headers, glslang, shaderc, perl, rocm-device-libs
-, rocm-runtime, elfutils, python3Packages }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  overrideCC,
+  wrapCCWith,
+  wrapBintoolsWith,
+  runCommand,
+  lit,
+  glibc,
+  spirv-llvm-translator,
+  xz,
+  swig,
+  lua5_3,
+  gtest,
+  hip,
+  rocm-comgr,
+  vulkan-loader,
+  vulkan-headers,
+  glslang,
+  shaderc,
+  perl,
+  rocm-device-libs,
+  rocm-runtime,
+  elfutils,
+  python3Packages,
+}:
 
 let
   # Stage 1

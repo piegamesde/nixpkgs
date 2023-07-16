@@ -1,7 +1,27 @@
-{ lib, stdenv, fetchFromGitHub, vala, meson, ninja, python3, pkg-config
-, wrapGAppsHook4, desktop-file-utils, gtk4, libadwaita, json-glib, glib
-, glib-networking, gtksourceview5, libxml2, libgee, libsoup_3, libsecret
-, gst_all_1, nix-update-script }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  vala,
+  meson,
+  ninja,
+  python3,
+  pkg-config,
+  wrapGAppsHook4,
+  desktop-file-utils,
+  gtk4,
+  libadwaita,
+  json-glib,
+  glib,
+  glib-networking,
+  gtksourceview5,
+  libxml2,
+  libgee,
+  libsoup_3,
+  libsecret,
+  gst_all_1,
+  nix-update-script,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tuba";

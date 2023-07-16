@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, removeReferencesTo }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  removeReferencesTo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pkgconf";

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, imagemagick, libpng }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  imagemagick,
+  libpng,
+}:
 
 stdenv.mkDerivation {
   pname = "optar";

@@ -1,4 +1,12 @@
-{ lib, stdenv, buildPythonPackage, python, ndtypes, libndtypes, libxnd, isPy27
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  python,
+  ndtypes,
+  libndtypes,
+  libxnd,
+  isPy27,
 }:
 
 buildPythonPackage {

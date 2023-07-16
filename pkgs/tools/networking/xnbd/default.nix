@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, autoreconfHook, glib, jansson }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  autoreconfHook,
+  glib,
+  jansson,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xnbd";

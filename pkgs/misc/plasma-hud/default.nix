@@ -1,4 +1,10 @@
-{ lib, python3, fetchFromGitHub, rofi, gobject-introspection }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  rofi,
+  gobject-introspection,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "plasma-hud";

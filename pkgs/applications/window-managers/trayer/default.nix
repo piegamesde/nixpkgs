@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, gdk-pixbuf, gtk2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  gdk-pixbuf,
+  gtk2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "trayer";

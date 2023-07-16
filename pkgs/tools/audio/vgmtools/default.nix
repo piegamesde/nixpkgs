@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, unstableGitUpdater, cmake, zlib }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  unstableGitUpdater,
+  cmake,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vgmtools";

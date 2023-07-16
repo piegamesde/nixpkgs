@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, autoreconfHook, pkg-config, which, gtk3, blas, lapack
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  which,
+  gtk3,
+  blas,
+  lapack,
 }:
 
 assert (!blas.isILP64) && (!lapack.isILP64);

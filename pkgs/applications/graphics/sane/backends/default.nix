@@ -1,15 +1,42 @@
-{ stdenv, lib, fetchurl, fetchpatch, runtimeShell, buildPackages, gettext
-, pkg-config, python3, avahi, libgphoto2, libieee1284, libjpeg, libpng, libtiff
-, libusb1, libv4l, net-snmp, curl, systemd, libxml2, poppler, gawk, sane-drivers
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  runtimeShell,
+  buildPackages,
+  gettext,
+  pkg-config,
+  python3,
+  avahi,
+  libgphoto2,
+  libieee1284,
+  libjpeg,
+  libpng,
+  libtiff,
+  libusb1,
+  libv4l,
+  net-snmp,
+  curl,
+  systemd,
+  libxml2,
+  poppler,
+  gawk,
+  sane-drivers
 
-# List of { src name backend } attibute sets - see installFirmware below:
-, extraFirmware ? [ ]
+  # List of { src name backend } attibute sets - see installFirmware below:
+  ,
+  extraFirmware ? [ ]
 
-  # For backwards compatibility with older setups; use extraFirmware instead:
-, gt68xxFirmware ? null, snapscanFirmware ? null
+    # For backwards compatibility with older setups; use extraFirmware instead:
+  ,
+  gt68xxFirmware ? null,
+  snapscanFirmware ? null
 
-  # Not included by default, scan snap drivers require fetching of unfree binaries.
-, scanSnapDriversUnfree ? false, scanSnapDriversPackage ? sane-drivers.epjitsu
+    # Not included by default, scan snap drivers require fetching of unfree binaries.
+  ,
+  scanSnapDriversUnfree ? false,
+  scanSnapDriversPackage ? sane-drivers.epjitsu
 }:
 
 stdenv.mkDerivation {

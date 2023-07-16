@@ -1,5 +1,19 @@
-{ lib, fetchPypi, fetchpatch, python, buildPythonPackage, gfortran, hypothesis
-, pytest, typing-extensions, blas, lapack, writeTextFile, cython, pythonOlder }:
+{
+  lib,
+  fetchPypi,
+  fetchpatch,
+  python,
+  buildPythonPackage,
+  gfortran,
+  hypothesis,
+  pytest,
+  typing-extensions,
+  blas,
+  lapack,
+  writeTextFile,
+  cython,
+  pythonOlder,
+}:
 
 assert (!blas.isILP64) && (!lapack.isILP64);
 

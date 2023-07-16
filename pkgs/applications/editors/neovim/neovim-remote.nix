@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, python3, neovim, fetchpatch }:
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  neovim,
+  fetchpatch,
+}:
 
 with python3.pkgs;
 buildPythonApplication rec {

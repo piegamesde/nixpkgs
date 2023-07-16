@@ -1,4 +1,11 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, OpenGL, AppKit }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  OpenGL,
+  AppKit,
+}:
 
 buildGoModule rec {
   pname = "gdlv";

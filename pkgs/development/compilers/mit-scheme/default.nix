@@ -1,5 +1,19 @@
-{ fetchurl, lib, stdenv, makeWrapper, gnum4, texinfo, texLive, automake
-, autoconf, libtool, ghostscript, ncurses, enableX11 ? false, libX11 }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  makeWrapper,
+  gnum4,
+  texinfo,
+  texLive,
+  automake,
+  autoconf,
+  libtool,
+  ghostscript,
+  ncurses,
+  enableX11 ? false,
+  libX11,
+}:
 
 let
   version = "11.2";

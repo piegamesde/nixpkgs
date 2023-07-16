@@ -1,32 +1,108 @@
-{ lib, stdenv, fetchurl, fetchpatch, python3Packages, zlib, pkg-config, glib
-, buildPackages, pixman, vde2, alsa-lib, texinfo, flex, bison, lzo, snappy
-, libaio, libtasn1, gnutls, nettle, curl, ninja, meson, sigtool, makeWrapper
-, runtimeShell, removeReferencesTo, attr, libcap, libcap_ng, socat, libslirp
-, CoreServices, Cocoa, Hypervisor, rez, setfile, vmnet, guestAgentSupport ?
-  with stdenv.hostPlatform;
-  isLinux || isNetBSD || isOpenBSD || isSunOS || isWindows
-, numaSupport ? stdenv.isLinux && !stdenv.isAarch32, numactl
-, seccompSupport ? stdenv.isLinux, libseccomp, alsaSupport ?
-  lib.hasSuffix "linux" stdenv.hostPlatform.system && !nixosTestRunner
-, pulseSupport ? !stdenv.isDarwin && !nixosTestRunner, libpulseaudio
-, sdlSupport ? !stdenv.isDarwin && !nixosTestRunner, SDL2, SDL2_image
-, jackSupport ? !stdenv.isDarwin && !nixosTestRunner, libjack2
-, gtkSupport ? !stdenv.isDarwin && !xenSupport && !nixosTestRunner, gtk3
-, gettext, vte, wrapGAppsHook, vncSupport ? !nixosTestRunner, libjpeg, libpng
-, smartcardSupport ? !nixosTestRunner, libcacard
-, spiceSupport ? true && !nixosTestRunner, spice, spice-protocol
-, ncursesSupport ? !nixosTestRunner, ncurses, usbredirSupport ? spiceSupport
-, usbredir, xenSupport ? false, xen, cephSupport ? false, ceph
-, glusterfsSupport ? false, glusterfs, libuuid, openGLSupport ? sdlSupport, mesa
-, libepoxy, libdrm, virglSupport ? openGLSupport, virglrenderer
-, libiscsiSupport ? true, libiscsi, smbdSupport ? false, samba
-, tpmSupport ? true, uringSupport ? stdenv.isLinux, liburing
-, canokeySupport ? false, canokey-qemu, enableDocs ? true, hostCpuOnly ? false
-, hostCpuTargets ? (if hostCpuOnly then
-  (lib.optional stdenv.isx86_64 "i386-softmmu"
-    ++ [ "${stdenv.hostPlatform.qemuArch}-softmmu" ])
-else
-  null), nixosTestRunner ? false, doCheck ? false, qemu # for passthru.tests
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  python3Packages,
+  zlib,
+  pkg-config,
+  glib,
+  buildPackages,
+  pixman,
+  vde2,
+  alsa-lib,
+  texinfo,
+  flex,
+  bison,
+  lzo,
+  snappy,
+  libaio,
+  libtasn1,
+  gnutls,
+  nettle,
+  curl,
+  ninja,
+  meson,
+  sigtool,
+  makeWrapper,
+  runtimeShell,
+  removeReferencesTo,
+  attr,
+  libcap,
+  libcap_ng,
+  socat,
+  libslirp,
+  CoreServices,
+  Cocoa,
+  Hypervisor,
+  rez,
+  setfile,
+  vmnet,
+  guestAgentSupport ? with stdenv.hostPlatform;
+    isLinux || isNetBSD || isOpenBSD || isSunOS || isWindows,
+  numaSupport ? stdenv.isLinux && !stdenv.isAarch32,
+  numactl,
+  seccompSupport ? stdenv.isLinux,
+  libseccomp,
+  alsaSupport ? lib.hasSuffix "linux" stdenv.hostPlatform.system
+    && !nixosTestRunner,
+  pulseSupport ? !stdenv.isDarwin && !nixosTestRunner,
+  libpulseaudio,
+  sdlSupport ? !stdenv.isDarwin && !nixosTestRunner,
+  SDL2,
+  SDL2_image,
+  jackSupport ? !stdenv.isDarwin && !nixosTestRunner,
+  libjack2,
+  gtkSupport ? !stdenv.isDarwin && !xenSupport && !nixosTestRunner,
+  gtk3,
+  gettext,
+  vte,
+  wrapGAppsHook,
+  vncSupport ? !nixosTestRunner,
+  libjpeg,
+  libpng,
+  smartcardSupport ? !nixosTestRunner,
+  libcacard,
+  spiceSupport ? true && !nixosTestRunner,
+  spice,
+  spice-protocol,
+  ncursesSupport ? !nixosTestRunner,
+  ncurses,
+  usbredirSupport ? spiceSupport,
+  usbredir,
+  xenSupport ? false,
+  xen,
+  cephSupport ? false,
+  ceph,
+  glusterfsSupport ? false,
+  glusterfs,
+  libuuid,
+  openGLSupport ? sdlSupport,
+  mesa,
+  libepoxy,
+  libdrm,
+  virglSupport ? openGLSupport,
+  virglrenderer,
+  libiscsiSupport ? true,
+  libiscsi,
+  smbdSupport ? false,
+  samba,
+  tpmSupport ? true,
+  uringSupport ? stdenv.isLinux,
+  liburing,
+  canokeySupport ? false,
+  canokey-qemu,
+  enableDocs ? true,
+  hostCpuOnly ? false,
+  hostCpuTargets ? (if hostCpuOnly then
+    (lib.optional stdenv.isx86_64 "i386-softmmu"
+      ++ [ "${stdenv.hostPlatform.qemuArch}-softmmu" ])
+  else
+    null),
+  nixosTestRunner ? false,
+  doCheck ? false,
+  qemu # for passthru.tests
+  ,
 }:
 
 let

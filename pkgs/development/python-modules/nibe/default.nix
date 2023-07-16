@@ -1,6 +1,19 @@
-{ lib, aiohttp, aresponses, async-modbus, async-timeout, buildPythonPackage
-, construct, exceptiongroup, fetchFromGitHub, pytest-asyncio, pytestCheckHook
-, pythonOlder, setuptools, tenacity }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  async-modbus,
+  async-timeout,
+  buildPythonPackage,
+  construct,
+  exceptiongroup,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  tenacity,
+}:
 
 buildPythonPackage rec {
   pname = "nibe";

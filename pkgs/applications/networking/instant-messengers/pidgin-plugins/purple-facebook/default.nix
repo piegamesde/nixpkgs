@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fetchhg, pidgin, glib, json-glib, autoreconfHook
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchhg,
+  pidgin,
+  glib,
+  json-glib,
+  autoreconfHook,
 }:
 
 let

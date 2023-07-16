@@ -1,4 +1,10 @@
-{ lib, fetchurl, buildDunePackage, containers, oseq }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  containers,
+  oseq,
+}:
 
 buildDunePackage rec {
   pname = "dscheck";

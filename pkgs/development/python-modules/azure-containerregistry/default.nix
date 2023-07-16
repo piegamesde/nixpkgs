@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, azure-core, msrest
-, msrestazure }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  azure-core,
+  msrest,
+  msrestazure,
+}:
 
 buildPythonPackage rec {
   pname = "azure-containerregistry";

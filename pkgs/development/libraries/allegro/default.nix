@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchurl, texinfo6_5, libXext, xorgproto, libX11, libXpm, libXt
-, libXcursor, alsa-lib, cmake, zlib, libpng, libvorbis, libXxf86dga
-, libXxf86misc, libXxf86vm, openal, libGLU, libGL }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  texinfo6_5,
+  libXext,
+  xorgproto,
+  libX11,
+  libXpm,
+  libXt,
+  libXcursor,
+  alsa-lib,
+  cmake,
+  zlib,
+  libpng,
+  libvorbis,
+  libXxf86dga,
+  libXxf86misc,
+  libXxf86vm,
+  openal,
+  libGLU,
+  libGL,
+}:
 
 stdenv.mkDerivation rec {
   pname = "allegro";

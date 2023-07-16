@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchPypi, nose, setuptools, arrow, requests, units
-, pint, pydantic, pytz, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nose,
+  setuptools,
+  arrow,
+  requests,
+  units,
+  pint,
+  pydantic,
+  pytz,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "stravalib";

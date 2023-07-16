@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchzip, makeWrapper, jre, python3, unzip, }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  makeWrapper,
+  jre,
+  python3,
+  unzip,
+}:
 stdenv.mkDerivation rec {
   pname = "nzbhydra2";
   version = "4.7.6";

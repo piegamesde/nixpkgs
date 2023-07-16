@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, makeDesktopItem, SDL2, SDL2_net }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeDesktopItem,
+  SDL2,
+  SDL2_net,
+}:
 
 stdenv.mkDerivation rec {
   pname = "maelstrom";

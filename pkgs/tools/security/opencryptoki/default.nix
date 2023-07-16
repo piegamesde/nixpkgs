@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, bison, flex, openldap, openssl
-, trousers }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  bison,
+  flex,
+  openldap,
+  openssl,
+  trousers,
+}:
 
 stdenv.mkDerivation rec {
   pname = "opencryptoki";

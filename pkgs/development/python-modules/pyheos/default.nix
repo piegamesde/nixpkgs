@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest-asyncio, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pyheos";

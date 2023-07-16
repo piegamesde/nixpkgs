@@ -1,5 +1,15 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, kwindowsystem, libfm-qt
-, lxqt-qtplugin, qtx11extras, gitUpdater, extraQtStyles ? [ ] }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  kwindowsystem,
+  libfm-qt,
+  lxqt-qtplugin,
+  qtx11extras,
+  gitUpdater,
+  extraQtStyles ? [ ]
+}:
 
 mkDerivation rec {
   pname = "xdg-desktop-portal-lxqt";

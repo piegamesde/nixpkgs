@@ -1,4 +1,12 @@
-{ substituteAll, runtimeShell, coreutils, gnused, gnugrep, nix, lib, nixosTests
+{
+  substituteAll,
+  runtimeShell,
+  coreutils,
+  gnused,
+  gnugrep,
+  nix,
+  lib,
+  nixosTests,
 }:
 let
   fallback =

@@ -1,5 +1,11 @@
-{ stdenv, fetchFromGitHub, lib, elfutils, vendorCertFile ? null
-, defaultLoader ? null }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  elfutils,
+  vendorCertFile ? null,
+  defaultLoader ? null
+}:
 
 let
 

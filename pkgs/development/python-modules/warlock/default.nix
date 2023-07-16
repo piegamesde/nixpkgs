@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, poetry-core, jsonpatch
-, jsonschema, six, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  poetry-core,
+  jsonpatch,
+  jsonschema,
+  six,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "warlock";

@@ -1,5 +1,17 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, lxml, pyproj
-, pytestCheckHook, python-dateutil, pythonOlder, pytz, pyyaml, requests, python
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  lxml,
+  pyproj,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  pytz,
+  pyyaml,
+  requests,
+  python,
 }:
 
 buildPythonPackage rec {

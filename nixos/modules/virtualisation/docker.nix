@@ -1,6 +1,11 @@
 # Systemd services for docker.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

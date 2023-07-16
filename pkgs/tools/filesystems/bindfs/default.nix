@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, fuse, fuse3, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fuse,
+  fuse3,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.17.2";

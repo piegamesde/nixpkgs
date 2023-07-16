@@ -1,6 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, alsa-lib, jack2
-, libpulseaudio, sndio, speexdsp, AudioUnit, CoreAudio, CoreServices
-, lazyLoad ? !stdenv.isDarwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  alsa-lib,
+  jack2,
+  libpulseaudio,
+  sndio,
+  speexdsp,
+  AudioUnit,
+  CoreAudio,
+  CoreServices,
+  lazyLoad ? !stdenv.isDarwin
+}:
 
 assert lib.assertMsg (stdenv.isDarwin -> !lazyLoad)
   "cubeb: lazyLoad is inert on Darwin";

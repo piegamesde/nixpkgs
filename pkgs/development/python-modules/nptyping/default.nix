@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
-, beartype, invoke, mypy, numpy, pandas, feedparser, typeguard }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  beartype,
+  invoke,
+  mypy,
+  numpy,
+  pandas,
+  feedparser,
+  typeguard,
+}:
 
 buildPythonPackage rec {
   pname = "nptyping";

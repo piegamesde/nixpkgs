@@ -1,4 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, cmake, gfortran, blas, lapack, mctc-lib, mstore
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  gfortran,
+  blas,
+  lapack,
+  mctc-lib,
+  mstore,
 }:
 
 assert !blas.isILP64 && !lapack.isILP64;

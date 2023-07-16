@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy27, maya, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy27,
+  maya,
+  requests,
+}:
 
 buildPythonPackage rec {
   version = "0.3.0";

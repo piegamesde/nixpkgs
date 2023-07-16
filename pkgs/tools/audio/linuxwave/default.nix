@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, installShellFiles, zig }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  installShellFiles,
+  zig,
+}:
 
 stdenv.mkDerivation rec {
   pname = "linuxwave";

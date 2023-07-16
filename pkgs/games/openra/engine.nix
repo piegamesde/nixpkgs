@@ -7,7 +7,14 @@
     This package could be seen as providing a set of in-tree mods,
     while the `mod.nix` pacakges provide a single out-of-tree mod.
 */
-{ lib, stdenv, packageAttrs, patchEngine, wrapLaunchGame, engine }:
+{
+  lib,
+  stdenv,
+  packageAttrs,
+  patchEngine,
+  wrapLaunchGame,
+  engine,
+}:
 
 with lib;
 

@@ -1,4 +1,10 @@
-{ lib, fetchFromGitLab, imagemagick, flutter, makeDesktopItem }:
+{
+  lib,
+  fetchFromGitLab,
+  imagemagick,
+  flutter,
+  makeDesktopItem,
+}:
 
 flutter.buildFlutterApplication rec {
   version = "1.11.0";

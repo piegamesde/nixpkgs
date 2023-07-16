@@ -1,4 +1,8 @@
-{ callPackage, zlib, libelf }:
+{
+  callPackage,
+  zlib,
+  libelf,
+}:
 callPackage ./common.nix rec {
   version = "20210528";
   url = "https://www.prevanders.net/libdwarf-${version}.tar.gz";

@@ -1,5 +1,16 @@
-{ lib, stdenv, buildPackages, fetchurl, flex, cracklib, db4, gettext, audit
-, libxcrypt, nixosTests }:
+{
+  lib,
+  stdenv,
+  buildPackages,
+  fetchurl,
+  flex,
+  cracklib,
+  db4,
+  gettext,
+  audit,
+  libxcrypt,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "linux-pam";

@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, gdk-pixbuf, gd, libjpeg
-, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  gdk-pixbuf,
+  gd,
+  libjpeg,
+  pkg-config,
+}:
 stdenv.mkDerivation rec {
   pname = "libsixel";
   version = "1.10.3";

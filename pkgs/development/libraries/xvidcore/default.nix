@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, yasm, autoconf, automake, libtool }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  yasm,
+  autoconf,
+  automake,
+  libtool,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xvidcore";

@@ -1,4 +1,6 @@
-{ lib }:
+{
+  lib,
+}:
 /* Usage:
 
    You define you custom builder script by adding all build steps to a list.

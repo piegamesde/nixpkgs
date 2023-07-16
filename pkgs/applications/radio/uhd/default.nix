@@ -1,13 +1,39 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, cmake, pkg-config
-# See https://files.ettus.com/manual_archive/v3.15.0.0/html/page_build_guide.html for dependencies explanations
-, boost, ncurses, enableCApi ? true
-  # requires numpy
-, enablePythonApi ? false, python3, buildPackages, enableExamples ? false
-, enableUtils ? false, libusb1, enableDpdk ? false, dpdk
-# Devices
-, enableOctoClock ? true, enableMpmd ? true, enableB100 ? true
-, enableB200 ? true, enableUsrp1 ? true, enableUsrp2 ? true, enableX300 ? true
-, enableN300 ? true, enableN320 ? true, enableE300 ? true, enableE320 ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  cmake,
+  pkg-config
+  # See https://files.ettus.com/manual_archive/v3.15.0.0/html/page_build_guide.html for dependencies explanations
+  ,
+  boost,
+  ncurses,
+  enableCApi ? true
+    # requires numpy
+  ,
+  enablePythonApi ? false,
+  python3,
+  buildPackages,
+  enableExamples ? false,
+  enableUtils ? false,
+  libusb1,
+  enableDpdk ? false,
+  dpdk
+  # Devices
+  ,
+  enableOctoClock ? true,
+  enableMpmd ? true,
+  enableB100 ? true,
+  enableB200 ? true,
+  enableUsrp1 ? true,
+  enableUsrp2 ? true,
+  enableX300 ? true,
+  enableN300 ? true,
+  enableN320 ? true,
+  enableE300 ? true,
+  enableE320 ? true
+}:
 
 let
   onOffBool = b: if b then "ON" else "OFF";

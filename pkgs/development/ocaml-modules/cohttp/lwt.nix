@@ -1,4 +1,13 @@
-{ lib, buildDunePackage, cohttp, lwt, uri, ppx_sexp_conv, logs, sexplib0 }:
+{
+  lib,
+  buildDunePackage,
+  cohttp,
+  lwt,
+  uri,
+  ppx_sexp_conv,
+  logs,
+  sexplib0,
+}:
 
 buildDunePackage {
   pname = "cohttp-lwt";

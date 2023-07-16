@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, ncurses, automake }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+  automake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "aalib";

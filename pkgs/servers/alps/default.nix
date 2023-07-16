@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromSourcehut, fetchpatch, nixosTests }:
+{
+  lib,
+  buildGoModule,
+  fetchFromSourcehut,
+  fetchpatch,
+  nixosTests,
+}:
 
 buildGoModule rec {
   pname = "alps";

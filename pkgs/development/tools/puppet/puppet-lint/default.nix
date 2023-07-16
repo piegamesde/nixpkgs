@@ -1,4 +1,6 @@
-{ bundlerApp }:
+{
+  bundlerApp,
+}:
 
 bundlerApp {
   pname = "puppet-lint";

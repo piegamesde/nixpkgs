@@ -1,5 +1,16 @@
-{ lib, buildPythonApplication, isPy3k, fetchFromGitHub, manuel, setuptools
-, docutils, lxml, svg-path, pygments, watchdog }:
+{
+  lib,
+  buildPythonApplication,
+  isPy3k,
+  fetchFromGitHub,
+  manuel,
+  setuptools,
+  docutils,
+  lxml,
+  svg-path,
+  pygments,
+  watchdog,
+}:
 
 buildPythonApplication rec {
   pname = "hovercraft";

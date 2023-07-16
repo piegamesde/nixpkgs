@@ -1,6 +1,20 @@
-{ lib, mkDerivation, appstream, fetchFromGitHub, cmake, gettext, libxslt
-, librsvg, itstool, qtbase, qtquickcontrols2, qtsvg, qttools, qtwebview
-, docbook_xsl }:
+{
+  lib,
+  mkDerivation,
+  appstream,
+  fetchFromGitHub,
+  cmake,
+  gettext,
+  libxslt,
+  librsvg,
+  itstool,
+  qtbase,
+  qtquickcontrols2,
+  qtsvg,
+  qttools,
+  qtwebview,
+  docbook_xsl,
+}:
 
 mkDerivation rec {
   version = "20.0";

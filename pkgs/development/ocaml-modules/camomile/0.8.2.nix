@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchurl, ocaml, findlib, camlp4 }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  ocaml,
+  findlib,
+  camlp4,
+}:
 
 if lib.versionAtLeast ocaml.version "4.05" then
   throw "camomile-0.8.2 is not available for OCaml ${ocaml.version}"

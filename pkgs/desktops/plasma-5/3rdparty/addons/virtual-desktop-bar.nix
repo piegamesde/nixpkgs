@@ -1,5 +1,12 @@
-{ lib, mkDerivation, fetchFromGitHub, extra-cmake-modules, kwindowsystem
-, plasma-framework, qtx11extras }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  extra-cmake-modules,
+  kwindowsystem,
+  plasma-framework,
+  qtx11extras,
+}:
 
 mkDerivation rec {
   pname = "plasma-applet-virtual-desktop-bar";

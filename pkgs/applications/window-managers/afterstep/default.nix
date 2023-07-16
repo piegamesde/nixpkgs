@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, pkg-config, libtiff, fltk, gtk, libICE, libSM, dbus
-, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libtiff,
+  fltk,
+  gtk,
+  libICE,
+  libSM,
+  dbus,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
 

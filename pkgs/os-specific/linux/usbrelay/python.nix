@@ -1,4 +1,7 @@
-{ buildPythonPackage, usbrelay }:
+{
+  buildPythonPackage,
+  usbrelay,
+}:
 
 buildPythonPackage rec {
   pname = "usbrelay_py";

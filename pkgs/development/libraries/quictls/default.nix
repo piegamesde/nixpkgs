@@ -1,6 +1,18 @@
-{ lib, stdenv, fetchurl, buildPackages, perl, coreutils, fetchFromGitHub
-, makeWrapper, withCryptodev ? false, cryptodev, enableSSL2 ? false
-, enableSSL3 ? false, static ? stdenv.hostPlatform.isStatic, removeReferencesTo
+{
+  lib,
+  stdenv,
+  fetchurl,
+  buildPackages,
+  perl,
+  coreutils,
+  fetchFromGitHub,
+  makeWrapper,
+  withCryptodev ? false,
+  cryptodev,
+  enableSSL2 ? false,
+  enableSSL3 ? false,
+  static ? stdenv.hostPlatform.isStatic,
+  removeReferencesTo,
 }:
 
 stdenv.mkDerivation rec {

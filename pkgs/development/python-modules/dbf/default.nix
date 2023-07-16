@@ -1,4 +1,11 @@
-{ lib, fetchPypi, buildPythonPackage, aenum, pythonOlder, python }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  aenum,
+  pythonOlder,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "dbf";

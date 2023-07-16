@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, python, geos, pytestCheckHook, cython
-, numpy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python,
+  geos,
+  pytestCheckHook,
+  cython,
+  numpy,
+}:
 
 buildPythonPackage rec {
   pname = "pygeos";

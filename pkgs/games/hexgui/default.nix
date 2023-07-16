@@ -1,4 +1,11 @@
-{ ant, fetchFromGitHub, jdk, lib, makeWrapper, stdenv }:
+{
+  ant,
+  fetchFromGitHub,
+  jdk,
+  lib,
+  makeWrapper,
+  stdenv,
+}:
 stdenv.mkDerivation {
   pname = "hexgui";
   version = "unstable-2023-1-7";

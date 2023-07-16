@@ -1,5 +1,11 @@
-{ lib, buildPythonApplication, fetchFromGitea, pythonImportsCheckHook
-, sphinxHook, sphinx-rtd-theme }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitea,
+  pythonImportsCheckHook,
+  sphinxHook,
+  sphinx-rtd-theme,
+}:
 
 buildPythonApplication rec {
   pname = "cdist";

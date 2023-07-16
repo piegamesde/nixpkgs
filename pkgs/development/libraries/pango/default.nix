@@ -1,8 +1,28 @@
-{ lib, stdenv, fetchurl, pkg-config, cairo, harfbuzz, libintl, libthai, darwin
-, fribidi, gnome, gi-docgen, makeFontsConf, freefont_ttf, meson, ninja, glib
-, python3, x11Support ? !stdenv.isDarwin, libXft
-, withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
-, buildPackages, gobject-introspection }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  cairo,
+  harfbuzz,
+  libintl,
+  libthai,
+  darwin,
+  fribidi,
+  gnome,
+  gi-docgen,
+  makeFontsConf,
+  freefont_ttf,
+  meson,
+  ninja,
+  glib,
+  python3,
+  x11Support ? !stdenv.isDarwin,
+  libXft,
+  withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages,
+  buildPackages,
+  gobject-introspection,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pango";

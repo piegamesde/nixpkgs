@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles, perl, file }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  perl,
+  file,
+}:
 
 buildGoModule rec {
   pname = "holo-build";

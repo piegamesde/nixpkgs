@@ -1,4 +1,8 @@
-{ buildDunePackage, ocf, ppxlib }:
+{
+  buildDunePackage,
+  ocf,
+  ppxlib,
+}:
 
 buildDunePackage {
   pname = "ocf_ppx";

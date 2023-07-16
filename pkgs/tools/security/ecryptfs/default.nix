@@ -1,6 +1,27 @@
-{ lib, stdenv, fetchurl, pkg-config, perl, util-linux, keyutils, nss, nspr
-, python2, pam, enablePython ? false, intltool, makeWrapper, coreutils, bash
-, gettext, cryptsetup, lvm2, rsync, which, lsof }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  perl,
+  util-linux,
+  keyutils,
+  nss,
+  nspr,
+  python2,
+  pam,
+  enablePython ? false,
+  intltool,
+  makeWrapper,
+  coreutils,
+  bash,
+  gettext,
+  cryptsetup,
+  lvm2,
+  rsync,
+  which,
+  lsof,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ecryptfs";

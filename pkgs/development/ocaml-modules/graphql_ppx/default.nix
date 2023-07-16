@@ -1,5 +1,13 @@
-{ lib, buildDunePackage, fetchFromGitHub, alcotest, reason, result, ppxlib
-, yojson }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  alcotest,
+  reason,
+  result,
+  ppxlib,
+  yojson,
+}:
 
 buildDunePackage rec {
   pname = "graphql_ppx";

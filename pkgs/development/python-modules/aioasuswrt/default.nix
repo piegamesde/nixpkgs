@@ -1,5 +1,12 @@
-{ lib, asyncssh, buildPythonPackage, fetchFromGitHub, pytest-asyncio
-, pytest-mock, pytestCheckHook }:
+{
+  lib,
+  asyncssh,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytest-mock,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "aioasuswrt";

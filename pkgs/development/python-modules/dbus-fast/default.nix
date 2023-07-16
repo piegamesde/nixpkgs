@@ -1,5 +1,14 @@
-{ lib, async-timeout, buildPythonPackage, fetchFromGitHub, poetry-core
-, pytest-asyncio, pytestCheckHook, pythonOlder, setuptools }:
+{
+  lib,
+  async-timeout,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "dbus-fast";

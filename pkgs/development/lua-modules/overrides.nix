@@ -1,10 +1,48 @@
 # do not add pkgs, it messes up splicing
-{ stdenv, cmake, curl, cyrus_sasl, dbus, expat, fetchFromGitHub, fetchpatch
-, fetchurl, fixDarwinDylibNames, glib, glibc, gmp, gnulib, gnum4
-, gobject-introspection, installShellFiles, lib, libevent, libiconv, libmpack
-, libmysqlclient, libuuid, libuv, libxcrypt, libyaml, mariadb, mpfr
-, neovim-unwrapped, openldap, openssl, pcre, pkg-config, postgresql, readline
-, sqlite, unbound, vimPlugins, vimUtils, yajl, zlib, zziplib }:
+{
+  stdenv,
+  cmake,
+  curl,
+  cyrus_sasl,
+  dbus,
+  expat,
+  fetchFromGitHub,
+  fetchpatch,
+  fetchurl,
+  fixDarwinDylibNames,
+  glib,
+  glibc,
+  gmp,
+  gnulib,
+  gnum4,
+  gobject-introspection,
+  installShellFiles,
+  lib,
+  libevent,
+  libiconv,
+  libmpack,
+  libmysqlclient,
+  libuuid,
+  libuv,
+  libxcrypt,
+  libyaml,
+  mariadb,
+  mpfr,
+  neovim-unwrapped,
+  openldap,
+  openssl,
+  pcre,
+  pkg-config,
+  postgresql,
+  readline,
+  sqlite,
+  unbound,
+  vimPlugins,
+  vimUtils,
+  yajl,
+  zlib,
+  zziplib,
+}:
 
 final: prev:
 with prev; {

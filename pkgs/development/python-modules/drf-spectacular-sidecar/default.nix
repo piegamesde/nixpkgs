@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchFromGitHub, django }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  django,
+}:
 
 buildPythonPackage rec {
   pname = "drf-spectacular-sidecar";

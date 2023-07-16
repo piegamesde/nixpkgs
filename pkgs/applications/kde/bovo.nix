@@ -1,4 +1,10 @@
-{ mkDerivation, lib, libkdegames, extra-cmake-modules, kdeclarative, knewstuff
+{
+  mkDerivation,
+  lib,
+  libkdegames,
+  extra-cmake-modules,
+  kdeclarative,
+  knewstuff,
 }:
 
 mkDerivation {

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, wayland, libinput, yaml-cpp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  wayland,
+  libinput,
+  yaml-cpp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "way-displays";

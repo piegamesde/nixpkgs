@@ -1,4 +1,10 @@
-{ config, lib, pkgs, options, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  options,
+  ...
+}:
 with lib;
 let
   cfg = config.security.acme;
@@ -450,7 +456,10 @@ let
   # These options can be specified within
   # security.acme.defaults or security.acme.certs.<name>
   inheritableModule = isDefaults:
-    { config, ... }:
+    {
+      config,
+      ...
+    }:
     let
       defaultAndText = name: default: {
         # When ! isDefaults then this is the option declaration for the
@@ -644,78 +653,82 @@ let
       };
     };
 
-  certOpts = { name, config, ... }: {
-    options = {
-      # user option has been removed
-      user = mkOption {
-        visible = false;
-        default = "_mkRemovedOptionModule";
-      };
+  certOpts = {
+      name,
+      config,
+      ...
+    }: {
+      options = {
+        # user option has been removed
+        user = mkOption {
+          visible = false;
+          default = "_mkRemovedOptionModule";
+        };
 
-      # allowKeysForGroup option has been removed
-      allowKeysForGroup = mkOption {
-        visible = false;
-        default = "_mkRemovedOptionModule";
-      };
+        # allowKeysForGroup option has been removed
+        allowKeysForGroup = mkOption {
+          visible = false;
+          default = "_mkRemovedOptionModule";
+        };
 
-      # extraDomains was replaced with extraDomainNames
-      extraDomains = mkOption {
-        visible = false;
-        default = "_mkMergedOptionModule";
-      };
+        # extraDomains was replaced with extraDomainNames
+        extraDomains = mkOption {
+          visible = false;
+          default = "_mkMergedOptionModule";
+        };
 
-      directory = mkOption {
-        type = types.str;
-        readOnly = true;
-        default = "/var/lib/acme/${name}";
-        description =
-          lib.mdDoc "Directory where certificate and other state is stored.";
-      };
+        directory = mkOption {
+          type = types.str;
+          readOnly = true;
+          default = "/var/lib/acme/${name}";
+          description =
+            lib.mdDoc "Directory where certificate and other state is stored.";
+        };
 
-      domain = mkOption {
-        type = types.str;
-        default = name;
-        description = lib.mdDoc
-          "Domain to fetch certificate for (defaults to the entry name).";
-      };
+        domain = mkOption {
+          type = types.str;
+          default = name;
+          description = lib.mdDoc
+            "Domain to fetch certificate for (defaults to the entry name).";
+        };
 
-      extraDomainNames = mkOption {
-        type = types.listOf types.str;
-        default = [ ];
-        example = literalExpression ''
-          [
-            "example.org"
-            "mydomain.org"
-          ]
-        '';
-        description = lib.mdDoc ''
-          A list of extra domain names, which are included in the one certificate to be issued.
-        '';
-      };
+        extraDomainNames = mkOption {
+          type = types.listOf types.str;
+          default = [ ];
+          example = literalExpression ''
+            [
+              "example.org"
+              "mydomain.org"
+            ]
+          '';
+          description = lib.mdDoc ''
+            A list of extra domain names, which are included in the one certificate to be issued.
+          '';
+        };
 
-      # This setting must be different for each configured certificate, otherwise
-      # two or more renewals may fail to bind to the address. Hence, it is not in
-      # the inheritableOpts.
-      listenHTTP = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        example = ":1360";
-        description = lib.mdDoc ''
-          Interface and port to listen on to solve HTTP challenges
-          in the form [INTERFACE]:PORT.
-          If you use a port other than 80, you must proxy port 80 to this port.
-        '';
-      };
+        # This setting must be different for each configured certificate, otherwise
+        # two or more renewals may fail to bind to the address. Hence, it is not in
+        # the inheritableOpts.
+        listenHTTP = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+          example = ":1360";
+          description = lib.mdDoc ''
+            Interface and port to listen on to solve HTTP challenges
+            in the form [INTERFACE]:PORT.
+            If you use a port other than 80, you must proxy port 80 to this port.
+          '';
+        };
 
-      inheritDefaults = mkOption {
-        default = true;
-        example = true;
-        description = lib.mdDoc
-          "Whether to inherit values set in `security.acme.defaults` or not.";
-        type = lib.types.bool;
+        inheritDefaults = mkOption {
+          default = true;
+          example = true;
+          description = lib.mdDoc
+            "Whether to inherit values set in `security.acme.defaults` or not.";
+          type = lib.types.bool;
+        };
       };
     };
-  };
 
 in {
 

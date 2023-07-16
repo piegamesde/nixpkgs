@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, isPy27, fetchPypi, substituteAll, pkgs
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  isPy27,
+  fetchPypi,
+  substituteAll,
+  pkgs,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "libevdev";

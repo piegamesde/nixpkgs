@@ -1,4 +1,9 @@
-{ buildPythonPackage, fetchPypi, pythonAtLeast, lib }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  pythonAtLeast,
+  lib,
+}:
 
 buildPythonPackage rec {
   pname = "wasm";

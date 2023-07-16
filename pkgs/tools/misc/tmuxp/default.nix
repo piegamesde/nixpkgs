@@ -1,4 +1,8 @@
-{ lib, python3Packages, installShellFiles }:
+{
+  lib,
+  python3Packages,
+  installShellFiles,
+}:
 
 let pypkgs = python3Packages;
 

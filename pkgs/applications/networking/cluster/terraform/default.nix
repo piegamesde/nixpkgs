@@ -1,8 +1,24 @@
-{ stdenv, lib, buildGoModule, fetchFromGitHub, makeWrapper, coreutils
-, runCommand, runtimeShell, writeText, terraform-providers, installShellFiles }:
+{
+  stdenv,
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  makeWrapper,
+  coreutils,
+  runCommand,
+  runtimeShell,
+  writeText,
+  terraform-providers,
+  installShellFiles,
+}:
 
 let
-  generic = { version, hash, vendorHash ? null, ... }@attrs:
+  generic = {
+      version,
+      hash,
+      vendorHash ? null,
+      ...
+    }@attrs:
     let attrs' = builtins.removeAttrs attrs [ "version" "hash" "vendorHash" ];
     in buildGoModule ({
       pname = "terraform";

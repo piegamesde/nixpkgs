@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, curl, libjpeg, libpng, lirc
-, ncurses, pkg-config, readline, shared-mime-info, xine-lib, xorg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  autoreconfHook,
+  curl,
+  libjpeg,
+  libpng,
+  lirc,
+  ncurses,
+  pkg-config,
+  readline,
+  shared-mime-info,
+  xine-lib,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xine-ui";

@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchurl, dpkg, autoPatchelfHook, php, writeShellScript, curl, jq
-, common-updater-scripts }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  dpkg,
+  autoPatchelfHook,
+  php,
+  writeShellScript,
+  curl,
+  jq,
+  common-updater-scripts,
+}:
 
 let
   phpMajor = lib.versions.majorMinor php.version;
@@ -49,7 +59,10 @@ let
     };
   };
 
-  makeSource = { system, phpMajor, }:
+  makeSource = {
+      system,
+      phpMajor,
+    }:
 
     let isLinux = builtins.match ".+-linux" system != null;
     in assert !isLinux -> (phpMajor != null);

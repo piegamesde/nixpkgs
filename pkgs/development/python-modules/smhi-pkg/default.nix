@@ -1,5 +1,11 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pytest-asyncio
-, pytestCheckHook }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "smhi-pkg";

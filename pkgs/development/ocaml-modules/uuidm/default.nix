@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, ocaml, findlib, ocamlbuild, topkg, cmdliner }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  topkg,
+  cmdliner,
+}:
 
 lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
 "uuidm is not available for OCaml ${ocaml.version}"

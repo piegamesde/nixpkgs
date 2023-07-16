@@ -1,5 +1,21 @@
-{ stdenv, lib, pkg-config, makeWrapper, texinfo, fetchurl, autoreconfHook, guile
-, flex, gtk2, glib, gtkextra, gettext, gawk, shared-mime-info, groff, libstroke
+{
+  stdenv,
+  lib,
+  pkg-config,
+  makeWrapper,
+  texinfo,
+  fetchurl,
+  autoreconfHook,
+  guile,
+  flex,
+  gtk2,
+  glib,
+  gtkextra,
+  gettext,
+  gawk,
+  shared-mime-info,
+  groff,
+  libstroke,
 }:
 
 stdenv.mkDerivation rec {

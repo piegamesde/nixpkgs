@@ -1,4 +1,13 @@
-{ lib, stdenv, requireFile, xorg, zlib, freetype, alsa-lib, setJavaClassPath }:
+{
+  lib,
+  stdenv,
+  requireFile,
+  xorg,
+  zlib,
+  freetype,
+  alsa-lib,
+  setJavaClassPath,
+}:
 
 let
   result = stdenv.mkDerivation rec {

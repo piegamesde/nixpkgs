@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, gradle, jdk, makeWrapper, perl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gradle,
+  jdk,
+  makeWrapper,
+  perl,
+}:
 
 let
   pname = "jadx";

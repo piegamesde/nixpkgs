@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, async-timeout, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  async-timeout,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aiopulse";

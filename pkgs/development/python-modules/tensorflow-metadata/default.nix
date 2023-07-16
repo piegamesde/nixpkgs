@@ -1,5 +1,11 @@
-{ absl-py, buildPythonPackage, fetchFromGitHub, googleapis-common-protos
-, protobuf, lib }:
+{
+  absl-py,
+  buildPythonPackage,
+  fetchFromGitHub,
+  googleapis-common-protos,
+  protobuf,
+  lib,
+}:
 
 buildPythonPackage rec {
   pname = "tensorflow-metadata";

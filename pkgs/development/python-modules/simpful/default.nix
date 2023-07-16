@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, matplotlib, numpy, pytestCheckHook
-, pythonOlder, scipy, seaborn, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  matplotlib,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  scipy,
+  seaborn,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "simpful";

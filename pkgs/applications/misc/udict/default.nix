@@ -1,4 +1,12 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, openssl, darwin }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "udict";

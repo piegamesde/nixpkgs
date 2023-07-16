@@ -1,4 +1,10 @@
-{ stdenv, apulse, libpulseaudio, pkg-config, intltool }:
+{
+  stdenv,
+  apulse,
+  libpulseaudio,
+  pkg-config,
+  intltool,
+}:
 
 stdenv.mkDerivation {
   pname = "libpressureaudio";

@@ -1,5 +1,16 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, pkg-config, pcsclite, qtsvg
-, qttools, qtwebsockets, qtquickcontrols2, qtgraphicaleffects }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  pcsclite,
+  qtsvg,
+  qttools,
+  qtwebsockets,
+  qtquickcontrols2,
+  qtgraphicaleffects,
+}:
 
 mkDerivation rec {
   pname = "AusweisApp2";

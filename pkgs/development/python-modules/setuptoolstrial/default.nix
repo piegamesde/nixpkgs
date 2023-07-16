@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, virtualenv, pytest-runner
-, pytest-virtualenv, twisted, pathlib2 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  virtualenv,
+  pytest-runner,
+  pytest-virtualenv,
+  twisted,
+  pathlib2,
+}:
 
 buildPythonPackage rec {
   pname = "setuptools_trial";

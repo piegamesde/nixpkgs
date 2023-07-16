@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitLab, pkg-config, xorg, imlib2, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  pkg-config,
+  xorg,
+  imlib2,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xteddy";

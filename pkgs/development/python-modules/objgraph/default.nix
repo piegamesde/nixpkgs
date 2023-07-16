@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, graphviz, graphvizPkgs, isPyPy
-, pytestCheckHook, pythonOlder, substituteAll }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  graphviz,
+  graphvizPkgs,
+  isPyPy,
+  pytestCheckHook,
+  pythonOlder,
+  substituteAll,
+}:
 
 buildPythonPackage rec {
   pname = "objgraph";

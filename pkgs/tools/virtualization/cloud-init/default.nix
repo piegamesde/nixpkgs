@@ -1,6 +1,19 @@
-{ lib, nixosTests, buildPythonApplication, cloud-utils, dmidecode
-, fetchFromGitHub, iproute2, openssh, python3, shadow, systemd, coreutils
-, gitUpdater, busybox }:
+{
+  lib,
+  nixosTests,
+  buildPythonApplication,
+  cloud-utils,
+  dmidecode,
+  fetchFromGitHub,
+  iproute2,
+  openssh,
+  python3,
+  shadow,
+  systemd,
+  coreutils,
+  gitUpdater,
+  busybox,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "cloud-init";

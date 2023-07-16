@@ -1,8 +1,30 @@
-{ lib, fetchFromGitHub, stdenv, substituteAll
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  substituteAll
 
-, bison, boost, cmake, double-conversion, fmt_8, fuse3, gflags, glog, gtest
-, jemalloc, libarchive, libevent, libunwind, lz4, openssl, pkg-config, ronn
-, xxHash, zstd }:
+  ,
+  bison,
+  boost,
+  cmake,
+  double-conversion,
+  fmt_8,
+  fuse3,
+  gflags,
+  glog,
+  gtest,
+  jemalloc,
+  libarchive,
+  libevent,
+  libunwind,
+  lz4,
+  openssl,
+  pkg-config,
+  ronn,
+  xxHash,
+  zstd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dwarfs";

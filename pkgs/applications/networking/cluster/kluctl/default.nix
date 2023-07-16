@@ -1,4 +1,11 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, testers, kluctl }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  testers,
+  kluctl,
+}:
 
 buildGoModule rec {
   pname = "kluctl";

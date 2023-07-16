@@ -1,4 +1,8 @@
-{ lib, pkgs, overrides ? (self: super: { }) }:
+{
+  lib,
+  pkgs,
+  overrides ? (self: super: { })
+}:
 
 let
   inside = (self:

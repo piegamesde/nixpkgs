@@ -1,6 +1,18 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, gettext, kcoreaddons
-, kconfig, kdbusaddons, kwidgetsaddons, kitemviews, kcompletion, kxmlgui
-, python3 }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  gettext,
+  kcoreaddons,
+  kconfig,
+  kdbusaddons,
+  kwidgetsaddons,
+  kitemviews,
+  kcompletion,
+  kxmlgui,
+  python3,
+}:
 
 mkDerivation {
   pname = "kdebugsettings";

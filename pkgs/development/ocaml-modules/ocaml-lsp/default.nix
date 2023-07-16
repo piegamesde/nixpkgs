@@ -1,5 +1,15 @@
-{ lib, buildDunePackage, lsp, xdg, re, fiber, makeWrapper, dot-merlin-reader
-, spawn, ocamlc-loc }:
+{
+  lib,
+  buildDunePackage,
+  lsp,
+  xdg,
+  re,
+  fiber,
+  makeWrapper,
+  dot-merlin-reader,
+  spawn,
+  ocamlc-loc,
+}:
 
 buildDunePackage rec {
   pname = "ocaml-lsp-server";

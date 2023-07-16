@@ -1,5 +1,14 @@
-{ lib, buildDunePackage, fetchFromGitHub, extlib, ocamlfuse, gapi-ocaml
-, ocaml_sqlite3, tiny_httpd, ounit2 }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  extlib,
+  ocamlfuse,
+  gapi-ocaml,
+  ocaml_sqlite3,
+  tiny_httpd,
+  ounit2,
+}:
 
 buildDunePackage rec {
   pname = "google-drive-ocamlfuse";

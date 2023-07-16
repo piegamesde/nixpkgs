@@ -1,7 +1,19 @@
-{ lib, stdenv, llvm_meta, fetch, fetchpatch, cmake, python3, llvm
-, fixDarwinDylibNames, version
-, cxxabi ? if stdenv.hostPlatform.isFreeBSD then libcxxrt else libcxxabi
-, libcxxabi, libcxxrt, enableShared ? !stdenv.hostPlatform.isStatic }:
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  fetch,
+  fetchpatch,
+  cmake,
+  python3,
+  llvm,
+  fixDarwinDylibNames,
+  version,
+  cxxabi ? if stdenv.hostPlatform.isFreeBSD then libcxxrt else libcxxabi,
+  libcxxabi,
+  libcxxrt,
+  enableShared ? !stdenv.hostPlatform.isStatic
+}:
 
 assert stdenv.isDarwin -> cxxabi.pname == "libcxxabi";
 

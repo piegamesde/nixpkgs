@@ -1,5 +1,16 @@
-{ lib, fetchPypi, buildPythonPackage, isPyPy, python, libev, greenlet
-, setuptools, zope_event, zope_interface, pythonOlder }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  isPyPy,
+  python,
+  libev,
+  greenlet,
+  setuptools,
+  zope_event,
+  zope_interface,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "gevent";

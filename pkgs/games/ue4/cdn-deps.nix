@@ -1,4 +1,6 @@
-{ fetchurl }:
+{
+  fetchurl,
+}:
 
 {
   "0049fd8a61e04257b6dcb37217d4d603cd74cc6b" = fetchurl {

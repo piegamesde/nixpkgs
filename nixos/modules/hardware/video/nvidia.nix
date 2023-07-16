@@ -1,6 +1,11 @@
 # This module provides the proprietary NVIDIA X11 / OpenGL drivers.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

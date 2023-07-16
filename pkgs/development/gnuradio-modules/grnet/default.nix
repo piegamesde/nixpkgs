@@ -1,5 +1,22 @@
-{ lib, mkDerivation, fetchFromGitHub, fetchpatch, gnuradio, cmake, pkg-config
-, boost, logLib, python, swig, mpir, gmp, doxygen, libpcap, icu, thrift }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  fetchpatch,
+  gnuradio,
+  cmake,
+  pkg-config,
+  boost,
+  logLib,
+  python,
+  swig,
+  mpir,
+  gmp,
+  doxygen,
+  libpcap,
+  icu,
+  thrift,
+}:
 
 let
   # Each GR major version requires us to pull a specific git revision of the repository

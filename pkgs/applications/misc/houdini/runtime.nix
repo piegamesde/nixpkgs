@@ -1,4 +1,9 @@
-{ lib, stdenv, requireFile, bc }:
+{
+  lib,
+  stdenv,
+  requireFile,
+  bc,
+}:
 
 let license_dir = "~/.config/houdini";
 in stdenv.mkDerivation rec {

@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, metasploit, curl, inetutils
-, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  metasploit,
+  curl,
+  inetutils,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "msfpc";

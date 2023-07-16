@@ -1,8 +1,38 @@
-{ stdenv, buildFHSEnv, fetchurl, lib, zlib, gdbm, bzip2, libxslt, libxml2
-, libuuid, readline, xz, cups, glibc, libaio, vulkan-loader, alsa-lib
-, libpulseaudio, libxcrypt-legacy, libGL, numactl, libX11, libXi, kmod, python3
-, autoPatchelfHook, makeWrapper, sqlite, enableInstaller ? false
-, enableMacOSGuests ? false, fetchFromGitHub, gnutar, unzip }:
+{
+  stdenv,
+  buildFHSEnv,
+  fetchurl,
+  lib,
+  zlib,
+  gdbm,
+  bzip2,
+  libxslt,
+  libxml2,
+  libuuid,
+  readline,
+  xz,
+  cups,
+  glibc,
+  libaio,
+  vulkan-loader,
+  alsa-lib,
+  libpulseaudio,
+  libxcrypt-legacy,
+  libGL,
+  numactl,
+  libX11,
+  libXi,
+  kmod,
+  python3,
+  autoPatchelfHook,
+  makeWrapper,
+  sqlite,
+  enableInstaller ? false,
+  enableMacOSGuests ? false,
+  fetchFromGitHub,
+  gnutar,
+  unzip,
+}:
 
 let
   # macOS - versions

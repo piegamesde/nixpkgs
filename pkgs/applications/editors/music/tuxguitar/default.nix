@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, swt, jre, makeWrapper, alsa-lib, jack2, fluidsynth
-, libpulseaudio }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  swt,
+  jre,
+  makeWrapper,
+  alsa-lib,
+  jack2,
+  fluidsynth,
+  libpulseaudio,
+}:
 
 let
   metadata = assert stdenv.hostPlatform.system == "i686-linux"

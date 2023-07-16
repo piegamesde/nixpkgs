@@ -1,6 +1,18 @@
-{ mkDerivation, lib, fetchFromGitHub, qmake, poppler, pkg-config, libunarr
-, libGLU, qtdeclarative, qtgraphicaleffects, qtmultimedia, qtquickcontrols2
-, qtscript }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  qmake,
+  poppler,
+  pkg-config,
+  libunarr,
+  libGLU,
+  qtdeclarative,
+  qtgraphicaleffects,
+  qtmultimedia,
+  qtquickcontrols2,
+  qtscript,
+}:
 
 mkDerivation rec {
   pname = "yacreader";

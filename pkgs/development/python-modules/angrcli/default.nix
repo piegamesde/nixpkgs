@@ -1,5 +1,15 @@
-{ stdenv, lib, angr, buildPythonPackage, cmd2, coreutils, fetchFromGitHub
-, pygments, pytestCheckHook, pythonOlder }:
+{
+  stdenv,
+  lib,
+  angr,
+  buildPythonPackage,
+  cmd2,
+  coreutils,
+  fetchFromGitHub,
+  pygments,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "angrcli";

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, prompt-toolkit, pythonOlder, winacl
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  prompt-toolkit,
+  pythonOlder,
+  winacl,
 }:
 
 buildPythonPackage rec {

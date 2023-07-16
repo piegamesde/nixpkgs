@@ -1,7 +1,25 @@
-{ stdenv, lib, autoreconfHook, gitUpdater, gnome, which, fetchgit, libgtop
-, libwnck, glib, vala, pkg-config, libstartup_notification
-, gobject-introspection, gtk-doc, docbook_xsl, xorgserver, dbus, python3
-, wrapGAppsHook }:
+{
+  stdenv,
+  lib,
+  autoreconfHook,
+  gitUpdater,
+  gnome,
+  which,
+  fetchgit,
+  libgtop,
+  libwnck,
+  glib,
+  vala,
+  pkg-config,
+  libstartup_notification,
+  gobject-introspection,
+  gtk-doc,
+  docbook_xsl,
+  xorgserver,
+  dbus,
+  python3,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bamf";

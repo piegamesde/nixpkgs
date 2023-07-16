@@ -1,4 +1,11 @@
-{ buildPythonPackage, cython, fetchPypi, jdk, lib, six }:
+{
+  buildPythonPackage,
+  cython,
+  fetchPypi,
+  jdk,
+  lib,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "pyjnius";

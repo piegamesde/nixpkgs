@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, ocaml, findlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocaml,
+  findlib,
+}:
 
 assert lib.versionAtLeast (lib.getVersion ocaml) "3.11";
 

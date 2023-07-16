@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, makeWrapper, jdk11, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  jdk11,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "metabase";

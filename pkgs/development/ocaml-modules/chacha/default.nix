@@ -1,6 +1,15 @@
-{ lib, buildDunePackage, fetchFromGitHub, fetchpatch, ocaml
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  fetchpatch,
+  ocaml
 
-, alcotest, cstruct, mirage-crypto }:
+  ,
+  alcotest,
+  cstruct,
+  mirage-crypto,
+}:
 
 buildDunePackage rec {
   pname = "chacha";

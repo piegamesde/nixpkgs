@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, in-n-out, psygnal, pydantic
-, pytestCheckHook, pythonOlder, typing-extensions, hatch-vcs, hatchling }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  in-n-out,
+  psygnal,
+  pydantic,
+  pytestCheckHook,
+  pythonOlder,
+  typing-extensions,
+  hatch-vcs,
+  hatchling,
+}:
 
 buildPythonPackage rec {
   pname = "app-model";

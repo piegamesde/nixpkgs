@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, rofi, systemd, coreutils, util-linux, gawk
-, makeWrapper, jq }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rofi,
+  systemd,
+  coreutils,
+  util-linux,
+  gawk,
+  makeWrapper,
+  jq,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rofi-systemd";

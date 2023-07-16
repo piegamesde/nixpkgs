@@ -1,4 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, nose, lxml, requests, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  nose,
+  lxml,
+  requests,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "pyxnat";

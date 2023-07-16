@@ -1,4 +1,8 @@
-{ lib, stdenv, grub2_xen }:
+{
+  lib,
+  stdenv,
+  grub2_xen,
+}:
 
 let
   efiSystemsBuild = {

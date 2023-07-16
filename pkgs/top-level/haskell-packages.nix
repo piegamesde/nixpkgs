@@ -1,4 +1,10 @@
-{ buildPackages, pkgsBuildTarget, pkgs, newScope, stdenv }:
+{
+  buildPackages,
+  pkgsBuildTarget,
+  pkgs,
+  newScope,
+  stdenv,
+}:
 
 let
   # These are attributes in compiler and packages that don't support integer-simple.

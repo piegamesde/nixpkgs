@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchgit, meson, ninja, pkg-config, scdoc, wayland-scanner, cairo
-, librsvg, libxkbcommon, wayland, wayland-protocols }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  meson,
+  ninja,
+  pkg-config,
+  scdoc,
+  wayland-scanner,
+  cairo,
+  librsvg,
+  libxkbcommon,
+  wayland,
+  wayland-protocols,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lavalauncher";

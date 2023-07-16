@@ -1,5 +1,17 @@
-{ mkDerivation, stdenv, lib, fetchFromGitHub, cmake, qtquickcontrols
-, qtquickcontrols2, qtkeychain, qtmultimedia, qttools, libquotient, libsecret }:
+{
+  mkDerivation,
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  qtquickcontrols,
+  qtquickcontrols2,
+  qtkeychain,
+  qtmultimedia,
+  qttools,
+  libquotient,
+  libsecret,
+}:
 
 mkDerivation rec {
   pname = "quaternion";

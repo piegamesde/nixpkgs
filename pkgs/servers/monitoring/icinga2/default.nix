@@ -1,12 +1,34 @@
-{ stdenv, runCommand, lib, fetchFromGitHub, fetchpatch, cmake, flex, bison
-, systemd, boost, openssl, patchelf, mariadb-connector-c, postgresql, zlib
-, tzdata
-# Databases
-, withMysql ? true, withPostgresql ? false
-  # Features
-, withChecker ? true, withCompat ? false, withLivestatus ? false
-, withNotification ? true, withPerfdata ? true, withIcingadb ? true
-, nameSuffix ? "" }:
+{
+  stdenv,
+  runCommand,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  flex,
+  bison,
+  systemd,
+  boost,
+  openssl,
+  patchelf,
+  mariadb-connector-c,
+  postgresql,
+  zlib,
+  tzdata
+  # Databases
+  ,
+  withMysql ? true,
+  withPostgresql ? false
+    # Features
+  ,
+  withChecker ? true,
+  withCompat ? false,
+  withLivestatus ? false,
+  withNotification ? true,
+  withPerfdata ? true,
+  withIcingadb ? true,
+  nameSuffix ? ""
+}:
 
 stdenv.mkDerivation rec {
   pname = "icinga2${nameSuffix}";

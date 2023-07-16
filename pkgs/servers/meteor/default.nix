@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchurl, zlib, patchelf, runtimeShell }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  zlib,
+  patchelf,
+  runtimeShell,
+}:
 
 let
   version = "2.7.3";

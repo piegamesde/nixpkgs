@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, perl, readline }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  perl,
+  readline,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rlwrap";

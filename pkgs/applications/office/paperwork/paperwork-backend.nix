@@ -1,8 +1,31 @@
-{ buildPythonPackage, lib, fetchpatch, fetchFromGitLab, pyenchant, scikit-learn
-, pypillowfight, pycountry, whoosh, termcolor, levenshtein, pygobject3, pyocr
-, natsort, libinsane, distro, openpaperwork-core, openpaperwork-gtk, psutil
-, gtk3, poppler_gi, gettext, which, shared-mime-info, libreoffice
-, unittestCheckHook }:
+{
+  buildPythonPackage,
+  lib,
+  fetchpatch,
+  fetchFromGitLab,
+  pyenchant,
+  scikit-learn,
+  pypillowfight,
+  pycountry,
+  whoosh,
+  termcolor,
+  levenshtein,
+  pygobject3,
+  pyocr,
+  natsort,
+  libinsane,
+  distro,
+  openpaperwork-core,
+  openpaperwork-gtk,
+  psutil,
+  gtk3,
+  poppler_gi,
+  gettext,
+  which,
+  shared-mime-info,
+  libreoffice,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "paperwork-backend";

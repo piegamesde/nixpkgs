@@ -1,10 +1,52 @@
-{ mkDerivation, lib, stdenv, makeWrapper, fetchurl, cmake, extra-cmake-modules
-, karchive, kconfig, kwidgetsaddons, kcompletion, kcoreaddons, kguiaddons, ki18n
-, kitemmodels, kitemviews, kwindowsystem, kio, kcrash, breeze-icons, boost
-, libraw, fftw, eigen, exiv2, libheif, lcms2, gsl, openexr, giflib, libjxl
-, openjpeg, opencolorio_1, xsimd, poppler, curl, ilmbase, libmypaint, libwebp
-, qtmultimedia, qtx11extras, quazip, python3Packages, version, kde-channel
-, sha256, callPackage }:
+{
+  mkDerivation,
+  lib,
+  stdenv,
+  makeWrapper,
+  fetchurl,
+  cmake,
+  extra-cmake-modules,
+  karchive,
+  kconfig,
+  kwidgetsaddons,
+  kcompletion,
+  kcoreaddons,
+  kguiaddons,
+  ki18n,
+  kitemmodels,
+  kitemviews,
+  kwindowsystem,
+  kio,
+  kcrash,
+  breeze-icons,
+  boost,
+  libraw,
+  fftw,
+  eigen,
+  exiv2,
+  libheif,
+  lcms2,
+  gsl,
+  openexr,
+  giflib,
+  libjxl,
+  openjpeg,
+  opencolorio_1,
+  xsimd,
+  poppler,
+  curl,
+  ilmbase,
+  libmypaint,
+  libwebp,
+  qtmultimedia,
+  qtx11extras,
+  quazip,
+  python3Packages,
+  version,
+  kde-channel,
+  sha256,
+  callPackage,
+}:
 
 mkDerivation rec {
   pname = "krita";

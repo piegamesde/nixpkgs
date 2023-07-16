@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, natsort, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  natsort,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "seedir";

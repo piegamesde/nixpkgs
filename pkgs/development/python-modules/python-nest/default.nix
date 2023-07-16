@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, python-dateutil, requests, six
-, sseclient-py, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python-dateutil,
+  requests,
+  six,
+  sseclient-py,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "python-nest";

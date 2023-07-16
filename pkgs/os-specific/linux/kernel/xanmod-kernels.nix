@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, buildLinux, ... }@args:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildLinux,
+  ...
+}@args:
 
 let
   # These names are how they are designated in https://xanmod.org.
@@ -14,7 +20,12 @@ let
     variant = "main";
   };
 
-  xanmodKernelFor = { version, suffix ? "xanmod1", hash, variant }:
+  xanmodKernelFor = {
+      version,
+      suffix ? "xanmod1",
+      hash,
+      variant,
+    }:
     buildLinux (args // rec {
       inherit version;
       modDirVersion = lib.versions.pad 3 "${version}-${suffix}";

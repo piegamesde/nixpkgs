@@ -1,8 +1,46 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, fetchpatch, ocaml, findlib, ocamlbuild
-, ocaml_oasis, bitstring, camlzip, cmdliner, core_kernel, ezjsonm, fileutils
-, mmap, lwt, ocamlgraph, ocurl, re, uri, zarith, piqi, piqi-ocaml, uuidm, llvm
-, frontc, ounit, ppx_jane, parsexp, utop, libxml2, ncurses, linenoise, ppx_bap
-, ppx_bitstring, yojson, which, makeWrapper, writeText, z3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  fetchpatch,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  ocaml_oasis,
+  bitstring,
+  camlzip,
+  cmdliner,
+  core_kernel,
+  ezjsonm,
+  fileutils,
+  mmap,
+  lwt,
+  ocamlgraph,
+  ocurl,
+  re,
+  uri,
+  zarith,
+  piqi,
+  piqi-ocaml,
+  uuidm,
+  llvm,
+  frontc,
+  ounit,
+  ppx_jane,
+  parsexp,
+  utop,
+  libxml2,
+  ncurses,
+  linenoise,
+  ppx_bap,
+  ppx_bitstring,
+  yojson,
+  which,
+  makeWrapper,
+  writeText,
+  z3,
+}:
 
 if lib.versionOlder ocaml.version "4.08" then
   throw "BAP is not available for OCaml ${ocaml.version}"

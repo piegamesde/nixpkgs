@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, autoreconfHook, texinfo, buggyBiosCDSupport ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  texinfo,
+  buggyBiosCDSupport ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "grub";

@@ -1,8 +1,34 @@
-{ lib, stdenv, fetchurl, perl, zlib, apr, aprutil, pcre2, libiconv, lynx, which
-, libxcrypt, nixosTests, proxySupport ? true, sslSupport ? true, openssl
-, modTlsSupport ? false, rustls-ffi, Foundation, http2Support ? true, nghttp2
-, ldapSupport ? true, openldap, libxml2Support ? true, libxml2
-, brotliSupport ? true, brotli, luaSupport ? false, lua5 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  zlib,
+  apr,
+  aprutil,
+  pcre2,
+  libiconv,
+  lynx,
+  which,
+  libxcrypt,
+  nixosTests,
+  proxySupport ? true,
+  sslSupport ? true,
+  openssl,
+  modTlsSupport ? false,
+  rustls-ffi,
+  Foundation,
+  http2Support ? true,
+  nghttp2,
+  ldapSupport ? true,
+  openldap,
+  libxml2Support ? true,
+  libxml2,
+  brotliSupport ? true,
+  brotli,
+  luaSupport ? false,
+  lua5,
+}:
 
 stdenv.mkDerivation rec {
   pname = "apache-httpd";

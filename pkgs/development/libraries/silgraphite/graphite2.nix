@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, freetype, cmake
-, static ? stdenv.hostPlatform.isStatic }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  freetype,
+  cmake,
+  static ? stdenv.hostPlatform.isStatic
+}:
 
 stdenv.mkDerivation rec {
   version = "1.3.14";

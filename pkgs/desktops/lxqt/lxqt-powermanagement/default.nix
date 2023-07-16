@@ -1,6 +1,21 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, lxqt-build-tools, qtbase, qttools
-, qtx11extras, qtsvg, kwindowsystem, solid, kidletime, liblxqt, libqtxdg
-, lxqt-globalkeys, gitUpdater }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  lxqt-build-tools,
+  qtbase,
+  qttools,
+  qtx11extras,
+  qtsvg,
+  kwindowsystem,
+  solid,
+  kidletime,
+  liblxqt,
+  libqtxdg,
+  lxqt-globalkeys,
+  gitUpdater,
+}:
 
 mkDerivation rec {
   pname = "lxqt-powermanagement";

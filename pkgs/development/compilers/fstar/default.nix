@@ -1,5 +1,14 @@
-{ lib, stdenv, writeScript, fetchFromGitHub, z3, ocamlPackages, makeWrapper
-, installShellFiles, removeReferencesTo }:
+{
+  lib,
+  stdenv,
+  writeScript,
+  fetchFromGitHub,
+  z3,
+  ocamlPackages,
+  makeWrapper,
+  installShellFiles,
+  removeReferencesTo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fstar";

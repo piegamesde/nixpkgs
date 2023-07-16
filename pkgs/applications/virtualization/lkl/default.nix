@@ -1,7 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, bc, python3, bison, flex, fuse, libarchive
-, buildPackages
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bc,
+  python3,
+  bison,
+  flex,
+  fuse,
+  libarchive,
+  buildPackages
 
-, firewallSupport ? false }:
+  ,
+  firewallSupport ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "lkl";

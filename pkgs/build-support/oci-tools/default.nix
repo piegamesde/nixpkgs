@@ -1,8 +1,18 @@
-{ lib, writeText, runCommand, writeReferencesToFile }:
+{
+  lib,
+  writeText,
+  runCommand,
+  writeReferencesToFile,
+}:
 
 {
-  buildContainer =
-    { args, mounts ? { }, os ? "linux", arch ? "x86_64", readonly ? false }:
+  buildContainer = {
+      args,
+      mounts ? { },
+      os ? "linux",
+      arch ? "x86_64",
+      readonly ? false
+    }:
     let
       sysMounts = {
         "/proc" = {
@@ -76,7 +86,11 @@
         };
 
         mounts = lib.mapAttrsToList (destination:
-          { type, source, options ? null }: {
+          {
+            type,
+            source,
+            options ? null
+          }: {
             inherit destination type source options;
           }) sysMounts;
       });

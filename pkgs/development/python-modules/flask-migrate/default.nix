@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, alembic, flask
-, flask_script, flask-sqlalchemy, pytestCheckHook, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  alembic,
+  flask,
+  flask_script,
+  flask-sqlalchemy,
+  pytestCheckHook,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "Flask-Migrate";

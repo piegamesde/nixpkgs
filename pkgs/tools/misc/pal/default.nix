@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, glib, gettext, readline, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  glib,
+  gettext,
+  readline,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pal";

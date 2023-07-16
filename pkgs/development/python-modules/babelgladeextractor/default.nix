@@ -1,4 +1,10 @@
-{ lib, isPy3k, buildPythonPackage, fetchPypi, babel }:
+{
+  lib,
+  isPy3k,
+  buildPythonPackage,
+  fetchPypi,
+  babel,
+}:
 
 buildPythonPackage rec {
   pname = "babelgladeextractor";

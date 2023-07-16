@@ -1,4 +1,11 @@
-{ buildGoModule, fetchFromGitHub, installShellFiles, lib, testers, kubevirt }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  lib,
+  testers,
+  kubevirt,
+}:
 
 buildGoModule rec {
   pname = "kubevirt";

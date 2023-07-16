@@ -1,5 +1,17 @@
-{ lib, fetchurl, buildDunePackage, cmdliner, rresult, astring, fmt, logs, bos
-, fpath, emile, uri }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  cmdliner,
+  rresult,
+  astring,
+  fmt,
+  logs,
+  bos,
+  fpath,
+  emile,
+  uri,
+}:
 
 buildDunePackage rec {
   pname = "functoria";

@@ -1,4 +1,10 @@
-{ lib, buildPythonApplication, fetchFromGitHub, gitMinimal, python3 }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  gitMinimal,
+  python3,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "gitlint";

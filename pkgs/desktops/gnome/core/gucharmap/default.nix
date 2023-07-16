@@ -1,8 +1,33 @@
-{ stdenv, lib, intltool, fetchFromGitLab, meson, mesonEmulatorHook, ninja
-, pkg-config, python3, gtk3, pcre2, glib, desktop-file-utils, gtk-doc
-, wrapGAppsHook, itstool, libxml2, yelp-tools, docbook_xsl, docbook_xml_dtd_412
-, gsettings-desktop-schemas, unzip, unicode-character-database, unihan-database
-, runCommand, symlinkJoin, gobject-introspection, gitUpdater }:
+{
+  stdenv,
+  lib,
+  intltool,
+  fetchFromGitLab,
+  meson,
+  mesonEmulatorHook,
+  ninja,
+  pkg-config,
+  python3,
+  gtk3,
+  pcre2,
+  glib,
+  desktop-file-utils,
+  gtk-doc,
+  wrapGAppsHook,
+  itstool,
+  libxml2,
+  yelp-tools,
+  docbook_xsl,
+  docbook_xml_dtd_412,
+  gsettings-desktop-schemas,
+  unzip,
+  unicode-character-database,
+  unihan-database,
+  runCommand,
+  symlinkJoin,
+  gobject-introspection,
+  gitUpdater,
+}:
 
 let
   # TODO: make upstream patch allowing to use the uncompressed file,

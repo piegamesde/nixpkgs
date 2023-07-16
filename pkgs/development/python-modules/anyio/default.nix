@@ -1,6 +1,24 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, pythonOlder, setuptools
-, setuptools-scm, idna, sniffio, typing-extensions, curio, hypothesis, mock
-, pytest-mock, pytest-xdist, pytestCheckHook, trio, trustme, uvloop }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  setuptools,
+  setuptools-scm,
+  idna,
+  sniffio,
+  typing-extensions,
+  curio,
+  hypothesis,
+  mock,
+  pytest-mock,
+  pytest-xdist,
+  pytestCheckHook,
+  trio,
+  trustme,
+  uvloop,
+}:
 
 buildPythonPackage rec {
   pname = "anyio";

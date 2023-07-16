@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, jansson }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  jansson,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jshon";

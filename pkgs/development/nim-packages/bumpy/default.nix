@@ -1,4 +1,9 @@
-{ lib, buildNimPackage, fetchFromGitHub, vmath }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitHub,
+  vmath,
+}:
 
 buildNimPackage rec {
   pname = "bumpy";

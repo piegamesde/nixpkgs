@@ -1,6 +1,22 @@
-{ lib, buildPythonPackage, fetchPypi, python, xvfb-run, matplotlib, scikitimage
-, numpy, pandas, imageio, snakeviz, fn, pyopengl, seaborn, torch, pythonOlder
-, torchvision }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python,
+  xvfb-run,
+  matplotlib,
+  scikitimage,
+  numpy,
+  pandas,
+  imageio,
+  snakeviz,
+  fn,
+  pyopengl,
+  seaborn,
+  torch,
+  pythonOlder,
+  torchvision,
+}:
 
 buildPythonPackage rec {
   pname = "boxx";

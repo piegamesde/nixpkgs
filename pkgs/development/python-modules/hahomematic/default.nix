@@ -1,6 +1,19 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, orjson, pydevccu
-, pytest-aiohttp, pytestCheckHook, python-slugify, pythonOlder, setuptools
-, voluptuous, websocket-client, xmltodict }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  orjson,
+  pydevccu,
+  pytest-aiohttp,
+  pytestCheckHook,
+  python-slugify,
+  pythonOlder,
+  setuptools,
+  voluptuous,
+  websocket-client,
+  xmltodict,
+}:
 
 buildPythonPackage rec {
   pname = "hahomematic";

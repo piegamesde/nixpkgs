@@ -1,4 +1,8 @@
-{ lib, stdenvNoCC, texlive }:
+{
+  lib,
+  stdenvNoCC,
+  texlive,
+}:
 
 stdenvNoCC.mkDerivation {
   pname = "iwona";

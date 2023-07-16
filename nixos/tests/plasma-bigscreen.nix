@@ -1,10 +1,15 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
 
   {
     name = "plasma-bigscreen";
     meta = with pkgs.lib.maintainers; { maintainers = [ ttuegel k900 ]; };
 
-    nodes.machine = { ... }:
+    nodes.machine = {
+        ...
+      }:
 
       {
         imports = [ ./common/user-account.nix ];
@@ -20,7 +25,10 @@ import ./make-test-python.nix ({ pkgs, ... }:
         users.users.alice.extraGroups = [ "uinput" ];
       };
 
-    testScript = { nodes, ... }:
+    testScript = {
+        nodes,
+        ...
+      }:
       let
         user = nodes.machine.users.users.alice;
         xdo = "${pkgs.xdotool}/bin/xdotool";

@@ -1,7 +1,28 @@
-{ stdenv, lib, fetchFromGitHub, rustPlatform, autoPatchelfHook, cmake
-, makeWrapper, pkg-config, python3, expat, freetype, kdialog, zenity, openssl
-, libglvnd, libX11, libxcb, libXcursor, libXi, libxkbcommon, libXrandr
-, vulkan-loader, wayland }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  autoPatchelfHook,
+  cmake,
+  makeWrapper,
+  pkg-config,
+  python3,
+  expat,
+  freetype,
+  kdialog,
+  zenity,
+  openssl,
+  libglvnd,
+  libX11,
+  libxcb,
+  libXcursor,
+  libXi,
+  libxkbcommon,
+  libXrandr,
+  vulkan-loader,
+  wayland,
+}:
 
 let
   rpathLibs = [

@@ -1,4 +1,13 @@
-{ bzip2, fetchFromGitHub, gzip, gnutar, lib, stdenv, unzip, xz }:
+{
+  bzip2,
+  fetchFromGitHub,
+  gzip,
+  gnutar,
+  lib,
+  stdenv,
+  unzip,
+  xz,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xtrt";

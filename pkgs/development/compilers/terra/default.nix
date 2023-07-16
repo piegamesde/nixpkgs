@@ -1,6 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, llvmPackages, ncurses, cmake, libxml2
-, symlinkJoin, breakpointHook, cudaPackages, enableCUDA ? false, libobjc, Cocoa
-, Foundation }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  llvmPackages,
+  ncurses,
+  cmake,
+  libxml2,
+  symlinkJoin,
+  breakpointHook,
+  cudaPackages,
+  enableCUDA ? false,
+  libobjc,
+  Cocoa,
+  Foundation,
+}:
 
 let
   luajitRev = "50936d784474747b4569d988767f1b5bab8bb6d0";

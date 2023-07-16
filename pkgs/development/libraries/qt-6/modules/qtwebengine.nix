@@ -1,18 +1,103 @@
-{ qtModule, qtdeclarative, qtwebchannel, qtpositioning, qtwebsockets
-, buildPackages, bison, coreutils, flex, git, gperf, ninja, pkg-config, python3
-, which, nodejs, qtbase, perl, xorg, libXcursor, libXScrnSaver, libXrandr
-, libXtst, libxshmfence, libXi, fontconfig, freetype, harfbuzz, icu, dbus
-, libdrm, zlib, minizip, libjpeg, libpng, libtiff, libwebp, libopus, jsoncpp
-, protobuf, libvpx, srtp, snappy, nss, libevent, openssl, alsa-lib, pulseaudio
-, libcap, pciutils, systemd, pipewire, gn, runCommand, writeScriptBin, ffmpeg_4
-, lib, stdenv, glib, libxml2, libxslt, lcms2, re2, libkrb5, mesa
-, xkeyboard_config, enableProprietaryCodecs ? true
-  # darwin
-, clang_14, bootstrap_cmds, cctools, xcbuild, AGL, AVFoundation, Accelerate
-, Cocoa, CoreLocation, CoreML, ForceFeedback, GameController, ImageCaptureCore
-, LocalAuthentication, MediaAccessibility, MediaPlayer, MetalKit, Network
-, OpenDirectory, Quartz, ReplayKit, SecurityInterface, Vision, openbsm
-, libunwind, cups, libpm, sandbox, xnu }:
+{
+  qtModule,
+  qtdeclarative,
+  qtwebchannel,
+  qtpositioning,
+  qtwebsockets,
+  buildPackages,
+  bison,
+  coreutils,
+  flex,
+  git,
+  gperf,
+  ninja,
+  pkg-config,
+  python3,
+  which,
+  nodejs,
+  qtbase,
+  perl,
+  xorg,
+  libXcursor,
+  libXScrnSaver,
+  libXrandr,
+  libXtst,
+  libxshmfence,
+  libXi,
+  fontconfig,
+  freetype,
+  harfbuzz,
+  icu,
+  dbus,
+  libdrm,
+  zlib,
+  minizip,
+  libjpeg,
+  libpng,
+  libtiff,
+  libwebp,
+  libopus,
+  jsoncpp,
+  protobuf,
+  libvpx,
+  srtp,
+  snappy,
+  nss,
+  libevent,
+  openssl,
+  alsa-lib,
+  pulseaudio,
+  libcap,
+  pciutils,
+  systemd,
+  pipewire,
+  gn,
+  runCommand,
+  writeScriptBin,
+  ffmpeg_4,
+  lib,
+  stdenv,
+  glib,
+  libxml2,
+  libxslt,
+  lcms2,
+  re2,
+  libkrb5,
+  mesa,
+  xkeyboard_config,
+  enableProprietaryCodecs ? true
+    # darwin
+  ,
+  clang_14,
+  bootstrap_cmds,
+  cctools,
+  xcbuild,
+  AGL,
+  AVFoundation,
+  Accelerate,
+  Cocoa,
+  CoreLocation,
+  CoreML,
+  ForceFeedback,
+  GameController,
+  ImageCaptureCore,
+  LocalAuthentication,
+  MediaAccessibility,
+  MediaPlayer,
+  MetalKit,
+  Network,
+  OpenDirectory,
+  Quartz,
+  ReplayKit,
+  SecurityInterface,
+  Vision,
+  openbsm,
+  libunwind,
+  cups,
+  libpm,
+  sandbox,
+  xnu,
+}:
 
 qtModule {
   pname = "qtwebengine";

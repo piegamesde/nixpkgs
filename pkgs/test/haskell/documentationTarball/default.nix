@@ -1,4 +1,7 @@
-{ pkgs, haskellPackages }:
+{
+  pkgs,
+  haskellPackages,
+}:
 
 let
   drv = haskellPackages.vector;

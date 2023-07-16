@@ -1,4 +1,14 @@
-{ lib, fetchFromGitHub, base, back, gsmakeDerivation, gui, gorm, gnumake, gdb }:
+{
+  lib,
+  fetchFromGitHub,
+  base,
+  back,
+  gsmakeDerivation,
+  gui,
+  gorm,
+  gnumake,
+  gdb,
+}:
 let version = "0.7.0";
 in gsmakeDerivation {
   pname = "projectcenter";

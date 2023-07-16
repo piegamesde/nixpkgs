@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, libusb1, rtl-sdr }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  libusb1,
+  rtl-sdr,
+}:
 
 stdenv.mkDerivation {
   pname = "rtl-ais";

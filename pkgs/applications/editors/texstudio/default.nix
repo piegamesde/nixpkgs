@@ -1,5 +1,16 @@
-{ lib, mkDerivation, fetchFromGitHub, qmake, qtbase, qtscript, qtsvg
-, wrapQtAppsHook, poppler, zlib, pkg-config }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  qmake,
+  qtbase,
+  qtscript,
+  qtsvg,
+  wrapQtAppsHook,
+  poppler,
+  zlib,
+  pkg-config,
+}:
 
 mkDerivation rec {
   pname = "texstudio";

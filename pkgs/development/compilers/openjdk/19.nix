@@ -1,12 +1,52 @@
-{ stdenv, lib, fetchurl, fetchpatch, fetchFromGitHub, bash, pkg-config, autoconf
-, cpio, file, which, unzip, zip, perl, cups, freetype, alsa-lib, libjpeg, giflib
-, libpng, zlib, lcms2, libX11, libICE, libXrender, libXext, libXt, libXtst
-, libXi, libXinerama, libXcursor, libXrandr, fontconfig, openjdk19-bootstrap
-, ensureNewerSourcesForZipFilesHook, setJavaClassPath
-# TODO(@sternenseemann): gtk3 fails to evaluate in pkgsCross.ghcjs.buildPackages
-# which should be fixable, this is a no-rebuild workaround for GHC.
-, headless ? stdenv.targetPlatform.isGhcjs, enableJavaFX ? false, openjfx
-, enableGnome2 ? true, gtk3, gnome_vfs, glib, GConf }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  fetchFromGitHub,
+  bash,
+  pkg-config,
+  autoconf,
+  cpio,
+  file,
+  which,
+  unzip,
+  zip,
+  perl,
+  cups,
+  freetype,
+  alsa-lib,
+  libjpeg,
+  giflib,
+  libpng,
+  zlib,
+  lcms2,
+  libX11,
+  libICE,
+  libXrender,
+  libXext,
+  libXt,
+  libXtst,
+  libXi,
+  libXinerama,
+  libXcursor,
+  libXrandr,
+  fontconfig,
+  openjdk19-bootstrap,
+  ensureNewerSourcesForZipFilesHook,
+  setJavaClassPath
+  # TODO(@sternenseemann): gtk3 fails to evaluate in pkgsCross.ghcjs.buildPackages
+  # which should be fixable, this is a no-rebuild workaround for GHC.
+  ,
+  headless ? stdenv.targetPlatform.isGhcjs,
+  enableJavaFX ? false,
+  openjfx,
+  enableGnome2 ? true,
+  gtk3,
+  gnome_vfs,
+  glib,
+  GConf,
+}:
 
 let
   version = {

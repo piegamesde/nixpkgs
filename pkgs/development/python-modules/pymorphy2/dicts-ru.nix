@@ -1,4 +1,8 @@
-{ lib, fetchPypi, buildPythonPackage }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+}:
 
 buildPythonPackage rec {
   pname = "pymorphy2-dicts-ru";

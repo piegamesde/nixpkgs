@@ -1,4 +1,9 @@
-{ fetchurl, lib, stdenv, libxcrypt }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  libxcrypt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pies";

@@ -1,6 +1,23 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, kdelibs4support, libgcrypt
-, libktorrent, qca-qt5, qgpgme, kcmutils, kcompletion, kcoreaddons
-, knotifyconfig, kparts, kwallet, kwidgetsaddons, kwindowsystem, kxmlgui }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  kdelibs4support,
+  libgcrypt,
+  libktorrent,
+  qca-qt5,
+  qgpgme,
+  kcmutils,
+  kcompletion,
+  kcoreaddons,
+  knotifyconfig,
+  kparts,
+  kwallet,
+  kwidgetsaddons,
+  kwindowsystem,
+  kxmlgui,
+}:
 
 mkDerivation {
   pname = "kget";

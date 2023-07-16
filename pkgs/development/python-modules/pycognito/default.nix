@@ -1,5 +1,18 @@
-{ lib, boto3, buildPythonPackage, envs, fetchFromGitHub, isPy27, freezegun, mock
-, moto, pytestCheckHook, python-jose, requests, requests-mock }:
+{
+  lib,
+  boto3,
+  buildPythonPackage,
+  envs,
+  fetchFromGitHub,
+  isPy27,
+  freezegun,
+  mock,
+  moto,
+  pytestCheckHook,
+  python-jose,
+  requests,
+  requests-mock,
+}:
 
 buildPythonPackage rec {
   pname = "pycognito";

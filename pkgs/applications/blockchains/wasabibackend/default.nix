@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, buildDotnetModule, dotnetCorePackages
-, autoPatchelfHook, zlib, openssl, }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildDotnetModule,
+  dotnetCorePackages,
+  autoPatchelfHook,
+  zlib,
+  openssl,
+}:
 buildDotnetModule rec {
   pname = "wasabibackend";
   version = "2.0.2.1";

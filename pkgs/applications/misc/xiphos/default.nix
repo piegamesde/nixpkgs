@@ -1,7 +1,33 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, appstream-glib, biblesync, cmake
-, dbus-glib, desktop-file-utils, docbook2x, docbook_xml_dtd_412, enchant2, glib
-, gtk3, gtkhtml, icu, intltool, isocodes, itstool, libuuid, libxslt, minizip
-, pkg-config, sword, webkitgtk, wrapGAppsHook, yelp-tools, zip }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  appstream-glib,
+  biblesync,
+  cmake,
+  dbus-glib,
+  desktop-file-utils,
+  docbook2x,
+  docbook_xml_dtd_412,
+  enchant2,
+  glib,
+  gtk3,
+  gtkhtml,
+  icu,
+  intltool,
+  isocodes,
+  itstool,
+  libuuid,
+  libxslt,
+  minizip,
+  pkg-config,
+  sword,
+  webkitgtk,
+  wrapGAppsHook,
+  yelp-tools,
+  zip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xiphos";

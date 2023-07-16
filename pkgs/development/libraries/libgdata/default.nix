@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchurl, pkg-config, meson, ninja, nixosTests, vala, gettext
-, libxml2, glib, json-glib, gcr, gnome-online-accounts, gobject-introspection
-, gnome, p11-kit, openssl, uhttpmock, libsoup }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  meson,
+  ninja,
+  nixosTests,
+  vala,
+  gettext,
+  libxml2,
+  glib,
+  json-glib,
+  gcr,
+  gnome-online-accounts,
+  gobject-introspection,
+  gnome,
+  p11-kit,
+  openssl,
+  uhttpmock,
+  libsoup,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libgdata";

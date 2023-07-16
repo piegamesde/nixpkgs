@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-dependency";

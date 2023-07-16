@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, python3, vala, intltool
-, autoreconfHook, wrapGAppsHook, lightdm, gtk3, pixman, libcanberra, libX11
-, libXext, linkFarm, lightdm-slick-greeter, numlockx }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  python3,
+  vala,
+  intltool,
+  autoreconfHook,
+  wrapGAppsHook,
+  lightdm,
+  gtk3,
+  pixman,
+  libcanberra,
+  libX11,
+  libXext,
+  linkFarm,
+  lightdm-slick-greeter,
+  numlockx,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lightdm-slick-greeter";

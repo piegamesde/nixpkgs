@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, pkg-config, libxml2
-, deadbeef, glib, gtk3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  libtool,
+  pkg-config,
+  libxml2,
+  deadbeef,
+  glib,
+  gtk3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "deadbeef-headerbar-gtk3-plugin";

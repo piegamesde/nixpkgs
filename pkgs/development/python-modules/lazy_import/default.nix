@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, pytest-xdist, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  pytest-xdist,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "lazy_import";

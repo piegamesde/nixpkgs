@@ -1,7 +1,30 @@
-{ lib, stdenv, rustPlatform, rustc, cargo, fetchFromGitHub, pkg-config, cmake
-, extra-cmake-modules, llvmPackages, withWayland ? true, withIndicator ? true
-, dbus, libdbusmenu, withXim ? true, xorg, cairo, withGtk3 ? true, gtk3
-, withGtk4 ? true, gtk4, withQt5 ? true, qt5, withQt6 ? false, qt6 }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  rustc,
+  cargo,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  extra-cmake-modules,
+  llvmPackages,
+  withWayland ? true,
+  withIndicator ? true,
+  dbus,
+  libdbusmenu,
+  withXim ? true,
+  xorg,
+  cairo,
+  withGtk3 ? true,
+  gtk3,
+  withGtk4 ? true,
+  gtk4,
+  withQt5 ? true,
+  qt5,
+  withQt6 ? false,
+  qt6,
+}:
 
 let
   cmake_args = lib.optionals withGtk3 [ "-DENABLE_GTK3=ON" ]

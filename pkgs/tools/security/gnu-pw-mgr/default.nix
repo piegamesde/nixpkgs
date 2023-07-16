@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchurl, gnulib }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  gnulib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnu-pw-mgr";

@@ -1,5 +1,14 @@
-{ stdenv, buildPythonPackage, dm-haiku, pytest-xdist, pytestCheckHook
-, tensorflow, tensorflow-datasets, flax, optax }:
+{
+  stdenv,
+  buildPythonPackage,
+  dm-haiku,
+  pytest-xdist,
+  pytestCheckHook,
+  tensorflow,
+  tensorflow-datasets,
+  flax,
+  optax,
+}:
 
 buildPythonPackage rec {
   pname = "optax-tests";

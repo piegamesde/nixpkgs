@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, kernel, kernelAtLeast }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  kernel,
+  kernelAtLeast,
+}:
 
 stdenv.mkDerivation rec {
   name = "isgx-${version}-${kernel.version}";

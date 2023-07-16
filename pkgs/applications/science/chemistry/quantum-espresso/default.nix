@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitLab, gfortran, fftw, blas, lapack, useMpi ? false
-, mpi }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  gfortran,
+  fftw,
+  blas,
+  lapack,
+  useMpi ? false,
+  mpi,
+}:
 
 stdenv.mkDerivation rec {
   version = "6.6";

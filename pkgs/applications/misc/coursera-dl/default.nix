@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, fetchpatch, glibcLocales, pandoc, python3 }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  glibcLocales,
+  pandoc,
+  python3,
+}:
 
 let pythonPackages = python3.pkgs;
 

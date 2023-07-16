@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, pkg-config, curl, openssl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  curl,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "liblastfm-SF";

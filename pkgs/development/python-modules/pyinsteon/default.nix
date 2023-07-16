@@ -1,6 +1,18 @@
-{ lib, aiofiles, aiohttp, async_generator, buildPythonPackage, fetchFromGitHub
-, pypubsub, pyserial, pyserial-asyncio, pytestCheckHook, pythonOlder, setuptools
-, voluptuous }:
+{
+  lib,
+  aiofiles,
+  aiohttp,
+  async_generator,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pypubsub,
+  pyserial,
+  pyserial-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  voluptuous,
+}:
 
 buildPythonPackage rec {
   pname = "pyinsteon";

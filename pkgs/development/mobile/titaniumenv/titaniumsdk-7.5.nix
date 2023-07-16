@@ -1,4 +1,9 @@
-{ stdenv, fetchurl, unzip, makeWrapper }:
+{
+  stdenv,
+  fetchurl,
+  unzip,
+  makeWrapper,
+}:
 
 let
   # Gradle is a build system that bootstraps itself. This is what it actually

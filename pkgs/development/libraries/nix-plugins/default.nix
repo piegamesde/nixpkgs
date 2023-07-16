@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, nix, cmake, pkg-config, boost }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix,
+  cmake,
+  pkg-config,
+  boost,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nix-plugins";

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, requests, requests-oauthlib
-, voluptuous }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  requests,
+  requests-oauthlib,
+  voluptuous,
+}:
 
 buildPythonPackage rec {
   pname = "pybotvac";

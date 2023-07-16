@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchurl, system ? builtins.currentSystem, ovftoolBundles ? { }
-, requireFile, autoPatchelfHook, makeWrapper, unzip, glibc, c-ares, libxcrypt
-, expat, icu60, xercesc, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  system ? builtins.currentSystem,
+  ovftoolBundles ? { },
+  requireFile,
+  autoPatchelfHook,
+  makeWrapper,
+  unzip,
+  glibc,
+  c-ares,
+  libxcrypt,
+  expat,
+  icu60,
+  xercesc,
+  zlib,
+}:
 
 let
   version = "4.5.0-20459872";

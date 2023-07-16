@@ -1,6 +1,19 @@
-{ lib, attrs, buildPythonPackage, cattrs, exceptiongroup, fetchFromGitHub
-, fonttools, fs, importlib-metadata, poetry-core, pytestCheckHook, pythonOlder
-, ufo2ft, ufoLib2 }:
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  cattrs,
+  exceptiongroup,
+  fetchFromGitHub,
+  fonttools,
+  fs,
+  importlib-metadata,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  ufo2ft,
+  ufoLib2,
+}:
 
 buildPythonPackage rec {
   pname = "statmake";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, makeWrapper, python3, exif, imagemagick }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  python3,
+  exif,
+  imagemagick,
+}:
 
 stdenv.mkDerivation rec {
   pname = "recoverjpeg";

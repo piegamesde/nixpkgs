@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, libX11, pam
-, libgcrypt, libXrender, imlib2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+  libX11,
+  pam,
+  libgcrypt,
+  libXrender,
+  imlib2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "alock";

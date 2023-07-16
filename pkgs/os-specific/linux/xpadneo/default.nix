@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, kernel, bluez, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  kernel,
+  bluez,
+  nixosTests,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "xpadneo";

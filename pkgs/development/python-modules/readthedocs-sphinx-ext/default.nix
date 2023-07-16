@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, requests, pytest, mock, sphinx }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+  pytest,
+  mock,
+  sphinx,
+}:
 
 buildPythonPackage rec {
   pname = "readthedocs-sphinx-ext";

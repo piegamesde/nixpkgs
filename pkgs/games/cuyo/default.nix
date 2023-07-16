@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, SDL, SDL_mixer, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  SDL,
+  SDL_mixer,
+  zlib,
+}:
 
 stdenv.mkDerivation {
   pname = "cuyo";

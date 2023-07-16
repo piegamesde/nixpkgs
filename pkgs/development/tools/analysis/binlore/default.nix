@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, runCommand, yallback, yara }:
+{
+  lib,
+  fetchFromGitHub,
+  runCommand,
+  yallback,
+  yara,
+}:
 
 /* TODO/CAUTION:
 
@@ -84,7 +90,11 @@ let
   overrides = (src + "/overrides");
 
 in rec {
-  collect = { lore ? loreDef, drvs, strip ? [ ] }:
+  collect = {
+      lore ? loreDef,
+      drvs,
+      strip ? [ ]
+    }:
     (runCommand "more-binlore" { } ''
       mkdir $out
       for lorefile in ${toString lore.types}; do

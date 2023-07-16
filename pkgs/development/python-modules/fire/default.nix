@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, six, hypothesis, mock
-, levenshtein, pytestCheckHook, termcolor, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  six,
+  hypothesis,
+  mock,
+  levenshtein,
+  pytestCheckHook,
+  termcolor,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "fire";

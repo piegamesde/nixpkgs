@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, fetchpatch, libxml2, ncurses, bison, flex }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  libxml2,
+  ncurses,
+  bison,
+  flex,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tiptop";

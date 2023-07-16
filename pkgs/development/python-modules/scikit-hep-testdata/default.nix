@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, pythonAtLeast, buildPythonPackage, importlib-resources
-, pyyaml, requests, setuptools-scm, pythonOlder }:
+{
+  lib,
+  fetchFromGitHub,
+  pythonAtLeast,
+  buildPythonPackage,
+  importlib-resources,
+  pyyaml,
+  requests,
+  setuptools-scm,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "scikit-hep-testdata";

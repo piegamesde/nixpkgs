@@ -1,4 +1,11 @@
-{ lib, rustPlatform, fetchCrate, libbfd, libopcodes, libunwind }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  libbfd,
+  libopcodes,
+  libunwind,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-bolero";

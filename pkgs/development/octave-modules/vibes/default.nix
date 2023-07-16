@@ -1,4 +1,9 @@
-{ buildOctavePackage, lib, fetchurl, vibes }:
+{
+  buildOctavePackage,
+  lib,
+  fetchurl,
+  vibes,
+}:
 
 buildOctavePackage rec {
   pname = "vibes";

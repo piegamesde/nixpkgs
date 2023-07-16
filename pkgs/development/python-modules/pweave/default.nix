@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, mock, matplotlib, pkgs, nbconvert
-, markdown, isPy3k, ipykernel }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  mock,
+  matplotlib,
+  pkgs,
+  nbconvert,
+  markdown,
+  isPy3k,
+  ipykernel,
+}:
 
 buildPythonPackage rec {
   pname = "pweave";

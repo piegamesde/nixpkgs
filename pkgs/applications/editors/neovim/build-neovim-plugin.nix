@@ -1,4 +1,9 @@
-{ lib, stdenv, lua, toVimPlugin }:
+{
+  lib,
+  stdenv,
+  lua,
+  toVimPlugin,
+}:
 let
   # sanitizeDerivationName
   normalizeName = lib.replaceStrings [ "." ] [ "-" ];
@@ -8,7 +13,9 @@ let
 in {
 # the lua attribute name that matches this vim plugin. Both should be equal
 # in the majority of cases but we make it possible to have different attribute names
-luaAttr ? (normalizeName attrs.pname), ... }@attrs:
+  luaAttr ? (normalizeName attrs.pname),
+  ...
+}@attrs:
 let
   originalLuaDrv = lua.pkgs.${luaAttr};
 

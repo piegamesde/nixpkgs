@@ -1,5 +1,14 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, loguru, pydantic
-, poetry-core, pythonOlder, requests }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  loguru,
+  pydantic,
+  poetry-core,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "pyaussiebb";

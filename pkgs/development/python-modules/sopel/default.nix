@@ -1,5 +1,19 @@
-{ lib, buildPythonPackage, dnspython, fetchPypi, geoip2, ipython, isPyPy, praw
-, pyenchant, pygeoip, pytestCheckHook, pythonOlder, pytz, sqlalchemy, xmltodict
+{
+  lib,
+  buildPythonPackage,
+  dnspython,
+  fetchPypi,
+  geoip2,
+  ipython,
+  isPyPy,
+  praw,
+  pyenchant,
+  pygeoip,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  sqlalchemy,
+  xmltodict,
 }:
 
 buildPythonPackage rec {

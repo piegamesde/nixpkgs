@@ -9,7 +9,10 @@
 #
 # See comment at the top of configuration-nix.nix for more information about this
 # distinction.
-{ pkgs, haskellLib }:
+{
+  pkgs,
+  haskellLib,
+}:
 
 let
   inherit (pkgs) fetchpatch fetchpatch2 lib;

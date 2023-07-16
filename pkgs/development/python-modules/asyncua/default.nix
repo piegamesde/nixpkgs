@@ -1,6 +1,19 @@
-{ lib, aiofiles, aiosqlite, buildPythonPackage, cryptography, fetchFromGitHub
-, pytest-asyncio, pytest-mock, pytestCheckHook, python-dateutil, pythonOlder
-, pytz, sortedcontainers, typing-extensions }:
+{
+  lib,
+  aiofiles,
+  aiosqlite,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytest-mock,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  pytz,
+  sortedcontainers,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "asyncua";

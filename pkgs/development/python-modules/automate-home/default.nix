@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder, apscheduler
-, hiredis, aioredis, ephem, pytz, pyyaml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pythonOlder,
+  apscheduler,
+  hiredis,
+  aioredis,
+  ephem,
+  pytz,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "automate-home";

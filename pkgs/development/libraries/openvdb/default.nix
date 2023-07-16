@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake, openexr, boost, jemalloc, c-blosc
-, ilmbase, tbb }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  openexr,
+  boost,
+  jemalloc,
+  c-blosc,
+  ilmbase,
+  tbb,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openvdb";

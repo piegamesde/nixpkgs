@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, postgresql, autoPatchelfHook, writeScript }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  postgresql,
+  autoPatchelfHook,
+  writeScript,
+}:
 
 let arch = if stdenv.is64bit then "amd64" else "x86";
 in stdenv.mkDerivation rec {

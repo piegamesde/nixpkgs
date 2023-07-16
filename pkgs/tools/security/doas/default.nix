@@ -1,6 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, bison, pam, libxcrypt
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bison,
+  pam,
+  libxcrypt
 
-, withPAM ? true, withTimestamp ? true }:
+  ,
+  withPAM ? true,
+  withTimestamp ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "doas";

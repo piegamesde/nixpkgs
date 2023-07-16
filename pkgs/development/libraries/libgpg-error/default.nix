@@ -1,4 +1,11 @@
-{ stdenv, lib, buildPackages, fetchurl, gettext, genPosixLockObjOnly ? false }:
+{
+  stdenv,
+  lib,
+  buildPackages,
+  fetchurl,
+  gettext,
+  genPosixLockObjOnly ? false
+}:
 let
   genPosixLockObjOnlyAttrs = lib.optionalAttrs genPosixLockObjOnly {
     buildPhase = ''

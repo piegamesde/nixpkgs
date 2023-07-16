@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
-, aspy-refactor-imports, classify-imports }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  aspy-refactor-imports,
+  classify-imports,
+}:
 
 buildPythonPackage rec {
   pname = "reorder-python-imports";

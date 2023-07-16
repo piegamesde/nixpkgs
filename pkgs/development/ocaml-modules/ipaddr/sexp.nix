@@ -1,4 +1,11 @@
-{ lib, buildDunePackage, ipaddr, ipaddr-cstruct, ounit2, ppx_sexp_conv }:
+{
+  lib,
+  buildDunePackage,
+  ipaddr,
+  ipaddr-cstruct,
+  ounit2,
+  ppx_sexp_conv,
+}:
 
 buildDunePackage rec {
   pname = "ipaddr-sexp";

@@ -1,7 +1,22 @@
-{ version, rev, sourceSha256 }:
+{
+  version,
+  rev,
+  sourceSha256,
+}:
 
-{ lib, stdenv, fetchFromGitHub, cmake, makeWrapper, pkg-config, libX11, libuuid
-, xz, vtk, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  makeWrapper,
+  pkg-config,
+  libX11,
+  libuuid,
+  xz,
+  vtk,
+  Cocoa,
+}:
 
 let
   itkGenericLabelInterpolatorSrc = fetchFromGitHub {

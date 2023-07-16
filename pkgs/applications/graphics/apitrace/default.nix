@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libX11, procps, python3
-, libdwarf, qtbase, wrapQtAppsHook, libglvnd, gtest, brotli, }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libX11,
+  procps,
+  python3,
+  libdwarf,
+  qtbase,
+  wrapQtAppsHook,
+  libglvnd,
+  gtest,
+  brotli,
+}:
 
 stdenv.mkDerivation rec {
   pname = "apitrace";

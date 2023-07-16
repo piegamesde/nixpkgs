@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, scons, qt4, alsa-lib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  scons,
+  qt4,
+  alsa-lib,
+}:
 
 stdenv.mkDerivation {
   pname = "gambatte";

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, atpublic, psutil
-, pytest-cov, sybil, pdm-pep517 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  atpublic,
+  psutil,
+  pytest-cov,
+  sybil,
+  pdm-pep517,
+}:
 
 buildPythonPackage rec {
   pname = "flufl.lock";

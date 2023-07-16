@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, python-dateutil, pythonOlder, pytz
-, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python-dateutil,
+  pythonOlder,
+  pytz,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "solaredge";

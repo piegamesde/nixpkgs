@@ -1,13 +1,26 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi
 
-# build dependencies
-, setuptools-scm
+  # build dependencies
+  ,
+  setuptools-scm
 
-# dependencies
-, django
+  # dependencies
+  ,
+  django
 
-# tests
-, geopy, nose, pysolr, python-dateutil, requests, whoosh }:
+  # tests
+  ,
+  geopy,
+  nose,
+  pysolr,
+  python-dateutil,
+  requests,
+  whoosh,
+}:
 
 buildPythonPackage rec {
   pname = "django-haystack";

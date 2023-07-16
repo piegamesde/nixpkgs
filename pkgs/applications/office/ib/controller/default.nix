@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, unzip, jdk, ib-tws, xpra }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  unzip,
+  jdk,
+  ib-tws,
+  xpra,
+}:
 
 stdenv.mkDerivation rec {
   version = "2.14.0";

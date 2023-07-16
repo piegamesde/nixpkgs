@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, ffmpeg_4, future, pytest-mock
-, pytestCheckHook, pythonAtLeast, pythonOlder, substituteAll }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  ffmpeg_4,
+  future,
+  pytest-mock,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+  substituteAll,
+}:
 
 buildPythonPackage rec {
   pname = "ffmpeg-python";

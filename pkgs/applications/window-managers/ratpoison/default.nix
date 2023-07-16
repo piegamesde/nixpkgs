@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchurl, pkg-config, perl, autoconf, automake, libX11, xorgproto
-, libXt, libXpm, libXft, libXtst, libXi, libXrandr, fontconfig, freetype
-, readline }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  perl,
+  autoconf,
+  automake,
+  libX11,
+  xorgproto,
+  libXt,
+  libXpm,
+  libXft,
+  libXtst,
+  libXi,
+  libXrandr,
+  fontconfig,
+  freetype,
+  readline,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ratpoison";

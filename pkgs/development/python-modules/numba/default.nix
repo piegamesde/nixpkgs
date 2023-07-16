@@ -1,12 +1,29 @@
-{ lib, stdenv, pythonAtLeast, pythonOlder, fetchPypi, python, buildPythonPackage
-, setuptools, numpy, llvmlite, libcxx, importlib-metadata, substituteAll
-, runCommand, fetchpatch
+{
+  lib,
+  stdenv,
+  pythonAtLeast,
+  pythonOlder,
+  fetchPypi,
+  python,
+  buildPythonPackage,
+  setuptools,
+  numpy,
+  llvmlite,
+  libcxx,
+  importlib-metadata,
+  substituteAll,
+  runCommand,
+  fetchpatch
 
-# CUDA-only dependencies:
-, addOpenGLRunpath ? null, cudaPackages ? { }
+  # CUDA-only dependencies:
+  ,
+  addOpenGLRunpath ? null,
+  cudaPackages ? { }
 
-  # CUDA flags:
-, cudaSupport ? false }:
+    # CUDA flags:
+  ,
+  cudaSupport ? false
+}:
 
 let inherit (cudaPackages) cudatoolkit;
 in buildPythonPackage rec {

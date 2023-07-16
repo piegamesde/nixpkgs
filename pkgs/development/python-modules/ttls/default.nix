@@ -1,5 +1,13 @@
-{ lib, aiohttp, buildPythonPackage, colour, fetchFromGitHub, poetry-core
-, pythonOlder, setuptools }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  colour,
+  fetchFromGitHub,
+  poetry-core,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "ttls";

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, fetchzip, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchzip,
+  nixosTests,
+}:
 
 let
   inherit (stdenv.hostPlatform) system;

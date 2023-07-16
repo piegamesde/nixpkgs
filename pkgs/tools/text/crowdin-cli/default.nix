@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, gawk, git, gnugrep, installShellFiles, jre, makeWrapper
-, crowdin-cli, testers, unzip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gawk,
+  git,
+  gnugrep,
+  installShellFiles,
+  jre,
+  makeWrapper,
+  crowdin-cli,
+  testers,
+  unzip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "crowdin-cli";

@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, dpkg, wrapGAppsHook, autoPatchelfHook, openssl
-, webkitgtk, udev, libayatana-appindicator }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dpkg,
+  wrapGAppsHook,
+  autoPatchelfHook,
+  openssl,
+  webkitgtk,
+  udev,
+  libayatana-appindicator,
+}:
 
 stdenv.mkDerivation rec {
   pname = "clash-verge";

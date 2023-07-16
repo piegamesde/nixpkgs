@@ -1,5 +1,12 @@
-{ buildPackages, lib, buildPythonPackage, protobuf, isPyPy, fetchpatch
-, pythonAtLeast }:
+{
+  buildPackages,
+  lib,
+  buildPythonPackage,
+  protobuf,
+  isPyPy,
+  fetchpatch,
+  pythonAtLeast,
+}:
 
 let
   versionMajor = lib.versions.major protobuf.version;

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, hypothesis, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  hypothesis,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "wcag-contrast-ratio";

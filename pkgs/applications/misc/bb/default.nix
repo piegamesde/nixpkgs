@@ -1,4 +1,13 @@
-{ stdenv, lib, fetchurl, darwin, aalib, ncurses, xorg, libmikmod }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  darwin,
+  aalib,
+  ncurses,
+  xorg,
+  libmikmod,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bb";

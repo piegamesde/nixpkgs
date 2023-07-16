@@ -1,4 +1,12 @@
-{ lib, melpaBuild, fetchFromGitHub, acm, popon, writeText, unstableGitUpdater }:
+{
+  lib,
+  melpaBuild,
+  fetchFromGitHub,
+  acm,
+  popon,
+  writeText,
+  unstableGitUpdater,
+}:
 
 let rev = "321e05fc0398a6159925b858f46608ea07ef269e";
 in melpaBuild {

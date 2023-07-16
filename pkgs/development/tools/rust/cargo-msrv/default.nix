@@ -1,5 +1,16 @@
-{ lib, rustPlatform, fetchFromGitHub, nix-update-script, pkg-config, rustup
-, openssl, stdenv, libiconv, Security, makeWrapper }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  nix-update-script,
+  pkg-config,
+  rustup,
+  openssl,
+  stdenv,
+  libiconv,
+  Security,
+  makeWrapper,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-msrv";

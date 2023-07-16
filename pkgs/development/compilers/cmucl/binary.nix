@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cmucl-binary";

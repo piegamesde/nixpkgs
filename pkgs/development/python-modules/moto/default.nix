@@ -1,16 +1,46 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, pythonOlder
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder
 
-# build
-, setuptools
+  # build
+  ,
+  setuptools
 
-# runtime
-, aws-xray-sdk, boto3, botocore, cfn-lint, cryptography, docker, flask
-, flask-cors, graphql-core, idna, jinja2, jsondiff, openapi-spec-validator
-, pyparsing, python-dateutil, python-jose, pyyaml, requests, responses
-, sshpubkeys, werkzeug, xmltodict
+  # runtime
+  ,
+  aws-xray-sdk,
+  boto3,
+  botocore,
+  cfn-lint,
+  cryptography,
+  docker,
+  flask,
+  flask-cors,
+  graphql-core,
+  idna,
+  jinja2,
+  jsondiff,
+  openapi-spec-validator,
+  pyparsing,
+  python-dateutil,
+  python-jose,
+  pyyaml,
+  requests,
+  responses,
+  sshpubkeys,
+  werkzeug,
+  xmltodict
 
-# tests
-, freezegun, pytestCheckHook, pytest-xdist, sure }:
+  # tests
+  ,
+  freezegun,
+  pytestCheckHook,
+  pytest-xdist,
+  sure,
+}:
 
 buildPythonPackage rec {
   pname = "moto";

@@ -1,5 +1,14 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, setuptools, pyaudio, numpy
-, libsndfile, substituteAll }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  pyaudio,
+  numpy,
+  libsndfile,
+  substituteAll,
+}:
 
 buildPythonPackage rec {
   pname = "wavefile";

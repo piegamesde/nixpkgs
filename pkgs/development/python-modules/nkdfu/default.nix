@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, fire, tqdm, intelhex, libusb1 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fire,
+  tqdm,
+  intelhex,
+  libusb1,
+}:
 
 buildPythonPackage rec {
   pname = "nkdfu";

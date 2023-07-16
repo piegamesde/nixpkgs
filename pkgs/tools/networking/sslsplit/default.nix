@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, openssl, libevent, libpcap, libnet
-, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  openssl,
+  libevent,
+  libpcap,
+  libnet,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sslsplit";

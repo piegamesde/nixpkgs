@@ -1,6 +1,13 @@
-args@{ pkgs, nextcloudVersion ? 22, ... }:
+args@{
+  pkgs,
+  nextcloudVersion ? 22,
+  ...
+}:
 
-(import ../make-test-python.nix ({ pkgs, ... }:
+(import ../make-test-python.nix ({
+    pkgs,
+    ...
+  }:
   let
     adminpass = "hunter2";
     adminuser = "root";
@@ -10,31 +17,38 @@ args@{ pkgs, nextcloudVersion ? 22, ... }:
 
     nodes = {
       # The only thing the client needs to do is download a file.
-      client = { ... }: { };
+      client = {
+          ...
+        }:
+        { };
 
-      nextcloud = { config, pkgs, ... }: {
-        networking.firewall.allowedTCPPorts = [ 80 ];
+      nextcloud = {
+          config,
+          pkgs,
+          ...
+        }: {
+          networking.firewall.allowedTCPPorts = [ 80 ];
 
-        services.nextcloud = {
-          enable = true;
-          hostName = "nextcloud";
-          https = true;
-          package = pkgs.${"nextcloud" + (toString nextcloudVersion)};
-          caching = {
-            apcu = true;
-            redis = false;
-            memcached = true;
+          services.nextcloud = {
+            enable = true;
+            hostName = "nextcloud";
+            https = true;
+            package = pkgs.${"nextcloud" + (toString nextcloudVersion)};
+            caching = {
+              apcu = true;
+              redis = false;
+              memcached = true;
+            };
+            config = {
+              dbtype = "mysql";
+              # Don't inherit adminuser since "root" is supposed to be the default
+              adminpassFile = "${pkgs.writeText "adminpass"
+                adminpass}"; # Don't try this at home!
+            };
           };
-          config = {
-            dbtype = "mysql";
-            # Don't inherit adminuser since "root" is supposed to be the default
-            adminpassFile = "${pkgs.writeText "adminpass"
-              adminpass}"; # Don't try this at home!
-          };
+
+          services.memcached.enable = true;
         };
-
-        services.memcached.enable = true;
-      };
     };
 
     testScript = let

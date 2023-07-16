@@ -1,4 +1,9 @@
-{ build-idris-package, fetchFromGitHub, contrib, lib }:
+{
+  build-idris-package,
+  fetchFromGitHub,
+  contrib,
+  lib,
+}:
 build-idris-package {
   pname = "smproc";
   version = "2018-02-08";

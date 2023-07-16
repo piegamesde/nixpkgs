@@ -1,4 +1,10 @@
-{ mkDerivation, fetchurl, makeWrapper, lib, php }:
+{
+  mkDerivation,
+  fetchurl,
+  makeWrapper,
+  lib,
+  php,
+}:
 
 let
   pname = "phing";

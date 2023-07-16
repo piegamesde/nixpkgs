@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchurl, deliantra-server }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  deliantra-server,
+}:
 
 stdenv.mkDerivation rec {
   pname = "deliantra-arch";

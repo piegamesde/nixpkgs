@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, autoreconfHook, flac, libao, libogg, popt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  flac,
+  libao,
+  libogg,
+  popt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "flac123";

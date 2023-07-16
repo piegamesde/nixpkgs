@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, pkg-config, numactl
-, ncurses, check }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  pkg-config,
+  numactl,
+  ncurses,
+  check,
+}:
 
 stdenv.mkDerivation rec {
   pname = "numatop";

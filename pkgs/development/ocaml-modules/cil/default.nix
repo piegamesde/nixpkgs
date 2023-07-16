@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, perl, ocaml, findlib, ocamlbuild }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  ocaml,
+  findlib,
+  ocamlbuild,
+}:
 
 if lib.versionAtLeast ocaml.version "4.06" then
   throw "cil is not available for OCaml ${ocaml.version}"

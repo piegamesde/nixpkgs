@@ -1,11 +1,44 @@
-{ lib, stdenv, substituteAll, fetchurl, zlib ? null, zlibSupport ? true, bzip2
-, pkg-config, libffi, libunwind, Security, sqlite, openssl, ncurses, python
-, expat, tcl, tk, tix, libX11, self, gdbm, db, xz, python-setup-hook
-# For the Python package set
-, packageOverrides ? (self: super: { }), pkgsBuildBuild, pkgsBuildHost
-, pkgsBuildTarget, pkgsHostHost, pkgsTargetTarget, sourceVersion, pythonVersion
-, hash, passthruFun, pythonAttr ?
-  "pypy${lib.substring 0 1 pythonVersion}${lib.substring 2 3 pythonVersion}" }:
+{
+  lib,
+  stdenv,
+  substituteAll,
+  fetchurl,
+  zlib ? null,
+  zlibSupport ? true,
+  bzip2,
+  pkg-config,
+  libffi,
+  libunwind,
+  Security,
+  sqlite,
+  openssl,
+  ncurses,
+  python,
+  expat,
+  tcl,
+  tk,
+  tix,
+  libX11,
+  self,
+  gdbm,
+  db,
+  xz,
+  python-setup-hook
+  # For the Python package set
+  ,
+  packageOverrides ? (self: super: { }),
+  pkgsBuildBuild,
+  pkgsBuildHost,
+  pkgsBuildTarget,
+  pkgsHostHost,
+  pkgsTargetTarget,
+  sourceVersion,
+  pythonVersion,
+  hash,
+  passthruFun,
+  pythonAttr ?
+    "pypy${lib.substring 0 1 pythonVersion}${lib.substring 2 3 pythonVersion}"
+}:
 
 assert zlibSupport -> zlib != null;
 

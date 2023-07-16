@@ -1,7 +1,27 @@
-{ lib, fetchFromGitHub, nix-update-script, cmake, pkg-config, mkDerivation
-, qtbase, qtx11extras, qtsvg, makeWrapper, vulkan-loader, libglvnd, xorg
-, python3, python3Packages, bison, pcre, automake, autoconf, addOpenGLRunpath
-, waylandSupport ? false, wayland }:
+{
+  lib,
+  fetchFromGitHub,
+  nix-update-script,
+  cmake,
+  pkg-config,
+  mkDerivation,
+  qtbase,
+  qtx11extras,
+  qtsvg,
+  makeWrapper,
+  vulkan-loader,
+  libglvnd,
+  xorg,
+  python3,
+  python3Packages,
+  bison,
+  pcre,
+  automake,
+  autoconf,
+  addOpenGLRunpath,
+  waylandSupport ? false,
+  wayland,
+}:
 let
   custom_swig = fetchFromGitHub {
     owner = "baldurk";

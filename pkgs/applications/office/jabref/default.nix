@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, wrapGAppsHook, makeDesktopItem, copyDesktopItems
-, unzip, xdg-utils, gtk3, jdk, gradle, perl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  wrapGAppsHook,
+  makeDesktopItem,
+  copyDesktopItems,
+  unzip,
+  xdg-utils,
+  gtk3,
+  jdk,
+  gradle,
+  perl,
+}:
 
 let
   versionReplace = {

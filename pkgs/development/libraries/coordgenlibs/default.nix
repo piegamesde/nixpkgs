@@ -1,4 +1,12 @@
-{ fetchFromGitHub, lib, stdenv, boost, zlib, cmake, maeparser }:
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  boost,
+  zlib,
+  cmake,
+  maeparser,
+}:
 
 stdenv.mkDerivation rec {
   pname = "coordgenlibs";

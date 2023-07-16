@@ -1,5 +1,15 @@
-{ lib, ocaml, fetchurl, buildDunePackage, eqaf, alcotest, astring, bos, findlib
-, fpath }:
+{
+  lib,
+  ocaml,
+  fetchurl,
+  buildDunePackage,
+  eqaf,
+  alcotest,
+  astring,
+  bos,
+  findlib,
+  fpath,
+}:
 
 buildDunePackage rec {
   pname = "digestif";

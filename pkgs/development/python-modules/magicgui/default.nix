@@ -1,6 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools-scm, pytestCheckHook
-, pytest-mypy-plugins, typing-extensions, qtpy, pyside2, psygnal
-, docstring-parser, napari # a reverse-dependency, for tests
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools-scm,
+  pytestCheckHook,
+  pytest-mypy-plugins,
+  typing-extensions,
+  qtpy,
+  pyside2,
+  psygnal,
+  docstring-parser,
+  napari # a reverse-dependency, for tests
+  ,
 }:
 buildPythonPackage rec {
   pname = "magicgui";

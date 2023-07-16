@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, gtk2, pkg-config, libxml2, intltool, gettext }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gtk2,
+  pkg-config,
+  libxml2,
+  intltool,
+  gettext,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gdmap";

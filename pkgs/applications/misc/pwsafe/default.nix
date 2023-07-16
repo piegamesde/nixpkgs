@@ -1,6 +1,28 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, zip, gettext, perl, wxGTK32
-, libXext, libXi, libXt, libXtst, xercesc, qrencode, libuuid, libyubikey
-, yubikey-personalization, curl, openssl, file, darwin, gitUpdater }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  zip,
+  gettext,
+  perl,
+  wxGTK32,
+  libXext,
+  libXi,
+  libXt,
+  libXtst,
+  xercesc,
+  qrencode,
+  libuuid,
+  libyubikey,
+  yubikey-personalization,
+  curl,
+  openssl,
+  file,
+  darwin,
+  gitUpdater,
+}:
 
 let inherit (darwin.apple_sdk.frameworks) Cocoa;
 in stdenv.mkDerivation rec {

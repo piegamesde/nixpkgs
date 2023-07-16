@@ -1,5 +1,14 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, libiconv, Foundation
-, rustPlatform, setuptools-rust, range-typed-integers }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  libiconv,
+  Foundation,
+  rustPlatform,
+  setuptools-rust,
+  range-typed-integers,
+}:
 
 buildPythonPackage rec {
   pname = "skytemple-rust";

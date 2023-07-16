@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, xorgserver, xorgproto, utilmacros
-, libgestures, libevdevc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  xorgserver,
+  xorgproto,
+  utilmacros,
+  libgestures,
+  libevdevc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xf86-input-cmt";

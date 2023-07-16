@@ -1,17 +1,60 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, libtool, bzip2Support ? true, bzip2
-, zlibSupport ? true, zlib, libX11Support ? !stdenv.hostPlatform.isMinGW, libX11
-, libXtSupport ? !stdenv.hostPlatform.isMinGW, libXt, fontconfigSupport ? true
-, fontconfig, freetypeSupport ? true, freetype, ghostscriptSupport ? false
-, ghostscript, libjpegSupport ? true, libjpeg, djvulibreSupport ? true
-, djvulibre, lcms2Support ? true, lcms2
-, openexrSupport ? !stdenv.hostPlatform.isMinGW, openexr, libjxlSupport ? true
-, libjxl, libpngSupport ? true, libpng, liblqr1Support ? true, liblqr1
-, librawSupport ? true, libraw, librsvgSupport ? !stdenv.hostPlatform.isMinGW
-, librsvg, pango, libtiffSupport ? true, libtiff, libxml2Support ? true, libxml2
-, openjpegSupport ? !stdenv.hostPlatform.isMinGW, openjpeg
-, libwebpSupport ? !stdenv.hostPlatform.isMinGW, libwebp, libheifSupport ? true
-, libheif, potrace, curl, ApplicationServices, Foundation, testers, imagemagick
-, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  libtool,
+  bzip2Support ? true,
+  bzip2,
+  zlibSupport ? true,
+  zlib,
+  libX11Support ? !stdenv.hostPlatform.isMinGW,
+  libX11,
+  libXtSupport ? !stdenv.hostPlatform.isMinGW,
+  libXt,
+  fontconfigSupport ? true,
+  fontconfig,
+  freetypeSupport ? true,
+  freetype,
+  ghostscriptSupport ? false,
+  ghostscript,
+  libjpegSupport ? true,
+  libjpeg,
+  djvulibreSupport ? true,
+  djvulibre,
+  lcms2Support ? true,
+  lcms2,
+  openexrSupport ? !stdenv.hostPlatform.isMinGW,
+  openexr,
+  libjxlSupport ? true,
+  libjxl,
+  libpngSupport ? true,
+  libpng,
+  liblqr1Support ? true,
+  liblqr1,
+  librawSupport ? true,
+  libraw,
+  librsvgSupport ? !stdenv.hostPlatform.isMinGW,
+  librsvg,
+  pango,
+  libtiffSupport ? true,
+  libtiff,
+  libxml2Support ? true,
+  libxml2,
+  openjpegSupport ? !stdenv.hostPlatform.isMinGW,
+  openjpeg,
+  libwebpSupport ? !stdenv.hostPlatform.isMinGW,
+  libwebp,
+  libheifSupport ? true,
+  libheif,
+  potrace,
+  curl,
+  ApplicationServices,
+  Foundation,
+  testers,
+  imagemagick,
+  python3,
+}:
 
 assert libXtSupport -> libX11Support;
 

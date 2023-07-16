@@ -1,5 +1,12 @@
-{ lib, fetchurl, buildDunePackage, astring, result, camlp-streams
-, version ? "2.0.0" }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  astring,
+  result,
+  camlp-streams,
+  version ? "2.0.0"
+}:
 
 let
   param = {

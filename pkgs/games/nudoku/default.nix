@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, pkg-config, gettext
-, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  pkg-config,
+  gettext,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nudoku";

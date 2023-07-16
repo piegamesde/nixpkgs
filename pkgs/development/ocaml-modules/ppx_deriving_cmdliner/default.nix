@@ -1,5 +1,14 @@
-{ lib, buildDunePackage, fetchFromGitHub, fetchpatch, alcotest, cmdliner
-, ppx_deriving, ppxlib, gitUpdater }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  fetchpatch,
+  alcotest,
+  cmdliner,
+  ppx_deriving,
+  ppxlib,
+  gitUpdater,
+}:
 
 buildDunePackage rec {
   pname = "ppx_deriving_cmdliner";

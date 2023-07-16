@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, makeWrapper, cmake, expat, openssl, zlib, db, curl
-, wxGTK32 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  cmake,
+  expat,
+  openssl,
+  zlib,
+  db,
+  curl,
+  wxGTK32,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tqsl";

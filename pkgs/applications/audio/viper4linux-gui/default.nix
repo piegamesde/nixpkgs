@@ -1,6 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, copyDesktopItems, pkg-config, qtbase, qtsvg
-, qtmultimedia, qmake, gst_all_1, libpulseaudio, makeDesktopItem, viper4linux
-, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  copyDesktopItems,
+  pkg-config,
+  qtbase,
+  qtsvg,
+  qtmultimedia,
+  qmake,
+  gst_all_1,
+  libpulseaudio,
+  makeDesktopItem,
+  viper4linux,
+  wrapQtAppsHook,
+}:
 let
   gstPluginPath = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0"
     (with gst_all_1; [

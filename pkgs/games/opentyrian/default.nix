@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fetchzip, SDL2, SDL2_net, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchzip,
+  SDL2,
+  SDL2_net,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "opentyrian";

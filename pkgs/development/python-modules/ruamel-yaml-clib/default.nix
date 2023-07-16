@@ -1,4 +1,8 @@
-{ lib, buildPythonPackage, fetchhg }:
+{
+  lib,
+  buildPythonPackage,
+  fetchhg,
+}:
 
 buildPythonPackage rec {
   pname = "ruamel-yaml-clib";

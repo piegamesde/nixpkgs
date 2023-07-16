@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, haskellPackages, makeWrapper, eprover }:
+{
+  lib,
+  fetchFromGitHub,
+  haskellPackages,
+  makeWrapper,
+  eprover,
+}:
 
 with haskellPackages;
 mkDerivation {

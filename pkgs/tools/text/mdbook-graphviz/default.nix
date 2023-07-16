@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, rustPlatform, CoreServices, graphviz
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  rustPlatform,
+  CoreServices,
+  graphviz,
 }:
 
 rustPlatform.buildRustPackage rec {

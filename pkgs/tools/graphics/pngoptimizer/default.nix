@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, gtk3, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gtk3,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pngoptimizer";

@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchurl, home ? "/var/lib/crowd", port ? 8092, proxyUrl ? null
-, openidPassword ? "WILL_NEVER_BE_SET" }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  home ? "/var/lib/crowd",
+  port ? 8092,
+  proxyUrl ? null,
+  openidPassword ? "WILL_NEVER_BE_SET"
+}:
 
 let optionalWarning = cond: msg: if cond then lib.warn msg else lib.id;
 

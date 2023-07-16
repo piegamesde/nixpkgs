@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, poetry-core, six, cryptography, mock
-, pyfakefs, unittestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  poetry-core,
+  six,
+  cryptography,
+  mock,
+  pyfakefs,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "fido2";

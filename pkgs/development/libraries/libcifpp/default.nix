@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, boost, cmake, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  boost,
+  cmake,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libcifpp";

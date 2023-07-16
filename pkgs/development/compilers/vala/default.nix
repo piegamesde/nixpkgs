@@ -1,10 +1,33 @@
-{ stdenv, lib, fetchurl, fetchpatch, pkg-config, flex, bison, libxslt, autoconf
-, autoreconfHook, gnome, graphviz, glib, libiconv, libintl, libtool, expat
-, substituteAll, vala }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  flex,
+  bison,
+  libxslt,
+  autoconf,
+  autoreconfHook,
+  gnome,
+  graphviz,
+  glib,
+  libiconv,
+  libintl,
+  libtool,
+  expat,
+  substituteAll,
+  vala,
+}:
 
 let
-  generic = lib.makeOverridable ({ version, sha256, extraNativeBuildInputs ? [ ]
-    , extraBuildInputs ? [ ], withGraphviz ? false }:
+  generic = lib.makeOverridable ({
+      version,
+      sha256,
+      extraNativeBuildInputs ? [ ],
+      extraBuildInputs ? [ ],
+      withGraphviz ? false
+    }:
     let
       # Patches from the openembedded-core project to build vala without graphviz
       # support. We need to apply an additional patch to allow building when the

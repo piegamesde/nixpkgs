@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, bash, nodejs, gzip, callPackage }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  bash,
+  nodejs,
+  gzip,
+  callPackage,
+}:
 
 let
   # NOTE: use updateScript to bump the package version

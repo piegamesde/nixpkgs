@@ -1,11 +1,17 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   {
     name = "pantheon";
 
     meta = with lib; { maintainers = teams.pantheon.members; };
 
-    nodes.machine = { ... }:
+    nodes.machine = {
+        ...
+      }:
 
       {
         imports = [ ./common/user-account.nix ];
@@ -18,7 +24,10 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
 
     enableOCR = true;
 
-    testScript = { nodes, ... }:
+    testScript = {
+        nodes,
+        ...
+      }:
       let
         user = nodes.machine.users.users.alice;
         bob = nodes.machine.users.users.bob;

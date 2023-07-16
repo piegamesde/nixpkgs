@@ -1,7 +1,24 @@
-{ atk, buildFHSEnv, cairo, dpkg, gdk-pixbuf, glib, gtk2-x11, makeWrapper, pango
-, lib, stdenv, xorg }:
+{
+  atk,
+  buildFHSEnv,
+  cairo,
+  dpkg,
+  gdk-pixbuf,
+  glib,
+  gtk2-x11,
+  makeWrapper,
+  pango,
+  lib,
+  stdenv,
+  xorg,
+}:
 
-{ src, toolName, version, ... }@attrs:
+{
+  src,
+  toolName,
+  version,
+  ...
+}@attrs:
 let
   wrapBinary = libPaths: binaryName: ''
     wrapProgram "$out/bin/${binaryName}" \

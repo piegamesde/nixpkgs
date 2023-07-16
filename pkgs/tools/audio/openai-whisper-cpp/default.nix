@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, SDL2, makeWrapper, wget, Accelerate
-, CoreGraphics, CoreVideo }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL2,
+  makeWrapper,
+  wget,
+  Accelerate,
+  CoreGraphics,
+  CoreVideo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "whisper-cpp";

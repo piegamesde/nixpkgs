@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, fetchpatch, cmake, libGLU, libXmu, libXi, libXext
-, OpenGL, enableEGL ? false, testers }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  cmake,
+  libGLU,
+  libXmu,
+  libXi,
+  libXext,
+  OpenGL,
+  enableEGL ? false,
+  testers,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "glew";

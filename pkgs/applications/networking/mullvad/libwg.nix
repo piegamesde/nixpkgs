@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, mullvad }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  mullvad,
+}:
 buildGoModule {
   pname = "libwg";
 

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libjpeg, mesa, pango, pkg-config, wayland
-, wayland-protocols, wayland-scanner }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libjpeg,
+  mesa,
+  pango,
+  pkg-config,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "hyprpaper";

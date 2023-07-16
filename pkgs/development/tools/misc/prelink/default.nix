@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchgit, autoreconfHook, libelf, libiberty }:
+{
+  stdenv,
+  lib,
+  fetchgit,
+  autoreconfHook,
+  libelf,
+  libiberty,
+}:
 
 stdenv.mkDerivation rec {
   pname = "prelink";

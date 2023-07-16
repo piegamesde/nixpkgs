@@ -1,10 +1,27 @@
-{ composeAndroidPackages, stdenv, lib, runtimeShell }:
-{ name, app ? null, platformVersion ? "33", abiVersion ? "armeabi-v7a"
-, systemImageType ? "default", enableGPU ? false, extraAVDFiles ? [ ]
-, package ? null, activity ? null, androidUserHome ? null
-, avdHomeDir ? null # Support old variable with non-standard naming!
-, androidAvdHome ? avdHomeDir, sdkExtraArgs ? { }, androidAvdFlags ? null
-, androidEmulatorFlags ? null }:
+{
+  composeAndroidPackages,
+  stdenv,
+  lib,
+  runtimeShell,
+}:
+{
+  name,
+  app ? null,
+  platformVersion ? "33",
+  abiVersion ? "armeabi-v7a",
+  systemImageType ? "default",
+  enableGPU ? false,
+  extraAVDFiles ? [ ],
+  package ? null,
+  activity ? null,
+  androidUserHome ? null,
+  avdHomeDir ? null # Support old variable with non-standard naming!
+  ,
+  androidAvdHome ? avdHomeDir,
+  sdkExtraArgs ? { },
+  androidAvdFlags ? null,
+  androidEmulatorFlags ? null
+}:
 
 let
   sdkArgs = {

@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, cmake, qt4, zlib, eigen, openbabel, pkg-config, libGLU
-, libGL, libX11, doxygen }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  qt4,
+  zlib,
+  eigen,
+  openbabel,
+  pkg-config,
+  libGLU,
+  libGL,
+  libX11,
+  doxygen,
+}:
 
 stdenv.mkDerivation rec {
   pname = "avogadro";

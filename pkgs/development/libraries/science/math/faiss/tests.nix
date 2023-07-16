@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, faiss, scipy, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  faiss,
+  scipy,
+  pytestCheckHook,
+}:
 
 assert faiss.pythonSupport;
 

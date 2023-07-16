@@ -1,6 +1,19 @@
-{ lib, aiohttp, async-timeout, buildPythonPackage, click, construct, dacite
-, fetchFromGitHub, paho-mqtt, poetry-core, pycryptodome, pytest-asyncio
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  async-timeout,
+  buildPythonPackage,
+  click,
+  construct,
+  dacite,
+  fetchFromGitHub,
+  paho-mqtt,
+  poetry-core,
+  pycryptodome,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "python-roborock";

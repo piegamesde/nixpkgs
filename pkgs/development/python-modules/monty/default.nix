@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, msgpack, numpy, pandas, pydantic
-, pymongo, pytestCheckHook, pythonOlder, ruamel-yaml, tqdm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  msgpack,
+  numpy,
+  pandas,
+  pydantic,
+  pymongo,
+  pytestCheckHook,
+  pythonOlder,
+  ruamel-yaml,
+  tqdm,
+}:
 
 buildPythonPackage rec {
   pname = "monty";

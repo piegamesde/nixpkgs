@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchzip, glib, zlib, libglvnd, python3, autoPatchelfHook }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  glib,
+  zlib,
+  libglvnd,
+  python3,
+  autoPatchelfHook,
+}:
 
 stdenv.mkDerivation rec {
   version = "3.5";

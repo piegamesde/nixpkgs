@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, pyserial-asyncio, pytz }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  pyserial-asyncio,
+  pytz,
+}:
 
 buildPythonPackage rec {
   pname = "upb-lib";

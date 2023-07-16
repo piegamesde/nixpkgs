@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, glibcLocales, python39 }:
+{
+  lib,
+  fetchFromGitHub,
+  glibcLocales,
+  python39,
+}:
 
 let python3 = python39;
 in python3.pkgs.buildPythonApplication rec {

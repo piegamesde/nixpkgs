@@ -1,5 +1,17 @@
-{ lib, buildDunePackage, fetchurl, fmt, mirage-flow, cstruct, logs, ke, lwt
-, alcotest, alcotest-lwt, bigstringaf }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  fmt,
+  mirage-flow,
+  cstruct,
+  logs,
+  ke,
+  lwt,
+  alcotest,
+  alcotest-lwt,
+  bigstringaf,
+}:
 
 buildDunePackage rec {
   pname = "mimic";

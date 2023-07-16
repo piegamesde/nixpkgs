@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, makeWrapper, jdk, selenium-server-standalone }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  jdk,
+  selenium-server-standalone,
+}:
 
 let
   pname = "selendroid-standalone";

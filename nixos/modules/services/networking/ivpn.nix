@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let cfg = config.services.ivpn;
 in with lib; {
   options.services.ivpn = {

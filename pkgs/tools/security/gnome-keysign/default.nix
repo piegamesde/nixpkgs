@@ -1,5 +1,14 @@
-{ lib, fetchFromGitLab, fetchpatch, python3, wrapGAppsHook
-, gobject-introspection, gtk3, glib, gst_all_1 }:
+{
+  lib,
+  fetchFromGitLab,
+  fetchpatch,
+  python3,
+  wrapGAppsHook,
+  gobject-introspection,
+  gtk3,
+  glib,
+  gst_all_1,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "gnome-keysign";

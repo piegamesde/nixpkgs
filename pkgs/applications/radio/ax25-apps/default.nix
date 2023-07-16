@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libax25, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libax25,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ax25-apps";

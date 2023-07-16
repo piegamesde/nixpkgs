@@ -1,4 +1,12 @@
-{ lib, buildDunePackage, rpclib, lwt, alcotest-lwt, ppx_deriving_rpc, yojson }:
+{
+  lib,
+  buildDunePackage,
+  rpclib,
+  lwt,
+  alcotest-lwt,
+  ppx_deriving_rpc,
+  yojson,
+}:
 
 buildDunePackage {
   pname = "rpclib-lwt";

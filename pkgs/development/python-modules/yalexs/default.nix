@@ -1,6 +1,19 @@
-{ lib, aiofiles, aiohttp, aioresponses, aiounittest, buildPythonPackage
-, fetchFromGitHub, pubnub, pyjwt, pytestCheckHook, python-dateutil, pythonOlder
-, requests, requests-mock }:
+{
+  lib,
+  aiofiles,
+  aiohttp,
+  aioresponses,
+  aiounittest,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pubnub,
+  pyjwt,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  requests,
+  requests-mock,
+}:
 
 buildPythonPackage rec {
   pname = "yalexs";

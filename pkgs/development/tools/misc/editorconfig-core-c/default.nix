@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchpatch, fetchFromGitHub, cmake, pcre2, doxygen }:
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchFromGitHub,
+  cmake,
+  pcre2,
+  doxygen,
+}:
 
 stdenv.mkDerivation rec {
   pname = "editorconfig-core-c";

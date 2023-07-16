@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder, pyjwt
-, ratelimit, pytz, requests, requests-mock }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  pyjwt,
+  ratelimit,
+  pytz,
+  requests,
+  requests-mock,
+}:
 
 buildPythonPackage rec {
   pname = "pyflume";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, luajit, openssl, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  luajit,
+  openssl,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wrk2";

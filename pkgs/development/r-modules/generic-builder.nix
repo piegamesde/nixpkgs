@@ -1,7 +1,23 @@
-{ stdenv, lib, R, libcxx, xvfb-run, util-linux, Cocoa, Foundation, gettext
-, gfortran, libiconv }:
+{
+  stdenv,
+  lib,
+  R,
+  libcxx,
+  xvfb-run,
+  util-linux,
+  Cocoa,
+  Foundation,
+  gettext,
+  gfortran,
+  libiconv,
+}:
 
-{ name, buildInputs ? [ ], requireX ? false, ... }@attrs:
+{
+  name,
+  buildInputs ? [ ],
+  requireX ? false,
+  ...
+}@attrs:
 
 stdenv.mkDerivation ({
   buildInputs = buildInputs ++ [ R gettext ]

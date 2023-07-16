@@ -1,7 +1,27 @@
-{ lib, stdenv, fetchFromGitLab, pkg-config, autoreconfHook, openssl, db48, boost
-, zlib, miniupnpc, util-linux, protobuf, qrencode, libevent, python3, withGui
-, wrapQtAppsHook ? null, qtbase ? null, qttools ? null, Foundation
-, ApplicationServices, AppKit }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  pkg-config,
+  autoreconfHook,
+  openssl,
+  db48,
+  boost,
+  zlib,
+  miniupnpc,
+  util-linux,
+  protobuf,
+  qrencode,
+  libevent,
+  python3,
+  withGui,
+  wrapQtAppsHook ? null,
+  qtbase ? null,
+  qttools ? null,
+  Foundation,
+  ApplicationServices,
+  AppKit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bitcoin" + lib.optionalString (!withGui) "d" + "-unlimited";

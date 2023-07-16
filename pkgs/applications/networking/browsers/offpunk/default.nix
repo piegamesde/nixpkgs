@@ -1,5 +1,15 @@
-{ fetchFromSourcehut, installShellFiles, less, lib, offpunk, python3Packages
-, testers, timg, xdg-utils, xsel, }:
+{
+  fetchFromSourcehut,
+  installShellFiles,
+  less,
+  lib,
+  offpunk,
+  python3Packages,
+  testers,
+  timg,
+  xdg-utils,
+  xsel,
+}:
 
 let
   pythonDependencies = with python3Packages; [

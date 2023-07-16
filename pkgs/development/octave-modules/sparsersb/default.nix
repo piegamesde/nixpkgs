@@ -1,4 +1,9 @@
-{ buildOctavePackage, lib, fetchurl, librsb }:
+{
+  buildOctavePackage,
+  lib,
+  fetchurl,
+  librsb,
+}:
 
 buildOctavePackage rec {
   pname = "sparsersb";

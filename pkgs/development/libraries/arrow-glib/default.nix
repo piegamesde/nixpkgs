@@ -1,5 +1,14 @@
-{ stdenv, arrow-cpp, fetchurl, glib, gobject-introspection, lib, meson, ninja
-, pkg-config }:
+{
+  stdenv,
+  arrow-cpp,
+  fetchurl,
+  glib,
+  gobject-introspection,
+  lib,
+  meson,
+  ninja,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "arrow-glib";

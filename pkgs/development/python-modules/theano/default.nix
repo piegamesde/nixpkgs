@@ -1,6 +1,22 @@
-{ lib, stdenv, runCommandCC, fetchPypi, buildPythonPackage, isPyPy, pythonOlder
-, isPy3k, nose, numpy, scipy, setuptools, six, libgpuarray, cudaSupport ? false
-, cudaPackages ? { }, cudnnSupport ? false }:
+{
+  lib,
+  stdenv,
+  runCommandCC,
+  fetchPypi,
+  buildPythonPackage,
+  isPyPy,
+  pythonOlder,
+  isPy3k,
+  nose,
+  numpy,
+  scipy,
+  setuptools,
+  six,
+  libgpuarray,
+  cudaSupport ? false,
+  cudaPackages ? { },
+  cudnnSupport ? false
+}:
 
 let inherit (cudaPackages) cudatoolkit cudnn;
 

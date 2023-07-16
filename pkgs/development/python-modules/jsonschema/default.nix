@@ -1,10 +1,30 @@
-{ lib, attrs, buildPythonPackage, fetchPypi, hatch-fancy-pypi-readme, hatch-vcs
-, hatchling, importlib-metadata, importlib-resources, pyrsistent, pythonOlder
-, twisted, typing-extensions
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  fetchPypi,
+  hatch-fancy-pypi-readme,
+  hatch-vcs,
+  hatchling,
+  importlib-metadata,
+  importlib-resources,
+  pyrsistent,
+  pythonOlder,
+  twisted,
+  typing-extensions
 
-# optionals
-, fqdn, idna, isoduration, jsonpointer, rfc3339-validator, rfc3986-validator
-, rfc3987, uri-template, webcolors }:
+  # optionals
+  ,
+  fqdn,
+  idna,
+  isoduration,
+  jsonpointer,
+  rfc3339-validator,
+  rfc3986-validator,
+  rfc3987,
+  uri-template,
+  webcolors,
+}:
 
 buildPythonPackage rec {
   pname = "jsonschema";

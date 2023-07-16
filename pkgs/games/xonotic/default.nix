@@ -1,11 +1,36 @@
-{ lib, stdenv, fetchurl, fetchzip, makeWrapper, runCommand, makeDesktopItem
-, xonotic-data, copyDesktopItems, # required for both
-unzip, libjpeg, zlib, libvorbis, curl, freetype, libpng, libtheora, # glx
-libX11, libGLU, libGL, libXpm, libXext, libXxf86vm, alsa-lib, # sdl
-SDL2, # blind
-gmp
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchzip,
+  makeWrapper,
+  runCommand,
+  makeDesktopItem,
+  xonotic-data,
+  copyDesktopItems, # required for both
+  unzip,
+  libjpeg,
+  zlib,
+  libvorbis,
+  curl,
+  freetype,
+  libpng,
+  libtheora, # glx
+  libX11,
+  libGLU,
+  libGL,
+  libXpm,
+  libXext,
+  libXxf86vm,
+  alsa-lib, # sdl
+  SDL2, # blind
+  gmp
 
-, withSDL ? true, withGLX ? false, withDedicated ? true }:
+  ,
+  withSDL ? true,
+  withGLX ? false,
+  withDedicated ? true
+}:
 
 let
   pname = "xonotic";

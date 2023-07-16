@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, flake8, python-lsp-server
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flake8,
+  python-lsp-server,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pyls-flake8";

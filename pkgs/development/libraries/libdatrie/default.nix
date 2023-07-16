@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, autoreconfHook, autoconf-archive
-, installShellFiles, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  autoreconfHook,
+  autoconf-archive,
+  installShellFiles,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
 

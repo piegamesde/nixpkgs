@@ -1,4 +1,13 @@
-{ lib, rustPlatform, fetchCrate, nmap, stdenv, Security, perl, python3 }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  nmap,
+  stdenv,
+  Security,
+  perl,
+  python3,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rustscan";

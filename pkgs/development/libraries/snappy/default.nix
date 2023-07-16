@@ -1,5 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, fetchpatch
-, static ? stdenv.hostPlatform.isStatic }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  fetchpatch,
+  static ? stdenv.hostPlatform.isStatic
+}:
 
 stdenv.mkDerivation rec {
   pname = "snappy";

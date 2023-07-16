@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, buildGoModule, bash, fish, zsh }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildGoModule,
+  bash,
+  fish,
+  zsh,
+}:
 
 buildGoModule rec {
   pname = "direnv";

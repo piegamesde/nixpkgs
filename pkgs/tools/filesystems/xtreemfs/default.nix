@@ -1,5 +1,21 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, makeWrapper, ant, attr, boost, cmake
-, file, fuse, jdk8, openssl, python3, valgrind, which }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  makeWrapper,
+  ant,
+  attr,
+  boost,
+  cmake,
+  file,
+  fuse,
+  jdk8,
+  openssl,
+  python3,
+  valgrind,
+  which,
+}:
 
 stdenv.mkDerivation {
   pname = "XtreemFS";

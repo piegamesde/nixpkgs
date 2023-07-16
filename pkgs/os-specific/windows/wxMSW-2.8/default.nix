@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, compat24 ? false, compat26 ? true, unicode ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  compat24 ? false,
+  compat26 ? true,
+  unicode ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "wxMSW";

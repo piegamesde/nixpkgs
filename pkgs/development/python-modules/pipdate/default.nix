@@ -1,5 +1,16 @@
-{ lib, appdirs, buildPythonPackage, fetchPypi, importlib-metadata, packaging
-, pythonOlder, requests, rich, setuptools, wheel }:
+{
+  lib,
+  appdirs,
+  buildPythonPackage,
+  fetchPypi,
+  importlib-metadata,
+  packaging,
+  pythonOlder,
+  requests,
+  rich,
+  setuptools,
+  wheel,
+}:
 
 buildPythonPackage rec {
   pname = "pipdate";

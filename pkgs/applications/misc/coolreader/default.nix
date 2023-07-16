@@ -1,5 +1,14 @@
-{ stdenv, mkDerivation, fetchFromGitHub, cmake, pkg-config, lib, qttools
-, fribidi, libunibreak }:
+{
+  stdenv,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  lib,
+  qttools,
+  fribidi,
+  libunibreak,
+}:
 
 mkDerivation rec {
   pname = "coolreader";

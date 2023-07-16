@@ -1,5 +1,17 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, fetchFromGitHub, rustPlatform
-, pytestCheckHook, libiconv, numpy, protobuf, pyarrow, Security }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  fetchFromGitHub,
+  rustPlatform,
+  pytestCheckHook,
+  libiconv,
+  numpy,
+  protobuf,
+  pyarrow,
+  Security,
+}:
 
 let
   arrow-testing = fetchFromGitHub {

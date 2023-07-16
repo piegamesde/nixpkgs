@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, jinja2, msrest, vsts }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jinja2,
+  msrest,
+  vsts,
+}:
 
 buildPythonPackage rec {
   version = "0.0.22";

@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchpatch, duckdb, google-cloud-storage, mypy, numpy
-, pandas, psutil, pybind11, setuptools-scm, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchpatch,
+  duckdb,
+  google-cloud-storage,
+  mypy,
+  numpy,
+  pandas,
+  psutil,
+  pybind11,
+  setuptools-scm,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   inherit (duckdb) pname version src patches;

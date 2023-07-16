@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, inflection, pbr, pytest-mock
-, pytestCheckHook, pythonOlder, tinycss2 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  inflection,
+  pbr,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  tinycss2,
+}:
 
 buildPythonPackage rec {
   pname = "qstylizer";

@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchurl, python3, pkg-config, readline, tdb, talloc, tevent
-, popt, libxslt, docbook-xsl-nons, docbook_xml_dtd_42, cmocka, wafHook
-, libxcrypt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python3,
+  pkg-config,
+  readline,
+  tdb,
+  talloc,
+  tevent,
+  popt,
+  libxslt,
+  docbook-xsl-nons,
+  docbook_xml_dtd_42,
+  cmocka,
+  wafHook,
+  libxcrypt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ldb";

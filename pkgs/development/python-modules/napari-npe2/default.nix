@@ -1,6 +1,20 @@
-{ lib, appdirs, build, buildPythonPackage, fetchFromGitHub, magicgui
-, napari # reverse dependency, for tests
-, psygnal, pydantic, pythonOlder, pytomlpp, pyyaml, rich, setuptools-scm, typer
+{
+  lib,
+  appdirs,
+  build,
+  buildPythonPackage,
+  fetchFromGitHub,
+  magicgui,
+  napari # reverse dependency, for tests
+  ,
+  psygnal,
+  pydantic,
+  pythonOlder,
+  pytomlpp,
+  pyyaml,
+  rich,
+  setuptools-scm,
+  typer,
 }:
 
 buildPythonPackage rec {

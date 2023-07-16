@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, SDL2, eigen, libepoxy, fftw, gtest, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  SDL2,
+  eigen,
+  libepoxy,
+  fftw,
+  gtest,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "movit";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, qtbase, qmake, qca-qt5 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qtbase,
+  qmake,
+  qca-qt5,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qoauth";

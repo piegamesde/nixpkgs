@@ -1,4 +1,9 @@
-{ buildPythonPackage, lib, fetchPypi, xstatic-jquery }:
+{
+  buildPythonPackage,
+  lib,
+  fetchPypi,
+  xstatic-jquery,
+}:
 
 buildPythonPackage rec {
   pname = "XStatic-jQuery-File-Upload";

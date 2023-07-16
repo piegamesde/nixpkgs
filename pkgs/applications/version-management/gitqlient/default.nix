@@ -1,4 +1,11 @@
-{ lib, mkDerivation, fetchFromGitHub, qmake, qtwebengine, gitUpdater }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  qmake,
+  qtwebengine,
+  gitUpdater,
+}:
 
 mkDerivation rec {
   pname = "gitqlient";

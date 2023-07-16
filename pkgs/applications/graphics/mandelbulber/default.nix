@@ -1,6 +1,19 @@
-{ lib, mkDerivation, fetchFromGitHub, libpng, gsl, libsndfile, lzo, qmake
-, qttools, qtbase, qtmultimedia, withOpenCL ? true, opencl-clhpp ? null
-, ocl-icd ? null }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  libpng,
+  gsl,
+  libsndfile,
+  lzo,
+  qmake,
+  qttools,
+  qtbase,
+  qtmultimedia,
+  withOpenCL ? true,
+  opencl-clhpp ? null,
+  ocl-icd ? null
+}:
 
 assert withOpenCL -> opencl-clhpp != null;
 assert withOpenCL -> ocl-icd != null;

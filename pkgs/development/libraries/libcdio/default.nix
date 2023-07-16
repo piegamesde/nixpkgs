@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, fetchpatch, libcddb, pkg-config, ncurses, help2man
-, libiconv, Carbon, IOKit }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  libcddb,
+  pkg-config,
+  ncurses,
+  help2man,
+  libiconv,
+  Carbon,
+  IOKit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libcdio";

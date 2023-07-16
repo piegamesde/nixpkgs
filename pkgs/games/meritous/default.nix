@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitLab, SDL, SDL_image, SDL_mixer, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  SDL,
+  SDL_image,
+  SDL_mixer,
+  zlib,
+}:
 
 stdenv.mkDerivation {
   pname = "meritous";

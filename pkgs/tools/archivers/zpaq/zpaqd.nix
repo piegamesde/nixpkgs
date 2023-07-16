@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, unzip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+}:
 
 let
   compileFlags = lib.concatStringsSep " " ([ "-O3" "-DNDEBUG" ]

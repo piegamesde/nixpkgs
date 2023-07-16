@@ -1,7 +1,24 @@
-{ stdenv, lib, buildPythonPackage, buildPythonApplication, fetchFromGitHub
-, pkg-config, cmake, setuptools, libsamplerate, fftwFloat, rtl-sdr
-, soapysdr-with-plugins, csdr, pycsdr, pydigiham, direwolf, sox, wsjtx
-, codecserver }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  buildPythonApplication,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  setuptools,
+  libsamplerate,
+  fftwFloat,
+  rtl-sdr,
+  soapysdr-with-plugins,
+  csdr,
+  pycsdr,
+  pydigiham,
+  direwolf,
+  sox,
+  wsjtx,
+  codecserver,
+}:
 
 let
 

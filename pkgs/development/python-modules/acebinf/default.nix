@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, pyvcf }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pyvcf,
+}:
 
 buildPythonPackage rec {
   pname = "ACEBinf";

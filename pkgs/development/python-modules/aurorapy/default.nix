@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitLab, future, pyserial, pytestCheckHook
-, pythonOlder, setuptools, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitLab,
+  future,
+  pyserial,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "aurorapy";

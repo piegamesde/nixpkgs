@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, fetchFromGitHub, mock, psutil, six, future
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchFromGitHub,
+  mock,
+  psutil,
+  six,
+  future,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pylink-square";

@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, ocaml, findlib, piqi, stdlib-shims
-, num }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  ocaml,
+  findlib,
+  piqi,
+  stdlib-shims,
+  num,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.7.8";

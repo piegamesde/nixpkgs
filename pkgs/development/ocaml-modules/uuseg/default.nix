@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, ocaml, findlib, ocamlbuild, topkg, uucp, uutf, cmdliner
-, cmdlinerSupport ? lib.versionAtLeast cmdliner.version "1.1" }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  topkg,
+  uucp,
+  uutf,
+  cmdliner,
+  cmdlinerSupport ? lib.versionAtLeast cmdliner.version "1.1"
+}:
 
 let
   pname = "uuseg";

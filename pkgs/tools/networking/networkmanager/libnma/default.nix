@@ -1,8 +1,32 @@
-{ stdenv, fetchurl, meson, mesonEmulatorHook, ninja, gettext, gtk-doc
-, pkg-config, vala, networkmanager, gnome, isocodes, libxml2, docbook_xsl
-, docbook_xml_dtd_43, mobile-broadband-provider-info, gobject-introspection
-, gtk3, withGtk4 ? false, gtk4, withGnome ? true, gcr_4, glib, substituteAll
-, lib, _experimental-update-script-combinators, makeHardcodeGsettingsPatch }:
+{
+  stdenv,
+  fetchurl,
+  meson,
+  mesonEmulatorHook,
+  ninja,
+  gettext,
+  gtk-doc,
+  pkg-config,
+  vala,
+  networkmanager,
+  gnome,
+  isocodes,
+  libxml2,
+  docbook_xsl,
+  docbook_xml_dtd_43,
+  mobile-broadband-provider-info,
+  gobject-introspection,
+  gtk3,
+  withGtk4 ? false,
+  gtk4,
+  withGnome ? true,
+  gcr_4,
+  glib,
+  substituteAll,
+  lib,
+  _experimental-update-script-combinators,
+  makeHardcodeGsettingsPatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libnma";

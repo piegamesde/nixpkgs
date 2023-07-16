@@ -1,11 +1,24 @@
-{ callPackage, fetchzip, dart, lib, stdenv }:
+{
+  callPackage,
+  fetchzip,
+  dart,
+  lib,
+  stdenv,
+}:
 let
   mkCustomFlutter = args: callPackage ./flutter.nix args;
   wrapFlutter = flutter: callPackage ./wrapper.nix { inherit flutter; };
   getPatches = dir:
     let files = builtins.attrNames (builtins.readDir dir);
     in map (f: dir + ("/" + f)) files;
-  mkFlutter = { version, engineVersion, dartVersion, hash, dartHash, patches }:
+  mkFlutter = {
+      version,
+      engineVersion,
+      dartVersion,
+      hash,
+      dartHash,
+      patches,
+    }:
     let
       args = {
         inherit version engineVersion patches;

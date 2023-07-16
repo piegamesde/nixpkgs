@@ -1,7 +1,26 @@
-{ lib, stdenv, fetchurl, bzip2, freetype, graphviz, ghostscript, libjpeg, libpng
-, libtiff, libxml2, zlib, libtool, xz, libX11, libwebp, quantumdepth ? 8
-, fixDarwinDylibNames, nukeReferences, runCommand
-, graphicsmagick # for passthru.tests
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bzip2,
+  freetype,
+  graphviz,
+  ghostscript,
+  libjpeg,
+  libpng,
+  libtiff,
+  libxml2,
+  zlib,
+  libtool,
+  xz,
+  libX11,
+  libwebp,
+  quantumdepth ? 8,
+  fixDarwinDylibNames,
+  nukeReferences,
+  runCommand,
+  graphicsmagick # for passthru.tests
+  ,
 }:
 
 stdenv.mkDerivation rec {

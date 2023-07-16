@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, alsa-lib, fixDarwinDylibNames }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  alsa-lib,
+  fixDarwinDylibNames,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sndio";

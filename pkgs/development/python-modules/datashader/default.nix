@@ -1,6 +1,28 @@
-{ lib, buildPythonPackage, fetchPypi, dask, bokeh, toolz, datashape, numba
-, numpy, pandas, pillow, xarray, colorcet, param, pyct, scipy, pytestCheckHook
-, pythonOlder, nbsmoke, fastparquet, nbconvert, pytest-xdist, netcdf4 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  dask,
+  bokeh,
+  toolz,
+  datashape,
+  numba,
+  numpy,
+  pandas,
+  pillow,
+  xarray,
+  colorcet,
+  param,
+  pyct,
+  scipy,
+  pytestCheckHook,
+  pythonOlder,
+  nbsmoke,
+  fastparquet,
+  nbconvert,
+  pytest-xdist,
+  netcdf4,
+}:
 
 buildPythonPackage rec {
   pname = "datashader";

@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchpatch, fetchPypi, docutils, mistune, pygments }:
+{
+  lib,
+  buildPythonPackage,
+  fetchpatch,
+  fetchPypi,
+  docutils,
+  mistune,
+  pygments,
+}:
 
 buildPythonPackage rec {
   pname = "m2r";

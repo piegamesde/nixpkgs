@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchFromSourcehut, pkg-config, zig, makeWrapper, busybox, curl
-, SDL2, SDL2_gfx, SDL2_image, SDL2_ttf, findutils, jq, ncurses, gnome, xorg
-, util-linux, gpsd, geoclue2-with-demo-agent }:
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  pkg-config,
+  zig,
+  makeWrapper,
+  busybox,
+  curl,
+  SDL2,
+  SDL2_gfx,
+  SDL2_image,
+  SDL2_ttf,
+  findutils,
+  jq,
+  ncurses,
+  gnome,
+  xorg,
+  util-linux,
+  gpsd,
+  geoclue2-with-demo-agent,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mepo";

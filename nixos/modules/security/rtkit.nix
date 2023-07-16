@@ -1,7 +1,12 @@
 # A module for ‘rtkit’, a DBus system service that hands out realtime
 # scheduling priority to processes that ask for it.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

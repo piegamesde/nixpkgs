@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, cmake, perl, wrapGAppsHook, wrapQtAppsHook
-, qtbase, qtcharts, qtpositioning, qtmultimedia, qtserialport, qttranslations
-, qtwayland, qtwebengine, calcmysky, qxlsx, indilib, libnova }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  perl,
+  wrapGAppsHook,
+  wrapQtAppsHook,
+  qtbase,
+  qtcharts,
+  qtpositioning,
+  qtmultimedia,
+  qtserialport,
+  qttranslations,
+  qtwayland,
+  qtwebengine,
+  calcmysky,
+  qxlsx,
+  indilib,
+  libnova,
+}:
 
 stdenv.mkDerivation rec {
   pname = "stellarium";

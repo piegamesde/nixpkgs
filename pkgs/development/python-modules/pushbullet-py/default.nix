@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, requests, websocket-client, python-magic
-, cryptography, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+  websocket-client,
+  python-magic,
+  cryptography,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pushbullet-py";

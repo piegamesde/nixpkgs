@@ -1,6 +1,23 @@
-{ stdenv, lib, fetchurl, gnumake, libnetfilter_acct, libnetfilter_conntrack
-, libnetfilter_log, libmnl, libnfnetlink, automake, autoconf, autogen, libtool
-, pkg-config, libpcap, linuxdoc-tools, autoreconfHook, nixosTests }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  gnumake,
+  libnetfilter_acct,
+  libnetfilter_conntrack,
+  libnetfilter_log,
+  libmnl,
+  libnfnetlink,
+  automake,
+  autoconf,
+  autogen,
+  libtool,
+  pkg-config,
+  libpcap,
+  linuxdoc-tools,
+  autoreconfHook,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   version = "2.0.8";

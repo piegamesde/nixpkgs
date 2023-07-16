@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -23,94 +28,97 @@ let
       Deny-IP=${concatStringsSep " " cfg.deniedIPRanges}
     '';
 
-  nylonOpts = { name, ... }: {
+  nylonOpts = {
+      name,
+      ...
+    }: {
 
-    options = {
+      options = {
 
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = lib.mdDoc ''
-          Enables nylon as a running service upon activation.
-        '';
+        enable = mkOption {
+          type = types.bool;
+          default = false;
+          description = lib.mdDoc ''
+            Enables nylon as a running service upon activation.
+          '';
+        };
+
+        name = mkOption {
+          type = types.str;
+          default = "";
+          description = lib.mdDoc "The name of this nylon instance.";
+        };
+
+        nrConnections = mkOption {
+          type = types.int;
+          default = 10;
+          description = lib.mdDoc ''
+            The number of allowed simultaneous connections to the daemon, default 10.
+          '';
+        };
+
+        logging = mkOption {
+          type = types.bool;
+          default = false;
+          description = lib.mdDoc ''
+            Enable logging, default is no logging.
+          '';
+        };
+
+        verbosity = mkOption {
+          type = types.bool;
+          default = false;
+          description = lib.mdDoc ''
+            Enable verbose output, default is to not be verbose.
+          '';
+        };
+
+        acceptInterface = mkOption {
+          type = types.str;
+          default = "lo";
+          description = lib.mdDoc ''
+            Tell nylon which interface to listen for client requests on, default is "lo".
+          '';
+        };
+
+        bindInterface = mkOption {
+          type = types.str;
+          default = "enp3s0f0";
+          description = lib.mdDoc ''
+            Tell nylon which interface to use as an uplink, default is "enp3s0f0".
+          '';
+        };
+
+        port = mkOption {
+          type = types.port;
+          default = 1080;
+          description = lib.mdDoc ''
+            What port to listen for client requests, default is 1080.
+          '';
+        };
+
+        allowedIPRanges = mkOption {
+          type = with types; listOf str;
+          default =
+            [ "192.168.0.0/16" "127.0.0.1/8" "172.16.0.1/12" "10.0.0.0/8" ];
+          description = lib.mdDoc ''
+            Allowed client IP ranges are evaluated first, defaults to ARIN IPv4 private ranges:
+              [ "192.168.0.0/16" "127.0.0.0/8" "172.16.0.0/12" "10.0.0.0/8" ]
+          '';
+        };
+
+        deniedIPRanges = mkOption {
+          type = with types; listOf str;
+          default = [ "0.0.0.0/0" ];
+          description = lib.mdDoc ''
+            Denied client IP ranges, these gets evaluated after the allowed IP ranges, defaults to all IPv4 addresses:
+              [ "0.0.0.0/0" ]
+            To block all other access than the allowed.
+          '';
+        };
       };
-
-      name = mkOption {
-        type = types.str;
-        default = "";
-        description = lib.mdDoc "The name of this nylon instance.";
-      };
-
-      nrConnections = mkOption {
-        type = types.int;
-        default = 10;
-        description = lib.mdDoc ''
-          The number of allowed simultaneous connections to the daemon, default 10.
-        '';
-      };
-
-      logging = mkOption {
-        type = types.bool;
-        default = false;
-        description = lib.mdDoc ''
-          Enable logging, default is no logging.
-        '';
-      };
-
-      verbosity = mkOption {
-        type = types.bool;
-        default = false;
-        description = lib.mdDoc ''
-          Enable verbose output, default is to not be verbose.
-        '';
-      };
-
-      acceptInterface = mkOption {
-        type = types.str;
-        default = "lo";
-        description = lib.mdDoc ''
-          Tell nylon which interface to listen for client requests on, default is "lo".
-        '';
-      };
-
-      bindInterface = mkOption {
-        type = types.str;
-        default = "enp3s0f0";
-        description = lib.mdDoc ''
-          Tell nylon which interface to use as an uplink, default is "enp3s0f0".
-        '';
-      };
-
-      port = mkOption {
-        type = types.port;
-        default = 1080;
-        description = lib.mdDoc ''
-          What port to listen for client requests, default is 1080.
-        '';
-      };
-
-      allowedIPRanges = mkOption {
-        type = with types; listOf str;
-        default =
-          [ "192.168.0.0/16" "127.0.0.1/8" "172.16.0.1/12" "10.0.0.0/8" ];
-        description = lib.mdDoc ''
-          Allowed client IP ranges are evaluated first, defaults to ARIN IPv4 private ranges:
-            [ "192.168.0.0/16" "127.0.0.0/8" "172.16.0.0/12" "10.0.0.0/8" ]
-        '';
-      };
-
-      deniedIPRanges = mkOption {
-        type = with types; listOf str;
-        default = [ "0.0.0.0/0" ];
-        description = lib.mdDoc ''
-          Denied client IP ranges, these gets evaluated after the allowed IP ranges, defaults to all IPv4 addresses:
-            [ "0.0.0.0/0" ]
-          To block all other access than the allowed.
-        '';
-      };
+      config = { name = mkDefault name; };
     };
-    config = { name = mkDefault name; };
-  };
 
   mkNamedNylon = cfg: {
     "nylon-${cfg.name}" = {

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libevdev, udev, acl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libevdev,
+  udev,
+  acl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "joycond";

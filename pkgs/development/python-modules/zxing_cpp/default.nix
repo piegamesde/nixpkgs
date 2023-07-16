@@ -1,4 +1,12 @@
-{ buildPythonPackage, lib, cmake, pybind11, zxing-cpp, numpy, pillow }:
+{
+  buildPythonPackage,
+  lib,
+  cmake,
+  pybind11,
+  zxing-cpp,
+  numpy,
+  pillow,
+}:
 
 buildPythonPackage rec {
   pname = "zxing_cpp";

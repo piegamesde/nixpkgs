@@ -1,5 +1,15 @@
-{ lib, aiohttp, aioresponses, buildPythonPackage, fetchFromGitHub
-, pytest-aiohttp, poetry-core, pytest-asyncio, pytest-cov, pytestCheckHook }:
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-aiohttp,
+  poetry-core,
+  pytest-asyncio,
+  pytest-cov,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pyairnow";

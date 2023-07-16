@@ -1,13 +1,22 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder
 
-# build-system
-, poetry-core
+  # build-system
+  ,
+  poetry-core
 
-# propagates
-, quart, typing-extensions
+  # propagates
+  ,
+  quart,
+  typing-extensions
 
-# tests
-, pytestCheckHook }:
+  # tests
+  ,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "quart-cors";

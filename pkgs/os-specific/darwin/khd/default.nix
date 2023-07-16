@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, Carbon, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  Carbon,
+  Cocoa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "khd";

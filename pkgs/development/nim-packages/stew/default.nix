@@ -1,4 +1,9 @@
-{ lib, buildNimPackage, fetchFromGitHub, snappy }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitHub,
+  snappy,
+}:
 
 buildNimPackage rec {
   pname = "stew";

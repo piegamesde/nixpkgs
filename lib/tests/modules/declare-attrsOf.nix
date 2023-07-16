@@ -1,4 +1,7 @@
-{ lib, ... }:
+{
+  lib,
+  ...
+}:
 let
   deathtrapArgs = lib.mapAttrs (k: _:
     throw

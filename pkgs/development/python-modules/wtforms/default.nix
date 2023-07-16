@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, markupsafe, babel, pytestCheckHook
-, email-validator, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  markupsafe,
+  babel,
+  pytestCheckHook,
+  email-validator,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "wtforms";

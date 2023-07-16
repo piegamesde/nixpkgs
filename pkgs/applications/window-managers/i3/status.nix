@@ -1,5 +1,21 @@
-{ fetchurl, lib, stdenv, libconfuse, yajl, alsa-lib, libpulseaudio, libnl, meson
-, ninja, perl, pkg-config, asciidoc, xmlto, docbook_xml_dtd_45, docbook_xsl }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  libconfuse,
+  yajl,
+  alsa-lib,
+  libpulseaudio,
+  libnl,
+  meson,
+  ninja,
+  perl,
+  pkg-config,
+  asciidoc,
+  xmlto,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "i3status";

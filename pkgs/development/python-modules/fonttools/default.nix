@@ -1,6 +1,27 @@
-{ lib, stdenv, buildPythonPackage, pythonOlder, isPyPy, fetchFromGitHub
-, setuptools-scm, fs, lxml, brotli, brotlicffi, zopfli, unicodedata2, lz4, scipy
-, munkres, matplotlib, sympy, xattr, skia-pathops, uharfbuzz, pytestCheckHook }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  isPyPy,
+  fetchFromGitHub,
+  setuptools-scm,
+  fs,
+  lxml,
+  brotli,
+  brotlicffi,
+  zopfli,
+  unicodedata2,
+  lz4,
+  scipy,
+  munkres,
+  matplotlib,
+  sympy,
+  xattr,
+  skia-pathops,
+  uharfbuzz,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "fonttools";

@@ -1,9 +1,20 @@
-{ stdenv, lib, fetchurl, SDL, dwarf-fortress-unfuck
+{
+  stdenv,
+  lib,
+  fetchurl,
+  SDL,
+  dwarf-fortress-unfuck
 
-# Our own "unfuck" libs for macOS
-, ncurses, fmodex, gcc
+  # Our own "unfuck" libs for macOS
+  ,
+  ncurses,
+  fmodex,
+  gcc
 
-, dfVersion, df-hashes }:
+  ,
+  dfVersion,
+  df-hashes,
+}:
 
 with lib;
 

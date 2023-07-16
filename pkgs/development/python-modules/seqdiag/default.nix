@@ -1,5 +1,13 @@
-{ lib, blockdiag, buildPythonPackage, fetchFromGitHub, nose, pytestCheckHook
-, pythonOlder, setuptools }:
+{
+  lib,
+  blockdiag,
+  buildPythonPackage,
+  fetchFromGitHub,
+  nose,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "seqdiag";

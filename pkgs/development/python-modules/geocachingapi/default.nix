@@ -1,5 +1,13 @@
-{ lib, aiohttp, backoff, buildPythonPackage, fetchFromGitHub, pythonOlder
-, setuptools-scm, yarl }:
+{
+  lib,
+  aiohttp,
+  backoff,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  setuptools-scm,
+  yarl,
+}:
 
 buildPythonPackage rec {
   pname = "geocachingapi";

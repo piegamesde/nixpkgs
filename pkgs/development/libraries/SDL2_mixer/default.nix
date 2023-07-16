@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchurl, pkg-config, AudioToolbox, AudioUnit, CoreServices, SDL2
-, flac, fluidsynth, libmodplug, libogg, libvorbis, mpg123, opusfile, smpeg2
-, timidity }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  AudioToolbox,
+  AudioUnit,
+  CoreServices,
+  SDL2,
+  flac,
+  fluidsynth,
+  libmodplug,
+  libogg,
+  libvorbis,
+  mpg123,
+  opusfile,
+  smpeg2,
+  timidity,
+}:
 
 stdenv.mkDerivation rec {
   pname = "SDL2_mixer";

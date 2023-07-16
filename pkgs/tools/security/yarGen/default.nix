@@ -1,4 +1,9 @@
-{ lib, python3, fetchFromGitHub, fetchpatch }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  fetchpatch,
+}:
 python3.pkgs.buildPythonApplication rec {
   pname = "yarGen";
   version = "0.23.4";

@@ -1,6 +1,19 @@
-{ lib, stdenv, buildPythonPackage, pythonOlder, fetchPypi, substituteAll
-, imageio-ffmpeg, numpy, pillow, psutil, pytestCheckHook, tifffile, fsspec
-, libGL }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  substituteAll,
+  imageio-ffmpeg,
+  numpy,
+  pillow,
+  psutil,
+  pytestCheckHook,
+  tifffile,
+  fsspec,
+  libGL,
+}:
 
 buildPythonPackage rec {
   pname = "imageio";

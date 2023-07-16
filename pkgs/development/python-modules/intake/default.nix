@@ -1,7 +1,29 @@
-{ lib, appdirs, bokeh, buildPythonPackage, dask, entrypoints, fetchFromGitHub
-, fsspec, hvplot, intake-parquet, jinja2, msgpack, msgpack-numpy, numpy, pandas
-, panel, pyarrow, pytestCheckHook, python-snappy, pythonOlder, pyyaml, requests
-, stdenv, tornado }:
+{
+  lib,
+  appdirs,
+  bokeh,
+  buildPythonPackage,
+  dask,
+  entrypoints,
+  fetchFromGitHub,
+  fsspec,
+  hvplot,
+  intake-parquet,
+  jinja2,
+  msgpack,
+  msgpack-numpy,
+  numpy,
+  pandas,
+  panel,
+  pyarrow,
+  pytestCheckHook,
+  python-snappy,
+  pythonOlder,
+  pyyaml,
+  requests,
+  stdenv,
+  tornado,
+}:
 
 buildPythonPackage rec {
   pname = "intake";

@@ -1,6 +1,9 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../../.. { inherit system config; }
-, kernelVersionsToTest ? [ "5.4" "latest" ] }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../../.. { inherit system config; },
+  kernelVersionsToTest ? [ "5.4" "latest" ]
+}:
 
 with pkgs.lib;
 

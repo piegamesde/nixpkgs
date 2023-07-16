@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook, bokeh
-, ipython, matplotlib, numpy, nbconvert, nbformat }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  bokeh,
+  ipython,
+  matplotlib,
+  numpy,
+  nbconvert,
+  nbformat,
+}:
 
 buildPythonPackage rec {
   pname = "livelossplot";

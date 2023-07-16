@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, addOpenGLRunpath, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  addOpenGLRunpath,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "level-zero";

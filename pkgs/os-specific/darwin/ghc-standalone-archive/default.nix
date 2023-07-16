@@ -1,5 +1,13 @@
-{ runCommand, cctools }:
-{ haskellPackages, src, deps ? p: [ ], name }:
+{
+  runCommand,
+  cctools,
+}:
+{
+  haskellPackages,
+  src,
+  deps ? p: [ ],
+  name,
+}:
 let
   inherit (haskellPackages) ghc ghcWithPackages;
   with-env = ghcWithPackages deps;

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pillow, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pillow,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "svg.path";

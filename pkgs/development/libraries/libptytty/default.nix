@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchurl, cmake }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  cmake,
+}:
 
 let
   isCross = !stdenv.buildPlatform.canExecute stdenv.hostPlatform;

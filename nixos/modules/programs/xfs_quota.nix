@@ -1,6 +1,11 @@
 # Configuration for the xfs_quota command
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

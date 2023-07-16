@@ -1,4 +1,13 @@
-{ callPackage, lib, pkgs, runCommand, concatText, writeText, hello, emptyFile }:
+{
+  callPackage,
+  lib,
+  pkgs,
+  runCommand,
+  concatText,
+  writeText,
+  hello,
+  emptyFile,
+}:
 let
   stri = writeText "pathToTest";
   txt1 = stri "abc";

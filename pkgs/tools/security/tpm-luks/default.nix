@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, gawk, trousers, cryptsetup
-, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  gawk,
+  trousers,
+  cryptsetup,
+  openssl,
+}:
 
 stdenv.mkDerivation {
   pname = "tpm-luks";

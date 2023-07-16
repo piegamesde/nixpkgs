@@ -1,16 +1,30 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy27, pythonAtLeast, poetry-core
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy27,
+  pythonAtLeast,
+  poetry-core
 
-# propagates
-, pylev, pastel
+  # propagates
+  ,
+  pylev,
+  pastel
 
-# python36+
-, crashtest
+  # python36+
+  ,
+  crashtest
 
-# python2
-, typing, enum34
+  # python2
+  ,
+  typing,
+  enum34
 
-# tests
-, pytest-mock, pytestCheckHook }:
+  # tests
+  ,
+  pytest-mock,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "clikit";

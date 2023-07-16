@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, stdenv, bitlbee, autoconf, automake, libtool, pkg-config
-, libgcrypt }:
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  bitlbee,
+  autoconf,
+  automake,
+  libtool,
+  pkg-config,
+  libgcrypt,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.4.2";

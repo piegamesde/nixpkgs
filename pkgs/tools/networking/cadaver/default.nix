@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, neon, pkg-config, zlib, openssl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  neon,
+  pkg-config,
+  zlib,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cadaver";

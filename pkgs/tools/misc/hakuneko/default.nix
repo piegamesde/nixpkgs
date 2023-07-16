@@ -1,5 +1,15 @@
-{ atomEnv, autoPatchelfHook, dpkg, fetchurl, makeDesktopItem, makeWrapper, udev
-, stdenv, lib, wrapGAppsHook }:
+{
+  atomEnv,
+  autoPatchelfHook,
+  dpkg,
+  fetchurl,
+  makeDesktopItem,
+  makeWrapper,
+  udev,
+  stdenv,
+  lib,
+  wrapGAppsHook,
+}:
 let
   desktopItem = makeDesktopItem {
     desktopName = "HakuNeko Desktop";

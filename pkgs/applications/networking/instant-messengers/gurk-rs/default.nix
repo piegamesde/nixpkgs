@@ -1,4 +1,11 @@
-{ stdenv, lib, protobuf, rustPlatform, fetchFromGitHub, Cocoa }:
+{
+  stdenv,
+  lib,
+  protobuf,
+  rustPlatform,
+  fetchFromGitHub,
+  Cocoa,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "gurk-rs";

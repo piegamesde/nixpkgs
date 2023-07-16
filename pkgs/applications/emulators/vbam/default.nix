@@ -1,5 +1,23 @@
-{ lib, stdenv, cairo, cmake, fetchFromGitHub, fetchpatch, ffmpeg, gettext
-, wxGTK32, gtk3, libGLU, libGL, openal, pkg-config, SDL2, sfml, zip, zlib }:
+{
+  lib,
+  stdenv,
+  cairo,
+  cmake,
+  fetchFromGitHub,
+  fetchpatch,
+  ffmpeg,
+  gettext,
+  wxGTK32,
+  gtk3,
+  libGLU,
+  libGL,
+  openal,
+  pkg-config,
+  SDL2,
+  sfml,
+  zip,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "visualboyadvance-m";

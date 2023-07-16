@@ -1,7 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, libedit, zlib, ncurses, expect
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libedit,
+  zlib,
+  ncurses,
+  expect
 
-# darwin only below
-, Accelerate, CoreGraphics, CoreVideo }:
+  # darwin only below
+  ,
+  Accelerate,
+  CoreGraphics,
+  CoreVideo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kerf";

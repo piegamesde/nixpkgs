@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, poetry
-, safety, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  poetry,
+  safety,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "poetry-audit-plugin";

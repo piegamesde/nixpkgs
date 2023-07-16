@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, mock, fetchpatch, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  fetchpatch,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "contexttimer";

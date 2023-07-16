@@ -1,6 +1,24 @@
-{ stdenv, lib, autoPatchelfHook, fetchzip, xz, ncurses5, readline, gmp, mpfr
-, expat, libipt, zlib, dejagnu, sourceHighlight, python3, elfutils, guile, glibc
-, majorVersion }:
+{
+  stdenv,
+  lib,
+  autoPatchelfHook,
+  fetchzip,
+  xz,
+  ncurses5,
+  readline,
+  gmp,
+  mpfr,
+  expat,
+  libipt,
+  zlib,
+  dejagnu,
+  sourceHighlight,
+  python3,
+  elfutils,
+  guile,
+  glibc,
+  majorVersion,
+}:
 
 let
   throwUnsupportedSystem =

@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, buildGo120Package }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildGo120Package,
+}:
 
 buildGo120Package rec {
   pname = "ssm-session-manager-plugin";

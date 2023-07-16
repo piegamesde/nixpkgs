@@ -1,5 +1,17 @@
-{ lib, stdenv, makeWrapper, makeDesktopItem, copyDesktopItems, fetchFromGitHub
-, sfml, anttweakbar, glm, eigen, glew, cmake }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  fetchFromGitHub,
+  sfml,
+  anttweakbar,
+  glm,
+  eigen,
+  glew,
+  cmake,
+}:
 stdenv.mkDerivation rec {
   pname = "marble-marcher-ce";
   version = "1.4.5";

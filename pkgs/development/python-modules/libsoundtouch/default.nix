@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, enum-compat, requests
-, websocket-client, zeroconf, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  enum-compat,
+  requests,
+  websocket-client,
+  zeroconf,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "libsoundtouch";

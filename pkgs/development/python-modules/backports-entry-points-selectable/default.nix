@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools-scm
-, importlib-metadata }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools-scm,
+  importlib-metadata,
+}:
 
 buildPythonPackage rec {
   pname = "backports-entry-points-selectable";

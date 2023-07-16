@@ -1,7 +1,36 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, copyDesktopItems, makeDesktopItem
-, qmake, qtbase, qtxmlpatterns, qttools, qtwebengine, libGL, fontconfig, openssl
-, poppler, wrapQtAppsHook, ffmpeg, libva, alsa-lib, SDL, x264, libvpx, libvorbis
-, libtheora, libogg, libopus, lame, fdk_aac, libass, quazip, libXext, libXfixes
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  copyDesktopItems,
+  makeDesktopItem,
+  qmake,
+  qtbase,
+  qtxmlpatterns,
+  qttools,
+  qtwebengine,
+  libGL,
+  fontconfig,
+  openssl,
+  poppler,
+  wrapQtAppsHook,
+  ffmpeg,
+  libva,
+  alsa-lib,
+  SDL,
+  x264,
+  libvpx,
+  libvorbis,
+  libtheora,
+  libogg,
+  libopus,
+  lame,
+  fdk_aac,
+  libass,
+  quazip,
+  libXext,
+  libXfixes,
 }:
 
 let

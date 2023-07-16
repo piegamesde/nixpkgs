@@ -1,6 +1,14 @@
-{ lib, stdenv, hostPlatform, engineVersion, fetchzip, autoPatchelfHook
+{
+  lib,
+  stdenv,
+  hostPlatform,
+  engineVersion,
+  fetchzip,
+  autoPatchelfHook
 
-, gtk3 }:
+  ,
+  gtk3,
+}:
 
 let
   hashes = (import ./hashes.nix).${engineVersion} or (throw
@@ -62,7 +70,12 @@ let
     };
   };
 
-  mkArtifactDerivation = { platform ? null, variant ? null, archive, ... }@args:
+  mkArtifactDerivation = {
+      platform ? null,
+      variant ? null,
+      archive,
+      ...
+    }@args:
     let
       artifactDirectory = if platform == null then
         null

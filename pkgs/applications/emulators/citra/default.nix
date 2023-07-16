@@ -1,4 +1,9 @@
-{ branch, libsForQt5, fetchFromGitHub, fetchurl }:
+{
+  branch,
+  libsForQt5,
+  fetchFromGitHub,
+  fetchurl,
+}:
 
 let
   # Fetched from https://api.citra-emu.org/gamedb, last updated 2022-05-02

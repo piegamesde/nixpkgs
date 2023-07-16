@@ -1,4 +1,10 @@
-{ lib, nimPackages, fetchFromGitHub, srcOnly, nim }:
+{
+  lib,
+  nimPackages,
+  fetchFromGitHub,
+  srcOnly,
+  nim,
+}:
 
 nimPackages.buildNimPackage rec {
   pname = "nimlsp";

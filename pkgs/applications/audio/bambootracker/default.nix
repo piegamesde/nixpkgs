@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, qmake, qt5compat ? null, qtbase
-, qttools, rtaudio, rtmidi, wrapQtAppsHook }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  qmake,
+  qt5compat ? null,
+  qtbase,
+  qttools,
+  rtaudio,
+  rtmidi,
+  wrapQtAppsHook,
+}:
 
 assert lib.versionAtLeast qtbase.version "6.0" -> qt5compat != null;
 

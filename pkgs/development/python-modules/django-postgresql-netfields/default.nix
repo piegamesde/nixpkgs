@@ -1,7 +1,15 @@
-{ lib, buildPythonPackage, django, netaddr, six, fetchFromGitHub, pythonOlder
-# required for tests
-#, djangorestframework
-#, psycopg2
+{
+  lib,
+  buildPythonPackage,
+  django,
+  netaddr,
+  six,
+  fetchFromGitHub,
+  pythonOlder
+  # required for tests
+  #, djangorestframework
+  #, psycopg2
+  ,
 }:
 
 buildPythonPackage rec {

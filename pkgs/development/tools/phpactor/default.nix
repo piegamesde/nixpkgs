@@ -1,4 +1,10 @@
-{ lib, stdenvNoCC, fetchFromGitHub, php, phpPackages }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  php,
+  phpPackages,
+}:
 
 let
   version = "2023.01.21";

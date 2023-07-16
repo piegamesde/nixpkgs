@@ -1,5 +1,16 @@
-{ lib, stdenv, buildPythonPackage, fastnumbers, fetchFromGitHub, hypothesis
-, numpy, pytestCheckHook, pythonOlder, setuptools, typing-extensions }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fastnumbers,
+  fetchFromGitHub,
+  hypothesis,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "fastnumbers";

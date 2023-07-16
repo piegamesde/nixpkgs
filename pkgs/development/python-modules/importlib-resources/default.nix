@@ -1,5 +1,14 @@
-{ lib, isPy27, buildPythonPackage, fetchPypi, setuptools-scm, importlib-metadata
-, typing ? null, pythonOlder, unittestCheckHook }:
+{
+  lib,
+  isPy27,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  importlib-metadata,
+  typing ? null,
+  pythonOlder,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "importlib-resources";

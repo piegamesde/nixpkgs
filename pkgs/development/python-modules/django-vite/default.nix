@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, buildPythonPackage, django, pythonOlder }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  django,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "django-vite";

@@ -1,4 +1,9 @@
-import ./make-test-python.nix ({ lib, pkgs, system, ... }:
+import ./make-test-python.nix ({
+    lib,
+    pkgs,
+    system,
+    ...
+  }:
 
   let
     tpmSocketPath = "/tmp/swtpm-sock";
@@ -12,19 +17,22 @@ import ./make-test-python.nix ({ lib, pkgs, system, ... }:
 
     meta = { maintainers = with pkgs.lib.maintainers; [ tmarkus ]; };
 
-    nodes.machine = { pkgs, ... }: {
-      virtualisation = {
-        qemu.options = [
-          "-chardev socket,id=chrtpm,path=${tpmSocketPath}"
-          "-tpmdev emulator,id=tpm_dev_0,chardev=chrtpm"
-          "-device ${tpmDeviceModels.${system}},tpmdev=tpm_dev_0"
-        ];
+    nodes.machine = {
+        pkgs,
+        ...
+      }: {
+        virtualisation = {
+          qemu.options = [
+            "-chardev socket,id=chrtpm,path=${tpmSocketPath}"
+            "-tpmdev emulator,id=tpm_dev_0,chardev=chrtpm"
+            "-device ${tpmDeviceModels.${system}},tpmdev=tpm_dev_0"
+          ];
+        };
+
+        boot.initrd.availableKernelModules = [ "tpm_tis" ];
+
+        environment.systemPackages = with pkgs; [ diffutils ];
       };
-
-      boot.initrd.availableKernelModules = [ "tpm_tis" ];
-
-      environment.systemPackages = with pkgs; [ diffutils ];
-    };
 
     testScript = ''
       import subprocess

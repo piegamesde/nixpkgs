@@ -1,8 +1,17 @@
-{ buildOctavePackage, lib, fetchurl
-# Octave dependencies
-, linear-algebra, miscellaneous, struct, statistics
-# Runtime dependencies
-, freewrl }:
+{
+  buildOctavePackage,
+  lib,
+  fetchurl
+  # Octave dependencies
+  ,
+  linear-algebra,
+  miscellaneous,
+  struct,
+  statistics
+  # Runtime dependencies
+  ,
+  freewrl,
+}:
 
 buildOctavePackage rec {
   pname = "vrml";

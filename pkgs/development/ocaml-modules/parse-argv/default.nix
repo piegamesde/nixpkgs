@@ -1,4 +1,11 @@
-{ lib, fetchurl, buildDunePackage, ocaml, astring, ounit }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  ocaml,
+  astring,
+  ounit,
+}:
 
 buildDunePackage rec {
   pname = "parse-argv";

@@ -1,8 +1,25 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, pkg-config, cmake, zlib, dbus
-, networkmanager, enableJavaScript ? stdenv.isDarwin
-  || lib.meta.availableOn stdenv.hostPlatform duktape, duktape, pcre
-, gsettings-desktop-schemas, glib, makeWrapper, python3, SystemConfiguration
-, CoreFoundation, JavaScriptCore }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  cmake,
+  zlib,
+  dbus,
+  networkmanager,
+  enableJavaScript ? stdenv.isDarwin
+    || lib.meta.availableOn stdenv.hostPlatform duktape,
+  duktape,
+  pcre,
+  gsettings-desktop-schemas,
+  glib,
+  makeWrapper,
+  python3,
+  SystemConfiguration,
+  CoreFoundation,
+  JavaScriptCore,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libproxy";

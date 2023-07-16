@@ -1,11 +1,27 @@
-{ lib, stdenv, fetchFromGitHub, fetchsvn, pkg-config, scons, libGLU, libGL, SDL2
-, SDL2_image, libvorbis, bullet, curl, gettext, writeShellScriptBin
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchsvn,
+  pkg-config,
+  scons,
+  libGLU,
+  libGL,
+  SDL2,
+  SDL2_image,
+  libvorbis,
+  bullet,
+  curl,
+  gettext,
+  writeShellScriptBin
 
-, data ? fetchsvn {
-  url = "svn://svn.code.sf.net/p/vdrift/code/vdrift-data";
-  rev = "1446";
-  sha256 = "sha256-KEu49GAOfenPyuaUItt6W9pkuqUNpXgmTSFuc7ThljQ=";
-} }:
+  ,
+  data ? fetchsvn {
+    url = "svn://svn.code.sf.net/p/vdrift/code/vdrift-data";
+    rev = "1446";
+    sha256 = "sha256-KEu49GAOfenPyuaUItt6W9pkuqUNpXgmTSFuc7ThljQ=";
+  }
+}:
 let
   version = "unstable-2021-09-05";
   bin = stdenv.mkDerivation {

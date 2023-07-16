@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost, curl, leatherman }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  curl,
+  leatherman,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libwhereami";

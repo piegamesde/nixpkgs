@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, dpkg, autoPatchelfHook, makeWrapper, atk, ffmpeg
-, gdk-pixbuf, gtk3, libXtst }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dpkg,
+  autoPatchelfHook,
+  makeWrapper,
+  atk,
+  ffmpeg,
+  gdk-pixbuf,
+  gtk3,
+  libXtst,
+}:
 
 stdenv.mkDerivation rec {
   pname = "signumone-ks";

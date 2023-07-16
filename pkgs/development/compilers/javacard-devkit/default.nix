@@ -1,5 +1,13 @@
-{ lib, stdenv, requireFile, unzip, makeWrapper, oraclejdk8, autoPatchelfHook
-, pcsclite }:
+{
+  lib,
+  stdenv,
+  requireFile,
+  unzip,
+  makeWrapper,
+  oraclejdk8,
+  autoPatchelfHook,
+  pcsclite,
+}:
 
 stdenv.mkDerivation rec {
   pname = "javacard-devkit";

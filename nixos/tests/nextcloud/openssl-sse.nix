@@ -1,6 +1,13 @@
-args@{ pkgs, nextcloudVersion ? 25, ... }:
+args@{
+  pkgs,
+  nextcloudVersion ? 25,
+  ...
+}:
 
-(import ../make-test-python.nix ({ pkgs, ... }:
+(import ../make-test-python.nix ({
+    pkgs,
+    ...
+  }:
   let
     adminuser = "root";
     adminpass = "notproduction";
@@ -28,7 +35,10 @@ args@{ pkgs, nextcloudVersion ? 25, ... }:
         enableBrokenCiphersForSSE = false;
       };
     };
-    testScript = { nodes, ... }:
+    testScript = {
+        nodes,
+        ...
+      }:
       let
         withRcloneEnv = host:
           pkgs.writeScript "with-rclone-env" ''

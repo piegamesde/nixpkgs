@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, openjdk, libnotify, makeWrapper, tor, p7zip, bash
-, writeScript }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  openjdk,
+  libnotify,
+  makeWrapper,
+  tor,
+  p7zip,
+  bash,
+  writeScript,
+}:
 let
 
   briar-tor = writeScript "briar-tor" ''

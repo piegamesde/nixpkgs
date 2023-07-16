@@ -1,5 +1,18 @@
-{ stdenv, lib, fetchFromGitHub, unstableGitUpdater, pkg-config, glfw, libvgm
-, libX11, libXau, libXdmcp, Carbon, Cocoa, cppunit }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  unstableGitUpdater,
+  pkg-config,
+  glfw,
+  libvgm,
+  libX11,
+  libXau,
+  libXdmcp,
+  Carbon,
+  Cocoa,
+  cppunit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mmlgui";

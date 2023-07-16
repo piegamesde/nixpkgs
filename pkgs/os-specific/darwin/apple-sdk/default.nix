@@ -1,5 +1,15 @@
-{ stdenv, fetchurl, xar, cpio, pkgs, python3, pbzx, lib, darwin-stubs
-, print-reexports }:
+{
+  stdenv,
+  fetchurl,
+  xar,
+  cpio,
+  pkgs,
+  python3,
+  pbzx,
+  lib,
+  darwin-stubs,
+  print-reexports,
+}:
 
 let
   # sadly needs to be exported because security_tool needs it
@@ -190,7 +200,9 @@ let
     };
 
   tbdOnlyFramework = name:
-    { private ? true }:
+    {
+      private ? true
+    }:
     stdenv.mkDerivation {
       name = "apple-framework-${name}";
       dontUnpack = true;

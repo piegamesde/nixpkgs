@@ -1,9 +1,40 @@
-{ lib, mkDerivation, fetchFromGitHub, bison, cmake, doxygen, flex, git, python3
-, swig4, boost17x, cbc # for clp
-, cimg, clp # for or-tools
-, eigen, glpk, gtest, lcov, lemon-graph, libjpeg, or-tools, pcre, pkg-config
-, qtbase, re2 # for or-tools
-, readline, spdlog, tcl, tcllib, xorg, yosys, zlib }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  bison,
+  cmake,
+  doxygen,
+  flex,
+  git,
+  python3,
+  swig4,
+  boost17x,
+  cbc # for clp
+  ,
+  cimg,
+  clp # for or-tools
+  ,
+  eigen,
+  glpk,
+  gtest,
+  lcov,
+  lemon-graph,
+  libjpeg,
+  or-tools,
+  pcre,
+  pkg-config,
+  qtbase,
+  re2 # for or-tools
+  ,
+  readline,
+  spdlog,
+  tcl,
+  tcllib,
+  xorg,
+  yosys,
+  zlib,
+}:
 
 mkDerivation rec {
   pname = "openroad";

@@ -1,5 +1,13 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, iso4217, pytest-asyncio
-, pythonOlder, pytz }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  iso4217,
+  pytest-asyncio,
+  pythonOlder,
+  pytz,
+}:
 
 buildPythonPackage rec {
   pname = "pyefergy";

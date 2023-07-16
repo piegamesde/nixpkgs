@@ -1,5 +1,13 @@
-{ mkDerivation, extra-cmake-modules, kdoctools, karchive, kconfig, kcoreaddons
-, ki18n, qtbase, }:
+{
+  mkDerivation,
+  extra-cmake-modules,
+  kdoctools,
+  karchive,
+  kconfig,
+  kcoreaddons,
+  ki18n,
+  qtbase,
+}:
 
 mkDerivation {
   pname = "kpackage";

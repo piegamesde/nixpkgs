@@ -1,11 +1,25 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder
 
-# propagates
-, allpairspy, approval-utilities, beautifulsoup4, empty-files, mrjob, pyperclip
-, pytest, typing-extensions
+  # propagates
+  ,
+  allpairspy,
+  approval-utilities,
+  beautifulsoup4,
+  empty-files,
+  mrjob,
+  pyperclip,
+  pytest,
+  typing-extensions
 
-# tests
-, numpy, pytestCheckHook }:
+  # tests
+  ,
+  numpy,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   version = "8.2.5";

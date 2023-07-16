@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, coverage, fetchFromGitHub, flask, pytestCheckHook
-, python-socketio, pythonOlder, redis }:
+{
+  lib,
+  buildPythonPackage,
+  coverage,
+  fetchFromGitHub,
+  flask,
+  pytestCheckHook,
+  python-socketio,
+  pythonOlder,
+  redis,
+}:
 
 buildPythonPackage rec {
   pname = "Flask-SocketIO";

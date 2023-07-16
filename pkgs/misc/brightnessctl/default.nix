@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, systemd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  systemd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "brightnessctl";

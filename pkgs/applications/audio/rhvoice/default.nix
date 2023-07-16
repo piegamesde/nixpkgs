@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, ensureNewerSourcesForZipFilesHook, pkg-config
-, scons, glibmm, libpulseaudio, libao, speechd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ensureNewerSourcesForZipFilesHook,
+  pkg-config,
+  scons,
+  glibmm,
+  libpulseaudio,
+  libao,
+  speechd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rhvoice";

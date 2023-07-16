@@ -1,4 +1,12 @@
-{ lib, fetchurl, buildDunePackage, ocaml, decompress, stdlib-shims, alcotest }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  ocaml,
+  decompress,
+  stdlib-shims,
+  alcotest,
+}:
 
 buildDunePackage rec {
   minimalOCamlVersion = "4.08";

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, mock, pytestCheckHook, pyyaml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  pytestCheckHook,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "configargparse";

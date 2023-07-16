@@ -1,6 +1,18 @@
-{ stdenv, nixosTests, lib, edk2, util-linux, nasm, acpica-tools, llvmPackages
-, csmSupport ? false, seabios ? null, secureBoot ? false, httpSupport ? false
-, tpmSupport ? false }:
+{
+  stdenv,
+  nixosTests,
+  lib,
+  edk2,
+  util-linux,
+  nasm,
+  acpica-tools,
+  llvmPackages,
+  csmSupport ? false,
+  seabios ? null,
+  secureBoot ? false,
+  httpSupport ? false,
+  tpmSupport ? false
+}:
 
 assert csmSupport -> seabios != null;
 

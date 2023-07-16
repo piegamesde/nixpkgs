@@ -1,4 +1,9 @@
-{ lib, stdenv, unzip, fetchurl }:
+{
+  lib,
+  stdenv,
+  unzip,
+  fetchurl,
+}:
 
 # Upstream changes files in-place, to update:
 # 1. Check latest version at http://www.un4seen.com/

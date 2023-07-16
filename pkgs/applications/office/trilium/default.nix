@@ -1,4 +1,8 @@
-{ lib, callPackage, ... }:
+{
+  lib,
+  callPackage,
+  ...
+}:
 
 let
   metaCommon = with lib; {

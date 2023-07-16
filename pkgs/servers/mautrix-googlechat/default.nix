@@ -1,5 +1,12 @@
-{ fetchFromGitHub, fetchpatch, lib, python3, enableE2be ? true
-, enableMetrics ? true, enableSqlite ? true }:
+{
+  fetchFromGitHub,
+  fetchpatch,
+  lib,
+  python3,
+  enableE2be ? true,
+  enableMetrics ? true,
+  enableSqlite ? true
+}:
 python3.pkgs.buildPythonApplication rec {
   pname = "mautrix-googlechat";
   version = "unstable-2023-01-25";

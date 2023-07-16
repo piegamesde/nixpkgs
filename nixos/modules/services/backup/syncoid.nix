@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -196,114 +201,118 @@ in {
     };
 
     commands = mkOption {
-      type = types.attrsOf (types.submodule ({ name, ... }: {
-        options = {
-          source = mkOption {
-            type = types.str;
-            example = "pool/dataset";
-            description = lib.mdDoc ''
-              Source ZFS dataset. Can be either local or remote. Defaults to
-              the attribute name.
-            '';
-          };
+      type = types.attrsOf (types.submodule ({
+          name,
+          ...
+        }: {
+          options = {
+            source = mkOption {
+              type = types.str;
+              example = "pool/dataset";
+              description = lib.mdDoc ''
+                Source ZFS dataset. Can be either local or remote. Defaults to
+                the attribute name.
+              '';
+            };
 
-          target = mkOption {
-            type = types.str;
-            example = "user@server:pool/dataset";
-            description = lib.mdDoc ''
-              Target ZFS dataset. Can be either local
-              («pool/dataset») or remote
-              («user@server:pool/dataset»).
-            '';
-          };
+            target = mkOption {
+              type = types.str;
+              example = "user@server:pool/dataset";
+              description = lib.mdDoc ''
+                Target ZFS dataset. Can be either local
+                («pool/dataset») or remote
+                («user@server:pool/dataset»).
+              '';
+            };
 
-          recursive =
-            mkEnableOption (lib.mdDoc "the transfer of child datasets");
+            recursive =
+              mkEnableOption (lib.mdDoc "the transfer of child datasets");
 
-          sshKey = mkOption {
-            type = types.nullOr types.path;
-            # Prevent key from being copied to store
-            apply = mapNullable toString;
-            description = lib.mdDoc ''
-              SSH private key file to use to login to the remote system.
-              Defaults to {option}`services.syncoid.sshKey` option.
-            '';
-          };
+            sshKey = mkOption {
+              type = types.nullOr types.path;
+              # Prevent key from being copied to store
+              apply = mapNullable toString;
+              description = lib.mdDoc ''
+                SSH private key file to use to login to the remote system.
+                Defaults to {option}`services.syncoid.sshKey` option.
+              '';
+            };
 
-          localSourceAllow = mkOption {
-            type = types.listOf types.str;
-            description = lib.mdDoc ''
-              Permissions granted for the {option}`services.syncoid.user` user
-              for local source datasets. See
-              <https://openzfs.github.io/openzfs-docs/man/8/zfs-allow.8.html>
-              for available permissions.
-              Defaults to {option}`services.syncoid.localSourceAllow` option.
-            '';
-          };
+            localSourceAllow = mkOption {
+              type = types.listOf types.str;
+              description = lib.mdDoc ''
+                Permissions granted for the {option}`services.syncoid.user` user
+                for local source datasets. See
+                <https://openzfs.github.io/openzfs-docs/man/8/zfs-allow.8.html>
+                for available permissions.
+                Defaults to {option}`services.syncoid.localSourceAllow` option.
+              '';
+            };
 
-          localTargetAllow = mkOption {
-            type = types.listOf types.str;
-            description = lib.mdDoc ''
-              Permissions granted for the {option}`services.syncoid.user` user
-              for local target datasets. See
-              <https://openzfs.github.io/openzfs-docs/man/8/zfs-allow.8.html>
-              for available permissions.
-              Make sure to include the `change-key` permission if you send raw encrypted datasets,
-              the `compression` permission if you send raw compressed datasets, and so on.
-              For remote target datasets you'll have to set your remote user permissions by yourself.
-            '';
-          };
+            localTargetAllow = mkOption {
+              type = types.listOf types.str;
+              description = lib.mdDoc ''
+                Permissions granted for the {option}`services.syncoid.user` user
+                for local target datasets. See
+                <https://openzfs.github.io/openzfs-docs/man/8/zfs-allow.8.html>
+                for available permissions.
+                Make sure to include the `change-key` permission if you send raw encrypted datasets,
+                the `compression` permission if you send raw compressed datasets, and so on.
+                For remote target datasets you'll have to set your remote user permissions by yourself.
+              '';
+            };
 
-          sendOptions = mkOption {
-            type = types.separatedString " ";
-            default = "";
-            example = "Lc e";
-            description = lib.mdDoc ''
-              Advanced options to pass to zfs send. Options are specified
-              without their leading dashes and separated by spaces.
-            '';
-          };
+            sendOptions = mkOption {
+              type = types.separatedString " ";
+              default = "";
+              example = "Lc e";
+              description = lib.mdDoc ''
+                Advanced options to pass to zfs send. Options are specified
+                without their leading dashes and separated by spaces.
+              '';
+            };
 
-          recvOptions = mkOption {
-            type = types.separatedString " ";
-            default = "";
-            example = "ux recordsize o compression=lz4";
-            description = lib.mdDoc ''
-              Advanced options to pass to zfs recv. Options are specified
-              without their leading dashes and separated by spaces.
-            '';
-          };
+            recvOptions = mkOption {
+              type = types.separatedString " ";
+              default = "";
+              example = "ux recordsize o compression=lz4";
+              description = lib.mdDoc ''
+                Advanced options to pass to zfs recv. Options are specified
+                without their leading dashes and separated by spaces.
+              '';
+            };
 
-          useCommonArgs = mkOption {
-            type = types.bool;
-            default = true;
-            description = lib.mdDoc ''
-              Whether to add the configured common arguments to this command.
-            '';
-          };
+            useCommonArgs = mkOption {
+              type = types.bool;
+              default = true;
+              description = lib.mdDoc ''
+                Whether to add the configured common arguments to this command.
+              '';
+            };
 
-          service = mkOption {
-            type = types.attrs;
-            default = { };
-            description = lib.mdDoc ''
-              Systemd configuration specific to this syncoid service.
-            '';
-          };
+            service = mkOption {
+              type = types.attrs;
+              default = { };
+              description = lib.mdDoc ''
+                Systemd configuration specific to this syncoid service.
+              '';
+            };
 
-          extraArgs = mkOption {
-            type = types.listOf types.str;
-            default = [ ];
-            example = [ "--sshport 2222" ];
-            description = lib.mdDoc "Extra syncoid arguments for this command.";
+            extraArgs = mkOption {
+              type = types.listOf types.str;
+              default = [ ];
+              example = [ "--sshport 2222" ];
+              description =
+                lib.mdDoc "Extra syncoid arguments for this command.";
+            };
           };
-        };
-        config = {
-          source = mkDefault name;
-          sshKey = mkDefault cfg.sshKey;
-          localSourceAllow = mkDefault cfg.localSourceAllow;
-          localTargetAllow = mkDefault cfg.localTargetAllow;
-        };
-      }));
+          config = {
+            source = mkDefault name;
+            sshKey = mkDefault cfg.sshKey;
+            localSourceAllow = mkDefault cfg.localSourceAllow;
+            localTargetAllow = mkDefault cfg.localTargetAllow;
+          };
+        }));
       default = { };
       example = literalExpression ''
         {

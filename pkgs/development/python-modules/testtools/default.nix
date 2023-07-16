@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, pythonRelaxDepsHook, pbr, python-mimeparse
-, extras, traceback2, testscenarios }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonRelaxDepsHook,
+  pbr,
+  python-mimeparse,
+  extras,
+  traceback2,
+  testscenarios,
+}:
 
 buildPythonPackage rec {
   pname = "testtools";

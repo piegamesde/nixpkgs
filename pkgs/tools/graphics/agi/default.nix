@@ -1,6 +1,17 @@
-{ lib, stdenvNoCC, fetchzip, autoPatchelfHook, makeWrapper, makeDesktopItem
-, copyDesktopItems, wrapGAppsHook, gobject-introspection, gdk-pixbuf, jre
-, android-tools }:
+{
+  lib,
+  stdenvNoCC,
+  fetchzip,
+  autoPatchelfHook,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  wrapGAppsHook,
+  gobject-introspection,
+  gdk-pixbuf,
+  jre,
+  android-tools,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "agi";

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, importlib-metadata, isort
-, poetry-core, pytest, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  importlib-metadata,
+  isort,
+  poetry-core,
+  pytest,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-isort";

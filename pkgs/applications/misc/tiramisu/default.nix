@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, glib, vala }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  glib,
+  vala,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tiramisu";

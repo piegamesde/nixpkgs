@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, version, hashes, autoPatchelfHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  version,
+  hashes,
+  autoPatchelfHook,
+}:
 let
   toGoKernel = platform:
     if platform.isDarwin then "darwin" else platform.parsed.kernel.name;

@@ -1,4 +1,8 @@
-{ lib, stdenv, langJit }:
+{
+  lib,
+  stdenv,
+  langJit,
+}:
 
 {
   # Note [Cross-compiler stripping]

@@ -1,4 +1,12 @@
-{ lib, fetchFromGitHub, rustPlatform, cmake, pkgconf, freetype, expat }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  cmake,
+  pkgconf,
+  freetype,
+  expat,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "onagre";

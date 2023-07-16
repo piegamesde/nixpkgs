@@ -1,8 +1,19 @@
-{ buildPythonPackage, fetchPypi, pythonOlder, lib
+{
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  lib
 
-# pythonPackages
-, hatchling, dnspython, expiringdict, html2text, mail-parser, imapclient
-, publicsuffix2 }:
+  # pythonPackages
+  ,
+  hatchling,
+  dnspython,
+  expiringdict,
+  html2text,
+  mail-parser,
+  imapclient,
+  publicsuffix2,
+}:
 
 buildPythonPackage rec {
   pname = "mailsuite";

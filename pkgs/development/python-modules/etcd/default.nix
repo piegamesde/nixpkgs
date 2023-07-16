@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, simplejson, pytz, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  simplejson,
+  pytz,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "etcd";

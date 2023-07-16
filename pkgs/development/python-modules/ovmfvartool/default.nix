@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pyyaml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "ovmfvartool";

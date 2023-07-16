@@ -1,5 +1,17 @@
-{ lib, buildPythonApplication, fetchFromGitHub, pythonOlder, requests, docopt
-, pythondialog, jinja2, distro, dialog, iptables, openvpn }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  pythonOlder,
+  requests,
+  docopt,
+  pythondialog,
+  jinja2,
+  distro,
+  dialog,
+  iptables,
+  openvpn,
+}:
 
 buildPythonApplication rec {
   pname = "protonvpn-cli_2";

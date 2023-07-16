@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, xorg, imake, gccmakedep }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  xorg,
+  imake,
+  gccmakedep,
+}:
 
 stdenv.mkDerivation rec {
   pname = "x11-ssh-askpass";

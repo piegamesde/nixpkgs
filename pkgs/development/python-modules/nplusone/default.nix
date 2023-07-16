@@ -1,5 +1,18 @@
-{ lib, blinker, buildPythonPackage, fetchFromGitHub, flake8, flask-sqlalchemy
-, isPy27, mock, peewee, pytest-django, pytestCheckHook, six, sqlalchemy, webtest
+{
+  lib,
+  blinker,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flake8,
+  flask-sqlalchemy,
+  isPy27,
+  mock,
+  peewee,
+  pytest-django,
+  pytestCheckHook,
+  six,
+  sqlalchemy,
+  webtest,
 }:
 
 buildPythonPackage rec {

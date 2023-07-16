@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, pkg-config, expat, ncurses, pciutils, numactl
-, x11Support ? false, libX11, cairo, enableCuda ? false, cudaPackages }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  expat,
+  ncurses,
+  pciutils,
+  numactl,
+  x11Support ? false,
+  libX11,
+  cairo,
+  enableCuda ? false,
+  cudaPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hwloc";

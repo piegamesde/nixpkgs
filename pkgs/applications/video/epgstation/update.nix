@@ -1,4 +1,10 @@
-{ gitUpdater, writers, jq, yq, gnused, _experimental-update-script-combinators
+{
+  gitUpdater,
+  writers,
+  jq,
+  yq,
+  gnused,
+  _experimental-update-script-combinators,
 }:
 
 let

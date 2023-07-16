@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, flit-core, requests
-, pytestCheckHook, responses }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  flit-core,
+  requests,
+  pytestCheckHook,
+  responses,
+}:
 
 buildPythonPackage rec {
   pname = "msgraph-core";

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pytest-asyncio, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest-asyncio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "ratelimiter";

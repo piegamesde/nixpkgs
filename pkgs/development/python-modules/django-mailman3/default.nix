@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, django-gravatar2, django-compressor
-, django-allauth, mailmanclient, django, mock }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  django-gravatar2,
+  django-compressor,
+  django-allauth,
+  mailmanclient,
+  django,
+  mock,
+}:
 
 buildPythonPackage rec {
   pname = "django-mailman3";

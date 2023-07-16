@@ -1,5 +1,14 @@
-{ lib, stdenv, rustPlatform, fetchCrate, libusb1, libftdi1, pkg-config
-, DarwinTools, AppKit }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchCrate,
+  libusb1,
+  libftdi1,
+  pkg-config,
+  DarwinTools,
+  AppKit,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-embed";

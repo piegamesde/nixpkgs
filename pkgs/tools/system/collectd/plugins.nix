@@ -1,13 +1,58 @@
-{ lib, stdenv, curl, darwin, hiredis, iptables, jdk, libatasmart, libdbi
-, libesmtp, libgcrypt, libmemcached, cyrus_sasl, libmodbus, libmicrohttpd
-, libmnl, libmysqlclient, libnotify, gdk-pixbuf, liboping, libpcap, libsigrok
-, libvirt, libxml2, libapparmor, libcap_ng, numactl, lua, lvm2, lm_sensors
-, mongoc, mosquitto, net-snmp, openldap, openipmi, perl, postgresql, protobufc
-, python3, rabbitmq-c, rdkafka, riemann_c_client, rrdtool, udev, varnish, xen
-, yajl, IOKit
-# Defaults to `null` for all supported plugins (except xen, which is marked as
-# insecure), otherwise a list of plugin names for a custom build
-, enabledPlugins ? null, ... }:
+{
+  lib,
+  stdenv,
+  curl,
+  darwin,
+  hiredis,
+  iptables,
+  jdk,
+  libatasmart,
+  libdbi,
+  libesmtp,
+  libgcrypt,
+  libmemcached,
+  cyrus_sasl,
+  libmodbus,
+  libmicrohttpd,
+  libmnl,
+  libmysqlclient,
+  libnotify,
+  gdk-pixbuf,
+  liboping,
+  libpcap,
+  libsigrok,
+  libvirt,
+  libxml2,
+  libapparmor,
+  libcap_ng,
+  numactl,
+  lua,
+  lvm2,
+  lm_sensors,
+  mongoc,
+  mosquitto,
+  net-snmp,
+  openldap,
+  openipmi,
+  perl,
+  postgresql,
+  protobufc,
+  python3,
+  rabbitmq-c,
+  rdkafka,
+  riemann_c_client,
+  rrdtool,
+  udev,
+  varnish,
+  xen,
+  yajl,
+  IOKit
+  # Defaults to `null` for all supported plugins (except xen, which is marked as
+  # insecure), otherwise a list of plugin names for a custom build
+  ,
+  enabledPlugins ? null,
+  ...
+}:
 
 let
   # Plugins that have dependencies.

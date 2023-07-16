@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, gtk3, thunar, cmake, ninja, xfce
-, gitUpdater }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  gtk3,
+  thunar,
+  cmake,
+  ninja,
+  xfce,
+  gitUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "thunar-dropbox";

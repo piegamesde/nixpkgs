@@ -1,5 +1,15 @@
-{ lib, stdenv, makeWrapper, fetchFromGitHub, libX11, pkg-config, gdb, freetype
-, freetypeSupport ? true, extensions ? [ ] }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  fetchFromGitHub,
+  libX11,
+  pkg-config,
+  gdb,
+  freetype,
+  freetypeSupport ? true,
+  extensions ? [ ]
+}:
 
 stdenv.mkDerivation rec {
   pname = "gf";

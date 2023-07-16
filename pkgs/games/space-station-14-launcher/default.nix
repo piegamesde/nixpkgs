@@ -1,4 +1,9 @@
-{ soundfont-fluid, buildFHSEnv, runCommand, callPackage }:
+{
+  soundfont-fluid,
+  buildFHSEnv,
+  runCommand,
+  callPackage,
+}:
 
 let
   space-station-14-launcher = callPackage ./space-station-14-launcher.nix { };

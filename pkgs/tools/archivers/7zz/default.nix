@@ -1,14 +1,23 @@
-{ stdenv, lib, fetchurl
+{
+  stdenv,
+  lib,
+  fetchurl
 
-# Only used for Linux's x86/x86_64
-, uasm, useUasm ? (stdenv.isLinux && stdenv.hostPlatform.isx86)
+  # Only used for Linux's x86/x86_64
+  ,
+  uasm,
+  useUasm ? (stdenv.isLinux && stdenv.hostPlatform.isx86)
 
-# RAR code is under non-free unRAR license
-# see the meta.license section below for more details
-, enableUnfree ? false
+  # RAR code is under non-free unRAR license
+  # see the meta.license section below for more details
+  ,
+  enableUnfree ? false
 
-  # For tests
-, _7zz, testers }:
+    # For tests
+  ,
+  _7zz,
+  testers,
+}:
 
 let
   makefile = {

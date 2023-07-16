@@ -1,4 +1,10 @@
-{ rustPlatform, fetchFromGitHub, lib, stdenv, Security }:
+{
+  rustPlatform,
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "viceroy";

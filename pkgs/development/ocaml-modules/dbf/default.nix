@@ -1,5 +1,12 @@
-{ lib, buildDunePackage, fetchFromGitHub, ppx_cstruct, rresult, cstruct-unix
-, core_kernel }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  ppx_cstruct,
+  rresult,
+  cstruct-unix,
+  core_kernel,
+}:
 
 buildDunePackage rec {
   pname = "dbf";

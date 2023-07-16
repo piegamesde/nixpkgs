@@ -1,4 +1,10 @@
-{ lib, fetchPypi, buildPythonPackage, types-requests, requests }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  types-requests,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "pyarr";

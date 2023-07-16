@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, flask, bcrypt, unittestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flask,
+  bcrypt,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "flask-bcrypt";

@@ -1,4 +1,6 @@
-{ lib }:
+{
+  lib,
+}:
 
 lib.mapAttrs (lname: lset:
   let

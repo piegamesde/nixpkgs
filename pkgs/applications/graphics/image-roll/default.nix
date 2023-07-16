@@ -1,4 +1,12 @@
-{ lib, rustPlatform, fetchFromGitHub, glib, pkg-config, wrapGAppsHook4, gtk4 }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  glib,
+  pkg-config,
+  wrapGAppsHook4,
+  gtk4,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "image-roll";

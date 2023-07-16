@@ -1,15 +1,39 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, python3Packages, makeWrapper, bash
-, libsamplerate, libsndfile, readline, eigen, celt, wafHook
-# Darwin Dependencies
-, aften, AudioUnit, CoreAudio, libobjc, Accelerate
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  python3Packages,
+  makeWrapper,
+  bash,
+  libsamplerate,
+  libsndfile,
+  readline,
+  eigen,
+  celt,
+  wafHook
+  # Darwin Dependencies
+  ,
+  aften,
+  AudioUnit,
+  CoreAudio,
+  libobjc,
+  Accelerate
 
-# Optional Dependencies
-, dbus ? null, libffado ? null, alsa-lib ? null, libopus ? null
+  # Optional Dependencies
+  ,
+  dbus ? null,
+  libffado ? null,
+  alsa-lib ? null,
+  libopus ? null
 
-  # Extra options
-, prefix ? ""
+    # Extra options
+  ,
+  prefix ? ""
 
-, testers }:
+  ,
+  testers,
+}:
 
 let
   inherit (python3Packages) python dbus-python;

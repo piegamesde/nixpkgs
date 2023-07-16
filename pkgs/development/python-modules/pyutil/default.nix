@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, simplejson, mock, twisted, isPyPy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  simplejson,
+  mock,
+  twisted,
+  isPyPy,
+}:
 
 buildPythonPackage rec {
   pname = "pyutil";

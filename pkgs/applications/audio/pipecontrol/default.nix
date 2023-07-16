@@ -1,6 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, pipewire, cmake, extra-cmake-modules, gnumake
-, wrapQtAppsHook, qtbase, qttools, kirigami2, kcoreaddons, ki18n
-, qtquickcontrols2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pipewire,
+  cmake,
+  extra-cmake-modules,
+  gnumake,
+  wrapQtAppsHook,
+  qtbase,
+  qttools,
+  kirigami2,
+  kcoreaddons,
+  ki18n,
+  qtquickcontrols2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pipecontrol";

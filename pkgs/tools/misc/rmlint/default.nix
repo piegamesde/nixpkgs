@@ -1,6 +1,25 @@
-{ lib, stdenv, cairo, fetchFromGitHub, gettext, glib, gobject-introspection
-, gtksourceview3, json-glib, libelf, makeWrapper, pango, pkg-config, polkit
-, python3, scons, sphinx, util-linux, wrapGAppsHook, withGui ? false }:
+{
+  lib,
+  stdenv,
+  cairo,
+  fetchFromGitHub,
+  gettext,
+  glib,
+  gobject-introspection,
+  gtksourceview3,
+  json-glib,
+  libelf,
+  makeWrapper,
+  pango,
+  pkg-config,
+  polkit,
+  python3,
+  scons,
+  sphinx,
+  util-linux,
+  wrapGAppsHook,
+  withGui ? false
+}:
 
 assert withGui -> !stdenv.isDarwin;
 

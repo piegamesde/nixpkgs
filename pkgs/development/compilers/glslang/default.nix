@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, bison, cmake, jq, python3
-, spirv-headers, spirv-tools }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  bison,
+  cmake,
+  jq,
+  python3,
+  spirv-headers,
+  spirv-tools,
+}:
 stdenv.mkDerivation rec {
   pname = "glslang";
   version = "1.3.243.0";

@@ -1,4 +1,10 @@
-{ mkDerivation, extra-cmake-modules, kcoreaddons, ki18n, qtbase, }:
+{
+  mkDerivation,
+  extra-cmake-modules,
+  kcoreaddons,
+  ki18n,
+  qtbase,
+}:
 
 mkDerivation {
   pname = "kpty";

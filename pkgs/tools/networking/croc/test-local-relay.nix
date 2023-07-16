@@ -1,4 +1,7 @@
-{ stdenv, croc }:
+{
+  stdenv,
+  croc,
+}:
 
 stdenv.mkDerivation {
   name = "croc-test-local-relay";

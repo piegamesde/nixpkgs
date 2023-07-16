@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pymongo, isPy27, six, blinker, nose
-, pillow, coverage }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pymongo,
+  isPy27,
+  six,
+  blinker,
+  nose,
+  pillow,
+  coverage,
+}:
 
 buildPythonPackage rec {
   pname = "mongoengine";

@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitLab, rustPlatform, pkg-config, openssl, sqlite
-, libiconv, Security }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  sqlite,
+  libiconv,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "terminal-typeracer";

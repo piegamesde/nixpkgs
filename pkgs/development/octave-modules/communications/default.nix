@@ -1,4 +1,10 @@
-{ buildOctavePackage, lib, fetchurl, signal, hdf5 }:
+{
+  buildOctavePackage,
+  lib,
+  fetchurl,
+  signal,
+  hdf5,
+}:
 
 buildOctavePackage rec {
   pname = "communications";

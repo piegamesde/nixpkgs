@@ -1,6 +1,19 @@
-{ lib, buildPythonApplication, appdirs, beautifulsoup4, colorlog
-, fetchFromGitHub, mako, online-judge-api-client, online-judge-tools, ply
-, pyyaml, requests, setuptools, toml }:
+{
+  lib,
+  buildPythonApplication,
+  appdirs,
+  beautifulsoup4,
+  colorlog,
+  fetchFromGitHub,
+  mako,
+  online-judge-api-client,
+  online-judge-tools,
+  ply,
+  pyyaml,
+  requests,
+  setuptools,
+  toml,
+}:
 
 buildPythonApplication rec {
   pname = "online-judge-template-generator";

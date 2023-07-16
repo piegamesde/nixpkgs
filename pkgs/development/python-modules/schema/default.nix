@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, mock, pytestCheckHook, pythonOlder
-, pythonRelaxDepsHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  mock,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
+}:
 
 buildPythonPackage rec {
   pname = "schema";

@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, pbr, pip, pkgs, stevedore, virtualenv
-, virtualenv-clone, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pbr,
+  pip,
+  pkgs,
+  stevedore,
+  virtualenv,
+  virtualenv-clone,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "virtualenvwrapper";

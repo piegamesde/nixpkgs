@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -91,25 +96,27 @@ let
       in flatten (mapAttrsToList mkSublist attrs);
   in all (x: x == null) (findPkiDefinitions [ ] manualPkiOptions);
 
-  orgOptions = { ... }: {
-    options.users = mkOption {
-      type = types.uniq (types.listOf types.str);
-      default = [ ];
-      example = [ "alice" "bob" ];
-      description = lib.mdDoc ''
-        A list of user names that belong to the organization.
-      '';
-    };
+  orgOptions = {
+      ...
+    }: {
+      options.users = mkOption {
+        type = types.uniq (types.listOf types.str);
+        default = [ ];
+        example = [ "alice" "bob" ];
+        description = lib.mdDoc ''
+          A list of user names that belong to the organization.
+        '';
+      };
 
-    options.groups = mkOption {
-      type = types.listOf types.str;
-      default = [ ];
-      example = [ "workers" "slackers" ];
-      description = lib.mdDoc ''
-        A list of group names that belong to the organization.
-      '';
+      options.groups = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+        example = [ "workers" "slackers" ];
+        description = lib.mdDoc ''
+          A list of group names that belong to the organization.
+        '';
+      };
     };
-  };
 
   certtool = "${pkgs.gnutls.bin}/bin/certtool";
 

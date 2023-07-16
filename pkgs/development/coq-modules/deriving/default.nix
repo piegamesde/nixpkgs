@@ -1,4 +1,10 @@
-{ lib, mkCoqDerivation, coq, version ? null, ssreflect }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  version ? null,
+  ssreflect,
+}:
 
 mkCoqDerivation {
   pname = "deriving";

@@ -1,6 +1,11 @@
 # GNU Virtual Private Ethernet
 
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   inherit (lib) mkOption mkIf types;

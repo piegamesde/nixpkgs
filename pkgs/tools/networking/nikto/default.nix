@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, perlPackages, makeWrapper, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  perlPackages,
+  makeWrapper,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nikto";

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, python, isPy27, six
-, zope_testing }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  python,
+  isPy27,
+  six,
+  zope_testing,
+}:
 
 buildPythonPackage rec {
   pname = "manuel";

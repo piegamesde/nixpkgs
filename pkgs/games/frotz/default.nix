@@ -1,5 +1,16 @@
-{ fetchFromGitLab, libao, libmodplug, libsamplerate, libsndfile, libvorbis
-, ncurses, which, pkg-config, lib, stdenv }:
+{
+  fetchFromGitLab,
+  libao,
+  libmodplug,
+  libsamplerate,
+  libsndfile,
+  libvorbis,
+  ncurses,
+  which,
+  pkg-config,
+  lib,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   version = "2.53";

@@ -1,11 +1,26 @@
-{ lib, stdenv, docbook_xml_dtd_44, docbook_xml_dtd_45, docbook_xsl, asciidoctor
-, fetchurl, flex, kmod, libxslt, nixosTests, perl, systemd
+{
+  lib,
+  stdenv,
+  docbook_xml_dtd_44,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+  asciidoctor,
+  fetchurl,
+  flex,
+  kmod,
+  libxslt,
+  nixosTests,
+  perl,
+  systemd
 
-# drbd-utils are compiled twice, once with forOCF = true to extract
-# its OCF definitions for use in the ocf-resource-agents derivation,
-# then again with forOCF = false, where the ocf-resource-agents is
-# provided as the OCF_ROOT.
-, forOCF ? false, ocf-resource-agents }:
+  # drbd-utils are compiled twice, once with forOCF = true to extract
+  # its OCF definitions for use in the ocf-resource-agents derivation,
+  # then again with forOCF = false, where the ocf-resource-agents is
+  # provided as the OCF_ROOT.
+  ,
+  forOCF ? false,
+  ocf-resource-agents,
+}:
 
 stdenv.mkDerivation rec {
   pname = "drbd";

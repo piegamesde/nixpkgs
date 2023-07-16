@@ -1,7 +1,27 @@
-{ lib, fetchFromGitLab, mkDerivation, cmake, exempi, extra-cmake-modules
-, karchive, kdoctools, kfilemetadata, khtml, kitemmodels, knewstuff, kxmlgui
-, libcdio, libkcddb, libksane, makeWrapper, poppler, qtcharts, qtwebengine
-, solid, taglib }:
+{
+  lib,
+  fetchFromGitLab,
+  mkDerivation,
+  cmake,
+  exempi,
+  extra-cmake-modules,
+  karchive,
+  kdoctools,
+  kfilemetadata,
+  khtml,
+  kitemmodels,
+  knewstuff,
+  kxmlgui,
+  libcdio,
+  libkcddb,
+  libksane,
+  makeWrapper,
+  poppler,
+  qtcharts,
+  qtwebengine,
+  solid,
+  taglib,
+}:
 
 mkDerivation rec {
   pname = "tellico";

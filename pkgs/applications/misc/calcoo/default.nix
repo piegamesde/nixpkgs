@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchzip, ant, jdk, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  ant,
+  jdk,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "calcoo";

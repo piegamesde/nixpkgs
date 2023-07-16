@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, libopcodes }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libopcodes,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "lightning";

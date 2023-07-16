@@ -1,6 +1,17 @@
-{ buildPackages, callPackage, cargo, cargo-nextest, clang, lib, makeSetupHook
-, maturin, rust, rustc, stdenv
-, target ? rust.toRustTargetSpec stdenv.hostPlatform }:
+{
+  buildPackages,
+  callPackage,
+  cargo,
+  cargo-nextest,
+  clang,
+  lib,
+  makeSetupHook,
+  maturin,
+  rust,
+  rustc,
+  stdenv,
+  target ? rust.toRustTargetSpec stdenv.hostPlatform
+}:
 
 let
   targetIsJSON = lib.hasSuffix ".json" target;

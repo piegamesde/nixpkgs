@@ -1,4 +1,9 @@
-{ fetchCrate, lib, rustPlatform, protobuf }:
+{
+  fetchCrate,
+  lib,
+  rustPlatform,
+  protobuf,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "protoc-gen-rust";

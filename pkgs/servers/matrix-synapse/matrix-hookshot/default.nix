@@ -1,6 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, fetchYarnDeps, makeWrapper
-, matrix-sdk-crypto-nodejs, mkYarnPackage, rust, rustPlatform, napi-rs-cli
-, nodejs }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  makeWrapper,
+  matrix-sdk-crypto-nodejs,
+  mkYarnPackage,
+  rust,
+  rustPlatform,
+  napi-rs-cli,
+  nodejs,
+}:
 
 let data = lib.importJSON ./pin.json;
 in mkYarnPackage rec {

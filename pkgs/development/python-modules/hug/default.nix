@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy27, falcon, requests
-, pytestCheckHook, marshmallow, mock, numpy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy27,
+  falcon,
+  requests,
+  pytestCheckHook,
+  marshmallow,
+  mock,
+  numpy,
+}:
 
 buildPythonPackage rec {
   pname = "hug";

@@ -1,5 +1,14 @@
-{ stdenv, targetPackages, lib, makeSetupHook, dieHook, writeShellScript, tests
-, cc ? targetPackages.stdenv.cc, sanitizers ? [ ] }:
+{
+  stdenv,
+  targetPackages,
+  lib,
+  makeSetupHook,
+  dieHook,
+  writeShellScript,
+  tests,
+  cc ? targetPackages.stdenv.cc,
+  sanitizers ? [ ]
+}:
 
 makeSetupHook {
   name = "make-binary-wrapper-hook";

@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, ninja, pkg-config, systemd
-, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  ninja,
+  pkg-config,
+  systemd,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "chkservice";

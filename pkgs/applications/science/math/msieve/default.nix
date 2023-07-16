@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, zlib, gmp, ecm }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zlib,
+  gmp,
+  ecm,
+}:
 
 stdenv.mkDerivation rec {
   pname = "msieve";

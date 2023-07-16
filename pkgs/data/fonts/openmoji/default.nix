@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, scfbuild, fontforge, libuninameslist
-, nodejs, nodePackages, python3Packages, variant ? "color" # "color" or "black"
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  scfbuild,
+  fontforge,
+  libuninameslist,
+  nodejs,
+  nodePackages,
+  python3Packages,
+  variant ? "color" # "color" or "black"
 }:
 
 let

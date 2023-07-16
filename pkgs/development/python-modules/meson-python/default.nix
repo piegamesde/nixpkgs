@@ -1,5 +1,16 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, colorama, meson, ninja
-, pyproject-metadata, tomli, typing-extensions, pythonOlder }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  colorama,
+  meson,
+  ninja,
+  pyproject-metadata,
+  tomli,
+  typing-extensions,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "meson-python";

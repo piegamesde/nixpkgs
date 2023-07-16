@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, zlib, bzip2, lzo
-, lz4, zstd, xz, libgcrypt, e2fsprogs, util-linux, libgpg-error }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  zlib,
+  bzip2,
+  lzo,
+  lz4,
+  zstd,
+  xz,
+  libgcrypt,
+  e2fsprogs,
+  util-linux,
+  libgpg-error,
+}:
 
 let version = "0.8.7";
 

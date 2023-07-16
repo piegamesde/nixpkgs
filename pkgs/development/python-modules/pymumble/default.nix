@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy27, opuslib, protobuf
-, pytestCheckHook, pycrypto, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy27,
+  opuslib,
+  protobuf,
+  pytestCheckHook,
+  pycrypto,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pymumble";

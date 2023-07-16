@@ -1,4 +1,11 @@
-{ lib, buildGoPackage, fetchFromGitHub, buildGoModule, sqlite, callPackage }:
+{
+  lib,
+  buildGoPackage,
+  fetchFromGitHub,
+  buildGoModule,
+  sqlite,
+  callPackage,
+}:
 
 buildGoModule rec {
   pname = "gotify-server";

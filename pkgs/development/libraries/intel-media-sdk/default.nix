@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, gtest, libdrm, libpciaccess
-, libva, libX11, libXau, libXdmcp, libpthreadstubs }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  gtest,
+  libdrm,
+  libpciaccess,
+  libva,
+  libX11,
+  libXau,
+  libXdmcp,
+  libpthreadstubs,
+}:
 
 stdenv.mkDerivation rec {
   pname = "intel-media-sdk";

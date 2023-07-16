@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools, django, pytest-django
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  django,
+  pytest-django,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "django-bootstrap3";

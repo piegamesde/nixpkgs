@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, asynctest, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  asynctest,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aionotify";

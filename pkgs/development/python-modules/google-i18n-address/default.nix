@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, requests, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  requests,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "google-i18n-address";

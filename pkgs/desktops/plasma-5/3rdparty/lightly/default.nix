@@ -1,6 +1,17 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, extra-cmake-modules, kdecoration
-, kcoreaddons, kguiaddons, kconfigwidgets, kwindowsystem, kiconthemes
-, qtx11extras }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  extra-cmake-modules,
+  kdecoration,
+  kcoreaddons,
+  kguiaddons,
+  kconfigwidgets,
+  kwindowsystem,
+  kiconthemes,
+  qtx11extras,
+}:
 
 mkDerivation rec {
   pname = "lightly";

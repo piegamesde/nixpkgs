@@ -1,5 +1,20 @@
-{ stdenv, lib, fetchurl, dpkg, patchelf, qt5, libXtst, libXext, libX11
-, mkDerivation, libXScrnSaver, writeScript, common-updater-scripts, curl, pup }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  dpkg,
+  patchelf,
+  qt5,
+  libXtst,
+  libXext,
+  libX11,
+  mkDerivation,
+  libXScrnSaver,
+  writeScript,
+  common-updater-scripts,
+  curl,
+  pup,
+}:
 
 let
   version = "2.16.5.1";

@@ -1,5 +1,12 @@
-{ lib, fetchFromGitHub, buildPythonPackage, lxml, pythonAtLeast, pythonOlder
-, pytestCheckHook }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  lxml,
+  pythonAtLeast,
+  pythonOlder,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "unittest-xml-reporting";

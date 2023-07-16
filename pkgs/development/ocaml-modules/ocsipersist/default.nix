@@ -1,4 +1,9 @@
-{ buildDunePackage, ocsipersist-lib, ocsipersist-pgsql, ocsipersist-sqlite }:
+{
+  buildDunePackage,
+  ocsipersist-lib,
+  ocsipersist-pgsql,
+  ocsipersist-sqlite,
+}:
 
 buildDunePackage {
   pname = "ocsipersist";

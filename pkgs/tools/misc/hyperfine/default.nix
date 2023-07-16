@@ -1,4 +1,11 @@
-{ lib, rustPlatform, fetchCrate, installShellFiles, stdenv, Security }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  installShellFiles,
+  stdenv,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "hyperfine";

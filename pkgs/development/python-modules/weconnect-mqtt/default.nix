@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
-, paho-mqtt, python-dateutil, weconnect }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  paho-mqtt,
+  python-dateutil,
+  weconnect,
+}:
 
 buildPythonPackage rec {
   pname = "weconnect-mqtt";

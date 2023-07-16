@@ -1,4 +1,11 @@
-{ lib, stdenv, ocamlPackages, fetchFromGitHub, makeWrapper, python3 }:
+{
+  lib,
+  stdenv,
+  ocamlPackages,
+  fetchFromGitHub,
+  makeWrapper,
+  python3,
+}:
 
 ocamlPackages.buildDunePackage rec {
   pname = "flitter";

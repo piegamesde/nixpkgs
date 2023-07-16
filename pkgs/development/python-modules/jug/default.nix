@@ -1,5 +1,14 @@
-{ lib, bottle, buildPythonPackage, fetchPypi, numpy, pytestCheckHook
-, pythonOlder, pyyaml, redis }:
+{
+  lib,
+  bottle,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  redis,
+}:
 
 buildPythonPackage rec {
   pname = "jug";

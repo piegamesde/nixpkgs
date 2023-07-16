@@ -1,7 +1,26 @@
-{ lib, stdenv, fetchFromGitLab, pkg-config, meson, ninja, glib, glib-networking
-, sqlite, gobject-introspection, vala, gtk-doc, libsecret, docbook_xsl
-, docbook_xml_dtd_43, docbook_xml_dtd_45, glibcLocales, makeWrapper, symlinkJoin
-, gsignondPlugins, plugins }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  pkg-config,
+  meson,
+  ninja,
+  glib,
+  glib-networking,
+  sqlite,
+  gobject-introspection,
+  vala,
+  gtk-doc,
+  libsecret,
+  docbook_xsl,
+  docbook_xml_dtd_43,
+  docbook_xml_dtd_45,
+  glibcLocales,
+  makeWrapper,
+  symlinkJoin,
+  gsignondPlugins,
+  plugins,
+}:
 
 let
   unwrapped = stdenv.mkDerivation rec {

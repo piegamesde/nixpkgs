@@ -1,7 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, substituteAll, six
-, withGraphviz ? true, graphviz, fontconfig
-# Tests
-, pytestCheckHook, nose }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  substituteAll,
+  six,
+  withGraphviz ? true,
+  graphviz,
+  fontconfig
+  # Tests
+  ,
+  pytestCheckHook,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "anytree";

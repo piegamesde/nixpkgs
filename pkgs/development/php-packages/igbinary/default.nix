@@ -1,4 +1,7 @@
-{ buildPecl, lib }:
+{
+  buildPecl,
+  lib,
+}:
 
 buildPecl {
   pname = "igbinary";

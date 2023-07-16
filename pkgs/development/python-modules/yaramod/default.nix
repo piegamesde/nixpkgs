@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, cmake, fetchFromGitHub, pytestCheckHook, libxcrypt
-, pythonOlder, gtest, pybind11, nlohmann_json }:
+{
+  lib,
+  buildPythonPackage,
+  cmake,
+  fetchFromGitHub,
+  pytestCheckHook,
+  libxcrypt,
+  pythonOlder,
+  gtest,
+  pybind11,
+  nlohmann_json,
+}:
 
 let
   pog = fetchFromGitHub {

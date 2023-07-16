@@ -1,6 +1,12 @@
-{ stdenv, lib }:
-{ version ? "11.1", allowHigher ? false
-, xcodeBaseDir ? "/Applications/Xcode.app" }:
+{
+  stdenv,
+  lib,
+}:
+{
+  version ? "11.1",
+  allowHigher ? false,
+  xcodeBaseDir ? "/Applications/Xcode.app"
+}:
 
 assert stdenv.isDarwin;
 

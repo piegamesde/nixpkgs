@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, validatePkgConfig, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  validatePkgConfig,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "freexl";

@@ -1,4 +1,9 @@
-{ lib, stdenv, buildRustCrate, fetchgit }:
+{
+  lib,
+  stdenv,
+  buildRustCrate,
+  fetchgit,
+}:
 let
   kernel = stdenv.buildPlatform.parsed.kernel.name;
   abi = stdenv.buildPlatform.parsed.abi.name;
@@ -19,8 +24,11 @@ let
       else
         features) [ ] (builtins.attrNames feat);
 in rec {
-  alloc_no_stdlib_1_3_0_ =
-    { dependencies ? [ ], buildDependencies ? [ ], features ? [ ] }:
+  alloc_no_stdlib_1_3_0_ = {
+      dependencies ? [ ],
+      buildDependencies ? [ ],
+      features ? [ ]
+    }:
     buildRustCrate {
       crateName = "alloc-no-stdlib";
       version = "1.3.0";
@@ -29,8 +37,11 @@ in rec {
       crateBin = [{ name = "example"; }];
       inherit dependencies buildDependencies features;
     };
-  brotli_2_5_0_ =
-    { dependencies ? [ ], buildDependencies ? [ ], features ? [ ] }:
+  brotli_2_5_0_ = {
+      dependencies ? [ ],
+      buildDependencies ? [ ],
+      features ? [ ]
+    }:
     buildRustCrate {
       crateName = "brotli";
       version = "2.5.0";
@@ -40,8 +51,11 @@ in rec {
       crateBin = [{ name = "brotli"; }];
       inherit dependencies buildDependencies features;
     };
-  brotli_decompressor_1_3_1_ =
-    { dependencies ? [ ], buildDependencies ? [ ], features ? [ ] }:
+  brotli_decompressor_1_3_1_ = {
+      dependencies ? [ ],
+      buildDependencies ? [ ],
+      features ? [ ]
+    }:
     buildRustCrate {
       crateName = "brotli-decompressor";
       version = "1.3.1";
@@ -51,7 +65,9 @@ in rec {
       crateBin = [{ name = "brotli-decompressor"; }];
       inherit dependencies buildDependencies features;
     };
-  alloc_no_stdlib_1_3_0 = { features ? (alloc_no_stdlib_1_3_0_features { }) }:
+  alloc_no_stdlib_1_3_0 = {
+      features ? (alloc_no_stdlib_1_3_0_features { })
+    }:
     alloc_no_stdlib_1_3_0_ {
       features = mkFeatures (features.alloc_no_stdlib_1_3_0 or { });
     };
@@ -59,7 +75,9 @@ in rec {
     updateFeatures f ({
       alloc_no_stdlib_1_3_0.default = (f.alloc_no_stdlib_1_3_0.default or true);
     }) [ ];
-  brotli_2_5_0 = { features ? (brotli_2_5_0_features { }) }:
+  brotli_2_5_0 = {
+      features ? (brotli_2_5_0_features { })
+    }:
     brotli_2_5_0_ {
       dependencies = mapFeatures features ([
         alloc_no_stdlib_1_3_0
@@ -92,8 +110,9 @@ in rec {
         (f.brotli_decompressor_1_3_1.seccomp or false)
         || (brotli_2_5_0.seccomp or false) || (f.brotli_2_5_0.seccomp or false);
     }) [ alloc_no_stdlib_1_3_0_features brotli_decompressor_1_3_1_features ];
-  brotli_decompressor_1_3_1 =
-    { features ? (brotli_decompressor_1_3_1_features { }) }:
+  brotli_decompressor_1_3_1 = {
+      features ? (brotli_decompressor_1_3_1_features { })
+    }:
     brotli_decompressor_1_3_1_ {
       dependencies = mapFeatures features ([ alloc_no_stdlib_1_3_0 ]);
       features = mkFeatures (features.brotli_decompressor_1_3_1 or { });

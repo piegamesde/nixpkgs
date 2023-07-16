@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitLab, perlPackages, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  perlPackages,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gcstar";

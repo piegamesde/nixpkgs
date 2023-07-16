@@ -1,4 +1,10 @@
-{ lib, stdenv, rustPlatform, Security, asNightly ? false }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  Security,
+  asNightly ? false
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rustfmt" + lib.optionalString asNightly "-nightly";

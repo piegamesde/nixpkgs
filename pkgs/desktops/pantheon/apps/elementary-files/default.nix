@@ -1,7 +1,31 @@
-{ lib, stdenv, fetchFromGitHub, nix-update-script, pkg-config, meson, ninja
-, vala, python3, desktop-file-utils, libcanberra, gtk3, glib, libgee, libhandy
-, granite, libnotify, pango, elementary-dock, bamf, sqlite, zeitgeist
-, libcloudproviders, libgit2-glib, wrapGAppsHook, systemd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  pkg-config,
+  meson,
+  ninja,
+  vala,
+  python3,
+  desktop-file-utils,
+  libcanberra,
+  gtk3,
+  glib,
+  libgee,
+  libhandy,
+  granite,
+  libnotify,
+  pango,
+  elementary-dock,
+  bamf,
+  sqlite,
+  zeitgeist,
+  libcloudproviders,
+  libgit2-glib,
+  wrapGAppsHook,
+  systemd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "elementary-files";

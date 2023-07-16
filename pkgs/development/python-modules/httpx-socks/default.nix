@@ -1,6 +1,23 @@
-{ lib, async-timeout, buildPythonPackage, curio, fetchFromGitHub, flask
-, httpcore, httpx, hypercorn, pytest-asyncio, pytest-trio, pytestCheckHook
-, python-socks, pythonOlder, sniffio, starlette, trio, yarl }:
+{
+  lib,
+  async-timeout,
+  buildPythonPackage,
+  curio,
+  fetchFromGitHub,
+  flask,
+  httpcore,
+  httpx,
+  hypercorn,
+  pytest-asyncio,
+  pytest-trio,
+  pytestCheckHook,
+  python-socks,
+  pythonOlder,
+  sniffio,
+  starlette,
+  trio,
+  yarl,
+}:
 
 buildPythonPackage rec {
   pname = "httpx-socks";

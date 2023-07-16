@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, SDL, SDL_image }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  SDL,
+  SDL_image,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vp";

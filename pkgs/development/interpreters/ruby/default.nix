@@ -1,9 +1,39 @@
-{ stdenv, buildPackages, lib, fetchurl, fetchpatch, fetchFromSavannah
-, fetchFromGitHub, zlib, gdbm, ncurses, readline, groff, libyaml, libffi
-, jemalloc, autoreconfHook, bison, autoconf, libiconv, libobjc, libunwind
-, Foundation, buildEnv, bundler, bundix, rustPlatform, makeBinaryWrapper
-, buildRubyGem, defaultGemConfig, removeReferencesTo, openssl, openssl_1_1
-, linuxPackages, libsystemtap }@args:
+{
+  stdenv,
+  buildPackages,
+  lib,
+  fetchurl,
+  fetchpatch,
+  fetchFromSavannah,
+  fetchFromGitHub,
+  zlib,
+  gdbm,
+  ncurses,
+  readline,
+  groff,
+  libyaml,
+  libffi,
+  jemalloc,
+  autoreconfHook,
+  bison,
+  autoconf,
+  libiconv,
+  libobjc,
+  libunwind,
+  Foundation,
+  buildEnv,
+  bundler,
+  bundix,
+  rustPlatform,
+  makeBinaryWrapper,
+  buildRubyGem,
+  defaultGemConfig,
+  removeReferencesTo,
+  openssl,
+  openssl_1_1,
+  linuxPackages,
+  libsystemtap,
+}@args:
 
 let
   op = lib.optional;
@@ -15,7 +45,11 @@ let
   # Contains the ruby version heuristics
   rubyVersion = import ./ruby-version.nix { inherit lib; };
 
-  generic = { version, sha256, cargoSha256 ? null }:
+  generic = {
+      version,
+      sha256,
+      cargoSha256 ? null
+    }:
     let
       ver = version;
       atLeast30 = lib.versionAtLeast ver.majMin "3.0";
@@ -24,31 +58,70 @@ let
       # https://github.com/ruby/ruby/blob/v3_2_2/yjit.h#L21
       yjitSupported = atLeast32 && (stdenv.hostPlatform.isx86_64
         || (!stdenv.hostPlatform.isWindows && stdenv.hostPlatform.isAarch64));
-      self = lib.makeOverridable ({ stdenv, buildPackages, lib, fetchurl
-        , fetchpatch, fetchFromSavannah, fetchFromGitHub, rubygemsSupport ? true
-        , zlib, zlibSupport ? true, openssl, openssl_1_1, opensslSupport ? true
-        , gdbm, gdbmSupport ? true, ncurses, readline, cursesSupport ? true
-        , groff, docSupport ? true, libyaml, yamlSupport ? true, libffi
-        , fiddleSupport ? true, jemalloc, jemallocSupport ? false, linuxPackages
-        , systemtap ? linuxPackages.systemtap, libsystemtap, dtraceSupport ?
-          false
-          # By default, ruby has 3 observed references to stdenv.cc:
-          #
-          # - If you run:
-          #     ruby -e "puts RbConfig::CONFIG['configure_args']"
-          # - In:
-          #     $out/${passthru.libPath}/${stdenv.hostPlatform.system}/rbconfig.rb
-          #   Or (usually):
-          #     $(nix-build -A ruby)/lib/ruby/2.6.0/x86_64-linux/rbconfig.rb
-          # - In $out/lib/libruby.so and/or $out/lib/libruby.dylib
-        , removeReferencesTo, jitSupport ? yjitSupport, rustPlatform
-        , yjitSupport ? yjitSupported, autoreconfHook, bison, autoconf, buildEnv
-        , bundler, bundix, libiconv, libobjc, libunwind, Foundation
-        , makeBinaryWrapper, buildRubyGem, defaultGemConfig, baseRuby ?
-          buildPackages.ruby.override {
+      self = lib.makeOverridable ({
+          stdenv,
+          buildPackages,
+          lib,
+          fetchurl,
+          fetchpatch,
+          fetchFromSavannah,
+          fetchFromGitHub,
+          rubygemsSupport ? true,
+          zlib,
+          zlibSupport ? true,
+          openssl,
+          openssl_1_1,
+          opensslSupport ? true,
+          gdbm,
+          gdbmSupport ? true,
+          ncurses,
+          readline,
+          cursesSupport ? true,
+          groff,
+          docSupport ? true,
+          libyaml,
+          yamlSupport ? true,
+          libffi,
+          fiddleSupport ? true,
+          jemalloc,
+          jemallocSupport ? false,
+          linuxPackages,
+          systemtap ? linuxPackages.systemtap,
+          libsystemtap,
+          dtraceSupport ? false
+            # By default, ruby has 3 observed references to stdenv.cc:
+            #
+            # - If you run:
+            #     ruby -e "puts RbConfig::CONFIG['configure_args']"
+            # - In:
+            #     $out/${passthru.libPath}/${stdenv.hostPlatform.system}/rbconfig.rb
+            #   Or (usually):
+            #     $(nix-build -A ruby)/lib/ruby/2.6.0/x86_64-linux/rbconfig.rb
+            # - In $out/lib/libruby.so and/or $out/lib/libruby.dylib
+          ,
+          removeReferencesTo,
+          jitSupport ? yjitSupport,
+          rustPlatform,
+          yjitSupport ? yjitSupported,
+          autoreconfHook,
+          bison,
+          autoconf,
+          buildEnv,
+          bundler,
+          bundix,
+          libiconv,
+          libobjc,
+          libunwind,
+          Foundation,
+          makeBinaryWrapper,
+          buildRubyGem,
+          defaultGemConfig,
+          baseRuby ? buildPackages.ruby.override {
             docSupport = false;
             rubygemsSupport = false;
-          }, useBaseRuby ? stdenv.hostPlatform != stdenv.buildPlatform }:
+          },
+          useBaseRuby ? stdenv.hostPlatform != stdenv.buildPlatform
+        }:
         stdenv.mkDerivation rec {
           pname = "ruby";
           inherit version;

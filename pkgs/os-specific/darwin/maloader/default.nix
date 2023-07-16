@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, opencflite, clang, libcxx }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  opencflite,
+  clang,
+  libcxx,
+}:
 
 stdenv.mkDerivation {
   pname = "maloader";

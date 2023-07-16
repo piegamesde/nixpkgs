@@ -1,7 +1,23 @@
-{ lib, element-desktop # for seshat and keytar
-, schildichat-web, stdenv, fetchFromGitHub, makeWrapper, makeDesktopItem
-, copyDesktopItems, fetchYarnDeps, yarn, nodejs, fixup_yarn_lock, electron
-, Security, AppKit, CoreServices, sqlcipher }:
+{
+  lib,
+  element-desktop # for seshat and keytar
+  ,
+  schildichat-web,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  fetchYarnDeps,
+  yarn,
+  nodejs,
+  fixup_yarn_lock,
+  electron,
+  Security,
+  AppKit,
+  CoreServices,
+  sqlcipher,
+}:
 
 let
   pinData = lib.importJSON ./pin.json;

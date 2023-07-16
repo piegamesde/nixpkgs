@@ -1,4 +1,7 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
   let
     port = 8000;
     baseUrl = "http://server:${toString port}";
@@ -7,40 +10,46 @@ import ./make-test-python.nix ({ pkgs, ... }:
     meta = with pkgs.lib.maintainers; { maintainers = [ hexa ]; };
 
     nodes = {
-      server = { config, ... }: {
-        networking.firewall.allowedTCPPorts = [ port ];
+      server = {
+          config,
+          ...
+        }: {
+          networking.firewall.allowedTCPPorts = [ port ];
 
-        services.pinnwand = {
-          enable = true;
-          port = port;
+          services.pinnwand = {
+            enable = true;
+            port = port;
+          };
         };
-      };
 
-      client = { pkgs, ... }: {
-        environment.systemPackages = [
-          pkgs.steck
+      client = {
+          pkgs,
+          ...
+        }: {
+          environment.systemPackages = [
+            pkgs.steck
 
-          (pkgs.writers.writePython3Bin "setup-steck.py" {
-            libraries = with pkgs.python3.pkgs; [ appdirs toml ];
-            flakeIgnore = [ "E501" ];
-          } ''
-            import appdirs
-            import toml
-            import os
+            (pkgs.writers.writePython3Bin "setup-steck.py" {
+              libraries = with pkgs.python3.pkgs; [ appdirs toml ];
+              flakeIgnore = [ "E501" ];
+            } ''
+              import appdirs
+              import toml
+              import os
 
-            CONFIG = {
-                "base": "${baseUrl}/",
-                "confirm": False,
-                "magic": True,
-                "ignore": True
-            }
+              CONFIG = {
+                  "base": "${baseUrl}/",
+                  "confirm": False,
+                  "magic": True,
+                  "ignore": True
+              }
 
-            os.makedirs(appdirs.user_config_dir('steck'))
-            with open(os.path.join(appdirs.user_config_dir('steck'), 'steck.toml'), "w") as fd:
-                toml.dump(CONFIG, fd)
-          '')
-        ];
-      };
+              os.makedirs(appdirs.user_config_dir('steck'))
+              with open(os.path.join(appdirs.user_config_dir('steck'), 'steck.toml'), "w") as fd:
+                  toml.dump(CONFIG, fd)
+            '')
+          ];
+        };
     };
 
     testScript = ''

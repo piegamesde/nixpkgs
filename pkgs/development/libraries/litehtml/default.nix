@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gumbo }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gumbo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "litehtml";

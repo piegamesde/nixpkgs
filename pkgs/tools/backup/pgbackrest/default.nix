@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, postgresql, openssl, lz4, bzip2
-, libxml2, zlib, zstd, libyaml }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  postgresql,
+  openssl,
+  lz4,
+  bzip2,
+  libxml2,
+  zlib,
+  zstd,
+  libyaml,
+}:
 stdenv.mkDerivation rec {
   pname = "pgbackrest";
   version = "2.45";

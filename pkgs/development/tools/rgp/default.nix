@@ -1,6 +1,23 @@
-{ lib, stdenv, makeWrapper, fetchurl, autoPatchelfHook, dbus, fontconfig
-, freetype, glib, libGLU, libglvnd, libX11, libxcb, libXi, ncurses, qtbase
-, qtdeclarative, zlib }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  fetchurl,
+  autoPatchelfHook,
+  dbus,
+  fontconfig,
+  freetype,
+  glib,
+  libGLU,
+  libglvnd,
+  libX11,
+  libxcb,
+  libXi,
+  ncurses,
+  qtbase,
+  qtdeclarative,
+  zlib,
+}:
 
 let buildNum = "2023-02-15-1051";
 in stdenv.mkDerivation {

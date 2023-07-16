@@ -1,27 +1,95 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, cmake, pkg-config, unzip, zlib, pcre
-, hdf5, boost, gflags, protobuf, config, ocl-icd, buildPackages, qimgv, opencv4
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  unzip,
+  zlib,
+  pcre,
+  hdf5,
+  boost,
+  gflags,
+  protobuf,
+  config,
+  ocl-icd,
+  buildPackages,
+  qimgv,
+  opencv4
 
-, enableJPEG ? true, libjpeg, enablePNG ? true, libpng, enableTIFF ? true
-, libtiff, enableWebP ? true, libwebp, enableEXR ? !stdenv.isDarwin, openexr
-, ilmbase, enableJPEG2000 ? true, openjpeg, enableEigen ? true, eigen
-, enableBlas ? true, blas, enableContrib ? true
+  ,
+  enableJPEG ? true,
+  libjpeg,
+  enablePNG ? true,
+  libpng,
+  enableTIFF ? true,
+  libtiff,
+  enableWebP ? true,
+  libwebp,
+  enableEXR ? !stdenv.isDarwin,
+  openexr,
+  ilmbase,
+  enableJPEG2000 ? true,
+  openjpeg,
+  enableEigen ? true,
+  eigen,
+  enableBlas ? true,
+  blas,
+  enableContrib ? true
 
-, enableCuda ? (config.cudaSupport or false) && stdenv.hostPlatform.isx86_64
-, enableCublas ? enableCuda, enableCudnn ?
-  false # NOTE: CUDNN has a large impact on closure size so we disable it by default
-, enableCufft ? enableCuda, cudaPackages ? { }, symlinkJoin
-, nvidia-optical-flow-sdk
+  ,
+  enableCuda ? (config.cudaSupport or false) && stdenv.hostPlatform.isx86_64,
+  enableCublas ? enableCuda,
+  enableCudnn ?
+    false # NOTE: CUDNN has a large impact on closure size so we disable it by default
+  ,
+  enableCufft ? enableCuda,
+  cudaPackages ? { },
+  symlinkJoin,
+  nvidia-optical-flow-sdk
 
-, enableLto ? true, enableUnfree ? false, enableIpp ? false
-, enablePython ? false, pythonPackages, enableGtk2 ? false, gtk2
-, enableGtk3 ? false, gtk3, enableVtk ? false, vtk, enableFfmpeg ? true, ffmpeg
-, enableGStreamer ? true, gst_all_1, enableTesseract ? false, tesseract
-, leptonica, enableTbb ? false, tbb, enableOvis ? false, ogre
-, enableGPhoto2 ? false, libgphoto2, enableDC1394 ? false, libdc1394
-, enableDocs ? false, doxygen, graphviz-nox
+  ,
+  enableLto ? true,
+  enableUnfree ? false,
+  enableIpp ? false,
+  enablePython ? false,
+  pythonPackages,
+  enableGtk2 ? false,
+  gtk2,
+  enableGtk3 ? false,
+  gtk3,
+  enableVtk ? false,
+  vtk,
+  enableFfmpeg ? true,
+  ffmpeg,
+  enableGStreamer ? true,
+  gst_all_1,
+  enableTesseract ? false,
+  tesseract,
+  leptonica,
+  enableTbb ? false,
+  tbb,
+  enableOvis ? false,
+  ogre,
+  enableGPhoto2 ? false,
+  libgphoto2,
+  enableDC1394 ? false,
+  libdc1394,
+  enableDocs ? false,
+  doxygen,
+  graphviz-nox
 
-, AVFoundation, Cocoa, VideoDecodeAcceleration, CoreMedia, MediaToolbox
-, Accelerate, bzip2, callPackage }:
+  ,
+  AVFoundation,
+  Cocoa,
+  VideoDecodeAcceleration,
+  CoreMedia,
+  MediaToolbox,
+  Accelerate,
+  bzip2,
+  callPackage,
+}:
 
 let
   version = "4.7.0";

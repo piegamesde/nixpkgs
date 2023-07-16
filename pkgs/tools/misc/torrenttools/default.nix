@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, bencode, catch2, cli11, cmake, ctre
-, expected-lite, fmt, gsl-lite, howard-hinnant-date, yaml-cpp, ninja
-, nlohmann_json, openssl, re2, sigslot }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bencode,
+  catch2,
+  cli11,
+  cmake,
+  ctre,
+  expected-lite,
+  fmt,
+  gsl-lite,
+  howard-hinnant-date,
+  yaml-cpp,
+  ninja,
+  nlohmann_json,
+  openssl,
+  re2,
+  sigslot,
+}:
 
 stdenv.mkDerivation rec {
   pname = "torrenttools";

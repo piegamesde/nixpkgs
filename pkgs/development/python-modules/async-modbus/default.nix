@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, connio, fetchFromGitHub, fetchpatch, pytest-asyncio
-, pytestCheckHook, pythonOlder, setuptools, umodbus }:
+{
+  lib,
+  buildPythonPackage,
+  connio,
+  fetchFromGitHub,
+  fetchpatch,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  umodbus,
+}:
 
 buildPythonPackage rec {
   pname = "async-modbus";

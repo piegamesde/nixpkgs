@@ -1,4 +1,11 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pythonOlder, xmltodict }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  xmltodict,
+}:
 
 buildPythonPackage rec {
   pname = "aioeagle";

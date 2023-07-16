@@ -1,8 +1,28 @@
-{ lib, fetchFromGitLab, nix-update-script, meson, ninja, pkg-config, python3
-, gtk3, gst_all_1, libhandy, libsecret, libsoup_3, appstream-glib
-, desktop-file-utils, totem-pl-parser, gobject-introspection, glib-networking
-, gdk-pixbuf, glib, pango, wrapGAppsHook, lastFMSupport ? true
-, youtubeSupport ? true }:
+{
+  lib,
+  fetchFromGitLab,
+  nix-update-script,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  gtk3,
+  gst_all_1,
+  libhandy,
+  libsecret,
+  libsoup_3,
+  appstream-glib,
+  desktop-file-utils,
+  totem-pl-parser,
+  gobject-introspection,
+  glib-networking,
+  gdk-pixbuf,
+  glib,
+  pango,
+  wrapGAppsHook,
+  lastFMSupport ? true,
+  youtubeSupport ? true
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "lollypop";

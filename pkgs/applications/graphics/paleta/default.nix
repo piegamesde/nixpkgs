@@ -1,5 +1,18 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, meson, ninja, pkg-config
-, wrapGAppsHook4, appstream-glib, desktop-file-utils, glib, gtk4, libadwaita }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  wrapGAppsHook4,
+  appstream-glib,
+  desktop-file-utils,
+  glib,
+  gtk4,
+  libadwaita,
+}:
 
 stdenv.mkDerivation rec {
   pname = "paleta";

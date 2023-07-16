@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, SDL2, SDL2_image, SDL2_ttf, alsa-lib
-, freetype, glew, libGL, libogg, libpng, libtheora, libvorbis, python3, tcl
-, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  SDL2,
+  SDL2_image,
+  SDL2_ttf,
+  alsa-lib,
+  freetype,
+  glew,
+  libGL,
+  libogg,
+  libpng,
+  libtheora,
+  libvorbis,
+  python3,
+  tcl,
+  zlib,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "openmsx";

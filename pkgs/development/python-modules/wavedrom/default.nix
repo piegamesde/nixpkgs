@@ -1,5 +1,17 @@
-{ lib, attrdict, buildPythonPackage, cairosvg, fetchPypi, pillow
-, pytestCheckHook, pyyaml, setuptools-scm, six, svgwrite, xmldiff }:
+{
+  lib,
+  attrdict,
+  buildPythonPackage,
+  cairosvg,
+  fetchPypi,
+  pillow,
+  pytestCheckHook,
+  pyyaml,
+  setuptools-scm,
+  six,
+  svgwrite,
+  xmldiff,
+}:
 
 buildPythonPackage rec {
   pname = "wavedrom";

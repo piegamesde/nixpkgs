@@ -1,9 +1,28 @@
-{ lib, stdenv, llvm_meta, pkgsBuildBuild, fetch, cmake, python3, libffi
-, enableGoldPlugin ? libbfd.hasPluginAPI, libbfd, libxml2, ncurses, version
-, release_version, zlib, buildLlvmTools, fetchpatch, doCheck ? stdenv.isLinux
-  && (!stdenv.isi686) && (stdenv.hostPlatform == stdenv.buildPlatform)
-, debugVersion ? false, enableManpages ? false
-, enableSharedLibraries ? !stdenv.hostPlatform.isStatic, enablePolly ? false }:
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  pkgsBuildBuild,
+  fetch,
+  cmake,
+  python3,
+  libffi,
+  enableGoldPlugin ? libbfd.hasPluginAPI,
+  libbfd,
+  libxml2,
+  ncurses,
+  version,
+  release_version,
+  zlib,
+  buildLlvmTools,
+  fetchpatch,
+  doCheck ? stdenv.isLinux && (!stdenv.isi686)
+    && (stdenv.hostPlatform == stdenv.buildPlatform),
+  debugVersion ? false,
+  enableManpages ? false,
+  enableSharedLibraries ? !stdenv.hostPlatform.isStatic,
+  enablePolly ? false
+}:
 
 let
   inherit (lib) optional optionals optionalString;

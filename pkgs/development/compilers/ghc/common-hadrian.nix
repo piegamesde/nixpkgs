@@ -1,131 +1,162 @@
-{ version, rev ? null, sha256, url ? if rev != null then
-  "https://gitlab.haskell.org/ghc/ghc.git"
-else
-  "https://downloads.haskell.org/ghc/${version}/ghc-${version}-src.tar.xz"
+{
+  version,
+  rev ? null,
+  sha256,
+  url ? if rev != null then
+    "https://gitlab.haskell.org/ghc/ghc.git"
+  else
+    "https://downloads.haskell.org/ghc/${version}/ghc-${version}-src.tar.xz"
 
 }:
 
-{ lib, stdenv, pkgsBuildTarget, pkgsHostTarget, targetPackages
+{
+  lib,
+  stdenv,
+  pkgsBuildTarget,
+  pkgsHostTarget,
+  targetPackages
 
-# build-tools
-, bootPkgs, autoconf, automake, coreutils, fetchpatch, fetchurl, fetchgit, perl
-, python3, m4, sphinx, xattr, autoSignDarwinBinariesHook, bash
+  # build-tools
+  ,
+  bootPkgs,
+  autoconf,
+  automake,
+  coreutils,
+  fetchpatch,
+  fetchurl,
+  fetchgit,
+  perl,
+  python3,
+  m4,
+  sphinx,
+  xattr,
+  autoSignDarwinBinariesHook,
+  bash
 
-, libiconv ? null, ncurses, glibcLocales ? null
+  ,
+  libiconv ? null,
+  ncurses,
+  glibcLocales ? null
 
-, # GHC can be built with system libffi or a bundled one.
-libffi ? null
+  , # GHC can be built with system libffi or a bundled one.
+  libffi ? null
 
-, useLLVM ? !(stdenv.targetPlatform.isx86 || stdenv.targetPlatform.isPower
-  || stdenv.targetPlatform.isSparc
-  || (stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin)
-  || stdenv.targetPlatform.isGhcjs)
-, # LLVM is conceptually a run-time-only depedendency, but for
-# non-x86, we need LLVM to bootstrap later stages, so it becomes a
-# build-time dependency too.
-buildTargetLlvmPackages, llvmPackages
+  ,
+  useLLVM ? !(stdenv.targetPlatform.isx86 || stdenv.targetPlatform.isPower
+    || stdenv.targetPlatform.isSparc
+    || (stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin)
+    || stdenv.targetPlatform.isGhcjs), # LLVM is conceptually a run-time-only depedendency, but for
+  # non-x86, we need LLVM to bootstrap later stages, so it becomes a
+  # build-time dependency too.
+  buildTargetLlvmPackages,
+  llvmPackages
 
-, # If enabled, GHC will be built with the GPL-free but slightly slower native
-# bignum backend instead of the faster but GPLed gmp backend.
-enableNativeBignum ? !(lib.meta.availableOn stdenv.hostPlatform gmp
-  && lib.meta.availableOn stdenv.targetPlatform gmp)
-  || stdenv.targetPlatform.isGhcjs, gmp
+  , # If enabled, GHC will be built with the GPL-free but slightly slower native
+  # bignum backend instead of the faster but GPLed gmp backend.
+  enableNativeBignum ? !(lib.meta.availableOn stdenv.hostPlatform gmp
+    && lib.meta.availableOn stdenv.targetPlatform gmp)
+    || stdenv.targetPlatform.isGhcjs,
+  gmp
 
-, # If enabled, use -fPIC when compiling static libs.
-enableRelocatedStaticLibs ? stdenv.targetPlatform != stdenv.hostPlatform
+  , # If enabled, use -fPIC when compiling static libs.
+  enableRelocatedStaticLibs ? stdenv.targetPlatform != stdenv.hostPlatform
 
-  # aarch64 outputs otherwise exceed 2GB limit
-, enableProfiledLibs ? !stdenv.targetPlatform.isAarch64
+    # aarch64 outputs otherwise exceed 2GB limit
+  ,
+  enableProfiledLibs ? !stdenv.targetPlatform.isAarch64
 
-, # Whether to build dynamic libs for the standard library (on the target
-# platform). Static libs are always built.
-enableShared ? with stdenv.targetPlatform;
-  !isWindows && !useiOSPrebuilt && !isStatic && !isGhcjs
+  , # Whether to build dynamic libs for the standard library (on the target
+  # platform). Static libs are always built.
+  enableShared ? with stdenv.targetPlatform;
+    !isWindows && !useiOSPrebuilt && !isStatic && !isGhcjs
 
-, # Whether to build terminfo.
-enableTerminfo ?
-  !(stdenv.targetPlatform.isWindows || stdenv.targetPlatform.isGhcjs)
+  , # Whether to build terminfo.
+  enableTerminfo ?
+    !(stdenv.targetPlatform.isWindows || stdenv.targetPlatform.isGhcjs)
 
-, # Libdw.c only supports x86_64, i686 and s390x as of 2022-08-04
-enableDwarf ? (stdenv.targetPlatform.isx86
-  || (stdenv.targetPlatform.isS390 && stdenv.targetPlatform.is64bit))
-  && lib.meta.availableOn stdenv.hostPlatform elfutils
-  && lib.meta.availableOn stdenv.targetPlatform elfutils &&
-  # HACK: elfutils is marked as broken on static platforms
-  # which availableOn can't tell.
-  !stdenv.targetPlatform.isStatic && !stdenv.hostPlatform.isStatic, elfutils
+  , # Libdw.c only supports x86_64, i686 and s390x as of 2022-08-04
+  enableDwarf ? (stdenv.targetPlatform.isx86
+    || (stdenv.targetPlatform.isS390 && stdenv.targetPlatform.is64bit))
+    && lib.meta.availableOn stdenv.hostPlatform elfutils
+    && lib.meta.availableOn stdenv.targetPlatform elfutils &&
+    # HACK: elfutils is marked as broken on static platforms
+    # which availableOn can't tell.
+    !stdenv.targetPlatform.isStatic && !stdenv.hostPlatform.isStatic,
+  elfutils
 
-, # What flavour to build. Flavour string may contain a flavour and flavour
-# transformers as accepted by hadrian.
-ghcFlavour ? let
-  # TODO(@sternenseemann): does using the static flavour make sense?
-  baseFlavour = "release";
-  # Note: in case hadrian's flavour transformers cease being expressive
-  # enough for us, we'll need to resort to defining a "nixpkgs" flavour
-  # in hadrianUserSettings and using that instead.
-  transformers = lib.optionals useLLVM [ "llvm" ]
-    ++ lib.optionals (!enableShared) [ "no_dynamic_libs" "no_dynamic_ghc" ]
-    ++ lib.optionals (!enableProfiledLibs) [
-      "no_profiled_libs"
-    ]
-    # While split sections are now enabled by default in ghc 8.8 for windows,
-    # they seem to lead to `too many sections` errors when building base for
-    # profiling.
-    ++ lib.optionals (!stdenv.targetPlatform.isWindows) [ "split_sections" ];
-in baseFlavour + lib.concatMapStrings (t: "+${t}") transformers
+  , # What flavour to build. Flavour string may contain a flavour and flavour
+  # transformers as accepted by hadrian.
+  ghcFlavour ? let
+    # TODO(@sternenseemann): does using the static flavour make sense?
+    baseFlavour = "release";
+    # Note: in case hadrian's flavour transformers cease being expressive
+    # enough for us, we'll need to resort to defining a "nixpkgs" flavour
+    # in hadrianUserSettings and using that instead.
+    transformers = lib.optionals useLLVM [ "llvm" ]
+      ++ lib.optionals (!enableShared) [ "no_dynamic_libs" "no_dynamic_ghc" ]
+      ++ lib.optionals (!enableProfiledLibs) [
+        "no_profiled_libs"
+      ]
+      # While split sections are now enabled by default in ghc 8.8 for windows,
+      # they seem to lead to `too many sections` errors when building base for
+      # profiling.
+      ++ lib.optionals (!stdenv.targetPlatform.isWindows) [ "split_sections" ];
+  in baseFlavour + lib.concatMapStrings (t: "+${t}") transformers
 
-, # Contents of the UserSettings.hs file to use when compiling hadrian.
-hadrianUserSettings ? ''
-  module UserSettings (
-      userFlavours, userPackages, userDefaultFlavour,
-      verboseCommand, buildProgressColour, successColour, finalStage
-      ) where
+  , # Contents of the UserSettings.hs file to use when compiling hadrian.
+  hadrianUserSettings ? ''
+    module UserSettings (
+        userFlavours, userPackages, userDefaultFlavour,
+        verboseCommand, buildProgressColour, successColour, finalStage
+        ) where
 
-  import Flavour.Type
-  import Expression
-  import {-# SOURCE #-} Settings.Default
+    import Flavour.Type
+    import Expression
+    import {-# SOURCE #-} Settings.Default
 
-  -- no way to set this via the command line
-  finalStage :: Stage
-  finalStage = ${
-    if stdenv.hostPlatform == stdenv.targetPlatform then
-      "Stage2" # native compiler
-    else
-      "Stage1" # cross compiler
-  }
+    -- no way to set this via the command line
+    finalStage :: Stage
+    finalStage = ${
+      if stdenv.hostPlatform == stdenv.targetPlatform then
+        "Stage2" # native compiler
+      else
+        "Stage1" # cross compiler
+    }
 
-  userDefaultFlavour :: String
-  userDefaultFlavour = "release"
+    userDefaultFlavour :: String
+    userDefaultFlavour = "release"
 
-  userFlavours :: [Flavour]
-  userFlavours = []
+    userFlavours :: [Flavour]
+    userFlavours = []
 
-  -- Disable Colours
-  buildProgressColour :: BuildProgressColour
-  buildProgressColour = mkBuildProgressColour (Dull Reset)
-  successColour :: SuccessColour
-  successColour = mkSuccessColour (Dull Reset)
+    -- Disable Colours
+    buildProgressColour :: BuildProgressColour
+    buildProgressColour = mkBuildProgressColour (Dull Reset)
+    successColour :: SuccessColour
+    successColour = mkSuccessColour (Dull Reset)
 
-  -- taken from src/UserSettings.hs unchanged, need to be there
-  userPackages :: [Package]
-  userPackages = []
-  verboseCommand :: Predicate
-  verboseCommand = do
-      verbosity <- expr getVerbosity
-      return $ verbosity >= Verbose
-''
+    -- taken from src/UserSettings.hs unchanged, need to be there
+    userPackages :: [Package]
+    userPackages = []
+    verboseCommand :: Predicate
+    verboseCommand = do
+        verbosity <- expr getVerbosity
+        return $ verbosity >= Verbose
+  ''
 
-, # Whether to build sphinx documentation.
-enableDocs ? (
-  # Docs disabled for musl and cross because it's a large task to keep
-  # all `sphinx` dependencies building in those environments.
-  # `sphinx` pulls in among others:
-  # Ruby, Python, Perl, Rust, OpenGL, Xorg, gtk, LLVM.
-  (stdenv.targetPlatform == stdenv.hostPlatform) && !stdenv.hostPlatform.isMusl)
+  , # Whether to build sphinx documentation.
+  enableDocs ? (
+    # Docs disabled for musl and cross because it's a large task to keep
+    # all `sphinx` dependencies building in those environments.
+    # `sphinx` pulls in among others:
+    # Ruby, Python, Perl, Rust, OpenGL, Xorg, gtk, LLVM.
+    (stdenv.targetPlatform == stdenv.hostPlatform)
+    && !stdenv.hostPlatform.isMusl)
 
-, # Whether to disable the large address space allocator
-# necessary fix for iOS: https://www.reddit.com/r/haskell/comments/4ttdz1/building_an_osxi386_to_iosarm64_cross_compiler/d5qvd67/
-disableLargeAddressSpace ? stdenv.targetPlatform.isiOS }:
+  , # Whether to disable the large address space allocator
+  # necessary fix for iOS: https://www.reddit.com/r/haskell/comments/4ttdz1/building_an_osxi386_to_iosarm64_cross_compiler/d5qvd67/
+  disableLargeAddressSpace ? stdenv.targetPlatform.isiOS
+}:
 
 assert !enableNativeBignum -> gmp != null;
 

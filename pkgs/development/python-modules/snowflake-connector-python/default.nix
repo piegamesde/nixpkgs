@@ -1,6 +1,23 @@
-{ lib, asn1crypto, buildPythonPackage, certifi, cffi, charset-normalizer
-, fetchPypi, filelock, idna, oscrypto, pycryptodomex, pyjwt, pyopenssl
-, pythonOlder, pytz, requests, setuptools, typing-extensions }:
+{
+  lib,
+  asn1crypto,
+  buildPythonPackage,
+  certifi,
+  cffi,
+  charset-normalizer,
+  fetchPypi,
+  filelock,
+  idna,
+  oscrypto,
+  pycryptodomex,
+  pyjwt,
+  pyopenssl,
+  pythonOlder,
+  pytz,
+  requests,
+  setuptools,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "snowflake-connector-python";

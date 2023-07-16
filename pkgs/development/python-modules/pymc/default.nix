@@ -1,5 +1,17 @@
-{ lib, arviz, buildPythonPackage, cachetools, cloudpickle, fastprogress
-, fetchFromGitHub, numpy, pytensor, pythonOlder, scipy, typing-extensions }:
+{
+  lib,
+  arviz,
+  buildPythonPackage,
+  cachetools,
+  cloudpickle,
+  fastprogress,
+  fetchFromGitHub,
+  numpy,
+  pytensor,
+  pythonOlder,
+  scipy,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "pymc";

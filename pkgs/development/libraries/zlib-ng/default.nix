@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, withZlibCompat ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  withZlibCompat ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "zlib-ng";

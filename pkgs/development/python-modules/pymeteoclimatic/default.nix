@@ -1,5 +1,12 @@
-{ lib, beautifulsoup4, buildPythonPackage, fetchFromGitHub, lxml, pythonOlder
-, pytestCheckHook }:
+{
+  lib,
+  beautifulsoup4,
+  buildPythonPackage,
+  fetchFromGitHub,
+  lxml,
+  pythonOlder,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pymeteoclimatic";

@@ -1,7 +1,27 @@
-{ lib, stdenv, fetchFromGitHub, SDL2, cmake, copyDesktopItems, ffmpeg_4, glew
-, libffi, libsForQt5, libzip, makeDesktopItem, makeWrapper, pkg-config, python3
-, snappy, vulkan-loader, wayland, zlib, enableQt ? false, enableVulkan ? true
-, forceWayland ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL2,
+  cmake,
+  copyDesktopItems,
+  ffmpeg_4,
+  glew,
+  libffi,
+  libsForQt5,
+  libzip,
+  makeDesktopItem,
+  makeWrapper,
+  pkg-config,
+  python3,
+  snappy,
+  vulkan-loader,
+  wayland,
+  zlib,
+  enableQt ? false,
+  enableVulkan ? true,
+  forceWayland ? false
+}:
 
 let
   # experimental, see https://github.com/hrydgard/ppsspp/issues/13845

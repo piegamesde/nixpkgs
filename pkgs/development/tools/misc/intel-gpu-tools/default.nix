@@ -1,8 +1,42 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, libdrm, libpciaccess, cairo
-, xorgproto, udev, libX11, libXext, libXv, libXrandr, glib, bison, libunwind
-, python3, kmod, procps, utilmacros, gtk-doc, docbook_xsl, openssl, peg
-, elfutils, meson, ninja, valgrind, xmlrpc_c, gsl, alsa-lib, curl, json_c
-, liboping, flex, docutils }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  libdrm,
+  libpciaccess,
+  cairo,
+  xorgproto,
+  udev,
+  libX11,
+  libXext,
+  libXv,
+  libXrandr,
+  glib,
+  bison,
+  libunwind,
+  python3,
+  kmod,
+  procps,
+  utilmacros,
+  gtk-doc,
+  docbook_xsl,
+  openssl,
+  peg,
+  elfutils,
+  meson,
+  ninja,
+  valgrind,
+  xmlrpc_c,
+  gsl,
+  alsa-lib,
+  curl,
+  json_c,
+  liboping,
+  flex,
+  docutils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "intel-gpu-tools";

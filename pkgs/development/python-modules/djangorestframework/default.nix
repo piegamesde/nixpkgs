@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, coreapi, django, django-guardian
-, pythonOlder, pytest-django, pytestCheckHook, pytz, pyyaml, uritemplate }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  coreapi,
+  django,
+  django-guardian,
+  pythonOlder,
+  pytest-django,
+  pytestCheckHook,
+  pytz,
+  pyyaml,
+  uritemplate,
+}:
 
 buildPythonPackage rec {
   pname = "djangorestframework";

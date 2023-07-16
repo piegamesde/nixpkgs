@@ -1,6 +1,22 @@
-{ lib, buildPythonPackage, fastjsonschema, fetchFromGitHub, fetchpatch
-, future-typing, inflection, mypy, orjson, pandas, pendulum, poetry-core
-, pydantic, pytestCheckHook, pythonOlder, sqlalchemy, ujson }:
+{
+  lib,
+  buildPythonPackage,
+  fastjsonschema,
+  fetchFromGitHub,
+  fetchpatch,
+  future-typing,
+  inflection,
+  mypy,
+  orjson,
+  pandas,
+  pendulum,
+  poetry-core,
+  pydantic,
+  pytestCheckHook,
+  pythonOlder,
+  sqlalchemy,
+  ujson,
+}:
 
 buildPythonPackage rec {
   pname = "typical";

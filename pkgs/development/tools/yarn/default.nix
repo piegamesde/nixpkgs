@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, fetchzip, nodejs, stdenvNoCC, testers }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchzip,
+  nodejs,
+  stdenvNoCC,
+  testers,
+}:
 
 let
   completion = fetchFromGitHub {

@@ -1,7 +1,29 @@
-{ lib, stdenv, fetchFromGitHub, nix-update-script, substituteAll, meson, ninja
-, python3, pkg-config, vala, granite, libgee, gettext, gtk3, gnome-menus
-, json-glib, elementary-dock, bamf, switchboard-with-plugs, libsoup, wingpanel
-, zeitgeist, bc, libhandy }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  substituteAll,
+  meson,
+  ninja,
+  python3,
+  pkg-config,
+  vala,
+  granite,
+  libgee,
+  gettext,
+  gtk3,
+  gnome-menus,
+  json-glib,
+  elementary-dock,
+  bamf,
+  switchboard-with-plugs,
+  libsoup,
+  wingpanel,
+  zeitgeist,
+  bc,
+  libhandy,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wingpanel-applications-menu";

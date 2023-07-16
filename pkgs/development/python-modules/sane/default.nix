@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, sane-backends }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  sane-backends,
+}:
 
 buildPythonPackage rec {
   pname = "sane";

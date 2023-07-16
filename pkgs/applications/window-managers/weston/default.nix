@@ -1,10 +1,45 @@
-{ lib, stdenv, fetchurl, meson, ninja, pkg-config, python3, wayland-scanner
-, cairo, colord, dbus, lcms2, libGL, libXcursor, libdrm, libevdev, libinput
-, libjpeg, seatd, libxcb, libxkbcommon, mesa, mtdev, pam, udev, wayland
-, wayland-protocols, pipewire ? null, pango ? null, libunwind ? null
-, freerdp ? null, vaapi ? null, libva ? null, libwebp ? null, xwayland ? null
-  # beware of null defaults, as the parameters *are* supplied by callPackage by default
-, buildDemo ? true, buildRemoting ? true, gst_all_1 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  wayland-scanner,
+  cairo,
+  colord,
+  dbus,
+  lcms2,
+  libGL,
+  libXcursor,
+  libdrm,
+  libevdev,
+  libinput,
+  libjpeg,
+  seatd,
+  libxcb,
+  libxkbcommon,
+  mesa,
+  mtdev,
+  pam,
+  udev,
+  wayland,
+  wayland-protocols,
+  pipewire ? null,
+  pango ? null,
+  libunwind ? null,
+  freerdp ? null,
+  vaapi ? null,
+  libva ? null,
+  libwebp ? null,
+  xwayland ? null
+    # beware of null defaults, as the parameters *are* supplied by callPackage by default
+  ,
+  buildDemo ? true,
+  buildRemoting ? true,
+  gst_all_1,
+}:
 
 stdenv.mkDerivation rec {
   pname = "weston";

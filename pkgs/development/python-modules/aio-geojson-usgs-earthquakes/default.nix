@@ -1,5 +1,15 @@
-{ lib, aio-geojson-client, aiohttp, aresponses, buildPythonPackage
-, fetchFromGitHub, pytest-asyncio, pytestCheckHook, pytz, pythonOlder }:
+{
+  lib,
+  aio-geojson-client,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pytz,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aio-geojson-usgs-earthquakes";

@@ -1,7 +1,12 @@
 # Module for rdnssd, a daemon that configures DNS servers in
 # /etc/resolv/conf from IPv6 RDNSS advertisements.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let

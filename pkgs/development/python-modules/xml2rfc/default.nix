@@ -1,7 +1,29 @@
-{ lib, appdirs, buildPythonPackage, configargparse, decorator, dict2xml
-, fetchFromGitHub, google-i18n-address, html5lib, intervaltree, jinja2, lxml
-, markupsafe, pycairo, pycountry, pyflakes, pypdf2, pytestCheckHook
-, python-fontconfig, pythonOlder, pyyaml, requests, six, wcwidth }:
+{
+  lib,
+  appdirs,
+  buildPythonPackage,
+  configargparse,
+  decorator,
+  dict2xml,
+  fetchFromGitHub,
+  google-i18n-address,
+  html5lib,
+  intervaltree,
+  jinja2,
+  lxml,
+  markupsafe,
+  pycairo,
+  pycountry,
+  pyflakes,
+  pypdf2,
+  pytestCheckHook,
+  python-fontconfig,
+  pythonOlder,
+  pyyaml,
+  requests,
+  six,
+  wcwidth,
+}:
 
 buildPythonPackage rec {
   pname = "xml2rfc";

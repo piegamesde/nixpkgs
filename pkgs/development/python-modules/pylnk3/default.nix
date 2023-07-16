@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, twine, invoke, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  twine,
+  invoke,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pylnk3";

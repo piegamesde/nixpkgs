@@ -1,5 +1,14 @@
-{ lib, fetchPypi, buildPythonPackage, click, numpy, setuptools, setuptools-scm
-, uhi, pytestCheckHook }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  click,
+  numpy,
+  setuptools,
+  setuptools-scm,
+  uhi,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "histoprint";

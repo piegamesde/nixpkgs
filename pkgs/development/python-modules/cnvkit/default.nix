@@ -1,6 +1,25 @@
-{ lib, fetchFromGitHub, fetchpatch, rPackages, buildPythonPackage, biopython
-, numpy, scipy, scikit-learn, pandas, matplotlib, reportlab, pysam, future
-, pillow, pomegranate, pyfaidx, python, pythonOlder, R }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  rPackages,
+  buildPythonPackage,
+  biopython,
+  numpy,
+  scipy,
+  scikit-learn,
+  pandas,
+  matplotlib,
+  reportlab,
+  pysam,
+  future,
+  pillow,
+  pomegranate,
+  pyfaidx,
+  python,
+  pythonOlder,
+  R,
+}:
 
 buildPythonPackage rec {
   pname = "cnvkit";

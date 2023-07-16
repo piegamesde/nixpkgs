@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, pkg-config, qt4, alsa-lib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  qt4,
+  alsa-lib,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.4.0";

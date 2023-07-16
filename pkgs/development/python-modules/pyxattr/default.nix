@@ -1,4 +1,9 @@
-{ lib, pkgs, fetchPypi, buildPythonPackage }:
+{
+  lib,
+  pkgs,
+  fetchPypi,
+  buildPythonPackage,
+}:
 
 buildPythonPackage rec {
   pname = "pyxattr";

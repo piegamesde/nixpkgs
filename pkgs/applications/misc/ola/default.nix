@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, bison, flex, pkg-config
-, libftdi1, libuuid, cppunit, protobuf, zlib, avahi, libmicrohttpd, perl
-, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  bison,
+  flex,
+  pkg-config,
+  libftdi1,
+  libuuid,
+  cppunit,
+  protobuf,
+  zlib,
+  avahi,
+  libmicrohttpd,
+  perl,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ola";

@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, singularity, python3Packages, fetchpatch }:
+{
+  lib,
+  fetchFromGitHub,
+  singularity,
+  python3Packages,
+  fetchpatch,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "udocker";

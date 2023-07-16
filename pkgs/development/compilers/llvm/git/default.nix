@@ -1,42 +1,63 @@
-{ lowPrio, newScope, pkgs, lib, stdenv, cmake, ninja, gccForLibs
-, preLibcCrossHeaders, libxml2, python3, fetchFromGitHub, overrideCC, wrapCCWith
-, wrapBintoolsWith
-, buildLlvmTools # tools, but from the previous stage, for cross
-, targetLlvmLibraries # libraries, but from the next stage, for cross
-, targetLlvm
-# This is the default binutils, but with *this* version of LLD rather
-# than the default LLVM verion's, if LLD is the choice. We use these for
-# the `useLLVM` bootstrapping below.
-, bootBintoolsNoLibc ?
-  if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintoolsNoLibc
-, bootBintools ?
-  if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintools, darwin
-# LLVM release information; specify one of these but not both:
-, gitRelease ? null
+{
+  lowPrio,
+  newScope,
+  pkgs,
+  lib,
+  stdenv,
+  cmake,
+  ninja,
+  gccForLibs,
+  preLibcCrossHeaders,
+  libxml2,
+  python3,
+  fetchFromGitHub,
+  overrideCC,
+  wrapCCWith,
+  wrapBintoolsWith,
+  buildLlvmTools # tools, but from the previous stage, for cross
+  ,
+  targetLlvmLibraries # libraries, but from the next stage, for cross
+  ,
+  targetLlvm
+  # This is the default binutils, but with *this* version of LLD rather
+  # than the default LLVM verion's, if LLD is the choice. We use these for
+  # the `useLLVM` bootstrapping below.
+  ,
+  bootBintoolsNoLibc ?
+    if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintoolsNoLibc,
+  bootBintools ?
+    if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintools,
+  darwin
+  # LLVM release information; specify one of these but not both:
+  ,
+  gitRelease ? null
+    # i.e.:
+    # {
+    #   version = /* i.e. "15.0.0" */;
+    #   rev = /* commit SHA */;
+    #   rev-version = /* human readable version; i.e. "unstable-2022-26-07" */;
+    #   sha256 = /* checksum for this release, can omit if specifying your own `monorepoSrc` */;
+    # }
+  ,
+  officialRelease ? {
+    version = "15.0.7";
+    sha256 = "sha256-wjuZQyXQ/jsmvy6y1aksCcEDXGBjuhpgngF3XQJ/T4s=";
+  }
   # i.e.:
   # {
   #   version = /* i.e. "15.0.0" */;
-  #   rev = /* commit SHA */;
-  #   rev-version = /* human readable version; i.e. "unstable-2022-26-07" */;
+  #   candidate = /* optional; if specified, should be: "rcN" */
   #   sha256 = /* checksum for this release, can omit if specifying your own `monorepoSrc` */;
   # }
-, officialRelease ? {
-  version = "15.0.7";
-  sha256 = "sha256-wjuZQyXQ/jsmvy6y1aksCcEDXGBjuhpgngF3XQJ/T4s=";
-}
-# i.e.:
-# {
-#   version = /* i.e. "15.0.0" */;
-#   candidate = /* optional; if specified, should be: "rcN" */
-#   sha256 = /* checksum for this release, can omit if specifying your own `monorepoSrc` */;
-# }
-# By default, we'll try to fetch a release from `github:llvm/llvm-project`
-# corresponding to the `gitRelease` or `officialRelease` specified.
-#
-# You can provide your own LLVM source by specifying this arg but then it's up
-# to you to make sure that the LLVM repo given matches the release configuration
-# specified.
-, monorepoSrc ? null }:
+  # By default, we'll try to fetch a release from `github:llvm/llvm-project`
+  # corresponding to the `gitRelease` or `officialRelease` specified.
+  #
+  # You can provide your own LLVM source by specifying this arg but then it's up
+  # to you to make sure that the LLVM repo given matches the release configuration
+  # specified.
+  ,
+  monorepoSrc ? null
+}:
 assert let
   int = a: if a then 1 else 0;
   xor = a: b: ((builtins.bitXor (int a) (int b)) == 1);

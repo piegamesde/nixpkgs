@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, unzip, joker }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  joker,
+}:
 
 stdenv.mkDerivation rec {
   pname = "goku";

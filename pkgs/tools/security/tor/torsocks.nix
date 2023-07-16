@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchgit, fetchurl, autoreconfHook, libcap }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  fetchurl,
+  autoreconfHook,
+  libcap,
+}:
 
 stdenv.mkDerivation rec {
   pname = "torsocks";

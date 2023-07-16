@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gperf, file, ncurses, openssl, readline
-, sqlite, zlib, AppKit, Cocoa, Foundation }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gperf,
+  file,
+  ncurses,
+  openssl,
+  readline,
+  sqlite,
+  zlib,
+  AppKit,
+  Cocoa,
+  Foundation,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nchat";

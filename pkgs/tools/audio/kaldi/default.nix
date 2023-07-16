@@ -1,5 +1,18 @@
-{ lib, stdenv, openblas, blas, lapack, openfst, icu, cmake, pkg-config
-, fetchFromGitHub, git, python3, Accelerate }:
+{
+  lib,
+  stdenv,
+  openblas,
+  blas,
+  lapack,
+  openfst,
+  icu,
+  cmake,
+  pkg-config,
+  fetchFromGitHub,
+  git,
+  python3,
+  Accelerate,
+}:
 
 assert blas.implementation == "openblas" && lapack.implementation == "openblas";
 let

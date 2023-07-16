@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, freeimage, libGL }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  freeimage,
+  libGL,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.0.6";

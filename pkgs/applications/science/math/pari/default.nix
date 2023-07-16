@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, fetchpatch, gmp, libX11, libpthreadstubs, perl
-, readline, tex, withThread ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  gmp,
+  libX11,
+  libpthreadstubs,
+  perl,
+  readline,
+  tex,
+  withThread ? true
+}:
 
 assert withThread -> libpthreadstubs != null;
 

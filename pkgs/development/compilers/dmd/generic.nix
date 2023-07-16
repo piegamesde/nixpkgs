@@ -1,9 +1,30 @@
-{ version, dmdSha256, druntimeSha256, phobosSha256 }:
+{
+  version,
+  dmdSha256,
+  druntimeSha256,
+  phobosSha256,
+}:
 
-{ stdenv, lib, fetchFromGitHub, makeWrapper, which, writeTextFile, curl, tzdata
-, gdb, Foundation, callPackage, targetPackages, fetchpatch, bash
-, installShellFiles, git, unzip
-, HOST_DMD ? "${callPackage ./bootstrap.nix { }}/bin/dmd" }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  which,
+  writeTextFile,
+  curl,
+  tzdata,
+  gdb,
+  Foundation,
+  callPackage,
+  targetPackages,
+  fetchpatch,
+  bash,
+  installShellFiles,
+  git,
+  unzip,
+  HOST_DMD ? "${callPackage ./bootstrap.nix { }}/bin/dmd"
+}:
 
 let
   dmdConfFile = writeTextFile {

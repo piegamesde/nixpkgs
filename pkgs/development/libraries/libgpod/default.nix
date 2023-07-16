@@ -1,6 +1,23 @@
-{ stdenv, lib, fetchurl, perlPackages, intltool, autoreconfHook, pkg-config
-, glib, libxml2, sqlite, zlib, sg3_utils, gdk-pixbuf, taglib, libimobiledevice
-, monoSupport ? false, mono, gtk-sharp-2_0 }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  perlPackages,
+  intltool,
+  autoreconfHook,
+  pkg-config,
+  glib,
+  libxml2,
+  sqlite,
+  zlib,
+  sg3_utils,
+  gdk-pixbuf,
+  taglib,
+  libimobiledevice,
+  monoSupport ? false,
+  mono,
+  gtk-sharp-2_0,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libgpod";

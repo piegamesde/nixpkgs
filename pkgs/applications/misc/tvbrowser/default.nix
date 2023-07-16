@@ -1,4 +1,13 @@
-{ lib, fetchurl, stdenv, fetchzip, ant, jdk, makeWrapper, callPackage }:
+{
+  lib,
+  fetchurl,
+  stdenv,
+  fetchzip,
+  ant,
+  jdk,
+  makeWrapper,
+  callPackage,
+}:
 
 let
   minimalJavaVersion = "11";

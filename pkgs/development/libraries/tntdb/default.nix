@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, cxxtools, postgresql, libmysqlclient, sqlite, zlib
-, openssl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cxxtools,
+  postgresql,
+  libmysqlclient,
+  sqlite,
+  zlib,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tntdb";

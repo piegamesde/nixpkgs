@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromSourcehut, meson, ninja, pkg-config, scdoc, systemd }:
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  meson,
+  ninja,
+  pkg-config,
+  scdoc,
+  systemd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "poweralertd";

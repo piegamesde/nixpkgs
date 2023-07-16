@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, jupyterhub, ldap3, fetchPypi }:
+{
+  lib,
+  buildPythonPackage,
+  jupyterhub,
+  ldap3,
+  fetchPypi,
+}:
 
 buildPythonPackage rec {
   pname = "jupyterhub-ldapauthenticator";

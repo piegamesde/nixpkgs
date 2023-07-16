@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, future, pyjwt, pythonOlder, requests
-, requests-toolbelt }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  future,
+  pyjwt,
+  pythonOlder,
+  requests,
+  requests-toolbelt,
+}:
 
 buildPythonPackage rec {
   pname = "webexteamssdk";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, asciidoc, cmake, libxslt }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  asciidoc,
+  cmake,
+  libxslt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "genkfs";

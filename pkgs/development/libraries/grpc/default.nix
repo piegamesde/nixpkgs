@@ -1,8 +1,25 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, buildPackages, cmake, zlib, c-ares
-, pkg-config, re2, openssl, protobuf, grpc, abseil-cpp, libnsl
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  buildPackages,
+  cmake,
+  zlib,
+  c-ares,
+  pkg-config,
+  re2,
+  openssl,
+  protobuf,
+  grpc,
+  abseil-cpp,
+  libnsl
 
-# tests
-, python3, arrow-cpp }:
+  # tests
+  ,
+  python3,
+  arrow-cpp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "grpc";

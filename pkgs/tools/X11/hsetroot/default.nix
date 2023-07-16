@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, imlib2, libX11, libXinerama }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  imlib2,
+  libX11,
+  libXinerama,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hsetroot";

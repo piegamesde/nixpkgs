@@ -1,9 +1,28 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch
 
-, cmake, qttools, wrapQtAppsHook
+  ,
+  cmake,
+  qttools,
+  wrapQtAppsHook
 
-, curl, ffmpeg, libmediainfo, libzen, qt5compat ? null # qt6 only
-, qtbase, qtdeclarative, qtmultimedia, qtsvg, qtwayland, quazip }:
+  ,
+  curl,
+  ffmpeg,
+  libmediainfo,
+  libzen,
+  qt5compat ? null # qt6 only
+  ,
+  qtbase,
+  qtdeclarative,
+  qtmultimedia,
+  qtsvg,
+  qtwayland,
+  quazip,
+}:
 let qtVersion = lib.versions.major qtbase.version;
 in stdenv.mkDerivation rec {
   pname = "mediaelch";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, ocaml, findlib, ocamlbuild, ounit }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  ounit,
+}:
 
 let
   # ounit is only available for OCaml >= 4.04

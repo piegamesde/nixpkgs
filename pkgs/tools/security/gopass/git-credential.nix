@@ -1,4 +1,10 @@
-{ lib, makeWrapper, buildGoModule, fetchFromGitHub, gopass }:
+{
+  lib,
+  makeWrapper,
+  buildGoModule,
+  fetchFromGitHub,
+  gopass,
+}:
 
 buildGoModule rec {
   pname = "git-credential-gopass";

@@ -1,4 +1,13 @@
-{ stdenvNoCC, lib, fetchFromGitea, just, inkscape, makeWrapper, bash, dialog }:
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitea,
+  just,
+  inkscape,
+  makeWrapper,
+  bash,
+  dialog,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "kabeljau";

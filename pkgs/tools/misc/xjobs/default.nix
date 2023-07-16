@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, flex, installShellFiles, ncurses, which }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  flex,
+  installShellFiles,
+  ncurses,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xjobs";

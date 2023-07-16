@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, gsl, plotutils, postgresql }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gsl,
+  plotutils,
+  postgresql,
+}:
 
 stdenv.mkDerivation rec {
   pname = "algol68g";

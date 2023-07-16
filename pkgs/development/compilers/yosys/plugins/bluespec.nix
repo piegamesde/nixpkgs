@@ -1,4 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, yosys, readline, zlib, bluespec }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  yosys,
+  readline,
+  zlib,
+  bluespec,
+}:
 
 stdenv.mkDerivation {
   pname = "yosys-bluespec";

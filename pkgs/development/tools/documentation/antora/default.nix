@@ -1,7 +1,14 @@
-{ lib, nodePackages }:
+{
+  lib,
+  nodePackages,
+}:
 
 let
-  linkNodeDeps = ({ pkg, deps, name ? "" }:
+  linkNodeDeps = ({
+      pkg,
+      deps,
+      name ? ""
+    }:
     let targetModule = if name != "" then name else lib.getName pkg;
     in nodePackages.${pkg}.override (oldAttrs: {
       postInstall = ''

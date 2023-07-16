@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, gnugrep, nix, enableFlakes ? null # deprecated
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gnugrep,
+  nix,
+  enableFlakes ? null # deprecated
 }:
 stdenv.mkDerivation rec {
   pname = "nix-direnv";

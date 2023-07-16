@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, pyyaml, matplotlib, h5py, scipy
-, spglib, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  pyyaml,
+  matplotlib,
+  h5py,
+  scipy,
+  spglib,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "phonopy";

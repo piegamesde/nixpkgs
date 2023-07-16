@@ -1,5 +1,17 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, pkg-config, makeWrapper, go, gcc
-, gtk3, webkitgtk, nodejs, zlib }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  pkg-config,
+  makeWrapper,
+  go,
+  gcc,
+  gtk3,
+  webkitgtk,
+  nodejs,
+  zlib,
+}:
 
 buildGoModule rec {
   pname = "wails";

@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, cython, enum34, gfortran, isPy27, isPy3k
-, numpy, pytest, python, scipy, sundials }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cython,
+  enum34,
+  gfortran,
+  isPy27,
+  isPy3k,
+  numpy,
+  pytest,
+  python,
+  scipy,
+  sundials,
+}:
 
 buildPythonPackage rec {
   pname = "scikits.odes";

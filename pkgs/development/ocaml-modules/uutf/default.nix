@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, ocaml, findlib, ocamlbuild, cmdliner, topkg, uchar }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  cmdliner,
+  topkg,
+  uchar,
+}:
 let pname = "uutf";
 
 in lib.throwIfNot (lib.versionAtLeast ocaml.version "4.03")

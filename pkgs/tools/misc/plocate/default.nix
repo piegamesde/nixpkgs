@@ -1,5 +1,16 @@
-{ config, stdenv, lib, fetchgit, fetchpatch, pkg-config, meson, ninja, systemd
-, liburing, zstd }:
+{
+  config,
+  stdenv,
+  lib,
+  fetchgit,
+  fetchpatch,
+  pkg-config,
+  meson,
+  ninja,
+  systemd,
+  liburing,
+  zstd,
+}:
 let dbfile = lib.attrByPath [ "locate" "dbfile" ] "/var/cache/locatedb" config;
 in stdenv.mkDerivation rec {
   pname = "plocate";

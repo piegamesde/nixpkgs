@@ -1,5 +1,14 @@
-{ lib, fetchPypi, buildPythonPackage, six, udev, pytest, mock, hypothesis
-, docutils }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  six,
+  udev,
+  pytest,
+  mock,
+  hypothesis,
+  docutils,
+}:
 
 buildPythonPackage rec {
   pname = "pyudev";

@@ -1,4 +1,9 @@
-{ autoPatchelfHook, fetchurl, lib, stdenv }:
+{
+  autoPatchelfHook,
+  fetchurl,
+  lib,
+  stdenv,
+}:
 
 let
   skip_tests = [

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, boost, cmake, curl, ruby }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  boost,
+  cmake,
+  curl,
+  ruby,
+}:
 
 stdenv.mkDerivation rec {
   pname = "leatherman";

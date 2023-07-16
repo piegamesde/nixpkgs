@@ -1,5 +1,15 @@
-{ lib, fetchurl, buildPythonApplication, libjack2, pydbus, pyliblo, pyqt5
-, qttools, which, bash }:
+{
+  lib,
+  fetchurl,
+  buildPythonApplication,
+  libjack2,
+  pydbus,
+  pyliblo,
+  pyqt5,
+  qttools,
+  which,
+  bash,
+}:
 
 buildPythonApplication rec {
   pname = "raysession";

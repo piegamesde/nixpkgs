@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, click, twisted }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  click,
+  twisted,
+}:
 
 let
   incremental = buildPythonPackage rec {

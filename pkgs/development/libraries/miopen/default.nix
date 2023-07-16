@@ -1,8 +1,37 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, rocmUpdateScript, pkg-config, cmake
-, rocm-cmake, rocblas, rocmlir, hip, clang-tools-extra, clang-ocl, llvm
-, miopengemm, composable_kernel, half, boost, sqlite, bzip2, nlohmann_json
-, texlive, doxygen, sphinx, zlib, gtest, rocm-comgr, python3Packages
-, buildDocs ? true, buildTests ? false, fetchKDBs ? true, useOpenCL ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  rocmUpdateScript,
+  pkg-config,
+  cmake,
+  rocm-cmake,
+  rocblas,
+  rocmlir,
+  hip,
+  clang-tools-extra,
+  clang-ocl,
+  llvm,
+  miopengemm,
+  composable_kernel,
+  half,
+  boost,
+  sqlite,
+  bzip2,
+  nlohmann_json,
+  texlive,
+  doxygen,
+  sphinx,
+  zlib,
+  gtest,
+  rocm-comgr,
+  python3Packages,
+  buildDocs ? true,
+  buildTests ? false,
+  fetchKDBs ? true,
+  useOpenCL ? false
+}:
 
 let
   latex = lib.optionalAttrs buildDocs texlive.combine {

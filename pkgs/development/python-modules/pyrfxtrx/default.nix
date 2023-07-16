@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pyserial, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyserial,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pyrfxtrx";

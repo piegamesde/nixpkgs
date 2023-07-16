@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, fetchpatch, nixosTests }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchpatch,
+  nixosTests,
+}:
 
 buildGoModule rec {
   pname = "domain-exporter";

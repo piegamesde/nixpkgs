@@ -1,6 +1,27 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools, twiggy, requests
-, offtrac, bugzilla, taskw, python-dateutil, pytz, keyring, six, jinja2, pycurl
-, dogpile-cache, lockfile, click, pyxdg, future, jira }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools,
+  twiggy,
+  requests,
+  offtrac,
+  bugzilla,
+  taskw,
+  python-dateutil,
+  pytz,
+  keyring,
+  six,
+  jinja2,
+  pycurl,
+  dogpile-cache,
+  lockfile,
+  click,
+  pyxdg,
+  future,
+  jira,
+}:
 
 buildPythonPackage rec {
   pname = "bugwarrior";

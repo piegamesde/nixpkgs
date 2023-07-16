@@ -1,7 +1,32 @@
-{ lib, stdenv, fetchFromGitHub, zlib, openssl, libre, librem, pkg-config
-, gst_all_1, cairo, gtk3, mpg123, alsa-lib, SDL2, libv4l, celt, libsndfile, srtp
-, ffmpeg, gsm, speex, portaudio, spandsp3, libuuid, libvpx, cmake
-, dbusSupport ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  zlib,
+  openssl,
+  libre,
+  librem,
+  pkg-config,
+  gst_all_1,
+  cairo,
+  gtk3,
+  mpg123,
+  alsa-lib,
+  SDL2,
+  libv4l,
+  celt,
+  libsndfile,
+  srtp,
+  ffmpeg,
+  gsm,
+  speex,
+  portaudio,
+  spandsp3,
+  libuuid,
+  libvpx,
+  cmake,
+  dbusSupport ? true
+}:
 stdenv.mkDerivation rec {
   version = "2.9.0";
   pname = "baresip";

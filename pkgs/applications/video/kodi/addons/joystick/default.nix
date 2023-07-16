@@ -1,4 +1,11 @@
-{ lib, rel, buildKodiBinaryAddon, fetchFromGitHub, tinyxml, udev }:
+{
+  lib,
+  rel,
+  buildKodiBinaryAddon,
+  fetchFromGitHub,
+  tinyxml,
+  udev,
+}:
 buildKodiBinaryAddon rec {
   pname = namespace;
   namespace = "peripheral.joystick";

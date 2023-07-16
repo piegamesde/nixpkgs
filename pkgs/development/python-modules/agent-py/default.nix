@@ -1,4 +1,12 @@
-{ aiohttp, buildPythonPackage, fetchPypi, isPy3k, lib, python, requests }:
+{
+  aiohttp,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  lib,
+  python,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "agent-py";

@@ -1,4 +1,11 @@
-{ lib, rustPlatform, fetchFromGitHub, installShellFiles, testers, vsmtp }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  testers,
+  vsmtp,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "vsmtp";

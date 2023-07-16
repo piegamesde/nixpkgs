@@ -1,14 +1,33 @@
-{ minor_version, major_version, patch_version, patches ? [ ], ... }@args:
+{
+  minor_version,
+  major_version,
+  patch_version,
+  patches ? [ ],
+  ...
+}@args:
 let
   versionNoPatch = "${toString major_version}.${toString minor_version}";
   version = "${versionNoPatch}.${toString patch_version}";
   safeX11 = stdenv:
     !(stdenv.isAarch32 || stdenv.isMips || stdenv.hostPlatform.isStatic);
 
-in { lib, stdenv, fetchurl, ncurses, buildEnv, libunwind, fetchpatch, libX11
-, xorgproto, useX11 ? safeX11 stdenv && lib.versionOlder version "4.09"
-, aflSupport ? false, flambdaSupport ? false, spaceTimeSupport ? false
-, unsafeStringSupport ? false, framePointerSupport ? false }:
+in {
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+  buildEnv,
+  libunwind,
+  fetchpatch,
+  libX11,
+  xorgproto,
+  useX11 ? safeX11 stdenv && lib.versionOlder version "4.09",
+  aflSupport ? false,
+  flambdaSupport ? false,
+  spaceTimeSupport ? false,
+  unsafeStringSupport ? false,
+  framePointerSupport ? false
+}:
 
 assert useX11 -> safeX11 stdenv;
 assert aflSupport -> lib.versionAtLeast version "4.05";

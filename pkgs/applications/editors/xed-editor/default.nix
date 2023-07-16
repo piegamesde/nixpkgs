@@ -1,6 +1,22 @@
-{ stdenv, lib, fetchFromGitHub, libxml2, libpeas, glib, gtk3, gtksourceview4
-, gspell, xapp, pkg-config, python3, meson, ninja, wrapGAppsHook, intltool
-, itstool }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  libxml2,
+  libpeas,
+  glib,
+  gtk3,
+  gtksourceview4,
+  gspell,
+  xapp,
+  pkg-config,
+  python3,
+  meson,
+  ninja,
+  wrapGAppsHook,
+  intltool,
+  itstool,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xed-editor";

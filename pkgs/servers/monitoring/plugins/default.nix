@@ -1,7 +1,28 @@
-{ lib, stdenv, fetchFromGitHub, writeShellScript, autoreconfHook, pkg-config
-, runCommand, coreutils, gnugrep, gnused, lm_sensors, net-snmp, openssh, openssl
-, perl, dnsutils, libdbi, libmysqlclient, uriparser, zlib, openldap, procps
-, runtimeShell }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  writeShellScript,
+  autoreconfHook,
+  pkg-config,
+  runCommand,
+  coreutils,
+  gnugrep,
+  gnused,
+  lm_sensors,
+  net-snmp,
+  openssh,
+  openssl,
+  perl,
+  dnsutils,
+  libdbi,
+  libmysqlclient,
+  uriparser,
+  zlib,
+  openldap,
+  procps,
+  runtimeShell,
+}:
 
 let
   binPath = lib.makeBinPath [

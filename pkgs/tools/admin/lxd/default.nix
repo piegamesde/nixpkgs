@@ -1,7 +1,34 @@
-{ lib, hwdata, pkg-config, lxc, buildGoModule, fetchurl, makeWrapper, acl, rsync
-, gnutar, xz, btrfs-progs, gzip, dnsmasq, attr, squashfsTools, iproute2
-, iptables, libcap, dqlite, raft-canonical, sqlite, udev, writeShellScriptBin
-, apparmor-profiles, apparmor-parser, criu, bash, installShellFiles, nixosTests
+{
+  lib,
+  hwdata,
+  pkg-config,
+  lxc,
+  buildGoModule,
+  fetchurl,
+  makeWrapper,
+  acl,
+  rsync,
+  gnutar,
+  xz,
+  btrfs-progs,
+  gzip,
+  dnsmasq,
+  attr,
+  squashfsTools,
+  iproute2,
+  iptables,
+  libcap,
+  dqlite,
+  raft-canonical,
+  sqlite,
+  udev,
+  writeShellScriptBin,
+  apparmor-profiles,
+  apparmor-parser,
+  criu,
+  bash,
+  installShellFiles,
+  nixosTests,
 }:
 
 buildGoModule rec {

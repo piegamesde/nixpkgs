@@ -1,5 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, llvmPackages
-, enableAVX ? stdenv.hostPlatform.avxSupport }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  llvmPackages,
+  enableAVX ? stdenv.hostPlatform.avxSupport
+}:
 
 stdenv.mkDerivation rec {
   pname = "NGT";

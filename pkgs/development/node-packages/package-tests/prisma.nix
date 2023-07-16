@@ -1,4 +1,9 @@
-{ lib, pkgs, runCommand, prisma }:
+{
+  lib,
+  pkgs,
+  runCommand,
+  prisma,
+}:
 
 let
   inherit (prisma) packageName;

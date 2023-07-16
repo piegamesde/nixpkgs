@@ -1,4 +1,10 @@
-{ trivialBuild, fetchFromGitHub, emacs, popup, ess }:
+{
+  trivialBuild,
+  fetchFromGitHub,
+  emacs,
+  popup,
+  ess,
+}:
 
 trivialBuild rec {
   pname = "ess-R-object-popup";

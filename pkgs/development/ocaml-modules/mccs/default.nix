@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, buildDunePackage, cudf }:
+{
+  lib,
+  fetchFromGitHub,
+  buildDunePackage,
+  cudf,
+}:
 
 buildDunePackage rec {
   pname = "mccs";

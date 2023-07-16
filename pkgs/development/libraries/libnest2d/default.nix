@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, clipper, nlopt, boost, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  clipper,
+  nlopt,
+  boost,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   version = "4.12.0";

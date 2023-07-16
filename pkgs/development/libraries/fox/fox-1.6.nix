@@ -1,5 +1,22 @@
-{ lib, stdenv, fetchurl, libpng, libjpeg, libtiff, zlib, bzip2, libXcursor
-, libXrandr, libGLU, libGL, libXext, libXft, libXfixes, xinput, CoreServices }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libpng,
+  libjpeg,
+  libtiff,
+  zlib,
+  bzip2,
+  libXcursor,
+  libXrandr,
+  libGLU,
+  libGL,
+  libXext,
+  libXft,
+  libXfixes,
+  xinput,
+  CoreServices,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fox";

@@ -1,4 +1,11 @@
-{ pkgs, lib, haskellPackages, haskell, runCommand, buildPackages }:
+{
+  pkgs,
+  lib,
+  haskellPackages,
+  haskell,
+  runCommand,
+  buildPackages,
+}:
 
 let
 
@@ -57,7 +64,9 @@ let
 
      Returns the module system's `config` and `options` variables.
   */
-  eval = args@{ ... }:
+  eval = args@{
+      ...
+    }:
     import (srcUnpacked + "/src/nix/eval-composition.nix")
     ({ inherit pkgs; } // args);
 
@@ -67,7 +76,9 @@ let
      This function is particularly useful on CI, although the references
      to image tarballs may not always be desirable.
   */
-  build = args@{ ... }:
+  build = args@{
+      ...
+    }:
     let composition = eval args;
     in composition.config.out.dockerComposeYaml;
 

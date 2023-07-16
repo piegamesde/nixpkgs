@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, dnspython, future, ldap3, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  dnspython,
+  future,
+  ldap3,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "ldapdomaindump";

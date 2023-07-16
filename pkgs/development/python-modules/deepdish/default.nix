@@ -1,4 +1,11 @@
-{ lib, fetchPypi, buildPythonPackage, numpy, scipy, tables }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  numpy,
+  scipy,
+  tables,
+}:
 
 buildPythonPackage rec {
   pname = "deepdish";

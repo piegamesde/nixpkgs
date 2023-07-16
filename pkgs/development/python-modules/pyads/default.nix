@@ -1,4 +1,10 @@
-{ lib, adslib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+{
+  lib,
+  adslib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

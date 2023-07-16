@@ -1,4 +1,6 @@
-{ fetchurl }: {
+{
+  fetchurl,
+}: {
   fastutil = fetchurl {
     url =
       "http://ivy.mkgmap.org.uk/repo/it.unimi.dsi/fastutil/6.5.15-mkg.1b/jars/fastutil.jar";

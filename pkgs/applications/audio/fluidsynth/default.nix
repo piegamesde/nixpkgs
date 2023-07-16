@@ -1,6 +1,21 @@
-{ stdenv, lib, fetchFromGitHub, buildPackages, pkg-config, cmake, alsa-lib, glib
-, libjack2, libsndfile, libpulseaudio, AppKit, AudioUnit, CoreAudio, CoreMIDI
-, CoreServices }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildPackages,
+  pkg-config,
+  cmake,
+  alsa-lib,
+  glib,
+  libjack2,
+  libsndfile,
+  libpulseaudio,
+  AppKit,
+  AudioUnit,
+  CoreAudio,
+  CoreMIDI,
+  CoreServices,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fluidsynth";

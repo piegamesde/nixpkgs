@@ -1,4 +1,13 @@
-{ boost, cmake, fetchFromGitHub, gtest, libpcap, openssl, lib, stdenv }:
+{
+  boost,
+  cmake,
+  fetchFromGitHub,
+  gtest,
+  libpcap,
+  openssl,
+  lib,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libtins";

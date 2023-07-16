@@ -1,5 +1,13 @@
-{ lib, fetchFromGitHub, rustPlatform, fontconfig, pkg-config, wayland
-, libxkbcommon, makeWrapper }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  fontconfig,
+  pkg-config,
+  wayland,
+  libxkbcommon,
+  makeWrapper,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "kickoff";

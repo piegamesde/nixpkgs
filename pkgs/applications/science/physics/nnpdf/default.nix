@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, apfel, gsl, lhapdf
-, libarchive, yaml-cpp, python3, sqlite, swig }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  apfel,
+  gsl,
+  lhapdf,
+  libarchive,
+  yaml-cpp,
+  python3,
+  sqlite,
+  swig,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nnpdf";

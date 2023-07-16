@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, openssl, libbsd }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  openssl,
+  libbsd,
+}:
 
 stdenv.mkDerivation rec {
   version = "332.25";

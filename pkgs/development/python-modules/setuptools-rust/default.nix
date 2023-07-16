@@ -1,5 +1,14 @@
-{ callPackage, lib, buildPythonPackage, fetchPypi, pythonOlder, semantic-version
-, setuptools, setuptools-scm, typing-extensions }:
+{
+  callPackage,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  semantic-version,
+  setuptools,
+  setuptools-scm,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "setuptools-rust";

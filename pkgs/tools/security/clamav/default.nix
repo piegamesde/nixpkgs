@@ -1,6 +1,29 @@
-{ lib, stdenv, fetchurl, pkg-config, cmake, zlib, bzip2, libiconv, libxml2
-, openssl, ncurses, curl, libmilter, pcre2, libmspack, systemd, Foundation
-, json_c, check, rustc, rust-bindgen, rustfmt, cargo, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  cmake,
+  zlib,
+  bzip2,
+  libiconv,
+  libxml2,
+  openssl,
+  ncurses,
+  curl,
+  libmilter,
+  pcre2,
+  libmspack,
+  systemd,
+  Foundation,
+  json_c,
+  check,
+  rustc,
+  rust-bindgen,
+  rustfmt,
+  cargo,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "clamav";

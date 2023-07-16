@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, sure, six, pytest, freezegun
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  sure,
+  six,
+  pytest,
+  freezegun,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "httpretty";

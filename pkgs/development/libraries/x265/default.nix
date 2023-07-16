@@ -1,22 +1,38 @@
-{ lib, stdenv, fetchurl, fetchpatch, cmake, nasm
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  cmake,
+  nasm
 
-# NUMA support enabled by default on NUMA platforms:
-, numaSupport ? (stdenv.hostPlatform.isLinux
-  && (stdenv.hostPlatform.isx86 || stdenv.hostPlatform.isAarch64)), numactl
+  # NUMA support enabled by default on NUMA platforms:
+  ,
+  numaSupport ? (stdenv.hostPlatform.isLinux
+    && (stdenv.hostPlatform.isx86 || stdenv.hostPlatform.isAarch64)),
+  numactl
 
-# Multi bit-depth support (8bit+10bit+12bit):
-, multibitdepthSupport ?
-  (stdenv.is64bit && !(stdenv.isAarch64 && stdenv.isLinux))
+  # Multi bit-depth support (8bit+10bit+12bit):
+  ,
+  multibitdepthSupport ?
+    (stdenv.is64bit && !(stdenv.isAarch64 && stdenv.isLinux))
 
-  # Other options:
-, cliSupport ? true # Build standalone CLI application
-, custatsSupport ? false # Internal profiling of encoder work
-, debugSupport ? false # Run-time sanity checks (debugging)
-, ppaSupport ? false # PPA profiling instrumentation
-, unittestsSupport ? (stdenv.is64bit && !(stdenv.isDarwin
-  && stdenv.isAarch64)) # Unit tests - only testing x64 assembly
-, vtuneSupport ? false # Vtune profiling instrumentation
-, werrorSupport ? false # Warnings as errors
+    # Other options:
+  ,
+  cliSupport ? true # Build standalone CLI application
+  ,
+  custatsSupport ? false # Internal profiling of encoder work
+  ,
+  debugSupport ? false # Run-time sanity checks (debugging)
+  ,
+  ppaSupport ? false # PPA profiling instrumentation
+  ,
+  unittestsSupport ? (stdenv.is64bit && !(stdenv.isDarwin
+    && stdenv.isAarch64)) # Unit tests - only testing x64 assembly
+  ,
+  vtuneSupport ? false # Vtune profiling instrumentation
+  ,
+  werrorSupport ? false # Warnings as errors
 }:
 
 let

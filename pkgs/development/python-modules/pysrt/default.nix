@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, chardet, nose }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  chardet,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "pysrt";

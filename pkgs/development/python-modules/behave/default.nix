@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, buildPythonPackage, python, pytestCheckHook
-, mock, path, pyhamcrest, pytest-html, glibcLocales, colorama
-, cucumber-tag-expressions, parse, parse-type, six }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildPythonPackage,
+  python,
+  pytestCheckHook,
+  mock,
+  path,
+  pyhamcrest,
+  pytest-html,
+  glibcLocales,
+  colorama,
+  cucumber-tag-expressions,
+  parse,
+  parse-type,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "behave";

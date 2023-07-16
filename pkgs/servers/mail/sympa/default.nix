@@ -1,4 +1,11 @@
-{ lib, stdenv, perl, fetchFromGitHub, autoreconfHook, nixosTests }:
+{
+  lib,
+  stdenv,
+  perl,
+  fetchFromGitHub,
+  autoreconfHook,
+  nixosTests,
+}:
 
 let
   dataDir = "/var/lib/sympa";

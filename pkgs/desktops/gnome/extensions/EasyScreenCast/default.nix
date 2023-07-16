@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, substituteAll, glib, gnome, gettext, jq
-, intltool }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  substituteAll,
+  glib,
+  gnome,
+  gettext,
+  jq,
+  intltool,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-EasyScreenCast";

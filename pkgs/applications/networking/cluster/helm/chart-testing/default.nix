@@ -1,5 +1,16 @@
-{ buildGoModule, coreutils, fetchFromGitHub, git, installShellFiles, kubectl
-, kubernetes-helm, lib, makeWrapper, yamale, yamllint }:
+{
+  buildGoModule,
+  coreutils,
+  fetchFromGitHub,
+  git,
+  installShellFiles,
+  kubectl,
+  kubernetes-helm,
+  lib,
+  makeWrapper,
+  yamale,
+  yamllint,
+}:
 
 buildGoModule rec {
   pname = "chart-testing";

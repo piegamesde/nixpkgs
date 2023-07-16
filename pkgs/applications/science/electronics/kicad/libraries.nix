@@ -1,4 +1,10 @@
-{ lib, stdenv, cmake, gettext, libSrc }:
+{
+  lib,
+  stdenv,
+  cmake,
+  gettext,
+  libSrc,
+}:
 let
   mkLib = name:
     stdenv.mkDerivation {

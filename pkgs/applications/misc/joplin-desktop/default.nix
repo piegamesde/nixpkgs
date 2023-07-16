@@ -1,4 +1,11 @@
-{ lib, stdenv, appimageTools, fetchurl, makeWrapper, undmg }:
+{
+  lib,
+  stdenv,
+  appimageTools,
+  fetchurl,
+  makeWrapper,
+  undmg,
+}:
 
 let
   pname = "joplin-desktop";

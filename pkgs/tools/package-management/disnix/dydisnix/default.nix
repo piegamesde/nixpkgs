@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, pkg-config, glib
-, libxml2, libxslt, getopt, libiconv, gettext, nix, disnix }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  libtool,
+  pkg-config,
+  glib,
+  libxml2,
+  libxslt,
+  getopt,
+  libiconv,
+  gettext,
+  nix,
+  disnix,
+}:
 
 stdenv.mkDerivation rec {
   version = "unstable-2020-11-02";

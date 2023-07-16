@@ -1,4 +1,10 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, callPackage }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  callPackage,
+}:
 
 buildGoModule rec {
   pname = "cloudflared";

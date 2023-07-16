@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchurl, gnuplot }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  gnuplot,
+}:
 
 let
   target = if stdenv.hostPlatform.system == "i686-linux" then

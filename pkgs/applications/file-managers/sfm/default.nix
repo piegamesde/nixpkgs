@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, writeText, conf ? null }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  writeText,
+  conf ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "sfm";

@@ -1,6 +1,24 @@
-{ stdenv, lib, fetchFromGitHub, applyPatches, bundlerEnv, defaultGemConfig
-, callPackage, writeText, procps, ruby_2_7, postgresql, imlib2, jq, moreutils
-, nodejs, yarn, yarn2nix-moretea, v8, cacert }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  applyPatches,
+  bundlerEnv,
+  defaultGemConfig,
+  callPackage,
+  writeText,
+  procps,
+  ruby_2_7,
+  postgresql,
+  imlib2,
+  jq,
+  moreutils,
+  nodejs,
+  yarn,
+  yarn2nix-moretea,
+  v8,
+  cacert,
+}:
 
 let
   pname = "zammad";

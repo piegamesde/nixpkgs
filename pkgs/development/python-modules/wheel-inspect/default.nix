@@ -1,6 +1,17 @@
-{ lib, attrs, buildPythonPackage, entry-points-txt, fetchFromGitHub
-, headerparser, jsonschema, packaging, pytestCheckHook, pythonOlder
-, readme_renderer, wheel-filename }:
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  entry-points-txt,
+  fetchFromGitHub,
+  headerparser,
+  jsonschema,
+  packaging,
+  pytestCheckHook,
+  pythonOlder,
+  readme_renderer,
+  wheel-filename,
+}:
 
 buildPythonPackage rec {
   pname = "wheel-inspect";

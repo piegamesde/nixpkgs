@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, d2to1 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  d2to1,
+}:
 
 buildPythonPackage rec {
   pname = "colour";

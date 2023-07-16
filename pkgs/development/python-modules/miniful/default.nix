@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, scipy, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  scipy,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "miniful";

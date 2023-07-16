@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, gamin }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gamin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fileschanged";

@@ -1,5 +1,18 @@
-{ stdenv, lib, fetchurl, pkg-config, autoreconfHook, glib, libticonv
-, libtifiles2, libticables2, xz, bzip2, acl, libobjc }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  autoreconfHook,
+  glib,
+  libticonv,
+  libtifiles2,
+  libticables2,
+  xz,
+  bzip2,
+  acl,
+  libobjc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libticalcs2";

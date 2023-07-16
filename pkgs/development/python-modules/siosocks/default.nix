@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pytest-asyncio, pytest-trio
-, pytestCheckHook, pythonOlder, trio }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest-asyncio,
+  pytest-trio,
+  pytestCheckHook,
+  pythonOlder,
+  trio,
+}:
 
 buildPythonPackage rec {
   pname = "siosocks";

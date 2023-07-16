@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, requests, mock, httpretty
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  requests,
+  mock,
+  httpretty,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "youtube-transcript-api";

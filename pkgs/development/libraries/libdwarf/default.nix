@@ -1,4 +1,7 @@
-{ callPackage, zlib }:
+{
+  callPackage,
+  zlib,
+}:
 callPackage ./common.nix rec {
   version = "0.4.2";
   url = "https://www.prevanders.net/libdwarf-${version}.tar.xz";

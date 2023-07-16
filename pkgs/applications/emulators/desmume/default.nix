@@ -1,6 +1,28 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, SDL2, agg, alsa-lib
-, desktop-file-utils, wrapGAppsHook, gtk3, intltool, libGLU, libXmu, libpcap
-, libtool, lua, meson, ninja, openal, pkg-config, soundtouch, tinyxml, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  SDL2,
+  agg,
+  alsa-lib,
+  desktop-file-utils,
+  wrapGAppsHook,
+  gtk3,
+  intltool,
+  libGLU,
+  libXmu,
+  libpcap,
+  libtool,
+  lua,
+  meson,
+  ninja,
+  openal,
+  pkg-config,
+  soundtouch,
+  tinyxml,
+  zlib,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "desmume";

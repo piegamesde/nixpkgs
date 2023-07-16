@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, octave ? null, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  octave ? null,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nlopt";

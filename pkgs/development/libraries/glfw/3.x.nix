@@ -1,7 +1,24 @@
-{ stdenv, lib, fetchFromGitHub, cmake, libGL, libXrandr, libXinerama, libXcursor
-, libX11, libXi, libXext, Cocoa, Kernel, fixDarwinDylibNames
-, waylandSupport ? false, extra-cmake-modules, wayland, wayland-protocols
-, libxkbcommon }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  libGL,
+  libXrandr,
+  libXinerama,
+  libXcursor,
+  libX11,
+  libXi,
+  libXext,
+  Cocoa,
+  Kernel,
+  fixDarwinDylibNames,
+  waylandSupport ? false,
+  extra-cmake-modules,
+  wayland,
+  wayland-protocols,
+  libxkbcommon,
+}:
 
 stdenv.mkDerivation rec {
   version = "3.3.8";

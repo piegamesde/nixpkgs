@@ -1,5 +1,18 @@
-{ buildPythonPackage, fetchFromGitHub, lib, libjpeg_turbo, libpng, ninja, numpy
-, pillow, pytest, scipy, symlinkJoin, torch, which }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  libjpeg_turbo,
+  libpng,
+  ninja,
+  numpy,
+  pillow,
+  pytest,
+  scipy,
+  symlinkJoin,
+  torch,
+  which,
+}:
 
 let
   inherit (torch) cudaCapabilities cudaPackages cudaSupport;

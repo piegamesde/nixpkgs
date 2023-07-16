@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, buildPythonPackage, python, pygobject3, xvfb-run
-, gobject-introspection, gtk3, pythonOlder }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  python,
+  pygobject3,
+  xvfb-run,
+  gobject-introspection,
+  gtk3,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   version = "3.2.0";

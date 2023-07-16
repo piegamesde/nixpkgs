@@ -1,6 +1,17 @@
-{ lib, stdenv, addOpenGLRunpath, autoPatchelfHook, buildPythonPackage
-, cudaPackages, fetchurl, ffmpeg_4, pythonAtLeast, pythonOlder, python
-, torch-bin }:
+{
+  lib,
+  stdenv,
+  addOpenGLRunpath,
+  autoPatchelfHook,
+  buildPythonPackage,
+  cudaPackages,
+  fetchurl,
+  ffmpeg_4,
+  pythonAtLeast,
+  pythonOlder,
+  python,
+  torch-bin,
+}:
 
 buildPythonPackage rec {
   pname = "torchaudio";

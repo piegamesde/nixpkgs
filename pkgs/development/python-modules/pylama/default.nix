@@ -1,6 +1,21 @@
-{ lib, buildPythonPackage, fetchFromGitHub, substituteAll, git, eradicate
-, mccabe, mypy, pycodestyle, pydocstyle, pyflakes, vulture, setuptools, isort
-, pylint, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  substituteAll,
+  git,
+  eradicate,
+  mccabe,
+  mypy,
+  pycodestyle,
+  pydocstyle,
+  pyflakes,
+  vulture,
+  setuptools,
+  isort,
+  pylint,
+  pytestCheckHook,
+}:
 
 let
   pylama = buildPythonPackage rec {

@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, python3, libffi, readline }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  python3,
+  libffi,
+  readline,
+}:
 
 stdenv.mkDerivation rec {
   pname = "micropython";

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, colorama, hypothesis, poetry-core
-, setuptools, pylama, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  colorama,
+  hypothesis,
+  poetry-core,
+  setuptools,
+  pylama,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "isort";

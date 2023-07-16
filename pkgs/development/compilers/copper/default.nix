@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, libffi }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libffi,
+}:
 stdenv.mkDerivation rec {
   pname = "copper";
   version = "4.6";

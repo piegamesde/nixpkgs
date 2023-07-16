@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, alsa-lib, audiofile, autoconf, automake, gnome2, gtk2
-, libjack2, libtool, libxml2, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  alsa-lib,
+  audiofile,
+  autoconf,
+  automake,
+  gnome2,
+  gtk2,
+  libjack2,
+  libtool,
+  libxml2,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "industrializer";

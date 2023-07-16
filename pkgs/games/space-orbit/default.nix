@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, libGLU, libGL, libXi, libXt, libXext, libX11, libXmu
-, freeglut }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libGLU,
+  libGL,
+  libXi,
+  libXt,
+  libXext,
+  libX11,
+  libXmu,
+  freeglut,
+}:
 
 stdenv.mkDerivation rec {
   pname = "space-orbit";

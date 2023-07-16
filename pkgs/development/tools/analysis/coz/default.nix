@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, libelfin, ncurses, python3, python3Packages
-, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libelfin,
+  ncurses,
+  python3,
+  python3Packages,
+  makeWrapper,
+}:
 stdenv.mkDerivation rec {
   pname = "coz";
   version = "0.2.1";

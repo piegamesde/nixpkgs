@@ -1,5 +1,20 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest, gym, scipy, tqdm, joblib
-, dill, progressbar2, cloudpickle, click, pyzmq, tensorflow, mpi4py }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest,
+  gym,
+  scipy,
+  tqdm,
+  joblib,
+  dill,
+  progressbar2,
+  cloudpickle,
+  click,
+  pyzmq,
+  tensorflow,
+  mpi4py,
+}:
 
 buildPythonPackage {
   pname = "baselines";

@@ -1,6 +1,23 @@
-{ lib, buildPythonPackage, click, click-completion, factory_boy, faker
-, fetchPypi, inquirer, notify-py, pbr, pendulum, ptable, pytest-mock
-, pytestCheckHook, pythonOlder, requests, twine, validate-email }:
+{
+  lib,
+  buildPythonPackage,
+  click,
+  click-completion,
+  factory_boy,
+  faker,
+  fetchPypi,
+  inquirer,
+  notify-py,
+  pbr,
+  pendulum,
+  ptable,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  twine,
+  validate-email,
+}:
 
 buildPythonPackage rec {
   pname = "toggl-cli";

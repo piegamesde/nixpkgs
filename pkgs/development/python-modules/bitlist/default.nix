@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools, nose, parts, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  nose,
+  parts,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "bitlist";

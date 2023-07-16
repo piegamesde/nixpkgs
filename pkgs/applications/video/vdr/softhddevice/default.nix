@@ -1,5 +1,16 @@
-{ lib, stdenv, vdr, alsa-lib, fetchFromGitHub, xcbutilwm, xorgserver, ffmpeg
-, libva, libvdpau, xorg }:
+{
+  lib,
+  stdenv,
+  vdr,
+  alsa-lib,
+  fetchFromGitHub,
+  xcbutilwm,
+  xorgserver,
+  ffmpeg,
+  libva,
+  libvdpau,
+  xorg,
+}:
 stdenv.mkDerivation rec {
   pname = "vdr-softhddevice";
   version = "1.9.7";

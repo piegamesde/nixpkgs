@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, colorama, regex
-, pytest-runner, pytestCheckHook, pytest-mypy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  colorama,
+  regex,
+  pytest-runner,
+  pytestCheckHook,
+  pytest-mypy,
+}:
 
 buildPythonPackage rec {
   pname = "tatsu";

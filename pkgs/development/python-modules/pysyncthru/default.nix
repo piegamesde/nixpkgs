@@ -1,4 +1,12 @@
-{ lib, isPy27, buildPythonPackage, fetchFromGitHub, aiohttp, demjson3, python }:
+{
+  lib,
+  isPy27,
+  buildPythonPackage,
+  fetchFromGitHub,
+  aiohttp,
+  demjson3,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "pysyncthru";

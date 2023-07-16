@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, fetchsvn, substituteAll, jdk, jre, ant, makeWrapper
-, doCheck ? true, withExamples ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchsvn,
+  substituteAll,
+  jdk,
+  jre,
+  ant,
+  makeWrapper,
+  doCheck ? true,
+  withExamples ? false
+}:
 let
   deps = import ./deps.nix { inherit fetchurl; };
   testInputs = import ./testinputs.nix { inherit fetchurl; };

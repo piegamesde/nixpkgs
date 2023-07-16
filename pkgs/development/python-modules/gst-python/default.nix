@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, fetchurl, meson, ninja
+{
+  lib,
+  buildPythonPackage,
+  fetchurl,
+  meson,
+  ninja
 
-, pkg-config, python, pygobject3, gobject-introspection, gst_all_1, isPy3k }:
+  ,
+  pkg-config,
+  python,
+  pygobject3,
+  gobject-introspection,
+  gst_all_1,
+  isPy3k,
+}:
 
 buildPythonPackage rec {
   pname = "gst-python";

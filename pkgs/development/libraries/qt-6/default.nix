@@ -1,8 +1,21 @@
-{ newScope, lib, stdenv, fetchurl, fetchpatch, makeSetupHook, makeWrapper
-, gst_all_1, libglvnd, darwin, buildPackages
+{
+  newScope,
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  makeSetupHook,
+  makeWrapper,
+  gst_all_1,
+  libglvnd,
+  darwin,
+  buildPackages
 
-# options
-, developerBuild ? false, debug ? false }:
+  # options
+  ,
+  developerBuild ? false,
+  debug ? false
+}:
 
 let
   srcs = import ./srcs.nix {

@@ -1,9 +1,44 @@
-{ lib, stdenv, fetchurl, alsa-lib, at-spi2-atk, atk, autoPatchelfHook, cairo
-, cups, curl, dbus, dpkg, expat, fontconfig, gdk-pixbuf, glib, glibc
-, gsettings-desktop-schemas, gtk3, libX11, libXScrnSaver, libXcomposite
-, libXcursor, libXdamage, libXext, libXfixes, libXi, libXrandr, libXrender
-, libXtst, libnghttp2, libudev0-shim, libxcb, makeWrapper, nspr, nss, openssl
-, pango, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  alsa-lib,
+  at-spi2-atk,
+  atk,
+  autoPatchelfHook,
+  cairo,
+  cups,
+  curl,
+  dbus,
+  dpkg,
+  expat,
+  fontconfig,
+  gdk-pixbuf,
+  glib,
+  glibc,
+  gsettings-desktop-schemas,
+  gtk3,
+  libX11,
+  libXScrnSaver,
+  libXcomposite,
+  libXcursor,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXi,
+  libXrandr,
+  libXrender,
+  libXtst,
+  libnghttp2,
+  libudev0-shim,
+  libxcb,
+  makeWrapper,
+  nspr,
+  nss,
+  openssl,
+  pango,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "polar-bookshelf1";

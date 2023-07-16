@@ -1,5 +1,14 @@
-{ bash, btrfs-progs, coreutils, fetchFromGitHub, gnugrep, lib, makeWrapper
-, stdenvNoCC, util-linuxMinimal }:
+{
+  bash,
+  btrfs-progs,
+  coreutils,
+  fetchFromGitHub,
+  gnugrep,
+  lib,
+  makeWrapper,
+  stdenvNoCC,
+  util-linuxMinimal,
+}:
 stdenvNoCC.mkDerivation rec {
   pname = "btrfs-snap";
   version = "1.7.3";

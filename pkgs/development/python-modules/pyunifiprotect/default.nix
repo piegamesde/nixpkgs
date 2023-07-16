@@ -1,8 +1,34 @@
-{ lib, aiofiles, aiohttp, aioshutil, buildPythonPackage, dateparser
-, fetchFromGitHub, ipython, orjson, packaging, pillow, poetry-core, py, pydantic
-, pyjwt, pytest-aiohttp, pytest-asyncio, pytest-benchmark, pytest-timeout
-, pytest-xdist, pytestCheckHook, python-dotenv, pythonOlder, pytz, setuptools
-, setuptools-scm, termcolor, typer, ffmpeg }:
+{
+  lib,
+  aiofiles,
+  aiohttp,
+  aioshutil,
+  buildPythonPackage,
+  dateparser,
+  fetchFromGitHub,
+  ipython,
+  orjson,
+  packaging,
+  pillow,
+  poetry-core,
+  py,
+  pydantic,
+  pyjwt,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytest-benchmark,
+  pytest-timeout,
+  pytest-xdist,
+  pytestCheckHook,
+  python-dotenv,
+  pythonOlder,
+  pytz,
+  setuptools,
+  setuptools-scm,
+  termcolor,
+  typer,
+  ffmpeg,
+}:
 
 buildPythonPackage rec {
   pname = "pyunifiprotect";

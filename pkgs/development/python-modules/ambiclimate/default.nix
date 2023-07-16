@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, aiohttp, async-timeout }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  aiohttp,
+  async-timeout,
+}:
 
 buildPythonPackage rec {
   pname = "ambiclimate";

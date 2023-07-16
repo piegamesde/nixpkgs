@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, ptyprocess }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  ptyprocess,
+}:
 
 buildPythonPackage (rec {
   pname = "pexpect";

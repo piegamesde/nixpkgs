@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, buildPythonPackage, pythonOlder, regex }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pythonOlder,
+  regex,
+}:
 
 buildPythonPackage rec {
   pname = "somajo";

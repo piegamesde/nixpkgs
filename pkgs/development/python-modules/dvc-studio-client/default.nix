@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, dulwich, fetchFromGitHub, gitpython, pythonOlder
-, requests, setuptools-scm, voluptuous }:
+{
+  lib,
+  buildPythonPackage,
+  dulwich,
+  fetchFromGitHub,
+  gitpython,
+  pythonOlder,
+  requests,
+  setuptools-scm,
+  voluptuous,
+}:
 
 buildPythonPackage rec {
   pname = "dvc-studio-client";

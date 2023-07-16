@@ -1,4 +1,10 @@
-{ lib, fetchFromGitLab, stdenv, llvmPackages_12, cargo }:
+{
+  lib,
+  fetchFromGitLab,
+  stdenv,
+  llvmPackages_12,
+  cargo,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.5";

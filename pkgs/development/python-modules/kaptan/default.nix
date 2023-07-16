@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pyyaml, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pyyaml,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "kaptan";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, fetchpatch, gnu-efi, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  gnu-efi,
+  nixosTests,
+}:
 
 let
   archids = {

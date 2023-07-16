@@ -1,5 +1,16 @@
-{ lib, stdenv, buildPythonPackage, python, numba, ndtypes, xnd, libndtypes
-, libxnd, libgumath, isPy27 }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  python,
+  numba,
+  ndtypes,
+  xnd,
+  libndtypes,
+  libxnd,
+  libgumath,
+  isPy27,
+}:
 
 buildPythonPackage {
   pname = "gumath";

@@ -1,8 +1,44 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, lndir, bash, cpio, file, which
-, unzip, zip, cups, freetype, alsa-lib, cacert, perl, liberation_ttf, fontconfig
-, zlib, libX11, libICE, libXrender, libXext, libXt, libXtst, libXi, libXinerama
-, libXcursor, libXrandr, libjpeg, giflib, openjdk8-bootstrap, setJavaClassPath
-, headless ? false, enableGnome2 ? true, gtk2, gnome_vfs, glib, GConf }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  lndir,
+  bash,
+  cpio,
+  file,
+  which,
+  unzip,
+  zip,
+  cups,
+  freetype,
+  alsa-lib,
+  cacert,
+  perl,
+  liberation_ttf,
+  fontconfig,
+  zlib,
+  libX11,
+  libICE,
+  libXrender,
+  libXext,
+  libXt,
+  libXtst,
+  libXi,
+  libXinerama,
+  libXcursor,
+  libXrandr,
+  libjpeg,
+  giflib,
+  openjdk8-bootstrap,
+  setJavaClassPath,
+  headless ? false,
+  enableGnome2 ? true,
+  gtk2,
+  gnome_vfs,
+  glib,
+  GConf,
+}:
 
 let
 

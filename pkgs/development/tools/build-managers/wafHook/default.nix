@@ -1,4 +1,10 @@
-{ lib, stdenv, pkgs, makeSetupHook, waf }:
+{
+  lib,
+  stdenv,
+  pkgs,
+  makeSetupHook,
+  waf,
+}:
 
 makeSetupHook {
   name = "waf-hook";

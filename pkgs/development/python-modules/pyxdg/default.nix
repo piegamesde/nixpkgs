@@ -1,4 +1,8 @@
-{ lib, buildPythonPackage, fetchFromGitLab }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitLab,
+}:
 
 buildPythonPackage rec {
   pname = "pyxdg";

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pyparsing, future, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyparsing,
+  future,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "grandalf";

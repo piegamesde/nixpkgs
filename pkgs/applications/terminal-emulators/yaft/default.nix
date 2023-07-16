@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.2.9";

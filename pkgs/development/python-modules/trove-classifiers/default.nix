@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, calver, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  calver,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "trove-classifiers";

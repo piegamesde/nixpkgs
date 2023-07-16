@@ -1,4 +1,12 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, python, isPy27, mpv }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python,
+  isPy27,
+  mpv,
+}:
 
 buildPythonPackage rec {
   pname = "mpv";

@@ -1,4 +1,12 @@
-{ lib, fetchurl, tcl, tk, libX11, zlib, makeWrapper }:
+{
+  lib,
+  fetchurl,
+  tcl,
+  tk,
+  libX11,
+  zlib,
+  makeWrapper,
+}:
 
 tcl.mkTclDerivation {
   pname = "scid";

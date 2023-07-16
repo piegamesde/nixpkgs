@@ -1,10 +1,37 @@
-{ lib, config, stdenv, fetchFromGitHub, symlinkJoin, wrapGAppsHook, cmake
-, boost172, pkg-config, flex, bison, libpng, libtiff, zlib, python3, embree
-, openexr, openimagedenoise, openimageio_1, tbb, c-blosc, gtk3, pcre, doxygen
-# OpenCL Support
-, withOpenCL ? true, ocl-icd
-# Cuda Support
-, withCuda ? config.cudaSupport or false, cudatoolkit }:
+{
+  lib,
+  config,
+  stdenv,
+  fetchFromGitHub,
+  symlinkJoin,
+  wrapGAppsHook,
+  cmake,
+  boost172,
+  pkg-config,
+  flex,
+  bison,
+  libpng,
+  libtiff,
+  zlib,
+  python3,
+  embree,
+  openexr,
+  openimagedenoise,
+  openimageio_1,
+  tbb,
+  c-blosc,
+  gtk3,
+  pcre,
+  doxygen
+  # OpenCL Support
+  ,
+  withOpenCL ? true,
+  ocl-icd
+  # Cuda Support
+  ,
+  withCuda ? config.cudaSupport or false,
+  cudatoolkit,
+}:
 
 let
   boostWithPython = boost172.override {

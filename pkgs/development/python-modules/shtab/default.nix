@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest-timeout, pytestCheckHook
-, pythonOlder, setuptools-scm, bashInteractive }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-timeout,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+  bashInteractive,
+}:
 
 buildPythonPackage rec {
   pname = "shtab";

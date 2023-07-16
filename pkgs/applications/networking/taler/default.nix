@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchgit, curl, gnunet, jansson, libgcrypt, libmicrohttpd_0_9_72
-, qrencode, libsodium, libtool, libunistring, pkg-config, postgresql
-, autoreconfHook, python39, recutils, wget, jq, gettext, texinfo }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  curl,
+  gnunet,
+  jansson,
+  libgcrypt,
+  libmicrohttpd_0_9_72,
+  qrencode,
+  libsodium,
+  libtool,
+  libunistring,
+  pkg-config,
+  postgresql,
+  autoreconfHook,
+  python39,
+  recutils,
+  wget,
+  jq,
+  gettext,
+  texinfo,
+}:
 
 let
   taler-merchant-backoffice = fetchgit {

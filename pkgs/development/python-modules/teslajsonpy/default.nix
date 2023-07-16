@@ -1,6 +1,20 @@
-{ lib, aiohttp, authcaptureproxy, backoff, beautifulsoup4, buildPythonPackage
-, fetchFromGitHub, httpx, orjson, poetry-core, pytest-asyncio, pytestCheckHook
-, pythonOlder, tenacity, wrapt }:
+{
+  lib,
+  aiohttp,
+  authcaptureproxy,
+  backoff,
+  beautifulsoup4,
+  buildPythonPackage,
+  fetchFromGitHub,
+  httpx,
+  orjson,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  tenacity,
+  wrapt,
+}:
 
 buildPythonPackage rec {
   pname = "teslajsonpy";

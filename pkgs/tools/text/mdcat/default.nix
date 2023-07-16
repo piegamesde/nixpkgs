@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, asciidoctor, openssl
-, Security, ansi2html, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  asciidoctor,
+  openssl,
+  Security,
+  ansi2html,
+  installShellFiles,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "mdcat";

@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, jre, makeWrapper, copyDesktopItems, makeDesktopItem
-, unzip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jre,
+  makeWrapper,
+  copyDesktopItems,
+  makeDesktopItem,
+  unzip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "logisim";

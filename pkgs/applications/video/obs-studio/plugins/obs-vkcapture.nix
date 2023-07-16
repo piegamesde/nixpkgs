@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, ninja, wayland
-, wayland-scanner, obs-studio, libffi, libX11, libXau, libXdmcp, libxcb
-, vulkan-headers, vulkan-loader, libGL, obs-vkcapture32 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  extra-cmake-modules,
+  ninja,
+  wayland,
+  wayland-scanner,
+  obs-studio,
+  libffi,
+  libX11,
+  libXau,
+  libXdmcp,
+  libxcb,
+  vulkan-headers,
+  vulkan-loader,
+  libGL,
+  obs-vkcapture32,
+}:
 
 stdenv.mkDerivation rec {
   pname = "obs-vkcapture";

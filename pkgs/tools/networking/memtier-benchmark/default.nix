@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libevent, pcre, zlib
-, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  libevent,
+  pcre,
+  zlib,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "memtier-benchmark";

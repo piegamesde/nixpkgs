@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, glib, pcre }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+  glib,
+  pcre,
+}:
 
 stdenv.mkDerivation {
   pname = "rdup";

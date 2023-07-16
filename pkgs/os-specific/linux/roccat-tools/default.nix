@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, cmake, pkg-config, gettext, dbus, dbus-glib
-, libgaminggear, libgudev, lua, harfbuzz, runtimeShell, coreutils, kmod }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  pkg-config,
+  gettext,
+  dbus,
+  dbus-glib,
+  libgaminggear,
+  libgudev,
+  lua,
+  harfbuzz,
+  runtimeShell,
+  coreutils,
+  kmod,
+}:
 
 stdenv.mkDerivation rec {
   pname = "roccat-tools";

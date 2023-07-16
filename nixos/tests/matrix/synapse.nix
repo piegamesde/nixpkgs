@@ -1,4 +1,7 @@
-import ../make-test-python.nix ({ pkgs, ... }:
+import ../make-test-python.nix ({
+    pkgs,
+    ...
+  }:
   let
 
     runWithOpenSSL = file: cmd:
@@ -56,7 +59,11 @@ import ../make-test-python.nix ({ pkgs, ... }:
 
     nodes = {
       # Since 0.33.0, matrix-synapse doesn't allow underscores in server names
-      serverpostgres = { pkgs, nodes, ... }:
+      serverpostgres = {
+          pkgs,
+          nodes,
+          ...
+        }:
         let mailserverIP = nodes.mailserver.config.networking.primaryIPAddress;
         in {
           services.matrix-synapse = {

@@ -1,4 +1,8 @@
-{ pkgs, version, configTxt }:
+{
+  pkgs,
+  version,
+  configTxt,
+}:
 
 let
   isAarch64 = pkgs.stdenv.hostPlatform.isAarch64;

@@ -1,5 +1,19 @@
-{ lib, stdenv, canonicalize-jars-hook, fetchzip, pkg-config, atk, glib, gtk2
-, jdk, libGL, libGLU, libXt, libXtst, gnome2 }:
+{
+  lib,
+  stdenv,
+  canonicalize-jars-hook,
+  fetchzip,
+  pkg-config,
+  atk,
+  glib,
+  gtk2,
+  jdk,
+  libGL,
+  libGLU,
+  libXt,
+  libXtst,
+  gnome2,
+}:
 
 let
   platformMap = {

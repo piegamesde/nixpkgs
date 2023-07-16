@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, flit-core, async-timeout
-, dbus, pytest, pytest-trio, pytest-asyncio, testpath, trio }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  flit-core,
+  async-timeout,
+  dbus,
+  pytest,
+  pytest-trio,
+  pytest-asyncio,
+  testpath,
+  trio,
+}:
 
 buildPythonPackage rec {
   pname = "jeepney";

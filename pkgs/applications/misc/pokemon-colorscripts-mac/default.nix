@@ -1,4 +1,9 @@
-{ lib, stdenv, coreutils, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  coreutils,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pokemon-colorscripts-mac";

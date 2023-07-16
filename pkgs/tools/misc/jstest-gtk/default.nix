@@ -1,4 +1,13 @@
-{ stdenv, lib, fetchFromGitLab, cmake, pkg-config, gtkmm3, libsigcxx, xorg }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  cmake,
+  pkg-config,
+  gtkmm3,
+  libsigcxx,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jstest-gtk";

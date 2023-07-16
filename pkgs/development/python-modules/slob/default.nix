@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, pyicu, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy3k,
+  pyicu,
+  python,
+}:
 
 buildPythonPackage {
   pname = "slob";

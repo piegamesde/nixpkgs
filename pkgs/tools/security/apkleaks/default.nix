@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, jadx, python3 }:
+{
+  lib,
+  fetchFromGitHub,
+  jadx,
+  python3,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "apkleaks";

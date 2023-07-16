@@ -1,12 +1,46 @@
-{ channel, version, revision, sha256 }:
+{
+  channel,
+  version,
+  revision,
+  sha256,
+}:
 
-{ stdenv, fetchurl, lib, makeWrapper
+{
+  stdenv,
+  fetchurl,
+  lib,
+  makeWrapper
 
-, binutils-unwrapped, xz, gnutar, file
+  ,
+  binutils-unwrapped,
+  xz,
+  gnutar,
+  file
 
-, glibc, glib, nss, nspr, atk, at-spi2-atk, xorg, cups, dbus, expat, libdrm
-, libxkbcommon, gtk3, pango, cairo, gdk-pixbuf, mesa, alsa-lib, at-spi2-core
-, libuuid, systemd, wayland }:
+  ,
+  glibc,
+  glib,
+  nss,
+  nspr,
+  atk,
+  at-spi2-atk,
+  xorg,
+  cups,
+  dbus,
+  expat,
+  libdrm,
+  libxkbcommon,
+  gtk3,
+  pango,
+  cairo,
+  gdk-pixbuf,
+  mesa,
+  alsa-lib,
+  at-spi2-core,
+  libuuid,
+  systemd,
+  wayland,
+}:
 
 let
 

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, poetry-core, protobuf
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  poetry-core,
+  protobuf,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "biliass";

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, dnspython }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  dnspython,
+}:
 
 buildPythonPackage rec {
   pname = "pymongo";

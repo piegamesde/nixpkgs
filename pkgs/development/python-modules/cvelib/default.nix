@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, click, fetchFromGitHub, jsonschema, pytestCheckHook
-, pythonOlder, requests, testers, cve }:
+{
+  lib,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  jsonschema,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  testers,
+  cve,
+}:
 
 buildPythonPackage rec {
   pname = "cvelib";

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, apacheHttpd, jdk }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  apacheHttpd,
+  jdk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tomcat-connectors";

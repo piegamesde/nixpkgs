@@ -1,4 +1,11 @@
-{ fetchurl, lib, stdenv, gettext, libmpcdec, libao }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  gettext,
+  libmpcdec,
+  libao,
+}:
 
 let version = "0.2.4";
 in stdenv.mkDerivation rec {

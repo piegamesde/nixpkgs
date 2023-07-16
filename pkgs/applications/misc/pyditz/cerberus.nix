@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pytest-runner, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest-runner,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "Cerberus";

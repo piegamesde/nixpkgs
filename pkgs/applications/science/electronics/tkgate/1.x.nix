@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, tcl, tk, libX11, glibc, which, bison, flex, imake
-, xorgproto, gccmakedep }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  tcl,
+  tk,
+  libX11,
+  glibc,
+  which,
+  bison,
+  flex,
+  imake,
+  xorgproto,
+  gccmakedep,
+}:
 
 let
   libiconvInc = lib.optionalString stdenv.isLinux "${glibc.dev}/include";

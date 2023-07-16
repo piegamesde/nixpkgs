@@ -1,4 +1,8 @@
-{ buildGoModule, fetchFromGitHub, lib }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+}:
 
 let inherit (lib) concatStringsSep concatMap id mapAttrsToList;
 in buildGoModule rec {

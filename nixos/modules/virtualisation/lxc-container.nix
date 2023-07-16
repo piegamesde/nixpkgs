@@ -1,31 +1,39 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
-  templateSubmodule = { ... }: {
-    options = {
-      enable = mkEnableOption (lib.mdDoc "this template");
+  templateSubmodule = {
+      ...
+    }: {
+      options = {
+        enable = mkEnableOption (lib.mdDoc "this template");
 
-      target = mkOption {
-        description = lib.mdDoc "Path in the container";
-        type = types.path;
-      };
-      template = mkOption {
-        description = lib.mdDoc ".tpl file for rendering the target";
-        type = types.path;
-      };
-      when = mkOption {
-        description = lib.mdDoc "Events which trigger a rewrite (create, copy)";
-        type = types.listOf (types.str);
-      };
-      properties = mkOption {
-        description = lib.mdDoc "Additional properties";
-        type = types.attrs;
-        default = { };
+        target = mkOption {
+          description = lib.mdDoc "Path in the container";
+          type = types.path;
+        };
+        template = mkOption {
+          description = lib.mdDoc ".tpl file for rendering the target";
+          type = types.path;
+        };
+        when = mkOption {
+          description =
+            lib.mdDoc "Events which trigger a rewrite (create, copy)";
+          type = types.listOf (types.str);
+        };
+        properties = mkOption {
+          description = lib.mdDoc "Additional properties";
+          type = types.attrs;
+          default = { };
+        };
       };
     };
-  };
 
   toYAML = name: data: pkgs.writeText name (generators.toYAML { } data);
 

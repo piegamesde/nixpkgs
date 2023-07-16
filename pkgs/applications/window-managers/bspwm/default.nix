@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, libxcb, libXinerama, xcbutil, xcbutilkeysyms
-, xcbutilwm }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libxcb,
+  libXinerama,
+  xcbutil,
+  xcbutilkeysyms,
+  xcbutilwm,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bspwm";

@@ -1,5 +1,17 @@
-{ cargo, fetchFromGitHub, makeWrapper, pkg-config, rustPlatform, lib, stdenv
-, gcc, cmake, libiconv, CoreServices, Security }:
+{
+  cargo,
+  fetchFromGitHub,
+  makeWrapper,
+  pkg-config,
+  rustPlatform,
+  lib,
+  stdenv,
+  gcc,
+  cmake,
+  libiconv,
+  CoreServices,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "evcxr";

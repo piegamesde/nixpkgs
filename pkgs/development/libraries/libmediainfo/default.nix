@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, autoreconfHook, pkg-config, libzen, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  libzen,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libmediainfo";

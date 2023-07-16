@@ -1,4 +1,10 @@
-{ stdenvNoCC, kmod, modules, buildEnv, name ? "kernel-modules" }:
+{
+  stdenvNoCC,
+  kmod,
+  modules,
+  buildEnv,
+  name ? "kernel-modules"
+}:
 
 buildEnv {
   inherit name;

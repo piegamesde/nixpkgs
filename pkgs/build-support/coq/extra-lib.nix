@@ -1,4 +1,6 @@
-{ lib }:
+{
+  lib,
+}:
 with builtins;
 with lib;
 recursiveUpdate lib (rec {

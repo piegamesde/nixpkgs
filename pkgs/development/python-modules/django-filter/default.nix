@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, django, djangorestframework, python, mock
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  django,
+  djangorestframework,
+  python,
+  mock,
 }:
 
 buildPythonPackage rec {

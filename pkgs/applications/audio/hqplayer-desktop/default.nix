@@ -1,6 +1,21 @@
-{ mkDerivation, alsa-lib, autoPatchelfHook, fetchurl, flac, gcc11, lib
-, libmicrohttpd, llvmPackages_10, qtcharts, qtdeclarative, qtquickcontrols2
-, qtwebengine, qtwebview, rpmextract, wavpack }:
+{
+  mkDerivation,
+  alsa-lib,
+  autoPatchelfHook,
+  fetchurl,
+  flac,
+  gcc11,
+  lib,
+  libmicrohttpd,
+  llvmPackages_10,
+  qtcharts,
+  qtdeclarative,
+  qtquickcontrols2,
+  qtwebengine,
+  qtwebview,
+  rpmextract,
+  wavpack,
+}:
 
 mkDerivation rec {
   pname = "hqplayer-desktop";

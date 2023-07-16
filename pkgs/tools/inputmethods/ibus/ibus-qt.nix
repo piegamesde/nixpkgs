@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, ibus, cmake, pkg-config, qt4, icu, doxygen }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ibus,
+  cmake,
+  pkg-config,
+  qt4,
+  icu,
+  doxygen,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ibus-qt";

@@ -1,4 +1,11 @@
-{ lib, buildDunePackage, fetchurl, cppo, uutf, lwt }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  cppo,
+  uutf,
+  lwt,
+}:
 
 buildDunePackage rec {
   version = "0.2.3";

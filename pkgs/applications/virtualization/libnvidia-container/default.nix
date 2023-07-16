@@ -1,6 +1,19 @@
-{ stdenv, lib, addOpenGLRunpath, fetchFromGitHub, pkg-config, libelf, libcap
-, libseccomp, rpcsvc-proto, libtirpc, makeWrapper, substituteAll
-, removeReferencesTo, go }:
+{
+  stdenv,
+  lib,
+  addOpenGLRunpath,
+  fetchFromGitHub,
+  pkg-config,
+  libelf,
+  libcap,
+  libseccomp,
+  rpcsvc-proto,
+  libtirpc,
+  makeWrapper,
+  substituteAll,
+  removeReferencesTo,
+  go,
+}:
 let
   modprobeVersion = "495.44";
   nvidia-modprobe = fetchFromGitHub {

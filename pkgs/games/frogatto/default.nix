@@ -1,4 +1,10 @@
-{ buildEnv, lib, callPackage, makeWrapper, makeDesktopItem }:
+{
+  buildEnv,
+  lib,
+  callPackage,
+  makeWrapper,
+  makeDesktopItem,
+}:
 
 let
   description = "Action-adventure game, starring a certain quixotic frog";

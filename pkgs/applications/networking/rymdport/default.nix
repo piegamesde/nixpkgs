@@ -1,5 +1,14 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, pkg-config, libGL, xorg, Carbon
-, Cocoa }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  pkg-config,
+  libGL,
+  xorg,
+  Carbon,
+  Cocoa,
+}:
 
 buildGoModule rec {
   pname = "rymdport";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, python3, zfs, sudo }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  zfs,
+  sudo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "check_zfs";

@@ -1,8 +1,20 @@
-{ mkDerivation, lib, fetchFromGitHub
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub
 
-, cmake, pkg-config
+  ,
+  cmake,
+  pkg-config
 
-, exiv2, mpv, opencv4, qtbase, qtimageformats, qtsvg }:
+  ,
+  exiv2,
+  mpv,
+  opencv4,
+  qtbase,
+  qtimageformats,
+  qtsvg,
+}:
 
 mkDerivation rec {
   pname = "qimgv";

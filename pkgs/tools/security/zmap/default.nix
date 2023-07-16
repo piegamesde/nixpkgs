@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libjson, json_c, gengetopt
-, flex, byacc, gmp, libpcap }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libjson,
+  json_c,
+  gengetopt,
+  flex,
+  byacc,
+  gmp,
+  libpcap,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zmap";

@@ -1,7 +1,30 @@
-{ lib, buildPythonPackage, fetchFromGitHub, makePythonPath, pythonOlder, python
-, click, dbus-python, desktop-notifier, dropbox, fasteners, importlib-metadata
-, keyring, keyrings-alt, packaging, pathspec, pyro5, requests, rich, setuptools
-, survey, typing-extensions, watchdog, pytestCheckHook, nixosTests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  makePythonPath,
+  pythonOlder,
+  python,
+  click,
+  dbus-python,
+  desktop-notifier,
+  dropbox,
+  fasteners,
+  importlib-metadata,
+  keyring,
+  keyrings-alt,
+  packaging,
+  pathspec,
+  pyro5,
+  requests,
+  rich,
+  setuptools,
+  survey,
+  typing-extensions,
+  watchdog,
+  pytestCheckHook,
+  nixosTests,
+}:
 
 buildPythonPackage rec {
   pname = "maestral";

@@ -1,5 +1,11 @@
-{ lib, backendStdenv, fetchFromGitHub, which, cudaPackages ? { }
-, addOpenGLRunpath }:
+{
+  lib,
+  backendStdenv,
+  fetchFromGitHub,
+  which,
+  cudaPackages ? { },
+  addOpenGLRunpath,
+}:
 
 with cudaPackages;
 

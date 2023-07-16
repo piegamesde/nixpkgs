@@ -1,4 +1,12 @@
-{ fetchurl, lib, stdenv, makeWrapper, perl, openssh, rsync }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  makeWrapper,
+  perl,
+  openssh,
+  rsync,
+}:
 
 stdenv.mkDerivation rec {
   pname = "autobuild";

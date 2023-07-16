@@ -1,6 +1,24 @@
-{ stdenv, lib, fetchFromGitHub, nix-update-script, meson, ninja, rustPlatform
-, pkg-config, glib, libshumate, gst_all_1, gtk4, libadwaita, llvmPackages, glibc
-, pipewire, wayland, wrapGAppsHook4, desktop-file-utils }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  nix-update-script,
+  meson,
+  ninja,
+  rustPlatform,
+  pkg-config,
+  glib,
+  libshumate,
+  gst_all_1,
+  gtk4,
+  libadwaita,
+  llvmPackages,
+  glibc,
+  pipewire,
+  wayland,
+  wrapGAppsHook4,
+  desktop-file-utils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ashpd-demo";

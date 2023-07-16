@@ -1,21 +1,49 @@
-{ lib, isPyPy, pythonOlder, fetchPypi, fetchFromGitHub, buildPythonPackage
+{
+  lib,
+  isPyPy,
+  pythonOlder,
+  fetchPypi,
+  fetchFromGitHub,
+  buildPythonPackage
 
-# build
-, cython, setuptools
+  # build
+  ,
+  cython,
+  setuptools
 
-# propagates
-, greenlet, typing-extensions
+  # propagates
+  ,
+  greenlet,
+  typing-extensions
 
-# optionals
-, aiomysql, aiosqlite, asyncmy, asyncpg, cx_oracle, mariadb, mypy
-, mysql-connector, mysqlclient, oracledb, pg8000, psycopg, psycopg2
-, psycopg2cffi
-# TODO: pymssql
-, pymysql, pyodbc
-# TODO: sqlcipher3
+  # optionals
+  ,
+  aiomysql,
+  aiosqlite,
+  asyncmy,
+  asyncpg,
+  cx_oracle,
+  mariadb,
+  mypy,
+  mysql-connector,
+  mysqlclient,
+  oracledb,
+  pg8000,
+  psycopg,
+  psycopg2,
+  psycopg2cffi
+  # TODO: pymssql
+  ,
+  pymysql,
+  pyodbc
+  # TODO: sqlcipher3
 
-# tests
-, mock, pytest-xdist, pytestCheckHook }:
+  # tests
+  ,
+  mock,
+  pytest-xdist,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "SQLAlchemy";

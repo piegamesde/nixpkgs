@@ -1,5 +1,16 @@
-{ lib, stdenv, addOpenGLRunpath, autoPatchelfHook, buildPythonPackage
-, cudaPackages, fetchurl, pythonAtLeast, pythonOlder, pillow, python, torch-bin
+{
+  lib,
+  stdenv,
+  addOpenGLRunpath,
+  autoPatchelfHook,
+  buildPythonPackage,
+  cudaPackages,
+  fetchurl,
+  pythonAtLeast,
+  pythonOlder,
+  pillow,
+  python,
+  torch-bin,
 }:
 
 let

@@ -1,6 +1,22 @@
-{ lib, buildPythonPackage, fetchFromGitHub, future, hypothesis, packaging
-, parameterized, msgpack, pyserial, pytest-timeout, pytestCheckHook, pythonOlder
-, setuptools, stdenv, typing-extensions, wrapt, uptime }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  future,
+  hypothesis,
+  packaging,
+  parameterized,
+  msgpack,
+  pyserial,
+  pytest-timeout,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  stdenv,
+  typing-extensions,
+  wrapt,
+  uptime,
+}:
 
 buildPythonPackage rec {
   pname = "can";

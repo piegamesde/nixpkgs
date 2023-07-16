@@ -1,7 +1,28 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, defusedxml, lxml, relatorio
-, genshi, python-dateutil, polib, python-sql, werkzeug, wrapt, passlib, pydot
-, levenshtein, html2text, weasyprint, gevent, pillow, withPostgresql ? true
-, psycopg2, unittestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  defusedxml,
+  lxml,
+  relatorio,
+  genshi,
+  python-dateutil,
+  polib,
+  python-sql,
+  werkzeug,
+  wrapt,
+  passlib,
+  pydot,
+  levenshtein,
+  html2text,
+  weasyprint,
+  gevent,
+  pillow,
+  withPostgresql ? true,
+  psycopg2,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "trytond";

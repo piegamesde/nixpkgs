@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, keras, numba, numpy
-, pynndescent, pytestCheckHook, pythonOlder, scikit-learn, scipy, tensorflow
-, tqdm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  keras,
+  numba,
+  numpy,
+  pynndescent,
+  pytestCheckHook,
+  pythonOlder,
+  scikit-learn,
+  scipy,
+  tensorflow,
+  tqdm,
+}:
 
 buildPythonPackage rec {
   pname = "umap-learn";

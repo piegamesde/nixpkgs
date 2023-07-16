@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, dulwich, pbr, sphinx }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  dulwich,
+  pbr,
+  sphinx,
+}:
 
 buildPythonPackage rec {
   pname = "openstackdocstheme";

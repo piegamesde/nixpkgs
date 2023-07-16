@@ -1,5 +1,15 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, kcompletion, kconfig
-, kconfigwidgets, kcoreaddons, ki18n, kwidgetsaddons }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  kcompletion,
+  kconfig,
+  kconfigwidgets,
+  kcoreaddons,
+  ki18n,
+  kwidgetsaddons,
+}:
 
 mkDerivation {
   pname = "libkmahjongg";

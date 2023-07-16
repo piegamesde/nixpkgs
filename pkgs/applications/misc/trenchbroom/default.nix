@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ninja, git, pandoc, pkg-config, libGL
-, libGLU, freeimage, catch2, fmt, glew, miniz, tinyxml-2, xorg, qtbase
-, wrapQtAppsHook, copyDesktopItems, makeDesktopItem }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  git,
+  pandoc,
+  pkg-config,
+  libGL,
+  libGLU,
+  freeimage,
+  catch2,
+  fmt,
+  glew,
+  miniz,
+  tinyxml-2,
+  xorg,
+  qtbase,
+  wrapQtAppsHook,
+  copyDesktopItems,
+  makeDesktopItem,
+}:
 
 stdenv.mkDerivation rec {
   pname = "TrenchBroom";

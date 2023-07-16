@@ -1,11 +1,17 @@
-{ stdenv, lib, unstick, fetchurl, supportedDevices ? [
-  "Arria II"
-  "Cyclone V"
-  "Cyclone IV"
-  "Cyclone 10 LP"
-  "MAX II/V"
-  "MAX 10 FPGA"
-] }:
+{
+  stdenv,
+  lib,
+  unstick,
+  fetchurl,
+  supportedDevices ? [
+    "Arria II"
+    "Cyclone V"
+    "Cyclone IV"
+    "Cyclone 10 LP"
+    "MAX II/V"
+    "MAX 10 FPGA"
+  ]
+}:
 
 let
   deviceIds = {
@@ -42,7 +48,10 @@ let
 
   version = "20.1.1.720";
 
-  download = { name, sha256 }:
+  download = {
+      name,
+      sha256,
+    }:
     fetchurl {
       inherit name sha256;
       # e.g. "20.1.1.720" -> "20.1std.1/720"

@@ -1,6 +1,15 @@
-{ lib, fetchFromGitHub, symlinkJoin, buildGoModule, makeWrapper, nixosTests
-, nix-update-script, v2ray-geoip, v2ray-domain-list-community
-, assets ? [ v2ray-geoip v2ray-domain-list-community ] }:
+{
+  lib,
+  fetchFromGitHub,
+  symlinkJoin,
+  buildGoModule,
+  makeWrapper,
+  nixosTests,
+  nix-update-script,
+  v2ray-geoip,
+  v2ray-domain-list-community,
+  assets ? [ v2ray-geoip v2ray-domain-list-community ]
+}:
 
 buildGoModule rec {
   pname = "v2ray-core";

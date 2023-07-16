@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, autoconf, automake, libtool, openssl
-, pkg-config }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  autoconf,
+  automake,
+  libtool,
+  openssl,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libetpan";

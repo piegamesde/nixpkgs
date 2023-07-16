@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, makeWrapper, shared-mime-info, wxGTK32
-, boost, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  makeWrapper,
+  shared-mime-info,
+  wxGTK32,
+  boost,
+  Cocoa,
+}:
 
 stdenv.mkDerivation {
   pname = "wxFormBuilder";

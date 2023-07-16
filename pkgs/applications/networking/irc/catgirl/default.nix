@@ -1,4 +1,12 @@
-{ ctags, fetchurl, lib, libressl, ncurses, pkg-config, stdenv }:
+{
+  ctags,
+  fetchurl,
+  lib,
+  libressl,
+  ncurses,
+  pkg-config,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "catgirl";

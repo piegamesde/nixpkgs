@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, editdistance-s, fetchFromGitHub, pytestCheckHook
-, pythonOlder, ukkonen }:
+{
+  lib,
+  buildPythonPackage,
+  editdistance-s,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  ukkonen,
+}:
 
 buildPythonPackage rec {
   pname = "identify";

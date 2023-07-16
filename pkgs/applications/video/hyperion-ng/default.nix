@@ -1,7 +1,27 @@
-{ stdenv, lib, fetchFromGitHub, cmake, wrapQtAppsHook, perl, flatbuffers
-, protobuf, mbedtls, hidapi, libcec, libusb1, libX11, libxcb, libXrandr, python3
-, qtbase, qtserialport, qtsvg, qtx11extras, withRPiDispmanx ? false
-, libraspberrypi }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  wrapQtAppsHook,
+  perl,
+  flatbuffers,
+  protobuf,
+  mbedtls,
+  hidapi,
+  libcec,
+  libusb1,
+  libX11,
+  libxcb,
+  libXrandr,
+  python3,
+  qtbase,
+  qtserialport,
+  qtsvg,
+  qtx11extras,
+  withRPiDispmanx ? false,
+  libraspberrypi,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hyperion.ng";

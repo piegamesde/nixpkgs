@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, Security, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  Security,
+  installShellFiles,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "git-gone";

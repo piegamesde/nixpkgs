@@ -1,4 +1,11 @@
-{ lib, makeWrapper, buildGoModule, fetchFromGitHub, installShellFiles, gopass }:
+{
+  lib,
+  makeWrapper,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  gopass,
+}:
 
 buildGoModule rec {
   pname = "gopass-jsonapi";

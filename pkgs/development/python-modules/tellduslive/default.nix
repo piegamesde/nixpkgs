@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, docopt, fetchFromGitHub, requests, requests-oauthlib
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  docopt,
+  fetchFromGitHub,
+  requests,
+  requests-oauthlib,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "tellduslive";

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, ghostscript, libpng, makeWrapper, coreutils, bc
-, gnugrep, gawk, gnused }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ghostscript,
+  libpng,
+  makeWrapper,
+  coreutils,
+  bc,
+  gnugrep,
+  gawk,
+  gnused,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fig2dev";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, perl, zlib, buildPackages }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  zlib,
+  buildPackages,
+}:
 
 stdenv.mkDerivation rec {
   name = "${passthru.pname}-${passthru.version}";

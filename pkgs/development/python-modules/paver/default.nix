@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, cogapp, fetchPypi, mock, nose, pytestCheckHook
-, pythonOlder, six, virtualenv }:
+{
+  lib,
+  buildPythonPackage,
+  cogapp,
+  fetchPypi,
+  mock,
+  nose,
+  pytestCheckHook,
+  pythonOlder,
+  six,
+  virtualenv,
+}:
 
 buildPythonPackage rec {
   pname = "paver";

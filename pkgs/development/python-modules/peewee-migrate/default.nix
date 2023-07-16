@@ -1,13 +1,23 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder
 
-# build-system
-, poetry-core
+  # build-system
+  ,
+  poetry-core
 
-# runtime
-, click, peewee
+  # runtime
+  ,
+  click,
+  peewee
 
-# tests
-, psycopg2, pytestCheckHook }:
+  # tests
+  ,
+  psycopg2,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "peewee-migrate";

@@ -1,7 +1,31 @@
-{ stdenv, lib, fetchurl, cmake, pkg-config, ninja, python3, qtbase, qt5compat
-, qtdeclarative, qtdoc, qtquick3d, qtquicktimeline, qtserialport, qtsvg, qttools
-, qtwebengine, qtshadertools, wrapQtAppsHook, yaml-cpp, litehtml, gumbo
-, llvmPackages, rustc-demangle, elfutils, perf }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  cmake,
+  pkg-config,
+  ninja,
+  python3,
+  qtbase,
+  qt5compat,
+  qtdeclarative,
+  qtdoc,
+  qtquick3d,
+  qtquicktimeline,
+  qtserialport,
+  qtsvg,
+  qttools,
+  qtwebengine,
+  qtshadertools,
+  wrapQtAppsHook,
+  yaml-cpp,
+  litehtml,
+  gumbo,
+  llvmPackages,
+  rustc-demangle,
+  elfutils,
+  perf,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qtcreator";

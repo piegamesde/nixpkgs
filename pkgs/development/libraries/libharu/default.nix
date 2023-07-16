@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, zlib, libpng }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  zlib,
+  libpng,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libharu";

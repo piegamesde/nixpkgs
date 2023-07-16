@@ -1,5 +1,14 @@
-{ stdenv, fetchFromGitHub, lib, makeWrapper, rustPlatform, wget, libiconv
-, withFzf ? true, fzf }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  makeWrapper,
+  rustPlatform,
+  wget,
+  libiconv,
+  withFzf ? true,
+  fzf,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "navi";

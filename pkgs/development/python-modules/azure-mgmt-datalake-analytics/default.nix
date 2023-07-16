@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, msrestazure, azure-common
-, azure-mgmt-datalake-nspkg }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  msrestazure,
+  azure-common,
+  azure-mgmt-datalake-nspkg,
+}:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-datalake-analytics";

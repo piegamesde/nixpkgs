@@ -1,4 +1,7 @@
-{ lib, python3Packages }:
+{
+  lib,
+  python3Packages,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "pydf";

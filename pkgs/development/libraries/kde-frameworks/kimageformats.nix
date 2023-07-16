@@ -1,5 +1,16 @@
-{ mkDerivation, lib, extra-cmake-modules, ilmbase, karchive, openexr, libavif
-, libheif, libjxl, libraw, qtbase }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  ilmbase,
+  karchive,
+  openexr,
+  libavif,
+  libheif,
+  libjxl,
+  libraw,
+  qtbase,
+}:
 
 let inherit (lib) getDev;
 

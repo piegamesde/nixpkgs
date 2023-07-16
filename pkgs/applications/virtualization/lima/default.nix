@@ -1,5 +1,14 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, installShellFiles, qemu, xcbuild
-, sigtool, makeWrapper }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  qemu,
+  xcbuild,
+  sigtool,
+  makeWrapper,
+}:
 
 buildGoModule rec {
   pname = "lima";

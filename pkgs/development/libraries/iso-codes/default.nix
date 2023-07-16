@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, gettext, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gettext,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "iso-codes";

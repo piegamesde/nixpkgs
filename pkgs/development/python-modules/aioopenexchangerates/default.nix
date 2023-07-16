@@ -1,5 +1,15 @@
-{ lib, aiohttp, aioresponses, pydantic, buildPythonPackage, fetchFromGitHub
-, poetry-core, pytest-aiohttp, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  pydantic,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aioopenexchangerates";

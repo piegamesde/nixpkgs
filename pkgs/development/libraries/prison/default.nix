@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, cmake, qrencode, qt4, libdmtx }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  qrencode,
+  qt4,
+  libdmtx,
+}:
 
 stdenv.mkDerivation rec {
   pname = "prison";

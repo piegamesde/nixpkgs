@@ -1,5 +1,17 @@
-{ coreutils, fetchurl, gawk, gnused, jdk8, lib, makeDesktopItem, makeWrapper
-, stdenv, writeScript, writeTextFile, recommendedUdevRules ? true }:
+{
+  coreutils,
+  fetchurl,
+  gawk,
+  gnused,
+  jdk8,
+  lib,
+  makeDesktopItem,
+  makeWrapper,
+  stdenv,
+  writeScript,
+  writeTextFile,
+  recommendedUdevRules ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "roomeqwizard";

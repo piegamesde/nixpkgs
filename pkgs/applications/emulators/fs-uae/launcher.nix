@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, gettext, python3, wrapQtAppsHook, fsuae }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gettext,
+  python3,
+  wrapQtAppsHook,
+  fsuae,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fs-uae-launcher";

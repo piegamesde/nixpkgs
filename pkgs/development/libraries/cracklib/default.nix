@@ -1,11 +1,19 @@
 let version = "2.9.8";
-in { stdenv, lib, buildPackages, fetchurl, zlib, gettext, wordlists ? [
-  (fetchurl {
-    url =
-      "https://github.com/cracklib/cracklib/releases/download/v${version}/cracklib-words-${version}.gz";
-    hash = "sha256-WLOCTIDdO6kIsMytUdbhZx4woj/u1gf7jmORR2i8T4U=";
-  })
-] }:
+in {
+  stdenv,
+  lib,
+  buildPackages,
+  fetchurl,
+  zlib,
+  gettext,
+  wordlists ? [
+    (fetchurl {
+      url =
+        "https://github.com/cracklib/cracklib/releases/download/v${version}/cracklib-words-${version}.gz";
+      hash = "sha256-WLOCTIDdO6kIsMytUdbhZx4woj/u1gf7jmORR2i8T4U=";
+    })
+  ]
+}:
 
 stdenv.mkDerivation rec {
   pname = "cracklib";

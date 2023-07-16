@@ -1,5 +1,16 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, pythonRelaxDepsHook, contexter
-, eventlet, mock, pytest-xdist, pytestCheckHook, six }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonRelaxDepsHook,
+  contexter,
+  eventlet,
+  mock,
+  pytest-xdist,
+  pytestCheckHook,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "signalslot";

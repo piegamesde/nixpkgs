@@ -1,4 +1,8 @@
-{ lib, callPackage, build ? null }:
+{
+  lib,
+  callPackage,
+  build ? null
+}:
 
 let
   pkgs = {

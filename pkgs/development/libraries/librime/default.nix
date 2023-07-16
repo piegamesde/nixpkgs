@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost, glog, leveldb, marisa, opencc
-, yaml-cpp, gtest, capnproto, pkg-config, plugins ? [ ] }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  glog,
+  leveldb,
+  marisa,
+  opencc,
+  yaml-cpp,
+  gtest,
+  capnproto,
+  pkg-config,
+  plugins ? [ ]
+}:
 
 let
   copySinglePlugin = plug: "cp -r ${plug} plugins/${plug.name}";

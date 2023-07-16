@@ -1,4 +1,10 @@
-{ lib, buildNimPackage, fetchFromSourcehut, pkg-config, tkrzw }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromSourcehut,
+  pkg-config,
+  tkrzw,
+}:
 
 buildNimPackage rec {
   pname = "tkrzw";

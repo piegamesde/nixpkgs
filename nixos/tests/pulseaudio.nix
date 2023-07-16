@@ -1,6 +1,13 @@
 let
-  mkTest = { systemWide ? false, fullVersion ? false }:
-    import ./make-test-python.nix ({ pkgs, lib, ... }:
+  mkTest = {
+      systemWide ? false,
+      fullVersion ? false
+    }:
+    import ./make-test-python.nix ({
+        pkgs,
+        lib,
+        ...
+      }:
       let
         testFile = pkgs.fetchurl {
           url =
@@ -9,7 +16,10 @@ let
         };
 
         makeTestPlay = key:
-          { sox, alsa-utils }:
+          {
+            sox,
+            alsa-utils,
+          }:
           pkgs.writeScriptBin key ''
             set -euxo pipefail
             ${sox}/bin/play ${testFile}
@@ -29,7 +39,9 @@ let
           maintainers = [ synthetica ] ++ pkgs.pulseaudio.meta.maintainers;
         };
 
-        nodes.machine = { ... }:
+        nodes.machine = {
+            ...
+          }:
 
           {
             imports = [ ./common/wayland-cage.nix ];
@@ -50,29 +62,31 @@ let
 
         enableOCR = true;
 
-        testScript = { ... }: ''
-          machine.wait_until_succeeds("pgrep xterm")
-          machine.wait_for_text("alice@machine")
+        testScript = {
+            ...
+          }: ''
+            machine.wait_until_succeeds("pgrep xterm")
+            machine.wait_for_text("alice@machine")
 
-          machine.send_chars("testPlay \n")
-          machine.wait_for_file("/tmp/testPlay_success")
-          ${lib.optionalString pkgs.stdenv.isx86_64 ''
-            machine.send_chars("testPlay32 \n")
-            machine.wait_for_file("/tmp/testPlay32_success")
-          ''}
-          machine.screenshot("testPlay")
+            machine.send_chars("testPlay \n")
+            machine.wait_for_file("/tmp/testPlay_success")
+            ${lib.optionalString pkgs.stdenv.isx86_64 ''
+              machine.send_chars("testPlay32 \n")
+              machine.wait_for_file("/tmp/testPlay32_success")
+            ''}
+            machine.screenshot("testPlay")
 
-          ${lib.optionalString (!systemWide) ''
-            machine.send_chars("pacmd info && touch /tmp/pacmd_success\n")
-            machine.wait_for_file("/tmp/pacmd_success")
-          ''}
+            ${lib.optionalString (!systemWide) ''
+              machine.send_chars("pacmd info && touch /tmp/pacmd_success\n")
+              machine.wait_for_file("/tmp/pacmd_success")
+            ''}
 
-          # Pavucontrol only loads when Pulseaudio is running. If it isn't, the
-          # text "Dummy Output" (sound device name) will never show.
-          machine.send_chars("pavucontrol\n")
-          machine.wait_for_text("Dummy Output")
-          machine.screenshot("Pavucontrol")
-        '';
+            # Pavucontrol only loads when Pulseaudio is running. If it isn't, the
+            # text "Dummy Output" (sound device name) will never show.
+            machine.send_chars("pavucontrol\n")
+            machine.wait_for_text("Dummy Output")
+            machine.screenshot("Pavucontrol")
+          '';
       });
 in builtins.mapAttrs (key: val: mkTest val) {
   user = {

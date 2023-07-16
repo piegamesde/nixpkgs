@@ -1,7 +1,27 @@
-{ lib, stdenv, fetchurl, makeDesktopItem, makeWrapper, freetype, fontconfig
-, libX11, libXrender, zlib, glib, gtk3, gtk2, libXtst, jdk, jdk8
-, gsettings-desktop-schemas, webkitgtk ? null # for internal web browser
-, buildEnv, runCommand, callPackage }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeDesktopItem,
+  makeWrapper,
+  freetype,
+  fontconfig,
+  libX11,
+  libXrender,
+  zlib,
+  glib,
+  gtk3,
+  gtk2,
+  libXtst,
+  jdk,
+  jdk8,
+  gsettings-desktop-schemas,
+  webkitgtk ? null # for internal web browser
+  ,
+  buildEnv,
+  runCommand,
+  callPackage,
+}:
 
 # https://download.eclipse.org/eclipse/downloads/ is the main place to
 # find the downloads needed for new versions
@@ -180,7 +200,11 @@ in rec {
 
   # Function that assembles a complete Eclipse environment from an
   # Eclipse package and list of Eclipse plugins.
-  eclipseWithPlugins = { eclipse, plugins ? [ ], jvmArgs ? [ ] }:
+  eclipseWithPlugins = {
+      eclipse,
+      plugins ? [ ],
+      jvmArgs ? [ ]
+    }:
     let
       # Gather up the desired plugins.
       pluginEnv = buildEnv {

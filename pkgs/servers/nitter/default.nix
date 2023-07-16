@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, nimPackages, nixosTests, substituteAll }:
+{
+  lib,
+  fetchFromGitHub,
+  nimPackages,
+  nixosTests,
+  substituteAll,
+}:
 
 nimPackages.buildNimPackage rec {
   pname = "nitter";

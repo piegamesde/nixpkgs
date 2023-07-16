@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, isPy27, fetchPypi, pytest, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  isPy27,
+  fetchPypi,
+  pytest,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   version = "0.3.0";

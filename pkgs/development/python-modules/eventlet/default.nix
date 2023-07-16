@@ -1,5 +1,18 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder, dnspython
-, greenlet, monotonic, six, nose, iana-etc, pytestCheckHook, libredirect }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  dnspython,
+  greenlet,
+  monotonic,
+  six,
+  nose,
+  iana-etc,
+  pytestCheckHook,
+  libredirect,
+}:
 
 buildPythonPackage rec {
   pname = "eventlet";

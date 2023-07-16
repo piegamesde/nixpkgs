@@ -1,7 +1,21 @@
-{ lib, fetchFromGitLab, fetchFromGitHub, python3, gobject-introspection, gtk3
-, pango, wrapGAppsHook, xvfb-run, chromecastSupport ? false
-, serverSupport ? false, keyringSupport ? true, notifySupport ? true, libnotify
-, networkSupport ? true, networkmanager }:
+{
+  lib,
+  fetchFromGitLab,
+  fetchFromGitHub,
+  python3,
+  gobject-introspection,
+  gtk3,
+  pango,
+  wrapGAppsHook,
+  xvfb-run,
+  chromecastSupport ? false,
+  serverSupport ? false,
+  keyringSupport ? true,
+  notifySupport ? true,
+  libnotify,
+  networkSupport ? true,
+  networkmanager,
+}:
 
 let
   python = python3.override {

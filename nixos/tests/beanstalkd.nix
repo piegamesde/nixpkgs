@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   let
     pythonEnv = pkgs.python3.withPackages (p: [ p.beanstalkc ]);
@@ -27,7 +31,11 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
     name = "beanstalkd";
     meta.maintainers = [ lib.maintainers.aanderse ];
 
-    nodes.machine = { ... }: { services.beanstalkd.enable = true; };
+    nodes.machine = {
+        ...
+      }: {
+        services.beanstalkd.enable = true;
+      };
 
     testScript = ''
       start_all()

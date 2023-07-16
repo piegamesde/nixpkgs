@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromRepoOrCz, copyPkgconfigItems, makePkgconfigItem, perl
-, texinfo, which }:
+{
+  lib,
+  stdenv,
+  fetchFromRepoOrCz,
+  copyPkgconfigItems,
+  makePkgconfigItem,
+  perl,
+  texinfo,
+  which,
+}:
 
 let
   # avoid "malformed 32-bit x.y.z" error on mac when using clang

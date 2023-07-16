@@ -1,4 +1,13 @@
-{ stdenv, lib, fetchurl, meson, ninja, pkg-config, zathura_core, girara, poppler
+{
+  stdenv,
+  lib,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  zathura_core,
+  girara,
+  poppler,
 }:
 
 stdenv.mkDerivation rec {

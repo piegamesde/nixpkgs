@@ -1,4 +1,9 @@
-{ lib, gccStdenv, fetchurl, xercesc }:
+{
+  lib,
+  gccStdenv,
+  fetchurl,
+  xercesc,
+}:
 
 let stdenv = gccStdenv;
 in stdenv.mkDerivation rec {

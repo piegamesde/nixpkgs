@@ -1,8 +1,28 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, removeReferencesTo, zlib
-, libjpeg, libpng, libtiff, pam, dbus
-, enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd, acl
-, gmp, darwin, libusb1 ? null, gnutls ? null, avahi ? null, libpaper ? null
-, coreutils, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  removeReferencesTo,
+  zlib,
+  libjpeg,
+  libpng,
+  libtiff,
+  pam,
+  dbus,
+  enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
+  systemd,
+  acl,
+  gmp,
+  darwin,
+  libusb1 ? null,
+  gnutls ? null,
+  avahi ? null,
+  libpaper ? null,
+  coreutils,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cups";

@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, buildPackages, iconv, nkf, perl, which
-, skk-dicts }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildPackages,
+  iconv,
+  nkf,
+  perl,
+  which,
+  skk-dicts,
+}:
 
 stdenv.mkDerivation {
   pname = "cmigemo";

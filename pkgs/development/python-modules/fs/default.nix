@@ -1,6 +1,24 @@
-{ lib, glibcLocales, buildPythonPackage, fetchPypi, setuptools, six, appdirs
-, scandir ? null, backports_os ? null, typing ? null, pytz, enum34, pyftpdlib
-, psutil, mock, pythonAtLeast, isPy3k, pytestCheckHook, stdenv }:
+{
+  lib,
+  glibcLocales,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  six,
+  appdirs,
+  scandir ? null,
+  backports_os ? null,
+  typing ? null,
+  pytz,
+  enum34,
+  pyftpdlib,
+  psutil,
+  mock,
+  pythonAtLeast,
+  isPy3k,
+  pytestCheckHook,
+  stdenv,
+}:
 
 buildPythonPackage rec {
   pname = "fs";

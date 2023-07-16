@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, cmake, gmp, halibut, ncurses, perl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  gmp,
+  halibut,
+  ncurses,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "spigot";

@@ -1,7 +1,30 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, wrapQtAppsHook, dtkwidget
-, qt5integration, qt5platform-plugins, dde-qt-dbus-factory, udisks2-qt5, qtmpris
-, qtdbusextended, qtmultimedia, qttools, kcodecs, ffmpeg, libvlc, libcue, taglib
-, gsettings-qt, SDL2, gtest, qtbase, gst_all_1 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  wrapQtAppsHook,
+  dtkwidget,
+  qt5integration,
+  qt5platform-plugins,
+  dde-qt-dbus-factory,
+  udisks2-qt5,
+  qtmpris,
+  qtdbusextended,
+  qtmultimedia,
+  qttools,
+  kcodecs,
+  ffmpeg,
+  libvlc,
+  libcue,
+  taglib,
+  gsettings-qt,
+  SDL2,
+  gtest,
+  qtbase,
+  gst_all_1,
+}:
 
 stdenv.mkDerivation rec {
   pname = "deepin-music";

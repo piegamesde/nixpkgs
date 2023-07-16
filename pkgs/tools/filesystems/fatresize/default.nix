@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, parted, util-linux, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  parted,
+  util-linux,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
 

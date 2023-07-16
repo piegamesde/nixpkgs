@@ -1,5 +1,15 @@
-{ lib, babel, buildPythonPackage, django, djangorestframework, fetchFromGitHub
-, phonenumbers, python, pythonOlder, setuptools-scm }:
+{
+  lib,
+  babel,
+  buildPythonPackage,
+  django,
+  djangorestframework,
+  fetchFromGitHub,
+  phonenumbers,
+  python,
+  pythonOlder,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "django-phonenumber-field";

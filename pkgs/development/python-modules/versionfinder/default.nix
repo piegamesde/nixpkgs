@@ -1,5 +1,13 @@
-{ lib, backoff, buildPythonPackage, fetchFromGitHub, gitpython, pytestCheckHook
-, pythonOlder, requests }:
+{
+  lib,
+  backoff,
+  buildPythonPackage,
+  fetchFromGitHub,
+  gitpython,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "versionfinder";

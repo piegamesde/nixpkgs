@@ -1,5 +1,15 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, help2man, installShellFiles
-, libiconv, Security, CoreServices, nix-update-script }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  help2man,
+  installShellFiles,
+  libiconv,
+  Security,
+  CoreServices,
+  nix-update-script,
+}:
 
 let isCross = stdenv.hostPlatform != stdenv.buildPlatform;
 in rustPlatform.buildRustPackage rec {

@@ -1,5 +1,15 @@
-{ mkDerivation, lib, cmake, extra-cmake-modules, pkg-config, SDL2, qttools, xorg
-, fetchFromGitHub, itstool }:
+{
+  mkDerivation,
+  lib,
+  cmake,
+  extra-cmake-modules,
+  pkg-config,
+  SDL2,
+  qttools,
+  xorg,
+  fetchFromGitHub,
+  itstool,
+}:
 
 mkDerivation rec {
   pname = "antimicrox";

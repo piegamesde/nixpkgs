@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromSourcehut, zig, glfw, libGLU, libGL, openal, libsndfile
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  zig,
+  glfw,
+  libGLU,
+  libGL,
+  openal,
+  libsndfile,
 }:
 
 stdenv.mkDerivation rec {

@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, pkg-config, libpulseaudio
-, alsa-lib, libcap, CoreAudio, CoreServices, AudioUnit, usePulseAudio }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  libpulseaudio,
+  alsa-lib,
+  libcap,
+  CoreAudio,
+  CoreServices,
+  AudioUnit,
+  usePulseAudio,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.2.2";

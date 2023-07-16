@@ -1,4 +1,9 @@
-{ lib, makeSetupHook, which, callPackage }:
+{
+  lib,
+  makeSetupHook,
+  which,
+  callPackage,
+}:
 
 makeSetupHook {
   name = "patch-ppd-files";

@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   let
     port = 3142;
@@ -8,20 +12,23 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
     meta.maintainers = with pkgs.lib.maintainers; [ pborzenkov ];
 
     nodes = {
-      customized = { pkgs, ... }: {
-        services.calibre-web = {
-          enable = true;
-          listen.port = port;
-          options = {
-            calibreLibrary = "/tmp/books";
-            reverseProxyAuth = {
-              enable = true;
-              header = "X-User";
+      customized = {
+          pkgs,
+          ...
+        }: {
+          services.calibre-web = {
+            enable = true;
+            listen.port = port;
+            options = {
+              calibreLibrary = "/tmp/books";
+              reverseProxyAuth = {
+                enable = true;
+                header = "X-User";
+              };
             };
           };
+          environment.systemPackages = [ pkgs.calibre ];
         };
-        environment.systemPackages = [ pkgs.calibre ];
-      };
     };
     testScript = ''
       start_all()

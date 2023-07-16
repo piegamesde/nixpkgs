@@ -1,7 +1,25 @@
-{ stdenv, lib, fetchFromGitHub, buildGoPackage, pkg-config, go-dbus-factory
-, go-gir-generator, go-lib, gettext, dde-api, libgnome-keyring, gtk3, alsa-lib
-, libpulseaudio, libgudev, libsecret, jq, wrapGAppsHook, runtimeShell
-, dde-polkit-agent }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildGoPackage,
+  pkg-config,
+  go-dbus-factory,
+  go-gir-generator,
+  go-lib,
+  gettext,
+  dde-api,
+  libgnome-keyring,
+  gtk3,
+  alsa-lib,
+  libpulseaudio,
+  libgudev,
+  libsecret,
+  jq,
+  wrapGAppsHook,
+  runtimeShell,
+  dde-polkit-agent,
+}:
 
 buildGoPackage rec {
   pname = "startdde";

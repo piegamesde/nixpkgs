@@ -1,7 +1,26 @@
-{ fetchurl, lib, stdenv, meson, ninja, vala, gtk-doc, docbook_xsl
-, docbook_xml_dtd_412, pkg-config, glib, gtk3, cairo, sqlite, gnome, clutter-gtk
-, libsoup, libsoup_3, gobject-introspection # , libmemphis
-, withLibsoup3 ? false }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  meson,
+  ninja,
+  vala,
+  gtk-doc,
+  docbook_xsl,
+  docbook_xml_dtd_412,
+  pkg-config,
+  glib,
+  gtk3,
+  cairo,
+  sqlite,
+  gnome,
+  clutter-gtk,
+  libsoup,
+  libsoup_3,
+  gobject-introspection # , libmemphis
+  ,
+  withLibsoup3 ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "libchamplain";

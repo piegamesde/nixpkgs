@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, fetchPypi, pythonOlder
-, rapidjson, pytestCheckHook, pytz, glibcLocales }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  fetchPypi,
+  pythonOlder,
+  rapidjson,
+  pytestCheckHook,
+  pytz,
+  glibcLocales,
+}:
 
 let
   rapidjson' = rapidjson.overrideAttrs (old: {

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, docutils, libev, openssl, systemd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  docutils,
+  libev,
+  openssl,
+  systemd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pgagroal";

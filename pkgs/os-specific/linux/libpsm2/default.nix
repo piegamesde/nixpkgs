@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, numactl, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  numactl,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libpsm2";

@@ -1,6 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub
-# Check inputs
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub
+  # Check inputs
+  ,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "python-constraint";

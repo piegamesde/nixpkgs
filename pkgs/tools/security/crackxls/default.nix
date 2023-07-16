@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, pkg-config, autoconf, automake
-, openssl, libgsf, gmp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  autoconf,
+  automake,
+  openssl,
+  libgsf,
+  gmp,
+}:
 
 stdenv.mkDerivation rec {
 

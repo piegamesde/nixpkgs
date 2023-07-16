@@ -1,4 +1,9 @@
-{ writeScriptBin, stdenv, lib, elm }:
+{
+  writeScriptBin,
+  stdenv,
+  lib,
+  elm,
+}:
 let
   patchBinwrap = let
     # Patching binwrap by NoOp script

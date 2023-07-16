@@ -1,5 +1,18 @@
-{ lib, python3, fetchFromSourcehut, gtk3, libhandy_0, gobject-introspection
-, meson, pkg-config, ninja, gettext, glib, desktop-file-utils, wrapGAppsHook }:
+{
+  lib,
+  python3,
+  fetchFromSourcehut,
+  gtk3,
+  libhandy_0,
+  gobject-introspection,
+  meson,
+  pkg-config,
+  ninja,
+  gettext,
+  glib,
+  desktop-file-utils,
+  wrapGAppsHook,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "thumbdrives";

@@ -1,16 +1,39 @@
-{ fetchurl, lib, stdenv, substituteAll, libtool, gettext, zlib, bzip2, flac
-, libvorbis, exiv2, libgsf, rpm, pkg-config, gstreamerSupport ? true, gst_all_1
-# ^ Needed e.g. for proper id3 and FLAC support.
-#   Set to `false` to decrease package closure size by about 87 MB (53%).
-, gstPlugins ? (gst: [ gst.gst-plugins-base gst.gst-plugins-good ])
-# If an application needs additional gstreamer plugins it can also make them
-# available by adding them to the environment variable
-# GST_PLUGIN_SYSTEM_PATH_1_0, e.g. like this:
-# postInstall = ''
-#   wrapProgram $out/bin/extract --prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0"
-# '';
-# See also <https://nixos.org/nixpkgs/manual/#sec-language-gnome>.
-, gtkSupport ? true, glib, gtk3, videoSupport ? true, ffmpeg_4, libmpeg2 }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  substituteAll,
+  libtool,
+  gettext,
+  zlib,
+  bzip2,
+  flac,
+  libvorbis,
+  exiv2,
+  libgsf,
+  rpm,
+  pkg-config,
+  gstreamerSupport ? true,
+  gst_all_1
+  # ^ Needed e.g. for proper id3 and FLAC support.
+  #   Set to `false` to decrease package closure size by about 87 MB (53%).
+  ,
+  gstPlugins ? (gst: [ gst.gst-plugins-base gst.gst-plugins-good ])
+  # If an application needs additional gstreamer plugins it can also make them
+  # available by adding them to the environment variable
+  # GST_PLUGIN_SYSTEM_PATH_1_0, e.g. like this:
+  # postInstall = ''
+  #   wrapProgram $out/bin/extract --prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0"
+  # '';
+  # See also <https://nixos.org/nixpkgs/manual/#sec-language-gnome>.
+  ,
+  gtkSupport ? true,
+  glib,
+  gtk3,
+  videoSupport ? true,
+  ffmpeg_4,
+  libmpeg2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libextractor";

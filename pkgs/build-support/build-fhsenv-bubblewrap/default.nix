@@ -1,10 +1,33 @@
-{ lib, stdenv, callPackage, runCommandLocal, writeShellScript, glibc
-, pkgsi686Linux, coreutils, bubblewrap }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  runCommandLocal,
+  writeShellScript,
+  glibc,
+  pkgsi686Linux,
+  coreutils,
+  bubblewrap,
+}:
 
-{ name ? null, pname ? null, version ? null, runScript ? "bash"
-, extraInstallCommands ? "", meta ? { }, passthru ? { }, extraBwrapArgs ? [ ]
-, unshareUser ? true, unshareIpc ? true, unsharePid ? true, unshareNet ? false
-, unshareUts ? true, unshareCgroup ? true, dieWithParent ? true, ... }@args:
+{
+  name ? null,
+  pname ? null,
+  version ? null,
+  runScript ? "bash",
+  extraInstallCommands ? "",
+  meta ? { },
+  passthru ? { },
+  extraBwrapArgs ? [ ],
+  unshareUser ? true,
+  unshareIpc ? true,
+  unsharePid ? true,
+  unshareNet ? false,
+  unshareUts ? true,
+  unshareCgroup ? true,
+  dieWithParent ? true,
+  ...
+}@args:
 
 assert (pname != null || version != null) -> (name == null && pname
   != null); # You must declare either a name or pname + version (preferred).
@@ -109,7 +132,9 @@ let
   indentLines = str:
     lib.concatLines
     (map (s: "  " + s) (filter (s: s != "") (lib.splitString "\n" str)));
-  bwrapCmd = { initArgs ? "" }:
+  bwrapCmd = {
+      initArgs ? ""
+    }:
     ''
       ignored=(/nix /dev /proc /etc)
       ro_mounts=()

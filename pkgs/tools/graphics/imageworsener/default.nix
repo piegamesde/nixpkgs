@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, zlib, libpng, libjpeg, libwebp }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zlib,
+  libpng,
+  libjpeg,
+  libwebp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "imageworsener";

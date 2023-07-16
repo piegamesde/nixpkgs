@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, bison, mpi, flex, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bison,
+  mpi,
+  flex,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   version = "6.1.1";

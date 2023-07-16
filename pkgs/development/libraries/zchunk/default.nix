@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, argp-standalone, curl, meson, ninja, pkg-config
-, zstd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  argp-standalone,
+  curl,
+  meson,
+  ninja,
+  pkg-config,
+  zstd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zchunk";

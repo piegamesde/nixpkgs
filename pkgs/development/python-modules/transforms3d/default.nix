@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy27, pytest, numpy, scipy, sympy
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy27,
+  pytest,
+  numpy,
+  scipy,
+  sympy,
 }:
 
 buildPythonPackage rec {

@@ -1,10 +1,60 @@
-{ stdenv, lib, callPackage, fetchurl, fetchpatch, makeWrapper, cmake, coreutils
-, git, davix, ftgl, gl2ps, glew, gnugrep, gnused, gsl, lapack, libX11, libXpm
-, libXft, libXext, libGLU, libGL, libxcrypt, libxml2, llvm_9, lsof, lz4, xz, man
-, openblas, openssl, pcre, nlohmann_json, pkg-config, procps, python, which
-, xxHash, zlib, zstd, libAfterImage, giflib, libjpeg, libtiff, libpng
-, patchRcPathCsh, patchRcPathFish, patchRcPathPosix, tbb, xrootd, Cocoa
-, CoreSymbolication, OpenGL, noSplash ? false }:
+{
+  stdenv,
+  lib,
+  callPackage,
+  fetchurl,
+  fetchpatch,
+  makeWrapper,
+  cmake,
+  coreutils,
+  git,
+  davix,
+  ftgl,
+  gl2ps,
+  glew,
+  gnugrep,
+  gnused,
+  gsl,
+  lapack,
+  libX11,
+  libXpm,
+  libXft,
+  libXext,
+  libGLU,
+  libGL,
+  libxcrypt,
+  libxml2,
+  llvm_9,
+  lsof,
+  lz4,
+  xz,
+  man,
+  openblas,
+  openssl,
+  pcre,
+  nlohmann_json,
+  pkg-config,
+  procps,
+  python,
+  which,
+  xxHash,
+  zlib,
+  zstd,
+  libAfterImage,
+  giflib,
+  libjpeg,
+  libtiff,
+  libpng,
+  patchRcPathCsh,
+  patchRcPathFish,
+  patchRcPathPosix,
+  tbb,
+  xrootd,
+  Cocoa,
+  CoreSymbolication,
+  OpenGL,
+  noSplash ? false
+}:
 
 let
 

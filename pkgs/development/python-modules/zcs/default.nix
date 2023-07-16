@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, python, yacs, boxx, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python,
+  yacs,
+  boxx,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "zcs";

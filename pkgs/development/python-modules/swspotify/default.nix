@@ -1,5 +1,15 @@
-{ lib, stdenv, buildPythonPackage, dbus-python, fetchFromGitHub, flask
-, flask-cors, poetry-core, pythonOlder, requests }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  dbus-python,
+  fetchFromGitHub,
+  flask,
+  flask-cors,
+  poetry-core,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "swspotify";

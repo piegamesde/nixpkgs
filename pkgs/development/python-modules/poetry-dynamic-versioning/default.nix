@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, dunamai, fetchFromGitHub, jinja2, markupsafe
-, poetry-core, poetry, pytestCheckHook, pythonOlder, tomlkit }:
+{
+  lib,
+  buildPythonPackage,
+  dunamai,
+  fetchFromGitHub,
+  jinja2,
+  markupsafe,
+  poetry-core,
+  poetry,
+  pytestCheckHook,
+  pythonOlder,
+  tomlkit,
+}:
 
 buildPythonPackage rec {
   pname = "poetry-dynamic-versioning";

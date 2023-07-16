@@ -1,6 +1,17 @@
-{ wrapGAppsHook, glib, lib, stdenv, xorg, switchboard, switchboardPlugs, plugs
-# Only useful to disable for development testing.
-, useDefaultPlugs ? true, testName ? null }:
+{
+  wrapGAppsHook,
+  glib,
+  lib,
+  stdenv,
+  xorg,
+  switchboard,
+  switchboardPlugs,
+  plugs
+  # Only useful to disable for development testing.
+  ,
+  useDefaultPlugs ? true,
+  testName ? null
+}:
 
 let
   selectedPlugs = if plugs == null then

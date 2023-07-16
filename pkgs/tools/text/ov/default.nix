@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles, pandoc, makeWrapper }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  pandoc,
+  makeWrapper,
+}:
 
 buildGoModule rec {
   pname = "ov";

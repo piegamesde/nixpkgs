@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, flex }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  flex,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libconfuse";

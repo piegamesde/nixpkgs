@@ -1,6 +1,21 @@
-{ lib, buildGoPackage, fetchFromGitHub, go-bindata, pkg-config, makeWrapper
-, glib, gtk3, libappindicator-gtk3, gpgme, openshift, ostree, libselinux
-, btrfs-progs, lvm2, docker-machine-kvm }:
+{
+  lib,
+  buildGoPackage,
+  fetchFromGitHub,
+  go-bindata,
+  pkg-config,
+  makeWrapper,
+  glib,
+  gtk3,
+  libappindicator-gtk3,
+  gpgme,
+  openshift,
+  ostree,
+  libselinux,
+  btrfs-progs,
+  lvm2,
+  docker-machine-kvm,
+}:
 
 let
   version = "1.34.3";

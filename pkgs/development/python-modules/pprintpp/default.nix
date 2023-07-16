@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchpatch, fetchPypi, nose, parameterized, python
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchpatch,
+  fetchPypi,
+  nose,
+  parameterized,
+  python,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pprintpp";

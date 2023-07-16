@@ -1,5 +1,10 @@
-{ lib, buildEnv, makeWrapper, kubo-migrator-unwrapped
-, kubo-migrator-all-fs-repo-migrations }:
+{
+  lib,
+  buildEnv,
+  makeWrapper,
+  kubo-migrator-unwrapped,
+  kubo-migrator-all-fs-repo-migrations,
+}:
 
 buildEnv {
   name = "kubo-migrator-${kubo-migrator-unwrapped.version}";

@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, makeDesktopItem, copyDesktopItems
-, makeWrapper, electron, nodePackages, alsa-lib, gtk3, libdbusmenu, libxshmfence
-, mesa, nss }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  makeDesktopItem,
+  copyDesktopItems,
+  makeWrapper,
+  electron,
+  nodePackages,
+  alsa-lib,
+  gtk3,
+  libdbusmenu,
+  libxshmfence,
+  mesa,
+  nss,
+}:
 
 stdenv.mkDerivation rec {
   pname = "whalebird";

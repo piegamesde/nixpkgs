@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, fetchpatch, python, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  python,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lhapdf";

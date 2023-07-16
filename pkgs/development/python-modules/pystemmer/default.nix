@@ -1,5 +1,13 @@
-{ lib, python, fetchPypi, fetchFromGitHub, fetchpatch, buildPythonPackage
-, cython, libstemmer }:
+{
+  lib,
+  python,
+  fetchPypi,
+  fetchFromGitHub,
+  fetchpatch,
+  buildPythonPackage,
+  cython,
+  libstemmer,
+}:
 
 buildPythonPackage rec {
   pname = "pystemmer";

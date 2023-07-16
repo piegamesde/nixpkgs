@@ -1,4 +1,11 @@
-{ lib, fetchPypi, buildPythonPackage, pythonOlder, aiohttp, python-socks, attrs
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pythonOlder,
+  aiohttp,
+  python-socks,
+  attrs,
 }:
 
 buildPythonPackage rec {

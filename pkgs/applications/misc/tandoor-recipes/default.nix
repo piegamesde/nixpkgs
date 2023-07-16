@@ -1,4 +1,9 @@
-{ callPackage, nixosTests, python3, fetchFromGitHub }:
+{
+  callPackage,
+  nixosTests,
+  python3,
+  fetchFromGitHub,
+}:
 let
   python = python3.override {
     packageOverrides = self: super: {

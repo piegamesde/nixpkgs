@@ -1,9 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, znc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  znc,
+}:
 
 let
-  zncDerivation = a@{ pname, src, module_name
-    , buildPhase ? "${znc}/bin/znc-buildmod ${module_name}.cpp", installPhase ?
-      "install -D ${module_name}.so $out/lib/znc/${module_name}.so", ... }:
+  zncDerivation = a@{
+      pname,
+      src,
+      module_name,
+      buildPhase ? "${znc}/bin/znc-buildmod ${module_name}.cpp",
+      installPhase ?
+        "install -D ${module_name}.so $out/lib/znc/${module_name}.so",
+      ...
+    }:
     stdenv.mkDerivation (a // {
       inherit buildPhase;
       inherit installPhase;

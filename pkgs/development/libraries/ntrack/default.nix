@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, qt4, pkg-config, libnl, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  qt4,
+  pkg-config,
+  libnl,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ntrack";

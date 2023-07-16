@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, msrest, msrestazure, azure-common
-, azure-mgmt-core, azure-mgmt-nspkg }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  msrest,
+  msrestazure,
+  azure-common,
+  azure-mgmt-core,
+  azure-mgmt-nspkg,
+}:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-devtestlabs";

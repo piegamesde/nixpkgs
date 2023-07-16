@@ -1,4 +1,7 @@
-{ lib, ireplace }:
+{
+  lib,
+  ireplace,
+}:
 let
   inherit (builtins) elemAt match;
   operators = let

@@ -1,4 +1,11 @@
-{ lib, fetchCrate, rustPlatform, cmake, pkg-config, openssl }:
+{
+  lib,
+  fetchCrate,
+  rustPlatform,
+  cmake,
+  pkg-config,
+  openssl,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "wyvern";

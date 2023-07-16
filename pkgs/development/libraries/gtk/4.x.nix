@@ -1,14 +1,58 @@
-{ lib, stdenv, substituteAll, fetchurl, pkg-config, gettext, graphene, gi-docgen
-, meson, ninja, python3, makeWrapper, shared-mime-info, isocodes, glib, cairo
-, pango, pandoc, gdk-pixbuf, gobject-introspection, fribidi, harfbuzz, xorg
-, libepoxy, libxkbcommon, libpng, libtiff, libjpeg, libxml2, gnome
-, gsettings-desktop-schemas, gst_all_1, sassc, trackerSupport ? stdenv.isLinux
-, tracker, x11Support ? stdenv.isLinux, waylandSupport ? stdenv.isLinux, libGL
-# experimental and can cause crashes in inspector
-, vulkanSupport ? false, vulkan-loader, vulkan-headers, wayland
-, wayland-protocols, wayland-scanner, xineramaSupport ? stdenv.isLinux
-, cupsSupport ? stdenv.isLinux, cups, AppKit, Cocoa, libexecinfo
-, broadwaySupport ? true }:
+{
+  lib,
+  stdenv,
+  substituteAll,
+  fetchurl,
+  pkg-config,
+  gettext,
+  graphene,
+  gi-docgen,
+  meson,
+  ninja,
+  python3,
+  makeWrapper,
+  shared-mime-info,
+  isocodes,
+  glib,
+  cairo,
+  pango,
+  pandoc,
+  gdk-pixbuf,
+  gobject-introspection,
+  fribidi,
+  harfbuzz,
+  xorg,
+  libepoxy,
+  libxkbcommon,
+  libpng,
+  libtiff,
+  libjpeg,
+  libxml2,
+  gnome,
+  gsettings-desktop-schemas,
+  gst_all_1,
+  sassc,
+  trackerSupport ? stdenv.isLinux,
+  tracker,
+  x11Support ? stdenv.isLinux,
+  waylandSupport ? stdenv.isLinux,
+  libGL
+  # experimental and can cause crashes in inspector
+  ,
+  vulkanSupport ? false,
+  vulkan-loader,
+  vulkan-headers,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+  xineramaSupport ? stdenv.isLinux,
+  cupsSupport ? stdenv.isLinux,
+  cups,
+  AppKit,
+  Cocoa,
+  libexecinfo,
+  broadwaySupport ? true
+}:
 
 let
 

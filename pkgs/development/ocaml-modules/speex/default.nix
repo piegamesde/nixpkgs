@@ -1,4 +1,11 @@
-{ lib, buildDunePackage, fetchFromGitHub, dune-configurator, ogg, speex }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  dune-configurator,
+  ogg,
+  speex,
+}:
 
 buildDunePackage rec {
   pname = "speex";

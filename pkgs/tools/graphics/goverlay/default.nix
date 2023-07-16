@@ -1,7 +1,29 @@
-{ lib, writeScriptBin, bash, stdenv, fetchFromGitHub, fpc, lazarus-qt
-, wrapQtAppsHook, breeze-qt5, libGL, libGLU, libqt5pas, libX11, coreutils, git
-, gnugrep, libnotify, polkit, procps, systemd, util-linux, vulkan-tools, which
-, nix-update-script }:
+{
+  lib,
+  writeScriptBin,
+  bash,
+  stdenv,
+  fetchFromGitHub,
+  fpc,
+  lazarus-qt,
+  wrapQtAppsHook,
+  breeze-qt5,
+  libGL,
+  libGLU,
+  libqt5pas,
+  libX11,
+  coreutils,
+  git,
+  gnugrep,
+  libnotify,
+  polkit,
+  procps,
+  systemd,
+  util-linux,
+  vulkan-tools,
+  which,
+  nix-update-script,
+}:
 
 let
   # Finds data files using the XDG Base Directory Specification

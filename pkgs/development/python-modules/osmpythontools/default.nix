@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, beautifulsoup4, geojson, lxml
-, matplotlib, numpy, pandas, ujson, xarray }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  beautifulsoup4,
+  geojson,
+  lxml,
+  matplotlib,
+  numpy,
+  pandas,
+  ujson,
+  xarray,
+}:
 
 buildPythonPackage rec {
   pname = "osmpythontools";

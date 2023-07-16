@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, pkg-config, autoreconfHook, gtk2, alsa-lib, SDL, jack2
-, audiofile, goocanvas # graphical envelope editing
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  autoreconfHook,
+  gtk2,
+  alsa-lib,
+  SDL,
+  jack2,
+  audiofile,
+  goocanvas # graphical envelope editing
+  ,
 }:
 
 stdenv.mkDerivation rec {

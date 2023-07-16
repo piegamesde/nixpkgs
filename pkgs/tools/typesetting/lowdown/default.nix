@@ -1,8 +1,15 @@
-{ lib, stdenv, fetchurl, fixDarwinDylibNames, which
-, enableShared ? !(stdenv.hostPlatform.isStatic), enableStatic ?
-  stdenv.hostPlatform.isStatic
-  # for passthru.tests
-, nix }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fixDarwinDylibNames,
+  which,
+  enableShared ? !(stdenv.hostPlatform.isStatic),
+  enableStatic ? stdenv.hostPlatform.isStatic
+    # for passthru.tests
+  ,
+  nix,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lowdown";

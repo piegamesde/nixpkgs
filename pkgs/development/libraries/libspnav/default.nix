@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, libX11, fixDarwinDylibNames }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  libX11,
+  fixDarwinDylibNames,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.2.3";

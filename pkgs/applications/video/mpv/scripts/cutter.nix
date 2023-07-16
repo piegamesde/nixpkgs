@@ -1,4 +1,9 @@
-{ lib, stdenvNoCC, fetchFromGitHub, makeWrapper }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  makeWrapper,
+}:
 
 stdenvNoCC.mkDerivation {
   pname = "video-cutter";

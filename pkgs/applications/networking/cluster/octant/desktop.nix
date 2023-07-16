@@ -1,4 +1,10 @@
-{ lib, stdenv, appimageTools, fetchurl, undmg }:
+{
+  lib,
+  stdenv,
+  appimageTools,
+  fetchurl,
+  undmg,
+}:
 
 let
   pname = "octant-desktop";

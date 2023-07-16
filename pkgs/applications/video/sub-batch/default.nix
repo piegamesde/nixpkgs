@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, rustPlatform, makeWrapper, alass }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  makeWrapper,
+  alass,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "sub-batch";

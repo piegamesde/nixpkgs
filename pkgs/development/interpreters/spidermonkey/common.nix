@@ -1,13 +1,41 @@
-{ version, hash }:
+{
+  version,
+  hash,
+}:
 
-{ callPackage, lib, stdenv, fetchurl, fetchpatch
+{
+  callPackage,
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch
 
-# build time
-, buildPackages, cargo, m4, perl, pkg-config, python3, python39, rustc, which
-, zip, autoconf213, yasm, xcbuild
+  # build time
+  ,
+  buildPackages,
+  cargo,
+  m4,
+  perl,
+  pkg-config,
+  python3,
+  python39,
+  rustc,
+  which,
+  zip,
+  autoconf213,
+  yasm,
+  xcbuild
 
-# runtime
-, icu, icu67, nspr, readline, zlib, libobjc, libiconv }:
+  # runtime
+  ,
+  icu,
+  icu67,
+  nspr,
+  readline,
+  zlib,
+  libobjc,
+  libiconv,
+}:
 
 stdenv.mkDerivation (finalAttrs: rec {
   pname = "spidermonkey";

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools-scm, pyxb, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  pyxb,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "yangson";

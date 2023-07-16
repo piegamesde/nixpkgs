@@ -1,5 +1,15 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, fetchpatch, pythonOlder, mako
-, markdown, setuptools-git, setuptools-scm }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  pythonOlder,
+  mako,
+  markdown,
+  setuptools-git,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "pdoc3";

@@ -1,4 +1,6 @@
-{ pkgs ? import ../../.. { } }:
+{
+  pkgs ? import ../../.. { }
+}:
 let
   inherit (pkgs) lib;
   manpageURLs = builtins.fromJSON

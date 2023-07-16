@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitLab, rustPlatform, appstream-glib, desktop-file-utils
-, glib, meson, ninja, pkg-config, wrapGAppsHook4, gtk4, libadwaita, libxml2
-, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  rustPlatform,
+  appstream-glib,
+  desktop-file-utils,
+  glib,
+  meson,
+  ninja,
+  pkg-config,
+  wrapGAppsHook4,
+  gtk4,
+  libadwaita,
+  libxml2,
+  darwin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "emblem";

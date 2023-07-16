@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, vala, budgie-desktop
-, gtk3, libpeas }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  vala,
+  budgie-desktop,
+  gtk3,
+  libpeas,
+}:
 
 stdenv.mkDerivation rec {
   pname = "budgie-analogue-clock-applet";

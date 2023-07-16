@@ -1,10 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub
 
-# propagated
-, aiohttp
+  # propagated
+  ,
+  aiohttp
 
-# tests
-, pytest-asyncio, pytestCheckHook }:
+  # tests
+  ,
+  pytest-asyncio,
+  pytestCheckHook,
+}:
 
 let
   pname = "pyoctoprintapi";

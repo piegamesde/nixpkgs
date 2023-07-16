@@ -1,4 +1,8 @@
-{ stdenvNoCC, MacOSX-SDK, libcharset }:
+{
+  stdenvNoCC,
+  MacOSX-SDK,
+  libcharset,
+}:
 
 let
   self = stdenvNoCC.mkDerivation {

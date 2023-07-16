@@ -1,5 +1,20 @@
-{ lib, stdenv, autoconf, automake, fetchFromGitHub, fetchpatch, libgcc
-, libjpeg_turbo, libpng, libtool, libxml2, pkg-config, which, xorg, libtirpc }:
+{
+  lib,
+  stdenv,
+  autoconf,
+  automake,
+  fetchFromGitHub,
+  fetchpatch,
+  libgcc,
+  libjpeg_turbo,
+  libpng,
+  libtool,
+  libxml2,
+  pkg-config,
+  which,
+  xorg,
+  libtirpc,
+}:
 stdenv.mkDerivation rec {
   pname = "nx-libs";
   version = "3.5.99.26";

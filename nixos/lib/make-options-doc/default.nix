@@ -15,30 +15,43 @@
       options = eval.options;
     }
 */
-{ pkgs, lib, options, transformOptions ?
-  lib.id # function for additional transformations of the options
-, documentType ? "appendix" # TODO deprecate "appendix" in favor of "none"
-  #      and/or rename function to moduleOptionDoc for clean slate
+{
+  pkgs,
+  lib,
+  options,
+  transformOptions ?
+    lib.id # function for additional transformations of the options
+  ,
+  documentType ? "appendix" # TODO deprecate "appendix" in favor of "none"
+    #      and/or rename function to moduleOptionDoc for clean slate
 
-  # If you include more than one option list into a document, you need to
-  # provide different ids.
-, variablelistId ? "configuration-variable-list"
-  # String to prefix to the option XML/HTML id attributes.
-, optionIdPrefix ? "opt-", revision ? "" # Specify revision for the options
-  # a set of options the docs we are generating will be merged into, as if by recursiveUpdate.
-  # used to split the options doc build into a static part (nixos/modules) and a dynamic part
-  # (non-nixos modules imported via configuration.nix, other module sources).
-, baseOptionsJSON ? null
-  # instead of printing warnings for eg options with missing descriptions (which may be lost
-  # by nix build unless -L is given), emit errors instead and fail the build
-, warningsAreErrors ? true
-  # allow docbook option docs if `true`. only markdown documentation is allowed when set to
-  # `false`, and a different renderer may be used with different bugs and performance
-  # characteristics but (hopefully) indistinguishable output.
-, allowDocBook ? true
-  # whether lib.mdDoc is required for descriptions to be read as markdown.
-  # !!! when this is eventually flipped to true, `lib.doRename` should also default to emitting Markdown
-, markdownByDefault ? false }:
+    # If you include more than one option list into a document, you need to
+    # provide different ids.
+  ,
+  variablelistId ? "configuration-variable-list"
+    # String to prefix to the option XML/HTML id attributes.
+  ,
+  optionIdPrefix ? "opt-",
+  revision ? "" # Specify revision for the options
+    # a set of options the docs we are generating will be merged into, as if by recursiveUpdate.
+    # used to split the options doc build into a static part (nixos/modules) and a dynamic part
+    # (non-nixos modules imported via configuration.nix, other module sources).
+  ,
+  baseOptionsJSON ? null
+    # instead of printing warnings for eg options with missing descriptions (which may be lost
+    # by nix build unless -L is given), emit errors instead and fail the build
+  ,
+  warningsAreErrors ? true
+    # allow docbook option docs if `true`. only markdown documentation is allowed when set to
+    # `false`, and a different renderer may be used with different bugs and performance
+    # characteristics but (hopefully) indistinguishable output.
+  ,
+  allowDocBook ? true
+    # whether lib.mdDoc is required for descriptions to be read as markdown.
+    # !!! when this is eventually flipped to true, `lib.doRename` should also default to emitting Markdown
+  ,
+  markdownByDefault ? false
+}:
 
 let
   rawOpts = lib.optionAttrSetToDocList options;

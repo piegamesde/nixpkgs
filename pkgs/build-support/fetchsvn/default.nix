@@ -1,8 +1,23 @@
-{ lib, stdenvNoCC, buildPackages, subversion, glibcLocales, sshSupport ? true
-, openssh ? null }:
+{
+  lib,
+  stdenvNoCC,
+  buildPackages,
+  subversion,
+  glibcLocales,
+  sshSupport ? true,
+  openssh ? null
+}:
 
-{ url, rev ? "HEAD", md5 ? "", sha256 ? "", ignoreExternals ? false
-, ignoreKeywords ? false, name ? null, preferLocalBuild ? true }:
+{
+  url,
+  rev ? "HEAD",
+  md5 ? "",
+  sha256 ? "",
+  ignoreExternals ? false,
+  ignoreKeywords ? false,
+  name ? null,
+  preferLocalBuild ? true
+}:
 
 assert sshSupport -> openssh != null;
 

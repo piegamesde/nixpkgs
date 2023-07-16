@@ -1,18 +1,74 @@
-{ config, lib, stdenv, fetchurl, fetchsvn, pkg-config, freetype, yasm, ffmpeg_4
-, aalibSupport ? true, aalib, fontconfigSupport ? true, fontconfig, freefont_ttf
-, fribidiSupport ? true, fribidi, x11Support ? true, libX11, libXext, libGLU
-, libGL, xineramaSupport ? true, libXinerama, xvSupport ? true, libXv
-, alsaSupport ? stdenv.isLinux, alsa-lib, screenSaverSupport ? true
-, libXScrnSaver, vdpauSupport ? false, libvdpau, cddaSupport ? !stdenv.isDarwin
-, cdparanoia, dvdnavSupport ? !stdenv.isDarwin, libdvdnav, dvdreadSupport ? true
-, libdvdread, bluraySupport ? true, libbluray, amrSupport ? false, amrnb, amrwb
-, cacaSupport ? true, libcaca, lameSupport ? true, lame, speexSupport ? true
-, speex, theoraSupport ? true, libtheora, x264Support ? false, x264
-, jackaudioSupport ? false, libjack2, pulseSupport ? config.pulseaudio or false
-, libpulseaudio, bs2bSupport ? false, libbs2b, v4lSupport ? false, libv4l
-# For screenshots
-, libpngSupport ? true, libpng, libjpegSupport ? true, libjpeg
-, useUnfreeCodecs ? false, darwin, buildPackages }:
+{
+  config,
+  lib,
+  stdenv,
+  fetchurl,
+  fetchsvn,
+  pkg-config,
+  freetype,
+  yasm,
+  ffmpeg_4,
+  aalibSupport ? true,
+  aalib,
+  fontconfigSupport ? true,
+  fontconfig,
+  freefont_ttf,
+  fribidiSupport ? true,
+  fribidi,
+  x11Support ? true,
+  libX11,
+  libXext,
+  libGLU,
+  libGL,
+  xineramaSupport ? true,
+  libXinerama,
+  xvSupport ? true,
+  libXv,
+  alsaSupport ? stdenv.isLinux,
+  alsa-lib,
+  screenSaverSupport ? true,
+  libXScrnSaver,
+  vdpauSupport ? false,
+  libvdpau,
+  cddaSupport ? !stdenv.isDarwin,
+  cdparanoia,
+  dvdnavSupport ? !stdenv.isDarwin,
+  libdvdnav,
+  dvdreadSupport ? true,
+  libdvdread,
+  bluraySupport ? true,
+  libbluray,
+  amrSupport ? false,
+  amrnb,
+  amrwb,
+  cacaSupport ? true,
+  libcaca,
+  lameSupport ? true,
+  lame,
+  speexSupport ? true,
+  speex,
+  theoraSupport ? true,
+  libtheora,
+  x264Support ? false,
+  x264,
+  jackaudioSupport ? false,
+  libjack2,
+  pulseSupport ? config.pulseaudio or false,
+  libpulseaudio,
+  bs2bSupport ? false,
+  libbs2b,
+  v4lSupport ? false,
+  libv4l
+  # For screenshots
+  ,
+  libpngSupport ? true,
+  libpng,
+  libjpegSupport ? true,
+  libjpeg,
+  useUnfreeCodecs ? false,
+  darwin,
+  buildPackages,
+}:
 
 assert xineramaSupport -> x11Support;
 assert xvSupport -> x11Support;

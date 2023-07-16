@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, gettext, fcitx5
-, libchewing }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  extra-cmake-modules,
+  gettext,
+  fcitx5,
+  libchewing,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fcitx5-chewing";

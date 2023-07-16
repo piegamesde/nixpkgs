@@ -1,6 +1,21 @@
-{ stdenv, fetchFromGitHub, lib, gobject-introspection, meson, ninja, python3
-, gtk3, gdk-pixbuf, xapp, wrapGAppsHook, gettext, polkit, glib, gitUpdater
-, bubblewrap }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  gobject-introspection,
+  meson,
+  ninja,
+  python3,
+  gtk3,
+  gdk-pixbuf,
+  xapp,
+  wrapGAppsHook,
+  gettext,
+  polkit,
+  glib,
+  gitUpdater,
+  bubblewrap,
+}:
 
 let
   pythonEnv = python3.withPackages (pp:

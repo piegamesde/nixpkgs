@@ -1,5 +1,18 @@
-{ lib, stdenv, env, fetchFromGitHub, pkg-config, qbs, wrapQtAppsHook, qtbase
-, qtdeclarative, qttools, qtsvg, zlib, libGL }:
+{
+  lib,
+  stdenv,
+  env,
+  fetchFromGitHub,
+  pkg-config,
+  qbs,
+  wrapQtAppsHook,
+  qtbase,
+  qtdeclarative,
+  qttools,
+  qtsvg,
+  zlib,
+  libGL,
+}:
 
 let qtEnv = env "tiled-qt-env" [ qtbase qtdeclarative qtsvg qttools ];
 

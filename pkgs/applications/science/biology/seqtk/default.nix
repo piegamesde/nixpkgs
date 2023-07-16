@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, zlib, libdeflate, isa-l }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  zlib,
+  libdeflate,
+  isa-l,
+}:
 
 stdenv.mkDerivation rec {
   pname = "seqtk";

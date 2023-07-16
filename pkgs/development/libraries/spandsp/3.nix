@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, audiofile, libtiff, autoreconfHook, fetchpatch
-, buildPackages, callPackage }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  audiofile,
+  libtiff,
+  autoreconfHook,
+  fetchpatch,
+  buildPackages,
+  callPackage,
+}:
 
 (callPackage ./common.nix { }).overrideAttrs (finalAttrs: {
   version = "3.0.0";

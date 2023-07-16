@@ -1,4 +1,8 @@
-{ faust, alsa-lib, qt4 }:
+{
+  faust,
+  alsa-lib,
+  qt4,
+}:
 
 faust.wrapWithBuildEnv {
 

@@ -1,5 +1,12 @@
-{ mkDerivation, lib, fetchurl, cmake, extra-cmake-modules, pkg-config
-, pulseaudio }:
+{
+  mkDerivation,
+  lib,
+  fetchurl,
+  cmake,
+  extra-cmake-modules,
+  pkg-config,
+  pulseaudio,
+}:
 
 mkDerivation rec {
   pname = "pulseaudio-qt";

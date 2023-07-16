@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, oauthlib, pytestCheckHook, pythonOlder
-, pytz, requests, requests-mock, requests-oauthlib }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  oauthlib,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  requests,
+  requests-mock,
+  requests-oauthlib,
+}:
 
 buildPythonPackage rec {
   pname = "ring-doorbell";

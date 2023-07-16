@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, buildGoModule, testers, temporal-cli }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  testers,
+  temporal-cli,
+}:
 
 buildGoModule rec {
   pname = "temporal-cli";

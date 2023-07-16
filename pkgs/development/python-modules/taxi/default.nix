@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, appdirs, requests, click, setuptools
-, pytestCheckHook, freezegun }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  appdirs,
+  requests,
+  click,
+  setuptools,
+  pytestCheckHook,
+  freezegun,
+}:
 
 buildPythonPackage rec {
   pname = "taxi";

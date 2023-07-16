@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, six, attrs, twisted, pyopenssl
-, service-identity, autobahn, treq, mock, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  six,
+  attrs,
+  twisted,
+  pyopenssl,
+  service-identity,
+  autobahn,
+  treq,
+  mock,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "magic-wormhole-mailbox-server";

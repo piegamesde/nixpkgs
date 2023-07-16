@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cmake }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cmake,
+}:
 
 let
   tests = fetchFromGitHub {

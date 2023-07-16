@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, m4, makeWrapper, libbsd, perlPackages }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  m4,
+  makeWrapper,
+  libbsd,
+  perlPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "csmith";

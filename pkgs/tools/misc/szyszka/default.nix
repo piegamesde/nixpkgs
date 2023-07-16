@@ -1,5 +1,15 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, glib, cairo, pango, atk
-, gdk-pixbuf, gtk3 }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  glib,
+  cairo,
+  pango,
+  atk,
+  gdk-pixbuf,
+  gtk3,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "szyszka";

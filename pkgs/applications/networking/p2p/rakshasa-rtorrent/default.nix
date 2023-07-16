@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, autoreconfHook, autoconf-archive
-, cppunit, curl, libsigcxx, libtool, libtorrent, ncurses, openssl, pkg-config
-, xmlrpc_c, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  autoreconfHook,
+  autoconf-archive,
+  cppunit,
+  curl,
+  libsigcxx,
+  libtool,
+  libtorrent,
+  ncurses,
+  openssl,
+  pkg-config,
+  xmlrpc_c,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rakshasa-rtorrent";

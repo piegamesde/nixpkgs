@@ -1,4 +1,8 @@
-{ lib, runCommand, fetchurl }:
+{
+  lib,
+  runCommand,
+  fetchurl,
+}:
 
 runCommand "signwriting-1.1.4" {
   src1 = fetchurl {

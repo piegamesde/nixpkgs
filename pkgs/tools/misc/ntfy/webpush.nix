@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pywebpush, py-vapid }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pywebpush,
+  py-vapid,
+}:
 
 buildPythonPackage rec {
   pname = "ntfy-webpush";

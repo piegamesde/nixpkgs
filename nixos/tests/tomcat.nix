@@ -1,9 +1,17 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
 
   {
     name = "tomcat";
 
-    nodes.machine = { pkgs, ... }: { services.tomcat.enable = true; };
+    nodes.machine = {
+        pkgs,
+        ...
+      }: {
+        services.tomcat.enable = true;
+      };
 
     testScript = ''
       machine.wait_for_unit("tomcat.service")

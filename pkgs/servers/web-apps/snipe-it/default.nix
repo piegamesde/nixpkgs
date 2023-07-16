@@ -1,5 +1,12 @@
-{ lib, pkgs, stdenv, fetchFromGitHub, dataDir ? "/var/lib/snipe-it", mariadb
-, nixosTests }:
+{
+  lib,
+  pkgs,
+  stdenv,
+  fetchFromGitHub,
+  dataDir ? "/var/lib/snipe-it",
+  mariadb,
+  nixosTests,
+}:
 
 let
   package = (import ./composition.nix {

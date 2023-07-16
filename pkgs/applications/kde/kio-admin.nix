@@ -1,4 +1,12 @@
-{ mkDerivation, lib, extra-cmake-modules, qtbase, kio, ki18n, polkit-qt }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  qtbase,
+  kio,
+  ki18n,
+  polkit-qt,
+}:
 
 mkDerivation {
   pname = "kio-admin";

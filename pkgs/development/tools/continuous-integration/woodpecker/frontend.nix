@@ -1,4 +1,10 @@
-{ lib, callPackage, fetchFromGitHub, fetchYarnDeps, mkYarnPackage }:
+{
+  lib,
+  callPackage,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  mkYarnPackage,
+}:
 let common = callPackage ./common.nix { };
 in mkYarnPackage {
   pname = "woodpecker-frontend";

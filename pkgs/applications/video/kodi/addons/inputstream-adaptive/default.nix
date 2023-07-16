@@ -1,5 +1,16 @@
-{ stdenv, lib, rel, addonDir, buildKodiBinaryAddon, fetchFromGitHub, expat, glib
-, nspr, nss, gtest }:
+{
+  stdenv,
+  lib,
+  rel,
+  addonDir,
+  buildKodiBinaryAddon,
+  fetchFromGitHub,
+  expat,
+  glib,
+  nspr,
+  nss,
+  gtest,
+}:
 let
   bento4 = fetchFromGitHub {
     owner = "xbmc";

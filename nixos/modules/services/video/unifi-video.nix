@@ -1,4 +1,11 @@
-{ config, lib, options, pkgs, utils, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  utils,
+  ...
+}:
 with lib;
 let
   cfg = config.services.unifi-video;

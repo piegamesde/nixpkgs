@@ -1,7 +1,34 @@
-{ lib, stdenv, fetchurl, bzip2, cmake, curl, db, docbook_xml_dtd_45, docbook_xsl
-, dpkg, gnutls, gtest, libgcrypt, libseccomp, libtasn1, libxslt, lz4
-, perlPackages, pkg-config, triehash, udev, xxHash, xz, zstd, withDocs ? true
-, w3m, doxygen, withNLS ? true, gettext }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bzip2,
+  cmake,
+  curl,
+  db,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+  dpkg,
+  gnutls,
+  gtest,
+  libgcrypt,
+  libseccomp,
+  libtasn1,
+  libxslt,
+  lz4,
+  perlPackages,
+  pkg-config,
+  triehash,
+  udev,
+  xxHash,
+  xz,
+  zstd,
+  withDocs ? true,
+  w3m,
+  doxygen,
+  withNLS ? true,
+  gettext,
+}:
 
 stdenv.mkDerivation rec {
   pname = "apt";

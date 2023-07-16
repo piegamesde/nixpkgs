@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, buildPythonPackage, isPy27, pillow, twisted, pexpect
-, nose, ptyprocess }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  isPy27,
+  pillow,
+  twisted,
+  pexpect,
+  nose,
+  ptyprocess,
+}:
 buildPythonPackage rec {
   pname = "vncdo";
   version = "0.12.0";

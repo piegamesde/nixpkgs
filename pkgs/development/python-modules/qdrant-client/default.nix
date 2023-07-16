@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, fetchFromGitHub, grpcio, grpcio-tools, h2, httpx
-, numpy, pytestCheckHook, poetry-core, pydantic, pythonOlder, typing-extensions
-, urllib3 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  grpcio,
+  grpcio-tools,
+  h2,
+  httpx,
+  numpy,
+  pytestCheckHook,
+  poetry-core,
+  pydantic,
+  pythonOlder,
+  typing-extensions,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "qdrant-client";

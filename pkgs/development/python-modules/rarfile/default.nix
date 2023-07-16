@@ -1,7 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, nose, libarchive
-, glibcLocales, isPy27
-# unrar is non-free software
-, useUnrar ? false, unrar }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  nose,
+  libarchive,
+  glibcLocales,
+  isPy27
+  # unrar is non-free software
+  ,
+  useUnrar ? false,
+  unrar,
+}:
 
 assert useUnrar -> unrar != null;
 assert !useUnrar -> libarchive != null;

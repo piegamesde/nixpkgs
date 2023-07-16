@@ -1,5 +1,16 @@
-{ buildPythonPackage, fetchFromGitHub, lib, click, colorlog, gitpython
-, pyelftools, pytablewriter, pytest, pyyaml, ruamel-yaml }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  click,
+  colorlog,
+  gitpython,
+  pyelftools,
+  pytablewriter,
+  pytest,
+  pyyaml,
+  ruamel-yaml,
+}:
 
 buildPythonPackage rec {
   pname = "riscv-isac";

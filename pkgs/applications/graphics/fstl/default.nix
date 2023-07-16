@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, mkDerivation, qtbase, mesa_glu }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  mkDerivation,
+  qtbase,
+  mesa_glu,
+}:
 
 mkDerivation rec {
   pname = "fstl";

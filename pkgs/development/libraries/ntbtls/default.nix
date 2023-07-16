@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, gettext, libgpg-error, libgcrypt, libksba, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gettext,
+  libgpg-error,
+  libgcrypt,
+  libksba,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ntbtls";

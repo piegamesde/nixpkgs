@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, dissect-cstruct, dissect-util, fetchFromGitHub, lz4
-, python-lzo, pythonOlder, setuptools, setuptools-scm, zstandard }:
+{
+  lib,
+  buildPythonPackage,
+  dissect-cstruct,
+  dissect-util,
+  fetchFromGitHub,
+  lz4,
+  python-lzo,
+  pythonOlder,
+  setuptools,
+  setuptools-scm,
+  zstandard,
+}:
 
 buildPythonPackage rec {
   pname = "dissect-squashfs";

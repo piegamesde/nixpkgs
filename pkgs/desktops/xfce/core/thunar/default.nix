@@ -1,6 +1,23 @@
-{ mkXfceDerivation, lib, docbook_xsl, exo, gdk-pixbuf, gtk3, libgudev, libnotify
-, libX11, libxfce4ui, libxfce4util, libxslt, pcre, xfconf, gobject-introspection
-, makeWrapper, symlinkJoin, thunarPlugins ? [ ] }:
+{
+  mkXfceDerivation,
+  lib,
+  docbook_xsl,
+  exo,
+  gdk-pixbuf,
+  gtk3,
+  libgudev,
+  libnotify,
+  libX11,
+  libxfce4ui,
+  libxfce4util,
+  libxslt,
+  pcre,
+  xfconf,
+  gobject-introspection,
+  makeWrapper,
+  symlinkJoin,
+  thunarPlugins ? [ ]
+}:
 
 let
   unwrapped = mkXfceDerivation {

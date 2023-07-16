@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchgit, autoreconfHook, pkg-config, fuse, libuuid, lz4 }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  autoreconfHook,
+  pkg-config,
+  fuse,
+  libuuid,
+  lz4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "erofs-utils";

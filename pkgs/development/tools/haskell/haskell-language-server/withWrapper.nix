@@ -1,5 +1,11 @@
-{ lib, stdenv, supportedGhcVersions ? [ "92" ], dynamic ? true, haskellPackages
-, haskell }:
+{
+  lib,
+  stdenv,
+  supportedGhcVersions ? [ "92" ],
+  dynamic ? true,
+  haskellPackages,
+  haskell,
+}:
 #
 # The recommended way to override this package is
 #

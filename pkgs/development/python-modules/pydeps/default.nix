@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, graphviz, stdlib-list
-, pytestCheckHook, pythonOlder, pyyaml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  graphviz,
+  stdlib-list,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "pydeps";

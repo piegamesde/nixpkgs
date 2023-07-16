@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchsvn, autoconf, automake }:
+{
+  lib,
+  stdenv,
+  fetchsvn,
+  autoconf,
+  automake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "spawn-fcgi";

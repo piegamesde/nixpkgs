@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, docopt, pillow
-, scikitimage, aggdraw, pytestCheckHook, ipython, cython }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  docopt,
+  pillow,
+  scikitimage,
+  aggdraw,
+  pytestCheckHook,
+  ipython,
+  cython,
+}:
 
 buildPythonPackage rec {
   pname = "psd-tools";

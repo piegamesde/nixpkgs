@@ -1,4 +1,11 @@
-{ lib, stdenvNoCC, fetchFromGitLab, bc, librsvg, xcursorgen }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitLab,
+  bc,
+  librsvg,
+  xcursorgen,
+}:
 
 let
   dimensions = {
@@ -8,7 +15,12 @@ let
     handedness = [ "" "LH_" ]; # Right- or left-handed.
   };
   product = lib.cartesianProductOfSets dimensions;
-  variantName = { color, opacity, thickness, handedness }:
+  variantName = {
+      color,
+      opacity,
+      thickness,
+      handedness,
+    }:
     "${handedness}${opacity}${thickness}${color}";
   variants =
     # (The order of this list is already good looking enough to show in the

@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, coreutils, curl, dnsutils, gnugrep, gnused
-, iproute2, makeWrapper, openssl, socat, unixtools }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  coreutils,
+  curl,
+  dnsutils,
+  gnugrep,
+  gnused,
+  iproute2,
+  makeWrapper,
+  openssl,
+  socat,
+  unixtools,
+}:
 
 stdenv.mkDerivation rec {
   pname = "acme.sh";

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, fftwSinglePrec, lv2, pkg-config, wafHook, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fftwSinglePrec,
+  lv2,
+  pkg-config,
+  wafHook,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mda-lv2";

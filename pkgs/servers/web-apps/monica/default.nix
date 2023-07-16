@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchurl, nixosTests, dataDir ? "/var/lib/monica", }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  nixosTests,
+  dataDir ? "/var/lib/monica",
+}:
 stdenv.mkDerivation rec {
   pname = "monica";
   version = "4.0.0";

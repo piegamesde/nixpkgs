@@ -1,5 +1,15 @@
-{ lib, fetchFromGitHub, buildPythonPackage, pygobject3, pycairo, glib, gtk3
-, gobject-introspection, wrapGAppsHook, python }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pygobject3,
+  pycairo,
+  glib,
+  gtk3,
+  gobject-introspection,
+  wrapGAppsHook,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "pick-colour-picker";

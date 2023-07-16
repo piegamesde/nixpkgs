@@ -1,5 +1,13 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, blessed, prefixed, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  blessed,
+  prefixed,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "enlighten";

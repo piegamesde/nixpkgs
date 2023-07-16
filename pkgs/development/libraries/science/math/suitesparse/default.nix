@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, gfortran, blas, lapack, metis
-, fixDarwinDylibNames, gmp, mpfr, enableCuda ? false, cudatoolkit }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gfortran,
+  blas,
+  lapack,
+  metis,
+  fixDarwinDylibNames,
+  gmp,
+  mpfr,
+  enableCuda ? false,
+  cudatoolkit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "suitesparse";

@@ -1,5 +1,14 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, libgit2, zlib, stdenv, darwin
-, vimUtils }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  libgit2,
+  zlib,
+  stdenv,
+  darwin,
+  vimUtils,
+}:
 
 let
   version = "0.43";

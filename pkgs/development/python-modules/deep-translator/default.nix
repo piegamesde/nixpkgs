@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, beautifulsoup4, requests, click
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  beautifulsoup4,
+  requests,
+  click,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "deep-translator";

@@ -1,5 +1,16 @@
-{ config, options, lib, pkgs, utils, modules, baseModules, extraModules
-, modulesPath, specialArgs, ... }:
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  utils,
+  modules,
+  baseModules,
+  extraModules,
+  modulesPath,
+  specialArgs,
+  ...
+}:
 
 with lib;
 

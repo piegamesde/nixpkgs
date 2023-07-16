@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromSourcehut, meson, ninja, pkg-config, scdoc, wayland
-, wayland-scanner, libvarlink }:
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  meson,
+  ninja,
+  pkg-config,
+  scdoc,
+  wayland,
+  wayland-scanner,
+  libvarlink,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kanshi";

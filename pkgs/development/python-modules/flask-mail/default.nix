@@ -1,4 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, blinker, flask, mock, nose, speaklater }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  blinker,
+  flask,
+  mock,
+  nose,
+  speaklater,
+}:
 
 buildPythonPackage rec {
   pname = "Flask-Mail";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, meson, ncurses, ninja, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ncurses,
+  ninja,
+  pkg-config,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "loksh";

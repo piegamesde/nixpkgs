@@ -4,7 +4,12 @@
 # strict sorting has been long lost due to merges. Please use the full-text
 # search of your editor. ;)
 # Hint: ### starts category names.
-{ lib, noSysDirs, config, overlays }:
+{
+  lib,
+  noSysDirs,
+  config,
+  overlays,
+}:
 res: pkgs: super:
 
 with pkgs;
@@ -171,12 +176,17 @@ with pkgs;
     propagatedBuildInputs = [ blas lapack ];
   } ../build-support/setup-hooks/audit-blas.sh;
 
-  autoreconfHook = callPackage
-    ({ makeSetupHook, autoconf, automake, gettext, libtool }:
-      makeSetupHook {
-        name = "autoreconf-hook";
-        propagatedBuildInputs = [ autoconf automake gettext libtool ];
-      } ../build-support/setup-hooks/autoreconf.sh) { };
+  autoreconfHook = callPackage ({
+      makeSetupHook,
+      autoconf,
+      automake,
+      gettext,
+      libtool,
+    }:
+    makeSetupHook {
+      name = "autoreconf-hook";
+      propagatedBuildInputs = [ autoconf automake gettext libtool ];
+    } ../build-support/setup-hooks/autoreconf.sh) { };
 
   autoreconfHook264 = autoreconfHook.override {
     autoconf = autoconf264;
@@ -215,7 +225,9 @@ with pkgs;
     substitutions = { canonicalize_jar = canonicalize-jar; };
   } ../build-support/setup-hooks/canonicalize-jars.sh;
 
-  ensureNewerSourcesHook = { year }:
+  ensureNewerSourcesHook = {
+      year,
+    }:
     makeSetupHook { name = "ensure-newer-sources-hook"; }
     (writeScript "ensure-newer-sources-hook.sh" ''
       postUnpackHooks+=(_ensureNewerSources)
@@ -1051,7 +1063,9 @@ with pkgs;
 
   fetchPypi = callPackage ../build-support/fetchpypi { };
 
-  resolveMirrorURLs = { url }:
+  resolveMirrorURLs = {
+      url,
+    }:
     fetchurl {
       showURLs = true;
       inherit url;
@@ -1116,7 +1130,12 @@ with pkgs;
   compressFirmwareXz =
     callPackage ../build-support/kernel/compress-firmware-xz.nix { };
 
-  makeModulesClosure = { kernel, firmware, rootModules, allowMissing ? false }:
+  makeModulesClosure = {
+      kernel,
+      firmware,
+      rootModules,
+      allowMissing ? false
+    }:
     callPackage ../build-support/kernel/modules-closure.nix {
       inherit kernel firmware rootModules allowMissing;
     };
@@ -2533,7 +2552,9 @@ with pkgs;
       (builtins.attrValues libretro);
   };
 
-  wrapRetroArch = { retroarch }:
+  wrapRetroArch = {
+      retroarch,
+    }:
     callPackage ../applications/emulators/retroarch/wrapper.nix {
       inherit retroarch;
     };
@@ -16971,22 +16992,27 @@ with pkgs;
 
   wla-dx = callPackage ../development/compilers/wla-dx { };
 
-  wrapCCWith = { cc
-    , # This should be the only bintools runtime dep with this sort of logic. The
-    # Others should instead delegate to the next stage's choice with
-    # `targetPackages.stdenv.cc.bintools`. This one is different just to
-    # provide the default choice, avoiding infinite recursion.
-    # See the bintools attribute for the logic and reasoning. We need to provide
-    # a default here, since eval will hit this function when bootstrapping
-    # stdenv where the bintools attribute doesn't exist, but will never actually
-    # be evaluated -- callPackage ends up being too eager.
-    bintools ? pkgs.bintools, libc ? bintools.libc
-    , # libc++ from the default LLVM version is bound at the top level, but we
-    # want the C++ library to be explicitly chosen by the caller, and null by
-    # default.
-    libcxx ? null, extraPackages ?
-      lib.optional (cc.isGNU or false && stdenv.targetPlatform.isMinGW)
-      threadsCross.package, nixSupport ? { }, ... }@extraArgs:
+  wrapCCWith = {
+      cc, # This should be the only bintools runtime dep with this sort of logic. The
+      # Others should instead delegate to the next stage's choice with
+      # `targetPackages.stdenv.cc.bintools`. This one is different just to
+      # provide the default choice, avoiding infinite recursion.
+      # See the bintools attribute for the logic and reasoning. We need to provide
+      # a default here, since eval will hit this function when bootstrapping
+      # stdenv where the bintools attribute doesn't exist, but will never actually
+      # be evaluated -- callPackage ends up being too eager.
+      bintools ? pkgs.bintools,
+      libc ?
+        bintools.libc, # libc++ from the default LLVM version is bound at the top level, but we
+      # want the C++ library to be explicitly chosen by the caller, and null by
+      # default.
+      libcxx ? null,
+      extraPackages ?
+        lib.optional (cc.isGNU or false && stdenv.targetPlatform.isMinGW)
+        threadsCross.package,
+      nixSupport ? { },
+      ...
+    }@extraArgs:
     callPackage ../build-support/cc-wrapper (let
       self = {
         nativeTools = stdenv.targetPlatform == stdenv.hostPlatform
@@ -17005,11 +17031,14 @@ with pkgs;
 
   wrapCC = cc: wrapCCWith { inherit cc; };
 
-  wrapBintoolsWith = { bintools, libc ?
-      if stdenv.targetPlatform != stdenv.hostPlatform then
+  wrapBintoolsWith = {
+      bintools,
+      libc ? if stdenv.targetPlatform != stdenv.hostPlatform then
         libcCross
       else
-        stdenv.cc.libc, ... }@extraArgs:
+        stdenv.cc.libc,
+      ...
+    }@extraArgs:
     callPackage ../build-support/bintools-wrapper (let
       self = {
         nativeTools = stdenv.targetPlatform == stdenv.hostPlatform
@@ -18342,7 +18371,10 @@ with pkgs;
   #     };
   # You can use a different directory, but whichever directory you choose
   # should be owned by user root, group nixbld with permissions 0770.
-  ccacheWrapper = makeOverridable ({ extraConfig, cc }:
+  ccacheWrapper = makeOverridable ({
+      extraConfig,
+      cc,
+    }:
     cc.override {
       cc = ccache.links {
         inherit extraConfig;
@@ -18353,7 +18385,10 @@ with pkgs;
       inherit (stdenv) cc;
     };
 
-  ccacheStdenv = lowPrio (makeOverridable ({ stdenv, ... }@extraArgs:
+  ccacheStdenv = lowPrio (makeOverridable ({
+      stdenv,
+      ...
+    }@extraArgs:
     overrideCC stdenv (buildPackages.ccacheWrapper.override ({
       inherit (stdenv) cc;
     } // lib.optionalAttrs (builtins.hasAttr "extraConfig" extraArgs) {
@@ -18581,9 +18616,10 @@ with pkgs;
   #       '';
   #     };
   #
-  distccWrapper =
-    makeOverridable ({ extraConfig ? "" }: wrapCC (distcc.links extraConfig))
-    { };
+  distccWrapper = makeOverridable ({
+      extraConfig ? ""
+    }:
+    wrapCC (distcc.links extraConfig)) { };
   distccStdenv = lowPrio (overrideCC stdenv buildPackages.distccWrapper);
 
   distccMasquerade = if stdenv.isDarwin then
@@ -20451,7 +20487,11 @@ with pkgs;
   dbus-sharp-glib-2_0 =
     callPackage ../development/libraries/dbus-sharp-glib { };
 
-  makeDBusConf = { suidHelper, serviceDirectories, apparmor ? "disabled" }:
+  makeDBusConf = {
+      suidHelper,
+      serviceDirectories,
+      apparmor ? "disabled"
+    }:
     callPackage ../development/libraries/dbus/make-dbus-conf.nix {
       inherit suidHelper serviceDirectories apparmor;
     };
@@ -20762,13 +20802,19 @@ with pkgs;
   folks = callPackage ../development/libraries/folks { };
 
   makeFontsConf = let fontconfig_ = fontconfig;
-  in { fontconfig ? fontconfig_, fontDirectories }:
+  in {
+    fontconfig ? fontconfig_,
+    fontDirectories,
+  }:
   callPackage ../development/libraries/fontconfig/make-fonts-conf.nix {
     inherit fontconfig fontDirectories;
   };
 
   makeFontsCache = let fontconfig_ = fontconfig;
-  in { fontconfig ? fontconfig_, fontDirectories }:
+  in {
+    fontconfig ? fontconfig_,
+    fontDirectories,
+  }:
   callPackage ../development/libraries/fontconfig/make-fonts-cache.nix {
     inherit fontconfig fontDirectories;
   };
@@ -23657,8 +23703,12 @@ with pkgs;
   nv-codec-headers-11 =
     callPackage ../development/libraries/nv-codec-headers/11_x.nix { };
 
-  mkNvidiaContainerPkg =
-    { name, containerRuntimePath, configTemplate, additionalPaths ? [ ] }:
+  mkNvidiaContainerPkg = {
+      name,
+      containerRuntimePath,
+      configTemplate,
+      additionalPaths ? [ ]
+    }:
     let
       nvidia-container-toolkit =
         callPackage ../applications/virtualization/nvidia-container-toolkit {
@@ -40168,10 +40218,13 @@ with pkgs;
     let
       c = import (path + "/nixos/lib/eval-config.nix") {
         modules = [
-          ({ lib, ... }: {
-            config.nixpkgs.pkgs = lib.mkDefault pkgs;
-            config.nixpkgs.localSystem = lib.mkDefault stdenv.hostPlatform;
-          })
+          ({
+              lib,
+              ...
+            }: {
+              config.nixpkgs.pkgs = lib.mkDefault pkgs;
+              config.nixpkgs.localSystem = lib.mkDefault stdenv.hostPlatform;
+            })
         ] ++ (if builtins.isList configuration then
           configuration
         else
@@ -40180,15 +40233,19 @@ with pkgs;
     in c.config.system.build // c;
 
   # A NixOS/home-manager/arion/... module that sets the `pkgs` module argument.
-  pkgsModule = { lib, options, ... }: {
-    config = if options ? nixpkgs.pkgs then {
-      # legacy / nixpkgs.nix style
-      nixpkgs.pkgs = pkgs;
-    } else {
-      # minimal
-      _module.args.pkgs = pkgs;
+  pkgsModule = {
+      lib,
+      options,
+      ...
+    }: {
+      config = if options ? nixpkgs.pkgs then {
+        # legacy / nixpkgs.nix style
+        nixpkgs.pkgs = pkgs;
+      } else {
+        # minimal
+        _module.args.pkgs = pkgs;
+      };
     };
-  };
 
   nixosOptionsDoc = attrs:
     (import ../../nixos/lib/make-options-doc) ({ inherit pkgs lib; } // attrs);

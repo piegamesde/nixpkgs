@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, Security, autoreconfHook, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  Security,
+  autoreconfHook,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wolfssl";

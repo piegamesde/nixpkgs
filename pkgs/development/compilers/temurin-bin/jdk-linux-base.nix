@@ -1,15 +1,37 @@
-{ name-prefix ? "temurin", brand-name ? "Eclipse Temurin", sourcePerArch
-, knownVulnerabilities ? [ ] }:
+{
+  name-prefix ? "temurin",
+  brand-name ? "Eclipse Temurin",
+  sourcePerArch,
+  knownVulnerabilities ? [ ]
+}:
 
-{ stdenv, lib, fetchurl, autoPatchelfHook, makeWrapper, setJavaClassPath
-# minimum dependencies
-, alsa-lib, fontconfig, freetype, libffi, xorg, zlib
-# runtime dependencies
-, cups
-# runtime dependencies for GTK+ Look and Feel
-# TODO(@sternenseemann): gtk3 fails to evaluate in pkgsCross.ghcjs.buildPackages
-# which should be fixable, this is a no-rebuild workaround for GHC.
-, gtkSupport ? !stdenv.targetPlatform.isGhcjs, cairo, glib, gtk3 }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+  makeWrapper,
+  setJavaClassPath
+  # minimum dependencies
+  ,
+  alsa-lib,
+  fontconfig,
+  freetype,
+  libffi,
+  xorg,
+  zlib
+  # runtime dependencies
+  ,
+  cups
+  # runtime dependencies for GTK+ Look and Feel
+  # TODO(@sternenseemann): gtk3 fails to evaluate in pkgsCross.ghcjs.buildPackages
+  # which should be fixable, this is a no-rebuild workaround for GHC.
+  ,
+  gtkSupport ? !stdenv.targetPlatform.isGhcjs,
+  cairo,
+  glib,
+  gtk3,
+}:
 
 let
   cpuName = stdenv.hostPlatform.parsed.cpu.name;

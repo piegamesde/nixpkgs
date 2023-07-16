@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, docopt, six, wcwidth
-, pygments }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  docopt,
+  six,
+  wcwidth,
+  pygments,
+}:
 
 buildPythonPackage rec {
   pname = "prompt-toolkit";

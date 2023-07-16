@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, pkg-config, buildPackages, CoreAudio, alsa-lib
-, libjack2, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  buildPackages,
+  CoreAudio,
+  alsa-lib,
+  libjack2,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "timidity";

@@ -1,5 +1,14 @@
-{ lib, stdenv, buildGoPackage, fetchFromGitHub, fetchpatch, pkg-config, cctools
-, Hypervisor, vmnet }:
+{
+  lib,
+  stdenv,
+  buildGoPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  cctools,
+  Hypervisor,
+  vmnet,
+}:
 
 buildGoPackage rec {
   pname = "docker-machine-xhyve";

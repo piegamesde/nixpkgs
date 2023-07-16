@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -81,7 +86,10 @@ in {
         settings' = cfg.settings // {
           tls_enable = cfg.enableTLS;
           file_plugins = pkgs.writeText "uhub-plugins.conf"
-            (lib.strings.concatStringsSep "\n" (map ({ plugin, settings }:
+            (lib.strings.concatStringsSep "\n" (map ({
+                plugin,
+                settings,
+              }:
               ''
                 plugin ${plugin} "${
                   toString

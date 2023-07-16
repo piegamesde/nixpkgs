@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, perl, dpkg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  dpkg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bdf2psf";

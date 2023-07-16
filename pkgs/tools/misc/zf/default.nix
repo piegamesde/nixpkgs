@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, zig, testers, zf, }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  zig,
+  testers,
+  zf,
+}:
 stdenv.mkDerivation rec {
   pname = "zf";
   version = "0.8.0";

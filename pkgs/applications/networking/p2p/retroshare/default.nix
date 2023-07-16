@@ -1,6 +1,24 @@
-{ lib, mkDerivation, fetchFromGitHub, qmake, cmake, pkg-config, miniupnpc, bzip2
-, speex, libmicrohttpd, libxml2, libxslt, sqlcipher, rapidjson, libXScrnSaver
-, qtbase, qtx11extras, qtmultimedia, libgnome-keyring3 }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  qmake,
+  cmake,
+  pkg-config,
+  miniupnpc,
+  bzip2,
+  speex,
+  libmicrohttpd,
+  libxml2,
+  libxslt,
+  sqlcipher,
+  rapidjson,
+  libXScrnSaver,
+  qtbase,
+  qtx11extras,
+  qtmultimedia,
+  libgnome-keyring3,
+}:
 
 mkDerivation rec {
   pname = "retroshare";

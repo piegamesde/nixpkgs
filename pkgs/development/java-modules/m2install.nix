@@ -1,7 +1,18 @@
-{ lib, stdenv, fetchurl }:
-{ version, artifactId, groupId, sha512, type ? "jar", suffix ? ""
-, sourceProvenance ?
-  (lib.optionals (type == "jar") [ lib.sourceTypes.binaryBytecode ]) }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
+{
+  version,
+  artifactId,
+  groupId,
+  sha512,
+  type ? "jar",
+  suffix ? "",
+  sourceProvenance ?
+    (lib.optionals (type == "jar") [ lib.sourceTypes.binaryBytecode ])
+}:
 
 let
   m2Path = "${

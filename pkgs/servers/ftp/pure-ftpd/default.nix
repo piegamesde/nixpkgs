@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, openssl, pam, libxcrypt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  openssl,
+  pam,
+  libxcrypt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pure-ftpd";

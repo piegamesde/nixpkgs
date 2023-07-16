@@ -1,10 +1,42 @@
-{ lib, stdenv, expat, fetchFromGitHub, fetchpatch, fetchurl, gnome2, gst_all_1
-, gtk3, libGL, libGLU, libSM, libXinerama, libXtst, libXxf86vm, libpng, libtiff
-, libjpeg_turbo, zlib, pcre2, pkg-config, xorgproto, compat28 ? false
-, compat30 ? true, unicode ? true
-, withMesa ? lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms
-, withWebKit ? stdenv.isDarwin, webkitgtk, setfile, AGL, Carbon, Cocoa, Kernel
-, QTKit, AVFoundation, AVKit, WebKit }:
+{
+  lib,
+  stdenv,
+  expat,
+  fetchFromGitHub,
+  fetchpatch,
+  fetchurl,
+  gnome2,
+  gst_all_1,
+  gtk3,
+  libGL,
+  libGLU,
+  libSM,
+  libXinerama,
+  libXtst,
+  libXxf86vm,
+  libpng,
+  libtiff,
+  libjpeg_turbo,
+  zlib,
+  pcre2,
+  pkg-config,
+  xorgproto,
+  compat28 ? false,
+  compat30 ? true,
+  unicode ? true,
+  withMesa ? lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
+  withWebKit ? stdenv.isDarwin,
+  webkitgtk,
+  setfile,
+  AGL,
+  Carbon,
+  Cocoa,
+  Kernel,
+  QTKit,
+  AVFoundation,
+  AVKit,
+  WebKit,
+}:
 let
   catch = fetchFromGitHub {
     owner = "wxWidgets";

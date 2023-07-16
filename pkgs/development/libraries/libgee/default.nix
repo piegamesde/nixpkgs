@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchurl, autoconf, vala, pkg-config, glib, gobject-introspection
-, gnome }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoconf,
+  vala,
+  pkg-config,
+  glib,
+  gobject-introspection,
+  gnome,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libgee";

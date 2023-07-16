@@ -1,4 +1,11 @@
-{ fetchurl, lib, stdenv, openjdk, unzip, makeWrapper }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  openjdk,
+  unzip,
+  makeWrapper,
+}:
 
 let version = "1.4.9";
 in stdenv.mkDerivation {

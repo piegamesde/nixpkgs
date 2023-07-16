@@ -1,4 +1,8 @@
-{ callPackage, rustPlatform, setuptools-rust }:
+{
+  callPackage,
+  rustPlatform,
+  setuptools-rust,
+}:
 
 callPackage ../../../tools/rust/maturin/pyo3-test/generic.nix {
   # Isolated builds break for this package, because PyO3 is not

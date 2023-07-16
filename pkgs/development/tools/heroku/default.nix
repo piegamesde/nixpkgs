@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchurl, makeWrapper, nodejs }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  makeWrapper,
+  nodejs,
+}:
 
 stdenv.mkDerivation rec {
   pname = "heroku";

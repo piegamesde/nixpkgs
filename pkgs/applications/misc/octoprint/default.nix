@@ -1,7 +1,17 @@
-{ pkgs, stdenv, callPackage, lib, fetchFromGitHub, python3, substituteAll
-, nix-update-script, nixosTests
-# To include additional plugins, pass them here as an overlay.
-, packageOverrides ? self: super: { } }:
+{
+  pkgs,
+  stdenv,
+  callPackage,
+  lib,
+  fetchFromGitHub,
+  python3,
+  substituteAll,
+  nix-update-script,
+  nixosTests
+  # To include additional plugins, pass them here as an overlay.
+  ,
+  packageOverrides ? self: super: { }
+}:
 let
 
   py = python3.override {

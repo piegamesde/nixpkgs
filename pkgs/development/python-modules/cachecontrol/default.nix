@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, cherrypy, fetchFromGitHub, lockfile, mock, msgpack
-, pytestCheckHook, pythonOlder, redis, requests }:
+{
+  lib,
+  buildPythonPackage,
+  cherrypy,
+  fetchFromGitHub,
+  lockfile,
+  mock,
+  msgpack,
+  pytestCheckHook,
+  pythonOlder,
+  redis,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "cachecontrol";

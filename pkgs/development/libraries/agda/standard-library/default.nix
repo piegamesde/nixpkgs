@@ -1,4 +1,10 @@
-{ lib, mkDerivation, fetchFromGitHub, ghcWithPackages, nixosTests }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  ghcWithPackages,
+  nixosTests,
+}:
 
 mkDerivation rec {
   pname = "standard-library";

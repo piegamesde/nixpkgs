@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pytest-runner, setuptools, coverage
-, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest-runner,
+  setuptools,
+  coverage,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "diceware";

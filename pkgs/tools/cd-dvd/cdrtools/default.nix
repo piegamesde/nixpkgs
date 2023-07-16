@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, m4, acl, libcap, Carbon, IOKit }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  m4,
+  acl,
+  libcap,
+  Carbon,
+  IOKit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cdrtools";

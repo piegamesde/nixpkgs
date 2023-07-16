@@ -1,5 +1,17 @@
-{ lib, fetchFromGitHub, python3, gtk3, wrapGAppsHook, glibcLocales
-, gobject-introspection, gettext, pango, gdk-pixbuf, atk, fluxbox }:
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  gtk3,
+  wrapGAppsHook,
+  glibcLocales,
+  gobject-introspection,
+  gettext,
+  pango,
+  gdk-pixbuf,
+  atk,
+  fluxbox,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "fluxboxlauncher";

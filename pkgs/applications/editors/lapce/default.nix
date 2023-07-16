@@ -1,7 +1,27 @@
-{ lib, stdenv, fetchFromGitHub, nix-update-script, rustPlatform, cmake
-, pkg-config, perl, fontconfig, copyDesktopItems, makeDesktopItem, glib, gtk3
-, openssl, libobjc, Security, CoreServices, ApplicationServices, Carbon, AppKit
-, wrapGAppsHook, gobject-introspection }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  rustPlatform,
+  cmake,
+  pkg-config,
+  perl,
+  fontconfig,
+  copyDesktopItems,
+  makeDesktopItem,
+  glib,
+  gtk3,
+  openssl,
+  libobjc,
+  Security,
+  CoreServices,
+  ApplicationServices,
+  Carbon,
+  AppKit,
+  wrapGAppsHook,
+  gobject-introspection,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "lapce";

@@ -1,5 +1,14 @@
-{ mkDerivation, lib, fetchurl, cmake, extra-cmake-modules, pkg-config
-, kcoreaddons, kpeople, kcontacts }:
+{
+  mkDerivation,
+  lib,
+  fetchurl,
+  cmake,
+  extra-cmake-modules,
+  pkg-config,
+  kcoreaddons,
+  kpeople,
+  kcontacts,
+}:
 
 mkDerivation rec {
   pname = "kpeoplevcard";

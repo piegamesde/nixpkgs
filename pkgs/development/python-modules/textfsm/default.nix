@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, six, future, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  six,
+  future,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "textfsm";

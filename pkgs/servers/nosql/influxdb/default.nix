@@ -1,5 +1,15 @@
-{ lib, buildGoModule, fetchFromGitHub, stdenv, pkg-config, rustPlatform
-, llvmPackages, libiconv, fetchpatch, nixosTests }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  stdenv,
+  pkg-config,
+  rustPlatform,
+  llvmPackages,
+  libiconv,
+  fetchpatch,
+  nixosTests,
+}:
 
 let
   libflux_version = "0.170.1";

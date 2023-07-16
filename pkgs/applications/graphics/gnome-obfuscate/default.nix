@@ -1,8 +1,25 @@
-{ stdenv, lib, fetchFromGitLab
+{
+  stdenv,
+  lib,
+  fetchFromGitLab
 
-, gettext, meson, ninja, pkg-config, python3, rustPlatform, wrapGAppsHook4
+  ,
+  gettext,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  rustPlatform,
+  wrapGAppsHook4
 
-, appstream-glib, desktop-file-utils, glib, gtk4, libadwaita, Foundation }:
+  ,
+  appstream-glib,
+  desktop-file-utils,
+  glib,
+  gtk4,
+  libadwaita,
+  Foundation,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-obfuscate";

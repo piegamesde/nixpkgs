@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, fastcore, traitlets, ipython, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fastcore,
+  traitlets,
+  ipython,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

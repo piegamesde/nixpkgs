@@ -1,5 +1,14 @@
-{ lib, buildNpmPackage, fetchFromGitHub, makeBinaryWrapper, makeDesktopItem
-, copyDesktopItems, electron, python3, nix-update-script }:
+{
+  lib,
+  buildNpmPackage,
+  fetchFromGitHub,
+  makeBinaryWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  electron,
+  python3,
+  nix-update-script,
+}:
 
 buildNpmPackage rec {
   pname = "open-stage-control";

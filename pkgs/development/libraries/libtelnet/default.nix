@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+  zlib,
+}:
 
 stdenv.mkDerivation {
   pname = "libtelnet";

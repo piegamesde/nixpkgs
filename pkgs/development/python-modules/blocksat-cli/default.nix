@@ -1,5 +1,16 @@
-{ buildPythonPackage, fetchPypi, lib, distro, pysnmp, python-gnupg, qrcode
-, requests, sseclient-py, zfec, pytestCheckHook }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  lib,
+  distro,
+  pysnmp,
+  python-gnupg,
+  qrcode,
+  requests,
+  sseclient-py,
+  zfec,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "blocksat-cli";

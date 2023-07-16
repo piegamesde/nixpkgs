@@ -1,4 +1,12 @@
-{ lib, stdenvNoCC, fetchFromGitHub, makeWrapper, curl, jq, coreutils }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  makeWrapper,
+  curl,
+  jq,
+  coreutils,
+}:
 
 stdenvNoCC.mkDerivation {
   pname = "discord-sh";

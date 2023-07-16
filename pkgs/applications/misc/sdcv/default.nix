@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, glib, gettext, readline }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  glib,
+  gettext,
+  readline,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sdcv";

@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, django
-, djangorestframework, pytz, pytest, pytest-lazy-fixture, python }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  django,
+  djangorestframework,
+  pytz,
+  pytest,
+  pytest-lazy-fixture,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "django-timezone-field";

@@ -1,29 +1,73 @@
-{ source ? "default", callPackage, lib, stdenv, ncurses, pkg-config, gettext
-, writeText, config, glib, gtk2-x11, gtk3-x11, lua, python3, perl, tcl, ruby
-, libX11, libXext, libSM, libXpm, libXt, libXaw, libXau, libXmu, libICE
-, vimPlugins, makeWrapper, wrapGAppsHook, runtimeShell
+{
+  source ? "default",
+  callPackage,
+  lib,
+  stdenv,
+  ncurses,
+  pkg-config,
+  gettext,
+  writeText,
+  config,
+  glib,
+  gtk2-x11,
+  gtk3-x11,
+  lua,
+  python3,
+  perl,
+  tcl,
+  ruby,
+  libX11,
+  libXext,
+  libSM,
+  libXpm,
+  libXt,
+  libXaw,
+  libXau,
+  libXmu,
+  libICE,
+  vimPlugins,
+  makeWrapper,
+  wrapGAppsHook,
+  runtimeShell
 
-# apple frameworks
-, CoreServices, CoreData, Cocoa, Foundation, libobjc
+  # apple frameworks
+  ,
+  CoreServices,
+  CoreData,
+  Cocoa,
+  Foundation,
+  libobjc
 
-, features ? "huge" # One of tiny, small, normal, big or huge
-, wrapPythonDrv ? false
-, guiSupport ? config.vim.gui or (if stdenv.isDarwin then "gtk2" else "gtk3")
-, luaSupport ? config.vim.lua or true
-, perlSupport ? config.vim.perl or false # Perl interpreter
-, pythonSupport ? config.vim.python or true # Python interpreter
-, rubySupport ? config.vim.ruby or true # Ruby interpreter
-, nlsSupport ? config.vim.nls or false # Enable NLS (gettext())
-, tclSupport ? config.vim.tcl or false # Include Tcl interpreter
-, multibyteSupport ?
-  config.vim.multibyte or false # Enable multibyte editing support
-, cscopeSupport ? config.vim.cscope or true # Enable cscope interface
-, netbeansSupport ?
-  config.netbeans or true # Enable NetBeans integration support.
-, ximSupport ? config.vim.xim or true # less than 15KB, needed for deadkeys
-, darwinSupport ? config.vim.darwin or false # Enable Darwin support
-, ftNixSupport ?
-  config.vim.ftNix or true # Add .nix filetype detection and minimal syntax highlighting support
+  ,
+  features ? "huge" # One of tiny, small, normal, big or huge
+  ,
+  wrapPythonDrv ? false,
+  guiSupport ? config.vim.gui or (if stdenv.isDarwin then "gtk2" else "gtk3"),
+  luaSupport ? config.vim.lua or true,
+  perlSupport ? config.vim.perl or false # Perl interpreter
+  ,
+  pythonSupport ? config.vim.python or true # Python interpreter
+  ,
+  rubySupport ? config.vim.ruby or true # Ruby interpreter
+  ,
+  nlsSupport ? config.vim.nls or false # Enable NLS (gettext())
+  ,
+  tclSupport ? config.vim.tcl or false # Include Tcl interpreter
+  ,
+  multibyteSupport ?
+    config.vim.multibyte or false # Enable multibyte editing support
+  ,
+  cscopeSupport ? config.vim.cscope or true # Enable cscope interface
+  ,
+  netbeansSupport ?
+    config.netbeans or true # Enable NetBeans integration support.
+  ,
+  ximSupport ? config.vim.xim or true # less than 15KB, needed for deadkeys
+  ,
+  darwinSupport ? config.vim.darwin or false # Enable Darwin support
+  ,
+  ftNixSupport ?
+    config.vim.ftNix or true # Add .nix filetype detection and minimal syntax highlighting support
 }:
 
 let

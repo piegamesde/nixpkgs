@@ -1,5 +1,20 @@
-{ lib, pkg-config, fetchurl, fetchpatch, meson, ninja, glib, gtk3, python3
-, wrapGAppsHook, gnome, libwnck, gobject-introspection, gettext, itstool }:
+{
+  lib,
+  pkg-config,
+  fetchurl,
+  fetchpatch,
+  meson,
+  ninja,
+  glib,
+  gtk3,
+  python3,
+  wrapGAppsHook,
+  gnome,
+  libwnck,
+  gobject-introspection,
+  gettext,
+  itstool,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "d-feet";

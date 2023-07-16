@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, ocaml, findlib, ocamlbuild, opaline }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  opaline,
+}:
 
 if lib.versionOlder ocaml.version "4.07" then
   throw "lua-ml is not available for OCaml ${ocaml.version}"

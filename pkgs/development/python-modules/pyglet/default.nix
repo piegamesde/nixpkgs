@@ -1,6 +1,23 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, unzip, pythonOlder, libGL, libGLU
-, xorg, pytestCheckHook, glibc, gtk2-x11, gdk-pixbuf, fontconfig, freetype
-, ffmpeg-full, openal, libpulseaudio }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  unzip,
+  pythonOlder,
+  libGL,
+  libGLU,
+  xorg,
+  pytestCheckHook,
+  glibc,
+  gtk2-x11,
+  gdk-pixbuf,
+  fontconfig,
+  freetype,
+  ffmpeg-full,
+  openal,
+  libpulseaudio,
+}:
 
 buildPythonPackage rec {
   version = "2.0.4";

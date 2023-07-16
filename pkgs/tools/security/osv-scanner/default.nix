@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, testers, osv-scanner }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  testers,
+  osv-scanner,
+}:
 buildGoModule rec {
   pname = "osv-scanner";
   version = "1.3.1";

@@ -1,8 +1,30 @@
-{ buildPythonApplication, charset-normalizer, colorama, commitizen, decli
-, fetchFromGitHub, git, jinja2, lib, packaging, poetry-core, py, pytest-freezer
-, pytest-mock, pytest-regressions, pytestCheckHook, pyyaml, questionary
-, termcolor, testers, tomlkit, typing-extensions, argcomplete, nix-update-script
-, pre-commit }:
+{
+  buildPythonApplication,
+  charset-normalizer,
+  colorama,
+  commitizen,
+  decli,
+  fetchFromGitHub,
+  git,
+  jinja2,
+  lib,
+  packaging,
+  poetry-core,
+  py,
+  pytest-freezer,
+  pytest-mock,
+  pytest-regressions,
+  pytestCheckHook,
+  pyyaml,
+  questionary,
+  termcolor,
+  testers,
+  tomlkit,
+  typing-extensions,
+  argcomplete,
+  nix-update-script,
+  pre-commit,
+}:
 
 buildPythonApplication rec {
   pname = "commitizen";

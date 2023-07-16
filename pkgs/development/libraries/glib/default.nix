@@ -1,12 +1,45 @@
-{ config, lib, stdenv, fetchurl, fetchpatch2, gettext, meson, ninja, pkg-config
-, perl, python3, libiconv, zlib, libffi, pcre2, libelf, gnome, libselinux, bash
-, gnum4, gtk-doc, docbook_xsl, docbook_xml_dtd_45, libxslt
-# use util-linuxMinimal to avoid circular dependency (util-linux, systemd, glib)
-, util-linuxMinimal ? null, buildPackages
+{
+  config,
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch2,
+  gettext,
+  meson,
+  ninja,
+  pkg-config,
+  perl,
+  python3,
+  libiconv,
+  zlib,
+  libffi,
+  pcre2,
+  libelf,
+  gnome,
+  libselinux,
+  bash,
+  gnum4,
+  gtk-doc,
+  docbook_xsl,
+  docbook_xml_dtd_45,
+  libxslt
+  # use util-linuxMinimal to avoid circular dependency (util-linux, systemd, glib)
+  ,
+  util-linuxMinimal ? null,
+  buildPackages
 
-# this is just for tests (not in the closure of any regular package)
-, coreutils, dbus, libxml2, tzdata, desktop-file-utils, shared-mime-info, darwin
-, makeHardcodeGsettingsPatch, testers }:
+  # this is just for tests (not in the closure of any regular package)
+  ,
+  coreutils,
+  dbus,
+  libxml2,
+  tzdata,
+  desktop-file-utils,
+  shared-mime-info,
+  darwin,
+  makeHardcodeGsettingsPatch,
+  testers,
+}:
 
 assert stdenv.isLinux -> util-linuxMinimal != null;
 
@@ -241,7 +274,10 @@ in stdenv.mkDerivation (finalAttrs: {
       versionPolicy = "odd-unstable";
     };
 
-    mkHardcodeGsettingsPatch = { src, glib-schema-to-var, }:
+    mkHardcodeGsettingsPatch = {
+        src,
+        glib-schema-to-var,
+      }:
       builtins.trace
       "glib.mkHardcodeGsettingsPatch is deprecated, please use makeHardcodeGsettingsPatch instead"
       (makeHardcodeGsettingsPatch {

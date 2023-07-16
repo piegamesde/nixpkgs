@@ -1,4 +1,9 @@
-{ lib, python3, fetchFromGitHub, withServer ? false }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  withServer ? false
+}:
 
 let
   serverRequire = with python3.pkgs; [

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, rustPlatform, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  rustPlatform,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "corrosion";

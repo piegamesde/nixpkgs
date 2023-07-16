@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, fetchpatch, autogen, flex, bison
-, python2, autoconf, automake, gettext, ncurses, libusb-compat-0_1, freetype
-, qemu, lvm2, for_HP_laptop ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  fetchpatch,
+  autogen,
+  flex,
+  bison,
+  python2,
+  autoconf,
+  automake,
+  gettext,
+  ncurses,
+  libusb-compat-0_1,
+  freetype,
+  qemu,
+  lvm2,
+  for_HP_laptop ? false
+}:
 
 let
   pcSystems = {

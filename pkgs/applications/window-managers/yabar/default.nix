@@ -1,4 +1,8 @@
-{ callPackage, attrs ? { }, fetchpatch }:
+{
+  callPackage,
+  attrs ? { },
+  fetchpatch,
+}:
 
 let
   overrides = rec {

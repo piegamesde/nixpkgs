@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, darwin }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  darwin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "webrtc-audio-processing";

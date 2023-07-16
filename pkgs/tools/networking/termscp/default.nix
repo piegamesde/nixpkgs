@@ -1,5 +1,16 @@
-{ lib, stdenv, dbus, fetchFromGitHub, openssl, pkg-config, rustPlatform, AppKit
-, Cocoa, Foundation, Security }:
+{
+  lib,
+  stdenv,
+  dbus,
+  fetchFromGitHub,
+  openssl,
+  pkg-config,
+  rustPlatform,
+  AppKit,
+  Cocoa,
+  Foundation,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "termscp";

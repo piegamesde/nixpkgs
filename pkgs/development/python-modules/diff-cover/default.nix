@@ -1,6 +1,21 @@
-{ lib, buildPythonPackage, chardet, fetchPypi, jinja2, jinja2_pluralize, pluggy
-, pycodestyle, pyflakes, pygments, pylint, pytest-datadir, pytest-mock
-, pytestCheckHook, pythonOlder, tomli }:
+{
+  lib,
+  buildPythonPackage,
+  chardet,
+  fetchPypi,
+  jinja2,
+  jinja2_pluralize,
+  pluggy,
+  pycodestyle,
+  pyflakes,
+  pygments,
+  pylint,
+  pytest-datadir,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  tomli,
+}:
 
 buildPythonPackage rec {
   pname = "diff-cover";

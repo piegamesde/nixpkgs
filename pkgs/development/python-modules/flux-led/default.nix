@@ -1,5 +1,12 @@
-{ lib, async-timeout, buildPythonPackage, fetchFromGitHub, webcolors
-, pythonOlder, pytestCheckHook }:
+{
+  lib,
+  async-timeout,
+  buildPythonPackage,
+  fetchFromGitHub,
+  webcolors,
+  pythonOlder,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "flux-led";

@@ -1,4 +1,10 @@
-{ lib, stdenv, dos2unix, fetchurl, unzip }:
+{
+  lib,
+  stdenv,
+  dos2unix,
+  fetchurl,
+  unzip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bwbasic";

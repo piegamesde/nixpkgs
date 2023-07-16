@@ -1,9 +1,40 @@
-{ lib, stdenv, fetchurl, pkg-config, autoconf, automake, libtool, mm-common
-, intltool, itstool, doxygen, graphviz, makeFontsConf, freefont_ttf, boost
-, libxmlxx3, libxslt, libgdamm, libarchive, libepc, python3, ncurses, glibmm
-, gtk3, openssl, gtkmm3, goocanvasmm2, evince, isocodes, gtksourceview
-, gtksourceviewmm, postgresql_11, gobject-introspection, yelp-tools
-, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  autoconf,
+  automake,
+  libtool,
+  mm-common,
+  intltool,
+  itstool,
+  doxygen,
+  graphviz,
+  makeFontsConf,
+  freefont_ttf,
+  boost,
+  libxmlxx3,
+  libxslt,
+  libgdamm,
+  libarchive,
+  libepc,
+  python3,
+  ncurses,
+  glibmm,
+  gtk3,
+  openssl,
+  gtkmm3,
+  goocanvasmm2,
+  evince,
+  isocodes,
+  gtksourceview,
+  gtksourceviewmm,
+  postgresql_11,
+  gobject-introspection,
+  yelp-tools,
+  wrapGAppsHook,
+}:
 
 let
   gda = libgdamm.override {

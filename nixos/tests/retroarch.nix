@@ -1,4 +1,7 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
 
   {
     name = "retroarch";
@@ -6,7 +9,9 @@ import ./make-test-python.nix ({ pkgs, ... }:
       maintainers = teams.libretro.members ++ [ maintainers.j0hax ];
     };
 
-    nodes.machine = { ... }:
+    nodes.machine = {
+        ...
+      }:
 
       {
         imports = [ ./common/user-account.nix ];
@@ -25,7 +30,10 @@ import ./make-test-python.nix ({ pkgs, ... }:
         };
       };
 
-    testScript = { nodes, ... }:
+    testScript = {
+        nodes,
+        ...
+      }:
       let
         user = nodes.machine.config.users.users.alice;
         xdo = "${pkgs.xdotool}/bin/xdotool";

@@ -1,5 +1,15 @@
-{ lib, buildNimPackage, fetchFromGitea, pkg-config, base32, coap, cbor
-, freedesktop_org, syndicate, tkrzw }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitea,
+  pkg-config,
+  base32,
+  coap,
+  cbor,
+  freedesktop_org,
+  syndicate,
+  tkrzw,
+}:
 
 buildNimPackage rec {
   pname = "eris";

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, rcssmin, rjsmin, django-appconf
-, beautifulsoup4, brotli, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  rcssmin,
+  rjsmin,
+  django-appconf,
+  beautifulsoup4,
+  brotli,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "django-compressor";

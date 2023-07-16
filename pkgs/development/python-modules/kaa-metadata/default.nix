@@ -1,4 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, kaa-base, isPyPy, isPy3k, python, pkgs }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  kaa-base,
+  isPyPy,
+  isPy3k,
+  python,
+  pkgs,
+}:
 
 buildPythonPackage rec {
   version = "0.7.8dev-r4569-20111003";

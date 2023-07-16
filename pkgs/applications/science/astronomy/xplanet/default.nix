@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, freetype, pango, libpng
-, libtiff, giflib, libjpeg, netpbm }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  freetype,
+  pango,
+  libpng,
+  libtiff,
+  giflib,
+  libjpeg,
+  netpbm,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xplanet";

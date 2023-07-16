@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, cmake, gfortran, lhapdf }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  gfortran,
+  lhapdf,
+}:
 
 stdenv.mkDerivation rec {
   pname = "MCFM";

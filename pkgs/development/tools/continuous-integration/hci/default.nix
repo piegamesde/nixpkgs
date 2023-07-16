@@ -1,4 +1,11 @@
-{ haskell, haskellPackages, lib, makeWrapper, runc, stdenv }:
+{
+  haskell,
+  haskellPackages,
+  lib,
+  makeWrapper,
+  runc,
+  stdenv,
+}:
 let
   inherit (haskell.lib.compose)
     overrideCabal addBuildTools justStaticExecutables;

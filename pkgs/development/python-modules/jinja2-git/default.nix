@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, jinja2, poetry-core }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jinja2,
+  poetry-core,
+}:
 
 buildPythonPackage rec {
   pname = "jinja2-git";

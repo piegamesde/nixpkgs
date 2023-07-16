@@ -1,8 +1,39 @@
-{ stdenv, lib, binutils, fetchFromGitHub, cmake, pkg-config, wrapGAppsHook
-, boost, cereal, cgal_5, curl, dbus, eigen, expat, glew, glib, gmp, gtest, gtk3
-, hicolor-icon-theme, ilmbase, libpng, mpfr, nlopt, opencascade-occt, openvdb
-, pcre, qhull, tbb, wxGTK31, xorg, fetchpatch
-, withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd }:
+{
+  stdenv,
+  lib,
+  binutils,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  wrapGAppsHook,
+  boost,
+  cereal,
+  cgal_5,
+  curl,
+  dbus,
+  eigen,
+  expat,
+  glew,
+  glib,
+  gmp,
+  gtest,
+  gtk3,
+  hicolor-icon-theme,
+  ilmbase,
+  libpng,
+  mpfr,
+  nlopt,
+  opencascade-occt,
+  openvdb,
+  pcre,
+  qhull,
+  tbb,
+  wxGTK31,
+  xorg,
+  fetchpatch,
+  withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
+  systemd,
+}:
 let
   wxGTK-prusa = wxGTK31.overrideAttrs (old: rec {
     pname = "wxwidgets-prusa3d-patched";

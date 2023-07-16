@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, buildPythonPackage, cryptography
-, click, construct, ecdsa, hidapi, intelhex, pillow, protobuf, requests
-, tabulate, AppKit }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  buildPythonPackage,
+  cryptography,
+  click,
+  construct,
+  ecdsa,
+  hidapi,
+  intelhex,
+  pillow,
+  protobuf,
+  requests,
+  tabulate,
+  AppKit,
+}:
 
 buildPythonPackage rec {
   pname = "ledgerwallet";

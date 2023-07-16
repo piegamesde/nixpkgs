@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, python3, asciidoc }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python3,
+  asciidoc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "eweb";

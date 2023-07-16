@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, requests, xmltodict }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  requests,
+  xmltodict,
+}:
 
 buildPythonPackage rec {
   pname = "meteoalertapi";

@@ -1,5 +1,12 @@
-{ stdenv, lib, fetchgit, openssl, enableShared ? !stdenv.hostPlatform.isStatic
-, enableManpages ? false, pandoc }:
+{
+  stdenv,
+  lib,
+  fetchgit,
+  openssl,
+  enableShared ? !stdenv.hostPlatform.isStatic,
+  enableManpages ? false,
+  pandoc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fsverity-utils";

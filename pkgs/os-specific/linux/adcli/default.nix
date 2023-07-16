@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitLab, openldap, libkrb5, libxslt, autoreconfHook
-, pkg-config, cyrus_sasl, util-linux, xmlto, docbook_xsl, docbook_xml_dtd_43 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  openldap,
+  libkrb5,
+  libxslt,
+  autoreconfHook,
+  pkg-config,
+  cyrus_sasl,
+  util-linux,
+  xmlto,
+  docbook_xsl,
+  docbook_xml_dtd_43,
+}:
 
 stdenv.mkDerivation rec {
   pname = "adcli";

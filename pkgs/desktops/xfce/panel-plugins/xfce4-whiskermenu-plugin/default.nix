@@ -1,5 +1,17 @@
-{ lib, mkXfceDerivation, gettext, gtk3, glib, cmake, exo, garcon, libxfce4ui
-, libxfce4util, xfce4-panel, xfconf }:
+{
+  lib,
+  mkXfceDerivation,
+  gettext,
+  gtk3,
+  glib,
+  cmake,
+  exo,
+  garcon,
+  libxfce4ui,
+  libxfce4util,
+  xfce4-panel,
+  xfconf,
+}:
 
 mkXfceDerivation {
   category = "panel-plugins";

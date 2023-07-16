@@ -1,4 +1,8 @@
-{ lib, python3Packages, onlykey-cli }:
+{
+  lib,
+  python3Packages,
+  onlykey-cli,
+}:
 
 let
   bech32 = with python3Packages;

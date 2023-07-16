@@ -1,9 +1,18 @@
-{ lib, mkDerivation, fetchFromGitHub, pkg-config, gcc-arm-embedded, bluez5
-, readline
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  pkg-config,
+  gcc-arm-embedded,
+  bluez5,
+  readline
 
-, hardwarePlatform ? "PM3RDV4"
+  ,
+  hardwarePlatform ? "PM3RDV4"
 
-, hardwarePlatformExtras ? "" }:
+  ,
+  hardwarePlatformExtras ? ""
+}:
 
 mkDerivation rec {
   pname = "proxmark3-rrg";

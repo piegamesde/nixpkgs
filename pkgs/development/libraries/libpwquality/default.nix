@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, perl, cracklib
-, enablePAM ? stdenv.hostPlatform.isLinux, pam, enablePython ? false, python }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  perl,
+  cracklib,
+  enablePAM ? stdenv.hostPlatform.isLinux,
+  pam,
+  enablePython ? false,
+  python,
+}:
 
 # python binding generates a shared library which are unavailable with musl build
 assert enablePython -> !stdenv.hostPlatform.isStatic;

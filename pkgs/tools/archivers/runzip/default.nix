@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, libzip, libiconv, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libzip,
+  libiconv,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.4";

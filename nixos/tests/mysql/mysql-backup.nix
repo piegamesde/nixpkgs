@@ -1,5 +1,9 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../../.. { inherit system config; }, lib ? pkgs.lib }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../../.. { inherit system config; },
+  lib ? pkgs.lib
+}:
 
 let
   inherit (import ./common.nix { inherit pkgs lib; })
@@ -7,27 +11,33 @@ let
 
   makeTest = import ./../make-test-python.nix;
 
-  makeBackupTest = { package, name ? mkTestName package }:
+  makeBackupTest = {
+      package,
+      name ? mkTestName package
+    }:
     makeTest {
       name = "${name}-backup";
       meta = with pkgs.lib.maintainers; { maintainers = [ rvl ]; };
 
       nodes = {
-        master = { pkgs, ... }: {
-          services.mysql = {
-            inherit package;
-            enable = true;
-            initialDatabases = [{
-              name = "testdb";
-              schema = ./testdb.sql;
-            }];
-          };
+        master = {
+            pkgs,
+            ...
+          }: {
+            services.mysql = {
+              inherit package;
+              enable = true;
+              initialDatabases = [{
+                name = "testdb";
+                schema = ./testdb.sql;
+              }];
+            };
 
-          services.mysqlBackup = {
-            enable = true;
-            databases = [ "doesnotexist" "testdb" ];
+            services.mysqlBackup = {
+              enable = true;
+              databases = [ "doesnotexist" "testdb" ];
+            };
           };
-        };
       };
 
       testScript = ''

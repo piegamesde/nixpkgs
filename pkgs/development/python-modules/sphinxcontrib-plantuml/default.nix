@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, sphinx, plantuml, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  sphinx,
+  plantuml,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "sphinxcontrib-plantuml";

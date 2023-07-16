@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, callPackage, fetchPypi, hatchling, pythonOlder, comm
-, ipython, jupyter-client, packaging, psutil, tornado, traitlets }:
+{
+  lib,
+  buildPythonPackage,
+  callPackage,
+  fetchPypi,
+  hatchling,
+  pythonOlder,
+  comm,
+  ipython,
+  jupyter-client,
+  packaging,
+  psutil,
+  tornado,
+  traitlets,
+}:
 
 buildPythonPackage rec {
   pname = "ipykernel";

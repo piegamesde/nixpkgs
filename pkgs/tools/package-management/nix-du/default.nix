@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, nix, nlohmann_json, boost
-, graphviz, Security, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  nix,
+  nlohmann_json,
+  boost,
+  graphviz,
+  Security,
+  pkg-config,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "nix-du";

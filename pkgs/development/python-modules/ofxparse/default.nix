@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, six, beautifulsoup4, lxml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  beautifulsoup4,
+  lxml,
+}:
 
 buildPythonPackage rec {
   pname = "ofxparse";

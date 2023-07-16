@@ -1,4 +1,10 @@
-{ config, lib, options, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -35,7 +41,10 @@ let
   manifestPath = "kubernetes/manifests";
 
   taintOptions = with lib.types;
-    { name, ... }: {
+    {
+      name,
+      ...
+    }: {
       options = {
         key = mkOption {
           description = lib.mdDoc "Key of taint.";

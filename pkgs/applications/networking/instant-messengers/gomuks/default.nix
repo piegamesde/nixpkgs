@@ -1,5 +1,16 @@
-{ lib, stdenv, substituteAll, buildGoModule, fetchFromGitHub, makeDesktopItem
-, makeWrapper, libnotify, olm, pulseaudio, sound-theme-freedesktop }:
+{
+  lib,
+  stdenv,
+  substituteAll,
+  buildGoModule,
+  fetchFromGitHub,
+  makeDesktopItem,
+  makeWrapper,
+  libnotify,
+  olm,
+  pulseaudio,
+  sound-theme-freedesktop,
+}:
 
 buildGoModule rec {
   pname = "gomuks";

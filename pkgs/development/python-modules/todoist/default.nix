@@ -1,4 +1,10 @@
-{ lib, fetchPypi, buildPythonPackage, requests, pythonOlder }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  requests,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "todoist-python";

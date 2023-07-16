@@ -1,4 +1,10 @@
-{ mkDerivation, lib, fetchpatch, cmake, pkg-config }:
+{
+  mkDerivation,
+  lib,
+  fetchpatch,
+  cmake,
+  pkg-config,
+}:
 
 mkDerivation {
   pname = "extra-cmake-modules";

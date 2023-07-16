@@ -1,4 +1,11 @@
-{ config, lib, pkgs, extendModules, noUserModules, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  extendModules,
+  noUserModules,
+  ...
+}:
 
 let
   inherit (lib) concatStringsSep mapAttrs mapAttrsToList mkOption types;
@@ -32,7 +39,9 @@ in {
         sudo /run/current-system/specialisation/fewJobsManyCores/bin/switch-to-configuration test
         ```
       '';
-      type = types.attrsOf (types.submodule (local@{ ... }:
+      type = types.attrsOf (types.submodule (local@{
+          ...
+        }:
         let
           extend = if local.config.inheritParentConfig then
             extendModules

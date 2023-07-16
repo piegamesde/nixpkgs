@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, autoconf-archive }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  autoconf-archive,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libxls";

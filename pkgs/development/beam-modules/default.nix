@@ -1,4 +1,8 @@
-{ lib, __splicedPackages, erlang }:
+{
+  lib,
+  __splicedPackages,
+  erlang,
+}:
 
 let
   pkgs = __splicedPackages;

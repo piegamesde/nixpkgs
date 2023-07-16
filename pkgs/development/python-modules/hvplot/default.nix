@@ -1,5 +1,13 @@
-{ lib, bokeh, buildPythonPackage, colorcet, fetchPypi, holoviews, pandas
-, pythonOlder }:
+{
+  lib,
+  bokeh,
+  buildPythonPackage,
+  colorcet,
+  fetchPypi,
+  holoviews,
+  pandas,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "hvplot";

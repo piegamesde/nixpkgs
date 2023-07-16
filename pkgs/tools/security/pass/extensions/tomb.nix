@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, tomb }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  tomb,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pass-tomb";

@@ -1,5 +1,14 @@
-{ lib, async-timeout, bleak, bleak-retry-connector, buildPythonPackage
-, fetchFromGitHub, poetry-core, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  async-timeout,
+  bleak,
+  bleak-retry-connector,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "ld2410-ble";

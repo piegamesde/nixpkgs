@@ -1,5 +1,18 @@
-{ lib, mkXfceDerivation, automakeAddFlags, exo, gtk3, libpulseaudio, libnotify
-, libxfce4ui, libxfce4util, xfce4-panel, xfconf, keybinder3, glib }:
+{
+  lib,
+  mkXfceDerivation,
+  automakeAddFlags,
+  exo,
+  gtk3,
+  libpulseaudio,
+  libnotify,
+  libxfce4ui,
+  libxfce4util,
+  xfce4-panel,
+  xfconf,
+  keybinder3,
+  glib,
+}:
 
 mkXfceDerivation {
   category = "panel-plugins";

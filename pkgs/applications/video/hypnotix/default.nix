@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, substituteAll, cinnamon, gettext
-, gobject-introspection, mpv, python3, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  substituteAll,
+  cinnamon,
+  gettext,
+  gobject-introspection,
+  mpv,
+  python3,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hypnotix";

@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchgit, cmake, pkg-config, libubox-nossl, ssl_implementation }:
+{
+  stdenv,
+  lib,
+  fetchgit,
+  cmake,
+  pkg-config,
+  libubox-nossl,
+  ssl_implementation,
+}:
 
 stdenv.mkDerivation {
   pname = "ustream-ssl";

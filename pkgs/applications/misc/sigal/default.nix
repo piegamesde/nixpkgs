@@ -1,4 +1,9 @@
-{ stdenv, lib, python3, ffmpeg }:
+{
+  stdenv,
+  lib,
+  python3,
+  ffmpeg,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "sigal";

@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, nix-update-script, meson, ninja
-, pkg-config, vala, libgee, granite, gtk3, bluez, switchboard
-, wingpanel-indicator-bluetooth }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  nix-update-script,
+  meson,
+  ninja,
+  pkg-config,
+  vala,
+  libgee,
+  granite,
+  gtk3,
+  bluez,
+  switchboard,
+  wingpanel-indicator-bluetooth,
+}:
 
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-bluetooth";

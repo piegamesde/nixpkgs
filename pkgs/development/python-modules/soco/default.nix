@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, fetchFromGitHub, graphviz, appdirs, ifaddr
-, pythonOlder, lxml, mock, nix-update-script, pytestCheckHook, requests
-, requests-mock, xmltodict }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  graphviz,
+  appdirs,
+  ifaddr,
+  pythonOlder,
+  lxml,
+  mock,
+  nix-update-script,
+  pytestCheckHook,
+  requests,
+  requests-mock,
+  xmltodict,
+}:
 
 buildPythonPackage rec {
   pname = "soco";

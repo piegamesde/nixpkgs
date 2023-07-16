@@ -1,4 +1,12 @@
-{ lib, callPackage, python3, fetchFromGitHub, platformio, esptool_3, git }:
+{
+  lib,
+  callPackage,
+  python3,
+  fetchFromGitHub,
+  platformio,
+  esptool_3,
+  git,
+}:
 
 let
   python = python3.override {

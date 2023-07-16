@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, bison, pkg-config, gettext
-, desktop-file-utils, glib, gtk2, libxml2, libbfd, zlib, binutils, gnutls
-, enableGui ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  bison,
+  pkg-config,
+  gettext,
+  desktop-file-utils,
+  glib,
+  gtk2,
+  libxml2,
+  libbfd,
+  zlib,
+  binutils,
+  gnutls,
+  enableGui ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "gtk-gnutella";

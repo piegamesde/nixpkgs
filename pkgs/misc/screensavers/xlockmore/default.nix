@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchurl, pam ? null, libX11, libXext, libXinerama, libXdmcp
-, libXt, autoreconfHook }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pam ? null,
+  libX11,
+  libXext,
+  libXinerama,
+  libXdmcp,
+  libXt,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xlockmore";

@@ -1,6 +1,18 @@
-{ mkDerivation, extra-cmake-modules, kconfig, kcoreaddons, ki18n, kiconthemes
-, kio, kjobwidgets, knotifications, kservice, ktextwidgets, kwidgetsaddons
-, kxmlgui }:
+{
+  mkDerivation,
+  extra-cmake-modules,
+  kconfig,
+  kcoreaddons,
+  ki18n,
+  kiconthemes,
+  kio,
+  kjobwidgets,
+  knotifications,
+  kservice,
+  ktextwidgets,
+  kwidgetsaddons,
+  kxmlgui,
+}:
 
 mkDerivation {
   pname = "kparts";

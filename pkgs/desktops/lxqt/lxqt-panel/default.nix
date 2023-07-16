@@ -1,8 +1,33 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, pkg-config, alsa-lib, kguiaddons
-, kwindowsystem, libXdamage, libdbusmenu, liblxqt, libpulseaudio, libqtxdg
-, libstatgrab, libsysstat, lm_sensors, lxmenu-data, lxqt-build-tools
-, lxqt-globalkeys, gitUpdater, menu-cache, pcre, qtbase, qtsvg, qttools
-, qtx11extras, solid, xorg }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  alsa-lib,
+  kguiaddons,
+  kwindowsystem,
+  libXdamage,
+  libdbusmenu,
+  liblxqt,
+  libpulseaudio,
+  libqtxdg,
+  libstatgrab,
+  libsysstat,
+  lm_sensors,
+  lxmenu-data,
+  lxqt-build-tools,
+  lxqt-globalkeys,
+  gitUpdater,
+  menu-cache,
+  pcre,
+  qtbase,
+  qtsvg,
+  qttools,
+  qtx11extras,
+  solid,
+  xorg,
+}:
 
 mkDerivation rec {
   pname = "lxqt-panel";

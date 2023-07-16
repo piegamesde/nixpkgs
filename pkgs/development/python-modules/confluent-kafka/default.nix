@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, rdkafka, requests, avro3k
-, avro ? null, futures ? null, enum34 ? null }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  rdkafka,
+  requests,
+  avro3k,
+  avro ? null,
+  futures ? null,
+  enum34 ? null
+}:
 
 buildPythonPackage rec {
   version = "2.0.2";

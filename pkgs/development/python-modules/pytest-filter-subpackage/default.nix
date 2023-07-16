@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, pytest-cov, pytest-doctestplus
-, pytestCheckHook, pythonOlder, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  pytest-cov,
+  pytest-doctestplus,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-filter-subpackage";

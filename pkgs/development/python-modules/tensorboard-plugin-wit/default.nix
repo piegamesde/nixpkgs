@@ -1,4 +1,8 @@
-{ lib, fetchPypi, buildPythonPackage }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+}:
 
 buildPythonPackage rec {
   pname = "tensorboard_plugin_wit";

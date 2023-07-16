@@ -1,4 +1,9 @@
-{ callPackage, fetchFromGitHub, lib, pkgs }:
+{
+  callPackage,
+  fetchFromGitHub,
+  lib,
+  pkgs,
+}:
 let
   nodePackages = import ./composition.nix { inherit pkgs; };
   sourceInfo = (lib.importJSON ./netlify-cli.json);

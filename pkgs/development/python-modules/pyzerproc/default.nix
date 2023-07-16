@@ -1,5 +1,14 @@
-{ lib, bleak, click, buildPythonPackage, fetchFromGitHub, pytest-asyncio
-, pytest-mock, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  bleak,
+  click,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pyzerproc";

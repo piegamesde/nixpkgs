@@ -1,5 +1,11 @@
-{ lib, stdenv, backendStdenv, fetchurl, autoPatchelfHook
-, autoAddOpenGLRunpathHook }:
+{
+  lib,
+  stdenv,
+  backendStdenv,
+  fetchurl,
+  autoPatchelfHook,
+  autoAddOpenGLRunpathHook,
+}:
 
 pname: attrs:
 

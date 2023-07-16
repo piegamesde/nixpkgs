@@ -1,4 +1,10 @@
-{ build-idris-package, fetchFromGitHub, contrib, sdl2, lib }:
+{
+  build-idris-package,
+  fetchFromGitHub,
+  contrib,
+  sdl2,
+  lib,
+}:
 build-idris-package {
   pname = "pacman";
   version = "2017-11-10";

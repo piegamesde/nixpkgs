@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitea, editline, readline, historyType ? "internal"
-, predefinedBuildType ? "BSD" }:
+{
+  lib,
+  stdenv,
+  fetchFromGitea,
+  editline,
+  readline,
+  historyType ? "internal",
+  predefinedBuildType ? "BSD"
+}:
 
 assert lib.elem historyType [ "editline" "readline" "internal" ];
 assert lib.elem predefinedBuildType [ "BSD" "GNU" "GDH" "DBG" "" ];

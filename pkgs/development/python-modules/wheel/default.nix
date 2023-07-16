@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, bootstrapped-pip, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  bootstrapped-pip,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "wheel";

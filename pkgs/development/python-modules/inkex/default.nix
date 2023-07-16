@@ -1,6 +1,20 @@
-{ lib, buildPythonPackage, fetchFromGitLab, poetry-core, cssselect, lxml, numpy
-, packaging, pillow, pygobject3, pyserial, scour, gobject-introspection
-, pytestCheckHook, gtk3 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitLab,
+  poetry-core,
+  cssselect,
+  lxml,
+  numpy,
+  packaging,
+  pillow,
+  pygobject3,
+  pyserial,
+  scour,
+  gobject-introspection,
+  pytestCheckHook,
+  gtk3,
+}:
 
 buildPythonPackage rec {
   pname = "inkex";

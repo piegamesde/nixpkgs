@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchurl, autoconf, automake, intltool, libtool, pkg-config
-, encfs, libsecret, glib, libgee, gtk3, vala, wrapGAppsHook, xorg
-, gobject-introspection }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoconf,
+  automake,
+  intltool,
+  libtool,
+  pkg-config,
+  encfs,
+  libsecret,
+  glib,
+  libgee,
+  gtk3,
+  vala,
+  wrapGAppsHook,
+  xorg,
+  gobject-introspection,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.9";

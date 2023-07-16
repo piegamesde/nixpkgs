@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, git, zlib, sparsehash
-, CoreServices }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  git,
+  zlib,
+  sparsehash,
+  CoreServices,
+}:
 
 stdenv.mkDerivation rec {
   pname = "afsctool";

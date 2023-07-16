@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, glibcLocales, urwid, fetchpatch }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  glibcLocales,
+  urwid,
+  fetchpatch,
+}:
 
 buildPythonPackage rec {
   pname = "urwidtrees";

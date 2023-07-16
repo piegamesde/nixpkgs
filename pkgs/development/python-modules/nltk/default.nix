@@ -1,4 +1,13 @@
-{ lib, fetchPypi, buildPythonPackage, pythonOlder, click, joblib, regex, tqdm }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pythonOlder,
+  click,
+  joblib,
+  regex,
+  tqdm,
+}:
 
 buildPythonPackage rec {
   pname = "nltk";

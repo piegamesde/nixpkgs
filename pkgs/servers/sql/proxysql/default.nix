@@ -1,7 +1,36 @@
-{ stdenv, lib, applyPatches, fetchFromGitHub, autoconf, automake, bison, cmake
-, libtool, civetweb, coreutils, curl, flex, gnutls, libconfig, libdaemon, libev
-, libgcrypt, libinjection, libmicrohttpd_0_9_69, libuuid, lz4, nlohmann_json
-, openssl, pcre, perl, python3, prometheus-cpp, re2, zlib, texinfo }:
+{
+  stdenv,
+  lib,
+  applyPatches,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  bison,
+  cmake,
+  libtool,
+  civetweb,
+  coreutils,
+  curl,
+  flex,
+  gnutls,
+  libconfig,
+  libdaemon,
+  libev,
+  libgcrypt,
+  libinjection,
+  libmicrohttpd_0_9_69,
+  libuuid,
+  lz4,
+  nlohmann_json,
+  openssl,
+  pcre,
+  perl,
+  python3,
+  prometheus-cpp,
+  re2,
+  zlib,
+  texinfo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "proxysql";

@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, flit-core, pytestCheckHook, six, stdenv }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flit-core,
+  pytestCheckHook,
+  six,
+  stdenv,
+}:
 
 buildPythonPackage rec {
   pname = "more-itertools";

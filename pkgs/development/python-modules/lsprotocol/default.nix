@@ -1,5 +1,16 @@
-{ lib, attrs, buildPythonPackage, cattrs, fetchFromGitHub, flit-core, jsonschema
-, nox, pyhamcrest, pytest, pythonOlder }:
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  cattrs,
+  fetchFromGitHub,
+  flit-core,
+  jsonschema,
+  nox,
+  pyhamcrest,
+  pytest,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "lsprotocol";

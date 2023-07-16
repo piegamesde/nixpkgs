@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, click, fetchFromGitHub, mock, netifaces
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  mock,
+  netifaces,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "wsdiscovery";

@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, buildPackages, autoreconfHook, pkg-config
-, gettext, libusb1, libtool, libexif, libgphoto2, libjpeg, curl, libxml2, gd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildPackages,
+  autoreconfHook,
+  pkg-config,
+  gettext,
+  libusb1,
+  libtool,
+  libexif,
+  libgphoto2,
+  libjpeg,
+  curl,
+  libxml2,
+  gd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libgphoto2";

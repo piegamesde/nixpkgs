@@ -1,5 +1,16 @@
-{ pkgs, lib, buildPythonPackage, fetchFromGitHub, isPy3k, adal, msrest, mock
-, httpretty, pytest, pytest-asyncio }:
+{
+  pkgs,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy3k,
+  adal,
+  msrest,
+  mock,
+  httpretty,
+  pytest,
+  pytest-asyncio,
+}:
 
 buildPythonPackage rec {
   version = "0.6.4";

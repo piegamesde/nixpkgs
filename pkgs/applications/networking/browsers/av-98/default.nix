@@ -1,4 +1,8 @@
-{ lib, python3Packages, fetchgit }:
+{
+  lib,
+  python3Packages,
+  fetchgit,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "av-98";

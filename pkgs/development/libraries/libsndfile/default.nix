@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, autogen, pkg-config, python3
-, flac, lame, libmpg123, libogg, libopus, libvorbis, alsa-lib, Carbon
-, AudioToolbox }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  autogen,
+  pkg-config,
+  python3,
+  flac,
+  lame,
+  libmpg123,
+  libogg,
+  libopus,
+  libvorbis,
+  alsa-lib,
+  Carbon,
+  AudioToolbox,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libsndfile";

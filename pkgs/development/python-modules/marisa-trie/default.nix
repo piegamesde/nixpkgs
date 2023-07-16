@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, cython, pytestCheckHook, hypothesis
-, readme_renderer }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cython,
+  pytestCheckHook,
+  hypothesis,
+  readme_renderer,
+}:
 
 buildPythonPackage rec {
   pname = "marisa-trie";

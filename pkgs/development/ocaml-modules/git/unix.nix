@@ -1,9 +1,47 @@
-{ buildDunePackage, fetchpatch, git, rresult, result, bigstringaf, fmt, bos
-, fpath, uri, digestif, logs, lwt, mirage-clock, mirage-clock-unix, astring, awa
-, cmdliner, decompress, domain-name, ipaddr, mtime, tcpip, awa-mirage
-, mirage-flow, mirage-unix, alcotest, alcotest-lwt, base64, cstruct, ke
-, mirage-crypto-rng, ocurl, git-binary, ptime, mimic, ca-certs-nss, tls
-, tls-mirage, cacert, happy-eyeballs-lwt, git-mirage }:
+{
+  buildDunePackage,
+  fetchpatch,
+  git,
+  rresult,
+  result,
+  bigstringaf,
+  fmt,
+  bos,
+  fpath,
+  uri,
+  digestif,
+  logs,
+  lwt,
+  mirage-clock,
+  mirage-clock-unix,
+  astring,
+  awa,
+  cmdliner,
+  decompress,
+  domain-name,
+  ipaddr,
+  mtime,
+  tcpip,
+  awa-mirage,
+  mirage-flow,
+  mirage-unix,
+  alcotest,
+  alcotest-lwt,
+  base64,
+  cstruct,
+  ke,
+  mirage-crypto-rng,
+  ocurl,
+  git-binary,
+  ptime,
+  mimic,
+  ca-certs-nss,
+  tls,
+  tls-mirage,
+  cacert,
+  happy-eyeballs-lwt,
+  git-mirage,
+}:
 
 buildDunePackage {
   pname = "git-unix";

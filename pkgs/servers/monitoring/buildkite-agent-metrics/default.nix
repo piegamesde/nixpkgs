@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, fetchpatch }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchpatch,
+}:
 buildGoModule rec {
   pname = "buildkite-agent-metrics";
   version = "5.2.1";

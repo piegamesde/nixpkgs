@@ -1,6 +1,16 @@
-{ stdenv, lib, buildEnv, makeWrapper, yquake2 }:
+{
+  stdenv,
+  lib,
+  buildEnv,
+  makeWrapper,
+  yquake2,
+}:
 
-{ games, name, description }:
+{
+  games,
+  name,
+  description,
+}:
 
 let
   env = buildEnv {

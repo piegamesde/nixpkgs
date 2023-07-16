@@ -1,5 +1,12 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, poetry-core, construct
-, pytestCheckHook }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  construct,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "construct-classes";

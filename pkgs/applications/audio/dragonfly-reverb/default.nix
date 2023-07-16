@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, libjack2, libGL, pkg-config, xorg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libjack2,
+  libGL,
+  pkg-config,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dragonfly-reverb";

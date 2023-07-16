@@ -1,27 +1,38 @@
-{ lib, config, options, ... }:
+{
+  lib,
+  config,
+  options,
+  ...
+}:
 let inherit (lib) types;
 in {
   imports = [
 
     # fun.<function-body>.a
-    ({ ... }: {
-      options = {
-        fun = lib.mkOption {
-          type = types.functionTo
-            (types.submodule { options.a = lib.mkOption { default = "a"; }; });
+    ({
+        ...
+      }: {
+        options = {
+          fun = lib.mkOption {
+            type = types.functionTo (types.submodule {
+              options.a = lib.mkOption { default = "a"; };
+            });
+          };
         };
-      };
-    })
+      })
 
     # fun.<function-body>.b
-    ({ ... }: {
-      options = {
-        fun = lib.mkOption {
-          type = types.functionTo
-            (types.submodule { options.b = lib.mkOption { default = "b"; }; });
+    ({
+        ...
+      }: {
+        options = {
+          fun = lib.mkOption {
+            type = types.functionTo (types.submodule {
+              options.b = lib.mkOption { default = "b"; };
+            });
+          };
         };
-      };
-    })
+      })
   ];
 
   options = {

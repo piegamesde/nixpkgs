@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitLab, fetchpatch, meson, ninja, pkg-config, python3
-, wrapGAppsHook, libinput, gnome, gnome-desktop, glib, gtk3, wayland, libdrm
-, libxkbcommon, wlroots }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  wrapGAppsHook,
+  libinput,
+  gnome,
+  gnome-desktop,
+  glib,
+  gtk3,
+  wayland,
+  libdrm,
+  libxkbcommon,
+  wlroots,
+}:
 
 let
   phocWlroots = wlroots.overrideAttrs (old: {

@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, cmake, docbook_xml_dtd_45, pkg-config
-, wrapQtAppsHook, boost, clucene_core_2, docbook_xsl_ns, perlPackages, qtbase
-, qtsvg, qttools, sword }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  docbook_xml_dtd_45,
+  pkg-config,
+  wrapQtAppsHook,
+  boost,
+  clucene_core_2,
+  docbook_xsl_ns,
+  perlPackages,
+  qtbase,
+  qtsvg,
+  qttools,
+  sword,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "bibletime";

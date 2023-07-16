@@ -1,5 +1,10 @@
-{ lib, buildFHSEnv, heroic-unwrapped, extraPkgs ? pkgs: [ ]
-, extraLibraries ? pkgs: [ ] }:
+{
+  lib,
+  buildFHSEnv,
+  heroic-unwrapped,
+  extraPkgs ? pkgs: [ ],
+  extraLibraries ? pkgs: [ ]
+}:
 
 buildFHSEnv {
   name = "heroic";

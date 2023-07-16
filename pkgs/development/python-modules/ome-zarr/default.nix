@@ -1,6 +1,20 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, fetchpatch
-, pytestCheckHook, aiohttp, dask, fsspec, numpy, requests, scikitimage, s3fs
-, toolz, zarr }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  fetchpatch,
+  pytestCheckHook,
+  aiohttp,
+  dask,
+  fsspec,
+  numpy,
+  requests,
+  scikitimage,
+  s3fs,
+  toolz,
+  zarr,
+}:
 
 buildPythonPackage rec {
   pname = "ome-zarr";

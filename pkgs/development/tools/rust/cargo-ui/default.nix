@@ -1,5 +1,17 @@
-{ lib, rustPlatform, fetchCrate, pkg-config, libgit2_1_5, openssl, stdenv, expat
-, fontconfig, libGL, xorg, darwin }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  pkg-config,
+  libgit2_1_5,
+  openssl,
+  stdenv,
+  expat,
+  fontconfig,
+  libGL,
+  xorg,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-ui";

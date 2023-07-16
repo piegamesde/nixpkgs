@@ -1,7 +1,18 @@
-{ lib, stdenv, fetchFromGitLab, gfortran, libelf, libiberty, zlib,
-# Once https://gitlab.com/eztrace/eztrace/-/issues/41
-# is released we can switch to latest binutils.
-libbfd_2_38, libopcodes_2_38, buildPackages, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  gfortran,
+  libelf,
+  libiberty,
+  zlib,
+  # Once https://gitlab.com/eztrace/eztrace/-/issues/41
+  # is released we can switch to latest binutils.
+  libbfd_2_38,
+  libopcodes_2_38,
+  buildPackages,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "EZTrace";

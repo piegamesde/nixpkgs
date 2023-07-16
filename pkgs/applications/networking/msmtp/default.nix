@@ -1,7 +1,26 @@
-{ resholve, stdenv, symlinkJoin, lib, fetchFromGitHub, autoreconfHook
-, pkg-config, bash, coreutils, gnugrep, gnutls, gsasl, libidn2, netcat-gnu
-, texinfo, which, Security, withKeyring ? true, libsecret
-, withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd }:
+{
+  resholve,
+  stdenv,
+  symlinkJoin,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  bash,
+  coreutils,
+  gnugrep,
+  gnutls,
+  gsasl,
+  libidn2,
+  netcat-gnu,
+  texinfo,
+  which,
+  Security,
+  withKeyring ? true,
+  libsecret,
+  withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
+  systemd,
+}:
 
 let
   inherit (lib) getBin getExe optionals;

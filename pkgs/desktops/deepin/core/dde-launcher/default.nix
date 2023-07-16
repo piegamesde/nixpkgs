@@ -1,6 +1,21 @@
-{ stdenv, lib, fetchFromGitHub, dtkwidget, dde-qt-dbus-factory, qt5integration
-, qt5platform-plugins, cmake, qttools, qtx11extras, pkg-config, wrapQtAppsHook
-, wrapGAppsHook, gsettings-qt, gtest, qtbase }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  dtkwidget,
+  dde-qt-dbus-factory,
+  qt5integration,
+  qt5platform-plugins,
+  cmake,
+  qttools,
+  qtx11extras,
+  pkg-config,
+  wrapQtAppsHook,
+  wrapGAppsHook,
+  gsettings-qt,
+  gtest,
+  qtbase,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dde-launcher";

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, requests, audioread, pkgs }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+  audioread,
+  pkgs,
+}:
 
 buildPythonPackage rec {
   pname = "pyacoustid";

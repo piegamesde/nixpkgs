@@ -1,5 +1,15 @@
-{ mkDerivation, lib, stdenv, fetchFromGitHub, qtbase, vcg, glew, qmake, libGLU
-, libGL }:
+{
+  mkDerivation,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qtbase,
+  vcg,
+  glew,
+  qmake,
+  libGLU,
+  libGL,
+}:
 
 mkDerivation {
   pname = "openbrf";

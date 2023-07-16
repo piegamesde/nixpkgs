@@ -1,4 +1,10 @@
-{ mkDerivation, extra-cmake-modules, kcmutils, kcoreaddons, bolt }:
+{
+  mkDerivation,
+  extra-cmake-modules,
+  kcmutils,
+  kcoreaddons,
+  bolt,
+}:
 
 mkDerivation {
   pname = "plasma-thunderbolt";

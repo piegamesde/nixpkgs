@@ -1,5 +1,12 @@
-{ lib, fetchFromGitHub, buildPythonPackage, importlib-metadata, ipython
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  importlib-metadata,
+  ipython,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "watermark";

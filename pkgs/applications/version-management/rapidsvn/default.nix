@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, wxGTK32, subversion, apr
-, aprutil, python3, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  wxGTK32,
+  subversion,
+  apr,
+  aprutil,
+  python3,
+  darwin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rapidsvn";

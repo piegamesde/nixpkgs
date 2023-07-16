@@ -1,4 +1,10 @@
-{ stdenv, fetchFromGitHub, cmake, ninja, lib }:
+{
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  lib,
+}:
 
 stdenv.mkDerivation {
   pname = "asmjit";

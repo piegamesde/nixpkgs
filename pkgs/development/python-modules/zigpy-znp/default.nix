@@ -1,6 +1,19 @@
-{ lib, async-timeout, buildPythonPackage, coloredlogs, fetchFromGitHub
-, jsonschema, pytest-asyncio, pytest-mock, pytest-timeout, pytest-xdist
-, pytestCheckHook, pythonOlder, voluptuous, zigpy }:
+{
+  lib,
+  async-timeout,
+  buildPythonPackage,
+  coloredlogs,
+  fetchFromGitHub,
+  jsonschema,
+  pytest-asyncio,
+  pytest-mock,
+  pytest-timeout,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  voluptuous,
+  zigpy,
+}:
 
 buildPythonPackage rec {
   pname = "zigpy-znp";

@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchCrate, rustPlatform }:
+{
+  stdenv,
+  lib,
+  fetchCrate,
+  rustPlatform,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-llvm-cov";

@@ -1,4 +1,10 @@
-{ lib, appleDerivation, stdenv, bison, flex }:
+{
+  lib,
+  appleDerivation,
+  stdenv,
+  bison,
+  flex,
+}:
 
 let
 

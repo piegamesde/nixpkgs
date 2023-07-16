@@ -1,4 +1,10 @@
-{ branch ? "stable", callPackage, fetchurl, lib, stdenv }:
+{
+  branch ? "stable",
+  callPackage,
+  fetchurl,
+  lib,
+  stdenv,
+}:
 let
   versions = if stdenv.isLinux then {
     stable = "0.0.26";

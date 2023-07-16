@@ -1,4 +1,11 @@
-{ lib, stdenv, darwin, fetchFromGitHub, openssl, sqlite }:
+{
+  lib,
+  stdenv,
+  darwin,
+  fetchFromGitHub,
+  openssl,
+  sqlite,
+}:
 
 (if stdenv.isDarwin then
   darwin.apple_sdk_11_0.clang14Stdenv

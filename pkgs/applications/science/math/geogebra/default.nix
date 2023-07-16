@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, jre, makeDesktopItem, makeWrapper, unzip
-, language ? "en_US" }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jre,
+  makeDesktopItem,
+  makeWrapper,
+  unzip,
+  language ? "en_US"
+}:
 let
   pname = "geogebra";
   version = "5-0-745-0";

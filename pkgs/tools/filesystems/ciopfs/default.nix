@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, fuse, glib, attr }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  fuse,
+  glib,
+  attr,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ciopfs";

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, click, six, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  click,
+  six,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "geomet";

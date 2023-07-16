@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, msrest, azure-common, msrestazure
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  msrest,
+  azure-common,
+  msrestazure,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "azure-batch";

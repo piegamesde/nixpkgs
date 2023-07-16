@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, enum34, functools32, typing ? null
-, pytestCheckHook, pyaml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  enum34,
+  functools32,
+  typing ? null,
+  pytestCheckHook,
+  pyaml,
+}:
 
 buildPythonPackage rec {
   pname = "tomlkit";

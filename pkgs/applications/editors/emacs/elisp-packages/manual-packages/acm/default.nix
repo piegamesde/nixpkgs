@@ -1,4 +1,10 @@
-{ lib, melpaBuild, lsp-bridge, yasnippet, writeText }:
+{
+  lib,
+  melpaBuild,
+  lsp-bridge,
+  yasnippet,
+  writeText,
+}:
 
 melpaBuild {
   pname = "acm";

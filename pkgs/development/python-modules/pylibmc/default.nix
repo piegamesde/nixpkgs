@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, cyrus_sasl, fetchPypi, libmemcached, pythonOlder
-, zlib }:
+{
+  lib,
+  buildPythonPackage,
+  cyrus_sasl,
+  fetchPypi,
+  libmemcached,
+  pythonOlder,
+  zlib,
+}:
 
 buildPythonPackage rec {
   pname = "pylibmc";

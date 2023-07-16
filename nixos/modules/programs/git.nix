@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -24,7 +29,10 @@ in {
             merge = loc: defs:
               let
                 config = foldl' (acc:
-                  { value, ... }@x:
+                  {
+                    value,
+                    ...
+                  }@x:
                   acc // (if isList value then {
                     ordered = acc.ordered ++ value;
                   } else {

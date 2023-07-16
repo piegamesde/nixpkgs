@@ -1,6 +1,19 @@
-{ config, stdenv, lib, fetchFromGitHub, cmake, gtest, doCheck ? true
-, cudaSupport ? config.cudaSupport or false, ncclSupport ? false
-, rLibrary ? false, cudaPackages, llvmPackages, R, rPackages }@inputs:
+{
+  config,
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  gtest,
+  doCheck ? true,
+  cudaSupport ? config.cudaSupport or false,
+  ncclSupport ? false,
+  rLibrary ? false,
+  cudaPackages,
+  llvmPackages,
+  R,
+  rPackages,
+}@inputs:
 
 assert ncclSupport -> cudaSupport;
 # Disable regular tests when building the R package

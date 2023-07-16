@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, pkg-config, gettext, iconnamingutils, librsvg, gtk3
-, hicolor-icon-theme, mateUpdateScript }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gettext,
+  iconnamingutils,
+  librsvg,
+  gtk3,
+  hicolor-icon-theme,
+  mateUpdateScript,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mate-icon-theme";

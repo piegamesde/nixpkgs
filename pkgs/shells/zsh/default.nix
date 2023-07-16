@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, yodl, perl, groff
-, util-linux, texinfo, ncurses, pcre, buildPackages }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  autoreconfHook,
+  yodl,
+  perl,
+  groff,
+  util-linux,
+  texinfo,
+  ncurses,
+  pcre,
+  buildPackages,
+}:
 
 let version = "5.9";
 

@@ -1,6 +1,24 @@
-{ lib, fetchgit, meson, ninja, pkg-config, nix-update-script, python3, gtk3
-, libsecret, gst_all_1, webkitgtk, glib, glib-networking, gtkspell3, hunspell
-, desktop-file-utils, gobject-introspection, wrapGAppsHook, gnome }:
+{
+  lib,
+  fetchgit,
+  meson,
+  ninja,
+  pkg-config,
+  nix-update-script,
+  python3,
+  gtk3,
+  libsecret,
+  gst_all_1,
+  webkitgtk,
+  glib,
+  glib-networking,
+  gtkspell3,
+  hunspell,
+  desktop-file-utils,
+  gobject-introspection,
+  wrapGAppsHook,
+  gnome,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "eolie";

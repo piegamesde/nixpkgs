@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, bluez, dbus, glew, glfw
-, imgui, makeDesktopItem, copyDesktopItems }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  bluez,
+  dbus,
+  glew,
+  glfw,
+  imgui,
+  makeDesktopItem,
+  copyDesktopItems,
+}:
 
 stdenv.mkDerivation rec {
   pname = "SonyHeadphonesClient";

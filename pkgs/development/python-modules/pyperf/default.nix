@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, pythonOlder, psutil
-, unittestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  pythonOlder,
+  psutil,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pyperf";

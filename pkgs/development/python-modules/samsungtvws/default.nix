@@ -1,16 +1,30 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy27
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy27
 
-# propagates:
-, requests, websocket-client
+  # propagates:
+  ,
+  requests,
+  websocket-client
 
-# extras: async
-, aiohttp, websockets
+  # extras: async
+  ,
+  aiohttp,
+  websockets
 
-# extras: encrypted
-, cryptography, py3rijndael
+  # extras: encrypted
+  ,
+  cryptography,
+  py3rijndael
 
-# tests
-, aioresponses, pytest-asyncio, pytestCheckHook }:
+  # tests
+  ,
+  aioresponses,
+  pytest-asyncio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "samsungtvws";

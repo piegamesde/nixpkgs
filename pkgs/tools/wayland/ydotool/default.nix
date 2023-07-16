@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, scdoc, util-linux, xorg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  scdoc,
+  util-linux,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ydotool";

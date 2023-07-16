@@ -1,4 +1,9 @@
-{ lib, stdenv, python3, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  python3,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vcs_query";

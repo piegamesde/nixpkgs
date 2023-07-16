@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, libpulseaudio, glibc, substituteAll
-, stdenv, pulseaudio, unittestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  libpulseaudio,
+  glibc,
+  substituteAll,
+  stdenv,
+  pulseaudio,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pulsectl";

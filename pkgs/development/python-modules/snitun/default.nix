@@ -1,5 +1,15 @@
-{ lib, stdenv, async-timeout, attrs, buildPythonPackage, cryptography
-, fetchFromGitHub, pytest-aiohttp, pytestCheckHook, pythonAtLeast, pythonOlder
+{
+  lib,
+  stdenv,
+  async-timeout,
+  attrs,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

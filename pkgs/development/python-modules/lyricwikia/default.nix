@@ -1,5 +1,12 @@
-{ lib, fetchPypi, buildPythonPackage, pytest-runner, six, beautifulsoup4
-, requests, }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pytest-runner,
+  six,
+  beautifulsoup4,
+  requests,
+}:
 buildPythonPackage rec {
   pname = "lyricwikia";
   version = "0.1.11";

@@ -1,9 +1,27 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi
-# install requirements
-, pycryptodome, yarl, flatdict, python-jose, aenum, aiohttp, pydash, xmltodict
-, pyyaml
-# test requirements
-, pytestCheckHook, pytest-recording, pytest-asyncio, pytest-mock, pyfakefs }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi
+  # install requirements
+  ,
+  pycryptodome,
+  yarl,
+  flatdict,
+  python-jose,
+  aenum,
+  aiohttp,
+  pydash,
+  xmltodict,
+  pyyaml
+  # test requirements
+  ,
+  pytestCheckHook,
+  pytest-recording,
+  pytest-asyncio,
+  pytest-mock,
+  pyfakefs,
+}:
 
 buildPythonPackage rec {
   pname = "okta";

@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, coverage, toml, tomli }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  coverage,
+  toml,
+  tomli,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-cov";

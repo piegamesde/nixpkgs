@@ -1,4 +1,7 @@
-{ swig3, fetchFromGitHub }:
+{
+  swig3,
+  fetchFromGitHub,
+}:
 
 ## for updating to swig4, see
 ## https://github.com/GeraldWodni/swig/pull/6

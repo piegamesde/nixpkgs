@@ -1,7 +1,32 @@
-{ lib, stdenv, Accelerate, blis, buildPythonPackage, catalogue, confection
-, CoreFoundation, CoreGraphics, CoreVideo, cymem, cython, fetchPypi, hypothesis
-, mock, murmurhash, numpy, plac, preshed, pydantic, pytestCheckHook, python
-, pythonOlder, srsly, tqdm, typing-extensions, wasabi }:
+{
+  lib,
+  stdenv,
+  Accelerate,
+  blis,
+  buildPythonPackage,
+  catalogue,
+  confection,
+  CoreFoundation,
+  CoreGraphics,
+  CoreVideo,
+  cymem,
+  cython,
+  fetchPypi,
+  hypothesis,
+  mock,
+  murmurhash,
+  numpy,
+  plac,
+  preshed,
+  pydantic,
+  pytestCheckHook,
+  python,
+  pythonOlder,
+  srsly,
+  tqdm,
+  typing-extensions,
+  wasabi,
+}:
 
 buildPythonPackage rec {
   pname = "thinc";

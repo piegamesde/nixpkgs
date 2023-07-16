@@ -1,4 +1,6 @@
-{ callPackage }:
+{
+  callPackage,
+}:
 let
   mkPulumiPackage = callPackage ./base.nix { };
   callPackage' = p: args: callPackage p (args // { inherit mkPulumiPackage; });

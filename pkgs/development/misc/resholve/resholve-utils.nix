@@ -1,4 +1,10 @@
-{ lib, stdenv, resholve, binlore, writeTextFile }:
+{
+  lib,
+  stdenv,
+  resholve,
+  binlore,
+  writeTextFile,
+}:
 
 rec {
   /* These functions break up the work of partially validating the
@@ -75,14 +81,25 @@ rec {
     removeAttrs value [ "scripts" "flags" "unresholved" ];
 
   # Verify required arguments are present
-  validateSolution = { scripts, inputs, interpreter, ... }: true;
+  validateSolution = {
+      scripts,
+      inputs,
+      interpreter,
+      ...
+    }:
+    true;
 
   # Pull out specific solution keys to build ENV=val pairs
   phraseEnvs = solution: value:
     spaces (lib.mapAttrsToList (phraseEnv solution) (removeUnneededArgs value));
 
   # Pull out specific solution keys to build CLI argstring
-  phraseArgs = { flags ? [ ], scripts, ... }: spaces (flags ++ scripts);
+  phraseArgs = {
+      flags ? [ ],
+      scripts,
+      ...
+    }:
+    spaces (flags ++ scripts);
 
   phraseBinloreArgs = value:
     let hasUnresholved = builtins.hasAttr "unresholved" value;
@@ -114,15 +131,18 @@ rec {
      and invocation. Extra context makes it clearer what the
      Nix API is doing, makes nix-shell debugging easier, etc.
   */
-  phraseContext = { invokable, prep ? ''cd "$out"'' }: ''
-    (
-      ${prep}
-      PS4=$'\x1f'"\033[33m[resholve context]\033[0m "
-      set -x
-      : invoking resholve with PWD=$PWD
-      ${invokable}
-    )
-  '';
+  phraseContext = {
+      invokable,
+      prep ? ''cd "$out"''
+    }: ''
+      (
+        ${prep}
+        PS4=$'\x1f'"\033[33m[resholve context]\033[0m "
+        set -x
+        : invoking resholve with PWD=$PWD
+        ${invokable}
+      )
+    '';
   phraseContextForPWD = invokable:
     phraseContext {
       inherit invokable;
@@ -158,7 +178,14 @@ rec {
         ${partialSolution.interpreter} -n $out/bin/${name}
       '';
     };
-  mkDerivation = { pname, src, version, passthru ? { }, solutions, ... }@attrs:
+  mkDerivation = {
+      pname,
+      src,
+      version,
+      passthru ? { },
+      solutions,
+      ...
+    }@attrs:
     let
       inherit stdenv;
 

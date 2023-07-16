@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, openssl, which }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  openssl,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mbuffer";

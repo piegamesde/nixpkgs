@@ -1,5 +1,15 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, python, dbus, pytest
-, pytest-cov, pytest-asyncio, pytest-timeout }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python,
+  dbus,
+  pytest,
+  pytest-cov,
+  pytest-asyncio,
+  pytest-timeout,
+}:
 
 buildPythonPackage rec {
   pname = "dbus-next";

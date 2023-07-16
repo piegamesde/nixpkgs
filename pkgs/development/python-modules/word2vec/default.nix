@@ -1,5 +1,19 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, fetchzip, cython, numpy
-, scikit-learn, six, setuptools-scm, gcc, pytest, pytest-cov, isPy27 }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchzip,
+  cython,
+  numpy,
+  scikit-learn,
+  six,
+  setuptools-scm,
+  gcc,
+  pytest,
+  pytest-cov,
+  isPy27,
+}:
 let
   testData = fetchzip {
     url = "http://mattmahoney.net/dc/text8.zip";

@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, coeurl, curl
-, libevent, nlohmann_json, olm, openssl, re2, spdlog }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  coeurl,
+  curl,
+  libevent,
+  nlohmann_json,
+  olm,
+  openssl,
+  re2,
+  spdlog,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mtxclient";

@@ -1,5 +1,13 @@
-{ lib, rustPlatform, fetchFromGitHub, installShellFiles, pkg-config, bzip2
-, stdenv, Security }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  pkg-config,
+  bzip2,
+  stdenv,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "pactorio";

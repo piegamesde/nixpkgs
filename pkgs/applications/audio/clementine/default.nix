@@ -1,12 +1,50 @@
-{ lib, mkDerivation, fetchFromGitHub, fetchpatch, boost, cmake, chromaprint
-, gettext, gst_all_1, liblastfm, qtbase, qtx11extras, qttools, taglib, fftw
-, glew, qjson, sqlite, libgpod, libplist, usbmuxd, libmtp, libpulseaudio, gvfs
-, libcdio, pcre, projectm, protobuf, qca-qt5, pkg-config, sparsehash, config
-, makeWrapper, gst_plugins
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  fetchpatch,
+  boost,
+  cmake,
+  chromaprint,
+  gettext,
+  gst_all_1,
+  liblastfm,
+  qtbase,
+  qtx11extras,
+  qttools,
+  taglib,
+  fftw,
+  glew,
+  qjson,
+  sqlite,
+  libgpod,
+  libplist,
+  usbmuxd,
+  libmtp,
+  libpulseaudio,
+  gvfs,
+  libcdio,
+  pcre,
+  projectm,
+  protobuf,
+  qca-qt5,
+  pkg-config,
+  sparsehash,
+  config,
+  makeWrapper,
+  gst_plugins
 
-, util-linux, libunwind, libselinux, elfutils, libsepol, orc
+  ,
+  util-linux,
+  libunwind,
+  libselinux,
+  elfutils,
+  libsepol,
+  orc
 
-, alsa-lib }:
+  ,
+  alsa-lib,
+}:
 
 let
   withIpod = config.clementine.ipod or false;

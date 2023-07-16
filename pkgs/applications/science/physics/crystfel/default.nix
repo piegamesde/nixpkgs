@@ -1,8 +1,40 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, fetchpatch, fetchzip, cmake, lz4
-, bzip2, m4, hdf5, gsl, unzip, makeWrapper, meson, git, ninja, eigen, pkg-config
-, wrapGAppsHook, flex, bison, doxygen, opencl-headers, ncurses, msgpack, fftw
-, zeromq, ocl-icd, gtk3, gdk-pixbuf, argp-standalone, memorymappingHook
-, withGui ? true, withBitshuffle ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  fetchpatch,
+  fetchzip,
+  cmake,
+  lz4,
+  bzip2,
+  m4,
+  hdf5,
+  gsl,
+  unzip,
+  makeWrapper,
+  meson,
+  git,
+  ninja,
+  eigen,
+  pkg-config,
+  wrapGAppsHook,
+  flex,
+  bison,
+  doxygen,
+  opencl-headers,
+  ncurses,
+  msgpack,
+  fftw,
+  zeromq,
+  ocl-icd,
+  gtk3,
+  gdk-pixbuf,
+  argp-standalone,
+  memorymappingHook,
+  withGui ? true,
+  withBitshuffle ? true
+}:
 
 let
   libccp4 = stdenv.mkDerivation rec {

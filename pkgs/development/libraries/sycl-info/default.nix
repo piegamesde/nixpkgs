@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, installShellFiles, cmake, ninja, ocl-icd
-, opencl-headers, lyra, nlohmann_json, ronn, doctest }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  installShellFiles,
+  cmake,
+  ninja,
+  ocl-icd,
+  opencl-headers,
+  lyra,
+  nlohmann_json,
+  ronn,
+  doctest,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sycl-info";

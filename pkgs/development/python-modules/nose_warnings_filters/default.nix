@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, nose }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "nose_warnings_filters";

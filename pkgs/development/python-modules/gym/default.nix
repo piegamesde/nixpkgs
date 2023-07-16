@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, numpy, cloudpickle, gym-notices
-, importlib-metadata, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  cloudpickle,
+  gym-notices,
+  importlib-metadata,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "gym";

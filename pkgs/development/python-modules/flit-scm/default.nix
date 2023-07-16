@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitLab, pythonOlder, flit-core
-, setuptools-scm, tomli }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitLab,
+  pythonOlder,
+  flit-core,
+  setuptools-scm,
+  tomli,
+}:
 
 buildPythonPackage rec {
   pname = "flit-scm";

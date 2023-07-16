@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchgit, python3, cmake, jq, libX11, libXext, zlib }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  python3,
+  cmake,
+  jq,
+  libX11,
+  libXext,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "swiftshader";

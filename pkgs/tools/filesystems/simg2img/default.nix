@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "simg2img";

@@ -1,6 +1,17 @@
-{ lib, async-timeout, bleak, bleak-retry-connector, boto3, buildPythonPackage
-, cryptography, fetchFromGitHub, pyopenssl, pythonOlder, pytestCheckHook
-, requests }:
+{
+  lib,
+  async-timeout,
+  bleak,
+  bleak-retry-connector,
+  boto3,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  pyopenssl,
+  pythonOlder,
+  pytestCheckHook,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "pyswitchbot";

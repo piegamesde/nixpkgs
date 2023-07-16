@@ -1,6 +1,11 @@
 # Support for DRBD, the Distributed Replicated Block Device.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

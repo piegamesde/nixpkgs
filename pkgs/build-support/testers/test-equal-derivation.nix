@@ -1,4 +1,9 @@
-{ lib, runCommand, emptyFile, nix-diff }:
+{
+  lib,
+  runCommand,
+  emptyFile,
+  nix-diff,
+}:
 
 assertion: a: b:
 let

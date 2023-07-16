@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, sanic, sanic-testing, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  sanic,
+  sanic-testing,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "Sanic-Auth";

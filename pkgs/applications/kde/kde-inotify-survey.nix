@@ -1,5 +1,13 @@
-{ mkDerivation, lib, extra-cmake-modules, kauth, kcoreaddons, kdbusaddons, ki18n
-, knotifications }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kauth,
+  kcoreaddons,
+  kdbusaddons,
+  ki18n,
+  knotifications,
+}:
 
 mkDerivation {
   pname = "kde-inotify-survey";

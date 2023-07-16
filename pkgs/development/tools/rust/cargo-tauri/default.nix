@@ -1,5 +1,16 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, glibc, libsoup, cairo
-, gtk3, webkitgtk, darwin }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  glibc,
+  libsoup,
+  cairo,
+  gtk3,
+  webkitgtk,
+  darwin,
+}:
 
 let inherit (darwin.apple_sdk.frameworks) CoreServices Security;
 in rustPlatform.buildRustPackage rec {

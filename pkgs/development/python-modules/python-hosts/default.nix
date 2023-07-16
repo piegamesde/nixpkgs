@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pyyaml, pytest, pytest-cov }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pyyaml,
+  pytest,
+  pytest-cov,
+}:
 
 buildPythonPackage rec {
   pname = "python-hosts";

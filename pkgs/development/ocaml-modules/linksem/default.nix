@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, stdenv, findlib, ocaml, lem }:
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  findlib,
+  ocaml,
+  lem,
+}:
 
 lib.throwIfNot (lib.versionAtLeast ocaml.version "4.07")
 "linksem is not available for OCaml ${ocaml.version}"

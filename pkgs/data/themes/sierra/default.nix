@@ -1,8 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, gdk-pixbuf, gtk-engine-murrine, jdupes, librsvg
-, libxml2, buttonVariants ? [ ] # default to all
-, colorVariants ? [ ] # default to all
-, opacityVariants ? [ ] # default to all
-, sizeVariants ? [ ] # default to all
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gdk-pixbuf,
+  gtk-engine-murrine,
+  jdupes,
+  librsvg,
+  libxml2,
+  buttonVariants ? [ ] # default to all
+  ,
+  colorVariants ? [ ] # default to all
+  ,
+  opacityVariants ? [ ] # default to all
+  ,
+  sizeVariants ? [ ] # default to all
 }:
 
 let pname = "sierra-gtk-theme";

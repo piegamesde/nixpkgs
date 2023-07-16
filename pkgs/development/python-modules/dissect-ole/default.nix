@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, dissect-cstruct, dissect-util, fetchFromGitHub
-, setuptools, setuptools-scm, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  dissect-cstruct,
+  dissect-util,
+  fetchFromGitHub,
+  setuptools,
+  setuptools-scm,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "dissect-ole";

@@ -1,7 +1,32 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, writeShellScriptBin, cmake
-, wrapQtAppsHook, pkg-config, qmake, curl, grantlee, hidapi, libgit2, libssh2
-, libusb1, libxml2, libxslt, libzip, zlib, qtbase, qtconnectivity, qtlocation
-, qtsvg, qttools, qtwebengine, libXcomposite, bluez }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  writeShellScriptBin,
+  cmake,
+  wrapQtAppsHook,
+  pkg-config,
+  qmake,
+  curl,
+  grantlee,
+  hidapi,
+  libgit2,
+  libssh2,
+  libusb1,
+  libxml2,
+  libxslt,
+  libzip,
+  zlib,
+  qtbase,
+  qtconnectivity,
+  qtlocation,
+  qtsvg,
+  qttools,
+  qtwebengine,
+  libXcomposite,
+  bluez,
+}:
 
 let
   version = "5.0.10";

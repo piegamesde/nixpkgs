@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libarcus, stb, protobuf }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libarcus,
+  stb,
+  protobuf,
+}:
 
 stdenv.mkDerivation rec {
   pname = "curaengine";

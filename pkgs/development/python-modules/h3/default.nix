@@ -1,5 +1,16 @@
-{ autoPatchelfHook, buildPythonPackage, cmake, cython, fetchFromGitHub, h3, lib
-, numpy, pytestCheckHook, scikit-build, stdenv }:
+{
+  autoPatchelfHook,
+  buildPythonPackage,
+  cmake,
+  cython,
+  fetchFromGitHub,
+  h3,
+  lib,
+  numpy,
+  pytestCheckHook,
+  scikit-build,
+  stdenv,
+}:
 
 buildPythonPackage rec {
   pname = "h3";

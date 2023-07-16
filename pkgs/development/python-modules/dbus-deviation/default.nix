@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, lxml, setuptools-git, sphinx }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  lxml,
+  setuptools-git,
+  sphinx,
+}:
 
 buildPythonPackage rec {
   pname = "dbus-deviation";

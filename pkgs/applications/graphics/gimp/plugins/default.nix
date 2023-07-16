@@ -2,7 +2,11 @@
 # If you just want a subset of plug-ins, you can specify them explicitly:
 # `gimp-with-plugins.override { plugins = with gimpPlugins; [ gap ]; }`.
 
-{ config, lib, pkgs }:
+{
+  config,
+  lib,
+  pkgs,
+}:
 
 let
   inherit (pkgs)
@@ -47,7 +51,10 @@ in lib.makeScope pkgs.newScope (self:
         } // attrs.env or { };
       });
 
-    scriptDerivation = { src, ... }@attrs:
+    scriptDerivation = {
+        src,
+        ...
+      }@attrs:
       pluginDerivation ({
         prePhases = "extraLib";
         dontUnpack = true;

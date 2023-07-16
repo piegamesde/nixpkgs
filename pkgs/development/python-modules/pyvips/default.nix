@@ -1,7 +1,17 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, pytestCheckHook, glib, vips, cffi
-, pkgconfig # from pythonPackages
-, pkg-config # from pkgs
-, lib }:
+{
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  glib,
+  vips,
+  cffi,
+  pkgconfig # from pythonPackages
+  ,
+  pkg-config # from pkgs
+  ,
+  lib,
+}:
 
 buildPythonPackage rec {
   pname = "pyvips";

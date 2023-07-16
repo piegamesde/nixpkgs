@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, pkg-config, dconf, telepathy-glib, python3, libxslt
-, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  dconf,
+  telepathy-glib,
+  python3,
+  libxslt,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "telepathy-mission-control";

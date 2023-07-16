@@ -1,6 +1,18 @@
-{ lib, attrs, bidict, bitstruct, buildPythonPackage, fetchFromGitHub, fetchpatch
-, more-itertools, poetry-core, pprintpp, pythonOlder, pythonRelaxDepsHook
-, tbm-utils }:
+{
+  lib,
+  attrs,
+  bidict,
+  bitstruct,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  more-itertools,
+  poetry-core,
+  pprintpp,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  tbm-utils,
+}:
 
 buildPythonPackage rec {
   pname = "audio-metadata";

@@ -1,5 +1,21 @@
-{ lib, stdenv, fetchurl, fetchpatch2, meson, ninja, pkg-config, check, dbus
-, xvfb-run, glib, gtk, gettext, libiconv, json-glib, libintl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch2,
+  meson,
+  ninja,
+  pkg-config,
+  check,
+  dbus,
+  xvfb-run,
+  glib,
+  gtk,
+  gettext,
+  libiconv,
+  json-glib,
+  libintl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "girara";

@@ -1,5 +1,12 @@
-{ lib, fetchPypi, buildPythonPackage, numpy, pyparsing, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  numpy,
+  pyparsing,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "periodictable";

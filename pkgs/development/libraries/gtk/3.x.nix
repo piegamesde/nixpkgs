@@ -1,15 +1,57 @@
-{ lib, stdenv, substituteAll, fetchurl, pkg-config, gettext, docbook-xsl-nons
-, docbook_xml_dtd_43, gtk-doc, meson, mesonEmulatorHook, ninja, python3
-, makeWrapper, shared-mime-info, isocodes, expat, glib, cairo, pango, gdk-pixbuf
-, atk, at-spi2-atk, gobject-introspection, buildPackages
-, withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
-, fribidi, xorg, libepoxy, libxkbcommon, libxml2, gmp, gnome
-, gsettings-desktop-schemas, sassc, trackerSupport ? stdenv.isLinux
-  && (stdenv.buildPlatform == stdenv.hostPlatform), tracker
-, x11Support ? stdenv.isLinux, waylandSupport ? stdenv.isLinux, libGL, wayland
-, wayland-protocols, xineramaSupport ? stdenv.isLinux
-, cupsSupport ? stdenv.isLinux, cups, AppKit, Cocoa, QuartzCore
-, broadwaySupport ? true, wayland-scanner, testers }:
+{
+  lib,
+  stdenv,
+  substituteAll,
+  fetchurl,
+  pkg-config,
+  gettext,
+  docbook-xsl-nons,
+  docbook_xml_dtd_43,
+  gtk-doc,
+  meson,
+  mesonEmulatorHook,
+  ninja,
+  python3,
+  makeWrapper,
+  shared-mime-info,
+  isocodes,
+  expat,
+  glib,
+  cairo,
+  pango,
+  gdk-pixbuf,
+  atk,
+  at-spi2-atk,
+  gobject-introspection,
+  buildPackages,
+  withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages,
+  fribidi,
+  xorg,
+  libepoxy,
+  libxkbcommon,
+  libxml2,
+  gmp,
+  gnome,
+  gsettings-desktop-schemas,
+  sassc,
+  trackerSupport ? stdenv.isLinux
+    && (stdenv.buildPlatform == stdenv.hostPlatform),
+  tracker,
+  x11Support ? stdenv.isLinux,
+  waylandSupport ? stdenv.isLinux,
+  libGL,
+  wayland,
+  wayland-protocols,
+  xineramaSupport ? stdenv.isLinux,
+  cupsSupport ? stdenv.isLinux,
+  cups,
+  AppKit,
+  Cocoa,
+  QuartzCore,
+  broadwaySupport ? true,
+  wayland-scanner,
+  testers,
+}:
 
 let
 

@@ -1,5 +1,12 @@
-{ lib, async-timeout, fetchPypi, buildPythonPackage, pythonOlder, ifaddr
-, bitstring }:
+{
+  lib,
+  async-timeout,
+  fetchPypi,
+  buildPythonPackage,
+  pythonOlder,
+  ifaddr,
+  bitstring,
+}:
 
 buildPythonPackage rec {
   pname = "aiolifx";

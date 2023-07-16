@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, fetchpatch, boost, zlib, libevent, openssl, python3
-, cmake, pkg-config, bison, flex, static ? stdenv.hostPlatform.isStatic }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  boost,
+  zlib,
+  libevent,
+  openssl,
+  python3,
+  cmake,
+  pkg-config,
+  bison,
+  flex,
+  static ? stdenv.hostPlatform.isStatic
+}:
 
 stdenv.mkDerivation rec {
   pname = "thrift";

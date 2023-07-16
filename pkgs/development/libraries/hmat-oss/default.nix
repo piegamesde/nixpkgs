@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, blas, lapack }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  blas,
+  lapack,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hmat-oss";

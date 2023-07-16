@@ -1,5 +1,16 @@
-{ fetchurl, lib, stdenv, smartmontools, autoreconfHook, gettext, gtkmm3
-, pkg-config, wrapGAppsHook, pcre-cpp, gnome }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  smartmontools,
+  autoreconfHook,
+  gettext,
+  gtkmm3,
+  pkg-config,
+  wrapGAppsHook,
+  pcre-cpp,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gsmartcontrol";

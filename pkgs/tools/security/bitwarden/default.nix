@@ -1,6 +1,23 @@
-{ lib, buildNpmPackage, dbus, electron, fetchFromGitHub, glib, gnome, gtk3, jq
-, libsecret, makeDesktopItem, makeWrapper, moreutils, nodejs_16, pkg-config
-, python3, rustPlatform, wrapGAppsHook }:
+{
+  lib,
+  buildNpmPackage,
+  dbus,
+  electron,
+  fetchFromGitHub,
+  glib,
+  gnome,
+  gtk3,
+  jq,
+  libsecret,
+  makeDesktopItem,
+  makeWrapper,
+  moreutils,
+  nodejs_16,
+  pkg-config,
+  python3,
+  rustPlatform,
+  wrapGAppsHook,
+}:
 
 let
   description = "A secure and free password manager for all of your devices";

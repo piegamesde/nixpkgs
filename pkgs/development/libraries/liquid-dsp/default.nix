@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, cctools
-, autoSignDarwinBinariesHook, fixDarwinDylibNames }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  cctools,
+  autoSignDarwinBinariesHook,
+  fixDarwinDylibNames,
+}:
 
 stdenv.mkDerivation rec {
   pname = "liquid-dsp";

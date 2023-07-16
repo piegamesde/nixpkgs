@@ -1,5 +1,11 @@
-{ stdenvNoCC, lib, fetchFromGitHub, gnome-themes-extra, gtk-engine-murrine
-, gtk_engines }:
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+  gnome-themes-extra,
+  gtk-engine-murrine,
+  gtk_engines,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "rose-pine-gtk-theme";

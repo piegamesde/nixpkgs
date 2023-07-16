@@ -1,10 +1,24 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, setuptools
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  setuptools
 
-# build
-, hassil, jinja2, pyyaml, regex, voluptuous, python
+  # build
+  ,
+  hassil,
+  jinja2,
+  pyyaml,
+  regex,
+  voluptuous,
+  python
 
-# tests
-, pytest-xdist, pytestCheckHook }:
+  # tests
+  ,
+  pytest-xdist,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "home-assistant-intents";

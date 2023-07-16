@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, freetype, pillow, glibcLocales, python
-, isPyPy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  freetype,
+  pillow,
+  glibcLocales,
+  python,
+  isPyPy,
+}:
 
 let ft = freetype.overrideAttrs (oldArgs: { dontDisableStatic = true; });
 in buildPythonPackage rec {

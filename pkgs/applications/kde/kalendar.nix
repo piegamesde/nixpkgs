@@ -1,13 +1,49 @@
-{ lib, mkDerivation, cmake, extra-cmake-modules, makeWrapper
+{
+  lib,
+  mkDerivation,
+  cmake,
+  extra-cmake-modules,
+  makeWrapper
 
-, qtbase, qtquickcontrols2, qtsvg, qtlocation, qtdeclarative, qqc2-desktop-style
+  ,
+  qtbase,
+  qtquickcontrols2,
+  qtsvg,
+  qtlocation,
+  qtdeclarative,
+  qqc2-desktop-style
 
-, kirigami2, kirigami-addons, kdbusaddons, ki18n, kcalendarcore, kconfigwidgets
-, kwindowsystem, kcoreaddons, kcontacts, kitemmodels, kxmlgui, knotifications
-, kiconthemes, kservice, kmime, kpackage, eventviews, calendarsupport
+  ,
+  kirigami2,
+  kirigami-addons,
+  kdbusaddons,
+  ki18n,
+  kcalendarcore,
+  kconfigwidgets,
+  kwindowsystem,
+  kcoreaddons,
+  kcontacts,
+  kitemmodels,
+  kxmlgui,
+  knotifications,
+  kiconthemes,
+  kservice,
+  kmime,
+  kpackage,
+  eventviews,
+  calendarsupport
 
-, akonadi, akonadi-search, akonadi-contacts, akonadi-calendar-tools
-, kdepim-runtime, gpgme, pimcommon, mailcommon, messagelib }:
+  ,
+  akonadi,
+  akonadi-search,
+  akonadi-contacts,
+  akonadi-calendar-tools,
+  kdepim-runtime,
+  gpgme,
+  pimcommon,
+  mailcommon,
+  messagelib,
+}:
 
 mkDerivation rec {
   pname = "kalendar";

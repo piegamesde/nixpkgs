@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, ipython, matplotlib, numpy
-, pillow }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  ipython,
+  matplotlib,
+  numpy,
+  pillow,
+}:
 
 buildPythonPackage rec {
   pname = "mediapy";

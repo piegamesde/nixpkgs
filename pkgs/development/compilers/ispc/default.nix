@@ -1,11 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, which, m4, python3, bison
-, flex, llvmPackages, ncurses
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  which,
+  m4,
+  python3,
+  bison,
+  flex,
+  llvmPackages,
+  ncurses
 
-# the default test target is sse4, but that is not supported by all Hydra agents
-, testedTargets ? if stdenv.isAarch64 || stdenv.isAarch32 then
-  [ "neon-i32x4" ]
-else
-  [ "sse2-i32x4" ] }:
+  # the default test target is sse4, but that is not supported by all Hydra agents
+  ,
+  testedTargets ? if stdenv.isAarch64 || stdenv.isAarch32 then
+    [ "neon-i32x4" ]
+  else
+    [ "sse2-i32x4" ]
+}:
 
 stdenv.mkDerivation rec {
   pname = "ispc";

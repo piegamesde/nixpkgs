@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, cython, fetchFromGitHub, numpy, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  cython,
+  fetchFromGitHub,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "gsd";

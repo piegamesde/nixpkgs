@@ -1,4 +1,12 @@
-{ mkDerivation, lib, fetchFromGitHub, qmake, qttools, qtx11extras, stdenv }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  qmake,
+  qttools,
+  qtx11extras,
+  stdenv,
+}:
 
 mkDerivation rec {
   pname = "notepad-next";

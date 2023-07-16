@@ -1,7 +1,30 @@
-{ lib, stdenv, buildPythonPackage, aiohttp, aioresponses, cachetools
-, cryptography, fetchPypi, flask, freezegun, grpcio, mock, oauth2client
-, pyasn1-modules, pyopenssl, pytest-asyncio, pytest-localserver, pytestCheckHook
-, pythonOlder, pyu2f, requests, responses, rsa, six, urllib3 }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  aiohttp,
+  aioresponses,
+  cachetools,
+  cryptography,
+  fetchPypi,
+  flask,
+  freezegun,
+  grpcio,
+  mock,
+  oauth2client,
+  pyasn1-modules,
+  pyopenssl,
+  pytest-asyncio,
+  pytest-localserver,
+  pytestCheckHook,
+  pythonOlder,
+  pyu2f,
+  requests,
+  responses,
+  rsa,
+  six,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "google-auth";

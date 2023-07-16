@@ -1,6 +1,21 @@
-{ lib, python310, fetchFromGitHub, gdk-pixbuf, gnome, gpsbabel, glib-networking
-, glibcLocales, gobject-introspection, gtk3, perl, sqlite, tzdata, webkitgtk
-, wrapGAppsHook, xvfb-run }:
+{
+  lib,
+  python310,
+  fetchFromGitHub,
+  gdk-pixbuf,
+  gnome,
+  gpsbabel,
+  glib-networking,
+  glibcLocales,
+  gobject-introspection,
+  gtk3,
+  perl,
+  sqlite,
+  tzdata,
+  webkitgtk,
+  wrapGAppsHook,
+  xvfb-run,
+}:
 
 let
   python = python310.override {

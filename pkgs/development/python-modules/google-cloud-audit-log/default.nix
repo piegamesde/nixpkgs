@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, googleapis-common-protos, protobuf
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  googleapis-common-protos,
+  protobuf,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "google-cloud-audit-log";

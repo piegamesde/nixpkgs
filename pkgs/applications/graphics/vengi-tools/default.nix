@@ -1,13 +1,36 @@
-{ lib, stdenv, fetchFromGitHub, writeText
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  writeText
 
-, cmake, pkg-config, ninja, python3, makeWrapper
+  ,
+  cmake,
+  pkg-config,
+  ninja,
+  python3,
+  makeWrapper
 
-, glm, lua5_4, SDL2, SDL2_mixer, enet, libuv, libuuid, wayland-protocols, Carbon
-, CoreServices
-# optionals
-, opencl-headers, OpenCL
+  ,
+  glm,
+  lua5_4,
+  SDL2,
+  SDL2_mixer,
+  enet,
+  libuv,
+  libuuid,
+  wayland-protocols,
+  Carbon,
+  CoreServices
+  # optionals
+  ,
+  opencl-headers,
+  OpenCL
 
-, callPackage, nixosTests }:
+  ,
+  callPackage,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vengi-tools";

@@ -1,7 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder
 
-# popular downstream dependencies
-, aiohttp, requests }:
+  # popular downstream dependencies
+  ,
+  aiohttp,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "charset-normalizer";

@@ -1,4 +1,11 @@
-{ lib, mkCoqDerivation, coq, mathcomp, zorns-lemma, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  mathcomp,
+  zorns-lemma,
+  version ? null
+}:
 
 mkCoqDerivation rec {
   pname = "topology";

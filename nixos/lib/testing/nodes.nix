@@ -1,4 +1,10 @@
-testModuleArgs@{ config, lib, hostPkgs, nodes, ... }:
+testModuleArgs@{
+  config,
+  lib,
+  hostPkgs,
+  nodes,
+  ...
+}:
 
 let
   inherit (lib) mkOption mkForce optional types mapAttrs mkDefault mdDoc;
@@ -15,13 +21,16 @@ let
         key = "nodes";
         _module.args.nodes = config.nodesCompat;
       }
-      ({ config, ... }: {
-        virtualisation.qemu.package = testModuleArgs.config.qemu.package;
+      ({
+          config,
+          ...
+        }: {
+          virtualisation.qemu.package = testModuleArgs.config.qemu.package;
 
-        # Ensure we do not use aliases. Ideally this is only set
-        # when the test framework is used by Nixpkgs NixOS tests.
-        nixpkgs.config.allowAliases = false;
-      })
+          # Ensure we do not use aliases. Ideally this is only set
+          # when the test framework is used by Nixpkgs NixOS tests.
+          nixpkgs.config.allowAliases = false;
+        })
       testModuleArgs.config.extraBaseModules
     ];
   };

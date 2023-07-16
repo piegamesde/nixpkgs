@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchzip, patchelf }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  patchelf,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zrok";

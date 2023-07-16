@@ -1,4 +1,7 @@
-{ stdenv, hspell }:
+{
+  stdenv,
+  hspell,
+}:
 
 let
   dict = variant: a:

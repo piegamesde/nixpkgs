@@ -1,9 +1,38 @@
-{ lib, stdenv, fetchzip, fetchFromGitHub, fetchpatch, SDL2, buildFHSEnv, cmake
-, copyDesktopItems, curl, freetype, gcc, geoip, glew, gmp, libGL, libjpeg
-, libogg, libopus, libpng, libvorbis, libwebp, lua5, makeDesktopItem, ncurses
-, nettle, openal, opusfile, zlib
-# to download assets
-, aria2, cacert }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  fetchFromGitHub,
+  fetchpatch,
+  SDL2,
+  buildFHSEnv,
+  cmake,
+  copyDesktopItems,
+  curl,
+  freetype,
+  gcc,
+  geoip,
+  glew,
+  gmp,
+  libGL,
+  libjpeg,
+  libogg,
+  libopus,
+  libpng,
+  libvorbis,
+  libwebp,
+  lua5,
+  makeDesktopItem,
+  ncurses,
+  nettle,
+  openal,
+  opusfile,
+  zlib
+  # to download assets
+  ,
+  aria2,
+  cacert,
+}:
 
 let
   version = "0.54.0";

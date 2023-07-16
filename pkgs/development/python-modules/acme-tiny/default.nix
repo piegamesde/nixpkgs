@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools-scm, fusepy, fuse, openssl }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  fusepy,
+  fuse,
+  openssl,
+}:
 
 buildPythonPackage rec {
   pname = "acme-tiny";

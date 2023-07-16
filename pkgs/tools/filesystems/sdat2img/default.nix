@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, python3Packages }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication {
   pname = "sdat2img";

@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, cmake, swig4, itk
-, numpy, simpleitk, scikit-build }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  cmake,
+  swig4,
+  itk,
+  numpy,
+  simpleitk,
+  scikit-build,
+}:
 
 buildPythonPackage rec {
   inherit (simpleitk) pname version src meta;

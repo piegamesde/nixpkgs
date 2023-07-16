@@ -1,4 +1,9 @@
-{ symlinkJoin, makeWrapper, geany, vte }:
+{
+  symlinkJoin,
+  makeWrapper,
+  geany,
+  vte,
+}:
 
 symlinkJoin {
   name = "geany-with-vte-${geany.version}";

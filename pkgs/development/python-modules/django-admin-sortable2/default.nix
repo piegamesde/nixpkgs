@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, django_4, fetchPypi, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  django_4,
+  fetchPypi,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "django-admin-sortable2";

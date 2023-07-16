@@ -1,4 +1,9 @@
-{ stdenv, lib, python3, git }:
+{
+  stdenv,
+  lib,
+  python3,
+  git,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "gigalixir";

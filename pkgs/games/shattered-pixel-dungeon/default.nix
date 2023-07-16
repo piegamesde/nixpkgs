@@ -1,5 +1,14 @@
-{ lib, stdenv, makeWrapper, fetchFromGitHub, nixosTests, gradle_6, perl, jre
-, libpulseaudio }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  fetchFromGitHub,
+  nixosTests,
+  gradle_6,
+  perl,
+  jre,
+  libpulseaudio,
+}:
 
 let
   pname = "shattered-pixel-dungeon";

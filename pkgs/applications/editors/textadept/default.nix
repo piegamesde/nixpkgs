@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, gtk2, glib, pkg-config, unzip, ncurses
-, zip }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  gtk2,
+  glib,
+  pkg-config,
+  unzip,
+  ncurses,
+  zip,
+}:
 
 stdenv.mkDerivation rec {
   version = "11.4";

@@ -1,4 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, cmake, libX11, Cocoa, IOKit, Kernel }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  libX11,
+  Cocoa,
+  IOKit,
+  Kernel,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ois";

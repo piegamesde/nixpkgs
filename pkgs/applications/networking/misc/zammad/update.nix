@@ -1,5 +1,14 @@
-{ stdenv, lib, makeWrapper, bundix, common-updater-scripts, jq
-, nix-prefetch-github, yarn, yarn2nix }:
+{
+  stdenv,
+  lib,
+  makeWrapper,
+  bundix,
+  common-updater-scripts,
+  jq,
+  nix-prefetch-github,
+  yarn,
+  yarn2nix,
+}:
 
 stdenv.mkDerivation rec {
   name = "zammad-update-script";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, glib, lv2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  glib,
+  lv2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "x42-gmsynth";

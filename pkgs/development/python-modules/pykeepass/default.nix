@@ -1,5 +1,15 @@
-{ lib, fetchFromGitHub, buildPythonPackage, lxml, pycryptodomex, construct
-, argon2-cffi, python-dateutil, future, python }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  lxml,
+  pycryptodomex,
+  construct,
+  argon2-cffi,
+  python-dateutil,
+  future,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "pykeepass";

@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, cairo, libxkbcommon, meson, ninja, pkg-config
-, scdoc, wayland, wayland-protocols, wayland-scanner, buildDocs ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cairo,
+  libxkbcommon,
+  meson,
+  ninja,
+  pkg-config,
+  scdoc,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+  buildDocs ? true
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "slurp";

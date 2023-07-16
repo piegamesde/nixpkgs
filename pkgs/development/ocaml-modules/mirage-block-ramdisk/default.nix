@@ -1,4 +1,10 @@
-{ lib, fetchurl, buildDunePackage, io-page, mirage-block }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  io-page,
+  mirage-block,
+}:
 
 buildDunePackage rec {
   pname = "mirage-block-ramdisk";

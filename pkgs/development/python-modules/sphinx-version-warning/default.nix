@@ -1,6 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, pythonImportsCheckHook
-, sphinx, sphinxHook, sphinx-autoapi, sphinx-rtd-theme, sphinx-tabs
-, sphinx-prompt, sphinxemoji }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pythonImportsCheckHook,
+  sphinx,
+  sphinxHook,
+  sphinx-autoapi,
+  sphinx-rtd-theme,
+  sphinx-tabs,
+  sphinx-prompt,
+  sphinxemoji,
+}:
 
 # Latest tagged release release "1.1.2" (Nov 2018) does not contain
 # documenation, it was added in commits Aug 10, 2019. Repository does not have

@@ -1,5 +1,15 @@
-{ lib, stdenv, buildPythonPackage, pythonOlder, fetchFromGitHub, miniaudio, cffi
-, pytestCheckHook, AudioToolbox, CoreAudio }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  miniaudio,
+  cffi,
+  pytestCheckHook,
+  AudioToolbox,
+  CoreAudio,
+}:
 
 buildPythonPackage rec {
   pname = "miniaudio";

@@ -1,4 +1,12 @@
-{ lib, rustPlatform, fetchFromGitHub, openssl, stdenv, Security, pkg-config }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  openssl,
+  stdenv,
+  Security,
+  pkg-config,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "coldsnap";

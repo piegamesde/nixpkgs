@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, gnum4, pkg-config, python3
-, intel-gpu-tools, libdrm, libva, libX11, libGL, wayland, libXext
-, enableHybridCodec ? false, vaapi-intel-hybrid }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  gnum4,
+  pkg-config,
+  python3,
+  intel-gpu-tools,
+  libdrm,
+  libva,
+  libX11,
+  libGL,
+  wayland,
+  libXext,
+  enableHybridCodec ? false,
+  vaapi-intel-hybrid,
+}:
 
 stdenv.mkDerivation rec {
   pname = "intel-vaapi-driver";

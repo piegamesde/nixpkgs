@@ -1,4 +1,10 @@
-{ lib, stdenv, python3Packages, fetchFromGitHub, makeWrapper }:
+{
+  lib,
+  stdenv,
+  python3Packages,
+  fetchFromGitHub,
+  makeWrapper,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "nvitop";

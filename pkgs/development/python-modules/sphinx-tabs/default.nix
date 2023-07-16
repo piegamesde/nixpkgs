@@ -1,10 +1,21 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonImportsCheckHook
-# documentation build dependencies
-, sphinxHook
-# runtime dependencies
-, sphinx, pygments, docutils
-# test dependencies
-, pytest, beautifulsoup4 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonImportsCheckHook
+  # documentation build dependencies
+  ,
+  sphinxHook
+  # runtime dependencies
+  ,
+  sphinx,
+  pygments,
+  docutils
+  # test dependencies
+  ,
+  pytest,
+  beautifulsoup4,
+}:
 
 buildPythonPackage rec {
   pname = "sphinx-tabs";

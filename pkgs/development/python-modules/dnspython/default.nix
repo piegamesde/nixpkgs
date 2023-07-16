@@ -1,6 +1,23 @@
-{ lib, stdenv, aioquic, buildPythonPackage, cacert, cryptography, curio
-, fetchPypi, h2, httpx, idna, pytestCheckHook, pythonOlder, requests
-, requests-toolbelt, setuptools-scm, sniffio, trio }:
+{
+  lib,
+  stdenv,
+  aioquic,
+  buildPythonPackage,
+  cacert,
+  cryptography,
+  curio,
+  fetchPypi,
+  h2,
+  httpx,
+  idna,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-toolbelt,
+  setuptools-scm,
+  sniffio,
+  trio,
+}:
 
 buildPythonPackage rec {
   pname = "dnspython";

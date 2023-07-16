@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchurl, jre, makeWrapper }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  jre,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tabula-java";

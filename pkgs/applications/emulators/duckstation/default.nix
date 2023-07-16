@@ -1,8 +1,28 @@
-{ lib, stdenv, fetchFromGitHub, SDL2, cmake, copyDesktopItems, curl
-, extra-cmake-modules, libXrandr, libpulseaudio, makeDesktopItem
-, mesa # for libgbm
-, ninja, pkg-config, qtbase, qtsvg, qttools, qtwayland, vulkan-loader, wayland
-, wrapQtAppsHook, enableWayland ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL2,
+  cmake,
+  copyDesktopItems,
+  curl,
+  extra-cmake-modules,
+  libXrandr,
+  libpulseaudio,
+  makeDesktopItem,
+  mesa # for libgbm
+  ,
+  ninja,
+  pkg-config,
+  qtbase,
+  qtsvg,
+  qttools,
+  qtwayland,
+  vulkan-loader,
+  wayland,
+  wrapQtAppsHook,
+  enableWayland ? true
+}:
 
 stdenv.mkDerivation {
   pname = "duckstation";

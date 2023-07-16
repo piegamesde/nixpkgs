@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, authlib, httpx }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  authlib,
+  httpx,
+}:
 
 buildPythonPackage rec {
   pname = "pypoint";

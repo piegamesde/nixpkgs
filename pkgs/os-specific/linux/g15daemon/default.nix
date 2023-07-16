@@ -1,10 +1,22 @@
-{ stdenv, lib, fetchFromGitHub, fetchurl, fetchpatch, patchelf, freetype
-, libusb-compat-0_1 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  fetchpatch,
+  patchelf,
+  freetype,
+  libusb-compat-0_1,
+}:
 let
   license = lib.licenses.gpl2;
   maintainers = with lib.maintainers; [ peterhoeg ];
 
-  g15src = { pname, version, sha256 }:
+  g15src = {
+      pname,
+      version,
+      sha256,
+    }:
     fetchurl {
       url =
         "mirror://sourceforge/g15tools/${pname}/${version}/${pname}-${version}.tar.bz2";

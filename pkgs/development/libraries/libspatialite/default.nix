@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, pkg-config, validatePkgConfig, freexl, geos, librttopo
-, libxml2, minizip, proj, sqlite, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  validatePkgConfig,
+  freexl,
+  geos,
+  librttopo,
+  libxml2,
+  minizip,
+  proj,
+  sqlite,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libspatialite";

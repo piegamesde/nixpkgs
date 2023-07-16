@@ -1,5 +1,14 @@
-{ callPackage, lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, dbus
-, libiconv, Security }:
+{
+  callPackage,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  dbus,
+  libiconv,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "maturin";

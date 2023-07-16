@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchgit, ant, jdk, makeWrapper, jre, coreutils, which }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  ant,
+  jdk,
+  makeWrapper,
+  jre,
+  coreutils,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   pname = "projectlibre";

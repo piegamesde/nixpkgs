@@ -1,6 +1,23 @@
-{ lib, anyio, curio, buildPythonPackage, fetchFromGitHub, httpx, hypothesis
-, mypy, poetry-core, pytestCheckHook, pytest-aio, pytest-cov, pytest-mypy
-, pytest-mypy-plugins, pytest-subtests, setuptools, trio, typing-extensions }:
+{
+  lib,
+  anyio,
+  curio,
+  buildPythonPackage,
+  fetchFromGitHub,
+  httpx,
+  hypothesis,
+  mypy,
+  poetry-core,
+  pytestCheckHook,
+  pytest-aio,
+  pytest-cov,
+  pytest-mypy,
+  pytest-mypy-plugins,
+  pytest-subtests,
+  setuptools,
+  trio,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "returns";

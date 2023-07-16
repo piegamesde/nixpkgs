@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, yaml-cpp, systemd
-, python3Packages, asciidoc, libxslt, docbook_xml_dtd_45, docbook_xsl, libxml2
-, docbook5 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  yaml-cpp,
+  systemd,
+  python3Packages,
+  asciidoc,
+  libxslt,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+  libxml2,
+  docbook5,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ip2unix";

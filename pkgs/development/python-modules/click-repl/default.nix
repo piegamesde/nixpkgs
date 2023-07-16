@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, click, prompt-toolkit, six
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  click,
+  prompt-toolkit,
+  six,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "click-repl";

@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, cmake, gflags, gtest, perl }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  gflags,
+  gtest,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "glog";

@@ -1,5 +1,15 @@
-{ mkDerivation, lib, fetchurl, extra-cmake-modules, qtbase, kconfig, kcoreaddons
-, kwidgetsaddons, kguiaddons, qttools }:
+{
+  mkDerivation,
+  lib,
+  fetchurl,
+  extra-cmake-modules,
+  qtbase,
+  kconfig,
+  kcoreaddons,
+  kwidgetsaddons,
+  kguiaddons,
+  qttools,
+}:
 
 mkDerivation rec {
   pname = "kproperty";

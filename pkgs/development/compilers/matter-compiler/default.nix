@@ -1,4 +1,8 @@
-{ lib, bundlerApp, bundlerUpdateScript }:
+{
+  lib,
+  bundlerApp,
+  bundlerUpdateScript,
+}:
 
 bundlerApp {
   pname = "matter_compiler";

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, pkgs }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  pkgs,
+}:
 
 let
   # This attrset can in theory be computed automatically, but for that to work nicely we need

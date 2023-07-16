@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pyparsing
-, typing-extensions, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pyparsing,
+  typing-extensions,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   version = "0.18.1";

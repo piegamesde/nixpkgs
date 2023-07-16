@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, python, cffi, pkg-config, wayland
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python,
+  cffi,
+  pkg-config,
+  wayland,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pywayland";

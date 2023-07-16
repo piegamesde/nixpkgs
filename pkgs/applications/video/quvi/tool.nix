@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, pkg-config, lua5, curl, quvi_scripts, libquvi
-, lua5_sockets, glib, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  lua5,
+  curl,
+  quvi_scripts,
+  libquvi,
+  lua5_sockets,
+  glib,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "quvi";

@@ -1,6 +1,22 @@
-{ lib, buildPythonPackage, python3, bash, cmake, fetchFromGitHub, gtest, isPy27
-, nbval, numpy, protobuf, pybind11, pytestCheckHook, six, tabulate
-, typing-extensions, pythonRelaxDepsHook }:
+{
+  lib,
+  buildPythonPackage,
+  python3,
+  bash,
+  cmake,
+  fetchFromGitHub,
+  gtest,
+  isPy27,
+  nbval,
+  numpy,
+  protobuf,
+  pybind11,
+  pytestCheckHook,
+  six,
+  tabulate,
+  typing-extensions,
+  pythonRelaxDepsHook,
+}:
 
 let gtestStatic = gtest.override { static = true; };
 in buildPythonPackage rec {

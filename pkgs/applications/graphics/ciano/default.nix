@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, desktop-file-utils, ffmpeg, granite, gtk
-, imagemagick, meson, ninja, pkg-config, python, vala, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  desktop-file-utils,
+  ffmpeg,
+  granite,
+  gtk,
+  imagemagick,
+  meson,
+  ninja,
+  pkg-config,
+  python,
+  vala,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ciano";

@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, extractcode-7z, extractcode-libarchive, fetchPypi
-, patch, pytest-xdist, pytestCheckHook, pythonOlder, setuptools-scm, typecode }:
+{
+  lib,
+  buildPythonPackage,
+  extractcode-7z,
+  extractcode-libarchive,
+  fetchPypi,
+  patch,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+  typecode,
+}:
 
 buildPythonPackage rec {
   pname = "extractcode";

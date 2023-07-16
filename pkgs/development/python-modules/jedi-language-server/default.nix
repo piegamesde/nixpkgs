@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, docstring-to-markdown, fetchFromGitHub, jedi
-, lsprotocol, poetry-core, pygls, pydantic, pyhamcrest, pytestCheckHook
-, python-jsonrpc-server, pythonOlder, pythonRelaxDepsHook }:
+{
+  lib,
+  buildPythonPackage,
+  docstring-to-markdown,
+  fetchFromGitHub,
+  jedi,
+  lsprotocol,
+  poetry-core,
+  pygls,
+  pydantic,
+  pyhamcrest,
+  pytestCheckHook,
+  python-jsonrpc-server,
+  pythonOlder,
+  pythonRelaxDepsHook,
+}:
 
 buildPythonPackage rec {
   pname = "jedi-language-server";

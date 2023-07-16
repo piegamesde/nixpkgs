@@ -1,4 +1,10 @@
-{ lib, buildGoPackage, fetchFromGitHub, nixosTests, stdenv }:
+{
+  lib,
+  buildGoPackage,
+  fetchFromGitHub,
+  nixosTests,
+  stdenv,
+}:
 
 buildGoPackage rec {
   pname = "etcd";

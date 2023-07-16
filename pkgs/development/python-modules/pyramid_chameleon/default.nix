@@ -1,5 +1,15 @@
-{ stdenv, lib, buildPythonPackage, chameleon, fetchpatch, fetchPypi, pyramid
-, pytestCheckHook, setuptools, zope_interface }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  chameleon,
+  fetchpatch,
+  fetchPypi,
+  pyramid,
+  pytestCheckHook,
+  setuptools,
+  zope_interface,
+}:
 
 buildPythonPackage rec {
   pname = "pyramid-chameleon";

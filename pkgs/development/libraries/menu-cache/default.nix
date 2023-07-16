@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, fetchpatch, glib, pkg-config, libfm-extra }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  glib,
+  pkg-config,
+  libfm-extra,
+}:
 
 stdenv.mkDerivation rec {
   pname = "menu-cache";

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, requests
-, beautifulsoup4, colorama }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  requests,
+  beautifulsoup4,
+  colorama,
+}:
 
 buildPythonPackage rec {
   pname = "hydra-check";

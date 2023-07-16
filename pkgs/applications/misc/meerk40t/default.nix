@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, meerk40t-camera, python3, gtk3, wrapGAppsHook }:
+{
+  lib,
+  fetchFromGitHub,
+  meerk40t-camera,
+  python3,
+  gtk3,
+  wrapGAppsHook,
+}:
 
 let inherit (python3.pkgs) buildPythonApplication buildPythonPackage fetchPypi;
 in buildPythonApplication rec {

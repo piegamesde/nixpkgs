@@ -1,5 +1,12 @@
-{ buildOctavePackage, lib, fetchFromGitHub, gfortran, lapack, blas
-, autoreconfHook }:
+{
+  buildOctavePackage,
+  lib,
+  fetchFromGitHub,
+  gfortran,
+  lapack,
+  blas,
+  autoreconfHook,
+}:
 
 buildOctavePackage rec {
   pname = "control";

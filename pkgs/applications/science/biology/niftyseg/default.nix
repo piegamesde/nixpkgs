@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, eigen, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  eigen,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "niftyseg";

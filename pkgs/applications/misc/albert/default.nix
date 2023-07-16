@@ -1,6 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, cmake, muparser, python3, qtbase, qtcharts
-, qtdeclarative, qtgraphicaleffects, qtsvg, qtx11extras, wrapQtAppsHook
-, nix-update-script }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  muparser,
+  python3,
+  qtbase,
+  qtcharts,
+  qtdeclarative,
+  qtgraphicaleffects,
+  qtsvg,
+  qtx11extras,
+  wrapQtAppsHook,
+  nix-update-script,
+}:
 
 stdenv.mkDerivation rec {
   pname = "albert";

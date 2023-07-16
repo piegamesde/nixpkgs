@@ -1,4 +1,11 @@
-{ lib, stdenv, perlPackages, fetchFromGitHub, fetchpatch, shortenPerlShebang }:
+{
+  lib,
+  stdenv,
+  perlPackages,
+  fetchFromGitHub,
+  fetchpatch,
+  shortenPerlShebang,
+}:
 
 perlPackages.buildPerlPackage rec {
   pname = "pgformatter";

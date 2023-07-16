@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, postgresql, openssl, zlib, readline }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  postgresql,
+  openssl,
+  zlib,
+  readline,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pg_repack";

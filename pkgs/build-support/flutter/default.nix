@@ -1,12 +1,30 @@
-{ lib, callPackage, stdenvNoCC, makeWrapper, llvmPackages_13, cacert, flutter
-, jq }:
+{
+  lib,
+  callPackage,
+  stdenvNoCC,
+  makeWrapper,
+  llvmPackages_13,
+  cacert,
+  flutter,
+  jq,
+}:
 
 # absolutely no mac support for now
 
-{ pubGetScript ? "flutter pub get", flutterBuildFlags ? [ ]
-, runtimeDependencies ? [ ], customPackageOverrides ? { }, autoDepsList ? false
-, depsListFile ? null, vendorHash, pubspecLockFile ? null
-, nativeBuildInputs ? [ ], preUnpack ? "", postFixup ? "", ... }@args:
+{
+  pubGetScript ? "flutter pub get",
+  flutterBuildFlags ? [ ],
+  runtimeDependencies ? [ ],
+  customPackageOverrides ? { },
+  autoDepsList ? false,
+  depsListFile ? null,
+  vendorHash,
+  pubspecLockFile ? null,
+  nativeBuildInputs ? [ ],
+  preUnpack ? "",
+  postFixup ? "",
+  ...
+}@args:
 let
   flutterSetupScript = ''
     export HOME="$NIX_BUILD_TOP"

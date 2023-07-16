@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, marshmallow, mock, openapi-spec-validator
-, packaging, prance, pytestCheckHook, pythonOlder, pyyaml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  marshmallow,
+  mock,
+  openapi-spec-validator,
+  packaging,
+  prance,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "apispec";

@@ -1,6 +1,21 @@
-{ lib, stdenv, mkDerivation, fetchFromGitHub, installShellFiles, pkg-config
-, qmake, qttools, boost, libGLU, muparser, qtbase, qtscript, qtsvg
-, qtxmlpatterns, qtmacextras }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchFromGitHub,
+  installShellFiles,
+  pkg-config,
+  qmake,
+  qttools,
+  boost,
+  libGLU,
+  muparser,
+  qtbase,
+  qtscript,
+  qtsvg,
+  qtxmlpatterns,
+  qtmacextras,
+}:
 
 mkDerivation rec {
   pname = "qcad";

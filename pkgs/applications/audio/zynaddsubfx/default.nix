@@ -1,21 +1,55 @@
-{ lib, stdenv, fetchFromGitHub, callPackage
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  callPackage
 
-# Required build tools
-, cmake, makeWrapper, pkg-config
+  # Required build tools
+  ,
+  cmake,
+  makeWrapper,
+  pkg-config
 
-# Required dependencies
-, fftw, liblo, minixml, zlib
+  # Required dependencies
+  ,
+  fftw,
+  liblo,
+  minixml,
+  zlib
 
-# Optional dependencies
-, alsaSupport ? stdenv.isLinux, alsa-lib, dssiSupport ? false, dssi, ladspaH
-, jackSupport ? true, libjack2, lashSupport ? false, lash, ossSupport ? true
-, portaudioSupport ? true, portaudio, sndioSupport ? stdenv.isOpenBSD, sndio
+  # Optional dependencies
+  ,
+  alsaSupport ? stdenv.isLinux,
+  alsa-lib,
+  dssiSupport ? false,
+  dssi,
+  ladspaH,
+  jackSupport ? true,
+  libjack2,
+  lashSupport ? false,
+  lash,
+  ossSupport ? true,
+  portaudioSupport ? true,
+  portaudio,
+  sndioSupport ? stdenv.isOpenBSD,
+  sndio
 
-# Optional GUI dependencies
-, guiModule ? "off", cairo, fltk, libGL, libjpeg, libX11, libXpm, ntk
+  # Optional GUI dependencies
+  ,
+  guiModule ? "off",
+  cairo,
+  fltk,
+  libGL,
+  libjpeg,
+  libX11,
+  libXpm,
+  ntk
 
-# Test dependencies
-, cxxtest, ruby }:
+  # Test dependencies
+  ,
+  cxxtest,
+  ruby,
+}:
 
 assert builtins.any (g: guiModule == g) [ "fltk" "ntk" "zest" "off" ];
 

@@ -1,4 +1,10 @@
-{ buildDunePackage, irmin, fmt, ptime, mirage-clock }:
+{
+  buildDunePackage,
+  irmin,
+  fmt,
+  ptime,
+  mirage-clock,
+}:
 
 buildDunePackage {
   pname = "irmin-mirage";

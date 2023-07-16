@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, alsa-lib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  alsa-lib,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.2";

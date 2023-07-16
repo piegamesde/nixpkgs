@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, jre, autoPatchelfHook, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jre,
+  autoPatchelfHook,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sbt";

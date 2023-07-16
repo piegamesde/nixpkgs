@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gtest, boost, pkg-config, protobuf, icu
-, Foundation, buildPackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gtest,
+  boost,
+  pkg-config,
+  protobuf,
+  icu,
+  Foundation,
+  buildPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "phonenumber";

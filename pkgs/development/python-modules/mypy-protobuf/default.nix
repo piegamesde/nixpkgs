@@ -1,5 +1,13 @@
-{ lib, fetchPypi, buildPythonPackage, protobuf, types-protobuf, grpcio-tools
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  protobuf,
+  types-protobuf,
+  grpcio-tools,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "mypy-protobuf";

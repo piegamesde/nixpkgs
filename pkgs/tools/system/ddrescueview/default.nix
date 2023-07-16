@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchurl, fpc, lazarus, atk, cairo, gdk-pixbuf, glib, gtk2
-, libX11, pango }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fpc,
+  lazarus,
+  atk,
+  cairo,
+  gdk-pixbuf,
+  glib,
+  gtk2,
+  libX11,
+  pango,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ddrescueview";

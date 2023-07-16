@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, zlib, libpng, libjpeg, lcms2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zlib,
+  libpng,
+  libjpeg,
+  lcms2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libmng";

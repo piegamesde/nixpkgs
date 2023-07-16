@@ -1,6 +1,24 @@
-{ lib, stdenv, buildPythonPackage, click, fetchFromGitHub, mock, prettytable
-, prompt-toolkit, ptable, pygments, pytestCheckHook, pythonOlder, requests, rich
-, sphinx, testtools, tkinter, urllib3, zeep }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  mock,
+  prettytable,
+  prompt-toolkit,
+  ptable,
+  pygments,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  rich,
+  sphinx,
+  testtools,
+  tkinter,
+  urllib3,
+  zeep,
+}:
 
 buildPythonPackage rec {
   pname = "softlayer";

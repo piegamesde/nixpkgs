@@ -1,14 +1,74 @@
-{ lib, stdenv, runCommand, fetchurl, perl, python3, ruby, gi-docgen, bison
-, gperf, cmake, ninja, pkg-config, gettext, gobject-introspection, gnutls
-, libgcrypt, libgpg-error, gtk3, wayland, wayland-protocols, libwebp, libwpe
-, libwpe-fdo, enchant2, xorg, libxkbcommon, libavif, libepoxy, at-spi2-core
-, libxml2, libsoup, libsecret, libxslt, harfbuzz, libpthreadstubs, pcre, nettle
-, libtasn1, p11-kit, libidn, libedit, readline, apple_sdk, libGL, libGLU, mesa
-, libintl, lcms2, libmanette, openjpeg, geoclue2, sqlite, enableGLES ? true
-, gst-plugins-base, gst-plugins-bad, woff2, bubblewrap, libseccomp, systemd
-, xdg-dbus-proxy, substituteAll, glib, unifdef, addOpenGLRunpath
-, enableGeoLocation ? true, withLibsecret ? true
-, systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd, testers }:
+{
+  lib,
+  stdenv,
+  runCommand,
+  fetchurl,
+  perl,
+  python3,
+  ruby,
+  gi-docgen,
+  bison,
+  gperf,
+  cmake,
+  ninja,
+  pkg-config,
+  gettext,
+  gobject-introspection,
+  gnutls,
+  libgcrypt,
+  libgpg-error,
+  gtk3,
+  wayland,
+  wayland-protocols,
+  libwebp,
+  libwpe,
+  libwpe-fdo,
+  enchant2,
+  xorg,
+  libxkbcommon,
+  libavif,
+  libepoxy,
+  at-spi2-core,
+  libxml2,
+  libsoup,
+  libsecret,
+  libxslt,
+  harfbuzz,
+  libpthreadstubs,
+  pcre,
+  nettle,
+  libtasn1,
+  p11-kit,
+  libidn,
+  libedit,
+  readline,
+  apple_sdk,
+  libGL,
+  libGLU,
+  mesa,
+  libintl,
+  lcms2,
+  libmanette,
+  openjpeg,
+  geoclue2,
+  sqlite,
+  enableGLES ? true,
+  gst-plugins-base,
+  gst-plugins-bad,
+  woff2,
+  bubblewrap,
+  libseccomp,
+  systemd,
+  xdg-dbus-proxy,
+  substituteAll,
+  glib,
+  unifdef,
+  addOpenGLRunpath,
+  enableGeoLocation ? true,
+  withLibsecret ? true,
+  systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
+  testers,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "webkitgtk";

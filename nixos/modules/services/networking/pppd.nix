@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -20,38 +25,41 @@ in {
       peers = mkOption {
         default = { };
         description = lib.mdDoc "pppd peers.";
-        type = types.attrsOf (types.submodule ({ name, ... }: {
-          options = {
-            name = mkOption {
-              type = types.str;
-              default = name;
-              example = "dialup";
-              description = lib.mdDoc "Name of the PPP peer.";
-            };
+        type = types.attrsOf (types.submodule ({
+            name,
+            ...
+          }: {
+            options = {
+              name = mkOption {
+                type = types.str;
+                default = name;
+                example = "dialup";
+                description = lib.mdDoc "Name of the PPP peer.";
+              };
 
-            enable = mkOption {
-              type = types.bool;
-              default = true;
-              example = false;
-              description = lib.mdDoc "Whether to enable this PPP peer.";
-            };
+              enable = mkOption {
+                type = types.bool;
+                default = true;
+                example = false;
+                description = lib.mdDoc "Whether to enable this PPP peer.";
+              };
 
-            autostart = mkOption {
-              type = types.bool;
-              default = true;
-              example = false;
-              description = lib.mdDoc
-                "Whether the PPP session is automatically started at boot time.";
-            };
+              autostart = mkOption {
+                type = types.bool;
+                default = true;
+                example = false;
+                description = lib.mdDoc
+                  "Whether the PPP session is automatically started at boot time.";
+              };
 
-            config = mkOption {
-              type = types.lines;
-              default = "";
-              description = lib.mdDoc
-                "pppd configuration for this peer, see the pppd(8) man page.";
+              config = mkOption {
+                type = types.lines;
+                default = "";
+                description = lib.mdDoc
+                  "pppd configuration for this peer, see the pppd(8) man page.";
+              };
             };
-          };
-        }));
+          }));
       };
     };
   };

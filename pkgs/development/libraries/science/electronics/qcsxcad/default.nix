@@ -1,4 +1,12 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, csxcad, tinyxml, vtkWithQt5, qtbase
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  csxcad,
+  tinyxml,
+  vtkWithQt5,
+  qtbase,
 }:
 
 mkDerivation {

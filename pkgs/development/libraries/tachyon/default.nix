@@ -1,6 +1,13 @@
-{ lib, stdenv, fetchurl, Carbon, libjpeg, libpng
-, withJpegSupport ? true # support jpeg output
-, withPngSupport ? true # support png output
+{
+  lib,
+  stdenv,
+  fetchurl,
+  Carbon,
+  libjpeg,
+  libpng,
+  withJpegSupport ? true # support jpeg output
+  ,
+  withPngSupport ? true # support png output
 }:
 
 stdenv.mkDerivation rec {

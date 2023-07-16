@@ -1,5 +1,17 @@
-{ stdenv, fetchPypi, buildPythonPackage, future, packbits, pillow, pyusb, pytest
-, mock, click, attrs, lib }:
+{
+  stdenv,
+  fetchPypi,
+  buildPythonPackage,
+  future,
+  packbits,
+  pillow,
+  pyusb,
+  pytest,
+  mock,
+  click,
+  attrs,
+  lib,
+}:
 
 buildPythonPackage rec {
   pname = "brother-ql";

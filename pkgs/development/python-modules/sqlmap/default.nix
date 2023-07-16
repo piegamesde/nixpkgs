@@ -1,4 +1,11 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, file, pythonOlder }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  file,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "sqlmap";

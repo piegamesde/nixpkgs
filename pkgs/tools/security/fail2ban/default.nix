@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, python3, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  installShellFiles,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "fail2ban";

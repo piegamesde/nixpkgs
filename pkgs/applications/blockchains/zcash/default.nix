@@ -1,7 +1,30 @@
-{ autoreconfHook, boost180, cargo, coreutils, curl, cxx-rs, db62
-, fetchFromGitHub, git, hexdump, lib, libevent, libsodium, makeWrapper, rust
-, rustPlatform, pkg-config, Security, stdenv, testers, tl-expected, utf8cpp
-, util-linux, zcash, zeromq }:
+{
+  autoreconfHook,
+  boost180,
+  cargo,
+  coreutils,
+  curl,
+  cxx-rs,
+  db62,
+  fetchFromGitHub,
+  git,
+  hexdump,
+  lib,
+  libevent,
+  libsodium,
+  makeWrapper,
+  rust,
+  rustPlatform,
+  pkg-config,
+  Security,
+  stdenv,
+  testers,
+  tl-expected,
+  utf8cpp,
+  util-linux,
+  zcash,
+  zeromq,
+}:
 
 rustPlatform.buildRustPackage.override { inherit stdenv; } rec {
   pname = "zcash";

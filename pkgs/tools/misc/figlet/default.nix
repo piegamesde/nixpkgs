@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, fetchpatch, fetchzip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  fetchzip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "figlet";

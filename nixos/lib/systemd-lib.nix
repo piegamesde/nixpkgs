@@ -1,4 +1,8 @@
-{ config, lib, pkgs }:
+{
+  config,
+  lib,
+  pkgs,
+}:
 
 with lib;
 
@@ -127,8 +131,15 @@ in rec {
         ${name}=${toOption x}
       '') (if isList value then value else [ value ])) as));
 
-  generateUnits = { allowCollisions ? true, type, units, upstreamUnits
-    , upstreamWants, packages ? cfg.packages, package ? cfg.package }:
+  generateUnits = {
+      allowCollisions ? true,
+      type,
+      units,
+      upstreamUnits,
+      upstreamWants,
+      packages ? cfg.packages,
+      package ? cfg.package
+    }:
     let
       typeDir = ({
         system = "system";
@@ -281,52 +292,59 @@ in rec {
       });
     in "${out}/bin/${scriptName}";
 
-  unitConfig = { config, options, ... }: {
-    config = {
-      unitConfig = optionalAttrs (config.requires != [ ]) {
-        Requires = toString config.requires;
-      } // optionalAttrs (config.wants != [ ]) {
-        Wants = toString config.wants;
-      } // optionalAttrs (config.after != [ ]) {
-        After = toString config.after;
-      } // optionalAttrs (config.before != [ ]) {
-        Before = toString config.before;
-      } // optionalAttrs (config.bindsTo != [ ]) {
-        BindsTo = toString config.bindsTo;
-      } // optionalAttrs (config.partOf != [ ]) {
-        PartOf = toString config.partOf;
-      } // optionalAttrs (config.conflicts != [ ]) {
-        Conflicts = toString config.conflicts;
-      } // optionalAttrs (config.requisite != [ ]) {
-        Requisite = toString config.requisite;
-      } // optionalAttrs
-        (config ? restartTriggers && config.restartTriggers != [ ]) {
-          X-Restart-Triggers = toString config.restartTriggers;
+  unitConfig = {
+      config,
+      options,
+      ...
+    }: {
+      config = {
+        unitConfig = optionalAttrs (config.requires != [ ]) {
+          Requires = toString config.requires;
+        } // optionalAttrs (config.wants != [ ]) {
+          Wants = toString config.wants;
+        } // optionalAttrs (config.after != [ ]) {
+          After = toString config.after;
+        } // optionalAttrs (config.before != [ ]) {
+          Before = toString config.before;
+        } // optionalAttrs (config.bindsTo != [ ]) {
+          BindsTo = toString config.bindsTo;
+        } // optionalAttrs (config.partOf != [ ]) {
+          PartOf = toString config.partOf;
+        } // optionalAttrs (config.conflicts != [ ]) {
+          Conflicts = toString config.conflicts;
+        } // optionalAttrs (config.requisite != [ ]) {
+          Requisite = toString config.requisite;
         } // optionalAttrs
-        (config ? reloadTriggers && config.reloadTriggers != [ ]) {
-          X-Reload-Triggers = toString config.reloadTriggers;
-        } // optionalAttrs (config.description != "") {
-          Description = config.description;
-        } // optionalAttrs (config.documentation != [ ]) {
-          Documentation = toString config.documentation;
-        } // optionalAttrs (config.onFailure != [ ]) {
-          OnFailure = toString config.onFailure;
-        } // optionalAttrs (config.onSuccess != [ ]) {
-          OnSuccess = toString config.onSuccess;
-        } // optionalAttrs (options.startLimitIntervalSec.isDefined) {
-          StartLimitIntervalSec = toString config.startLimitIntervalSec;
-        } // optionalAttrs (options.startLimitBurst.isDefined) {
-          StartLimitBurst = toString config.startLimitBurst;
-        };
+          (config ? restartTriggers && config.restartTriggers != [ ]) {
+            X-Restart-Triggers = toString config.restartTriggers;
+          } // optionalAttrs
+          (config ? reloadTriggers && config.reloadTriggers != [ ]) {
+            X-Reload-Triggers = toString config.reloadTriggers;
+          } // optionalAttrs (config.description != "") {
+            Description = config.description;
+          } // optionalAttrs (config.documentation != [ ]) {
+            Documentation = toString config.documentation;
+          } // optionalAttrs (config.onFailure != [ ]) {
+            OnFailure = toString config.onFailure;
+          } // optionalAttrs (config.onSuccess != [ ]) {
+            OnSuccess = toString config.onSuccess;
+          } // optionalAttrs (options.startLimitIntervalSec.isDefined) {
+            StartLimitIntervalSec = toString config.startLimitIntervalSec;
+          } // optionalAttrs (options.startLimitBurst.isDefined) {
+            StartLimitBurst = toString config.startLimitBurst;
+          };
+      };
     };
-  };
 
-  serviceConfig = { config, ... }: {
-    config.environment.PATH = mkIf (config.path != [ ])
-      "${makeBinPath config.path}:${
-        makeSearchPathOutput "bin" "sbin" config.path
-      }";
-  };
+  serviceConfig = {
+      config,
+      ...
+    }: {
+      config.environment.PATH = mkIf (config.path != [ ])
+        "${makeBinPath config.path}:${
+          makeSearchPathOutput "bin" "sbin" config.path
+        }";
+    };
 
   stage2ServiceConfig = {
     imports = [ serviceConfig ];
@@ -342,19 +360,25 @@ in rec {
 
   stage1ServiceConfig = serviceConfig;
 
-  mountConfig = { config, ... }: {
-    config = {
-      mountConfig = {
-        What = config.what;
-        Where = config.where;
-      } // optionalAttrs (config.type != "") { Type = config.type; }
-        // optionalAttrs (config.options != "") { Options = config.options; };
+  mountConfig = {
+      config,
+      ...
+    }: {
+      config = {
+        mountConfig = {
+          What = config.what;
+          Where = config.where;
+        } // optionalAttrs (config.type != "") { Type = config.type; }
+          // optionalAttrs (config.options != "") { Options = config.options; };
+      };
     };
-  };
 
-  automountConfig = { config, ... }: {
-    config = { automountConfig = { Where = config.where; }; };
-  };
+  automountConfig = {
+      config,
+      ...
+    }: {
+      config = { automountConfig = { Where = config.where; }; };
+    };
 
   commonUnitText = def: ''
     [Unit]

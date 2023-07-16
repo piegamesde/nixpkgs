@@ -1,4 +1,12 @@
-{ bcunit, cmake, bc-decaf, fetchFromGitLab, mbedtls_2, lib, stdenv }:
+{
+  bcunit,
+  cmake,
+  bc-decaf,
+  fetchFromGitLab,
+  mbedtls_2,
+  lib,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bctoolbox";

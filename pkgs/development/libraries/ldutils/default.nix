@@ -1,4 +1,11 @@
-{ mkDerivation, lib, fetchFromGitLab, qtcharts, qtsvg, qmake }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitLab,
+  qtcharts,
+  qtsvg,
+  qmake,
+}:
 
 mkDerivation rec {
   pname = "ldutils";

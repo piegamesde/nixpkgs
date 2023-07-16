@@ -1,4 +1,11 @@
-{ lib, fetchurl, stdenv, slang, popt, python }:
+{
+  lib,
+  fetchurl,
+  stdenv,
+  slang,
+  popt,
+  python,
+}:
 
 let pythonIncludePath = "${lib.getDev python}/include/python";
 in stdenv.mkDerivation rec {

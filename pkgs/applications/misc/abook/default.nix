@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, ncurses, readline
-, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  ncurses,
+  readline,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "abook";

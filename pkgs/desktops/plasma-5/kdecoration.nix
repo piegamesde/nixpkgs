@@ -1,4 +1,10 @@
-{ mkDerivation, extra-cmake-modules, qtbase, ki18n, kcoreaddons }:
+{
+  mkDerivation,
+  extra-cmake-modules,
+  qtbase,
+  ki18n,
+  kcoreaddons,
+}:
 
 mkDerivation {
   pname = "kdecoration";

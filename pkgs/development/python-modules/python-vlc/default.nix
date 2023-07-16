@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools, libvlc, substituteAll
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  libvlc,
+  substituteAll,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "python-vlc";

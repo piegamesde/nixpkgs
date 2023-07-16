@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, libpcap, libxcrypt, pkg-config, autoreconfHook
-, openssl, bash, nixosTests, writeTextDir }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libpcap,
+  libxcrypt,
+  pkg-config,
+  autoreconfHook,
+  openssl,
+  bash,
+  nixosTests,
+  writeTextDir,
+}:
 
 stdenv.mkDerivation rec {
   version = "2.5.0";

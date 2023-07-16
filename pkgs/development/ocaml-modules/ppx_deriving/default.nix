@@ -1,5 +1,18 @@
-{ lib, fetchurl, buildDunePackage, ocaml, findlib, cppo, ppxlib, ppx_derivers
-, result, ounit, ounit2, ocaml-migrate-parsetree, ocaml-migrate-parsetree-2 }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  ocaml,
+  findlib,
+  cppo,
+  ppxlib,
+  ppx_derivers,
+  result,
+  ounit,
+  ounit2,
+  ocaml-migrate-parsetree,
+  ocaml-migrate-parsetree-2,
+}:
 
 let
   params = if lib.versionAtLeast ppxlib.version "0.20" then {

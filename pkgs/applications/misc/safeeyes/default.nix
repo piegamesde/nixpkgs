@@ -1,5 +1,16 @@
-{ lib, python3, alsa-utils, gobject-introspection, libappindicator-gtk3
-, libnotify, wlrctl, gtk3, xprintidle, xprop, wrapGAppsHook }:
+{
+  lib,
+  python3,
+  alsa-utils,
+  gobject-introspection,
+  libappindicator-gtk3,
+  libnotify,
+  wlrctl,
+  gtk3,
+  xprintidle,
+  xprop,
+  wrapGAppsHook,
+}:
 
 with python3.pkgs;
 

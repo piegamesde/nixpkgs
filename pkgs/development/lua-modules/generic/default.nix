@@ -1,6 +1,15 @@
-{ lua, writeText, toLuaModule }:
+{
+  lua,
+  writeText,
+  toLuaModule,
+}:
 
-{ disabled ? false, propagatedBuildInputs ? [ ], makeFlags ? [ ], ... }@attrs:
+{
+  disabled ? false,
+  propagatedBuildInputs ? [ ],
+  makeFlags ? [ ],
+  ...
+}@attrs:
 
 if disabled then
   throw "${attrs.name} not supported by interpreter lua-${lua.luaversion}"

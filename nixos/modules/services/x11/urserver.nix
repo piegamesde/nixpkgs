@@ -1,5 +1,10 @@
 # urserver service
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let cfg = config.services.urserver;
 in {

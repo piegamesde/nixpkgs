@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchurl, extra-cmake-modules, qca-qt5, kauth, kio, polkit-qt
-, util-linux }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  extra-cmake-modules,
+  qca-qt5,
+  kauth,
+  kio,
+  polkit-qt,
+  util-linux,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kpmcore";

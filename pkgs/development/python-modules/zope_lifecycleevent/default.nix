@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, zope_event, zope_component }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  zope_event,
+  zope_component,
+}:
 
 buildPythonPackage rec {
   pname = "zope.lifecycleevent";

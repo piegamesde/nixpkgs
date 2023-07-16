@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, unstableGitUpdater, xxd, pkg-config, imagemagick
-, wrapGAppsHook, gtk3, jansson }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  unstableGitUpdater,
+  xxd,
+  pkg-config,
+  imagemagick,
+  wrapGAppsHook,
+  gtk3,
+  jansson,
+}:
 
 stdenv.mkDerivation {
   pname = "urn-timer";

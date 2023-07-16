@@ -1,5 +1,14 @@
-{ lib, stdenv, buildDunePackage, fetchFromGitHub, Accelerate, CoreAudio
-, dune-configurator, libsamplerate, libjack2 }:
+{
+  lib,
+  stdenv,
+  buildDunePackage,
+  fetchFromGitHub,
+  Accelerate,
+  CoreAudio,
+  dune-configurator,
+  libsamplerate,
+  libjack2,
+}:
 
 buildDunePackage rec {
   pname = "bjack";

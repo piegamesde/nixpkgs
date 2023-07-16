@@ -1,4 +1,10 @@
-{ symlinkJoin, R, makeWrapper, recommendedPackages, packages }:
+{
+  symlinkJoin,
+  R,
+  makeWrapper,
+  recommendedPackages,
+  packages,
+}:
 symlinkJoin {
   name = R.name + "-wrapper";
   preferLocalBuild = true;

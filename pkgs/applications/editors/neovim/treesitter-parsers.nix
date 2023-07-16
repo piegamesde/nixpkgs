@@ -1,4 +1,6 @@
-{ fetchurl }:
+{
+  fetchurl,
+}:
 
 {
   c = fetchurl {

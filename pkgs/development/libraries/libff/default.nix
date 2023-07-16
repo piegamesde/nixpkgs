@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost, gmp, openssl, pkg-config
-, enableStatic ? stdenv.hostPlatform.isStatic }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  gmp,
+  openssl,
+  pkg-config,
+  enableStatic ? stdenv.hostPlatform.isStatic
+}:
 
 stdenv.mkDerivation rec {
   pname = "libff";

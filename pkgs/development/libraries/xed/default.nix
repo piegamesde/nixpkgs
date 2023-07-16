@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 let
   # mbuild is a custom build system used only to build xed

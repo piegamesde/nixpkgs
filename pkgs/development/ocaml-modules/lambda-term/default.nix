@@ -1,5 +1,15 @@
-{ lib, fetchFromGitHub, buildDunePackage, ocaml, zed, lwt_log, lwt_react, mew_vi
-, uucp, logs }:
+{
+  lib,
+  fetchFromGitHub,
+  buildDunePackage,
+  ocaml,
+  zed,
+  lwt_log,
+  lwt_react,
+  mew_vi,
+  uucp,
+  logs,
+}:
 
 let
   params = if lib.versionAtLeast ocaml.version "4.08" then {

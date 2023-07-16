@@ -1,19 +1,37 @@
 # Generic builder for tcl packages/applications, generally based on mk-python-derivation.nix
-{ tcl, lib, makeWrapper, runCommand, writeScript }:
+{
+  tcl,
+  lib,
+  makeWrapper,
+  runCommand,
+  writeScript,
+}:
 
-{ buildInputs ? [ ], nativeBuildInputs ? [ ], propagatedBuildInputs ? [ ]
-, checkInputs ? [ ], nativeCheckInputs ? [ ]
+{
+  buildInputs ? [ ],
+  nativeBuildInputs ? [ ],
+  propagatedBuildInputs ? [ ],
+  checkInputs ? [ ],
+  nativeCheckInputs ? [ ]
 
-  # true if we should skip the configuration phase altogether
-, dontConfigure ? false
+    # true if we should skip the configuration phase altogether
+  ,
+  dontConfigure ? false
 
-  # Extra flags passed to configure step
-, configureFlags ? [ ]
+    # Extra flags passed to configure step
+  ,
+  configureFlags ? [ ]
 
-  # Whether or not we should add common Tcl-related configure flags
-, addTclConfigureFlags ? true
+    # Whether or not we should add common Tcl-related configure flags
+  ,
+  addTclConfigureFlags ? true
 
-, meta ? { }, passthru ? { }, doCheck ? true, ... }@attrs:
+  ,
+  meta ? { },
+  passthru ? { },
+  doCheck ? true,
+  ...
+}@attrs:
 
 let
   inherit (tcl) stdenv;

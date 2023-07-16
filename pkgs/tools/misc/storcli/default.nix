@@ -1,4 +1,9 @@
-{ lib, stdenvNoCC, fetchzip, rpmextract }:
+{
+  lib,
+  stdenvNoCC,
+  fetchzip,
+  rpmextract,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "storcli";

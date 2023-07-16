@@ -1,5 +1,14 @@
-{ mkDerivation, lib, fetchFromGitLab, qtsvg, qtbase, cmake, ninja, libcprime
-, libcsys }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitLab,
+  qtsvg,
+  qtbase,
+  cmake,
+  ninja,
+  libcprime,
+  libcsys,
+}:
 
 mkDerivation rec {
   pname = "coreaction";

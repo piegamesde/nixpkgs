@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, automake, autoconf, libtool, pkg-config
-, autoconf-archive, libxml2, icu, bzip2, libtar, languageMachines }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  automake,
+  autoconf,
+  libtool,
+  pkg-config,
+  autoconf-archive,
+  libxml2,
+  icu,
+  bzip2,
+  libtar,
+  languageMachines,
+}:
 
 let release = lib.importJSON ./release-info/LanguageMachines-ucto.json;
 

@@ -1,14 +1,68 @@
-{ fetchurl, lib, stdenv, substituteAll, accountsservice, adwaita-icon-theme
-, colord, colord-gtk4, cups, docbook-xsl-nons, fontconfig, gdk-pixbuf, gettext
-, glib, glib-networking, gcr, glibc, gnome-bluetooth, gnome-color-manager
-, gnome-desktop, gnome-online-accounts, gnome-settings-daemon, gnome
-, gsettings-desktop-schemas, gsound, gtk4, ibus, libgnomekbd, libgtop, libgudev
-, libadwaita, libkrb5, libpulseaudio, libpwquality, librsvg, webp-pixbuf-loader
-, libsecret, libwacom, libxml2, libxslt, meson, modemmanager, mutter
-, networkmanager, networkmanagerapplet, libnma-gtk4, ninja, pkg-config, polkit
-, python3, samba, shadow, shared-mime-info, sound-theme-freedesktop, tracker
-, tracker-miners, tzdata, udisks2, upower, libepoxy, gnome-user-share
-, gnome-remote-desktop, wrapGAppsHook }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  substituteAll,
+  accountsservice,
+  adwaita-icon-theme,
+  colord,
+  colord-gtk4,
+  cups,
+  docbook-xsl-nons,
+  fontconfig,
+  gdk-pixbuf,
+  gettext,
+  glib,
+  glib-networking,
+  gcr,
+  glibc,
+  gnome-bluetooth,
+  gnome-color-manager,
+  gnome-desktop,
+  gnome-online-accounts,
+  gnome-settings-daemon,
+  gnome,
+  gsettings-desktop-schemas,
+  gsound,
+  gtk4,
+  ibus,
+  libgnomekbd,
+  libgtop,
+  libgudev,
+  libadwaita,
+  libkrb5,
+  libpulseaudio,
+  libpwquality,
+  librsvg,
+  webp-pixbuf-loader,
+  libsecret,
+  libwacom,
+  libxml2,
+  libxslt,
+  meson,
+  modemmanager,
+  mutter,
+  networkmanager,
+  networkmanagerapplet,
+  libnma-gtk4,
+  ninja,
+  pkg-config,
+  polkit,
+  python3,
+  samba,
+  shadow,
+  shared-mime-info,
+  sound-theme-freedesktop,
+  tracker,
+  tracker-miners,
+  tzdata,
+  udisks2,
+  upower,
+  libepoxy,
+  gnome-user-share,
+  gnome-remote-desktop,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-control-center";

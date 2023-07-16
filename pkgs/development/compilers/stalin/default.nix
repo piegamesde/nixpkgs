@@ -1,4 +1,10 @@
-{ fetchurl, lib, stdenv, ncompress, libX11 }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  ncompress,
+  libX11,
+}:
 
 stdenv.mkDerivation rec {
   pname = "stalin";

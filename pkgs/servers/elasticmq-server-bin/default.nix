@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, jdk, jre, makeWrapper, runCommand, python3Packages
-, writeText }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jdk,
+  jre,
+  makeWrapper,
+  runCommand,
+  python3Packages,
+  writeText,
+}:
 
 let
   elasticmq-server = stdenv.mkDerivation rec {

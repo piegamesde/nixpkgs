@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, wrapQtAppsHook, python3, zbar, secp256k1
-, enableQt ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  wrapQtAppsHook,
+  python3,
+  zbar,
+  secp256k1,
+  enableQt ? true
+}:
 
 let
   version = "4.3.1";

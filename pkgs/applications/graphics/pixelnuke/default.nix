@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, libevent, glew, glfw }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libevent,
+  glew,
+  glfw,
+}:
 
 stdenv.mkDerivation {
   pname = "pixelnuke";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, premake5, doxygen, libsodium, mbedtls_2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  premake5,
+  doxygen,
+  libsodium,
+  mbedtls_2,
+}:
 
 stdenv.mkDerivation {
   pname = "yojimbo";

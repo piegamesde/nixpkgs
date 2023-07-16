@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, pkg-config, fuse, adb }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  fuse,
+  adb,
+}:
 
 stdenv.mkDerivation rec {
   pname = "adbfs-rootless";

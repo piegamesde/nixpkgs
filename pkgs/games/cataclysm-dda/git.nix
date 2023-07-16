@@ -1,7 +1,20 @@
-{ stdenv, lib, callPackage, CoreFoundation, fetchFromGitHub, pkgs, wrapCDDA
-, attachPkgs, tiles ? true, Cocoa, debug ? false, useXdgDir ? false
-, version ? "2022-08-20", rev ? "f65b2bc4c6dea24bd9a993b8df146e5698e7e36f"
-, sha256 ? "sha256-00Tp9OmsM39PYwAJXKKRS9zmn7KsGQ9s1eVmEqghkpw=" }:
+{
+  stdenv,
+  lib,
+  callPackage,
+  CoreFoundation,
+  fetchFromGitHub,
+  pkgs,
+  wrapCDDA,
+  attachPkgs,
+  tiles ? true,
+  Cocoa,
+  debug ? false,
+  useXdgDir ? false,
+  version ? "2022-08-20",
+  rev ? "f65b2bc4c6dea24bd9a993b8df146e5698e7e36f",
+  sha256 ? "sha256-00Tp9OmsM39PYwAJXKKRS9zmn7KsGQ9s1eVmEqghkpw="
+}:
 
 let
   common = callPackage ./common.nix {

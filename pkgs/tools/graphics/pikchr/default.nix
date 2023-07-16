@@ -1,6 +1,12 @@
-{ lib, stdenv, fetchfossil, tcl
+{
+  lib,
+  stdenv,
+  fetchfossil,
+  tcl
 
-, enableTcl ? true }:
+  ,
+  enableTcl ? true
+}:
 
 stdenv.mkDerivation {
   pname = "pikchr";

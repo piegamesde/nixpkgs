@@ -1,5 +1,14 @@
-{ lib, buildDunePackage, fetchurl, ipaddr, functoria-runtime, fmt, logs, lwt
-, alcotest }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  ipaddr,
+  functoria-runtime,
+  fmt,
+  logs,
+  lwt,
+  alcotest,
+}:
 
 buildDunePackage rec {
   pname = "mirage-runtime";

@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, django, six, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  django,
+  six,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "django-appconf";

@@ -1,4 +1,10 @@
-{ mkDerivation, lib, fetchFromGitHub, cmake, qtbase }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  qtbase,
+}:
 
 mkDerivation rec {
   pname = "qgit";

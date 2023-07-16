@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, hatch-vcs, hatchling, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  hatch-vcs,
+  hatchling,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "termcolor";

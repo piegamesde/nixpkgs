@@ -1,13 +1,24 @@
-{ lib, buildPythonPackage, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub
 
-# build-sytem
-, cython_3, numpy, setuptools, setuptools-scm, gnutar
+  # build-sytem
+  ,
+  cython_3,
+  numpy,
+  setuptools,
+  setuptools-scm,
+  gnutar
 
-# native
-, libsoxr
+  # native
+  ,
+  libsoxr
 
-# tests
-, pytestCheckHook }:
+  # tests
+  ,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "soxr";

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, netcdf, hdf5, curl, cmake, ninja }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  netcdf,
+  hdf5,
+  curl,
+  cmake,
+  ninja,
+}:
 stdenv.mkDerivation rec {
   pname = "netcdf-cxx4";
   version = "4.3.1";

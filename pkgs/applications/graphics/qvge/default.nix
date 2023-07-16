@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, substituteAll, wrapQtAppsHook, qmake, qtsvg
-, qtx11extras, graphviz }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  substituteAll,
+  wrapQtAppsHook,
+  qmake,
+  qtsvg,
+  qtx11extras,
+  graphviz,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qvge";

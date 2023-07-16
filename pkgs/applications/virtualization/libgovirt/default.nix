@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchzip, gnome, meson, pkg-config, gobject-introspection, ninja
-, glib, librest_1_0 }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  gnome,
+  meson,
+  pkg-config,
+  gobject-introspection,
+  ninja,
+  glib,
+  librest_1_0,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libgovirt";

@@ -1,6 +1,24 @@
-{ lib, rustPlatform, fetchFromGitHub, cmake, pkg-config, openssl, fontconfig
-, nasm, libX11, libXcursor, libXrandr, libXi, libGL, libxkbcommon, wayland
-, stdenv, gtk3, darwin, perl }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  openssl,
+  fontconfig,
+  nasm,
+  libX11,
+  libXcursor,
+  libXrandr,
+  libXi,
+  libGL,
+  libxkbcommon,
+  wayland,
+  stdenv,
+  gtk3,
+  darwin,
+  perl,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "oculante";

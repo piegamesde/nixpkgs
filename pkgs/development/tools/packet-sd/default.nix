@@ -1,4 +1,8 @@
-{ buildGoModule, fetchFromGitHub, lib }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+}:
 buildGoModule rec {
   pname = "prometheus-packet-sd";
   version = "0.0.3";

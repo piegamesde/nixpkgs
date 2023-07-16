@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchhg, pidgin, glib, json-glib, protobuf, protobufc }:
+{
+  lib,
+  stdenv,
+  fetchhg,
+  pidgin,
+  glib,
+  json-glib,
+  protobuf,
+  protobufc,
+}:
 
 stdenv.mkDerivation {
   pname = "purple-hangouts-hg";

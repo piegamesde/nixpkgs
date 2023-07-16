@@ -1,5 +1,11 @@
-{ buildPythonPackage, flaky, hypothesis, pytest-asyncio, pytest-trio
-, pytestCheckHook }:
+{
+  buildPythonPackage,
+  flaky,
+  hypothesis,
+  pytest-asyncio,
+  pytest-trio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-asyncio-tests";

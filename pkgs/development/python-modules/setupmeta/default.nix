@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, git, mock, pep440, pytestCheckHook
-, pythonOlder, setuptools-scm, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  git,
+  mock,
+  pep440,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "setupmeta";

@@ -1,13 +1,23 @@
-{ lib, buildPythonPackage, fetchFromGitHub, runtimeShell
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  runtimeShell
 
-# build
-, poetry-core
+  # build
+  ,
+  poetry-core
 
-# propagates
-, docutils
+  # propagates
+  ,
+  docutils
 
-# tests
-, pytestCheckHook, readme_renderer, textile }:
+  # tests
+  ,
+  pytestCheckHook,
+  readme_renderer,
+  textile,
+}:
 
 buildPythonPackage rec {
   pname = "python-creole";

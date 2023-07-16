@@ -1,5 +1,13 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, substituteAll, portmidi
-, python-rtmidi, pytestCheckHook }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  substituteAll,
+  portmidi,
+  python-rtmidi,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "mido";

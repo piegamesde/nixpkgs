@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, makeDesktopItem, fixup_yarn_lock
-, yarn, nodejs, fetchYarnDeps, electron, element-web, sqlcipher, callPackage
-, Security, AppKit, CoreServices, desktopToDarwinBundle, useKeytar ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  makeDesktopItem,
+  fixup_yarn_lock,
+  yarn,
+  nodejs,
+  fetchYarnDeps,
+  electron,
+  element-web,
+  sqlcipher,
+  callPackage,
+  Security,
+  AppKit,
+  CoreServices,
+  desktopToDarwinBundle,
+  useKeytar ? true
+}:
 
 let
   pinData = import ./pin.nix;

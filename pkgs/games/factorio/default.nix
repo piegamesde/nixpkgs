@@ -1,10 +1,33 @@
-{ lib, alsa-lib, factorio-utils, fetchurl, libGL, libICE, libSM, libX11
-, libXcursor, libXext, libXi, libXinerama, libXrandr, libpulseaudio
-, libxkbcommon, makeDesktopItem, makeWrapper, releaseType, stdenv, wayland
+{
+  lib,
+  alsa-lib,
+  factorio-utils,
+  fetchurl,
+  libGL,
+  libICE,
+  libSM,
+  libX11,
+  libXcursor,
+  libXext,
+  libXi,
+  libXinerama,
+  libXrandr,
+  libpulseaudio,
+  libxkbcommon,
+  makeDesktopItem,
+  makeWrapper,
+  releaseType,
+  stdenv,
+  wayland
 
-, mods ? [ ], mods-dat ? null, versionsJson ? ./versions.json, username ? ""
-, token ? "" # get/reset token at https://factorio.com/profile
-, experimental ? false # true means to always use the latest branch
+  ,
+  mods ? [ ],
+  mods-dat ? null,
+  versionsJson ? ./versions.json,
+  username ? "",
+  token ? "" # get/reset token at https://factorio.com/profile
+  ,
+  experimental ? false # true means to always use the latest branch
 }:
 
 assert releaseType == "alpha" || releaseType == "headless" || releaseType
@@ -77,37 +100,44 @@ let
         else
           throw "expected attrset at ${toString path} - got ${toString value}";
     in builtins.mapAttrs (f [ ]) versions;
-  makeBinDist = { name, version, tarDirectory, url, sha256, needsAuth }: {
-    inherit version tarDirectory;
-    src = if !needsAuth then
-      fetchurl { inherit name url sha256; }
-    else
-      (lib.overrideDerivation (fetchurl {
-        inherit name url sha256;
-        curlOptsList = [
-          "--get"
-          "--data-urlencode"
-          "username@username"
-          "--data-urlencode"
-          "token@token"
-        ];
-      }) (_: {
-        # This preHook hides the credentials from /proc
-        preHook = if username != "" && token != "" then ''
-          echo -n "${username}" >username
-          echo -n "${token}"    >token
-        '' else ''
-          # Deliberately failing since username/token was not provided, so we can't fetch.
-          # We can't use builtins.throw since we want the result to be used if the tar is in the store already.
-          exit 1
-        '';
-        failureHook = ''
-          cat <<EOF
-          ${helpMsg}
-          EOF
-        '';
-      }));
-  };
+  makeBinDist = {
+      name,
+      version,
+      tarDirectory,
+      url,
+      sha256,
+      needsAuth,
+    }: {
+      inherit version tarDirectory;
+      src = if !needsAuth then
+        fetchurl { inherit name url sha256; }
+      else
+        (lib.overrideDerivation (fetchurl {
+          inherit name url sha256;
+          curlOptsList = [
+            "--get"
+            "--data-urlencode"
+            "username@username"
+            "--data-urlencode"
+            "token@token"
+          ];
+        }) (_: {
+          # This preHook hides the credentials from /proc
+          preHook = if username != "" && token != "" then ''
+            echo -n "${username}" >username
+            echo -n "${token}"    >token
+          '' else ''
+            # Deliberately failing since username/token was not provided, so we can't fetch.
+            # We can't use builtins.throw since we want the result to be used if the tar is in the store already.
+            exit 1
+          '';
+          failureHook = ''
+            cat <<EOF
+            ${helpMsg}
+            EOF
+          '';
+        }));
+    };
 
   configBaseCfg = ''
     use-system-read-write-data-directories=false

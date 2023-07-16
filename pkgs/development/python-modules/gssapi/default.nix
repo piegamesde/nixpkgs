@@ -1,5 +1,20 @@
-{ stdenv, lib, buildPythonPackage, pythonOlder, fetchFromGitHub, six, decorator
-, nose, krb5, GSS, parameterized, shouldbe, cython, python, k5test }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  six,
+  decorator,
+  nose,
+  krb5,
+  GSS,
+  parameterized,
+  shouldbe,
+  cython,
+  python,
+  k5test,
+}:
 
 buildPythonPackage rec {
   pname = "gssapi";

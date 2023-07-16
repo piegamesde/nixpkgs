@@ -1,4 +1,8 @@
-{ lib, callPackage, fetchFromGitHub }:
+{
+  lib,
+  callPackage,
+  fetchFromGitHub,
+}:
 #* To customize the enabled beets plugins, use the pluginOverrides input to the
 #* derivation.
 #* Examples:

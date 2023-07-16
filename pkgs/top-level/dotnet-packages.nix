@@ -1,5 +1,16 @@
-{ stdenv, lib, pkgs, buildDotnetPackage, buildDotnetModule, fetchurl
-, fetchFromGitHub, fetchNuGet, glib, mono, overrides ? { } }:
+{
+  stdenv,
+  lib,
+  pkgs,
+  buildDotnetPackage,
+  buildDotnetModule,
+  fetchurl,
+  fetchFromGitHub,
+  fetchNuGet,
+  glib,
+  mono,
+  overrides ? { }
+}:
 
 let
   self = dotnetPackages // overrides;

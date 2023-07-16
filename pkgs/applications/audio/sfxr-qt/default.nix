@@ -1,5 +1,18 @@
-{ lib, mkDerivation, fetchFromGitHub, fetchpatch, cmake, extra-cmake-modules
-, qtbase, qtquickcontrols2, SDL, python3, catch2, callPackage, nixosTests }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  extra-cmake-modules,
+  qtbase,
+  qtquickcontrols2,
+  SDL,
+  python3,
+  catch2,
+  callPackage,
+  nixosTests,
+}:
 
 mkDerivation rec {
   pname = "sfxr-qt";

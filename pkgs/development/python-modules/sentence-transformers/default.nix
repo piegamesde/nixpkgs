@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, fetchFromGitHub, huggingface-hub, nltk, numpy
-, scikit-learn, scipy, sentencepiece, tokenizers, torch, torchvision, tqdm
-, transformers }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  huggingface-hub,
+  nltk,
+  numpy,
+  scikit-learn,
+  scipy,
+  sentencepiece,
+  tokenizers,
+  torch,
+  torchvision,
+  tqdm,
+  transformers,
+}:
 
 buildPythonPackage rec {
   pname = "sentence-transformers";

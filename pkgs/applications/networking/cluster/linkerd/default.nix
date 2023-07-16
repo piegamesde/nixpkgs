@@ -1,4 +1,6 @@
-{ callPackage }:
+{
+  callPackage,
+}:
 
 (callPackage ./generic.nix { }) {
   channel = "stable";

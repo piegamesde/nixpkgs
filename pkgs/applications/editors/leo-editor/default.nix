@@ -1,5 +1,12 @@
-{ lib, mkDerivation, python3, fetchFromGitHub, makeWrapper, wrapQtAppsHook
-, makeDesktopItem }:
+{
+  lib,
+  mkDerivation,
+  python3,
+  fetchFromGitHub,
+  makeWrapper,
+  wrapQtAppsHook,
+  makeDesktopItem,
+}:
 
 mkDerivation rec {
   pname = "leo-editor";

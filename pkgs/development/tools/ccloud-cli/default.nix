@@ -1,4 +1,9 @@
-{ stdenv, autoPatchelfHook, fetchurl, lib }:
+{
+  stdenv,
+  autoPatchelfHook,
+  fetchurl,
+  lib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ccloud-cli";

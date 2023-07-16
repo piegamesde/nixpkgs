@@ -1,7 +1,24 @@
-{ mkDerivation, lib, fetchurl, cmake, exiv2, graphicsmagick, libraw, qtbase
-, qtdeclarative, qtmultimedia, qtquickcontrols2, qttools, qtgraphicaleffects
-, extra-cmake-modules, poppler, kimageformats, libarchive, pugixml
-, wrapQtAppsHook }:
+{
+  mkDerivation,
+  lib,
+  fetchurl,
+  cmake,
+  exiv2,
+  graphicsmagick,
+  libraw,
+  qtbase,
+  qtdeclarative,
+  qtmultimedia,
+  qtquickcontrols2,
+  qttools,
+  qtgraphicaleffects,
+  extra-cmake-modules,
+  poppler,
+  kimageformats,
+  libarchive,
+  pugixml,
+  wrapQtAppsHook,
+}:
 
 mkDerivation rec {
   pname = "photoqt";

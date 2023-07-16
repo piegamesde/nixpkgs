@@ -1,15 +1,49 @@
-{ lib, stdenv, callPackage, cmake, coreutils, gnugrep, perl, ninja, pkg-config
-, clang, bintools, python3, git, fetchpatch, makeWrapper, gnumake, file
-, runCommand, writeShellScriptBin
-# For lldb
-, libedit, ncurses, swig, libxml2
-# Linux-specific
-, glibc, libuuid
-# Darwin-specific
-, substituteAll, fixDarwinDylibNames, runCommandLocal, xcbuild
-, cctools # libtool
-, sigtool, DarwinTools, CoreServices, Foundation, Combine, MacOSX-SDK
-, CLTools_Executables }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  cmake,
+  coreutils,
+  gnugrep,
+  perl,
+  ninja,
+  pkg-config,
+  clang,
+  bintools,
+  python3,
+  git,
+  fetchpatch,
+  makeWrapper,
+  gnumake,
+  file,
+  runCommand,
+  writeShellScriptBin
+  # For lldb
+  ,
+  libedit,
+  ncurses,
+  swig,
+  libxml2
+  # Linux-specific
+  ,
+  glibc,
+  libuuid
+  # Darwin-specific
+  ,
+  substituteAll,
+  fixDarwinDylibNames,
+  runCommandLocal,
+  xcbuild,
+  cctools # libtool
+  ,
+  sigtool,
+  DarwinTools,
+  CoreServices,
+  Foundation,
+  Combine,
+  MacOSX-SDK,
+  CLTools_Executables,
+}:
 
 let
 

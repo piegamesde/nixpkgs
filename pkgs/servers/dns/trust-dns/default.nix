@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, openssl, pkg-config, rustPlatform }:
+{
+  lib,
+  fetchFromGitHub,
+  openssl,
+  pkg-config,
+  rustPlatform,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "trust-dns";

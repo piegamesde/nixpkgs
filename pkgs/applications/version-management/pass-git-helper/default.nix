@@ -1,4 +1,11 @@
-{ lib, buildPythonApplication, fetchFromGitHub, pyxdg, pytest, pytest-mock }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  pyxdg,
+  pytest,
+  pytest-mock,
+}:
 
 buildPythonApplication rec {
   pname = "pass-git-helper";

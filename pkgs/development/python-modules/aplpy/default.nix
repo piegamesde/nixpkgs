@@ -1,6 +1,23 @@
-{ lib, astropy, astropy-helpers, buildPythonPackage, cython, fetchpatch
-, fetchPypi, matplotlib, numpy, pillow, pyavm, pyregion, pytest-astropy
-, pytestCheckHook, pythonOlder, reproject, scikitimage, shapely }:
+{
+  lib,
+  astropy,
+  astropy-helpers,
+  buildPythonPackage,
+  cython,
+  fetchpatch,
+  fetchPypi,
+  matplotlib,
+  numpy,
+  pillow,
+  pyavm,
+  pyregion,
+  pytest-astropy,
+  pytestCheckHook,
+  pythonOlder,
+  reproject,
+  scikitimage,
+  shapely,
+}:
 
 buildPythonPackage rec {
   pname = "aplpy";

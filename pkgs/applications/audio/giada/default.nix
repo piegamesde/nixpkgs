@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, fltk, rtmidi, libsamplerate
-, libsndfile, jack2, alsa-lib, libpulseaudio, libXpm, flac, libogg, libvorbis
-, libopus }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  fltk,
+  rtmidi,
+  libsamplerate,
+  libsndfile,
+  jack2,
+  alsa-lib,
+  libpulseaudio,
+  libXpm,
+  flac,
+  libogg,
+  libvorbis,
+  libopus,
+}:
 
 stdenv.mkDerivation rec {
   pname = "giada";

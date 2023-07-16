@@ -1,5 +1,14 @@
-{ lib, aiohttp, async-timeout, buildPythonPackage, fetchFromGitHub
-, pytest-aiohttp, pytestCheckHook, pythonOlder, setuptools }:
+{
+  lib,
+  aiohttp,
+  async-timeout,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "aiojobs";

@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, fetchFromGitHub, scikit-build, cmake, ush, requests
-, six, numpy, cffi, openfst, substituteAll, callPackage }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  scikit-build,
+  cmake,
+  ush,
+  requests,
+  six,
+  numpy,
+  cffi,
+  openfst,
+  substituteAll,
+  callPackage,
+}:
 
 #
 # Maintainer note: only in-tree dependant is `dragonfly`, try to

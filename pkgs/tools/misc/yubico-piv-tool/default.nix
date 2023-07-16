@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, pkg-config, openssl, check, pcsclite, PCSC, gengetopt
-, cmake, withApplePCSC ? stdenv.isDarwin, gitUpdater, testers, yubico-piv-tool
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  openssl,
+  check,
+  pcsclite,
+  PCSC,
+  gengetopt,
+  cmake,
+  withApplePCSC ? stdenv.isDarwin,
+  gitUpdater,
+  testers,
+  yubico-piv-tool,
 }:
 
 stdenv.mkDerivation rec {

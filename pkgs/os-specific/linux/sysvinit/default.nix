@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libxcrypt, withoutInitTools ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libxcrypt,
+  withoutInitTools ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = if withoutInitTools then "sysvtools" else "sysvinit";

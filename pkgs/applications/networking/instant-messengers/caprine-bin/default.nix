@@ -1,4 +1,8 @@
-{ lib, callPackage, stdenvNoCC }:
+{
+  lib,
+  callPackage,
+  stdenvNoCC,
+}:
 let
   pname = "caprine";
   version = "2.55.5";

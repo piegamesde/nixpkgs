@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, python, pythonOlder, pytest
-, unittestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  python,
+  pythonOlder,
+  pytest,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "mock";

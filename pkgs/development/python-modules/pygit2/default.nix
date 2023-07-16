@@ -1,5 +1,17 @@
-{ lib, stdenv, buildPythonPackage, cacert, cached-property, cffi, fetchPypi
-, isPyPy, libgit2, pycparser, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  cacert,
+  cached-property,
+  cffi,
+  fetchPypi,
+  isPyPy,
+  libgit2,
+  pycparser,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pygit2";

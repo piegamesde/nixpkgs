@@ -1,6 +1,18 @@
-{ lib, astropy, astropy-extension-helpers, astropy-healpix, buildPythonPackage
-, cython, fetchPypi, numpy, pytest-astropy, pytestCheckHook, pythonOlder, scipy
-, setuptools-scm }:
+{
+  lib,
+  astropy,
+  astropy-extension-helpers,
+  astropy-healpix,
+  buildPythonPackage,
+  cython,
+  fetchPypi,
+  numpy,
+  pytest-astropy,
+  pytestCheckHook,
+  pythonOlder,
+  scipy,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "reproject";

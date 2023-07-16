@@ -1,6 +1,24 @@
-{ lib, mkDerivation, fetchFromGitHub, fixplate, tasty, tasty-hunit, tasty-th
-, streamly, mtl, path, pretty-terminal, text, base, aeson, path-io, cmdargs
-, containers, hnix, bytestring }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  fixplate,
+  tasty,
+  tasty-hunit,
+  tasty-th,
+  streamly,
+  mtl,
+  path,
+  pretty-terminal,
+  text,
+  base,
+  aeson,
+  path-io,
+  cmdargs,
+  containers,
+  hnix,
+  bytestring,
+}:
 
 mkDerivation rec {
   pname = "nix-linter";

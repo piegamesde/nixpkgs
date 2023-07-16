@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, nbformat, nbclient
-, ipykernel, pandas, pytestCheckHook, traitlets }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  nbformat,
+  nbclient,
+  ipykernel,
+  pandas,
+  pytestCheckHook,
+  traitlets,
+}:
 
 buildPythonPackage rec {
   pname = "testbook";

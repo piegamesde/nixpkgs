@@ -1,6 +1,22 @@
-{ lib, python3, fetchFromGitHub, appstream-glib, desktop-file-utils, gettext
-, glib, gobject-introspection, gtk3, gst_all_1, libnotify, librsvg, meson, ninja
-, pkg-config, slop, wrapGAppsHook }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  appstream-glib,
+  desktop-file-utils,
+  gettext,
+  glib,
+  gobject-introspection,
+  gtk3,
+  gst_all_1,
+  libnotify,
+  librsvg,
+  meson,
+  ninja,
+  pkg-config,
+  slop,
+  wrapGAppsHook,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "recapp";

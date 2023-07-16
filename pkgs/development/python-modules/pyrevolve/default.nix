@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, contexttimer, versioneer, cython
-, numpy, pytest, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  contexttimer,
+  versioneer,
+  cython,
+  numpy,
+  pytest,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pyrevolve";

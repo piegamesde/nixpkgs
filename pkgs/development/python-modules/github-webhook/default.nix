@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, flask, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "github-webhook";

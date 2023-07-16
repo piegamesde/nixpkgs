@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, callPackage, fetchFromGitHub, httpx, pythonOlder
-, sanic, websockets }:
+{
+  lib,
+  buildPythonPackage,
+  callPackage,
+  fetchFromGitHub,
+  httpx,
+  pythonOlder,
+  sanic,
+  websockets,
+}:
 
 buildPythonPackage rec {
   pname = "sanic-testing";

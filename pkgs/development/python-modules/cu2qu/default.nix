@@ -1,13 +1,23 @@
-{ lib, buildPythonPackage, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi
 
-# build
-, cython, setuptools-scm, setuptools
+  # build
+  ,
+  cython,
+  setuptools-scm,
+  setuptools
 
-# propagates
-, defcon, fonttools
+  # propagates
+  ,
+  defcon,
+  fonttools
 
-# tests
-, pytestCheckHook }:
+  # tests
+  ,
+  pytestCheckHook,
+}:
 
 let
   pname = "cu2qu";

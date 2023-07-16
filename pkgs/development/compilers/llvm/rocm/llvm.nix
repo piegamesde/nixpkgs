@@ -1,15 +1,46 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, pkg-config, cmake, ninja, git
-, doxygen, sphinx, lit, libxml2, libxcrypt, libedit, libffi, mpfr, zlib, ncurses
-, python3Packages, buildDocs ? true, buildMan ? true, buildTests ? true
-, targetName ? "llvm", targetDir ? "llvm", targetProjects ? [ ]
-, targetRuntimes ? [ ]
-  # "NATIVE" resolves into x86 or aarch64 depending on stdenv
-, llvmTargetsToBuild ? [ "NATIVE" ], extraPatches ? [ ]
-, extraNativeBuildInputs ? [ ], extraBuildInputs ? [ ], extraCMakeFlags ? [ ]
-, extraPostPatch ? "", checkTargets ? [
-  (lib.optionalString buildTests
-    (if targetDir == "runtimes" then "check-runtimes" else "check-all"))
-], extraPostInstall ? "", extraLicenses ? [ ], isBroken ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  pkg-config,
+  cmake,
+  ninja,
+  git,
+  doxygen,
+  sphinx,
+  lit,
+  libxml2,
+  libxcrypt,
+  libedit,
+  libffi,
+  mpfr,
+  zlib,
+  ncurses,
+  python3Packages,
+  buildDocs ? true,
+  buildMan ? true,
+  buildTests ? true,
+  targetName ? "llvm",
+  targetDir ? "llvm",
+  targetProjects ? [ ],
+  targetRuntimes ? [ ]
+    # "NATIVE" resolves into x86 or aarch64 depending on stdenv
+  ,
+  llvmTargetsToBuild ? [ "NATIVE" ],
+  extraPatches ? [ ],
+  extraNativeBuildInputs ? [ ],
+  extraBuildInputs ? [ ],
+  extraCMakeFlags ? [ ],
+  extraPostPatch ? "",
+  checkTargets ? [
+    (lib.optionalString buildTests
+      (if targetDir == "runtimes" then "check-runtimes" else "check-all"))
+  ],
+  extraPostInstall ? "",
+  extraLicenses ? [ ],
+  isBroken ? false
+}:
 
 let
   llvmNativeTarget = if stdenv.isx86_64 then

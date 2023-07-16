@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, git, gnupg, gawk }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  git,
+  gnupg,
+  gawk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "git-secret";

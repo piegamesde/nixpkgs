@@ -1,11 +1,34 @@
-{ lib, stdenv, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  fetchFromGitHub
 
-, cmake, pkg-config, ninja, gtest
+  ,
+  cmake,
+  pkg-config,
+  ninja,
+  gtest
 
-, curl, freetype, giflib, libjpeg, libpng, libwebp, pixman, tinyxml, zlib, SDL2
-, SDL2_image, lua, AppKit, Cocoa, Foundation
+  ,
+  curl,
+  freetype,
+  giflib,
+  libjpeg,
+  libpng,
+  libwebp,
+  pixman,
+  tinyxml,
+  zlib,
+  SDL2,
+  SDL2_image,
+  lua,
+  AppKit,
+  Cocoa,
+  Foundation
 
-, nixosTests }:
+  ,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libresprite";

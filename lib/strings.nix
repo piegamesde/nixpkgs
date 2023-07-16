@@ -1,5 +1,7 @@
 # String manipulation functions.
-{ lib }:
+{
+  lib,
+}:
 let
 
   inherit (builtins) length;

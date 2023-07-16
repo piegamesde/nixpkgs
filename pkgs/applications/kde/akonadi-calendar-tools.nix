@@ -1,4 +1,11 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, akonadi, calendarsupport }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  akonadi,
+  calendarsupport,
+}:
 
 mkDerivation {
   pname = "akonadi-calendar-tools";

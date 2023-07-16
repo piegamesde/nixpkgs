@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, pkg-config, intltool, xfce4-panel, libxfce4ui, xfconf
-, gitUpdater }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  intltool,
+  xfce4-panel,
+  libxfce4ui,
+  xfconf,
+  gitUpdater,
+}:
 
 let category = "panel-plugins";
 in stdenv.mkDerivation rec {

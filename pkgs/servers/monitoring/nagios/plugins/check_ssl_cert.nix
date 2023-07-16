@@ -1,7 +1,22 @@
-{ lib, stdenv, bc, bind # host and dig binary
-, coreutils # date and timeout binary
-, curl, fetchFromGitHub, file, iproute2, makeWrapper, netcat-gnu, nmap, openssl
-, python3, which }:
+{
+  lib,
+  stdenv,
+  bc,
+  bind # host and dig binary
+  ,
+  coreutils # date and timeout binary
+  ,
+  curl,
+  fetchFromGitHub,
+  file,
+  iproute2,
+  makeWrapper,
+  netcat-gnu,
+  nmap,
+  openssl,
+  python3,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   pname = "check_ssl_cert";

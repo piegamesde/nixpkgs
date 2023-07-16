@@ -1,4 +1,8 @@
-{ pkgs, configTxt, firmware ? pkgs.raspberrypifw }:
+{
+  pkgs,
+  configTxt,
+  firmware ? pkgs.raspberrypifw
+}:
 
 pkgs.substituteAll {
   src = ./raspberrypi-builder.sh;

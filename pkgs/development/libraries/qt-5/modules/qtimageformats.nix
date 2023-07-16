@@ -1,4 +1,8 @@
-{ qtModule, qtbase, libtiff }:
+{
+  qtModule,
+  qtbase,
+  libtiff,
+}:
 
 qtModule {
   pname = "qtimageformats";

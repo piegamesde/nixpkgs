@@ -1,5 +1,15 @@
-{ lib, astor, buildPythonPackage, fetchFromGitHub, funcparserlib, hy
-, pytestCheckHook, python, pythonOlder, testers }:
+{
+  lib,
+  astor,
+  buildPythonPackage,
+  fetchFromGitHub,
+  funcparserlib,
+  hy,
+  pytestCheckHook,
+  python,
+  pythonOlder,
+  testers,
+}:
 
 buildPythonPackage rec {
   pname = "hy";

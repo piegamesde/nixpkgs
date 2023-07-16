@@ -1,5 +1,17 @@
-{ buildFHSEnv, electron_22, fetchFromGitHub, fetchYarnDeps, fixup_yarn_lock, git
-, lib, makeDesktopItem, nodejs_16, stdenvNoCC, util-linux, zip }:
+{
+  buildFHSEnv,
+  electron_22,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  fixup_yarn_lock,
+  git,
+  lib,
+  makeDesktopItem,
+  nodejs_16,
+  stdenvNoCC,
+  util-linux,
+  zip,
+}:
 
 let
   pname = "electron-fiddle";

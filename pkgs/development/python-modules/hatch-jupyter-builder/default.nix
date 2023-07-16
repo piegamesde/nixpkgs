@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, hatchling, pytest-mock
-, pytestCheckHook, tomli, twine }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatchling,
+  pytest-mock,
+  pytestCheckHook,
+  tomli,
+  twine,
+}:
 
 buildPythonPackage rec {
   pname = "hatch-jupyter-builder";

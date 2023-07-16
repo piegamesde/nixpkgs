@@ -1,4 +1,11 @@
-{ lib, stdenv, mkDerivation, dpkg, fetchurl, qtbase }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  dpkg,
+  fetchurl,
+  qtbase,
+}:
 
 let
   # To obtain the version you will need to run the following command:

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitLab, getopt, lua, boost, libxcrypt, pkg-config, swig
-, perl, gcc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  getopt,
+  lua,
+  boost,
+  libxcrypt,
+  pkg-config,
+  swig,
+  perl,
+  gcc,
+}:
 
 let
   self = stdenv.mkDerivation rec {

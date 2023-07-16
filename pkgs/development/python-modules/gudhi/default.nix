@@ -1,7 +1,23 @@
-{ lib, fetchFromGitHub, buildPythonPackage, cmake, boost, eigen, gmp
-, cgal_5 # see https://github.com/NixOS/nixpkgs/pull/94875 about cgal
-, mpfr, tbb, numpy, cython, pybind11, matplotlib, scipy, pytest
-, enableTBB ? false }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  cmake,
+  boost,
+  eigen,
+  gmp,
+  cgal_5 # see https://github.com/NixOS/nixpkgs/pull/94875 about cgal
+  ,
+  mpfr,
+  tbb,
+  numpy,
+  cython,
+  pybind11,
+  matplotlib,
+  scipy,
+  pytest,
+  enableTBB ? false
+}:
 
 buildPythonPackage rec {
   pname = "gudhi";

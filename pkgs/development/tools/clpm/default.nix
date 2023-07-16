@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchgit, wrapLisp, openssl, sbcl }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  wrapLisp,
+  openssl,
+  sbcl,
+}:
 
 # Broken on newer versions:
 # "https://gitlab.common-lisp.net/clpm/clpm/-/issues/51". Once that bug is

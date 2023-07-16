@@ -1,4 +1,10 @@
-{ writeText, bazel, runLocal, bazelTest, distDir }:
+{
+  writeText,
+  bazel,
+  runLocal,
+  bazelTest,
+  distDir,
+}:
 
 # Tests that certain executables are available in bazel-executed bash shells.
 

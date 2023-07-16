@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, docopt, netifaces }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  docopt,
+  netifaces,
+}:
 
 buildPythonPackage rec {
   pname = "onkyo-eiscp";

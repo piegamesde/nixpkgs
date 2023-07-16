@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, metakernel, pytestCheckHook, yasi }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  metakernel,
+  pytestCheckHook,
+  yasi,
+}:
 
 buildPythonPackage rec {
   pname = "calysto-scheme";

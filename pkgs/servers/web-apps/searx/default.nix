@@ -1,4 +1,11 @@
-{ lib, nixosTests, python3, python3Packages, fetchFromGitHub, fetchpatch }:
+{
+  lib,
+  nixosTests,
+  python3,
+  python3Packages,
+  fetchFromGitHub,
+  fetchpatch,
+}:
 
 with python3Packages;
 

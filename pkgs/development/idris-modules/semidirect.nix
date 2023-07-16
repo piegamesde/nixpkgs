@@ -1,4 +1,10 @@
-{ build-idris-package, fetchFromGitHub, contrib, patricia, lib }:
+{
+  build-idris-package,
+  fetchFromGitHub,
+  contrib,
+  patricia,
+  lib,
+}:
 build-idris-package {
   pname = "semidirect";
   version = "2018-07-02";

@@ -1,10 +1,15 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
 
   {
     name = "cage";
     meta = with pkgs.lib.maintainers; { maintainers = [ matthewbauer ]; };
 
-    nodes.machine = { ... }:
+    nodes.machine = {
+        ...
+      }:
 
       {
         imports = [ ./common/user-account.nix ];
@@ -23,7 +28,10 @@ import ./make-test-python.nix ({ pkgs, ... }:
 
     enableOCR = true;
 
-    testScript = { nodes, ... }:
+    testScript = {
+        nodes,
+        ...
+      }:
       let user = nodes.machine.config.users.users.alice;
       in ''
         with subtest("Wait for cage to boot up"):

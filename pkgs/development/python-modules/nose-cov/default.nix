@@ -1,4 +1,10 @@
-{ buildPythonPackage, fetchPypi, lib, nose, covCore }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  lib,
+  nose,
+  covCore,
+}:
 
 buildPythonPackage rec {
   pname = "nose-cov";

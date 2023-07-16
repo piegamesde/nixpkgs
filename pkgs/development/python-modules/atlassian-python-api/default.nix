@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, deprecated, oauthlib, requests
-, requests-oauthlib, six, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  deprecated,
+  oauthlib,
+  requests,
+  requests-oauthlib,
+  six,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "atlassian-python-api";

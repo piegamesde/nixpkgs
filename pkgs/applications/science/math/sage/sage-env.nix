@@ -1,9 +1,57 @@
-{ stdenv, lib, writeTextFile, sagelib, sage-docbuild, env-locations, gfortran
-, bash, coreutils, gnused, gnugrep, binutils, pythonEnv, python3, pkg-config
-, pari, gap, maxima, singular, fflas-ffpack, givaro, gd, libpng, linbox, m4ri
-, giac, palp, rWrapper, gfan, cddlib, jmol, tachyon, glpk, eclib, sympow, nauty
-, sqlite, ppl, ecm, lcalc, rubiks, flintqs, blas, lapack, flint, gmp, mpfr, zlib
-, gsl, ntl, jdk, less }:
+{
+  stdenv,
+  lib,
+  writeTextFile,
+  sagelib,
+  sage-docbuild,
+  env-locations,
+  gfortran,
+  bash,
+  coreutils,
+  gnused,
+  gnugrep,
+  binutils,
+  pythonEnv,
+  python3,
+  pkg-config,
+  pari,
+  gap,
+  maxima,
+  singular,
+  fflas-ffpack,
+  givaro,
+  gd,
+  libpng,
+  linbox,
+  m4ri,
+  giac,
+  palp,
+  rWrapper,
+  gfan,
+  cddlib,
+  jmol,
+  tachyon,
+  glpk,
+  eclib,
+  sympow,
+  nauty,
+  sqlite,
+  ppl,
+  ecm,
+  lcalc,
+  rubiks,
+  flintqs,
+  blas,
+  lapack,
+  flint,
+  gmp,
+  mpfr,
+  zlib,
+  gsl,
+  ntl,
+  jdk,
+  less,
+}:
 
 assert (!blas.isILP64) && (!lapack.isILP64);
 

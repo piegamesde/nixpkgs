@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, aenum, requests, simplejson
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  aenum,
+  requests,
+  simplejson,
 }:
 
 buildPythonPackage rec {

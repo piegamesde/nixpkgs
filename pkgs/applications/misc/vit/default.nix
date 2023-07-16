@@ -1,4 +1,9 @@
-{ lib, python3Packages, taskwarrior, glibcLocales }:
+{
+  lib,
+  python3Packages,
+  taskwarrior,
+  glibcLocales,
+}:
 
 with python3Packages;
 

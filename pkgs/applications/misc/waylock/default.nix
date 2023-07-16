@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, zig, wayland, pkg-config, scdoc
-, wayland-protocols, libxkbcommon, pam }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  zig,
+  wayland,
+  pkg-config,
+  scdoc,
+  wayland-protocols,
+  libxkbcommon,
+  pam,
+}:
 stdenv.mkDerivation rec {
   pname = "waylock";
   version = "0.6.2";

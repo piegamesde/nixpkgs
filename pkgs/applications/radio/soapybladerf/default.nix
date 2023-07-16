@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libbladeRF, soapysdr, libobjc
-, IOKit, Security }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libbladeRF,
+  soapysdr,
+  libobjc,
+  IOKit,
+  Security,
+}:
 
 let version = "0.4.1";
 

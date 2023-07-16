@@ -1,4 +1,10 @@
-{ lib, mkFranzDerivation, fetchurl, xorg, nix-update-script }:
+{
+  lib,
+  mkFranzDerivation,
+  fetchurl,
+  xorg,
+  nix-update-script,
+}:
 
 mkFranzDerivation rec {
   pname = "ferdium";

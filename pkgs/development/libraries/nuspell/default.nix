@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, icu, catch2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  icu,
+  catch2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nuspell";

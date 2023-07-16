@@ -1,8 +1,34 @@
-{ lib, stdenv, botocore, buildPythonPackage, cryptography, cssselect, fetchPypi
-, fetchpatch, glibcLocales, installShellFiles, itemadapter, itemloaders
-, jmespath, lxml, packaging, parsel, protego, pydispatcher, pyopenssl
-, pytestCheckHook, pythonOlder, queuelib, service-identity, sybil, testfixtures
-, tldextract, twisted, w3lib, zope_interface }:
+{
+  lib,
+  stdenv,
+  botocore,
+  buildPythonPackage,
+  cryptography,
+  cssselect,
+  fetchPypi,
+  fetchpatch,
+  glibcLocales,
+  installShellFiles,
+  itemadapter,
+  itemloaders,
+  jmespath,
+  lxml,
+  packaging,
+  parsel,
+  protego,
+  pydispatcher,
+  pyopenssl,
+  pytestCheckHook,
+  pythonOlder,
+  queuelib,
+  service-identity,
+  sybil,
+  testfixtures,
+  tldextract,
+  twisted,
+  w3lib,
+  zope_interface,
+}:
 
 buildPythonPackage rec {
   pname = "scrapy";

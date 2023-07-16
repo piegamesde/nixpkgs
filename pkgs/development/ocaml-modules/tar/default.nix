@@ -1,5 +1,12 @@
-{ lib, fetchurl, buildDunePackage, camlp-streams, ppx_cstruct, cstruct
-, decompress }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  camlp-streams,
+  ppx_cstruct,
+  cstruct,
+  decompress,
+}:
 
 buildDunePackage rec {
   pname = "tar";

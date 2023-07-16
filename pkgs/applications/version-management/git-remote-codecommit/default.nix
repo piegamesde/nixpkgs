@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, python3Packages, awscli }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  awscli,
+}:
 
 with python3Packages;
 

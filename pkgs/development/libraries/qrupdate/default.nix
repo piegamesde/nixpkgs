@@ -1,4 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, gfortran, blas, cmake, lapack, which }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  gfortran,
+  blas,
+  cmake,
+  lapack,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qrupdate";

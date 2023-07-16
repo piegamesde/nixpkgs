@@ -1,4 +1,11 @@
-{ stdenv, lib, coursier, jre, makeWrapper, setJavaClassPath }:
+{
+  stdenv,
+  lib,
+  coursier,
+  jre,
+  makeWrapper,
+  setJavaClassPath,
+}:
 
 stdenv.mkDerivation rec {
   pname = "metals";

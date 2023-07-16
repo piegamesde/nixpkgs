@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, hatchling, packaging
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatchling,
+  packaging,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "hatch-requirements-txt";

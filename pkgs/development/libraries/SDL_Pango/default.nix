@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchpatch, fetchurl, SDL, autoreconfHook, pango, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchurl,
+  SDL,
+  autoreconfHook,
+  pango,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "SDL_Pango";

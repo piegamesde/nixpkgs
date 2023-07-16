@@ -1,4 +1,10 @@
-{ lib, stdenv, buildEnv, fetchzip, mono }:
+{
+  lib,
+  stdenv,
+  buildEnv,
+  fetchzip,
+  mono,
+}:
 
 let
   version = "0.12.0";

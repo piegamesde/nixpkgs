@@ -1,6 +1,26 @@
-{ stdenv, lib, fetchFromGitLab, dbus, desktop-file-utils, gdk-pixbuf, gettext
-, gitMinimal, glib, gst_all_1, gtk4, libadwaita, meson, ninja, openssl
-, pkg-config, rustPlatform, sqlite, wrapGAppsHook4, cmake, libshumate }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  dbus,
+  desktop-file-utils,
+  gdk-pixbuf,
+  gettext,
+  gitMinimal,
+  glib,
+  gst_all_1,
+  gtk4,
+  libadwaita,
+  meson,
+  ninja,
+  openssl,
+  pkg-config,
+  rustPlatform,
+  sqlite,
+  wrapGAppsHook4,
+  cmake,
+  libshumate,
+}:
 
 stdenv.mkDerivation rec {
   pname = "shortwave";

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, ruby, gnugrep, diffutils, git, darcs }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ruby,
+  gnugrep,
+  diffutils,
+  git,
+  darcs,
+}:
 
 stdenv.mkDerivation {
   pname = "darcs-to-git";

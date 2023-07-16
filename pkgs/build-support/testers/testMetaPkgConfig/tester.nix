@@ -1,4 +1,8 @@
-{ lib, runCommand, testers }:
+{
+  lib,
+  runCommand,
+  testers,
+}:
 
 package:
 

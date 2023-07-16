@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cmake, lua }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  lua,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.0.93";

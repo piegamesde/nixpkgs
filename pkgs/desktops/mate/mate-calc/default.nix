@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, pkg-config, gettext, itstool, gtk3, libmpc, libxml2
-, mpfr, wrapGAppsHook, mateUpdateScript }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gettext,
+  itstool,
+  gtk3,
+  libmpc,
+  libxml2,
+  mpfr,
+  wrapGAppsHook,
+  mateUpdateScript,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mate-calc";

@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, coreutils, runtimeShell, testers, skeema
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  coreutils,
+  runtimeShell,
+  testers,
+  skeema,
 }:
 
 buildGoModule rec {

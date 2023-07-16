@@ -1,9 +1,21 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, pkg-config, fetchpatch, ncurses
-, libpcap, libnet
-# alpha version of GTK interface
-, withGtk ? false, gtk2
-# enable remote admin interface
-, enableAdmin ? false }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  fetchpatch,
+  ncurses,
+  libpcap,
+  libnet
+  # alpha version of GTK interface
+  ,
+  withGtk ? false,
+  gtk2
+  # enable remote admin interface
+  ,
+  enableAdmin ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "yersinia";

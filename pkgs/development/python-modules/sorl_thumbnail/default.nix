@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "sorl-thumbnail";

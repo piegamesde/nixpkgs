@@ -1,4 +1,13 @@
-{ stdenv, lib, perl, pandoc, fetchFromGitHub, xdotool, wmctrl, xprop, nettools
+{
+  stdenv,
+  lib,
+  perl,
+  pandoc,
+  fetchFromGitHub,
+  xdotool,
+  wmctrl,
+  xprop,
+  nettools,
 }:
 
 stdenv.mkDerivation rec {

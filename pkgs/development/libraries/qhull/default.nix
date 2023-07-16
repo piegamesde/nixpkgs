@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cmake, fixDarwinDylibNames }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  fixDarwinDylibNames,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qhull";

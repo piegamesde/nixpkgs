@@ -1,5 +1,19 @@
-{ lib, rustPlatform, fetchCrate, cmake, installShellFiles, pkg-config, ronn
-, stdenv, curl, libgit2_1_5, libssh2, openssl, zlib, darwin }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  cmake,
+  installShellFiles,
+  pkg-config,
+  ronn,
+  stdenv,
+  curl,
+  libgit2_1_5,
+  libssh2,
+  openssl,
+  zlib,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-update";

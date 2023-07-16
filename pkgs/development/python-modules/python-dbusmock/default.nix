@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, nose, dbus, dbus-python, pygobject3
-, bluez, networkmanager, setuptools-scm, runCommand }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  nose,
+  dbus,
+  dbus-python,
+  pygobject3,
+  bluez,
+  networkmanager,
+  setuptools-scm,
+  runCommand,
+}:
 
 let
   # Cannot just add it to path in preCheck since that attribute will be passed to

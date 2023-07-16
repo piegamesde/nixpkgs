@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, bison, flex, verilog, which }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  bison,
+  flex,
+  verilog,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vhd2vl";

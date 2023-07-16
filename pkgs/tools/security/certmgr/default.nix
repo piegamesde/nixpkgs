@@ -1,7 +1,14 @@
-{ lib, buildGoPackage, fetchFromGitHub, fetchpatch }:
+{
+  lib,
+  buildGoPackage,
+  fetchFromGitHub,
+  fetchpatch,
+}:
 
 let
-  generic = { patches ? [ ] }:
+  generic = {
+      patches ? [ ]
+    }:
     buildGoPackage rec {
       version = "1.6.4";
       pname = "certmgr";

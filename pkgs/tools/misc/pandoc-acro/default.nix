@@ -1,5 +1,14 @@
-{ buildPythonApplication, fetchPypi, pandocfilters, panflute, lib, pandoc
-, pandoc-acro, texlive, runCommand }:
+{
+  buildPythonApplication,
+  fetchPypi,
+  pandocfilters,
+  panflute,
+  lib,
+  pandoc,
+  pandoc-acro,
+  texlive,
+  runCommand,
+}:
 
 let
   pname = "pandoc-acro";

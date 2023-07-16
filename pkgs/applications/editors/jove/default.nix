@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, groff, makeWrapper, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  groff,
+  makeWrapper,
+  ncurses,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "jove";

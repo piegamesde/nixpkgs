@@ -1,6 +1,21 @@
-{ lib, fetchFromGitLab, buildPythonApplication, autoreconfHook, debian, perl
-, vala, pkg-config, libgee, json-glib, properties-cpp, gobject-introspection
-, getopt, setuptools, pygobject3, wrapGAppsHook }:
+{
+  lib,
+  fetchFromGitLab,
+  buildPythonApplication,
+  autoreconfHook,
+  debian,
+  perl,
+  vala,
+  pkg-config,
+  libgee,
+  json-glib,
+  properties-cpp,
+  gobject-introspection,
+  getopt,
+  setuptools,
+  pygobject3,
+  wrapGAppsHook,
+}:
 
 buildPythonApplication {
   pname = "click";

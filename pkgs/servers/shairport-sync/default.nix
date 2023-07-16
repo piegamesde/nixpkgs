@@ -1,10 +1,39 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, openssl_1_1, avahi
-, alsa-lib, libplist, glib, libdaemon, libsodium, libgcrypt, ffmpeg, libuuid
-, unixtools, popt, libconfig, libpulseaudio, libjack2, pipewire, soxr
-, enableAirplay2 ? false, enableStdout ? true, enableAlsa ? true
-, enablePulse ? true, enablePipe ? true, enablePipewire ? true
-, enableJack ? true, enableMetadata ? false, enableMpris ? stdenv.isLinux
-, enableDbus ? stdenv.isLinux, enableSoxr ? true, enableLibdaemon ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  openssl_1_1,
+  avahi,
+  alsa-lib,
+  libplist,
+  glib,
+  libdaemon,
+  libsodium,
+  libgcrypt,
+  ffmpeg,
+  libuuid,
+  unixtools,
+  popt,
+  libconfig,
+  libpulseaudio,
+  libjack2,
+  pipewire,
+  soxr,
+  enableAirplay2 ? false,
+  enableStdout ? true,
+  enableAlsa ? true,
+  enablePulse ? true,
+  enablePipe ? true,
+  enablePipewire ? true,
+  enableJack ? true,
+  enableMetadata ? false,
+  enableMpris ? stdenv.isLinux,
+  enableDbus ? stdenv.isLinux,
+  enableSoxr ? true,
+  enableLibdaemon ? false
+}:
 
 stdenv.mkDerivation rec {
   version = "4.1.1";

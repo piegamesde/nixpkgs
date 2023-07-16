@@ -1,4 +1,8 @@
-{ lib, fetchurl, buildGoPackage }:
+{
+  lib,
+  fetchurl,
+  buildGoPackage,
+}:
 
 buildGoPackage rec {
 

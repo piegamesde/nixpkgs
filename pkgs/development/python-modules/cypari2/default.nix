@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, python, fetchpatch, fetchPypi, pari, gmp, cython
-, cysignals }:
+{
+  lib,
+  buildPythonPackage,
+  python,
+  fetchpatch,
+  fetchPypi,
+  pari,
+  gmp,
+  cython,
+  cysignals,
+}:
 
 buildPythonPackage rec {
   pname = "cypari2";

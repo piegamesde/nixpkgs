@@ -1,7 +1,28 @@
-{ lib, anytree, buildPythonPackage, cached-property, cgen, click, codepy
-, distributed, fetchFromGitHub, gcc, llvmPackages, matplotlib, multidict, nbval
-, psutil, py-cpuinfo, pyrevolve, pytest-xdist, pytestCheckHook, pythonOlder
-, scipy, stdenv, sympy }:
+{
+  lib,
+  anytree,
+  buildPythonPackage,
+  cached-property,
+  cgen,
+  click,
+  codepy,
+  distributed,
+  fetchFromGitHub,
+  gcc,
+  llvmPackages,
+  matplotlib,
+  multidict,
+  nbval,
+  psutil,
+  py-cpuinfo,
+  pyrevolve,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  scipy,
+  stdenv,
+  sympy,
+}:
 
 buildPythonPackage rec {
   pname = "devito";

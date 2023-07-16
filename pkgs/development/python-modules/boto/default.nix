@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, pythonAtLeast, python, nose, mock
-, requests, httpretty }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonAtLeast,
+  python,
+  nose,
+  mock,
+  requests,
+  httpretty,
+}:
 
 buildPythonPackage rec {
   pname = "boto";

@@ -1,4 +1,6 @@
-{ handleTest }:
+{
+  handleTest,
+}:
 
 {
   unencrypted = handleTest ./unencrypted.nix { };

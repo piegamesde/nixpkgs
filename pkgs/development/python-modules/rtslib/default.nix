@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, fetchpatch, buildPythonPackage, six, pyudev, pygobject3
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  buildPythonPackage,
+  six,
+  pyudev,
+  pygobject3,
 }:
 
 buildPythonPackage rec {

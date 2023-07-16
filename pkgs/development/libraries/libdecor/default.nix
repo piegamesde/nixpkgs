@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchFromGitLab, pkg-config, meson, ninja, wayland
-, wayland-protocols, wayland-scanner, cairo, dbus, pango }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  pkg-config,
+  meson,
+  ninja,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+  cairo,
+  dbus,
+  pango,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libdecor";

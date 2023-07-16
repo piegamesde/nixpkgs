@@ -1,5 +1,16 @@
-{ stdenv, fetchFromGitHub, pkg-config, glib, pandoc, systemd, libyaml, python3
-, libuuid, bash-completion, lib }:
+{
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  glib,
+  pandoc,
+  systemd,
+  libyaml,
+  python3,
+  libuuid,
+  bash-completion,
+  lib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "netplan";

@@ -1,4 +1,9 @@
-{ lib, fetchPypi, buildPythonPackage, pythonOlder }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "sabyenc3";

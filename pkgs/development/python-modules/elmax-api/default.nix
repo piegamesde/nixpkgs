@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, httpx, pyjwt, pythonOlder, yarl }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  httpx,
+  pyjwt,
+  pythonOlder,
+  yarl,
+}:
 
 buildPythonPackage rec {
   pname = "elmax-api";

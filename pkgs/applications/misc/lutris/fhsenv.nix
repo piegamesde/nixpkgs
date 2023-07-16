@@ -1,5 +1,11 @@
-{ lib, buildFHSEnv, lutris-unwrapped, extraPkgs ? pkgs: [ ]
-, extraLibraries ? pkgs: [ ], steamSupport ? true }:
+{
+  lib,
+  buildFHSEnv,
+  lutris-unwrapped,
+  extraPkgs ? pkgs: [ ],
+  extraLibraries ? pkgs: [ ],
+  steamSupport ? true
+}:
 
 let
 

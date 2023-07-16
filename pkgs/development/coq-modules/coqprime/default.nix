@@ -1,4 +1,11 @@
-{ which, lib, mkCoqDerivation, coq, bignums, version ? null }:
+{
+  which,
+  lib,
+  mkCoqDerivation,
+  coq,
+  bignums,
+  version ? null
+}:
 
 mkCoqDerivation {
 

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, isPy3k, olm, cffi, future, aspectlib
-, pytest-benchmark, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  isPy3k,
+  olm,
+  cffi,
+  future,
+  aspectlib,
+  pytest-benchmark,
+  pytestCheckHook,
+}:
 
 buildPythonPackage {
   pname = "python-olm";

@@ -1,13 +1,20 @@
-{ lib, buildPythonPackage, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub
 
-# build time
-, setuptools-scm
+  # build time
+  ,
+  setuptools-scm
 
-# propagates
-, aiohttp
+  # propagates
+  ,
+  aiohttp
 
-# tests
-, pytestCheckHook }:
+  # tests
+  ,
+  pytestCheckHook,
+}:
 
 let
   pname = "ukrainealarm";

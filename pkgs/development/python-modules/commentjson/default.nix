@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, six, lark, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  six,
+  lark,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "commentjson";

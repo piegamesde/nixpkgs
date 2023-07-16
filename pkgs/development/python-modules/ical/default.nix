@@ -1,6 +1,21 @@
-{ lib, python-dateutil, buildPythonPackage, emoji, fetchFromGitHub, freezegun
-, tzdata, py, pyparsing, pydantic, pytest-asyncio, pytest-benchmark
-, pytest-golden, pytestCheckHook, pythonOlder, pyyaml }:
+{
+  lib,
+  python-dateutil,
+  buildPythonPackage,
+  emoji,
+  fetchFromGitHub,
+  freezegun,
+  tzdata,
+  py,
+  pyparsing,
+  pydantic,
+  pytest-asyncio,
+  pytest-benchmark,
+  pytest-golden,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "ical";

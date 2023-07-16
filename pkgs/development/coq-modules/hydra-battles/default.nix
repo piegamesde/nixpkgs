@@ -1,4 +1,11 @@
-{ lib, mkCoqDerivation, coq, equations, LibHyps, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  equations,
+  LibHyps,
+  version ? null
+}:
 
 (mkCoqDerivation {
   pname = "hydra-battles";

@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, wrapQtAppsHook, glibmm
-, doxygen, qttools, qtbase, buildDocs ? true }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  wrapQtAppsHook,
+  glibmm,
+  doxygen,
+  qttools,
+  qtbase,
+  buildDocs ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "gio-qt";

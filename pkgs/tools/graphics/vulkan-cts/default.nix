@@ -1,7 +1,28 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, cmake, ffmpeg_4, libdrm, libglvnd
-, libffi, libpng, libX11, libXau, libXdmcp, libxcb, makeWrapper, ninja
-, pkg-config, python3, vulkan-loader, wayland, wayland-protocols
-, wayland-scanner, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  cmake,
+  ffmpeg_4,
+  libdrm,
+  libglvnd,
+  libffi,
+  libpng,
+  libX11,
+  libXau,
+  libXdmcp,
+  libxcb,
+  makeWrapper,
+  ninja,
+  pkg-config,
+  python3,
+  vulkan-loader,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+  zlib,
+}:
 let
   renderdoc = fetchurl {
     url =

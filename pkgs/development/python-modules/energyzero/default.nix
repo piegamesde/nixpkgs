@@ -1,5 +1,16 @@
-{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, poetry-core
-, pytest-asyncio, pytest-freezer, pytestCheckHook, pythonOlder, yarl }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-asyncio,
+  pytest-freezer,
+  pytestCheckHook,
+  pythonOlder,
+  yarl,
+}:
 
 buildPythonPackage rec {
   pname = "energyzero";

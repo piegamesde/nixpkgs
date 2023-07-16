@@ -1,5 +1,20 @@
-{ fetchCrate, lib, rustPlatform, pkg-config, openssl, zlib, stdenv, darwin
-, libssh2, libgit2, IOKit, Security, CoreFoundation, AppKit, System }:
+{
+  fetchCrate,
+  lib,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  zlib,
+  stdenv,
+  darwin,
+  libssh2,
+  libgit2,
+  IOKit,
+  Security,
+  CoreFoundation,
+  AppKit,
+  System,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-workspaces";

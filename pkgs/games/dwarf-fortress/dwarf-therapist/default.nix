@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, qtbase, qtdeclarative, cmake, texlive, ninja }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qtbase,
+  qtdeclarative,
+  cmake,
+  texlive,
+  ninja,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dwarf-therapist";

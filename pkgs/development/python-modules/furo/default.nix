@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, sphinx, beautifulsoup4
-, sphinx-basic-ng }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  sphinx,
+  beautifulsoup4,
+  sphinx-basic-ng,
+}:
 
 buildPythonPackage rec {
   pname = "furo";

@@ -1,6 +1,15 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, pkg-config, openssl, ppp
-, systemd, withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
-, withPpp ? stdenv.isLinux }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  openssl,
+  ppp,
+  systemd,
+  withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
+  withPpp ? stdenv.isLinux
+}:
 
 stdenv.mkDerivation rec {
   pname = "openfortivpn";

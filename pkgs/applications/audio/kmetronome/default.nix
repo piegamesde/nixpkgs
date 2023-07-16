@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, cmake, pkg-config, qttools, alsa-lib, drumstick, qtbase
-, qtsvg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  pkg-config,
+  qttools,
+  alsa-lib,
+  drumstick,
+  qtbase,
+  qtsvg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kmetronome";

@@ -1,6 +1,22 @@
-{ alsa-lib, fetchFromGitHub, makeWrapper, openssl, pkg-config, python3
-, rustPlatform, lib, wayland, xorg, vulkan-loader, jre_minimal, cairo, gtk3
-, wrapGAppsHook, gsettings-desktop-schemas, glib }:
+{
+  alsa-lib,
+  fetchFromGitHub,
+  makeWrapper,
+  openssl,
+  pkg-config,
+  python3,
+  rustPlatform,
+  lib,
+  wayland,
+  xorg,
+  vulkan-loader,
+  jre_minimal,
+  cairo,
+  gtk3,
+  wrapGAppsHook,
+  gsettings-desktop-schemas,
+  glib,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "ruffle";

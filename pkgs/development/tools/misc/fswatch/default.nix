@@ -1,6 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook
-# for xargs
-, gettext, libtool, makeWrapper, texinfo, CoreServices }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook
+  # for xargs
+  ,
+  gettext,
+  libtool,
+  makeWrapper,
+  texinfo,
+  CoreServices,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fswatch";

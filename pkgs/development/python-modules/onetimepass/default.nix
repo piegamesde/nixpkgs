@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, six, timecop }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  six,
+  timecop,
+}:
 
 buildPythonPackage rec {
   pname = "onetimepass";

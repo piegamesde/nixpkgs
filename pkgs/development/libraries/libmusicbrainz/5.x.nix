@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, neon, libdiscid, libxml2, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  neon,
+  libdiscid,
+  libxml2,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   version = "5.1.0";

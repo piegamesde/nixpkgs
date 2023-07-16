@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, file }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+  file,
+}:
 
 stdenv.mkDerivation rec {
   pname = "exfatprogs";

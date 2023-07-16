@@ -1,4 +1,12 @@
-{ lib, buildDunePackage, fetchurl, arp, ethernet, ipaddr, tcpip }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  arp,
+  ethernet,
+  ipaddr,
+  tcpip,
+}:
 
 buildDunePackage rec {
   pname = "mirage-protocols";

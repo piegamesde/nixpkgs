@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, isPyPy, pytestCheckHook, cython, toolz
-, python, isPy27 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPyPy,
+  pytestCheckHook,
+  cython,
+  toolz,
+  python,
+  isPy27,
+}:
 
 buildPythonPackage rec {
   pname = "cytoolz";

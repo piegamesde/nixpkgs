@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchCrate, rustPlatform, pkg-config, openssl, CoreServices }:
+{
+  lib,
+  stdenv,
+  fetchCrate,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  CoreServices,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "mdbook-pdf";

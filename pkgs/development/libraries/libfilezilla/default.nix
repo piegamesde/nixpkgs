@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, autoreconfHook, gettext, gnutls, nettle, pkg-config
-, libiconv, libxcrypt, ApplicationServices }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  gettext,
+  gnutls,
+  nettle,
+  pkg-config,
+  libiconv,
+  libxcrypt,
+  ApplicationServices,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libfilezilla";

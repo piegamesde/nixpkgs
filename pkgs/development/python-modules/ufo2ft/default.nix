@@ -1,14 +1,27 @@
-{ lib, buildPythonPackage, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi
 
-# build
-, setuptools-scm
+  # build
+  ,
+  setuptools-scm
 
-# runtime
-, booleanoperations, cffsubr, compreffor, cu2qu, defcon, fonttools, skia-pathops
-, ufoLib2
+  # runtime
+  ,
+  booleanoperations,
+  cffsubr,
+  compreffor,
+  cu2qu,
+  defcon,
+  fonttools,
+  skia-pathops,
+  ufoLib2
 
-# tests
-, pytestCheckHook }:
+  # tests
+  ,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "ufo2ft";

@@ -1,4 +1,10 @@
-{ lib, mkCoqDerivation, coq, mathcomp-algebra, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  mathcomp-algebra,
+  version ? null
+}:
 
 mkCoqDerivation {
   pname = "coq-bits";

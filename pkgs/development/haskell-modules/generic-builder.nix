@@ -1,5 +1,16 @@
-{ lib, stdenv, buildPackages, buildHaskellPackages, ghc, jailbreak-cabal
-, hscolour, cpphs, nodejs, ghcWithHoogle, ghcWithPackages }:
+{
+  lib,
+  stdenv,
+  buildPackages,
+  buildHaskellPackages,
+  ghc,
+  jailbreak-cabal,
+  hscolour,
+  cpphs,
+  nodejs,
+  ghcWithHoogle,
+  ghcWithPackages,
+}:
 
 let
   isCross = stdenv.buildPlatform != stdenv.hostPlatform;
@@ -7,75 +18,143 @@ let
     fetchurl removeReferencesTo pkg-config coreutils gnugrep gnused
     glibcLocales;
 
-in { pname
-# Note that ghc.isGhcjs != stdenv.hostPlatform.isGhcjs.
-# ghc.isGhcjs implies that we are using ghcjs, a project separate from GHC.
-# (mere) stdenv.hostPlatform.isGhcjs means that we are using GHC's JavaScript
-# backend. The latter is a normal cross compilation backend and needs little
-# special accomodation.
-, dontStrip ? (ghc.isGhcjs or false || stdenv.hostPlatform.isGhcjs), version
-, revision ? null, sha256 ? null, src ? fetchurl {
-  url = "mirror://hackage/${pname}-${version}.tar.gz";
-  inherit sha256;
-}, buildDepends ? [ ], setupHaskellDepends ? [ ], libraryHaskellDepends ? [ ]
-, executableHaskellDepends ? [ ], buildTarget ? "", buildTools ? [ ]
-, libraryToolDepends ? [ ], executableToolDepends ? [ ], testToolDepends ? [ ]
-, benchmarkToolDepends ? [ ], configureFlags ? [ ], buildFlags ? [ ]
-, haddockFlags ? [ ], description ? null
-, doCheck ? !isCross && lib.versionOlder "7.4" ghc.version, doBenchmark ? false
-, doHoogle ? true
-, doHaddockQuickjump ? doHoogle && lib.versionAtLeast ghc.version "8.6"
-, editedCabalFile ? null
-  # aarch64 outputs otherwise exceed 2GB limit
-, enableLibraryProfiling ?
-  !(ghc.isGhcjs or stdenv.targetPlatform.isAarch64 or false)
-, enableExecutableProfiling ? false, profilingDetail ? "exported-functions"
-  # TODO enable shared libs for cross-compiling
-, enableSharedExecutables ? false, enableSharedLibraries ?
-  !stdenv.hostPlatform.isStatic && (ghc.enableShared or false)
-, enableDeadCodeElimination ?
-  (!stdenv.isDarwin) # TODO: use -dead_strip for darwin
-, enableStaticLibraries ?
-  !(stdenv.hostPlatform.isWindows or stdenv.hostPlatform.isWasm)
-, enableHsc2hsViaAsm ? stdenv.hostPlatform.isWindows
-  && lib.versionAtLeast ghc.version "8.4", extraLibraries ? [ ]
-, librarySystemDepends ? [ ], executableSystemDepends ? [ ]
-  # On macOS, statically linking against system frameworks is not supported;
-  # see https://developer.apple.com/library/content/qa/qa1118/_index.html
-  # They must be propagated to the environment of any executable linking with the library
-, libraryFrameworkDepends ? [ ], executableFrameworkDepends ? [ ]
-, homepage ? "https://hackage.haskell.org/package/${pname}"
-, platforms ? with lib.platforms; all # GHC can cross-compile
-, badPlatforms ? lib.platforms.none, hydraPlatforms ? null
-, hyperlinkSource ? true, isExecutable ? false, isLibrary ? !isExecutable
-, jailbreak ? false, license, enableParallelBuilding ? true, maintainers ? null
-, changelog ? null, mainProgram ? null, doCoverage ? false
-, doHaddock ? !(ghc.isHaLVM or false) && (ghc.hasHaddock or true)
-, doHaddockInterfaces ? doHaddock && lib.versionAtLeast ghc.version "9.0.1"
-, passthru ? { }, pkg-configDepends ? [ ], libraryPkgconfigDepends ? [ ]
-, executablePkgconfigDepends ? [ ], testPkgconfigDepends ? [ ]
-, benchmarkPkgconfigDepends ? [ ], testDepends ? [ ], testHaskellDepends ? [ ]
-, testSystemDepends ? [ ], testFrameworkDepends ? [ ], benchmarkDepends ? [ ]
-, benchmarkHaskellDepends ? [ ], benchmarkSystemDepends ? [ ]
-, benchmarkFrameworkDepends ? [ ], testTarget ? "", testFlags ? [ ]
-, broken ? false, preCompileBuildDriver ? null, postCompileBuildDriver ? null
-, preUnpack ? null, postUnpack ? null, patches ? null, patchPhase ? null
-, prePatch ? "", postPatch ? "", preConfigure ? null, postConfigure ? null
-, preBuild ? null, postBuild ? null, preHaddock ? null, postHaddock ? null
-, installPhase ? null, preInstall ? null, postInstall ? null, checkPhase ? null
-, preCheck ? null, postCheck ? null, preFixup ? null, postFixup ? null
-, shellHook ? "", coreSetup ? false # Use only core packages to build Setup.hs.
-, useCpphs ? false, hardeningDisable ? null, enableSeparateBinOutput ? false
-, enableSeparateDataOutput ? false, enableSeparateDocOutput ? doHaddock
-, # Don't fail at configure time if there are multiple versions of the
-# same package in the (recursive) dependencies of the package being
-# built. Will delay failures, if any, to compile time.
-allowInconsistentDependencies ? false, maxBuildCores ?
-  16 # more cores usually don't improve performance: https://ghc.haskell.org/trac/ghc/ticket/9221
-, # If set to true, this builds a pre-linked .o file for this Haskell library.
-# This can make it slightly faster to load this library into GHCi, but takes
-# extra disk space and compile time.
-enableLibraryForGhci ? false }@args:
+in {
+  pname
+  # Note that ghc.isGhcjs != stdenv.hostPlatform.isGhcjs.
+  # ghc.isGhcjs implies that we are using ghcjs, a project separate from GHC.
+  # (mere) stdenv.hostPlatform.isGhcjs means that we are using GHC's JavaScript
+  # backend. The latter is a normal cross compilation backend and needs little
+  # special accomodation.
+  ,
+  dontStrip ? (ghc.isGhcjs or false || stdenv.hostPlatform.isGhcjs),
+  version,
+  revision ? null,
+  sha256 ? null,
+  src ? fetchurl {
+    url = "mirror://hackage/${pname}-${version}.tar.gz";
+    inherit sha256;
+  },
+  buildDepends ? [ ],
+  setupHaskellDepends ? [ ],
+  libraryHaskellDepends ? [ ],
+  executableHaskellDepends ? [ ],
+  buildTarget ? "",
+  buildTools ? [ ],
+  libraryToolDepends ? [ ],
+  executableToolDepends ? [ ],
+  testToolDepends ? [ ],
+  benchmarkToolDepends ? [ ],
+  configureFlags ? [ ],
+  buildFlags ? [ ],
+  haddockFlags ? [ ],
+  description ? null,
+  doCheck ? !isCross && lib.versionOlder "7.4" ghc.version,
+  doBenchmark ? false,
+  doHoogle ? true,
+  doHaddockQuickjump ? doHoogle && lib.versionAtLeast ghc.version "8.6",
+  editedCabalFile ? null
+    # aarch64 outputs otherwise exceed 2GB limit
+  ,
+  enableLibraryProfiling ?
+    !(ghc.isGhcjs or stdenv.targetPlatform.isAarch64 or false),
+  enableExecutableProfiling ? false,
+  profilingDetail ? "exported-functions"
+    # TODO enable shared libs for cross-compiling
+  ,
+  enableSharedExecutables ? false,
+  enableSharedLibraries ? !stdenv.hostPlatform.isStatic
+    && (ghc.enableShared or false),
+  enableDeadCodeElimination ?
+    (!stdenv.isDarwin) # TODO: use -dead_strip for darwin
+  ,
+  enableStaticLibraries ?
+    !(stdenv.hostPlatform.isWindows or stdenv.hostPlatform.isWasm),
+  enableHsc2hsViaAsm ? stdenv.hostPlatform.isWindows
+    && lib.versionAtLeast ghc.version "8.4",
+  extraLibraries ? [ ],
+  librarySystemDepends ? [ ],
+  executableSystemDepends ? [ ]
+    # On macOS, statically linking against system frameworks is not supported;
+    # see https://developer.apple.com/library/content/qa/qa1118/_index.html
+    # They must be propagated to the environment of any executable linking with the library
+  ,
+  libraryFrameworkDepends ? [ ],
+  executableFrameworkDepends ? [ ],
+  homepage ? "https://hackage.haskell.org/package/${pname}",
+  platforms ? with lib.platforms; all # GHC can cross-compile
+  ,
+  badPlatforms ? lib.platforms.none,
+  hydraPlatforms ? null,
+  hyperlinkSource ? true,
+  isExecutable ? false,
+  isLibrary ? !isExecutable,
+  jailbreak ? false,
+  license,
+  enableParallelBuilding ? true,
+  maintainers ? null,
+  changelog ? null,
+  mainProgram ? null,
+  doCoverage ? false,
+  doHaddock ? !(ghc.isHaLVM or false) && (ghc.hasHaddock or true),
+  doHaddockInterfaces ? doHaddock && lib.versionAtLeast ghc.version "9.0.1",
+  passthru ? { },
+  pkg-configDepends ? [ ],
+  libraryPkgconfigDepends ? [ ],
+  executablePkgconfigDepends ? [ ],
+  testPkgconfigDepends ? [ ],
+  benchmarkPkgconfigDepends ? [ ],
+  testDepends ? [ ],
+  testHaskellDepends ? [ ],
+  testSystemDepends ? [ ],
+  testFrameworkDepends ? [ ],
+  benchmarkDepends ? [ ],
+  benchmarkHaskellDepends ? [ ],
+  benchmarkSystemDepends ? [ ],
+  benchmarkFrameworkDepends ? [ ],
+  testTarget ? "",
+  testFlags ? [ ],
+  broken ? false,
+  preCompileBuildDriver ? null,
+  postCompileBuildDriver ? null,
+  preUnpack ? null,
+  postUnpack ? null,
+  patches ? null,
+  patchPhase ? null,
+  prePatch ? "",
+  postPatch ? "",
+  preConfigure ? null,
+  postConfigure ? null,
+  preBuild ? null,
+  postBuild ? null,
+  preHaddock ? null,
+  postHaddock ? null,
+  installPhase ? null,
+  preInstall ? null,
+  postInstall ? null,
+  checkPhase ? null,
+  preCheck ? null,
+  postCheck ? null,
+  preFixup ? null,
+  postFixup ? null,
+  shellHook ? "",
+  coreSetup ? false # Use only core packages to build Setup.hs.
+  ,
+  useCpphs ? false,
+  hardeningDisable ? null,
+  enableSeparateBinOutput ? false,
+  enableSeparateDataOutput ? false,
+  enableSeparateDocOutput ?
+    doHaddock, # Don't fail at configure time if there are multiple versions of the
+  # same package in the (recursive) dependencies of the package being
+  # built. Will delay failures, if any, to compile time.
+  allowInconsistentDependencies ? false,
+  maxBuildCores ?
+    16 # more cores usually don't improve performance: https://ghc.haskell.org/trac/ghc/ticket/9221
+  , # If set to true, this builds a pre-linked .o file for this Haskell library.
+  # This can make it slightly faster to load this library into GHCi, but takes
+  # extra disk space and compile time.
+  enableLibraryForGhci ? false
+}@args:
 
 assert editedCabalFile != null -> revision != null;
 
@@ -642,7 +721,9 @@ in lib.fix (drv:
       #
       #   > nix-shell -E 'with (import <nixpkgs> {}); \
       #   >    haskell.packages.ghc865.hello.envFunc { buildInputs = [ python ]; }'
-      envFunc = { withHoogle ? false }:
+      envFunc = {
+          withHoogle ? false
+        }:
         let
           name = "ghc-shell-for-${drv.name}";
 

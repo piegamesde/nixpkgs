@@ -1,8 +1,44 @@
-{ lib, stdenv, fetchurl, dpkg, undmg, makeWrapper, nodePackages, alsa-lib
-, at-spi2-atk, at-spi2-core, atk, cairo, cups, curl, dbus, expat, fontconfig
-, freetype, gdk-pixbuf, glib, gtk3, libGL, libappindicator-gtk3, libdrm
-, libnotify, libpulseaudio, libuuid, libxcb, libxkbcommon, libxshmfence, mesa
-, nspr, nss, pango, pipewire, systemd, wayland, xdg-utils, xorg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dpkg,
+  undmg,
+  makeWrapper,
+  nodePackages,
+  alsa-lib,
+  at-spi2-atk,
+  at-spi2-core,
+  atk,
+  cairo,
+  cups,
+  curl,
+  dbus,
+  expat,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  libGL,
+  libappindicator-gtk3,
+  libdrm,
+  libnotify,
+  libpulseaudio,
+  libuuid,
+  libxcb,
+  libxkbcommon,
+  libxshmfence,
+  mesa,
+  nspr,
+  nss,
+  pango,
+  pipewire,
+  systemd,
+  wayland,
+  xdg-utils,
+  xorg,
+}:
 
 let
   inherit (stdenv.hostPlatform) system;

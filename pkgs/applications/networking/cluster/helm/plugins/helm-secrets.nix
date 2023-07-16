@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, coreutils, findutils, getopt
-, gnugrep, gnused, sops, vault }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  coreutils,
+  findutils,
+  getopt,
+  gnugrep,
+  gnused,
+  sops,
+  vault,
+}:
 
 stdenv.mkDerivation rec {
   pname = "helm-secrets";

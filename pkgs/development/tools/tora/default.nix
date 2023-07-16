@@ -1,6 +1,21 @@
-{ mkDerivation, lib, fetchFromGitHub, cmake, extra-cmake-modules, makeWrapper
-, boost, doxygen, openssl, libmysqlclient, postgresql, graphviz, loki
-, qscintilla, qtbase, qttools }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  extra-cmake-modules,
+  makeWrapper,
+  boost,
+  doxygen,
+  openssl,
+  libmysqlclient,
+  postgresql,
+  graphviz,
+  loki,
+  qscintilla,
+  qtbase,
+  qttools,
+}:
 
 mkDerivation {
   pname = "tora";

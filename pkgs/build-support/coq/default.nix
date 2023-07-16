@@ -1,20 +1,48 @@
-{ lib, stdenv, coqPackages, coq, which, fetchzip }@args:
+{
+  lib,
+  stdenv,
+  coqPackages,
+  coq,
+  which,
+  fetchzip,
+}@args:
 let lib = import ./extra-lib.nix { inherit (args) lib; };
 in with builtins;
 with lib;
 let
   isGitHubDomain = d: match "^github.*" d != null;
   isGitLabDomain = d: match "^gitlab.*" d != null;
-in { pname, version ? null, fetcher ? null, owner ? "coq-community"
-, domain ? "github.com", repo ? pname, defaultVersion ? null
-, releaseRev ? (v: v), displayVersion ? { }, release ? { }, buildInputs ? [ ]
-, nativeBuildInputs ? [ ], extraBuildInputs ? [ ], extraNativeBuildInputs ? [ ]
-, overrideBuildInputs ? [ ], overrideNativeBuildInputs ? [ ]
-, namePrefix ? [ "coq" ], enableParallelBuilding ? true, extraInstallFlags ? [ ]
-, setCOQBIN ? true, mlPlugin ? false, useMelquiondRemake ? null, dropAttrs ? [ ]
-, keepAttrs ? [ ], dropDerivationAttrs ? [ ], useDuneifVersion ? (x: false)
-, useDune ? false, opam-name ? (concatStringsSep "-" (namePrefix ++ [ pname ]))
-, ... }@args:
+in {
+  pname,
+  version ? null,
+  fetcher ? null,
+  owner ? "coq-community",
+  domain ? "github.com",
+  repo ? pname,
+  defaultVersion ? null,
+  releaseRev ? (v: v),
+  displayVersion ? { },
+  release ? { },
+  buildInputs ? [ ],
+  nativeBuildInputs ? [ ],
+  extraBuildInputs ? [ ],
+  extraNativeBuildInputs ? [ ],
+  overrideBuildInputs ? [ ],
+  overrideNativeBuildInputs ? [ ],
+  namePrefix ? [ "coq" ],
+  enableParallelBuilding ? true,
+  extraInstallFlags ? [ ],
+  setCOQBIN ? true,
+  mlPlugin ? false,
+  useMelquiondRemake ? null,
+  dropAttrs ? [ ],
+  keepAttrs ? [ ],
+  dropDerivationAttrs ? [ ],
+  useDuneifVersion ? (x: false),
+  useDune ? false,
+  opam-name ? (concatStringsSep "-" (namePrefix ++ [ pname ])),
+  ...
+}@args:
 let
   args-to-remove = foldl (flip remove) ([
     "version"

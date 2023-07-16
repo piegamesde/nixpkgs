@@ -1,5 +1,11 @@
-{ stdenv, lib, fetchurl, readline, enableCurrenciesUpdater ? true
-, pythonPackages ? null }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  readline,
+  enableCurrenciesUpdater ? true,
+  pythonPackages ? null
+}:
 
 assert enableCurrenciesUpdater -> pythonPackages != null;
 

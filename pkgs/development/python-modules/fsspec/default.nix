@@ -1,7 +1,32 @@
-{ lib, stdenv, aiohttp, buildPythonPackage, fetchFromGitHub, numpy, paramiko
-, pytest-asyncio, pytest-mock, pytest-vcr, pytestCheckHook, pythonOlder
-, requests, smbprotocol, tqdm, adlfs, dask, distributed, dropbox, fusepy, gcsfs
-, libarchive-c, ocifs, panel, pyarrow, pygit2, s3fs }:
+{
+  lib,
+  stdenv,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  paramiko,
+  pytest-asyncio,
+  pytest-mock,
+  pytest-vcr,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  smbprotocol,
+  tqdm,
+  adlfs,
+  dask,
+  distributed,
+  dropbox,
+  fusepy,
+  gcsfs,
+  libarchive-c,
+  ocifs,
+  panel,
+  pyarrow,
+  pygit2,
+  s3fs,
+}:
 
 buildPythonPackage rec {
   pname = "fsspec";

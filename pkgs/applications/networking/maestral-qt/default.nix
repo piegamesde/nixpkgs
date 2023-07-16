@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, python3, qt6, nixosTests }:
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  qt6,
+  nixosTests,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "maestral-qt";

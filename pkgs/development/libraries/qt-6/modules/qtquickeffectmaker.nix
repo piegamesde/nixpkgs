@@ -1,4 +1,8 @@
-{ qtModule, qtbase, qtquick3d }:
+{
+  qtModule,
+  qtbase,
+  qtquick3d,
+}:
 
 qtModule {
   pname = "qtquickeffectmaker";

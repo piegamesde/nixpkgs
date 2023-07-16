@@ -1,4 +1,9 @@
-{ lib, buildNpmPackage, fetchFromGitHub, nix-update-script }:
+{
+  lib,
+  buildNpmPackage,
+  fetchFromGitHub,
+  nix-update-script,
+}:
 
 buildNpmPackage rec {
   pname = "terminal-stocks";

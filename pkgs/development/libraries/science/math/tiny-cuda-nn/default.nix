@@ -1,5 +1,16 @@
-{ cmake, cudaPackages, fetchFromGitHub, lib, ninja, pkgs, python3Packages ? { }
-, pythonSupport ? false, stdenv, symlinkJoin, which }:
+{
+  cmake,
+  cudaPackages,
+  fetchFromGitHub,
+  lib,
+  ninja,
+  pkgs,
+  python3Packages ? { },
+  pythonSupport ? false,
+  stdenv,
+  symlinkJoin,
+  which,
+}:
 let
   inherit (lib) lists strings;
   inherit (cudaPackages) backendStdenv cudaFlags;

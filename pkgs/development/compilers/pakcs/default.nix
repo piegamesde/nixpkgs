@@ -1,5 +1,21 @@
-{ lib, stdenv, fetchurl, makeWrapper, haskellPackages, haskell, which, swiProlog
-, rlwrap, tk, curl, git, unzip, gnutar, coreutils, sqlite }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  haskellPackages,
+  haskell,
+  which,
+  swiProlog,
+  rlwrap,
+  tk,
+  curl,
+  git,
+  unzip,
+  gnutar,
+  coreutils,
+  sqlite,
+}:
 
 let
   pname = "pakcs";

@@ -1,15 +1,20 @@
-{ buildGoModule, fetchFromGitHub, lib, tags ? [
-  "autopilotrpc"
-  "signrpc"
-  "walletrpc"
-  "chainrpc"
-  "invoicesrpc"
-  "watchtowerrpc"
-  "routerrpc"
-  "monitoring"
-  "kvdb_postgres"
-  "kvdb_etcd"
-] }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  tags ? [
+    "autopilotrpc"
+    "signrpc"
+    "walletrpc"
+    "chainrpc"
+    "invoicesrpc"
+    "watchtowerrpc"
+    "routerrpc"
+    "monitoring"
+    "kvdb_postgres"
+    "kvdb_etcd"
+  ]
+}:
 
 buildGoModule rec {
   pname = "lnd";

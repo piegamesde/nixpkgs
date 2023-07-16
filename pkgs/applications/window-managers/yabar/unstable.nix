@@ -1,4 +1,10 @@
-{ fetchpatch, playerctl, libxkbcommon, callPackage, attrs ? { } }:
+{
+  fetchpatch,
+  playerctl,
+  libxkbcommon,
+  callPackage,
+  attrs ? { }
+}:
 
 let
   pkg = callPackage ./build.nix ({

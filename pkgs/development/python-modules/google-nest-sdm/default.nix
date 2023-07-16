@@ -1,6 +1,18 @@
-{ lib, aiohttp, buildPythonPackage, coreutils, fetchFromGitHub, google-auth
-, google-auth-oauthlib, google-cloud-pubsub, pytest-aiohttp, pytest-asyncio
-, pytestCheckHook, pythonOlder, requests-oauthlib }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  coreutils,
+  fetchFromGitHub,
+  google-auth,
+  google-auth-oauthlib,
+  google-cloud-pubsub,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  requests-oauthlib,
+}:
 
 buildPythonPackage rec {
   pname = "google-nest-sdm";

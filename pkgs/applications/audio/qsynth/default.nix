@@ -1,5 +1,16 @@
-{ lib, fetchurl, alsa-lib, fluidsynth, libjack2, autoconf, pkg-config
-, mkDerivation, qtbase, qttools, qtx11extras }:
+{
+  lib,
+  fetchurl,
+  alsa-lib,
+  fluidsynth,
+  libjack2,
+  autoconf,
+  pkg-config,
+  mkDerivation,
+  qtbase,
+  qttools,
+  qtx11extras,
+}:
 
 mkDerivation rec {
   pname = "qsynth";

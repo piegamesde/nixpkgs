@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, jdk, jre, swt, makeWrapper, xorg, dpkg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jdk,
+  jre,
+  swt,
+  makeWrapper,
+  xorg,
+  dpkg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ipscan";

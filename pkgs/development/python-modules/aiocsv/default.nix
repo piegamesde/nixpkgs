@@ -1,5 +1,13 @@
-{ lib, aiofiles, buildPythonPackage, cython, fetchFromGitHub, pytest-asyncio
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiofiles,
+  buildPythonPackage,
+  cython,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aiocsv";

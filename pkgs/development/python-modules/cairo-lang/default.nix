@@ -1,8 +1,34 @@
-{ lib, aiohttp, buildPythonPackage, cachetools, ecdsa, eth-hash, fastecdsa
-, fetchzip, frozendict, gmp, lark, marshmallow, marshmallow-dataclass
-, marshmallow-enum, marshmallow-oneofschema, mpmath, numpy, pipdeptree
-, prometheus-client, pytest, pytest-asyncio, pytestCheckHook, pythonOlder
-, pythonRelaxDepsHook, pyyaml, setuptools, sympy, typeguard, web3 }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  cachetools,
+  ecdsa,
+  eth-hash,
+  fastecdsa,
+  fetchzip,
+  frozendict,
+  gmp,
+  lark,
+  marshmallow,
+  marshmallow-dataclass,
+  marshmallow-enum,
+  marshmallow-oneofschema,
+  mpmath,
+  numpy,
+  pipdeptree,
+  prometheus-client,
+  pytest,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  pyyaml,
+  setuptools,
+  sympy,
+  typeguard,
+  web3,
+}:
 
 buildPythonPackage rec {
   pname = "cairo-lang";

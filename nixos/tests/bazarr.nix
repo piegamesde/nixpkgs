@@ -1,4 +1,7 @@
-import ./make-test-python.nix ({ lib, ... }:
+import ./make-test-python.nix ({
+    lib,
+    ...
+  }:
 
   with lib;
 
@@ -7,12 +10,15 @@ import ./make-test-python.nix ({ lib, ... }:
     name = "bazarr";
     meta.maintainers = with maintainers; [ d-xo ];
 
-    nodes.machine = { pkgs, ... }: {
-      services.bazarr = {
-        enable = true;
-        listenPort = port;
+    nodes.machine = {
+        pkgs,
+        ...
+      }: {
+        services.bazarr = {
+          enable = true;
+          listenPort = port;
+        };
       };
-    };
 
     testScript = ''
       machine.wait_for_unit("bazarr.service")

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, marshmallow, pytestCheckHook, isPy27
-, enum34 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  marshmallow,
+  pytestCheckHook,
+  isPy27,
+  enum34,
+}:
 
 buildPythonPackage rec {
   pname = "marshmallow-enum";

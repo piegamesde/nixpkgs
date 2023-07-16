@@ -1,7 +1,24 @@
-{ stdenv, unzip, jq, zip, fetchurl, writeScript, ... }:
+{
+  stdenv,
+  unzip,
+  jq,
+  zip,
+  fetchurl,
+  writeScript,
+  ...
+}:
 
-{ name, url ? null, md5 ? "", sha1 ? "", sha256 ? "", sha512 ? ""
-, fixedExtid ? null, hash ? "", src ? "" }:
+{
+  name,
+  url ? null,
+  md5 ? "",
+  sha1 ? "",
+  sha256 ? "",
+  sha512 ? "",
+  fixedExtid ? null,
+  hash ? "",
+  src ? ""
+}:
 
 let
   extid = if fixedExtid == null then "nixos@${name}" else fixedExtid;

@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromSourcehut, fetchpatch, pkg-config, meson, ninja, cairo
-, pango, wayland, wayland-protocols, libxkbcommon, scdoc }:
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  fetchpatch,
+  pkg-config,
+  meson,
+  ninja,
+  cairo,
+  pango,
+  wayland,
+  wayland-protocols,
+  libxkbcommon,
+  scdoc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wmenu";

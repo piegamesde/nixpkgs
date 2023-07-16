@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, bison, libressl, libevent }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bison,
+  libressl,
+  libevent,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gmid";

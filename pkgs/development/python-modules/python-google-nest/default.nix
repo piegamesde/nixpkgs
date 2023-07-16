@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, requests-oauthlib }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  requests-oauthlib,
+}:
 
 buildPythonPackage rec {
   pname = "python-google-nest";

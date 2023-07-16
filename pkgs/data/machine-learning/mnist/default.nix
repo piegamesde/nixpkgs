@@ -1,4 +1,8 @@
-{ lib, stdenvNoCC, fetchurl }:
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+}:
 let
   srcs = {
     train-images = fetchurl {

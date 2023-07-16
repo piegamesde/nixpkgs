@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, pythonPackages }:
+{
+  lib,
+  fetchFromGitHub,
+  pythonPackages,
+}:
 
 pythonPackages.buildPythonApplication rec {
   version = "1.4";

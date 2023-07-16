@@ -1,5 +1,18 @@
-{ stdenv, fetchFromGitHub, fetchpatch, qmake, wrapQtAppsHook, qtbase, pkg-config
-, lua, flam3, libxml2, libpng, libjpeg, lib }:
+{
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  qmake,
+  wrapQtAppsHook,
+  qtbase,
+  pkg-config,
+  lua,
+  flam3,
+  libxml2,
+  libpng,
+  libjpeg,
+  lib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qosmic";

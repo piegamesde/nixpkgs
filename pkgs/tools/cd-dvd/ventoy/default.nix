@@ -1,9 +1,39 @@
-{ lib, stdenv, fetchurl, fetchpatch, autoPatchelfHook, bash, copyDesktopItems
-, coreutils, cryptsetup, dosfstools, e2fsprogs, exfat, gawk, gnugrep, gnused
-, gtk3, hexdump, makeDesktopItem, makeWrapper, ntfs3g, parted, procps
-, util-linux, which, xfsprogs, xz, defaultGuiType ? "", withCryptsetup ? false
-, withXfs ? false, withExt4 ? false, withNtfs ? false, withGtk3 ? false
-, withQt5 ? false, libsForQt5 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  autoPatchelfHook,
+  bash,
+  copyDesktopItems,
+  coreutils,
+  cryptsetup,
+  dosfstools,
+  e2fsprogs,
+  exfat,
+  gawk,
+  gnugrep,
+  gnused,
+  gtk3,
+  hexdump,
+  makeDesktopItem,
+  makeWrapper,
+  ntfs3g,
+  parted,
+  procps,
+  util-linux,
+  which,
+  xfsprogs,
+  xz,
+  defaultGuiType ? "",
+  withCryptsetup ? false,
+  withXfs ? false,
+  withExt4 ? false,
+  withNtfs ? false,
+  withGtk3 ? false,
+  withQt5 ? false,
+  libsForQt5,
+}:
 
 assert lib.elem defaultGuiType [ "" "gtk3" "qt5" ];
 assert defaultGuiType == "gtk3" -> withGtk3;

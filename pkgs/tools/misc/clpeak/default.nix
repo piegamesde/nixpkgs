@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ocl-icd, opencl-clhpp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ocl-icd,
+  opencl-clhpp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "clpeak";

@@ -1,4 +1,9 @@
-{ lib, stdenv, glibc, buildPackages }:
+{
+  lib,
+  stdenv,
+  glibc,
+  buildPackages,
+}:
 
 let
   # Sanitizers are not supported on Darwin.

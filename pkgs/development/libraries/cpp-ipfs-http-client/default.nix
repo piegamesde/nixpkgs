@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, curl, cmake, nlohmann_json }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  curl,
+  cmake,
+  nlohmann_json,
+}:
 
 stdenv.mkDerivation {
   pname = "cpp-ipfs-http-client";

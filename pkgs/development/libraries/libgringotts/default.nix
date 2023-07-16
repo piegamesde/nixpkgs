@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, zlib, bzip2, libmcrypt, libmhash }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  zlib,
+  bzip2,
+  libmcrypt,
+  libmhash,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libgringotts";

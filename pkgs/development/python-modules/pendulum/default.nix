@@ -1,5 +1,14 @@
-{ lib, fetchPypi, buildPythonPackage, pythonOlder, python-dateutil
-, importlib-metadata, poetry-core, pytzdata, typing }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pythonOlder,
+  python-dateutil,
+  importlib-metadata,
+  poetry-core,
+  pytzdata,
+  typing,
+}:
 
 buildPythonPackage rec {
   pname = "pendulum";

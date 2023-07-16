@@ -1,4 +1,9 @@
-{ lib, python3Packages, fetchFromGitHub, tarsnap }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  tarsnap,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "tarsnapper";

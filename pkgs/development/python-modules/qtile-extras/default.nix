@@ -1,6 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools-scm, pytestCheckHook
-, xorgserver, pulseaudio, pytest-asyncio, qtile-unwrapped, keyring, requests
-, stravalib }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools-scm,
+  pytestCheckHook,
+  xorgserver,
+  pulseaudio,
+  pytest-asyncio,
+  qtile-unwrapped,
+  keyring,
+  requests,
+  stravalib,
+}:
 
 buildPythonPackage rec {
   pname = "qtile-extras";

@@ -1,4 +1,11 @@
-{ buildPythonPackage, coapthon3, fetchFromGitHub, isPy27, lib, pycryptodomex }:
+{
+  buildPythonPackage,
+  coapthon3,
+  fetchFromGitHub,
+  isPy27,
+  lib,
+  pycryptodomex,
+}:
 
 buildPythonPackage rec {
   pname = "py-air-control";

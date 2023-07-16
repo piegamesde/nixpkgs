@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, numpy, scipy, pymatgen
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  scipy,
+  pymatgen,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "castepxbin";

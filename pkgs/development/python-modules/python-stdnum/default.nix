@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder, zeep }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pythonOlder,
+  zeep,
+}:
 
 buildPythonPackage rec {
   pname = "python-stdnum";

@@ -1,6 +1,29 @@
-{ lib, stdenv, fetchurl, aqbanking, boost, cmake, gettext, glib, glibcLocales
-, gtest, guile, gwenhywfar, icu, libdbi, libdbiDrivers, libofx, libxml2, libxslt
-, makeWrapper, perlPackages, pkg-config, swig, webkitgtk, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  aqbanking,
+  boost,
+  cmake,
+  gettext,
+  glib,
+  glibcLocales,
+  gtest,
+  guile,
+  gwenhywfar,
+  icu,
+  libdbi,
+  libdbiDrivers,
+  libofx,
+  libxml2,
+  libxslt,
+  makeWrapper,
+  perlPackages,
+  pkg-config,
+  swig,
+  webkitgtk,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnucash";

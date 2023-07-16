@@ -1,10 +1,19 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder
 
-# propagates
-, packaging
+  # propagates
+  ,
+  packaging
 
-# tests
-, pyqt5, pyside, pytestCheckHook }:
+  # tests
+  ,
+  pyqt5,
+  pyside,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "QtPy";

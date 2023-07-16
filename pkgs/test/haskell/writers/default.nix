@@ -3,7 +3,10 @@
 # jobset. Can presumably removed as soon as tests.writers is
 # always green on darwin as well:
 # https://github.com/NixOS/nixpkgs/issues/126182
-{ runCommand, tests }:
+{
+  runCommand,
+  tests,
+}:
 
 let inherit (tests.writers) writeTest bin simple path;
 

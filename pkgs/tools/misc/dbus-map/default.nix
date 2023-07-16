@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, glib, procps, libxml2 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  glib,
+  procps,
+  libxml2,
+}:
 
 stdenv.mkDerivation {
   pname = "dbus-map";

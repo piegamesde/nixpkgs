@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, isPyPy, snappy, cffi, unittestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPyPy,
+  snappy,
+  cffi,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "python-snappy";

@@ -1,5 +1,17 @@
-{ lib, fetchFromGitHub, mkDerivation, pkg-config, cmake, extra-cmake-modules
-, callPackage, qtbase, qtkeychain, qttools, sqlite, libsecret }:
+{
+  lib,
+  fetchFromGitHub,
+  mkDerivation,
+  pkg-config,
+  cmake,
+  extra-cmake-modules,
+  callPackage,
+  qtbase,
+  qtkeychain,
+  qttools,
+  sqlite,
+  libsecret,
+}:
 
 mkDerivation rec {
   pname = "owncloud-client";

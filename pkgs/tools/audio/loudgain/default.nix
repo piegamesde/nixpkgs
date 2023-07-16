@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, ffmpeg_4, libebur128
-, libresample, taglib, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  ffmpeg_4,
+  libebur128,
+  libresample,
+  taglib,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "loudgain";

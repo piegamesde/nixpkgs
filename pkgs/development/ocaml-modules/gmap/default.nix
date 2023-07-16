@@ -1,4 +1,11 @@
-{ lib, buildDunePackage, ocaml, fetchurl, alcotest, fmt }:
+{
+  lib,
+  buildDunePackage,
+  ocaml,
+  fetchurl,
+  alcotest,
+  fmt,
+}:
 
 buildDunePackage rec {
   pname = "gmap";

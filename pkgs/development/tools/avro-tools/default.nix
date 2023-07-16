@@ -1,4 +1,10 @@
-{ stdenv, fetchurl, makeWrapper, jre, lib }:
+{
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  jre,
+  lib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "avro-tools";

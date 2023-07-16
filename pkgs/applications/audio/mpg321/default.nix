@@ -1,7 +1,18 @@
-{ lib, stdenv, fetchurl, fetchpatch, libao, libmad, libid3tag, zlib, alsa-lib
-# Specify default libao output plugin to use (e.g. "alsa", "pulse" …).
-# If null, it will use the libao system default.
-, defaultAudio ? null }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  libao,
+  libmad,
+  libid3tag,
+  zlib,
+  alsa-lib
+  # Specify default libao output plugin to use (e.g. "alsa", "pulse" …).
+  # If null, it will use the libao system default.
+  ,
+  defaultAudio ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "mpg321";

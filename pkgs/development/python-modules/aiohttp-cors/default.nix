@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, typing ? null, aiohttp }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  typing ? null,
+  aiohttp,
+}:
 
 buildPythonPackage rec {
   pname = "aiohttp-cors";

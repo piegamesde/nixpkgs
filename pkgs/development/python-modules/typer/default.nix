@@ -1,6 +1,20 @@
-{ lib, stdenv, buildPythonPackage, colorama, fetchpatch, fetchPypi, flit-core
-, click, pytestCheckHook, rich, shellingham, pytest-xdist, pytest-sugar
-, coverage, pythonOlder }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  colorama,
+  fetchpatch,
+  fetchPypi,
+  flit-core,
+  click,
+  pytestCheckHook,
+  rich,
+  shellingham,
+  pytest-xdist,
+  pytest-sugar,
+  coverage,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "typer";

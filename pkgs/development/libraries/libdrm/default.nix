@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchurl, pkg-config, meson, ninja, docutils, libpthreadstubs
-, libpciaccess, withValgrind ? valgrind-light.meta.available, valgrind-light }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  meson,
+  ninja,
+  docutils,
+  libpthreadstubs,
+  libpciaccess,
+  withValgrind ? valgrind-light.meta.available,
+  valgrind-light,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libdrm";

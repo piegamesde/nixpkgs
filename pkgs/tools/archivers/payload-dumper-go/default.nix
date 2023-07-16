@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, xz }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  xz,
+}:
 
 buildGoModule rec {
   pname = "payload-dumper-go";

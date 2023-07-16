@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, glib, openssl, irssi }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  glib,
+  openssl,
+  irssi,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fish-irssi";

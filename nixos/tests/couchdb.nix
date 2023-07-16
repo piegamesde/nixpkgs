@@ -1,7 +1,10 @@
 let
 
   makeNode = couchpkg: user: passwd:
-    { pkgs, ... }:
+    {
+      pkgs,
+      ...
+    }:
 
     {
       environment.systemPackages = with pkgs; [ jq ];
@@ -14,7 +17,11 @@ let
   testpass = "cowabunga";
   testlogin = "${testuser}:${testpass}@";
 
-in import ./make-test-python.nix ({ pkgs, lib, ... }:
+in import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   with lib;
 

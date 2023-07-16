@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchgit, makeWrapper, pkg-config, cudatoolkit, glew, libX11
-, libXcomposite, glfw, libpulseaudio, ffmpeg }:
+{
+  stdenv,
+  lib,
+  fetchgit,
+  makeWrapper,
+  pkg-config,
+  cudatoolkit,
+  glew,
+  libX11,
+  libXcomposite,
+  glfw,
+  libpulseaudio,
+  ffmpeg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gpu-screen-recorder";

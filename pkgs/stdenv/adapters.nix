@@ -3,7 +3,11 @@
    compiler.
 */
 
-{ lib, pkgs, config }:
+{
+  lib,
+  pkgs,
+  config,
+}:
 
 let
   # N.B. Keep in sync with default arg for stdenv/generic.

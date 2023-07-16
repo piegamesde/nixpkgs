@@ -1,7 +1,23 @@
-{ mkDerivation, lib, stdenv, fetchurl, ncurses, libuuid, pkg-config, libjpeg
-, zlib, libewf, enableNtfs ? !stdenv.isDarwin, ntfs3g ? null
-, enableExtFs ? !stdenv.isDarwin, e2fsprogs ? null, enableQt ? false
-, qtbase ? null, qttools ? null, qwt ? null }:
+{
+  mkDerivation,
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+  libuuid,
+  pkg-config,
+  libjpeg,
+  zlib,
+  libewf,
+  enableNtfs ? !stdenv.isDarwin,
+  ntfs3g ? null,
+  enableExtFs ? !stdenv.isDarwin,
+  e2fsprogs ? null,
+  enableQt ? false,
+  qtbase ? null,
+  qttools ? null,
+  qwt ? null
+}:
 
 assert enableNtfs -> ntfs3g != null;
 assert enableExtFs -> 0.0 fsprogs != null;

@@ -1,10 +1,24 @@
-{ fetchFromGitHub, lib, mkDerivation
-# nativeBuildInputs
-, qmake, pkg-config, cmake
-# Qt
-, qtbase, qtsvg, qtwebengine, qttools
-# buildInputs
-, rizin, python3, wrapQtAppsHook }:
+{
+  fetchFromGitHub,
+  lib,
+  mkDerivation
+  # nativeBuildInputs
+  ,
+  qmake,
+  pkg-config,
+  cmake
+  # Qt
+  ,
+  qtbase,
+  qtsvg,
+  qtwebengine,
+  qttools
+  # buildInputs
+  ,
+  rizin,
+  python3,
+  wrapQtAppsHook,
+}:
 
 mkDerivation rec {
   pname = "cutter";

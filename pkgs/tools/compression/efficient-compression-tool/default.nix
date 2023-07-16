@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, boost, cmake, nasm, libpng }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  boost,
+  cmake,
+  nasm,
+  libpng,
+}:
 
 stdenv.mkDerivation rec {
   pname = "efficient-compression-tool";

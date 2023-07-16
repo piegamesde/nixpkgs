@@ -1,9 +1,39 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, wayland, dwayland, qtbase
-, qttools, qtx11extras, wrapQtAppsHook, extra-cmake-modules, gsettings-qt
-, libepoxy, kconfig, kconfigwidgets, kcoreaddons, kcrash, kdbusaddons
-, kiconthemes, kglobalaccel, kidletime, knotifications, kpackage
-, plasma-framework, kcmutils, knewstuff, kdecoration, kscreenlocker, breeze-qt5
-, libinput, mesa, lcms2, xorg }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  wayland,
+  dwayland,
+  qtbase,
+  qttools,
+  qtx11extras,
+  wrapQtAppsHook,
+  extra-cmake-modules,
+  gsettings-qt,
+  libepoxy,
+  kconfig,
+  kconfigwidgets,
+  kcoreaddons,
+  kcrash,
+  kdbusaddons,
+  kiconthemes,
+  kglobalaccel,
+  kidletime,
+  knotifications,
+  kpackage,
+  plasma-framework,
+  kcmutils,
+  knewstuff,
+  kdecoration,
+  kscreenlocker,
+  breeze-qt5,
+  libinput,
+  mesa,
+  lcms2,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "deepin-kwin";

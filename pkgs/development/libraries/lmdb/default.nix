@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitLab, windows }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  windows,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lmdb";

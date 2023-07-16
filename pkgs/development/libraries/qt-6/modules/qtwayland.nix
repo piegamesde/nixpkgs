@@ -1,4 +1,12 @@
-{ qtModule, qtbase, qtquick3d, qtdeclarative, wayland, pkg-config, libdrm }:
+{
+  qtModule,
+  qtbase,
+  qtquick3d,
+  qtdeclarative,
+  wayland,
+  pkg-config,
+  libdrm,
+}:
 
 qtModule {
   pname = "qtwayland";

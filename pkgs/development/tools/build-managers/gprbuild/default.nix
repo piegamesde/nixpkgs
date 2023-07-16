@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, gprbuild-boot, which, gnat, xmlada
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  gprbuild-boot,
+  which,
+  gnat,
+  xmlada,
 }:
 
 stdenv.mkDerivation {

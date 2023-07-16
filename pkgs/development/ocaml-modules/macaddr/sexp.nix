@@ -1,4 +1,11 @@
-{ lib, buildDunePackage, macaddr, ppx_sexp_conv, macaddr-cstruct, ounit2 }:
+{
+  lib,
+  buildDunePackage,
+  macaddr,
+  ppx_sexp_conv,
+  macaddr-cstruct,
+  ounit2,
+}:
 
 buildDunePackage {
   pname = "macaddr-sexp";

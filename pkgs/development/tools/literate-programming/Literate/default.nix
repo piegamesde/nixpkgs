@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, ldc, dub }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ldc,
+  dub,
+}:
 
 stdenv.mkDerivation {
   pname = "Literate";

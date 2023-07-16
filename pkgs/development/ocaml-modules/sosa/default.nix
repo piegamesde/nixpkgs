@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, stdenv, findlib, ocaml, ocamlbuild }:
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  findlib,
+  ocaml,
+  ocamlbuild,
+}:
 
 if lib.versionOlder ocaml.version "4.02" then
   throw "sosa is not available for OCaml ${ocaml.version}"

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, numpy, python, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  python,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "cma";

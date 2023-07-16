@@ -1,5 +1,13 @@
-{ stdenv, lib, python, buildPythonPackage, fetchPypi, radare2, coreutils
-, pythonOlder }:
+{
+  stdenv,
+  lib,
+  python,
+  buildPythonPackage,
+  fetchPypi,
+  radare2,
+  coreutils,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "r2pipe";

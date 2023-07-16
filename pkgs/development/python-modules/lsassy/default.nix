@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, impacket, netaddr, pythonOlder
-, pypykatz, rich }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  impacket,
+  netaddr,
+  pythonOlder,
+  pypykatz,
+  rich,
+}:
 
 buildPythonPackage rec {
   pname = "lsassy";

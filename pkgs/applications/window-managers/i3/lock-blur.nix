@@ -1,4 +1,10 @@
-{ i3lock-color, lib, stdenv, fetchFromGitHub, fetchpatch }:
+{
+  i3lock-color,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+}:
 
 i3lock-color.overrideAttrs (oldAttrs: rec {
   pname = "i3lock-blur";

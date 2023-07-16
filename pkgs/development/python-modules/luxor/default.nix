@@ -1,5 +1,12 @@
-{ lib, aiohttp, buildPythonPackage, fetchPypi, pythonOlder, pytest-aiohttp
-, pytestCheckHook }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  pytest-aiohttp,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "luxor";

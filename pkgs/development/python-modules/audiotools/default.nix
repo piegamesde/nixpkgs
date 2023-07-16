@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, stdenv, AudioToolbox, AudioUnit
-, CoreServices }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  stdenv,
+  AudioToolbox,
+  AudioUnit,
+  CoreServices,
+}:
 
 buildPythonPackage rec {
   pname = "audiotools";

@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, meson, ninja, pkg-config
-, hyprland-protocols, hyprland-share-picker, inih, libdrm, mesa, pipewire
-, systemd, wayland, wayland-protocols, wayland-scanner }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  meson,
+  ninja,
+  pkg-config,
+  hyprland-protocols,
+  hyprland-share-picker,
+  inih,
+  libdrm,
+  mesa,
+  pipewire,
+  systemd,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+}:
 let source = import ./source.nix { inherit lib fetchFromGitHub wayland; };
 in stdenv.mkDerivation {
   pname = "xdg-desktop-portal-hyprland";

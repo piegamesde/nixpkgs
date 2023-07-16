@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, openssl, pkg-config, Security }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  openssl,
+  pkg-config,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "dura";

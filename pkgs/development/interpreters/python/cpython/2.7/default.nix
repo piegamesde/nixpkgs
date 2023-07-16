@@ -1,17 +1,53 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, bzip2, expat, libffi, gdbm, db
-, ncurses, openssl, readline, sqlite, tcl ? null, tk ? null, tix ? null
-, libX11 ? null, x11Support ? false, zlib, self, configd, coreutils
-, autoreconfHook, python-setup-hook
-# Some proprietary libs assume UCS2 unicode, especially on darwin :(
-, ucsEncoding ? 4
-  # For the Python package set
-, packageOverrides ? (self: super: { }), pkgsBuildBuild, pkgsBuildHost
-, pkgsBuildTarget, pkgsHostHost, pkgsTargetTarget, sourceVersion, hash
-, passthruFun, static ? stdenv.hostPlatform.isStatic
-, stripBytecode ? reproducibleBuild, rebuildBytecode ? true
-, reproducibleBuild ? false, enableOptimizations ? false, strip2to3 ? false
-, stripConfig ? false, stripIdlelib ? false, stripTests ? false
-, pythonAttr ? "python${sourceVersion.major}${sourceVersion.minor}" }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  bzip2,
+  expat,
+  libffi,
+  gdbm,
+  db,
+  ncurses,
+  openssl,
+  readline,
+  sqlite,
+  tcl ? null,
+  tk ? null,
+  tix ? null,
+  libX11 ? null,
+  x11Support ? false,
+  zlib,
+  self,
+  configd,
+  coreutils,
+  autoreconfHook,
+  python-setup-hook
+  # Some proprietary libs assume UCS2 unicode, especially on darwin :(
+  ,
+  ucsEncoding ? 4
+    # For the Python package set
+  ,
+  packageOverrides ? (self: super: { }),
+  pkgsBuildBuild,
+  pkgsBuildHost,
+  pkgsBuildTarget,
+  pkgsHostHost,
+  pkgsTargetTarget,
+  sourceVersion,
+  hash,
+  passthruFun,
+  static ? stdenv.hostPlatform.isStatic,
+  stripBytecode ? reproducibleBuild,
+  rebuildBytecode ? true,
+  reproducibleBuild ? false,
+  enableOptimizations ? false,
+  strip2to3 ? false,
+  stripConfig ? false,
+  stripIdlelib ? false,
+  stripTests ? false,
+  pythonAttr ? "python${sourceVersion.major}${sourceVersion.minor}"
+}:
 
 assert x11Support -> tcl != null && tk != null && libX11 != null;
 

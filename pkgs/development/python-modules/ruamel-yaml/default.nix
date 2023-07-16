@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, ruamel-base, ruamel-yaml-clib, isPyPy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  ruamel-base,
+  ruamel-yaml-clib,
+  isPyPy,
+}:
 
 buildPythonPackage rec {
   pname = "ruamel-yaml";

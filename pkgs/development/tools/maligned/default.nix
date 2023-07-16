@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, go }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  go,
+}:
 
 buildGoModule rec {
   pname = "maligned";

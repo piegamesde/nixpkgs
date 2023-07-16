@@ -1,32 +1,52 @@
-{ stdenv, cacert, lib, writeCBin }:
+{
+  stdenv,
+  cacert,
+  lib,
+  writeCBin,
+}:
 
-args@{ name ? "${args.pname}-${args.version}", bazel, bazelFlags ? [ ]
-, bazelBuildFlags ? [ ], bazelTestFlags ? [ ], bazelFetchFlags ? [ ]
-, bazelTargets, bazelTestTargets ? [ ], buildAttrs, fetchAttrs
+args@{
+  name ? "${args.pname}-${args.version}",
+  bazel,
+  bazelFlags ? [ ],
+  bazelBuildFlags ? [ ],
+  bazelTestFlags ? [ ],
+  bazelFetchFlags ? [ ],
+  bazelTargets,
+  bazelTestTargets ? [ ],
+  buildAttrs,
+  fetchAttrs
 
-# Newer versions of Bazel are moving away from built-in rules_cc and instead
-# allow fetching it as an external dependency in a WORKSPACE file[1]. If
-# removed in the fixed-output fetch phase, building will fail to download it.
-# This can be seen e.g. in #73097
-#
-# This option allows configuring the removal of rules_cc in cases where a
-# project depends on it via an external dependency.
-#
-# [1]: https://github.com/bazelbuild/rules_cc
-, removeRulesCC ? true, removeLocalConfigCc ? true, removeLocal ? true
+  # Newer versions of Bazel are moving away from built-in rules_cc and instead
+  # allow fetching it as an external dependency in a WORKSPACE file[1]. If
+  # removed in the fixed-output fetch phase, building will fail to download it.
+  # This can be seen e.g. in #73097
+  #
+  # This option allows configuring the removal of rules_cc in cases where a
+  # project depends on it via an external dependency.
+  #
+  # [1]: https://github.com/bazelbuild/rules_cc
+  ,
+  removeRulesCC ? true,
+  removeLocalConfigCc ? true,
+  removeLocal ? true
 
-  # Use build --nobuild instead of fetch. This allows fetching the dependencies
-  # required for the build as configured, rather than fetching all the dependencies
-  # which may not work in some situations (e.g. Java code which ends up relying on
-  # Debian-specific /usr/share/java paths, but doesn't in the configured build).
-, fetchConfigured ? true
+    # Use build --nobuild instead of fetch. This allows fetching the dependencies
+    # required for the build as configured, rather than fetching all the dependencies
+    # which may not work in some situations (e.g. Java code which ends up relying on
+    # Debian-specific /usr/share/java paths, but doesn't in the configured build).
+  ,
+  fetchConfigured ? true
 
-  # Don’t add Bazel --copt and --linkopt from NIX_CFLAGS_COMPILE /
-  # NIX_LDFLAGS. This is necessary when using a custom toolchain which
-  # Bazel wants all headers / libraries to come from, like when using
-  # CROSSTOOL. Weirdly, we can still get the flags through the wrapped
-  # compiler.
-, dontAddBazelOpts ? false, ... }:
+    # Don’t add Bazel --copt and --linkopt from NIX_CFLAGS_COMPILE /
+    # NIX_LDFLAGS. This is necessary when using a custom toolchain which
+    # Bazel wants all headers / libraries to come from, like when using
+    # CROSSTOOL. Weirdly, we can still get the flags through the wrapped
+    # compiler.
+  ,
+  dontAddBazelOpts ? false,
+  ...
+}:
 
 let
   fArgs = removeAttrs args [ "buildAttrs" "fetchAttrs" "removeRulesCC" ] // {
@@ -40,7 +60,11 @@ let
   };
   fBuildAttrs = fArgs // buildAttrs;
   fFetchAttrs = fArgs // removeAttrs fetchAttrs [ "sha256" ];
-  bazelCmd = { cmd, additionalFlags, targets }:
+  bazelCmd = {
+      cmd,
+      additionalFlags,
+      targets,
+    }:
     lib.optionalString (targets != [ ]) ''
       # See footnote called [USER and BAZEL_USE_CPP_ONLY_TOOLCHAIN variables]
       BAZEL_USE_CPP_ONLY_TOOLCHAIN=1 \

@@ -1,4 +1,9 @@
-{ lib, fetchPypi, buildPythonPackage, setuptools }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  setuptools,
+}:
 buildPythonPackage rec {
   pname = "bencoder";
   version = "0.2.0";

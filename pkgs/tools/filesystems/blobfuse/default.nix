@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, curl, gnutls, libgcrypt
-, libuuid, fuse, boost }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  curl,
+  gnutls,
+  libgcrypt,
+  libuuid,
+  fuse,
+  boost,
+}:
 
 let
   version = "1.3.7";

@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitLab, fetchurl, autoconf-archive, autoreconfHook
-, pkg-config, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchurl,
+  autoconf-archive,
+  autoreconfHook,
+  pkg-config,
+  python3,
+}:
 let
   chromium_version = "90.0.4417.1";
 

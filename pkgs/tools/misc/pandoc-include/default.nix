@@ -1,4 +1,11 @@
-{ buildPythonApplication, fetchFromGitHub, lib, natsort, panflute, setuptools }:
+{
+  buildPythonApplication,
+  fetchFromGitHub,
+  lib,
+  natsort,
+  panflute,
+  setuptools,
+}:
 
 buildPythonApplication rec {
   pname = "pandoc-include";

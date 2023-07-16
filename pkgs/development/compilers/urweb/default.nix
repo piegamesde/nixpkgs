@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, file, openssl, mlton, libmysqlclient, postgresql
-, sqlite, gcc, icu }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  file,
+  openssl,
+  mlton,
+  libmysqlclient,
+  postgresql,
+  sqlite,
+  gcc,
+  icu,
+}:
 
 stdenv.mkDerivation rec {
   pname = "urweb";

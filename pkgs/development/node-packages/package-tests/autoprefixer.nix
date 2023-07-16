@@ -1,4 +1,7 @@
-{ runCommand, autoprefixer }:
+{
+  runCommand,
+  autoprefixer,
+}:
 
 let inherit (autoprefixer) packageName version;
 

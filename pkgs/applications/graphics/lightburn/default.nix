@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, p7zip, nss, nspr, libusb1, qtbase, qtmultimedia
-, qtserialport, autoPatchelfHook, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  p7zip,
+  nss,
+  nspr,
+  libusb1,
+  qtbase,
+  qtmultimedia,
+  qtserialport,
+  autoPatchelfHook,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lightburn";

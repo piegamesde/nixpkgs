@@ -1,4 +1,11 @@
-{ stdenvNoCC, lib, fetchurl, undmg, writeScript, callPackage }:
+{
+  stdenvNoCC,
+  lib,
+  fetchurl,
+  undmg,
+  writeScript,
+  callPackage,
+}:
 
 let
   appName = "LibreOffice.app";

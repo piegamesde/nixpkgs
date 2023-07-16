@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, amazon-ion, six
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  amazon-ion,
+  six,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "ionhash";

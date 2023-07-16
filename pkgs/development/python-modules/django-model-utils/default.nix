@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, django, freezegun, psycopg2
-, pytest-django, pytestCheckHook, pythonOlder, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  django,
+  freezegun,
+  psycopg2,
+  pytest-django,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "django-model-utils";

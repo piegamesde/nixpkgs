@@ -1,6 +1,25 @@
-{ stdenv, lib, fetchhg, cmake, pkg-config, makeWrapper, callPackage
-, soundfont-fluid, SDL, libGL, glew, bzip2, zlib, libjpeg, fluidsynth, openssl
-, gtk2, python3, game-music-emu, serverOnly ? false }:
+{
+  stdenv,
+  lib,
+  fetchhg,
+  cmake,
+  pkg-config,
+  makeWrapper,
+  callPackage,
+  soundfont-fluid,
+  SDL,
+  libGL,
+  glew,
+  bzip2,
+  zlib,
+  libjpeg,
+  fluidsynth,
+  openssl,
+  gtk2,
+  python3,
+  game-music-emu,
+  serverOnly ? false
+}:
 
 let
   suffix = lib.optionalString serverOnly "-server";

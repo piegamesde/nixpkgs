@@ -1,5 +1,13 @@
-{ lib, mkDerivation, extra-cmake-modules, knewstuff, shared-mime-info
-, libkdegames, freecell-solver, black-hole-solver }:
+{
+  lib,
+  mkDerivation,
+  extra-cmake-modules,
+  knewstuff,
+  shared-mime-info,
+  libkdegames,
+  freecell-solver,
+  black-hole-solver,
+}:
 
 mkDerivation {
   pname = "kpat";

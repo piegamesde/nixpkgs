@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, func-timeout, jaraco_itertools
-, pythonOlder, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  func-timeout,
+  jaraco_itertools,
+  pythonOlder,
+  setuptools-scm,
+}:
 
 let
   zipp = buildPythonPackage rec {

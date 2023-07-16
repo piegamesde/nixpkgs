@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, freezegun, pytestCheckHook, python-utils
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  freezegun,
+  pytestCheckHook,
+  python-utils,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "progressbar2";

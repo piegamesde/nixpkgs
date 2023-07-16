@@ -5,7 +5,11 @@
 # not, a X server (Xvfb) is started for that user.  The Xvfb instances
 # persist across VNC sessions.
 
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

@@ -1,4 +1,10 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, requests }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "python-pushover";

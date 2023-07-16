@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, kernel, kmod, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  kernel,
+  kmod,
+  zlib,
+}:
 
 let version = "3.1";
 

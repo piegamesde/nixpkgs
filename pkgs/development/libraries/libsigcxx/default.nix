@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, meson, ninja, gnome }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  meson,
+  ninja,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libsigc++";

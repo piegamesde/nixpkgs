@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchurl, unzip }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  unzip,
+}:
 let
   sources = builtins.fromJSON (builtins.readFile ./sources.json);
   platform =

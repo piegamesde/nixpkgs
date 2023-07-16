@@ -1,4 +1,10 @@
-{ dbus, fetchFromGitHub, lib, pkg-config, rustPlatform }:
+{
+  dbus,
+  fetchFromGitHub,
+  lib,
+  pkg-config,
+  rustPlatform,
+}:
 let version = "0.1.1";
 in rustPlatform.buildRustPackage {
   pname = "gnome-randr";

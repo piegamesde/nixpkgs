@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, wget, bash }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  wget,
+  bash,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wgetpaste";

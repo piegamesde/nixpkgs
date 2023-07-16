@@ -1,5 +1,15 @@
-{ lib, fetchFromGitHub, fetchurl, buildPythonApplication, colorclass
-, installShellFiles, pyyaml, requests, setuptools, terminaltables }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  buildPythonApplication,
+  colorclass,
+  installShellFiles,
+  pyyaml,
+  requests,
+  setuptools,
+  terminaltables,
+}:
 
 let
   sha256 = "0r5by5d6wr5zbsaj211s99qg28nr7wm8iri6jxnksx5b375dah6g";

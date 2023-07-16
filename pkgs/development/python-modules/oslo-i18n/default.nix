@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, oslotest, pbr, testscenarios, stestr }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  oslotest,
+  pbr,
+  testscenarios,
+  stestr,
+}:
 
 buildPythonPackage rec {
   pname = "oslo-i18n";

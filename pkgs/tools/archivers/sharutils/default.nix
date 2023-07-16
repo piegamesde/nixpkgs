@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, fetchpatch, gettext, coreutils }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  gettext,
+  coreutils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sharutils";

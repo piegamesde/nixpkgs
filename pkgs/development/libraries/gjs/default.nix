@@ -1,7 +1,30 @@
-{ fetchurl, lib, stdenv, meson, mesonEmulatorHook, ninja, pkg-config, gnome
-, gtk3, atk, gobject-introspection, spidermonkey_102, pango, cairo, readline
-, libsysprof-capture, glib, libxml2, dbus, gdk-pixbuf, harfbuzz, makeWrapper
-, which, xvfb-run, nixosTests }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  meson,
+  mesonEmulatorHook,
+  ninja,
+  pkg-config,
+  gnome,
+  gtk3,
+  atk,
+  gobject-introspection,
+  spidermonkey_102,
+  pango,
+  cairo,
+  readline,
+  libsysprof-capture,
+  glib,
+  libxml2,
+  dbus,
+  gdk-pixbuf,
+  harfbuzz,
+  makeWrapper,
+  which,
+  xvfb-run,
+  nixosTests,
+}:
 
 let testDeps = [ gtk3 atk pango.out gdk-pixbuf harfbuzz ];
 in stdenv.mkDerivation rec {

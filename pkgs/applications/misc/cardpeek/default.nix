@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, glib, gtk3, pcsclite
-, lua5_2, curl, readline, PCSC, xcbuild }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+  glib,
+  gtk3,
+  pcsclite,
+  lua5_2,
+  curl,
+  readline,
+  PCSC,
+  xcbuild,
+}:
 let version = "0.8.4";
 in stdenv.mkDerivation {
   pname = "cardpeek";

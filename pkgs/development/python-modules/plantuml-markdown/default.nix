@@ -1,5 +1,16 @@
-{ buildPythonPackage, fetchFromGitHub, lib, plantuml, markdown, requests, six
-, runCommand, writeText, plantuml-markdown, pythonOlder }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  plantuml,
+  markdown,
+  requests,
+  six,
+  runCommand,
+  writeText,
+  plantuml-markdown,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "plantuml-markdown";

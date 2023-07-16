@@ -1,4 +1,9 @@
-{ buildOctavePackage, lib, fetchurl, mpfr }:
+{
+  buildOctavePackage,
+  lib,
+  fetchurl,
+  mpfr,
+}:
 
 buildOctavePackage rec {
   pname = "interval";

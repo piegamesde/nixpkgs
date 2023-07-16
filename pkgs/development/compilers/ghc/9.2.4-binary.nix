@@ -1,11 +1,26 @@
-{ lib, stdenv, fetchurl, perl, gcc, ncurses5, ncurses6, gmp, libiconv, numactl
-, libffi, llvmPackages, coreutils, targetPackages
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  gcc,
+  ncurses5,
+  ncurses6,
+  gmp,
+  libiconv,
+  numactl,
+  libffi,
+  llvmPackages,
+  coreutils,
+  targetPackages
 
-# minimal = true; will remove files that aren't strictly necessary for
-# regular builds and GHC bootstrapping.
-# This is "useful" for staying within hydra's output limits for at least the
-# aarch64-linux architecture.
-, minimal ? false }:
+  # minimal = true; will remove files that aren't strictly necessary for
+  # regular builds and GHC bootstrapping.
+  # This is "useful" for staying within hydra's output limits for at least the
+  # aarch64-linux architecture.
+  ,
+  minimal ? false
+}:
 
 # Prebuilt only does native
 assert stdenv.targetPlatform == stdenv.hostPlatform;
@@ -195,7 +210,11 @@ let
 
   libPath = lib.makeLibraryPath (
     # Add arch-specific libraries.
-    map ({ nixPackage, ... }: nixPackage) binDistUsed.archSpecificLibraries);
+    map ({
+        nixPackage,
+        ...
+      }:
+      nixPackage) binDistUsed.archSpecificLibraries);
 
   libEnvVar = lib.optionalString stdenv.hostPlatform.isDarwin "DY"
     + "LD_LIBRARY_PATH";
@@ -243,7 +262,10 @@ in stdenv.mkDerivation rec {
           echo >&2 "GHC binary ${binDistUsed.exePathForLibraryCheck} could not be found in the bindist build directory (at ${buildExeGlob}) for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
         fi
       '')
-      (lib.concatMapStringsSep "\n" ({ fileToCheckFor, nixPackage }:
+      (lib.concatMapStringsSep "\n" ({
+          fileToCheckFor,
+          nixPackage,
+        }:
         lib.optionalString (fileToCheckFor != null) ''
           echo "Checking bindist for ${fileToCheckFor} to ensure that is still used"
           if ! readelf -d ${buildExeGlob} | grep "${fileToCheckFor}"; then

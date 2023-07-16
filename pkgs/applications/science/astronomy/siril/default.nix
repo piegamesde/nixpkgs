@@ -1,7 +1,32 @@
-{ lib, stdenv, fetchFromGitLab, pkg-config, meson, ninja, git, criterion, gtk3
-, libconfig, gnuplot, opencv, json-glib, fftwFloat, cfitsio, gsl, exiv2
-, librtprocess, wcslib, ffmpeg, libraw, libtiff, libpng, libjpeg, libheif, ffms
-, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  pkg-config,
+  meson,
+  ninja,
+  git,
+  criterion,
+  gtk3,
+  libconfig,
+  gnuplot,
+  opencv,
+  json-glib,
+  fftwFloat,
+  cfitsio,
+  gsl,
+  exiv2,
+  librtprocess,
+  wcslib,
+  ffmpeg,
+  libraw,
+  libtiff,
+  libpng,
+  libjpeg,
+  libheif,
+  ffms,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "siril";

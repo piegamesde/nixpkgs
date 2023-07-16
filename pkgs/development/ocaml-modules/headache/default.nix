@@ -1,4 +1,9 @@
-{ lib, buildDunePackage, fetchFromGitHub, camomile }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  camomile,
+}:
 
 buildDunePackage rec {
   pname = "headache";

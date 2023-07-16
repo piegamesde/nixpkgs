@@ -1,6 +1,11 @@
-{ lib, bundlerApp, makeWrapper,
-# Optional dependencies, can be null
-epubcheck, bundlerUpdateScript }:
+{
+  lib,
+  bundlerApp,
+  makeWrapper,
+  # Optional dependencies, can be null
+  epubcheck,
+  bundlerUpdateScript,
+}:
 
 let
   app = bundlerApp {

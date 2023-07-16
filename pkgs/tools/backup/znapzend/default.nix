@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, perl, perlPackages, wget, autoconf
-, automake, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  perl,
+  perlPackages,
+  wget,
+  autoconf,
+  automake,
+  autoreconfHook,
+}:
 
 let
   # when upgrade znapzend, check versions of Perl libs here: https://github.com/oetiker/znapzend/blob/master/cpanfile

@@ -1,5 +1,16 @@
-{ lib, attrs, buildPythonPackage, fetchFromGitHub, fetchpatch, poetry-core
-, pytest-asyncio, pytestCheckHook, pythonOlder, requests, responses }:
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  responses,
+}:
 
 buildPythonPackage rec {
   pname = "todoist-api-python";

@@ -1,5 +1,19 @@
-{ lib, buildPythonPackage, fetchPypi, isPyPy, python, setuptools, numpy, zlib
-, netcdf, hdf5, curl, libjpeg, cython, cftime }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPyPy,
+  python,
+  setuptools,
+  numpy,
+  zlib,
+  netcdf,
+  hdf5,
+  curl,
+  libjpeg,
+  cython,
+  cftime,
+}:
 
 buildPythonPackage rec {
   pname = "netCDF4";

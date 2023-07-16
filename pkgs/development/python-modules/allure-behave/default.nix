@@ -1,5 +1,12 @@
-{ lib, fetchPypi, buildPythonPackage, pythonOlder, behave, allure-python-commons
-, setuptools-scm }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pythonOlder,
+  behave,
+  allure-python-commons,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "allure-behave";

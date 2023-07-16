@@ -1,6 +1,20 @@
-{ lib, buildPythonPackage, fetchPypi, google-api-core, google-cloud-core
-, google-cloud-testutils, grpc-google-iam-v1, libcst, mock, proto-plus, protobuf
-, pytest-asyncio, pytestCheckHook, pythonOlder, sqlparse }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-core,
+  google-cloud-core,
+  google-cloud-testutils,
+  grpc-google-iam-v1,
+  libcst,
+  mock,
+  proto-plus,
+  protobuf,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  sqlparse,
+}:
 
 buildPythonPackage rec {
   pname = "google-cloud-spanner";

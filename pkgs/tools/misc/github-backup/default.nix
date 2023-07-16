@@ -1,4 +1,9 @@
-{ lib, python3, git, git-lfs }:
+{
+  lib,
+  python3,
+  git,
+  git-lfs,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "github-backup";

@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, pkg-config, openssl, libbsd, libevent, libuuid
-, libossp_uuid, libmd, zlib, ncurses, bison, autoPatchelfHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  openssl,
+  libbsd,
+  libevent,
+  libuuid,
+  libossp_uuid,
+  libmd,
+  zlib,
+  ncurses,
+  bison,
+  autoPatchelfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "got";

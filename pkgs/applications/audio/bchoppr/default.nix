@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, cairo, libX11, lv2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  cairo,
+  libX11,
+  lv2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bchoppr";

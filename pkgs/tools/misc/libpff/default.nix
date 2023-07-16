@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchzip, pkg-config, autoreconfHook }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  pkg-config,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libpff";

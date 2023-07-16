@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, texinfo }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  texinfo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "quickjs";

@@ -1,4 +1,8 @@
-{ lib, fetchurl, ... }:
+{
+  lib,
+  fetchurl,
+  ...
+}:
 let version = "1.7.3.0";
 in fetchurl {
   name = "prototype-${version}.js";

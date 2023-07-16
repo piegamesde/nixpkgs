@@ -1,5 +1,12 @@
-{ lib, pkgs, buildPythonPackage, fetchFromGitHub, pygame, python-i18n
-, pytestCheckHook }:
+{
+  lib,
+  pkgs,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pygame,
+  python-i18n,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pygame-gui";

@@ -1,4 +1,9 @@
-{ substituteAll, diffutils, stdenv, patchPpdFilesHook }:
+{
+  substituteAll,
+  diffutils,
+  stdenv,
+  patchPpdFilesHook,
+}:
 
 let
   input = substituteAll {

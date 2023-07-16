@@ -11,7 +11,14 @@
 # }
 # (This advice was tested on the 1st November 2016.)
 
-{ lib, stdenv, cups, libusb-compat-0_1, fetchurl, patchPpdFilesHook }:
+{
+  lib,
+  stdenv,
+  cups,
+  libusb-compat-0_1,
+  fetchurl,
+  patchPpdFilesHook,
+}:
 
 # Do not bump lightly! Visit <http://www.bchemnet.com/suldr/supported.html>
 # to see what will break when upgrading. Consider a new versioned attribute.

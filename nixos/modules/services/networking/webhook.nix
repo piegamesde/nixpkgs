@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -8,23 +13,26 @@ let
 
   hookFormat = pkgs.formats.json { };
 
-  hookType = types.submodule ({ name, ... }: {
-    freeformType = hookFormat.type;
-    options = {
-      id = mkOption {
-        type = types.str;
-        default = name;
-        description = mdDoc ''
-          The ID of your hook. This value is used to create the HTTP endpoint (`protocol://yourserver:port/prefix/''${id}`).
-        '';
+  hookType = types.submodule ({
+      name,
+      ...
+    }: {
+      freeformType = hookFormat.type;
+      options = {
+        id = mkOption {
+          type = types.str;
+          default = name;
+          description = mdDoc ''
+            The ID of your hook. This value is used to create the HTTP endpoint (`protocol://yourserver:port/prefix/''${id}`).
+          '';
+        };
+        execute-command = mkOption {
+          type = types.str;
+          description = mdDoc
+            "The command that should be executed when the hook is triggered.";
+        };
       };
-      execute-command = mkOption {
-        type = types.str;
-        description = mdDoc
-          "The command that should be executed when the hook is triggered.";
-      };
-    };
-  });
+    });
 
   hookFiles = mapAttrsToList
     (name: hook: hookFormat.generate "webhook-${name}.json" [ hook ]) cfg.hooks

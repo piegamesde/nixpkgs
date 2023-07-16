@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, zlib, bzip2, lzfse, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  zlib,
+  bzip2,
+  lzfse,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.1.0";

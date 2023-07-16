@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchgit, autoreconfHook, pkg-config, dbus }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  autoreconfHook,
+  pkg-config,
+  dbus,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ell";

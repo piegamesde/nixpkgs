@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, curl, recode, spidermonkey_102 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  curl,
+  recode,
+  spidermonkey_102,
+}:
 
 stdenv.mkDerivation rec {
 

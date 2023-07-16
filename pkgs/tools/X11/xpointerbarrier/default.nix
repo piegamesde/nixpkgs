@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, libX11, libXfixes, libXrandr, }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libX11,
+  libXfixes,
+  libXrandr,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "xpointerbarrier";

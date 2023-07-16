@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, isPy27, fetchFromGitHub, noise, numpy, pyplatec
-, protobuf, purepng, h5py, gdal, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  isPy27,
+  fetchFromGitHub,
+  noise,
+  numpy,
+  pyplatec,
+  protobuf,
+  purepng,
+  h5py,
+  gdal,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "worldengine";

@@ -1,5 +1,17 @@
-{ lib, anyio, buildPythonPackage, curio, fetchFromGitHub, hypothesis, pytest
-, pytestCheckHook, pythonOlder, sniffio, trio, trio-asyncio }:
+{
+  lib,
+  anyio,
+  buildPythonPackage,
+  curio,
+  fetchFromGitHub,
+  hypothesis,
+  pytest,
+  pytestCheckHook,
+  pythonOlder,
+  sniffio,
+  trio,
+  trio-asyncio,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-aio";

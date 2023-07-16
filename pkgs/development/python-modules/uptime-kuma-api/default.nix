@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, python-socketio, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python-socketio,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "uptime-kuma-api";

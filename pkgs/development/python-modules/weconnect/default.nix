@@ -1,5 +1,15 @@
-{ lib, ascii-magic, buildPythonPackage, fetchFromGitHub, pillow
-, pytest-httpserver, pytestCheckHook, pythonOlder, requests, oauthlib }:
+{
+  lib,
+  ascii-magic,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pillow,
+  pytest-httpserver,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  oauthlib,
+}:
 
 buildPythonPackage rec {
   pname = "weconnect";

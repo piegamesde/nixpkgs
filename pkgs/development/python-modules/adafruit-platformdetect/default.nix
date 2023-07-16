@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools-scm, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "adafruit-platformdetect";

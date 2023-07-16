@@ -1,5 +1,18 @@
-{ dpkg, stdenv, lib, fetchurl, jre8, jsvc, lsb-release, libcap, util-linux
-, makeWrapper, autoPatchelfHook, glibc, gcc-unwrapped }:
+{
+  dpkg,
+  stdenv,
+  lib,
+  fetchurl,
+  jre8,
+  jsvc,
+  lsb-release,
+  libcap,
+  util-linux,
+  makeWrapper,
+  autoPatchelfHook,
+  glibc,
+  gcc-unwrapped,
+}:
 
 stdenv.mkDerivation rec {
   pname = "unifi-video";

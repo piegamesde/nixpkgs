@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, libiconv, libpng, ncurses, pcre, readline, zlib
-, writeScript }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libiconv,
+  libpng,
+  ncurses,
+  pcre,
+  readline,
+  zlib,
+  writeScript,
+}:
 
 stdenv.mkDerivation rec {
   pname = "slang";

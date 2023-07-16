@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, flask, babel, speaklater, jinja2
-, pytestCheckHook, pytz }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  babel,
+  speaklater,
+  jinja2,
+  pytestCheckHook,
+  pytz,
+}:
 
 buildPythonPackage rec {
   pname = "flask-babelex";

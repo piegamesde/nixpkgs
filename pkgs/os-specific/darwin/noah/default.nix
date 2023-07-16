@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cmake, Hypervisor }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  Hypervisor,
+}:
 
 stdenv.mkDerivation rec {
   pname = "noah";

@@ -1,5 +1,13 @@
-{ lib, angr, buildPythonPackage, fetchFromGitHub, progressbar, pythonOlder
-, setuptools, tqdm }:
+{
+  lib,
+  angr,
+  buildPythonPackage,
+  fetchFromGitHub,
+  progressbar,
+  pythonOlder,
+  setuptools,
+  tqdm,
+}:
 
 buildPythonPackage rec {
   pname = "angrop";

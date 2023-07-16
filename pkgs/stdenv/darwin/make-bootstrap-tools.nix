@@ -1,6 +1,10 @@
-{ pkgspath ? ../../.., test-pkgspath ? pkgspath
-, localSystem ? { system = builtins.currentSystem; }, crossSystem ? null
-, bootstrapFiles ? null }:
+{
+  pkgspath ? ../../..,
+  test-pkgspath ? pkgspath,
+  localSystem ? { system = builtins.currentSystem; },
+  crossSystem ? null,
+  bootstrapFiles ? null
+}:
 
 let
   cross = if crossSystem != null then { inherit crossSystem; } else { };

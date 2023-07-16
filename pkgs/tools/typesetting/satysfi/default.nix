@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, ruby, ocamlPackages, ipaexfont, junicode
-, lmodern, lmmath }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ruby,
+  ocamlPackages,
+  ipaexfont,
+  junicode,
+  lmodern,
+  lmmath,
+}:
 let
   camlpdf = ocamlPackages.camlpdf.overrideAttrs (o: {
     src = fetchFromGitHub {

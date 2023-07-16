@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, requests, matrix-client
-, distro, click, typing-extensions, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  requests,
+  matrix-client,
+  distro,
+  click,
+  typing-extensions,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "zulip";

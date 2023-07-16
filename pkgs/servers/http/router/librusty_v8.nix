@@ -1,4 +1,8 @@
-{ rust, stdenv, fetchurl }:
+{
+  rust,
+  stdenv,
+  fetchurl,
+}:
 
 let
   arch = rust.toRustTarget stdenv.hostPlatform;

@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, ... }:
+{
+  lib,
+  fetchFromGitHub,
+  ...
+}:
 
 with builtins;
 

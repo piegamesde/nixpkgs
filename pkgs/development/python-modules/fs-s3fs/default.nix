@@ -1,4 +1,11 @@
-{ buildPythonPackage, fetchPypi, lib, fs, six, boto3 }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  lib,
+  fs,
+  six,
+  boto3,
+}:
 
 buildPythonPackage rec {
   pname = "fs-s3fs";

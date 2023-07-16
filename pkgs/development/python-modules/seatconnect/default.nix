@@ -1,5 +1,16 @@
-{ lib, aiohttp, beautifulsoup4, buildPythonPackage, cryptography
-, fetchFromGitHub, lxml, pyjwt, pythonOlder, setuptools-scm, xmltodict }:
+{
+  lib,
+  aiohttp,
+  beautifulsoup4,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  lxml,
+  pyjwt,
+  pythonOlder,
+  setuptools-scm,
+  xmltodict,
+}:
 
 buildPythonPackage rec {
   pname = "seatconnect";

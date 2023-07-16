@@ -1,4 +1,11 @@
-{ lib, rustPlatform, fetchurl, openssl, stdenv, darwin }:
+{
+  lib,
+  rustPlatform,
+  fetchurl,
+  openssl,
+  stdenv,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "elm-test-rs";

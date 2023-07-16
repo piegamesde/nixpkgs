@@ -1,36 +1,43 @@
-import ./make-test-python.nix ({ lib, pkgs, ... }:
+import ./make-test-python.nix ({
+    lib,
+    pkgs,
+    ...
+  }:
 
   {
     name = "loki";
 
     meta = with lib.maintainers; { maintainers = [ willibutz ]; };
 
-    nodes.machine = { ... }: {
-      services.loki = {
-        enable = true;
-        configFile = "${pkgs.grafana-loki.src}/cmd/loki/loki-local-config.yaml";
-      };
-      services.promtail = {
-        enable = true;
-        configuration = {
-          server = {
-            http_listen_port = 9080;
-            grpc_listen_port = 0;
-          };
-          clients = [{ url = "http://localhost:3100/loki/api/v1/push"; }];
-          scrape_configs = [{
-            job_name = "system";
-            static_configs = [{
-              targets = [ "localhost" ];
-              labels = {
-                job = "varlogs";
-                __path__ = "/var/log/*log";
-              };
+    nodes.machine = {
+        ...
+      }: {
+        services.loki = {
+          enable = true;
+          configFile =
+            "${pkgs.grafana-loki.src}/cmd/loki/loki-local-config.yaml";
+        };
+        services.promtail = {
+          enable = true;
+          configuration = {
+            server = {
+              http_listen_port = 9080;
+              grpc_listen_port = 0;
+            };
+            clients = [{ url = "http://localhost:3100/loki/api/v1/push"; }];
+            scrape_configs = [{
+              job_name = "system";
+              static_configs = [{
+                targets = [ "localhost" ];
+                labels = {
+                  job = "varlogs";
+                  __path__ = "/var/log/*log";
+                };
+              }];
             }];
-          }];
+          };
         };
       };
-    };
 
     testScript = ''
       machine.start

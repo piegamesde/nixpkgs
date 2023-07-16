@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, cffi }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cffi,
+}:
 
 buildPythonPackage rec {
   pname = "milksnake";

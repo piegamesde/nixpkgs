@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, isPyPy, fetchPypi, fetchpatch, pytestCheckHook
-, setuptools-scm, apipkg, py }:
+{
+  lib,
+  buildPythonPackage,
+  isPyPy,
+  fetchPypi,
+  fetchpatch,
+  pytestCheckHook,
+  setuptools-scm,
+  apipkg,
+  py,
+}:
 
 buildPythonPackage rec {
   pname = "execnet";

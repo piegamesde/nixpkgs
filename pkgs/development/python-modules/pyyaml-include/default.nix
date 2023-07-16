@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pyyaml, setuptools-scm
-, setuptools-scm-git-archive, toml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pyyaml,
+  setuptools-scm,
+  setuptools-scm-git-archive,
+  toml,
+}:
 
 buildPythonPackage rec {
   pname = "pyyaml-include";

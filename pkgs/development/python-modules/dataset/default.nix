@@ -1,4 +1,12 @@
-{ lib, alembic, banal, buildPythonPackage, fetchPypi, pythonOlder, sqlalchemy }:
+{
+  lib,
+  alembic,
+  banal,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  sqlalchemy,
+}:
 
 buildPythonPackage rec {
   pname = "dataset";

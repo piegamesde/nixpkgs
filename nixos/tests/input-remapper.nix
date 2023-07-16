@@ -1,10 +1,16 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
 
   {
     name = "input-remapper";
     meta = { maintainers = with pkgs.lib.maintainers; [ LunNova ]; };
 
-    nodes.machine = { config, ... }:
+    nodes.machine = {
+        config,
+        ...
+      }:
       let user = config.users.users.sybil;
       in {
         imports = [ ./common/user-account.nix ./common/x11.nix ];
@@ -38,15 +44,18 @@ import ./make-test-python.nix ({ pkgs, ... }:
 
     enableOCR = true;
 
-    testScript = { nodes, ... }: ''
-      start_all()
-      machine.wait_for_x()
+    testScript = {
+        nodes,
+        ...
+      }: ''
+        start_all()
+        machine.wait_for_x()
 
-      machine.succeed("systemctl status input-remapper.service")
-      machine.execute("su - sybil -c input-remapper-gtk >&2 &")
+        machine.succeed("systemctl status input-remapper.service")
+        machine.execute("su - sybil -c input-remapper-gtk >&2 &")
 
-      machine.wait_for_text("Input Remapper")
-      machine.wait_for_text("Preset")
-      machine.wait_for_text("Change Key")
-    '';
+        machine.wait_for_text("Input Remapper")
+        machine.wait_for_text("Preset")
+        machine.wait_for_text("Change Key")
+      '';
   })

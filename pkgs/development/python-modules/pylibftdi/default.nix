@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, libftdi1, libusb1, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  libftdi1,
+  libusb1,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pylibftdi";

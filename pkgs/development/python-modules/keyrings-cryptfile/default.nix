@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, argon2-cffi, keyring
-, pycryptodome, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  argon2-cffi,
+  keyring,
+  pycryptodome,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "keyrings.cryptfile";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, qt4, qscintilla-qt4 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  qt4,
+  qscintilla-qt4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sqliteman";

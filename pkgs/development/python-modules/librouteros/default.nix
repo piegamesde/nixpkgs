@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, pytestCheckHook
-, pytest-xdist }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy3k,
+  pytestCheckHook,
+  pytest-xdist,
+}:
 
 buildPythonPackage rec {
   pname = "librouteros";

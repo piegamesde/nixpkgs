@@ -1,5 +1,14 @@
-{ lib, stdenv, mkDerivation, fetchFromGitHub, cmake, zlib, libusb1
-, enableGUI ? false, qtbase ? null }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  zlib,
+  libusb1,
+  enableGUI ? false,
+  qtbase ? null
+}:
 
 mkDerivation rec {
   pname = "heimdall${lib.optionalString enableGUI "-gui"}";

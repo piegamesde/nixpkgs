@@ -1,8 +1,33 @@
-{ lib, stdenv, fetchurl, buildPackages, pkg-config, texinfo, gettext, libassuan
-, libgcrypt, libgpg-error, libiconv, libksba, npth, adns, bzip2, gnutls, libusb1
-, openldap, readline, sqlite, zlib, enableMinimal ? false
-, withPcsc ? !enableMinimal, pcsclite, guiSupport ? stdenv.isDarwin, pinentry
-, withTpm2Tss ? !stdenv.isDarwin && !enableMinimal, tpm2-tss }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  buildPackages,
+  pkg-config,
+  texinfo,
+  gettext,
+  libassuan,
+  libgcrypt,
+  libgpg-error,
+  libiconv,
+  libksba,
+  npth,
+  adns,
+  bzip2,
+  gnutls,
+  libusb1,
+  openldap,
+  readline,
+  sqlite,
+  zlib,
+  enableMinimal ? false,
+  withPcsc ? !enableMinimal,
+  pcsclite,
+  guiSupport ? stdenv.isDarwin,
+  pinentry,
+  withTpm2Tss ? !stdenv.isDarwin && !enableMinimal,
+  tpm2-tss,
+}:
 
 assert guiSupport -> enableMinimal == false;
 

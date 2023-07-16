@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, pkg-config, gtk2, pcre }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gtk2,
+  pcre,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qxw";

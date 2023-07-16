@@ -1,5 +1,16 @@
-{ lib, stdenv, buildPythonPackage, isPyPy, fetchPypi, fetchpatch
-, pytestCheckHook, libffi, pkg-config, pycparser, pythonAtLeast }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  isPyPy,
+  fetchPypi,
+  fetchpatch,
+  pytestCheckHook,
+  libffi,
+  pkg-config,
+  pycparser,
+  pythonAtLeast,
+}:
 
 if isPyPy then
   null

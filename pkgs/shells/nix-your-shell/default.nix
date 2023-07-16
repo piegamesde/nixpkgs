@@ -1,4 +1,9 @@
-{ lib, rustPlatform, fetchFromGitHub, nix-update-script }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  nix-update-script,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "nix-your-shell";
   version = "1.1.1";

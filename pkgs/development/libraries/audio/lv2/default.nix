@@ -1,6 +1,14 @@
-{ stdenv, lib, fetchurl, meson, ninja
+{
+  stdenv,
+  lib,
+  fetchurl,
+  meson,
+  ninja
 
-, pipewire, gitUpdater }:
+  ,
+  pipewire,
+  gitUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lv2";

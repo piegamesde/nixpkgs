@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, cmake, imagemagick }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  imagemagick,
+}:
 
 stdenv.mkDerivation {
   pname = "cuneiform";

@@ -1,6 +1,20 @@
-{ buildPythonPackage, lib, python, fetchFromGitHub, fetchpatch, pyopenssl
-, webcolors, future, atomicwrites, attrs, logbook, pygments, matrix-nio, aiohttp
-, requests }:
+{
+  buildPythonPackage,
+  lib,
+  python,
+  fetchFromGitHub,
+  fetchpatch,
+  pyopenssl,
+  webcolors,
+  future,
+  atomicwrites,
+  attrs,
+  logbook,
+  pygments,
+  matrix-nio,
+  aiohttp,
+  requests,
+}:
 
 let
   scriptPython =

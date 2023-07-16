@@ -1,5 +1,15 @@
-{ lib, asciitree, buildPythonPackage, fasteners, fetchPypi, numcodecs, numpy
-, pytestCheckHook, pythonOlder, setuptools-scm }:
+{
+  lib,
+  asciitree,
+  buildPythonPackage,
+  fasteners,
+  fetchPypi,
+  numcodecs,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "zarr";

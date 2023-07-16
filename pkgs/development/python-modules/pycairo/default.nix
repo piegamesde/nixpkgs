@@ -1,5 +1,16 @@
-{ lib, pythonOlder, fetchFromGitHub, meson, ninja, buildPythonPackage
-, pytestCheckHook, pkg-config, cairo, libxcrypt, python }:
+{
+  lib,
+  pythonOlder,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  buildPythonPackage,
+  pytestCheckHook,
+  pkg-config,
+  cairo,
+  libxcrypt,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "pycairo";

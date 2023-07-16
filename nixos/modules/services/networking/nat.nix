@@ -2,7 +2,12 @@
 # XXX: todo: support multiple upstream links
 # see http://yesican.chsoft.biz/lartc/MultihomedLinuxNetworking.html
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

@@ -1,5 +1,17 @@
-{ lib, stdenv, callPackage, swift, swiftpm, swiftpm2nix, Foundation, XCTest
-, sqlite, ncurses, CryptoKit, LocalAuthentication }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  swift,
+  swiftpm,
+  swiftpm2nix,
+  Foundation,
+  XCTest,
+  sqlite,
+  ncurses,
+  CryptoKit,
+  LocalAuthentication,
+}:
 let
   sources = callPackage ../sources.nix { };
   generated = swiftpm2nix.helpers ./generated;

@@ -1,6 +1,27 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, cmake, glib, boost, libsigrok
-, libsigrokdecode, libserialport, libzip, udev, libusb1, libftdi1, glibmm, pcre
-, python3, qtsvg, qttools, wrapQtAppsHook, desktopToDarwinBundle }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  cmake,
+  glib,
+  boost,
+  libsigrok,
+  libsigrokdecode,
+  libserialport,
+  libzip,
+  udev,
+  libusb1,
+  libftdi1,
+  glibmm,
+  pcre,
+  python3,
+  qtsvg,
+  qttools,
+  wrapQtAppsHook,
+  desktopToDarwinBundle,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pulseview";

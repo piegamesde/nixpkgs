@@ -1,5 +1,19 @@
-{ lib, stdenv, buildGoPackage, fetchurl, cmake, xz, which, autoconf, ncurses6
-, libedit, libunwind, installShellFiles, removeReferencesTo, go }:
+{
+  lib,
+  stdenv,
+  buildGoPackage,
+  fetchurl,
+  cmake,
+  xz,
+  which,
+  autoconf,
+  ncurses6,
+  libedit,
+  libunwind,
+  installShellFiles,
+  removeReferencesTo,
+  go,
+}:
 
 let
   darwinDeps = [ libunwind libedit ];

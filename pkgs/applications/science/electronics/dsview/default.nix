@@ -1,5 +1,17 @@
-{ lib, mkDerivation, fetchFromGitHub, pkg-config, cmake, libzip, boost, fftw
-, qtbase, libusb1, python3, fetchpatch }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  libzip,
+  boost,
+  fftw,
+  qtbase,
+  libusb1,
+  python3,
+  fetchpatch,
+}:
 
 mkDerivation rec {
   pname = "dsview";

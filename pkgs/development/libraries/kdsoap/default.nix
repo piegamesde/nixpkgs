@@ -1,4 +1,10 @@
-{ mkDerivation, lib, fetchurl, cmake, qtbase }:
+{
+  mkDerivation,
+  lib,
+  fetchurl,
+  cmake,
+  qtbase,
+}:
 
 mkDerivation rec {
   pname = "kdsoap";

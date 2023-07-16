@@ -1,6 +1,23 @@
-{ lib, brotli, brotlicffi, buildPythonPackage, certifi, cryptography, fetchPypi
-, idna, isPyPy, mock, pyopenssl, pysocks, pytest-freezegun, pytest-timeout
-, pytestCheckHook, python-dateutil, tornado, trustme }:
+{
+  lib,
+  brotli,
+  brotlicffi,
+  buildPythonPackage,
+  certifi,
+  cryptography,
+  fetchPypi,
+  idna,
+  isPyPy,
+  mock,
+  pyopenssl,
+  pysocks,
+  pytest-freezegun,
+  pytest-timeout,
+  pytestCheckHook,
+  python-dateutil,
+  tornado,
+  trustme,
+}:
 
 buildPythonPackage rec {
   pname = "urllib3";

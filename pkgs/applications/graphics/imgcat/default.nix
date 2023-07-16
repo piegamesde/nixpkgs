@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cimg, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cimg,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "imgcat";

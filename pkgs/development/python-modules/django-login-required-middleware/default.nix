@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, django, djangorestframework, fetchFromGitHub, python
-, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  django,
+  djangorestframework,
+  fetchFromGitHub,
+  python,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "django-login-required-middleware";

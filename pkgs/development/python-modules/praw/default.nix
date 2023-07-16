@@ -1,6 +1,18 @@
-{ lib, betamax, betamax-matchers, betamax-serializers, buildPythonPackage
-, fetchFromGitHub, mock, prawcore, pytestCheckHook, pythonOlder
-, requests-toolbelt, update_checker, websocket-client }:
+{
+  lib,
+  betamax,
+  betamax-matchers,
+  betamax-serializers,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  prawcore,
+  pytestCheckHook,
+  pythonOlder,
+  requests-toolbelt,
+  update_checker,
+  websocket-client,
+}:
 
 buildPythonPackage rec {
   pname = "praw";

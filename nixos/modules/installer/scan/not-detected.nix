@@ -1,5 +1,8 @@
 # Enables non-free firmware on devices not recognized by `nixos-generate-config`.
-{ lib, ... }:
+{
+  lib,
+  ...
+}:
 
 {
   hardware.enableRedistributableFirmware = lib.mkDefault true;

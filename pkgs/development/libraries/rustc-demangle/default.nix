@@ -1,4 +1,10 @@
-{ rustPlatform, fetchFromGitHub, rust, lib, stdenv }:
+{
+  rustPlatform,
+  fetchFromGitHub,
+  rust,
+  lib,
+  stdenv,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rustc-demangle";

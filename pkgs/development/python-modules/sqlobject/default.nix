@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, formencode, pastedeploy
-, paste, pydispatcher, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  formencode,
+  pastedeploy,
+  paste,
+  pydispatcher,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "sqlobject";

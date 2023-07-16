@@ -1,6 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, filetype, future
-, hypothesis, pytestCheckHook, pythonOlder, requests, requests-oauthlib
-, responses }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  filetype,
+  future,
+  hypothesis,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-oauthlib,
+  responses,
+}:
 
 buildPythonPackage rec {
   pname = "python-twitter";

@@ -10,8 +10,20 @@
 # See the documentation at doc/languages-frameworks/coq.section.md.        #
 ############################################################################
 
-{ lib, ncurses, graphviz, lua, fetchzip, mkCoqDerivation, recurseIntoAttrs
-, withDoc ? false, single ? false, coqPackages, coq, version ? null }@args:
+{
+  lib,
+  ncurses,
+  graphviz,
+  lua,
+  fetchzip,
+  mkCoqDerivation,
+  recurseIntoAttrs,
+  withDoc ? false,
+  single ? false,
+  coqPackages,
+  coq,
+  version ? null
+}@args:
 with builtins // lib;
 let
   repo = "math-comp";

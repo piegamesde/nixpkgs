@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, requests
-, websocket-client, xmltodict }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  requests,
+  websocket-client,
+  xmltodict,
+}:
 
 buildPythonPackage rec {
   pname = "pyskyqremote";

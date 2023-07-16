@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, makeWrapper, perl, perlPackages, bluez }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  perl,
+  perlPackages,
+  bluez,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bt-fw-converter";

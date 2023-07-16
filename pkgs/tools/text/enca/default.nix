@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libiconv, recode }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libiconv,
+  recode,
+}:
 
 stdenv.mkDerivation rec {
   pname = "enca";

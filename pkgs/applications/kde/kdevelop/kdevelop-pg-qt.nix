@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, cmake, pkg-config, extra-cmake-modules, qtbase }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  pkg-config,
+  extra-cmake-modules,
+  qtbase,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kdevelop-pg-qt";

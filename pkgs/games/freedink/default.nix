@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, SDL, SDL_mixer, SDL_image, SDL_ttf, SDL_gfx, pkg-config
-, intltool, fontconfig, libzip, zip, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  SDL,
+  SDL_mixer,
+  SDL_image,
+  SDL_ttf,
+  SDL_gfx,
+  pkg-config,
+  intltool,
+  fontconfig,
+  libzip,
+  zip,
+  zlib,
+}:
 
 let
   version = "1.08.20121209";

@@ -1,4 +1,11 @@
-{ lib, stdenv, ruby, bison, rake, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  ruby,
+  bison,
+  rake,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mruby";

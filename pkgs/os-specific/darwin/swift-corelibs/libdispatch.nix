@@ -1,4 +1,10 @@
-{ stdenv, fetchFromGitHub, cmake, apple_sdk_sierra, xnu-new }:
+{
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  apple_sdk_sierra,
+  xnu-new,
+}:
 
 stdenv.mkDerivation rec {
   name = "swift-corelibs-libdispatch";

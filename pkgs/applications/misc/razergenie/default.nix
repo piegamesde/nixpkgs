@@ -1,5 +1,16 @@
-{ stdenv, fetchFromGitHub, lib, meson, ninja, pkg-config, qtbase, qttools
-, wrapQtAppsHook, enableExperimental ? false, includeMatrixDiscovery ? false }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  meson,
+  ninja,
+  pkg-config,
+  qtbase,
+  qttools,
+  wrapQtAppsHook,
+  enableExperimental ? false,
+  includeMatrixDiscovery ? false
+}:
 
 let
   version = "0.9.0";

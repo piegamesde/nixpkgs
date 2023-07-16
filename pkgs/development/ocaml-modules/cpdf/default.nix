@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, ocaml, findlib, camlpdf, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+  camlpdf,
+  ncurses,
+}:
 
 if lib.versionOlder ocaml.version "4.10" then
   throw "cpdf is not available for OCaml ${ocaml.version}"

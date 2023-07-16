@@ -1,5 +1,13 @@
-{ buildDunePackage, fmt, logs, mirage-flow, ocaml_lwt, cstruct, alcotest
-, mirage-flow-combinators }:
+{
+  buildDunePackage,
+  fmt,
+  logs,
+  mirage-flow,
+  ocaml_lwt,
+  cstruct,
+  alcotest,
+  mirage-flow-combinators,
+}:
 
 buildDunePackage {
   pname = "mirage-flow-unix";

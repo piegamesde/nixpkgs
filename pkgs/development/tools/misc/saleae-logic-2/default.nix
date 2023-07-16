@@ -1,4 +1,9 @@
-{ lib, fetchurl, makeDesktopItem, appimageTools }:
+{
+  lib,
+  fetchurl,
+  makeDesktopItem,
+  appimageTools,
+}:
 let
   name = "saleae-logic-2";
   version = "2.4.7";

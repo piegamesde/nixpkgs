@@ -1,5 +1,12 @@
-{ lib, buildGoModule, fetchFromGitHub, pkg-config, alsa-lib, flac
-, nix-update-script }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  pkg-config,
+  alsa-lib,
+  flac,
+  nix-update-script,
+}:
 
 buildGoModule rec {
   pname = "go-musicfox";

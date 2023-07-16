@@ -1,7 +1,27 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, nix-update-script, meson, ninja
-, pkg-config, python3, vala, wrapGAppsHook, clutter, evolution-data-server
-, folks, geoclue2, geocode-glib_2, granite, gtk3, libchamplain_libsoup3, libgee
-, libhandy, libical }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  nix-update-script,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  vala,
+  wrapGAppsHook,
+  clutter,
+  evolution-data-server,
+  folks,
+  geoclue2,
+  geocode-glib_2,
+  granite,
+  gtk3,
+  libchamplain_libsoup3,
+  libgee,
+  libhandy,
+  libical,
+}:
 
 stdenv.mkDerivation rec {
   pname = "elementary-calendar";

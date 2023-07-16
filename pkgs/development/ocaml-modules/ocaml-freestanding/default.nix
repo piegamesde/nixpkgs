@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, ocaml, pkg-config, solo5, target ? "xen" }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ocaml,
+  pkg-config,
+  solo5,
+  target ? "xen"
+}:
 
 # note: this is not technically an ocaml-module,
 # but can be built with different compilers, so
@@ -54,8 +62,11 @@ else
       license = licenses.mit;
       maintainers = [ maintainers.sternenseemann ];
       homepage = "https://github.com/mirage/ocaml-freestanding";
-      platforms = builtins.map ({ arch, os }: "${arch}-${os}")
-        (cartesianProductOfSets {
+      platforms = builtins.map ({
+          arch,
+          os,
+        }:
+        "${arch}-${os}") (cartesianProductOfSets {
           arch = [ "aarch64" "x86_64" ];
           os = [ "linux" ];
         } ++ [

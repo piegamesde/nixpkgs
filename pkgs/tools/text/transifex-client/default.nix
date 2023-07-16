@@ -1,5 +1,15 @@
-{ lib, buildPythonApplication, fetchPypi, python-slugify, requests, urllib3, six
-, setuptools, gitpython, pythonRelaxDepsHook }:
+{
+  lib,
+  buildPythonApplication,
+  fetchPypi,
+  python-slugify,
+  requests,
+  urllib3,
+  six,
+  setuptools,
+  gitpython,
+  pythonRelaxDepsHook,
+}:
 
 buildPythonApplication rec {
   pname = "transifex-client";

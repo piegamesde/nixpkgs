@@ -1,4 +1,10 @@
-{ runCommand, libxslt, fontconfig, dejavu_fonts, fontDirectories }:
+{
+  runCommand,
+  libxslt,
+  fontconfig,
+  dejavu_fonts,
+  fontDirectories,
+}:
 
 runCommand "fonts.conf" {
   nativeBuildInputs = [ libxslt ];

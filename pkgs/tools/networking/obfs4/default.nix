@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitLab, installShellFiles }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitLab,
+  installShellFiles,
+}:
 
 buildGoModule rec {
   pname = "obfs4";

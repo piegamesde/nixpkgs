@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, lv2, meson, ninja, pkg-config, serd, sord, writeScript
+{
+  lib,
+  stdenv,
+  fetchurl,
+  lv2,
+  meson,
+  ninja,
+  pkg-config,
+  serd,
+  sord,
+  writeScript,
 }:
 
 stdenv.mkDerivation rec {

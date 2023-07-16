@@ -1,5 +1,15 @@
-{ lib, bitlist, buildPythonPackage, fe25519, fetchPypi, fountains, parts
-, pytestCheckHook, pythonOlder, setuptools }:
+{
+  lib,
+  bitlist,
+  buildPythonPackage,
+  fe25519,
+  fetchPypi,
+  fountains,
+  parts,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "ge25519";

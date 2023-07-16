@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+}:
 stdenv.mkDerivation rec {
   pname = "cereal";
   version = "1.3.0";

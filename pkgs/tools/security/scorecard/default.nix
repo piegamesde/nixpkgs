@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, fetchgit, installShellFiles }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchgit,
+  installShellFiles,
+}:
 
 buildGoModule rec {
   pname = "scorecard";

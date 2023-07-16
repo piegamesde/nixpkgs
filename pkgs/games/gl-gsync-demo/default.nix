@@ -1,4 +1,13 @@
-{ stdenv, fetchFromGitHub, libX11, freeglut, glew, libXNVCtrl, libXext, lib }:
+{
+  stdenv,
+  fetchFromGitHub,
+  libX11,
+  freeglut,
+  glew,
+  libXNVCtrl,
+  libXext,
+  lib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gl-gsync-demo";

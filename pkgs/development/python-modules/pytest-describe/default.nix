@@ -1,10 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi
 
-# build
-, pytest
+  # build
+  ,
+  pytest
 
-# tests
-, pytestCheckHook }:
+  # tests
+  ,
+  pytestCheckHook,
+}:
 
 let
   pname = "pytest-describe";

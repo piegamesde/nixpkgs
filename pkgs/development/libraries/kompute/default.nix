@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, vulkan-headers, vulkan-loader
-, fmt, glslang, ninja }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  vulkan-headers,
+  vulkan-loader,
+  fmt,
+  glslang,
+  ninja,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kompute";

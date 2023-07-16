@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, libcap, libconfig, perl, tcp_wrappers, pcre2
-, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libcap,
+  libconfig,
+  perl,
+  tcp_wrappers,
+  pcre2,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sslh";

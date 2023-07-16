@@ -1,11 +1,33 @@
-{ stdenvNoCC, lib, fetchurl, autoPatchelfHook, copyDesktopItems, freetype
-, makeDesktopItem, makeWrapper, libGL, libGLU
-# Darwin cannot handle these when devendored:
-# - DYLD_LIBRARY_PATH masks system libraries with similar, differently-cased names and cause missing symbol errors
-# - symlinks cause unrelated BMP image loading to fail(?)
-, devendorImageLibs ? !stdenvNoCC.hostPlatform.isDarwin, libjpeg, libpng12
-, libX11, libXext, libXi, libXmu, runtimeShell, SDL_compat, SDL_image, SDL_ttf
-, undmg, unrpa, zlib }:
+{
+  stdenvNoCC,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+  copyDesktopItems,
+  freetype,
+  makeDesktopItem,
+  makeWrapper,
+  libGL,
+  libGLU
+  # Darwin cannot handle these when devendored:
+  # - DYLD_LIBRARY_PATH masks system libraries with similar, differently-cased names and cause missing symbol errors
+  # - symlinks cause unrelated BMP image loading to fail(?)
+  ,
+  devendorImageLibs ? !stdenvNoCC.hostPlatform.isDarwin,
+  libjpeg,
+  libpng12,
+  libX11,
+  libXext,
+  libXi,
+  libXmu,
+  runtimeShell,
+  SDL_compat,
+  SDL_image,
+  SDL_ttf,
+  undmg,
+  unrpa,
+  zlib,
+}:
 
 let
   stdenv = stdenvNoCC;

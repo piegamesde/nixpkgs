@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, boost, gfortran, lhapdf, ncurses, perl, python ? null
-, swig, yoda, zlib, withPython ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  boost,
+  gfortran,
+  lhapdf,
+  ncurses,
+  perl,
+  python ? null,
+  swig,
+  yoda,
+  zlib,
+  withPython ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "fastnlo_toolkit";

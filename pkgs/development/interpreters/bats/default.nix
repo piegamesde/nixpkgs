@@ -1,6 +1,25 @@
-{ resholve, lib, stdenv, fetchFromGitHub, bash, coreutils, gnugrep, ncurses
-, findutils, hostname, parallel, flock, procps, bats, lsof, callPackages
-, symlinkJoin, makeWrapper, runCommand, doInstallCheck ? true }:
+{
+  resholve,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bash,
+  coreutils,
+  gnugrep,
+  ncurses,
+  findutils,
+  hostname,
+  parallel,
+  flock,
+  procps,
+  bats,
+  lsof,
+  callPackages,
+  symlinkJoin,
+  makeWrapper,
+  runCommand,
+  doInstallCheck ? true
+}:
 
 resholve.mkDerivation rec {
   pname = "bats";

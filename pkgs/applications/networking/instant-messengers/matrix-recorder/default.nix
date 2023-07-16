@@ -1,4 +1,8 @@
-{ lib, stdenv, pkgs }:
+{
+  lib,
+  stdenv,
+  pkgs,
+}:
 (import ./composition.nix {
   inherit pkgs;
   inherit (stdenv.hostPlatform) system;

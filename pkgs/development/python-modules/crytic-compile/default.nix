@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, cbor2, fetchFromGitHub, pycryptodome, pythonOlder
-, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  cbor2,
+  fetchFromGitHub,
+  pycryptodome,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "crytic-compile";

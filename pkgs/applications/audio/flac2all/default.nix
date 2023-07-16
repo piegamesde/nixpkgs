@@ -1,4 +1,12 @@
-{ python3Packages, lib, flac, lame, opusTools, vorbis-tools, ffmpeg }:
+{
+  python3Packages,
+  lib,
+  flac,
+  lame,
+  opusTools,
+  vorbis-tools,
+  ffmpeg,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "flac2all";

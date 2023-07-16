@@ -1,5 +1,9 @@
 # Patched lldb for Rust language support.
-{ fetchFromGitHub, runCommand, llvmPackages }:
+{
+  fetchFromGitHub,
+  runCommand,
+  llvmPackages,
+}:
 let
   llvmSrc = fetchFromGitHub {
     owner = "vadimcn";

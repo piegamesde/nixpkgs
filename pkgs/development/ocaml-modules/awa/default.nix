@@ -1,7 +1,27 @@
-{ lib, buildDunePackage, fetchurl, ppx_sexp_conv, ppx_cstruct, mirage-crypto
-, mirage-crypto-ec, mirage-crypto-rng, mirage-crypto-pk, x509, cstruct
-, cstruct-unix, cstruct-sexp, sexplib, eqaf, rresult, mtime, logs, fmt, cmdliner
-, base64, zarith }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  ppx_sexp_conv,
+  ppx_cstruct,
+  mirage-crypto,
+  mirage-crypto-ec,
+  mirage-crypto-rng,
+  mirage-crypto-pk,
+  x509,
+  cstruct,
+  cstruct-unix,
+  cstruct-sexp,
+  sexplib,
+  eqaf,
+  rresult,
+  mtime,
+  logs,
+  fmt,
+  cmdliner,
+  base64,
+  zarith,
+}:
 
 buildDunePackage rec {
   pname = "awa";

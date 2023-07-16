@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, bitarray, eth-abi, eth-keyfile
-, eth-keys, eth-rlp, eth-utils, hexbytes, pythonOlder, rlp }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  bitarray,
+  eth-abi,
+  eth-keyfile,
+  eth-keys,
+  eth-rlp,
+  eth-utils,
+  hexbytes,
+  pythonOlder,
+  rlp,
+}:
 
 buildPythonPackage rec {
   pname = "eth-account";

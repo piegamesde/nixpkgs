@@ -1,4 +1,12 @@
-{ stdenv, lib, perl, perlPackages, coreutils, fetchFromGitHub, makeWrapper }:
+{
+  stdenv,
+  lib,
+  perl,
+  perlPackages,
+  coreutils,
+  fetchFromGitHub,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "oysttyer";

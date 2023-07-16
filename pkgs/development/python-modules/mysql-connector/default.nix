@@ -1,5 +1,14 @@
-{ stdenv, lib, buildPythonPackage, django, dnspython, fetchFromGitHub, protobuf
-, pythonOlder, fetchpatch }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  django,
+  dnspython,
+  fetchFromGitHub,
+  protobuf,
+  pythonOlder,
+  fetchpatch,
+}:
 
 buildPythonPackage rec {
   pname = "mysql-connector";

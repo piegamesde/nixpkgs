@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, termcolor, colorama }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  termcolor,
+  colorama,
+}:
 
 buildPythonPackage rec {
   pname = "veryprettytable";

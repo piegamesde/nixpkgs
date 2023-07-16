@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, makeWrapper, jre_headless, gawk }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  jre_headless,
+  gawk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nexus";

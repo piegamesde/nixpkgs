@@ -1,4 +1,11 @@
-{ lib, stdenv, qtModule, qtdeclarative, qtwebengine, WebKit }:
+{
+  lib,
+  stdenv,
+  qtModule,
+  qtdeclarative,
+  qtwebengine,
+  WebKit,
+}:
 
 qtModule {
   pname = "qtwebview";

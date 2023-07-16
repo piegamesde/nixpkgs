@@ -1,4 +1,9 @@
-{ lib, fetchurl, appimageTools, pkgs }:
+{
+  lib,
+  fetchurl,
+  appimageTools,
+  pkgs,
+}:
 
 let
   pname = "plexamp";

@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchsvn, darwin, libtiff, libpng, zlib, libwebp, libraw, openexr
-, openjpeg, libjpeg, jxrlib, pkg-config, fixDarwinDylibNames
-, autoSignDarwinBinariesHook }:
+{
+  lib,
+  stdenv,
+  fetchsvn,
+  darwin,
+  libtiff,
+  libpng,
+  zlib,
+  libwebp,
+  libraw,
+  openexr,
+  openjpeg,
+  libjpeg,
+  jxrlib,
+  pkg-config,
+  fixDarwinDylibNames,
+  autoSignDarwinBinariesHook,
+}:
 
 stdenv.mkDerivation {
   pname = "freeimage";

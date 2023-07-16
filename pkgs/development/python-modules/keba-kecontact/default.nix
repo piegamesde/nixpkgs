@@ -1,5 +1,11 @@
-{ lib, asyncio-dgram, buildPythonPackage, fetchFromGitHub, netifaces
-, pythonOlder }:
+{
+  lib,
+  asyncio-dgram,
+  buildPythonPackage,
+  fetchFromGitHub,
+  netifaces,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "keba-kecontact";

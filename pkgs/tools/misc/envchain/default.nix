@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, libedit, libsecret, ncurses, pkg-config
-, readline, Security }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libedit,
+  libsecret,
+  ncurses,
+  pkg-config,
+  readline,
+  Security,
+}:
 
 stdenv.mkDerivation rec {
   pname = "envchain";

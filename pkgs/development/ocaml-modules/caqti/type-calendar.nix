@@ -1,4 +1,9 @@
-{ lib, buildDunePackage, calendar, caqti }:
+{
+  lib,
+  buildDunePackage,
+  calendar,
+  caqti,
+}:
 
 buildDunePackage {
   pname = "caqti-type-calendar";

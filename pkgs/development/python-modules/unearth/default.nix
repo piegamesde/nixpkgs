@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, cached-property, packaging
-, pdm-pep517, requests, flask, pytest-httpserver, pytestCheckHook
-, requests-wsgi-adapter, trustme }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  cached-property,
+  packaging,
+  pdm-pep517,
+  requests,
+  flask,
+  pytest-httpserver,
+  pytestCheckHook,
+  requests-wsgi-adapter,
+  trustme,
+}:
 
 buildPythonPackage rec {
   pname = "unearth";

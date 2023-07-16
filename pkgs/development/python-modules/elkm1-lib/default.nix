@@ -1,5 +1,15 @@
-{ lib, async-timeout, buildPythonPackage, fetchFromGitHub, fetchpatch
-, poetry-core, pyserial-asyncio, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  async-timeout,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  poetry-core,
+  pyserial-asyncio,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "elkm1-lib";

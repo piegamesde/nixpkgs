@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchgit, coreutils, gawk, gnugrep, iproute2, makeWrapper
-, nettools, openresolv, systemd }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  coreutils,
+  gawk,
+  gnugrep,
+  iproute2,
+  makeWrapper,
+  nettools,
+  openresolv,
+  systemd,
+}:
 
 stdenv.mkDerivation {
   pname = "vpnc-scripts";

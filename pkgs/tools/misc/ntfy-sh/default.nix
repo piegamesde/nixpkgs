@@ -1,5 +1,16 @@
-{ lib, pkgs, stdenv, buildGoModule, fetchFromGitHub, nixosTests, nodejs
-, debianutils, mkdocs, python3, python3Packages }:
+{
+  lib,
+  pkgs,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  nixosTests,
+  nodejs,
+  debianutils,
+  mkdocs,
+  python3,
+  python3Packages,
+}:
 
 let
   nodeDependencies = (import ./node-composition.nix {

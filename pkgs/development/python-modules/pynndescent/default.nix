@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, importlib-metadata, joblib
-, llvmlite, numba, scikit-learn, scipy, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  importlib-metadata,
+  joblib,
+  llvmlite,
+  numba,
+  scikit-learn,
+  scipy,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pynndescent";

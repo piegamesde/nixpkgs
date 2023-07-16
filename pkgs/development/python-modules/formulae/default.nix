@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytestCheckHook, numpy
-, pandas, scipy }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pytestCheckHook,
+  numpy,
+  pandas,
+  scipy,
+}:
 
 buildPythonPackage rec {
   pname = "formulae";

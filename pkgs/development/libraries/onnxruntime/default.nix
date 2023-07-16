@@ -1,7 +1,26 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, fetchurl, pkg-config, cmake
-, python3Packages, libpng, zlib, eigen, protobuf, howard-hinnant-date
-, nlohmann_json, boost, oneDNN, abseil-cpp_202111, gtest, pythonSupport ? false
-, nsync, flatbuffers }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  fetchurl,
+  pkg-config,
+  cmake,
+  python3Packages,
+  libpng,
+  zlib,
+  eigen,
+  protobuf,
+  howard-hinnant-date,
+  nlohmann_json,
+  boost,
+  oneDNN,
+  abseil-cpp_202111,
+  gtest,
+  pythonSupport ? false,
+  nsync,
+  flatbuffers,
+}:
 
 # Python Support
 #

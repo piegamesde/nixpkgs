@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pythonAtLeast, flit-core, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonAtLeast,
+  flit-core,
+  pytestCheckHook,
 }:
 
 let

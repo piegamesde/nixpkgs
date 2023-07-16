@@ -1,5 +1,18 @@
-{ mkDerivation, lib, fetchFromGitHub, pkg-config, makeDesktopItem, qtbase
-, qttools, qtmultimedia, qtquick1, qtquickcontrols, openssl, protobuf, qmake }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  makeDesktopItem,
+  qtbase,
+  qttools,
+  qtmultimedia,
+  qtquick1,
+  qtquickcontrols,
+  openssl,
+  protobuf,
+  qmake,
+}:
 
 mkDerivation rec {
   pname = "ricochet";

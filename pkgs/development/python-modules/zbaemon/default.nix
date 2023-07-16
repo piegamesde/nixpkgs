@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, zconfig }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  zconfig,
+}:
 
 buildPythonPackage rec {
   pname = "zdaemon";

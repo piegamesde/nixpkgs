@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, substituteAll, llvm
-, rocm-runtime, rocminfo, lsb-release }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  substituteAll,
+  llvm,
+  rocm-runtime,
+  rocminfo,
+  lsb-release,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "hip-common";

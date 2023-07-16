@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, bzip2, nix, perl, makeWrapper, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bzip2,
+  nix,
+  perl,
+  makeWrapper,
+  nixosTests,
+}:
 
 let
   rev = "e4675e38ab54942e351c7686e40fabec822120b9";

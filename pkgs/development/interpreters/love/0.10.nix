@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, SDL2, libGLU, libGL, openal, luajit
-, libdevil, freetype, physfs, libmodplug, mpg123, libvorbis, libogg, libtheora
-, which, autoconf, automake, libtool }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  SDL2,
+  libGLU,
+  libGL,
+  openal,
+  luajit,
+  libdevil,
+  freetype,
+  physfs,
+  libmodplug,
+  mpg123,
+  libvorbis,
+  libogg,
+  libtheora,
+  which,
+  autoconf,
+  automake,
+  libtool,
+}:
 
 stdenv.mkDerivation rec {
   pname = "love";

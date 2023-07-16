@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, scdoc, wayland-scanner
-, wayland, wayland-protocols, ffmpeg, x264, libpulseaudio, ocl-icd
-, opencl-headers }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  scdoc,
+  wayland-scanner,
+  wayland,
+  wayland-protocols,
+  ffmpeg,
+  x264,
+  libpulseaudio,
+  ocl-icd,
+  opencl-headers,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wf-recorder";

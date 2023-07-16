@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, cryptography, fetchPypi, pyopenssl, pytestCheckHook
-, pythonOlder, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  fetchPypi,
+  pyopenssl,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "josepy";

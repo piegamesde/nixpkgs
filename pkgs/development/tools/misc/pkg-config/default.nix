@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libiconv, vanilla ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libiconv,
+  vanilla ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "pkg-config";

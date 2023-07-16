@@ -1,4 +1,12 @@
-{ lib, buildDunePackage, fetchurl, fmt, bigstringaf, angstrom, alcotest }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  fmt,
+  bigstringaf,
+  angstrom,
+  alcotest,
+}:
 
 buildDunePackage rec {
   pname = "encore";

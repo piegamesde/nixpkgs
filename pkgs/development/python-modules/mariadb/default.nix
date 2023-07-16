@@ -1,4 +1,10 @@
-{ buildPythonPackage, fetchPypi, libmysqlclient, lib, pythonOlder }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  libmysqlclient,
+  lib,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "mariadb";

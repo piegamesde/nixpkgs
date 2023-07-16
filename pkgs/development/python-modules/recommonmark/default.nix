@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, commonmark
-, docutils, sphinx, isPy3k }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  commonmark,
+  docutils,
+  sphinx,
+  isPy3k,
+}:
 
 buildPythonPackage rec {
   pname = "recommonmark";

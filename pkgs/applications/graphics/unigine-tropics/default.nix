@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchurl, makeWrapper, autoPatchelfHook, libX11, libXext
-, libXrandr, libXinerama, libglvnd, openal, glibc, makeDesktopItem
-, copyDesktopItems, imagemagick }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  autoPatchelfHook,
+  libX11,
+  libXext,
+  libXrandr,
+  libXinerama,
+  libglvnd,
+  openal,
+  glibc,
+  makeDesktopItem,
+  copyDesktopItems,
+  imagemagick,
+}:
 let version = "1.3";
 in stdenv.mkDerivation {
   pname = "unigine-tropics";

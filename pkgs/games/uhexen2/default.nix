@@ -1,4 +1,13 @@
-{ lib, fetchgit, SDL, stdenv, libogg, libvorbis, libmad, xdelta }:
+{
+  lib,
+  fetchgit,
+  SDL,
+  stdenv,
+  libogg,
+  libvorbis,
+  libmad,
+  xdelta,
+}:
 
 stdenv.mkDerivation rec {
   pname = "uhexen2";

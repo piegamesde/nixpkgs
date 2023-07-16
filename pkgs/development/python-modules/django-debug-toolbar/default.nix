@@ -1,5 +1,15 @@
-{ lib, fetchFromGitHub, pythonOlder, buildPythonPackage, python, hatchling
-, django, jinja2, sqlparse, html5lib }:
+{
+  lib,
+  fetchFromGitHub,
+  pythonOlder,
+  buildPythonPackage,
+  python,
+  hatchling,
+  django,
+  jinja2,
+  sqlparse,
+  html5lib,
+}:
 
 buildPythonPackage rec {
   pname = "django-debug-toolbar";

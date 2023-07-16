@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, six, pytest, pytest-runner, pytest-cov
-, coverage }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  pytest,
+  pytest-runner,
+  pytest-cov,
+  coverage,
+}:
 buildPythonPackage rec {
   pname = "libais";
   version = "0.17";

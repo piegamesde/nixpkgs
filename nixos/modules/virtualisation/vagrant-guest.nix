@@ -1,6 +1,10 @@
 # Minimal configuration that vagrant depends on
 
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 let
   # Vagrant uses an insecure shared private key by default, but we
   # don't use the authorizedKeys attribute under users because it should be

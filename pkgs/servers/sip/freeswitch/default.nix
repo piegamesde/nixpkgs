@@ -1,12 +1,37 @@
-{ fetchFromGitHub, stdenv, lib, pkg-config, autoreconfHook, ncurses, gnutls
-, readline, openssl, perl, sqlite, libjpeg, speex, pcre, libuuid, ldns, libedit
-, yasm, which, libsndfile, libtiff, libxcrypt
+{
+  fetchFromGitHub,
+  stdenv,
+  lib,
+  pkg-config,
+  autoreconfHook,
+  ncurses,
+  gnutls,
+  readline,
+  openssl,
+  perl,
+  sqlite,
+  libjpeg,
+  speex,
+  pcre,
+  libuuid,
+  ldns,
+  libedit,
+  yasm,
+  which,
+  libsndfile,
+  libtiff,
+  libxcrypt
 
-, callPackage
+  ,
+  callPackage
 
-, SystemConfiguration
+  ,
+  SystemConfiguration
 
-, modules ? null, nixosTests }:
+  ,
+  modules ? null,
+  nixosTests,
+}:
 
 let
 

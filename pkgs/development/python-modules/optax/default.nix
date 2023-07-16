@@ -1,5 +1,14 @@
-{ lib, absl-py, buildPythonPackage, chex, fetchFromGitHub, jaxlib, numpy
-, callPackage, pythonOlder }:
+{
+  lib,
+  absl-py,
+  buildPythonPackage,
+  chex,
+  fetchFromGitHub,
+  jaxlib,
+  numpy,
+  callPackage,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "optax";

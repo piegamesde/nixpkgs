@@ -1,5 +1,18 @@
-{ stdenv, lib, rustPlatform, fetchFromGitHub, fetchpatch, pkg-config
-, makeWrapper, webkitgtk, zenity, Cocoa, Security, WebKit, withGui ? true }:
+{
+  stdenv,
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  makeWrapper,
+  webkitgtk,
+  zenity,
+  Cocoa,
+  Security,
+  WebKit,
+  withGui ? true
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "alfis";

@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, libaal }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libaal,
+}:
 
 stdenv.mkDerivation rec {
   pname = "reiser4progs";

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, zlib, flex, bison, readline, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  zlib,
+  flex,
+  bison,
+  readline,
+  darwin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "foma";

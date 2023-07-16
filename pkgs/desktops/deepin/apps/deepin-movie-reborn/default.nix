@@ -1,8 +1,38 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, runtimeShell, cmake, pkg-config
-, wrapQtAppsHook, qtbase, qttools, qtx11extras, qtmultimedia, dtkwidget
-, qt5integration, qt5platform-plugins, qtmpris, qtdbusextended, gsettings-qt
-, elfutils, ffmpeg, ffmpegthumbnailer, mpv, xorg, pcre, libdvdread, libdvdnav
-, libunwind, libva, zstd, glib, gst_all_1, gtest, libpulseaudio }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  runtimeShell,
+  cmake,
+  pkg-config,
+  wrapQtAppsHook,
+  qtbase,
+  qttools,
+  qtx11extras,
+  qtmultimedia,
+  dtkwidget,
+  qt5integration,
+  qt5platform-plugins,
+  qtmpris,
+  qtdbusextended,
+  gsettings-qt,
+  elfutils,
+  ffmpeg,
+  ffmpegthumbnailer,
+  mpv,
+  xorg,
+  pcre,
+  libdvdread,
+  libdvdnav,
+  libunwind,
+  libva,
+  zstd,
+  glib,
+  gst_all_1,
+  gtest,
+  libpulseaudio,
+}:
 
 stdenv.mkDerivation rec {
   pname = "deepin-movie-reborn";

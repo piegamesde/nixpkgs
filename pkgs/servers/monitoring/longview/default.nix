@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, perl, perlPackages, makeWrapper, glibc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  perl,
+  perlPackages,
+  makeWrapper,
+  glibc,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.1.5";

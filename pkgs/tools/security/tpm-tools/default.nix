@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, trousers, openssl, opencryptoki, perl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  trousers,
+  openssl,
+  opencryptoki,
+  perl,
+}:
 
 let version = "1.3.9.1";
 in stdenv.mkDerivation rec {

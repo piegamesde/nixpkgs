@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, alsa-lib, freetype, ftgl, libjack2, libX11, lv2
-, libGLU, libGL, pkg-config, ttf_bitstream_vera }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  alsa-lib,
+  freetype,
+  ftgl,
+  libjack2,
+  libX11,
+  lv2,
+  libGLU,
+  libGL,
+  pkg-config,
+  ttf_bitstream_vera,
+}:
 
 stdenv.mkDerivation rec {
   pname = "setbfree";

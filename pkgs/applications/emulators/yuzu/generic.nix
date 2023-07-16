@@ -1,10 +1,48 @@
-{ pname, version, src, branch, compat-list
+{
+  pname,
+  version,
+  src,
+  branch,
+  compat-list
 
-, lib, stdenv, runCommandLocal, substituteAll, wrapQtAppsHook, alsa-lib, boost
-, catch2, cmake, doxygen, ffmpeg, fmt_8, glslang, libjack2, libopus
-, libpulseaudio, libusb1, libva, libzip, lz4, nlohmann_json, perl, pkg-config
-, python3, qtbase, qttools, qtwebengine, rapidjson, SDL2, sndio, speexdsp, udev
-, vulkan-headers, vulkan-loader, zlib, zstd }:
+  ,
+  lib,
+  stdenv,
+  runCommandLocal,
+  substituteAll,
+  wrapQtAppsHook,
+  alsa-lib,
+  boost,
+  catch2,
+  cmake,
+  doxygen,
+  ffmpeg,
+  fmt_8,
+  glslang,
+  libjack2,
+  libopus,
+  libpulseaudio,
+  libusb1,
+  libva,
+  libzip,
+  lz4,
+  nlohmann_json,
+  perl,
+  pkg-config,
+  python3,
+  qtbase,
+  qttools,
+  qtwebengine,
+  rapidjson,
+  SDL2,
+  sndio,
+  speexdsp,
+  udev,
+  vulkan-headers,
+  vulkan-loader,
+  zlib,
+  zstd,
+}:
 
 stdenv.mkDerivation rec {
   inherit pname version src;

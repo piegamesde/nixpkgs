@@ -1,6 +1,17 @@
-{ lib, argcomplete, buildPythonPackage, fetchFromGitHub, hatchling
-, importlib-metadata, packaging, pip, platformdirs, pytestCheckHook, pythonOlder
-, userpath }:
+{
+  lib,
+  argcomplete,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatchling,
+  importlib-metadata,
+  packaging,
+  pip,
+  platformdirs,
+  pytestCheckHook,
+  pythonOlder,
+  userpath,
+}:
 
 buildPythonPackage rec {
   pname = "pipx";

@@ -1,6 +1,28 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, isPyPy, isPy3k, olefile
-, freetype, libjpeg, zlib, libtiff, libwebp, libxcrypt, tcl, lcms2, libxcb, tk
-, libX11, openjpeg, libimagequant, pyroma, numpy, defusedxml, pytestCheckHook
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPyPy,
+  isPy3k,
+  olefile,
+  freetype,
+  libjpeg,
+  zlib,
+  libtiff,
+  libwebp,
+  libxcrypt,
+  tcl,
+  lcms2,
+  libxcb,
+  tk,
+  libX11,
+  openjpeg,
+  libimagequant,
+  pyroma,
+  numpy,
+  defusedxml,
+  pytestCheckHook,
 }@args:
 
 import ../pillow/generic.nix (rec {

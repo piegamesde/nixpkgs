@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, pkg-config, nss, nspr }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  nss,
+  nspr,
+}:
 
 stdenv.mkDerivation rec {
   pname = "svrcore";

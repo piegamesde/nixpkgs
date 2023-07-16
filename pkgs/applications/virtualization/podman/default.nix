@@ -1,9 +1,39 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, installShellFiles, buildGoModule
-, gpgme, lvm2, btrfs-progs, libapparmor, libseccomp, libselinux, systemd
-, go-md2man, nixosTests, python3, makeWrapper, runtimeShell, symlinkJoin
-, extraPackages ? [ ], runc, crun, conmon, slirp4netns, fuse-overlayfs
-, util-linux, iptables, iproute2, catatonit, gvproxy, aardvark-dns, netavark
-, testers, podman }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  installShellFiles,
+  buildGoModule,
+  gpgme,
+  lvm2,
+  btrfs-progs,
+  libapparmor,
+  libseccomp,
+  libselinux,
+  systemd,
+  go-md2man,
+  nixosTests,
+  python3,
+  makeWrapper,
+  runtimeShell,
+  symlinkJoin,
+  extraPackages ? [ ],
+  runc,
+  crun,
+  conmon,
+  slirp4netns,
+  fuse-overlayfs,
+  util-linux,
+  iptables,
+  iproute2,
+  catatonit,
+  gvproxy,
+  aardvark-dns,
+  netavark,
+  testers,
+  podman,
+}:
 let
   # do not add qemu to this wrapper, store paths get written to the podman vm config and break when GCed
 

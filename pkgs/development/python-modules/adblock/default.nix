@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, buildPythonPackage, rustPlatform
-, pkg-config, openssl, publicsuffix-list, pythonOlder, libiconv, CoreFoundation
-, Security, pytestCheckHook, toml }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  buildPythonPackage,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  publicsuffix-list,
+  pythonOlder,
+  libiconv,
+  CoreFoundation,
+  Security,
+  pytestCheckHook,
+  toml,
+}:
 
 buildPythonPackage rec {
   pname = "adblock";

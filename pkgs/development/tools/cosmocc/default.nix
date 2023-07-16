@@ -1,4 +1,8 @@
-{ runCommand, lib, cosmopolitan }:
+{
+  runCommand,
+  lib,
+  cosmopolitan,
+}:
 
 let
   cosmocc = runCommand "cosmocc" {

@@ -1,5 +1,15 @@
-{ stdenv, fetchurl, lib, unzip, makeWrapper, openjdk11, makeDesktopItem
-, icoutils, config, acceptLicense ? config.xxe-pe.acceptLicense or false }:
+{
+  stdenv,
+  fetchurl,
+  lib,
+  unzip,
+  makeWrapper,
+  openjdk11,
+  makeDesktopItem,
+  icoutils,
+  config,
+  acceptLicense ? config.xxe-pe.acceptLicense or false
+}:
 
 let
   pkg_path = "$out/lib/xxe";

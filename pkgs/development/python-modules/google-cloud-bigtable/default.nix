@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, google-api-core, google-cloud-core, grpcio
-, grpc-google-iam-v1, libcst, mock, proto-plus, protobuf, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-core,
+  google-cloud-core,
+  grpcio,
+  grpc-google-iam-v1,
+  libcst,
+  mock,
+  proto-plus,
+  protobuf,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "google-cloud-bigtable";

@@ -1,4 +1,10 @@
-{ lib, makeWrapper, symlinkJoin, extraPythonPackages ? (ps: [ ]), libsForQt5 }:
+{
+  lib,
+  makeWrapper,
+  symlinkJoin,
+  extraPythonPackages ? (ps: [ ]),
+  libsForQt5,
+}:
 with lib;
 let qgis-ltr-unwrapped = libsForQt5.callPackage ./unwrapped-ltr.nix { };
 in symlinkJoin rec {

@@ -1,4 +1,9 @@
-{ lib, bundlerApp, makeWrapper, curl }:
+{
+  lib,
+  bundlerApp,
+  makeWrapper,
+  curl,
+}:
 
 bundlerApp {
   pname = "wpscan";

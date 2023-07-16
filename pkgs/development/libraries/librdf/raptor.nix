@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libxml2, curl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libxml2,
+  curl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "raptor";

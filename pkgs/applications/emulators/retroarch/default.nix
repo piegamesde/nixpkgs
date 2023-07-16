@@ -1,11 +1,49 @@
-{ lib, stdenv, nixosTests, enableNvidiaCgToolkit ? false, withAssets ? false
-, withCoreInfo ? false, withGamemode ? stdenv.isLinux
-, withVulkan ? stdenv.isLinux, withWayland ? stdenv.isLinux, alsa-lib, dbus
-, fetchFromGitHub, fetchpatch, ffmpeg_4, flac, freetype, gamemode, libdrm, libGL
-, libGLU, libpulseaudio, libretro-core-info, libv4l, libX11, libXdmcp, libXext
-, libxkbcommon, libxml2, libXxf86vm, makeWrapper, mbedtls_2, mesa
-, nvidia_cg_toolkit, pkg-config, python3, qtbase, retroarch-assets, SDL2
-, spirv-tools, substituteAll, udev, vulkan-loader, wayland, wrapQtAppsHook, zlib
+{
+  lib,
+  stdenv,
+  nixosTests,
+  enableNvidiaCgToolkit ? false,
+  withAssets ? false,
+  withCoreInfo ? false,
+  withGamemode ? stdenv.isLinux,
+  withVulkan ? stdenv.isLinux,
+  withWayland ? stdenv.isLinux,
+  alsa-lib,
+  dbus,
+  fetchFromGitHub,
+  fetchpatch,
+  ffmpeg_4,
+  flac,
+  freetype,
+  gamemode,
+  libdrm,
+  libGL,
+  libGLU,
+  libpulseaudio,
+  libretro-core-info,
+  libv4l,
+  libX11,
+  libXdmcp,
+  libXext,
+  libxkbcommon,
+  libxml2,
+  libXxf86vm,
+  makeWrapper,
+  mbedtls_2,
+  mesa,
+  nvidia_cg_toolkit,
+  pkg-config,
+  python3,
+  qtbase,
+  retroarch-assets,
+  SDL2,
+  spirv-tools,
+  substituteAll,
+  udev,
+  vulkan-loader,
+  wayland,
+  wrapQtAppsHook,
+  zlib,
 }:
 
 let

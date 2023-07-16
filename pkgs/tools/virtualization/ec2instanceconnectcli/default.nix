@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, boto3, cryptography }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  boto3,
+  cryptography,
+}:
 
 buildPythonPackage rec {
   pname = "ec2instanceconnectcli";

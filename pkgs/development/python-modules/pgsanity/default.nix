@@ -1,4 +1,11 @@
-{ lib, python, fetchPypi, buildPythonPackage, postgresql, unittestCheckHook }:
+{
+  lib,
+  python,
+  fetchPypi,
+  buildPythonPackage,
+  postgresql,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pgsanity";

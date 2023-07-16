@@ -1,8 +1,44 @@
-{ stdenv, lib, fetchurl, buildDunePackage, alcotest, mirage-crypto-rng
-, git-binary, angstrom, astring, cstruct, decompress, digestif, encore, fmt
-, checkseum, fpath, ke, logs, lwt, ocamlgraph, uri, rresult, base64, hxd, result
-, bigstringaf, optint, mirage-flow, domain-name, emile, mimic, carton
-, carton-lwt, carton-git, ipaddr, psq, crowbar, alcotest-lwt, cmdliner }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  buildDunePackage,
+  alcotest,
+  mirage-crypto-rng,
+  git-binary,
+  angstrom,
+  astring,
+  cstruct,
+  decompress,
+  digestif,
+  encore,
+  fmt,
+  checkseum,
+  fpath,
+  ke,
+  logs,
+  lwt,
+  ocamlgraph,
+  uri,
+  rresult,
+  base64,
+  hxd,
+  result,
+  bigstringaf,
+  optint,
+  mirage-flow,
+  domain-name,
+  emile,
+  mimic,
+  carton,
+  carton-lwt,
+  carton-git,
+  ipaddr,
+  psq,
+  crowbar,
+  alcotest-lwt,
+  cmdliner,
+}:
 
 buildDunePackage rec {
   pname = "git";

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, glfw, freetype, openssl, makeWrapper, upx }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  glfw,
+  freetype,
+  openssl,
+  makeWrapper,
+  upx,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vlang";

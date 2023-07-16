@@ -1,4 +1,7 @@
-{ lib, ... }:
+{
+  lib,
+  ...
+}:
 let
   sub.options.config = lib.mkOption {
     type = lib.types.bool;

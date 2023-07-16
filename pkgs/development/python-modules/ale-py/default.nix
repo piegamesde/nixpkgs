@@ -1,6 +1,25 @@
-{ buildPythonPackage, SDL2, cmake, fetchFromGitHub, git, gym, importlib-metadata
-, importlib-resources, lib, ninja, numpy, pybind11, pytestCheckHook, python
-, pythonOlder, setuptools, stdenv, typing-extensions, wheel, zlib }:
+{
+  buildPythonPackage,
+  SDL2,
+  cmake,
+  fetchFromGitHub,
+  git,
+  gym,
+  importlib-metadata,
+  importlib-resources,
+  lib,
+  ninja,
+  numpy,
+  pybind11,
+  pytestCheckHook,
+  python,
+  pythonOlder,
+  setuptools,
+  stdenv,
+  typing-extensions,
+  wheel,
+  zlib,
+}:
 
 buildPythonPackage rec {
   pname = "ale-py";

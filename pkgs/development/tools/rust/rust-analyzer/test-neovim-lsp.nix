@@ -1,4 +1,10 @@
-{ runCommand, cargo, neovim, rust-analyzer, rustc }:
+{
+  runCommand,
+  cargo,
+  neovim,
+  rust-analyzer,
+  rustc,
+}:
 runCommand "test-neovim-rust-analyzer" {
   nativeBuildInputs = [ cargo neovim rust-analyzer rustc ];
 

@@ -1,7 +1,16 @@
-{ lib, stdenv, callPackage, makeSetupHook
+{
+  lib,
+  stdenv,
+  callPackage,
+  makeSetupHook
 
-# Version specific stuff
-, release, version, src, ... }:
+  # Version specific stuff
+  ,
+  release,
+  version,
+  src,
+  ...
+}:
 
 let
   baseInterp = stdenv.mkDerivation {
@@ -48,7 +57,9 @@ let
       inherit release version;
       libPrefix = "tcl${release}";
       libdir = "lib/${libPrefix}";
-      tclPackageHook = callPackage ({ buildPackages }:
+      tclPackageHook = callPackage ({
+          buildPackages,
+        }:
         makeSetupHook {
           name = "tcl-package-hook";
           propagatedBuildInputs = [ buildPackages.makeWrapper ];

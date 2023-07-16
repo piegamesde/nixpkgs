@@ -1,5 +1,13 @@
-{ lib, fetchurl, python3Packages, gobject-introspection
-, gsettings-desktop-schemas, gtk3, wrapGAppsHook, xrandr }:
+{
+  lib,
+  fetchurl,
+  python3Packages,
+  gobject-introspection,
+  gsettings-desktop-schemas,
+  gtk3,
+  wrapGAppsHook,
+  xrandr,
+}:
 
 let inherit (python3Packages) buildPythonApplication docutils pygobject3;
 in buildPythonApplication rec {

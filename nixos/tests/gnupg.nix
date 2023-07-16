@@ -1,43 +1,52 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   {
     name = "gnupg";
     meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
 
     # server for testing SSH
-    nodes.server = { ... }: {
-      imports = [ ../modules/profiles/minimal.nix ];
+    nodes.server = {
+        ...
+      }: {
+        imports = [ ../modules/profiles/minimal.nix ];
 
-      users.users.alice.isNormalUser = true;
-      services.openssh.enable = true;
-    };
+        users.users.alice.isNormalUser = true;
+        services.openssh.enable = true;
+      };
 
     # machine for testing GnuPG
-    nodes.machine = { pkgs, ... }: {
-      imports = [ ../modules/profiles/minimal.nix ];
+    nodes.machine = {
+        pkgs,
+        ...
+      }: {
+        imports = [ ../modules/profiles/minimal.nix ];
 
-      users.users.alice.isNormalUser = true;
-      services.getty.autologinUser = "alice";
+        users.users.alice.isNormalUser = true;
+        services.getty.autologinUser = "alice";
 
-      environment.shellInit = ''
-        # preset a key passphrase in gpg-agent
-        preset_key() {
-          # find all keys
-          case "$1" in
-            ssh) grips=$(awk '/^[0-9A-F]/{print $1}' "''${GNUPGHOME:-$HOME/.gnupg}/sshcontrol") ;;
-            pgp) grips=$(gpg --with-keygrip --list-secret-keys | awk '/Keygrip/{print $3}') ;;
-          esac
+        environment.shellInit = ''
+          # preset a key passphrase in gpg-agent
+          preset_key() {
+            # find all keys
+            case "$1" in
+              ssh) grips=$(awk '/^[0-9A-F]/{print $1}' "''${GNUPGHOME:-$HOME/.gnupg}/sshcontrol") ;;
+              pgp) grips=$(gpg --with-keygrip --list-secret-keys | awk '/Keygrip/{print $3}') ;;
+            esac
 
-          # try to preset the passphrase for each key found
-          for grip in $grips; do
-            "$(gpgconf --list-dirs libexecdir)/gpg-preset-passphrase" -c -P "$2" "$grip"
-          done
-        }
-      '';
+            # try to preset the passphrase for each key found
+            for grip in $grips; do
+              "$(gpgconf --list-dirs libexecdir)/gpg-preset-passphrase" -c -P "$2" "$grip"
+            done
+          }
+        '';
 
-      programs.gnupg.agent.enable = true;
-      programs.gnupg.agent.enableSSHSupport = true;
-    };
+        programs.gnupg.agent.enable = true;
+        programs.gnupg.agent.enableSSHSupport = true;
+      };
 
     testScript = ''
       import shlex

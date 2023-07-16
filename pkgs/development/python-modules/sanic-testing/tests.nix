@@ -1,4 +1,10 @@
-{ buildPythonPackage, sanic, sanic-testing, pytest-asyncio, pytestCheckHook }:
+{
+  buildPythonPackage,
+  sanic,
+  sanic-testing,
+  pytest-asyncio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage {
   pname = "sanic-testing-tests";

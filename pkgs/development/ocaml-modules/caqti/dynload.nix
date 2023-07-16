@@ -1,4 +1,9 @@
-{ lib, buildDunePackage, caqti, findlib }:
+{
+  lib,
+  buildDunePackage,
+  caqti,
+  findlib,
+}:
 
 buildDunePackage {
   pname = "caqti-dynload";

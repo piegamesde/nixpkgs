@@ -1,5 +1,15 @@
-{ lib, pkgs, stdenv, ninja, libusb1, meson, boost, fetchFromGitHub, pkg-config
-, microsoft_gsl }:
+{
+  lib,
+  pkgs,
+  stdenv,
+  ninja,
+  libusb1,
+  meson,
+  boost,
+  fetchFromGitHub,
+  pkg-config,
+  microsoft_gsl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ite-backlight";

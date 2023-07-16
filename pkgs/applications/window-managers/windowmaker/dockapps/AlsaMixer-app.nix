@@ -1,4 +1,12 @@
-{ lib, stdenv, dockapps-sources, pkg-config, libX11, libXpm, libXext, alsa-lib
+{
+  lib,
+  stdenv,
+  dockapps-sources,
+  pkg-config,
+  libX11,
+  libXpm,
+  libXext,
+  alsa-lib,
 }:
 
 stdenv.mkDerivation rec {

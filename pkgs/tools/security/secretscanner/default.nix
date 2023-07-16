@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, hyperscan, pkg-config }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  hyperscan,
+  pkg-config,
+}:
 
 buildGoModule rec {
   pname = "secretscanner";

@@ -1,4 +1,10 @@
-{ lib, buildDunePackage, resto, resto-json, lwt }:
+{
+  lib,
+  buildDunePackage,
+  resto,
+  resto-json,
+  lwt,
+}:
 
 buildDunePackage {
   pname = "resto-directory";

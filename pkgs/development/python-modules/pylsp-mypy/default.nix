@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, mypy, pytestCheckHook
-, python-lsp-server, pythonOlder, toml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  mypy,
+  pytestCheckHook,
+  python-lsp-server,
+  pythonOlder,
+  toml,
+}:
 
 buildPythonPackage rec {
   pname = "pylsp-mypy";

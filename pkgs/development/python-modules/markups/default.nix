@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, docutils, fetchPypi, importlib-metadata, markdown
-, pygments, pytestCheckHook, python-markdown-math, pythonOlder, pyyaml
-, setuptools, textile }:
+{
+  lib,
+  buildPythonPackage,
+  docutils,
+  fetchPypi,
+  importlib-metadata,
+  markdown,
+  pygments,
+  pytestCheckHook,
+  python-markdown-math,
+  pythonOlder,
+  pyyaml,
+  setuptools,
+  textile,
+}:
 
 buildPythonPackage rec {
   pname = "markups";

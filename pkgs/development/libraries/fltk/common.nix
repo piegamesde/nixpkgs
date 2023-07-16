@@ -1,21 +1,56 @@
-{ version, rev, sha256 }:
+{
+  version,
+  rev,
+  sha256,
+}:
 
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, zlib, libjpeg, libpng
-, fontconfig, freetype, libX11, libXext, libXinerama, libXfixes, libXcursor
-, libXft, libXrender, ApplicationServices, Carbon, Cocoa
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  zlib,
+  libjpeg,
+  libpng,
+  fontconfig,
+  freetype,
+  libX11,
+  libXext,
+  libXinerama,
+  libXfixes,
+  libXcursor,
+  libXft,
+  libXrender,
+  ApplicationServices,
+  Carbon,
+  Cocoa
 
-, withGL ? true, libGL, libGLU, glew, OpenGL
+  ,
+  withGL ? true,
+  libGL,
+  libGLU,
+  glew,
+  OpenGL
 
-, withCairo ? true, cairo
+  ,
+  withCairo ? true,
+  cairo
 
-, withPango ?
-  (lib.strings.versionAtLeast version "1.4" && stdenv.hostPlatform.isLinux)
-, pango
+  ,
+  withPango ?
+    (lib.strings.versionAtLeast version "1.4" && stdenv.hostPlatform.isLinux),
+  pango
 
-, withDocs ? true, doxygen, graphviz
+  ,
+  withDocs ? true,
+  doxygen,
+  graphviz
 
-, withExamples ? (stdenv.buildPlatform == stdenv.hostPlatform)
-, withShared ? true }:
+  ,
+  withExamples ? (stdenv.buildPlatform == stdenv.hostPlatform),
+  withShared ? true
+}:
 
 let onOff = value: if value then "ON" else "OFF";
 in stdenv.mkDerivation rec {

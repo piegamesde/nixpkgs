@@ -1,15 +1,28 @@
-{ lib, runCommand, writeScriptBin, buildEnv, python3Packages, perlPackages
-, runtimeShell }:
+{
+  lib,
+  runCommand,
+  writeScriptBin,
+  buildEnv,
+  python3Packages,
+  perlPackages,
+  runtimeShell,
+}:
 
 weechat:
 
 let
-  wrapper = { installManPages ? true, configure ? { availablePlugins, ... }: {
-    # Do not include PHP by default, because it bloats the closure, doesn't
-    # build on Darwin, and there are no official PHP scripts.
-    plugins =
-      builtins.attrValues (builtins.removeAttrs availablePlugins [ "php" ]);
-  } }:
+  wrapper = {
+      installManPages ? true,
+      configure ? {
+          availablePlugins,
+          ...
+        }: {
+          # Do not include PHP by default, because it bloats the closure, doesn't
+          # build on Darwin, and there are no official PHP scripts.
+          plugins = builtins.attrValues
+            (builtins.removeAttrs availablePlugins [ "php" ]);
+        }
+    }:
 
     let
       perlInterpreter = perlPackages.perl;

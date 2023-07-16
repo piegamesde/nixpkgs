@@ -1,8 +1,12 @@
 {
 # Plumbing tools:
-closureInfo, runCommand, writeText, buildEnv
-, # Actual dependencies to propagate:
-bash, coreutils }:
+  closureInfo,
+  runCommand,
+  writeText,
+  buildEnv, # Actual dependencies to propagate:
+  bash,
+  coreutils,
+}:
 let
   tools = buildEnv {
     name = "lorri-runtime-tools";

@@ -1,4 +1,6 @@
-{ callPackage }:
+{
+  callPackage,
+}:
 
 {
   bashup-events32 = callPackage ./3.2.nix { };

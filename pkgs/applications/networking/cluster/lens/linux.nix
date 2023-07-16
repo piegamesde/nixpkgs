@@ -1,4 +1,10 @@
-{ lib, fetchurl, appimageTools, wrapGAppsHook, makeWrapper }:
+{
+  lib,
+  fetchurl,
+  appimageTools,
+  wrapGAppsHook,
+  makeWrapper,
+}:
 
 let
   pname = "lens";

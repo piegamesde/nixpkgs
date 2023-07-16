@@ -1,7 +1,30 @@
-{ lib, fetchFromGitHub, cmake, SDL, ffmpeg, frei0r, libjack2, libdv
-, libsamplerate, libvorbis, libxml2, movit, pkg-config, sox, qtbase, qtsvg, fftw
-, vid-stab, opencv4, ladspa-sdk, gitUpdater, ladspaPlugins, rubberband
-, mkDerivation, which }:
+{
+  lib,
+  fetchFromGitHub,
+  cmake,
+  SDL,
+  ffmpeg,
+  frei0r,
+  libjack2,
+  libdv,
+  libsamplerate,
+  libvorbis,
+  libxml2,
+  movit,
+  pkg-config,
+  sox,
+  qtbase,
+  qtsvg,
+  fftw,
+  vid-stab,
+  opencv4,
+  ladspa-sdk,
+  gitUpdater,
+  ladspaPlugins,
+  rubberband,
+  mkDerivation,
+  which,
+}:
 
 mkDerivation rec {
   pname = "mlt";

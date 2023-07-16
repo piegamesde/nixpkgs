@@ -1,8 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, gitUpdater, gdk-pixbuf, gnome-themes-extra
-, gtk-engine-murrine, jdupes, librsvg, sassc, which
-, themeVariants ? [ ] # default: blue
-, colorVariants ? [ ] # default: all
-, tweaks ? [ ] }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gitUpdater,
+  gdk-pixbuf,
+  gnome-themes-extra,
+  gtk-engine-murrine,
+  jdupes,
+  librsvg,
+  sassc,
+  which,
+  themeVariants ? [ ] # default: blue
+  ,
+  colorVariants ? [ ] # default: all
+  ,
+  tweaks ? [ ]
+}:
 
 let pname = "qogir-theme";
 

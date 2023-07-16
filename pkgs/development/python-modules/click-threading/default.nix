@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, click, isPy3k, futures ? null }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  click,
+  isPy3k,
+  futures ? null
+}:
 
 buildPythonPackage rec {
   pname = "click-threading";

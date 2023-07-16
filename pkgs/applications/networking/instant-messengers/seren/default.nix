@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, alsa-lib, libopus, libogg, gmp, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  alsa-lib,
+  libopus,
+  libogg,
+  gmp,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "seren";

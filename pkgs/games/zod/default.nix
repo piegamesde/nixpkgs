@@ -1,7 +1,22 @@
-{ lib, config, fetchzip, stdenv, SDL, SDL_image, SDL_ttf, SDL_mixer
-, libmysqlclient, wxGTK32, symlinkJoin, runCommandLocal, makeWrapper, coreutils
-, scalingFactor ? 2 # this is to resize the fixed-size zod_launcher window
-, substituteAll }:
+{
+  lib,
+  config,
+  fetchzip,
+  stdenv,
+  SDL,
+  SDL_image,
+  SDL_ttf,
+  SDL_mixer,
+  libmysqlclient,
+  wxGTK32,
+  symlinkJoin,
+  runCommandLocal,
+  makeWrapper,
+  coreutils,
+  scalingFactor ? 2 # this is to resize the fixed-size zod_launcher window
+  ,
+  substituteAll,
+}:
 let
   name = "zod-engine";
   version = "2011-09-06";

@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, charset-normalizer, django, fetchFromGitHub, jinja2
-, mako, nose, pyramid, pyramid_mako, pytestCheckHook, six, tornado }:
+{
+  lib,
+  buildPythonPackage,
+  charset-normalizer,
+  django,
+  fetchFromGitHub,
+  jinja2,
+  mako,
+  nose,
+  pyramid,
+  pyramid_mako,
+  pytestCheckHook,
+  six,
+  tornado,
+}:
 
 buildPythonPackage rec {
   pname = "pypugjs";

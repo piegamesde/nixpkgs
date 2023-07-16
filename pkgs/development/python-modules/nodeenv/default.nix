@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, mock, pytestCheckHook, python
-, pythonOlder, setuptools, which }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  pytestCheckHook,
+  python,
+  pythonOlder,
+  setuptools,
+  which,
+}:
 
 buildPythonPackage rec {
   pname = "nodeenv";

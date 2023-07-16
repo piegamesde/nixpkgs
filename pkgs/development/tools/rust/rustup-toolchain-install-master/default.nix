@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchFromGitHub, rustPlatform, pkg-config, openssl, runCommand
-, patchelf, zlib, Security }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  runCommand,
+  patchelf,
+  zlib,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rustup-toolchain-install-master";

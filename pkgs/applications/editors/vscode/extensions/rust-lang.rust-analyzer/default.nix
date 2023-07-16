@@ -1,5 +1,18 @@
-{ lib, fetchFromGitHub, vscode-utils, jq, rust-analyzer, nodePackages, moreutils
-, esbuild, pkg-config, libsecret, stdenv, darwin, setDefaultServerPath ? true }:
+{
+  lib,
+  fetchFromGitHub,
+  vscode-utils,
+  jq,
+  rust-analyzer,
+  nodePackages,
+  moreutils,
+  esbuild,
+  pkg-config,
+  libsecret,
+  stdenv,
+  darwin,
+  setDefaultServerPath ? true
+}:
 
 let
   pname = "rust-analyzer";

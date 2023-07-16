@@ -1,39 +1,52 @@
-{ system ? builtins.currentSystem, pkgs ? import ../.. { inherit system; }
-, package }:
-import ./make-test-python.nix ({ pkgs, ... }:
+{
+  system ? builtins.currentSystem,
+  pkgs ? import ../.. { inherit system; },
+  package,
+}:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
   let testPath = pkgs.hello;
   in {
     name = "varnish";
     meta = with pkgs.lib.maintainers; { maintainers = [ ajs124 ]; };
 
     nodes = {
-      varnish = { config, pkgs, ... }: {
-        services.nix-serve = { enable = true; };
+      varnish = {
+          config,
+          pkgs,
+          ...
+        }: {
+          services.nix-serve = { enable = true; };
 
-        services.varnish = {
-          inherit package;
-          enable = true;
-          http_address = "0.0.0.0:80";
-          config = ''
-            vcl 4.0;
+          services.varnish = {
+            inherit package;
+            enable = true;
+            http_address = "0.0.0.0:80";
+            config = ''
+              vcl 4.0;
 
-            backend nix-serve {
-              .host = "127.0.0.1";
-              .port = "${toString config.services.nix-serve.port}";
-            }
-          '';
+              backend nix-serve {
+                .host = "127.0.0.1";
+                .port = "${toString config.services.nix-serve.port}";
+              }
+            '';
+          };
+
+          networking.firewall.allowedTCPPorts = [ 80 ];
+          system.extraDependencies = [ testPath ];
         };
 
-        networking.firewall.allowedTCPPorts = [ 80 ];
-        system.extraDependencies = [ testPath ];
-      };
-
-      client = { lib, ... }: {
-        nix.settings = {
-          require-sigs = false;
-          substituters = lib.mkForce [ "http://varnish" ];
+      client = {
+          lib,
+          ...
+        }: {
+          nix.settings = {
+            require-sigs = false;
+            substituters = lib.mkForce [ "http://varnish" ];
+          };
         };
-      };
     };
 
     testScript = ''

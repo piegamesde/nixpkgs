@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchpatch, fetchurl, meson, ninja, pkg-config
-, gobject-introspection, lcms2, vala }:
+{
+  stdenv,
+  lib,
+  fetchpatch,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  gobject-introspection,
+  lcms2,
+  vala,
+}:
 
 stdenv.mkDerivation rec {
   pname = "babl";

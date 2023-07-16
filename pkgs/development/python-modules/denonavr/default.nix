@@ -1,6 +1,20 @@
-{ lib, async-timeout, asyncstdlib, attrs, buildPythonPackage, defusedxml
-, fetchFromGitHub, httpx, netifaces, pytest-asyncio, pytestCheckHook
-, pytest-httpx, pytest-timeout, pythonOlder, setuptools }:
+{
+  lib,
+  async-timeout,
+  asyncstdlib,
+  attrs,
+  buildPythonPackage,
+  defusedxml,
+  fetchFromGitHub,
+  httpx,
+  netifaces,
+  pytest-asyncio,
+  pytestCheckHook,
+  pytest-httpx,
+  pytest-timeout,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "denonavr";

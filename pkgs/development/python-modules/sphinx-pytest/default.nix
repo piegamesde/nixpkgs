@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, flit-core, pytest, sphinx
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flit-core,
+  pytest,
+  sphinx,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "sphinx-pytest";

@@ -1,5 +1,16 @@
-{ lib, aiohttp, aioresponses, buildPythonPackage, callee, fetchPypi, mock, pyjwt
-, pytestCheckHook, pythonOlder, requests }:
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  buildPythonPackage,
+  callee,
+  fetchPypi,
+  mock,
+  pyjwt,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "auth0-python";

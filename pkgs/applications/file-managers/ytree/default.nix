@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, ncurses, readline }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+  readline,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ytree";

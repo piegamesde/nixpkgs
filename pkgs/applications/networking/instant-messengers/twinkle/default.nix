@@ -1,6 +1,24 @@
-{ lib, fetchFromGitHub, cmake, libxml2, libsndfile, file, readline, bison, flex
-, ucommon, ccrtp, qtbase, qttools, qtquickcontrols2, alsa-lib, speex, ilbc
-, mkDerivation, bcg729 }:
+{
+  lib,
+  fetchFromGitHub,
+  cmake,
+  libxml2,
+  libsndfile,
+  file,
+  readline,
+  bison,
+  flex,
+  ucommon,
+  ccrtp,
+  qtbase,
+  qttools,
+  qtquickcontrols2,
+  alsa-lib,
+  speex,
+  ilbc,
+  mkDerivation,
+  bcg729,
+}:
 
 mkDerivation rec {
   pname = "twinkle";

@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchurl, sphinx }:
+{
+  lib,
+  buildPythonPackage,
+  fetchurl,
+  sphinx,
+}:
 
 buildPythonPackage rec {
   pname = "tracing";

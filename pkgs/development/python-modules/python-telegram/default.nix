@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchpatch, buildPythonPackage, fetchPypi, pythonOlder
-, setuptools, tdlib }:
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools,
+  tdlib,
+}:
 
 buildPythonPackage rec {
   pname = "python-telegram";

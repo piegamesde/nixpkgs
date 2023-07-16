@@ -2,7 +2,11 @@
 
 # Most of the stuff here should probably be moved elsewhere sometime.
 
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 
 with lib;
 

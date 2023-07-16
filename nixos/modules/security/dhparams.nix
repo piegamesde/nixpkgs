@@ -1,4 +1,10 @@
-{ config, lib, options, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) literalExpression mkOption types;
@@ -10,34 +16,38 @@ let
     description = "integer of at least 16 bits";
   };
 
-  paramsSubmodule = { name, config, ... }: {
-    options.bits = mkOption {
-      type = bitType;
-      default = cfg.defaultBitSize;
-      defaultText = literalExpression "config.${opt.defaultBitSize}";
-      description = lib.mdDoc ''
-        The bit size for the prime that is used during a Diffie-Hellman
-        key exchange.
-      '';
-    };
+  paramsSubmodule = {
+      name,
+      config,
+      ...
+    }: {
+      options.bits = mkOption {
+        type = bitType;
+        default = cfg.defaultBitSize;
+        defaultText = literalExpression "config.${opt.defaultBitSize}";
+        description = lib.mdDoc ''
+          The bit size for the prime that is used during a Diffie-Hellman
+          key exchange.
+        '';
+      };
 
-    options.path = mkOption {
-      type = types.path;
-      readOnly = true;
-      description = lib.mdDoc ''
-        The resulting path of the generated Diffie-Hellman parameters
-        file for other services to reference. This could be either a
-        store path or a file inside the directory specified by
-        {option}`security.dhparams.path`.
-      '';
-    };
+      options.path = mkOption {
+        type = types.path;
+        readOnly = true;
+        description = lib.mdDoc ''
+          The resulting path of the generated Diffie-Hellman parameters
+          file for other services to reference. This could be either a
+          store path or a file inside the directory specified by
+          {option}`security.dhparams.path`.
+        '';
+      };
 
-    config.path = let
-      generated = pkgs.runCommand "dhparams-${name}.pem" {
-        nativeBuildInputs = [ pkgs.openssl ];
-      } ''openssl dhparam -out "$out" ${toString config.bits}'';
-    in if cfg.stateful then "${cfg.path}/${name}.pem" else generated;
-  };
+      config.path = let
+        generated = pkgs.runCommand "dhparams-${name}.pem" {
+          nativeBuildInputs = [ pkgs.openssl ];
+        } ''openssl dhparam -out "$out" ${toString config.bits}'';
+      in if cfg.stateful then "${cfg.path}/${name}.pem" else generated;
+    };
 
 in {
   options = {
@@ -152,7 +162,11 @@ in {
             fi
             ${
               lib.concatStrings (lib.mapAttrsToList (name:
-                { bits, path, ... }: ''
+                {
+                  bits,
+                  path,
+                  ...
+                }: ''
                   if [ "$file" = ${lib.escapeShellArg path} ] && \
                      ${pkgs.openssl}/bin/openssl dhparam -in "$file" -text \
                      | head -n 1 | grep "(${
@@ -172,7 +186,11 @@ in {
         '';
       };
     } // lib.mapAttrs' (name:
-      { bits, path, ... }:
+      {
+        bits,
+        path,
+        ...
+      }:
       lib.nameValuePair "dhparams-gen-${name}" {
         description = "Generate Diffie-Hellman Parameters for ${name}";
         after = [ "dhparams-init.service" ];

@@ -1,4 +1,10 @@
-{ lib, rustPlatform, yabridge, makeWrapper, wine }:
+{
+  lib,
+  rustPlatform,
+  yabridge,
+  makeWrapper,
+  wine,
+}:
 
 rustPlatform.buildRustPackage {
   pname = "yabridgectl";

@@ -1,7 +1,24 @@
-{ version, sha256Hash }:
+{
+  version,
+  sha256Hash,
+}:
 
-{ lib, stdenv, fetchFromGitHub, fetchpatch, fusePackages, util-linux, gettext
-, shadow, meson, ninja, pkg-config, autoreconfHook, python3Packages, which }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  fusePackages,
+  util-linux,
+  gettext,
+  shadow,
+  meson,
+  ninja,
+  pkg-config,
+  autoreconfHook,
+  python3Packages,
+  which,
+}:
 
 let isFuse3 = lib.hasPrefix "3" version;
 in stdenv.mkDerivation rec {

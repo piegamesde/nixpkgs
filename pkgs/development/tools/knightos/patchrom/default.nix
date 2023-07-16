@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, asciidoc, libxslt }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  asciidoc,
+  libxslt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "patchrom";

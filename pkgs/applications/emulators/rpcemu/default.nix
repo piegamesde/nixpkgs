@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchhg, qt5 }:
+{
+  lib,
+  stdenv,
+  fetchhg,
+  qt5,
+}:
 
 let inherit (qt5) qtbase qtmultimedia wrapQtAppsHook;
 in stdenv.mkDerivation (finalAttrs: {

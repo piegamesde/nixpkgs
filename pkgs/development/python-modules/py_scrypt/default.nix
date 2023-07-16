@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, openssl }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  openssl,
+}:
 
 buildPythonPackage rec {
   pname = "scrypt";

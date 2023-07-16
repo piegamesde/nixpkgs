@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, alsa-lib, gtkmm2, libjack2, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  alsa-lib,
+  gtkmm2,
+  libjack2,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "seq24";

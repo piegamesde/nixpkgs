@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, installShellFiles, python3Packages, asciidoc
-, docbook_xsl, docbook_xml_dtd_45, git, perl, xmlto }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  installShellFiles,
+  python3Packages,
+  asciidoc,
+  docbook_xsl,
+  docbook_xml_dtd_45,
+  git,
+  perl,
+  xmlto,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "stgit";

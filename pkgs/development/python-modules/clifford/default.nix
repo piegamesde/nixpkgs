@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, h5py, ipython, numba, numpy
-, pytestCheckHook, scipy, sparse }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  h5py,
+  ipython,
+  numba,
+  numpy,
+  pytestCheckHook,
+  scipy,
+  sparse,
+}:
 
 buildPythonPackage rec {
   pname = "clifford";

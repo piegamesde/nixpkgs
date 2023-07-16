@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy27, nbconvert, pytestCheckHook
-, requests, responses }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy27,
+  nbconvert,
+  pytestCheckHook,
+  requests,
+  responses,
+}:
 
 buildPythonPackage rec {
   pname = "nbconflux";

@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools-scm, requests, tqdm, nose
-, vcrpy, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools-scm,
+  requests,
+  tqdm,
+  nose,
+  vcrpy,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "habanero";

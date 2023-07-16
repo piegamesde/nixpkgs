@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, autoreconfHook, libunwind }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  libunwind,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gperftools";

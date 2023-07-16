@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, libarchive, iucode-tool }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libarchive,
+  iucode-tool,
+}:
 
 stdenv.mkDerivation rec {
   pname = "microcode-intel";

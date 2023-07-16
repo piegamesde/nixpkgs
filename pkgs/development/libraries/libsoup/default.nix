@@ -1,7 +1,24 @@
-{ stdenv, lib, fetchurl, glib, libxml2, meson, ninja, pkg-config, gnome
-, libsysprof-capture, gobject-introspection, vala, libpsl, brotli
-, gnomeSupport ? true, sqlite, glib-networking, buildPackages
-, withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  glib,
+  libxml2,
+  meson,
+  ninja,
+  pkg-config,
+  gnome,
+  libsysprof-capture,
+  gobject-introspection,
+  vala,
+  libpsl,
+  brotli,
+  gnomeSupport ? true,
+  sqlite,
+  glib-networking,
+  buildPackages,
+  withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
+}:
 
 stdenv.mkDerivation rec {
   pname = "libsoup";

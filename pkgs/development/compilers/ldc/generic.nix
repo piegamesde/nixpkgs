@@ -1,7 +1,28 @@
-{ version, sha256 }:
-{ lib, stdenv, fetchurl, cmake, ninja, llvm_11, curl, tzdata, libconfig, lit
-, gdb, unzip, darwin, bash, callPackage, makeWrapper, runCommand, targetPackages
-, ldcBootstrap ? callPackage ./bootstrap.nix { } }:
+{
+  version,
+  sha256,
+}:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  ninja,
+  llvm_11,
+  curl,
+  tzdata,
+  libconfig,
+  lit,
+  gdb,
+  unzip,
+  darwin,
+  bash,
+  callPackage,
+  makeWrapper,
+  runCommand,
+  targetPackages,
+  ldcBootstrap ? callPackage ./bootstrap.nix { }
+}:
 
 let
   pathConfig = runCommand "ldc-lib-paths" { } ''

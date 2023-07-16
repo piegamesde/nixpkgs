@@ -1,8 +1,35 @@
-{ stdenv, fetchFromGitHub, fetchpatch, meson, pkg-config, ninja, xorg, libdrm
-, vulkan-loader, vulkan-headers, wayland, wayland-protocols, libxkbcommon
-, libcap, SDL2, pipewire, udev, pixman, libinput, seatd, xwayland, glslang
-, hwdata, openvr, stb, wlroots, libliftoff, libdisplay-info, lib
-, makeBinaryWrapper }:
+{
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  meson,
+  pkg-config,
+  ninja,
+  xorg,
+  libdrm,
+  vulkan-loader,
+  vulkan-headers,
+  wayland,
+  wayland-protocols,
+  libxkbcommon,
+  libcap,
+  SDL2,
+  pipewire,
+  udev,
+  pixman,
+  libinput,
+  seatd,
+  xwayland,
+  glslang,
+  hwdata,
+  openvr,
+  stb,
+  wlroots,
+  libliftoff,
+  libdisplay-info,
+  lib,
+  makeBinaryWrapper,
+}:
 let
   pname = "gamescope";
   version = "3.11.52-beta6";

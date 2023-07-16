@@ -1,4 +1,12 @@
-{ fetchFromGitHub, elfutils, pkg-config, stdenv, zlib, lib, nixosTests }:
+{
+  fetchFromGitHub,
+  elfutils,
+  pkg-config,
+  stdenv,
+  zlib,
+  lib,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libbpf";

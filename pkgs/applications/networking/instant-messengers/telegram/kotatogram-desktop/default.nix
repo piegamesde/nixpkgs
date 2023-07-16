@@ -1,13 +1,70 @@
-{ lib, stdenv, fetchFromGitHub, callPackage, pkg-config, cmake, ninja, clang
-, python3, wrapQtAppsHook, removeReferencesTo, extra-cmake-modules, qtbase
-, qtimageformats, qtsvg, kwayland, lz4, xxHash, ffmpeg_4, openalSoft, minizip
-, libopus, alsa-lib, libpulseaudio, range-v3, tl-expected, hunspell, glibmm
-, jemalloc, rnnoise, abseil-cpp, microsoft_gsl, wayland, libicns, Cocoa
-, CoreFoundation, CoreServices, CoreText, CoreGraphics, CoreMedia, OpenGL
-, AudioUnit, ApplicationServices, Foundation, AGL, Security, SystemConfiguration
-, Carbon, AudioToolbox, VideoToolbox, VideoDecodeAcceleration, AVFoundation
-, CoreAudio, CoreVideo, CoreMediaIO, QuartzCore, AppKit, CoreWLAN, WebKit, IOKit
-, GSS, MediaPlayer, IOSurface, Metal, MetalKit }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  callPackage,
+  pkg-config,
+  cmake,
+  ninja,
+  clang,
+  python3,
+  wrapQtAppsHook,
+  removeReferencesTo,
+  extra-cmake-modules,
+  qtbase,
+  qtimageformats,
+  qtsvg,
+  kwayland,
+  lz4,
+  xxHash,
+  ffmpeg_4,
+  openalSoft,
+  minizip,
+  libopus,
+  alsa-lib,
+  libpulseaudio,
+  range-v3,
+  tl-expected,
+  hunspell,
+  glibmm,
+  jemalloc,
+  rnnoise,
+  abseil-cpp,
+  microsoft_gsl,
+  wayland,
+  libicns,
+  Cocoa,
+  CoreFoundation,
+  CoreServices,
+  CoreText,
+  CoreGraphics,
+  CoreMedia,
+  OpenGL,
+  AudioUnit,
+  ApplicationServices,
+  Foundation,
+  AGL,
+  Security,
+  SystemConfiguration,
+  Carbon,
+  AudioToolbox,
+  VideoToolbox,
+  VideoDecodeAcceleration,
+  AVFoundation,
+  CoreAudio,
+  CoreVideo,
+  CoreMediaIO,
+  QuartzCore,
+  AppKit,
+  CoreWLAN,
+  WebKit,
+  IOKit,
+  GSS,
+  MediaPlayer,
+  IOSurface,
+  Metal,
+  MetalKit,
+}:
 
 let
   tg_owt = callPackage ./tg_owt.nix {

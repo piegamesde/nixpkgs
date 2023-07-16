@@ -1,8 +1,33 @@
-{ lib, stdenv, fetchurl, bash, unzip, glibc, openssl, libgit2, libGLU, libGL
-, freetype, xorg, alsa-lib, cairo, libuuid, autoreconfHook, gcc48, runtimeShell
-, ... }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bash,
+  unzip,
+  glibc,
+  openssl,
+  libgit2,
+  libGLU,
+  libGL,
+  freetype,
+  xorg,
+  alsa-lib,
+  cairo,
+  libuuid,
+  autoreconfHook,
+  gcc48,
+  runtimeShell,
+  ...
+}:
 
-{ name, src, version, source-date, source-url, ... }:
+{
+  name,
+  src,
+  version,
+  source-date,
+  source-url,
+  ...
+}:
 
 # Build the Pharo VM
 stdenv.mkDerivation rec {

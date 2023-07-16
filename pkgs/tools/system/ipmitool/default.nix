@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, openssl, readline, fetchurl }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  openssl,
+  readline,
+  fetchurl,
+}:
 
 let
 

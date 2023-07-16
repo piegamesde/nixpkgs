@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, makeDesktopItem, makeWrapper, unzip, mono }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeDesktopItem,
+  makeWrapper,
+  unzip,
+  mono,
+}:
 
 let
   pname = "mission-planner";

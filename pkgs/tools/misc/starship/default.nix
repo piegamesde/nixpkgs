@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, installShellFiles, cmake
-, fetchpatch, git, nixosTests, Security, Foundation, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  installShellFiles,
+  cmake,
+  fetchpatch,
+  git,
+  nixosTests,
+  Security,
+  Foundation,
+  Cocoa,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "starship";

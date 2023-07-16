@@ -1,6 +1,26 @@
-{ lib, stdenv, buildPythonPackage, cairosvg, cffi, cssselect2, fetchPypi
-, flit-core, fontconfig, fonttools, ghostscript, glib, harfbuzz, html5lib, pango
-, pillow, pydyf, pyphen, pytestCheckHook, pythonOlder, substituteAll, tinycss2
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  cairosvg,
+  cffi,
+  cssselect2,
+  fetchPypi,
+  flit-core,
+  fontconfig,
+  fonttools,
+  ghostscript,
+  glib,
+  harfbuzz,
+  html5lib,
+  pango,
+  pillow,
+  pydyf,
+  pyphen,
+  pytestCheckHook,
+  pythonOlder,
+  substituteAll,
+  tinycss2,
 }:
 
 buildPythonPackage rec {

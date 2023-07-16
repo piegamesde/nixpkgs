@@ -1,4 +1,11 @@
-{ lib, fetchurl, meson, ninja, python3, gnome }:
+{
+  lib,
+  fetchurl,
+  meson,
+  ninja,
+  python3,
+  gnome,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "gi-docgen";

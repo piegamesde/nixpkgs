@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cmake, parallelSupport ? (!stdenv.isDarwin) }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  parallelSupport ? (!stdenv.isDarwin)
+}:
 
 let mkFlag = optset: flag: if optset then "-D${flag}=ON" else "-D${flag}=OFF";
 

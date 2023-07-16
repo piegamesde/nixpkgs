@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, numpy, scipy, numba, pandas, dask
-, distributed, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  scipy,
+  numba,
+  pandas,
+  dask,
+  distributed,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "stumpy";

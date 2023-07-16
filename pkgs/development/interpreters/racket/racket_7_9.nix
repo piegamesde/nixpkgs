@@ -1,7 +1,34 @@
-{ lib, stdenv, fetchurl, makeFontsConf, cacert, cairo, coreutils, fontconfig
-, freefont_ttf, glib, gmp, gtk3, libedit, libffi, libiconv, libGL, libGLU
-, libjpeg, libpng, libtool, mpfr, openssl, pango, poppler, readline, sqlite
-, disableDocs ? false, CoreFoundation, gsettings-desktop-schemas, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeFontsConf,
+  cacert,
+  cairo,
+  coreutils,
+  fontconfig,
+  freefont_ttf,
+  glib,
+  gmp,
+  gtk3,
+  libedit,
+  libffi,
+  libiconv,
+  libGL,
+  libGLU,
+  libjpeg,
+  libpng,
+  libtool,
+  mpfr,
+  openssl,
+  pango,
+  poppler,
+  readline,
+  sqlite,
+  disableDocs ? false,
+  CoreFoundation,
+  gsettings-desktop-schemas,
+  wrapGAppsHook,
 }:
 
 let
@@ -32,7 +59,10 @@ in stdenv.mkDerivation rec {
   pname = "racket";
   version = "7.9"; # always change at once with ./minimal.nix
 
-  src = (lib.makeOverridable ({ name, sha256 }:
+  src = (lib.makeOverridable ({
+      name,
+      sha256,
+    }:
     fetchurl {
       url =
         "https://mirror.racket-lang.org/installers/${version}/${name}-src.tgz";

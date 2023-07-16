@@ -1,5 +1,19 @@
-{ stdenv, lib, config, fetchurl, unzip, makeWrapper, icu, libunwind, curl, zlib
-, libuuid, dotnetbuildhelpers, dotnetCorePackages, openssl, }:
+{
+  stdenv,
+  lib,
+  config,
+  fetchurl,
+  unzip,
+  makeWrapper,
+  icu,
+  libunwind,
+  curl,
+  zlib,
+  libuuid,
+  dotnetbuildhelpers,
+  dotnetCorePackages,
+  openssl,
+}:
 let
   platforms = {
     "aarch64-darwin" = {

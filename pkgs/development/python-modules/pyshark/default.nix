@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchpatch, fetchFromGitHub, appdirs, lxml, packaging
-, py, pytestCheckHook, pythonOlder, wireshark-cli }:
+{
+  lib,
+  buildPythonPackage,
+  fetchpatch,
+  fetchFromGitHub,
+  appdirs,
+  lxml,
+  packaging,
+  py,
+  pytestCheckHook,
+  pythonOlder,
+  wireshark-cli,
+}:
 
 buildPythonPackage rec {
   pname = "pyshark";

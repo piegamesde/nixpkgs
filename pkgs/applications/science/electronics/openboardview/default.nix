@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchFromGitHub, gitUpdater, cmake, pkg-config, python3, SDL2
-, fontconfig, gtk3, wrapGAppsHook, darwin }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  gitUpdater,
+  cmake,
+  pkg-config,
+  python3,
+  SDL2,
+  fontconfig,
+  gtk3,
+  wrapGAppsHook,
+  darwin,
+}:
 
 let inherit (darwin.apple_sdk.frameworks) Cocoa;
 in stdenv.mkDerivation rec {

@@ -1,5 +1,16 @@
-{ lib, beautifulsoup4, buildPythonPackage, fetchFromGitHub, lxml, pytest-httpbin
-, pytest-mock, pytestCheckHook, pythonOlder, requests, requests-mock }:
+{
+  lib,
+  beautifulsoup4,
+  buildPythonPackage,
+  fetchFromGitHub,
+  lxml,
+  pytest-httpbin,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-mock,
+}:
 
 buildPythonPackage rec {
   pname = "mechanicalsoup";

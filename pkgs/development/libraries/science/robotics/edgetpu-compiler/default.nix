@@ -1,4 +1,11 @@
-{ autoPatchelfHook, dpkg, fetchurl, lib, libcxx, stdenv }:
+{
+  autoPatchelfHook,
+  dpkg,
+  fetchurl,
+  lib,
+  libcxx,
+  stdenv,
+}:
 stdenv.mkDerivation rec {
   pname = "edgetpu-compiler";
   version = "15.0";

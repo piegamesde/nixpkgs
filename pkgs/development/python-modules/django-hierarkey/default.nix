@@ -1,10 +1,18 @@
-{ lib, buildPythonPackage, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub
 
-# propagates
-, python-dateutil
+  # propagates
+  ,
+  python-dateutil
 
-# tests
-, django-extensions, pytest-django, pytestCheckHook }:
+  # tests
+  ,
+  django-extensions,
+  pytest-django,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "django-hierarkey";

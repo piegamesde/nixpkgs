@@ -1,4 +1,12 @@
-{ lib, mkDerivation, fetchFromGitHub, fetchpatch, qmake, pkg-config, gtk2 }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  fetchpatch,
+  qmake,
+  pkg-config,
+  gtk2,
+}:
 
 mkDerivation {
   pname = "qtstyleplugins";

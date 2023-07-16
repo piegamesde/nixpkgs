@@ -1,6 +1,17 @@
-{ lib, writeShellApplication, gnumake, pkgsCross, klipper, klipper-firmware
-, python3, avrdude, stm32flash, mcu ? "mcu", flashDevice ? "/dev/null"
-, firmwareConfig ? ./simulator.cfg }:
+{
+  lib,
+  writeShellApplication,
+  gnumake,
+  pkgsCross,
+  klipper,
+  klipper-firmware,
+  python3,
+  avrdude,
+  stm32flash,
+  mcu ? "mcu",
+  flashDevice ? "/dev/null",
+  firmwareConfig ? ./simulator.cfg
+}:
 let
   supportedArches = [ "avr" "stm32" "lpc176x" ];
   matchBoard = with builtins;

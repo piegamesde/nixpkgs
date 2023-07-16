@@ -1,5 +1,11 @@
-{ makeScopeWithSplicing, generateSplicesForMkScope, stdenv, buildFHSEnv
-, pkgsi686Linux, glxinfo }:
+{
+  makeScopeWithSplicing,
+  generateSplicesForMkScope,
+  stdenv,
+  buildFHSEnv,
+  pkgsi686Linux,
+  glxinfo,
+}:
 
 let
   steamPackagesFun = self:

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchgit, rustPlatform, CoreFoundation, libiconv, Security }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  rustPlatform,
+  CoreFoundation,
+  libiconv,
+  Security,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "genpass";
   version = "0.5.1";

@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchurl, pkg-config }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnuclad";

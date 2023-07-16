@@ -1,6 +1,11 @@
-{ lib, buildPackages ? { inherit stdenvNoCC; }, stdenvNoCC
-, curl # Note that `curl' may be `null', in case of the native stdenvNoCC.
-, cacert ? null }:
+{
+  lib,
+  buildPackages ? { inherit stdenvNoCC; },
+  stdenvNoCC,
+  curl # Note that `curl' may be `null', in case of the native stdenvNoCC.
+  ,
+  cacert ? null
+}:
 
 let
 
@@ -36,70 +41,81 @@ let
   ] ++ (map (site: "NIX_MIRRORS_${site}") sites);
 
 in { # URL to fetch.
-url ? ""
+  url ? ""
 
-, # Alternatively, a list of URLs specifying alternative download
-# locations.  They are tried in order.
-urls ? [ ]
+  , # Alternatively, a list of URLs specifying alternative download
+  # locations.  They are tried in order.
+  urls ? [ ]
 
-, # Additional curl options needed for the download to succeed.
-# Warning: Each space (no matter the escaping) will start a new argument.
-# If you wish to pass arguments with spaces, use `curlOptsList`
-curlOpts ? ""
+  , # Additional curl options needed for the download to succeed.
+  # Warning: Each space (no matter the escaping) will start a new argument.
+  # If you wish to pass arguments with spaces, use `curlOptsList`
+  curlOpts ? ""
 
-, # Additional curl options needed for the download to succeed.
-curlOptsList ? [ ]
+  , # Additional curl options needed for the download to succeed.
+  curlOptsList ? [ ]
 
-, # Name of the file.  If empty, use the basename of `url' (or of the
-# first element of `urls').
-name ? ""
+  , # Name of the file.  If empty, use the basename of `url' (or of the
+  # first element of `urls').
+  name ? ""
 
-  # for versioned downloads optionally take pname + version.
-, pname ? "", version ? ""
+    # for versioned downloads optionally take pname + version.
+  ,
+  pname ? "",
+  version ? ""
 
-, # SRI hash.
-hash ? ""
+  , # SRI hash.
+  hash ? ""
 
-, # Legacy ways of specifying the hash.
-outputHash ? "", outputHashAlgo ? "", md5 ? "", sha1 ? "", sha256 ? ""
-, sha512 ? ""
+  , # Legacy ways of specifying the hash.
+  outputHash ? "",
+  outputHashAlgo ? "",
+  md5 ? "",
+  sha1 ? "",
+  sha256 ? "",
+  sha512 ? ""
 
-, recursiveHash ? false
+  ,
+  recursiveHash ? false
 
-, # Shell code to build a netrc file for BASIC auth
-netrcPhase ? null
+  , # Shell code to build a netrc file for BASIC auth
+  netrcPhase ? null
 
-, # Impure env vars (https://nixos.org/nix/manual/#sec-advanced-attributes)
-# needed for netrcPhase
-netrcImpureEnvVars ? [ ]
+  , # Impure env vars (https://nixos.org/nix/manual/#sec-advanced-attributes)
+  # needed for netrcPhase
+  netrcImpureEnvVars ? [ ]
 
-, # Shell code executed after the file has been fetched
-# successfully. This can do things like check or transform the file.
-postFetch ? ""
+  , # Shell code executed after the file has been fetched
+  # successfully. This can do things like check or transform the file.
+  postFetch ? ""
 
-, # Whether to download to a temporary path rather than $out. Useful
-# in conjunction with postFetch. The location of the temporary file
-# is communicated to postFetch via $downloadedFile.
-downloadToTemp ? false
+  , # Whether to download to a temporary path rather than $out. Useful
+  # in conjunction with postFetch. The location of the temporary file
+  # is communicated to postFetch via $downloadedFile.
+  downloadToTemp ? false
 
-, # If true, set executable bit on downloaded file
-executable ? false
+  , # If true, set executable bit on downloaded file
+  executable ? false
 
-, # If set, don't download the file, but write a list of all possible
-# URLs (resulting from resolving mirror:// URLs) to $out.
-showURLs ? false
+  , # If set, don't download the file, but write a list of all possible
+  # URLs (resulting from resolving mirror:// URLs) to $out.
+  showURLs ? false
 
-, # Meta information, if any.
-meta ? { }
+  , # Meta information, if any.
+  meta ? { }
 
-  # Passthru information, if any.
-, passthru ? { }
-  # Doing the download on a remote machine just duplicates network
-  # traffic, so don't do that by default
-, preferLocalBuild ? true
+    # Passthru information, if any.
+  ,
+  passthru ? { }
+    # Doing the download on a remote machine just duplicates network
+    # traffic, so don't do that by default
+  ,
+  preferLocalBuild ? true
 
-  # Additional packages needed as part of a fetch
-, nativeBuildInputs ? [ ] }:
+    # Additional packages needed as part of a fetch
+  ,
+  nativeBuildInputs ? [ ]
+}:
 
 let
   urls_ = if urls != [ ] && url == "" then

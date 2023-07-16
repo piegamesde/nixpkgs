@@ -1,14 +1,31 @@
-{ lib, fetchFromGitHub, python3Packages, wrapGAppsHook, gobject-introspection
-, gtk-layer-shell, pango, gdk-pixbuf, atk
-# Extra packages called by various internal nwg-panel modules
-, sway # swaylock, swaymsg
-, systemd # systemctl
-, wlr-randr # wlr-randr
-, nwg-menu # nwg-menu
-, light # light
-, pamixer # pamixer
-, pulseaudio # pactl
-, libdbusmenu-gtk3 # tray
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  wrapGAppsHook,
+  gobject-introspection,
+  gtk-layer-shell,
+  pango,
+  gdk-pixbuf,
+  atk
+  # Extra packages called by various internal nwg-panel modules
+  ,
+  sway # swaylock, swaymsg
+  ,
+  systemd # systemctl
+  ,
+  wlr-randr # wlr-randr
+  ,
+  nwg-menu # nwg-menu
+  ,
+  light # light
+  ,
+  pamixer # pamixer
+  ,
+  pulseaudio # pactl
+  ,
+  libdbusmenu-gtk3 # tray
+  ,
 }:
 
 python3Packages.buildPythonApplication rec {

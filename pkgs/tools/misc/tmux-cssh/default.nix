@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, tmux }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  tmux,
+}:
 
 stdenv.mkDerivation {
   pname = "tmux-cssh";

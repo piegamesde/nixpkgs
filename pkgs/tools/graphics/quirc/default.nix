@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, SDL_gfx, SDL, libjpeg, libpng, opencv
-, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL_gfx,
+  SDL,
+  libjpeg,
+  libpng,
+  opencv,
+  pkg-config,
+}:
 
 stdenv.mkDerivation {
   pname = "quirc";

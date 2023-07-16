@@ -1,4 +1,10 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pycryptodome, pythonOlder
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pycryptodome,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, boost, autoconf, automake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  boost,
+  autoconf,
+  automake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "re-flex";

@@ -1,4 +1,10 @@
-{ stdenv, fetchurl, perl, lib, moarvm }:
+{
+  stdenv,
+  fetchurl,
+  perl,
+  lib,
+  moarvm,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nqp";

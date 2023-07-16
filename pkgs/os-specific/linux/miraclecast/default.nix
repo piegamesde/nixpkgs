@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, glib, readline, pcre
-, systemd, udev }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  glib,
+  readline,
+  pcre,
+  systemd,
+  udev,
+}:
 
 stdenv.mkDerivation {
   pname = "miraclecast";

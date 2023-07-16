@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, dask, fetchPypi, fsspec, lxml, numpy, pytestCheckHook
-, pythonOlder, zarr }:
+{
+  lib,
+  buildPythonPackage,
+  dask,
+  fetchPypi,
+  fsspec,
+  lxml,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  zarr,
+}:
 
 buildPythonPackage rec {
   pname = "tifffile";

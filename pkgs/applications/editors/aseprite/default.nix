@@ -1,7 +1,33 @@
-{ stdenv, lib, callPackage, fetchFromGitHub, fetchpatch, cmake, ninja
-, pkg-config, curl, freetype, giflib, libjpeg, libpng, libwebp, pixman, tinyxml
-, zlib, harfbuzzFull, glib, fontconfig, pcre, libX11, libXext, libXcursor
-, libXxf86vm, libGL, unfree ? false, cmark }:
+{
+  stdenv,
+  lib,
+  callPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  ninja,
+  pkg-config,
+  curl,
+  freetype,
+  giflib,
+  libjpeg,
+  libpng,
+  libwebp,
+  pixman,
+  tinyxml,
+  zlib,
+  harfbuzzFull,
+  glib,
+  fontconfig,
+  pcre,
+  libX11,
+  libXext,
+  libXcursor,
+  libXxf86vm,
+  libGL,
+  unfree ? false,
+  cmark,
+}:
 
 # Unfree version is not redistributable:
 # https://dev.aseprite.org/2016/09/01/new-source-code-license/

@@ -1,5 +1,16 @@
-{ lib, aiohttp, buildPythonPackage, cbor2, fetchFromGitHub, pycryptodomex
-, pytestCheckHook, pytest-vcr, pytest-asyncio, requests, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  cbor2,
+  fetchFromGitHub,
+  pycryptodomex,
+  pytestCheckHook,
+  pytest-vcr,
+  pytest-asyncio,
+  requests,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pubnub";

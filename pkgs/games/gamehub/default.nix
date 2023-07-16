@@ -1,6 +1,24 @@
-{ stdenv, lib, fetchFromGitHub, meson, ninja, vala, pkg-config
-, desktop-file-utils, glib, gtk3, glib-networking, libgee, libsoup, json-glib
-, sqlite, webkitgtk, libmanette, libXtst, wrapGAppsHook }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  vala,
+  pkg-config,
+  desktop-file-utils,
+  glib,
+  gtk3,
+  glib-networking,
+  libgee,
+  libsoup,
+  json-glib,
+  sqlite,
+  webkitgtk,
+  libmanette,
+  libXtst,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "GameHub";

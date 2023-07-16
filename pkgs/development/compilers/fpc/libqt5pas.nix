@@ -1,4 +1,11 @@
-{ mkDerivation, lib, lazarus, qmake, qtbase, qtx11extras }:
+{
+  mkDerivation,
+  lib,
+  lazarus,
+  qmake,
+  qtbase,
+  qtx11extras,
+}:
 
 mkDerivation {
   pname = "libqt5pas";

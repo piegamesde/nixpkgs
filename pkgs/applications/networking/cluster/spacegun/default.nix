@@ -1,4 +1,11 @@
-{ pkgs, fetchFromGitHub, nodejs, stdenv, lib, ... }:
+{
+  pkgs,
+  fetchFromGitHub,
+  nodejs,
+  stdenv,
+  lib,
+  ...
+}:
 
 let
   src = fetchFromGitHub {

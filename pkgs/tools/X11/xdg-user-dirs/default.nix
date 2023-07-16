@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, libxslt, docbook_xsl, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libxslt,
+  docbook_xsl,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xdg-user-dirs";

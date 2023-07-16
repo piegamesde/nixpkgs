@@ -1,4 +1,11 @@
-{ stdenv, fetchFromGitHub, makeWrapper, unzip, lib, php }:
+{
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  unzip,
+  lib,
+  php,
+}:
 
 let
   pname = "n98-magerun2";

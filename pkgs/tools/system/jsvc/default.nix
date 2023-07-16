@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, commonsDaemon, jdk, makeWrapper, jre }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  commonsDaemon,
+  jdk,
+  makeWrapper,
+  jre,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jsvc";

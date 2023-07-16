@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gtest, cudatoolkit, libdrm, ncurses
-, nvtop, testers, udev, addOpenGLRunpath, amd ? true, nvidia ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gtest,
+  cudatoolkit,
+  libdrm,
+  ncurses,
+  nvtop,
+  testers,
+  udev,
+  addOpenGLRunpath,
+  amd ? true,
+  nvidia ? true
+}:
 
 let
   pname-suffix =

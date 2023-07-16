@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, pkg-config, libmtp, libid3tag, flac, libvorbis, gtk3
-, gsettings-desktop-schemas, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libmtp,
+  libid3tag,
+  flac,
+  libvorbis,
+  gtk3,
+  gsettings-desktop-schemas,
+  wrapGAppsHook,
+}:
 
 let version = "1.3.11";
 

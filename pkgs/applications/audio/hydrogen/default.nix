@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, wrapQtAppsHook, alsa-lib
-, ladspa-sdk, lash, libarchive, libjack2, liblo, libpulseaudio, libsndfile, lrdf
-, qtbase, qttools, qtxmlpatterns }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  wrapQtAppsHook,
+  alsa-lib,
+  ladspa-sdk,
+  lash,
+  libarchive,
+  libjack2,
+  liblo,
+  libpulseaudio,
+  libsndfile,
+  lrdf,
+  qtbase,
+  qttools,
+  qtxmlpatterns,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hydrogen";

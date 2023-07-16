@@ -1,5 +1,12 @@
-{ lib, atomicwrites, buildPythonPackage, fetchFromGitHub, pytestCheckHook
-, pythonOlder, requests }:
+{
+  lib,
+  atomicwrites,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "fpyutils";

@@ -1,31 +1,97 @@
-{ stdenv, bazel_5, buildBazelPackage, isPy3k, lib, fetchFromGitHub, symlinkJoin
-, addOpenGLRunpath, fetchpatch
-# Python deps
-, buildPythonPackage, pythonOlder, python
-# Python libraries
-, numpy, tensorboard, absl-py, packaging, setuptools, wheel, keras
-, keras-preprocessing, google-pasta, opt-einsum, astunparse, h5py, termcolor
-, grpcio, six, wrapt, protobuf-python, tensorflow-estimator-bin, dill
-, flatbuffers-python, portpicker, tblib, typing-extensions
-# Common deps
-, git, pybind11, which, binutils, glibcLocales, cython, perl, coreutils
-# Common libraries
-, jemalloc, mpi, gast, grpc, sqlite, boringssl, jsoncpp, nsync, curl, snappy
-, flatbuffers-core, lmdb-core, icu, double-conversion, libpng, libjpeg_turbo
-, giflib, protobuf-core
-# Upstream by default includes cuda support since tensorflow 1.15. We could do
-# that in nix as well. It would make some things easier and less confusing, but
-# it would also make the default tensorflow package unfree. See
-# https://groups.google.com/a/tensorflow.org/forum/#!topic/developers/iRCt5m4qUz0
-, cudaSupport ? false, cudaPackages ? { }
-, cudaCapabilities ? cudaPackages.cudaFlags.cudaCapabilities, mklSupport ? false
-, mkl, tensorboardSupport ? true
-  # XLA without CUDA is broken
-, xlaSupport ? cudaSupport, sse42Support ? stdenv.hostPlatform.sse4_2Support
-, avx2Support ? stdenv.hostPlatform.avx2Support, fmaSupport ?
-  stdenv.hostPlatform.fmaSupport
-  # Darwin deps
-, Foundation, Security, cctools, llvmPackages_11 }:
+{
+  stdenv,
+  bazel_5,
+  buildBazelPackage,
+  isPy3k,
+  lib,
+  fetchFromGitHub,
+  symlinkJoin,
+  addOpenGLRunpath,
+  fetchpatch
+  # Python deps
+  ,
+  buildPythonPackage,
+  pythonOlder,
+  python
+  # Python libraries
+  ,
+  numpy,
+  tensorboard,
+  absl-py,
+  packaging,
+  setuptools,
+  wheel,
+  keras,
+  keras-preprocessing,
+  google-pasta,
+  opt-einsum,
+  astunparse,
+  h5py,
+  termcolor,
+  grpcio,
+  six,
+  wrapt,
+  protobuf-python,
+  tensorflow-estimator-bin,
+  dill,
+  flatbuffers-python,
+  portpicker,
+  tblib,
+  typing-extensions
+  # Common deps
+  ,
+  git,
+  pybind11,
+  which,
+  binutils,
+  glibcLocales,
+  cython,
+  perl,
+  coreutils
+  # Common libraries
+  ,
+  jemalloc,
+  mpi,
+  gast,
+  grpc,
+  sqlite,
+  boringssl,
+  jsoncpp,
+  nsync,
+  curl,
+  snappy,
+  flatbuffers-core,
+  lmdb-core,
+  icu,
+  double-conversion,
+  libpng,
+  libjpeg_turbo,
+  giflib,
+  protobuf-core
+  # Upstream by default includes cuda support since tensorflow 1.15. We could do
+  # that in nix as well. It would make some things easier and less confusing, but
+  # it would also make the default tensorflow package unfree. See
+  # https://groups.google.com/a/tensorflow.org/forum/#!topic/developers/iRCt5m4qUz0
+  ,
+  cudaSupport ? false,
+  cudaPackages ? { },
+  cudaCapabilities ? cudaPackages.cudaFlags.cudaCapabilities,
+  mklSupport ? false,
+  mkl,
+  tensorboardSupport ? true
+    # XLA without CUDA is broken
+  ,
+  xlaSupport ? cudaSupport,
+  sse42Support ? stdenv.hostPlatform.sse4_2Support,
+  avx2Support ? stdenv.hostPlatform.avx2Support,
+  fmaSupport ? stdenv.hostPlatform.fmaSupport
+    # Darwin deps
+  ,
+  Foundation,
+  Security,
+  cctools,
+  llvmPackages_11,
+}:
 
 let originalStdenv = stdenv;
 in let

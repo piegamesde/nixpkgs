@@ -1,6 +1,22 @@
-{ stdenv, lib, fetchurl, alsa-lib, bison, flex, libsndfile, which, DarwinTools
-, xcbuild, AppKit, Carbon, CoreAudio, CoreMIDI, CoreServices, Kernel
-, MultitouchSupport }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  alsa-lib,
+  bison,
+  flex,
+  libsndfile,
+  which,
+  DarwinTools,
+  xcbuild,
+  AppKit,
+  Carbon,
+  CoreAudio,
+  CoreMIDI,
+  CoreServices,
+  Kernel,
+  MultitouchSupport,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.4.2.0";

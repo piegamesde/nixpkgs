@@ -1,8 +1,33 @@
-{ stdenv, lib, makeDesktopItem, makeWrapper, patchelf, writeText, coreutils
-, gnugrep, which, git, unzip, libsecret, libnotify, e2fsprogs, vmopts ? null }:
+{
+  stdenv,
+  lib,
+  makeDesktopItem,
+  makeWrapper,
+  patchelf,
+  writeText,
+  coreutils,
+  gnugrep,
+  which,
+  git,
+  unzip,
+  libsecret,
+  libnotify,
+  e2fsprogs,
+  vmopts ? null
+}:
 
-{ pname, product, productShort ? product, version, src, wmClass, jdk, meta
-, extraLdPath ? [ ], extraWrapperArgs ? [ ] }@args:
+{
+  pname,
+  product,
+  productShort ? product,
+  version,
+  src,
+  wmClass,
+  jdk,
+  meta,
+  extraLdPath ? [ ],
+  extraWrapperArgs ? [ ]
+}@args:
 
 let
   loName = lib.toLower productShort;

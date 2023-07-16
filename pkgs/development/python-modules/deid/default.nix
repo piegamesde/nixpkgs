@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
-, matplotlib, pydicom, python-dateutil, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  matplotlib,
+  pydicom,
+  python-dateutil,
+  setuptools,
+}:
 
 let
   deid-data = buildPythonPackage rec {

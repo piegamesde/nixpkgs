@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, cups, busybox }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cups,
+  busybox,
+}:
 
 stdenv.mkDerivation rec {
   pname = "epson-inkjet-printer-escpr2";

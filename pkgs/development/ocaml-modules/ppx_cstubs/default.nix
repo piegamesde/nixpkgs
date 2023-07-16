@@ -1,5 +1,17 @@
-{ lib, fetchFromGitHub, buildDunePackage, bigarray-compat, containers, cppo
-, ctypes, integers, num, ppxlib, re, findlib }:
+{
+  lib,
+  fetchFromGitHub,
+  buildDunePackage,
+  bigarray-compat,
+  containers,
+  cppo,
+  ctypes,
+  integers,
+  num,
+  ppxlib,
+  re,
+  findlib,
+}:
 
 buildDunePackage rec {
   pname = "ppx_cstubs";

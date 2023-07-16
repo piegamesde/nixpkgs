@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, boost, cmake, cpp-hocon, curl, leatherman
-, libwhereami, yaml-cpp, openssl, ruby, util-linux }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  boost,
+  cmake,
+  cpp-hocon,
+  curl,
+  leatherman,
+  libwhereami,
+  yaml-cpp,
+  openssl,
+  ruby,
+  util-linux,
+}:
 
 stdenv.mkDerivation rec {
   pname = "facter";

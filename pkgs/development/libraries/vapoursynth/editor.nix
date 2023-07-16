@@ -1,5 +1,15 @@
-{ lib, mkDerivation, fetchFromGitHub, makeWrapper, runCommand, python3
-, vapoursynth, qmake, qtbase, qtwebsockets }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  makeWrapper,
+  runCommand,
+  python3,
+  vapoursynth,
+  qmake,
+  qtbase,
+  qtwebsockets,
+}:
 
 let
   unwrapped = mkDerivation rec {

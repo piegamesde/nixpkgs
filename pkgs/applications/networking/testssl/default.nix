@@ -1,5 +1,15 @@
-{ stdenv, fetchFromGitHub, makeWrapper, lib, dnsutils, coreutils, openssl
-, nettools, util-linux, procps }:
+{
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  lib,
+  dnsutils,
+  coreutils,
+  openssl,
+  nettools,
+  util-linux,
+  procps,
+}:
 
 stdenv.mkDerivation rec {
   pname = "testssl.sh";

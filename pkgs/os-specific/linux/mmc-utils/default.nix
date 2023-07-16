@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchzip, unstableGitUpdater }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  unstableGitUpdater,
+}:
 
 stdenv.mkDerivation {
   pname = "mmc-utils";

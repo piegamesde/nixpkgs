@@ -1,5 +1,16 @@
-{ lib, aiohttp, aioresponses, buildPythonPackage, fetchFromGitHub, freezegun
-, mock, geopy, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  freezegun,
+  mock,
+  geopy,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pyipma";

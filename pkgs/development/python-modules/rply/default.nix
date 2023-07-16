@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, buildPythonPackage, appdirs, py, pytestCheckHook }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  appdirs,
+  py,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "rply";

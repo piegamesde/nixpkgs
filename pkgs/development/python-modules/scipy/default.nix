@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchPypi, python, pythonOlder, buildPythonPackage, cython
-, gfortran, meson-python, pkg-config, pythran, wheel, nose, pytest, pytest-xdist
-, numpy, pybind11, pooch, libxcrypt }:
+{
+  lib,
+  stdenv,
+  fetchPypi,
+  python,
+  pythonOlder,
+  buildPythonPackage,
+  cython,
+  gfortran,
+  meson-python,
+  pkg-config,
+  pythran,
+  wheel,
+  nose,
+  pytest,
+  pytest-xdist,
+  numpy,
+  pybind11,
+  pooch,
+  libxcrypt,
+}:
 
 buildPythonPackage rec {
   pname = "scipy";

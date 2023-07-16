@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, pkg-config, libxml2
-, nettle, withGTK3 ? true, gtk3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  libtool,
+  pkg-config,
+  libxml2,
+  nettle,
+  withGTK3 ? true,
+  gtk3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "stoken";

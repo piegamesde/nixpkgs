@@ -1,4 +1,10 @@
-{ buildPythonPackage, fetchPypi, mock, zope_testing, lib }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  mock,
+  zope_testing,
+  lib,
+}:
 
 buildPythonPackage rec {
   pname = "zc.lockfile";

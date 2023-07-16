@@ -1,5 +1,14 @@
-{ lib, makeDesktopItem, copyDesktopItems, wrapGAppsHook, glib, gnome
-, mkCoqDerivation, coq, version ? null }:
+{
+  lib,
+  makeDesktopItem,
+  copyDesktopItems,
+  wrapGAppsHook,
+  glib,
+  gnome,
+  mkCoqDerivation,
+  coq,
+  version ? null
+}:
 
 mkCoqDerivation rec {
   pname = "coqide";

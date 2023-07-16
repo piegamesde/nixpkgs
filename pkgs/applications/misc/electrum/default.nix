@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, wrapQtAppsHook, python3, zbar
-, secp256k1, enableQt ? true, callPackage }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  wrapQtAppsHook,
+  python3,
+  zbar,
+  secp256k1,
+  enableQt ? true,
+  callPackage,
+}:
 
 let
   version = "4.4.0";

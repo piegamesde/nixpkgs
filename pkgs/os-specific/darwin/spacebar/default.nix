@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, Carbon, Cocoa, ScriptingBridge, SkyLight }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  Carbon,
+  Cocoa,
+  ScriptingBridge,
+  SkyLight,
+}:
 
 stdenv.mkDerivation rec {
   pname = "spacebar";

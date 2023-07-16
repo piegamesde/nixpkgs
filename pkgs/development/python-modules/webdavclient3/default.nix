@@ -1,5 +1,13 @@
-{ buildPythonPackage, fetchPypi, isPy27, lib, python-dateutil, lxml, requests
-, pytestCheckHook }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  lib,
+  python-dateutil,
+  lxml,
+  requests,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "webdavclient3";

@@ -1,7 +1,24 @@
-{ stdenv, lib, fetchFromGitHub, which, ocsigen_server, ocaml, lwt_react, opaline
-, ocamlbuild, ppx_deriving, findlib, js_of_ocaml-ocamlbuild, js_of_ocaml-ppx
-, js_of_ocaml-ppx_deriving_json, js_of_ocaml-lwt, js_of_ocaml-tyxml, lwt_ppx
-, ocamlnet, ocsipersist }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  which,
+  ocsigen_server,
+  ocaml,
+  lwt_react,
+  opaline,
+  ocamlbuild,
+  ppx_deriving,
+  findlib,
+  js_of_ocaml-ocamlbuild,
+  js_of_ocaml-ppx,
+  js_of_ocaml-ppx_deriving_json,
+  js_of_ocaml-lwt,
+  js_of_ocaml-tyxml,
+  lwt_ppx,
+  ocamlnet,
+  ocsipersist,
+}:
 
 stdenv.mkDerivation rec {
   pname = "eliom";

@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools-scm, pyfiglet, pillow, wcwidth
-, future, mock, nose }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  pyfiglet,
+  pillow,
+  wcwidth,
+  future,
+  mock,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "asciimatics";

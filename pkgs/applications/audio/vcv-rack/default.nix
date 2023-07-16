@@ -1,8 +1,36 @@
-{ alsa-lib, cmake, copyDesktopItems, curl, fetchFromBitbucket, fetchFromGitHub
-, fetchzip, ghc_filesystem, glew, glfw, gnome, gtk3-x11, imagemagick, jansson
-, jq, lib, libarchive, libicns, libjack2, libpulseaudio, libsamplerate, libXext
-, libXi, makeDesktopItem, makeWrapper, pkg-config, rtmidi, speexdsp, stdenv
-, wrapGAppsHook, zstd }:
+{
+  alsa-lib,
+  cmake,
+  copyDesktopItems,
+  curl,
+  fetchFromBitbucket,
+  fetchFromGitHub,
+  fetchzip,
+  ghc_filesystem,
+  glew,
+  glfw,
+  gnome,
+  gtk3-x11,
+  imagemagick,
+  jansson,
+  jq,
+  lib,
+  libarchive,
+  libicns,
+  libjack2,
+  libpulseaudio,
+  libsamplerate,
+  libXext,
+  libXi,
+  makeDesktopItem,
+  makeWrapper,
+  pkg-config,
+  rtmidi,
+  speexdsp,
+  stdenv,
+  wrapGAppsHook,
+  zstd,
+}:
 
 let
   # The package repo vendors some of the package dependencies as submodules.

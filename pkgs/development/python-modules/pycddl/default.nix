@@ -1,5 +1,13 @@
-{ lib, pythonOlder, fetchPypi, buildPythonPackage, rustPlatform, pytestCheckHook
-, psutil, cbor2 }:
+{
+  lib,
+  pythonOlder,
+  fetchPypi,
+  buildPythonPackage,
+  rustPlatform,
+  pytestCheckHook,
+  psutil,
+  cbor2,
+}:
 
 buildPythonPackage rec {
   pname = "pycddl";

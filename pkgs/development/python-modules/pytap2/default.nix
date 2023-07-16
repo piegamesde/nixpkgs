@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, nettools, fetchFromGitHub, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  nettools,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pytap2";

@@ -1,4 +1,11 @@
-{ lib, stdenv, pkgs, fetchFromGitHub, nodejs, cypress }:
+{
+  lib,
+  stdenv,
+  pkgs,
+  fetchFromGitHub,
+  nodejs,
+  cypress,
+}:
 
 stdenv.mkDerivation rec {
   pname = "polaris-web";

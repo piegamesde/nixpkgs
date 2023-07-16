@@ -1,6 +1,20 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, dtkwidget, qt5integration
-, qt5platform-plugins, dde-qt-dbus-factory, cmake, qttools, pkg-config
-, wrapQtAppsHook, runtimeShell, qtbase, gtest }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  dtkwidget,
+  qt5integration,
+  qt5platform-plugins,
+  dde-qt-dbus-factory,
+  cmake,
+  qttools,
+  pkg-config,
+  wrapQtAppsHook,
+  runtimeShell,
+  qtbase,
+  gtest,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dde-calendar";

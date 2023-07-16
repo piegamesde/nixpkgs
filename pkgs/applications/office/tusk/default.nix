@@ -1,4 +1,9 @@
-{ appimageTools, fetchurl, lib, makeDesktopItem }:
+{
+  appimageTools,
+  fetchurl,
+  lib,
+  makeDesktopItem,
+}:
 
 let
   pname = "tusk";

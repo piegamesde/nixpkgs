@@ -1,6 +1,20 @@
-{ lib, mkDerivation, fetchpatch, fetchFromGitHub, cmake, extra-cmake-modules
-, qtbase, wrapQtAppsHook, libraw, exiv2, zlib, alglib, pkg-config
-, makeDesktopItem, copyDesktopItems }:
+{
+  lib,
+  mkDerivation,
+  fetchpatch,
+  fetchFromGitHub,
+  cmake,
+  extra-cmake-modules,
+  qtbase,
+  wrapQtAppsHook,
+  libraw,
+  exiv2,
+  zlib,
+  alglib,
+  pkg-config,
+  makeDesktopItem,
+  copyDesktopItems,
+}:
 
 mkDerivation rec {
   pname = "hdrmerge";

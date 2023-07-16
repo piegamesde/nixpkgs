@@ -1,15 +1,39 @@
-{ lib, stdenv, fetchFromGitLab, pkg-config, glib, expat, pam, meson
-, mesonEmulatorHook, ninja, perl, rsync, python3, fetchpatch, gettext, duktape
-, gobject-introspection, libxslt, docbook-xsl-nons, dbus, docbook_xml_dtd_412
-, gtk-doc, coreutils
-, useSystemd ? lib.meta.availableOn stdenv.hostPlatform systemdMinimal
-, systemdMinimal, elogind, buildPackages, withIntrospection ?
-  stdenv.hostPlatform.emulatorAvailable buildPackages
-  # A few tests currently fail on musl (polkitunixusertest, polkitunixgrouptest, polkitidentitytest segfault).
-  # Not yet investigated; it may be due to the "Make netgroup support optional"
-  # patch not updating the tests correctly yet, or doing something wrong,
-  # or being unrelated to that.
-, doCheck ? (stdenv.isLinux && !stdenv.hostPlatform.isMusl) }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  pkg-config,
+  glib,
+  expat,
+  pam,
+  meson,
+  mesonEmulatorHook,
+  ninja,
+  perl,
+  rsync,
+  python3,
+  fetchpatch,
+  gettext,
+  duktape,
+  gobject-introspection,
+  libxslt,
+  docbook-xsl-nons,
+  dbus,
+  docbook_xml_dtd_412,
+  gtk-doc,
+  coreutils,
+  useSystemd ? lib.meta.availableOn stdenv.hostPlatform systemdMinimal,
+  systemdMinimal,
+  elogind,
+  buildPackages,
+  withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
+    # A few tests currently fail on musl (polkitunixusertest, polkitunixgrouptest, polkitidentitytest segfault).
+    # Not yet investigated; it may be due to the "Make netgroup support optional"
+    # patch not updating the tests correctly yet, or doing something wrong,
+    # or being unrelated to that.
+  ,
+  doCheck ? (stdenv.isLinux && !stdenv.hostPlatform.isMusl)
+}:
 
 let
   system = "/run/current-system/sw";

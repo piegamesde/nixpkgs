@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, cmake, glew, freeimage, liblockfile, openal
-, libtheora, SDL2, lzo, libjpeg, libogg, pcre, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  glew,
+  freeimage,
+  liblockfile,
+  openal,
+  libtheora,
+  SDL2,
+  lzo,
+  libjpeg,
+  libogg,
+  pcre,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openxray";

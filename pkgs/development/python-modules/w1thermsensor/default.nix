@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, fetchPypi, pkgs, setuptools, aiofiles, click
-, coverage, tomli, pytest, pytest-mock, pytest-asyncio, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pkgs,
+  setuptools,
+  aiofiles,
+  click,
+  coverage,
+  tomli,
+  pytest,
+  pytest-mock,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 buildPythonPackage rec {
   pname = "w1thermsensor";
   version = "2.0.0";

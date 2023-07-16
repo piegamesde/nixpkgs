@@ -1,4 +1,11 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, testers, wizer }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  testers,
+  wizer,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "wizer";

@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchurl, fetchzip, jre, makeWrapper }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchzip,
+  jre,
+  makeWrapper,
+}:
 
 let
   translation-file = fetchurl {

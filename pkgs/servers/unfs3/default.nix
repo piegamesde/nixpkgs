@@ -1,5 +1,13 @@
-{ fetchFromGitHub, lib, stdenv, flex, bison, autoreconfHook, pkg-config
-, libtirpc }:
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  flex,
+  bison,
+  autoreconfHook,
+  pkg-config,
+  libtirpc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "unfs3";

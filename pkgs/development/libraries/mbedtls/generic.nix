@@ -1,10 +1,20 @@
-{ lib, stdenv, version, hash, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  version,
+  hash,
+  fetchFromGitHub
 
-, cmake, ninja, perl # Project uses Perl for scripting and testing
-, python3
+  ,
+  cmake,
+  ninja,
+  perl # Project uses Perl for scripting and testing
+  ,
+  python3
 
-, enableThreading ?
-  true # Threading can be disabled to increase security https://tls.mbed.org/kb/development/thread-safety-and-multi-threading
+  ,
+  enableThreading ?
+    true # Threading can be disabled to increase security https://tls.mbed.org/kb/development/thread-safety-and-multi-threading
 }:
 
 stdenv.mkDerivation rec {

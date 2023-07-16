@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, openssl, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  libtool,
+  openssl,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "aerospike-server";

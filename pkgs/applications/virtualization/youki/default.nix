@@ -1,5 +1,13 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, installShellFiles, dbus
-, libseccomp, systemd }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  installShellFiles,
+  dbus,
+  libseccomp,
+  systemd,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "youki";

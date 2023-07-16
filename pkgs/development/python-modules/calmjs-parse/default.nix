@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools, ply, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  ply,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "calmjs-parse";

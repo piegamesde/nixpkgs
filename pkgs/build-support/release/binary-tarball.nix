@@ -10,7 +10,13 @@
    directory, so the Makefile of the package should support DESTDIR.
 */
 
-{ src, lib, stdenv, name ? "binary-tarball", ... }@args:
+{
+  src,
+  lib,
+  stdenv,
+  name ? "binary-tarball",
+  ...
+}@args:
 
 stdenv.mkDerivation (
 

@@ -1,4 +1,9 @@
-{ lib, git, python3, fetchFromGitHub }:
+{
+  lib,
+  git,
+  python3,
+  fetchFromGitHub,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "copier";

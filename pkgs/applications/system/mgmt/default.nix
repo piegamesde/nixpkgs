@@ -1,5 +1,15 @@
-{ augeas, buildGoModule, fetchFromGitHub, gotools, lib, libvirt, libxml2, nex
-, pkg-config, ragel }:
+{
+  augeas,
+  buildGoModule,
+  fetchFromGitHub,
+  gotools,
+  lib,
+  libvirt,
+  libxml2,
+  nex,
+  pkg-config,
+  ragel,
+}:
 buildGoModule rec {
   pname = "mgmt";
   version = "unstable-2022-10-24";

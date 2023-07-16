@@ -1,14 +1,72 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, isocodes, libdbusmenu
-, libSM, libXcursor, libXtst, libXft, pam, wayland, xmessage, xsetroot, baloo
-, breeze-qt5, kactivities, kactivities-stats, kcmutils, kconfig, kcrash
-, kdbusaddons, kdeclarative, kdelibs4support, kdesu, kglobalaccel, kidletime
-, kinit, kjsembed, knewstuff, knotifyconfig, kpackage, kpeople, krunner
-, kscreenlocker, ktexteditor, ktextwidgets, kwallet, kwayland, kwin
-, kxmlrpcclient, libkscreen, libksysguard, libqalculate, networkmanager-qt
-, phonon, plasma-framework, prison, solid, kholidays, kquickcharts, appstream-qt
-, plasma-wayland-protocols, kpipewire, libkexiv2, kuserfeedback
-, qtgraphicaleffects, qtquickcontrols, qtquickcontrols2, qtscript, qttools
-, qtwayland, qtx11extras, qqc2-desktop-style, polkit-qt, pipewire, libdrm }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  isocodes,
+  libdbusmenu,
+  libSM,
+  libXcursor,
+  libXtst,
+  libXft,
+  pam,
+  wayland,
+  xmessage,
+  xsetroot,
+  baloo,
+  breeze-qt5,
+  kactivities,
+  kactivities-stats,
+  kcmutils,
+  kconfig,
+  kcrash,
+  kdbusaddons,
+  kdeclarative,
+  kdelibs4support,
+  kdesu,
+  kglobalaccel,
+  kidletime,
+  kinit,
+  kjsembed,
+  knewstuff,
+  knotifyconfig,
+  kpackage,
+  kpeople,
+  krunner,
+  kscreenlocker,
+  ktexteditor,
+  ktextwidgets,
+  kwallet,
+  kwayland,
+  kwin,
+  kxmlrpcclient,
+  libkscreen,
+  libksysguard,
+  libqalculate,
+  networkmanager-qt,
+  phonon,
+  plasma-framework,
+  prison,
+  solid,
+  kholidays,
+  kquickcharts,
+  appstream-qt,
+  plasma-wayland-protocols,
+  kpipewire,
+  libkexiv2,
+  kuserfeedback,
+  qtgraphicaleffects,
+  qtquickcontrols,
+  qtquickcontrols2,
+  qtscript,
+  qttools,
+  qtwayland,
+  qtx11extras,
+  qqc2-desktop-style,
+  polkit-qt,
+  pipewire,
+  libdrm,
+}:
 
 let inherit (lib) getBin getLib;
 

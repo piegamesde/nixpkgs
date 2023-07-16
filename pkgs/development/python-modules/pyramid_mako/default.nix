@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, webtest, pyramid, mako }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  webtest,
+  pyramid,
+  mako,
+}:
 
 buildPythonPackage rec {
   pname = "pyramid_mako";

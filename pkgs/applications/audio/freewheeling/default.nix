@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, gnutls, freetype
-, fluidsynth, SDL, SDL_gfx, SDL_ttf, liblo, libxml2, alsa-lib, libjack2
-, libvorbis, libSM, libsndfile, libogg, libtool }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+  gnutls,
+  freetype,
+  fluidsynth,
+  SDL,
+  SDL_gfx,
+  SDL_ttf,
+  liblo,
+  libxml2,
+  alsa-lib,
+  libjack2,
+  libvorbis,
+  libSM,
+  libsndfile,
+  libogg,
+  libtool,
+}:
 let makeSDLFlags = map (p: "-I${lib.getDev p}/include/SDL");
 
 in stdenv.mkDerivation rec {

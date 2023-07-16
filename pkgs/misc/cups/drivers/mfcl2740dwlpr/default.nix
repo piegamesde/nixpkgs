@@ -1,5 +1,17 @@
-{ pkgsi686Linux, lib, stdenv, fetchurl, dpkg, makeWrapper, coreutils
-, ghostscript, gnugrep, gnused, which, perl }:
+{
+  pkgsi686Linux,
+  lib,
+  stdenv,
+  fetchurl,
+  dpkg,
+  makeWrapper,
+  coreutils,
+  ghostscript,
+  gnugrep,
+  gnused,
+  which,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mfcl2740dwlpr";

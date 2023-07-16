@@ -1,4 +1,9 @@
-{ buildOctavePackage, lib, fetchurl, control }:
+{
+  buildOctavePackage,
+  lib,
+  fetchurl,
+  control,
+}:
 
 buildOctavePackage rec {
   pname = "signal";

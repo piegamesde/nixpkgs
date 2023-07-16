@@ -1,4 +1,10 @@
-{ lib, nimPackages, fetchurl, gentium, makeDesktopItem }:
+{
+  lib,
+  nimPackages,
+  fetchurl,
+  gentium,
+  makeDesktopItem,
+}:
 
 nimPackages.buildNimPackage rec {
   pname = "hottext";

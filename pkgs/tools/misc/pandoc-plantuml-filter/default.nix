@@ -1,4 +1,9 @@
-{ buildPythonApplication, fetchPypi, pandocfilters, lib }:
+{
+  buildPythonApplication,
+  fetchPypi,
+  pandocfilters,
+  lib,
+}:
 
 buildPythonApplication rec {
   pname = "pandoc-plantuml-filter";

@@ -1,4 +1,9 @@
-{ lib, mkXfceDerivation, gobject-introspection, vala }:
+{
+  lib,
+  mkXfceDerivation,
+  gobject-introspection,
+  vala,
+}:
 
 mkXfceDerivation {
   category = "xfce";

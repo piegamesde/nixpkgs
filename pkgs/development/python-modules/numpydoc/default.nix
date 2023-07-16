@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, jinja2, sphinx, pytestCheckHook
-, matplotlib }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  jinja2,
+  sphinx,
+  pytestCheckHook,
+  matplotlib,
+}:
 
 buildPythonPackage rec {
   pname = "numpydoc";

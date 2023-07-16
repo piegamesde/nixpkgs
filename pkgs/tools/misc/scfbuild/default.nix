@@ -1,5 +1,12 @@
-{ lib, buildPythonApplication, fetchFromGitHub, python, pyyaml, fonttools
-, fontforge }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  python,
+  pyyaml,
+  fonttools,
+  fontforge,
+}:
 
 buildPythonApplication {
   pname = "scfbuild";

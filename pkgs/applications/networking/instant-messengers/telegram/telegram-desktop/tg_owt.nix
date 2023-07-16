@@ -1,8 +1,43 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, pkg-config, cmake, ninja, yasm
-, libjpeg, openssl, libopus, ffmpeg, alsa-lib, libpulseaudio, protobuf, openh264
-, usrsctp, libevent, libvpx, libX11, libXtst, libXcomposite, libXdamage, libXext
-, libXrender, libXrandr, libXi, glib, abseil-cpp, pcre, util-linuxMinimal
-, libselinux, libsepol, pipewire, mesa, valgrind, libepoxy, libglvnd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  cmake,
+  ninja,
+  yasm,
+  libjpeg,
+  openssl,
+  libopus,
+  ffmpeg,
+  alsa-lib,
+  libpulseaudio,
+  protobuf,
+  openh264,
+  usrsctp,
+  libevent,
+  libvpx,
+  libX11,
+  libXtst,
+  libXcomposite,
+  libXdamage,
+  libXext,
+  libXrender,
+  libXrandr,
+  libXi,
+  glib,
+  abseil-cpp,
+  pcre,
+  util-linuxMinimal,
+  libselinux,
+  libsepol,
+  pipewire,
+  mesa,
+  valgrind,
+  libepoxy,
+  libglvnd,
+}:
 
 stdenv.mkDerivation {
   pname = "tg_owt";

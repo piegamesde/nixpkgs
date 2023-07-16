@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, bison, flex, gengetopt, help2man, groff, libharu
-, autoreconfHook, pkg-config, libpng, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bison,
+  flex,
+  gengetopt,
+  help2man,
+  groff,
+  libharu,
+  autoreconfHook,
+  pkg-config,
+  libpng,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hyp2mat";

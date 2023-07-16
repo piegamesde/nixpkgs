@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchzip, libtool, pkg-config, ncurses, unibilium }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  libtool,
+  pkg-config,
+  ncurses,
+  unibilium,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libtermkey";

@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, rustPlatform, pkg-config, fontconfig, freetype, libclang
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  fontconfig,
+  freetype,
+  libclang,
 }:
 let
   inherit (rustPlatform) buildRustPackage bindgenHook;

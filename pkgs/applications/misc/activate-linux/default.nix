@@ -1,4 +1,11 @@
-{ stdenv, fetchFromGitHub, lib, pkg-config, xorg, cairo }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  pkg-config,
+  xorg,
+  cairo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "activate-linux";

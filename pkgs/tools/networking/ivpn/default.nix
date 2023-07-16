@@ -1,6 +1,18 @@
-{ buildGoModule, fetchFromGitHub, lib, wirelesstools, makeWrapper
-, wireguard-tools, openvpn, obfs4, iproute2, dnscrypt-proxy2, iptables, gawk
-, util-linux }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  wirelesstools,
+  makeWrapper,
+  wireguard-tools,
+  openvpn,
+  obfs4,
+  iproute2,
+  dnscrypt-proxy2,
+  iptables,
+  gawk,
+  util-linux,
+}:
 
 builtins.mapAttrs (pname: attrs:
   buildGoModule (attrs // rec {

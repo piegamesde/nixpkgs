@@ -1,6 +1,16 @@
-{ lib, stdenv, python39, fetchFromGitHub, fetchpatch
-, withXmpp ? !stdenv.isDarwin, withMatrix ? true, withSlack ? true
-, withEmoji ? true, withPid ? true, withDbus ? stdenv.isLinux }:
+{
+  lib,
+  stdenv,
+  python39,
+  fetchFromGitHub,
+  fetchpatch,
+  withXmpp ? !stdenv.isDarwin,
+  withMatrix ? true,
+  withSlack ? true,
+  withEmoji ? true,
+  withPid ? true,
+  withDbus ? stdenv.isLinux
+}:
 
 let
   python = python39.override {

@@ -1,9 +1,37 @@
-{ lib, stdenv, callPackage, flutter, supportsLinuxDesktop ? stdenv.isLinux
-, extraPkgConfigPackages ? [ ], extraLibraries ? [ ], extraIncludes ? [ ]
-, extraCxxFlags ? [ ], extraCFlags ? [ ], extraLinkerFlags ? [ ], makeWrapper
-, runCommandLocal, writeShellScript, git, which, pkg-config, atk, cairo
-, gdk-pixbuf, glib, gtk3, harfbuzz, libepoxy, pango, libX11, xorgproto
-, libdeflate, zlib, cmake, ninja, clang }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  flutter,
+  supportsLinuxDesktop ? stdenv.isLinux,
+  extraPkgConfigPackages ? [ ],
+  extraLibraries ? [ ],
+  extraIncludes ? [ ],
+  extraCxxFlags ? [ ],
+  extraCFlags ? [ ],
+  extraLinkerFlags ? [ ],
+  makeWrapper,
+  runCommandLocal,
+  writeShellScript,
+  git,
+  which,
+  pkg-config,
+  atk,
+  cairo,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  harfbuzz,
+  libepoxy,
+  pango,
+  libX11,
+  xorgproto,
+  libdeflate,
+  zlib,
+  cmake,
+  ninja,
+  clang,
+}:
 
 let
   # By default, Flutter stores downloaded files (such as the Pub cache) in the SDK directory.

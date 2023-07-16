@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pyasn1, pycryptodomex, pysmi }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pyasn1,
+  pycryptodomex,
+  pysmi,
+}:
 
 buildPythonPackage rec {
   pname = "pysnmp";

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (builtins) attrNames hasAttr isAttrs;
   inherit (lib) getLib;
@@ -7,7 +12,11 @@ let
   # only when the given path exists in config.environment.etc
   etcRule = arg:
     let
-      go = { path ? null, mode ? "r", trail ? "" }:
+      go = {
+          path ? null,
+          mode ? "r",
+          trail ? ""
+        }:
         lib.optionalString (hasAttr path etc)
         "${mode} ${config.environment.etc.${path}.source}${trail},";
     in if isAttrs arg then go arg else go { path = arg; };

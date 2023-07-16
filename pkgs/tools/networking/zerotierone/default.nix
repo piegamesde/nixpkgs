@@ -1,6 +1,18 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub
 
-, buildPackages, iproute2, lzo, openssl, pkg-config, ronn, zlib }:
+  ,
+  buildPackages,
+  iproute2,
+  lzo,
+  openssl,
+  pkg-config,
+  ronn,
+  zlib,
+}:
 
 let
   pname = "zerotierone";

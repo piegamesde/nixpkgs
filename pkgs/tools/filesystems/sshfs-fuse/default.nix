@@ -1,4 +1,9 @@
-{ lib, stdenv, callPackage, fetchpatch }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  fetchpatch,
+}:
 
 let mkSSHFS = args: callPackage (import ./common.nix args) { };
 in if stdenv.isDarwin then

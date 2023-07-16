@@ -1,6 +1,27 @@
-{ lib, stdenv, fetchurl, apfel, apfelgrid, applgrid, blas, ceres-solver, cmake
-, gfortran, gsl, lapack, lhapdf, libtirpc, libyaml, yaml-cpp, pkg-config, qcdnum
-, root, zlib, memorymappingHook, memstreamHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  apfel,
+  apfelgrid,
+  applgrid,
+  blas,
+  ceres-solver,
+  cmake,
+  gfortran,
+  gsl,
+  lapack,
+  lhapdf,
+  libtirpc,
+  libyaml,
+  yaml-cpp,
+  pkg-config,
+  qcdnum,
+  root,
+  zlib,
+  memorymappingHook,
+  memstreamHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xfitter";

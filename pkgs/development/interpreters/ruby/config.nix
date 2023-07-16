@@ -1,5 +1,7 @@
 # Ruby >= 2.1.0 tries to download config.{guess,sub}
-{ fetchFromSavannah }:
+{
+  fetchFromSavannah,
+}:
 
 fetchFromSavannah {
   repo = "config";

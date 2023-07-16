@@ -1,6 +1,8 @@
 # Definitions related to run-time type checking.  Used in particular
 # to type-check NixOS configurations.
-{ lib }:
+{
+  lib,
+}:
 
 let
   inherit (lib)
@@ -60,68 +62,69 @@ let
     mkOptionType =
       { # Human-readable representation of the type, should be equivalent to
       # the type function name.
-      name
-      , # Description of the type, defined recursively by embedding the wrapped type if any.
-      description ? null
-        # A hint for whether or not this description needs parentheses. Possible values:
-        #  - "noun": a simple noun phrase such as "positive integer"
-        #  - "conjunction": a phrase with a potentially ambiguous "or" connective.
-        #  - "composite": a phrase with an "of" connective
-        # See the `optionDescriptionPhrase` function.
-      , descriptionClass ? null
-      , # DO NOT USE WITHOUT KNOWING WHAT YOU ARE DOING!
-      # Function applied to each definition that must return false when a definition
-      # does not match the type. It should not check more than the root of the value,
-      # because checking nested values reduces laziness, leading to unnecessary
-      # infinite recursions in the module system.
-      # Further checks of nested values should be performed by throwing in
-      # the merge function.
-      # Strict and deep type checking can be performed by calling lib.deepSeq on
-      # the merged value.
-      #
-      # See https://github.com/NixOS/nixpkgs/pull/6794 that introduced this change,
-      # https://github.com/NixOS/nixpkgs/pull/173568 and
-      # https://github.com/NixOS/nixpkgs/pull/168295 that attempted to revert this,
-      # https://github.com/NixOS/nixpkgs/issues/191124 and
-      # https://github.com/NixOS/nixos-search/issues/391 for what happens if you ignore
-      # this disclaimer.
-      check ? (x: true)
-      , # Merge a list of definitions together into a single value.
-      # This function is called with two arguments: the location of
-      # the option in the configuration as a list of strings
-      # (e.g. ["boot" "loader "grub" "enable"]), and a list of
-      # definition values and locations (e.g. [ { file = "/foo.nix";
-      # value = 1; } { file = "/bar.nix"; value = 2 } ]).
-      merge ? mergeDefaultOption
-      , # Whether this type has a value representing nothingness. If it does,
-      # this should be a value of the form { value = <the nothing value>; }
-      # If it doesn't, this should be {}
-      # This may be used when a value is required for `mkIf false`. This allows the extra laziness in e.g. `lazyAttrsOf`.
-      emptyValue ? { }, # Return a flat list of sub-options.  Used to generate
-      # documentation.
-      getSubOptions ? prefix: { }, # List of modules if any, or null if none.
-      getSubModules ? null
-      , # Function for building the same option type with a different list of
-      # modules.
-      substSubModules ? m: null, # Function that merge type declarations.
-      # internal, takes a functor as argument and returns the merged type.
-      # returning null means the type is not mergeable
-      typeMerge ? defaultTypeMerge functor, # The type functor.
-      # internal, representation of the type as an attribute set.
-      #   name: name of the type
-      #   type: type function.
-      #   wrapped: the type wrapped in case of compound types.
-      #   payload: values of the type, two payloads of the same type must be
-      #            combinable with the binOp binary operation.
-      #   binOp: binary operation that merge two payloads of the same type.
-      functor ? defaultFunctor name
-      , # The deprecation message to display when this type is used by an option
-      # If null, the type isn't deprecated
-      deprecationMessage ? null
-      , # The types that occur in the definition of this type. This is used to
-      # issue deprecation warnings recursively. Can also be used to reuse
-      # nested types
-      nestedTypes ? { } }: {
+        name, # Description of the type, defined recursively by embedding the wrapped type if any.
+        description ? null
+          # A hint for whether or not this description needs parentheses. Possible values:
+          #  - "noun": a simple noun phrase such as "positive integer"
+          #  - "conjunction": a phrase with a potentially ambiguous "or" connective.
+          #  - "composite": a phrase with an "of" connective
+          # See the `optionDescriptionPhrase` function.
+        ,
+        descriptionClass ?
+          null, # DO NOT USE WITHOUT KNOWING WHAT YOU ARE DOING!
+        # Function applied to each definition that must return false when a definition
+        # does not match the type. It should not check more than the root of the value,
+        # because checking nested values reduces laziness, leading to unnecessary
+        # infinite recursions in the module system.
+        # Further checks of nested values should be performed by throwing in
+        # the merge function.
+        # Strict and deep type checking can be performed by calling lib.deepSeq on
+        # the merged value.
+        #
+        # See https://github.com/NixOS/nixpkgs/pull/6794 that introduced this change,
+        # https://github.com/NixOS/nixpkgs/pull/173568 and
+        # https://github.com/NixOS/nixpkgs/pull/168295 that attempted to revert this,
+        # https://github.com/NixOS/nixpkgs/issues/191124 and
+        # https://github.com/NixOS/nixos-search/issues/391 for what happens if you ignore
+        # this disclaimer.
+        check ?
+          (x: true), # Merge a list of definitions together into a single value.
+        # This function is called with two arguments: the location of
+        # the option in the configuration as a list of strings
+        # (e.g. ["boot" "loader "grub" "enable"]), and a list of
+        # definition values and locations (e.g. [ { file = "/foo.nix";
+        # value = 1; } { file = "/bar.nix"; value = 2 } ]).
+        merge ?
+          mergeDefaultOption, # Whether this type has a value representing nothingness. If it does,
+        # this should be a value of the form { value = <the nothing value>; }
+        # If it doesn't, this should be {}
+        # This may be used when a value is required for `mkIf false`. This allows the extra laziness in e.g. `lazyAttrsOf`.
+        emptyValue ? { }, # Return a flat list of sub-options.  Used to generate
+        # documentation.
+        getSubOptions ? prefix: { }, # List of modules if any, or null if none.
+        getSubModules ?
+          null, # Function for building the same option type with a different list of
+        # modules.
+        substSubModules ? m: null, # Function that merge type declarations.
+        # internal, takes a functor as argument and returns the merged type.
+        # returning null means the type is not mergeable
+        typeMerge ? defaultTypeMerge functor, # The type functor.
+        # internal, representation of the type as an attribute set.
+        #   name: name of the type
+        #   type: type function.
+        #   wrapped: the type wrapped in case of compound types.
+        #   payload: values of the type, two payloads of the same type must be
+        #            combinable with the binOp binary operation.
+        #   binOp: binary operation that merge two payloads of the same type.
+        functor ? defaultFunctor
+          name, # The deprecation message to display when this type is used by an option
+        # If null, the type isn't deprecated
+        deprecationMessage ?
+          null, # The types that occur in the definition of this type. This is used to
+        # issue deprecation warnings recursively. Can also be used to reuse
+        # nested types
+        nestedTypes ? { }
+      }: {
         _type = "option-type";
         inherit name check merge emptyValue getSubOptions getSubModules
           substSubModules typeMerge functor deprecationMessage nestedTypes
@@ -577,7 +580,9 @@ let
           nestedTypes.elemType = elemType;
         };
 
-      unique = { message }:
+      unique = {
+          message,
+        }:
         type:
         mkOptionType rec {
           name = "unique";
@@ -657,7 +662,9 @@ let
       # A module to be imported in some other part of the configuration.
       # `staticModules`' options will be added to the documentation, unlike
       # options declared via `config`.
-      deferredModuleWith = attrs@{ staticModules ? [ ] }:
+      deferredModuleWith = attrs@{
+          staticModules ? [ ]
+        }:
         mkOptionType {
           name = "deferredModule";
           description = "module";
@@ -694,12 +701,15 @@ let
             let
               # Prepares the type definitions for mergeOptionDecls, which
               # annotates submodules types with file locations
-              optionModules = map ({ value, file }: {
-                _file = file;
-                # There's no way to merge types directly from the module system,
-                # but we can cheat a bit by just declaring an option with the type
-                options = lib.mkOption { type = value; };
-              }) defs;
+              optionModules = map ({
+                  value,
+                  file,
+                }: {
+                  _file = file;
+                  # There's no way to merge types directly from the module system,
+                  # but we can cheat a bit by just declaring an option with the type
+                  options = lib.mkOption { type = value; };
+                }) defs;
               # Merges all the types into a single one, including submodule merging.
               # This also propagates file information to all submodules
               mergedOption =
@@ -707,13 +717,20 @@ let
             in mergedOption.type;
       };
 
-      submoduleWith = { modules, specialArgs ? { }
-        , shorthandOnlyDefinesConfig ? false, description ? null }@attrs:
+      submoduleWith = {
+          modules,
+          specialArgs ? { },
+          shorthandOnlyDefinesConfig ? false,
+          description ? null
+        }@attrs:
         let
           inherit (lib.modules) evalModules;
 
           allModules = defs:
-            map ({ value, file }:
+            map ({
+                value,
+                file,
+              }:
               if isAttrs value && shorthandOnlyDefinesConfig then {
                 _file = file;
                 config = value;

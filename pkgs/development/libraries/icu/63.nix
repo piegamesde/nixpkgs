@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchurl, fetchpatch, fixDarwinDylibNames, nativeBuildRoot
-, testers, buildRootOnly ? false }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  fixDarwinDylibNames,
+  nativeBuildRoot,
+  testers,
+  buildRootOnly ? false
+}:
 
 import ./base.nix {
   version = "63.1";

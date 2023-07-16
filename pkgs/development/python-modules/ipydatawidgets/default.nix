@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, pytest, pytest-cov, nbval
-, jupyter-packaging, ipywidgets, numpy, six, traittypes }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  pytest,
+  pytest-cov,
+  nbval,
+  jupyter-packaging,
+  ipywidgets,
+  numpy,
+  six,
+  traittypes,
+}:
 
 buildPythonPackage rec {
   pname = "ipydatawidgets";

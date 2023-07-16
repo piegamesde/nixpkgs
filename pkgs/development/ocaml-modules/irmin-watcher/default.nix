@@ -1,4 +1,12 @@
-{ lib, fetchurl, buildDunePackage, astring, fmt, logs, ocaml_lwt }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  astring,
+  fmt,
+  logs,
+  ocaml_lwt,
+}:
 
 buildDunePackage rec {
   pname = "irmin-watcher";

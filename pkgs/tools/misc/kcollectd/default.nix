@@ -1,6 +1,21 @@
-{ lib, fetchFromGitLab, mkDerivation, qtbase, cmake, kconfig, kio, kiconthemes
-, kxmlgui, ki18n, kguiaddons, extra-cmake-modules, boost, shared-mime-info
-, rrdtool, breeze-icons }:
+{
+  lib,
+  fetchFromGitLab,
+  mkDerivation,
+  qtbase,
+  cmake,
+  kconfig,
+  kio,
+  kiconthemes,
+  kxmlgui,
+  ki18n,
+  kguiaddons,
+  extra-cmake-modules,
+  boost,
+  shared-mime-info,
+  rrdtool,
+  breeze-icons,
+}:
 
 mkDerivation rec {
   pname = "kcollectd";

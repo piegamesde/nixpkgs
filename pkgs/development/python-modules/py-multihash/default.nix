@@ -1,5 +1,15 @@
-{ base58, buildPythonPackage, fetchFromGitHub, lib, morphys, pytest-runner
-, pytestCheckHook, pythonOlder, six, varint }:
+{
+  base58,
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  morphys,
+  pytest-runner,
+  pytestCheckHook,
+  pythonOlder,
+  six,
+  varint,
+}:
 
 buildPythonPackage rec {
   pname = "py-multihash";

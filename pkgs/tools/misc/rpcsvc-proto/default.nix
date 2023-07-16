@@ -1,5 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, buildPackages, fetchpatch
-, targetPackages }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  buildPackages,
+  fetchpatch,
+  targetPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rpcsvc-proto";

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, packaging, pythonOlder
-, typing-extensions, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  packaging,
+  pythonOlder,
+  typing-extensions,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "jpype1";

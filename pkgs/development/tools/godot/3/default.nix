@@ -1,7 +1,29 @@
-{ stdenv, lib, fetchFromGitHub, scons, pkg-config, udev, libX11, libXcursor
-, libXinerama, libXrandr, libXrender, libpulseaudio, libXi, libXext, libXfixes
-, freetype, openssl, alsa-lib, alsa-plugins, makeWrapper, libGLU, zlib, yasm
-, withUdev ? true }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  scons,
+  pkg-config,
+  udev,
+  libX11,
+  libXcursor,
+  libXinerama,
+  libXrandr,
+  libXrender,
+  libpulseaudio,
+  libXi,
+  libXext,
+  libXfixes,
+  freetype,
+  openssl,
+  alsa-lib,
+  alsa-plugins,
+  makeWrapper,
+  libGLU,
+  zlib,
+  yasm,
+  withUdev ? true
+}:
 
 let
   options = {

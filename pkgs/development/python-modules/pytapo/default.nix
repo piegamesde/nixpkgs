@@ -1,7 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi
 
-# propagates
-, pycryptodome, requests, rtp, urllib3 }:
+  # propagates
+  ,
+  pycryptodome,
+  requests,
+  rtp,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "pytapo";

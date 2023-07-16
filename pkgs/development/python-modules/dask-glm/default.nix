@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, cloudpickle, dask, distributed, fetchPypi
-, multipledispatch, pytestCheckHook, pythonOlder, scikit-learn, scipy
-, setuptools-scm, sparse }:
+{
+  lib,
+  buildPythonPackage,
+  cloudpickle,
+  dask,
+  distributed,
+  fetchPypi,
+  multipledispatch,
+  pytestCheckHook,
+  pythonOlder,
+  scikit-learn,
+  scipy,
+  setuptools-scm,
+  sparse,
+}:
 
 buildPythonPackage rec {
   pname = "dask-glm";

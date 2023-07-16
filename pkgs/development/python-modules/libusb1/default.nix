@@ -1,4 +1,11 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, libusb1, pytestCheckHook }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  libusb1,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "libusb1";

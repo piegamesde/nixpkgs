@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, pkg-config, libjack2, alsa-lib, libpulseaudio, faac
-, lame, libogg, libopus, libvorbis, libsamplerate }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libjack2,
+  alsa-lib,
+  libpulseaudio,
+  faac,
+  lame,
+  libogg,
+  libopus,
+  libvorbis,
+  libsamplerate,
+}:
 
 stdenv.mkDerivation rec {
   pname = "darkice";

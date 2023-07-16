@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, autoreconfHook, autoconf-archive, pkg-config, kmod
-, enable-tools ? true, enablePython ? false, python3, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  autoconf-archive,
+  pkg-config,
+  kmod,
+  enable-tools ? true,
+  enablePython ? false,
+  python3,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libgpiod";

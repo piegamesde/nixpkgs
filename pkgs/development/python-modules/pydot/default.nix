@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, substituteAll, graphviz, python
-, pytestCheckHook, chardet, pythonOlder, pyparsing }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  substituteAll,
+  graphviz,
+  python,
+  pytestCheckHook,
+  chardet,
+  pythonOlder,
+  pyparsing,
+}:
 
 buildPythonPackage rec {
   pname = "pydot";

@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchurl, autoconf, automake, intltool, libtool, pkg-config
-, which, docbook_xml_dtd_45, docbook_xsl, gtkmm2, pangomm_2_42, libgig
-, libsndfile, libxslt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoconf,
+  automake,
+  intltool,
+  libtool,
+  pkg-config,
+  which,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+  gtkmm2,
+  pangomm_2_42,
+  libgig,
+  libsndfile,
+  libxslt,
+}:
 
 let gtkmm2_with_pango242 = gtkmm2.override { pangomm = pangomm_2_42; };
 in stdenv.mkDerivation rec {

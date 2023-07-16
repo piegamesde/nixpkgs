@@ -1,7 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, gexiv2, gobject-introspection, gtk3
-, hicolor-icon-theme, intltool, libnotify, librsvg, python3, runtimeShell
-, wrapGAppsHook, fehSupport ? false, feh, imagemagickSupport ? true, imagemagick
-, appindicatorSupport ? true, libayatana-appindicator }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gexiv2,
+  gobject-introspection,
+  gtk3,
+  hicolor-icon-theme,
+  intltool,
+  libnotify,
+  librsvg,
+  python3,
+  runtimeShell,
+  wrapGAppsHook,
+  fehSupport ? false,
+  feh,
+  imagemagickSupport ? true,
+  imagemagick,
+  appindicatorSupport ? true,
+  libayatana-appindicator,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "variety";

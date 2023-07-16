@@ -1,5 +1,14 @@
-{ lib, aiohttp, aresponses, awesomeversion, buildPythonPackage, fetchFromGitHub
-, pythonOlder, pytest-asyncio, pytestCheckHook }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  awesomeversion,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytest-asyncio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pyhaversion";

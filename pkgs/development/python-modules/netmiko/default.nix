@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools, paramiko, scp, tenacity
-, textfsm, ntc-templates, pyserial, pytestCheckHook, pyyaml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  paramiko,
+  scp,
+  tenacity,
+  textfsm,
+  ntc-templates,
+  pyserial,
+  pytestCheckHook,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "netmiko";

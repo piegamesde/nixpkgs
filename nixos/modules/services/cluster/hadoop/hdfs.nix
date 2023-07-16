@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.services.hadoop;
@@ -7,8 +12,11 @@ let
   hadoopConf = "${import ./conf.nix { inherit cfg pkgs lib; }}/";
 
   # Generator for HDFS service options
-  hadoopServiceOption =
-    { serviceName, firewallOption ? true, extraOpts ? null }:
+  hadoopServiceOption = {
+      serviceName,
+      firewallOption ? true,
+      extraOpts ? null
+    }:
     {
       enable = mkEnableOption (lib.mdDoc serviceName);
       restartIfChanged = mkOption {
@@ -46,9 +54,16 @@ let
     }) // (optionalAttrs (extraOpts != null) extraOpts);
 
   # Generator for HDFS service configs
-  hadoopServiceConfig = { name, serviceOptions ? cfg.hdfs."${toLower name}"
-    , description ? "Hadoop HDFS ${name}", User ? "hdfs", allowedTCPPorts ? [ ]
-    , preStart ? "", environment ? { }, extraConfig ? { } }:
+  hadoopServiceConfig = {
+      name,
+      serviceOptions ? cfg.hdfs."${toLower name}",
+      description ? "Hadoop HDFS ${name}",
+      User ? "hdfs",
+      allowedTCPPorts ? [ ],
+      preStart ? "",
+      environment ? { },
+      extraConfig ? { }
+    }:
     (
 
       mkIf serviceOptions.enable (mkMerge [

@@ -1,4 +1,13 @@
-{ stdenv, lib, openmodelica, symlinkJoin, gnumake, blas, lapack, makeWrapper }:
+{
+  stdenv,
+  lib,
+  openmodelica,
+  symlinkJoin,
+  gnumake,
+  blas,
+  lapack,
+  makeWrapper,
+}:
 symlinkJoin {
   name = "openmodelica-combined";
   paths = with openmodelica; [

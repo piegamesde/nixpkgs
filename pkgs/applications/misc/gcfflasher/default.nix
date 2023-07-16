@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, libgpiod, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  libgpiod,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gcfflasher";

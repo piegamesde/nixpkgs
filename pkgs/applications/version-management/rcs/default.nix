@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, buildPackages, diffutils, ed, lzip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  buildPackages,
+  diffutils,
+  ed,
+  lzip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rcs";

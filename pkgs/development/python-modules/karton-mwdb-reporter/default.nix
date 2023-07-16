@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, karton-core, mwdblib, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  karton-core,
+  mwdblib,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "karton-mwdb-reporter";

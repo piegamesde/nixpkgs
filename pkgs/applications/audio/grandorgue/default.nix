@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, fftwFloat, alsa-lib, zlib
-, wavpack, wxGTK32, udev, jackaudioSupport ? false, libjack2, imagemagick
-, libicns, makeWrapper, Cocoa, includeDemo ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  fftwFloat,
+  alsa-lib,
+  zlib,
+  wavpack,
+  wxGTK32,
+  udev,
+  jackaudioSupport ? false,
+  libjack2,
+  imagemagick,
+  libicns,
+  makeWrapper,
+  Cocoa,
+  includeDemo ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "grandorgue";

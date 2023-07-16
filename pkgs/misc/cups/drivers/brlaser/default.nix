@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, zlib, cups }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  zlib,
+  cups,
+}:
 
 stdenv.mkDerivation rec {
   pname = "brlaser";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, jdk, ant, cunit, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jdk,
+  ant,
+  cunit,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "java-service-wrapper";

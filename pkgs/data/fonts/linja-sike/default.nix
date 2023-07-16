@@ -1,4 +1,7 @@
-{ lib, fetchurl }:
+{
+  lib,
+  fetchurl,
+}:
 
 fetchurl {
   pname = "linja-sike";

@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, isPyPy, ply, six, decorator }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPyPy,
+  ply,
+  six,
+  decorator,
+}:
 
 buildPythonPackage rec {
   pname = "jsonpath-rw";

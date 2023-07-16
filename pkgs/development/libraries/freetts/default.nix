@@ -1,4 +1,12 @@
-{ stdenv, fetchurl, apacheAnt, unzip, sharutils, lib, jdk }:
+{
+  stdenv,
+  fetchurl,
+  apacheAnt,
+  unzip,
+  sharutils,
+  lib,
+  jdk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "freetts";

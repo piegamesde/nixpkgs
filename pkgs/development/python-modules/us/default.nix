@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, jellyfish }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  jellyfish,
+}:
 
 buildPythonPackage rec {
   pname = "us";

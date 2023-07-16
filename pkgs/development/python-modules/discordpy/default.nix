@@ -1,5 +1,14 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, libopus, pynacl
-, pythonOlder, withVoice ? true, ffmpeg }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  libopus,
+  pynacl,
+  pythonOlder,
+  withVoice ? true,
+  ffmpeg,
+}:
 
 buildPythonPackage rec {
   pname = "discord.py";

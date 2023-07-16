@@ -1,6 +1,22 @@
-{ stdenv, lib, fetchurl, fetchpatch, alsa-lib, dbus, ell, glib, json_c, libical
-, docutils, pkg-config, python3, readline, systemdMinimal, udev
-, withExperimental ? false }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  alsa-lib,
+  dbus,
+  ell,
+  glib,
+  json_c,
+  libical,
+  docutils,
+  pkg-config,
+  python3,
+  readline,
+  systemdMinimal,
+  udev,
+  withExperimental ? false
+}:
 let
   pythonPath = with python3.pkgs; [ dbus-python pygobject3 recursivePthLoader ];
 in stdenv.mkDerivation rec {

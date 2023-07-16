@@ -1,10 +1,35 @@
-{ lib, stdenv, fetchurl, pkg-config, glib, gdk-pixbuf, pango, cairo, libxml2
-, bzip2, libintl, ApplicationServices, Foundation, libobjc, rustPlatform, rustc
-, rust, cargo-auditable-cargo-wrapper, gi-docgen, python3Packages, gnome, vala
-, writeScript
-, withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
-, buildPackages, gobject-introspection, _experimental-update-script-combinators
-, common-updater-scripts, jq, nix }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  glib,
+  gdk-pixbuf,
+  pango,
+  cairo,
+  libxml2,
+  bzip2,
+  libintl,
+  ApplicationServices,
+  Foundation,
+  libobjc,
+  rustPlatform,
+  rustc,
+  rust,
+  cargo-auditable-cargo-wrapper,
+  gi-docgen,
+  python3Packages,
+  gnome,
+  vala,
+  writeScript,
+  withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages,
+  buildPackages,
+  gobject-introspection,
+  _experimental-update-script-combinators,
+  common-updater-scripts,
+  jq,
+  nix,
+}:
 
 stdenv.mkDerivation rec {
   pname = "librsvg";

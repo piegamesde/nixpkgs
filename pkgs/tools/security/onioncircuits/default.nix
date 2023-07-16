@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchgit, python3, intltool, gtk3, gobject-introspection, gnome
+{
+  stdenv,
+  lib,
+  fetchgit,
+  python3,
+  intltool,
+  gtk3,
+  gobject-introspection,
+  gnome,
 }:
 
 python3.pkgs.buildPythonApplication rec {

@@ -1,6 +1,24 @@
-{ stdenv, lib, aiodns, aiohttp, boto3, buildPythonPackage, codecov, databases
-, fetchFromGitHub, flake8, flask-sockets, moto, pythonOlder, psutil
-, pytest-asyncio, pytestCheckHook, sqlalchemy, websocket-client, websockets }:
+{
+  stdenv,
+  lib,
+  aiodns,
+  aiohttp,
+  boto3,
+  buildPythonPackage,
+  codecov,
+  databases,
+  fetchFromGitHub,
+  flake8,
+  flask-sockets,
+  moto,
+  pythonOlder,
+  psutil,
+  pytest-asyncio,
+  pytestCheckHook,
+  sqlalchemy,
+  websocket-client,
+  websockets,
+}:
 
 buildPythonPackage rec {
   pname = "slack-sdk";

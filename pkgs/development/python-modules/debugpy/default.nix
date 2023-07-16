@@ -1,6 +1,22 @@
-{ lib, stdenv, buildPythonPackage, pythonOlder, pythonAtLeast, fetchFromGitHub
-, substituteAll, gdb, django, flask, gevent, psutil, pytest-timeout
-, pytest-xdist, pytestCheckHook, requests, llvmPackages }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  pythonAtLeast,
+  fetchFromGitHub,
+  substituteAll,
+  gdb,
+  django,
+  flask,
+  gevent,
+  psutil,
+  pytest-timeout,
+  pytest-xdist,
+  pytestCheckHook,
+  requests,
+  llvmPackages,
+}:
 
 buildPythonPackage rec {
   pname = "debugpy";

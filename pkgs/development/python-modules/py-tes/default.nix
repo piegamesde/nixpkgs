@@ -1,5 +1,15 @@
-{ lib, attrs, buildPythonPackage, fetchFromGitHub, future, python-dateutil
-, pytestCheckHook, pythonOlder, requests, requests-mock }:
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  fetchFromGitHub,
+  future,
+  python-dateutil,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-mock,
+}:
 
 buildPythonPackage rec {
   pname = "py-tes";

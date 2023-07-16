@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, rustPlatform, pkg-config, gtk3, gtk-layer-shell }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  gtk3,
+  gtk-layer-shell,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "sirula";

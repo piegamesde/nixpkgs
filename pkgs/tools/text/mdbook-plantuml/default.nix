@@ -1,5 +1,15 @@
-{ lib, fetchFromGitHub, fetchpatch, stdenv, rustPlatform, darwin, pkg-config
-, openssl, libiconv, CoreServices }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  stdenv,
+  rustPlatform,
+  darwin,
+  pkg-config,
+  openssl,
+  libiconv,
+  CoreServices,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "mdbook-plantuml";

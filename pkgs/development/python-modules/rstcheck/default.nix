@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, docutils, fetchFromGitHub, importlib-metadata
-, poetry-core, pydantic, pytestCheckHook, pythonOlder, rstcheck-core, typer
-, types-docutils, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  docutils,
+  fetchFromGitHub,
+  importlib-metadata,
+  poetry-core,
+  pydantic,
+  pytestCheckHook,
+  pythonOlder,
+  rstcheck-core,
+  typer,
+  types-docutils,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "rstcheck";

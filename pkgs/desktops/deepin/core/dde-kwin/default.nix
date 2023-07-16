@@ -1,7 +1,26 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, extra-cmake-modules
-, deepin-gettext-tools, wrapQtAppsHook, makeWrapper, dtkcore, qtbase
-, qtx11extras, gsettings-qt, xorg, libepoxy, deepin-kwin, kdecoration, kconfig
-, kwayland, kwindowsystem, kglobalaccel }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  extra-cmake-modules,
+  deepin-gettext-tools,
+  wrapQtAppsHook,
+  makeWrapper,
+  dtkcore,
+  qtbase,
+  qtx11extras,
+  gsettings-qt,
+  xorg,
+  libepoxy,
+  deepin-kwin,
+  kdecoration,
+  kconfig,
+  kwayland,
+  kwindowsystem,
+  kglobalaccel,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dde-kwin";

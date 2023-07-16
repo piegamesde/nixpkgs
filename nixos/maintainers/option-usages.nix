@@ -1,10 +1,14 @@
-{ configuration ? import ../lib/from-env.nix "NIXOS_CONFIG" <nixos-config>
+{
+  configuration ? import ../lib/from-env.nix "NIXOS_CONFIG" <nixos-config>
 
-  # provide an option name, as a string literal.
-, testOption ? null
+    # provide an option name, as a string literal.
+  ,
+  testOption ? null
 
-  # provide a list of option names, as string literals.
-, testOptions ? [ ] }:
+    # provide a list of option names, as string literals.
+  ,
+  testOptions ? [ ]
+}:
 
 # This file is made to be used as follow:
 #
@@ -45,7 +49,9 @@ with import ../../lib;
 
 let
 
-  evalFun = { specialArgs ? { } }:
+  evalFun = {
+      specialArgs ? { }
+    }:
     import ../lib/eval-config.nix {
       modules = [ configuration ];
       inherit specialArgs;
@@ -79,9 +85,16 @@ let
 
   reportNewFailures = old: new:
     let
-      filterChanges = filter ({ fst, snd }: !(fst.success -> snd.success));
+      filterChanges = filter ({
+          fst,
+          snd,
+        }:
+        !(fst.success -> snd.success));
 
-      keepNames = map ({ fst, snd }:
+      keepNames = map ({
+          fst,
+          snd,
+        }:
         # assert fst.name == snd.name;
         snd.name);
 
@@ -124,13 +137,19 @@ let
   displayOptionsGraph = let
     checkList = if testOption != null then [ testOption ] else testOptions;
     checkAll = checkList == [ ];
-  in flip filter graph ({ option, ... }:
+  in flip filter graph ({
+      option,
+      ...
+    }:
     (checkAll || elem option checkList) && !(elem option excludedTestOptions));
 
   graphToDot = graph: ''
     digraph "Option Usages" {
       ${
-        concatMapStrings ({ option, usedBy }:
+        concatMapStrings ({
+            option,
+            usedBy,
+          }:
           concatMapStrings (user: ''"${option}" -> "${user}"'') usedBy)
         displayOptionsGraph
       }
@@ -138,7 +157,10 @@ let
   '';
 
   graphToText = graph:
-    concatMapStrings ({ usedBy, ... }:
+    concatMapStrings ({
+        usedBy,
+        ...
+      }:
       concatMapStrings (user: ''
         ${user}
       '') usedBy) displayOptionsGraph;

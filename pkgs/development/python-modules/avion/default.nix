@@ -1,4 +1,12 @@
-{ lib, bluepy, buildPythonPackage, csrmesh, fetchPypi, pycryptodome, requests }:
+{
+  lib,
+  bluepy,
+  buildPythonPackage,
+  csrmesh,
+  fetchPypi,
+  pycryptodome,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "avion";

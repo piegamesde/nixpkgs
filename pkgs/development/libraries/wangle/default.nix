@@ -1,5 +1,21 @@
-{ stdenv, lib, fetchFromGitHub, cmake, boost, libevent, double-conversion, glog
-, fmt_8, gflags, openssl, fizz, folly, gtest, libsodium, zlib }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  libevent,
+  double-conversion,
+  glog,
+  fmt_8,
+  gflags,
+  openssl,
+  fizz,
+  folly,
+  gtest,
+  libsodium,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wangle";

@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+}:
 buildPythonPackage rec {
   pname = "rpmfile";
   version = "1.1.1";

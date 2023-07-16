@@ -1,8 +1,30 @@
-{ beautifulsoup4, bleach, buildPythonPackage, defusedxml, fetchPypi, fetchpatch
-, fetchurl, hatchling, importlib-metadata, ipywidgets, jinja2, jupyter-core
-, jupyterlab-pygments, lib, markupsafe, mistune, nbclient, packaging
-, pandocfilters, pygments, pyppeteer, pytestCheckHook, pythonOlder, tinycss2
-, traitlets }:
+{
+  beautifulsoup4,
+  bleach,
+  buildPythonPackage,
+  defusedxml,
+  fetchPypi,
+  fetchpatch,
+  fetchurl,
+  hatchling,
+  importlib-metadata,
+  ipywidgets,
+  jinja2,
+  jupyter-core,
+  jupyterlab-pygments,
+  lib,
+  markupsafe,
+  mistune,
+  nbclient,
+  packaging,
+  pandocfilters,
+  pygments,
+  pyppeteer,
+  pytestCheckHook,
+  pythonOlder,
+  tinycss2,
+  traitlets,
+}:
 
 let
   # see https://github.com/jupyter/nbconvert/issues/1896

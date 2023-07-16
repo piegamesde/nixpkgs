@@ -1,5 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, cmake, sfml, libGLU, libGL, bullet, glm, libmad
-, openal, SDL2, boost, ffmpeg_4, Cocoa, OpenAL }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  sfml,
+  libGLU,
+  libGL,
+  bullet,
+  glm,
+  libmad,
+  openal,
+  SDL2,
+  boost,
+  ffmpeg_4,
+  Cocoa,
+  OpenAL,
+}:
 
 stdenv.mkDerivation {
   version = "unstable-2021-10-14";

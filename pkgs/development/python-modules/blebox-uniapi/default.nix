@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, aiohttp, semver, deepmerge
-, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  aiohttp,
+  semver,
+  deepmerge,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "blebox-uniapi";

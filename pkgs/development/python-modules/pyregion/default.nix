@@ -1,5 +1,17 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, fetchpatch, pyparsing, numpy
-, cython, astropy, astropy-helpers, pytestCheckHook, pytest-astropy }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pyparsing,
+  numpy,
+  cython,
+  astropy,
+  astropy-helpers,
+  pytestCheckHook,
+  pytest-astropy,
+}:
 
 buildPythonPackage rec {
   pname = "pyregion";

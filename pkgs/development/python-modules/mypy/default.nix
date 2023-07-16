@@ -1,16 +1,39 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, fetchpatch, pythonOlder
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pythonOlder
 
-# build-system
-, setuptools, types-psutil, types-setuptools, types-typed-ast
+  # build-system
+  ,
+  setuptools,
+  types-psutil,
+  types-setuptools,
+  types-typed-ast
 
-# propagates
-, mypy-extensions, tomli, typing-extensions
+  # propagates
+  ,
+  mypy-extensions,
+  tomli,
+  typing-extensions
 
-# optionals
-, lxml, psutil
+  # optionals
+  ,
+  lxml,
+  psutil
 
-# tests
-, attrs, filelock, pytest-xdist, pytest-forked, pytestCheckHook, py, six }:
+  # tests
+  ,
+  attrs,
+  filelock,
+  pytest-xdist,
+  pytest-forked,
+  pytestCheckHook,
+  py,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "mypy";

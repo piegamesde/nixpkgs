@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook, mock
-, jinja2 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  mock,
+  jinja2,
+}:
 
 buildPythonPackage rec {
   pname = "lizard";

@@ -2,30 +2,65 @@ let
 
   generic =
     # dependencies
-    { stdenv, lib, fetchurl, makeWrapper, glibc, zlib, readline, openssl, icu
-    , lz4, zstd, systemd, libossp_uuid, pkg-config, libxml2, tzdata, libkrb5
+    {
+      stdenv,
+      lib,
+      fetchurl,
+      makeWrapper,
+      glibc,
+      zlib,
+      readline,
+      openssl,
+      icu,
+      lz4,
+      zstd,
+      systemd,
+      libossp_uuid,
+      pkg-config,
+      libxml2,
+      tzdata,
+      libkrb5
 
-    # This is important to obtain a version of `libpq` that does not depend on systemd.
-    , enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
-      && !stdenv.hostPlatform.isStatic, gssSupport ? with stdenv.hostPlatform;
-      !isWindows && !isStatic
+      # This is important to obtain a version of `libpq` that does not depend on systemd.
+      ,
+      enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
+        && !stdenv.hostPlatform.isStatic,
+      gssSupport ? with stdenv.hostPlatform;
+        !isWindows && !isStatic
 
-      # for postgresql.pkgs
-    , this, self, newScope, buildEnv
+        # for postgresql.pkgs
+      ,
+      this,
+      self,
+      newScope,
+      buildEnv
 
-    # source specification
-    , version, hash, psqlSchema
+      # source specification
+      ,
+      version,
+      hash,
+      psqlSchema
 
-    # for tests
-    , nixosTests, thisAttr
+      # for tests
+      ,
+      nixosTests,
+      thisAttr
 
-    # JIT
-    , jitSupport ? false, nukeReferences, patchelf, llvmPackages
-    , makeRustPlatform, buildPgxExtension, rustPlatform
+      # JIT
+      ,
+      jitSupport ? false,
+      nukeReferences,
+      patchelf,
+      llvmPackages,
+      makeRustPlatform,
+      buildPgxExtension,
+      rustPlatform
 
-    # detection of crypt fails when using llvm stdenv, so we add it manually
-    # for <13 (where it got removed: https://github.com/postgres/postgres/commit/c45643d618e35ec2fe91438df15abd4f3c0d85ca)
-    , libxcrypt }:
+      # detection of crypt fails when using llvm stdenv, so we add it manually
+      # for <13 (where it got removed: https://github.com/postgres/postgres/commit/c45643d618e35ec2fe91438df15abd4f3c0d85ca)
+      ,
+      libxcrypt,
+    }:
     let
       atLeast = lib.versionAtLeast version;
       olderThan = lib.versionOlder version;
@@ -260,7 +295,11 @@ let
       };
     };
 
-  postgresqlWithPackages = { postgresql, makeWrapper, buildEnv }:
+  postgresqlWithPackages = {
+      postgresql,
+      makeWrapper,
+      buildEnv,
+    }:
     pkgs: f:
     buildEnv {
       name = "postgresql-and-plugins-${postgresql.version}";

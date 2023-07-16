@@ -1,4 +1,10 @@
-{ lib, fetchurl, buildDunePackage, stdlib-shims, ounit2 }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  stdlib-shims,
+  ounit2,
+}:
 
 buildDunePackage rec {
   pname = "sha";

@@ -1,4 +1,11 @@
-{ stdenv, fetchFromGitHub, lib, installShellFiles, makeWrapper, kubectl }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  installShellFiles,
+  makeWrapper,
+  kubectl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kubetail";

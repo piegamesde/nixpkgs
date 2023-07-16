@@ -1,4 +1,9 @@
-{ runCommand, cargo, rustc, cargo-show-asm }:
+{
+  runCommand,
+  cargo,
+  rustc,
+  cargo-show-asm,
+}:
 runCommand "test-basic" {
   nativeBuildInputs = [ cargo rustc cargo-show-asm ];
 } ''

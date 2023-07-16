@@ -1,5 +1,13 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, pkg-config, qtbase
-, qtgraphicaleffects, wrapQtAppsHook }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  qtbase,
+  qtgraphicaleffects,
+  wrapQtAppsHook,
+}:
 mkDerivation rec {
   pname = "projecteur";
   version = "0.9.2";

@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, glib, gettext, sassc, gitUpdater }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  glib,
+  gettext,
+  sassc,
+  gitUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-dash-to-dock";

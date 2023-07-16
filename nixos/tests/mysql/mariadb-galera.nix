@@ -1,5 +1,9 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../../.. { inherit system config; }, lib ? pkgs.lib }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../../.. { inherit system config; },
+  lib ? pkgs.lib
+}:
 
 let
   inherit (import ./common.nix { inherit pkgs lib; })
@@ -8,8 +12,11 @@ let
   makeTest = import ./../make-test-python.nix;
 
   # Common user configuration
-  makeGaleraTest = { mariadbPackage, name ? mkTestName mariadbPackage
-    , galeraPackage ? pkgs.mariadb-galera }:
+  makeGaleraTest = {
+      mariadbPackage,
+      name ? mkTestName mariadbPackage,
+      galeraPackage ? pkgs.mariadb-galera
+    }:
     makeTest {
       name = "${name}-galera-mariabackup";
       meta = with pkgs.lib.maintainers; {
@@ -19,7 +26,10 @@ let
       # The test creates a Galera cluster with 3 nodes and is checking if mariabackup-based SST works. The cluster is tested by creating a DB and an empty table on one node,
       # and checking the table's presence on the other node.
       nodes = let
-        mkGaleraNode = { id, method }:
+        mkGaleraNode = {
+            id,
+            method,
+          }:
           let
             address = "192.168.1.${toString id}";
             isFirstClusterNode = id == 1 || id == 4;

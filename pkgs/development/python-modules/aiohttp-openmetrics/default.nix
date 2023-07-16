@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, aiohttp, prometheus-client }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  aiohttp,
+  prometheus-client,
+}:
 
 buildPythonPackage rec {
   pname = "aiohttp-openmetrics";

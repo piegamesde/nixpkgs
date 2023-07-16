@@ -1,9 +1,38 @@
-{ lib, stdenv, fetchurl, docbook_xml_dtd_45, docbook_xsl, intltool, itstool
-, libxslt, pkg-config, wrapGAppsHook, yelp-tools, curl, gdk-pixbuf, gtk3
-, json-glib, libxml2, gpsbabel, withGeoClue ? true, geoclue2, withGeoTag ? true
-, gexiv2, withMagic ? true, file, withMapnik ? false, mapnik, withMBTiles ? true
-, sqlite, withMd5Hash ? true, nettle, withOAuth ? true, liboauth
-, withRealtimeGPSTracking ? true, gpsd }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+  intltool,
+  itstool,
+  libxslt,
+  pkg-config,
+  wrapGAppsHook,
+  yelp-tools,
+  curl,
+  gdk-pixbuf,
+  gtk3,
+  json-glib,
+  libxml2,
+  gpsbabel,
+  withGeoClue ? true,
+  geoclue2,
+  withGeoTag ? true,
+  gexiv2,
+  withMagic ? true,
+  file,
+  withMapnik ? false,
+  mapnik,
+  withMBTiles ? true,
+  sqlite,
+  withMd5Hash ? true,
+  nettle,
+  withOAuth ? true,
+  liboauth,
+  withRealtimeGPSTracking ? true,
+  gpsd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "viking";

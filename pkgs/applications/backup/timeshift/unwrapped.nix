@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, gettext, pkg-config, vala, which, gtk3
-, json-glib, libgee, util-linux, vte, xapp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gettext,
+  pkg-config,
+  vala,
+  which,
+  gtk3,
+  json-glib,
+  libgee,
+  util-linux,
+  vte,
+  xapp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "timeshift";

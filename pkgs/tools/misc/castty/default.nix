@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, libsoundio, lame }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  libsoundio,
+  lame,
+}:
 
 stdenv.mkDerivation {
   pname = "castty";

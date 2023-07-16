@@ -1,5 +1,14 @@
-{ lib, autoreconfHook, fetchFromGitHub, fetchpatch, gettext, ncurses, readline
-, stdenv, texinfo }:
+{
+  lib,
+  autoreconfHook,
+  fetchFromGitHub,
+  fetchpatch,
+  gettext,
+  ncurses,
+  readline,
+  stdenv,
+  texinfo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pinfo";

@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, lv2, pkg-config, libGLU, libGL, cairo, pango
-, libjack2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  lv2,
+  pkg-config,
+  libGLU,
+  libGL,
+  cairo,
+  pango,
+  libjack2,
+}:
 
 let
   version = "0.7.0";

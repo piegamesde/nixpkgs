@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, buildPythonPackage, requests }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "pyfcm";

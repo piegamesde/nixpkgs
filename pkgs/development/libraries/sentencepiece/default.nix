@@ -1,6 +1,13 @@
-{ lib, fetchFromGitHub, stdenv, cmake, gperftools
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  cmake,
+  gperftools
 
-, withGPerfTools ? true }:
+  ,
+  withGPerfTools ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "sentencepiece";

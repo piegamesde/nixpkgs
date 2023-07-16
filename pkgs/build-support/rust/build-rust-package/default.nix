@@ -1,32 +1,71 @@
-{ lib, importCargoLock, fetchCargoTarball, rust, stdenv, callPackage
-, cargoBuildHook, cargoCheckHook, cargoInstallHook, cargoNextestHook
-, cargoSetupHook, cargo, cargo-auditable, buildPackages, rustc, libiconv
-, windows }:
+{
+  lib,
+  importCargoLock,
+  fetchCargoTarball,
+  rust,
+  stdenv,
+  callPackage,
+  cargoBuildHook,
+  cargoCheckHook,
+  cargoInstallHook,
+  cargoNextestHook,
+  cargoSetupHook,
+  cargo,
+  cargo-auditable,
+  buildPackages,
+  rustc,
+  libiconv,
+  windows,
+}:
 
-{ name ? "${args.pname}-${args.version}"
+{
+  name ? "${args.pname}-${args.version}"
 
-  # Name for the vendored dependencies tarball
-, cargoDepsName ? name
+    # Name for the vendored dependencies tarball
+  ,
+  cargoDepsName ? name
 
-, src ? null, srcs ? null, preUnpack ? null, unpackPhase ? null
-, postUnpack ? null, cargoPatches ? [ ], patches ? [ ], sourceRoot ? null
-, logLevel ? "", buildInputs ? [ ], nativeBuildInputs ? [ ]
-, cargoUpdateHook ? "", cargoDepsHook ? "", buildType ? "release", meta ? { }
-, cargoLock ? null, cargoVendorDir ? null, checkType ? buildType
-, buildNoDefaultFeatures ? false
-, checkNoDefaultFeatures ? buildNoDefaultFeatures, buildFeatures ? [ ]
-, checkFeatures ? buildFeatures, useNextest ? false, auditable ? true
+  ,
+  src ? null,
+  srcs ? null,
+  preUnpack ? null,
+  unpackPhase ? null,
+  postUnpack ? null,
+  cargoPatches ? [ ],
+  patches ? [ ],
+  sourceRoot ? null,
+  logLevel ? "",
+  buildInputs ? [ ],
+  nativeBuildInputs ? [ ],
+  cargoUpdateHook ? "",
+  cargoDepsHook ? "",
+  buildType ? "release",
+  meta ? { },
+  cargoLock ? null,
+  cargoVendorDir ? null,
+  checkType ? buildType,
+  buildNoDefaultFeatures ? false,
+  checkNoDefaultFeatures ? buildNoDefaultFeatures,
+  buildFeatures ? [ ],
+  checkFeatures ? buildFeatures,
+  useNextest ? false,
+  auditable ? true
 
-, depsExtraArgs ? { }
+  ,
+  depsExtraArgs ? { }
 
-  # Toggles whether a custom sysroot is created when the target is a .json file.
-, __internal_dontAddSysroot ? false
+    # Toggles whether a custom sysroot is created when the target is a .json file.
+  ,
+  __internal_dontAddSysroot ? false
 
-  # Needed to `pushd`/`popd` into a subdir of a tarball if this subdir
-  # contains a Cargo.toml, but isn't part of a workspace (which is e.g. the
-  # case for `rustfmt`/etc from the `rust-sources).
-  # Otherwise, everything from the tarball would've been built/tested.
-, buildAndTestSubdir ? null, ... }@args:
+    # Needed to `pushd`/`popd` into a subdir of a tarball if this subdir
+    # contains a Cargo.toml, but isn't part of a workspace (which is e.g. the
+    # case for `rustfmt`/etc from the `rust-sources).
+    # Otherwise, everything from the tarball would've been built/tested.
+  ,
+  buildAndTestSubdir ? null,
+  ...
+}@args:
 
 assert cargoVendorDir == null && cargoLock == null
   -> !(args ? cargoSha256 && args.cargoSha256 != null)

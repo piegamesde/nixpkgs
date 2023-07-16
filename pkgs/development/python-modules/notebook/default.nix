@@ -1,7 +1,29 @@
-{ stdenv, lib, buildPythonPackage, pythonOlder, fetchPypi, argon2-cffi
-, glibcLocales, mock, jinja2, tornado, ipython_genutils, traitlets, jupyter-core
-, jupyter-client, nbformat, nbclassic, nbconvert, ipykernel, terminado, requests
-, send2trash, pexpect, prometheus-client, pytestCheckHook }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  argon2-cffi,
+  glibcLocales,
+  mock,
+  jinja2,
+  tornado,
+  ipython_genutils,
+  traitlets,
+  jupyter-core,
+  jupyter-client,
+  nbformat,
+  nbclassic,
+  nbconvert,
+  ipykernel,
+  terminado,
+  requests,
+  send2trash,
+  pexpect,
+  prometheus-client,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "notebook";

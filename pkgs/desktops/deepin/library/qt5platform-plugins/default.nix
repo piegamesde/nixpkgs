@@ -1,5 +1,18 @@
-{ stdenv, lib, fetchFromGitHub, qmake, pkg-config, qtbase, qtx11extras
-, wrapQtAppsHook, mtdev, cairo, xorg, waylandSupport ? true, wayland }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  qmake,
+  pkg-config,
+  qtbase,
+  qtx11extras,
+  wrapQtAppsHook,
+  mtdev,
+  cairo,
+  xorg,
+  waylandSupport ? true,
+  wayland,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qt5platform-plugins";

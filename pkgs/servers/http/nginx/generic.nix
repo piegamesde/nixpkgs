@@ -1,17 +1,52 @@
-outer@{ lib, stdenv, fetchurl, fetchpatch, openssl, zlib, pcre, libxml2, libxslt
-, nginx-doc
+outer@{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  openssl,
+  zlib,
+  pcre,
+  libxml2,
+  libxslt,
+  nginx-doc
 
-, nixosTests, substituteAll, removeReferencesTo, gd, geoip, perl
-, withDebug ? false, withKTLS ? false, withStream ? true, withMail ? false
-, withPerl ? true, withSlice ? false, modules ? [ ], ... }:
+  ,
+  nixosTests,
+  substituteAll,
+  removeReferencesTo,
+  gd,
+  geoip,
+  perl,
+  withDebug ? false,
+  withKTLS ? false,
+  withStream ? true,
+  withMail ? false,
+  withPerl ? true,
+  withSlice ? false,
+  modules ? [ ],
+  ...
+}:
 
-{ pname ? "nginx", version, nginxVersion ? version
-, src ? null # defaults to upstream nginx ${version}
-, hash ? null # when not specifying src
-, configureFlags ? [ ], nativeBuildInputs ? [ ], buildInputs ? [ ]
-, extraPatches ? [ ], fixPatch ? p: p, postPatch ? "", preConfigure ? ""
-, postInstall ? "", meta ? null, nginx-doc ? outer.nginx-doc
-, passthru ? { tests = { }; } }:
+{
+  pname ? "nginx",
+  version,
+  nginxVersion ? version,
+  src ? null # defaults to upstream nginx ${version}
+  ,
+  hash ? null # when not specifying src
+  ,
+  configureFlags ? [ ],
+  nativeBuildInputs ? [ ],
+  buildInputs ? [ ],
+  extraPatches ? [ ],
+  fixPatch ? p: p,
+  postPatch ? "",
+  preConfigure ? "",
+  postInstall ? "",
+  meta ? null,
+  nginx-doc ? outer.nginx-doc,
+  passthru ? { tests = { }; }
+}:
 
 let
 

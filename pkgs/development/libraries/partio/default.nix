@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, unzip, cmake, freeglut, libGLU, libGL, zlib
-, swig, doxygen, xorg, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  unzip,
+  cmake,
+  freeglut,
+  libGLU,
+  libGL,
+  zlib,
+  swig,
+  doxygen,
+  xorg,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "partio";

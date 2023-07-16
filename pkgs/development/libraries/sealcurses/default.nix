@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitea, cmake, pkg-config, ncurses, the-foundation }:
+{
+  lib,
+  stdenv,
+  fetchFromGitea,
+  cmake,
+  pkg-config,
+  ncurses,
+  the-foundation,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sealcurses";

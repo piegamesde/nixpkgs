@@ -1,4 +1,9 @@
-{ fetchurl, lib, stdenv, libnsl }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  libnsl,
+}:
 
 let
   vanillaVersion = "7.6.q";

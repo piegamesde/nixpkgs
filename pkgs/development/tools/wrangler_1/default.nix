@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, openssl, curl
-, Security, CoreServices, CoreFoundation, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  curl,
+  Security,
+  CoreServices,
+  CoreFoundation,
+  libiconv,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "wrangler";

@@ -1,7 +1,32 @@
-{ lib, avahi, bc, coreutils, cups, dbus, dejavu_fonts, fetchurl, fontconfig
-, gawk, ghostscript, gnugrep, gnused, ijs, libjpeg, liblouis, libpng
-, makeWrapper, mupdf, perl, pkg-config, poppler, poppler_utils, qpdf, stdenv
-, which, withAvahi ? true }:
+{
+  lib,
+  avahi,
+  bc,
+  coreutils,
+  cups,
+  dbus,
+  dejavu_fonts,
+  fetchurl,
+  fontconfig,
+  gawk,
+  ghostscript,
+  gnugrep,
+  gnused,
+  ijs,
+  libjpeg,
+  liblouis,
+  libpng,
+  makeWrapper,
+  mupdf,
+  perl,
+  pkg-config,
+  poppler,
+  poppler_utils,
+  qpdf,
+  stdenv,
+  which,
+  withAvahi ? true
+}:
 
 let binPath = lib.makeBinPath [ bc coreutils gawk gnused gnugrep which ];
 

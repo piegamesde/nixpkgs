@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, async-timeout, docopt, pyserial
-, pyserial-asyncio, setuptools, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  async-timeout,
+  docopt,
+  pyserial,
+  pyserial-asyncio,
+  setuptools,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "rflink";

@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, gettext, pkg-config
-, wxGTK32, boost, icu, lucenepp, asciidoc, libxslt, xmlto, gtk3, gtkspell3
-, pugixml, nlohmann_json, hicolor-icon-theme, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  libtool,
+  gettext,
+  pkg-config,
+  wxGTK32,
+  boost,
+  icu,
+  lucenepp,
+  asciidoc,
+  libxslt,
+  xmlto,
+  gtk3,
+  gtkspell3,
+  pugixml,
+  nlohmann_json,
+  hicolor-icon-theme,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "poedit";

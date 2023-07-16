@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, aiohttp, asn1
-, python-dateutil, tenacity }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  aiohttp,
+  asn1,
+  python-dateutil,
+  tenacity,
+}:
 
 buildPythonPackage rec {
   pname = "smart-meter-texas";

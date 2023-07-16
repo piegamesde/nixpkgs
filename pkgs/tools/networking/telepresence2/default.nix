@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, kubernetes-helm }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  kubernetes-helm,
+}:
 
 buildGoModule rec {
   pname = "telepresence2";

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, grpcio, googleapis-common-protos }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  grpcio,
+  googleapis-common-protos,
+}:
 
 buildPythonPackage rec {
   pname = "grpc-google-iam-v1";

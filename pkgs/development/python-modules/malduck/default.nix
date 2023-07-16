@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, capstone, click, cryptography, dnfile
-, fetchFromGitHub, pefile, pycryptodomex, pyelftools, pythonOlder
-, pytestCheckHook, typing-extensions, yara-python }:
+{
+  lib,
+  buildPythonPackage,
+  capstone,
+  click,
+  cryptography,
+  dnfile,
+  fetchFromGitHub,
+  pefile,
+  pycryptodomex,
+  pyelftools,
+  pythonOlder,
+  pytestCheckHook,
+  typing-extensions,
+  yara-python,
+}:
 
 buildPythonPackage rec {
   pname = "malduck";

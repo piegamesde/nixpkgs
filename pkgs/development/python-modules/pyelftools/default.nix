@@ -1,4 +1,11 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, python, pythonOlder }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pyelftools";

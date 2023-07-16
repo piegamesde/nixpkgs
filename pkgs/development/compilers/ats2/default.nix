@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, gmp, withEmacsSupport ? true, withContrib ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gmp,
+  withEmacsSupport ? true,
+  withContrib ? true
+}:
 
 let
   versionPkg = "0.4.2";

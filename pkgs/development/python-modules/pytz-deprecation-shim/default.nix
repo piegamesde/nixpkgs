@@ -1,6 +1,17 @@
-{ lib, buildPythonPackage, fetchPypi, pythonAtLeast, pythonOlder
-, backports-zoneinfo, python-dateutil, setuptools, tzdata, hypothesis
-, pytestCheckHook, pytz }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonAtLeast,
+  pythonOlder,
+  backports-zoneinfo,
+  python-dateutil,
+  setuptools,
+  tzdata,
+  hypothesis,
+  pytestCheckHook,
+  pytz,
+}:
 
 buildPythonPackage rec {
   pname = "pytz-deprecation-shim";

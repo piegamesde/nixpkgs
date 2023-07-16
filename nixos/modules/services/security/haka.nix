@@ -1,6 +1,11 @@
 # This module defines global configuration for Haka.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

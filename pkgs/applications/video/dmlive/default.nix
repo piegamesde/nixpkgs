@@ -1,5 +1,16 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, makeWrapper, openssl
-, Security, mpv, ffmpeg, nodejs }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  makeWrapper,
+  openssl,
+  Security,
+  mpv,
+  ffmpeg,
+  nodejs,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "dmlive";

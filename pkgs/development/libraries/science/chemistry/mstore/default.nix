@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, cmake, gfortran, mctc-lib }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  gfortran,
+  mctc-lib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mstore";

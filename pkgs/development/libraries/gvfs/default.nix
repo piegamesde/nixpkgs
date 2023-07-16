@@ -1,10 +1,48 @@
-{ stdenv, lib, fetchurl, fetchpatch2, meson, ninja, pkg-config, gettext, dbus
-, glib, udevSupport ? stdenv.isLinux, libgudev, udisks2, libgcrypt, libcap
-, polkit, libgphoto2, avahi, libarchive, fuse3, libcdio, libxml2, libsoup_3
-, libxslt, docbook_xsl, docbook_xml_dtd_42, samba, libmtp, gnomeSupport ? false
-, gnome, gcr, glib-networking, gnome-online-accounts, wrapGAppsHook
-, libimobiledevice, libbluray, libcdio-paranoia, libnfs, openssh, libsecret
-, libgdata, python3, gsettings-desktop-schemas }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch2,
+  meson,
+  ninja,
+  pkg-config,
+  gettext,
+  dbus,
+  glib,
+  udevSupport ? stdenv.isLinux,
+  libgudev,
+  udisks2,
+  libgcrypt,
+  libcap,
+  polkit,
+  libgphoto2,
+  avahi,
+  libarchive,
+  fuse3,
+  libcdio,
+  libxml2,
+  libsoup_3,
+  libxslt,
+  docbook_xsl,
+  docbook_xml_dtd_42,
+  samba,
+  libmtp,
+  gnomeSupport ? false,
+  gnome,
+  gcr,
+  glib-networking,
+  gnome-online-accounts,
+  wrapGAppsHook,
+  libimobiledevice,
+  libbluray,
+  libcdio-paranoia,
+  libnfs,
+  openssh,
+  libsecret,
+  libgdata,
+  python3,
+  gsettings-desktop-schemas,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gvfs";

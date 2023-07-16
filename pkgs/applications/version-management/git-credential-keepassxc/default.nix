@@ -1,6 +1,15 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, DiskArbitration, Foundation
-, withNotification ? false, withYubikey ? false, withStrictCaller ? false
-, withAll ? false }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  DiskArbitration,
+  Foundation,
+  withNotification ? false,
+  withYubikey ? false,
+  withStrictCaller ? false,
+  withAll ? false
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "git-credential-keepassxc";

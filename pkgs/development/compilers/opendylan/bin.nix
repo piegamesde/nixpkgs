@@ -1,6 +1,14 @@
 # Binaries provided by Open Dylan to be used to bootstrap from source.
 # The binaries can also be used as is.
-{ lib, stdenv, fetchurl, patchelf, boehmgc, gcc, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  patchelf,
+  boehmgc,
+  gcc,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "opendylan";

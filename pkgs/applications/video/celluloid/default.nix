@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, appstream-glib, desktop-file-utils, glib, gtk4
-, libepoxy, libadwaita, meson, mpv, ninja, nix-update-script, pkg-config
-, python3, wrapGAppsHook4 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  appstream-glib,
+  desktop-file-utils,
+  glib,
+  gtk4,
+  libepoxy,
+  libadwaita,
+  meson,
+  mpv,
+  ninja,
+  nix-update-script,
+  pkg-config,
+  python3,
+  wrapGAppsHook4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "celluloid";

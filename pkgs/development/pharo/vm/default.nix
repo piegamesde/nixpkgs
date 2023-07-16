@@ -1,4 +1,9 @@
-{ stdenv, callPackage, pkgsi686Linux, ... }:
+{
+  stdenv,
+  callPackage,
+  pkgsi686Linux,
+  ...
+}:
 
 let
   i686 = pkgsi686Linux.callPackage ./vms.nix { };

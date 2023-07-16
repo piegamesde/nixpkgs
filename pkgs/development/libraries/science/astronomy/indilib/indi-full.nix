@@ -1,4 +1,10 @@
-{ stdenv, lib, callPackage, fetchFromGitHub, indilib }:
+{
+  stdenv,
+  lib,
+  callPackage,
+  fetchFromGitHub,
+  indilib,
+}:
 
 let
   indi-version = "1.9.8";

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, perlPackages, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  perlPackages,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "shocco";

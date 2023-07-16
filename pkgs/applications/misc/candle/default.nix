@@ -1,4 +1,11 @@
-{ mkDerivation, lib, fetchFromGitHub, qtbase, qtserialport, qmake }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  qtbase,
+  qtserialport,
+  qmake,
+}:
 
 mkDerivation rec {
   pname = "candle";

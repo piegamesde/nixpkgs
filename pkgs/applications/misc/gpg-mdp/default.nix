@@ -1,4 +1,11 @@
-{ fetchurl, fetchpatch, lib, stdenv, ncurses, gnupg }:
+{
+  fetchurl,
+  fetchpatch,
+  lib,
+  stdenv,
+  ncurses,
+  gnupg,
+}:
 
 let version = "0.7.4";
 in stdenv.mkDerivation {

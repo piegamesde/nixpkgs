@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, nodejs, which, python39, libuv
-, util-linux, nixosTests, libsodium, pkg-config, substituteAll }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  nodejs,
+  which,
+  python39,
+  libuv,
+  util-linux,
+  nixosTests,
+  libsodium,
+  pkg-config,
+  substituteAll,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cjdns";

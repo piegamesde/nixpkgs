@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, fetchpatch, cairo, cmake, opencv, pcre, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  cairo,
+  cmake,
+  opencv,
+  pcre,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "frei0r-plugins";

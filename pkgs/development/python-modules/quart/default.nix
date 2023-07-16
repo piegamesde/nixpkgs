@@ -1,14 +1,35 @@
-{ lib, buildPythonPackage, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub
 
-# build-system
-, poetry-core
+  # build-system
+  ,
+  poetry-core
 
-# propagates
-, aiofiles, blinker, click, hypercorn, importlib-metadata, itsdangerous, jinja2
-, markupsafe, pydata-sphinx-theme, python-dotenv, typing-extensions, werkzeug
+  # propagates
+  ,
+  aiofiles,
+  blinker,
+  click,
+  hypercorn,
+  importlib-metadata,
+  itsdangerous,
+  jinja2,
+  markupsafe,
+  pydata-sphinx-theme,
+  python-dotenv,
+  typing-extensions,
+  werkzeug
 
-# tests
-, hypothesis, mock, py, pytest-asyncio, pytestCheckHook }:
+  # tests
+  ,
+  hypothesis,
+  mock,
+  py,
+  pytest-asyncio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "quart";

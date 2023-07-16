@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, pkg-config, glib, which, bison, nixosTests
-, linuxHeaders, gnutls }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  glib,
+  which,
+  bison,
+  nixosTests,
+  linuxHeaders,
+  gnutls,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nbd";

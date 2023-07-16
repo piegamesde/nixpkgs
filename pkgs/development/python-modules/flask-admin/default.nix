@@ -1,8 +1,31 @@
-{ lib, arrow, azure-storage-blob, boto, buildPythonPackage, colour
-, email-validator, enum34, fetchPypi, flask, flask-babelex, flask-mongoengine
-, flask-sqlalchemy, geoalchemy2, mongoengine, pillow, psycopg2, pymongo
-, pytestCheckHook, pythonOlder, shapely, sqlalchemy, sqlalchemy-citext
-, sqlalchemy-utils, wtf-peewee, wtforms }:
+{
+  lib,
+  arrow,
+  azure-storage-blob,
+  boto,
+  buildPythonPackage,
+  colour,
+  email-validator,
+  enum34,
+  fetchPypi,
+  flask,
+  flask-babelex,
+  flask-mongoengine,
+  flask-sqlalchemy,
+  geoalchemy2,
+  mongoengine,
+  pillow,
+  psycopg2,
+  pymongo,
+  pytestCheckHook,
+  pythonOlder,
+  shapely,
+  sqlalchemy,
+  sqlalchemy-citext,
+  sqlalchemy-utils,
+  wtf-peewee,
+  wtforms,
+}:
 
 buildPythonPackage rec {
   pname = "flask-admin";

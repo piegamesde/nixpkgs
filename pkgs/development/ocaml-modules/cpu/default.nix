@@ -1,4 +1,10 @@
-{ lib, stdenv, buildDunePackage, fetchFromGitHub, autoconf }:
+{
+  lib,
+  stdenv,
+  buildDunePackage,
+  fetchFromGitHub,
+  autoconf,
+}:
 
 buildDunePackage rec {
   pname = "cpu";

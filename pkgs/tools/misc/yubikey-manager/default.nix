@@ -1,5 +1,13 @@
-{ python3Packages, fetchFromGitHub, lib, yubikey-personalization, libu2f-host
-, libusb1, procps, stdenv }:
+{
+  python3Packages,
+  fetchFromGitHub,
+  lib,
+  yubikey-personalization,
+  libu2f-host,
+  libusb1,
+  procps,
+  stdenv,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "yubikey-manager";

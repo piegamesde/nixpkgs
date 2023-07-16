@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, zlib, gtest, buildPackages
-, version, sha256, ... }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  zlib,
+  gtest,
+  buildPackages,
+  version,
+  sha256,
+  ...
+}:
 
 let
   mkProtobufDerivation = buildProtobuf: stdenv:

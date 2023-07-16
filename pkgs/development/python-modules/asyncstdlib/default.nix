@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, typing-extensions, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  typing-extensions,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "asyncstdlib";

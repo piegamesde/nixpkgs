@@ -1,5 +1,14 @@
-{ lib, fetchurl, buildPythonPackage, pkg-config, python, dbus-python, packaging
-, enlightenment, directoryListingUpdater }:
+{
+  lib,
+  fetchurl,
+  buildPythonPackage,
+  pkg-config,
+  python,
+  dbus-python,
+  packaging,
+  enlightenment,
+  directoryListingUpdater,
+}:
 
 # Should be bumped along with EFL!
 

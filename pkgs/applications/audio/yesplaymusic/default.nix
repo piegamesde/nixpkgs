@@ -1,6 +1,28 @@
-{ lib, stdenv, fetchurl, undmg, dpkg, autoPatchelfHook, wrapGAppsHook
-, makeWrapper, alsa-lib, at-spi2-atk, cups, nspr, nss, mesa # for libgbm
-, xorg, xdg-utils, libdrm, libnotify, libsecret, libuuid, gtk3, systemd }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  undmg,
+  dpkg,
+  autoPatchelfHook,
+  wrapGAppsHook,
+  makeWrapper,
+  alsa-lib,
+  at-spi2-atk,
+  cups,
+  nspr,
+  nss,
+  mesa # for libgbm
+  ,
+  xorg,
+  xdg-utils,
+  libdrm,
+  libnotify,
+  libsecret,
+  libuuid,
+  gtk3,
+  systemd,
+}:
 let
   pname = "yesplaymusic";
   version = "0.4.7";

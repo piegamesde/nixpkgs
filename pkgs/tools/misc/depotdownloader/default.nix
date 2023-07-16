@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, buildDotnetModule }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildDotnetModule,
+}:
 
 buildDotnetModule rec {
   pname = "depotdownloader";

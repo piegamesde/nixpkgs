@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, coreutils, emacs, glib
-, gmime3, texinfo, xapian }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  coreutils,
+  emacs,
+  glib,
+  gmime3,
+  texinfo,
+  xapian,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mu";

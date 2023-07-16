@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, curlWithGnuTls, libev, sqlite }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  curlWithGnuTls,
+  libev,
+  sqlite,
+}:
 
 stdenv.mkDerivation rec {
   pname = "clboss";

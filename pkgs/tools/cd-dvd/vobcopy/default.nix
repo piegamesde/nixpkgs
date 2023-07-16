@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libdvdread, libdvdcss }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libdvdread,
+  libdvdcss,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vobcopy";

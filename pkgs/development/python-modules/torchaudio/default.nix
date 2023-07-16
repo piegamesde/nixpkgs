@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cmake, pkg-config, ninja, pybind11
-, torch, cudaSupport ? false, cudaPackages }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  ninja,
+  pybind11,
+  torch,
+  cudaSupport ? false,
+  cudaPackages,
+}:
 
 buildPythonPackage rec {
   pname = "torchaudio";

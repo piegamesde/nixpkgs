@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, pyopenssl }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  pyopenssl,
+}:
 
 buildPythonPackage rec {
   pname = "uonet-request-signer-hebe";

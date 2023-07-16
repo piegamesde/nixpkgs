@@ -1,10 +1,32 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, shared-mime-info
-, accounts-qt, boost, kaccounts-integration, kcompletion, kconfigwidgets, kcrash
-, kdbusaddons, kdesignerplugin, ki18n, kiconthemes, kio, kitemmodels
-, kwindowsystem, mariadb, postgresql, qttools, signond, xz,
+{
+  mkDerivation,
+  lib,
+  kdepimTeam,
+  extra-cmake-modules,
+  shared-mime-info,
+  accounts-qt,
+  boost,
+  kaccounts-integration,
+  kcompletion,
+  kconfigwidgets,
+  kcrash,
+  kdbusaddons,
+  kdesignerplugin,
+  ki18n,
+  kiconthemes,
+  kio,
+  kitemmodels,
+  kwindowsystem,
+  mariadb,
+  postgresql,
+  qttools,
+  signond,
+  xz,
 
-mysqlSupport ? true, postgresSupport ? false
-, defaultDriver ? if mysqlSupport then "MYSQL" else "POSTGRES", }:
+  mysqlSupport ? true,
+  postgresSupport ? false,
+  defaultDriver ? if mysqlSupport then "MYSQL" else "POSTGRES",
+}:
 
 assert mysqlSupport || postgresSupport;
 

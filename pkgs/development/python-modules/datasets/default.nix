@@ -1,6 +1,24 @@
-{ lib, aiohttp, buildPythonPackage, dill, fetchFromGitHub, fetchpatch, fsspec
-, huggingface-hub, importlib-metadata, multiprocess, numpy, packaging, pandas
-, pyarrow, pythonOlder, requests, responses, tqdm, xxhash }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  dill,
+  fetchFromGitHub,
+  fetchpatch,
+  fsspec,
+  huggingface-hub,
+  importlib-metadata,
+  multiprocess,
+  numpy,
+  packaging,
+  pandas,
+  pyarrow,
+  pythonOlder,
+  requests,
+  responses,
+  tqdm,
+  xxhash,
+}:
 
 buildPythonPackage rec {
   pname = "datasets";

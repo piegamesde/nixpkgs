@@ -1,4 +1,11 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, qtbase, qtx11extras }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  qtbase,
+  qtx11extras,
+}:
 
 mkDerivation rec {
   pname = "KDDockWidgets";

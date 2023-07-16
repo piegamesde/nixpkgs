@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, msrest, msrestazure, azure-common
-, azure-mgmt-core, pythonOlder, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  msrest,
+  msrestazure,
+  azure-common,
+  azure-mgmt-core,
+  pythonOlder,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-recoveryservices";

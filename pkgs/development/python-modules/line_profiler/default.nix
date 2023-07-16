@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, cython, isPyPy, ipython, python
-, scikit-build, cmake, pythonOlder, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cython,
+  isPyPy,
+  ipython,
+  python,
+  scikit-build,
+  cmake,
+  pythonOlder,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "line-profiler";

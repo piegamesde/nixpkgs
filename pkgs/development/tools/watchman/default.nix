@@ -1,8 +1,37 @@
-{ boost, cmake, config, CoreServices, cpptoml, double-conversion, edencommon
-, ensureNewerSourcesForZipFilesHook, fb303, fbthrift, fetchFromGitHub, fizz
-, fmt_8, folly, glog, gtest, lib, libevent, libiconv, libsodium, libunwind, lz4
-, openssl, pcre, pkg-config, python3, rustPlatform, stateDir ? "/tmp", stdenv
-, wangle, zlib, zstd }:
+{
+  boost,
+  cmake,
+  config,
+  CoreServices,
+  cpptoml,
+  double-conversion,
+  edencommon,
+  ensureNewerSourcesForZipFilesHook,
+  fb303,
+  fbthrift,
+  fetchFromGitHub,
+  fizz,
+  fmt_8,
+  folly,
+  glog,
+  gtest,
+  lib,
+  libevent,
+  libiconv,
+  libsodium,
+  libunwind,
+  lz4,
+  openssl,
+  pcre,
+  pkg-config,
+  python3,
+  rustPlatform,
+  stateDir ? "/tmp",
+  stdenv,
+  wangle,
+  zlib,
+  zstd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "watchman";

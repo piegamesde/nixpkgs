@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ninja, chromium, grpc, haskellPackages
-, mercurial, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  chromium,
+  grpc,
+  haskellPackages,
+  mercurial,
+  python3Packages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "re2";

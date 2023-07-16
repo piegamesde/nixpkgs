@@ -1,5 +1,21 @@
-{ buildPythonPackage, lib, stdenv, cmake, cppe, eigen, python, pybind11, numpy
-, h5py, numba, scipy, pandas, polarizationsolver, pytest, llvmPackages }:
+{
+  buildPythonPackage,
+  lib,
+  stdenv,
+  cmake,
+  cppe,
+  eigen,
+  python,
+  pybind11,
+  numpy,
+  h5py,
+  numba,
+  scipy,
+  pandas,
+  polarizationsolver,
+  pytest,
+  llvmPackages,
+}:
 
 buildPythonPackage rec {
   inherit (cppe) pname version src meta;

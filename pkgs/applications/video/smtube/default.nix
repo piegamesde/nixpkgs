@@ -1,4 +1,11 @@
-{ lib, mkDerivation, fetchurl, qmake, qtscript, qtwebkit }:
+{
+  lib,
+  mkDerivation,
+  fetchurl,
+  qmake,
+  qtscript,
+  qtwebkit,
+}:
 
 mkDerivation rec {
   version = "21.10.0";

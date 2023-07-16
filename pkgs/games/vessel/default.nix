@@ -1,4 +1,12 @@
-{ lib, stdenv, requireFile, SDL, libpulseaudio, alsa-lib, runtimeShell }:
+{
+  lib,
+  stdenv,
+  requireFile,
+  SDL,
+  libpulseaudio,
+  alsa-lib,
+  runtimeShell,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vessel";

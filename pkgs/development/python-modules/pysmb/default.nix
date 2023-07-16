@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pyasn1, pythonOlder, tqdm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyasn1,
+  pythonOlder,
+  tqdm,
+}:
 
 buildPythonPackage rec {
   pname = "pysmb";

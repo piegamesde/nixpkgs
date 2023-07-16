@@ -1,7 +1,30 @@
-{ stdenv, lib, alsa-lib, autoPatchelfHook, buildFHSEnv, copyDesktopItems, dbus
-, dpkg, expat, fontconfig, glib, libdrm, libglvnd, libpulseaudio, libudev0-shim
-, libxkbcommon, libxml2, libxslt, lndir, makeDesktopItem, makeWrapper, nspr, nss
-, requireFile, xorg }:
+{
+  stdenv,
+  lib,
+  alsa-lib,
+  autoPatchelfHook,
+  buildFHSEnv,
+  copyDesktopItems,
+  dbus,
+  dpkg,
+  expat,
+  fontconfig,
+  glib,
+  libdrm,
+  libglvnd,
+  libpulseaudio,
+  libudev0-shim,
+  libxkbcommon,
+  libxml2,
+  libxslt,
+  lndir,
+  makeDesktopItem,
+  makeWrapper,
+  nspr,
+  nss,
+  requireFile,
+  xorg,
+}:
 
 let
   version = "8.2.0";

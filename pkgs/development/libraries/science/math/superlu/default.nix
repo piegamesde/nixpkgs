@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, cmake, gfortran, blas, lapack }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  gfortran,
+  blas,
+  lapack,
+}:
 
 assert (!blas.isILP64) && (!lapack.isILP64);
 

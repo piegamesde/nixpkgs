@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, libgcrypt, pkg-config, glib
-, linuxHeaders ? stdenv.cc.libc.linuxHeaders, sqlite }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libgcrypt,
+  pkg-config,
+  glib,
+  linuxHeaders ? stdenv.cc.libc.linuxHeaders,
+  sqlite,
+}:
 
 stdenv.mkDerivation rec {
   pname = "duperemove";

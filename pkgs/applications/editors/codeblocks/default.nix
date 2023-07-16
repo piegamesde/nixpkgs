@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, file, zip, wxGTK32, gtk3
-, contribPlugins ? false, hunspell, gamin, boost, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  file,
+  zip,
+  wxGTK32,
+  gtk3,
+  contribPlugins ? false,
+  hunspell,
+  gamin,
+  boost,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${lib.optionalString contribPlugins "full-"}${version}";

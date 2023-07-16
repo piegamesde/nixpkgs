@@ -1,5 +1,14 @@
-{ stdenv, lib, composeXcodeWrapper }:
-{ name, app ? null, bundleId ? null, ... }@args:
+{
+  stdenv,
+  lib,
+  composeXcodeWrapper,
+}:
+{
+  name,
+  app ? null,
+  bundleId ? null,
+  ...
+}@args:
 
 assert app != null -> bundleId != null;
 

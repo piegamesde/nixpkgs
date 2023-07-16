@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, mercury, pandoc, ncurses, gpgme }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  mercury,
+  pandoc,
+  ncurses,
+  gpgme,
+}:
 
 stdenv.mkDerivation rec {
   pname = "notmuch-bower";

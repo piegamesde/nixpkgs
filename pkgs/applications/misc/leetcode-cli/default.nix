@@ -1,5 +1,14 @@
-{ lib, fetchCrate, rustPlatform, pkg-config, openssl, dbus, sqlite, stdenv
-, darwin }:
+{
+  lib,
+  fetchCrate,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  dbus,
+  sqlite,
+  stdenv,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "leetcode-cli";

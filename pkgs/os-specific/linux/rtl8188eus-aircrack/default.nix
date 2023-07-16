@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, kernel, bc, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  kernel,
+  bc,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation {
   pname = "rtl8188eus-aircrack";

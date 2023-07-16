@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, requests, isodate, docstring-parser
-, colorlog, websocket-client, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+  isodate,
+  docstring-parser,
+  colorlog,
+  websocket-client,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "chat-downloader";

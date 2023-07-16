@@ -1,7 +1,35 @@
-{ lib, fetchFromGitHub, python3Packages, pkg-config, gcc8Stdenv, boost, git
-, systemd, gnutls, cmake, makeWrapper, ninja, ragel, hwloc, jsoncpp, antlr3
-, numactl, protobuf, cryptopp, libxfs, yaml-cpp, libsystemtap, lksctp-tools, lz4
-, libxml2, zlib, libpciaccess, snappy, libtool, thrift }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  pkg-config,
+  gcc8Stdenv,
+  boost,
+  git,
+  systemd,
+  gnutls,
+  cmake,
+  makeWrapper,
+  ninja,
+  ragel,
+  hwloc,
+  jsoncpp,
+  antlr3,
+  numactl,
+  protobuf,
+  cryptopp,
+  libxfs,
+  yaml-cpp,
+  libsystemtap,
+  lksctp-tools,
+  lz4,
+  libxml2,
+  zlib,
+  libpciaccess,
+  snappy,
+  libtool,
+  thrift,
+}:
 gcc8Stdenv.mkDerivation {
   pname = "scylladb";
   version = "3.0.5";

@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchurl, pkg-config, gtk3, fribidi, libpng, popt, libgsf
-, enchant, wv, librsvg, bzip2, libjpeg, perl, boost, libxslt, goffice
-, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gtk3,
+  fribidi,
+  libpng,
+  popt,
+  libgsf,
+  enchant,
+  wv,
+  librsvg,
+  bzip2,
+  libjpeg,
+  perl,
+  boost,
+  libxslt,
+  goffice,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "abiword";

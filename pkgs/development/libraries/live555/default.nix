@@ -1,7 +1,14 @@
-{ lib, stdenv, fetchurl, darwin, openssl
+{
+  lib,
+  stdenv,
+  fetchurl,
+  darwin,
+  openssl
 
-# major and only downstream dependency
-, vlc }:
+  # major and only downstream dependency
+  ,
+  vlc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "live555";

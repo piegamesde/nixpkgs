@@ -1,12 +1,34 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, acl, attr, autoreconfHook, bzip2
-, e2fsprogs, lzo, openssl, pkg-config, sharutils, xz, zlib, zstd
-# Optional but increases closure only negligibly. Also, while libxml2 builds
-# fine on windows, libarchive has trouble linking windows things it depends on
-# for some reason.
-, xarSupport ? stdenv.hostPlatform.isUnix, libxml2
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  acl,
+  attr,
+  autoreconfHook,
+  bzip2,
+  e2fsprogs,
+  lzo,
+  openssl,
+  pkg-config,
+  sharutils,
+  xz,
+  zlib,
+  zstd
+  # Optional but increases closure only negligibly. Also, while libxml2 builds
+  # fine on windows, libarchive has trouble linking windows things it depends on
+  # for some reason.
+  ,
+  xarSupport ? stdenv.hostPlatform.isUnix,
+  libxml2
 
-# for passthru.tests
-, cmake, nix, samba, buildPackages }:
+  # for passthru.tests
+  ,
+  cmake,
+  nix,
+  samba,
+  buildPackages,
+}:
 
 let autoreconfHook = buildPackages.autoreconfHook269;
 in assert xarSupport -> libxml2 != null;

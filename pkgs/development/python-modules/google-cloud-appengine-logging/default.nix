@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, google-api-core, grpc-google-iam-v1, mock
-, proto-plus, protobuf, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-core,
+  grpc-google-iam-v1,
+  mock,
+  proto-plus,
+  protobuf,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "google-cloud-appengine-logging";

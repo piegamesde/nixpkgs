@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, meson, ninja, libnvme, json_c, zlib
-, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  meson,
+  ninja,
+  libnvme,
+  json_c,
+  zlib,
+  python3Packages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nvme-cli";

@@ -1,17 +1,30 @@
-{ stdenv, lib, fetchurl, dpkg, makeWrapper, mono, gtk-sharp-3_0, glib, libusb1
-, zlib, gtk3-x11, callPackage, scopes ? [
-  "picocv"
-  "ps2000"
-  "ps2000a"
-  "ps3000"
-  "ps3000a"
-  "ps4000"
-  "ps4000a"
-  "ps5000"
-  "ps5000a"
-  "ps6000"
-  "ps6000a"
-] }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  dpkg,
+  makeWrapper,
+  mono,
+  gtk-sharp-3_0,
+  glib,
+  libusb1,
+  zlib,
+  gtk3-x11,
+  callPackage,
+  scopes ? [
+    "picocv"
+    "ps2000"
+    "ps2000a"
+    "ps3000"
+    "ps3000a"
+    "ps4000"
+    "ps4000a"
+    "ps5000"
+    "ps5000a"
+    "ps6000"
+    "ps6000a"
+  ]
+}:
 
 let
   shared_meta = lib:
@@ -23,7 +36,13 @@ let
       license = licenses.unfree;
     };
 
-  libpicoipp = callPackage ({ stdenv, lib, fetchurl, autoPatchelfHook, dpkg }:
+  libpicoipp = callPackage ({
+      stdenv,
+      lib,
+      fetchurl,
+      autoPatchelfHook,
+      dpkg,
+    }:
     stdenv.mkDerivation rec {
       pname = "libpicoipp";
       inherit (sources.libpicoipp) version;
@@ -53,7 +72,11 @@ let
   };
 
   scopePkg = name:
-    { url, version, sha256 }:
+    {
+      url,
+      version,
+      sha256,
+    }:
     stdenv.mkDerivation rec {
       pname = "lib${name}";
       inherit version;

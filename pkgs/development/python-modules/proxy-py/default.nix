@@ -1,6 +1,20 @@
-{ lib, stdenv, bash, buildPythonPackage, fetchFromGitHub, gnumake, httpx
-, openssl, paramiko, pytest-asyncio, pytest-mock, pytestCheckHook, pythonOlder
-, setuptools-scm, typing-extensions }:
+{
+  lib,
+  stdenv,
+  bash,
+  buildPythonPackage,
+  fetchFromGitHub,
+  gnumake,
+  httpx,
+  openssl,
+  paramiko,
+  pytest-asyncio,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "proxy-py";

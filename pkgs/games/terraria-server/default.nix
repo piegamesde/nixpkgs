@@ -1,4 +1,11 @@
-{ stdenv, lib, file, fetchurl, autoPatchelfHook, unzip }:
+{
+  stdenv,
+  lib,
+  file,
+  fetchurl,
+  autoPatchelfHook,
+  unzip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "terraria-server";

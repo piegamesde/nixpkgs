@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchurl, substituteAll, pkg-config, neon, libusb-compat-0_1
-, openssl, udev, avahi, freeipmi, libtool, makeWrapper, autoreconfHook
-, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  substituteAll,
+  pkg-config,
+  neon,
+  libusb-compat-0_1,
+  openssl,
+  udev,
+  avahi,
+  freeipmi,
+  libtool,
+  makeWrapper,
+  autoreconfHook,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nut";

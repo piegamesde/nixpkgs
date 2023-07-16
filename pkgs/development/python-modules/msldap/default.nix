@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchPypi, asn1crypto, asyauth, asysocks
-, minikerberos, prompt-toolkit, tqdm, winacl, winsspi, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  asn1crypto,
+  asyauth,
+  asysocks,
+  minikerberos,
+  prompt-toolkit,
+  tqdm,
+  winacl,
+  winsspi,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "msldap";

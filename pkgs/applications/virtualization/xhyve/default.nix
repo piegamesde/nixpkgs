@@ -1,4 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, Hypervisor, vmnet, xpc, libobjc, zlib }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  Hypervisor,
+  vmnet,
+  xpc,
+  libobjc,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xhyve";

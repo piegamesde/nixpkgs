@@ -1,4 +1,12 @@
-{ lib, callPackage, fetchFromGitHub, perl, rustPlatform, darwin, stdenv }:
+{
+  lib,
+  callPackage,
+  fetchFromGitHub,
+  perl,
+  rustPlatform,
+  darwin,
+  stdenv,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rover";

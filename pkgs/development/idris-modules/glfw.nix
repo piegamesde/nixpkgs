@@ -1,4 +1,10 @@
-{ build-idris-package, fetchFromGitHub, effects, lib, pkgs }:
+{
+  build-idris-package,
+  fetchFromGitHub,
+  effects,
+  lib,
+  pkgs,
+}:
 build-idris-package {
   pname = "glfw";
   version = "2016-12-05";

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, click, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  click,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "click-plugins";

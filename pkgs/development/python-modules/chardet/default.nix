@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, hypothesis, pythonOlder, pytestCheckHook
-, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  hypothesis,
+  pythonOlder,
+  pytestCheckHook,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "chardet";

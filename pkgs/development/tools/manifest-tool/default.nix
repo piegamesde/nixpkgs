@@ -1,4 +1,12 @@
-{ lib, buildGoModule, fetchFromGitHub, git, stdenv, testers, manifest-tool }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  git,
+  stdenv,
+  testers,
+  manifest-tool,
+}:
 
 buildGoModule rec {
   pname = "manifest-tool";

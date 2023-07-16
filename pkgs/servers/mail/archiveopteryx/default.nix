@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, openssl, perl, zlib, jam }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  openssl,
+  perl,
+  zlib,
+  jam,
+}:
 stdenv.mkDerivation rec {
   version = "3.2.0";
   pname = "archiveopteryx";

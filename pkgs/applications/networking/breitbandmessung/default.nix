@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, dpkg, electron_16, makeWrapper, nixosTests
-, nodePackages, undmg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dpkg,
+  electron_16,
+  makeWrapper,
+  nixosTests,
+  nodePackages,
+  undmg,
+}:
 
 let
   inherit (stdenv.hostPlatform) system;

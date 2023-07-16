@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, openssl, zlib, windows }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  openssl,
+  zlib,
+  windows,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libssh2";

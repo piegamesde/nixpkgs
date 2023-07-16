@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, aiohttp, jinja2, markupsafe
-, pytest-aiohttp, pytestCheckHook, pythonOlder, pyyaml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  aiohttp,
+  jinja2,
+  markupsafe,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "aiohttp-swagger";

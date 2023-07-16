@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, cpp-utilities, qttools, qtbase, cmake }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cpp-utilities,
+  qttools,
+  qtbase,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qtutilities";

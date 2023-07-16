@@ -1,9 +1,23 @@
-{ lib, callPackage, runCommandLocal, writeScript, stdenv, coreutils }:
+{
+  lib,
+  callPackage,
+  runCommandLocal,
+  writeScript,
+  stdenv,
+  coreutils,
+}:
 
 let buildFHSEnv = callPackage ./env.nix { };
 
-in args@{ name, version ? null, runScript ? "bash", extraInstallCommands ? ""
-, meta ? { }, passthru ? { }, ... }:
+in args@{
+  name,
+  version ? null,
+  runScript ? "bash",
+  extraInstallCommands ? "",
+  meta ? { },
+  passthru ? { },
+  ...
+}:
 
 let
   env = buildFHSEnv (removeAttrs args [

@@ -1,4 +1,8 @@
-{ lib, python3, qt5 }:
+{
+  lib,
+  python3,
+  qt5,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "patray";

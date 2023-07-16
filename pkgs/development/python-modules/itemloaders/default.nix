@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, w3lib, parsel, jmespath
-, itemadapter, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  w3lib,
+  parsel,
+  jmespath,
+  itemadapter,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "itemloaders";

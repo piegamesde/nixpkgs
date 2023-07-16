@@ -1,4 +1,10 @@
-{ lib, python3, fetchFromGitHub, fetchpatch, qt6, }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  fetchpatch,
+  qt6,
+}:
 python3.pkgs.buildPythonApplication rec {
   pname = "nanovna-saver";
   version = "0.6.0";

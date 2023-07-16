@@ -1,5 +1,17 @@
-{ stdenv, buildPythonPackage, asgiref, uvicorn, httpx, pytest-asyncio
-, pytestCheckHook, pytest-mock, requests, trustme, watchgod, wsproto }:
+{
+  stdenv,
+  buildPythonPackage,
+  asgiref,
+  uvicorn,
+  httpx,
+  pytest-asyncio,
+  pytestCheckHook,
+  pytest-mock,
+  requests,
+  trustme,
+  watchgod,
+  wsproto,
+}:
 
 buildPythonPackage rec {
   pname = "uvicorn-tests";

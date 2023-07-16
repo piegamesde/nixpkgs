@@ -1,5 +1,19 @@
-{ lib, fetchFromGitHub, python3Packages, libiconv, cargo, coursier, dotnet-sdk
-, git, glibcLocales, go, nodejs, perl, testers, pre-commit }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  libiconv,
+  cargo,
+  coursier,
+  dotnet-sdk,
+  git,
+  glibcLocales,
+  go,
+  nodejs,
+  perl,
+  testers,
+  pre-commit,
+}:
 
 with python3Packages;
 buildPythonApplication rec {

@@ -1,4 +1,11 @@
-{ config, options, lib, pkgs, stdenv, ... }:
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  stdenv,
+  ...
+}:
 let cfg = config.services.pleroma;
 in {
   options = {

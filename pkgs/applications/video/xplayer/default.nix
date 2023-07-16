@@ -1,8 +1,31 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, autoconf-archive, clutter-gst
-, clutter-gtk, gettext, glib, gobject-introspection, gst-plugins-bad
-, gst-plugins-base, gst-plugins-good, gstreamer, gtk-doc, gtk3, intltool
-, itstool, libpeas, libxml2, libxplayer-plparser, pkg-config, python3
-, wrapGAppsHook, xapp, yelp-tools }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  autoconf-archive,
+  clutter-gst,
+  clutter-gtk,
+  gettext,
+  glib,
+  gobject-introspection,
+  gst-plugins-bad,
+  gst-plugins-base,
+  gst-plugins-good,
+  gstreamer,
+  gtk-doc,
+  gtk3,
+  intltool,
+  itstool,
+  libpeas,
+  libxml2,
+  libxplayer-plparser,
+  pkg-config,
+  python3,
+  wrapGAppsHook,
+  xapp,
+  yelp-tools,
+}:
 
 let
   pythonenv = python3.withPackages (ps: [

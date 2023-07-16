@@ -1,6 +1,19 @@
-{ mkDerivation, lib, extra-cmake-modules, gettext, python3, drumstick
-, fluidsynth, kcoreaddons, kcrash, kdoctools, qtquickcontrols2, qtsvg, qttools
-, qtdeclarative }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  gettext,
+  python3,
+  drumstick,
+  fluidsynth,
+  kcoreaddons,
+  kcrash,
+  kdoctools,
+  qtquickcontrols2,
+  qtsvg,
+  qttools,
+  qtdeclarative,
+}:
 
 mkDerivation {
   pname = "minuet";

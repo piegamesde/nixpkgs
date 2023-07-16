@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, routes, markupsafe, webob, nose }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  routes,
+  markupsafe,
+  webob,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "WebHelpers";

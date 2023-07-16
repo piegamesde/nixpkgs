@@ -1,5 +1,15 @@
-{ stdenv, buildPythonPackage, lib, fetchPypi, networkx, numpy, pint, pydantic
-, pytestCheckHook, pythonOlder }:
+{
+  stdenv,
+  buildPythonPackage,
+  lib,
+  fetchPypi,
+  networkx,
+  numpy,
+  pint,
+  pydantic,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "qcelemental";

@@ -1,4 +1,6 @@
-{ lib }:
+{
+  lib,
+}:
 
 let inherit (lib) throwIfNot;
 in {
@@ -48,15 +50,16 @@ in {
   */
   lazyDerivation = args@{
     # The derivation to be wrapped.
-    derivation, # Optional meta attribute.
-    #
-    # While this function is primarily about derivations, it can improve
-    # the `meta` package attribute, which is usually specified through
-    # `mkDerivation`.
-    meta ? null, # Optional extra values to add to the returned attrset.
-    #
-    # This can be used for adding package attributes, such as `tests`.
-    passthru ? { } }:
+      derivation, # Optional meta attribute.
+      #
+      # While this function is primarily about derivations, it can improve
+      # the `meta` package attribute, which is usually specified through
+      # `mkDerivation`.
+      meta ? null, # Optional extra values to add to the returned attrset.
+      #
+      # This can be used for adding package attributes, such as `tests`.
+      passthru ? { }
+    }:
     let
       # These checks are strict in `drv` and some `drv` attributes, but the
       # attrset spine returned by lazyDerivation does not depend on it.

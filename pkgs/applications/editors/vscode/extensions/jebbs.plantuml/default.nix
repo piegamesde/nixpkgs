@@ -1,4 +1,10 @@
-{ lib, vscode-utils, plantuml, jq, moreutils }:
+{
+  lib,
+  vscode-utils,
+  plantuml,
+  jq,
+  moreutils,
+}:
 
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {

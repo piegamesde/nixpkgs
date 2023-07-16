@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, gfortran, opencl-headers, clblas, ocl-icd, mkl
-, intel-ocl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gfortran,
+  opencl-headers,
+  clblas,
+  ocl-icd,
+  mkl,
+  intel-ocl,
+}:
 
 let
   incfile = builtins.toFile "make.inc.custom" ''

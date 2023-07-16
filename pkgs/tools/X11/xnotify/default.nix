@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, writeText, fontconfig, imlib2, libX11, libXft
-, libXinerama, conf ? null }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  writeText,
+  fontconfig,
+  imlib2,
+  libX11,
+  libXft,
+  libXinerama,
+  conf ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "xnotify";

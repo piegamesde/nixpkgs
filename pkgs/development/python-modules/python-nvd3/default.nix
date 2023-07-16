@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, python-slugify, jinja2, setuptools
-, coverage }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python-slugify,
+  jinja2,
+  setuptools,
+  coverage,
+}:
 
 buildPythonPackage rec {
   pname = "python-nvd3";

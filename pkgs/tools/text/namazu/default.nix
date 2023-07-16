@@ -1,4 +1,11 @@
-{ fetchurl, lib, stdenv, perl, perlPackages, makeWrapper }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  perl,
+  perlPackages,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "namazu";

@@ -1,10 +1,22 @@
-{ lib, buildPythonPackage, larynx
+{
+  lib,
+  buildPythonPackage,
+  larynx
 
-# build
-, cython, python
+  # build
+  ,
+  cython,
+  python
 
-# propagates
-, espeak-phonemizer, librosa, numpy, onnxruntime, pytorch-lightning, torch }:
+  # propagates
+  ,
+  espeak-phonemizer,
+  librosa,
+  numpy,
+  onnxruntime,
+  pytorch-lightning,
+  torch,
+}:
 
 buildPythonPackage rec {
   inherit (larynx) version src meta;

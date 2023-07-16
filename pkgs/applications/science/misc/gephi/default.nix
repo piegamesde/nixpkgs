@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, jdk, maven, javaPackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  jdk,
+  maven,
+  javaPackages,
+}:
 
 let
   version = "0.9.6";

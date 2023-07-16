@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchgit, autoreconfHook, gd, libusb1 }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  autoreconfHook,
+  gd,
+  libusb1,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ptouch-print";

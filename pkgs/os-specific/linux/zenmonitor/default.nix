@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, gtk3, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  gtk3,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zenmonitor";

@@ -1,7 +1,28 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, libGL, glib, gdk-pixbuf, xorg
-, libintl, pangoSupport ? true, pango, cairo, gobject-introspection, wayland
-, gnome, mesa, automake, autoconf, gstreamerSupport ? true, gst_all_1, harfbuzz
-, OpenGL }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  libGL,
+  glib,
+  gdk-pixbuf,
+  xorg,
+  libintl,
+  pangoSupport ? true,
+  pango,
+  cairo,
+  gobject-introspection,
+  wayland,
+  gnome,
+  mesa,
+  automake,
+  autoconf,
+  gstreamerSupport ? true,
+  gst_all_1,
+  harfbuzz,
+  OpenGL,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cogl";

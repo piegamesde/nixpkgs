@@ -1,4 +1,8 @@
-{ callPackage, writers, python3Packages }:
+{
+  callPackage,
+  writers,
+  python3Packages,
+}:
 
 # Build like this from nixpkgs root:
 # $ nix-build -A tests.importCargoLock

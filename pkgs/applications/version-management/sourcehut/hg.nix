@@ -1,5 +1,15 @@
-{ lib, fetchFromSourcehut, buildGoModule, buildPythonPackage, srht, hglib
-, scmsrht, unidiff, python, unzip }:
+{
+  lib,
+  fetchFromSourcehut,
+  buildGoModule,
+  buildPythonPackage,
+  srht,
+  hglib,
+  scmsrht,
+  unidiff,
+  python,
+  unzip,
+}:
 
 buildPythonPackage rec {
   pname = "hgsrht";

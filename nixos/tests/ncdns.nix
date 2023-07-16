@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ lib, pkgs, ... }:
+import ./make-test-python.nix ({
+    lib,
+    pkgs,
+    ...
+  }:
   let
     fakeReply = pkgs.writeText "namecoin-reply.json" ''
       { "error": null,
@@ -24,41 +28,43 @@ import ./make-test-python.nix ({ lib, pkgs, ... }:
     name = "ncdns";
     meta = with pkgs.lib.maintainers; { maintainers = [ rnhmjoj ]; };
 
-    nodes.server = { ... }: {
-      networking.nameservers = [ "::1" ];
+    nodes.server = {
+        ...
+      }: {
+        networking.nameservers = [ "::1" ];
 
-      services.namecoind.rpc = {
-        address = "::1";
-        user = "namecoin";
-        password = "secret";
-        port = 8332;
+        services.namecoind.rpc = {
+          address = "::1";
+          user = "namecoin";
+          password = "secret";
+          port = 8332;
+        };
+
+        # Fake namecoin RPC server because we can't
+        # run a full node in a test.
+        systemd.services.namecoind = {
+          wantedBy = [ "multi-user.target" ];
+          script = ''
+            while true; do
+              echo -e "HTTP/1.1 200 OK\n\n $(<${fakeReply})\n" \
+                | ${pkgs.netcat}/bin/nc -N -l ::1 8332
+            done
+          '';
+        };
+
+        services.ncdns = {
+          enable = true;
+          dnssec.enable = dnssec;
+          identity.hostname = "example.com";
+          identity.hostmaster = "root@example.com";
+          identity.address = "1.0.0.1";
+        };
+
+        services.pdns-recursor.enable = true;
+        services.pdns-recursor.resolveNamecoin = true;
+
+        environment.systemPackages = [ pkgs.dnsutils ];
       };
-
-      # Fake namecoin RPC server because we can't
-      # run a full node in a test.
-      systemd.services.namecoind = {
-        wantedBy = [ "multi-user.target" ];
-        script = ''
-          while true; do
-            echo -e "HTTP/1.1 200 OK\n\n $(<${fakeReply})\n" \
-              | ${pkgs.netcat}/bin/nc -N -l ::1 8332
-          done
-        '';
-      };
-
-      services.ncdns = {
-        enable = true;
-        dnssec.enable = dnssec;
-        identity.hostname = "example.com";
-        identity.hostmaster = "root@example.com";
-        identity.address = "1.0.0.1";
-      };
-
-      services.pdns-recursor.enable = true;
-      services.pdns-recursor.resolveNamecoin = true;
-
-      environment.systemPackages = [ pkgs.dnsutils ];
-    };
 
     testScript = (lib.optionalString dnssec ''
       with subtest("DNSSEC keys have been generated"):

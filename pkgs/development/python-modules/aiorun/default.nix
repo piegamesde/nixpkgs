@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pygments
-, pytestCheckHook, uvloop }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pygments,
+  pytestCheckHook,
+  uvloop,
+}:
 
 buildPythonPackage rec {
   pname = "aiorun";

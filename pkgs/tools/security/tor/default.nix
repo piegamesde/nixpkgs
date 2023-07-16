@@ -1,9 +1,33 @@
-{ lib, stdenv, fetchurl, pkg-config, libevent, openssl, zlib, torsocks
-, libseccomp, systemd, libcap, xz, zstd, scrypt, nixosTests, writeShellScript
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libevent,
+  openssl,
+  zlib,
+  torsocks,
+  libseccomp,
+  systemd,
+  libcap,
+  xz,
+  zstd,
+  scrypt,
+  nixosTests,
+  writeShellScript
 
-# for update.nix
-, writeScript, common-updater-scripts, bash, coreutils, curl, gnugrep, gnupg
-, gnused, nix }:
+  # for update.nix
+  ,
+  writeScript,
+  common-updater-scripts,
+  bash,
+  coreutils,
+  curl,
+  gnugrep,
+  gnupg,
+  gnused,
+  nix,
+}:
 let
   tor-client-auth-gen = writeShellScript "tor-client-auth-gen" ''
     PATH="${lib.makeBinPath [ coreutils gnugrep openssl ]}"

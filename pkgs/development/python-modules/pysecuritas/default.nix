@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, requests, xmltodict }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  requests,
+  xmltodict,
+}:
 
 buildPythonPackage rec {
   pname = "pysecuritas";

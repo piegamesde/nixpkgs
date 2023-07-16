@@ -1,4 +1,8 @@
-{ lib, runCommand, xrootd }:
+{
+  lib,
+  runCommand,
+  xrootd,
+}:
 
 # These tests are specified in the test procedure of the upstream CD:
 # https://github.com/xrootd/xrootd/blob/master/.github/workflows/build.yml#L90-L98

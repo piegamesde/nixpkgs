@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, ifaddr, requests, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  ifaddr,
+  requests,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pywilight";

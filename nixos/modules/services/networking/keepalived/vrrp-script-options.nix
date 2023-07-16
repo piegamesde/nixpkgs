@@ -1,4 +1,6 @@
-{ lib }:
+{
+  lib,
+}:
 
 with lib;
 with lib.types; {

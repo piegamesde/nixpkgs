@@ -1,5 +1,12 @@
-{ lib, aiohttp, async-timeout, buildPythonPackage, fetchFromGitHub
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  async-timeout,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "webthing-ws";

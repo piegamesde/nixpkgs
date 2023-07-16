@@ -2,7 +2,13 @@
 # database which provides "Source" links to all specified 'packages' -- or the
 # current Haskell Platform if no custom package set is provided.
 
-{ lib, stdenv, buildPackages, haskellPackages, writeText }:
+{
+  lib,
+  stdenv,
+  buildPackages,
+  haskellPackages,
+  writeText,
+}:
 
 # This argument is a function which selects a list of Haskell packages from any
 # passed Haskell package set.

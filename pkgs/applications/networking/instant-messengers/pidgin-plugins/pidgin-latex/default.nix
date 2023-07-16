@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, pkg-config, pidgin, texLive, imagemagick, glib, gtk2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  pidgin,
+  texLive,
+  imagemagick,
+  glib,
+  gtk2,
+}:
 
 let version = "1.5.0";
 in stdenv.mkDerivation {

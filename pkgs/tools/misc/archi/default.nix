@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, fetchzip, autoPatchelfHook, makeWrapper, jdk, libsecret
-, webkitgtk, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchzip,
+  autoPatchelfHook,
+  makeWrapper,
+  jdk,
+  libsecret,
+  webkitgtk,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "Archi";

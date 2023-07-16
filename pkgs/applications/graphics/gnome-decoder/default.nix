@@ -1,7 +1,26 @@
-{ lib, clangStdenv, fetchFromGitLab, libclang, rustPlatform, meson, ninja
-, pkg-config, glib, gtk4, libadwaita, zbar, sqlite, openssl, pipewire, gstreamer
-, gst-plugins-base, gst-plugins-bad, wrapGAppsHook4, appstream-glib
-, desktop-file-utils }:
+{
+  lib,
+  clangStdenv,
+  fetchFromGitLab,
+  libclang,
+  rustPlatform,
+  meson,
+  ninja,
+  pkg-config,
+  glib,
+  gtk4,
+  libadwaita,
+  zbar,
+  sqlite,
+  openssl,
+  pipewire,
+  gstreamer,
+  gst-plugins-base,
+  gst-plugins-bad,
+  wrapGAppsHook4,
+  appstream-glib,
+  desktop-file-utils,
+}:
 
 clangStdenv.mkDerivation rec {
   pname = "gnome-decoder";

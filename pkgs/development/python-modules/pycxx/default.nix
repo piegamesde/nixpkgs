@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchurl, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchurl,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "pycxx";

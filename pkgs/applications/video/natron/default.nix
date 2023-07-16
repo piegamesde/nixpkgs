@@ -1,7 +1,36 @@
-{ lib, stdenv, fetchurl, qt4, pkg-config, boost, expat, cairo, python2Packages
-, cmake, flex, bison, pango, librsvg, librevenge, libxml2, libcdr, libzip
-, poppler, imagemagick, openexr, ffmpeg, opencolorio_1, openimageio_1
-, qmake4Hook, libpng, libGL, lndir, libraw, openjpeg, libwebp, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  fetchurl,
+  qt4,
+  pkg-config,
+  boost,
+  expat,
+  cairo,
+  python2Packages,
+  cmake,
+  flex,
+  bison,
+  pango,
+  librsvg,
+  librevenge,
+  libxml2,
+  libcdr,
+  libzip,
+  poppler,
+  imagemagick,
+  openexr,
+  ffmpeg,
+  opencolorio_1,
+  openimageio_1,
+  qmake4Hook,
+  libpng,
+  libGL,
+  lndir,
+  libraw,
+  openjpeg,
+  libwebp,
+  fetchFromGitHub,
 }:
 
 let
@@ -22,8 +51,14 @@ let
     nativeBuildInputs = [ cmake ];
     buildInputs = [ libpng flex bison ];
   };
-  buildPlugin = { pluginName, sha256, nativeBuildInputs ? [ ], buildInputs ? [ ]
-    , preConfigure ? "", postPatch ? "" }:
+  buildPlugin = {
+      pluginName,
+      sha256,
+      nativeBuildInputs ? [ ],
+      buildInputs ? [ ],
+      preConfigure ? "",
+      postPatch ? ""
+    }:
     stdenv.mkDerivation {
       pname = "openfx-${pluginName}";
       version = version;

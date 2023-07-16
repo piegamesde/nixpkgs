@@ -1,6 +1,18 @@
-{ buildPythonPackage, dj-database-url, django, django-rq, fetchFromGitHub
-, flit-core, freezegun, google-cloud-translate, lib, polib, python
-, typing-extensions, wagtail }:
+{
+  buildPythonPackage,
+  dj-database-url,
+  django,
+  django-rq,
+  fetchFromGitHub,
+  flit-core,
+  freezegun,
+  google-cloud-translate,
+  lib,
+  polib,
+  python,
+  typing-extensions,
+  wagtail,
+}:
 
 buildPythonPackage rec {
   pname = "wagtail-localize";

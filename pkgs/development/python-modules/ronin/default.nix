@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, blessings, colorama, glob2 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  blessings,
+  colorama,
+  glob2,
+}:
 
 buildPythonPackage rec {
   pname = "ronin";

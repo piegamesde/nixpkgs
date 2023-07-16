@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, writeShellScriptBin, skawarePackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  writeShellScriptBin,
+  skawarePackages,
+}:
 
 let
   version = "1.3.0";

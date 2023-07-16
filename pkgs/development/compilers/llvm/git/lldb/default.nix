@@ -1,7 +1,32 @@
-{ lib, stdenv, llvm_meta, runCommand, monorepoSrc, cmake, ninja, zlib, ncurses
-, swig, which, libedit, libxml2, libllvm, libclang, python3, version, libobjc
-, xpc, Foundation, bootstrap_cmds, Carbon, Cocoa, lit, makeWrapper
-, enableManpages ? false, lua5_3 }:
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  runCommand,
+  monorepoSrc,
+  cmake,
+  ninja,
+  zlib,
+  ncurses,
+  swig,
+  which,
+  libedit,
+  libxml2,
+  libllvm,
+  libclang,
+  python3,
+  version,
+  libobjc,
+  xpc,
+  Foundation,
+  bootstrap_cmds,
+  Carbon,
+  Cocoa,
+  lit,
+  makeWrapper,
+  enableManpages ? false,
+  lua5_3,
+}:
 
 stdenv.mkDerivation (rec {
   pname = "lldb";

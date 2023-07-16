@@ -1,6 +1,24 @@
-{ spellChecking ? true, lib, stdenv, fetchurl, pkg-config, gtk3, gtkspell3
-, gmime2, gettext, intltool, itstool, libxml2, libnotify, gnutls, makeWrapper
-, gnupg, gnomeSupport ? true, libsecret, gcr }:
+{
+  spellChecking ? true,
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gtk3,
+  gtkspell3,
+  gmime2,
+  gettext,
+  intltool,
+  itstool,
+  libxml2,
+  libnotify,
+  gnutls,
+  makeWrapper,
+  gnupg,
+  gnomeSupport ? true,
+  libsecret,
+  gcr,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pan";

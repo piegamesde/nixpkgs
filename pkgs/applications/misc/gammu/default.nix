@@ -1,7 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, substituteAll, pkg-config, cmake, bluez, libusb1
-, curl, libiconv, gettext, sqlite, bash, dialog, dbiSupport ? false
-, libdbi ? null, libdbiDrivers ? null, postgresSupport ? false
-, postgresql ? null }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  substituteAll,
+  pkg-config,
+  cmake,
+  bluez,
+  libusb1,
+  curl,
+  libiconv,
+  gettext,
+  sqlite,
+  bash,
+  dialog,
+  dbiSupport ? false,
+  libdbi ? null,
+  libdbiDrivers ? null,
+  postgresSupport ? false,
+  postgresql ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "gammu";

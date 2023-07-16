@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, doxygen, graphviz }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  doxygen,
+  graphviz,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ftxui";

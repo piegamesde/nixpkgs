@@ -1,4 +1,10 @@
-{ lib, appleDerivation', stdenvNoCC, libdispatch, xnu }:
+{
+  lib,
+  appleDerivation',
+  stdenvNoCC,
+  libdispatch,
+  xnu,
+}:
 
 appleDerivation' stdenvNoCC {
   propagatedBuildInputs = [ libdispatch xnu ];

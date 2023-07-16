@@ -1,4 +1,11 @@
-{ stdenv, fetchurl, rust, callPackage, version, hashes }:
+{
+  stdenv,
+  fetchurl,
+  rust,
+  callPackage,
+  version,
+  hashes,
+}:
 
 let
   platform = rust.toRustTarget stdenv.hostPlatform;

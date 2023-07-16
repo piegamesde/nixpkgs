@@ -1,5 +1,19 @@
-{ stdenv, lib, appdirs, buildPythonPackage, cachelib, cssselect, fetchFromGitHub
-, keep, lxml, pygments, pyquery, requests, pytestCheckHook, pythonOlder }:
+{
+  stdenv,
+  lib,
+  appdirs,
+  buildPythonPackage,
+  cachelib,
+  cssselect,
+  fetchFromGitHub,
+  keep,
+  lxml,
+  pygments,
+  pyquery,
+  requests,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "howdoi";

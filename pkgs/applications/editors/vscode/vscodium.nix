@@ -1,4 +1,11 @@
-{ lib, stdenv, callPackage, fetchurl, nixosTests, commandLineArgs ? "" }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  fetchurl,
+  nixosTests,
+  commandLineArgs ? ""
+}:
 
 let
   inherit (stdenv.hostPlatform) system;

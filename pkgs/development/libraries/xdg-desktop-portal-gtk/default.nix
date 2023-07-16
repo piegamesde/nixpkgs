@@ -1,6 +1,19 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, pkg-config, libxml2
-, xdg-desktop-portal, gtk3, gnome, gnome-desktop, glib, wrapGAppsHook
-, gsettings-desktop-schemas, buildPortalsInGnome ? true }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  libxml2,
+  xdg-desktop-portal,
+  gtk3,
+  gnome,
+  gnome-desktop,
+  glib,
+  wrapGAppsHook,
+  gsettings-desktop-schemas,
+  buildPortalsInGnome ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "xdg-desktop-portal-gtk";

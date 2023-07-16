@@ -1,4 +1,9 @@
-{ mkDerivation, lib, fetchurl, qmake }:
+{
+  mkDerivation,
+  lib,
+  fetchurl,
+  qmake,
+}:
 
 mkDerivation rec {
   pname = "xflr5";

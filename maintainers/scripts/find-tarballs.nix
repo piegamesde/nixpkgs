@@ -3,7 +3,9 @@
 with import ../.. { };
 with lib;
 
-{ expr }:
+{
+  expr,
+}:
 
 let
 
@@ -31,7 +33,11 @@ let
 
   dependencies = map (x: x.value) (genericClosure {
     startSet = map keyDrv (derivationsIn' root);
-    operator = { key, value }: map keyDrv (immediateDependenciesOf value);
+    operator = {
+        key,
+        value,
+      }:
+      map keyDrv (immediateDependenciesOf value);
   });
 
   derivationsIn' = x:

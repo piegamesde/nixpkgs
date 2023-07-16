@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchurl, vala, pkg-config, gtk3, gnome, gdk-pixbuf, librsvg
-, wrapGAppsHook, gettext, itstool, clutter, clutter-gtk, libxml2, appstream-glib
-, meson, ninja, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  vala,
+  pkg-config,
+  gtk3,
+  gnome,
+  gdk-pixbuf,
+  librsvg,
+  wrapGAppsHook,
+  gettext,
+  itstool,
+  clutter,
+  clutter-gtk,
+  libxml2,
+  appstream-glib,
+  meson,
+  ninja,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lightsoff";

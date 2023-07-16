@@ -1,10 +1,24 @@
-{ lib, fetchPypi, buildPythonPackage, pythonOlder
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pythonOlder
 
-# build time
-, astropy-extension-helpers, astropy-helpers, cython, jinja2, setuptools-scm
+  # build time
+  ,
+  astropy-extension-helpers,
+  astropy-helpers,
+  cython,
+  jinja2,
+  setuptools-scm
 
-# runtime
-, numpy, packaging, pyerfa, pyyaml }:
+  # runtime
+  ,
+  numpy,
+  packaging,
+  pyerfa,
+  pyyaml,
+}:
 
 let
   pname = "astropy";

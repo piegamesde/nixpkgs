@@ -1,7 +1,24 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, nixosTests, freetype, fontconfig
-, libGL, libX11, libXrandr, libxcb, libxkbcommon, utf8proc, wayland
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  nixosTests,
+  freetype,
+  fontconfig,
+  libGL,
+  libX11,
+  libXrandr,
+  libxcb,
+  libxkbcommon,
+  utf8proc,
+  wayland
 
-, libnotify, xdg-utils, makeDesktopItem }:
+  ,
+  libnotify,
+  xdg-utils,
+  makeDesktopItem,
+}:
 
 let
   desktopItem = makeDesktopItem {

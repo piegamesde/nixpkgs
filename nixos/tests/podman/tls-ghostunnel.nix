@@ -1,5 +1,9 @@
 # This test runs podman as a backend for the Docker CLI.
-import ../make-test-python.nix ({ pkgs, lib, ... }:
+import ../make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   let
     gen-ca = pkgs.writeScript "gen-ca" ''
@@ -40,38 +44,43 @@ import ../make-test-python.nix ({ pkgs, lib, ... }:
     };
 
     nodes = {
-      podman = { pkgs, ... }: {
-        virtualisation.podman.enable = true;
-        virtualisation.podman.dockerSocket.enable = true;
-        virtualisation.podman.networkSocket = {
-          enable = true;
-          openFirewall = true;
-          server = "ghostunnel";
-          tls.cert = "/root/podman-cert.pem";
-          tls.key = "/root/podman-key.pem";
-          tls.cacert = "/root/ca.pem";
+      podman = {
+          pkgs,
+          ...
+        }: {
+          virtualisation.podman.enable = true;
+          virtualisation.podman.dockerSocket.enable = true;
+          virtualisation.podman.networkSocket = {
+            enable = true;
+            openFirewall = true;
+            server = "ghostunnel";
+            tls.cert = "/root/podman-cert.pem";
+            tls.key = "/root/podman-key.pem";
+            tls.cacert = "/root/ca.pem";
+          };
+
+          environment.systemPackages = [ pkgs.docker-client ];
+
+          users.users.alice = {
+            isNormalUser = true;
+            home = "/home/alice";
+            description = "Alice Foobar";
+            extraGroups = [ "podman" ];
+          };
+
         };
 
-        environment.systemPackages = [ pkgs.docker-client ];
-
-        users.users.alice = {
-          isNormalUser = true;
-          home = "/home/alice";
-          description = "Alice Foobar";
-          extraGroups = [ "podman" ];
+      client = {
+          ...
+        }: {
+          environment.systemPackages = [
+            # Installs the docker _client_ only
+            # Normally, you'd want `virtualisation.docker.enable = true;`.
+            pkgs.docker-client
+          ];
+          environment.variables.DOCKER_HOST = "podman:2376";
+          environment.variables.DOCKER_TLS_VERIFY = "1";
         };
-
-      };
-
-      client = { ... }: {
-        environment.systemPackages = [
-          # Installs the docker _client_ only
-          # Normally, you'd want `virtualisation.docker.enable = true;`.
-          pkgs.docker-client
-        ];
-        environment.variables.DOCKER_HOST = "podman:2376";
-        environment.variables.DOCKER_TLS_VERIFY = "1";
-      };
     };
 
     testScript = ''

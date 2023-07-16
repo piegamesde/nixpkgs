@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, python3, validatePkgConfig
-, secureMemory ? false, enableStatic ? stdenv.hostPlatform.isStatic }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  python3,
+  validatePkgConfig,
+  secureMemory ? false,
+  enableStatic ? stdenv.hostPlatform.isStatic
+}:
 
 stdenv.mkDerivation rec {
   pname = "jsoncpp";

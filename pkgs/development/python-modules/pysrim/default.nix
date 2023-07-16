@@ -1,4 +1,11 @@
-{ lib, fetchPypi, buildPythonPackage, pytest-runner, numpy, pyyaml }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pytest-runner,
+  numpy,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "pysrim";

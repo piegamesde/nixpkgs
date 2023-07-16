@@ -1,5 +1,15 @@
-{ lib, fetchzip, makeShellWrapper, makeDesktopItem, stdenv, gtk3, libXtst, glib
-, zlib, wrapGAppsHook }:
+{
+  lib,
+  fetchzip,
+  makeShellWrapper,
+  makeDesktopItem,
+  stdenv,
+  gtk3,
+  libXtst,
+  glib,
+  zlib,
+  wrapGAppsHook,
+}:
 
 let
   desktopItem = makeDesktopItem rec {

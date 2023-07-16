@@ -1,4 +1,10 @@
-{ lib, stdenvNoCC, fetchurl, undmg, gitUpdater }:
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  undmg,
+  gitUpdater,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "rectangle";

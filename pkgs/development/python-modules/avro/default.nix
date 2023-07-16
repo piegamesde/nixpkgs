@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, typing-extensions
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  typing-extensions,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "avro";

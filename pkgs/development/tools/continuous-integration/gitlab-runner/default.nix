@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitLab, fetchurl, bash }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitLab,
+  fetchurl,
+  bash,
+}:
 
 let version = "15.11.0";
 in buildGoModule rec {

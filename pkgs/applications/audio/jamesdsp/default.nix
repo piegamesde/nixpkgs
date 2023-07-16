@@ -1,6 +1,23 @@
-{ stdenv, lib, mkDerivation, fetchFromGitHub, pipewire, pulseaudio, gst_all_1
-, glibmm, qmake, qtbase, qtsvg, wrapQtAppsHook, makeDesktopItem, pkg-config
-, libarchive, copyDesktopItems, usePipewire ? true, usePulseaudio ? false }:
+{
+  stdenv,
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  pipewire,
+  pulseaudio,
+  gst_all_1,
+  glibmm,
+  qmake,
+  qtbase,
+  qtsvg,
+  wrapQtAppsHook,
+  makeDesktopItem,
+  pkg-config,
+  libarchive,
+  copyDesktopItems,
+  usePipewire ? true,
+  usePulseaudio ? false
+}:
 
 assert lib.asserts.assertMsg (usePipewire != usePulseaudio)
   "You need to enable one and only one of pulseaudio or pipewire support";

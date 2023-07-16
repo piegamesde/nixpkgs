@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, buildPythonPackage, isPyPy, pkgs
-, python, six }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  buildPythonPackage,
+  isPyPy,
+  pkgs,
+  python,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "pyparted";

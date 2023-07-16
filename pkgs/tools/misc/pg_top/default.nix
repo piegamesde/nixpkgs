@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, ncurses, postgresql }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+  postgresql,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pg_top";

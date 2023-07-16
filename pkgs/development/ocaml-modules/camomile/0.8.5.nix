@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchurl, fetchpatch, ocaml, findlib, camlp4 }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  ocaml,
+  findlib,
+  camlp4,
+}:
 
 stdenv.mkDerivation {
   pname = "camomile";

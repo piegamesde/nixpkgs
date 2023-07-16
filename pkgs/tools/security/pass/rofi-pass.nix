@@ -1,5 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, pass, rofi, coreutils, util-linux, xdotool
-, gnugrep, libnotify, pwgen, findutils, gawk, gnused, xclip, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pass,
+  rofi,
+  coreutils,
+  util-linux,
+  xdotool,
+  gnugrep,
+  libnotify,
+  pwgen,
+  findutils,
+  gawk,
+  gnused,
+  xclip,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rofi-pass";

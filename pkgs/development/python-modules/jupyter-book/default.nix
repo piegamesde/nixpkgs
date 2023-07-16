@@ -1,9 +1,29 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, flit-core
-, pythonRelaxDepsHook, click, docutils, jinja2, jsonschema, linkify-it-py
-, myst-nb, pyyaml, sphinx, sphinx-comments, sphinx-copybutton
-, sphinx-external-toc, sphinx-jupyterbook-latex, sphinx-design, sphinx-thebe
-, sphinx-book-theme, sphinx-togglebutton, sphinxcontrib-bibtex
-, sphinx-multitoc-numbering }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  flit-core,
+  pythonRelaxDepsHook,
+  click,
+  docutils,
+  jinja2,
+  jsonschema,
+  linkify-it-py,
+  myst-nb,
+  pyyaml,
+  sphinx,
+  sphinx-comments,
+  sphinx-copybutton,
+  sphinx-external-toc,
+  sphinx-jupyterbook-latex,
+  sphinx-design,
+  sphinx-thebe,
+  sphinx-book-theme,
+  sphinx-togglebutton,
+  sphinxcontrib-bibtex,
+  sphinx-multitoc-numbering,
+}:
 
 buildPythonPackage rec {
   pname = "jupyter-book";

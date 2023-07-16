@@ -1,7 +1,15 @@
-{ lib, writeScript }:
+{
+  lib,
+  writeScript,
+}:
 
-{ name ? "", owner ? "", repo ? "", page ? "releases?per_page=1"
-, filter ? ''.[0].tag_name | split("-") | .[1]'' }:
+{
+  name ? "",
+  owner ? "",
+  repo ? "",
+  page ? "releases?per_page=1",
+  filter ? ''.[0].tag_name | split("-") | .[1]''
+}:
 
 let
   pname = if lib.hasPrefix "rocm-llvm-" name then

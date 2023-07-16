@@ -1,6 +1,25 @@
-{ lib, aiohttp, asgiref, buildPythonPackage, decorator, fastapi, fetchPypi
-, gevent, httptools, httpx, isPy3k, pook, pytest-mock, pytestCheckHook
-, python-magic, pythonOlder, redis, requests, sure, urllib3 }:
+{
+  lib,
+  aiohttp,
+  asgiref,
+  buildPythonPackage,
+  decorator,
+  fastapi,
+  fetchPypi,
+  gevent,
+  httptools,
+  httpx,
+  isPy3k,
+  pook,
+  pytest-mock,
+  pytestCheckHook,
+  python-magic,
+  pythonOlder,
+  redis,
+  requests,
+  sure,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "mocket";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, doxygen, zlib, Foundation }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  doxygen,
+  zlib,
+  Foundation,
+}:
 
 let
   generic = version: sha256:

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gtest, fetchpatch, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gtest,
+  fetchpatch,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "microsoft_gsl";

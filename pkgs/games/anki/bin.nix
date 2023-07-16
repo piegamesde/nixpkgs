@@ -1,5 +1,15 @@
-{ fetchurl, stdenv, lib, buildFHSEnv, appimageTools, writeShellScript, anki
-, undmg, zstd, commandLineArgs ? [ ] }:
+{
+  fetchurl,
+  stdenv,
+  lib,
+  buildFHSEnv,
+  appimageTools,
+  writeShellScript,
+  anki,
+  undmg,
+  zstd,
+  commandLineArgs ? [ ]
+}:
 
 let
   pname = "anki-bin";

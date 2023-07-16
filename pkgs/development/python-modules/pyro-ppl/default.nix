@@ -1,6 +1,23 @@
-{ lib, buildPythonPackage, fetchPypi, graphviz, jupyter, matplotlib, networkx
-, opt-einsum, pandas, pillow, pyro-api, pythonOlder, torch, scikit-learn
-, seaborn, torchvision, tqdm, wget }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  graphviz,
+  jupyter,
+  matplotlib,
+  networkx,
+  opt-einsum,
+  pandas,
+  pillow,
+  pyro-api,
+  pythonOlder,
+  torch,
+  scikit-learn,
+  seaborn,
+  torchvision,
+  tqdm,
+  wget,
+}:
 
 buildPythonPackage rec {
   pname = "pyro-ppl";

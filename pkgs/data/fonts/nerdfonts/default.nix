@@ -1,10 +1,17 @@
-{ stdenv, fetchurl, lib, unzip
-# To select only certain fonts, put a list of strings to `fonts`: every key in
-# ./shas.nix is an optional font
-, fonts ? [ ]
-  # Whether to enable Windows font variants, their internal font name is limited
-  # to 31 characters
-, enableWindowsFonts ? false }:
+{
+  stdenv,
+  fetchurl,
+  lib,
+  unzip
+  # To select only certain fonts, put a list of strings to `fonts`: every key in
+  # ./shas.nix is an optional font
+  ,
+  fonts ? [ ]
+    # Whether to enable Windows font variants, their internal font name is limited
+    # to 31 characters
+  ,
+  enableWindowsFonts ? false
+}:
 
 let
   # both of these files are generated via ./update.sh

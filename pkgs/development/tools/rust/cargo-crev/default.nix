@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, perl, pkg-config
-, SystemConfiguration, Security, CoreFoundation, curl, libiconv, openssl, git }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  perl,
+  pkg-config,
+  SystemConfiguration,
+  Security,
+  CoreFoundation,
+  curl,
+  libiconv,
+  openssl,
+  git,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-crev";

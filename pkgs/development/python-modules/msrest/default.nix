@@ -1,6 +1,20 @@
-{ lib, aiodns, aiohttp, azure-core, buildPythonPackage, certifi, fetchFromGitHub
-, httpretty, isodate, pytest-aiohttp, pytestCheckHook, pythonOlder, requests
-, requests-oauthlib, trio }:
+{
+  lib,
+  aiodns,
+  aiohttp,
+  azure-core,
+  buildPythonPackage,
+  certifi,
+  fetchFromGitHub,
+  httpretty,
+  isodate,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-oauthlib,
+  trio,
+}:
 
 buildPythonPackage rec {
   pname = "msrest";

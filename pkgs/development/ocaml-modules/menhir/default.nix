@@ -1,4 +1,10 @@
-{ lib, fetchFromGitLab, buildDunePackage, menhirLib, menhirSdk }:
+{
+  lib,
+  fetchFromGitLab,
+  buildDunePackage,
+  menhirLib,
+  menhirSdk,
+}:
 
 buildDunePackage rec {
   pname = "menhir";

@@ -1,4 +1,10 @@
-{ lib, buildNpmPackage, fetchurl, testers, mongosh }:
+{
+  lib,
+  buildNpmPackage,
+  fetchurl,
+  testers,
+  mongosh,
+}:
 
 let source = builtins.fromJSON (builtins.readFile ./source.json);
 in buildNpmPackage {

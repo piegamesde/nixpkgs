@@ -1,4 +1,10 @@
-{ lib, pythonOlder, buildPythonPackage, fetchPypi, unittestCheckHook }:
+{
+  lib,
+  pythonOlder,
+  buildPythonPackage,
+  fetchPypi,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "fastimport";

@@ -1,6 +1,29 @@
-{ lib, stdenv, fetchurl, fetchpatch, cmake, pcre, pkg-config, python3, libX11
-, libXpm, libXft, libXext, libGLU, libGL, zlib, libxml2, libxcrypt, lz4, xz, gsl
-, xxHash, Cocoa, OpenGL, noSplash ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  cmake,
+  pcre,
+  pkg-config,
+  python3,
+  libX11,
+  libXpm,
+  libXft,
+  libXext,
+  libGLU,
+  libGL,
+  zlib,
+  libxml2,
+  libxcrypt,
+  lz4,
+  xz,
+  gsl,
+  xxHash,
+  Cocoa,
+  OpenGL,
+  noSplash ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "root";

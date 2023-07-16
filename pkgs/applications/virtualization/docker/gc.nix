@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, docker, coreutils, procps, gnused
-, findutils, gnugrep }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  docker,
+  coreutils,
+  procps,
+  gnused,
+  findutils,
+  gnugrep,
+}:
 
 with lib;
 

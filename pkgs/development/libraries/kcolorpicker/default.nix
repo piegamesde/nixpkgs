@@ -1,4 +1,10 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, qtbase }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  qtbase,
+}:
 
 mkDerivation rec {
   pname = "kcolorpicker";

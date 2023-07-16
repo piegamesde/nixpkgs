@@ -1,4 +1,11 @@
-{ fetchurl, lib, stdenv, pkg-config, pcre, perl }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  pkg-config,
+  pcre,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "maildrop";

@@ -1,4 +1,9 @@
-{ runCommand, lib, makeWrapper, wayfirePlugins }:
+{
+  runCommand,
+  lib,
+  makeWrapper,
+  wayfirePlugins,
+}:
 
 let
   inherit (lib) escapeShellArg makeBinPath;

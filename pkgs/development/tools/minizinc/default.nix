@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, flex, bison }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  flex,
+  bison,
+}:
 stdenv.mkDerivation rec {
   pname = "minizinc";
   version = "2.7.3";

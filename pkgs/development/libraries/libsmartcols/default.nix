@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, python3, gtk-doc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  python3,
+  gtk-doc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libsmartcols";

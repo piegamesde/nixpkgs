@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cython, openems, csxcad, boost
-, python-csxcad, numpy, h5py }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cython,
+  openems,
+  csxcad,
+  boost,
+  python-csxcad,
+  numpy,
+  h5py,
+}:
 
 buildPythonPackage rec {
   pname = "python-openems";

@@ -1,10 +1,54 @@
-{ stdenv, lib, fetchurl, autoPatchelfHook, wrapGAppsHook, flac, gnome2
-, harfbuzzFull, nss, snappy, xdg-utils, xorg, alsa-lib, atk, cairo, cups, curl
-, dbus, expat, fontconfig, freetype, gdk-pixbuf, glib, gtk3, libX11, libxcb
-, libXScrnSaver, libXcomposite, libXcursor, libXdamage, libXext, libXfixes
-, libXi, libXrandr, libXrender, libXtst, libdrm, libnotify, libopus
-, libpulseaudio, libuuid, libxshmfence, mesa, nspr, pango, systemd, at-spi2-atk
-, at-spi2-core, libqt5pas }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+  wrapGAppsHook,
+  flac,
+  gnome2,
+  harfbuzzFull,
+  nss,
+  snappy,
+  xdg-utils,
+  xorg,
+  alsa-lib,
+  atk,
+  cairo,
+  cups,
+  curl,
+  dbus,
+  expat,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  libX11,
+  libxcb,
+  libXScrnSaver,
+  libXcomposite,
+  libXcursor,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXi,
+  libXrandr,
+  libXrender,
+  libXtst,
+  libdrm,
+  libnotify,
+  libopus,
+  libpulseaudio,
+  libuuid,
+  libxshmfence,
+  mesa,
+  nspr,
+  pango,
+  systemd,
+  at-spi2-atk,
+  at-spi2-core,
+  libqt5pas,
+}:
 
 stdenv.mkDerivation rec {
   pname = "yandex-browser";

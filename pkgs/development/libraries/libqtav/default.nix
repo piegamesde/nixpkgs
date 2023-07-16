@@ -1,6 +1,22 @@
-{ mkDerivation, lib, fetchFromGitHub, extra-cmake-modules, qtbase, qtmultimedia
-, qtquick1, qttools, libGL, libX11, libass, openal, ffmpeg_4, libuchardet
-, alsa-lib, libpulseaudio, libva }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  extra-cmake-modules,
+  qtbase,
+  qtmultimedia,
+  qtquick1,
+  qttools,
+  libGL,
+  libX11,
+  libass,
+  openal,
+  ffmpeg_4,
+  libuchardet,
+  alsa-lib,
+  libpulseaudio,
+  libva,
+}:
 
 mkDerivation rec {
   pname = "libqtav";

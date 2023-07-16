@@ -1,8 +1,29 @@
-{ stdenv, writeText, erlang, rebar3WithPlugins, openssl, libyaml, lib }:
+{
+  stdenv,
+  writeText,
+  erlang,
+  rebar3WithPlugins,
+  openssl,
+  libyaml,
+  lib,
+}:
 
-{ name, version, src, setupHook ? null, buildInputs ? [ ], beamDeps ? [ ]
-, buildPlugins ? [ ], postPatch ? "", installPhase ? null, buildPhase ? null
-, configurePhase ? null, meta ? { }, enableDebugInfo ? false, ... }@attrs:
+{
+  name,
+  version,
+  src,
+  setupHook ? null,
+  buildInputs ? [ ],
+  beamDeps ? [ ],
+  buildPlugins ? [ ],
+  postPatch ? "",
+  installPhase ? null,
+  buildPhase ? null,
+  configurePhase ? null,
+  meta ? { },
+  enableDebugInfo ? false,
+  ...
+}@attrs:
 
 let
   debugInfoFlag =

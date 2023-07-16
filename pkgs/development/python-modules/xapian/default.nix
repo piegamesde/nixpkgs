@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchurl, python, sphinx, xapian }:
+{
+  lib,
+  buildPythonPackage,
+  fetchurl,
+  python,
+  sphinx,
+  xapian,
+}:
 
 let pythonSuffix = lib.optionalString python.isPy3k "3";
 in buildPythonPackage rec {

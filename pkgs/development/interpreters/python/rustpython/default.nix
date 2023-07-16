@@ -1,5 +1,12 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, SystemConfiguration, python3
-, fetchpatch }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  SystemConfiguration,
+  python3,
+  fetchpatch,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rustpython";

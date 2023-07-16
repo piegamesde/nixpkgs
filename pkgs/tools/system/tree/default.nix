@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchFromGitLab }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+}:
 
 let
   # These settings are found in the Makefile, but there seems to be no

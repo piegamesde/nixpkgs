@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitLab, meson, ninja, pkg-config, protobuf, libsecret
-, libadwaita, rustPlatform, desktop-file-utils, wrapGAppsHook4 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  meson,
+  ninja,
+  pkg-config,
+  protobuf,
+  libsecret,
+  libadwaita,
+  rustPlatform,
+  desktop-file-utils,
+  wrapGAppsHook4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "flare";

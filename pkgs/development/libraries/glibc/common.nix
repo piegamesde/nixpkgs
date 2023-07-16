@@ -22,12 +22,29 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-{ stdenv, lib, buildPackages, fetchurl, linuxHeaders ? null, gd ? null
-, libpng ? null, libidn2, bison, python3Minimal }:
+{
+  stdenv,
+  lib,
+  buildPackages,
+  fetchurl,
+  linuxHeaders ? null,
+  gd ? null,
+  libpng ? null,
+  libidn2,
+  bison,
+  python3Minimal,
+}:
 
-{ pname, withLinuxHeaders ? false, profilingLibraries ? false, withGd ? false
-, withLibcrypt ? false, extraBuildInputs ? [ ], extraNativeBuildInputs ? [ ]
-, ... }@args:
+{
+  pname,
+  withLinuxHeaders ? false,
+  profilingLibraries ? false,
+  withGd ? false,
+  withLibcrypt ? false,
+  extraBuildInputs ? [ ],
+  extraNativeBuildInputs ? [ ],
+  ...
+}@args:
 
 let
   version = "2.37";

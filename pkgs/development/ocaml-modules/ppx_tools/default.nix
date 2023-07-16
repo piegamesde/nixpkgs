@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, buildDunePackage, ocaml, findlib, cppo }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildDunePackage,
+  ocaml,
+  findlib,
+  cppo,
+}:
 
 let
   param = let

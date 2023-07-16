@@ -1,5 +1,15 @@
-{ lib, stdenvNoCC, fetchFromGitHub, fetchpatch, nix-update-script, gettext
-, meson, ninja, python3, sassc }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  fetchpatch,
+  nix-update-script,
+  gettext,
+  meson,
+  ninja,
+  python3,
+  sassc,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "elementary-gtk-theme";

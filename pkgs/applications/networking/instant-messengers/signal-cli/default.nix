@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchurl, makeWrapper, openjdk17_headless, libmatthew_java, dbus
-, dbus_java }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  makeWrapper,
+  openjdk17_headless,
+  libmatthew_java,
+  dbus,
+  dbus_java,
+}:
 
 stdenv.mkDerivation rec {
   pname = "signal-cli";

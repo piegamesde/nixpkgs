@@ -1,7 +1,26 @@
-{ lib, buildPythonPackage, fetchFromGitHub, aiohttp, matplotlib, numpy, openpyxl
-, pandas, pandas-stubs, plotly, pytest-asyncio, pytest-mock, pytestCheckHook
-, pythonOlder, requests, scikit-learn, tenacity, tqdm, typing-extensions, wandb
-, withOptionalDependencies ? false }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  aiohttp,
+  matplotlib,
+  numpy,
+  openpyxl,
+  pandas,
+  pandas-stubs,
+  plotly,
+  pytest-asyncio,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  scikit-learn,
+  tenacity,
+  tqdm,
+  typing-extensions,
+  wandb,
+  withOptionalDependencies ? false
+}:
 
 buildPythonPackage rec {
   pname = "openai";

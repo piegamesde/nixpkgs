@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, gettext, installShellFiles, ncurses
-, ui ? "terminal" }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gettext,
+  installShellFiles,
+  ncurses,
+  ui ? "terminal"
+}:
 
 assert lib.elem ui [ "terminal" "curses" ];
 stdenv.mkDerivation (finalAttrs: {

@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchpatch, cython, numpy, pytestCheckHook, scipy
-, scikit-learn, fetchPypi, joblib, six, pythonRelaxDepsHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchpatch,
+  cython,
+  numpy,
+  pytestCheckHook,
+  scipy,
+  scikit-learn,
+  fetchPypi,
+  joblib,
+  six,
+  pythonRelaxDepsHook,
+}:
 
 buildPythonPackage rec {
   pname = "hdbscan";

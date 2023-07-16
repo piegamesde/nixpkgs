@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, ipython, numpy, pandas
-, pytestCheckHook, pythonOlder, requests, responses, setuptools, tqdm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  ipython,
+  numpy,
+  pandas,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  responses,
+  setuptools,
+  tqdm,
+}:
 
 buildPythonPackage rec {
   pname = "cdcs";

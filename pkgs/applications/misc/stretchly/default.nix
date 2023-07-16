@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchurl, makeWrapper, electron, common-updater-scripts
-, writeShellScript, makeDesktopItem }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  makeWrapper,
+  electron,
+  common-updater-scripts,
+  writeShellScript,
+  makeDesktopItem,
+}:
 
 stdenv.mkDerivation rec {
 

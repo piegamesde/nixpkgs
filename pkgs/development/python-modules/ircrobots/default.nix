@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, anyio, asyncio-rlock
-, asyncio-throttle, ircstates, async_stagger, async-timeout, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  anyio,
+  asyncio-rlock,
+  asyncio-throttle,
+  ircstates,
+  async_stagger,
+  async-timeout,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "ircrobots";

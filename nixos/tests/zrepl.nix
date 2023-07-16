@@ -1,41 +1,45 @@
 import ./make-test-python.nix ({
   name = "zrepl";
 
-  nodes.host = { config, pkgs, ... }: {
-    config = {
-      # Prerequisites for ZFS and tests.
-      boot.supportedFilesystems = [ "zfs" ];
-      environment.systemPackages = [ pkgs.zrepl ];
-      networking.hostId = "deadbeef";
-      services.zrepl = {
-        enable = true;
-        settings = {
-          # Enable Prometheus output for status assertions.
-          global.monitoring = [{
-            type = "prometheus";
-            listen = ":9811";
-          }];
-          # Create a periodic snapshot job for an ephemeral zpool.
-          jobs = [{
-            name = "snap_test";
-            type = "snap";
-
-            filesystems."test" = true;
-            snapshotting = {
-              type = "periodic";
-              prefix = "zrepl_";
-              interval = "1s";
-            };
-
-            pruning.keep = [{
-              type = "last_n";
-              count = 8;
+  nodes.host = {
+      config,
+      pkgs,
+      ...
+    }: {
+      config = {
+        # Prerequisites for ZFS and tests.
+        boot.supportedFilesystems = [ "zfs" ];
+        environment.systemPackages = [ pkgs.zrepl ];
+        networking.hostId = "deadbeef";
+        services.zrepl = {
+          enable = true;
+          settings = {
+            # Enable Prometheus output for status assertions.
+            global.monitoring = [{
+              type = "prometheus";
+              listen = ":9811";
             }];
-          }];
+            # Create a periodic snapshot job for an ephemeral zpool.
+            jobs = [{
+              name = "snap_test";
+              type = "snap";
+
+              filesystems."test" = true;
+              snapshotting = {
+                type = "periodic";
+                prefix = "zrepl_";
+                interval = "1s";
+              };
+
+              pruning.keep = [{
+                type = "last_n";
+                count = 8;
+              }];
+            }];
+          };
         };
       };
     };
-  };
 
   testScript = ''
     start_all()

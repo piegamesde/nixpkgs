@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, which, pkg-config, mono
-, gtk-sharp-2_0, gio-sharp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  which,
+  pkg-config,
+  mono,
+  gtk-sharp-2_0,
+  gio-sharp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gtk-sharp-beans";

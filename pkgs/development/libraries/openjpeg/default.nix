@@ -1,8 +1,25 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, libdeflate
-, libpng, libtiff, zlib, lcms2, jpylyzer
-, jpipLibSupport ? false # JPIP library & executables
-, jpipServerSupport ? false, curl, fcgi # JPIP Server
-, jdk, poppler }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  libdeflate,
+  libpng,
+  libtiff,
+  zlib,
+  lcms2,
+  jpylyzer,
+  jpipLibSupport ? false # JPIP library & executables
+  ,
+  jpipServerSupport ? false,
+  curl,
+  fcgi # JPIP Server
+  ,
+  jdk,
+  poppler,
+}:
 
 let mkFlag = optSet: flag: "-D${flag}=${if optSet then "ON" else "OFF"}";
 

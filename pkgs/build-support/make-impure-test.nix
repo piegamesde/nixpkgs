@@ -28,12 +28,21 @@
    Rerun an already cached test:
      $(nix-build -A mypackage.impureTests) --check
 */
-{ lib, stdenv, writeShellScript
+{
+  lib,
+  stdenv,
+  writeShellScript
 
-, name, testedPackage ? null
-, testPath ? "${testedPackage}.impureTests.${name}.testDerivation"
-, sandboxPaths ? [ "/sys" ], prepareRunCommands ? "", nixFlags ? [ ], testScript
-, ... }@args:
+  ,
+  name,
+  testedPackage ? null,
+  testPath ? "${testedPackage}.impureTests.${name}.testDerivation",
+  sandboxPaths ? [ "/sys" ],
+  prepareRunCommands ? "",
+  nixFlags ? [ ],
+  testScript,
+  ...
+}@args:
 
 let
   sandboxPathsTests = builtins.map (path: "[[ ! -e '${path}' ]]") sandboxPaths;

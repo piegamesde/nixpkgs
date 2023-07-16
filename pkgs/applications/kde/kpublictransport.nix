@@ -1,5 +1,11 @@
-{ mkDerivation, lib, extra-cmake-modules, qtquickcontrols2, networkmanager-qt
-, ki18n }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  qtquickcontrols2,
+  networkmanager-qt,
+  ki18n,
+}:
 
 mkDerivation {
   pname = "kpublictransport";

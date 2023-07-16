@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, texinfo, alsa-lib, libpulseaudio, CoreAudio }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  texinfo,
+  alsa-lib,
+  libpulseaudio,
+  CoreAudio,
+}:
 
 let inherit (lib) optional optionalString;
 

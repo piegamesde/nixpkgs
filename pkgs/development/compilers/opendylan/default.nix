@@ -1,6 +1,18 @@
 # Build Open Dylan from source using the binary builds to bootstrap.
-{ lib, stdenv, fetchFromGitHub, boehmgc, mps, gnused, opendylan-bootstrap
-, autoconf, automake, perl, makeWrapper, gcc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  boehmgc,
+  mps,
+  gnused,
+  opendylan-bootstrap,
+  autoconf,
+  automake,
+  perl,
+  makeWrapper,
+  gcc,
+}:
 
 stdenv.mkDerivation {
   pname = "opendylan";

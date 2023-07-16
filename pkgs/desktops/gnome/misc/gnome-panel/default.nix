@@ -1,7 +1,27 @@
-{ stdenv, lib, fetchurl, autoreconfHook, dconf, evolution-data-server, gdm
-, geocode-glib_2, gettext, glib, gnome-desktop, gnome-menus, gnome, gtk3
-, itstool, libgweather, libwnck, libxml2, pkg-config, polkit, systemd
-, wrapGAppsHook }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoreconfHook,
+  dconf,
+  evolution-data-server,
+  gdm,
+  geocode-glib_2,
+  gettext,
+  glib,
+  gnome-desktop,
+  gnome-menus,
+  gnome,
+  gtk3,
+  itstool,
+  libgweather,
+  libwnck,
+  libxml2,
+  pkg-config,
+  polkit,
+  systemd,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-panel";

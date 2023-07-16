@@ -1,4 +1,9 @@
-{ fetchurl, lib, stdenv, CoreServices }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  CoreServices,
+}:
 
 stdenv.mkDerivation rec {
   pname = "check";

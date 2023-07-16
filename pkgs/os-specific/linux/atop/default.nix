@@ -1,6 +1,16 @@
-{ lib, stdenv, fetchurl, zlib, ncurses, findutils, systemd, python3
-# makes the package unfree via pynvml
-, withAtopgpu ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zlib,
+  ncurses,
+  findutils,
+  systemd,
+  python3
+  # makes the package unfree via pynvml
+  ,
+  withAtopgpu ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "atop";

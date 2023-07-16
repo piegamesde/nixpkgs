@@ -1,6 +1,18 @@
-{ lib, aiohttp, aresponses, buildPythonPackage, dateparser, fetchFromGitHub
-, haversine, mock, pytest-asyncio, pytestCheckHook, pythonOlder, requests
-, xmltodict }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  dateparser,
+  fetchFromGitHub,
+  haversine,
+  mock,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  xmltodict,
+}:
 
 buildPythonPackage rec {
   pname = "aio-georss-client";

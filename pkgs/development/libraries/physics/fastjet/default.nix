@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, python ? null, withPython ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python ? null,
+  withPython ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "fastjet";

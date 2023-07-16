@@ -1,4 +1,8 @@
-{ lib, python3, enableTelemetry ? false }:
+{
+  lib,
+  python3,
+  enableTelemetry ? false
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "aws-sam-cli";

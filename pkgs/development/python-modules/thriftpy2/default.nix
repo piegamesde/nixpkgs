@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, cython, fetchFromGitHub, ply, pythonOlder, six
-, tornado }:
+{
+  lib,
+  buildPythonPackage,
+  cython,
+  fetchFromGitHub,
+  ply,
+  pythonOlder,
+  six,
+  tornado,
+}:
 
 buildPythonPackage rec {
   pname = "thriftpy2";

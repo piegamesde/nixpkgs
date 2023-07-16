@@ -1,6 +1,12 @@
-{ lib, poetry2nix, python, fetchFromGitHub, projectDir ? ./.
-, pyproject ? projectDir + "/pyproject.toml"
-, poetrylock ? projectDir + "/poetry.lock" }:
+{
+  lib,
+  poetry2nix,
+  python,
+  fetchFromGitHub,
+  projectDir ? ./.,
+  pyproject ? projectDir + "/pyproject.toml",
+  poetrylock ? projectDir + "/poetry.lock"
+}:
 
 poetry2nix.mkPoetryApplication {
 

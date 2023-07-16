@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, google-api-core, pythonOlder, protobuf }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-core,
+  pythonOlder,
+  protobuf,
+}:
 
 buildPythonPackage rec {
   pname = "google-cloud-access-context-manager";

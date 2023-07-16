@@ -1,4 +1,10 @@
-{ lib, pkgs, config, utils, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  utils,
+  ...
+}:
 
 let
   inherit (lib)

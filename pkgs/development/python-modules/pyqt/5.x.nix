@@ -1,7 +1,24 @@
-{ lib, stdenv, buildPythonPackage, setuptools, isPy27, fetchPypi, pkg-config
-, dbus, lndir, dbus-python, sip, pyqt5_sip, pyqt-builder, libsForQt5
-, withConnectivity ? false, withMultimedia ? false, withWebKit ? false
-, withWebSockets ? false, withLocation ? false }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  setuptools,
+  isPy27,
+  fetchPypi,
+  pkg-config,
+  dbus,
+  lndir,
+  dbus-python,
+  sip,
+  pyqt5_sip,
+  pyqt-builder,
+  libsForQt5,
+  withConnectivity ? false,
+  withMultimedia ? false,
+  withWebKit ? false,
+  withWebSockets ? false,
+  withLocation ? false
+}:
 
 buildPythonPackage rec {
   pname = "PyQt5";

@@ -1,4 +1,9 @@
-{ lib, buildDunePackage, fetchurl, ocamlbuild }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  ocamlbuild,
+}:
 
 buildDunePackage rec {
   pname = "js_of_ocaml-ocamlbuild";

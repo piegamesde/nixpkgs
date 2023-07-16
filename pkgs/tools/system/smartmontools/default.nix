@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, autoreconfHook, enableMail ? false, gnused, hostname
-, mailutils, IOKit, ApplicationServices }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  enableMail ? false,
+  gnused,
+  hostname,
+  mailutils,
+  IOKit,
+  ApplicationServices,
+}:
 
 let
   dbrev = "5388";

@@ -1,11 +1,35 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, asn1crypto, click
-, cryptography, pyhanko-certvalidator, pytz, pyyaml, qrcode, requests, tzlocal
-, certomancer, freezegun, python-pae, pytest-aiohttp, requests-mock
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  asn1crypto,
+  click,
+  cryptography,
+  pyhanko-certvalidator,
+  pytz,
+  pyyaml,
+  qrcode,
+  requests,
+  tzlocal,
+  certomancer,
+  freezegun,
+  python-pae,
+  pytest-aiohttp,
+  requests-mock,
+  pytestCheckHook
 
-# optionals
-, defusedxml, oscrypto, fonttools, uharfbuzz, pillow, python-barcode
-, python-pkcs11, aiohttp }:
+  # optionals
+  ,
+  defusedxml,
+  oscrypto,
+  fonttools,
+  uharfbuzz,
+  pillow,
+  python-barcode,
+  python-pkcs11,
+  aiohttp,
+}:
 
 buildPythonPackage rec {
   pname = "pyhanko";

@@ -1,4 +1,9 @@
-{ runCommand, fetchurl, rpm, cpio }:
+{
+  runCommand,
+  fetchurl,
+  rpm,
+  cpio,
+}:
 let
   version = "1.3-1";
 

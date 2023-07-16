@@ -1,5 +1,19 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytestCheckHook
-, absl-py, cvxpy, jax, jaxlib, matplotlib, numpy, optax, scipy, scikit-learn }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pytestCheckHook,
+  absl-py,
+  cvxpy,
+  jax,
+  jaxlib,
+  matplotlib,
+  numpy,
+  optax,
+  scipy,
+  scikit-learn,
+}:
 
 buildPythonPackage rec {
   pname = "jaxopt";

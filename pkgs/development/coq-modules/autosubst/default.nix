@@ -1,4 +1,10 @@
-{ lib, mkCoqDerivation, coq, mathcomp-ssreflect, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  mathcomp-ssreflect,
+  version ? null
+}:
 
 mkCoqDerivation {
   pname = "autosubst";

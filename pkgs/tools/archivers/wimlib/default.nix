@@ -1,6 +1,18 @@
-{ lib, stdenv, fetchurl, makeWrapper, pkg-config, openssl, fuse, libxml2
-, cabextract ? null, cdrkit ? null, mtools ? null, ntfs3g ? null
-, syslinux ? null }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  pkg-config,
+  openssl,
+  fuse,
+  libxml2,
+  cabextract ? null,
+  cdrkit ? null,
+  mtools ? null,
+  ntfs3g ? null,
+  syslinux ? null
+}:
 
 stdenv.mkDerivation rec {
   version = "1.13.6";

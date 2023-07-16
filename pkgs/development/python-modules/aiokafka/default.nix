@@ -1,5 +1,18 @@
-{ lib, async-timeout, buildPythonPackage, cython, fetchFromGitHub, gssapi
-, kafka-python, lz4, packaging, python-snappy, pythonOlder, zlib, zstandard }:
+{
+  lib,
+  async-timeout,
+  buildPythonPackage,
+  cython,
+  fetchFromGitHub,
+  gssapi,
+  kafka-python,
+  lz4,
+  packaging,
+  python-snappy,
+  pythonOlder,
+  zlib,
+  zstandard,
+}:
 
 buildPythonPackage rec {
   pname = "aiokafka";

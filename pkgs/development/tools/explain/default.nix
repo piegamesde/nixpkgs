@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, fetchpatch, libtool, bison, groff, ghostscript, gettext
-, acl, libcap, lsof }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  libtool,
+  bison,
+  groff,
+  ghostscript,
+  gettext,
+  acl,
+  libcap,
+  lsof,
+}:
 stdenv.mkDerivation rec {
   pname = "explain";
   version = "1.4";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, linux-pam, libxcrypt }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  linux-pam,
+  libxcrypt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tcb";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, readline, guileSupport ? false, guile }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  readline,
+  guileSupport ? false,
+  guile,
+}:
 
 stdenv.mkDerivation rec {
   pname = "remake";

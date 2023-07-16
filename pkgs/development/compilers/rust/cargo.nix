@@ -1,7 +1,26 @@
-{ lib, stdenv, pkgsBuildHost, pkgsHostHost, file, curl, pkg-config, python3
-, openssl, cmake, zlib, installShellFiles, makeWrapper, rustPlatform, rust
-, rustc, CoreFoundation, Security, auditable ? !cargo-auditable.meta.broken
-, cargo-auditable, pkgsBuildBuild }:
+{
+  lib,
+  stdenv,
+  pkgsBuildHost,
+  pkgsHostHost,
+  file,
+  curl,
+  pkg-config,
+  python3,
+  openssl,
+  cmake,
+  zlib,
+  installShellFiles,
+  makeWrapper,
+  rustPlatform,
+  rust,
+  rustc,
+  CoreFoundation,
+  Security,
+  auditable ? !cargo-auditable.meta.broken,
+  cargo-auditable,
+  pkgsBuildBuild,
+}:
 
 rustPlatform.buildRustPackage.override {
   cargo-auditable = cargo-auditable.bootstrap;

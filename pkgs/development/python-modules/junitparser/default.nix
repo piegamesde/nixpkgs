@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, future, glibcLocales, lxml
-, unittestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  future,
+  glibcLocales,
+  lxml,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "junitparser";

@@ -1,4 +1,9 @@
-{ stdenv, lib, jekyll, fetchFromGitHub }:
+{
+  stdenv,
+  lib,
+  jekyll,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jsonnet";

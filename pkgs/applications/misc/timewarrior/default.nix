@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cmake, asciidoctor }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  asciidoctor,
+}:
 
 stdenv.mkDerivation rec {
   pname = "timewarrior";

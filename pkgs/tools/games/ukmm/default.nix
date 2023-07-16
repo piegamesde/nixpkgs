@@ -1,5 +1,14 @@
-{ lib, rustPlatform, fetchFromGitHub, cmake, pkg-config, wrapGAppsHook, atk
-, glib, gtk3-x11 }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  wrapGAppsHook,
+  atk,
+  glib,
+  gtk3-x11,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "ukmm";

@@ -1,7 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, cmake, pkg-config, liblxi
-, readline, lua, bash-completion, wrapGAppsHook, glib, gtk4, gtksourceview5
-, libadwaita, json-glib, desktop-file-utils, appstream-glib
-, gsettings-desktop-schemas, withGui ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  cmake,
+  pkg-config,
+  liblxi,
+  readline,
+  lua,
+  bash-completion,
+  wrapGAppsHook,
+  glib,
+  gtk4,
+  gtksourceview5,
+  libadwaita,
+  json-glib,
+  desktop-file-utils,
+  appstream-glib,
+  gsettings-desktop-schemas,
+  withGui ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "lxi-tools";

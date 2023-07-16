@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, postgresql, perl, perlPackages, which }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  postgresql,
+  perl,
+  perlPackages,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pgtap";

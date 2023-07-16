@@ -1,5 +1,15 @@
-{ lib, stdenv, autoPatchelfHook, buildFHSEnv, dpkg, fetchurl, gcc-unwrapped
-, ocl-icd, zlib, extraPkgs ? [ ] }:
+{
+  lib,
+  stdenv,
+  autoPatchelfHook,
+  buildFHSEnv,
+  dpkg,
+  fetchurl,
+  gcc-unwrapped,
+  ocl-icd,
+  zlib,
+  extraPkgs ? [ ]
+}:
 let
   majMin = lib.versions.majorMinor version;
   version = "7.6.21";

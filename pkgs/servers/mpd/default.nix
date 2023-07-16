@@ -1,30 +1,82 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, glib, systemd, boost
-, fmt, buildPackages
-# Darwin inputs
-, AudioToolbox, AudioUnit
-# Inputs
-, curl, libmms, libnfs, liburing, samba
-# Archive support
-, bzip2, zziplib
-# Codecs
-, audiofile, faad2, ffmpeg, flac, fluidsynth, game-music-emu, libmad, libmikmod
-, mpg123, libopus, libvorbis, lame
-# Filters
-, libsamplerate
-# Outputs
-, alsa-lib, libjack2, libpulseaudio, libshout, pipewire
-# Misc
-, icu, sqlite, avahi, dbus, pcre2, libgcrypt, expat
-# Services
-, yajl
-# Client support
-, libmpdclient
-# Tag support
-, libid3tag, nixosTests
-# For documentation
-, doxygen, python3Packages # for sphinx-build
-# For tests
-, gtest, zip }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  glib,
+  systemd,
+  boost,
+  fmt,
+  buildPackages
+  # Darwin inputs
+  ,
+  AudioToolbox,
+  AudioUnit
+  # Inputs
+  ,
+  curl,
+  libmms,
+  libnfs,
+  liburing,
+  samba
+  # Archive support
+  ,
+  bzip2,
+  zziplib
+  # Codecs
+  ,
+  audiofile,
+  faad2,
+  ffmpeg,
+  flac,
+  fluidsynth,
+  game-music-emu,
+  libmad,
+  libmikmod,
+  mpg123,
+  libopus,
+  libvorbis,
+  lame
+  # Filters
+  ,
+  libsamplerate
+  # Outputs
+  ,
+  alsa-lib,
+  libjack2,
+  libpulseaudio,
+  libshout,
+  pipewire
+  # Misc
+  ,
+  icu,
+  sqlite,
+  avahi,
+  dbus,
+  pcre2,
+  libgcrypt,
+  expat
+  # Services
+  ,
+  yajl
+  # Client support
+  ,
+  libmpdclient
+  # Tag support
+  ,
+  libid3tag,
+  nixosTests
+  # For documentation
+  ,
+  doxygen,
+  python3Packages # for sphinx-build
+  # For tests
+  ,
+  gtest,
+  zip,
+}:
 
 let
   concatAttrVals = nameList: set: lib.concatMap (x: set.${x} or [ ]) nameList;
@@ -88,7 +140,9 @@ let
     documentation = [ doxygen python3Packages.sphinx ];
   };
 
-  run = { features ? null }:
+  run = {
+      features ? null
+    }:
     let
       # Disable platform specific features if needed
       # using libmad to decode mp3 files on darwin is causing a segfault -- there

@@ -1,4 +1,11 @@
-{ fetchFromGitHub, rustPlatform, lib, alsa-lib, pkg-config, openssl }:
+{
+  fetchFromGitHub,
+  rustPlatform,
+  lib,
+  alsa-lib,
+  pkg-config,
+  openssl,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "netease-music-tui";

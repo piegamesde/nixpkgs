@@ -1,5 +1,17 @@
-{ lib, multiStdenv, fetchFromGitHub, substituteAll, pkgsi686Linux, dbus, meson
-, ninja, pkg-config, wine, libxcb, nix-update-script }:
+{
+  lib,
+  multiStdenv,
+  fetchFromGitHub,
+  substituteAll,
+  pkgsi686Linux,
+  dbus,
+  meson,
+  ninja,
+  pkg-config,
+  wine,
+  libxcb,
+  nix-update-script,
+}:
 
 let
   # Derived from subprojects/asio.wrap

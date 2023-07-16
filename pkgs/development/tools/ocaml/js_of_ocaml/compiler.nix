@@ -1,5 +1,14 @@
-{ lib, fetchurl, buildDunePackage, cmdliner, yojson, ppxlib, findlib, menhir
-, menhirLib }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  cmdliner,
+  yojson,
+  ppxlib,
+  findlib,
+  menhir,
+  menhirLib,
+}:
 
 buildDunePackage rec {
   pname = "js_of_ocaml-compiler";

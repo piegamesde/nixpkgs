@@ -1,5 +1,11 @@
-{ lib, fetchFromGitHub, buildPythonPackage, eth-utils, hypothesis
-, pytestCheckHook }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  eth-utils,
+  hypothesis,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "rlp";

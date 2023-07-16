@@ -1,4 +1,7 @@
-{ makeSetupHook, tests }:
+{
+  makeSetupHook,
+  tests,
+}:
 
 # See the header comment in ../setup-hooks/install-shell-files.sh for example usage.
 let

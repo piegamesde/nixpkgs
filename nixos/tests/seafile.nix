@@ -1,8 +1,15 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
   let
-    client = { config, pkgs, ... }: {
-      environment.systemPackages = [ pkgs.seafile-shared pkgs.curl ];
-    };
+    client = {
+        config,
+        pkgs,
+        ...
+      }: {
+        environment.systemPackages = [ pkgs.seafile-shared pkgs.curl ];
+      };
   in {
     name = "seafile";
     meta = with pkgs.lib.maintainers; {
@@ -10,33 +17,37 @@ import ./make-test-python.nix ({ pkgs, ... }:
     };
 
     nodes = {
-      server = { config, pkgs, ... }: {
-        services.seafile = {
-          enable = true;
-          ccnetSettings.General.SERVICE_URL = "http://server";
-          adminEmail = "admin@example.com";
-          initialAdminPassword = "seafile_password";
-        };
-        services.nginx = {
-          enable = true;
-          virtualHosts."server" = {
-            locations."/".proxyPass = "http://unix:/run/seahub/gunicorn.sock";
-            locations."/seafhttp" = {
-              proxyPass = "http://127.0.0.1:8082";
-              extraConfig = ''
-                rewrite ^/seafhttp(.*)$ $1 break;
-                client_max_body_size 0;
-                proxy_connect_timeout  36000s;
-                proxy_read_timeout  36000s;
-                proxy_send_timeout  36000s;
-                send_timeout  36000s;
-                proxy_http_version 1.1;
-              '';
+      server = {
+          config,
+          pkgs,
+          ...
+        }: {
+          services.seafile = {
+            enable = true;
+            ccnetSettings.General.SERVICE_URL = "http://server";
+            adminEmail = "admin@example.com";
+            initialAdminPassword = "seafile_password";
+          };
+          services.nginx = {
+            enable = true;
+            virtualHosts."server" = {
+              locations."/".proxyPass = "http://unix:/run/seahub/gunicorn.sock";
+              locations."/seafhttp" = {
+                proxyPass = "http://127.0.0.1:8082";
+                extraConfig = ''
+                  rewrite ^/seafhttp(.*)$ $1 break;
+                  client_max_body_size 0;
+                  proxy_connect_timeout  36000s;
+                  proxy_read_timeout  36000s;
+                  proxy_send_timeout  36000s;
+                  send_timeout  36000s;
+                  proxy_http_version 1.1;
+                '';
+              };
             };
           };
+          networking.firewall = { allowedTCPPorts = [ 80 ]; };
         };
-        networking.firewall = { allowedTCPPorts = [ 80 ]; };
-      };
       client1 = client pkgs;
       client2 = client pkgs;
     };

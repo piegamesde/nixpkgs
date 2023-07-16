@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, texinfo }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  texinfo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "marst";

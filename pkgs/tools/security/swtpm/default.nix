@@ -1,9 +1,28 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libtasn1, openssl
-, fuse, glib, libseccomp, json-glib, libtpms, unixtools, expect, socat, gnutls
-, perl
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  libtasn1,
+  openssl,
+  fuse,
+  glib,
+  libseccomp,
+  json-glib,
+  libtpms,
+  unixtools,
+  expect,
+  socat,
+  gnutls,
+  perl
 
-# Tests
-, python3, which, nixosTests }:
+  # Tests
+  ,
+  python3,
+  which,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "swtpm";

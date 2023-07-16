@@ -1,4 +1,12 @@
-{ lib, fetchFromGitHub, buildDunePackage, cppo, ocp-indent, cmdliner, re }:
+{
+  lib,
+  fetchFromGitHub,
+  buildDunePackage,
+  cppo,
+  ocp-indent,
+  cmdliner,
+  re,
+}:
 
 buildDunePackage rec {
   pname = "ocp-index";

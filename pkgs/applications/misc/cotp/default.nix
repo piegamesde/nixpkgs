@@ -1,4 +1,11 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, AppKit, libxcb }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  AppKit,
+  libxcb,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cotp";

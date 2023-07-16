@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, pkg-config, autoreconfHook, glib, python3, check
-, libxcrypt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  autoreconfHook,
+  glib,
+  python3,
+  check,
+  libxcrypt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libsigrokdecode";

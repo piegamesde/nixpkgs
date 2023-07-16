@@ -1,5 +1,14 @@
-{ stdenv, buildNpmPackage, fetchFromGitHub, electron, makeWrapper, python3
-, makeDesktopItem, nix-update-script, lib }:
+{
+  stdenv,
+  buildNpmPackage,
+  fetchFromGitHub,
+  electron,
+  makeWrapper,
+  python3,
+  makeDesktopItem,
+  nix-update-script,
+  lib,
+}:
 
 buildNpmPackage rec {
   pname = "vieb";

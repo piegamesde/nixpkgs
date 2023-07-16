@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchzip, cmake, pkg-config, perl, openssl, zlib, cyrus_sasl
-, libbson, snappy, darwin, }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  cmake,
+  pkg-config,
+  perl,
+  openssl,
+  zlib,
+  cyrus_sasl,
+  libbson,
+  snappy,
+  darwin,
+}:
 let inherit (darwin.apple_sdk.frameworks) Security;
 in stdenv.mkDerivation rec {
   pname = "mongoc";

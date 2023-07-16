@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, fetchzip, makeWrapper, makeDesktopItem
-, mkYarnPackage, electron, desktopToDarwinBundle, copyDesktopItems }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchzip,
+  makeWrapper,
+  makeDesktopItem,
+  mkYarnPackage,
+  electron,
+  desktopToDarwinBundle,
+  copyDesktopItems,
+}:
 let executableName = "micropad";
 in mkYarnPackage rec {
   pname = "micropad";

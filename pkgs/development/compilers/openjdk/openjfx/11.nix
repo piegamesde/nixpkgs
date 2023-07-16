@@ -1,7 +1,27 @@
-{ stdenv, lib, fetchFromGitHub, writeText, gradle_7, pkg-config, perl, cmake
-, gperf, gtk2, gtk3, libXtst, libXxf86vm, glib, alsa-lib, ffmpeg_4-headless
-, python3, ruby, icu68, openjdk11-bootstrap, withMedia ? true
-, withWebKit ? false }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  writeText,
+  gradle_7,
+  pkg-config,
+  perl,
+  cmake,
+  gperf,
+  gtk2,
+  gtk3,
+  libXtst,
+  libXxf86vm,
+  glib,
+  alsa-lib,
+  ffmpeg_4-headless,
+  python3,
+  ruby,
+  icu68,
+  openjdk11-bootstrap,
+  withMedia ? true,
+  withWebKit ? false
+}:
 
 let
   major = "11";

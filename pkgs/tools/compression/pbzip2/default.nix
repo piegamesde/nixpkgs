@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, bzip2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bzip2,
+}:
 
 let
   major = "1.1";

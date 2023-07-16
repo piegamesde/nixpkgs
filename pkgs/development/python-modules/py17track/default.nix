@@ -1,6 +1,17 @@
-{ lib, aiohttp, aresponses, async-timeout, attrs, buildPythonPackage
-, fetchFromGitHub, poetry-core, pytest-asyncio, pytestCheckHook, pythonOlder
-, pytz }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  async-timeout,
+  attrs,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+}:
 
 buildPythonPackage rec {
   pname = "py17track";

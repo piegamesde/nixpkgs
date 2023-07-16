@@ -1,15 +1,45 @@
-{ stdenv, lib, fetchFromGitHub, makeDesktopItem, pkg-config, cmake, freefont_ttf
-, spice-protocol, nettle, libbfd, fontconfig, libffi, expat, libGL
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  makeDesktopItem,
+  pkg-config,
+  cmake,
+  freefont_ttf,
+  spice-protocol,
+  nettle,
+  libbfd,
+  fontconfig,
+  libffi,
+  expat,
+  libGL
 
-, libX11, libxkbcommon, libXext, libXrandr, libXi, libXScrnSaver, libXinerama
-, libXcursor, libXpresent
+  ,
+  libX11,
+  libxkbcommon,
+  libXext,
+  libXrandr,
+  libXi,
+  libXScrnSaver,
+  libXinerama,
+  libXcursor,
+  libXpresent
 
-, wayland, wayland-protocols
+  ,
+  wayland,
+  wayland-protocols
 
-, pipewire, pulseaudio, libsamplerate
+  ,
+  pipewire,
+  pulseaudio,
+  libsamplerate
 
-, xorgSupport ? true, waylandSupport ? true, pipewireSupport ? true
-, pulseSupport ? true }:
+  ,
+  xorgSupport ? true,
+  waylandSupport ? true,
+  pipewireSupport ? true,
+  pulseSupport ? true
+}:
 
 let
   desktopItem = makeDesktopItem {

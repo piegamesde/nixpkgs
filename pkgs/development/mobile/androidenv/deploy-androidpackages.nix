@@ -1,6 +1,18 @@
-{ stdenv, lib, unzip, mkLicenses }:
-{ packages, os ? null, nativeBuildInputs ? [ ], buildInputs ? [ ]
-, patchesInstructions ? { }, meta ? { }, ... }@args:
+{
+  stdenv,
+  lib,
+  unzip,
+  mkLicenses,
+}:
+{
+  packages,
+  os ? null,
+  nativeBuildInputs ? [ ],
+  buildInputs ? [ ],
+  patchesInstructions ? { },
+  meta ? { },
+  ...
+}@args:
 
 let
   extraParams = removeAttrs args [

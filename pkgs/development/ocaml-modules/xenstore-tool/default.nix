@@ -1,4 +1,9 @@
-{ buildDunePackage, xenstore_transport, xenstore, lwt }:
+{
+  buildDunePackage,
+  xenstore_transport,
+  xenstore,
+  lwt,
+}:
 
 buildDunePackage {
   pname = "xenstore-tool";

@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchFromGitHub, fetchzip, addOpenGLRunpath, cmake, glibc_multi
-, glibc, git, pkg-config, cudaPackages ? { }, withCuda ? false }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchzip,
+  addOpenGLRunpath,
+  cmake,
+  glibc_multi,
+  glibc,
+  git,
+  pkg-config,
+  cudaPackages ? { },
+  withCuda ? false
+}:
 
 let
   inherit (cudaPackages) cudatoolkit;

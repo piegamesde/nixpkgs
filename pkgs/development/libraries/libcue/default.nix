@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, bison, flex }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  bison,
+  flex,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libcue";

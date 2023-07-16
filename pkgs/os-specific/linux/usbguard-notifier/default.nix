@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libqb, usbguard
-, librsvg, libnotify, catch2, asciidoc, }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  libqb,
+  usbguard,
+  librsvg,
+  libnotify,
+  catch2,
+  asciidoc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "usbguard-notifier";

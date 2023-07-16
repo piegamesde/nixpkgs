@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, rustPlatform, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  rustPlatform,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "nixdoc";

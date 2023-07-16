@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, buildPythonPackage, rustPlatform, llvmPackages
-, pkg-config, pcsclite, nettle, httpx, pytestCheckHook, pythonOlder, vcrpy, PCSC
-, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildPythonPackage,
+  rustPlatform,
+  llvmPackages,
+  pkg-config,
+  pcsclite,
+  nettle,
+  httpx,
+  pytestCheckHook,
+  pythonOlder,
+  vcrpy,
+  PCSC,
+  libiconv,
+}:
 
 buildPythonPackage rec {
   pname = "johnnycanencrypt";

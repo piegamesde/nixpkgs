@@ -1,5 +1,18 @@
-{ lib, fetchurl, buildDunePackage, ppx_sexp_conv, base64, jsonm, re, stringext
-, uri-sexp, ocaml, fmt, alcotest, crowbar }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  ppx_sexp_conv,
+  base64,
+  jsonm,
+  re,
+  stringext,
+  uri-sexp,
+  ocaml,
+  fmt,
+  alcotest,
+  crowbar,
+}:
 
 buildDunePackage rec {
   pname = "cohttp";

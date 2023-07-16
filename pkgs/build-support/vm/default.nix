@@ -1,17 +1,22 @@
-{ lib, pkgs, kernel ? pkgs.linux
-, img ? pkgs.stdenv.hostPlatform.linux-kernel.target
-, storeDir ? builtins.storeDir, rootModules ? [
-  "virtio_pci"
-  "virtio_mmio"
-  "virtio_blk"
-  "virtio_balloon"
-  "virtio_rng"
-  "ext4"
-  "unix"
-  "9p"
-  "9pnet_virtio"
-  "crc32c_generic"
-] ++ pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos" }:
+{
+  lib,
+  pkgs,
+  kernel ? pkgs.linux,
+  img ? pkgs.stdenv.hostPlatform.linux-kernel.target,
+  storeDir ? builtins.storeDir,
+  rootModules ? [
+    "virtio_pci"
+    "virtio_mmio"
+    "virtio_blk"
+    "virtio_balloon"
+    "virtio_rng"
+    "ext4"
+    "unix"
+    "9p"
+    "9pnet_virtio"
+    "crc32c_generic"
+  ] ++ pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos"
+}:
 
 let
   inherit (pkgs)
@@ -269,11 +274,12 @@ in rec {
   # A bash script fragment that produces a disk image at `destination`.
   createEmptyImage = {
     # Disk image size in MiB
-    size,
-    # Name that will be written to ${destination}/nix-support/full-name
-    fullName,
-    # Where to write the image files, defaulting to $out
-    destination ? "$out" }: ''
+      size,
+      # Name that will be written to ${destination}/nix-support/full-name
+      fullName,
+      # Where to write the image files, defaulting to $out
+      destination ? "$out"
+    }: ''
       mkdir -p ${destination}
       diskImage=${destination}/disk-image.qcow2
       ${qemu}/bin/qemu-img create -f qcow2 $diskImage "${toString size}M"
@@ -318,19 +324,27 @@ in rec {
   */
 
   runInLinuxVM = drv:
-    lib.overrideDerivation drv
-    ({ memSize ? 512, QEMU_OPTS ? "", args, builder, ... }: {
-      requiredSystemFeatures = [ "kvm" ];
-      builder = "${bash}/bin/sh";
-      args = [ "-e" (vmRunCommand qemuCommandLinux) ];
-      origArgs = args;
-      origBuilder = builder;
-      QEMU_OPTS = "${QEMU_OPTS} -m ${toString memSize}";
-      passAsFile =
-        [ ]; # HACK fix - see https://github.com/NixOS/nixpkgs/issues/16742
-    });
+    lib.overrideDerivation drv ({
+        memSize ? 512,
+        QEMU_OPTS ? "",
+        args,
+        builder,
+        ...
+      }: {
+        requiredSystemFeatures = [ "kvm" ];
+        builder = "${bash}/bin/sh";
+        args = [ "-e" (vmRunCommand qemuCommandLinux) ];
+        origArgs = args;
+        origBuilder = builder;
+        QEMU_OPTS = "${QEMU_OPTS} -m ${toString memSize}";
+        passAsFile =
+          [ ]; # HACK fix - see https://github.com/NixOS/nixpkgs/issues/16742
+      });
 
-  extractFs = { file, fs ? null }:
+  extractFs = {
+      file,
+      fs ? null
+    }:
     runInLinuxVM (stdenv.mkDerivation {
       name = "extract-file";
       buildInputs = [ util-linux ];
@@ -357,7 +371,10 @@ in rec {
       '';
     });
 
-  extractMTDfs = { file, fs ? null }:
+  extractMTDfs = {
+      file,
+      fs ? null
+    }:
     runInLinuxVM (stdenv.mkDerivation {
       name = "extract-file-mtd";
       buildInputs = [ pkgs.util-linux pkgs.mtdutils ];
@@ -420,9 +437,19 @@ in rec {
      a set of RPM packages.
   */
 
-  fillDiskWithRPMs = { size ? 4096, rpms, name, fullName, preInstall ? ""
-    , postInstall ? "", runScripts ? true, createRootFS ? defaultCreateRootFS
-    , QEMU_OPTS ? "", memSize ? 512, unifiedSystemDir ? false }:
+  fillDiskWithRPMs = {
+      size ? 4096,
+      rpms,
+      name,
+      fullName,
+      preInstall ? "",
+      postInstall ? "",
+      runScripts ? true,
+      createRootFS ? defaultCreateRootFS,
+      QEMU_OPTS ? "",
+      memSize ? 512,
+      unifiedSystemDir ? false
+    }:
 
     runInLinuxVM (stdenv.mkDerivation {
       inherit name preInstall postInstall rpms QEMU_OPTS memSize;
@@ -579,8 +606,16 @@ in rec {
      strongly connected components.  See deb/deb-closure.nix.
   */
 
-  fillDiskWithDebs = { size ? 4096, debs, name, fullName, postInstall ? null
-    , createRootFS ? defaultCreateRootFS, QEMU_OPTS ? "", memSize ? 512 }:
+  fillDiskWithDebs = {
+      size ? 4096,
+      debs,
+      name,
+      fullName,
+      postInstall ? null,
+      createRootFS ? defaultCreateRootFS,
+      QEMU_OPTS ? "",
+      memSize ? 512
+    }:
 
     runInLinuxVM (stdenv.mkDerivation {
       inherit name postInstall QEMU_OPTS memSize;
@@ -669,8 +704,13 @@ in rec {
      `primary.xml.gz' file of a Fedora or openSUSE distribution.
   */
 
-  rpmClosureGenerator =
-    { name, packagesLists, urlPrefixes, packages, archs ? [ ] }:
+  rpmClosureGenerator = {
+      name,
+      packagesLists,
+      urlPrefixes,
+      packages,
+      archs ? [ ]
+    }:
     assert (builtins.length packagesLists) == (builtins.length urlPrefixes);
     runCommand "${name}.nix" {
       nativeBuildInputs =
@@ -694,12 +734,25 @@ in rec {
      names.
   */
 
-  makeImageFromRPMDist = { name, fullName, size ? 4096, urlPrefix ? ""
-    , urlPrefixes ? [ urlPrefix ], packagesList ? ""
-    , packagesLists ? [ packagesList ], packages, extraPackages ? [ ]
-    , preInstall ? "", postInstall ? "", archs ? [ "noarch" "i386" ]
-    , runScripts ? true, createRootFS ? defaultCreateRootFS, QEMU_OPTS ? ""
-    , memSize ? 512, unifiedSystemDir ? false }:
+  makeImageFromRPMDist = {
+      name,
+      fullName,
+      size ? 4096,
+      urlPrefix ? "",
+      urlPrefixes ? [ urlPrefix ],
+      packagesList ? "",
+      packagesLists ? [ packagesList ],
+      packages,
+      extraPackages ? [ ],
+      preInstall ? "",
+      postInstall ? "",
+      archs ? [ "noarch" "i386" ],
+      runScripts ? true,
+      createRootFS ? defaultCreateRootFS,
+      QEMU_OPTS ? "",
+      memSize ? 512,
+      unifiedSystemDir ? false
+    }:
 
     fillDiskWithRPMs {
       inherit name fullName size preInstall postInstall runScripts createRootFS
@@ -714,7 +767,12 @@ in rec {
      (i.e. generate a closure from a Packages.bz2 file).
   */
 
-  debClosureGenerator = { name, packagesLists, urlPrefix, packages }:
+  debClosureGenerator = {
+      name,
+      packagesLists,
+      urlPrefix,
+      packages,
+    }:
 
     runCommand "${name}.nix" {
       nativeBuildInputs = [ buildPackages.perl buildPackages.dpkg ];
@@ -746,10 +804,21 @@ in rec {
      names.
   */
 
-  makeImageFromDebDist = { name, fullName, size ? 4096, urlPrefix
-    , packagesList ? "", packagesLists ? [ packagesList ], packages
-    , extraPackages ? [ ], postInstall ? "", extraDebs ? [ ]
-    , createRootFS ? defaultCreateRootFS, QEMU_OPTS ? "", memSize ? 512 }:
+  makeImageFromDebDist = {
+      name,
+      fullName,
+      size ? 4096,
+      urlPrefix,
+      packagesList ? "",
+      packagesLists ? [ packagesList ],
+      packages,
+      extraPackages ? [ ],
+      postInstall ? "",
+      extraDebs ? [ ],
+      createRootFS ? defaultCreateRootFS,
+      QEMU_OPTS ? "",
+      memSize ? 512
+    }:
 
     let
       expr = debClosureGenerator {

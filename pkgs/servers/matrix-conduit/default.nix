@@ -1,5 +1,14 @@
-{ lib, rustPlatform, fetchFromGitLab, pkg-config, sqlite, stdenv, darwin
-, nixosTests, rocksdb_6_23 }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitLab,
+  pkg-config,
+  sqlite,
+  stdenv,
+  darwin,
+  nixosTests,
+  rocksdb_6_23,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "matrix-conduit";

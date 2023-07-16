@@ -1,5 +1,15 @@
-{ lib, attrs, buildPythonPackage, cryptography, fetchFromGitHub, idna, pyasn1
-, pyasn1-modules, six, pytestCheckHook }:
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  idna,
+  pyasn1,
+  pyasn1-modules,
+  six,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "service-identity";

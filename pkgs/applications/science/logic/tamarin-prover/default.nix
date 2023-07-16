@@ -1,6 +1,18 @@
-{ haskellPackages, mkDerivation, fetchFromGitHub, fetchpatch, lib, stdenv
-# the following are non-haskell dependencies
-, makeWrapper, which, maude, graphviz, glibcLocales }:
+{
+  haskellPackages,
+  mkDerivation,
+  fetchFromGitHub,
+  fetchpatch,
+  lib,
+  stdenv
+  # the following are non-haskell dependencies
+  ,
+  makeWrapper,
+  which,
+  maude,
+  graphviz,
+  glibcLocales,
+}:
 
 let
   version = "1.6.1";

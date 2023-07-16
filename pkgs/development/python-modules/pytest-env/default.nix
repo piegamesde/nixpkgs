@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, hatch-vcs, hatchling, pytest
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  hatch-vcs,
+  hatchling,
+  pytest,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-env";

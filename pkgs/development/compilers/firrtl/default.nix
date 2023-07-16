@@ -1,4 +1,11 @@
-{ lib, stdenv, jre, setJavaClassPath, coursier, makeWrapper }:
+{
+  lib,
+  stdenv,
+  jre,
+  setJavaClassPath,
+  coursier,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "firrtl";

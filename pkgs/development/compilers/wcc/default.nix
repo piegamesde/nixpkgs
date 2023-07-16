@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, capstone, libbfd, libelf, libiberty, readline }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  capstone,
+  libbfd,
+  libelf,
+  libiberty,
+  readline,
+}:
 
 stdenv.mkDerivation {
   pname = "wcc-unstable";

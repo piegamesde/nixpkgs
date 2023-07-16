@@ -1,5 +1,14 @@
-{ lib, async_generator, buildPythonPackage, docutils, fetchFromGitHub
-, geographiclib, pytestCheckHook, pythonOlder, pytz }:
+{
+  lib,
+  async_generator,
+  buildPythonPackage,
+  docutils,
+  fetchFromGitHub,
+  geographiclib,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+}:
 
 buildPythonPackage rec {
   pname = "geopy";

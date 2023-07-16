@@ -1,5 +1,15 @@
-{ lib, anyio, buildPythonPackage, fetchFromGitHub, paho-mqtt, pytestCheckHook
-, pythonOlder, setuptools, setuptools-scm, typing-extensions }:
+{
+  lib,
+  anyio,
+  buildPythonPackage,
+  fetchFromGitHub,
+  paho-mqtt,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  setuptools-scm,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "asyncio-mqtt";

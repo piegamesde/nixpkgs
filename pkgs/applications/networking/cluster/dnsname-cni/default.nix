@@ -1,4 +1,10 @@
-{ buildGoModule, dnsmasq, fetchFromGitHub, lib, makeWrapper, }:
+{
+  buildGoModule,
+  dnsmasq,
+  fetchFromGitHub,
+  lib,
+  makeWrapper,
+}:
 
 buildGoModule rec {
   pname = "cni-plugin-dnsname";

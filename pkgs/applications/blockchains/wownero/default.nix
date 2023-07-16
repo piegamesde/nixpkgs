@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitea, cmake, boost, miniupnpc, openssl, unbound
-, readline, libsodium, rapidjson }:
+{
+  lib,
+  stdenv,
+  fetchFromGitea,
+  cmake,
+  boost,
+  miniupnpc,
+  openssl,
+  unbound,
+  readline,
+  libsodium,
+  rapidjson,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wownero";

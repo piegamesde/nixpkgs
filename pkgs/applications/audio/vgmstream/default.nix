@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, mpg123, ffmpeg, libvorbis
-, libao, jansson, speex }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  mpg123,
+  ffmpeg,
+  libvorbis,
+  libao,
+  jansson,
+  speex,
+}:
 let vgmstreamVersion = "r1702-5596-00bdb165b";
 in stdenv.mkDerivation rec {
   pname = "vgmstream";

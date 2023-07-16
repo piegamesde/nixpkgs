@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, libtool, gettext, pkg-config, vala, gnome-common
-, gobject-introspection, libgee, json-glib, skk-dicts, libxkbcommon }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libtool,
+  gettext,
+  pkg-config,
+  vala,
+  gnome-common,
+  gobject-introspection,
+  libgee,
+  json-glib,
+  skk-dicts,
+  libxkbcommon,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libskk";

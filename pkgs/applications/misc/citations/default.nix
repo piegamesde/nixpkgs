@@ -1,6 +1,22 @@
-{ darwin, desktop-file-utils, fetchFromGitLab, gettext, glib, gtk4
-, gtksourceview5, lib, libadwaita, meson, ninja, pkg-config, poppler
-, rustPlatform, stdenv, testers, wrapGAppsHook4 }:
+{
+  darwin,
+  desktop-file-utils,
+  fetchFromGitLab,
+  gettext,
+  glib,
+  gtk4,
+  gtksourceview5,
+  lib,
+  libadwaita,
+  meson,
+  ninja,
+  pkg-config,
+  poppler,
+  rustPlatform,
+  stdenv,
+  testers,
+  wrapGAppsHook4,
+}:
 stdenv.mkDerivation (finalAttrs: {
   pname = "citations";
   version = "0.5.1";

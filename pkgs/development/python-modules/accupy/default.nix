@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, mpmath, numpy, pybind11
-, pyfma, eigen, importlib-metadata, pytestCheckHook, matplotlib, dufte, perfplot
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  mpmath,
+  numpy,
+  pybind11,
+  pyfma,
+  eigen,
+  importlib-metadata,
+  pytestCheckHook,
+  matplotlib,
+  dufte,
+  perfplot,
 }:
 
 buildPythonPackage rec {

@@ -1,5 +1,14 @@
-{ lib, authres, buildPythonPackage, dkimpy, dnspython, fetchFromGitHub
-, publicsuffix2, pythonOlder, pytestCheckHook }:
+{
+  lib,
+  authres,
+  buildPythonPackage,
+  dkimpy,
+  dnspython,
+  fetchFromGitHub,
+  publicsuffix2,
+  pythonOlder,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "authheaders";

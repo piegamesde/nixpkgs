@@ -1,4 +1,11 @@
-{ lib, stdenv, makeWrapper, nix, skopeo, jq }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  nix,
+  skopeo,
+  jq,
+}:
 
 stdenv.mkDerivation {
   name = "nix-prefetch-docker";

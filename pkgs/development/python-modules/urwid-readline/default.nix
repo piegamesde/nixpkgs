@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, urwid, glibcLocales, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  urwid,
+  glibcLocales,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "urwid_readline";

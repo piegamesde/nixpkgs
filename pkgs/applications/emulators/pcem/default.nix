@@ -1,5 +1,19 @@
-{ stdenv, lib, fetchzip, wxGTK32, coreutils, SDL2, openal, alsa-lib, pkg-config
-, gtk3, wrapGAppsHook, autoreconfHook, withNetworking ? true, withALSA ? true }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  wxGTK32,
+  coreutils,
+  SDL2,
+  openal,
+  alsa-lib,
+  pkg-config,
+  gtk3,
+  wrapGAppsHook,
+  autoreconfHook,
+  withNetworking ? true,
+  withALSA ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "pcem";

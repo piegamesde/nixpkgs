@@ -1,4 +1,13 @@
-{ stdenv, lib, fetchurl, curl, p7zip, glibc, ncurses, openssl }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  curl,
+  p7zip,
+  glibc,
+  ncurses,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vk-cli";

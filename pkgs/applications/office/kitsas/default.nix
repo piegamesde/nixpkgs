@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, qmake, qtbase, qtsvg, poppler, libzip
-, pkg-config, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qmake,
+  qtbase,
+  qtsvg,
+  poppler,
+  libzip,
+  pkg-config,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kitsas";

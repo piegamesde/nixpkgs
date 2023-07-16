@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, requests, tabulate, pytestCheckHook
-, requests-mock }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  requests,
+  tabulate,
+  pytestCheckHook,
+  requests-mock,
+}:
 
 buildPythonPackage {
   pname = "remotezip";

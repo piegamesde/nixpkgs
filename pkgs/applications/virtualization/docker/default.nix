@@ -1,19 +1,67 @@
-{ lib, callPackage, fetchFromGitHub }:
+{
+  lib,
+  callPackage,
+  fetchFromGitHub,
+}:
 
 rec {
-  dockerGen = { version, cliRev, cliHash, mobyRev, mobyHash, runcRev, runcHash
-    , containerdRev, containerdHash, tiniRev, tiniHash, buildxSupport ? true
-    , composeSupport ? true
-      # package dependencies
-    , stdenv, fetchFromGitHub, fetchpatch, buildGoPackage, makeWrapper
-    , installShellFiles, pkg-config, glibc, go-md2man, go, containerd, runc
-    , docker-proxy, tini, libtool, sqlite, iproute2, docker-buildx
-    , docker-compose, iptables, e2fsprogs, xz, util-linux, xfsprogs, git, procps
-    , rootlesskit, slirp4netns, fuse-overlayfs, nixosTests
-    , clientOnly ? !stdenv.isLinux, symlinkJoin
-    , withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd
-    , withBtrfs ? stdenv.isLinux, btrfs-progs, withLvm ? stdenv.isLinux, lvm2
-    , withSeccomp ? stdenv.isLinux, libseccomp }:
+  dockerGen = {
+      version,
+      cliRev,
+      cliHash,
+      mobyRev,
+      mobyHash,
+      runcRev,
+      runcHash,
+      containerdRev,
+      containerdHash,
+      tiniRev,
+      tiniHash,
+      buildxSupport ? true,
+      composeSupport ? true
+        # package dependencies
+      ,
+      stdenv,
+      fetchFromGitHub,
+      fetchpatch,
+      buildGoPackage,
+      makeWrapper,
+      installShellFiles,
+      pkg-config,
+      glibc,
+      go-md2man,
+      go,
+      containerd,
+      runc,
+      docker-proxy,
+      tini,
+      libtool,
+      sqlite,
+      iproute2,
+      docker-buildx,
+      docker-compose,
+      iptables,
+      e2fsprogs,
+      xz,
+      util-linux,
+      xfsprogs,
+      git,
+      procps,
+      rootlesskit,
+      slirp4netns,
+      fuse-overlayfs,
+      nixosTests,
+      clientOnly ? !stdenv.isLinux,
+      symlinkJoin,
+      withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
+      systemd,
+      withBtrfs ? stdenv.isLinux,
+      btrfs-progs,
+      withLvm ? stdenv.isLinux,
+      lvm2,
+      withSeccomp ? stdenv.isLinux,
+      libseccomp,
+    }:
     let
       docker-runc = runc.overrideAttrs (oldAttrs: {
         pname = "docker-runc";

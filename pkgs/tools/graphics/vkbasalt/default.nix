@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, glslang, meson, ninja, pkg-config, libX11
-, spirv-headers, vulkan-headers, vkbasalt32 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  glslang,
+  meson,
+  ninja,
+  pkg-config,
+  libX11,
+  spirv-headers,
+  vulkan-headers,
+  vkbasalt32,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "vkbasalt";

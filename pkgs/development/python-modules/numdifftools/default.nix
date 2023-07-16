@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, numpy, pytestCheckHook, pythonOlder
-, scipy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  scipy,
+}:
 
 buildPythonPackage rec {
   pname = "numdifftools";

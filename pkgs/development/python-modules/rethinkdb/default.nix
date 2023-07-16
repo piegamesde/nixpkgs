@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, six, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "rethinkdb";

@@ -1,4 +1,11 @@
-{ lib, aiohttp, buildPythonPackage, fetchPypi, pydantic, pythonOlder, setuptools
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchPypi,
+  pydantic,
+  pythonOlder,
+  setuptools,
 }:
 
 buildPythonPackage rec {

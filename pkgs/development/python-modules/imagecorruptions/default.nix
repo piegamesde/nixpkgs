@@ -1,4 +1,11 @@
-{ buildPythonPackage, fetchPypi, numpy, scikitimage, lib, opencv3 }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  scikitimage,
+  lib,
+  opencv3,
+}:
 
 buildPythonPackage rec {
   pname = "imagecorruptions";

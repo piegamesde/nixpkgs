@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
-, expecttest, pytest-timeout, huggingface-hub, pyyaml, torch, torchvision }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  expecttest,
+  pytest-timeout,
+  huggingface-hub,
+  pyyaml,
+  torch,
+  torchvision,
+}:
 
 buildPythonPackage rec {
   pname = "timm";

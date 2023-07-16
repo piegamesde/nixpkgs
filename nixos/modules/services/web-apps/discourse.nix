@@ -1,4 +1,11 @@
-{ config, options, lib, pkgs, utils, ... }:
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  utils,
+  ...
+}:
 
 let
   json = pkgs.formats.json { };
@@ -867,12 +874,14 @@ in {
         root = "${cfg.package}/share/discourse/public";
 
         locations = let
-          proxy = { extraConfig ? "" }: {
-            proxyPass = "http://discourse";
-            extraConfig = extraConfig + ''
-              proxy_set_header X-Request-Start "t=''${msec}";
-            '';
-          };
+          proxy = {
+              extraConfig ? ""
+            }: {
+              proxyPass = "http://discourse";
+              extraConfig = extraConfig + ''
+                proxy_set_header X-Request-Start "t=''${msec}";
+              '';
+            };
           cache = time: ''
             expires ${time};
             add_header Cache-Control public,immutable;

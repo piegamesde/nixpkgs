@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, paramiko, pytestCheckHook, mock }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  paramiko,
+  pytestCheckHook,
+  mock,
+}:
 
 buildPythonPackage rec {
   version = "0.4.0";

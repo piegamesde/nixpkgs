@@ -1,5 +1,15 @@
-{ lib, rustPlatform, fetchCrate, installShellFiles, makeWrapper, pkg-config
-, ronn, openssl, stdenv, darwin }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  installShellFiles,
+  makeWrapper,
+  pkg-config,
+  ronn,
+  openssl,
+  stdenv,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "httplz";

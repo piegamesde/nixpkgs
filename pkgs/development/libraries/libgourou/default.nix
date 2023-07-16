@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchzip, pugixml, updfparser, curl, openssl, libzip
-, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  pugixml,
+  updfparser,
+  curl,
+  openssl,
+  libzip,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation rec {
   name = "libgourou";

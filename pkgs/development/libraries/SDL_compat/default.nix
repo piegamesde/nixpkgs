@@ -1,7 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, SDL2, libiconv, Cocoa
-, autoSignDarwinBinariesHook, libGLSupported ?
-  lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms
-, openglSupport ? libGLSupported, libGL, libGLU }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  SDL2,
+  libiconv,
+  Cocoa,
+  autoSignDarwinBinariesHook,
+  libGLSupported ?
+    lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
+  openglSupport ? libGLSupported,
+  libGL,
+  libGLU,
+}:
 
 let inherit (lib) optionals makeLibraryPath;
 

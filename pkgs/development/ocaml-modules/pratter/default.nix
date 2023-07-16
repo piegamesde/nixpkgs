@@ -1,5 +1,12 @@
-{ lib, fetchFromGitHub, buildDunePackage, camlp-streams, alcotest, qcheck
-, qcheck-alcotest }:
+{
+  lib,
+  fetchFromGitHub,
+  buildDunePackage,
+  camlp-streams,
+  alcotest,
+  qcheck,
+  qcheck-alcotest,
+}:
 
 buildDunePackage rec {
   version = "2.0.0";

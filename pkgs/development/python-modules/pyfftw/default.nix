@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, fftw, fftwFloat, fftwLongDouble, numpy
-, scipy, cython, dask }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fftw,
+  fftwFloat,
+  fftwLongDouble,
+  numpy,
+  scipy,
+  cython,
+  dask,
+}:
 
 buildPythonPackage rec {
   version = "0.13.1";

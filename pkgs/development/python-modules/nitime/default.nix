@@ -1,5 +1,17 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, pythonOlder, pytestCheckHook
-, cython, numpy, scipy, matplotlib, networkx, nibabel }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  pytestCheckHook,
+  cython,
+  numpy,
+  scipy,
+  matplotlib,
+  networkx,
+  nibabel,
+}:
 
 buildPythonPackage rec {
   pname = "nitime";

@@ -1,5 +1,16 @@
-{ fetchurl, stdenv, lib, gfortran, perl, llvmPackages, precision ? "double"
-, enableMpi ? false, mpi, withDoc ? stdenv.cc.isGNU, testers }:
+{
+  fetchurl,
+  stdenv,
+  lib,
+  gfortran,
+  perl,
+  llvmPackages,
+  precision ? "double",
+  enableMpi ? false,
+  mpi,
+  withDoc ? stdenv.cc.isGNU,
+  testers,
+}:
 
 assert lib.elem precision [ "single" "double" "long-double" "quad-precision" ];
 

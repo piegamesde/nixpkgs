@@ -1,5 +1,11 @@
-{ lib, fetchFromGitHub, buildPythonApplication, setuptools, wrapPython
-, makeWrapper }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonApplication,
+  setuptools,
+  wrapPython,
+  makeWrapper,
+}:
 
 buildPythonApplication rec {
   pname = "Tautulli";

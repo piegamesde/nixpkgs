@@ -1,4 +1,8 @@
-{ stdenv, lib, fetchgit }:
+{
+  stdenv,
+  lib,
+  fetchgit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nv-codec-headers";

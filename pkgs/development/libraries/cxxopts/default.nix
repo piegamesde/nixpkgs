@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, icu, pkg-config, enableUnicodeHelp ? true
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  icu,
+  pkg-config,
+  enableUnicodeHelp ? true
 }:
 
 stdenv.mkDerivation rec {

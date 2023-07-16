@@ -1,4 +1,8 @@
-{ stdenvNoCC, callPackage, lib }:
+{
+  stdenvNoCC,
+  callPackage,
+  lib,
+}:
 
 let
   pname = "postman";

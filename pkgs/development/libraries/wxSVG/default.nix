@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, cairo, ffmpeg, libexif, pango, pkg-config, wxGTK
-, darwin }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cairo,
+  ffmpeg,
+  libexif,
+  pango,
+  pkg-config,
+  wxGTK,
+  darwin,
+}:
 
 let inherit (darwin.apple_sdk.frameworks) Cocoa;
 in stdenv.mkDerivation rec {

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, popt }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  libtool,
+  popt,
+}:
 
 stdenv.mkDerivation {
   pname = "picotts";

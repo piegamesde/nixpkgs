@@ -1,4 +1,10 @@
-{ lib, mkCoqDerivation, coq, StructTact, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  StructTact,
+  version ? null
+}:
 
 mkCoqDerivation {
   pname = "cheerios";

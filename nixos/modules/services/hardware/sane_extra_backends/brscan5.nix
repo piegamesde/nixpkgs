@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -10,55 +15,58 @@ let
   etcFiles =
     pkgs.callPackage ./brscan5_etc_files.nix { netDevices = netDeviceList; };
 
-  netDeviceOpts = { name, ... }: {
+  netDeviceOpts = {
+      name,
+      ...
+    }: {
 
-    options = {
+      options = {
 
-      name = mkOption {
-        type = types.str;
-        description = lib.mdDoc ''
-          The friendly name you give to the network device. If undefined,
-          the name of attribute will be used.
-        '';
+        name = mkOption {
+          type = types.str;
+          description = lib.mdDoc ''
+            The friendly name you give to the network device. If undefined,
+            the name of attribute will be used.
+          '';
 
-        example = "office1";
+          example = "office1";
+        };
+
+        model = mkOption {
+          type = types.str;
+          description = lib.mdDoc ''
+            The model of the network device.
+          '';
+
+          example = "ADS-1200";
+        };
+
+        ip = mkOption {
+          type = with types; nullOr str;
+          default = null;
+          description = lib.mdDoc ''
+            The ip address of the device. If undefined, you will have to
+            provide a nodename.
+          '';
+
+          example = "192.168.1.2";
+        };
+
+        nodename = mkOption {
+          type = with types; nullOr str;
+          default = null;
+          description = lib.mdDoc ''
+            The node name of the device. If undefined, you will have to
+            provide an ip.
+          '';
+
+          example = "BRW0080927AFBCE";
+        };
+
       };
 
-      model = mkOption {
-        type = types.str;
-        description = lib.mdDoc ''
-          The model of the network device.
-        '';
-
-        example = "ADS-1200";
-      };
-
-      ip = mkOption {
-        type = with types; nullOr str;
-        default = null;
-        description = lib.mdDoc ''
-          The ip address of the device. If undefined, you will have to
-          provide a nodename.
-        '';
-
-        example = "192.168.1.2";
-      };
-
-      nodename = mkOption {
-        type = with types; nullOr str;
-        default = null;
-        description = lib.mdDoc ''
-          The node name of the device. If undefined, you will have to
-          provide an ip.
-        '';
-
-        example = "BRW0080927AFBCE";
-      };
-
+      config = { name = mkDefault name; };
     };
-
-    config = { name = mkDefault name; };
-  };
 
 in {
   options = {

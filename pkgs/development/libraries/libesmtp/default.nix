@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libESMTP";

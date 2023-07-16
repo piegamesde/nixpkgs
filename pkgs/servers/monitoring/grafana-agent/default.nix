@@ -1,5 +1,13 @@
-{ lib, buildGoModule, fetchFromGitHub, grafana-agent, nixosTests, stdenv
-, systemd, testers }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  grafana-agent,
+  nixosTests,
+  stdenv,
+  systemd,
+  testers,
+}:
 
 buildGoModule rec {
   pname = "grafana-agent";

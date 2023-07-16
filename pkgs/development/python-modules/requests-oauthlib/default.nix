@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, mock, oauthlib, pytestCheckHook, requests
-, requests-mock }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  mock,
+  oauthlib,
+  pytestCheckHook,
+  requests,
+  requests-mock,
+}:
 
 buildPythonPackage rec {
   pname = "requests-oauthlib";

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, dill, pox, ppft, multiprocess
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  dill,
+  pox,
+  ppft,
+  multiprocess,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pathos";

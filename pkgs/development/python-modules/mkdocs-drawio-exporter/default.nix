@@ -1,4 +1,11 @@
-{ buildPythonPackage, drawio-headless, fetchPypi, isPy3k, lib, mkdocs }:
+{
+  buildPythonPackage,
+  drawio-headless,
+  fetchPypi,
+  isPy3k,
+  lib,
+  mkdocs,
+}:
 
 buildPythonPackage rec {
   pname = "mkdocs-drawio-exporter";

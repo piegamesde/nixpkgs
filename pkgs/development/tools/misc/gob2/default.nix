@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, glib, bison, flex, gnome }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  glib,
+  bison,
+  flex,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gob2";

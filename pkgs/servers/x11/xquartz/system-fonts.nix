@@ -1,4 +1,8 @@
-{ stdenv, xorg, fontDirs }:
+{
+  stdenv,
+  xorg,
+  fontDirs,
+}:
 
 stdenv.mkDerivation {
   name = "xquartz-system-fonts";

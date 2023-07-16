@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, libpng, libjpeg, freetype, xorg, python3
-, imagemagick, gcc-arm-embedded, pkg-config }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  libpng,
+  libjpeg,
+  freetype,
+  xorg,
+  python3,
+  imagemagick,
+  gcc-arm-embedded,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "numworks-epsilon";

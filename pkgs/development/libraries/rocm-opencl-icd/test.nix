@@ -1,4 +1,10 @@
-{ lib, makeImpureTest, clinfo, rocm-opencl-icd, rocm-smi }:
+{
+  lib,
+  makeImpureTest,
+  clinfo,
+  rocm-opencl-icd,
+  rocm-smi,
+}:
 makeImpureTest {
   name = "rocm-opencl";
   testedPackage = "rocm-opencl-icd";

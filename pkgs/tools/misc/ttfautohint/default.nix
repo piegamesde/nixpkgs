@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchurl, pkg-config, autoreconfHook, freetype, harfbuzz
-, libiconv, qtbase, enableGUI ? true }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  autoreconfHook,
+  freetype,
+  harfbuzz,
+  libiconv,
+  qtbase,
+  enableGUI ? true
+}:
 
 stdenv.mkDerivation rec {
   version = "1.8.3";

@@ -1,5 +1,15 @@
-{ mkDerivation, propagate, extra-cmake-modules, wayland-scanner, kconfig
-, kwayland, plasma-wayland-protocols, wayland, libXrandr, qtx11extras, qttools
+{
+  mkDerivation,
+  propagate,
+  extra-cmake-modules,
+  wayland-scanner,
+  kconfig,
+  kwayland,
+  plasma-wayland-protocols,
+  wayland,
+  libXrandr,
+  qtx11extras,
+  qttools,
 }:
 
 mkDerivation {

@@ -1,4 +1,12 @@
-{ qtModule, stdenv, lib, qtbase, qtdeclarative, cups, substituteAll }:
+{
+  qtModule,
+  stdenv,
+  lib,
+  qtbase,
+  qtdeclarative,
+  cups,
+  substituteAll,
+}:
 
 qtModule {
   pname = "qttools";

@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitLab, nix-update-script, appstream, desktop-file-utils
-, meson, ninja, pkg-config, python3, vala, wrapGAppsHook, glib, gtk3, json-glib
-, libappindicator, libsoup, webkitgtk }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  nix-update-script,
+  appstream,
+  desktop-file-utils,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  vala,
+  wrapGAppsHook,
+  glib,
+  gtk3,
+  json-glib,
+  libappindicator,
+  libsoup,
+  webkitgtk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "meteo";

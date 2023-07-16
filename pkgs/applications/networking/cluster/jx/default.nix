@@ -1,4 +1,10 @@
-{ stdenv, buildGoModule, fetchFromGitHub, lib, installShellFiles }:
+{
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  installShellFiles,
+}:
 
 buildGoModule rec {
   pname = "jx";

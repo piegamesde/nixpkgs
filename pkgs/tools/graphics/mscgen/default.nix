@@ -1,5 +1,17 @@
-{ lib, stdenv, bison, fetchurl, flex, gd, libjpeg, libpng, libwebp, pkg-config
-, runtimeShell, zlib }:
+{
+  lib,
+  stdenv,
+  bison,
+  fetchurl,
+  flex,
+  gd,
+  libjpeg,
+  libpng,
+  libwebp,
+  pkg-config,
+  runtimeShell,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mscgen";

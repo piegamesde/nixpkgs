@@ -1,6 +1,18 @@
-{ lib, appdirs, beautifulsoup4, buildPythonPackage, cryptography
-, fetchFromGitHub, frozendict, multitasking, numpy, pandas, pythonOlder
-, requests, lxml }:
+{
+  lib,
+  appdirs,
+  beautifulsoup4,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  frozendict,
+  multitasking,
+  numpy,
+  pandas,
+  pythonOlder,
+  requests,
+  lxml,
+}:
 
 buildPythonPackage rec {
   pname = "yfinance";

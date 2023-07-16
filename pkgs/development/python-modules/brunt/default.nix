@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, aiohttp, requests
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  aiohttp,
+  requests,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "brunt";

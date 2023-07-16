@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, perlPackages, mutt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perlPackages,
+  mutt,
+}:
 
 stdenv.mkDerivation {
   pname = "grepm";
