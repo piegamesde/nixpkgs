@@ -73,7 +73,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enableSound SDL2_mixer
     ++ (lib.optionals stdenv.isDarwin (
-      assert (lib.assertMsg (darwin != null)
+      assert (lib.assertMsg
+        (darwin != null)
         "Must have darwin frameworks available for darwin builds");
       with darwin.apple_sdk.frameworks; [
         AppKit

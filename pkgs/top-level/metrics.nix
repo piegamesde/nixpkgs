@@ -5,7 +5,8 @@
 
 with pkgs;
 
-runCommand "nixpkgs-metrics" {
+runCommand "nixpkgs-metrics"
+{
   nativeBuildInputs = with pkgs.lib;
     map getBin [
       nix
@@ -15,7 +16,8 @@ runCommand "nixpkgs-metrics" {
   requiredSystemFeatures = [
       "benchmark"
     ]; # dedicated `t2a` machine, by @vcunat
-} ''
+}
+''
   export NIX_STORE_DIR=$TMPDIR/store
   export NIX_STATE_DIR=$TMPDIR/state
   export NIX_PAGER=

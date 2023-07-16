@@ -43,9 +43,11 @@ stdenv.mkDerivation rec {
 
   cmakeFlags =
     [ "-DBUILD_CSOUND_AC=0" ] # fails to find Score.hpp
-    ++ lib.optional stdenv.isDarwin
-      "-DCS_FRAMEWORK_DEST=${placeholder "out"}/lib"
-    ++ lib.optional (libjack2 != null)
+    ++ lib.optional stdenv.isDarwin "-DCS_FRAMEWORK_DEST=${
+        placeholder "out"
+      }/lib"
+    ++ lib.optional
+      (libjack2 != null)
       "-DJACK_HEADER=${libjack2}/include/jack/jack.h"
     ;
 
@@ -68,8 +70,8 @@ stdenv.mkDerivation rec {
       CoreMIDI
       portaudio
     ]
-    ++ lib.optionals stdenv.isLinux
-      (builtins.filter (optional: optional != null) [
+    ++ lib.optionals stdenv.isLinux (
+      builtins.filter (optional: optional != null) [
         alsa-lib
         libpulseaudio
         libjack2
@@ -80,7 +82,8 @@ stdenv.mkDerivation rec {
         curl
         tcltk
         fltk
-      ])
+      ]
+    )
     ;
 
   postInstall = lib.optional stdenv.isDarwin ''

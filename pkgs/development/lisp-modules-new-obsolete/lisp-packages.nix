@@ -66,10 +66,14 @@ let
     let
       toSet =
         list:
-        builtins.listToAttrs (map (d: {
-          name = d.pname;
-          value = d;
-        }) list)
+        builtins.listToAttrs (
+          map
+          (d: {
+            name = d.pname;
+            value = d;
+          })
+          list
+        )
         ;
       toList = attrValues;
       walk =
@@ -285,13 +289,17 @@ let
             let
               mkSystemsRegex =
                 systems:
-                concatMapStringsSep "\\|" (replaceStrings [
-                  "."
-                  "+"
-                ] [
-                  "[.]"
-                  "[+]"
-                ]) systems
+                concatMapStringsSep "\\|"
+                (replaceStrings
+                  [
+                    "."
+                    "+"
+                  ]
+                  [
+                    "[.]"
+                    "[+]"
+                  ])
+                systems
                 ;
             in
             ''
@@ -321,13 +329,18 @@ let
             patches = [ ];
 
               # make sure that propagated build-inputs from lispLibs are propagated
-            propagatedBuildInputs = lib.unique (builtins.concatLists
-              (lib.catAttrs "propagatedBuildInputs" (builtins.concatLists [
-                [ args ]
-                lispLibs
-                nativeLibs
-                javaLibs
-              ])));
+            propagatedBuildInputs = lib.unique (
+              builtins.concatLists (
+                lib.catAttrs "propagatedBuildInputs" (
+                  builtins.concatLists [
+                    [ args ]
+                    lispLibs
+                    nativeLibs
+                    javaLibs
+                  ]
+                )
+              )
+            );
           }
         )
       )
@@ -408,15 +421,20 @@ let
 
   makeAttrName =
     str:
-    removeSuffix "_" (replaceStrings [
-      "+"
-      "."
-      "/"
-    ] [
-      "_plus_"
-      "_dot_"
-      "_slash_"
-    ] str)
+    removeSuffix "_" (
+      replaceStrings
+      [
+        "+"
+        "."
+        "/"
+      ]
+      [
+        "_plus_"
+        "_dot_"
+        "_slash_"
+      ]
+      str
+    )
     ;
 
   oldMakeWrapper = pkgs.runCommand "make-wrapper.sh" { } ''
@@ -440,28 +458,31 @@ let
       version = "with-packages";
       lispLibs = packages clpkgs;
       systems = [ ];
-    }).overrideAttrs (o: {
-      installPhase = ''
-        # The recent version of makeWrapper causes breakage. For more info see
-        # https://github.com/Uthar/nix-cl/issues/2
-        source ${oldMakeWrapper}
+    }).overrideAttrs
+    (
+      o: {
+        installPhase = ''
+          # The recent version of makeWrapper causes breakage. For more info see
+          # https://github.com/Uthar/nix-cl/issues/2
+          source ${oldMakeWrapper}
 
-        mkdir -pv $out/bin
-        makeWrapper \
-          ${head (split " " o.lisp)} \
-          $out/bin/${baseNameOf (head (split " " o.lisp))} \
-          --prefix CL_SOURCE_REGISTRY : "${o.CL_SOURCE_REGISTRY}" \
-          --prefix ASDF_OUTPUT_TRANSLATIONS : ${
-            concatStringsSep "::" (flattenedDeps o.lispLibs)
-          }: \
-          --prefix LD_LIBRARY_PATH : "${o.LD_LIBRARY_PATH}" \
-          --prefix LD_LIBRARY_PATH : "${makeLibraryPath o.nativeLibs}" \
-          --prefix CLASSPATH : "${o.CLASSPATH}" \
-          --prefix CLASSPATH : "${makeSearchPath "share/java/*" o.javaLibs}" \
-          --prefix PATH : "${makeBinPath (o.buildInputs or [ ])}" \
-          --prefix PATH : "${makeBinPath (o.propagatedBuildInputs or [ ])}"
-      '';
-    })
+          mkdir -pv $out/bin
+          makeWrapper \
+            ${head (split " " o.lisp)} \
+            $out/bin/${baseNameOf (head (split " " o.lisp))} \
+            --prefix CL_SOURCE_REGISTRY : "${o.CL_SOURCE_REGISTRY}" \
+            --prefix ASDF_OUTPUT_TRANSLATIONS : ${
+              concatStringsSep "::" (flattenedDeps o.lispLibs)
+            }: \
+            --prefix LD_LIBRARY_PATH : "${o.LD_LIBRARY_PATH}" \
+            --prefix LD_LIBRARY_PATH : "${makeLibraryPath o.nativeLibs}" \
+            --prefix CLASSPATH : "${o.CLASSPATH}" \
+            --prefix CLASSPATH : "${makeSearchPath "share/java/*" o.javaLibs}" \
+            --prefix PATH : "${makeBinPath (o.buildInputs or [ ])}" \
+            --prefix PATH : "${makeBinPath (o.propagatedBuildInputs or [ ])}"
+        '';
+      }
+    )
     ;
 
   lispWithPackages =

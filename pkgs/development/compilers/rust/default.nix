@@ -68,7 +68,8 @@ in
         # nothing in the final package set should refer to this.
         bootstrapRustPackages = self.buildRustPackages.overrideScope' (
           _: _:
-          lib.optionalAttrs (stdenv.buildPlatform == stdenv.hostPlatform)
+          lib.optionalAttrs
+          (stdenv.buildPlatform == stdenv.hostPlatform)
           (selectRustPackage buildPackages).packages.prebuilt
         );
         bootRustPlatform = makeRustPlatform bootstrapRustPackages;
@@ -95,9 +96,9 @@ in
 
               # Use boot package set to break cycle
             rustPlatform = bootRustPlatform;
-          } // lib.optionalAttrs (
-            stdenv.cc.isClang && stdenv.hostPlatform == stdenv.buildPlatform
-          ) {
+          } // lib.optionalAttrs
+          (stdenv.cc.isClang && stdenv.hostPlatform == stdenv.buildPlatform)
+          {
             stdenv = llvmBootstrapForDarwin.stdenv;
             pkgsBuildBuild = pkgsBuildBuild // {
               targetPackages.stdenv = llvmBootstrapForDarwin.stdenv;

@@ -193,8 +193,9 @@ mkDerivation rec {
       qtsvg
       (perl.withPackages (ppkgs: with ppkgs; [ URI ]))
     ]
-    ++ lib.flatten
-      (builtins.catAttrs "pkgs" (builtins.filter (e: e.enable) options))
+    ++ lib.flatten (
+      builtins.catAttrs "pkgs" (builtins.filter (e: e.enable) options)
+    )
     ;
 
   nativeBuildInputs = [

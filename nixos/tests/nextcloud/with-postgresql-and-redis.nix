@@ -47,9 +47,11 @@ args@{
             config = {
               dbtype = "pgsql";
               inherit adminuser;
-              adminpassFile = toString (pkgs.writeText "admin-pass-file" ''
-                ${adminpass}
-              '');
+              adminpassFile = toString (
+                pkgs.writeText "admin-pass-file" ''
+                  ${adminpass}
+                ''
+              );
               trustedProxies = [ "::1" ];
             };
             notify_push = {
@@ -120,4 +122,5 @@ args@{
       ''
       ;
   }
-)) args
+))
+args

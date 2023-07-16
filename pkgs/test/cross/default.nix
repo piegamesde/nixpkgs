@@ -5,13 +5,15 @@
 
 let
 
-  testedSystems = lib.filterAttrs (
-    name: value:
-    let
-      platform = lib.systems.elaborate value;
-    in
-    platform.isLinux || platform.isWindows
-  ) lib.systems.examples;
+  testedSystems = lib.filterAttrs
+    (
+      name: value:
+      let
+        platform = lib.systems.elaborate value;
+      in
+      platform.isLinux || platform.isWindows
+    )
+    lib.systems.examples;
 
   getExecutable =
     pkgs: pkgFun: exec:
@@ -31,9 +33,9 @@ let
       pkgName = (pkgFun hostPkgs).name;
       args' = lib.concatStringsSep " " args;
     in
-    crossPkgs.runCommand "test-${pkgName}-${crossPkgs.hostPlatform.config}" {
-      nativeBuildInputs = [ pkgs.dos2unix ];
-    } ''
+    crossPkgs.runCommand "test-${pkgName}-${crossPkgs.hostPlatform.config}"
+    { nativeBuildInputs = [ pkgs.dos2unix ]; }
+    ''
       # Just in case we are using wine, get rid of that annoying extra
       # stuff.
       export WINEDEBUG=-all
@@ -74,7 +76,8 @@ let
 
   mapMultiPlatformTest =
     crossSystemFun: test:
-    lib.mapAttrs (
+    lib.mapAttrs
+    (
       name: system:
       test rec {
         crossPkgs = import pkgs.path {
@@ -98,7 +101,8 @@ let
             pkg
           ;
       }
-    ) testedSystems
+    )
+    testedSystems
     ;
 
   tests = {
@@ -141,7 +145,8 @@ let
         crossPkgs,
         emulator,
       }:
-      crossPkgs.runCommand "test-pkg-config-${crossPkgs.hostPlatform.config}" {
+      crossPkgs.runCommand "test-pkg-config-${crossPkgs.hostPlatform.config}"
+      {
         depsBuildBuild = [ crossPkgs.pkgsBuildBuild.pkg-config ];
         nativeBuildInputs = [
           crossPkgs.pkgsBuildHost.pkg-config
@@ -150,7 +155,8 @@ let
         depsBuildTarget = [ crossPkgs.pkgsBuildTarget.pkg-config ];
         buildInputs = [ crossPkgs.zlib ];
         NIX_DEBUG = 7;
-      } ''
+      }
+      ''
         mkdir $out
         ${crossPkgs.pkgsBuildBuild.pkg-config.targetPrefix}pkg-config --cflags zlib > "$out/for-build"
         ${crossPkgs.pkgsBuildHost.pkg-config.targetPrefix}pkg-config --cflags zlib > "$out/for-host"
@@ -162,11 +168,11 @@ let
 in
 {
   gcc =
-    (lib.mapAttrs (
-      _: mapMultiPlatformTest (system: system // { useLLVM = false; })
-    ) tests);
+    (lib.mapAttrs
+      (_: mapMultiPlatformTest (system: system // { useLLVM = false; }))
+      tests);
   llvm =
-    (lib.mapAttrs (
-      _: mapMultiPlatformTest (system: system // { useLLVM = true; })
-    ) tests);
+    (lib.mapAttrs
+      (_: mapMultiPlatformTest (system: system // { useLLVM = true; }))
+      tests);
 }

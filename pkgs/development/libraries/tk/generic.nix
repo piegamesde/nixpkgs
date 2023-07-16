@@ -36,13 +36,15 @@ tcl.mkTclDerivation {
         substituteInPlace $file --replace "exec wish" "exec $out/bin/wish"
       done
     ''
-    + lib.optionalString (
-      stdenv.isDarwin
-      && lib.versionOlder stdenv.targetPlatform.darwinMinVersion "11"
-    ) ''
-      substituteInPlace unix/configure* \
-        --replace " -framework UniformTypeIdentifiers" ""
-    ''
+    + lib.optionalString
+      (
+        stdenv.isDarwin
+        && lib.versionOlder stdenv.targetPlatform.darwinMinVersion "11"
+      )
+      ''
+        substituteInPlace unix/configure* \
+          --replace " -framework UniformTypeIdentifiers" ""
+      ''
     ;
 
   postInstall =
@@ -70,7 +72,8 @@ tcl.mkTclDerivation {
     ++ lib.optionals enableAqua (
       [ darwin.apple_sdk.frameworks.Cocoa ]
       ++ lib.optionals
-        (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") [
+        (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
+        [
           darwin.apple_sdk.frameworks.UniformTypeIdentifiers
         ]
     )

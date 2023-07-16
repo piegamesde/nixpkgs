@@ -52,7 +52,8 @@ rec {
     # the packages named in the input set to the corresponding versions
   packageSourceOverrides =
     overrides: self: super:
-    pkgs.lib.mapAttrs (
+    pkgs.lib.mapAttrs
+    (
       name: src:
       let
         isPath = x: builtins.substring 0 1 (toString x) == "/";
@@ -64,7 +65,8 @@ rec {
           ;
       in
       generateExprs name src { }
-    ) overrides
+    )
+    overrides
     ;
 
     /* doCoverage modifies a haskell package to enable the generation
@@ -135,12 +137,14 @@ rec {
     /* doDistribute enables the distribution of binaries for the package
        via hydra.
     */
-  doDistribute = overrideCabal (drv: {
-    # lib.platforms.all is the default value for platforms (since GHC can cross-compile)
-    hydraPlatforms = lib.subtractLists (drv.badPlatforms or [ ]) (
-      drv.platforms or lib.platforms.all
-    );
-  });
+  doDistribute = overrideCabal (
+    drv: {
+      # lib.platforms.all is the default value for platforms (since GHC can cross-compile)
+      hydraPlatforms = lib.subtractLists (drv.badPlatforms or [ ]) (
+        drv.platforms or lib.platforms.all
+      );
+    }
+  );
     /* dontDistribute disables the distribution of binaries for the package
        via hydra.
     */
@@ -174,8 +178,9 @@ rec {
     */
   removeConfigureFlag =
     x:
-    overrideCabal
-    (drv: { configureFlags = lib.remove x (drv.configureFlags or [ ]); })
+    overrideCabal (
+      drv: { configureFlags = lib.remove x (drv.configureFlags or [ ]); }
+    )
     ;
 
   addBuildTool = x: addBuildTools [ x ];
@@ -197,22 +202,25 @@ rec {
   addTestToolDepend = x: addTestToolDepends [ x ];
   addTestToolDepends =
     xs:
-    overrideCabal
-    (drv: { testToolDepends = (drv.testToolDepends or [ ]) ++ xs; })
+    overrideCabal (
+      drv: { testToolDepends = (drv.testToolDepends or [ ]) ++ xs; }
+    )
     ;
 
   addPkgconfigDepend = x: addPkgconfigDepends [ x ];
   addPkgconfigDepends =
     xs:
-    overrideCabal
-    (drv: { pkg-configDepends = (drv.pkg-configDepends or [ ]) ++ xs; })
+    overrideCabal (
+      drv: { pkg-configDepends = (drv.pkg-configDepends or [ ]) ++ xs; }
+    )
     ;
 
   addSetupDepend = x: addSetupDepends [ x ];
   addSetupDepends =
     xs:
-    overrideCabal
-    (drv: { setupHaskellDepends = (drv.setupHaskellDepends or [ ]) ++ xs; })
+    overrideCabal (
+      drv: { setupHaskellDepends = (drv.setupHaskellDepends or [ ]) ++ xs; }
+    )
     ;
 
   enableCabalFlag =
@@ -220,10 +228,12 @@ rec {
   disableCabalFlag =
     x: drv: appendConfigureFlag "-f-${x}" (removeConfigureFlag "-f${x}" drv);
 
-  markBroken = overrideCabal (drv: {
-    broken = true;
-    hydraPlatforms = [ ];
-  });
+  markBroken = overrideCabal (
+    drv: {
+      broken = true;
+      hydraPlatforms = [ ];
+    }
+  );
   unmarkBroken = overrideCabal (drv: { broken = false; });
   markBrokenVersion =
     version: drv: assert drv.version == version; markBroken drv;
@@ -311,18 +321,20 @@ rec {
     */
   sdistTarball =
     pkg:
-    lib.overrideDerivation pkg (drv: {
-      name = "${drv.pname}-source-${drv.version}";
-        # Since we disable the haddock phase, we also need to override the
-        # outputs since the separate doc output will not be produced.
-      outputs = [ "out" ];
-      buildPhase = "./Setup sdist";
-      haddockPhase = ":";
-      checkPhase = ":";
-      installPhase =
-        "install -D dist/${drv.pname}-*.tar.gz $out/${drv.pname}-${drv.version}.tar.gz";
-      fixupPhase = ":";
-    })
+    lib.overrideDerivation pkg (
+      drv: {
+        name = "${drv.pname}-source-${drv.version}";
+          # Since we disable the haddock phase, we also need to override the
+          # outputs since the separate doc output will not be produced.
+        outputs = [ "out" ];
+        buildPhase = "./Setup sdist";
+        haddockPhase = ":";
+        checkPhase = ":";
+        installPhase =
+          "install -D dist/${drv.pname}-*.tar.gz $out/${drv.pname}-${drv.version}.tar.gz";
+        fixupPhase = ":";
+      }
+    )
     ;
 
     /* Create a documentation tarball suitable for uploading to Hackage instead
@@ -330,26 +342,28 @@ rec {
     */
   documentationTarball =
     pkg:
-    pkgs.lib.overrideDerivation pkg (drv: {
-      name = "${drv.name}-docs";
-        # Like sdistTarball, disable the "doc" output here.
-      outputs = [ "out" ];
-      buildPhase = ''
-        runHook preHaddock
-        ./Setup haddock --for-hackage
-        runHook postHaddock
-      '';
-      haddockPhase = ":";
-      checkPhase = ":";
-      installPhase = ''
-        runHook preInstall
-        mkdir -p "$out"
-        tar --format=ustar \
-          -czf "$out/${drv.name}-docs.tar.gz" \
-          -C dist/doc/html "${drv.name}-docs"
-        runHook postInstall
-      '';
-    })
+    pkgs.lib.overrideDerivation pkg (
+      drv: {
+        name = "${drv.name}-docs";
+          # Like sdistTarball, disable the "doc" output here.
+        outputs = [ "out" ];
+        buildPhase = ''
+          runHook preHaddock
+          ./Setup haddock --for-hackage
+          runHook postHaddock
+        '';
+        haddockPhase = ":";
+        checkPhase = ":";
+        installPhase = ''
+          runHook preInstall
+          mkdir -p "$out"
+          tar --format=ustar \
+            -czf "$out/${drv.name}-docs.tar.gz" \
+            -C dist/doc/html "${drv.name}-docs"
+          runHook postInstall
+        '';
+      }
+    )
     ;
 
     /* Use the gold linker. It is a linker for ELF that is designed
@@ -362,20 +376,22 @@ rec {
     /* link executables statically against haskell libs to reduce
        closure size
     */
-  justStaticExecutables = overrideCabal (drv: {
-    enableSharedExecutables = false;
-    enableLibraryProfiling = false;
-    isLibrary = false;
-    doHaddock = false;
-    postFixup =
-      drv.postFixup or ""
-      + ''
+  justStaticExecutables = overrideCabal (
+    drv: {
+      enableSharedExecutables = false;
+      enableLibraryProfiling = false;
+      isLibrary = false;
+      doHaddock = false;
+      postFixup =
+        drv.postFixup or ""
+        + ''
 
-        # Remove every directory which could have links to other store paths.
-        rm -rf $out/lib $out/nix-support $out/share/doc
-      ''
-      ;
-  });
+          # Remove every directory which could have links to other store paths.
+          rm -rf $out/lib $out/nix-support $out/share/doc
+        ''
+        ;
+    }
+  );
 
     /* Build a source distribution tarball instead of using the source files
        directly. The effect is that the package is built as if it were published
@@ -387,14 +403,16 @@ rec {
     */
   buildFromSdist =
     pkg:
-    overrideCabal (drv: {
+    overrideCabal
+    (drv: {
       src = "${sdistTarball pkg}/${pkg.pname}-${pkg.version}.tar.gz";
 
         # Revising and jailbreaking the cabal file has been handled in sdistTarball
       revision = null;
       editedCabalFile = null;
       jailbreak = false;
-    }) pkg
+    })
+    pkg
     ;
 
     /* Build the package in a strict way to uncover potential problems.
@@ -428,7 +446,8 @@ rec {
       ignorePackages ? [ ]
     }:
     drv:
-    overrideCabal (_drv: {
+    overrideCabal
+    (_drv: {
       postBuild = with lib;
         let
           args = concatStringsSep " " (
@@ -440,7 +459,8 @@ rec {
         "${pkgs.haskellPackages.packunused}/bin/packunused"
         + optionalString (args != "") " ${args}"
         ;
-    }) (appendConfigureFlag "--ghc-option=-ddump-minimal-imports" drv)
+    })
+    (appendConfigureFlag "--ghc-option=-ddump-minimal-imports" drv)
     ;
 
   buildStackProject = pkgs.callPackage ../generic-stack-builder.nix { };
@@ -462,7 +482,8 @@ rec {
       version ? null
     }:
     drv:
-    overrideCabal (_: {
+    overrideCabal
+    (_: {
       inherit src;
       version =
         if version == null then
@@ -471,7 +492,8 @@ rec {
           version
         ;
       editedCabalFile = null;
-    }) drv
+    })
+    drv
     ;
 
     # Get all of the build inputs of a haskell package, divided by category.
@@ -566,28 +588,30 @@ rec {
     */
   __generateOptparseApplicativeCompletion =
     exeName:
-    overrideCabal (drv: {
-      postInstall =
-        (
-          drv.postInstall or ""
-        )
-        + ''
-          bashCompDir="''${!outputBin}/share/bash-completion/completions"
-          zshCompDir="''${!outputBin}/share/zsh/vendor-completions"
-          fishCompDir="''${!outputBin}/share/fish/vendor_completions.d"
-          mkdir -p "$bashCompDir" "$zshCompDir" "$fishCompDir"
-          "''${!outputBin}/bin/${exeName}" --bash-completion-script "''${!outputBin}/bin/${exeName}" >"$bashCompDir/${exeName}"
-          "''${!outputBin}/bin/${exeName}" --zsh-completion-script "''${!outputBin}/bin/${exeName}" >"$zshCompDir/_${exeName}"
-          "''${!outputBin}/bin/${exeName}" --fish-completion-script "''${!outputBin}/bin/${exeName}" >"$fishCompDir/${exeName}.fish"
+    overrideCabal (
+      drv: {
+        postInstall =
+          (
+            drv.postInstall or ""
+          )
+          + ''
+            bashCompDir="''${!outputBin}/share/bash-completion/completions"
+            zshCompDir="''${!outputBin}/share/zsh/vendor-completions"
+            fishCompDir="''${!outputBin}/share/fish/vendor_completions.d"
+            mkdir -p "$bashCompDir" "$zshCompDir" "$fishCompDir"
+            "''${!outputBin}/bin/${exeName}" --bash-completion-script "''${!outputBin}/bin/${exeName}" >"$bashCompDir/${exeName}"
+            "''${!outputBin}/bin/${exeName}" --zsh-completion-script "''${!outputBin}/bin/${exeName}" >"$zshCompDir/_${exeName}"
+            "''${!outputBin}/bin/${exeName}" --fish-completion-script "''${!outputBin}/bin/${exeName}" >"$fishCompDir/${exeName}.fish"
 
-          # Sanity check
-          grep -F ${exeName} <$bashCompDir/${exeName} >/dev/null || {
-            echo 'Could not find ${exeName} in completion script.'
-            exit 1
-          }
-        ''
-        ;
-    })
+            # Sanity check
+            grep -F ${exeName} <$bashCompDir/${exeName} >/dev/null || {
+              echo 'Could not find ${exeName} in completion script.'
+              exit 1
+            }
+          ''
+          ;
+      }
+    )
     ;
 
     /* Retained for backwards compatibility.
@@ -635,44 +659,50 @@ rec {
       # closePropagationFast.
       propagatedPlainBuildInputs =
         drvs:
-        builtins.map (i: i.val) (builtins.genericClosure {
-          startSet = builtins.map (drv: {
-            key = drv.outPath;
-            val = drv;
-          }) drvs;
-          operator =
-            {
-              val,
-              ...
-            }:
-            if !lib.isDerivation val then
-              [ ]
-            else
-              builtins.concatMap (
-                drv:
-                if !lib.isDerivation drv then
-                  [ ]
-                else
-                  [ {
-                    key = drv.outPath;
-                    val = drv;
-                  } ]
-              ) (
-                val.buildInputs or [ ] ++ val.propagatedBuildInputs or [ ]
-              )
-            ;
-        })
+        builtins.map (i: i.val) (
+          builtins.genericClosure {
+            startSet = builtins.map
+              (drv: {
+                key = drv.outPath;
+                val = drv;
+              })
+              drvs;
+            operator =
+              {
+                val,
+                ...
+              }:
+              if !lib.isDerivation val then
+                [ ]
+              else
+                builtins.concatMap
+                (
+                  drv:
+                  if !lib.isDerivation drv then
+                    [ ]
+                  else
+                    [ {
+                      key = drv.outPath;
+                      val = drv;
+                    } ]
+                )
+                (val.buildInputs or [ ] ++ val.propagatedBuildInputs or [ ])
+              ;
+          }
+        )
         ;
     in
-    overrideCabal (old: {
-      benchmarkPkgconfigDepends =
-        propagatedPlainBuildInputs old.benchmarkPkgconfigDepends or [ ];
-      executablePkgconfigDepends =
-        propagatedPlainBuildInputs old.executablePkgconfigDepends or [ ];
-      libraryPkgconfigDepends =
-        propagatedPlainBuildInputs old.libraryPkgconfigDepends or [ ];
-      testPkgconfigDepends =
-        propagatedPlainBuildInputs old.testPkgconfigDepends or [ ];
-    })
+    overrideCabal (
+      old: {
+        benchmarkPkgconfigDepends =
+          propagatedPlainBuildInputs old.benchmarkPkgconfigDepends or [ ];
+        executablePkgconfigDepends =
+          propagatedPlainBuildInputs old.executablePkgconfigDepends or [ ];
+        libraryPkgconfigDepends =
+          propagatedPlainBuildInputs old.libraryPkgconfigDepends or [ ];
+        testPkgconfigDepends =
+          propagatedPlainBuildInputs old.testPkgconfigDepends or [ ];
+      }
+    )
     ;
 }

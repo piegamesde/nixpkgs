@@ -134,26 +134,28 @@ in
           See also: https://gluster.readthedocs.io/en/latest/Administrator%20Guide/SSL/
         '';
         default = null;
-        type = types.nullOr (types.submodule {
-          options = {
-            tlsKeyPath = mkOption {
-              type = types.str;
-              description = lib.mdDoc "Path to the private key used for TLS.";
-            };
+        type = types.nullOr (
+          types.submodule {
+            options = {
+              tlsKeyPath = mkOption {
+                type = types.str;
+                description = lib.mdDoc "Path to the private key used for TLS.";
+              };
 
-            tlsPem = mkOption {
-              type = types.path;
-              description = lib.mdDoc "Path to the certificate used for TLS.";
-            };
+              tlsPem = mkOption {
+                type = types.path;
+                description = lib.mdDoc "Path to the certificate used for TLS.";
+              };
 
-            caCert = mkOption {
-              type = types.path;
-              description = lib.mdDoc
-                "Path certificate authority used to sign the cluster certificates."
-                ;
+              caCert = mkOption {
+                type = types.path;
+                description = lib.mdDoc
+                  "Path certificate authority used to sign the cluster certificates."
+                  ;
+              };
             };
-          };
-        });
+          }
+        );
       };
     };
   };

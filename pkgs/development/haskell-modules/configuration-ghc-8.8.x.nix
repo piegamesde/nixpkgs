@@ -105,10 +105,12 @@ self: super: {
   vault = dontHaddock super.vault;
 
     # https://github.com/snapframework/snap-core/issues/288
-  snap-core = overrideCabal (drv: {
-    prePatch =
-      "substituteInPlace src/Snap/Internal/Core.hs --replace 'fail   = Fail.fail' ''";
-  }) super.snap-core;
+  snap-core = overrideCabal
+    (drv: {
+      prePatch =
+        "substituteInPlace src/Snap/Internal/Core.hs --replace 'fail   = Fail.fail' ''";
+    })
+    super.snap-core;
 
     # Upstream ships a broken Setup.hs file.
   csv = overrideCabal (drv: { prePatch = "rm Setup.hs"; }) super.csv;
@@ -152,8 +154,9 @@ self: super: {
 
     # ghc versions which don’t match the ghc-lib-parser-ex version need the
     # additional dependency to compile successfully.
-  ghc-lib-parser-ex = doDistribute
-    (addBuildDepend self.ghc-lib-parser self.ghc-lib-parser-ex_8_10_0_24);
+  ghc-lib-parser-ex = doDistribute (
+    addBuildDepend self.ghc-lib-parser self.ghc-lib-parser-ex_8_10_0_24
+  );
 
     # has a restrictive lower bound on Cabal
   fourmolu = doJailbreak super.fourmolu;
@@ -171,7 +174,8 @@ self: super: {
       dontCheck
     else
       x: x
-  ) super.inline-c-cpp;
+  )
+    super.inline-c-cpp;
 
     # Depends on OneTuple for GHC < 9.0
   universe-base = addBuildDepends [ self.OneTuple ] super.universe-base;

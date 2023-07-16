@@ -89,15 +89,19 @@ let
 
   stdenvs = {
     stdenv = mkStdenv stdenv;
-  } // builtins.listToAttrs (map (v: {
-    name = "clang${v}Stdenv";
-    value = mkStdenv pkgs."llvmPackages_${v}".stdenv;
-  }) [
-    "12"
-    "13"
-    "14"
-    "15"
-  ]);
+  } // builtins.listToAttrs (
+    map
+    (v: {
+      name = "clang${v}Stdenv";
+      value = mkStdenv pkgs."llvmPackages_${v}".stdenv;
+    })
+    [
+      "12"
+      "13"
+      "14"
+      "15"
+    ]
+  );
 
   callPackage = newScope (packages // pkgs.darwin // { inherit MacOSX-SDK; });
 
@@ -139,28 +143,30 @@ let
       inherit (pkgs) rustc cargo;
     };
 
-    callPackage = newScope (lib.optionalAttrs stdenv.isDarwin (
-      stdenvs // rec {
-        inherit (pkgs.darwin.apple_sdk_11_0) xcodebuild rustPlatform;
-        darwin = pkgs.darwin.overrideScope (
-          _: prev: {
-            inherit (prev.darwin.apple_sdk_11_0)
-              IOKit
-              Libsystem
-              LibsystemCross
-              Security
-              configd
-              libcharset
-              libunwind
-              objc4
-              ;
-            apple_sdk = prev.darwin.apple_sdk_11_0;
-            CF = prev.darwin.apple_sdk_11_0.CoreFoundation;
-          }
-        );
-        xcbuild = xcodebuild;
-      }
-    ));
+    callPackage = newScope (
+      lib.optionalAttrs stdenv.isDarwin (
+        stdenvs // rec {
+          inherit (pkgs.darwin.apple_sdk_11_0) xcodebuild rustPlatform;
+          darwin = pkgs.darwin.overrideScope (
+            _: prev: {
+              inherit (prev.darwin.apple_sdk_11_0)
+                IOKit
+                Libsystem
+                LibsystemCross
+                Security
+                configd
+                libcharset
+                libunwind
+                objc4
+                ;
+              apple_sdk = prev.darwin.apple_sdk_11_0;
+              CF = prev.darwin.apple_sdk_11_0.CoreFoundation;
+            }
+          );
+          xcbuild = xcodebuild;
+        }
+      )
+    );
   };
 in
 packages

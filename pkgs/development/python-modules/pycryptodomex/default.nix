@@ -2,12 +2,14 @@
   pycryptodome,
 }:
 
-(pycryptodome.overrideAttrs (oldAttrs: rec {
-  pname = "pycryptodomex";
+(pycryptodome.overrideAttrs (
+  oldAttrs: rec {
+    pname = "pycryptodomex";
 
-  postPatch = ''
-    touch .separate_namespace
-  '';
+    postPatch = ''
+      touch .separate_namespace
+    '';
 
-  pythonImportsCheck = [ "Cryptodome" ];
-}))
+    pythonImportsCheck = [ "Cryptodome" ];
+  }
+))

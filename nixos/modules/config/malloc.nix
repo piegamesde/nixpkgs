@@ -63,15 +63,17 @@ let
 
     # An output that contains only the shared library, to avoid
     # needlessly bloating the system closure
-  mallocLib = pkgs.runCommand "malloc-provider-${cfg.provider}" rec {
-    preferLocalBuild = true;
-    allowSubstitutes = false;
-    origLibPath = providerConf.libPath;
-    libName = baseNameOf origLibPath;
-  } ''
-    mkdir -p $out/lib
-    cp -L $origLibPath $out/lib/$libName
-  '';
+  mallocLib = pkgs.runCommand "malloc-provider-${cfg.provider}"
+    rec {
+      preferLocalBuild = true;
+      allowSubstitutes = false;
+      origLibPath = providerConf.libPath;
+      libName = baseNameOf origLibPath;
+    }
+    ''
+      mkdir -p $out/lib
+      cp -L $origLibPath $out/lib/$libName
+    '';
 
     # The full path to the selected provider shlib.
   providerLibPath = "${mallocLib}/lib/${mallocLib.libName}";
@@ -90,10 +92,14 @@ in
         Briefly, the system-wide memory allocator providers are:
 
         - `libc`: the standard allocator provided by libc
-        ${concatStringsSep "\n" (mapAttrsToList (
-          name: value:
-          "- `${name}`: ${replaceStrings [ "\n" ] [ " " ] value.description}"
-        ) providers)}
+        ${concatStringsSep "\n" (
+          mapAttrsToList
+          (
+            name: value:
+            "- `${name}`: ${replaceStrings [ "\n" ] [ " " ] value.description}"
+          )
+          providers
+        )}
 
         ::: {.warning}
         Selecting an alternative allocator (i.e., anything other than
@@ -115,10 +121,14 @@ in
         r /etc/ld-nix.so.preload,
         r ${config.environment.etc."ld-nix.so.preload".source},
         include "${
-          pkgs.apparmorRulesFromClosure {
+          pkgs.apparmorRulesFromClosure
+          {
             name = "mallocLib";
             baseRules = [ "mr $path/lib/**.so*" ];
-          } [ mallocLib ]
+          }
+          [
+            mallocLib
+          ]
         }"
       '';
     };

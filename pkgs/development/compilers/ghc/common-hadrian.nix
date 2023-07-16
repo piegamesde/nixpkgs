@@ -187,9 +187,12 @@ let
       fetchgit
     else
       fetchurl
-  ) (
-    { inherit url sha256; } // lib.optionalAttrs (rev != null) { inherit rev; }
-  );
+  )
+    (
+      {
+        inherit url sha256;
+      } // lib.optionalAttrs (rev != null) { inherit rev; }
+    );
 
   inherit (stdenv) buildPlatform hostPlatform targetPlatform;
 
@@ -198,7 +201,8 @@ let
     ;
 
     # TODO(@Ericson2314) Make unconditional
-  targetPrefix = lib.optionalString (targetPlatform != hostPlatform)
+  targetPrefix = lib.optionalString
+    (targetPlatform != hostPlatform)
     "${targetPlatform.config}-";
 
   hadrianSettings =
@@ -233,11 +237,13 @@ let
       # https://gitlab.haskell.org/ghc/ghc/-/issues/22081
     ++ lib.optional enableDwarf elfutils
     ++ lib.optional (!enableNativeBignum) gmp
-    ++ lib.optional (
-      platform.libc != "glibc"
-      && !targetPlatform.isWindows
-      && !targetPlatform.isGhcjs
-    ) libiconv
+    ++ lib.optional
+      (
+        platform.libc != "glibc"
+        && !targetPlatform.isWindows
+        && !targetPlatform.isGhcjs
+      )
+      libiconv
     ;
 
     # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
@@ -457,14 +463,16 @@ stdenv.mkDerivation (
         "--with-gmp-includes=${targetPackages.gmp.dev}/include"
         "--with-gmp-libraries=${targetPackages.gmp.out}/lib"
       ]
-      ++ lib.optionals (
-        targetPlatform == hostPlatform
-        && hostPlatform.libc != "glibc"
-        && !targetPlatform.isWindows
-      ) [
-        "--with-iconv-includes=${libiconv}/include"
-        "--with-iconv-libraries=${libiconv}/lib"
-      ]
+      ++ lib.optionals
+        (
+          targetPlatform == hostPlatform
+          && hostPlatform.libc != "glibc"
+          && !targetPlatform.isWindows
+        )
+        [
+          "--with-iconv-includes=${libiconv}/include"
+          "--with-iconv-libraries=${libiconv}/lib"
+        ]
       ++ lib.optionals (targetPlatform != hostPlatform) [
           "--enable-bootstrap-with-devel-snapshot"
         ]

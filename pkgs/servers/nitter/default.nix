@@ -22,13 +22,16 @@ nimPackages.buildNimPackage rec {
         src = ./nitter-version.patch;
         inherit version;
         inherit (src) rev;
-        url = builtins.replaceStrings [
-          "archive"
-          ".tar.gz"
-        ] [
-          "commit"
-          ""
-        ] src.url;
+        url = builtins.replaceStrings
+          [
+            "archive"
+            ".tar.gz"
+          ]
+          [
+            "commit"
+            ""
+          ]
+          src.url;
       })
     ];
 

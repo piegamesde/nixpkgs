@@ -123,8 +123,8 @@ let
           '';
           type = types.path;
           default = config.staticSecretsDirectory + "/cluster-join-token.key";
-          defaultText = literalExpression
-            ''staticSecretsDirectory + "/cluster-join-token.key"'';
+          defaultText = literalExpression ''
+            staticSecretsDirectory + "/cluster-join-token.key"'';
         };
         binaryCachesPath = mkOption {
           description = lib.mdDoc ''
@@ -191,40 +191,47 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "hercules-ci-agent"
-      "extraOptions"
-    ] [
-      "services"
-      "hercules-ci-agent"
-      "settings"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "hercules-ci-agent"
-      "baseDirectory"
-    ] [
-      "services"
-      "hercules-ci-agent"
-      "settings"
-      "baseDirectory"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "hercules-ci-agent"
-      "concurrentTasks"
-    ] [
-      "services"
-      "hercules-ci-agent"
-      "settings"
-      "concurrentTasks"
-    ])
-    (mkRemovedOptionModule [
-      "services"
-      "hercules-ci-agent"
-      "patchNix"
-    ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "hercules-ci-agent"
+        "extraOptions"
+      ]
+      [
+        "services"
+        "hercules-ci-agent"
+        "settings"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "hercules-ci-agent"
+        "baseDirectory"
+      ]
+      [
+        "services"
+        "hercules-ci-agent"
+        "settings"
+        "baseDirectory"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "hercules-ci-agent"
+        "concurrentTasks"
+      ]
+      [
+        "services"
+        "hercules-ci-agent"
+        "settings"
+        "concurrentTasks"
+      ])
+    (mkRemovedOptionModule
+      [
+        "services"
+        "hercules-ci-agent"
+        "patchNix"
+      ]
       "Nix versions packaged in this version of Nixpkgs don't need a patched nix-daemon to work correctly in Hercules CI Agent clusters.")
   ];
 

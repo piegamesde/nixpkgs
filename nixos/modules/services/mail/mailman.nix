@@ -62,11 +62,13 @@ let
     transport_file_type: hash
   '';
 
-  mailmanCfg = lib.generators.toINI { } (recursiveUpdate cfg.settings (
-    (optionalAttrs (cfg.restApiPassFile != null) {
-      webservice.admin_pass = "#NIXOS_MAILMAN_REST_API_PASS_SECRET#";
-    })
-  ));
+  mailmanCfg = lib.generators.toINI { } (
+    recursiveUpdate cfg.settings (
+      (optionalAttrs (cfg.restApiPassFile != null) {
+        webservice.admin_pass = "#NIXOS_MAILMAN_REST_API_PASS_SECRET#";
+      })
+    )
+  );
 
   mailmanCfgFile = pkgs.writeText "mailman-raw.cfg" mailmanCfg;
 
@@ -89,33 +91,39 @@ in
   ###### interface
 
   imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "mailman"
-      "hyperkittyBaseUrl"
-    ] [
-      "services"
-      "mailman"
-      "hyperkitty"
-      "baseUrl"
-    ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "mailman"
+        "hyperkittyBaseUrl"
+      ]
+      [
+        "services"
+        "mailman"
+        "hyperkitty"
+        "baseUrl"
+      ])
 
-    (mkRemovedOptionModule [
-      "services"
-      "mailman"
-      "hyperkittyApiKey"
-    ] ''
-      The Hyperkitty API key is now generated on first run, and not
-      stored in the world-readable Nix store.  To continue using
-      Hyperkitty, you must set services.mailman.hyperkitty.enable = true.
-    '')
-    (mkRemovedOptionModule [
-      "services"
-      "mailman"
-      "package"
-    ] ''
-      Didn't have an effect for several years.
-    '')
+    (mkRemovedOptionModule
+      [
+        "services"
+        "mailman"
+        "hyperkittyApiKey"
+      ]
+      ''
+        The Hyperkitty API key is now generated on first run, and not
+        stored in the world-readable Nix store.  To continue using
+        Hyperkitty, you must set services.mailman.hyperkitty.enable = true.
+      '')
+    (mkRemovedOptionModule
+      [
+        "services"
+        "mailman"
+        "package"
+      ]
+      ''
+        Didn't have an effect for several years.
+      '')
   ];
 
   options = {
@@ -313,8 +321,9 @@ in
       };
 
       serve = {
-        enable = mkEnableOption
-          (lib.mdDoc "Automatic nginx and uwsgi setup for mailman-web");
+        enable = mkEnableOption (
+          lib.mdDoc "Automatic nginx and uwsgi setup for mailman-web"
+        );
 
         virtualRoot = mkOption {
           default = "/";
@@ -454,14 +463,18 @@ in
           '';
         }
         (requirePostfixHash [ "relayDomains" ] "postfix_domains")
-        (requirePostfixHash [
-          "config"
-          "transport_maps"
-        ] "postfix_lmtp")
-        (requirePostfixHash [
-          "config"
-          "local_recipient_maps"
-        ] "postfix_lmtp")
+        (requirePostfixHash
+          [
+            "config"
+            "transport_maps"
+          ]
+          "postfix_lmtp")
+        (requirePostfixHash
+          [
+            "config"
+            "local_recipient_maps"
+          ]
+          "postfix_lmtp")
       ])
       ;
 
@@ -514,11 +527,13 @@ in
             ldap.SCOPE_SUBTREE, "${cfg.ldap.groupSearch.query}")
         AUTH_LDAP_USER_ATTR_MAP = {
           ${
-            concatStrings (flip mapAttrsToList cfg.ldap.attrMap (
-              key: value: ''
-                "${key}": "${value}",
-              ''
-            ))
+            concatStrings (
+              flip mapAttrsToList cfg.ldap.attrMap (
+                key: value: ''
+                  "${key}": "${value}",
+                ''
+              )
+            )
           }
         }
         ${optionalString (cfg.ldap.superUserGroup != null) ''
@@ -535,14 +550,16 @@ in
 
     services.nginx = mkIf (cfg.serve.enable && cfg.webHosts != [ ]) {
       enable = mkDefault true;
-      virtualHosts = lib.genAttrs cfg.webHosts (webHost: {
-        locations = {
-          ${cfg.serve.virtualRoot}.extraConfig =
-            "uwsgi_pass unix:/run/mailman-web.socket;";
-          "${removeSuffix "/" cfg.serve.virtualRoot}/static/".alias =
-            webSettings.STATIC_ROOT + "/";
-        };
-      });
+      virtualHosts = lib.genAttrs cfg.webHosts (
+        webHost: {
+          locations = {
+            ${cfg.serve.virtualRoot}.extraConfig =
+              "uwsgi_pass unix:/run/mailman-web.socket;";
+            "${removeSuffix "/" cfg.serve.virtualRoot}/static/".alias =
+              webSettings.STATIC_ROOT + "/";
+          };
+        }
+      );
     };
 
     environment.systemPackages = [
@@ -758,29 +775,33 @@ in
           WorkingDirectory = "/var/lib/mailman-web";
         };
       };
-    } // flip lib.mapAttrs' {
-      "minutely" = "minutely";
-      "quarter_hourly" = "*:00/15";
-      "hourly" = "hourly";
-      "daily" = "daily";
-      "weekly" = "weekly";
-      "yearly" = "yearly";
-    } (
-      name: startAt:
-      lib.nameValuePair "hyperkitty-${name}" (lib.mkIf cfg.hyperkitty.enable {
-        description = "Trigger ${name} Hyperkitty events";
-        inherit startAt;
-        restartTriggers = [
-            config.environment.etc."mailman3/settings.py".source
-          ];
-        serviceConfig = {
-          ExecStart = "${webEnv}/bin/mailman-web runjobs ${name}";
-          User = cfg.webUser;
-          Group = "mailman";
-          WorkingDirectory = "/var/lib/mailman-web";
-        };
-      })
-    );
+    } // flip lib.mapAttrs'
+      {
+        "minutely" = "minutely";
+        "quarter_hourly" = "*:00/15";
+        "hourly" = "hourly";
+        "daily" = "daily";
+        "weekly" = "weekly";
+        "yearly" = "yearly";
+      }
+      (
+        name: startAt:
+        lib.nameValuePair "hyperkitty-${name}" (
+          lib.mkIf cfg.hyperkitty.enable {
+            description = "Trigger ${name} Hyperkitty events";
+            inherit startAt;
+            restartTriggers = [
+                config.environment.etc."mailman3/settings.py".source
+              ];
+            serviceConfig = {
+              ExecStart = "${webEnv}/bin/mailman-web runjobs ${name}";
+              User = cfg.webUser;
+              Group = "mailman";
+              WorkingDirectory = "/var/lib/mailman-web";
+            };
+          }
+        )
+      );
   };
 
   meta = {

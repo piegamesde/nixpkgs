@@ -71,7 +71,8 @@ in
           "${pkgs.fcgiwrap}/sbin/fcgiwrap -c ${
             builtins.toString cfg.preforkProcesses
           } ${
-            optionalString (cfg.socketType != "unix")
+            optionalString
+            (cfg.socketType != "unix")
             "-s ${cfg.socketType}:${cfg.socketAddress}"
           }";
       } // (

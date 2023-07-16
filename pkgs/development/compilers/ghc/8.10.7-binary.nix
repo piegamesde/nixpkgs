@@ -229,14 +229,17 @@ let
   useLLVM = !stdenv.targetPlatform.isx86;
 
   libPath = lib.makeLibraryPath (
-    # Add arch-specific libraries.
-    map (
+  # Add arch-specific libraries.
+    map
+    (
       {
         nixPackage,
         ...
       }:
       nixPackage
-    ) binDistUsed.archSpecificLibraries);
+    )
+    binDistUsed.archSpecificLibraries
+  );
 
   libEnvVar =
     lib.optionalString stdenv.hostPlatform.isDarwin "DY" + "LD_LIBRARY_PATH";
@@ -286,12 +289,13 @@ stdenv.mkDerivation rec {
     # Verify our assumptions of which `libtinfo.so` (ncurses) version is used,
     # so that we know when ghc bindists upgrade that and we need to update the
     # version used in `libPath`.
-    lib.optionalString (
-      binDistUsed.exePathForLibraryCheck != null
-    )
-    # Note the `*` glob because some GHCs have a suffix when unpacked, e.g.
-    # the musl bindist has dir `ghc-VERSION-x86_64-unknown-linux/`.
-    # As a result, don't shell-quote this glob when splicing the string.
+    lib.optionalString
+      (
+        binDistUsed.exePathForLibraryCheck != null
+      )
+      # Note the `*` glob because some GHCs have a suffix when unpacked, e.g.
+      # the musl bindist has dir `ghc-VERSION-x86_64-unknown-linux/`.
+      # As a result, don't shell-quote this glob when splicing the string.
       (
         let
           buildExeGlob =
@@ -304,25 +308,27 @@ stdenv.mkDerivation rec {
               echo >&2 "GHC binary ${binDistUsed.exePathForLibraryCheck} could not be found in the bindist build directory (at ${buildExeGlob}) for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
             fi
           '')
-          (lib.concatMapStringsSep "\n" (
-            {
-              fileToCheckFor,
-              nixPackage,
-            }:
-            lib.optionalString (fileToCheckFor != null) ''
-              echo "Checking bindist for ${fileToCheckFor} to ensure that is still used"
-              if ! readelf -d ${buildExeGlob} | grep "${fileToCheckFor}"; then
-                echo >&2 "File ${fileToCheckFor} could not be found in ${binDistUsed.exePathForLibraryCheck} for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
-              fi
+          (lib.concatMapStringsSep "\n"
+            (
+              {
+                fileToCheckFor,
+                nixPackage,
+              }:
+              lib.optionalString (fileToCheckFor != null) ''
+                echo "Checking bindist for ${fileToCheckFor} to ensure that is still used"
+                if ! readelf -d ${buildExeGlob} | grep "${fileToCheckFor}"; then
+                  echo >&2 "File ${fileToCheckFor} could not be found in ${binDistUsed.exePathForLibraryCheck} for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
+                fi
 
-              echo "Checking that the nix package ${nixPackage} contains ${fileToCheckFor}"
-              if ! test -e "${
-                lib.getLib nixPackage
-              }/lib/${fileToCheckFor}"; then
-                echo >&2 "Nix package ${nixPackage} did not contain ${fileToCheckFor} for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
-              fi
-            ''
-          ) binDistUsed.archSpecificLibraries)
+                echo "Checking that the nix package ${nixPackage} contains ${fileToCheckFor}"
+                if ! test -e "${
+                  lib.getLib nixPackage
+                }/lib/${fileToCheckFor}"; then
+                  echo >&2 "Nix package ${nixPackage} did not contain ${fileToCheckFor} for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
+                fi
+              ''
+            )
+            binDistUsed.archSpecificLibraries)
         ]
       )
       # GHC has dtrace probes, which causes ld to try to open /usr/lib/libdtrace.dylib
@@ -373,12 +379,12 @@ stdenv.mkDerivation rec {
     # substitution. Which can break the build if the store path / prefix happens
     # to contain this string. This will be fixed with 9.4 bindists.
     # https://gitlab.haskell.org/ghc/ghc/-/issues/21402
-    lib.optionalString (
-      stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64
-    ) ''
-      find . -name package.conf.in \
-          -exec sed -i "s@FFI_LIB_DIR@FFI_LIB_DIR ${numactl.out}/lib@g" {} \;
-    ''
+    lib.optionalString
+      (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64)
+      ''
+        find . -name package.conf.in \
+            -exec sed -i "s@FFI_LIB_DIR@FFI_LIB_DIR ${numactl.out}/lib@g" {} \;
+      ''
     +
     # The hadrian install Makefile uses 'xxx' as a temporary placeholder in path
     # substitution. Which can break the build if the store path / prefix happens

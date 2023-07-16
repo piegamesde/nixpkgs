@@ -50,11 +50,21 @@ let
 
 in
 lib.checkListOfEnum "${pname}: theme accent" validAccents accents
-lib.checkListOfEnum "${pname}: color variant" validVariants [ variant ]
-lib.checkListOfEnum "${pname}: size variant" validSizes [ size ]
-lib.checkListOfEnum "${pname}: tweaks" validTweaks tweaks
+lib.checkListOfEnum
+"${pname}: color variant"
+validVariants
+[ variant ]
+lib.checkListOfEnum
+"${pname}: size variant"
+validSizes
+[ size ]
+lib.checkListOfEnum
+"${pname}: tweaks"
+validTweaks
+tweaks
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation
+rec {
   inherit pname;
   version = "0.4.1";
 

@@ -11,15 +11,17 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "flatpak"
-      "extraPortals"
-    ] [
-      "xdg"
-      "portal"
-      "extraPortals"
-    ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "flatpak"
+        "extraPortals"
+      ]
+      [
+        "xdg"
+        "portal"
+        "extraPortals"
+      ])
 
     (
       {
@@ -49,11 +51,12 @@ in
   meta = { maintainers = teams.freedesktop.members; };
 
   options.xdg.portal = {
-    enable = mkEnableOption (lib.mdDoc
-      "[xdg desktop integration](https://github.com/flatpak/xdg-desktop-portal)")
-      // {
-        default = false;
-      };
+    enable = mkEnableOption (
+      lib.mdDoc
+      "[xdg desktop integration](https://github.com/flatpak/xdg-desktop-portal)"
+    ) // {
+      default = false;
+    };
 
     extraPortals = mkOption {
       type = types.listOf types.package;

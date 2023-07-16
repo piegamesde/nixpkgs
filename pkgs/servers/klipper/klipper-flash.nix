@@ -19,8 +19,9 @@ let
     "lpc176x"
   ];
   matchBoard = with builtins;
-    match ''^.*CONFIG_BOARD_DIRECTORY="([a-zA-Z0-9_]+)".*$''
-    (readFile firmwareConfig);
+    match ''^.*CONFIG_BOARD_DIRECTORY="([a-zA-Z0-9_]+)".*$'' (
+      readFile firmwareConfig
+    );
   boardArch =
     if matchBoard == null then
       null

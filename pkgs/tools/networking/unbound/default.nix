@@ -171,7 +171,8 @@ stdenv.mkDerivation rec {
     ;
 
   preFixup =
-    lib.optionalString withSlimLib
+    lib.optionalString
+      withSlimLib
       # Build libunbound again, but only against nettle instead of openssl.
       # This avoids gnutls.out -> unbound.lib -> lib.getLib openssl.
       ''
@@ -185,11 +186,14 @@ stdenv.mkDerivation rec {
       ''
       # get rid of runtime dependencies on $dev outputs
     + ''substituteInPlace "$lib/lib/libunbound.la" ''
-    + lib.concatMapStrings (
-      pkg:
-      lib.optionalString (pkg ? dev)
-      " --replace '-L${pkg.dev}/lib' '-L${pkg.out}/lib' --replace '-R${pkg.dev}/lib' '-R${pkg.out}/lib'"
-    ) (builtins.filter (p: p != null) buildInputs)
+    + lib.concatMapStrings
+      (
+        pkg:
+        lib.optionalString
+        (pkg ? dev)
+        " --replace '-L${pkg.dev}/lib' '-L${pkg.out}/lib' --replace '-R${pkg.dev}/lib' '-R${pkg.out}/lib'"
+      )
+      (builtins.filter (p: p != null) buildInputs)
     ;
 
   passthru.tests = {

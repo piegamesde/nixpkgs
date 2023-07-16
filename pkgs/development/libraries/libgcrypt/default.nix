@@ -26,8 +26,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-O5wCoAS2jCVq3ZlwHeALODrMzPNxd+DWxYKJZkzODAM=";
   };
 
-  patches = lib.optionals (!stdenv.isLinux)
-    [ # not everywhere to avoid rebuild for now
+  patches =
+    lib.optionals (!stdenv.isLinux) [ # not everywhere to avoid rebuild for now
       (fetchpatch {
         name = "getrandom-conditionalize.patch";
         url =
@@ -60,12 +60,14 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [ "--with-libgpg-error-prefix=${libgpg-error.dev}" ]
-    ++ lib.optional (
-      stdenv.hostPlatform.isMusl
-      || (
-        stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64
+    ++ lib.optional
+      (
+        stdenv.hostPlatform.isMusl
+        || (
+          stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64
+        )
       )
-    ) "--disable-asm"
+      "--disable-asm"
     ; # for darwin see https://dev.gnupg.org/T5157
 
     # Necessary to generate correct assembly when compiling for aarch32 on

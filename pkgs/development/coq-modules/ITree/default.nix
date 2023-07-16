@@ -12,7 +12,8 @@ mkCoqDerivation rec {
   owner = "DeepSpec";
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch coq.version [
+    lib.switch coq.version
+    [
       {
         case = range "8.13" "8.17";
         out = "5.1.0";
@@ -21,7 +22,8 @@ mkCoqDerivation rec {
         case = range "8.10" "8.16";
         out = "4.0.0";
       }
-    ] null;
+    ]
+    null;
   release."5.1.0".sha256 =
     "sha256-ny7Mi1KgWADiFznkNJiRgD7Djc5SUclNgKOmWRxK+eo=";
   release."4.0.0".sha256 =

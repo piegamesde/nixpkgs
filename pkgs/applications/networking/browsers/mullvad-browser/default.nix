@@ -96,17 +96,20 @@ let
     };
   };
 
-  distributionIni = writeText "distribution.ini" (lib.generators.toINI { } {
-    # Some light branding indicating this build uses our distro preferences
-    Global = {
-      id = "nixos";
-      version = "1.0";
-      about = "Mullvad Browser for NixOS";
-    };
-  });
+  distributionIni = writeText "distribution.ini" (
+    lib.generators.toINI { } {
+      # Some light branding indicating this build uses our distro preferences
+      Global = {
+        id = "nixos";
+        version = "1.0";
+        about = "Mullvad Browser for NixOS";
+      };
+    }
+  );
 
-  policiesJson = writeText "policies.json"
-    (builtins.toJSON { policies.DisableAppUpdate = true; });
+  policiesJson = writeText "policies.json" (
+    builtins.toJSON { policies.DisableAppUpdate = true; }
+  );
 in
 stdenv.mkDerivation rec {
   pname = "mullvad-browser";

@@ -87,8 +87,9 @@ stdenv.mkDerivation rec {
       "--infodir=${placeholder "info"}/share/info"
     ]
     ++ lib.optional (!withEmacs) "--without-emacs"
-    ++ lib.optional withEmacs
-      "--emacslispdir=${placeholder "emacs"}/share/emacs/site-lisp"
+    ++ lib.optional withEmacs "--emacslispdir=${
+        placeholder "emacs"
+      }/share/emacs/site-lisp"
     ++ lib.optional (!withRuby) "--without-ruby"
     ;
 

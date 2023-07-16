@@ -16,22 +16,24 @@ in
       mkMatcherOptionType =
         field: description:
         with lib.types;
-        listOf (submodule {
-          options = {
-            name = lib.mkOption {
-              type = str;
-              description = lib.mdDoc "Name to match.";
+        listOf (
+          submodule {
+            options = {
+              name = lib.mkOption {
+                type = str;
+                description = lib.mdDoc "Name to match.";
+              };
+              "${field}" = lib.mkOption {
+                type = int;
+                description = lib.mdDoc description;
+              };
+              location = lib.mkOption {
+                type = str;
+                description = lib.mdDoc "Location to match.";
+              };
             };
-            "${field}" = lib.mkOption {
-              type = int;
-              description = lib.mdDoc description;
-            };
-            location = lib.mkOption {
-              type = str;
-              description = lib.mdDoc "Location to match.";
-            };
-          };
-        })
+          }
+        )
         ;
     in
     {
@@ -83,15 +85,17 @@ in
       ExecStart =
         let
           matchers =
-            (map (
-              m:
-              "--channel_matcher '${m.name},${
-                toString m.channel
-              },${m.location}'"
-            ) cfg.channels)
-            ++ (map (
-              m: "--id_matcher '${m.name},${toString m.id},${m.location}'"
-            ) cfg.ids)
+            (map
+              (
+                m:
+                "--channel_matcher '${m.name},${
+                  toString m.channel
+                },${m.location}'"
+              )
+              cfg.channels)
+            ++ (map
+              (m: "--id_matcher '${m.name},${toString m.id},${m.location}'")
+              cfg.ids)
             ;
         in
         ''

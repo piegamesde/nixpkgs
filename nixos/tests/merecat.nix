@@ -17,11 +17,13 @@ import ./make-test-python.nix (
           settings = {
             hostname = "localhost";
             virtual-host = true;
-            directory = toString (pkgs.runCommand "merecat-webdir" { } ''
-              mkdir -p $out/foo.localhost $out/bar.localhost
-              echo '<h1>Hello foo</h1>' > $out/foo.localhost/index.html
-              echo '<h1>Hello bar</h1>' > $out/bar.localhost/index.html
-            '');
+            directory = toString (
+              pkgs.runCommand "merecat-webdir" { } ''
+                mkdir -p $out/foo.localhost $out/bar.localhost
+                echo '<h1>Hello foo</h1>' > $out/foo.localhost/index.html
+                echo '<h1>Hello bar</h1>' > $out/bar.localhost/index.html
+              ''
+            );
           };
         };
       }

@@ -12,15 +12,17 @@ let
 in
 {
   imports = [
-      (mkRenamedOptionModule [
-        "services"
-        "trickster"
-        "origin"
-      ] [
-        "services"
-        "trickster"
-        "origin-url"
-      ])
+      (mkRenamedOptionModule
+        [
+          "services"
+          "trickster"
+          "origin"
+        ]
+        [
+          "services"
+          "trickster"
+          "origin-url"
+        ])
     ];
 
   options = {
@@ -130,10 +132,12 @@ in
             optionalString (cfg.configFile != null) "-config ${cfg.configFile}"
           } \
           ${
-            optionalString (cfg.profiler-port != null)
+            optionalString
+            (cfg.profiler-port != null)
             "-profiler-port ${cfg.profiler-port}"
           } \
-          ${optionalString (cfg.instance-id != null)
+          ${optionalString
+          (cfg.instance-id != null)
           "-instance-id ${cfg.instance-id}"}
         '';
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";

@@ -63,7 +63,8 @@ in
     ###### implementation
 
   config = mkIf
-    (any (fs: fs == "nfs" || fs == "nfs4") config.boot.supportedFilesystems) {
+    (any (fs: fs == "nfs" || fs == "nfs4") config.boot.supportedFilesystems)
+    {
 
       services.rpcbind.enable = true;
 

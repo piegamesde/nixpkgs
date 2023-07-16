@@ -16,11 +16,12 @@ let
       boolToString v
     else
       toString v;
-  mergedHwConfig = mapAttrsToList (
-    n: v: ''"${n}": "${(concatStringsSep "," (map convType v))}"''
-  ) (foldAttrs (n: a: [ n ] ++ a) [ ] cfg.hardware);
+  mergedHwConfig = mapAttrsToList
+    (n: v: ''"${n}": "${(concatStringsSep "," (map convType v))}"'')
+    (foldAttrs (n: a: [ n ] ++ a) [ ] cfg.hardware);
   mergedConfig = with builtins;
-    mapAttrsToList (
+    mapAttrsToList
+    (
       n: v:
       ''
         "${n}":  ${
@@ -34,27 +35,36 @@ let
           else
             ''"''
         }''
-    ) cfg.config;
+    )
+    cfg.config;
 
   cgminerConfig = pkgs.writeText "cgminer.conf" ''
     {
     ${
-      concatStringsSep ''
+      concatStringsSep
+      ''
         ,
-      '' mergedHwConfig
+      ''
+      mergedHwConfig
     },
     ${
-      concatStringsSep ''
+      concatStringsSep
+      ''
         ,
-      '' mergedConfig
+      ''
+      mergedConfig
     },
     "pools": [
     ${
-      concatStringsSep ''
+      concatStringsSep
+      ''
         ,
-      '' (map (
-        v: ''{"url": "${v.url}", "user": "${v.user}", "pass": "${v.pass}"}''
-      ) cfg.pools)
+      ''
+      (
+        map
+        (v: ''{"url": "${v.url}", "user": "${v.user}", "pass": "${v.pass}"}'')
+        cfg.pools
+      )
     }]
     }
   '';
@@ -65,8 +75,9 @@ in
 
     services.cgminer = {
 
-      enable = mkEnableOption
-        (lib.mdDoc "cgminer, an ASIC/FPGA/GPU miner for bitcoin and litecoin");
+      enable = mkEnableOption (
+        lib.mdDoc "cgminer, an ASIC/FPGA/GPU miner for bitcoin and litecoin"
+      );
 
       package = mkOption {
         default = pkgs.cgminer;

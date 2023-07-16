@@ -21,7 +21,8 @@ let
       systemLog.destination: syslog
       storage.dbPath: ${cfg.dbpath}
       ${optionalString cfg.enableAuth "security.authorization: enabled"}
-      ${optionalString (cfg.replSetName != "")
+      ${optionalString
+      (cfg.replSetName != "")
       "replication.replSetName: ${cfg.replSetName}"}
       ${cfg.extraConfig}
     ''
@@ -207,7 +208,8 @@ in
           ${
             optionalString (cfg.initialScript != null) ''
               ${mongodb}/bin/mongo ${
-                optionalString (cfg.enableAuth)
+                optionalString
+                (cfg.enableAuth)
                 "-u root -p ${cfg.initialRootPassword}"
               } admin "${cfg.initialScript}"
             ''

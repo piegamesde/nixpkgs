@@ -47,7 +47,8 @@ let
     }
     ;
 
-  clang-tools-extra_src = fetch "clang-tools-extra"
+  clang-tools-extra_src = fetch
+    "clang-tools-extra"
     "0lb4kdh7j2fhfz8kd6iv5df7m3pikiryk1vvwsf87spc90n09q0w";
 
   llvm_meta = {
@@ -143,15 +144,19 @@ let
         enablePolly = true;
       };
 
-      llvm-manpages = lowPrio (tools.libllvm.override {
-        enableManpages = true;
-        python3 = pkgs.python3; # don't use python-boot
-      });
+      llvm-manpages = lowPrio (
+        tools.libllvm.override {
+          enableManpages = true;
+          python3 = pkgs.python3; # don't use python-boot
+        }
+      );
 
-      clang-manpages = lowPrio (tools.libclang.override {
-        enableManpages = true;
-        python3 = pkgs.python3; # don't use python-boot
-      });
+      clang-manpages = lowPrio (
+        tools.libclang.override {
+          enableManpages = true;
+          python3 = pkgs.python3; # don't use python-boot
+        }
+      );
 
         # pick clang appropriate for package set we are targeting
       clang =
@@ -222,12 +227,14 @@ let
           + lib.optionalString (!stdenv.targetPlatform.isWasm) ''
             echo "--unwindlib=libunwind" >> $out/nix-support/cc-cflags
           ''
-          + lib.optionalString (
-            !stdenv.targetPlatform.isWasm
-            && stdenv.targetPlatform.useLLVM or false
-          ) ''
-            echo "-lunwind" >> $out/nix-support/cc-ldflags
-          ''
+          + lib.optionalString
+            (
+              !stdenv.targetPlatform.isWasm
+              && stdenv.targetPlatform.useLLVM or false
+            )
+            ''
+              echo "-lunwind" >> $out/nix-support/cc-ldflags
+            ''
           + lib.optionalString stdenv.targetPlatform.isWasm ''
             echo "-fno-exceptions" >> $out/nix-support/cc-cflags
           ''

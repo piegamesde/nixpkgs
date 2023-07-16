@@ -21,9 +21,7 @@ rec {
     let
       tex = pkgs.texlive.combine
         # always include basic stuff you need for LaTeX
-        (
-          { inherit (pkgs.texlive) scheme-basic; } // texPackages
-        );
+        ({ inherit (pkgs.texlive) scheme-basic; } // texPackages);
 
     in
     pkgs.stdenv.mkDerivation {
@@ -41,10 +39,12 @@ rec {
         copySources
         ;
 
-      includes = map (x: [
-        x.key
-        (baseNameOf (toString x.key))
-      ]) (findLaTeXIncludes { inherit rootFile; });
+      includes = map
+        (x: [
+          x.key
+          (baseNameOf (toString x.key))
+        ])
+        (findLaTeXIncludes { inherit rootFile; });
 
       buildInputs =
         [
@@ -81,10 +81,14 @@ rec {
           # "introduction.tex";} {type = "img"; name = "example"}].
           # The type denotes the kind of dependency, which determines
           # what extensions we use to look for it.
-          deps = import (pkgs.runCommand "latex-includes" {
-            rootFile = baseNameOf (toString rootFile);
-            src = key;
-          } "${pkgs.perl}/bin/perl ${./find-includes.pl}");
+          deps = import (
+            pkgs.runCommand "latex-includes"
+            {
+              rootFile = baseNameOf (toString rootFile);
+              src = key;
+            }
+            "${pkgs.perl}/bin/perl ${./find-includes.pl}"
+          );
 
             # Look for the dependencies of `key', trying various
             # extensions determined by the type of each dependency.
@@ -108,8 +112,9 @@ rec {
                 else
                   [ "" ]
                 ;
-              fn = pkgs.lib.findFirst (fn: builtins.pathExists fn) null
-                (map (ext: dirOf key + ("/" + dep.name + ext)) exts);
+              fn = pkgs.lib.findFirst (fn: builtins.pathExists fn) null (
+                map (ext: dirOf key + ("/" + dep.name + ext)) exts
+              );
             in
             if fn != null then
               [ { key = fn; } ] ++ xs
@@ -140,13 +145,16 @@ rec {
 
         let
 
-          deps = import (pkgs.runCommand "lhs2tex-includes" { src = key; }
-            "${pkgs.stdenv.bash}/bin/bash ${./find-lhs2tex-includes.sh}");
+          deps = import (
+            pkgs.runCommand "lhs2tex-includes"
+            { src = key; }
+            "${pkgs.stdenv.bash}/bin/bash ${./find-lhs2tex-includes.sh}"
+          );
 
         in
-        pkgs.lib.concatMap (
-          x: lib.optionals (builtins.pathExists x) [ { key = x; } ]
-        ) (map (x: dirOf key + ("/" + x)) deps)
+        pkgs.lib.concatMap
+        (x: lib.optionals (builtins.pathExists x) [ { key = x; } ])
+        (map (x: dirOf key + ("/" + x)) deps)
         ;
     }
     ;
@@ -198,10 +206,12 @@ rec {
         pkgs.perl
       ];
       copyIncludes = ./copy-includes.pl;
-      includes = map (x: [
-        x.key
-        (baseNameOf (toString x.key))
-      ]) (findLhs2TeXIncludes { rootFile = source; });
+      includes = map
+        (x: [
+          x.key
+          (baseNameOf (toString x.key))
+        ])
+        (findLhs2TeXIncludes { rootFile = source; });
     }
     ;
 

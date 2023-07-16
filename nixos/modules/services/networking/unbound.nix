@@ -40,17 +40,22 @@ let
     ;
 
   confNoServer = concatStringsSep "\n" (
-    (mapAttrsToList (toConf "")
-      (builtins.removeAttrs cfg.settings [ "server" ]))
+    (mapAttrsToList (toConf "") (
+      builtins.removeAttrs cfg.settings [ "server" ]
+    ))
     ++ [ "" ]
   );
-  confServer = concatStringsSep "\n" (mapAttrsToList (toConf "  ")
-    (builtins.removeAttrs cfg.settings.server [ "define-tag" ]));
+  confServer = concatStringsSep "\n" (
+    mapAttrsToList (toConf "  ") (
+      builtins.removeAttrs cfg.settings.server [ "define-tag" ]
+    )
+  );
 
   confFile = pkgs.writeText "unbound.conf" ''
     server:
-    ${optionalString (cfg.settings.server.define-tag != "")
-    (toOption "  " "define-tag" cfg.settings.server.define-tag)}
+    ${optionalString (cfg.settings.server.define-tag != "") (
+      toOption "  " "define-tag" cfg.settings.server.define-tag
+    )}
     ${confServer}
     ${confNoServer}
   '';
@@ -153,10 +158,12 @@ in
                   (attrsOf validSettingsTypes)
                 ];
               in
-              attrsOf (oneOf [
-                settingsType
-                (listOf settingsType)
-              ]) // {
+              attrsOf (
+                oneOf [
+                  settingsType
+                  (listOf settingsType)
+                ]
+              ) // {
                 description = ''
                   unbound.conf configuration type. The format consist of an attribute
                   set of settings. Each settings can be either one value, a list of
@@ -351,54 +358,67 @@ in
   };
 
   imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "unbound"
-      "interfaces"
-    ] [
-      "services"
-      "unbound"
-      "settings"
-      "server"
-      "interface"
-    ])
-    (mkChangedOptionModule [
-      "services"
-      "unbound"
-      "allowedAccess"
-    ] [
-      "services"
-      "unbound"
-      "settings"
-      "server"
-      "access-control"
-    ] (
-      config:
-      map (value: "${value} allow") (getAttrFromPath [
+    (mkRenamedOptionModule
+      [
+        "services"
+        "unbound"
+        "interfaces"
+      ]
+      [
+        "services"
+        "unbound"
+        "settings"
+        "server"
+        "interface"
+      ])
+    (mkChangedOptionModule
+      [
         "services"
         "unbound"
         "allowedAccess"
-      ] config)
-    ))
-    (mkRemovedOptionModule [
-      "services"
-      "unbound"
-      "forwardAddresses"
-    ] ''
-      Add a new setting:
-      services.unbound.settings.forward-zone = [{
-        name = ".";
-        forward-addr = [ # Your current services.unbound.forwardAddresses ];
-      }];
-      If any of those addresses are local addresses (127.0.0.1 or ::1), you must
-      also set services.unbound.settings.server.do-not-query-localhost to false.
-    '')
-    (mkRemovedOptionModule [
-      "services"
-      "unbound"
-      "extraConfig"
-    ] ''
-      You can use services.unbound.settings to add any configuration you want.
-    '')
+      ]
+      [
+        "services"
+        "unbound"
+        "settings"
+        "server"
+        "access-control"
+      ]
+      (
+        config:
+        map (value: "${value} allow") (
+          getAttrFromPath
+          [
+            "services"
+            "unbound"
+            "allowedAccess"
+          ]
+          config
+        )
+      ))
+    (mkRemovedOptionModule
+      [
+        "services"
+        "unbound"
+        "forwardAddresses"
+      ]
+      ''
+        Add a new setting:
+        services.unbound.settings.forward-zone = [{
+          name = ".";
+          forward-addr = [ # Your current services.unbound.forwardAddresses ];
+        }];
+        If any of those addresses are local addresses (127.0.0.1 or ::1), you must
+        also set services.unbound.settings.server.do-not-query-localhost to false.
+      '')
+    (mkRemovedOptionModule
+      [
+        "services"
+        "unbound"
+        "extraConfig"
+      ]
+      ''
+        You can use services.unbound.settings to add any configuration you want.
+      '')
   ];
 }

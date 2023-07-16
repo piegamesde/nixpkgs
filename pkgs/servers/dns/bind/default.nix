@@ -70,7 +70,8 @@ stdenv.mkDerivation rec {
       "--without-lmdb"
     ]
     ++ lib.optional enableGSSAPI "--with-gssapi=${libkrb5.dev}/bin/krb5-config"
-    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+    ++ lib.optional
+      (stdenv.hostPlatform != stdenv.buildPlatform)
       "BUILD_CC=$(CC_FOR_BUILD)"
     ;
 

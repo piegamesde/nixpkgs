@@ -83,11 +83,9 @@ let
                 ;
               getOutputs =
                 value:
-                lib.genAttrs (
-                  value.outputs or (lib.optional (value ? out) "out")
-                ) (
-                  output: value.${output}
-                )
+                lib.genAttrs
+                (value.outputs or (lib.optional (value ? out) "out"))
+                (output: value.${output})
                 ;
               # The derivation along with its outputs, which we recur
               # on to splice them together.

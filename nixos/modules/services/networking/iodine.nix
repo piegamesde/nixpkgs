@@ -19,51 +19,61 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "iodined"
-      "enable"
-    ] [
-      "services"
-      "iodine"
-      "server"
-      "enable"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "iodined"
-      "domain"
-    ] [
-      "services"
-      "iodine"
-      "server"
-      "domain"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "iodined"
-      "ip"
-    ] [
-      "services"
-      "iodine"
-      "server"
-      "ip"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "iodined"
-      "extraConfig"
-    ] [
-      "services"
-      "iodine"
-      "server"
-      "extraConfig"
-    ])
-    (mkRemovedOptionModule [
-      "services"
-      "iodined"
-      "client"
-    ] "")
+    (mkRenamedOptionModule
+      [
+        "services"
+        "iodined"
+        "enable"
+      ]
+      [
+        "services"
+        "iodine"
+        "server"
+        "enable"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "iodined"
+        "domain"
+      ]
+      [
+        "services"
+        "iodine"
+        "server"
+        "domain"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "iodined"
+        "ip"
+      ]
+      [
+        "services"
+        "iodine"
+        "server"
+        "ip"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "iodined"
+        "extraConfig"
+      ]
+      [
+        "services"
+        "iodine"
+        "server"
+        "extraConfig"
+      ])
+    (mkRemovedOptionModule
+      [
+        "services"
+        "iodined"
+        "client"
+      ]
+      "")
   ];
 
     ### configuration
@@ -90,38 +100,41 @@ in
             }
           }
         '';
-        type = types.attrsOf (types.submodule ({
-          options = {
-            server = mkOption {
-              type = types.str;
-              default = "";
-              description = lib.mdDoc "Hostname of server running iodined";
-              example = "tunnel.mydomain.com";
-            };
+        type = types.attrsOf (
+          types.submodule ({
+            options = {
+              server = mkOption {
+                type = types.str;
+                default = "";
+                description = lib.mdDoc "Hostname of server running iodined";
+                example = "tunnel.mydomain.com";
+              };
 
-            relay = mkOption {
-              type = types.str;
-              default = "";
-              description = lib.mdDoc
-                "DNS server to use as an intermediate relay to the iodined server"
-                ;
-              example = "8.8.8.8";
-            };
+              relay = mkOption {
+                type = types.str;
+                default = "";
+                description = lib.mdDoc
+                  "DNS server to use as an intermediate relay to the iodined server"
+                  ;
+                example = "8.8.8.8";
+              };
 
-            extraConfig = mkOption {
-              type = types.str;
-              default = "";
-              description = lib.mdDoc "Additional command line parameters";
-              example = "-l 192.168.1.10 -p 23";
-            };
+              extraConfig = mkOption {
+                type = types.str;
+                default = "";
+                description = lib.mdDoc "Additional command line parameters";
+                example = "-l 192.168.1.10 -p 23";
+              };
 
-            passwordFile = mkOption {
-              type = types.str;
-              default = "";
-              description = lib.mdDoc "Path to a file containing the password.";
+              passwordFile = mkOption {
+                type = types.str;
+                default = "";
+                description =
+                  lib.mdDoc "Path to a file containing the password.";
+              };
             };
-          };
-        }));
+          })
+        );
       };
 
       server = {
@@ -178,8 +191,8 @@ in
             wantedBy = [ "multi-user.target" ];
             script =
               "exec ${pkgs.iodine}/bin/iodine -f -u ${iodinedUser} ${cfg.extraConfig} ${
-                optionalString (cfg.passwordFile != "")
-                ''< "${builtins.toString cfg.passwordFile}"''
+                optionalString (cfg.passwordFile != "") ''
+                  < "${builtins.toString cfg.passwordFile}"''
               } ${cfg.relay} ${cfg.server}";
             serviceConfig = {
               RestartSec = "30s";
@@ -211,18 +224,22 @@ in
           }
           ;
       in
-      listToAttrs (mapAttrsToList (
-        name: value:
-        nameValuePair "iodine-${name}" (createIodineClientService name value)
-      ) cfg.clients) // {
+      listToAttrs (
+        mapAttrsToList
+        (
+          name: value:
+          nameValuePair "iodine-${name}" (createIodineClientService name value)
+        )
+        cfg.clients
+      ) // {
         iodined = mkIf (cfg.server.enable) {
           description = "iodine, ip over dns server daemon";
           after = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
           script =
             "exec ${pkgs.iodine}/bin/iodined -f -u ${iodinedUser} ${cfg.server.extraConfig} ${
-              optionalString (cfg.server.passwordFile != "")
-              ''< "${builtins.toString cfg.server.passwordFile}"''
+              optionalString (cfg.server.passwordFile != "") ''
+                < "${builtins.toString cfg.server.passwordFile}"''
             } ${cfg.server.ip} ${cfg.server.domain}";
           serviceConfig = {
             # Filesystem access

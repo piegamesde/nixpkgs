@@ -65,19 +65,28 @@ let
     export GTEST_FILTER="-AsyncAPICancelation/cancel*"
   '';
   accuracyTests = lib.optionalString runAccuracyTests ''
-    ${builtins.concatStringsSep "\n" (map (
-      test:
-      "${testRunner}${opencv4.package_tests}/opencv_test_${test} --test_threads=$NIX_BUILD_CORES --gtest_filter=$GTEST_FILTER"
-    ) testNames)}
+    ${builtins.concatStringsSep "\n" (
+      map
+      (
+        test:
+        "${testRunner}${opencv4.package_tests}/opencv_test_${test} --test_threads=$NIX_BUILD_CORES --gtest_filter=$GTEST_FILTER"
+      )
+      testNames
+    )}
   '';
   perfomanceTests = lib.optionalString runPerformanceTests ''
-    ${builtins.concatStringsSep "\n" (map (
-      test:
-      "${testRunner}${opencv4.package_tests}/opencv_perf_${test} --perf_impl=plain --perf_min_samples=10 --perf_force_samples=10 --perf_verify_sanity --skip_unstable=1 --gtest_filter=$GTEST_FILTER"
-    ) perfTestNames)}
+    ${builtins.concatStringsSep "\n" (
+      map
+      (
+        test:
+        "${testRunner}${opencv4.package_tests}/opencv_perf_${test} --perf_impl=plain --perf_min_samples=10 --perf_force_samples=10 --perf_verify_sanity --skip_unstable=1 --gtest_filter=$GTEST_FILTER"
+      )
+      perfTestNames
+    )}
   '';
 in
-runCommand "opencv4-tests" {
+runCommand "opencv4-tests"
+{
   nativeBuildInputs = lib.optionals enableGStreamer (
     with gst_all_1; [
       gstreamer
@@ -85,6 +94,5 @@ runCommand "opencv4-tests" {
       gst-plugins-good
     ]
   );
-} (
-  testsPreparation + accuracyTests + perfomanceTests
-)
+}
+(testsPreparation + accuracyTests + perfomanceTests)

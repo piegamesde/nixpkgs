@@ -12,7 +12,8 @@ let
   crioPackage = pkgs.cri-o.override {
     extraPackages =
       cfg.extraPackages
-      ++ lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems)
+      ++ lib.optional
+        (builtins.elem "zfs" config.boot.supportedFilesystems)
         config.boot.zfs.package
       ;
   };
@@ -141,8 +142,8 @@ in
         log_level = cfg.logLevel;
         manage_ns_lifecycle = true;
         pinns_path = "${cfg.package}/bin/pinns";
-        hooks_dir =
-          optional (config.virtualisation.containers.ociSeccompBpfHook.enable)
+        hooks_dir = optional
+          (config.virtualisation.containers.ociSeccompBpfHook.enable)
           config.boot.kernelPackages.oci-seccomp-bpf-hook;
 
         default_runtime = mkIf (cfg.runtime != null) cfg.runtime;

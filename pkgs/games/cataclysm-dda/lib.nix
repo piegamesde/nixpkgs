@@ -32,12 +32,14 @@ rec {
   attachPkgs =
     pkgs: super:
     let
-      self = super.overrideAttrs (old: {
-        passthru = old.passthru // {
-          pkgs = pkgs.override { build = self; };
-          withMods = wrapCDDA self;
-        };
-      });
+      self = super.overrideAttrs (
+        old: {
+          passthru = old.passthru // {
+            pkgs = pkgs.override { build = self; };
+            withMods = wrapCDDA self;
+          };
+        }
+      );
     in
     self
     ;

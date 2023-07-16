@@ -25,15 +25,17 @@ stdenv.mkDerivation rec {
   ];
 
   postPatch =
-    lib.optionalString (
+    lib.optionalString
       (
-        stdenv.hostPlatform != stdenv.buildPlatform
-        && stdenv.hostPlatform.libc == "msvcrt"
+        (
+          stdenv.hostPlatform != stdenv.buildPlatform
+          && stdenv.hostPlatform.libc == "msvcrt"
+        )
+        || stdenv.cc.nativeLibc
       )
-      || stdenv.cc.nativeLibc
-    ) ''
-      sed '/^_GL_WARN_ON_USE (gets/d' -i srclib/stdio.in.h
-    ''
+      ''
+        sed '/^_GL_WARN_ON_USE (gets/d' -i srclib/stdio.in.h
+      ''
     + lib.optionalString (!enableShared) ''
       sed -i -e '/preload/d' Makefile.in
     ''

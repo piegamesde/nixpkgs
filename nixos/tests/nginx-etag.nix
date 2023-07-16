@@ -26,17 +26,19 @@ import ./make-test-python.nix {
 
         specialisation.pass-checks.configuration = {
           services.nginx.virtualHosts.server = {
-            root = lib.mkForce (pkgs.runCommandLocal "testdir2" { } ''
-              mkdir "$out"
-              cat > "$out/test.js" <<EOF
-              document.getElementById('foobar').setAttribute('foo', 'yay');
-              EOF
-              cat > "$out/index.html" <<EOF
-              <!DOCTYPE html>
-              <div id="foobar">test</div>
-              <script src="test.js"></script>
-              EOF
-            '');
+            root = lib.mkForce (
+              pkgs.runCommandLocal "testdir2" { } ''
+                mkdir "$out"
+                cat > "$out/test.js" <<EOF
+                document.getElementById('foobar').setAttribute('foo', 'yay');
+                EOF
+                cat > "$out/index.html" <<EOF
+                <!DOCTYPE html>
+                <div id="foobar">test</div>
+                <script src="test.js"></script>
+                EOF
+              ''
+            );
           };
         };
       }
@@ -50,31 +52,31 @@ import ./make-test-python.nix {
       }: {
         environment.systemPackages =
           let
-            testRunner = pkgs.writers.writePython3Bin "test-runner" {
-              libraries = [ pkgs.python3Packages.selenium ];
-            } ''
-              import os
-              import time
+            testRunner = pkgs.writers.writePython3Bin "test-runner"
+              { libraries = [ pkgs.python3Packages.selenium ]; }
+              ''
+                import os
+                import time
 
-              from selenium.webdriver import Firefox
-              from selenium.webdriver.firefox.options import Options
+                from selenium.webdriver import Firefox
+                from selenium.webdriver.firefox.options import Options
 
-              options = Options()
-              options.add_argument('--headless')
-              driver = Firefox(options=options)
+                options = Options()
+                options.add_argument('--headless')
+                driver = Firefox(options=options)
 
-              driver.implicitly_wait(20)
-              driver.get('http://server/')
-              driver.find_element('xpath', '//div[@foo="bar"]')
-              open('/tmp/passed_stage1', 'w')
+                driver.implicitly_wait(20)
+                driver.get('http://server/')
+                driver.find_element('xpath', '//div[@foo="bar"]')
+                open('/tmp/passed_stage1', 'w')
 
-              while not os.path.exists('/tmp/proceed'):
-                  time.sleep(0.5)
+                while not os.path.exists('/tmp/proceed'):
+                    time.sleep(0.5)
 
-              driver.get('http://server/')
-              driver.find_element('xpath', '//div[@foo="yay"]')
-              open('/tmp/passed', 'w')
-            '';
+                driver.get('http://server/')
+                driver.find_element('xpath', '//div[@foo="yay"]')
+                open('/tmp/passed', 'w')
+              '';
           in
           [
             pkgs.firefox-unwrapped

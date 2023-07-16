@@ -204,20 +204,26 @@ let
 
       clang-unwrapped = tools.libclang;
 
-      llvm-manpages = lowPrio (tools.libllvm.override {
-        enableManpages = true;
-        python3 = pkgs.python3; # don't use python-boot
-      });
+      llvm-manpages = lowPrio (
+        tools.libllvm.override {
+          enableManpages = true;
+          python3 = pkgs.python3; # don't use python-boot
+        }
+      );
 
-      clang-manpages = lowPrio (tools.libclang.override {
-        enableManpages = true;
-        python3 = pkgs.python3; # don't use python-boot
-      });
+      clang-manpages = lowPrio (
+        tools.libclang.override {
+          enableManpages = true;
+          python3 = pkgs.python3; # don't use python-boot
+        }
+      );
 
-      lldb-manpages = lowPrio (tools.lldb.override {
-        enableManpages = true;
-        python3 = pkgs.python3; # don't use python-boot
-      });
+      lldb-manpages = lowPrio (
+        tools.lldb.override {
+          enableManpages = true;
+          python3 = pkgs.python3; # don't use python-boot
+        }
+      );
 
         # pick clang appropriate for package set we are targeting
       clang =
@@ -292,12 +298,15 @@ let
             "-Wno-unused-command-line-argument"
             "-B${targetLlvmLibraries.compiler-rt}/lib"
           ]
-          ++ lib.optional (!stdenv.targetPlatform.isWasm)
+          ++ lib.optional
+            (!stdenv.targetPlatform.isWasm)
             "--unwindlib=libunwind"
-          ++ lib.optional (
-            !stdenv.targetPlatform.isWasm
-            && stdenv.targetPlatform.useLLVM or false
-          ) "-lunwind"
+          ++ lib.optional
+            (
+              !stdenv.targetPlatform.isWasm
+              && stdenv.targetPlatform.useLLVM or false
+            )
+            "-lunwind"
           ++ lib.optional stdenv.targetPlatform.isWasm "-fno-exceptions"
           ;
       };

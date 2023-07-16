@@ -64,10 +64,14 @@ in
 
     boot.loader.grub.extraFiles = {
       "ipxe.lkrn" = "${pkgs.ipxe}/ipxe.lkrn";
-    } // builtins.listToAttrs (map (name: {
-      name = name + ".ipxe";
-      value = scriptFile name;
-    }) scripts);
+    } // builtins.listToAttrs (
+      map
+      (name: {
+        name = name + ".ipxe";
+        value = scriptFile name;
+      })
+      scripts
+    );
   };
 
 }

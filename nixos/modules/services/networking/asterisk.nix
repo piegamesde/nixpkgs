@@ -53,9 +53,11 @@ let
       [logfiles]
       syslog.local0 => notice,warning,error
     '';
-  } // mapAttrs (name: text: { inherit text; }) cfg.confFiles // listToAttrs
-    (map (x: nameValuePair x { source = cfg.package + "/etc/asterisk/" + x; })
-      defaultConfFiles);
+  } // mapAttrs (name: text: { inherit text; }) cfg.confFiles // listToAttrs (
+    map
+    (x: nameValuePair x { source = cfg.package + "/etc/asterisk/" + x; })
+    defaultConfFiles
+  );
 
 in
 {
@@ -213,8 +215,8 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
 
-    environment.etc =
-      mapAttrs' (name: value: nameValuePair "asterisk/${name}" value)
+    environment.etc = mapAttrs'
+      (name: value: nameValuePair "asterisk/${name}" value)
       allConfFiles;
 
     users.users.asterisk = {

@@ -76,14 +76,16 @@ let
     expr':
     let
       expr = " " + expr';
-      acc = builtins.foldl' findSubExpressionsFun {
-        exprs = [ ];
-        expr = expr;
-        pos = 0;
-        openP = 0;
-        exprPos = 0;
-        startPos = 0;
-      } (lib.stringToCharacters expr);
+      acc = builtins.foldl' findSubExpressionsFun
+        {
+          exprs = [ ];
+          expr = expr;
+          pos = 0;
+          openP = 0;
+          exprPos = 0;
+          startPos = 0;
+        }
+        (lib.stringToCharacters expr);
       tailExpr = (substr acc.exprPos acc.pos expr);
       tailExprs =
         if tailExpr != "" then
@@ -100,7 +102,8 @@ let
       splitCond =
         (
           s:
-          builtins.map (
+          builtins.map
+          (
             x:
             stripStr (
               if builtins.typeOf x == "list" then
@@ -108,7 +111,8 @@ let
               else
                 x
             )
-          ) (builtins.split " (and|or) " (s + " "))
+          )
+          (builtins.split " (and|or) " (s + " "))
         );
       mapfn =
         expr:
@@ -137,7 +141,8 @@ let
         builtins.filter (x: x != null) (builtins.map mapfn (splitCond expr))
         ;
     in
-    builtins.foldl' (
+    builtins.foldl'
+    (
       acc: v:
       acc
       ++ (
@@ -146,7 +151,9 @@ let
         else
           [ (parseExpressions v) ]
       )
-    ) [ ] exprs
+    )
+    [ ]
+    exprs
     ;
 
     # Transform individual expressions to structured expressions
@@ -277,8 +284,11 @@ let
         ;
       hasElem =
         needle: haystack:
-        builtins.elem needle (builtins.filter (x: builtins.typeOf x == "string")
-          (builtins.split " " haystack))
+        builtins.elem needle (
+          builtins.filter (x: builtins.typeOf x == "string") (
+            builtins.split " " haystack
+          )
+        )
         ;
       op = {
         "true" = x: y: true;
@@ -297,8 +307,9 @@ let
               (lib.toInt (builtins.elemAt pruned (builtins.length pruned - 1)))
               + 1
             );
-            upperConstraint = builtins.concatStringsSep "."
-              (ireplace (builtins.length pruned - 1) upper pruned);
+            upperConstraint = builtins.concatStringsSep "." (
+              ireplace (builtins.length pruned - 1) upper pruned
+            );
           in
           op.">=" v c && op."<" v upperConstraint
           ;
@@ -306,8 +317,9 @@ let
         "in" =
           x: y:
           let
-            values = builtins.filter (x: builtins.typeOf x == "string")
-              (builtins.split " " (unmarshal y));
+            values = builtins.filter (x: builtins.typeOf x == "string") (
+              builtins.split " " (unmarshal y)
+            );
           in
           builtins.elem (unmarshal x) values
           ;
@@ -320,8 +332,9 @@ let
             let
               expr = exprs;
               result =
-                (op."${expr.value.op}") (builtins.elemAt expr.value.values 0)
-                (builtins.elemAt expr.value.values 1);
+                (op."${expr.value.op}") (builtins.elemAt expr.value.values 0) (
+                  builtins.elemAt expr.value.values 1
+                );
             in
             {
               type = "value";
@@ -358,10 +371,12 @@ let
           else if builtins.typeOf v == "list" then
             (
               let
-                ret = builtins.foldl' reduceExpressionsFun {
-                  value = true;
-                  cond = "and";
-                } v;
+                ret = builtins.foldl' reduceExpressionsFun
+                  {
+                    value = true;
+                    cond = "and";
+                  }
+                  v;
               in
               acc // { value = cond."${acc.cond}" acc.value ret.value; }
             )
@@ -370,10 +385,12 @@ let
         )
         ;
     in
-    (builtins.foldl' reduceExpressionsFun {
-      value = true;
-      cond = "and";
-    } exprs).value
+    (builtins.foldl' reduceExpressionsFun
+      {
+        value = true;
+        cond = "and";
+      }
+      exprs).value
     ;
 in
 e:

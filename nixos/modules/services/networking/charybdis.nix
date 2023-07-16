@@ -73,41 +73,43 @@ in
 
     ###### implementation
 
-  config = mkIf cfg.enable (lib.mkMerge [
-    {
-      users.users.${cfg.user} = {
-        description = "Charybdis IRC daemon user";
-        uid = config.ids.uids.ircd;
-        group = cfg.group;
-      };
-
-      users.groups.${cfg.group} = { gid = config.ids.gids.ircd; };
-
-      systemd.tmpfiles.rules = [
-          "d ${cfg.statedir} - ${cfg.user} ${cfg.group} - -"
-        ];
-
-      environment.etc."charybdis/ircd.conf".source = configFile;
-
-      systemd.services.charybdis = {
-        description = "Charybdis IRC daemon";
-        wantedBy = [ "multi-user.target" ];
-        reloadIfChanged = true;
-        restartTriggers = [ configFile ];
-        environment = { BANDB_DBPATH = "${cfg.statedir}/ban.db"; };
-        serviceConfig = {
-          ExecStart =
-            "${charybdis}/bin/charybdis -foreground -logfile /dev/stdout -configfile /etc/charybdis/ircd.conf";
-          ExecReload = "${coreutils}/bin/kill -HUP $MAINPID";
-          Group = cfg.group;
-          User = cfg.user;
+  config = mkIf cfg.enable (
+    lib.mkMerge [
+      {
+        users.users.${cfg.user} = {
+          description = "Charybdis IRC daemon user";
+          uid = config.ids.uids.ircd;
+          group = cfg.group;
         };
-      };
 
-    }
+        users.groups.${cfg.group} = { gid = config.ids.gids.ircd; };
 
-    (mkIf (cfg.motd != null) {
-      environment.etc."charybdis/ircd.motd".text = cfg.motd;
-    })
-  ]);
+        systemd.tmpfiles.rules = [
+            "d ${cfg.statedir} - ${cfg.user} ${cfg.group} - -"
+          ];
+
+        environment.etc."charybdis/ircd.conf".source = configFile;
+
+        systemd.services.charybdis = {
+          description = "Charybdis IRC daemon";
+          wantedBy = [ "multi-user.target" ];
+          reloadIfChanged = true;
+          restartTriggers = [ configFile ];
+          environment = { BANDB_DBPATH = "${cfg.statedir}/ban.db"; };
+          serviceConfig = {
+            ExecStart =
+              "${charybdis}/bin/charybdis -foreground -logfile /dev/stdout -configfile /etc/charybdis/ircd.conf";
+            ExecReload = "${coreutils}/bin/kill -HUP $MAINPID";
+            Group = cfg.group;
+            User = cfg.user;
+          };
+        };
+
+      }
+
+      (mkIf (cfg.motd != null) {
+        environment.etc."charybdis/ircd.motd".text = cfg.motd;
+      })
+    ]
+  );
 }

@@ -67,8 +67,8 @@ let
                 # Argh, uwsgi expects list of key-values there instead of a dictionary.
                 let
                   envs = partition (hasPrefix "PATH=") (c.env or [ ]);
-                  oldPaths =
-                    map (x: substring (stringLength "PATH=") (stringLength x) x)
+                  oldPaths = map
+                    (x: substring (stringLength "PATH=") (stringLength x) x)
                     envs.right;
                   paths = oldPaths ++ [ "${pythonEnv}/bin" ];
                 in
@@ -126,20 +126,22 @@ in
       instance = mkOption {
         type = with types;
           let
-            valueType = nullOr (oneOf [
-              bool
-              int
-              float
-              str
-              (lazyAttrsOf valueType)
-              (listOf valueType)
-              (mkOptionType {
-                name = "function";
-                description = "function";
-                check = x: isFunction x;
-                merge = mergeOneOption;
-              })
-            ]) // {
+            valueType = nullOr (
+              oneOf [
+                bool
+                int
+                float
+                str
+                (lazyAttrsOf valueType)
+                (listOf valueType)
+                (mkOptionType {
+                  name = "function";
+                  description = "function";
+                  check = x: isFunction x;
+                  merge = mergeOneOption;
+                })
+              ]
+            ) // {
               description = "Json value or lambda";
               emptyValue.value = { };
             };

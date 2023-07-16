@@ -42,16 +42,18 @@ in
 {
 
   imports = [
-      (mkRenamedOptionModule [
-        "services"
-        "dnsmasq"
-        "servers"
-      ] [
-        "services"
-        "dnsmasq"
-        "settings"
-        "server"
-      ])
+      (mkRenamedOptionModule
+        [
+          "services"
+          "dnsmasq"
+          "servers"
+        ]
+        [
+          "services"
+          "dnsmasq"
+          "settings"
+          "server"
+        ])
     ];
 
     ###### interface
@@ -142,7 +144,8 @@ in
 
   config = mkIf cfg.enable {
 
-    warnings = lib.optional (cfg.extraConfig != "")
+    warnings = lib.optional
+      (cfg.extraConfig != "")
       "Text based config is deprecated, dnsmasq now supports `services.dnsmasq.settings` for an attribute-set based config"
       ;
 

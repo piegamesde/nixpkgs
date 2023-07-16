@@ -15,10 +15,13 @@ let
     check =
       x:
       (lib.types.package.check x)
-      && (attrByPath [
-        "meta"
-        "isIbusEngine"
-      ] false x)
+      && (attrByPath
+        [
+          "meta"
+          "isIbusEngine"
+        ]
+        false
+        x)
       ;
   };
 
@@ -39,16 +42,18 @@ let
 in
 {
   imports = [
-      (mkRenamedOptionModule [
-        "programs"
-        "ibus"
-        "plugins"
-      ] [
-        "i18n"
-        "inputMethod"
-        "ibus"
-        "engines"
-      ])
+      (mkRenamedOptionModule
+        [
+          "programs"
+          "ibus"
+          "plugins"
+        ]
+        [
+          "i18n"
+          "inputMethod"
+          "ibus"
+          "engines"
+        ])
     ];
 
   options = {
@@ -60,8 +65,9 @@ in
         description =
           let
             enginesDrv = filterAttrs (const isDerivation) pkgs.ibus-engines;
-            engines = concatStringsSep ", "
-              (map (name: "`${name}`") (attrNames enginesDrv));
+            engines = concatStringsSep ", " (
+              map (name: "`${name}`") (attrNames enginesDrv)
+            );
           in
           lib.mdDoc "Enabled IBus engines. Available engines are: ${engines}."
           ;

@@ -53,7 +53,8 @@ let
 
     #INFO: The targetPrefix prepended to binary names to allow multiple binuntils
     # on the PATH to both be usable.
-  targetPrefix = lib.optionalString (targetPlatform != hostPlatform)
+  targetPrefix = lib.optionalString
+    (targetPlatform != hostPlatform)
     "${targetPlatform.config}-";
 
 in
@@ -97,7 +98,8 @@ stdenv.mkDerivation {
     ]
     ++ lib.optional targetPlatform.isiOS ./support-ios.patch
     ++ lib.optional stdenv.targetPlatform.isWindows ./windres-locate-gcc.patch
-    ++ lib.optional stdenv.targetPlatform.isMips64n64
+    ++ lib.optional
+      stdenv.targetPlatform.isMips64n64
       # this patch is from debian:
       # https://sources.debian.org/data/main/b/binutils/2.38-3/debian/patches/mips64-default-n64.diff
       (
@@ -123,7 +125,8 @@ stdenv.mkDerivation {
       #
       # Upstream commit:
       # https://sourceware.org/git/?p=binutils-gdb.git;a=commit;h=cebc89b9328eab994f6b0314c263f94e7949a553
-    ++ lib.optional stdenv.targetPlatform.isPower
+    ++ lib.optional
+      stdenv.targetPlatform.isPower
       ./ppc-make-machine-less-strict.patch
     ;
 

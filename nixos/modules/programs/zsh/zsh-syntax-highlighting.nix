@@ -12,49 +12,57 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule [
-      "programs"
-      "zsh"
-      "enableSyntaxHighlighting"
-    ] [
-      "programs"
-      "zsh"
-      "syntaxHighlighting"
-      "enable"
-    ])
-    (mkRenamedOptionModule [
-      "programs"
-      "zsh"
-      "syntax-highlighting"
-      "enable"
-    ] [
-      "programs"
-      "zsh"
-      "syntaxHighlighting"
-      "enable"
-    ])
-    (mkRenamedOptionModule [
-      "programs"
-      "zsh"
-      "syntax-highlighting"
-      "highlighters"
-    ] [
-      "programs"
-      "zsh"
-      "syntaxHighlighting"
-      "highlighters"
-    ])
-    (mkRenamedOptionModule [
-      "programs"
-      "zsh"
-      "syntax-highlighting"
-      "patterns"
-    ] [
-      "programs"
-      "zsh"
-      "syntaxHighlighting"
-      "patterns"
-    ])
+    (mkRenamedOptionModule
+      [
+        "programs"
+        "zsh"
+        "enableSyntaxHighlighting"
+      ]
+      [
+        "programs"
+        "zsh"
+        "syntaxHighlighting"
+        "enable"
+      ])
+    (mkRenamedOptionModule
+      [
+        "programs"
+        "zsh"
+        "syntax-highlighting"
+        "enable"
+      ]
+      [
+        "programs"
+        "zsh"
+        "syntaxHighlighting"
+        "enable"
+      ])
+    (mkRenamedOptionModule
+      [
+        "programs"
+        "zsh"
+        "syntax-highlighting"
+        "highlighters"
+      ]
+      [
+        "programs"
+        "zsh"
+        "syntaxHighlighting"
+        "highlighters"
+      ])
+    (mkRenamedOptionModule
+      [
+        "programs"
+        "zsh"
+        "syntax-highlighting"
+        "patterns"
+      ]
+      [
+        "programs"
+        "zsh"
+        "syntaxHighlighting"
+        "patterns"
+      ])
   ];
 
   options = {
@@ -65,15 +73,17 @@ in
         default = [ "main" ];
 
           # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
-        type = types.listOf (types.enum ([
-          "main"
-          "brackets"
-          "pattern"
-          "cursor"
-          "regexp"
-          "root"
-          "line"
-        ]));
+        type = types.listOf (
+          types.enum ([
+            "main"
+            "brackets"
+            "pattern"
+            "cursor"
+            "regexp"
+            "root"
+            "line"
+          ])
+        );
 
         description = lib.mdDoc ''
           Specifies the highlighters to be used by zsh-syntax-highlighting.
@@ -132,20 +142,30 @@ in
     } ];
 
     programs.zsh.interactiveShellInit = with pkgs;
-      lib.mkAfter (lib.concatStringsSep "\n" (
-        [
-          "source ${zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-        ]
-        ++ optional (length (cfg.highlighters) > 0)
-          "ZSH_HIGHLIGHT_HIGHLIGHTERS=(${
-            concatStringsSep " " cfg.highlighters
-          })"
-        ++ optionals (length (attrNames cfg.patterns) > 0) (mapAttrsToList (
-          pattern: design: "ZSH_HIGHLIGHT_PATTERNS+=('${pattern}' '${design}')"
-        ) cfg.patterns)
-        ++ optionals (length (attrNames cfg.styles) > 0) (mapAttrsToList (
-          styles: design: "ZSH_HIGHLIGHT_STYLES[${styles}]='${design}'"
-        ) cfg.styles)
-      ));
+      lib.mkAfter (
+        lib.concatStringsSep "\n" (
+          [
+            "source ${zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+          ]
+          ++ optional
+            (length (cfg.highlighters) > 0)
+            "ZSH_HIGHLIGHT_HIGHLIGHTERS=(${
+              concatStringsSep " " cfg.highlighters
+            })"
+          ++ optionals (length (attrNames cfg.patterns) > 0) (
+            mapAttrsToList
+            (
+              pattern: design:
+              "ZSH_HIGHLIGHT_PATTERNS+=('${pattern}' '${design}')"
+            )
+            cfg.patterns
+          )
+          ++ optionals (length (attrNames cfg.styles) > 0) (
+            mapAttrsToList
+            (styles: design: "ZSH_HIGHLIGHT_STYLES[${styles}]='${design}'")
+            cfg.styles
+          )
+        )
+      );
   };
 }

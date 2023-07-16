@@ -23,25 +23,29 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "transmission"
-      "port"
-    ] [
-      "services"
-      "transmission"
-      "settings"
-      "rpc-port"
-    ])
-    (mkAliasOptionModuleMD [
-      "services"
-      "transmission"
-      "openFirewall"
-    ] [
-      "services"
-      "transmission"
-      "openPeerPorts"
-    ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "transmission"
+        "port"
+      ]
+      [
+        "services"
+        "transmission"
+        "settings"
+        "rpc-port"
+      ])
+    (mkAliasOptionModuleMD
+      [
+        "services"
+        "transmission"
+        "openFirewall"
+      ]
+      [
+        "services"
+        "transmission"
+        "openPeerPorts"
+      ])
   ];
   options = {
     services.transmission = {
@@ -365,12 +369,15 @@ in
             "${cfg.home}/${settingsDir}"
             cfg.settings.download-dir
           ]
-          ++ optional cfg.settings.incomplete-dir-enabled
+          ++ optional
+            cfg.settings.incomplete-dir-enabled
             cfg.settings.incomplete-dir
-          ++ optional (
-            cfg.settings.watch-dir-enabled
-            && cfg.settings.trash-original-torrent-files
-          ) cfg.settings.watch-dir
+          ++ optional
+            (
+              cfg.settings.watch-dir-enabled
+              && cfg.settings.trash-original-torrent-files
+            )
+            cfg.settings.watch-dir
           ;
         BindReadOnlyPaths =
           [
@@ -380,14 +387,18 @@ in
             "/etc"
             "/run"
           ]
-          ++ optional (
-            cfg.settings.script-torrent-done-enabled
-            && cfg.settings.script-torrent-done-filename != null
-          ) cfg.settings.script-torrent-done-filename
-          ++ optional (
-            cfg.settings.watch-dir-enabled
-            && !cfg.settings.trash-original-torrent-files
-          ) cfg.settings.watch-dir
+          ++ optional
+            (
+              cfg.settings.script-torrent-done-enabled
+              && cfg.settings.script-torrent-done-filename != null
+            )
+            cfg.settings.script-torrent-done-filename
+          ++ optional
+            (
+              cfg.settings.watch-dir-enabled
+              && !cfg.settings.trash-original-torrent-files
+            )
+            cfg.settings.watch-dir
           ;
         StateDirectory = [
           "transmission"
@@ -555,10 +566,12 @@ in
         }
       }
 
-      ${optionalString (
+      ${optionalString
+      (
         cfg.settings.script-torrent-done-enabled
         && cfg.settings.script-torrent-done-filename != null
-      ) ''
+      )
+      ''
         # Stack transmission_directories profile on top of
         # any existing profile for script-torrent-done-filename
         # FIXME: to be tested as I'm not sure it works well with NoNewPrivileges=

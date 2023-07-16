@@ -32,7 +32,8 @@
   haskellPackages,
 }:
 
-haskellPackages.callPackage (
+haskellPackages.callPackage
+(
   {
     mkDerivation,
     base,
@@ -81,4 +82,5 @@ haskellPackages.callPackage (
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.league ];
   }
-) { }
+)
+{ }

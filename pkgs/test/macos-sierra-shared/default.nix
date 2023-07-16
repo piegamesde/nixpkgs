@@ -11,28 +11,30 @@ let
 
       count = 320;
 
-      sillyLibs = lib.genList (
-        i:
-        stdenv.mkDerivation rec {
-          name = "${prefix}-fluff-${toString i}";
-          unpackPhase = ''
-            src=$PWD
-            cat << 'EOF' > ${name}.c
-            unsigned int asdf_${toString i}(void) {
-              return ${toString i};
-            }
-            EOF
-          '';
-          buildPhase = ''
-            $CC -std=c99 -shared ${name}.c -o lib${name}.dylib -Wl,-install_name,$out/lib/lib${name}.dylib
-          '';
-          installPhase = ''
-            mkdir -p "$out/lib"
-            mv lib${name}.dylib "$out/lib"
-          '';
-          meta.platforms = lib.platforms.darwin;
-        }
-      ) count;
+      sillyLibs = lib.genList
+        (
+          i:
+          stdenv.mkDerivation rec {
+            name = "${prefix}-fluff-${toString i}";
+            unpackPhase = ''
+              src=$PWD
+              cat << 'EOF' > ${name}.c
+              unsigned int asdf_${toString i}(void) {
+                return ${toString i};
+              }
+              EOF
+            '';
+            buildPhase = ''
+              $CC -std=c99 -shared ${name}.c -o lib${name}.dylib -Wl,-install_name,$out/lib/lib${name}.dylib
+            '';
+            installPhase = ''
+              mkdir -p "$out/lib"
+              mv lib${name}.dylib "$out/lib"
+            '';
+            meta.platforms = lib.platforms.darwin;
+          }
+        )
+        count;
 
       finalExe = stdenv.mkDerivation {
         name = "${prefix}-final-asdf";
@@ -43,9 +45,11 @@ let
           #include <cstdlib>
           #include <iostream>
 
-          ${toString (lib.genList (
-            i: ''extern "C" unsigned int asdf_${toString i}(void); ''
-          ) count)}
+          ${toString (
+            lib.genList
+            (i: ''extern "C" unsigned int asdf_${toString i}(void); '')
+            count
+          )}
 
           unsigned int (*funs[])(void) = {
             ${toString (lib.genList (i: "asdf_${toString i},") count)}

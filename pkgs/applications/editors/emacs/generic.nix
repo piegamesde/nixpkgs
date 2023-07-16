@@ -143,7 +143,8 @@ in
     llvmPackages_6.stdenv
   else
     stdenv
-).mkDerivation (
+).mkDerivation
+(
   finalAttrs:
   (
     lib.optionalAttrs nativeComp {
@@ -152,9 +153,9 @@ in
     } // {
       pname =
         pname
-        + lib.optionalString (
-          !withX && !withNS && !withMacport && !withGTK2 && !withGTK3
-        ) "-nox"
+        + lib.optionalString
+          (!withX && !withNS && !withMacport && !withGTK2 && !withGTK3)
+          "-nox"
         ;
       inherit version;
 
@@ -169,19 +170,21 @@ in
                   ./native-comp-driver-options.patch
                 ;
               backendPath =
-                (lib.concatStringsSep " " (builtins.map (x: ''"-B${x}"'') (
-                  [
-                    # Paths necessary so the JIT compiler finds its libraries:
-                    "${lib.getLib libgccjit}/lib"
-                  ]
-                  ++ libGccJitLibraryPaths
-                  ++ [
-                    # Executable paths necessary for compilation (ld, as):
-                    "${lib.getBin stdenv.cc.cc}/bin"
-                    "${lib.getBin stdenv.cc.bintools}/bin"
-                    "${lib.getBin stdenv.cc.bintools.bintools}/bin"
-                  ]
-                )));
+                (lib.concatStringsSep " " (
+                  builtins.map (x: ''"-B${x}"'') (
+                    [
+                      # Paths necessary so the JIT compiler finds its libraries:
+                      "${lib.getLib libgccjit}/lib"
+                    ]
+                    ++ libGccJitLibraryPaths
+                    ++ [
+                      # Executable paths necessary for compilation (ld, as):
+                      "${lib.getBin stdenv.cc.cc}/bin"
+                      "${lib.getBin stdenv.cc.bintools}/bin"
+                      "${lib.getBin stdenv.cc.bintools.bintools}/bin"
+                    ]
+                  )
+                ));
             })
           ]
         ;
@@ -212,12 +215,16 @@ in
         # Add the name of the wrapped gvfsd
         # This used to be carried as a patch but it often got out of sync with upstream
         # and was hard to maintain for emacs-overlay.
-        (lib.concatStrings (map (fn: ''
-          sed -i 's#(${fn} "gvfs-fuse-daemon")#(${fn} "gvfs-fuse-daemon") (${fn} ".gvfsd-fuse-wrapped")#' lisp/net/tramp-gvfs.el
-        '') [
-          "tramp-compat-process-running-p"
-          "tramp-process-running-p"
-        ]))
+        (lib.concatStrings (
+          map
+          (fn: ''
+            sed -i 's#(${fn} "gvfs-fuse-daemon")#(${fn} "gvfs-fuse-daemon") (${fn} ".gvfsd-fuse-wrapped")#' lisp/net/tramp-gvfs.el
+          '')
+          [
+            "tramp-compat-process-running-p"
+            "tramp-process-running-p"
+          ]
+        ))
 
         # Reduce closure size by cleaning the environment of the emacs dumper
         ''
@@ -244,7 +251,8 @@ in
         ]
         ++ lib.optionals (srcRepo || withMacport) [ texinfo ]
         ++ lib.optionals srcRepo [ autoreconfHook ]
-        ++ lib.optional (withPgtk || withX && (withGTK3 || withXwidgets))
+        ++ lib.optional
+          (withPgtk || withX && (withGTK3 || withXwidgets))
           wrapGAppsHook
         ;
 
@@ -429,7 +437,8 @@ in
       meta = with lib; {
         description =
           "The extensible, customizable GNU text editor"
-          + optionalString withMacport
+          + optionalString
+            withMacport
             " with Mitsuharu Yamamoto's macport patches"
           ;
         homepage =

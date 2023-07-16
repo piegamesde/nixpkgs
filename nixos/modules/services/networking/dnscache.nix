@@ -14,19 +14,27 @@ let
     pkgs.runCommand "dnscache-root" { preferLocalBuild = true; } ''
       mkdir -p $out/{servers,ip}
 
-      ${concatMapStrings (ip: ''
+      ${concatMapStrings
+      (ip: ''
         touch "$out/ip/"${lib.escapeShellArg ip}
-      '') cfg.clientIps}
+      '')
+      cfg.clientIps}
 
-      ${concatStrings (mapAttrsToList (
-        host: ips: ''
-          ${concatMapStrings (ip: ''
-            echo ${lib.escapeShellArg ip} >> "$out/servers/"${
-              lib.escapeShellArg host
-            }
-          '') ips}
-        ''
-      ) cfg.domainServers)}
+      ${concatStrings (
+        mapAttrsToList
+        (
+          host: ips: ''
+            ${concatMapStrings
+            (ip: ''
+              echo ${lib.escapeShellArg ip} >> "$out/servers/"${
+                lib.escapeShellArg host
+              }
+            '')
+            ips}
+          ''
+        )
+        cfg.domainServers
+      )}
 
       # if a list of root servers was not provided in config, copy it
       # over. (this is also done by dnscache-conf, but we 'rm -rf

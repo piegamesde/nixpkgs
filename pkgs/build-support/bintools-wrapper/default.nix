@@ -106,13 +106,16 @@ let
     ;
 
     # See description in cc-wrapper.
-  suffixSalt = replaceStrings [
-    "-"
-    "."
-  ] [
-    "_"
-    "_"
-  ] targetPlatform.config;
+  suffixSalt = replaceStrings
+    [
+      "-"
+      "."
+    ]
+    [
+      "_"
+      "_"
+    ]
+    targetPlatform.config;
 
     # The dynamic linker has different names on different platforms. This is a
     # shell glob that ought to match it.
@@ -159,11 +162,13 @@ let
       ""
     ;
 
-  expand-response-params = lib.optionalString (
-    buildPackages ? stdenv
-    && buildPackages.stdenv.hasCC
-    && buildPackages.stdenv.cc != "/dev/null"
-  ) (import ../expand-response-params { inherit (buildPackages) stdenv; });
+  expand-response-params = lib.optionalString
+    (
+      buildPackages ? stdenv
+      && buildPackages.stdenv.hasCC
+      && buildPackages.stdenv.cc != "/dev/null"
+    )
+    (import ../expand-response-params { inherit (buildPackages) stdenv; });
 
 in
 stdenv.mkDerivation {
@@ -445,11 +450,11 @@ stdenv.mkDerivation {
       ###
       ### Remove LC_UUID
       ###
-    + optionalString (
-      stdenv.targetPlatform.isDarwin && !(bintools.isGNU or false)
-    ) ''
-      echo "-no_uuid" >> $out/nix-support/libc-ldflags-before
-    ''
+    + optionalString
+      (stdenv.targetPlatform.isDarwin && !(bintools.isGNU or false))
+      ''
+        echo "-no_uuid" >> $out/nix-support/libc-ldflags-before
+      ''
 
     + ''
       for flags in "$out/nix-support"/*flags*; do
@@ -540,10 +545,13 @@ stdenv.mkDerivation {
         { }
     ) // {
       description =
-        lib.attrByPath [
-          "meta"
-          "description"
-        ] "System binary utilities" bintools_
+        lib.attrByPath
+          [
+            "meta"
+            "description"
+          ]
+          "System binary utilities"
+          bintools_
         + " (wrapper script)"
         ;
       priority = 10;

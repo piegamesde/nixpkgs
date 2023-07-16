@@ -16,11 +16,17 @@ let
     if credentialsFile != null then
       credentialsFile
     else
-      pkgs.writeText "magnetico-credentials" (concatStrings (mapAttrsToList (
-        user: hash: ''
-          ${user}:${hash}
-        ''
-      ) cfg.web.credentials));
+      pkgs.writeText "magnetico-credentials" (
+        concatStrings (
+          mapAttrsToList
+          (
+            user: hash: ''
+              ${user}:${hash}
+            ''
+          )
+          cfg.web.credentials
+        )
+      );
 
     # default options in magneticod/main.go
   dbURI = concatStrings [

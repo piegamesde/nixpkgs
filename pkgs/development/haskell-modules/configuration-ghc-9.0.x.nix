@@ -74,10 +74,12 @@ self: super: {
   ed25519 = doJailbreak super.ed25519;
   hackage-security = doJailbreak super.hackage-security;
   hashable = pkgs.lib.pipe super.hashable [
-    (overrideCabal (drv: {
-      postPatch =
-        "sed -i -e 's,integer-gmp .*<1.1,integer-gmp < 2,' hashable.cabal";
-    }))
+    (overrideCabal (
+      drv: {
+        postPatch =
+          "sed -i -e 's,integer-gmp .*<1.1,integer-gmp < 2,' hashable.cabal";
+      }
+    ))
     doJailbreak
     dontCheck
     (addBuildDepend self.base-orphans)
@@ -86,10 +88,12 @@ self: super: {
   HTTP = overrideCabal
     (drv: { postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs"; })
     (doJailbreak super.HTTP);
-  integer-logarithms = overrideCabal (drv: {
-    postPatch =
-      "sed -i -e 's,integer-gmp <1.1,integer-gmp < 2,' integer-logarithms.cabal";
-  }) (doJailbreak super.integer-logarithms);
+  integer-logarithms = overrideCabal
+    (drv: {
+      postPatch =
+        "sed -i -e 's,integer-gmp <1.1,integer-gmp < 2,' integer-logarithms.cabal";
+    })
+    (doJailbreak super.integer-logarithms);
   lukko = doJailbreak super.lukko;
   parallel = doJailbreak super.parallel;
   primitive = doJailbreak (dontCheck super.primitive);
@@ -108,11 +112,13 @@ self: super: {
 
   doctest = dontCheck super.doctest;
     # Apply patches from head.hackage.
-  language-haskell-extract = appendPatch (pkgs.fetchpatch {
-    url =
-      "https://gitlab.haskell.org/ghc/head.hackage/-/raw/master/patches/language-haskell-extract-0.2.4.patch";
-    sha256 = "0rgzrq0513nlc1vw7nw4km4bcwn4ivxcgi33jly4a7n3c1r32v1f";
-  }) (doJailbreak super.language-haskell-extract);
+  language-haskell-extract = appendPatch
+    (pkgs.fetchpatch {
+      url =
+        "https://gitlab.haskell.org/ghc/head.hackage/-/raw/master/patches/language-haskell-extract-0.2.4.patch";
+      sha256 = "0rgzrq0513nlc1vw7nw4km4bcwn4ivxcgi33jly4a7n3c1r32v1f";
+    })
+    (doJailbreak super.language-haskell-extract);
 
   haskell-language-server =
     let
@@ -124,14 +130,15 @@ self: super: {
         hls-tactics-plugin
       ];
     in
-    addBuildDepends additionalDeps (super.haskell-language-server.overrideScope
-      (
+    addBuildDepends additionalDeps (
+      super.haskell-language-server.overrideScope (
         lself: lsuper: {
           # Needed for modern ormolu and fourmolu.
           # Apply this here and not in common, because other ghc versions offer different Cabal versions.
           Cabal = lself.Cabal_3_6_3_0;
         }
-      ))
+      )
+    )
     ;
 
     # Needs to use ghc-lib due to incompatible GHC
@@ -139,42 +146,50 @@ self: super: {
 
     # This package is marked as unbuildable on GHC 9.2, so hackage2nix doesn't include any dependencies.
     # See https://github.com/NixOS/nixpkgs/pull/205902 for why we use `self.<package>.scope`
-  hls-haddock-comments-plugin = unmarkBroken (addBuildDepends (
-    with self.hls-haddock-comments-plugin.scope; [
-      ghc-exactprint
-      ghcide
-      hls-plugin-api
-      hls-refactor-plugin
-      lsp-types
-      unordered-containers
-    ]
-  ) super.hls-haddock-comments-plugin);
+  hls-haddock-comments-plugin = unmarkBroken (
+    addBuildDepends
+    (
+      with self.hls-haddock-comments-plugin.scope; [
+        ghc-exactprint
+        ghcide
+        hls-plugin-api
+        hls-refactor-plugin
+        lsp-types
+        unordered-containers
+      ]
+    )
+    super.hls-haddock-comments-plugin
+  );
 
-  hls-tactics-plugin = unmarkBroken (addBuildDepends (
-    with self.hls-tactics-plugin.scope; [
-      aeson
-      extra
-      fingertree
-      generic-lens
-      ghc-exactprint
-      ghc-source-gen
-      ghcide
-      hls-graph
-      hls-plugin-api
-      hls-refactor-plugin
-      hyphenation
-      lens
-      lsp
-      megaparsec
-      parser-combinators
-      prettyprinter
-      refinery
-      retrie
-      syb
-      unagi-chan
-      unordered-containers
-    ]
-  ) super.hls-tactics-plugin);
+  hls-tactics-plugin = unmarkBroken (
+    addBuildDepends
+    (
+      with self.hls-tactics-plugin.scope; [
+        aeson
+        extra
+        fingertree
+        generic-lens
+        ghc-exactprint
+        ghc-source-gen
+        ghcide
+        hls-graph
+        hls-plugin-api
+        hls-refactor-plugin
+        hyphenation
+        lens
+        lsp
+        megaparsec
+        parser-combinators
+        prettyprinter
+        refinery
+        retrie
+        syb
+        unagi-chan
+        unordered-containers
+      ]
+    )
+    super.hls-tactics-plugin
+  );
 
     # The test suite depends on ChasingBottoms, which is broken with ghc-9.0.x.
   unordered-containers = dontCheck super.unordered-containers;
@@ -198,10 +213,12 @@ self: super: {
   ghc-api-compat = unmarkBroken super.ghc-api-compat;
 
     # 2021-09-18: cabal2nix does not detect the need for ghc-api-compat.
-  hiedb = overrideCabal (old: {
-    libraryHaskellDepends =
-      old.libraryHaskellDepends ++ [ self.ghc-api-compat ];
-  }) super.hiedb;
+  hiedb = overrideCabal
+    (old: {
+      libraryHaskellDepends =
+        old.libraryHaskellDepends ++ [ self.ghc-api-compat ];
+    })
+    super.hiedb;
 
     # 2021-09-18: https://github.com/haskell/haskell-language-server/issues/2206
     # Restrictive upper bound on ormolu
@@ -217,7 +234,8 @@ self: super: {
       appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ]
     else
       x: x
-  ) super.inline-c-cpp;
+  )
+    super.inline-c-cpp;
 
     # 2022-05-31: weeder 2.3.0 requires GHC 9.2
   weeder = doDistribute self.weeder_2_3_1;

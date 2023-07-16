@@ -37,34 +37,36 @@ let
       throw
       "dependencies attribute is obselete. see NixOS/nixpkgs#118034" # added 2021-04-01
     else
-      addRtp "${rtpPath}/${path}" rtpFilePath a (stdenv.mkDerivation (
-        a // {
-          pname = namePrefix + pluginName;
+      addRtp "${rtpPath}/${path}" rtpFilePath a (
+        stdenv.mkDerivation (
+          a // {
+            pname = namePrefix + pluginName;
 
-          inherit
-            pluginName
-            unpackPhase
-            configurePhase
-            buildPhase
-            addonInfo
-            preInstall
-            postInstall
-            ;
+            inherit
+              pluginName
+              unpackPhase
+              configurePhase
+              buildPhase
+              addonInfo
+              preInstall
+              postInstall
+              ;
 
-          installPhase = ''
-            runHook preInstall
+            installPhase = ''
+              runHook preInstall
 
-            target=$out/${rtpPath}/${path}
-            mkdir -p $out/${rtpPath}
-            cp -r . $target
-            if [ -n "$addonInfo" ]; then
-              echo "$addonInfo" > $target/addon-info.json
-            fi
+              target=$out/${rtpPath}/${path}
+              mkdir -p $out/${rtpPath}
+              cp -r . $target
+              if [ -n "$addonInfo" ]; then
+                echo "$addonInfo" > $target/addon-info.json
+              fi
 
-            runHook postInstall
-          '';
-        }
-      ))
+              runHook postInstall
+            '';
+          }
+        )
+      )
     ;
 
 in

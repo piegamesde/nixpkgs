@@ -34,10 +34,12 @@ let
   seastar = callPackage ./seastar.nix { };
   base64 = callPackage ./base64.nix { };
   hdr-histogram = callPackage ./hdr-histogram.nix { };
-  kafka-codegen-venv = python3.withPackages (ps: [
-    ps.jinja2
-    ps.jsonschema
-  ]);
+  kafka-codegen-venv = python3.withPackages (
+    ps: [
+      ps.jinja2
+      ps.jsonschema
+    ]
+  );
   rapidjson = callPackage ./rapidjson.nix { };
 in
 llvmPackages_14.stdenv.mkDerivation rec {
@@ -67,7 +69,8 @@ llvmPackages_14.stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     (python3.withPackages pythonPackages)
-    (writeShellScriptBin "kafka-codegen-venv"
+    (writeShellScriptBin
+      "kafka-codegen-venv"
       "exec -a $0 ${kafka-codegen-venv}/bin/python3 $@")
     ccache
     cmake

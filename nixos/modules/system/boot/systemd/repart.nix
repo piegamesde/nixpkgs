@@ -11,12 +11,14 @@ let
 
   writeDefinition =
     name: partitionConfig:
-    pkgs.writeText "${name}.conf"
-    (lib.generators.toINI { } { Partition = partitionConfig; })
+    pkgs.writeText "${name}.conf" (
+      lib.generators.toINI { } { Partition = partitionConfig; }
+    )
     ;
 
-  listOfDefinitions = lib.mapAttrsToList writeDefinition
-    (lib.filterAttrs (k: _: !(lib.hasPrefix "_" k)) cfg.partitions);
+  listOfDefinitions = lib.mapAttrsToList writeDefinition (
+    lib.filterAttrs (k: _: !(lib.hasPrefix "_" k)) cfg.partitions
+  );
 
     # Create a directory in the store that contains a copy of all definition
     # files. This is then passed to systemd-repart in the initrd so it can access
@@ -25,8 +27,9 @@ let
     # because otherwise the files do not show up in the sysroot.
   definitionsDirectory = pkgs.runCommand "systemd-repart-definitions" { } ''
     mkdir -p $out
-    ${(lib.concatStringsSep "\n"
-      (map (pkg: "cp ${pkg} $out/${pkg.name}") listOfDefinitions))}
+    ${(lib.concatStringsSep "\n" (
+      map (pkg: "cp ${pkg} $out/${pkg.name}") listOfDefinitions
+    ))}
   '';
 in
 {
@@ -55,11 +58,15 @@ in
 
       partitions = lib.mkOption {
         type = with lib.types;
-          attrsOf (attrsOf (oneOf [
-            str
-            int
-            bool
-          ]));
+          attrsOf (
+            attrsOf (
+              oneOf [
+                str
+                int
+                bool
+              ]
+            )
+          );
         default = { };
         example = {
           "10-root" = { Type = "root"; };

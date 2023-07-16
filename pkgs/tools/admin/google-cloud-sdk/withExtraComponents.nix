@@ -48,7 +48,8 @@ let
   # For some reason, this does not work properly with a `symlinkJoin`: the
   # `gcloud` binary doesn't seem able to find the installed components.
 in
-runCommand "google-cloud-sdk-${google-cloud-sdk.version}" {
+runCommand "google-cloud-sdk-${google-cloud-sdk.version}"
+{
   inherit (google-cloud-sdk) meta;
   inherit comps;
   passAsFile = [ "comps" ];
@@ -68,7 +69,8 @@ runCommand "google-cloud-sdk-${google-cloud-sdk.version}" {
       done
     ''
     ;
-} ''
+}
+''
   mkdir -p $out
 
   # Install each component

@@ -17,15 +17,19 @@ let
 
   getRecursivePropagatedBuildInputs =
     pkgs:
-    lib.flatten (map (
-      pkg:
-      let
-        cleanPropagatedBuildInputs =
-          lib.filter lib.isDerivation pkg.propagatedBuildInputs;
-      in
-      cleanPropagatedBuildInputs
-      ++ (getRecursivePropagatedBuildInputs cleanPropagatedBuildInputs)
-    ) pkgs)
+    lib.flatten (
+      map
+      (
+        pkg:
+        let
+          cleanPropagatedBuildInputs =
+            lib.filter lib.isDerivation pkg.propagatedBuildInputs;
+        in
+        cleanPropagatedBuildInputs
+        ++ (getRecursivePropagatedBuildInputs cleanPropagatedBuildInputs)
+      )
+      pkgs
+    )
     ;
 
   deepPlugins =
@@ -41,17 +45,19 @@ let
     let
       source = writeText "vapoursynth-nix-plugins.c" ''
         void VSLoadPluginsNix(void (*load)(void *data, const char *path), void *data) {
-        ${lib.concatMapStringsSep "" (
-          path: ''load(data, "${path}/lib/vapoursynth");''
-        ) deepPlugins}
+        ${lib.concatMapStringsSep ""
+        (path: ''load(data, "${path}/lib/vapoursynth");'')
+        deepPlugins}
         }
       '';
     in
-    runCommandCC "vapoursynth-plugin-loader" {
+    runCommandCC "vapoursynth-plugin-loader"
+    {
       executable = true;
       preferLocalBuild = true;
       allowSubstitutes = false;
-    } ''
+    }
+    ''
       mkdir -p $out/lib
       $CC -shared -fPIC ${source} -o "$out/lib/libvapoursynth-nix-plugins${ext}"
     ''
@@ -59,14 +65,16 @@ let
 
   ext = stdenv.targetPlatform.extensions.sharedLibrary;
 in
-runCommand "${vapoursynth.name}-with-plugins" {
+runCommand "${vapoursynth.name}-with-plugins"
+{
   nativeBuildInputs = [ makeWrapper ];
   passthru = {
     inherit python3;
     inherit (vapoursynth) src version;
     withPlugins = plugins': withPlugins (plugins ++ plugins');
   };
-} ''
+}
+''
   mkdir -p \
     $out/bin \
     $out/lib/pkgconfig \

@@ -14,10 +14,12 @@ let
       name = "xdg-utils-for-ferdi";
       paths = [
         xdg-utils
-        (lib.hiPrio (writeShellScriptBin "xdg-open" ''
-          unset GDK_BACKEND
-          exec ${xdg-utils}/bin/xdg-open "$@"
-        ''))
+        (lib.hiPrio (
+          writeShellScriptBin "xdg-open" ''
+            unset GDK_BACKEND
+            exec ${xdg-utils}/bin/xdg-open "$@"
+          ''
+        ))
       ];
     };
   };

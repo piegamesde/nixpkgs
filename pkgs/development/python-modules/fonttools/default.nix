@@ -74,16 +74,20 @@ buildPythonPackage rec {
 
   nativeCheckInputs =
     [ pytestCheckHook ]
-    ++ lib.concatLists (lib.attrVals (
-      [
-        "woff"
-        "interpolatable"
-      ]
-      ++ lib.optionals (!skia-pathops.meta.broken) [
-          "pathops" # broken
+    ++ lib.concatLists (
+      lib.attrVals
+      (
+        [
+          "woff"
+          "interpolatable"
         ]
-      ++ [ "repacker" ]
-    ) passthru.optional-dependencies)
+        ++ lib.optionals (!skia-pathops.meta.broken) [
+            "pathops" # broken
+          ]
+        ++ [ "repacker" ]
+      )
+      passthru.optional-dependencies
+    )
     ;
 
   pythonImportsCheck = [ "fontTools" ];

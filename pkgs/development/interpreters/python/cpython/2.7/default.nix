@@ -51,16 +51,20 @@
 
 assert x11Support -> tcl != null && tk != null && libX11 != null;
 
-assert lib.assertMsg (enableOptimizations -> (!stdenv.cc.isClang))
+assert lib.assertMsg
+  (enableOptimizations -> (!stdenv.cc.isClang))
   "Optimizations with clang are not supported. configure: error: llvm-profdata is required for a --enable-optimizations build but could not be found.";
 
-assert lib.assertMsg (reproducibleBuild -> stripBytecode)
+assert lib.assertMsg
+  (reproducibleBuild -> stripBytecode)
   "Deterministic builds require stripping bytecode.";
 
-assert lib.assertMsg (reproducibleBuild -> (!enableOptimizations))
+assert lib.assertMsg
+  (reproducibleBuild -> (!enableOptimizations))
   "Deterministic builds are not achieved when optimizations are enabled.";
 
-assert lib.assertMsg (reproducibleBuild -> (!rebuildBytecode))
+assert lib.assertMsg
+  (reproducibleBuild -> (!rebuildBytecode))
   "Deterministic builds are not achieved when (default unoptimized) bytecode is created.";
 
 let
@@ -314,9 +318,11 @@ stdenv.mkDerivation (
     inherit (mkPaths buildInputs) C_INCLUDE_PATH LIBRARY_PATH;
 
     env.NIX_CFLAGS_COMPILE =
-      lib.optionalString (stdenv.targetPlatform.system == "x86_64-darwin")
+      lib.optionalString
+        (stdenv.targetPlatform.system == "x86_64-darwin")
         "-msse2"
-      + lib.optionalString stdenv.hostPlatform.isMusl
+      + lib.optionalString
+        stdenv.hostPlatform.isMusl
         " -DTHREAD_STACK_SIZE=0x100000"
       ;
     DETERMINISTIC_BUILD = 1;

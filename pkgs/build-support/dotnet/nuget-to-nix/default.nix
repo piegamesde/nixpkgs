@@ -13,7 +13,8 @@
   dotnet-sdk,
 }:
 
-runCommandLocal "nuget-to-nix" {
+runCommandLocal "nuget-to-nix"
+{
   script = substituteAll {
     src = ./nuget-to-nix.sh;
     inherit runtimeShell;
@@ -32,6 +33,7 @@ runCommandLocal "nuget-to-nix" {
 
   meta.description =
     "Convert a nuget packages directory to a lockfile for buildDotnetModule";
-} ''
+}
+''
   install -Dm755 $script $out/bin/nuget-to-nix
 ''

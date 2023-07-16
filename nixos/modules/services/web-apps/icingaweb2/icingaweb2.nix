@@ -184,9 +184,13 @@ in
       ${poolName} = {
         user = "icingaweb2";
         phpEnv = {
-          ICINGAWEB_LIBDIR = toString (pkgs.linkFarm "icingaweb2-libdir"
-            (mapAttrsToList (name: path: { inherit name path; })
-              cfg.libraryPaths));
+          ICINGAWEB_LIBDIR = toString (
+            pkgs.linkFarm "icingaweb2-libdir" (
+              mapAttrsToList
+              (name: path: { inherit name path; })
+              cfg.libraryPaths
+            )
+          );
         };
         phpPackage = pkgs.php.withExtensions (
           {
@@ -261,9 +265,9 @@ in
       in
       { }
       # Module packages
-      // (mapAttrs' (
-        k: v: nameValuePair "icingaweb2/enabledModules/${k}" { source = v; }
-      ) cfg.modulePackages)
+      // (mapAttrs'
+        (k: v: nameValuePair "icingaweb2/enabledModules/${k}" { source = v; })
+        cfg.modulePackages)
       # Built-in modules
       // doModule "doc" // doModule "migrate" // doModule "setup"
       // doModule "test" // doModule "translation"

@@ -6,7 +6,8 @@
 
 with pkgs.lib;
 
-foldl (
+foldl
+(
   matrix: ver:
   matrix // {
     "basic${toString ver}" = import ./basic.nix {
@@ -33,7 +34,9 @@ foldl (
         nextcloudVersion = ver;
       };
   }
-) { } [
+)
+{ }
+[
   25
   26
 ]

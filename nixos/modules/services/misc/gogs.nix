@@ -285,9 +285,13 @@ in
 
       # Create database passwordFile default when password is configured.
     services.gogs.database.passwordFile =
-      (mkDefault (toString (pkgs.writeTextFile {
-        name = "gogs-database-password";
-        text = cfg.database.password;
-      })));
+      (mkDefault (
+        toString (
+          pkgs.writeTextFile {
+            name = "gogs-database-password";
+            text = cfg.database.password;
+          }
+        )
+      ));
   };
 }

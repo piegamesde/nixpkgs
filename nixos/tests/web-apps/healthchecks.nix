@@ -17,7 +17,8 @@ import ../make-test-python.nix (
           settings = {
             SITE_NAME = "MyUniqueInstance";
             COMPRESS_ENABLED = "True";
-            SECRET_KEY_FILE = pkgs.writeText "secret"
+            SECRET_KEY_FILE = pkgs.writeText
+              "secret"
               "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
           };
         };

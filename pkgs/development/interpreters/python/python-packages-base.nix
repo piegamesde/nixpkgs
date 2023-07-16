@@ -31,18 +31,20 @@ let
   makeOverridablePythonPackage =
     f: origArgs:
     let
-      args = lib.fix (lib.extends (
-        _: previousAttrs: {
-          passthru = (
-            previousAttrs.passthru or { }
-          ) // {
-            overridePythonAttrs =
-              newArgs: makeOverridablePythonPackage f (overrideWith newArgs);
-          };
-        }
-      ) (
-        _: origArgs
-      ));
+      args = lib.fix (
+        lib.extends
+        (
+          _: previousAttrs: {
+            passthru = (
+              previousAttrs.passthru or { }
+            ) // {
+              overridePythonAttrs =
+                newArgs: makeOverridablePythonPackage f (overrideWith newArgs);
+            };
+          }
+        )
+        (_: origArgs)
+      );
       result = f args;
       overrideWith =
         newArgs:
@@ -66,19 +68,25 @@ let
       result
     ;
 
-  buildPythonPackage = makeOverridablePythonPackage (lib.makeOverridable
-    (callPackage ./mk-python-derivation.nix {
-      inherit
-        namePrefix
-        ; # We want Python libraries to be named like e.g. "python3.6-${name}"
-      inherit toPythonModule; # Libraries provide modules
-    }));
+  buildPythonPackage = makeOverridablePythonPackage (
+    lib.makeOverridable (
+      callPackage ./mk-python-derivation.nix {
+        inherit
+          namePrefix
+          ; # We want Python libraries to be named like e.g. "python3.6-${name}"
+        inherit toPythonModule; # Libraries provide modules
+      }
+    )
+  );
 
-  buildPythonApplication = makeOverridablePythonPackage (lib.makeOverridable
-    (callPackage ./mk-python-derivation.nix {
-      namePrefix = ""; # Python applications should not have any prefix
-      toPythonModule = x: x; # Application does not provide modules.
-    }));
+  buildPythonApplication = makeOverridablePythonPackage (
+    lib.makeOverridable (
+      callPackage ./mk-python-derivation.nix {
+        namePrefix = ""; # Python applications should not have any prefix
+        toPythonModule = x: x; # Application does not provide modules.
+      }
+    )
+  );
 
     # See build-setupcfg/default.nix for documentation.
   buildSetupcfg = import ../../../build-support/build-setupcfg lib self;
@@ -112,32 +120,37 @@ let
     # Convert derivation to a Python module.
   toPythonModule =
     drv:
-    drv.overrideAttrs (oldAttrs: {
-      # Use passthru in order to prevent rebuilds when possible.
-      passthru = (
-        oldAttrs.passthru or { }
-      ) // {
-        pythonModule = python;
-        pythonPath = [ ]; # Deprecated, for compatibility.
-        requiredPythonModules = requiredPythonModules drv.propagatedBuildInputs;
-      };
-    })
+    drv.overrideAttrs (
+      oldAttrs: {
+        # Use passthru in order to prevent rebuilds when possible.
+        passthru = (
+          oldAttrs.passthru or { }
+        ) // {
+          pythonModule = python;
+          pythonPath = [ ]; # Deprecated, for compatibility.
+          requiredPythonModules =
+            requiredPythonModules drv.propagatedBuildInputs;
+        };
+      }
+    )
     ;
 
     # Convert a Python library to an application.
   toPythonApplication =
     drv:
-    drv.overrideAttrs (oldAttrs: {
-      passthru = (
-        oldAttrs.passthru or { }
-      ) // {
-        # Remove Python prefix from name so we have a "normal" name.
-        # While the prefix shows up in the store path, it won't be
-        # used by `nix-env`.
-        name = removePythonPrefix oldAttrs.name;
-        pythonModule = false;
-      };
-    })
+    drv.overrideAttrs (
+      oldAttrs: {
+        passthru = (
+          oldAttrs.passthru or { }
+        ) // {
+          # Remove Python prefix from name so we have a "normal" name.
+          # While the prefix shows up in the store path, it won't be
+          # used by `nix-env`.
+          name = removePythonPrefix oldAttrs.name;
+          pythonModule = false;
+        };
+      }
+    )
     ;
 
   disabled =
@@ -188,7 +201,8 @@ in
   pythonPackages = self;
 
     # Remove?
-  recursivePthLoader = toPythonModule
-    (callPackage ../../../development/python-modules/recursive-pth-loader { });
+  recursivePthLoader = toPythonModule (
+    callPackage ../../../development/python-modules/recursive-pth-loader { }
+  );
 
 }

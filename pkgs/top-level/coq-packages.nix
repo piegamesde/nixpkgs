@@ -168,18 +168,24 @@ let
 
   filterCoqPackages =
     set:
-    lib.listToAttrs (lib.concatMap (
-      name:
-      let
-        v = set.${name} or null;
-      in
-      lib.optional (!v.meta.coqFilter or false) (lib.nameValuePair name (
-        if lib.isAttrs v && v.recurseForDerivations or false then
-          filterCoqPackages v
-        else
-          v
-      ))
-    ) (lib.attrNames set))
+    lib.listToAttrs (
+      lib.concatMap
+      (
+        name:
+        let
+          v = set.${name} or null;
+        in
+        lib.optional (!v.meta.coqFilter or false) (
+          lib.nameValuePair name (
+            if lib.isAttrs v && v.recurseForDerivations or false then
+              filterCoqPackages v
+            else
+              v
+          )
+        )
+      )
+      (lib.attrNames set)
+    )
     ;
   mkCoq =
     version:

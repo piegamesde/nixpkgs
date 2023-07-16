@@ -18,60 +18,70 @@ let
     # One range of handles for each meta/data instance
   handleStep = maxHandle / (length aliases) / 2;
 
-  fileSystems = mapAttrsToList (
-    name: fs: ''
-      <FileSystem>
-        Name ${name}
-        ID ${toString fs.id}
-        RootHandle ${toString fs.rootHandle}
+  fileSystems = mapAttrsToList
+    (
+      name: fs: ''
+        <FileSystem>
+          Name ${name}
+          ID ${toString fs.id}
+          RootHandle ${toString fs.rootHandle}
 
-        ${fs.extraConfig}
+          ${fs.extraConfig}
 
-        <MetaHandleRanges>
-        ${
-          concatStringsSep "\n" (imap0 (
-            i: alias:
-            let
-              begin = i * handleStep + 3;
-              end = begin + handleStep - 1;
-            in
-            "Range ${alias} ${toString begin}-${toString end}"
-          ) aliases)
-        }
-        </MetaHandleRanges>
+          <MetaHandleRanges>
+          ${
+            concatStringsSep "\n" (
+              imap0
+              (
+                i: alias:
+                let
+                  begin = i * handleStep + 3;
+                  end = begin + handleStep - 1;
+                in
+                "Range ${alias} ${toString begin}-${toString end}"
+              )
+              aliases
+            )
+          }
+          </MetaHandleRanges>
 
-        <DataHandleRanges>
-        ${
-          concatStringsSep "\n" (imap0 (
-            i: alias:
-            let
-              begin = i * handleStep + 3 + (length aliases) * handleStep;
-              end = begin + handleStep - 1;
-            in
-            "Range ${alias} ${toString begin}-${toString end}"
-          ) aliases)
-        }
-        </DataHandleRanges>
+          <DataHandleRanges>
+          ${
+            concatStringsSep "\n" (
+              imap0
+              (
+                i: alias:
+                let
+                  begin = i * handleStep + 3 + (length aliases) * handleStep;
+                  end = begin + handleStep - 1;
+                in
+                "Range ${alias} ${toString begin}-${toString end}"
+              )
+              aliases
+            )
+          }
+          </DataHandleRanges>
 
-        <StorageHints>
-        TroveSyncMeta ${
-          if fs.troveSyncMeta then
-            "yes"
-          else
-            "no"
-        }
-        TroveSyncData ${
-          if fs.troveSyncData then
-            "yes"
-          else
-            "no"
-        }
-        ${fs.extraStorageHints}
-        </StorageHints>
+          <StorageHints>
+          TroveSyncMeta ${
+            if fs.troveSyncMeta then
+              "yes"
+            else
+              "no"
+          }
+          TroveSyncData ${
+            if fs.troveSyncData then
+              "yes"
+            else
+              "no"
+          }
+          ${fs.extraStorageHints}
+          </StorageHints>
 
-      </FileSystem>
-    ''
-  ) cfg.fileSystems;
+        </FileSystem>
+      ''
+    )
+    cfg.fileSystems;
 
   configFile = ''
     <Defaults>
@@ -86,8 +96,9 @@ let
     ${cfg.extraConfig}
 
     <Aliases>
-    ${concatStringsSep "\n"
-    (mapAttrsToList (alias: url: "Alias ${alias} ${url}") cfg.servers)}
+    ${concatStringsSep "\n" (
+      mapAttrsToList (alias: url: "Alias ${alias} ${url}") cfg.servers
+    )}
     </Aliases>
 
     ${concatStringsSep "\n" fileSystems}
@@ -176,52 +187,54 @@ in
           }
         '';
         type = with types;
-          attrsOf (submodule (
-            {
-              ...
-            }: {
-              options = {
-                id = mkOption {
-                  type = types.int;
-                  default = 1;
-                  description = lib.mdDoc
-                    "File system ID (must be unique within configuration).";
-                };
+          attrsOf (
+            submodule (
+              {
+                ...
+              }: {
+                options = {
+                  id = mkOption {
+                    type = types.int;
+                    default = 1;
+                    description = lib.mdDoc
+                      "File system ID (must be unique within configuration).";
+                  };
 
-                rootHandle = mkOption {
-                  type = types.int;
-                  default = 3;
-                  description = lib.mdDoc "File system root ID.";
-                };
+                  rootHandle = mkOption {
+                    type = types.int;
+                    default = 3;
+                    description = lib.mdDoc "File system root ID.";
+                  };
 
-                extraConfig = mkOption {
-                  type = types.lines;
-                  default = "";
-                  description =
-                    lib.mdDoc "Extra config for `<FileSystem>` section.";
-                };
+                  extraConfig = mkOption {
+                    type = types.lines;
+                    default = "";
+                    description =
+                      lib.mdDoc "Extra config for `<FileSystem>` section.";
+                  };
 
-                troveSyncMeta = mkOption {
-                  type = types.bool;
-                  default = true;
-                  description = lib.mdDoc "Sync meta data.";
-                };
+                  troveSyncMeta = mkOption {
+                    type = types.bool;
+                    default = true;
+                    description = lib.mdDoc "Sync meta data.";
+                  };
 
-                troveSyncData = mkOption {
-                  type = types.bool;
-                  default = false;
-                  description = lib.mdDoc "Sync data.";
-                };
+                  troveSyncData = mkOption {
+                    type = types.bool;
+                    default = false;
+                    description = lib.mdDoc "Sync data.";
+                  };
 
-                extraStorageHints = mkOption {
-                  type = types.lines;
-                  default = "";
-                  description =
-                    lib.mdDoc "Extra config for `<StorageHints>` section.";
+                  extraStorageHints = mkOption {
+                    type = types.lines;
+                    default = "";
+                    description =
+                      lib.mdDoc "Extra config for `<StorageHints>` section.";
+                  };
                 };
-              };
-            }
-          ));
+              }
+            )
+          );
       };
     };
   };

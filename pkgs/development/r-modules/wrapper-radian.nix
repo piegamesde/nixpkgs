@@ -9,7 +9,8 @@
   wrapR ? false
 }:
 
-runCommand (radian.name + "-wrapper") {
+runCommand (radian.name + "-wrapper")
+{
   preferLocalBuild = true;
   allowSubstitutes = false;
 
@@ -32,7 +33,8 @@ runCommand (radian.name + "-wrapper") {
       # prefer wrapper over the package
     priority = (radian.meta.priority or 0) - 1;
   };
-} (
+}
+(
   ''
     makeWrapper "${radian}/bin/radian" "$out/bin/radian" \
       --prefix "R_LIBS_SITE" ":" "$R_LIBS_SITE" \

@@ -96,15 +96,18 @@ let
 
       nativeMessagingHosts =
         [ ]
-        ++ lib.optional (cfg.enableBrowserpass or false)
-          (lib.getBin browserpass)
+        ++ lib.optional (cfg.enableBrowserpass or false) (
+          lib.getBin browserpass
+        )
         ++ lib.optional (cfg.enableBukubrow or false) bukubrow
         ++ lib.optional (cfg.enableEUWebID or false) web-eid-app
         ++ lib.optional (cfg.enableTridactylNative or false) tridactyl-native
-        ++ lib.optional (cfg.enableGnomeExtensions or false)
+        ++ lib.optional
+          (cfg.enableGnomeExtensions or false)
           gnome-browser-connector
         ++ lib.optional (cfg.enableUgetIntegrator or false) uget-integrator
-        ++ lib.optional (cfg.enablePlasmaBrowserIntegration or false)
+        ++ lib.optional
+          (cfg.enablePlasmaBrowserIntegration or false)
           plasma5Packages.plasma-browser-integration
         ++ lib.optional (cfg.enableFXCastBridge or false) fx_cast_bridge
         ++ extraNativeMessagingHosts
@@ -175,14 +178,16 @@ let
           throw
           "Nix addons are only supported without signature enforcement (eg. Firefox ESR)"
         else
-          builtins.map (
+          builtins.map
+          (
             a:
             if !(builtins.hasAttr "extid" a) then
               throw
               "nixExtensions has an invalid entry. Missing extid attribute. Please use fetchfirefoxaddon"
             else
               a
-          ) (lib.optionals usesNixExtensions nixExtensions)
+          )
+          (lib.optionals usesNixExtensions nixExtensions)
         ;
 
       enterprisePolicies = {
@@ -195,16 +200,20 @@ let
                 "You can't have manual extension mixed with nix extensions";
               installation_mode = "blocked";
             };
-          } // lib.foldr (
-            e: ret:
-            ret // {
-              "${e.extid}" = { installation_mode = "allowed"; };
-            }
-          ) { } extensions;
+          } // lib.foldr
+            (
+              e: ret:
+              ret // {
+                "${e.extid}" = { installation_mode = "allowed"; };
+              }
+            )
+            { }
+            extensions;
 
           Extensions = {
             Install =
-              lib.foldr (e: ret: ret ++ [ "${e.outPath}/${e.extid}.xpi" ]) [ ]
+              lib.foldr (e: ret: ret ++ [ "${e.outPath}/${e.extid}.xpi" ])
+              [ ]
               extensions;
           };
         } // lib.optionalAttrs smartcardSupport {
@@ -220,8 +229,8 @@ let
         // Security is maintained because only user whitelisted addons
         // with a checksum can be installed
         ${
-          lib.optionalString usesNixExtensions
-          ''lockPref("xpinstall.signatures.required", false)''
+          lib.optionalString usesNixExtensions ''
+            lockPref("xpinstall.signatures.required", false)''
         };
       '';
 

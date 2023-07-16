@@ -19,18 +19,22 @@ import ./make-test-python.nix (
           services.redis.servers."".enable = true;
           services.redis.servers."test".enable = true;
 
-          users.users = listToAttrs (map (
-            suffix:
-            nameValuePair "member${suffix}" {
-              createHome = false;
-              description = "A member of the redis${suffix} group";
-              isNormalUser = true;
-              extraGroups = [ "redis${suffix}" ];
-            }
-          ) [
-            ""
-            "-test"
-          ]);
+          users.users = listToAttrs (
+            map
+            (
+              suffix:
+              nameValuePair "member${suffix}" {
+                createHome = false;
+                description = "A member of the redis${suffix} group";
+                isNormalUser = true;
+                extraGroups = [ "redis${suffix}" ];
+              }
+            )
+            [
+              ""
+              "-test"
+            ]
+          );
         }
         ;
     };

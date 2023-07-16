@@ -60,8 +60,8 @@ in
   };
 
   config = mkIf config.environment.wordlist.enable {
-    environment.variables =
-      lib.mapAttrs (name: value: "${concatAndSort "wordlist-${name}" value}")
+    environment.variables = lib.mapAttrs
+      (name: value: "${concatAndSort "wordlist-${name}" value}")
       config.environment.wordlist.lists;
   };
 }

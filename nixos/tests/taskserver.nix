@@ -4,68 +4,70 @@ import ./make-test-python.nix (
     ...
   }:
   let
-    snakeOil = pkgs.runCommand "snakeoil-certs" {
-      outputs = [
-        "out"
-        "cacert"
-        "cert"
-        "key"
-        "crl"
-      ];
-      buildInputs = [ pkgs.gnutls.bin ];
-      caTemplate = pkgs.writeText "snakeoil-ca.template" ''
-        cn = server
-        expiration_days = -1
-        cert_signing_key
-        ca
-      '';
-      certTemplate = pkgs.writeText "snakeoil-cert.template" ''
-        cn = server
-        expiration_days = -1
-        tls_www_server
-        encryption_key
-        signing_key
-      '';
-      crlTemplate = pkgs.writeText "snakeoil-crl.template" ''
-        expiration_days = -1
-      '';
-      userCertTemplate = pkgs.writeText "snakeoil-user-cert.template" ''
-        organization = snakeoil
-        cn = server
-        expiration_days = -1
-        tls_www_client
-        encryption_key
-        signing_key
-      '';
-    } ''
-      certtool -p --bits 4096 --outfile ca.key
-      certtool -s --template "$caTemplate" --load-privkey ca.key \
-                  --outfile "$cacert"
-      certtool -p --bits 4096 --outfile "$key"
-      certtool -c --template "$certTemplate" \
-                  --load-ca-privkey ca.key \
-                  --load-ca-certificate "$cacert" \
-                  --load-privkey "$key" \
-                  --outfile "$cert"
-      certtool --generate-crl --template "$crlTemplate" \
-                              --load-ca-privkey ca.key \
-                              --load-ca-certificate "$cacert" \
-                              --outfile "$crl"
+    snakeOil = pkgs.runCommand "snakeoil-certs"
+      {
+        outputs = [
+          "out"
+          "cacert"
+          "cert"
+          "key"
+          "crl"
+        ];
+        buildInputs = [ pkgs.gnutls.bin ];
+        caTemplate = pkgs.writeText "snakeoil-ca.template" ''
+          cn = server
+          expiration_days = -1
+          cert_signing_key
+          ca
+        '';
+        certTemplate = pkgs.writeText "snakeoil-cert.template" ''
+          cn = server
+          expiration_days = -1
+          tls_www_server
+          encryption_key
+          signing_key
+        '';
+        crlTemplate = pkgs.writeText "snakeoil-crl.template" ''
+          expiration_days = -1
+        '';
+        userCertTemplate = pkgs.writeText "snakeoil-user-cert.template" ''
+          organization = snakeoil
+          cn = server
+          expiration_days = -1
+          tls_www_client
+          encryption_key
+          signing_key
+        '';
+      }
+      ''
+        certtool -p --bits 4096 --outfile ca.key
+        certtool -s --template "$caTemplate" --load-privkey ca.key \
+                    --outfile "$cacert"
+        certtool -p --bits 4096 --outfile "$key"
+        certtool -c --template "$certTemplate" \
+                    --load-ca-privkey ca.key \
+                    --load-ca-certificate "$cacert" \
+                    --load-privkey "$key" \
+                    --outfile "$cert"
+        certtool --generate-crl --template "$crlTemplate" \
+                                --load-ca-privkey ca.key \
+                                --load-ca-certificate "$cacert" \
+                                --outfile "$crl"
 
-      mkdir "$out"
+        mkdir "$out"
 
-      # Stripping key information before the actual PEM-encoded values is solely
-      # to make test output a bit less verbose when copying the client key to the
-      # actual client.
-      certtool -p --bits 4096 | sed -n \
-        -e '/^----* *BEGIN/,/^----* *END/p' > "$out/alice.key"
+        # Stripping key information before the actual PEM-encoded values is solely
+        # to make test output a bit less verbose when copying the client key to the
+        # actual client.
+        certtool -p --bits 4096 | sed -n \
+          -e '/^----* *BEGIN/,/^----* *END/p' > "$out/alice.key"
 
-      certtool -c --template "$userCertTemplate" \
-                  --load-privkey "$out/alice.key" \
-                  --load-ca-privkey ca.key \
-                  --load-ca-certificate "$cacert" \
-                  --outfile "$out/alice.cert"
-    '';
+        certtool -c --template "$userCertTemplate" \
+                    --load-privkey "$out/alice.key" \
+                    --load-ca-privkey ca.key \
+                    --load-ca-certificate "$cacert" \
+                    --outfile "$out/alice.cert"
+      '';
 
   in
   {

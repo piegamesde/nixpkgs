@@ -9,11 +9,15 @@
 let
   rubiesEnv = runCommand "chruby-env" { preferLocalBuild = true; } ''
     mkdir $out
-    ${lib.concatStrings (lib.mapAttrsToList (
-      name: path: ''
-        ln -s ${path} $out/${name}
-      ''
-    ) rubies)}
+    ${lib.concatStrings (
+      lib.mapAttrsToList
+      (
+        name: path: ''
+          ln -s ${path} $out/${name}
+        ''
+      )
+      rubies
+    )}
   '';
 
 in

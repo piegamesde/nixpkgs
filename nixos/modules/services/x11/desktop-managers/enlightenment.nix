@@ -24,19 +24,21 @@ in
   meta = { maintainers = teams.enlightenment.members; };
 
   imports = [
-      (mkRenamedOptionModule [
-        "services"
-        "xserver"
-        "desktopManager"
-        "e19"
-        "enable"
-      ] [
-        "services"
-        "xserver"
-        "desktopManager"
-        "enlightenment"
-        "enable"
-      ])
+      (mkRenamedOptionModule
+        [
+          "services"
+          "xserver"
+          "desktopManager"
+          "e19"
+          "enable"
+        ]
+        [
+          "services"
+          "xserver"
+          "desktopManager"
+          "enlightenment"
+          "enable"
+        ])
     ];
 
   options = {

@@ -97,9 +97,11 @@ let
 
   legacyOptionsDefined =
     optional (opt.localSystem.highestPrio < (mkDefault { }).priority) opt.system
-    ++ optional (opt.localSystem.highestPrio < (mkOptionDefault { }).priority)
+    ++ optional
+      (opt.localSystem.highestPrio < (mkOptionDefault { }).priority)
       opt.localSystem
-    ++ optional (opt.crossSystem.highestPrio < (mkOptionDefault { }).priority)
+    ++ optional
+      (opt.crossSystem.highestPrio < (mkOptionDefault { }).priority)
       opt.crossSystem
     ;
 
@@ -134,10 +136,11 @@ in
   imports = [
     ./assertions.nix
     ./meta.nix
-    (mkRemovedOptionModule [
-      "nixpkgs"
-      "initialSystem"
-    ]
+    (mkRemovedOptionModule
+      [
+        "nixpkgs"
+        "initialSystem"
+      ]
       "The NixOS options `nesting.clone` and `nesting.children` have been deleted, and replaced with named specialisation. Therefore `nixpgks.initialSystem` has no effect anymore.")
   ];
 
@@ -391,12 +394,16 @@ in
           nixosExpectedSystem =
             if config.nixpkgs.crossSystem != null then
               config.nixpkgs.crossSystem.system or (lib.systems.parse.doubleFromSystem
-                (lib.systems.parse.mkSystemFromString
-                  config.nixpkgs.crossSystem.config))
+                (
+                  lib.systems.parse.mkSystemFromString
+                  config.nixpkgs.crossSystem.config
+                ))
             else
               config.nixpkgs.localSystem.system or (lib.systems.parse.doubleFromSystem
-                (lib.systems.parse.mkSystemFromString
-                  config.nixpkgs.localSystem.config))
+                (
+                  lib.systems.parse.mkSystemFromString
+                  config.nixpkgs.localSystem.config
+                ))
             ;
           nixosOption =
             if config.nixpkgs.crossSystem != null then

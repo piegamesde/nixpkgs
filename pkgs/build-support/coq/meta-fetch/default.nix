@@ -36,29 +36,31 @@ let
           "tarball"
         ;
       pr = match "^#(.*)$" rev;
-      url = switch-if [
-        {
-          cond = pr == null && (match "^github.*" domain) != null;
-          out = "https://${domain}/${owner}/${repo}/archive/${rev}.${ext}";
-        }
-        {
-          cond = pr != null && (match "^github.*" domain) != null;
-          out =
-            "https://api.${domain}/repos/${owner}/${repo}/${fmt}/pull/${
-              head pr
-            }/head";
-        }
-        {
-          cond = pr == null && (match "^gitlab.*" domain) != null;
-          out =
-            "https://${domain}/${owner}/${repo}/-/archive/${rev}/${repo}-${rev}.${ext}";
-        }
-        {
-          cond = (match "(www.)?mpi-sws.org" domain) != null;
-          out =
-            "https://www.mpi-sws.org/~${owner}/${repo}/download/${repo}-${rev}.${ext}";
-        }
-      ] (throw "meta-fetch: no fetcher found for domain ${domain} on ${rev}");
+      url = switch-if
+        [
+          {
+            cond = pr == null && (match "^github.*" domain) != null;
+            out = "https://${domain}/${owner}/${repo}/archive/${rev}.${ext}";
+          }
+          {
+            cond = pr != null && (match "^github.*" domain) != null;
+            out =
+              "https://api.${domain}/repos/${owner}/${repo}/${fmt}/pull/${
+                head pr
+              }/head";
+          }
+          {
+            cond = pr == null && (match "^gitlab.*" domain) != null;
+            out =
+              "https://${domain}/${owner}/${repo}/-/archive/${rev}/${repo}-${rev}.${ext}";
+          }
+          {
+            cond = (match "(www.)?mpi-sws.org" domain) != null;
+            out =
+              "https://www.mpi-sws.org/~${owner}/${repo}/download/${repo}-${rev}.${ext}";
+          }
+        ]
+        (throw "meta-fetch: no fetcher found for domain ${domain} on ${rev}");
       fetch =
         x:
         if args ? sha256 then
@@ -81,8 +83,9 @@ let
   shortVersion =
     x:
     if (isString x && match "^/.*" x == null) then
-      findFirst (v: versions.majorMinor v == x) null
-      (sort versionAtLeast (attrNames release))
+      findFirst (v: versions.majorMinor v == x) null (
+        sort versionAtLeast (attrNames release)
+      )
     else
       null
     ;
@@ -90,7 +93,8 @@ let
   isPathString = x: isString x && match "^/.*" x != null && pathExists x;
 in
 arg:
-switch arg [
+switch arg
+[
   {
     case = isNull;
     out = {
@@ -169,4 +173,5 @@ switch arg [
       };
     };
   }
-] (throw "not a valid source description")
+]
+(throw "not a valid source description")

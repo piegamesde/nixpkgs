@@ -18,13 +18,17 @@ let
 
     before = paths-nixos.conf
 
-    ${concatStringsSep "\n" (attrValues (flip mapAttrs cfg.jails (
-      name: def:
-      optionalString (def != "") ''
-        [${name}]
-        ${def}
-      ''
-    )))}
+    ${concatStringsSep "\n" (
+      attrValues (
+        flip mapAttrs cfg.jails (
+          name: def:
+          optionalString (def != "") ''
+            [${name}]
+            ${def}
+          ''
+        )
+      )
+    )}
   '';
 
   pathsConf = pkgs.writeText "paths-nixos.conf" ''
@@ -237,11 +241,13 @@ in
 
       extraSettings = mkOption {
         type = with types;
-          attrsOf (oneOf [
-            bool
-            ints.positive
-            str
-          ]);
+          attrsOf (
+            oneOf [
+              bool
+              ints.positive
+              str
+            ]
+          );
         default = { };
         description = lib.mdDoc ''
           Extra default configuration for all jails (i.e. `[DEFAULT]`). See
@@ -318,9 +324,11 @@ in
       '';
     } ];
 
-    warnings = mkIf (
-      !config.networking.firewall.enable && !config.networking.nftables.enable
-    ) [ "fail2ban can not be used without a firewall" ];
+    warnings = mkIf
+      (!config.networking.firewall.enable && !config.networking.nftables.enable)
+      [
+        "fail2ban can not be used without a firewall"
+      ];
 
     environment.systemPackages = [ cfg.package ];
 
@@ -393,17 +401,23 @@ in
     services.fail2ban.jails.DEFAULT = ''
       # Bantime increment options
       bantime.increment = ${boolToString cfg.bantime-increment.enable}
-      ${optionalString (cfg.bantime-increment.rndtime != null)
+      ${optionalString
+      (cfg.bantime-increment.rndtime != null)
       "bantime.rndtime = ${cfg.bantime-increment.rndtime}"}
-      ${optionalString (cfg.bantime-increment.maxtime != null)
+      ${optionalString
+      (cfg.bantime-increment.maxtime != null)
       "bantime.maxtime = ${cfg.bantime-increment.maxtime}"}
-      ${optionalString (cfg.bantime-increment.factor != null)
+      ${optionalString
+      (cfg.bantime-increment.factor != null)
       "bantime.factor = ${cfg.bantime-increment.factor}"}
-      ${optionalString (cfg.bantime-increment.formula != null)
+      ${optionalString
+      (cfg.bantime-increment.formula != null)
       "bantime.formula = ${cfg.bantime-increment.formula}"}
-      ${optionalString (cfg.bantime-increment.multipliers != null)
+      ${optionalString
+      (cfg.bantime-increment.multipliers != null)
       "bantime.multipliers = ${cfg.bantime-increment.multipliers}"}
-      ${optionalString (cfg.bantime-increment.overalljails != null)
+      ${optionalString
+      (cfg.bantime-increment.overalljails != null)
       "bantime.overalljails = ${
         boolToString cfg.bantime-increment.overalljails
       }"}

@@ -154,9 +154,13 @@ stdenv.mkDerivation (rec {
       mkdir -p "$out/bin"
       makeWrapper "''$${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
     ''
-    + builtins.concatStringsSep "" (map (binaryAlias: ''
-      ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}
-    '') primaryBinaryAliases)
+    + builtins.concatStringsSep "" (
+      map
+      (binaryAlias: ''
+        ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}
+      '')
+      primaryBinaryAliases
+    )
     + ''
       mkdir -p "$out/share/applications"
       substitute "''$${primaryBinary}/${primaryBinary}.desktop" "$out/share/applications/${primaryBinary}.desktop" --replace "/opt/${primaryBinary}/${primaryBinary}" "${primaryBinary}"

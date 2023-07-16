@@ -34,10 +34,12 @@ let
       '';
     };
 
-  configFile = pkgs.runCommand "ncdns.conf" {
-    json = builtins.toJSON cfg.settings;
-    passAsFile = [ "json" ];
-  } "${pkgs.remarshal}/bin/json2toml < $jsonPath > $out";
+  configFile = pkgs.runCommand "ncdns.conf"
+    {
+      json = builtins.toJSON cfg.settings;
+      passAsFile = [ "json" ];
+    }
+    "${pkgs.remarshal}/bin/json2toml < $jsonPath > $out";
 
   defaultFiles = {
     public = "${dataDir}/bit.key";
@@ -47,8 +49,9 @@ let
   };
 
     # if all keys are the default value
-  needsKeygen = all id
-    (flip mapAttrsToList cfg.dnssec.keys (n: v: v == getAttr n defaultFiles));
+  needsKeygen = all id (
+    flip mapAttrsToList cfg.dnssec.keys (n: v: v == getAttr n defaultFiles)
+  );
 
   mkDefaultAttrs = mapAttrs (n: v: mkDefault v);
 
@@ -61,11 +64,13 @@ in
 
     services.ncdns = {
 
-      enable = mkEnableOption (lib.mdDoc ''
-        ncdns, a Go daemon to bridge Namecoin to DNS.
-        To resolve .bit domains set `services.namecoind.enable = true;`
-        and an RPC username/password
-      '');
+      enable = mkEnableOption (
+        lib.mdDoc ''
+          ncdns, a Go daemon to bridge Namecoin to DNS.
+          To resolve .bit domains set `services.namecoind.enable = true;`
+          and an RPC username/password
+        ''
+      );
 
       address = mkOption {
         type = types.str;
@@ -123,13 +128,15 @@ in
         '';
       };
 
-      dnssec.enable = mkEnableOption (lib.mdDoc ''
-        DNSSEC support in ncdns. This will generate KSK and ZSK keypairs
-        (unless provided via the options
-        {option}`services.ncdns.dnssec.publicKey`,
-        {option}`services.ncdns.dnssec.privateKey` etc.) and add a trust
-        anchor to recursive resolvers
-      '');
+      dnssec.enable = mkEnableOption (
+        lib.mdDoc ''
+          DNSSEC support in ncdns. This will generate KSK and ZSK keypairs
+          (unless provided via the options
+          {option}`services.ncdns.dnssec.publicKey`,
+          {option}`services.ncdns.dnssec.privateKey` etc.) and add a trust
+          anchor to recursive resolvers
+        ''
+      );
 
       dnssec.keys.public = mkOption {
         type = types.path;

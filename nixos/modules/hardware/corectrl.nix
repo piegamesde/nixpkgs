@@ -12,15 +12,19 @@ let
 in
 {
   options.programs.corectrl = {
-    enable = mkEnableOption (lib.mdDoc ''
-      A tool to overclock amd graphics cards and processors.
-      Add your user to the corectrl group to run corectrl without needing to enter your password
-    '');
+    enable = mkEnableOption (
+      lib.mdDoc ''
+        A tool to overclock amd graphics cards and processors.
+        Add your user to the corectrl group to run corectrl without needing to enter your password
+      ''
+    );
 
     gpuOverclock = {
-      enable = mkEnableOption (lib.mdDoc ''
-        true
-      '');
+      enable = mkEnableOption (
+        lib.mdDoc ''
+          true
+        ''
+      );
       ppfeaturemask = mkOption {
         type = types.str;
         default = "0xfffd7fff";
@@ -35,35 +39,37 @@ in
     };
   };
 
-  config = mkIf cfg.enable (lib.mkMerge [
-    {
-      environment.systemPackages = [ pkgs.corectrl ];
+  config = mkIf cfg.enable (
+    lib.mkMerge [
+      {
+        environment.systemPackages = [ pkgs.corectrl ];
 
-      services.dbus.packages = [ pkgs.corectrl ];
+        services.dbus.packages = [ pkgs.corectrl ];
 
-      users.groups.corectrl = { };
+        users.groups.corectrl = { };
 
-      security.polkit.extraConfig = ''
-        polkit.addRule(function(action, subject) {
-            if ((action.id == "org.corectrl.helper.init" ||
-                 action.id == "org.corectrl.helperkiller.init") &&
-                subject.local == true &&
-                subject.active == true &&
-                subject.isInGroup("corectrl")) {
-                    return polkit.Result.YES;
-            }
-        });
-      '';
-    }
+        security.polkit.extraConfig = ''
+          polkit.addRule(function(action, subject) {
+              if ((action.id == "org.corectrl.helper.init" ||
+                   action.id == "org.corectrl.helperkiller.init") &&
+                  subject.local == true &&
+                  subject.active == true &&
+                  subject.isInGroup("corectrl")) {
+                      return polkit.Result.YES;
+              }
+          });
+        '';
+      }
 
-    (lib.mkIf cfg.gpuOverclock.enable {
-      # https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/gpu/drm/amd/include/amd_shared.h#n169
-      # The overdrive bit
-      boot.kernelParams = [
-          "amdgpu.ppfeaturemask=${cfg.gpuOverclock.ppfeaturemask}"
-        ];
-    })
-  ]);
+      (lib.mkIf cfg.gpuOverclock.enable {
+        # https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/gpu/drm/amd/include/amd_shared.h#n169
+        # The overdrive bit
+        boot.kernelParams = [
+            "amdgpu.ppfeaturemask=${cfg.gpuOverclock.ppfeaturemask}"
+          ];
+      })
+    ]
+  );
 
   meta.maintainers = with lib.maintainers; [ artturin ];
 }

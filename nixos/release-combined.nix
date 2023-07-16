@@ -38,17 +38,24 @@ let
 in
 rec {
 
-  nixos = removeMaintainers (import ./release.nix {
-    inherit stableBranch;
-    supportedSystems = supportedSystems ++ limitedSupportedSystems;
-    nixpkgs = nixpkgsSrc;
-  });
-
-  nixpkgs = builtins.removeAttrs (removeMaintainers
-    (import ../pkgs/top-level/release.nix {
-      inherit supportedSystems;
+  nixos = removeMaintainers (
+    import ./release.nix {
+      inherit stableBranch;
+      supportedSystems = supportedSystems ++ limitedSupportedSystems;
       nixpkgs = nixpkgsSrc;
-    })) [ "unstable" ];
+    }
+  );
+
+  nixpkgs = builtins.removeAttrs
+    (removeMaintainers (
+      import ../pkgs/top-level/release.nix {
+        inherit supportedSystems;
+        nixpkgs = nixpkgsSrc;
+      }
+    ))
+    [
+      "unstable"
+    ];
 
   tested =
     let
@@ -61,9 +68,11 @@ rec {
         ;
       onSystems =
         systems: x:
-        map (system: "${x}.${system}") (pkgs.lib.intersectLists systems (
-          supportedSystems ++ limitedSupportedSystems
-        ))
+        map (system: "${x}.${system}") (
+          pkgs.lib.intersectLists systems (
+            supportedSystems ++ limitedSupportedSystems
+          )
+        )
         ;
     in
     pkgs.releaseTools.aggregate {
@@ -76,10 +85,12 @@ rec {
         [ "nixos.channel" ]
         (onFullSupported "nixos.dummy")
         (onAllSupported "nixos.iso_minimal")
-        (onSystems [
-          "x86_64-linux"
-          "aarch64-linux"
-        ] "nixos.amazonImage")
+        (onSystems
+          [
+            "x86_64-linux"
+            "aarch64-linux"
+          ]
+          "nixos.amazonImage")
         (onFullSupported "nixos.iso_plasma5")
         (onFullSupported "nixos.iso_gnome")
         (onFullSupported "nixos.manual")
@@ -106,7 +117,8 @@ rec {
         (onSystems [ "x86_64-linux" ] "nixos.tests.hibernate")
         (onFullSupported "nixos.tests.i3wm")
         (onSystems [ "x86_64-linux" ] "nixos.tests.installer.btrfsSimple")
-        (onSystems [ "x86_64-linux" ]
+        (onSystems
+          [ "x86_64-linux" ]
           "nixos.tests.installer.btrfsSubvolDefault")
         (onSystems [ "x86_64-linux" ] "nixos.tests.installer.btrfsSubvolEscape")
         (onSystems [ "x86_64-linux" ] "nixos.tests.installer.btrfsSubvols")
@@ -116,7 +128,8 @@ rec {
         (onSystems [ "x86_64-linux" ] "nixos.tests.installer.separateBoot")
         (onSystems [ "x86_64-linux" ] "nixos.tests.installer.simpleLabels")
         (onSystems [ "x86_64-linux" ] "nixos.tests.installer.simpleProvided")
-        (onSystems [ "x86_64-linux" ]
+        (onSystems
+          [ "x86_64-linux" ]
           "nixos.tests.installer.simpleUefiSystemdBoot")
         (onSystems [ "x86_64-linux" ] "nixos.tests.installer.simple")
         (onSystems [ "x86_64-linux" ] "nixos.tests.installer.swraid")

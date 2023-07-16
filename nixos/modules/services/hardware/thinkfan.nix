@@ -110,16 +110,18 @@ let
       query,
       ...
     }@args:
-    (filterAttrs (
-      k: v:
-      v != null
-      && !(elem k [
-        "type"
-        "query"
-      ])
-    ) args) // {
-      "${type}" = query;
-    }
+    (filterAttrs
+      (
+        k: v:
+        v != null
+        && !(elem k [
+          "type"
+          "query"
+        ])
+      )
+      args) // {
+        "${type}" = query;
+      }
     ;
 
   syntaxNote =

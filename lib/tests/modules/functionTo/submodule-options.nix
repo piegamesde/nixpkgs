@@ -17,9 +17,9 @@ in
       }: {
         options = {
           fun = lib.mkOption {
-            type = types.functionTo
-              (types.submodule { options.a = lib.mkOption { default = "a"; }; })
-              ;
+            type = types.functionTo (
+              types.submodule { options.a = lib.mkOption { default = "a"; }; }
+            );
           };
         };
       }
@@ -32,9 +32,9 @@ in
       }: {
         options = {
           fun = lib.mkOption {
-            type = types.functionTo
-              (types.submodule { options.b = lib.mkOption { default = "b"; }; })
-              ;
+            type = types.functionTo (
+              types.submodule { options.b = lib.mkOption { default = "b"; }; }
+            );
           };
         };
       }
@@ -44,21 +44,26 @@ in
   options = {
     result = lib.mkOption {
       type = types.str;
-      default = lib.concatStringsSep " "
-        (lib.attrValues (config.fun (throw "shouldn't use input param")));
+      default = lib.concatStringsSep " " (
+        lib.attrValues (config.fun (throw "shouldn't use input param"))
+      );
     };
 
     optionsResult = lib.mkOption {
       type = types.str;
-      default = lib.concatStringsSep " " (lib.concatLists (lib.mapAttrsToList (
-        k: v:
-        if k == "_module" then
-          [ ]
-        else
-          [ (lib.showOption v.loc) ]
-      ) (
-        (options.fun.type.getSubOptions [ "fun" ])
-      )));
+      default = lib.concatStringsSep " " (
+        lib.concatLists (
+          lib.mapAttrsToList
+          (
+            k: v:
+            if k == "_module" then
+              [ ]
+            else
+              [ (lib.showOption v.loc) ]
+          )
+          ((options.fun.type.getSubOptions [ "fun" ]))
+        )
+      );
     };
   };
 

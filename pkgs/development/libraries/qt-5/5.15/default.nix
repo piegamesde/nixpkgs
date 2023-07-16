@@ -144,19 +144,25 @@ let
     self:
     with self;
     let
-      qtModule = import ../qtModule.nix {
-        inherit perl;
-        inherit
-          lib
-          ;
-          # Use a variant of mkDerivation that does not include wrapQtApplications
-          # to avoid cyclic dependencies between Qt modules.
-        mkDerivation = import ../mkDerivation.nix {
-          inherit lib;
-          inherit debug;
-          wrapQtAppsHook = null;
-        } stdenv.mkDerivation;
-      } { inherit self srcs patches; };
+      qtModule = import ../qtModule.nix
+        {
+          inherit perl;
+          inherit
+            lib
+            ;
+            # Use a variant of mkDerivation that does not include wrapQtApplications
+            # to avoid cyclic dependencies between Qt modules.
+          mkDerivation = import ../mkDerivation.nix
+            {
+              inherit lib;
+              inherit debug;
+              wrapQtAppsHook = null;
+            }
+            stdenv.mkDerivation;
+        }
+        {
+          inherit self srcs patches;
+        };
 
       callPackage =
         self.newScope { inherit qtCompatVersion qtModule srcs stdenv; };
@@ -316,33 +322,39 @@ let
         ++ lib.optional (stdenv.isDarwin) qtmacextras
       );
 
-      qmake = makeSetupHook {
-        name = "qmake-hook";
-        propagatedBuildInputs = [ self.qtbase.dev ];
-        substitutions = {
-          inherit debug;
-          fix_qmake_libtool = ../hooks/fix-qmake-libtool.sh;
-        };
-      } ../hooks/qmake-hook.sh;
+      qmake = makeSetupHook
+        {
+          name = "qmake-hook";
+          propagatedBuildInputs = [ self.qtbase.dev ];
+          substitutions = {
+            inherit debug;
+            fix_qmake_libtool = ../hooks/fix-qmake-libtool.sh;
+          };
+        }
+        ../hooks/qmake-hook.sh;
 
-      wrapQtAppsHook = makeSetupHook {
-        name = "wrap-qt5-apps-hook";
-        propagatedBuildInputs =
-          [
-            self.qtbase.dev
-            buildPackages.makeBinaryWrapper
-          ]
-          ++ lib.optional stdenv.isLinux self.qtwayland.dev
-          ;
-      } ../hooks/wrap-qt-apps-hook.sh;
+      wrapQtAppsHook = makeSetupHook
+        {
+          name = "wrap-qt5-apps-hook";
+          propagatedBuildInputs =
+            [
+              self.qtbase.dev
+              buildPackages.makeBinaryWrapper
+            ]
+            ++ lib.optional stdenv.isLinux self.qtwayland.dev
+            ;
+        }
+        ../hooks/wrap-qt-apps-hook.sh;
     } // lib.optionalAttrs config.allowAliases {
       # remove before 23.11
-      overrideScope' = lib.warn ''
-        qt5 now uses makeScopeWithSplicing which does not have "overrideScope'", use "overrideScope".''
+      overrideScope' = lib.warn
+        ''
+          qt5 now uses makeScopeWithSplicing which does not have "overrideScope'", use "overrideScope".''
         self.overrideScope;
     }
     ;
 
 in
-makeScopeWithSplicing (generateSplicesForMkScope "qt5") (_: { }) (_: { })
+makeScopeWithSplicing (generateSplicesForMkScope "qt5") (_: { })
+(_: { })
 addPackages

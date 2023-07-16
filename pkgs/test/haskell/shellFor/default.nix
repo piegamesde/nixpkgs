@@ -48,17 +48,20 @@
   installPhase = ''
     touch $out
   '';
-}).overrideAttrs (oldAttrs: {
-  meta =
-    let
-      oldMeta = oldAttrs.meta or { };
-      oldMaintainers = oldMeta.maintainers or [ ];
-      additionalMaintainers = with lib.maintainers; [ cdepillabout ];
-      allMaintainers = oldMaintainers ++ additionalMaintainers;
-    in
-    oldMeta // {
-      maintainers = allMaintainers;
-      inherit (cabal-install.meta) platforms;
-    }
-    ;
-})
+}).overrideAttrs
+(
+  oldAttrs: {
+    meta =
+      let
+        oldMeta = oldAttrs.meta or { };
+        oldMaintainers = oldMeta.maintainers or [ ];
+        additionalMaintainers = with lib.maintainers; [ cdepillabout ];
+        allMaintainers = oldMaintainers ++ additionalMaintainers;
+      in
+      oldMeta // {
+        maintainers = allMaintainers;
+        inherit (cabal-install.meta) platforms;
+      }
+      ;
+  }
+)

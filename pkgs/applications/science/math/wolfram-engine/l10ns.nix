@@ -7,7 +7,8 @@
 
 let
   allVersions = with lib;
-    flip map
+    flip
+    map
     # N.B. Versions in this list should be ordered from newest to oldest.
     [
       {
@@ -31,7 +32,8 @@ let
         sha256 = "10cpwllz9plxz22iqdh6xgkxqphl9s9nq8ax16pafjll6j9kqy1q";
         installer = "WolframEngine_13.0.0_LINUX.sh";
       }
-    ] (
+    ]
+    (
       {
         version,
         lang,
@@ -63,6 +65,7 @@ let
   maxVersion = toString (1 + builtins.fromJSON minVersion);
 in
 with lib;
-findFirst (
-  l: (l.lang == lang && l.version >= minVersion && l.version < maxVersion)
-) (throw "Version ${minVersion} in language ${lang} not supported") allVersions
+findFirst
+(l: (l.lang == lang && l.version >= minVersion && l.version < maxVersion))
+(throw "Version ${minVersion} in language ${lang} not supported")
+allVersions

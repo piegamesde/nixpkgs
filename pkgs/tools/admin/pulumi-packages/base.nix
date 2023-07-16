@@ -43,7 +43,8 @@ let
       version,
       ...
     }:
-    python3Packages.callPackage (
+    python3Packages.callPackage
+    (
       {
         buildPythonPackage,
         pythonOlder,
@@ -87,7 +88,8 @@ let
             (builtins.replaceStrings [ "-" ] [ "_" ] pname)
           ];
       }
-    ) { }
+    )
+    { }
     ;
 in
 {

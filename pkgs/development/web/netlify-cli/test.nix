@@ -7,7 +7,8 @@
   stdenv,
 }:
 
-runCommand "netlify-cli-test" {
+runCommand "netlify-cli-test"
+{
   nativeBuildInputs =
     [
       netlify-cli
@@ -16,7 +17,8 @@ runCommand "netlify-cli-test" {
     ++ lib.optionals stdenv.isDarwin [ darwin.ps ]
     ;
   meta.timeout = 600;
-} ''
+}
+''
   mkdir home
   export HOME=$PWD/home
 

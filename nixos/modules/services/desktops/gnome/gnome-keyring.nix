@@ -15,17 +15,19 @@ with lib;
 
     # Added 2021-05-07
   imports = [
-      (mkRenamedOptionModule [
-        "services"
-        "gnome3"
-        "gnome-keyring"
-        "enable"
-      ] [
-        "services"
-        "gnome"
-        "gnome-keyring"
-        "enable"
-      ])
+      (mkRenamedOptionModule
+        [
+          "services"
+          "gnome3"
+          "gnome-keyring"
+          "enable"
+        ]
+        [
+          "services"
+          "gnome"
+          "gnome-keyring"
+          "enable"
+        ])
     ];
 
     ###### interface

@@ -73,11 +73,12 @@ stdenv.mkDerivation rec {
 
   qtWrapperArgs = [ "--prefix PATH : ${python3WithLibs}/bin" ];
 
-  passthru.tests.version = lib.optionalAttrs stdenv.isLinux
-    (testers.testVersion {
+  passthru.tests.version = lib.optionalAttrs stdenv.isLinux (
+    testers.testVersion {
       package = glaxnimate;
       command = "${xvfb-run}/bin/xvfb-run glaxnimate --version";
-    });
+    }
+  );
 
   meta = with lib; {
     homepage = "https://gitlab.com/mattbas/glaxnimate";

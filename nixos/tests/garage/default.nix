@@ -57,7 +57,8 @@ let
     }
     ;
 in
-foldl (
+foldl
+(
   matrix: ver:
   matrix // {
     "basic${toString ver}" = import ./basic.nix {
@@ -70,4 +71,8 @@ foldl (
         mkNode = mkNode pkgs."garage_${ver}";
       };
   }
-) { } [ "0_8" ]
+)
+{ }
+[
+  "0_8"
+]

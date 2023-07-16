@@ -8,20 +8,24 @@ with lib;
 
 let
 
-  scope = makeScope pkgs.newScope (final: {
-    # Here we put package set configuration and utility functions.
-    inherit cudaVersion;
-    cudaMajorVersion = versions.major final.cudaVersion;
-    cudaMajorMinorVersion = lib.versions.majorMinor final.cudaVersion;
-    inherit lib pkgs;
+  scope = makeScope pkgs.newScope (
+    final: {
+      # Here we put package set configuration and utility functions.
+      inherit cudaVersion;
+      cudaMajorVersion = versions.major final.cudaVersion;
+      cudaMajorMinorVersion = lib.versions.majorMinor final.cudaVersion;
+      inherit lib pkgs;
 
-    addBuildInputs =
-      drv: buildInputs:
-      drv.overrideAttrs (oldAttrs: {
-        buildInputs = (oldAttrs.buildInputs or [ ]) ++ buildInputs;
-      })
-      ;
-  });
+      addBuildInputs =
+        drv: buildInputs:
+        drv.overrideAttrs (
+          oldAttrs: {
+            buildInputs = (oldAttrs.buildInputs or [ ]) ++ buildInputs;
+          }
+        )
+        ;
+    }
+  );
 
   cutensorExtension =
     final: prev:
@@ -70,16 +74,20 @@ let
 
       nccl = final.callPackage ../development/libraries/science/math/nccl { };
 
-      autoAddOpenGLRunpathHook = final.callPackage (
-        {
-          makeSetupHook,
-          addOpenGLRunpath,
-        }:
-        makeSetupHook {
-          name = "auto-add-opengl-runpath-hook";
-          propagatedBuildInputs = [ addOpenGLRunpath ];
-        } ../development/compilers/cudatoolkit/auto-add-opengl-runpath-hook.sh
-      ) { };
+      autoAddOpenGLRunpathHook = final.callPackage
+        (
+          {
+            makeSetupHook,
+            addOpenGLRunpath,
+          }:
+          makeSetupHook
+          {
+            name = "auto-add-opengl-runpath-hook";
+            propagatedBuildInputs = [ addOpenGLRunpath ];
+          }
+          ../development/compilers/cudatoolkit/auto-add-opengl-runpath-hook.sh
+        )
+        { };
 
     }
     ;

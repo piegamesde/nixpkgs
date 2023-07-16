@@ -44,10 +44,12 @@ let
     "0p9mr8g1qma6h10qf7014dv98ln90dfkwn76ynagpww7qap8s966";
 
   defaultVersion = with versions;
-    lib.switch [
+    lib.switch
+    [
       coq.version
       mathcomp.version
-    ] [
+    ]
+    [
       {
         cases = [
           (isGe "8.14")
@@ -111,7 +113,8 @@ let
         ];
         out = "0.2.3";
       }
-    ] null;
+    ]
+    null;
 
     # list of analysis packages sorted by dependency order
   packages = [
@@ -161,14 +164,18 @@ let
 
         propagatedBuildInputs =
           intra-deps
-          ++ optionals (elem package [
-            "classical"
-            "single"
-          ]) classical-deps
-          ++ optionals (elem package [
-            "analysis"
-            "single"
-          ]) analysis-deps
+          ++ optionals
+            (elem package [
+              "classical"
+              "single"
+            ])
+            classical-deps
+          ++ optionals
+            (elem package [
+              "analysis"
+              "single"
+            ])
+            analysis-deps
           ;
 
         preBuild = ''
@@ -187,13 +194,15 @@ let
         # split packages didn't exist before 0.6, so bulding nothing in that case
       patched-derivation1 = derivation.overrideAttrs (
         o:
-        optionalAttrs (
+        optionalAttrs
+        (
           o.pname != null
           && o.pname != "mathcomp-analysis"
           && o.version != null
           && o.version != "dev"
           && versions.isLt "0.6" o.version
-        ) {
+        )
+        {
           preBuild = "";
           buildPhase = "echo doing nothing";
           installPhase = "echo doing nothing";
@@ -201,22 +210,28 @@ let
       );
       patched-derivation2 = patched-derivation1.overrideAttrs (
         o:
-        optionalAttrs (
+        optionalAttrs
+        (
           o.pname != null
           && o.pname == "mathcomp-analysis"
           && o.version != null
           && o.version != "dev"
           && versions.isLt "0.6" o.version
-        ) { preBuild = ""; }
+        )
+        {
+          preBuild = "";
+        }
       );
       patched-derivation = patched-derivation2.overrideAttrs (
         o:
-        optionalAttrs (
+        optionalAttrs
+        (
           o.version != null
           && (
             o.version == "dev" || versions.isGe "0.3.4" o.version
           )
-        ) {
+        )
+        {
           propagatedBuildInputs =
             o.propagatedBuildInputs ++ [ hierarchy-builder ];
         }

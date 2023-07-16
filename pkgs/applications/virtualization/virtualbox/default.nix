@@ -128,7 +128,8 @@ stdenv.mkDerivation {
       python3
     ]
     ++ optional javaBindings jdk
-    ++ optional pythonBindings
+    ++ optional
+      pythonBindings
       python3 # Python is needed even when not building bindings
     ++ optional pulseSupport libpulseaudio
     ++ optionals headless [
@@ -171,8 +172,8 @@ stdenv.mkDerivation {
 
     grep 'libpulse\.so\.0'      src include -rI --files-with-match | xargs sed -i -e '
       ${
-        optionalString pulseSupport
-        ''s@"libpulse\.so\.0"@"${libpulseaudio.out}/lib/libpulse.so.0"@g''
+        optionalString pulseSupport ''
+          s@"libpulse\.so\.0"@"${libpulseaudio.out}/lib/libpulse.so.0"@g''
       }'
 
     grep 'libdbus-1\.so\.3'     src include -rI --files-with-match | xargs sed -i -e '
@@ -197,11 +198,13 @@ stdenv.mkDerivation {
     # these issues by patching the code to set QT_PLUGIN_PATH to the necessary paths,
     # after the code that unsets it. Note that qtsvg is included so that SVG icons from
     # the user's icon theme can be loaded.
-    ++ optional (!headless && enableHardening) (substituteAll {
-      src = ./qt-env-vars.patch;
-      qtPluginPath =
-        "${qtbase.bin}/${qtbase.qtPluginPrefix}:${qtsvg.bin}/${qtbase.qtPluginPrefix}:${qtwayland.bin}/${qtbase.qtPluginPrefix}";
-    })
+    ++ optional (!headless && enableHardening) (
+      substituteAll {
+        src = ./qt-env-vars.patch;
+        qtPluginPath =
+          "${qtbase.bin}/${qtbase.qtPluginPrefix}:${qtsvg.bin}/${qtbase.qtPluginPrefix}:${qtwayland.bin}/${qtbase.qtPluginPrefix}";
+      }
+    )
     ++ [
       ./qt-dependency-paths.patch
       # https://github.com/NixOS/nixpkgs/issues/123851
@@ -267,7 +270,8 @@ stdenv.mkDerivation {
       ${optionalString (!enable32bitGuests) "--disable-vmmraw"} \
       ${optionalString enableWebService "--enable-webservice"} \
       ${
-        optionalString (open-watcom-bin != null)
+        optionalString
+        (open-watcom-bin != null)
         "--with-ow-dir=${open-watcom-bin}"
       } \
       --disable-kmods

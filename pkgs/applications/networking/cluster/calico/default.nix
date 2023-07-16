@@ -4,7 +4,8 @@
   fetchFromGitHub,
 }:
 
-builtins.mapAttrs (
+builtins.mapAttrs
+(
   pname:
   {
     doCheck ? true,
@@ -41,7 +42,8 @@ builtins.mapAttrs (
       inherit mainProgram;
     };
   }
-) {
+)
+{
   calico-apiserver = {
     mainProgram = "apiserver";
     subPackages = [ "apiserver/cmd/..." ];

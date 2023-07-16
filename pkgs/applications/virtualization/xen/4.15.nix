@@ -73,7 +73,8 @@ let
   ];
 
 in
-callPackage (import ./generic.nix (rec {
+callPackage
+(import ./generic.nix (rec {
   version = "4.15.1";
 
   src = fetchurl {
@@ -217,6 +218,5 @@ callPackage (import ./generic.nix (rec {
       ;
   };
 
-})) (
-  { ocamlPackages = ocaml-ng.ocamlPackages_4_14; } // args
-)
+}))
+({ ocamlPackages = ocaml-ng.ocamlPackages_4_14; } // args)

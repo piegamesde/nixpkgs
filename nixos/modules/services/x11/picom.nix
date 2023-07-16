@@ -72,29 +72,35 @@ in
 {
 
   imports = [
-    (mkAliasOptionModuleMD [
-      "services"
-      "compton"
-    ] [
-      "services"
-      "picom"
-    ])
-    (mkRemovedOptionModule [
-      "services"
-      "picom"
-      "refreshRate"
-    ] ''
-      This option corresponds to `refresh-rate`, which has been unused
-      since picom v6 and was subsequently removed by upstream.
-      See https://github.com/yshui/picom/commit/bcbc410
-    '')
-    (mkRemovedOptionModule [
-      "services"
-      "picom"
-      "experimentalBackends"
-    ] ''
-      This option was removed by upstream since picom v10.
-    '')
+    (mkAliasOptionModuleMD
+      [
+        "services"
+        "compton"
+      ]
+      [
+        "services"
+        "picom"
+      ])
+    (mkRemovedOptionModule
+      [
+        "services"
+        "picom"
+        "refreshRate"
+      ]
+      ''
+        This option corresponds to `refresh-rate`, which has been unused
+        since picom v6 and was subsequently removed by upstream.
+        See https://github.com/yshui/picom/commit/bcbc410
+      '')
+    (mkRemovedOptionModule
+      [
+        "services"
+        "picom"
+        "experimentalBackends"
+      ]
+      ''
+        This option was removed by upstream since picom v10.
+      '')
   ];
 
   options.services.picom = {
@@ -270,14 +276,16 @@ in
 
     vSync = mkOption {
       type = with types;
-        either bool (enum [
-          "none"
-          "drm"
-          "opengl"
-          "opengl-oml"
-          "opengl-swc"
-          "opengl-mswc"
-        ]);
+        either bool (
+          enum [
+            "none"
+            "drm"
+            "opengl"
+            "opengl-oml"
+            "opengl-swc"
+            "opengl-mswc"
+          ]
+        );
       default = false;
       apply =
         x:

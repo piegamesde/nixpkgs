@@ -209,8 +209,8 @@ in
 
       environment =
         let
-          selectedSessionVars =
-            lib.filterAttrs (n: v: builtins.elem n [ "NIX_PATH" ])
+          selectedSessionVars = lib.filterAttrs
+            (n: v: builtins.elem n [ "NIX_PATH" ])
             config.environment.sessionVariables;
         in
         selectedSessionVars // {
@@ -230,9 +230,9 @@ in
               ""
             else
               let
-                pluginCmds = lib.attrsets.mapAttrsToList (
-                  n: v: "cp ${v} ${cfg.home}/plugins/${n}.jpi"
-                ) cfg.plugins;
+                pluginCmds = lib.attrsets.mapAttrsToList
+                  (n: v: "cp ${v} ${cfg.home}/plugins/${n}.jpi")
+                  cfg.plugins;
               in
               ''
                 rm -r ${cfg.home}/plugins || true
@@ -258,7 +258,8 @@ in
                                                   --prefix=${cfg.prefix} \
                                                   -Djava.awt.headless=true \
                                                   ${
-                                                    concatStringsSep " "
+                                                    concatStringsSep
+                                                    " "
                                                     cfg.extraOptions
                                                   }
       '';

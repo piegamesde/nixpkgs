@@ -15,28 +15,32 @@ with lib;
 
     # Added 2021-05-07
   imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "gnome3"
-      "evolution-data-server"
-      "enable"
-    ] [
-      "services"
-      "gnome"
-      "evolution-data-server"
-      "enable"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "gnome3"
-      "evolution-data-server"
-      "plugins"
-    ] [
-      "services"
-      "gnome"
-      "evolution-data-server"
-      "plugins"
-    ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gnome3"
+        "evolution-data-server"
+        "enable"
+      ]
+      [
+        "services"
+        "gnome"
+        "evolution-data-server"
+        "enable"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gnome3"
+        "evolution-data-server"
+        "plugins"
+      ]
+      [
+        "services"
+        "gnome"
+        "evolution-data-server"
+        "plugins"
+      ])
   ];
 
     ###### interface
@@ -44,9 +48,10 @@ with lib;
   options = {
 
     services.gnome.evolution-data-server = {
-      enable = mkEnableOption (lib.mdDoc
-        "Evolution Data Server, a collection of services for storing addressbooks and calendars")
-        ;
+      enable = mkEnableOption (
+        lib.mdDoc
+        "Evolution Data Server, a collection of services for storing addressbooks and calendars"
+      );
       plugins = mkOption {
         type = types.listOf types.package;
         default = [ ];
@@ -54,9 +59,10 @@ with lib;
       };
     };
     programs.evolution = {
-      enable = mkEnableOption (lib.mdDoc
-        "Evolution, a Personal information management application that provides integrated mail, calendaring and address book functionality")
-        ;
+      enable = mkEnableOption (
+        lib.mdDoc
+        "Evolution, a Personal information management application that provides integrated mail, calendaring and address book functionality"
+      );
       plugins = mkOption {
         type = types.listOf types.package;
         default = [ ];

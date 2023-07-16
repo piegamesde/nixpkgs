@@ -22,13 +22,15 @@ args@{
 }:
 
 let
-  env = buildFHSEnv (removeAttrs args [
-    "version"
-    "runScript"
-    "extraInstallCommands"
-    "meta"
-    "passthru"
-  ]);
+  env = buildFHSEnv (
+    removeAttrs args [
+      "version"
+      "runScript"
+      "extraInstallCommands"
+      "meta"
+      "passthru"
+    ]
+  );
 
   chrootenv = callPackage ./chrootenv { };
 
@@ -54,22 +56,26 @@ let
   nameAndVersion = name + versionStr;
 
 in
-runCommandLocal nameAndVersion {
+runCommandLocal nameAndVersion
+{
   inherit meta;
 
   passthru = passthru // {
-    env = runCommandLocal "${name}-shell-env" {
-      shellHook = ''
-        exec ${chrootenv}/bin/chrootenv ${init runScript} "$(pwd)"
+    env = runCommandLocal "${name}-shell-env"
+      {
+        shellHook = ''
+          exec ${chrootenv}/bin/chrootenv ${init runScript} "$(pwd)"
+        '';
+      }
+      ''
+        echo >&2 ""
+        echo >&2 "*** User chroot 'env' attributes are intended for interactive nix-shell sessions, not for building! ***"
+        echo >&2 ""
+        exit 1
       '';
-    } ''
-      echo >&2 ""
-      echo >&2 "*** User chroot 'env' attributes are intended for interactive nix-shell sessions, not for building! ***"
-      echo >&2 ""
-      exit 1
-    '';
   };
-} ''
+}
+''
   mkdir -p $out/bin
   cat <<EOF >$out/bin/${name}
   #! ${stdenv.shell}

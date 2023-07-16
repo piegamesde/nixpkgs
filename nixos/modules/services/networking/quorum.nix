@@ -233,13 +233,15 @@ in
                       ${optionalString (cfg.permissioned) "--permissioned"} \
                       --mine --minerthreads 1 \
                       ${
-                        optionalString (cfg.rpc.enable)
+                        optionalString
+                        (cfg.rpc.enable)
                         "--rpc --rpcaddr ${cfg.rpc.address} --rpcport ${
                           toString cfg.rpc.port
                         } --rpcapi ${cfg.rpc.api}"
                       } \
                       ${
-                        optionalString (cfg.ws.enable)
+                        optionalString
+                        (cfg.ws.enable)
                         "--ws --wsaddr ${cfg.ws.address} --wsport ${
                           toString cfg.ws.port
                         } --wsapi ${cfg.ws.api} --wsorigins ${cfg.ws.origins}"

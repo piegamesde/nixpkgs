@@ -67,7 +67,8 @@ let
             optional = false;
           };
         in
-        map (
+        map
+        (
           x:
           defaultPlugin // (
             if (x ? plugin) then
@@ -75,16 +76,20 @@ let
             else
               { plugin = x; }
           )
-        ) plugins
+        )
+        plugins
         ;
 
-      pluginRC = lib.foldl (
-        acc: p:
-        if p.config != null then
-          acc ++ [ p.config ]
-        else
-          acc
-      ) [ ] pluginsNormalized;
+      pluginRC = lib.foldl
+        (
+          acc: p:
+          if p.config != null then
+            acc ++ [ p.config ]
+          else
+            acc
+        )
+        [ ]
+        pluginsNormalized;
 
       pluginsPartitioned =
         lib.partition (x: x.optional == true) pluginsNormalized;
@@ -205,10 +210,12 @@ let
           opt ? [ ]
         }:
         start
-        ++ (map (p: {
-          plugin = p;
-          optional = true;
-        }) opt)
+        ++ (map
+          (p: {
+            plugin = p;
+            optional = true;
+          })
+          opt)
         ;
 
       res = makeNeovimConfig {

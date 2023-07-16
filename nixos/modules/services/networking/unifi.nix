@@ -13,12 +13,14 @@ let
   cmd = ''
     @${cfg.jrePackage}/bin/java java \
         ${
-          optionalString (cfg.initialJavaHeapSize != null)
-          "-Xms${(toString cfg.initialJavaHeapSize)}m"
+          optionalString (cfg.initialJavaHeapSize != null) "-Xms${
+            (toString cfg.initialJavaHeapSize)
+          }m"
         } \
         ${
-          optionalString (cfg.maximumJavaHeapSize != null)
-          "-Xmx${(toString cfg.maximumJavaHeapSize)}m"
+          optionalString (cfg.maximumJavaHeapSize != null) "-Xmx${
+            (toString cfg.maximumJavaHeapSize)
+          }m"
         } \
         -jar ${stateDir}/lib/ace.jar
   '';
@@ -215,20 +217,24 @@ in
 
   };
   imports = [
-    (mkRemovedOptionModule [
-      "services"
-      "unifi"
-      "dataDir"
-    ] "You should move contents of dataDir to /var/lib/unifi/data")
-    (mkRenamedOptionModule [
-      "services"
-      "unifi"
-      "openPorts"
-    ] [
-      "services"
-      "unifi"
-      "openFirewall"
-    ])
+    (mkRemovedOptionModule
+      [
+        "services"
+        "unifi"
+        "dataDir"
+      ]
+      "You should move contents of dataDir to /var/lib/unifi/data")
+    (mkRenamedOptionModule
+      [
+        "services"
+        "unifi"
+        "openPorts"
+      ]
+      [
+        "services"
+        "unifi"
+        "openFirewall"
+      ])
   ];
 
   meta.maintainers = with lib.maintainers; [ pennae ];

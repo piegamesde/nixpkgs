@@ -59,9 +59,9 @@ let
                     prefixLength = 24;
                   } ];
                 };
-                extraHosts = lib.concatMapStringsSep "\n" (
-                  i: "192.168.1.${toString i} galera_0${toString i}"
-                ) (lib.range 1 6);
+                extraHosts = lib.concatMapStringsSep "\n"
+                  (i: "192.168.1.${toString i} galera_0${toString i}")
+                  (lib.range 1 6);
                 firewall.allowedTCPPorts = [
                   3306
                   4444
@@ -95,11 +95,12 @@ let
                   name = "testuser";
                   ensurePermissions = { "testdb.*" = "ALL PRIVILEGES"; };
                 } ];
-                initialScript = lib.mkIf isFirstClusterNode
-                  (pkgs.writeText "mariadb-init.sql" ''
+                initialScript = lib.mkIf isFirstClusterNode (
+                  pkgs.writeText "mariadb-init.sql" ''
                     GRANT ALL PRIVILEGES ON *.* TO 'check_repl'@'localhost' IDENTIFIED BY 'check_pass' WITH GRANT OPTION;
                     FLUSH PRIVILEGES;
-                  '');
+                  ''
+                );
                 settings = {
                   mysqld = { bind_address = "0.0.0.0"; };
                   galera = {
@@ -110,9 +111,11 @@ let
                       "${galeraPackage}/lib/galera/libgalera_smm.so";
                     wsrep_cluster_address =
                       "gcomm://"
-                      + lib.optionalString (id == 2 || id == 3)
+                      + lib.optionalString
+                        (id == 2 || id == 3)
                         "galera_01,galera_02,galera_03"
-                      + lib.optionalString (id == 5 || id == 6)
+                      + lib.optionalString
+                        (id == 5 || id == 6)
                         "galera_04,galera_05,galera_06"
                       ;
                     wsrep_cluster_name = "galera";
@@ -274,5 +277,6 @@ let
     }
     ;
 in
-lib.mapAttrs (_: mariadbPackage: makeGaleraTest { inherit mariadbPackage; })
+lib.mapAttrs
+(_: mariadbPackage: makeGaleraTest { inherit mariadbPackage; })
 mariadbPackages

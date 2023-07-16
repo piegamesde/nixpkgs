@@ -390,7 +390,8 @@ rec {
             };
 
             binutils = lib.makeOverridable
-              (import ../../build-support/bintools-wrapper) {
+              (import ../../build-support/bintools-wrapper)
+              {
                 shell = "${bootstrapTools}/bin/bash";
                 inherit lib;
                 inherit (self) stdenvNoCC;
@@ -655,7 +656,8 @@ rec {
                       11
                       12
                       13
-                    ]) {
+                    ])
+                    {
                       # TODO: the bootstrapping of llvm packages isn't consistent.
                       # `standalone` may be redundant if darwin behaves like useLLVM (or
                       # has useLLVM = true).
@@ -935,16 +937,19 @@ rec {
             # Hack to make sure we don't link ncurses in bootstrap tools. The proper
             # solution is to avoid passing -L/nix-store/...-bootstrap-tools/lib,
             # quite a sledgehammer just to get the C runtime.
-          gettext = super.gettext.overrideAttrs (drv: {
-            configureFlags = drv.configureFlags ++ [ "--disable-curses" ];
-          });
+          gettext = super.gettext.overrideAttrs (
+            drv: {
+              configureFlags = drv.configureFlags ++ [ "--disable-curses" ];
+            }
+          );
 
           "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (
             let
               tools = super."${finalLlvmPackages}".tools.extend (
                 llvmSelf: _: {
                   clang-unwrapped-all-outputs =
-                    pkgs."${finalLlvmPackages}".clang-unwrapped-all-outputs.override {
+                    pkgs."${finalLlvmPackages}".clang-unwrapped-all-outputs.override
+                    {
                       llvm = llvmSelf.llvm;
                     };
                   libllvm = pkgs."${finalLlvmPackages}".libllvm.override {

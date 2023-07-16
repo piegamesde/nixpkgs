@@ -30,7 +30,8 @@ let
   );
 
 in
-runCommand cri-o-unwrapped.name {
+runCommand cri-o-unwrapped.name
+{
   name = "${cri-o-unwrapped.pname}-wrapper-${cri-o-unwrapped.version}";
   inherit (cri-o-unwrapped) pname version passthru;
 
@@ -45,7 +46,8 @@ runCommand cri-o-unwrapped.name {
 
   nativeBuildInputs = [ makeWrapper ];
 
-} ''
+}
+''
   ln -s ${cri-o-unwrapped.man} $man
 
   mkdir -p $out/bin

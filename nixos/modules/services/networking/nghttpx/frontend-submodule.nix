@@ -26,8 +26,9 @@
     };
 
     params = lib.mkOption {
-      type = lib.types.nullOr
-        (lib.types.submodule (import ./frontend-params-submodule.nix));
+      type = lib.types.nullOr (
+        lib.types.submodule (import ./frontend-params-submodule.nix)
+      );
       example = { tls = "tls"; };
       default = null;
       description = lib.mdDoc ''

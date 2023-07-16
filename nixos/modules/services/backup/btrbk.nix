@@ -142,47 +142,51 @@ in
           "Set of btrbk instances. The instance named `btrbk` is the default one."
           ;
         type = with types;
-          attrsOf (submodule {
-            options = {
-              onCalendar = mkOption {
-                type = types.nullOr types.str;
-                default = "daily";
-                description = lib.mdDoc ''
-                  How often this btrbk instance is started. See systemd.time(7) for more information about the format.
-                  Setting it to null disables the timer, thus this instance can only be started manually.
-                '';
-              };
-              settings = mkOption {
-                type =
-                  let
-                    t = types.attrsOf (types.either types.str (
-                      t // {
-                        description = "instances of this type recursively";
-                      }
-                    ));
-                  in
-                  t
-                  ;
-                default = { };
-                example = {
-                  snapshot_preserve_min = "2d";
-                  snapshot_preserve = "14d";
-                  volume = {
-                    "/mnt/btr_pool" = {
-                      target = "/mnt/btr_backup/mylaptop";
-                      subvolume = {
-                        "rootfs" = { };
-                        "home" = { snapshot_create = "always"; };
+          attrsOf (
+            submodule {
+              options = {
+                onCalendar = mkOption {
+                  type = types.nullOr types.str;
+                  default = "daily";
+                  description = lib.mdDoc ''
+                    How often this btrbk instance is started. See systemd.time(7) for more information about the format.
+                    Setting it to null disables the timer, thus this instance can only be started manually.
+                  '';
+                };
+                settings = mkOption {
+                  type =
+                    let
+                      t = types.attrsOf (
+                        types.either types.str (
+                          t // {
+                            description = "instances of this type recursively";
+                          }
+                        )
+                      );
+                    in
+                    t
+                    ;
+                  default = { };
+                  example = {
+                    snapshot_preserve_min = "2d";
+                    snapshot_preserve = "14d";
+                    volume = {
+                      "/mnt/btr_pool" = {
+                        target = "/mnt/btr_backup/mylaptop";
+                        subvolume = {
+                          "rootfs" = { };
+                          "home" = { snapshot_create = "always"; };
+                        };
                       };
                     };
                   };
+                  description = lib.mdDoc
+                    "configuration options for btrbk. Nested attrsets translate to subsections."
+                    ;
                 };
-                description = lib.mdDoc
-                  "configuration options for btrbk. Nested attrsets translate to subsections."
-                  ;
               };
-            };
-          });
+            }
+          );
         default = { };
       };
       sshAccess = mkOption {
@@ -190,35 +194,39 @@ in
           "SSH keys that should be able to make or push snapshots on this system remotely with btrbk"
           ;
         type = with types;
-          listOf (submodule {
-            options = {
-              key = mkOption {
-                type = str;
-                description = lib.mdDoc
-                  "SSH public key allowed to login as user `btrbk` to run remote backups."
-                  ;
+          listOf (
+            submodule {
+              options = {
+                key = mkOption {
+                  type = str;
+                  description = lib.mdDoc
+                    "SSH public key allowed to login as user `btrbk` to run remote backups."
+                    ;
+                };
+                roles = mkOption {
+                  type = listOf (
+                    enum [
+                      "info"
+                      "source"
+                      "target"
+                      "delete"
+                      "snapshot"
+                      "send"
+                      "receive"
+                    ]
+                  );
+                  example = [
+                    "source"
+                    "info"
+                    "send"
+                  ];
+                  description = lib.mdDoc
+                    "What actions can be performed with this SSH key. See ssh_filter_btrbk(1) for details"
+                    ;
+                };
               };
-              roles = mkOption {
-                type = listOf (enum [
-                  "info"
-                  "source"
-                  "target"
-                  "delete"
-                  "snapshot"
-                  "send"
-                  "receive"
-                ]);
-                example = [
-                  "source"
-                  "info"
-                  "send"
-                ];
-                description = lib.mdDoc
-                  "What actions can be performed with this SSH key. See ssh_filter_btrbk(1) for details"
-                  ;
-              };
-            };
-          });
+            }
+          );
         default = [ ];
       };
     };
@@ -292,27 +300,30 @@ in
       createHome = true;
       shell = "${pkgs.bash}/bin/bash";
       group = "btrbk";
-      openssh.authorizedKeys.keys = map (
-        v:
-        let
-          options = concatMapStringsSep " " (x: "--" + x) v.roles;
-          ioniceClass =
-            {
-              "idle" = 3;
-              "best-effort" = 2;
-              "realtime" = 1;
-            }
-            .${cfg.ioSchedulingClass};
-          sudo_doas_flag = "--${sudo_doas}";
-        in
-        ''
-          command="${pkgs.util-linux}/bin/ionice -t -c ${
-            toString ioniceClass
-          } ${
-            optionalString (cfg.niceness >= 1)
-            "${pkgs.coreutils}/bin/nice -n ${toString cfg.niceness}"
-          } ${pkgs.btrbk}/share/btrbk/scripts/ssh_filter_btrbk.sh ${sudo_doas_flag} ${options}" ${v.key}''
-      ) cfg.sshAccess;
+      openssh.authorizedKeys.keys = map
+        (
+          v:
+          let
+            options = concatMapStringsSep " " (x: "--" + x) v.roles;
+            ioniceClass =
+              {
+                "idle" = 3;
+                "best-effort" = 2;
+                "realtime" = 1;
+              }
+              .${cfg.ioSchedulingClass};
+            sudo_doas_flag = "--${sudo_doas}";
+          in
+          ''
+            command="${pkgs.util-linux}/bin/ionice -t -c ${
+              toString ioniceClass
+            } ${
+              optionalString
+              (cfg.niceness >= 1)
+              "${pkgs.coreutils}/bin/nice -n ${toString cfg.niceness}"
+            } ${pkgs.btrbk}/share/btrbk/scripts/ssh_filter_btrbk.sh ${sudo_doas_flag} ${options}" ${v.key}''
+        )
+        cfg.sshAccess;
     };
     users.groups.btrbk = { };
     systemd.tmpfiles.rules = [
@@ -320,49 +331,55 @@ in
       "d /var/lib/btrbk/.ssh 0700 btrbk btrbk"
       "f /var/lib/btrbk/.ssh/config 0700 btrbk btrbk - StrictHostKeyChecking=accept-new"
     ];
-    environment.etc = mapAttrs' (
-      name: instance: {
-        name = "btrbk/${name}.conf";
-        value.source = mkConfigFile name instance.settings;
-      }
-    ) cfg.instances;
-    systemd.services = mapAttrs' (
-      name: _: {
-        name = "btrbk-${name}";
-        value = {
-          description =
-            "Takes BTRFS snapshots and maintains retention policies.";
-          unitConfig.Documentation = "man:btrbk(1)";
-          path = [ "/run/wrappers" ] ++ cfg.extraPackages;
-          serviceConfig = {
-            User = "btrbk";
-            Group = "btrbk";
-            Type = "oneshot";
-            ExecStart =
-              "${pkgs.btrbk}/bin/btrbk -c /etc/btrbk/${name}.conf run";
-            Nice = cfg.niceness;
-            IOSchedulingClass = cfg.ioSchedulingClass;
-            StateDirectory = "btrbk";
+    environment.etc = mapAttrs'
+      (
+        name: instance: {
+          name = "btrbk/${name}.conf";
+          value.source = mkConfigFile name instance.settings;
+        }
+      )
+      cfg.instances;
+    systemd.services = mapAttrs'
+      (
+        name: _: {
+          name = "btrbk-${name}";
+          value = {
+            description =
+              "Takes BTRFS snapshots and maintains retention policies.";
+            unitConfig.Documentation = "man:btrbk(1)";
+            path = [ "/run/wrappers" ] ++ cfg.extraPackages;
+            serviceConfig = {
+              User = "btrbk";
+              Group = "btrbk";
+              Type = "oneshot";
+              ExecStart =
+                "${pkgs.btrbk}/bin/btrbk -c /etc/btrbk/${name}.conf run";
+              Nice = cfg.niceness;
+              IOSchedulingClass = cfg.ioSchedulingClass;
+              StateDirectory = "btrbk";
+            };
           };
-        };
-      }
-    ) cfg.instances;
+        }
+      )
+      cfg.instances;
 
-    systemd.timers = mapAttrs' (
-      name: instance: {
-        name = "btrbk-${name}";
-        value = {
-          description =
-            "Timer to take BTRFS snapshots and maintain retention policies.";
-          wantedBy = [ "timers.target" ];
-          timerConfig = {
-            OnCalendar = instance.onCalendar;
-            AccuracySec = "10min";
-            Persistent = true;
+    systemd.timers = mapAttrs'
+      (
+        name: instance: {
+          name = "btrbk-${name}";
+          value = {
+            description =
+              "Timer to take BTRFS snapshots and maintain retention policies.";
+            wantedBy = [ "timers.target" ];
+            timerConfig = {
+              OnCalendar = instance.onCalendar;
+              AccuracySec = "10min";
+              Persistent = true;
+            };
           };
-        };
-      }
-    ) (filterAttrs (name: instance: instance.onCalendar != null) cfg.instances);
+        }
+      )
+      (filterAttrs (name: instance: instance.onCalendar != null) cfg.instances);
   };
 
 }

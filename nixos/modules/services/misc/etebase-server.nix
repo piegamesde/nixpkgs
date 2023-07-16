@@ -26,37 +26,45 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule [
-      "services"
-      "etebase-server"
-      "customIni"
-    ] "Set the option `services.etebase-server.settings' instead.")
-    (mkRemovedOptionModule [
-      "services"
-      "etebase-server"
-      "database"
-    ] "Set the option `services.etebase-server.settings.database' instead.")
-    (mkRenamedOptionModule [
-      "services"
-      "etebase-server"
-      "secretFile"
-    ] [
-      "services"
-      "etebase-server"
-      "settings"
-      "secret_file"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "etebase-server"
-      "host"
-    ] [
-      "services"
-      "etebase-server"
-      "settings"
-      "allowed_hosts"
-      "allowed_host1"
-    ])
+    (mkRemovedOptionModule
+      [
+        "services"
+        "etebase-server"
+        "customIni"
+      ]
+      "Set the option `services.etebase-server.settings' instead.")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "etebase-server"
+        "database"
+      ]
+      "Set the option `services.etebase-server.settings.database' instead.")
+    (mkRenamedOptionModule
+      [
+        "services"
+        "etebase-server"
+        "secretFile"
+      ]
+      [
+        "services"
+        "etebase-server"
+        "settings"
+        "secret_file"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "etebase-server"
+        "host"
+      ]
+      [
+        "services"
+        "etebase-server"
+        "settings"
+        "allowed_hosts"
+        "allowed_host1"
+      ])
   ];
 
   options = {
@@ -126,15 +134,15 @@ in
               static_root = mkOption {
                 type = types.str;
                 default = "${cfg.dataDir}/static";
-                defaultText = literalExpression
-                  ''"''${config.services.etebase-server.dataDir}/static"'';
+                defaultText = literalExpression ''
+                  "''${config.services.etebase-server.dataDir}/static"'';
                 description = lib.mdDoc "The directory for static files.";
               };
               media_root = mkOption {
                 type = types.str;
                 default = "${cfg.dataDir}/media";
-                defaultText = literalExpression
-                  ''"''${config.services.etebase-server.dataDir}/media"'';
+                defaultText = literalExpression ''
+                  "''${config.services.etebase-server.dataDir}/media"'';
                 description = lib.mdDoc "The media directory.";
               };
             };
@@ -160,8 +168,8 @@ in
               name = mkOption {
                 type = types.str;
                 default = "${cfg.dataDir}/db.sqlite3";
-                defaultText = literalExpression
-                  ''"''${config.services.etebase-server.dataDir}/db.sqlite3"'';
+                defaultText = literalExpression ''
+                  "''${config.services.etebase-server.dataDir}/db.sqlite3"'';
                 description = lib.mdDoc "The database name.";
               };
             };

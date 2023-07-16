@@ -245,12 +245,14 @@ let
 
   generateUnit =
     name: values:
-    assert assertMsg (
-      values.configFile != null
-      || (
-        (values.privateKey != null) != (values.privateKeyFile != null)
+    assert assertMsg
+      (
+        values.configFile != null
+        || (
+          (values.privateKey != null) != (values.privateKeyFile != null)
+        )
       )
-    ) "Only one of privateKey, configFile or privateKeyFile may be set";
+      "Only one of privateKey, configFile or privateKeyFile may be set";
     let
       preUpFile =
         if values.preUp != "" then
@@ -259,19 +261,24 @@ let
           null
         ;
       postUp =
-        optional (values.privateKeyFile != null)
+        optional
+          (values.privateKeyFile != null)
           "wg set ${name} private-key <(cat ${values.privateKeyFile})"
-        ++ (concatMap (
-          peer:
-          optional (peer.presharedKeyFile != null)
-          "wg set ${name} peer ${peer.publicKey} preshared-key <(cat ${peer.presharedKeyFile})"
-        ) values.peers)
+        ++ (concatMap
+          (
+            peer:
+            optional
+            (peer.presharedKeyFile != null)
+            "wg set ${name} peer ${peer.publicKey} preshared-key <(cat ${peer.presharedKeyFile})"
+          )
+          values.peers)
         ++ optional (values.postUp != "") values.postUp
         ;
       postUpFile =
         if postUp != [ ] then
-          writeScriptFile "postUp.sh"
-          (concatMapStringsSep "\n" (line: line) postUp)
+          writeScriptFile "postUp.sh" (
+            concatMapStringsSep "\n" (line: line) postUp
+          )
         else
           null
         ;
@@ -294,7 +301,8 @@ let
         text =
           ''
             [interface]
-            ${concatMapStringsSep "\n" (address: "Address = ${address}")
+            ${concatMapStringsSep "\n"
+            (address: "Address = ${address}")
             values.address}
             ${concatMapStringsSep "\n" (dns: "DNS = ${dns}") values.dns}
           ''
@@ -322,30 +330,41 @@ let
           + optionalString (postDownFile != null) ''
             PostDown = ${postDownFile}
           ''
-          + concatMapStringsSep "\n" (
-            peer:
-            assert assertMsg (
-              !((peer.presharedKeyFile != null) && (peer.presharedKey != null))
-            ) "Only one of presharedKey or presharedKeyFile may be set";
-            ''
-              [Peer]
-            ''
-            + ''
-              PublicKey = ${peer.publicKey}
-            ''
-            + optionalString (peer.presharedKey != null) ''
-              PresharedKey = ${peer.presharedKey}
-            ''
-            + optionalString (peer.endpoint != null) ''
-              Endpoint = ${peer.endpoint}
-            ''
-            + optionalString (peer.persistentKeepalive != null) ''
-              PersistentKeepalive = ${toString peer.persistentKeepalive}
-            ''
-            + optionalString (peer.allowedIPs != [ ]) ''
-              AllowedIPs = ${concatStringsSep "," peer.allowedIPs}
-            ''
-          ) values.peers
+          + concatMapStringsSep "\n"
+            (
+              peer:
+              assert assertMsg
+                (
+                  !(
+                    (
+                      peer.presharedKeyFile != null
+                    )
+                    && (
+                      peer.presharedKey != null
+                    )
+                  )
+                )
+                "Only one of presharedKey or presharedKeyFile may be set";
+              ''
+                [Peer]
+              ''
+              + ''
+                PublicKey = ${peer.publicKey}
+              ''
+              + optionalString (peer.presharedKey != null) ''
+                PresharedKey = ${peer.presharedKey}
+              ''
+              + optionalString (peer.endpoint != null) ''
+                Endpoint = ${peer.endpoint}
+              ''
+              + optionalString (peer.persistentKeepalive != null) ''
+                PersistentKeepalive = ${toString peer.persistentKeepalive}
+              ''
+              + optionalString (peer.allowedIPs != [ ]) ''
+                AllowedIPs = ${concatStringsSep "," peer.allowedIPs}
+              ''
+            )
+            values.peers
           ;
       };
       configPath =
@@ -379,7 +398,8 @@ let
       };
 
       script = ''
-        ${optionalString (!config.boot.isContainer)
+        ${optionalString
+        (!config.boot.isContainer)
         "${pkgs.kmod}/bin/modprobe wireguard"}
         ${optionalString (values.configFile != null) ''
           cp ${values.configFile} ${configPath}

@@ -20,13 +20,15 @@ let
   nixos-lib = import ./default.nix { inherit (pkgs) lib; };
 
 in
-pkgs.lib.throwIf (args ? specialArgs) ''
+pkgs.lib.throwIf (args ? specialArgs)
+''
   testing-python.nix: `specialArgs` is not supported anymore. If you're looking
   for the public interface to the NixOS test framework, use `runTest`, and
   `node.specialArgs`.
   See https://nixos.org/manual/nixos/unstable/index.html#sec-calling-nixos-tests
   and https://nixos.org/manual/nixos/unstable/index.html#test-opt-node.specialArgs
-'' rec {
+''
+rec {
 
   inherit pkgs;
 

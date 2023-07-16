@@ -66,20 +66,25 @@ let
       inherit release version;
       libPrefix = "tcl${release}";
       libdir = "lib/${libPrefix}";
-      tclPackageHook = callPackage (
-        {
-          buildPackages,
-        }:
-        makeSetupHook {
-          name = "tcl-package-hook";
-          propagatedBuildInputs = [ buildPackages.makeWrapper ];
-        } ./tcl-package-hook.sh
-      ) { };
+      tclPackageHook = callPackage
+        (
+          {
+            buildPackages,
+          }:
+          makeSetupHook
+          {
+            name = "tcl-package-hook";
+            propagatedBuildInputs = [ buildPackages.makeWrapper ];
+          }
+          ./tcl-package-hook.sh
+        )
+        { };
     };
   };
 
   mkTclDerivation = callPackage ./mk-tcl-derivation.nix { tcl = baseInterp; };
 
 in
-baseInterp.overrideAttrs
-(self: { passthru = self.passthru // { inherit mkTclDerivation; }; })
+baseInterp.overrideAttrs (
+  self: { passthru = self.passthru // { inherit mkTclDerivation; }; }
+)

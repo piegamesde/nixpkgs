@@ -228,10 +228,12 @@ in
           in
           [
             "+${
-              pkgs.writeShellScript "opensearch-start-pre-full-privileges"
+              pkgs.writeShellScript
+              "opensearch-start-pre-full-privileges"
               startPreFullPrivileges
             }"
-            "${pkgs.writeShellScript "opensearch-start-pre-unprivileged"
+            "${pkgs.writeShellScript
+            "opensearch-start-pre-unprivileged"
             startPreUnprivileged}"
           ]
           ;

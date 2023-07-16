@@ -275,10 +275,15 @@ in
           ;
 
       in
-      listToAttrs (map (name: {
-        name = "zope2-${name}";
-        value = createZope2Instance (builtins.getAttr name cfg.instances) name;
-      }) (builtins.attrNames cfg.instances))
+      listToAttrs (
+        map
+        (name: {
+          name = "zope2-${name}";
+          value =
+            createZope2Instance (builtins.getAttr name cfg.instances) name;
+        })
+        (builtins.attrNames cfg.instances)
+      )
       ;
 
   };

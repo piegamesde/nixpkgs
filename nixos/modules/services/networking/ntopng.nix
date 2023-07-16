@@ -41,15 +41,17 @@ in
 {
 
   imports = [
-      (mkRenamedOptionModule [
-        "services"
-        "ntopng"
-        "http-port"
-      ] [
-        "services"
-        "ntopng"
-        "httpPort"
-      ])
+      (mkRenamedOptionModule
+        [
+          "services"
+          "ntopng"
+          "http-port"
+        ]
+        [
+          "services"
+          "ntopng"
+          "httpPort"
+        ])
     ];
 
   options = {
@@ -105,8 +107,8 @@ in
 
       redis.createInstance = mkOption {
         type = types.nullOr types.str;
-        default =
-          optionalString (versionAtLeast config.system.stateVersion "22.05")
+        default = optionalString
+          (versionAtLeast config.system.stateVersion "22.05")
           "ntopng";
         description = lib.mdDoc ''
           Local Redis instance name. Set to `null` to disable
@@ -146,7 +148,8 @@ in
   config = mkIf cfg.enable {
 
     # ntopng uses redis for data storage
-    services.ntopng.redis.address = mkIf createRedis
+    services.ntopng.redis.address = mkIf
+      createRedis
       config.services.redis.servers.${cfg.redis.createInstance}.unixSocket;
 
     services.redis.servers = mkIf createRedis {

@@ -126,8 +126,9 @@ let
         )
         ;
     in
-    keepNames
-    (filterChanges (zipLists (tryCollectOptions old) (tryCollectOptions new)))
+    keepNames (
+      filterChanges (zipLists (tryCollectOptions old) (tryCollectOptions new))
+    )
     ;
 
     # Create a list of modules where each module contains only one failling
@@ -138,8 +139,9 @@ let
         opt: rec {
           name = showOption opt.loc;
           path = opt.loc;
-          config = setAttrByPath path
-            (throw "Usage introspection of '${name}' by forced failure.");
+          config = setAttrByPath path (
+            throw "Usage introspection of '${name}' by forced failure."
+          );
         }
         ;
     in
@@ -148,18 +150,22 @@ let
 
   overrideConfig =
     thrower:
-    recursiveUpdateUntil (path: old: new: path == thrower.path) eval.config
+    recursiveUpdateUntil (path: old: new: path == thrower.path)
+    eval.config
     thrower.config
     ;
 
-  graph = map (thrower: {
-    option = thrower.name;
-    usedBy =
-      assert __trace "Investigate ${thrower.name}" true;
-      reportNewFailures eval.options
-      (evalFun { specialArgs = { config = overrideConfig thrower; }; }).options
-      ;
-  }) introspectionModules;
+  graph = map
+    (thrower: {
+      option = thrower.name;
+      usedBy =
+        assert __trace "Investigate ${thrower.name}" true;
+        reportNewFailures eval.options (evalFun {
+          specialArgs = { config = overrideConfig thrower; };
+        }).options
+        ;
+    })
+    introspectionModules;
 
   displayOptionsGraph =
     let
@@ -184,13 +190,15 @@ let
     graph: ''
       digraph "Option Usages" {
         ${
-          concatMapStrings (
+          concatMapStrings
+          (
             {
               option,
               usedBy,
             }:
             concatMapStrings (user: ''"${option}" -> "${user}"'') usedBy
-          ) displayOptionsGraph
+          )
+          displayOptionsGraph
         }
       }
     ''
@@ -198,15 +206,19 @@ let
 
   graphToText =
     graph:
-    concatMapStrings (
+    concatMapStrings
+    (
       {
         usedBy,
         ...
       }:
-      concatMapStrings (user: ''
+      concatMapStrings
+      (user: ''
         ${user}
-      '') usedBy
-    ) displayOptionsGraph
+      '')
+      usedBy
+    )
+    displayOptionsGraph
     ;
 
 in

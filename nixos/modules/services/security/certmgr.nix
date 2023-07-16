@@ -10,37 +10,46 @@ with lib;
 let
   cfg = config.services.certmgr;
 
-  specs = mapAttrsToList (
-    n: v: rec {
-      name = n + ".json";
-      path =
-        if isAttrs v then
-          pkgs.writeText name (builtins.toJSON v)
-        else
-          v
-        ;
-    }
-  ) cfg.specs;
+  specs = mapAttrsToList
+    (
+      n: v: rec {
+        name = n + ".json";
+        path =
+          if isAttrs v then
+            pkgs.writeText name (builtins.toJSON v)
+          else
+            v
+          ;
+      }
+    )
+    cfg.specs;
 
   allSpecs = pkgs.linkFarm "certmgr.d" specs;
 
-  certmgrYaml = pkgs.writeText "certmgr.yaml" (builtins.toJSON {
-    dir = allSpecs;
-    default_remote = cfg.defaultRemote;
-    svcmgr = cfg.svcManager;
-    before = cfg.validMin;
-    interval = cfg.renewInterval;
-    inherit (cfg) metricsPort metricsAddress;
-  });
+  certmgrYaml = pkgs.writeText "certmgr.yaml" (
+    builtins.toJSON {
+      dir = allSpecs;
+      default_remote = cfg.defaultRemote;
+      svcmgr = cfg.svcManager;
+      before = cfg.validMin;
+      interval = cfg.renewInterval;
+      inherit (cfg) metricsPort metricsAddress;
+    }
+  );
 
-  specPaths = map dirOf (concatMap (
-    spec:
-    if isAttrs spec then
-      collect isString
-      (filterAttrsRecursive (n: v: isAttrs v || n == "path") spec)
-    else
-      [ spec ]
-  ) (attrValues cfg.specs));
+  specPaths = map dirOf (
+    concatMap
+    (
+      spec:
+      if isAttrs spec then
+        collect isString (
+          filterAttrsRecursive (n: v: isAttrs v || n == "path") spec
+        )
+      else
+        [ spec ]
+    )
+    (attrValues cfg.specs)
+  );
 
   preStart = ''
     ${concatStringsSep " \\\n" ([ "mkdir -p" ] ++ map escapeShellArg specPaths)}
@@ -132,51 +141,55 @@ in
         }
       '';
       type = with types;
-        attrsOf (either path (submodule {
-          options = {
-            service = mkOption {
-              type = nullOr str;
-              default = null;
-              description = lib.mdDoc
-                "The service on which to perform <action> after fetching.";
-            };
+        attrsOf (
+          either path (
+            submodule {
+              options = {
+                service = mkOption {
+                  type = nullOr str;
+                  default = null;
+                  description = lib.mdDoc
+                    "The service on which to perform <action> after fetching.";
+                };
 
-            action = mkOption {
-              type = addCheck str (
-                x:
-                cfg.svcManager == "command"
-                || elem x [
-                  "restart"
-                  "reload"
-                  "nop"
-                ]
-              );
-              default = "nop";
-              description = lib.mdDoc "The action to take after fetching.";
-            };
+                action = mkOption {
+                  type = addCheck str (
+                    x:
+                    cfg.svcManager == "command"
+                    || elem x [
+                      "restart"
+                      "reload"
+                      "nop"
+                    ]
+                  );
+                  default = "nop";
+                  description = lib.mdDoc "The action to take after fetching.";
+                };
 
-              # These ought all to be specified according to certmgr spec def.
-            authority = mkOption {
-              type = attrs;
-              description = lib.mdDoc "certmgr spec authority object.";
-            };
+                  # These ought all to be specified according to certmgr spec def.
+                authority = mkOption {
+                  type = attrs;
+                  description = lib.mdDoc "certmgr spec authority object.";
+                };
 
-            certificate = mkOption {
-              type = nullOr attrs;
-              description = lib.mdDoc "certmgr spec certificate object.";
-            };
+                certificate = mkOption {
+                  type = nullOr attrs;
+                  description = lib.mdDoc "certmgr spec certificate object.";
+                };
 
-            private_key = mkOption {
-              type = nullOr attrs;
-              description = lib.mdDoc "certmgr spec private_key object.";
-            };
+                private_key = mkOption {
+                  type = nullOr attrs;
+                  description = lib.mdDoc "certmgr spec private_key object.";
+                };
 
-            request = mkOption {
-              type = nullOr attrs;
-              description = lib.mdDoc "certmgr spec request object.";
-            };
-          };
-        }));
+                request = mkOption {
+                  type = nullOr attrs;
+                  description = lib.mdDoc "certmgr spec request object.";
+                };
+              };
+            }
+          )
+        );
       description = lib.mdDoc ''
         Certificate specs as described by:
         <https://github.com/cloudflare/certmgr#certificate-specs>
@@ -212,10 +225,12 @@ in
       }
       {
         assertion =
-          !any (hasAttrByPath [
+          !any
+          (hasAttrByPath [
             "authority"
             "auth_key"
-          ]) (attrValues cfg.specs)
+          ])
+          (attrValues cfg.specs)
           ;
         message = ''
           Inline services.certmgr.specs are added to the Nix store rendering them world readable.

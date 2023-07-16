@@ -17,8 +17,9 @@ in
 {
   options = {
     services.headscale = {
-      enable = mkEnableOption
-        (lib.mdDoc "headscale, Open Source coordination server for Tailscale");
+      enable = mkEnableOption (
+        lib.mdDoc "headscale, Open Source coordination server for Tailscale"
+      );
 
       package = mkOption {
         type = types.package;
@@ -417,333 +418,391 @@ in
 
   imports = [
     # TODO address + port = listen_addr
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "serverUrl"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "server_url"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "privateKeyFile"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "private_key_path"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "derp"
-      "urls"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "derp"
-      "urls"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "derp"
-      "paths"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "derp"
-      "paths"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "derp"
-      "autoUpdate"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "derp"
-      "auto_update_enable"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "derp"
-      "updateFrequency"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "derp"
-      "update_frequency"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "ephemeralNodeInactivityTimeout"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "ephemeral_node_inactivity_timeout"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "database"
-      "type"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "db_type"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "database"
-      "path"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "db_path"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "database"
-      "host"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "db_host"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "database"
-      "port"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "db_port"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "database"
-      "name"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "db_name"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "database"
-      "user"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "db_user"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "database"
-      "passwordFile"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "db_password_file"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "logLevel"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "log"
-      "level"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "dns"
-      "nameservers"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "dns_config"
-      "nameservers"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "dns"
-      "domains"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "dns_config"
-      "domains"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "dns"
-      "magicDns"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "dns_config"
-      "magic_dns"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "dns"
-      "baseDomain"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "dns_config"
-      "base_domain"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "openIdConnect"
-      "issuer"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "oidc"
-      "issuer"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "openIdConnect"
-      "clientId"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "oidc"
-      "client_id"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "openIdConnect"
-      "clientSecretFile"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "oidc"
-      "client_secret_path"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "tls"
-      "letsencrypt"
-      "hostname"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "tls_letsencrypt_hostname"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "tls"
-      "letsencrypt"
-      "challengeType"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "tls_letsencrypt_challenge_type"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "tls"
-      "letsencrypt"
-      "httpListen"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "tls_letsencrypt_listen"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "tls"
-      "certFile"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "tls_cert_path"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "tls"
-      "keyFile"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "tls_key_path"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "headscale"
-      "aclPolicyFile"
-    ] [
-      "services"
-      "headscale"
-      "settings"
-      "acl_policy_path"
-    ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "serverUrl"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "server_url"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "privateKeyFile"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "private_key_path"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "derp"
+        "urls"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "derp"
+        "urls"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "derp"
+        "paths"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "derp"
+        "paths"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "derp"
+        "autoUpdate"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "derp"
+        "auto_update_enable"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "derp"
+        "updateFrequency"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "derp"
+        "update_frequency"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "ephemeralNodeInactivityTimeout"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "ephemeral_node_inactivity_timeout"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "database"
+        "type"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "db_type"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "database"
+        "path"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "db_path"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "database"
+        "host"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "db_host"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "database"
+        "port"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "db_port"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "database"
+        "name"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "db_name"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "database"
+        "user"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "db_user"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "database"
+        "passwordFile"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "db_password_file"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "logLevel"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "log"
+        "level"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "dns"
+        "nameservers"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "dns_config"
+        "nameservers"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "dns"
+        "domains"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "dns_config"
+        "domains"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "dns"
+        "magicDns"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "dns_config"
+        "magic_dns"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "dns"
+        "baseDomain"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "dns_config"
+        "base_domain"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "openIdConnect"
+        "issuer"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "oidc"
+        "issuer"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "openIdConnect"
+        "clientId"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "oidc"
+        "client_id"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "openIdConnect"
+        "clientSecretFile"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "oidc"
+        "client_secret_path"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "tls"
+        "letsencrypt"
+        "hostname"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "tls_letsencrypt_hostname"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "tls"
+        "letsencrypt"
+        "challengeType"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "tls_letsencrypt_challenge_type"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "tls"
+        "letsencrypt"
+        "httpListen"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "tls_letsencrypt_listen"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "tls"
+        "certFile"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "tls_cert_path"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "tls"
+        "keyFile"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "tls_key_path"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "headscale"
+        "aclPolicyFile"
+      ]
+      [
+        "services"
+        "headscale"
+        "settings"
+        "acl_policy_path"
+      ])
 
-    (mkRemovedOptionModule [
-      "services"
-      "headscale"
-      "openIdConnect"
-      "domainMap"
-    ] ''
-      Headscale no longer uses domain_map. If you're using an old version of headscale you can still set this option via services.headscale.settings.oidc.domain_map.
-    '')
+    (mkRemovedOptionModule
+      [
+        "services"
+        "headscale"
+        "openIdConnect"
+        "domainMap"
+      ]
+      ''
+        Headscale no longer uses domain_map. If you're using an old version of headscale you can still set this option via services.headscale.settings.oidc.domain_map.
+      '')
   ];
 
   config = mkIf cfg.enable {

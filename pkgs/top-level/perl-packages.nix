@@ -54,15 +54,17 @@ with self;
     # Convert derivation to a perl module.
   toPerlModule =
     drv:
-    drv.overrideAttrs (oldAttrs: {
-      # Use passthru in order to prevent rebuilds when possible.
-      passthru = (
-        oldAttrs.passthru or { }
-      ) // {
-        perlModule = perl;
-        requiredPerlModules = requiredPerlModules drv.propagatedBuildInputs;
-      };
-    })
+    drv.overrideAttrs (
+      oldAttrs: {
+        # Use passthru in order to prevent rebuilds when possible.
+        passthru = (
+          oldAttrs.passthru or { }
+        ) // {
+          perlModule = perl;
+          requiredPerlModules = requiredPerlModules drv.propagatedBuildInputs;
+        };
+      }
+    )
     ;
 
   buildPerlPackage = callPackage ../development/perl-modules/generic { };

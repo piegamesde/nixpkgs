@@ -16,7 +16,8 @@
 let
   pname = "tela-circle-icon-theme";
 in
-lib.checkListOfEnum "${pname}: color variants" [
+lib.checkListOfEnum "${pname}: color variants"
+[
   "standard"
   "black"
   "blue"
@@ -32,9 +33,11 @@ lib.checkListOfEnum "${pname}: color variants" [
   "ubuntu"
   "dracula"
   "nord"
-] colorVariants
+]
+colorVariants
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation
+rec {
   inherit pname;
   version = "2023-04-16";
 

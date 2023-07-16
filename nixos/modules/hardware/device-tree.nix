@@ -89,7 +89,8 @@ let
     # file (.dts) into its compiled variant (.dtbo)
   compileDTS =
     name: f:
-    pkgs.callPackage (
+    pkgs.callPackage
+    (
       {
         stdenv,
         dtc,
@@ -106,7 +107,8 @@ let
             dtc -I dts -O dtb -@ -o $out
         '';
       }
-    ) { }
+    )
+    { }
     ;
 
     # Fill in `dtboFile` for each overlay if not set already.
@@ -132,11 +134,13 @@ let
 in
 {
   imports = [
-      (mkRemovedOptionModule [
-        "hardware"
-        "deviceTree"
-        "base"
-      ] "Use hardware.deviceTree.kernelPackage instead")
+      (mkRemovedOptionModule
+        [
+          "hardware"
+          "deviceTree"
+          "base"
+        ]
+        "Use hardware.deviceTree.kernelPackage instead")
     ];
 
   options = {
@@ -192,11 +196,15 @@ in
             { name = "precompiled"; dtboFile = ./dtbos/example.dtbo; }
           ]
         '';
-        type = types.listOf (types.coercedTo types.path (path: {
-          name = baseNameOf path;
-          filter = null;
-          dtboFile = path;
-        }) overlayType);
+        type = types.listOf (
+          types.coercedTo types.path
+          (path: {
+            name = baseNameOf path;
+            filter = null;
+            dtboFile = path;
+          })
+          overlayType
+        );
         description = lib.mdDoc ''
           List of overlays to apply to base device-tree (.dtb) files.
         '';
@@ -225,8 +233,9 @@ in
         message = ''
           deviceTree overlay needs one of dtsFile, dtsText or dtboFile set.
           Offending overlay(s):
-          ${toString
-          (map (o: o.name) (builtins.filter invalidOverlay cfg.overlays))}
+          ${toString (
+            map (o: o.name) (builtins.filter invalidOverlay cfg.overlays)
+          )}
         '';
       }
       ;

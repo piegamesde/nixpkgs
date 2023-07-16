@@ -107,15 +107,16 @@ stdenv.mkDerivation rec {
         "./Configure BSD-x86_64"
       else if stdenv.hostPlatform.isBSD && stdenv.hostPlatform.isx86_32 then
         "./Configure BSD-x86"
-        + lib.optionalString (
-          stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf"
-        ) "-elf"
+        + lib.optionalString
+          (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf")
+          "-elf"
       else if stdenv.hostPlatform.isBSD then
         "./Configure BSD-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
       else if stdenv.hostPlatform.isMinGW then
         "./Configure mingw${
-          lib.optionalString (stdenv.hostPlatform.parsed.cpu.bits != 32)
-          (toString stdenv.hostPlatform.parsed.cpu.bits)
+          lib.optionalString (stdenv.hostPlatform.parsed.cpu.bits != 32) (
+            toString stdenv.hostPlatform.parsed.cpu.bits
+          )
         }"
       else if stdenv.hostPlatform.isLinux then
         "./Configure linux-generic${
@@ -144,7 +145,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableSSL3 "enable-ssl3"
       # We select KTLS here instead of the configure-time detection (which we patch out).
       # KTLS should work on FreeBSD 13+ as well, so we could enable it if someone tests it.
-    ++ lib.optional (stdenv.isLinux && lib.versionAtLeast version "3.0.0")
+    ++ lib.optional
+      (stdenv.isLinux && lib.versionAtLeast version "3.0.0")
       "enable-ktls"
     ++ lib.optional stdenv.hostPlatform.isAarch64 "no-afalgeng"
       # OpenSSL needs a specific `no-shared` configure flag.

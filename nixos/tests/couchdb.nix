@@ -70,7 +70,8 @@ import ./make-test-python.nix (
         )
         couchdb3.succeed(
             "${
-              curlJqCheck testlogin "GET" "_node/couchdb@127.0.0.1" ".couchdb"
+              curlJqCheck testlogin "GET" "_node/couchdb@127.0.0.1"
+              ".couchdb"
               "Welcome"
             }"
         )

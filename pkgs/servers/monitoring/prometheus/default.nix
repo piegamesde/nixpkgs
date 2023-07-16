@@ -69,51 +69,74 @@ buildGoModule rec {
     # Enable only select service discovery to shrink binaries.
     (
       true # prevent bash syntax error when all plugins are disabled
-    ${lib.optionalString enableAWS
+    ${lib.optionalString
+    enableAWS
     "echo - github.com/prometheus/prometheus/discovery/aws"}
-    ${lib.optionalString enableAzure
+    ${lib.optionalString
+    enableAzure
     "echo - github.com/prometheus/prometheus/discovery/azure"}
-    ${lib.optionalString enableConsul
+    ${lib.optionalString
+    enableConsul
     "echo - github.com/prometheus/prometheus/discovery/consul"}
-    ${lib.optionalString enableDigitalOcean
+    ${lib.optionalString
+    enableDigitalOcean
     "echo - github.com/prometheus/prometheus/discovery/digitalocean"}
-    ${lib.optionalString enableDNS
+    ${lib.optionalString
+    enableDNS
     "echo - github.com/prometheus/prometheus/discovery/dns"}
-    ${lib.optionalString enableEureka
+    ${lib.optionalString
+    enableEureka
     "echo - github.com/prometheus/prometheus/discovery/eureka"}
-    ${lib.optionalString enableGCE
+    ${lib.optionalString
+    enableGCE
     "echo - github.com/prometheus/prometheus/discovery/gce"}
-    ${lib.optionalString enableHetzner
+    ${lib.optionalString
+    enableHetzner
     "echo - github.com/prometheus/prometheus/discovery/hetzner"}
-    ${lib.optionalString enableIONOS
+    ${lib.optionalString
+    enableIONOS
     "echo - github.com/prometheus/prometheus/discovery/ionos"}
-    ${lib.optionalString enableKubernetes
+    ${lib.optionalString
+    enableKubernetes
     "echo - github.com/prometheus/prometheus/discovery/kubernetes"}
-    ${lib.optionalString enableLinode
+    ${lib.optionalString
+    enableLinode
     "echo - github.com/prometheus/prometheus/discovery/linode"}
-    ${lib.optionalString enableMarathon
+    ${lib.optionalString
+    enableMarathon
     "echo - github.com/prometheus/prometheus/discovery/marathon"}
-    ${lib.optionalString enableMoby
+    ${lib.optionalString
+    enableMoby
     "echo - github.com/prometheus/prometheus/discovery/moby"}
-    ${lib.optionalString enableNomad
+    ${lib.optionalString
+    enableNomad
     "echo - github.com/prometheus/prometheus/discovery/nomad"}
-    ${lib.optionalString enableOpenstack
+    ${lib.optionalString
+    enableOpenstack
     "echo - github.com/prometheus/prometheus/discovery/openstack"}
-    ${lib.optionalString enableOVHCloud
+    ${lib.optionalString
+    enableOVHCloud
     "echo - github.com/prometheus/prometheus/discovery/ovhcloud"}
-    ${lib.optionalString enablePuppetDB
+    ${lib.optionalString
+    enablePuppetDB
     "echo - github.com/prometheus/prometheus/discovery/puppetdb"}
-    ${lib.optionalString enableScaleway
+    ${lib.optionalString
+    enableScaleway
     "echo - github.com/prometheus/prometheus/discovery/scaleway"}
-    ${lib.optionalString enableTriton
+    ${lib.optionalString
+    enableTriton
     "echo - github.com/prometheus/prometheus/discovery/triton"}
-    ${lib.optionalString enableUyuni
+    ${lib.optionalString
+    enableUyuni
     "echo - github.com/prometheus/prometheus/discovery/uyuni"}
-    ${lib.optionalString enableVultr
+    ${lib.optionalString
+    enableVultr
     "echo - github.com/prometheus/prometheus/discovery/vultr"}
-    ${lib.optionalString enableXDS
+    ${lib.optionalString
+    enableXDS
     "echo - github.com/prometheus/prometheus/discovery/xds"}
-    ${lib.optionalString enableZookeeper
+    ${lib.optionalString
+    enableZookeeper
     "echo - github.com/prometheus/prometheus/discovery/zookeeper"}
     ) > plugins.yml
   '';

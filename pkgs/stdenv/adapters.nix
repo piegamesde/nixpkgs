@@ -62,10 +62,12 @@ rec {
     # for other dependencies.
   overrideInStdenv =
     stdenv: pkgs:
-    stdenv.override (prev: {
-      allowedRequisites = null;
-      extraBuildInputs = (prev.extraBuildInputs or [ ]) ++ pkgs;
-    })
+    stdenv.override (
+      prev: {
+        allowedRequisites = null;
+        extraBuildInputs = (prev.extraBuildInputs or [ ]) ++ pkgs;
+      }
+    )
     ;
 
     # Override the setup script of stdenv.  Useful for testing new
@@ -98,9 +100,9 @@ rec {
               {
                 NIX_CFLAGS_LINK =
                   toString (finalAttrs.NIX_CFLAGS_LINK or "") + " -static";
-              } // lib.optionalAttrs (
-                !(finalAttrs.dontAddStaticConfigureFlags or false)
-              ) {
+              } // lib.optionalAttrs
+              (!(finalAttrs.dontAddStaticConfigureFlags or false))
+              {
                 configureFlags =
                   (
                     finalAttrs.configureFlags or [ ]
@@ -123,57 +125,66 @@ rec {
     # shared libraries.
   makeStaticLibraries =
     stdenv:
-    stdenv.override (old: {
-      mkDerivationFromStdenv = extendMkDerivationArgs old (
-        args:
-        {
-          dontDisableStatic = true;
-        } // lib.optionalAttrs (!(args.dontAddStaticConfigureFlags or false)) {
-          configureFlags =
-            (
-              args.configureFlags or [ ]
-            )
-            ++ [
-              "--enable-static"
-              "--disable-shared"
-            ]
-            ;
-          cmakeFlags =
-            (args.cmakeFlags or [ ]) ++ [ "-DBUILD_SHARED_LIBS:BOOL=OFF" ];
-          mesonFlags =
-            (args.mesonFlags or [ ]) ++ [ "-Ddefault_library=static" ];
-        }
-      );
-    })
+    stdenv.override (
+      old: {
+        mkDerivationFromStdenv = extendMkDerivationArgs old (
+          args:
+          {
+            dontDisableStatic = true;
+          }
+          // lib.optionalAttrs (!(args.dontAddStaticConfigureFlags or false)) {
+            configureFlags =
+              (
+                args.configureFlags or [ ]
+              )
+              ++ [
+                "--enable-static"
+                "--disable-shared"
+              ]
+              ;
+            cmakeFlags =
+              (args.cmakeFlags or [ ]) ++ [ "-DBUILD_SHARED_LIBS:BOOL=OFF" ];
+            mesonFlags =
+              (args.mesonFlags or [ ]) ++ [ "-Ddefault_library=static" ];
+          }
+        );
+      }
+    )
     ;
 
     # Best effort static binaries. Will still be linked to libSystem,
     # but more portable than Nix store binaries.
   makeStaticDarwin =
     stdenv:
-    stdenv.override (old: {
-      # extraBuildInputs are dropped in cross.nix, but darwin still needs them
-      extraBuildInputs = [ pkgs.buildPackages.darwin.CF ];
-      mkDerivationFromStdenv = extendMkDerivationArgs old (args: {
-        NIX_CFLAGS_LINK =
-          toString (args.NIX_CFLAGS_LINK or "")
-          + lib.optionalString (stdenv.cc.isGNU or false) " -static-libgcc"
-          ;
-        nativeBuildInputs =
-          (
-            args.nativeBuildInputs or [ ]
-          )
-          ++ [
-            (pkgs.buildPackages.makeSetupHook {
-              name = "darwin-portable-libSystem-hook";
-              substitutions = {
-                libsystem = "${stdenv.cc.libc}/lib/libSystem.B.dylib";
-              };
-            } ./darwin/portable-libsystem.sh)
-          ]
-          ;
-      });
-    })
+    stdenv.override (
+      old: {
+        # extraBuildInputs are dropped in cross.nix, but darwin still needs them
+        extraBuildInputs = [ pkgs.buildPackages.darwin.CF ];
+        mkDerivationFromStdenv = extendMkDerivationArgs old (
+          args: {
+            NIX_CFLAGS_LINK =
+              toString (args.NIX_CFLAGS_LINK or "")
+              + lib.optionalString (stdenv.cc.isGNU or false) " -static-libgcc"
+              ;
+            nativeBuildInputs =
+              (
+                args.nativeBuildInputs or [ ]
+              )
+              ++ [
+                (pkgs.buildPackages.makeSetupHook
+                  {
+                    name = "darwin-portable-libSystem-hook";
+                    substitutions = {
+                      libsystem = "${stdenv.cc.libc}/lib/libSystem.B.dylib";
+                    };
+                  }
+                  ./darwin/portable-libsystem.sh)
+              ]
+              ;
+          }
+        );
+      }
+    )
     ;
 
     # Puts all the other ones together
@@ -201,13 +212,17 @@ rec {
     */
   propagateBuildInputs =
     stdenv:
-    stdenv.override (old: {
-      mkDerivationFromStdenv = extendMkDerivationArgs old (args: {
-        propagatedBuildInputs =
-          (args.propagatedBuildInputs or [ ]) ++ (args.buildInputs or [ ]);
-        buildInputs = [ ];
-      });
-    })
+    stdenv.override (
+      old: {
+        mkDerivationFromStdenv = extendMkDerivationArgs old (
+          args: {
+            propagatedBuildInputs =
+              (args.propagatedBuildInputs or [ ]) ++ (args.buildInputs or [ ]);
+            buildInputs = [ ];
+          }
+        );
+      }
+    )
     ;
 
     /* Modify a stdenv so that the specified attributes are added to
@@ -221,9 +236,11 @@ rec {
     */
   addAttrsToDerivation =
     extraAttrs: stdenv:
-    stdenv.override (old: {
-      mkDerivationFromStdenv = extendMkDerivationArgs old (_: extraAttrs);
-    })
+    stdenv.override (
+      old: {
+        mkDerivationFromStdenv = extendMkDerivationArgs old (_: extraAttrs);
+      }
+    )
     ;
 
     /* Use the trace output to report all processed derivations with their
@@ -231,26 +248,29 @@ rec {
     */
   traceDrvLicenses =
     stdenv:
-    stdenv.override (old: {
-      mkDerivationFromStdenv = overrideMkDerivationResult (
-        pkg:
-        let
-          printDrvPath =
-            val:
-            let
-              drvPath = builtins.unsafeDiscardStringContext pkg.drvPath;
-              license = pkg.meta.license or null;
-            in
-            builtins.trace
-            "@:drv:${toString drvPath}:${builtins.toString license}:@" val
-            ;
-        in
-        pkg // {
-          outPath = printDrvPath pkg.outPath;
-          drvPath = printDrvPath pkg.drvPath;
-        }
-      );
-    })
+    stdenv.override (
+      old: {
+        mkDerivationFromStdenv = overrideMkDerivationResult (
+          pkg:
+          let
+            printDrvPath =
+              val:
+              let
+                drvPath = builtins.unsafeDiscardStringContext pkg.drvPath;
+                license = pkg.meta.license or null;
+              in
+              builtins.trace
+              "@:drv:${toString drvPath}:${builtins.toString license}:@"
+              val
+              ;
+          in
+          pkg // {
+            outPath = printDrvPath pkg.outPath;
+            drvPath = printDrvPath pkg.drvPath;
+          }
+        );
+      }
+    )
     ;
 
     /* Modify a stdenv so that it produces debug builds; that is,
@@ -259,28 +279,36 @@ rec {
     */
   keepDebugInfo =
     stdenv:
-    stdenv.override (old: {
-      mkDerivationFromStdenv = extendMkDerivationArgs old (args: {
-        dontStrip = true;
-        env = (
-          args.env or { }
-        ) // {
-          NIX_CFLAGS_COMPILE =
-            toString (args.env.NIX_CFLAGS_COMPILE or "") + " -ggdb -Og";
-        };
-      });
-    })
+    stdenv.override (
+      old: {
+        mkDerivationFromStdenv = extendMkDerivationArgs old (
+          args: {
+            dontStrip = true;
+            env = (
+              args.env or { }
+            ) // {
+              NIX_CFLAGS_COMPILE =
+                toString (args.env.NIX_CFLAGS_COMPILE or "") + " -ggdb -Og";
+            };
+          }
+        );
+      }
+    )
     ;
 
     # Modify a stdenv so that it uses the Gold linker.
   useGoldLinker =
     stdenv:
-    stdenv.override (old: {
-      mkDerivationFromStdenv = extendMkDerivationArgs old (args: {
-        NIX_CFLAGS_LINK =
-          toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=gold";
-      });
-    })
+    stdenv.override (
+      old: {
+        mkDerivationFromStdenv = extendMkDerivationArgs old (
+          args: {
+            NIX_CFLAGS_LINK =
+              toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=gold";
+          }
+        );
+      }
+    )
     ;
 
   useMoldLinker =
@@ -301,31 +329,35 @@ rec {
       old:
       {
         cc = stdenv.cc.override { inherit bintools; };
-        allowedRequisites = lib.mapNullable (
-          rs:
-          rs
-          ++ [
-            bintools
-            pkgs.mold
-            (lib.getLib pkgs.mimalloc)
-            (lib.getLib pkgs.openssl)
-          ]
-        ) (
-          stdenv.allowedRequisites or null
-        );
+        allowedRequisites = lib.mapNullable
+          (
+            rs:
+            rs
+            ++ [
+              bintools
+              pkgs.mold
+              (lib.getLib pkgs.mimalloc)
+              (lib.getLib pkgs.openssl)
+            ]
+          )
+          (stdenv.allowedRequisites or null);
           # gcc >12.1.0 supports '-fuse-ld=mold'
           # the wrap ld above in bintools supports gcc <12.1.0 and shouldn't harm >12.1.0
           # https://github.com/rui314/mold#how-to-use
-      } // lib.optionalAttrs (
+      } // lib.optionalAttrs
+      (
         stdenv.cc.isClang
         || (
           stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12"
         )
-      ) {
-        mkDerivationFromStdenv = extendMkDerivationArgs old (args: {
-          NIX_CFLAGS_LINK =
-            toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=mold";
-        });
+      )
+      {
+        mkDerivationFromStdenv = extendMkDerivationArgs old (
+          args: {
+            NIX_CFLAGS_LINK =
+              toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=mold";
+          }
+        );
       }
     )
     ;
@@ -337,21 +369,25 @@ rec {
     */
   impureUseNativeOptimizations =
     stdenv:
-    stdenv.override (old: {
-      mkDerivationFromStdenv = extendMkDerivationArgs old (args: {
-        env = (
-          args.env or { }
-        ) // {
-          NIX_CFLAGS_COMPILE =
-            toString (args.env.NIX_CFLAGS_COMPILE or "") + " -march=native";
-        };
+    stdenv.override (
+      old: {
+        mkDerivationFromStdenv = extendMkDerivationArgs old (
+          args: {
+            env = (
+              args.env or { }
+            ) // {
+              NIX_CFLAGS_COMPILE =
+                toString (args.env.NIX_CFLAGS_COMPILE or "") + " -march=native";
+            };
 
-        NIX_ENFORCE_NO_NATIVE = false;
+            NIX_ENFORCE_NO_NATIVE = false;
 
-        preferLocalBuild = true;
-        allowSubstitutes = false;
-      });
-    })
+            preferLocalBuild = true;
+            allowSubstitutes = false;
+          }
+        );
+      }
+    )
     ;
 
     /* Modify a stdenv so that it builds binaries with the specified list of
@@ -369,17 +405,21 @@ rec {
     */
   withCFlags =
     compilerFlags: stdenv:
-    stdenv.override (old: {
-      mkDerivationFromStdenv = extendMkDerivationArgs old (args: {
-        env = (
-          args.env or { }
-        ) // {
-          NIX_CFLAGS_COMPILE =
-            toString (args.env.NIX_CFLAGS_COMPILE or "")
-            + " ${toString compilerFlags}"
-            ;
-        };
-      });
-    })
+    stdenv.override (
+      old: {
+        mkDerivationFromStdenv = extendMkDerivationArgs old (
+          args: {
+            env = (
+              args.env or { }
+            ) // {
+              NIX_CFLAGS_COMPILE =
+                toString (args.env.NIX_CFLAGS_COMPILE or "")
+                + " ${toString compilerFlags}"
+                ;
+            };
+          }
+        );
+      }
+    )
     ;
 }

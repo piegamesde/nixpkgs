@@ -30,21 +30,23 @@ in
 
           default = { };
 
-          type = types.attrsOf (types.submodule {
-            options = {
-              mount = lib.mkOption {
-                description = lib.mdDoc "Where to mount this dataset.";
-                type = types.nullOr types.str;
-                default = null;
-              };
+          type = types.attrsOf (
+            types.submodule {
+              options = {
+                mount = lib.mkOption {
+                  description = lib.mdDoc "Where to mount this dataset.";
+                  type = types.nullOr types.str;
+                  default = null;
+                };
 
-              properties = lib.mkOption {
-                description = lib.mdDoc "Properties to set on this dataset.";
-                type = types.attrsOf types.str;
-                default = { };
+                properties = lib.mkOption {
+                  description = lib.mdDoc "Properties to set on this dataset.";
+                  type = types.attrsOf types.str;
+                  default = { };
+                };
               };
-            };
-          });
+            }
+          );
         };
       };
       efi = lib.mkOption {
@@ -70,16 +72,19 @@ in
 
     fileSystems =
       let
-        mountable = lib.filterAttrs (_: value: ((value.mount or null) != null))
+        mountable = lib.filterAttrs
+          (_: value: ((value.mount or null) != null))
           config.ec2.zfs.datasets;
       in
-      lib.mapAttrs' (
+      lib.mapAttrs'
+      (
         dataset: opts:
         lib.nameValuePair opts.mount {
           device = dataset;
           fsType = "zfs";
         }
-      ) mountable
+      )
+      mountable
       ;
   };
 }

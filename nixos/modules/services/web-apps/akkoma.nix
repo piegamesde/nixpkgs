@@ -14,12 +14,15 @@ let
 
   isConfined = config.systemd.services.akkoma.confinement.enable;
   hasSmtp =
-    (attrByPath [
-      ":pleroma"
-      "Pleroma.Emails.Mailer"
-      "adapter"
-      "value"
-    ] null ex)
+    (attrByPath
+      [
+        ":pleroma"
+        "Pleroma.Emails.Mailer"
+        "adapter"
+        "value"
+      ]
+      null
+      ex)
     == "Swoosh.Adapters.SMTP"
     ;
 
@@ -55,14 +58,16 @@ let
   elixirValue =
     let
       elixirValue' = with types;
-        nullOr (oneOf [
-          bool
-          int
-          float
-          str
-          (attrsOf elixirValue')
-          (listOf elixirValue')
-        ]) // {
+        nullOr (
+          oneOf [
+            bool
+            int
+            float
+            str
+            (attrsOf elixirValue')
+            (listOf elixirValue')
+          ]
+        ) // {
           description = "Elixir value";
         };
     in
@@ -118,38 +123,47 @@ let
     # Erlang/Elixir uses a somewhat special format for IP addresses
   erlAddr =
     addr:
-    fileContents (pkgs.runCommand addr {
-      nativeBuildInputs = with pkgs; [ elixir ];
-      code = ''
-        case :inet.parse_address('${addr}') do
-          {:ok, addr} -> IO.inspect addr
-          {:error, _} -> System.halt(65)
-        end
-      '';
-      passAsFile = [ "code" ];
-    } ''elixir "$codePath" >"$out"'')
+    fileContents (
+      pkgs.runCommand addr
+      {
+        nativeBuildInputs = with pkgs; [ elixir ];
+        code = ''
+          case :inet.parse_address('${addr}') do
+            {:ok, addr} -> IO.inspect addr
+            {:error, _} -> System.halt(65)
+          end
+        '';
+        passAsFile = [ "code" ];
+      }
+      ''elixir "$codePath" >"$out"''
+    )
     ;
 
   format = pkgs.formats.elixirConf { };
-  configFile = format.generate "config.exs" (replaceSec
-    (attrsets.updateManyAttrsByPath [ {
-      path = [
-        ":pleroma"
-        "Pleroma.Web.Endpoint"
-        "http"
-        "ip"
-      ];
-      update =
-        addr:
-        if isAbsolutePath addr then
-          format.lib.mkTuple [
-            (format.lib.mkAtom ":local")
-            addr
-          ]
-        else
-          format.lib.mkRaw (erlAddr addr)
-        ;
-    } ] cfg.config));
+  configFile = format.generate "config.exs" (
+    replaceSec (
+      attrsets.updateManyAttrsByPath
+      [ {
+        path = [
+          ":pleroma"
+          "Pleroma.Web.Endpoint"
+          "http"
+          "ip"
+        ];
+        update =
+          addr:
+          if isAbsolutePath addr then
+            format.lib.mkTuple [
+              (format.lib.mkAtom ":local")
+              addr
+            ]
+          else
+            format.lib.mkRaw (erlAddr addr)
+          ;
+      } ]
+      cfg.config
+    )
+  );
 
   writeShell =
     {
@@ -254,14 +268,16 @@ let
       trap 'rm -f "$tmp"' EXIT TERM
 
       cat ${escapeShellArg configFile} >"$tmp"
-      ${concatMapStrings (file: ''
+      ${concatMapStrings
+      (file: ''
         replace-secret ${
           escapeShellArgs [
             (sha256 file)
             file
           ]
         } "$tmp"
-      '') secretPaths}
+      '')
+      secretPaths}
 
       chown ${escapeShellArg cfg.user}:${escapeShellArg cfg.group} "$tmp"
       chmod 0400 "$tmp"
@@ -454,22 +470,31 @@ let
   uploadDir = ex.":pleroma".":instance".upload_dir;
 
   staticFiles = pkgs.runCommandLocal "akkoma-static" { } ''
-    ${concatStringsSep "\n" (mapAttrsToList (
-      key: val: ''
-        mkdir -p $out/frontends/${escapeShellArg val.name}/
-        ln -s ${escapeShellArg val.package} $out/frontends/${
-          escapeShellArg val.name
-        }/${escapeShellArg val.ref}
-      ''
-    ) cfg.frontends)}
-
-    ${optionalString (cfg.extraStatic != null) (concatStringsSep "\n"
-      (mapAttrsToList (
+    ${concatStringsSep "\n" (
+      mapAttrsToList
+      (
         key: val: ''
-          mkdir -p "$out/$(dirname ${escapeShellArg key})"
-          ln -s ${escapeShellArg val} $out/${escapeShellArg key}
+          mkdir -p $out/frontends/${escapeShellArg val.name}/
+          ln -s ${escapeShellArg val.package} $out/frontends/${
+            escapeShellArg val.name
+          }/${escapeShellArg val.ref}
         ''
-      ) cfg.extraStatic))}
+      )
+      cfg.frontends
+    )}
+
+    ${optionalString (cfg.extraStatic != null) (
+      concatStringsSep "\n" (
+        mapAttrsToList
+        (
+          key: val: ''
+            mkdir -p "$out/$(dirname ${escapeShellArg key})"
+            ln -s ${escapeShellArg val} $out/${escapeShellArg key}
+          ''
+        )
+        cfg.extraStatic
+      )
+    )}
   '';
 in
 {
@@ -908,13 +933,15 @@ in
 
               ":frontends" = mkOption {
                 type = elixirValue;
-                default = mapAttrs (
-                  key: val:
-                  format.lib.mkMap {
-                    name = val.name;
-                    ref = val.ref;
-                  }
-                ) cfg.frontends;
+                default = mapAttrs
+                  (
+                    key: val:
+                    format.lib.mkMap {
+                      name = val.name;
+                      ref = val.ref;
+                    }
+                  )
+                  cfg.frontends;
                 defaultText = literalExpression ''
                   lib.mapAttrs (key: val:
                     (pkgs.formats.elixirConf { }).lib.mkMap { name = val.name; ref = val.ref; })
@@ -1046,9 +1073,13 @@ in
 
       nginx = mkOption {
         type = with types;
-          nullOr (submodule (import ../web-servers/nginx/vhost-options.nix {
-            inherit config lib;
-          }));
+          nullOr (
+            submodule (
+              import ../web-servers/nginx/vhost-options.nix {
+                inherit config lib;
+              }
+            )
+          );
         default = null;
         description = mdDoc ''
           Extra configuration for the nginx virtual host of Akkoma.
@@ -1169,27 +1200,36 @@ in
             (mkIf (!isStorePath staticDir) [
                 "${staticDir}:${staticDir}:norbind"
               ])
-            (mkIf isConfined (mkMerge [
-              [
-                "/etc/hosts"
-                "/etc/resolv.conf"
+            (mkIf isConfined (
+              mkMerge [
+                [
+                  "/etc/hosts"
+                  "/etc/resolv.conf"
+                ]
+                (mkIf (isStorePath staticDir) (
+                  map (dir: "${dir}:${dir}:norbind") (
+                    splitString "\n" (
+                      readFile (
+                        (pkgs.closureInfo { rootPaths = staticDir; })
+                        + "/store-paths"
+                      )
+                    )
+                  )
+                ))
+                (mkIf (db ? socket_dir) [
+                    "${db.socket_dir}:${db.socket_dir}:norbind"
+                  ])
+                (mkIf (db ? socket) [ "${db.socket}:${db.socket}:norbind" ])
               ]
-              (mkIf (isStorePath staticDir) (map (dir: "${dir}:${dir}:norbind")
-                (splitString "\n" (readFile (
-                  (pkgs.closureInfo { rootPaths = staticDir; }) + "/store-paths"
-                )))))
-              (mkIf (db ? socket_dir) [
-                  "${db.socket_dir}:${db.socket_dir}:norbind"
-                ])
-              (mkIf (db ? socket) [ "${db.socket}:${db.socket}:norbind" ])
-            ]))
+            ))
           ];
 
           ExecStartPre = "${envWrapper}/bin/pleroma_ctl migrate";
           ExecStart = "${envWrapper}/bin/pleroma start";
           ExecStartPost = socketScript;
           ExecStop = "${envWrapper}/bin/pleroma stop";
-          ExecStopPost = mkIf (isAbsolutePath web.http.ip)
+          ExecStopPost = mkIf
+            (isAbsolutePath web.http.ip)
             "${pkgs.coreutils}/bin/rm -f '${web.http.ip}'";
 
           ProtectProc = "noaccess";
@@ -1217,11 +1257,15 @@ in
           RestrictSUIDSGID = true;
           RemoveIPC = true;
 
-          CapabilityBoundingSet = mkIf (any (port: port > 0 && port < 1024) [
-            web.http.port
-            cfg.dist.epmdPort
-            cfg.dist.portMin
-          ]) [ "CAP_NET_BIND_SERVICE" ];
+          CapabilityBoundingSet = mkIf
+            (any (port: port > 0 && port < 1024) [
+              web.http.port
+              cfg.dist.epmdPort
+              cfg.dist.portMin
+            ])
+            [
+              "CAP_NET_BIND_SERVICE"
+            ];
 
           NoNewPrivileges = true;
           SystemCallFilter = [
@@ -1235,13 +1279,15 @@ in
           DevicePolicy = "closed";
 
             # SMTP adapter uses dynamic port 0 binding, which is incompatible with bind address filtering
-          SocketBindAllow = mkIf (!hasSmtp) (mkMerge [
-            [
-              "tcp:${toString cfg.dist.epmdPort}"
-              "tcp:${toString cfg.dist.portMin}-${toString cfg.dist.portMax}"
+          SocketBindAllow = mkIf (!hasSmtp) (
+            mkMerge [
+              [
+                "tcp:${toString cfg.dist.epmdPort}"
+                "tcp:${toString cfg.dist.portMin}-${toString cfg.dist.portMax}"
+              ]
+              (mkIf (web.http.port != 0) [ "tcp:${toString web.http.port}" ])
             ]
-            (mkIf (web.http.port != 0) [ "tcp:${toString web.http.port}" ])
-          ]);
+          );
           SocketBindDeny = mkIf (!hasSmtp) "any";
         };
       }

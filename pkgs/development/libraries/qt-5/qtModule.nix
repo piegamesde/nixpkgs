@@ -57,12 +57,13 @@ mkDerivation (
 
         fixQtBuiltinPaths . '*.pr?'
       ''
-      + lib.optionalString (
-        builtins.compareVersions "5.15.0" version <= 0
-      )
-      # Note: We use ${version%%-*} to remove any tag from the end of the version
-      # string. Version tags are added by Nixpkgs maintainers and not reflected in
-      # the source version.
+      + lib.optionalString
+        (
+          builtins.compareVersions "5.15.0" version <= 0
+        )
+        # Note: We use ${version%%-*} to remove any tag from the end of the version
+        # string. Version tags are added by Nixpkgs maintainers and not reflected in
+        # the source version.
         ''
           if [[ -z "$dontCheckQtModuleVersion" ]] \
               && grep -q '^MODULE_VERSION' .qmake.conf 2>/dev/null \

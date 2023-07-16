@@ -47,7 +47,8 @@ let
     ;
 
   mattermostPluginDerivations = with pkgs;
-    map (
+    map
+    (
       plugin:
       stdenv.mkDerivation {
         name = "mattermost-plugin";
@@ -61,7 +62,8 @@ let
         dontBuild = true;
         preferLocalBuild = true;
       }
-    ) cfg.plugins;
+    )
+    cfg.plugins;
 
   mattermostPlugins = with pkgs;
     if mattermostPluginDerivations == [ ] then
@@ -74,8 +76,11 @@ let
         installPhase = ''
           mkdir -p $out/data/plugins
           plugins=(${
-            escapeShellArgs (map (plugin: "${plugin}/share/plugin.tar.gz")
-              mattermostPluginDerivations)
+            escapeShellArgs (
+              map
+              (plugin: "${plugin}/share/plugin.tar.gz")
+              mattermostPluginDerivations
+            )
           })
           for plugin in "''${plugins[@]}"; do
             hash="$(sha256sum "$plugin" | cut -d' ' -f1)"
@@ -94,15 +99,17 @@ let
         preferLocalBuild = true;
       };
 
-  mattermostConfWithoutPlugins = recursiveUpdate {
-    ServiceSettings.SiteURL = cfg.siteUrl;
-    ServiceSettings.ListenAddress = cfg.listenAddress;
-    TeamSettings.SiteName = cfg.siteName;
-    SqlSettings.DriverName = "postgres";
-    SqlSettings.DataSource = database;
-    PluginSettings.Directory = "${cfg.statePath}/plugins/server";
-    PluginSettings.ClientDirectory = "${cfg.statePath}/plugins/client";
-  } cfg.extraConfig;
+  mattermostConfWithoutPlugins = recursiveUpdate
+    {
+      ServiceSettings.SiteURL = cfg.siteUrl;
+      ServiceSettings.ListenAddress = cfg.listenAddress;
+      TeamSettings.SiteName = cfg.siteName;
+      SqlSettings.DriverName = "postgres";
+      SqlSettings.DataSource = database;
+      PluginSettings.Directory = "${cfg.statePath}/plugins/server";
+      PluginSettings.ClientDirectory = "${cfg.statePath}/plugins/client";
+    }
+    cfg.extraConfig;
 
   mattermostConf = recursiveUpdate mattermostConfWithoutPlugins (
     if mattermostPlugins == null then
@@ -192,10 +199,12 @@ in
       };
 
       plugins = mkOption {
-        type = types.listOf (types.oneOf [
-          types.path
-          types.package
-        ]);
+        type = types.listOf (
+          types.oneOf [
+            types.path
+            types.package
+          ]
+        );
         default = [ ];
         example =
           "[ ./com.github.moussetc.mattermost.plugin.giphy-2.0.0.tar.gz ]";

@@ -290,9 +290,11 @@ let
 
       bazelFlags =
         bazelFlags
-        ++ lib.optionals (
-          stdenv.targetPlatform.isx86_64 && stdenv.targetPlatform.isUnix
-        ) [ "--config=avx_posix" ]
+        ++ lib.optionals
+          (stdenv.targetPlatform.isx86_64 && stdenv.targetPlatform.isUnix)
+          [
+            "--config=avx_posix"
+          ]
         ++ lib.optionals cudaSupport [ "--config=cuda" ]
         ++ lib.optionals mklSupport [ "--config=mkl_open_source_only" ]
         ;

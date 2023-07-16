@@ -44,63 +44,73 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule [
-      "hardware"
-      "nvidia"
-      "optimus_prime"
-      "enable"
-    ] [
-      "hardware"
-      "nvidia"
-      "prime"
-      "sync"
-      "enable"
-    ])
-    (mkRenamedOptionModule [
-      "hardware"
-      "nvidia"
-      "optimus_prime"
-      "allowExternalGpu"
-    ] [
-      "hardware"
-      "nvidia"
-      "prime"
-      "allowExternalGpu"
-    ])
-    (mkRenamedOptionModule [
-      "hardware"
-      "nvidia"
-      "prime"
-      "sync"
-      "allowExternalGpu"
-    ] [
-      "hardware"
-      "nvidia"
-      "prime"
-      "allowExternalGpu"
-    ])
-    (mkRenamedOptionModule [
-      "hardware"
-      "nvidia"
-      "optimus_prime"
-      "nvidiaBusId"
-    ] [
-      "hardware"
-      "nvidia"
-      "prime"
-      "nvidiaBusId"
-    ])
-    (mkRenamedOptionModule [
-      "hardware"
-      "nvidia"
-      "optimus_prime"
-      "intelBusId"
-    ] [
-      "hardware"
-      "nvidia"
-      "prime"
-      "intelBusId"
-    ])
+    (mkRenamedOptionModule
+      [
+        "hardware"
+        "nvidia"
+        "optimus_prime"
+        "enable"
+      ]
+      [
+        "hardware"
+        "nvidia"
+        "prime"
+        "sync"
+        "enable"
+      ])
+    (mkRenamedOptionModule
+      [
+        "hardware"
+        "nvidia"
+        "optimus_prime"
+        "allowExternalGpu"
+      ]
+      [
+        "hardware"
+        "nvidia"
+        "prime"
+        "allowExternalGpu"
+      ])
+    (mkRenamedOptionModule
+      [
+        "hardware"
+        "nvidia"
+        "prime"
+        "sync"
+        "allowExternalGpu"
+      ]
+      [
+        "hardware"
+        "nvidia"
+        "prime"
+        "allowExternalGpu"
+      ])
+    (mkRenamedOptionModule
+      [
+        "hardware"
+        "nvidia"
+        "optimus_prime"
+        "nvidiaBusId"
+      ]
+      [
+        "hardware"
+        "nvidia"
+        "prime"
+        "nvidiaBusId"
+      ])
+    (mkRenamedOptionModule
+      [
+        "hardware"
+        "nvidia"
+        "optimus_prime"
+        "intelBusId"
+      ]
+      [
+        "hardware"
+        "nvidia"
+        "prime"
+        "intelBusId"
+      ])
   ];
 
   options = {
@@ -438,8 +448,8 @@ in
             optionals (igpuDriver == "amdgpu") [ pkgs.xorg.xf86videoamdgpu ];
           deviceSection = ''
             BusID "${igpuBusId}"
-            ${optionalString (syncCfg.enable && igpuDriver != "amdgpu")
-            ''Option "AccelMethod" "none"''}
+            ${optionalString (syncCfg.enable && igpuDriver != "amdgpu") ''
+              Option "AccelMethod" "none"''}
           '';
         }
         ++ singleton {
@@ -448,8 +458,8 @@ in
           display = !offloadCfg.enable;
           deviceSection = optionalString primeEnabled ''
             BusID "${pCfg.nvidiaBusId}"
-            ${optionalString pCfg.allowExternalGpu
-            ''Option "AllowExternalGpus"''}
+            ${optionalString pCfg.allowExternalGpu ''
+              Option "AllowExternalGpus"''}
           '';
           screenSection =
             ''
@@ -562,22 +572,23 @@ in
             }
             ;
 
-          services = (builtins.listToAttrs
-            (map (t: nameValuePair "nvidia-${t}" (nvidiaService t)) [
+          services = (builtins.listToAttrs (
+            map (t: nameValuePair "nvidia-${t}" (nvidiaService t)) [
               "hibernate"
               "suspend"
-            ])) // {
-              nvidia-resume = (baseNvidiaService "resume") // {
-                after = [
-                  "systemd-suspend.service"
-                  "systemd-hibernate.service"
-                ];
-                requiredBy = [
-                  "systemd-suspend.service"
-                  "systemd-hibernate.service"
-                ];
-              };
+            ]
+          )) // {
+            nvidia-resume = (baseNvidiaService "resume") // {
+              after = [
+                "systemd-suspend.service"
+                "systemd-hibernate.service"
+              ];
+              requiredBy = [
+                "systemd-suspend.service"
+                "systemd-hibernate.service"
+              ];
             };
+          };
         in
         optionalAttrs cfg.powerManagement.enable services
         // optionalAttrs nvidiaPersistencedEnabled {
@@ -598,12 +609,14 @@ in
         ;
 
       systemd.tmpfiles.rules =
-        optional config.virtualisation.docker.enableNvidia
+        optional
+          config.virtualisation.docker.enableNvidia
           "L+ /run/nvidia-docker/bin - - - - ${nvidia_x11.bin}/origBin"
-        ++ optional (
-          nvidia_x11.persistenced != null
-          && config.virtualisation.docker.enableNvidia
-        )
+        ++ optional
+          (
+            nvidia_x11.persistenced != null
+            && config.virtualisation.docker.enableNvidia
+          )
           "L+ /run/nvidia-docker/extras/bin/nvidia-persistenced - - - - ${nvidia_x11.persistenced}/origBin/nvidia-persistenced"
         ;
 
@@ -627,14 +640,16 @@ in
 
         # If requested enable modesetting via kernel parameter.
       boot.kernelParams =
-        optional (offloadCfg.enable || cfg.modesetting.enable)
+        optional
+          (offloadCfg.enable || cfg.modesetting.enable)
           "nvidia-drm.modeset=1"
-        ++ optional cfg.powerManagement.enable
+        ++ optional
+          cfg.powerManagement.enable
           "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
         ++ optional cfg.open "nvidia.NVreg_OpenRmEnableUnsupportedGpus=1"
-        ++ optional (
-          config.boot.kernelPackages.kernel.kernelAtLeast "6.2" && !ibtSupport
-        ) "ibt=off"
+        ++ optional
+          (config.boot.kernelPackages.kernel.kernelAtLeast "6.2" && !ibtSupport)
+          "ibt=off"
         ;
 
       services.udev.extraRules =
@@ -648,7 +663,8 @@ in
         ''
         + optionalString cfg.powerManagement.finegrained (
           optionalString
-            (versionOlder config.boot.kernelPackages.kernel.version "5.5") ''
+            (versionOlder config.boot.kernelPackages.kernel.version "5.5")
+            ''
               # Remove NVIDIA USB xHCI Host Controller devices, if present
               ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{remove}="1"
 

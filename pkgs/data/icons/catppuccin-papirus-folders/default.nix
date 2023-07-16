@@ -33,9 +33,13 @@ let
   pname = "catppuccin-papirus-folders";
 in
 lib.checkListOfEnum "${pname}: accent colors" validAccents [ accent ]
-lib.checkListOfEnum "${pname}: flavors" validFlavors [ flavor ]
+lib.checkListOfEnum
+"${pname}: flavors"
+validFlavors
+[ flavor ]
 
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation
+{
   inherit pname;
   version = "unstable-2022-12-04";
 

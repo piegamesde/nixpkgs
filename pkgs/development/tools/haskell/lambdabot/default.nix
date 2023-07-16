@@ -34,7 +34,8 @@ let
   configStr = lib.replaceStrings [ "\n" ] [ " " ] configuration;
 
 in
-haskellLib.overrideCabal (self: {
+haskellLib.overrideCabal
+(self: {
   patches = (self.patches or [ ]) ++ [ ./custom-config.patch ];
   postPatch =
     (
@@ -59,4 +60,5 @@ haskellLib.overrideCabal (self: {
         --prefix PATH ":" '${bins}'
     ''
     ;
-}) haskellPackages.lambdabot
+})
+haskellPackages.lambdabot

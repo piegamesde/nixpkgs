@@ -7,17 +7,23 @@
 
 {
   options.programs.clash-verge = {
-    enable = lib.mkEnableOption (lib.mdDoc ''
-      Clash Verge.
-    '');
+    enable = lib.mkEnableOption (
+      lib.mdDoc ''
+        Clash Verge.
+      ''
+    );
 
-    autoStart = lib.mkEnableOption (lib.mdDoc ''
-      Clash Verge Auto Launch.
-    '');
+    autoStart = lib.mkEnableOption (
+      lib.mdDoc ''
+        Clash Verge Auto Launch.
+      ''
+    );
 
-    tunMode = lib.mkEnableOption (lib.mdDoc ''
-      Clash Verge Tun Mode.
-    '');
+    tunMode = lib.mkEnableOption (
+      lib.mdDoc ''
+        Clash Verge Tun Mode.
+      ''
+    );
   };
 
   config =
@@ -28,10 +34,12 @@
 
       environment.systemPackages = [
         pkgs.clash-verge
-        (lib.mkIf cfg.autoStart (pkgs.makeAutostartItem {
-          name = "clash-verge";
-          package = pkgs.clash-verge;
-        }))
+        (lib.mkIf cfg.autoStart (
+          pkgs.makeAutostartItem {
+            name = "clash-verge";
+            package = pkgs.clash-verge;
+          }
+        ))
       ];
 
       security.wrappers.clash-verge = lib.mkIf cfg.tunMode {

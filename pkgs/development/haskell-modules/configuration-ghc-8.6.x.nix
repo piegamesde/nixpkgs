@@ -114,9 +114,13 @@ self: super: {
   );
 
     # https://github.com/pikajude/stylish-cabal/issues/12
-  stylish-cabal = doDistribute (markUnbroken (super.stylish-cabal.override {
-    haddock-library = self.haddock-library_1_7_0;
-  }));
+  stylish-cabal = doDistribute (
+    markUnbroken (
+      super.stylish-cabal.override {
+        haddock-library = self.haddock-library_1_7_0;
+      }
+    )
+  );
   haddock-library_1_7_0 = dontCheck super.haddock-library_1_7_0;
 
     # ghc versions prior to 8.8.x needs additional dependency to compile successfully.
@@ -145,5 +149,6 @@ self: super: {
       dontCheck
     else
       x: x
-  ) super.inline-c-cpp;
+  )
+    super.inline-c-cpp;
 }

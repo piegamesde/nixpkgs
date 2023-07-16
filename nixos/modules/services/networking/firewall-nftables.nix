@@ -107,8 +107,8 @@ in
           type filter hook input priority filter; policy drop;
 
           ${
-            optionalString (ifaceSet != "")
-            ''iifname { ${ifaceSet} } accept comment "trusted interfaces"''
+            optionalString (ifaceSet != "") ''
+              iifname { ${ifaceSet} } accept comment "trusted interfaces"''
           }
 
           # Some ICMPv6 types like NDP is untracked
@@ -126,9 +126,9 @@ in
             ''
           }
           ${
-            optionalString (
-              cfg.logRefusedPackets && !cfg.logRefusedUnicastsOnly
-            ) ''
+            optionalString
+            (cfg.logRefusedPackets && !cfg.logRefusedUnicastsOnly)
+            ''
               pkttype broadcast log level info prefix "refused broadcast: "
               pkttype multicast log level info prefix "refused multicast: "
             ''
@@ -151,29 +151,36 @@ in
         chain input-allow {
 
           ${
-            concatStrings (mapAttrsToList (
-              iface: cfg:
-              let
-                ifaceExpr =
-                  optionalString (iface != "default") "iifname ${iface}";
-                tcpSet =
-                  portsToNftSet cfg.allowedTCPPorts cfg.allowedTCPPortRanges;
-                udpSet =
-                  portsToNftSet cfg.allowedUDPPorts cfg.allowedUDPPortRanges;
-              in
-              ''
-                ${optionalString (tcpSet != "")
-                "${ifaceExpr} tcp dport { ${tcpSet} } accept"}
-                ${optionalString (udpSet != "")
-                "${ifaceExpr} udp dport { ${udpSet} } accept"}
-              ''
-            ) cfg.allInterfaces)
+            concatStrings (
+              mapAttrsToList
+              (
+                iface: cfg:
+                let
+                  ifaceExpr =
+                    optionalString (iface != "default") "iifname ${iface}";
+                  tcpSet =
+                    portsToNftSet cfg.allowedTCPPorts cfg.allowedTCPPortRanges;
+                  udpSet =
+                    portsToNftSet cfg.allowedUDPPorts cfg.allowedUDPPortRanges;
+                in
+                ''
+                  ${optionalString
+                  (tcpSet != "")
+                  "${ifaceExpr} tcp dport { ${tcpSet} } accept"}
+                  ${optionalString
+                  (udpSet != "")
+                  "${ifaceExpr} udp dport { ${udpSet} } accept"}
+                ''
+              )
+              cfg.allInterfaces
+            )
           }
 
           ${
             optionalString cfg.allowPing ''
               icmp type echo-request ${
-                optionalString (cfg.pingLimit != null)
+                optionalString
+                (cfg.pingLimit != null)
                 "limit rate ${cfg.pingLimit}"
               } accept comment "allow ping"
             ''

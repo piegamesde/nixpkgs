@@ -21,7 +21,8 @@ mkCoqDerivation rec {
 
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch coq.coq-version [
+    lib.switch coq.coq-version
+    [
       {
         case = isEq "8.16";
         out = "0.1.6.1+8.16";
@@ -30,7 +31,8 @@ mkCoqDerivation rec {
         case = isEq "8.17";
         out = "0.1.6.1+8.17";
       }
-    ] null;
+    ]
+    null;
 
   nativeBuildInputs = [ makeWrapper ];
 

@@ -11,17 +11,20 @@ let
     inherit pkgs;
     inherit (stdenv.hostPlatform) system;
     noDev = true; # Disable development dependencies
-  }).overrideAttrs (attrs: {
-    installPhase =
-      attrs.installPhase
-      + ''
-        rm -R $out/storage $out/public/uploads
-        ln -s ${dataDir}/.env $out/.env
-        ln -s ${dataDir}/storage $out/storage
-        ln -s ${dataDir}/public/uploads $out/public/uploads
-      ''
-      ;
-  });
+  }).overrideAttrs
+    (
+      attrs: {
+        installPhase =
+          attrs.installPhase
+          + ''
+            rm -R $out/storage $out/public/uploads
+            ln -s ${dataDir}/.env $out/.env
+            ln -s ${dataDir}/storage $out/storage
+            ln -s ${dataDir}/public/uploads $out/public/uploads
+          ''
+          ;
+      }
+    );
 
 in
 package.override rec {

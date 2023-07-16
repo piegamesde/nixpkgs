@@ -12,7 +12,8 @@ with import ../lib/testing-python.nix { inherit system pkgs; };
 let
   expectArgv0 =
     xpkgs:
-    xpkgs.runCommandCC "expect-argv0" {
+    xpkgs.runCommandCC "expect-argv0"
+    {
       src = pkgs.writeText "expect-argv0.c" ''
         #include <stdio.h>
         #include <string.h>
@@ -28,7 +29,8 @@ let
           return 0;
         }
       '';
-    } ''
+    }
+    ''
       $CC -o $out $src
     ''
     ;

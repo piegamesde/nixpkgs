@@ -12,8 +12,9 @@ rec {
     pkgs':
     let
       pkgs = builtins.filter (x: x != null) pkgs';
-      extras = map (x: x.emacsBufferSetup pkgs)
-        (builtins.filter (builtins.hasAttr "emacsBufferSetup") pkgs);
+      extras = map (x: x.emacsBufferSetup pkgs) (
+        builtins.filter (builtins.hasAttr "emacsBufferSetup") pkgs
+      );
     in
     writeText "dir-locals.el" ''
       (require 'inherit-local "${inherit-local}/share/emacs/site-lisp/elpa/inherit-local-${inherit-local.version}/inherit-local.elc")
@@ -84,10 +85,14 @@ rec {
         # Find the haskell package that the 'root' is in, if any.
       haskell-path-parent =
         let
-          filtered = builtins.filter (
-            name:
-            lib.hasPrefix (toString (project-root + "/${name}")) (toString root)
-          ) (builtins.attrNames haskell-paths);
+          filtered = builtins.filter
+            (
+              name:
+              lib.hasPrefix (toString (project-root + "/${name}")) (
+                toString root
+              )
+            )
+            (builtins.attrNames haskell-paths);
         in
         if filtered == [ ] then
           null

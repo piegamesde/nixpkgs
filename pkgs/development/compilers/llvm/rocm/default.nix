@@ -107,59 +107,61 @@ let
 
     # Stage 2
     # Helpers
-  rStdenv = overrideCC stdenv (wrapCCWith rec {
-    inherit bintools;
-    libcxx = runtimes;
-    cc = clang-unwrapped;
+  rStdenv = overrideCC stdenv (
+    wrapCCWith rec {
+      inherit bintools;
+      libcxx = runtimes;
+      cc = clang-unwrapped;
 
-    extraPackages = [
-      llvm
-      lld
-    ];
+      extraPackages = [
+        llvm
+        lld
+      ];
 
-    nixSupport.cc-cflags = [
-      "-resource-dir=$out/resource-root"
-      "-fuse-ld=lld"
-      "-rtlib=compiler-rt"
-      "-unwindlib=libunwind"
-      "-Wno-unused-command-line-argument"
-    ];
+      nixSupport.cc-cflags = [
+        "-resource-dir=$out/resource-root"
+        "-fuse-ld=lld"
+        "-rtlib=compiler-rt"
+        "-unwindlib=libunwind"
+        "-Wno-unused-command-line-argument"
+      ];
 
-    extraBuildCommands = ''
-      clang_version=`${cc}/bin/clang -v 2>&1 | grep "clang version " | grep -E -o "[0-9.-]+"`
-      mkdir -p $out/resource-root
-      ln -s ${cc}/lib/clang/$clang_version/include $out/resource-root
-      ln -s ${runtimes}/lib $out/resource-root
-    '';
-  });
+      extraBuildCommands = ''
+        clang_version=`${cc}/bin/clang -v 2>&1 | grep "clang version " | grep -E -o "[0-9.-]+"`
+        mkdir -p $out/resource-root
+        ln -s ${cc}/lib/clang/$clang_version/include $out/resource-root
+        ln -s ${runtimes}/lib $out/resource-root
+      '';
+    }
+  );
 
   bintools = wrapBintoolsWith { bintools = bintools-unwrapped; };
 
-  bintools-unwrapped = runCommand "rocm-llvm-binutils-${llvm.version}" {
-    preferLocalBuild = true;
-  } ''
-    mkdir -p $out/bin
+  bintools-unwrapped = runCommand "rocm-llvm-binutils-${llvm.version}"
+    { preferLocalBuild = true; }
+    ''
+      mkdir -p $out/bin
 
-    for prog in ${lld}/bin/*; do
-      ln -s $prog $out/bin/$(basename $prog)
-    done
+      for prog in ${lld}/bin/*; do
+        ln -s $prog $out/bin/$(basename $prog)
+      done
 
-    for prog in ${llvm}/bin/*; do
-      ln -sf $prog $out/bin/$(basename $prog)
-    done
+      for prog in ${llvm}/bin/*; do
+        ln -sf $prog $out/bin/$(basename $prog)
+      done
 
-    ln -s ${llvm}/bin/llvm-ar $out/bin/ar
-    ln -s ${llvm}/bin/llvm-as $out/bin/as
-    ln -s ${llvm}/bin/llvm-dwp $out/bin/dwp
-    ln -s ${llvm}/bin/llvm-nm $out/bin/nm
-    ln -s ${llvm}/bin/llvm-objcopy $out/bin/objcopy
-    ln -s ${llvm}/bin/llvm-objdump $out/bin/objdump
-    ln -s ${llvm}/bin/llvm-ranlib $out/bin/ranlib
-    ln -s ${llvm}/bin/llvm-readelf $out/bin/readelf
-    ln -s ${llvm}/bin/llvm-size $out/bin/size
-    ln -s ${llvm}/bin/llvm-strip $out/bin/strip
-    ln -s ${lld}/bin/lld $out/bin/ld
-  '';
+      ln -s ${llvm}/bin/llvm-ar $out/bin/ar
+      ln -s ${llvm}/bin/llvm-as $out/bin/as
+      ln -s ${llvm}/bin/llvm-dwp $out/bin/dwp
+      ln -s ${llvm}/bin/llvm-nm $out/bin/nm
+      ln -s ${llvm}/bin/llvm-objcopy $out/bin/objcopy
+      ln -s ${llvm}/bin/llvm-objdump $out/bin/objdump
+      ln -s ${llvm}/bin/llvm-ranlib $out/bin/ranlib
+      ln -s ${llvm}/bin/llvm-readelf $out/bin/readelf
+      ln -s ${llvm}/bin/llvm-size $out/bin/size
+      ln -s ${llvm}/bin/llvm-strip $out/bin/strip
+      ln -s ${lld}/bin/lld $out/bin/ld
+    '';
 in
 rec {
   inherit
@@ -338,30 +340,32 @@ rec {
       ;
 
       # We do this to avoid HIP pathing problems, and mimic a monolithic install
-    cc = stdenv.mkDerivation (finalAttrs: {
-      inherit (clang-unwrapped) pname version;
-      dontUnpack = true;
+    cc = stdenv.mkDerivation (
+      finalAttrs: {
+        inherit (clang-unwrapped) pname version;
+        dontUnpack = true;
 
-      installPhase = ''
-        runHook preInstall
+        installPhase = ''
+          runHook preInstall
 
-        clang_version=`${clang-unwrapped}/bin/clang -v 2>&1 | grep "clang version " | grep -E -o "[0-9.-]+"`
-        mkdir -p $out/{bin,include/c++/v1,lib/{cmake,clang/$clang_version/{include,lib}},libexec,share}
+          clang_version=`${clang-unwrapped}/bin/clang -v 2>&1 | grep "clang version " | grep -E -o "[0-9.-]+"`
+          mkdir -p $out/{bin,include/c++/v1,lib/{cmake,clang/$clang_version/{include,lib}},libexec,share}
 
-        for path in ${llvm} ${clang-unwrapped} ${lld} ${libunwind} ${libcxxabi} ${libcxx} ${compiler-rt}; do
-          cp -as $path/* $out
-          chmod +w $out/{*,include/c++/v1,lib/{clang/$clang_version/include,cmake}}
-          rm -f $out/lib/libc++.so
-        done
+          for path in ${llvm} ${clang-unwrapped} ${lld} ${libunwind} ${libcxxabi} ${libcxx} ${compiler-rt}; do
+            cp -as $path/* $out
+            chmod +w $out/{*,include/c++/v1,lib/{clang/$clang_version/include,cmake}}
+            rm -f $out/lib/libc++.so
+          done
 
-        ln -s $out/lib/* $out/lib/clang/$clang_version/lib
-        ln -s $out/include/* $out/lib/clang/$clang_version/include
+          ln -s $out/lib/* $out/lib/clang/$clang_version/lib
+          ln -s $out/include/* $out/lib/clang/$clang_version/include
 
-        runHook postInstall
-      '';
+          runHook postInstall
+        '';
 
-      passthru.isClang = true;
-    });
+        passthru.isClang = true;
+      }
+    );
 
     extraPackages = [
       llvm

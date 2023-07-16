@@ -151,8 +151,9 @@ rec {
 
   mkPrefixedAttrsOfParams =
     params:
-    mkPrefixedAttrsOf params
-    (types.submodule { options = paramsToOptions params; })
+    mkPrefixedAttrsOf params (
+      types.submodule { options = paramsToOptions params; }
+    )
     ;
 
   mkPrefixedAttrsOfParam = param: mkPrefixedAttrsOf param param.option.type;
@@ -171,8 +172,9 @@ rec {
           prefixedAttrs =
             mapAttrs' (name: nameValuePair "${prefix}-${name}") attrs;
         in
-        paramsToRenderedStrings prefixedAttrs
-        (mapAttrs (_n: _v: p) prefixedAttrs)
+        paramsToRenderedStrings prefixedAttrs (
+          mapAttrs (_n: _v: p) prefixedAttrs
+        )
         ;
     }
     ;
@@ -192,8 +194,9 @@ rec {
           postfixedAttrs =
             mapAttrs' (name: nameValuePair "${name}-${postfix}") attrs;
         in
-        paramsToRenderedStrings postfixedAttrs
-        (mapAttrs (_n: _v: params) postfixedAttrs)
+        paramsToRenderedStrings postfixedAttrs (
+          mapAttrs (_n: _v: params) postfixedAttrs
+        )
         ;
     }
     ;

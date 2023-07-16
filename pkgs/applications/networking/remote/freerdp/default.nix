@@ -103,11 +103,13 @@ stdenv.mkDerivation rec {
       sed -z 's/NIB file generation.*//' -i client/Mac{,/cli}/CMakeLists.txt
 
       # failing test(s)
-      ${lib.concatMapStringsSep "\n" (e: ''
+      ${lib.concatMapStringsSep "\n"
+      (e: ''
         substituteInPlace ${e.dir}/CMakeLists.txt \
           --replace ${e.file} ""
         rm ${e.dir}/${e.file}
-      '') disabledTests}
+      '')
+      disabledTests}
 
       substituteInPlace "libfreerdp/freerdp.pc.in" \
         --replace "Requires:" "Requires: @WINPR_PKG_CONFIG_FILENAME@"
@@ -207,11 +209,13 @@ stdenv.mkDerivation rec {
     }
     ;
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.isDarwin [
-    "-DTARGET_OS_IPHONE=0"
-    "-DTARGET_OS_WATCH=0"
-    "-include AudioToolbox/AudioToolbox.h"
-  ]);
+  env.NIX_CFLAGS_COMPILE = toString (
+    lib.optionals stdenv.isDarwin [
+      "-DTARGET_OS_IPHONE=0"
+      "-DTARGET_OS_WATCH=0"
+      "-include AudioToolbox/AudioToolbox.h"
+    ]
+  );
 
   NIX_LDFLAGS = lib.optionals stdenv.isDarwin [ "-framework AudioToolbox" ];
 

@@ -39,21 +39,25 @@ let
     */
   buildOpenRASet =
     f: args:
-    builtins.mapAttrs (
+    builtins.mapAttrs
+    (
       name: value:
       if builtins.isFunction value then
         value name
       else
         value
-    ) (f (
-      {
-        inherit (pkgs) fetchFromGitHub;
-        postFetch = ''
-          sed -i 's/curl/curl --insecure/g' $out/thirdparty/{fetch-thirdparty-deps,noget}.sh
-          $out/thirdparty/fetch-thirdparty-deps.sh
-        '';
-      } // args
-    ))
+    )
+    (
+      f (
+        {
+          inherit (pkgs) fetchFromGitHub;
+          postFetch = ''
+            sed -i 's/curl/curl --insecure/g' $out/thirdparty/{fetch-thirdparty-deps,noget}.sh
+            $out/thirdparty/fetch-thirdparty-deps.sh
+          '';
+        } // args
+      )
+    )
     ;
 
 in
@@ -119,7 +123,8 @@ rec {
         builder
       else
         builder name
-    ) engine
+    )
+    engine
     ;
 
     # See `buildOpenRASet`.

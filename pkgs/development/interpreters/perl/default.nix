@@ -56,7 +56,10 @@ let
             extra = spliced0: { };
           in
           makeScopeWithSplicing otherSplices keep extra perlPackagesFun
-        ) { perl = self; };
+        )
+        {
+          perl = self;
+        };
     in
     rec {
       buildEnv = callPackage ./wrapper.nix {

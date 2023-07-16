@@ -11,8 +11,9 @@ let
 
   cfg = config.services.confluence;
 
-  pkg = cfg.package.override
-    (optionalAttrs cfg.sso.enable { enableSSO = cfg.sso.enable; });
+  pkg = cfg.package.override (
+    optionalAttrs cfg.sso.enable { enableSSO = cfg.sso.enable; }
+  );
 
   crowdProperties = pkgs.writeText "crowd.properties" ''
     application.name                        ${cfg.sso.applicationName}

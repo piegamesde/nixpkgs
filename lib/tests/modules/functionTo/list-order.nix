@@ -12,11 +12,13 @@ in
 
     result = lib.mkOption {
       type = types.str;
-      default = toString (config.fun {
-        a = "a";
-        b = "b";
-        c = "c";
-      });
+      default = toString (
+        config.fun {
+          a = "a";
+          b = "b";
+          c = "c";
+        }
+      );
     };
   };
 

@@ -17,8 +17,9 @@ let
     ;
   cfg = config.services.zeronet;
   dataDir = "/var/lib/zeronet";
-  configFile = pkgs.writeText "zeronet.conf"
-    (generators.toINI { } (recursiveUpdate defaultSettings cfg.settings));
+  configFile = pkgs.writeText "zeronet.conf" (
+    generators.toINI { } (recursiveUpdate defaultSettings cfg.settings)
+  );
 
   defaultSettings = {
     global = {
@@ -50,12 +51,14 @@ with lib; {
 
     settings = mkOption {
       type = with types;
-        attrsOf (oneOf [
-          str
-          int
-          bool
-          (listOf str)
-        ]);
+        attrsOf (
+          oneOf [
+            str
+            int
+            bool
+            (listOf str)
+          ]
+        );
       default = { };
       example = literalExpression "{ global.tor = enable; }";
 
@@ -121,16 +124,20 @@ with lib; {
   };
 
   imports = [
-    (mkRemovedOptionModule [
-      "services"
-      "zeronet"
-      "dataDir"
-    ] "Zeronet will store data by default in /var/lib/zeronet")
-    (mkRemovedOptionModule [
-      "services"
-      "zeronet"
-      "logDir"
-    ] "Zeronet will log by default in /var/lib/zeronet")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "zeronet"
+        "dataDir"
+      ]
+      "Zeronet will store data by default in /var/lib/zeronet")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "zeronet"
+        "logDir"
+      ]
+      "Zeronet will log by default in /var/lib/zeronet")
   ];
 
   meta.maintainers = with maintainers; [ Madouura ];

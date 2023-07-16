@@ -92,28 +92,36 @@ let
     ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
     ++ optionals targetPlatform.isNetBSD [ ../libstdc++-netbsd-ctypes.patch ]
     ++ optional noSysDirs ../no-sys-dirs.patch
-    ++ optional (hostPlatform != buildPlatform)
-      (fetchpatch { # XXX: Refine when this should be applied
+    ++ optional (hostPlatform != buildPlatform) (
+      fetchpatch { # XXX: Refine when this should be applied
         url =
           "https://git.busybox.net/buildroot/plain/package/gcc/7.1.0/0900-remove-selftests.patch?id=11271540bfe6adafbc133caf6b5b902a816f5f02";
         sha256 = "0mrvxsdwip2p3l17dscpc1x8vhdsciqw1z5q9i6p5g9yg1cqnmgs";
-      })
+      }
+    )
     ++ optional langFortran ../gfortran-driving.patch
-    ++ optional (targetPlatform.libc == "musl" && targetPlatform.isPower)
+    ++ optional
+      (targetPlatform.libc == "musl" && targetPlatform.isPower)
       ../ppc-musl.patch
-    ++ optional (targetPlatform.libc == "musl" && targetPlatform.isx86_32)
-      (fetchpatch {
+    ++ optional (targetPlatform.libc == "musl" && targetPlatform.isx86_32) (
+      fetchpatch {
         url =
           "https://git.alpinelinux.org/aports/plain/main/gcc/gcc-6.1-musl-libssp.patch?id=5e4b96e23871ee28ef593b439f8c07ca7c7eb5bb";
         sha256 = "1jf1ciz4gr49lwyh8knfhw6l5gvfkwzjy90m7qiwkcbsf4a3fqn2";
-      })
-    ++ optional (targetPlatform.libc == "musl")
+      }
+    )
+    ++ optional
+      (targetPlatform.libc == "musl")
       ../libgomp-dont-force-initial-exec.patch
 
       # Obtain latest patch with ../update-mcfgthread-patches.sh
-    ++ optional (
-      !crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf"
-    ) ./Added-mcf-thread-model-support-from-mcfgthread.patch
+    ++ optional
+      (
+        !crossStageStatic
+        && targetPlatform.isMinGW
+        && threadsCross.model == "mcf"
+      )
+      ./Added-mcf-thread-model-support-from-mcfgthread.patch
 
     ++ [ ../libsanitizer-no-cyclades-9.patch ]
     ;
@@ -127,7 +135,8 @@ let
     else
       "stage-final"
     ;
-  crossNameAddon = optionalString (targetPlatform != hostPlatform)
+  crossNameAddon = optionalString
+    (targetPlatform != hostPlatform)
     "${targetPlatform.config}-${stageNameAddon}-";
 
   callFile = lib.callPackageWith {
@@ -239,11 +248,12 @@ stdenv.mkDerivation (
         substituteInPlace libgfortran/configure \
           --replace "-install_name \\\$rpath/\\\$soname" "-install_name ''${!outputLib}/lib/\\\$soname"
       ''
-      + (lib.optionalString (
-        targetPlatform != hostPlatform || stdenv.cc.libc != null
-      )
-      # On NixOS, use the right path to the dynamic linker instead of
-      # `/lib/ld*.so'.
+      + (lib.optionalString
+        (
+          targetPlatform != hostPlatform || stdenv.cc.libc != null
+        )
+        # On NixOS, use the right path to the dynamic linker instead of
+        # `/lib/ld*.so'.
         (
           let
             libc =
@@ -287,8 +297,8 @@ stdenv.mkDerivation (
       depsTargetTarget
       ;
 
-    env.NIX_CFLAGS_COMPILE =
-      lib.optionalString (stdenv.cc.isClang && langFortran)
+    env.NIX_CFLAGS_COMPILE = lib.optionalString
+      (stdenv.cc.isClang && langFortran)
       "-Wno-unused-command-line-argument";
     NIX_LDFLAGS = lib.optionalString hostPlatform.isSunOS "-lm";
 
@@ -315,8 +325,8 @@ stdenv.mkDerivation (
         null
       ;
 
-    buildFlags =
-      optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
+    buildFlags = optional
+      (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
       (
         if profiledCompiler then
           "profiledbootstrap"
@@ -350,13 +360,13 @@ stdenv.mkDerivation (
       # compiler (after the specs for the cross-gcc are created). Having
       # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
 
-    CPATH = optionals (targetPlatform == hostPlatform)
-      (makeSearchPathOutput "dev" "include" (
-        [ ] ++ optional (zlib != null) zlib
-      ));
+    CPATH = optionals (targetPlatform == hostPlatform) (
+      makeSearchPathOutput "dev" "include" ([ ] ++ optional (zlib != null) zlib)
+    );
 
-    LIBRARY_PATH = optionals (targetPlatform == hostPlatform)
-      (makeLibraryPath (optional (zlib != null) zlib));
+    LIBRARY_PATH = optionals (targetPlatform == hostPlatform) (
+      makeLibraryPath (optional (zlib != null) zlib)
+    );
 
     inherit (callFile ../common/extra-target-flags.nix { })
       EXTRA_FLAGS_FOR_TARGET
@@ -385,11 +395,13 @@ stdenv.mkDerivation (
     };
   }
 
-  // optionalAttrs (
+  // optionalAttrs
+  (
     targetPlatform != hostPlatform
     && targetPlatform.libc == "msvcrt"
     && crossStageStatic
-  ) {
+  )
+  {
     makeFlags = [
       "all-gcc"
       "all-target-libgcc"

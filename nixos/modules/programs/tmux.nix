@@ -38,9 +38,9 @@ let
     set -g status-keys ${cfg.keyMode}
     set -g mode-keys   ${cfg.keyMode}
 
-    ${optionalString (
-      cfg.keyMode == "vi" && cfg.customPaneNavigationAndResize
-    ) ''
+    ${optionalString
+    (cfg.keyMode == "vi" && cfg.customPaneNavigationAndResize)
+    ''
       bind h select-pane -L
       bind j select-pane -D
       bind k select-pane -U
@@ -233,8 +233,8 @@ in
       systemPackages = [ pkgs.tmux ] ++ cfg.plugins;
 
       variables = {
-        TMUX_TMPDIR = lib.optional cfg.secureSocket
-          ''''${XDG_RUNTIME_DIR:-"/run/user/$(id -u)"}'';
+        TMUX_TMPDIR = lib.optional cfg.secureSocket ''
+          ''${XDG_RUNTIME_DIR:-"/run/user/$(id -u)"}'';
       };
     };
     security.wrappers = mkIf cfg.withUtempter {
@@ -249,14 +249,16 @@ in
   };
 
   imports = [
-      (lib.mkRenamedOptionModule [
-        "programs"
-        "tmux"
-        "extraTmuxConf"
-      ] [
-        "programs"
-        "tmux"
-        "extraConfig"
-      ])
+      (lib.mkRenamedOptionModule
+        [
+          "programs"
+          "tmux"
+          "extraTmuxConf"
+        ]
+        [
+          "programs"
+          "tmux"
+          "extraConfig"
+        ])
     ];
 }

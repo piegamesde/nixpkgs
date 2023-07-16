@@ -62,8 +62,9 @@ let
             (lib.toInt (builtins.elemAt pruned (builtins.length pruned - 1)))
             + 1
           );
-          upperConstraint = builtins.concatStringsSep "."
-            (ireplace (builtins.length pruned - 1) upper pruned);
+          upperConstraint = builtins.concatStringsSep "." (
+            ireplace (builtins.length pruned - 1) upper pruned
+          );
         in
         operators.">=" v c && operators."<" v upperConstraint
         ;

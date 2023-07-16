@@ -65,13 +65,15 @@ let
       description = mdDoc "Niceness.";
     };
     class = {
-      type = nullOr (enum [
-        "idle"
-        "batch"
-        "other"
-        "rr"
-        "fifo"
-      ]);
+      type = nullOr (
+        enum [
+          "idle"
+          "batch"
+          "other"
+          "rr"
+          "fifo"
+        ]
+      );
       example = literalExpression ''"batch"'';
       description = mdDoc "CPU scheduler class.";
     };
@@ -81,11 +83,13 @@ let
       description = mdDoc "CPU scheduler priority.";
     };
     ioClass = {
-      type = nullOr (enum [
-        "idle"
-        "best-effort"
-        "realtime"
-      ]);
+      type = nullOr (
+        enum [
+          "idle"
+          "best-effort"
+          "realtime"
+        ]
+      );
       example = literalExpression ''"best-effort"'';
       description = mdDoc "IO scheduler class.";
     };
@@ -338,21 +342,24 @@ in
                 ${
                   if ps.foregroundBoost.enable then
                     (schedulerProfileToString "foreground"
-                      ps.foregroundBoost.foreground "    ")
+                      ps.foregroundBoost.foreground
+                      "    ")
                   else
                     ""
                 }
                 ${
                   if ps.foregroundBoost.enable then
                     (schedulerProfileToString "background"
-                      ps.foregroundBoost.background "    ")
+                      ps.foregroundBoost.background
+                      "    ")
                   else
                     ""
                 }
                 ${
                   if ps.pipewireBoost.enable then
                     (schedulerProfileToString "pipewire"
-                      ps.pipewireBoost.profile "    ")
+                      ps.pipewireBoost.profile
+                      "    ")
                   else
                     ""
                 }
@@ -372,9 +379,11 @@ in
           + ''
             assignments {
           ''
-          + (concatStringsSep "\n" (map (
-            name: schedulerProfileToString name cfg.assignments.${name} "  "
-          ) (attrNames cfg.assignments)))
+          + (concatStringsSep "\n" (
+            map
+            (name: schedulerProfileToString name cfg.assignments.${name} "  ")
+            (attrNames cfg.assignments)
+          ))
           + ''
 
             }

@@ -10,23 +10,31 @@ with lib;
 let
   cfg = config.services.nitter;
   configFile = pkgs.writeText "nitter.conf" ''
-    ${generators.toINI {
+    ${generators.toINI
+    {
       # String values need to be quoted
-      mkKeyValue = generators.mkKeyValueDefault {
-        mkValueString =
-          v:
-          if isString v then
-            ''"'' + (strings.escape [ ''"'' ] (toString v)) + ''"''
-          else
-            generators.mkValueStringDefault { } v
-          ;
-      } " = ";
-    } (lib.recursiveUpdate {
-      Server = cfg.server;
-      Cache = cfg.cache;
-      Config = cfg.config // { hmacKey = "@hmac@"; };
-      Preferences = cfg.preferences;
-    } cfg.settings)}
+      mkKeyValue = generators.mkKeyValueDefault
+        {
+          mkValueString =
+            v:
+            if isString v then
+              ''"'' + (strings.escape [ ''"'' ] (toString v)) + ''"''
+            else
+              generators.mkValueStringDefault { } v
+            ;
+        }
+        " = ";
+    }
+    (
+      lib.recursiveUpdate
+      {
+        Server = cfg.server;
+        Cache = cfg.cache;
+        Config = cfg.config // { hmacKey = "@hmac@"; };
+        Preferences = cfg.preferences;
+      }
+      cfg.settings
+    )}
   '';
     # `hmac` is a secret used for cryptographic signing of video URLs.
     # Generate it on first launch, then copy configuration and replace
@@ -97,8 +105,8 @@ in
         staticDir = mkOption {
           type = types.path;
           default = "${cfg.package}/share/nitter/public";
-          defaultText = literalExpression
-            ''"''${config.services.nitter.package}/share/nitter/public"'';
+          defaultText = literalExpression ''
+            "''${config.services.nitter.package}/share/nitter/public"'';
           description = lib.mdDoc "Path to the static files directory.";
         };
 

@@ -41,9 +41,11 @@ stdenv.mkDerivation rec {
 
   skippedTests =
     ""
-    + lib.optionalString (stdenv.isDarwin)
+    + lib.optionalString
+      (stdenv.isDarwin)
       " -e uasyncio_basic -e uasyncio_heaplock -e uasyncio_wait_task"
-    + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64)
+    + lib.optionalString
+      (stdenv.isDarwin && stdenv.isAarch64)
       " -e ffi_callback"
     + lib.optionalString (stdenv.isLinux && stdenv.isAarch64) " -e float_parse"
     ;

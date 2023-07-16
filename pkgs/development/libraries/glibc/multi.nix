@@ -8,7 +8,8 @@ let
   nameVersion = builtins.parseDrvName glibc.name;
   glibc64 = glibc;
 in
-runCommand "${nameVersion.name}-multi-${nameVersion.version}"
+runCommand
+"${nameVersion.name}-multi-${nameVersion.version}"
 # out as the first output is an exception exclusive to glibc
 {
   outputs = [

@@ -29,20 +29,24 @@ in
 {
 
   imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "xserver"
-      "vaapiDrivers"
-    ] [
-      "hardware"
-      "opengl"
-      "extraPackages"
-    ])
-    (mkRemovedOptionModule [
-      "hardware"
-      "opengl"
-      "s3tcSupport"
-    ] "S3TC support is now always enabled in Mesa.")
+    (mkRenamedOptionModule
+      [
+        "services"
+        "xserver"
+        "vaapiDrivers"
+      ]
+      [
+        "hardware"
+        "opengl"
+        "extraPackages"
+      ])
+    (mkRemovedOptionModule
+      [
+        "hardware"
+        "opengl"
+        "s3tcSupport"
+      ]
+      "S3TC support is now always enabled in Mesa.")
   ];
 
   options = {
@@ -184,7 +188,8 @@ in
     hardware.opengl.package = mkDefault pkgs.mesa.drivers;
     hardware.opengl.package32 = mkDefault pkgs.pkgsi686Linux.mesa.drivers;
 
-    boot.extraModulePackages = optional (elem "virtualbox" videoDrivers)
+    boot.extraModulePackages = optional
+      (elem "virtualbox" videoDrivers)
       kernelPackages.virtualboxGuestAdditions;
   };
 }

@@ -17,15 +17,16 @@ let
 
   registrationFile = "/var/lib/heisenbridge/registration.yml";
     # JSON is a proper subset of YAML
-  bridgeConfig = builtins.toFile "heisenbridge-registration.yml"
-    (builtins.toJSON {
+  bridgeConfig = builtins.toFile "heisenbridge-registration.yml" (
+    builtins.toJSON {
       id = "heisenbridge";
       url = cfg.registrationUrl;
         # Don't specify as_token and hs_token
       rate_limited = false;
       sender_localpart = "heisenbridge";
       namespaces = cfg.namespaces;
-    });
+    }
+  );
 in
 {
   options.services.heisenbridge = {
@@ -216,9 +217,9 @@ in
 
         CapabilityBoundingSet =
           [ "CAP_CHOWN" ]
-          ++ optional (
-            cfg.port < 1024 || (cfg.identd.enable && cfg.identd.port < 1024)
-          ) "CAP_NET_BIND_SERVICE"
+          ++ optional
+            (cfg.port < 1024 || (cfg.identd.enable && cfg.identd.port < 1024))
+            "CAP_NET_BIND_SERVICE"
           ;
         AmbientCapabilities = CapabilityBoundingSet;
         NoNewPrivileges = true;

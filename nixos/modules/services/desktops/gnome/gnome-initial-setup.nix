@@ -52,17 +52,19 @@ in
 
     # Added 2021-05-07
   imports = [
-      (mkRenamedOptionModule [
-        "services"
-        "gnome3"
-        "gnome-initial-setup"
-        "enable"
-      ] [
-        "services"
-        "gnome"
-        "gnome-initial-setup"
-        "enable"
-      ])
+      (mkRenamedOptionModule
+        [
+          "services"
+          "gnome3"
+          "gnome-initial-setup"
+          "enable"
+        ]
+        [
+          "services"
+          "gnome"
+          "gnome-initial-setup"
+          "enable"
+        ])
     ];
 
     ###### interface
@@ -71,9 +73,10 @@ in
 
     services.gnome.gnome-initial-setup = {
 
-      enable = mkEnableOption (lib.mdDoc
-        "GNOME Initial Setup, a Simple, easy, and safe way to prepare a new system")
-        ;
+      enable = mkEnableOption (
+        lib.mdDoc
+        "GNOME Initial Setup, a Simple, easy, and safe way to prepare a new system"
+      );
 
     };
 
@@ -85,7 +88,8 @@ in
 
     environment.systemPackages =
       [ pkgs.gnome.gnome-initial-setup ]
-      ++ optional (versionOlder config.system.stateVersion "20.03")
+      ++ optional
+        (versionOlder config.system.stateVersion "20.03")
         createGisStampFilesAutostart
       ;
 

@@ -16,9 +16,11 @@
           enable = true;
           routes = [ {
             route = "localhost";
-            root = toString (pkgs.writeTextDir "index.gmi" ''
-              # Hello NixOS!
-            '');
+            root = toString (
+              pkgs.writeTextDir "index.gmi" ''
+                # Hello NixOS!
+              ''
+            );
           } ];
         };
       }

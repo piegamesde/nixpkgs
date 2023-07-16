@@ -6,7 +6,8 @@
   pkgs ? import ../.. { inherit system config; }
 }:
 
-import ./make-test-python.nix {
+import ./make-test-python.nix
+{
   name = "buildbot";
 
   nodes = {
@@ -146,4 +147,5 @@ import ./make-test-python.nix {
   '';
 
   meta.maintainers = with pkgs.lib.maintainers; [ ];
-} { }
+}
+{ }

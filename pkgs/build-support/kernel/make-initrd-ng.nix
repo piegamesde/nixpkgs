@@ -92,7 +92,8 @@ in
   uInitrdCompression ? _compressorMeta.ubootName or (throw
     "Unrecognised compressor ${_compressorName}, please specify uInitrdCompression")
 }:
-runCommand name ({
+runCommand name
+({
   compress =
     "${_compressorExecutable} ${lib.escapeShellArgs _compressorArgsReal}";
   passthru = {
@@ -110,18 +111,20 @@ runCommand name ({
 
   passAsFile = [ "contents" ];
   contents =
-    lib.concatMapStringsSep "\n" (
-      {
-        object,
-        symlink,
-        ...
-      }: ''
-        ${object}
-        ${if symlink == null then
-          ""
-        else
-          symlink}''
-    ) contents
+    lib.concatMapStringsSep "\n"
+      (
+        {
+          object,
+          symlink,
+          ...
+        }: ''
+          ${object}
+          ${if symlink == null then
+            ""
+          else
+            symlink}''
+      )
+      contents
     + "\n"
     ;
 
@@ -140,7 +143,8 @@ runCommand name ({
     else
       null
     ;
-}) ''
+})
+''
   mkdir -p ./root/var/empty
   make-initrd-ng "$contentsPath" ./root
   mkdir "$out"

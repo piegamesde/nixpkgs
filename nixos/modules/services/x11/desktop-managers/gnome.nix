@@ -87,178 +87,207 @@ in
 
   imports = [
     # Added 2021-05-07
-    (mkRenamedOptionModule [
-      "services"
-      "gnome3"
-      "core-os-services"
-      "enable"
-    ] [
-      "services"
-      "gnome"
-      "core-os-services"
-      "enable"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "gnome3"
-      "core-shell"
-      "enable"
-    ] [
-      "services"
-      "gnome"
-      "core-shell"
-      "enable"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "gnome3"
-      "core-utilities"
-      "enable"
-    ] [
-      "services"
-      "gnome"
-      "core-utilities"
-      "enable"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "gnome3"
-      "core-developer-tools"
-      "enable"
-    ] [
-      "services"
-      "gnome"
-      "core-developer-tools"
-      "enable"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "gnome3"
-      "games"
-      "enable"
-    ] [
-      "services"
-      "gnome"
-      "games"
-      "enable"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "gnome3"
-      "experimental-features"
-      "realtime-scheduling"
-    ] [
-      "services"
-      "gnome"
-      "experimental-features"
-      "realtime-scheduling"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "xserver"
-      "desktopManager"
-      "gnome3"
-      "enable"
-    ] [
-      "services"
-      "xserver"
-      "desktopManager"
-      "gnome"
-      "enable"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "xserver"
-      "desktopManager"
-      "gnome3"
-      "sessionPath"
-    ] [
-      "services"
-      "xserver"
-      "desktopManager"
-      "gnome"
-      "sessionPath"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "xserver"
-      "desktopManager"
-      "gnome3"
-      "favoriteAppsOverride"
-    ] [
-      "services"
-      "xserver"
-      "desktopManager"
-      "gnome"
-      "favoriteAppsOverride"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "xserver"
-      "desktopManager"
-      "gnome3"
-      "extraGSettingsOverrides"
-    ] [
-      "services"
-      "xserver"
-      "desktopManager"
-      "gnome"
-      "extraGSettingsOverrides"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "xserver"
-      "desktopManager"
-      "gnome3"
-      "extraGSettingsOverridePackages"
-    ] [
-      "services"
-      "xserver"
-      "desktopManager"
-      "gnome"
-      "extraGSettingsOverridePackages"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "xserver"
-      "desktopManager"
-      "gnome3"
-      "debug"
-    ] [
-      "services"
-      "xserver"
-      "desktopManager"
-      "gnome"
-      "debug"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "xserver"
-      "desktopManager"
-      "gnome3"
-      "flashback"
-    ] [
-      "services"
-      "xserver"
-      "desktopManager"
-      "gnome"
-      "flashback"
-    ])
-    (mkRenamedOptionModule [
-      "environment"
-      "gnome3"
-      "excludePackages"
-    ] [
-      "environment"
-      "gnome"
-      "excludePackages"
-    ])
-    (mkRemovedOptionModule [
-      "services"
-      "gnome"
-      "experimental-features"
-      "realtime-scheduling"
-    ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gnome3"
+        "core-os-services"
+        "enable"
+      ]
+      [
+        "services"
+        "gnome"
+        "core-os-services"
+        "enable"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gnome3"
+        "core-shell"
+        "enable"
+      ]
+      [
+        "services"
+        "gnome"
+        "core-shell"
+        "enable"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gnome3"
+        "core-utilities"
+        "enable"
+      ]
+      [
+        "services"
+        "gnome"
+        "core-utilities"
+        "enable"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gnome3"
+        "core-developer-tools"
+        "enable"
+      ]
+      [
+        "services"
+        "gnome"
+        "core-developer-tools"
+        "enable"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gnome3"
+        "games"
+        "enable"
+      ]
+      [
+        "services"
+        "gnome"
+        "games"
+        "enable"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gnome3"
+        "experimental-features"
+        "realtime-scheduling"
+      ]
+      [
+        "services"
+        "gnome"
+        "experimental-features"
+        "realtime-scheduling"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "xserver"
+        "desktopManager"
+        "gnome3"
+        "enable"
+      ]
+      [
+        "services"
+        "xserver"
+        "desktopManager"
+        "gnome"
+        "enable"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "xserver"
+        "desktopManager"
+        "gnome3"
+        "sessionPath"
+      ]
+      [
+        "services"
+        "xserver"
+        "desktopManager"
+        "gnome"
+        "sessionPath"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "xserver"
+        "desktopManager"
+        "gnome3"
+        "favoriteAppsOverride"
+      ]
+      [
+        "services"
+        "xserver"
+        "desktopManager"
+        "gnome"
+        "favoriteAppsOverride"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "xserver"
+        "desktopManager"
+        "gnome3"
+        "extraGSettingsOverrides"
+      ]
+      [
+        "services"
+        "xserver"
+        "desktopManager"
+        "gnome"
+        "extraGSettingsOverrides"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "xserver"
+        "desktopManager"
+        "gnome3"
+        "extraGSettingsOverridePackages"
+      ]
+      [
+        "services"
+        "xserver"
+        "desktopManager"
+        "gnome"
+        "extraGSettingsOverridePackages"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "xserver"
+        "desktopManager"
+        "gnome3"
+        "debug"
+      ]
+      [
+        "services"
+        "xserver"
+        "desktopManager"
+        "gnome"
+        "debug"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "xserver"
+        "desktopManager"
+        "gnome3"
+        "flashback"
+      ]
+      [
+        "services"
+        "xserver"
+        "desktopManager"
+        "gnome"
+        "flashback"
+      ])
+    (mkRenamedOptionModule
+      [
+        "environment"
+        "gnome3"
+        "excludePackages"
+      ]
+      [
+        "environment"
+        "gnome"
+        "excludePackages"
+      ])
+    (mkRemovedOptionModule
+      [
+        "services"
+        "gnome"
+        "experimental-features"
+        "realtime-scheduling"
+      ]
       "Set `security.rtkit.enable = true;` to make realtime scheduling possible. (Still needs to be enabled using GSettings.)")
   ];
 
@@ -324,45 +353,47 @@ in
       debug = mkEnableOption (lib.mdDoc "gnome-session debug messages");
 
       flashback = {
-        enableMetacity = mkEnableOption
-          (lib.mdDoc "the standard GNOME Flashback session with Metacity");
+        enableMetacity = mkEnableOption (
+          lib.mdDoc "the standard GNOME Flashback session with Metacity"
+        );
 
         customSessions = mkOption {
-          type = types.listOf (types.submodule {
-            options = {
-              wmName = mkOption {
-                type = types.strMatching "[a-zA-Z0-9_-]+";
-                description =
-                  lib.mdDoc "A unique identifier for the window manager.";
-                example = "xmonad";
-              };
+          type = types.listOf (
+            types.submodule {
+              options = {
+                wmName = mkOption {
+                  type = types.strMatching "[a-zA-Z0-9_-]+";
+                  description =
+                    lib.mdDoc "A unique identifier for the window manager.";
+                  example = "xmonad";
+                };
 
-              wmLabel = mkOption {
-                type = types.str;
-                description = lib.mdDoc
-                  "The name of the window manager to show in the session chooser."
-                  ;
-                example = "XMonad";
-              };
+                wmLabel = mkOption {
+                  type = types.str;
+                  description = lib.mdDoc
+                    "The name of the window manager to show in the session chooser."
+                    ;
+                  example = "XMonad";
+                };
 
-              wmCommand = mkOption {
-                type = types.str;
-                description =
-                  lib.mdDoc "The executable of the window manager to use.";
-                example = literalExpression
-                  ''"''${pkgs.haskellPackages.xmonad}/bin/xmonad"'';
-              };
+                wmCommand = mkOption {
+                  type = types.str;
+                  description =
+                    lib.mdDoc "The executable of the window manager to use.";
+                  example = literalExpression ''
+                    "''${pkgs.haskellPackages.xmonad}/bin/xmonad"'';
+                };
 
-              enableGnomePanel = mkOption {
-                type = types.bool;
-                default = true;
-                example = false;
-                description =
-                  lib.mdDoc "Whether to enable the GNOME panel in this session."
-                  ;
+                enableGnomePanel = mkOption {
+                  type = types.bool;
+                  default = true;
+                  example = false;
+                  description = lib.mdDoc
+                    "Whether to enable the GNOME panel in this session.";
+                };
               };
-            };
-          });
+            }
+          );
           default = [ ];
           description = lib.mdDoc "Other GNOME Flashback sessions to enable.";
         };
@@ -408,7 +439,8 @@ in
         ];
 
       environment.extraInit = ''
-        ${concatMapStrings (p: ''
+        ${concatMapStrings
+        (p: ''
           if [ -d "${p}/share/gsettings-schemas/${p.name}" ]; then
             export XDG_DATA_DIRS=$XDG_DATA_DIRS''${XDG_DATA_DIRS:+:}${p}/share/gsettings-schemas/${p.name}
           fi
@@ -417,7 +449,8 @@ in
             export GI_TYPELIB_PATH=$GI_TYPELIB_PATH''${GI_TYPELIB_PATH:+:}${p}/lib/girepository-1.0
             export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}${p}/lib
           fi
-        '') cfg.sessionPath}
+        '')
+        cfg.sessionPath}
       '';
 
       environment.systemPackages = cfg.sessionPath;
@@ -439,13 +472,15 @@ in
           namesAreUnique = lib.unique wmNames == wmNames;
         in
         assert (assertMsg namesAreUnique "Flashback WM names must be unique.");
-        map (
+        map
+        (
           wm:
           pkgs.gnome.gnome-flashback.mkSessionForWm {
             inherit (wm) wmName wmLabel wmCommand enableGnomePanel;
             inherit (cfg.flashback) panelModulePackages;
           }
-        ) flashbackWms
+        )
+        flashbackWms
         ;
 
       security.pam.services.gnome-flashback = { enableGnomeKeyring = true; };
@@ -531,7 +566,8 @@ in
           optionalPackages = [ pkgs.gnome.gnome-shell-extensions ];
         in
         mandatoryPackages
-        ++ utils.removePackagesByName optionalPackages
+        ++ utils.removePackagesByName
+          optionalPackages
           config.environment.gnome.excludePackages
         ;
 
@@ -610,7 +646,8 @@ in
           ];
         in
         mandatoryPackages
-        ++ utils.removePackagesByName optionalPackages
+        ++ utils.removePackagesByName
+          optionalPackages
           config.environment.gnome.excludePackages
         ;
     })
@@ -618,7 +655,8 @@ in
     # Adapt from https://gitlab.gnome.org/GNOME/gnome-build-meta/blob/gnome-3-38/elements/core/meta-gnome-core-utilities.bst
     (mkIf serviceCfg.core-utilities.enable {
       environment.systemPackages = with pkgs.gnome;
-        utils.removePackagesByName (
+        utils.removePackagesByName
+        (
           [
             baobab
             cheese
@@ -649,7 +687,8 @@ in
             # only install gnome-software if flatpak is enabled.
             gnome-software
           ]
-        ) config.environment.gnome.excludePackages;
+        )
+        config.environment.gnome.excludePackages;
 
         # Enable default program modules
         # Since some of these have a corresponding package, we only
@@ -679,7 +718,8 @@ in
 
     (mkIf serviceCfg.games.enable {
       environment.systemPackages = with pkgs.gnome;
-        utils.removePackagesByName [
+        utils.removePackagesByName
+        [
           aisleriot
           atomix
           five-or-more
@@ -700,13 +740,15 @@ in
           quadrapassel
           swell-foop
           tali
-        ] config.environment.gnome.excludePackages;
+        ]
+        config.environment.gnome.excludePackages;
     })
 
     # Adapt from https://gitlab.gnome.org/GNOME/gnome-build-meta/-/blob/3.38.0/elements/core/meta-gnome-core-developer-tools.bst
     (mkIf serviceCfg.core-developer-tools.enable {
       environment.systemPackages = with pkgs.gnome;
-        utils.removePackagesByName [
+        utils.removePackagesByName
+        [
           dconf-editor
           devhelp
           pkgs.gnome-builder
@@ -715,7 +757,8 @@ in
           # in default configurations.
           # https://github.com/NixOS/nixpkgs/issues/60908
           # gnome-boxes
-        ] config.environment.gnome.excludePackages;
+        ]
+        config.environment.gnome.excludePackages;
 
       services.sysprof.enable = notExcluded pkgs.sysprof;
     })

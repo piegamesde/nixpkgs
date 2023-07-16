@@ -38,8 +38,9 @@ in
 {
   options = {
     services.discourse = {
-      enable = lib.mkEnableOption
-        (lib.mdDoc "Discourse, an open source discussion platform");
+      enable = lib.mkEnableOption (
+        lib.mdDoc "Discourse, an open source discussion platform"
+      );
 
       package = lib.mkOption {
         type = lib.types.package;
@@ -123,12 +124,16 @@ in
 
       backendSettings = lib.mkOption {
         type = with lib.types;
-          attrsOf (nullOr (oneOf [
-            str
-            int
-            bool
-            float
-          ]));
+          attrsOf (
+            nullOr (
+              oneOf [
+                str
+                int
+                bool
+                float
+              ]
+            )
+          );
         default = { };
         example = lib.literalExpression ''
           {
@@ -432,11 +437,13 @@ in
 
           authentication = lib.mkOption {
             type = with lib.types;
-              nullOr (enum [
-                "plain"
-                "login"
-                "cram_md5"
-              ]);
+              nullOr (
+                enum [
+                  "plain"
+                  "login"
+                  "cram_md5"
+                ]
+              );
             default = null;
             description = lib.mdDoc ''
               Authentication type to use, see http://api.rubyonrails.org/classes/ActionMailer/Base.html
@@ -480,8 +487,8 @@ in
           replyEmailAddress = lib.mkOption {
             type = lib.types.str;
             default = "%{reply_key}@${cfg.hostname}";
-            defaultText = lib.literalExpression
-              ''"%{reply_key}@''${config.services.discourse.hostname}"'';
+            defaultText = lib.literalExpression ''
+              "%{reply_key}@''${config.services.discourse.hostname}"'';
             description = lib.mdDoc ''
               Template for reply by email incoming email address, for
               example: %{reply_key}@reply.example.com or
@@ -704,14 +711,16 @@ in
       allow_impersonation = true;
     };
 
-    services.redis.servers.discourse = lib.mkIf (lib.elem cfg.redis.host [
-      "localhost"
-      "127.0.0.1"
-    ]) {
-      enable = true;
-      bind = cfg.redis.host;
-      port = cfg.backendSettings.redis_port;
-    };
+    services.redis.servers.discourse = lib.mkIf
+      (lib.elem cfg.redis.host [
+        "localhost"
+        "127.0.0.1"
+      ])
+      {
+        enable = true;
+        bind = cfg.redis.host;
+        port = cfg.backendSettings.redis_port;
+      };
 
     services.postgresql = lib.mkIf databaseActuallyCreateLocally {
       enable = true;
@@ -803,8 +812,9 @@ in
             };
           };
 
-          discourseConf = pkgs.writeText "discourse.conf"
-            (discourseKeyValue cfg.backendSettings);
+          discourseConf = pkgs.writeText "discourse.conf" (
+            discourseKeyValue cfg.backendSettings
+          );
 
           mkSecretReplacement =
             file:
@@ -840,7 +850,8 @@ in
               umask u=rwx,g=,o=
 
               ${
-                utils.genJqSecretsReplacementSnippet cfg.siteSettings
+                utils.genJqSecretsReplacementSnippet
+                cfg.siteSettings
                 "/run/discourse/config/nixos_site_settings.json"
               }
               install -T -m 0600 -o discourse ${discourseConf} /run/discourse/config/discourse.conf

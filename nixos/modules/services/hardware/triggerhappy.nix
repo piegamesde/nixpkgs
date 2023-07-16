@@ -14,7 +14,8 @@ let
   socket = "/run/thd.socket";
 
   configFile = pkgs.writeText "triggerhappy.conf" ''
-    ${concatMapStringsSep "\n" (
+    ${concatMapStringsSep "\n"
+    (
       {
         keys,
         event,
@@ -29,7 +30,8 @@ let
         }
         .${event}
       } ${cmd}"
-    ) cfg.bindings}
+    )
+    cfg.bindings}
     ${cfg.extraConfig}
   '';
 
@@ -135,14 +137,16 @@ in
       };
     };
 
-    services.udev.packages = lib.singleton (pkgs.writeTextFile {
-      name = "triggerhappy-udev-rules";
-      destination = "/etc/udev/rules.d/61-triggerhappy.rules";
-      text = ''
-        ACTION=="add", SUBSYSTEM=="input", KERNEL=="event[0-9]*", ATTRS{name}!="triggerhappy", \
-          RUN+="${pkgs.triggerhappy}/bin/th-cmd --socket ${socket} --passfd --udev"
-      '';
-    });
+    services.udev.packages = lib.singleton (
+      pkgs.writeTextFile {
+        name = "triggerhappy-udev-rules";
+        destination = "/etc/udev/rules.d/61-triggerhappy.rules";
+        text = ''
+          ACTION=="add", SUBSYSTEM=="input", KERNEL=="event[0-9]*", ATTRS{name}!="triggerhappy", \
+            RUN+="${pkgs.triggerhappy}/bin/th-cmd --socket ${socket} --passfd --udev"
+        '';
+      }
+    );
 
   };
 

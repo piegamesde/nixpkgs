@@ -75,11 +75,11 @@ let
       +
       # when cross compiling, we must use himktables from PATH
       # (i.e. from buildPackages.texlive.bin.core.dev)
-      lib.optionalString (
-        !stdenv.buildPlatform.canExecute stdenv.hostPlatform
-      ) ''
-        sed -i 's|\./himktables|himktables|' texk/web2c/Makefile.in
-      ''
+      lib.optionalString
+        (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+        ''
+          sed -i 's|\./himktables|himktables|' texk/web2c/Makefile.in
+        ''
       ;
 
     configureFlags =
@@ -330,7 +330,8 @@ rec { # un-indented
         "icu"
         "graphite2"
       ]
-      ++ map (prog: "--disable-${prog}") # don't build things we already have
+      ++ map
+        (prog: "--disable-${prog}") # don't build things we already have
         (
           [
             "tex"
@@ -358,11 +359,12 @@ rec { # un-indented
       let
         luajit = lib.optionalString withLuaJIT ",luajit";
       in
-      lib.optionalString (
-        stdenv.hostPlatform != stdenv.buildPlatform
-      )
-      # without this, the native builds attempt to use the binary
-      # ${target-triple}-gcc, but we need to use the wrapper script.
+      lib.optionalString
+        (
+          stdenv.hostPlatform != stdenv.buildPlatform
+        )
+        # without this, the native builds attempt to use the binary
+        # ${target-triple}-gcc, but we need to use the wrapper script.
         ''
           export BUILDCC=${buildPackages.stdenv.cc}/bin/cc
         ''
@@ -376,13 +378,14 @@ rec { # un-indented
               extraConfig=""
             fi
       ''
-      + lib.optionalString (
-        !stdenv.buildPlatform.canExecute stdenv.hostPlatform
-      )
-      # results of the tests performed by the configure scripts are
-      # toolchain-dependent, so native components and cross components cannot use
-      # the same cached test results.
-      # Disable the caching for components with native subcomponents.
+      + lib.optionalString
+        (
+          !stdenv.buildPlatform.canExecute stdenv.hostPlatform
+        )
+        # results of the tests performed by the configure scripts are
+        # toolchain-dependent, so native components and cross components cannot use
+        # the same cached test results.
+        # Disable the caching for components with native subcomponents.
         ''
           if [[ "$path" =~ "libs/luajit" ]] || [[ "$path" =~ "texk/web2c" ]]; then
             extraConfig="$extraConfig --cache-file=/dev/null"
@@ -607,8 +610,9 @@ rec { # un-indented
   texlinks = stdenv.mkDerivation rec {
     name = "texlinks";
 
-    src = lib.head (builtins.filter (p: p.tlType == "run")
-      texlive.texlive-scripts-extra.pkgs);
+    src = lib.head (
+      builtins.filter (p: p.tlType == "run") texlive.texlive-scripts-extra.pkgs
+    );
 
     dontBuild = true;
     doCheck = false;
@@ -702,9 +706,8 @@ rec { # un-indented
 
 } # un-indented
 
-// lib.optionalAttrs (
-  !clisp.meta.broken
-) # broken on aarch64 and darwin (#20062)
+// lib.optionalAttrs
+(!clisp.meta.broken) # broken on aarch64 and darwin (#20062)
 {
 
   xindy = stdenv.mkDerivation {

@@ -17,20 +17,28 @@ let
       (escapeShellArg cfg.configFile)
     ;
 
-  configurationFile = pkgs.writeText "prometheus-mail-exporter.conf"
-    (builtins.toJSON (
-      # removes the _module attribute, null values and converts attrNames to lowercase
-      mapAttrs' (
+  configurationFile = pkgs.writeText "prometheus-mail-exporter.conf" (
+    builtins.toJSON (
+    # removes the _module attribute, null values and converts attrNames to lowercase
+      mapAttrs'
+      (
         name: value:
         if name == "servers" then
-          nameValuePair (toLower name) ((map (
-            srv:
-            (mapAttrs' (n: v: nameValuePair (toLower n) v)
-              (filterAttrs (n: v: !(n == "_module" || v == null)) srv))
-          )) value)
+          nameValuePair (toLower name) (
+            (map (
+              srv:
+              (mapAttrs' (n: v: nameValuePair (toLower n) v) (
+                filterAttrs (n: v: !(n == "_module" || v == null)) srv
+              ))
+            ))
+            value
+          )
         else
           nameValuePair (toLower name) value
-      ) (filterAttrs (n: _: !(n == "_module")) cfg.configuration)));
+      )
+      (filterAttrs (n: _: !(n == "_module")) cfg.configuration)
+    )
+  );
 
   serverOptions.options = {
     name = mkOption {

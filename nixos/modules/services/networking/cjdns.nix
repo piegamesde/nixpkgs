@@ -53,63 +53,70 @@ let
     # Additional /etc/hosts entries for peers with an associated hostname
   cjdnsExtraHosts = pkgs.runCommand "cjdns-hosts" { } ''
     exec >$out
-    ${concatStringsSep "\n" (mapAttrsToList (
-      k: v:
-      optionalString (v.hostname != "")
-      "echo $(${pkgs.cjdns}/bin/publictoip6 ${v.publicKey}) ${v.hostname}"
-    ) (
-      cfg.ETHInterface.connectTo // cfg.UDPInterface.connectTo
-    ))}
+    ${concatStringsSep "\n" (
+      mapAttrsToList
+      (
+        k: v:
+        optionalString
+        (v.hostname != "")
+        "echo $(${pkgs.cjdns}/bin/publictoip6 ${v.publicKey}) ${v.hostname}"
+      )
+      (cfg.ETHInterface.connectTo // cfg.UDPInterface.connectTo)
+    )}
   '';
 
   parseModules =
     x:
     x // {
-      connectTo =
-        mapAttrs (name: value: { inherit (value) password publicKey; })
+      connectTo = mapAttrs
+        (name: value: { inherit (value) password publicKey; })
         x.connectTo;
     }
     ;
 
-  cjdrouteConf = builtins.toJSON (recursiveUpdate {
-    admin = {
-      bind = cfg.admin.bind;
-      password = "@CJDNS_ADMIN_PASSWORD@";
-    };
-    authorizedPasswords = map (p: { password = p; }) cfg.authorizedPasswords;
-    interfaces = {
-      ETHInterface =
-        if (cfg.ETHInterface.bind != "") then
-          [ (parseModules cfg.ETHInterface) ]
-        else
-          [ ]
-        ;
-      UDPInterface =
-        if (cfg.UDPInterface.bind != "") then
-          [ (parseModules cfg.UDPInterface) ]
-        else
-          [ ]
-        ;
-    };
-
-    privateKey = "@CJDNS_PRIVATE_KEY@";
-
-    resetAfterInactivitySeconds = 100;
-
-    router = {
-      interface = { type = "TUNInterface"; };
-      ipTunnel = {
-        allowedConnections = [ ];
-        outgoingConnections = [ ];
+  cjdrouteConf = builtins.toJSON (
+    recursiveUpdate
+    {
+      admin = {
+        bind = cfg.admin.bind;
+        password = "@CJDNS_ADMIN_PASSWORD@";
       };
-    };
+      authorizedPasswords = map (p: { password = p; }) cfg.authorizedPasswords;
+      interfaces = {
+        ETHInterface =
+          if (cfg.ETHInterface.bind != "") then
+            [ (parseModules cfg.ETHInterface) ]
+          else
+            [ ]
+          ;
+        UDPInterface =
+          if (cfg.UDPInterface.bind != "") then
+            [ (parseModules cfg.UDPInterface) ]
+          else
+            [ ]
+          ;
+      };
 
-    security = [ {
-      exemptAngel = 1;
-      setuser = "nobody";
-    } ];
+      privateKey = "@CJDNS_PRIVATE_KEY@";
 
-  } cfg.extraConfig);
+      resetAfterInactivitySeconds = 100;
+
+      router = {
+        interface = { type = "TUNInterface"; };
+        ipTunnel = {
+          allowedConnections = [ ];
+          outgoingConnections = [ ];
+        };
+      };
+
+      security = [ {
+        exemptAngel = 1;
+        setuser = "nobody";
+      } ];
+
+    }
+    cfg.extraConfig
+  );
 
 in
 {

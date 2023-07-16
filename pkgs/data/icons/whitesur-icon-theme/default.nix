@@ -14,7 +14,8 @@
 let
   pname = "Whitesur-icon-theme";
 in
-lib.checkListOfEnum "${pname}: theme variants" [
+lib.checkListOfEnum "${pname}: theme variants"
+[
   "default"
   "purple"
   "pink"
@@ -25,9 +26,11 @@ lib.checkListOfEnum "${pname}: theme variants" [
   "grey"
   "nord"
   "all"
-] themeVariants
+]
+themeVariants
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation
+rec {
   inherit pname;
   version = "2023-01-08";
 

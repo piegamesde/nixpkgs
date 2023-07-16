@@ -17,10 +17,12 @@ with lib;
 
     services.deepin.dde-api = {
 
-      enable = mkEnableOption (lib.mdDoc ''
-        Provides some dbus interfaces that is used for screen zone detecting,
-        thumbnail generating, and sound playing in Deepin Desktop Enviroment.
-      '');
+      enable = mkEnableOption (
+        lib.mdDoc ''
+          Provides some dbus interfaces that is used for screen zone detecting,
+          thumbnail generating, and sound playing in Deepin Desktop Enviroment.
+        ''
+      );
 
     };
 

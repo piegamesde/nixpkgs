@@ -34,12 +34,14 @@ let
     let
       inherit (args) pname;
       inherit (srcs.${pname}) src version;
-      mkDerivation = libsForQt5.callPackage (
-        {
-          mkDerivation,
-        }:
-        mkDerivation
-      ) { };
+      mkDerivation = libsForQt5.callPackage
+        (
+          {
+            mkDerivation,
+          }:
+          mkDerivation
+        )
+        { };
     in
     mkDerivation (
       args // {

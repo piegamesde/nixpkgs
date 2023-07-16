@@ -29,7 +29,8 @@ in
 lib.throwIfNot (lib.versionAtLeast ppxlib.version "0.24.0")
 "ppx_import is not available with ppxlib-${ppxlib.version}"
 
-buildDunePackage rec {
+buildDunePackage
+rec {
   pname = "ppx_import";
   inherit version;
 

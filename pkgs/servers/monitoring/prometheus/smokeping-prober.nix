@@ -17,9 +17,14 @@ buildGoModule rec {
         Branch = Revision;
         BuildUser = "nix";
       };
-      varFlags = lib.concatStringsSep " " (lib.mapAttrsToList (
-        name: value: "-X github.com/prometheus/common/version.${name}=${value}"
-      ) setVars);
+      varFlags = lib.concatStringsSep " " (
+        lib.mapAttrsToList
+        (
+          name: value:
+          "-X github.com/prometheus/common/version.${name}=${value}"
+        )
+        setVars
+      );
     in
     [
       "${varFlags}"

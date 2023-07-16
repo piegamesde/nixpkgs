@@ -8,8 +8,9 @@
 let
   removeKnownVulnerabilities =
     pkg:
-    pkg.overrideAttrs
-    (old: { meta = (old.meta or { }) // { knownVulnerabilities = [ ]; }; })
+    pkg.overrideAttrs (
+      old: { meta = (old.meta or { }) // { knownVulnerabilities = [ ]; }; }
+    )
     ;
     # We are removing `meta.knownVulnerabilities` from `python27`,
     # and setting it in `resholve` itself.

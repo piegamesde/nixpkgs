@@ -46,7 +46,8 @@ let
   pypkgs = with python3.pkgs; makePythonPath [ pyparsing ];
 
 in
-runCommand "systemtap-${kernel.version}-${version}" {
+runCommand "systemtap-${kernel.version}-${version}"
+{
   inherit stapBuild;
   nativeBuildInputs = [ makeWrapper ];
   meta = {
@@ -56,7 +57,8 @@ runCommand "systemtap-${kernel.version}-${version}" {
     license = lib.licenses.gpl2;
     platforms = lib.systems.inspect.patterns.isGnu;
   };
-} ''
+}
+''
   mkdir -p $out/bin
   for bin in $stapBuild/bin/*; do
     ln -s $bin $out/bin

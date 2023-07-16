@@ -21,7 +21,8 @@ let
   pname = "vimix-gtk-themes";
 
 in
-lib.checkListOfEnum "${pname}: theme variants" [
+lib.checkListOfEnum "${pname}: theme variants"
+[
   "doder"
   "beryl"
   "ruby"
@@ -29,22 +30,36 @@ lib.checkListOfEnum "${pname}: theme variants" [
   "jade"
   "grey"
   "all"
-] themeVariants lib.checkListOfEnum "${pname}: color variants" [
+]
+themeVariants
+lib.checkListOfEnum
+"${pname}: color variants"
+[
   "standard"
   "light"
   "dark"
-] colorVariants lib.checkListOfEnum "${pname}: size variants" [
+]
+colorVariants
+lib.checkListOfEnum
+"${pname}: size variants"
+[
   "standard"
   "compact"
   "all"
-] sizeVariants lib.checkListOfEnum "${pname}: tweaks" [
+]
+sizeVariants
+lib.checkListOfEnum
+"${pname}: tweaks"
+[
   "flat"
   "grey"
   "mix"
   "translucent"
-] tweaks
+]
+tweaks
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation
+rec {
   inherit pname;
   version = "2023-01-25";
 

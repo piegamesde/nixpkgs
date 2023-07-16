@@ -248,7 +248,8 @@ in
 
           path =
             [ cfg.package ]
-            ++ optional cfg.database.postgres.setup
+            ++ optional
+              cfg.database.postgres.setup
               config.services.postgresql.package
             ;
           script = ''

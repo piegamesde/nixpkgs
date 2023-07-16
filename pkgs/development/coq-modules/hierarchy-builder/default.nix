@@ -12,7 +12,8 @@ let
     owner = "math-comp";
     inherit version;
     defaultVersion = with lib.versions;
-      lib.switch coq.coq-version [
+      lib.switch coq.coq-version
+      [
         {
           case = range "8.15" "8.17";
           out = "1.4.0";
@@ -29,7 +30,8 @@ let
           case = isEq "8.11";
           out = "0.10.0";
         }
-      ] null;
+      ]
+      null;
     release."1.4.0".sha256 =
       "sha256-tOed9UU3kMw6KWHJ5LVLUFEmzHx1ImutXQvZ0ldW9rw=";
     release."1.3.0".sha256 =
@@ -65,9 +67,13 @@ let
 in
 hb.overrideAttrs (
   o:
-  lib.optionalAttrs (
-    lib.versions.isGe "1.2.0" o.version || o.version == "dev"
-  ) { buildPhase = "make build"; } // lib.optionalAttrs (
-    lib.versions.isGe "1.1.0" o.version || o.version == "dev"
-  ) { installFlags = [ "DESTDIR=$(out)" ] ++ o.installFlags; }
+  lib.optionalAttrs
+  (lib.versions.isGe "1.2.0" o.version || o.version == "dev")
+  {
+    buildPhase = "make build";
+  } // lib.optionalAttrs
+  (lib.versions.isGe "1.1.0" o.version || o.version == "dev")
+  {
+    installFlags = [ "DESTDIR=$(out)" ] ++ o.installFlags;
+  }
 )

@@ -54,17 +54,19 @@ in
       ];
 
       # enable hotadding cpu/memory
-    services.udev.packages = lib.singleton (pkgs.writeTextFile {
-      name = "hyperv-cpu-and-memory-hotadd-udev-rules";
-      destination = "/etc/udev/rules.d/99-hyperv-cpu-and-memory-hotadd.rules";
-      text = ''
-        # Memory hotadd
-        SUBSYSTEM=="memory", ACTION=="add", DEVPATH=="/devices/system/memory/memory[0-9]*", TEST=="state", ATTR{state}="online"
+    services.udev.packages = lib.singleton (
+      pkgs.writeTextFile {
+        name = "hyperv-cpu-and-memory-hotadd-udev-rules";
+        destination = "/etc/udev/rules.d/99-hyperv-cpu-and-memory-hotadd.rules";
+        text = ''
+          # Memory hotadd
+          SUBSYSTEM=="memory", ACTION=="add", DEVPATH=="/devices/system/memory/memory[0-9]*", TEST=="state", ATTR{state}="online"
 
-        # CPU hotadd
-        SUBSYSTEM=="cpu", ACTION=="add", DEVPATH=="/devices/system/cpu/cpu[0-9]*", TEST=="online", ATTR{online}="1"
-      '';
-    });
+          # CPU hotadd
+          SUBSYSTEM=="cpu", ACTION=="add", DEVPATH=="/devices/system/cpu/cpu[0-9]*", TEST=="online", ATTR{online}="1"
+        '';
+      }
+    );
 
     systemd = {
       packages = [ config.boot.kernelPackages.hyperv-daemons.lib ];

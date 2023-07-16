@@ -266,9 +266,9 @@ rec {
             then
             # If we do have a value and it's an attribute set, override it
             # with the nested modifications
-              value // mapAttrs (
-                name: go (prefixLength + 1) (value ? ${name}) value.${name}
-              ) nested
+              value // mapAttrs
+              (name: go (prefixLength + 1) (value ? ${name}) value.${name})
+              nested
             else
             # However if it's not an attribute set, we can't apply the nested
             # modifications, throw an error
@@ -359,13 +359,17 @@ rec {
   catAttrs =
     builtins.catAttrs or (
       attr: l:
-      concatLists (map (
-        s:
-        if s ? ${attr} then
-          [ s.${attr} ]
-        else
-          [ ]
-      ) l)
+      concatLists (
+        map
+        (
+          s:
+          if s ? ${attr} then
+            [ s.${attr} ]
+          else
+            [ ]
+        )
+        l
+      )
     );
 
     /* Filter an attribute set by removing all attributes for which the
@@ -383,16 +387,20 @@ rec {
     pred:
     # The attribute set to filter
     set:
-    listToAttrs (concatMap (
-      name:
-      let
-        v = set.${name};
-      in
-      if pred name v then
-        [ (nameValuePair name v) ]
-      else
-        [ ]
-    ) (attrNames set))
+    listToAttrs (
+      concatMap
+      (
+        name:
+        let
+          v = set.${name};
+        in
+        if pred name v then
+          [ (nameValuePair name v) ]
+        else
+          [ ]
+      )
+      (attrNames set)
+    )
     ;
 
     /* Filter an attribute set recursively by removing all attributes for
@@ -410,23 +418,27 @@ rec {
     pred:
     # The attribute set to filter
     set:
-    listToAttrs (concatMap (
-      name:
-      let
-        v = set.${name};
-      in
-      if pred name v then
-        [
-          (nameValuePair name (
-            if isAttrs v then
-              filterAttrsRecursive pred v
-            else
-              v
-          ))
-        ]
-      else
-        [ ]
-    ) (attrNames set))
+    listToAttrs (
+      concatMap
+      (
+        name:
+        let
+          v = set.${name};
+        in
+        if pred name v then
+          [
+            (nameValuePair name (
+              if isAttrs v then
+                filterAttrsRecursive pred v
+              else
+                v
+            ))
+          ]
+        else
+          [ ]
+      )
+      (attrNames set)
+    )
     ;
 
     /* Like builtins.foldl' but for attribute sets.
@@ -503,11 +515,15 @@ rec {
     nul:
     # A list of attribute sets to fold together by key.
     list_of_attrs:
-    foldr (
+    foldr
+    (
       n: a:
-      foldr (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a
-      (attrNames n)
-    ) { } list_of_attrs
+      foldr (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a (
+        attrNames n
+      )
+    )
+    { }
+    list_of_attrs
     ;
 
     /* Recursively collect sets that verify a given predicate named `pred`
@@ -554,14 +570,20 @@ rec {
   cartesianProductOfSets =
     # Attribute set with attributes that are lists of values
     attrsOfLists:
-    foldl' (
+    foldl'
+    (
       listOfAttrs: attrName:
-      concatMap (
+      concatMap
+      (
         attrs:
-        map (listValue: attrs // { ${attrName} = listValue; })
+        map
+        (listValue: attrs // { ${attrName} = listValue; })
         attrsOfLists.${attrName}
-      ) listOfAttrs
-    ) [ { } ] (attrNames attrsOfLists)
+      )
+      listOfAttrs
+    )
+    [ { } ]
+    (attrNames attrsOfLists)
     ;
 
     /* Utility function that creates a `{name, value}` pair as expected by `builtins.listToAttrs`.
@@ -595,10 +617,14 @@ rec {
   mapAttrs =
     builtins.mapAttrs or (
       f: set:
-      listToAttrs (map (attr: {
-        name = attr;
-        value = f attr set.${attr};
-      }) (attrNames set))
+      listToAttrs (
+        map
+        (attr: {
+          name = attr;
+          value = f attr set.${attr};
+        })
+        (attrNames set)
+      )
     );
 
     /* Like `mapAttrs`, but allows the name of each attribute to be
@@ -808,10 +834,14 @@ rec {
     f:
     # List of values from the list of attribute sets.
     sets:
-    listToAttrs (map (name: {
-      inherit name;
-      value = f name (catAttrs name sets);
-    }) names)
+    listToAttrs (
+      map
+      (name: {
+        inherit name;
+        value = f name (catAttrs name sets);
+      })
+      names
+    )
     ;
 
     /* Merge sets of attributes and use the function f to merge attribute values.
@@ -955,22 +985,28 @@ rec {
     # Attribute set to find patterns in
     attrs:
     assert isAttrs pattern;
-    all id (attrValues (zipAttrsWithNames (attrNames pattern) (
-      n: values:
-      let
-        pat = head values;
-        val = elemAt values 1;
-      in
-      if length values == 1 then
-        false
-      else if isAttrs pat then
-        isAttrs val && matchAttrs pat val
-      else
-        pat == val
-    ) [
-      pattern
-      attrs
-    ]))
+    all id (
+      attrValues (
+        zipAttrsWithNames (attrNames pattern)
+        (
+          n: values:
+          let
+            pat = head values;
+            val = elemAt values 1;
+          in
+          if length values == 1 then
+            false
+          else if isAttrs pat then
+            isAttrs val && matchAttrs pat val
+          else
+            pat == val
+        )
+        [
+          pattern
+          attrs
+        ]
+      )
+    )
     ;
 
     /* Override only the attributes that are already present in the old set
@@ -1144,11 +1180,13 @@ rec {
     let
       intersection = builtins.intersectAttrs x y;
       collisions = lib.concatStringsSep " " (builtins.attrNames intersection);
-      mask = builtins.mapAttrs (
-        name: value:
-        builtins.throw
-        "unionOfDisjoint: collision on ${name}; complete list: ${collisions}"
-      ) intersection;
+      mask = builtins.mapAttrs
+        (
+          name: value:
+          builtins.throw
+          "unionOfDisjoint: collision on ${name}; complete list: ${collisions}"
+        )
+        intersection;
     in
     (x // y) // mask
     ;
@@ -1157,6 +1195,7 @@ rec {
   zipWithNames = zipAttrsWithNames;
 
     # DEPRECATED
-  zip = builtins.trace "lib.zip is deprecated, use lib.zipAttrsWith instead"
+  zip = builtins.trace
+    "lib.zip is deprecated, use lib.zipAttrsWith instead"
     zipAttrsWith;
 }

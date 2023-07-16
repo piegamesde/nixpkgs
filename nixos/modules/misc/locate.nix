@@ -16,20 +16,24 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "locate"
-      "period"
-    ] [
-      "services"
-      "locate"
-      "interval"
-    ])
-    (mkRemovedOptionModule [
-      "services"
-      "locate"
-      "includeStore"
-    ] "Use services.locate.prunePaths")
+    (mkRenamedOptionModule
+      [
+        "services"
+        "locate"
+        "period"
+      ]
+      [
+        "services"
+        "locate"
+        "interval"
+      ])
+    (mkRemovedOptionModule
+      [
+        "services"
+        "locate"
+        "includeStore"
+      ]
+      "Use services.locate.prunePaths")
   ];
 
   options.services.locate = with types; {
@@ -257,10 +261,12 @@ in
           plocate
         ];
         plocate =
-          (mkIf isPLocate (mkMerge [
-            common
-            plocate
-          ]));
+          (mkIf isPLocate (
+            mkMerge [
+              common
+              plocate
+            ]
+          ));
       }
       ;
 
@@ -288,11 +294,14 @@ in
     };
 
     warnings =
-      optional (isMorPLocate && cfg.localuser != null)
+      optional
+        (isMorPLocate && cfg.localuser != null)
         "mlocate and plocate do not support the services.locate.localuser option. updatedb will run as root. Silence this warning by setting services.locate.localuser = null."
-      ++ optional (isFindutils && cfg.pruneNames != [ ])
+      ++ optional
+        (isFindutils && cfg.pruneNames != [ ])
         "findutils locate does not support pruning by directory component"
-      ++ optional (isFindutils && cfg.pruneBindMounts)
+      ++ optional
+        (isFindutils && cfg.pruneBindMounts)
         "findutils locate does not support skipping bind mounts"
       ;
 
@@ -307,14 +316,17 @@ in
           let
             toFlags =
               x:
-              optional (cfg.${x} != [ ])
-              "--${lib.toLower x} '${concatStringsSep " " cfg.${x}}'"
+              optional (cfg.${x} != [ ]) "--${lib.toLower x} '${
+                concatStringsSep " " cfg.${x}
+              }'"
               ;
-            args = concatLists (map toFlags [
-              "pruneFS"
-              "pruneNames"
-              "prunePaths"
-            ]);
+            args = concatLists (
+              map toFlags [
+                "pruneFS"
+                "pruneNames"
+                "prunePaths"
+              ]
+            );
           in
           ''
             exec ${cfg.locate}/bin/updatedb \
@@ -331,7 +343,8 @@ in
           ''
             exec ${cfg.locate}/bin/updatedb \
               ${
-                optionalString (cfg.localuser != null && !isMorPLocate)
+                optionalString
+                (cfg.localuser != null && !isMorPLocate)
                 "--localuser=${cfg.localuser}"
               } \
               --output=${toString cfg.output} ${

@@ -10,7 +10,8 @@
 lib.throwIfNot (lib.versionAtLeast ocaml.version "4.02")
 "semver is not available on OCaml older than 4.02"
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "ocaml${ocaml.version}-semver";
   version = "0.1.0";
   src = fetchzip {

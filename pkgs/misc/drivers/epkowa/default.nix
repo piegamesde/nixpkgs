@@ -446,12 +446,16 @@ stdenv.mkDerivation rec {
       wrapProgram $out/bin/iscan-registry --prefix PATH : ${getopt}/bin
       registry=$out/bin/iscan-registry;
     ''
-    + lib.concatStrings (lib.mapAttrsToList (
-      name: value: ''
-        plugin=${value};
-        ${value.passthru.registrationCommand}
-      ''
-    ) plugins)
+    + lib.concatStrings (
+      lib.mapAttrsToList
+      (
+        name: value: ''
+          plugin=${value};
+          ${value.passthru.registrationCommand}
+        ''
+      )
+      plugins
+    )
     ;
   meta = common_meta // {
     description = "sane-epkowa backend for some epson scanners";
@@ -460,8 +464,9 @@ stdenv.mkDerivation rec {
         Includes gui-less iscan (aka. Image Scan! for Linux).
         Supported hardware: at least :
       ''
-      + lib.concatStringsSep ", "
-        (lib.mapAttrsToList (name: value: value.passthru.hw) plugins)
+      + lib.concatStringsSep ", " (
+        lib.mapAttrsToList (name: value: value.passthru.hw) plugins
+      )
       ;
     maintainers = with lib.maintainers; [
       symphorien

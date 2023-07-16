@@ -50,7 +50,8 @@ mkDerivation rec {
         sha256 = "0w665xdlsbjxs977pdpzaclxpswf7xys1q3rxriz181lhk2y66yy";
       })
     ]
-    ++ lib.optional (!preferQWebView && !preferNative)
+    ++ lib.optional
+      (!preferQWebView && !preferNative)
       ./qsyncthingtray-0.5.8-qt-5.6.3.patch
     ;
 

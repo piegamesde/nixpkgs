@@ -33,11 +33,16 @@ let
     };
   };
 
-  moduleConfigFile = pkgs.writeText "module-config.yaml" (generators.toYAML { }
-    (filterAttrs (_: v: v != null) (fold recursiveUpdate { } [
-      yamlConfig
-      cfg.settings
-    ])));
+  moduleConfigFile = pkgs.writeText "module-config.yaml" (
+    generators.toYAML { } (
+      filterAttrs (_: v: v != null) (
+        fold recursiveUpdate { } [
+          yamlConfig
+          cfg.settings
+        ]
+      )
+    )
+  );
 
     # these config files will be merged one after the other to build the final config
   configFiles = [
@@ -49,9 +54,9 @@ let
     # replace all secret strings using replace-secret
   generateConfig = pkgs.writeShellScript "mjolnir-generate-config" (
     let
-      yqEvalStr = concatImapStringsSep " * " (
-        pos: _: "select(fileIndex == ${toString (pos - 1)})"
-      ) configFiles;
+      yqEvalStr = concatImapStringsSep " * "
+        (pos: _: "select(fileIndex == ${toString (pos - 1)})")
+        configFiles;
       yqEvalArgs = concatStringsSep " " configFiles;
     in
     ''
@@ -108,10 +113,12 @@ in
       default = { };
       type = types.submodule {
         options = {
-          enable = mkEnableOption (lib.mdDoc ''
-            If true, accessToken is ignored and the username/password below will be
-            used instead. The access token of the bot will be stored in the dataPath.
-          '');
+          enable = mkEnableOption (
+            lib.mdDoc ''
+              If true, accessToken is ignored and the username/password below will be
+              used instead. The access token of the bot will be stored in the dataPath.
+            ''
+          );
 
           username = mkOption {
             type = types.str;

@@ -94,8 +94,9 @@ let
     '';
   };
 
-  defaultJmxRolesFile = builtins.foldl' (left: right: left + right) ""
-    (map (role: "${role.username} ${role.password}") cfg.jmxRoles);
+  defaultJmxRolesFile = builtins.foldl' (left: right: left + right) "" (
+    map (role: "${role.username} ${role.password}") cfg.jmxRoles
+  );
 
   fullJvmOptions =
     cfg.jvmOpts
@@ -125,9 +126,11 @@ in
 {
   options.services.cassandra = {
 
-    enable = mkEnableOption (lib.mdDoc ''
-      Apache Cassandra – Scalable and highly available database.
-    '');
+    enable = mkEnableOption (
+      lib.mdDoc ''
+        Apache Cassandra – Scalable and highly available database.
+      ''
+    );
 
     clusterName = mkOption {
       type = types.str;
@@ -439,18 +442,20 @@ in
         Doesn't work in versions older than 3.11 because they don't like that
         it's world readable.
       '';
-      type = types.listOf (types.submodule {
-        options = {
-          username = mkOption {
-            type = types.str;
-            description = lib.mdDoc "Username for JMX";
+      type = types.listOf (
+        types.submodule {
+          options = {
+            username = mkOption {
+              type = types.str;
+              description = lib.mdDoc "Username for JMX";
+            };
+            password = mkOption {
+              type = types.str;
+              description = lib.mdDoc "Password for JMX";
+            };
           };
-          password = mkOption {
-            type = types.str;
-            description = lib.mdDoc "Password for JMX";
-          };
-        };
-      });
+        }
+      );
     };
 
     jmxRolesFile = mkOption {

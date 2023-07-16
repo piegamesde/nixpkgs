@@ -17,8 +17,9 @@ let
       MAILTO="${config.services.cron.mailto}"
     ''}
     NIX_CONF_DIR=/etc/nix
-    ${lib.concatStrings
-    (map (job: job + "\n") config.services.cron.systemCronJobs)}
+    ${lib.concatStrings (
+      map (job: job + "\n") config.services.cron.systemCronJobs
+    )}
   '';
 
     # Vixie cron requires build-time configuration for the sendmail path.
@@ -106,15 +107,17 @@ in
       };
       environment.systemPackages = [ cronNixosPkg ];
       environment.etc.crontab = {
-        source = pkgs.runCommand "crontabs" {
-          inherit allFiles;
-          preferLocalBuild = true;
-        } ''
-          touch $out
-          for i in $allFiles; do
-            cat "$i" >> $out
-          done
-        '';
+        source = pkgs.runCommand "crontabs"
+          {
+            inherit allFiles;
+            preferLocalBuild = true;
+          }
+          ''
+            touch $out
+            for i in $allFiles; do
+              cat "$i" >> $out
+            done
+          '';
         mode = "0600"; # Cron requires this.
       };
 

@@ -16,8 +16,9 @@ let
     ;
 
   variantHashes = import ./variants.nix;
-  validVariants = map (lib.removePrefix "iosevka-")
-    (builtins.attrNames (builtins.removeAttrs variantHashes [ "iosevka" ]));
+  validVariants = map (lib.removePrefix "iosevka-") (
+    builtins.attrNames (builtins.removeAttrs variantHashes [ "iosevka" ])
+  );
 in
 stdenv.mkDerivation rec {
   pname = "${name}-bin";

@@ -67,7 +67,8 @@ stdenv.mkDerivation rec {
           )
         }"
       ]
-    ++ lib.optional (stdenv.hostPlatform ? mpg123)
+    ++ lib.optional
+      (stdenv.hostPlatform ? mpg123)
       "--with-cpu=${stdenv.hostPlatform.mpg123.cpu}"
     ;
 

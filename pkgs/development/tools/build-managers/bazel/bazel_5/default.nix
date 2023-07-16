@@ -76,35 +76,39 @@ let
       srcs = lib.importJSON ./src-deps.json;
       toFetchurl =
         d:
-        lib.attrsets.nameValuePair d.name (fetchurl {
-          urls = d.urls;
-          sha256 = d.sha256;
-        })
+        lib.attrsets.nameValuePair d.name (
+          fetchurl {
+            urls = d.urls;
+            sha256 = d.sha256;
+          }
+        )
         ;
     in
-    builtins.listToAttrs (map toFetchurl [
-      srcs.desugar_jdk_libs
-      srcs.io_bazel_skydoc
-      srcs.bazel_skylib
-      srcs.bazelci_rules
-      srcs.io_bazel_rules_sass
-      srcs.platforms
-      srcs."remote_java_tools_for_testing"
-      srcs."coverage_output_generator-v2.5.zip"
-      srcs.build_bazel_rules_nodejs
-      srcs."android_tools_pkg-0.23.0.tar.gz"
-      srcs.bazel_toolchains
-      srcs.com_github_grpc_grpc
-      srcs.upb
-      srcs.com_google_protobuf
-      srcs.rules_pkg
-      srcs.rules_cc
-      srcs.rules_java
-      srcs.rules_proto
-      srcs.com_google_absl
-      srcs.com_googlesource_code_re2
-      srcs.com_github_cares_cares
-    ])
+    builtins.listToAttrs (
+      map toFetchurl [
+        srcs.desugar_jdk_libs
+        srcs.io_bazel_skydoc
+        srcs.bazel_skylib
+        srcs.bazelci_rules
+        srcs.io_bazel_rules_sass
+        srcs.platforms
+        srcs."remote_java_tools_for_testing"
+        srcs."coverage_output_generator-v2.5.zip"
+        srcs.build_bazel_rules_nodejs
+        srcs."android_tools_pkg-0.23.0.tar.gz"
+        srcs.bazel_toolchains
+        srcs.com_github_grpc_grpc
+        srcs.upb
+        srcs.com_google_protobuf
+        srcs.rules_pkg
+        srcs.rules_cc
+        srcs.rules_java
+        srcs.rules_proto
+        srcs.com_google_absl
+        srcs.com_googlesource_code_re2
+        srcs.com_github_cares_cares
+      ]
+    )
     ;
 
   distDir = runCommand "bazel-deps" { } ''
@@ -278,13 +282,15 @@ stdenv.mkDerivation rec {
           attrs' = removeAttrs attrs [ "buildInputs" ];
           buildInputs = attrs.buildInputs or [ ];
         in
-        runCommandCC name (
+        runCommandCC name
+        (
           {
             inherit buildInputs;
             preferLocalBuild = true;
             meta.platforms = platforms;
           } // attrs'
-        ) script
+        )
+        script
         ;
 
         # bazel wants to extract itself into $install_dir/install every time it runs,
@@ -297,9 +303,9 @@ stdenv.mkDerivation rec {
             # yes, this path is kinda magic. Sorry.
             "$HOME/.cache/bazel/_bazel_nixbld";
         in
-        runLocal "bazel-extracted-homedir" {
-          passthru.install_dir = install_dir;
-        } ''
+        runLocal "bazel-extracted-homedir"
+        { passthru.install_dir = install_dir; }
+        ''
           export HOME=$(mktemp -d)
           touch WORKSPACE # yeah, everything sucks
           install_base="$(${bazelPkg}/bin/bazel info | grep install_base)"
@@ -323,7 +329,7 @@ stdenv.mkDerivation rec {
           be = extracted bazelPkg;
         in
         runLocal name { inherit buildInputs; } (
-          # skip extraction caching on Darwin, because nobody knows how Darwin works
+        # skip extraction caching on Darwin, because nobody knows how Darwin works
           (lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
             # set up home with pre-unpacked bazel
             export HOME=$(mktemp -d)

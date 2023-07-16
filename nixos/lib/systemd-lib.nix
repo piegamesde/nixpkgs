@@ -15,19 +15,21 @@ rec {
 
   shellEscape = s: (replaceStrings [ "\\" ] [ "\\\\" ] s);
 
-  mkPathSafeName = lib.replaceStrings [
-    "@"
-    ":"
-    "\\"
-    "["
-    "]"
-  ] [
-    "-"
-    "-"
-    "-"
-    ""
-    ""
-  ];
+  mkPathSafeName = lib.replaceStrings
+    [
+      "@"
+      ":"
+      "\\"
+      "["
+      "]"
+    ]
+    [
+      "-"
+      "-"
+      "-"
+      ""
+      ""
+    ];
 
     # a type for options that take a unit name
   unitNameType = types.strMatching
@@ -37,20 +39,24 @@ rec {
   makeUnit =
     name: unit:
     if unit.enable then
-      pkgs.runCommand "unit-${mkPathSafeName name}" {
+      pkgs.runCommand "unit-${mkPathSafeName name}"
+      {
         preferLocalBuild = true;
         allowSubstitutes = false;
         inherit (unit) text;
-      } ''
+      }
+      ''
         name=${shellEscape name}
         mkdir -p "$out/$(dirname -- "$name")"
         echo -n "$text" > "$out/$name"
       ''
     else
-      pkgs.runCommand "unit-${mkPathSafeName name}-disabled" {
+      pkgs.runCommand "unit-${mkPathSafeName name}-disabled"
+      {
         preferLocalBuild = true;
         allowSubstitutes = false;
-      } ''
+      }
+      ''
         name=${shellEscape name}
         mkdir -p "$out/$(dirname "$name")"
         ln -s /dev/null "$out/$name"
@@ -87,7 +93,8 @@ rec {
 
   assertByteFormat =
     name: group: attr:
-    optional (attr ? ${name} && !isByteFormat attr.${name})
+    optional
+    (attr ? ${name} && !isByteFormat attr.${name})
     "Systemd ${group} field `${name}' must be in byte format [0-9]+[KMGT]."
     ;
 
@@ -103,7 +110,8 @@ rec {
 
   assertMacAddress =
     name: group: attr:
-    optional (attr ? ${name} && !isMacAddress attr.${name})
+    optional
+    (attr ? ${name} && !isMacAddress attr.${name})
     "Systemd ${group} field `${name}' must be a valid mac address."
     ;
 
@@ -111,13 +119,15 @@ rec {
 
   assertPort =
     name: group: attr:
-    optional (attr ? ${name} && !isPort attr.${name})
+    optional
+    (attr ? ${name} && !isPort attr.${name})
     "Error on the systemd ${group} field `${name}': ${attr.name} is not a valid port number."
     ;
 
   assertValueOneOf =
     name: values: group: attr:
-    optional (attr ? ${name} && !elem attr.${name} values)
+    optional
+    (attr ? ${name} && !elem attr.${name} values)
     "Systemd ${group} field `${name}' cannot have value `${
       toString attr.${name}
     }'."
@@ -130,7 +140,8 @@ rec {
 
   assertRange =
     name: min: max: group: attr:
-    optional (attr ? ${name} && !(min <= attr.${name} && max >= attr.${name}))
+    optional
+    (attr ? ${name} && !(min <= attr.${name} && max >= attr.${name}))
     "Systemd ${group} field `${name}' is outside the range [${toString min},${
       toString max
     }]"
@@ -138,7 +149,8 @@ rec {
 
   assertMinimum =
     name: min: group: attr:
-    optional (attr ? ${name} && attr.${name} < min)
+    optional
+    (attr ? ${name} && attr.${name} < min)
     "Systemd ${group} field `${name}' must be greater than or equal to ${
       toString min
     }"
@@ -149,13 +161,15 @@ rec {
     let
       badFields = filter (name: !elem name fields) (attrNames attr);
     in
-    optional (badFields != [ ])
-    "Systemd ${group} has extra fields [${concatStringsSep " " badFields}]."
+    optional (badFields != [ ]) "Systemd ${group} has extra fields [${
+      concatStringsSep " " badFields
+    }]."
     ;
 
   assertInt =
     name: group: attr:
-    optional (attr ? ${name} && !isInt attr.${name})
+    optional
+    (attr ? ${name} && !isInt attr.${name})
     "Systemd ${group} field `${name}' is not an integer"
     ;
 
@@ -165,15 +179,17 @@ rec {
       # We're applied at the top-level type (attrsOf unitOption), so the actual
       # unit options might contain attributes from mkOverride and mkIf that we need to
       # convert into single values before checking them.
-      defs = mapAttrs (const (
-        v:
-        if v._type or "" == "override" then
-          v.content
-        else if v._type or "" == "if" then
-          v.content
-        else
-          v
-      )) attrs;
+      defs = mapAttrs
+        (const (
+          v:
+          if v._type or "" == "override" then
+            v.content
+          else if v._type or "" == "if" then
+            v.content
+          else
+            v
+        ))
+        attrs;
       errors = concatMap (c: c group defs) checks;
     in
     if errors == [ ] then
@@ -194,17 +210,25 @@ rec {
 
   attrsToSection =
     as:
-    concatStrings (concatLists (mapAttrsToList (
-      name: value:
-      map (x: ''
-        ${name}=${toOption x}
-      '') (
-        if isList value then
-          value
-        else
-          [ value ]
+    concatStrings (
+      concatLists (
+        mapAttrsToList
+        (
+          name: value:
+          map
+          (x: ''
+            ${name}=${toOption x}
+          '')
+          (
+            if isList value then
+              value
+            else
+              [ value ]
+          )
+        )
+        as
       )
-    ) as))
+    )
     ;
 
   generateUnits =
@@ -226,10 +250,12 @@ rec {
           nspawn = "nspawn";
         }).${type};
     in
-    pkgs.runCommand "${type}-units" {
+    pkgs.runCommand "${type}-units"
+    {
       preferLocalBuild = true;
       allowSubstitutes = false;
-    } ''
+    }
+    ''
       mkdir -p $out
 
       # Copy the upstream systemd units we're interested in.
@@ -289,11 +315,17 @@ rec {
       # <unit-name>.d/overrides.conf, which makes them extend the
       # upstream unit.
       for i in ${
-        toString (mapAttrsToList (n: v: v.unit) (lib.filterAttrs (
-          n: v:
-          (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v)
-          == "asDropinIfExists"
-        ) units))
+        toString (
+          mapAttrsToList (n: v: v.unit) (
+            lib.filterAttrs
+            (
+              n: v:
+              (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v)
+              == "asDropinIfExists"
+            )
+            units
+          )
+        )
       }; do
         fn=$(basename $i/*)
         if [ -e $out/$fn ]; then
@@ -321,9 +353,13 @@ rec {
       # Symlink units defined by systemd.units which shall be
       # treated as drop-in file.
       for i in ${
-        toString (mapAttrsToList (n: v: v.unit) (lib.filterAttrs (
-          n: v: v ? overrideStrategy && v.overrideStrategy == "asDropin"
-        ) units))
+        toString (
+          mapAttrsToList (n: v: v.unit) (
+            lib.filterAttrs
+            (n: v: v ? overrideStrategy && v.overrideStrategy == "asDropin")
+            units
+          )
+        )
       }; do
         fn=$(basename $i/*)
         mkdir -p $out/$fn.d
@@ -331,36 +367,48 @@ rec {
       done
 
       # Create service aliases from aliases option.
-      ${concatStrings (mapAttrsToList (
-        name: unit:
-        concatMapStrings (name2: ''
-          ln -sfn '${name}' $out/'${name2}'
-        '') (
-          unit.aliases or [ ]
+      ${concatStrings (
+        mapAttrsToList
+        (
+          name: unit:
+          concatMapStrings
+          (name2: ''
+            ln -sfn '${name}' $out/'${name2}'
+          '')
+          (unit.aliases or [ ])
         )
-      ) units)}
+        units
+      )}
 
       # Create .wants and .requires symlinks from the wantedBy and
       # requiredBy options.
-      ${concatStrings (mapAttrsToList (
-        name: unit:
-        concatMapStrings (name2: ''
-          mkdir -p $out/'${name2}.wants'
-          ln -sfn '../${name}' $out/'${name2}.wants'/
-        '') (
-          unit.wantedBy or [ ]
+      ${concatStrings (
+        mapAttrsToList
+        (
+          name: unit:
+          concatMapStrings
+          (name2: ''
+            mkdir -p $out/'${name2}.wants'
+            ln -sfn '../${name}' $out/'${name2}.wants'/
+          '')
+          (unit.wantedBy or [ ])
         )
-      ) units)}
+        units
+      )}
 
-      ${concatStrings (mapAttrsToList (
-        name: unit:
-        concatMapStrings (name2: ''
-          mkdir -p $out/'${name2}.requires'
-          ln -sfn '../${name}' $out/'${name2}.requires'/
-        '') (
-          unit.requiredBy or [ ]
+      ${concatStrings (
+        mapAttrsToList
+        (
+          name: unit:
+          concatMapStrings
+          (name2: ''
+            mkdir -p $out/'${name2}.requires'
+            ln -sfn '../${name}' $out/'${name2}.requires'/
+          '')
+          (unit.requiredBy or [ ])
         )
-      ) units)}
+        units
+      )}
 
       ${optionalString (type == "system") ''
         # Stupid misc. symlinks.
@@ -379,21 +427,27 @@ rec {
   makeJobScript =
     name: text:
     let
-      scriptName = replaceStrings [
-        "\\"
-        "@"
-      ] [
-        "-"
-        "_"
-      ] (shellEscape name);
+      scriptName = replaceStrings
+        [
+          "\\"
+          "@"
+        ]
+        [
+          "-"
+          "_"
+        ]
+        (shellEscape name);
       out = (pkgs.writeShellScriptBin scriptName ''
         set -e
         ${text}
-      '').overrideAttrs (_: {
-        # The derivation name is different from the script file name
-        # to keep the script file name short to avoid cluttering logs.
-        name = "unit-script-${scriptName}";
-      });
+      '').overrideAttrs
+        (
+          _: {
+            # The derivation name is different from the script file name
+            # to keep the script file name short to avoid cluttering logs.
+            name = "unit-script-${scriptName}";
+          }
+        );
     in
     "${out}/bin/${scriptName}"
     ;
@@ -421,13 +475,15 @@ rec {
           Conflicts = toString config.conflicts;
         } // optionalAttrs (config.requisite != [ ]) {
           Requisite = toString config.requisite;
-        } // optionalAttrs (
-          config ? restartTriggers && config.restartTriggers != [ ]
-        ) { X-Restart-Triggers = toString config.restartTriggers; }
-          // optionalAttrs (
-            config ? reloadTriggers && config.reloadTriggers != [ ]
-          ) { X-Reload-Triggers = toString config.reloadTriggers; }
-          // optionalAttrs (config.description != "") {
+        } // optionalAttrs
+          (config ? restartTriggers && config.restartTriggers != [ ])
+          {
+            X-Restart-Triggers = toString config.restartTriggers;
+          } // optionalAttrs
+          (config ? reloadTriggers && config.reloadTriggers != [ ])
+          {
+            X-Reload-Triggers = toString config.reloadTriggers;
+          } // optionalAttrs (config.description != "") {
             Description = config.description;
           } // optionalAttrs (config.documentation != [ ]) {
             Documentation = toString config.documentation;
@@ -449,8 +505,8 @@ rec {
       config,
       ...
     }: {
-      config.environment.PATH = mkIf (config.path != [ ])
-        "${makeBinPath config.path}:${
+      config.environment.PATH =
+        mkIf (config.path != [ ]) "${makeBinPath config.path}:${
           makeSearchPathOutput "bin" "sbin" config.path
         }";
     }
@@ -521,7 +577,8 @@ rec {
           ${let
             env = cfg.globalEnvironment // def.environment;
           in
-          concatMapStrings (
+          concatMapStrings
+          (
             n:
             let
               s = optionalString (env.${n} != null) ''
@@ -535,7 +592,8 @@ rec {
               "The value of the environment variable ‘${n}’ in systemd service ‘${name}.service’ is too long."
             else
               s
-          ) (attrNames env)
+          )
+          (attrNames env)
           }
           ${if def ? reloadIfChanged && def.reloadIfChanged then
             ''
@@ -547,7 +605,8 @@ rec {
             ''
           else
             ""}
-          ${optionalString (def ? stopIfChanged && !def.stopIfChanged)
+          ${optionalString
+          (def ? stopIfChanged && !def.stopIfChanged)
           "X-StopIfChanged=false"}
           ${attrsToSection def.serviceConfig}
         ''
@@ -563,10 +622,12 @@ rec {
         + ''
           [Socket]
           ${attrsToSection def.socketConfig}
-          ${concatStringsSep "\n"
-          (map (s: "ListenStream=${s}") def.listenStreams)}
-          ${concatStringsSep "\n"
-          (map (s: "ListenDatagram=${s}") def.listenDatagrams)}
+          ${concatStringsSep "\n" (
+            map (s: "ListenStream=${s}") def.listenStreams
+          )}
+          ${concatStringsSep "\n" (
+            map (s: "ListenDatagram=${s}") def.listenDatagrams
+          )}
         ''
         ;
     }

@@ -15,7 +15,8 @@ let
 
   mkElkTest =
     name: elk:
-    import ./make-test-python.nix ({
+    import ./make-test-python.nix
+    ({
       inherit name;
       meta = with pkgs.lib.maintainers; {
         maintainers = [
@@ -176,7 +177,8 @@ let
       testScript =
         let
           valueObject = lib.optionalString
-            (lib.versionAtLeast elk.elasticsearch.version "7") ".value";
+            (lib.versionAtLeast elk.elasticsearch.version "7")
+            ".value";
         in
         ''
           import json
@@ -289,7 +291,10 @@ let
               )
         ''
         ;
-    }) { inherit pkgs system; }
+    })
+    {
+      inherit pkgs system;
+    }
     ;
 in
 {

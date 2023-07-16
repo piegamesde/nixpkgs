@@ -11,7 +11,8 @@
 let
   mcVersion = builtins.head (lib.splitString "_" version);
 in
-runCommand "optifine-${mcVersion}" {
+runCommand "optifine-${mcVersion}"
+{
   pname = "optifine";
   inherit version;
 
@@ -45,7 +46,8 @@ runCommand "optifine-${mcVersion}" {
     platforms = platforms.unix;
     mainProgram = "optifine";
   };
-} ''
+}
+''
   mkdir -p $out/{bin,lib/optifine}
   cp $src $out/lib/optifine/optifine.jar
 

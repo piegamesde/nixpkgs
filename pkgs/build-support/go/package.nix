@@ -133,12 +133,13 @@ let
       GO111MODULE = "off";
       GOFLAGS = lib.optionals (!allowGoReference) [ "-trimpath" ];
 
-      GOARM = toString
-        (lib.intersectLists [ (stdenv.hostPlatform.parsed.cpu.version or "") ] [
+      GOARM = toString (
+        lib.intersectLists [ (stdenv.hostPlatform.parsed.cpu.version or "") ] [
           "5"
           "6"
           "7"
-        ]);
+        ]
+      );
 
       configurePhase =
         args.configurePhase or (
@@ -211,7 +212,8 @@ let
               ;
             renames =
               p:
-              lib.concatMapStringsSep "\n" (rename p.goPackagePath)
+              lib.concatMapStringsSep "\n"
+              (rename p.goPackagePath)
               p.goPackageAliases
               ;
           in
@@ -340,10 +342,14 @@ let
         ''
           d=$(mktemp -d "--suffix=-$name")
         ''
-        + toString (map (dep: ''
-          mkdir -p "$d/src/$(dirname "${dep.goPackagePath}")"
-          ln -s "${dep.src}" "$d/src/${dep.goPackagePath}"
-        '') goPath)
+        + toString (
+          map
+          (dep: ''
+            mkdir -p "$d/src/$(dirname "${dep.goPackagePath}")"
+            ln -s "${dep.src}" "$d/src/${dep.goPackagePath}"
+          '')
+          goPath
+        )
         + ''
           export GOPATH=${
             lib.concatStringsSep ":" (

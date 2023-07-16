@@ -61,18 +61,21 @@ let
   } // (lib.optionalAttrs useSharedHttpParser { inherit http-parser; });
 
   sharedConfigureFlags =
-    lib.concatMap (name: [
-      "--shared-${name}"
-      "--shared-${name}-libpath=${lib.getLib sharedLibDeps.${name}}/lib"
-      # Closure notes: we explicitly avoid specifying --shared-*-includes,
-      #  as that would put the paths into bin/nodejs.
-      #  Including pkg-config in build inputs would also have the same effect!
-    ]) (builtins.attrNames sharedLibDeps)
+    lib.concatMap
+      (name: [
+        "--shared-${name}"
+        "--shared-${name}-libpath=${lib.getLib sharedLibDeps.${name}}/lib"
+        # Closure notes: we explicitly avoid specifying --shared-*-includes,
+        #  as that would put the paths into bin/nodejs.
+        #  Including pkg-config in build inputs would also have the same effect!
+      ])
+      (builtins.attrNames sharedLibDeps)
     ++ [ "--with-intl=system-icu" ]
     ;
 
-  copyLibHeaders = map (name: "${lib.getDev sharedLibDeps.${name}}/include/*")
-    (builtins.attrNames sharedLibDeps);
+  copyLibHeaders = map (name: "${lib.getDev sharedLibDeps.${name}}/include/*") (
+    builtins.attrNames sharedLibDeps
+  );
 
   extraConfigFlags = lib.optionals (!enableNpm) [ "--without-npm" ];
   self = stdenv.mkDerivation {
@@ -223,9 +226,9 @@ let
     postInstall = ''
       PATH=$out/bin:$PATH patchShebangs $out
 
-      ${lib.optionalString (
-        enableNpm && stdenv.hostPlatform == stdenv.buildPlatform
-      ) ''
+      ${lib.optionalString
+      (enableNpm && stdenv.hostPlatform == stdenv.buildPlatform)
+      ''
         mkdir -p $out/share/bash-completion/completions/
         HOME=$TMPDIR $out/bin/npm completion > $out/share/bash-completion/completions/npm
         for dir in "$out/lib/node_modules/npm/man/"*; do
@@ -301,7 +304,8 @@ let
       ];
       platforms = platforms.linux ++ platforms.darwin;
       mainProgram = "node";
-      knownVulnerabilities = optional (versionOlder version "14")
+      knownVulnerabilities = optional
+        (versionOlder version "14")
         "This NodeJS release has reached its end of life. See https://nodejs.org/en/about/releases/."
         ;
     };

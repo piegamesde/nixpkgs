@@ -110,11 +110,13 @@ let
   '';
 
 in
-runCommand "cling-${unwrapped.version}" {
+runCommand "cling-${unwrapped.version}"
+{
   nativeBuildInputs = [ makeWrapper ];
   inherit unwrapped flags compilerIncludeFlags;
   inherit (unwrapped) meta;
-} ''
+}
+''
   makeWrapper $unwrapped/bin/cling $out/bin/cling \
     --add-flags "$(cat "$compilerIncludeFlags")" \
     --add-flags "$flags"

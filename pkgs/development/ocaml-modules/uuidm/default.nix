@@ -12,7 +12,8 @@
 lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
 "uuidm is not available for OCaml ${ocaml.version}"
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   version = "0.9.8";
   pname = "uuidm";
   src = fetchurl {

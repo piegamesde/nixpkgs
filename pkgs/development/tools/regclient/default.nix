@@ -34,11 +34,15 @@ buildGoModule rec {
     "-X main.VCSTag=${tag}"
   ];
 
-  postInstall = lib.concatStringsSep "\n" (map (bin: ''
-    mkdir -p ''$${bin}/bin &&
-    mv $out/bin/${bin} ''$${bin}/bin/ &&
-    ln -s ''$${bin}/bin/${bin} $out/bin/
-  '') bins);
+  postInstall = lib.concatStringsSep "\n" (
+    map
+    (bin: ''
+      mkdir -p ''$${bin}/bin &&
+      mv $out/bin/${bin} ''$${bin}/bin/ &&
+      ln -s ''$${bin}/bin/${bin} $out/bin/
+    '')
+    bins
+  );
 
   meta = with lib; {
     description =

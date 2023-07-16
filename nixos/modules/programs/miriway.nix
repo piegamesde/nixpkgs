@@ -10,12 +10,14 @@ let
 in
 {
   options.programs.miriway = {
-    enable = lib.mkEnableOption (lib.mdDoc ''
-      Miriway, a Mir based Wayland compositor. You can manually launch Miriway by
-      executing "exec miriway" on a TTY, or launch it from a display manager. Copy
-      /etc/xdg/xdg-miriway/miriway-shell.config to ~/.config/miriway-shell.config
-      to modify the default configuration. See <https://github.com/Miriway/Miriway>,
-      and "miriway --help" for more information'');
+    enable = lib.mkEnableOption (
+      lib.mdDoc ''
+        Miriway, a Mir based Wayland compositor. You can manually launch Miriway by
+        executing "exec miriway" on a TTY, or launch it from a display manager. Copy
+        /etc/xdg/xdg-miriway/miriway-shell.config to ~/.config/miriway-shell.config
+        to modify the default configuration. See <https://github.com/Miriway/Miriway>,
+        and "miriway --help" for more information''
+    );
 
     config = lib.mkOption {
       type = lib.types.lines;

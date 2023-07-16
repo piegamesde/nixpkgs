@@ -146,15 +146,19 @@ let
 
   mapListToAttrs =
     xs: f:
-    builtins.listToAttrs (map (name: {
-      name =
-        if builtins.isList name then
-          builtins.elemAt name (builtins.length name - 1)
-        else
-          name
-        ;
-      value = f name;
-    }) xs)
+    builtins.listToAttrs (
+      map
+      (name: {
+        name =
+          if builtins.isList name then
+            builtins.elemAt name (builtins.length name - 1)
+          else
+            name
+          ;
+        value = f name;
+      })
+      xs
+    )
     ;
 
 in
@@ -199,12 +203,14 @@ in
             ];
         };
       in
-      mapListToAttrs (
+      mapListToAttrs
+      (
         if builtins.elem provider blas64Providers then
           blas64Users
         else
           blasUsers
-      ) (
+      )
+      (
         attr:
         if builtins.isList attr then
           lib.getAttrFromPath attr pkgs

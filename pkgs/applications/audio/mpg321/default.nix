@@ -59,7 +59,8 @@ stdenv.mkDerivation rec {
         )
       )
     ]
-    ++ (lib.optional (defaultAudio != null)
+    ++ (lib.optional
+      (defaultAudio != null)
       "--with-default-audio=${defaultAudio}")
     ;
 

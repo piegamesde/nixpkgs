@@ -37,10 +37,12 @@ let
 
   mapAliases =
     aliases:
-    lib.mapAttrs (
+    lib.mapAttrs
+    (
       n: alias:
       removeDistribute (removeRecurseForDerivations (checkInPkgs n alias))
-    ) aliases
+    )
+    aliases
     ;
 
   ### Deprecated aliases - for backward compatibility

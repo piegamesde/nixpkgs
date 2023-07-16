@@ -16,10 +16,12 @@
 
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch [
+    lib.switch
+    [
       coq.version
       mathcomp.version
-    ] [
+    ]
+    [
       {
         cases = [
           (range "8.13" "8.17")
@@ -55,7 +57,8 @@
         ];
         out = "1.0.3";
       }
-    ] null;
+    ]
+    null;
 
   release."1.1.1".sha256 =
     "sha256-ExAdC3WuArNxS+Sa1r4x5aT7ylbCvP/BZXfkdQNAvZ8=";
@@ -81,10 +84,14 @@
     description = "CoqEAL - The Coq Effective Algebra Library";
     license = lib.licenses.mit;
   };
-}).overrideAttrs (o: {
-  propagatedBuildInputs =
-    o.propagatedBuildInputs
-    ++ lib.optional (lib.versions.isGe "1.1" o.version || o.version == "dev")
-      mathcomp-real-closed
-    ;
-})
+}).overrideAttrs
+(
+  o: {
+    propagatedBuildInputs =
+      o.propagatedBuildInputs
+      ++ lib.optional
+        (lib.versions.isGe "1.1" o.version || o.version == "dev")
+        mathcomp-real-closed
+      ;
+  }
+)

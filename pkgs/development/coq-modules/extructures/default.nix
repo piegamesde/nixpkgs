@@ -13,10 +13,12 @@
 
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch [
+    lib.switch
+    [
       coq.coq-version
       ssreflect.version
-    ] [
+    ]
+    [
       {
         cases = [
           (range "8.11" "8.16")
@@ -38,7 +40,8 @@
         ];
         out = "0.2.2";
       }
-    ] null;
+    ]
+    null;
 
   releaseRev = v: "v${v}";
 
@@ -57,9 +60,12 @@
     maintainers = [ maintainers.vbgl ];
   };
 
-}).overrideAttrs (o: {
-  propagatedBuildInputs =
-    o.propagatedBuildInputs
-    ++ lib.optional (lib.versionAtLeast o.version "0.3.0") deriving
-    ;
-})
+}).overrideAttrs
+(
+  o: {
+    propagatedBuildInputs =
+      o.propagatedBuildInputs
+      ++ lib.optional (lib.versionAtLeast o.version "0.3.0") deriving
+      ;
+  }
+)

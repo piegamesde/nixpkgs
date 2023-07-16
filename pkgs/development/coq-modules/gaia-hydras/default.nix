@@ -19,10 +19,12 @@ mkCoqDerivation rec {
 
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch [
+    lib.switch
+    [
       coq.coq-version
       mathcomp.version
-    ] [
+    ]
+    [
       {
         cases = [
           (range "8.14" "8.16")
@@ -37,7 +39,8 @@ mkCoqDerivation rec {
         ];
         out = "0.5";
       }
-    ] null;
+    ]
+    null;
 
   propagatedBuildInputs = [
     hydra-battles

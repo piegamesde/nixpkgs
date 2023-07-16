@@ -39,18 +39,20 @@ stdenv.mkDerivation rec {
           "ON"
       }"
     ]
-    ++ lib.optionals (
+    ++ lib.optionals
       (
-        stdenv.cc.isGNU && (lib.versionOlder stdenv.cc.version "11.0")
+        (
+          stdenv.cc.isGNU && (lib.versionOlder stdenv.cc.version "11.0")
+        )
+        || (
+          stdenv.cc.isClang && (lib.versionOlder stdenv.cc.version "16.0")
+        )
       )
-      || (
-        stdenv.cc.isClang && (lib.versionOlder stdenv.cc.version "16.0")
-      )
-    ) [
-      # Enable C++17 support
-      # https://github.com/google/googletest/issues/3081
-      "-DCMAKE_CXX_STANDARD=17"
-    ]
+      [
+        # Enable C++17 support
+        # https://github.com/google/googletest/issues/3081
+        "-DCMAKE_CXX_STANDARD=17"
+      ]
     ;
 
   meta = with lib; {

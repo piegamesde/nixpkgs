@@ -40,10 +40,12 @@ buildPythonPackage rec {
     pytestCheckHook
     requests
     webob
-    (webtest.overridePythonAttrs (_: {
-      # circular dependency
-      doCheck = false;
-    }))
+    (webtest.overridePythonAttrs (
+      _: {
+        # circular dependency
+        doCheck = false;
+      }
+    ))
   ];
 
   pytestFlagsArray =

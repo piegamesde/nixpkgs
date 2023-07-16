@@ -176,9 +176,9 @@ stdenv.mkDerivation rec {
       (enableFeature isMips "dequant-tokens")
       (enableFeature isMips "dc-recon")
       (enableFeature postprocSupport "postproc")
-      (enableFeature (
-        postprocSupport && (vp9DecoderSupport || vp9EncoderSupport)
-      ) "vp9-postproc")
+      (enableFeature
+        (postprocSupport && (vp9DecoderSupport || vp9EncoderSupport))
+        "vp9-postproc")
       (enableFeature multithreadSupport "multithread")
       (enableFeature internalStatsSupport "internal-stats")
       (enableFeature spatialResamplingSupport "spatial-resampling")
@@ -201,17 +201,20 @@ stdenv.mkDerivation rec {
       (enableFeature encodePerfTestsSupport "encode-perf-tests")
       (enableFeature multiResEncodingSupport "multi-res-encoding")
       (enableFeature temporalDenoisingSupport "temporal-denoising")
-      (enableFeature (
-        temporalDenoisingSupport && (vp9DecoderSupport || vp9EncoderSupport)
-      ) "vp9-temporal-denoising")
-      (enableFeature coefficientRangeCheckingSupport
+      (enableFeature
+        (temporalDenoisingSupport && (vp9DecoderSupport || vp9EncoderSupport))
+        "vp9-temporal-denoising")
+      (enableFeature
+        coefficientRangeCheckingSupport
         "coefficient-range-checking")
       (enableFeature (vp9HighbitdepthSupport && is64bit) "vp9-highbitdepth")
-      (enableFeature (
-        experimentalSpatialSvcSupport
-        || experimentalFpMbStatsSupport
-        || experimentalEmulateHardwareSupport
-      ) "experimental")
+      (enableFeature
+        (
+          experimentalSpatialSvcSupport
+          || experimentalFpMbStatsSupport
+          || experimentalEmulateHardwareSupport
+        )
+        "experimental")
     ]
     ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "--enable-external-build"

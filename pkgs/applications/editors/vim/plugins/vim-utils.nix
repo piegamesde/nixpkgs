@@ -165,8 +165,9 @@ let
   transitiveClosure =
     plugin:
     [ plugin ]
-    ++ (lib.unique
-      (builtins.concatLists (map transitiveClosure plugin.dependencies or [ ])))
+    ++ (lib.unique (
+      builtins.concatLists (map transitiveClosure plugin.dependencies or [ ])
+    ))
     ;
 
   findDependenciesRecursively =
@@ -220,9 +221,11 @@ let
           allPlugins = lib.unique (startWithDeps ++ depsOfOptionalPlugins);
           allPython3Dependencies =
             ps:
-            lib.flatten
-            (builtins.map (plugin: (plugin.python3Dependencies or (_: [ ])) ps)
-              allPlugins)
+            lib.flatten (
+              builtins.map
+              (plugin: (plugin.python3Dependencies or (_: [ ])) ps)
+              allPlugins
+            )
             ;
           python3Env = python3.withPackages allPython3Dependencies;
 
@@ -304,8 +307,9 @@ let
           knownPlugins = vam.knownPlugins or vimPlugins;
 
             # plugins specified by the user
-          specifiedPlugins = map (pluginToDrv knownPlugins)
-            (lib.concatMap vamDictToNames vam.pluginDictionaries);
+          specifiedPlugins = map (pluginToDrv knownPlugins) (
+            lib.concatMap vamDictToNames vam.pluginDictionaries
+          );
             # plugins with dependencies
           plugins = findDependenciesRecursively specifiedPlugins;
           vamPackages.vam = { start = plugins; };
@@ -315,13 +319,18 @@ let
 
       entries =
         [ beforePlugins ]
-        ++ lib.optional (vam != null) (lib.warn
+        ++ lib.optional (vam != null) (
+          lib.warn
           "'vam' attribute is deprecated. Use 'packages' instead in your vim configuration"
-          vamImpl)
-        ++ lib.optional (packages != null && packages != [ ])
-          (nativeImpl packages)
-        ++ lib.optional (pathogen != null) (throw
-          "pathogen is now unsupported, replace `pathogen = {}` with `packages.home = { start = []; }`")
+          vamImpl
+        )
+        ++ lib.optional (packages != null && packages != [ ]) (
+          nativeImpl packages
+        )
+        ++ lib.optional (pathogen != null) (
+          throw
+          "pathogen is now unsupported, replace `pathogen = {}` with `packages.home = { start = []; }`"
+        )
         ++ lib.optional (plug != null) plugImpl
         ++ [ customRC ]
         ;
@@ -370,20 +379,20 @@ rec {
           vimExecutableName ? null,
           gvimExecutableName ? null,
         }:
-        lib.warnIf (wrapManual != null) ''
+        lib.warnIf (wrapManual != null)
+        ''
           vim.customize: wrapManual is deprecated: the manual is now included by default if `name == "vim"`.
           ${if wrapManual == true && name != "vim" then
             "Set `standalone = false` to include the manual."
           else
-            lib.optionalString (wrapManual == false && name == "vim")
+            lib.optionalString
+            (wrapManual == false && name == "vim")
             "Set `standalone = true` to get the *vim wrappers only."}''
-        lib.warnIf (
-          wrapGui != null
-        )
+        lib.warnIf
+        (wrapGui != null)
         "vim.customize: wrapGui is deprecated: gvim is now automatically included if present"
-        lib.throwIfNot (
-          vimExecutableName == null && gvimExecutableName == null
-        )
+        lib.throwIfNot
+        (vimExecutableName == null && gvimExecutableName == null)
         "vim.customize: (g)vimExecutableName is deprecated: use executableName instead (see source code for examples)"
         (
           let
@@ -396,33 +405,34 @@ rec {
                 throw
                 "at least one of vimrcConfig and vimrcFile must be specified"
               ;
-            bin = runCommand "${name}-bin" {
-              nativeBuildInputs = [ makeWrapper ];
-            } ''
-              vimrc=${lib.escapeShellArg vimrc}
-              gvimrc=${
-                lib.optionalString (gvimrcFile != null)
-                (lib.escapeShellArg gvimrcFile)
-              }
+            bin = runCommand "${name}-bin"
+              { nativeBuildInputs = [ makeWrapper ]; }
+              ''
+                vimrc=${lib.escapeShellArg vimrc}
+                gvimrc=${
+                  lib.optionalString (gvimrcFile != null) (
+                    lib.escapeShellArg gvimrcFile
+                  )
+                }
 
-              mkdir -p "$out/bin"
-              for exe in ${
-                if standalone then
-                  "{,g,r,rg,e}vim {,g}vimdiff vi"
-                else
-                  "{,g,r,rg,e}{vim,view} {,g}vimdiff ex vi"
-              }; do
-                if [[ -e ${vim}/bin/$exe ]]; then
-                  dest="$out/bin/${executableName}"
-                  if [[ -e $dest ]]; then
-                    echo "ambiguous executableName: ''${dest##*/} already exists"
-                    continue
+                mkdir -p "$out/bin"
+                for exe in ${
+                  if standalone then
+                    "{,g,r,rg,e}vim {,g}vimdiff vi"
+                  else
+                    "{,g,r,rg,e}{vim,view} {,g}vimdiff ex vi"
+                }; do
+                  if [[ -e ${vim}/bin/$exe ]]; then
+                    dest="$out/bin/${executableName}"
+                    if [[ -e $dest ]]; then
+                      echo "ambiguous executableName: ''${dest##*/} already exists"
+                      continue
+                    fi
+                    makeWrapper ${vim}/bin/"$exe" "$dest" \
+                      --add-flags "-u ''${vimrc@Q} ''${gvimrc:+-U ''${gvimrc@Q}}"
                   fi
-                  makeWrapper ${vim}/bin/"$exe" "$dest" \
-                    --add-flags "-u ''${vimrc@Q} ''${gvimrc:+-U ''${gvimrc@Q}}"
-                fi
-              done
-            '';
+                done
+              '';
           in
           if standalone then
             bin
@@ -444,47 +454,59 @@ rec {
 
   vimWithRC = throw "vimWithRC was removed, please use vim.customize instead";
 
-  vimGenDocHook = callPackage (
-    {
-      vim,
-    }:
-    makeSetupHook {
-      name = "vim-gen-doc-hook";
-      propagatedBuildInputs = [ vim ];
-      substitutions = {
-        vimBinary = "${vim}/bin/vim";
-        inherit rtpPath;
-      };
-    } ./vim-gen-doc-hook.sh
-  ) { };
+  vimGenDocHook = callPackage
+    (
+      {
+        vim,
+      }:
+      makeSetupHook
+      {
+        name = "vim-gen-doc-hook";
+        propagatedBuildInputs = [ vim ];
+        substitutions = {
+          vimBinary = "${vim}/bin/vim";
+          inherit rtpPath;
+        };
+      }
+      ./vim-gen-doc-hook.sh
+    )
+    { };
 
-  vimCommandCheckHook = callPackage (
-    {
-      neovim-unwrapped,
-    }:
-    makeSetupHook {
-      name = "vim-command-check-hook";
-      propagatedBuildInputs = [ neovim-unwrapped ];
-      substitutions = {
-        vimBinary = "${neovim-unwrapped}/bin/nvim";
-        inherit rtpPath;
-      };
-    } ./vim-command-check-hook.sh
-  ) { };
+  vimCommandCheckHook = callPackage
+    (
+      {
+        neovim-unwrapped,
+      }:
+      makeSetupHook
+      {
+        name = "vim-command-check-hook";
+        propagatedBuildInputs = [ neovim-unwrapped ];
+        substitutions = {
+          vimBinary = "${neovim-unwrapped}/bin/nvim";
+          inherit rtpPath;
+        };
+      }
+      ./vim-command-check-hook.sh
+    )
+    { };
 
-  neovimRequireCheckHook = callPackage (
-    {
-      neovim-unwrapped,
-    }:
-    makeSetupHook {
-      name = "neovim-require-check-hook";
-      propagatedBuildInputs = [ neovim-unwrapped ];
-      substitutions = {
-        nvimBinary = "${neovim-unwrapped}/bin/nvim";
-        inherit rtpPath;
-      };
-    } ./neovim-require-check-hook.sh
-  ) { };
+  neovimRequireCheckHook = callPackage
+    (
+      {
+        neovim-unwrapped,
+      }:
+      makeSetupHook
+      {
+        name = "neovim-require-check-hook";
+        propagatedBuildInputs = [ neovim-unwrapped ];
+        substitutions = {
+          nvimBinary = "${neovim-unwrapped}/bin/nvim";
+          inherit rtpPath;
+        };
+      }
+      ./neovim-require-check-hook.sh
+    )
+    { };
 
   inherit
     (import ./build-vim-plugin.nix { inherit lib stdenv rtpPath toVimPlugin; })
@@ -519,24 +541,26 @@ rec {
 
   toVimPlugin =
     drv:
-    drv.overrideAttrs (oldAttrs: {
-      # dont move the "doc" folder since vim expects it
-      forceShare = [
-        "man"
-        "info"
-      ];
+    drv.overrideAttrs (
+      oldAttrs: {
+        # dont move the "doc" folder since vim expects it
+        forceShare = [
+          "man"
+          "info"
+        ];
 
-      nativeBuildInputs =
-        oldAttrs.nativeBuildInputs or [ ]
-        ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [
-          vimCommandCheckHook
-          vimGenDocHook
-          # many neovim plugins keep using buildVimPlugin
-          neovimRequireCheckHook
-        ]
-        ;
+        nativeBuildInputs =
+          oldAttrs.nativeBuildInputs or [ ]
+          ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [
+            vimCommandCheckHook
+            vimGenDocHook
+            # many neovim plugins keep using buildVimPlugin
+            neovimRequireCheckHook
+          ]
+          ;
 
-      passthru = (oldAttrs.passthru or { }) // { vimPlugin = true; };
-    })
+        passthru = (oldAttrs.passthru or { }) // { vimPlugin = true; };
+      }
+    )
     ;
 }

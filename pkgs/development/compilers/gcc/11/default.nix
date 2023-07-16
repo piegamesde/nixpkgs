@@ -98,7 +98,8 @@ let
     ++ optional langAda ../gnat-cflags-11.patch
     ++ optional langD ../libphobos.patch
     ++ optional langFortran ../gfortran-driving.patch
-    ++ optional (targetPlatform.libc == "musl" && targetPlatform.isPower)
+    ++ optional
+      (targetPlatform.libc == "musl" && targetPlatform.isPower)
       ../ppc-musl.patch
 
     ++ optionals stdenv.isDarwin [
@@ -111,13 +112,18 @@ let
         })
       ]
       # https://github.com/osx-cross/homebrew-avr/issues/280#issuecomment-1272381808
-    ++ optional (stdenv.isDarwin && targetPlatform.isAvr)
+    ++ optional
+      (stdenv.isDarwin && targetPlatform.isAvr)
       ./avr-gcc-11.3-darwin.patch
 
       # Obtain latest patch with ../update-mcfgthread-patches.sh
-    ++ optional (
-      !crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf"
-    ) ./Added-mcf-thread-model-support-from-mcfgthread.patch
+    ++ optional
+      (
+        !crossStageStatic
+        && targetPlatform.isMinGW
+        && threadsCross.model == "mcf"
+      )
+      ./Added-mcf-thread-model-support-from-mcfgthread.patch
 
       # openjdk build fails without this on -march=opteron; is upstream in gcc12
     ++ [ ./gcc-issue-103910.patch ]
@@ -132,7 +138,8 @@ let
     else
       "stage-final"
     ;
-  crossNameAddon = optionalString (targetPlatform != hostPlatform)
+  crossNameAddon = optionalString
+    (targetPlatform != hostPlatform)
     "${targetPlatform.config}-${stageNameAddon}-";
 
   callFile = lib.callPackageWith {
@@ -199,7 +206,8 @@ let
   };
 
 in
-lib.pipe (stdenv.mkDerivation (
+lib.pipe
+(stdenv.mkDerivation (
   {
     pname = "${crossNameAddon}${name}";
     inherit version;
@@ -250,11 +258,12 @@ lib.pipe (stdenv.mkDerivation (
         substituteInPlace libgfortran/configure \
           --replace "-install_name \\\$rpath/\\\$soname" "-install_name ''${!outputLib}/lib/\\\$soname"
       ''
-      + (lib.optionalString (
-        targetPlatform != hostPlatform || stdenv.cc.libc != null
-      )
-      # On NixOS, use the right path to the dynamic linker instead of
-      # `/lib/ld*.so'.
+      + (lib.optionalString
+        (
+          targetPlatform != hostPlatform || stdenv.cc.libc != null
+        )
+        # On NixOS, use the right path to the dynamic linker instead of
+        # `/lib/ld*.so'.
         (
           let
             libc =
@@ -329,11 +338,13 @@ lib.pipe (stdenv.mkDerivation (
       let
         target =
           lib.optionalString (profiledCompiler) "profiled"
-          + lib.optionalString (
-            targetPlatform == hostPlatform
-            && hostPlatform == buildPlatform
-            && !disableBootstrap
-          ) "bootstrap"
+          + lib.optionalString
+            (
+              targetPlatform == hostPlatform
+              && hostPlatform == buildPlatform
+              && !disableBootstrap
+            )
+            "bootstrap"
           ;
       in
       lib.optional (target != "") target
@@ -362,13 +373,13 @@ lib.pipe (stdenv.mkDerivation (
       # compiler (after the specs for the cross-gcc are created). Having
       # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
 
-    CPATH = optionals (targetPlatform == hostPlatform)
-      (makeSearchPathOutput "dev" "include" (
-        [ ] ++ optional (zlib != null) zlib
-      ));
+    CPATH = optionals (targetPlatform == hostPlatform) (
+      makeSearchPathOutput "dev" "include" ([ ] ++ optional (zlib != null) zlib)
+    );
 
-    LIBRARY_PATH = optionals (targetPlatform == hostPlatform)
-      (makeLibraryPath (optional (zlib != null) zlib));
+    LIBRARY_PATH = optionals (targetPlatform == hostPlatform) (
+      makeLibraryPath (optional (zlib != null) zlib)
+    );
 
     inherit (callFile ../common/extra-target-flags.nix { })
       EXTRA_FLAGS_FOR_TARGET
@@ -406,11 +417,13 @@ lib.pipe (stdenv.mkDerivation (
     };
   }
 
-  // optionalAttrs (
+  // optionalAttrs
+  (
     targetPlatform != hostPlatform
     && targetPlatform.libc == "msvcrt"
     && crossStageStatic
-  ) {
+  )
+  {
     makeFlags = [
       "all-gcc"
       "all-target-libgcc"
@@ -419,7 +432,8 @@ lib.pipe (stdenv.mkDerivation (
   }
 
   // optionalAttrs (enableMultilib) { dontMoveLib64 = true; }
-)) [
+))
+[
   (callPackage ../common/libgcc.nix { inherit langC langCC langJit; })
   (callPackage ../common/checksum.nix { inherit langC langCC; })
 ]

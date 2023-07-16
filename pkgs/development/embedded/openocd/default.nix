@@ -51,10 +51,12 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isGNU [
-    "-Wno-error=cpp"
-    "-Wno-error=strict-prototypes" # fixes build failure with hidapi 0.10.0
-  ]);
+  env.NIX_CFLAGS_COMPILE = toString (
+    lib.optionals stdenv.cc.isGNU [
+      "-Wno-error=cpp"
+      "-Wno-error=strict-prototypes" # fixes build failure with hidapi 0.10.0
+    ]
+  );
 
   postInstall = lib.optionalString stdenv.isLinux ''
     mkdir -p "$out/etc/udev/rules.d"

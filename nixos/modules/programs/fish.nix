@@ -13,13 +13,15 @@ let
 
   cfg = config.programs.fish;
 
-  fishAbbrs = concatStringsSep "\n"
-    (mapAttrsFlatten (k: v: "abbr -ag ${k} ${escapeShellArg v}") cfg.shellAbbrs)
-    ;
+  fishAbbrs = concatStringsSep "\n" (
+    mapAttrsFlatten (k: v: "abbr -ag ${k} ${escapeShellArg v}") cfg.shellAbbrs
+  );
 
-  fishAliases = concatStringsSep "\n"
-    (mapAttrsFlatten (k: v: "alias ${k} ${escapeShellArg v}")
-      (filterAttrs (k: v: v != null) cfg.shellAliases));
+  fishAliases = concatStringsSep "\n" (
+    mapAttrsFlatten (k: v: "alias ${k} ${escapeShellArg v}") (
+      filterAttrs (k: v: v != null) cfg.shellAliases
+    )
+  );
 
   envShellInit = pkgs.writeText "shellInit" cfge.shellInit;
 
@@ -42,9 +44,9 @@ let
 
   babelfishTranslate =
     path: name:
-    pkgs.runCommandLocal "${name}.fish" {
-      nativeBuildInputs = [ pkgs.babelfish ];
-    } "${pkgs.babelfish}/bin/babelfish < ${path} > $out;"
+    pkgs.runCommandLocal "${name}.fish"
+    { nativeBuildInputs = [ pkgs.babelfish ]; }
+    "${pkgs.babelfish}/bin/babelfish < ${path} > $out;"
     ;
 
 in
@@ -275,7 +277,8 @@ in
             };
             generateCompletions =
               package:
-              pkgs.runCommand "${package.name}_fish-completions" (
+              pkgs.runCommand "${package.name}_fish-completions"
+              (
                 {
                   inherit package;
                   preferLocalBuild = true;
@@ -283,7 +286,8 @@ in
                 } // optionalAttrs (package ? meta.priority) {
                   meta.priority = package.meta.priority;
                 }
-              ) ''
+              )
+              ''
                 mkdir -p $out
                 if [ -d $package/share/man ]; then
                   find $package/share/man -type f | xargs ${pkgs.python3.interpreter} ${patchedGenerator}/create_manpage_completions.py --directory $out >/dev/null
@@ -304,9 +308,11 @@ in
         pathsToLink =
           [ ]
           ++ optional cfg.vendor.config.enable "/share/fish/vendor_conf.d"
-          ++ optional cfg.vendor.completions.enable
+          ++ optional
+            cfg.vendor.completions.enable
             "/share/fish/vendor_completions.d"
-          ++ optional cfg.vendor.functions.enable
+          ++ optional
+            cfg.vendor.functions.enable
             "/share/fish/vendor_functions.d"
           ;
       }

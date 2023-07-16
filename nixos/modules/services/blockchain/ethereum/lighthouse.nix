@@ -168,8 +168,9 @@ in
             };
 
             metrics = {
-              enable = lib.mkEnableOption
-                (lib.mdDoc "Validator node prometheus metrics");
+              enable = lib.mkEnableOption (
+                lib.mdDoc "Validator node prometheus metrics"
+              );
               address = mkOption {
                 type = types.str;
                 default = "127.0.0.1";
@@ -248,7 +249,8 @@ in
         ${pkgs.lighthouse}/bin/lighthouse beacon_node \
           --disable-upnp \
           ${
-            lib.optionalString cfg.beacon.disableDepositContractSync
+            lib.optionalString
+            cfg.beacon.disableDepositContractSync
             "--disable-deposit-contract-sync"
           } \
           --port ${toString cfg.beacon.port} \
@@ -260,13 +262,15 @@ in
           } \
           --execution-jwt ''${CREDENTIALS_DIRECTORY}/LIGHTHOUSE_JWT \
           ${
-            lib.optionalString cfg.beacon.http.enable
+            lib.optionalString
+            cfg.beacon.http.enable
             "--http --http-address ${cfg.beacon.http.address} --http-port ${
               toString cfg.beacon.http.port
             }"
           } \
           ${
-            lib.optionalString cfg.beacon.metrics.enable
+            lib.optionalString
+            cfg.beacon.metrics.enable
             "--metrics --metrics-address ${cfg.beacon.metrics.address} --metrics-port ${
               toString cfg.beacon.metrics.port
             }"
@@ -317,7 +321,8 @@ in
           --beacon-nodes ${lib.concatStringsSep "," cfg.validator.beaconNodes} \
           --datadir ${cfg.validator.dataDir}/${cfg.network} \
           ${
-            optionalString cfg.validator.metrics.enable
+            optionalString
+            cfg.validator.metrics.enable
             "--metrics --metrics-address ${cfg.validator.metrics.address} --metrics-port ${
               toString cfg.validator.metrics.port
             }"

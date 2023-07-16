@@ -86,11 +86,12 @@ stdenv.mkDerivation rec {
       # intermittent failures on builders, unknown reason
       sed '2i echo Skipping du basic test && exit 77' -i ./tests/du/basic.sh
     ''
-    + (optionalString (stdenv.hostPlatform.libc == "musl")
-      (concatStringsSep "\n" [ ''
+    + (optionalString (stdenv.hostPlatform.libc == "musl") (
+      concatStringsSep "\n" [ ''
         echo "int main() { return 77; }" > gnulib-tests/test-parse-datetime.c
         echo "int main() { return 77; }" > gnulib-tests/test-getlogin.c
-      '' ]))
+      '' ]
+    ))
     + (optionalString stdenv.isAarch64 ''
       sed '2i print "Skipping tail assert test"; exit 77' -i ./tests/tail-2/assert.sh
 

@@ -257,11 +257,13 @@ stdenv.mkDerivation (
             ];
           in
           "-DCROSS_TOOLCHAIN_FLAGS_NATIVE:list="
-          + lib.concatStringsSep ";" (lib.concatLists [
-            flagsForLlvmConfig
-            nativeToolchainFlags
-            nativeInstallFlags
-          ])
+          + lib.concatStringsSep ";" (
+            lib.concatLists [
+              flagsForLlvmConfig
+              nativeToolchainFlags
+              nativeInstallFlags
+            ]
+          )
         )
       ]
       ;
@@ -291,9 +293,11 @@ stdenv.mkDerivation (
           --replace 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}")' 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}'"$lib"'")'
       ''
       + optionalString (stdenv.isDarwin && enableSharedLibraries) ''
-        ${lib.concatMapStringsSep "\n" (v: ''
+        ${lib.concatMapStringsSep "\n"
+        (v: ''
           ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${v}.dylib
-        '') versionSuffixes}
+        '')
+        versionSuffixes}
       ''
       + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
         cp NATIVE/bin/llvm-config $dev/bin/llvm-config-native

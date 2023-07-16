@@ -26,8 +26,11 @@ in
       }: {
         services.snipe-it = {
           enable = true;
-          appKeyFile = toString (pkgs.writeText "snipe-it-app-key"
-            "uTqGUN5GUmUrh/zSAYmhyzRk62pnpXICyXv9eeITI8k=");
+          appKeyFile = toString (
+            pkgs.writeText
+            "snipe-it-app-key"
+            "uTqGUN5GUmUrh/zSAYmhyzRk62pnpXICyXv9eeITI8k="
+          );
           hostName = "localhost";
           database.createLocally = true;
           mail = {
@@ -39,8 +42,9 @@ in
             from.address = "snipe-it@localhost";
             replyTo.address = "snipe-it@localhost";
             user = "snipe-it@localhost";
-            passwordFile = toString
-              (pkgs.writeText "snipe-it-mail-pass" "a-secure-mail-password");
+            passwordFile = toString (
+              pkgs.writeText "snipe-it-mail-pass" "a-secure-mail-password"
+            );
           };
         };
       }

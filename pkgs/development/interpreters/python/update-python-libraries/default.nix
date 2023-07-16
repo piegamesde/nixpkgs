@@ -6,7 +6,8 @@
   nix-prefetch-git,
 }:
 
-runCommand "update-python-libraries" {
+runCommand "update-python-libraries"
+{
   buildInputs = [
     nix
     nix-prefetch-git
@@ -20,7 +21,8 @@ runCommand "update-python-libraries" {
     ))
     git
   ];
-} ''
+}
+''
   cp ${./update-python-libraries.py} $out
   patchShebangs $out
   substituteInPlace $out --replace 'GIT = "git"' 'GIT = "${git}/bin/git"'

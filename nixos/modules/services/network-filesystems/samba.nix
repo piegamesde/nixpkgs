@@ -27,9 +27,13 @@ let
       share = getAttr name cfg.shares;
     in
     "[${name}]\n "
-    + (smbToString (map (key: ''
-      ${key} = ${smbToString (getAttr key share)}
-    '') (attrNames share)))
+    + (smbToString (
+      map
+      (key: ''
+        ${key} = ${smbToString (getAttr key share)}
+      '')
+      (attrNames share)
+    ))
     ;
 
   configFile = pkgs.writeText "smb.conf" (
@@ -84,16 +88,19 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule [
-      "services"
-      "samba"
-      "defaultShare"
-    ] "")
-    (mkRemovedOptionModule [
-      "services"
-      "samba"
-      "syncPasswordsByPam"
-    ]
+    (mkRemovedOptionModule
+      [
+        "services"
+        "samba"
+        "defaultShare"
+      ]
+      "")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "samba"
+        "syncPasswordsByPam"
+      ]
       "This option has been removed by upstream, see https://bugzilla.samba.org/show_bug.cgi?id=10669#c10")
   ];
 

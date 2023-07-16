@@ -101,14 +101,18 @@ let
       configVersion =
         lib.concatStrings (builtins.match "ghc-([0-9]+).([0-9]+).x" configName);
         # return all package sets under haskell.packages matching the version components
-      setsForVersion = builtins.map (name: packageSetsWithVersionedHead.${name})
-        (builtins.filter (
-          setName:
-          lib.hasPrefix "ghc${configVersion}" setName
-          && (
-            skipBinaryGHCs -> !(lib.hasInfix "Binary" setName)
+      setsForVersion =
+        builtins.map (name: packageSetsWithVersionedHead.${name}) (
+          builtins.filter
+          (
+            setName:
+            lib.hasPrefix "ghc${configVersion}" setName
+            && (
+              skipBinaryGHCs -> !(lib.hasInfix "Binary" setName)
+            )
           )
-        ) (builtins.attrNames packageSetsWithVersionedHead));
+          (builtins.attrNames packageSetsWithVersionedHead)
+        );
 
       defaultSets = [ pkgs.haskellPackages ];
     in
@@ -124,42 +128,55 @@ let
     ;
 
     # attribute set that has all the attributes of haskellPackages set to null
-  availableHaskellPackages = builtins.listToAttrs
-    (builtins.map (attr: lib.nameValuePair attr null)
-      (builtins.attrNames pkgs.haskellPackages));
+  availableHaskellPackages = builtins.listToAttrs (
+    builtins.map (attr: lib.nameValuePair attr null) (
+      builtins.attrNames pkgs.haskellPackages
+    )
+  );
 
     # evaluate a configuration and only return the attributes changed by it,
     # pass availableHaskellPackages as super in case intersectAttrs is used
   overriddenAttrs =
     fileName:
-    builtins.attrNames (lib.fix (
-      self:
-      import (nixpkgsPath + "/pkgs/development/haskell-modules/${fileName}") {
-        haskellLib = pkgs.haskell.lib.compose;
-        inherit pkgs;
-      } self availableHaskellPackages
-    ))
+    builtins.attrNames (
+      lib.fix (
+        self:
+        import (nixpkgsPath + "/pkgs/development/haskell-modules/${fileName}")
+        {
+          haskellLib = pkgs.haskell.lib.compose;
+          inherit pkgs;
+        }
+        self
+        availableHaskellPackages
+      )
+    )
     ;
 
     # list of derivations that are affected by overrides in the given configuration
     # overlays. For common, nix, darwin etc. only the derivation from the default
     # package set will be emitted.
-  packages = builtins.filter (
-    v:
-    lib.warnIf (v.meta.broken or false) "${v.pname} is marked as broken" (
-      v != null
-      && (
-        skipEvalErrors -> (builtins.tryEval (v.outPath or v)).success
+  packages = builtins.filter
+    (
+      v:
+      lib.warnIf (v.meta.broken or false) "${v.pname} is marked as broken" (
+        v != null
+        && (
+          skipEvalErrors -> (builtins.tryEval (v.outPath or v)).success
+        )
       )
     )
-  ) (lib.concatMap (
-    fileName:
-    let
-      sets = setsForFile fileName;
-      attrs = overriddenAttrs fileName;
-    in
-    lib.concatMap (set: builtins.map (attr: set.${attr}) attrs) sets
-  ) files');
+    (
+      lib.concatMap
+      (
+        fileName:
+        let
+          sets = setsForFile fileName;
+          attrs = overriddenAttrs fileName;
+        in
+        lib.concatMap (set: builtins.map (attr: set.${attr}) attrs) sets
+      )
+      files'
+    );
 
 in
 packages

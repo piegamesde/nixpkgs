@@ -85,9 +85,9 @@ let
         ./switch-to-configuration.pl
       } $out/bin/switch-to-configuration
       chmod +x $out/bin/switch-to-configuration
-      ${optionalString (
-        pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform
-      ) ''
+      ${optionalString
+      (pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform)
+      ''
         if ! output=$($perl/bin/perl -c $out/bin/switch-to-configuration 2>&1); then
           echo "switch-to-configuration syntax is not valid:"
           echo "$output"
@@ -99,9 +99,9 @@ let
 
       echo -n "$extraDependencies" > $out/extra-dependencies
 
-      ${optionalString (
-        !config.boot.isContainer && config.boot.bootspec.enable
-      ) ''
+      ${optionalString
+      (!config.boot.isContainer && config.boot.bootspec.enable)
+      ''
         ${config.boot.bootspec.writer}
         ${optionalString config.boot.bootspec.enableValidation ''
           ${config.boot.bootspec.validator} "$out/${config.boot.bootspec.filename}"''}
@@ -166,38 +166,46 @@ let
     ;
 
     # Replace runtime dependencies
-  system = foldr (
-    {
-      oldDependency,
-      newDependency,
-    }:
-    drv:
-    pkgs.replaceDependency { inherit oldDependency newDependency drv; }
-  ) baseSystemAssertWarn config.system.replaceRuntimeDependencies;
+  system = foldr
+    (
+      {
+        oldDependency,
+        newDependency,
+      }:
+      drv:
+      pkgs.replaceDependency { inherit oldDependency newDependency drv; }
+    )
+    baseSystemAssertWarn
+    config.system.replaceRuntimeDependencies;
 
-  systemWithBuildDeps = system.overrideAttrs (o: {
-    systemBuildClosure = pkgs.closureInfo { rootPaths = [ system.drvPath ]; };
-    buildCommand =
-      o.buildCommand
-      + ''
-        ln -sn $systemBuildClosure $out/build-closure
-      ''
-      ;
-  });
+  systemWithBuildDeps = system.overrideAttrs (
+    o: {
+      systemBuildClosure = pkgs.closureInfo { rootPaths = [ system.drvPath ]; };
+      buildCommand =
+        o.buildCommand
+        + ''
+          ln -sn $systemBuildClosure $out/build-closure
+        ''
+        ;
+    }
+  );
 
 in
 {
   imports = [
     ../build.nix
-    (mkRemovedOptionModule [
-      "nesting"
-      "clone"
-    ]
+    (mkRemovedOptionModule
+      [
+        "nesting"
+        "clone"
+      ]
       "Use `specialisation.«name» = { inheritParentConfig = true; configuration = { ... }; }` instead.")
-    (mkRemovedOptionModule [
-      "nesting"
-      "children"
-    ] "Use `specialisation.«name».configuration = { ... }` instead.")
+    (mkRemovedOptionModule
+      [
+        "nesting"
+        "children"
+      ]
+      "Use `specialisation.«name».configuration = { ... }` instead.")
   ];
 
   options = {
@@ -243,13 +251,15 @@ in
 
           See `nixos/modules/system/activation/switch-to-configuration.pl`.
         '';
-        type = types.unique {
-          message = ''
-            Only one bootloader can be enabled at a time. This requirement has not
-            been checked until NixOS 22.05. Earlier versions defaulted to the last
-            definition. Change your configuration to enable only one bootloader.
-          '';
-        } (types.either types.str types.package);
+        type = types.unique
+          {
+            message = ''
+              Only one bootloader can be enabled at a time. This requirement has not
+              been checked until NixOS 22.05. Earlier versions defaulted to the last
+              definition. Change your configuration to enable only one bootloader.
+            '';
+          }
+          (types.either types.str types.package);
       };
 
       toplevel = mkOption {
@@ -327,21 +337,23 @@ in
       example = lib.literalExpression
         "[ ({ original = pkgs.openssl; replacement = pkgs.callPackage /path/to/openssl { }; }) ]"
         ;
-      type = types.listOf (types.submodule (
-        {
-          ...
-        }: {
-          options.original = mkOption {
-            type = types.package;
-            description = lib.mdDoc "The original package to override.";
-          };
+      type = types.listOf (
+        types.submodule (
+          {
+            ...
+          }: {
+            options.original = mkOption {
+              type = types.package;
+              description = lib.mdDoc "The original package to override.";
+            };
 
-          options.replacement = mkOption {
-            type = types.package;
-            description = lib.mdDoc "The replacement package.";
-          };
-        }
-      ));
+            options.replacement = mkOption {
+              type = types.package;
+              description = lib.mdDoc "The replacement package.";
+            };
+          }
+        )
+      );
       apply = map (
         {
           original,
@@ -433,10 +445,12 @@ in
           rootPaths =
             [
               # override to avoid  infinite recursion (and to allow using extraDependencies to add forbidden dependencies)
-              (config.system.build.toplevel.overrideAttrs (_: {
-                extraDependencies = [ ];
-                closureInfo = null;
-              }))
+              (config.system.build.toplevel.overrideAttrs (
+                _: {
+                  extraDependencies = [ ];
+                  closureInfo = null;
+                }
+              ))
             ];
         };
       };

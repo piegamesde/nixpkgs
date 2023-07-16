@@ -118,12 +118,14 @@ let
       };
 
       rotate = mkOption {
-        type = types.nullOr (types.enum [
-          "normal"
-          "left"
-          "right"
-          "inverted"
-        ]);
+        type = types.nullOr (
+          types.enum [
+            "normal"
+            "left"
+            "right"
+            "inverted"
+          ]
+        );
         description = lib.mdDoc "Output rotate configuration.";
         default = null;
         example = "left";
@@ -154,29 +156,31 @@ let
       };
 
       scale = mkOption {
-        type = types.nullOr (types.submodule {
-          options = {
-            method = mkOption {
-              type = types.enum [
-                "factor"
-                "pixel"
-              ];
-              description = lib.mdDoc "Output scaling method.";
-              default = "factor";
-              example = "pixel";
-            };
+        type = types.nullOr (
+          types.submodule {
+            options = {
+              method = mkOption {
+                type = types.enum [
+                  "factor"
+                  "pixel"
+                ];
+                description = lib.mdDoc "Output scaling method.";
+                default = "factor";
+                example = "pixel";
+              };
 
-            x = mkOption {
-              type = types.either types.float types.ints.positive;
-              description = lib.mdDoc "Horizontal scaling factor/pixels.";
-            };
+              x = mkOption {
+                type = types.either types.float types.ints.positive;
+                description = lib.mdDoc "Horizontal scaling factor/pixels.";
+              };
 
-            y = mkOption {
-              type = types.either types.float types.ints.positive;
-              description = lib.mdDoc "Vertical scaling factor/pixels.";
+              y = mkOption {
+                type = types.either types.float types.ints.positive;
+                description = lib.mdDoc "Vertical scaling factor/pixels.";
+              };
             };
-          };
-        });
+          }
+        );
         description = lib.mdDoc ''
           Output scale configuration.
 
@@ -289,8 +293,9 @@ in
   options = {
 
     services.autorandr = {
-      enable = mkEnableOption
-        (lib.mdDoc "handling of hotplug and sleep events by autorandr");
+      enable = mkEnableOption (
+        lib.mdDoc "handling of hotplug and sleep events by autorandr"
+      );
 
       defaultTarget = mkOption {
         default = "default";

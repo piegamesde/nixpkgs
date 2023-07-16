@@ -84,13 +84,15 @@ rec {
         attrs ? platforms
       )
       || builtins.length attrs.platforms == 0
-      || builtins.any (
-        platform:
-        platform.engine == rubyEngine
-        && (
-          !(platform ? version) || platform.version == version.majMin
+      || builtins.any
+        (
+          platform:
+          platform.engine == rubyEngine
+          && (
+            !(platform ? version) || platform.version == version.majMin
+          )
         )
-      ) attrs.platforms
+        attrs.platforms
     )
     ;
 

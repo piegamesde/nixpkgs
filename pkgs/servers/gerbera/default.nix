@@ -42,15 +42,17 @@
 }:
 
 let
-  libupnp' = libupnp.overrideAttrs (super: rec {
-    cmakeFlags =
-      super.cmakeFlags or [ ]
-      ++ [
-        "-Dblocking_tcp_connections=OFF"
-        "-Dreuseaddr=ON"
-      ]
-      ;
-  });
+  libupnp' = libupnp.overrideAttrs (
+    super: rec {
+      cmakeFlags =
+        super.cmakeFlags or [ ]
+        ++ [
+          "-Dblocking_tcp_connections=OFF"
+          "-Dreuseaddr=ON"
+        ]
+        ;
+    }
+  );
 
   options = [
     {
@@ -140,15 +142,17 @@ stdenv.mkDerivation rec {
       # systemd service will be generated alongside the service
       "-DWITH_SYSTEMD=OFF"
     ]
-    ++ map (
-      e:
-      "-DWITH_${e.name}=${
-        if e.enable then
-          "ON"
-        else
-          "OFF"
-      }"
-    ) options
+    ++ map
+      (
+        e:
+        "-DWITH_${e.name}=${
+          if e.enable then
+            "ON"
+          else
+            "OFF"
+        }"
+      )
+      options
     ;
 
   nativeBuildInputs = [
@@ -166,8 +170,9 @@ stdenv.mkDerivation rec {
       sqlite
       zlib
     ]
-    ++ flatten
-      (builtins.catAttrs "packages" (builtins.filter (e: e.enable) options))
+    ++ flatten (
+      builtins.catAttrs "packages" (builtins.filter (e: e.enable) options)
+    )
     ;
 
   passthru.tests = { inherit (nixosTests) mediatomb; };

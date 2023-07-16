@@ -155,7 +155,8 @@ rec {
         ;
     in
     trace
-    (generators.toPretty { allowPrettyValues = true; } (modify depth snip x)) y
+    (generators.toPretty { allowPrettyValues = true; } (modify depth snip x))
+    y
     ;
 
     /* A combination of `traceVal` and `traceSeq` that applies a
@@ -203,11 +204,13 @@ rec {
     let
       res = f v;
     in
-    lib.traceSeqN (depth + 1) {
+    lib.traceSeqN (depth + 1)
+    {
       fn = name;
       from = v;
       to = res;
-    } res
+    }
+    res
     ;
 
     # -- TESTING --
@@ -273,36 +276,42 @@ rec {
   runTests =
     # Tests to run
     tests:
-    concatLists (attrValues (mapAttrs (
-      name: test:
-      let
-        testsToRun =
-          if tests ? tests then
-            tests.tests
+    concatLists (
+      attrValues (
+        mapAttrs
+        (
+          name: test:
+          let
+            testsToRun =
+              if tests ? tests then
+                tests.tests
+              else
+                [ ]
+              ;
+          in
+          if
+            (
+              substring 0 4 name == "test" || elem name testsToRun
+            )
+            && (
+              (testsToRun == [ ]) || elem name tests.tests
+            )
+            && (
+              test.expr != test.expected
+            )
+
+          then
+            [ {
+              inherit name;
+              expected = test.expected;
+              result = test.expr;
+            } ]
           else
             [ ]
-          ;
-      in
-      if
-        (
-          substring 0 4 name == "test" || elem name testsToRun
         )
-        && (
-          (testsToRun == [ ]) || elem name tests.tests
-        )
-        && (
-          test.expr != test.expected
-        )
-
-      then
-        [ {
-          inherit name;
-          expected = test.expected;
-          result = test.expr;
-        } ]
-      else
-        [ ]
-    ) tests))
+        tests
+      )
+    )
     ;
 
     /* Create a test assuming that list elements are `true`.

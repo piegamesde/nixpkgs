@@ -30,45 +30,49 @@ let
   mkSection =
     name: attrs: ''
       [${name}]
-      ${lib.concatStringsSep "\n"
-      (lib.mapAttrsToList (k: v: "${k}=${mkValue v}")
-        (lib.filterAttrs (k: v: v != null) attrs))}
+      ${lib.concatStringsSep "\n" (
+        lib.mapAttrsToList (k: v: "${k}=${mkValue v}") (
+          lib.filterAttrs (k: v: v != null) attrs
+        )
+      )}
     ''
     ;
 
-  configFile = pkgs.writeText "NetworkManager.conf" (lib.concatStringsSep "\n" [
-    (mkSection "main" {
-      plugins = "keyfile";
-      dhcp = cfg.dhcp;
-      dns = cfg.dns;
-        # If resolvconf is disabled that means that resolv.conf is managed by some other module.
-      rc-manager =
-        if config.networking.resolvconf.enable then
-          "resolvconf"
-        else
-          "unmanaged"
-        ;
-      firewall-backend = cfg.firewallBackend;
-    })
-    (mkSection "keyfile" {
-      unmanaged-devices =
-        if cfg.unmanaged == [ ] then
-          null
-        else
-          lib.concatStringsSep ";" cfg.unmanaged
-        ;
-    })
-    (mkSection "logging" {
-      audit = config.security.audit.enable;
-      level = cfg.logLevel;
-    })
-    (mkSection "connection" cfg.connectionConfig)
-    (mkSection "device" {
-      "wifi.scan-rand-mac-address" = cfg.wifi.scanRandMacAddress;
-      "wifi.backend" = cfg.wifi.backend;
-    })
-    cfg.extraConfig
-  ]);
+  configFile = pkgs.writeText "NetworkManager.conf" (
+    lib.concatStringsSep "\n" [
+      (mkSection "main" {
+        plugins = "keyfile";
+        dhcp = cfg.dhcp;
+        dns = cfg.dns;
+          # If resolvconf is disabled that means that resolv.conf is managed by some other module.
+        rc-manager =
+          if config.networking.resolvconf.enable then
+            "resolvconf"
+          else
+            "unmanaged"
+          ;
+        firewall-backend = cfg.firewallBackend;
+      })
+      (mkSection "keyfile" {
+        unmanaged-devices =
+          if cfg.unmanaged == [ ] then
+            null
+          else
+            lib.concatStringsSep ";" cfg.unmanaged
+          ;
+      })
+      (mkSection "logging" {
+        audit = config.security.audit.enable;
+        level = cfg.logLevel;
+      })
+      (mkSection "connection" cfg.connectionConfig)
+      (mkSection "device" {
+        "wifi.scan-rand-mac-address" = cfg.wifi.scanRandMacAddress;
+        "wifi.backend" = cfg.wifi.backend;
+      })
+      cfg.extraConfig
+    ]
+  );
 
     /* [network-manager]
        Identity=unix-group:networkmanager
@@ -97,9 +101,15 @@ let
 
   ns =
     xs:
-    pkgs.writeText "nameservers" (concatStrings (map (s: ''
-      nameserver ${s}
-    '') xs))
+    pkgs.writeText "nameservers" (
+      concatStrings (
+        map
+        (s: ''
+          nameserver ${s}
+        '')
+        xs
+      )
+    )
     ;
 
   overrideNameserversScript = pkgs.writeScript "02overridedns" ''
@@ -129,12 +139,14 @@ let
   };
 
   macAddressOpt = mkOption {
-    type = types.either types.str (types.enum [
-      "permanent"
-      "preserve"
-      "random"
-      "stable"
-    ]);
+    type = types.either types.str (
+      types.enum [
+        "permanent"
+        "preserve"
+        "random"
+        "stable"
+      ]
+    );
     default = "preserve";
     example = "00:11:22:33:44:55";
     description = lib.mdDoc ''
@@ -182,11 +194,15 @@ in
 
       connectionConfig = mkOption {
         type = with types;
-          attrsOf (nullOr (oneOf [
-            bool
-            int
-            str
-          ]));
+          attrsOf (
+            nullOr (
+              oneOf [
+                bool
+                int
+                str
+              ]
+            )
+          );
         default = { };
         description = lib.mdDoc ''
           Configuration for the [connection] section of NetworkManager.conf.
@@ -237,11 +253,13 @@ in
               description = "NetworkManager plug-in";
               check =
                 p:
-                lib.assertMsg (
+                lib.assertMsg
+                (
                   types.package.check p
                   && p ? networkManagerPlugin
                   && lib.isString p.networkManagerPlugin
-                ) ''
+                )
+                ''
                   Package ‘${p.name}’, is not a NetworkManager plug-in.
                   Those need to have a ‘networkManagerPlugin’ attribute.
                 ''
@@ -371,27 +389,29 @@ in
       };
 
       dispatcherScripts = mkOption {
-        type = types.listOf (types.submodule {
-          options = {
-            source = mkOption {
-              type = types.path;
-              description = lib.mdDoc ''
-                Path to the hook script.
-              '';
-            };
+        type = types.listOf (
+          types.submodule {
+            options = {
+              source = mkOption {
+                type = types.path;
+                description = lib.mdDoc ''
+                  Path to the hook script.
+                '';
+              };
 
-            type = mkOption {
-              type = types.enum (attrNames dispatcherTypesSubdirMap);
-              default = "basic";
-              description = lib.mdDoc ''
-                Dispatcher hook type. Look up the hooks described at
-                [https://developer.gnome.org/NetworkManager/stable/NetworkManager.html](https://developer.gnome.org/NetworkManager/stable/NetworkManager.html)
-                and choose the type depending on the output folder.
-                You should then filter the event type (e.g., "up"/"down") from within your script.
-              '';
+              type = mkOption {
+                type = types.enum (attrNames dispatcherTypesSubdirMap);
+                default = "basic";
+                description = lib.mdDoc ''
+                  Dispatcher hook type. Look up the hooks described at
+                  [https://developer.gnome.org/NetworkManager/stable/NetworkManager.html](https://developer.gnome.org/NetworkManager/stable/NetworkManager.html)
+                  and choose the type depending on the output folder.
+                  You should then filter the event type (e.g., "up"/"down") from within your script.
+                '';
+              };
             };
-          };
-        });
+          }
+        );
         default = [ ];
         example = literalExpression ''
           [ {
@@ -439,36 +459,42 @@ in
   };
 
   imports = [
-    (mkRenamedOptionModule [
-      "networking"
-      "networkmanager"
-      "packages"
-    ] [
-      "networking"
-      "networkmanager"
-      "plugins"
-    ])
-    (mkRenamedOptionModule [
-      "networking"
-      "networkmanager"
-      "useDnsmasq"
-    ] [
-      "networking"
-      "networkmanager"
-      "dns"
-    ])
-    (mkRemovedOptionModule [
-      "networking"
-      "networkmanager"
-      "dynamicHosts"
-    ] ''
-      This option was removed because allowing (multiple) regular users to
-      override host entries affecting the whole system opens up a huge attack
-      vector. There seem to be very rare cases where this might be useful.
-      Consider setting system-wide host entries using networking.hosts, provide
-      them via the DNS server in your network, or use environment.etc
-      to add a file into /etc/NetworkManager/dnsmasq.d reconfiguring hostsdir.
-    '')
+    (mkRenamedOptionModule
+      [
+        "networking"
+        "networkmanager"
+        "packages"
+      ]
+      [
+        "networking"
+        "networkmanager"
+        "plugins"
+      ])
+    (mkRenamedOptionModule
+      [
+        "networking"
+        "networkmanager"
+        "useDnsmasq"
+      ]
+      [
+        "networking"
+        "networkmanager"
+        "dns"
+      ])
+    (mkRemovedOptionModule
+      [
+        "networking"
+        "networkmanager"
+        "dynamicHosts"
+      ]
+      ''
+        This option was removed because allowing (multiple) regular users to
+        override host entries affecting the whole system opens up a huge attack
+        vector. There seem to be very rare cases where this might be useful.
+        Consider setting system-wide host entries using networking.hosts, provide
+        them via the DNS server in your network, or use environment.etc
+        to add a file into /etc/NetworkManager/dnsmasq.d reconfiguring hostsdir.
+      '')
   ];
 
     ###### implementation
@@ -488,31 +514,39 @@ in
 
     environment.etc = {
       "NetworkManager/NetworkManager.conf".source = configFile;
-    } // builtins.listToAttrs (map (
-      pkg:
-      nameValuePair "NetworkManager/${pkg.networkManagerPlugin}" {
-        source = "${pkg}/lib/NetworkManager/${pkg.networkManagerPlugin}";
-      }
-    ) cfg.plugins) // optionalAttrs cfg.enableFccUnlock {
+    } // builtins.listToAttrs (
+      map
+      (
+        pkg:
+        nameValuePair "NetworkManager/${pkg.networkManagerPlugin}" {
+          source = "${pkg}/lib/NetworkManager/${pkg.networkManagerPlugin}";
+        }
+      )
+      cfg.plugins
+    ) // optionalAttrs cfg.enableFccUnlock {
       "ModemManager/fcc-unlock.d".source =
         "${pkgs.modemmanager}/share/ModemManager/fcc-unlock.available.d/*";
-    } // optionalAttrs (
-      cfg.appendNameservers != [ ] || cfg.insertNameservers != [ ]
-    ) {
-      "NetworkManager/dispatcher.d/02overridedns".source =
-        overrideNameserversScript;
-    } // listToAttrs (lib.imap1 (
-      i: s: {
-        name =
-          "NetworkManager/dispatcher.d/${
-            dispatcherTypesSubdirMap.${s.type}
-          }03userscript${lib.fixedWidthNumber 4 i}";
-        value = {
-          mode = "0544";
-          inherit (s) source;
-        };
-      }
-    ) cfg.dispatcherScripts);
+    } // optionalAttrs
+      (cfg.appendNameservers != [ ] || cfg.insertNameservers != [ ])
+      {
+        "NetworkManager/dispatcher.d/02overridedns".source =
+          overrideNameserversScript;
+      } // listToAttrs (
+        lib.imap1
+        (
+          i: s: {
+            name =
+              "NetworkManager/dispatcher.d/${
+                dispatcherTypesSubdirMap.${s.type}
+              }03userscript${lib.fixedWidthNumber 4 i}";
+            value = {
+              mode = "0544";
+              inherit (s) source;
+            };
+          }
+        )
+        cfg.dispatcherScripts
+      );
 
     environment.systemPackages = packages;
 

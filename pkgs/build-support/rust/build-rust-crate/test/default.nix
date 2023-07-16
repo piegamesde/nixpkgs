@@ -120,22 +120,26 @@ let
     assert expectedTestOutputs != null -> hasTests;
     assert hasTests -> expectedTestOutputs != null;
 
-    runCommand "run-buildRustCrate-${crateName}-test" {
-      nativeBuildInputs = [ crate ];
-    } (
+    runCommand "run-buildRustCrate-${crateName}-test"
+    { nativeBuildInputs = [ crate ]; }
+    (
       if !hasTests then
         ''
-          ${lib.concatMapStringsSep "\n" (
+          ${lib.concatMapStringsSep "\n"
+          (
             binary:
             # Can't actually run the binary when cross-compiling
-            (lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
+            (lib.optionalString
+              (stdenv.hostPlatform != stdenv.buildPlatform)
               "type ")
             + binary
-          ) binaries}
+          )
+          binaries}
           ${lib.optionalString isLib ''
             test -e ${crate}/lib/*.rlib || exit 1
             ${
-              lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
+              lib.optionalString
+              (stdenv.hostPlatform != stdenv.buildPlatform)
               "test -x "
             } \
               ${libTestBinary}/bin/run-test-${crateName}
@@ -148,11 +152,13 @@ let
             $file 2>&1 >> $out
           done
           set -e
-          ${lib.concatMapStringsSep "\n" (
+          ${lib.concatMapStringsSep "\n"
+          (
             o:
             ''
               grep '${o}' $out || {  echo 'output "${o}" not found in:'; cat $out; exit 23; }''
-          ) expectedTestOutputs}
+          )
+          expectedTestOutputs}
         ''
       else
         ''
@@ -614,7 +620,8 @@ rec {
                   # `-undefined dynamic_lookup` as otherwise the compilation fails.
                   $CC -shared \
                     ${
-                      lib.optionalString stdenv.isDarwin
+                      lib.optionalString
+                      stdenv.isDarwin
                       "-undefined dynamic_lookup"
                     } \
                     -o $out/lib/${name}${stdenv.hostPlatform.extensions.sharedLibrary} ${src}
@@ -699,12 +706,14 @@ rec {
         # Suppress deprecation warning
         buildRustCrate = null;
       };
-      tests = lib.mapAttrs (
-        key: value:
-        mkTest (
-          value // lib.optionalAttrs (!value ? crateName) { crateName = key; }
+      tests = lib.mapAttrs
+        (
+          key: value:
+          mkTest (
+            value // lib.optionalAttrs (!value ? crateName) { crateName = key; }
+          )
         )
-      ) cases;
+        cases;
     in
     tests // rec {
 
@@ -801,9 +810,9 @@ rec {
         let
           pkg = brotliCrates.alloc_no_stdlib_1_3_0 { };
         in
-        runCommand "run-alloc-no-stdlib-test-cmd" {
-          nativeBuildInputs = [ pkg ];
-        } ''
+        runCommand "run-alloc-no-stdlib-test-cmd"
+        { nativeBuildInputs = [ pkg ]; }
+        ''
           test -e ${pkg}/bin/example && touch $out
         ''
         ;
@@ -811,9 +820,9 @@ rec {
         let
           pkg = brotliCrates.brotli_decompressor_1_3_1 { };
         in
-        runCommand "run-brotli-decompressor-test-cmd" {
-          nativeBuildInputs = [ pkg ];
-        } ''
+        runCommand "run-brotli-decompressor-test-cmd"
+        { nativeBuildInputs = [ pkg ]; }
+        ''
           test -e ${pkg}/bin/brotli-decompressor && touch $out
         ''
         ;

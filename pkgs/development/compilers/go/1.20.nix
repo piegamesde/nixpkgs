@@ -133,12 +133,13 @@ stdenv.mkDerivation rec {
       null
     ;
 
-  GOARM = toString
-    (lib.intersectLists [ (stdenv.hostPlatform.parsed.cpu.version or "") ] [
+  GOARM = toString (
+    lib.intersectLists [ (stdenv.hostPlatform.parsed.cpu.version or "") ] [
       "5"
       "6"
       "7"
-    ]);
+    ]
+  );
   GO386 = "softfloat"; # from Arch: don't assume sse2 on i686
   CGO_ENABLED = 1;
 
@@ -186,9 +187,9 @@ stdenv.mkDerivation rec {
           ''}
         ''
       else
-        lib.optionalString (
-          stdenv.hostPlatform.system != stdenv.targetPlatform.system
-        ) ''
+        lib.optionalString
+        (stdenv.hostPlatform.system != stdenv.targetPlatform.system)
+        ''
           rm -rf bin/*_*
           ${lib.optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS)) ''
             rm -rf pkg/${GOOS}_${GOARCH} pkg/tool/${GOOS}_${GOARCH}

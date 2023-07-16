@@ -140,7 +140,7 @@ stdenv.mkDerivation rec {
     ;
 
   propagatedBuildInputs = lib.optionals pythonSupport (
-    # requirements.txt
+  # requirements.txt
     let
       pp = python.pkgs;
     in
@@ -174,13 +174,15 @@ stdenv.mkDerivation rec {
 
   patches =
     [ ./darwin.patch ]
-    ++ lib.optional pythonSupport (substituteAll {
-      src = ./python.patch;
-      inherit (python.sourceVersion)
-        major
-        minor
-        ; # Should be changed in case of PyPy
-    })
+    ++ lib.optional pythonSupport (
+      substituteAll {
+        src = ./python.patch;
+        inherit (python.sourceVersion)
+          major
+          minor
+          ; # Should be changed in case of PyPy
+      }
+    )
     ;
 
   postPatch =
@@ -189,12 +191,12 @@ stdenv.mkDerivation rec {
         'SetTotalBytesLimit(kProtoReadBytesLimit, 536870912)' \
         'SetTotalBytesLimit(kProtoReadBytesLimit)'
     ''
-    + lib.optionalString (
-      cudaSupport && lib.versionAtLeast cudatoolkit.version "9.0"
-    ) ''
-      # CUDA 9.0 doesn't support sm_20
-      sed -i 's,20 21(20) ,,' cmake/Cuda.cmake
-    ''
+    + lib.optionalString
+      (cudaSupport && lib.versionAtLeast cudatoolkit.version "9.0")
+      ''
+        # CUDA 9.0 doesn't support sm_20
+        sed -i 's,20 21(20) ,,' cmake/Cuda.cmake
+      ''
     ;
 
   preConfigure = lib.optionalString pythonSupport ''

@@ -11,26 +11,32 @@ let
 
   ramfsContents =
     let
-      storePaths = map (p: ''
-        ${p}
-      '') cfg.storePaths;
-      contents = lib.mapAttrsToList (
-        _: v: ''
-          ${v.source}
-          ${v.target}''
-      ) (lib.filterAttrs (_: v: v.enable) cfg.contents);
+      storePaths = map
+        (p: ''
+          ${p}
+        '')
+        cfg.storePaths;
+      contents = lib.mapAttrsToList
+        (
+          _: v: ''
+            ${v.source}
+            ${v.target}''
+        )
+        (lib.filterAttrs (_: v: v.enable) cfg.contents);
     in
-    pkgs.writeText "shutdown-ramfs-contents"
-    (lib.concatStringsSep "\n" (storePaths ++ contents))
+    pkgs.writeText "shutdown-ramfs-contents" (
+      lib.concatStringsSep "\n" (storePaths ++ contents)
+    )
     ;
 
 in
 {
   options.systemd.shutdownRamfs = {
-    enable = lib.mkEnableOption
-      (lib.mdDoc "pivoting back to an initramfs for shutdown") // {
-        default = true;
-      };
+    enable = lib.mkEnableOption (
+      lib.mdDoc "pivoting back to an initramfs for shutdown"
+    ) // {
+      default = true;
+    };
     contents = lib.mkOption {
       description =
         lib.mdDoc "Set of files that have to be linked into the shutdown ramfs";

@@ -38,7 +38,8 @@ let
   '';
 
 in
-mapAttrs (
+mapAttrs
+(
   channel: chromiumPkg:
   makeTest {
     name = "chromium-${channel}";
@@ -305,4 +306,5 @@ mapAttrs (
       ''
       ;
   }
-) channelMap
+)
+channelMap

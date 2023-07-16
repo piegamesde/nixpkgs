@@ -19,7 +19,8 @@
   usePulseaudio ? false
 }:
 
-assert lib.asserts.assertMsg (usePipewire != usePulseaudio)
+assert lib.asserts.assertMsg
+  (usePipewire != usePulseaudio)
   "You need to enable one and only one of pulseaudio or pipewire support";
 
 let

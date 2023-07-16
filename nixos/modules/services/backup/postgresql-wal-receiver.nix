@@ -161,26 +161,33 @@ in
         groups.postgres = { gid = config.ids.gids.postgres; };
       };
 
-      assertions = concatLists (attrsets.mapAttrsToList (
-        name: config: [ {
-          assertion =
-            config.compress > 0
-            -> versionAtLeast config.postgresqlPackage.version "10"
-            ;
-          message =
-            ''
-              Invalid configuration for WAL receiver "${name}": compress requires PostgreSQL version >= 10.'';
-        } ]
-      ) receivers);
+      assertions = concatLists (
+        attrsets.mapAttrsToList
+        (
+          name: config: [ {
+            assertion =
+              config.compress > 0
+              -> versionAtLeast config.postgresqlPackage.version "10"
+              ;
+            message =
+              ''
+                Invalid configuration for WAL receiver "${name}": compress requires PostgreSQL version >= 10.'';
+          } ]
+        )
+        receivers
+      );
 
-      systemd.tmpfiles.rules = mapAttrsToList (
-        name: config: ''
-          d ${escapeShellArg config.directory} 0750 postgres postgres - -
-        ''
-      ) receivers;
+      systemd.tmpfiles.rules = mapAttrsToList
+        (
+          name: config: ''
+            d ${escapeShellArg config.directory} 0750 postgres postgres - -
+          ''
+        )
+        receivers;
 
       systemd.services = with attrsets;
-        mapAttrs' (
+        mapAttrs'
+        (
           name: config:
           nameValuePair "postgresql-wal-receiver-${name}" {
             description = "PostgreSQL WAL receiver (${name})";
@@ -215,19 +222,22 @@ in
                   --status-interval=${toString config.statusInterval} \
                   --dbname=${escapeShellArg config.connection} \
                   ${
-                    optionalString (config.compress > 0)
-                    "--compress=${toString config.compress}"
+                    optionalString (config.compress > 0) "--compress=${
+                      toString config.compress
+                    }"
                   } \
                   ${
-                    optionalString (config.slot != "")
-                    "--slot=${escapeShellArg config.slot}"
+                    optionalString (config.slot != "") "--slot=${
+                      escapeShellArg config.slot
+                    }"
                   } \
                   ${optionalString config.synchronous "--synchronous"} \
                   ${concatStringsSep " " config.extraArgs}
               ''
               ;
           }
-        ) receivers;
+        )
+        receivers;
     }
     ;
 

@@ -10,15 +10,17 @@ let
     let
       callPackage = newScope self;
 
-      buildDhallPackage =
-        callPackage ../development/interpreters/dhall/build-dhall-package.nix
+      buildDhallPackage = callPackage
+        ../development/interpreters/dhall/build-dhall-package.nix
         { };
 
       buildDhallGitHubPackage = callPackage
-        ../development/interpreters/dhall/build-dhall-github-package.nix { };
+        ../development/interpreters/dhall/build-dhall-github-package.nix
+        { };
 
       buildDhallDirectoryPackage = callPackage
-        ../development/interpreters/dhall/build-dhall-directory-package.nix { };
+        ../development/interpreters/dhall/build-dhall-directory-package.nix
+        { };
 
       buildDhallUrl =
         callPackage ../development/interpreters/dhall/build-dhall-url.nix { };

@@ -66,7 +66,8 @@ stdenv.mkDerivation rec {
 
   mesonFlags = lib.optional (!withGui) "-Dgui=false";
 
-  postInstall = lib.optionalString withGui
+  postInstall = lib.optionalString
+    withGui
     "glib-compile-schemas $out/share/glib-2.0/schemas";
 
   meta = with lib; {

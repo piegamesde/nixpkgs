@@ -286,7 +286,8 @@ let
       "--hsc2hs-option=--cross-compile"
       (optionalString enableHsc2hsViaAsm "--hsc2hs-option=--via-asm")
     ]
-    ++ optional (allPkgconfigDepends != [ ])
+    ++ optional
+      (allPkgconfigDepends != [ ])
       "--with-pkg-config=${pkg-config.targetPrefix}pkg-config"
     ;
 
@@ -309,7 +310,8 @@ let
         + lib.optionalString (ghc ? hadrian) "/lib"
       )
       "--libsubdir=\\$abi/\\$libname"
-      (optionalString enableSeparateDataOutput
+      (optionalString
+        enableSeparateDataOutput
         "--datadir=$data/share/${ghcNameWithPrefix}")
       (optionalString enableSeparateDocOutput "--docdir=${docdir "$doc"}")
     ]
@@ -318,27 +320,35 @@ let
       ]
     ++ [
       "--package-db=$packageConfDir"
-      (optionalString (enableSharedExecutables && stdenv.isLinux)
+      (optionalString
+        (enableSharedExecutables && stdenv.isLinux)
         "--ghc-option=-optl=-Wl,-rpath=$out/${ghcLibdir}/${pname}-${version}")
-      (optionalString (enableSharedExecutables && stdenv.isDarwin)
+      (optionalString
+        (enableSharedExecutables && stdenv.isDarwin)
         "--ghc-option=-optl=-Wl,-headerpad_max_install_names")
-      (optionalString enableParallelBuilding
+      (optionalString
+        enableParallelBuilding
         "--ghc-options=${parallelBuildingFlags}")
-      (optionalString useCpphs
+      (optionalString
+        useCpphs
         "--with-cpphs=${cpphs}/bin/cpphs --ghc-options=-cpp --ghc-options=-pgmP${cpphs}/bin/cpphs --ghc-options=-optP--cpp")
-      (enableFeature (
-        enableDeadCodeElimination
-        && !stdenv.hostPlatform.isAarch32
-        && !stdenv.hostPlatform.isAarch64
-        && (versionAtLeast "8.0.1" ghc.version)
-      ) "split-objs")
-      (enableFeature enableLibraryProfiling "library-profiling")
-      (optionalString (
+      (enableFeature
         (
-          enableExecutableProfiling || enableLibraryProfiling
+          enableDeadCodeElimination
+          && !stdenv.hostPlatform.isAarch32
+          && !stdenv.hostPlatform.isAarch64
+          && (versionAtLeast "8.0.1" ghc.version)
         )
-        && versionOlder "8" ghc.version
-      ) "--profiling-detail=${profilingDetail}")
+        "split-objs")
+      (enableFeature enableLibraryProfiling "library-profiling")
+      (optionalString
+        (
+          (
+            enableExecutableProfiling || enableLibraryProfiling
+          )
+          && versionOlder "8" ghc.version
+        )
+        "--profiling-detail=${profilingDetail}")
       (enableFeature enableExecutableProfiling (
         if versionOlder ghc.version "8" then
           "executable-profiling"
@@ -346,21 +356,27 @@ let
           "profiling"
       ))
       (enableFeature enableSharedLibraries "shared")
-      (optionalString (versionAtLeast ghc.version "7.10")
-        (enableFeature doCoverage "coverage"))
-      (optionalString (versionOlder "8.4" ghc.version)
-        (enableFeature enableStaticLibraries "static"))
-      (optionalString (isGhcjs || versionOlder "7.4" ghc.version)
-        (enableFeature enableSharedExecutables "executable-dynamic"))
-      (optionalString (isGhcjs || versionOlder "7" ghc.version)
-        (enableFeature doCheck "tests"))
+      (optionalString (versionAtLeast ghc.version "7.10") (
+        enableFeature doCoverage "coverage"
+      ))
+      (optionalString (versionOlder "8.4" ghc.version) (
+        enableFeature enableStaticLibraries "static"
+      ))
+      (optionalString (isGhcjs || versionOlder "7.4" ghc.version) (
+        enableFeature enableSharedExecutables "executable-dynamic"
+      ))
+      (optionalString (isGhcjs || versionOlder "7" ghc.version) (
+        enableFeature doCheck "tests"
+      ))
       (enableFeature doBenchmark "benchmarks")
       "--enable-library-vanilla" # TODO: Should this be configurable?
       (enableFeature enableLibraryForGhci "library-for-ghci")
     ]
-    ++ optionals (
-      enableDeadCodeElimination && (lib.versionOlder "8.0.1" ghc.version)
-    ) [ "--ghc-option=-split-sections" ]
+    ++ optionals
+      (enableDeadCodeElimination && (lib.versionOlder "8.0.1" ghc.version))
+      [
+        "--ghc-option=-split-sections"
+      ]
     ++ optionals dontStrip [
       "--disable-library-stripping"
       "--disable-executable-stripping"
@@ -560,7 +576,8 @@ lib.fix (
           runHook preSetupCompilerEnvironment
 
           echo "Build with ${ghc}."
-          ${optionalString (isLibrary && hyperlinkSource)
+          ${optionalString
+          (isLibrary && hyperlinkSource)
           "export PATH=${hscolour}/bin:$PATH"}
 
           builddir="$(mktemp -d)"
@@ -596,49 +613,56 @@ lib.fix (
             fi
         ''
         # It is not clear why --extra-framework-dirs does work fine on Linux
-        + optionalString (
-          !stdenv.buildPlatform.isDarwin
-          || versionAtLeast nativeGhc.version "8.0"
-        ) ''
-          if [[ -d "$p/Library/Frameworks" ]]; then
-            configureFlags+=" --extra-framework-dirs=$p/Library/Frameworks"
-          fi
-        ''
+        + optionalString
+          (
+            !stdenv.buildPlatform.isDarwin
+            || versionAtLeast nativeGhc.version "8.0"
+          )
+          ''
+            if [[ -d "$p/Library/Frameworks" ]]; then
+              configureFlags+=" --extra-framework-dirs=$p/Library/Frameworks"
+            fi
+          ''
         + ''
           done
         ''
         # only use the links hack if we're actually building dylibs. otherwise, the
         # "dynamic-library-dirs" point to nonexistent paths, and the ln command becomes
         # "ln -s $out/lib/links", which tries to recreate the links dir and fails
-        + (optionalString (
-          stdenv.isDarwin && (enableSharedLibraries || enableSharedExecutables)
-        ) ''
-          # Work around a limit in the macOS Sierra linker on the number of paths
-          # referenced by any one dynamic library:
-          #
-          # Create a local directory with symlinks of the *.dylib (macOS shared
-          # libraries) from all the dependencies.
-          local dynamicLinksDir="$out/lib/links"
-          mkdir -p $dynamicLinksDir
+        + (optionalString
+          (
+            stdenv.isDarwin
+            && (
+              enableSharedLibraries || enableSharedExecutables
+            )
+          )
+          ''
+            # Work around a limit in the macOS Sierra linker on the number of paths
+            # referenced by any one dynamic library:
+            #
+            # Create a local directory with symlinks of the *.dylib (macOS shared
+            # libraries) from all the dependencies.
+            local dynamicLinksDir="$out/lib/links"
+            mkdir -p $dynamicLinksDir
 
-          # Unprettify all package conf files before reading/writing them
-          for d in "$packageConfDir/"*; do
-            # gawk -i inplace seems to strip the last newline
-            gawk -f ${unprettyConf} "$d" > tmp
-            mv tmp "$d"
-          done
-
-          for d in $(grep '^dynamic-library-dirs:' "$packageConfDir"/* | cut -d' ' -f2- | tr ' ' '\n' | sort -u); do
-            for lib in "$d/"*.{dylib,so}; do
-              # Allow overwriting because C libs can be pulled in multiple times.
-              ln -sf "$lib" "$dynamicLinksDir"
+            # Unprettify all package conf files before reading/writing them
+            for d in "$packageConfDir/"*; do
+              # gawk -i inplace seems to strip the last newline
+              gawk -f ${unprettyConf} "$d" > tmp
+              mv tmp "$d"
             done
-          done
-          # Edit the local package DB to reference the links directory.
-          for f in "$packageConfDir/"*.conf; do
-            sed -i "s,dynamic-library-dirs: .*,dynamic-library-dirs: $dynamicLinksDir," "$f"
-          done
-        '')
+
+            for d in $(grep '^dynamic-library-dirs:' "$packageConfDir"/* | cut -d' ' -f2- | tr ' ' '\n' | sort -u); do
+              for lib in "$d/"*.{dylib,so}; do
+                # Allow overwriting because C libs can be pulled in multiple times.
+                ln -sf "$lib" "$dynamicLinksDir"
+              done
+            done
+            # Edit the local package DB to reference the links directory.
+            for f in "$packageConfDir/"*.conf; do
+              sed -i "s,dynamic-library-dirs: .*,dynamic-library-dirs: $dynamicLinksDir," "$f"
+            done
+          '')
         + ''
           ${ghcCommand}-pkg --${packageDbFlag}="$packageConfDir" recache
 
@@ -714,8 +738,9 @@ lib.fix (
         checkFlagsArray+=(
           "--show-details=streaming"
           ${
-            lib.escapeShellArgs
-            (builtins.map (opt: "--test-option=${opt}") testFlags)
+            lib.escapeShellArgs (
+              builtins.map (opt: "--test-option=${opt}") testFlags
+            )
           }
         )
         ${setupCommand} test ${testTarget} $checkFlags ''${checkFlagsArray:+"''${checkFlagsArray[@]}"}
@@ -775,15 +800,18 @@ lib.fix (
             chmod +x "$exe"
           done
         ''}
-        ${optionalString doCoverage
+        ${optionalString
+        doCoverage
         "mkdir -p $out/share && cp -r dist/hpc $out/share"}
-        ${optionalString (
+        ${optionalString
+        (
           enableSharedExecutables
           && isExecutable
           && !isGhcjs
           && stdenv.isDarwin
           && lib.versionOlder ghc.version "7.10"
-        ) ''
+        )
+        ''
           for exe in "${binDir}/"* ; do
             install_name_tool -add_rpath "$out/${ghcLibdir}/${pname}-${version}" "$exe"
           done
@@ -936,8 +964,8 @@ lib.fix (
             phases = [ "installPhase" ];
             installPhase = "echo $nativeBuildInputs $buildInputs > $out";
             LANG = "en_US.UTF-8";
-            LOCALE_ARCHIVE =
-              lib.optionalString (stdenv.hostPlatform.libc == "glibc")
+            LOCALE_ARCHIVE = lib.optionalString
+              (stdenv.hostPlatform.libc == "glibc")
               "${buildPackages.glibcLocales}/lib/locale/locale-archive";
             "NIX_${ghcCommandCaps}" = "${ghcEnv}/bin/${ghcCommand}";
             "NIX_${ghcCommandCaps}PKG" = "${ghcEnv}/bin/${ghcCommand}-pkg";

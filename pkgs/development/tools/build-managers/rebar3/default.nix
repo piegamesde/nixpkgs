@@ -40,11 +40,15 @@ let
     postPatch = ''
       mkdir -p _checkouts _build/default/lib/
 
-      ${toString (lib.mapAttrsToList (
-        k: v: ''
-          cp -R --no-preserve=mode ${v} _checkouts/${k}
-        ''
-      ) deps)}
+      ${toString (
+        lib.mapAttrsToList
+        (
+          k: v: ''
+            cp -R --no-preserve=mode ${v} _checkouts/${k}
+          ''
+        )
+        deps
+      )}
 
       # Bootstrap script expects the dependencies in _build/default/lib
       # TODO: Make it accept checkouts?
@@ -128,22 +132,24 @@ let
         map (p: "${p}/lib/erlang/lib") (lib.unique (plugins ++ globalPlugins));
       globalPluginNames = lib.unique (map (p: p.packageName) globalPlugins);
       rebar3Patched =
-        (rebar3.overrideAttrs (old: {
+        (rebar3.overrideAttrs (
+          old: {
 
-          # skip-plugins.patch is necessary because otherwise rebar3 will always
-          # try to fetch plugins if they are not already present in _build.
-          #
-          # global-deps.patch makes it possible to use REBAR_GLOBAL_PLUGINS to
-          # instruct rebar3 to always load a certain plugin. It is necessary since
-          # REBAR_GLOBAL_CONFIG_DIR doesn't seem to work for this.
-          patches = [
-            ./skip-plugins.patch
-            ./global-plugins.patch
-          ];
+            # skip-plugins.patch is necessary because otherwise rebar3 will always
+            # try to fetch plugins if they are not already present in _build.
+            #
+            # global-deps.patch makes it possible to use REBAR_GLOBAL_PLUGINS to
+            # instruct rebar3 to always load a certain plugin. It is necessary since
+            # REBAR_GLOBAL_CONFIG_DIR doesn't seem to work for this.
+            patches = [
+              ./skip-plugins.patch
+              ./global-plugins.patch
+            ];
 
-            # our patches cause the tests to fail
-          doCheck = false;
-        }));
+              # our patches cause the tests to fail
+            doCheck = false;
+          }
+        ));
     in
     stdenv.mkDerivation {
       pname = "rebar3-with-plugins";

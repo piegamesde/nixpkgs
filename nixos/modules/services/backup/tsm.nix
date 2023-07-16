@@ -12,12 +12,14 @@ let
   inherit (lib.types) nonEmptyStr nullOr;
 
   options.services.tsmBackup = {
-    enable = mkEnableOption (lib.mdDoc ''
-      automatic backups with the
-      IBM Spectrum Protect (Tivoli Storage Manager, TSM) client.
-      This also enables
-      {option}`programs.tsmClient.enable`
-    '');
+    enable = mkEnableOption (
+      lib.mdDoc ''
+        automatic backups with the
+        IBM Spectrum Protect (Tivoli Storage Manager, TSM) client.
+        This also enables
+        {option}`programs.tsmClient.enable`
+      ''
+    );
     command = mkOption {
       type = nonEmptyStr;
       default = "backup";

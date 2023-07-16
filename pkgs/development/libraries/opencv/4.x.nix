@@ -232,11 +232,13 @@ let
     ''
       mkdir -p "${extra.dst}"
     ''
-    + concatStrings (flip mapAttrsToList extra.files (
-      name: md5: ''
-        ln -s "${extra.src}/${name}" "${extra.dst}/${md5}-${name}"
-      ''
-    ))
+    + concatStrings (
+      flip mapAttrsToList extra.files (
+        name: md5: ''
+          ln -s "${extra.src}/${name}" "${extra.dst}/${md5}-${name}"
+        ''
+      )
+    )
     ;
   installExtraFile =
     extra: ''

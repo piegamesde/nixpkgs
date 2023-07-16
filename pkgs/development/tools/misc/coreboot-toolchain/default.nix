@@ -69,9 +69,9 @@ let
 
           mkdir -p util/crossgcc/tarballs
 
-          ${lib.concatMapStringsSep "\n" (
-            file: "ln -s ${file.archive} util/crossgcc/tarballs/${file.name}"
-          ) (callPackage ./stable.nix { })}
+          ${lib.concatMapStringsSep "\n"
+          (file: "ln -s ${file.archive} util/crossgcc/tarballs/${file.name}")
+          (callPackage ./stable.nix { })}
 
           patchShebangs util/genbuild_h/genbuild_h.sh
         '';
@@ -99,12 +99,14 @@ let
     ;
 
 in
-lib.listToAttrs (map (arch: lib.nameValuePair arch (common arch { })) [
-  "i386"
-  "x64"
-  "arm"
-  "aarch64"
-  "riscv"
-  "ppc64"
-  "nds32le"
-])
+lib.listToAttrs (
+  map (arch: lib.nameValuePair arch (common arch { })) [
+    "i386"
+    "x64"
+    "arm"
+    "aarch64"
+    "riscv"
+    "ppc64"
+    "nds32le"
+  ]
+)

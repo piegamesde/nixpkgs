@@ -17,62 +17,66 @@
   testers,
   wrapGAppsHook4,
 }:
-stdenv.mkDerivation (finalAttrs: {
-  pname = "citations";
-  version = "0.5.1";
+stdenv.mkDerivation (
+  finalAttrs: {
+    pname = "citations";
+    version = "0.5.1";
 
-  src = fetchFromGitLab {
-    domain = "gitlab.gnome.org";
-    owner = "World";
-    repo = finalAttrs.pname;
-    rev = finalAttrs.version;
-    hash = "sha256-QPK6Nw0tDdttUDFKMgThTYMTxGXsn5OReqf1LNAai7g=";
-  };
-
-  cargoDeps = rustPlatform.importCargoLock {
-    lockFile = ./Cargo.lock;
-    outputHashes = {
-      "nom-bibtex-0.3.0" =
-        "sha256-Dy7xauwXGnMtK/w/T5gZgqJ8fPyyd/FfZTLjvwMODFI=";
+    src = fetchFromGitLab {
+      domain = "gitlab.gnome.org";
+      owner = "World";
+      repo = finalAttrs.pname;
+      rev = finalAttrs.version;
+      hash = "sha256-QPK6Nw0tDdttUDFKMgThTYMTxGXsn5OReqf1LNAai7g=";
     };
-  };
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    gettext
-    glib
-    meson
-    ninja
-    pkg-config
-    rustPlatform.cargoSetupHook
-    rustPlatform.rust.cargo
-    rustPlatform.rust.rustc
-    wrapGAppsHook4
-  ];
+    cargoDeps = rustPlatform.importCargoLock {
+      lockFile = ./Cargo.lock;
+      outputHashes = {
+        "nom-bibtex-0.3.0" =
+          "sha256-Dy7xauwXGnMtK/w/T5gZgqJ8fPyyd/FfZTLjvwMODFI=";
+      };
+    };
 
-  buildInputs =
-    [
+    nativeBuildInputs = [
+      desktop-file-utils
+      gettext
       glib
-      gtk4
-      gtksourceview5
-      libadwaita
-      poppler
-    ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Foundation ]
-    ;
+      meson
+      ninja
+      pkg-config
+      rustPlatform.cargoSetupHook
+      rustPlatform.rust.cargo
+      rustPlatform.rust.rustc
+      wrapGAppsHook4
+    ];
 
-  doCheck = true;
+    buildInputs =
+      [
+        glib
+        gtk4
+        gtksourceview5
+        libadwaita
+        poppler
+      ]
+      ++ lib.optionals stdenv.isDarwin [
+          darwin.apple_sdk.frameworks.Foundation
+        ]
+      ;
 
-  passthru.tests.version = testers.testVersion {
-    package = finalAttrs.finalPackage;
-    command = "citations --help";
-  };
+    doCheck = true;
 
-  meta = with lib; {
-    description = "Manage your bibliographies using the BibTeX format";
-    homepage = "https://apps.gnome.org/app/org.gnome.World.Citations";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ benediktbroich ];
-    platforms = platforms.unix;
-  };
-})
+    passthru.tests.version = testers.testVersion {
+      package = finalAttrs.finalPackage;
+      command = "citations --help";
+    };
+
+    meta = with lib; {
+      description = "Manage your bibliographies using the BibTeX format";
+      homepage = "https://apps.gnome.org/app/org.gnome.World.Citations";
+      license = licenses.gpl3Plus;
+      maintainers = with maintainers; [ benediktbroich ];
+      platforms = platforms.unix;
+    };
+  }
+)

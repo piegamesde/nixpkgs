@@ -17,48 +17,50 @@
   pybind11,
 }:
 
-toPythonModule (stdenv.mkDerivation rec {
-  pname = "pygmo";
-  version = "2.19.0";
+toPythonModule (
+  stdenv.mkDerivation rec {
+    pname = "pygmo";
+    version = "2.19.0";
 
-  src = fetchFromGitHub {
-    owner = "esa";
-    repo = "pygmo2";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-gjmZf66AcNaAMqyLerBgRu5RUzV6qrT7DigTNE39AwI=";
-  };
+    src = fetchFromGitHub {
+      owner = "esa";
+      repo = "pygmo2";
+      rev = "refs/tags/v${version}";
+      hash = "sha256-gjmZf66AcNaAMqyLerBgRu5RUzV6qrT7DigTNE39AwI=";
+    };
 
-  cmakeFlags = [
-      "-DPYGMO_INSTALL_PATH=${
-        placeholder "out"
-      }/lib/${python.libPrefix}/site-packages"
+    cmakeFlags = [
+        "-DPYGMO_INSTALL_PATH=${
+          placeholder "out"
+        }/lib/${python.libPrefix}/site-packages"
+      ];
+
+    nativeBuildInputs = [ cmake ];
+
+    propagatedBuildInputs = [
+      cloudpickle
+      ipyparallel
+      numba
+      numpy
+      python
     ];
 
-  nativeBuildInputs = [ cmake ];
+    buildInputs = [
+      boost
+      eigen
+      ipopt
+      nlopt
+      pagmo2
+      pybind11
+    ];
 
-  propagatedBuildInputs = [
-    cloudpickle
-    ipyparallel
-    numba
-    numpy
-    python
-  ];
+    doCheck = true;
 
-  buildInputs = [
-    boost
-    eigen
-    ipopt
-    nlopt
-    pagmo2
-    pybind11
-  ];
-
-  doCheck = true;
-
-  meta = with lib; {
-    description = "Parallel optimisation for Python";
-    homepage = "https://github.com/esa/pygmo2";
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.costrouc ];
-  };
-})
+    meta = with lib; {
+      description = "Parallel optimisation for Python";
+      homepage = "https://github.com/esa/pygmo2";
+      license = licenses.gpl3Plus;
+      maintainers = [ maintainers.costrouc ];
+    };
+  }
+)

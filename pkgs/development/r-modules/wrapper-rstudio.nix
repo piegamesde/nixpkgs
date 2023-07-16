@@ -10,7 +10,8 @@
   fontconfig,
 }:
 
-runCommand (rstudio.name + "-wrapper") {
+runCommand (rstudio.name + "-wrapper")
+{
   preferLocalBuild = true;
   allowSubstitutes = false;
 
@@ -42,7 +43,8 @@ runCommand (rstudio.name + "-wrapper") {
     # into an R file (fixLibsR) which achieves the same effect, then
     # uses R_PROFILE_USER to load this code at startup in RStudio.
   fixLibsR = "fix_libs.R";
-} (
+}
+(
   ''
     mkdir -p $out/bin
     ln -s ${rstudio}/share $out

@@ -68,17 +68,19 @@ let
           flex
           rsync
         ]
-        ++ lib.optionals (
-          stdenvNoCC.buildPlatform.isDarwin && stdenvNoCC.hostPlatform.isMips
-        ) [
-          darwin-endian-h
-          darwin-byteswap-h
-        ]
+        ++ lib.optionals
+          (stdenvNoCC.buildPlatform.isDarwin && stdenvNoCC.hostPlatform.isMips)
+          [
+            darwin-endian-h
+            darwin-byteswap-h
+          ]
         ;
 
-      extraIncludeDirs = lib.optionals (
-        with stdenvNoCC.hostPlatform; isPower && is32bit && isBigEndian
-      ) [ "ppc" ];
+      extraIncludeDirs = lib.optionals
+        (with stdenvNoCC.hostPlatform; isPower && is32bit && isBigEndian)
+        [
+          "ppc"
+        ];
 
       inherit patches;
 

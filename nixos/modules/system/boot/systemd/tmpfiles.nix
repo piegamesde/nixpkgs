@@ -74,12 +74,14 @@ in
                 )
               done
             ''
-            + concatMapStrings (
-              name:
-              optionalString (hasPrefix "tmpfiles.d/" name) ''
-                rm -f $out/${removePrefix "tmpfiles.d/" name}
-              ''
-            ) config.system.build.etc.passthru.targets
+            + concatMapStrings
+              (
+                name:
+                optionalString (hasPrefix "tmpfiles.d/" name) ''
+                  rm -f $out/${removePrefix "tmpfiles.d/" name}
+                ''
+              )
+              config.system.build.etc.passthru.targets
             ;
         })
         + "/*"

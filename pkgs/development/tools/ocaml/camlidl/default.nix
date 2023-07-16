@@ -9,7 +9,8 @@
 lib.throwIfNot (lib.versionAtLeast ocaml.version "4.03")
 "camlidl is not available for OCaml ${ocaml.version}"
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "ocaml${ocaml.version}-camlidl";
   version = "1.11";
 

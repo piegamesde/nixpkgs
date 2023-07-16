@@ -78,9 +78,11 @@ in
           ${top.package}/bin/kube-scheduler \
                     --bind-address=${cfg.address} \
                     ${
-                      optionalString (cfg.featureGates != [ ])
+                      optionalString
+                      (cfg.featureGates != [ ])
                       "--feature-gates=${
-                        concatMapStringsSep "," (feature: "${feature}=true")
+                        concatMapStringsSep ","
+                        (feature: "${feature}=true")
                         cfg.featureGates
                       }"
                     } \
@@ -90,8 +92,9 @@ in
                     --leader-elect=${boolToString cfg.leaderElect} \
                     --secure-port=${toString cfg.port} \
                     ${
-                      optionalString (cfg.verbosity != null)
-                      "--v=${toString cfg.verbosity}"
+                      optionalString (cfg.verbosity != null) "--v=${
+                        toString cfg.verbosity
+                      }"
                     } \
                     ${cfg.extraOpts}
         '';

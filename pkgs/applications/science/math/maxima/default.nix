@@ -16,12 +16,14 @@
 
 let
   # Allow to remove some executables from the $PATH of the wrapped binary
-  searchPath = lib.makeBinPath (lib.filter (x: x != null) [
-    lisp-compiler
-    rlwrap
-    tk
-    gnuplot
-  ]);
+  searchPath = lib.makeBinPath (
+    lib.filter (x: x != null) [
+      lisp-compiler
+      rlwrap
+      tk
+      gnuplot
+    ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "maxima";

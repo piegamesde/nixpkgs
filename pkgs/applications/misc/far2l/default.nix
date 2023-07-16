@@ -117,23 +117,25 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-  cmakeFlags = lib.mapAttrsToList (
-    k: v:
-    "-D${k}=${
-      if v then
-        "yes"
-      else
-        "no"
-    }"
-  ) {
-    TTYX = withTTYX;
-    USEWX = withGUI;
-    USEUCD = withUCD;
-    COLORER = withColorer;
-    MULTIARC = withMultiArc;
-    NETROCKS = withNetRocks;
-    PYTHON = withPython;
-  };
+  cmakeFlags = lib.mapAttrsToList
+    (
+      k: v:
+      "-D${k}=${
+        if v then
+          "yes"
+        else
+          "no"
+      }"
+    )
+    {
+      TTYX = withTTYX;
+      USEWX = withGUI;
+      USEUCD = withUCD;
+      COLORER = withColorer;
+      MULTIARC = withMultiArc;
+      NETROCKS = withNetRocks;
+      PYTHON = withPython;
+    };
 
   runtimeDeps = [
     unzip

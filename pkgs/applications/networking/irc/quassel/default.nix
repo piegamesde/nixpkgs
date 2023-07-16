@@ -69,7 +69,8 @@ in
     stdenv.mkDerivation
   else
     mkDerivation
-) rec {
+)
+rec {
   pname = "quassel${tag}";
   version = "0.14.0";
 

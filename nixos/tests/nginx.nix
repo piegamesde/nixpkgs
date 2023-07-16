@@ -56,10 +56,12 @@ import ./make-test-python.nix (
 
           specialisation.etagSystem.configuration = {
             services.nginx.virtualHosts.localhost = {
-              root = lib.mkForce (pkgs.runCommand "testdir2" { } ''
-                mkdir "$out"
-                echo content changed > "$out/index.html"
-              '');
+              root = lib.mkForce (
+                pkgs.runCommand "testdir2" { } ''
+                  mkdir "$out"
+                  echo content changed > "$out/index.html"
+                ''
+              );
             };
           };
 

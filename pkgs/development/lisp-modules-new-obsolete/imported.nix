@@ -51173,7 +51173,8 @@ in
     systems = [ "hu.dwim.computed-class.test" ];
     lispLibs = [
       (getAttr "hu_dot_dwim_dot_asdf" pkgs)
-      (getAttr "hu_dot_dwim_dot_computed-class_plus_hu_dot_dwim_dot_logger"
+      (getAttr
+        "hu_dot_dwim_dot_computed-class_plus_hu_dot_dwim_dot_logger"
         pkgs)
       (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def" pkgs)
     ];
@@ -51236,7 +51237,8 @@ in
     lispLibs = [
       (getAttr "hu_dot_dwim_dot_asdf" pkgs)
       (getAttr "hu_dot_dwim_dot_debug" pkgs)
-      (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+      (getAttr
+        "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
         pkgs)
     ];
   };
@@ -51530,7 +51532,8 @@ in
       (getAttr "hu_dot_dwim_dot_common" pkgs)
       (getAttr "hu_dot_dwim_dot_defclass-star" pkgs)
       (getAttr "hu_dot_dwim_dot_presentation" pkgs)
-      (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+      (getAttr
+        "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
         pkgs)
     ];
     meta = { broken = true; };
@@ -51552,7 +51555,8 @@ in
       (getAttr "hu_dot_dwim_dot_asdf" pkgs)
       (getAttr "hu_dot_dwim_dot_common" pkgs)
       (getAttr "hu_dot_dwim_dot_defclass-star" pkgs)
-      (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+      (getAttr
+        "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
         pkgs)
     ];
     meta = { broken = true; };
@@ -51595,7 +51599,8 @@ in
       (getAttr "hu_dot_dwim_dot_def" pkgs)
       (getAttr "hu_dot_dwim_dot_delico" pkgs)
       (getAttr "hu_dot_dwim_dot_presentation" pkgs)
-      (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+      (getAttr
+        "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
         pkgs)
       (getAttr "hu_dot_dwim_dot_util" pkgs)
       (getAttr "hu_dot_dwim_dot_walker" pkgs)
@@ -51619,7 +51624,8 @@ in
       (getAttr "hu_dot_dwim_dot_asdf" pkgs)
       (getAttr "hu_dot_dwim_dot_def" pkgs)
       (getAttr "hu_dot_dwim_dot_delico" pkgs)
-      (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+      (getAttr
+        "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
         pkgs)
       (getAttr "hu_dot_dwim_dot_util" pkgs)
     ];
@@ -51681,7 +51687,8 @@ in
       (getAttr "hu_dot_dwim_dot_asdf" pkgs)
       (getAttr "hu_dot_dwim_dot_common" pkgs)
       (getAttr "hu_dot_dwim_dot_graphviz" pkgs)
-      (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+      (getAttr
+        "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
         pkgs)
     ];
   };
@@ -51782,7 +51789,8 @@ in
     lispLibs = [
       (getAttr "hu_dot_dwim_dot_asdf" pkgs)
       (getAttr "hu_dot_dwim_dot_logger" pkgs)
-      (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+      (getAttr
+        "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
         pkgs)
     ];
   };
@@ -51848,7 +51856,8 @@ in
     lispLibs = [
       (getAttr "hu_dot_dwim_dot_asdf" pkgs)
       (getAttr "hu_dot_dwim_dot_partial-eval" pkgs)
-      (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+      (getAttr
+        "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
         pkgs)
       (getAttr "hu_dot_dwim_dot_util" pkgs)
     ];
@@ -52135,7 +52144,8 @@ in
     systems = [ "hu.dwim.perec.test" ];
     lispLibs = [
       (getAttr "hu_dot_dwim_dot_asdf" pkgs)
-      (getAttr "hu_dot_dwim_dot_perec_plus_hu_dot_dwim_dot_quasi-quote_dot_xml"
+      (getAttr
+        "hu_dot_dwim_dot_perec_plus_hu_dot_dwim_dot_quasi-quote_dot_xml"
         pkgs)
       (getAttr "hu_dot_dwim_dot_perec_plus_iolib" pkgs)
       (getAttr "hu_dot_dwim_dot_perec_plus_swank" pkgs)
@@ -52597,7 +52607,8 @@ in
     lispLibs = [
       (getAttr "hu_dot_dwim_dot_asdf" pkgs)
       (getAttr "hu_dot_dwim_dot_rdbms" pkgs)
-      (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+      (getAttr
+        "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
         pkgs)
     ];
   };
@@ -52811,7 +52822,8 @@ in
     lispLibs = [
       (getAttr "hu_dot_dwim_dot_asdf" pkgs)
       (getAttr "hu_dot_dwim_dot_serializer" pkgs)
-      (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+      (getAttr
+        "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
         pkgs)
     ];
   };
@@ -52956,7 +52968,8 @@ in
     systems = [ "hu.dwim.syntax-sugar.test" ];
     lispLibs = [
       (getAttr "hu_dot_dwim_dot_asdf" pkgs)
-      (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+      (getAttr
+        "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
         pkgs)
       (getAttr "hu_dot_dwim_dot_syntax-sugar" pkgs)
       (getAttr "hu_dot_dwim_dot_walker" pkgs)
@@ -53037,7 +53050,8 @@ in
     systems = [ "hu.dwim.uri.test" ];
     lispLibs = [
       (getAttr "hu_dot_dwim_dot_asdf" pkgs)
-      (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+      (getAttr
+        "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
         pkgs)
       (getAttr "hu_dot_dwim_dot_uri" pkgs)
       (getAttr "hu_dot_dwim_dot_util" pkgs)
@@ -53098,7 +53112,8 @@ in
     lispLibs = [
       (getAttr "hu_dot_dwim_dot_asdf" pkgs)
       (getAttr "hu_dot_dwim_dot_presentation" pkgs)
-      (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+      (getAttr
+        "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
         pkgs)
     ];
   };
@@ -53133,7 +53148,8 @@ in
       (getAttr "hu_dot_dwim_dot_logger" pkgs)
       (getAttr "hu_dot_dwim_dot_perec_dot_postgresql" pkgs)
       (getAttr "hu_dot_dwim_dot_quasi-quote_dot_xml" pkgs)
-      (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+      (getAttr
+        "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
         pkgs)
       (getAttr "hu_dot_dwim_dot_syntax-sugar" pkgs)
       (getAttr "hu_dot_dwim_dot_util" pkgs)
@@ -53719,9 +53735,11 @@ in
     lispLibs = [
       (getAttr "drakma" pkgs)
       (getAttr "hu_dot_dwim_dot_asdf" pkgs)
-      (getAttr "hu_dot_dwim_dot_computed-class_plus_hu_dot_dwim_dot_logger"
+      (getAttr
+        "hu_dot_dwim_dot_computed-class_plus_hu_dot_dwim_dot_logger"
         pkgs)
-      (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+      (getAttr
+        "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
         pkgs)
       (getAttr "hu_dot_dwim_dot_web-server" pkgs)
       (getAttr "hu_dot_dwim_dot_web-server_plus_swank" pkgs)
@@ -76796,7 +76814,8 @@ in
     lispLibs = [
       (getAttr "hu_dot_dwim_dot_asdf" pkgs)
       (getAttr "hu_dot_dwim_dot_logger" pkgs)
-      (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+      (getAttr
+        "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
         pkgs)
       (getAttr "projectured_dot_document" pkgs)
       (getAttr "projectured_dot_editor" pkgs)

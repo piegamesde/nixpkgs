@@ -18,7 +18,8 @@
 }:
 
 assert fileVersionCudnn == null
-  || lib.assertMsg (lib.strings.versionAtLeast cudnn.version fileVersionCudnn)
+  || lib.assertMsg
+    (lib.strings.versionAtLeast cudnn.version fileVersionCudnn)
     "This version of TensorRT requires at least cuDNN ${fileVersionCudnn} (current version is ${cudnn.version})";
 
 backendStdenv.mkDerivation rec {
@@ -69,8 +70,9 @@ backendStdenv.mkDerivation rec {
     # (postFixup phase is run before autoPatchelfHook.)
   postFixup =
     let
-      mostOfVersion = builtins.concatStringsSep "."
-        (lib.take 3 (lib.versions.splitVersion version));
+      mostOfVersion = builtins.concatStringsSep "." (
+        lib.take 3 (lib.versions.splitVersion version)
+      );
     in
     ''
       echo 'Patching RPATH of libnvinfer libs'

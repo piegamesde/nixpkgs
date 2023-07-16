@@ -24,7 +24,8 @@ let
   # See docs for crateRenames below.
   mkRustcDepArgs =
     dependencies: crateRenames:
-    lib.concatMapStringsSep " " (
+    lib.concatMapStringsSep " "
+    (
       dep:
       let
         normalizeName = lib.replaceStrings [ "-" ] [ "_" ];
@@ -32,9 +33,10 @@ let
           # Find a choice that matches in name and optionally version.
         findMatchOrUseExtern =
           choices:
-          lib.findFirst (
-            choice: (!(choice ? version) || choice.version == dep.version or "")
-          ) { rename = extern; } choices
+          lib.findFirst
+          (choice: (!(choice ? version) || choice.version == dep.version or ""))
+          { rename = extern; }
+          choices
           ;
         name =
           if lib.hasAttr dep.crateName crateRenames then
@@ -59,7 +61,8 @@ let
           ;
       in
       " --extern ${opts}${name}=${dep.lib}/lib/lib${extern}-${filename}"
-    ) dependencies
+    )
+    dependencies
     ;
 
     # Create feature arguments for rustc.
@@ -105,7 +108,8 @@ let
   # the underlying stdenv.mkDerivation.
 in
 crate_:
-lib.makeOverridable (
+lib.makeOverridable
+(
   # The rust compiler to use.
   #
   # Default: pkgs.rustc
@@ -351,7 +355,8 @@ lib.makeOverridable (
       );
       completeBuildDeps = lib.unique (
         buildDependencies
-        ++ lib.concatMap (dep: dep.completeBuildDeps ++ dep.completeDeps)
+        ++ lib.concatMap
+          (dep: dep.completeBuildDeps ++ dep.completeDeps)
           buildDependencies
       );
 
@@ -360,10 +365,11 @@ lib.makeOverridable (
         # with a forward slash, since they are passed through to dependencies,
         # and dep: features, since they're internal-only and do nothing except
         # enable optional dependencies.
-      crateFeatures = lib.optionals (crate ? features)
-        (builtins.filter (f: !(lib.hasInfix "/" f || lib.hasPrefix "dep:" f)) (
+      crateFeatures = lib.optionals (crate ? features) (
+        builtins.filter (f: !(lib.hasInfix "/" f || lib.hasPrefix "dep:" f)) (
           crate.features ++ features
-        ));
+        )
+      );
 
       libName =
         if crate ? libName then
@@ -431,7 +437,8 @@ lib.makeOverridable (
         ++ (lib.optional (edition != null) "--edition ${edition}")
         ;
       extraRustcOptsForBuildRs =
-        lib.optionals (crate ? extraRustcOptsForBuildRs)
+        lib.optionals
+          (crate ? extraRustcOptsForBuildRs)
           crate.extraRustcOptsForBuildRs
         ++ extraRustcOptsForBuildRs_
         ++ (lib.optional (edition != null) "--edition ${edition}")
@@ -505,7 +512,8 @@ lib.makeOverridable (
       meta = { mainProgram = crateName; };
     } // extraDerivationAttrs
   )
-) {
+)
+{
   rust = rustc;
   release = crate_.release or true;
   verbose = crate_.verbose or true;

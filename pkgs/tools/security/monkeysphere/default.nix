@@ -25,9 +25,11 @@ let
   # A patch is needed to run the tests inside the Nix sandbox:
   # /etc/passwd: "nixbld:x:1000:100:Nix build user:/build:/noshell"
   # sshd: "User nixbld not allowed because shell /noshell does not exist"
-  opensshUnsafe = openssh.overrideAttrs (oldAttrs: {
-    patches = oldAttrs.patches ++ [ ./openssh-nixos-sandbox.patch ];
-  });
+  opensshUnsafe = openssh.overrideAttrs (
+    oldAttrs: {
+      patches = oldAttrs.patches ++ [ ./openssh-nixos-sandbox.patch ];
+    }
+  );
 in
 stdenv.mkDerivation rec {
   pname = "monkeysphere";
@@ -108,7 +110,8 @@ stdenv.mkDerivation rec {
             CryptOpenSSLBignum
           ]
         )
-        + lib.optionalString (builtins.length runtimeDeps > 0)
+        + lib.optionalString
+          (builtins.length runtimeDeps > 0)
           " --prefix PATH : ${lib.makeBinPath runtimeDeps}"
         ;
       wrapMonkeysphere =
@@ -125,10 +128,14 @@ stdenv.mkDerivation rec {
       "monkeysphere-authentication"
       "monkeysphere-host"
     ]
-    + wrapPrograms [
-      gnupg
-      lockfileProgs
-    ] [ "monkeysphere" ]
+    + wrapPrograms
+      [
+        gnupg
+        lockfileProgs
+      ]
+      [
+        "monkeysphere"
+      ]
     + ''
       # These 4 programs depend on the program name ($0):
       for program in openpgp2pem openpgp2spki openpgp2ssh pem2openpgp; do

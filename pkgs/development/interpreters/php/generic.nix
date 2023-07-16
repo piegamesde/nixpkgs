@@ -108,16 +108,20 @@ let
 
             php-packages = (callPackage ../../../top-level/php-packages.nix {
               phpPackage = phpWithExtensions;
-            }).overrideScope' packageOverrides;
+            }).overrideScope'
+              packageOverrides;
 
             allExtensionFunctions = prevExtensionFunctions ++ [ extensions ];
-            enabledExtensions = builtins.foldl' (
-              enabled: f:
-              f {
-                inherit enabled;
-                all = php-packages.extensions;
-              }
-            ) [ ] allExtensionFunctions;
+            enabledExtensions = builtins.foldl'
+              (
+                enabled: f:
+                f {
+                  inherit enabled;
+                  all = php-packages.extensions;
+                }
+              )
+              [ ]
+              allExtensionFunctions;
 
             getExtName =
               ext:
@@ -129,9 +133,9 @@ let
             getDepsRecursively =
               extensions:
               let
-                deps = lib.concatMap (
-                  ext: (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ])
-                ) extensions;
+                deps = lib.concatMap
+                  (ext: (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ]))
+                  extensions;
               in
               if !(deps == [ ]) then
                 deps ++ (getDepsRecursively deps)
@@ -145,28 +149,31 @@ let
               # the right order - if a plugin which is dependent on
               # another plugin is placed before its dependency, it will
               # fail to load.
-            extensionTexts = lib.listToAttrs (map (
-              ext:
-              let
-                extName = getExtName ext;
-                phpDeps = (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ]);
-                type =
-                  "${
-                    lib.optionalString (ext.zendExtension or false) "zend_"
-                  }extension";
-              in
-              lib.nameValuePair extName {
-                text = "${type}=${ext}/lib/php/extensions/${extName}.so";
-                deps = map getExtName phpDeps;
-              }
-            ) (
-              enabledExtensions ++ (getDepsRecursively enabledExtensions)
-            ));
+            extensionTexts = lib.listToAttrs (
+              map
+              (
+                ext:
+                let
+                  extName = getExtName ext;
+                  phpDeps = (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ]);
+                  type =
+                    "${
+                      lib.optionalString (ext.zendExtension or false) "zend_"
+                    }extension";
+                in
+                lib.nameValuePair extName {
+                  text = "${type}=${ext}/lib/php/extensions/${extName}.so";
+                  deps = map getExtName phpDeps;
+                }
+              )
+              (enabledExtensions ++ (getDepsRecursively enabledExtensions))
+            );
 
             extNames = map getExtName enabledExtensions;
             extraInit = writeText "php-extra-init-${version}.ini" ''
-              ${lib.concatStringsSep "\n"
-              (lib.textClosureList extensionTexts extNames)}
+              ${lib.concatStringsSep "\n" (
+                lib.textClosureList extensionTexts extNames
+              )}
               ${extraConfig}
             '';
 
@@ -180,9 +187,9 @@ let
                 overrideAttrs =
                   f:
                   let
-                    newPhpAttrsOverrides = composeOverrides (
-                      filteredArgs.phpAttrsOverrides or (attrs: { })
-                    ) f;
+                    newPhpAttrsOverrides = composeOverrides
+                      (filteredArgs.phpAttrsOverrides or (attrs: { }))
+                      f;
                     php = generic (
                       filteredArgs // {
                         phpAttrsOverrides = newPhpAttrsOverrides;
@@ -196,8 +203,9 @@ let
                   # Select the right php tests for the php version
                 tests = {
                   nixos = lib.recurseIntoAttrs nixosTests."php${
-                      lib.strings.replaceStrings [ "." ] [ "" ]
-                      (lib.versions.majorMinor php.version)
+                      lib.strings.replaceStrings [ "." ] [ "" ] (
+                        lib.versions.majorMinor php.version
+                      )
                     }";
                   package = tests.php;
                 };
@@ -303,7 +311,8 @@ let
             ++ lib.optional (!phpdbgSupport) "--disable-phpdbg"
 
               # Misc flags
-            ++ lib.optional apxs2Support
+            ++ lib.optional
+              apxs2Support
               "--with-apxs2=${apacheHttpd.dev}/bin/apxs"
             ++ lib.optional argon2Support "--with-password-argon2=${libargon2}"
             ++ lib.optional cgotoSupport "--enable-re2c-cgoto"
@@ -311,9 +320,11 @@ let
             ++ lib.optional (!ipv6Support) "--disable-ipv6"
             ++ lib.optional systemdSupport "--with-fpm-systemd"
             ++ lib.optional valgrindSupport "--with-valgrind=${valgrind.dev}"
-            ++ lib.optional (ztsSupport && (lib.versionOlder version "8.0"))
+            ++ lib.optional
+              (ztsSupport && (lib.versionOlder version "8.0"))
               "--enable-maintainer-zts"
-            ++ lib.optional (ztsSupport && (lib.versionAtLeast version "8.0"))
+            ++ lib.optional
+              (ztsSupport && (lib.versionAtLeast version "8.0"))
               "--enable-zts"
 
               # Sendmail
@@ -376,9 +387,11 @@ let
           passthru = {
             updateScript =
               let
-                script = writeShellScript "php${lib.versions.major version}${
+                script = writeShellScript
+                  "php${lib.versions.major version}${
                     lib.versions.minor version
-                  }-update-script" ''
+                  }-update-script"
+                  ''
                     set -o errexit
                     PATH=${
                       lib.makeBinPath [

@@ -11,14 +11,19 @@ let
   configFile =
     # Have to remove nulls manually as TOML generator will not just skip key
     # if value is null
-    settingsFormat.generate "wgautomesh-config.toml"
-    (filterAttrs (k: v: v != null) (mapAttrs (
-      k: v:
-      if k == "peers" then
-        map (e: filterAttrs (k: v: v != null) e) v
-      else
-        v
-    ) cfg.settings));
+    settingsFormat.generate "wgautomesh-config.toml" (
+      filterAttrs (k: v: v != null) (
+        mapAttrs
+        (
+          k: v:
+          if k == "peers" then
+            map (e: filterAttrs (k: v: v != null) e) v
+          else
+            v
+        )
+        cfg.settings
+      )
+    );
   runtimeConfigFile =
     if cfg.enableGossipEncryption then
       "/run/wgautomesh/wgautomesh.toml"
@@ -101,31 +106,33 @@ in
             '';
           };
           peers = mkOption {
-            type = types.listOf (types.submodule {
-              options = {
-                pubkey = mkOption {
-                  type = types.str;
-                  description = mdDoc "Wireguard public key of this peer.";
+            type = types.listOf (
+              types.submodule {
+                options = {
+                  pubkey = mkOption {
+                    type = types.str;
+                    description = mdDoc "Wireguard public key of this peer.";
+                  };
+                  address = mkOption {
+                    type = types.str;
+                    description = mdDoc ''
+                      Wireguard address of this peer (a single IP address, multliple
+                      addresses or address ranges are not supported).
+                    '';
+                    example = "10.0.0.42";
+                  };
+                  endpoint = mkOption {
+                    type = types.nullOr types.str;
+                    description = mdDoc ''
+                      Bootstrap endpoint for connecting to this Wireguard peer if no
+                      other address is known or none are working.
+                    '';
+                    default = null;
+                    example = "wgnode.mydomain.example:51820";
+                  };
                 };
-                address = mkOption {
-                  type = types.str;
-                  description = mdDoc ''
-                    Wireguard address of this peer (a single IP address, multliple
-                    addresses or address ranges are not supported).
-                  '';
-                  example = "10.0.0.42";
-                };
-                endpoint = mkOption {
-                  type = types.nullOr types.str;
-                  description = mdDoc ''
-                    Bootstrap endpoint for connecting to this Wireguard peer if no
-                    other address is known or none are working.
-                  '';
-                  default = null;
-                  example = "wgnode.mydomain.example:51820";
-                };
-              };
-            });
+              }
+            );
             default = [ ];
             description = mdDoc "wgautomesh peer list.";
           };

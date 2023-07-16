@@ -75,10 +75,12 @@ import ./make-test-python.nix (
 
     nodes = {
       cass0 = nodeCfg "192.168.1.1" { };
-      cass1 = nodeCfg "192.168.1.2" (lib.optionalAttrs testRemoteAuth {
-        inherit jmxRoles;
-        remoteJmx = true;
-      });
+      cass1 = nodeCfg "192.168.1.2" (
+        lib.optionalAttrs testRemoteAuth {
+          inherit jmxRoles;
+          remoteJmx = true;
+        }
+      );
       cass2 = nodeCfg "192.168.1.3" {
         jvmOpts = [ "-Dcassandra.replace_address=cass1" ];
       };

@@ -24,8 +24,8 @@
   qtdeclarative,
   qtEnv,
   enablePython ? false,
-  python ? throw
-    "vtk: Python support requested, but no python interpreter was given."
+  python ?
+    throw "vtk: Python support requested, but no python interpreter was given."
     # Darwin support
   ,
   AGL,

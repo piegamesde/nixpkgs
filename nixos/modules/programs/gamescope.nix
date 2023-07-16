@@ -12,13 +12,14 @@ let
     let
       wrapperArgs =
         optional (cfg.args != [ ]) ''--add-flags "${toString cfg.args}"''
-        ++ builtins.attrValues
-          (mapAttrs (var: val: "--set-default ${var} ${val}") cfg.env)
+        ++ builtins.attrValues (
+          mapAttrs (var: val: "--set-default ${var} ${val}") cfg.env
+        )
         ;
     in
-    pkgs.runCommand "gamescope" {
-      nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
-    } ''
+    pkgs.runCommand "gamescope"
+    { nativeBuildInputs = [ pkgs.makeBinaryWrapper ]; }
+    ''
       mkdir -p $out/bin
       makeWrapper ${cfg.package}/bin/gamescope $out/bin/gamescope --inherit-argv0 \
         ${toString wrapperArgs}

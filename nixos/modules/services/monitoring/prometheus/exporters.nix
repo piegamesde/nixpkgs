@@ -42,71 +42,75 @@ let
     #  systemd service must be provided by specifying either
     #  `serviceOpts.script` or `serviceOpts.serviceConfig.ExecStart`
 
-  exporterOpts = genAttrs [
-    "apcupsd"
-    "artifactory"
-    "bind"
-    "bird"
-    "bitcoin"
-    "blackbox"
-    "buildkite-agent"
-    "collectd"
-    "dmarc"
-    "dnsmasq"
-    "domain"
-    "dovecot"
-    "fastly"
-    "fritzbox"
-    "influxdb"
-    "ipmi"
-    "json"
-    "jitsi"
-    "kea"
-    "keylight"
-    "knot"
-    "lnd"
-    "mail"
-    "mikrotik"
-    "minio"
-    "modemmanager"
-    "nextcloud"
-    "nginx"
-    "nginxlog"
-    "node"
-    "nut"
-    "openldap"
-    "openvpn"
-    "pihole"
-    "postfix"
-    "postgres"
-    "process"
-    "pve"
-    "py-air-control"
-    "redis"
-    "rspamd"
-    "rtl_433"
-    "script"
-    "shelly"
-    "snmp"
-    "smartctl"
-    "smokeping"
-    "sql"
-    "statsd"
-    "surfboard"
-    "systemd"
-    "tor"
-    "unbound"
-    "unifi"
-    "unpoller"
-    "v2ray"
-    "varnish"
-    "wireguard"
-    "flow"
-    "zfs"
-  ] (
-    name:
-    import (./. + "/exporters/${name}.nix") { inherit config lib pkgs options; }
-  );
+  exporterOpts = genAttrs
+    [
+      "apcupsd"
+      "artifactory"
+      "bind"
+      "bird"
+      "bitcoin"
+      "blackbox"
+      "buildkite-agent"
+      "collectd"
+      "dmarc"
+      "dnsmasq"
+      "domain"
+      "dovecot"
+      "fastly"
+      "fritzbox"
+      "influxdb"
+      "ipmi"
+      "json"
+      "jitsi"
+      "kea"
+      "keylight"
+      "knot"
+      "lnd"
+      "mail"
+      "mikrotik"
+      "minio"
+      "modemmanager"
+      "nextcloud"
+      "nginx"
+      "nginxlog"
+      "node"
+      "nut"
+      "openldap"
+      "openvpn"
+      "pihole"
+      "postfix"
+      "postgres"
+      "process"
+      "pve"
+      "py-air-control"
+      "redis"
+      "rspamd"
+      "rtl_433"
+      "script"
+      "shelly"
+      "snmp"
+      "smartctl"
+      "smokeping"
+      "sql"
+      "statsd"
+      "surfboard"
+      "systemd"
+      "tor"
+      "unbound"
+      "unifi"
+      "unpoller"
+      "v2ray"
+      "varnish"
+      "wireguard"
+      "flow"
+      "zfs"
+    ]
+    (
+      name:
+      import (./. + "/exporters/${name}.nix") {
+        inherit config lib pkgs options;
+      }
+    );
 
   mkExporterOpts =
     (
@@ -203,15 +207,19 @@ let
     ;
 
   mkSubModules =
-    (foldl' (a: b: a // b) { } (mapAttrsToList (
-      name: opts:
-      mkSubModule {
-        inherit name;
-        inherit (opts) port;
-        extraOpts = opts.extraOpts or { };
-        imports = opts.imports or [ ];
-      }
-    ) exporterOpts));
+    (foldl' (a: b: a // b) { } (
+      mapAttrsToList
+      (
+        name: opts:
+        mkSubModule {
+          inherit name;
+          inherit (opts) port;
+          extraOpts = opts.extraOpts or { };
+          imports = opts.imports or [ ];
+        }
+      )
+      exporterOpts
+    ));
 
   mkExporterConf =
     {
@@ -234,11 +242,12 @@ let
         (mkIf (conf.group == "${name}-exporter" && !enableDynamicUser) {
           "${name}-exporter" = { };
         });
-      networking.firewall.extraCommands = mkIf conf.openFirewall
-        (concatStrings [
+      networking.firewall.extraCommands = mkIf conf.openFirewall (
+        concatStrings [
           "ip46tables -A nixos-fw ${conf.firewallFilter} "
           "-m comment --comment ${name}-exporter -j nixos-fw-accept"
-        ]);
+        ]
+      );
       systemd.services."prometheus-${name}-exporter" = mkMerge ([
         {
           wantedBy = [ "multi-user.target" ];
@@ -283,28 +292,32 @@ in
 {
 
   imports =
-    (lib.forEach [
-      "blackboxExporter"
-      "collectdExporter"
-      "fritzboxExporter"
-      "jsonExporter"
-      "minioExporter"
-      "nginxExporter"
-      "nodeExporter"
-      "snmpExporter"
-      "unifiExporter"
-      "varnishExporter"
-    ] (
-      opt:
-      lib.mkRemovedOptionModule [
-        "services"
-        "prometheus"
-        "${opt}"
-      ] ''
-        The prometheus exporters are now configured using `services.prometheus.exporters'.
-        See the 18.03 release notes for more information.
-      ''
-    ));
+    (lib.forEach
+      [
+        "blackboxExporter"
+        "collectdExporter"
+        "fritzboxExporter"
+        "jsonExporter"
+        "minioExporter"
+        "nginxExporter"
+        "nodeExporter"
+        "snmpExporter"
+        "unifiExporter"
+        "varnishExporter"
+      ]
+      (
+        opt:
+        lib.mkRemovedOptionModule
+        [
+          "services"
+          "prometheus"
+          "${opt}"
+        ]
+        ''
+          The prometheus exporters are now configured using `services.prometheus.exporters'.
+          See the 18.03 release notes for more information.
+        ''
+      ));
 
   options.services.prometheus.exporters = mkOption {
     type = types.submodule {
@@ -425,16 +438,18 @@ in
             '';
           }
         ]
-        ++ (flip map (attrNames exporterOpts) (exporter: {
-          assertion =
-            cfg.${exporter}.firewallFilter != null
-            -> cfg.${exporter}.openFirewall
-            ;
-          message = ''
-            The `firewallFilter'-option of exporter ${exporter} doesn't have any effect unless
-            `openFirewall' is set to `true'!
-          '';
-        }))
+        ++ (flip map (attrNames exporterOpts) (
+          exporter: {
+            assertion =
+              cfg.${exporter}.firewallFilter != null
+              -> cfg.${exporter}.openFirewall
+              ;
+            message = ''
+              The `firewallFilter'-option of exporter ${exporter} doesn't have any effect unless
+              `openFirewall' is set to `true'!
+            '';
+          }
+        ))
         ++ config.services.prometheus.exporters.assertions
         ;
       warnings = config.services.prometheus.exporters.warnings;
@@ -460,14 +475,16 @@ in
           mkDefault config.services.postfix.setgidGroup;
       })
     ]
-    ++ (mapAttrsToList (
-      name: conf:
-      mkExporterConf {
-        inherit name;
-        inherit (conf) serviceOpts;
-        conf = cfg.${name};
-      }
-    ) exporterOpts)
+    ++ (mapAttrsToList
+      (
+        name: conf:
+        mkExporterConf {
+          inherit name;
+          inherit (conf) serviceOpts;
+          conf = cfg.${name};
+        }
+      )
+      exporterOpts)
   );
 
   meta = {

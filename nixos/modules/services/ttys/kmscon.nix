@@ -43,8 +43,8 @@ in
       fonts = mkOption {
         description = lib.mdDoc "Fonts used by kmscon, in order of priority.";
         default = null;
-        example = lib.literalExpression
-          ''[ { name = "Source Code Pro"; package = pkgs.source-code-pro; } ]'';
+        example = lib.literalExpression ''
+          [ { name = "Source Code Pro"; package = pkgs.source-code-pro; } ]'';
         type = with types;
           let
             fontType = submodule {
@@ -129,8 +129,9 @@ in
           "drm"
           "hwaccel"
         ];
-        fonts = optional (cfg.fonts != null)
-          "font-name=${lib.concatMapStringsSep ", " (f: f.name) cfg.fonts}";
+        fonts = optional (cfg.fonts != null) "font-name=${
+            lib.concatMapStringsSep ", " (f: f.name) cfg.fonts
+          }";
       in
       lib.concatStringsSep "\n" (render ++ fonts)
       ;

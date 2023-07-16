@@ -4,7 +4,8 @@
   lib,
 }:
 
-haskell.lib.compose.justStaticExecutables (haskell.lib.compose.overrideCabal
+haskell.lib.compose.justStaticExecutables (
+  haskell.lib.compose.overrideCabal
   (oldAttrs: {
     maintainers =
       (oldAttrs.maintainers or [ ]) ++ [ lib.maintainers.cdepillabout ];
@@ -14,5 +15,7 @@ haskell.lib.compose.justStaticExecutables (haskell.lib.compose.overrideCabal
     buildDepends =
       (oldAttrs.buildDepends or [ ]) ++ [ haskellPackages.optparse-applicative ]
       ;
-  }) haskellPackages.pretty-simple)
+  })
+  haskellPackages.pretty-simple
+)
 

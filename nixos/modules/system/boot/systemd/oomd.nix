@@ -21,16 +21,19 @@ in
     enableSystemSlice =
       lib.mkEnableOption (lib.mdDoc "oomd on the system slice (`system.slice`)")
       ;
-    enableUserServices = lib.mkEnableOption
-      (lib.mdDoc "oomd on all user services (`user@.service`)");
+    enableUserServices = lib.mkEnableOption (
+      lib.mdDoc "oomd on all user services (`user@.service`)"
+    );
 
     extraConfig = lib.mkOption {
       type = with lib.types;
-        attrsOf (oneOf [
-          str
-          int
-          bool
-        ]);
+        attrsOf (
+          oneOf [
+            str
+            int
+            bool
+          ]
+        );
       default = { };
       example =
         lib.literalExpression ''{ DefaultMemoryPressureDurationSec = "20s"; }'';

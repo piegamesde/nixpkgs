@@ -14,17 +14,19 @@ in
 {
   options = {
     services.samba-wsdd = {
-      enable = mkEnableOption (lib.mdDoc ''
-        Web Services Dynamic Discovery host daemon. This enables (Samba) hosts, like your local NAS device,
-        to be found by Web Service Discovery Clients like Windows.
+      enable = mkEnableOption (
+        lib.mdDoc ''
+          Web Services Dynamic Discovery host daemon. This enables (Samba) hosts, like your local NAS device,
+          to be found by Web Service Discovery Clients like Windows.
 
-        ::: {.note}
-        If you use the firewall consider adding the following:
+          ::: {.note}
+          If you use the firewall consider adding the following:
 
-            networking.firewall.allowedTCPPorts = [ 5357 ];
-            networking.firewall.allowedUDPPorts = [ 3702 ];
-        :::
-      '');
+              networking.firewall.allowedTCPPorts = [ 5357 ];
+              networking.firewall.allowedUDPPorts = [ 3702 ];
+          :::
+        ''
+      );
       interface = mkOption {
         type = types.nullOr types.str;
         default = null;
@@ -95,27 +97,33 @@ in
         Type = "simple";
         ExecStart = ''
           ${pkgs.wsdd}/bin/wsdd ${
-            optionalString (cfg.interface != null)
+            optionalString
+            (cfg.interface != null)
             "--interface '${cfg.interface}'"
           } \
                                 ${
-                                  optionalString (cfg.hoplimit != null)
+                                  optionalString
+                                  (cfg.hoplimit != null)
                                   "--hoplimit '${toString cfg.hoplimit}'"
                                 } \
                                 ${
-                                  optionalString (cfg.workgroup != null)
+                                  optionalString
+                                  (cfg.workgroup != null)
                                   "--workgroup '${cfg.workgroup}'"
                                 } \
                                 ${
-                                  optionalString (cfg.hostname != null)
+                                  optionalString
+                                  (cfg.hostname != null)
                                   "--hostname '${cfg.hostname}'"
                                 } \
                                 ${
-                                  optionalString (cfg.domain != null)
+                                  optionalString
+                                  (cfg.domain != null)
                                   "--domain '${cfg.domain}'"
                                 } \
                                 ${
-                                  optionalString cfg.discovery
+                                  optionalString
+                                  cfg.discovery
                                   "--discovery --listen '${cfg.listen}'"
                                 } \
                                 ${escapeShellArgs cfg.extraOptions}

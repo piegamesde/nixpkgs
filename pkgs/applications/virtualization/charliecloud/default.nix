@@ -33,18 +33,22 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [
     docker
-    (python3.withPackages (ps: [
-      ps.lark
-      ps.requests
-    ]))
+    (python3.withPackages (
+      ps: [
+        ps.lark
+        ps.requests
+      ]
+    ))
   ];
 
   configureFlags =
     let
-      pythonEnv = python3.withPackages (ps: [
-        ps.lark
-        ps.requests
-      ]);
+      pythonEnv = python3.withPackages (
+        ps: [
+          ps.lark
+          ps.requests
+        ]
+      );
     in
     [ "--with-python=${pythonEnv}/bin/python3" ]
     ;

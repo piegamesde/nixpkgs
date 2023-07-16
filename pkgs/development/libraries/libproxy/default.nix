@@ -87,7 +87,8 @@ stdenv.mkDerivation rec {
       "-DWITH_PYTHON2=OFF"
       "-DPYTHON3_SITEPKG_DIR=${placeholder "py3"}/${python3.sitePackages}"
     ]
-    ++ lib.optional (enableJavaScript && !stdenv.hostPlatform.isDarwin)
+    ++ lib.optional
+      (enableJavaScript && !stdenv.hostPlatform.isDarwin)
       "-DWITH_MOZJS=ON"
     ;
 

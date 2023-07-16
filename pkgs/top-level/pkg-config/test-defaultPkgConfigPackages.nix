@@ -10,13 +10,15 @@
 let
   inherit (lib.strings) escapeNixIdentifier;
 
-  allTests = lib.mapAttrs (
-    k: v:
-    if v == null then
-      null
-    else
-      makePkgConfigTestMaybe k v
-  ) (builtins.removeAttrs defaultPkgConfigPackages [ "recurseForDerivations" ]);
+  allTests = lib.mapAttrs
+    (
+      k: v:
+      if v == null then
+        null
+      else
+        makePkgConfigTestMaybe k v
+    )
+    (builtins.removeAttrs defaultPkgConfigPackages [ "recurseForDerivations" ]);
 
     # nix-build rejects attribute names with periods
     # This will build those regardless.

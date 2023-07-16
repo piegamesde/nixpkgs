@@ -65,7 +65,8 @@ in
 lib.warnIf (enableQT != false)
 "geant4: enableQT is deprecated, please use enableQt"
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   version = "11.0.4";
   pname = "geant4";
 

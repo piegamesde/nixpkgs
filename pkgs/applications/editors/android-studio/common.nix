@@ -214,7 +214,8 @@ let
       ;
   };
 in
-runCommand drvName {
+runCommand drvName
+{
   startScript = ''
     #!${bash}/bin/bash
     ${fhsEnv}/bin/${drvName}-fhs-env ${androidStudio}/bin/studio.sh "$@"
@@ -256,7 +257,8 @@ runCommand drvName {
       ."${channel}";
     mainProgram = pname;
   };
-} ''
+}
+''
   mkdir -p $out/{bin,share/pixmaps}
 
   echo -n "$startScript" > $out/bin/${pname}

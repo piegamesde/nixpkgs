@@ -44,8 +44,9 @@ let
 
   hydra-package =
     let
-      makeWrapperArgs = concatStringsSep " "
-        (mapAttrsToList (key: value: ''--set "${key}" "${value}"'') hydraEnv);
+      makeWrapperArgs = concatStringsSep " " (
+        mapAttrsToList (key: value: ''--set "${key}" "${value}"'') hydraEnv
+      );
     in
     pkgs.buildEnv rec {
       name = "hydra-env";
@@ -212,8 +213,8 @@ in
         type = types.listOf types.path;
         default =
           optional (config.nix.buildMachines != [ ]) "/etc/nix/machines";
-        defaultText = literalExpression
-          ''optional (config.nix.buildMachines != []) "/etc/nix/machines"'';
+        defaultText = literalExpression ''
+          optional (config.nix.buildMachines != []) "/etc/nix/machines"'';
         example = [
           "/etc/nix/machines"
           "/var/lib/hydra/provisioner/machines"

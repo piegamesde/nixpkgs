@@ -52,7 +52,8 @@ buildDotnetModule rec {
   '';
 
   DOTNET_SYSTEM_GLOBALIZATION_INVARIANT = isNull glibcLocales;
-  LOCALE_ARCHIVE = lib.optionalString (!DOTNET_SYSTEM_GLOBALIZATION_INVARIANT)
+  LOCALE_ARCHIVE = lib.optionalString
+    (!DOTNET_SYSTEM_GLOBALIZATION_INVARIANT)
     "${glibcLocales}/lib/locale/locale-archive";
 
   postConfigure = ''
@@ -109,41 +110,46 @@ buildDotnetModule rec {
     # Fully qualified name of disabled tests
   disabledTests =
     [ "GitHub.Runner.Common.Tests.Listener.SelfUpdaterL0.TestSelfUpdateAsync" ]
-    ++ map (
-      x:
-      "GitHub.Runner.Common.Tests.Listener.SelfUpdaterL0.TestSelfUpdateAsync_${x}"
-    ) [
-      "Cancel_CloneHashTask_WhenNotNeeded"
-      "CloneHash_RuntimeAndExternals"
-      "DownloadRetry"
-      "FallbackToFullPackage"
-      "NoUpdateOnOldVersion"
-      "NotUseExternalsRuntimeTrimmedPackageOnHashMismatch"
-      "UseExternalsRuntimeTrimmedPackage"
-      "UseExternalsTrimmedPackage"
-      "ValidateHash"
-    ]
-    ++ map (
-      x: "GitHub.Runner.Common.Tests.Worker.ActionManagerL0.PrepareActions_${x}"
-    ) [
-      "CompositeActionWithActionfile_CompositeContainerNested"
-      "CompositeActionWithActionfile_CompositePrestepNested"
-      "CompositeActionWithActionfile_MaxLimit"
-      "CompositeActionWithActionfile_Node"
-      "DownloadActionFromGraph"
-      "NotPullOrBuildImagesMultipleTimes"
-      "RepositoryActionWithActionYamlFile_DockerHubImage"
-      "RepositoryActionWithActionfileAndDockerfile"
-      "RepositoryActionWithActionfile_DockerHubImage"
-      "RepositoryActionWithActionfile_Dockerfile"
-      "RepositoryActionWithActionfile_DockerfileRelativePath"
-      "RepositoryActionWithActionfile_Node"
-      "RepositoryActionWithDockerfile"
-      "RepositoryActionWithDockerfileInRelativePath"
-      "RepositoryActionWithDockerfilePrepareActions_Repository"
-      "RepositoryActionWithInvalidWrapperActionfile_Node"
-      "RepositoryActionWithWrapperActionfile_PreSteps"
-    ]
+    ++ map
+      (
+        x:
+        "GitHub.Runner.Common.Tests.Listener.SelfUpdaterL0.TestSelfUpdateAsync_${x}"
+      )
+      [
+        "Cancel_CloneHashTask_WhenNotNeeded"
+        "CloneHash_RuntimeAndExternals"
+        "DownloadRetry"
+        "FallbackToFullPackage"
+        "NoUpdateOnOldVersion"
+        "NotUseExternalsRuntimeTrimmedPackageOnHashMismatch"
+        "UseExternalsRuntimeTrimmedPackage"
+        "UseExternalsTrimmedPackage"
+        "ValidateHash"
+      ]
+    ++ map
+      (
+        x:
+        "GitHub.Runner.Common.Tests.Worker.ActionManagerL0.PrepareActions_${x}"
+      )
+      [
+        "CompositeActionWithActionfile_CompositeContainerNested"
+        "CompositeActionWithActionfile_CompositePrestepNested"
+        "CompositeActionWithActionfile_MaxLimit"
+        "CompositeActionWithActionfile_Node"
+        "DownloadActionFromGraph"
+        "NotPullOrBuildImagesMultipleTimes"
+        "RepositoryActionWithActionYamlFile_DockerHubImage"
+        "RepositoryActionWithActionfileAndDockerfile"
+        "RepositoryActionWithActionfile_DockerHubImage"
+        "RepositoryActionWithActionfile_Dockerfile"
+        "RepositoryActionWithActionfile_DockerfileRelativePath"
+        "RepositoryActionWithActionfile_Node"
+        "RepositoryActionWithDockerfile"
+        "RepositoryActionWithDockerfileInRelativePath"
+        "RepositoryActionWithDockerfilePrepareActions_Repository"
+        "RepositoryActionWithInvalidWrapperActionfile_Node"
+        "RepositoryActionWithWrapperActionfile_PreSteps"
+      ]
     ++ map (x: "GitHub.Runner.Common.Tests.DotnetsdkDownloadScriptL0.${x}") [
       "EnsureDotnetsdkBashDownloadScriptUpToDate"
       "EnsureDotnetsdkPowershellDownloadScriptUpToDate"

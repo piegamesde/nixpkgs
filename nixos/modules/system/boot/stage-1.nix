@@ -98,232 +98,245 @@ let
     # copy what we need.  Instead of using statically linked binaries,
     # we just copy what we need from Glibc and use patchelf to make it
     # work.
-  extraUtils = pkgs.runCommand "extra-utils" {
-    nativeBuildInputs = [ pkgs.buildPackages.nukeReferences ];
-    allowedReferences = [
-        "out"
-      ]; # prevent accidents like glibc being included in the initrd
-  } ''
-    set +o pipefail
-
-    mkdir -p $out/bin $out/lib
-    ln -s $out/bin $out/sbin
-
-    copy_bin_and_libs () {
-      [ -f "$out/bin/$(basename $1)" ] && rm "$out/bin/$(basename $1)"
-      cp -pdv $1 $out/bin
+  extraUtils = pkgs.runCommand "extra-utils"
+    {
+      nativeBuildInputs = [ pkgs.buildPackages.nukeReferences ];
+      allowedReferences = [
+          "out"
+        ]; # prevent accidents like glibc being included in the initrd
     }
+    ''
+      set +o pipefail
 
-    # Copy BusyBox.
-    for BIN in ${pkgs.busybox}/{s,}bin/*; do
-      copy_bin_and_libs $BIN
-    done
+      mkdir -p $out/bin $out/lib
+      ln -s $out/bin $out/sbin
 
-    ${optionalString zfsRequiresMountHelper ''
-      # Filesystems using the "zfsutil" option are mounted regardless of the
-      # mount.zfs(8) helper, but it is required to ensure that ZFS properties
-      # are used as mount options.
-      #
-      # BusyBox does not use the ZFS helper in the first place.
-      # util-linux searches /sbin/ as last path for helpers (stage-1-init.sh
-      # must symlink it to the store PATH).
-      # Without helper program, both `mount`s silently fails back to internal
-      # code, using default options and effectively ignore security relevant
-      # ZFS properties such as `setuid=off` and `exec=off` (unless manually
-      # duplicated in `fileSystems.*.options`, defeating "zfsutil"'s purpose).
-      copy_bin_and_libs ${pkgs.util-linux}/bin/mount
-      copy_bin_and_libs ${pkgs.zfs}/bin/mount.zfs
-    ''}
+      copy_bin_and_libs () {
+        [ -f "$out/bin/$(basename $1)" ] && rm "$out/bin/$(basename $1)"
+        cp -pdv $1 $out/bin
+      }
 
-    # Copy some util-linux stuff.
-    copy_bin_and_libs ${pkgs.util-linux}/sbin/blkid
-
-    # Copy dmsetup and lvm.
-    copy_bin_and_libs ${getBin pkgs.lvm2}/bin/dmsetup
-    copy_bin_and_libs ${getBin pkgs.lvm2}/bin/lvm
-
-    # Add RAID mdadm tool.
-    copy_bin_and_libs ${pkgs.mdadm}/sbin/mdadm
-    copy_bin_and_libs ${pkgs.mdadm}/sbin/mdmon
-
-    # Copy udev.
-    copy_bin_and_libs ${udev}/bin/udevadm
-    copy_bin_and_libs ${udev}/lib/systemd/systemd-sysctl
-    for BIN in ${udev}/lib/udev/*_id; do
-      copy_bin_and_libs $BIN
-    done
-    # systemd-udevd is only a symlink to udevadm these days
-    ln -sf udevadm $out/bin/systemd-udevd
-
-    # Copy modprobe.
-    copy_bin_and_libs ${pkgs.kmod}/bin/kmod
-    ln -sf kmod $out/bin/modprobe
-
-    # Copy resize2fs if any ext* filesystems are to be resized
-    ${optionalString
-    (any (fs: fs.autoResize && (lib.hasPrefix "ext" fs.fsType)) fileSystems) ''
-      # We need mke2fs in the initrd.
-      copy_bin_and_libs ${pkgs.e2fsprogs}/sbin/resize2fs
-    ''}
-
-    # Copy multipath.
-    ${optionalString config.services.multipath.enable ''
-      copy_bin_and_libs ${config.services.multipath.package}/bin/multipath
-      copy_bin_and_libs ${config.services.multipath.package}/bin/multipathd
-      # Copy lib/multipath manually.
-      cp -rpv ${config.services.multipath.package}/lib/multipath $out/lib
-    ''}
-
-    # Copy secrets if needed.
-    #
-    # TODO: move out to a separate script; see #85000.
-    ${optionalString (!config.boot.loader.supportsInitrdSecrets)
-    (concatStringsSep "\n" (mapAttrsToList (
-      dest: source:
-      let
-        source' =
-          if source == null then
-            dest
-          else
-            source
-          ;
-      in
-      ''
-        mkdir -p $(dirname "$out/secrets/${dest}")
-        # Some programs (e.g. ssh) doesn't like secrets to be
-        # symlinks, so we use `cp -L` here to match the
-        # behaviour when secrets are natively supported.
-        cp -Lr ${source'} "$out/secrets/${dest}"
-      ''
-    ) config.boot.initrd.secrets))}
-
-    ${config.boot.initrd.extraUtilsCommands}
-
-    # Copy ld manually since it isn't detected correctly
-    cp -pv ${pkgs.stdenv.cc.libc.out}/lib/ld*.so.? $out/lib
-
-    # Copy all of the needed libraries in a consistent order so
-    # duplicates are resolved the same way.
-    find $out/bin $out/lib -type f | sort | while read BIN; do
-      echo "Copying libs for executable $BIN"
-      for LIB in $(${findLibs}/bin/find-libs $BIN); do
-        TGT="$out/lib/$(basename $LIB)"
-        if [ ! -f "$TGT" ]; then
-          SRC="$(readlink -e $LIB)"
-          cp -pdv "$SRC" "$TGT"
-        fi
+      # Copy BusyBox.
+      for BIN in ${pkgs.busybox}/{s,}bin/*; do
+        copy_bin_and_libs $BIN
       done
-    done
 
-    # Strip binaries further than normal.
-    chmod -R u+w $out
-    stripDirs "$STRIP" "$RANLIB" "lib bin" "-s"
-
-    # Run patchelf to make the programs refer to the copied libraries.
-    find $out/bin $out/lib -type f | while read i; do
-      nuke-refs -e $out $i
-    done
-
-    find $out/bin -type f | while read i; do
-      echo "patching $i..."
-      patchelf --set-interpreter $out/lib/ld*.so.? --set-rpath $out/lib $i || true
-    done
-
-    find $out/lib -type f \! -name 'ld*.so.?' | while read i; do
-      echo "patching $i..."
-      patchelf --set-rpath $out/lib $i
-    done
-
-    if [ -z "${
-      toString (pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform)
-    }" ]; then
-    # Make sure that the patchelf'ed binaries still work.
-    echo "testing patched programs..."
-    $out/bin/ash -c 'echo hello world' | grep "hello world"
-    ${if zfsRequiresMountHelper then
-      ''
-        $out/bin/mount -V 1>&1 | grep -q "mount from util-linux"
-        $out/bin/mount.zfs -h 2>&1 | grep -q "Usage: mount.zfs"
-      ''
-    else
-      ''
-        $out/bin/mount --help 2>&1 | grep -q "BusyBox"
+      ${optionalString zfsRequiresMountHelper ''
+        # Filesystems using the "zfsutil" option are mounted regardless of the
+        # mount.zfs(8) helper, but it is required to ensure that ZFS properties
+        # are used as mount options.
+        #
+        # BusyBox does not use the ZFS helper in the first place.
+        # util-linux searches /sbin/ as last path for helpers (stage-1-init.sh
+        # must symlink it to the store PATH).
+        # Without helper program, both `mount`s silently fails back to internal
+        # code, using default options and effectively ignore security relevant
+        # ZFS properties such as `setuid=off` and `exec=off` (unless manually
+        # duplicated in `fileSystems.*.options`, defeating "zfsutil"'s purpose).
+        copy_bin_and_libs ${pkgs.util-linux}/bin/mount
+        copy_bin_and_libs ${pkgs.zfs}/bin/mount.zfs
       ''}
-    $out/bin/blkid -V 2>&1 | grep -q 'libblkid'
-    $out/bin/udevadm --version
-    $out/bin/dmsetup --version 2>&1 | tee -a log | grep -q "version:"
-    LVM_SYSTEM_DIR=$out $out/bin/lvm version 2>&1 | tee -a log | grep -q "LVM"
-    $out/bin/mdadm --version
-    ${optionalString config.services.multipath.enable ''
-      ($out/bin/multipath || true) 2>&1 | grep -q 'need to be root'
-      ($out/bin/multipathd || true) 2>&1 | grep -q 'need to be root'
-    ''}
 
-    ${config.boot.initrd.extraUtilsCommandsTest}
-    fi
-  ''; # */
+      # Copy some util-linux stuff.
+      copy_bin_and_libs ${pkgs.util-linux}/sbin/blkid
+
+      # Copy dmsetup and lvm.
+      copy_bin_and_libs ${getBin pkgs.lvm2}/bin/dmsetup
+      copy_bin_and_libs ${getBin pkgs.lvm2}/bin/lvm
+
+      # Add RAID mdadm tool.
+      copy_bin_and_libs ${pkgs.mdadm}/sbin/mdadm
+      copy_bin_and_libs ${pkgs.mdadm}/sbin/mdmon
+
+      # Copy udev.
+      copy_bin_and_libs ${udev}/bin/udevadm
+      copy_bin_and_libs ${udev}/lib/systemd/systemd-sysctl
+      for BIN in ${udev}/lib/udev/*_id; do
+        copy_bin_and_libs $BIN
+      done
+      # systemd-udevd is only a symlink to udevadm these days
+      ln -sf udevadm $out/bin/systemd-udevd
+
+      # Copy modprobe.
+      copy_bin_and_libs ${pkgs.kmod}/bin/kmod
+      ln -sf kmod $out/bin/modprobe
+
+      # Copy resize2fs if any ext* filesystems are to be resized
+      ${optionalString
+      (any (fs: fs.autoResize && (lib.hasPrefix "ext" fs.fsType)) fileSystems)
+      ''
+        # We need mke2fs in the initrd.
+        copy_bin_and_libs ${pkgs.e2fsprogs}/sbin/resize2fs
+      ''}
+
+      # Copy multipath.
+      ${optionalString config.services.multipath.enable ''
+        copy_bin_and_libs ${config.services.multipath.package}/bin/multipath
+        copy_bin_and_libs ${config.services.multipath.package}/bin/multipathd
+        # Copy lib/multipath manually.
+        cp -rpv ${config.services.multipath.package}/lib/multipath $out/lib
+      ''}
+
+      # Copy secrets if needed.
+      #
+      # TODO: move out to a separate script; see #85000.
+      ${optionalString (!config.boot.loader.supportsInitrdSecrets) (
+        concatStringsSep "\n" (
+          mapAttrsToList
+          (
+            dest: source:
+            let
+              source' =
+                if source == null then
+                  dest
+                else
+                  source
+                ;
+            in
+            ''
+              mkdir -p $(dirname "$out/secrets/${dest}")
+              # Some programs (e.g. ssh) doesn't like secrets to be
+              # symlinks, so we use `cp -L` here to match the
+              # behaviour when secrets are natively supported.
+              cp -Lr ${source'} "$out/secrets/${dest}"
+            ''
+          )
+          config.boot.initrd.secrets
+        )
+      )}
+
+      ${config.boot.initrd.extraUtilsCommands}
+
+      # Copy ld manually since it isn't detected correctly
+      cp -pv ${pkgs.stdenv.cc.libc.out}/lib/ld*.so.? $out/lib
+
+      # Copy all of the needed libraries in a consistent order so
+      # duplicates are resolved the same way.
+      find $out/bin $out/lib -type f | sort | while read BIN; do
+        echo "Copying libs for executable $BIN"
+        for LIB in $(${findLibs}/bin/find-libs $BIN); do
+          TGT="$out/lib/$(basename $LIB)"
+          if [ ! -f "$TGT" ]; then
+            SRC="$(readlink -e $LIB)"
+            cp -pdv "$SRC" "$TGT"
+          fi
+        done
+      done
+
+      # Strip binaries further than normal.
+      chmod -R u+w $out
+      stripDirs "$STRIP" "$RANLIB" "lib bin" "-s"
+
+      # Run patchelf to make the programs refer to the copied libraries.
+      find $out/bin $out/lib -type f | while read i; do
+        nuke-refs -e $out $i
+      done
+
+      find $out/bin -type f | while read i; do
+        echo "patching $i..."
+        patchelf --set-interpreter $out/lib/ld*.so.? --set-rpath $out/lib $i || true
+      done
+
+      find $out/lib -type f \! -name 'ld*.so.?' | while read i; do
+        echo "patching $i..."
+        patchelf --set-rpath $out/lib $i
+      done
+
+      if [ -z "${
+        toString (pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform)
+      }" ]; then
+      # Make sure that the patchelf'ed binaries still work.
+      echo "testing patched programs..."
+      $out/bin/ash -c 'echo hello world' | grep "hello world"
+      ${if zfsRequiresMountHelper then
+        ''
+          $out/bin/mount -V 1>&1 | grep -q "mount from util-linux"
+          $out/bin/mount.zfs -h 2>&1 | grep -q "Usage: mount.zfs"
+        ''
+      else
+        ''
+          $out/bin/mount --help 2>&1 | grep -q "BusyBox"
+        ''}
+      $out/bin/blkid -V 2>&1 | grep -q 'libblkid'
+      $out/bin/udevadm --version
+      $out/bin/dmsetup --version 2>&1 | tee -a log | grep -q "version:"
+      LVM_SYSTEM_DIR=$out $out/bin/lvm version 2>&1 | tee -a log | grep -q "LVM"
+      $out/bin/mdadm --version
+      ${optionalString config.services.multipath.enable ''
+        ($out/bin/multipath || true) 2>&1 | grep -q 'need to be root'
+        ($out/bin/multipathd || true) 2>&1 | grep -q 'need to be root'
+      ''}
+
+      ${config.boot.initrd.extraUtilsCommandsTest}
+      fi
+    ''; # */
 
     # Networkd link files are used early by udev to set up interfaces early.
     # This must be done in stage 1 to avoid race conditions between udev and
     # network daemons.
-  linkUnits = pkgs.runCommand "link-units" {
-    allowedReferences = [ extraUtils ];
-    preferLocalBuild = true;
-  } (
+  linkUnits = pkgs.runCommand "link-units"
+    {
+      allowedReferences = [ extraUtils ];
+      preferLocalBuild = true;
+    }
+    (
+      ''
+        mkdir -p $out
+        cp -v ${udev}/lib/systemd/network/*.link $out/
+      ''
+      + (
+        let
+          links =
+            filterAttrs (n: v: hasSuffix ".link" n) config.systemd.network.units
+            ;
+          files = mapAttrsToList (n: v: "${v.unit}/${n}") links;
+        in
+        concatMapStringsSep "\n" (file: "cp -v ${file} $out/") files
+      )
+    );
+
+  udevRules = pkgs.runCommand "udev-rules"
+    {
+      allowedReferences = [ extraUtils ];
+      preferLocalBuild = true;
+    }
     ''
       mkdir -p $out
-      cp -v ${udev}/lib/systemd/network/*.link $out/
-    ''
-    + (
-      let
-        links =
-          filterAttrs (n: v: hasSuffix ".link" n) config.systemd.network.units;
-        files = mapAttrsToList (n: v: "${v.unit}/${n}") links;
-      in
-      concatMapStringsSep "\n" (file: "cp -v ${file} $out/") files
-    )
-  );
 
-  udevRules = pkgs.runCommand "udev-rules" {
-    allowedReferences = [ extraUtils ];
-    preferLocalBuild = true;
-  } ''
-    mkdir -p $out
+      cp -v ${udev}/lib/udev/rules.d/60-cdrom_id.rules $out/
+      cp -v ${udev}/lib/udev/rules.d/60-persistent-storage.rules $out/
+      cp -v ${udev}/lib/udev/rules.d/75-net-description.rules $out/
+      cp -v ${udev}/lib/udev/rules.d/80-drivers.rules $out/
+      cp -v ${udev}/lib/udev/rules.d/80-net-setup-link.rules $out/
+      cp -v ${pkgs.lvm2}/lib/udev/rules.d/*.rules $out/
+      ${config.boot.initrd.extraUdevRulesCommands}
 
-    cp -v ${udev}/lib/udev/rules.d/60-cdrom_id.rules $out/
-    cp -v ${udev}/lib/udev/rules.d/60-persistent-storage.rules $out/
-    cp -v ${udev}/lib/udev/rules.d/75-net-description.rules $out/
-    cp -v ${udev}/lib/udev/rules.d/80-drivers.rules $out/
-    cp -v ${udev}/lib/udev/rules.d/80-net-setup-link.rules $out/
-    cp -v ${pkgs.lvm2}/lib/udev/rules.d/*.rules $out/
-    ${config.boot.initrd.extraUdevRulesCommands}
+      for i in $out/*.rules; do
+          substituteInPlace $i \
+            --replace ata_id ${extraUtils}/bin/ata_id \
+            --replace scsi_id ${extraUtils}/bin/scsi_id \
+            --replace cdrom_id ${extraUtils}/bin/cdrom_id \
+            --replace ${pkgs.coreutils}/bin/basename ${extraUtils}/bin/basename \
+            --replace ${pkgs.util-linux}/bin/blkid ${extraUtils}/bin/blkid \
+            --replace ${getBin pkgs.lvm2}/bin ${extraUtils}/bin \
+            --replace ${pkgs.mdadm}/sbin ${extraUtils}/sbin \
+            --replace ${pkgs.bash}/bin/sh ${extraUtils}/bin/sh \
+            --replace ${udev} ${extraUtils}
+      done
 
-    for i in $out/*.rules; do
-        substituteInPlace $i \
-          --replace ata_id ${extraUtils}/bin/ata_id \
-          --replace scsi_id ${extraUtils}/bin/scsi_id \
-          --replace cdrom_id ${extraUtils}/bin/cdrom_id \
-          --replace ${pkgs.coreutils}/bin/basename ${extraUtils}/bin/basename \
-          --replace ${pkgs.util-linux}/bin/blkid ${extraUtils}/bin/blkid \
-          --replace ${getBin pkgs.lvm2}/bin ${extraUtils}/bin \
-          --replace ${pkgs.mdadm}/sbin ${extraUtils}/sbin \
-          --replace ${pkgs.bash}/bin/sh ${extraUtils}/bin/sh \
-          --replace ${udev} ${extraUtils}
-    done
-
-    # Work around a bug in QEMU, which doesn't implement the "READ
-    # DISC INFORMATION" SCSI command:
-    #   https://bugzilla.redhat.com/show_bug.cgi?id=609049
-    # As a result, `cdrom_id' doesn't print
-    # ID_CDROM_MEDIA_TRACK_COUNT_DATA, which in turn prevents the
-    # /dev/disk/by-label symlinks from being created.  We need these
-    # in the NixOS installation CD, so use ID_CDROM_MEDIA in the
-    # corresponding udev rules for now.  This was the behaviour in
-    # udev <= 154.  See also
-    #   http://www.spinics.net/lists/hotplug/msg03935.html
-    substituteInPlace $out/60-persistent-storage.rules \
-      --replace ID_CDROM_MEDIA_TRACK_COUNT_DATA ID_CDROM_MEDIA
-  ''; # */
+      # Work around a bug in QEMU, which doesn't implement the "READ
+      # DISC INFORMATION" SCSI command:
+      #   https://bugzilla.redhat.com/show_bug.cgi?id=609049
+      # As a result, `cdrom_id' doesn't print
+      # ID_CDROM_MEDIA_TRACK_COUNT_DATA, which in turn prevents the
+      # /dev/disk/by-label symlinks from being created.  We need these
+      # in the NixOS installation CD, so use ID_CDROM_MEDIA in the
+      # corresponding udev rules for now.  This was the behaviour in
+      # udev <= 154.  See also
+      #   http://www.spinics.net/lists/hotplug/msg03935.html
+      substituteInPlace $out/60-persistent-storage.rules \
+        --replace ID_CDROM_MEDIA_TRACK_COUNT_DATA ID_CDROM_MEDIA
+    ''; # */
 
     # The init script of boot stage 1 (loading kernel modules for
     # mounting the root FS).
@@ -361,19 +374,25 @@ let
       kernelModules
       ;
 
-    resumeDevices = map (
-      sd:
-      if sd ? device then
-        sd.device
-      else
-        "/dev/disk/by-label/${sd.label}"
-    ) (filter (
-      sd:
-      hasPrefix "/dev/" sd.device
-      && !sd.randomEncryption.enable
-        # Don't include zram devices
-      && !(hasPrefix "/dev/zram" sd.device)
-    ) config.swapDevices);
+    resumeDevices = map
+      (
+        sd:
+        if sd ? device then
+          sd.device
+        else
+          "/dev/disk/by-label/${sd.label}"
+      )
+      (
+        filter
+        (
+          sd:
+          hasPrefix "/dev/" sd.device
+          && !sd.randomEncryption.enable
+            # Don't include zram devices
+          && !(hasPrefix "/dev/zram" sd.device)
+        )
+        config.swapDevices
+      );
 
     fsInfo =
       let
@@ -391,8 +410,9 @@ let
           ]
           ;
       in
-      pkgs.writeText "initrd-fsinfo"
-      (concatStringsSep "\n" (concatMap f fileSystems))
+      pkgs.writeText "initrd-fsinfo" (
+        concatStringsSep "\n" (concatMap f fileSystems)
+      )
       ;
 
     setHostId = optionalString (config.networking.hostId != null) ''
@@ -421,18 +441,21 @@ let
           symlink = "/init";
         }
         {
-          object = pkgs.writeText "mdadm.conf"
+          object = pkgs.writeText
+            "mdadm.conf"
             config.boot.initrd.services.swraid.mdadmConf;
           symlink = "/etc/mdadm.conf";
         }
         {
-          object = pkgs.runCommand "initrd-kmod-blacklist-ubuntu" {
-            src = "${pkgs.kmod-blacklist-ubuntu}/modprobe.conf";
-            preferLocalBuild = true;
-          } ''
-            target=$out
-            ${pkgs.buildPackages.perl}/bin/perl -0pe 's/## file: iwlwifi.conf(.+?)##/##/s;' $src > $out
-          '';
+          object = pkgs.runCommand "initrd-kmod-blacklist-ubuntu"
+            {
+              src = "${pkgs.kmod-blacklist-ubuntu}/modprobe.conf";
+              preferLocalBuild = true;
+            }
+            ''
+              target=$out
+              ${pkgs.buildPackages.perl}/bin/perl -0pe 's/## file: iwlwifi.conf(.+?)##/##/s;' $src > $out
+            '';
           symlink = "/etc/modprobe.d/ubuntu.conf";
         }
         {
@@ -445,23 +468,27 @@ let
         }
       ]
       ++ lib.optionals config.services.multipath.enable [ {
-        object = pkgs.runCommand "multipath.conf" {
-          src = config.environment.etc."multipath.conf".text;
-          preferLocalBuild = true;
-        } ''
-          target=$out
-          printf "$src" > $out
-          substituteInPlace $out \
-            --replace ${config.services.multipath.package}/lib ${extraUtils}/lib
-        '';
+        object = pkgs.runCommand "multipath.conf"
+          {
+            src = config.environment.etc."multipath.conf".text;
+            preferLocalBuild = true;
+          }
+          ''
+            target=$out
+            printf "$src" > $out
+            substituteInPlace $out \
+              --replace ${config.services.multipath.package}/lib ${extraUtils}/lib
+          '';
         symlink = "/etc/multipath.conf";
       } ]
-      ++ (lib.mapAttrsToList (
-        symlink: options: {
-          inherit symlink;
-          object = options.source;
-        }
-      ) config.boot.initrd.extraFiles)
+      ++ (lib.mapAttrsToList
+        (
+          symlink: options: {
+            inherit symlink;
+            object = options.source;
+          }
+        )
+        config.boot.initrd.extraFiles)
       ;
   };
 
@@ -500,21 +527,25 @@ let
 
       tmp=$(mktemp -d ''${TMPDIR:-/tmp}/initrd-secrets.XXXXXXXXXX)
 
-      ${lib.concatStringsSep "\n" (mapAttrsToList (
-        dest: source:
-        let
-          source' =
-            if source == null then
-              dest
-            else
-              toString source
-            ;
-        in
-        ''
-          mkdir -p $(dirname "$tmp/.initrd-secrets/${dest}")
-          cp -a ${source'} "$tmp/.initrd-secrets/${dest}"
-        ''
-      ) config.boot.initrd.secrets)}
+      ${lib.concatStringsSep "\n" (
+        mapAttrsToList
+        (
+          dest: source:
+          let
+            source' =
+              if source == null then
+                dest
+              else
+                toString source
+              ;
+          in
+          ''
+            mkdir -p $(dirname "$tmp/.initrd-secrets/${dest}")
+            cp -a ${source'} "$tmp/.initrd-secrets/${dest}"
+          ''
+        )
+        config.boot.initrd.secrets
+      )}
 
       # mindepth 1 so that we don't change the mode of /
       (cd "$tmp" && find . -mindepth 1 -print0 | sort -z | bsdtar --uid 0 --gid 0 -cnf - -T - | bsdtar --null -cf - --format=newc @-) | \
@@ -554,15 +585,17 @@ in
 
     boot.initrd.extraFiles = mkOption {
       default = { };
-      type = types.attrsOf (types.submodule {
-        options = {
-          source = mkOption {
-            type = types.package;
-            description =
-              lib.mdDoc "The object to make available inside the initrd.";
+      type = types.attrsOf (
+        types.submodule {
+          options = {
+            source = mkOption {
+              type = types.package;
+              description =
+                lib.mdDoc "The object to make available inside the initrd.";
+            };
           };
-        };
-      });
+        }
+      );
       description = lib.mdDoc ''
         Extra files to link and copy in to the initrd.
       '';
@@ -746,21 +779,24 @@ in
 
     fileSystems = mkOption {
       type = with lib.types;
-        attrsOf (submodule {
-          options.neededForBoot = mkOption {
-            default = false;
-            type = types.bool;
-            description = lib.mdDoc ''
-              If set, this file system will be mounted in the initial ramdisk.
-              Note that the file system will always be mounted in the initial
-              ramdisk if its mount point is one of the following:
-              ${
-                concatStringsSep ", "
-                (forEach utils.pathsNeededForBoot (i: "{file}`${i}`"))
-              }.
-            '';
-          };
-        });
+        attrsOf (
+          submodule {
+            options.neededForBoot = mkOption {
+              default = false;
+              type = types.bool;
+              description = lib.mdDoc ''
+                If set, this file system will be mounted in the initial ramdisk.
+                Note that the file system will always be mounted in the initial
+                ramdisk if its mount point is one of the following:
+                ${
+                  concatStringsSep ", " (
+                    forEach utils.pathsNeededForBoot (i: "{file}`${i}`")
+                  )
+                }.
+              '';
+            };
+          }
+        );
     };
 
   };
@@ -788,13 +824,15 @@ in
       {
         assertion =
           !config.boot.loader.supportsInitrdSecrets
-          -> all (
-            source:
-            builtins.isPath source
-            || (
-              builtins.isString source && hasPrefix builtins.storeDir source
+          -> all
+            (
+              source:
+              builtins.isPath source
+              || (
+                builtins.isString source && hasPrefix builtins.storeDir source
+              )
             )
-          ) (attrValues config.boot.initrd.secrets)
+            (attrValues config.boot.initrd.secrets)
           ;
         message = ''
           boot.loader.initrd.secrets values must be unquoted paths when
@@ -829,16 +867,18 @@ in
   };
 
   imports = [
-      (mkRenamedOptionModule [
-        "boot"
-        "initrd"
-        "mdadmConf"
-      ] [
-        "boot"
-        "initrd"
-        "services"
-        "swraid"
-        "mdadmConf"
-      ])
+      (mkRenamedOptionModule
+        [
+          "boot"
+          "initrd"
+          "mdadmConf"
+        ]
+        [
+          "boot"
+          "initrd"
+          "services"
+          "swraid"
+          "mdadmConf"
+        ])
     ];
 }

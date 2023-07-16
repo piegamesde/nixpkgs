@@ -113,8 +113,8 @@ stdenv.mkDerivation {
 
   doCheck = interactive && !stdenv.isDarwin && !stdenv.isSunOS; # flaky
 
-  checkFlags =
-    lib.optionals (!stdenv.hostPlatform.isMusl && lib.versionOlder version "7")
+  checkFlags = lib.optionals
+    (!stdenv.hostPlatform.isMusl && lib.versionOlder version "7")
     [
       # Test is known to fail on various locales on texinfo-6.8:
       #   https://lists.gnu.org/r/bug-texinfo/2021-07/msg00012.html

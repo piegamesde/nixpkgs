@@ -107,8 +107,9 @@ in
       isSystemUser = true;
     };
 
-    users.groups = optionalAttrs (cfg.group == "rethinkdb")
-      (singleton { name = "rethinkdb"; });
+    users.groups = optionalAttrs (cfg.group == "rethinkdb") (
+      singleton { name = "rethinkdb"; }
+    );
 
   };
 

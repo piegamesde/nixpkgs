@@ -96,9 +96,11 @@ let
       ++ lib.optionals (pythonSupport && python ? isPy3 && python.isPy3) [
           ncurses
         ]
-      ++ lib.optionals (
-        stdenv.isDarwin && pythonSupport && python ? isPy2 && python.isPy2
-      ) [ libintl ]
+      ++ lib.optionals
+        (stdenv.isDarwin && pythonSupport && python ? isPy2 && python.isPy2)
+        [
+          libintl
+        ]
       ++ lib.optionals stdenv.isFreeBSD [
         # Libxml2 has an optional dependency on liblzma.  However, on impure
         # platforms, it may end up using that from /usr/lib, and thus lack a
@@ -122,7 +124,8 @@ let
       (lib.enableFeature enableShared "shared")
       (lib.withFeature icuSupport "icu")
       (lib.withFeature pythonSupport "python")
-      (lib.optionalString pythonSupport
+      (lib.optionalString
+        pythonSupport
         "PYTHON=${python.pythonForBuild.interpreter}")
     ];
 
@@ -144,7 +147,8 @@ let
     '';
 
     preConfigure = lib.optionalString
-      (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") ''
+      (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
+      ''
         MACOSX_DEPLOYMENT_TARGET=10.16
       '';
 
@@ -185,16 +189,18 @@ let
   };
 in
 if oldVer then
-  libxml.overrideAttrs (attrs: rec {
-    version = "2.10.1";
-    src = fetchurl {
-      url =
-        "mirror://gnome/sources/libxml2/${
-          lib.versions.majorMinor version
-        }/libxml2-${version}.tar.xz";
-      sha256 =
-        "21a9e13cc7c4717a6c36268d0924f92c3f67a1ece6b7ff9d588958a6db9fb9d8";
-    };
-  })
+  libxml.overrideAttrs (
+    attrs: rec {
+      version = "2.10.1";
+      src = fetchurl {
+        url =
+          "mirror://gnome/sources/libxml2/${
+            lib.versions.majorMinor version
+          }/libxml2-${version}.tar.xz";
+        sha256 =
+          "21a9e13cc7c4717a6c36268d0924f92c3f67a1ece6b7ff9d588958a6db9fb9d8";
+      };
+    }
+  )
 else
   libxml

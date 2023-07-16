@@ -88,8 +88,9 @@ rec {
   toRustTargetSpec =
     platform:
     if platform ? rustc.platform then
-      builtins.toFile (toRustTarget platform + ".json")
-      (builtins.toJSON platform.rustc.platform)
+      builtins.toFile (toRustTarget platform + ".json") (
+        builtins.toJSON platform.rustc.platform
+      )
     else
       toRustTarget platform
     ;

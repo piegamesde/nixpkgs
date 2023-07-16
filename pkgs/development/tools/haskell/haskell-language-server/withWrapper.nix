@@ -33,25 +33,28 @@ let
     hsPkgs:
     lib.pipe hsPkgs.haskell-language-server (
       [
-        (haskell.lib.compose.overrideCabal (old: {
-          enableSharedExecutables = dynamic;
-          ${
-            if !dynamic then
-              "postInstall"
-            else
-              null
-          } = ''
-            ${old.postInstall or ""}
+        (haskell.lib.compose.overrideCabal (
+          old: {
+            enableSharedExecutables = dynamic;
+            ${
+              if !dynamic then
+                "postInstall"
+              else
+                null
+            } = ''
+              ${old.postInstall or ""}
 
-            remove-references-to -t ${hsPkgs.ghc} $out/bin/haskell-language-server
-          '';
-        }))
+              remove-references-to -t ${hsPkgs.ghc} $out/bin/haskell-language-server
+            '';
+          }
+        ))
         ((
           if dynamic then
             enableCabalFlag
           else
             disableCabalFlag
-        ) "dynamic")
+        )
+          "dynamic")
       ]
       ++ optionals (!dynamic) [ justStaticExecutables ]
     )
@@ -65,12 +68,14 @@ let
     ;
   makeSymlinks =
     version:
-    concatMapStringsSep "\n" (
+    concatMapStringsSep "\n"
+    (
       x:
       "ln -s ${
         tunedHls (getPackages version)
       }/bin/haskell-language-server $out/bin/${x}"
-    ) (targets version)
+    )
+    (targets version)
     ;
 in
 assert supportedGhcVersions != [ ];
@@ -88,7 +93,8 @@ stdenv.mkDerivation {
     maintainers = [ lib.maintainers.maralorn ];
     longDescription = ''
       This package provides the executables ${
-        concatMapStringsSep ", " (x: concatStringsSep ", " (targets x))
+        concatMapStringsSep ", "
+        (x: concatStringsSep ", " (targets x))
         supportedGhcVersions
       } and haskell-language-server-wrapper.
       You can choose for which ghc versions to install hls with pkgs.haskell-language-server.override { supportedGhcVersions = [ "90" "92" ]; }.

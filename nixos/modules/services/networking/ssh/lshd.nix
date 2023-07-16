@@ -199,8 +199,8 @@ in
               "--no-root-login"
           } \
           ${
-            optionalString (loginShell != null)
-            ''--login-shell="${loginShell}"''
+            optionalString (loginShell != null) ''
+              --login-shell="${loginShell}"''
           } \
           ${
             if srpKeyExchange then
@@ -221,8 +221,9 @@ in
               "--no-x11-forward"
           } \
           --subsystems=${
-            concatStringsSep ","
-            (map (pair: (head pair) + "=" + (head (tail pair))) subsystems)
+            concatStringsSep "," (
+              map (pair: (head pair) + "=" + (head (tail pair))) subsystems
+            )
           }
       '';
     };

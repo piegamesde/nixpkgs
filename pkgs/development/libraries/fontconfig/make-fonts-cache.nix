@@ -5,17 +5,20 @@
   fontDirectories,
 }:
 
-runCommand "fc-cache" {
+runCommand "fc-cache"
+{
   nativeBuildInputs = [ fontconfig.bin ];
   preferLocalBuild = true;
   allowSubstitutes = false;
   passAsFile = [ "fontDirs" ];
   fontDirs = ''
     <!-- Font directories -->
-    ${lib.concatStringsSep "\n"
-    (map (font: "<dir>${font}</dir>") fontDirectories)}
+    ${lib.concatStringsSep "\n" (
+      map (font: "<dir>${font}</dir>") fontDirectories
+    )}
   '';
-} ''
+}
+''
   export FONTCONFIG_FILE=$(pwd)/fonts.conf
 
   cat > fonts.conf << EOF

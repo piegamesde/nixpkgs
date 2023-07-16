@@ -23,8 +23,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
 
     mkXfceDerivation = callPackage ./mkXfceDerivation.nix { };
 
-    automakeAddFlags =
-      pkgs.makeSetupHook { name = "xfce-automake-add-flags-hook"; }
+    automakeAddFlags = pkgs.makeSetupHook
+      { name = "xfce-automake-add-flags-hook"; }
       ./automakeAddFlags.sh;
 
       #### CORE

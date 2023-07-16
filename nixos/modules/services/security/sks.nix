@@ -26,10 +26,12 @@ in
 
     services.sks = {
 
-      enable = mkEnableOption (lib.mdDoc ''
-        SKS (synchronizing key server for OpenPGP) and start the database
-        server. You need to create "''${dataDir}/dump/*.gpg" for the initial
-        import'');
+      enable = mkEnableOption (
+        lib.mdDoc ''
+          SKS (synchronizing key server for OpenPGP) and start the database
+          server. You need to create "''${dataDir}/dump/*.gpg" for the initial
+          import''
+      );
 
       package = mkOption {
         default = pkgs.sks;
@@ -131,8 +133,8 @@ in
           after = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
           preStart = ''
-            ${lib.optionalString (cfg.webroot != null)
-            ''ln -sfT "${cfg.webroot}" web''}
+            ${lib.optionalString (cfg.webroot != null) ''
+              ln -sfT "${cfg.webroot}" web''}
             mkdir -p dump
             ${sksPkg}/bin/sks build dump/*.gpg -n 10 -cache 100 || true #*/
             ${sksPkg}/bin/sks cleandb || true

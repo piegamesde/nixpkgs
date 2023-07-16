@@ -130,35 +130,36 @@ in
     };
 
     bots = mkOption {
-      type = types.attrsOf (types.submodule {
-        options = {
-          username = mkOption {
-            type = types.str;
-            description =
-              lib.mdDoc "Name of the user to log in. Default is attribute name."
-              ;
-            default = "";
+      type = types.attrsOf (
+        types.submodule {
+          options = {
+            username = mkOption {
+              type = types.str;
+              description = lib.mdDoc
+                "Name of the user to log in. Default is attribute name.";
+              default = "";
+            };
+            passwordFile = mkOption {
+              type = types.path;
+              description = lib.mdDoc
+                "Path to a file containing the password. The file must be readable by the `asf` user/group."
+                ;
+            };
+            enabled = mkOption {
+              type = types.bool;
+              default = true;
+              description = lib.mdDoc "Whether to enable the bot on startup.";
+            };
+            settings = mkOption {
+              type = types.attrs;
+              description = lib.mdDoc ''
+                Additional settings that are documented [here](https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Configuration#bot-config).
+              '';
+              default = { };
+            };
           };
-          passwordFile = mkOption {
-            type = types.path;
-            description = lib.mdDoc
-              "Path to a file containing the password. The file must be readable by the `asf` user/group."
-              ;
-          };
-          enabled = mkOption {
-            type = types.bool;
-            default = true;
-            description = lib.mdDoc "Whether to enable the bot on startup.";
-          };
-          settings = mkOption {
-            type = types.attrs;
-            description = lib.mdDoc ''
-              Additional settings that are documented [here](https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Configuration#bot-config).
-            '';
-            default = { };
-          };
-        };
-      });
+        }
+      );
       description = lib.mdDoc ''
         Bots name and configuration.
       '';
@@ -235,8 +236,11 @@ in
               # clean potential removed bots
               rm -rf $out/*.json
               for i in ${
-                strings.concatStringsSep " " (lists.map (x: "${getName x},${x}")
-                  (attrsets.mapAttrsToList mkBot cfg.bots))
+                strings.concatStringsSep " " (
+                  lists.map (x: "${getName x},${x}") (
+                    attrsets.mapAttrsToList mkBot cfg.bots
+                  )
+                )
               }; do IFS=",";
                 set -- $i
                 ln -fs $2 $out/$1

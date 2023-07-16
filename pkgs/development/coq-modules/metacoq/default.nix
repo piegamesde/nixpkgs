@@ -14,7 +14,8 @@ let
   repo = "metacoq";
   owner = "MetaCoq";
   defaultVersion = with versions;
-    lib.switch coq.coq-version [
+    lib.switch coq.coq-version
+    [
       {
         case = "8.11";
         out = "1.0-beta2-8.11";
@@ -37,7 +38,8 @@ let
         case = "8.16";
         out = "1.1-8.16";
       }
-    ] null;
+    ]
+    null;
   release = {
     "1.0-beta2-8.11".sha256 =
       "sha256-I9YNk5Di6Udvq5/xpLSNflfjRyRH8fMnRzbo3uhpXNs=";
@@ -123,12 +125,14 @@ let
             + ''
               touch ${pkgpath}/metacoq-config
             ''
-            + optionalString (elem package [
-              "safechecker"
-              "erasure"
-            ]) ''
-              echo  "-I ${template-coq}/lib/coq/${coq.coq-version}/user-contrib/MetaCoq/Template/" > ${pkgpath}/metacoq-config
-            ''
+            + optionalString
+              (elem package [
+                "safechecker"
+                "erasure"
+              ])
+              ''
+                echo  "-I ${template-coq}/lib/coq/${coq.coq-version}/user-contrib/MetaCoq/Template/" > ${pkgpath}/metacoq-config
+              ''
             + optionalString (package == "single") ''
               ./configure.sh local
             ''
@@ -146,27 +150,30 @@ let
         } // optionalAttrs (package != "single") {
           passthru = genAttrs packages metacoq_;
         }
-      )).overrideAttrs (
-        o:
-        let
-          requiresOcamlStdlibShims =
-            versionAtLeast o.version "1.0-8.16"
-            || (
-              o.version == "dev"
-              && (
-                versionAtLeast coq.coq-version "8.16"
-                || coq.coq-version == "dev"
+      )).overrideAttrs
+        (
+          o:
+          let
+            requiresOcamlStdlibShims =
+              versionAtLeast o.version "1.0-8.16"
+              || (
+                o.version == "dev"
+                && (
+                  versionAtLeast coq.coq-version "8.16"
+                  || coq.coq-version == "dev"
+                )
               )
-            )
-            ;
-        in
-        {
-          propagatedBuildInputs =
-            o.propagatedBuildInputs
-            ++ optional requiresOcamlStdlibShims coq.ocamlPackages.stdlib-shims
-            ;
-        }
-      );
+              ;
+          in
+          {
+            propagatedBuildInputs =
+              o.propagatedBuildInputs
+              ++ optional
+                requiresOcamlStdlibShims
+                coq.ocamlPackages.stdlib-shims
+              ;
+          }
+        );
     in
     derivation
     ;

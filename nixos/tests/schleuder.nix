@@ -111,22 +111,24 @@ import ./make-test-python.nix {
         # https://0xacab.org/schleuder/schleuder-cli/-/blob/f8895b9f47083d8c7b99a2797c93f170f3c6a3c0/lib/schleuder-cli/helper.rb#L230-238
       systemd.tmpfiles.rules =
         let
-          cliconfig = pkgs.runCommand "schleuder-cli.yml" {
-            nativeBuildInputs = [
-              pkgs.jq
-              pkgs.openssl
-            ];
-          } ''
-            fp=$(openssl x509 -in ${
-              certs.${domain}.cert
-            } -noout -fingerprint -sha256 | cut -d = -f 2 | tr -d : | tr 'A-Z' 'a-z')
-            cat > $out <<EOF
-            host: localhost
-            port: 4443
-            tls_fingerprint: "$fp"
-            api_key: fnord
-            EOF
-          '';
+          cliconfig = pkgs.runCommand "schleuder-cli.yml"
+            {
+              nativeBuildInputs = [
+                pkgs.jq
+                pkgs.openssl
+              ];
+            }
+            ''
+              fp=$(openssl x509 -in ${
+                certs.${domain}.cert
+              } -noout -fingerprint -sha256 | cut -d = -f 2 | tr -d : | tr 'A-Z' 'a-z')
+              cat > $out <<EOF
+              host: localhost
+              port: 4443
+              tls_fingerprint: "$fp"
+              api_key: fnord
+              EOF
+            '';
         in
         [ "L+ /root/.schleuder-cli/schleuder-cli.yml - - - - ${cliconfig}" ]
         ;

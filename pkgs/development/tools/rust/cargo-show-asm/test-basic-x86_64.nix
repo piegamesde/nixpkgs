@@ -4,13 +4,15 @@
   rustc,
   cargo-show-asm,
 }:
-runCommand "test-basic" {
+runCommand "test-basic"
+{
   nativeBuildInputs = [
     cargo
     rustc
     cargo-show-asm
   ];
-} ''
+}
+''
     mkdir -p src
     cat >Cargo.toml <<EOF
   [package]

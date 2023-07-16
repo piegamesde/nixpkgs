@@ -29,7 +29,8 @@ let
       bin = "${getBin provider}/bin/${cmd}";
       manpage = "${getOutput "man" provider}/share/man/man1/${cmd}.1.gz";
     in
-    runCommand "${cmd}-${provider.name}" {
+    runCommand "${cmd}-${provider.name}"
+    {
       meta = {
         mainProgram = cmd;
         priority = 10;
@@ -38,7 +39,8 @@ let
       };
       passthru = { inherit provider; };
       preferLocalBuild = true;
-    } ''
+    }
+    ''
       if ! [ -x ${bin} ]; then
         echo Cannot find command ${cmd}
         exit 1

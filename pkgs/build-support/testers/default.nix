@@ -13,22 +13,24 @@
   # or doc/builders/testers.chapter.md
   testBuildFailure =
     drv:
-    drv.overrideAttrs (orig: {
-      builder = buildPackages.bash;
-      args =
-        [
-          (substituteAll {
-            coreutils = buildPackages.coreutils;
-            src = ./expect-failure.sh;
-          })
-          orig.realBuilder or stdenv.shell
-        ]
-        ++ orig.args or [
-          "-e"
-          (orig.builder or ../../stdenv/generic/default-builder.sh)
-        ]
-        ;
-    })
+    drv.overrideAttrs (
+      orig: {
+        builder = buildPackages.bash;
+        args =
+          [
+            (substituteAll {
+              coreutils = buildPackages.coreutils;
+              src = ./expect-failure.sh;
+            })
+            orig.realBuilder or stdenv.shell
+          ]
+          ++ orig.args or [
+            "-e"
+            (orig.builder or ../../stdenv/generic/default-builder.sh)
+          ]
+          ;
+      }
+    )
     ;
 
     # See https://nixos.org/manual/nixpkgs/unstable/#tester-testEqualDerivation
@@ -43,9 +45,9 @@
       actual,
       expected,
     }:
-    runCommand "equal-contents-${lib.strings.toLower assertion}" {
-      inherit assertion actual expected;
-    } ''
+    runCommand "equal-contents-${lib.strings.toLower assertion}"
+    { inherit assertion actual expected; }
+    ''
       echo "Checking:"
       echo "$assertion"
       if ! diff -U5 -r "$actual" "$expected" --color=always
@@ -86,10 +88,12 @@
         } --version",
       version ? package.version,
     }:
-    runCommand "${package.name}-test-version" {
+    runCommand "${package.name}-test-version"
+    {
       nativeBuildInputs = [ package ];
       meta.timeout = 60;
-    } ''
+    }
+    ''
       if output=$(${command} 2>&1); then
         if grep -Fw "${version}" - <<< "$output"; then
           touch $out
@@ -115,8 +119,9 @@
     let
       drvPath = (f args).drvPath;
         # It's safe to discard the context, because we don't access the path.
-      salt = builtins.unsafeDiscardStringContext
-        (lib.substring 0 12 (baseNameOf drvPath));
+      salt = builtins.unsafeDiscardStringContext (
+        lib.substring 0 12 (baseNameOf drvPath)
+      );
         # New derivation incorporating the original drv hash in the name
       salted = f (args // { name = "${args.name or "source"}-salted-${salt}"; })
         ;

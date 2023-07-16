@@ -112,7 +112,8 @@ let
   };
 
 in
-runCommand "xcodebuild-${xcbuild.version}" {
+runCommand "xcodebuild-${xcbuild.version}"
+{
   nativeBuildInputs = [ makeWrapper ];
   inherit (xcbuild)
     meta
@@ -129,7 +130,8 @@ runCommand "xcodebuild-${xcbuild.version}" {
   };
 
   preferLocalBuild = true;
-} ''
+}
+''
   mkdir -p $out/bin
 
   ln -s $out $out/usr

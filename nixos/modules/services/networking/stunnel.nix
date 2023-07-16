@@ -49,10 +49,12 @@ let
     ;
   generateConfig =
     c:
-    generators.toINI {
+    generators.toINI
+    {
       mkSectionName = id;
       mkKeyValue = k: v: "${k} = ${mkValueString v}";
-    } (removeNulls c)
+    }
+    (removeNulls c)
     ;
 
 in
@@ -119,11 +121,17 @@ in
           See "SERVICE-LEVEL OPTIONS" in {manpage}`stunnel(8)`.
         '';
         type = with types;
-          attrsOf (attrsOf (nullOr (oneOf [
-            bool
-            int
-            str
-          ])));
+          attrsOf (
+            attrsOf (
+              nullOr (
+                oneOf [
+                  bool
+                  int
+                  str
+                ]
+              )
+            )
+          );
         example = {
           fancyWebserver = {
             accept = 443;
@@ -143,11 +151,17 @@ in
           See "SERVICE-LEVEL OPTIONS" in {manpage}`stunnel(8)`.
         '';
         type = with types;
-          attrsOf (attrsOf (nullOr (oneOf [
-            bool
-            int
-            str
-          ])));
+          attrsOf (
+            attrsOf (
+              nullOr (
+                oneOf [
+                  bool
+                  int
+                  str
+                ]
+              )
+            )
+          );
 
         apply =
           let

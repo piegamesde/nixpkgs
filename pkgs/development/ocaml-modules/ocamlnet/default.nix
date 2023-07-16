@@ -13,12 +13,15 @@
   nettle,
 }:
 
-lib.throwIf (
+lib.throwIf
+(
   lib.versionOlder ocaml.version "4.02"
   || lib.versionAtLeast ocaml.version "5.0"
-) "ocamlnet is not available for OCaml ${ocaml.version}"
+)
+"ocamlnet is not available for OCaml ${ocaml.version}"
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "ocaml${ocaml.version}-ocamlnet";
   version = "4.1.9";
 

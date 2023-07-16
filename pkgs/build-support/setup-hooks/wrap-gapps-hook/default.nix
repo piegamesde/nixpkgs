@@ -13,7 +13,8 @@
   targetPackages,
 }:
 
-makeSetupHook {
+makeSetupHook
+{
   name = "wrap-gapps-hook";
   propagatedBuildInputs =
     [
@@ -31,7 +32,8 @@ makeSetupHook {
     # depsTargetTargetPropagated will essentially be buildInputs when wrapGAppsHook is placed into nativeBuildInputs
     # the librsvg and gtk3 above should be removed but kept to not break anything that implicitly depended on its binaries
   depsTargetTargetPropagated =
-    assert (lib.assertMsg (!targetPackages ? raw)
+    assert (lib.assertMsg
+      (!targetPackages ? raw)
       "wrapGAppsHook must be in nativeBuildInputs");
     lib.optionals isGraphical [
       # librsvg provides a module for gdk-pixbuf to allow rendering
@@ -83,28 +85,34 @@ makeSetupHook {
           let
             tested = basic;
           in
-          testLib.runTest "basic-contains-dconf"
-          (testLib.skip stdenv.isDarwin ''
-            ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
-            "GIO_EXTRA_MODULES" "${dconf.lib}/lib/gio/modules"}
-            ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
-            "GIO_EXTRA_MODULES" "${dconf.lib}/lib/gio/modules"}
-          '')
+          testLib.runTest "basic-contains-dconf" (
+            testLib.skip stdenv.isDarwin ''
+              ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
+              "GIO_EXTRA_MODULES"
+              "${dconf.lib}/lib/gio/modules"}
+              ${expectSomeLineContainingYInFileXToMentionZ
+              "${tested}/libexec/bar"
+              "GIO_EXTRA_MODULES"
+              "${dconf.lib}/lib/gio/modules"}
+            ''
+          )
           ;
 
         basic-contains-gdk-pixbuf =
           let
             tested = basic;
           in
-          testLib.runTest "basic-contains-gdk-pixbuf"
-          (testLib.skip stdenv.isDarwin ''
-            ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
-            "GDK_PIXBUF_MODULE_FILE"
-            "${lib.getLib librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"}
-            ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
-            "GDK_PIXBUF_MODULE_FILE"
-            "${lib.getLib librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"}
-          '')
+          testLib.runTest "basic-contains-gdk-pixbuf" (
+            testLib.skip stdenv.isDarwin ''
+              ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
+              "GDK_PIXBUF_MODULE_FILE"
+              "${lib.getLib librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"}
+              ${expectSomeLineContainingYInFileXToMentionZ
+              "${tested}/libexec/bar"
+              "GDK_PIXBUF_MODULE_FILE"
+              "${lib.getLib librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"}
+            ''
+          )
           ;
 
           # Simple derivation containing a gobject-introspection typelib.
@@ -148,9 +156,11 @@ makeSetupHook {
           in
           testLib.runTest "typelib-user-has-gi-typelib-path" ''
             ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
-            "GI_TYPELIB_PATH" "${typelib-Mahjong}/lib/girepository-1.0"}
+            "GI_TYPELIB_PATH"
+            "${typelib-Mahjong}/lib/girepository-1.0"}
             ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
-            "GI_TYPELIB_PATH" "${typelib-Mahjong}/lib/girepository-1.0"}
+            "GI_TYPELIB_PATH"
+            "${typelib-Mahjong}/lib/girepository-1.0"}
           ''
           ;
 
@@ -203,9 +213,11 @@ makeSetupHook {
           in
           testLib.runTest "typelib-multiout-user-has-gi-typelib-path" ''
             ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
-            "GI_TYPELIB_PATH" "${typelib-Bechamel.lib}/lib/girepository-1.0"}
+            "GI_TYPELIB_PATH"
+            "${typelib-Bechamel.lib}/lib/girepository-1.0"}
             ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
-            "GI_TYPELIB_PATH" "${typelib-Bechamel.lib}/lib/girepository-1.0"}
+            "GI_TYPELIB_PATH"
+            "${typelib-Bechamel.lib}/lib/girepository-1.0"}
           ''
           ;
 
@@ -239,12 +251,15 @@ makeSetupHook {
           in
           testLib.runTest "typelib-self-user-has-gi-typelib-path" ''
             ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
-            "GI_TYPELIB_PATH" "${typelib-self-user}/lib/girepository-1.0"}
+            "GI_TYPELIB_PATH"
+            "${typelib-self-user}/lib/girepository-1.0"}
             ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
-            "GI_TYPELIB_PATH" "${typelib-self-user}/lib/girepository-1.0"}
+            "GI_TYPELIB_PATH"
+            "${typelib-self-user}/lib/girepository-1.0"}
           ''
           ;
       }
       ;
   };
-} ./wrap-gapps-hook.sh
+}
+./wrap-gapps-hook.sh

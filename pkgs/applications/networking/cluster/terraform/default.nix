@@ -96,9 +96,13 @@ let
           actualPlugins = plugins terraform.plugins;
 
             # Wrap PATH of plugins propagatedBuildInputs, plugins may have runtime dependencies on external binaries
-          wrapperInputs = lib.unique (lib.flatten
-            (lib.catAttrs "propagatedBuildInputs"
-              (builtins.filter (x: x != null) actualPlugins)));
+          wrapperInputs = lib.unique (
+            lib.flatten (
+              lib.catAttrs "propagatedBuildInputs" (
+                builtins.filter (x: x != null) actualPlugins
+              )
+            )
+          );
 
           passthru = {
             withPlugins =
@@ -140,43 +144,46 @@ let
             # of plugins, which might be counterintuitive if someone just wants a vanilla Terraform.
         in
         if actualPlugins == [ ] then
-          terraform.overrideAttrs
-          (orig: { passthru = orig.passthru // passthru; })
+          terraform.overrideAttrs (
+            orig: { passthru = orig.passthru // passthru; }
+          )
         else
-          lib.appendToName "with-plugins" (stdenv.mkDerivation {
-            inherit (terraform) meta pname version;
-            nativeBuildInputs = [ makeWrapper ];
+          lib.appendToName "with-plugins" (
+            stdenv.mkDerivation {
+              inherit (terraform) meta pname version;
+              nativeBuildInputs = [ makeWrapper ];
 
-              # Expose the passthru set with the override functions
-              # defined above, as well as any passthru values already
-              # set on `terraform` at this point (relevant in case a
-              # user overrides attributes).
-            passthru = terraform.passthru // passthru;
+                # Expose the passthru set with the override functions
+                # defined above, as well as any passthru values already
+                # set on `terraform` at this point (relevant in case a
+                # user overrides attributes).
+              passthru = terraform.passthru // passthru;
 
-            buildCommand = ''
-              # Create wrappers for terraform plugins because Terraform only
-              # walks inside of a tree of files.
-              for providerDir in ${toString actualPlugins}
-              do
-                for file in $(find $providerDir/libexec/terraform-providers -type f)
+              buildCommand = ''
+                # Create wrappers for terraform plugins because Terraform only
+                # walks inside of a tree of files.
+                for providerDir in ${toString actualPlugins}
                 do
-                  relFile=''${file#$providerDir/}
-                  mkdir -p $out/$(dirname $relFile)
-                  cat <<WRAPPER > $out/$relFile
-              #!${runtimeShell}
-              exec "$file" "$@"
-              WRAPPER
-                  chmod +x $out/$relFile
+                  for file in $(find $providerDir/libexec/terraform-providers -type f)
+                  do
+                    relFile=''${file#$providerDir/}
+                    mkdir -p $out/$(dirname $relFile)
+                    cat <<WRAPPER > $out/$relFile
+                #!${runtimeShell}
+                exec "$file" "$@"
+                WRAPPER
+                    chmod +x $out/$relFile
+                  done
                 done
-              done
 
-              # Create a wrapper for terraform to point it to the plugins dir.
-              mkdir -p $out/bin/
-              makeWrapper "${terraform}/bin/terraform" "$out/bin/terraform" \
-                --set NIX_TERRAFORM_PLUGIN_DIR $out/libexec/terraform-providers \
-                --prefix PATH : "${lib.makeBinPath wrapperInputs}"
-            '';
-          })
+                # Create a wrapper for terraform to point it to the plugins dir.
+                mkdir -p $out/bin/
+                makeWrapper "${terraform}/bin/terraform" "$out/bin/terraform" \
+                  --set NIX_TERRAFORM_PLUGIN_DIR $out/libexec/terraform-providers \
+                  --prefix PATH : "${lib.makeBinPath wrapperInputs}"
+              '';
+            }
+          )
         ;
     in
     withPlugins (_: [ ])

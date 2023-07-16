@@ -134,7 +134,8 @@ let
     driveName: driveList:
     (findSingle (drive: drive.name == driveName)
       (throw "Drive ${driveName} not found")
-      (throw "Multiple drives named ${driveName}") driveList).device
+      (throw "Multiple drives named ${driveName}")
+      driveList).device
     ;
 
   addDeviceNames =
@@ -168,9 +169,11 @@ let
         ${
           concatStringsSep " \\\n" (
             [ "-f qcow2" ]
-            ++ optional (cfg.useBootLoader && cfg.useDefaultFilesystems)
+            ++ optional
+              (cfg.useBootLoader && cfg.useDefaultFilesystems)
               "-F qcow2 -b ${systemImage}/nixos.qcow2"
-            ++ optional (!(cfg.useBootLoader && cfg.useDefaultFilesystems))
+            ++ optional
+              (!(cfg.useBootLoader && cfg.useDefaultFilesystems))
               "-o size=${toString config.virtualisation.diskSize}M"
             ++ [ ''"$NIX_DISK_IMAGE"'' ]
           )
@@ -245,14 +248,16 @@ let
     cd "$TMPDIR"
 
     ${lib.optionalString (cfg.emptyDiskImages != [ ]) "idx=0"}
-    ${flip concatMapStrings cfg.emptyDiskImages (size: ''
-      if ! test -e "empty$idx.qcow2"; then
-          ${qemu}/bin/qemu-img create -f qcow2 "empty$idx.qcow2" "${
-            toString size
-          }M"
-      fi
-      idx=$((idx + 1))
-    '')}
+    ${flip concatMapStrings cfg.emptyDiskImages (
+      size: ''
+        if ! test -e "empty$idx.qcow2"; then
+            ${qemu}/bin/qemu-img create -f qcow2 "empty$idx.qcow2" "${
+              toString size
+            }M"
+        fi
+        idx=$((idx + 1))
+      ''
+    )}
 
     # Start QEMU.
     exec ${qemu-common.qemuBinary qemu} \
@@ -262,10 +267,14 @@ let
         -device virtio-rng-pci \
         ${concatStringsSep " " config.virtualisation.qemu.networkingOptions} \
         ${
-          concatStringsSep " \\\n    " (mapAttrsToList (
-            tag: share:
-            "-virtfs local,path=${share.source},security_model=none,mount_tag=${tag}"
-          ) config.virtualisation.sharedDirectories)
+          concatStringsSep " \\\n    " (
+            mapAttrsToList
+            (
+              tag: share:
+              "-virtfs local,path=${share.source},security_model=none,mount_tag=${tag}"
+            )
+            config.virtualisation.sharedDirectories
+          )
         } \
         ${drivesCmdLine config.virtualisation.qemu.drives} \
         ${concatStringsSep " \\\n    " config.virtualisation.qemu.options} \
@@ -344,27 +353,32 @@ in
 {
   imports = [
     ../profiles/qemu-guest.nix
-    (mkRenamedOptionModule [
-      "virtualisation"
-      "pathsInNixDB"
-    ] [
-      "virtualisation"
-      "additionalPaths"
-    ])
-    (mkRemovedOptionModule [
-      "virtualisation"
-      "bootDevice"
-    ]
+    (mkRenamedOptionModule
+      [
+        "virtualisation"
+        "pathsInNixDB"
+      ]
+      [
+        "virtualisation"
+        "additionalPaths"
+      ])
+    (mkRemovedOptionModule
+      [
+        "virtualisation"
+        "bootDevice"
+      ]
       "This option was renamed to `virtualisation.rootDevice`, as it was incorrectly named and misleading. Take the time to review what you want to do and look at the new options like `virtualisation.{bootLoaderDevice, bootPartition}`, open an issue in case of issues.")
-    (mkRemovedOptionModule [
-      "virtualisation"
-      "efiVars"
-    ]
+    (mkRemovedOptionModule
+      [
+        "virtualisation"
+        "efiVars"
+      ]
       "This option was removed, it is possible to provide a template UEFI variable with `virtualisation.efi.variables` ; if this option is important to you, open an issue")
-    (mkRemovedOptionModule [
-      "virtualisation"
-      "persistBootDevice"
-    ]
+    (mkRemovedOptionModule
+      [
+        "virtualisation"
+        "persistBootDevice"
+      ]
       "Boot device is always persisted if you use a bootloader through the root disk image ; if this does not work for your usecase, please examine carefully what `virtualisation.{bootDevice, rootDevice, bootPartition}` options offer you and open an issue explaining your need.`")
   ];
 
@@ -432,8 +446,8 @@ in
         else
           null
         ;
-      defaultText = literalExpression
-        ''if cfg.useEFIBoot then "''${cfg.bootLoaderDevice}1" else null'';
+      defaultText = literalExpression ''
+        if cfg.useEFIBoot then "''${cfg.bootLoaderDevice}1" else null'';
       example = "/dev/vda1";
       description = lib.mdDoc ''
         The boot partition to be used to mount /boot filesystem.
@@ -499,18 +513,20 @@ in
     };
 
     virtualisation.sharedDirectories = mkOption {
-      type = types.attrsOf (types.submodule {
-        options.source = mkOption {
-          type = types.str;
-          description = lib.mdDoc
-            "The path of the directory to share, can be a shell variable";
-        };
-        options.target = mkOption {
-          type = types.path;
-          description = lib.mdDoc
-            "The mount point of the directory inside the virtual machine";
-        };
-      });
+      type = types.attrsOf (
+        types.submodule {
+          options.source = mkOption {
+            type = types.str;
+            description = lib.mdDoc
+              "The path of the directory to share, can be a shell variable";
+          };
+          options.target = mkOption {
+            type = types.path;
+            description = lib.mdDoc
+              "The mount point of the directory inside the virtual machine";
+          };
+        }
+      );
       default = { };
       example = {
         my-share = {
@@ -544,49 +560,51 @@ in
     };
 
     virtualisation.forwardPorts = mkOption {
-      type = types.listOf (types.submodule {
-        options.from = mkOption {
-          type = types.enum [
-            "host"
-            "guest"
-          ];
-          default = "host";
-          description = lib.mdDoc ''
-            Controls the direction in which the ports are mapped:
+      type = types.listOf (
+        types.submodule {
+          options.from = mkOption {
+            type = types.enum [
+              "host"
+              "guest"
+            ];
+            default = "host";
+            description = lib.mdDoc ''
+              Controls the direction in which the ports are mapped:
 
-            - `"host"` means traffic from the host ports
-              is forwarded to the given guest port.
-            - `"guest"` means traffic from the guest ports
-              is forwarded to the given host port.
-          '';
-        };
-        options.proto = mkOption {
-          type = types.enum [
-            "tcp"
-            "udp"
-          ];
-          default = "tcp";
-          description = lib.mdDoc "The protocol to forward.";
-        };
-        options.host.address = mkOption {
-          type = types.str;
-          default = "";
-          description = lib.mdDoc "The IPv4 address of the host.";
-        };
-        options.host.port = mkOption {
-          type = types.port;
-          description = lib.mdDoc "The host port to be mapped.";
-        };
-        options.guest.address = mkOption {
-          type = types.str;
-          default = "";
-          description = lib.mdDoc "The IPv4 address on the guest VLAN.";
-        };
-        options.guest.port = mkOption {
-          type = types.port;
-          description = lib.mdDoc "The guest port to be mapped.";
-        };
-      });
+              - `"host"` means traffic from the host ports
+                is forwarded to the given guest port.
+              - `"guest"` means traffic from the guest ports
+                is forwarded to the given host port.
+            '';
+          };
+          options.proto = mkOption {
+            type = types.enum [
+              "tcp"
+              "udp"
+            ];
+            default = "tcp";
+            description = lib.mdDoc "The protocol to forward.";
+          };
+          options.host.address = mkOption {
+            type = types.str;
+            default = "";
+            description = lib.mdDoc "The IPv4 address of the host.";
+          };
+          options.host.port = mkOption {
+            type = types.port;
+            description = lib.mdDoc "The host port to be mapped.";
+          };
+          options.guest.address = mkOption {
+            type = types.str;
+            default = "";
+            description = lib.mdDoc "The IPv4 address on the guest VLAN.";
+          };
+          options.guest.port = mkOption {
+            type = types.port;
+            description = lib.mdDoc "The guest port to be mapped.";
+          };
+        }
+      );
       default = [ ];
       example = lib.literalExpression ''
         [ # forward local port 2222 -> 22, to ssh into the VM
@@ -902,46 +920,51 @@ in
 
   config = {
 
-    assertions = lib.concatLists (lib.flip lib.imap cfg.forwardPorts (
-      i: rule: [
-        {
-          assertion = rule.from == "guest" -> rule.proto == "tcp";
-          message = ''
-            Invalid virtualisation.forwardPorts.<entry ${toString i}>.proto:
-              Guest forwarding supports only TCP connections.
-          '';
-        }
-        {
-          assertion =
-            rule.from == "guest" -> lib.hasPrefix "10.0.2." rule.guest.address;
-          message = ''
-            Invalid virtualisation.forwardPorts.<entry ${
-              toString i
-            }>.guest.address:
-              The address must be in the default VLAN (10.0.2.0/24).
-          '';
-        }
-      ]
-    ));
+    assertions = lib.concatLists (
+      lib.flip lib.imap cfg.forwardPorts (
+        i: rule: [
+          {
+            assertion = rule.from == "guest" -> rule.proto == "tcp";
+            message = ''
+              Invalid virtualisation.forwardPorts.<entry ${toString i}>.proto:
+                Guest forwarding supports only TCP connections.
+            '';
+          }
+          {
+            assertion =
+              rule.from == "guest" -> lib.hasPrefix "10.0.2." rule.guest.address
+              ;
+            message = ''
+              Invalid virtualisation.forwardPorts.<entry ${
+                toString i
+              }>.guest.address:
+                The address must be in the default VLAN (10.0.2.0/24).
+            '';
+          }
+        ]
+      )
+    );
 
-    warnings = optional (
-      cfg.writableStore
-      && cfg.useNixStoreImage
-      && opt.writableStore.highestPrio > lib.modules.defaultOverridePriority
-    ) ''
-      You have enabled ${opt.useNixStoreImage} = true,
-      without setting ${opt.writableStore} = false.
+    warnings = optional
+      (
+        cfg.writableStore
+        && cfg.useNixStoreImage
+        && opt.writableStore.highestPrio > lib.modules.defaultOverridePriority
+      )
+      ''
+        You have enabled ${opt.useNixStoreImage} = true,
+        without setting ${opt.writableStore} = false.
 
-      This causes a store image to be written to the store, which is
-      costly, especially for the binary cache, and because of the need
-      for more frequent garbage collection.
+        This causes a store image to be written to the store, which is
+        costly, especially for the binary cache, and because of the need
+        for more frequent garbage collection.
 
-      If you really need this combination, you can set ${opt.writableStore}
-      explicitly to true, incur the cost and make this warning go away.
-      Otherwise, we recommend
+        If you really need this combination, you can set ${opt.writableStore}
+        explicitly to true, incur the cost and make this warning go away.
+        Otherwise, we recommend
 
-        ${opt.writableStore} = false;
-    '';
+          ${opt.writableStore} = false;
+      '';
 
       # In UEFI boot, we use a EFI-only partition table layout, thus GRUB will fail when trying to install
       # legacy and UEFI. In order to avoid this, we have to put "nodev" to force UEFI-only installs.
@@ -963,24 +986,24 @@ in
     boot.loader.supportsInitrdSecrets =
       mkIf (!cfg.useBootLoader) (mkVMOverride false);
 
-    boot.initrd.extraUtilsCommands = lib.mkIf (
-      cfg.useDefaultFilesystems && !config.boot.initrd.systemd.enable
-    ) ''
-      # We need mke2fs in the initrd.
-      copy_bin_and_libs ${pkgs.e2fsprogs}/bin/mke2fs
-    '';
+    boot.initrd.extraUtilsCommands = lib.mkIf
+      (cfg.useDefaultFilesystems && !config.boot.initrd.systemd.enable)
+      ''
+        # We need mke2fs in the initrd.
+        copy_bin_and_libs ${pkgs.e2fsprogs}/bin/mke2fs
+      '';
 
-    boot.initrd.postDeviceCommands = lib.mkIf (
-      cfg.useDefaultFilesystems && !config.boot.initrd.systemd.enable
-    ) ''
-      # If the disk image appears to be empty, run mke2fs to
-      # initialise.
-      FSTYPE=$(blkid -o value -s TYPE ${cfg.rootDevice} || true)
-      PARTTYPE=$(blkid -o value -s PTTYPE ${cfg.rootDevice} || true)
-      if test -z "$FSTYPE" -a -z "$PARTTYPE"; then
-          mke2fs -t ext4 ${cfg.rootDevice}
-      fi
-    '';
+    boot.initrd.postDeviceCommands = lib.mkIf
+      (cfg.useDefaultFilesystems && !config.boot.initrd.systemd.enable)
+      ''
+        # If the disk image appears to be empty, run mke2fs to
+        # initialise.
+        FSTYPE=$(blkid -o value -s TYPE ${cfg.rootDevice} || true)
+        PARTTYPE=$(blkid -o value -s PTTYPE ${cfg.rootDevice} || true)
+        if test -z "$FSTYPE" -a -z "$PARTTYPE"; then
+            mke2fs -t ext4 ${cfg.rootDevice}
+        fi
+      '';
 
     boot.initrd.postMountCommands =
       lib.mkIf (!config.boot.initrd.systemd.enable) ''
@@ -1090,13 +1113,15 @@ in
             # Replace all non-alphanumeric characters with underscores
           sanitizeShellIdent =
             s:
-            concatMapStrings (
+            concatMapStrings
+            (
               c:
               if builtins.elem c alphaNumericChars then
                 c
               else
                 "_"
-            ) (stringToCharacters s)
+            )
+            (stringToCharacters s)
             ;
         in
         mkIf (!cfg.useBootLoader) [
@@ -1135,12 +1160,14 @@ in
             "raw"
           ;
       } ])
-      (imap0 (
-        idx: _: {
-          file = "$(pwd)/empty${toString idx}.qcow2";
-          driveExtraOpts.werror = "report";
-        }
-      ) cfg.emptyDiskImages)
+      (imap0
+        (
+          idx: _: {
+            file = "$(pwd)/empty${toString idx}.qcow2";
+            driveExtraOpts.werror = "report";
+          }
+        )
+        cfg.emptyDiskImages)
     ];
 
     fileSystems = mkVMOverride cfg.fileSystems;
@@ -1262,29 +1289,33 @@ in
         mkVMOverride
       else
         mkDefault
-    ) [ ];
+    )
+      [ ];
     boot.initrd.luks.devices = (
       if cfg.useDefaultFilesystems then
         mkVMOverride
       else
         mkDefault
-    ) { };
+    )
+      { };
 
       # Don't run ntpd in the guest.  It should get the correct time from KVM.
     services.timesyncd.enable = false;
 
     services.qemuGuest.enable = cfg.qemu.guestAgent.enable;
 
-    system.build.vm = cfg.host.pkgs.runCommand "nixos-vm" {
-      preferLocalBuild = true;
-      meta.mainProgram = "run-${config.system.name}-vm";
-    } ''
-      mkdir -p $out/bin
-      ln -s ${config.system.build.toplevel} $out/system
-      ln -s ${
-        cfg.host.pkgs.writeScript "run-nixos-vm" startVM
-      } $out/bin/run-${config.system.name}-vm
-    '';
+    system.build.vm = cfg.host.pkgs.runCommand "nixos-vm"
+      {
+        preferLocalBuild = true;
+        meta.mainProgram = "run-${config.system.name}-vm";
+      }
+      ''
+        mkdir -p $out/bin
+        ln -s ${config.system.build.toplevel} $out/system
+        ln -s ${
+          cfg.host.pkgs.writeScript "run-nixos-vm" startVM
+        } $out/bin/run-${config.system.name}-vm
+      '';
 
       # When building a regular system configuration, override whatever
       # video driver the host uses.

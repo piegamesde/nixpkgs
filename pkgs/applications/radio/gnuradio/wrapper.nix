@@ -52,12 +52,19 @@ let
     ]
     # Add the extraPackages as python modules as well
     ++ (builtins.map unwrapped.python.pkgs.toPythonModule extraPackages)
-    ++ lib.flatten (lib.mapAttrsToList (
-      feat: info:
-      (lib.optionals (
-        (unwrapped.hasFeature feat) && (builtins.hasAttr "pythonRuntime" info)
-      ) info.pythonRuntime)
-    ) unwrapped.featuresInfo)
+    ++ lib.flatten (
+      lib.mapAttrsToList
+      (
+        feat: info:
+        (lib.optionals
+          (
+            (unwrapped.hasFeature feat)
+            && (builtins.hasAttr "pythonRuntime" info)
+          )
+          info.pythonRuntime)
+      )
+      unwrapped.featuresInfo
+    )
     ;
   pythonEnv = unwrapped.python.withPackages (ps: pythonPkgs);
 
@@ -66,33 +73,35 @@ let
   makeWrapperArgs = builtins.concatStringsSep " " (
     [ ]
       # Emulating wrapGAppsHook & wrapQtAppsHook working together
-    ++ lib.optionals (
-      (unwrapped.hasFeature "gnuradio-companion")
-      || (unwrapped.hasFeature "gr-qtgui")
-    ) [
-      "--prefix"
-      "XDG_DATA_DIRS"
-      ":"
-      "$out/share"
-      "--prefix"
-      "XDG_DATA_DIRS"
-      ":"
-      "$out/share/gsettings-schemas/${pname}"
-      "--prefix"
-      "XDG_DATA_DIRS"
-      ":"
-      "${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}"
-      "--prefix"
-      "XDG_DATA_DIRS"
-      ":"
-      "${hicolor-icon-theme}/share"
-      # Needs to run `gsettings` on startup, see:
-      # https://www.mail-archive.com/debian-bugs-dist@lists.debian.org/msg1764890.html
-      "--prefix"
-      "PATH"
-      ":"
-      "${lib.getBin glib}/bin"
-    ]
+    ++ lib.optionals
+      (
+        (unwrapped.hasFeature "gnuradio-companion")
+        || (unwrapped.hasFeature "gr-qtgui")
+      )
+      [
+        "--prefix"
+        "XDG_DATA_DIRS"
+        ":"
+        "$out/share"
+        "--prefix"
+        "XDG_DATA_DIRS"
+        ":"
+        "$out/share/gsettings-schemas/${pname}"
+        "--prefix"
+        "XDG_DATA_DIRS"
+        ":"
+        "${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}"
+        "--prefix"
+        "XDG_DATA_DIRS"
+        ":"
+        "${hicolor-icon-theme}/share"
+        # Needs to run `gsettings` on startup, see:
+        # https://www.mail-archive.com/debian-bugs-dist@lists.debian.org/msg1764890.html
+        "--prefix"
+        "PATH"
+        ":"
+        "${lib.getBin glib}/bin"
+      ]
     ++ lib.optionals (unwrapped.hasFeature "gnuradio-companion") [
       "--set"
       "GDK_PIXBUF_MODULE_FILE"
@@ -133,27 +142,30 @@ let
       ":"
       "${lib.makeSearchPath "share/gnuradio/grc/blocks" extraPackages}"
     ]
-    ++ lib.optionals (unwrapped.hasFeature "gr-qtgui")
-    # 3.7 builds with qt4
+    ++ lib.optionals
+      (unwrapped.hasFeature "gr-qtgui")
+      # 3.7 builds with qt4
       (
         if lib.versionAtLeast unwrapped.versionAttr.major "3.8" then
           [
             "--prefix"
             "QT_PLUGIN_PATH"
             ":"
-            "${lib.makeSearchPath unwrapped.qt.qtbase.qtPluginPrefix
-            (builtins.map lib.getBin (
-              [ unwrapped.qt.qtbase ]
-              ++ lib.optionals stdenv.isLinux [ unwrapped.qt.qtwayland ]
-            ))}"
+            "${lib.makeSearchPath unwrapped.qt.qtbase.qtPluginPrefix (
+              builtins.map lib.getBin (
+                [ unwrapped.qt.qtbase ]
+                ++ lib.optionals stdenv.isLinux [ unwrapped.qt.qtwayland ]
+              )
+            )}"
             "--prefix"
             "QML2_IMPORT_PATH"
             ":"
-            "${lib.makeSearchPath unwrapped.qt.qtbase.qtQmlPrefix
-            (builtins.map lib.getBin (
-              [ unwrapped.qt.qtbase ]
-              ++ lib.optionals stdenv.isLinux [ unwrapped.qt.qtwayland ]
-            ))}"
+            "${lib.makeSearchPath unwrapped.qt.qtbase.qtQmlPrefix (
+              builtins.map lib.getBin (
+                [ unwrapped.qt.qtbase ]
+                ++ lib.optionals stdenv.isLinux [ unwrapped.qt.qtwayland ]
+              )
+            )}"
           ]
         else
         # Add here qt4 related environment for 3.7?
@@ -182,12 +194,17 @@ let
           mkdir $out
           cd $out
           lndir -silent ${unwrapped}
-          ${lib.optionalString (extraPackages != [ ])
-          (builtins.concatStringsSep "\n" (builtins.map (pkg: ''
-            if [[ -d ${lib.getBin pkg}/bin/ ]]; then
-              lndir -silent ${pkg}/bin ./bin
-            fi
-          '') extraPackages))}
+          ${lib.optionalString (extraPackages != [ ]) (
+            builtins.concatStringsSep "\n" (
+              builtins.map
+              (pkg: ''
+                if [[ -d ${lib.getBin pkg}/bin/ ]]; then
+                  lndir -silent ${pkg}/bin ./bin
+                fi
+              '')
+              extraPackages
+            )
+          )}
           for i in $out/bin/*; do
             if [[ ! -x "$i" ]]; then
               continue

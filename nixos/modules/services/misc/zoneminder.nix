@@ -46,8 +46,9 @@ let
 
   dirStanzas =
     baseDir:
-    lib.concatStringsSep "\n"
-    (map (e: "ZM_DIR_${lib.toUpper e}=${baseDir}/${e}") libDirs)
+    lib.concatStringsSep "\n" (
+      map (e: "ZM_DIR_${lib.toUpper e}=${baseDir}/${e}") libDirs
+    )
     ;
 
   defaultsFile = pkgs.writeText "60-defaults.conf" ''
@@ -85,16 +86,18 @@ in
 {
   options = {
     services.zoneminder = with lib; {
-      enable = lib.mkEnableOption (lib.mdDoc ''
-        ZoneMinder
+      enable = lib.mkEnableOption (
+        lib.mdDoc ''
+          ZoneMinder
 
-        If you intend to run the database locally, you should set
-        `config.services.zoneminder.database.createLocally` to true. Otherwise,
-        when set to `false` (the default), you will have to create the database
-        and database user as well as populate the database yourself.
-        Additionally, you will need to run `zmupdate.pl` yourself when
-        upgrading to a newer version.
-      '');
+          If you intend to run the database locally, you should set
+          `config.services.zoneminder.database.createLocally` to true. Otherwise,
+          when set to `false` (the default), you will have to create the database
+          and database user as well as populate the database yourself.
+          Additionally, you will need to run `zmupdate.pl` yourself when
+          upgrading to a newer version.
+        ''
+      );
 
       webserver = mkOption {
         type = types.enum [

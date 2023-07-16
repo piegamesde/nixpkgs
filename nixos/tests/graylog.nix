@@ -46,35 +46,41 @@ import ./make-test-python.nix (
 
     testScript =
       let
-        payloads.login = pkgs.writeText "login.json" (builtins.toJSON {
-          host = "127.0.0.1:9000";
-          username = "admin";
-          password = "nixos";
-        });
+        payloads.login = pkgs.writeText "login.json" (
+          builtins.toJSON {
+            host = "127.0.0.1:9000";
+            username = "admin";
+            password = "nixos";
+          }
+        );
 
-        payloads.input = pkgs.writeText "input.json" (builtins.toJSON {
-          title = "Demo";
-          global = false;
-          type = "org.graylog2.inputs.gelf.udp.GELFUDPInput";
-          node = "@node@";
-          configuration = {
-            bind_address = "0.0.0.0";
-            decompress_size_limit = 8388608;
-            number_worker_threads = 1;
-            override_source = null;
-            port = 12201;
-            recv_buffer_size = 262144;
-          };
-        });
+        payloads.input = pkgs.writeText "input.json" (
+          builtins.toJSON {
+            title = "Demo";
+            global = false;
+            type = "org.graylog2.inputs.gelf.udp.GELFUDPInput";
+            node = "@node@";
+            configuration = {
+              bind_address = "0.0.0.0";
+              decompress_size_limit = 8388608;
+              number_worker_threads = 1;
+              override_source = null;
+              port = 12201;
+              recv_buffer_size = 262144;
+            };
+          }
+        );
 
-        payloads.gelf_message = pkgs.writeText "gelf.json" (builtins.toJSON {
-          host = "example.org";
-          short_message = "A short message";
-          full_message = "A long message";
-          version = "1.1";
-          level = 5;
-          facility = "Test";
-        });
+        payloads.gelf_message = pkgs.writeText "gelf.json" (
+          builtins.toJSON {
+            host = "example.org";
+            short_message = "A short message";
+            full_message = "A long message";
+            version = "1.1";
+            level = 5;
+            facility = "Test";
+          }
+        );
       in
       ''
         machine.start()

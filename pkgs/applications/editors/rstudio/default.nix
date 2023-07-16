@@ -80,7 +80,8 @@ in
     stdenv.mkDerivation
   else
     mkDerivation
-) (
+)
+(
   rec {
     inherit
       pname
@@ -187,13 +188,15 @@ in
     largeDicts = with lib;
       filter (d: hasInfix "-large-wordlist" d.name) hunspellDictionaries;
     otherDicts = with lib;
-      filter (
+      filter
+      (
         d:
         !(
           hasAttr "dictFileName" d
           && elem d.dictFileName (map (d: d.dictFileName) largeDicts)
         )
-      ) hunspellDictionaries;
+      )
+      hunspellDictionaries;
     dictionaries = largeDicts ++ otherDicts;
 
     preConfigure = ''

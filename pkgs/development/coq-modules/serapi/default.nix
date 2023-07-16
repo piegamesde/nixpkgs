@@ -34,7 +34,8 @@ in
     inherit version release;
 
     defaultVersion = with versions;
-      lib.switch coq.version [
+      lib.switch coq.version
+      [
         {
           case = isEq "8.17";
           out = "8.17.0+0.17.0";
@@ -67,7 +68,8 @@ in
           case = isEq "8.10";
           out = "8.10.0+0.7.2";
         }
-      ] null;
+      ]
+      null;
 
     useDune = true;
 
@@ -103,7 +105,8 @@ in
       ];
     };
   }
-).overrideAttrs (
+).overrideAttrs
+(
   o:
   let
     inherit (o) version;
@@ -135,7 +138,8 @@ in
 
     propagatedBuildInputs =
       o.propagatedBuildInputs
-      ++ lib.optional (version == "8.16.0+0.16.3" || version == "dev")
+      ++ lib.optional
+        (version == "8.16.0+0.16.3" || version == "dev")
         coq.ocamlPackages.ppx_hash
       ;
 

@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
       pango
       cairo
     ]
-    ++ lib.optional stdenv.isDarwin
+    ++ lib.optional
+      stdenv.isDarwin
       darwin.apple_sdk.frameworks.ApplicationServices
     ;
 

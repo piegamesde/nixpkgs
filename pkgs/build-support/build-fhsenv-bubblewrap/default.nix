@@ -49,22 +49,24 @@ let
 
   buildFHSEnv = callPackage ./buildFHSEnv.nix { };
 
-  fhsenv = buildFHSEnv (removeAttrs (args // { inherit name; }) [
-    "runScript"
-    "extraInstallCommands"
-    "meta"
-    "passthru"
-    "extraBwrapArgs"
-    "dieWithParent"
-    "unshareUser"
-    "unshareCgroup"
-    "unshareUts"
-    "unshareNet"
-    "unsharePid"
-    "unshareIpc"
-    "pname"
-    "version"
-  ]);
+  fhsenv = buildFHSEnv (
+    removeAttrs (args // { inherit name; }) [
+      "runScript"
+      "extraInstallCommands"
+      "meta"
+      "passthru"
+      "extraBwrapArgs"
+      "dieWithParent"
+      "unshareUser"
+      "unshareCgroup"
+      "unshareUts"
+      "unshareNet"
+      "unsharePid"
+      "unshareIpc"
+      "pname"
+      "version"
+    ]
+  );
 
   etcBindEntries =
     let
@@ -145,8 +147,9 @@ let
 
   indentLines =
     str:
-    lib.concatLines
-    (map (s: "  " + s) (filter (s: s != "") (lib.splitString "\n" str)))
+    lib.concatLines (
+      map (s: "  " + s) (filter (s: s != "") (lib.splitString "\n" str))
+    )
     ;
   bwrapCmd =
     {
@@ -242,13 +245,15 @@ let
         --ro-bind ${glibc}/etc/rpc ${glibc}/etc/rpc \
         --remount-ro ${glibc}/etc \
     ''
-    + lib.optionalString (stdenv.isx86_64 && stdenv.isLinux) (indentLines ''
-      --tmpfs ${pkgsi686Linux.glibc}/etc \
-      --symlink /etc/ld.so.conf ${pkgsi686Linux.glibc}/etc/ld.so.conf \
-      --symlink /etc/ld.so.cache ${pkgsi686Linux.glibc}/etc/ld.so.cache \
-      --ro-bind ${pkgsi686Linux.glibc}/etc/rpc ${pkgsi686Linux.glibc}/etc/rpc \
-      --remount-ro ${pkgsi686Linux.glibc}/etc \
-    '')
+    + lib.optionalString (stdenv.isx86_64 && stdenv.isLinux) (
+      indentLines ''
+        --tmpfs ${pkgsi686Linux.glibc}/etc \
+        --symlink /etc/ld.so.conf ${pkgsi686Linux.glibc}/etc/ld.so.conf \
+        --symlink /etc/ld.so.cache ${pkgsi686Linux.glibc}/etc/ld.so.cache \
+        --ro-bind ${pkgsi686Linux.glibc}/etc/rpc ${pkgsi686Linux.glibc}/etc/rpc \
+        --remount-ro ${pkgsi686Linux.glibc}/etc \
+      ''
+    )
     + ''
         "''${ro_mounts[@]}"
         "''${symlinks[@]}"
@@ -263,7 +268,8 @@ let
 
   bin = writeShellScript "${name}-bwrap" (bwrapCmd { initArgs = ''"$@"''; });
 in
-runCommandLocal name {
+runCommandLocal name
+{
   inherit meta;
 
   passthru = passthru // {
@@ -275,7 +281,8 @@ runCommandLocal name {
     '';
     inherit args fhsenv;
   };
-} ''
+}
+''
   mkdir -p $out/bin
   ln -s ${bin} $out/bin/${pname}
 

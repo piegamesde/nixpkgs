@@ -67,10 +67,12 @@ stdenv.mkDerivation rec {
       mv $i $out/bin/$file
       makeWrapper "$out/bin/$file" "$out/bin/$(basename $i)" --argv0 $(basename $i) \
         --set BYOBU_PATH ${
-          lib.escapeShellArg (lib.makeBinPath [
-            vim
-            bc
-          ])
+          lib.escapeShellArg (
+            lib.makeBinPath [
+              vim
+              bc
+            ]
+          )
         } \
         --set BYOBU_PYTHON "${pythonEnv}/bin/python"
     done

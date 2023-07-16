@@ -90,7 +90,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description =
       "A retro-styled platform game"
-      + lib.optionalString makeAndPlay
+      + lib.optionalString
+        makeAndPlay
         " (redistributable, without original levels)"
       ;
     longDescription =

@@ -75,13 +75,19 @@ let
     [gitlab.http-settings]
     self_signed_cert = false
 
-    ${concatStringsSep "\n" (attrValues (mapAttrs (
-      k: v: ''
-        [[storage]]
-        name = "${lib.escape [ ''"'' ] k}"
-        path = "${lib.escape [ ''"'' ] v.path}"
-      ''
-    ) gitlabConfig.production.repositories.storages))}
+    ${concatStringsSep "\n" (
+      attrValues (
+        mapAttrs
+        (
+          k: v: ''
+            [[storage]]
+            name = "${lib.escape [ ''"'' ] k}"
+            path = "${lib.escape [ ''"'' ] v.path}"
+          ''
+        )
+        gitlabConfig.production.repositories.storages
+      )
+    )}
   '';
 
   gitlabShellConfig = flip recursiveUpdate cfg.extraShellConfig {
@@ -219,9 +225,11 @@ let
       mkdir -p $out/bin
       makeWrapper ${cfg.packages.gitlab.rubyEnv}/bin/rake $out/bin/gitlab-rake \
           ${
-            concatStrings
-            (mapAttrsToList (name: value: "--set ${name} '${value}' ")
-              gitlabEnv)
+            concatStrings (
+              mapAttrsToList
+              (name: value: "--set ${name} '${value}' ")
+              gitlabEnv
+            )
           } \
           --set PATH '${lib.makeBinPath runtimeDeps}:$PATH' \
           --set RAKEOPT '-f ${cfg.packages.gitlab}/share/gitlab/Rakefile' \
@@ -238,9 +246,11 @@ let
       mkdir -p $out/bin
       makeWrapper ${cfg.packages.gitlab.rubyEnv}/bin/rails $out/bin/gitlab-rails \
           ${
-            concatStrings
-            (mapAttrsToList (name: value: "--set ${name} '${value}' ")
-              gitlabEnv)
+            concatStrings (
+              mapAttrsToList
+              (name: value: "--set ${name} '${value}' ")
+              gitlabEnv
+            )
           } \
           --set PATH '${lib.makeBinPath runtimeDeps}:$PATH' \
           --chdir '${cfg.packages.gitlab}/share/gitlab'
@@ -258,16 +268,17 @@ let
         address: "${cfg.smtp.address}",
         port: ${toString cfg.smtp.port},
         ${
-          optionalString (cfg.smtp.username != null)
-          ''user_name: "${cfg.smtp.username}",''
+          optionalString (cfg.smtp.username != null) ''
+            user_name: "${cfg.smtp.username}",''
         }
         ${
-          optionalString (cfg.smtp.passwordFile != null)
-          ''password: "@smtpPassword@",''
+          optionalString (cfg.smtp.passwordFile != null) ''
+            password: "@smtpPassword@",''
         }
         domain: "${cfg.smtp.domain}",
         ${
-          optionalString (cfg.smtp.authentication != null)
+          optionalString
+          (cfg.smtp.authentication != null)
           "authentication: :${cfg.smtp.authentication},"
         }
         enable_starttls_auto: ${boolToString cfg.smtp.enableStartTLSAuto},
@@ -282,41 +293,51 @@ in
 {
 
   imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "gitlab"
-      "stateDir"
-    ] [
-      "services"
-      "gitlab"
-      "statePath"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "gitlab"
-      "backupPath"
-    ] [
-      "services"
-      "gitlab"
-      "backup"
-      "path"
-    ])
-    (mkRemovedOptionModule [
-      "services"
-      "gitlab"
-      "satelliteDir"
-    ] "")
-    (mkRemovedOptionModule [
-      "services"
-      "gitlab"
-      "logrotate"
-      "extraConfig"
-    ] "Modify services.logrotate.settings.gitlab directly instead")
-    (mkRemovedOptionModule [
-      "services"
-      "gitlab"
-      "pagesExtraArgs"
-    ] "Use services.gitlab.pages.settings instead")
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gitlab"
+        "stateDir"
+      ]
+      [
+        "services"
+        "gitlab"
+        "statePath"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gitlab"
+        "backupPath"
+      ]
+      [
+        "services"
+        "gitlab"
+        "backup"
+        "path"
+      ])
+    (mkRemovedOptionModule
+      [
+        "services"
+        "gitlab"
+        "satelliteDir"
+      ]
+      "")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "gitlab"
+        "logrotate"
+        "extraConfig"
+      ]
+      "Modify services.logrotate.settings.gitlab directly instead")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "gitlab"
+        "pagesExtraArgs"
+      ]
+      "Use services.gitlab.pages.settings instead")
   ];
 
   options = {
@@ -791,12 +812,16 @@ in
 
         type = types.submodule {
           freeformType = with types;
-            attrsOf (nullOr (oneOf [
-              str
-              int
-              bool
-              attrs
-            ]));
+            attrsOf (
+              nullOr (
+                oneOf [
+                  str
+                  int
+                  bool
+                  attrs
+                ]
+              )
+            );
 
           options = {
             listen-http = mkOption {
@@ -900,8 +925,8 @@ in
             pages-root = mkOption {
               type = types.str;
               default = "${gitlabConfig.production.shared.path}/pages";
-              defaultText = literalExpression
-                ''config.${opt.extraConfig}.production.shared.path + "/pages"'';
+              defaultText = literalExpression ''
+                config.${opt.extraConfig}.production.shared.path + "/pages"'';
               description = lib.mdDoc ''
                 The directory where pages are stored.
               '';
@@ -1441,7 +1466,8 @@ in
             '';
           in
           "+${
-            pkgs.writeShellScript "gitlab-pre-start-full-privileges"
+            pkgs.writeShellScript
+            "gitlab-pre-start-full-privileges"
             preStartFullPrivileges
           }"
           ;
@@ -1494,12 +1520,14 @@ in
                   fi
 
                   jq <${
-                    pkgs.writeText "database.yml"
-                    (builtins.toJSON databaseConfig)
+                    pkgs.writeText "database.yml" (
+                      builtins.toJSON databaseConfig
+                    )
                   } \
                      '.${
                        if
-                         lib.versionAtLeast (lib.getVersion cfg.packages.gitlab)
+                         lib.versionAtLeast
+                         (lib.getVersion cfg.packages.gitlab)
                          "15.0"
                        then
                          "production.main"
@@ -1511,15 +1539,17 @@ in
               else
                 ''
                   jq <${
-                    pkgs.writeText "database.yml"
-                    (builtins.toJSON databaseConfig)
+                    pkgs.writeText "database.yml" (
+                      builtins.toJSON databaseConfig
+                    )
                   } \
                      >'${cfg.statePath}/config/database.yml'
                 ''
             }
 
             ${
-              utils.genJqSecretsReplacementSnippet gitlabConfig
+              utils.genJqSecretsReplacementSnippet
+              gitlabConfig
               "${cfg.statePath}/config/gitlab.yml"
             }
 
@@ -1774,7 +1804,8 @@ in
           set -o errexit -o pipefail -o nounset
           shopt -s dotglob nullglob inherit_errexit
 
-          ${utils.genJqSecretsReplacementSnippet cfg.workhorse.config
+          ${utils.genJqSecretsReplacementSnippet
+          cfg.workhorse.config
           "${cfg.statePath}/config/gitlab-workhorse.json"}
 
           json2toml "${cfg.statePath}/config/gitlab-workhorse.json" "${cfg.statePath}/config/gitlab-workhorse.toml"

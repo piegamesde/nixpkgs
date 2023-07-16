@@ -87,13 +87,17 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ openssl ]
-    ++ lib.optionals (
-      stdenv.hostPlatform.isLinux
-      && stdenv.hostPlatform.libc != "bionic"
-      && !(
-        stdenv.hostPlatform.useLLVM or false
+    ++ lib.optionals
+      (
+        stdenv.hostPlatform.isLinux
+        && stdenv.hostPlatform.libc != "bionic"
+        && !(
+          stdenv.hostPlatform.useLLVM or false
+        )
       )
-    ) [ keyutils ]
+      [
+        keyutils
+      ]
     ++ lib.optionals (!libOnly) [
       openldap
       libedit

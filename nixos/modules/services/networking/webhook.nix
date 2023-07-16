@@ -37,22 +37,24 @@ let
   );
 
   hookFiles =
-    mapAttrsToList (
-      name: hook: hookFormat.generate "webhook-${name}.json" [ hook ]
-    ) cfg.hooks
-    ++ mapAttrsToList (
-      name: hook: pkgs.writeText "webhook-${name}.json.tmpl" "[${hook}]"
-    ) cfg.hooksTemplated
+    mapAttrsToList
+      (name: hook: hookFormat.generate "webhook-${name}.json" [ hook ])
+      cfg.hooks
+    ++ mapAttrsToList
+      (name: hook: pkgs.writeText "webhook-${name}.json.tmpl" "[${hook}]")
+      cfg.hooksTemplated
     ;
 
 in
 {
   options = {
     services.webhook = {
-      enable = mkEnableOption (mdDoc ''
-        [Webhook](https://github.com/adnanh/webhook), a server written in Go that allows you to create HTTP endpoints (hooks),
-        which execute configured commands for any person or service that knows the URL
-      '');
+      enable = mkEnableOption (
+        mdDoc ''
+          [Webhook](https://github.com/adnanh/webhook), a server written in Go that allows you to create HTTP endpoints (hooks),
+          which execute configured commands for any person or service that knows the URL
+        ''
+      );
 
       package = mkPackageOptionMD pkgs "webhook" { };
       user = mkOption {
@@ -230,10 +232,12 @@ in
               "-urlprefix"
               cfg.urlPrefix
             ]
-            ++ concatMap (hook: [
-              "-hooks"
-              hook
-            ]) hookFiles
+            ++ concatMap
+              (hook: [
+                "-hooks"
+                hook
+              ])
+              hookFiles
             ++ optional cfg.enableTemplates "-template"
             ++ optional cfg.verbose "-verbose"
             ++ cfg.extraArgs

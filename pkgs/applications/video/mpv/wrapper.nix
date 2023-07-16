@@ -58,7 +58,8 @@ let
           ":"
           binPath
         ]
-        ++ (lib.lists.flatten (map
+        ++ (lib.lists.flatten (
+          map
           # For every script in the `scripts` argument, add the necessary flags to the wrapper
           (
             script:
@@ -72,7 +73,9 @@ let
             ++ (
               script.extraWrapperArgs or [ ]
             )
-          ) scripts))
+          )
+          scripts
+        ))
         ++ extraMakeWrapperArgs
       );
       umpvWrapperArgs = lib.strings.escapeShellArgs (

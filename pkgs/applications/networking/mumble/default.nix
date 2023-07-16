@@ -93,7 +93,8 @@ let
 
   client =
     source:
-    generic {
+    generic
+    {
       type = "mumble";
 
       nativeBuildInputs = [ qt5.qttools ];
@@ -133,7 +134,8 @@ let
         ++ lib.optional jackSupport "-D alsa=OFF -D jackaudio=ON"
         ;
 
-      env.NIX_CFLAGS_COMPILE = lib.optionalString speechdSupport
+      env.NIX_CFLAGS_COMPILE = lib.optionalString
+        speechdSupport
         "-I${speechd}/include/speech-dispatcher";
 
       postFixup = ''
@@ -145,12 +147,14 @@ let
             )
           }"
       '';
-    } source
+    }
+    source
     ;
 
   server =
     source:
-    generic {
+    generic
+    {
       type = "murmur";
 
       configureFlags =
@@ -172,7 +176,8 @@ let
           which
         ]
         ;
-    } source
+    }
+    source
     ;
 
   source = rec {

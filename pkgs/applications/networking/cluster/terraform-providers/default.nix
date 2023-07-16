@@ -37,13 +37,16 @@ let
       homepage ? ""
         # "registry.terraform.io/vancluever/acme"
       ,
-      provider-source-address ? lib.replaceStrings [
-        "https://registry"
-        ".io/providers"
-      ] [
-        "registry"
-        ".io"
-      ] homepage,
+      provider-source-address ? lib.replaceStrings
+        [
+          "https://registry"
+          ".io/providers"
+        ]
+        [
+          "registry"
+          ".io"
+        ]
+        homepage,
       ...
     }@attrs:
     assert lib.stringLength provider-source-address > 0;
@@ -104,8 +107,9 @@ let
       owner = "gitlab-org";
     };
       # mkisofs needed to create ISOs holding cloud-init data and wrapped to terraform via deecb4c1aab780047d79978c636eeb879dd68630
-    libvirt = automated-providers.libvirt.overrideAttrs
-      (_: { propagatedBuildInputs = [ cdrtools ]; });
+    libvirt = automated-providers.libvirt.overrideAttrs (
+      _: { propagatedBuildInputs = [ cdrtools ]; }
+    );
   };
 
     # Put all the providers we not longer support in this list.

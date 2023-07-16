@@ -64,12 +64,14 @@ in
       };
       params = mkOption {
         type = with types;
-          attrsOf (oneOf [
-            str
-            int
-            bool
-            (listOf str)
-          ]);
+          attrsOf (
+            oneOf [
+              str
+              int
+              bool
+              (listOf str)
+            ]
+          );
         example = {
           audio = "alsa";
           rtcuseutc = "on";
@@ -83,12 +85,14 @@ in
       };
       exportParams = mkOption {
         type = with types;
-          listOf (oneOf [
-            str
-            int
-            bool
-            (listOf str)
-          ]);
+          listOf (
+            oneOf [
+              str
+              int
+              bool
+              (listOf str)
+            ]
+          );
         example = [
           "--vsys"
           "0"
@@ -113,23 +117,25 @@ in
           mountPoint = "/home/demo/storage";
           size = 100 * 1024;
         };
-        type = types.nullOr (types.submodule {
-          options = {
-            size = mkOption {
-              type = types.int;
-              description = lib.mdDoc "Size in MiB";
+        type = types.nullOr (
+          types.submodule {
+            options = {
+              size = mkOption {
+                type = types.int;
+                description = lib.mdDoc "Size in MiB";
+              };
+              label = mkOption {
+                type = types.str;
+                default = "vm-extra-storage";
+                description = lib.mdDoc "Label for the disk partition";
+              };
+              mountPoint = mkOption {
+                type = types.str;
+                description = lib.mdDoc "Path where to mount this disk.";
+              };
             };
-            label = mkOption {
-              type = types.str;
-              default = "vm-extra-storage";
-              description = lib.mdDoc "Label for the disk partition";
-            };
-            mountPoint = mkOption {
-              type = types.str;
-              description = lib.mdDoc "Path where to mount this disk.";
-            };
-          };
-        });
+          }
+        );
       };
       postExportCommands = mkOption {
         type = types.lines;
@@ -150,12 +156,14 @@ in
       };
       storageController = mkOption {
         type = with types;
-          attrsOf (oneOf [
-            str
-            int
-            bool
-            (listOf str)
-          ]);
+          attrsOf (
+            oneOf [
+              str
+              int
+              bool
+              (listOf str)
+            ]
+          );
         example = {
           name = "SCSI";
           add = "scsi";

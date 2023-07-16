@@ -11,10 +11,12 @@ mkCoqDerivation {
   owner = "HoTT";
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch coq.coq-version [ {
+    lib.switch coq.coq-version
+    [ {
       case = range "8.14" "8.17";
       out = coq.coq-version;
-    } ] null;
+    } ]
+    null;
   releaseRev = v: "V${v}";
   release."8.14".sha256 = "sha256-7kXk2pmYsTNodHA+Qts3BoMsewvzmCbYvxw9Sgwyvq0=";
   release."8.15".sha256 = "sha256-JfeiRZVnrjn3SQ87y6dj9DWNwCzrkK3HBogeZARUn9g=";

@@ -34,10 +34,11 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ python ]
-    ++ lib.optionals (
-      lapackSupport
-    )
-    # Check that the same index size is used for both libraries
+    ++ lib.optionals
+      (
+        lapackSupport
+      )
+      # Check that the same index size is used for both libraries
       (
         assert (blas.isILP64 == lapack.isILP64); [
           blas

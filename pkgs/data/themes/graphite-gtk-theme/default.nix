@@ -23,7 +23,8 @@ let
   pname = "graphite-gtk-theme";
 
 in
-lib.checkListOfEnum "${pname}: theme variants" [
+lib.checkListOfEnum "${pname}: theme variants"
+[
   "default"
   "purple"
   "pink"
@@ -34,26 +35,44 @@ lib.checkListOfEnum "${pname}: theme variants" [
   "teal"
   "blue"
   "all"
-] themeVariants lib.checkListOfEnum "${pname}: color variants" [
+]
+themeVariants
+lib.checkListOfEnum
+"${pname}: color variants"
+[
   "standard"
   "light"
   "dark"
-] colorVariants lib.checkListOfEnum "${pname}: size variants" [
+]
+colorVariants
+lib.checkListOfEnum
+"${pname}: size variants"
+[
   "standard"
   "compact"
-] sizeVariants lib.checkListOfEnum "${pname}: tweaks" [
+]
+sizeVariants
+lib.checkListOfEnum
+"${pname}: tweaks"
+[
   "nord"
   "black"
   "dark"
   "rimless"
   "normal"
-] tweaks lib.checkListOfEnum "${pname}: grub screens" [
+]
+tweaks
+lib.checkListOfEnum
+"${pname}: grub screens"
+[
   "1080p"
   "2k"
   "4k"
-] grubScreens
+]
+grubScreens
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation
+rec {
   inherit pname;
   version = "2022-09-02";
 

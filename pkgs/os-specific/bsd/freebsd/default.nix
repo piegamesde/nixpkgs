@@ -124,23 +124,23 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
         rec {
           pname = "${attrs.pname or (baseNameOf attrs.path)}-freebsd";
           inherit version;
-          src = runCommand "${pname}-filtered-src" {
-            nativeBuildInputs = [ rsync ];
-          } ''
-            for p in ${
-              lib.concatStringsSep " " (
-                [ attrs.path ] ++ attrs.extraPaths or [ ]
-              )
-            }; do
-              set -x
-              path="$out/$p"
-              mkdir -p "$(dirname "$path")"
-              src_path="${freebsdSrc}/$p"
-              if [[ -d "$src_path" ]]; then src_path+=/; fi
-              rsync --chmod="+w" -r "$src_path" "$path"
-              set +x
-            done
-          '';
+          src = runCommand "${pname}-filtered-src"
+            { nativeBuildInputs = [ rsync ]; }
+            ''
+              for p in ${
+                lib.concatStringsSep " " (
+                  [ attrs.path ] ++ attrs.extraPaths or [ ]
+                )
+              }; do
+                set -x
+                path="$out/$p"
+                mkdir -p "$(dirname "$path")"
+                src_path="${freebsdSrc}/$p"
+                if [[ -d "$src_path" ]]; then src_path+=/; fi
+                rsync --chmod="+w" -r "$src_path" "$path"
+                set +x
+              done
+            '';
 
           extraPaths = [ ];
 
@@ -435,7 +435,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
           "STRIP=-s" # flag to install, not command
           "MK_WERROR=no"
         ]
-        ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
+        ++ lib.optional
+          (stdenv.hostPlatform == stdenv.buildPlatform)
           "INSTALL=boot-install"
         ;
       buildInputs = with self; compatIfNeeded;
@@ -482,7 +483,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
             "MK_WERROR=no"
             "TESTSDIR=${builtins.placeholder "test"}"
           ]
-          ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
+          ++ lib.optional
+            (stdenv.hostPlatform == stdenv.buildPlatform)
             "INSTALL=boot-install"
           ;
         postInstall = ''
@@ -523,10 +525,11 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
       # breaks stdenv.  Work around that with a hook that will point
       # NetBSD's build system and NetBSD stat without including it in
       # PATH.
-    statHook = makeSetupHook { name = "netbsd-stat-hook"; }
-      (writeText "netbsd-stat-hook-impl" ''
+    statHook = makeSetupHook { name = "netbsd-stat-hook"; } (
+      writeText "netbsd-stat-hook-impl" ''
         makeFlagsArray+=(TOOL_STAT=${self.stat}/bin/stat)
-      '');
+      ''
+    );
 
     tsort = mkDerivation {
       path = "usr.bin/tsort";

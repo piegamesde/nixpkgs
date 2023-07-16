@@ -37,21 +37,23 @@ in
       default = "error";
       description = lib.mdDoc "Log level";
     };
-  } // (lib.genAttrs [
-    "dbtype"
-    "dbname"
-    "dbuser"
-    "dbpassFile"
-    "dbhost"
-    "dbport"
-    "dbtableprefix"
-  ] (
-    opt:
-    options.services.nextcloud.config.${opt} // {
-      default = config.services.nextcloud.config.${opt};
-      defaultText = "config.services.nextcloud.config.${opt}";
-    }
-  ));
+  } // (lib.genAttrs
+    [
+      "dbtype"
+      "dbname"
+      "dbuser"
+      "dbpassFile"
+      "dbhost"
+      "dbport"
+      "dbtableprefix"
+    ]
+    (
+      opt:
+      options.services.nextcloud.config.${opt} // {
+        default = config.services.nextcloud.config.${opt};
+        defaultText = "config.services.nextcloud.config.${opt}";
+      }
+    ));
 
   config = lib.mkIf cfg.enable {
     systemd.services.nextcloud-notify_push =

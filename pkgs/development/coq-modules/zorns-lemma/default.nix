@@ -29,7 +29,8 @@
 
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch coq.coq-version [
+    lib.switch coq.coq-version
+    [
       {
         case = range "8.10" "8.16";
         out = "9.0.0";
@@ -54,7 +55,8 @@
         case = "8.5";
         out = "8.5.0";
       }
-    ] null;
+    ]
+    null;
 
   useDuneifVersion = lib.versions.isGe "9.0";
 
@@ -68,7 +70,8 @@
     maintainers = with maintainers; [ siraben ];
     license = licenses.lgpl21Plus;
   };
-}).overrideAttrs (
+}).overrideAttrs
+(
   {
     version,
     ...

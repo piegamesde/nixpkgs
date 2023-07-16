@@ -44,11 +44,12 @@ symlinkJoin {
       } \
       ${lib.optionalString (theme != null) ''--add-flags "-theme ${theme}"''} \
       ${
-        lib.optionalString (plugins != [ ])
-        ''--add-flags "-plugin-path $out/lib/rofi"''
+        lib.optionalString (plugins != [ ]) ''
+          --add-flags "-plugin-path $out/lib/rofi"''
       }
 
-    ${lib.optionalString symlink-dmenu
+    ${lib.optionalString
+    symlink-dmenu
     "ln -s ${rofi-unwrapped}/bin/rofi $out/bin/dmenu"}
 
     rm $out/bin/rofi-theme-selector

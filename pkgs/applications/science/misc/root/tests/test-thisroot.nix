@@ -8,13 +8,15 @@
   tcsh,
   zsh,
 }:
-runCommand "test-thisroot" {
+runCommand "test-thisroot"
+{
   meta = with lib; {
     description = "Test for root thisroot.* sourcing";
     maintainers =
       unique ((with maintainers; [ ShamrockLee ]) ++ root.meta.maintainers);
   };
-} ''
+}
+''
   set -eu -o pipefail
   declare -a shellNameArray shellOutpathArray sourcefileNameArray sourceCommandArray
   shellNameArray=( bash zsh tcsh fish )

@@ -12,13 +12,15 @@ let
   argsFormat = {
     type = with lib.types;
       let
-        valueType = nullOr (oneOf [
-          bool
-          int
-          float
-          str
-          (listOf valueType)
-        ]) // {
+        valueType = nullOr (
+          oneOf [
+            bool
+            int
+            float
+            str
+            (listOf valueType)
+          ]
+        ) // {
           description = "freeciv-server params";
         };
       in
@@ -52,8 +54,9 @@ let
           )
           ;
       in
-      escapeShellArgs
-      (concatLists (concatLists (mapAttrsToList mkParams value)))
+      escapeShellArgs (
+        concatLists (concatLists (mapAttrsToList mkParams value))
+      )
       ;
   };
 in
@@ -95,8 +98,9 @@ in
             default = 0;
             description = lib.mdDoc "Set debug log level.";
           };
-          options.exit-on-end = mkEnableOption
-            (lib.mdDoc "exit instead of restarting when a game ends");
+          options.exit-on-end = mkEnableOption (
+            lib.mdDoc "exit instead of restarting when a game ends"
+          );
           options.Guests =
             mkEnableOption (lib.mdDoc "guests to login if auth is enabled");
           options.Newusers =
@@ -131,8 +135,9 @@ in
           };
         };
       };
-      openFirewall = mkEnableOption
-        (lib.mdDoc "opening the firewall for the port listening for clients");
+      openFirewall = mkEnableOption (
+        lib.mdDoc "opening the firewall for the port listening for clients"
+      );
     };
   };
   config = mkIf cfg.enable {
@@ -168,10 +173,12 @@ in
           ''
           + "${pkgs.freeciv}/bin/freeciv-server"
           + " "
-          + optionalString (cfg.settings.saves != null) (concatStringsSep " " [
-            "--saves"
-            "${escapeShellArg cfg.settings.saves}/$savedir"
-          ])
+          + optionalString (cfg.settings.saves != null) (
+            concatStringsSep " " [
+              "--saves"
+              "${escapeShellArg cfg.settings.saves}/$savedir"
+            ]
+          )
           + " "
           + argsFormat.generate "freeciv-server" (
             cfg.settings // { saves = null; }

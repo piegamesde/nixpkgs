@@ -24,9 +24,11 @@ let
         "no"
     }
 
-    ${concatMapStrings (range: ''
+    ${concatMapStrings
+    (range: ''
       listening_ip=${range}
-    '') cfg.internalIPs}
+    '')
+    cfg.internalIPs}
 
     ${cfg.appendConfig}
   '';

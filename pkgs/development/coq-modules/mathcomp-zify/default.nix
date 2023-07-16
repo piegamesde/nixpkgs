@@ -19,10 +19,12 @@ mkCoqDerivation rec {
   inherit version;
 
   defaultVersion = with lib.versions;
-    lib.switch [
+    lib.switch
+    [
       coq.coq-version
       mathcomp-algebra.version
-    ] [
+    ]
+    [
       {
         cases = [
           (range "8.13" "8.17")
@@ -37,7 +39,8 @@ mkCoqDerivation rec {
         ];
         out = "1.1.0+1.12+8.13";
       }
-    ] null;
+    ]
+    null;
 
   release."1.0.0+1.12+8.13".sha256 =
     "1j533vx6lacr89bj1bf15l1a0s7rvrx4l00wyjv99aczkfbz6h6k";

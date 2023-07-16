@@ -49,37 +49,43 @@ let
   sandboxPathsTest = lib.concatStringsSep " || " sandboxPathsTests;
   sandboxPathsList = lib.concatStringsSep " " sandboxPaths;
 
-  testDerivation = stdenv.mkDerivation (lib.recursiveUpdate {
-    name = "test-run-${name}";
+  testDerivation = stdenv.mkDerivation (
+    lib.recursiveUpdate
+    {
+      name = "test-run-${name}";
 
-    requiredSystemFeatures = [ "nixos-test" ];
+      requiredSystemFeatures = [ "nixos-test" ];
 
-    buildCommand = ''
-      mkdir -p $out
+      buildCommand = ''
+        mkdir -p $out
 
-      if ${sandboxPathsTest}; then
-        echo 'Run this test as *root* with `--option extra-sandbox-paths '"'${sandboxPathsList}'"'`'
-        exit 1
-      fi
+        if ${sandboxPathsTest}; then
+          echo 'Run this test as *root* with `--option extra-sandbox-paths '"'${sandboxPathsList}'"'`'
+          exit 1
+        fi
 
-      # Run test
-      ${testScript}
-    '';
+        # Run test
+        ${testScript}
+      '';
 
-    passthru.runScript = runScript;
-  } (builtins.removeAttrs args [
-    "lib"
-    "stdenv"
-    "writeShellScript"
+      passthru.runScript = runScript;
+    }
+    (
+      builtins.removeAttrs args [
+        "lib"
+        "stdenv"
+        "writeShellScript"
 
-    "name"
-    "testedPackage"
-    "testPath"
-    "sandboxPaths"
-    "prepareRunCommands"
-    "nixFlags"
-    "testScript"
-  ]));
+        "name"
+        "testedPackage"
+        "testPath"
+        "sandboxPaths"
+        "prepareRunCommands"
+        "nixFlags"
+        "testScript"
+      ]
+    )
+  );
 
   runScript = writeShellScript "run-script-${name}" ''
     set -euo pipefail

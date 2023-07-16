@@ -81,8 +81,11 @@ let
       [ dep ]
       ++ (
         if builtins.hasAttr "propagatedBuildInputs" dep then
-          lib.unique (builtins.concatLists
-            (map transitiveClosure dep.propagatedBuildInputs))
+          lib.unique (
+            builtins.concatLists (
+              map transitiveClosure dep.propagatedBuildInputs
+            )
+          )
         else
           [ ]
       )
@@ -95,13 +98,15 @@ let
     lib.unique (builtins.concatLists (map transitiveClosure allInputs));
     # fix differences between spkg and sage names
     # (could patch sage instead, but this is more lightweight and also works for packages depending on sage)
-  patch_names = builtins.replaceStrings [
-    "zope.interface"
-    "node_three"
-  ] [
-    "zope_interface"
-    "threejs"
-  ];
+  patch_names = builtins.replaceStrings
+    [
+      "zope.interface"
+      "node_three"
+    ]
+    [
+      "zope_interface"
+      "threejs"
+    ];
     # spkg names (this_is_a_package-version) of all transitive deps
   input_names = map (dep: pkg_to_spkg_name dep patch_names) transitiveDeps;
 in

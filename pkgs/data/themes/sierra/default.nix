@@ -19,21 +19,36 @@
 let
   pname = "sierra-gtk-theme";
 in
-lib.checkListOfEnum "${pname}: button variants" [
+lib.checkListOfEnum "${pname}: button variants"
+[
   "standard"
   "alt"
-] buttonVariants lib.checkListOfEnum "${pname}: color variants" [
+]
+buttonVariants
+lib.checkListOfEnum
+"${pname}: color variants"
+[
   "light"
   "dark"
-] colorVariants lib.checkListOfEnum "${pname}: opacity variants" [
+]
+colorVariants
+lib.checkListOfEnum
+"${pname}: opacity variants"
+[
   "standard"
   "solid"
-] opacityVariants lib.checkListOfEnum "${pname}: size variants" [
+]
+opacityVariants
+lib.checkListOfEnum
+"${pname}: size variants"
+[
   "standard"
   "compact"
-] sizeVariants
+]
+sizeVariants
 
-stdenv.mkDerivation {
+stdenv.mkDerivation
+{
   inherit pname;
   version = "unstable-2021-05-24";
 

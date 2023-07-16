@@ -33,7 +33,8 @@ let
     }
     ;
 
-  clang-tools-extra_src = fetch "clang-tools-extra"
+  clang-tools-extra_src = fetch
+    "clang-tools-extra"
     "018b3fiwah8f8br5i26qmzh6sjvzchpn358sn8v079m49f2jldm3";
 
   llvm_meta = {
@@ -101,15 +102,19 @@ let
 
       clang-unwrapped = tools.libclang;
 
-      llvm-manpages = lowPrio (tools.libllvm.override {
-        enableManpages = true;
-        python3 = pkgs.python3; # don't use python-boot
-      });
+      llvm-manpages = lowPrio (
+        tools.libllvm.override {
+          enableManpages = true;
+          python3 = pkgs.python3; # don't use python-boot
+        }
+      );
 
-      clang-manpages = lowPrio (tools.libclang.override {
-        enableManpages = true;
-        python3 = pkgs.python3; # don't use python-boot
-      });
+      clang-manpages = lowPrio (
+        tools.libclang.override {
+          enableManpages = true;
+          python3 = pkgs.python3; # don't use python-boot
+        }
+      );
 
         # pick clang appropriate for package set we are targeting
       clang =

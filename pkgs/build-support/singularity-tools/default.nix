@@ -68,8 +68,9 @@
       };
       runAsRootFile = shellScript "run-as-root.sh" runAsRoot;
       runScriptFile = shellScript "run-script.sh" runScript;
-      result = vmTools.runInLinuxVM
-        (runCommand "${projectName}-image-${name}.img" {
+      result = vmTools.runInLinuxVM (
+        runCommand "${projectName}-image-${name}.img"
+        {
           buildInputs = [
             singularity
             0.0
@@ -83,7 +84,8 @@
             fullName = "${projectName}-run-disk";
           };
           inherit memSize;
-        } ''
+        }
+        ''
           rm -rf $out
           mkdir disk
           mkfs -t ext3 -b 4096 /dev/${vmTools.hd}
@@ -130,7 +132,8 @@
           echo "root:x:0:0:System administrator:/root:/bin/sh" > /etc/passwd
           echo > /etc/resolv.conf
           TMPDIR=$(pwd -P) ${projectName} build $out ./img
-        '');
+        ''
+      );
 
     in
     result

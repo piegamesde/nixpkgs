@@ -23,9 +23,11 @@ in
     resultFoo =
       lib.concatMapStringsSep " " toString (attrNames config.variants.foo.attrs)
       ;
-    resultFooBar = lib.concatMapStringsSep " " toString
-      (attrNames config.variants.foo.variants.bar.attrs);
-    resultFooFoo = lib.concatMapStringsSep " " toString
-      (attrNames config.variants.foo.variants.foo.attrs);
+    resultFooBar = lib.concatMapStringsSep " " toString (
+      attrNames config.variants.foo.variants.bar.attrs
+    );
+    resultFooFoo = lib.concatMapStringsSep " " toString (
+      attrNames config.variants.foo.variants.foo.attrs
+    );
   };
 }

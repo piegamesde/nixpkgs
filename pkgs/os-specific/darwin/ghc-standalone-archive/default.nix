@@ -13,12 +13,14 @@ let
   with-env = ghcWithPackages deps;
   ghcName = "${ghc.targetPrefix}ghc";
 in
-runCommand name {
+runCommand name
+{
   buildInputs = [
     with-env
     cctools
   ];
-} ''
+}
+''
   mkdir -p $out/lib
   mkdir -p $out/include
   ${ghcName} ${src} -staticlib -outputdir . -o $out/lib/${name}.a -stubdir $out/include

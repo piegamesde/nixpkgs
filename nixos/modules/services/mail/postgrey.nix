@@ -53,44 +53,47 @@ let
 in
 {
   imports = [
-      (mkMergedOptionModule [
+      (mkMergedOptionModule
         [
-          "services"
-          "postgrey"
-          "inetAddr"
-        ]
-        [
-          "services"
-          "postgrey"
-          "inetPort"
-        ]
-      ] [
-        "services"
-        "postgrey"
-        "socket"
-      ] (
-        config:
-        let
-          value = p: getAttrFromPath p config;
-          inetAddr = [
+          [
             "services"
             "postgrey"
             "inetAddr"
-          ];
-          inetPort = [
+          ]
+          [
             "services"
             "postgrey"
             "inetPort"
-          ];
-        in
-        if value inetAddr == null then
-          { path = "/run/postgrey.sock"; }
-        else
-          {
-            addr = value inetAddr;
-            port = value inetPort;
-          }
-      ))
+          ]
+        ]
+        [
+          "services"
+          "postgrey"
+          "socket"
+        ]
+        (
+          config:
+          let
+            value = p: getAttrFromPath p config;
+            inetAddr = [
+              "services"
+              "postgrey"
+              "inetAddr"
+            ];
+            inetPort = [
+              "services"
+              "postgrey"
+              "inetPort"
+            ];
+          in
+          if value inetAddr == null then
+            { path = "/run/postgrey.sock"; }
+          else
+            {
+              addr = value inetAddr;
+              port = value inetPort;
+            }
+        ))
     ];
 
   options = {
@@ -266,13 +269,14 @@ in
                       --greylist-text="${cfg.greylistText}" \
                       --x-greylist-header="${cfg.greylistHeader}" \
                       ${
-                        concatMapStringsSep " " (x: "--whitelist-clients=" + x)
+                        concatMapStringsSep " "
+                        (x: "--whitelist-clients=" + x)
                         cfg.whitelistClients
                       } \
                       ${
-                        concatMapStringsSep " " (
-                          x: "--whitelist-recipients=" + x
-                        ) cfg.whitelistRecipients
+                        concatMapStringsSep " "
+                        (x: "--whitelist-recipients=" + x)
+                        cfg.whitelistRecipients
                       }
           '';
           Restart = "always";

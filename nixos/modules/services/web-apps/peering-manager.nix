@@ -48,16 +48,21 @@ let
       ''
       ;
   };
-  pkg = (pkgs.peering-manager.overrideAttrs (old: {
-    postInstall =
-      ''
-        ln -s ${configFile} $out/opt/peering-manager/peering_manager/configuration.py
-      ''
-      + optionalString cfg.enableLdap ''
-        ln -s ${cfg.ldapConfigPath} $out/opt/peering-manager/peering_manager/ldap_config.py
-      ''
-      ;
-  })).override { inherit (cfg) plugins; };
+  pkg = (pkgs.peering-manager.overrideAttrs (
+    old: {
+      postInstall =
+        ''
+          ln -s ${configFile} $out/opt/peering-manager/peering_manager/configuration.py
+        ''
+        + optionalString cfg.enableLdap ''
+          ln -s ${cfg.ldapConfigPath} $out/opt/peering-manager/peering_manager/ldap_config.py
+        ''
+        ;
+    }
+  )).override
+    {
+      inherit (cfg) plugins;
+    };
   peeringManagerManageScript = with pkgs;
     (writeScriptBin "peering-manager-manage" ''
       #!${stdenv.shell}

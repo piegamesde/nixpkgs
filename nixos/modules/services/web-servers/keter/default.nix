@@ -11,11 +11,13 @@ in
   meta = { maintainers = with lib.maintainers; [ jappie ]; };
 
   options.services.keter = {
-    enable = lib.mkEnableOption (lib.mdDoc ''
-      keter, a web app deployment manager.
-      Note that this module only support loading of webapps:
-      Keep an old app running and swap the ports when the new one is booted.
-    '');
+    enable = lib.mkEnableOption (
+      lib.mdDoc ''
+        keter, a web app deployment manager.
+        Note that this module only support loading of webapps:
+        Keep an old app running and swap the ports when the new one is booted.
+      ''
+    );
 
     keterRoot = lib.mkOption {
       type = lib.types.str;

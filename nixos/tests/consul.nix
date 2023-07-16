@@ -93,7 +93,8 @@ import ./make-test-python.nix (
         networking.firewall = firewallSettings;
 
         services.consul =
-          assert builtins.elem thisConsensusServerHost
+          assert builtins.elem
+            thisConsensusServerHost
             allConsensusServerHosts; {
               enable = true;
               inherit webUi;
@@ -111,7 +112,8 @@ import ./make-test-python.nix (
                   if numConsensusServers == 1 then
                     allConsensusServerHosts
                   else
-                    builtins.filter (h: h != thisConsensusServerHost)
+                    builtins.filter
+                    (h: h != thisConsensusServerHost)
                     allConsensusServerHosts
                   ;
                 bind_addr = ip;

@@ -53,12 +53,16 @@ in
 
     environment.etc."freetds.conf" = {
       text =
-        (concatStrings (mapAttrsToList (
-          name: value: ''
-            [${name}]
-            ${value}
-          ''
-        ) cfg));
+        (concatStrings (
+          mapAttrsToList
+          (
+            name: value: ''
+              [${name}]
+              ${value}
+            ''
+          )
+          cfg
+        ));
     };
 
   };

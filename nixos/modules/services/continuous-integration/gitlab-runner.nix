@@ -17,8 +17,9 @@ let
   genRunnerName =
     name: service:
     let
-      hash = substring 0 12
-        (hashString "md5" (unsafeDiscardStringContext (toJSON service)));
+      hash = substring 0 12 (
+        hashString "md5" (unsafeDiscardStringContext (toJSON service))
+      );
     in
     if service ? description && service.description != null then
       "${hash} ${service.description}"
@@ -26,9 +27,9 @@ let
       "${name}_${config.networking.hostName}_${hash}"
     ;
 
-  hashedServices = mapAttrs' (
-    name: service: nameValuePair (genRunnerName name service) service
-  ) cfg.services;
+  hashedServices = mapAttrs'
+    (name: service: nameValuePair (genRunnerName name service) service)
+    cfg.services;
   configPath = ''"$HOME"/.gitlab-runner/config.toml'';
   configureScript = pkgs.writeShellApplication {
     name = "gitlab-runner-configure";
@@ -69,8 +70,9 @@ let
           # remove no longer existing services
           gitlab-runner verify --delete
 
-          ${toShellVar "NEEDED_SERVICES"
-          (lib.mapAttrs (name: value: 1) hashedServices)}
+          ${toShellVar "NEEDED_SERVICES" (
+            lib.mapAttrs (name: value: 1) hashedServices
+          )}
 
           declare -A REGISTERED_SERVICES
 
@@ -99,66 +101,90 @@ let
           done
 
           # register new services
-          ${concatStringsSep "\n" (mapAttrsToList (
-            name: service: ''
-              # TODO so here we should mention NEW_SERVICES
-              if [ -v 'NEW_SERVICES["${name}"]' ] ; then
-                bash -c ${
-                  escapeShellArg (concatStringsSep " \\\n " (
-                    [
-                      "set -a && source ${service.registrationConfigFile} &&"
-                      "gitlab-runner register"
-                      "--non-interactive"
-                      "--name '${name}'"
-                      "--executor ${service.executor}"
-                      "--limit ${toString service.limit}"
-                      "--request-concurrency ${
-                        toString service.requestConcurrency
-                      }"
-                      "--maximum-timeout ${toString service.maximumTimeout}"
-                    ]
-                    ++ service.registrationFlags
-                    ++ optional (service.buildsDir != null)
-                      "--builds-dir ${service.buildsDir}"
-                    ++ optional (service.cloneUrl != null)
-                      "--clone-url ${service.cloneUrl}"
-                    ++ optional (service.preCloneScript != null)
-                      "--pre-clone-script ${service.preCloneScript}"
-                    ++ optional (service.preBuildScript != null)
-                      "--pre-build-script ${service.preBuildScript}"
-                    ++ optional (service.postBuildScript != null)
-                      "--post-build-script ${service.postBuildScript}"
-                    ++ optional (service.tagList != [ ])
-                      "--tag-list ${concatStringsSep "," service.tagList}"
-                    ++ optional service.runUntagged "--run-untagged"
-                    ++ optional service.protected "--access-level ref_protected"
-                    ++ optional service.debugTraceDisabled
-                      "--debug-trace-disabled"
-                    ++ map (e: "--env ${escapeShellArg e}")
-                      (mapAttrsToList (name: value: "${name}=${value}")
-                        service.environmentVariables)
-                    ++ optionals (hasPrefix "docker" service.executor) (
-                      assert (assertMsg (service.dockerImage != null)
-                        "dockerImage option is required for ${service.executor} executor (${name})");
-                      [ "--docker-image ${service.dockerImage}" ]
-                      ++ optional service.dockerDisableCache
-                        "--docker-disable-cache"
-                      ++ optional service.dockerPrivileged "--docker-privileged"
-                      ++ map (v: "--docker-volumes ${escapeShellArg v}")
-                        service.dockerVolumes
-                      ++ map (v: "--docker-extra-hosts ${escapeShellArg v}")
-                        service.dockerExtraHosts
-                      ++ map (v: "--docker-allowed-images ${escapeShellArg v}")
-                        service.dockerAllowedImages
-                      ++ map (
-                        v: "--docker-allowed-services ${escapeShellArg v}"
-                      ) service.dockerAllowedServices
+          ${concatStringsSep "\n" (
+            mapAttrsToList
+            (
+              name: service: ''
+                # TODO so here we should mention NEW_SERVICES
+                if [ -v 'NEW_SERVICES["${name}"]' ] ; then
+                  bash -c ${
+                    escapeShellArg (
+                      concatStringsSep " \\\n " (
+                        [
+                          "set -a && source ${service.registrationConfigFile} &&"
+                          "gitlab-runner register"
+                          "--non-interactive"
+                          "--name '${name}'"
+                          "--executor ${service.executor}"
+                          "--limit ${toString service.limit}"
+                          "--request-concurrency ${
+                            toString service.requestConcurrency
+                          }"
+                          "--maximum-timeout ${toString service.maximumTimeout}"
+                        ]
+                        ++ service.registrationFlags
+                        ++ optional
+                          (service.buildsDir != null)
+                          "--builds-dir ${service.buildsDir}"
+                        ++ optional
+                          (service.cloneUrl != null)
+                          "--clone-url ${service.cloneUrl}"
+                        ++ optional
+                          (service.preCloneScript != null)
+                          "--pre-clone-script ${service.preCloneScript}"
+                        ++ optional
+                          (service.preBuildScript != null)
+                          "--pre-build-script ${service.preBuildScript}"
+                        ++ optional
+                          (service.postBuildScript != null)
+                          "--post-build-script ${service.postBuildScript}"
+                        ++ optional (service.tagList != [ ]) "--tag-list ${
+                            concatStringsSep "," service.tagList
+                          }"
+                        ++ optional service.runUntagged "--run-untagged"
+                        ++ optional
+                          service.protected
+                          "--access-level ref_protected"
+                        ++ optional
+                          service.debugTraceDisabled
+                          "--debug-trace-disabled"
+                        ++ map (e: "--env ${escapeShellArg e}") (
+                          mapAttrsToList
+                          (name: value: "${name}=${value}")
+                          service.environmentVariables
+                        )
+                        ++ optionals (hasPrefix "docker" service.executor) (
+                          assert (assertMsg
+                            (service.dockerImage != null)
+                            "dockerImage option is required for ${service.executor} executor (${name})");
+                          [ "--docker-image ${service.dockerImage}" ]
+                          ++ optional
+                            service.dockerDisableCache
+                            "--docker-disable-cache"
+                          ++ optional
+                            service.dockerPrivileged
+                            "--docker-privileged"
+                          ++ map
+                            (v: "--docker-volumes ${escapeShellArg v}")
+                            service.dockerVolumes
+                          ++ map
+                            (v: "--docker-extra-hosts ${escapeShellArg v}")
+                            service.dockerExtraHosts
+                          ++ map
+                            (v: "--docker-allowed-images ${escapeShellArg v}")
+                            service.dockerAllowedImages
+                          ++ map
+                            (v: "--docker-allowed-services ${escapeShellArg v}")
+                            service.dockerAllowedServices
+                        )
+                      )
                     )
-                  ))
-                } && sleep 1 || exit 1
-              fi
-            ''
-          ) hashedServices)}
+                  } && sleep 1 || exit 1
+                fi
+              ''
+            )
+            hashedServices
+          )}
 
           # check key is in array https://stackoverflow.com/questions/30353951/how-to-check-if-dictionary-contains-a-key-in-bash
 
@@ -318,221 +344,223 @@ in
           };
         }
       '';
-      type = types.attrsOf (types.submodule {
-        options = {
-          registrationConfigFile = mkOption {
-            type = types.path;
-            description = lib.mdDoc ''
-              Absolute path to a file with environment variables
-              used for gitlab-runner registration.
-              A list of all supported environment variables can be found in
-              `gitlab-runner register --help`.
+      type = types.attrsOf (
+        types.submodule {
+          options = {
+            registrationConfigFile = mkOption {
+              type = types.path;
+              description = lib.mdDoc ''
+                Absolute path to a file with environment variables
+                used for gitlab-runner registration.
+                A list of all supported environment variables can be found in
+                `gitlab-runner register --help`.
 
-              Ones that you probably want to set is
+                Ones that you probably want to set is
 
-              `CI_SERVER_URL=<CI server URL>`
+                `CI_SERVER_URL=<CI server URL>`
 
-              `REGISTRATION_TOKEN=<registration secret>`
+                `REGISTRATION_TOKEN=<registration secret>`
 
-              WARNING: make sure to use quoted absolute path,
-              or it is going to be copied to Nix Store.
-            '';
+                WARNING: make sure to use quoted absolute path,
+                or it is going to be copied to Nix Store.
+              '';
+            };
+            registrationFlags = mkOption {
+              type = types.listOf types.str;
+              default = [ ];
+              example = [ "--docker-helper-image my/gitlab-runner-helper" ];
+              description = lib.mdDoc ''
+                Extra command-line flags passed to
+                `gitlab-runner register`.
+                Execute `gitlab-runner register --help`
+                for a list of supported flags.
+              '';
+            };
+            environmentVariables = mkOption {
+              type = types.attrsOf types.str;
+              default = { };
+              example = { NAME = "value"; };
+              description = lib.mdDoc ''
+                Custom environment variables injected to build environment.
+                For secrets you can use {option}`registrationConfigFile`
+                with `RUNNER_ENV` variable set.
+              '';
+            };
+            description = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              description = lib.mdDoc ''
+                Name/description of the runner.
+              '';
+            };
+            executor = mkOption {
+              type = types.str;
+              default = "docker";
+              description = lib.mdDoc ''
+                Select executor, eg. shell, docker, etc.
+                See [runner documentation](https://docs.gitlab.com/runner/executors/README.html) for more information.
+              '';
+            };
+            buildsDir = mkOption {
+              type = types.nullOr types.path;
+              default = null;
+              example = "/var/lib/gitlab-runner/builds";
+              description = lib.mdDoc ''
+                Absolute path to a directory where builds will be stored
+                in context of selected executor (Locally, Docker, SSH).
+              '';
+            };
+            cloneUrl = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              example = "http://gitlab.example.local";
+              description = lib.mdDoc ''
+                Overwrite the URL for the GitLab instance. Used if the Runner can’t connect to GitLab on the URL GitLab exposes itself.
+              '';
+            };
+            dockerImage = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              description = lib.mdDoc ''
+                Docker image to be used.
+              '';
+            };
+            dockerVolumes = mkOption {
+              type = types.listOf types.str;
+              default = [ ];
+              example = [ "/var/run/docker.sock:/var/run/docker.sock" ];
+              description = lib.mdDoc ''
+                Bind-mount a volume and create it
+                if it doesn't exist prior to mounting.
+              '';
+            };
+            dockerDisableCache = mkOption {
+              type = types.bool;
+              default = false;
+              description = lib.mdDoc ''
+                Disable all container caching.
+              '';
+            };
+            dockerPrivileged = mkOption {
+              type = types.bool;
+              default = false;
+              description = lib.mdDoc ''
+                Give extended privileges to container.
+              '';
+            };
+            dockerExtraHosts = mkOption {
+              type = types.listOf types.str;
+              default = [ ];
+              example = [ "other-host:127.0.0.1" ];
+              description = lib.mdDoc ''
+                Add a custom host-to-IP mapping.
+              '';
+            };
+            dockerAllowedImages = mkOption {
+              type = types.listOf types.str;
+              default = [ ];
+              example = [
+                "ruby:*"
+                "python:*"
+                "php:*"
+                "my.registry.tld:5000/*:*"
+              ];
+              description = lib.mdDoc ''
+                Whitelist allowed images.
+              '';
+            };
+            dockerAllowedServices = mkOption {
+              type = types.listOf types.str;
+              default = [ ];
+              example = [
+                "postgres:9"
+                "redis:*"
+                "mysql:*"
+              ];
+              description = lib.mdDoc ''
+                Whitelist allowed services.
+              '';
+            };
+            preCloneScript = mkOption {
+              type = types.nullOr types.path;
+              default = null;
+              description = lib.mdDoc ''
+                Runner-specific command script executed before code is pulled.
+              '';
+            };
+            preBuildScript = mkOption {
+              type = types.nullOr types.path;
+              default = null;
+              description = lib.mdDoc ''
+                Runner-specific command script executed after code is pulled,
+                just before build executes.
+              '';
+            };
+            postBuildScript = mkOption {
+              type = types.nullOr types.path;
+              default = null;
+              description = lib.mdDoc ''
+                Runner-specific command script executed after code is pulled
+                and just after build executes.
+              '';
+            };
+            tagList = mkOption {
+              type = types.listOf types.str;
+              default = [ ];
+              description = lib.mdDoc ''
+                Tag list.
+              '';
+            };
+            runUntagged = mkOption {
+              type = types.bool;
+              default = false;
+              description = lib.mdDoc ''
+                Register to run untagged builds; defaults to
+                `true` when {option}`tagList` is empty.
+              '';
+            };
+            limit = mkOption {
+              type = types.int;
+              default = 0;
+              description = lib.mdDoc ''
+                Limit how many jobs can be handled concurrently by this service.
+                0 (default) simply means don't limit.
+              '';
+            };
+            requestConcurrency = mkOption {
+              type = types.int;
+              default = 0;
+              description = lib.mdDoc ''
+                Limit number of concurrent requests for new jobs from GitLab.
+              '';
+            };
+            maximumTimeout = mkOption {
+              type = types.int;
+              default = 0;
+              description = lib.mdDoc ''
+                What is the maximum timeout (in seconds) that will be set for
+                job when using this Runner. 0 (default) simply means don't limit.
+              '';
+            };
+            protected = mkOption {
+              type = types.bool;
+              default = false;
+              description = lib.mdDoc ''
+                When set to true Runner will only run on pipelines
+                triggered on protected branches.
+              '';
+            };
+            debugTraceDisabled = mkOption {
+              type = types.bool;
+              default = false;
+              description = lib.mdDoc ''
+                When set to true Runner will disable the possibility of
+                using the `CI_DEBUG_TRACE` feature.
+              '';
+            };
           };
-          registrationFlags = mkOption {
-            type = types.listOf types.str;
-            default = [ ];
-            example = [ "--docker-helper-image my/gitlab-runner-helper" ];
-            description = lib.mdDoc ''
-              Extra command-line flags passed to
-              `gitlab-runner register`.
-              Execute `gitlab-runner register --help`
-              for a list of supported flags.
-            '';
-          };
-          environmentVariables = mkOption {
-            type = types.attrsOf types.str;
-            default = { };
-            example = { NAME = "value"; };
-            description = lib.mdDoc ''
-              Custom environment variables injected to build environment.
-              For secrets you can use {option}`registrationConfigFile`
-              with `RUNNER_ENV` variable set.
-            '';
-          };
-          description = mkOption {
-            type = types.nullOr types.str;
-            default = null;
-            description = lib.mdDoc ''
-              Name/description of the runner.
-            '';
-          };
-          executor = mkOption {
-            type = types.str;
-            default = "docker";
-            description = lib.mdDoc ''
-              Select executor, eg. shell, docker, etc.
-              See [runner documentation](https://docs.gitlab.com/runner/executors/README.html) for more information.
-            '';
-          };
-          buildsDir = mkOption {
-            type = types.nullOr types.path;
-            default = null;
-            example = "/var/lib/gitlab-runner/builds";
-            description = lib.mdDoc ''
-              Absolute path to a directory where builds will be stored
-              in context of selected executor (Locally, Docker, SSH).
-            '';
-          };
-          cloneUrl = mkOption {
-            type = types.nullOr types.str;
-            default = null;
-            example = "http://gitlab.example.local";
-            description = lib.mdDoc ''
-              Overwrite the URL for the GitLab instance. Used if the Runner can’t connect to GitLab on the URL GitLab exposes itself.
-            '';
-          };
-          dockerImage = mkOption {
-            type = types.nullOr types.str;
-            default = null;
-            description = lib.mdDoc ''
-              Docker image to be used.
-            '';
-          };
-          dockerVolumes = mkOption {
-            type = types.listOf types.str;
-            default = [ ];
-            example = [ "/var/run/docker.sock:/var/run/docker.sock" ];
-            description = lib.mdDoc ''
-              Bind-mount a volume and create it
-              if it doesn't exist prior to mounting.
-            '';
-          };
-          dockerDisableCache = mkOption {
-            type = types.bool;
-            default = false;
-            description = lib.mdDoc ''
-              Disable all container caching.
-            '';
-          };
-          dockerPrivileged = mkOption {
-            type = types.bool;
-            default = false;
-            description = lib.mdDoc ''
-              Give extended privileges to container.
-            '';
-          };
-          dockerExtraHosts = mkOption {
-            type = types.listOf types.str;
-            default = [ ];
-            example = [ "other-host:127.0.0.1" ];
-            description = lib.mdDoc ''
-              Add a custom host-to-IP mapping.
-            '';
-          };
-          dockerAllowedImages = mkOption {
-            type = types.listOf types.str;
-            default = [ ];
-            example = [
-              "ruby:*"
-              "python:*"
-              "php:*"
-              "my.registry.tld:5000/*:*"
-            ];
-            description = lib.mdDoc ''
-              Whitelist allowed images.
-            '';
-          };
-          dockerAllowedServices = mkOption {
-            type = types.listOf types.str;
-            default = [ ];
-            example = [
-              "postgres:9"
-              "redis:*"
-              "mysql:*"
-            ];
-            description = lib.mdDoc ''
-              Whitelist allowed services.
-            '';
-          };
-          preCloneScript = mkOption {
-            type = types.nullOr types.path;
-            default = null;
-            description = lib.mdDoc ''
-              Runner-specific command script executed before code is pulled.
-            '';
-          };
-          preBuildScript = mkOption {
-            type = types.nullOr types.path;
-            default = null;
-            description = lib.mdDoc ''
-              Runner-specific command script executed after code is pulled,
-              just before build executes.
-            '';
-          };
-          postBuildScript = mkOption {
-            type = types.nullOr types.path;
-            default = null;
-            description = lib.mdDoc ''
-              Runner-specific command script executed after code is pulled
-              and just after build executes.
-            '';
-          };
-          tagList = mkOption {
-            type = types.listOf types.str;
-            default = [ ];
-            description = lib.mdDoc ''
-              Tag list.
-            '';
-          };
-          runUntagged = mkOption {
-            type = types.bool;
-            default = false;
-            description = lib.mdDoc ''
-              Register to run untagged builds; defaults to
-              `true` when {option}`tagList` is empty.
-            '';
-          };
-          limit = mkOption {
-            type = types.int;
-            default = 0;
-            description = lib.mdDoc ''
-              Limit how many jobs can be handled concurrently by this service.
-              0 (default) simply means don't limit.
-            '';
-          };
-          requestConcurrency = mkOption {
-            type = types.int;
-            default = 0;
-            description = lib.mdDoc ''
-              Limit number of concurrent requests for new jobs from GitLab.
-            '';
-          };
-          maximumTimeout = mkOption {
-            type = types.int;
-            default = 0;
-            description = lib.mdDoc ''
-              What is the maximum timeout (in seconds) that will be set for
-              job when using this Runner. 0 (default) simply means don't limit.
-            '';
-          };
-          protected = mkOption {
-            type = types.bool;
-            default = false;
-            description = lib.mdDoc ''
-              When set to true Runner will only run on pipelines
-              triggered on protected branches.
-            '';
-          };
-          debugTraceDisabled = mkOption {
-            type = types.bool;
-            default = false;
-            description = lib.mdDoc ''
-              When set to true Runner will disable the possibility of
-              using the `CI_DEBUG_TRACE` feature.
-            '';
-          };
-        };
-      });
+        }
+      );
     };
     clear-docker-cache = {
       enable = mkOption {
@@ -574,10 +602,12 @@ in
     };
   };
   config = mkIf cfg.enable {
-    warnings = mapAttrsToList (
-      n: v:
-      "services.gitlab-runner.services.${n}.`registrationConfigFile` points to a file in Nix Store. You should use quoted absolute path to prevent this."
-    ) (filterAttrs (n: v: isStorePath v.registrationConfigFile) cfg.services);
+    warnings = mapAttrsToList
+      (
+        n: v:
+        "services.gitlab-runner.services.${n}.`registrationConfigFile` points to a file in Nix Store. You should use quoted absolute path to prevent this."
+      )
+      (filterAttrs (n: v: isStorePath v.registrationConfigFile) cfg.services);
 
     environment.systemPackages = [ cfg.package ];
     systemd.services.gitlab-runner = {
@@ -618,131 +648,154 @@ in
       };
     };
       # Enable periodic clear-docker-cache script
-    systemd.services.gitlab-runner-clear-docker-cache = mkIf (
-      cfg.clear-docker-cache.enable
-      && (any (s: s.executor == "docker") (attrValues cfg.services))
-    ) {
-      description = "Prune gitlab-runner docker resources";
-      restartIfChanged = false;
-      unitConfig.X-StopOnRemoval = false;
+    systemd.services.gitlab-runner-clear-docker-cache = mkIf
+      (
+        cfg.clear-docker-cache.enable
+        && (any (s: s.executor == "docker") (attrValues cfg.services))
+      )
+      {
+        description = "Prune gitlab-runner docker resources";
+        restartIfChanged = false;
+        unitConfig.X-StopOnRemoval = false;
 
-      serviceConfig.Type = "oneshot";
+        serviceConfig.Type = "oneshot";
 
-      path = [
-        cfg.clear-docker-cache.package
-        pkgs.gawk
-      ];
+        path = [
+          cfg.clear-docker-cache.package
+          pkgs.gawk
+        ];
 
-      script = ''
-        ${pkgs.gitlab-runner}/bin/clear-docker-cache ${
-          toString cfg.clear-docker-cache.flags
-        }
-      '';
+        script = ''
+          ${pkgs.gitlab-runner}/bin/clear-docker-cache ${
+            toString cfg.clear-docker-cache.flags
+          }
+        '';
 
-      startAt = cfg.clear-docker-cache.dates;
-    };
+        startAt = cfg.clear-docker-cache.dates;
+      };
       # Enable docker if `docker` executor is used in any service
     virtualisation.docker.enable =
-      mkIf (any (s: s.executor == "docker") (attrValues cfg.services))
-      (mkDefault true);
+      mkIf (any (s: s.executor == "docker") (attrValues cfg.services)) (
+        mkDefault true
+      );
   };
   imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "gitlab-runner"
-      "packages"
-    ] [
-      "services"
-      "gitlab-runner"
-      "extraPackages"
-    ])
-    (mkRemovedOptionModule [
-      "services"
-      "gitlab-runner"
-      "configOptions"
-    ] "Use services.gitlab-runner.services option instead")
-    (mkRemovedOptionModule [
-      "services"
-      "gitlab-runner"
-      "workDir"
-    ] "You should move contents of workDir (if any) to /var/lib/gitlab-runner")
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gitlab-runner"
+        "packages"
+      ]
+      [
+        "services"
+        "gitlab-runner"
+        "extraPackages"
+      ])
+    (mkRemovedOptionModule
+      [
+        "services"
+        "gitlab-runner"
+        "configOptions"
+      ]
+      "Use services.gitlab-runner.services option instead")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "gitlab-runner"
+        "workDir"
+      ]
+      "You should move contents of workDir (if any) to /var/lib/gitlab-runner")
 
-    (mkRenamedOptionModule [
-      "services"
-      "gitlab-runner"
-      "checkInterval"
-    ] [
-      "services"
-      "gitlab-runner"
-      "settings"
-      "check_interval"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "gitlab-runner"
-      "concurrent"
-    ] [
-      "services"
-      "gitlab-runner"
-      "settings"
-      "concurrent"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "gitlab-runner"
-      "sentryDSN"
-    ] [
-      "services"
-      "gitlab-runner"
-      "settings"
-      "sentry_dsn"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "gitlab-runner"
-      "prometheusListenAddress"
-    ] [
-      "services"
-      "gitlab-runner"
-      "settings"
-      "listen_address"
-    ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gitlab-runner"
+        "checkInterval"
+      ]
+      [
+        "services"
+        "gitlab-runner"
+        "settings"
+        "check_interval"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gitlab-runner"
+        "concurrent"
+      ]
+      [
+        "services"
+        "gitlab-runner"
+        "settings"
+        "concurrent"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gitlab-runner"
+        "sentryDSN"
+      ]
+      [
+        "services"
+        "gitlab-runner"
+        "settings"
+        "sentry_dsn"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gitlab-runner"
+        "prometheusListenAddress"
+      ]
+      [
+        "services"
+        "gitlab-runner"
+        "settings"
+        "listen_address"
+      ])
 
-    (mkRenamedOptionModule [
-      "services"
-      "gitlab-runner"
-      "sessionServer"
-      "listenAddress"
-    ] [
-      "services"
-      "gitlab-runner"
-      "settings"
-      "session_server"
-      "listen_address"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "gitlab-runner"
-      "sessionServer"
-      "advertiseAddress"
-    ] [
-      "services"
-      "gitlab-runner"
-      "settings"
-      "session_server"
-      "advertise_address"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "gitlab-runner"
-      "sessionServer"
-      "sessionTimeout"
-    ] [
-      "services"
-      "gitlab-runner"
-      "settings"
-      "session_server"
-      "session_timeout"
-    ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gitlab-runner"
+        "sessionServer"
+        "listenAddress"
+      ]
+      [
+        "services"
+        "gitlab-runner"
+        "settings"
+        "session_server"
+        "listen_address"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gitlab-runner"
+        "sessionServer"
+        "advertiseAddress"
+      ]
+      [
+        "services"
+        "gitlab-runner"
+        "settings"
+        "session_server"
+        "advertise_address"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gitlab-runner"
+        "sessionServer"
+        "sessionTimeout"
+      ]
+      [
+        "services"
+        "gitlab-runner"
+        "settings"
+        "session_server"
+        "session_timeout"
+      ])
   ];
 }

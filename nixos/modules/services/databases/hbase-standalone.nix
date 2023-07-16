@@ -14,14 +14,18 @@ let
 
   buildProperty =
     configAttr:
-    (builtins.concatStringsSep "\n" (lib.mapAttrsToList (
-      name: value: ''
-        <property>
-          <name>${name}</name>
-          <value>${builtins.toString value}</value>
-        </property>
-      ''
-    ) configAttr))
+    (builtins.concatStringsSep "\n" (
+      lib.mapAttrsToList
+      (
+        name: value: ''
+          <property>
+            <name>${name}</name>
+            <value>${builtins.toString value}</value>
+          </property>
+        ''
+      )
+      configAttr
+    ))
     ;
 
   configFile = pkgs.writeText "hbase-site.xml" ''
@@ -41,13 +45,15 @@ in
 {
 
   imports = [
-      (mkRenamedOptionModule [
-        "services"
-        "hbase"
-      ] [
-        "services"
-        "hbase-standalone"
-      ])
+      (mkRenamedOptionModule
+        [
+          "services"
+          "hbase"
+        ]
+        [
+          "services"
+          "hbase-standalone"
+        ])
     ];
 
     ###### interface
@@ -55,10 +61,12 @@ in
   options = {
     services.hbase-standalone = {
 
-      enable = mkEnableOption (lib.mdDoc ''
-        HBase master in standalone mode with embedded regionserver and zookeper.
-        Do not use this configuration for production nor for evaluating HBase performance.
-      '');
+      enable = mkEnableOption (
+        lib.mdDoc ''
+          HBase master in standalone mode with embedded regionserver and zookeper.
+          Do not use this configuration for production nor for evaluating HBase performance.
+        ''
+      );
 
       package = mkOption {
         type = types.package;
@@ -105,11 +113,13 @@ in
 
       settings = mkOption {
         type = with lib.types;
-          attrsOf (oneOf [
-            str
-            int
-            bool
-          ]);
+          attrsOf (
+            oneOf [
+              str
+              int
+              bool
+            ]
+          );
         default = {
           "hbase.rootdir" = "file://${cfg.dataDir}/hbase";
           "hbase.zookeeper.property.dataDir" = "${cfg.dataDir}/zookeeper";

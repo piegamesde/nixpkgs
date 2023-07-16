@@ -3,17 +3,20 @@ let
   inherit (vimUtils.override { inherit vim; }) buildVimPluginFrom2Nix;
   inherit (neovimUtils) buildNeovimPluginFrom2Nix;
 
-  generated = callPackage
-    <localpkgs/pkgs/applications/editors/vim/plugins/generated.nix> {
-      inherit buildNeovimPluginFrom2Nix buildVimPluginFrom2Nix;
-    } { } { };
+  generated =
+    callPackage <localpkgs/pkgs/applications/editors/vim/plugins/generated.nix>
+    { inherit buildNeovimPluginFrom2Nix buildVimPluginFrom2Nix; }
+    { }
+    { };
   hasChecksum =
     value:
     lib.isAttrs value
-    && lib.hasAttrByPath [
-      "src"
-      "outputHash"
-    ] value
+    && lib.hasAttrByPath
+      [
+        "src"
+        "outputHash"
+      ]
+      value
     ;
   getChecksum =
     name: value:

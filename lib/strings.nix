@@ -92,10 +92,14 @@ rec {
     if list == [ ] || length list == 1 then
       list
     else
-      tail (lib.concatMap (x: [
-        separator
-        x
-      ]) list)
+      tail (
+        lib.concatMap
+        (x: [
+          separator
+          x
+        ])
+        list
+      )
     ;
 
     /* Concatenate a list of strings with a separator between each element
@@ -177,8 +181,9 @@ rec {
     subDir:
     # List of base paths
     paths:
-    concatStringsSep ":"
-    (map (path: path + "/" + subDir) (filter (x: x != null) paths))
+    concatStringsSep ":" (
+      map (path: path + "/" + subDir) (filter (x: x != null) paths)
+    )
     ;
 
     /* Construct a Unix-style search path by appending the given
@@ -233,20 +238,26 @@ rec {
     */
   normalizePath =
     s:
-    warnIf (isPath s) ''
+    warnIf (isPath s)
+    ''
       lib.strings.normalizePath: The argument (${
         toString s
       }) is a path value, but only strings are supported.
           Path values are always normalised in Nix, so there's no need to call this function on them.
           This function also copies the path to the Nix store and returns the store path, the same as "''${path}" will, which may not be what you want.
           This behavior is deprecated and will throw an error in the future.''
-    (builtins.foldl' (
-      x: y:
-      if y == "/" && hasSuffix "/" x then
-        x
-      else
-        x + y
-    ) "" (stringToCharacters s))
+    (
+      builtins.foldl'
+      (
+        x: y:
+        if y == "/" && hasSuffix "/" x then
+          x
+        else
+          x + y
+      )
+      ""
+      (stringToCharacters s)
+    )
     ;
 
     /* Depending on the boolean `cond', return either the given string
@@ -288,15 +299,15 @@ rec {
     str:
     # Before 23.05, paths would be copied to the store before converting them
     # to strings and comparing. This was surprising and confusing.
-    warnIf (isPath pref) ''
+    warnIf (isPath pref)
+    ''
       lib.strings.hasPrefix: The first argument (${
         toString pref
       }) is a path value, but only strings are supported.
           There is almost certainly a bug in the calling code, since this function always returns `false` in such a case.
           This function also copies the path to the Nix store, which may not be what you want.
-          This behavior is deprecated and will throw an error in the future.'' (
-        substring 0 (stringLength pref) str == pref
-      )
+          This behavior is deprecated and will throw an error in the future.''
+    (substring 0 (stringLength pref) str == pref)
     ;
 
     /* Determine whether a string has given suffix.
@@ -320,16 +331,18 @@ rec {
       # Before 23.05, paths would be copied to the store before converting them
       # to strings and comparing. This was surprising and confusing.
     in
-    warnIf (isPath suffix) ''
+    warnIf (isPath suffix)
+    ''
       lib.strings.hasSuffix: The first argument (${
         toString suffix
       }) is a path value, but only strings are supported.
           There is almost certainly a bug in the calling code, since this function always returns `false` in such a case.
           This function also copies the path to the Nix store, which may not be what you want.
-          This behavior is deprecated and will throw an error in the future.'' (
-        lenContent >= lenSuffix
-        && substring (lenContent - lenSuffix) lenContent content == suffix
-      )
+          This behavior is deprecated and will throw an error in the future.''
+    (
+      lenContent >= lenSuffix
+      && substring (lenContent - lenSuffix) lenContent content == suffix
+    )
     ;
 
     /* Determine whether a string contains the given infix
@@ -350,15 +363,15 @@ rec {
     infix: content:
     # Before 23.05, paths would be copied to the store before converting them
     # to strings and comparing. This was surprising and confusing.
-    warnIf (isPath infix) ''
+    warnIf (isPath infix)
+    ''
       lib.strings.hasInfix: The first argument (${
         toString infix
       }) is a path value, but only strings are supported.
           There is almost certainly a bug in the calling code, since this function always returns `false` in such a case.
           This function also copies the path to the Nix store, which may not be what you want.
-          This behavior is deprecated and will throw an error in the future.'' (
-        builtins.match ".*${escapeRegex infix}.*" "${content}" != null
-      )
+          This behavior is deprecated and will throw an error in the future.''
+    (builtins.match ".*${escapeRegex infix}.*" "${content}" != null)
     ;
 
     /* Convert a string to a list of characters (i.e. singleton strings).
@@ -442,8 +455,9 @@ rec {
     */
   escapeC =
     list:
-    replaceStrings list
-    (map (c: "\\x${toLower (lib.toHexString (charToInt c))}") list)
+    replaceStrings list (
+      map (c: "\\x${toLower (lib.toHexString (charToInt c))}") list
+    )
     ;
 
     /* Escape the string so it can be safely placed inside a URL
@@ -527,9 +541,11 @@ rec {
       ];
       toEscape = builtins.removeAttrs asciiTable unreserved;
     in
-    replaceStrings (builtins.attrNames toEscape)
-    (lib.mapAttrsToList (_: c: "%${fixedWidthString 2 "0" (lib.toHexString c)}")
-      toEscape)
+    replaceStrings (builtins.attrNames toEscape) (
+      lib.mapAttrsToList
+      (_: c: "%${fixedWidthString 2 "0" (lib.toHexString c)}")
+      toEscape
+    )
     ;
 
     /* Quote string to be used safely within the Bourne shell.
@@ -591,12 +607,15 @@ rec {
   toShellVar =
     name: value:
     lib.throwIfNot (isValidPosixName name)
-    "toShellVar: ${name} is not a valid shell variable name" (
+    "toShellVar: ${name} is not a valid shell variable name"
+    (
       if isAttrs value && !isStringLike value then
         "declare -A ${name}=(${
-          concatStringsSep " " (lib.mapAttrsToList (
-            n: v: "[${escapeShellArg n}]=${escapeShellArg v}"
-          ) value)
+          concatStringsSep " " (
+            lib.mapAttrsToList
+            (n: v: "[${escapeShellArg n}]=${escapeShellArg v}")
+            value
+          )
         })"
       else if isList value then
         "declare -a ${name}=(${escapeShellArgs value})"
@@ -675,19 +694,21 @@ rec {
          escapeXML ''"test" 'test' < & >''
          => "&quot;test&quot; &apos;test&apos; &lt; &amp; &gt;"
     */
-  escapeXML = builtins.replaceStrings [
-    ''"''
-    "'"
-    "<"
-    ">"
-    "&"
-  ] [
-    "&quot;"
-    "&apos;"
-    "&lt;"
-    "&gt;"
-    "&amp;"
-  ];
+  escapeXML = builtins.replaceStrings
+    [
+      ''"''
+      "'"
+      "<"
+      ">"
+      "&"
+    ]
+    [
+      "&quot;"
+      "&apos;"
+      "&lt;"
+      "&gt;"
+      "&amp;"
+    ];
 
     # warning added 12-12-2022
   replaceChars = lib.warn
@@ -748,8 +769,9 @@ rec {
   splitString =
     sep: s:
     let
-      splits = builtins.filter builtins.isString
-        (builtins.split (escapeRegex (toString sep)) (toString s));
+      splits = builtins.filter builtins.isString (
+        builtins.split (escapeRegex (toString sep)) (toString s)
+      );
     in
     map (addContextFrom s) splits
     ;
@@ -771,22 +793,24 @@ rec {
     str:
     # Before 23.05, paths would be copied to the store before converting them
     # to strings and comparing. This was surprising and confusing.
-    warnIf (isPath prefix) ''
+    warnIf (isPath prefix)
+    ''
       lib.strings.removePrefix: The first argument (${
         toString prefix
       }) is a path value, but only strings are supported.
           There is almost certainly a bug in the calling code, since this function never removes any prefix in such a case.
           This function also copies the path to the Nix store, which may not be what you want.
-          This behavior is deprecated and will throw an error in the future.'' (
-        let
-          preLen = stringLength prefix;
-          sLen = stringLength str;
-        in
-        if substring 0 preLen str == prefix then
-          substring preLen (sLen - preLen) str
-        else
-          str
-      )
+          This behavior is deprecated and will throw an error in the future.''
+    (
+      let
+        preLen = stringLength prefix;
+        sLen = stringLength str;
+      in
+      if substring 0 preLen str == prefix then
+        substring preLen (sLen - preLen) str
+      else
+        str
+    )
     ;
 
     /* Return a string without the specified suffix, if the suffix matches.
@@ -806,22 +830,24 @@ rec {
     str:
     # Before 23.05, paths would be copied to the store before converting them
     # to strings and comparing. This was surprising and confusing.
-    warnIf (isPath suffix) ''
+    warnIf (isPath suffix)
+    ''
       lib.strings.removeSuffix: The first argument (${
         toString suffix
       }) is a path value, but only strings are supported.
           There is almost certainly a bug in the calling code, since this function never removes any suffix in such a case.
           This function also copies the path to the Nix store, which may not be what you want.
-          This behavior is deprecated and will throw an error in the future.'' (
-        let
-          sufLen = stringLength suffix;
-          sLen = stringLength str;
-        in
-        if sufLen <= sLen && suffix == substring (sLen - sufLen) sufLen str then
-          substring 0 (sLen - sufLen) str
-        else
-          str
-      )
+          This behavior is deprecated and will throw an error in the future.''
+    (
+      let
+        sufLen = stringLength suffix;
+        sLen = stringLength str;
+      in
+      if sufLen <= sLen && suffix == substring (sLen - sufLen) sufLen str then
+        substring 0 (sLen - sufLen) str
+      else
+        str
+    )
     ;
 
     /* Return true if string v1 denotes a version older than v2.
@@ -1065,7 +1091,8 @@ rec {
       strw = lib.stringLength str;
       reqWidth = width - (lib.stringLength filler);
     in
-    assert lib.assertMsg (strw <= width)
+    assert lib.assertMsg
+      (strw <= width)
       "fixedWidthString: requested string length (${
         toString width
       }) must not be shorter than actual length (${toString strw})";
@@ -1102,7 +1129,8 @@ rec {
       result = toString float;
       precise = float == fromJSON result;
     in
-    lib.warnIf (!precise) "Imprecise conversion from float to string ${result}"
+    lib.warnIf (!precise)
+    "Imprecise conversion from float to string ${result}"
     result
     ;
 

@@ -205,12 +205,17 @@ with lib;
           let
             validAttrs = filterAttrs (name: value: value != null) cfg.config;
           in
-          (foldl' (
-            as: name: as // { "nullmailer/${name}".text = validAttrs.${name}; }
-          ) { } (attrNames validAttrs))
-          // optionalAttrs (cfg.remotesFile != null) {
-            "nullmailer/remotes".source = cfg.remotesFile;
-          }
+          (foldl'
+            (
+              as: name:
+              as // {
+                "nullmailer/${name}".text = validAttrs.${name};
+              }
+            )
+            { }
+            (attrNames validAttrs)) // optionalAttrs (cfg.remotesFile != null) {
+              "nullmailer/remotes".source = cfg.remotesFile;
+            }
           ;
       };
 

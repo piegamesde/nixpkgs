@@ -15,19 +15,24 @@ let
   cfg = config.networking;
   opt = options.networking;
 
-  localhostMultiple = any (elem "localhost") (attrValues
-    (removeAttrs cfg.hosts [
-      "127.0.0.1"
-      "::1"
-    ]));
+  localhostMultiple = any (elem "localhost") (
+    attrValues (
+      removeAttrs cfg.hosts [
+        "127.0.0.1"
+        "::1"
+      ]
+    )
+  );
 
 in
 {
   imports = [
-      (mkRemovedOptionModule [
-        "networking"
-        "hostConf"
-      ] ''Use environment.etc."host.conf" instead.'')
+      (mkRemovedOptionModule
+        [
+          "networking"
+          "hostConf"
+        ]
+        ''Use environment.etc."host.conf" instead.'')
     ];
 
   options = {
@@ -50,8 +55,8 @@ in
       defaultText = literalMD
         "Hosts from {option}`networking.hosts` and {option}`networking.extraHosts`"
         ;
-      example = literalExpression
-        ''[ "''${pkgs.my-blocklist-package}/share/my-blocklist/hosts" ]'';
+      example = literalExpression ''
+        [ "''${pkgs.my-blocklist-package}/share/my-blocklist/hosts" ]'';
       description = lib.mdDoc ''
         Files that should be concatenated together to form {file}`/etc/hosts`.
       '';
@@ -179,7 +184,8 @@ in
     networking.hosts =
       let
         hostnames = # Note: The FQDN (canonical hostname) has to come first:
-          optional (cfg.hostName != "" && cfg.domain != null)
+          optional
+            (cfg.hostName != "" && cfg.domain != null)
             "${cfg.hostName}.${cfg.domain}"
           ++ optional (cfg.hostName != "") cfg.hostName
           ; # Then the hostname (without the domain)
@@ -206,8 +212,9 @@ in
             allToString =
               set: concatMapStrings (oneToString set) (attrNames set);
           in
-          pkgs.writeText "string-hosts"
-          (allToString (filterAttrs (_: v: v != [ ]) cfg.hosts))
+          pkgs.writeText "string-hosts" (
+            allToString (filterAttrs (_: v: v != [ ]) cfg.hosts)
+          )
           ;
         extraHosts = pkgs.writeText "extra-hosts" cfg.extraHosts;
       in

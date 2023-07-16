@@ -122,8 +122,9 @@ let
             cipher = "serpent-xts-plain64";
             source = "/dev/random";
           };
-          type = types.coercedTo types.bool randomEncryptionCoerce
-            (types.submodule randomEncryptionOpts);
+          type = types.coercedTo types.bool randomEncryptionCoerce (
+            types.submodule randomEncryptionOpts
+          );
           description = lib.mdDoc ''
             Encrypt swap device with a random key. This way you won't have a persistent swap device.
 
@@ -142,11 +143,13 @@ let
         discardPolicy = mkOption {
           default = null;
           example = "once";
-          type = types.nullOr (types.enum [
-            "once"
-            "pages"
-            "both"
-          ]);
+          type = types.nullOr (
+            types.enum [
+              "once"
+              "pages"
+              "both"
+            ]
+          );
           description = lib.mdDoc ''
             Specify the discard policy for the swap device. If "once", then the
             whole swap space is discarded at swapon invocation. If "pages",
@@ -223,25 +226,29 @@ in
   };
 
   config = mkIf ((length config.swapDevices) != 0) {
-    assertions = map (sw: {
-      assertion =
-        sw.randomEncryption.enable
-        -> builtins.match "/dev/disk/by-(uuid|label)/.*" sw.device == null
-        ;
-      message = ''
-        You cannot use swap device "${sw.device}" with randomEncryption enabled.
-        The UUIDs and labels will get erased on every boot when the partition is encrypted.
-        Use /dev/disk/by-partuuid/… instead.
-      '';
-    }) config.swapDevices;
+    assertions = map
+      (sw: {
+        assertion =
+          sw.randomEncryption.enable
+          -> builtins.match "/dev/disk/by-(uuid|label)/.*" sw.device == null
+          ;
+        message = ''
+          You cannot use swap device "${sw.device}" with randomEncryption enabled.
+          The UUIDs and labels will get erased on every boot when the partition is encrypted.
+          Use /dev/disk/by-partuuid/… instead.
+        '';
+      })
+      config.swapDevices;
 
-    warnings = concatMap (
-      sw:
-      if sw.size != null && hasPrefix "/dev/" sw.device then
-        [ "Setting the swap size of block device ${sw.device} has no effect" ]
-      else
-        [ ]
-    ) config.swapDevices;
+    warnings = concatMap
+      (
+        sw:
+        if sw.size != null && hasPrefix "/dev/" sw.device then
+          [ "Setting the swap size of block device ${sw.device} has no effect" ]
+        else
+          [ ]
+      )
+      config.swapDevices;
 
     system.requiredKernelConfig = with config.lib.kernelConfig; [
         (isYes "SWAP")
@@ -282,7 +289,8 @@ in
                   dd if=/dev/zero of="$DEVICE" bs=1M count=${toString sw.size}
                   chmod 0600 ${sw.device}
                   ${
-                    optionalString (!sw.randomEncryption.enable)
+                    optionalString
+                    (!sw.randomEncryption.enable)
                     "mkswap ${sw.realDevice}"
                   }
                 fi
@@ -290,7 +298,8 @@ in
               ${optionalString sw.randomEncryption.enable ''
                 cryptsetup plainOpen -c ${sw.randomEncryption.cipher} -d ${sw.randomEncryption.source} \
                   ${
-                    optionalString sw.randomEncryption.allowDiscards
+                    optionalString
+                    sw.randomEncryption.allowDiscards
                     "--allow-discards"
                   } ${sw.device} ${sw.deviceName}
                 mkswap ${sw.realDevice}
@@ -301,16 +310,21 @@ in
             unitConfig.DefaultDependencies = false; # needed to prevent a cycle
             serviceConfig.Type = "oneshot";
             serviceConfig.RemainAfterExit = sw.randomEncryption.enable;
-            serviceConfig.ExecStop = optionalString sw.randomEncryption.enable
+            serviceConfig.ExecStop = optionalString
+              sw.randomEncryption.enable
               "${pkgs.cryptsetup}/bin/cryptsetup luksClose ${sw.deviceName}";
             restartIfChanged = false;
           }
           ;
 
       in
-      listToAttrs (map createSwapDevice
-        (filter (sw: sw.size != null || sw.randomEncryption.enable)
-          config.swapDevices))
+      listToAttrs (
+        map createSwapDevice (
+          filter
+          (sw: sw.size != null || sw.randomEncryption.enable)
+          config.swapDevices
+        )
+      )
       ;
 
   };

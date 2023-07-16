@@ -300,8 +300,9 @@ let
           "--name=${escapedName}"
           "--log-driver=${container.log-driver}"
         ]
-        ++ optional (container.entrypoint != null)
-          "--entrypoint=${escapeShellArg container.entrypoint}"
+        ++ optional (container.entrypoint != null) "--entrypoint=${
+            escapeShellArg container.entrypoint
+          }"
         ++ lib.optionals (cfg.backend == "podman") [
           "--cidfile=/run/podman-${escapedName}.ctr-id"
           "--cgroups=no-conmon"
@@ -309,15 +310,18 @@ let
           "-d"
           "--replace"
         ]
-        ++ (mapAttrsToList (k: v: "-e ${escapeShellArg k}=${escapeShellArg v}")
+        ++ (mapAttrsToList
+          (k: v: "-e ${escapeShellArg k}=${escapeShellArg v}")
           container.environment)
         ++ map (f: "--env-file ${escapeShellArg f}") container.environmentFiles
         ++ map (p: "-p ${escapeShellArg p}") container.ports
-        ++ optional (container.user != null)
-          "-u ${escapeShellArg container.user}"
+        ++ optional (container.user != null) "-u ${
+            escapeShellArg container.user
+          }"
         ++ map (v: "-v ${escapeShellArg v}") container.volumes
-        ++ optional (container.workdir != null)
-          "-w ${escapeShellArg container.workdir}"
+        ++ optional (container.workdir != null) "-w ${
+            escapeShellArg container.workdir
+          }"
         ++ map escapeShellArg container.extraOptions
         ++ [ container.image ]
         ++ map escapeShellArg container.cmd
@@ -367,18 +371,26 @@ let
 in
 {
   imports = [
-      (lib.mkChangedOptionModule [ "docker-containers" ] [
-        "virtualisation"
-        "oci-containers"
-      ] (oldcfg: {
-        backend = "docker";
-        containers = lib.mapAttrs (
-          n: v:
-          builtins.removeAttrs (
-            v // { extraOptions = v.extraDockerOptions or [ ]; }
-          ) [ "extraDockerOptions" ]
-        ) oldcfg.docker-containers;
-      }))
+      (lib.mkChangedOptionModule [ "docker-containers" ]
+        [
+          "virtualisation"
+          "oci-containers"
+        ]
+        (
+          oldcfg: {
+            backend = "docker";
+            containers = lib.mapAttrs
+              (
+                n: v:
+                builtins.removeAttrs
+                (v // { extraOptions = v.extraDockerOptions or [ ]; })
+                [
+                  "extraDockerOptions"
+                ]
+              )
+              oldcfg.docker-containers;
+          }
+        ))
     ];
 
   options.virtualisation.oci-containers = {
@@ -406,18 +418,20 @@ in
 
   };
 
-  config = lib.mkIf (cfg.containers != { }) (lib.mkMerge [
-    {
-      systemd.services =
-        mapAttrs' (n: v: nameValuePair "${cfg.backend}-${n}" (mkService n v))
-        cfg.containers;
-    }
-    (lib.mkIf (cfg.backend == "podman") {
-      virtualisation.podman.enable = true;
-    })
-    (lib.mkIf (cfg.backend == "docker") {
-      virtualisation.docker.enable = true;
-    })
-  ]);
+  config = lib.mkIf (cfg.containers != { }) (
+    lib.mkMerge [
+      {
+        systemd.services = mapAttrs'
+          (n: v: nameValuePair "${cfg.backend}-${n}" (mkService n v))
+          cfg.containers;
+      }
+      (lib.mkIf (cfg.backend == "podman") {
+        virtualisation.podman.enable = true;
+      })
+      (lib.mkIf (cfg.backend == "docker") {
+        virtualisation.docker.enable = true;
+      })
+    ]
+  );
 
 }

@@ -34,10 +34,12 @@ let
   qt5UI = lib.elem "qt5" uiToolkits;
   # Accepts only "ncurses" and "qt5" as possible uiToolkits
 in
-assert lib.subtractLists [
-  "ncurses"
-  "qt5"
-] uiToolkits
+assert lib.subtractLists
+  [
+    "ncurses"
+    "qt5"
+  ]
+  uiToolkits
   == [ ];
 # Minimal, bootstrap cmake does not have toolkits
 assert isBootstrap -> (uiToolkits == [ ]);
@@ -69,7 +71,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional stdenv.isCygwin ./004-cygwin.diff
       # Derived from https://github.com/curl/curl/commit/31f631a142d855f069242f3e0c643beec25d1b51
-    ++ lib.optional (stdenv.isDarwin && isBootstrap)
+    ++ lib.optional
+      (stdenv.isDarwin && isBootstrap)
       ./005-remove-systemconfiguration-dep.diff
       # On Darwin, always set CMAKE_SHARED_LIBRARY_RUNTIME_C_FLAG.
     ++ lib.optional stdenv.isDarwin ./006-darwin-always-set-runtime-c-flag.diff

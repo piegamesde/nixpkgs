@@ -184,42 +184,50 @@ in
   };
 
   imports = [
-    (mkRemovedOptionModule [
-      "services"
-      "xserver"
-      "desktopManager"
-      "plasma5"
-      "enableQt4Support"
-    ] "Phonon no longer supports Qt 4.")
-    (mkRemovedOptionModule [
-      "services"
-      "xserver"
-      "desktopManager"
-      "plasma5"
-      "supportDDC"
-    ] "DDC/CI is no longer supported upstream.")
-    (mkRenamedOptionModule [
-      "services"
-      "xserver"
-      "desktopManager"
-      "kde5"
-    ] [
-      "services"
-      "xserver"
-      "desktopManager"
-      "plasma5"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "xserver"
-      "desktopManager"
-      "plasma5"
-      "excludePackages"
-    ] [
-      "environment"
-      "plasma5"
-      "excludePackages"
-    ])
+    (mkRemovedOptionModule
+      [
+        "services"
+        "xserver"
+        "desktopManager"
+        "plasma5"
+        "enableQt4Support"
+      ]
+      "Phonon no longer supports Qt 4.")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "xserver"
+        "desktopManager"
+        "plasma5"
+        "supportDDC"
+      ]
+      "DDC/CI is no longer supported upstream.")
+    (mkRenamedOptionModule
+      [
+        "services"
+        "xserver"
+        "desktopManager"
+        "kde5"
+      ]
+      [
+        "services"
+        "xserver"
+        "desktopManager"
+        "plasma5"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "xserver"
+        "desktopManager"
+        "plasma5"
+        "excludePackages"
+      ]
+      [
+        "environment"
+        "plasma5"
+        "excludePackages"
+      ])
   ];
 
   config = mkMerge [
@@ -343,13 +351,16 @@ in
           ];
         in
         requiredPackages
-        ++ utils.removePackagesByName optionalPackages
+        ++ utils.removePackagesByName
+          optionalPackages
           config.environment.plasma5.excludePackages
 
           # Phonon audio backend
-        ++ lib.optional (cfg.phononBackend == "gstreamer")
+        ++ lib.optional
+          (cfg.phononBackend == "gstreamer")
           libsForQt5.phonon-backend-gstreamer
-        ++ lib.optional (cfg.phononBackend == "vlc")
+        ++ lib.optional
+          (cfg.phononBackend == "vlc")
           libsForQt5.phonon-backend-vlc
 
           # Optional hardware support features
@@ -364,7 +375,8 @@ in
         ++ lib.optional config.services.pipewire.pulse.enable plasma-pa
         ++ lib.optional config.powerManagement.enable powerdevil
         ++ lib.optional config.services.colord.enable pkgs.colord-kde
-        ++ lib.optional config.services.hardware.bolt.enable
+        ++ lib.optional
+          config.services.hardware.bolt.enable
           pkgs.plasma5Packages.plasma-thunderbolt
         ++ lib.optionals config.services.samba.enable [
           kdenetwork-filesharing
@@ -521,7 +533,8 @@ in
           ];
         in
         requiredPackages
-        ++ utils.removePackagesByName optionalPackages
+        ++ utils.removePackagesByName
+          optionalPackages
           config.environment.plasma5.excludePackages
         ;
 

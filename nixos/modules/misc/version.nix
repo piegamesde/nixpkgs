@@ -30,18 +30,21 @@ let
     else
       ''
         "${
-          lib.escape [
+          lib.escape
+          [
             "$"
             ''"''
             "\\"
             "`"
-          ] s
+          ]
+          s
         }"''
     ;
   attrsToText =
     attrs:
-    concatStringsSep "\n"
-      (mapAttrsToList (n: v: "${n}=${escapeIfNeccessary (toString v)}") attrs)
+    concatStringsSep "\n" (
+      mapAttrsToList (n: v: "${n}=${escapeIfNeccessary (toString v)}") attrs
+    )
     + "\n"
     ;
 
@@ -56,11 +59,14 @@ let
     LOGO = "nix-snowflake";
     HOME_URL =
       lib.optionalString (cfg.distroId == "nixos") "https://nixos.org/";
-    DOCUMENTATION_URL = lib.optionalString (cfg.distroId == "nixos")
+    DOCUMENTATION_URL = lib.optionalString
+      (cfg.distroId == "nixos")
       "https://nixos.org/learn.html";
-    SUPPORT_URL = lib.optionalString (cfg.distroId == "nixos")
+    SUPPORT_URL = lib.optionalString
+      (cfg.distroId == "nixos")
       "https://nixos.org/community.html";
-    BUG_REPORT_URL = lib.optionalString (cfg.distroId == "nixos")
+    BUG_REPORT_URL = lib.optionalString
+      (cfg.distroId == "nixos")
       "https://github.com/NixOS/nixpkgs/issues";
   } // lib.optionalAttrs (cfg.variant_id != null) {
     VARIANT_ID = cfg.variant_id;
@@ -76,38 +82,46 @@ in
 {
   imports = [
     ./label.nix
-    (mkRenamedOptionModule [
-      "system"
-      "nixosVersion"
-    ] [
-      "system"
-      "nixos"
-      "version"
-    ])
-    (mkRenamedOptionModule [
-      "system"
-      "nixosVersionSuffix"
-    ] [
-      "system"
-      "nixos"
-      "versionSuffix"
-    ])
-    (mkRenamedOptionModule [
-      "system"
-      "nixosRevision"
-    ] [
-      "system"
-      "nixos"
-      "revision"
-    ])
-    (mkRenamedOptionModule [
-      "system"
-      "nixosLabel"
-    ] [
-      "system"
-      "nixos"
-      "label"
-    ])
+    (mkRenamedOptionModule
+      [
+        "system"
+        "nixosVersion"
+      ]
+      [
+        "system"
+        "nixos"
+        "version"
+      ])
+    (mkRenamedOptionModule
+      [
+        "system"
+        "nixosVersionSuffix"
+      ]
+      [
+        "system"
+        "nixos"
+        "versionSuffix"
+      ])
+    (mkRenamedOptionModule
+      [
+        "system"
+        "nixosRevision"
+      ]
+      [
+        "system"
+        "nixos"
+        "revision"
+      ])
+    (mkRenamedOptionModule
+      [
+        "system"
+        "nixosLabel"
+      ]
+      [
+        "system"
+        "nixos"
+        "label"
+      ])
   ];
 
   options.boot.initrd.osRelease = mkOption {
@@ -183,7 +197,8 @@ in
         # Doing this also means fixing the comment in nixos/modules/testing/test-instrumentation.nix
       apply =
         v:
-        lib.warnIf (
+        lib.warnIf
+        (
           options.system.stateVersion.highestPrio
           == (lib.mkOptionDefault { }).priority
         )

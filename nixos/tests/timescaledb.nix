@@ -90,13 +90,15 @@ let
 
     }
     ;
-  applicablePostgresqlVersions =
-    filterAttrs (_: value: versionAtLeast value.version "12")
+  applicablePostgresqlVersions = filterAttrs
+    (_: value: versionAtLeast value.version "12")
     postgresql-versions;
 in
-mapAttrs' (
+mapAttrs'
+(
   name: package: {
     inherit name;
     value = make-postgresql-test name package;
   }
-) applicablePostgresqlVersions
+)
+applicablePostgresqlVersions

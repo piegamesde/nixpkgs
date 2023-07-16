@@ -138,7 +138,8 @@ stdenv.mkDerivation rec {
       "--enable-aesni"
       "--enable-rdrand"
     ]
-    ++ lib.optional (stdenv.hostPlatform.system == "i686-linux")
+    ++ lib.optional
+      (stdenv.hostPlatform.system == "i686-linux")
       "--enable-padlock"
     ++ lib.optionals enableTNC [
       "--disable-gmp"

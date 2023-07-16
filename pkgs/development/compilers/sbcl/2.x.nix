@@ -142,7 +142,8 @@ stdenv.mkDerivation rec {
         ++ builtins.map (x: "--without-${x}") disableFeatures
       )
     } ${
-      lib.optionalString (stdenv.hostPlatform.system == "aarch64-darwin")
+      lib.optionalString
+      (stdenv.hostPlatform.system == "aarch64-darwin")
       "--arch=arm64"
     }
     (cd doc/manual ; make info)
@@ -169,12 +170,14 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-  setupHook = lib.optional purgeNixReferences (writeText "setupHook.sh" ''
-    addEnvHooks "$targetOffset" _setSbclHome
-    _setSbclHome() {
-      export SBCL_HOME='@out@/lib/sbcl/'
-    }
-  '');
+  setupHook = lib.optional purgeNixReferences (
+    writeText "setupHook.sh" ''
+      addEnvHooks "$targetOffset" _setSbclHome
+      _setSbclHome() {
+        export SBCL_HOME='@out@/lib/sbcl/'
+      }
+    ''
+  );
 
   meta = sbclBootstrap.meta;
 }

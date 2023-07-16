@@ -41,13 +41,15 @@ let
     # those types into a list of strings.
     let
       inherit (lib.types) attrsOf coercedTo int listOf;
-      innerType = coercedTo bool (
-        x:
-        if x then
-          "Yes"
-        else
-          "No"
-      ) (coercedTo int (toString) str);
+      innerType = coercedTo bool
+        (
+          x:
+          if x then
+            "Yes"
+          else
+            "No"
+        )
+        (coercedTo int (toString) str);
     in
     attrsOf (coercedTo innerType lib.singleton (listOf innerType))
     ;
@@ -117,8 +119,9 @@ let
       ];
       importDefaultConfig =
         file:
-        lib.attrsets.mapAttrs (lib.trivial.const mkDefault)
-        (import file { inherit pkgs; })
+        lib.attrsets.mapAttrs (lib.trivial.const mkDefault) (
+          import file { inherit pkgs; }
+        )
         ;
       c.commonModemConfig = importDefaultConfig ./modem-default.nix;
       c.faxqConfig = importDefaultConfig ./faxq-default.nix;
@@ -300,11 +303,13 @@ in
       '';
     };
 
-    faxcron.enable.spoolInit = mkEnableOption (lib.mdDoc ''
-      Purge old files from the spooling area with
-      {file}`faxcron`
-      each time the spooling area is initialized.
-    '');
+    faxcron.enable.spoolInit = mkEnableOption (
+      lib.mdDoc ''
+        Purge old files from the spooling area with
+        {file}`faxcron`
+        each time the spooling area is initialized.
+      ''
+    );
     faxcron.enable.frequency = mkOption {
       type = nullOr nonEmptyStr;
       default = null;
@@ -340,11 +345,13 @@ in
       '';
     };
 
-    faxqclean.enable.spoolInit = mkEnableOption (lib.mdDoc ''
-      Purge old files from the spooling area with
-      {file}`faxqclean`
-      each time the spooling area is initialized.
-    '');
+    faxqclean.enable.spoolInit = mkEnableOption (
+      lib.mdDoc ''
+        Purge old files from the spooling area with
+        {file}`faxqclean`
+        each time the spooling area is initialized.
+      ''
+    );
     faxqclean.enable.frequency = mkOption {
       type = nullOr nonEmptyStr;
       default = null;
@@ -395,9 +402,11 @@ in
 
   };
 
-  config.services.hylafax = mkIf (config.services.hylafax.enable) (mkMerge [
-    defaultConfig
-    localConfig
-  ]);
+  config.services.hylafax = mkIf (config.services.hylafax.enable) (
+    mkMerge [
+      defaultConfig
+      localConfig
+    ]
+  );
 
 }

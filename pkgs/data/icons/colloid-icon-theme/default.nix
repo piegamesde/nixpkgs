@@ -14,12 +14,17 @@ let
   pname = "colloid-icon-theme";
 
 in
-lib.checkListOfEnum "${pname}: scheme variants" [
+lib.checkListOfEnum "${pname}: scheme variants"
+[
   "default"
   "nord"
   "dracula"
   "all"
-] schemeVariants lib.checkListOfEnum "${pname}: color variants" [
+]
+schemeVariants
+lib.checkListOfEnum
+"${pname}: color variants"
+[
   "default"
   "purple"
   "pink"
@@ -30,9 +35,11 @@ lib.checkListOfEnum "${pname}: scheme variants" [
   "teal"
   "grey"
   "all"
-] colorVariants
+]
+colorVariants
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation
+rec {
   inherit pname;
   version = "2023-03-28";
 

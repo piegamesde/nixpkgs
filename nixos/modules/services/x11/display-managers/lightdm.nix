@@ -26,9 +26,11 @@ let
     # lightdm runs with clearenv(), but we need a few things in the environment for X to startup
   xserverWrapper = writeScript "xserver-wrapper" ''
     #! ${pkgs.bash}/bin/bash
-    ${concatMapStrings (n: ''
+    ${concatMapStrings
+    (n: ''
       export ${n}="${getAttr n xEnv}"
-    '') (attrNames xEnv)}
+    '')
+    (attrNames xEnv)}
 
     display=$(echo "$@" | xargs -n 1 | grep -P ^:\\d\$ | head -n 1 | sed s/^://)
     if [ -z "$display" ]
@@ -94,34 +96,38 @@ in
     ./lightdm-greeters/tiny.nix
     ./lightdm-greeters/slick.nix
     ./lightdm-greeters/mobile.nix
-    (mkRenamedOptionModule [
-      "services"
-      "xserver"
-      "displayManager"
-      "lightdm"
-      "autoLogin"
-      "enable"
-    ] [
-      "services"
-      "xserver"
-      "displayManager"
-      "autoLogin"
-      "enable"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "xserver"
-      "displayManager"
-      "lightdm"
-      "autoLogin"
-      "user"
-    ] [
-      "services"
-      "xserver"
-      "displayManager"
-      "autoLogin"
-      "user"
-    ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "xserver"
+        "displayManager"
+        "lightdm"
+        "autoLogin"
+        "enable"
+      ]
+      [
+        "services"
+        "xserver"
+        "displayManager"
+        "autoLogin"
+        "enable"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "xserver"
+        "displayManager"
+        "lightdm"
+        "autoLogin"
+        "user"
+      ]
+      [
+        "services"
+        "xserver"
+        "displayManager"
+        "autoLogin"
+        "user"
+      ])
   ];
 
   options = {
@@ -239,11 +245,11 @@ in
 
       # Set default session in session chooser to a specified values – basically ignore session history.
       # Auto-login is already covered by a config value.
-    services.xserver.displayManager.job.preStart = optionalString (
-      !dmcfg.autoLogin.enable && dmcfg.defaultSession != null
-    ) ''
-      ${setSessionScript}/bin/set-session ${dmcfg.defaultSession}
-    '';
+    services.xserver.displayManager.job.preStart = optionalString
+      (!dmcfg.autoLogin.enable && dmcfg.defaultSession != null)
+      ''
+        ${setSessionScript}/bin/set-session ${dmcfg.defaultSession}
+      '';
 
       # setSessionScript needs session-files in XDG_DATA_DIRS
     services.xserver.displayManager.job.environment.XDG_DATA_DIRS =

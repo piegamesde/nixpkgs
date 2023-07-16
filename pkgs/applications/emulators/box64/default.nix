@@ -86,16 +86,18 @@ stdenv.mkDerivation rec {
 
   passthru = {
     updateScript = gitUpdater { rev-prefix = "v"; };
-    tests.hello = runCommand "box64-test-hello" {
-      nativeBuildInputs = [
-        box64
-        hello-x86_64
-      ];
-    } ''
-      # There is no actual "Hello, world!" with any of the logging enabled, and with all logging disabled it's hard to
-      # tell what problems the emulator has run into.
-      BOX64_NOBANNER=0 BOX64_LOG=1 box64 ${hello-x86_64}/bin/hello --version | tee $out
-    '';
+    tests.hello = runCommand "box64-test-hello"
+      {
+        nativeBuildInputs = [
+          box64
+          hello-x86_64
+        ];
+      }
+      ''
+        # There is no actual "Hello, world!" with any of the logging enabled, and with all logging disabled it's hard to
+        # tell what problems the emulator has run into.
+        BOX64_NOBANNER=0 BOX64_LOG=1 box64 ${hello-x86_64}/bin/hello --version | tee $out
+      '';
   };
 
   meta = with lib; {

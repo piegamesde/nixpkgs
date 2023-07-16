@@ -9,33 +9,35 @@ with pkgs.lib;
 let
   testsForLinuxPackages =
     linuxPackages:
-    (import ./make-test-python.nix (
-      {
-        pkgs,
-        ...
-      }: {
-        name = "kernel-${linuxPackages.kernel.version}";
-        meta = with pkgs.lib.maintainers; {
-          maintainers = [
-            nequissimus
-            atemu
-          ];
-        };
+    (import ./make-test-python.nix
+      (
+        {
+          pkgs,
+          ...
+        }: {
+          name = "kernel-${linuxPackages.kernel.version}";
+          meta = with pkgs.lib.maintainers; {
+            maintainers = [
+              nequissimus
+              atemu
+            ];
+          };
 
-        nodes.machine =
-          {
-            ...
-          }: {
-            boot.kernelPackages = linuxPackages;
-          }
-          ;
+          nodes.machine =
+            {
+              ...
+            }: {
+              boot.kernelPackages = linuxPackages;
+            }
+            ;
 
-        testScript = ''
-          assert "Linux" in machine.succeed("uname -s")
-          assert "${linuxPackages.kernel.modDirVersion}" in machine.succeed("uname -a")
-        '';
-      }
-    ) args)
+          testScript = ''
+            assert "Linux" in machine.succeed("uname -s")
+            assert "${linuxPackages.kernel.modDirVersion}" in machine.succeed("uname -a")
+          '';
+        }
+      )
+      args)
     ;
   kernels = pkgs.linuxKernel.vanillaPackages // {
     inherit (pkgs.linuxKernel.packages)

@@ -15,26 +15,30 @@ let
 
   jsonType = (pkgs.formats.json { }).type;
 
-  configFile = pkgs.runCommand "matrix-appservice-irc.yml" {
-    # Because this program will be run at build time, we need `nativeBuildInputs`
-    nativeBuildInputs = [
-        (pkgs.python3.withPackages (ps: [
-          ps.pyyaml
-          ps.jsonschema
-        ]))
-      ];
-    preferLocalBuild = true;
+  configFile = pkgs.runCommand "matrix-appservice-irc.yml"
+    {
+      # Because this program will be run at build time, we need `nativeBuildInputs`
+      nativeBuildInputs = [
+          (pkgs.python3.withPackages (
+            ps: [
+              ps.pyyaml
+              ps.jsonschema
+            ]
+          ))
+        ];
+      preferLocalBuild = true;
 
-    config = builtins.toJSON cfg.settings;
-    passAsFile = [ "config" ];
-  } ''
-    # The schema is given as yaml, we need to convert it to json
-    python -c 'import json; import yaml; import sys; json.dump(yaml.safe_load(sys.stdin), sys.stdout)' \
-      < ${pkg}/lib/node_modules/matrix-appservice-irc/config.schema.yml \
-      > config.schema.json
-    python -m jsonschema config.schema.json -i $configPath
-    cp "$configPath" "$out"
-  '';
+      config = builtins.toJSON cfg.settings;
+      passAsFile = [ "config" ];
+    }
+    ''
+      # The schema is given as yaml, we need to convert it to json
+      python -c 'import json; import yaml; import sys; json.dump(yaml.safe_load(sys.stdin), sys.stdout)' \
+        < ${pkg}/lib/node_modules/matrix-appservice-irc/config.schema.yml \
+        > config.schema.json
+      python -m jsonschema config.schema.json -i $configPath
+      cp "$configPath" "$out"
+    '';
   registrationFile = "/var/lib/matrix-appservice-irc/registration.yml";
 in
 {

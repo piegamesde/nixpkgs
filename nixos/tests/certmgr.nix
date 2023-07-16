@@ -96,41 +96,47 @@ let
               };
               script = ''
                 ${pkgs.cfssl}/bin/cfssl genkey -initca ${
-                  pkgs.writeText "ca.json" (builtins.toJSON {
-                    hosts = [ "ca.example.com" ];
-                    key = {
-                      algo = "rsa";
-                      size = 4096;
-                    };
-                    names = [ {
-                      C = "US";
-                      L = "San Francisco";
-                      O = "Internet Widgets, LLC";
-                      OU = "Certificate Authority";
-                      ST = "California";
-                    } ];
-                  })
+                  pkgs.writeText "ca.json" (
+                    builtins.toJSON {
+                      hosts = [ "ca.example.com" ];
+                      key = {
+                        algo = "rsa";
+                        size = 4096;
+                      };
+                      names = [ {
+                        C = "US";
+                        L = "San Francisco";
+                        O = "Internet Widgets, LLC";
+                        OU = "Certificate Authority";
+                        ST = "California";
+                      } ];
+                    }
+                  )
                 } | ${pkgs.cfssl}/bin/cfssljson -bare ca
               '';
             };
 
             services.nginx = {
               enable = true;
-              virtualHosts = lib.mkMerge (map (host: {
-                ${host} = {
-                  sslCertificate = "/var/ssl/${host}-cert.pem";
-                  sslCertificateKey = "/var/ssl/${host}-key.pem";
-                  extraConfig = ''
-                    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-                  '';
-                  onlySSL = true;
-                  serverName = host;
-                  root = pkgs.writeTextDir "index.html" "It works!";
-                };
-              }) [
-                "imp.example.org"
-                "decl.example.org"
-              ]);
+              virtualHosts = lib.mkMerge (
+                map
+                (host: {
+                  ${host} = {
+                    sslCertificate = "/var/ssl/${host}-cert.pem";
+                    sslCertificateKey = "/var/ssl/${host}-key.pem";
+                    extraConfig = ''
+                      ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+                    '';
+                    onlySSL = true;
+                    serverName = host;
+                    root = pkgs.writeTextDir "index.html" "It works!";
+                  };
+                })
+                [
+                  "imp.example.org"
+                  "decl.example.org"
+                ]
+              );
             };
 
             systemd.services.nginx.wantedBy = lib.mkForce [ ];
@@ -158,11 +164,17 @@ in
         service = "nginx";
         action = "restart";
       };
-      imp = toString (pkgs.writeText "test.json" (builtins.toJSON (mkSpec {
-        host = "imp.example.org";
-        service = "nginx";
-        action = "restart";
-      })));
+      imp = toString (
+        pkgs.writeText "test.json" (
+          builtins.toJSON (
+            mkSpec {
+              host = "imp.example.org";
+              service = "nginx";
+              action = "restart";
+            }
+          )
+        )
+      );
     };
     testScript = ''
       machine.wait_for_unit("cfssl.service")

@@ -5,7 +5,8 @@
   makeWrapper,
 }:
 
-makePythonHook {
+makePythonHook
+{
   name = "wrap-python-hook";
   propagatedBuildInputs = [ makeWrapper ];
   substitutions.sitePackages = python.sitePackages;
@@ -70,4 +71,5 @@ makePythonHook {
       }
     ''
     ;
-} ./wrap.sh
+}
+./wrap.sh

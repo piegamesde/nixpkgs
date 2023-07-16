@@ -131,9 +131,11 @@ in
         export CLASSPATH=${activemqBroker}/lib:${cfg.configurationDir}:$CLASSPATH
         exec java \
           ${
-            concatStringsSep " \\\n"
-            (mapAttrsToList (name: value: "-D${name}=${value}")
-              cfg.javaProperties)
+            concatStringsSep " \\\n" (
+              mapAttrsToList
+              (name: value: "-D${name}=${value}")
+              cfg.javaProperties
+            )
           } \
           ${cfg.extraJavaOptions} ActiveMQBroker "${cfg.configurationURI}"
       '';

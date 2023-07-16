@@ -10,8 +10,9 @@ with lib;
 let
   cfg = config.services.youtrack;
 
-  extraAttr = concatStringsSep " "
-    (mapAttrsToList (k: v: "-D${k}=${v}") (stdParams // cfg.extraParams));
+  extraAttr = concatStringsSep " " (
+    mapAttrsToList (k: v: "-D${k}=${v}") (stdParams // cfg.extraParams)
+  );
   mergeAttrList = lib.foldl' lib.mergeAttrs { };
 
   stdParams = mergeAttrList [

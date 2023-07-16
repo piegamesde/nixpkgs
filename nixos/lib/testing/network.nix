@@ -57,8 +57,9 @@ let
 
         networking.interfaces = listToAttrs interfaces;
 
-        networking.primaryIPAddress = optionalString (interfaces != [ ])
-          (head (head interfaces).value.ipv4.addresses).address;
+        networking.primaryIPAddress =
+          optionalString (interfaces != [ ]) (head (head interfaces)
+            .value.ipv4.addresses).address;
 
           # Put the IP addresses of all VMs in this machine's
           # /etc/hosts file.  If a machine has multiple
@@ -72,7 +73,8 @@ let
           in
           optionalString (config.networking.primaryIPAddress != "") (
             "${config.networking.primaryIPAddress} "
-            + optionalString (config.networking.domain != null)
+            + optionalString
+              (config.networking.domain != null)
               "${config.networking.hostName}.${config.networking.domain} "
             + ''
               ${config.networking.hostName}
@@ -89,7 +91,8 @@ let
               fst,
               snd,
             }:
-            qemu-common.qemuNICFlags snd fst
+            qemu-common.qemuNICFlags snd
+            fst
             config.virtualisation.test.nodeNumber
           )
           ;
@@ -136,17 +139,19 @@ let
             # specialisations override the `name` module argument,
             # so we push the real `virtualisation.test.nodeName`.
           specialisation = mkOption {
-            type = types.attrsOf (types.submodule {
-              options.configuration = mkOption {
-                type = types.submoduleWith {
-                  modules = [ {
-                    config.virtualisation.test.nodeName =
-                      # assert regular.config.virtualisation.test.nodeName != "configuration";
-                      regular.config.virtualisation.test.nodeName;
-                  } ];
+            type = types.attrsOf (
+              types.submodule {
+                options.configuration = mkOption {
+                  type = types.submoduleWith {
+                    modules = [ {
+                      config.virtualisation.test.nodeName =
+                        # assert regular.config.virtualisation.test.nodeName != "configuration";
+                        regular.config.virtualisation.test.nodeName;
+                    } ];
+                  };
                 };
-              };
-            });
+              }
+            );
           };
         };
       }

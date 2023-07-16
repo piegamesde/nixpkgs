@@ -15,49 +15,51 @@ import ./make-test-python.nix (
       "$7$101$/WJc4Mp+I+uYE9sR$o7z9rD1EYXHPwEP5GqQj6A7k4W1yVbePlb8TqNcuOLV9WNCiDgwHOB0JHC1WCtdkssqTBduBNUnUGd6kmZvDSw==";
     topic = "test/foo";
 
-    snakeOil = pkgs.runCommand "snakeoil-certs" {
-      buildInputs = [ pkgs.gnutls.bin ];
-      caTemplate = pkgs.writeText "snakeoil-ca.template" ''
-        cn = server
-        expiration_days = -1
-        cert_signing_key
-        ca
-      '';
-      certTemplate = pkgs.writeText "snakeoil-cert.template" ''
-        cn = server
-        expiration_days = -1
-        tls_www_server
-        encryption_key
-        signing_key
-      '';
-      userCertTemplate = pkgs.writeText "snakeoil-user-cert.template" ''
-        organization = snakeoil
-        cn = client1
-        expiration_days = -1
-        tls_www_client
-        encryption_key
-        signing_key
-      '';
-    } ''
-      mkdir "$out"
+    snakeOil = pkgs.runCommand "snakeoil-certs"
+      {
+        buildInputs = [ pkgs.gnutls.bin ];
+        caTemplate = pkgs.writeText "snakeoil-ca.template" ''
+          cn = server
+          expiration_days = -1
+          cert_signing_key
+          ca
+        '';
+        certTemplate = pkgs.writeText "snakeoil-cert.template" ''
+          cn = server
+          expiration_days = -1
+          tls_www_server
+          encryption_key
+          signing_key
+        '';
+        userCertTemplate = pkgs.writeText "snakeoil-user-cert.template" ''
+          organization = snakeoil
+          cn = client1
+          expiration_days = -1
+          tls_www_client
+          encryption_key
+          signing_key
+        '';
+      }
+      ''
+        mkdir "$out"
 
-      certtool -p --bits 2048 --outfile "$out/ca.key"
-      certtool -s --template "$caTemplate" --load-privkey "$out/ca.key" \
-                  --outfile "$out/ca.crt"
-      certtool -p --bits 2048 --outfile "$out/server.key"
-      certtool -c --template "$certTemplate" \
-                  --load-ca-privkey "$out/ca.key" \
-                  --load-ca-certificate "$out/ca.crt" \
-                  --load-privkey "$out/server.key" \
-                  --outfile "$out/server.crt"
+        certtool -p --bits 2048 --outfile "$out/ca.key"
+        certtool -s --template "$caTemplate" --load-privkey "$out/ca.key" \
+                    --outfile "$out/ca.crt"
+        certtool -p --bits 2048 --outfile "$out/server.key"
+        certtool -c --template "$certTemplate" \
+                    --load-ca-privkey "$out/ca.key" \
+                    --load-ca-certificate "$out/ca.crt" \
+                    --load-privkey "$out/server.key" \
+                    --outfile "$out/server.crt"
 
-      certtool -p --bits 2048 --outfile "$out/client1.key"
-      certtool -c --template "$userCertTemplate" \
-                  --load-privkey "$out/client1.key" \
-                  --load-ca-privkey "$out/ca.key" \
-                  --load-ca-certificate "$out/ca.crt" \
-                  --outfile "$out/client1.crt"
-    '';
+        certtool -p --bits 2048 --outfile "$out/client1.key"
+        certtool -c --template "$userCertTemplate" \
+                    --load-privkey "$out/client1.key" \
+                    --load-ca-privkey "$out/ca.key" \
+                    --load-ca-certificate "$out/ca.crt" \
+                    --outfile "$out/client1.crt"
+      '';
 
   in
   {

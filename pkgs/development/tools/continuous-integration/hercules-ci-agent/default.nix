@@ -28,7 +28,8 @@ let
 
   pkg =
     # justStaticExecutables is needed due to https://github.com/NixOS/nix/issues/2990
-    overrideCabal (o: {
+    overrideCabal
+    (o: {
       postInstall = ''
         ${o.postInstall or ""}
         mkdir -p $out/libexec
@@ -37,17 +38,23 @@ let
           lib.escapeShellArg (makeBinPath bundledBins)
         }
       '';
-    }) (addBuildTools [ makeWrapper ]
-      (justStaticExecutables haskellPackages.hercules-ci-agent));
+    })
+    (
+      addBuildTools [ makeWrapper ] (
+        justStaticExecutables haskellPackages.hercules-ci-agent
+      )
+    );
 in
-pkg.overrideAttrs (o: {
-  meta = o.meta // { position = toString ./default.nix + ":1"; };
-  passthru = o.passthru // {
-    # Does not test the package, but evaluation of the related NixOS module.
-    tests.nixos-minimal-config = nixos {
-      boot.loader.grub.enable = false;
-      fileSystems."/".device = "bogus";
-      services.hercules-ci-agent.enable = true;
+pkg.overrideAttrs (
+  o: {
+    meta = o.meta // { position = toString ./default.nix + ":1"; };
+    passthru = o.passthru // {
+      # Does not test the package, but evaluation of the related NixOS module.
+      tests.nixos-minimal-config = nixos {
+        boot.loader.grub.enable = false;
+        fileSystems."/".device = "bogus";
+        services.hercules-ci-agent.enable = true;
+      };
     };
-  };
-})
+  }
+)

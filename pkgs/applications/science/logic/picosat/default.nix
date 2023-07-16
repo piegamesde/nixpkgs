@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
 
   configurePhase = "./configure.sh --shared --trace";
 
-  makeFlags = lib.optional stdenv.isDarwin
+  makeFlags = lib.optional
+    stdenv.isDarwin
     "SONAME=-Wl,-install_name,$(out)/lib/libpicosat.so";
 
   installPhase = ''

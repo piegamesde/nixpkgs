@@ -9,8 +9,11 @@ let
   cfg = config.hardware.printers;
   ppdOptionsString =
     options:
-    optionalString (options != { }) (concatStringsSep " "
-      (mapAttrsToList (name: value: "-o '${name}'='${value}'") options))
+    optionalString (options != { }) (
+      concatStringsSep " " (
+        mapAttrsToList (name: value: "-o '${name}'='${value}'") options
+      )
+    )
     ;
   ensurePrinter =
     p: ''
@@ -56,67 +59,69 @@ in
           Printers not listed here can still be manually configured.
         '';
         default = [ ];
-        type = types.listOf (types.submodule {
-          options = {
-            name = mkOption {
-              type = printerName;
-              example = "BrotherHL_Workroom";
-              description = lib.mdDoc ''
-                Name of the printer / printer queue.
-                May contain any printable characters except "/", "#", and space.
-              '';
-            };
-            location = mkOption {
-              type = types.nullOr types.str;
-              default = null;
-              example = "Workroom";
-              description = lib.mdDoc ''
-                Optional human-readable location.
-              '';
-            };
-            description = mkOption {
-              type = types.nullOr types.str;
-              default = null;
-              example = "Brother HL-5140";
-              description = lib.mdDoc ''
-                Optional human-readable description.
-              '';
-            };
-            deviceUri = mkOption {
-              type = types.str;
-              example = literalExpression ''
-                "ipp://printserver.local/printers/BrotherHL_Workroom"
-                "usb://HP/DESKJET%20940C?serial=CN16E6C364BH"
-              '';
-              description = lib.mdDoc ''
-                How to reach the printer.
-                {command}`lpinfo -v` shows a list of supported device URIs and schemes.
-              '';
-            };
-            model = mkOption {
-              type = types.str;
-              example = literalExpression ''
-                "gutenprint.''${lib.versions.majorMinor (lib.getVersion pkgs.gutenprint)}://brother-hl-5140/expert"
-              '';
-              description = lib.mdDoc ''
-                Location of the ppd driver file for the printer.
-                {command}`lpinfo -m` shows a list of supported models.
-              '';
-            };
-            ppdOptions = mkOption {
-              type = types.attrsOf types.str;
-              example = {
-                PageSize = "A4";
-                Duplex = "DuplexNoTumble";
+        type = types.listOf (
+          types.submodule {
+            options = {
+              name = mkOption {
+                type = printerName;
+                example = "BrotherHL_Workroom";
+                description = lib.mdDoc ''
+                  Name of the printer / printer queue.
+                  May contain any printable characters except "/", "#", and space.
+                '';
               };
-              default = { };
-              description = lib.mdDoc ''
-                Sets PPD options for the printer.
-                {command}`lpoptions [-p printername] -l` shows supported PPD options for the given printer.
-              '';
+              location = mkOption {
+                type = types.nullOr types.str;
+                default = null;
+                example = "Workroom";
+                description = lib.mdDoc ''
+                  Optional human-readable location.
+                '';
+              };
+              description = mkOption {
+                type = types.nullOr types.str;
+                default = null;
+                example = "Brother HL-5140";
+                description = lib.mdDoc ''
+                  Optional human-readable description.
+                '';
+              };
+              deviceUri = mkOption {
+                type = types.str;
+                example = literalExpression ''
+                  "ipp://printserver.local/printers/BrotherHL_Workroom"
+                  "usb://HP/DESKJET%20940C?serial=CN16E6C364BH"
+                '';
+                description = lib.mdDoc ''
+                  How to reach the printer.
+                  {command}`lpinfo -v` shows a list of supported device URIs and schemes.
+                '';
+              };
+              model = mkOption {
+                type = types.str;
+                example = literalExpression ''
+                  "gutenprint.''${lib.versions.majorMinor (lib.getVersion pkgs.gutenprint)}://brother-hl-5140/expert"
+                '';
+                description = lib.mdDoc ''
+                  Location of the ppd driver file for the printer.
+                  {command}`lpinfo -m` shows a list of supported models.
+                '';
+              };
+              ppdOptions = mkOption {
+                type = types.attrsOf types.str;
+                example = {
+                  PageSize = "A4";
+                  Duplex = "DuplexNoTumble";
+                };
+                default = { };
+                description = lib.mdDoc ''
+                  Sets PPD options for the printer.
+                  {command}`lpoptions [-p printername] -l` shows supported PPD options for the given printer.
+                '';
+              };
             };
-          };
-        });
+          }
+        );
       };
     };
   };
@@ -135,13 +140,14 @@ in
 
       script = concatStringsSep "\n" [
         (concatMapStrings ensurePrinter cfg.ensurePrinters)
-        (optionalString (cfg.ensureDefaultPrinter != null)
-          (ensureDefaultPrinter cfg.ensureDefaultPrinter))
+        (optionalString (cfg.ensureDefaultPrinter != null) (
+          ensureDefaultPrinter cfg.ensureDefaultPrinter
+        ))
         # Note: if cupsd is "stateless" the service can't be stopped,
         # otherwise the configuration will be wiped on the next start.
-        (optionalString (
-          with config.services.printing; startWhenNeeded && !stateless
-        ) "systemctl stop cups.service")
+        (optionalString
+          (with config.services.printing; startWhenNeeded && !stateless)
+          "systemctl stop cups.service")
       ];
     };
   };

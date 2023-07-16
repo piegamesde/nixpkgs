@@ -63,14 +63,16 @@ runTests {
   };
 
   testPipeStrings = {
-    expr = pipe [
-      3
-      4
-    ] [
-      (map toString)
-      (map (s: s + "\n"))
-      concatStrings
-    ];
+    expr = pipe
+      [
+        3
+        4
+      ]
+      [
+        (map toString)
+        (map (s: s + "\n"))
+        concatStrings
+      ];
     expected = ''
       3
       4
@@ -89,14 +91,16 @@ runTests {
   };
 
   testFix = {
-    expr = fix (x: {
-      a =
-        if x ? a then
-          "a"
-        else
-          "b"
-        ;
-    });
+    expr = fix (
+      x: {
+        a =
+          if x ? a then
+            "a"
+          else
+            "b"
+          ;
+      }
+    );
     expected = { a = "a"; };
   };
 
@@ -305,11 +309,15 @@ runTests {
   };
 
   testSplitStringsDerivation = {
-    expr = take 3 (strings.splitString "/" (derivation {
-      name = "name";
-      builder = "builder";
-      system = "system";
-    }));
+    expr = take 3 (
+      strings.splitString "/" (
+        derivation {
+          name = "name";
+          builder = "builder";
+          system = "system";
+        }
+      )
+    );
     expected = [
       ""
       "nix"
@@ -873,33 +881,43 @@ runTests {
   };
 
   testHasAttrByPathTrue = {
-    expr = hasAttrByPath [
-      "a"
-      "b"
-    ] { a = { b = "yey"; }; };
+    expr = hasAttrByPath
+      [
+        "a"
+        "b"
+      ]
+      {
+        a = { b = "yey"; };
+      };
     expected = true;
   };
 
   testHasAttrByPathFalse = {
-    expr = hasAttrByPath [
-      "a"
-      "b"
-    ] { a = { c = "yey"; }; };
+    expr = hasAttrByPath
+      [
+        "a"
+        "b"
+      ]
+      {
+        a = { c = "yey"; };
+      };
     expected = false;
   };
 
     # ATTRSETS
 
   testConcatMapAttrs = {
-    expr = concatMapAttrs (
-      name: value: {
-        ${name} = value;
-        ${name + value} = value;
-      }
-    ) {
-      foo = "bar";
-      foobar = "baz";
-    };
+    expr = concatMapAttrs
+      (
+        name: value: {
+          ${name} = value;
+          ${name + value} = value;
+        }
+      )
+      {
+        foo = "bar";
+        foobar = "baz";
+      };
     expected = {
       foo = "bar";
       foobar = "baz";
@@ -910,18 +928,21 @@ runTests {
     # code from example
   testFoldlAttrs = {
     expr = {
-      example = foldlAttrs (
-        acc: name: value: {
-          sum = acc.sum + value;
-          names = acc.names ++ [ name ];
+      example = foldlAttrs
+        (
+          acc: name: value: {
+            sum = acc.sum + value;
+            names = acc.names ++ [ name ];
+          }
+        )
+        {
+          sum = 0;
+          names = [ ];
         }
-      ) {
-        sum = 0;
-        names = [ ];
-      } {
-        foo = 1;
-        bar = 10;
-      };
+        {
+          foo = 1;
+          bar = 10;
+        };
         # should just return the initial value
       emptySet = foldlAttrs (throw "function not needed") 123 { };
         # should just evaluate to the last value
@@ -952,17 +973,19 @@ runTests {
 
     # code from the example
   testRecursiveUpdateUntil = {
-    expr = recursiveUpdateUntil (path: l: r: path == [ "foo" ]) {
-      # first attribute set
-      foo.bar = 1;
-      foo.baz = 2;
-      bar = 3;
-    } {
-      #second attribute set
-      foo.bar = 1;
-      foo.quz = 2;
-      baz = 4;
-    };
+    expr = recursiveUpdateUntil (path: l: r: path == [ "foo" ])
+      {
+        # first attribute set
+        foo.bar = 1;
+        foo.baz = 2;
+        bar = 3;
+      }
+      {
+        #second attribute set
+        foo.bar = 1;
+        foo.quz = 2;
+        baz = 4;
+      };
     expected = {
       foo.bar = 1; # 'foo.*' from the second set
       foo.quz = 2;
@@ -982,10 +1005,14 @@ runTests {
   };
 
   testOverrideExistingOverride = {
-    expr = overrideExisting {
-      a = 3;
-      b = 2;
-    } { a = 1; };
+    expr = overrideExisting
+      {
+        a = 3;
+        b = 2;
+      }
+      {
+        a = 1;
+      };
     expected = {
       a = 1;
       b = 2;
@@ -1259,10 +1286,14 @@ runTests {
       a.c = a;
     in
     {
-      expr = generators.toPretty { } (generators.withRecursion {
-        throwOnDepthLimit = false;
-        depthLimit = 2;
-      } a);
+      expr = generators.toPretty { } (
+        generators.withRecursion
+        {
+          throwOnDepthLimit = false;
+          depthLimit = 2;
+        }
+        a
+      );
       expected = ''
         {
           b = 1;
@@ -1284,8 +1315,11 @@ runTests {
     in
     {
       expr =
-        (builtins.tryEval (generators.toPretty { }
-          (generators.withRecursion { depthLimit = 2; } a))).success;
+        (builtins.tryEval (
+          generators.toPretty { } (
+            generators.withRecursion { depthLimit = 2; } a
+          )
+        )).success;
       expected = false;
     }
     ;
@@ -1309,10 +1343,14 @@ runTests {
       };
     in
     {
-      expr = generators.toPretty { } (generators.withRecursion {
-        depthLimit = 1;
-        throwOnDepthLimit = false;
-      } a);
+      expr = generators.toPretty { } (
+        generators.withRecursion
+        {
+          depthLimit = 1;
+          throwOnDepthLimit = false;
+        }
+        a
+      );
       expected = ''
         {
           b = <function, args: {a, b}>;
@@ -1471,15 +1509,20 @@ runTests {
   };
 
   testToLuaIndentedBindings = {
-    expr = generators.toLua {
-      asBindings = true;
-      indent = "  ";
-    } { x = { y = 42; }; };
+    expr = generators.toLua
+      {
+        asBindings = true;
+        indent = "  ";
+      }
+      {
+        x = { y = 42; };
+      };
     expected = "  x = {\n    [\"y\"] = 42\n  }\n";
   };
 
-  testToLuaBindingsWithSpace = testingThrow
-    (generators.toLua { asBindings = true; } { "with space" = 42; });
+  testToLuaBindingsWithSpace = testingThrow (
+    generators.toLua { asBindings = true; } { "with space" = 42; }
+  );
 
   testToLuaBindingsWithLeadingDigit =
     testingThrow (generators.toLua { asBindings = true; } { "11eleven" = 42; });
@@ -1600,8 +1643,9 @@ runTests {
             lib,
             ...
           }: {
-            freeformType = lib.types.attrsOf
-              (lib.types.submodule { options.bar = lib.mkOption { }; });
+            freeformType = lib.types.attrsOf (
+              lib.types.submodule { options.bar = lib.mkOption { }; }
+            );
             options.bar = lib.mkOption { };
           }
           ;
@@ -1931,30 +1975,34 @@ runTests {
 
     # The example from the updateManyAttrsByPath documentation
   testUpdateManyAttrsByPathExample = {
-    expr = updateManyAttrsByPath [
+    expr = updateManyAttrsByPath
+      [
+        {
+          path = [
+            "a"
+            "b"
+          ];
+          update = old: { d = old.c; };
+        }
+        {
+          path = [
+            "a"
+            "b"
+            "c"
+          ];
+          update = old: old + 1;
+        }
+        {
+          path = [
+            "x"
+            "y"
+          ];
+          update = old: "xy";
+        }
+      ]
       {
-        path = [
-          "a"
-          "b"
-        ];
-        update = old: { d = old.c; };
-      }
-      {
-        path = [
-          "a"
-          "b"
-          "c"
-        ];
-        update = old: old + 1;
-      }
-      {
-        path = [
-          "x"
-          "y"
-        ];
-        update = old: "xy";
-      }
-    ] { a.b.c = 0; };
+        a.b.c = 0;
+      };
     expected = {
       a = { b = { d = 1; }; };
       x = { y = "xy"; };
@@ -1969,63 +2017,71 @@ runTests {
 
     # A single update to the root path is just like applying the function directly
   testUpdateManyAttrsByPathSingleIncrement = {
-    expr = updateManyAttrsByPath [ {
-      path = [ ];
-      update = old: old + 1;
-    } ] 0;
+    expr = updateManyAttrsByPath
+      [ {
+        path = [ ];
+        update = old: old + 1;
+      } ]
+      0;
     expected = 1;
   };
 
     # Multiple updates can be applied are done in order
   testUpdateManyAttrsByPathMultipleIncrements = {
-    expr = updateManyAttrsByPath [
-      {
-        path = [ ];
-        update = old: old + "a";
-      }
-      {
-        path = [ ];
-        update = old: old + "b";
-      }
-      {
-        path = [ ];
-        update = old: old + "c";
-      }
-    ] "";
+    expr = updateManyAttrsByPath
+      [
+        {
+          path = [ ];
+          update = old: old + "a";
+        }
+        {
+          path = [ ];
+          update = old: old + "b";
+        }
+        {
+          path = [ ];
+          update = old: old + "c";
+        }
+      ]
+      "";
     expected = "abc";
   };
 
     # If an update doesn't use the value, all previous updates are not evaluated
   testUpdateManyAttrsByPathLazy = {
-    expr = updateManyAttrsByPath [
-      {
-        path = [ ];
-        update = old: old + throw "nope";
-      }
-      {
-        path = [ ];
-        update = old: "untainted";
-      }
-    ] (throw "start");
+    expr = updateManyAttrsByPath
+      [
+        {
+          path = [ ];
+          update = old: old + throw "nope";
+        }
+        {
+          path = [ ];
+          update = old: "untainted";
+        }
+      ]
+      (throw "start");
     expected = "untainted";
   };
 
     # Deeply nested attributes can be updated without affecting others
   testUpdateManyAttrsByPathDeep = {
-    expr = updateManyAttrsByPath [ {
-      path = [
-        "a"
-        "b"
-        "c"
-      ];
-      update = old: old + 1;
-    } ] {
-      a.b.c = 0;
+    expr = updateManyAttrsByPath
+      [ {
+        path = [
+          "a"
+          "b"
+          "c"
+        ];
+        update = old: old + 1;
+      } ]
+      {
+        a.b.c = 0;
 
-      a.b.z = 0;
-      a.y.z = 0;
-      x.y.z = 0;
-    };
+        a.b.z = 0;
+        a.y.z = 0;
+        x.y.z = 0;
+      };
     expected = {
       a.b.c = 1;
 
@@ -2037,19 +2093,23 @@ runTests {
 
     # Nested attributes are updated first
   testUpdateManyAttrsByPathNestedBeforehand = {
-    expr = updateManyAttrsByPath [
+    expr = updateManyAttrsByPath
+      [
+        {
+          path = [ "a" ];
+          update = old: old // { x = old.b; };
+        }
+        {
+          path = [
+            "a"
+            "b"
+          ];
+          update = old: old + 1;
+        }
+      ]
       {
-        path = [ "a" ];
-        update = old: old // { x = old.b; };
-      }
-      {
-        path = [
-          "a"
-          "b"
-        ];
-        update = old: old + 1;
-      }
-    ] { a.b = 0; };
+        a.b = 0;
+      };
     expected = {
       a.b = 1;
       a.x = 1;

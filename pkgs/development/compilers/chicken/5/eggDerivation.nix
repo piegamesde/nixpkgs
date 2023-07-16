@@ -64,4 +64,5 @@ in
     "buildInputs"
     "meta"
   ]
-)).overrideAttrs override
+)).overrideAttrs
+override

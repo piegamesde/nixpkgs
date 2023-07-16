@@ -8,8 +8,8 @@ let
     packageOverrides =
       final: prev: rec {
         # tvdb_api v3.1.0 has a hard requirement on requests-cache < 0.6
-        requests-cache = prev.requests-cache.overridePythonAttrs
-          (oldAttrs: rec {
+        requests-cache = prev.requests-cache.overridePythonAttrs (
+          oldAttrs: rec {
             version = "0.5.2";
             src = final.fetchPypi {
               inherit (oldAttrs) pname;
@@ -24,7 +24,8 @@ let
               # too many changes have been made to requests-cache based on version 0.6 so
               # simply disable tests
             doCheck = false;
-          });
+          }
+        );
       }
       ;
   };

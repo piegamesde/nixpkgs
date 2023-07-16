@@ -23,8 +23,9 @@ let
 
   fetchBase64Patch =
     args:
-    (fetchpatch args).overrideAttrs
-    (o: { postFetch = "mv $out p; base64 -d p > $out; " + o.postFetch; })
+    (fetchpatch args).overrideAttrs (
+      o: { postFetch = "mv $out p; base64 -d p > $out; " + o.postFetch; }
+    )
     ;
 
 in

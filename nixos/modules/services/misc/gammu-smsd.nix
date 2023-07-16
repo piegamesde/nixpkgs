@@ -35,16 +35,16 @@ let
       ErrorSMSPath = ${cfg.backend.files.errorSMSPath}
     ''}
 
-    ${optionalString (
-      cfg.backend.service == "sql" && cfg.backend.sql.driver == "sqlite"
-    ) ''
+    ${optionalString
+    (cfg.backend.service == "sql" && cfg.backend.sql.driver == "sqlite")
+    ''
       Driver = ${cfg.backend.sql.driver}
       DBDir = ${cfg.backend.sql.database}
     ''}
 
-    ${optionalString (
-      cfg.backend.service == "sql" && cfg.backend.sql.driver == "native_pgsql"
-    ) (
+    ${optionalString
+    (cfg.backend.service == "sql" && cfg.backend.sql.driver == "native_pgsql")
+    (
       with cfg.backend; ''
         Driver = ${sql.driver}
         ${optionalString (sql.database != null) "Database = ${sql.database}"}
@@ -281,7 +281,8 @@ in
             execPsql =
               extraArgs:
               concatStringsSep " " [
-                (optionalString (sql.password != null)
+                (optionalString
+                  (sql.password != null)
                   "PGPASSWORD=${sql.password}")
                 "${config.services.postgresql.package}/bin/psql"
                 (optionalString (sql.host != null) "-h ${sql.host}")

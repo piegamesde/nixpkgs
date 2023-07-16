@@ -18,8 +18,9 @@ in
 
   options = {
     services.tremor-rs = {
-      enable = lib.mkEnableOption
-        (lib.mdDoc "Tremor event- or stream-processing system");
+      enable = lib.mkEnableOption (
+        lib.mdDoc "Tremor event- or stream-processing system"
+      );
 
       troyFileList = mkOption {
         type = types.listOf types.path;

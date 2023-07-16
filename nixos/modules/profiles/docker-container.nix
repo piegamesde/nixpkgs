@@ -8,10 +8,12 @@
 let
   inherit (pkgs) writeScript;
 
-  pkgs2storeContents = map (x: {
-    object = x;
-    symlink = "none";
-  });
+  pkgs2storeContents = map (
+    x: {
+      object = x;
+      symlink = "none";
+    }
+  );
 
 in
 {

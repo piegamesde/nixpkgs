@@ -16,26 +16,30 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "nfs"
-      "lockdPort"
-    ] [
-      "services"
-      "nfs"
-      "server"
-      "lockdPort"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "nfs"
-      "statdPort"
-    ] [
-      "services"
-      "nfs"
-      "server"
-      "statdPort"
-    ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "nfs"
+        "lockdPort"
+      ]
+      [
+        "services"
+        "nfs"
+        "server"
+        "lockdPort"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "nfs"
+        "statdPort"
+      ]
+      [
+        "services"
+        "nfs"
+        "server"
+        "statdPort"
+      ])
   ];
 
     ###### interface
@@ -143,8 +147,9 @@ in
       ${cfg.extraNfsdConfig}
 
       [mountd]
-      ${optionalString (cfg.mountdPort != null)
-      "port=${toString cfg.mountdPort}"}
+      ${optionalString (cfg.mountdPort != null) "port=${
+        toString cfg.mountdPort
+      }"}
 
       [statd]
       ${optionalString (cfg.statdPort != null) "port=${toString cfg.statdPort}"}

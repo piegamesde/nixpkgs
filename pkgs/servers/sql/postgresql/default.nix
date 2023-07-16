@@ -245,12 +245,12 @@ let
         ''
         ;
 
-      postFixup = lib.optionalString (
-        !stdenv'.isDarwin && stdenv'.hostPlatform.libc == "glibc"
-      ) ''
-        # initdb needs access to "locale" command from glibc.
-        wrapProgram $out/bin/initdb --prefix PATH ":" ${glibc.bin}/bin
-      '';
+      postFixup = lib.optionalString
+        (!stdenv'.isDarwin && stdenv'.hostPlatform.libc == "glibc")
+        ''
+          # initdb needs access to "locale" command from glibc.
+          wrapProgram $out/bin/initdb --prefix PATH ":" ${glibc.bin}/bin
+        '';
 
       doCheck =
         !stdenv'.isDarwin
@@ -319,10 +319,12 @@ let
             import ./packages.nix newSelf newSuper
             ;
 
-          withPackages = postgresqlWithPackages {
-            inherit makeWrapper buildEnv;
-            postgresql = this;
-          } this.pkgs;
+          withPackages = postgresqlWithPackages
+            {
+              inherit makeWrapper buildEnv;
+              postgresql = this;
+            }
+            this.pkgs;
 
           tests = {
             postgresql = nixosTests.postgresql-wal-receiver.${thisAttr};
@@ -458,11 +460,15 @@ self:
 let
   packages = mkPackages self;
 in
-packages // self.lib.mapAttrs' (
+packages // self.lib.mapAttrs'
+(
   attrName: postgres:
-  self.lib.nameValuePair "${attrName}_jit" (postgres.override rec {
-    jitSupport = true;
-    thisAttr = "${attrName}_jit";
-    this = self.${thisAttr};
-  })
-) packages
+  self.lib.nameValuePair "${attrName}_jit" (
+    postgres.override rec {
+      jitSupport = true;
+      thisAttr = "${attrName}_jit";
+      this = self.${thisAttr};
+    }
+  )
+)
+packages

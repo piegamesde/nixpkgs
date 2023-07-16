@@ -31,8 +31,9 @@ let
 in
 {
   options.services.jicofo = with types; {
-    enable = mkEnableOption
-      (lib.mdDoc "Jitsi Conference Focus - component of Jitsi Meet");
+    enable = mkEnableOption (
+      lib.mdDoc "Jitsi Conference Focus - component of Jitsi Meet"
+    );
 
     xmppHost = mkOption {
       type = str;
@@ -146,8 +147,9 @@ in
         after = [ "network.target" ];
 
         restartTriggers = [ configFile ];
-        environment.JAVA_SYS_PROPS = concatStringsSep " "
-          (mapAttrsToList (k: v: "${k}=${toString v}") jicofoProps);
+        environment.JAVA_SYS_PROPS = concatStringsSep " " (
+          mapAttrsToList (k: v: "${k}=${toString v}") jicofoProps
+        );
 
         script = ''
           export JICOFO_AUTH_PASS="$(<${cfg.userPasswordFile})"

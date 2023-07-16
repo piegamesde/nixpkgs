@@ -85,20 +85,23 @@ import ./make-test-python.nix (
             key = "${tls-cert}/key.pem";
           };
           inboxes = lib.recursiveUpdate
-            (lib.genAttrs (map baseNameOf repositories) (repo: {
-              address =
-                [
-                  # Routed to the "public-inbox:" transport in services.postfix.transport
-                  "${repo}@${domain}"
-                ];
-              description = ''
-                ${repo}@${domain} :
-                discussions about ${repo}.
-              '';
-              url = "https://machine.${domain}/inbox/${repo}";
-              newsgroup = "inbox.comp.${orga}.${repo}";
-              coderepo = [ repo ];
-            })) {
+            (lib.genAttrs (map baseNameOf repositories) (
+              repo: {
+                address =
+                  [
+                    # Routed to the "public-inbox:" transport in services.postfix.transport
+                    "${repo}@${domain}"
+                  ];
+                description = ''
+                  ${repo}@${domain} :
+                  discussions about ${repo}.
+                '';
+                url = "https://machine.${domain}/inbox/${repo}";
+                newsgroup = "inbox.comp.${orga}.${repo}";
+                coderepo = [ repo ];
+              }
+            ))
+            {
               repo2 = {
                 hide = [
                   "imap" # FIXME: doesn't work for IMAP as of public-inbox 1.6.1
@@ -107,13 +110,17 @@ import ./make-test-python.nix (
                 ];
               };
             };
-          settings.coderepo = lib.listToAttrs (map (
-            path:
-            lib.nameValuePair (baseNameOf path) {
-              dir = "/var/lib/gitolite/repositories/${path}.git";
-              cgitUrl = "https://git.${domain}/${path}.git";
-            }
-          ) repositories);
+          settings.coderepo = lib.listToAttrs (
+            map
+            (
+              path:
+              lib.nameValuePair (baseNameOf path) {
+                dir = "/var/lib/gitolite/repositories/${path}.git";
+                cgitUrl = "https://git.${domain}/${path}.git";
+              }
+            )
+            repositories
+          );
         };
 
           # Use gitolite to store Git repositories listed in coderepo entries

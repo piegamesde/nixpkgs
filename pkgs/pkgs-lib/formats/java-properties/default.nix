@@ -57,7 +57,8 @@ in
 
       generate =
         name: value:
-        pkgs.runCommandLocal name {
+        pkgs.runCommandLocal name
+        {
           # Requirements
           # ============
           #
@@ -131,7 +132,8 @@ in
 
           inherit comment;
 
-        } ''
+        }
+        ''
           (
             echo "$comment" | while read -r ln; do echo "# $ln"; done
             echo

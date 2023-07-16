@@ -163,22 +163,26 @@ stdenv.mkDerivation rec {
         extraPrefix = "tools/";
       })
     ]
-    ++ lib.optional gtkStyle (substituteAll (
-      {
-        src = ./dlopen-gtkstyle.diff;
-          # substituteAll ignores env vars starting with capital letter
-        gtk = gtk2.out;
-      } // lib.optionalAttrs gnomeStyle {
-        gconf = GConf.out;
-        libgnomeui = libgnomeui.out;
-        gnome_vfs = gnome_vfs.out;
+    ++ lib.optional gtkStyle (
+      substituteAll (
+        {
+          src = ./dlopen-gtkstyle.diff;
+            # substituteAll ignores env vars starting with capital letter
+          gtk = gtk2.out;
+        } // lib.optionalAttrs gnomeStyle {
+          gconf = GConf.out;
+          libgnomeui = libgnomeui.out;
+          gnome_vfs = gnome_vfs.out;
+        }
+      )
+    )
+    ++ lib.optional stdenv.isAarch64 (
+      fetchpatch {
+        url =
+          "https://src.fedoraproject.org/rpms/qt/raw/ecf530486e0fb7fe31bad26805cde61115562b2b/f/qt-aarch64.patch";
+        sha256 = "1fbjh78nmafqmj7yk67qwjbhl3f6ylkp6x33b1dqxfw9gld8b3gl";
       }
-    ))
-    ++ lib.optional stdenv.isAarch64 (fetchpatch {
-      url =
-        "https://src.fedoraproject.org/rpms/qt/raw/ecf530486e0fb7fe31bad26805cde61115562b2b/f/qt-aarch64.patch";
-      sha256 = "1fbjh78nmafqmj7yk67qwjbhl3f6ylkp6x33b1dqxfw9gld8b3gl";
-    })
+    )
     ++ lib.optionals stdenv.hostPlatform.isMusl [
       ./qt-musl.patch
       ./qt-musl-iconv-no-bom.patch
@@ -387,12 +391,13 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   env.NIX_CFLAGS_COMPILE = toString (
-    # with gcc7 the warnings blow the log over Hydra's limit
+  # with gcc7 the warnings blow the log over Hydra's limit
     [
       "-Wno-expansion-to-defined"
       "-Wno-unused-local-typedefs"
     ]
-    ++ lib.optional stdenv.isLinux
+    ++ lib.optional
+      stdenv.isLinux
       "-std=gnu++98" # gnu++ in (Obj)C flags is no good on Darwin
     ++ lib.optionals (stdenv.isFreeBSD || stdenv.isDarwin) [
       "-I${glib.dev}/include/glib-2.0"

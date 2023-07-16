@@ -15,18 +15,25 @@ let
   pname = "qogir-icon-theme";
 
 in
-lib.checkListOfEnum "${pname}: color variants" [
+lib.checkListOfEnum "${pname}: color variants"
+[
   "standard"
   "dark"
   "all"
-] colorVariants lib.checkListOfEnum "${pname}: theme variants" [
+]
+colorVariants
+lib.checkListOfEnum
+"${pname}: theme variants"
+[
   "default"
   "manjaro"
   "ubuntu"
   "all"
-] themeVariants
+]
+themeVariants
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation
+rec {
   inherit pname;
   version = "2023-02-23";
 

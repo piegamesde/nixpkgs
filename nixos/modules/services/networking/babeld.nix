@@ -21,9 +21,9 @@ let
 
   paramsString =
     params:
-    concatMapStringsSep " " (
-      name: "${name} ${conditionalBoolToString (getAttr name params)}"
-    ) (attrNames params)
+    concatMapStringsSep " "
+    (name: "${name} ${conditionalBoolToString (getAttr name params)}")
+    (attrNames params)
     ;
 
   interfaceConfig =
@@ -113,10 +113,12 @@ in
       "net.ipv6.conf.all.accept_redirects" = 0;
       "net.ipv4.conf.all.forwarding" = 1;
       "net.ipv4.conf.all.rp_filter" = 0;
-    } // lib.mapAttrs' (
-      ifname: _:
-      lib.nameValuePair "net.ipv4.conf.${ifname}.rp_filter" (lib.mkDefault 0)
-    ) config.services.babeld.interfaces;
+    } // lib.mapAttrs'
+      (
+        ifname: _:
+        lib.nameValuePair "net.ipv4.conf.${ifname}.rp_filter" (lib.mkDefault 0)
+      )
+      config.services.babeld.interfaces;
 
     systemd.services.babeld = {
       description = "Babel routing daemon";

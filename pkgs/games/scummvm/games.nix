@@ -59,13 +59,16 @@ let
         "files"
         "version"
       ];
-      pname = lib.replaceStrings [
-        " "
-        ":"
-      ] [
-        "-"
-        ""
-      ] (lib.toLower plong);
+      pname = lib.replaceStrings
+        [
+          " "
+          ":"
+        ]
+        [
+          "-"
+          ""
+        ]
+        (lib.toLower plong);
     in
     stdenv.mkDerivation (
       {
@@ -81,10 +84,12 @@ let
 
           mkdir -p $out/bin $out/share/{applications,${pname},doc/${pname}}
 
-          ${lib.concatStringsSep "\n"
-          (map (f: "mv ${f} $out/share/doc/${pname}") docs)}
-          ${lib.concatStringsSep "\n"
-          (map (f: "mv ${f} $out/share/${pname}") files)}
+          ${lib.concatStringsSep "\n" (
+            map (f: "mv ${f} $out/share/doc/${pname}") docs
+          )}
+          ${lib.concatStringsSep "\n" (
+            map (f: "mv ${f} $out/share/${pname}") files
+          )}
 
           substitute ${run pname pshort pcode} $out/bin/${pshort} \
             --subst-var out

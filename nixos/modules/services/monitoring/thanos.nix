@@ -89,11 +89,13 @@ let
 
   toYAML =
     name: attrs:
-    pkgs.runCommand name {
+    pkgs.runCommand name
+    {
       preferLocalBuild = true;
       json = builtins.toFile "${name}.json" (builtins.toJSON attrs);
       nativeBuildInputs = [ pkgs.remarshal ];
-    } "json2yaml -i $json -o $out"
+    }
+    "json2yaml -i $json -o $out"
     ;
 
   thanos =
@@ -111,14 +113,18 @@ let
 
   argumentsOf =
     cmd:
-    concatLists (collect isList (flip mapParamsRecursive params.${cmd} (
-      path: param:
-      let
-        opt = concatStringsSep "." path;
-        v = getAttrFromPath path cfg.${cmd};
-      in
-      param.toArgs opt v
-    )))
+    concatLists (
+      collect isList (
+        flip mapParamsRecursive params.${cmd} (
+          path: param:
+          let
+            opt = concatStringsSep "." path;
+            v = getAttrFromPath path cfg.${cmd};
+          in
+          param.toArgs opt v
+        )
+      )
+    )
     ;
 
   mkArgumentsOption =
@@ -154,15 +160,18 @@ let
 
     log = {
 
-      log.level = mkParamDef (types.enum [
-        "debug"
+      log.level = mkParamDef
+        (types.enum [
+          "debug"
+          "info"
+          "warn"
+          "error"
+          "fatal"
+        ])
         "info"
-        "warn"
-        "error"
-        "fatal"
-      ]) "info" ''
-        Log filtering level.
-      '';
+        ''
+          Log filtering level.
+        '';
 
       log.format = mkParam types.str ''
         Log format to use.
@@ -296,8 +305,8 @@ let
         option = mkOption {
           type = types.str;
           default = "/var/lib/${config.services.prometheus.stateDir}/data";
-          defaultText = literalExpression
-            ''"/var/lib/''${config.services.prometheus.stateDir}/data"'';
+          defaultText = literalExpression ''
+            "/var/lib/''${config.services.prometheus.stateDir}/data"'';
           description = lib.mdDoc ''
             Data directory of TSDB.
           '';
@@ -743,46 +752,56 @@ in
     };
 
     store = paramsToOptions params.store // {
-      enable = mkEnableOption (lib.mdDoc
-        "the Thanos store node giving access to blocks in a bucket provider.");
+      enable = mkEnableOption (
+        lib.mdDoc
+        "the Thanos store node giving access to blocks in a bucket provider."
+      );
       arguments = mkArgumentsOption "store";
     };
 
     query = paramsToOptions params.query // {
-      enable = mkEnableOption (lib.mdDoc (
-        "the Thanos query node exposing PromQL enabled Query API "
-        + "with data retrieved from multiple store nodes"
-      ));
+      enable = mkEnableOption (
+        lib.mdDoc (
+          "the Thanos query node exposing PromQL enabled Query API "
+          + "with data retrieved from multiple store nodes"
+        )
+      );
       arguments = mkArgumentsOption "query";
     };
 
     rule = paramsToOptions params.rule // {
-      enable = mkEnableOption (lib.mdDoc (
-        "the Thanos ruler service which evaluates Prometheus rules against"
-        + " given Query nodes, exposing Store API and storing old blocks in bucket"
-      ));
+      enable = mkEnableOption (
+        lib.mdDoc (
+          "the Thanos ruler service which evaluates Prometheus rules against"
+          + " given Query nodes, exposing Store API and storing old blocks in bucket"
+        )
+      );
       arguments = mkArgumentsOption "rule";
     };
 
     compact = paramsToOptions params.compact // {
-      enable = mkEnableOption (lib.mdDoc
-        "the Thanos compactor which continuously compacts blocks in an object store bucket")
-        ;
+      enable = mkEnableOption (
+        lib.mdDoc
+        "the Thanos compactor which continuously compacts blocks in an object store bucket"
+      );
       arguments = mkArgumentsOption "compact";
     };
 
     downsample = paramsToOptions params.downsample // {
-      enable = mkEnableOption (lib.mdDoc
-        "the Thanos downsampler which continuously downsamples blocks in an object store bucket")
-        ;
+      enable = mkEnableOption (
+        lib.mdDoc
+        "the Thanos downsampler which continuously downsamples blocks in an object store bucket"
+      );
       arguments = mkArgumentsOption "downsample";
     };
 
     receive = paramsToOptions params.receive // {
-      enable = mkEnableOption (lib.mdDoc (
-        "the Thanos receiver which accept Prometheus remote write API requests "
-        + "and write to local tsdb (EXPERIMENTAL, this may change drastically without notice)"
-      ));
+      enable = mkEnableOption (
+        lib.mdDoc (
+          "the Thanos receiver which accept Prometheus remote write API requests "
+          + "and write to local tsdb (EXPERIMENTAL, this may change drastically without notice)"
+        )
+      );
       arguments = mkArgumentsOption "receive";
     };
   };
@@ -824,21 +843,23 @@ in
       };
     })
 
-    (mkIf cfg.store.enable (mkMerge [
-      (assertRelativeStateDir "store")
-      {
-        systemd.services.thanos-store = {
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
-          serviceConfig = {
-            DynamicUser = true;
-            StateDirectory = cfg.store.stateDir;
-            Restart = "always";
-            ExecStart = thanos "store";
+    (mkIf cfg.store.enable (
+      mkMerge [
+        (assertRelativeStateDir "store")
+        {
+          systemd.services.thanos-store = {
+            wantedBy = [ "multi-user.target" ];
+            after = [ "network.target" ];
+            serviceConfig = {
+              DynamicUser = true;
+              StateDirectory = cfg.store.stateDir;
+              Restart = "always";
+              ExecStart = thanos "store";
+            };
           };
-        };
-      }
-    ]))
+        }
+      ]
+    ))
 
     (mkIf cfg.query.enable {
       systemd.services.thanos-query = {
@@ -852,85 +873,93 @@ in
       };
     })
 
-    (mkIf cfg.rule.enable (mkMerge [
-      (assertRelativeStateDir "rule")
-      {
-        systemd.services.thanos-rule = {
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
-          serviceConfig = {
-            DynamicUser = true;
-            StateDirectory = cfg.rule.stateDir;
-            Restart = "always";
-            ExecStart = thanos "rule";
-          };
-        };
-      }
-    ]))
-
-    (mkIf cfg.compact.enable (mkMerge [
-      (assertRelativeStateDir "compact")
-      {
-        systemd.services.thanos-compact =
-          let
-            wait = cfg.compact.startAt == null;
-          in
-          {
+    (mkIf cfg.rule.enable (
+      mkMerge [
+        (assertRelativeStateDir "rule")
+        {
+          systemd.services.thanos-rule = {
             wantedBy = [ "multi-user.target" ];
             after = [ "network.target" ];
             serviceConfig = {
-              Type =
-                if wait then
-                  "simple"
-                else
-                  "oneshot"
-                ;
-              Restart =
-                if wait then
-                  "always"
-                else
-                  "no"
-                ;
               DynamicUser = true;
-              StateDirectory = cfg.compact.stateDir;
-              ExecStart = thanos "compact";
+              StateDirectory = cfg.rule.stateDir;
+              Restart = "always";
+              ExecStart = thanos "rule";
             };
-          } // optionalAttrs (!wait) { inherit (cfg.compact) startAt; }
-          ;
-      }
-    ]))
-
-    (mkIf cfg.downsample.enable (mkMerge [
-      (assertRelativeStateDir "downsample")
-      {
-        systemd.services.thanos-downsample = {
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
-          serviceConfig = {
-            DynamicUser = true;
-            StateDirectory = cfg.downsample.stateDir;
-            Restart = "always";
-            ExecStart = thanos "downsample";
           };
-        };
-      }
-    ]))
+        }
+      ]
+    ))
 
-    (mkIf cfg.receive.enable (mkMerge [
-      (assertRelativeStateDir "receive")
-      {
-        systemd.services.thanos-receive = {
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
-          serviceConfig = {
-            DynamicUser = true;
-            StateDirectory = cfg.receive.stateDir;
-            Restart = "always";
-            ExecStart = thanos "receive";
+    (mkIf cfg.compact.enable (
+      mkMerge [
+        (assertRelativeStateDir "compact")
+        {
+          systemd.services.thanos-compact =
+            let
+              wait = cfg.compact.startAt == null;
+            in
+            {
+              wantedBy = [ "multi-user.target" ];
+              after = [ "network.target" ];
+              serviceConfig = {
+                Type =
+                  if wait then
+                    "simple"
+                  else
+                    "oneshot"
+                  ;
+                Restart =
+                  if wait then
+                    "always"
+                  else
+                    "no"
+                  ;
+                DynamicUser = true;
+                StateDirectory = cfg.compact.stateDir;
+                ExecStart = thanos "compact";
+              };
+            } // optionalAttrs (!wait) { inherit (cfg.compact) startAt; }
+            ;
+        }
+      ]
+    ))
+
+    (mkIf cfg.downsample.enable (
+      mkMerge [
+        (assertRelativeStateDir "downsample")
+        {
+          systemd.services.thanos-downsample = {
+            wantedBy = [ "multi-user.target" ];
+            after = [ "network.target" ];
+            serviceConfig = {
+              DynamicUser = true;
+              StateDirectory = cfg.downsample.stateDir;
+              Restart = "always";
+              ExecStart = thanos "downsample";
+            };
           };
-        };
-      }
-    ]))
+        }
+      ]
+    ))
+
+    (mkIf cfg.receive.enable (
+      mkMerge [
+        (assertRelativeStateDir "receive")
+        {
+          systemd.services.thanos-receive = {
+            wantedBy = [ "multi-user.target" ];
+            after = [ "network.target" ];
+            serviceConfig = {
+              DynamicUser = true;
+              StateDirectory = cfg.receive.stateDir;
+              Restart = "always";
+              ExecStart = thanos "receive";
+            };
+          };
+        }
+      ]
+    ))
 
   ];
 }

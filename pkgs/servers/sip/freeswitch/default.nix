@@ -109,7 +109,8 @@ let
       modules
     else
       defaultModules
-  ) availableModules;
+  )
+    availableModules;
 
   modulesConf =
     let

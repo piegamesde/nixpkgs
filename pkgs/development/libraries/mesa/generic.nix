@@ -68,14 +68,16 @@
       "microsoft-experimental" # WSL virtualized GPU (aka DZN/Dozen)
       "swrast" # software renderer (aka Lavapipe)
     ]
-    ++ lib.optionals (
-      stdenv.hostPlatform.isAarch
-      -> lib.versionAtLeast stdenv.hostPlatform.parsed.cpu.version "6"
-    ) [
-      # QEMU virtualized GPU (aka VirGL)
-      # Requires ATOMIC_INT_LOCK_FREE == 2.
-      "virtio-experimental"
-    ]
+    ++ lib.optionals
+      (
+        stdenv.hostPlatform.isAarch
+        -> lib.versionAtLeast stdenv.hostPlatform.parsed.cpu.version "6"
+      )
+      [
+        # QEMU virtualized GPU (aka VirGL)
+        # Requires ATOMIC_INT_LOCK_FREE == 2.
+        "virtio-experimental"
+      ]
     ++ lib.optionals stdenv.isAarch64 [
       "broadcom" # Broadcom VC5 (Raspberry Pi 4, aka V3D)
       "freedreno" # Qualcomm Adreno (all Qualcomm SoCs)
@@ -267,10 +269,12 @@ let
         "-Drust_std=2021"
         "-Dclang-libdir=${llvmPackages.clang-unwrapped.lib}/lib"
       ]
-      ++ lib.optional enablePatentEncumberedCodecs
+      ++ lib.optional
+        enablePatentEncumberedCodecs
         "-Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec"
-      ++ lib.optional (vulkanLayers != [ ])
-        "-D vulkan-layers=${builtins.concatStringsSep "," vulkanLayers}"
+      ++ lib.optional (vulkanLayers != [ ]) "-D vulkan-layers=${
+          builtins.concatStringsSep "," vulkanLayers
+        }"
       ;
 
     buildInputs = with xorg;

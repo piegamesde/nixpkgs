@@ -128,7 +128,8 @@ with lib; {
         Group = "hydron";
         ExecStart =
           "${pkgs.hydron}/bin/hydron serve"
-          + optionalString (cfg.listenAddress != null)
+          + optionalString
+            (cfg.listenAddress != null)
             " -a ${cfg.listenAddress}"
           ;
       };
@@ -179,15 +180,17 @@ with lib; {
   };
 
   imports = [
-      (mkRenamedOptionModule [
-        "services"
-        "hydron"
-        "baseDir"
-      ] [
-        "services"
-        "hydron"
-        "dataDir"
-      ])
+      (mkRenamedOptionModule
+        [
+          "services"
+          "hydron"
+          "baseDir"
+        ]
+        [
+          "services"
+          "hydron"
+          "dataDir"
+        ])
     ];
 
   meta.maintainers = with maintainers; [ Madouura ];

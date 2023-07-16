@@ -96,10 +96,12 @@ stdenv.mkDerivation rec {
     ++ lib.optional (mod && kernel.kernelOlder "5.11") "-Ddisable_drivers=kni"
     ++ lib.optional (!shared) "-Ddefault_library=static"
     ++ lib.optional (machine != null) "-Dmachine=${machine}"
-    ++ lib.optional mod
+    ++ lib.optional
+      mod
       "-Dkernel_dir=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    ++ lib.optional (withExamples != [ ])
-      "-Dexamples=${builtins.concatStringsSep "," withExamples}"
+    ++ lib.optional (withExamples != [ ]) "-Dexamples=${
+        builtins.concatStringsSep "," withExamples
+      }"
     ;
 
   postInstall =

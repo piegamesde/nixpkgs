@@ -19,18 +19,22 @@ let
         poetry2nix.defaultPoetryOverrides
         (
           self: super: {
-            certifi = super.certifi.overridePythonAttrs (old: {
-              meta =
-                old.meta // { knownVulnerabilities = [ "CVE-2022-23491" ]; };
-            });
-            pyjwt = super.pyjwt.overridePythonAttrs (old: {
-              meta = old.meta // {
-                knownVulnerabilities =
-                  lib.optionals (lib.versionOlder old.version "2.4.0") [
-                    "CVE-2022-29217"
-                  ];
-              };
-            });
+            certifi = super.certifi.overridePythonAttrs (
+              old: {
+                meta =
+                  old.meta // { knownVulnerabilities = [ "CVE-2022-23491" ]; };
+              }
+            );
+            pyjwt = super.pyjwt.overridePythonAttrs (
+              old: {
+                meta = old.meta // {
+                  knownVulnerabilities =
+                    lib.optionals (lib.versionOlder old.version "2.4.0") [
+                      "CVE-2022-29217"
+                    ];
+                };
+              }
+            );
           }
         )
       ];

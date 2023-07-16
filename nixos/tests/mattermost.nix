@@ -22,13 +22,15 @@ import ./make-test-python.nix (
           pkgs.jq
         ];
         networking.hosts = { "127.0.0.1" = [ host ]; };
-        services.mattermost = lib.recursiveUpdate {
-          enable = true;
-          inherit siteName;
-          listenAddress = "0.0.0.0:${port}";
-          siteUrl = url;
-          extraConfig = { SupportSettings.AboutLink = "https://nixos.org"; };
-        } mattermostConfig;
+        services.mattermost = lib.recursiveUpdate
+          {
+            enable = true;
+            inherit siteName;
+            listenAddress = "0.0.0.0:${port}";
+            siteUrl = url;
+            extraConfig = { SupportSettings.AboutLink = "https://nixos.org"; };
+          }
+          mattermostConfig;
       }
       ;
   in
@@ -124,8 +126,8 @@ import ./make-test-python.nix (
           setConfig ''.SupportSettings.AboutLink = "https://mattermost.com"''
         }")
         mutable.succeed("${
-          setConfig
-          ''.SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''
+          setConfig ''
+            .SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''
         }")
         mutable.systemctl("restart mattermost.service")
         mutable.wait_for_open_port(8065)
@@ -150,8 +152,8 @@ import ./make-test-python.nix (
           setConfig ''.SupportSettings.AboutLink = "https://mattermost.com"''
         }")
         mostlyMutable.succeed("${
-          setConfig
-          ''.SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''
+          setConfig ''
+            .SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''
         }")
         mostlyMutable.systemctl("restart mattermost.service")
         mostlyMutable.wait_for_open_port(8065)
@@ -177,8 +179,8 @@ import ./make-test-python.nix (
           setConfig ''.SupportSettings.AboutLink = "https://mattermost.com"''
         }")
         immutable.succeed("${
-          setConfig
-          ''.SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''
+          setConfig ''
+            .SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''
         }")
         immutable.systemctl("restart mattermost.service")
         immutable.wait_for_open_port(8065)

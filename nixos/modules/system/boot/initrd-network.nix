@@ -11,10 +11,11 @@ let
 
   cfg = config.boot.initrd.network;
 
-  dhcpInterfaces = lib.attrNames (lib.filterAttrs (iface: v: v.useDHCP == true)
-    (
+  dhcpInterfaces = lib.attrNames (
+    lib.filterAttrs (iface: v: v.useDHCP == true) (
       config.networking.interfaces or { }
-    ));
+    )
+  );
   doDhcp = config.networking.useDHCP || dhcpInterfaces != [ ];
   dhcpIfShellExpr =
     if config.networking.useDHCP then
@@ -118,7 +119,7 @@ in
     '';
 
     boot.initrd.preLVMCommands = mkBefore (
-      # Search for interface definitions in command line.
+    # Search for interface definitions in command line.
       ''
         ifaces=""
         for o in $(cat /proc/cmdline); do

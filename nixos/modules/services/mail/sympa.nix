@@ -61,11 +61,13 @@ let
     ;
   configGenerator =
     c:
-    concatStrings (flip mapAttrsToList c (
-      key: val: ''
-        ${key}	${configVal val}
-      ''
-    ))
+    concatStrings (
+      flip mapAttrsToList c (
+        key: val: ''
+          ${key}	${configVal val}
+        ''
+      )
+    )
     ;
 
   mainConfig = pkgs.writeText "sympa.conf" (configGenerator cfg.settings);
@@ -74,20 +76,30 @@ let
     pkgs.writeText "${fqdn}-robot.conf" (configGenerator domain.settings)
     ;
 
-  transport = pkgs.writeText "transport.sympa" (concatStringsSep "\n"
-    (flip map fqdns (domain: ''
-      ${domain}                        error:User unknown in recipient table
-      sympa@${domain}                  sympa:sympa@${domain}
-      listmaster@${domain}             sympa:listmaster@${domain}
-      bounce@${domain}                 sympabounce:sympa@${domain}
-      abuse-feedback-report@${domain}  sympabounce:sympa@${domain}
-    '')));
+  transport = pkgs.writeText "transport.sympa" (
+    concatStringsSep "\n" (
+      flip map fqdns (
+        domain: ''
+          ${domain}                        error:User unknown in recipient table
+          sympa@${domain}                  sympa:sympa@${domain}
+          listmaster@${domain}             sympa:listmaster@${domain}
+          bounce@${domain}                 sympabounce:sympa@${domain}
+          abuse-feedback-report@${domain}  sympabounce:sympa@${domain}
+        ''
+      )
+    )
+  );
 
-  virtual = pkgs.writeText "virtual.sympa" (concatStringsSep "\n"
-    (flip map fqdns (domain: ''
-      sympa-request@${domain}  postmaster@localhost
-      sympa-owner@${domain}    postmaster@localhost
-    '')));
+  virtual = pkgs.writeText "virtual.sympa" (
+    concatStringsSep "\n" (
+      flip map fqdns (
+        domain: ''
+          sympa-request@${domain}  postmaster@localhost
+          sympa-owner@${domain}    postmaster@localhost
+        ''
+      )
+    )
+  );
 
   listAliases = pkgs.writeText "list_aliases.tt2" ''
     #--- [% list.name %]@[% list.domain %]: list transport map created at [% date %]
@@ -139,51 +151,55 @@ in
     };
 
     domains = mkOption {
-      type = attrsOf (submodule (
-        {
-          name,
-          config,
-          ...
-        }: {
-          options = {
-            webHost = mkOption {
-              type = nullOr str;
-              default = null;
-              example = "archive.example.org";
-              description = lib.mdDoc ''
-                Domain part of the web interface URL (no web interface for this domain if `null`).
-                DNS record of type A (or AAAA or CNAME) has to exist with this value.
-              '';
+      type = attrsOf (
+        submodule (
+          {
+            name,
+            config,
+            ...
+          }: {
+            options = {
+              webHost = mkOption {
+                type = nullOr str;
+                default = null;
+                example = "archive.example.org";
+                description = lib.mdDoc ''
+                  Domain part of the web interface URL (no web interface for this domain if `null`).
+                  DNS record of type A (or AAAA or CNAME) has to exist with this value.
+                '';
+              };
+              webLocation = mkOption {
+                type = str;
+                default = "/";
+                example = "/sympa";
+                description = lib.mdDoc "URL path part of the web interface.";
+              };
+              settings = mkOption {
+                type = attrsOf (
+                  oneOf [
+                    str
+                    int
+                    bool
+                  ]
+                );
+                default = { };
+                example = { default_max_list_members = 3; };
+                description = lib.mdDoc ''
+                  The {file}`robot.conf` configuration file as key value set.
+                  See <https://sympa-community.github.io/gpldoc/man/sympa.conf.5.html>
+                  for list of configuration parameters.
+                '';
+              };
             };
-            webLocation = mkOption {
-              type = str;
-              default = "/";
-              example = "/sympa";
-              description = lib.mdDoc "URL path part of the web interface.";
-            };
-            settings = mkOption {
-              type = attrsOf (oneOf [
-                str
-                int
-                bool
-              ]);
-              default = { };
-              example = { default_max_list_members = 3; };
-              description = lib.mdDoc ''
-                The {file}`robot.conf` configuration file as key value set.
-                See <https://sympa-community.github.io/gpldoc/man/sympa.conf.5.html>
-                for list of configuration parameters.
-              '';
-            };
-          };
 
-          config.settings = mkIf (cfg.web.enable && config.webHost != null) {
-            wwsympa_url = mkDefault "https://${config.webHost}${
-                strings.removeSuffix "/" config.webLocation
-              }";
-          };
-        }
-      ));
+            config.settings = mkIf (cfg.web.enable && config.webHost != null) {
+              wwsympa_url = mkDefault "https://${config.webHost}${
+                  strings.removeSuffix "/" config.webLocation
+                }";
+            };
+          }
+        )
+      );
 
       description = lib.mdDoc ''
         Email domains handled by this instance. There have
@@ -332,11 +348,13 @@ in
     };
 
     settings = mkOption {
-      type = attrsOf (oneOf [
-        str
-        int
-        bool
-      ]);
+      type = attrsOf (
+        oneOf [
+          str
+          int
+          bool
+        ]
+      );
       default = { };
       example = literalExpression ''
         {
@@ -352,35 +370,38 @@ in
     };
 
     settingsFile = mkOption {
-      type = attrsOf (submodule (
-        {
-          name,
-          config,
-          ...
-        }: {
-          options = {
-            enable = mkOption {
-              type = bool;
-              default = true;
-              description = lib.mdDoc
-                "Whether this file should be generated. This option allows specific files to be disabled."
-                ;
+      type = attrsOf (
+        submodule (
+          {
+            name,
+            config,
+            ...
+          }: {
+            options = {
+              enable = mkOption {
+                type = bool;
+                default = true;
+                description = lib.mdDoc
+                  "Whether this file should be generated. This option allows specific files to be disabled."
+                  ;
+              };
+              text = mkOption {
+                default = null;
+                type = nullOr lines;
+                description = lib.mdDoc "Text of the file.";
+              };
+              source = mkOption {
+                type = path;
+                description = lib.mdDoc "Path of the source file.";
+              };
             };
-            text = mkOption {
-              default = null;
-              type = nullOr lines;
-              description = lib.mdDoc "Text of the file.";
-            };
-            source = mkOption {
-              type = path;
-              description = lib.mdDoc "Path of the source file.";
-            };
-          };
 
-          config.source = mkIf (config.text != null)
-            (mkDefault (pkgs.writeText "sympa-${baseNameOf name}" config.text));
-        }
-      ));
+            config.source = mkIf (config.text != null) (
+              mkDefault (pkgs.writeText "sympa-${baseNameOf name}" config.text)
+            );
+          }
+        )
+      );
       default = { };
       example = literalExpression ''
         {
@@ -446,8 +467,9 @@ in
       "etc/list_aliases.tt2" = mkDefault { source = listAliases; };
     } // (flip mapAttrs' cfg.domains (
       fqdn: domain:
-      nameValuePair "etc/${fqdn}/robot.conf"
-      (mkDefault { source = robotConfig fqdn domain; })
+      nameValuePair "etc/${fqdn}/robot.conf" (
+        mkDefault { source = robotConfig fqdn domain; }
+      )
     ));
 
     environment = { systemPackages = [ pkg ]; };
@@ -494,21 +516,25 @@ in
 
         "d  /run/sympa                   0755 ${user} ${group} - -"
       ]
-      ++ (flip concatMap fqdns (fqdn: [
-        "d  ${dataDir}/etc/${fqdn}       0700 ${user} ${group} - -"
-        "d  ${dataDir}/list_data/${fqdn} 0700 ${user} ${group} - -"
-      ]))
+      ++ (flip concatMap fqdns (
+        fqdn: [
+          "d  ${dataDir}/etc/${fqdn}       0700 ${user} ${group} - -"
+          "d  ${dataDir}/list_data/${fqdn} 0700 ${user} ${group} - -"
+        ]
+      ))
       #++ (flip mapAttrsToList enabledFiles (k: v:
       #  "L+ ${dataDir}/${k}              -    -       -        - ${v.source}"
       #))
-      ++ (concatLists (flip mapAttrsToList enabledFiles (
-        k: v: [
-          # sympa doesn't handle symlinks well (e.g. fails to create locks)
-          # force-copy instead
-          "R ${dataDir}/${k}              -    -       -        - -"
-          "C ${dataDir}/${k}              0700 ${user}  ${group} - ${v.source}"
-        ]
-      )))
+      ++ (concatLists (
+        flip mapAttrsToList enabledFiles (
+          k: v: [
+            # sympa doesn't handle symlinks well (e.g. fails to create locks)
+            # force-copy instead
+            "R ${dataDir}/${k}              -    -       -        - -"
+            "C ${dataDir}/${k}              0700 ${user}  ${group} - ${v.source}"
+          ]
+        )
+      ))
       ;
 
     systemd.services.sympa = {
@@ -588,8 +614,9 @@ in
           unique (remove null (mapAttrsToList (_k: v: v.webHost) cfg.domains));
         hostLocations =
           host:
-          map (v: v.webLocation)
-          (filter (v: v.webHost == host) (attrValues cfg.domains))
+          map (v: v.webLocation) (
+            filter (v: v.webHost == host) (attrValues cfg.domains)
+          )
           ;
         httpsOpts = optionalAttrs cfg.web.https {
           forceSSL = mkDefault true;
@@ -599,13 +626,15 @@ in
       genAttrs vHosts (
         host:
         {
-          locations = genAttrs (hostLocations host) (loc: {
-            extraConfig = ''
-              include ${config.services.nginx.package}/conf/fastcgi_params;
+          locations = genAttrs (hostLocations host) (
+            loc: {
+              extraConfig = ''
+                include ${config.services.nginx.package}/conf/fastcgi_params;
 
-              fastcgi_pass unix:/run/sympa/wwsympa.socket;
-            '';
-          }) // {
+                fastcgi_pass unix:/run/sympa/wwsympa.socket;
+              '';
+            }
+          ) // {
             "/static-sympa/".alias = "${dataDir}/static_content/";
           };
         } // httpsOpts

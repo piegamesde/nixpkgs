@@ -99,13 +99,17 @@ let
   };
   generateExtraConfig =
     extra_cfg:
-    strings.concatStringsSep "\n" (attrsets.mapAttrsToList (
-      name: value:
-      if (value == true) then
-        name
-      else
-        "${name}=${value}"
-    ) (attrsets.filterAttrs (_: value: value != false) extra_cfg))
+    strings.concatStringsSep "\n" (
+      attrsets.mapAttrsToList
+      (
+        name: value:
+        if (value == true) then
+          name
+        else
+          "${name}=${value}"
+      )
+      (attrsets.filterAttrs (_: value: value != false) extra_cfg)
+    )
     ;
   generateConfig =
     name: icfg:
@@ -114,7 +118,8 @@ let
       ${optionalString (icfg.protocol != null) "protocol=${icfg.protocol}"}
       ${optionalString (icfg.user != null) "user=${icfg.user}"}
       ${optionalString (icfg.passwordFile != null) "passwd-on-stdin"}
-      ${optionalString (icfg.certificate != null)
+      ${optionalString
+      (icfg.certificate != null)
       "certificate=${icfg.certificate}"}
       ${optionalString (icfg.privateKey != null) "sslkey=${icfg.privateKey}"}
 
@@ -165,12 +170,14 @@ in
   };
 
   config = {
-    systemd.services = mapAttrs' (
-      name: value: {
-        name = "openconnect-${name}";
-        value = generateUnit name value;
-      }
-    ) cfg.interfaces;
+    systemd.services = mapAttrs'
+      (
+        name: value: {
+          name = "openconnect-${name}";
+          value = generateUnit name value;
+        }
+      )
+      cfg.interfaces;
   };
 
   meta.maintainers = with maintainers; [ alyaeanyx ];

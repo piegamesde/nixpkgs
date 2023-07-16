@@ -30,12 +30,16 @@ let
 
   configDirectory = pkgs.runCommand "netdata-config-d" { } ''
     mkdir $out
-    ${concatStringsSep "\n" (mapAttrsToList (
-      path: file: ''
-        mkdir -p "$out/$(dirname ${path})"
-        ln -s "${file}" "$out/${path}"
-      ''
-    ) cfg.configDir)}
+    ${concatStringsSep "\n" (
+      mapAttrsToList
+      (
+        path: file: ''
+          mkdir -p "$out/$(dirname ${path})"
+          ln -s "${file}" "$out/${path}"
+        ''
+      )
+      cfg.configDir
+    )}
   '';
 
   localConfig = {
@@ -217,8 +221,9 @@ in
             bash
           ]
         )
-        ++ lib.optional cfg.python.enable
-          (pkgs.python3.withPackages cfg.python.extraPackages)
+        ++ lib.optional cfg.python.enable (
+          pkgs.python3.withPackages cfg.python.extraPackages
+        )
         ++ lib.optional config.virtualisation.libvirtd.enable (
           config.virtualisation.libvirtd.package
         )

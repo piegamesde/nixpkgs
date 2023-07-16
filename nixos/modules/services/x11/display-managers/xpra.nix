@@ -301,7 +301,8 @@ in
     '';
 
     services.xserver.displayManager.job.execCmd = ''
-      ${optionalString (cfg.pulseaudio)
+      ${optionalString
+      (cfg.pulseaudio)
       "export PULSE_COOKIE=/run/pulse/.config/pulse/cookie"}
       exec ${pkgs.xpra}/bin/xpra ${
         if cfg.desktop == null then

@@ -40,13 +40,14 @@ in
 
     boot.extraModulePackages = [ package.kmod ];
 
-    boot.kernelPackages = pkgs.linuxKernel.packagesFor
-      (pkgs.linuxKernel.kernels.linux_5_10.override {
+    boot.kernelPackages = pkgs.linuxKernel.packagesFor (
+      pkgs.linuxKernel.kernels.linux_5_10.override {
         structuredExtraConfig = {
           DEVICE_PRIVATE = kernel.yes;
           KALLSYMS_ALL = kernel.yes;
         };
-      });
+      }
+    );
 
     hardware.firmware = [ package.fw ];
 

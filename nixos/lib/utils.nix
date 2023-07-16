@@ -11,7 +11,9 @@ rec {
   copyFile =
     filePath:
     pkgs.runCommand
-    (builtins.unsafeDiscardStringContext (builtins.baseNameOf filePath)) { } ''
+    (builtins.unsafeDiscardStringContext (builtins.baseNameOf filePath))
+    { }
+    ''
       cp ${filePath} $out
     ''
     ;
@@ -88,14 +90,16 @@ rec {
       trim = s: removeSuffix "/" (removePrefix "/" s);
       normalizedPath = strings.normalizePath s;
     in
-    replaceStrings [ "/" ] [ "-" ]
-    (replacePrefix "." (strings.escapeC [ "." ] ".")
-      (strings.escapeC (stringToCharacters " !\"#$%&'()*+,;<=>=@[\\]^`{|}~-") (
-        if normalizedPath == "/" then
-          normalizedPath
-        else
-          trim normalizedPath
-      )))
+    replaceStrings [ "/" ] [ "-" ] (
+      replacePrefix "." (strings.escapeC [ "." ] ".") (
+        strings.escapeC (stringToCharacters " !\"#$%&'()*+,;<=>=@[\\]^`{|}~-") (
+          if normalizedPath == "/" then
+            normalizedPath
+          else
+            trim normalizedPath
+        )
+      )
+    )
     ;
 
     # Quotes an argument for use in Exec* service lines.
@@ -119,13 +123,16 @@ rec {
           throw "escapeSystemdExecArg only allows strings, paths and numbers"
         ;
     in
-    replaceStrings [
+    replaceStrings
+    [
       "%"
       "$"
-    ] [
+    ]
+    [
       "%%"
       "$$"
-    ] (builtins.toJSON s)
+    ]
+    (builtins.toJSON s)
     ;
 
     # Quotes a list of arguments into a single string for use in a Exec*
@@ -173,25 +180,31 @@ rec {
         if item ? ${attr} then
           nameValuePair prefix item.${attr}
         else if isAttrs item then
-          map (
+          map
+          (
             name:
             let
               escapedName =
                 ''
                   "${
-                    replaceStrings [
+                    replaceStrings
+                    [
                       ''"''
                       "\\"
-                    ] [
+                    ]
+                    [
                       ''\"''
                       "\\\\"
-                    ] name
+                    ]
+                    name
                   }"'';
             in
             recurse (prefix + "." + escapedName) item.${name}
-          ) (attrNames item)
+          )
+          (attrNames item)
         else if isList item then
-          imap0 (index: item: recurse (prefix + "[${toString index}]") item)
+          imap0
+          (index: item: recurse (prefix + "[${toString index}]") item)
           item
         else
           [ ]
@@ -267,17 +280,25 @@ rec {
       shopt -pq inherit_errexit && inherit_errexit_enabled=1
       shopt -s inherit_errexit
     ''
-    + concatStringsSep "\n" (imap1 (
-      index: name: ''
-        secret${toString index}=$(<'${secrets.${name}}')
-        export secret${toString index}
-      ''
-    ) (attrNames secrets))
+    + concatStringsSep "\n" (
+      imap1
+      (
+        index: name: ''
+          secret${toString index}=$(<'${secrets.${name}}')
+          export secret${toString index}
+        ''
+      )
+      (attrNames secrets)
+    )
     + "\n"
     + "${pkgs.jq}/bin/jq >'${output}' "
-    + lib.escapeShellArg (concatStringsSep " | "
-      (imap1 (index: name: "${name} = $ENV.secret${toString index}")
-        (attrNames secrets)))
+    + lib.escapeShellArg (
+      concatStringsSep " | " (
+        imap1 (index: name: "${name} = $ENV.secret${toString index}") (
+          attrNames secrets
+        )
+      )
+    )
     + ''
        <<'EOF'
       ${builtins.toJSON set}

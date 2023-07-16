@@ -16,20 +16,23 @@ let
         cfg.extraPackages
           # setuid shadow
         ++ [ "/run/wrappers" ]
-        ++ lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems)
+        ++ lib.optional
+          (builtins.elem "zfs" config.boot.supportedFilesystems)
           config.boot.zfs.package
         ;
     });
 
     # Provides a fake "docker" binary mapping to podman
   dockerCompat = pkgs.runCommand
-    "${podmanPackage.pname}-docker-compat-${podmanPackage.version}" {
+    "${podmanPackage.pname}-docker-compat-${podmanPackage.version}"
+    {
       outputs = [
         "out"
         "man"
       ];
       inherit (podmanPackage) meta;
-    } ''
+    }
+    ''
       mkdir -p $out/bin
       ln -s ${podmanPackage}/bin/podman $out/bin/docker
 
@@ -43,18 +46,22 @@ let
 in
 {
   imports = [
-    (lib.mkRemovedOptionModule [
-      "virtualisation"
-      "podman"
-      "defaultNetwork"
-      "dnsname"
-    ] "Use virtualisation.podman.defaultNetwork.settings.dns_enabled instead.")
-    (lib.mkRemovedOptionModule [
-      "virtualisation"
-      "podman"
-      "defaultNetwork"
-      "extraPlugins"
-    ] "Netavark isn't compatible with CNI plugins.")
+    (lib.mkRemovedOptionModule
+      [
+        "virtualisation"
+        "podman"
+        "defaultNetwork"
+        "dnsname"
+      ]
+      "Use virtualisation.podman.defaultNetwork.settings.dns_enabled instead.")
+    (lib.mkRemovedOptionModule
+      [
+        "virtualisation"
+        "podman"
+        "defaultNetwork"
+        "extraPlugins"
+      ]
+      "Netavark isn't compatible with CNI plugins.")
     ./network-socket.nix
   ];
 

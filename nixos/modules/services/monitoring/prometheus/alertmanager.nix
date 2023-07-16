@@ -41,35 +41,40 @@ let
       "--storage.path /var/lib/alertmanager"
       (toString (map (peer: "--cluster.peer ${peer}:9094") cfg.clusterPeers))
     ]
-    ++ (optional (cfg.webExternalUrl != null)
+    ++ (optional
+      (cfg.webExternalUrl != null)
       "--web.external-url ${cfg.webExternalUrl}")
     ++ (optional (cfg.logFormat != null) "--log.format ${cfg.logFormat}")
     ;
 in
 {
   imports = [
-    (mkRemovedOptionModule [
-      "services"
-      "prometheus"
-      "alertmanager"
-      "user"
-    ]
+    (mkRemovedOptionModule
+      [
+        "services"
+        "prometheus"
+        "alertmanager"
+        "user"
+      ]
       "The alertmanager service is now using systemd's DynamicUser mechanism which obviates a user setting.")
-    (mkRemovedOptionModule [
-      "services"
-      "prometheus"
-      "alertmanager"
-      "group"
-    ]
+    (mkRemovedOptionModule
+      [
+        "services"
+        "prometheus"
+        "alertmanager"
+        "group"
+      ]
       "The alertmanager service is now using systemd's DynamicUser mechanism which obviates a group setting.")
-    (mkRemovedOptionModule [
-      "services"
-      "prometheus"
-      "alertmanagerURL"
-    ] ''
-      Due to incompatibility, the alertmanagerURL option has been removed,
-      please use 'services.prometheus.alertmanagers' instead.
-    '')
+    (mkRemovedOptionModule
+      [
+        "services"
+        "prometheus"
+        "alertmanagerURL"
+      ]
+      ''
+        Due to incompatibility, the alertmanagerURL option has been removed,
+        please use 'services.prometheus.alertmanagers' instead.
+      '')
   ];
 
   options = {

@@ -36,7 +36,9 @@ in
   };
   tests = [ nixosTests.librewolf ];
   updateScript = callPackage ./update.nix { attrPath = "librewolf-unwrapped"; };
-}).override {
-  crashreporterSupport = false;
-  enableOfficialBranding = false;
-}).overrideAttrs (prev: { MOZ_REQUIRE_SIGNING = ""; })
+}).override
+  {
+    crashreporterSupport = false;
+    enableOfficialBranding = false;
+  }).overrideAttrs
+(prev: { MOZ_REQUIRE_SIGNING = ""; })

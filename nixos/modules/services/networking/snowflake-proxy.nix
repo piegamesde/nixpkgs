@@ -17,8 +17,8 @@ in
         mkEnableOption (lib.mdDoc "System to defeat internet censorship");
 
       broker = mkOption {
-        description = lib.mdDoc
-          ''Broker URL (default "https://snowflake-broker.torproject.net/")'';
+        description = lib.mdDoc ''
+          Broker URL (default "https://snowflake-broker.torproject.net/")'';
         type = with types; nullOr str;
         default = null;
       };
@@ -31,15 +31,15 @@ in
       };
 
       relay = mkOption {
-        description = lib.mdDoc
-          ''websocket relay URL (default "wss://snowflake.bamsoftware.com/")'';
+        description = lib.mdDoc ''
+          websocket relay URL (default "wss://snowflake.bamsoftware.com/")'';
         type = with types; nullOr str;
         default = null;
       };
 
       stun = mkOption {
-        description = lib.mdDoc
-          ''STUN broker URL (default "stun:stun.stunprotocol.org:3478")'';
+        description = lib.mdDoc ''
+          STUN broker URL (default "stun:stun.stunprotocol.org:3478")'';
         type = with types; nullOr str;
         default = null;
       };
@@ -54,8 +54,9 @@ in
           "${pkgs.snowflake}/bin/proxy "
           + concatStringsSep " " (
             optional (cfg.broker != null) "-broker ${cfg.broker}"
-            ++ optional (cfg.capacity != null)
-              "-capacity ${builtins.toString cfg.capacity}"
+            ++ optional (cfg.capacity != null) "-capacity ${
+                builtins.toString cfg.capacity
+              }"
             ++ optional (cfg.relay != null) "-relay ${cfg.relay}"
             ++ optional (cfg.stun != null) "-stun ${cfg.stun}"
           )

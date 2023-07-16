@@ -39,12 +39,14 @@ in
       mkEnableOption (mdDoc "Enable the stevenblack hosts file blocklist");
 
     block = mkOption {
-      type = types.listOf (types.enum [
-        "fakenews"
-        "gambling"
-        "porn"
-        "social"
-      ]);
+      type = types.listOf (
+        types.enum [
+          "fakenews"
+          "gambling"
+          "porn"
+          "social"
+        ]
+      );
       default = [ ];
       description = mdDoc "Additional blocklist extensions.";
     };

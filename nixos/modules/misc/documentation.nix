@@ -23,8 +23,11 @@ let
     m:
     let
       f = import m;
-      instance = f (mapAttrs (n: _: abort "evaluating ${n} for `meta` failed")
-        (functionArgs f));
+      instance = f (
+        mapAttrs (n: _: abort "evaluating ${n} for `meta` failed") (
+          functionArgs f
+        )
+      );
     in
     cfg.nixos.options.splitBuild
     && builtins.isPath m
@@ -65,7 +68,8 @@ let
         };
         scrubDerivations =
           namePrefix: pkgSet:
-          mapAttrs (
+          mapAttrs
+          (
             name: value:
             let
               wholeName = "${namePrefix}.${name}";
@@ -81,7 +85,8 @@ let
               }
             else
               value
-          ) pkgSet
+          )
+          pkgSet
           ;
       in
       scrubbedEval.options
@@ -100,13 +105,16 @@ let
           )
         );
       in
-      pkgs.runCommand "lazy-options.json" {
+      pkgs.runCommand "lazy-options.json"
+      {
         libPath = filter (pkgs.path + "/lib");
         pkgsLibPath = filter (pkgs.path + "/pkgs/pkgs-lib");
         nixosPath = filter (pkgs.path + "/nixos");
-        modules = map (p: ''"${removePrefix "${modulesPath}/" (toString p)}"'')
+        modules = map
+          (p: ''"${removePrefix "${modulesPath}/" (toString p)}"'')
           docModules.lazy;
-      } ''
+      }
+      ''
         export NIX_STORE_DIR=$TMPDIR/store
         export NIX_STATE_DIR=$TMPDIR/state
         ${pkgs.buildPackages.nix}/bin/nix-instantiate \
@@ -187,33 +195,39 @@ in
     ./meta.nix
     ../config/system-path.nix
     ../system/etc/etc.nix
-    (mkRenamedOptionModule [
-      "programs"
-      "info"
-      "enable"
-    ] [
-      "documentation"
-      "info"
-      "enable"
-    ])
-    (mkRenamedOptionModule [
-      "programs"
-      "man"
-      "enable"
-    ] [
-      "documentation"
-      "man"
-      "enable"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "nixosManual"
-      "enable"
-    ] [
-      "documentation"
-      "nixos"
-      "enable"
-    ])
+    (mkRenamedOptionModule
+      [
+        "programs"
+        "info"
+        "enable"
+      ]
+      [
+        "documentation"
+        "info"
+        "enable"
+      ])
+    (mkRenamedOptionModule
+      [
+        "programs"
+        "man"
+        "enable"
+      ]
+      [
+        "documentation"
+        "man"
+        "enable"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "nixosManual"
+        "enable"
+      ]
+      [
+        "documentation"
+        "nixos"
+        "enable"
+      ])
   ];
 
   options = {
@@ -372,69 +386,71 @@ in
 
   };
 
-  config = mkIf cfg.enable (mkMerge [
-    {
-      assertions = [ {
-        assertion = !(cfg.man.man-db.enable && cfg.man.mandoc.enable);
-        message = ''
-          man-db and mandoc can't be used as the default man page viewer at the same time!
+  config = mkIf cfg.enable (
+    mkMerge [
+      {
+        assertions = [ {
+          assertion = !(cfg.man.man-db.enable && cfg.man.mandoc.enable);
+          message = ''
+            man-db and mandoc can't be used as the default man page viewer at the same time!
+          '';
+        } ];
+      }
+
+      # The actual implementation for this lives in man-db.nix or mandoc.nix,
+      # depending on which backend is active.
+      (mkIf cfg.man.enable {
+        environment.pathsToLink = [ "/share/man" ];
+        environment.extraOutputsToInstall =
+          [ "man" ] ++ optional cfg.dev.enable "devman";
+      })
+
+      (mkIf cfg.info.enable {
+        environment.systemPackages = [ pkgs.texinfoInteractive ];
+        environment.pathsToLink = [ "/share/info" ];
+        environment.extraOutputsToInstall =
+          [ "info" ] ++ optional cfg.dev.enable "devinfo";
+        environment.extraSetup = ''
+          if [ -w $out/share/info ]; then
+            shopt -s nullglob
+            for i in $out/share/info/*.info $out/share/info/*.info.gz; do
+                ${pkgs.buildPackages.texinfo}/bin/install-info $i $out/share/info/dir
+            done
+          fi
         '';
-      } ];
-    }
+      })
 
-    # The actual implementation for this lives in man-db.nix or mandoc.nix,
-    # depending on which backend is active.
-    (mkIf cfg.man.enable {
-      environment.pathsToLink = [ "/share/man" ];
-      environment.extraOutputsToInstall =
-        [ "man" ] ++ optional cfg.dev.enable "devman";
-    })
+      (mkIf cfg.doc.enable {
+        environment.pathsToLink = [ "/share/doc" ];
+        environment.extraOutputsToInstall =
+          [ "doc" ] ++ optional cfg.dev.enable "devdoc";
+      })
 
-    (mkIf cfg.info.enable {
-      environment.systemPackages = [ pkgs.texinfoInteractive ];
-      environment.pathsToLink = [ "/share/info" ];
-      environment.extraOutputsToInstall =
-        [ "info" ] ++ optional cfg.dev.enable "devinfo";
-      environment.extraSetup = ''
-        if [ -w $out/share/info ]; then
-          shopt -s nullglob
-          for i in $out/share/info/*.info $out/share/info/*.info.gz; do
-              ${pkgs.buildPackages.texinfo}/bin/install-info $i $out/share/info/dir
-          done
-        fi
-      '';
-    })
+      (mkIf cfg.nixos.enable {
+        system.build.manual = manual;
 
-    (mkIf cfg.doc.enable {
-      environment.pathsToLink = [ "/share/doc" ];
-      environment.extraOutputsToInstall =
-        [ "doc" ] ++ optional cfg.dev.enable "devdoc";
-    })
+        system.activationScripts.check-manual-docbook = ''
+          if [[ $(cat ${manual.optionsUsedDocbook}) = 1 ]]; then
+            echo -e "\e[31;1mwarning\e[0m: This configuration contains option documentation in docbook." \
+                    "Support for docbook is deprecated and will be removed after NixOS 23.05." \
+                    "See nix-store --read-log ${
+                      builtins.unsafeDiscardStringContext
+                      manual.optionsJSON.drvPath
+                    }"
+          fi
+        '';
 
-    (mkIf cfg.nixos.enable {
-      system.build.manual = manual;
+        environment.systemPackages =
+          [ ]
+          ++ optional cfg.man.enable manual.manpages
+          ++ optionals cfg.doc.enable [
+            manual.manualHTML
+            nixos-help
+          ]
+          ;
+      })
 
-      system.activationScripts.check-manual-docbook = ''
-        if [[ $(cat ${manual.optionsUsedDocbook}) = 1 ]]; then
-          echo -e "\e[31;1mwarning\e[0m: This configuration contains option documentation in docbook." \
-                  "Support for docbook is deprecated and will be removed after NixOS 23.05." \
-                  "See nix-store --read-log ${
-                    builtins.unsafeDiscardStringContext
-                    manual.optionsJSON.drvPath
-                  }"
-        fi
-      '';
-
-      environment.systemPackages =
-        [ ]
-        ++ optional cfg.man.enable manual.manpages
-        ++ optionals cfg.doc.enable [
-          manual.manualHTML
-          nixos-help
-        ]
-        ;
-    })
-
-  ]);
+    ]
+  );
 
 }

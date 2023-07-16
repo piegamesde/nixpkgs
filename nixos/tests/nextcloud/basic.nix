@@ -40,7 +40,8 @@ args@{
               options =
                 let
                   davfs2Conf =
-                    (pkgs.writeText "davfs2.conf"
+                    (pkgs.writeText
+                      "davfs2.conf"
                       "secrets /tmp/davfs2-secrets");
                 in
                 [
@@ -80,7 +81,8 @@ args@{
             config = {
               # Don't inherit adminuser since "root" is supposed to be the default
               adminpassFile =
-                "${pkgs.writeText "adminpass"
+                "${pkgs.writeText
+                "adminpass"
                 adminpass}"; # Don't try this at home!
               dbtableprefix = "nixos_";
             };
@@ -137,20 +139,23 @@ args@{
 
         findInClosure =
           what: drv:
-          pkgs.runCommand "find-in-closure" {
+          pkgs.runCommand "find-in-closure"
+          {
             exportReferencesGraph = [
               "graph"
               drv
             ];
             inherit what;
-          } ''
+          }
+          ''
             test -e graph
             grep "$what" graph >$out || true
           ''
           ;
         nextcloudUsesImagick =
           findInClosure "imagick" nodes.nextcloud.config.system.build.vm;
-        nextcloudWithoutDoesntUseIt = findInClosure "imagick"
+        nextcloudWithoutDoesntUseIt = findInClosure
+          "imagick"
           nodes.nextcloudWithoutMagick.config.system.build.vm;
       in
       ''
@@ -180,4 +185,5 @@ args@{
       ''
       ;
   }
-)) args
+))
+args

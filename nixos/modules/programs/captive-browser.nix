@@ -125,8 +125,9 @@ in
       let
         iface =
           prefixes:
-          optionalString cfg.bindInterface
-          (escapeShellArgs (prefixes ++ [ cfg.interface ]))
+          optionalString cfg.bindInterface (
+            escapeShellArgs (prefixes ++ [ cfg.interface ])
+          )
           ;
       in
       mkOptionDefault (

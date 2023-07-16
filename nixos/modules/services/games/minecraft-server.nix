@@ -16,13 +16,18 @@ let
     eula=true
   '';
 
-  whitelistFile = pkgs.writeText "whitelist.json" (builtins.toJSON
-    (mapAttrsToList (
-      n: v: {
-        name = n;
-        uuid = v;
-      }
-    ) cfg.whitelist));
+  whitelistFile = pkgs.writeText "whitelist.json" (
+    builtins.toJSON (
+      mapAttrsToList
+      (
+        n: v: {
+          name = n;
+          uuid = v;
+        }
+      )
+      cfg.whitelist
+    )
+  );
 
   cfgToString =
     v:
@@ -36,8 +41,9 @@ let
     ''
       # server.properties managed by NixOS configuration
     ''
-    + concatStringsSep "\n"
-      (mapAttrsToList (n: v: "${n}=${cfgToString v}") cfg.serverProperties)
+    + concatStringsSep "\n" (
+      mapAttrsToList (n: v: "${n}=${cfgToString v}") cfg.serverProperties
+    )
   );
 
   stopScript = pkgs.writeShellScript "minecraft-server-stop" ''
@@ -157,11 +163,13 @@ in
 
       serverProperties = mkOption {
         type = with types;
-          attrsOf (oneOf [
-            bool
-            int
-            str
-          ]);
+          attrsOf (
+            oneOf [
+              bool
+              int
+              str
+            ]
+          );
         default = { };
         example = literalExpression ''
           {

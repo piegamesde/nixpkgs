@@ -48,9 +48,11 @@ runCommand "nixos-gsettings-desktop-schemas" { } ''
 
   mkdir -p $schema_dir
 
-  ${concatMapStrings (pkg: ''
+  ${concatMapStrings
+  (pkg: ''
     cp -rvf ${glib.getSchemaPath pkg}/* $schema_dir
-  '') gsettingsOverridePackages}
+  '')
+  gsettingsOverridePackages}
 
   chmod -R a+w $out/share/gsettings-schemas/nixos-gsettings-overrides
 

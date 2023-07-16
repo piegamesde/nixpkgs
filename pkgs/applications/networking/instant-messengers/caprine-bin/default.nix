@@ -26,10 +26,13 @@ in
     x86_64-dmg
   else
     x86_64-appimage
-).overrideAttrs (oldAttrs: {
-  passthru =
-    (oldAttrs.passthru or { }) // { inherit x86_64-appimage x86_64-dmg; };
-  meta = oldAttrs.meta // {
-    platforms = x86_64-appimage.meta.platforms ++ x86_64-dmg.meta.platforms;
-  };
-})
+).overrideAttrs
+(
+  oldAttrs: {
+    passthru =
+      (oldAttrs.passthru or { }) // { inherit x86_64-appimage x86_64-dmg; };
+    meta = oldAttrs.meta // {
+      platforms = x86_64-appimage.meta.platforms ++ x86_64-dmg.meta.platforms;
+    };
+  }
+)

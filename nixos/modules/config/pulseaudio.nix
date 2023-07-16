@@ -56,9 +56,11 @@ let
         .include ${cfg.configFile}
         ${addModuleIf cfg.zeroconf.publish.enable "module-zeroconf-publish"}
         ${addModuleIf cfg.zeroconf.discovery.enable "module-zeroconf-discover"}
-        ${addModuleIf cfg.tcp.enable (concatStringsSep " " (
-          [ "module-native-protocol-tcp" ] ++ allAnon ++ ipAnon
-        ))}
+        ${addModuleIf cfg.tcp.enable (
+          concatStringsSep " " (
+            [ "module-native-protocol-tcp" ] ++ allAnon ++ ipAnon
+          )
+        )}
         ${addModuleIf config.services.jack.jackd.enable "module-jack-sink"}
         ${addModuleIf config.services.jack.jackd.enable "module-jack-source"}
         ${cfg.extraConfig}
@@ -88,7 +90,8 @@ let
     pcm_type.pulse {
       libs.native = ${pkgs.alsa-plugins}/lib/alsa-lib/libasound_module_pcm_pulse.so ;
       ${
-        lib.optionalString enable32BitAlsaPlugins
+        lib.optionalString
+        enable32BitAlsaPlugins
         "libs.32Bit = ${pkgs.pkgsi686Linux.alsa-plugins}/lib/alsa-lib/libasound_module_pcm_pulse.so ;"
       }
     }
@@ -99,7 +102,8 @@ let
     ctl_type.pulse {
       libs.native = ${pkgs.alsa-plugins}/lib/alsa-lib/libasound_module_ctl_pulse.so ;
       ${
-        lib.optionalString enable32BitAlsaPlugins
+        lib.optionalString
+        enable32BitAlsaPlugins
         "libs.32Bit = ${pkgs.pkgsi686Linux.alsa-plugins}/lib/alsa-lib/libasound_module_ctl_pulse.so ;"
       }
     }
@@ -223,10 +227,12 @@ in
       };
 
       zeroconf = {
-        discovery.enable = mkEnableOption
-          (lib.mdDoc "discovery of pulseaudio sinks in the local network");
-        publish.enable = mkEnableOption
-          (lib.mdDoc "publishing the pulseaudio sink in the local network");
+        discovery.enable = mkEnableOption (
+          lib.mdDoc "discovery of pulseaudio sinks in the local network"
+        );
+        publish.enable = mkEnableOption (
+          lib.mdDoc "publishing the pulseaudio sink in the local network"
+        );
       };
 
         # TODO: enable by default?
@@ -234,8 +240,9 @@ in
         enable = mkEnableOption (lib.mdDoc "tcp streaming support");
 
         anonymousClients = {
-          allowAll = mkEnableOption
-            (lib.mdDoc "all anonymous clients to stream to the server");
+          allowAll = mkEnableOption (
+            lib.mdDoc "all anonymous clients to stream to the server"
+          );
           allowedIpRanges = mkOption {
             type = types.listOf types.str;
             default = [ ];
@@ -267,8 +274,9 @@ in
       environment.etc = {
         "asound.conf".source = alsaConf;
 
-        "pulse/daemon.conf".source = writeText "daemon.conf"
-          (lib.generators.toKeyValue { } cfg.daemon.config);
+        "pulse/daemon.conf".source = writeText "daemon.conf" (
+          lib.generators.toKeyValue { } cfg.daemon.config
+        );
 
         "openal/alsoft.conf".source = writeText "alsoft.conf" "drivers=pulse";
 
@@ -294,16 +302,15 @@ in
     (mkIf (cfg.extraModules != [ ]) {
       hardware.pulseaudio.daemon.config.dl-search-path =
         let
-          overriddenModules =
-            builtins.map (drv: drv.override { pulseaudio = overriddenPackage; })
+          overriddenModules = builtins.map
+            (drv: drv.override { pulseaudio = overriddenPackage; })
             cfg.extraModules;
-          modulePaths = builtins.map (
-            drv: "${drv}/lib/pulseaudio/modules"
-          )
-          # User-provided extra modules take precedence
+          modulePaths = builtins.map
             (
-              overriddenModules ++ [ overriddenPackage ]
-            );
+              drv: "${drv}/lib/pulseaudio/modules"
+            )
+            # User-provided extra modules take precedence
+            (overriddenModules ++ [ overriddenPackage ]);
         in
         lib.concatStringsSep ":" modulePaths
         ;

@@ -53,12 +53,14 @@ stdenv.mkDerivation rec {
     substituteInPlace configure --replace 'xdarwin' 'xhomebrew'
   '';
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.isDarwin [
-    # error: conflicting types for 'strmode'
-    "-DHAVE_STRMODE=1"
-    # Undefined symbols for architecture arm64: "_bsd_getopt"
-    "-include getopt.h"
-  ]);
+  env.NIX_CFLAGS_COMPILE = toString (
+    lib.optionals stdenv.isDarwin [
+      # error: conflicting types for 'strmode'
+      "-DHAVE_STRMODE=1"
+      # Undefined symbols for architecture arm64: "_bsd_getopt"
+      "-include getopt.h"
+    ]
+  );
 
   doInstallCheck = true;
 

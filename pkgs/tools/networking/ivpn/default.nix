@@ -14,7 +14,8 @@
   util-linux,
 }:
 
-builtins.mapAttrs (
+builtins.mapAttrs
+(
   pname: attrs:
   buildGoModule (
     attrs // rec {
@@ -52,7 +53,8 @@ builtins.mapAttrs (
       };
     }
   )
-) {
+)
+{
   ivpn = {
     modRoot = "cli";
     vendorHash = "sha256-T49AE3SUmdP3Tu9Sp5C/QryKDto/NzEqRuUQ3+aJFL0=";

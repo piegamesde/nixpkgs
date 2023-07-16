@@ -163,7 +163,8 @@ let
     }
     ;
 in
-lib.mapAttrs (
+lib.mapAttrs
+(
   _: package:
   makeMySQLTest {
     inherit package;
@@ -171,6 +172,7 @@ lib.mapAttrs (
     hasMroonga = false;
     useSocketAuth = false;
   }
-) mysqlPackages
-// (lib.mapAttrs (_: package: makeMySQLTest { inherit package; })
+)
+mysqlPackages // (lib.mapAttrs
+  (_: package: makeMySQLTest { inherit package; })
   mariadbPackages)

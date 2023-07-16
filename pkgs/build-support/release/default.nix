@@ -68,11 +68,13 @@ rec {
       constituents,
       meta ? { }
     }:
-    pkgs.runCommand name {
+    pkgs.runCommand name
+    {
       inherit constituents meta;
       preferLocalBuild = true;
       _hydraAggregate = true;
-    } ''
+    }
+    ''
       mkdir -p $out/nix-support
       touch $out/nix-support/hydra-build-products
       echo $constituents > $out/nix-support/hydra-aggregate-constituents

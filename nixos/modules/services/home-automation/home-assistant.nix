@@ -16,8 +16,8 @@ let
     # options shown in settings.
     # We post-process the result to add support for YAML functions, like secrets or includes, see e.g.
     # https://www.home-assistant.io/docs/configuration/secrets/
-  filteredConfig =
-    lib.converge (lib.filterAttrsRecursive (_: v: !elem v [ null ]))
+  filteredConfig = lib.converge
+    (lib.filterAttrsRecursive (_: v: !elem v [ null ]))
     cfg.config or { };
   configFile =
     pkgs.runCommand "configuration.yaml" { preferLocalBuild = true; } ''
@@ -78,39 +78,46 @@ let
   extraComponents = filter useComponent availableComponents;
 
   package =
-    (cfg.package.override (oldArgs: {
-      # Respect overrides that already exist in the passed package and
-      # concat it with values passed via the module.
-      extraComponents = oldArgs.extraComponents or [ ] ++ extraComponents;
-      extraPackages =
-        ps: (oldArgs.extraPackages or (_: [ ]) ps) ++ (cfg.extraPackages ps);
-    }));
+    (cfg.package.override (
+      oldArgs: {
+        # Respect overrides that already exist in the passed package and
+        # concat it with values passed via the module.
+        extraComponents = oldArgs.extraComponents or [ ] ++ extraComponents;
+        extraPackages =
+          ps: (oldArgs.extraPackages or (_: [ ]) ps) ++ (cfg.extraPackages ps);
+      }
+    ));
 in
 {
   imports = [
     # Migrations in NixOS 22.05
-    (mkRemovedOptionModule [
-      "services"
-      "home-assistant"
-      "applyDefaultConfig"
-    ] "The default config was migrated into services.home-assistant.config")
-    (mkRemovedOptionModule [
-      "services"
-      "home-assistant"
-      "autoExtraComponents"
-    ]
+    (mkRemovedOptionModule
+      [
+        "services"
+        "home-assistant"
+        "applyDefaultConfig"
+      ]
+      "The default config was migrated into services.home-assistant.config")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "home-assistant"
+        "autoExtraComponents"
+      ]
       "Components are now parsed from services.home-assistant.config unconditionally")
-    (mkRenamedOptionModule [
-      "services"
-      "home-assistant"
-      "port"
-    ] [
-      "services"
-      "home-assistant"
-      "config"
-      "http"
-      "server_port"
-    ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "home-assistant"
+        "port"
+      ]
+      [
+        "services"
+        "home-assistant"
+        "config"
+        "http"
+        "server_port"
+      ])
   ];
 
   meta = {
@@ -121,9 +128,10 @@ in
   options.services.home-assistant = {
     # Running home-assistant on NixOS is considered an installation method that is unsupported by the upstream project.
     # https://github.com/home-assistant/architecture/blob/master/adr/0012-define-supported-installation-method.md#decision
-    enable = mkEnableOption (lib.mdDoc
-      "Home Assistant. Please note that this installation method is unsupported upstream")
-      ;
+    enable = mkEnableOption (
+      lib.mdDoc
+      "Home Assistant. Please note that this installation method is unsupported upstream"
+    );
 
     configDir = mkOption {
       default = "/var/lib/hass";
@@ -186,128 +194,134 @@ in
     };
 
     config = mkOption {
-      type = types.nullOr (types.submodule {
-        freeformType = format.type;
-        options = {
-          # This is a partial selection of the most common options, so new users can quickly
-          # pick up how to match home-assistants config structure to ours. It also lets us preset
-          # config values intelligently.
+      type = types.nullOr (
+        types.submodule {
+          freeformType = format.type;
+          options = {
+            # This is a partial selection of the most common options, so new users can quickly
+            # pick up how to match home-assistants config structure to ours. It also lets us preset
+            # config values intelligently.
 
-          homeassistant = {
-            # https://www.home-assistant.io/docs/configuration/basic/
-            name = mkOption {
-              type = types.nullOr types.str;
-              default = null;
-              example = "Home";
-              description = lib.mdDoc ''
-                Name of the location where Home Assistant is running.
-              '';
+            homeassistant = {
+              # https://www.home-assistant.io/docs/configuration/basic/
+              name = mkOption {
+                type = types.nullOr types.str;
+                default = null;
+                example = "Home";
+                description = lib.mdDoc ''
+                  Name of the location where Home Assistant is running.
+                '';
+              };
+
+              latitude = mkOption {
+                type = types.nullOr (types.either types.float types.str);
+                default = null;
+                example = 52.3;
+                description = lib.mdDoc ''
+                  Latitude of your location required to calculate the time the sun rises and sets.
+                '';
+              };
+
+              longitude = mkOption {
+                type = types.nullOr (types.either types.float types.str);
+                default = null;
+                example = 4.9;
+                description = lib.mdDoc ''
+                  Longitude of your location required to calculate the time the sun rises and sets.
+                '';
+              };
+
+              unit_system = mkOption {
+                type = types.nullOr (
+                  types.enum [
+                    "metric"
+                    "imperial"
+                  ]
+                );
+                default = null;
+                example = "metric";
+                description = lib.mdDoc ''
+                  The unit system to use. This also sets temperature_unit, Celsius for Metric and Fahrenheit for Imperial.
+                '';
+              };
+
+              temperature_unit = mkOption {
+                type = types.nullOr (
+                  types.enum [
+                    "C"
+                    "F"
+                  ]
+                );
+                default = null;
+                example = "C";
+                description = lib.mdDoc ''
+                  Override temperature unit set by unit_system. `C` for Celsius, `F` for Fahrenheit.
+                '';
+              };
+
+              time_zone = mkOption {
+                type = types.nullOr types.str;
+                default = config.time.timeZone or null;
+                defaultText = literalExpression ''
+                  config.time.timeZone or null
+                '';
+                example = "Europe/Amsterdam";
+                description = lib.mdDoc ''
+                  Pick your time zone from the column TZ of Wikipedia’s [list of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+                '';
+              };
             };
 
-            latitude = mkOption {
-              type = types.nullOr (types.either types.float types.str);
-              default = null;
-              example = 52.3;
-              description = lib.mdDoc ''
-                Latitude of your location required to calculate the time the sun rises and sets.
-              '';
+            http = {
+              # https://www.home-assistant.io/integrations/http/
+              server_host = mkOption {
+                type = types.either types.str (types.listOf types.str);
+                default = [
+                  "0.0.0.0"
+                  "::"
+                ];
+                example = "::1";
+                description = lib.mdDoc ''
+                  Only listen to incoming requests on specific IP/host. The default listed assumes support for IPv4 and IPv6.
+                '';
+              };
+
+              server_port = mkOption {
+                default = 8123;
+                type = types.port;
+                description = lib.mdDoc ''
+                  The port on which to listen.
+                '';
+              };
             };
 
-            longitude = mkOption {
-              type = types.nullOr (types.either types.float types.str);
-              default = null;
-              example = 4.9;
-              description = lib.mdDoc ''
-                Longitude of your location required to calculate the time the sun rises and sets.
-              '';
-            };
-
-            unit_system = mkOption {
-              type = types.nullOr (types.enum [
-                "metric"
-                "imperial"
-              ]);
-              default = null;
-              example = "metric";
-              description = lib.mdDoc ''
-                The unit system to use. This also sets temperature_unit, Celsius for Metric and Fahrenheit for Imperial.
-              '';
-            };
-
-            temperature_unit = mkOption {
-              type = types.nullOr (types.enum [
-                "C"
-                "F"
-              ]);
-              default = null;
-              example = "C";
-              description = lib.mdDoc ''
-                Override temperature unit set by unit_system. `C` for Celsius, `F` for Fahrenheit.
-              '';
-            };
-
-            time_zone = mkOption {
-              type = types.nullOr types.str;
-              default = config.time.timeZone or null;
-              defaultText = literalExpression ''
-                config.time.timeZone or null
-              '';
-              example = "Europe/Amsterdam";
-              description = lib.mdDoc ''
-                Pick your time zone from the column TZ of Wikipedia’s [list of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
-              '';
-            };
-          };
-
-          http = {
-            # https://www.home-assistant.io/integrations/http/
-            server_host = mkOption {
-              type = types.either types.str (types.listOf types.str);
-              default = [
-                "0.0.0.0"
-                "::"
-              ];
-              example = "::1";
-              description = lib.mdDoc ''
-                Only listen to incoming requests on specific IP/host. The default listed assumes support for IPv4 and IPv6.
-              '';
-            };
-
-            server_port = mkOption {
-              default = 8123;
-              type = types.port;
-              description = lib.mdDoc ''
-                The port on which to listen.
-              '';
-            };
-          };
-
-          lovelace = {
-            # https://www.home-assistant.io/lovelace/dashboards/
-            mode = mkOption {
-              type = types.enum [
-                "yaml"
-                "storage"
-              ];
-              default =
-                if cfg.lovelaceConfig != null then
+            lovelace = {
+              # https://www.home-assistant.io/lovelace/dashboards/
+              mode = mkOption {
+                type = types.enum [
                   "yaml"
-                else
                   "storage"
-                ;
-              defaultText = literalExpression ''
-                if cfg.lovelaceConfig != null
-                  then "yaml"
-                else "storage";
-              '';
-              example = "yaml";
-              description = lib.mdDoc ''
-                In what mode should the main Lovelace panel be, `yaml` or `storage` (UI managed).
-              '';
+                ];
+                default =
+                  if cfg.lovelaceConfig != null then
+                    "yaml"
+                  else
+                    "storage"
+                  ;
+                defaultText = literalExpression ''
+                  if cfg.lovelaceConfig != null
+                    then "yaml"
+                  else "storage";
+                '';
+                example = "yaml";
+                description = lib.mdDoc ''
+                  In what mode should the main Lovelace panel be, `yaml` or `storage` (UI managed).
+                '';
+              };
             };
           };
-        };
-      });
+        }
+      );
       example = literalExpression ''
         {
           homeassistant = {
@@ -389,8 +403,9 @@ in
     };
 
     package = mkOption {
-      default = pkgs.home-assistant.overrideAttrs
-        (oldAttrs: { doInstallCheck = false; });
+      default = pkgs.home-assistant.overrideAttrs (
+        oldAttrs: { doInstallCheck = false; }
+      );
       defaultText = literalExpression ''
         pkgs.home-assistant.overrideAttrs (oldAttrs: {
           doInstallCheck = false;
@@ -495,7 +510,8 @@ in
               ""
             ]
             ++ lib.optionals
-              (builtins.any useComponent componentsUsingBluetooth) [
+              (builtins.any useComponent componentsUsingBluetooth)
+              [
                 # Required for interaction with hci devices and bluetooth sockets, identified by bluetooth-adapters dependency
                 # https://www.home-assistant.io/integrations/bluetooth_le_tracker/#rootless-setup-on-core-installs
                 "CAP_NET_ADMIN"

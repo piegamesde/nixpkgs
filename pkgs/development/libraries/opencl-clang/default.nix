@@ -15,16 +15,18 @@ let
 
   addPatches =
     component: pkg:
-    pkg.overrideAttrs (oldAttrs: {
-      postPatch =
-        oldAttrs.postPatch or ""
-        + ''
-          for p in ${passthru.patchesOut}/${component}/*; do
-            patch -p1 -i "$p"
-          done
-        ''
-        ;
-    })
+    pkg.overrideAttrs (
+      oldAttrs: {
+        postPatch =
+          oldAttrs.postPatch or ""
+          + ''
+            for p in ${passthru.patchesOut}/${component}/*; do
+              patch -p1 -i "$p"
+            done
+          ''
+          ;
+      }
+    )
     ;
 
   passthru = rec {

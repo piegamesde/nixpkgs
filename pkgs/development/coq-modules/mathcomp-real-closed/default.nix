@@ -28,10 +28,12 @@ mkCoqDerivation {
   };
 
   defaultVersion = with lib.versions;
-    lib.switch [
+    lib.switch
+    [
       coq.version
       mathcomp.version
-    ] [
+    ]
+    [
       {
         cases = [
           (isGe "8.13")
@@ -81,7 +83,8 @@ mkCoqDerivation {
         ];
         out = "1.0.1";
       }
-    ] null;
+    ]
+    null;
 
   propagatedBuildInputs = [
     mathcomp.ssreflect

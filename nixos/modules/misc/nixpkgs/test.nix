@@ -41,8 +41,9 @@ let
         ];
       };
     in
-    map (ass: ass.message)
-    (lib.filter (ass: !ass.assertion) uncheckedEval.config.assertions)
+    map (ass: ass.message) (
+      lib.filter (ass: !ass.assertion) uncheckedEval.config.assertions
+    )
     ;
 in
 lib.recurseIntoAttrs {

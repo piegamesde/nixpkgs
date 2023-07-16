@@ -18,11 +18,14 @@ let
        - make it self-contained by including docker-compose
   */
   arion = (justStaticExecutables (overrideCabal cabalOverrides arion-compose))
-    .overrideAttrs (o: {
-      # Patch away the arion-compose name. Unlike the Haskell library, the program
-      # is called arion (arion was already taken on hackage).
-      pname = "arion";
-    });
+    .overrideAttrs
+    (
+      o: {
+        # Patch away the arion-compose name. Unlike the Haskell library, the program
+        # is called arion (arion was already taken on hackage).
+        pname = "arion";
+      }
+    );
 
   inherit (haskell.lib.compose) justStaticExecutables overrideCabal;
 
@@ -57,7 +60,8 @@ let
     ;
 
     # Unpacked sources for evaluation by `eval`
-  srcUnpacked = runCommand "arion-src" { }
+  srcUnpacked = runCommand "arion-src"
+    { }
     "mkdir $out; tar -C $out --strip-components=1 -xf ${arion-compose.src}";
 
     /* Function for evaluating a composition

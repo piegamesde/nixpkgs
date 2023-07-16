@@ -37,19 +37,23 @@ in
   ###### interface
 
   imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "mingetty"
-    ] [
-      "services"
-      "getty"
-    ])
-    (mkRemovedOptionModule [
-      "services"
-      "getty"
-      "serialSpeed"
-    ] ''
-      set non-standard baudrates with `boot.kernelParams` i.e. boot.kernelParams = ["console=ttyS2,1500000"];'')
+    (mkRenamedOptionModule
+      [
+        "services"
+        "mingetty"
+      ]
+      [
+        "services"
+        "getty"
+      ])
+    (mkRemovedOptionModule
+      [
+        "services"
+        "getty"
+        "serialSpeed"
+      ]
+      ''
+        set non-standard baudrates with `boot.kernelParams` i.e. boot.kernelParams = ["console=ttyS2,1500000"];'')
   ];
 
   options = {
@@ -127,11 +131,11 @@ in
     # nixos.label would not rebuild manual pages
     services.getty.greetingLine = mkDefault
       "<<< Welcome to NixOS ${config.system.nixos.label} (\\m) - \\l >>>";
-    services.getty.helpLine = mkIf (
-      config.documentation.nixos.enable && config.documentation.doc.enable
-    ) ''
+    services.getty.helpLine = mkIf
+      (config.documentation.nixos.enable && config.documentation.doc.enable)
+      ''
 
-      Run 'nixos-help' for the NixOS manual.'';
+        Run 'nixos-help' for the NixOS manual.'';
 
     systemd.services."getty@" = {
       serviceConfig.ExecStart = [

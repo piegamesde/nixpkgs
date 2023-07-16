@@ -31,7 +31,8 @@ let
   credentialAttrs =
     lib.optionalAttrs (credentials != null) (mkCredentials credentials);
 in
-runCommand name (
+runCommand name
+(
   {
     nativeBuildInputs = [ awscli ];
 
@@ -48,7 +49,8 @@ runCommand name (
 
     AWS_DEFAULT_REGION = region;
   } // credentialAttrs
-) (
+)
+(
   if postFetch != null then
     ''
       downloadedFile="$(mktemp)"

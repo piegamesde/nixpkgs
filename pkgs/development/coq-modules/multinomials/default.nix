@@ -20,10 +20,12 @@ mkCoqDerivation {
 
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch [
+    lib.switch
+    [
       coq.version
       mathcomp.version
-    ] [
+    ]
+    [
       {
         cases = [
           (isGe "8.10")
@@ -73,7 +75,8 @@ mkCoqDerivation {
         ];
         out = "1.1";
       }
-    ] null;
+    ]
+    null;
   release = {
     "1.5.6".sha256 = "sha256-cMixgc34T9Ic6v+tYmL49QUNpZpPV5ofaNuHqblX6oY=";
     "1.5.5".sha256 = "sha256-VdXA51vr7DZl/wT/15YYMywdD7Gh91dMP9t7ij47qNQ=";

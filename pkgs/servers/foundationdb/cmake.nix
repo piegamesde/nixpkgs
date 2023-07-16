@@ -111,21 +111,25 @@ let
           (lib.optionalString useClang "-DUSE_LD=LLD")
           (lib.optionalString (!useClang) "-DUSE_LD=GOLD")
         ]
-        ++ lib.optionals (lib.versionOlder version
-          "7.0.0") [ # FIXME: why can't libressl be found automatically?
+        ++ lib.optionals
+          (lib.versionOlder version "7.0.0")
+          [ # FIXME: why can't libressl be found automatically?
             "-DLIBRESSL_USE_STATIC_LIBS=FALSE"
             "-DLIBRESSL_INCLUDE_DIR=${ssl.dev}"
             "-DLIBRESSL_CRYPTO_LIBRARY=${ssl.out}/lib/libcrypto.so"
             "-DLIBRESSL_SSL_LIBRARY=${ssl.out}/lib/libssl.so"
             "-DLIBRESSL_TLS_LIBRARY=${ssl.out}/lib/libtls.so"
           ]
-        ++ lib.optionals (
-          lib.versionAtLeast version "7.1.0" && lib.versionOlder version "7.2.0"
-        ) [ # FIXME: why can't openssl be found automatically?
-          "-DOPENSSL_USE_STATIC_LIBS=FALSE"
-          "-DOPENSSL_CRYPTO_LIBRARY=${ssl.out}/lib/libcrypto.so"
-          "-DOPENSSL_SSL_LIBRARY=${ssl.out}/lib/libssl.so"
-        ]
+        ++ lib.optionals
+          (
+            lib.versionAtLeast version "7.1.0"
+            && lib.versionOlder version "7.2.0"
+          )
+          [ # FIXME: why can't openssl be found automatically?
+            "-DOPENSSL_USE_STATIC_LIBS=FALSE"
+            "-DOPENSSL_CRYPTO_LIBRARY=${ssl.out}/lib/libcrypto.so"
+            "-DOPENSSL_SSL_LIBRARY=${ssl.out}/lib/libssl.so"
+          ]
         ;
 
       hardeningDisable = [ "fortify" ];
@@ -199,9 +203,11 @@ let
         license = licenses.asl20;
         platforms =
           [ "x86_64-linux" ]
-          ++ lib.optionals (
-            lib.versionAtLeast version "7.1.0" && !(avxEnabled version)
-          ) [ "aarch64-linux" ]
+          ++ lib.optionals
+            (lib.versionAtLeast version "7.1.0" && !(avxEnabled version))
+            [
+              "aarch64-linux"
+            ]
           ;
         maintainers = with maintainers; [
           thoughtpolice

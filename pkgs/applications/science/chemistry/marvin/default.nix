@@ -57,15 +57,19 @@ stdenv.mkDerivation rec {
     for name in cxcalc cxtrain evaluate molconvert mview msketch; do
       wrapBin $out/opt/chemaxon/marvinsuite/bin/$name
     done
-    ${concatStrings (map (name: ''
-      substitute ${
-        ./. + "/${name}.desktop"
-      } $out/share/applications/${name}.desktop --subst-var out
-    '') [
-      "LicenseManager"
-      "MarvinSketch"
-      "MarvinView"
-    ])}
+    ${concatStrings (
+      map
+      (name: ''
+        substitute ${
+          ./. + "/${name}.desktop"
+        } $out/share/applications/${name}.desktop --subst-var out
+      '')
+      [
+        "LicenseManager"
+        "MarvinSketch"
+        "MarvinView"
+      ]
+    )}
   '';
 
   meta = {

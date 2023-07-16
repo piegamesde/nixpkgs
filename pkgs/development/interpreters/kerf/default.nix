@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isDarwin (
       [ Accelerate ]
-      ++ lib.optionals stdenv.isx86_64 # && isDarwin
+      ++ lib.optionals
+        stdenv.isx86_64 # && isDarwin
         [
           CoreGraphics
           CoreVideo

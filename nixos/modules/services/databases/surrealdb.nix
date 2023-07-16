@@ -14,9 +14,10 @@ in
 
   options = {
     services.surrealdb = {
-      enable = mkEnableOption (lib.mdDoc
-        "A scalable, distributed, collaborative, document-graph database, for the realtime web ")
-        ;
+      enable = mkEnableOption (
+        lib.mdDoc
+        "A scalable, distributed, collaborative, document-graph database, for the realtime web "
+      );
 
       package = mkOption {
         default = pkgs.surrealdb;

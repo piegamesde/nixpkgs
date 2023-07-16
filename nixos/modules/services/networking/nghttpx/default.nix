@@ -22,8 +22,9 @@ let
     # filterParams :: ParamsSubmodule -> ParamsSubmodule
   filterParams =
     p:
-    lib.filterAttrs (n: v: ("_module" != n) && (null != v) && (false != v))
-    (lib.optionalAttrs (null != p) p)
+    lib.filterAttrs (n: v: ("_module" != n) && (null != v) && (false != v)) (
+      lib.optionalAttrs (null != p) p
+    )
     ;
 
     # renderBackend :: BackendSubmodule -> String
@@ -37,15 +38,17 @@ let
         # complicated because nghttpx backend patterns can be entirely
         # omitted and the params may be given as a mixed collection of
         # 'key=val' pairs or atoms (e.g: 'proto=h2;tls')
-      params = lib.mapAttrsToList (
-        n: v:
-        if builtins.isBool v then
-          n
-        else if builtins.isString v then
-          "${n}=${v}"
-        else
-          "${n}=${builtins.toString v}"
-      ) (filterParams backend.params);
+      params = lib.mapAttrsToList
+        (
+          n: v:
+          if builtins.isBool v then
+            n
+          else if builtins.isString v then
+            "${n}=${v}"
+          else
+            "${n}=${builtins.toString v}"
+        )
+        (filterParams backend.params);
 
         # NB: params are delimited by a ";" which is the same delimiter
         # to separate the host;[pattern];[params] sections of a backend
@@ -66,13 +69,15 @@ let
     frontend:
     let
       host = renderHost frontend.server;
-      params0 = lib.mapAttrsToList (
-        n: v:
-        if builtins.isBool v then
-          n
-        else
-          v
-      ) (filterParams frontend.params);
+      params0 = lib.mapAttrsToList
+        (
+          n: v:
+          if builtins.isBool v then
+            n
+          else
+            v
+        )
+        (filterParams frontend.params);
 
         # NB: nghttpx doesn't accept "tls", you must omit "no-tls" for
         # the default behavior of turning on TLS.

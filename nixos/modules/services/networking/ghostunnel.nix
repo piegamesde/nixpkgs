@@ -198,12 +198,15 @@ let
           };
           script = concatStringsSep " " (
             [ "${mainCfg.package}/bin/ghostunnel" ]
-            ++ optional (config.keystore != null)
+            ++ optional
+              (config.keystore != null)
               "--keystore=$CREDENTIALS_DIRECTORY/keystore"
-            ++ optional (config.cert != null)
+            ++ optional
+              (config.cert != null)
               "--cert=$CREDENTIALS_DIRECTORY/cert"
             ++ optional (config.key != null) "--key=$CREDENTIALS_DIRECTORY/key"
-            ++ optional (config.cacert != null)
+            ++ optional
+              (config.cacert != null)
               "--cacert=$CREDENTIALS_DIRECTORY/cacert"
             ++ [
               "server"

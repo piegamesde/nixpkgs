@@ -14,8 +14,9 @@ let
   version =
     let
       packageJson = lib.importJSON ./package.json;
-      splits = builtins.split "^.*#v(.*)$"
-        (builtins.getAttr "onlykey" (builtins.head packageJson));
+      splits = builtins.split "^.*#v(.*)$" (
+        builtins.getAttr "onlykey" (builtins.head packageJson)
+      );
       matches = builtins.elemAt splits 1;
       elem = builtins.head matches;
     in
@@ -36,20 +37,22 @@ let
     });
 
   self = super // {
-    "${onlykeyPkg}" = super."${onlykeyPkg}".override (attrs: {
-      # when installing packages, nw tries to download nwjs in its postInstall
-      # script. There are currently no other postInstall scripts, so this
-      # should not break other things.
-      npmFlags =
-        attrs.npmFlags or "" + " --ignore-scripts"
-        ;
+    "${onlykeyPkg}" = super."${onlykeyPkg}".override (
+      attrs: {
+        # when installing packages, nw tries to download nwjs in its postInstall
+        # script. There are currently no other postInstall scripts, so this
+        # should not break other things.
+        npmFlags =
+          attrs.npmFlags or "" + " --ignore-scripts"
+          ;
 
-        # this package requires to be built in order to become runnable.
-      postInstall = ''
-        cd $out/lib/node_modules/${attrs.packageName}
-        npm run build
-      '';
-    });
+          # this package requires to be built in order to become runnable.
+        postInstall = ''
+          cd $out/lib/node_modules/${attrs.packageName}
+          npm run build
+        '';
+      }
+    );
   };
 
   script =

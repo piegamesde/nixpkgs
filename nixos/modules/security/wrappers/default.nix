@@ -154,24 +154,30 @@ let
     ''
     ;
 
-  mkWrappedPrograms = builtins.map (
-    opts:
-    if opts.capabilities != "" then
-      mkSetcapProgram opts
-    else
-      mkSetuidProgram opts
-  ) (lib.attrValues wrappers);
+  mkWrappedPrograms = builtins.map
+    (
+      opts:
+      if opts.capabilities != "" then
+        mkSetcapProgram opts
+      else
+        mkSetuidProgram opts
+    )
+    (lib.attrValues wrappers);
 in
 {
   imports = [
-    (lib.mkRemovedOptionModule [
-      "security"
-      "setuidOwners"
-    ] "Use security.wrappers instead")
-    (lib.mkRemovedOptionModule [
-      "security"
-      "setuidPrograms"
-    ] "Use security.wrappers instead")
+    (lib.mkRemovedOptionModule
+      [
+        "security"
+        "setuidOwners"
+      ]
+      "Use security.wrappers instead")
+    (lib.mkRemovedOptionModule
+      [
+        "security"
+        "setuidPrograms"
+      ]
+      "Use security.wrappers instead")
   ];
 
     ###### interface
@@ -240,15 +246,17 @@ in
     ###### implementation
   config = {
 
-    assertions = lib.mapAttrsToList (
-      name: opts: {
-        assertion = opts.setuid || opts.setgid -> opts.capabilities == "";
-        message = ''
-          The security.wrappers.${name} wrapper is not valid:
-              setuid/setgid and capabilities are mutually exclusive.
-        '';
-      }
-    ) wrappers;
+    assertions = lib.mapAttrsToList
+      (
+        name: opts: {
+          assertion = opts.setuid || opts.setgid -> opts.capabilities == "";
+          message = ''
+            The security.wrappers.${name} wrapper is not valid:
+                setuid/setgid and capabilities are mutually exclusive.
+          '';
+        }
+      )
+      wrappers;
 
     security.wrappers =
       let
@@ -294,45 +302,48 @@ in
     '';
 
       ###### wrappers activation script
-    system.activationScripts.wrappers = lib.stringAfter [
-      "specialfs"
-      "users"
-    ] ''
-      chmod 755 "${parentWrapperDir}"
+    system.activationScripts.wrappers = lib.stringAfter
+      [
+        "specialfs"
+        "users"
+      ]
+      ''
+        chmod 755 "${parentWrapperDir}"
 
-      # We want to place the tmpdirs for the wrappers to the parent dir.
-      wrapperDir=$(mktemp --directory --tmpdir="${parentWrapperDir}" wrappers.XXXXXXXXXX)
-      chmod a+rx "$wrapperDir"
+        # We want to place the tmpdirs for the wrappers to the parent dir.
+        wrapperDir=$(mktemp --directory --tmpdir="${parentWrapperDir}" wrappers.XXXXXXXXXX)
+        chmod a+rx "$wrapperDir"
 
-      ${lib.concatStringsSep "\n" mkWrappedPrograms}
+        ${lib.concatStringsSep "\n" mkWrappedPrograms}
 
-      if [ -L ${wrapperDir} ]; then
-        # Atomically replace the symlink
-        # See https://axialcorps.com/2013/07/03/atomically-replacing-files-and-directories/
-        old=$(readlink -f ${wrapperDir})
-        if [ -e "${wrapperDir}-tmp" ]; then
-          rm --force --recursive "${wrapperDir}-tmp"
+        if [ -L ${wrapperDir} ]; then
+          # Atomically replace the symlink
+          # See https://axialcorps.com/2013/07/03/atomically-replacing-files-and-directories/
+          old=$(readlink -f ${wrapperDir})
+          if [ -e "${wrapperDir}-tmp" ]; then
+            rm --force --recursive "${wrapperDir}-tmp"
+          fi
+          ln --symbolic --force --no-dereference "$wrapperDir" "${wrapperDir}-tmp"
+          mv --no-target-directory "${wrapperDir}-tmp" "${wrapperDir}"
+          rm --force --recursive "$old"
+        else
+          # For initial setup
+          ln --symbolic "$wrapperDir" "${wrapperDir}"
         fi
-        ln --symbolic --force --no-dereference "$wrapperDir" "${wrapperDir}-tmp"
-        mv --no-target-directory "${wrapperDir}-tmp" "${wrapperDir}"
-        rm --force --recursive "$old"
-      else
-        # For initial setup
-        ln --symbolic "$wrapperDir" "${wrapperDir}"
-      fi
-    '';
+      '';
 
       ###### wrappers consistency checks
-    system.extraDependencies = lib.singleton
-      (pkgs.runCommandLocal "ensure-all-wrappers-paths-exist" { } ''
+    system.extraDependencies = lib.singleton (
+      pkgs.runCommandLocal "ensure-all-wrappers-paths-exist" { } ''
         # make sure we produce output
         mkdir -p $out
 
         echo -n "Checking that Nix store paths of all wrapped programs exist... "
 
         declare -A wrappers
-        ${lib.concatStringsSep "\n"
-        (lib.mapAttrsToList (n: v: "wrappers['${n}']='${v.source}'") wrappers)}
+        ${lib.concatStringsSep "\n" (
+          lib.mapAttrsToList (n: v: "wrappers['${n}']='${v.source}'") wrappers
+        )}
 
         for name in "''${!wrappers[@]}"; do
           path="''${wrappers[$name]}"
@@ -347,6 +358,7 @@ in
         done
 
         echo "OK"
-      '');
+      ''
+    );
   };
 }

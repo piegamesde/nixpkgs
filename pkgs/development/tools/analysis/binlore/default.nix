@@ -107,8 +107,11 @@ rec {
       mkdir $out
       for lorefile in ${toString lore.types}; do
         cat ${
-          lib.concatMapStrings (x: x + "/$lorefile ") (map (make lore)
-            (map lib.getBin (builtins.filter lib.isDerivation drvs)))
+          lib.concatMapStrings (x: x + "/$lorefile ") (
+            map (make lore) (
+              map lib.getBin (builtins.filter lib.isDerivation drvs)
+            )
+          )
         } > $out/$lorefile
         substituteInPlace $out/$lorefile ${
           lib.concatMapStrings (x: "--replace '${x}/' '' ") strip
@@ -119,10 +122,12 @@ rec {
     # TODO: echo for debug, can be removed at some point
   make =
     lore: drv:
-    runCommand "${drv.name}-binlore" {
+    runCommand "${drv.name}-binlore"
+    {
       identifier = drv.name;
       drv = drv;
-    } (''
+    }
+    (''
       mkdir $out
       touch $out/{${builtins.concatStringsSep "," lore.types}}
 

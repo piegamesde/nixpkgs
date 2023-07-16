@@ -11,12 +11,16 @@ let
   cfg = config.services.sanoid;
 
   datasetSettingsType = with types;
-    (attrsOf (nullOr (oneOf [
-      str
-      int
-      bool
-      (listOf str)
-    ]))) // {
+    (attrsOf (
+      nullOr (
+        oneOf [
+          str
+          int
+          bool
+          (listOf str)
+        ]
+      )
+    )) // {
       description = "dataset/template options";
     };
 
@@ -160,32 +164,36 @@ in
     };
 
     datasets = mkOption {
-      type = types.attrsOf (types.submodule (
-        {
-          config,
-          options,
-          ...
-        }: {
-          freeformType = datasetSettingsType;
-          options = commonOptions // datasetOptions;
-          config.use_template = modules.mkAliasAndWrapDefsWithPriority id (
-            options.useTemplate or { }
-          );
-          config.process_children_only =
-            modules.mkAliasAndWrapDefsWithPriority id (
-              options.processChildrenOnly or { }
+      type = types.attrsOf (
+        types.submodule (
+          {
+            config,
+            options,
+            ...
+          }: {
+            freeformType = datasetSettingsType;
+            options = commonOptions // datasetOptions;
+            config.use_template = modules.mkAliasAndWrapDefsWithPriority id (
+              options.useTemplate or { }
             );
-        }
-      ));
+            config.process_children_only =
+              modules.mkAliasAndWrapDefsWithPriority id (
+                options.processChildrenOnly or { }
+              );
+          }
+        )
+      );
       default = { };
       description = lib.mdDoc "Datasets to snapshot.";
     };
 
     templates = mkOption {
-      type = types.attrsOf (types.submodule {
-        freeformType = datasetSettingsType;
-        options = commonOptions;
-      });
+      type = types.attrsOf (
+        types.submodule {
+          freeformType = datasetSettingsType;
+          options = commonOptions;
+        }
+      );
       default = { };
       description = lib.mdDoc "Templates for datasets.";
     };
@@ -227,17 +235,21 @@ in
       description = "Sanoid snapshot service";
       serviceConfig = {
         ExecStartPre =
-          (map (buildAllowCommand "allow" [
-            "snapshot"
-            "mount"
-            "destroy"
-          ]) datasets);
+          (map
+            (buildAllowCommand "allow" [
+              "snapshot"
+              "mount"
+              "destroy"
+            ])
+            datasets);
         ExecStopPost =
-          (map (buildAllowCommand "unallow" [
-            "snapshot"
-            "mount"
-            "destroy"
-          ]) datasets);
+          (map
+            (buildAllowCommand "unallow" [
+              "snapshot"
+              "mount"
+              "destroy"
+            ])
+            datasets);
         ExecStart = lib.escapeShellArgs (
           [
             "${cfg.package}/bin/sanoid"

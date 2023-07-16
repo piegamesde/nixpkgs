@@ -9,8 +9,9 @@
 let
   mk-perl-flags =
     inputs:
-    lib.concatStringsSep " "
-    (map (dep: "-I ${dep}/${perlPackages.perl.libPrefix}") inputs)
+    lib.concatStringsSep " " (
+      map (dep: "-I ${dep}/${perlPackages.perl.libPrefix}") inputs
+    )
     ;
   postgrey-flags = mk-perl-flags (
     with perlPackages; [
@@ -25,7 +26,8 @@ let
   version = "1.37";
   name = "postgrey-${version}";
 in
-runCommand name {
+runCommand name
+{
   src = fetchurl {
     url = "https://postgrey.schweikert.ch/pub/${name}.tar.gz";
     sha256 = "1xx51xih4711vrvc6d57il9ccallbljj5zhgqdb07jzmz11rakgz";
@@ -36,7 +38,8 @@ runCommand name {
     platforms = postfix.meta.platforms;
     license = licenses.gpl2;
   };
-} ''
+}
+''
   mkdir -p $out/bin
   cd $out
   tar -xzf $src --strip-components=1

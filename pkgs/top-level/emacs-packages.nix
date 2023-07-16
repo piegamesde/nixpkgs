@@ -88,7 +88,8 @@ let
 in
 makeScope pkgs'.newScope (
   self:
-  makeOverridable (
+  makeOverridable
+  (
     {
       pkgs ? pkgs',
       lib ? pkgs.lib,
@@ -112,10 +113,12 @@ makeScope pkgs'.newScope (
       } // {
 
         # Propagate overridden scope
-        emacs = emacs'.overrideAttrs (old: {
-          passthru =
-            (old.passthru or { }) // { pkgs = dontRecurseIntoAttrs self; };
-        });
+        emacs = emacs'.overrideAttrs (
+          old: {
+            passthru =
+              (old.passthru or { }) // { pkgs = dontRecurseIntoAttrs self; };
+          }
+        );
 
         trivialBuild = pkgs.callPackage ../build-support/emacs/trivial.nix {
           inherit (self) emacs;
@@ -138,5 +141,6 @@ makeScope pkgs'.newScope (
 
       }
     )
-  ) { }
+  )
+  { }
 )

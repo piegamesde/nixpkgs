@@ -76,10 +76,12 @@ let
     # neovim-drv must be a wrapped neovim
   runTest =
     neovim-drv: buildCommand:
-    runCommandLocal "test-${neovim-drv.name}" ({
+    runCommandLocal "test-${neovim-drv.name}"
+    ({
       nativeBuildInputs = [ ];
       meta.platforms = neovim-drv.meta.platforms;
-    }) (
+    })
+    (
       ''
         source ${nmt}/bash-lib/assertions.sh
         vimrc="${writeText "init.vim" neovim-drv.initRc}"
@@ -129,8 +131,9 @@ pkgs.recurseIntoAttrs (rec {
     extraName = "-with-plug";
     configure.packages.plugins = with pkgs.vimPlugins; {
       start = [
-          (base16-vim.overrideAttrs
-            (old: { pname = old.pname + "-unique-for-tests-please-dont-use"; }))
+          (base16-vim.overrideAttrs (
+            old: { pname = old.pname + "-unique-for-tests-please-dont-use"; }
+          ))
         ];
     };
     configure.customRC = ''
@@ -163,22 +166,26 @@ pkgs.recurseIntoAttrs (rec {
 
     # check that the vim-doc hook correctly generates the tag
     # we know for a fact packer has a doc folder
-  checkForTags = vimPlugins.packer-nvim.overrideAttrs (oldAttrs: {
-    doInstallCheck = true;
-    installCheckPhase = ''
-      [ -f $out/doc/tags ]
-    '';
-  });
+  checkForTags = vimPlugins.packer-nvim.overrideAttrs (
+    oldAttrs: {
+      doInstallCheck = true;
+      installCheckPhase = ''
+        [ -f $out/doc/tags ]
+      '';
+    }
+  );
 
     # check that the vim-doc hook correctly generates the tag
     # for neovim packages from luaPackages
     # we know for a fact gitsigns-nvim has a doc folder and comes from luaPackages
-  checkForTagsLuaPackages = vimPlugins.gitsigns-nvim.overrideAttrs (oldAttrs: {
-    doInstallCheck = true;
-    installCheckPhase = ''
-      [ -f $out/doc/tags ]
-    '';
-  });
+  checkForTagsLuaPackages = vimPlugins.gitsigns-nvim.overrideAttrs (
+    oldAttrs: {
+      doInstallCheck = true;
+      installCheckPhase = ''
+        [ -f $out/doc/tags ]
+      '';
+    }
+  );
 
   nvim_with_gitsigns_plugin = neovim.override {
     extraName = "-with-gitsigns-plugin";
@@ -193,12 +200,14 @@ pkgs.recurseIntoAttrs (rec {
   nvimShouldntWrap = wrapNeovim2 "-should-not-wrap" nvimAutoDisableWrap;
 
     # this will generate a neovimRc content but we disable wrapping
-  nvimDontWrap = wrapNeovim2 "-forced-nowrap" (makeNeovimConfig {
-    wrapRc = false;
-    customRC = ''
-      " this shouldn't trigger the creation of an init.vim
-    '';
-  });
+  nvimDontWrap = wrapNeovim2 "-forced-nowrap" (
+    makeNeovimConfig {
+      wrapRc = false;
+      customRC = ''
+        " this shouldn't trigger the creation of an init.vim
+      '';
+    }
+  );
 
   force-nowrap = runTest nvimDontWrap ''
     ! grep -F -- ' -u' ${nvimDontWrap}/bin/nvim
@@ -230,12 +239,14 @@ pkgs.recurseIntoAttrs (rec {
     configure.packages.foo.start = with vimPlugins; [ deoplete-nvim ];
   };
 
-  nvimWithLuaPackages = wrapNeovim2 "-with-lua-packages" (makeNeovimConfig {
-    extraLuaPackages = ps: [ ps.mpack ];
-    customRC = ''
-      lua require("mpack")
-    '';
-  });
+  nvimWithLuaPackages = wrapNeovim2 "-with-lua-packages" (
+    makeNeovimConfig {
+      extraLuaPackages = ps: [ ps.mpack ];
+      customRC = ''
+        lua require("mpack")
+      '';
+    }
+  );
 
   nvim_with_lua_packages = runTest nvimWithLuaPackages ''
     export HOME=$TMPDIR
@@ -247,9 +258,11 @@ pkgs.recurseIntoAttrs (rec {
     extraName = "-with-opt-plugin";
     configure.packages.opt-plugins = with pkgs.vimPlugins; {
       opt = [
-          (dashboard-nvim.overrideAttrs (old: {
-            pname = old.pname + "-unique-for-tests-please-dont-use-opt";
-          }))
+          (dashboard-nvim.overrideAttrs (
+            old: {
+              pname = old.pname + "-unique-for-tests-please-dont-use-opt";
+            }
+          ))
         ];
     };
     configure.customRC = ''

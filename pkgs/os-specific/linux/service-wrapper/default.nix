@@ -10,7 +10,8 @@ let
   name = "service-wrapper-${version}";
   version = "19.04"; # Akin to Ubuntu Release
 in
-runCommand name {
+runCommand name
+{
   script = substituteAll {
     src = ./service-wrapper.sh;
     isExecutable = true;
@@ -28,7 +29,8 @@ runCommand name {
       ];
       # Shellscript has been modified but upstream source is: https://git.launchpad.net/ubuntu/+source/init-system-helpers
   };
-} ''
+}
+''
   mkdir -p $out/bin
   ln -s $out/bin $out/sbin
   cp $script $out/bin/service

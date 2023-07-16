@@ -123,9 +123,9 @@ let
   };
 
     # buildInputs necessary for the enabled extraModules
-  extraInputs = lib.concatMap (
-    m: extras."${m}" or (builtins.throw "Unknown extra module ${m}")
-  ) extraModules;
+  extraInputs = lib.concatMap
+    (m: extras."${m}" or (builtins.throw "Unknown extra module ${m}"))
+    extraModules;
 
     # if true, we can't provide a binary version of this
     # package without violating the GPL 2
@@ -221,9 +221,10 @@ stdenv.mkDerivation rec {
     license =
       [ lib.licenses.gpl2Only ]
       ++ lib.concatMap getLicenses extraInputs
-      ++ lib.optionals (anyMembers extraModules libcModules)
-        (getLicenses stdenv.cc.libc)
-        # FIXME(sternenseemann): get license of used lib(std)c++ somehow
+      ++ lib.optionals (anyMembers extraModules libcModules) (
+        getLicenses stdenv.cc.libc
+      )
+      # FIXME(sternenseemann): get license of used lib(std)c++ somehow
       ++ lib.optional (anyMembers extraModules libcxxModules) "Unknown"
         # Hack: Definitely prevent a hydra from building this package on
         # a GPL 2 incompatibility even if it is not in a top-level attribute,

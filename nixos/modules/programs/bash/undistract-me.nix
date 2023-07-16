@@ -13,12 +13,14 @@ in
 {
   options = {
     programs.bash.undistractMe = {
-      enable = mkEnableOption
-        (lib.mdDoc "notifications when long-running terminal commands complete")
-        ;
+      enable = mkEnableOption (
+        lib.mdDoc "notifications when long-running terminal commands complete"
+      );
 
-      playSound = mkEnableOption (lib.mdDoc
-        "notification sounds when long-running terminal commands complete");
+      playSound = mkEnableOption (
+        lib.mdDoc
+        "notification sounds when long-running terminal commands complete"
+      );
 
       timeout = mkOption {
         default = 10;

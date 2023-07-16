@@ -940,10 +940,12 @@ rec {
     }@sys:
     assert isSystem sys;
     let
-      optExecFormat = lib.optionalString (
-        kernel.name == "netbsd"
-        && gnuNetBSDDefaultExecFormat cpu != kernel.execFormat
-      ) kernel.execFormat.name;
+      optExecFormat = lib.optionalString
+        (
+          kernel.name == "netbsd"
+          && gnuNetBSDDefaultExecFormat cpu != kernel.execFormat
+        )
+        kernel.execFormat.name;
       optAbi = lib.optionalString (abi != abis.unknown) "-${abi.name}";
     in
     "${cpu.name}-${vendor.name}-${kernelName kernel}${optExecFormat}${optAbi}"

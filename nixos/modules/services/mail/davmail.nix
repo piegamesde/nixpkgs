@@ -32,7 +32,8 @@ let
 
   linesForAttrs =
     attrs:
-    concatMap (
+    concatMap
+    (
       name:
       let
         value = attrs.${name};
@@ -41,11 +42,13 @@ let
         map (line: name + "." + line) (linesForAttrs value)
       else
         [ "${name}=${toStr value}" ]
-    ) (attrNames attrs)
+    )
+    (attrNames attrs)
     ;
 
-  configFile = pkgs.writeText "davmail.properties"
-    (concatStringsSep "\n" (linesForAttrs cfg.config));
+  configFile = pkgs.writeText "davmail.properties" (
+    concatStringsSep "\n" (linesForAttrs cfg.config)
+  );
 
 in
 {

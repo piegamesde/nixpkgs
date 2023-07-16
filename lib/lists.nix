@@ -270,13 +270,15 @@ rec {
   any =
     builtins.any or (
       pred:
-      foldr (
+      foldr
+      (
         x: y:
         if pred x then
           true
         else
           y
-      ) false
+      )
+      false
     );
 
     /* Return true if function `pred` returns true for all elements of
@@ -293,13 +295,15 @@ rec {
   all =
     builtins.all or (
       pred:
-      foldr (
+      foldr
+      (
         x: y:
         if pred x then
           y
         else
           false
-      ) true
+      )
+      true
     );
 
     /* Count how many elements of `list` match the supplied predicate
@@ -314,13 +318,15 @@ rec {
   count =
     # Predicate
     pred:
-    foldl' (
+    foldl'
+    (
       c: x:
       if pred x then
         c + 1
       else
         c
-    ) 0
+    )
+    0
     ;
 
     /* Return a singleton list or an empty list, depending on a boolean
@@ -430,7 +436,8 @@ rec {
   partition =
     builtins.partition or (
       pred:
-      foldr (
+      foldr
+      (
         h: t:
         if pred h then
           {
@@ -442,7 +449,8 @@ rec {
             right = t.right;
             wrong = [ h ] ++ t.wrong;
           }
-      ) {
+      )
+      {
         right = [ ];
         wrong = [ ];
       }
@@ -476,13 +484,15 @@ rec {
   groupBy =
     builtins.groupBy or (
       pred:
-      foldl' (
+      foldl'
+      (
         r: e:
         let
           key = pred e;
         in
         r // { ${key} = (r.${key} or [ ]) ++ [ e ]; }
-      ) { }
+      )
+      { }
     );
 
     /* Merges two lists of the same size together. If the sizes aren't the same
@@ -721,18 +731,22 @@ rec {
     let
       vectorise =
         s:
-        map (
+        map
+        (
           x:
           if isList x then
             toInt (head x)
           else
             x
-        ) (builtins.split "(0|[1-9][0-9]*)" s)
+        )
+        (builtins.split "(0|[1-9][0-9]*)" s)
         ;
-      prepared = map (x: [
-        (vectorise x)
-        x
-      ]) lst; # remember vectorised version for O(n) regex splits
+      prepared = map
+        (x: [
+          (vectorise x)
+          x
+        ])
+        lst; # remember vectorised version for O(n) regex splits
       less = a: b: (compareLists compare (head a) (head b)) < 0;
     in
     map (x: elemAt x 1) (sort less prepared)
@@ -842,9 +856,8 @@ rec {
          => [ "13" "14" "23" "24" ]
     */
   crossLists = builtins.trace
-    "lib.crossLists is deprecated, use lib.cartesianProductOfSets instead" (
-      f: foldl (fs: args: concatMap (f: map f args) fs) [ f ]
-    );
+    "lib.crossLists is deprecated, use lib.cartesianProductOfSets instead"
+    (f: foldl (fs: args: concatMap (f: map f args) fs) [ f ]);
 
     /* Remove duplicate elements from the list. O(n^2) complexity.
 
@@ -854,13 +867,15 @@ rec {
          unique [ 3 2 3 4 ]
          => [ 3 2 4 ]
     */
-  unique = foldl' (
-    acc: e:
-    if elem e acc then
-      acc
-    else
-      acc ++ [ e ]
-  ) [ ];
+  unique = foldl'
+    (
+      acc: e:
+      if elem e acc then
+        acc
+      else
+        acc ++ [ e ]
+    )
+    [ ];
 
     /* Intersects list 'e' and another list. O(nm) complexity.
 

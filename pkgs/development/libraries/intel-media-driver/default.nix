@@ -50,8 +50,8 @@ stdenv.mkDerivation rec {
     "-DMEDIA_BUILD_FATAL_WARNINGS=OFF"
   ];
 
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString (stdenv.hostPlatform.system == "i686-linux")
+  env.NIX_CFLAGS_COMPILE = lib.optionalString
+    (stdenv.hostPlatform.system == "i686-linux")
     "-D_FILE_OFFSET_BITS=64";
 
   nativeBuildInputs = [

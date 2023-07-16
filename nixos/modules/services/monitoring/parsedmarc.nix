@@ -25,8 +25,9 @@ let
         else if isSecret v then
           hashString "sha256" v._secret
         else
-          throw
-          "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}"
+          throw "unsupported type ${typeOf v}: ${
+            (lib.generators.toPretty { }) v
+          }"
         ;
     };
   };
@@ -35,9 +36,11 @@ in
 {
   options.services.parsedmarc = {
 
-    enable = lib.mkEnableOption (lib.mdDoc ''
-      parsedmarc, a DMARC report monitoring service
-    '');
+    enable = lib.mkEnableOption (
+      lib.mdDoc ''
+        parsedmarc, a DMARC report monitoring service
+      ''
+    );
 
     provision = {
       localMail = {
@@ -523,14 +526,16 @@ in
         # lists, empty attrsets and null. This makes it possible to
         # list interesting options in `settings` without them always
         # ending up in the resulting config.
-        filteredConfig = lib.converge (lib.filterAttrsRecursive (
-          _: v:
-          !elem v [
-            null
-            [ ]
-            { }
-          ]
-        )) cfg.settings;
+        filteredConfig = lib.converge
+          (lib.filterAttrsRecursive (
+            _: v:
+            !elem v [
+              null
+              [ ]
+              { }
+            ]
+          ))
+          cfg.settings;
 
           # Extract secrets (attributes set to an attrset with a
           # "_secret" key) from the settings and generate the commands
@@ -586,7 +591,8 @@ in
                 ;
             in
             "+${
-              pkgs.writeShellScript "parsedmarc-start-pre-full-privileges"
+              pkgs.writeShellScript
+              "parsedmarc-start-pre-full-privileges"
               startPreFullPrivileges
             }"
             ;

@@ -34,8 +34,8 @@ in
   };
 
   config = {
-    test =
-      lib.lazyDerivation { # lazyDerivation improves performance when only passthru items and/or meta are used.
+    test = lib.lazyDerivation
+      { # lazyDerivation improves performance when only passthru items and/or meta are used.
         derivation = hostPkgs.stdenv.mkDerivation {
           name = "vm-test-run-${config.name}";
 

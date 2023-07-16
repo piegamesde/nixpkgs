@@ -402,9 +402,10 @@ let
       name ? ""
     }:
     rootPaths:
-    runCommand (
-      "apparmor-closure-rules" + lib.optionalString (name != "") "-${name}"
-    ) { } ''
+    runCommand
+    ("apparmor-closure-rules" + lib.optionalString (name != "") "-${name}")
+    { }
+    ''
       touch $out
       while read -r path
       do printf >>$out "%s,\n" ${

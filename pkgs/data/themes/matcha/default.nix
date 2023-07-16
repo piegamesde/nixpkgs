@@ -16,19 +16,26 @@ let
   pname = "matcha-gtk-theme";
 
 in
-lib.checkListOfEnum "${pname}: color variants" [
+lib.checkListOfEnum "${pname}: color variants"
+[
   "standard"
   "light"
   "dark"
-] colorVariants lib.checkListOfEnum "${pname}: theme variants" [
+]
+colorVariants
+lib.checkListOfEnum
+"${pname}: theme variants"
+[
   "aliz"
   "azul"
   "sea"
   "pueril"
   "all"
-] themeVariants
+]
+themeVariants
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation
+rec {
   inherit pname;
   version = "2023-04-03";
 

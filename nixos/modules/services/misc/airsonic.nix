@@ -16,9 +16,10 @@ in
   options = {
 
     services.airsonic = {
-      enable = mkEnableOption (lib.mdDoc
-        "Airsonic, the Free and Open Source media streaming server (fork of Subsonic and Libresonic)")
-        ;
+      enable = mkEnableOption (
+        lib.mdDoc
+        "Airsonic, the Free and Open Source media streaming server (fork of Subsonic and Libresonic)"
+      );
 
       user = mkOption {
         type = types.str;
@@ -157,7 +158,8 @@ in
           -Dairsonic.contextPath=${cfg.contextPath} \
           -Djava.awt.headless=true \
           ${
-            optionalString (cfg.virtualHost != null)
+            optionalString
+            (cfg.virtualHost != null)
             "-Dserver.use-forward-headers=true"
           } \
           ${toString cfg.jvmOptions} \

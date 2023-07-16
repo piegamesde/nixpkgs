@@ -20,14 +20,16 @@
     if builtins.isAttrs actual then
       (test.passed "is a set")
     else
-      (test.failed
-        "is not a set, was ${builtins.typeOf actual}: ${toString actual}")
+      (test.failed "is not a set, was ${builtins.typeOf actual}: ${
+          toString actual
+        }")
     ;
 
   haveKeys =
     expected: actual:
     if
-      builtins.all (ex: builtins.any (ac: ex == ac) (builtins.attrNames actual))
+      builtins.all
+      (ex: builtins.any (ac: ex == ac) (builtins.attrNames actual))
       expected
     then
       (test.passed "has expected keys")

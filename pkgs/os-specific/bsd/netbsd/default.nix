@@ -340,11 +340,14 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
             include.src
             libc.src
             libutil.src
-            (fetchNetBSD "external/bsd/flex" "9.2"
+            (fetchNetBSD "external/bsd/flex"
+              "9.2"
               "0h98jpfj7vx5zh7vd7bk6b1hmzgkcb757a8j6d9zgygxxv13v43m")
-            (fetchNetBSD "sys/sys" "9.2"
+            (fetchNetBSD "sys/sys"
+              "9.2"
               "0zawhw51klaigqqwkx0lzrx3mim2jywrc24cm7c66qsf1im9awgd")
-            (fetchNetBSD "common/include/rpc/types.h" "9.2"
+            (fetchNetBSD "common/include/rpc/types.h"
+              "9.2"
               "0n2df12mlc3cbc48jxq35yzl1y7ghgpykvy7jnfh898rdhac7m9a")
           ]
           ++ libutil.extraPaths
@@ -413,11 +416,14 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       ];
       propagatedBuildInputs = with self; compatIfNeeded;
       extraPaths = with self; [
-        (fetchNetBSD "lib/libc/gen/fts.c" "9.2"
+        (fetchNetBSD "lib/libc/gen/fts.c"
+          "9.2"
           "1a8hmf26242nmv05ipn3ircxb0jqmmi66rh78kkyi9vjwkfl3qn7")
-        (fetchNetBSD "lib/libc/include/namespace.h" "9.2"
+        (fetchNetBSD "lib/libc/include/namespace.h"
+          "9.2"
           "0kksr3pdwdc1cplqf5z12ih4cml6l11lqrz91f7hjjm64y7785kc")
-        (fetchNetBSD "lib/libc/gen/fts.3" "9.2"
+        (fetchNetBSD "lib/libc/gen/fts.3"
+          "9.2"
           "1asxw0n3fhjdadwkkq3xplfgqgl3q32w1lyrvbakfa3gs0wz5zc1")
       ];
       skipIncludesPhase = true;
@@ -463,10 +469,11 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       # breaks stdenv.  Work around that with a hook that will point
       # NetBSD's build system and NetBSD stat without including it in
       # PATH.
-    statHook = makeSetupHook { name = "netbsd-stat-hook"; }
-      (writeText "netbsd-stat-hook-impl" ''
+    statHook = makeSetupHook { name = "netbsd-stat-hook"; } (
+      writeText "netbsd-stat-hook-impl" ''
         makeFlagsArray+=(TOOL_STAT=${self.stat}/bin/stat)
-      '');
+      ''
+    );
 
     tsort = mkDerivation {
       path = "usr.bin/tsort";
@@ -563,7 +570,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         make -C $BSDSRCDIR/share/mk FILESDIR=$out/share/mk install
       '';
       extraPaths = [
-          (fetchNetBSD "share/mk" "9.2"
+          (fetchNetBSD "share/mk"
+            "9.2"
             "0w9x77cfnm6zwy40slradzi0ip9gz80x6lk7pvnlxzsr2m5ra5sy")
         ];
     };
@@ -645,9 +653,11 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       makeFlags = defaultMakeFlags ++ [ "TOOLDIR=$(out)" ];
       extraPaths = with self; [
         libterminfo.src
-        (fetchNetBSD "usr.bin/tic" "9.2"
+        (fetchNetBSD "usr.bin/tic"
+          "9.2"
           "1mwdfg7yx1g43ss378qsgl5rqhsxskqvsd2mqvrn38qw54i8v5i1")
-        (fetchNetBSD "tools/Makefile.host" "9.2"
+        (fetchNetBSD "tools/Makefile.host"
+          "9.2"
           "15b4ab0n36lqj00j5lz2xs83g7l8isk3wx1wcapbrn66qmzz2sxy")
       ];
     };
@@ -733,7 +743,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         ;
     };
 
-    common = fetchNetBSD "common" "9.2"
+    common = fetchNetBSD "common"
+      "9.2"
       "1pfylz9r3ap5wnwwbwczbfjb1m5qdyspzbnmxmcdkpzz2zgj64b9";
 
     sys-headers = mkDerivation {
@@ -916,7 +927,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         make -C $BSDSRCDIR/share/terminfo $makeFlags BINDIR=$out/share install
       '';
       extraPaths = with self; [
-          (fetchNetBSD "share/terminfo" "9.2"
+          (fetchNetBSD "share/terminfo"
+            "9.2"
             "1vh9rl4w8118a9qdpblfxmv1wkpm83rm9gb4rzz5bpm56i6d7kk7")
         ];
     };
@@ -1129,7 +1141,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       extraPaths = with self;
         _mainLibcExtraPaths
         ++ [
-          (fetchNetBSD "external/bsd/jemalloc" "9.2"
+          (fetchNetBSD "external/bsd/jemalloc"
+            "9.2"
             "0cq704swa0h2yxv4gc79z2lwxibk9k7pxh3q5qfs7axx3jx3n8kb")
         ];
       nativeBuildInputs = with buildPackages.netbsd; [

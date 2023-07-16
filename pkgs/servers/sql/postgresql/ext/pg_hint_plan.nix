@@ -14,13 +14,16 @@ stdenv.mkDerivation rec {
     repo = pname;
     rev =
       "REL${
-        builtins.replaceStrings [
+        builtins.replaceStrings
+        [
           "-"
           "."
-        ] [
+        ]
+        [
           "_"
           "_"
-        ] version
+        ]
+        version
       }";
     sha256 = "sha256-2hYDn/69264x2lMRVIp/I5chjocL6UqIw5ry1qdRcDM=";
   };

@@ -322,11 +322,13 @@ stdenv.mkDerivation (
             ];
           in
           "-DCROSS_TOOLCHAIN_FLAGS_NATIVE:list="
-          + lib.concatStringsSep ";" (lib.concatLists [
-            flagsForLlvmConfig
-            nativeToolchainFlags
-            nativeInstallFlags
-          ])
+          + lib.concatStringsSep ";" (
+            lib.concatLists [
+              flagsForLlvmConfig
+              nativeToolchainFlags
+              nativeInstallFlags
+            ]
+          )
         )
       ]
       ;

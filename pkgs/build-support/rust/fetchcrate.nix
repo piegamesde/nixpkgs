@@ -19,7 +19,8 @@ assert pname == null || pname == crateName;
     fetchzip
   else
     fetchurl
-) (
+)
+(
   {
     name = "${crateName}-${version}.tar.gz";
     url = "https://crates.io/api/v1/crates/${crateName}/${version}/download";

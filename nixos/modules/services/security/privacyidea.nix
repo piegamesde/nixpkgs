@@ -70,9 +70,13 @@ let
       x
     ;
 
-  ldapProxyConfig = pkgs.writeText "ldap-proxy.ini" (generators.toINI { }
-    (flip mapAttrs cfg.ldap-proxy.settings
-      (const (mapAttrs (const renderValue)))));
+  ldapProxyConfig = pkgs.writeText "ldap-proxy.ini" (
+    generators.toINI { } (
+      flip mapAttrs cfg.ldap-proxy.settings (
+        const (mapAttrs (const renderValue))
+      )
+    )
+  );
 
   privacyidea-token-janitor =
     pkgs.writeShellScriptBin "privacyidea-token-janitor" ''
@@ -273,12 +277,16 @@ in
 
         settings = mkOption {
           type = with types;
-            attrsOf (attrsOf (oneOf [
-              str
-              bool
-              int
-              (listOf str)
-            ]));
+            attrsOf (
+              attrsOf (
+                oneOf [
+                  str
+                  bool
+                  int
+                  (listOf str)
+                ]
+              )
+            );
           default = { };
           description = lib.mdDoc ''
             Attribute-set containing the settings for `privacyidea-ldap-proxy`.
@@ -367,30 +375,32 @@ in
 
       systemd.services.privacyidea =
         let
-          piuwsgi = pkgs.writeText "uwsgi.json" (builtins.toJSON {
-            uwsgi = {
-              buffer-size = 8192;
-              plugins = [ "python3" ];
-              pythonpath = "${penv}/${uwsgi.python3.sitePackages}";
-              socket = "/run/privacyidea/socket";
-              uid = cfg.user;
-              gid = cfg.group;
-              chmod-socket = 770;
-              chown-socket = "${cfg.user}:nginx";
-              chdir = cfg.stateDir;
-              wsgi-file = "${penv}/etc/privacyidea/privacyideaapp.wsgi";
-              processes = 4;
-              harakiri = 60;
-              reload-mercy = 8;
-              stats = "/run/privacyidea/stats.socket";
-              max-requests = 2000;
-              limit-as = 1024;
-              reload-on-as = 512;
-              reload-on-rss = 256;
-              no-orphans = true;
-              vacuum = true;
-            };
-          });
+          piuwsgi = pkgs.writeText "uwsgi.json" (
+            builtins.toJSON {
+              uwsgi = {
+                buffer-size = 8192;
+                plugins = [ "python3" ];
+                pythonpath = "${penv}/${uwsgi.python3.sitePackages}";
+                socket = "/run/privacyidea/socket";
+                uid = cfg.user;
+                gid = cfg.group;
+                chmod-socket = 770;
+                chown-socket = "${cfg.user}:nginx";
+                chdir = cfg.stateDir;
+                wsgi-file = "${penv}/etc/privacyidea/privacyideaapp.wsgi";
+                processes = 4;
+                harakiri = 60;
+                reload-mercy = 8;
+                stats = "/run/privacyidea/stats.socket";
+                max-requests = 2000;
+                limit-as = 1024;
+                reload-on-as = 512;
+                reload-on-rss = 256;
+                no-orphans = true;
+                vacuum = true;
+              };
+            }
+          );
         in
         {
           wantedBy = [ "multi-user.target" ];

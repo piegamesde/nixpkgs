@@ -12,9 +12,11 @@ let
 
   listToConf =
     option: list:
-    concatMapStrings (value: ''
+    concatMapStrings
+    (value: ''
       ${option}=${value}
-    '') list
+    '')
+    list
     ;
 
   login = (cfg.rpc.user != null && cfg.rpc.password != null);

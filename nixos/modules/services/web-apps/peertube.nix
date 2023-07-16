@@ -66,15 +66,21 @@ let
     SystemCallArchitectures = "native";
   };
 
-  envFile = pkgs.writeText "peertube.env" (lib.concatMapStrings (s: s + "\n") (
-    (lib.concatLists (lib.mapAttrsToList (
-      name: value:
-      if value != null then
-        [ ''${name}="${toString value}"'' ]
-      else
-        [ ]
-    ) env))
-  ));
+  envFile = pkgs.writeText "peertube.env" (
+    lib.concatMapStrings (s: s + "\n") (
+      (lib.concatLists (
+        lib.mapAttrsToList
+        (
+          name: value:
+          if value != null then
+            [ ''${name}="${toString value}"'' ]
+          else
+            [ ]
+        )
+        env
+      ))
+    )
+  );
 
   peertubeEnv = pkgs.writeShellScriptBin "peertube-env" ''
     set -a
@@ -91,7 +97,8 @@ let
       add_header Strict-Transport-Security      'max-age=63072000; includeSubDomains';
     ''
     + lib.optionalString
-      config.services.nginx.virtualHosts.${cfg.localDomain}.http3 ''
+      config.services.nginx.virtualHosts.${cfg.localDomain}.http3
+      ''
         add_header Alt-Svc                        'h3=":443"; ma=86400';
       ''
     + ''
@@ -554,9 +561,9 @@ in
           secrets:
             peertube: '$(cat ${cfg.secrets.secretsFile})'
         ''}
-        ${lib.optionalString (
-          (!cfg.database.createLocally) && (cfg.database.passwordFile != null)
-        ) ''
+        ${lib.optionalString
+        ((!cfg.database.createLocally) && (cfg.database.passwordFile != null))
+        ''
           database:
             password: '$(cat ${cfg.database.passwordFile})'
         ''}
@@ -648,7 +655,8 @@ in
               add_header Strict-Transport-Security        'max-age=63072000; includeSubDomains';
             ''
             + lib.optionalString
-              config.services.nginx.virtualHosts.${cfg.localDomain}.http3 ''
+              config.services.nginx.virtualHosts.${cfg.localDomain}.http3
+              ''
                 add_header Alt-Svc                          'h3=":443"; ma=86400';
               ''
             ;
@@ -667,7 +675,8 @@ in
               add_header Strict-Transport-Security        'max-age=63072000; includeSubDomains';
             ''
             + lib.optionalString
-              config.services.nginx.virtualHosts.${cfg.localDomain}.http3 ''
+              config.services.nginx.virtualHosts.${cfg.localDomain}.http3
+              ''
                 add_header Alt-Svc                          'h3=":443"; ma=86400';
               ''
             ;
@@ -744,7 +753,8 @@ in
               add_header Strict-Transport-Security        'max-age=63072000; includeSubDomains';
             ''
             + lib.optionalString
-              config.services.nginx.virtualHosts.${cfg.localDomain}.http3 ''
+              config.services.nginx.virtualHosts.${cfg.localDomain}.http3
+              ''
                 add_header Alt-Svc                          'h3=":443"; ma=86400';
               ''
             ;
@@ -997,17 +1007,19 @@ in
           home = cfg.package;
         };
       })
-      (lib.attrsets.setAttrByPath [
-        cfg.user
-        "packages"
-      ] [
-        cfg.package
-        peertubeEnv
-        peertubeCli
-        pkgs.ffmpeg
-        pkgs.nodejs_16
-        pkgs.yarn
-      ])
+      (lib.attrsets.setAttrByPath
+        [
+          cfg.user
+          "packages"
+        ]
+        [
+          cfg.package
+          peertubeEnv
+          peertubeCli
+          pkgs.ffmpeg
+          pkgs.nodejs_16
+          pkgs.yarn
+        ])
       (lib.mkIf cfg.redis.enableUnixSocket {
         ${config.services.peertube.user}.extraGroups = [ "redis-peertube" ];
       })

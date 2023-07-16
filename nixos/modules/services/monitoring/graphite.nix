@@ -16,13 +16,15 @@ let
   dataDir = cfg.dataDir;
   staticDir = cfg.dataDir + "/static";
 
-  graphiteLocalSettingsDir = pkgs.runCommand "graphite_local_settings" {
-    inherit graphiteLocalSettings;
-    preferLocalBuild = true;
-  } ''
-    mkdir -p $out
-    ln -s $graphiteLocalSettings $out/graphite_local_settings.py
-  '';
+  graphiteLocalSettingsDir = pkgs.runCommand "graphite_local_settings"
+    {
+      inherit graphiteLocalSettings;
+      preferLocalBuild = true;
+    }
+    ''
+      mkdir -p $out
+      ln -s $graphiteLocalSettings $out/graphite_local_settings.py
+    '';
 
   graphiteLocalSettings = pkgs.writeText "graphite_local_settings.py" (
     ''
@@ -79,21 +81,27 @@ in
 {
 
   imports = [
-    (mkRemovedOptionModule [
-      "services"
-      "graphite"
-      "api"
-    ] "")
-    (mkRemovedOptionModule [
-      "services"
-      "graphite"
-      "beacon"
-    ] "")
-    (mkRemovedOptionModule [
-      "services"
-      "graphite"
-      "pager"
-    ] "")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "graphite"
+        "api"
+      ]
+      "")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "graphite"
+        "beacon"
+      ]
+      "")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "graphite"
+        "pager"
+      ]
+      "")
   ];
 
     ###### interface
@@ -270,8 +278,8 @@ in
 
       seyrenUrl = mkOption {
         default = "http://localhost:${toString cfg.seyren.port}/";
-        defaultText = literalExpression
-          ''"http://localhost:''${toString config.${opt.seyren.port}}/"'';
+        defaultText = literalExpression ''
+          "http://localhost:''${toString config.${opt.seyren.port}}/"'';
         description = lib.mdDoc "Host where seyren is accessible.";
         type = types.str;
       };
@@ -287,8 +295,8 @@ in
 
       mongoUrl = mkOption {
         default = "mongodb://${config.services.mongodb.bind_ip}:27017/seyren";
-        defaultText = literalExpression
-          ''"mongodb://''${config.services.mongodb.bind_ip}:27017/seyren"'';
+        defaultText = literalExpression ''
+          "mongodb://''${config.services.mongodb.bind_ip}:27017/seyren"'';
         description = lib.mdDoc "Mongodb connection string.";
         type = types.str;
       };
@@ -385,11 +393,15 @@ in
         ;
     })
 
-    (mkIf (
-      cfg.carbon.enableCache
-      || cfg.carbon.enableAggregator
-      || cfg.carbon.enableRelay
-    ) { environment.systemPackages = [ pkgs.python3Packages.carbon ]; })
+    (mkIf
+      (
+        cfg.carbon.enableCache
+        || cfg.carbon.enableAggregator
+        || cfg.carbon.enableRelay
+      )
+      {
+        environment.systemPackages = [ pkgs.python3Packages.carbon ];
+      })
 
     (mkIf cfg.web.enable ({
       systemd.services.graphiteWeb = {
@@ -479,20 +491,22 @@ in
       services.mongodb.enable = mkDefault true;
     })
 
-    (mkIf (
-      cfg.carbon.enableCache
-      || cfg.carbon.enableAggregator
-      || cfg.carbon.enableRelay
-      || cfg.web.enable
-      || cfg.seyren.enable
-    ) {
-      users.users.graphite = {
-        uid = config.ids.uids.graphite;
-        group = "graphite";
-        description = "Graphite daemon user";
-        home = dataDir;
-      };
-      users.groups.graphite.gid = config.ids.gids.graphite;
-    })
+    (mkIf
+      (
+        cfg.carbon.enableCache
+        || cfg.carbon.enableAggregator
+        || cfg.carbon.enableRelay
+        || cfg.web.enable
+        || cfg.seyren.enable
+      )
+      {
+        users.users.graphite = {
+          uid = config.ids.uids.graphite;
+          group = "graphite";
+          description = "Graphite daemon user";
+          home = dataDir;
+        };
+        users.groups.graphite.gid = config.ids.gids.graphite;
+      })
   ];
 }

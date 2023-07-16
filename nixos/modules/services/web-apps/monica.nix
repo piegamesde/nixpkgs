@@ -194,11 +194,13 @@ in
 
     poolConfig = mkOption {
       type = with types;
-        attrsOf (oneOf [
-          str
-          int
-          bool
-        ]);
+        attrsOf (
+          oneOf [
+            str
+            int
+            bool
+          ]
+        );
       default = {
         "pm" = "dynamic";
         "pm.max_children" = 32;
@@ -214,9 +216,11 @@ in
     };
 
     nginx = mkOption {
-      type = types.submodule (recursiveUpdate
+      type = types.submodule (
+        recursiveUpdate
         (import ../web-servers/nginx/vhost-options.nix { inherit config lib; })
-        { });
+        { }
+      );
       default = { };
       example = ''
         {
@@ -235,24 +239,32 @@ in
 
     config = mkOption {
       type = with types;
-        attrsOf (nullOr (either (oneOf [
-          bool
-          int
-          port
-          path
-          str
-        ]) (submodule {
-          options = {
-            _secret = mkOption {
-              type = nullOr str;
-              description = lib.mdDoc ''
-                The path to a file containing the value the
-                option should be set to in the final
-                configuration file.
-              '';
-            };
-          };
-        })));
+        attrsOf (
+          nullOr (
+            either
+            (oneOf [
+              bool
+              int
+              port
+              path
+              str
+            ])
+            (
+              submodule {
+                options = {
+                  _secret = mkOption {
+                    type = nullOr str;
+                    description = lib.mdDoc ''
+                      The path to a file containing the value the
+                      option should be set to in the final
+                      configuration file.
+                    '';
+                  };
+                };
+              }
+            )
+          )
+        );
       default = { };
       example = ''
         {
@@ -418,8 +430,9 @@ in
                 ;
             };
           };
-          secretPaths = lib.mapAttrsToList (_: v: v._secret)
-            (lib.filterAttrs (_: isSecret) cfg.config);
+          secretPaths = lib.mapAttrsToList (_: v: v._secret) (
+            lib.filterAttrs (_: isSecret) cfg.config
+          );
           mkSecretReplacement =
             file: ''
               replace-secret ${
@@ -433,13 +446,15 @@ in
             ;
           secretReplacements =
             lib.concatMapStrings mkSecretReplacement secretPaths;
-          filteredConfig = lib.converge (lib.filterAttrsRecursive (
-            _: v:
-            !elem v [
-              { }
-              null
-            ]
-          )) cfg.config;
+          filteredConfig = lib.converge
+            (lib.filterAttrsRecursive (
+              _: v:
+              !elem v [
+                { }
+                null
+              ]
+            ))
+            cfg.config;
           monicaEnv =
             pkgs.writeText "monica.env" (monicaEnvVars filteredConfig);
         in

@@ -237,7 +237,8 @@ stdenv.mkDerivation (
     '';
 
       # E.g. mesa.drivers use the build-id as a cache key (see #93946):
-    LDFLAGS = optionalString (enableSharedLibraries && !stdenv.isDarwin)
+    LDFLAGS = optionalString
+      (enableSharedLibraries && !stdenv.isDarwin)
       "-Wl,--build-id=sha1";
 
     cmakeFlags = with stdenv;
@@ -325,11 +326,13 @@ stdenv.mkDerivation (
             ];
           in
           "-DCROSS_TOOLCHAIN_FLAGS_NATIVE:list="
-          + lib.concatStringsSep ";" (lib.concatLists [
-            flagsForLlvmConfig
-            nativeToolchainFlags
-            nativeInstallFlags
-          ])
+          + lib.concatStringsSep ";" (
+            lib.concatLists [
+              flagsForLlvmConfig
+              nativeToolchainFlags
+              nativeInstallFlags
+            ]
+          )
         )
       ]
       ;

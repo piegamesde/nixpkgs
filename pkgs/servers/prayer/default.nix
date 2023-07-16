@@ -13,7 +13,8 @@
 }:
 
 let
-  ssl = lib.optionals uwimap.withSSL
+  ssl = lib.optionals
+    uwimap.withSSL
     "-e 's/CCLIENT_SSL_ENABLE.*= false/CCLIENT_SSL_ENABLE=true/'";
 in
 stdenv.mkDerivation rec {

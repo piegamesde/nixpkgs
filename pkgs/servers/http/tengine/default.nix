@@ -51,12 +51,14 @@ stdenv.mkDerivation rec {
     ;
 
   patches =
-    singleton (substituteAll {
-      src = ../nginx/nix-etag-1.15.4.patch;
-      preInstall = ''
-        export nixStoreDir="$NIX_STORE" nixStoreDirLen="''${#NIX_STORE}"
-      '';
-    })
+    singleton (
+      substituteAll {
+        src = ../nginx/nix-etag-1.15.4.patch;
+        preInstall = ''
+          export nixStoreDir="$NIX_STORE" nixStoreDirLen="''${#NIX_STORE}"
+        '';
+      }
+    )
     ++ [
       ./check-resolv-conf.patch
       ../nginx/nix-skip-check-logs-path.patch
@@ -129,7 +131,8 @@ stdenv.mkDerivation rec {
       "--without-stream_upstream_zone_module"
     ]
     ++ optional (gd != null) "--with-http_image_filter_module"
-    ++ optional (with stdenv.hostPlatform; isLinux || isFreeBSD)
+    ++ optional
+      (with stdenv.hostPlatform; isLinux || isFreeBSD)
       "--with-file-aio"
     ++ map (mod: "--add-module=${mod.src}") modules
     ;

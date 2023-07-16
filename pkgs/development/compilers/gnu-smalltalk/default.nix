@@ -27,8 +27,9 @@ let # The gnu-smalltalk project has a dependency to the libsigsegv library.
   # Adding --enable-static=libsigsegv to the gnu-smalltalk configuration flags
   # does not help, the error still occurs. The only solution is to build a
   # shared version of libsigsegv.
-  libsigsegv-shared = lib.overrideDerivation libsigsegv
-    (oldAttrs: { configureFlags = [ "--enable-shared" ]; });
+  libsigsegv-shared = lib.overrideDerivation libsigsegv (
+    oldAttrs: { configureFlags = [ "--enable-shared" ]; }
+  );
 
 in
 stdenv.mkDerivation rec {

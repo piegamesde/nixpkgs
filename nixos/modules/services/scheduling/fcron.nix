@@ -26,8 +26,9 @@ let
       MAILTO="${config.services.cron.mailto}"
     ''}
     NIX_CONF_DIR=/etc/nix
-    ${lib.concatStrings
-    (map (job: job + "\n") config.services.cron.systemCronJobs)}
+    ${lib.concatStrings (
+      map (job: job + "\n") config.services.cron.systemCronJobs
+    )}
   '';
 
   allowdeny =
@@ -99,40 +100,45 @@ in
 
     services.fcron.systab = systemCronJobs;
 
-    environment.etc = listToAttrs (map (x: {
-      name = x.target;
-      value = x;
-    }) [
-      (allowdeny "allow" (cfg.allow))
-      (allowdeny "deny" cfg.deny)
-      # see man 5 fcron.conf
-      {
-        source =
-          let
-            isSendmailWrapped = lib.hasAttr "sendmail" config.security.wrappers;
-            sendmailPath =
-              if isSendmailWrapped then
-                "/run/wrappers/bin/sendmail"
-              else
-                "${config.system.path}/bin/sendmail"
-              ;
-          in
-          pkgs.writeText "fcron.conf" ''
-            fcrontabs   =       /var/spool/fcron
-            pidfile     =       /run/fcron.pid
-            fifofile    =       /run/fcron.fifo
-            fcronallow  =       /etc/fcron.allow
-            fcrondeny   =       /etc/fcron.deny
-            shell       =       /bin/sh
-            sendmail    =       ${sendmailPath}
-            editor      =       ${pkgs.vim}/bin/vim
-          ''
-          ;
-        target = "fcron.conf";
-        gid = config.ids.gids.fcron;
-        mode = "0644";
-      }
-    ]);
+    environment.etc = listToAttrs (
+      map
+      (x: {
+        name = x.target;
+        value = x;
+      })
+      [
+        (allowdeny "allow" (cfg.allow))
+        (allowdeny "deny" cfg.deny)
+        # see man 5 fcron.conf
+        {
+          source =
+            let
+              isSendmailWrapped =
+                lib.hasAttr "sendmail" config.security.wrappers;
+              sendmailPath =
+                if isSendmailWrapped then
+                  "/run/wrappers/bin/sendmail"
+                else
+                  "${config.system.path}/bin/sendmail"
+                ;
+            in
+            pkgs.writeText "fcron.conf" ''
+              fcrontabs   =       /var/spool/fcron
+              pidfile     =       /run/fcron.pid
+              fifofile    =       /run/fcron.fifo
+              fcronallow  =       /etc/fcron.allow
+              fcrondeny   =       /etc/fcron.deny
+              shell       =       /bin/sh
+              sendmail    =       ${sendmailPath}
+              editor      =       ${pkgs.vim}/bin/vim
+            ''
+            ;
+          target = "fcron.conf";
+          gid = config.ids.gids.fcron;
+          mode = "0644";
+        }
+      ]
+    );
 
     environment.systemPackages = [ pkgs.fcron ];
     users.users.fcron = {

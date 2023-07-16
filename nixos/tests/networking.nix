@@ -39,48 +39,58 @@ let
         useNetworkd = networkd;
         firewall.checkReversePath = true;
         firewall.allowedUDPPorts = [ 547 ];
-        interfaces = mkOverride 0 (listToAttrs (forEach vlanIfs (
-          n:
-          nameValuePair "eth${toString n}" {
-            ipv4.addresses = [ {
-              address = "192.168.${toString n}.1";
-              prefixLength = 24;
-            } ];
-            ipv6.addresses = [ {
-              address = "fd00:1234:5678:${toString n}::1";
-              prefixLength = 64;
-            } ];
-          }
-        )));
+        interfaces = mkOverride 0 (
+          listToAttrs (
+            forEach vlanIfs (
+              n:
+              nameValuePair "eth${toString n}" {
+                ipv4.addresses = [ {
+                  address = "192.168.${toString n}.1";
+                  prefixLength = 24;
+                } ];
+                ipv6.addresses = [ {
+                  address = "fd00:1234:5678:${toString n}::1";
+                  prefixLength = 64;
+                } ];
+              }
+            )
+          )
+        );
       };
       services.dhcpd4 = {
         enable = true;
         interfaces = map (n: "eth${toString n}") vlanIfs;
-        extraConfig = flip concatMapStrings vlanIfs (n: ''
-          subnet 192.168.${toString n}.0 netmask 255.255.255.0 {
-            option routers 192.168.${toString n}.1;
-            range 192.168.${toString n}.3 192.168.${toString n}.254;
+        extraConfig = flip concatMapStrings vlanIfs (
+          n: ''
+            subnet 192.168.${toString n}.0 netmask 255.255.255.0 {
+              option routers 192.168.${toString n}.1;
+              range 192.168.${toString n}.3 192.168.${toString n}.254;
+            }
+          ''
+        );
+        machines = flip map vlanIfs (
+          vlan: {
+            hostName = "client${toString vlan}";
+            ethernetAddress = qemu-common.qemuNicMac vlan 1;
+            ipAddress = "192.168.${toString vlan}.2";
           }
-        '');
-        machines = flip map vlanIfs (vlan: {
-          hostName = "client${toString vlan}";
-          ethernetAddress = qemu-common.qemuNicMac vlan 1;
-          ipAddress = "192.168.${toString vlan}.2";
-        });
+        );
       };
       services.radvd = {
         enable = true;
-        config = flip concatMapStrings vlanIfs (n: ''
-          interface eth${toString n} {
-            AdvSendAdvert on;
-            AdvManagedFlag on;
-            AdvOtherConfigFlag on;
+        config = flip concatMapStrings vlanIfs (
+          n: ''
+            interface eth${toString n} {
+              AdvSendAdvert on;
+              AdvManagedFlag on;
+              AdvOtherConfigFlag on;
 
-            prefix fd00:1234:5678:${toString n}::/64 {
-              AdvAutonomous off;
+              prefix fd00:1234:5678:${toString n}::/64 {
+                AdvAutonomous off;
+              };
             };
-          };
-        '');
+          ''
+        );
       };
       services.dhcpd6 = {
         enable = true;
@@ -89,13 +99,15 @@ let
           ''
             authoritative;
           ''
-          + flip concatMapStrings vlanIfs (n: ''
-            subnet6 fd00:1234:5678:${toString n}::/64 {
-              range6 fd00:1234:5678:${toString n}::2 fd00:1234:5678:${
-                toString n
-              }::2;
-            }
-          '')
+          + flip concatMapStrings vlanIfs (
+            n: ''
+              subnet6 fd00:1234:5678:${toString n}::/64 {
+                range6 fd00:1234:5678:${toString n}::2 fd00:1234:5678:${
+                  toString n
+                }::2;
+              }
+            ''
+          )
           ;
       };
     }
@@ -700,11 +712,13 @@ let
             ...
           }:
           mkMerge [
-            (node {
-              address4 = "192.168.1.1";
-              remote = "192.168.1.2";
-              address6 = "fc00::1";
-            } args)
+            (node
+              {
+                address4 = "192.168.1.1";
+                remote = "192.168.1.2";
+                address6 = "fc00::1";
+              }
+              args)
             {
               networking = {
                 firewall.extraCommands = "iptables -A INPUT -p 41 -j ACCEPT";
@@ -722,11 +736,13 @@ let
             ...
           }:
           mkMerge [
-            (node {
-              address4 = "192.168.1.2";
-              remote = "192.168.1.1";
-              address6 = "fc00::2";
-            } args)
+            (node
+              {
+                address4 = "192.168.1.2";
+                remote = "192.168.1.1";
+                address6 = "fc00::2";
+              }
+              args)
             {
               networking = {
                 firewall.allowedUDPPorts = [ 9001 ];
@@ -1414,7 +1430,8 @@ let
   };
 
 in
-mapAttrs (const (
+mapAttrs
+(const (
   attrs:
   makeTest (
     attrs // {
@@ -1427,4 +1444,5 @@ mapAttrs (const (
         }";
     }
   )
-)) testCases
+))
+testCases

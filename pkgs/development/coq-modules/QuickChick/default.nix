@@ -17,10 +17,12 @@ in
   inherit version;
   defaultVersion = with lib;
     with versions;
-    lib.switch [
+    lib.switch
+    [
       coq.coq-version
       ssreflect.version
-    ] [
+    ]
+    [
       {
         cases = [
           (range "8.13" "8.16")
@@ -92,7 +94,8 @@ in
         ];
         out = "20170512";
       }
-    ] null;
+    ]
+    null;
   release."1.6.4".sha256 =
     "sha256-C1060wPSU33yZAFLxGmZlAMXASnx98qz3oSLO8DO+mM=";
   release."1.6.2".sha256 =
@@ -120,7 +123,8 @@ in
     "033ch10i5wmqyw8j6wnr0dlbnibgfpr1vr0c07q3yj6h23xkmqpg";
   releaseRev = v: "v${v}";
 
-  preConfigure = lib.optionalString recent
+  preConfigure = lib.optionalString
+    recent
     "substituteInPlace Makefile --replace quickChickTool.byte quickChickTool.native"
     ;
 
@@ -142,7 +146,8 @@ in
       "Randomized property-based testing plugin for Coq; a clone of Haskell QuickCheck";
     maintainers = with maintainers; [ jwiegley ];
   };
-}).overrideAttrs (
+}).overrideAttrs
+(
   o:
   let
     after_1_6 = lib.versions.isGe "1.6" o.version || o.version == "dev";

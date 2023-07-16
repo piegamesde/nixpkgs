@@ -57,9 +57,9 @@ in
 mkDerivation {
   pname =
     baseLib.pname
-    + lib.optionalString (
-      pdfSupport && presentationSupport && vlcSupport && gstreamerSupport
-    ) "-full"
+    + lib.optionalString
+      (pdfSupport && presentationSupport && vlcSupport && gstreamerSupport)
+      "-full"
     ;
   inherit (baseLib) version src;
 

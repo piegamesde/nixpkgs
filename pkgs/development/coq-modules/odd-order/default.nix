@@ -19,7 +19,8 @@ mkCoqDerivation {
 
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch mathcomp.character.version [
+    lib.switch mathcomp.character.version
+    [
       {
         case = (range "1.13.0" "1.15.0");
         out = "1.14.0";
@@ -32,7 +33,8 @@ mkCoqDerivation {
         case = (range "1.10.0" "1.12.0");
         out = "1.12.0";
       }
-    ] null;
+    ]
+    null;
 
   propagatedBuildInputs = [
     mathcomp.character

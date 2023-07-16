@@ -11,22 +11,26 @@ let
   top = config.services.kubernetes;
   cfg = top.pki;
 
-  csrCA = pkgs.writeText "kube-pki-cacert-csr.json" (builtins.toJSON {
-    key = {
-      algo = "rsa";
-      size = 2048;
-    };
-    names = singleton cfg.caSpec;
-  });
+  csrCA = pkgs.writeText "kube-pki-cacert-csr.json" (
+    builtins.toJSON {
+      key = {
+        algo = "rsa";
+        size = 2048;
+      };
+      names = singleton cfg.caSpec;
+    }
+  );
 
-  csrCfssl = pkgs.writeText "kube-pki-cfssl-csr.json" (builtins.toJSON {
-    key = {
-      algo = "rsa";
-      size = 2048;
-    };
-    CN = top.masterAddress;
-    hosts = [ top.masterAddress ] ++ cfg.cfsslAPIExtraSANs;
-  });
+  csrCfssl = pkgs.writeText "kube-pki-cfssl-csr.json" (
+    builtins.toJSON {
+      key = {
+        algo = "rsa";
+        size = 2048;
+      };
+      CN = top.masterAddress;
+      hosts = [ top.masterAddress ] ++ cfg.cfsslAPIExtraSANs;
+    }
+  );
 
   cfsslAPITokenBaseName = "apitoken.secret";
   cfsslAPITokenPath =
@@ -150,51 +154,56 @@ in
         address = "0.0.0.0";
         tlsCert = cfsslCert;
         tlsKey = cfsslKey;
-        configFile = toString (pkgs.writeText "cfssl-config.json"
-          (builtins.toJSON {
-            signing = {
-              profiles = {
-                default = {
-                  usages = [ "digital signature" ];
-                  auth_key = "default";
-                  expiry = "720h";
+        configFile = toString (
+          pkgs.writeText "cfssl-config.json" (
+            builtins.toJSON {
+              signing = {
+                profiles = {
+                  default = {
+                    usages = [ "digital signature" ];
+                    auth_key = "default";
+                    expiry = "720h";
+                  };
                 };
               };
-            };
-            auth_keys = {
-              default = {
-                type = "standard";
-                key = "file:${cfsslAPITokenPath}";
+              auth_keys = {
+                default = {
+                  type = "standard";
+                  key = "file:${cfsslAPITokenPath}";
+                };
               };
-            };
-          }));
+            }
+          )
+        );
       };
 
       systemd.services.cfssl.preStart = with pkgs;
         with config.services.cfssl;
-        mkIf (top.apiserver.enable) (concatStringsSep "\n" [
-          "set -e"
-          (optionalString cfg.genCfsslCACert ''
-            if [ ! -f "${cfg.caCertPathPrefix}.pem" ]; then
-              ${cfssl}/bin/cfssl genkey -initca ${csrCA} | \
-                ${cfssl}/bin/cfssljson -bare ${cfg.caCertPathPrefix}
-            fi
-          '')
-          (optionalString cfg.genCfsslAPICerts ''
-            if [ ! -f "${dataDir}/cfssl.pem" ]; then
-              ${cfssl}/bin/cfssl gencert -ca "${cfg.caCertPathPrefix}.pem" -ca-key "${cfg.caCertPathPrefix}-key.pem" ${csrCfssl} | \
-                ${cfssl}/bin/cfssljson -bare ${cfsslCertPathPrefix}
-            fi
-          '')
-          (optionalString cfg.genCfsslAPIToken ''
-            if [ ! -f "${cfsslAPITokenPath}" ]; then
-              head -c ${
-                toString (cfsslAPITokenLength / 2)
-              } /dev/urandom | od -An -t x | tr -d ' ' >"${cfsslAPITokenPath}"
-            fi
-            chown cfssl "${cfsslAPITokenPath}" && chmod 400 "${cfsslAPITokenPath}"
-          '')
-        ]);
+        mkIf (top.apiserver.enable) (
+          concatStringsSep "\n" [
+            "set -e"
+            (optionalString cfg.genCfsslCACert ''
+              if [ ! -f "${cfg.caCertPathPrefix}.pem" ]; then
+                ${cfssl}/bin/cfssl genkey -initca ${csrCA} | \
+                  ${cfssl}/bin/cfssljson -bare ${cfg.caCertPathPrefix}
+              fi
+            '')
+            (optionalString cfg.genCfsslAPICerts ''
+              if [ ! -f "${dataDir}/cfssl.pem" ]; then
+                ${cfssl}/bin/cfssl gencert -ca "${cfg.caCertPathPrefix}.pem" -ca-key "${cfg.caCertPathPrefix}-key.pem" ${csrCfssl} | \
+                  ${cfssl}/bin/cfssljson -bare ${cfsslCertPathPrefix}
+              fi
+            '')
+            (optionalString cfg.genCfsslAPIToken ''
+              if [ ! -f "${cfsslAPITokenPath}" ]; then
+                head -c ${
+                  toString (cfsslAPITokenLength / 2)
+                } /dev/urandom | od -An -t x | tr -d ' ' >"${cfsslAPITokenPath}"
+              fi
+              chown cfssl "${cfsslAPITokenPath}" && chmod 400 "${cfsslAPITokenPath}"
+            '')
+          ]
+        );
 
       systemd.services.kube-certmgr-bootstrap = {
         description = "Kubernetes certmgr bootstrapper";
@@ -267,8 +276,8 @@ in
         # - it assumes that it is clusterAdmin or can gain clusterAdmin rights through serviceAccount
         # - it is designed to be used with k8s system components only
         # - it would be better with a more Nix-oriented way of managing addons
-      systemd.services.kube-addon-manager = mkIf top.addonManager.enable
-        (mkMerge [
+      systemd.services.kube-addon-manager = mkIf top.addonManager.enable (
+        mkMerge [
           {
             environment.KUBECONFIG = with cfg.certs.addonManager;
               top.lib.mkKubeConfig "addon-manager" {
@@ -282,9 +291,9 @@ in
             serviceConfig.PermissionsStartOnly = true;
             preStart = with pkgs;
               let
-                files = mapAttrsToList (
-                  n: v: writeText "${n}.json" (builtins.toJSON v)
-                ) top.addonManager.bootstrapAddons;
+                files = mapAttrsToList
+                  (n: v: writeText "${n}.json" (builtins.toJSON v))
+                  top.addonManager.bootstrapAddons;
               in
               ''
                 export KUBECONFIG=${clusterAdminKubeconfig}
@@ -294,7 +303,8 @@ in
               ''
               ;
           })
-        ]);
+        ]
+      );
 
       environment.etc.${cfg.etcClusterAdminKubeconfig}.source =
         mkIf (cfg.etcClusterAdminKubeconfig != null) clusterAdminKubeconfig;

@@ -31,7 +31,8 @@ let
 
   concatAttrLists =
     attrsets:
-    zipAttrsWithNames (filterAttrNames isList (head attrsets)) (_: concatLists)
+    zipAttrsWithNames (filterAttrNames isList (head attrsets))
+    (_: concatLists)
     attrsets
     ;
 

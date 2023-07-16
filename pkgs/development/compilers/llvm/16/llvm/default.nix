@@ -88,7 +88,8 @@ let
     ;
 
 in
-assert (lib.assertMsg (!enableGoldPlugin)
+assert (lib.assertMsg
+  (!enableGoldPlugin)
   "Gold plugin cannot be enabled on LLVM16 due to a upstream issue: https://github.com/llvm/llvm-project/issues/61350");
 stdenv.mkDerivation (
   rec {
@@ -344,7 +345,8 @@ stdenv.mkDerivation (
       ;
 
       # E.g. mesa.drivers use the build-id as a cache key (see #93946):
-    LDFLAGS = optionalString (enableSharedLibraries && !stdenv.isDarwin)
+    LDFLAGS = optionalString
+      (enableSharedLibraries && !stdenv.isDarwin)
       "-Wl,--build-id=sha1";
 
     cmakeFlags = with stdenv;
@@ -431,11 +433,13 @@ stdenv.mkDerivation (
             ];
           in
           "-DCROSS_TOOLCHAIN_FLAGS_NATIVE:list="
-          + lib.concatStringsSep ";" (lib.concatLists [
-            flagsForLlvmConfig
-            nativeToolchainFlags
-            nativeInstallFlags
-          ])
+          + lib.concatStringsSep ";" (
+            lib.concatLists [
+              flagsForLlvmConfig
+              nativeToolchainFlags
+              nativeInstallFlags
+            ]
+          )
         )
       ]
       ;

@@ -60,23 +60,25 @@ in
     drives = mkOption {
       description =
         lib.mdDoc "List of drives for which to configure the timeout.";
-      type = types.listOf (types.submodule {
-        options = {
-          name = mkOption {
-            description = lib.mdDoc "Drive name without the full path.";
-            type = types.str;
-          };
+      type = types.listOf (
+        types.submodule {
+          options = {
+            name = mkOption {
+              description = lib.mdDoc "Drive name without the full path.";
+              type = types.str;
+            };
 
-          idBy = mkOption {
-            description = lib.mdDoc "The method to identify the drive.";
-            type = types.enum [
-              "path"
-              "wwn"
-            ];
-            default = "path";
+            idBy = mkOption {
+              description = lib.mdDoc "The method to identify the drive.";
+              type = types.enum [
+                "path"
+                "wwn"
+              ];
+              default = "path";
+            };
           };
-        };
-      });
+        }
+      );
     };
   };
 
@@ -84,21 +86,25 @@ in
     services.udev.extraRules =
       lib.concatMapStringsSep "\n" buildRule cfg.drives;
 
-    systemd.services = lib.listToAttrs (map (
-      e:
-      lib.nameValuePair (unitName e) {
-        description = "SATA timeout for ${e.name}";
-        wantedBy = [ "sata-timeout.target" ];
-        serviceConfig = {
-          Type = "oneshot";
-          ExecStart = "${startScript} '${devicePath e}'";
-          PrivateTmp = true;
-          PrivateNetwork = true;
-          ProtectHome = "tmpfs";
-          ProtectSystem = "strict";
-        };
-      }
-    ) cfg.drives);
+    systemd.services = lib.listToAttrs (
+      map
+      (
+        e:
+        lib.nameValuePair (unitName e) {
+          description = "SATA timeout for ${e.name}";
+          wantedBy = [ "sata-timeout.target" ];
+          serviceConfig = {
+            Type = "oneshot";
+            ExecStart = "${startScript} '${devicePath e}'";
+            PrivateTmp = true;
+            PrivateNetwork = true;
+            ProtectHome = "tmpfs";
+            ProtectSystem = "strict";
+          };
+        }
+      )
+      cfg.drives
+    );
 
     systemd.targets.sata-timeout = {
       description = "SATA timeout";

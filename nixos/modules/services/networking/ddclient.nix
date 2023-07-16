@@ -73,38 +73,47 @@ with lib;
 {
 
   imports = [
-    (mkChangedOptionModule [
-      "services"
-      "ddclient"
-      "domain"
-    ] [
-      "services"
-      "ddclient"
-      "domains"
-    ] (
-      config:
-      let
-        value = getAttrFromPath [
-          "services"
-          "ddclient"
-          "domain"
-        ] config;
-      in
-      if value != "" then
-        [ value ]
-      else
-        [ ]
-    ))
-    (mkRemovedOptionModule [
-      "services"
-      "ddclient"
-      "homeDir"
-    ] "")
-    (mkRemovedOptionModule [
-      "services"
-      "ddclient"
-      "password"
-    ] "Use services.ddclient.passwordFile instead.")
+    (mkChangedOptionModule
+      [
+        "services"
+        "ddclient"
+        "domain"
+      ]
+      [
+        "services"
+        "ddclient"
+        "domains"
+      ]
+      (
+        config:
+        let
+          value = getAttrFromPath
+            [
+              "services"
+              "ddclient"
+              "domain"
+            ]
+            config;
+        in
+        if value != "" then
+          [ value ]
+        else
+          [ ]
+      ))
+    (mkRemovedOptionModule
+      [
+        "services"
+        "ddclient"
+        "homeDir"
+      ]
+      "")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "ddclient"
+        "password"
+      ]
+      "Use services.ddclient.passwordFile instead.")
   ];
 
     ###### interface
@@ -140,8 +149,8 @@ with lib;
 
       username = mkOption {
         # For `nsupdate` username contains the path to the nsupdate executable
-        default =
-          lib.optionalString (config.services.ddclient.protocol == "nsupdate")
+        default = lib.optionalString
+          (config.services.ddclient.protocol == "nsupdate")
           "${pkgs.bind.dnsutils}/bin/nsupdate";
         defaultText = "";
         type = str;

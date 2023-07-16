@@ -95,7 +95,8 @@ stdenv.mkDerivation rec {
         popd
       '';
 
-      makeFlags = optionalString (kernel != null)
+      makeFlags = optionalString
+        (kernel != null)
         "-C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build modules";
 
       installPhase = ''

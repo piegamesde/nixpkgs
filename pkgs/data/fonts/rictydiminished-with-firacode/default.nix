@@ -37,11 +37,13 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [
-      (python3.withPackages (ps: [
-        ps.jinja2
-        ps.fonttools
-        ps.fontforge
-      ]))
+      (python3.withPackages (
+        ps: [
+          ps.jinja2
+          ps.fonttools
+          ps.fontforge
+        ]
+      ))
     ];
 
   meta = with lib; {

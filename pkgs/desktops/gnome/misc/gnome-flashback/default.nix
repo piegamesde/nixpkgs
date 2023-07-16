@@ -238,7 +238,8 @@ let
                 }' \
                 "''${gappsWrapperArgs[@]}" \
                 ${
-                  lib.optionalString enableGnomePanel
+                  lib.optionalString
+                  enableGnomePanel
                   "--set NIX_GNOME_PANEL_MODULESDIR '${panelModulesEnv}/lib/gnome-panel/modules'"
                 }
             '';

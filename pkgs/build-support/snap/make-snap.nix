@@ -73,14 +73,16 @@ let
   ];
 
 in
-runCommand "squashfs.img" {
+runCommand "squashfs.img"
+{
   nativeBuildInputs = [
     squashfsTools
     jq
   ];
 
   closureInfo = closureInfo { rootPaths = [ snap_yaml ]; };
-} ''
+}
+''
   root=$PWD/root
   mkdir $root
 

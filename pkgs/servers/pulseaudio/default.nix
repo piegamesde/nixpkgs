@@ -167,15 +167,16 @@ stdenv.mkDerivation rec {
         sbc
       ]
       # aptX and LDAC codecs are in gst-plugins-bad so far, rtpldacpay is in -good
-      ++ lib.optionals (bluetoothSupport && advancedBluetoothCodecs)
-        (builtins.attrValues {
+      ++ lib.optionals (bluetoothSupport && advancedBluetoothCodecs) (
+        builtins.attrValues {
           inherit (gst_all_1)
             gst-plugins-bad
             gst-plugins-good
             gst-plugins-base
             gstreamer
             ;
-        })
+        }
+      )
       ++ lib.optional remoteControlSupport lirc
       ++ lib.optional zeroconfSupport avahi
     )
@@ -282,8 +283,9 @@ stdenv.mkDerivation rec {
       # renaming the unwrapped binaries (see below)
       "--bindir=${placeholder "out"}/.bin-unwrapped"
     ]
-    ++ lib.optional (stdenv.isLinux && useSystemd)
-      "-Dsystemduserunitdir=${placeholder "out"}/lib/systemd/user"
+    ++ lib.optional (stdenv.isLinux && useSystemd) "-Dsystemduserunitdir=${
+        placeholder "out"
+      }/lib/systemd/user"
     ++ lib.optionals stdenv.isDarwin [
       "-Ddbus=disabled"
       "-Dglib=disabled"
@@ -310,13 +312,13 @@ stdenv.mkDerivation rec {
     ;
 
   preFixup =
-    lib.optionalString (
-      stdenv.isLinux && (stdenv.hostPlatform == stdenv.buildPlatform)
-    ) ''
-      wrapProgram $out/libexec/pulse/gsettings-helper \
-       --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/${pname}-${version}" \
-       --prefix GIO_EXTRA_MODULES : "${lib.getLib dconf}/lib/gio/modules"
-    ''
+    lib.optionalString
+      (stdenv.isLinux && (stdenv.hostPlatform == stdenv.buildPlatform))
+      ''
+        wrapProgram $out/libexec/pulse/gsettings-helper \
+         --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/${pname}-${version}" \
+         --prefix GIO_EXTRA_MODULES : "${lib.getLib dconf}/lib/gio/modules"
+      ''
       # add .so symlinks for modules to be found under macOS
     + lib.optionalString stdenv.isDarwin ''
       for file in $out/lib/pulseaudio/modules/*.dylib; do

@@ -23,8 +23,9 @@ in
 rec {
   replay-recordreplay = stdenv.mkDerivation rec {
     pname = "replay-recordreplay";
-    version = builtins.head (builtins.match ".*/linux-recordreplay-(.*).tgz"
-      metadata.recordreplay.url);
+    version = builtins.head (
+      builtins.match ".*/linux-recordreplay-(.*).tgz" metadata.recordreplay.url
+    );
     nativeBuildInputs = [ autoPatchelfHook ];
     buildInputs = [
       stdenv.cc.cc.lib
@@ -55,8 +56,9 @@ rec {
 
   replay-io = stdenv.mkDerivation rec {
     pname = "replay-io";
-    version = builtins.head
-      (builtins.match ".*/linux-gecko-(.*).tar.bz2" metadata.replay.url);
+    version = builtins.head (
+      builtins.match ".*/linux-gecko-(.*).tar.bz2" metadata.replay.url
+    );
     srcs = fetchurl metadata.replay;
     nativeBuildInputs = [
       autoPatchelfHook
@@ -102,8 +104,9 @@ rec {
 
   replay-node = stdenv.mkDerivation rec {
     pname = "replay-node";
-    version = builtins.head
-      (builtins.match ".*/linux-node-(.*)" metadata.replay-node.url);
+    version = builtins.head (
+      builtins.match ".*/linux-node-(.*)" metadata.replay-node.url
+    );
     nativeBuildInputs = [
       autoPatchelfHook
       makeWrapper
@@ -142,8 +145,9 @@ rec {
     pname = "replay-node-cli";
     version =
       "0.1.7-"
-      + builtins.head
-        (builtins.match ".*/linux-node-(.*)" metadata.replay-node.url)
+      + builtins.head (
+        builtins.match ".*/linux-node-(.*)" metadata.replay-node.url
+      )
       ;
     src = fetchFromGitHub {
       owner = "RecordReplay";

@@ -18,7 +18,8 @@
 
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch coq.coq-version [
+    lib.switch coq.coq-version
+    [
       {
         case = range "8.13" "8.16";
         out = "0.6";
@@ -27,7 +28,8 @@
         case = range "8.11" "8.12";
         out = "0.4";
       }
-    ] null;
+    ]
+    null;
 
   useDune = true;
 
@@ -48,7 +50,8 @@
     license = licenses.mit;
     platforms = platforms.unix;
   };
-}).overrideAttrs (
+}).overrideAttrs
+(
   o:
   let
     inherit (o) version;
@@ -56,7 +59,8 @@
   {
     propagatedBuildInputs =
       [ equations ]
-      ++ lib.optional (lib.versions.isGe "0.6" version || version == "dev")
+      ++ lib.optional
+        (lib.versions.isGe "0.6" version || version == "dev")
         LibHyps
       ;
   }

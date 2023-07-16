@@ -134,38 +134,40 @@ let
           args.meta or { }
         );
 
-      } // lib.optionalAttrs (
-        stdenv.isDarwin
-        && lib.elem language [
-          "is"
-          "nb"
-        ]
-      ) {
-        # tar: Cannot open: Illegal byte sequence
-        unpackPhase = ''
-          runHook preUnpack
+      } // lib.optionalAttrs
+        (
+          stdenv.isDarwin
+          && lib.elem language [
+            "is"
+            "nb"
+          ]
+        )
+        {
+          # tar: Cannot open: Illegal byte sequence
+          unpackPhase = ''
+            runHook preUnpack
 
-          tar -xf $src --strip-components=1 || true
+            tar -xf $src --strip-components=1 || true
 
-          runHook postUnpack
-        '';
-
-        postPatch = lib.getAttr language {
-          is = ''
-            cp icelandic.alias íslenska.alias
-            sed -i 's/ .slenska\.alias/ íslenska.alias/g' Makefile.pre
+            runHook postUnpack
           '';
-          nb = ''
-            cp bokmal.alias bokmål.alias
-            sed -i 's/ bokm.l\.alias/ bokmål.alias/g' Makefile.pre
-          '';
-        };
-      } // removeAttrs args [
-        "language"
-        "filename"
-        "sha256"
-        "meta"
-      ];
+
+          postPatch = lib.getAttr language {
+            is = ''
+              cp icelandic.alias íslenska.alias
+              sed -i 's/ .slenska\.alias/ íslenska.alias/g' Makefile.pre
+            '';
+            nb = ''
+              cp bokmal.alias bokmål.alias
+              sed -i 's/ bokm.l\.alias/ bokmål.alias/g' Makefile.pre
+            '';
+          };
+        } // removeAttrs args [
+          "language"
+          "filename"
+          "sha256"
+          "meta"
+        ];
     in
     buildDict buildArgs
     ;
@@ -183,11 +185,11 @@ let
         preBuild = ''
           # Aspell can't handle multiple data-dirs
           # Copy everything we might possibly need
-          ${lib.concatMapStringsSep "\n" (p: ''
+          ${lib.concatMapStringsSep "\n"
+          (p: ''
             cp -a ${p}/lib/aspell/* .
-          '') (
-            [ aspell ] ++ langInputs
-          )}
+          '')
+          ([ aspell ] ++ langInputs)}
           export ASPELL_CONF="data-dir $(pwd)"
 
           aspell-create() {
