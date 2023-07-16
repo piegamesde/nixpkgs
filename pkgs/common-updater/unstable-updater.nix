@@ -17,6 +17,7 @@
     false # Use version format according to RFC 107 (i.e. LAST_TAG+date=YYYY-MM-DD)
   ,
   tagPrefix ? "" # strip this prefix from a tag name when using stable version
+  ,
 }:
 
 let

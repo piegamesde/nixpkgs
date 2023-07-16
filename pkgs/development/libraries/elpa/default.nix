@@ -9,19 +9,16 @@
   blas,
   lapack,
   scalapack,
-  openssh
+  openssh,
   # CPU optimizations
-  ,
   avxSupport ? stdenv.hostPlatform.avxSupport,
   avx2Support ? stdenv.hostPlatform.avx2Support,
-  avx512Support ? stdenv.hostPlatform.avx512Support
+  avx512Support ? stdenv.hostPlatform.avx512Support,
   # Enable NIVIA GPU support
   # Note, that this needs to be built on a system with a GPU
   # present for the tests to succeed.
-  ,
-  enableCuda ? false
+  enableCuda ? false,
   # type of GPU architecture
-  ,
   nvidiaArch ? "sm_60",
   cudatoolkit,
 }:

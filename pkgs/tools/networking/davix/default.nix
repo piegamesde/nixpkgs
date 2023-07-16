@@ -12,17 +12,15 @@
   curl,
   gsoap,
   Security,
-  enableTools ? true
+  enableTools ? true,
   # Use libcurl instead of libneon
   # Note that the libneon used is bundled in the project
   # See https://github.com/cern-fts/davix/issues/23
-  ,
   defaultToLibcurl ? false,
   enableIpv6 ? true,
-  enableTcpNodelay ? true
+  enableTcpNodelay ? true,
   # Build davix_copy.so
-  ,
-  enableThirdPartyCopy ? false
+  enableThirdPartyCopy ? false,
 }:
 
 let

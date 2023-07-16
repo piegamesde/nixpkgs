@@ -6,9 +6,8 @@
   installShellFiles,
   pkg-config,
   libxcb,
-  openssl
+  openssl,
   # Darwin dependencies
-  ,
   AppKit,
 }:
 

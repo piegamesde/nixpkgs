@@ -3,21 +3,18 @@
   stdenv,
   fetchFromGitHub,
   perl,
-  python3
+  python3,
 
   # Enable BLAS interface with 64-bit integer width.
-  ,
-  blas64 ? false
+  blas64 ? false,
 
   # Target architecture. "amd64" compiles kernels for all Zen
   # generations. To build kernels for specific Zen generations,
   # use "zen", "zen2", or "zen3".
-  ,
-  withArchitecture ? "amd64"
+  withArchitecture ? "amd64",
 
   # Enable OpenMP-based threading.
-  ,
-  withOpenMP ? true
+  withOpenMP ? true,
 }:
 
 let

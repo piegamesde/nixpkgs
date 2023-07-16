@@ -3,9 +3,8 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-  pkg-config
+  pkg-config,
   # The two audio backends:
-  ,
   SDL2,
   jack2,
 }:

@@ -27,9 +27,8 @@
   nettle,
   openal,
   opusfile,
-  zlib
+  zlib,
   # to download assets
-  ,
   aria2,
   cacert,
 }:

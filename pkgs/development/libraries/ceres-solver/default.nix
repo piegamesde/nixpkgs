@@ -12,7 +12,7 @@
   metis,
   runTests ? false,
   enableStatic ? stdenv.hostPlatform.isStatic,
-  withBlas ? true
+  withBlas ? true,
 }:
 
 # gflags is required to run tests

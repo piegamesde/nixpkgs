@@ -108,7 +108,7 @@ pkgs.recurseIntoAttrs rec {
       homepage,
       src,
       engine,
-      assetsError ? ""
+      assetsError ? "",
     }@mod:
     (
       {

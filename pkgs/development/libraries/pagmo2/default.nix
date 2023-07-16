@@ -7,10 +7,9 @@
   nlopt,
   ipopt,
   boost,
-  tbb
+  tbb,
   # tests pass but take 30+ minutes
-  ,
-  runTests ? false
+  runTests ? false,
 }:
 
 stdenv.mkDerivation rec {

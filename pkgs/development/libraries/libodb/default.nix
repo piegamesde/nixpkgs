@@ -4,7 +4,7 @@
   build2,
   fetchurl,
   enableShared ? !stdenv.hostPlatform.isStatic,
-  enableStatic ? !enableShared
+  enableStatic ? !enableShared,
 }:
 stdenv.mkDerivation rec {
   pname = "libodb";

@@ -6,10 +6,9 @@
   fetchurl,
   ocaml,
   findlib,
-  cppo
+  cppo,
   # De facto, option minimal seems to be the default. See the README.
-  ,
-  minimal ? true
+  minimal ? true,
 }:
 
 stdenv.mkDerivation rec {

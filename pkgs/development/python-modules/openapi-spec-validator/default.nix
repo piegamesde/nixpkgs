@@ -3,23 +3,20 @@
   buildPythonPackage,
   pythonOlder,
   fetchFromGitHub,
-  poetry-core
+  poetry-core,
 
   # propagates
-  ,
   importlib-resources,
   jsonschema,
   jsonschema-spec,
   lazy-object-proxy,
   openapi-schema-validator,
-  pyyaml
+  pyyaml,
 
   # optional
-  ,
-  requests
+  requests,
 
   # tests
-  ,
   mock,
   pytestCheckHook,
 }:

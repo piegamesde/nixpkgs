@@ -2,10 +2,9 @@
   buildPythonPackage,
   fetchFromGitHub,
   isPy3k,
-  lib
+  lib,
 
   # pythonPackages
-  ,
   mock,
   nose,
 }:

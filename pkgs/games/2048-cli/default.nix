@@ -5,7 +5,7 @@
   gettext,
   installShellFiles,
   ncurses,
-  ui ? "terminal"
+  ui ? "terminal",
 }:
 
 assert lib.elem ui [

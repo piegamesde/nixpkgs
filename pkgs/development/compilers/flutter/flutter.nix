@@ -41,9 +41,8 @@
         )
       );
     };
-  }
+  },
 
-  ,
   lib,
   callPackage,
   stdenv,
@@ -75,7 +74,7 @@ let
             artifact,
             os,
             architecture,
-            variant ? null
+            variant ? null,
           }:
           let
             artifactDirectory =

@@ -14,7 +14,7 @@
   writeText,
   glibc,
   allLocales ? true,
-  locales ? [ "en_US.UTF-8/UTF-8" ]
+  locales ? [ "en_US.UTF-8/UTF-8" ],
 }:
 
 callPackage ./common.nix { inherit stdenv; } {

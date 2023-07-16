@@ -2,19 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  pythonOlder
+  pythonOlder,
 
   # build-system
-  ,
-  poetry-core
+  poetry-core,
 
   # runtime
-  ,
   click,
-  peewee
+  peewee,
 
   # tests
-  ,
   psycopg2,
   pytestCheckHook,
 }:

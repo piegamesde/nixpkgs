@@ -9,7 +9,7 @@
   openssh,
   pam,
   sqliteSupport ? true,
-  pamSupport ? true
+  pamSupport ? true,
 }:
 
 with lib;

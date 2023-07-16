@@ -15,7 +15,7 @@
   jemalloc,
   enableLite ? false,
   enableShared ? !stdenv.hostPlatform.isStatic,
-  sse42Support ? stdenv.hostPlatform.sse4_2Support
+  sse42Support ? stdenv.hostPlatform.sse4_2Support,
 }:
 
 stdenv.mkDerivation rec {

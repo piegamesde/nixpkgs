@@ -23,7 +23,7 @@
   wrapGAppsHook,
   gobject-introspection,
   vala,
-  withDemoAgent ? false
+  withDemoAgent ? false,
 }:
 
 stdenv.mkDerivation rec {

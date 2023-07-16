@@ -15,22 +15,19 @@
   mpi,
   suitesparse,
   trilinos,
-  withMPI ? false
+  withMPI ? false,
   # for doc
-  ,
   texlive,
   pandoc,
-  enableDocs ? true
+  enableDocs ? true,
   # for tests
-  ,
   bash,
   bc,
-  openssh # required by MPI
-  ,
+  openssh, # required by MPI
   perl,
   perlPackages,
   python3,
-  enableTests ? true
+  enableTests ? true,
 }:
 
 assert withMPI -> trilinos.withMPI;

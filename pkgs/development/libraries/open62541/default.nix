@@ -7,26 +7,21 @@
   pkg-config,
   check,
   subunit,
-  python3Packages
+  python3Packages,
 
-  ,
   withDoc ? false,
-  graphviz-nox
+  graphviz-nox,
 
-  ,
-  withExamples ? false
+  withExamples ? false,
 
-  ,
   withEncryption ? false # or "openssl" or "mbedtls"
   ,
   openssl,
-  mbedtls
+  mbedtls,
 
-  ,
-  withPubSub ? false
+  withPubSub ? false,
 
   # for passthru.tests only
-  ,
   open62541,
 }:
 

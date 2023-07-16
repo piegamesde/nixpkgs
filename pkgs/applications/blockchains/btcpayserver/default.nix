@@ -3,7 +3,7 @@
   buildDotnetModule,
   fetchFromGitHub,
   dotnetCorePackages,
-  altcoinSupport ? false
+  altcoinSupport ? false,
 }:
 
 buildDotnetModule rec {

@@ -12,9 +12,8 @@
   gst-rtsp-server,
   python3,
   gobject-introspection,
-  json-glib
+  json-glib,
   # Checks meson.is_cross_build(), so even canExecute isn't enough.
-  ,
   enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform,
   hotdoc,
 }:

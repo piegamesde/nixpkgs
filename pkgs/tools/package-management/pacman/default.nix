@@ -16,10 +16,9 @@
   openssl,
   perl,
   pkg-config,
-  zlib
+  zlib,
 
   # Compression tools in scripts/libmakepkg/util/compress.sh.in
-  ,
   gzip,
   bzip2,
   xz,
@@ -28,19 +27,17 @@
   lzop,
   ncompress,
   lz4,
-  lzip
+  lzip,
 
   # pacman-key runtime dependencies
-  ,
   gawk,
   gettext,
   gnugrep,
-  gnupg
+  gnupg,
 
   # Tells pacman where to find ALPM hooks provided by packages.
   # This path is very likely to be used in an Arch-like root.
-  ,
-  sysHookDir ? "/usr/share/libalpm/hooks/"
+  sysHookDir ? "/usr/share/libalpm/hooks/",
 }:
 
 stdenv.mkDerivation rec {

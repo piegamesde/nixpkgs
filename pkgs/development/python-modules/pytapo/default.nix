@@ -1,10 +1,9 @@
 {
   lib,
   buildPythonPackage,
-  fetchPypi
+  fetchPypi,
 
   # propagates
-  ,
   pycryptodome,
   requests,
   rtp,

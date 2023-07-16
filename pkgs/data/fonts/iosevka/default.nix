@@ -5,7 +5,7 @@
   fetchFromGitHub,
   darwin,
   remarshal,
-  ttfautohint-nox
+  ttfautohint-nox,
   # Custom font set options.
   # See https://typeof.net/Iosevka/customizer
   # Can be a raw TOML string, or a Nix attrset.
@@ -35,8 +35,7 @@
   #     italic.i = "tailed";
   #   };
   # }
-  ,
-  privateBuildPlan ? null
+  privateBuildPlan ? null,
   # Extra parameters. Can be used for ligature mapping.
   # It must be a raw TOML string.
 
@@ -47,11 +46,9 @@
   #   featureTag = 'XHS0'
   #   sequence = "+>"
   # '';
-  ,
-  extraParameters ? null
+  extraParameters ? null,
   # Custom font set name. Required if any custom settings above.
-  ,
-  set ? null
+  set ? null,
 }:
 
 assert (privateBuildPlan != null) -> set != null;

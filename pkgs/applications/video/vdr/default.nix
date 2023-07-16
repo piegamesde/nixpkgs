@@ -12,7 +12,7 @@
   perl,
   lib,
   enableSystemd ? true,
-  enableBidi ? true
+  enableBidi ? true,
 }:
 stdenv.mkDerivation rec {
 

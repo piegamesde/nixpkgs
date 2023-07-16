@@ -31,7 +31,7 @@
   texlive,
   tex ? texlive.combine {
     inherit (texlive) scheme-small lh metafont epsf fontinst;
-  }
+  },
 }:
 
 stdenv.mkDerivation rec {

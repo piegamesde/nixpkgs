@@ -24,7 +24,7 @@
   mysqlSupport ? false,
   libmysqlclient ? null,
   postgresSupport ? false,
-  postgresql ? null
+  postgresql ? null,
 }:
 
 assert mysqlSupport -> libmysqlclient != null;

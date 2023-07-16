@@ -2,7 +2,7 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  fonts ? [ ]
+  fonts ? [ ],
 }:
 
 stdenvNoCC.mkDerivation {

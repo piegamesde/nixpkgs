@@ -11,7 +11,7 @@
   sqlparse,
   tzdata,
   pythonOlder,
-  withGdal ? false
+  withGdal ? false,
 }:
 
 buildPythonPackage rec {

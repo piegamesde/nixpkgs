@@ -7,13 +7,11 @@
   qtbase,
   qttools,
   qtmultimedia,
-  wrapQtAppsHook
+  wrapQtAppsHook,
   # transports
-  ,
   curl,
-  libmms
+  libmms,
   # input plugins
-  ,
   libmad,
   taglib,
   libvorbis,
@@ -33,15 +31,13 @@
   libarchive,
   opusfile,
   soxr,
-  wavpack
+  wavpack,
   # output plugins
-  ,
   alsa-lib,
   libpulseaudio,
   pipewire,
-  libjack2
+  libjack2,
   # effect plugins
-  ,
   libsamplerate,
 }:
 

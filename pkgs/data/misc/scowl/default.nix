@@ -8,7 +8,7 @@
   perl,
   aspell,
   dos2unix,
-  singleWordlist ? null
+  singleWordlist ? null,
 }:
 
 stdenv.mkDerivation rec {

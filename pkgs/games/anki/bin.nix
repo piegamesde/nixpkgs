@@ -8,7 +8,7 @@
   anki,
   undmg,
   zstd,
-  commandLineArgs ? [ ]
+  commandLineArgs ? [ ],
 }:
 
 let

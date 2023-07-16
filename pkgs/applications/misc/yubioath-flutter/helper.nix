@@ -6,9 +6,8 @@
   mss,
   zxing_cpp,
   pillow,
-  cryptography
+  cryptography,
 
-  ,
   src,
   version,
   meta,

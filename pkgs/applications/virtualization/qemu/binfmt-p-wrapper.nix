@@ -9,7 +9,7 @@
   lib,
   stdenv,
   pkgsStatic,
-  enableDebug ? false
+  enableDebug ? false,
 }:
 
 name: emulator:

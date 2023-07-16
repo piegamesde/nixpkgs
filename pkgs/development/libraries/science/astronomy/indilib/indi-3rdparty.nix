@@ -21,7 +21,7 @@
   version,
   src,
   withFirmware ? false,
-  firmware ? null
+  firmware ? null,
 }:
 
 stdenv.mkDerivation rec {

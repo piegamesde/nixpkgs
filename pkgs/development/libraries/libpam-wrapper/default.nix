@@ -5,7 +5,7 @@
   cmake,
   linux-pam,
   enablePython ? false,
-  python ? null
+  python ? null,
 }:
 
 assert enablePython -> python != null;

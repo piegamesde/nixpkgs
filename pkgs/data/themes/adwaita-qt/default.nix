@@ -9,7 +9,7 @@
   qtwayland,
   qt5,
   xorg,
-  useQt6 ? false
+  useQt6 ? false,
 }:
 
 stdenv.mkDerivation rec {

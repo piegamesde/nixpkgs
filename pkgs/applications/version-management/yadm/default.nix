@@ -6,7 +6,7 @@
   git,
   bash,
   openssl,
-  gawk
+  gawk,
   /* TODO: yadm can use git-crypt and transcrypt
      but it does so in a way that resholve 0.6.0
      can't yet do anything smart about. It looks
@@ -17,7 +17,6 @@
   */
   # , git-crypt
   # , transcrypt
-  ,
   j2cli,
   esh,
   gnupg,

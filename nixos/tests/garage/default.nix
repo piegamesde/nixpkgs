@@ -1,7 +1,7 @@
 {
   system ? builtins.currentSystem,
   config ? { },
-  pkgs ? import ../../.. { inherit system config; }
+  pkgs ? import ../../.. { inherit system config; },
 }:
 with pkgs.lib;
 
@@ -10,7 +10,7 @@ let
     package:
     {
       replicationMode,
-      publicV6Address ? "::1"
+      publicV6Address ? "::1",
     }:
     {
       pkgs,

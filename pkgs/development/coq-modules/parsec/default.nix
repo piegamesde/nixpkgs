@@ -4,7 +4,7 @@
   coq,
   ceres,
   coq-ext-lib,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation {

@@ -5,10 +5,9 @@
   lib,
   setuptools,
   simpy,
-  tkinter
+  tkinter,
   # GUI-based visualization of the simulation is optional
-  ,
-  enableVisualization ? true
+  enableVisualization ? true,
 }:
 
 buildPythonPackage rec {

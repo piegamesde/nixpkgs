@@ -31,7 +31,7 @@ in
   flambdaSupport ? false,
   spaceTimeSupport ? false,
   unsafeStringSupport ? false,
-  framePointerSupport ? false
+  framePointerSupport ? false,
 }:
 
 assert useX11 -> safeX11 stdenv;

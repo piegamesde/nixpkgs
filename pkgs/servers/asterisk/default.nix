@@ -58,7 +58,7 @@ let
       version,
       sha256,
       externals,
-      pjsip_patches ? [ ]
+      pjsip_patches ? [ ],
     }:
     stdenv.mkDerivation {
       inherit version;

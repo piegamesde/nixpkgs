@@ -29,7 +29,7 @@
   hidpiXWayland ? false,
   legacyRenderer ? false,
   nvidiaPatches ? false,
-  withSystemd ? true
+  withSystemd ? true,
 }:
 let
   assertXWayland = lib.assertMsg (hidpiXWayland -> enableXWayland) ''

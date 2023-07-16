@@ -11,7 +11,7 @@
   cmake,
   syncthing,
   preferQWebView ? false,
-  preferNative ? true
+  preferNative ? true,
 }:
 
 mkDerivation rec {

@@ -25,12 +25,10 @@
   cupsSupport ? config.ghostscript.cups or (!stdenv.isDarwin),
   cups,
   x11Support ? cupsSupport,
-  xorg # with CUPS, X11 only adds very little
-  ,
-  dynamicDrivers ? true
+  xorg, # with CUPS, X11 only adds very little
+  dynamicDrivers ? true,
 
   # for passthru.tests
-  ,
   graphicsmagick,
   imagemagick,
   libspectre,

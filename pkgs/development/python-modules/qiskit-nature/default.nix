@@ -2,9 +2,8 @@
   lib,
   pythonOlder,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
   # Python Inputs
-  ,
   h5py,
   numpy,
   psutil,
@@ -13,9 +12,8 @@
   scikit-learn,
   scipy,
   withPyscf ? false,
-  pyscf
+  pyscf,
   # Check Inputs
-  ,
   pytestCheckHook,
   ddt,
   pylatexenc,

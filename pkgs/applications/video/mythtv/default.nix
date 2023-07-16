@@ -39,7 +39,7 @@
   soundtouch,
   libzip,
   libhdhomerun,
-  withWebKit ? false
+  withWebKit ? false,
 }:
 
 mkDerivation rec {

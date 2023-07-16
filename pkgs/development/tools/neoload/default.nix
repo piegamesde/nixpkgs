@@ -6,7 +6,7 @@
   jre,
   makeWrapper,
   fontsConf,
-  licenseAccepted ? false
+  licenseAccepted ? false,
 }:
 
 # If you happen to use this software on the XMonad window manager, you will have issues with

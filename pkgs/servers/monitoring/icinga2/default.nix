@@ -14,20 +14,18 @@
   mariadb-connector-c,
   postgresql,
   zlib,
-  tzdata
+  tzdata,
   # Databases
-  ,
   withMysql ? true,
-  withPostgresql ? false
+  withPostgresql ? false,
   # Features
-  ,
   withChecker ? true,
   withCompat ? false,
   withLivestatus ? false,
   withNotification ? true,
   withPerfdata ? true,
   withIcingadb ? true,
-  nameSuffix ? ""
+  nameSuffix ? "",
 }:
 
 stdenv.mkDerivation rec {

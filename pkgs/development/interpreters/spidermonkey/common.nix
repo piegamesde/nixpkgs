@@ -8,10 +8,9 @@
   lib,
   stdenv,
   fetchurl,
-  fetchpatch
+  fetchpatch,
 
   # build time
-  ,
   buildPackages,
   cargo,
   m4,
@@ -24,10 +23,9 @@
   zip,
   autoconf213,
   yasm,
-  xcbuild
+  xcbuild,
 
   # runtime
-  ,
   icu,
   icu67,
   nspr,

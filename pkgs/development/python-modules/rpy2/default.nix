@@ -21,7 +21,7 @@
   tzlocal,
   simplegeneric,
   pytestCheckHook,
-  extraRPackages ? [ ]
+  extraRPackages ? [ ],
 }:
 
 buildPythonPackage rec {

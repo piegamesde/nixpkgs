@@ -2,10 +2,9 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  pythonOlder
+  pythonOlder,
 
   # tested using
-  ,
   pytestCheckHook,
 }:
 

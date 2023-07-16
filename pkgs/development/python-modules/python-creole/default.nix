@@ -2,18 +2,15 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  runtimeShell
+  runtimeShell,
 
   # build
-  ,
-  poetry-core
+  poetry-core,
 
   # propagates
-  ,
-  docutils
+  docutils,
 
   # tests
-  ,
   pytestCheckHook,
   readme_renderer,
   textile,

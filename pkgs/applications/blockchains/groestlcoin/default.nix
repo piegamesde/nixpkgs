@@ -21,7 +21,7 @@
   qttools ? null,
   python3,
   withGui ? false,
-  withWallet ? true
+  withWallet ? true,
 }:
 
 let

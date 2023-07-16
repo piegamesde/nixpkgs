@@ -8747,7 +8747,7 @@
         elpaBuild,
         fetchurl,
         lib,
-        ntlm ? null
+        ntlm ? null,
       }:
       elpaBuild {
         pname = "url-http-ntlm";

@@ -2,7 +2,7 @@
   stdenv,
   jq,
   element-web-unwrapped,
-  conf ? { }
+  conf ? { },
 }:
 
 if (conf == { }) then

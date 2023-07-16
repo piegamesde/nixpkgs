@@ -3,7 +3,7 @@
   stdenv,
   fetchurl,
   fixedPoint ? false,
-  withCustomModes ? true
+  withCustomModes ? true,
 }:
 
 stdenv.mkDerivation rec {

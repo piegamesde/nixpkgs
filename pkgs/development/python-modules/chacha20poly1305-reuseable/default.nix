@@ -2,20 +2,17 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  pythonOlder
+  pythonOlder,
 
   # build-system
-  ,
   cython,
   poetry-core,
-  setuptools
+  setuptools,
 
   # propagates
-  ,
-  cryptography
+  cryptography,
 
   # tests
-  ,
   pytestCheckHook,
 }:
 

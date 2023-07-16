@@ -15,7 +15,7 @@
   cudaSupport ? config.cudaSupport or false,
   cudaPackages ? { },
   nvidia_x11,
-  cudnnSupport ? cudaSupport
+  cudnnSupport ? cudaSupport,
 }:
 
 let

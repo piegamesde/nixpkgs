@@ -2,15 +2,13 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-  pythonOlder
+  pythonOlder,
 
   # propagates
-  ,
   importlib-resources,
-  pyyaml
+  pyyaml,
 
   # tests
-  ,
   pytestCheckHook,
 }:
 

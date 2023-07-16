@@ -8,15 +8,14 @@
   qttools,
   qtsvg,
   buildEnv,
-  aspellDicts
+  aspellDicts,
   # Use `lib.collect lib.isDerivation aspellDicts;` to make all dictionaries
   # available.
-  ,
   enchantAspellDicts ? with aspellDicts; [
     en
     en-computers
     en-science
-  ]
+  ],
 }:
 
 python3.pkgs.buildPythonApplication rec {

@@ -9,9 +9,8 @@
   glew,
   fftwFloat,
   volk,
-  AppKit
+  AppKit,
   # Sources
-  ,
   airspy_source ? true,
   airspy,
   airspyhf_source ? true,
@@ -35,28 +34,25 @@
   spyserver_source ? true,
   plutosdr_source ? stdenv.isLinux,
   libiio,
-  libad9361
+  libad9361,
   # Sinks
-  ,
   audio_sink ? true,
   rtaudio,
   portaudio_sink ? false,
   portaudio,
-  network_sink ? true
+  network_sink ? true,
   # Decoders
-  ,
   falcon9_decoder ? false,
   m17_decoder ? false,
   codec2,
   meteor_demodulator ? true,
   radio ? true,
-  weather_sat_decoder ? true
+  weather_sat_decoder ? true,
   # Misc
-  ,
   discord_presence ? true,
   frequency_manager ? true,
   recorder ? true,
-  rigctl_server ? true
+  rigctl_server ? true,
 }:
 
 stdenv.mkDerivation rec {

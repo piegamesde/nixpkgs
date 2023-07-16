@@ -25,7 +25,7 @@ let
       version,
       sha256,
       patches ? [ ],
-      tag ? "z3"
+      tag ? "z3",
     }:
     stdenv.mkDerivation rec {
       pname = "z3";

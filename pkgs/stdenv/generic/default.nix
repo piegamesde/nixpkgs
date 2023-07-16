@@ -13,9 +13,8 @@ let
       #
       # TODO(@Ericson2314): Add assert without creating infinite recursion
       hasCC ? cc != null,
-      cc
+      cc,
 
-      ,
       shell,
       allowedRequisites ? null,
       extraAttrs ? { },
@@ -25,12 +24,10 @@ let
 
       , # The `fetchurl' to use for downloading curl and its dependencies
       # (see all-packages.nix).
-      fetchurlBoot
+      fetchurlBoot,
 
-      ,
-      setupScript ? ./setup.sh
+      setupScript ? ./setup.sh,
 
-      ,
       extraNativeBuildInputs ? [ ],
       extraBuildInputs ? [ ],
       __stdenvImpureHostDeps ? [ ],
@@ -65,7 +62,7 @@ let
       , # The implementation of `mkDerivation`, parameterized with the final stdenv so we can tie the knot.
       # This is convient to have as a parameter so the stdenv "adapters" work better
       mkDerivationFromStdenv ?
-        import ./make-derivation.nix { inherit lib config; }
+        import ./make-derivation.nix { inherit lib config; },
     }:
 
     let

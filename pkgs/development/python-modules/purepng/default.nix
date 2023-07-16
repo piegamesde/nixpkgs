@@ -5,7 +5,7 @@
   fetchFromGitHub,
   fetchpatch,
   cython ? null,
-  numpy ? null
+  numpy ? null,
 }:
 
 buildPythonPackage {

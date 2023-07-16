@@ -1,18 +1,15 @@
 {
   lib,
-  mkDerivation
+  mkDerivation,
 
-  ,
   cmake,
   extra-cmake-modules,
   bison,
-  flex
+  flex,
 
-  ,
   gmp,
-  mpfr
+  mpfr,
 
-  ,
   kconfig,
   kcoreaddons,
   ki18n,

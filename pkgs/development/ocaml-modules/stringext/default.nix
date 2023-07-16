@@ -4,10 +4,9 @@
   ocaml,
   buildDunePackage,
   ounit,
-  qtest
+  qtest,
   # Optionally enable tests; test script use OCaml-4.01+ features
-  ,
-  doCheck ? lib.versionAtLeast ocaml.version "4.08"
+  doCheck ? lib.versionAtLeast ocaml.version "4.08",
 }:
 
 let

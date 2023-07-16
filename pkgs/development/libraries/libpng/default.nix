@@ -3,7 +3,7 @@
   stdenv,
   fetchurl,
   zlib,
-  apngSupport ? true
+  apngSupport ? true,
 }:
 
 assert zlib != null;

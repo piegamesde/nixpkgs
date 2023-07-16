@@ -2,9 +2,8 @@
   lib,
   stdenv,
   fetchurl,
-  fetchpatch
+  fetchpatch,
   # native
-  ,
   meson,
   ninja,
   pkg-config,
@@ -12,9 +11,8 @@
   desktop-file-utils,
   appstream-glib,
   wrapGAppsHook,
-  python3
+  python3,
   # Not native
-  ,
   gst_all_1,
   gsettings-desktop-schemas,
   gtk3,

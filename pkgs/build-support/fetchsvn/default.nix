@@ -5,7 +5,7 @@
   subversion,
   glibcLocales,
   sshSupport ? true,
-  openssh ? null
+  openssh ? null,
 }:
 
 {
@@ -16,7 +16,7 @@
   ignoreExternals ? false,
   ignoreKeywords ? false,
   name ? null,
-  preferLocalBuild ? true
+  preferLocalBuild ? true,
 }:
 
 assert sshSupport -> openssh != null;

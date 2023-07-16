@@ -22,7 +22,7 @@
   qttools,
   wrapQtAppsHook,
   zlib,
-  variant ? "standalone"
+  variant ? "standalone",
 }:
 
 let

@@ -5,9 +5,8 @@
   fetchFromGitHub,
   cmake,
   ninja,
-  scikit-build
+  scikit-build,
   # Check Inputs
-  ,
   pytestCheckHook,
 }:
 

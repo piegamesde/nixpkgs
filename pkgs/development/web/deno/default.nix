@@ -8,7 +8,7 @@
   tinycc,
   libiconv,
   darwin,
-  librusty_v8 ? callPackage ./librusty_v8.nix { }
+  librusty_v8 ? callPackage ./librusty_v8.nix { },
 }:
 
 rustPlatform.buildRustPackage rec {

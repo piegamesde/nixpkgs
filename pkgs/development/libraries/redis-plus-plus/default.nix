@@ -5,7 +5,7 @@
   cmake,
   hiredis,
   enableShared ? !stdenv.hostPlatform.isStatic,
-  enableStatic ? stdenv.hostPlatform.isStatic
+  enableStatic ? stdenv.hostPlatform.isStatic,
 }:
 
 # You must build at one type of library

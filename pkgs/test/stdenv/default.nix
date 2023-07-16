@@ -29,7 +29,7 @@ let
     {
       name,
       stdenv',
-      extraAttrs ? { }
+      extraAttrs ? { },
     }:
 
     stdenv'.cc.overrideAttrs (
@@ -63,7 +63,7 @@ let
     {
       name,
       stdenv',
-      extraAttrs ? { }
+      extraAttrs ? { },
     }:
     stdenv'.mkDerivation (
       {
@@ -86,7 +86,7 @@ let
     {
       name,
       stdenv',
-      extraAttrs ? { }
+      extraAttrs ? { },
     }:
     stdenv'.mkDerivation (
       {

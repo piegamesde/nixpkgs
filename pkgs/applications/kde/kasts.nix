@@ -1,13 +1,11 @@
 {
   lib,
-  mkDerivation
+  mkDerivation,
 
-  ,
   cmake,
   extra-cmake-modules,
-  wrapGAppsHook
+  wrapGAppsHook,
 
-  ,
   gst_all_1,
   kconfig,
   kcoreaddons,

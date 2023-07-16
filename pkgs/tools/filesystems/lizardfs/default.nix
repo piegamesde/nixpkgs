@@ -19,8 +19,7 @@
   pam,
   spdlog,
   systemdMinimal,
-  zlib # optional
-  ,
+  zlib, # optional
 }:
 
 stdenv.mkDerivation rec {

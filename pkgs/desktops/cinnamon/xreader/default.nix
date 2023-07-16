@@ -31,7 +31,7 @@
     "comics"
     "xps"
     "epub"
-  ]
+  ],
 }:
 
 stdenv.mkDerivation rec {

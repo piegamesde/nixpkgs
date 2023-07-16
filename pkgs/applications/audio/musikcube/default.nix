@@ -17,9 +17,8 @@
   pkg-config,
   portaudio,
   stdenv,
-  taglib
+  taglib,
   # Linux Dependencies
-  ,
   alsa-lib,
   pipewireSupport ? !stdenv.hostPlatform.isDarwin,
   pipewire,
@@ -27,9 +26,8 @@
   sndioSupport ? true,
   sndio,
   systemd,
-  systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd
+  systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
   # Darwin Dependencies
-  ,
   Cocoa,
   SystemConfiguration,
   coreaudioSupport ? stdenv.hostPlatform.isDarwin,

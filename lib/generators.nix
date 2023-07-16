@@ -87,7 +87,7 @@ rec {
   # > "f\:oo:bar"
   mkKeyValueDefault =
     {
-      mkValueString ? mkValueStringDefault { }
+      mkValueString ? mkValueStringDefault { },
     }:
     sep: k: v:
     "${libStr.escape [ sep ] k}${sep}${mkValueString v}"
@@ -101,7 +101,7 @@ rec {
   toKeyValue =
     {
       mkKeyValue ? mkKeyValueDefault { } "=",
-      listsAsDuplicateKeys ? false
+      listsAsDuplicateKeys ? false,
     }:
     let
       mkLine = k: v: mkKeyValue k v + "\n";
@@ -158,7 +158,7 @@ rec {
       # format a setting line from key and value
       mkKeyValue ? mkKeyValueDefault { } "=",
       # allow lists as values for duplicate keys
-      listsAsDuplicateKeys ? false
+      listsAsDuplicateKeys ? false,
     }:
     attrsOfAttrs:
     let
@@ -227,7 +227,7 @@ rec {
       # format a setting line from key and value
       mkKeyValue ? mkKeyValueDefault { } "=",
       # allow lists as values for duplicate keys
-      listsAsDuplicateKeys ? false
+      listsAsDuplicateKeys ? false,
     }:
     {
       globalSection,
@@ -331,10 +331,9 @@ rec {
   withRecursion =
     {
       # If this option is not null, the given value will stop evaluating at a certain depth
-      depthLimit
+      depthLimit,
       # If this option is true, an error will be thrown, if a certain given depth is exceeded
-      ,
-      throwOnDepthLimit ? true
+      throwOnDepthLimit ? true,
     }:
     assert builtins.isInt depthLimit;
     let
@@ -394,7 +393,7 @@ rec {
       # If this option is true, the output is indented with newlines for attribute sets and lists
       multiline ? true,
       # Initial indentation level
-      indent ? ""
+      indent ? "",
     }:
     let
       go =

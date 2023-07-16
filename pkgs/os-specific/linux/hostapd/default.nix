@@ -5,7 +5,7 @@
   pkg-config,
   libnl,
   openssl,
-  sqlite ? null
+  sqlite ? null,
 }:
 
 stdenv.mkDerivation rec {

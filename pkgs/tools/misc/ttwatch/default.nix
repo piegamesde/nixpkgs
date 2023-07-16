@@ -9,7 +9,7 @@
   curl,
   libusb1,
   protobufc,
-  enableUnsafe ? false
+  enableUnsafe ? false,
 }:
 
 stdenv.mkDerivation {

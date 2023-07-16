@@ -1,23 +1,20 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # propagates
-  ,
   chardet,
   regex,
-  packaging
+  packaging,
 
   # optionals
-  ,
   faust-cchardet,
   pandas,
-  tabview
+  tabview,
   # TODO: , wilderness
 
   # tests
-  ,
   python,
   pytestCheckHook,
 }:

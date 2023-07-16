@@ -5,7 +5,7 @@
   python,
   writeText,
   extraCfg ? "",
-  overrideCfg ? ""
+  overrideCfg ? "",
 }:
 
 let

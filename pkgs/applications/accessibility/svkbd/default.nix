@@ -11,7 +11,7 @@
   libXtst,
   layout ? null,
   conf ? null,
-  patches ? [ ]
+  patches ? [ ],
 }:
 
 stdenv.mkDerivation rec {

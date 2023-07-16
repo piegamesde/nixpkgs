@@ -46,10 +46,9 @@
   varnish,
   xen,
   yajl,
-  IOKit
+  IOKit,
   # Defaults to `null` for all supported plugins (except xen, which is marked as
   # insecure), otherwise a list of plugin names for a custom build
-  ,
   enabledPlugins ? null,
   ...
 }:

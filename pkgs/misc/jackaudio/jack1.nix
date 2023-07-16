@@ -2,17 +2,15 @@
   lib,
   stdenv,
   fetchurl,
-  pkg-config
+  pkg-config,
 
   # Optional Dependencies
-  ,
   alsa-lib ? null,
   db ? null,
   libuuid ? null,
   libffado ? null,
-  celt ? null
+  celt ? null,
 
-  ,
   testers,
 }:
 

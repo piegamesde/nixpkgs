@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   writeText,
-  conf ? null
+  conf ? null,
 }:
 
 stdenv.mkDerivation rec {

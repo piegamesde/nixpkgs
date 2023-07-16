@@ -239,7 +239,7 @@ rec {
       upstreamUnits,
       upstreamWants,
       packages ? cfg.packages,
-      package ? cfg.package
+      package ? cfg.package,
     }:
     let
       typeDir =

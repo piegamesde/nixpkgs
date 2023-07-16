@@ -8,7 +8,7 @@
   which,
   perl,
   sensord ? false,
-  rrdtool ? null
+  rrdtool ? null,
 }:
 
 assert sensord -> rrdtool != null;

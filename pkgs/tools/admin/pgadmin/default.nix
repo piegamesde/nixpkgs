@@ -10,7 +10,7 @@
   yarn,
   fixup_yarn_lock,
   nodejs,
-  server-mode ? true
+  server-mode ? true,
 }:
 
 let

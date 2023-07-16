@@ -18,7 +18,7 @@
   backend ? "opencl",
   enableBigBoards ? false,
   enableContrib ? false,
-  enableTcmalloc ? true
+  enableTcmalloc ? true,
 }:
 
 assert lib.assertOneOf "backend" backend [

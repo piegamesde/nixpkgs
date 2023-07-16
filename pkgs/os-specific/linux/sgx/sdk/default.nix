@@ -25,7 +25,7 @@
   writeShellApplication,
   writeShellScript,
   writeText,
-  debug ? false
+  debug ? false,
 }:
 stdenv.mkDerivation rec {
   pname = "sgx-sdk";

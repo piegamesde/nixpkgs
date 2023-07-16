@@ -12,9 +12,8 @@
   libxcb,
   libxkbcommon,
   utf8proc,
-  wayland
+  wayland,
 
-  ,
   libnotify,
   xdg-utils,
   makeDesktopItem,

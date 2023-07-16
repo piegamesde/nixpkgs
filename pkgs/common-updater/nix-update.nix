@@ -5,7 +5,7 @@
 
 {
   attrPath ? null,
-  extraArgs ? [ ]
+  extraArgs ? [ ],
 }:
 
 [ "${nix-update}/bin/nix-update" ]

@@ -1,24 +1,21 @@
 {
   lib,
-  stdenv
+  stdenv,
 
   # nixpkgs functions
-  ,
   buildGoModule,
   buildVimPluginFrom2Nix,
   fetchFromGitHub,
   fetchFromSourcehut,
   fetchpatch,
   fetchurl,
-  substituteAll
+  substituteAll,
 
   # Language dependencies
-  ,
   python3,
-  rustPlatform
+  rustPlatform,
 
   # Misc dependencies
-  ,
   Cocoa,
   code-minimap,
   dasht,
@@ -59,56 +56,47 @@
   xdotool,
   xorg,
   zathura,
-  zsh
+  zsh,
 
   # command-t dependencies
-  ,
   getconf,
-  ruby
+  ruby,
 
   # cpsm dependencies
-  ,
   boost,
   cmake,
   icu,
-  ncurses
+  ncurses,
 
   # LanguageClient-neovim dependencies
-  ,
   CoreFoundation,
-  CoreServices
+  CoreServices,
 
   # nvim-treesitter dependencies
-  ,
-  callPackage
+  callPackage,
 
   # sg.nvim dependencies
-  ,
-  darwin
+  darwin,
 
   # sved dependencies
-  ,
   glib,
   gobject-introspection,
-  wrapGAppsHook
+  wrapGAppsHook,
 
   # sniprun dependencies
-  ,
   bashInteractive,
   coreutils,
   curl,
   gnugrep,
   gnused,
   makeWrapper,
-  procps
+  procps,
 
   # sg-nvim dependencies
-  ,
   openssl,
-  pkg-config
+  pkg-config,
 
   # vim-go dependencies
-  ,
   asmfmt,
   delve,
   errcheck,
@@ -126,9 +114,8 @@
   gotools,
   iferr,
   impl,
-  reftools
+  reftools,
   # must be lua51Packages
-  ,
   luaPackages,
 }:
 

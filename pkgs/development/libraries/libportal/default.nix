@@ -13,7 +13,7 @@
   gtk3,
   gtk4,
   libsForQt5,
-  variant ? null
+  variant ? null,
 }:
 
 assert variant == null

@@ -60,7 +60,7 @@
   branch,
   common-updater-scripts,
   withOpenASAR ? false,
-  withTTS ? false
+  withTTS ? false,
 }:
 
 let

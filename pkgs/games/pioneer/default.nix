@@ -6,9 +6,8 @@
   pkg-config,
   assimp,
   curl,
-  freetype
+  freetype,
   #, glew
-  ,
   libGL,
   libGLU,
   libpng,

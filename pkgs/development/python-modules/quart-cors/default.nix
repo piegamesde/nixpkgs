@@ -2,19 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  pythonOlder
+  pythonOlder,
 
   # build-system
-  ,
-  poetry-core
+  poetry-core,
 
   # propagates
-  ,
   quart,
-  typing-extensions
+  typing-extensions,
 
   # tests
-  ,
   pytestCheckHook,
 }:
 

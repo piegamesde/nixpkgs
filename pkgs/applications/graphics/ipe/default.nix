@@ -17,7 +17,7 @@
   texlive,
   wrapQtAppsHook,
   zlib,
-  withTeXLive ? true
+  withTeXLive ? true,
 }:
 
 stdenv.mkDerivation rec {

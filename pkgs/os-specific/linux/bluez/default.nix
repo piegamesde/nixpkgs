@@ -15,7 +15,7 @@
   readline,
   systemdMinimal,
   udev,
-  withExperimental ? false
+  withExperimental ? false,
 }:
 let
   pythonPath = with python3.pkgs; [

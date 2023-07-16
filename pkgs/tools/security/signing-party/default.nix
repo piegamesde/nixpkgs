@@ -15,7 +15,7 @@
   libpaper,
   nettools,
   qprint,
-  sendmailPath ? "/run/wrappers/bin/sendmail"
+  sendmailPath ? "/run/wrappers/bin/sendmail",
 }:
 
 let

@@ -6,18 +6,15 @@
   fetchFromGitHub,
   cmake,
   ninja,
-  pkg-config
+  pkg-config,
 
   # darwin only
-  ,
-  CoreFoundation ? null
+  CoreFoundation ? null,
 
   # ANTLR 4.8 & 4.9
-  ,
-  libuuid
+  libuuid,
 
   # ANTLR 4.9
-  ,
   utf8cpp,
 }:
 
@@ -29,7 +26,7 @@ let
       sourceSha256,
       jarSha256,
       extraCppBuildInputs ? [ ],
-      extraCppCmakeFlags ? [ ]
+      extraCppCmakeFlags ? [ ],
     }: rec {
       source = fetchFromGitHub {
         owner = "antlr";

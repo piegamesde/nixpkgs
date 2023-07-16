@@ -4,7 +4,7 @@
   fetchFromGitHub,
   cmake,
   openssl,
-  enableStatic ? stdenv.hostPlatform.isStatic
+  enableStatic ? stdenv.hostPlatform.isStatic,
 }:
 
 stdenv.mkDerivation rec {

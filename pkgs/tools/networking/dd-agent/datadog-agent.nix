@@ -10,7 +10,7 @@
   systemd,
   hostname,
   withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
-  extraTags ? [ ]
+  extraTags ? [ ],
 }:
 
 let

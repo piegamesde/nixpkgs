@@ -24,9 +24,8 @@
   libopus,
   libogg,
   jansson,
-  libsodium
+  libsodium,
 
-  ,
   postgresqlSupport ? true,
   postgresql,
 }:

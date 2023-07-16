@@ -4,7 +4,7 @@
   fetchurl,
   readline,
   enableCurrenciesUpdater ? true,
-  pythonPackages ? null
+  pythonPackages ? null,
 }:
 
 assert enableCurrenciesUpdater -> pythonPackages != null;

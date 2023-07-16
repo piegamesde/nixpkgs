@@ -6,9 +6,8 @@
   nose,
   libarchive,
   glibcLocales,
-  isPy27
+  isPy27,
   # unrar is non-free software
-  ,
   useUnrar ? false,
   unrar,
 }:

@@ -23,7 +23,7 @@
   qttools,
   CoreFoundation,
   Security,
-  provider ? "riseup"
+  provider ? "riseup",
 }:
 let
   version = "0.21.6";

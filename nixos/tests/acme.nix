@@ -71,14 +71,14 @@ let
       server,
       group,
       vhostBaseData,
-      extraConfig ? { }
+      extraConfig ? { },
     }:
     let
       baseConfig =
         {
           nodes,
           config,
-          specialConfig ? { }
+          specialConfig ? { },
         }:
         lib.mkMerge [
           {

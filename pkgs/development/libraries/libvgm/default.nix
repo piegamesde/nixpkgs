@@ -6,9 +6,8 @@
   cmake,
   libiconv,
   zlib,
-  enableShared ? true
+  enableShared ? true,
 
-  ,
   enableAudio ? true,
   withWaveWrite ? true,
   withWinMM ? stdenv.hostPlatform.isWindows,
@@ -25,18 +24,15 @@
   CoreAudio,
   AudioToolbox,
   withLibao ? true,
-  libao
+  libao,
 
-  ,
   enableEmulation ? true,
   withAllEmulators ? true,
-  emulators ? [ ]
+  emulators ? [ ],
 
-  ,
-  enableLibplayer ? true
+  enableLibplayer ? true,
 
-  ,
-  enableTools ? false
+  enableTools ? false,
 }:
 
 assert enableTools -> enableAudio && enableEmulation && enableLibplayer;

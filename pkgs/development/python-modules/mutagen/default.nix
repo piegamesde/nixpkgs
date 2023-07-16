@@ -3,16 +3,14 @@
   buildPythonPackage,
   pythonOlder,
   fetchPypi,
-  fetchpatch
+  fetchpatch,
 
   # docs
-  ,
   python,
   sphinx,
-  sphinx-rtd-theme
+  sphinx-rtd-theme,
 
   # tests
-  ,
   hypothesis,
   pytestCheckHook,
 }:

@@ -7,15 +7,13 @@
 }:
 ## User input
 {
-  vscode ? vscodeDefault
+  vscode ? vscodeDefault,
   # extensions to be symlinked into the project's extensions folder
-  ,
-  nixExtensions ? [ ]
+  nixExtensions ? [ ],
   # extensions to be copied into the project's extensions folder
-  ,
   mutableExtensions ? [ ],
   vscodeExtsFolderName ? ".vscode-exts",
-  user-data-dir ? ''"''${TMP}vscodeWithConfiguration/vscode-data-dir"''
+  user-data-dir ? ''"''${TMP}vscodeWithConfiguration/vscode-data-dir"'',
 }:
 let
   nixExtsDrvs = extensionsFromVscodeMarketplace nixExtensions;

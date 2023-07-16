@@ -2,9 +2,8 @@
   lib,
   buildPackages ? { inherit stdenvNoCC; },
   stdenvNoCC,
-  curl # Note that `curl' may be `null', in case of the native stdenvNoCC.
-  ,
-  cacert ? null
+  curl, # Note that `curl' may be `null', in case of the native stdenvNoCC.
+  cacert ? null,
 }:
 
 let
@@ -64,10 +63,9 @@ in
 
   , # Name of the file.  If empty, use the basename of `url' (or of the
   # first element of `urls').
-  name ? ""
+  name ? "",
 
   # for versioned downloads optionally take pname + version.
-  ,
   pname ? "",
   version ? ""
 
@@ -80,9 +78,8 @@ in
   md5 ? "",
   sha1 ? "",
   sha256 ? "",
-  sha512 ? ""
+  sha512 ? "",
 
-  ,
   recursiveHash ? false
 
   , # Shell code to build a netrc file for BASIC auth
@@ -109,19 +106,16 @@ in
   showURLs ? false
 
   , # Meta information, if any.
-  meta ? { }
+  meta ? { },
 
   # Passthru information, if any.
-  ,
-  passthru ? { }
+  passthru ? { },
   # Doing the download on a remote machine just duplicates network
   # traffic, so don't do that by default
-  ,
-  preferLocalBuild ? true
+  preferLocalBuild ? true,
 
   # Additional packages needed as part of a fetch
-  ,
-  nativeBuildInputs ? [ ]
+  nativeBuildInputs ? [ ],
 }:
 
 let

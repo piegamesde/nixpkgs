@@ -3,13 +3,11 @@
   fetchFromGitHub,
   lib,
   python3,
-  installShellFiles
+  installShellFiles,
 
-  ,
   waylandSupport ? true,
-  x11Support ? true
+  x11Support ? true,
 
-  ,
   configargparse,
   rofi,
   wl-clipboard,

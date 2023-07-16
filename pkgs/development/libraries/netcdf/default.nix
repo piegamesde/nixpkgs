@@ -11,8 +11,7 @@
   szip,
   libxml2,
   m4,
-  curl # for DAP
-  ,
+  curl, # for DAP
   removeReferencesTo,
 }:
 

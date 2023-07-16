@@ -25,7 +25,7 @@
   ckbcomp,
   xkeyboard_config,
   mkDerivation,
-  nixos-extensions ? false
+  nixos-extensions ? false,
 }:
 
 mkDerivation rec {

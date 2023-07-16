@@ -8,7 +8,7 @@
   mathcomp-zify,
   mathcomp-algebra-tactics,
   lib,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation {

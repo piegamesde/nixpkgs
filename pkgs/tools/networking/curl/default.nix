@@ -53,10 +53,9 @@
   zlibSupport ? true,
   zlib,
   zstdSupport ? false,
-  zstd
+  zstd,
 
   # for passthru.tests
-  ,
   coeurl,
   curlpp,
   haskellPackages,

@@ -7,10 +7,10 @@
   python3,
   substituteAll,
   nix-update-script,
-  nixosTests
+  nixosTests,
   # To include additional plugins, pass them here as an overlay.
-  ,
-  packageOverrides ? self: super: { }
+  packageOverrides ? self: super:
+    { },
 }:
 let
 

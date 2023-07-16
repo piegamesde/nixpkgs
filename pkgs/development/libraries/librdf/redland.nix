@@ -18,7 +18,7 @@
   sqlite,
   withSqlite ? true,
   db,
-  withBdb ? false
+  withBdb ? false,
 }:
 
 stdenv.mkDerivation rec {

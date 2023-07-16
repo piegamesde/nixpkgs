@@ -14,7 +14,7 @@
   ed,
   which,
   tcllib,
-  withJson ? true
+  withJson ? true,
 }:
 
 stdenv.mkDerivation rec {

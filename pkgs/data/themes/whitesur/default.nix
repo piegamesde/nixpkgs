@@ -23,6 +23,7 @@
   panelOpacity ? null # default: 15%
   ,
   panelSize ? null # default: 32px
+  ,
 }:
 
 let

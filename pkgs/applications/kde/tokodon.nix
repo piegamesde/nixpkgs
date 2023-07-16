@@ -1,13 +1,11 @@
 {
   lib,
-  mkDerivation
+  mkDerivation,
 
-  ,
   cmake,
   extra-cmake-modules,
-  pkg-config
+  pkg-config,
 
-  ,
   kconfig,
   kdbusaddons,
   ki18n,

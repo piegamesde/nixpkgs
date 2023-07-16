@@ -21,7 +21,7 @@
   python3,
   nixosTests,
   withGui,
-  withWallet ? true
+  withWallet ? true,
 }:
 
 stdenv.mkDerivation rec {

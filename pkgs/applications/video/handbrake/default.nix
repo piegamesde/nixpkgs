@@ -10,14 +10,12 @@
 {
   stdenv,
   lib,
-  fetchFromGitHub
+  fetchFromGitHub,
   # For tests
-  ,
   testers,
   runCommand,
-  fetchurl
+  fetchurl,
   # Main build tools
-  ,
   pkg-config,
   autoconf,
   automake,
@@ -26,9 +24,8 @@
   xz,
   python3,
   numactl,
-  writeText
+  writeText,
   # Processing, video codecs, containers
-  ,
   ffmpeg_5-full,
   nv-codec-headers,
   libogg,
@@ -38,17 +35,15 @@
   libtheora,
   dav1d,
   zimg,
-  svt-av1
+  svt-av1,
   # Codecs, audio
-  ,
   libopus,
   lame,
   libvorbis,
   a52dec,
   speex,
-  libsamplerate
+  libsamplerate,
   # Text processing
-  ,
   libiconv,
   fribidi,
   fontconfig,
@@ -57,25 +52,22 @@
   jansson,
   libxml2,
   harfbuzz,
-  libjpeg_turbo
+  libjpeg_turbo,
   # Optical media
-  ,
   libdvdread,
   libdvdnav,
   libdvdcss,
-  libbluray
+  libbluray,
   # Darwin-specific
-  ,
   AudioToolbox,
   Foundation,
   libobjc,
-  VideoToolbox
+  VideoToolbox,
   # GTK
   # NOTE: 2019-07-19: The gtk3 package has a transitive dependency on dbus,
   # which in turn depends on systemd. systemd is not supported on Darwin, so
   # for now we disable GTK GUI support on Darwin. (It may be possible to remove
   # this restriction later.)
-  ,
   useGtk ? !stdenv.isDarwin,
   wrapGAppsHook,
   intltool,
@@ -87,9 +79,8 @@
   dbus-glib,
   udev,
   libgudev,
-  hicolor-icon-theme
+  hicolor-icon-theme,
   # FDK
-  ,
   useFdk ? false,
   fdk_aac,
 }:

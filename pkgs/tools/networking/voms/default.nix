@@ -1,24 +1,21 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub
+  fetchFromGitHub,
   # Native build inputs
-  ,
   autoreconfHook,
   bison,
   flex,
-  pkg-config
+  pkg-config,
   # Build inputs
-  ,
   expat,
   gsoap,
   openssl,
-  zlib
+  zlib,
   # Configuration overridable with .override
   # If not null, the builder will
   # move "$out/etc" to "$out/etc.orig" and symlink "$out/etc" to externalEtc.
-  ,
-  externalEtc ? "/etc"
+  externalEtc ? "/etc",
 }:
 
 stdenv.mkDerivation rec {

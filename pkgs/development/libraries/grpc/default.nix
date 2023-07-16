@@ -13,10 +13,9 @@
   protobuf,
   grpc,
   abseil-cpp,
-  libnsl
+  libnsl,
 
   # tests
-  ,
   python3,
   arrow-cpp,
 }:

@@ -37,7 +37,7 @@
   wayland-protocols,
   wayland-scanner,
   zlib,
-  withPolkit ? stdenv.isLinux
+  withPolkit ? stdenv.isLinux,
 }:
 
 # If this package is built with polkit support (withPolkit=true),

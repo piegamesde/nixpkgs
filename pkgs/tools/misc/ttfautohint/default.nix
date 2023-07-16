@@ -8,7 +8,7 @@
   harfbuzz,
   libiconv,
   qtbase,
-  enableGUI ? true
+  enableGUI ? true,
 }:
 
 stdenv.mkDerivation rec {

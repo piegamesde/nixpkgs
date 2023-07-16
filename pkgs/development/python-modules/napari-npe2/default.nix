@@ -5,8 +5,7 @@
   buildPythonPackage,
   fetchFromGitHub,
   magicgui,
-  napari # reverse dependency, for tests
-  ,
+  napari, # reverse dependency, for tests
   psygnal,
   pydantic,
   pythonOlder,

@@ -7,7 +7,7 @@
   which,
   glib,
   gtk2,
-  enableSoftening ? true
+  enableSoftening ? true,
 }:
 
 stdenv.mkDerivation rec {

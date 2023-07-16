@@ -68,7 +68,7 @@
   gcc ? stdenv.cc,
   extraCmds ? "",
   cleanupCmds ? "",
-  shell ? "${pkgs.bashInteractive}/bin/bash --norc"
+  shell ? "${pkgs.bashInteractive}/bin/bash --norc",
 }:
 
 mkDerivation {

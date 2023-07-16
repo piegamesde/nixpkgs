@@ -13,9 +13,8 @@
   ninja,
   gtk-doc,
   docbook-xsl-nons,
-  gobject-introspection
+  gobject-introspection,
   # Optional dependencies
-  ,
   libjpeg,
   libexif,
   librsvg,

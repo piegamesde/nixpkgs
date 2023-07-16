@@ -5,7 +5,7 @@
   cmake,
   cacert,
   fetchpatch,
-  buildShared ? !stdenv.hostPlatform.isStatic
+  buildShared ? !stdenv.hostPlatform.isStatic,
 }:
 
 let
@@ -21,7 +21,7 @@ let
       version,
       hash,
       patches ? [ ],
-      knownVulnerabilities ? [ ]
+      knownVulnerabilities ? [ ],
     }:
     stdenv.mkDerivation rec {
       pname = "libressl";

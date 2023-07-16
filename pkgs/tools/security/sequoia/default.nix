@@ -6,9 +6,8 @@
   darwin,
   git,
   nettle,
-  nix-update-script
+  nix-update-script,
   # Use the same llvmPackages version as Rust
-  ,
   llvmPackages_12,
   cargo,
   rustc,
@@ -20,7 +19,7 @@
   capnproto,
   ensureNewerSourcesForZipFilesHook,
   pythonSupport ? true,
-  pythonPackages ? null
+  pythonPackages ? null,
 }:
 
 assert pythonSupport -> pythonPackages != null;

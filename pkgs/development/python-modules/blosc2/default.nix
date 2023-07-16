@@ -1,26 +1,23 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # build-system
-  ,
   setuptools,
   scikit-build,
   cython,
   cmake,
-  ninja
+  ninja,
 
   # propagates
-  ,
   msgpack,
   ndindex,
   numpy,
   py-cpuinfo,
-  rich
+  rich,
 
   # tests
-  ,
   psutil,
   pytestCheckHook,
   torch,

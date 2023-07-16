@@ -119,27 +119,22 @@ rec {
         ;
     in
     {
-      imageName
+      imageName,
       # To find the digest of an image, you can use skopeo:
       # see doc/functions.xml
-      ,
       imageDigest,
       sha256,
       os ?
         "linux", # Image architecture, defaults to the architecture of the `hostPlatform` when unset
-      arch ? defaultArchitecture
+      arch ? defaultArchitecture,
       # This is used to set name to the pulled image
-      ,
-      finalImageName ? imageName
+      finalImageName ? imageName,
       # This used to set a tag to the pulled image
-      ,
-      finalImageTag ? "latest"
+      finalImageTag ? "latest",
       # This is used to disable TLS certificate verification, allowing access to http registries on (hopefully) trusted networks
-      ,
-      tlsVerify ? true
+      tlsVerify ? true,
 
-      ,
-      name ? fixName "docker-image-${finalImageName}-${finalImageTag}.tar"
+      name ? fixName "docker-image-${finalImageName}-${finalImageTag}.tar",
     }:
 
     runCommand name
@@ -179,7 +174,7 @@ rec {
   mergeDrvs =
     {
       derivations,
-      onlyDeps ? false
+      onlyDeps ? false,
     }:
     runCommand "merge-drvs" { inherit derivations onlyDeps; } ''
       if [[ -n "$onlyDeps" ]]; then
@@ -240,7 +235,7 @@ rec {
       buildVMMemorySize ? 512,
       preMount ? "",
       postMount ? "",
-      postUmount ? ""
+      postUmount ? "",
     }:
     vmTools.runInLinuxVM (
       runCommand name
@@ -357,7 +352,7 @@ rec {
       fromImage,
       fromImageName ? null,
       fromImageTag ? null,
-      diskSize ? 1024
+      diskSize ? 1024,
     }:
     runWithOverlay {
       inherit name fromImage fromImageName fromImageTag diskSize;
@@ -402,7 +397,7 @@ rec {
         false, # Additional commands to run on the layer before it is tar'd up.
       extraCommands ? "",
       uid ? 0,
-      gid ? 0
+      gid ? 0,
     }:
     runCommand "docker-layer-${name}"
     {
@@ -479,7 +474,7 @@ rec {
         1024, # How much memory to allocate for the temporary virtual machine.
       buildVMMemorySize ?
         512, # Commands (bash) to run on the layer; these do not require sudo.
-      extraCommands ? ""
+      extraCommands ? "",
     }:
     # Generate an executable script from the `runAsRoot` text.
     let
@@ -1208,7 +1203,7 @@ rec {
         + "/bin/bash", # Run this command in the environment of the derivation, in an interactive shell. See `--command` in `man nix-shell`
       command ?
         null, # Same as `command`, but runs the command in a non-interactive shell instead. See `--run` in `man nix-shell`
-      run ? null
+      run ? null,
     }:
     assert lib.assertMsg
       (!(drv.drvAttrs.__structuredAttrs or false))

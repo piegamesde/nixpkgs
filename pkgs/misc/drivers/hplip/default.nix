@@ -21,14 +21,13 @@
   nettools,
   avahi,
   bash,
-  util-linux
+  util-linux,
   # To remove references to gcc-unwrapped
-  ,
   removeReferencesTo,
   qt5,
   withQt5 ? true,
   withPlugin ? false,
-  withStaticPPDInstall ? false
+  withStaticPPDInstall ? false,
 }:
 
 let

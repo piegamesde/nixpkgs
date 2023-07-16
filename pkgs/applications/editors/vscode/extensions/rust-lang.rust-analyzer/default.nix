@@ -11,7 +11,7 @@
   libsecret,
   stdenv,
   darwin,
-  setDefaultServerPath ? true
+  setDefaultServerPath ? true,
 }:
 
 let

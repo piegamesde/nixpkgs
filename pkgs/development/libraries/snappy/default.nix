@@ -4,7 +4,7 @@
   fetchFromGitHub,
   cmake,
   fetchpatch,
-  static ? stdenv.hostPlatform.isStatic
+  static ? stdenv.hostPlatform.isStatic,
 }:
 
 stdenv.mkDerivation rec {

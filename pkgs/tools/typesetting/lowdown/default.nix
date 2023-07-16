@@ -5,9 +5,8 @@
   fixDarwinDylibNames,
   which,
   enableShared ? !(stdenv.hostPlatform.isStatic),
-  enableStatic ? stdenv.hostPlatform.isStatic
+  enableStatic ? stdenv.hostPlatform.isStatic,
   # for passthru.tests
-  ,
   nix,
 }:
 

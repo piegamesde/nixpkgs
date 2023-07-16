@@ -2,7 +2,7 @@
   lib,
   fetchFromGitHub,
   buildDunePackage,
-  defaultVersion ? "0.11.0"
+  defaultVersion ? "0.11.0",
 }:
 
 {

@@ -3,7 +3,7 @@
   stdenv,
   fetchurl,
   python ? null,
-  withPython ? false
+  withPython ? false,
 }:
 
 stdenv.mkDerivation rec {

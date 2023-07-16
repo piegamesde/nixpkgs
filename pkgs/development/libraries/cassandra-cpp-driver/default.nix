@@ -6,7 +6,7 @@
   zlib,
   libuv,
   openssl,
-  examples ? false
+  examples ? false,
 }:
 stdenv.mkDerivation rec {
   pname = "cassandra-cpp-driver";

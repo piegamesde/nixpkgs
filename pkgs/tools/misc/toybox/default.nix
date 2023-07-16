@@ -8,7 +8,7 @@
   libiconv,
   enableStatic ? stdenv.hostPlatform.isStatic,
   enableMinimal ? false,
-  extraConfig ? ""
+  extraConfig ? "",
 }:
 
 let

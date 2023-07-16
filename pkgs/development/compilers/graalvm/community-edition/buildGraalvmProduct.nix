@@ -7,9 +7,8 @@
   perl,
   unzip,
   zlib,
-  libxcrypt-legacy
+  libxcrypt-legacy,
   # extra params
-  ,
   product,
   javaVersion,
   extraBuildInputs ? [ ],

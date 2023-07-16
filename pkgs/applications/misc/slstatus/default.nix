@@ -8,7 +8,7 @@
   libXau,
   libXdmcp,
   conf ? null,
-  patches ? [ ]
+  patches ? [ ],
 }:
 
 stdenv.mkDerivation rec {

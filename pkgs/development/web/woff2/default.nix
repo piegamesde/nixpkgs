@@ -5,7 +5,7 @@
   fetchFromGitHub,
   lib,
   stdenv,
-  static ? stdenv.hostPlatform.isStatic
+  static ? stdenv.hostPlatform.isStatic,
 }:
 
 stdenv.mkDerivation rec {

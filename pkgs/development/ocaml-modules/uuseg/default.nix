@@ -9,7 +9,7 @@
   uucp,
   uutf,
   cmdliner,
-  cmdlinerSupport ? lib.versionAtLeast cmdliner.version "1.1"
+  cmdlinerSupport ? lib.versionAtLeast cmdliner.version "1.1",
 }:
 
 let

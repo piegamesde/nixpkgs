@@ -6,7 +6,7 @@
   gtk2,
   xorg,
   glibcLocales,
-  releasePath ? null
+  releasePath ? null,
 }:
 
 # To use this package, you need to download your own cplex installer from IBM

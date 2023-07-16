@@ -3,20 +3,17 @@
   buildPythonPackage,
   fetchPypi,
   fetchpatch,
-  pythonOlder
+  pythonOlder,
 
   # build
-  ,
-  poetry-core
+  poetry-core,
 
   # propagates
-  ,
   aiohttp,
   pydantic,
-  toml
+  toml,
 
   # tests
-  ,
   pytest-asyncio,
   pytest-mock,
   pytestCheckHook,

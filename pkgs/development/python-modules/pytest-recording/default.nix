@@ -2,14 +2,12 @@
   lib,
   stdenv,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
   # install dependencies
-  ,
   pytest,
   vcrpy,
-  attrs
+  attrs,
   # test dependencies
-  ,
   pytestCheckHook,
   pytest-httpbin,
   pytest-mock,

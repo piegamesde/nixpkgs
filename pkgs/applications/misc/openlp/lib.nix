@@ -3,10 +3,9 @@
 {
   fetchurl,
   lib,
-  qt5
+  qt5,
 
   # python deps
-  ,
   python,
   buildPythonPackage,
   alembic,

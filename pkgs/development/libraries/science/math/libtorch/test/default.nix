@@ -4,11 +4,10 @@
   cmake,
   libtorch-bin,
   linkFarm,
-  symlinkJoin
+  symlinkJoin,
 
-  ,
   cudaSupport,
-  cudaPackages ? { }
+  cudaPackages ? { },
 }:
 let
   inherit (cudaPackages) cudatoolkit cudnn;

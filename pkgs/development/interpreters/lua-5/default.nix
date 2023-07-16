@@ -24,8 +24,7 @@ let
       luaOnHostForHost,
       luaOnTargetForTarget,
       luaAttr ? null,
-      self # is luaOnHostForTarget
-      ,
+      self, # is luaOnHostForTarget
     }:
     let
       luaPackages = callPackage

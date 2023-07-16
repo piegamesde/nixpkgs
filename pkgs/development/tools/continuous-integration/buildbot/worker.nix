@@ -2,28 +2,24 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-  buildbot
+  buildbot,
 
   # patch
-  ,
-  coreutils
+  coreutils,
 
   # propagates
-  ,
   autobahn,
   future,
   msgpack,
-  twisted
+  twisted,
 
   # tests
-  ,
   mock,
   parameterized,
   psutil,
-  setuptoolsTrial
+  setuptoolsTrial,
 
   # passthru
-  ,
   nixosTests,
 }:
 

@@ -30,7 +30,7 @@ rec {
         "x86_64-darwin"
         "x86_64-linux"
         "x86_64-windows"
-      ]
+      ],
     }:
 
     {
@@ -47,7 +47,7 @@ rec {
 
       # Additional JDK/JREs to be registered as toolchains.
       # See https://docs.gradle.org/current/userguide/toolchains.html
-      javaToolchains ? [ ]
+      javaToolchains ? [ ],
     }:
 
     stdenv.mkDerivation rec {

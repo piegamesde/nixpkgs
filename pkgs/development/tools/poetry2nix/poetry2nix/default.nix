@@ -4,7 +4,7 @@
   poetryLib ? import ./lib.nix {
     inherit lib pkgs;
     stdenv = pkgs.stdenv;
-  }
+  },
 }:
 let
   # Poetry2nix version
@@ -60,6 +60,7 @@ let
       extras ? [
         "*"
       ] # * means all extras, otherwise include the dependencies for a given extra
+      ,
     }:
     let
       getInputs = attr: attrs.${attr} or [ ];
@@ -165,9 +166,8 @@ lib.makeScope pkgs.newScope (
         projectDir ? null,
         pyproject ? projectDir + "/pyproject.toml",
         python ? pkgs.python3,
-        pyProject ? readTOML pyproject
+        pyProject ? readTOML pyproject,
         # Example: { my-app = ./src; }
-        ,
         editablePackageSources,
       }:
       assert editablePackageSources != { };
@@ -183,7 +183,7 @@ lib.makeScope pkgs.newScope (
         pyproject ? projectDir + "/pyproject.toml",
         python ? pkgs.python3,
         pyProject ? readTOML pyproject,
-        scripts ? pyProject.tool.poetry.scripts
+        scripts ? pyProject.tool.poetry.scripts,
       }:
       assert scripts != { };
       import ./shell-scripts.nix { inherit lib python scripts; }
@@ -203,14 +203,13 @@ lib.makeScope pkgs.newScope (
         overrides ? self.defaultPoetryOverrides,
         python ? pkgs.python3,
         pwd ? projectDir,
-        preferWheels ? false
+        preferWheels ? false,
         # Example: { my-app = ./src; }
-        ,
         editablePackageSources ? { },
         pyProject ? readTOML pyproject,
         groups ? [ ],
         checkGroups ? [ "dev" ],
-        extras ? [ "*" ]
+        extras ? [ "*" ],
       }:
       let
         # The default list of poetry2nix override overlays
@@ -486,7 +485,7 @@ lib.makeScope pkgs.newScope (
         editablePackageSources ? { },
         extraPackages ? ps: [ ],
         groups ? [ "dev" ],
-        extras ? [ "*" ]
+        extras ? [ "*" ],
       }:
       let
         inherit (lib) hasAttr;

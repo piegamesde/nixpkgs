@@ -16,12 +16,10 @@
   xdg-utils,
   yarn,
   yarn2nix-moretea,
-  nixosTests
+  nixosTests,
 
-  ,
-  withRdpClient ? true
+  withRdpClient ? true,
 
-  ,
   version,
   hash,
   vendorHash,

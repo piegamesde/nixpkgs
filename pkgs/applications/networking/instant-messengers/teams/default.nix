@@ -19,7 +19,7 @@
   xar,
   cpio,
   makeWrapper,
-  enableRectOverlay ? false
+  enableRectOverlay ? false,
 }:
 
 let

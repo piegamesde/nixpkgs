@@ -27,7 +27,7 @@
   capstone,
   useX11 ? false,
   rubyBindings ? false,
-  luaBindings ? false
+  luaBindings ? false,
 }:
 
 let

@@ -1,18 +1,15 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # build
-  ,
-  hatchling
+  hatchling,
 
   # runtime
-  ,
-  terminado
+  terminado,
 
   # tests
-  ,
   pytest-jupyter,
   pytest-timeout,
   pytestCheckHook,

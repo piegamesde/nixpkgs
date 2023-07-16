@@ -5,9 +5,8 @@
   coreutils,
   fetchFromGitHub,
   installShellFiles,
-  git
+  git,
   # passthru
-  ,
   runCommand,
   makeWrapper,
   pulumi,

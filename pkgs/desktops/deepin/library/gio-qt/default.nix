@@ -9,7 +9,7 @@
   doxygen,
   qttools,
   qtbase,
-  buildDocs ? true
+  buildDocs ? true,
 }:
 
 stdenv.mkDerivation rec {

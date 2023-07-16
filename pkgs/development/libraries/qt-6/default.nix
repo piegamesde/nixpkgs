@@ -9,12 +9,11 @@
   gst_all_1,
   libglvnd,
   darwin,
-  buildPackages
+  buildPackages,
 
   # options
-  ,
   developerBuild ? false,
-  debug ? false
+  debug ? false,
 }:
 
 let

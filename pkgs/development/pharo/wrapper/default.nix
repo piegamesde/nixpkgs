@@ -5,7 +5,7 @@
   makeDesktopItem,
   cog32,
   spur32,
-  spur64 ? "none"
+  spur64 ? "none",
 }:
 
 stdenv.mkDerivation rec {

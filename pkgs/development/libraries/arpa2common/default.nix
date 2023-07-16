@@ -2,9 +2,8 @@
   lib,
   stdenv,
   fetchFromGitLab,
-  cmake
+  cmake,
 
-  ,
   arpa2cm,
   doxygen,
   e2fsprogs,

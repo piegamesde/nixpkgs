@@ -16,7 +16,7 @@
   fftw,
   fftwFloat,
   buildTests ? false,
-  buildBenchmarks ? false
+  buildBenchmarks ? false,
 }:
 
 let

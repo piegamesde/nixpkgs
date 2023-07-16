@@ -5,7 +5,7 @@
   fetchpatch,
   flite,
   alsa-lib,
-  debug ? false
+  debug ? false,
 }:
 
 stdenv.mkDerivation rec {

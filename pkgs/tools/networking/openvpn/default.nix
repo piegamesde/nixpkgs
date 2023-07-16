@@ -22,7 +22,7 @@ let
     {
       version,
       sha256,
-      extraBuildInputs ? [ ]
+      extraBuildInputs ? [ ],
     }:
     let
       withIpRoute = stdenv.isLinux && (versionOlder version "2.5.4");

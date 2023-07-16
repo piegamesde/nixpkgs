@@ -119,13 +119,12 @@ let
       { # Human-readable representation of the type, should be equivalent to
         # the type function name.
         name, # Description of the type, defined recursively by embedding the wrapped type if any.
-        description ? null
+        description ? null,
         # A hint for whether or not this description needs parentheses. Possible values:
         #  - "noun": a simple noun phrase such as "positive integer"
         #  - "conjunction": a phrase with a potentially ambiguous "or" connective.
         #  - "composite": a phrase with an "of" connective
         # See the `optionDescriptionPhrase` function.
-        ,
         descriptionClass ?
           null, # DO NOT USE WITHOUT KNOWING WHAT YOU ARE DOING!
         # Function applied to each definition that must return false when a definition
@@ -182,7 +181,7 @@ let
           null, # The types that occur in the definition of this type. This is used to
         # issue deprecation warnings recursively. Can also be used to reuse
         # nested types
-        nestedTypes ? { }
+        nestedTypes ? { },
       }: {
         _type = "option-type";
         inherit
@@ -922,7 +921,7 @@ let
       # options declared via `config`.
       deferredModuleWith =
         attrs@{
-          staticModules ? [ ]
+          staticModules ? [ ],
         }:
         mkOptionType {
           name = "deferredModule";
@@ -1003,7 +1002,7 @@ let
           modules,
           specialArgs ? { },
           shorthandOnlyDefinesConfig ? false,
-          description ? null
+          description ? null,
         }@attrs:
         let
           inherit (lib.modules) evalModules;

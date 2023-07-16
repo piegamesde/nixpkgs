@@ -14,32 +14,26 @@
   gperftools,
   sqlite,
   gtest,
-  lit
+  lit,
 
   # Build KLEE in debug mode. Defaults to false.
-  ,
-  debug ? false
+  debug ? false,
 
   # Include debug info in the build. Defaults to true.
-  ,
-  includeDebugInfo ? true
+  includeDebugInfo ? true,
 
   # Enable KLEE asserts. Defaults to true, since LLVM is built with them.
-  ,
-  asserts ? true
+  asserts ? true,
 
   # Build the KLEE runtime in debug mode. Defaults to true, as this improves
   # stack traces of the software under test.
-  ,
-  debugRuntime ? true
+  debugRuntime ? true,
 
   # Enable runtime asserts. Default false.
-  ,
-  runtimeAsserts ? false
+  runtimeAsserts ? false,
 
   # Extra klee-uclibc config.
-  ,
-  extraKleeuClibcConfig ? { }
+  extraKleeuClibcConfig ? { },
 }:
 
 let

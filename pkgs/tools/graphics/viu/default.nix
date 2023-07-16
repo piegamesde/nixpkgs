@@ -3,7 +3,7 @@
   rustPlatform,
   fetchFromGitHub,
   libsixel,
-  withSixel ? false
+  withSixel ? false,
 }:
 
 rustPlatform.buildRustPackage rec {

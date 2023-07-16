@@ -9,13 +9,11 @@
   imagemagick,
   librsvg,
   pango,
-  webkitgtk
+  webkitgtk,
   # Python libs
-  ,
   protonvpn-nm-lib,
-  psutil
+  psutil,
   # Optionals
-  ,
   withIndicator ? true,
   libappindicator-gtk3,
 }:

@@ -11,7 +11,7 @@
   cdrkit ? null,
   mtools ? null,
   ntfs3g ? null,
-  syslinux ? null
+  syslinux ? null,
 }:
 
 stdenv.mkDerivation rec {

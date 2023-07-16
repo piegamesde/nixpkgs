@@ -3,7 +3,7 @@
   lib,
   fetchFromGitHub,
   python3,
-  libnotify ? null
+  libnotify ? null,
 }:
 
 with python3.pkgs;

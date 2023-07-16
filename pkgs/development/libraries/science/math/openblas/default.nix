@@ -4,12 +4,11 @@
   fetchFromGitHub,
   fetchpatch,
   perl,
-  which
+  which,
   # Most packages depending on openblas expect integer width to match
   # pointer width, but some expect to use 32-bit integers always
   # (for compatibility with reference BLAS).
-  ,
-  blas64 ? null
+  blas64 ? null,
   # Multi-threaded applications must not call a threaded OpenBLAS
   # (the only exception is when an application uses OpenMP as its
   # *only* form of multi-threading). See
@@ -17,26 +16,21 @@
   #     https://github.com/xianyi/OpenBLAS/issues/2543
   # This flag builds a single-threaded OpenBLAS using the flags
   # stated in thre.
-  ,
   singleThreaded ? false,
-  buildPackages
+  buildPackages,
   # Select a specific optimization target (other than the default)
   # See https://github.com/xianyi/OpenBLAS/blob/develop/TargetList.txt
-  ,
-  target ? null
+  target ? null,
   # Select whether DYNAMIC_ARCH is enabled or not.
-  ,
-  dynamicArch ? null
+  dynamicArch ? null,
   # enable AVX512 optimized kernels.
   # These kernels have been a source of trouble in the past.
   # Use with caution.
-  ,
   enableAVX512 ? false,
   enableStatic ? stdenv.hostPlatform.isStatic,
-  enableShared ? !stdenv.hostPlatform.isStatic
+  enableShared ? !stdenv.hostPlatform.isStatic,
 
   # for passthru.tests
-  ,
   ceres-solver,
   giac,
   octave,

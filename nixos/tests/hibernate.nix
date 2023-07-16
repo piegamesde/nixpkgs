@@ -4,7 +4,7 @@
   system ? builtins.currentSystem,
   config ? { },
   pkgs ? import ../.. { inherit system config; },
-  systemdStage1 ? false
+  systemdStage1 ? false,
 }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };

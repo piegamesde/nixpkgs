@@ -119,7 +119,7 @@ let
   formatCapabilities =
     {
       cudaCapabilities,
-      enableForwardCompat ? true
+      enableForwardCompat ? true,
     }: rec {
       inherit cudaCapabilities enableForwardCompat;
 

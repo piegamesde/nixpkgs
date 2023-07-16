@@ -5,14 +5,12 @@
   pythonOlder,
   fetchPypi,
   isPyPy,
-  writeText
+  writeText,
 
   # build
-  ,
-  setuptools-scm
+  setuptools-scm,
 
   # propagates
-  ,
   attrs,
   exceptiongroup,
   iniconfig,

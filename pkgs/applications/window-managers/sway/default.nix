@@ -25,9 +25,8 @@
   wlroots_0_16,
   wayland-protocols,
   libdrm,
-  nixosTests
+  nixosTests,
   # Used by the NixOS module:
-  ,
   isNixOS ? false,
   enableXWayland ? true,
   xorg,
@@ -35,7 +34,7 @@
   systemd,
   dbusSupport ? true,
   dbus,
-  trayEnabled ? systemdSupport && dbusSupport
+  trayEnabled ? systemdSupport && dbusSupport,
 }:
 
 # The "sd-bus-provider" meson option does not include a "none" option,

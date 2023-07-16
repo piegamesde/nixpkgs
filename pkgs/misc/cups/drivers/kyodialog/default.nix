@@ -4,13 +4,11 @@
   fetchzip,
   cups,
   autoPatchelfHook,
-  python3Packages
+  python3Packages,
 
   # Sets the default paper format: use "EU" for A4, or "Global" for Letter
-  ,
-  region ? "EU"
+  region ? "EU",
   # optional GUI, quite redundant to CUPS admin web GUI
-  ,
   withQtGui ? false,
   qt5,
 }:

@@ -1219,7 +1219,7 @@ with pkgs;
       kernel,
       firmware,
       rootModules,
-      allowMissing ? false
+      allowMissing ? false,
     }:
     callPackage ../build-support/kernel/modules-closure.nix {
       inherit kernel firmware rootModules allowMissing;
@@ -19738,7 +19738,7 @@ with pkgs;
   distccWrapper = makeOverridable
     (
       {
-        extraConfig ? ""
+        extraConfig ? "",
       }:
       wrapCC (distcc.links extraConfig)
     )
@@ -21683,7 +21683,7 @@ with pkgs;
     {
       suidHelper,
       serviceDirectories,
-      apparmor ? "disabled"
+      apparmor ? "disabled",
     }:
     callPackage ../development/libraries/dbus/make-dbus-conf.nix {
       inherit suidHelper serviceDirectories apparmor;
@@ -25104,7 +25104,7 @@ with pkgs;
       name,
       containerRuntimePath,
       configTemplate,
-      additionalPaths ? [ ]
+      additionalPaths ? [ ],
     }:
     let
       nvidia-container-toolkit =

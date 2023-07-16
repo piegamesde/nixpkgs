@@ -3,7 +3,7 @@
   stdenv,
   rustPlatform,
   Security,
-  asNightly ? false
+  asNightly ? false,
 }:
 
 rustPlatform.buildRustPackage rec {

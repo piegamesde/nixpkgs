@@ -55,11 +55,10 @@
   systemd,
   wayland,
   wrapGAppsHook,
-  xdg-utils
+  xdg-utils,
 
   # for custom command line arguments, e.g. "--use-gl=desktop"
-  ,
-  commandLineArgs ? ""
+  commandLineArgs ? "",
 }:
 
 stdenv.mkDerivation rec {

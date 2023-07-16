@@ -9,7 +9,7 @@
   qttools,
   wrapQtAppsHook,
   enableExperimental ? false,
-  includeMatrixDiscovery ? false
+  includeMatrixDiscovery ? false,
 }:
 
 let

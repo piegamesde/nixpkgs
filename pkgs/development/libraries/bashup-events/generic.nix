@@ -4,9 +4,8 @@
   resholve,
   bash,
   doCheck ? true,
-  doInstallCheck ? true
+  doInstallCheck ? true,
   # variant-specific
-  ,
   variant,
   version,
   branch,

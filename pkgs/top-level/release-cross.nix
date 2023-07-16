@@ -21,7 +21,7 @@
       allowUnfree = false;
       inHydra = true;
     };
-  }
+  },
 }:
 
 with import ./release-lib.nix {

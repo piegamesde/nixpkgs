@@ -3,7 +3,7 @@
   lib,
   fetchurl,
   linuxHeaders ? null,
-  useBSDCompatHeaders ? true
+  useBSDCompatHeaders ? true,
 }:
 let
   cdefs_h = fetchurl {

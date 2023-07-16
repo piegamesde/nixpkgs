@@ -13,7 +13,7 @@
     "aarch64-linux"
     "x86_64-linux"
   ],
-  limitedSupportedSystems ? [ "i686-linux" ]
+  limitedSupportedSystems ? [ "i686-linux" ],
 }:
 
 let

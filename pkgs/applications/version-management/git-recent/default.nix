@@ -4,9 +4,8 @@
   git,
   less,
   fetchFromGitHub,
-  makeWrapper
+  makeWrapper,
   # util-linuxMinimal is included because we need the column command
-  ,
   util-linux,
 }:
 

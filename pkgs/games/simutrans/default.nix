@@ -86,7 +86,7 @@ let
       sha256,
       pakName,
       srcPath ? null,
-      url ? "mirror://sourceforge/simutrans/${pakName}/${srcPath}.zip"
+      url ? "mirror://sourceforge/simutrans/${pakName}/${srcPath}.zip",
     }:
     stdenv.mkDerivation {
       name = "simutrans-${pakName}";

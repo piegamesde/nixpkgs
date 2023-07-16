@@ -5,7 +5,7 @@
   gtk3,
   papirus-icon-theme,
   flavor ? "mocha",
-  accent ? "blue"
+  accent ? "blue",
 }:
 let
   validAccents = [

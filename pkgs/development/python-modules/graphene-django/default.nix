@@ -3,17 +3,15 @@
   buildPythonPackage,
   pythonAtLeast,
   pythonOlder,
-  fetchFromGitHub
+  fetchFromGitHub,
 
-  ,
   graphene,
   graphql-core,
   django,
   djangorestframework,
   promise,
-  text-unidecode
+  text-unidecode,
 
-  ,
   django-filter,
   mock,
   py,

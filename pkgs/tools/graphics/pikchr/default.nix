@@ -2,10 +2,9 @@
   lib,
   stdenv,
   fetchfossil,
-  tcl
+  tcl,
 
-  ,
-  enableTcl ? true
+  enableTcl ? true,
 }:
 
 stdenv.mkDerivation {

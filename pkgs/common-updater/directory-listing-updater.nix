@@ -13,7 +13,7 @@
   odd-unstable ? false,
   patchlevel-unstable ? false,
   url ? null,
-  extraRegex ? null
+  extraRegex ? null,
 }:
 
 genericUpdater {

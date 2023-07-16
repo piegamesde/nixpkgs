@@ -5,9 +5,8 @@
   semgrep-core,
   buildPythonApplication,
   pythonPackages,
-  pythonRelaxDepsHook
+  pythonRelaxDepsHook,
 
-  ,
   pytestCheckHook,
   git,
 }:

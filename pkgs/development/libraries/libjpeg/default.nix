@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchurl,
-  static ? false
+  static ? false,
 }:
 
 stdenv.mkDerivation rec {

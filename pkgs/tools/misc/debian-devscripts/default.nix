@@ -17,7 +17,7 @@
   pkg-config,
   bash-completion,
   help2man,
-  sendmailPath ? "/run/wrappers/bin/sendmail"
+  sendmailPath ? "/run/wrappers/bin/sendmail",
 }:
 
 let

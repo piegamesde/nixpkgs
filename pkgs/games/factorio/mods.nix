@@ -7,7 +7,7 @@
   fetchurl,
   factorio-utils,
   allRecommendedMods ? true,
-  allOptionalMods ? false
+  allOptionalMods ? false,
 }:
 with lib;
 let

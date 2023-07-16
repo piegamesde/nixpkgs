@@ -4,7 +4,7 @@
   fetchurl,
   unzip,
   setJavaClassPath,
-  enableJavaFX ? false
+  enableJavaFX ? false,
 }:
 let
   # Details from https://www.azul.com/downloads/?version=java-11-lts&os=macos&package=jdk

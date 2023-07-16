@@ -4,17 +4,16 @@
   fetchFromGitHub,
   automake,
   autoconf,
-  libtool
+  libtool,
 
   # Optional Dependencies
-  ,
   lz4 ? null,
   snappy ? null,
   zlib ? null,
   bzip2 ? null,
   db ? null,
   gperftools ? null,
-  leveldb ? null
+  leveldb ? null,
 }:
 
 let

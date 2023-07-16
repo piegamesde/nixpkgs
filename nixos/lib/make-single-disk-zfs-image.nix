@@ -57,16 +57,15 @@
   configFile ? null
 
   , # Shell code executed after the VM has finished.
-  postVM ? ""
+  postVM ? "",
 
-  ,
   name ? "nixos-disk-image"
 
   , # Disk image format, one of qcow2, qcow2-compressed, vdi, vpc, raw.
   format ? "raw"
 
   , # Include a copy of Nixpkgs in the disk image
-  includeChannel ? true
+  includeChannel ? true,
 }:
 let
   formatOpt =

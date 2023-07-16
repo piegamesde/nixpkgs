@@ -4,10 +4,9 @@
   fetchFromGitHub,
   autoreconfHook,
   nix-update-script,
-  python3
+  python3,
 
   # for passthru.tests
-  ,
   ninja,
   php,
   spamassassin,

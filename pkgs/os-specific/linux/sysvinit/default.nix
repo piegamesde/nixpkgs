@@ -3,7 +3,7 @@
   stdenv,
   fetchurl,
   libxcrypt,
-  withoutInitTools ? false
+  withoutInitTools ? false,
 }:
 
 stdenv.mkDerivation rec {

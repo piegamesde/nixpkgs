@@ -5,9 +5,8 @@
   blas,
   lapack,
   numpy,
-  scipy
+  scipy,
   # check inputs
-  ,
   pytestCheckHook,
 }:
 

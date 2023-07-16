@@ -11,9 +11,8 @@
   ps,
   getconf,
   withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
-  systemd
+  systemd,
   # dependency ordering is broken at the moment when building with openssl
-  ,
   tlsSupport ? !stdenv.hostPlatform.isStatic,
   openssl,
 }:

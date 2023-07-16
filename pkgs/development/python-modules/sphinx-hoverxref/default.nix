@@ -3,9 +3,8 @@
   buildPythonPackage,
   fetchFromGitHub,
   flit-core,
-  pythonImportsCheckHook
+  pythonImportsCheckHook,
   # documentation build dependencies
-  ,
   sphinxHook,
   sphinx-notfound-page,
   sphinx-prompt,
@@ -14,9 +13,8 @@
   sphinx-version-warning,
   sphinx-autoapi,
   sphinxcontrib-bibtex,
-  sphinxemoji
+  sphinxemoji,
   # runtime dependencies
-  ,
   sphinx,
   sphinxcontrib-jquery,
 }:

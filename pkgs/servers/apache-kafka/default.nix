@@ -10,7 +10,7 @@
   gnugrep,
   gnused,
   ps,
-  majorVersion ? "1.0"
+  majorVersion ? "1.0",
 }:
 
 let

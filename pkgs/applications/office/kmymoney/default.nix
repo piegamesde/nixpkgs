@@ -7,9 +7,8 @@
   graphviz,
   kdoctools,
   wrapQtAppsHook,
-  autoPatchelfHook
+  autoPatchelfHook,
 
-  ,
   akonadi,
   alkimia,
   aqbanking,
@@ -26,16 +25,13 @@
   kitemmodels,
   libical,
   libofx,
-  qgpgme
+  qgpgme,
 
-  ,
-  sqlcipher
+  sqlcipher,
 
   # Needed for running tests:
-  ,
-  xvfb-run
+  xvfb-run,
 
-  ,
   python3,
 }:
 

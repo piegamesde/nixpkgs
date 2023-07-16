@@ -10,7 +10,7 @@ in
   javaProperties =
     {
       comment ? "Generated with Nix",
-      boolToString ? lib.boolToString
+      boolToString ? lib.boolToString,
     }: {
 
       # Design note:

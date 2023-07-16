@@ -10,7 +10,7 @@
   pythonOlder,
   setuptools,
   solc,
-  withSolc ? false
+  withSolc ? false,
 }:
 
 buildPythonPackage rec {

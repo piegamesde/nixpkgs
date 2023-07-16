@@ -11,9 +11,8 @@
   wayland-scanner,
   wayland-protocols,
   enablePNG ? true,
-  enableJPEG ? true
+  enableJPEG ? true,
   # Optional dependencies
-  ,
   libpng,
   libjpeg,
 }:

@@ -17,24 +17,21 @@
   # a list of attribute sets {object, symlink} where `object' if a
   # store path whose closure will be copied, and `symlink' is a
   # symlink to `object' that will be added to the tarball.
-  storeContents ? [ ]
+  storeContents ? [ ],
 
   # Extra commands to be executed before archiving files
-  ,
-  extraCommands ? ""
+  extraCommands ? "",
 
   # Extra tar arguments
-  ,
-  extraArgs ? ""
+  extraArgs ? "",
   # Command used for compression
-  ,
-  compressCommand ? "pixz -t"
+  compressCommand ? "pixz -t",
   # Extension for the compressed tarball
-  ,
-  compressionExtension ? ".xz"
+  compressionExtension ? ".xz",
   # extra inputs, like the compressor to use
-  ,
-  extraInputs ? [ pixz ]
+  extraInputs ? [
+    pixz
+  ],
 }:
 
 let

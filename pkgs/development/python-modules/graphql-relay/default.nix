@@ -1,22 +1,18 @@
 {
   lib,
   buildPythonPackage,
-  fetchPypi
+  fetchPypi,
 
-  ,
-  pythonOlder
+  pythonOlder,
 
   # build
-  ,
-  poetry-core
+  poetry-core,
 
   # runtime
-  ,
   graphql-core,
-  typing-extensions
+  typing-extensions,
 
   # tests
-  ,
   pytest-asyncio,
   pytest-describe,
   pytestCheckHook,

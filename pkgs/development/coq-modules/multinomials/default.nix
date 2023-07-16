@@ -6,7 +6,7 @@
   mathcomp-bigenough,
   lib,
   version ? null,
-  useDune ? false
+  useDune ? false,
 }@args:
 mkCoqDerivation {
 

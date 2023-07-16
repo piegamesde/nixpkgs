@@ -23,7 +23,7 @@
   tensileSepArch ? true,
   tensileLazyLib ? true,
   tensileLibFormat ? "msgpack",
-  gpuTargets ? [ "all" ]
+  gpuTargets ? [ "all" ],
 }:
 
 stdenv.mkDerivation (

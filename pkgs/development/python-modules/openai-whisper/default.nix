@@ -3,14 +3,12 @@
   fetchFromGitHub,
   buildPythonPackage,
   substituteAll,
-  cudaSupport ? false
+  cudaSupport ? false,
 
   # runtime
-  ,
-  ffmpeg
+  ffmpeg,
 
   # propagates
-  ,
   numpy,
   torch,
   torchWithCuda,
@@ -21,10 +19,9 @@
   numba,
   openai-triton,
   scipy,
-  tiktoken
+  tiktoken,
 
   # tests
-  ,
   pytestCheckHook,
 }:
 

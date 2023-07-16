@@ -17,7 +17,7 @@
   sha512 ? "",
   fixedExtid ? null,
   hash ? "",
-  src ? ""
+  src ? "",
 }:
 
 let

@@ -2,15 +2,13 @@
   stdenv,
   fetchurl,
   lib,
-  unzip
+  unzip,
   # To select only certain fonts, put a list of strings to `fonts`: every key in
   # ./shas.nix is an optional font
-  ,
-  fonts ? [ ]
+  fonts ? [ ],
   # Whether to enable Windows font variants, their internal font name is limited
   # to 31 characters
-  ,
-  enableWindowsFonts ? false
+  enableWindowsFonts ? false,
 }:
 
 let

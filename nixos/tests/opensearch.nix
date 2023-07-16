@@ -3,7 +3,7 @@ let
     {
       pkgs,
       lib,
-      extraSettings ? { }
+      extraSettings ? { },
     }: {
       name = "opensearch";
       meta.maintainers = with pkgs.lib.maintainers; [ shyim ];

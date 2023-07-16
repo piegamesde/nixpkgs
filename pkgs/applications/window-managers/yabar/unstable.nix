@@ -3,7 +3,7 @@
   playerctl,
   libxkbcommon,
   callPackage,
-  attrs ? { }
+  attrs ? { },
 }:
 
 let

@@ -13,7 +13,7 @@
   singlePrec ? true,
   enableMpi ? false,
   enableCuda ? false,
-  cpuAcceleration ? null
+  cpuAcceleration ? null,
 }:
 
 let

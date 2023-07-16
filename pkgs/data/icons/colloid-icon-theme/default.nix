@@ -8,6 +8,7 @@
   jdupes,
   schemeVariants ? [ ],
   colorVariants ? [ ] # default is blue
+  ,
 }:
 
 let

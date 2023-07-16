@@ -3,7 +3,7 @@
   mkCoqDerivation,
   coq,
   python27,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation rec {

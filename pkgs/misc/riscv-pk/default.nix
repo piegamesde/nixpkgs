@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   autoreconfHook,
-  payload ? null
+  payload ? null,
 }:
 
 stdenv.mkDerivation rec {

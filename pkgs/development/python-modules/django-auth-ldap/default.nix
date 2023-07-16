@@ -2,19 +2,16 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-  isPy27
+  isPy27,
 
   # buildtime
-  ,
-  setuptools-scm
+  setuptools-scm,
 
   # runtime
-  ,
   django,
-  python-ldap
+  python-ldap,
 
   # tests
-  ,
   python,
   pkgs,
 }:

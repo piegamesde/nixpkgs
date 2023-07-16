@@ -2,7 +2,7 @@ let
   mkTest =
     {
       systemWide ? false,
-      fullVersion ? false
+      fullVersion ? false,
     }:
     import ./make-test-python.nix (
       {

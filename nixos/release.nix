@@ -11,7 +11,7 @@ with import ../lib;
     "x86_64-linux"
     "aarch64-linux"
   ],
-  configuration ? { }
+  configuration ? { },
 }:
 
 with import ../pkgs/top-level/release-lib.nix { inherit supportedSystems; };

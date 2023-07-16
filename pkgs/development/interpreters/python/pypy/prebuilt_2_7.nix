@@ -4,9 +4,8 @@
   fetchurl,
   autoPatchelfHook,
   python-setup-hook,
-  self
+  self,
   # Dependencies
-  ,
   bzip2,
   expat,
   gdbm,
@@ -16,10 +15,11 @@
   tk-8_5,
   tcl-8_6,
   tk-8_6,
-  zlib
+  zlib,
   # For the Python package set
-  ,
-  packageOverrides ? (self: super: { }),
+  packageOverrides ? (
+    self: super: { }
+  ),
   sourceVersion,
   pythonVersion,
   hash,

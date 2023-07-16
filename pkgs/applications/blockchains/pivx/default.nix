@@ -22,7 +22,7 @@
   enableUpnp ? false,
   disableWallet ? false,
   disableDaemon ? false,
-  withGui ? false
+  withGui ? false,
 }:
 
 stdenv.mkDerivation rec {

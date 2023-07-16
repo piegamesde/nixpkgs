@@ -49,7 +49,7 @@ let
     {
       version,
       sha256,
-      cargoSha256 ? null
+      cargoSha256 ? null,
     }:
     let
       ver = version;
@@ -98,7 +98,7 @@ let
             linuxPackages,
             systemtap ? linuxPackages.systemtap,
             libsystemtap,
-            dtraceSupport ? false
+            dtraceSupport ? false,
             # By default, ruby has 3 observed references to stdenv.cc:
             #
             # - If you run:
@@ -108,7 +108,6 @@ let
             #   Or (usually):
             #     $(nix-build -A ruby)/lib/ruby/2.6.0/x86_64-linux/rbconfig.rb
             # - In $out/lib/libruby.so and/or $out/lib/libruby.dylib
-            ,
             removeReferencesTo,
             jitSupport ? yjitSupport,
             rustPlatform,
@@ -130,7 +129,7 @@ let
               docSupport = false;
               rubygemsSupport = false;
             },
-            useBaseRuby ? stdenv.hostPlatform != stdenv.buildPlatform
+            useBaseRuby ? stdenv.hostPlatform != stdenv.buildPlatform,
           }:
           stdenv.mkDerivation rec {
             pname = "ruby";

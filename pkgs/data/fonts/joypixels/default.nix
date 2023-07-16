@@ -3,7 +3,7 @@
   stdenv,
   fetchurl,
   config,
-  acceptLicense ? config.joypixels.acceptLicense or false
+  acceptLicense ? config.joypixels.acceptLicense or false,
 }:
 
 let

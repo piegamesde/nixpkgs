@@ -13,14 +13,12 @@ lib.makePackageOverridable
   { # Arguments passed through to `buildDhallPackage`
     name,
     dependencies ? [ ],
-    source ? false
+    source ? false,
 
-    ,
     src, # The file to import, relative to the root directory
-    file ? "package.dhall"
+    file ? "package.dhall",
     # Set to `true` to generate documentation for the package
-    ,
-    document ? false
+    document ? false,
   }:
 
   buildDhallPackage (

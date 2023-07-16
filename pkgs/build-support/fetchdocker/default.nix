@@ -26,7 +26,7 @@ in
   tag,
   imageLayers,
   imageConfig,
-  image ? "${stripScheme registry}/${repository}/${imageName}:${tag}"
+  image ? "${stripScheme registry}/${repository}/${imageName}:${tag}",
 }:
 
 # Make sure there are *no* slashes in the repository or container

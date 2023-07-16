@@ -1,6 +1,6 @@
 {
   pkgs ? import <nixpkgs> { },
-  lib ? pkgs.lib
+  lib ? pkgs.lib,
 }:
 
 let
@@ -9,7 +9,7 @@ let
       self,
       drv,
       attr,
-      extraAttrs ? [ ]
+      extraAttrs ? [ ],
     }:
     let
       buildSystem =
@@ -3363,7 +3363,7 @@ lib.composeManyExtensions [
           {
             enableCuda ? false,
             cudatoolkit ? pkgs.cudatoolkit_10_1,
-            pkg ? super.torch
+            pkg ? super.torch,
           }:
           pkg.overrideAttrs (
             old: {
@@ -3408,7 +3408,7 @@ lib.composeManyExtensions [
           {
             enableCuda ? false,
             cudatoolkit ? pkgs.cudatoolkit_10_1,
-            pkg ? super.torchvision
+            pkg ? super.torchvision,
           }:
           pkg.overrideAttrs (
             old: {

@@ -4,14 +4,13 @@
   pname,
   version,
   src,
-  projectName # "apptainer" or "singularity"
-  ,
+  projectName, # "apptainer" or "singularity"
   vendorHash ? null,
   deleteVendor ? false,
   proxyVendor ? false,
   extraConfigureFlags ? [ ],
   extraDescription ? "",
-  extraMeta ? { }
+  extraMeta ? { },
 }:
 
 let
@@ -22,15 +21,13 @@ in
 {
   lib,
   buildGoModule,
-  runCommandLocal
+  runCommandLocal,
   # Native build inputs
-  ,
   makeWrapper,
   pkg-config,
   util-linux,
-  which
+  which,
   # Build inputs
-  ,
   bash,
   conmon,
   coreutils,
@@ -41,52 +38,42 @@ in
   go,
   gpgme,
   libseccomp,
-  libuuid
+  libuuid,
   # This is for nvidia-container-cli
-  ,
   nvidia-docker,
   openssl,
   squashfsTools,
-  squashfuse
+  squashfuse,
   # Test dependencies
-  ,
   singularity-tools,
   cowsay,
-  hello
+  hello,
   # Overridable configurations
-  ,
-  enableNvidiaContainerCli ? true
+  enableNvidiaContainerCli ? true,
   # Compile with seccomp support
   # SingularityCE 3.10.0 and above requires explicit --without-seccomp when libseccomp is not available.
-  ,
-  enableSeccomp ? true
+  enableSeccomp ? true,
   # Whether the configure script treat SUID support as default
   # When equal to enableSuid, it supress the --with-suid / --without-suid build flag
   # It can be set to `null` to always pass either --with-suid or --without-suided
   # Type: null or boolean
-  ,
-  defaultToSuid ? true
+  defaultToSuid ? true,
   # Whether to compile with SUID support
-  ,
   enableSuid ? false,
-  starterSuidPath ? null
+  starterSuidPath ? null,
   # newuidmapPath and newgidmapPath are to support --fakeroot
   # where those SUID-ed executables are unavailable from the FHS system PATH.
   # Path to SUID-ed newuidmap executable
-  ,
-  newuidmapPath ? null
+  newuidmapPath ? null,
   # Path to SUID-ed newgidmap executable
-  ,
-  newgidmapPath ? null
+  newgidmapPath ? null,
   # Remove the symlinks to `singularity*` when projectName != "singularity"
-  ,
-  removeCompat ? false
+  removeCompat ? false,
   # Workaround #86349
   # should be removed when the issue is resolved
-  ,
   vendorHash ? _defaultGoVendorArgs.vendorHash,
   deleteVendor ? _defaultGoVendorArgs.deleteVendor,
-  proxyVendor ? _defaultGoVendorArgs.proxyVendor
+  proxyVendor ? _defaultGoVendorArgs.proxyVendor,
 }:
 
 let

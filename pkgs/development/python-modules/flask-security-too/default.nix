@@ -2,33 +2,28 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-  pythonOlder
+  pythonOlder,
 
   # extras: babel
-  ,
   babel,
-  flask-babel
+  flask-babel,
 
   # extras: common
-  ,
   bcrypt,
   bleach,
   flask-mailman,
-  qrcode
+  qrcode,
 
   # extras: fsqla
-  ,
   flask-sqlalchemy,
   sqlalchemy,
-  sqlalchemy-utils
+  sqlalchemy-utils,
 
   # extras: mfa
-  ,
   cryptography,
-  phonenumbers
+  phonenumbers,
 
   # propagates
-  ,
   blinker,
   email-validator,
   flask,
@@ -36,10 +31,9 @@
   flask_principal,
   flask-wtf,
   itsdangerous,
-  passlib
+  passlib,
 
   # tests
-  ,
   argon2-cffi,
   flask-mongoengine,
   mongoengine,

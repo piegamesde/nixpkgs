@@ -10,7 +10,7 @@
   stdenv,
   formats,
   runCommand,
-  spacevim_config ? import ./init.nix
+  spacevim_config ? import ./init.nix,
 }:
 
 let

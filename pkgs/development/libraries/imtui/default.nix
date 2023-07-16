@@ -11,7 +11,7 @@
   curl,
   withNcurses ? (!withEmscripten),
   ncurses,
-  static ? withEmscripten
+  static ? withEmscripten,
 }:
 
 stdenv.mkDerivation rec {

@@ -3,19 +3,17 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-  flit-core
+  flit-core,
 
   # tests
-  ,
   chex,
   jaxlib,
   pytest-subtests,
   pytest-xdist,
   pytestCheckHook,
-  yapf
+  yapf,
 
   # optional
-  ,
   jupyter,
   mediapy,
   numpy,

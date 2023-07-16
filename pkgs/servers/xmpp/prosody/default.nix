@@ -10,13 +10,12 @@
   lua,
   nixosTests,
   withLibevent ? true,
-  withDBI ? true
+  withDBI ? true,
   # use withExtraLibs to add additional dependencies of community modules
-  ,
   withExtraLibs ? [ ],
   withExtraLuaPackages ? _: [ ],
   withOnlyInstalledCommunityModules ? [ ],
-  withCommunityModules ? [ ]
+  withCommunityModules ? [ ],
 }:
 
 with lib;

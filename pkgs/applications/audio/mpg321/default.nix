@@ -7,11 +7,10 @@
   libmad,
   libid3tag,
   zlib,
-  alsa-lib
+  alsa-lib,
   # Specify default libao output plugin to use (e.g. "alsa", "pulse" …).
   # If null, it will use the libao system default.
-  ,
-  defaultAudio ? null
+  defaultAudio ? null,
 }:
 
 stdenv.mkDerivation rec {

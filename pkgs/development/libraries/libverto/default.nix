@@ -9,7 +9,7 @@
   pkg-config,
   glibSupport ? true,
   libevSupport ? true,
-  libeventSupport ? true
+  libeventSupport ? true,
 }:
 
 let

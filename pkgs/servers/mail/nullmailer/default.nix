@@ -3,7 +3,7 @@
   fetchurl,
   lib,
   tls ? true,
-  gnutls ? null
+  gnutls ? null,
 }:
 
 assert tls -> gnutls != null;

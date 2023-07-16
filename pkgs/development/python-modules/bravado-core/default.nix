@@ -3,9 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-  pythonOlder
+  pythonOlder,
   # build inputs
-  ,
   jsonref,
   jsonschema,
   python-dateutil,
@@ -15,9 +14,8 @@
   six,
   swagger-spec-validator,
   pytz,
-  msgpack
+  msgpack,
   # check inputs
-  ,
   pytestCheckHook,
   mock,
 }:

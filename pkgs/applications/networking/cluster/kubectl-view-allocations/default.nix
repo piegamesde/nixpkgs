@@ -4,7 +4,7 @@
   rustPlatform,
   fetchFromGitHub,
   perl,
-  Security ? null
+  Security ? null,
 }:
 
 rustPlatform.buildRustPackage rec {

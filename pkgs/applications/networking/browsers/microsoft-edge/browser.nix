@@ -9,15 +9,13 @@
   stdenv,
   fetchurl,
   lib,
-  makeWrapper
+  makeWrapper,
 
-  ,
   binutils-unwrapped,
   xz,
   gnutar,
-  file
+  file,
 
-  ,
   glibc,
   glib,
   nss,

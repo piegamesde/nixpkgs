@@ -244,7 +244,7 @@ rec {
     {
       eclipse,
       plugins ? [ ],
-      jvmArgs ? [ ]
+      jvmArgs ? [ ],
     }:
     let
       # Gather up the desired plugins.

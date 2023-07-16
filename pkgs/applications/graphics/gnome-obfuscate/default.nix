@@ -1,18 +1,16 @@
 {
   stdenv,
   lib,
-  fetchFromGitLab
+  fetchFromGitLab,
 
-  ,
   gettext,
   meson,
   ninja,
   pkg-config,
   python3,
   rustPlatform,
-  wrapGAppsHook4
+  wrapGAppsHook4,
 
-  ,
   appstream-glib,
   desktop-file-utils,
   glib,

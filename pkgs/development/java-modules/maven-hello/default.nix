@@ -21,7 +21,7 @@ rec {
       sha512,
       version,
       skipTests ? true,
-      quiet ? true
+      quiet ? true,
     }:
     mavenbuild {
       inherit mavenDeps sha512 version skipTests quiet;

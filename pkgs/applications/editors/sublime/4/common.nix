@@ -2,7 +2,7 @@
   buildVersion,
   aarch64sha256,
   x64sha256,
-  dev ? false
+  dev ? false,
 }:
 
 {

@@ -7,6 +7,7 @@
   serviceDirectories ? [ ],
   suidHelper ? "/var/setuid-wrappers/dbus-daemon-launch-helper",
   apparmor ? "disabled" # one of enabled, disabled, required
+  ,
 }:
 
 # DBus has two configuration parsers -- normal and "trivial", which is used

@@ -13,7 +13,7 @@
   imagemagick,
   zopfli,
   buildPackages,
-  variants ? [ ]
+  variants ? [ ],
 }:
 let
   notoLongDescription = ''
@@ -33,7 +33,7 @@ rec {
     {
       pname,
       variants ? [ ],
-      longDescription ? notoLongDescription
+      longDescription ? notoLongDescription,
     }:
     stdenvNoCC.mkDerivation rec {
       inherit pname;

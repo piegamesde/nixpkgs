@@ -18,7 +18,7 @@
   gtk2,
   python3,
   game-music-emu,
-  serverOnly ? false
+  serverOnly ? false,
 }:
 
 let

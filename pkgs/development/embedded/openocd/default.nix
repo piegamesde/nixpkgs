@@ -5,15 +5,13 @@
   pkg-config,
   hidapi,
   libusb1,
-  libgpiod
+  libgpiod,
 
-  ,
   enableFtdi ? true,
-  libftdi1
+  libftdi1,
 
   # Allow selection the hardware targets (SBCs, JTAG Programmers, JTAG Adapters)
-  ,
-  extraHardwareSupport ? [ ]
+  extraHardwareSupport ? [ ],
 }:
 
 stdenv.mkDerivation rec {

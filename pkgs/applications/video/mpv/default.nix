@@ -19,16 +19,14 @@
   lua,
   libuchardet,
   libiconv,
-  xcbuild
+  xcbuild,
 
-  ,
   waylandSupport ? stdenv.isLinux,
   wayland,
   wayland-protocols,
   wayland-scanner,
-  libxkbcommon
+  libxkbcommon,
 
-  ,
   x11Support ? stdenv.isLinux,
   libGLU,
   libGL,
@@ -36,27 +34,22 @@
   libXext,
   libXxf86vm,
   libXrandr,
-  libXpresent
+  libXpresent,
 
-  ,
   cddaSupport ? false,
   libcdio,
-  libcdio-paranoia
+  libcdio-paranoia,
 
-  ,
   vulkanSupport ? stdenv.isLinux,
   libplacebo,
-  shaderc # instead of spirv-cross
-  ,
+  shaderc, # instead of spirv-cross
   vulkan-headers,
-  vulkan-loader
+  vulkan-loader,
 
-  ,
   drmSupport ? stdenv.isLinux,
   libdrm,
-  mesa
+  mesa,
 
-  ,
   alsaSupport ? stdenv.isLinux,
   alsa-lib,
   archiveSupport ? true,

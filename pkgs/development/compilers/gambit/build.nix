@@ -15,7 +15,7 @@
   git-version,
   gambit-support,
   optimizationSetting ? "-O1",
-  gambit-params ? pkgs.gambit-support.stable-params
+  gambit-params ? pkgs.gambit-support.stable-params,
 }:
 
 # Note that according to a benchmark run by Marc Feeley on May 2018,

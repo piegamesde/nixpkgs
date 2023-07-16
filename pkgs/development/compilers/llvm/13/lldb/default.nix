@@ -24,7 +24,7 @@
   lit,
   makeWrapper,
   darwin,
-  enableManpages ? false
+  enableManpages ? false,
 }:
 
 stdenv.mkDerivation (

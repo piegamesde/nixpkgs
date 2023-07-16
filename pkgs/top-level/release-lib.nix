@@ -8,7 +8,7 @@
       allowUnfree = false;
       inHydra = true;
     };
-  }
+  },
 }:
 
 let

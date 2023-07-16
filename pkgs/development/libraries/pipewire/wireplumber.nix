@@ -15,7 +15,7 @@
   lua5_4,
   pipewire, # options
   enableDocs ? true,
-  enableGI ? true
+  enableGI ? true,
 }:
 let
   mesonEnableFeature =

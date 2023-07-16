@@ -13,7 +13,7 @@
   glib,
   isocodes,
   gobject-introspection,
-  withDoc ? (stdenv.buildPlatform == stdenv.hostPlatform)
+  withDoc ? (stdenv.buildPlatform == stdenv.hostPlatform),
 }:
 
 stdenv.mkDerivation rec {

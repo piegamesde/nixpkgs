@@ -6,10 +6,9 @@
   python3Packages,
   ffmpeg,
   makeWrapper,
-  nixosTests
+  nixosTests,
 
   # For the update script
-  ,
   coreutils,
   curl,
   nix-prefetch-git,

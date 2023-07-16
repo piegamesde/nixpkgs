@@ -10,7 +10,7 @@
   libGL,
   freeglut ? null,
   openal ? null,
-  SDL2 ? null
+  SDL2 ? null,
 }:
 
 mkDerivation rec {

@@ -18,7 +18,7 @@ let
       repo,
       sha256,
       nativeBuildInputs,
-      postPatch ? null
+      postPatch ? null,
     }:
     stdenv.mkDerivation rec {
       pname = "liberation-fonts";

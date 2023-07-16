@@ -4,7 +4,7 @@
   fetchFromGitLab,
   fetchpatch,
   nasm,
-  enableShared ? !stdenv.hostPlatform.isStatic
+  enableShared ? !stdenv.hostPlatform.isStatic,
 }:
 
 stdenv.mkDerivation rec {

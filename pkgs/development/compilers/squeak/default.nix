@@ -30,7 +30,7 @@
   squeakVersion ? null,
   squeakVmCommitHash ? null,
   squeakVmCommitHashHash ? null,
-  squeakVmVersion ? null
+  squeakVmVersion ? null,
 }@args:
 
 let

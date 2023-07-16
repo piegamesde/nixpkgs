@@ -20,7 +20,7 @@
     owner = "rvirding";
     repo = "lfe";
   },
-  patches ? [ ]
+  patches ? [ ],
 }:
 
 let

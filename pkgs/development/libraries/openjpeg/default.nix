@@ -15,8 +15,7 @@
   ,
   jpipServerSupport ? false,
   curl,
-  fcgi # JPIP Server
-  ,
+  fcgi, # JPIP Server
   jdk,
   poppler,
 }:

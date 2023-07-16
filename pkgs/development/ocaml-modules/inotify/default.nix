@@ -2,11 +2,9 @@
   lib,
   fetchFromGitHub,
   buildDunePackage,
-  lwt # optional lwt support
-  ,
+  lwt, # optional lwt support
   ounit2,
-  fileutils # only for tests
-  ,
+  fileutils, # only for tests
 }:
 
 buildDunePackage rec {

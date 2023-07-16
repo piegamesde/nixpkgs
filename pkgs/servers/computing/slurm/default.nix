@@ -28,9 +28,8 @@
   libjwt,
   libyaml,
   json_c,
-  http-parser
+  http-parser,
   # enable internal X11 support via libssh2
-  ,
   enableX11 ? true,
   enableGtk2 ? false,
   gtk2,

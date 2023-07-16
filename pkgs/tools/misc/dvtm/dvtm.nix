@@ -6,7 +6,7 @@
   pname,
   version,
   src,
-  patches ? [ ]
+  patches ? [ ],
 }:
 stdenv.mkDerivation {
 

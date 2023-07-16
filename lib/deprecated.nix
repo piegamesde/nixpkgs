@@ -148,7 +148,7 @@ rec {
   uniqList =
     {
       inputList,
-      acc ? [ ]
+      acc ? [ ],
     }:
     let
       go =
@@ -176,7 +176,7 @@ rec {
       inputList,
       outputList ? [ ],
       getter ? (x: x),
-      compare ? (x: y: x == y)
+      compare ? (x: y: x == y),
     }:
     if inputList == [ ] then
       outputList
@@ -379,7 +379,7 @@ rec {
         "buildInputs"
         "propagatedBuildInputs"
       ],
-      overrideSnd ? [ "buildPhase" ]
+      overrideSnd ? [ "buildPhase" ],
     }:
     attrs1: attrs2:
     foldr

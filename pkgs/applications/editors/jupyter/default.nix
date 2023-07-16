@@ -3,7 +3,7 @@
 {
   python3,
   jupyter-kernel,
-  definitions ? jupyter-kernel.default
+  definitions ? jupyter-kernel.default,
 }:
 
 let

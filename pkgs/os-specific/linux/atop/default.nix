@@ -6,10 +6,9 @@
   ncurses,
   findutils,
   systemd,
-  python3
+  python3,
   # makes the package unfree via pynvml
-  ,
-  withAtopgpu ? false
+  withAtopgpu ? false,
 }:
 
 stdenv.mkDerivation rec {

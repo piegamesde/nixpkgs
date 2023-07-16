@@ -2,7 +2,7 @@
   type,
   version,
   srcs,
-  packages ? null
+  packages ? null,
 }:
 
 assert builtins.elem type [

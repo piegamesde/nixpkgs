@@ -70,9 +70,8 @@
   zlib,
   at-spi2-core,
   unixODBC,
-  unixODBCDrivers
+  unixODBCDrivers,
   # darwin
-  ,
   moveBuildTree,
   xcbuild,
   AGL,
@@ -82,21 +81,19 @@
   CoreBluetooth,
   EventKit,
   GSS,
-  MetalKit
+  MetalKit,
   # optional dependencies
-  ,
   cups,
   libmysqlclient,
   postgresql,
   withGtk3 ? false,
   dconf,
-  gtk3
+  gtk3,
   # options
-  ,
   libGLSupported ? stdenv.isLinux,
   libGL,
   debug ? false,
-  developerBuild ? false
+  developerBuild ? false,
 }:
 
 let

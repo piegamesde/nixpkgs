@@ -3,18 +3,15 @@
   buildPythonPackage,
   pythonOlder,
   fetchPypi,
-  isPyPy
+  isPyPy,
 
   # propagates
-  ,
-  markupsafe
+  markupsafe,
 
   # extras: Babel
-  ,
-  babel
+  babel,
 
   # tests
-  ,
   mock,
   pytestCheckHook,
   lingua,

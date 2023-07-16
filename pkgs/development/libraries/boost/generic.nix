@@ -47,10 +47,9 @@
   boostBuildPatches ? [ ],
   useMpi ? false,
   mpi,
-  extraB2Args ? [ ]
+  extraB2Args ? [ ],
 
   # Attributes inherit from specific versions
-  ,
   version,
   src,
   ...

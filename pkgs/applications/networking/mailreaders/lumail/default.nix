@@ -12,7 +12,7 @@
   perlPackages,
   makeWrapper,
   debugBuild ? false,
-  alternativeGlobalConfigFilePath ? null
+  alternativeGlobalConfigFilePath ? null,
 }:
 
 let

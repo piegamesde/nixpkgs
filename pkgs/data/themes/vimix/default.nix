@@ -14,7 +14,7 @@
   ,
   sizeVariants ? [ ] # default: standard
   ,
-  tweaks ? [ ]
+  tweaks ? [ ],
 }:
 
 let

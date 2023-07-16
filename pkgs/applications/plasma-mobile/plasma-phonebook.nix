@@ -1,12 +1,10 @@
 {
   lib,
-  mkDerivation
+  mkDerivation,
 
-  ,
   cmake,
-  extra-cmake-modules
+  extra-cmake-modules,
 
-  ,
   kcontacts,
   kcoreaddons,
   kirigami2,

@@ -12,10 +12,9 @@
   enableJpeg8 ? false # whether to build libjpeg with v8 compatibility
   ,
   enableStatic ? stdenv.hostPlatform.isStatic,
-  enableShared ? !stdenv.hostPlatform.isStatic
+  enableShared ? !stdenv.hostPlatform.isStatic,
 
   # for passthru.tests
-  ,
   dvgrab,
   epeg,
   freeimage,

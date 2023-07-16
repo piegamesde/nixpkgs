@@ -6,28 +6,21 @@
 
 {
   # : string
-  pname
+  pname,
   # : string
-  ,
-  version
+  version,
   # : string
-  ,
-  sha256
+  sha256,
   # : string
-  ,
-  description
+  description,
   # : list Maintainer
-  ,
-  maintainers
+  maintainers,
   # : license
-  ,
-  license ? lib.licenses.isc
+  license ? lib.licenses.isc,
   # : string
-  ,
-  owner ? "flexibeast"
+  owner ? "flexibeast",
   # : string
-  ,
-  rev ? "v${version}"
+  rev ? "v${version}",
 }:
 
 let

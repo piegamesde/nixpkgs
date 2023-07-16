@@ -2,23 +2,20 @@
   lib,
   isPyPy,
   buildPythonPackage,
-  fetchPypi
+  fetchPypi,
 
   # build
-  ,
-  pytest
+  pytest,
 
   # runtime
-  ,
   setuptools-git,
   mock,
   path,
   execnet,
   termcolor,
-  six
+  six,
 
   # tests
-  ,
   cmdline,
   pytestCheckHook,
 }:

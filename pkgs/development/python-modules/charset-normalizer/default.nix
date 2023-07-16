@@ -3,10 +3,9 @@
   buildPythonPackage,
   fetchFromGitHub,
   pytestCheckHook,
-  pythonOlder
+  pythonOlder,
 
   # popular downstream dependencies
-  ,
   aiohttp,
   requests,
 }:

@@ -17,7 +17,7 @@ let
       java ? jre,
       prog ? null,
       jar ? null,
-      license ? lib.licenses.mpl20
+      license ? lib.licenses.mpl20,
     }:
     stdenv.mkDerivation {
       name = "${pname}-${version}";

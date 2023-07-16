@@ -7,7 +7,7 @@
   openssl,
   gitUpdater,
   withCurl ? true,
-  withOpenSSL ? true
+  withOpenSSL ? true,
 }:
 
 stdenv.mkDerivation rec {

@@ -19,7 +19,7 @@
   liberation_ttf,
   shell ? "${bashInteractive}/bin/bash",
   unfreeFonts ? false,
-  extraFontDirs ? [ ]
+  extraFontDirs ? [ ],
 }:
 
 # ------------

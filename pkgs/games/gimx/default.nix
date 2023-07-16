@@ -10,7 +10,7 @@
   ncurses5,
   bluez,
   libmhash,
-  gimxPdpGamepad ? false
+  gimxPdpGamepad ? false,
 }:
 
 let

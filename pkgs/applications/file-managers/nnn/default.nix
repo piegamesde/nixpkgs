@@ -9,12 +9,11 @@
   ncurses,
   readline,
   which,
-  musl-fts
+  musl-fts,
   # options
-  ,
   conf ? null,
   withIcons ? false,
-  withNerdIcons ? false
+  withNerdIcons ? false,
 }:
 
 # Mutually exclusive options

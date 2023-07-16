@@ -15,28 +15,23 @@
   libpsm2,
   libfabric,
   pmix,
-  ucx
+  ucx,
 
   # Enable CUDA support
-  ,
   cudaSupport ? false,
-  cudatoolkit
+  cudatoolkit,
 
   # Enable the Sun Grid Engine bindings
-  ,
-  enableSGE ? false
+  enableSGE ? false,
 
   # Pass PATH/LD_LIBRARY_PATH to point to current mpirun by default
-  ,
-  enablePrefix ? false
+  enablePrefix ? false,
 
   # Enable libfabric support (necessary for Omnipath networks) on x86_64 linux
-  ,
-  fabricSupport ? stdenv.isLinux && stdenv.isx86_64
+  fabricSupport ? stdenv.isLinux && stdenv.isx86_64,
 
   # Enable Fortran support
-  ,
-  fortranSupport ? true
+  fortranSupport ? true,
 }:
 
 let

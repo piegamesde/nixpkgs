@@ -8,9 +8,8 @@ outer@{
   pcre,
   libxml2,
   libxslt,
-  nginx-doc
+  nginx-doc,
 
-  ,
   nixosTests,
   substituteAll,
   removeReferencesTo,
@@ -45,7 +44,7 @@ outer@{
   postInstall ? "",
   meta ? null,
   nginx-doc ? outer.nginx-doc,
-  passthru ? { tests = { }; }
+  passthru ? { tests = { }; },
 }:
 
 let

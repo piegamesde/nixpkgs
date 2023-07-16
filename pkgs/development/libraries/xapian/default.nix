@@ -4,10 +4,9 @@
   fetchurl,
   autoreconfHook,
   libuuid,
-  zlib
+  zlib,
 
   # tests
-  ,
   mu,
 }:
 

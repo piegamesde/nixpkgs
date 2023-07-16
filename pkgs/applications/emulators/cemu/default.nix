@@ -7,9 +7,8 @@
   cmake,
   glslang,
   nasm,
-  pkg-config
+  pkg-config,
 
-  ,
   SDL2,
   boost,
   cubeb,
@@ -26,12 +25,10 @@
   vulkan-headers,
   wayland,
   wxGTK32,
-  zarchive
+  zarchive,
 
-  ,
-  vulkan-loader
+  vulkan-loader,
 
-  ,
   nix-update-script,
 }:
 

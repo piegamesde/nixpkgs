@@ -8,13 +8,12 @@
   libusb-compat-0_1,
   libelf,
   libftdi1,
-  readline
+  readline,
   # docSupport is a big dependency, disabled by default
-  ,
   docSupport ? false,
   texLive ? null,
   texinfo ? null,
-  texi2html ? null
+  texi2html ? null,
 }:
 
 assert docSupport -> texLive != null && texinfo != null && texi2html != null;

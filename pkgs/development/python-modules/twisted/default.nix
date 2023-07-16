@@ -29,10 +29,9 @@
   service-identity,
   setuptools,
   typing-extensions,
-  zope_interface
+  zope_interface,
 
   # for passthru.tests
-  ,
   cassandra-driver,
   klein,
   magic-wormhole,

@@ -5,7 +5,7 @@
   fetchFromGitHub,
   pkg-config,
   taglib,
-  zlib
+  zlib,
 
   # Disable on-the-fly transcoding,
   # removing the dependency on ffmpeg.
@@ -13,7 +13,6 @@
   # to the original file, but if transcoding is configured
   # that takes a while. So best to disable all transcoding
   # in the configuration if you disable transcodingSupport.
-  ,
   transcodingSupport ? true,
   ffmpeg,
   mpv,

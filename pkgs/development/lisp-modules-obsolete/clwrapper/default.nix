@@ -4,7 +4,7 @@
   asdf,
   which,
   bash,
-  lisp ? null
+  lisp ? null,
 }:
 stdenv.mkDerivation {
   name = "cl-wrapper-script";

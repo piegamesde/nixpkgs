@@ -156,24 +156,18 @@ let
   mkComponent =
     {
       pname,
-      version
+      version,
       # Source tarball, if any
-      ,
-      src ? ""
+      src ? "",
       # Checksum for the source tarball, if there is a source
-      ,
-      sha256 ? ""
+      sha256 ? "",
       # Other components this one depends on
-      ,
-      dependencies ? [ ]
+      dependencies ? [ ],
       # Short text describing the component
-      ,
-      description ? ""
+      description ? "",
       # Platforms supported
-      ,
-      platforms ? lib.platforms.all
+      platforms ? lib.platforms.all,
       # The snapshot corresponding to this component
-      ,
       snapshot,
     }:
     stdenv.mkDerivation {

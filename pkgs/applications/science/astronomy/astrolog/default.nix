@@ -6,7 +6,7 @@
   xorg,
   withBigAtlas ? true,
   withEphemeris ? true,
-  withMoonsEphemeris ? true
+  withMoonsEphemeris ? true,
 }:
 stdenv.mkDerivation rec {
   pname = "astrolog";

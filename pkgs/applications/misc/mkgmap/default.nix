@@ -9,7 +9,7 @@
   ant,
   makeWrapper,
   doCheck ? true,
-  withExamples ? false
+  withExamples ? false,
 }:
 let
   deps = import ./deps.nix { inherit fetchurl; };

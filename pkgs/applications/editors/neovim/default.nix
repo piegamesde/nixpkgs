@@ -20,15 +20,14 @@
   treesitter-parsers ? import ./treesitter-parsers.nix { inherit fetchurl; },
   CoreServices,
   glibcLocales ? null,
-  procps ? null
+  procps ? null,
 
   # now defaults to false because some tests can be flaky (clipboard etc), see
   # also: https://github.com/neovim/neovim/issues/16233
-  ,
   doCheck ? false,
   nodejs ? null,
   fish ? null,
-  python3 ? null
+  python3 ? null,
 }:
 
 let

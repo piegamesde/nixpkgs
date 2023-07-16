@@ -11,12 +11,10 @@
   rsync,
   lib,
   ant,
-  ninja
+  ninja,
 
-  ,
-  debugBuild ? false
+  debugBuild ? false,
 
-  ,
   glib,
   nss,
   nspr,

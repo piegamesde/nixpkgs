@@ -18,7 +18,7 @@
   enableFma ? stdenv.hostPlatform.fmaSupport,
   enableFma4 ? stdenv.hostPlatform.fma4Support,
   enableAvx ? stdenv.hostPlatform.avx2Support,
-  enableAvx512 ? stdenv.hostPlatform.avx512Support
+  enableAvx512 ? stdenv.hostPlatform.avx512Support,
 }:
 
 assert (!blas.isILP64) && (!lapack.isILP64);

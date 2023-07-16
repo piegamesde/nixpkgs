@@ -18,7 +18,7 @@
   flex,
   libXp,
   libXau,
-  demoSupport ? false
+  demoSupport ? false,
 }:
 # refer to the gentoo package
 

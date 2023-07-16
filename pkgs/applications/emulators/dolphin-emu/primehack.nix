@@ -36,10 +36,9 @@
   fmt,
   xz,
   vulkan-loader,
-  libpulseaudio
+  libpulseaudio,
 
   # - Inputs used for Darwin
-  ,
   CoreBluetooth,
   ForceFeedback,
   IOKit,

@@ -28,7 +28,7 @@
   xcbutilrenderutil,
   xorgproto,
   xwininfo,
-  withDebug ? false
+  withDebug ? false,
 }:
 
 stdenv.mkDerivation rec {

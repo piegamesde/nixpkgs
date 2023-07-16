@@ -23,7 +23,7 @@
   installShellFiles,
   git,
   unzip,
-  HOST_DMD ? "${callPackage ./bootstrap.nix { }}/bin/dmd"
+  HOST_DMD ? "${callPackage ./bootstrap.nix { }}/bin/dmd",
 }:
 
 let

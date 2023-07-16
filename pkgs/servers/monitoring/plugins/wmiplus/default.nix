@@ -6,7 +6,7 @@
   perlPackages,
   txt2man,
   monitoring-plugins,
-  wmic-bin ? null
+  wmic-bin ? null,
 }:
 
 stdenv.mkDerivation rec {

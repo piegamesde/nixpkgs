@@ -20,7 +20,7 @@
   withQt ? false,
   qtbase ? null,
   libqt5pas ? null,
-  wrapQtAppsHook ? null
+  wrapQtAppsHook ? null,
 }:
 
 # TODO:

@@ -4,7 +4,7 @@
   fetchurl,
   fixDarwinDylibNames,
   llvmPackages,
-  withOpenMP ? true
+  withOpenMP ? true,
 }:
 
 stdenv.mkDerivation rec {

@@ -6,14 +6,12 @@
   buildcatrust,
   blacklist ? [ ],
   extraCertificateFiles ? [ ],
-  extraCertificateStrings ? [ ]
+  extraCertificateStrings ? [ ],
 
   # Used by update.sh
-  ,
-  nssOverride ? null
+  nssOverride ? null,
 
   # Used for tests only
-  ,
   runCommand,
   cacert,
   openssl,

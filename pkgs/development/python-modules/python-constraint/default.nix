@@ -1,9 +1,8 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
   # Check inputs
-  ,
   pytestCheckHook,
 }:
 

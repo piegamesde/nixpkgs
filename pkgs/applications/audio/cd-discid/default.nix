@@ -2,7 +2,7 @@
   fetchurl,
   lib,
   stdenv,
-  IOKit ? null
+  IOKit ? null,
 }:
 
 stdenv.mkDerivation rec {

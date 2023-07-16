@@ -8,10 +8,9 @@
   featuresInfo,
   features,
   versionAttr,
-  sourceSha256
+  sourceSha256,
   # If overridden. No need to set default values, as they are given defaults in
   # the main expressions
-  ,
   overrideSrc,
   fetchFromGitHub,
 }:

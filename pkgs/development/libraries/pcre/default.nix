@@ -4,7 +4,7 @@
   fetchurl,
   pcre,
   windows ? null,
-  variant ? null
+  variant ? null,
 }:
 
 assert lib.elem variant [

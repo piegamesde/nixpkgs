@@ -16,7 +16,7 @@
   webuiSupport ? true # WebUI
   ,
   trackerSearch ? true,
-  python3 ? null
+  python3 ? null,
 }:
 
 assert guiSupport -> (dbus != null);

@@ -6,7 +6,7 @@
   nasm,
   openssl_1_1,
   python3,
-  extraCmakeFlags ? [ ]
+  extraCmakeFlags ? [ ],
 }:
 
 gcc11Stdenv.mkDerivation rec {

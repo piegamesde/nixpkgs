@@ -2,9 +2,8 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-  setuptools-scm
+  setuptools-scm,
   # , backports
-  ,
   unittestCheckHook,
 }:
 

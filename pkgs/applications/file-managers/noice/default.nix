@@ -3,7 +3,7 @@
   stdenv,
   fetchgit,
   ncurses,
-  conf ? null
+  conf ? null,
 }:
 
 with lib;

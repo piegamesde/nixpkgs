@@ -3,7 +3,7 @@
   stdenv,
   fetchgit,
   libtoxcore,
-  conf ? null
+  conf ? null,
 }:
 
 let

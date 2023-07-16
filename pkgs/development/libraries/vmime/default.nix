@@ -9,10 +9,9 @@
   zlib,
   libtasn1,
   libgcrypt,
-  gtk3
+  gtk3,
   # this will not work on non-nixos systems
-  ,
-  sendmailPath ? "/run/wrappers/bin/sendmail"
+  sendmailPath ? "/run/wrappers/bin/sendmail",
 }:
 
 stdenv.mkDerivation rec {

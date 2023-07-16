@@ -71,16 +71,15 @@
   postVM ? ""
 
   , # Guest memory size
-  memSize ? 1024
+  memSize ? 1024,
 
-  ,
   name ? "nixos-disk-image"
 
   , # Disk image format, one of qcow2, qcow2-compressed, vdi, vpc, raw.
   format ? "raw"
 
   , # Include a copy of Nixpkgs in the disk image
-  includeChannel ? true
+  includeChannel ? true,
 }:
 let
   formatOpt =

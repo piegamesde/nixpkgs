@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  rtpPath ? "share/kak/autoload/plugins"
+  rtpPath ? "share/kak/autoload/plugins",
 }: rec {
   buildKakounePlugin =
     attrs@{

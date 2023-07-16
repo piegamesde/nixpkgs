@@ -1,15 +1,13 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub
+  fetchFromGitHub,
 
-  ,
   cmake,
   pkg-config,
   ninja,
-  gtest
+  gtest,
 
-  ,
   curl,
   freetype,
   giflib,
@@ -24,9 +22,8 @@
   lua,
   AppKit,
   Cocoa,
-  Foundation
+  Foundation,
 
-  ,
   nixosTests,
 }:
 

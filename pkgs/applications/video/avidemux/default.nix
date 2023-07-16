@@ -44,7 +44,7 @@
   withQT ? true,
   withCLI ? true,
   default ? "qt5",
-  withPlugins ? true
+  withPlugins ? true,
 }:
 
 assert withQT -> qttools != null && qtbase != null;

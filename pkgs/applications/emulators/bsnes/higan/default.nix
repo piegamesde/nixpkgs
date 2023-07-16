@@ -15,9 +15,8 @@
   openal,
   pkg-config,
   runtimeShell,
-  udev
+  udev,
   # Darwin dependencies
-  ,
   libicns,
   darwin,
 }:

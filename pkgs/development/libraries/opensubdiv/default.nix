@@ -12,10 +12,9 @@
   ocl-icd,
   python3,
   cudaSupport ? config.cudaSupport or false,
-  cudatoolkit
+  cudatoolkit,
   # For visibility mostly. The whole approach to cuda architectures and capabilities
   # will be reworked soon.
-  ,
   cudaArch ? "compute_37",
   openclSupport ? !cudaSupport,
   darwin,

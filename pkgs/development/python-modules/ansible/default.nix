@@ -12,12 +12,11 @@
   scp,
   textfsm,
   ttp,
-  xmltodict
+  xmltodict,
 
   # optionals
-  ,
   withJunos ? false,
-  withNetbox ? false
+  withNetbox ? false,
 }:
 
 let

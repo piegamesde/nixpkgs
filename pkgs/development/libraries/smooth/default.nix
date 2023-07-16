@@ -2,9 +2,8 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  pkg-config
+  pkg-config,
 
-  ,
   gtk3,
   curl,
   libxml2,

@@ -17,11 +17,10 @@
   systemd,
   voms,
   zlib,
-  enableTests ? stdenv.isLinux
+  enableTests ? stdenv.isLinux,
   # If not null, the builder will
   # move "$out/etc" to "$out/etc.orig" and symlink "$out/etc" to externalEtc.
-  ,
-  externalEtc ? "/etc"
+  externalEtc ? "/etc",
 }:
 
 stdenv.mkDerivation rec {

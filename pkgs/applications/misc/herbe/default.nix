@@ -6,7 +6,7 @@
   libXft,
   freetype,
   patches ? [ ],
-  extraLibs ? [ ]
+  extraLibs ? [ ],
 }:
 
 stdenv.mkDerivation rec {

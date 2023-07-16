@@ -2,9 +2,8 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-  pythonOlder
+  pythonOlder,
 
-  ,
   keyring,
   setuptools-scm,
 }:

@@ -13,7 +13,7 @@
   readline,
   withPcsclite ? !stdenv.hostPlatform.isStatic,
   pcsclite,
-  readOnlyModeSSIDs ? false
+  readOnlyModeSSIDs ? false,
 }:
 
 with lib;

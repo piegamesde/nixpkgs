@@ -10,7 +10,7 @@
   SystemConfiguration,
   Security,
   withLLVM ? !stdenv.isDarwin,
-  withSinglepass ? !(stdenv.isDarwin && stdenv.isx86_64)
+  withSinglepass ? !(stdenv.isDarwin && stdenv.isx86_64),
 }:
 
 rustPlatform.buildRustPackage rec {

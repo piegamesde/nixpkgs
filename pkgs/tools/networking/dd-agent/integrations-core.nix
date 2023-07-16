@@ -36,7 +36,7 @@
 {
   pkgs,
   python,
-  extraIntegrations ? { }
+  extraIntegrations ? { },
 }:
 
 with pkgs.lib;

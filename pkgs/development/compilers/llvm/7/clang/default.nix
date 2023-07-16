@@ -14,6 +14,7 @@
   fixDarwinDylibNames,
   enableManpages ? false,
   enablePolly ? false # TODO: get this info from llvm (passthru?)
+  ,
 }:
 
 let

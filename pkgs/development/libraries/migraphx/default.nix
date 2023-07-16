@@ -27,7 +27,7 @@
   ghostscript,
   python3Packages,
   buildDocs ? false,
-  buildTests ? false
+  buildTests ? false,
 }:
 
 let

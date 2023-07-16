@@ -8,7 +8,7 @@
   gdb,
   freetype,
   freetypeSupport ? true,
-  extensions ? [ ]
+  extensions ? [ ],
 }:
 
 stdenv.mkDerivation rec {

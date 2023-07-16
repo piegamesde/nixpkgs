@@ -5,10 +5,9 @@
   attrs,
   fonttools,
   pytestCheckHook,
-  setuptools-scm
+  setuptools-scm,
 
   # optionals
-  ,
   cattrs,
   lxml,
   orjson,

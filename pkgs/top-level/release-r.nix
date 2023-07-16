@@ -7,7 +7,7 @@
   supportedSystems ? [
     "x86_64-linux"
     "aarch64-linux"
-  ]
+  ],
 }:
 
 with import ./release-lib.nix { inherit supportedSystems; };

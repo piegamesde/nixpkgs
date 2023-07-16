@@ -15,62 +15,48 @@
   nativeBuildInputs ? [ ],
   passthru ? { },
   preFixup ? "",
-  shellHook ? ""
+  shellHook ? "",
 
   # Go linker flags, passed to go via -ldflags
-  ,
-  ldflags ? [ ]
+  ldflags ? [ ],
 
   # Go tags, passed to go via -tag
-  ,
-  tags ? [ ]
+  tags ? [ ],
 
   # We want parallel builds by default
-  ,
-  enableParallelBuilding ? true
+  enableParallelBuilding ? true,
 
   # Go import path of the package
-  ,
-  goPackagePath
+  goPackagePath,
 
   # Go package aliases
-  ,
-  goPackageAliases ? [ ]
+  goPackageAliases ? [ ],
 
   # Extra sources to include in the gopath
-  ,
-  extraSrcs ? [ ]
+  extraSrcs ? [ ],
 
   # Extra gopaths containing src subfolder
   # with sources to include in the gopath
-  ,
-  extraSrcPaths ? [ ]
+  extraSrcPaths ? [ ],
 
   # go2nix dependency file
-  ,
-  goDeps ? null
+  goDeps ? null,
 
   # Whether to delete the vendor folder supplied with the source.
-  ,
-  deleteVendor ? false
+  deleteVendor ? false,
 
-  ,
-  dontRenameImports ? false
+  dontRenameImports ? false,
 
   # Do not enable this without good reason
   # IE: programs coupled with the compiler
-  ,
-  allowGoReference ? false
+  allowGoReference ? false,
 
-  ,
-  CGO_ENABLED ? go.CGO_ENABLED
+  CGO_ENABLED ? go.CGO_ENABLED,
 
   # needed for buildFlags{,Array} warning
-  ,
   buildFlags ? "",
-  buildFlagsArray ? ""
+  buildFlagsArray ? "",
 
-  ,
   meta ? { },
   ...
 }@args:

@@ -20,7 +20,7 @@
   libqrtr-glib,
   buildPackages,
   withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages,
-  withMan ? stdenv.buildPlatform.canExecute stdenv.hostPlatform
+  withMan ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
 }:
 
 stdenv.mkDerivation rec {

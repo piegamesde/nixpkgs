@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchurl,
-  enableShared ? !stdenv.hostPlatform.isStatic
+  enableShared ? !stdenv.hostPlatform.isStatic,
 }:
 
 stdenv.mkDerivation (

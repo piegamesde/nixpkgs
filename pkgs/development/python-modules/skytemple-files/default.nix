@@ -19,9 +19,8 @@
   lru-dict,
   graphql-core,
   gql,
-  armips
+  armips,
   # tests
-  ,
   pytestCheckHook,
   parameterized,
   xmldiff,

@@ -19,7 +19,7 @@
   qtwebkit,
   qttranslations,
   substituteAll,
-  withI18n ? false
+  withI18n ? false,
 }:
 
 let

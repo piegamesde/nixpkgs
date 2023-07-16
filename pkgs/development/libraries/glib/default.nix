@@ -22,14 +22,12 @@
   gtk-doc,
   docbook_xsl,
   docbook_xml_dtd_45,
-  libxslt
+  libxslt,
   # use util-linuxMinimal to avoid circular dependency (util-linux, systemd, glib)
-  ,
   util-linuxMinimal ? null,
-  buildPackages
+  buildPackages,
 
   # this is just for tests (not in the closure of any regular package)
-  ,
   coreutils,
   dbus,
   libxml2,

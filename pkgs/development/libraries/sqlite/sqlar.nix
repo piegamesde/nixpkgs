@@ -4,7 +4,7 @@
   fetchurl,
   fuse,
   zlib,
-  withFuse ? true
+  withFuse ? true,
 }:
 
 stdenv.mkDerivation {

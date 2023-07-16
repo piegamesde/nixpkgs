@@ -1,9 +1,8 @@
 {
   haskell,
-  lib
+  lib,
 
   # The following are only needed for the passthru.tests:
-  ,
   cacert,
   git,
   nodejs,

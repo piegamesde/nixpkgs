@@ -16,7 +16,7 @@
   libarchive,
   copyDesktopItems,
   usePipewire ? true,
-  usePulseaudio ? false
+  usePulseaudio ? false,
 }:
 
 assert lib.asserts.assertMsg

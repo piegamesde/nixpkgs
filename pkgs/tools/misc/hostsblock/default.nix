@@ -26,7 +26,7 @@
     "login.yahoo.com"
     " l.yimg.com"
     ".bp.blogspot.com"
-  ]
+  ],
 }:
 
 stdenv.mkDerivation {

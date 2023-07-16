@@ -21,7 +21,7 @@
   wavpack,
   pango,
   pulseaudio,
-  withDiscordRPC ? false
+  withDiscordRPC ? false,
 }:
 
 stdenv.mkDerivation rec {

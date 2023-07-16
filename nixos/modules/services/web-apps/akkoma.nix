@@ -169,7 +169,7 @@ let
     {
       name,
       text,
-      runtimeInputs ? [ ]
+      runtimeInputs ? [ ],
     }:
     pkgs.writeShellApplication { inherit name text runtimeInputs; }
     + "/bin/${name}"

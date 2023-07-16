@@ -7,7 +7,7 @@
   libX11,
   wayland,
   conf ? null,
-  patches ? [ ]
+  patches ? [ ],
 }:
 
 stdenv.mkDerivation rec {

@@ -6,7 +6,7 @@
   perl,
   moveBuildTree,
   srcs,
-  patches ? [ ]
+  patches ? [ ],
 }:
 
 args:

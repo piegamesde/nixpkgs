@@ -1,6 +1,6 @@
 {
   pkgs ? (import ../.. { }),
-  nixpkgs ? { }
+  nixpkgs ? { },
 }:
 let
   inherit (pkgs) lib;

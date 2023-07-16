@@ -1,7 +1,7 @@
 {
   version ? 4,
   system ? builtins.currentSystem,
-  pkgs ? import ../../.. { inherit system; }
+  pkgs ? import ../../.. { inherit system; },
 }:
 {
   simple = import ./simple.nix { inherit version system pkgs; };

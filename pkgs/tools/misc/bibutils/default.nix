@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchurl,
-  static ? stdenv.hostPlatform.isStatic
+  static ? stdenv.hostPlatform.isStatic,
 }:
 
 stdenv.mkDerivation rec {

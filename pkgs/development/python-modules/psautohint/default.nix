@@ -5,15 +5,13 @@
   pythonOlder,
   fonttools,
   lxml,
-  fs # for fonttools extras
-  ,
+  fs, # for fonttools extras
   setuptools-scm,
   pytestCheckHook,
   pytest-cov,
   pytest-xdist,
   runAllTests ? false,
-  psautohint # for passthru.tests
-  ,
+  psautohint, # for passthru.tests
 }:
 
 buildPythonPackage rec {

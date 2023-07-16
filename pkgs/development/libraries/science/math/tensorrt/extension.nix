@@ -54,7 +54,7 @@ let
     {
       fullVersion,
       fileVersionCuda,
-      fileVersionCudnn ? null
+      fileVersionCudnn ? null,
     }:
     "TensorRT-${fullVersion}.Linux.x86_64-gnu.cuda-${fileVersionCuda}"
     + lib.optionalString (fileVersionCudnn != null) ".cudnn${fileVersionCudnn}"

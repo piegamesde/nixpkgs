@@ -1,16 +1,14 @@
 {
   buildPythonPackage,
   fetchFromGitHub,
-  lib
+  lib,
 
   # Python Dependencies
-  ,
   six,
   urllib3,
-  requests
+  requests,
 
   # tests
-  ,
   pytestCheckHook,
   responses,
 }:

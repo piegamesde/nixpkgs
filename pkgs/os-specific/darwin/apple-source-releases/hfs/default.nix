@@ -3,7 +3,7 @@
   stdenv,
   stdenvNoCC,
   lib,
-  headersOnly ? true
+  headersOnly ? true,
 }:
 
 appleDerivation'

@@ -46,6 +46,7 @@
   waylandSupport ? wineRelease == "wayland",
   embedInstallers ? false, # The Mono and Gecko MSI installers
   moltenvk ? darwin.moltenvk # Allow users to override MoltenVK easily
+  ,
 }:
 
 let

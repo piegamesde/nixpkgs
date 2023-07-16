@@ -4,15 +4,14 @@
   fetchurl,
   cxxSupport ? true,
   compat185 ? true,
-  dbmSupport ? false
+  dbmSupport ? false,
 
   # Options from inherited versions
-  ,
   version,
   sha256,
   extraPatches ? [ ],
   license ? lib.licenses.sleepycat,
-  drvArgs ? { }
+  drvArgs ? { },
 }:
 
 stdenv.mkDerivation (

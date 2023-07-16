@@ -21,8 +21,7 @@
   fetchpatch,
   pkgsBuildBuild,
   nixosTests,
-  fuse # only needed for grub-mount
-  ,
+  fuse, # only needed for grub-mount
   runtimeShell,
   zfs ? null,
   efiSupport ? false,

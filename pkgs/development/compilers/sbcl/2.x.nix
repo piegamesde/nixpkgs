@@ -14,11 +14,10 @@
     || "aarch64-darwin" == stdenv.hostPlatform.system
   ),
   linkableRuntime ? stdenv.hostPlatform.isx86,
-  disableImmobileSpace ? false
+  disableImmobileSpace ? false,
   # Meant for sbcl used for creating binaries portable to non-NixOS via save-lisp-and-die.
   # Note that the created binaries still need `patchelf --set-interpreter ...`
   # to get rid of ${glibc} dependency.
-  ,
   purgeNixReferences ? false,
   coreCompression ? lib.versionAtLeast version "2.2.6",
   texinfo,

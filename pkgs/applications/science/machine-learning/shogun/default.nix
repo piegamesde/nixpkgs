@@ -3,44 +3,38 @@
   stdenv,
   fetchFromGitHub,
   fetchpatch,
-  fetchurl
+  fetchurl,
   # build
-  ,
   cmake,
   ctags,
   python3Packages,
-  swig
+  swig,
   # math
-  ,
   eigen,
   blas,
   lapack,
-  glpk
+  glpk,
   # data
-  ,
   protobuf,
   json_c,
   libxml2,
   hdf5,
-  curl
+  curl,
   # compression
-  ,
   libarchive,
   bzip2,
   xz,
   snappy,
-  lzo
+  lzo,
   # more math
-  ,
   nlopt,
   lp_solve,
-  colpack
+  colpack,
   # extra support
-  ,
   pythonSupport ? false,
   opencvSupport ? false,
   opencv ? null,
-  withSvmLight ? false
+  withSvmLight ? false,
 }:
 
 assert pythonSupport -> python3Packages != null;

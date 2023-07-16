@@ -4,7 +4,7 @@
   coq,
   bignums,
   math-classes,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation rec {

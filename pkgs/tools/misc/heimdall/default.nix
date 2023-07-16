@@ -7,7 +7,7 @@
   zlib,
   libusb1,
   enableGUI ? false,
-  qtbase ? null
+  qtbase ? null,
 }:
 
 mkDerivation rec {

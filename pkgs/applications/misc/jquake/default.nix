@@ -6,7 +6,7 @@
   makeDesktopItem,
   unzip,
   jre8,
-  logOutput ? false
+  logOutput ? false,
 }:
 
 stdenv.mkDerivation rec {

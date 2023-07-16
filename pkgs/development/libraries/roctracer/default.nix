@@ -16,7 +16,7 @@
   python3Packages,
   buildDocs ? false # Nothing seems to be generated, so not making the output
   ,
-  buildTests ? false
+  buildTests ? false,
 }:
 
 stdenv.mkDerivation (

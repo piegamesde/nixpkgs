@@ -8,19 +8,19 @@
   popt,
   libtool,
   libiconv,
-  CoreServices
+  CoreServices,
   # Sound sub-systems
-  ,
-  alsaSupport ? (!stdenv.isDarwin),
+  alsaSupport ? (
+    !stdenv.isDarwin
+  ),
   alsa-lib,
   pulseSupport ? true,
   libpulseaudio,
   autoreconfHook,
   jackSupport ? true,
   libjack2,
-  ossSupport ? true
+  ossSupport ? true,
   # Audio formats
-  ,
   aacSupport ? true,
   faad2,
   libid3tag,
@@ -45,14 +45,13 @@
   sndfileSupport ? true,
   libsndfile,
   wavpackSupport ? true,
-  wavpack
+  wavpack,
   # Misc
-  ,
   curlSupport ? true,
   curl,
   samplerateSupport ? true,
   libsamplerate,
-  withDebug ? false
+  withDebug ? false,
 }:
 
 stdenv.mkDerivation rec {

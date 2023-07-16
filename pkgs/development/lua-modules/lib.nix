@@ -99,9 +99,8 @@ rec {
   */
   generateLuarocksConfig =
     {
-      externalDeps
+      externalDeps,
       # a list of lua derivations
-      ,
       requiredLuaRocks,
       extraVariables ? { },
       rocksSubdir,

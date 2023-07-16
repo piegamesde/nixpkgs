@@ -3,7 +3,7 @@
   urls,
   sha256,
   configureFlags ? [ ],
-  patches ? [ ]
+  patches ? [ ],
 }:
 
 {

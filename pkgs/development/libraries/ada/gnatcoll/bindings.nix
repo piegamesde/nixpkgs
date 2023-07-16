@@ -5,9 +5,8 @@
   gnat,
   gprbuild,
   gnatcoll-core,
-  component
+  component,
   # component dependencies
-  ,
   gmp,
   libiconv,
   xz,

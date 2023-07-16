@@ -11,7 +11,7 @@
   extraLibs ? [ ],
   extraOutputsToInstall ? [ ],
   postBuild ? "",
-  ignoreCollisions ? false
+  ignoreCollisions ? false,
 }:
 
 # Create an octave executable that knows about additional packages

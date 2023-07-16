@@ -2,16 +2,14 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  substituteAll
+  substituteAll,
 
   # build
-  ,
   pkg-config,
   glibc,
-  python
+  python,
 
   # runtime
-  ,
   bluez,
   boost,
   glib,

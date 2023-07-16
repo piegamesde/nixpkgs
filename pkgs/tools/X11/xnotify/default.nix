@@ -8,7 +8,7 @@
   libX11,
   libXft,
   libXinerama,
-  conf ? null
+  conf ? null,
 }:
 
 stdenv.mkDerivation rec {

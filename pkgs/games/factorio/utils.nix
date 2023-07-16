@@ -40,7 +40,7 @@ with lib; {
       name ? null,
       deps ? [ ],
       optionalDeps ? [ ],
-      recommendedDeps ? [ ]
+      recommendedDeps ? [ ],
     }:
     stdenv.mkDerivation {
 

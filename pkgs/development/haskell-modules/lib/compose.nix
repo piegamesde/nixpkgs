@@ -433,7 +433,7 @@ rec {
     {
       ignoreEmptyImports ? false,
       ignoreMainModule ? false,
-      ignorePackages ? [ ]
+      ignorePackages ? [ ],
     }:
     drv:
     overrideCabal
@@ -467,7 +467,7 @@ rec {
   overrideSrc =
     {
       src,
-      version ? null
+      version ? null,
     }:
     drv:
     overrideCabal

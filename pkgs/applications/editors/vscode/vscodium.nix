@@ -4,7 +4,7 @@
   callPackage,
   fetchurl,
   nixosTests,
-  commandLineArgs ? ""
+  commandLineArgs ? "",
 }:
 
 let

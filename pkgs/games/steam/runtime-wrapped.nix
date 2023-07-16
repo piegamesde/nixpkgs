@@ -5,7 +5,7 @@
   perl,
   pkgs,
   steam-runtime,
-  runtimeOnly ? false
+  runtimeOnly ? false,
 }:
 
 let

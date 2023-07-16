@@ -12,7 +12,7 @@
   credentials ? null # Default to looking at local EC2 metadata service
   ,
   recursiveHash ? false,
-  postFetch ? null
+  postFetch ? null,
 }:
 
 let
@@ -20,7 +20,7 @@ let
     {
       access_key_id,
       secret_access_key,
-      session_token ? null
+      session_token ? null,
     }: {
       AWS_ACCESS_KEY_ID = access_key_id;
       AWS_SECRET_ACCESS_KEY = secret_access_key;

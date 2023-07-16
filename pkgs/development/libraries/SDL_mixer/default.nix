@@ -9,7 +9,7 @@
   libmikmod,
   fluidsynth,
   pkg-config,
-  enableNativeMidi ? false
+  enableNativeMidi ? false,
 }:
 
 stdenv.mkDerivation rec {

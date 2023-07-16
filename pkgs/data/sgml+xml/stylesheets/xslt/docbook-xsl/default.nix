@@ -8,7 +8,7 @@
   writeScriptBin,
   ruby,
   bash,
-  withManOptDedupPatch ? false
+  withManOptDedupPatch ? false,
 }:
 
 let
@@ -17,7 +17,7 @@ let
     {
       pname,
       sha256,
-      suffix ? ""
+      suffix ? "",
     }:
     let
       legacySuffix =

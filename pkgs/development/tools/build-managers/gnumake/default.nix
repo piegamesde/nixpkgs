@@ -3,9 +3,8 @@
   stdenv,
   fetchurl,
   guileSupport ? false,
-  guile
+  guile,
   # avoid guile depend on bootstrap to prevent dependency cycles
-  ,
   inBootstrap ? false,
   pkg-config,
   gnumake,

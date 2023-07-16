@@ -35,7 +35,7 @@ let
       name,
       gawkextlib,
       extraBuildInputs ? [ ],
-      doCheck ? true
+      doCheck ? true,
     }:
     let
       is_extension = gawkextlib != null;

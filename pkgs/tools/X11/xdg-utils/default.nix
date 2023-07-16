@@ -18,7 +18,7 @@
   mimiSupport ? false,
   gawk,
   glib,
-  withXdgOpenUsePortalPatch ? true
+  withXdgOpenUsePortalPatch ? true,
 }:
 
 let

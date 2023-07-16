@@ -4,7 +4,7 @@
   fetchFromGitHub,
   cmake,
   llvmPackages,
-  enableAVX ? stdenv.hostPlatform.avxSupport
+  enableAVX ? stdenv.hostPlatform.avxSupport,
 }:
 
 stdenv.mkDerivation rec {

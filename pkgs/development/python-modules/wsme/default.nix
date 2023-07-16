@@ -8,9 +8,8 @@
   simplegeneric,
   netaddr,
   pytz,
-  webob
+  webob,
   # Test inputs
-  ,
   cherrypy,
   flask,
   flask-restful,

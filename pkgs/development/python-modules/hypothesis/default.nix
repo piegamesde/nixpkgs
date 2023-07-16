@@ -15,10 +15,9 @@
   sphinx-rtd-theme,
   sphinx-hoverxref,
   sphinx-codeautolink,
-  tzdata
+  tzdata,
   # Used to break internal dependency loop.
-  ,
-  enableDocumentation ? true
+  enableDocumentation ? true,
 }:
 
 buildPythonPackage rec {

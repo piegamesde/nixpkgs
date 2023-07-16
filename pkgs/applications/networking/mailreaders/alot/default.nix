@@ -7,7 +7,7 @@
   gawk,
   notmuch,
   procps,
-  withManpage ? false
+  withManpage ? false,
 }:
 
 with python3.pkgs;

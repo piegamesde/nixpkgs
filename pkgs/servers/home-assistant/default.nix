@@ -11,29 +11,26 @@
   inetutils,
   nixosTests,
   home-assistant,
-  testers
+  testers,
 
   # Look up dependencies of specified components in component-packages.nix
-  ,
-  extraComponents ? [ ]
+  extraComponents ? [ ],
 
   # Additional packages to add to propagatedBuildInputs
-  ,
-  extraPackages ? ps: [ ]
+  extraPackages ? ps:
+    [ ],
 
   # Write out info about included extraComponents and extraPackages
-  ,
-  writeText
+  writeText,
 
   # Override Python packages using
   # self: super: { pkg = super.pkg.overridePythonAttrs (oldAttrs: { ... }); }
   # Applied after defaultOverrides
-  ,
-  packageOverrides ? self: super: { }
+  packageOverrides ? self: super:
+    { },
 
   # Skip pip install of required packages on startup
-  ,
-  skipPip ? true
+  skipPip ? true,
 }:
 
 let

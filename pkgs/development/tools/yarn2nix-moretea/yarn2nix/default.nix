@@ -2,7 +2,7 @@
   pkgs ? import <nixpkgs> { },
   nodejs ? pkgs.nodejs,
   yarn ? pkgs.yarn,
-  allowAliases ? pkgs.config.allowAliases
+  allowAliases ? pkgs.config.allowAliases,
 }@inputs:
 
 let
@@ -57,7 +57,7 @@ rec {
   mkYarnNix =
     {
       yarnLock,
-      flags ? [ ]
+      flags ? [ ],
     }:
     pkgs.runCommand "yarn.nix"
     { }

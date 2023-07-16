@@ -51,7 +51,7 @@
   docbook_xsl,
   docbook_xml_dtd_44,
   nixosTests,
-  withSudo ? false
+  withSudo ? false,
 }:
 
 let

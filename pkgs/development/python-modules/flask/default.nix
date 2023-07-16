@@ -10,9 +10,8 @@
   python-dotenv,
   werkzeug,
   pytestCheckHook,
-  pythonOlder
+  pythonOlder,
   # used in passthru.tests
-  ,
   flask-limiter,
   flask-restful,
   flask-restx,

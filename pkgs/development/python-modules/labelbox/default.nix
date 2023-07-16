@@ -10,14 +10,12 @@
   nbformat,
   ndjson,
   numpy,
-  opencv
+  opencv,
   # , opencv-python
-  ,
   packaging,
   pillow,
-  pydantic
+  pydantic,
   # , pygeotile
-  ,
   pyproj,
   pytest-cases,
   pytestCheckHook,

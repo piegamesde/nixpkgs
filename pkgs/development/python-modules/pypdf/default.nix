@@ -2,29 +2,24 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  pythonOlder
+  pythonOlder,
 
   # build-system
-  ,
-  flit-core
+  flit-core,
 
   # docs
-  ,
   sphinxHook,
   sphinx-rtd-theme,
-  myst-parser
+  myst-parser,
 
   # propagates
-  ,
-  typing-extensions
+  typing-extensions,
 
   # optionals
-  ,
   pycryptodome,
-  pillow
+  pillow,
 
   # tests
-  ,
   pytestCheckHook,
 }:
 

@@ -5,7 +5,7 @@
   unzip,
   file,
   licenseFile ? null,
-  optgamsFile ? null
+  optgamsFile ? null,
 }:
 
 assert licenseFile != null;

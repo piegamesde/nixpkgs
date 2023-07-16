@@ -7,7 +7,7 @@
   runtimeShell,
   usePam ? !isStatic,
   pam ? null,
-  isStatic ? stdenv.hostPlatform.isStatic
+  isStatic ? stdenv.hostPlatform.isStatic,
 }:
 
 assert usePam -> pam != null;

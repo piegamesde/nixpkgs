@@ -6,7 +6,7 @@
   imlib2,
   giflib,
   libexif,
-  conf ? null
+  conf ? null,
 }:
 
 with lib;

@@ -6,7 +6,7 @@
   Libinfo,
   configdHeaders,
   mDNSResponder,
-  headersOnly ? false
+  headersOnly ? false,
 }:
 
 appleDerivation'

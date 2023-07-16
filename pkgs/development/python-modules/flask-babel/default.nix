@@ -2,26 +2,22 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  fetchpatch
+  fetchpatch,
 
   # build-system
-  ,
-  poetry-core
+  poetry-core,
 
   # docs
-  ,
   furo,
-  sphinxHook
+  sphinxHook,
 
   # runtime
-  ,
   babel,
   flask,
   jinja2,
-  pytz
+  pytz,
 
   # tests
-  ,
   pytest-mock,
   pytestCheckHook,
 }:

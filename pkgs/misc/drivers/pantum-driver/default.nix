@@ -9,6 +9,7 @@
   makeWrapper,
   autoPatchelfHook,
   enablePtqpdf ? false # Pantum's version of qpdf
+  ,
 }:
 
 let

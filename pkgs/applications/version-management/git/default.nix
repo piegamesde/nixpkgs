@@ -14,8 +14,7 @@
   gnugrep,
   gnused,
   gawk,
-  coreutils # needed at runtime by git-filter-branch etc
-  ,
+  coreutils, # needed at runtime by git-filter-branch etc
   openssh,
   pcre2,
   bash,
@@ -49,8 +48,7 @@
   pkg-config,
   glib,
   libsecret,
-  gzip # needed at runtime by gitweb.cgi
-  ,
+  gzip, # needed at runtime by gitweb.cgi
   withSsh ? false,
   doInstallCheck ? !stdenv.isDarwin # extremely slow on darwin
   ,

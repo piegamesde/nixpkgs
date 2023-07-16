@@ -1,9 +1,8 @@
 {
   lib,
   buildPythonApplication,
-  fetchPypi
+  fetchPypi,
   # build inputs
-  ,
   aiofiles,
   aiohttp,
   attrs,

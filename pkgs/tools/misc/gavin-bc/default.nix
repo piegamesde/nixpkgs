@@ -5,7 +5,7 @@
   editline,
   readline,
   historyType ? "internal",
-  predefinedBuildType ? "BSD"
+  predefinedBuildType ? "BSD",
 }:
 
 assert lib.elem historyType [

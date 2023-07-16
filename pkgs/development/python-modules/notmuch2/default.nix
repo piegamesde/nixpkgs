@@ -1,8 +1,7 @@
 {
   stdenv,
-  lib
+  lib,
 
-  ,
   buildPythonPackage,
   notmuch,
   python,

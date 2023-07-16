@@ -24,11 +24,10 @@ in
   # (build, in GNU Autotools parlance) platform.
   localSystem ? {
     system = args.system or builtins.currentSystem;
-  }
+  },
 
   # These are needed only because nix's `--arg` command-line logic doesn't work
   # with unnamed parameters allowed by ...
-  ,
   system ? localSystem.system,
   crossSystem ? localSystem
 
@@ -110,8 +109,8 @@ in
       overlays homeOverlaysDir
   else
     [ ]
-
   ,
+
   crossOverlays ? [ ]
 
   ,

@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   protobuf,
-  isStatic ? stdenv.hostPlatform.isStatic
+  isStatic ? stdenv.hostPlatform.isStatic,
 }:
 
 stdenv.mkDerivation (

@@ -16,7 +16,7 @@
   freetype,
   qemu,
   lvm2,
-  for_HP_laptop ? false
+  for_HP_laptop ? false,
 }:
 
 let

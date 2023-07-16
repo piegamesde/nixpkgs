@@ -6,7 +6,7 @@
   readline,
   withReadline ? true,
   enableEmu ? true,
-  enableSpy ? true
+  enableSpy ? true,
 }:
 
 stdenv.mkDerivation {

@@ -10,7 +10,7 @@
   extra-cmake-modules,
   qtbase,
   qttools,
-  debug ? false
+  debug ? false,
 }:
 
 let

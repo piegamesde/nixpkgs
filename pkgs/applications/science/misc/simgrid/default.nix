@@ -19,15 +19,14 @@
   modelCheckingSupport ? false,
   libunwind,
   libevent,
-  elfutils # Inside elfutils: libelf and libdw
-  ,
+  elfutils, # Inside elfutils: libelf and libdw
   bmfSupport ? true,
   eigen,
   minimalBindings ? false,
   debug ? false,
   optimize ? (!debug),
   moreTests ? false,
-  withoutBin ? false
+  withoutBin ? false,
 }:
 
 with lib;

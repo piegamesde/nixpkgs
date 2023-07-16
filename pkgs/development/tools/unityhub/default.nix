@@ -6,7 +6,7 @@
   makeWrapper,
   buildFHSEnv,
   extraPkgs ? pkgs: [ ],
-  extraLibs ? pkgs: [ ]
+  extraLibs ? pkgs: [ ],
 }:
 
 stdenv.mkDerivation rec {

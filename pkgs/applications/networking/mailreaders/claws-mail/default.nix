@@ -12,19 +12,17 @@
   python3,
   shared-mime-info,
   glib-networking,
-  gsettings-desktop-schemas
+  gsettings-desktop-schemas,
 
   # Package compatibility: old parameters whose name were not directly derived
-  ,
   enablePgp ? true,
   enablePluginNotificationDialogs ? true,
   enablePluginNotificationSounds ? true,
   enablePluginPdf ? true,
   enablePluginRavatar ? true,
-  enableSpellcheck ? true
+  enableSpellcheck ? true,
 
   # Arguments to include external libraries
-  ,
   enableLibSM ? true,
   xorg,
   enableGnuTLS ? true,
@@ -44,10 +42,9 @@
     !stdenv.isDarwin && lib.meta.availableOn stdenv.hostPlatform valgrind,
   valgrind,
   enableSvg ? true,
-  librsvg
+  librsvg,
 
   # Configure claws-mail's plugins
-  ,
   enablePluginAcpiNotifier ? true,
   enablePluginAddressKeeper ? true,
   enablePluginArchive ? true,

@@ -7,7 +7,7 @@
   zlib,
   llvm,
   lib,
-  backend ? "mcode"
+  backend ? "mcode",
 }:
 
 assert backend == "mcode" || backend == "llvm";

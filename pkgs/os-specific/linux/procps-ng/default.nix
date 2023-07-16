@@ -4,20 +4,20 @@
   fetchurl,
   ncurses,
   pkg-config,
-  fetchpatch
+  fetchpatch,
 
   # `ps` with systemd support is able to properly report different
   # attributes like unit name, so we want to have it on linux.
-  ,
   withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
-  systemd
+  systemd,
 
   # procps is mostly Linux-only. Most commands require a running Linux
   # system (or very similar like that found in Cygwin). The one
   # exception is ‘watch’ which is portable enough to run on pretty much
   # any UNIX-compatible system.
-  ,
-  watchOnly ? !(stdenv.isLinux || stdenv.isCygwin)
+  watchOnly ? !(
+    stdenv.isLinux || stdenv.isCygwin
+  ),
 }:
 
 stdenv.mkDerivation rec {

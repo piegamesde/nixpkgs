@@ -5,7 +5,7 @@
   imagemagick,
   qrencode,
   testQR ? false,
-  zbar ? null
+  zbar ? null,
 }:
 
 assert testQR -> zbar != false;

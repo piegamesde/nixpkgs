@@ -17,13 +17,12 @@
   qt5,
   libvncserver,
   discord-gamesdk,
-  libpcap
+  libpcap,
 
-  ,
   enableDynarec ? with stdenv.hostPlatform; isx86 || isAarch,
   enableNewDynarec ? enableDynarec && stdenv.hostPlatform.isAarch,
   enableVncRenderer ? false,
-  unfreeEnableDiscord ? false
+  unfreeEnableDiscord ? false,
 }:
 
 stdenv.mkDerivation rec {

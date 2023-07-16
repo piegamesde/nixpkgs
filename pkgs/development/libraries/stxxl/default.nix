@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-  parallelSupport ? (!stdenv.isDarwin)
+  parallelSupport ? (!stdenv.isDarwin),
 }:
 
 let

@@ -18,7 +18,7 @@ let
   withPackages' =
     {
       pkgs,
-      ghc ? ghcWithPackages (p: with p; [ ieee754 ])
+      ghc ? ghcWithPackages (p: with p; [ ieee754 ]),
     }:
     let
       pkgs' =

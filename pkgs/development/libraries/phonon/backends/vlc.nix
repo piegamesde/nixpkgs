@@ -10,7 +10,7 @@
   qttools,
   qtbase,
   qtx11extras,
-  debug ? false
+  debug ? false,
 }:
 
 stdenv.mkDerivation rec {

@@ -7,7 +7,7 @@
   cmake,
   perl,
   writeScript,
-  enableUnstable ? false
+  enableUnstable ? false,
 }:
 
 stdenv.mkDerivation (

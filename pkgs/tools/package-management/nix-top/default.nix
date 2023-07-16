@@ -4,12 +4,9 @@
   fetchFromGitHub,
   ruby,
   makeWrapper,
-  getent # /etc/passwd
-  ,
-  ncurses # tput
-  ,
-  binutils-unwrapped # strings
-  ,
+  getent, # /etc/passwd
+  ncurses, # tput
+  binutils-unwrapped, # strings
   coreutils,
   findutils,
 }:

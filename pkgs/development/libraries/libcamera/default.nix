@@ -17,8 +17,7 @@
   doxygen,
   python3,
   python3Packages,
-  systemd # for libudev
-  ,
+  systemd, # for libudev
 }:
 
 stdenv.mkDerivation rec {

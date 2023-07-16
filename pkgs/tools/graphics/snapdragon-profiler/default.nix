@@ -23,7 +23,7 @@
       and add it to the nix store with nix-store --add-fixed sha256 <FILE>.
     '';
     sha256 = "c6731c417ca39fa9b0f190bd80c99b1603cf97d23becab9e47db6beafd6206b7";
-  }
+  },
 }:
 
 stdenv.mkDerivation rec {

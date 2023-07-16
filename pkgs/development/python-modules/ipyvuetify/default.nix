@@ -1,9 +1,8 @@
 {
   lib,
   buildPythonPackage,
-  fetchPypi
+  fetchPypi,
   # Python Inputs
-  ,
   ipyvue,
 }:
 

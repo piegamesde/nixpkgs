@@ -3,7 +3,7 @@
   stdenv,
   fetchurl,
   m4,
-  cxx ? true
+  cxx ? true,
 }:
 
 let

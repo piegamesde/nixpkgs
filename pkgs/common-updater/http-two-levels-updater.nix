@@ -12,7 +12,7 @@
   rev-prefix ? "",
   odd-unstable ? false,
   patchlevel-unstable ? false,
-  url ? null
+  url ? null,
 }:
 
 genericUpdater {

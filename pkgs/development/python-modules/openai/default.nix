@@ -19,7 +19,7 @@
   tqdm,
   typing-extensions,
   wandb,
-  withOptionalDependencies ? false
+  withOptionalDependencies ? false,
 }:
 
 buildPythonPackage rec {

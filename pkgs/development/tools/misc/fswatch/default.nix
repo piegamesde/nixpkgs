@@ -2,9 +2,8 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  autoreconfHook
+  autoreconfHook,
   # for xargs
-  ,
   gettext,
   libtool,
   makeWrapper,

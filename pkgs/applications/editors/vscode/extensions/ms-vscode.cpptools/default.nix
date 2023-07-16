@@ -7,8 +7,7 @@
   jq,
   clang-tools,
   gdbUseFixed ? true,
-  gdb # The gdb default setting will be fixed to specified. Use version from `PATH` otherwise.
-  ,
+  gdb, # The gdb default setting will be fixed to specified. Use version from `PATH` otherwise.
   autoPatchelfHook,
   makeWrapper,
   stdenv,

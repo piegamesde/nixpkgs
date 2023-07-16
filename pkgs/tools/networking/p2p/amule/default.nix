@@ -17,8 +17,7 @@
   perl,
   cryptopp,
   libupnp,
-  boost # Not using boost leads to crashes with gtk3
-  ,
+  boost, # Not using boost leads to crashes with gtk3
   gettext,
   libpng,
   autoreconfHook,

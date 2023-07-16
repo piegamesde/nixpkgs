@@ -19,8 +19,7 @@
   fixDarwinDylibNames,
   nukeReferences,
   runCommand,
-  graphicsmagick # for passthru.tests
-  ,
+  graphicsmagick, # for passthru.tests
 }:
 
 stdenv.mkDerivation rec {

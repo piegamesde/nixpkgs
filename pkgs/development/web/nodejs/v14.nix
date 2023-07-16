@@ -4,7 +4,7 @@
   lib,
   stdenv,
   openssl,
-  enableNpm ? true
+  enableNpm ? true,
 }:
 
 let

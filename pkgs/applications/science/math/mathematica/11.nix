@@ -2,16 +2,14 @@
   lib,
   patchelf,
   requireFile,
-  stdenv
+  stdenv,
   # arguments from default.nix
-  ,
   lang,
   meta,
   name,
   src,
-  version
+  version,
   # dependencies
-  ,
   alsa-lib,
   coreutils,
   cudaPackages,
@@ -30,9 +28,8 @@
   unixODBC,
   xkeyboard_config,
   xorg,
-  zlib
+  zlib,
   # options
-  ,
   cudaSupport,
 }:
 

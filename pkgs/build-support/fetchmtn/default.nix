@@ -4,7 +4,7 @@
   stdenvNoCC,
   monotone,
   defaultDBMirrors ? [ ],
-  cacheDB ? "./mtn-checkout.db"
+  cacheDB ? "./mtn-checkout.db",
 }:
 # dbs is a list of strings
 # each is an url for sync

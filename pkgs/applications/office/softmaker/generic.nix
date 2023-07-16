@@ -4,31 +4,27 @@
   autoPatchelfHook,
   makeDesktopItem,
   makeWrapper,
-  copyDesktopItems
+  copyDesktopItems,
 
   # Dynamic Libraries
-  ,
   curl,
   libGL,
   libX11,
   libXext,
   libXmu,
   libXrandr,
-  libXrender
+  libXrender,
 
   # For fixing up execution of /bin/ls, which is necessary for
   # product unlocking.
-  ,
   coreutils,
-  libredirect
+  libredirect,
 
   # Extra utilities used by the SoftMaker applications.
-  ,
   gnugrep,
   util-linux,
-  which
+  which,
 
-  ,
   pname,
   version,
   edition,

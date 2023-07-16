@@ -76,12 +76,12 @@
     false # decoder checks if intermediate transform coefficients are in valid range
   ,
   vp9HighbitdepthSupport ? true # 10/12 bit color support in VP9
-  # Experimental features
   ,
+  # Experimental features
   experimentalSpatialSvcSupport ? false # Spatial scalable video coding
   ,
   experimentalFpMbStatsSupport ? false,
-  experimentalEmulateHardwareSupport ? false
+  experimentalEmulateHardwareSupport ? false,
 }:
 
 let

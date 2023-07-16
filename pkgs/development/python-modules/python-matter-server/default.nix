@@ -2,28 +2,24 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  pythonOlder
+  pythonOlder,
 
   # build
-  ,
-  setuptools
+  setuptools,
 
   # propagates
-  ,
   aiohttp,
   aiorun,
   coloredlogs,
   dacite,
   orjson,
-  home-assistant-chip-clusters
+  home-assistant-chip-clusters,
 
   # optionals
-  ,
   cryptography,
-  home-assistant-chip-core
+  home-assistant-chip-core,
 
   # tests
-  ,
   python,
   pytest,
   pytest-aiohttp,

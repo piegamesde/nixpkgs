@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-  simdExtensions ? null
+  simdExtensions ? null,
 }:
 
 with rec {

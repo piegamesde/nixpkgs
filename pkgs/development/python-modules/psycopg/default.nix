@@ -6,32 +6,27 @@
   fetchpatch,
   fetchurl,
   pythonOlder,
-  substituteAll
+  substituteAll,
 
   # build
-  ,
   postgresql,
-  setuptools
+  setuptools,
 
   # propagates
-  ,
   backports-zoneinfo,
-  typing-extensions
+  typing-extensions,
 
   # psycopg-c
-  ,
   cython_3,
-  tomli
+  tomli,
 
   # docs
-  ,
   furo,
   shapely,
   sphinxHook,
-  sphinx-autodoc-typehints
+  sphinx-autodoc-typehints,
 
   # tests
-  ,
   anyio,
   pproxy,
   pytest-randomly,

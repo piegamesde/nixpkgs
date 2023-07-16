@@ -48,16 +48,14 @@
   libpulseaudio,
   pcsclite,
   glib-networking,
-  llvmPackages_12
+  llvmPackages_12,
 
-  ,
   homepage,
   version,
   prefix,
-  hash
+  hash,
 
-  ,
-  extraCerts ? [ ]
+  extraCerts ? [ ],
 }:
 
 let

@@ -6,7 +6,7 @@
   readline,
   gmp,
   pari,
-  zlib
+  zlib,
   # one of
   # - "minimal" (~400M):
   #     Install the bare minimum of packages required by gap to start.
@@ -17,11 +17,9 @@
   #     packages are effectively considered a part of gap.
   # - "full" (~1.7G):
   #     Install all available packages. This takes a lot of space.
-  ,
-  packageSet ? "standard"
+  packageSet ? "standard",
   # Kept for backwards compatibility. Overrides packageSet to "full".
-  ,
-  keepAllPackages ? false
+  keepAllPackages ? false,
 }:
 let
   # packages absolutely required for gap to start

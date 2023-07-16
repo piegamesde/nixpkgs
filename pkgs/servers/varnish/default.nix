@@ -24,7 +24,7 @@ let
     {
       version,
       hash,
-      extraNativeBuildInputs ? [ ]
+      extraNativeBuildInputs ? [ ],
     }:
     stdenv.mkDerivation rec {
       pname = "varnish";

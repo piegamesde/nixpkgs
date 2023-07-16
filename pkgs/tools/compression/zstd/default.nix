@@ -9,15 +9,13 @@
   file,
   fetchpatch,
   legacySupport ? false,
-  static ? stdenv.hostPlatform.isStatic
+  static ? stdenv.hostPlatform.isStatic,
   # these need to be ran on the host, thus disable when cross-compiling
-  ,
   buildContrib ? stdenv.hostPlatform == stdenv.buildPlatform,
   doCheck ? stdenv.hostPlatform == stdenv.buildPlatform,
-  nix-update-script
+  nix-update-script,
 
   # for passthru.tests
-  ,
   libarchive,
   rocksdb,
   arrow-cpp,

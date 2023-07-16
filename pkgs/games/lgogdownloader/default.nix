@@ -16,10 +16,9 @@
   qtbase,
   qtwebengine,
   testers,
-  lgogdownloader
+  lgogdownloader,
 
-  ,
-  enableGui ? true
+  enableGui ? true,
 }:
 
 stdenv.mkDerivation rec {

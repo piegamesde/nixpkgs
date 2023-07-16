@@ -14,7 +14,7 @@
   ceres-solver,
   enableShared ? !stdenv.hostPlatform.isStatic,
   enableExamples ? false,
-  enableDocs ? false
+  enableDocs ? false,
 }:
 
 stdenv.mkDerivation rec {

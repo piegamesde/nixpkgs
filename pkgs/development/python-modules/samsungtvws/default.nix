@@ -2,25 +2,21 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  isPy27
+  isPy27,
 
   # propagates:
-  ,
   requests,
-  websocket-client
+  websocket-client,
 
   # extras: async
-  ,
   aiohttp,
-  websockets
+  websockets,
 
   # extras: encrypted
-  ,
   cryptography,
-  py3rijndael
+  py3rijndael,
 
   # tests
-  ,
   aioresponses,
   pytest-asyncio,
   pytestCheckHook,

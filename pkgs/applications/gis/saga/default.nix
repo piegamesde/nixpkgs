@@ -2,13 +2,11 @@
   stdenv,
   mkDerivation,
   lib,
-  fetchurl
+  fetchurl,
   # native
-  ,
   cmake,
-  pkg-config
+  pkg-config,
   # not native
-  ,
   gdal,
   wxGTK32,
   proj,

@@ -14,9 +14,8 @@
   enableSSL2 ? false,
   enableSSL3 ? false,
   enableKTLS ? stdenv.isLinux,
-  static ? stdenv.hostPlatform.isStatic
+  static ? stdenv.hostPlatform.isStatic,
   # path to openssl.cnf file. will be placed in $etc/etc/ssl/openssl.cnf to replace the default
-  ,
   conf ? null,
   removeReferencesTo,
   testers,
@@ -34,7 +33,7 @@ let
       sha256,
       patches ? [ ],
       withDocs ? false,
-      extraMeta ? { }
+      extraMeta ? { },
     }:
     stdenv.mkDerivation (
       finalAttrs: {

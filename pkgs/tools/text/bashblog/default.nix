@@ -5,10 +5,9 @@
   fetchFromGitHub,
   makeWrapper,
   substituteAll,
-  perlPackages
+  perlPackages,
   # Flags to enable processors
   # Currently, Markdown.pl does not work
-  ,
   usePandoc ? true,
   pandoc,
 }:

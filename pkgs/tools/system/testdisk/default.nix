@@ -16,7 +16,7 @@
   enableQt ? false,
   qtbase ? null,
   qttools ? null,
-  qwt ? null
+  qwt ? null,
 }:
 
 assert enableNtfs -> ntfs3g != null;

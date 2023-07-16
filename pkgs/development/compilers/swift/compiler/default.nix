@@ -17,25 +17,21 @@
   gnumake,
   file,
   runCommand,
-  writeShellScriptBin
+  writeShellScriptBin,
   # For lldb
-  ,
   libedit,
   ncurses,
   swig,
-  libxml2
+  libxml2,
   # Linux-specific
-  ,
   glibc,
-  libuuid
+  libuuid,
   # Darwin-specific
-  ,
   substituteAll,
   fixDarwinDylibNames,
   runCommandLocal,
   xcbuild,
-  cctools # libtool
-  ,
+  cctools, # libtool
   sigtool,
   DarwinTools,
   CoreServices,

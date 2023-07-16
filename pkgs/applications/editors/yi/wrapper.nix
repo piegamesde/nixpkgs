@@ -5,7 +5,7 @@
   stdenv,
   makeWrapper,
   haskellPackages,
-  extraPackages ? (s: [ ])
+  extraPackages ? (s: [ ]),
 }:
 let
   yiEnv =

@@ -15,36 +15,27 @@
   patches ? [ ],
   postPatch ? "",
   nativeBuildInputs ? [ ],
-  buildInputs ? [ ]
+  buildInputs ? [ ],
   # The output hash of the dependencies for this project.
   # Can be calculated in advance with prefetch-npm-deps.
-  ,
-  npmDepsHash ? ""
+  npmDepsHash ? "",
   # Whether to force the usage of Git dependencies that have install scripts, but not a lockfile.
   # Use with care.
-  ,
-  forceGitDeps ? false
+  forceGitDeps ? false,
   # Whether to make the cache writable prior to installing dependencies.
   # Don't set this unless npm tries to write to the cache directory, as it can slow down the build.
-  ,
-  makeCacheWritable ? false
+  makeCacheWritable ? false,
   # The script to run to build the project.
-  ,
-  npmBuildScript ? "build"
+  npmBuildScript ? "build",
   # Flags to pass to all npm commands.
-  ,
-  npmFlags ? [ ]
+  npmFlags ? [ ],
   # Flags to pass to `npm ci` and `npm prune`.
-  ,
-  npmInstallFlags ? [ ]
+  npmInstallFlags ? [ ],
   # Flags to pass to `npm rebuild`.
-  ,
-  npmRebuildFlags ? [ ]
+  npmRebuildFlags ? [ ],
   # Flags to pass to `npm run ${npmBuildScript}`.
-  ,
-  npmBuildFlags ? [ ]
+  npmBuildFlags ? [ ],
   # Flags to pass to `npm pack`.
-  ,
   npmPackFlags ? [ ],
   ...
 }@args:

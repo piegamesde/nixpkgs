@@ -4,11 +4,10 @@
   fetchFromGitHub,
   bison,
   pam,
-  libxcrypt
+  libxcrypt,
 
-  ,
   withPAM ? true,
-  withTimestamp ? true
+  withTimestamp ? true,
 }:
 
 stdenv.mkDerivation rec {

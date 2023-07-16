@@ -31,7 +31,7 @@
   withSpeechd ? true,
   withFontconfig ? true,
   withUdev ? true,
-  withTouch ? true
+  withTouch ? true,
 }:
 
 assert lib.asserts.assertOneOf "withPrecision" withPrecision [

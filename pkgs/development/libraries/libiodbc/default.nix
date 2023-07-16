@@ -6,7 +6,7 @@
   pkg-config,
   gtk2,
   Carbon,
-  useGTK ? config.libiodbc.gtk or false
+  useGTK ? config.libiodbc.gtk or false,
 }:
 
 stdenv.mkDerivation rec {

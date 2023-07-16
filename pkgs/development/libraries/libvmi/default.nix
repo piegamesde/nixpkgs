@@ -10,7 +10,7 @@
   json_c,
   xen,
   libvirt,
-  xenSupport ? true
+  xenSupport ? true,
 }:
 
 stdenv.mkDerivation rec {

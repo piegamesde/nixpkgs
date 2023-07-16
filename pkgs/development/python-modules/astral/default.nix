@@ -2,18 +2,15 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-  pythonOlder
+  pythonOlder,
 
   # build
-  ,
-  poetry-core
+  poetry-core,
 
   # runtime
-  ,
-  backports-zoneinfo
+  backports-zoneinfo,
 
   # tests
-  ,
   pytestCheckHook,
   freezegun,
 }:

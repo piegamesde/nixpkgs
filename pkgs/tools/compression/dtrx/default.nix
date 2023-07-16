@@ -17,7 +17,7 @@
   xz,
   lzip,
   unzipSupport ? false,
-  unrarSupport ? false
+  unrarSupport ? false,
 }:
 
 python3Packages.buildPythonApplication rec {

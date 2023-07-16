@@ -90,7 +90,7 @@ let
       name,
       sha256,
       script,
-      impureEnvVars ? [ ]
+      impureEnvVars ? [ ],
     }:
     stdenv.mkDerivation {
       inherit name;

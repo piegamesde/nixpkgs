@@ -3,18 +3,15 @@
   buildPythonPackage,
   fetchpatch,
   fetchPypi,
-  pythonOlder
+  pythonOlder,
 
   # native
-  ,
-  flit-core
+  flit-core,
 
   # propagates
-  ,
-  typing-extensions
+  typing-extensions,
 
   # tests
-  ,
   unittestCheckHook,
 }:
 

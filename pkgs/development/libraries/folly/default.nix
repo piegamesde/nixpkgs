@@ -19,7 +19,7 @@
   zlib,
   zstd,
   jemalloc,
-  follyMobile ? false
+  follyMobile ? false,
 }:
 
 stdenv.mkDerivation rec {

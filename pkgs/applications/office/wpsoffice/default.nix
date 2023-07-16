@@ -15,7 +15,7 @@
   udev,
   xorg,
   makeWrapper,
-  useChineseVersion ? false
+  useChineseVersion ? false,
 }:
 
 stdenv.mkDerivation rec {

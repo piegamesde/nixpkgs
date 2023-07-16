@@ -33,7 +33,7 @@
   vulkan-loader,
   libappindicator,
   cudaSupport ? false,
-  cudaPackages ? { }
+  cudaPackages ? { },
 }:
 let
   libcbs = callPackage ./libcbs.nix { };

@@ -1,8 +1,7 @@
 {
   lib,
-  fetchurl
+  fetchurl,
   # Optional due to unfree license.
-  ,
   faacSupport ? false,
   glib,
   python3Packages,

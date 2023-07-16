@@ -2,10 +2,9 @@
   lib,
   stdenv,
   patchelf,
-  makeWrapper
+  makeWrapper,
 
   # Linked dynamic libraries.
-  ,
   glib,
   fontconfig,
   freetype,
@@ -43,71 +42,58 @@
   mesa,
   libxkbcommon,
   pipewire,
-  wayland # ozone/wayland
+  wayland, # ozone/wayland
 
   # Command line programs
-  ,
-  coreutils
+  coreutils,
 
   # command line arguments which are always set e.g "--disable-gpu"
-  ,
-  commandLineArgs ? ""
+  commandLineArgs ? "",
 
   # Will crash without.
-  ,
-  systemd
+  systemd,
 
   # Loaded at runtime.
-  ,
   libexif,
-  pciutils
+  pciutils,
 
   # Additional dependencies according to other distros.
   ## Ubuntu
-  ,
   liberation_ttf,
   curl,
   util-linux,
   xdg-utils,
-  wget
+  wget,
   ## Arch Linux.
-  ,
   flac,
   harfbuzz,
   icu,
   libpng,
   libopus,
   snappy,
-  speechd
+  speechd,
   ## Gentoo
-  ,
   bzip2,
-  libcap
+  libcap,
 
   # Which distribution channel to use.
-  ,
-  channel ? "stable"
+  channel ? "stable",
 
   # Necessary for USB audio devices.
-  ,
   pulseSupport ? true,
-  libpulseaudio
+  libpulseaudio,
 
   # Only needed for getting information about upstream binaries
-  ,
-  chromium
+  chromium,
 
-  ,
   gsettings-desktop-schemas,
-  gnome
+  gnome,
 
   # For video acceleration via VA-API (--enable-features=VaapiVideoDecoder)
-  ,
   libvaSupport ? true,
-  libva
+  libva,
 
   # For Vulkan support (--enable-features=Vulkan)
-  ,
   addOpenGLRunpath,
 }:
 

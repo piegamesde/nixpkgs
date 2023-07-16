@@ -4,32 +4,29 @@
   stdenv,
   fetchFromGitHub,
   pkg-config,
-  cmake
+  cmake,
 
   # dependencies
-  ,
   glib,
   libXinerama,
-  catch2
+  catch2,
 
   # optional features without extra dependencies
-  ,
   mpdSupport ? true,
   ibmSupport ? true # IBM/Lenovo notebooks
+  ,
 
   # optional features with extra dependencies
 
   # ouch, this is ugly, but this gives the man page
-  ,
   docsSupport ? true,
   docbook2x,
   libxslt ? null,
   man ? null,
   less ? null,
   docbook_xsl ? null,
-  docbook_xml_dtd_44 ? null
+  docbook_xml_dtd_44 ? null,
 
-  ,
   ncursesSupport ? true,
   ncurses ? null,
   x11Support ? true,
@@ -39,25 +36,22 @@
   libXdamage ? null,
   doubleBufferSupport ? x11Support,
   imlib2Support ? x11Support,
-  imlib2 ? null
+  imlib2 ? null,
 
-  ,
   luaSupport ? true,
   lua ? null,
   luaImlib2Support ? luaSupport && imlib2Support,
   luaCairoSupport ? luaSupport && x11Support,
   cairo ? null,
-  toluapp ? null
+  toluapp ? null,
 
-  ,
   wirelessSupport ? true,
   wirelesstools ? null,
   nvidiaSupport ? false,
   libXNVCtrl ? null,
   pulseSupport ? config.pulseaudio or false,
-  libpulseaudio ? null
+  libpulseaudio ? null,
 
-  ,
   curlSupport ? true,
   curl ? null,
   rssSupport ? curlSupport,
@@ -65,7 +59,7 @@
   weatherXoapSupport ? curlSupport,
   journalSupport ? true,
   systemd ? null,
-  libxml2 ? null
+  libxml2 ? null,
 }:
 
 assert docsSupport

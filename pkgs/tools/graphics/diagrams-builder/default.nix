@@ -15,7 +15,7 @@
   ghcWithPackages,
   makeWrapper,
   diagrams-builder,
-  extraPackages ? (self: [ ])
+  extraPackages ? (self: [ ]),
 }:
 
 let

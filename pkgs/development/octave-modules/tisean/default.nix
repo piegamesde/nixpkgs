@@ -4,9 +4,8 @@
   fetchurl
   # Octave dependencies
   ,
-  signal # >= 1.3.0
+  signal, # >= 1.3.0
   # Build dependencies
-  ,
   gfortran,
 }:
 

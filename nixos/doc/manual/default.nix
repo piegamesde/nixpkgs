@@ -8,7 +8,7 @@
   baseOptionsJSON ? null,
   warningsAreErrors ? true,
   allowDocBook ? true,
-  prefix ? ../../..
+  prefix ? ../../..,
 }:
 
 with pkgs;

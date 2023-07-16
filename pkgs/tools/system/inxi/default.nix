@@ -6,8 +6,7 @@
   perlPackages,
   makeWrapper,
   ps,
-  dnsutils # dig is recommended for multiple categories
-  ,
+  dnsutils, # dig is recommended for multiple categories
   withRecommends ?
     false # Install (almost) all recommended tools (see --recommends)
   ,

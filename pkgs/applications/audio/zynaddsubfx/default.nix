@@ -2,23 +2,20 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  callPackage
+  callPackage,
 
   # Required build tools
-  ,
   cmake,
   makeWrapper,
-  pkg-config
+  pkg-config,
 
   # Required dependencies
-  ,
   fftw,
   liblo,
   minixml,
-  zlib
+  zlib,
 
   # Optional dependencies
-  ,
   alsaSupport ? stdenv.isLinux,
   alsa-lib,
   dssiSupport ? false,
@@ -32,10 +29,9 @@
   portaudioSupport ? true,
   portaudio,
   sndioSupport ? stdenv.isOpenBSD,
-  sndio
+  sndio,
 
   # Optional GUI dependencies
-  ,
   guiModule ? "off",
   cairo,
   fltk,
@@ -43,10 +39,9 @@
   libjpeg,
   libX11,
   libXpm,
-  ntk
+  ntk,
 
   # Test dependencies
-  ,
   cxxtest,
   ruby,
 }:

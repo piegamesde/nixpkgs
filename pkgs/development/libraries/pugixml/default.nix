@@ -5,7 +5,7 @@
   cmake,
   check,
   validatePkgConfig,
-  shared ? false
+  shared ? false,
 }:
 
 stdenv.mkDerivation rec {

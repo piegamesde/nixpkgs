@@ -11,7 +11,7 @@
   audit,
   enablePython ? true,
   swig ? null,
-  python ? null
+  python ? null,
 }:
 
 with lib;

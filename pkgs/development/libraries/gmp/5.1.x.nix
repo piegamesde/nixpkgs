@@ -4,7 +4,7 @@
   fetchurl,
   m4,
   cxx ? true,
-  withStatic ? stdenv.hostPlatform.isStatic
+  withStatic ? stdenv.hostPlatform.isStatic,
 }:
 
 let

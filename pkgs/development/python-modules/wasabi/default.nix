@@ -2,10 +2,9 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-  pythonOlder
+  pythonOlder,
 
   # tests
-  ,
   ipykernel,
   nbconvert,
   pytestCheckHook,

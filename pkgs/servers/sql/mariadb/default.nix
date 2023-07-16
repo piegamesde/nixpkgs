@@ -8,18 +8,16 @@ let
       stdenv,
       fetchurl,
       nixosTests,
-      buildPackages
+      buildPackages,
       # Native buildInputs components
-      ,
       bison,
       boost,
       cmake,
       fixDarwinDylibNames,
       flex,
       makeWrapper,
-      pkg-config
+      pkg-config,
       # Common components
-      ,
       curl,
       libiconv,
       ncurses,
@@ -36,9 +34,8 @@ let
       perl,
       jemalloc,
       less,
-      libedit
+      libedit,
       # Server components
-      ,
       bzip2,
       lz4,
       lzo,
@@ -60,7 +57,7 @@ let
       zeromq,
       withStorageRocks ? true,
       withEmbedded ? false,
-      withNuma ? false
+      withNuma ? false,
     }:
 
     let

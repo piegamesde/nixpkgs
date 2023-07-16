@@ -15,7 +15,7 @@
   libgpuarray,
   cudaSupport ? false,
   cudaPackages ? { },
-  cudnnSupport ? false
+  cudnnSupport ? false,
 }:
 
 let

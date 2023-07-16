@@ -1,18 +1,15 @@
 {
   buildPythonPackage,
   lib,
-  fetchFromGitLab
+  fetchFromGitLab,
 
-  ,
   isPy3k,
-  isPyPy
+  isPyPy,
 
-  ,
   distro,
   setuptools,
-  psutil
+  psutil,
 
-  ,
   pkgs,
 }:
 

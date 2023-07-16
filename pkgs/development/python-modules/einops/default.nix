@@ -5,9 +5,8 @@
   fetchFromGitHub,
   hatchling,
   jupyter,
-  keras
+  keras,
   #, mxnet
-  ,
   nbconvert,
   nbformat,
   nose,

@@ -31,8 +31,7 @@
         pythonOnHostForHost,
         pythonOnTargetForTarget,
         pythonAttr ? null,
-        self # is pythonOnHostForTarget
-        ,
+        self, # is pythonOnHostForTarget
       }:
       let
         pythonPackages =

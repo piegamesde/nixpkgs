@@ -5,9 +5,8 @@
   autoreconfHook,
   jre,
   openssl,
-  pkg-config
+  pkg-config,
   # We depend on ZooKeeper for the Jute compiler.
-  ,
   zookeeper,
 }:
 

@@ -13,7 +13,7 @@
     "monitoring"
     "kvdb_postgres"
     "kvdb_etcd"
-  ]
+  ],
 }:
 
 buildGoModule rec {

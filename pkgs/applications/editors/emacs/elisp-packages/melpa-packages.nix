@@ -95,7 +95,7 @@ let
 
   generateMelpa = lib.makeOverridable (
     {
-      archiveJson ? ./recipes-archive-melpa.json
+      archiveJson ? ./recipes-archive-melpa.json,
     }:
     let
       inherit (import ./libgenerated.nix lib self) melpaDerivation;

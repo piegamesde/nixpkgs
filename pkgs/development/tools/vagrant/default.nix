@@ -9,7 +9,7 @@
   libguestfs,
   qemu,
   writeText,
-  withLibvirt ? stdenv.isLinux
+  withLibvirt ? stdenv.isLinux,
 }:
 
 let

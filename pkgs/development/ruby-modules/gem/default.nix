@@ -52,22 +52,20 @@ lib.makeOverridable (
     meta ? { },
     patches ? [ ],
     gemPath ? [ ],
-    dontStrip ? false
+    dontStrip ? false,
     # Assume we don't have to build unless strictly necessary (e.g. the source is a
     # git checkout).
     # If you need to apply patches, make sure to set `dontBuild = false`;
-    ,
     dontBuild ? true,
     dontInstallManpages ? false,
     propagatedBuildInputs ? [ ],
     propagatedUserEnvPkgs ? [ ],
     buildFlags ? [ ],
-    passthru ? { }
+    passthru ? { },
     # bundler expects gems to be stored in the cache directory for certain actions
     # such as `bundler install --redownload`.
     # At the cost of increasing the store size, you can keep the gems to have closer
     # alignment with what Bundler expects.
-    ,
     keepGemCache ? false,
     ...
   }@attrs:

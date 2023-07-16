@@ -1,13 +1,11 @@
 {
-  configuration ? import ../lib/from-env.nix "NIXOS_CONFIG" <nixos-config>
+  configuration ? import ../lib/from-env.nix "NIXOS_CONFIG" <nixos-config>,
 
   # provide an option name, as a string literal.
-  ,
-  testOption ? null
+  testOption ? null,
 
   # provide a list of option names, as string literals.
-  ,
-  testOptions ? [ ]
+  testOptions ? [ ],
 }:
 
 # This file is made to be used as follow:
@@ -51,7 +49,7 @@ let
 
   evalFun =
     {
-      specialArgs ? { }
+      specialArgs ? { },
     }:
     import ../lib/eval-config.nix {
       modules = [ configuration ];

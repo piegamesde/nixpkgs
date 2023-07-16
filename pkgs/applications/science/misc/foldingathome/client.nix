@@ -8,7 +8,7 @@
   gcc-unwrapped,
   ocl-icd,
   zlib,
-  extraPkgs ? [ ]
+  extraPkgs ? [ ],
 }:
 let
   majMin = lib.versions.majorMinor version;

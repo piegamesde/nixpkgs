@@ -3,13 +3,12 @@
   lib,
   fetchFromGitHub,
   unstableGitUpdater,
-  dosbox
+  dosbox,
 
   # Docs cause an immense increase in build time, up to 2 additional hours
-  ,
   withDocs ? false,
   ghostscript,
-  withGUI ? false
+  withGUI ? false,
 }:
 
 stdenv.mkDerivation rec {

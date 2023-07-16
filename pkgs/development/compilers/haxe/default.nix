@@ -51,7 +51,7 @@ let
     {
       sha256,
       version,
-      prePatch ? defaultPatch
+      prePatch ? defaultPatch,
     }:
     stdenv.mkDerivation {
       pname = "haxe";

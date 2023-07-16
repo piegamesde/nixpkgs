@@ -5,7 +5,7 @@
 
 {
   paths,
-  disabledDefaultBackends ? [ ]
+  disabledDefaultBackends ? [ ],
 }:
 
 with lib;

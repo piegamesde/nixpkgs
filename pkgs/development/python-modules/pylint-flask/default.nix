@@ -2,10 +2,9 @@
   buildPythonPackage,
   fetchPypi,
   isPy3k,
-  lib
+  lib,
 
   # pythonPackages
-  ,
   pylint-plugin-utils,
 }:
 

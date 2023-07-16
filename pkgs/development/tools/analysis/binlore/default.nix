@@ -100,7 +100,7 @@ rec {
     {
       lore ? loreDef,
       drvs,
-      strip ? [ ]
+      strip ? [ ],
     }:
     (runCommand "more-binlore" { } ''
       mkdir $out

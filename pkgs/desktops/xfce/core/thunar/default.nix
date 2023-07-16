@@ -16,7 +16,7 @@
   gobject-introspection,
   makeWrapper,
   symlinkJoin,
-  thunarPlugins ? [ ]
+  thunarPlugins ? [ ],
 }:
 
 let

@@ -5,9 +5,8 @@
   findutils,
   gnugrep,
   darwin,
-  bash
+  bash,
   # Avoid having GHC in the build-time closure of all NixOS configurations
-  ,
   doCheck ? false,
   shellcheck,
 }:

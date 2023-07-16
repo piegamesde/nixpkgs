@@ -3,7 +3,7 @@
   mkCoqDerivation,
   coq,
   stdpp,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation rec {

@@ -121,8 +121,8 @@ let
       depsBuildTarget ? [ ] # -1 ->  1
       ,
       depsBuildTargetPropagated ? [ ] # -1 ->  1
-
       ,
+
       depsHostHost ? [ ] # 0 ->  0
       ,
       depsHostHostPropagated ? [ ] # 0 ->  0
@@ -130,20 +130,19 @@ let
       buildInputs ? [ ] # 0 ->  1  N.B. Legacy name
       ,
       propagatedBuildInputs ? [ ] # 0 ->  1  N.B. Legacy name
-
       ,
+
       depsTargetTarget ? [ ] # 1 ->  1
       ,
       depsTargetTargetPropagated ? [ ] # 1 ->  1
-
       ,
+
       checkInputs ? [ ],
       installCheckInputs ? [ ],
       nativeCheckInputs ? [ ],
-      nativeInstallCheckInputs ? [ ]
+      nativeInstallCheckInputs ? [ ],
 
       # Configure Phase
-      ,
       configureFlags ? [ ],
       cmakeFlags ? [ ],
       mesonFlags ?
@@ -159,28 +158,24 @@ let
         [
           "build"
           "host"
-        ]
+        ],
 
       # TODO(@Ericson2314): Make unconditional / resolve #33599
       # Check phase
-      ,
-      doCheck ? config.doCheckByDefault or false
+      doCheck ? config.doCheckByDefault or false,
 
       # TODO(@Ericson2314): Make unconditional / resolve #33599
       # InstallCheck phase
-      ,
       doInstallCheck ? config.doCheckByDefault or false
 
       , # TODO(@Ericson2314): Make always true and remove / resolve #178468
       strictDeps ? if config.strictDepsByDefault then
         true
       else
-        stdenv.hostPlatform != stdenv.buildPlatform
+        stdenv.hostPlatform != stdenv.buildPlatform,
 
-      ,
-      enableParallelBuilding ? config.enableParallelBuildingByDefault
+      enableParallelBuilding ? config.enableParallelBuildingByDefault,
 
-      ,
       meta ? { },
       passthru ? { },
       pos ? # position used in error messages and for meta.position
@@ -198,27 +193,22 @@ let
       __impureHostDeps ? [ ],
       __propagatedImpureHostDeps ? [ ],
       sandboxProfile ? "",
-      propagatedSandboxProfile ? ""
+      propagatedSandboxProfile ? "",
 
-      ,
       hardeningEnable ? [ ],
-      hardeningDisable ? [ ]
+      hardeningDisable ? [ ],
 
-      ,
-      patches ? [ ]
+      patches ? [ ],
 
-      ,
       __contentAddressed ? (
         !attrs ? outputHash
       ) # Fixed-output drvs can't be content addressed too
-        && config.contentAddressedByDefault
+        && config.contentAddressedByDefault,
 
       # Experimental.  For simple packages mostly just works,
       # but for anything complex, be prepared to debug if enabling.
-      ,
-      __structuredAttrs ? config.structuredAttrsByDefault or false
+      __structuredAttrs ? config.structuredAttrsByDefault or false,
 
-      ,
       env ? { }
 
       ,

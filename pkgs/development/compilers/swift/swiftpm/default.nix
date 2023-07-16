@@ -14,10 +14,8 @@
   substituteAll,
   runCommandLocal,
   makeWrapper,
-  DarwinTools # sw_vers
-  ,
-  cctools # vtool
-  ,
+  DarwinTools, # sw_vers
+  cctools, # vtool
   xcbuild,
   CryptoKit,
   LocalAuthentication,

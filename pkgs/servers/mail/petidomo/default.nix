@@ -4,7 +4,7 @@
   fetchurl,
   flex,
   bison,
-  sendmailPath ? "/run/wrappers/bin/sendmail"
+  sendmailPath ? "/run/wrappers/bin/sendmail",
 }:
 
 stdenv.mkDerivation rec {

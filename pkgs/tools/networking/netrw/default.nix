@@ -4,7 +4,7 @@
   fetchurl,
   checksumType ? "built-in",
   libmhash ? null,
-  openssl ? null
+  openssl ? null,
 }:
 
 assert checksumType == "mhash" -> libmhash != null;

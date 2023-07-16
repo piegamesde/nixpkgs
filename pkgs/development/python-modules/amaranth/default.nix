@@ -10,10 +10,9 @@
   jinja2,
   importlib-resources,
   importlib-metadata,
-  git
+  git,
 
   # for tests
-  ,
   pytestCheckHook,
   symbiyosys,
   yices,

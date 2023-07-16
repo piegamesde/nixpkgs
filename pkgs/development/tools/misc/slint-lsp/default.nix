@@ -9,9 +9,8 @@
   libGL,
   xorg,
   libxkbcommon,
-  wayland
+  wayland,
   # Darwin Frameworks
-  ,
   AppKit,
   CoreGraphics,
   CoreServices,

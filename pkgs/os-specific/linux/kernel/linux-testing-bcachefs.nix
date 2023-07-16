@@ -8,8 +8,7 @@
   diffHash ? "sha256-4wpY3aYZ93OXSU4wmQs9K62nPyIzjKu4RBQTwksmyyk="
 
   ,
-  kernelPatches # must always be defined in bcachefs' all-packages.nix entry because it's also a top-level attribute supplied by callPackage
-  ,
+  kernelPatches, # must always be defined in bcachefs' all-packages.nix entry because it's also a top-level attribute supplied by callPackage
   argsOverride ? { },
   ...
 }@args:

@@ -2,10 +2,9 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  makeWrapper
+  makeWrapper,
 
   # --- Runtime Dependencies ---
-  ,
   bash,
   procps,
   iproute2,
@@ -17,30 +16,25 @@
   getopt,
   gnugrep,
   gnused,
-  which
+  which,
   # `nmcli` is not required for create_ap.
   # Use NetworkManager by default because it is very likely already present
-  ,
   useNetworkManager ? true,
-  networkmanager
+  networkmanager,
 
   # --- WiFi Hotspot Dependencies ---
-  ,
   useWifiDependencies ? true,
   hostapd,
-  iw
+  iw,
   # You only need this if 'iw' can not recognize your adapter.
-  ,
   useWirelessTools ? true,
-  wirelesstools # for iwconfig
+  wirelesstools, # for iwconfig
   # To fall back to haveged if entropy is low.
   # Defaulting to false because not having it does not break things.
   # If it is really needed, warnings will be logged to journal.
-  ,
   useHaveged ? false,
-  haveged
+  haveged,
   # You only need this if you wish to show WiFi QR codes in terminal
-  ,
   useQrencode ? true,
   qrencode,
 }:

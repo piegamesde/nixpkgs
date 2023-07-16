@@ -2,29 +2,25 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-  pythonOlder
+  pythonOlder,
 
   # runtime
-  ,
   importlib-metadata,
-  sqlalchemy
+  sqlalchemy,
 
   # optionals
-  ,
   babel,
   arrow,
-  pendulum
+  pendulum,
   #, intervals
-  ,
   phonenumbers,
   passlib,
   colour,
   python-dateutil,
   furl,
-  cryptography
+  cryptography,
 
   # tests
-  ,
   pytestCheckHook,
   pygments,
   jinja2,

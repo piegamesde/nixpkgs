@@ -10,9 +10,8 @@
   rocksdb,
   pkg-config,
   openssl,
-  nix-update-script
+  nix-update-script,
   # Taken from https://github.com/solana-labs/solana/blob/master/scripts/cargo-install-all.sh#L84
-  ,
   solanaPkgs ? [
     "solana"
     "solana-bench-tps"
@@ -41,7 +40,7 @@
       # XXX: Ensure `solana-genesis` is built LAST!
       # See https://github.com/solana-labs/solana/issues/5826
       "solana-genesis"
-    ]
+    ],
 }:
 let
   version = "1.14.17";

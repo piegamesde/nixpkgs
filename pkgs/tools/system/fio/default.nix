@@ -7,7 +7,7 @@
   python3,
   zlib,
   withGnuplot ? false,
-  gnuplot ? null
+  gnuplot ? null,
 }:
 
 stdenv.mkDerivation rec {

@@ -5,7 +5,7 @@
   bottles-unwrapped,
   gst_all_1,
   extraPkgs ? pkgs: [ ],
-  extraLibraries ? pkgs: [ ]
+  extraLibraries ? pkgs: [ ],
 }:
 
 let

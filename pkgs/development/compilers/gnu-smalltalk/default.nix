@@ -16,7 +16,7 @@
   SDL,
   sqlite,
   emacsSupport ? config.emacsSupport or false,
-  emacs ? null
+  emacs ? null,
 }:
 
 assert emacsSupport -> (emacs != null);

@@ -14,7 +14,7 @@
   libselinux,
   libdrm,
   udev,
-  kernel ? null
+  kernel ? null,
 }:
 
 with lib;

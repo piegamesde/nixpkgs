@@ -7,51 +7,43 @@
   enableXM ? false,
   enableOpenGLX11 ? true,
   enablePython ? false,
-  enableRaytracerX11 ? false
+  enableRaytracerX11 ? false,
 
   # Standard build environment with cmake.
-  ,
   lib,
   stdenv,
   fetchurl,
   fetchpatch,
-  cmake
+  cmake,
 
-  ,
   clhep,
   expat,
   xercesc,
-  zlib
+  zlib,
 
   # For enableQt.
-  ,
   qtbase,
-  wrapQtAppsHook
+  wrapQtAppsHook,
 
   # For enableXM.
-  ,
-  motif
+  motif,
 
   # For enableInventor
-  ,
   coin3d,
   soxt,
-  libXpm
+  libXpm,
 
   # For enableQt, enableXM, enableOpenGLX11, enableRaytracerX11.
-  ,
   libGLU,
   libGL,
   libXext,
-  libXmu
+  libXmu,
 
   # For enablePython
-  ,
   boost,
-  python3
+  python3,
 
   # For tests
-  ,
   callPackage,
 }:
 

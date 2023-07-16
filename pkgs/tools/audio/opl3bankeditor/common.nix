@@ -3,7 +3,7 @@
   chip,
   version,
   sha256,
-  extraPatches ? [ ]
+  extraPatches ? [ ],
 }:
 
 {

@@ -1,25 +1,21 @@
 {
   lib,
   stdenv,
-  fetchurl
+  fetchurl,
 
   # build
-  ,
   meson,
   ninja,
-  pkg-config
+  pkg-config,
 
   # docs
-  ,
-  sphinx
+  sphinx,
 
   # runtime
-  ,
   buildPackages,
-  ffmpeg_5-headless
+  ffmpeg_5-headless,
 
   # tests
-  ,
   nixosTests,
 }:
 

@@ -9,7 +9,7 @@
   single ? false,
   coqPackages,
   coq,
-  version ? null
+  version ? null,
 }@args:
 with builtins // lib;
 let

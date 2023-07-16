@@ -7,7 +7,7 @@
   libsndfile,
   itpp,
   portaudioSupport ? true,
-  portaudio ? null
+  portaudio ? null,
 }:
 
 assert portaudioSupport -> portaudio != null;

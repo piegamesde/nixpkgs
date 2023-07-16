@@ -9,8 +9,7 @@
   SDL,
   jack2,
   audiofile,
-  goocanvas # graphical envelope editing
-  ,
+  goocanvas, # graphical envelope editing
 }:
 
 stdenv.mkDerivation rec {

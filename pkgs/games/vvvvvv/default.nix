@@ -14,7 +14,7 @@
   utf8cpp,
   Foundation,
   IOKit,
-  makeAndPlay ? false
+  makeAndPlay ? false,
 }:
 
 stdenv.mkDerivation rec {

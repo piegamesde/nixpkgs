@@ -8,7 +8,7 @@
   gtk2,
   gtk3,
   wrapGAppsHook,
-  withGtk3 ? true
+  withGtk3 ? true,
 }:
 
 stdenv.mkDerivation rec {

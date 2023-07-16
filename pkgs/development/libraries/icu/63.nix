@@ -6,7 +6,7 @@
   fixDarwinDylibNames,
   nativeBuildRoot,
   testers,
-  buildRootOnly ? false
+  buildRootOnly ? false,
 }:
 
 import ./base.nix

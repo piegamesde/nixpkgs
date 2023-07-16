@@ -39,10 +39,9 @@
   tzdata,
   withRecommendedPackages ? true,
   enableStrictBarrier ? false,
-  enableMemoryProfiling ? false
+  enableMemoryProfiling ? false,
   # R as of writing does not support outputting both .so and .a files; it outputs:
   #     --enable-R-static-lib conflicts with --enable-R-shlib and will be ignored
-  ,
   static ? false,
   testers,
 }:

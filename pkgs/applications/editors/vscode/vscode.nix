@@ -4,7 +4,7 @@
   callPackage,
   fetchurl,
   isInsiders ? false,
-  commandLineArgs ? ""
+  commandLineArgs ? "",
 }:
 
 let

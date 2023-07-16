@@ -2,25 +2,21 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  pythonOlder
+  pythonOlder,
 
   # build
-  ,
   pybind11,
-  setuptools
+  setuptools,
 
   # propagates
-  ,
-  numpy
+  numpy,
 
   # optionals
-  ,
   bokeh,
   chromedriver,
-  selenium
+  selenium,
 
   # tests
-  ,
   matplotlib,
   pillow,
   pytestCheckHook,

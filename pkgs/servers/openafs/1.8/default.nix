@@ -18,14 +18,11 @@
   libtool_2,
   withDevdoc ? false,
   doxygen,
-  dblatex # Extra developer documentation
-  ,
+  dblatex, # Extra developer documentation
   withNcurses ? false,
-  ncurses # Extra ncurses utilities. Needed for debugging and monitoring.
-  ,
+  ncurses, # Extra ncurses utilities. Needed for debugging and monitoring.
   withTsm ? false,
-  tsm-client # Tivoli Storage Manager Backup Client from IBM
-  ,
+  tsm-client, # Tivoli Storage Manager Backup Client from IBM
 }:
 
 with (import ./srcs.nix { inherit fetchurl; });

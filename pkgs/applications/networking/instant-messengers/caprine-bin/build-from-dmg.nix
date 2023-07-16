@@ -6,7 +6,7 @@
   pname,
   version,
   sha256,
-  metaCommon ? { }
+  metaCommon ? { },
 }:
 
 stdenvNoCC.mkDerivation {

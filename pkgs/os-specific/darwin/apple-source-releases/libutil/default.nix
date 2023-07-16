@@ -3,11 +3,10 @@
   stdenv,
   stdenvNoCC,
   appleDerivation',
-  xcbuildHook
+  xcbuildHook,
 
   # headersOnly is true when building for libSystem
-  ,
-  headersOnly ? false
+  headersOnly ? false,
 }:
 
 appleDerivation'

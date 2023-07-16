@@ -8,9 +8,8 @@
   gsettings-desktop-schemas,
   extraGSettingsOverrides ? "",
   extraGSettingsOverridePackages ? [ ],
-  mint-artwork
+  mint-artwork,
 
-  ,
   muffin,
   nemo,
   xapp,

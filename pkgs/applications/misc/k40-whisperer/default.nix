@@ -6,7 +6,7 @@
   fetchzip,
   inkscape,
   lib,
-  udevGroup ? "k40"
+  udevGroup ? "k40",
 }:
 
 let

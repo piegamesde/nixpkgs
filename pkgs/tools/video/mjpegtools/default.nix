@@ -10,7 +10,7 @@
   pkg-config,
   SDL,
   SDL_gfx,
-  withMinimal ? true
+  withMinimal ? true,
 }:
 
 # TODO:

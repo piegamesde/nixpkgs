@@ -7,7 +7,7 @@
   ncurses,
   libxcrypt,
   utmp,
-  pam ? null
+  pam ? null,
 }:
 
 stdenv.mkDerivation rec {

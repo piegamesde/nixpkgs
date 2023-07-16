@@ -3,7 +3,7 @@
   lib,
   makeWrapper,
   ghcWithPackages,
-  packages ? (_: [ ])
+  packages ? (_: [ ]),
 }:
 let
   blucontrolEnv = ghcWithPackages (self: [ self.blucontrol ] ++ packages self);

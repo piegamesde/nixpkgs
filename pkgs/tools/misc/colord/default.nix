@@ -28,7 +28,7 @@
   docbook_xml_dtd_412,
   gtk-doc,
   libxslt,
-  enableDaemon ? true
+  enableDaemon ? true,
 }:
 
 stdenv.mkDerivation rec {

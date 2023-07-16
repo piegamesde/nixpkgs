@@ -4,24 +4,20 @@
   fetchFromGitHub,
   isPy27,
   pythonAtLeast,
-  poetry-core
+  poetry-core,
 
   # propagates
-  ,
   pylev,
-  pastel
+  pastel,
 
   # python36+
-  ,
-  crashtest
+  crashtest,
 
   # python2
-  ,
   typing,
-  enum34
+  enum34,
 
   # tests
-  ,
   pytest-mock,
   pytestCheckHook,
 }:

@@ -16,7 +16,7 @@
     "9pnet_virtio"
     "crc32c_generic"
   ]
-    ++ pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos"
+    ++ pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos",
 }:
 
 let
@@ -299,7 +299,7 @@ rec {
       # Name that will be written to ${destination}/nix-support/full-name
       fullName,
       # Where to write the image files, defaulting to $out
-      destination ? "$out"
+      destination ? "$out",
     }: ''
       mkdir -p ${destination}
       diskImage=${destination}/disk-image.qcow2
@@ -373,7 +373,7 @@ rec {
   extractFs =
     {
       file,
-      fs ? null
+      fs ? null,
     }:
     runInLinuxVM (
       stdenv.mkDerivation {
@@ -407,7 +407,7 @@ rec {
   extractMTDfs =
     {
       file,
-      fs ? null
+      fs ? null,
     }:
     runInLinuxVM (
       stdenv.mkDerivation {
@@ -495,7 +495,7 @@ rec {
       createRootFS ? defaultCreateRootFS,
       QEMU_OPTS ? "",
       memSize ? 512,
-      unifiedSystemDir ? false
+      unifiedSystemDir ? false,
     }:
 
     runInLinuxVM (
@@ -679,7 +679,7 @@ rec {
       postInstall ? null,
       createRootFS ? defaultCreateRootFS,
       QEMU_OPTS ? "",
-      memSize ? 512
+      memSize ? 512,
     }:
 
     runInLinuxVM (
@@ -784,7 +784,7 @@ rec {
       packagesLists,
       urlPrefixes,
       packages,
-      archs ? [ ]
+      archs ? [ ],
     }:
     assert (builtins.length packagesLists) == (builtins.length urlPrefixes);
     runCommand "${name}.nix"
@@ -839,7 +839,7 @@ rec {
       createRootFS ? defaultCreateRootFS,
       QEMU_OPTS ? "",
       memSize ? 512,
-      unifiedSystemDir ? false
+      unifiedSystemDir ? false,
     }:
 
     fillDiskWithRPMs {
@@ -928,7 +928,7 @@ rec {
       extraDebs ? [ ],
       createRootFS ? defaultCreateRootFS,
       QEMU_OPTS ? "",
-      memSize ? 512
+      memSize ? 512,
     }:
 
     let

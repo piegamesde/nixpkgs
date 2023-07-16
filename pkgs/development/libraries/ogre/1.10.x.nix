@@ -27,7 +27,7 @@
   darwin,
   withNvidiaCg ? false,
   nvidia_cg_toolkit,
-  withSamples ? false
+  withSamples ? false,
 }:
 
 let

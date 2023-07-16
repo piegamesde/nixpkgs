@@ -7,7 +7,7 @@
 # See `structured` below.
 
 {
-  pkgs ? import ../../.. { }
+  pkgs ? import ../../.. { },
 }:
 let
   inherit (pkgs.lib)

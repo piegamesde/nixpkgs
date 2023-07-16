@@ -3,7 +3,7 @@
   mkCoqDerivation,
   coq,
   StructTact,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation {

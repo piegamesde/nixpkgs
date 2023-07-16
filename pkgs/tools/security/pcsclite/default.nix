@@ -12,7 +12,7 @@
   systemdMinimal,
   IOKit,
   pname ? "pcsclite",
-  polkitSupport ? false
+  polkitSupport ? false,
 }:
 
 stdenv.mkDerivation rec {

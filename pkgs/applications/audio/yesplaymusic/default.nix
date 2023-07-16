@@ -12,8 +12,7 @@
   cups,
   nspr,
   nss,
-  mesa # for libgbm
-  ,
+  mesa, # for libgbm
   xorg,
   xdg-utils,
   libdrm,

@@ -1,7 +1,7 @@
 {
   lib,
   vscode-utils,
-  useLocalExtensions ? false
+  useLocalExtensions ? false,
 }:
 # Note that useLocalExtensions requires that vscode-server is not running
 # on host. If it is, you'll need to remove $HOME/.vscode-server,

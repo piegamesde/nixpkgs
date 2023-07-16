@@ -2,10 +2,9 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-  traitlets
+  traitlets,
 
   # tests
-  ,
   ipython,
 }:
 

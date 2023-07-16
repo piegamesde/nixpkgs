@@ -2,9 +2,8 @@
   mkDerivation,
   lib,
   fetchFromGitHub,
-  fetchpatch
+  fetchpatch,
 
-  ,
   at-spi2-atk,
   at-spi2-core,
   libepoxy,
@@ -16,9 +15,8 @@
   pcre,
   util-linux,
   wayland,
-  xorg
+  xorg,
 
-  ,
   cmake,
   doxygen,
   pkg-config,

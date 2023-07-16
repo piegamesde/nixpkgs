@@ -1,13 +1,11 @@
 {
   mkDerivation,
   lib,
-  fetchFromGitHub
+  fetchFromGitHub,
 
-  ,
   cmake,
-  pkg-config
+  pkg-config,
 
-  ,
   exiv2,
   mpv,
   opencv4,

@@ -3,9 +3,8 @@
   buildDunePackage,
   fetchFromGitHub,
   fetchpatch,
-  ocaml
+  ocaml,
 
-  ,
   alcotest,
   cstruct,
   mirage-crypto,

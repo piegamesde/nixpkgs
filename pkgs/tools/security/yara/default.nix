@@ -15,7 +15,7 @@
   enableMacho ? true,
   enableMagic ? true,
   file,
-  enableStatic ? false
+  enableStatic ? false,
 }:
 
 stdenv.mkDerivation rec {

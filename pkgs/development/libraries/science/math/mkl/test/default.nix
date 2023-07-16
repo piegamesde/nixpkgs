@@ -1,11 +1,10 @@
 {
   stdenv,
   pkg-config,
-  mkl
+  mkl,
 
-  ,
   enableStatic ? false,
-  execution ? "seq"
+  execution ? "seq",
 }:
 
 let

@@ -11,7 +11,7 @@
   elementary-dock,
   gsettings-desktop-schemas,
   extraGSettingsOverrides ? "",
-  extraGSettingsOverridePackages ? [ ]
+  extraGSettingsOverridePackages ? [ ],
 }:
 
 let

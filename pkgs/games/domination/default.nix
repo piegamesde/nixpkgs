@@ -1,9 +1,8 @@
 {
   lib,
   stdenv,
-  fetchsvn
+  fetchsvn,
   # jdk8 is needed for building, but the game runs on newer jres as well
-  ,
   jdk8,
   jre,
   ant,

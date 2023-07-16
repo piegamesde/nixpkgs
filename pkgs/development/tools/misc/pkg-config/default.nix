@@ -3,7 +3,7 @@
   stdenv,
   fetchurl,
   libiconv,
-  vanilla ? false
+  vanilla ? false,
 }:
 
 stdenv.mkDerivation rec {

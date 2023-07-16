@@ -1,18 +1,16 @@
 {
   buildPythonPackage,
   fetchPypi,
-  lib
+  lib,
 
   # propagates
-  ,
   click,
   dlib,
   face-recognition-models,
   numpy,
-  pillow
+  pillow,
 
   # tests
-  ,
   pytestCheckHook,
 }:
 

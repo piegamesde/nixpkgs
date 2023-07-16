@@ -6,7 +6,7 @@
   libX11,
   libXft,
   customConfig ? null,
-  patches ? [ ]
+  patches ? [ ],
 }:
 
 stdenv.mkDerivation (

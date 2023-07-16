@@ -1,6 +1,6 @@
 {
   self,
-  fetchurl ? null
+  fetchurl ? null,
 }:
 
 {

@@ -71,9 +71,8 @@
   xz,
   zip,
   zstd,
-  enableBloat ? false
+  enableBloat ? false,
   # updater only
-  ,
   writeScript,
 }:
 

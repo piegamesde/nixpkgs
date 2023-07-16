@@ -12,7 +12,7 @@
   qtmultimedia,
   withOpenCL ? true,
   opencl-clhpp ? null,
-  ocl-icd ? null
+  ocl-icd ? null,
 }:
 
 assert withOpenCL -> opencl-clhpp != null;

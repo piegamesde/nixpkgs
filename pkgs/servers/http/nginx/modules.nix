@@ -5,9 +5,8 @@
   fetchFromGitLab,
   fetchhg,
   fetchpatch,
-  runCommand
+  runCommand,
 
-  ,
   arpa2common,
   brotli,
   curl,

@@ -3,7 +3,7 @@
   stdenv,
   fetchurl,
   xz,
-  coreutils ? null
+  coreutils ? null,
 }:
 
 # Note: this package is used for bootstrapping fetchurl, and thus

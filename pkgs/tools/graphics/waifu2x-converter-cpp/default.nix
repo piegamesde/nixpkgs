@@ -9,7 +9,7 @@
   opencl-headers,
   OpenCL,
   cudaSupport ? false,
-  cudatoolkit ? null
+  cudatoolkit ? null,
 }:
 
 stdenv.mkDerivation rec {

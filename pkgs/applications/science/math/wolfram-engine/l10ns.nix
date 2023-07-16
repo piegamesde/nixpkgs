@@ -2,7 +2,7 @@
   lib,
   requireFile,
   lang,
-  majorVersion ? null
+  majorVersion ? null,
 }:
 
 let

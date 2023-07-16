@@ -15,17 +15,15 @@
   gtk3,
   python,
   pygobject3,
-  pyxdg
+  pyxdg,
 
-  ,
   withQuartz ? stdenv.isDarwin,
   ApplicationServices,
   withRandr ? stdenv.isLinux,
   libxcb,
   withDrm ? stdenv.isLinux,
-  libdrm
+  libdrm,
 
-  ,
   withGeolocation ? true,
   withCoreLocation ? withGeolocation && stdenv.isDarwin,
   CoreLocation,

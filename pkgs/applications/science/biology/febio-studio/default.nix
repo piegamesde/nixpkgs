@@ -17,7 +17,7 @@
   dicomSupport ? false,
   dcmtk,
   withModelRepo ? true,
-  withCadFeatures ? false
+  withCadFeatures ? false,
 }:
 
 stdenv.mkDerivation rec {

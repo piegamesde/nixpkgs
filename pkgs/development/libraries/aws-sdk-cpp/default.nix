@@ -10,7 +10,7 @@
   CoreAudio,
   AudioToolbox, # Allow building a limited set of APIs, e.g. ["s3" "ec2"].
   apis ? [ "*" ], # Whether to enable AWS' custom memory management.
-  customMemoryManagement ? true
+  customMemoryManagement ? true,
 }:
 
 let

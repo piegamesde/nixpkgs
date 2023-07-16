@@ -7,13 +7,11 @@
   glib,
   libGL,
   libGLU,
-  libSM
+  libSM,
 
-  ,
   libXrender,
-  libX11
+  libX11,
 
-  ,
   libxcb,
   sqlite,
   zlib,
@@ -23,13 +21,11 @@
   libxml2,
   gst_all_1,
   dbus,
-  makeWrapper
+  makeWrapper,
 
-  ,
   cups,
-  alsa-lib
+  alsa-lib,
 
-  ,
   xkeyboardconfig,
   autoPatchelfHook,
 }:

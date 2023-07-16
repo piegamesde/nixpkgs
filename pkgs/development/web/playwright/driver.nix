@@ -113,7 +113,7 @@ let
 
   browsers-linux =
     {
-      withChromium ? true
+      withChromium ? true,
     }:
     let
       fontconfig = makeFontsConf { fontDirectories = [ ]; };

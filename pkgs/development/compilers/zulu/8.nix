@@ -6,18 +6,15 @@
   unzip,
   makeWrapper,
   setJavaClassPath,
-  zulu
+  zulu,
   # minimum dependencies
-  ,
   alsa-lib,
   fontconfig,
   freetype,
-  xorg
+  xorg,
   # runtime dependencies
-  ,
-  cups
+  cups,
   # runtime dependencies for GTK+ Look and Feel
-  ,
   gtkSupport ? stdenv.isLinux,
   cairo,
   glib,

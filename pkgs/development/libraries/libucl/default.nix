@@ -15,7 +15,7 @@
     signatures = false;
     lua = false;
     utils = false;
-  }
+  },
 }:
 
 let

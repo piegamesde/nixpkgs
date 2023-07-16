@@ -12,7 +12,7 @@
     "kuma-cp"
     "kuma-prometheus-sd"
     "kuma-dp"
-  ]
+  ],
 }:
 
 buildGoModule rec {

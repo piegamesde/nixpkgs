@@ -6,7 +6,7 @@
 }:
 
 {
-  plugins ? [ ]
+  plugins ? [ ],
 }:
 
 symlinkJoin {

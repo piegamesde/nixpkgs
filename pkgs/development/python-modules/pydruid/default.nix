@@ -2,18 +2,15 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  pythonOlder
+  pythonOlder,
   # required dependencies
-  ,
   requests,
-  setuptools
+  setuptools,
   # optional dependencies
-  ,
   pandas,
   tornado,
-  sqlalchemy
+  sqlalchemy,
   # test dependencies
-  ,
   pycurl,
   pytestCheckHook,
 }:

@@ -6,7 +6,7 @@
   python3,
   which,
   runtimeShell,
-  pychecker ? null
+  pychecker ? null,
 }:
 stdenv.mkDerivation rec {
   version = "0.8.4";

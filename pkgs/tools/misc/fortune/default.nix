@@ -6,7 +6,7 @@
   recode,
   perl,
   rinutils,
-  withOffensive ? false
+  withOffensive ? false,
 }:
 
 stdenv.mkDerivation rec {

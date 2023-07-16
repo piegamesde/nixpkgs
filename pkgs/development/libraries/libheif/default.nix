@@ -11,10 +11,9 @@
   libpng,
   libjpeg,
   libaom,
-  gdk-pixbuf
+  gdk-pixbuf,
 
   # for passthru.tests
-  ,
   gimp,
   imagemagick,
   imlib2Full,

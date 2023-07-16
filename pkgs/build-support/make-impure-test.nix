@@ -31,9 +31,8 @@
 {
   lib,
   stdenv,
-  writeShellScript
+  writeShellScript,
 
-  ,
   name,
   testedPackage ? null,
   testPath ? "${testedPackage}.impureTests.${name}.testDerivation",

@@ -13,8 +13,7 @@
   file,
   syslinux,
   busybox,
-  gnugrep # We can't use busybox's 'grep' as it doesn't support perl '-P' expressions.
-  ,
+  gnugrep, # We can't use busybox's 'grep' as it doesn't support perl '-P' expressions.
 }:
 
 stdenvNoCC.mkDerivation rec {

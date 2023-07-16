@@ -24,11 +24,10 @@
   sasl,
   system-sendmail,
   libxcrypt,
-  mkpasswd
+  mkpasswd,
 
-  ,
   pythonSupport ? true,
-  guileSupport ? true
+  guileSupport ? true,
 }:
 
 stdenv.mkDerivation rec {

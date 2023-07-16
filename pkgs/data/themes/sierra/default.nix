@@ -14,6 +14,7 @@
   opacityVariants ? [ ] # default to all
   ,
   sizeVariants ? [ ] # default to all
+  ,
 }:
 
 let

@@ -1,21 +1,18 @@
 {
   buildPythonPackage,
   fetchPypi,
-  lib
+  lib,
 
   # build dependencies
-  ,
   cython,
   leptonica,
   pkg-config,
-  tesseract4
+  tesseract4,
 
   # propagates
-  ,
-  pillow
+  pillow,
 
   # tests
-  ,
   unittestCheckHook,
 }:
 

@@ -1,7 +1,7 @@
 {
   system ? builtins.currentSystem,
   config ? { },
-  pkgs ? import ../../.. { inherit system config; }
+  pkgs ? import ../../.. { inherit system config; },
 }:
 
 with import ../../lib/testing-python.nix { inherit system pkgs; };
@@ -14,7 +14,7 @@ let
       domain ? "my.zyx",
       test,
       machines,
-      extraConfiguration ? null
+      extraConfiguration ? null,
     }:
     let
       masterName = head (

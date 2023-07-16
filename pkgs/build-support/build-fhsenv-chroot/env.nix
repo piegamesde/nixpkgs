@@ -14,7 +14,7 @@
   multiPkgs ? pkgs: [ ],
   extraBuildCommands ? "",
   extraBuildCommandsMulti ? "",
-  extraOutputsToInstall ? [ ]
+  extraOutputsToInstall ? [ ],
 }:
 
 # HOWTO:

@@ -1,16 +1,14 @@
 {
   lib,
   stdenv,
-  fetchFromGitLab
+  fetchFromGitLab,
   # build support
-  ,
   autoreconfHook,
   flex,
   gnulib,
   pkg-config,
-  texinfo
+  texinfo,
   # libraries
-  ,
   brotli,
   bzip2,
   gpgme,

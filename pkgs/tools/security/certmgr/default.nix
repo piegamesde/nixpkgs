@@ -8,7 +8,7 @@
 let
   generic =
     {
-      patches ? [ ]
+      patches ? [ ],
     }:
     buildGoPackage rec {
       version = "1.6.4";

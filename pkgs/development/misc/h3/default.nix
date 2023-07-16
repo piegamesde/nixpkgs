@@ -3,7 +3,7 @@
   stdenv,
   cmake,
   fetchFromGitHub,
-  static ? stdenv.hostPlatform.isStatic
+  static ? stdenv.hostPlatform.isStatic,
 }:
 
 let

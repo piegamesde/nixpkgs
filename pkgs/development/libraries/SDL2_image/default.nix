@@ -13,7 +13,7 @@
   zlib,
   Foundation,
   version ? "2.6.3",
-  hash ? "sha256-kxyb5b8dfI+um33BV4KLfu6HTiPH8ktEun7/a0g2MSw="
+  hash ? "sha256-kxyb5b8dfI+um33BV4KLfu6HTiPH8ktEun7/a0g2MSw=",
 }:
 
 let

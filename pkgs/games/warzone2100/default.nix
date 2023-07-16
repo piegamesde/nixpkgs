@@ -7,9 +7,8 @@
   p7zip,
   pkg-config,
   asciidoctor,
-  gettext
+  gettext,
 
-  ,
   SDL2,
   libtheora,
   libvorbis,
@@ -27,18 +26,15 @@
   which,
   vulkan-headers,
   vulkan-loader,
-  shaderc
+  shaderc,
 
-  ,
   testers,
   warzone2100,
-  nixosTests
+  nixosTests,
 
-  ,
-  gitUpdater
+  gitUpdater,
 
-  ,
-  withVideos ? false
+  withVideos ? false,
 }:
 
 let

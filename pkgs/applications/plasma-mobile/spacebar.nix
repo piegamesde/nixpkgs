@@ -1,13 +1,11 @@
 {
   lib,
-  mkDerivation
+  mkDerivation,
 
-  ,
   cmake,
   extra-cmake-modules,
-  wrapQtAppsHook
+  wrapQtAppsHook,
 
-  ,
   c-ares,
   curl,
   kcontacts,

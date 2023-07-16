@@ -4,7 +4,7 @@
   fetchFromGitHub,
   autoreconfHook,
   lzmaSupport ? true,
-  xz ? null
+  xz ? null,
 }:
 
 assert lzmaSupport -> xz != null;

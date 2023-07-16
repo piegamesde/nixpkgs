@@ -4,16 +4,14 @@
   gcc-arm-embedded,
   binutils-arm-embedded,
   makeWrapper,
-  python3Packages
+  python3Packages,
 
   # Extra options
-  ,
   device ? "fsij",
   vid ? "234b",
-  pid ? "0000"
+  pid ? "0000",
 
   # Version specific options
-  ,
   version,
   src,
   ...

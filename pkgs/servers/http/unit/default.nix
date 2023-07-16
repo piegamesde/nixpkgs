@@ -27,7 +27,7 @@
   withSSL ? true,
   openssl ? null,
   withIPv6 ? true,
-  withDebug ? false
+  withDebug ? false,
 }:
 
 with lib;

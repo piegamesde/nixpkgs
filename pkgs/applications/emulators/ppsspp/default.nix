@@ -20,7 +20,7 @@
   zlib,
   enableQt ? false,
   enableVulkan ? true,
-  forceWayland ? false
+  forceWayland ? false,
 }:
 
 let

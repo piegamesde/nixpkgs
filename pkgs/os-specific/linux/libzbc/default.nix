@@ -6,7 +6,7 @@
   gtk3,
   libtool,
   pkg-config,
-  guiSupport ? false
+  guiSupport ? false,
 }:
 
 stdenv.mkDerivation rec {

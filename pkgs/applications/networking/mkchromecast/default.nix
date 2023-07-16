@@ -14,7 +14,7 @@
   youtube-dl,
   opusTools,
   gst_all_1,
-  enableSonos ? true
+  enableSonos ? true,
 }:
 let
   packages =

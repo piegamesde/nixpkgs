@@ -61,7 +61,7 @@ in
       meta ? null, # Optional extra values to add to the returned attrset.
       #
       # This can be used for adding package attributes, such as `tests`.
-      passthru ? { }
+      passthru ? { },
     }:
     let
       # These checks are strict in `drv` and some `drv` attributes, but the

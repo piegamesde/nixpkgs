@@ -36,7 +36,7 @@ in
 
   create =
     {
-      definitions ? default
+      definitions ? default,
     }:
     with lib;
     stdenv.mkDerivation {

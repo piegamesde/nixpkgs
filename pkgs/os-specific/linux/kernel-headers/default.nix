@@ -41,7 +41,7 @@ let
     {
       src,
       version,
-      patches ? [ ]
+      patches ? [ ],
     }:
     stdenvNoCC.mkDerivation {
       inherit src;

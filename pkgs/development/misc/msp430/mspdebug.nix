@@ -9,7 +9,7 @@
   hidapi ? null,
   pkg-config ? null,
   mspds ? null,
-  enableMspds ? false
+  enableMspds ? false,
 }:
 
 assert stdenv.isDarwin -> hidapi != null && pkg-config != null;

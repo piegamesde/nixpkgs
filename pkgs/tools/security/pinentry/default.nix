@@ -23,7 +23,7 @@
     "emacs"
   ]
     ++ lib.optionals stdenv.isLinux [ "gnome3" ]
-    ++ lib.optionals (!stdenv.isDarwin) [ "qt" ]
+    ++ lib.optionals (!stdenv.isDarwin) [ "qt" ],
 }:
 
 assert lib.isList enabledFlavors && enabledFlavors != [ ];

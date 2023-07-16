@@ -1,14 +1,12 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # build-system
-  ,
-  setuptools
+  setuptools,
 
   # runtime
-  ,
   audioread,
   decorator,
   joblib,
@@ -22,10 +20,9 @@
   scipy,
   soundfile,
   soxr,
-  typing-extensions
+  typing-extensions,
 
   # tests
-  ,
   ffmpeg-headless,
   packaging,
   pytest-mpl,

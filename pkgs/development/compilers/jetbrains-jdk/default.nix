@@ -9,9 +9,8 @@
   autoconf,
   unzip,
   rsync,
-  debugBuild ? false
+  debugBuild ? false,
 
-  ,
   libXdamage,
   libXxf86vm,
   libXrandr,

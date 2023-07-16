@@ -3,7 +3,7 @@
   mkCoqDerivation,
   coq,
   mathcomp-ssreflect,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation {

@@ -8,7 +8,7 @@
   makeDesktopItem,
   copyDesktopItems,
   runtimeShell,
-  buildShareware ? false
+  buildShareware ? false,
 }:
 
 let

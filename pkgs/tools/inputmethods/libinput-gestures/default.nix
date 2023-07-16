@@ -8,7 +8,7 @@
   python3,
   coreutils,
   xdotool ? null,
-  extraUtilsPath ? lib.optional (xdotool != null) xdotool
+  extraUtilsPath ? lib.optional (xdotool != null) xdotool,
 }:
 stdenv.mkDerivation rec {
   pname = "libinput-gestures";

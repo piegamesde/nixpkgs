@@ -18,23 +18,19 @@
   html-tidy,
   libgpg-error,
   libsignal-protocol-c,
-  usrsctp
+  usrsctp,
 
-  ,
   chatType ? "basic" # See the assertion below for available options
   ,
   qtwebkit,
-  qtwebengine
+  qtwebengine,
 
-  ,
-  enablePlugins ? true
+  enablePlugins ? true,
 
   # Voice messages
-  ,
   voiceMessagesSupport ? true,
-  gst_all_1
+  gst_all_1,
 
-  ,
   enablePsiMedia ? false,
   pkg-config,
 }:

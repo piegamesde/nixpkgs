@@ -8,10 +8,9 @@
   serd,
   sord,
   sratom,
-  wafHook
+  wafHook,
 
   # test derivations
-  ,
   pipewire,
 }:
 

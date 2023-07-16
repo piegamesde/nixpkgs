@@ -25,7 +25,7 @@
   drv,
   oldDependency,
   newDependency,
-  verbose ? true
+  verbose ? true,
 }:
 
 with lib;

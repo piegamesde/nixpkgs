@@ -6,7 +6,7 @@
   libtool,
   groff,
   ghostscript,
-  libgcrypt ? null
+  libgcrypt ? null,
 }:
 
 stdenv.mkDerivation rec {

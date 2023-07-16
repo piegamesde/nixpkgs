@@ -14,7 +14,7 @@
   util-linux,
   gtk2,
   which,
-  withGtk ? false
+  withGtk ? false,
 }:
 
 stdenv.mkDerivation rec {

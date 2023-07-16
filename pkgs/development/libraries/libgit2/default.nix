@@ -12,9 +12,8 @@
   http-parser,
   libiconv,
   Security,
-  staticBuild ? stdenv.hostPlatform.isStatic
+  staticBuild ? stdenv.hostPlatform.isStatic,
   # for passthru.tests
-  ,
   libgit2-glib,
   python3Packages,
 }:

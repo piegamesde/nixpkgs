@@ -6,9 +6,8 @@
   pkg-config,
   libmysqlclient,
   libaio,
-  luajit
+  luajit,
   # For testing:
-  ,
   testers,
   sysbench,
 }:

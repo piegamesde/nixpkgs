@@ -10,7 +10,7 @@
   ocl-icd,
   hwloc,
   devDonationLevel ? "0.0",
-  openclSupport ? true
+  openclSupport ? true,
 }:
 
 stdenv.mkDerivation rec {

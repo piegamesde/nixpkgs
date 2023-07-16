@@ -5,7 +5,7 @@
   fetchzip,
   pkgs,
   enableStatic ? stdenv.hostPlatform.isStatic,
-  enableShared ? !stdenv.hostPlatform.isStatic
+  enableShared ? !stdenv.hostPlatform.isStatic,
 }:
 let
 

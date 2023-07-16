@@ -10,7 +10,7 @@
   gtest,
   gbenchmark,
   buildTests ? false,
-  buildBenchmarks ? false
+  buildBenchmarks ? false,
 }:
 
 # CUB can also be used as a backend instead of rocPRIM.

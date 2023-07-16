@@ -15,18 +15,16 @@
   sortedcontainers,
   sympy,
   tqdm,
-  typing-extensions
+  typing-extensions,
   # Contrib requirements
-  ,
   withContribRequires ? false,
   autoray ? null,
   opt-einsum,
   ply,
   pylatex ? null,
   pyquil ? null,
-  quimb ? null
+  quimb ? null,
   # test inputs
-  ,
   pytestCheckHook,
   freezegun,
   pytest-asyncio,

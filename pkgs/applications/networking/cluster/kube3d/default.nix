@@ -3,7 +3,7 @@
   buildGoModule,
   fetchFromGitHub,
   installShellFiles,
-  k3sVersion ? null
+  k3sVersion ? null,
 }:
 
 let

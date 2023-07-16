@@ -2,22 +2,19 @@
   lib,
   pythonOlder,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
   # Python Inputs
-  ,
   qiskit-aer,
   qiskit-ibmq-provider,
   qiskit-ignis,
-  qiskit-terra
+  qiskit-terra,
   # Optional inputs
-  ,
   withOptionalPackages ? true,
   qiskit-finance,
   qiskit-machine-learning,
   qiskit-nature,
-  qiskit-optimization
+  qiskit-optimization,
   # Check Inputs
-  ,
   pytestCheckHook,
 }:
 

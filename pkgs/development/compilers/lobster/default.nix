@@ -3,15 +3,13 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-  callPackage
+  callPackage,
 
   # Linux deps
-  ,
   libGL,
-  xorg
+  xorg,
 
   # Darwin deps
-  ,
   CoreFoundation,
   Cocoa,
   AudioToolbox,

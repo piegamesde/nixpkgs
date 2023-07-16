@@ -1,15 +1,13 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # build
-  ,
   cmake,
-  pkg-config
+  pkg-config,
 
   # runtime
-  ,
   expat,
   ipu6-camera-bin,
   libtool,

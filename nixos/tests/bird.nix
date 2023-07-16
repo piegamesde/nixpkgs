@@ -6,7 +6,7 @@
   pkgs ? import ../.. {
     inherit system;
     config = { };
-  }
+  },
 }:
 
 let

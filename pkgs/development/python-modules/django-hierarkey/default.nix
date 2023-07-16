@@ -1,14 +1,12 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # propagates
-  ,
-  python-dateutil
+  python-dateutil,
 
   # tests
-  ,
   django-extensions,
   pytest-django,
   pytestCheckHook,

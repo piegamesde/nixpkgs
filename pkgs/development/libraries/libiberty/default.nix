@@ -2,7 +2,7 @@
   lib,
   stdenv,
   buildPackages,
-  staticBuild ? stdenv.hostPlatform.isStatic
+  staticBuild ? stdenv.hostPlatform.isStatic,
 }:
 
 let

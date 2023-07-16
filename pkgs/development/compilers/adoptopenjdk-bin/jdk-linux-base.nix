@@ -1,6 +1,6 @@
 {
   sourcePerArch,
-  knownVulnerabilities ? [ ]
+  knownVulnerabilities ? [ ],
 }:
 
 {
@@ -9,20 +9,17 @@
   fetchurl,
   autoPatchelfHook,
   makeWrapper,
-  setJavaClassPath
+  setJavaClassPath,
   # minimum dependencies
-  ,
   alsa-lib,
   fontconfig,
   freetype,
   libffi,
   xorg,
-  zlib
+  zlib,
   # runtime dependencies
-  ,
-  cups
+  cups,
   # runtime dependencies for GTK+ Look and Feel
-  ,
   gtkSupport ? true,
   cairo,
   glib,

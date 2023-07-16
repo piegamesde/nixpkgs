@@ -23,7 +23,7 @@ let
     {
       mkHomepage,
       mkUrls,
-      hydraPlatforms ? null
+      hydraPlatforms ? null,
     }:
     args:
     let
@@ -43,7 +43,7 @@ let
           hydraPlatforms'
         else
           platforms,
-        maintainers ? [ ]
+        maintainers ? [ ],
       }:
       buildRPackage {
         name = "${name}-${version}";

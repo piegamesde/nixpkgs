@@ -10,12 +10,10 @@
   http-parser,
   pkg-config,
   which,
-  buildPackages
+  buildPackages,
   # for `.pkgs` attribute
-  ,
-  callPackage
+  callPackage,
   # Updater dependencies
-  ,
   writeScript,
   coreutils,
   gnugrep,
@@ -35,7 +33,7 @@
   enableNpm ? true,
   version,
   sha256,
-  patches ? [ ]
+  patches ? [ ],
 }@args:
 
 let

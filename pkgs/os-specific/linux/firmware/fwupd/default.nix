@@ -54,7 +54,7 @@
   libmbim,
   libcbor,
   xz,
-  enableFlashrom ? false
+  enableFlashrom ? false,
 }:
 
 let

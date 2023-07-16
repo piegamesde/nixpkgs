@@ -3,10 +3,9 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-  python
+  python,
 
   # python dependencies
-  ,
   awacs,
   cfn-flip,
   typing-extensions,

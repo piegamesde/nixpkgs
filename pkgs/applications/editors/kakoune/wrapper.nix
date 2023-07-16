@@ -3,7 +3,7 @@
   makeWrapper,
   kakoune,
   plugins ? [ ],
-  configure ? { }
+  configure ? { },
 }:
 
 let

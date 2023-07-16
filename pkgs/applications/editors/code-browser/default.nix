@@ -12,7 +12,7 @@
   gtk2,
   withGtk3 ? false,
   gtk3,
-  mkDerivation ? stdenv.mkDerivation
+  mkDerivation ? stdenv.mkDerivation,
 }:
 let
   onlyOneEnabled = xs: 1 == builtins.length (builtins.filter lib.id xs);

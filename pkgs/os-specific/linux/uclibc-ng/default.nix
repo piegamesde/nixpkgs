@@ -5,7 +5,7 @@
   fetchurl,
   linuxHeaders,
   libiconvReal,
-  extraConfig ? ""
+  extraConfig ? "",
 }:
 
 let

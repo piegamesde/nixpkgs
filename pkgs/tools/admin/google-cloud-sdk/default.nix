@@ -17,7 +17,7 @@
   openssl,
   jq,
   callPackage,
-  with-gce ? false
+  with-gce ? false,
 }:
 
 let

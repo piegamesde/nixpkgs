@@ -2,10 +2,9 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  pythonOlder
+  pythonOlder,
 
   # propagates
-  ,
   allpairspy,
   approval-utilities,
   beautifulsoup4,
@@ -13,10 +12,9 @@
   mrjob,
   pyperclip,
   pytest,
-  typing-extensions
+  typing-extensions,
 
   # tests
-  ,
   numpy,
   pytestCheckHook,
 }:

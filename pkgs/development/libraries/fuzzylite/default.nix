@@ -5,7 +5,7 @@
   fetchpatch,
   cmake,
   ninja,
-  useFloat ? false
+  useFloat ? false,
 }:
 
 stdenv.mkDerivation rec {

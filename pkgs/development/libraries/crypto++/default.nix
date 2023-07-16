@@ -3,10 +3,9 @@
   stdenv,
   fetchFromGitHub,
   enableStatic ? stdenv.hostPlatform.isStatic,
-  enableShared ? !enableStatic
+  enableShared ? !enableStatic,
   # Multi-threading with OpenMP is disabled by default
   # more info on https://www.cryptopp.com/wiki/OpenMP
-  ,
   withOpenMP ? false,
   llvmPackages,
 }:

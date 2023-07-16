@@ -31,7 +31,7 @@ let
           mailman ? self.mailman,
           mailman-hyperkitty ? self.mailman-hyperkitty,
           withHyperkitty ? false,
-          withLDAP ? false
+          withLDAP ? false,
         }: {
           mailmanEnv = self.python3.withPackages (
             ps:

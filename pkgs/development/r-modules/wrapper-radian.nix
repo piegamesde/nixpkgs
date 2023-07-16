@@ -6,7 +6,7 @@
   makeWrapper,
   recommendedPackages,
   packages,
-  wrapR ? false
+  wrapR ? false,
 }:
 
 runCommand (radian.name + "-wrapper")

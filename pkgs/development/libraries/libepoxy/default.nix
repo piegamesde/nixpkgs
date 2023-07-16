@@ -11,7 +11,7 @@
   libX11,
   Carbon,
   OpenGL,
-  x11Support ? !stdenv.isDarwin
+  x11Support ? !stdenv.isDarwin,
 }:
 
 let

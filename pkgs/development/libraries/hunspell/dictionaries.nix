@@ -156,7 +156,7 @@ let
       shortDescription,
       longDescription,
       dictFileName,
-      isDefault ? false
+      isDefault ? false,
     }:
     mkDict rec {
       inherit dictFileName;
@@ -353,7 +353,7 @@ let
       dictFileName,
       license,
       readmeFile ? "README_${dictFileName}.txt",
-      sourceRoot ? dictFileName
+      sourceRoot ? dictFileName,
     }:
     mkDict rec {
       pname = "hunspell-dict-${shortName}-libreoffice";

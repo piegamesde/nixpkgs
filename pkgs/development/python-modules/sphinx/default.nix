@@ -4,14 +4,12 @@
   buildPythonPackage,
   pythonOlder,
   fetchFromGitHub,
-  fetchpatch
+  fetchpatch,
 
   # nativeBuildInputs
-  ,
-  flit-core
+  flit-core,
 
   # propagatedBuildInputs
-  ,
   babel,
   alabaster,
   docutils,
@@ -29,10 +27,9 @@
   sphinxcontrib-jsmath,
   sphinxcontrib-qthelp,
   sphinxcontrib-serializinghtml,
-  sphinxcontrib-websupport
+  sphinxcontrib-websupport,
 
   # check phase
-  ,
   cython,
   html5lib,
   pytestCheckHook,

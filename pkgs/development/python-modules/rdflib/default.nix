@@ -3,27 +3,22 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-  pythonOlder
+  pythonOlder,
 
   # propagates
-  ,
   isodate,
-  pyparsing
+  pyparsing,
 
   # propagates <3.8
-  ,
-  importlib-metadata
+  importlib-metadata,
 
   # extras: networkx
-  ,
-  networkx
+  networkx,
 
   # extras: html
-  ,
-  html5lib
+  html5lib,
 
   # tests
-  ,
   pytest-cov,
   pytestCheckHook,
 }:

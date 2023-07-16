@@ -14,7 +14,7 @@
   withGui,
   qtbase ? null,
   qttools ? null,
-  wrapQtAppsHook ? null
+  wrapQtAppsHook ? null,
 }:
 
 stdenv.mkDerivation rec {

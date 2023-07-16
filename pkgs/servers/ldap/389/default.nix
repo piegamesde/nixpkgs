@@ -32,7 +32,7 @@
   zlib,
   rsync,
   withCockpit ? true,
-  withAsan ? false
+  withAsan ? false,
 }:
 
 stdenv.mkDerivation rec {

@@ -18,7 +18,7 @@
   openssl,
   expat,
   libxcrypt-legacy,
-  vmopts ? null
+  vmopts ? null,
 }:
 
 let

@@ -8,9 +8,8 @@
   qiskit-terra,
   requests,
   requests_ntlm,
-  websocket-client
+  websocket-client,
   # Visualization inputs
-  ,
   withVisualization ? true,
   ipython,
   ipyvuetify,
@@ -18,9 +17,8 @@
   matplotlib,
   plotly,
   pyperclip,
-  seaborn
+  seaborn,
   # check inputs
-  ,
   pytestCheckHook,
   nbconvert,
   nbformat,

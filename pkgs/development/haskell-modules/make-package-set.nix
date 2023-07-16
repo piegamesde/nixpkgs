@@ -15,10 +15,9 @@
   stdenv
 
   , # this module provides the list of known licenses and maintainers
-  lib
+  lib,
 
   # needed for overrideCabal & packageSourceOverrides
-  ,
   haskellLib
 
   , # hashes for downloading Hackage packages
@@ -171,7 +170,7 @@ let
       name,
       src,
       sha256 ? null,
-      extraCabal2nixOptions ? ""
+      extraCabal2nixOptions ? "",
     }:
     let
       sha256Arg =
@@ -361,7 +360,7 @@ package-set { inherit pkgs lib callPackage; } self // {
       modifier ? drv: drv,
       returnShellEnv ? pkgs.lib.inNixShell,
       withHoogle ? returnShellEnv,
-      cabal2nixOptions ? ""
+      cabal2nixOptions ? "",
     }:
     let
       drv = (extensible-self.extend (
@@ -410,7 +409,7 @@ package-set { inherit pkgs lib callPackage; } self // {
     self.callPackage ./hoogle.nix { haskellPackages = self; };
   hoogleLocal =
     {
-      packages ? [ ]
+      packages ? [ ],
     }:
     lib.warn "hoogleLocal is deprecated, use hoogleWithPackages instead" (
       self.hoogleWithPackages (_: packages)
@@ -468,7 +467,7 @@ package-set { inherit pkgs lib callPackage; } self // {
         false, # Whether or not to include benchmark dependencies of your local
       # packages.  You should set this to true if you have benchmarks defined
       # in your local packages that you want to be able to run with cabal benchmark
-      doBenchmark ? false
+      doBenchmark ? false,
       # An optional function that can modify the generic builder arguments
       # for the fake package that shellFor uses to construct its environment.
       #
@@ -499,8 +498,9 @@ package-set { inherit pkgs lib callPackage; } self // {
       # (which will invalidate the binary cache), and then re-enable them
       # for the "shellFor" environment (ensuring that any test/benchmark
       # dependencies for "foo" will be available within the nix-shell).
-      ,
-      genericBuilderArgsModifier ? (args: args)
+      genericBuilderArgsModifier ? (
+        args: args
+      ),
 
       # Extra dependencies, in the form of cabal2nix build attributes.
       #
@@ -512,8 +512,8 @@ package-set { inherit pkgs lib callPackage; } self // {
       #   extraDependencies = p: {
       #     libraryHaskellDepends = [ p.releaser ];
       #   };
-      ,
-      extraDependencies ? p: { },
+      extraDependencies ? p:
+        { },
       ...
     }@args:
     let
@@ -683,7 +683,7 @@ package-set { inherit pkgs lib callPackage; } self // {
       name ? if src ? name then
         "${src.name}-sdist.tar.gz"
       else
-        "source.tar.gz"
+        "source.tar.gz",
     }:
     pkgs.runCommandLocal name
     {

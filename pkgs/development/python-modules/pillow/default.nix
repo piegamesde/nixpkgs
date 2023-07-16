@@ -22,9 +22,8 @@
   libimagequant,
   pyroma,
   numpy,
-  pytestCheckHook
+  pytestCheckHook,
   # for passthru.tests
-  ,
   imageio,
   matplotlib,
   pilkit,

@@ -9,7 +9,7 @@
   fetchNuGet,
   glib,
   mono,
-  overrides ? { }
+  overrides ? { },
 }:
 
 let

@@ -150,7 +150,7 @@ let
       pool,
       systemd,
       force,
-      prefix ? ""
+      prefix ? "",
     }:
     nameValuePair "zfs-import-${pool}" {
       description = ''Import ZFS pool "${pool}"'';

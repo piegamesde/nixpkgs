@@ -3,18 +3,15 @@
   stdenv,
   buildPythonPackage,
   fetchPypi,
-  pythonOlder
+  pythonOlder,
 
   # build
-  ,
-  autoPatchelfHook
+  autoPatchelfHook,
 
   # runtime
-  ,
-  openssl_1_1
+  openssl_1_1,
 
   # propagates
-  ,
   coloredlogs,
   construct,
   dacite,

@@ -11,7 +11,7 @@
   type ? "jar",
   suffix ? "",
   sourceProvenance ?
-    (lib.optionals (type == "jar") [ lib.sourceTypes.binaryBytecode ])
+    (lib.optionals (type == "jar") [ lib.sourceTypes.binaryBytecode ]),
 }:
 
 let

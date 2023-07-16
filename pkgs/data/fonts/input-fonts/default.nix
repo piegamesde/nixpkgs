@@ -4,7 +4,7 @@
   fetchzip,
   python3,
   config,
-  acceptLicense ? config.input-fonts.acceptLicense or false
+  acceptLicense ? config.input-fonts.acceptLicense or false,
 }:
 
 let

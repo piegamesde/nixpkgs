@@ -5,14 +5,12 @@
   makeDesktopItem,
   copyDesktopItems,
   makeWrapper,
-  writeText
+  writeText,
 
   # Common run-time dependencies
-  ,
-  zlib
+  zlib,
 
   # libxul run-time dependencies
-  ,
   atk,
   cairo,
   dbus,
@@ -30,27 +28,23 @@
   libXtst,
   mesa,
   pango,
-  pciutils
+  pciutils,
 
-  ,
   libnotifySupport ? stdenv.isLinux,
-  libnotify
+  libnotify,
 
-  ,
   audioSupport ? mediaSupport,
   pulseaudioSupport ? mediaSupport,
   libpulseaudio,
   apulse,
-  alsa-lib
+  alsa-lib,
 
   # Media support (implies audio support)
-  ,
   mediaSupport ? true,
-  ffmpeg
+  ffmpeg,
 
   # Extra preferences
-  ,
-  extraPrefs ? ""
+  extraPrefs ? "",
 }:
 
 let

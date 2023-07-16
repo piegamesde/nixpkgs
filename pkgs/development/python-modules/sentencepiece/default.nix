@@ -1,7 +1,6 @@
 {
-  buildPythonPackage
+  buildPythonPackage,
 
-  ,
   sentencepiece,
   pkg-config,
 }:

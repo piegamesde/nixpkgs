@@ -12,7 +12,7 @@
   pkg-config,
   autoreconfHook,
   libiconv,
-  enableCredssp ? (!stdenv.isDarwin)
+  enableCredssp ? (!stdenv.isDarwin),
 }:
 
 stdenv.mkDerivation (rec {

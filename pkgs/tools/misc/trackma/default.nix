@@ -12,7 +12,7 @@
   copyDesktopItems,
   withCurses ? false,
   withGTK ? false,
-  withQT ? false
+  withQT ? false,
 }:
 let
   mkDesktopItem =

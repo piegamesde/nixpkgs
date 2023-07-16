@@ -13,9 +13,8 @@
   alsa-lib,
   libjack2,
   wrapGAppsHook,
-  wrapQtAppsHook
+  wrapQtAppsHook,
   # drivers (optional):
-  ,
   rtl-sdr,
   hackrf,
   pulseaudioSupport ? true,

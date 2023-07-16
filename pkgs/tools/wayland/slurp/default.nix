@@ -11,7 +11,7 @@
   wayland,
   wayland-protocols,
   wayland-scanner,
-  buildDocs ? true
+  buildDocs ? true,
 }:
 
 stdenv.mkDerivation (

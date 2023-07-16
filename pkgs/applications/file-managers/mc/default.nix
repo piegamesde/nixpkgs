@@ -19,10 +19,9 @@
   coreutils,
   autoSignDarwinBinariesHook,
   x11Support ? true,
-  libX11
+  libX11,
 
   # updater only
-  ,
   writeScript,
 }:
 

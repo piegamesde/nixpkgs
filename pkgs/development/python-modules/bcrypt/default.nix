@@ -10,9 +10,8 @@
   cffi,
   pytestCheckHook,
   libiconv,
-  stdenv
+  stdenv,
   # for passthru.tests
-  ,
   asyncssh,
   django_4,
   fastapi,

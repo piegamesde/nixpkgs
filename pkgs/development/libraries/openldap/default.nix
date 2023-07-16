@@ -2,10 +2,9 @@
   lib,
   stdenv,
   fetchurl,
-  fetchpatch
+  fetchpatch,
 
   # dependencies
-  ,
   cyrus_sasl,
   db,
   groff,
@@ -13,10 +12,9 @@
   libtool,
   openssl,
   systemdMinimal,
-  libxcrypt
+  libxcrypt,
 
   # passthru
-  ,
   nixosTests,
 }:
 

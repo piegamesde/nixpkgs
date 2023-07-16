@@ -3,7 +3,7 @@
   fetchpatch,
   lib,
   rustPlatform,
-  withCmd ? false
+  withCmd ? false,
 }:
 
 rustPlatform.buildRustPackage rec {

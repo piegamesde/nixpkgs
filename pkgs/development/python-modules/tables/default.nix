@@ -13,9 +13,8 @@
   numpy,
   numexpr,
   packaging,
-  sphinx
+  sphinx,
   # Test inputs
-  ,
   python,
   pytest,
   py-cpuinfo,

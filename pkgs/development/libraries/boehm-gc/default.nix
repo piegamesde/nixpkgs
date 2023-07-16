@@ -1,9 +1,8 @@
 {
   lib,
   stdenv,
-  fetchurl
+  fetchurl,
   # doc: https://github.com/ivmai/bdwgc/blob/v8.2.2/doc/README.macros (LARGE_CONFIG)
-  ,
   enableLargeConfig ? false,
   enableMmap ? true,
   nixVersions,

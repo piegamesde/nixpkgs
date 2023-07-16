@@ -2,10 +2,9 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-  lib
+  lib,
 
   # pythonPackages
-  ,
   hatchling,
   dnspython,
   expiringdict,

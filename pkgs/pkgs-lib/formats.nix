@@ -373,7 +373,7 @@
   */
   elixirConf =
     {
-      elixir ? pkgs.elixir
+      elixir ? pkgs.elixir,
     }:
     with lib;
     let
@@ -501,7 +501,7 @@
           mkGetEnv =
             {
               envVariable,
-              fallback ? null
+              fallback ? null,
             }:
             mkRaw "System.get_env(${toElixir envVariable}, ${
               toElixir fallback

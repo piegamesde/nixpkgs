@@ -6,8 +6,7 @@
   boost,
   eigen,
   gmp,
-  cgal_5 # see https://github.com/NixOS/nixpkgs/pull/94875 about cgal
-  ,
+  cgal_5, # see https://github.com/NixOS/nixpkgs/pull/94875 about cgal
   mpfr,
   tbb,
   numpy,
@@ -16,7 +15,7 @@
   matplotlib,
   scipy,
   pytest,
-  enableTBB ? false
+  enableTBB ? false,
 }:
 
 buildPythonPackage rec {

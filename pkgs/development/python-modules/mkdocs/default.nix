@@ -3,14 +3,12 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  pythonOlder
+  pythonOlder,
 
   # buildtime
-  ,
-  hatchling
+  hatchling,
 
   # runtime deps
-  ,
   click,
   ghp-import,
   importlib-metadata,
@@ -20,10 +18,9 @@
   packaging,
   pyyaml,
   pyyaml-env-tag,
-  watchdog
+  watchdog,
 
   # testing deps
-  ,
   babel,
   mock,
   unittestCheckHook,

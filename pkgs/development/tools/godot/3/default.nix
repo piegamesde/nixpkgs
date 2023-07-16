@@ -22,7 +22,7 @@
   libGLU,
   zlib,
   yasm,
-  withUdev ? true
+  withUdev ? true,
 }:
 
 let

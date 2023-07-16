@@ -19,11 +19,10 @@
   mpg123,
   ninja,
   rpmextract,
-  wavpack
+  wavpack,
 
-  ,
   callPackage,
-  rygel ? null
+  rygel ? null,
 }@inputs:
 let
   # FIXME: Replace with gnome.rygel once hqplayerd releases a new version.

@@ -1,16 +1,14 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
 
-  ,
   flask,
   limits,
   ordered-set,
   rich,
-  typing-extensions
+  typing-extensions,
 
-  ,
   asgiref,
   hiro,
   pymemcache,

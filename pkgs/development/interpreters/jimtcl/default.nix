@@ -1,14 +1,12 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub
+  fetchFromGitHub,
 
-  ,
   asciidoc,
   pkg-config,
-  inetutils
+  inetutils,
 
-  ,
   sqlite,
   readline,
   SDL,

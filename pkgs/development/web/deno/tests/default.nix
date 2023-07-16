@@ -12,7 +12,7 @@ let
       dir ? ./. + "/${name}",
       file ? "index.ts",
       expected ? "",
-      expectFailure ? false
+      expectFailure ? false,
     }:
     let
       command = "deno run ${args} ${dir}/${file}";

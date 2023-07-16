@@ -36,7 +36,7 @@ let
       rewriteArgs =
         {
           prefix ? { },
-          const ? { }
+          const ? { },
         }:
         lib.concatLists (
           (lib.mapAttrsToList
@@ -74,7 +74,7 @@ let
     {
       name,
       deps,
-      private ? false
+      private ? false,
     }:
     let
       self = stdenv.mkDerivation {

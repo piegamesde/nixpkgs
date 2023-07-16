@@ -2,7 +2,7 @@
   system ? builtins.currentSystem,
   config ? { },
   pkgs ? import ../.. { inherit system config; },
-  systemdStage1 ? false
+  systemdStage1 ? false,
 }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
@@ -19,7 +19,7 @@ let
       grubIdentifier,
       grubUseEfi,
       extraConfig,
-      forceGrubReinstallCount ? 0
+      forceGrubReinstallCount ? 0,
     }:
     pkgs.writeText "configuration.nix" ''
       { config, lib, pkgs, modulesPath, ... }:
@@ -365,7 +365,7 @@ let
       grubUseEfi ? false,
       enableOCR ? false,
       meta ? { },
-      testSpecialisationConfig ? false
+      testSpecialisationConfig ? false,
     }:
     makeTest {
       inherit enableOCR;

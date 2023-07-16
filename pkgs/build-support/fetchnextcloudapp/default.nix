@@ -9,7 +9,7 @@
   sha256,
   patches ? [ ],
   name ? null,
-  version ? null
+  version ? null,
 }:
 if name != null || version != null then
   throw ''

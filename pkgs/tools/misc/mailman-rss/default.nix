@@ -1,7 +1,7 @@
 {
   lib,
   python3Packages,
-  withTwitter ? false
+  withTwitter ? false,
 }:
 
 python3Packages.buildPythonApplication rec {

@@ -21,7 +21,7 @@
   buildPackages,
   nixosTests,
   rpcsvc-proto,
-  enablePython ? true
+  enablePython ? true,
 }:
 
 let

@@ -3,7 +3,7 @@
   openssl,
   python3,
   fetchpatch,
-  enableNpm ? true
+  enableNpm ? true,
 }:
 
 let

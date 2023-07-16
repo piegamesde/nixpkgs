@@ -7,7 +7,7 @@
   version,
   hash,
   isAarch64,
-  metaCommon ? { }
+  metaCommon ? { },
 }:
 
 let

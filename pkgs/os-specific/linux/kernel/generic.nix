@@ -21,10 +21,9 @@
   defconfig ? null
 
   , # Legacy overrides to the intermediate kernel config, as string
-  extraConfig ? ""
+  extraConfig ? "",
 
   # Additional make flags passed to kbuild
-  ,
   extraMakeFlags ? [ ]
 
   , # kernel intermediate config overrides, as a set
@@ -51,15 +50,13 @@
   kernelPatches ? [ ],
   ignoreConfigErrors ? stdenv.hostPlatform.linux-kernel.name != "pc"
     || stdenv.hostPlatform != stdenv.buildPlatform,
-  extraMeta ? { }
+  extraMeta ? { },
 
-  ,
   isZen ? false,
   isLibre ? false,
-  isHardened ? false
+  isHardened ? false,
 
   # easy overrides to stdenv.hostPlatform.linux-kernel members
-  ,
   autoModules ? stdenv.hostPlatform.linux-kernel.autoModules,
   preferBuiltin ? stdenv.hostPlatform.linux-kernel.preferBuiltin or false,
   kernelArch ? stdenv.hostPlatform.linuxArch,

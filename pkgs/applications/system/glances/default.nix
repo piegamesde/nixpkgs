@@ -10,14 +10,12 @@
   ujson,
   packaging,
   psutil,
-  setuptools
+  setuptools,
   # Optional dependencies:
-  ,
   bottle,
   pysnmp,
   hddtemp,
-  netifaces # IP module
-  ,
+  netifaces, # IP module
   py-cpuinfo,
 }:
 

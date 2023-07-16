@@ -6,7 +6,7 @@
   asciidoc,
   pkg-config,
   libsodium,
-  enableDrafts ? false
+  enableDrafts ? false,
 }:
 
 stdenv.mkDerivation rec {

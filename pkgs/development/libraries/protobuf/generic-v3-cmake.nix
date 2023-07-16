@@ -12,10 +12,9 @@
   gtest,
   zlib,
   version,
-  sha256
+  sha256,
 
   # downstream dependencies
-  ,
   python3
 
   ,

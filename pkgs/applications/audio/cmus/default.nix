@@ -9,13 +9,11 @@
   libiconv,
   CoreAudio,
   AudioUnit,
-  VideoToolbox
+  VideoToolbox,
 
-  ,
   alsaSupport ? stdenv.isLinux,
-  alsa-lib ? null
+  alsa-lib ? null,
   # simple fallback for everyone else
-  ,
   aoSupport ? !stdenv.isLinux,
   libao ? null,
   jackSupport ? false,
@@ -27,7 +25,7 @@
   pulseaudioSupport ? config.pulseaudio or false,
   libpulseaudio ? null,
   mprisSupport ? stdenv.isLinux,
-  systemd ? null
+  systemd ? null,
 
   # TODO: add these
   #, artsSupport
@@ -36,7 +34,6 @@
   #, sunSupport
   #, waveoutSupport
 
-  ,
   cddbSupport ? true,
   libcddb ? null,
   cdioSupport ? true,
@@ -65,14 +62,14 @@
   wavpackSupport ? true,
   wavpack ? null,
   opusSupport ? true,
-  opusfile ? null
+  opusfile ? null,
 
-  ,
   aacSupport ? false,
   faad2 ? null # already handled by ffmpeg
   ,
   mp4Support ? false,
   mp4v2 ? null # ffmpeg does support mp4 better
+  ,
 
 # not in nixpkgs
 #, vtxSupport ? true, libayemu ? null

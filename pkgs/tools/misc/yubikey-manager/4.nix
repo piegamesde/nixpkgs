@@ -8,7 +8,7 @@
   libusb1,
   procps,
   stdenv,
-  pyOpenSSLSupport ? !(stdenv.isDarwin && stdenv.isAarch64)
+  pyOpenSSLSupport ? !(stdenv.isDarwin && stdenv.isAarch64),
 }:
 
 python3Packages.buildPythonPackage rec {

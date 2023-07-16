@@ -7,7 +7,7 @@
   boost,
   xz,
   withGog ? false,
-  unar ? null
+  unar ? null,
 }:
 
 stdenv.mkDerivation rec {

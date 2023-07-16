@@ -4,7 +4,7 @@
   fetchFromGitHub,
   cmake,
   pkg-config,
-  withZlibCompat ? false
+  withZlibCompat ? false,
 }:
 
 stdenv.mkDerivation rec {

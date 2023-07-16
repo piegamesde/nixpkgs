@@ -20,7 +20,7 @@
   extraFonts ? false,
   chineseFonts ? false,
   japaneseFonts ? false,
-  koreanFonts ? false
+  koreanFonts ? false,
 }:
 
 let

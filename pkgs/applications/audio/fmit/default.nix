@@ -13,7 +13,7 @@
   jackSupport ? false,
   libjack2 ? null,
   portaudioSupport ? false,
-  portaudio ? null
+  portaudio ? null,
 }:
 
 assert alsaSupport -> alsa-lib != null;

@@ -3,7 +3,7 @@
   indilib ? indilib,
   pname ? "indi-with-drivers",
   version ? null,
-  extraDrivers ? null
+  extraDrivers ? null,
 }:
 
 buildEnv {

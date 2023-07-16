@@ -3,7 +3,7 @@
   stdenv,
   fetchurl,
   which,
-  enableHO ? false
+  enableHO ? false,
 }:
 
 stdenv.mkDerivation rec {

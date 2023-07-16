@@ -4,14 +4,12 @@
   buildPythonPackage,
   fetchPypi,
   fetchpatch,
-  pythonOlder
+  pythonOlder,
 
   # Build dependencies
-  ,
-  setuptools
+  setuptools,
 
   # Runtime dependencies
-  ,
   appnope,
   backcall,
   decorator,
@@ -22,10 +20,9 @@
   prompt-toolkit,
   pygments,
   stack-data,
-  traitlets
+  traitlets,
 
   # Test dependencies
-  ,
   pytestCheckHook,
   testpath,
 }:

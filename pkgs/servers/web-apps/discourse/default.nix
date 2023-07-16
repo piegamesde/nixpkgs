@@ -7,9 +7,8 @@
   writeShellScript,
   fetchFromGitHub,
   bundlerEnv,
-  callPackage
+  callPackage,
 
-  ,
   ruby_3_2,
   replace,
   gzip,
@@ -40,10 +39,9 @@
   fixup_yarn_lock,
   nodePackages,
   nodejs_16,
-  dart-sass-embedded
+  dart-sass-embedded,
 
-  ,
-  plugins ? [ ]
+  plugins ? [ ],
 }@args:
 
 let

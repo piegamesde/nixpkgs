@@ -13,10 +13,9 @@
 {
   lib,
   stdenv,
-  version
+  version,
 
-  ,
-  features ? { }
+  features ? { },
 }:
 
 with lib;

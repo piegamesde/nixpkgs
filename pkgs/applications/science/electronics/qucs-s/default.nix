@@ -11,7 +11,7 @@
   adms,
   ngspice,
   wrapGAppsHook,
-  kernels ? [ ngspice ]
+  kernels ? [ ngspice ],
 }:
 
 stdenv.mkDerivation rec {

@@ -2,7 +2,7 @@
   stdenv,
   makeWrapper,
   haskellPackages,
-  packages ? (pkgs: [ ])
+  packages ? (pkgs: [ ]),
 }:
 
 let

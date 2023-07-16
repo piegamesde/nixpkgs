@@ -4,9 +4,8 @@
   fetchFromGitHub,
   gfortran,
   cmake,
-  shared ? true
+  shared ? true,
   # Compile with ILP64 interface
-  ,
   blas64 ? false,
   testers,
 }:

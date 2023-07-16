@@ -4,10 +4,9 @@ config:
   stdenv,
   cmake,
   pkg-config,
-  which
+  which,
 
   # Xen
-  ,
   bison,
   bzip2,
   checkpolicy,
@@ -26,14 +25,12 @@ config:
   xz,
   yajl,
   zlib,
-  python3Packages
+  python3Packages,
 
   # Xen Optional
-  ,
-  ocamlPackages
+  ocamlPackages,
 
   # Scripts
-  ,
   coreutils,
   gawk,
   gnused,
@@ -49,17 +46,15 @@ config:
   drbd,
   util-linux,
   procps,
-  systemd
+  systemd,
 
   # Documentation
   # python3Packages.markdown
-  ,
   fig2dev,
   ghostscript,
   texinfo,
-  pandoc
+  pandoc,
 
-  ,
   binutils-unwrapped
 
   ,

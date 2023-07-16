@@ -14,9 +14,8 @@
   python3,
   xz,
   zlib,
-  catch2
+  catch2,
   # recommended dependencies
-  ,
   withHwloc ? true,
   hwloc,
   withCurl ? true,
@@ -26,9 +25,8 @@
   withCap ? stdenv.isLinux,
   libcap,
   withUnwind ? stdenv.isLinux,
-  libunwind
+  libunwind,
   # optional dependencies
-  ,
   withBrotli ? false,
   brotli,
   withCjose ? false,
@@ -46,10 +44,9 @@
   withLuaJIT ? false,
   luajit,
   withMaxmindDB ? false,
-  libmaxminddb
+  libmaxminddb,
   # optional features
-  ,
-  enableWCCP ? false
+  enableWCCP ? false,
 }:
 
 stdenv.mkDerivation rec {

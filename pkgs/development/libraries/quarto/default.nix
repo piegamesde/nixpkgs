@@ -11,7 +11,7 @@
   extraRPackages ? [ ],
   makeWrapper,
   python3,
-  extraPythonPackages ? ps: with ps; [ ]
+  extraPythonPackages ? ps: with ps; [ ],
 }:
 
 stdenv.mkDerivation rec {

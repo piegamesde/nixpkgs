@@ -10,7 +10,7 @@
 # The script will be strict and enforce concrete values, i.e. partial documents are not supported.
 cueSchemaFile:
 {
-  document ? null
+  document ? null,
 }:
 writeShellScript "validate-using-cue" ''
   ${cue}/bin/cue \

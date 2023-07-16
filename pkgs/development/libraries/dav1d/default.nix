@@ -10,8 +10,7 @@
   withTools ? false # "dav1d" binary
   ,
   withExamples ? false,
-  SDL2 # "dav1dplay" binary
-  ,
+  SDL2, # "dav1dplay" binary
   useVulkan ? false,
   libplacebo,
   vulkan-loader,

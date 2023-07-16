@@ -13,11 +13,12 @@
   nlohmann_json,
   openssl,
   pkg-config,
-  protobuf
+  protobuf,
   # default list of APIs: https://github.com/googleapis/google-cloud-cpp/blob/v1.32.1/CMakeLists.txt#L173
-  ,
-  apis ? [ "*" ],
-  staticOnly ? stdenv.hostPlatform.isStatic
+  apis ? [
+    "*"
+  ],
+  staticOnly ? stdenv.hostPlatform.isStatic,
 }:
 let
   googleapisRev = "13d5b3f3f9412f38427c8ad48068f04ad1ee9808";

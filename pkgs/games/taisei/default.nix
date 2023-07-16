@@ -1,16 +1,14 @@
 {
   lib,
   stdenv,
-  fetchurl
+  fetchurl,
   # Build depends
-  ,
   docutils,
   meson,
   ninja,
   pkg-config,
-  python3
+  python3,
   # Runtime depends
-  ,
   glfw,
   SDL2,
   SDL2_mixer,

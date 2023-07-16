@@ -14,7 +14,7 @@
   buildLlvmTools,
   fixDarwinDylibNames,
   enableManpages ? false,
-  enablePolly ? false
+  enablePolly ? false,
 }:
 
 let

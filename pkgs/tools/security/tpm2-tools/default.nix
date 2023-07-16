@@ -10,7 +10,7 @@
   tpm2-tss,
   libuuid,
   abrmdSupport ? true,
-  tpm2-abrmd ? null
+  tpm2-abrmd ? null,
 }:
 
 stdenv.mkDerivation rec {

@@ -5,10 +5,9 @@
   isPy3k,
   xmltodict,
   ifaddr,
-  requests
+  requests,
 
   # Test dependencies
-  ,
   pytestCheckHook,
   mock,
   requests-mock,

@@ -12,7 +12,7 @@
   gtest,
   openmp,
   buildTests ? false,
-  buildSamples ? false
+  buildSamples ? false,
 }:
 
 # This can also use cuSPARSE as a backend instead of rocSPARSE

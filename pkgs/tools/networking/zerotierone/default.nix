@@ -2,9 +2,8 @@
   lib,
   stdenv,
   rustPlatform,
-  fetchFromGitHub
+  fetchFromGitHub,
 
-  ,
   buildPackages,
   iproute2,
   lzo,

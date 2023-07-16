@@ -3,10 +3,9 @@
   stdenv,
   fetchurl,
   darwin,
-  openssl
+  openssl,
 
   # major and only downstream dependency
-  ,
   vlc,
 }:
 

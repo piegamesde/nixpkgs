@@ -2,14 +2,12 @@
   lib,
   buildPythonPackage,
   pythonOlder,
-  fetchPypi
+  fetchPypi,
 
   # build time
-  ,
-  setuptools-scm
+  setuptools-scm,
 
   # tests
-  ,
   pytestCheckHook,
   appdirs,
   packaging,

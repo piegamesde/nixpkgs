@@ -8,7 +8,7 @@
   python2,
   confFile ? "",
   extraLibraryPaths ? [ ],
-  extraJars ? [ ]
+  extraJars ? [ ],
 }:
 
 stdenv.mkDerivation rec {

@@ -6,9 +6,8 @@
   autoreconfHook,
   pkg-config,
   help2man,
-  python3
+  python3,
 
-  ,
   alsa-lib,
   libxslt,
   systemd,

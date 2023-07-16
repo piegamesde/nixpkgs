@@ -11,7 +11,7 @@
   curl,
   debugRuntime ? true,
   runtimeAsserts ? false,
-  extraKleeuClibcConfig ? { }
+  extraKleeuClibcConfig ? { },
 }:
 
 let

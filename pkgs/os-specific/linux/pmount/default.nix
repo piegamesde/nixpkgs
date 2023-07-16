@@ -7,7 +7,7 @@
   util-linux,
   mediaDir ? "/media/",
   lockDir ? "/var/lock/pmount",
-  whiteList ? "/etc/pmount.allow"
+  whiteList ? "/etc/pmount.allow",
 }:
 
 # constraint mention in the configure.ac

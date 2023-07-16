@@ -11,7 +11,7 @@
   libexif,
   jpegexiforient,
   perl,
-  enableAutoreload ? !stdenv.hostPlatform.isDarwin
+  enableAutoreload ? !stdenv.hostPlatform.isDarwin,
 }:
 
 stdenv.mkDerivation rec {

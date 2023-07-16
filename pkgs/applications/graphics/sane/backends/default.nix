@@ -22,21 +22,18 @@
   libxml2,
   poppler,
   gawk,
-  sane-drivers
+  sane-drivers,
 
   # List of { src name backend } attibute sets - see installFirmware below:
-  ,
-  extraFirmware ? [ ]
+  extraFirmware ? [ ],
 
   # For backwards compatibility with older setups; use extraFirmware instead:
-  ,
   gt68xxFirmware ? null,
-  snapscanFirmware ? null
+  snapscanFirmware ? null,
 
   # Not included by default, scan snap drivers require fetching of unfree binaries.
-  ,
   scanSnapDriversUnfree ? false,
-  scanSnapDriversPackage ? sane-drivers.epjitsu
+  scanSnapDriversPackage ? sane-drivers.epjitsu,
 }:
 
 stdenv.mkDerivation {

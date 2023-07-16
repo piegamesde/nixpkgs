@@ -11,7 +11,7 @@
   libxcrypt,
   lua5_3 ? null,
   pcre ? null,
-  systemd ? null
+  systemd ? null,
 }:
 
 assert useLua -> lua5_3 != null;

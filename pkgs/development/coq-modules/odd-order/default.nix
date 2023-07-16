@@ -2,7 +2,7 @@
   lib,
   mkCoqDerivation,
   mathcomp,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation {

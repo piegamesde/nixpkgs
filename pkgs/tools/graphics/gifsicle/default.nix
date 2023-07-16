@@ -6,7 +6,7 @@
   libXt,
   libX11,
   gifview ? false,
-  static ? stdenv.hostPlatform.isStatic
+  static ? stdenv.hostPlatform.isStatic,
 }:
 
 stdenv.mkDerivation rec {

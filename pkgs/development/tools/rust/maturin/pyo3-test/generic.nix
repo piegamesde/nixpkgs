@@ -5,15 +5,13 @@
   lib,
   fetchFromGitHub,
   python,
-  rustPlatform
+  rustPlatform,
 
-  ,
-  nativeBuildInputs
+  nativeBuildInputs,
 
-  ,
   buildAndTestSubdir ? null,
   format ? "pyproject",
-  preConfigure ? ""
+  preConfigure ? "",
 }:
 
 python.pkgs.buildPythonPackage rec {

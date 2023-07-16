@@ -6,9 +6,8 @@
   autoreconfHook,
   libtool,
   libpcap,
-  libcdada
+  libcdada,
   # Optional Dependencies
-  ,
   withJansson ? true,
   jansson,
   withNflog ? true,

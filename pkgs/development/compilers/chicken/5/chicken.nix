@@ -4,7 +4,7 @@
   fetchurl,
   makeWrapper,
   darwin,
-  bootstrap-chicken ? null
+  bootstrap-chicken ? null,
 }:
 
 let

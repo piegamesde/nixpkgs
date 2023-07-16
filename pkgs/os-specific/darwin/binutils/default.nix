@@ -6,7 +6,7 @@
   cctools,
   llvm,
   clang-unwrapped,
-  dualAs ? false
+  dualAs ? false,
 }:
 
 # Make sure both underlying packages claim to have prepended their binaries

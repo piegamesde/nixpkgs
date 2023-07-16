@@ -39,11 +39,10 @@
   zstd,
   enableShared ? !stdenv.hostPlatform.isStatic,
   enableFlight ? true,
-  enableJemalloc ? !stdenv.isDarwin
+  enableJemalloc ? !stdenv.isDarwin,
   # boost/process is broken in 1.69 on darwin, but fixed in 1.70 and
   # non-existent in older versions
   # see https://github.com/boostorg/process/issues/55
-  ,
   enableS3 ? (
     !stdenv.isDarwin
   )
@@ -57,6 +56,7 @@
     && (lib.versionAtLeast
       grpc.cxxStandard
       "17") # google-cloud-cpp is not supported on darwin, needs to support C++17
+  ,
 }:
 
 assert lib.asserts.assertMsg

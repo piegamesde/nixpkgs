@@ -17,7 +17,7 @@
   systemd,
   callPackage,
   withTetrioPlus ? false,
-  tetrio-plus ? callPackage ./tetrio-plus.nix { }
+  tetrio-plus ? callPackage ./tetrio-plus.nix { },
 }:
 
 stdenv.mkDerivation rec {

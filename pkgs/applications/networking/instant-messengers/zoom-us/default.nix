@@ -5,9 +5,8 @@
   pipewire,
   makeWrapper,
   xar,
-  cpio
+  cpio,
   # Dynamic libraries
-  ,
   alsa-lib,
   atk,
   at-spi2-atk,
@@ -32,9 +31,8 @@
   libxkbcommon,
   udev,
   zlib,
-  libkrb5
+  libkrb5,
   # Runtime
-  ,
   coreutils,
   pciutils,
   procps,

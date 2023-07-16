@@ -8,7 +8,7 @@ let
     {
       version,
       hash,
-      rev ? version
+      rev ? version,
     }:
     stdenvNoCC.mkDerivation {
       pname = "font-awesome";

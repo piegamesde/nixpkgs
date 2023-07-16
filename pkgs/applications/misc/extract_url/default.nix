@@ -5,7 +5,7 @@
   makeWrapper,
   perlPackages,
   cursesSupport ? true,
-  uriFindSupport ? true
+  uriFindSupport ? true,
 }:
 
 let

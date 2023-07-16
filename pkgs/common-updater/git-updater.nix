@@ -11,11 +11,10 @@
   ignoredVersions ? "",
   rev-prefix ? "",
   odd-unstable ? false,
-  patchlevel-unstable ? false
+  patchlevel-unstable ? false,
   # an explicit url is needed when src.meta.homepage or src.url don't
   # point to a git repo (eg. when using fetchurl, fetchzip, ...)
-  ,
-  url ? null
+  url ? null,
 }:
 
 genericUpdater {

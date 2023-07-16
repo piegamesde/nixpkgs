@@ -17,7 +17,7 @@
   deepin-screen-recorder,
   deepin-system-monitor,
   extraGSettingsOverrides ? "",
-  extraGSettingsOverridePackages ? [ ]
+  extraGSettingsOverridePackages ? [ ],
 }:
 
 let

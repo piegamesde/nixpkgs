@@ -1,16 +1,14 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # dependencies
-  ,
   django,
   persisting-theory,
-  six
+  six,
 
   # tests
-  ,
   djangorestframework,
   pytest-django,
   pytestCheckHook,

@@ -12,7 +12,7 @@
   libX11 ? null,
   gtk2 ? null,
   makeWrapper ? null,
-  withLua ? true
+  withLua ? true,
 }:
 
 stdenv.mkDerivation rec {

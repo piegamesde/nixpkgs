@@ -4,7 +4,7 @@
   mkCoqDerivation,
   coq,
   bignums,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation {

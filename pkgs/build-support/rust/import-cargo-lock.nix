@@ -11,15 +11,13 @@
 
 {
   # Cargo lock file
-  lockFile ? null
+  lockFile ? null,
 
   # Cargo lock file contents as string
-  ,
-  lockFileContents ? null
+  lockFileContents ? null,
 
   # Allow `builtins.fetchGit` to be used to not require hashes for git dependencies
-  ,
-  allowBuiltinFetchGit ? false
+  allowBuiltinFetchGit ? false,
 
   # Additional registries to pull sources from
   #   { "https://<registry index URL>" = "https://<registry download URL>"; }
@@ -28,12 +26,10 @@
   #   https://doc.rust-lang.org/cargo/reference/registries.html#using-an-alternate-registry
   # - "download URL" is the "dl" value of its associated index configuration
   #   https://doc.rust-lang.org/cargo/reference/registry-index.html#index-configuration
-  ,
-  extraRegistries ? { }
+  extraRegistries ? { },
 
   # Hashes for git dependencies.
-  ,
-  outputHashes ? { }
+  outputHashes ? { },
 }@args:
 
 assert (lockFile == null) != (lockFileContents == null);

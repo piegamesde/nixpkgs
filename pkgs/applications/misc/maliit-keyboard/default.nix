@@ -2,9 +2,8 @@
   mkDerivation,
   lib,
   fetchFromGitHub,
-  fetchpatch
+  fetchpatch,
 
-  ,
   anthy,
   hunspell,
   libchewing,
@@ -15,9 +14,8 @@
   qtfeedback,
   qtmultimedia,
   qtquickcontrols2,
-  qtgraphicaleffects
+  qtgraphicaleffects,
 
-  ,
   cmake,
   pkg-config,
   wrapGAppsHook,

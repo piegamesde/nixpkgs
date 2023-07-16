@@ -8,10 +8,9 @@
   flex,
   fuse,
   libarchive,
-  buildPackages
+  buildPackages,
 
-  ,
-  firewallSupport ? false
+  firewallSupport ? false,
 }:
 
 stdenv.mkDerivation rec {

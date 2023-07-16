@@ -13,7 +13,7 @@
     "MAX II/V"
     "MAX 10 FPGA"
   ],
-  unwrapped ? callPackage ./quartus.nix { inherit supportedDevices; }
+  unwrapped ? callPackage ./quartus.nix { inherit supportedDevices; },
 }:
 
 let

@@ -12,8 +12,7 @@
   udev, # udevadm udevinfo
   ntfs3g, # ntfs3g
   dmraid, # dmraid
-  lvm2 # lvs
-  ,
+  lvm2, # lvs
 }:
 
 stdenv.mkDerivation rec {

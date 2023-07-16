@@ -17,7 +17,7 @@
   pkg-config,
   python3,
   wrapGAppsNoGuiHook,
-  withGui ? false
+  withGui ? false,
 }:
 
 let

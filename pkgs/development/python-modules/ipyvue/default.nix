@@ -2,9 +2,8 @@
   lib,
   isPy27,
   buildPythonPackage,
-  fetchPypi
+  fetchPypi,
   # Python Inputs
-  ,
   ipywidgets,
 }:
 

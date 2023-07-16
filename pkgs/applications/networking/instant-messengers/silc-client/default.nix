@@ -6,7 +6,7 @@
   pkg-config,
   glib,
   ncurses,
-  enablePlugin ? false
+  enablePlugin ? false,
 }:
 
 # Enabling the plugin and using it with a recent irssi, segafults on join:

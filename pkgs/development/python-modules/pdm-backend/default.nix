@@ -2,14 +2,12 @@
   lib,
   buildPythonPackage,
   pythonOlder,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # propagates
-  ,
-  importlib-metadata
+  importlib-metadata,
 
   # tests
-  ,
   editables,
   git,
   pytestCheckHook,

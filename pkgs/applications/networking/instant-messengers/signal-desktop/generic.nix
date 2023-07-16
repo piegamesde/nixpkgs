@@ -41,9 +41,8 @@
   libuuid,
   at-spi2-core,
   libappindicator-gtk3,
-  mesa
+  mesa,
   # Runtime dependencies:
-  ,
   systemd,
   libnotify,
   libdbusmenu,

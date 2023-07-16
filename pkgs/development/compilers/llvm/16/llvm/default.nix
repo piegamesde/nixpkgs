@@ -11,9 +11,8 @@
   ninja,
   python3,
   python3Packages,
-  libffi
+  libffi,
   # TODO: Gold plugin on LLVM16 has a severe memory corruption bug: https://github.com/llvm/llvm-project/issues/61350.
-  ,
   enableGoldPlugin ? false,
   libbfd,
   libpfm,
@@ -41,7 +40,7 @@
     # broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245
     # broken for the armv7l builder
     && !stdenv.hostPlatform.isAarch,
-  enablePolly ? true
+  enablePolly ? true,
 }@args:
 
 let

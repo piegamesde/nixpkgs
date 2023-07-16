@@ -16,9 +16,8 @@
   enableDmeventd ? false,
   udevSupport ? !stdenv.hostPlatform.isStatic,
   udev,
-  onlyLib ? stdenv.hostPlatform.isStatic
+  onlyLib ? stdenv.hostPlatform.isStatic,
   # Otherwise we have a infinity recursion during static compilation
-  ,
   enableUtilLinux ? !stdenv.hostPlatform.isStatic,
   util-linux,
   enableVDO ? false,

@@ -11,7 +11,7 @@ let
       version,
       sha256,
       eol ? false,
-      extraVulnerabilities ? [ ]
+      extraVulnerabilities ? [ ],
     }:
     let
       major = lib.versions.major version;

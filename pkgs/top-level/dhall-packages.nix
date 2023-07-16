@@ -1,7 +1,7 @@
 {
   lib,
   newScope,
-  overrides ? (self: super: { })
+  overrides ? (self: super: { }),
 }:
 
 let

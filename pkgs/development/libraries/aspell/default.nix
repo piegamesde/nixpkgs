@@ -5,16 +5,14 @@
   fetchpatch,
   fetchzip,
   perl,
-  ncurses
+  ncurses,
 
   # for tests
-  ,
   aspell,
   glibc,
-  runCommand
+  runCommand,
 
-  ,
-  searchNixProfiles ? true
+  searchNixProfiles ? true,
 }:
 
 let

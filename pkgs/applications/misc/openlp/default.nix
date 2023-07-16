@@ -4,18 +4,15 @@
   lib,
   mkDerivation,
   wrapGAppsHook,
-  python3Packages
+  python3Packages,
 
   # qt deps
-  ,
   qtbase,
-  qtmultimedia
+  qtmultimedia,
 
   # optional deps
-  ,
   pdfSupport ? false,
-  mupdf # alternatively could use ghostscript
-  ,
+  mupdf, # alternatively could use ghostscript
   presentationSupport ? false,
   libreoffice-unwrapped,
   vlcSupport ? false,
@@ -26,7 +23,7 @@
     gst.gst-plugins-good
     gst.gst-plugins-bad
     gst.gst-plugins-ugly
-  ])
+  ]),
 
 #, enableMySql ? false      # Untested. If interested, contact maintainer.
 #, enablePostgreSql ? false # Untested. If interested, contact maintainer.

@@ -3,7 +3,7 @@
   stdenv,
   lib,
   fetchFromGitHub,
-  dataDir ? "/var/lib/bookstack"
+  dataDir ? "/var/lib/bookstack",
 }:
 
 let

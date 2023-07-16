@@ -16,10 +16,9 @@
   protobuf,
   requests,
   typing-extensions,
-  websockets
+  websockets,
   # , eth-tester
   # , py-geth
-  ,
   pytestCheckHook,
   pythonOlder,
   pythonRelaxDepsHook,

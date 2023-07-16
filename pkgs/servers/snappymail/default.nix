@@ -3,7 +3,7 @@
   stdenv,
   fetchurl,
   writeText,
-  dataPath ? "/var/lib/snappymail"
+  dataPath ? "/var/lib/snappymail",
 }:
 
 stdenv.mkDerivation rec {

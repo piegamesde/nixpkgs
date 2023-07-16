@@ -5,7 +5,7 @@
   fetchFromGitHub,
   projectDir ? ./.,
   pyproject ? projectDir + "/pyproject.toml",
-  poetrylock ? projectDir + "/poetry.lock"
+  poetrylock ? projectDir + "/poetry.lock",
 }:
 
 poetry2nix.mkPoetryApplication {

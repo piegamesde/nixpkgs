@@ -12,7 +12,7 @@
   gtk3,
   dconf,
   wrapGAppsHook,
-  aria2 ? null
+  aria2 ? null,
 }:
 
 stdenv.mkDerivation rec {

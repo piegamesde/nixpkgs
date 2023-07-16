@@ -6,15 +6,14 @@
   extraPatches ? [ ],
   extraNativeBuildInputs ? [ ],
   extraConfigureFlags ? [ ],
-  extraMeta ? { }
+  extraMeta ? { },
 }:
 
 {
   lib,
-  stdenv
+  stdenv,
   # This *is* correct, though unusual. as a way of getting krb5-config from the
   # package without splicing See: https://github.com/NixOS/nixpkgs/pull/107606
-  ,
   pkgs,
   fetchurl,
   fetchpatch,
@@ -31,7 +30,7 @@
   hostname,
   nixosTests,
   withFIDO ? stdenv.hostPlatform.isUnix && !stdenv.hostPlatform.isMusl,
-  linkOpenssl ? true
+  linkOpenssl ? true,
 }:
 
 stdenv.mkDerivation rec {

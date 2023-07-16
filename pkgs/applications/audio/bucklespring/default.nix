@@ -1,17 +1,14 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub
+  fetchFromGitHub,
 
-  ,
   legacy ? false,
-  libinput
+  libinput,
 
-  ,
   pkg-config,
-  makeWrapper
+  makeWrapper,
 
-  ,
   openal,
   alure,
   libXtst,

@@ -18,7 +18,7 @@ let
           dist ? "py2.py3",
           python ? "py2.py3",
           abi ? "none",
-          platform ? "any"
+          platform ? "any",
         }:
         # Fetch a wheel. By default we fetch an universal wheel.
         # See https://www.python.org/dev/peps/pep-0427/#file-name-convention for details regarding the optional arguments.
@@ -31,7 +31,7 @@ let
         {
           pname,
           version,
-          extension ? "tar.gz"
+          extension ? "tar.gz",
         }:
         # Fetch a source tarball.
         "mirror://pypi/${

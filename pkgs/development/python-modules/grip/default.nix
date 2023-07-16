@@ -1,8 +1,7 @@
 {
   lib,
-  fetchFromGitHub
+  fetchFromGitHub,
   # Python bits:
-  ,
   buildPythonPackage,
   pytest,
   responses,

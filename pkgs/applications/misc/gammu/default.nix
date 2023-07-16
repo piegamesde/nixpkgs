@@ -17,7 +17,7 @@
   libdbi ? null,
   libdbiDrivers ? null,
   postgresSupport ? false,
-  postgresql ? null
+  postgresql ? null,
 }:
 
 stdenv.mkDerivation rec {

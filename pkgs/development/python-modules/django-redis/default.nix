@@ -3,18 +3,16 @@
   fetchFromGitHub,
   pythonAtLeast,
   pythonOlder,
-  buildPythonPackage
+  buildPythonPackage,
 
   # propagated
-  ,
   django,
   hiredis,
   lz4,
   msgpack,
-  redis
+  redis,
 
   # testing
-  ,
   pkgs,
   pytest-django,
   pytest-mock,

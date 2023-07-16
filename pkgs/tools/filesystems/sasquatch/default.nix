@@ -8,7 +8,7 @@
   zlib,
   zstd,
   lz4,
-  lz4Support ? false
+  lz4Support ? false,
 }:
 
 let

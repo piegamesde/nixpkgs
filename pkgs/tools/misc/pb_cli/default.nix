@@ -10,7 +10,7 @@
   makeWrapper,
   maim ? null,
   xclip ? null,
-  capture ? null
+  capture ? null,
 }:
 
 assert screenshots -> maim != null;

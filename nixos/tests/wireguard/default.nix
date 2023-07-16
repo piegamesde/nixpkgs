@@ -5,7 +5,7 @@
   kernelVersionsToTest ? [
     "5.4"
     "latest"
-  ]
+  ],
 }:
 
 with pkgs.lib;

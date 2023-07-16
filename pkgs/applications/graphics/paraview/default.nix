@@ -22,7 +22,7 @@
   tbb,
   libGLU,
   libGL,
-  withDocs ? true
+  withDocs ? true,
 }:
 
 let

@@ -6,11 +6,10 @@
   xorg,
   switchboard,
   switchboardPlugs,
-  plugs
+  plugs,
   # Only useful to disable for development testing.
-  ,
   useDefaultPlugs ? true,
-  testName ? null
+  testName ? null,
 }:
 
 let

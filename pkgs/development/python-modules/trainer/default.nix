@@ -3,17 +3,15 @@
   buildPythonPackage,
   fetchpatch,
   fetchFromGitHub,
-  pythonAtLeast
+  pythonAtLeast,
 
-  ,
   coqpit,
   fsspec,
   torch-bin,
   tensorboardx,
   protobuf,
-  psutil
+  psutil,
 
-  ,
   pytestCheckHook,
   soundfile,
   torchvision-bin,

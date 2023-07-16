@@ -10,25 +10,22 @@
   openldap,
   libedit,
   keyutils,
-  libverto
+  libverto,
 
   # for passthru.tests
-  ,
   bind,
   curl,
   nixosTests,
   openssh,
   postgresql,
-  python3
+  python3,
 
   # Extra Arguments
-  ,
-  type ? ""
+  type ? "",
   # This is called "staticOnly" because krb5 does not support
   # builting both static and shared, see below.
-  ,
   staticOnly ? false,
-  withVerto ? false
+  withVerto ? false,
 }:
 
 # Note: this package is used for bootstrapping fetchurl, and thus

@@ -2,7 +2,7 @@
   lib,
   symlinkJoin,
   kdevelop-unwrapped,
-  plugins ? null
+  plugins ? null,
 }:
 
 symlinkJoin {

@@ -1,24 +1,18 @@
 {
   lib,
-  stdenv
+  stdenv,
   # The unwrapped gnuradio derivation
-  ,
-  unwrapped
+  unwrapped,
   # If it's a minimal build, we don't want to wrap it with lndir and
   # wrapProgram..
-  ,
-  doWrap ? true
+  doWrap ? true,
   # For the wrapper
-  ,
-  makeWrapper
+  makeWrapper,
   # For lndir
-  ,
-  xorg
+  xorg,
   # To define a the gnuradio.pkgs scope
-  ,
-  newScope
+  newScope,
   # For Emulating wrapGAppsHook
-  ,
   gsettings-desktop-schemas,
   glib,
   hicolor-icon-theme,
@@ -30,16 +24,13 @@
   gdk-pixbuf,
   harfbuzz,
   at-spi2-core,
-  atk
+  atk,
   # For Adding additional GRC blocks
-  ,
-  extraPackages ? [ ]
+  extraPackages ? [ ],
   # For Adding additional python packaages
-  ,
-  extraPythonPackages ? [ ]
+  extraPythonPackages ? [ ],
   # Allow to add whatever you want to the wrapper
-  ,
-  extraMakeWrapperArgs ? [ ]
+  extraMakeWrapperArgs ? [ ],
 }:
 
 let

@@ -13,7 +13,7 @@ lib.makeOverridable (
     pluginPkgs ? [ ],
     localConfig ? "",
     shellAliases ? { },
-    runtimeInputs ? [ ]
+    runtimeInputs ? [ ],
   }:
 
   let

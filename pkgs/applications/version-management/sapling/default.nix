@@ -17,10 +17,9 @@
   libiconv,
   CoreFoundation,
   CoreServices,
-  Security
+  Security,
 
-  ,
-  enableMinimal ? false
+  enableMinimal ? false,
 }:
 
 let

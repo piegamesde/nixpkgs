@@ -14,7 +14,7 @@ with pkgs.lib;
       script,
       hostname ? "ec2-instance",
       sshPublicKey ? null,
-      meta ? { }
+      meta ? { },
     }:
     let
       metaData = pkgs.stdenv.mkDerivation {

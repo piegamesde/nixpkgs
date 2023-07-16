@@ -15,7 +15,7 @@
   lzo,
   which,
   targetArchitecture ? null,
-  asmOptimizations ? gcc10Stdenv.targetPlatform.isx86
+  asmOptimizations ? gcc10Stdenv.targetPlatform.isx86,
 }:
 
 let

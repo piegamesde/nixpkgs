@@ -13,7 +13,7 @@
   elfutils,
   perf,
   withDocumentation ? false,
-  withClangPlugins ? true
+  withClangPlugins ? true,
 }:
 
 let

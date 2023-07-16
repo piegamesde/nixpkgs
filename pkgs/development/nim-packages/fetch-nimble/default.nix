@@ -16,7 +16,7 @@ makeOverridable (
 
     meta ? { },
     passthru ? { },
-    preferLocalBuild ? true
+    preferLocalBuild ? true,
   }:
   stdenv.mkDerivation {
     inherit version meta passthru preferLocalBuild;

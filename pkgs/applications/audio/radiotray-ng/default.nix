@@ -3,18 +3,15 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-  pkg-config
+  pkg-config,
   # Transport
-  ,
-  curl
+  curl,
   # Libraries
-  ,
   boost,
   jsoncpp,
   libbsd,
-  pcre
+  pcre,
   # GUI/Desktop
-  ,
   dbus,
   glibmm,
   gsettings-desktop-schemas,
@@ -22,21 +19,16 @@
   libappindicator-gtk3,
   libnotify,
   libxdg_basedir,
-  wxGTK
+  wxGTK,
   # GStreamer
-  ,
-  gst_all_1
+  gst_all_1,
   # User-agent info
-  ,
-  lsb-release
+  lsb-release,
   # rt2rtng
-  ,
-  python3
+  python3,
   # Testing
-  ,
-  gtest
+  gtest,
   # Fixup
-  ,
   wrapGAppsHook,
   makeWrapper,
 }:

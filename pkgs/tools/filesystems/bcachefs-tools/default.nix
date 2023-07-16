@@ -21,7 +21,7 @@
   makeWrapper,
   getopt,
   fuse3,
-  fuseSupport ? false
+  fuseSupport ? false,
 }:
 
 stdenv.mkDerivation {

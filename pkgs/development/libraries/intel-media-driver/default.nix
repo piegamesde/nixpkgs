@@ -10,9 +10,8 @@
   intel-gmmlib,
   libdrm,
   enableX11 ? stdenv.isLinux,
-  libX11
+  libX11,
   # for passhtru.tests
-  ,
   pkgsi686Linux,
 }:
 

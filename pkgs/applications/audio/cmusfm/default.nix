@@ -8,7 +8,7 @@
   libnotify,
   gdk-pixbuf,
   libnotifySupport ? stdenv.isLinux,
-  debug ? false
+  debug ? false,
 }:
 
 stdenv.mkDerivation rec {

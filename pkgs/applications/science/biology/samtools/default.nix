@@ -6,7 +6,7 @@
   zlib,
   htslib,
   perl,
-  ncurses ? null
+  ncurses ? null,
 }:
 
 stdenv.mkDerivation rec {

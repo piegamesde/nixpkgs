@@ -1,9 +1,8 @@
 {
   buildOctavePackage,
   lib,
-  fetchFromGitHub
+  fetchFromGitHub,
   # Octave's Python (Python 3)
-  ,
   python,
 }:
 

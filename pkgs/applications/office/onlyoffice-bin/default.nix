@@ -1,9 +1,8 @@
 {
   stdenv,
   lib,
-  fetchurl
+  fetchurl,
   # Alphabetic ordering below
-  ,
   alsa-lib,
   at-spi2-atk,
   atk,

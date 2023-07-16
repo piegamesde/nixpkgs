@@ -14,7 +14,7 @@
   openal,
   runtimeShell,
   requireFile,
-  commercialVersion ? false
+  commercialVersion ? false,
 }:
 
 stdenv.mkDerivation rec {

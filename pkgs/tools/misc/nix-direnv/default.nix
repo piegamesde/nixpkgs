@@ -5,6 +5,7 @@
   gnugrep,
   nix,
   enableFlakes ? null # deprecated
+  ,
 }:
 stdenv.mkDerivation rec {
   pname = "nix-direnv";

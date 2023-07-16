@@ -54,7 +54,7 @@ let
       udev,
       systemd,
       binPackages,
-      initrdBin ? null
+      initrdBin ? null,
     }:
     pkgs.runCommand name
     {

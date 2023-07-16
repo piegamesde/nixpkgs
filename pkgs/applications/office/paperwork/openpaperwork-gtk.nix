@@ -1,19 +1,16 @@
 {
   buildPythonPackage,
   lib,
-  fetchFromGitLab
+  fetchFromGitLab,
 
-  ,
   isPy3k,
-  isPyPy
+  isPyPy,
 
-  ,
   openpaperwork-core,
   pillow,
   pygobject3,
-  distro
+  distro,
 
-  ,
   pkgs,
 }:
 

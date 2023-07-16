@@ -3,7 +3,7 @@
   pkgs,
   poetry2nix,
   lib,
-  overrides ? (self: super: { })
+  overrides ? (self: super: { }),
 }:
 
 let

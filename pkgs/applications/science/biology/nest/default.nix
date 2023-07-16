@@ -16,7 +16,7 @@
   readline,
   autoPatchelfHook,
   withPython ? false,
-  withMpi ? false
+  withMpi ? false,
 }:
 
 stdenv.mkDerivation rec {

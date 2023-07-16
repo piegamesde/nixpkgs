@@ -2,7 +2,7 @@
   system ? builtins.currentSystem,
   config ? { },
   pkgs ? import ../../.. { inherit system config; },
-  lib ? pkgs.lib
+  lib ? pkgs.lib,
 }:
 
 let
@@ -20,7 +20,7 @@ let
       name ? mkTestName package,
       useSocketAuth ? true,
       hasMroonga ? true,
-      hasRocksDB ? true
+      hasRocksDB ? true,
     }:
     makeTest {
       inherit name;

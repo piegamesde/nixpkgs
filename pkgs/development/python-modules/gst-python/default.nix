@@ -3,9 +3,8 @@
   buildPythonPackage,
   fetchurl,
   meson,
-  ninja
+  ninja,
 
-  ,
   pkg-config,
   python,
   pygobject3,

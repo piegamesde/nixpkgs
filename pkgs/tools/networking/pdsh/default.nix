@@ -8,7 +8,7 @@
   rsh,
   ssh,
   slurm,
-  slurmSupport ? false
+  slurmSupport ? false,
 }:
 
 stdenv.mkDerivation rec {

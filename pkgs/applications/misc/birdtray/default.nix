@@ -1,9 +1,8 @@
 {
   mkDerivation,
   lib,
-  fetchFromGitHub
+  fetchFromGitHub,
 
-  ,
   cmake,
   pkg-config,
   qtbase,

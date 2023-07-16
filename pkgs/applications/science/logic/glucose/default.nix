@@ -4,7 +4,7 @@
   fetchurl,
   unzip,
   zlib,
-  enableUnfree ? false
+  enableUnfree ? false,
 }:
 
 stdenv.mkDerivation rec {

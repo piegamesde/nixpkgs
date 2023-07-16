@@ -7,9 +7,8 @@
   libgpg-error,
   enableCapabilities ? false,
   libcap,
-  buildPackages
+  buildPackages,
   # for passthru.tests
-  ,
   gnupg,
   libotr,
   rsyslog,

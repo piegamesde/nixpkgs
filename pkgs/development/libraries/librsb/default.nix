@@ -7,16 +7,13 @@
   libtool,
   m4,
   gnum4,
-  file
+  file,
   # Memory Hierarchy (End-user can provide this.)
-  ,
-  memHierarchy ? ""
+  memHierarchy ? "",
   # Headers/Libraries
-  ,
   blas,
-  zlib
+  zlib,
   # RPC headers (rpc/xdr.h)
-  ,
   openmpi,
   help2man,
   doxygen,

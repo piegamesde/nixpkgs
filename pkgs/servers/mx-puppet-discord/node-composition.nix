@@ -3,7 +3,7 @@
 {
   pkgs ? import ../../.. { inherit system; },
   system ? builtins.currentSystem,
-  nodejs ? pkgs."nodejs_14"
+  nodejs ? pkgs."nodejs_14",
 }:
 
 let

@@ -2,10 +2,8 @@
   lib,
   stdenv,
   bc,
-  bind # host and dig binary
-  ,
-  coreutils # date and timeout binary
-  ,
+  bind, # host and dig binary
+  coreutils, # date and timeout binary
   curl,
   fetchFromGitHub,
   file,

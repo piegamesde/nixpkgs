@@ -17,9 +17,8 @@
   buildPackages,
   qtbase ? null,
   pythonSupport ? false,
-  swig2 ? null
+  swig2 ? null,
   # only for passthru.tests
-  ,
   libsForQt5,
   python3,
 }:

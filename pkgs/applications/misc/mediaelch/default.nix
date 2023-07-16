@@ -2,14 +2,12 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch
+  fetchpatch,
 
-  ,
   cmake,
   qttools,
-  wrapQtAppsHook
+  wrapQtAppsHook,
 
-  ,
   curl,
   ffmpeg,
   libmediainfo,

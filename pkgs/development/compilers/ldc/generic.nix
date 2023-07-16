@@ -21,7 +21,7 @@
   makeWrapper,
   runCommand,
   targetPackages,
-  ldcBootstrap ? callPackage ./bootstrap.nix { }
+  ldcBootstrap ? callPackage ./bootstrap.nix { },
 }:
 
 let

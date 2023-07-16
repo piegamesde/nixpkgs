@@ -14,7 +14,7 @@
   libtiff,
   eigen,
   Carbon ? null,
-  Cocoa ? null
+  Cocoa ? null,
 }:
 
 stdenv.mkDerivation rec {

@@ -24,12 +24,11 @@
   libXxf86vm,
   alsa-lib, # sdl
   SDL2, # blind
-  gmp
+  gmp,
 
-  ,
   withSDL ? true,
   withGLX ? false,
-  withDedicated ? true
+  withDedicated ? true,
 }:
 
 let

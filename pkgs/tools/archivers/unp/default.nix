@@ -6,10 +6,9 @@
   perl,
   unzip,
   gzip,
-  file
+  file,
   # extractors which are added to unp’s PATH
-  ,
-  extraBackends ? [ ]
+  extraBackends ? [ ],
 }:
 
 let

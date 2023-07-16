@@ -14,9 +14,8 @@
   withGui ? false,
   gtk3,
   wrapGAppsHook,
-  withTeensyduino ? false
+  withTeensyduino ? false,
   # Packages needed for Teensyduino
-  ,
   upx,
   fontconfig,
   xorg,

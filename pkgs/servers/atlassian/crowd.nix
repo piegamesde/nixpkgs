@@ -5,7 +5,7 @@
   home ? "/var/lib/crowd",
   port ? 8092,
   proxyUrl ? null,
-  openidPassword ? "WILL_NEVER_BE_SET"
+  openidPassword ? "WILL_NEVER_BE_SET",
 }:
 
 let

@@ -4,7 +4,7 @@
   makeWrapper,
   runCommand,
   drivers ? [ ],
-  udevDebug ? false
+  udevDebug ? false,
 }:
 
 let

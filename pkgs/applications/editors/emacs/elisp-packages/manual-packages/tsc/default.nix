@@ -6,9 +6,8 @@
   rustPlatform,
   writeText,
   clang,
-  llvmPackages
+  llvmPackages,
 
-  ,
   runtimeShell,
   writeScript,
   python3,

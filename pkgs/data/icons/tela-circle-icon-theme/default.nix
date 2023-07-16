@@ -11,6 +11,7 @@
   allColorVariants ? false,
   circularFolder ? false,
   colorVariants ? [ ] # default is standard
+  ,
 }:
 
 let

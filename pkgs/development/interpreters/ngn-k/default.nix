@@ -5,7 +5,7 @@
   fetchFromGitea,
   runtimeShell,
   doCheck ? withLibc && stdenv.hostPlatform == stdenv.buildPlatform,
-  withLibc ? true
+  withLibc ? true,
 }:
 
 let

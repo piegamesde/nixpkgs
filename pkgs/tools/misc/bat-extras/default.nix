@@ -3,22 +3,18 @@
   stdenv,
   fetchFromGitHub,
   makeWrapper,
-  bat
+  bat,
   # batdiff, batgrep, and batwatch
-  ,
   coreutils,
   getconf,
-  less
+  less,
   # tests
-  ,
   bash,
   zsh,
-  fish
+  fish,
   # batgrep
-  ,
-  ripgrep
+  ripgrep,
   # prettybat
-  ,
   withShFmt ? shfmt != null,
   shfmt ? null,
   withPrettier ? nodePackages ? prettier,
@@ -26,18 +22,15 @@
   withClangTools ? clang-tools != null,
   clang-tools ? null,
   withRustFmt ? rustfmt != null,
-  rustfmt ? null
+  rustfmt ? null,
   # batwatch
-  ,
   withEntr ? entr != null,
-  entr ? null
+  entr ? null,
   # batdiff
-  ,
   gitMinimal,
   withDelta ? delta != null,
-  delta ? null
+  delta ? null,
   # batman
-  ,
   util-linux,
 }:
 

@@ -27,7 +27,7 @@
   xcbutilerrors,
   xcbutilwm,
   waylandSupport ? true,
-  x11Support ? true
+  x11Support ? true,
 }:
 
 let

@@ -1,15 +1,13 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub
+  fetchFromGitHub,
 
-  ,
   cmake,
   gettext,
   wrapGAppsHook,
-  pkg-config
+  pkg-config,
 
-  ,
   glib,
   gsettings-desktop-schemas,
   gtk3,
@@ -20,9 +18,8 @@
   pcre,
   poppler,
   portaudio,
-  zlib
+  zlib,
   # plugins
-  ,
   withLua ? true,
   lua,
 }:

@@ -5,7 +5,7 @@
   python3,
   withPlatform ? "generic",
   withPayload ? null,
-  withFDT ? null
+  withFDT ? null,
 }:
 
 stdenv.mkDerivation rec {

@@ -5,9 +5,8 @@
   hwdata,
   gtk2,
   pkg-config,
-  sqlite # compile GUI
-  ,
-  withGUI ? false
+  sqlite, # compile GUI
+  withGUI ? false,
 }:
 
 stdenv.mkDerivation rec {

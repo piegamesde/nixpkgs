@@ -9,7 +9,7 @@
   genericUpdater,
   writeShellScript,
   nixosTests,
-  cfgPath ? "/etc/nncp.hjson"
+  cfgPath ? "/etc/nncp.hjson",
 }:
 
 stdenv.mkDerivation rec {

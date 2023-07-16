@@ -3,10 +3,9 @@
   fetchFromGitHub,
   stdenv,
   cmake,
-  gperftools
+  gperftools,
 
-  ,
-  withGPerfTools ? true
+  withGPerfTools ? true,
 }:
 
 stdenv.mkDerivation rec {

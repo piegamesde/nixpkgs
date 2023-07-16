@@ -21,7 +21,7 @@
   enableShared ? !stdenv.hostPlatform.isStatic,
   enableStatic ? stdenv.hostPlatform.isStatic,
   webUISupport ? false,
-  extraGrammars ? { }
+  extraGrammars ? { },
 }:
 
 let

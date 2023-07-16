@@ -21,7 +21,7 @@
   enableGraphBackend ? true,
   enableP4Tests ? true,
   enableGTests ? true,
-  enableMultithreading ? false
+  enableMultithreading ? false,
 }:
 let
   toCMakeBoolean =

@@ -5,10 +5,9 @@
   makeWrapper,
   rust-analyzer-unwrapped,
   pname ? "rust-analyzer",
-  version ? rust-analyzer-unwrapped.version
+  version ? rust-analyzer-unwrapped.version,
   # Use name from `RUST_SRC_PATH`
-  ,
-  rustSrc ? rustPlatform.rustLibSrc
+  rustSrc ? rustPlatform.rustLibSrc,
 }:
 runCommand "${pname}-${version}"
 {

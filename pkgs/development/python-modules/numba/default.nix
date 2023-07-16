@@ -13,16 +13,14 @@
   importlib-metadata,
   substituteAll,
   runCommand,
-  fetchpatch
+  fetchpatch,
 
   # CUDA-only dependencies:
-  ,
   addOpenGLRunpath ? null,
-  cudaPackages ? { }
+  cudaPackages ? { },
 
   # CUDA flags:
-  ,
-  cudaSupport ? false
+  cudaSupport ? false,
 }:
 
 let

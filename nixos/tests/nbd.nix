@@ -9,7 +9,7 @@ import ./make-test-python.nix (
     mkCreateSmallFileService =
       {
         path,
-        loop ? false
+        loop ? false,
       }: {
         script = ''
           ${pkgs.coreutils}/bin/dd if=/dev/zero of=${path} bs=1K count=100

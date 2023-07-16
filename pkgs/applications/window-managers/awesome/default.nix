@@ -33,7 +33,7 @@
   asciidoctor,
   fontsConf,
   gtk3Support ? false,
-  gtk3 ? null
+  gtk3 ? null,
 }:
 
 # needed for beautiful.gtk to work

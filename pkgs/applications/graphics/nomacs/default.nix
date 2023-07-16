@@ -5,15 +5,13 @@
   fetchFromGitHub,
   fetchpatch,
   cmake,
-  pkg-config
+  pkg-config,
 
-  ,
   qtbase,
   qttools,
   qtsvg,
-  qtimageformats
+  qtimageformats,
 
-  ,
   exiv2,
   opencv4,
   libraw,

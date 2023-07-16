@@ -10,7 +10,7 @@
   nixosTests,
   sendmailPath ? "/run/wrappers/bin/sendmail",
   withInsults ? false,
-  withSssd ? false
+  withSssd ? false,
 }:
 
 stdenv.mkDerivation rec {

@@ -36,7 +36,7 @@
     libXt
     freetype
     fontconfig
-  ]
+  ],
   # Packs must be installed from a local directory during the build, with dependencies
   # resolved manually, e.g. to install the 'julian' pack, which depends on the 'delay', 'list_util' and 'typedef' packs:
   #   julian = pkgs.fetchzip {
@@ -62,9 +62,8 @@
   #   swiProlog = pkgs.swiProlog.override { extraPacks = map (dep-path: "'file://${dep-path}'") [
   #     julian delay list_util typedef
   #   ]; };
-  ,
   extraPacks ? [ ],
-  withGui ? false
+  withGui ? false,
 }:
 
 let

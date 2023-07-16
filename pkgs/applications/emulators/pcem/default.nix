@@ -12,7 +12,7 @@
   wrapGAppsHook,
   autoreconfHook,
   withNetworking ? true,
-  withALSA ? true
+  withALSA ? true,
 }:
 
 stdenv.mkDerivation rec {

@@ -9,8 +9,7 @@
   gtk2,
   qtbase,
   qtsvg,
-  qtx11extras # Toolkit dependencies
-  ,
+  qtx11extras, # Toolkit dependencies
   karchive,
   kconfig,
   kconfigwidgets,
@@ -25,8 +24,7 @@
   pcre,
   libXdmcp,
   libX11,
-  libXau # X11 dependencies
-  ,
+  libXau, # X11 dependencies
   fetchpatch,
 }:
 

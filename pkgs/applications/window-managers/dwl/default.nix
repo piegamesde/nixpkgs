@@ -18,7 +18,7 @@
   xcbutilwm,
   xwayland,
   enableXWayland ? true,
-  conf ? null
+  conf ? null,
 }:
 
 let

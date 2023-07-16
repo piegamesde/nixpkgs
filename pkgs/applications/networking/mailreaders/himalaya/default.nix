@@ -13,7 +13,7 @@
   notmuch,
   withImapBackend ? true,
   withNotmuchBackend ? false,
-  withSmtpSender ? true
+  withSmtpSender ? true,
 }:
 
 rustPlatform.buildRustPackage rec {

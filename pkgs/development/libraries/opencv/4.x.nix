@@ -16,9 +16,8 @@
   ocl-icd,
   buildPackages,
   qimgv,
-  opencv4
+  opencv4,
 
-  ,
   enableJPEG ? true,
   libjpeg,
   enablePNG ? true,
@@ -36,9 +35,8 @@
   eigen,
   enableBlas ? true,
   blas,
-  enableContrib ? true
+  enableContrib ? true,
 
-  ,
   enableCuda ? (config.cudaSupport or false) && stdenv.hostPlatform.isx86_64,
   enableCublas ? enableCuda,
   enableCudnn ?
@@ -47,9 +45,8 @@
   enableCufft ? enableCuda,
   cudaPackages ? { },
   symlinkJoin,
-  nvidia-optical-flow-sdk
+  nvidia-optical-flow-sdk,
 
-  ,
   enableLto ? true,
   enableUnfree ? false,
   enableIpp ? false,
@@ -78,9 +75,8 @@
   libdc1394,
   enableDocs ? false,
   doxygen,
-  graphviz-nox
+  graphviz-nox,
 
-  ,
   AVFoundation,
   Cocoa,
   VideoDecodeAcceleration,

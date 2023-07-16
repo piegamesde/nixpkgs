@@ -5,10 +5,9 @@
   python3,
   libreoffice-unwrapped,
   asciidoc,
-  makeWrapper
+  makeWrapper,
   # whether to install odt2pdf/odt2doc/... symlinks to unoconv
-  ,
-  installSymlinks ? true
+  installSymlinks ? true,
 }:
 
 # IMPORTANT: unoconv must use the same python version as libreoffice (unless it

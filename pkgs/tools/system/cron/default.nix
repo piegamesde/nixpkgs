@@ -3,7 +3,7 @@
   stdenv,
   fetchurl,
   vim,
-  sendmailPath ? "/usr/sbin/sendmail"
+  sendmailPath ? "/usr/sbin/sendmail",
 }:
 
 stdenv.mkDerivation rec {

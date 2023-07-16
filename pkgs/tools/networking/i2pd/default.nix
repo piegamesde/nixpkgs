@@ -9,7 +9,7 @@
   upnpSupport ? true,
   miniupnpc,
   aesniSupport ? stdenv.hostPlatform.aesSupport,
-  avxSupport ? stdenv.hostPlatform.avxSupport
+  avxSupport ? stdenv.hostPlatform.avxSupport,
 }:
 
 stdenv.mkDerivation rec {

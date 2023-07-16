@@ -56,9 +56,8 @@
   gnupg,
   ffmpeg,
   runtimeShell,
-  mesa # firefox wants gbm for drm+dmabuf
-  ,
-  systemLocale ? config.i18n.defaultLocale or "en_US"
+  mesa, # firefox wants gbm for drm+dmabuf
+  systemLocale ? config.i18n.defaultLocale or "en_US",
 }:
 
 let

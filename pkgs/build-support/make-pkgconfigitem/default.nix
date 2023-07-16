@@ -6,10 +6,9 @@
 
 # See https://people.freedesktop.org/~dbn/pkg-config-guide.html#concepts
 {
-  name # The name of the pc file
+  name, # The name of the pc file
   # keywords
   # provide a default description for convenience. it's not important but still required by pkg-config.
-  ,
   description ? "A pkg-config file for ${name}",
   url ? "",
   version ? "",
@@ -19,7 +18,7 @@
   cflags ? [ ],
   libs ? [ ],
   libsPrivate ? [ ],
-  variables ? { }
+  variables ? { },
 }:
 
 let

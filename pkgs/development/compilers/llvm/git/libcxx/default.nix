@@ -15,15 +15,14 @@
     libcxxabi,
   libcxxabi,
   libcxxrt,
-  enableShared ? !stdenv.hostPlatform.isStatic
+  enableShared ? !stdenv.hostPlatform.isStatic,
 
   # If headersOnly is true, the resulting package would only include the headers.
   # Use this to break the circular dependency between libcxx and libcxxabi.
   #
   # Some context:
   # https://reviews.llvm.org/rG1687f2bbe2e2aaa092f942d4a97d41fad43eedfb
-  ,
-  headersOnly ? false
+  headersOnly ? false,
 }:
 
 let

@@ -9,8 +9,7 @@
   qtbase,
   qtsvg,
   hunspell,
-  makeWrapper # , mythes, boost
-  ,
+  makeWrapper, # , mythes, boost
 }:
 
 mkDerivation rec {

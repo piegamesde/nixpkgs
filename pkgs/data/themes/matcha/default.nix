@@ -10,6 +10,7 @@
   colorVariants ? [ ] # default: all
   ,
   themeVariants ? [ ] # default: blue
+  ,
 }:
 
 let

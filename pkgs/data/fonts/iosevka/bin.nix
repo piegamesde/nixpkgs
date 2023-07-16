@@ -4,7 +4,7 @@
   fetchurl,
   iosevka,
   unzip,
-  variant ? ""
+  variant ? "",
 }:
 
 let

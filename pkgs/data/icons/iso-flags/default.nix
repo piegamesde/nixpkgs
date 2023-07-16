@@ -5,7 +5,7 @@
   perl,
   inkscape,
   librsvg,
-  targets ? [ "all" ]
+  targets ? [ "all" ],
 }:
 
 stdenvNoCC.mkDerivation {

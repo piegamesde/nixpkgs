@@ -13,7 +13,7 @@ let
     {
       version,
       sha256,
-      extraNativeBuildInputs ? [ ]
+      extraNativeBuildInputs ? [ ],
     }:
     stdenv.mkDerivation rec {
       pname = "${varnish.name}-modules";

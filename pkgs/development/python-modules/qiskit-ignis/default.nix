@@ -7,17 +7,15 @@
   numpy,
   qiskit-terra,
   scikit-learn,
-  scipy
+  scipy,
   # Optional package inputs
-  ,
   withVisualization ? false,
   matplotlib,
   withCvx ? false,
   cvxpy,
   withJit ? false,
-  numba
+  numba,
   # Check Inputs
-  ,
   pytestCheckHook,
   ddt,
   pyfakefs,

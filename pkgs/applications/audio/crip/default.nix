@@ -2,12 +2,10 @@
   lib,
   stdenv,
   fetchurl,
-  makeWrapper
+  makeWrapper,
 
-  ,
-  perlPackages
+  perlPackages,
 
-  ,
   cdparanoia,
   coreutils,
   eject,

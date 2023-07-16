@@ -22,7 +22,7 @@
   libffi,
   libxml2,
   zlib,
-  withPEPatterns ? false
+  withPEPatterns ? false,
 }:
 
 let

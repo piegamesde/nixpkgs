@@ -15,19 +15,16 @@
   libdbusmenu,
   glib,
   buildFHSEnv,
-  wayland
+  wayland,
 
   # Populate passthru.tests
-  ,
-  tests
+  tests,
 
   # needed to fix "Save as Root"
-  ,
   nodePackages,
-  bash
+  bash,
 
   # Attributes inherit from specific versions
-  ,
   version,
   src,
   meta,
@@ -38,11 +35,10 @@
   shortName,
   pname,
   updateScript,
-  dontFixup ? false
+  dontFixup ? false,
   # sourceExecutableName is the name of the binary in the source archive, over
   # which we have no control
-  ,
-  sourceExecutableName ? executableName
+  sourceExecutableName ? executableName,
 }:
 
 let
@@ -221,7 +217,7 @@ let
   # extension tooling without significant pain.
   fhs =
     {
-      additionalPkgs ? pkgs: [ ]
+      additionalPkgs ? pkgs: [ ],
     }:
     buildFHSEnv {
       # also determines the name of the wrapped command

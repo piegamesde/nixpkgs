@@ -40,12 +40,11 @@
   buildPackages ? { },
   targetPackages ? { },
   useMacosReexportHack ? false,
-  wrapGas ? false
+  wrapGas ? false,
 
   # Darwin code signing support utilities
-  ,
   postLinkSignHook ? null,
-  signingUtils ? null
+  signingUtils ? null,
 }:
 
 with lib;

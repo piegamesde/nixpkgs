@@ -2,7 +2,7 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  oscSupport ? false
+  oscSupport ? false,
 }:
 
 stdenvNoCC.mkDerivation rec {

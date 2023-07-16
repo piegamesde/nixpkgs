@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   hidapi,
-  profile ? "/etc/g810-led/profile"
+  profile ? "/etc/g810-led/profile",
 }:
 
 stdenv.mkDerivation rec {

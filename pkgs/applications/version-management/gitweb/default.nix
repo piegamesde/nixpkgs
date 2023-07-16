@@ -3,7 +3,7 @@
   buildEnv,
   git,
   fetchFromGitHub,
-  gitwebTheme ? false
+  gitwebTheme ? false,
 }:
 
 let

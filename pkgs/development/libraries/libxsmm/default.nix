@@ -5,10 +5,9 @@
   gfortran,
   python3,
   util-linux,
-  which
+  which,
 
-  ,
-  enableStatic ? stdenv.hostPlatform.isStatic
+  enableStatic ? stdenv.hostPlatform.isStatic,
 }:
 
 stdenv.mkDerivation rec {

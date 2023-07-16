@@ -2,33 +2,27 @@
   stdenv,
   lib,
   fetchurl,
-  fetchpatch
+  fetchpatch,
   # Channel data:
-  ,
   channel,
-  upstream-info
+  upstream-info,
   # Helper functions:
-  ,
   chromiumVersionAtLeast,
-  versionRange
+  versionRange,
 
   # Native build inputs:
-  ,
   ninja,
   pkg-config,
   python3,
   perl,
   which,
-  llvmPackages
+  llvmPackages,
   # postPatch:
-  ,
-  pkgsBuildHost
+  pkgsBuildHost,
   # configurePhase:
-  ,
-  gnChromium
+  gnChromium,
 
   # Build inputs:
-  ,
   libpng,
   bzip2,
   flac,
@@ -74,29 +68,25 @@
   libva,
   libdrm,
   wayland,
-  libxkbcommon # Ozone
-  ,
+  libxkbcommon, # Ozone
   curl,
   libffi,
   libepoxy
   # postPatch:
   ,
-  glibc # gconv + locale
+  glibc, # gconv + locale
   # postFixup:
-  ,
-  vulkan-loader
+  vulkan-loader,
 
   # Package customization:
-  ,
   cupsSupport ? true,
   cups ? null,
   proprietaryCodecs ? true,
   pulseSupport ? false,
   libpulseaudio ? null,
   ungoogled ? false,
-  ungoogled-chromium
+  ungoogled-chromium,
   # Optional dependencies:
-  ,
   libgcrypt ? null # cupsSupport
   ,
   systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
@@ -128,7 +118,7 @@ let
     {
       commit,
       sha256,
-      revert ? false
+      revert ? false,
     }:
     fetchpatch {
       url = "https://github.com/chromium/chromium/commit/${commit}.patch";

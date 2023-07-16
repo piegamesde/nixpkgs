@@ -6,7 +6,7 @@
   installShellFiles,
   buildkit,
   cni-plugins,
-  extraPackages ? [ ]
+  extraPackages ? [ ],
 }:
 
 buildGoModule rec {

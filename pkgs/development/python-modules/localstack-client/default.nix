@@ -3,10 +3,9 @@
   buildPythonPackage,
   fetchFromGitHub,
   boto3,
-  pytestCheckHook
+  pytestCheckHook,
 
   # downstream dependencies
-  ,
   localstack,
 }:
 

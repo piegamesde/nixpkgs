@@ -4,7 +4,7 @@
   fetchFromGitHub,
   libX11,
   libXt,
-  withGraphics ? true
+  withGraphics ? true,
 }:
 
 stdenv.mkDerivation rec {

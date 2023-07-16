@@ -15,7 +15,7 @@ let
     {
       stname,
       target,
-      postInstall ? ""
+      postInstall ? "",
     }:
     buildGoModule rec {
       pname = stname;

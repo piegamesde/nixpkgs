@@ -2,9 +2,8 @@
   lib,
   pythonOlder,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
   # Python Inputs
-  ,
   fastdtw,
   numpy,
   pandas,
@@ -14,9 +13,8 @@
   scikit-learn,
   scipy,
   quandl,
-  yfinance
+  yfinance,
   # Check Inputs
-  ,
   pytestCheckHook,
   ddt,
   pytest-timeout,

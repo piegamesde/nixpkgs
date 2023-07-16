@@ -15,9 +15,8 @@
   fcft,
   enableCairo ? true,
   svgSupport ? true,
-  pngSupport ? true
+  pngSupport ? true,
   # Optional dependencies
-  ,
   cairo,
   libpng,
 }:

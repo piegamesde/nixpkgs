@@ -17,9 +17,8 @@
   opusSupport ? false,
   opusTools,
   wavpackSupport ? false,
-  wavpack
+  wavpack,
   #, musepackSupport ? false, TODO: mpcenc
-  ,
   monkeysAudioSupport ? false,
   monkeysAudio,
 #, aacSupport ? false, TODO: neroAacEnc

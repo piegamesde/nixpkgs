@@ -2,7 +2,7 @@
   pkgs,
   config,
   idris-no-deps,
-  overrides ? (self: super: { })
+  overrides ? (self: super: { }),
 }:
 let
   inherit (pkgs.lib) callPackageWith fix' extends;

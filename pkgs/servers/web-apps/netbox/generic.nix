@@ -9,7 +9,7 @@
   extraPatches ? [ ],
   tests ? { },
   maintainers ? [ ],
-  eol ? false
+  eol ? false,
 }:
 let
   py = python3 // {

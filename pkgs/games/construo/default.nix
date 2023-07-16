@@ -7,7 +7,7 @@
   xorgproto,
   libGL ? null,
   libGLU ? null,
-  freeglut ? null
+  freeglut ? null,
 }:
 
 stdenv.mkDerivation rec {

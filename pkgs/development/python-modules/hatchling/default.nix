@@ -2,20 +2,17 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-  pythonOlder
+  pythonOlder,
 
   # runtime
-  ,
   editables,
-  importlib-metadata # < 3.8
-  ,
+  importlib-metadata, # < 3.8
   packaging,
   pathspec,
   pluggy,
-  tomli
+  tomli,
 
   # tests
-  ,
   build,
   python,
   requests,

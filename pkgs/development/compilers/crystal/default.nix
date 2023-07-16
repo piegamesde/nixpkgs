@@ -5,9 +5,8 @@
   fetchurl,
   fetchpatch,
   lib,
-  substituteAll
+  substituteAll,
   # Dependencies
-  ,
   boehmgc,
   coreutils,
   git,
@@ -74,7 +73,7 @@ let
     {
       version,
       sha256s,
-      rel ? 1
+      rel ? 1,
     }:
     stdenv.mkDerivation rec {
       pname = "crystal-binary";
@@ -107,7 +106,7 @@ let
           "all"
           "docs"
           "release=1"
-        ]
+        ],
       }:
       lib.fix (
         compiler:

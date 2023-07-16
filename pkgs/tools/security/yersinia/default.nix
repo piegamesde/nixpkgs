@@ -7,14 +7,12 @@
   fetchpatch,
   ncurses,
   libpcap,
-  libnet
+  libnet,
   # alpha version of GTK interface
-  ,
   withGtk ? false,
-  gtk2
+  gtk2,
   # enable remote admin interface
-  ,
-  enableAdmin ? false
+  enableAdmin ? false,
 }:
 
 stdenv.mkDerivation rec {

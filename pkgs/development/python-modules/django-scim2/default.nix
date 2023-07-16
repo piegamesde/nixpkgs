@@ -1,19 +1,17 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # propagates
-  ,
   django,
   python-dateutil,
   scim2-filter-parser,
   gssapi,
   python-ldap,
-  sssd
+  sssd,
 
   # tests
-  ,
   mock,
 }:
 

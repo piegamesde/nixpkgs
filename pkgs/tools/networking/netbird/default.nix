@@ -17,7 +17,7 @@
   Kernel,
   UserNotifications,
   WebKit,
-  ui ? false
+  ui ? false,
 }:
 let
   modules =

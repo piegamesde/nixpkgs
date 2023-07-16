@@ -17,7 +17,7 @@
   sqlite,
   glib-networking,
   buildPackages,
-  withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
+  withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages,
 }:
 
 stdenv.mkDerivation rec {

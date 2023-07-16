@@ -11,7 +11,7 @@
     installPhase = ''
       cp -r . $out
     '';
-  }
+  },
 }:
 
 stdenv.mkDerivation rec {

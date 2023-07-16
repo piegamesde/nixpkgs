@@ -15,7 +15,7 @@
   texlive,
   gtest,
   buildDocs ? true,
-  buildTests ? false
+  buildTests ? false,
 }:
 
 let

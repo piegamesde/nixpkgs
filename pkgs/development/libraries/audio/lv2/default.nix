@@ -3,9 +3,8 @@
   lib,
   fetchurl,
   meson,
-  ninja
+  ninja,
 
-  ,
   pipewire,
   gitUpdater,
 }:

@@ -5,25 +5,21 @@
   gpm,
   openssl,
   pkg-config,
-  libev # Misc.
-  ,
+  libev, # Misc.
   libpng,
   libjpeg,
   libtiff,
-  librsvg # graphic formats
-  ,
+  librsvg, # graphic formats
   bzip2,
   zlib,
-  xz # Transfer encodings
-  ,
+  xz, # Transfer encodings
   enableFB ? true,
   enableDirectFB ? false,
   directfb,
   enableX11 ? true,
   libX11,
   libXt,
-  libXau # GUI support
-  ,
+  libXau, # GUI support
 }:
 
 stdenv.mkDerivation rec {

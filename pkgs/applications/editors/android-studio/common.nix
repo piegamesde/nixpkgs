@@ -62,8 +62,7 @@
   xkeyboard_config,
   zlib,
   makeDesktopItem,
-  tiling_wm # if we are using a tiling wm, need to set _JAVA_AWT_WM_NONREPARENTING in wrapper
-  ,
+  tiling_wm, # if we are using a tiling wm, need to set _JAVA_AWT_WM_NONREPARENTING in wrapper
 }:
 
 let

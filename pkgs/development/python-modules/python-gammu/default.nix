@@ -1,9 +1,8 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
   #, pytestCheckHook
-  ,
   pythonOlder,
   pkg-config,
   gammu,

@@ -4,22 +4,19 @@
   lib,
   fetchFromGitHub,
   makeWrapper,
-  makePerlPath
+  makePerlPath,
 
   # Perl libraries
-  ,
   LWP,
   LWPProtocolHttps,
   HTTPMessage,
   HTTPDate,
   URI,
-  TryTiny
+  TryTiny,
 
   # Required
-  ,
   coreutils,
-  curl # Preferred to using the Perl HTTP libs - according to hw-probe.
-  ,
+  curl, # Preferred to using the Perl HTTP libs - according to hw-probe.
   dmidecode,
   edid-decode,
   gnugrep,
@@ -31,15 +28,13 @@
   perl,
   smartmontools,
   usbutils,
-  xz
+  xz,
 
   # Conditionally recommended
-  ,
   systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
-  systemd
+  systemd,
 
   # Recommended
-  ,
   withRecommended ? true # Install recommended tools
   ,
   mcelog,
@@ -56,10 +51,9 @@
   inxi,
   vulkan-tools,
   i2c-tools,
-  opensc
+  opensc,
 
   # Suggested
-  ,
   withSuggested ? false # Install (most) suggested tools
   ,
   hplip,

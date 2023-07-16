@@ -11,7 +11,7 @@ let
     let
       contribVersion =
         {
-          version ? null
+          version ? null,
         }:
         mkCoqDerivation (
           {

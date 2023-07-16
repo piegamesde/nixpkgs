@@ -4,10 +4,9 @@
   fetchFromGitHub,
   fetchpatch,
   fetchurl,
-  substituteAll
+  substituteAll,
 
   # build
-  ,
   addOpenGLRunpath,
   autoPatchelfHook,
   cmake,
@@ -15,10 +14,9 @@
   libarchive,
   pkg-config,
   python,
-  shellcheck
+  shellcheck,
 
   # runtime
-  ,
   libusb1,
   libxml2,
   opencv,

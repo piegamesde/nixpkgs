@@ -5,10 +5,9 @@
   libedit,
   zlib,
   ncurses,
-  expect
+  expect,
 
   # darwin only below
-  ,
   Accelerate,
   CoreGraphics,
   CoreVideo,

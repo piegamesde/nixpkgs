@@ -17,25 +17,22 @@
   coreutils,
   gperf,
   getent,
-  glibcLocales
+  glibcLocales,
 
   # glib is only used during tests (test-bus-gvariant, test-bus-marshal)
-  ,
   glib,
   substituteAll,
   gettext,
-  python3Packages
+  python3Packages,
 
   # Mandatory dependencies
-  ,
   libcap,
   util-linux,
   kbd,
   kmod,
-  libxcrypt
+  libxcrypt,
 
   # Optional dependencies
-  ,
   pam,
   cryptsetup,
   audit,
@@ -71,7 +68,7 @@
   bash,
   libmicrohttpd,
   libfido2,
-  p11-kit
+  p11-kit,
 
   # the (optional) BPF feature requires bpftool, libbpf, clang and llvm-strip to be available during build time.
   # Only libbpf should be a runtime dependency.
@@ -83,11 +80,9 @@
   # `buildPackages.targetPackages.stdenv.cc == stdenv.cc` relative to us. Working
   # around this is important, because systemd is in the dependency closure of
   # GHC via emscripten and jdk.
-  ,
   bpftools,
-  libbpf
+  libbpf,
 
-  ,
   withAcl ? true,
   withAnalyze ? true,
   withApparmor ? true,
@@ -143,16 +138,13 @@
   withUkify ? false # adds python to closure which is too much by default
   ,
   withUserDb ? true,
-  withUtmp ? !stdenv.hostPlatform.isMusl
+  withUtmp ? !stdenv.hostPlatform.isMusl,
   # tests assume too much system access for them to be feasible for us right now
-  ,
-  withTests ? false
+  withTests ? false,
 
   # name argument
-  ,
-  pname ? "systemd"
+  pname ? "systemd",
 
-  ,
   libxslt,
   docbook_xsl,
   docbook_xml_dtd_42,
@@ -842,7 +834,7 @@ stdenv.mkDerivation (
             replacement,
             search,
             where,
-            ignore ? [ ]
+            ignore ? [ ],
           }:
           map
           (
@@ -856,7 +848,7 @@ stdenv.mkDerivation (
             replacement,
             search,
             where,
-            ignore ? [ ]
+            ignore ? [ ],
           }:
           let
             ignore' = lib.concatStringsSep "|" (

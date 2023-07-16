@@ -72,11 +72,10 @@
   pytestCheckHook,
   freezegun,
   mkYarnPackage,
-  writeScript
+  writeScript,
 
   # Extra airflow providers to enable
-  ,
-  enabledProviders ? [ ]
+  enabledProviders ? [ ],
 }:
 let
   version = "2.5.1";

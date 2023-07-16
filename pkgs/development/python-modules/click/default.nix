@@ -4,10 +4,9 @@
   pythonOlder,
   fetchPypi,
   importlib-metadata,
-  pytestCheckHook
+  pytestCheckHook,
 
   # large-rebuild downstream dependencies and applications
-  ,
   flask,
   black,
   magic-wormhole,

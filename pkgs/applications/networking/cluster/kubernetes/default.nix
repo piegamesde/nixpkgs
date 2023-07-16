@@ -8,16 +8,15 @@
   installShellFiles,
   runtimeShell,
   kubectl,
-  nixosTests
+  nixosTests,
 
-  ,
   components ? [
     "cmd/kubelet"
     "cmd/kube-apiserver"
     "cmd/kube-controller-manager"
     "cmd/kube-proxy"
     "cmd/kube-scheduler"
-  ]
+  ],
 }:
 
 buildGoModule rec {

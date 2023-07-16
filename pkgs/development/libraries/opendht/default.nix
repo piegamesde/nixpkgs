@@ -17,7 +17,7 @@
   openssl,
   fmt,
   enableProxyServerAndClient ? false,
-  enablePushNotifications ? false
+  enablePushNotifications ? false,
 }:
 
 stdenv.mkDerivation rec {

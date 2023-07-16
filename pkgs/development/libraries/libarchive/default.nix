@@ -14,16 +14,14 @@
   sharutils,
   xz,
   zlib,
-  zstd
+  zstd,
   # Optional but increases closure only negligibly. Also, while libxml2 builds
   # fine on windows, libarchive has trouble linking windows things it depends on
   # for some reason.
-  ,
   xarSupport ? stdenv.hostPlatform.isUnix,
-  libxml2
+  libxml2,
 
   # for passthru.tests
-  ,
   cmake,
   nix,
   samba,

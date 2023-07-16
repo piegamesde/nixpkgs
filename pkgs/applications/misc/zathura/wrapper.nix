@@ -4,7 +4,7 @@
   makeWrapper,
   zathura_core,
   file,
-  plugins ? [ ]
+  plugins ? [ ],
 }:
 symlinkJoin {
   name = "zathura-with-plugins-${zathura_core.version}";

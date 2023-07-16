@@ -10,17 +10,14 @@
   libX11,
   libXaw,
   libXt,
-  libXmu # for postscript and html output
-  ,
+  libXmu, # for postscript and html output
   enableHtml ? false,
   psutils,
-  netpbm # for html output
-  ,
+  netpbm, # for html output
   enableIconv ? false,
   iconv,
   enableLibuchardet ? false,
-  libuchardet # for detecting input file encoding in preconv(1)
-  ,
+  libuchardet, # for detecting input file encoding in preconv(1)
   buildPackages,
   autoreconfHook,
   pkg-config,

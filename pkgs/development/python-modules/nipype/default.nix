@@ -4,9 +4,8 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-  pythonRelaxDepsHook
+  pythonRelaxDepsHook,
   # python dependencies
-  ,
   click,
   python-dateutil,
   etelemetry,
@@ -31,18 +30,16 @@
   simplejson,
   traits,
   xvfbwrapper,
-  codecov
+  codecov,
   # other dependencies
-  ,
   which,
   bash,
   glibcLocales,
-  callPackage
+  callPackage,
   # causes Python packaging conflict with any package requiring rdflib,
   # so use the unpatched rdflib by default (disables Nipype provenance tracking);
   # see https://github.com/nipy/nipype/issues/2888:
-  ,
-  useNeurdflib ? false
+  useNeurdflib ? false,
 }:
 
 buildPythonPackage rec {

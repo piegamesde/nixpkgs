@@ -22,9 +22,8 @@
   wxSVG,
   xine-ui,
   xmlto,
-  zip
+  zip,
 
-  ,
   dvdisasterSupport ? true,
   dvdisaster ? null,
   thumbnailSupport ? true,
@@ -32,7 +31,7 @@
   udevSupport ? true,
   udev ? null,
   dbusSupport ? true,
-  dbus ? null
+  dbus ? null,
 }:
 
 let

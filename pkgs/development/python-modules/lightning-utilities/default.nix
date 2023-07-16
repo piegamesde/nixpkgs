@@ -1,19 +1,16 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # build
-  ,
-  setuptools
+  setuptools,
 
   # runtime
-  ,
   packaging,
-  typing-extensions
+  typing-extensions,
 
   # tests
-  ,
   pytest-timeout,
   pytestCheckHook,
 }:

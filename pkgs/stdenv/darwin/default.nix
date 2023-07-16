@@ -5,16 +5,15 @@
   config,
   overlays,
   crossOverlays ? [ ],
-  bootstrapLlvmVersion ? "11.1.0"
+  bootstrapLlvmVersion ? "11.1.0",
   # Allow passing in bootstrap files directly so we can test the stdenv bootstrap process when changing the bootstrap tools
-  ,
   bootstrapFiles ? if localSystem.isAarch64 then
     let
       fetch =
         {
           file,
           sha256,
-          executable ? true
+          executable ? true,
         }:
         import <nix/fetchurl.nix> {
           url =
@@ -53,7 +52,7 @@
         {
           file,
           sha256,
-          executable ? true
+          executable ? true,
         }:
         import <nix/fetchurl.nix> {
           url =
@@ -86,6 +85,7 @@
         executable = false;
       };
     }
+  ,
 }:
 
 assert crossSystem == localSystem;
@@ -150,7 +150,7 @@ rec {
       extraNativeBuildInputs,
       extraBuildInputs,
       libcxx,
-      allowedRequisites ? null
+      allowedRequisites ? null,
     }:
     let
       name = "bootstrap-stage${toString step}";

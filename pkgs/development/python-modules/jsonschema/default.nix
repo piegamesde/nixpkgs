@@ -11,10 +11,9 @@
   pyrsistent,
   pythonOlder,
   twisted,
-  typing-extensions
+  typing-extensions,
 
   # optionals
-  ,
   fqdn,
   idna,
   isoduration,

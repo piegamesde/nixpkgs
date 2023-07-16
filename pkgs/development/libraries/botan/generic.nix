@@ -6,9 +6,8 @@
   bzip2,
   zlib,
   gmp,
-  boost
+  boost,
   # Passed by version specific builders
-  ,
   baseVersion,
   revision,
   sha256,

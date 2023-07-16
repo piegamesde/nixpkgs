@@ -7,6 +7,7 @@
   hicolor-icon-theme,
   jdupes,
   colorVariants ? [ ] # default: all
+  ,
 }:
 
 let

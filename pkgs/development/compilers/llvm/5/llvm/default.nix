@@ -19,7 +19,7 @@
   debugVersion ? false,
   enableManpages ? false,
   enableSharedLibraries ? !enableManpages,
-  enablePolly ? false
+  enablePolly ? false,
 }:
 
 let

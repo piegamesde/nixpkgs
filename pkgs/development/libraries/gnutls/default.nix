@@ -28,11 +28,10 @@
   libunistring,
   withP11-kit ? !stdenv.hostPlatform.isStatic,
   p11-kit,
-  Security # darwin Security.framework
+  Security, # darwin Security.framework
   # certificate compression - only zlib now, more possible: zstd, brotli
 
   # for passthru.tests
-  ,
   curlWithGnuTls,
   emacs,
   ffmpeg,

@@ -15,10 +15,9 @@
   recvmmsg ? false,
   rootServer ? false,
   rrtypes ? false,
-  zoneStats ? false
+  zoneStats ? false,
 
-  ,
-  configFile ? "/etc/nsd/nsd.conf"
+  configFile ? "/etc/nsd/nsd.conf",
 }:
 
 stdenv.mkDerivation rec {

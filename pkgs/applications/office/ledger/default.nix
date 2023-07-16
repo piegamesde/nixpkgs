@@ -13,7 +13,7 @@
   texinfo,
   gnused,
   usePython ? false,
-  gpgmeSupport ? false
+  gpgmeSupport ? false,
 }:
 
 stdenv.mkDerivation rec {

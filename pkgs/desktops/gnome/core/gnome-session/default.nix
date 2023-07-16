@@ -26,7 +26,7 @@
   libepoxy,
   bash,
   gnome-session-ctl,
-  gnomeShellSupport ? true
+  gnomeShellSupport ? true,
 }:
 
 stdenv.mkDerivation rec {

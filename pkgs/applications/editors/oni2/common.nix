@@ -1,9 +1,8 @@
 {
   lib,
   stdenv,
-  nodePackages
+  nodePackages,
   # Fetch dependencies
-  ,
   fetchFromGitHub,
   gitMinimal,
   curlMinimal,
@@ -22,9 +21,8 @@
   libjpeg,
   expat,
   icu58,
-  libpng
+  libpng,
   # Build
-  ,
   jq,
   perl,
   makeWrapper,

@@ -15,7 +15,7 @@
   runCommand,
   btrfs-progs,
   gitUpdater,
-  udevSupport ? true
+  udevSupport ? true,
 }:
 
 stdenv.mkDerivation rec {

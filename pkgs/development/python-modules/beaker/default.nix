@@ -17,7 +17,7 @@
   isPy27,
   isPy3k,
   funcsigs ? null,
-  pycryptopp ? null
+  pycryptopp ? null,
 }:
 
 buildPythonPackage rec {

@@ -19,7 +19,7 @@ args@{
       packageName
       ".asd"
     ])
-  ]
+  ],
 }:
 let
   deployConfigScript = ''

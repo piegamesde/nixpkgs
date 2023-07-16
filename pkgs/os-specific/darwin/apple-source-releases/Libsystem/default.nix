@@ -29,7 +29,7 @@
   hfsHeaders,
   darwin-stubs,
   headersOnly ? false,
-  withLibresolv ? !headersOnly
+  withLibresolv ? !headersOnly,
 }:
 
 let

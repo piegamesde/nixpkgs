@@ -18,7 +18,7 @@
   sqlite,
   wrapQtAppsHook,
   tinyxml2,
-  target ? "client"
+  target ? "client",
 }:
 
 let

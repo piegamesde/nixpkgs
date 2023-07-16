@@ -5,20 +5,17 @@
   cmake,
   doxygen,
   extra-cmake-modules,
-  wrapGAppsHook
+  wrapGAppsHook,
 
   # For `digitaglinktree`
-  ,
   perl,
-  sqlite
+  sqlite,
 
-  ,
   qtbase,
   qtxmlpatterns,
   qtsvg,
-  qtwebengine
+  qtwebengine,
 
-  ,
   akonadi-contacts,
   kcalendarcore,
   kconfigwidgets,
@@ -29,9 +26,8 @@
   knotifyconfig,
   ktextwidgets,
   kwidgetsaddons,
-  kxmlgui
+  kxmlgui,
 
-  ,
   bison,
   boost,
   eigen,
@@ -55,15 +51,13 @@
   pcre,
   threadweaver,
   x265,
-  jasper
+  jasper,
 
   # For panorama and focus stacking
-  ,
   enblend-enfuse,
   hugin,
-  gnumake
+  gnumake,
 
-  ,
   breeze-icons,
   oxygen,
 }:

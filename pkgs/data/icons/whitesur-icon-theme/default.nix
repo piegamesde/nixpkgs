@@ -8,7 +8,7 @@
   boldPanelIcons ? false,
   blackPanelIcons ? false,
   alternativeIcons ? false,
-  themeVariants ? [ ]
+  themeVariants ? [ ],
 }:
 
 let

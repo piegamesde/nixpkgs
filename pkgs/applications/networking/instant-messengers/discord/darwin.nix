@@ -11,7 +11,7 @@
   undmg,
   makeWrapper,
   branch,
-  withOpenASAR ? false
+  withOpenASAR ? false,
 }:
 
 stdenv.mkDerivation {

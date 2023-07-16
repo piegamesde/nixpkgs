@@ -6,7 +6,7 @@
   expat,
   libmysqlclient,
   enableXmlpipe2 ? false,
-  enableMysql ? true
+  enableMysql ? true,
 }:
 
 stdenv.mkDerivation rec {

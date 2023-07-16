@@ -2,20 +2,17 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  pythonOlder
+  pythonOlder,
 
   # build
-  ,
   cython,
   pkg-config,
-  setuptools
+  setuptools,
 
   # runtime
-  ,
-  ffmpeg
+  ffmpeg,
 
   # tests
-  ,
   numpy,
   pillow,
   pytestCheckHook,

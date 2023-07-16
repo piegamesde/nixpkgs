@@ -6,7 +6,7 @@
   jre,
   htmlunit-driver,
   chromedriver,
-  chromeSupport ? true
+  chromeSupport ? true,
 }:
 
 let

@@ -367,7 +367,7 @@ let
     {
       lisp,
       fixup ? lib.id,
-      build ? build-asdf-system
+      build ? build-asdf-system,
     }:
     let
       build-asdf-system' = body: build (body // { inherit lisp; });

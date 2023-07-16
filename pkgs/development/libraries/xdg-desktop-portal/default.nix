@@ -23,7 +23,7 @@
   stdenv,
   runCommand,
   wrapGAppsHook,
-  enableGeoLocation ? true
+  enableGeoLocation ? true,
 }:
 
 stdenv.mkDerivation (

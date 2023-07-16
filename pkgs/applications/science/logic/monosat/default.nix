@@ -10,7 +10,7 @@
   # The JDK we use on Darwin currently makes extensive use of rpaths which are
   # annoying and break the python library, so let's not bother for now
   includeJava ? !stdenv.hostPlatform.isDarwin,
-  includeGplCode ? true
+  includeGplCode ? true,
 }:
 
 with lib;

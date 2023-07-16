@@ -2,14 +2,12 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-  pythonOlder
+  pythonOlder,
 
   # propagates
-  ,
-  packaging
+  packaging,
 
   # tests
-  ,
   pyqt5,
   pyside,
   pytestCheckHook,

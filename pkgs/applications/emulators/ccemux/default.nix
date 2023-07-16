@@ -5,7 +5,7 @@
   makeDesktopItem,
   makeWrapper,
   jre,
-  useCCTweaked ? true
+  useCCTweaked ? true,
 }:
 
 let

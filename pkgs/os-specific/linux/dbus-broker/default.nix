@@ -17,7 +17,7 @@ let
       pname,
       version,
       hash,
-      buildInputs ? [ ]
+      buildInputs ? [ ],
     }:
     stdenv.mkDerivation {
       inherit pname version;

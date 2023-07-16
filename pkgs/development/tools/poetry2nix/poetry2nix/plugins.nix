@@ -12,7 +12,7 @@ let
       drv,
       postInstall ? "",
       nativeBuildInputs ? [ ],
-      buildInputs ? [ ]
+      buildInputs ? [ ],
     }:
     let
       env = self.python.withPackages (ps: plugins);
@@ -68,7 +68,7 @@ in
       finalDrv,
       postInstall ? "",
       nativeBuildInputs ? [ ],
-      buildInputs ? [ ]
+      buildInputs ? [ ],
     }:
     drv.overridePythonAttrs (
       old: {

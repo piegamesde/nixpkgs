@@ -12,7 +12,7 @@
   max-workers ? null,
   include-overlays ? false,
   keep-going ? null,
-  commit ? null
+  commit ? null,
 }:
 
 let

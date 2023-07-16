@@ -14,8 +14,7 @@
   ecasound,
   glibcLocales,
   libGLU,
-  libGL # Needed because help2man basically does a ./ssr-binaural  --help and ssr-binaural needs libGL
-  ,
+  libGL, # Needed because help2man basically does a ./ssr-binaural  --help and ssr-binaural needs libGL
 }:
 
 stdenv.mkDerivation {

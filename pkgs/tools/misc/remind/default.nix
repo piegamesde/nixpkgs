@@ -5,7 +5,7 @@
   tk,
   tcllib,
   tcl,
-  tkremind ? true
+  tkremind ? true,
 }:
 
 let

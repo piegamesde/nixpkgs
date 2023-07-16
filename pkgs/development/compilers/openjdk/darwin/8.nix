@@ -4,7 +4,7 @@
   fetchurl,
   unzip,
   setJavaClassPath,
-  enableJavaFX ? false
+  enableJavaFX ? false,
 }:
 let
   # Details from https://www.azul.com/downloads/?version=java-8-lts&os=macos&package=jdk

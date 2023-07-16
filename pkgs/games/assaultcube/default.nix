@@ -14,7 +14,7 @@
   zlib,
   file,
   client ? true,
-  server ? true
+  server ? true,
 }:
 
 stdenv.mkDerivation rec {

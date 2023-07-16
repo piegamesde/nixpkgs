@@ -22,7 +22,7 @@
   xxHash,
   Cocoa,
   OpenGL,
-  noSplash ? false
+  noSplash ? false,
 }:
 
 stdenv.mkDerivation rec {

@@ -8,7 +8,7 @@
   Security,
   libiconv,
   prefix ? "uutils-",
-  buildMulticallBinary ? true
+  buildMulticallBinary ? true,
 }:
 
 stdenv.mkDerivation rec {

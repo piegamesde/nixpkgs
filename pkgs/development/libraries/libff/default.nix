@@ -7,7 +7,7 @@
   gmp,
   openssl,
   pkg-config,
-  enableStatic ? stdenv.hostPlatform.isStatic
+  enableStatic ? stdenv.hostPlatform.isStatic,
 }:
 
 stdenv.mkDerivation rec {

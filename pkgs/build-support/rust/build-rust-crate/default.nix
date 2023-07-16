@@ -114,30 +114,25 @@ lib.makeOverridable
   #
   # Default: pkgs.rustc
   {
-    rust
+    rust,
     # Whether to build a release version (`true`) or a debug
     # version (`false`). Debug versions are faster to build
     # but might be much slower at runtime.
-    ,
-    release
+    release,
     # Whether to print rustc invocations etc.
     #
     # Example: false
     # Default: true
-    ,
-    verbose
+    verbose,
     # A list of rust/cargo features to enable while building the crate.
     # Example: [ "std" "async" ]
-    ,
-    features
+    features,
     # Additional native build inputs for building this crate.
-    ,
-    nativeBuildInputs
+    nativeBuildInputs,
     # Additional build inputs for building this crate.
     #
     # Example: [ pkgs.openssl ]
-    ,
-    buildInputs
+    buildInputs,
     # Allows to override the parameters to buildRustCrate
     # for any rust dependency in the transitive build tree.
     #
@@ -148,16 +143,13 @@ lib.makeOverridable
     # pkgs.defaultCrateOverrides // {
     #   hello = attrs: { buildInputs = [ openssl ]; };
     # }
-    ,
-    crateOverrides
+    crateOverrides,
     # Rust library dependencies, i.e. other libaries that were built
     # with buildRustCrate.
-    ,
-    dependencies
+    dependencies,
     # Rust build dependencies, i.e. other libaries that were built
     # with buildRustCrate and are used by a build script.
-    ,
-    buildDependencies
+    buildDependencies,
     # Specify the "extern" name of a library if it differs from the library target.
     # See above for an extended explanation.
     #
@@ -204,57 +196,42 @@ lib.makeOverridable
     #
     # Including multiple versions of a crate is very popular during
     # ecosystem transitions, e.g. from futures 0.1 to futures 0.3.
-    ,
-    crateRenames
+    crateRenames,
     # A list of extra options to pass to rustc.
     #
     # Example: [ "-Z debuginfo=2" ]
     # Default: []
-    ,
-    extraRustcOpts
+    extraRustcOpts,
     # A list of extra options to pass to rustc when building a build.rs.
     #
     # Example: [ "-Z debuginfo=2" ]
     # Default: []
-    ,
-    extraRustcOptsForBuildRs
+    extraRustcOptsForBuildRs,
     # Whether to enable building tests.
     # Use true to enable.
     # Default: false
-    ,
-    buildTests
+    buildTests,
     # Passed to stdenv.mkDerivation.
-    ,
-    preUnpack
+    preUnpack,
     # Passed to stdenv.mkDerivation.
-    ,
-    postUnpack
+    postUnpack,
     # Passed to stdenv.mkDerivation.
-    ,
-    prePatch
+    prePatch,
     # Passed to stdenv.mkDerivation.
-    ,
-    patches
+    patches,
     # Passed to stdenv.mkDerivation.
-    ,
-    postPatch
+    postPatch,
     # Passed to stdenv.mkDerivation.
-    ,
-    preConfigure
+    preConfigure,
     # Passed to stdenv.mkDerivation.
-    ,
-    postConfigure
+    postConfigure,
     # Passed to stdenv.mkDerivation.
-    ,
-    preBuild
+    preBuild,
     # Passed to stdenv.mkDerivation.
-    ,
-    postBuild
+    postBuild,
     # Passed to stdenv.mkDerivation.
-    ,
-    preInstall
+    preInstall,
     # Passed to stdenv.mkDerivation.
-    ,
     postInstall,
   }:
 

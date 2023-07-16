@@ -3,9 +3,8 @@
   mkDerivation,
   makeDesktopItem,
   fetchFromGitLab,
-  qmake
+  qmake,
   # qt
-  ,
   qtbase,
   qtwebsockets,
 }:

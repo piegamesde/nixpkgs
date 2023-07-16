@@ -15,8 +15,7 @@
   glib,
   gtk3,
   gtksourceview4,
-  hicolor-icon-theme # for setup-hook
-  ,
+  hicolor-icon-theme, # for setup-hook
   json-glib,
   libarchive,
   libgee,

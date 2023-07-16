@@ -17,7 +17,7 @@
   withZlib ? true,
   zlib,
   withIPv6 ? true,
-  withDebug ? false
+  withDebug ? false,
 }:
 
 stdenv.mkDerivation rec {

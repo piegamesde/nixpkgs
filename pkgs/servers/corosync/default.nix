@@ -16,7 +16,7 @@
   enableDbus ? false,
   enableInfiniBandRdma ? false,
   enableMonitoring ? false,
-  enableSnmp ? false
+  enableSnmp ? false,
 }:
 
 with lib;

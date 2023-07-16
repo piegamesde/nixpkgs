@@ -26,7 +26,7 @@ let
     {
       version,
       sha256,
-      beta ? null
+      beta ? null,
     }:
     let
       fullVersion =

@@ -2,7 +2,7 @@
   system ? builtins.currentSystem,
   config ? { },
   pkgs ? import ../../.. { inherit system config; },
-  lib ? pkgs.lib
+  lib ? pkgs.lib,
 }:
 
 let
@@ -18,7 +18,7 @@ let
     {
       mariadbPackage,
       name ? mkTestName mariadbPackage,
-      galeraPackage ? pkgs.mariadb-galera
+      galeraPackage ? pkgs.mariadb-galera,
     }:
     makeTest {
       name = "${name}-galera-mariabackup";

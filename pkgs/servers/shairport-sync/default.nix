@@ -32,7 +32,7 @@
   enableMpris ? stdenv.isLinux,
   enableDbus ? stdenv.isLinux,
   enableSoxr ? true,
-  enableLibdaemon ? false
+  enableLibdaemon ? false,
 }:
 
 stdenv.mkDerivation rec {

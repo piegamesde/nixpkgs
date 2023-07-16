@@ -12,7 +12,7 @@
   udev,
   addOpenGLRunpath,
   amd ? true,
-  nvidia ? true
+  nvidia ? true,
 }:
 
 let

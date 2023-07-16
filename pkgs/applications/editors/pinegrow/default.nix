@@ -11,7 +11,7 @@
   gtk3,
   wrapGAppsHook,
   makeWrapper,
-  pinegrowVersion ? "7"
+  pinegrowVersion ? "7",
 }:
 
 let

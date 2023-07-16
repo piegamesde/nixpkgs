@@ -3,19 +3,17 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-  setuptools
+  setuptools,
 
   # build
-  ,
   hassil,
   jinja2,
   pyyaml,
   regex,
   voluptuous,
-  python
+  python,
 
   # tests
-  ,
   pytest-xdist,
   pytestCheckHook,
 }:

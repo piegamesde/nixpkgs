@@ -14,10 +14,9 @@
   zstd,
   scrypt,
   nixosTests,
-  writeShellScript
+  writeShellScript,
 
   # for update.nix
-  ,
   writeScript,
   common-updater-scripts,
   bash,

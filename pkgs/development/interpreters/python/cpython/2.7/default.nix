@@ -22,13 +22,13 @@
   configd,
   coreutils,
   autoreconfHook,
-  python-setup-hook
+  python-setup-hook,
   # Some proprietary libs assume UCS2 unicode, especially on darwin :(
-  ,
-  ucsEncoding ? 4
+  ucsEncoding ? 4,
   # For the Python package set
-  ,
-  packageOverrides ? (self: super: { }),
+  packageOverrides ? (
+    self: super: { }
+  ),
   pkgsBuildBuild,
   pkgsBuildHost,
   pkgsBuildTarget,
@@ -46,7 +46,7 @@
   stripConfig ? false,
   stripIdlelib ? false,
   stripTests ? false,
-  pythonAttr ? "python${sourceVersion.major}${sourceVersion.minor}"
+  pythonAttr ? "python${sourceVersion.major}${sourceVersion.minor}",
 }:
 
 assert x11Support -> tcl != null && tk != null && libX11 != null;

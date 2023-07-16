@@ -2,10 +2,9 @@
   stdenv,
   lib,
   fetchFromGitHub,
-  jdk
+  jdk,
   # jPSXdec needs to be built with no later than JDK8, but
   # should be run with the latest to get HiDPI fixes, etc.
-  ,
   jre ? jdk,
   ant,
   unoconv,

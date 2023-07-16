@@ -6,7 +6,7 @@
   electron_10,
   runtimeShell,
   hyper-haskell-server,
-  extra-packages ? [ ]
+  extra-packages ? [ ],
 }:
 
 let

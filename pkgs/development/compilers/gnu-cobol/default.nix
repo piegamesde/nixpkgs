@@ -4,21 +4,18 @@
   fetchurl,
   autoconf269,
   automake,
-  libtool
+  libtool,
   # libs
-  ,
   cjson,
   db,
   gmp,
   libxml2,
-  ncurses
+  ncurses,
   # docs
-  ,
   help2man,
   texinfo,
-  texlive
+  texlive,
   # test
-  ,
   writeText,
 }:
 

@@ -5,7 +5,7 @@
   makeWrapper,
   nixosTests,
   systemd,
-  withSystemdSupport ? true
+  withSystemdSupport ? true,
 }:
 
 buildGoModule rec {

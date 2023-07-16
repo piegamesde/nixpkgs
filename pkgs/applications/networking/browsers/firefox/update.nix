@@ -13,7 +13,7 @@
   baseUrl ? "https://archive.mozilla.org/pub/firefox/releases/",
   versionPrefix ? "",
   versionSuffix ? "",
-  versionKey ? "version"
+  versionKey ? "version",
 }:
 
 writeScript "update-${attrPath}" ''

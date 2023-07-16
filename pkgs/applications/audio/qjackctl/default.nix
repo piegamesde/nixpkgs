@@ -9,10 +9,9 @@
   dbus,
   qtbase,
   qttools,
-  qtx11extras
+  qtx11extras,
   # Enable jack session support
-  ,
-  jackSession ? false
+  jackSession ? false,
 }:
 
 mkDerivation rec {

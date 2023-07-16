@@ -34,9 +34,8 @@
   jemalloc,
   rnnoise,
   protobuf,
-  abseil-cpp
+  abseil-cpp,
   # Transitive dependencies:
-  ,
   util-linuxMinimal,
   pcre,
   libpthreadstubs,

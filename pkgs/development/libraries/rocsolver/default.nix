@@ -14,6 +14,7 @@
   buildTests ? false,
   buildBenchmarks ? false,
   gpuTargets ? [ ] # gpuTargets = [ "gfx803" "gfx900" "gfx906:xnack-" ]
+  ,
 }:
 
 stdenv.mkDerivation (

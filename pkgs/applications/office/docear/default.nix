@@ -5,7 +5,7 @@
   runtimeShell,
   makeWrapper,
   oraclejre,
-  antialiasFont ? true
+  antialiasFont ? true,
 }:
 
 stdenv.mkDerivation {

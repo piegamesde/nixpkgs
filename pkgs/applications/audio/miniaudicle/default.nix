@@ -12,6 +12,7 @@
   libpulseaudio,
   libjack2,
   audioBackend ? "pulse" # "pulse", "alsa", or "jack"
+  ,
 }:
 
 stdenv.mkDerivation rec {

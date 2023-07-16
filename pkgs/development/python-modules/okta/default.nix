@@ -2,9 +2,8 @@
   lib,
   stdenv,
   buildPythonPackage,
-  fetchPypi
+  fetchPypi,
   # install requirements
-  ,
   pycryptodome,
   yarl,
   flatdict,
@@ -13,9 +12,8 @@
   aiohttp,
   pydash,
   xmltodict,
-  pyyaml
+  pyyaml,
   # test requirements
-  ,
   pytestCheckHook,
   pytest-recording,
   pytest-asyncio,

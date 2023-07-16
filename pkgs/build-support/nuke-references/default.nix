@@ -8,7 +8,7 @@
   stdenvNoCC,
   perl,
   signingUtils,
-  shell ? stdenvNoCC.shell
+  shell ? stdenvNoCC.shell,
 }:
 
 let

@@ -4,14 +4,12 @@
   fetchurl,
   fetchFromGitHub,
   cmake,
-  pkg-config
+  pkg-config,
   # See https://files.ettus.com/manual_archive/v3.15.0.0/html/page_build_guide.html for dependencies explanations
-  ,
   boost,
   ncurses,
-  enableCApi ? true
+  enableCApi ? true,
   # requires numpy
-  ,
   enablePythonApi ? false,
   python3,
   buildPackages,
@@ -19,9 +17,8 @@
   enableUtils ? false,
   libusb1,
   enableDpdk ? false,
-  dpdk
+  dpdk,
   # Devices
-  ,
   enableOctoClock ? true,
   enableMpmd ? true,
   enableB100 ? true,
@@ -32,7 +29,7 @@
   enableN300 ? true,
   enableN320 ? true,
   enableE300 ? true,
-  enableE320 ? true
+  enableE320 ? true,
 }:
 
 let

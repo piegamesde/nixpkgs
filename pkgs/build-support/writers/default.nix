@@ -28,7 +28,7 @@ let
     makeScriptWriter =
       {
         interpreter,
-        check ? ""
+        check ? "",
       }:
       nameOrPath: content:
       assert lib.or (types.path.check nameOrPath) (
@@ -100,7 +100,7 @@ let
     makeBinWriter =
       {
         compileScript,
-        strip ? true
+        strip ? true,
       }:
       nameOrPath: content:
       assert lib.or (types.path.check nameOrPath) (
@@ -199,7 +199,7 @@ let
         ghc ? pkgs.ghc,
         ghcArgs ? [ ],
         threadedRuntime ? true,
-        strip ? true
+        strip ? true,
       }:
       let
         appendIfNotSet =
@@ -238,7 +238,7 @@ let
       {
         rustc ? pkgs.rustc,
         rustcArgs ? [ ],
-        strip ? true
+        strip ? true,
       }:
       let
         darwinArgs =
@@ -272,7 +272,7 @@ let
     writeJS =
       name:
       {
-        libraries ? [ ]
+        libraries ? [ ],
       }:
       content:
       let
@@ -325,7 +325,7 @@ let
     writePerl =
       name:
       {
-        libraries ? [ ]
+        libraries ? [ ],
       }:
       makeScriptWriter
       { interpreter = "${pkgs.perl.withPackages (p: libraries)}/bin/perl"; }
@@ -342,7 +342,7 @@ let
       python: pythonPackages: buildPythonPackages: name:
       {
         libraries ? [ ],
-        flakeIgnore ? [ ]
+        flakeIgnore ? [ ],
       }:
       let
         ignoreAttribute = optionalString (flakeIgnore != [ ]) "--ignore ${
@@ -427,7 +427,7 @@ let
       {
         dotnet-sdk ? pkgs.dotnet-sdk,
         fsi-flags ? "",
-        libraries ? _: [ ]
+        libraries ? _: [ ],
       }:
       nameOrPath:
       let

@@ -10,9 +10,8 @@
   numpy,
   nodejs,
   packaging,
-  pillow
+  pillow,
   #, pytestCheckHook#
-  ,
   pytest,
   python-dateutil,
   pyyaml,

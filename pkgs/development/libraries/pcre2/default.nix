@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchurl,
-  withJitSealloc ? true
+  withJitSealloc ? true,
 }:
 
 stdenv.mkDerivation rec {

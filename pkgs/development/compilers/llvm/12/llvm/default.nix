@@ -29,12 +29,11 @@
       stdenv.hostPlatform == stdenv.buildPlatform
     ),
   enableManpages ? false,
-  enableSharedLibraries ? !stdenv.hostPlatform.isStatic
+  enableSharedLibraries ? !stdenv.hostPlatform.isStatic,
   # broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245
   # broken for the armv7l builder
-  ,
   enablePFM ? stdenv.isLinux && !stdenv.hostPlatform.isAarch,
-  enablePolly ? false
+  enablePolly ? false,
 }:
 
 let

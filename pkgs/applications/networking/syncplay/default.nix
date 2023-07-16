@@ -6,7 +6,7 @@
   twisted,
   certifi,
   qt5,
-  enableGUI ? true
+  enableGUI ? true,
 }:
 
 buildPythonApplication rec {

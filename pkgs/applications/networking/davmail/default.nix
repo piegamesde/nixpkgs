@@ -11,7 +11,7 @@
   libXtst,
   zulu,
   preferGtk3 ? true,
-  preferZulu ? true
+  preferZulu ? true,
 }:
 
 let

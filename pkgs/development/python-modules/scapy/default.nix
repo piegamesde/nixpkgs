@@ -5,8 +5,7 @@
   lib,
   isPyPy,
   pycrypto,
-  ecdsa # TODO
-  ,
+  ecdsa, # TODO
   mock,
   can,
   brotli,

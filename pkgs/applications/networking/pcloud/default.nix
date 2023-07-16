@@ -20,12 +20,11 @@
   autoPatchelfHook,
   fetchzip,
   lib,
-  stdenv
+  stdenv,
 
   # Runtime dependencies;
   # A few additional ones (e.g. Node) are already shipped together with the
   # AppImage, so we don't have to duplicate them here.
-  ,
   alsa-lib,
   dbus-glib,
   fuse,

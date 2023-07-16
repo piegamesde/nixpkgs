@@ -7,10 +7,9 @@
   file,
   docbook_xsl,
   gtk-doc ? null,
-  buildDevDoc ? gtk-doc != null
+  buildDevDoc ? gtk-doc != null,
 
   # for passthru.tests
-  ,
   gnuradio,
   gst_all_1,
   qt6,

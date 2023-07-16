@@ -72,10 +72,8 @@ rec {
   # in one directory
   haskellMonoRepo =
     {
-      project-root # The monorepo root
-      ,
-      haskellPackages # The composed haskell packages set that contains all of the packages
-      ,
+      project-root, # The monorepo root
+      haskellPackages, # The composed haskell packages set that contains all of the packages
     }:
     {
       root,

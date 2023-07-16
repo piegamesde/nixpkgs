@@ -2,9 +2,8 @@
   stdenv,
   runCommand,
   fetchurl,
-  zlib
+  zlib,
 
-  ,
   version,
 }:
 

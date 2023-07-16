@@ -4,7 +4,7 @@
   fetchFromGitHub,
   fetchpatch,
   cmake,
-  enableShared ? !stdenv.hostPlatform.isStatic
+  enableShared ? !stdenv.hostPlatform.isStatic,
 }:
 
 let
@@ -12,7 +12,7 @@ let
     {
       version,
       sha256,
-      patches ? [ ]
+      patches ? [ ],
     }:
     stdenv.mkDerivation {
       pname = "fmt";

@@ -11,7 +11,7 @@
   libGLU,
   libGL,
   zlib,
-  dedicatedServer ? false
+  dedicatedServer ? false,
 }:
 
 let

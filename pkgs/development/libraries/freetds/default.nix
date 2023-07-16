@@ -6,7 +6,7 @@
   pkg-config,
   openssl,
   odbcSupport ? true,
-  unixODBC ? null
+  unixODBC ? null,
 }:
 
 assert odbcSupport -> unixODBC != null;

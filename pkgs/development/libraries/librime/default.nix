@@ -12,7 +12,7 @@
   gtest,
   capnproto,
   pkg-config,
-  plugins ? [ ]
+  plugins ? [ ],
 }:
 
 let

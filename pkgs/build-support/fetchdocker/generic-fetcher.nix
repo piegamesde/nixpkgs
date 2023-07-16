@@ -17,7 +17,7 @@ in
   imageName,
   sha256,
   tag ? "",
-  layerDigest ? ""
+  layerDigest ? "",
 }:
 
 # There must be no slashes in the repository or container names since

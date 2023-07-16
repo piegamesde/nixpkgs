@@ -19,8 +19,7 @@
   enableDJVU ? true,
   djvulibre,
   enableGOCR ? false,
-  gocr # Disabled by default due to crashes
-  ,
+  gocr, # Disabled by default due to crashes
   enableTesseract ? true,
   leptonica,
   tesseract4,

@@ -5,7 +5,7 @@
   dune-configurator,
   cmdliner,
   lwt,
-  withLwt ? true
+  withLwt ? true,
 }:
 
 buildDunePackage rec {

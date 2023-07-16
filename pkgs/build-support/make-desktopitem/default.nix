@@ -11,19 +11,16 @@
 lib.makeOverridable
 (
   {
-    name # The name of the desktop file
-    ,
+    name, # The name of the desktop file
     type ? "Application"
     # version is hardcoded
     ,
-    desktopName # The name of the application
-    ,
+    desktopName, # The name of the application
     genericName ? null,
     noDisplay ? null,
     comment ? null,
-    icon ? null
+    icon ? null,
     # we don't support the Hidden key - if you don't need something, just don't install it
-    ,
     onlyShowIn ? [ ],
     notShowIn ? [ ],
     dbusActivatable ? null,
@@ -42,12 +39,12 @@ lib.makeOverridable
     startupNotify ? null,
     startupWMClass ? null,
     url ? null,
-    prefersNonDefaultGPU ? null
+    prefersNonDefaultGPU ? null,
     # not supported until version 1.5, which is not supported by our desktop-file-utils as of 2022-02-23
     # , singleMainWindow ? null
-    ,
     extraConfig ?
       { } # Additional values to be added literally to the final item, e.g. vendor extensions
+    ,
   }:
   let
     # There are multiple places in the FDO spec that make "boolean" values actually tristate,
@@ -140,7 +137,7 @@ lib.makeOverridable
       {
         name,
         icon ? null,
-        exec ? null
+        exec ? null,
       }: {
         "Name" = name;
         "Icon" = icon;

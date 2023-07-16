@@ -7,7 +7,7 @@
   libmaxminddb,
   ncurses,
   openssl,
-  withGeolocation ? true
+  withGeolocation ? true,
 }:
 
 stdenv.mkDerivation rec {

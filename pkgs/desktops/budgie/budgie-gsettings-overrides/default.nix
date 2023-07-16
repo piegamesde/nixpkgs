@@ -11,7 +11,7 @@
   nixos-background-light ? nixos-artwork.wallpapers.nineish,
   nixos-background-dark ? nixos-artwork.wallpapers.nineish-dark-gray,
   extraGSettingsOverrides ? "",
-  extraGSettingsOverridePackages ? [ ]
+  extraGSettingsOverridePackages ? [ ],
 }:
 
 let

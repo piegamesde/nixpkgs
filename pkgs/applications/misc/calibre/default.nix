@@ -28,7 +28,7 @@
   wrapQtAppsHook,
   xdg-utils,
   wrapGAppsHook,
-  unrarSupport ? false
+  unrarSupport ? false,
 }:
 
 stdenv.mkDerivation (

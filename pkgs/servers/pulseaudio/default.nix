@@ -33,41 +33,33 @@
   meson,
   ninja,
   m4,
-  wrapGAppsHook
+  wrapGAppsHook,
 
-  ,
-  x11Support ? false
+  x11Support ? false,
 
-  ,
   useSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
 
   , # Whether to support the JACK sound system as a backend.
   jackaudioSupport ? false
 
   , # Whether to build the OSS wrapper ("padsp").
-  ossWrapper ? true
+  ossWrapper ? true,
 
-  ,
-  airtunesSupport ? false
+  airtunesSupport ? false,
 
-  ,
   bluetoothSupport ? stdenv.isLinux,
-  advancedBluetoothCodecs ? false
+  advancedBluetoothCodecs ? false,
 
-  ,
-  remoteControlSupport ? false
+  remoteControlSupport ? false,
 
-  ,
-  zeroconfSupport ? false
+  zeroconfSupport ? false,
 
-  ,
   alsaSupport ? stdenv.isLinux,
   udevSupport ? stdenv.isLinux
 
   , # Whether to build only the library.
-  libOnly ? false
+  libOnly ? false,
 
-  ,
   AudioUnit,
   Cocoa,
   CoreServices,

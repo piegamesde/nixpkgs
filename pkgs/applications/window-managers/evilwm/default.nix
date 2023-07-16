@@ -7,7 +7,7 @@
   libXrandr,
   libXrender,
   xorgproto,
-  patches ? [ ]
+  patches ? [ ],
 }:
 
 stdenv.mkDerivation rec {

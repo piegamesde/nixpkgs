@@ -25,11 +25,10 @@
   nss,
   runCommand,
   lib,
-  libkrb5
+  libkrb5,
 
   # package customization
   # Note: enable* flags should not require full rebuilds (i.e. only affect the wrapper)
-  ,
   channel ? "stable",
   proprietaryCodecs ? true,
   enableWideVine ? false,
@@ -37,7 +36,7 @@
   ,
   cupsSupport ? true,
   pulseSupport ? config.pulseaudio or stdenv.isLinux,
-  commandLineArgs ? ""
+  commandLineArgs ? "",
 }:
 
 let

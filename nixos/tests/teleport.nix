@@ -2,7 +2,7 @@
   system ? builtins.currentSystem,
   config ? { },
   pkgs ? import ../.. { inherit system config; },
-  lib ? pkgs.lib
+  lib ? pkgs.lib,
 }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };

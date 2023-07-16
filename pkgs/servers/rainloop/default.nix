@@ -5,7 +5,7 @@
   unzip,
   writeText,
   dos2unix,
-  dataPath ? "/var/lib/rainloop"
+  dataPath ? "/var/lib/rainloop",
 }:
 let
   common =

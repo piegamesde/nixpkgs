@@ -8,8 +8,8 @@
   tag ? "-kf5" # tag added to the package name
   ,
   static ? false # link statically
-
   ,
+
   lib,
   stdenv,
   fetchFromGitHub,
@@ -23,9 +23,8 @@
   qtscript,
   phonon,
   libdbusmenu,
-  qca-qt5
+  qca-qt5,
 
-  ,
   withKDE ? true # enable KDE integration
   ,
   extra-cmake-modules,

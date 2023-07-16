@@ -9,7 +9,7 @@
   gnupg,
   xclip,
   wl-clipboard,
-  passAlias ? false
+  passAlias ? false,
 }:
 
 buildGoModule rec {

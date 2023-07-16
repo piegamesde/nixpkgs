@@ -33,7 +33,7 @@
   utils ? false,
   nss ? null,
   minimal ? false,
-  suffix ? "glib"
+  suffix ? "glib",
 }:
 
 let

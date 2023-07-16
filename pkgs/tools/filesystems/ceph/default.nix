@@ -3,24 +3,21 @@
   stdenv,
   runCommand,
   fetchurl,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # Build time
-  ,
   cmake,
   ensureNewerSourcesHook,
   fmt,
   git,
   makeWrapper,
   pkg-config,
-  which
+  which,
 
   # Tests
-  ,
-  nixosTests
+  nixosTests,
 
   # Runtime dependencies
-  ,
   arrow-cpp,
   babeltrace,
   boost179,
@@ -49,31 +46,27 @@
   sqlite,
   utf8proc,
   zlib,
-  zstd
+  zstd,
 
   # Optional Dependencies
-  ,
   curl ? null,
   expat ? null,
   fuse ? null,
   libatomic_ops ? null,
   libedit ? null,
   libs3 ? null,
-  yasm ? null
+  yasm ? null,
 
   # Mallocs
-  ,
   gperftools ? null,
-  jemalloc ? null
+  jemalloc ? null,
 
   # Crypto Dependencies
-  ,
   cryptopp ? null,
   nspr ? null,
-  nss ? null
+  nss ? null,
 
   # Linux Only Dependencies
-  ,
   linuxHeaders,
   util-linux,
   libuuid,

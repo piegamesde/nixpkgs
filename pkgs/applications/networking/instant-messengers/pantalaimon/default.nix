@@ -27,7 +27,7 @@
   pytest-aiohttp,
   aioresponses,
 
-  enableDbusUi ? true
+  enableDbusUi ? true,
 }:
 
 buildPythonApplication rec {

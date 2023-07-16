@@ -7,7 +7,7 @@
   lib,
   stdenvNoCC,
   signingUtils,
-  shell ? stdenvNoCC.shell
+  shell ? stdenvNoCC.shell,
 }:
 
 let

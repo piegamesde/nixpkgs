@@ -2,10 +2,9 @@
   lib,
   stdenv,
   callPackage,
-  makeSetupHook
+  makeSetupHook,
 
   # Version specific stuff
-  ,
   release,
   version,
   src,

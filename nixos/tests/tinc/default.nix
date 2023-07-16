@@ -21,7 +21,7 @@ import ../make-test-python.nix (
       name:
       {
         subnet,
-        extraConfig ? { }
+        extraConfig ? { },
       }:
       lib.mkMerge [
         {

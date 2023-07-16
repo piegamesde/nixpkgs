@@ -37,11 +37,10 @@
   libxkbcommon,
   pname,
   meta,
-  harfbuzz
+  harfbuzz,
   # High-DPI support: Spotify's --force-device-scale-factor argument
   # not added if `null`, otherwise, should be a number.
-  ,
-  deviceScaleFactor ? null
+  deviceScaleFactor ? null,
 }:
 
 let

@@ -5,17 +5,15 @@
   fetchurl,
   binutils,
   bison,
-  util-linux
+  util-linux,
 
   # patch for cygwin requires readline support
-  ,
   interactive ? stdenv.isCygwin,
   readline,
   withDocs ? false,
   texinfo,
-  forFHSEnv ? false
+  forFHSEnv ? false,
 
-  ,
   pkgsStatic,
 }:
 

@@ -3,16 +3,14 @@
   stdenv,
   fetchurl,
   makeWrapper,
-  wrapGAppsHook
+  wrapGAppsHook,
 
   # Buildtime dependencies.
-  ,
   check,
   pkg-config,
-  xxd
+  xxd,
 
   # Runtime dependencies.
-  ,
   curl,
   expat,
   libXcursor,
@@ -28,18 +26,14 @@
 
   # uilib-specific dependencies
   ,
-  gtk2 # GTK 2
-  ,
-  gtk3 # GTK 3
-  ,
-  SDL # Framebuffer
+  gtk2, # GTK 2
+  gtk3, # GTK 3
+  SDL, # Framebuffer
 
   # Configuration
-  ,
-  uilib
+  uilib,
 
   # Netsurf-specific dependencies
-  ,
   libcss,
   libdom,
   libhubbub,

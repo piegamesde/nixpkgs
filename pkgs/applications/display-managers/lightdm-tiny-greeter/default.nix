@@ -9,7 +9,7 @@
   gtk3,
   glib,
   wrapGAppsHook,
-  conf ? ""
+  conf ? "",
 }:
 
 stdenv.mkDerivation rec {

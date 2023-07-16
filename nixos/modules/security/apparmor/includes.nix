@@ -17,7 +17,7 @@ let
         {
           path ? null,
           mode ? "r",
-          trail ? ""
+          trail ? "",
         }:
         lib.optionalString (hasAttr path etc) "${mode} ${
           config.environment.etc.${path}.source

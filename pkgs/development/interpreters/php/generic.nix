@@ -31,26 +31,23 @@ let
       writeShellScript,
       common-updater-scripts,
       curl,
-      jq
+      jq,
 
-      ,
       version,
       hash,
       extraPatches ? [ ],
       packageOverrides ? (final: prev: { }),
-      phpAttrsOverrides ? (attrs: { })
+      phpAttrsOverrides ? (attrs: { }),
 
       # Sapi flags
-      ,
       cgiSupport ? true,
       cliSupport ? true,
       fpmSupport ? true,
       pearSupport ? true,
       pharSupport ? true,
-      phpdbgSupport ? true
+      phpdbgSupport ? true,
 
       # Misc flags
-      ,
       apxs2Support ? false,
       argon2Support ? true,
       cgotoSupport ? false,
@@ -59,7 +56,7 @@ let
       systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
       valgrindSupport ?
         !stdenv.isDarwin && lib.meta.availableOn stdenv.hostPlatform valgrind,
-      ztsSupport ? apxs2Support
+      ztsSupport ? apxs2Support,
     }@args:
 
     let

@@ -3,10 +3,9 @@
   buildPythonPackage,
   fetchFromGitHub,
   python,
-  setuptools
+  setuptools,
 
   # passthru tests
-  ,
   apache-beam,
   datasets,
 }:

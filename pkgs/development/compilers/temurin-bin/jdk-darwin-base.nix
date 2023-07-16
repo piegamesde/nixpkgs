@@ -2,7 +2,7 @@
   name-prefix ? "temurin",
   brand-name ? "Eclipse Temurin",
   sourcePerArch,
-  knownVulnerabilities ? [ ]
+  knownVulnerabilities ? [ ],
 }:
 
 {

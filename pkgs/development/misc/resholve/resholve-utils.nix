@@ -184,7 +184,7 @@ rec {
   phraseContext =
     {
       invokable,
-      prep ? ''cd "$out"''
+      prep ? ''cd "$out"'',
     }: ''
       (
         ${prep}

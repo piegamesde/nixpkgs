@@ -7,7 +7,7 @@
   multinomials,
   mathcomp-real-closed,
   lib,
-  version ? null
+  version ? null,
 }:
 
 (mkCoqDerivation {

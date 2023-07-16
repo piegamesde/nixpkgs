@@ -3,7 +3,7 @@
   stdenv,
   rustPlatform,
   buildPackages,
-  originalCargoToml ? null
+  originalCargoToml ? null,
 }:
 
 stdenv.mkDerivation {

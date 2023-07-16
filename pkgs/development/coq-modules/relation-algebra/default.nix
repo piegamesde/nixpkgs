@@ -4,7 +4,7 @@
   coq,
   aac-tactics,
   mathcomp,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation {

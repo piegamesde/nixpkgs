@@ -12,9 +12,8 @@
   fontconfig,
   libffi,
   expat,
-  libGL
+  libGL,
 
-  ,
   libX11,
   libxkbcommon,
   libXext,
@@ -23,22 +22,19 @@
   libXScrnSaver,
   libXinerama,
   libXcursor,
-  libXpresent
+  libXpresent,
 
-  ,
   wayland,
-  wayland-protocols
+  wayland-protocols,
 
-  ,
   pipewire,
   pulseaudio,
-  libsamplerate
+  libsamplerate,
 
-  ,
   xorgSupport ? true,
   waylandSupport ? true,
   pipewireSupport ? true,
-  pulseSupport ? true
+  pulseSupport ? true,
 }:
 
 let

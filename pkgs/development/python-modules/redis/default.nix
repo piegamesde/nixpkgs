@@ -2,22 +2,19 @@
   lib,
   fetchPypi,
   buildPythonPackage,
-  pythonOlder
+  pythonOlder,
 
   # propagates
-  ,
   async-timeout,
   deprecated,
   importlib-metadata,
   packaging,
-  typing-extensions
+  typing-extensions,
 
   # extras: hiredis
-  ,
-  hiredis
+  hiredis,
 
   # extras: ocsp
-  ,
   cryptography,
   pyopenssl,
   requests,

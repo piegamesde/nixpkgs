@@ -13,9 +13,8 @@
   libiconv,
   xz,
   perl,
-  substituteAll
+  substituteAll,
   # for passthru.tests:
-  ,
   edgedb,
   testers,
 }:

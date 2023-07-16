@@ -6,10 +6,9 @@
   cmake,
   zlib,
   openssl,
-  libsodium
+  libsodium,
 
   # for passthru.tests
-  ,
   ffmpeg,
   sshping,
   wireshark,

@@ -22,9 +22,8 @@
   libffi,
   libffcall,
   automake,
-  coreutils
+  coreutils,
   # build options
-  ,
   threadSupport ? stdenv.hostPlatform.isx86,
   x11Support ? stdenv.hostPlatform.isx86,
   dllSupport ? true,
@@ -36,7 +35,7 @@
       "bindings/glibc"
       "zlib"
     ]
-    ++ lib.optional x11Support "clx/new-clx"
+    ++ lib.optional x11Support "clx/new-clx",
 }:
 
 assert x11Support

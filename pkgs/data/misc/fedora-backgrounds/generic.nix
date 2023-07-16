@@ -7,7 +7,7 @@
 {
   version,
   src,
-  patches ? [ ]
+  patches ? [ ],
 }:
 
 stdenvNoCC.mkDerivation {

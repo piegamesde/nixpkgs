@@ -10,7 +10,7 @@
   tiles ? true,
   Cocoa,
   debug ? false,
-  useXdgDir ? false
+  useXdgDir ? false,
 }:
 
 let

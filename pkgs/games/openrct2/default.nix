@@ -1,9 +1,8 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub
+  fetchFromGitHub,
 
-  ,
   SDL2,
   cmake,
   curl,

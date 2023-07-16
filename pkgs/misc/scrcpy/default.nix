@@ -9,9 +9,8 @@
   ninja,
   pkg-config,
   runtimeShell,
-  installShellFiles
+  installShellFiles,
 
-  ,
   platform-tools,
   ffmpeg,
   libusb1,

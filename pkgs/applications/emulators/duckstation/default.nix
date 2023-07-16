@@ -10,8 +10,7 @@
   libXrandr,
   libpulseaudio,
   makeDesktopItem,
-  mesa # for libgbm
-  ,
+  mesa, # for libgbm
   ninja,
   pkg-config,
   qtbase,
@@ -21,7 +20,7 @@
   vulkan-loader,
   wayland,
   wrapQtAppsHook,
-  enableWayland ? true
+  enableWayland ? true,
 }:
 
 stdenv.mkDerivation {

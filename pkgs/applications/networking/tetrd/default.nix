@@ -18,8 +18,7 @@
   libappindicator-gtk3,
   libappindicator,
   udev,
-  mesa # required for libgbm
-  ,
+  mesa, # required for libgbm
 }:
 
 stdenv.mkDerivation rec {

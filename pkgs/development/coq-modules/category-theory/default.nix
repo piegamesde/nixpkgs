@@ -4,7 +4,7 @@
   coq,
   ssreflect,
   equations,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation {

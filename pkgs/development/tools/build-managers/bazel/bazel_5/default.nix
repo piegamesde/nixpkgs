@@ -9,9 +9,8 @@
   runCommand,
   runCommandCC,
   makeWrapper,
-  recurseIntoAttrs
+  recurseIntoAttrs,
   # this package (through the fixpoint glass)
-  ,
   bazel_self,
   lr,
   xe,
@@ -26,30 +25,25 @@
   gnutar,
   gnugrep,
   gzip,
-  findutils
+  findutils,
   # updater
-  ,
   python3,
-  writeScript
+  writeScript,
   # Apple dependencies
-  ,
   cctools,
   libcxx,
   sigtool,
   CoreFoundation,
   CoreServices,
-  Foundation
+  Foundation,
   # Allow to independently override the jdks used to build and run respectively
-  ,
   buildJdk,
   runJdk,
-  runtimeShell
+  runtimeShell,
   # Downstream packages for tests
-  ,
-  bazel-watcher
+  bazel-watcher,
   # Always assume all markers valid (this is needed because we remove markers; they are non-deterministic).
   # Also, don't clean up environment variables (so that NIX_ environment variables are passed to compilers).
-  ,
   enableNixHacks ? false,
   gcc-unwrapped,
   autoPatchelfHook,
@@ -322,7 +316,7 @@ stdenv.mkDerivation rec {
           bazelScript,
           workspaceDir,
           bazelPkg,
-          buildInputs ? [ ]
+          buildInputs ? [ ],
         }:
         let
           be = extracted bazelPkg;

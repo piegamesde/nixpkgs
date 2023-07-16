@@ -4,7 +4,7 @@
   lib,
   elfutils,
   vendorCertFile ? null,
-  defaultLoader ? null
+  defaultLoader ? null,
 }:
 
 let

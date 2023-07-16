@@ -9,9 +9,8 @@
   pytest-timeout,
   pytest-xprocess,
   pytestCheckHook,
-  markupsafe
+  markupsafe,
   # for passthru.tests
-  ,
   moto,
   sentry-sdk,
 }:

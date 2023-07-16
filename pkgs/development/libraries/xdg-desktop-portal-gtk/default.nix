@@ -12,7 +12,7 @@
   glib,
   wrapGAppsHook,
   gsettings-desktop-schemas,
-  buildPortalsInGnome ? true
+  buildPortalsInGnome ? true,
 }:
 
 stdenv.mkDerivation rec {

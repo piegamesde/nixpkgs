@@ -1,6 +1,6 @@
 {
   sourcePerArch,
-  knownVulnerabilities ? [ ]
+  knownVulnerabilities ? [ ],
 }:
 
 {

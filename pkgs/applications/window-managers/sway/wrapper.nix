@@ -13,13 +13,12 @@
   glib,
   gtk3,
   extraOptions ? [ ] # E.g.: [ "--verbose" ]
+  ,
   # Used by the NixOS module:
-  ,
-  isNixOS ? false
+  isNixOS ? false,
 
-  ,
   enableXWayland ? true,
-  dbusSupport ? true
+  dbusSupport ? true,
 }:
 
 assert extraSessionCommands != "" -> withBaseWrapper;

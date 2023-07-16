@@ -4,7 +4,7 @@
   mathcomp,
   mathcomp-real-closed,
   lib,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation {

@@ -9,17 +9,15 @@
   intltool,
   pkg-config,
   jansson,
-  swift-corelibs-libdispatch
+  swift-corelibs-libdispatch,
   # deadbeef can use either gtk2 or gtk3
-  ,
   gtk2Support ? false,
   gtk2,
   gtk3Support ? true,
   gtk3,
   gsettings-desktop-schemas,
-  wrapGAppsHook
+  wrapGAppsHook,
   # input plugins
-  ,
   vorbisSupport ? true,
   libvorbis,
   mp123Support ? true,
@@ -40,9 +38,8 @@
   ffmpegSupport ? false,
   ffmpeg,
   apeSupport ? true,
-  yasm
+  yasm,
   # misc plugins
-  ,
   zipSupport ? true,
   libzip,
   artworkSupport ? true,
@@ -50,23 +47,20 @@
   hotkeysSupport ? true,
   libX11,
   osdSupport ? true,
-  dbus
+  dbus,
   # output plugins
-  ,
   alsaSupport ? true,
   alsa-lib,
   pulseSupport ? config.pulseaudio or true,
   libpulseaudio,
   pipewireSupport ? true,
-  pipewire
+  pipewire,
   # effect plugins
-  ,
   resamplerSupport ? true,
   libsamplerate,
   overloadSupport ? true,
-  zlib
+  zlib,
   # transports
-  ,
   remoteSupport ? true,
   curl,
 }:

@@ -9,7 +9,7 @@
   libexif,
   libwebp,
   libinotify-kqueue,
-  conf ? null
+  conf ? null,
 }:
 
 stdenv.mkDerivation rec {

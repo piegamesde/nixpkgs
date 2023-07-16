@@ -10,7 +10,7 @@
   packageName,
   attrPath ? packageName,
   versionPolicy ? "tagged",
-  freeze ? false
+  freeze ? false,
 }:
 
 let

@@ -2,10 +2,9 @@
   stdenv,
   lib,
   fetchFromGitHub,
-  gnat
+  gnat,
   # use gprbuild-boot since gprbuild proper depends
   # on this xmlada derivation.
-  ,
   gprbuild-boot,
 }:
 

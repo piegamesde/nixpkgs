@@ -3,9 +3,8 @@
   version,
   src,
   branch,
-  compat-list
+  compat-list,
 
-  ,
   lib,
   stdenv,
   fetchFromGitHub,

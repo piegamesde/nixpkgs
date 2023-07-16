@@ -26,9 +26,8 @@
   avahi-compat,
   xorg,
   wayland,
-  libudev0-shim
+  libudev0-shim,
   # Qt 5 subpackages
-  ,
   qtbase,
   qtgamepad,
   qtserialport,

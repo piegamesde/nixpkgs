@@ -2,7 +2,7 @@
   lib,
   stdenvNoCC,
   fetchzip,
-  version ? "3.300"
+  version ? "3.300",
 }:
 
 let

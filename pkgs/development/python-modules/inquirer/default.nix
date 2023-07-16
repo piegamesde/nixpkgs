@@ -2,20 +2,17 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  pythonOlder
+  pythonOlder,
 
   # native
-  ,
-  poetry-core
+  poetry-core,
 
   # propagated
-  ,
   blessed,
   python-editor,
-  readchar
+  readchar,
 
   # tests
-  ,
   pytest-mock,
   pytestCheckHook,
   pexpect,

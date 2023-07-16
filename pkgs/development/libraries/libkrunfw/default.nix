@@ -8,7 +8,7 @@
   bc,
   elfutils,
   python3,
-  sevVariant ? false
+  sevVariant ? false,
 }:
 
 assert sevVariant -> stdenv.isx86_64;
