@@ -153,12 +153,8 @@ stdenv.mkDerivation rec {
       export RUSTFLAGS="-Clinker=$CC"
     ''
     + lib.optionalString
-      (
-        (
-          stdenv.buildPlatform != stdenv.hostPlatform
-        )
-        && (stdenv.hostPlatform.emulatorAvailable buildPackages)
-      )
+      ((stdenv.buildPlatform != stdenv.hostPlatform)
+        && (stdenv.hostPlatform.emulatorAvailable buildPackages))
       ''
         # the replacement is the native conditional
         substituteInPlace gdk-pixbuf-loader/Makefile \

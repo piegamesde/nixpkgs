@@ -107,9 +107,7 @@ let
           (
             setName:
             lib.hasPrefix "ghc${configVersion}" setName
-            && (
-              skipBinaryGHCs -> !(lib.hasInfix "Binary" setName)
-            )
+            && (skipBinaryGHCs -> !(lib.hasInfix "Binary" setName))
           )
           (builtins.attrNames packageSetsWithVersionedHead)
         );
@@ -160,9 +158,7 @@ let
       v:
       lib.warnIf (v.meta.broken or false) "${v.pname} is marked as broken" (
         v != null
-        && (
-          skipEvalErrors -> (builtins.tryEval (v.outPath or v)).success
-        )
+        && (skipEvalErrors -> (builtins.tryEval (v.outPath or v)).success)
       )
     )
     (

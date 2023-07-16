@@ -22,9 +22,7 @@
 }:
 
 assert cudaSupport
-  -> (
-    cudaPackages ? cudatoolkit && cudaPackages.cudatoolkit != null
-  );
+  -> (cudaPackages ? cudatoolkit && cudaPackages.cudatoolkit != null);
 assert enablePython -> pythonPackages != null;
 
 stdenv.mkDerivation rec {

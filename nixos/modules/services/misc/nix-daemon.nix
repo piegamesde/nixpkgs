@@ -875,9 +875,7 @@ in
               (
                 let
                   res =
-                    (
-                      machine.supportedFeatures ++ machine.mandatoryFeatures
-                    );
+                    (machine.supportedFeatures ++ machine.mandatoryFeatures);
                 in
                 if (res == [ ]) then
                   "-"

@@ -163,11 +163,9 @@ else
 
       ''
       + (lib.optionalString
-        (
-          stdenv.targetPlatform.isDarwin
+        (stdenv.targetPlatform.isDarwin
           && !isGhcjs
-          && !stdenv.targetPlatform.isiOS
-        )
+          && !stdenv.targetPlatform.isiOS)
         ''
           # Work around a linker limit in macOS Sierra (see generic-builder.nix):
           local packageConfDir="${packageCfgDir}";

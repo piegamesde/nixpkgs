@@ -193,10 +193,8 @@ let
             (lib.versionAtLeast version "3.0.0" && enableKTLS)
             "enable-ktls"
           ++ lib.optional
-            (
-              lib.versionAtLeast version "1.1.1"
-              && stdenv.hostPlatform.isAarch64
-            )
+            (lib.versionAtLeast version "1.1.1"
+              && stdenv.hostPlatform.isAarch64)
             "no-afalgeng"
           ++ lib.optional
             (lib.versionAtLeast version "1.1.1" && static)

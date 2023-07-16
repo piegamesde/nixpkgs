@@ -637,12 +637,8 @@ let
           #
           # The same principle applies to systemd-homed
           (optionalString
-            (
-              (
-                cfg.unixAuth || config.services.homed.enable
-              )
-              && (
-                config.security.pam.enableEcryptfs
+            ((cfg.unixAuth || config.services.homed.enable)
+              && (config.security.pam.enableEcryptfs
                 || config.security.pam.enableFscrypt
                 || cfg.pamMount
                 || cfg.enableKwallet
@@ -650,9 +646,7 @@ let
                 || cfg.googleAuthenticator.enable
                 || cfg.gnupg.enable
                 || cfg.failDelay.enable
-                || cfg.duoSecurity.enable
-              )
-            )
+                || cfg.duoSecurity.enable))
             (
               optionalString config.services.homed.enable ''
                 auth optional ${config.systemd.package}/lib/security/pam_systemd_home.so
@@ -831,12 +825,8 @@ let
             }
           ''
           + optionalString
-            (
-              cfg.showMotd
-              && (
-                config.users.motd != null || config.users.motdFile != null
-              )
-            )
+            (cfg.showMotd
+              && (config.users.motd != null || config.users.motdFile != null))
             ''
               session optional ${pkgs.pam}/lib/security/pam_motd.so motd=${motd}
             ''
@@ -1554,10 +1544,8 @@ in
         mr ${pkgs.google-guest-oslogin}/lib/security/pam_oslogin_login.so,
       ''
       + optionalString
-        (
-          config.security.pam.enableSSHAgentAuth
-          && isEnabled (cfg: cfg.sshAgentAuth)
-        )
+        (config.security.pam.enableSSHAgentAuth
+          && isEnabled (cfg: cfg.sshAgentAuth))
         ''
           mr ${pkgs.pam_ssh_agent_auth}/libexec/pam_ssh_agent_auth.so,
         ''

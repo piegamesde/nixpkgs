@@ -125,8 +125,7 @@ rec {
           name = (head x);
         in
 
-        (
-          (checkFlag attrSet name)
+        ((checkFlag attrSet name)
           -> (foldr lib.and true (
             map
             (
@@ -137,8 +136,7 @@ rec {
               (val != null) && (val != false)
             )
             (tail x)
-          ))
-        )
+          )))
       )
       condList
     ))

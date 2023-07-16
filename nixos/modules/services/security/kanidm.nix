@@ -232,9 +232,7 @@ in
       {
         assertion =
           !cfg.enableServer
-          || (
-            (cfg.serverSettings.tls_chain or null) == null
-          )
+          || ((cfg.serverSettings.tls_chain or null) == null)
           || (
             !lib.isStorePath cfg.serverSettings.tls_chain
           )
@@ -248,9 +246,7 @@ in
       {
         assertion =
           !cfg.enableServer
-          || (
-            (cfg.serverSettings.tls_key or null) == null
-          )
+          || ((cfg.serverSettings.tls_key or null) == null)
           || (
             !lib.isStorePath cfg.serverSettings.tls_key
           )
@@ -280,11 +276,9 @@ in
       {
         assertion =
           !cfg.enableServer
-          || (
-            cfg.serverSettings.domain == null
+          || (cfg.serverSettings.domain == null
             -> cfg.serverSettings.role == "WriteReplica"
-              || cfg.serverSettings.role == "WriteReplicaNoUI"
-          )
+              || cfg.serverSettings.role == "WriteReplicaNoUI")
           ;
         message = ''
           <option>services.kanidm.serverSettings.domain</option> can only be set if this instance
@@ -302,12 +296,10 @@ in
       after = [ "network.target" ];
       serviceConfig = lib.mkMerge [
         # Merge paths and ignore existing prefixes needs to sidestep mkMerge
-        (
-          defaultServiceConfig // {
-            BindReadOnlyPaths =
-              mergePaths (defaultServiceConfig.BindReadOnlyPaths ++ certPaths);
-          }
-        )
+        (defaultServiceConfig // {
+          BindReadOnlyPaths =
+            mergePaths (defaultServiceConfig.BindReadOnlyPaths ++ certPaths);
+        })
         {
           StateDirectory = "kanidm";
           StateDirectoryMode = "0700";

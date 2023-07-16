@@ -358,9 +358,7 @@ in
           assertion =
             primeEnabled
             -> pCfg.nvidiaBusId != ""
-              && (
-                pCfg.intelBusId != "" || pCfg.amdgpuBusId != ""
-              )
+              && (pCfg.intelBusId != "" || pCfg.amdgpuBusId != "")
             ;
           message = ''
             When NVIDIA PRIME is enabled, the GPU bus IDs must configured.
@@ -376,9 +374,7 @@ in
 
         {
           assertion =
-            (
-              reverseSyncCfg.enable && pCfg.amdgpuBusId != ""
-            )
+            (reverseSyncCfg.enable && pCfg.amdgpuBusId != "")
             -> versionAtLeast nvidia_x11.version "470.0"
             ;
           message =
@@ -611,10 +607,8 @@ in
           config.virtualisation.docker.enableNvidia
           "L+ /run/nvidia-docker/bin - - - - ${nvidia_x11.bin}/origBin"
         ++ optional
-          (
-            nvidia_x11.persistenced != null
-            && config.virtualisation.docker.enableNvidia
-          )
+          (nvidia_x11.persistenced != null
+            && config.virtualisation.docker.enableNvidia)
           "L+ /run/nvidia-docker/extras/bin/nvidia-persistenced - - - - ${nvidia_x11.persistenced}/origBin/nvidia-persistenced"
         ;
 

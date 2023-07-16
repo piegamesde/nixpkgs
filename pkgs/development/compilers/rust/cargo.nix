@@ -152,10 +152,8 @@ rustPlatform.buildRustPackage.override
       platforms = platforms.unix;
     };
   } // lib.optionalAttrs
-  (
-    rust.toRustTarget stdenv.buildPlatform
-    != rust.toRustTarget stdenv.hostPlatform
-  )
+  (rust.toRustTarget stdenv.buildPlatform
+    != rust.toRustTarget stdenv.hostPlatform)
   {
     HOST_PKG_CONFIG_PATH = "${pkgsBuildBuild.pkg-config}/bin/pkg-config";
   }

@@ -323,9 +323,7 @@ let
               {
                 assertion =
                   config.mergedConfig.useacl
-                  -> (
-                    config.acl != null || config.aclFile != null
-                  )
+                  -> (config.acl != null || config.aclFile != null)
                   ;
                 message =
                   "Either ${showPath [ "acl" ]} or ${

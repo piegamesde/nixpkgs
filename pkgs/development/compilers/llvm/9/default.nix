@@ -223,10 +223,8 @@ let
             echo "--unwindlib=libunwind" >> $out/nix-support/cc-cflags
           ''
           + lib.optionalString
-            (
-              !stdenv.targetPlatform.isWasm
-              && stdenv.targetPlatform.useLLVM or false
-            )
+            (!stdenv.targetPlatform.isWasm
+              && stdenv.targetPlatform.useLLVM or false)
             ''
               echo "-lunwind" >> $out/nix-support/cc-ldflags
             ''

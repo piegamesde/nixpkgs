@@ -130,10 +130,8 @@ stdenv.mkDerivation (
         libxml2
       ]
       ++ lib.optionals
-        (
-          withIntrospection
-          && !stdenv.buildPlatform.canExecute stdenv.hostPlatform
-        )
+        (withIntrospection
+          && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
         [
           mesonEmulatorHook
         ]

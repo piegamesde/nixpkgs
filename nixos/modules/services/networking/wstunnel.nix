@@ -509,10 +509,8 @@ let
           AmbientCapabilities =
             (optionals (clientCfg.soMark != null) [ "CAP_NET_ADMIN" ])
             ++ (optionals
-              (
-                (clientCfg.dynamicToRemote.port or 1024) < 1024
-                || (any (x: x.local.port < 1024) clientCfg.localToRemote)
-              )
+              ((clientCfg.dynamicToRemote.port or 1024) < 1024
+                || (any (x: x.local.port < 1024) clientCfg.localToRemote))
               [
                 "CAP_NET_BIND_SERVICE"
               ])
@@ -592,12 +590,9 @@ in
         (
           name: serverCfg: {
             assertion =
-              !(
-                serverCfg.useACMEHost != null
-                && (
-                  serverCfg.tlsCertificate != null || serverCfg.tlsKey != null
-                )
-              )
+              !(serverCfg.useACMEHost != null
+                && (serverCfg.tlsCertificate != null
+                  || serverCfg.tlsKey != null))
               ;
             message = ''
               Options services.wstunnel.servers."${name}".useACMEHost and services.wstunnel.servers."${name}".{tlsCertificate, tlsKey} are mutually exclusive.
@@ -609,14 +604,9 @@ in
         (
           name: serverCfg: {
             assertion =
-              !(
-                (
-                  serverCfg.tlsCertificate != null || serverCfg.tlsKey != null
-                )
-                && !(
-                  serverCfg.tlsCertificate != null && serverCfg.tlsKey != null
-                )
-              )
+              !((serverCfg.tlsCertificate != null || serverCfg.tlsKey != null)
+                && !(serverCfg.tlsCertificate != null
+                  && serverCfg.tlsKey != null))
               ;
             message = ''
               services.wstunnel.servers."${name}".tlsCertificate and services.wstunnel.servers."${name}".tlsKey need to be set together.
@@ -628,10 +618,8 @@ in
         (
           name: clientCfg: {
             assertion =
-              !(
-                clientCfg.localToRemote == [ ]
-                && clientCfg.dynamicToRemote == null
-              )
+              !(clientCfg.localToRemote == [ ]
+                && clientCfg.dynamicToRemote == null)
               ;
             message = ''
               Either one of services.wstunnel.clients."${name}".localToRemote or services.wstunnel.clients."${name}".dynamicToRemote must be set.

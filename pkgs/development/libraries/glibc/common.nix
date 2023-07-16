@@ -173,10 +173,8 @@ stdenv.mkDerivation (
         "--with-__thread"
       ]
       ++ lib.optionals
-        (
-          stdenv.hostPlatform == stdenv.buildPlatform
-          && stdenv.hostPlatform.isAarch32
-        )
+        (stdenv.hostPlatform == stdenv.buildPlatform
+          && stdenv.hostPlatform.isAarch32)
         [
           "--host=arm-linux-gnueabi"
           "--build=arm-linux-gnueabi"

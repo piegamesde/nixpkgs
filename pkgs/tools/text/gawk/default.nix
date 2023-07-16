@@ -3,9 +3,7 @@
   stdenv,
   fetchurl,
   # TODO: links -lsigsegv but loses the reference for some reason
-  withSigsegv ? (
-    false && stdenv.hostPlatform.system != "x86_64-cygwin"
-  ),
+  withSigsegv ? (false && stdenv.hostPlatform.system != "x86_64-cygwin"),
   libsigsegv,
   interactive ? false,
   readline,
@@ -17,9 +15,7 @@
       || stdenv.isSunOS  # XXX: `_backsmalls1' fails, locale stuff?
       || stdenv.isFreeBSD
   */
-  doCheck ? (
-    interactive && stdenv.isLinux
-  ),
+  doCheck ? (interactive && stdenv.isLinux),
   glibcLocales ? null,
   locale ? null,
 }:

@@ -78,12 +78,8 @@ in
               stdenv.hostPlatform.isMusl
               "-Wno-error=attribute-alias")
             (lib.optionals
-              (
-                (
-                  stdenv.hostPlatform != stdenv.buildPlatform
-                )
-                || stdenv.hostPlatform.isMusl
-              )
+              ((stdenv.hostPlatform != stdenv.buildPlatform)
+                || stdenv.hostPlatform.isMusl)
               [
                 # Ignore "error: '__EI___errno_location' specifies less restrictive attributes than its target '__errno_location'"
                 # New warning as of GCC 9

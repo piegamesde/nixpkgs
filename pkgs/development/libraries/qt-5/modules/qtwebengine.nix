@@ -358,15 +358,11 @@ qtModule {
         parsedPlatform:
         with parsedPlatform;
         isUnix
-        && (
-          isx86_32
+        && (isx86_32
           || isx86_64
           || isAarch32
           || isAarch64
-          || (
-            isMips && isLittleEndian
-          )
-        )
+          || (isMips && isLittleEndian))
       ))
       (map (plat: plat.system))
     ];

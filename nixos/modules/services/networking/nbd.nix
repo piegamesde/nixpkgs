@@ -24,15 +24,13 @@ let
   # on its own first.
   genericSection = {
     generic =
-      (
-        cfg.server.extraOptions // {
-          user = "root";
-          group = "root";
-          port = cfg.server.listenPort;
-        } // (optionalAttrs (cfg.server.listenAddress != null) {
-          listenaddr = cfg.server.listenAddress;
-        })
-      );
+      (cfg.server.extraOptions // {
+        user = "root";
+        group = "root";
+        port = cfg.server.listenPort;
+      } // (optionalAttrs (cfg.server.listenAddress != null) {
+        listenaddr = cfg.server.listenAddress;
+      }));
   };
   exportSections = mapAttrs
     (

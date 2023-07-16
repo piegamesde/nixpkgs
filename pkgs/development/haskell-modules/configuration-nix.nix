@@ -715,10 +715,8 @@ builtins.intersectAttrs super {
         )
         ++ lib.optionals
           (
-            !(
-              pkgs.stdenv.hostPlatform.isAarch64
-              || pkgs.stdenv.hostPlatform.isx86_64
-            )
+            !(pkgs.stdenv.hostPlatform.isAarch64
+              || pkgs.stdenv.hostPlatform.isx86_64)
           )
           [
             self.unbounded-delays

@@ -35,9 +35,8 @@
   withCairo ? true,
   cairo,
 
-  withPango ? (
-    lib.strings.versionAtLeast version "1.4" && stdenv.hostPlatform.isLinux
-  ),
+  withPango ?
+    (lib.strings.versionAtLeast version "1.4" && stdenv.hostPlatform.isLinux),
   pango,
 
   withDocs ? true,

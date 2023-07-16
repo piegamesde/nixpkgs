@@ -90,11 +90,9 @@ let
       (targetPlatform.libc == "musl")
       ../libgomp-dont-force-initial-exec.patch
     ++ optional
-      (
-        !crossStageStatic
+      (!crossStageStatic
         && targetPlatform.isMinGW
-        && threadsCross.model == "mcf"
-      )
+        && threadsCross.model == "mcf")
       ./Added-mcf-thread-model-support-from-mcfgthread.patch
     ++ [ ../libsanitizer-no-cyclades-9.patch ]
     ;
@@ -355,11 +353,9 @@ stdenv.mkDerivation (
   }
 
   // optionalAttrs
-  (
-    targetPlatform != hostPlatform
+  (targetPlatform != hostPlatform
     && targetPlatform.libc == "msvcrt"
-    && crossStageStatic
-  )
+    && crossStageStatic)
   {
     makeFlags = [
       "all-gcc"

@@ -150,9 +150,7 @@ in
       {
         assertion =
           cfg.role == "agent"
-          -> (
-            cfg.configPath != null || cfg.serverAddr != ""
-          )
+          -> (cfg.configPath != null || cfg.serverAddr != "")
           ;
         message =
           "serverAddr or configPath (with 'server' key) should be set if role is 'agent'";

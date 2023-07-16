@@ -55,12 +55,9 @@ let
       # Filter out all extensions that map to null
       (lib.filter (
         extension:
-        !(
-          (builtins.hasAttr extension.extensionUuid extensionRenames)
-          && (
-            (builtins.getAttr extension.extensionUuid extensionRenames) == null
-          )
-        )
+        !((builtins.hasAttr extension.extensionUuid extensionRenames)
+          && ((builtins.getAttr extension.extensionUuid extensionRenames)
+            == null))
       ))
       # Map all extensions to their pname, with potential overwrites
       (map (

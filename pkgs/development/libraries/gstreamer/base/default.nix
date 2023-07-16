@@ -31,9 +31,7 @@
   enableAlsa ? stdenv.isLinux,
   alsa-lib,
   # TODO: fix once x86_64-darwin sdk updated
-  enableCocoa ? (
-    stdenv.isDarwin && stdenv.isAarch64
-  ),
+  enableCocoa ? (stdenv.isDarwin && stdenv.isAarch64),
   Cocoa,
   OpenGL,
   enableGl ? (enableX11 || enableWayland || enableCocoa),

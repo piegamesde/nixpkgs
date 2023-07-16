@@ -78,14 +78,12 @@ stdenv.mkDerivation (
       "git"
       + lib.optionalString svnSupport "-with-svn"
       + lib.optionalString
-        (
-          !svnSupport
+        (!svnSupport
           && !guiSupport
           && !sendEmailSupport
           && !withManual
           && !pythonSupport
-          && !withpcre2
-        )
+          && !withpcre2)
         "-minimal"
       ;
     inherit version;

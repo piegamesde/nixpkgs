@@ -964,9 +964,7 @@ rec {
         || bothHave "example"
         || bothHave "description"
         || bothHave "apply"
-        || (
-          bothHave "type" && (!typesMergeable)
-        )
+        || (bothHave "type" && (!typesMergeable))
       then
         throw "The option `${
           showOption loc

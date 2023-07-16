@@ -172,9 +172,7 @@ in
       {
         assertion =
           config.boot.loader.grub.enable
-          && (
-            config.boot.loader.grub.efiSupport == false
-          )
+          && (config.boot.loader.grub.efiSupport == false)
           ;
         message = "Xen currently does not support EFI boot";
       }

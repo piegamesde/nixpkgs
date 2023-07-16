@@ -10,9 +10,7 @@ let
     (
       kernel.structuredExtraConfig ? PREEMPT_RT
     )
-    && (
-      kernel.structuredExtraConfig.PREEMPT_RT == lib.kernel.yes
-    )
+    && (kernel.structuredExtraConfig.PREEMPT_RT == lib.kernel.yes)
     ;
 in
 stdenv.mkDerivation rec {

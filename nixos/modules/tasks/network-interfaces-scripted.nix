@@ -131,14 +131,10 @@ let
           ;
 
         hasDefaultGatewaySet =
-          (
-            cfg.defaultGateway != null && cfg.defaultGateway.address != ""
-          )
-          || (
-            cfg.enableIPv6
+          (cfg.defaultGateway != null && cfg.defaultGateway.address != "")
+          || (cfg.enableIPv6
             && cfg.defaultGateway6 != null
-            && cfg.defaultGateway6.address != ""
-          )
+            && cfg.defaultGateway6.address != "")
           ;
 
         needNetworkSetup =

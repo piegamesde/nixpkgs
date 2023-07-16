@@ -584,15 +584,9 @@ let
       ${dev.preOpenCommands}
 
       ${if
-        (
-          luks.yubikeySupport && (dev.yubikey != null)
-        )
-        || (
-          luks.gpgSupport && (dev.gpgCard != null)
-        )
-        || (
-          luks.fido2Support && fido2luksCredentials != [ ]
-        )
+        (luks.yubikeySupport && (dev.yubikey != null))
+        || (luks.gpgSupport && (dev.gpgCard != null))
+        || (luks.fido2Support && fido2luksCredentials != [ ])
       then
         ''
           open_with_hardware

@@ -926,15 +926,9 @@ in
             (
               hostOpts:
               with hostOpts;
-              !(
-                addSSL && onlySSL
-              )
-              && !(
-                forceSSL && onlySSL
-              )
-              && !(
-                addSSL && forceSSL
-              )
+              !(addSSL && onlySSL)
+              && !(forceSSL && onlySSL)
+              && !(addSSL && forceSSL)
             )
             vhosts;
           message = ''

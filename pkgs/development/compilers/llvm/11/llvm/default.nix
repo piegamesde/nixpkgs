@@ -28,9 +28,7 @@
     && (
       !stdenv.hostPlatform.isRiscV
     )
-    && (
-      stdenv.hostPlatform == stdenv.buildPlatform
-    ),
+    && (stdenv.hostPlatform == stdenv.buildPlatform),
   enableManpages ? false,
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic,
   # broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245

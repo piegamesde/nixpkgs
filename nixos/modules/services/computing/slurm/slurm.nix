@@ -375,12 +375,10 @@ in
       };
     in
     mkIf
-    (
-      cfg.enableStools
+    (cfg.enableStools
       || cfg.client.enable
       || cfg.server.enable
-      || cfg.dbdserver.enable
-    )
+      || cfg.dbdserver.enable)
     {
 
       environment.systemPackages = [ wrappedSlurm ];

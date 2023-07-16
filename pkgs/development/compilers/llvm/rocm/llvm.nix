@@ -134,12 +134,8 @@ stdenv.mkDerivation (
           "-DLLVM_ENABLE_PROJECTS=${lib.concatStringsSep ";" targetProjects}"
         ]
       ++ lib.optionals
-        (
-          (
-            finalAttrs.passthru.isLLVM || targetDir == "runtimes"
-          )
-          && targetRuntimes != [ ]
-        )
+        ((finalAttrs.passthru.isLLVM || targetDir == "runtimes")
+          && targetRuntimes != [ ])
         [
           "-DLLVM_ENABLE_RUNTIMES=${lib.concatStringsSep ";" targetRuntimes}"
         ]

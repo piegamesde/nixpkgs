@@ -97,9 +97,7 @@ let
   # using a compiler which foot's PGO build supports (clang or gcc)
   doPgo =
     allowPgo
-    && (
-      stdenv.hostPlatform == stdenv.buildPlatform
-    )
+    && (stdenv.hostPlatform == stdenv.buildPlatform)
     && compilerName != "unknown"
     ;
 

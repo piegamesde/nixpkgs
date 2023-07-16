@@ -686,9 +686,7 @@ in
           {
             assertion =
               !databaseActuallyCreateLocally
-              -> (
-                cfg.database.host != "/run/postgresql"
-              )
+              -> (cfg.database.host != "/run/postgresql")
               ;
             message = ''
               <option>services.mastodon.database.host</option> needs to be set if
@@ -778,10 +776,10 @@ in
             SyslogIdentifier = "mastodon-init-dirs";
             # System Call Filtering
             SystemCallFilter = [
-              (
-                "~"
-                + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ])
-              )
+              ("~"
+                + lib.concatStringsSep " " (
+                  systemCallsList ++ [ "@resources" ]
+                ))
               "@chown"
               "pipe"
               "pipe2"
@@ -838,10 +836,10 @@ in
             WorkingDirectory = cfg.package;
             # System Call Filtering
             SystemCallFilter = [
-              (
-                "~"
-                + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ])
-              )
+              ("~"
+                + lib.concatStringsSep " " (
+                  systemCallsList ++ [ "@resources" ]
+                ))
               "@chown"
               "pipe"
               "pipe2"
@@ -894,16 +892,14 @@ in
             RuntimeDirectoryMode = "0750";
             # System Call Filtering
             SystemCallFilter = [
-              (
-                "~"
+              ("~"
                 + lib.concatStringsSep " " (
                   systemCallsList
                   ++ [
                     "@memlock"
                     "@resources"
                   ]
-                )
-              )
+                ))
               "pipe"
               "pipe2"
             ];

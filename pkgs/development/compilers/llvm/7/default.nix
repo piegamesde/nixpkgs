@@ -224,10 +224,8 @@ let
             echo "--unwindlib=libunwind" >> $out/nix-support/cc-cflags
           ''
           + lib.optionalString
-            (
-              !stdenv.targetPlatform.isWasm
-              && stdenv.targetPlatform.useLLVM or false
-            )
+            (!stdenv.targetPlatform.isWasm
+              && stdenv.targetPlatform.useLLVM or false)
             ''
               echo "-lunwind" >> $out/nix-support/cc-ldflags
             ''
@@ -334,10 +332,8 @@ let
       compiler-rt =
         if
           stdenv.hostPlatform.isAndroid
-          || (
-            stdenv.hostPlatform != stdenv.buildPlatform
-            && stdenv.hostPlatform.isDarwin
-          )
+          || (stdenv.hostPlatform != stdenv.buildPlatform
+            && stdenv.hostPlatform.isDarwin)
         then
           libraries.compiler-rt-libc
         else

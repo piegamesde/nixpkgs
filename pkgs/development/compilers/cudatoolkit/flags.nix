@@ -38,9 +38,7 @@ let
       inherit (gpu) minCudaVersion maxCudaVersion;
       lowerBoundSatisfied = strings.versionAtLeast cudaVersion minCudaVersion;
       upperBoundSatisfied =
-        (
-          maxCudaVersion == null
-        )
+        (maxCudaVersion == null)
         || !(strings.versionOlder maxCudaVersion cudaVersion)
         ;
     in

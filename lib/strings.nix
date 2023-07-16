@@ -1122,9 +1122,7 @@ rec {
       "float"
       "bool"
     ]
-    || (
-      isList x && lib.all isConvertibleWithToString x
-    )
+    || (isList x && lib.all isConvertibleWithToString x)
     ;
 
   /* Check whether a value can be coerced to a string.

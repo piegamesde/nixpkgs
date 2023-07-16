@@ -182,10 +182,8 @@ let
         ${optionalString cfg.ephemeral "--ephemeral"} \
         ${
           optionalString
-          (
-            cfg.additionalCapabilities != null
-            && cfg.additionalCapabilities != [ ]
-          )
+          (cfg.additionalCapabilities != null
+            && cfg.additionalCapabilities != [ ])
           ''--capability="${concatStringsSep "," cfg.additionalCapabilities}"''
         } \
         ${
@@ -582,12 +580,10 @@ in
                                   networking.useDHCP = false;
                                   assertions = [ {
                                     assertion =
-                                      (
-                                        builtins.compareVersions
-                                          kernelVersion
-                                          "5.8"
-                                        <= 0
-                                      )
+                                      (builtins.compareVersions
+                                        kernelVersion
+                                        "5.8"
+                                        <= 0)
                                       -> config.privateNetwork
                                       -> stringLength name <= 11
                                       ;
@@ -902,10 +898,8 @@ in
     {
       warnings =
         (optional
-          (
-            config.virtualisation.containers.enable
-            && versionOlder config.system.stateVersion "22.05"
-          )
+          (config.virtualisation.containers.enable
+            && versionOlder config.system.stateVersion "22.05")
           ''
             Enabling both boot.enableContainers & virtualisation.containers on system.stateVersion < 22.05 is unsupported.
           '');

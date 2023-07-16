@@ -305,9 +305,7 @@ stdenv.mkDerivation (
       && (
         !stdenv.isi686
       )
-      && (
-        stdenv.hostPlatform == stdenv.buildPlatform
-      )
+      && (stdenv.hostPlatform == stdenv.buildPlatform)
       ;
 
     checkTarget = "check-all";

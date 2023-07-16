@@ -108,11 +108,9 @@ let
       (stdenv.isDarwin && targetPlatform.isAvr)
       ./avr-gcc-11.3-darwin.patch
     ++ optional
-      (
-        !crossStageStatic
+      (!crossStageStatic
         && targetPlatform.isMinGW
-        && threadsCross.model == "mcf"
-      )
+        && threadsCross.model == "mcf")
       ./Added-mcf-thread-model-support-from-mcfgthread.patch
     ++ [ ./gcc-issue-103910.patch ]
     ;
@@ -323,11 +321,9 @@ lib.pipe
         target =
           lib.optionalString (profiledCompiler) "profiled"
           + lib.optionalString
-            (
-              targetPlatform == hostPlatform
+            (targetPlatform == hostPlatform
               && hostPlatform == buildPlatform
-              && !disableBootstrap
-            )
+              && !disableBootstrap)
             "bootstrap"
           ;
       in
@@ -402,11 +398,9 @@ lib.pipe
   }
 
   // optionalAttrs
-  (
-    targetPlatform != hostPlatform
+  (targetPlatform != hostPlatform
     && targetPlatform.libc == "msvcrt"
-    && crossStageStatic
-  )
+    && crossStageStatic)
   {
     makeFlags = [
       "all-gcc"

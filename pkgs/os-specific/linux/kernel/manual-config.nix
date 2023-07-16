@@ -190,11 +190,9 @@ lib.makeOverridable (
           ./randstruct-provide-seed-5.19.patch
         # Required for deterministic builds along with some postPatch magic.
         ++ optional
-          (
-            lib.versionAtLeast version "5.12"
+          (lib.versionAtLeast version "5.12"
             && lib.versionOlder version "5.19"
-            && stdenv.hostPlatform.isPower
-          )
+            && stdenv.hostPlatform.isPower)
           (
             fetchpatch {
               url =

@@ -434,10 +434,8 @@ let
             '')
             ;
         } // optionalAttrs
-          (
-            data.listenHTTP != null
-            && toInt (elemAt (splitString ":" data.listenHTTP) 1) < 1024
-          )
+          (data.listenHTTP != null
+            && toInt (elemAt (splitString ":" data.listenHTTP) 1) < 1024)
           {
             CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
             AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];

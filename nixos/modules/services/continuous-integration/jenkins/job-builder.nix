@@ -126,12 +126,8 @@ in
     assertions = [ {
       assertion =
         if cfg.accessUser != "" then
-          (
-            cfg.accessToken != "" && cfg.accessTokenFile == ""
-          )
-          || (
-            cfg.accessToken == "" && cfg.accessTokenFile != ""
-          )
+          (cfg.accessToken != "" && cfg.accessTokenFile == "")
+          || (cfg.accessToken == "" && cfg.accessTokenFile != "")
         else
           true
         ;

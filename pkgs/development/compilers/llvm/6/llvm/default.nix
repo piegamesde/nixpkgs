@@ -20,9 +20,7 @@
     && (
       !stdenv.isi686
     )
-    && (
-      stdenv.hostPlatform == stdenv.buildPlatform
-    ),
+    && (stdenv.hostPlatform == stdenv.buildPlatform),
   debugVersion ? false,
   enableManpages ? false,
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic,

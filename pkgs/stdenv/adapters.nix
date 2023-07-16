@@ -340,12 +340,8 @@ rec {
         # the wrap ld above in bintools supports gcc <12.1.0 and shouldn't harm >12.1.0
         # https://github.com/rui314/mold#how-to-use
       } // lib.optionalAttrs
-      (
-        stdenv.cc.isClang
-        || (
-          stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12"
-        )
-      )
+      (stdenv.cc.isClang
+        || (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12"))
       {
         mkDerivationFromStdenv = extendMkDerivationArgs old (
           args: {

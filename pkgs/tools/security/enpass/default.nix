@@ -141,6 +141,4 @@ let
     };
   };
 in
-(
-  package // { refresh = updater; }
-)
+(package // { refresh = updater; })

@@ -300,7 +300,7 @@ rec {
             in
             if
               final.parsed.kernel.name
-                == pkgs.stdenv.hostPlatform.parsed.kernel.name
+              == pkgs.stdenv.hostPlatform.parsed.kernel.name
               && pkgs.stdenv.hostPlatform.canExecute final
             then
               ''${pkgs.runtimeShell} -c '"$@"' --''

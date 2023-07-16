@@ -563,9 +563,7 @@ rec {
             spdir = elemAt (splitString "/" subpath) 0;
           in
           elem spdir dirsToInclude
-          || (
-            type == "regular" && elem subpath filesToInclude
-          )
+          || (type == "regular" && elem subpath filesToInclude)
           ;
       in
       builtins.filterSource

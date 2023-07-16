@@ -330,14 +330,12 @@ in
     })
 
     (mkIf
-      (
-        cfg.apiserver.enable
+      (cfg.apiserver.enable
         || cfg.scheduler.enable
         || cfg.controllerManager.enable
         || cfg.kubelet.enable
         || cfg.proxy.enable
-        || cfg.addonManager.enable
-      )
+        || cfg.addonManager.enable)
       {
         systemd.targets.kubernetes = {
           description = "Kubernetes";

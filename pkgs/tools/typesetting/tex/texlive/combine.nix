@@ -17,18 +17,14 @@ let
   ] // {
     # include a fake "core" package
     core.pkgs = [
-      (
-        bin.core.out // {
-          pname = "core";
-          tlType = "bin";
-        }
-      )
-      (
-        bin.core.doc // {
-          pname = "core";
-          tlType = "doc";
-        }
-      )
+      (bin.core.out // {
+        pname = "core";
+        tlType = "bin";
+      })
+      (bin.core.doc // {
+        pname = "core";
+        tlType = "doc";
+      })
     ];
   };
   pkgList = rec {

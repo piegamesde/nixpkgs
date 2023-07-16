@@ -95,9 +95,8 @@
   libjack2,
   jemallocSupport ? !stdenv.hostPlatform.isMusl,
   jemalloc,
-  ltoSupport ? (
-    stdenv.isLinux && stdenv.is64bit && !stdenv.hostPlatform.isRiscV
-  ),
+  ltoSupport ?
+    (stdenv.isLinux && stdenv.is64bit && !stdenv.hostPlatform.isRiscV),
   overrideCC,
   buildPackages,
   pgoSupport ? (stdenv.isLinux && stdenv.hostPlatform == stdenv.buildPlatform),
@@ -466,12 +465,10 @@ buildStdenv.mkDerivation ({
     ]
     # LTO is done using clang and lld on Linux.
     ++ lib.optional
-      (
-        ltoSupport
-        && (
-          buildStdenv.isAarch32 || buildStdenv.isi686 || buildStdenv.isx86_64
-        )
-      )
+      (ltoSupport
+        && (buildStdenv.isAarch32
+          || buildStdenv.isi686
+          || buildStdenv.isx86_64))
       "--disable-elf-hack"
     # LTO is done using clang and lld on Linux.
     ++ lib.optional (!drmSupport) "--disable-eme"

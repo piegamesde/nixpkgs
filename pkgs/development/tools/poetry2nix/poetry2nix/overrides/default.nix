@@ -47,9 +47,7 @@ let
     (
       # Flit only works on Python3
       if
-        (
-          attr == "flit-core" || attr == "flit" || attr == "hatchling"
-        )
+        (attr == "flit-core" || attr == "flit" || attr == "hatchling")
         && !self.isPy3k
       then
         drv
@@ -542,10 +540,8 @@ lib.composeManyExtensions [
             propagatedBuildInputs =
               old.propagatedBuildInputs or [ ] ++ [ self.cffi ];
           } // lib.optionalAttrs
-          (
-            lib.versionAtLeast old.version "3.4"
-            && lib.versionOlder old.version "3.5"
-          )
+          (lib.versionAtLeast old.version "3.4"
+            && lib.versionOlder old.version "3.5")
           {
             CRYPTOGRAPHY_DONT_BUILD_RUST = "1";
           } // lib.optionalAttrs
@@ -636,10 +632,8 @@ lib.composeManyExtensions [
             (old.preConfigure or "")
             (
               if
-                (
-                  lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
-                  && stdenv.isDarwin
-                )
+                (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
+                  && stdenv.isDarwin)
               then
                 ''
                   MACOSX_DEPLOYMENT_TARGET=10.16
@@ -1453,46 +1447,34 @@ lib.composeManyExtensions [
             if lib.versionAtLeast old.version "0.37.0" then
               pkgs.llvmPackages_11.llvm
             else if
-              (
-                lib.versionOlder old.version "0.37.0"
-                && lib.versionAtLeast old.version "0.34.0"
-              )
+              (lib.versionOlder old.version "0.37.0"
+                && lib.versionAtLeast old.version "0.34.0")
             then
               pkgs.llvmPackages_10.llvm
             else if
-              (
-                lib.versionOlder old.version "0.34.0"
-                && lib.versionAtLeast old.version "0.33.0"
-              )
+              (lib.versionOlder old.version "0.34.0"
+                && lib.versionAtLeast old.version "0.33.0")
             then
               pkgs.llvmPackages_9.llvm
             else if
-              (
-                lib.versionOlder old.version "0.33.0"
-                && lib.versionAtLeast old.version "0.29.0"
-              )
+              (lib.versionOlder old.version "0.33.0"
+                && lib.versionAtLeast old.version "0.29.0")
             then
               pkgs.llvmPackages_8.llvm
             else if
-              (
-                lib.versionOlder old.version "0.28.0"
-                && lib.versionAtLeast old.version "0.27.0"
-              )
+              (lib.versionOlder old.version "0.28.0"
+                && lib.versionAtLeast old.version "0.27.0")
             then
               pkgs.llvmPackages_7.llvm
             else if
-              (
-                lib.versionOlder old.version "0.27.0"
-                && lib.versionAtLeast old.version "0.23.0"
-              )
+              (lib.versionOlder old.version "0.27.0"
+                && lib.versionAtLeast old.version "0.23.0")
             then
               pkgs.llvmPackages_6.llvm or throw
               "LLVM6 has been removed from nixpkgs; upgrade llvmlite or use older nixpkgs"
             else if
-              (
-                lib.versionOlder old.version "0.23.0"
-                && lib.versionAtLeast old.version "0.21.0"
-              )
+              (lib.versionOlder old.version "0.23.0"
+                && lib.versionAtLeast old.version "0.21.0")
             then
               pkgs.llvmPackages_5.llvm or throw
               "LLVM5 has been removed from nixpkgs; upgrade llvmlite or use older nixpkgs"
@@ -1839,10 +1821,8 @@ lib.composeManyExtensions [
               old.patches or [ ]
             )
             ++ lib.optionals
-              (
-                (lib.strings.versionAtLeast old.version "0.900")
-                && lib.strings.versionOlder old.version "0.940"
-              )
+              ((lib.strings.versionAtLeast old.version "0.900")
+                && lib.strings.versionOlder old.version "0.940")
               [
                 (pkgs.fetchpatch {
                   url =
@@ -1852,10 +1832,8 @@ lib.composeManyExtensions [
                 })
               ]
             ++ lib.optionals
-              (
-                (lib.strings.versionAtLeast old.version "0.940")
-                && lib.strings.versionOlder old.version "0.960"
-              )
+              ((lib.strings.versionAtLeast old.version "0.940")
+                && lib.strings.versionOlder old.version "0.960")
               [
                 (pkgs.fetchpatch {
                   url =
@@ -1865,10 +1843,8 @@ lib.composeManyExtensions [
                 })
               ]
             ++ lib.optionals
-              (
-                (lib.strings.versionAtLeast old.version "0.960")
-                && (lib.strings.versionOlder old.version "0.971")
-              )
+              ((lib.strings.versionAtLeast old.version "0.960")
+                && (lib.strings.versionOlder old.version "0.971"))
               [
                 (pkgs.fetchpatch {
                   url =
@@ -1992,10 +1968,8 @@ lib.composeManyExtensions [
 
           # Patch the dylib in the binary distribution to point to the nix build of libomp
           preFixup = lib.optionalString
-            (
-              stdenv.isDarwin
-              && lib.versionAtLeast super.open3d.version "0.16.0"
-            )
+            (stdenv.isDarwin
+              && lib.versionAtLeast super.open3d.version "0.16.0")
             ''
               install_name_tool -change /opt/homebrew/opt/libomp/lib/libomp.dylib ${pkgs.llvmPackages.openmp}/lib/libomp.dylib $out/lib/python*/site-packages/open3d/cpu/pybind.cpython-*-darwin.so
             '';
@@ -3614,10 +3588,8 @@ lib.composeManyExtensions [
         # From 20.5 until 20.7, packaging used flit for packaging (heh)
         # See https://github.com/pypa/packaging/pull/352 and https://github.com/pypa/packaging/pull/367
         if
-          (
-            lib.versionAtLeast old.version "20.5"
-            && lib.versionOlder old.version "20.8"
-          )
+          (lib.versionAtLeast old.version "20.5"
+            && lib.versionOlder old.version "20.8")
         then
           addBuildSystem {
             inherit self;
@@ -3863,10 +3835,8 @@ lib.composeManyExtensions [
         {
           buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.ncurses ];
         } // lib.optionalAttrs
-        (
-          lib.versionAtLeast old.version "2.0.19"
-          && lib.versionOlder old.version "2.0.20"
-        )
+        (lib.versionAtLeast old.version "2.0.19"
+          && lib.versionOlder old.version "2.0.20")
         {
           sourceRoot = ".";
         }
@@ -3949,10 +3919,8 @@ lib.composeManyExtensions [
         super.mkdocstrings.overridePythonAttrs (
           old:
           lib.optionalAttrs
-          (
-            lib.versionAtLeast old.version "0.17"
-            && lib.versionOlder old.version "0.18"
-          )
+          (lib.versionAtLeast old.version "0.17"
+            && lib.versionOlder old.version "0.18")
           {
             patches =
               old.patches or [ ]

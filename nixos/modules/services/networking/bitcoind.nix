@@ -208,20 +208,14 @@ in
         bitcoindName: cfg: [
           {
             assertion =
-              (
-                cfg.prune != null
-              )
-              -> (
-                builtins.elem cfg.prune [
-                  "disable"
-                  "manual"
-                  0
-                  1
-                ]
-                || (
-                  builtins.isInt cfg.prune && cfg.prune >= 550
-                )
-              )
+              (cfg.prune != null)
+              -> (builtins.elem cfg.prune [
+                "disable"
+                "manual"
+                0
+                1
+              ]
+                || (builtins.isInt cfg.prune && cfg.prune >= 550))
               ;
             message = ''
               If set, services.bitcoind.${bitcoindName}.prune has to be "disable", "manual", 0 , 1 or >= 550.

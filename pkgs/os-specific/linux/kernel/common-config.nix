@@ -31,12 +31,8 @@ let
     stdenv.hostPlatform.isAarch32
     || stdenv.hostPlatform.isAarch64
     || stdenv.hostPlatform.isx86_64
-    || (
-      stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit
-    )
-    || (
-      stdenv.hostPlatform.isMips && stdenv.hostPlatform.is64bit
-    )
+    || (stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit)
+    || (stdenv.hostPlatform.isMips && stdenv.hostPlatform.is64bit)
   );
 
   options = {
@@ -364,10 +360,8 @@ let
       SND_USB_CAIAQ_INPUT = yes;
       # Enable Sound Open Firmware support
     } // optionalAttrs
-      (
-        stdenv.hostPlatform.system == "x86_64-linux"
-        && versionAtLeast version "5.5"
-      )
+      (stdenv.hostPlatform.system == "x86_64-linux"
+        && versionAtLeast version "5.5")
       {
         SND_SOC_INTEL_SOUNDWIRE_SOF_MACH = whenAtLeast "5.10" module;
         SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES =
@@ -1074,10 +1068,8 @@ let
         # Fresh toolchains frequently break -Werror build for minor issues.
         WERROR = whenAtLeast "5.15" no;
       } // optionalAttrs
-      (
-        stdenv.hostPlatform.system == "x86_64-linux"
-        || stdenv.hostPlatform.system == "aarch64-linux"
-      )
+      (stdenv.hostPlatform.system == "x86_64-linux"
+        || stdenv.hostPlatform.system == "aarch64-linux")
       {
         # Enable CPU/memory hotplug support
         # Allows you to dynamically add & remove CPUs/memory to a VM client running NixOS without requiring a reboot
@@ -1093,10 +1085,8 @@ let
         # instances and Xeon Phi.
         NR_CPUS = freeform "384";
       } // optionalAttrs
-      (
-        stdenv.hostPlatform.system == "armv7l-linux"
-        || stdenv.hostPlatform.system == "aarch64-linux"
-      )
+      (stdenv.hostPlatform.system == "armv7l-linux"
+        || stdenv.hostPlatform.system == "aarch64-linux")
       {
         # Enables support for the Allwinner Display Engine 2.0
         SUN8I_DE2_CCU = yes;
@@ -1115,13 +1105,9 @@ let
         # Keeping it a built-in ensures it will be used if possible.
         FB_SIMPLE = yes;
       } // optionalAttrs
-      (
-        versionAtLeast version "5.4"
-        && (
-          stdenv.hostPlatform.system == "x86_64-linux"
-          || stdenv.hostPlatform.system == "aarch64-linux"
-        )
-      )
+      (versionAtLeast version "5.4"
+        && (stdenv.hostPlatform.system == "x86_64-linux"
+          || stdenv.hostPlatform.system == "aarch64-linux"))
       {
         # Required for various hardware features on Chrome OS devices
         CHROME_PLATFORMS = yes;
@@ -1136,10 +1122,8 @@ let
 
         CROS_KBD_LED_BACKLIGHT = module;
       } // optionalAttrs
-      (
-        versionAtLeast version "5.4"
-        && stdenv.hostPlatform.system == "x86_64-linux"
-      )
+      (versionAtLeast version "5.4"
+        && stdenv.hostPlatform.system == "x86_64-linux")
       {
         CHROMEOS_LAPTOP = module;
         CHROMEOS_PSTORE = module;

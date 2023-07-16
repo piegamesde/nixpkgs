@@ -32,17 +32,9 @@
   enablePython ? false,
   enableNumpy ? false,
   enableIcu ? stdenv.hostPlatform == stdenv.buildPlatform,
-  taggedLayout ? (
-    (
-      enableRelease && enableDebug
-    )
-    || (
-      enableSingleThreaded && enableMultiThreaded
-    )
-    || (
-      enableShared && enableStatic
-    )
-  ),
+  taggedLayout ? ((enableRelease && enableDebug)
+    || (enableSingleThreaded && enableMultiThreaded)
+    || (enableShared && enableStatic)),
   patches ? [ ],
   boostBuildPatches ? [ ],
   useMpi ? false,
@@ -62,11 +54,9 @@ assert enableNumpy -> enablePython;
 
 # Boost <1.69 can't be built on linux with clang >8, because pth was removed
 assert with lib;
-  (
-    stdenv.isLinux
+  (stdenv.isLinux
     && toolset == "clang"
-    && versionAtLeast stdenv.cc.version "8.0.0"
-  )
+    && versionAtLeast stdenv.cc.version "8.0.0")
   -> versionAtLeast version "1.69";
 
 let
@@ -117,9 +107,7 @@ let
   needUserConfig =
     stdenv.hostPlatform != stdenv.buildPlatform
     || useMpi
-    || (
-      stdenv.isDarwin && enableShared
-    )
+    || (stdenv.isDarwin && enableShared)
     ;
 
   b2Args = lib.concatStringsSep " " (
@@ -137,14 +125,10 @@ let
       # TODO: make this unconditional
     ]
     ++ lib.optionals
-      (
-        stdenv.hostPlatform != stdenv.buildPlatform
+      (stdenv.hostPlatform != stdenv.buildPlatform
         ||
         # required on mips; see 61d9f201baeef4c4bb91ad8a8f5f89b747e0dfe4
-        (
-          stdenv.hostPlatform.isMips && lib.versionAtLeast version "1.79"
-        )
-      )
+        (stdenv.hostPlatform.isMips && lib.versionAtLeast version "1.79"))
       [
         "address-model=${toString stdenv.hostPlatform.parsed.cpu.bits}"
         "architecture=${
@@ -271,9 +255,7 @@ stdenv.mkDerivation {
         stdenv.hostPlatform.isMips64n32
       ||
       # the patch above does not apply cleanly to pre-1.65 boost
-      (
-        stdenv.hostPlatform.isMips64n64 && (versionOlder version "1.65")
-      )
+      (stdenv.hostPlatform.isMips64n64 && (versionOlder version "1.65"))
       ;
   };
 

@@ -828,9 +828,8 @@ in
             (
               source:
               builtins.isPath source
-              || (
-                builtins.isString source && hasPrefix builtins.storeDir source
-              )
+              || (builtins.isString source
+                && hasPrefix builtins.storeDir source)
             )
             (attrValues config.boot.initrd.secrets)
           ;

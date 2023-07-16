@@ -1512,11 +1512,9 @@ in
     # sends a lot of stats
     warnings =
       optional
-        (
-          cfg.settings.BridgeRelay
+        (cfg.settings.BridgeRelay
           && flatten (mapAttrsToList (n: o: o.map) cfg.relay.onionServices)
-            != [ ]
-        )
+            != [ ])
         ''
           Running Tor hidden services on a public relay makes the
           presence of hidden services visible through simple statistical
@@ -1622,14 +1620,10 @@ in
           } ];
           AutomapHostsOnResolve = true;
         } // optionalAttrs
-        (
-          flatten (
-            mapAttrsToList
-            (n: o: o.clientAuthorizations)
-            cfg.client.onionServices
-          )
-          != [ ]
+        (flatten (
+          mapAttrsToList (n: o: o.clientAuthorizations) cfg.client.onionServices
         )
+          != [ ])
         {
           ClientOnionAuthDir = runDir + "/ClientOnionAuthDir";
         }
@@ -1670,8 +1664,7 @@ in
         ExecStartPre = [
           "${cfg.package}/bin/tor -f ${torrc} --verify-config"
           # DOC: Appendix G of https://spec.torproject.org/rend-spec-v3
-          (
-            "+"
+          ("+"
             + pkgs.writeShellScript "ExecStartPre" (
               concatStringsSep "\n" (
                 flatten (
@@ -1736,8 +1729,7 @@ in
                     cfg.client.onionServices
                 )
               )
-            )
-          )
+            ))
         ];
         ExecStart = "${cfg.package}/bin/tor -f ${torrc}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";

@@ -399,28 +399,24 @@ in
     assertions = [
       {
         assertion =
-          !(
-            (builtins.any (value: value != null) [
-              cfg.defaultRealm
-              cfg.domainRealm
-              cfg.kdc
-              cfg.kerberosAdminServer
+          !((builtins.any (value: value != null) [
+            cfg.defaultRealm
+            cfg.domainRealm
+            cfg.kdc
+            cfg.kerberosAdminServer
+          ])
+            && ((builtins.any (value: value != { }) [
+              cfg.libdefaults
+              cfg.realms
+              cfg.domain_realm
+              cfg.capaths
+              cfg.appdefaults
+              cfg.plugins
             ])
-            && (
-              (builtins.any (value: value != { }) [
-                cfg.libdefaults
-                cfg.realms
-                cfg.domain_realm
-                cfg.capaths
-                cfg.appdefaults
-                cfg.plugins
-              ])
               || (builtins.any (value: value != null) [
                 cfg.config
                 cfg.extraConfig
-              ])
-            )
-          )
+              ])))
           ;
         message = ''
           Configuration of krb5.conf by deprecated options is mutually exclusive
@@ -430,26 +426,22 @@ in
       }
       {
         assertion =
-          !(
-            cfg.config != null
-            && (
-              (builtins.any (value: value != { }) [
-                cfg.libdefaults
-                cfg.realms
-                cfg.domain_realm
-                cfg.capaths
-                cfg.appdefaults
-                cfg.plugins
-              ])
+          !(cfg.config != null
+            && ((builtins.any (value: value != { }) [
+              cfg.libdefaults
+              cfg.realms
+              cfg.domain_realm
+              cfg.capaths
+              cfg.appdefaults
+              cfg.plugins
+            ])
               || (builtins.any (value: value != null) [
                 cfg.extraConfig
                 cfg.defaultRealm
                 cfg.domainRealm
                 cfg.kdc
                 cfg.kerberosAdminServer
-              ])
-            )
-          )
+              ])))
           ;
         message = ''
           Configuration of krb5.conf using krb.config is mutually exclusive with

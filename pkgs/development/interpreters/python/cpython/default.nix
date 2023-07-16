@@ -59,12 +59,8 @@
   enableOptimizations ? false,
   # enableNoSemanticInterposition is a subset of the enableOptimizations flag that doesn't harm reproducibility.
   # clang starts supporting `-fno-sematic-interposition` with version 10
-  enableNoSemanticInterposition ? (
-    !stdenv.cc.isClang
-    || (
-      stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "10"
-    )
-  ),
+  enableNoSemanticInterposition ? (!stdenv.cc.isClang
+    || (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "10")),
   # enableLTO is a subset of the enableOptimizations flag that doesn't harm reproducibility.
   # enabling LTO on 32bit arch causes downstream packages to fail when linking
   # enabling LTO on *-darwin causes python3 to fail when linking.
@@ -165,15 +161,11 @@ let
       pythonForBuild
     ]
     ++ optionals
-      (
-        stdenv.cc.isClang
+      (stdenv.cc.isClang
         && (
           !stdenv.hostPlatform.useAndroidPrebuilt or false
         )
-        && (
-          enableLTO || enableOptimizations
-        )
-      )
+        && (enableLTO || enableOptimizations))
       [
         stdenv.cc.cc.libllvm.out
       ]

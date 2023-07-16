@@ -32,9 +32,7 @@
   dhallHash,
 
   # Name for this derivation.
-  name ? (
-    baseNameOf url + "-cache"
-  ),
+  name ? (baseNameOf url + "-cache"),
 
   # `buildDhallUrl` can include both a "source distribution" in
   # `source.dhall` and a "binary distribution" in `binary.dhall`:

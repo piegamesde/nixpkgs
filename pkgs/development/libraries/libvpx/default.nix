@@ -243,11 +243,9 @@ stdenv.mkDerivation rec {
         "coefficient-range-checking")
       (enableFeature (vp9HighbitdepthSupport && is64bit) "vp9-highbitdepth")
       (enableFeature
-        (
-          experimentalSpatialSvcSupport
+        (experimentalSpatialSvcSupport
           || experimentalFpMbStatsSupport
-          || experimentalEmulateHardwareSupport
-        )
+          || experimentalEmulateHardwareSupport)
         "experimental")
     ]
     ++ optionals (stdenv.isBSD || stdenv.hostPlatform != stdenv.buildPlatform) [

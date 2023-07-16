@@ -508,8 +508,7 @@ lib.makeScope pkgs.newScope (
           );
 
         allEditablePackageSources =
-          (
-            (getEditableDeps (pyProject.tool.poetry."dependencies" or { }))
+          ((getEditableDeps (pyProject.tool.poetry."dependencies" or { }))
             // (getEditableDeps (
               pyProject.tool.poetry."dev-dependencies" or { }
             )) // (
@@ -527,8 +526,7 @@ lib.makeScope pkgs.newScope (
                 groups
               else
                 { }
-            ) // editablePackageSources
-          );
+            ) // editablePackageSources);
 
         editablePackageSources' = builtins.removeAttrs
           allEditablePackageSources

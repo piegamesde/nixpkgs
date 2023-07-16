@@ -1502,13 +1502,9 @@ in
                 in
                 # Configure client(s) as "preauthorized"
                 optionalString
-                (
-                  srvMatch != null
+                (srvMatch != null
                   && cfg.${srv}.enable
-                  && (
-                    (s.oauth-client-id or null) != null
-                  )
-                )
+                  && ((s.oauth-client-id or null) != null))
                 ''
                   # Configure ${srv}'s OAuth client as "preauthorized"
                   ${postgresql.package}/bin/psql '${
@@ -1534,9 +1530,7 @@ in
                 s = cfg.settings."meta.sr.ht::billing";
               in
               s.enabled == "yes"
-              -> (
-                s.stripe-public-key != null && s.stripe-secret-key != null
-              )
+              -> (s.stripe-public-key != null && s.stripe-secret-key != null)
               ;
             message =
               "If meta.sr.ht::billing is enabled, the keys must be defined.";

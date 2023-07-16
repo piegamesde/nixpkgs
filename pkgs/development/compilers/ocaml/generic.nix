@@ -10,9 +10,7 @@ let
   version = "${versionNoPatch}.${toString patch_version}";
   safeX11 =
     stdenv:
-    !(
-      stdenv.isAarch32 || stdenv.isMips || stdenv.hostPlatform.isStatic
-    )
+    !(stdenv.isAarch32 || stdenv.isMips || stdenv.hostPlatform.isStatic)
     ;
 in
 
@@ -131,10 +129,8 @@ stdenv.mkDerivation (
         (stdenv.hostPlatform.isStatic && (lib.versionOlder version "4.08"))
         "-no-shared-libs"
       ++ optionals
-        (
-          stdenv.hostPlatform != stdenv.buildPlatform
-          && lib.versionOlder version "4.08"
-        )
+        (stdenv.hostPlatform != stdenv.buildPlatform
+          && lib.versionOlder version "4.08")
         [
           "-host ${stdenv.hostPlatform.config}"
           "-target ${stdenv.targetPlatform.config}"
@@ -147,12 +143,8 @@ stdenv.mkDerivation (
     # does not exist. So, disable these configure flags on `aarch64-darwin`.
     # See #144785 for details.
     configurePlatforms = lib.optionals
-      (
-        lib.versionAtLeast version "4.08"
-        && !(
-          stdenv.isDarwin && stdenv.isAarch64
-        )
-      )
+      (lib.versionAtLeast version "4.08"
+        && !(stdenv.isDarwin && stdenv.isAarch64))
       [
         "host"
         "target"

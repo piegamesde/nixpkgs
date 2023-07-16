@@ -98,12 +98,10 @@ let
         ;
     in
     if builtins.isAttrs ff then
-      (
-        ff // {
-          overrideLispAttrs =
-            newArgs: makeOverridableLispPackage f (overrideWith newArgs);
-        }
-      )
+      (ff // {
+        overrideLispAttrs =
+          newArgs: makeOverridableLispPackage f (overrideWith newArgs);
+      })
     else if builtins.isFunction ff then
       {
         overrideLispAttrs =
@@ -301,31 +299,29 @@ let
           # save-lisp-and-die binaries in the past
           dontStrip = true;
           dontFixup = true;
-        } // (
-          args // {
-            src =
-              if builtins.length (args.patches or [ ]) > 0 then
-                pkgs.applyPatches { inherit (args) src patches; }
-              else
-                args.src
-              ;
-            patches = [ ];
+        } // (args // {
+          src =
+            if builtins.length (args.patches or [ ]) > 0 then
+              pkgs.applyPatches { inherit (args) src patches; }
+            else
+              args.src
+            ;
+          patches = [ ];
 
-            # make sure that propagated build-inputs from lispLibs are propagated
-            propagatedBuildInputs = lib.unique (
-              builtins.concatLists (
-                lib.catAttrs "propagatedBuildInputs" (
-                  builtins.concatLists [
-                    [ args ]
-                    lispLibs
-                    nativeLibs
-                    javaLibs
-                  ]
-                )
+          # make sure that propagated build-inputs from lispLibs are propagated
+          propagatedBuildInputs = lib.unique (
+            builtins.concatLists (
+              lib.catAttrs "propagatedBuildInputs" (
+                builtins.concatLists [
+                  [ args ]
+                  lispLibs
+                  nativeLibs
+                  javaLibs
+                ]
               )
-            );
-          }
-        )
+            )
+          );
+        })
       )
     ));
 

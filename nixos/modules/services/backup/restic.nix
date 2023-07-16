@@ -357,11 +357,9 @@ in
               "--files-from ${filesFromTmpFile}"
             ;
           pruneCmd = optionals (builtins.length backup.pruneOpts > 0) [
-            (
-              resticCmd
+            (resticCmd
               + " forget --prune "
-              + (concatStringsSep " " backup.pruneOpts)
-            )
+              + (concatStringsSep " " backup.pruneOpts))
             (resticCmd + " check " + (concatStringsSep " " backup.checkOpts))
           ];
           # Helper functions for rclone remotes
@@ -426,11 +424,9 @@ in
               EnvironmentFile = backup.environmentFile;
             };
           } // optionalAttrs
-          (
-            backup.initialize
+          (backup.initialize
             || backup.dynamicFilesFrom != null
-            || backup.backupPrepareCommand != null
-          )
+            || backup.backupPrepareCommand != null)
           {
             preStart = ''
               ${optionalString (backup.backupPrepareCommand != null) ''
@@ -450,10 +446,8 @@ in
               ''}
             '';
           } // optionalAttrs
-          (
-            backup.dynamicFilesFrom != null
-            || backup.backupCleanupCommand != null
-          )
+          (backup.dynamicFilesFrom != null
+            || backup.backupCleanupCommand != null)
           {
             postStop = ''
               ${optionalString (backup.backupCleanupCommand != null) ''

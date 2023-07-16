@@ -188,12 +188,10 @@ let
   compressFirmware =
     firmware:
     if
-      (
-        config.boot.kernelPackages.kernelAtLeast "5.3"
+      (config.boot.kernelPackages.kernelAtLeast "5.3"
         && (
           firmware.compressFirmware or true
-        )
-      )
+        ))
     then
       pkgs.compressFirmwareXz firmware
     else
@@ -392,10 +390,8 @@ in
       ;
 
     boot.initrd.extraUdevRulesCommands = optionalString
-      (
-        !config.boot.initrd.systemd.enable
-        && config.boot.initrd.services.udev.rules != ""
-      )
+      (!config.boot.initrd.systemd.enable
+        && config.boot.initrd.services.udev.rules != "")
       ''
         cat <<'EOF' > $out/99-local.rules
         ${config.boot.initrd.services.udev.rules}

@@ -28,9 +28,7 @@ let
       database: ${cfg.database.name}
       host: ${
         if
-          (
-            cfg.database.type == "postgresql" && cfg.database.socket != null
-          )
+          (cfg.database.type == "postgresql" && cfg.database.socket != null)
         then
           cfg.database.socket
         else

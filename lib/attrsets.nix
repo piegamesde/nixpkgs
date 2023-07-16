@@ -1180,9 +1180,7 @@ rec {
         )
         intersection;
     in
-    (
-      x // y
-    ) // mask
+    (x // y) // mask
     ;
 
   # DEPRECATED

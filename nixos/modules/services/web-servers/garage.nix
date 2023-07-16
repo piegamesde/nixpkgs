@@ -122,10 +122,8 @@ in
         ExecStart = "${cfg.package}/bin/garage server";
 
         StateDirectory = mkIf
-          (
-            hasPrefix "/var/lib/garage" cfg.settings.data_dir
-            && hasPrefix "/var/lib/garage" cfg.settings.metadata_dir
-          )
+          (hasPrefix "/var/lib/garage" cfg.settings.data_dir
+            && hasPrefix "/var/lib/garage" cfg.settings.metadata_dir)
           "garage";
         DynamicUser = lib.mkDefault true;
         ProtectHome = true;

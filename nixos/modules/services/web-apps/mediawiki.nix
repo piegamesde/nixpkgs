@@ -441,9 +441,7 @@ in
             if (cfg.database.type == "mysql" && cfg.database.createLocally) then
               "/run/mysqld/mysqld.sock"
             else if
-              (
-                cfg.database.type == "postgres" && cfg.database.createLocally
-              )
+              (cfg.database.type == "postgres" && cfg.database.createLocally)
             then
               "/run/postgresql"
             else
@@ -544,9 +542,7 @@ in
       {
         assertion =
           cfg.database.createLocally
-          -> (
-            cfg.database.type == "mysql" || cfg.database.type == "postgres"
-          )
+          -> (cfg.database.type == "mysql" || cfg.database.type == "postgres")
           ;
         message =
           "services.mediawiki.createLocally is currently only supported for database type 'mysql' and 'postgres'";
@@ -711,18 +707,14 @@ in
 
     systemd.services.httpd.after =
       optional
-        (
-          cfg.webserver == "apache"
+        (cfg.webserver == "apache"
           && cfg.database.createLocally
-          && cfg.database.type == "mysql"
-        )
+          && cfg.database.type == "mysql")
         "mysql.service"
       ++ optional
-        (
-          cfg.webserver == "apache"
+        (cfg.webserver == "apache"
           && cfg.database.createLocally
-          && cfg.database.type == "postgres"
-        )
+          && cfg.database.type == "postgres")
         "postgresql.service"
       ;
 

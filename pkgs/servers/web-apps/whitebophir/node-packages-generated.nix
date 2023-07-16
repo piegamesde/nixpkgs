@@ -981,11 +981,9 @@ in
           "e13eecf56ae9c8754f730d106340b4b1ccc32582b30386c001f12ff2ada93b2e";
       };
       dependencies = [
-        (
-          sources."@financial-times/polyfill-useragent-normaliser-1.10.2" // {
-            dependencies = [ sources."semver-7.3.8" ];
-          }
-        )
+        (sources."@financial-times/polyfill-useragent-normaliser-1.10.2" // {
+          dependencies = [ sources."semver-7.3.8" ];
+        })
         sources."@financial-times/useragent_parser-1.6.3"
         sources."@socket.io/component-emitter-3.1.0"
         sources."@types/cookie-0.4.1"
@@ -1006,14 +1004,12 @@ in
         sources."ecdsa-sig-formatter-1.0.11"
         sources."ee-first-1.1.1"
         sources."encodeurl-1.0.2"
-        (
-          sources."engine.io-6.2.0" // {
-            dependencies = [
-              sources."debug-4.3.4"
-              sources."ms-2.1.2"
-            ];
-          }
-        )
+        (sources."engine.io-6.2.0" // {
+          dependencies = [
+            sources."debug-4.3.4"
+            sources."ms-2.1.2"
+          ];
+        })
         sources."engine.io-parser-5.0.4"
         sources."escape-html-1.0.3"
         sources."etag-1.8.1"
@@ -1054,43 +1050,35 @@ in
         sources."process-nextick-args-2.0.1"
         sources."promise-polyfill-1.1.6"
         sources."range-parser-1.2.1"
-        (
-          sources."readable-stream-2.3.7" // {
-            dependencies = [ sources."safe-buffer-5.1.2" ];
-          }
-        )
+        (sources."readable-stream-2.3.7" // {
+          dependencies = [ sources."safe-buffer-5.1.2" ];
+        })
         sources."safe-buffer-5.2.1"
         sources."semver-5.7.1"
         sources."send-0.18.0"
         sources."serve-static-1.15.0"
         sources."setprototypeof-1.2.0"
-        (
-          sources."socket.io-4.5.3" // {
-            dependencies = [
-              sources."debug-4.3.4"
-              sources."ms-2.1.2"
-            ];
-          }
-        )
+        (sources."socket.io-4.5.3" // {
+          dependencies = [
+            sources."debug-4.3.4"
+            sources."ms-2.1.2"
+          ];
+        })
         sources."socket.io-adapter-2.4.0"
-        (
-          sources."socket.io-parser-4.2.1" // {
-            dependencies = [
-              sources."debug-4.3.4"
-              sources."ms-2.1.2"
-            ];
-          }
-        )
+        (sources."socket.io-parser-4.2.1" // {
+          dependencies = [
+            sources."debug-4.3.4"
+            sources."ms-2.1.2"
+          ];
+        })
         sources."source-map-0.6.1"
         sources."statsd-client-0.4.7"
         sources."statuses-2.0.1"
         sources."stream-from-promise-1.0.0"
         sources."stream-to-string-1.2.0"
-        (
-          sources."string_decoder-1.1.1" // {
-            dependencies = [ sources."safe-buffer-5.1.2" ];
-          }
-        )
+        (sources."string_decoder-1.1.1" // {
+          dependencies = [ sources."safe-buffer-5.1.2" ];
+        })
         sources."toidentifier-1.0.1"
         sources."toposort-2.0.2"
         sources."tslib-2.4.0"

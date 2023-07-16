@@ -54,10 +54,8 @@ stdenv.mkDerivation rec {
       docbook_xml_dtd_43
     ]
     ++ lib.optionals
-      (
-        withIntrospection
-        && !stdenv.buildPlatform.canExecute stdenv.hostPlatform
-      )
+      (withIntrospection
+        && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
       [
         mesonEmulatorHook
       ]
