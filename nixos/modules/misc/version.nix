@@ -57,10 +57,7 @@ let
     BUILD_ID = cfg.version;
     PRETTY_NAME = "${cfg.distroName} ${cfg.release} (${cfg.codeName})";
     LOGO = "nix-snowflake";
-    HOME_URL =
-      lib.optionalString (cfg.distroId == "nixos")
-        "https://nixos.org/"
-    ;
+    HOME_URL = lib.optionalString (cfg.distroId == "nixos") "https://nixos.org/";
     DOCUMENTATION_URL =
       lib.optionalString (cfg.distroId == "nixos")
         "https://nixos.org/learn.html"
@@ -73,9 +70,8 @@ let
       lib.optionalString (cfg.distroId == "nixos")
         "https://github.com/NixOS/nixpkgs/issues"
     ;
-  } // lib.optionalAttrs (cfg.variant_id != null) {
-    VARIANT_ID = cfg.variant_id;
-  };
+  } // lib.optionalAttrs (cfg.variant_id != null) { VARIANT_ID = cfg.variant_id; }
+  ;
 
   initrdReleaseContents = osReleaseContents // {
     PRETTY_NAME = "${osReleaseContents.PRETTY_NAME} (Initrd)";
@@ -144,10 +140,7 @@ in
     nixos.version = mkOption {
       internal = true;
       type = types.str;
-      description =
-        lib.mdDoc
-          "The full NixOS version (e.g. `16.03.1160.f2d4ee1`)."
-      ;
+      description = lib.mdDoc "The full NixOS version (e.g. `16.03.1160.f2d4ee1`).";
     };
 
     nixos.release = mkOption {
@@ -212,10 +205,7 @@ in
       apply =
         v:
         lib.warnIf
-          (
-            options.system.stateVersion.highestPrio == (lib.mkOptionDefault { })
-            .priority
-          )
+          (options.system.stateVersion.highestPrio == (lib.mkOptionDefault { }).priority)
           "system.stateVersion is not set, defaulting to ${v}. Read why this matters on https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion."
           v
       ;

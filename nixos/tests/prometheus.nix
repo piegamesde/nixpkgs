@@ -60,9 +60,7 @@ import ./make-test-python.nix {
             {
               job_name = "pushgateway";
               scrape_interval = "1s";
-              static_configs = [ {
-                targets = [ "127.0.0.1:${toString pushgwPort}" ];
-              } ];
+              static_configs = [ { targets = [ "127.0.0.1:${toString pushgwPort}" ]; } ];
             }
           ];
           rules = [ ''
@@ -246,9 +244,7 @@ import ./make-test-python.nix {
       prometheus.wait_for_unit("prometheus.service")
 
       prometheus.wait_for_open_port(${toString queryPort})
-      prometheus.succeed("curl -sf http://127.0.0.1:${
-        toString queryPort
-      }/metrics")
+      prometheus.succeed("curl -sf http://127.0.0.1:${toString queryPort}/metrics")
 
       # Let's test if pushing a metric to the pushgateway succeeds:
       prometheus.wait_for_unit("pushgateway.service")
@@ -351,9 +347,7 @@ import ./make-test-python.nix {
           # Check if the reloaded config includes the new s3-node_exporter job:
           prometheus.succeed(
             """
-              curl -sf http://127.0.0.1:${
-                toString queryPort
-              }/api/v1/status/config \
+              curl -sf http://127.0.0.1:${toString queryPort}/api/v1/status/config \
                 | jq -r .data.yaml \
                 | yq '.scrape_configs | any(.job_name == "s3-node_exporter")' \
                 | grep true

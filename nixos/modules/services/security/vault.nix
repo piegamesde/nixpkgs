@@ -32,9 +32,7 @@ let
       }
     ''}
     storage "${cfg.storageBackend}" {
-      ${
-        optionalString (cfg.storagePath != null) ''path = "${cfg.storagePath}"''
-      }
+      ${optionalString (cfg.storagePath != null) ''path = "${cfg.storagePath}"''}
       ${optionalString (cfg.storageConfig != null) cfg.storageConfig}
     }
     ${optionalString (cfg.telemetryConfig != "") ''
@@ -70,10 +68,7 @@ in
         type = types.package;
         default = pkgs.vault;
         defaultText = literalExpression "pkgs.vault";
-        description =
-          lib.mdDoc
-            "This option specifies the vault package to use."
-        ;
+        description = lib.mdDoc "This option specifies the vault package to use.";
       };
 
       dev = mkOption {
@@ -267,8 +262,7 @@ in
       after =
         [ "network.target" ]
         ++
-          optional
-            (config.services.consul.enable && cfg.storageBackend == "consul")
+          optional (config.services.consul.enable && cfg.storageBackend == "consul")
             "consul.service"
       ;
 

@@ -37,9 +37,7 @@ let
 in
 {
   options.networking.stevenblack = {
-    enable = mkEnableOption (
-      mdDoc "Enable the stevenblack hosts file blocklist"
-    );
+    enable = mkEnableOption (mdDoc "Enable the stevenblack hosts file blocklist");
 
     block = mkOption {
       type = types.listOf (
@@ -59,9 +57,7 @@ in
     networking.hostFiles =
       [ ]
       ++ optionals (activatedHosts != [ ]) [ hostsPath ]
-      ++ optionals (activatedHosts == [ ]) [
-        "${pkgs.stevenblack-blocklist}/hosts"
-      ]
+      ++ optionals (activatedHosts == [ ]) [ "${pkgs.stevenblack-blocklist}/hosts" ]
     ;
   };
 

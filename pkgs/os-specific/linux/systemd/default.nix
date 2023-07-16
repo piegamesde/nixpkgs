@@ -99,8 +99,7 @@
   withHwdb ? true,
   withImportd ? !stdenv.hostPlatform.isMusl,
   withKmod ? true,
-  withLibBPF ?
-    lib.versionAtLeast buildPackages.llvmPackages.clang.version "10.0"
+  withLibBPF ? lib.versionAtLeast buildPackages.llvmPackages.clang.version "10.0"
     && (
       stdenv.hostPlatform.isAarch
       -> lib.versionAtLeast stdenv.hostPlatform.parsed.cpu.version "6"
@@ -219,14 +218,8 @@ stdenv.mkDerivation (
           )
           (musl-patches + "/0007-Add-sys-stat.h-for-S_IFDIR.patch")
           (musl-patches + "/0009-missing_type.h-add-comparison_fn_t.patch")
-          (
-            musl-patches
-            + "/0010-add-fallback-parse_printf_format-implementation.patch"
-          )
-          (
-            musl-patches
-            + "/0011-src-basic-missing.h-check-for-missing-strndupa.patch"
-          )
+          (musl-patches + "/0010-add-fallback-parse_printf_format-implementation.patch")
+          (musl-patches + "/0011-src-basic-missing.h-check-for-missing-strndupa.patch")
           (
             musl-patches
             + "/0012-don-t-fail-if-GLOB_BRACE-and-GLOB_ALTDIRFUNC-is-not-.patch"
@@ -237,10 +230,7 @@ stdenv.mkDerivation (
             musl-patches
             + "/0015-test-sizeof.c-Disable-tests-for-missing-typedefs-in-.patch"
           )
-          (
-            musl-patches
-            + "/0016-don-t-pass-AT_SYMLINK_NOFOLLOW-flag-to-faccessat.patch"
-          )
+          (musl-patches + "/0016-don-t-pass-AT_SYMLINK_NOFOLLOW-flag-to-faccessat.patch")
           (
             musl-patches
             + "/0017-Define-glibc-compatible-basename-for-non-glibc-syste.patch"
@@ -253,16 +243,12 @@ stdenv.mkDerivation (
             musl-patches
             + "/0019-distinguish-XSI-compliant-strerror_r-from-GNU-specif.patch"
           )
-          (
-            musl-patches
-            + "/0020-avoid-redefinition-of-prctl_mm_map-structure.patch"
-          )
+          (musl-patches + "/0020-avoid-redefinition-of-prctl_mm_map-structure.patch")
           (musl-patches + "/0021-do-not-disable-buffer-in-writing-files.patch")
           (musl-patches + "/0022-Handle-__cpu_mask-usage.patch")
           (musl-patches + "/0023-Handle-missing-gshadow.patch")
           (
-            musl-patches
-            + "/0024-missing_syscall.h-Define-MIPS-ABI-defines-for-musl.patch"
+            musl-patches + "/0024-missing_syscall.h-Define-MIPS-ABI-defines-for-musl.patch"
           )
           (
             musl-patches
@@ -579,9 +565,7 @@ stdenv.mkDerivation (
         "-Dmode=release"
         "-Ddbuspolicydir=${placeholder "out"}/share/dbus-1/system.d"
         "-Ddbussessionservicedir=${placeholder "out"}/share/dbus-1/services"
-        "-Ddbussystemservicedir=${
-          placeholder "out"
-        }/share/dbus-1/system-services"
+        "-Ddbussystemservicedir=${placeholder "out"}/share/dbus-1/system-services"
         "-Dpam=${lib.boolToString withPam}"
         "-Dpamconfdir=${placeholder "out"}/etc/pam.d"
         "-Drootprefix=${placeholder "out"}"
@@ -789,12 +773,7 @@ stdenv.mkDerivation (
             where,
             ignore ? [ ],
           }:
-          map
-            (
-              path:
-              ''
-                substituteInPlace ${path} --replace '${search}' "${replacement}"''
-            )
+          map (path: ''substituteInPlace ${path} --replace '${search}' "${replacement}"'')
             where
         ;
         mkEnsureSubstituted =
@@ -829,9 +808,7 @@ stdenv.mkDerivation (
         mesonFlagsArray+=(-Dntp-servers="0.nixos.pool.ntp.org 1.nixos.pool.ntp.org 2.nixos.pool.ntp.org 3.nixos.pool.ntp.org")
         export LC_ALL="en_US.UTF-8";
 
-        ${lib.concatStringsSep "\n" (
-          lib.flatten (map mkSubstitute binaryReplacements)
-        )}
+        ${lib.concatStringsSep "\n" (lib.flatten (map mkSubstitute binaryReplacements))}
         ${lib.concatMapStringsSep "\n" mkEnsureSubstituted binaryReplacements}
 
         substituteInPlace src/libsystemd/sd-journal/catalog.c \
@@ -866,8 +843,7 @@ stdenv.mkDerivation (
           -DSYSTEMD_CGROUP_AGENTS_PATH="/run/current-system/systemd/lib/systemd/systemd-cgroups-agent"''
 
         "-USYSTEMD_BINARY_PATH"
-        ''
-          -DSYSTEMD_BINARY_PATH="/run/current-system/systemd/lib/systemd/systemd"''
+        ''-DSYSTEMD_BINARY_PATH="/run/current-system/systemd/lib/systemd/systemd"''
       ]
       ++ lib.optionals stdenv.hostPlatform.isMusl [ "-D__UAPI_DEF_ETHHDR=0" ]
     );
@@ -933,8 +909,7 @@ stdenv.mkDerivation (
       lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
         # 'or p' is for manually specified buildPackages as they dont have __spliced
         (
-          builtins.map (p: p.__spliced.buildHost or p)
-            finalAttrs.nativeBuildInputs
+          builtins.map (p: p.__spliced.buildHost or p) finalAttrs.nativeBuildInputs
         )
     ;
 
@@ -966,10 +941,7 @@ stdenv.mkDerivation (
         inherit (nixosTests) switchTest;
         cross =
           pkgsCross.${
-            if stdenv.buildPlatform.isAarch64 then
-              "gnu64"
-            else
-              "aarch64-multiplatform"
+            if stdenv.buildPlatform.isAarch64 then "gnu64" else "aarch64-multiplatform"
           }.systemd;
       };
     };

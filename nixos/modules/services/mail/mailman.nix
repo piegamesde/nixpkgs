@@ -52,9 +52,7 @@ let
     };
   } // cfg.webSettings;
 
-  webSettingsJSON = pkgs.writeText "settings.json" (
-    builtins.toJSON webSettings
-  );
+  webSettingsJSON = pkgs.writeText "settings.json" (builtins.toJSON webSettings);
 
   # TODO: Should this be RFC42-ised so that users can set additional options without modifying the module?
   postfixMtaConfig = pkgs.writeText "mailman-postfix.cfg" ''
@@ -206,12 +204,7 @@ in
               "nestedOrganizationalRoleGroup"
             ];
             default = "posixGroup";
-            apply =
-              v:
-              "${toUpper (substring 0 1 v)}${
-                substring 1 (stringLength v) v
-              }Type"
-            ;
+            apply = v: "${toUpper (substring 0 1 v)}${substring 1 (stringLength v) v}Type";
             description = lib.mdDoc ''
               Type of group to perform a group search against.
             '';
@@ -354,9 +347,7 @@ in
       };
 
       hyperkitty = {
-        enable = mkEnableOption (
-          lib.mdDoc "the Hyperkitty archiver for Mailman"
-        );
+        enable = mkEnableOption (lib.mdDoc "the Hyperkitty archiver for Mailman");
 
         baseUrl = mkOption {
           type = types.str;
@@ -686,9 +677,7 @@ in
         description = "Prepare mailman-web files and database";
         before = [ "mailman-uwsgi.service" ];
         requiredBy = [ "mailman-uwsgi.service" ];
-        restartTriggers = [
-          config.environment.etc."mailman3/settings.py".source
-        ];
+        restartTriggers = [ config.environment.etc."mailman3/settings.py".source ];
         script = ''
           [[ -e "${webSettings.STATIC_ROOT}" ]] && find "${webSettings.STATIC_ROOT}/" -mindepth 1 -delete
           ${webEnv}/bin/mailman-web migrate
@@ -733,9 +722,7 @@ in
             ]
             ++ optional withPostgresql "postgresql.service"
           ;
-          restartTriggers = [
-            config.environment.etc."mailman3/settings.py".source
-          ];
+          restartTriggers = [ config.environment.etc."mailman3/settings.py".source ];
           serviceConfig = {
             # Since the mailman-web settings.py obstinately creates a logs
             # dir in the cwd, change to the (writable) runtime directory before
@@ -764,9 +751,7 @@ in
       hyperkitty = lib.mkIf cfg.hyperkitty.enable {
         description = "GNU Hyperkitty QCluster Process";
         after = [ "network.target" ];
-        restartTriggers = [
-          config.environment.etc."mailman3/settings.py".source
-        ];
+        restartTriggers = [ config.environment.etc."mailman3/settings.py".source ];
         wantedBy = [
           "mailman.service"
           "multi-user.target"
@@ -793,9 +778,7 @@ in
             lib.mkIf cfg.hyperkitty.enable {
               description = "Trigger ${name} Hyperkitty events";
               inherit startAt;
-              restartTriggers = [
-                config.environment.etc."mailman3/settings.py".source
-              ];
+              restartTriggers = [ config.environment.etc."mailman3/settings.py".source ];
               serviceConfig = {
                 ExecStart = "${webEnv}/bin/mailman-web runjobs ${name}";
                 User = cfg.webUser;

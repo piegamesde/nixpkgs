@@ -179,8 +179,7 @@ stdenv.mkDerivation rec {
         'SetTotalBytesLimit(kProtoReadBytesLimit)'
     ''
     +
-      lib.optionalString
-        (cudaSupport && lib.versionAtLeast cudatoolkit.version "9.0")
+      lib.optionalString (cudaSupport && lib.versionAtLeast cudatoolkit.version "9.0")
         ''
           # CUDA 9.0 doesn't support sm_20
           sed -i 's,20 21(20) ,,' cmake/Cuda.cmake

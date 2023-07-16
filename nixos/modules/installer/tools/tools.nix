@@ -134,136 +134,133 @@ in
     '';
   };
 
-  config =
-    lib.mkIf (config.nix.enable && !config.system.disableInstallerTools)
+  config = lib.mkIf (config.nix.enable && !config.system.disableInstallerTools) {
+
+    system.nixos-generate-config.configuration = mkDefault ''
+      # Edit this configuration file to define what should be installed on
+      # your system.  Help is available in the configuration.nix(5) man page
+      # and in the NixOS manual (accessible by running ‘nixos-help’).
+
+      { config, pkgs, ... }:
+
       {
+        imports =
+          [ # Include the results of the hardware scan.
+            ./hardware-configuration.nix
+          ];
 
-        system.nixos-generate-config.configuration = mkDefault ''
-          # Edit this configuration file to define what should be installed on
-          # your system.  Help is available in the configuration.nix(5) man page
-          # and in the NixOS manual (accessible by running ‘nixos-help’).
+      $bootLoaderConfig
+        # networking.hostName = "nixos"; # Define your hostname.
+        # Pick only one of the below networking options.
+        # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+        # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
-          { config, pkgs, ... }:
+        # Set your time zone.
+        # time.timeZone = "Europe/Amsterdam";
 
-          {
-            imports =
-              [ # Include the results of the hardware scan.
-                ./hardware-configuration.nix
-              ];
+        # Configure network proxy if necessary
+        # networking.proxy.default = "http://user:password\@proxy:port/";
+        # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-          $bootLoaderConfig
-            # networking.hostName = "nixos"; # Define your hostname.
-            # Pick only one of the below networking options.
-            # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-            # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+        # Select internationalisation properties.
+        # i18n.defaultLocale = "en_US.UTF-8";
+        # console = {
+        #   font = "Lat2-Terminus16";
+        #   keyMap = "us";
+        #   useXkbConfig = true; # use xkbOptions in tty.
+        # };
 
-            # Set your time zone.
-            # time.timeZone = "Europe/Amsterdam";
+      $xserverConfig
 
-            # Configure network proxy if necessary
-            # networking.proxy.default = "http://user:password\@proxy:port/";
-            # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+      $desktopConfiguration
+        # Configure keymap in X11
+        # services.xserver.layout = "us";
+        # services.xserver.xkbOptions = "eurosign:e,caps:escape";
 
-            # Select internationalisation properties.
-            # i18n.defaultLocale = "en_US.UTF-8";
-            # console = {
-            #   font = "Lat2-Terminus16";
-            #   keyMap = "us";
-            #   useXkbConfig = true; # use xkbOptions in tty.
-            # };
+        # Enable CUPS to print documents.
+        # services.printing.enable = true;
 
-          $xserverConfig
+        # Enable sound.
+        # sound.enable = true;
+        # hardware.pulseaudio.enable = true;
 
-          $desktopConfiguration
-            # Configure keymap in X11
-            # services.xserver.layout = "us";
-            # services.xserver.xkbOptions = "eurosign:e,caps:escape";
+        # Enable touchpad support (enabled default in most desktopManager).
+        # services.xserver.libinput.enable = true;
 
-            # Enable CUPS to print documents.
-            # services.printing.enable = true;
+        # Define a user account. Don't forget to set a password with ‘passwd’.
+        # users.users.alice = {
+        #   isNormalUser = true;
+        #   extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+        #   packages = with pkgs; [
+        #     firefox
+        #     tree
+        #   ];
+        # };
 
-            # Enable sound.
-            # sound.enable = true;
-            # hardware.pulseaudio.enable = true;
+        # List packages installed in system profile. To search, run:
+        # \$ nix search wget
+        # environment.systemPackages = with pkgs; [
+        #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+        #   wget
+        # ];
 
-            # Enable touchpad support (enabled default in most desktopManager).
-            # services.xserver.libinput.enable = true;
+        # Some programs need SUID wrappers, can be configured further or are
+        # started in user sessions.
+        # programs.mtr.enable = true;
+        # programs.gnupg.agent = {
+        #   enable = true;
+        #   enableSSHSupport = true;
+        # };
 
-            # Define a user account. Don't forget to set a password with ‘passwd’.
-            # users.users.alice = {
-            #   isNormalUser = true;
-            #   extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-            #   packages = with pkgs; [
-            #     firefox
-            #     tree
-            #   ];
-            # };
+        # List services that you want to enable:
 
-            # List packages installed in system profile. To search, run:
-            # \$ nix search wget
-            # environment.systemPackages = with pkgs; [
-            #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-            #   wget
-            # ];
+        # Enable the OpenSSH daemon.
+        # services.openssh.enable = true;
 
-            # Some programs need SUID wrappers, can be configured further or are
-            # started in user sessions.
-            # programs.mtr.enable = true;
-            # programs.gnupg.agent = {
-            #   enable = true;
-            #   enableSSHSupport = true;
-            # };
+        # Open ports in the firewall.
+        # networking.firewall.allowedTCPPorts = [ ... ];
+        # networking.firewall.allowedUDPPorts = [ ... ];
+        # Or disable the firewall altogether.
+        # networking.firewall.enable = false;
 
-            # List services that you want to enable:
+        # Copy the NixOS configuration file and link it from the resulting system
+        # (/run/current-system/configuration.nix). This is useful in case you
+        # accidentally delete configuration.nix.
+        # system.copySystemConfiguration = true;
 
-            # Enable the OpenSSH daemon.
-            # services.openssh.enable = true;
+        # This value determines the NixOS release from which the default
+        # settings for stateful data, like file locations and database versions
+        # on your system were taken. It’s perfectly fine and recommended to leave
+        # this value at the release version of the first install of this system.
+        # Before changing this value read the documentation for this option
+        # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+        system.stateVersion = "${config.system.nixos.release}"; # Did you read the comment?
 
-            # Open ports in the firewall.
-            # networking.firewall.allowedTCPPorts = [ ... ];
-            # networking.firewall.allowedUDPPorts = [ ... ];
-            # Or disable the firewall altogether.
-            # networking.firewall.enable = false;
-
-            # Copy the NixOS configuration file and link it from the resulting system
-            # (/run/current-system/configuration.nix). This is useful in case you
-            # accidentally delete configuration.nix.
-            # system.copySystemConfiguration = true;
-
-            # This value determines the NixOS release from which the default
-            # settings for stateful data, like file locations and database versions
-            # on your system were taken. It’s perfectly fine and recommended to leave
-            # this value at the release version of the first install of this system.
-            # Before changing this value read the documentation for this option
-            # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-            system.stateVersion = "${config.system.nixos.release}"; # Did you read the comment?
-
-          }
-        '';
-
-        environment.systemPackages =
-          [
-            nixos-build-vms
-            nixos-install
-            nixos-rebuild
-            nixos-generate-config
-            nixos-version
-            nixos-enter
-          ]
-          ++ lib.optional (nixos-option != null) nixos-option
-        ;
-
-        documentation.man.man-db.skipPackages = [ nixos-version ];
-
-        system.build = {
-          inherit
-            nixos-install
-            nixos-generate-config
-            nixos-option
-            nixos-rebuild
-            nixos-enter
-          ;
-        };
       }
-  ;
+    '';
+
+    environment.systemPackages =
+      [
+        nixos-build-vms
+        nixos-install
+        nixos-rebuild
+        nixos-generate-config
+        nixos-version
+        nixos-enter
+      ]
+      ++ lib.optional (nixos-option != null) nixos-option
+    ;
+
+    documentation.man.man-db.skipPackages = [ nixos-version ];
+
+    system.build = {
+      inherit
+        nixos-install
+        nixos-generate-config
+        nixos-option
+        nixos-rebuild
+        nixos-enter
+      ;
+    };
+  };
 }

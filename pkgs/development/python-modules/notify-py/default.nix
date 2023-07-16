@@ -59,8 +59,7 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [ "loguru" ];
 
-  propagatedBuildInputs =
-    [ loguru ] ++ lib.optionals stdenv.isLinux [ jeepney ];
+  propagatedBuildInputs = [ loguru ] ++ lib.optionals stdenv.isLinux [ jeepney ];
 
   nativeCheckInputs = [ pytest ] ++ lib.optionals stdenv.isLinux [ dbus ];
 

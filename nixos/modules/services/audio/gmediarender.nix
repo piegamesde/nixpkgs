@@ -54,10 +54,7 @@ in
     port = mkOption {
       type = types.nullOr types.port;
       default = null;
-      description =
-        mdDoc
-          "Port that will be used to accept client connections."
-      ;
+      description = mdDoc "Port that will be used to accept client connections.";
     };
 
     uuid = mkOption {
@@ -87,9 +84,7 @@ in
           ExecStart =
             "${cfg.package}/bin/gmediarender "
             + optionalString (cfg.audioDevice != null) (
-              "--gstout-audiodevice=${
-                utils.escapeSystemdExecArg cfg.audioDevice
-              } "
+              "--gstout-audiodevice=${utils.escapeSystemdExecArg cfg.audioDevice} "
             )
             + optionalString (cfg.audioSink != null) (
               "--gstout-audiosink=${utils.escapeSystemdExecArg cfg.audioSink} "

@@ -42,10 +42,7 @@ in
       type = types.listOf types.path;
       default = [ ];
       example = literalExpression "[ pkgs.pass pkgs.bash pkgs.notmuch ]";
-      description =
-        lib.mdDoc
-          "List of derivations to put in Offlineimap's path."
-      ;
+      description = lib.mdDoc "List of derivations to put in Offlineimap's path.";
     };
 
     onCalendar = mkOption {

@@ -30,8 +30,7 @@ stdenv.mkDerivation {
   };
 
   postPatch =
-    lib.optional
-      (stdenv.cc.isClang && (lib.versionAtLeast stdenv.cc.version "9"))
+    lib.optional (stdenv.cc.isClang && (lib.versionAtLeast stdenv.cc.version "9"))
       ''
         substituteInPlace cmake_configure.cmake \
           --replace 'target_link_libraries(rw_interface INTERFACE "stdc++fs")' ""

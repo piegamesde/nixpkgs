@@ -59,10 +59,7 @@ in
             lib.literalExpression
               "config.services.pipewire.alsa.enable || config.services.pipewire.jack.enable || config.services.pipewire.pulse.enable"
           ;
-          description =
-            lib.mdDoc
-              "Whether to use PipeWire as the primary sound server"
-          ;
+          description = lib.mdDoc "Whether to use PipeWire as the primary sound server";
         };
       };
 
@@ -174,36 +171,30 @@ in
     services.udev.packages = [ cfg.package ];
 
     # If any paths are updated here they must also be updated in the package test.
-    environment.etc."alsa/conf.d/49-pipewire-modules.conf" =
-      mkIf cfg.alsa.enable
-        {
-          text = ''
-            pcm_type.pipewire {
-              libs.native = ${cfg.package.lib}/lib/alsa-lib/libasound_module_pcm_pipewire.so ;
-              ${
-                optionalString enable32BitAlsaPlugins
-                  "libs.32Bit = ${pkgs.pkgsi686Linux.pipewire.lib}/lib/alsa-lib/libasound_module_pcm_pipewire.so ;"
-              }
-            }
-            ctl_type.pipewire {
-              libs.native = ${cfg.package.lib}/lib/alsa-lib/libasound_module_ctl_pipewire.so ;
-              ${
-                optionalString enable32BitAlsaPlugins
-                  "libs.32Bit = ${pkgs.pkgsi686Linux.pipewire.lib}/lib/alsa-lib/libasound_module_ctl_pipewire.so ;"
-              }
-            }
-          '';
+    environment.etc."alsa/conf.d/49-pipewire-modules.conf" = mkIf cfg.alsa.enable {
+      text = ''
+        pcm_type.pipewire {
+          libs.native = ${cfg.package.lib}/lib/alsa-lib/libasound_module_pcm_pipewire.so ;
+          ${
+            optionalString enable32BitAlsaPlugins
+              "libs.32Bit = ${pkgs.pkgsi686Linux.pipewire.lib}/lib/alsa-lib/libasound_module_pcm_pipewire.so ;"
+          }
         }
-    ;
+        ctl_type.pipewire {
+          libs.native = ${cfg.package.lib}/lib/alsa-lib/libasound_module_ctl_pipewire.so ;
+          ${
+            optionalString enable32BitAlsaPlugins
+              "libs.32Bit = ${pkgs.pkgsi686Linux.pipewire.lib}/lib/alsa-lib/libasound_module_ctl_pipewire.so ;"
+          }
+        }
+      '';
+    };
     environment.etc."alsa/conf.d/50-pipewire.conf" = mkIf cfg.alsa.enable {
       source = "${cfg.package}/share/alsa/alsa.conf.d/50-pipewire.conf";
     };
-    environment.etc."alsa/conf.d/99-pipewire-default.conf" =
-      mkIf cfg.alsa.enable
-        {
-          source = "${cfg.package}/share/alsa/alsa.conf.d/99-pipewire-default.conf";
-        }
-    ;
+    environment.etc."alsa/conf.d/99-pipewire-default.conf" = mkIf cfg.alsa.enable {
+      source = "${cfg.package}/share/alsa/alsa.conf.d/99-pipewire-default.conf";
+    };
 
     environment.sessionVariables.LD_LIBRARY_PATH = lib.mkIf cfg.jack.enable [
       "${cfg.package.jack}/lib"

@@ -23,8 +23,7 @@ in
       map
         (
           dbm:
-          optionalString (dbm.ip != "" && dbm.dnsname != "")
-            "${dbm.ip} #${dbm.dnsname}"
+          optionalString (dbm.ip != "" && dbm.dnsname != "") "${dbm.ip} #${dbm.dnsname}"
         )
         db
     ))
@@ -43,10 +42,7 @@ in
       type = types.str;
       default = "";
       example = "afs.example.org";
-      description =
-        lib.mdDoc
-          "DNS full-qualified domain name of a database server"
-      ;
+      description = lib.mdDoc "DNS full-qualified domain name of a database server";
     };
   };
 

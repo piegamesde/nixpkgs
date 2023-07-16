@@ -293,9 +293,7 @@ buildPythonPackage rec {
         --replace "set(ROCM_PATH \$ENV{ROCM_PATH})" \
           "set(ROCM_PATH \$ENV{ROCM_PATH})
       set(ROCM_VERSION ${
-        lib.concatStrings (
-          lib.intersperse "0" (lib.splitString "." hip.version)
-        )
+        lib.concatStrings (lib.intersperse "0" (lib.splitString "." hip.version))
       })"
     ''
     # error: no member named 'aligned_alloc' in the global namespace; did you mean simply 'aligned_alloc'
@@ -392,8 +390,7 @@ buildPythonPackage rec {
       # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105593
       # See also: Fails to compile with GCC 12.1.0 https://github.com/pytorch/pytorch/issues/77939
       ++
-        lib.optionals
-          (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12.0.0")
+        lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12.0.0")
           [
             "-Wno-error=maybe-uninitialized"
             "-Wno-error=uninitialized"
@@ -402,8 +399,7 @@ buildPythonPackage rec {
       # gcc-12.2.0/include/c++/12.2.0/bits/new_allocator.h:158:33: error: ‘void operator delete(void*, std::size_t)’
       # ... called on pointer ‘<unknown>’ with nonzero offset [1, 9223372036854775800] [-Werror=free-nonheap-object]
       ++
-        lib.optionals
-          (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version == "12")
+        lib.optionals (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version == "12")
           [ "-Wno-error=free-nonheap-object" ]
     )
   );
@@ -583,9 +579,7 @@ buildPythonPackage rec {
       tscholak
     ]; # tscholak esp. for darwin-related builds
     platforms =
-      with platforms;
-      linux ++ lib.optionals (!cudaSupport || !rocmSupport) darwin
-    ;
+      with platforms; linux ++ lib.optionals (!cudaSupport || !rocmSupport) darwin;
     broken = rocmSupport && cudaSupport; # CUDA and ROCm are mutually exclusive
   };
 }

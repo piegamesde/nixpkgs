@@ -85,14 +85,7 @@ stdenv.mkDerivation rec {
   ;
 
   configureFlags =
-    [
-      (
-        if interactive then
-          "--with-installed-readline"
-        else
-          "--disable-readline"
-      )
-    ]
+    [ (if interactive then "--with-installed-readline" else "--disable-readline") ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "bash_cv_job_control_missing=nomissing"
       "bash_cv_sys_named_pipes=nomissing"

@@ -28,8 +28,7 @@ let
     let
       callPackage = self.newScope ({
         inherit qtModule srcs;
-        stdenv =
-          if stdenv.isDarwin then darwin.apple_sdk_11_0.stdenv else stdenv;
+        stdenv = if stdenv.isDarwin then darwin.apple_sdk_11_0.stdenv else stdenv;
       });
     in
     {
@@ -179,9 +178,7 @@ let
           SecurityInterface
           Vision
         ;
-        xcbuild = buildPackages.xcbuild.override {
-          productBuildVer = "20A2408";
-        };
+        xcbuild = buildPackages.xcbuild.override { productBuildVer = "20A2408"; };
       };
       qtwebsockets = callPackage ./modules/qtwebsockets.nix { };
       qtwebview = callPackage ./modules/qtwebview.nix {

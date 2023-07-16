@@ -26,8 +26,7 @@ buildPythonPackage rec {
 
   # js_snippets extra only works with python2
   propagatedBuildInputs =
-    [ ] ++ lib.optional pinqSupport sqlalchemy ++ lib.optional pyxlSupport pyxl3
-  ;
+    [ ] ++ lib.optional pinqSupport sqlalchemy ++ lib.optional pyxlSupport pyxl3;
 
   checkPhase = ''
     ${python.interpreter} run_tests.py

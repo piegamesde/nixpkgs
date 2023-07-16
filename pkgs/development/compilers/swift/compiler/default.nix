@@ -503,12 +503,8 @@ stdenv.mkDerivation {
         -DSWIFT_PATH_TO_CMARK_BUILD=$SWIFT_BUILD_ROOT/swift-cmark
         -DSWIFT_PATH_TO_LIBDISPATCH_SOURCE=$SWIFT_SOURCE_ROOT/swift-corelibs-libdispatch
         -DEXPERIMENTAL_STRING_PROCESSING_SOURCE_DIR=$SWIFT_SOURCE_ROOT/swift-experimental-string-processing
-        -DSWIFT_INSTALL_COMPONENTS=${
-          lib.concatStringsSep ";" swiftInstallComponents
-        }
-        -DSWIFT_STDLIB_ENABLE_OBJC_INTEROP=${
-          if stdenv.isDarwin then "ON" else "OFF"
-        }
+        -DSWIFT_INSTALL_COMPONENTS=${lib.concatStringsSep ";" swiftInstallComponents}
+        -DSWIFT_STDLIB_ENABLE_OBJC_INTEROP=${if stdenv.isDarwin then "ON" else "OFF"}
       "
       buildProject swift
 

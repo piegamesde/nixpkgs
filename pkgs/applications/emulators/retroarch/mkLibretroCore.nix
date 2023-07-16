@@ -66,8 +66,7 @@ stdenv.mkDerivation (
             aarch64 = "arm64";
             i686 = "x86";
           }
-          .${stdenv.hostPlatform.parsed.cpu.name}
-            or stdenv.hostPlatform.parsed.cpu.name
+          .${stdenv.hostPlatform.parsed.cpu.name} or stdenv.hostPlatform.parsed.cpu.name
         }"
       ]
       ++ (args.makeFlags or [ ])

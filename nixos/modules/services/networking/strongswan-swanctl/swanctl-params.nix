@@ -1062,17 +1062,14 @@ in
                 The daemon will not install routes for CHILD_SAs that have this option set.
               '';
 
-              tfc_padding =
-                mkParamOfType (with lib.types; either int (enum [ "mtu" ])) 0
-                  ''
-                    Pads ESP packets with additional data to have a consistent ESP packet
-                    size for improved Traffic Flow Confidentiality. The padding defines the
-                    minimum size of all ESP packets sent.  The default value of
-                    `0` disables TFC padding, the special value
-                    `mtu` adds TFC padding to create a packet size equal to
-                    the Path Maximum Transfer Unit.
-                  ''
-              ;
+              tfc_padding = mkParamOfType (with lib.types; either int (enum [ "mtu" ])) 0 ''
+                Pads ESP packets with additional data to have a consistent ESP packet
+                size for improved Traffic Flow Confidentiality. The padding defines the
+                minimum size of all ESP packets sent.  The default value of
+                `0` disables TFC padding, the special value
+                `mtu` adds TFC padding to create a packet size equal to
+                the Path Maximum Transfer Unit.
+              '';
 
               replay_window = mkIntParam 32 ''
                 IPsec replay window to configure for this CHILD_SA. Larger values than

@@ -6,8 +6,7 @@
 }:
 with lib;
 let
-  runXdgAutostart =
-    config.services.xserver.desktopManager.runXdgAutostartIfNone;
+  runXdgAutostart = config.services.xserver.desktopManager.runXdgAutostartIfNone;
 in
 {
   options = {

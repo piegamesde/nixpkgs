@@ -153,8 +153,7 @@ in
       ];
       documentation = [ "man:lxd(1)" ];
 
-      path =
-        [ pkgs.util-linux ] ++ optional cfg.zfsSupport config.boot.zfs.package;
+      path = [ pkgs.util-linux ] ++ optional cfg.zfsSupport config.boot.zfs.package;
 
       serviceConfig = {
         ExecStart = "@${cfg.package}/bin/lxd lxd --group lxd";

@@ -35,9 +35,7 @@ stdenv.mkDerivation rec {
     (debianPatch "imports.patch"
       "sha256-kSXpaTpYq6w9e0yLES2QGNQ8+vFIiOpw2P9MA8gZr8s="
     )
-    (debianPatch "fix.diff"
-      "sha256-0WkkfuhJaAMY46VVyc3ldMQwgOVoQJDw/8zbm6H2sHU="
-    )
+    (debianPatch "fix.diff" "sha256-0WkkfuhJaAMY46VVyc3ldMQwgOVoQJDw/8zbm6H2sHU=")
     (debianPatch "directories.patch"
       "sha256-fhQJuy2+r0YOQNwMqG85Gr7fJehmf00Scran+NPYQrw="
     )

@@ -49,9 +49,7 @@ stdenv.mkDerivation {
 
   LC_ALL = "en_US.UTF-8";
 
-  PKG_CONFIG_GSIGNOND_GPLUGINSDIR = "${
-      placeholder "out"
-    }/lib/gsignond/gplugins";
+  PKG_CONFIG_GSIGNOND_GPLUGINSDIR = "${placeholder "out"}/lib/gsignond/gplugins";
 
   meta = with lib; {
     description = "Plugin for the Accounts-SSO gSignOn daemon that handles the SASL authentication protocol";

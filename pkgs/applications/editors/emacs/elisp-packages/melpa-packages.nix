@@ -30,9 +30,7 @@ let
     pkg:
     if pkg != null then
       pkg.override (
-        args: {
-          melpaBuild = drv: args.melpaBuild (drv // { dontConfigure = true; });
-        }
+        args: { melpaBuild = drv: args.melpaBuild (drv // { dontConfigure = true; }); }
       )
     else
       null
@@ -45,9 +43,7 @@ let
         args: {
           melpaBuild =
             drv:
-            args.melpaBuild (
-              drv // { meta = (drv.meta or { }) // { broken = true; }; }
-            )
+            args.melpaBuild (drv // { meta = (drv.meta or { }) // { broken = true; }; })
           ;
         }
       )
@@ -79,16 +75,12 @@ let
   buildWithGit =
     pkg:
     pkg.overrideAttrs (
-      attrs: {
-        nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.git ];
-      }
+      attrs: { nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.git ]; }
     )
   ;
 
   fix-rtags =
-    pkg:
-    if pkg != null then dontConfigure (externalSrc pkg pkgs.rtags) else null
-  ;
+    pkg: if pkg != null then dontConfigure (externalSrc pkg pkgs.rtags) else null;
 
   generateMelpa = lib.makeOverridable (
     {
@@ -161,22 +153,14 @@ let
 
         # upstream issue: missing file header
         ligo-mode =
-          if super.ligo-mode.version == "0.3" then
-            markBroken super.ligo-mode
-          else
-            null
-        ; # auto-updater is failing; use manual one
+          if super.ligo-mode.version == "0.3" then markBroken super.ligo-mode else null; # auto-updater is failing; use manual one
 
         # upstream issue: missing file header
         link = markBroken super.link;
 
         # upstream issue: missing file header
         org-dp =
-          if super.org-dp.version == "1" then
-            markBroken super.org-dp
-          else
-            super.org-dp
-        ;
+          if super.org-dp.version == "1" then markBroken super.org-dp else super.org-dp;
 
         # upstream issue: missing file header
         revbufs =
@@ -190,10 +174,7 @@ let
         elmine = markBroken super.elmine;
 
         # upstream issue: missing file header
-        ido-complete-space-or-hyphen =
-          markBroken
-            super.ido-complete-space-or-hyphen
-        ;
+        ido-complete-space-or-hyphen = markBroken super.ido-complete-space-or-hyphen;
       } // {
         # Expects bash to be at /bin/bash
         ac-rtags = fix-rtags super.ac-rtags;
@@ -202,16 +183,13 @@ let
           inherit (self.melpaPackages) powerline;
         };
 
-        auto-complete-clang-async =
-          super.auto-complete-clang-async.overrideAttrs
-            (
-              old: {
-                buildInputs = old.buildInputs ++ [ pkgs.llvmPackages.llvm ];
-                CFLAGS = "-I${pkgs.llvmPackages.libclang.lib}/include";
-                LDFLAGS = "-L${pkgs.llvmPackages.libclang.lib}/lib";
-              }
-            )
-        ;
+        auto-complete-clang-async = super.auto-complete-clang-async.overrideAttrs (
+          old: {
+            buildInputs = old.buildInputs ++ [ pkgs.llvmPackages.llvm ];
+            CFLAGS = "-I${pkgs.llvmPackages.libclang.lib}/include";
+            LDFLAGS = "-L${pkgs.llvmPackages.libclang.lib}/lib";
+          }
+        );
 
         # part of a larger package
         caml = dontConfigure super.caml;
@@ -367,8 +345,7 @@ let
 
         irony = super.irony.overrideAttrs (
           old: {
-            cmakeFlags =
-              old.cmakeFlags or [ ] ++ [ "-DCMAKE_INSTALL_BINDIR=bin" ];
+            cmakeFlags = old.cmakeFlags or [ ] ++ [ "-DCMAKE_INSTALL_BINDIR=bin" ];
             env.NIX_CFLAGS_COMPILE = "-UCLANG_RESOURCE_DIR";
             preConfigure = ''
               cd server
@@ -401,9 +378,7 @@ let
         );
 
         # tries to write a log file to $HOME
-        insert-shebang = super.insert-shebang.overrideAttrs (
-          attrs: { HOME = "/tmp"; }
-        );
+        insert-shebang = super.insert-shebang.overrideAttrs (attrs: { HOME = "/tmp"; });
 
         ivy-rtags = fix-rtags super.ivy-rtags;
 
@@ -413,8 +388,7 @@ let
             libExt = pkgs.stdenv.targetPlatform.extensions.sharedLibrary;
           in
           {
-            nativeBuildInputs =
-              (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ];
+            nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ];
 
             buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.enchant2 ];
 
@@ -437,8 +411,7 @@ let
               ''
             ;
 
-            meta =
-              old.meta // { maintainers = [ lib.maintainers.DamienCassou ]; };
+            meta = old.meta // { maintainers = [ lib.maintainers.DamienCassou ]; };
           }
         );
 
@@ -464,15 +437,13 @@ let
               ''
             ;
 
-            meta =
-              old.meta // { maintainers = [ lib.maintainers.DamienCassou ]; };
+            meta = old.meta // { maintainers = [ lib.maintainers.DamienCassou ]; };
           }
         );
 
         libgit = super.libgit.overrideAttrs (
           attrs: {
-            nativeBuildInputs =
-              (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.cmake ];
+            nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.cmake ];
             buildInputs = attrs.buildInputs ++ [ pkgs.libgit2 ];
             dontUseCmakeBuildDir = true;
             postPatch = ''
@@ -609,9 +580,7 @@ let
 
         shm = super.shm.overrideAttrs (
           attrs: {
-            propagatedUserEnvPkgs = [
-              pkgs.haskellPackages.structured-haskell-mode
-            ];
+            propagatedUserEnvPkgs = [ pkgs.haskellPackages.structured-haskell-mode ];
           }
         );
 
@@ -652,16 +621,12 @@ let
         treemacs-magit = super.treemacs-magit.overrideAttrs (
           attrs: {
             # searches for Git at build time
-            nativeBuildInputs =
-              (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.git ];
+            nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.git ];
           }
         );
 
         vdiff-magit = super.vdiff-magit.overrideAttrs (
-          attrs: {
-            nativeBuildInputs =
-              (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.git ];
-          }
+          attrs: { nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.git ]; }
         );
 
         zmq = super.zmq.overrideAttrs (
@@ -835,9 +800,7 @@ let
               attrs.postPatch or ""
               + ''
                 substituteInPlace wordnut.el \
-                  --replace 'wordnut-cmd "wn"' 'wordnut-cmd "${
-                    lib.getExe pkgs.wordnet
-                  }"'
+                  --replace 'wordnut-cmd "wn"' 'wordnut-cmd "${lib.getExe pkgs.wordnet}"'
               ''
             ;
           }
@@ -856,8 +819,7 @@ let
         );
       };
     in
-    lib.mapAttrs (n: v: if lib.hasAttr n overrides then overrides.${n} else v)
-      super
+    lib.mapAttrs (n: v: if lib.hasAttr n overrides then overrides.${n} else v) super
   );
 in
 generateMelpa { }

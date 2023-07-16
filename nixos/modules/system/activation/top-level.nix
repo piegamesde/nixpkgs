@@ -81,30 +81,25 @@ let
       mkdir $out/bin
       export localeArchive="${config.i18n.glibcLocales}/lib/locale/locale-archive"
       export distroId=${config.system.nixos.distroId};
-      substituteAll ${
-        ./switch-to-configuration.pl
-      } $out/bin/switch-to-configuration
+      substituteAll ${./switch-to-configuration.pl} $out/bin/switch-to-configuration
       chmod +x $out/bin/switch-to-configuration
-      ${optionalString (pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform)
-        ''
-          if ! output=$($perl/bin/perl -c $out/bin/switch-to-configuration 2>&1); then
-            echo "switch-to-configuration syntax is not valid:"
-            echo "$output"
-            exit 1
-          fi
-        ''}
+      ${optionalString (pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform) ''
+        if ! output=$($perl/bin/perl -c $out/bin/switch-to-configuration 2>&1); then
+          echo "switch-to-configuration syntax is not valid:"
+          echo "$output"
+          exit 1
+        fi
+      ''}
 
       ${config.system.systemBuilderCommands}
 
       echo -n "$extraDependencies" > $out/extra-dependencies
 
-      ${optionalString (!config.boot.isContainer && config.boot.bootspec.enable)
-        ''
-          ${config.boot.bootspec.writer}
-          ${optionalString config.boot.bootspec.enableValidation
-            ''
-              ${config.boot.bootspec.validator} "$out/${config.boot.bootspec.filename}"''}
-        ''}
+      ${optionalString (!config.boot.isContainer && config.boot.bootspec.enable) ''
+        ${config.boot.bootspec.writer}
+        ${optionalString config.boot.bootspec.enableValidation
+          ''${config.boot.bootspec.validator} "$out/${config.boot.bootspec.filename}"''}
+      ''}
 
       ${config.system.extraSystemBuilderCmds}
     ''
@@ -223,10 +218,7 @@ in
     system.boot.loader.kernelFile = mkOption {
       internal = true;
       default = pkgs.stdenv.hostPlatform.linux-kernel.target;
-      defaultText =
-        literalExpression
-          "pkgs.stdenv.hostPlatform.linux-kernel.target"
-      ;
+      defaultText = literalExpression "pkgs.stdenv.hostPlatform.linux-kernel.target";
       type = types.str;
       description = lib.mdDoc ''
         Name of the kernel file to be passed to the bootloader.
@@ -430,9 +422,7 @@ in
 
     system.extraSystemBuilderCmds =
       optionalString config.system.copySystemConfiguration ''
-        ln -s '${
-          import ../../../lib/from-env.nix "NIXOS_CONFIG" <nixos-config>
-        }' \
+        ln -s '${import ../../../lib/from-env.nix "NIXOS_CONFIG" <nixos-config>}' \
                     "$out/configuration.nix"
       ''
       + optionalString (config.system.forbiddenDependenciesRegex != "") ''
@@ -465,10 +455,6 @@ in
     ;
 
     system.build.toplevel =
-      if config.system.includeBuildDependencies then
-        systemWithBuildDeps
-      else
-        system
-    ;
+      if config.system.includeBuildDependencies then systemWithBuildDeps else system;
   };
 }

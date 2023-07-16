@@ -116,10 +116,7 @@ let
       naturalScrolling = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Enables or disables natural scrolling behavior."
-        ;
+        description = lib.mdDoc "Enables or disables natural scrolling behavior.";
       };
 
       scrollButton = mkOption {
@@ -250,10 +247,7 @@ let
       ${optionalString (cfg.${deviceType}.calibrationMatrix != null)
         ''Option "CalibrationMatrix" "${cfg.${deviceType}.calibrationMatrix}"''}
       ${optionalString (cfg.${deviceType}.transformationMatrix != null)
-        ''
-          Option "TransformationMatrix" "${
-            cfg.${deviceType}.transformationMatrix
-          }"''}
+        ''Option "TransformationMatrix" "${cfg.${deviceType}.transformationMatrix}"''}
       ${optionalString (cfg.${deviceType}.clickMethod != null)
         ''Option "ClickMethod" "${cfg.${deviceType}.clickMethod}"''}
       Option "LeftHanded" "${xorgBool cfg.${deviceType}.leftHanded}"
@@ -262,17 +256,13 @@ let
       ${optionalString (cfg.${deviceType}.scrollButton != null)
         ''Option "ScrollButton" "${toString cfg.${deviceType}.scrollButton}"''}
       Option "ScrollMethod" "${cfg.${deviceType}.scrollMethod}"
-      Option "HorizontalScrolling" "${
-        xorgBool cfg.${deviceType}.horizontalScrolling
-      }"
+      Option "HorizontalScrolling" "${xorgBool cfg.${deviceType}.horizontalScrolling}"
       Option "SendEventsMode" "${cfg.${deviceType}.sendEventsMode}"
       Option "Tapping" "${xorgBool cfg.${deviceType}.tapping}"
       ${optionalString (cfg.${deviceType}.tappingButtonMap != null)
         ''Option "TappingButtonMap" "${cfg.${deviceType}.tappingButtonMap}"''}
       Option "TappingDragLock" "${xorgBool cfg.${deviceType}.tappingDragLock}"
-      Option "DisableWhileTyping" "${
-        xorgBool cfg.${deviceType}.disableWhileTyping
-      }"
+      Option "DisableWhileTyping" "${xorgBool cfg.${deviceType}.disableWhileTyping}"
       ${cfg.${deviceType}.additionalOptions}
     ''
   ;

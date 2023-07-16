@@ -14,8 +14,7 @@ let
       if builtins.length l == 1 then
         generators.mkValueStringDefault { } (head l)
       else
-        lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault { } s}")
-          l
+        lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault { } s}") l
     ;
     mkKeyValue = generators.mkKeyValueDefault { } ":";
   };
@@ -36,10 +35,7 @@ in
       inputTTY = mkOption {
         type = types.path;
         default = "/run/klipper/tty";
-        description =
-          lib.mdDoc
-            "Path of the virtual printer symlink to create."
-        ;
+        description = lib.mdDoc "Path of the virtual printer symlink to create.";
       };
 
       apiSocket = mkOption {
@@ -147,8 +143,7 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion =
-          cfg.octoprintIntegration -> config.services.octoprint.enable;
+        assertion = cfg.octoprintIntegration -> config.services.octoprint.enable;
         message = "Option services.klipper.octoprintIntegration requires Octoprint to be enabled on this system. Please enable services.octoprint to use it.";
       }
       {
@@ -200,9 +195,7 @@ in
       let
         klippyArgs =
           "--input-tty=${cfg.inputTTY}"
-          +
-            optionalString (cfg.apiSocket != null)
-              " --api-server=${cfg.apiSocket}"
+          + optionalString (cfg.apiSocket != null) " --api-server=${cfg.apiSocket}"
         ;
         printerConfigPath =
           if cfg.mutableConfig then

@@ -41,22 +41,19 @@ with lib;
       cfg = config.proxmoxLXC;
     in
     {
-      system.build.tarball =
-        pkgs.callPackage ../../lib/make-system-tarball.nix
-          {
-            storeContents = [ {
-              object = config.system.build.toplevel;
-              symlink = "none";
-            } ];
+      system.build.tarball = pkgs.callPackage ../../lib/make-system-tarball.nix {
+        storeContents = [ {
+          object = config.system.build.toplevel;
+          symlink = "none";
+        } ];
 
-            contents = [ {
-              source = config.system.build.toplevel + "/init";
-              target = "/sbin/init";
-            } ];
+        contents = [ {
+          source = config.system.build.toplevel + "/init";
+          target = "/sbin/init";
+        } ];
 
-            extraCommands = "mkdir -p root etc/systemd/network";
-          }
-      ;
+        extraCommands = "mkdir -p root etc/systemd/network";
+      };
 
       boot = {
         isContainer = true;

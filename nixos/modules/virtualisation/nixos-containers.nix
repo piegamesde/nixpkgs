@@ -182,22 +182,14 @@ let
         ${optionalString cfg.ephemeral "--ephemeral"} \
         ${
           optionalString
-            (
-              cfg.additionalCapabilities != null
-              && cfg.additionalCapabilities != [ ]
-            )
-            ''
-              --capability="${
-                concatStringsSep "," cfg.additionalCapabilities
-              }"''
+            (cfg.additionalCapabilities != null && cfg.additionalCapabilities != [ ])
+            ''--capability="${concatStringsSep "," cfg.additionalCapabilities}"''
         } \
         ${
           optionalString (cfg.tmpfs != null && cfg.tmpfs != [ ])
             "--tmpfs=${concatStringsSep " --tmpfs=" cfg.tmpfs}"
         } \
-        ${
-          containerInit cfg
-        } "''${SYSTEM_PATH:-/nix/var/nix/profiles/system}/init"
+        ${containerInit cfg} "''${SYSTEM_PATH:-/nix/var/nix/profiles/system}/init"
     ''
   ;
 
@@ -213,8 +205,7 @@ let
       fi
 
       ${concatStringsSep "\n" (
-        mapAttrsToList
-          (name: cfg: "ip link del dev ${name} 2> /dev/null || true ")
+        mapAttrsToList (name: cfg: "ip link del dev ${name} 2> /dev/null || true ")
           cfg.extraVeths
       )}
     ''
@@ -426,10 +417,7 @@ let
             };
             hostPort = mkOption {
               type = types.int;
-              description =
-                lib.mdDoc
-                  "Source port of the external interface on host"
-              ;
+              description = lib.mdDoc "Source port of the external interface on host";
             };
             containerPort = mkOption {
               type = types.nullOr types.int;
@@ -553,71 +541,54 @@ in
                   name = "Toplevel NixOS config";
                   merge =
                     loc: defs:
-                    (import
-                      "${toString config.nixpkgs}/nixos/lib/eval-config.nix"
-                      {
-                        modules =
-                          let
-                            extraConfig =
-                              {
-                                options,
-                                ...
-                              }:
-                              {
-                                _file = "module at ${__curPos.file}:${
-                                    toString __curPos.line
-                                  }";
-                                config = {
-                                  nixpkgs =
-                                    if
-                                      options.nixpkgs ? hostPlatform
-                                      && host.options.nixpkgs.hostPlatform.isDefined
-                                    then
-                                      {
-                                        inherit (host.config.nixpkgs)
-                                          hostPlatform
-                                        ;
-                                      }
-                                    else
-                                      {
-                                        inherit (host.config.nixpkgs)
-                                          localSystem
-                                        ;
-                                      }
+                    (import "${toString config.nixpkgs}/nixos/lib/eval-config.nix" {
+                      modules =
+                        let
+                          extraConfig =
+                            {
+                              options,
+                              ...
+                            }:
+                            {
+                              _file = "module at ${__curPos.file}:${toString __curPos.line}";
+                              config = {
+                                nixpkgs =
+                                  if
+                                    options.nixpkgs ? hostPlatform && host.options.nixpkgs.hostPlatform.isDefined
+                                  then
+                                    { inherit (host.config.nixpkgs) hostPlatform; }
+                                  else
+                                    { inherit (host.config.nixpkgs) localSystem; }
+                                ;
+                                boot.isContainer = true;
+                                networking.hostName = mkDefault name;
+                                networking.useDHCP = false;
+                                assertions = [ {
+                                  assertion =
+                                    (builtins.compareVersions kernelVersion "5.8" <= 0)
+                                    -> config.privateNetwork
+                                    -> stringLength name <= 11
                                   ;
-                                  boot.isContainer = true;
-                                  networking.hostName = mkDefault name;
-                                  networking.useDHCP = false;
-                                  assertions = [ {
-                                    assertion =
-                                      (
-                                        builtins.compareVersions kernelVersion
-                                          "5.8" <= 0
-                                      )
-                                      -> config.privateNetwork
-                                      -> stringLength name <= 11
-                                    ;
-                                    message = ''
-                                      Container name `${name}` is too long: When `privateNetwork` is enabled, container names can
-                                      not be longer than 11 characters, because the container's interface name is derived from it.
-                                      You should either make the container name shorter or upgrade to a more recent kernel that
-                                      supports interface altnames (i.e. at least Linux 5.8 - please see https://github.com/NixOS/nixpkgs/issues/38509
-                                      for details).
-                                    '';
-                                  } ];
-                                };
-                              }
-                            ;
-                          in
-                          [ extraConfig ] ++ (map (x: x.value) defs)
-                        ;
-                        prefix = [
-                          "containers"
-                          name
-                        ];
-                        inherit (config) specialArgs;
-                      }
-                    ).config
+                                  message = ''
+                                    Container name `${name}` is too long: When `privateNetwork` is enabled, container names can
+                                    not be longer than 11 characters, because the container's interface name is derived from it.
+                                    You should either make the container name shorter or upgrade to a more recent kernel that
+                                    supports interface altnames (i.e. at least Linux 5.8 - please see https://github.com/NixOS/nixpkgs/issues/38509
+                                    for details).
+                                  '';
+                                } ];
+                              };
+                            }
+                          ;
+                        in
+                        [ extraConfig ] ++ (map (x: x.value) defs)
+                      ;
+                      prefix = [
+                        "containers"
+                        name
+                      ];
+                      inherit (config) specialArgs;
+                    }).config
                   ;
                 };
               };
@@ -742,8 +713,7 @@ in
               };
 
               extraVeths = mkOption {
-                type =
-                  with types; attrsOf (submodule { options = networkOptions; });
+                type = with types; attrsOf (submodule { options = networkOptions; });
                 default = { };
                 description = lib.mdDoc ''
                   Extra veth-pairs to be created for the container.
@@ -944,8 +914,7 @@ in
                             modifier = "rw";
                           } ]
                         ;
-                        additionalCapabilities =
-                          cfg.additionalCapabilities ++ [ "CAP_NET_ADMIN" ];
+                        additionalCapabilities = cfg.additionalCapabilities ++ [ "CAP_NET_ADMIN" ];
                       }
                     else
                       { }
@@ -1019,9 +988,7 @@ in
                     HOST_BRIDGE=${cfg.hostBridge}
                   ''}
                   ${optionalString (length cfg.forwardPorts > 0) ''
-                    HOST_PORT=${
-                      concatStringsSep "," (map mkPortStr cfg.forwardPorts)
-                    }
+                    HOST_PORT=${concatStringsSep "," (map mkPortStr cfg.forwardPorts)}
                   ''}
                   ${optionalString (cfg.hostAddress != null) ''
                     HOST_ADDRESS=${cfg.hostAddress}

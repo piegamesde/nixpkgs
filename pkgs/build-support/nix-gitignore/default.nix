@@ -88,12 +88,7 @@ rec {
               recurse =
                 str:
                 [ (substring 0 1 str) ]
-                ++ (
-                  if str == "" then
-                    [ ]
-                  else
-                    (recurse (substring 1 (stringLength (str)) str))
-                )
+                ++ (if str == "" then [ ] else (recurse (substring 1 (stringLength (str)) str)))
               ;
             in
             str:
@@ -174,9 +169,7 @@ rec {
           (
             l:
             handleSlashSuffix (
-              handleSlashPrefix (
-                handleHashesBangs (mapAroundCharclass substWildcards l)
-              )
+              handleSlashPrefix (handleHashesBangs (mapAroundCharclass substWildcards l))
             )
           )
           (computeNegation l)
@@ -251,9 +244,7 @@ rec {
   ;
 
   withGitignoreFile =
-    patterns: root:
-    lib.toList patterns ++ [ ".git" ] ++ [ (root + "/.gitignore") ]
-  ;
+    patterns: root: lib.toList patterns ++ [ ".git" ] ++ [ (root + "/.gitignore") ];
 
   withRecursiveGitignoreFile =
     patterns: root:
@@ -274,8 +265,7 @@ rec {
 
   gitignoreFilterRecursiveSource =
     filter: patterns: root:
-    gitignoreFilterSourcePure filter (withRecursiveGitignoreFile patterns root)
-      root
+    gitignoreFilterSourcePure filter (withRecursiveGitignoreFile patterns root) root
   ;
 
   # "Filter"-less alternatives

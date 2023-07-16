@@ -130,10 +130,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional stdenv.isDarwin
         "-DCMAKE_OSX_DEPLOYMENT_TARGET=${
-          if stdenv.isAarch64 then
-            "10.13"
-          else
-            stdenv.targetPlatform.darwinSdkVersion
+          if stdenv.isAarch64 then "10.13" else stdenv.targetPlatform.darwinSdkVersion
         }"
   ;
 

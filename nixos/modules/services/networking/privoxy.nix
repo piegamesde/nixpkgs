@@ -44,9 +44,7 @@ let
 
   ageType = types.str // {
     check =
-      x:
-      isString x && (builtins.match "([0-9]+([smhdw]|min|ms|us)*)+" x != null)
-    ;
+      x: isString x && (builtins.match "([0-9]+([smhdw]|min|ms|us)*)+" x != null);
     description = "tmpfiles.d(5) age format";
   };
 

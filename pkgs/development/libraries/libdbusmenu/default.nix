@@ -76,12 +76,7 @@ stdenv.mkDerivation (
         "--sysconfdir=/etc"
         "--localstatedir=/var"
         # TODO use `lib.withFeatureAs`
-        (
-          if gtkVersion == null then
-            "--disable-gtk"
-          else
-            "--with-gtk=${gtkVersion}"
-        )
+        (if gtkVersion == null then "--disable-gtk" else "--with-gtk=${gtkVersion}")
         "--disable-scrollkeeper"
       ]
       ++ lib.optional (gtkVersion != "2") "--disable-dumper"
@@ -95,10 +90,7 @@ stdenv.mkDerivation (
       "typelibdir=${placeholder "out"}/lib/girepository-1.0"
     ];
 
-    passthru.tests.pkg-config =
-      testers.testMetaPkgConfig
-        finalAttrs.finalPackage
-    ;
+    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
     meta = with lib; {
       description = "Library for passing menu structures across DBus";

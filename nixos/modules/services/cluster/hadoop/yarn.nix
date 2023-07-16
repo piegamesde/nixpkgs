@@ -95,10 +95,7 @@ in
       };
 
       localDir = mkOption {
-        description =
-          lib.mdDoc
-            "List of directories to store localized files in."
-        ;
+        description = lib.mdDoc "List of directories to store localized files in.";
         type = with types; nullOr (listOf path);
         example = [ "/var/lib/hadoop/yarn/nm" ];
         default = null;
@@ -143,9 +140,7 @@ in
           SyslogIdentifier = "yarn-resourcemanager";
           ExecStart =
             "${cfg.package}/bin/yarn --config ${hadoopConf} "
-            + " resourcemanager ${
-                 escapeShellArgs cfg.yarn.resourcemanager.extraFlags
-               }"
+            + " resourcemanager ${escapeShellArgs cfg.yarn.resourcemanager.extraFlags}"
           ;
           Restart = "always";
         };
@@ -214,10 +209,8 @@ in
             "yarn.nodemanager.local-dirs" = mkIf (localDir != null) (
               concatStringsSep "," localDir
             );
-            "yarn.scheduler.maximum-allocation-vcores" =
-              resource.maximumAllocationVCores;
-            "yarn.scheduler.maximum-allocation-mb" =
-              resource.maximumAllocationMB;
+            "yarn.scheduler.maximum-allocation-vcores" = resource.maximumAllocationVCores;
+            "yarn.scheduler.maximum-allocation-mb" = resource.maximumAllocationMB;
             "yarn.nodemanager.resource.cpu-vcores" = resource.cpuVCores;
             "yarn.nodemanager.resource.memory-mb" = resource.memoryMB;
           })

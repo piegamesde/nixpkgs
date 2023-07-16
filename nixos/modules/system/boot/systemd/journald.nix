@@ -80,8 +80,7 @@ in
     };
 
     services.journald.forwardToSyslog = mkOption {
-      default =
-        config.services.rsyslogd.enable || config.services.syslog-ng.enable;
+      default = config.services.rsyslogd.enable || config.services.syslog-ng.enable;
       defaultText =
         literalExpression
           "services.rsyslogd.enable || services.syslog-ng.enable"

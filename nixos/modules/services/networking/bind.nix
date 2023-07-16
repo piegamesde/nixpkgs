@@ -101,9 +101,7 @@ let
 
     options {
       listen-on { ${concatMapStrings (entry: " ${entry}; ") cfg.listenOn} };
-      listen-on-v6 { ${
-        concatMapStrings (entry: " ${entry}; ") cfg.listenOnIpv6
-      } };
+      listen-on-v6 { ${concatMapStrings (entry: " ${entry}; ") cfg.listenOnIpv6} };
       allow-query { cachenetworks; };
       blackhole { badnetworks; };
       forward ${cfg.forward};

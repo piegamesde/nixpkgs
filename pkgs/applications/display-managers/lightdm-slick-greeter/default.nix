@@ -58,9 +58,7 @@ stdenv.mkDerivation rec {
       --replace "/usr/bin/numlockx" "${numlockx}/bin/numlockx" \
       --replace "/usr/share/xsessions/" "/run/current-system/sw/share/xsessions/" \
       --replace "/usr/share/wayland-sessions/" "/run/current-system/sw/share/wayland-sessions/" \
-      --replace "/usr/bin/slick-greeter" "${
-        placeholder "out"
-      }/bin/slick-greeter"
+      --replace "/usr/bin/slick-greeter" "${placeholder "out"}/bin/slick-greeter"
 
     substituteInPlace src/session-list.vala \
       --replace "/usr/share" "${placeholder "out"}/share"

@@ -102,9 +102,7 @@ let
               decl:
               if hasPrefix (toString ../..) (toString decl) then
                 let
-                  subpath = removePrefix "/" (
-                    removePrefix (toString ../..) (toString decl)
-                  );
+                  subpath = removePrefix "/" (removePrefix (toString ../..) (toString decl));
                 in
                 {
                   url = "https://github.com/NixOS/nixpkgs/blob/master/${subpath}";

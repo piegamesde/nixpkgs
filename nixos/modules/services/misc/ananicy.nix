@@ -82,8 +82,7 @@ in
         cp -r ${pkgs.ananicy}/etc/ananicy.d/* $out
         rm $out/ananicy.conf
         cp ${configFile} $out/ananicy.conf
-        ${optionalString (cfg.extraRules != "")
-          "cp ${extraRules} $out/nixRules.rules"}
+        ${optionalString (cfg.extraRules != "") "cp ${extraRules} $out/nixRules.rules"}
       '';
     };
 
@@ -107,10 +106,7 @@ in
           {
             # https://gitlab.com/ananicy-cpp/ananicy-cpp/-/blob/master/src/config.cpp#L12
             loglevel = mkOD "warn"; # default is info but its spammy
-            cgroup_realtime_workaround =
-              mkOD
-                config.systemd.enableUnifiedCgroupHierarchy
-            ;
+            cgroup_realtime_workaround = mkOD config.systemd.enableUnifiedCgroupHierarchy;
           }
         else
           {

@@ -19,9 +19,7 @@ let
 
   toCommandOptionsString =
     options:
-    "${concatStringsSep ":" options}${
-      optionalString (length options != 0) ":"
-    } "
+    "${concatStringsSep ":" options}${optionalString (length options != 0) ":"} "
   ;
 
   toCommandsString =

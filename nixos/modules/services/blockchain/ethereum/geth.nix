@@ -62,10 +62,7 @@ let
           address = mkOption {
             type = types.str;
             default = "127.0.0.1";
-            description =
-              lib.mdDoc
-                "Listen address of Go Ethereum WebSocket API."
-            ;
+            description = lib.mdDoc "Listen address of Go Ethereum WebSocket API.";
           };
 
           port = mkOption {
@@ -90,10 +87,7 @@ let
           address = mkOption {
             type = types.str;
             default = "127.0.0.1";
-            description =
-              lib.mdDoc
-                "Listen address of Go Ethereum Auth RPC API."
-            ;
+            description = lib.mdDoc "Listen address of Go Ethereum Auth RPC API.";
           };
 
           port = mkOption {
@@ -118,34 +112,23 @@ let
           jwtsecret = mkOption {
             type = types.str;
             default = "";
-            description =
-              lib.mdDoc
-                "Path to a JWT secret for authenticated RPC endpoint."
-            ;
+            description = lib.mdDoc "Path to a JWT secret for authenticated RPC endpoint.";
             example = "/var/run/geth/jwtsecret";
           };
         };
 
         metrics = {
-          enable = lib.mkEnableOption (
-            lib.mdDoc "Go Ethereum prometheus metrics"
-          );
+          enable = lib.mkEnableOption (lib.mdDoc "Go Ethereum prometheus metrics");
           address = mkOption {
             type = types.str;
             default = "127.0.0.1";
-            description =
-              lib.mdDoc
-                "Listen address of Go Ethereum metrics service."
-            ;
+            description = lib.mdDoc "Listen address of Go Ethereum metrics service.";
           };
 
           port = mkOption {
             type = types.port;
             default = 6060;
-            description =
-              lib.mdDoc
-                "Port number of Go Ethereum metrics service."
-            ;
+            description = lib.mdDoc "Port number of Go Ethereum metrics service.";
           };
         };
 
@@ -268,9 +251,7 @@ in
                   --maxpeers ${toString cfg.maxpeers} \
                   ${
                     optionalString cfg.http.enable
-                      "--http --http.addr ${cfg.http.address} --http.port ${
-                        toString cfg.http.port
-                      }"
+                      "--http --http.addr ${cfg.http.address} --http.port ${toString cfg.http.port}"
                   } \
                   ${
                     optionalString (cfg.http.apis != null)
@@ -294,9 +275,7 @@ in
                   } \
                   --authrpc.addr ${cfg.authrpc.address} --authrpc.port ${
                     toString cfg.authrpc.port
-                  } --authrpc.vhosts ${
-                    lib.concatStringsSep "," cfg.authrpc.vhosts
-                  } \
+                  } --authrpc.vhosts ${lib.concatStringsSep "," cfg.authrpc.vhosts} \
                   ${
                     if (cfg.authrpc.jwtsecret != "") then
                       "--authrpc.jwtsecret ${cfg.authrpc.jwtsecret}"

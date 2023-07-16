@@ -46,9 +46,7 @@ stdenv.mkDerivation rec {
     "--with-gtk4"
   ];
 
-  PKG_CONFIG_LIBNM_VPNSERVICEDIR = "${
-      placeholder "out"
-    }/lib/NetworkManager/VPN";
+  PKG_CONFIG_LIBNM_VPNSERVICEDIR = "${placeholder "out"}/lib/NetworkManager/VPN";
 
   passthru = {
     networkManagerPlugin = "VPN/nm-strongswan-service.name";

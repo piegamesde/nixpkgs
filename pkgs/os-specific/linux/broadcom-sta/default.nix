@@ -12,10 +12,7 @@ let
     x86_64-linux = "1gj485qqr190idilacpxwgqyw21il03zph2rddizgj7fbd6pfyaz";
   };
 
-  arch =
-    lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux")
-      "_64"
-  ;
+  arch = lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") "_64";
   tarballVersion = lib.replaceStrings [ "." ] [ "_" ] version;
   tarball = "hybrid-v35${arch}-nodebug-pcoem-${tarballVersion}.tar.gz";
 in

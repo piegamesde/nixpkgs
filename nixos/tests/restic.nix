@@ -76,10 +76,7 @@ import ./make-test-python.nix (
                 pruneOpts
               ;
               initialize = true;
-              repositoryFile =
-                pkgs.writeText "repositoryFile"
-                  remoteFromFileRepository
-              ;
+              repositoryFile = pkgs.writeText "repositoryFile" remoteFromFileRepository;
             };
             rclonebackup = {
               inherit

@@ -34,9 +34,7 @@ let
           }
         );
         # fails with `no tests ran in 1.75s`
-        alembic = super.alembic.overridePythonAttrs (
-          lib.const { doCheck = false; }
-        );
+        alembic = super.alembic.overridePythonAttrs (lib.const { doCheck = false; });
         flask_migrate = super.flask_migrate.overridePythonAttrs (
           oldAttrs: rec {
             version = "2.7.0";
@@ -66,8 +64,7 @@ let
               inherit version;
               hash = "sha256-bICx5a02ZSkOo5MguR4b4eDV9gZSuWSjBwIW3oPS5Hw=";
             };
-            nativeCheckInputs =
-              old.nativeCheckInputs ++ (with self; [ requests ]);
+            nativeCheckInputs = old.nativeCheckInputs ++ (with self; [ requests ]);
             doCheck = false;
           }
         );
@@ -189,13 +186,11 @@ let
             (old: (dropDevOutput old) // { format = "setuptools"; })
         ;
         beautifulsoup4 =
-          (super.beautifulsoup4.override { sphinxHook = null; })
-          .overridePythonAttrs
+          (super.beautifulsoup4.override { sphinxHook = null; }).overridePythonAttrs
             dropDevOutput
         ;
         pydash =
-          (super.pydash.override { sphinx-rtd-theme = null; })
-          .overridePythonAttrs
+          (super.pydash.override { sphinx-rtd-theme = null; }).overridePythonAttrs
             (
               old: rec {
                 version = "5.1.0";

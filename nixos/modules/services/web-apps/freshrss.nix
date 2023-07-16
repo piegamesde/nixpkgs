@@ -185,9 +185,7 @@ in
           # php files handling
           # this regex is mandatory because of the API
           locations."~ ^.+?.php(/.*)?$".extraConfig = ''
-            fastcgi_pass unix:${
-              config.services.phpfpm.pools.${cfg.pool}.socket
-            };
+            fastcgi_pass unix:${config.services.phpfpm.pools.${cfg.pool}.socket};
             fastcgi_split_path_info ^(.+\.php)(/.*)$;
             # By default, the variable PATH_INFO is not set under PHP-FPM
             # But FreshRSS API greader.php need it. If you have a “Bad Request” error, double check this var!
@@ -237,9 +235,7 @@ in
       users.groups."${cfg.user}" = { };
 
       systemd.tmpfiles.rules = [
-        "d '${cfg.dataDir}' - ${cfg.user} ${
-          config.users.users.${cfg.user}.group
-        } - -"
+        "d '${cfg.dataDir}' - ${cfg.user} ${config.users.users.${cfg.user}.group} - -"
       ];
 
       systemd.services.freshrss-config =
@@ -256,14 +252,12 @@ in
               # will be omitted.
               ${if cfg.database.name != null then "--db-base" else null} = ''
                 "${cfg.database.name}"'';
-              ${
-                if cfg.database.passFile != null then "--db-password" else null
-              } = ''"$(cat ${cfg.database.passFile})"'';
+              ${if cfg.database.passFile != null then "--db-password" else null} = ''
+                "$(cat ${cfg.database.passFile})"'';
               ${if cfg.database.user != null then "--db-user" else null} = ''
                 "${cfg.database.user}"'';
-              ${
-                if cfg.database.tableprefix != null then "--db-prefix" else null
-              } = ''"${cfg.database.tableprefix}"'';
+              ${if cfg.database.tableprefix != null then "--db-prefix" else null} = ''
+                "${cfg.database.tableprefix}"'';
               ${
                 if cfg.database.host != null && cfg.database.port != null then
                   "--db-host"

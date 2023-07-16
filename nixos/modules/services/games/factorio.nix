@@ -288,9 +288,7 @@ in
           "--server-settings=${serverSettingsFile}"
           (optionalString cfg.loadLatestSave "--start-server-load-latest")
           (optionalString (cfg.mods != [ ]) "--mod-directory=${modDir}")
-          (optionalString (cfg.admins != [ ])
-            "--server-adminlist=${serverAdminsFile}"
-          )
+          (optionalString (cfg.admins != [ ]) "--server-adminlist=${serverAdminsFile}")
         ];
 
         # Sandboxing

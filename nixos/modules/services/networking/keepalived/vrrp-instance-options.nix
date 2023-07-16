@@ -117,10 +117,7 @@ with lib; {
         "chk_cmd1"
         "chk_cmd2"
       ];
-      description =
-        lib.mdDoc
-          "List of script names to invoke for health tracking."
-      ;
+      description = lib.mdDoc "List of script names to invoke for health tracking.";
     };
 
     trackInterfaces = mkOption {

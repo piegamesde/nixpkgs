@@ -75,11 +75,9 @@ let
       +
         # when cross compiling, we must use himktables from PATH
         # (i.e. from buildPackages.texlive.bin.core.dev)
-        lib.optionalString
-          (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-          ''
-            sed -i 's|\./himktables|himktables|' texk/web2c/Makefile.in
-          ''
+        lib.optionalString (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+          sed -i 's|\./himktables|himktables|' texk/web2c/Makefile.in
+        ''
     ;
 
     configureFlags =
@@ -388,8 +386,7 @@ rec {
             fi
       ''
       +
-        lib.optionalString
-          (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+        lib.optionalString (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
           # results of the tests performed by the configure scripts are
           # toolchain-dependent, so native components and cross components cannot use
           # the same cached test results.
@@ -578,9 +575,7 @@ rec {
     inherit (src) version;
     format = "other";
 
-    src = lib.head (
-      builtins.filter (p: p.tlType == "run") texlive.pygmentex.pkgs
-    );
+    src = lib.head (builtins.filter (p: p.tlType == "run") texlive.pygmentex.pkgs);
 
     propagatedBuildInputs = with python3Packages; [
       pygments
@@ -630,9 +625,7 @@ rec {
 
       # Patch texlinks.sh back to 2015 version;
       # otherwise some bin/ links break, e.g. xe(la)tex.
-      patch --verbose -R scripts/texlive-extra/texlinks.sh < '${
-        ./texlinks.diff
-      }'
+      patch --verbose -R scripts/texlive-extra/texlinks.sh < '${./texlinks.diff}'
       install -Dm555 scripts/texlive-extra/texlinks.sh "$out"/bin/texlinks
 
       runHook postInstall

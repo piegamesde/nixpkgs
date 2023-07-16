@@ -65,8 +65,7 @@ let
       ${optionalString (cfg.internalInterfaces != [ ]) ''
         ${iptables} -w -t nat -A nixos-nat-post -m mark --mark 1 \
           ${
-            optionalString (cfg.externalInterface != null)
-              "-o ${cfg.externalInterface}"
+            optionalString (cfg.externalInterface != null) "-o ${cfg.externalInterface}"
           } ${dest}
       ''}
 
@@ -75,8 +74,7 @@ let
         (range: ''
           ${iptables} -w -t nat -A nixos-nat-post \
             -s '${range}' ${
-              optionalString (cfg.externalInterface != null)
-                "-o ${cfg.externalInterface}"
+              optionalString (cfg.externalInterface != null) "-o ${cfg.externalInterface}"
             } ${dest}
         '')
         internalIPs}
@@ -94,18 +92,10 @@ let
               loopbackip:
               let
                 matchIP =
-                  if isIPv6 fwd.destination then
-                    "[[]([0-9a-fA-F:]+)[]]"
-                  else
-                    "([0-9.]+)"
-                ;
+                  if isIPv6 fwd.destination then "[[]([0-9a-fA-F:]+)[]]" else "([0-9.]+)";
                 m = builtins.match "${matchIP}:([0-9-]+)" fwd.destination;
                 destinationIP =
-                  if m == null then
-                    throw "bad ip:ports `${fwd.destination}'"
-                  else
-                    elemAt m 0
-                ;
+                  if m == null then throw "bad ip:ports `${fwd.destination}'" else elemAt m 0;
                 destinationPorts =
                   if m == null then
                     throw "bad ip:ports `${fwd.destination}'"

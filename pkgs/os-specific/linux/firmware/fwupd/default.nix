@@ -385,8 +385,7 @@ stdenv.mkDerivation (
 
       tests =
         let
-          listToPy =
-            list: "[${lib.concatMapStringsSep ", " (f: "'${f}'") list}]";
+          listToPy = list: "[${lib.concatMapStringsSep ", " (f: "'${f}'") list}]";
         in
         {
           installedTests = nixosTests.installed-tests.fwupd;
@@ -399,9 +398,7 @@ stdenv.mkDerivation (
 
             etc = '${finalAttrs.finalPackage}/etc'
             package_etc = set(itertools.chain.from_iterable([[os.path.relpath(os.path.join(prefix, file), etc) for file in files] for (prefix, dirs, files) in os.walk(etc)]))
-            passthru_etc = set(${
-              listToPy finalAttrs.passthru.filesInstalledToEtc
-            })
+            passthru_etc = set(${listToPy finalAttrs.passthru.filesInstalledToEtc})
             assert len(package_etc - passthru_etc) == 0, f'fwupd package contains the following paths in /etc that are not listed in passthru.filesInstalledToEtc: {package_etc - passthru_etc}'
             assert len(passthru_etc - package_etc) == 0, f'fwupd package lists the following paths in passthru.filesInstalledToEtc that are not contained in /etc: {passthru_etc - package_etc}'
 

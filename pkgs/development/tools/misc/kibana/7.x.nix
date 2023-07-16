@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://artifacts.elastic.co/downloads/kibana/${pname}-${version}-${plat}-${arch}.tar.gz";
-    sha256 =
-      shas.${stdenv.hostPlatform.system} or (throw "Unknown architecture");
+    sha256 = shas.${stdenv.hostPlatform.system} or (throw "Unknown architecture");
   };
 
   patches =

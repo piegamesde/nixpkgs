@@ -134,8 +134,7 @@ stdenv.mkDerivation {
     install doc/nvidia-settings.png -D -t $out/share/icons/hicolor/128x128/apps/
   '';
 
-  binaryName =
-    if withGtk3 then ".nvidia-settings-wrapped" else "nvidia-settings";
+  binaryName = if withGtk3 then ".nvidia-settings-wrapped" else "nvidia-settings";
   postFixup = ''
     patchelf --set-rpath "$(patchelf --print-rpath $out/bin/$binaryName):$out/lib:${libXv}/lib" \
       $out/bin/$binaryName

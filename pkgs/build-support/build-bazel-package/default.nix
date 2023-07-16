@@ -149,8 +149,7 @@ stdenv.mkDerivation (
                 "--loading_phase_threads=1"
                 "$bazelFetchFlags"
               ];
-              targets =
-                fFetchAttrs.bazelTargets ++ fFetchAttrs.bazelTestTargets;
+              targets = fFetchAttrs.bazelTargets ++ fFetchAttrs.bazelTestTargets;
             }}
 
             runHook postBuild
@@ -286,8 +285,7 @@ stdenv.mkDerivation (
 
         ${bazelCmd {
           cmd = "test";
-          additionalFlags =
-            [ "--test_output=errors" ] ++ fBuildAttrs.bazelTestFlags;
+          additionalFlags = [ "--test_output=errors" ] ++ fBuildAttrs.bazelTestFlags;
           targets = fBuildAttrs.bazelTestTargets;
         }}
         ${bazelCmd {

@@ -79,9 +79,7 @@ stdenv.mkDerivation rec {
   '';
 
   pythonPath =
-    with python3.pkgs;
-    requiredPythonModules [ pygobject3 ] ++ extraPythonPackages
-  ;
+    with python3.pkgs; requiredPythonModules [ pygobject3 ] ++ extraPythonPackages;
   preFixup = ''
     buildPythonPath "$out $pythonPath"
     gappsWrapperArgs+=(

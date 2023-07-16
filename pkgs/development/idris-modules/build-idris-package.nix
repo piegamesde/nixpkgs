@@ -24,10 +24,7 @@
 }@attrs:
 let
   allIdrisDeps =
-    idrisDeps
-    ++ lib.optional (!noPrelude) prelude
-    ++ lib.optional (!noBase) base
-  ;
+    idrisDeps ++ lib.optional (!noPrelude) prelude ++ lib.optional (!noBase) base;
   idris-with-packages = with-packages allIdrisDeps;
   newAttrs = builtins.removeAttrs attrs [
     "idrisDeps"

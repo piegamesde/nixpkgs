@@ -67,10 +67,7 @@ self: super: {
 
   # ghc versions which don’t match the ghc-lib-parser-ex version need the
   # additional dependency to compile successfully.
-  ghc-lib-parser-ex =
-    addBuildDepend self.ghc-lib-parser
-      super.ghc-lib-parser-ex
-  ;
+  ghc-lib-parser-ex = addBuildDepend self.ghc-lib-parser super.ghc-lib-parser-ex;
 
   # Needs to use ghc-lib due to incompatible GHC
   ghc-tags = doDistribute (addBuildDepend self.ghc-lib self.ghc-tags_1_5);
@@ -106,8 +103,7 @@ self: super: {
     overrideCabal
       (drv: {
         # executable is allowed for ghc >= 8.10 and needs repline
-        executableHaskellDepends =
-          drv.executableToolDepends or [ ] ++ [ self.repline ];
+        executableHaskellDepends = drv.executableToolDepends or [ ] ++ [ self.repline ];
       })
       super.hnix
   );

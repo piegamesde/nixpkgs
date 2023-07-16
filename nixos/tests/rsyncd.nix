@@ -16,9 +16,7 @@ import ./make-test-python.nix (
             ...
           }:
           {
-            networking.firewall.allowedTCPPorts = [
-              config.services.rsyncd.port
-            ];
+            networking.firewall.allowedTCPPorts = [ config.services.rsyncd.port ];
             services.rsyncd = {
               enable = true;
               inherit socketActivated;

@@ -490,10 +490,7 @@ let
     nixos-install --root $root --no-bootloader --no-root-passwd \
       --system ${config.system.build.toplevel} \
       ${
-        if copyChannel then
-          "--channel ${channelSources}"
-        else
-          "--no-channel-copy"
+        if copyChannel then "--channel ${channelSources}" else "--no-channel-copy"
       } \
       --substituters ""
 
@@ -634,10 +631,7 @@ let
         export PATH=${binPath}:$PATH
 
         rootDisk=${
-          if partitionTableType != "none" then
-            "/dev/vda${rootPartition}"
-          else
-            "/dev/vda"
+          if partitionTableType != "none" then "/dev/vda${rootPartition}" else "/dev/vda"
         }
 
         # It is necessary to set root filesystem unique identifier in advance, otherwise
@@ -658,8 +652,7 @@ let
 
         # Create the ESP and mount it. Unlike e2fsprogs, mkfs.vfat doesn't support an
         # '-E offset=X' option, so we can't do this outside the VM.
-        ${optionalString
-          (partitionTableType == "efi" || partitionTableType == "hybrid")
+        ${optionalString (partitionTableType == "efi" || partitionTableType == "hybrid")
           ''
             mkdir -p /mnt/boot
             mkfs.vfat -n ESP /dev/vda1

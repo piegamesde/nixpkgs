@@ -82,9 +82,7 @@ backendStdenv.mkDerivation rec {
       autoPatchelfHook
       autoAddOpenGLRunpathHook
     ]
-    ++ lib.optionals (lib.versionOlder version "11") [
-      libsForQt5.wrapQtAppsHook
-    ]
+    ++ lib.optionals (lib.versionOlder version "11") [ libsForQt5.wrapQtAppsHook ]
     ++ lib.optionals (lib.versionAtLeast version "11.8") [
       qt6Packages.wrapQtAppsHook
     ]
@@ -257,10 +255,7 @@ backendStdenv.mkDerivation rec {
 
       # Remove some cruft.
       ${lib.optionalString
-        (
-          (lib.versionAtLeast version "7.0")
-          && (lib.versionOlder version "10.1")
-        )
+        ((lib.versionAtLeast version "7.0") && (lib.versionOlder version "10.1"))
         "rm $out/bin/uninstall*"}
 
       # Fixup path to samples (needed for cuda 6.5 or else nsight will not find them)
@@ -324,9 +319,7 @@ backendStdenv.mkDerivation rec {
   ;
 
   postInstall = ''
-    for b in nvvp ${
-      lib.optionalString (lib.versionOlder version "11") "nsight"
-    }; do
+    for b in nvvp ${lib.optionalString (lib.versionOlder version "11") "nsight"}; do
       wrapProgram "$out/bin/$b" \
         --set GDK_PIXBUF_MODULE_FILE "$GDK_PIXBUF_MODULE_FILE"
     done

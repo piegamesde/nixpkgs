@@ -26,8 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-Sr0Lz0kTasrWZye/VIbdJJQHjKVeSe+mk/eUB3MZCRo=";
   };
 
-  propagatedBuildInputs =
-    [ redis ] ++ lib.optionals withDjango [ django-redis ];
+  propagatedBuildInputs = [ redis ] ++ lib.optionals withDjango [ django-redis ];
 
   nativeCheckInputs = [
     eventlet

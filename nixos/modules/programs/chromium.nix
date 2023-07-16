@@ -71,10 +71,7 @@ in
 
       defaultSearchProviderSuggestURL = mkOption {
         type = types.nullOr types.str;
-        description =
-          lib.mdDoc
-            "Chromium default search provider url for suggestions."
-        ;
+        description = lib.mdDoc "Chromium default search provider url for suggestions.";
         default = null;
         example = "https://encrypted.google.com/complete/search?output=chrome&q={searchTerms}";
       };

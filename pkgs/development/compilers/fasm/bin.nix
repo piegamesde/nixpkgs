@@ -15,9 +15,7 @@ stdenvNoCC.mkDerivation rec {
   };
 
   installPhase = ''
-    install -D fasm${
-      lib.optionalString stdenvNoCC.isx86_64 ".x64"
-    } $out/bin/fasm
+    install -D fasm${lib.optionalString stdenvNoCC.isx86_64 ".x64"} $out/bin/fasm
   '';
 
   meta = with lib; {

@@ -44,10 +44,8 @@ python3.pkgs.buildPythonApplication rec {
   # wouldn't get expanded. But using --run allows setting default vars that are
   # evaluated on run and not during build time.
   makeWrapperArgs = [
-    ''
-      --run 'export GAMUSERCONFIGDIR="''${XDG_CONFIG_HOME:-$HOME/.config}/gam"' ''
-    ''
-      --run 'export GAMSITECONFIGDIR="''${XDG_CONFIG_HOME:-$HOME/.config}/gam"' ''
+    ''--run 'export GAMUSERCONFIGDIR="''${XDG_CONFIG_HOME:-$HOME/.config}/gam"' ''
+    ''--run 'export GAMSITECONFIGDIR="''${XDG_CONFIG_HOME:-$HOME/.config}/gam"' ''
     ''--run 'export GAMCACHEDIR="''${XDG_CACHE_HOME:-$HOME/.cache}/gam"' ''
     ''--run 'export GAMDRIVEDIR="$PWD"' ''
   ];

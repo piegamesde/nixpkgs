@@ -49,11 +49,7 @@ let
         let
           backupName = if backup-all then "all" else "postgres";
           backupService =
-            if backup-all then
-              "postgresqlBackup"
-            else
-              "postgresqlBackup-postgres"
-          ;
+            if backup-all then "postgresqlBackup" else "postgresqlBackup-postgres";
           backupFileBase = "/var/backup/postgresql/${backupName}";
         in
         ''
@@ -206,9 +202,7 @@ let
           with subtest("All user permissions are set according to the ensureClauses attr"):
               clauses = json.loads(
                 machine.succeed(
-                    "sudo -u postgres psql -tc \"${
-                      getClausesQuery "all-clauses"
-                    }\""
+                    "sudo -u postgres psql -tc \"${getClausesQuery "all-clauses"}\""
                 )
               )
               print(clauses)
@@ -223,9 +217,7 @@ let
           with subtest("All user permissions default when ensureClauses is not provided"):
               clauses = json.loads(
                 machine.succeed(
-                    "sudo -u postgres psql -tc \"${
-                      getClausesQuery "default-clauses"
-                    }\""
+                    "sudo -u postgres psql -tc \"${getClausesQuery "default-clauses"}\""
                 )
               )
               assert not clauses['rolsuper'], 'expected user with no clauses set to have default superuser clause'

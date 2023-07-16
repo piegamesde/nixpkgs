@@ -135,18 +135,12 @@ in
       };
 
       username = mkOption {
-        description =
-          lib.mdDoc
-            "The username to connect to the remote InfluxDB server"
-        ;
+        description = lib.mdDoc "The username to connect to the remote InfluxDB server";
         type = types.str;
       };
 
       password = mkOption {
-        description =
-          lib.mdDoc
-            "The password to connect to the remote InfluxDB server"
-        ;
+        description = lib.mdDoc "The password to connect to the remote InfluxDB server";
         type = types.str;
       };
     };

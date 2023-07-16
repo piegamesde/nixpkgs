@@ -11,8 +11,7 @@
   enableReplxx ? false,
   enableSingeli ? stdenv.hostPlatform.avx2Support,
   enableLibcbqn ? (
-    (stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isDarwin)
-    && !enableReplxx
+    (stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isDarwin) && !enableReplxx
   ),
   libffi,
   pkg-config,
@@ -43,9 +42,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ pkg-config ]
-    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
-  ;
+    [ pkg-config ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
   buildInputs = [ libffi ];
 
@@ -57,8 +54,7 @@ stdenv.mkDerivation rec {
   '';
 
   makeFlags =
-    [ "CC=${stdenv.cc.targetPrefix}cc" ] ++ lib.optional enableReplxx "REPLXX=1"
-  ;
+    [ "CC=${stdenv.cc.targetPrefix}cc" ] ++ lib.optional enableReplxx "REPLXX=1";
 
   buildFlags =
     [

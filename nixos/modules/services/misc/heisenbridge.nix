@@ -155,9 +155,7 @@ in
         mv -f ${registrationFile}.new ${registrationFile}
 
         # Grant Synapse access to the registration
-        if ${
-          getBin pkgs.glibc
-        }/bin/getent group matrix-synapse > /dev/null; then
+        if ${getBin pkgs.glibc}/bin/getent group matrix-synapse > /dev/null; then
           chgrp -v matrix-synapse ${registrationFile}
           chmod -v g+r ${registrationFile}
         fi
@@ -219,8 +217,7 @@ in
         CapabilityBoundingSet =
           [ "CAP_CHOWN" ]
           ++
-            optional
-              (cfg.port < 1024 || (cfg.identd.enable && cfg.identd.port < 1024))
+            optional (cfg.port < 1024 || (cfg.identd.enable && cfg.identd.port < 1024))
               "CAP_NET_BIND_SERVICE"
         ;
         AmbientCapabilities = CapabilityBoundingSet;

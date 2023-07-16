@@ -96,14 +96,11 @@ stdenv.mkDerivation rec {
         hash = "sha256-hrm5tDM2jknU/gWMeO6/FhqOvay8bajFid39OiEtAAQ=";
       };
 
-      patches =
-        (map (x: patch-src + x) (readLinesToList ./config/pjsip_patches));
+      patches = (map (x: patch-src + x) (readLinesToList ./config/pjsip_patches));
 
       configureFlags =
         (readLinesToList ./config/pjsip_args_common)
-        ++ lib.optionals stdenv.isLinux (
-          readLinesToList ./config/pjsip_args_linux
-        )
+        ++ lib.optionals stdenv.isLinux (readLinesToList ./config/pjsip_args_linux)
       ;
     }
   );
@@ -118,9 +115,7 @@ stdenv.mkDerivation rec {
     inherit src version meta;
     sourceRoot = "source/daemon";
 
-    patches = [
-      ./0001-fix-annotations-in-bin-dbus-cx.ring.Ring.CallManager.patch
-    ];
+    patches = [ ./0001-fix-annotations-in-bin-dbus-cx.ring.Ring.CallManager.patch ];
 
     nativeBuildInputs = [
       autoreconfHook

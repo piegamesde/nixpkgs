@@ -25,9 +25,7 @@
     cd "$sourceRoot"
     tar -xf ${haskellPackages.constraints.src}
     tar -xf ${haskellPackages.linear.src}
-    cp ${
-      writeText "cabal.project" "packages: constraints* linear*"
-    } cabal.project
+    cp ${writeText "cabal.project" "packages: constraints* linear*"} cabal.project
   '';
   buildPhase = ''
     export HOME=$(mktemp -d)

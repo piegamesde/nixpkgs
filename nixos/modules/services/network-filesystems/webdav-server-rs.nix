@@ -32,10 +32,7 @@ in
       group = mkOption {
         type = types.str;
         default = "webdav";
-        description =
-          lib.mdDoc
-            "Group to run under when setuid is not enabled."
-        ;
+        description = lib.mdDoc "Group to run under when setuid is not enabled.";
       };
 
       settings = mkOption {

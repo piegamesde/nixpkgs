@@ -89,9 +89,7 @@ let
   # https://github.com/k3s-io/k3s/blob/5fb370e53e0014dc96183b8ecb2c25a61e891e76/scripts/build#L19-L40
   versionldflags = [
     "-X github.com/rancher/k3s/pkg/version.Version=v${k3sVersion}"
-    "-X github.com/rancher/k3s/pkg/version.GitCommit=${
-      lib.substring 0 8 k3sCommit
-    }"
+    "-X github.com/rancher/k3s/pkg/version.GitCommit=${lib.substring 0 8 k3sCommit}"
     "-X k8s.io/client-go/pkg/version.gitVersion=v${k3sVersion}"
     "-X k8s.io/client-go/pkg/version.gitCommit=${k3sCommit}"
     "-X k8s.io/client-go/pkg/version.gitTreeState=clean"
@@ -344,9 +342,7 @@ buildGoModule rec {
     version:
     let
       k3s_version =
-        "k3s_"
-        + lib.replaceStrings [ "." ] [ "_" ] (lib.versions.majorMinor version)
-      ;
+        "k3s_" + lib.replaceStrings [ "." ] [ "_" ] (lib.versions.majorMinor version);
     in
     {
       single-node = nixosTests.k3s.single-node.${k3s_version};

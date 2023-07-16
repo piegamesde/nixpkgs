@@ -143,10 +143,7 @@ in
         path = mkOption {
           type = types.str;
           default = "${cfg.stateDir}/data/gogs.db";
-          defaultText =
-            literalExpression
-              ''"''${config.${opt.stateDir}}/data/gogs.db"''
-          ;
+          defaultText = literalExpression ''"''${config.${opt.stateDir}}/data/gogs.db"'';
           description = lib.mdDoc "Path to the sqlite3 database file.";
         };
       };
@@ -160,10 +157,7 @@ in
       repositoryRoot = mkOption {
         type = types.str;
         default = "${cfg.stateDir}/repositories";
-        defaultText =
-          literalExpression
-            ''"''${config.${opt.stateDir}}/repositories"''
-        ;
+        defaultText = literalExpression ''"''${config.${opt.stateDir}}/repositories"'';
         description = lib.mdDoc "Path to the git repositories.";
       };
 

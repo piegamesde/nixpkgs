@@ -41,10 +41,7 @@ stdenv.mkDerivation (
 
     strictDeps = true;
 
-    passthru.tests.pkg-config =
-      testers.testMetaPkgConfig
-        finalAttrs.finalPackage
-    ;
+    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
     meta = with lib; {
       description = "High-quality data compression program";

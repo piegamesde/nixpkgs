@@ -97,9 +97,7 @@ stdenv.mkDerivation (
         export PATH=$(pwd)/alloy/bin:$PATH
       ''}
 
-      export HOME=${
-        if target == "iphone" then "/Users/$(whoami)" else "$TMPDIR"
-      }
+      export HOME=${if target == "iphone" then "/Users/$(whoami)" else "$TMPDIR"}
 
       ${lib.optionalString (tiVersion != null) ''
         # Replace titanium version by the provided one
@@ -251,9 +249,6 @@ stdenv.mkDerivation (
         throw "Target: ${target} is not supported!"}
     '';
 
-    failureHook =
-      lib.optionalString (release && target == "iphone")
-        deleteKeychain
-    ;
+    failureHook = lib.optionalString (release && target == "iphone") deleteKeychain;
   } // extraArgs
 )

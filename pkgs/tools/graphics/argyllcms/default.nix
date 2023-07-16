@@ -36,13 +36,10 @@ stdenv.mkDerivation rec {
     unzip
   ];
 
-  postPatch =
-    lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
-      ''
-        substituteInPlace Jambase \
-          --replace "-m64" ""
-      ''
-  ;
+  postPatch = lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+    substituteInPlace Jambase \
+      --replace "-m64" ""
+  '';
 
   preConfigure =
     let

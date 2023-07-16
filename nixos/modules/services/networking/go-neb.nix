@@ -38,10 +38,7 @@ in
 
     baseUrl = mkOption {
       type = types.str;
-      description =
-        lib.mdDoc
-          "Public-facing endpoint that can receive webhooks."
-      ;
+      description = lib.mdDoc "Public-facing endpoint that can receive webhooks.";
     };
 
     config = mkOption {
@@ -58,11 +55,7 @@ in
     systemd.services.go-neb =
       let
         finalConfigFile =
-          if cfg.secretFile == null then
-            configFile
-          else
-            "/var/run/go-neb/config.yaml"
-        ;
+          if cfg.secretFile == null then configFile else "/var/run/go-neb/config.yaml";
       in
       {
         description = "Extensible matrix bot written in Go";

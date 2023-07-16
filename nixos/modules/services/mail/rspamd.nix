@@ -53,8 +53,7 @@ let
         let
           maybeOption =
             option:
-            optionalString options.${option}.isDefined
-              " ${option}=${config.${option}}"
+            optionalString options.${option}.isDefined " ${option}=${config.${option}}"
           ;
         in
         if (!(hasPrefix "/" config.socket)) then
@@ -116,9 +115,7 @@ let
           ;
         };
         bindSockets = mkOption {
-          type = types.listOf (
-            types.either types.str (types.submodule bindSocketOpts)
-          );
+          type = types.listOf (types.either types.str (types.submodule bindSocketOpts));
           default = [ ];
           description = lib.mdDoc ''
             List of sockets to listen, in format acceptable by rspamd
@@ -190,9 +187,7 @@ let
           {
             type = mkDefault name;
             includes = mkDefault [
-              "$CONFDIR/worker-${
-                if name == "rspamd_proxy" then "proxy" else name
-              }.inc"
+              "$CONFDIR/worker-${if name == "rspamd_proxy" then "proxy" else name}.inc"
             ];
             bindSockets =
               let
@@ -264,15 +259,8 @@ let
                   "enabled = ${if value.enable != false then "yes" else "no"};"
               }
               ${mkBindSockets value.enable value.bindSockets}
-              ${
-                optionalString (value.count != null)
-                  "count = ${toString value.count};"
-              }
-              ${
-                concatStringsSep "\n  " (
-                  map (each: ''.include "${each}"'') value.includes
-                )
-              }
+              ${optionalString (value.count != null) "count = ${toString value.count};"}
+              ${concatStringsSep "\n  " (map (each: ''.include "${each}"'') value.includes)}
               .include(try=true; priority=1,duplicate=merge) "$LOCAL_CONFDIR/local.d/worker-${includeName}.inc"
               .include(try=${tryOverride}; priority=10) "$LOCAL_CONFDIR/override.d/worker-${includeName}.inc"
             }
@@ -375,17 +363,12 @@ in
 
     services.rspamd = {
 
-      enable = mkEnableOption (
-        lib.mdDoc "rspamd, the Rapid spam filtering system"
-      );
+      enable = mkEnableOption (lib.mdDoc "rspamd, the Rapid spam filtering system");
 
       debug = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to run the rspamd daemon in debug mode."
-        ;
+        description = lib.mdDoc "Whether to run the rspamd daemon in debug mode.";
       };
 
       locals = mkOption {

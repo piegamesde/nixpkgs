@@ -42,10 +42,7 @@ stdenv.mkDerivation rec {
     '' # condition from icu/base.nix
     +
       lib.optionalString
-        (
-          stdenv.hostPlatform.libc == "glibc"
-          || stdenv.hostPlatform.libc == "musl"
-        )
+        (stdenv.hostPlatform.libc == "glibc" || stdenv.hostPlatform.libc == "musl")
         ''
           substituteInPlace liveMedia/include/Locale.hh \
             --replace '<xlocale.h>' '<locale.h>'

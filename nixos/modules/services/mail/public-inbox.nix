@@ -76,9 +76,7 @@ let
     {
       serviceConfig = {
         # Enable JIT-compiled C (via Inline::C)
-        Environment = [
-          "PERL_INLINE_DIRECTORY=/run/public-inbox-${srv}/perl-inline"
-        ];
+        Environment = [ "PERL_INLINE_DIRECTORY=/run/public-inbox-${srv}/perl-inline" ];
         # NonBlocking is REQUIRED to avoid a race condition
         # if running simultaneous services.
         NonBlocking = true;
@@ -103,14 +101,10 @@ let
           ++
             # Without confinement the whole Nix store
             # is made available to the service
-            optionals
-              (
-                !config.systemd.services."public-inbox-${srv}".confinement.enable
-              )
-              [
-                "${pkgs.dash}/bin/dash:/bin/sh"
-                builtins.storeDir
-              ]
+            optionals (!config.systemd.services."public-inbox-${srv}".confinement.enable) [
+              "${pkgs.dash}/bin/dash:/bin/sh"
+              builtins.storeDir
+            ]
         ;
         # The following options are only for optimizing:
         # systemd-analyze security public-inbox-'*'
@@ -228,27 +222,18 @@ in
             options.address = mkOption {
               type = with types; listOf str;
               example = "example-discuss@example.org";
-              description =
-                lib.mdDoc
-                  "The email addresses of the public-inbox."
-              ;
+              description = lib.mdDoc "The email addresses of the public-inbox.";
             };
             options.url = mkOption {
               type = with types; nullOr str;
               default = null;
               example = "https://example.org/lists/example-discuss";
-              description =
-                lib.mdDoc
-                  "URL where this inbox can be accessed over HTTP."
-              ;
+              description = lib.mdDoc "URL where this inbox can be accessed over HTTP.";
             };
             options.description = mkOption {
               type = types.str;
               example = "user/dev discussion of public-inbox itself";
-              description =
-                lib.mdDoc
-                  "User-visible description for the repository."
-              ;
+              description = lib.mdDoc "User-visible description for the repository.";
               apply = pkgs.writeText "public-inbox-description-${name}";
             };
             options.newsgroup = mkOption {
@@ -275,11 +260,9 @@ in
               '';
             };
             options.coderepo = mkOption {
-              type =
-                (types.listOf (types.enum (attrNames cfg.settings.coderepo)))
-                // {
-                  description = "list of coderepo names";
-                };
+              type = (types.listOf (types.enum (attrNames cfg.settings.coderepo))) // {
+                description = "list of coderepo names";
+              };
               default = [ ];
               description =
                 lib.mdDoc
@@ -320,9 +303,7 @@ in
       };
     };
     mda = {
-      enable = mkEnableOption (
-        lib.mdDoc "the public-inbox Mail Delivery Agent"
-      );
+      enable = mkEnableOption (lib.mdDoc "the public-inbox Mail Delivery Agent");
       args = mkOption {
         type = with types; listOf str;
         default = [ ];
@@ -343,10 +324,7 @@ in
         literalExpression
           "\${cfg.package.sa_config}/user/.spamassassin/user_prefs"
       ;
-      description =
-        lib.mdDoc
-          "SpamAssassin configuration specific to public-inbox."
-      ;
+      description = lib.mdDoc "SpamAssassin configuration specific to public-inbox.";
     };
     settings = mkOption {
       description = lib.mdDoc ''
@@ -489,10 +467,7 @@ in
       }
     ];
     services.public-inbox.settings = filterAttrsRecursive (n: v: v != null) {
-      publicinbox =
-        mapAttrs (n: filterAttrs (n: v: n != "description"))
-          cfg.inboxes
-      ;
+      publicinbox = mapAttrs (n: filterAttrs (n: v: n != "description")) cfg.inboxes;
     };
     users = {
       users.public-inbox = {
@@ -527,8 +502,7 @@ in
         mapAttrsToList
           (
             _: inbox:
-            concatMapStringsSep "\n" (address: "${address} ${address}")
-              inbox.address
+            concatMapStringsSep "\n" (address: "${address} ${address}") inbox.address
           )
           cfg.inboxes
       );
@@ -538,8 +512,7 @@ in
         mapAttrsToList
           (
             _: inbox:
-            concatMapStringsSep "\n"
-              (address: "${address} public-inbox:${address}")
+            concatMapStringsSep "\n" (address: "${address} public-inbox:${address}")
               inbox.address
           )
           cfg.inboxes
@@ -553,8 +526,7 @@ in
         args = [
           "flags=X" # Report as a final delivery
           "user=${
-            with config.users;
-            users."public-inbox".name + ":" + groups."public-inbox".name
+            with config.users; users."public-inbox".name + ":" + groups."public-inbox".name
           }"
           # Specifying a nexthop when using the transport
           # (eg. test public-inbox:test) allows to
@@ -564,9 +536,7 @@ in
               export HOME="${stateDir}"
               export ORIGINAL_RECIPIENT="''${2:-1}"
               export PATH="${makeBinPath cfg.path}:$PATH"
-              exec ${cfg.package}/bin/public-inbox-mda ${
-                escapeShellArgs cfg.mda.args
-              }
+              exec ${cfg.package}/bin/public-inbox-mda ${escapeShellArgs cfg.mda.args}
             ''
           } \${original_recipient} \${nexthop}"
         ];
@@ -747,9 +717,7 @@ in
                 + concatStrings (
                   mapAttrsToList
                     (name: inbox: ''
-                      if [ ! -e ${stateDir}/inboxes/${
-                        escapeShellArg name
-                      } ]; then
+                      if [ ! -e ${stateDir}/inboxes/${escapeShellArg name} ]; then
                         # public-inbox-init creates an inbox and adds it to a config file.
                         # It tries to atomically write the config file by creating
                         # another file in the same directory, and renaming it.
@@ -776,9 +744,7 @@ in
                       ln -sf ${inbox.description} \
                         ${stateDir}/inboxes/${escapeShellArg name}/description
 
-                      export GIT_DIR=${stateDir}/inboxes/${
-                        escapeShellArg name
-                      }/all.git
+                      export GIT_DIR=${stateDir}/inboxes/${escapeShellArg name}/all.git
                       if test -d "$GIT_DIR"; then
                         # Config is inherited by each epoch repository,
                         # so just needs to be set for all.git.

@@ -24,9 +24,7 @@ let
 
   ipsecSecrets =
     secrets:
-    toFile "ipsec.secrets" (
-      concatMapStringsSep "\n" (f: "include ${f}") secrets
-    )
+    toFile "ipsec.secrets" (concatMapStringsSep "\n" (f: "include ${f}") secrets)
   ;
 
   ipsecConf =
@@ -46,9 +44,7 @@ let
               ''
                 ${type} ${sec}
               ''
-              + (concatStringsSep "\n" (
-                mapAttrsToList (k: v: "  ${k}=${v}") attrs
-              ))
+              + (concatStringsSep "\n" (mapAttrsToList (k: v: "  ${k}=${v}") attrs))
             )
             sections
         )
@@ -77,9 +73,7 @@ let
       charon {
         ${optionalString managePlugins "load_modular = no"}
         ${
-          optionalString managePlugins (
-            "load = " + (concatStringsSep " " enabledPlugins)
-          )
+          optionalString managePlugins ("load = " + (concatStringsSep " " enabledPlugins))
         }
         plugins {
           stroke {

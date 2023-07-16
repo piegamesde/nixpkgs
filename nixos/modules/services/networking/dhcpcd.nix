@@ -29,8 +29,7 @@ let
   # interfaces that are part of a bridge, bond or sit device.
   ignoredInterfaces =
     map (i: i.name) (
-      filter
-        (i: if i.useDHCP != null then !i.useDHCP else i.ipv4.addresses != [ ])
+      filter (i: if i.useDHCP != null then !i.useDHCP else i.ipv4.addresses != [ ])
         interfaces
     )
     ++ mapAttrsToList (i: _: i) config.networking.sits
@@ -39,12 +38,7 @@ let
     )
     ++ flatten (
       concatMap
-        (
-          i:
-          attrNames (
-            filterAttrs (_: config: config.type != "internal") i.interfaces
-          )
-        )
+        (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces))
         (attrValues config.networking.vswitches)
     )
     ++ concatLists (
@@ -135,9 +129,7 @@ let
 
     ${optionalString
       (
-        config.networking.enableIPv6
-        && cfg.IPv6rs == null
-        && staticIPv6Addresses != [ ]
+        config.networking.enableIPv6 && cfg.IPv6rs == null && staticIPv6Addresses != [ ]
       )
       noIPv6rs}
     ${optionalString (config.networking.enableIPv6 && cfg.IPv6rs == false) ''
@@ -291,9 +283,7 @@ in
           (cfgN.defaultGateway != null && cfgN.defaultGateway.address != "")
           && (
             !cfgN.enableIPv6
-            || (
-              cfgN.defaultGateway6 != null && cfgN.defaultGateway6.address != ""
-            )
+            || (cfgN.defaultGateway6 != null && cfgN.defaultGateway6.address != "")
           )
         ;
       in
@@ -345,12 +335,9 @@ in
 
     environment.etc."dhcpcd.exit-hook".source = exitHook;
 
-    powerManagement.resumeCommands =
-      mkIf config.systemd.services.dhcpcd.enable
-        ''
-          # Tell dhcpcd to rebind its interfaces if it's running.
-          /run/current-system/systemd/bin/systemctl reload dhcpcd.service
-        ''
-    ;
+    powerManagement.resumeCommands = mkIf config.systemd.services.dhcpcd.enable ''
+      # Tell dhcpcd to rebind its interfaces if it's running.
+      /run/current-system/systemd/bin/systemctl reload dhcpcd.service
+    '';
   };
 }

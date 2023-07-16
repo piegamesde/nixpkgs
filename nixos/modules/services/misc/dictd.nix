@@ -33,10 +33,7 @@ in
           wiktionary
           wordnet
         ];
-        defaultText =
-          literalExpression
-            "with pkgs.dictdDBs; [ wiktionary wordnet ]"
-        ;
+        defaultText = literalExpression "with pkgs.dictdDBs; [ wiktionary wordnet ]";
         example = literalExpression "[ pkgs.dictdDBs.nld2eng ]";
         description = lib.mdDoc "List of databases to make available.";
       };

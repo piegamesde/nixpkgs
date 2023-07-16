@@ -27,14 +27,10 @@ in
         description = lib.mdDoc "Uptime Kuma package to use.";
       };
 
-      appriseSupport = mkEnableOption (
-        mdDoc "apprise support for notifications"
-      );
+      appriseSupport = mkEnableOption (mdDoc "apprise support for notifications");
 
       settings = lib.mkOption {
-        type = lib.types.submodule {
-          freeformType = with lib.types; attrsOf str;
-        };
+        type = lib.types.submodule { freeformType = with lib.types; attrsOf str; };
         default = { };
         example = {
           PORT = "4000";
@@ -61,10 +57,7 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       environment = cfg.settings;
-      path =
-        with pkgs;
-        [ unixtools.ping ] ++ lib.optional cfg.appriseSupport apprise
-      ;
+      path = with pkgs; [ unixtools.ping ] ++ lib.optional cfg.appriseSupport apprise;
       serviceConfig = {
         Type = "simple";
         StateDirectory = "uptime-kuma";

@@ -31,8 +31,7 @@ let
   static = runCommand "systemd-static" { } ''
     mkdir -p $out
     ${lib.concatStringsSep "\n" (
-      lib.mapAttrsToList (nm: file: "ln -sv ${file.path or file} $out/${nm}")
-        units
+      lib.mapAttrsToList (nm: file: "ln -sv ${file.path or file} $out/${nm}") units
     )}
   '';
   add-unit-snippet =

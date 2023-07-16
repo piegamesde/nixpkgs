@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
   ;
 
   targets =
-    (lib.optionalString server "server") + (lib.optionalString client " client")
-  ;
+    (lib.optionalString server "server") + (lib.optionalString client " client");
   makeFlags = [
     "-C source/src"
     "CXX=${stdenv.cc.targetPrefix}c++"

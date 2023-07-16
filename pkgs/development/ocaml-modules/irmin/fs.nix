@@ -32,6 +32,5 @@ buildDunePackage rec {
 
   doCheck = true;
 
-  meta =
-    irmin.meta // { description = "Generic file-system backend for Irmin"; };
+  meta = irmin.meta // { description = "Generic file-system backend for Irmin"; };
 }

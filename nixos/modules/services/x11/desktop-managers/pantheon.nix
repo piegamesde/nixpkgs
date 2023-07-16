@@ -35,8 +35,7 @@ in
 
       contractor = {
         enable = mkEnableOption (
-          lib.mdDoc
-            "contractor, a desktop-wide extension service used by Pantheon"
+          lib.mdDoc "contractor, a desktop-wide extension service used by Pantheon"
         );
       };
 
@@ -83,10 +82,7 @@ in
       extraGSettingsOverridePackages = mkOption {
         default = [ ];
         type = types.listOf types.path;
-        description =
-          lib.mdDoc
-            "List of packages for which gsettings are overridden."
-        ;
+        description = lib.mdDoc "List of packages for which gsettings are overridden.";
       };
 
       debug = mkEnableOption (lib.mdDoc "gnome-session debug messages");
@@ -215,9 +211,7 @@ in
             elementary-settings-daemon
             gala
             gnome-settings-daemon
-            (switchboard-with-plugs.override {
-              plugs = cfg.extraSwitchboardPlugs;
-            })
+            (switchboard-with-plugs.override { plugs = cfg.extraSwitchboardPlugs; })
             (wingpanel-with-indicators.override {
               indicators = cfg.extraWingpanelIndicators;
             })

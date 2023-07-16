@@ -53,10 +53,7 @@ let
         url = "https://github.com/OmniSharp/omnisharp-vscode/releases/download/v${version}/csharp-${version}-darwin-arm64.vsix";
         sha256 = "08406xz2raal8f10bmnkz1mwdfprsbkjxzc01v0i4sax1hr2a2yl";
         binaries =
-          darwinAarch64DebuggerBins
-          ++ darwinX86DebuggerBins
-          ++ omniSharpBins
-          ++ razorBins
+          darwinAarch64DebuggerBins ++ darwinX86DebuggerBins ++ omniSharpBins ++ razorBins
         ;
       };
     }
@@ -101,9 +98,7 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
 
       patchelf_add_icu_as_needed() {
         declare elf="''${1?}"
-        declare icu_major_v="${
-          lib.head (lib.splitVersion (lib.getVersion icu.name))
-        }"
+        declare icu_major_v="${lib.head (lib.splitVersion (lib.getVersion icu.name))}"
 
         for icu_lib in icui18n icuuc icudata; do
           patchelf --add-needed "lib''${icu_lib}.so.$icu_major_v" "$elf"

@@ -72,9 +72,7 @@ stdenv.mkDerivation rec {
   # environment variables.
   # [1]: https://github.com/rust-lang/pkg-config-rs/issues/53
   "PKG_CONFIG_${
-    builtins.replaceStrings [ "-" ] [ "_" ] (
-      rust.toRustTarget stdenv.buildPlatform
-    )
+    builtins.replaceStrings [ "-" ] [ "_" ] (rust.toRustTarget stdenv.buildPlatform)
   }" = "${pkgsBuildHost.stdenv.cc.targetPrefix}pkg-config";
 
   NIX_LDFLAGS = toString (
@@ -147,9 +145,7 @@ stdenv.mkDerivation rec {
 
       "${setBuild}.crt-static=${lib.boolToString stdenv.buildPlatform.isStatic}"
       "${setHost}.crt-static=${lib.boolToString stdenv.hostPlatform.isStatic}"
-      "${setTarget}.crt-static=${
-        lib.boolToString stdenv.targetPlatform.isStatic
-      }"
+      "${setTarget}.crt-static=${lib.boolToString stdenv.targetPlatform.isStatic}"
     ]
     ++ optionals (!withBundledLLVM) [
       "--enable-llvm-link-shared"

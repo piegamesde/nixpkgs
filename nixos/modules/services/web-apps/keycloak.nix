@@ -238,10 +238,7 @@ in
         useSSL = mkOption {
           type = bool;
           default = cfg.database.host != "localhost";
-          defaultText =
-            literalExpression
-              ''config.${opt.database.host} != "localhost"''
-          ;
+          defaultText = literalExpression ''config.${opt.database.host} != "localhost"'';
           description = lib.mdDoc ''
             Whether the database connection should be secured by SSL /
             TLS.
@@ -542,8 +539,7 @@ in
         done
 
         ${concatStringsSep "\n" (
-          mapAttrsToList
-            (name: theme: "linkTheme ${theme} ${escapeShellArg name}")
+          mapAttrsToList (name: theme: "linkTheme ${theme} ${escapeShellArg name}")
             cfg.themes
         )}
       '';
@@ -564,10 +560,7 @@ in
             else if isSecret v then
               hashString "sha256" v._secret
             else
-              throw
-                "unsupported type ${typeOf v}: ${
-                  (lib.generators.toPretty { }) v
-                }"
+              throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}"
           ;
         };
       };
@@ -602,8 +595,7 @@ in
         {
           assertion =
             createLocalPostgreSQL
-            -> config.services.postgresql.settings.standard_conforming_strings
-              or true
+            -> config.services.postgresql.settings.standard_conforming_strings or true
           ;
           message = "Setting up a local PostgreSQL db for Keycloak requires `standard_conforming_strings` turned on to work reliably";
         }
@@ -633,35 +625,19 @@ in
             ]
           );
           dbProps =
-            if cfg.database.type == "postgresql" then
-              postgresParams
-            else
-              mariadbParams
-          ;
+            if cfg.database.type == "postgresql" then postgresParams else mariadbParams;
         in
         mkMerge [
           {
             db =
-              if cfg.database.type == "postgresql" then
-                "postgres"
-              else
-                cfg.database.type
-            ;
+              if cfg.database.type == "postgresql" then "postgres" else cfg.database.type;
             db-username =
-              if databaseActuallyCreateLocally then
-                "keycloak"
-              else
-                cfg.database.username
-            ;
+              if databaseActuallyCreateLocally then "keycloak" else cfg.database.username;
             db-password._secret = cfg.database.passwordFile;
             db-url-host = cfg.database.host;
             db-url-port = toString cfg.database.port;
             db-url-database =
-              if databaseActuallyCreateLocally then
-                "keycloak"
-              else
-                cfg.database.name
-            ;
+              if databaseActuallyCreateLocally then "keycloak" else cfg.database.name;
             db-url-properties = prefixUnlessEmpty "?" dbProps;
             db-url = null;
           }
@@ -754,17 +730,12 @@ in
           secretPaths = catAttrs "_secret" (collect isSecret cfg.settings);
           mkSecretReplacement =
             file: ''
-              replace-secret ${
-                hashString "sha256" file
-              } $CREDENTIALS_DIRECTORY/${
+              replace-secret ${hashString "sha256" file} $CREDENTIALS_DIRECTORY/${
                 baseNameOf file
               } /run/keycloak/conf/keycloak.conf
             ''
           ;
-          secretReplacements =
-            lib.concatMapStrings mkSecretReplacement
-              secretPaths
-          ;
+          secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
         in
         {
           after = databaseServices;
@@ -782,13 +753,10 @@ in
           serviceConfig = {
             LoadCredential =
               map (p: "${baseNameOf p}:${p}") secretPaths
-              ++
-                optionals
-                  (cfg.sslCertificate != null && cfg.sslCertificateKey != null)
-                  [
-                    "ssl_cert:${cfg.sslCertificate}"
-                    "ssl_key:${cfg.sslCertificateKey}"
-                  ]
+              ++ optionals (cfg.sslCertificate != null && cfg.sslCertificateKey != null) [
+                "ssl_cert:${cfg.sslCertificate}"
+                "ssl_key:${cfg.sslCertificateKey}"
+              ]
             ;
             User = "keycloak";
             Group = "keycloak";
@@ -818,17 +786,14 @@ in
 
             ''
             +
-              optionalString
-                (cfg.sslCertificate != null && cfg.sslCertificateKey != null)
+              optionalString (cfg.sslCertificate != null && cfg.sslCertificateKey != null)
                 ''
                   mkdir -p /run/keycloak/ssl
                   cp $CREDENTIALS_DIRECTORY/ssl_{cert,key} /run/keycloak/ssl/
                 ''
             + ''
               export KEYCLOAK_ADMIN=admin
-              export KEYCLOAK_ADMIN_PASSWORD=${
-                escapeShellArg cfg.initialAdminPassword
-              }
+              export KEYCLOAK_ADMIN_PASSWORD=${escapeShellArg cfg.initialAdminPassword}
               kc.sh start --optimized
             ''
           ;
@@ -839,12 +804,7 @@ in
       services.mysql.enable = mkDefault createLocalMySQL;
       services.mysql.package =
         let
-          dbPkg =
-            if cfg.database.type == "mariadb" then
-              pkgs.mariadb
-            else
-              pkgs.mysql80
-          ;
+          dbPkg = if cfg.database.type == "mariadb" then pkgs.mariadb else pkgs.mysql80;
         in
         mkIf createLocalMySQL (mkDefault dbPkg)
       ;

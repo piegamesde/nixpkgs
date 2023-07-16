@@ -104,18 +104,13 @@ self: super: {
   # https://github.com/pikajude/stylish-cabal/issues/12
   stylish-cabal = doDistribute (
     markUnbroken (
-      super.stylish-cabal.override {
-        haddock-library = self.haddock-library_1_7_0;
-      }
+      super.stylish-cabal.override { haddock-library = self.haddock-library_1_7_0; }
     )
   );
   haddock-library_1_7_0 = dontCheck super.haddock-library_1_7_0;
 
   # ghc versions prior to 8.8.x needs additional dependency to compile successfully.
-  ghc-lib-parser-ex =
-    addBuildDepend self.ghc-lib-parser
-      super.ghc-lib-parser-ex
-  ;
+  ghc-lib-parser-ex = addBuildDepend self.ghc-lib-parser super.ghc-lib-parser-ex;
 
   # This became a core library in ghc 8.10., so we don’t have an "exception" attribute anymore.
   exceptions = super.exceptions_0_10_4;

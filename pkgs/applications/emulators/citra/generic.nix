@@ -59,9 +59,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableSdl2 SDL2
     ++ lib.optional enableQtTranslation qttools
     ++ lib.optional enableCubeb libpulseaudio
-    ++
-      lib.optional (enableFfmpegAudioDecoder || enableFfmpegVideoDumper)
-        ffmpeg_4
+    ++ lib.optional (enableFfmpegAudioDecoder || enableFfmpegVideoDumper) ffmpeg_4
     ++ lib.optional useDiscordRichPresence rapidjson
     ++ lib.optional enableFdk fdk_aac
   ;

@@ -145,25 +145,16 @@ lib.makeScope pkgs.newScope (
 
     contractor = callPackage ./services/contractor { };
 
-    elementary-capnet-assist =
-      callPackage ./services/elementary-capnet-assist
-        { }
-    ;
+    elementary-capnet-assist = callPackage ./services/elementary-capnet-assist { };
 
-    elementary-notifications =
-      callPackage ./services/elementary-notifications
-        { }
-    ;
+    elementary-notifications = callPackage ./services/elementary-notifications { };
 
     elementary-settings-daemon =
       callPackage ./services/elementary-settings-daemon
         { }
     ;
 
-    pantheon-agent-geoclue2 =
-      callPackage ./services/pantheon-agent-geoclue2
-        { }
-    ;
+    pantheon-agent-geoclue2 = callPackage ./services/pantheon-agent-geoclue2 { };
 
     pantheon-agent-polkit = callPackage ./services/pantheon-agent-polkit { };
 
@@ -179,10 +170,7 @@ lib.makeScope pkgs.newScope (
         { }
     ;
 
-    wingpanel-indicator-a11y =
-      callPackage ./desktop/wingpanel-indicators/a11y
-        { }
-    ;
+    wingpanel-indicator-a11y = callPackage ./desktop/wingpanel-indicators/a11y { };
 
     wingpanel-indicator-bluetooth =
       callPackage ./desktop/wingpanel-indicators/bluetooth
@@ -214,10 +202,9 @@ lib.makeScope pkgs.newScope (
         { }
     ;
 
-    wingpanel-indicator-power =
-      callPackage ./desktop/wingpanel-indicators/power
-        { inherit (gnome) gnome-power-manager; }
-    ;
+    wingpanel-indicator-power = callPackage ./desktop/wingpanel-indicators/power {
+      inherit (gnome) gnome-power-manager;
+    };
 
     wingpanel-indicator-session =
       callPackage ./desktop/wingpanel-indicators/session
@@ -246,22 +233,13 @@ lib.makeScope pkgs.newScope (
         { }
     ;
 
-    switchboard-plug-bluetooth =
-      callPackage ./apps/switchboard-plugs/bluetooth
-        { }
-    ;
+    switchboard-plug-bluetooth = callPackage ./apps/switchboard-plugs/bluetooth { };
 
-    switchboard-plug-datetime =
-      callPackage ./apps/switchboard-plugs/datetime
-        { }
-    ;
+    switchboard-plug-datetime = callPackage ./apps/switchboard-plugs/datetime { };
 
     switchboard-plug-display = callPackage ./apps/switchboard-plugs/display { };
 
-    switchboard-plug-keyboard =
-      callPackage ./apps/switchboard-plugs/keyboard
-        { }
-    ;
+    switchboard-plug-keyboard = callPackage ./apps/switchboard-plugs/keyboard { };
 
     switchboard-plug-mouse-touchpad =
       callPackage ./apps/switchboard-plugs/mouse-touchpad
@@ -287,10 +265,7 @@ lib.makeScope pkgs.newScope (
 
     switchboard-plug-power = callPackage ./apps/switchboard-plugs/power { };
 
-    switchboard-plug-printers =
-      callPackage ./apps/switchboard-plugs/printers
-        { }
-    ;
+    switchboard-plug-printers = callPackage ./apps/switchboard-plugs/printers { };
 
     switchboard-plug-security-privacy =
       callPackage ./apps/switchboard-plugs/security-privacy

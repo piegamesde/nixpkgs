@@ -142,10 +142,7 @@ in
       createLocally = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Create the database and database user locally."
-        ;
+        description = lib.mdDoc "Create the database and database user locally.";
       };
     };
 
@@ -235,9 +232,7 @@ in
     nginx = mkOption {
       type = types.submodule (
         recursiveUpdate
-          (import ../web-servers/nginx/vhost-options.nix {
-            inherit config lib;
-          })
+          (import ../web-servers/nginx/vhost-options.nix { inherit config lib; })
           { }
       );
       default = { };
@@ -400,9 +395,7 @@ in
               tryFiles = "$uri $uri/ /index.php?$query_string";
             };
             "~ .php$".extraConfig = ''
-              fastcgi_pass unix:${
-                config.services.phpfpm.pools."bookstack".socket
-              };
+              fastcgi_pass unix:${config.services.phpfpm.pools."bookstack".socket};
             '';
             "~ .(js|css|gif|png|ico|jpg|jpeg)$" = {
               extraConfig = "expires 365d;";
@@ -445,10 +438,7 @@ in
                 else if isSecret v then
                   hashString "sha256" v._secret
                 else
-                  throw
-                    "unsupported type ${typeOf v}: ${
-                      (lib.generators.toPretty { }) v
-                    }"
+                  throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}"
               ;
             };
           };
@@ -466,10 +456,7 @@ in
               }
             ''
           ;
-          secretReplacements =
-            lib.concatMapStrings mkSecretReplacement
-              secretPaths
-          ;
+          secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
           filteredConfig =
             lib.converge
               (lib.filterAttrsRecursive (
@@ -481,9 +468,7 @@ in
               ))
               cfg.config
           ;
-          bookstackEnv = pkgs.writeText "bookstack.env" (
-            bookstackEnvVars filteredConfig
-          );
+          bookstackEnv = pkgs.writeText "bookstack.env" (bookstackEnvVars filteredConfig);
         in
         ''
           # error handling

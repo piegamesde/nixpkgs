@@ -81,9 +81,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    users.groups = optionalAttrs (cfg.group == "zeyple") {
-      "${cfg.group}" = { };
-    };
+    users.groups = optionalAttrs (cfg.group == "zeyple") { "${cfg.group}" = { }; };
     users.users = optionalAttrs (cfg.user == "zeyple") {
       "${cfg.user}" = {
         isSystemUser = true;
@@ -105,10 +103,7 @@ in
       };
     };
 
-    environment.etc."zeyple.conf".source =
-      ini.generate "zeyple.conf"
-        cfg.settings
-    ;
+    environment.etc."zeyple.conf".source = ini.generate "zeyple.conf" cfg.settings;
 
     systemd.tmpfiles.rules = [
       "f '${cfg.settings.zeyple.log_file}' 0600 ${cfg.user} ${cfg.group} - -"

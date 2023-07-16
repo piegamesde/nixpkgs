@@ -8,8 +8,7 @@
 }:
 
 if lib.versionOlder "4.13" ocaml.version then
-  throw
-    "ocaml-migrate-parsetree-1.8 is not available for OCaml ${ocaml.version}"
+  throw "ocaml-migrate-parsetree-1.8 is not available for OCaml ${ocaml.version}"
 else
 
   buildDunePackage rec {

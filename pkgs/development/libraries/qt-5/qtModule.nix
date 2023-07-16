@@ -34,8 +34,7 @@ mkDerivation (
         self.qmake
       ]
     ;
-    propagatedBuildInputs =
-      args.qtInputs ++ (args.propagatedBuildInputs or [ ]);
+    propagatedBuildInputs = args.qtInputs ++ (args.propagatedBuildInputs or [ ]);
 
     outputs =
       args.outputs or [

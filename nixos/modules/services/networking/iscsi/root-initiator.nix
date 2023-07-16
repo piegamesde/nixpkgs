@@ -178,9 +178,7 @@ in
             ''
           else
             ''
-              iscsiadm --mode node --targetname ${
-                escapeShellArg cfg.target
-              } --login
+              iscsiadm --mode node --targetname ${escapeShellArg cfg.target} --login
             ''}
 
           ${cfg.extraIscsiCommands}

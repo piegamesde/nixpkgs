@@ -322,10 +322,7 @@ in
           n: v:
           "services.restic.backups.${n}.s3CredentialsFile is deprecated, please use services.restic.backups.${n}.environmentFile instead."
         )
-        (
-          filterAttrs (n: v: v.s3CredentialsFile != null)
-            config.services.restic.backups
-        )
+        (filterAttrs (n: v: v.s3CredentialsFile != null) config.services.restic.backups)
     ;
     assertions =
       mapAttrsToList
@@ -340,18 +337,13 @@ in
         (
           name: backup:
           let
-            extraOptions =
-              concatMapStrings (arg: " -o ${arg}")
-                backup.extraOptions
-            ;
+            extraOptions = concatMapStrings (arg: " -o ${arg}") backup.extraOptions;
             resticCmd = "${backup.package}/bin/restic${extraOptions}";
             excludeFlags =
               if (backup.exclude != [ ]) then
                 [
                   "--exclude-file=${
-                    pkgs.writeText "exclude-patterns" (
-                      concatStringsSep "\n" backup.exclude
-                    )
+                    pkgs.writeText "exclude-patterns" (concatStringsSep "\n" backup.exclude)
                   }"
                 ]
               else
@@ -360,31 +352,19 @@ in
             filesFromTmpFile = "/run/restic-backups-${name}/includes";
             backupPaths =
               if (backup.dynamicFilesFrom == null) then
-                optionalString (backup.paths != null) (
-                  concatStringsSep " " backup.paths
-                )
+                optionalString (backup.paths != null) (concatStringsSep " " backup.paths)
               else
                 "--files-from ${filesFromTmpFile}"
             ;
             pruneCmd = optionals (builtins.length backup.pruneOpts > 0) [
-              (
-                resticCmd
-                + " forget --prune "
-                + (concatStringsSep " " backup.pruneOpts)
-              )
+              (resticCmd + " forget --prune " + (concatStringsSep " " backup.pruneOpts))
               (resticCmd + " check " + (concatStringsSep " " backup.checkOpts))
             ];
             # Helper functions for rclone remotes
-            rcloneRemoteName =
-              builtins.elemAt (splitString ":" backup.repository)
-                1
-            ;
+            rcloneRemoteName = builtins.elemAt (splitString ":" backup.repository) 1;
             rcloneAttrToOpt =
-              v:
-              "RCLONE_" + toUpper (builtins.replaceStrings [ "-" ] [ "_" ] v)
-            ;
-            rcloneAttrToConf =
-              v: "RCLONE_CONFIG_" + toUpper (rcloneRemoteName + "_" + v);
+              v: "RCLONE_" + toUpper (builtins.replaceStrings [ "-" ] [ "_" ] v);
+            rcloneAttrToConf = v: "RCLONE_CONFIG_" + toUpper (rcloneRemoteName + "_" + v);
             toRcloneVal = v: if lib.isBool v then lib.boolToString v else v;
           in
           nameValuePair "restic-backups-${name}" (
@@ -396,19 +376,13 @@ in
                 RESTIC_REPOSITORY_FILE = backup.repositoryFile;
               } // optionalAttrs (backup.rcloneOptions != null) (
                 mapAttrs'
-                  (
-                    name: value:
-                    nameValuePair (rcloneAttrToOpt name) (toRcloneVal value)
-                  )
+                  (name: value: nameValuePair (rcloneAttrToOpt name) (toRcloneVal value))
                   backup.rcloneOptions
               ) // optionalAttrs (backup.rcloneConfigFile != null) {
                 RCLONE_CONFIG = backup.rcloneConfigFile;
               } // optionalAttrs (backup.rcloneConfig != null) (
                 mapAttrs'
-                  (
-                    name: value:
-                    nameValuePair (rcloneAttrToConf name) (toRcloneVal value)
-                  )
+                  (name: value: nameValuePair (rcloneAttrToConf name) (toRcloneVal value))
                   backup.rcloneConfig
               );
               path = [ pkgs.openssh ];
@@ -418,9 +392,7 @@ in
                 ExecStart =
                   (optionals (backupPaths != "") [
                     "${resticCmd} backup ${
-                      concatStringsSep " " (
-                        backup.extraBackupArgs ++ excludeFlags
-                      )
+                      concatStringsSep " " (backup.extraBackupArgs ++ excludeFlags)
                     } ${backupPaths}"
                   ])
                   ++ pruneCmd
@@ -442,29 +414,23 @@ in
               {
                 preStart = ''
                   ${optionalString (backup.backupPrepareCommand != null) ''
-                    ${pkgs.writeScript "backupPrepareCommand"
-                      backup.backupPrepareCommand}
+                    ${pkgs.writeScript "backupPrepareCommand" backup.backupPrepareCommand}
                   ''}
                   ${optionalString (backup.initialize) ''
                     ${resticCmd} snapshots || ${resticCmd} init
                   ''}
                   ${optionalString (backup.dynamicFilesFrom != null) ''
                     ${
-                      pkgs.writeScript "dynamicFilesFromScript"
-                        backup.dynamicFilesFrom
+                      pkgs.writeScript "dynamicFilesFromScript" backup.dynamicFilesFrom
                     } > ${filesFromTmpFile}
                   ''}
                 '';
               } // optionalAttrs
-              (
-                backup.dynamicFilesFrom != null
-                || backup.backupCleanupCommand != null
-              )
+              (backup.dynamicFilesFrom != null || backup.backupCleanupCommand != null)
               {
                 postStop = ''
                   ${optionalString (backup.backupCleanupCommand != null) ''
-                    ${pkgs.writeScript "backupCleanupCommand"
-                      backup.backupCleanupCommand}
+                    ${pkgs.writeScript "backupCleanupCommand" backup.backupCleanupCommand}
                   ''}
                   ${optionalString (backup.dynamicFilesFrom != null) ''
                     rm ${filesFromTmpFile}

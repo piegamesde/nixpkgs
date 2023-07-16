@@ -20,9 +20,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
   buildInputs = [ zlib ];
 
-  cmakeFlags = lib.optionals stdenv.hostPlatform.isStatic [
-    "-DSTATIC_BUILD=ON"
-  ];
+  cmakeFlags = lib.optionals stdenv.hostPlatform.isStatic [ "-DSTATIC_BUILD=ON" ];
   meta = with lib; {
     description = "An ultra-fast single-node solution for large and complex metagenomics assembly via succinct de Bruijn graph";
     license = licenses.gpl3;

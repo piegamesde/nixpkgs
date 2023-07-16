@@ -223,8 +223,7 @@ let
               sed -r -i \
                 ${
                   lib.concatStringsSep "\n" (
-                    map (e: ''-e 's@${e}[<>=]+.*@${e}",@g' \'')
-                      ignoreVersionConstraints
+                    map (e: ''-e 's@${e}[<>=]+.*@${e}",@g' \'') ignoreVersionConstraints
                   )
                 }
                 setup.py
@@ -242,9 +241,7 @@ let
             [
               "test_check_setup" # Why should it be able to call pip?
             ]
-            ++ lib.optionals stdenv.isDarwin [
-              "test_set_external_modification"
-            ]
+            ++ lib.optionals stdenv.isDarwin [ "test_set_external_modification" ]
           ;
 
           passthru = {

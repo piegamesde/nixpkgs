@@ -188,9 +188,7 @@ in
             if settingsProvided || configFileProvided || cfg.persistentKeys then
               "echo "
 
-              + (lib.optionalString settingsProvided
-                "'${builtins.toJSON cfg.settings}'"
-              )
+              + (lib.optionalString settingsProvided "'${builtins.toJSON cfg.settings}'")
               + (lib.optionalString configFileProvided
                 ''$(${binHjson} -c "$CREDENTIALS_DIRECTORY/yggdrasil.conf")''
               )
@@ -214,10 +212,7 @@ in
           RuntimeDirectory = "yggdrasil";
           RuntimeDirectoryMode = "0750";
           BindReadOnlyPaths = lib.optional cfg.persistentKeys keysPath;
-          LoadCredential =
-            mkIf configFileProvided
-              "yggdrasil.conf:${cfg.configFile}"
-          ;
+          LoadCredential = mkIf configFileProvided "yggdrasil.conf:${cfg.configFile}";
 
           AmbientCapabilities = "CAP_NET_ADMIN CAP_NET_BIND_SERVICE";
           CapabilityBoundingSet = "CAP_NET_ADMIN CAP_NET_BIND_SERVICE";

@@ -265,10 +265,7 @@ in
           User = "jackaudio";
           SupplementaryGroups =
             lib.optional
-              (
-                config.hardware.pulseaudio.enable
-                && !config.hardware.pulseaudio.systemWide
-              )
+              (config.hardware.pulseaudio.enable && !config.hardware.pulseaudio.systemWide)
               "users"
           ;
           ExecStart = "${cfg.jackd.package}/bin/jackd ${

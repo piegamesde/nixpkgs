@@ -34,8 +34,7 @@ in
   tensorflow =
     overrideCabal
       (drv: {
-        libraryHaskellDepends =
-          drv.libraryHaskellDepends ++ [ self.vector-split ];
+        libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.vector-split ];
       })
       (setTensorflowSourceRoot "tensorflow" super.tensorflow)
   ;
@@ -55,8 +54,5 @@ in
       super.tensorflow-opgen
   ;
 
-  tensorflow-ops =
-    setTensorflowSourceRoot "tensorflow-ops"
-      super.tensorflow-ops
-  ;
+  tensorflow-ops = setTensorflowSourceRoot "tensorflow-ops" super.tensorflow-ops;
 }

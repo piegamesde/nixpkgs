@@ -13,11 +13,7 @@ import ./make-test-python.nix (
   }:
   let
     unit =
-      if nftables then
-        "nftables"
-      else
-        (if withFirewall then "firewall" else "nat")
-    ;
+      if nftables then "nftables" else (if withFirewall then "firewall" else "nat");
 
     routerBase = lib.mkMerge [ {
       virtualisation.vlans = [
@@ -54,9 +50,8 @@ import ./make-test-python.nix (
         lib.mkMerge [ {
           virtualisation.vlans = [ 1 ];
           networking.defaultGateway =
-            (pkgs.lib.head
-              nodes.router.config.networking.interfaces.eth2.ipv4.addresses
-            ).address;
+            (pkgs.lib.head nodes.router.config.networking.interfaces.eth2.ipv4.addresses)
+            .address;
           networking.nftables.enable = nftables;
         } ]
       ;
@@ -102,8 +97,7 @@ import ./make-test-python.nix (
         ...
       }:
       let
-        routerDummyNoNatClosure =
-          nodes.routerDummyNoNat.config.system.build.toplevel;
+        routerDummyNoNatClosure = nodes.routerDummyNoNat.config.system.build.toplevel;
         routerClosure = nodes.router.config.system.build.toplevel;
       in
       ''

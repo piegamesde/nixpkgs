@@ -79,10 +79,7 @@ let
     ${replaceSecret cfg.passwordFile "{{MPD_PASSWORD}}" cfgFile}
     ${concatStringsSep "\n" (
       mapAttrsToList
-        (
-          secname: cfg:
-          replaceSecret cfg.passwordFile "{{${secname}_PASSWORD}}" cfgFile
-        )
+        (secname: cfg: replaceSecret cfg.passwordFile "{{${secname}_PASSWORD}}" cfgFile)
         cfg.endpoints
     )}
   '';
@@ -143,8 +140,7 @@ in
     passwordFile = mkOption {
       default =
         if localMpd then
-          (findFirst (c: any (x: x == "read") c.permissions)
-            { passwordFile = null; }
+          (findFirst (c: any (x: x == "read") c.permissions) { passwordFile = null; }
             mpdCfg.credentials
           ).passwordFile
         else
@@ -185,10 +181,7 @@ in
                   url = mkOption {
                     type = types.str;
                     default = endpointUrls.${name} or "";
-                    description =
-                      lib.mdDoc
-                        "The url endpoint where the scrobble API is listening."
-                    ;
+                    description = lib.mdDoc "The url endpoint where the scrobble API is listening.";
                   };
                   username = mkOption {
                     type = types.str;

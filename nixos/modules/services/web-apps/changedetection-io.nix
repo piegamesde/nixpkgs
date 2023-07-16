@@ -150,24 +150,17 @@ in
               ++ lib.optional cfg.behindProxy "USE_X_SETTINGS=1"
               ++
                 lib.optional cfg.webDriverSupport
-                  "WEBDRIVER_URL=http://127.0.0.1:${
-                    toString cfg.chromePort
-                  }/wd/hub"
+                  "WEBDRIVER_URL=http://127.0.0.1:${toString cfg.chromePort}/wd/hub"
               ++
                 lib.optional cfg.playwrightSupport
                   "PLAYWRIGHT_DRIVER_URL=ws://127.0.0.1:${
                     toString cfg.chromePort
                   }/?stealth=1&--disable-web-security=true"
             ;
-            EnvironmentFile =
-              mkIf (cfg.environmentFile != null)
-                cfg.environmentFile
-            ;
+            EnvironmentFile = mkIf (cfg.environmentFile != null) cfg.environmentFile;
             ExecStart = ''
               ${pkgs.changedetection-io}/bin/changedetection.py \
-                -h ${cfg.listenAddress} -p ${
-                  toString cfg.port
-                } -d ${cfg.datastorePath}
+                -h ${cfg.listenAddress} -p ${toString cfg.port} -d ${cfg.datastorePath}
             '';
             ProtectHome = true;
             ProtectSystem = true;

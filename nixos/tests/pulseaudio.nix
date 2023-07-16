@@ -58,9 +58,7 @@ let
               enable = true;
               support32Bit = true;
               inherit systemWide;
-            } // lib.optionalAttrs fullVersion {
-              package = pkgs.pulseaudioFull;
-            };
+            } // lib.optionalAttrs fullVersion { package = pkgs.pulseaudioFull; };
 
             environment.systemPackages =
               [

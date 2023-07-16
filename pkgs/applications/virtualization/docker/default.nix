@@ -92,8 +92,7 @@ rec {
             hash = containerdHash;
           };
 
-          buildInputs =
-            oldAttrs.buildInputs ++ lib.optionals withSeccomp [ libseccomp ];
+          buildInputs = oldAttrs.buildInputs ++ lib.optionals withSeccomp [ libseccomp ];
         }
       );
 

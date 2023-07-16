@@ -19,9 +19,7 @@ let
         name = "setup_descent12_${version}.exe";
         sha256 = "1r1drbfda6czg21f9qqiiwgnkpszxgmcn5bafp5ljddh34swkn3f";
         message = ''
-          While the Descent ${
-            toString ver
-          } game engine is free, the game assets are not.
+          While the Descent ${toString ver} game engine is free, the game assets are not.
 
           Please purchase the game on gog.com and download the Windows installer.
 

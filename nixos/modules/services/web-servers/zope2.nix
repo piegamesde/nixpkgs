@@ -40,19 +40,13 @@ let
         http_address = mkOption {
           default = "localhost:8080";
           type = types.str;
-          description =
-            lib.mdDoc
-              "Give a port and address for the HTTP server."
-          ;
+          description = lib.mdDoc "Give a port and address for the HTTP server.";
         };
 
         user = mkOption {
           default = "zope2";
           type = types.str;
-          description =
-            lib.mdDoc
-              "The name of the effective user for the Zope process."
-          ;
+          description = lib.mdDoc "The name of the effective user for the Zope process.";
         };
 
         clientHome = mkOption {
@@ -285,10 +279,7 @@ in
         map
           (name: {
             name = "zope2-${name}";
-            value =
-              createZope2Instance (builtins.getAttr name cfg.instances)
-                name
-            ;
+            value = createZope2Instance (builtins.getAttr name cfg.instances) name;
           })
           (builtins.attrNames cfg.instances)
       )

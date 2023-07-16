@@ -21,10 +21,7 @@ let
       pname = "clang";
       inherit version;
 
-      src =
-        fetch "clang"
-          "0px4gl27az6cdz6adds89qzdwb1cqpjsfvrldbz9qvpmphrj34bf"
-      ;
+      src = fetch "clang" "0px4gl27az6cdz6adds89qzdwb1cqpjsfvrldbz9qvpmphrj34bf";
       inherit clang-tools-extra_src;
 
       unpackPhase = ''

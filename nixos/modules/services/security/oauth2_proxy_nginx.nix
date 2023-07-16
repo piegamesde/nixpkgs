@@ -12,10 +12,7 @@ in
     proxy = mkOption {
       type = types.str;
       default = config.services.oauth2_proxy.httpAddress;
-      defaultText =
-        literalExpression
-          "config.services.oauth2_proxy.httpAddress"
-      ;
+      defaultText = literalExpression "config.services.oauth2_proxy.httpAddress";
       description = lib.mdDoc ''
         The address of the reverse proxy endpoint for oauth2_proxy
       '';

@@ -16,12 +16,8 @@ let
   limitOptions =
     opts:
     concatStringsSep " " [
-      (optionalString (opts.sizeSoftLimit != null)
-        "bsoft=${opts.sizeSoftLimit}"
-      )
-      (optionalString (opts.sizeHardLimit != null)
-        "bhard=${opts.sizeHardLimit}"
-      )
+      (optionalString (opts.sizeSoftLimit != null) "bsoft=${opts.sizeSoftLimit}")
+      (optionalString (opts.sizeHardLimit != null) "bhard=${opts.sizeHardLimit}")
     ]
   ;
 in
@@ -45,10 +41,7 @@ in
 
               fileSystem = mkOption {
                 type = types.str;
-                description =
-                  lib.mdDoc
-                    "XFS filesystem hosting the xfs_quota project."
-                ;
+                description = lib.mdDoc "XFS filesystem hosting the xfs_quota project.";
                 default = "/";
               };
 
@@ -96,8 +89,7 @@ in
 
     environment.etc.projects.source = pkgs.writeText "etc-project" (
       concatStringsSep "\n" (
-        mapAttrsToList (name: opts: "${toString opts.id}:${opts.path}")
-          cfg.projects
+        mapAttrsToList (name: opts: "${toString opts.id}:${opts.path}") cfg.projects
       )
     );
 
@@ -121,9 +113,7 @@ in
             '';
 
             wantedBy = [ "multi-user.target" ];
-            after = [
-              ((replaceStrings [ "/" ] [ "-" ] opts.fileSystem) + ".mount")
-            ];
+            after = [ ((replaceStrings [ "/" ] [ "-" ] opts.fileSystem) + ".mount") ];
 
             restartTriggers = [ config.environment.etc.projects.source ];
 

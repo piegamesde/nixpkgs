@@ -26,22 +26,16 @@ import ./make-test-python.nix (
 
           specialisation.encrypted-root.configuration = {
             virtualisation.bootDevice = "/dev/mapper/root";
-            boot.initrd.luks.devices = lib.mkVMOverride {
-              root.device = "/dev/vdc";
-            };
+            boot.initrd.luks.devices = lib.mkVMOverride { root.device = "/dev/vdc"; };
             boot.initrd.systemd.enable = true;
             boot.initrd.network = {
               enable = true;
               ssh = {
                 enable = true;
-                authorizedKeys = [
-                  (readFile ./initrd-network-ssh/id_ed25519.pub)
-                ];
+                authorizedKeys = [ (readFile ./initrd-network-ssh/id_ed25519.pub) ];
                 port = 22;
                 # Terrible hack so it works with useBootLoader
-                hostKeys = [ {
-                  outPath = "${./initrd-network-ssh/ssh_host_ed25519_key}";
-                } ];
+                hostKeys = [ { outPath = "${./initrd-network-ssh/ssh_host_ed25519_key}"; } ];
               };
             };
           };
@@ -62,10 +56,7 @@ import ./make-test-python.nix (
                   toString (
                     head (
                       splitString " " (
-                        toString (
-                          elemAt (splitString "\n" config.networking.extraHosts)
-                            2
-                        )
+                        toString (elemAt (splitString "\n" config.networking.extraHosts) 2)
                       )
                     )
                   )

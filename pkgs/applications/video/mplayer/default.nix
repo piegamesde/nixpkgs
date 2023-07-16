@@ -193,17 +193,9 @@ stdenv.mkDerivation rec {
     with lib;
     [
       "--enable-freetype"
+      (if fontconfigSupport then "--enable-fontconfig" else "--disable-fontconfig")
       (
-        if fontconfigSupport then
-          "--enable-fontconfig"
-        else
-          "--disable-fontconfig"
-      )
-      (
-        if x11Support then
-          "--enable-x11 --enable-gl"
-        else
-          "--disable-x11 --disable-gl"
+        if x11Support then "--enable-x11 --enable-gl" else "--disable-x11 --disable-gl"
       )
       (if xineramaSupport then "--enable-xinerama" else "--disable-xinerama")
       (if xvSupport then "--enable-xv" else "--disable-xv")

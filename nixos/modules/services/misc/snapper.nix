@@ -124,9 +124,7 @@ in
         etc = {
 
           "sysconfig/snapper".text = ''
-            SNAPPER_CONFIGS="${
-              lib.concatStringsSep " " (builtins.attrNames cfg.configs)
-            }"
+            SNAPPER_CONFIGS="${lib.concatStringsSep " " (builtins.attrNames cfg.configs)}"
           '';
         } // (mapAttrs'
           (

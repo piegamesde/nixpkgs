@@ -137,10 +137,7 @@ in
     enableBrokenCiphersForSSE = mkOption {
       type = types.bool;
       default = versionOlder stateVersion "22.11";
-      defaultText =
-        literalExpression
-          ''versionOlder system.stateVersion "22.11"''
-      ;
+      defaultText = literalExpression ''versionOlder system.stateVersion "22.11"'';
       description = lib.mdDoc ''
         This option enables using the OpenSSL PHP extension linked against OpenSSL 1.1
         rather than latest OpenSSL (≥ 3), this is not recommended unless you need
@@ -236,10 +233,7 @@ in
     logLevel = mkOption {
       type = types.ints.between 0 4;
       default = 2;
-      description =
-        lib.mdDoc
-          "Log level value between 0 (DEBUG) and 4 (FATAL)."
-      ;
+      description = lib.mdDoc "Log level value between 0 (DEBUG) and 4 (FATAL).";
     };
     logType = mkOption {
       type = types.enum [
@@ -262,10 +256,7 @@ in
     };
     package = mkOption {
       type = types.package;
-      description =
-        lib.mdDoc
-          "Which package to use for the Nextcloud instance."
-      ;
+      description = lib.mdDoc "Which package to use for the Nextcloud instance.";
       relatedPackages = [
         "nextcloud25"
         "nextcloud26"
@@ -747,10 +738,7 @@ in
       recommendedHttpHeaders = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Enable additional recommended HTTP response headers"
-        ;
+        description = lib.mdDoc "Enable additional recommended HTTP response headers";
       };
       hstsMaxAge = mkOption {
         type = types.ints.positive;
@@ -779,9 +767,9 @@ in
                 After nextcloud${
                   toString major
                 } is installed successfully, you can safely upgrade
-                to ${
-                  toString (major + 1)
-                }. The latest version available is nextcloud${toString latest}.
+                to ${toString (major + 1)}. The latest version available is nextcloud${
+                  toString latest
+                }.
 
                 Please note that Nextcloud doesn't support upgrades across multiple major versions
                 (i.e. an upgrade from 16 is possible to 17, but not 16 to 18).
@@ -825,10 +813,7 @@ in
             For more context, here is the implementing pull request: https://github.com/NixOS/nixpkgs/pull/198470
           '')
           ++ (optional
-            (
-              cfg.enableBrokenCiphersForSSE
-              && versionAtLeast cfg.package.version "26"
-            )
+            (cfg.enableBrokenCiphersForSSE && versionAtLeast cfg.package.version "26")
             ''
               Nextcloud26 supports RC4 without requiring legacy OpenSSL, so
               `services.nextcloud.enableBrokenCiphersForSSE` can be set to `false`.
@@ -855,17 +840,12 @@ in
         ;
 
         services.nextcloud.phpPackage =
-          if versionOlder cfg.package.version "26" then
-            pkgs.php81
-          else
-            pkgs.php82
-        ;
+          if versionOlder cfg.package.version "26" then pkgs.php81 else pkgs.php82;
       }
 
       {
         assertions = [ {
-          assertion =
-            cfg.database.createLocally -> cfg.config.dbpassFile == null;
+          assertion = cfg.database.createLocally -> cfg.config.dbpassFile == null;
           message = ''
             Using `services.nextcloud.database.createLocally` (that now defaults
             to true) with database password authentication is no longer
@@ -905,11 +885,8 @@ in
             let
               c = cfg.config;
               writePhpArray =
-                a:
-                "[${concatMapStringsSep "," (val: ''"${toString val}"'') a}]"
-              ;
-              requiresReadSecretFunction =
-                c.dbpassFile != null || c.objectstore.s3.enable;
+                a: "[${concatMapStringsSep "," (val: ''"${toString val}"'') a}]";
+              requiresReadSecretFunction = c.dbpassFile != null || c.objectstore.s3.enable;
               objectstoreConfig =
                 let
                   s3 = c.objectstore.s3;
@@ -922,19 +899,10 @@ in
                       'autocreate' => ${boolToString s3.autocreate},
                       'key' => '${s3.key}',
                       'secret' => nix_read_secret('${s3.secretFile}'),
-                      ${
-                        optionalString (s3.hostname != null)
-                          "'hostname' => '${s3.hostname}',"
-                      }
-                      ${
-                        optionalString (s3.port != null)
-                          "'port' => ${toString s3.port},"
-                      }
+                      ${optionalString (s3.hostname != null) "'hostname' => '${s3.hostname}',"}
+                      ${optionalString (s3.port != null) "'port' => ${toString s3.port},"}
                       'use_ssl' => ${boolToString s3.useSsl},
-                      ${
-                        optionalString (s3.region != null)
-                          "'region' => '${s3.region}',"
-                      }
+                      ${optionalString (s3.region != null) "'region' => '${s3.region}',"}
                       'use_path_style' => ${boolToString s3.usePathStyle},
                       ${
                         optionalString (s3.sseCKeyFile != null)
@@ -945,8 +913,7 @@ in
                 ''
               ;
 
-              showAppStoreSetting =
-                cfg.appstoreEnable != null || cfg.extraApps != { };
+              showAppStoreSetting = cfg.appstoreEnable != null || cfg.extraApps != { };
               renderedAppStoreSetting =
                 let
                   x = cfg.appstoreEnable;
@@ -954,8 +921,7 @@ in
                 if x == null then "false" else boolToString x
               ;
 
-              nextcloudGreaterOrEqualThan =
-                req: versionAtLeast cfg.package.version req;
+              nextcloudGreaterOrEqualThan = req: versionAtLeast cfg.package.version req;
 
               overrideConfig = pkgs.writeText "nextcloud-config.php" ''
                 <?php
@@ -999,8 +965,7 @@ in
                   'datadirectory' => '${datadir}/data',
                   'skeletondirectory' => '${cfg.skeletonDirectory}',
                   ${
-                    optionalString cfg.caching.apcu
-                      "'memcache.local' => '\\OC\\Memcache\\APCu',"
+                    optionalString cfg.caching.apcu "'memcache.local' => '\\OC\\Memcache\\APCu',"
                   }
                   'log_type' => '${cfg.logType}',
                   'loglevel' => '${builtins.toString cfg.logLevel}',
@@ -1008,22 +973,10 @@ in
                     optionalString (c.overwriteProtocol != null)
                       "'overwriteprotocol' => '${c.overwriteProtocol}',"
                   }
-                  ${
-                    optionalString (c.dbname != null)
-                      "'dbname' => '${c.dbname}',"
-                  }
-                  ${
-                    optionalString (c.dbhost != null)
-                      "'dbhost' => '${c.dbhost}',"
-                  }
-                  ${
-                    optionalString (c.dbport != null)
-                      "'dbport' => '${toString c.dbport}',"
-                  }
-                  ${
-                    optionalString (c.dbuser != null)
-                      "'dbuser' => '${c.dbuser}',"
-                  }
+                  ${optionalString (c.dbname != null) "'dbname' => '${c.dbname}',"}
+                  ${optionalString (c.dbhost != null) "'dbhost' => '${c.dbhost}',"}
+                  ${optionalString (c.dbport != null) "'dbport' => '${toString c.dbport}',"}
+                  ${optionalString (c.dbuser != null) "'dbuser' => '${c.dbuser}',"}
                   ${
                     optionalString (c.dbtableprefix != null)
                       "'dbtableprefix' => '${toString c.dbtableprefix}',"
@@ -1052,10 +1005,7 @@ in
                 ];
 
                 $CONFIG = array_replace_recursive($CONFIG, nix_decode_json_file(
-                  "${
-                    jsonFormat.generate "nextcloud-extraOptions.json"
-                      cfg.extraOptions
-                  }",
+                  "${jsonFormat.generate "nextcloud-extraOptions.json" cfg.extraOptions}",
                   "impossible: this should never happen (decoding generated extraOptions file %s failed)"
                 ));
 
@@ -1078,11 +1028,7 @@ in
                   dbpass = {
                     arg = "DBPASS";
                     value =
-                      if c.dbpassFile != null then
-                        ''"$(<"${toString c.dbpassFile}")"''
-                      else
-                        ''""''
-                    ;
+                      if c.dbpassFile != null then ''"$(<"${toString c.dbpassFile}")"'' else ''""'';
                   };
                   adminpass = {
                     arg = "ADMINPASS";
@@ -1094,18 +1040,11 @@ in
                       # The following attributes are optional depending on the type of
                       # database.  Those that evaluate to null on the left hand side
                       # will be omitted.
-                      ${
-                        if c.dbname != null then "--database-name" else null
-                      } = ''"${c.dbname}"'';
-                      ${
-                        if c.dbhost != null then "--database-host" else null
-                      } = ''"${c.dbhost}"'';
-                      ${
-                        if c.dbport != null then "--database-port" else null
-                      } = ''"${toString c.dbport}"'';
-                      ${
-                        if c.dbuser != null then "--database-user" else null
-                      } = ''"${c.dbuser}"'';
+                      ${if c.dbname != null then "--database-name" else null} = ''"${c.dbname}"'';
+                      ${if c.dbhost != null then "--database-host" else null} = ''"${c.dbhost}"'';
+                      ${if c.dbport != null then "--database-port" else null} = ''
+                        "${toString c.dbport}"'';
+                      ${if c.dbuser != null then "--database-user" else null} = ''"${c.dbuser}"'';
                       "--database-pass" = ''"''$${dbpass.arg}"'';
                       "--admin-user" = ''"${c.adminuser}"'';
                       "--admin-pass" = ''"''$${adminpass.arg}"'';
@@ -1133,13 +1072,9 @@ in
               wantedBy = [ "multi-user.target" ];
               before = [ "phpfpm-nextcloud.service" ];
               after =
-                optional mysqlLocal "mysql.service"
-                ++ optional pgsqlLocal "postgresql.service"
-              ;
+                optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
               requires =
-                optional mysqlLocal "mysql.service"
-                ++ optional pgsqlLocal "postgresql.service"
-              ;
+                optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
               path = [ occ ];
               script = ''
                 ${optionalString (c.dbpassFile != null) ''
@@ -1167,8 +1102,7 @@ in
                 ln -sfT \
                   ${
                     pkgs.linkFarm "nix-apps" (
-                      mapAttrsToList (name: path: { inherit name path; })
-                        cfg.extraApps
+                      mapAttrsToList (name: path: { inherit name path; }) cfg.extraApps
                     )
                   } \
                   ${cfg.home}/nix-apps
@@ -1194,13 +1128,12 @@ in
 
                 ${occ}/bin/nextcloud-occ config:system:delete trusted_domains
 
-                ${optionalString (cfg.extraAppsEnable && cfg.extraApps != { })
-                  ''
-                    # Try to enable apps
-                    ${occ}/bin/nextcloud-occ app:enable ${
-                      concatStringsSep " " (attrNames cfg.extraApps)
-                    }
-                  ''}
+                ${optionalString (cfg.extraAppsEnable && cfg.extraApps != { }) ''
+                  # Try to enable apps
+                  ${occ}/bin/nextcloud-occ app:enable ${
+                    concatStringsSep " " (attrNames cfg.extraApps)
+                  }
+                ''}
 
                 ${occSetTrustedDomainsCmd}
               '';

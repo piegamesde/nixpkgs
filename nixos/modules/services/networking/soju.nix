@@ -104,8 +104,7 @@ in
 
   config = mkIf cfg.enable {
     assertions = [ {
-      assertion =
-        (cfg.tlsCertificate != null) == (cfg.tlsCertificateKey != null);
+      assertion = (cfg.tlsCertificate != null) == (cfg.tlsCertificateKey != null);
       message = ''
         services.soju.tlsCertificate and services.soju.tlsCertificateKey
         must both be specified to enable TLS.

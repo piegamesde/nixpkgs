@@ -109,9 +109,7 @@ stdenv.mkDerivation rec {
       "WITH_SHAPELIB=pkgconfig"
       "WITH_ZLIB=pkgconfig"
     ]
-    ++ lib.optionals (withGUI && !withMapPreview) [
-      "CONFIG+=disable-mappreview"
-    ]
+    ++ lib.optionals (withGUI && !withMapPreview) [ "CONFIG+=disable-mappreview" ]
   ;
 
   makeFlags =

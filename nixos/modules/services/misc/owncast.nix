@@ -46,10 +46,7 @@ in
       type = types.str;
       default = "127.0.0.1";
       example = "0.0.0.0";
-      description =
-        lib.mdDoc
-          "The IP address to bind the owncast web server to."
-      ;
+      description = lib.mdDoc "The IP address to bind the owncast web server to.";
     };
 
     port = mkOption {
@@ -85,9 +82,7 @@ in
             } -rtmpport ${toString cfg.rtmp-port} -webserverip ${cfg.listen}";
           Restart = "on-failure";
         }
-        (mkIf (cfg.dataDir == "/var/lib/owncast") {
-          StateDirectory = "owncast";
-        })
+        (mkIf (cfg.dataDir == "/var/lib/owncast") { StateDirectory = "owncast"; })
       ];
     };
 

@@ -21,9 +21,7 @@ let
       MAILTO="${config.services.cron.mailto}"
     ''}
     NIX_CONF_DIR=/etc/nix
-    ${lib.concatStrings (
-      map (job: job + "\n") config.services.cron.systemCronJobs
-    )}
+    ${lib.concatStrings (map (job: job + "\n") config.services.cron.systemCronJobs)}
   '';
 
   allowdeny =
@@ -47,10 +45,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to enable the {command}`fcron` daemon."
-        ;
+        description = lib.mdDoc "Whether to enable the {command}`fcron` daemon.";
       };
 
       allow = mkOption {
@@ -113,10 +108,7 @@ in
           {
             source =
               let
-                isSendmailWrapped =
-                  lib.hasAttr "sendmail"
-                    config.security.wrappers
-                ;
+                isSendmailWrapped = lib.hasAttr "sendmail" config.security.wrappers;
                 sendmailPath =
                   if isSendmailWrapped then
                     "/run/wrappers/bin/sendmail"
@@ -185,9 +177,7 @@ in
           --group fcron \
           --directory /var/spool/fcron
         # load system crontab file
-        /run/wrappers/bin/fcrontab -u systab - < ${
-          pkgs.writeText "systab" cfg.systab
-        }
+        /run/wrappers/bin/fcrontab -u systab - < ${pkgs.writeText "systab" cfg.systab}
       '';
 
       serviceConfig = {

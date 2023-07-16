@@ -58,9 +58,7 @@ with lib;
         rm -rf /var/lib/tinydns
         tinydns-conf tinydns tinydns /var/lib/tinydns ${config.services.tinydns.ip}
         cd /var/lib/tinydns/root/
-        ln -sf ${
-          pkgs.writeText "tinydns-data" config.services.tinydns.data
-        } data
+        ln -sf ${pkgs.writeText "tinydns-data" config.services.tinydns.data} data
         tinydns-data
       '';
       script = ''

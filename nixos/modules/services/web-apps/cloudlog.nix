@@ -100,10 +100,7 @@ in
       createLocally = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Create the database and database user locally."
-        ;
+        description = lib.mdDoc "Create the database and database user locally.";
       };
       host = mkOption {
         type = str;
@@ -318,8 +315,7 @@ in
   config = mkIf cfg.enable {
 
     assertions = [ {
-      assertion =
-        cfg.database.createLocally -> cfg.database.passwordFile == null;
+      assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;
       message = "services.cloudlog.database.passwordFile cannot be specified if services.cloudlog.database.createLocally is set to true.";
     } ];
 

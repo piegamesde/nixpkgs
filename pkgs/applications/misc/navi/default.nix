@@ -30,9 +30,7 @@ rustPlatform.buildRustPackage rec {
   postInstall = ''
     wrapProgram $out/bin/navi \
       --prefix PATH : "$out/bin" \
-      --prefix PATH : ${
-        lib.makeBinPath ([ wget ] ++ lib.optionals withFzf [ fzf ])
-      }
+      --prefix PATH : ${lib.makeBinPath ([ wget ] ++ lib.optionals withFzf [ fzf ])}
   '';
 
   checkFlags =

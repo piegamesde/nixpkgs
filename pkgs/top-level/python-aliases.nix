@@ -32,10 +32,7 @@ let
   mapAliases =
     aliases:
     lib.mapAttrs
-      (
-        n: alias:
-        removeDistribute (removeRecurseForDerivations (checkInPkgs n alias))
-      )
+      (n: alias: removeDistribute (removeRecurseForDerivations (checkInPkgs n alias)))
       aliases
   ;
 in
@@ -58,10 +55,7 @@ mapAliases ({
   asyncio-nats-client = nats-py; # added 2022-02-08
   awkward0 = throw "awkward0 has been removed, use awkward instead"; # added 2022-12-13
   Babel = babel; # added 2022-05-06
-  bedup =
-    throw
-      "bedup was removed because it was broken and abandoned upstream"
-  ; # added 2023-02-04
+  bedup = throw "bedup was removed because it was broken and abandoned upstream"; # added 2023-02-04
   bitcoin-price-api =
     throw
       "bitcoin-price-api has been removed, it was using setuptools 2to3 translation feautre, which has been removed in setuptools 58"
@@ -174,10 +168,7 @@ mapAliases ({
     throw
       "functorch is now part of the torch package and has therefore been removed. See https://github.com/pytorch/functorch/releases/tag/v1.13.0 for more info."
   ; # added 2022-12-01
-  garages-amsterdam =
-    throw
-      "garages-amsterdam has been renamed odp-amsterdam."
-  ; # added 2023-01-04
+  garages-amsterdam = throw "garages-amsterdam has been renamed odp-amsterdam."; # added 2023-01-04
   garminconnect-ha = garminconnect; # added 2022-02-05
   gdtoolkit = throw "gdtoolkit has been promoted to a top-level attribute"; # added 2023-02-15
   GeoIP = geoip; # added 2023-02-19
@@ -499,10 +490,7 @@ mapAliases ({
     throw
       "suds-jurko has been removed, it was using setuptools 2to3 translation feature, which has been removed in setuptools 58"
   ; # added 2023-02-27
-  suseapi =
-    throw
-      "suseapi has been removed because it is no longer maintained"
-  ; # added 2023-02-27
+  suseapi = throw "suseapi has been removed because it is no longer maintained"; # added 2023-02-27
   tensorflow-bin_2 = tensorflow-bin; # added 2021-11-25
   tensorflow-build_2 = tensorflow-build; # added 2021-11-25
   tensorflow-estimator = tensorflow-estimator-bin; # added 2023-01-17
@@ -532,10 +520,7 @@ mapAliases ({
   ; # added 2022-12-01
   uproot3 = throw "uproot3 has been removed, use uproot instead"; # added 2022-12-13
   uproot3-methods = throw "uproot3-methods has been removed"; # added 2022-12-13
-  virtual-display =
-    throw
-      "virtual-display has been renamed to PyVirtualDisplay"
-  ; # added 2023-01-07
+  virtual-display = throw "virtual-display has been renamed to PyVirtualDisplay"; # added 2023-01-07
   Wand = wand; # added 2022-11-13
   WazeRouteCalculator = wazeroutecalculator; # added 2021-09-29
   weakrefmethod =
@@ -544,14 +529,8 @@ mapAliases ({
   ; # added 2022-12-01
   webapp2 = throw "webapp2 is unmaintained since 2012"; # added 2022-05-29
   websocket_client = websocket-client; # added 2021-06-15
-  wxPython_4_0 =
-    throw
-      "wxPython_4_0 has been removed, use wxPython_4_2 instead"
-  ; # added 2023-03-19
-  wxPython_4_1 =
-    throw
-      "wxPython_4_1 has been removed, use wxPython_4_2 instead"
-  ; # added 2023-03-19
+  wxPython_4_0 = throw "wxPython_4_0 has been removed, use wxPython_4_2 instead"; # added 2023-03-19
+  wxPython_4_1 = throw "wxPython_4_1 has been removed, use wxPython_4_2 instead"; # added 2023-03-19
   WSME = wsme; # added 2023-02-19
   xenomapper = throw "xenomapper was moved to pkgs.xenomapper"; # added 2021-12-31
   XlsxWriter = xlsxwriter; # added 2023-02-19

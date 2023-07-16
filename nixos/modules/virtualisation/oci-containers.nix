@@ -79,10 +79,7 @@ let
 
         entrypoint = mkOption {
           type = with types; nullOr str;
-          description =
-            lib.mdDoc
-              "Override the default entrypoint of the image."
-          ;
+          description = lib.mdDoc "Override the default entrypoint of the image.";
           default = null;
           example = "/bin/my-app";
         };
@@ -90,10 +87,7 @@ let
         environment = mkOption {
           type = with types; attrsOf str;
           default = { };
-          description =
-            lib.mdDoc
-              "Environment variables to set for this container."
-          ;
+          description = lib.mdDoc "Environment variables to set for this container.";
           example = literalExpression ''
             {
               DATABASE_HOST = "db.example.com";
@@ -226,10 +220,7 @@ let
         extraOptions = mkOption {
           type = with types; listOf str;
           default = [ ];
-          description =
-            lib.mdDoc
-              "Extra options for {command}`${defaultBackend} run`."
-          ;
+          description = lib.mdDoc "Extra options for {command}`${defaultBackend} run`.";
           example = literalExpression ''
             ["--network=host"]
           '';
@@ -249,9 +240,7 @@ let
 
   isValidLogin =
     login:
-    login.username != null
-    && login.passwordFile != null
-    && login.registry != null
+    login.username != null && login.passwordFile != null && login.registry != null
   ;
 
   mkService =
@@ -268,9 +257,7 @@ let
           "docker.socket"
         ]
         # if imageFile is not set, the service needs the network to download the image from the registry
-        ++ lib.optionals (container.imageFile == null) [
-          "network-online.target"
-        ]
+        ++ lib.optionals (container.imageFile == null) [ "network-online.target" ]
         ++ dependsOn
       ;
       requires = dependsOn;
@@ -324,13 +311,9 @@ let
         )
         ++ map (f: "--env-file ${escapeShellArg f}") container.environmentFiles
         ++ map (p: "-p ${escapeShellArg p}") container.ports
-        ++
-          optional (container.user != null)
-            "-u ${escapeShellArg container.user}"
+        ++ optional (container.user != null) "-u ${escapeShellArg container.user}"
         ++ map (v: "-v ${escapeShellArg v}") container.volumes
-        ++
-          optional (container.workdir != null)
-            "-w ${escapeShellArg container.workdir}"
+        ++ optional (container.workdir != null) "-w ${escapeShellArg container.workdir}"
         ++ map escapeShellArg container.extraOptions
         ++ [ container.image ]
         ++ map escapeShellArg container.cmd
@@ -391,9 +374,9 @@ in
             lib.mapAttrs
               (
                 n: v:
-                builtins.removeAttrs
-                  (v // { extraOptions = v.extraDockerOptions or [ ]; })
-                  [ "extraDockerOptions" ]
+                builtins.removeAttrs (v // { extraOptions = v.extraDockerOptions or [ ]; }) [
+                  "extraDockerOptions"
+                ]
               )
               oldcfg.docker-containers
           ;
@@ -410,10 +393,7 @@ in
         "docker"
       ];
       default =
-        if versionAtLeast config.system.stateVersion "22.05" then
-          "podman"
-        else
-          "docker"
+        if versionAtLeast config.system.stateVersion "22.05" then "podman" else "docker"
       ;
       description = lib.mdDoc "The underlying Docker implementation to use.";
     };
@@ -421,10 +401,7 @@ in
     containers = mkOption {
       default = { };
       type = types.attrsOf (types.submodule containerOptions);
-      description =
-        lib.mdDoc
-          "OCI (Docker) containers to run as systemd services."
-      ;
+      description = lib.mdDoc "OCI (Docker) containers to run as systemd services.";
     };
   };
 
@@ -436,12 +413,8 @@ in
             cfg.containers
         ;
       }
-      (lib.mkIf (cfg.backend == "podman") {
-        virtualisation.podman.enable = true;
-      })
-      (lib.mkIf (cfg.backend == "docker") {
-        virtualisation.docker.enable = true;
-      })
+      (lib.mkIf (cfg.backend == "podman") { virtualisation.podman.enable = true; })
+      (lib.mkIf (cfg.backend == "docker") { virtualisation.docker.enable = true; })
     ]
   );
 }

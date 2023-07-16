@@ -88,10 +88,7 @@ let
             literalExpression
               "[ pkgs.bash pkgs.gnutar pkgs.gzip pkgs.git pkgs.nix ]"
           ;
-          description =
-            lib.mdDoc
-              "Add programs to the buildkite-agent environment"
-          ;
+          description = lib.mdDoc "Add programs to the buildkite-agent environment";
           type = types.listOf types.package;
         };
 
@@ -114,9 +111,7 @@ let
         };
 
         tags = mkOption {
-          type = types.attrsOf (
-            types.either types.str (types.listOf types.str)
-          );
+          type = types.attrsOf (types.either types.str (types.listOf types.str));
           default = { };
           example = {
             queue = "default";
@@ -312,15 +307,11 @@ in
             tagStr =
               name: value:
               if lib.isList value then
-                lib.concatStringsSep "," (
-                  builtins.map (v: "${name}=${v}") value
-                )
+                lib.concatStringsSep "," (builtins.map (v: "${name}=${v}") value)
               else
                 "${name}=${value}"
             ;
-            tagsStr = lib.concatStringsSep "," (
-              lib.mapAttrsToList tagStr cfg.tags
-            );
+            tagsStr = lib.concatStringsSep "," (lib.mapAttrsToList tagStr cfg.tags);
           in
           optionalString (cfg.privateSshKeyPath != null) ''
             mkdir -m 0700 -p "${sshDir}"
@@ -356,9 +347,7 @@ in
   config.assertions = mapAgents (
     name: cfg: [ {
       assertion =
-        cfg.hooksPath == (hooksDir cfg)
-        || all (v: v == null) (attrValues cfg.hooks)
-      ;
+        cfg.hooksPath == (hooksDir cfg) || all (v: v == null) (attrValues cfg.hooks);
       message = ''
         Options `services.buildkite-agents.${name}.hooksPath' and
         `services.buildkite-agents.${name}.hooks.<name>' are mutually exclusive.

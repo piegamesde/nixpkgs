@@ -18,9 +18,7 @@ in
   options = {
 
     services.vdr = {
-      enable = mkEnableOption (
-        lib.mdDoc "VDR. Please put config into ${libDir}"
-      );
+      enable = mkEnableOption (lib.mdDoc "VDR. Please put config into ${libDir}");
 
       package = mkOption {
         type = types.package;
@@ -42,10 +40,7 @@ in
       extraArguments = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description =
-          lib.mdDoc
-            "Additional command line arguments to pass to VDR."
-        ;
+        description = lib.mdDoc "Additional command line arguments to pass to VDR.";
       };
 
       enableLirc = mkEnableOption (lib.mdDoc "LIRC");
@@ -91,9 +86,7 @@ in
       (mkIf cfg.enableLirc {
         services.lirc.enable = true;
         users.users.vdr.extraGroups = [ "lirc" ];
-        services.vdr.extraArguments = [
-          "--lirc=${config.passthru.lirc.socket}"
-        ];
+        services.vdr.extraArguments = [ "--lirc=${config.passthru.lirc.socket}" ];
       })
     ]
   );

@@ -235,9 +235,7 @@ in
 
           # Create / update jobs
           mkdir -p ${jobBuilderOutputDir}
-          for inputFile in ${yamlJobsFile} ${
-            concatStringsSep " " jsonJobsFiles
-          }; do
+          for inputFile in ${yamlJobsFile} ${concatStringsSep " " jsonJobsFiles}; do
               HOME="${jenkinsCfg.home}" "${pkgs.jenkins-job-builder}/bin/jenkins-jobs" --ignore-cache test --config-xml -o "${jobBuilderOutputDir}" "$inputFile"
           done
 

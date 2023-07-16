@@ -14,8 +14,7 @@ in
   options = {
     services.nomad = {
       enable = mkEnableOption (
-        lib.mdDoc
-          "Nomad, a distributed, highly available, datacenter-aware scheduler"
+        lib.mdDoc "Nomad, a distributed, highly available, datacenter-aware scheduler"
       );
 
       package = mkOption {
@@ -172,10 +171,9 @@ in
             in
             "${cfg.package}/bin/nomad agent -config=/etc/nomad.json -plugin-dir=${pluginsDir}/bin"
             + concatMapStrings (path: " -config=${path}") cfg.extraSettingsPaths
-            +
-              concatMapStrings
-                (key: " -config=\${CREDENTIALS_DIRECTORY}/${key}")
-                (lib.attrNames cfg.credentials)
+            + concatMapStrings (key: " -config=\${CREDENTIALS_DIRECTORY}/${key}") (
+              lib.attrNames cfg.credentials
+            )
           ;
           KillMode = "process";
           KillSignal = "SIGINT";
@@ -193,9 +191,7 @@ in
         (mkIf cfg.enableDocker {
           SupplementaryGroups = "docker"; # space-separated string
         })
-        (mkIf (cfg.settings.data_dir == "/var/lib/nomad") {
-          StateDirectory = "nomad";
-        })
+        (mkIf (cfg.settings.data_dir == "/var/lib/nomad") { StateDirectory = "nomad"; })
       ];
 
       unitConfig = {
@@ -205,8 +201,7 @@ in
     };
 
     assertions = [ {
-      assertion =
-        cfg.dropPrivileges -> cfg.settings.data_dir == "/var/lib/nomad";
+      assertion = cfg.dropPrivileges -> cfg.settings.data_dir == "/var/lib/nomad";
       message = ''
         settings.data_dir must be equal to "/var/lib/nomad" if dropPrivileges is true'';
     } ];

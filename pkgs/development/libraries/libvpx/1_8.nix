@@ -171,8 +171,7 @@ stdenv.mkDerivation rec {
       (enableFeature isMips "dequant-tokens")
       (enableFeature isMips "dc-recon")
       (enableFeature postprocSupport "postproc")
-      (enableFeature
-        (postprocSupport && (vp9DecoderSupport || vp9EncoderSupport))
+      (enableFeature (postprocSupport && (vp9DecoderSupport || vp9EncoderSupport))
         "vp9-postproc"
       )
       (enableFeature multithreadSupport "multithread")
@@ -201,9 +200,7 @@ stdenv.mkDerivation rec {
         (temporalDenoisingSupport && (vp9DecoderSupport || vp9EncoderSupport))
         "vp9-temporal-denoising"
       )
-      (enableFeature coefficientRangeCheckingSupport
-        "coefficient-range-checking"
-      )
+      (enableFeature coefficientRangeCheckingSupport "coefficient-range-checking")
       (enableFeature (vp9HighbitdepthSupport && is64bit) "vp9-highbitdepth")
       (enableFeature
         (

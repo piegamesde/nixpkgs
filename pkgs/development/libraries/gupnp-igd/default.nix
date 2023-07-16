@@ -53,9 +53,7 @@ stdenv.mkDerivation rec {
   ];
 
   mesonFlags = [
-    "-Dgtk_doc=${
-      lib.boolToString (stdenv.buildPlatform == stdenv.hostPlatform)
-    }"
+    "-Dgtk_doc=${lib.boolToString (stdenv.buildPlatform == stdenv.hostPlatform)}"
     "-Dintrospection=${
       lib.boolToString (stdenv.buildPlatform == stdenv.hostPlatform)
     }"

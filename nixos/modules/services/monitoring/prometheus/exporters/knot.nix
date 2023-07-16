@@ -16,10 +16,7 @@ in
     knotLibraryPath = mkOption {
       type = types.str;
       default = "${pkgs.knot-dns.out}/lib/libknot.so";
-      defaultText =
-        literalExpression
-          ''"''${pkgs.knot-dns.out}/lib/libknot.so"''
-      ;
+      defaultText = literalExpression ''"''${pkgs.knot-dns.out}/lib/libknot.so"'';
       description = lib.mdDoc ''
         Path to the library of `knot-dns`.
       '';

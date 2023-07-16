@@ -170,9 +170,7 @@ stdenv.mkDerivation (
                  VentoyPlugson.sh_ventoy-plugson; do
             local bin="''${f%_*}" wrapper="''${f#*_}"
             makeWrapper "$VENTOY_PATH/$bin" "$out/bin/$wrapper" \
-                        --prefix PATH : "${
-                          lib.makeBinPath finalAttrs.buildInputs
-                        }" \
+                        --prefix PATH : "${lib.makeBinPath finalAttrs.buildInputs}" \
                         --chdir "$VENTOY_PATH"
         done
       ''
@@ -181,9 +179,7 @@ stdenv.mkDerivation (
       + optionalString (withGtk3 || withQt5) ''
         echo "${defaultGuiType}" > "$VENTOY_PATH/ventoy_gui_type"
         makeWrapper "$VENTOY_PATH/VentoyGUI.$ARCH" "$out/bin/ventoy-gui" \
-                    --prefix PATH : "${
-                      lib.makeBinPath finalAttrs.buildInputs
-                    }" \
+                    --prefix PATH : "${lib.makeBinPath finalAttrs.buildInputs}" \
                     --chdir "$VENTOY_PATH"
         mkdir "$out"/share/{applications,pixmaps}
         ln -s "$VENTOY_PATH"/WebUI/static/img/VentoyLogo.png "$out"/share/pixmaps/

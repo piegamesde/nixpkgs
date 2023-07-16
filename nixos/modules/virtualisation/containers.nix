@@ -145,9 +145,7 @@ in
 
     environment.etc."containers/registries.conf".source =
       toml.generate "registries.conf"
-        {
-          registries = lib.mapAttrs (n: v: { registries = v; }) cfg.registries;
-        }
+        { registries = lib.mapAttrs (n: v: { registries = v; }) cfg.registries; }
     ;
 
     environment.etc."containers/policy.json".source =

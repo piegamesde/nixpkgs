@@ -360,10 +360,7 @@ let
       SND_USB_CAIAQ_INPUT = yes;
       # Enable Sound Open Firmware support
     } // optionalAttrs
-        (
-          stdenv.hostPlatform.system == "x86_64-linux"
-          && versionAtLeast version "5.5"
-        )
+        (stdenv.hostPlatform.system == "x86_64-linux" && versionAtLeast version "5.5")
         {
           SND_SOC_INTEL_SOUNDWIRE_SOF_MACH = whenAtLeast "5.10" module;
           SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES = whenAtLeast "5.10" yes; # dep of SOF_MACH
@@ -435,8 +432,7 @@ let
 
       TMPFS = yes;
       TMPFS_POSIX_ACL = yes;
-      FS_ENCRYPTION =
-        if (versionAtLeast version "5.1") then yes else option module;
+      FS_ENCRYPTION = if (versionAtLeast version "5.1") then yes else option module;
 
       EXT2_FS_XATTR = yes;
       EXT2_FS_POSIX_ACL = yes;
@@ -1023,10 +1019,9 @@ let
         LRU_GEN = whenAtLeast "6.1" yes;
         LRU_GEN_ENABLED = whenAtLeast "6.1" yes;
 
-        FSL_MC_UAPI_SUPPORT =
-          mkIf (stdenv.hostPlatform.system == "aarch64-linux")
-            (whenAtLeast "5.12" yes)
-        ;
+        FSL_MC_UAPI_SUPPORT = mkIf (stdenv.hostPlatform.system == "aarch64-linux") (
+          whenAtLeast "5.12" yes
+        );
 
         ASHMEM = {
           optional = true;
@@ -1119,10 +1114,7 @@ let
 
           CROS_KBD_LED_BACKLIGHT = module;
         } // optionalAttrs
-        (
-          versionAtLeast version "5.4"
-          && stdenv.hostPlatform.system == "x86_64-linux"
-        )
+        (versionAtLeast version "5.4" && stdenv.hostPlatform.system == "x86_64-linux")
         {
           CHROMEOS_LAPTOP = module;
           CHROMEOS_PSTORE = module;

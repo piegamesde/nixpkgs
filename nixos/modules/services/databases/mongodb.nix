@@ -77,10 +77,7 @@ in
       initialRootPassword = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description =
-          lib.mdDoc
-            "Password for the root user if auth is enabled."
-        ;
+        description = lib.mdDoc "Password for the root user if auth is enabled.";
       };
 
       dbpath = mkOption {
@@ -208,8 +205,7 @@ in
           ${
             optionalString (cfg.initialScript != null) ''
               ${mongodb}/bin/mongo ${
-                optionalString (cfg.enableAuth)
-                  "-u root -p ${cfg.initialRootPassword}"
+                optionalString (cfg.enableAuth) "-u root -p ${cfg.initialRootPassword}"
               } admin "${cfg.initialScript}"
             ''
           }

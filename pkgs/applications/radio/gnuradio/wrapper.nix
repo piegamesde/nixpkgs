@@ -46,10 +46,7 @@ let
         (
           feat: info:
           (lib.optionals
-            (
-              (unwrapped.hasFeature feat)
-              && (builtins.hasAttr "pythonRuntime" info)
-            )
+            ((unwrapped.hasFeature feat) && (builtins.hasAttr "pythonRuntime" info))
             info.pythonRuntime
           )
         )
@@ -66,8 +63,7 @@ let
     ++
       lib.optionals
         (
-          (unwrapped.hasFeature "gnuradio-companion")
-          || (unwrapped.hasFeature "gr-qtgui")
+          (unwrapped.hasFeature "gnuradio-companion") || (unwrapped.hasFeature "gr-qtgui")
         )
         [
           "--prefix"

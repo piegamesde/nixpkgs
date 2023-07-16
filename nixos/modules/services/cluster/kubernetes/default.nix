@@ -206,10 +206,7 @@ in
     };
 
     dataDir = mkOption {
-      description =
-        lib.mdDoc
-          "Kubernetes root directory for managing kubelet files."
-      ;
+      description = lib.mdDoc "Kubernetes root directory for managing kubelet files.";
       default = "/var/lib/kubernetes";
       type = types.path;
     };
@@ -335,10 +332,7 @@ in
     (mkIf cfg.kubelet.enable {
       virtualisation.containerd = {
         enable = mkDefault true;
-        settings =
-          mapAttrsRecursive (name: mkDefault)
-            defaultContainerdSettings
-        ;
+        settings = mapAttrsRecursive (name: mkDefault) defaultContainerdSettings;
       };
     })
 

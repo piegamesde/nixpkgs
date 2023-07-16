@@ -98,10 +98,7 @@ let
                 } \
               |& sed -e 's/^warning:/error:/' \
               | (! grep '${
-                if cfg.checkAllErrors then
-                  "^error:"
-                else
-                  "^error: unknown setting"
+                if cfg.checkAllErrors then "^error:" else "^error: unknown setting"
               }')
             set -o pipefail
           ''
@@ -546,10 +543,7 @@ in
                     type = "indirect";
                     id = "nixpkgs";
                   };
-                  description =
-                    lib.mdDoc
-                      "The flake reference to be rewritten."
-                  ;
+                  description = lib.mdDoc "The flake reference to be rewritten.";
                 };
                 to = mkOption {
                   type = referenceAttrs;
@@ -558,10 +552,7 @@ in
                     owner = "my-org";
                     repo = "my-nixpkgs";
                   };
-                  description =
-                    lib.mdDoc
-                      "The flake reference {option}`from` is rewritten to."
-                  ;
+                  description = lib.mdDoc "The flake reference {option}`from` is rewritten to.";
                 };
                 flake = mkOption {
                   type = types.nullOr types.attrs;
@@ -592,13 +583,7 @@ in
                       type = "path";
                       path = config.flake.outPath;
                     } // filterAttrs
-                      (
-                        n: _:
-                        n == "lastModified"
-                        || n == "rev"
-                        || n == "revCount"
-                        || n == "narHash"
-                      )
+                      (n: _: n == "lastModified" || n == "rev" || n == "revCount" || n == "narHash")
                       config.flake
                   )
                 );
@@ -730,9 +715,7 @@ in
 
             trusted-public-keys = mkOption {
               type = types.listOf types.str;
-              example = [
-                "hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs="
-              ];
+              example = [ "hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs=" ];
               description = lib.mdDoc ''
                 List of public keys used to sign binary caches. If
                 {option}`nix.settings.trusted-public-keys` is enabled,
@@ -836,19 +819,14 @@ in
         nixPackage
         pkgs.nix-info
       ]
-      ++
-        optional (config.programs.bash.enableCompletion)
-          pkgs.nix-bash-completions
+      ++ optional (config.programs.bash.enableCompletion) pkgs.nix-bash-completions
     ;
 
     environment.etc."nix/nix.conf".source = nixConf;
 
     environment.etc."nix/registry.json".text = builtins.toJSON {
       version = 2;
-      flakes =
-        mapAttrsToList (n: v: { inherit (v) from to exact; })
-          cfg.registry
-      ;
+      flakes = mapAttrsToList (n: v: { inherit (v) from to exact; }) cfg.registry;
     };
 
     # List of machines for distributed Nix builds in the format
@@ -860,10 +838,7 @@ in
             machine:
             (concatStringsSep " " (
               [
-                "${
-                  optionalString (machine.protocol != null)
-                    "${machine.protocol}://"
-                }${
+                "${optionalString (machine.protocol != null) "${machine.protocol}://"}${
                   optionalString (machine.sshUser != null) "${machine.sshUser}@"
                 }${machine.hostName}"
                 (
@@ -879,8 +854,7 @@ in
                 (toString machine.speedFactor)
                 (
                   let
-                    res =
-                      (machine.supportedFeatures ++ machine.mandatoryFeatures);
+                    res = (machine.supportedFeatures ++ machine.mandatoryFeatures);
                   in
                   if (res == [ ]) then "-" else (concatStringsSep "," res)
                 )
@@ -888,17 +862,11 @@ in
                   let
                     res = machine.mandatoryFeatures;
                   in
-                  if (res == [ ]) then
-                    "-"
-                  else
-                    (concatStringsSep "," machine.mandatoryFeatures)
+                  if (res == [ ]) then "-" else (concatStringsSep "," machine.mandatoryFeatures)
                 )
               ]
               ++ optional (isNixAtLeast "2.4pre") (
-                if machine.publicHostKey != null then
-                  machine.publicHostKey
-                else
-                  "-"
+                if machine.publicHostKey != null then machine.publicHostKey else "-"
               )
             ))
             + "\n"
@@ -933,9 +901,7 @@ in
     # systemd.tmpfiles.packages = [ nixPackage ];
 
     # Can be dropped for Nix > https://github.com/NixOS/nix/pull/6285
-    systemd.tmpfiles.rules = [
-      "d /nix/var/nix/daemon-socket 0755 root root - -"
-    ];
+    systemd.tmpfiles.rules = [ "d /nix/var/nix/daemon-socket 0755 root root - -" ];
 
     systemd.sockets.nix-daemon.wantedBy = [ "sockets.target" ];
 
@@ -1011,9 +977,7 @@ in
       if cfg.settings.auto-allocate-uids or false then
         0
       else
-        max 32 (
-          if cfg.settings.max-jobs == "auto" then 0 else cfg.settings.max-jobs
-        )
+        max 32 (if cfg.settings.max-jobs == "auto" then 0 else cfg.settings.max-jobs)
     );
 
     users.users = nixbldUsers;
@@ -1055,8 +1019,7 @@ in
             # a builder can run code for `gcc.arch` and inferior architectures
             [ "gccarch-${pkgs.stdenv.hostPlatform.gcc.arch}" ]
             ++ map (x: "gccarch-${x}") (
-              systems.architectures.inferiors.${pkgs.stdenv.hostPlatform.gcc.arch}
-                or [ ]
+              systems.architectures.inferiors.${pkgs.stdenv.hostPlatform.gcc.arch} or [ ]
             )
           )
         );

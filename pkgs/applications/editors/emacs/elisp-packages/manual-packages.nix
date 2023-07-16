@@ -103,10 +103,7 @@ in
 
   # From old emacsPackages (pre emacsPackagesNg)
   cedille = callPackage ./manual-packages/cedille { inherit (pkgs) cedille; };
-  color-theme-solarized =
-    callPackage ./manual-packages/color-theme-solarized
-      { }
-  ;
+  color-theme-solarized = callPackage ./manual-packages/color-theme-solarized { };
   hsc3-mode = callPackage ./manual-packages/hsc3 { };
   prolog-mode = callPackage ./manual-packages/prolog { };
   rect-mark = callPackage ./manual-packages/rect-mark { };

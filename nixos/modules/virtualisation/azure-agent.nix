@@ -23,10 +23,7 @@ in
   options.virtualisation.azure.agent = {
     enable = mkOption {
       default = false;
-      description =
-        lib.mdDoc
-          "Whether to enable the Windows Azure Linux Agent."
-      ;
+      description = lib.mdDoc "Whether to enable the Windows Azure Linux Agent.";
     };
     verboseLogging = mkOption {
       default = false;

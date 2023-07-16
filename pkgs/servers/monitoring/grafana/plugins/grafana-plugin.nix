@@ -37,8 +37,7 @@ stdenvNoCC.mkDerivation (
       ];
     } // passthru;
 
-    meta =
-      { homepage = "https://grafana.com/grafana/plugins/${pname}"; } // meta;
+    meta = { homepage = "https://grafana.com/grafana/plugins/${pname}"; } // meta;
   } // (builtins.removeAttrs args [
     "pname"
     "version"

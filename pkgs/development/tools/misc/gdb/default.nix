@@ -25,8 +25,7 @@
   sourceHighlight,
 
   pythonSupport ?
-    stdenv.hostPlatform == stdenv.buildPlatform
-    && !stdenv.hostPlatform.isCygwin,
+    stdenv.hostPlatform == stdenv.buildPlatform && !stdenv.hostPlatform.isCygwin,
   python3 ? null,
   enableDebuginfod ? lib.meta.availableOn stdenv.hostPlatform elfutils,
   elfutils,

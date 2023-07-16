@@ -170,8 +170,7 @@ self: super:
         "dev"
         "man"
       ];
-      configureFlags =
-        attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
+      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
       depsBuildBuild =
         [ buildPackages.stdenv.cc ]
         ++ lib.optionals stdenv.hostPlatform.isStatic [
@@ -227,8 +226,7 @@ self: super:
         "out"
         "dev"
       ];
-      propagatedBuildInputs =
-        attrs.propagatedBuildInputs or [ ] ++ [ freetype ]; # propagate link reqs. like bzip2
+      propagatedBuildInputs = attrs.propagatedBuildInputs or [ ] ++ [ freetype ]; # propagate link reqs. like bzip2
       # prevents "misaligned_stack_error_entering_dyld_stub_binder"
       configureFlags = lib.optional isDarwin "CFLAGS=-O0";
     }
@@ -240,44 +238,37 @@ self: super:
         "out"
         "dev"
       ];
-      configureFlags =
-        attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
+      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
     }
   );
   libXxf86dga = super.libXxf86dga.overrideAttrs (
     attrs: {
-      configureFlags =
-        attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
+      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
     }
   );
   libXxf86misc = super.libXxf86misc.overrideAttrs (
     attrs: {
-      configureFlags =
-        attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
+      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
     }
   );
   libdmx = super.libdmx.overrideAttrs (
     attrs: {
-      configureFlags =
-        attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
+      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
     }
   );
   libFS = super.libFS.overrideAttrs (
     attrs: {
-      configureFlags =
-        attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
+      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
     }
   );
   libWindowsWM = super.libWindowsWM.overrideAttrs (
     attrs: {
-      configureFlags =
-        attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
+      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
     }
   );
   xdpyinfo = super.xdpyinfo.overrideAttrs (
     attrs: {
-      configureFlags =
-        attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
+      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
       preConfigure =
         attrs.preConfigure or ""
         # missing transitive dependencies
@@ -314,17 +305,11 @@ self: super:
       preConfigure = ''
         sed 's,^as_dummy.*,as_dummy="\$PATH",' -i configure
       '';
-      configureFlags =
-        attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
-      propagatedBuildInputs =
-        attrs.propagatedBuildInputs or [ ] ++ [ xorg.libSM ];
+      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
+      propagatedBuildInputs = attrs.propagatedBuildInputs or [ ] ++ [ xorg.libSM ];
       depsBuildBuild = [ buildPackages.stdenv.cc ];
       CPP =
-        if stdenv.isDarwin then
-          "clang -E -"
-        else
-          "${stdenv.cc.targetPrefix}cc -E -"
-      ;
+        if stdenv.isDarwin then "clang -E -" else "${stdenv.cc.targetPrefix}cc -E -";
       outputDoc = "devdoc";
       outputs = [
         "out"
@@ -372,8 +357,7 @@ self: super:
         "dev"
         "devdoc"
       ];
-      propagatedBuildInputs =
-        attrs.propagatedBuildInputs or [ ] ++ [ xorg.libXmu ];
+      propagatedBuildInputs = attrs.propagatedBuildInputs or [ ] ++ [ xorg.libXmu ];
     }
   );
 
@@ -409,8 +393,7 @@ self: super:
           fontconfig
         ]
       ;
-      configureFlags =
-        attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
+      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
 
       # the include files need ft2build.h, and Requires.private isn't enough for us
       postInstall = ''
@@ -437,8 +420,7 @@ self: super:
           xorg.libXau
         ]
       ;
-      configureFlags =
-        attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
+      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
     }
   );
 
@@ -481,8 +463,7 @@ self: super:
         "out"
         "dev"
       ];
-      configureFlags =
-        attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
+      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
     }
   );
 
@@ -503,8 +484,7 @@ self: super:
         "out"
         "dev"
       ];
-      configureFlags =
-        attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
+      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
       propagatedBuildInputs =
         attrs.propagatedBuildInputs or [ ] ++ [ xorg.libXrender ];
     }
@@ -517,8 +497,7 @@ self: super:
         "dev"
         "doc"
       ];
-      propagatedBuildInputs =
-        attrs.propagatedBuildInputs or [ ] ++ [ xorg.libICE ];
+      propagatedBuildInputs = attrs.propagatedBuildInputs or [ ] ++ [ xorg.libICE ];
     }
   );
 
@@ -529,8 +508,7 @@ self: super:
         "dev"
         "doc"
       ];
-      configureFlags =
-        attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
+      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
       propagatedBuildInputs =
         attrs.propagatedBuildInputs or [ ] ++ [ xorg.xorgproto ];
     }
@@ -544,16 +522,14 @@ self: super:
         "devdoc"
       ];
       buildInputs = with xorg; attrs.buildInputs ++ [ utilmacros ];
-      configureFlags =
-        attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
+      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
     }
   );
 
   libXScrnSaver = super.libXScrnSaver.overrideAttrs (
     attrs: {
       buildInputs = with xorg; attrs.buildInputs ++ [ utilmacros ];
-      configureFlags =
-        attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
+      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
     }
   );
 
@@ -564,8 +540,7 @@ self: super:
         "dev"
         "devdoc"
       ];
-      configureFlags =
-        attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
+      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
     }
   );
 
@@ -576,8 +551,7 @@ self: super:
         "dev"
         "doc"
       ];
-      configureFlags =
-        attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
+      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
       buildInputs = attrs.buildInputs ++ [ xorg.xorgproto ];
     }
   );
@@ -868,9 +842,7 @@ self: super:
   );
 
   xf86videoomap = super.xf86videoomap.overrideAttrs (
-    attrs: {
-      env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=format-overflow" ];
-    }
+    attrs: { env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=format-overflow" ]; }
   );
 
   xf86videoamdgpu = super.xf86videoamdgpu.overrideAttrs (
@@ -1010,16 +982,13 @@ self: super:
         with layout;
         with lib; ''
           # install layout files
-          ${optionalString (compatFile != null)
-            "cp '${compatFile}'   'compat/${name}'"}
+          ${optionalString (compatFile != null) "cp '${compatFile}'   'compat/${name}'"}
           ${optionalString (geometryFile != null)
             "cp '${geometryFile}' 'geometry/${name}'"}
           ${optionalString (keycodesFile != null)
             "cp '${keycodesFile}' 'keycodes/${name}'"}
-          ${optionalString (symbolsFile != null)
-            "cp '${symbolsFile}'  'symbols/${name}'"}
-          ${optionalString (typesFile != null)
-            "cp '${typesFile}'    'types/${name}'"}
+          ${optionalString (symbolsFile != null) "cp '${symbolsFile}'  'symbols/${name}'"}
+          ${optionalString (typesFile != null) "cp '${typesFile}'    'types/${name}'"}
 
           # patch makefiles
           for type in compat geometry keycodes symbols types; do
@@ -1126,9 +1095,7 @@ self: super:
           if (abiCompat == null || lib.hasPrefix abiCompat version) then
             attrs_passed // {
               buildInputs =
-                attrs_passed.buildInputs
-                ++ lib.optional (libdrm != null) libdrm.dev
-              ;
+                attrs_passed.buildInputs ++ lib.optional (libdrm != null) libdrm.dev;
               postPatch = ''
                 for i in dri3/*.c
                 do
@@ -1137,8 +1104,7 @@ self: super:
               '';
             }
           else
-            throw
-              "unsupported xorg abiCompat ${abiCompat} for ${attrs_passed.name}"
+            throw "unsupported xorg abiCompat ${abiCompat} for ${attrs_passed.name}"
         ;
       in
       attrs // (
@@ -1408,9 +1374,8 @@ self: super:
   );
 
   xinit =
-    (super.xinit.override {
-      stdenv = if isDarwin then clangStdenv else stdenv;
-    }).overrideAttrs
+    (super.xinit.override { stdenv = if isDarwin then clangStdenv else stdenv; })
+    .overrideAttrs
       (
         attrs: {
           nativeBuildInputs =

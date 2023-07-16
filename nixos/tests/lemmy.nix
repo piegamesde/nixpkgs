@@ -48,9 +48,7 @@ import ./make-test-python.nix (
       with subtest("the backend starts and responds"):
           server.wait_for_unit("lemmy.service")
           server.wait_for_open_port(${toString backendPort})
-          server.succeed("curl --fail localhost:${
-            toString backendPort
-          }/api/v3/site")
+          server.succeed("curl --fail localhost:${toString backendPort}/api/v3/site")
 
       with subtest("the UI starts and responds"):
           server.wait_for_unit("lemmy-ui.service")

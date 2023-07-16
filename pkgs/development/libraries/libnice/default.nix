@@ -72,16 +72,10 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [
     "-Dgtk_doc=${
-      if (stdenv.buildPlatform == stdenv.hostPlatform) then
-        "enabled"
-      else
-        "disabled"
+      if (stdenv.buildPlatform == stdenv.hostPlatform) then "enabled" else "disabled"
     }"
     "-Dintrospection=${
-      if (stdenv.buildPlatform == stdenv.hostPlatform) then
-        "enabled"
-      else
-        "disabled"
+      if (stdenv.buildPlatform == stdenv.hostPlatform) then "enabled" else "disabled"
     }"
     "-Dexamples=disabled" # requires many dependencies and probably not useful for our users
   ];

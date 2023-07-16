@@ -87,8 +87,7 @@ with lib;
                 config.i18n.defaultLocale
               ]
               ++ (attrValues (
-                filterAttrs (n: v: n != "LANGUAGE")
-                  config.i18n.extraLocaleSettings
+                filterAttrs (n: v: n != "LANGUAGE") config.i18n.extraLocaleSettings
               ))
             )
         );

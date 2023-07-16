@@ -72,10 +72,7 @@ in
         type = types.bool;
         default = false;
         relatedPackages = [ "searx" ];
-        description =
-          lib.mdDoc
-            "Whether to enable Searx, the meta search engine."
-        ;
+        description = lib.mdDoc "Whether to enable Searx, the meta search engine.";
       };
 
       environmentFile = mkOption {

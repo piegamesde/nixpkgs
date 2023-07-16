@@ -119,8 +119,7 @@ in
             after = [ "network.target" ];
             wantedBy = [ "multi-user.target" ];
             script = "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.extraConfig} -c ${cfg.server} ${
-                optionalString (cfg.passwordFile != "")
-                  ''-p $(cat "${cfg.passwordFile}")''
+                optionalString (cfg.passwordFile != "") ''-p $(cat "${cfg.passwordFile}")''
               }";
             serviceConfig = {
               RestartSec = "30s";
@@ -131,10 +130,7 @@ in
       in
       listToAttrs (
         mapAttrsToList
-          (
-            name: value:
-            nameValuePair "hans-${name}" (createHansClientService name value)
-          )
+          (name: value: nameValuePair "hans-${name}" (createHansClientService name value))
           cfg.clients
       ) // {
         hans = mkIf (cfg.server.enable) {

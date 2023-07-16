@@ -175,8 +175,7 @@ stdenv.mkDerivation (
 
     # required to support pthread_cancel()
     NIX_LDFLAGS =
-      lib.optionalString
-        (stdenv.cc.isGNU && stdenv.hostPlatform.libc == "glibc")
+      lib.optionalString (stdenv.cc.isGNU && stdenv.hostPlatform.libc == "glibc")
         "-lgcc_s"
       + lib.optionalString (stdenv.isFreeBSD) "-lthr"
     ;
@@ -287,9 +286,7 @@ stdenv.mkDerivation (
         }
 
         # Install git-subtree.
-        make -C contrib/subtree install ${
-          lib.optionalString withManual "install-doc"
-        }
+        make -C contrib/subtree install ${lib.optionalString withManual "install-doc"}
         rm -rf contrib/subtree
 
         # Install contrib stuff.
@@ -320,10 +317,7 @@ stdenv.mkDerivation (
               '${coreutils}/bin/cut', '${coreutils}/bin/basename', '${coreutils}/bin/dirname',
               '${coreutils}/bin/wc', '${coreutils}/bin/tr',
               '${coreutils}/bin/ls'
-              ${
-                lib.optionalString perlSupport
-                  ", '${perlPackages.perl}/bin/perl'"
-              }
+              ${lib.optionalString perlSupport ", '${perlPackages.perl}/bin/perl'"}
             );
           }
           foreach $c (@a) {

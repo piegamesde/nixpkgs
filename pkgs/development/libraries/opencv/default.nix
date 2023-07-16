@@ -31,8 +31,7 @@
 }:
 
 let
-  opencvFlag =
-    name: enabled: "-DWITH_${name}=${if enabled then "ON" else "OFF"}";
+  opencvFlag = name: enabled: "-DWITH_${name}=${if enabled then "ON" else "OFF"}";
 in
 
 stdenv.mkDerivation rec {

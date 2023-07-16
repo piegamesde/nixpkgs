@@ -120,12 +120,8 @@ stdenv.mkDerivation {
     ln -sv ${srcs."extlib"} $sourceRoot/src_ext/extlib.tar.gz
     ln -sv ${srcs."mccs"} $sourceRoot/src_ext/mccs.tar.gz
     ln -sv ${srcs."ocamlgraph"} $sourceRoot/src_ext/ocamlgraph.tbz
-    ln -sv ${
-      srcs."opam-0install-cudf"
-    } $sourceRoot/src_ext/opam-0install-cudf.tbz
-    ln -sv ${
-      srcs."opam-file-format"
-    } $sourceRoot/src_ext/opam-file-format.tar.gz
+    ln -sv ${srcs."opam-0install-cudf"} $sourceRoot/src_ext/opam-0install-cudf.tbz
+    ln -sv ${srcs."opam-file-format"} $sourceRoot/src_ext/opam-file-format.tar.gz
     ln -sv ${srcs."re"} $sourceRoot/src_ext/re.tbz
     ln -sv ${srcs."result"} $sourceRoot/src_ext/result.tbz
     ln -sv ${srcs."seq"} $sourceRoot/src_ext/seq.tar.gz

@@ -68,8 +68,7 @@ in
 
   cuda_nvprof = prev.cuda_nvprof.overrideAttrs (
     oldAttrs: {
-      nativeBuildInputs =
-        oldAttrs.nativeBuildInputs ++ [ pkgs.addOpenGLRunpath ];
+      nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ pkgs.addOpenGLRunpath ];
       buildInputs = oldAttrs.buildInputs ++ [ prev.cuda_cupti ];
       # libcuda needs to be resolved during runtime
       autoPatchelfIgnoreMissingDeps = true;

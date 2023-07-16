@@ -37,14 +37,10 @@ buildPecl {
       --replace 'run-tests.php' 'run-tests.php -q --offline'
     substituteInPlace tests/gnupg_res_init_file_name.phpt \
       --replace '/usr/bin/gpg' '${gnupg}/bin/gpg' \
-      --replace 'string(12)' 'string(${
-        toString (stringLength "${gnupg}/bin/gpg")
-      })'
+      --replace 'string(12)' 'string(${toString (stringLength "${gnupg}/bin/gpg")})'
     substituteInPlace tests/gnupg_oo_init_file_name.phpt \
       --replace '/usr/bin/gpg' '${gnupg}/bin/gpg' \
-      --replace 'string(12)' 'string(${
-        toString (stringLength "${gnupg}/bin/gpg")
-      })'
+      --replace 'string(12)' 'string(${toString (stringLength "${gnupg}/bin/gpg")})'
   '';
 
   doCheck = true;

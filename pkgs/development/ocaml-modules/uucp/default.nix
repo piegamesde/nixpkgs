@@ -52,9 +52,7 @@ else
 
     buildPhase = ''
       runHook preBuild
-      ${topkg.buildPhase} --with-cmdliner false --tests ${
-        lib.boolToString doCheck
-      }
+      ${topkg.buildPhase} --with-cmdliner false --tests ${lib.boolToString doCheck}
       runHook postBuild
     '';
 

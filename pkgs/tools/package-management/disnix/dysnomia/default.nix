@@ -62,20 +62,12 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [
-      (
-        if enableApacheWebApplication then
-          "--with-apache"
-        else
-          "--without-apache"
-      )
+      (if enableApacheWebApplication then "--with-apache" else "--without-apache")
       (if enableAxis2WebService then "--with-axis2" else "--without-axis2")
       (if enableEjabberdDump then "--with-ejabberd" else "--without-ejabberd")
       (if enableMySQLDatabase then "--with-mysql" else "--without-mysql")
       (
-        if enablePostgreSQLDatabase then
-          "--with-postgresql"
-        else
-          "--without-postgresql"
+        if enablePostgreSQLDatabase then "--with-postgresql" else "--without-postgresql"
       )
       (
         if enableSubversionRepository then

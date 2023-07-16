@@ -268,8 +268,7 @@ stdenv.mkDerivation rec {
   ;
 
   disallowedReferences =
-    lib.optionals
-      (buildPackages.python3Packages.python != python3Packages.python)
+    lib.optionals (buildPackages.python3Packages.python != python3Packages.python)
       [ buildPackages.python3Packages.python ]
   ;
 

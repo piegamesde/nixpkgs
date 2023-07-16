@@ -35,10 +35,7 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = [
-    (
-      "--enable-docs=txt info lyx html rtf"
-      + lib.optionalString withLatex " pdf"
-    )
+    ("--enable-docs=txt info lyx html rtf" + lib.optionalString withLatex " pdf")
   ];
 
   LEX = "flex";

@@ -21,8 +21,7 @@ in
   options = {
     services.mautrix-telegram = {
       enable = mkEnableOption (
-        lib.mdDoc
-          "Mautrix-Telegram, a Matrix-Telegram hybrid puppeting/relaybot bridge"
+        lib.mdDoc "Mautrix-Telegram, a Matrix-Telegram hybrid puppeting/relaybot bridge"
       );
 
       settings = mkOption rec {

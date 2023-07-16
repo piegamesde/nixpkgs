@@ -221,9 +221,7 @@ in
 
       script = ''
         ${pkgs.git}/bin/git config --global --add http.sslCAinfo /etc/ssl/certs/ca-certificates.crt
-        ${pkgs.jre}/bin/java -server ${
-          concatStringsSep " " cfg.startupOptions
-        } \
+        ${pkgs.jre}/bin/java -server ${concatStringsSep " " cfg.startupOptions} \
                                ${concatStringsSep " " cfg.extraOptions}  \
                               -jar ${pkgs.gocd-server}/go-server/lib/go.jar
       '';

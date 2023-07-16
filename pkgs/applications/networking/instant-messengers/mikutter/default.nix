@@ -163,9 +163,7 @@ stdenv.mkDerivation rec {
     runHook preInstallCheck
 
     testDir="$(mktemp -d)"
-    install -Dm644 ${
-      ./test_plugin.rb
-    } "$testDir/plugin/test_plugin/test_plugin.rb"
+    install -Dm644 ${./test_plugin.rb} "$testDir/plugin/test_plugin/test_plugin.rb"
 
     $out/bin/mikutter --confroot="$testDir" --plugin=test_plugin --debug
 

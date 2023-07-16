@@ -65,8 +65,7 @@ rustPlatform.buildRustPackage rec {
       "-Wno-error=stringop-truncation"
     ]
     ++
-      lib.optionals
-        (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11")
+      lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11")
         [ "-Wno-error=stringop-overread" ]
   );
 

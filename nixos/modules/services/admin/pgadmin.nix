@@ -31,8 +31,7 @@ let
     attr:
     "{${
       concatStringsSep "\n" (
-        mapAttrsToList
-          (key: value: "${builtins.toJSON key}: ${formatPyValue value},")
+        mapAttrsToList (key: value: "${builtins.toJSON key}: ${formatPyValue value},")
           attr
       )
     }}"
@@ -146,9 +145,7 @@ in
       };
     };
 
-    openFirewall = mkEnableOption (
-      lib.mdDoc "firewall passthrough for pgadmin4"
-    );
+    openFirewall = mkEnableOption (lib.mdDoc "firewall passthrough for pgadmin4");
 
     settings = mkOption {
       description = lib.mdDoc ''

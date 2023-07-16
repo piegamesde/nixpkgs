@@ -107,8 +107,7 @@ stdenv.mkDerivation (
     preConfigure =
       if
         (
-          lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
-          && stdenv.isDarwin
+          lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11" && stdenv.isDarwin
         )
       then
         ''

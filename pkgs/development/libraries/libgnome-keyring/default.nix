@@ -42,10 +42,7 @@ stdenv.mkDerivation (
       intltool
     ];
 
-    passthru.tests.pkg-config =
-      testers.testMetaPkgConfig
-        finalAttrs.finalPackage
-    ;
+    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
     meta = {
       pkgConfigModules = [ "gnome-keyring-1" ];

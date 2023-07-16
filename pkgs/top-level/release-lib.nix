@@ -124,8 +124,7 @@ rec {
     in
     metaPatterns:
     let
-      anyMatch =
-        platform: lib.any (lib.meta.platformMatch platform) metaPatterns;
+      anyMatch = platform: lib.any (lib.meta.platformMatch platform) metaPatterns;
       matchingPlatforms = lib.filter anyMatch supportedPlatforms;
     in
     map
@@ -206,10 +205,9 @@ rec {
   packagePlatforms = mapAttrs (
     name: value:
     if isDerivation value then
-      value.meta.hydraPlatforms
-        or (lib.subtractLists (value.meta.badPlatforms or [ ]) (
-          value.meta.platforms or [ "x86_64-linux" ]
-        ))
+      value.meta.hydraPlatforms or (lib.subtractLists (value.meta.badPlatforms or [ ])
+        (value.meta.platforms or [ "x86_64-linux" ])
+      )
     else if
       value.recurseForDerivations or false || value.recurseForRelease or false
     then

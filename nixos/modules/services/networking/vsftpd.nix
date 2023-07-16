@@ -26,9 +26,7 @@ let
 
   yesNoOption =
     nixosName: vsftpdName: default: description: {
-      cfgText = "${vsftpdName}=${
-          if getAttr nixosName cfg then "YES" else "NO"
-        }";
+      cfgText = "${vsftpdName}=${if getAttr nixosName cfg then "YES" else "NO"}";
 
       nixosOption = {
         type = types.bool;
@@ -179,8 +177,7 @@ in
         );
         defaultText =
           literalExpression
-            ''
-              pkgs.writeText "userlist" (concatMapStrings (x: "''${x}\n") cfg.userlist)''
+            ''pkgs.writeText "userlist" (concatMapStrings (x: "''${x}\n") cfg.userlist)''
         ;
         description = lib.mdDoc ''
           Newline separated list of names to be allowed/denied if {option}`userlistEnable`
@@ -340,9 +337,7 @@ in
       tmpfiles.rules =
         optional cfg.anonymousUser
           #Type Path                       Mode User   Gr    Age Arg
-          "d    '${
-            builtins.toString cfg.anonymousUserHome
-          }' 0555 'ftp'  'ftp' -   -"
+          "d    '${builtins.toString cfg.anonymousUserHome}' 0555 'ftp'  'ftp' -   -"
       ;
       services.vsftpd = {
         description = "Vsftpd Server";

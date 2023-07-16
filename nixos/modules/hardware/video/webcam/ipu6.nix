@@ -38,8 +38,7 @@ in
 
   config = mkIf cfg.enable {
 
-    boot.extraModulePackages =
-      with config.boot.kernelPackages; [ ipu6-drivers ];
+    boot.extraModulePackages = with config.boot.kernelPackages; [ ipu6-drivers ];
 
     hardware.firmware =
       with pkgs;

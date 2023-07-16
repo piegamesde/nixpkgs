@@ -85,10 +85,7 @@ in
           "panic"
         ];
         default = "printk";
-        description =
-          lib.mdDoc
-            "How to handle critical errors in the auditing system"
-        ;
+        description = lib.mdDoc "How to handle critical errors in the auditing system";
       };
 
       backlogLimit = mkOption {
@@ -135,9 +132,7 @@ in
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        ExecStart = "@${
-            if enabled then startScript else disableScript
-          } audit-start";
+        ExecStart = "@${if enabled then startScript else disableScript} audit-start";
         ExecStop = "@${stopScript} audit-stop";
       };
     };

@@ -115,10 +115,7 @@ let
       tryCollectOptions =
         moduleResult:
         forEach (excludeOptions (collect isOption moduleResult)) (
-          opt:
-          {
-            name = showOption opt.loc;
-          } // builtins.tryEval (strict opt.value)
+          opt: { name = showOption opt.loc; } // builtins.tryEval (strict opt.value)
         )
       ;
     in

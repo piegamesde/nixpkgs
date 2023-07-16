@@ -73,10 +73,7 @@ in
           global.allow_registration = mkOption {
             type = types.bool;
             default = false;
-            description =
-              lib.mdDoc
-                "Whether new users can register on this server."
-            ;
+            description = lib.mdDoc "Whether new users can register on this server.";
           };
           global.allow_encryption = mkOption {
             type = types.bool;

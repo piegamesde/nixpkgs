@@ -115,9 +115,7 @@ let
   # Determine the set of modules that we need to mount the root FS.
   modulesClosure = pkgs.makeModulesClosure {
     rootModules =
-      config.boot.initrd.availableKernelModules
-      ++ config.boot.initrd.kernelModules
-    ;
+      config.boot.initrd.availableKernelModules ++ config.boot.initrd.kernelModules;
     kernel = modulesTree;
     firmware = firmware;
     allowMissing = false;
@@ -209,10 +207,7 @@ in
     };
 
     contents = mkOption {
-      description =
-        lib.mdDoc
-          "Set of files that have to be linked into the initrd"
-      ;
+      description = lib.mdDoc "Set of files that have to be linked into the initrd";
       example = literalExpression ''
         {
           "/etc/hostname".text = "mymachine";
@@ -415,9 +410,7 @@ in
         # systemd-cryptenroll
         "tpm-tis"
       ]
-      ++
-        lib.optional (pkgs.stdenv.hostPlatform.system != "riscv64-linux")
-          "tpm-crb"
+      ++ lib.optional (pkgs.stdenv.hostPlatform.system != "riscv64-linux") "tpm-crb"
     ;
 
     boot.initrd.systemd = {
@@ -450,8 +443,7 @@ in
           ${cfg.extraConfig}
           ManagerEnvironment=${
             lib.concatStringsSep " " (
-              lib.mapAttrsToList (n: v: "${n}=${lib.escapeShellArg v}")
-                cfg.managerEnvironment
+              lib.mapAttrsToList (n: v: "${n}=${lib.escapeShellArg v}") cfg.managerEnvironment
             )
           }
         '';
@@ -536,18 +528,14 @@ in
       ;
 
       targets.initrd.aliases = [ "default.target" ];
-      units =
-        mapAttrs' (n: v: nameValuePair "${n}.path" (pathToUnit n v)) cfg.paths
+      units = mapAttrs' (n: v: nameValuePair "${n}.path" (pathToUnit n v)) cfg.paths
         // mapAttrs' (n: v: nameValuePair "${n}.service" (serviceToUnit n v))
-          cfg.services
-        // mapAttrs' (n: v: nameValuePair "${n}.slice" (sliceToUnit n v))
-          cfg.slices
-        // mapAttrs' (n: v: nameValuePair "${n}.socket" (socketToUnit n v))
+          cfg.services // mapAttrs' (n: v: nameValuePair "${n}.slice" (sliceToUnit n v))
+          cfg.slices // mapAttrs' (n: v: nameValuePair "${n}.socket" (socketToUnit n v))
           cfg.sockets
-        // mapAttrs' (n: v: nameValuePair "${n}.target" (targetToUnit n v))
-          cfg.targets
-        // mapAttrs' (n: v: nameValuePair "${n}.timer" (timerToUnit n v))
-          cfg.timers // listToAttrs (
+        // mapAttrs' (n: v: nameValuePair "${n}.target" (targetToUnit n v)) cfg.targets
+        // mapAttrs' (n: v: nameValuePair "${n}.timer" (timerToUnit n v)) cfg.timers
+        // listToAttrs (
           map
             (
               v:

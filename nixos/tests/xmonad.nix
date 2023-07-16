@@ -84,8 +84,7 @@ import ./make-test-python.nix (
           enable = true;
           enableConfiguredRecompile = true;
           enableContribAndExtras = true;
-          extraPackages =
-            with pkgs.haskellPackages; haskellPackages: [ xmobar ];
+          extraPackages = with pkgs.haskellPackages; haskellPackages: [ xmobar ];
           config = mkConfig "oldXMonad" oldKeys;
         };
       }

@@ -240,9 +240,7 @@ in
       {
 
         warnings = [
-          (mkIf (!cfg.runAsUser)
-            "Running moosefs services as root is not recommended."
-          )
+          (mkIf (!cfg.runAsUser) "Running moosefs services as root is not recommended.")
         ];
 
         # Service settings
@@ -250,9 +248,7 @@ in
           master.settings = mkIf cfg.master.enable {
             WORKING_USER = mfsUser;
             EXPORTS_FILENAME = toString (
-              pkgs.writeText "mfsexports.cfg" (
-                concatStringsSep "\n" cfg.master.exports
-              )
+              pkgs.writeText "mfsexports.cfg" (concatStringsSep "\n" cfg.master.exports)
             );
           };
 
@@ -265,9 +261,7 @@ in
             WORKING_USER = mfsUser;
             MASTER_HOST = cfg.masterHost;
             HDD_CONF_FILENAME = toString (
-              pkgs.writeText "mfshdd.cfg" (
-                concatStringsSep "\n" cfg.chunkserver.hdds
-              )
+              pkgs.writeText "mfshdd.cfg" (concatStringsSep "\n" cfg.chunkserver.hdds)
             );
           };
         };
@@ -277,11 +271,7 @@ in
           mkIf
             (
               cfg.runAsUser
-              && (
-                cfg.master.enable
-                || cfg.metalogger.enable
-                || cfg.chunkserver.enable
-              )
+              && (cfg.master.enable || cfg.metalogger.enable || cfg.chunkserver.enable)
             )
             {
               users.moosefs = {
@@ -335,8 +325,7 @@ in
         );
 
         systemd.services.mfs-chunkserver = mkIf cfg.chunkserver.enable (
-          systemdService "chunkserver" { Restart = "on-abnormal"; }
-            chunkserverCfg
+          systemdService "chunkserver" { Restart = "on-abnormal"; } chunkserverCfg
         );
       }
   ;

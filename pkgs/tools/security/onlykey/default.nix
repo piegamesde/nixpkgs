@@ -52,12 +52,9 @@ let
     );
   };
 
-  script =
-    writeShellScript "${onlykey.packageName}-starter-${onlykey.version}"
-      ''
-        ${node_webkit}/bin/nw ${onlykey}/lib/node_modules/${onlykey.packageName}/build
-      ''
-  ;
+  script = writeShellScript "${onlykey.packageName}-starter-${onlykey.version}" ''
+    ${node_webkit}/bin/nw ${onlykey}/lib/node_modules/${onlykey.packageName}/build
+  '';
 
   desktop = makeDesktopItem {
     name = onlykey.packageName;

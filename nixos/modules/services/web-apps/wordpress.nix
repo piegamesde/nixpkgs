@@ -41,25 +41,18 @@ let
         # copy additional plugin(s), theme(s) and language(s)
         ${concatStringsSep "\n" (
           mapAttrsToList
-            (
-              name: theme:
-              "cp -r ${theme} $out/share/wordpress/wp-content/themes/${name}"
-            )
+            (name: theme: "cp -r ${theme} $out/share/wordpress/wp-content/themes/${name}")
             cfg.themes
         )}
         ${concatStringsSep "\n" (
           mapAttrsToList
             (
-              name: plugin:
-              "cp -r ${plugin} $out/share/wordpress/wp-content/plugins/${name}"
+              name: plugin: "cp -r ${plugin} $out/share/wordpress/wp-content/plugins/${name}"
             )
             cfg.plugins
         )}
         ${concatMapStringsSep "\n"
-          (
-            language:
-            "cp -r ${language} $out/share/wordpress/wp-content/languages/"
-          )
+          (language: "cp -r ${language} $out/share/wordpress/wp-content/languages/")
           cfg.languages}
       '';
     }
@@ -95,10 +88,7 @@ let
     hostName: cfg:
     let
       conf_gen =
-        c:
-        mapAttrsToList (k: v: "define('${k}', ${mkPhpValue v});")
-          cfg.mergedConfig
-      ;
+        c: mapAttrsToList (k: v: "define('${k}', ${mkPhpValue v});") cfg.mergedConfig;
     in
     pkgs.writeTextFile {
       name = "wp-config-${hostName}.php";
@@ -216,17 +206,9 @@ let
             coercedTo (listOf path)
               (
                 l:
-                warn "setting this option with a list is deprecated" listToAttrs
-                  (
-                    map
-                      (
-                        p:
-                        nameValuePair
-                          (p.name or (throw "${p} does not have a name"))
-                          p
-                      )
-                      l
-                  )
+                warn "setting this option with a list is deprecated" listToAttrs (
+                  map (p: nameValuePair (p.name or (throw "${p} does not have a name")) p) l
+                )
               )
               (attrsOf path)
           ;
@@ -251,17 +233,9 @@ let
             coercedTo (listOf path)
               (
                 l:
-                warn "setting this option with a list is deprecated" listToAttrs
-                  (
-                    map
-                      (
-                        p:
-                        nameValuePair
-                          (p.name or (throw "${p} does not have a name"))
-                          p
-                      )
-                      l
-                  )
+                warn "setting this option with a list is deprecated" listToAttrs (
+                  map (p: nameValuePair (p.name or (throw "${p} does not have a name")) p) l
+                )
               )
               (attrsOf path)
           ;
@@ -373,17 +347,12 @@ let
           createLocally = mkOption {
             type = types.bool;
             default = true;
-            description =
-              lib.mdDoc
-                "Create the database and database user locally."
-            ;
+            description = lib.mdDoc "Create the database and database user locally.";
           };
         };
 
         virtualHost = mkOption {
-          type = types.submodule (
-            import ../web-servers/apache-httpd/vhost-options.nix
-          );
+          type = types.submodule (import ../web-servers/apache-httpd/vhost-options.nix);
           example = literalExpression ''
             {
               adminAddr = "webmaster@example.org";
@@ -487,10 +456,7 @@ in
       sites = mkOption {
         type = types.attrsOf (types.submodule siteOpts);
         default = { };
-        description =
-          lib.mdDoc
-            "Specification of one or more WordPress sites to serve"
-        ;
+        description = lib.mdDoc "Specification of one or more WordPress sites to serve";
       };
 
       webserver = mkOption {
@@ -521,8 +487,7 @@ in
         assertions =
           (mapAttrsToList
             (hostName: cfg: {
-              assertion =
-                cfg.database.createLocally -> cfg.database.user == user;
+              assertion = cfg.database.createLocally -> cfg.database.user == user;
               message = ''
                 services.wordpress.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned'';
             })
@@ -530,8 +495,7 @@ in
           )
           ++ (mapAttrsToList
             (hostName: cfg: {
-              assertion =
-                cfg.database.createLocally -> cfg.database.passwordFile == null;
+              assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;
               message = ''
                 services.wordpress.sites."${hostName}".database.passwordFile cannot be specified if services.wordpress.sites."${hostName}".database.createLocally is set to true.'';
             })
@@ -544,10 +508,7 @@ in
             {
               enable = true;
               package = mkDefault pkgs.mariadb;
-              ensureDatabases =
-                mapAttrsToList (hostName: cfg: cfg.database.name)
-                  eachSite
-              ;
+              ensureDatabases = mapAttrsToList (hostName: cfg: cfg.database.name) eachSite;
               ensureUsers =
                 mapAttrsToList
                   (hostName: cfg: {
@@ -589,10 +550,7 @@ in
                 mkMerge [
                   cfg.virtualHost
                   {
-                    documentRoot =
-                      mkForce
-                        "${pkg hostName cfg}/share/wordpress"
-                    ;
+                    documentRoot = mkForce "${pkg hostName cfg}/share/wordpress";
                     extraConfig = ''
                       <Directory "${pkg hostName cfg}/share/wordpress">
                         <FilesMatch "\.php$">
@@ -664,10 +622,9 @@ in
             eachSite
           )
 
-          (optionalAttrs
-            (any (v: v.database.createLocally) (attrValues eachSite))
-            { httpd.after = [ "mysql.service" ]; }
-          )
+          (optionalAttrs (any (v: v.database.createLocally) (attrValues eachSite)) {
+            httpd.after = [ "mysql.service" ];
+          })
         ];
 
         users.users.${user} = {
@@ -749,9 +706,7 @@ in
                     root    * /${pkg hostName cfg}/share/wordpress
                     file_server
 
-                    php_fastcgi unix/${
-                      config.services.phpfpm.pools."wordpress-${hostName}".socket
-                    }
+                    php_fastcgi unix/${config.services.phpfpm.pools."wordpress-${hostName}".socket}
 
                     @uploads {
                       path_regexp path /uploads\/(.*)\.php

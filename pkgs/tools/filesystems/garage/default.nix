@@ -90,8 +90,7 @@ let
           teutat3s
           raitobezarius
         ];
-        knownVulnerabilities =
-          (lib.optional eol "Garage version ${version} is EOL");
+        knownVulnerabilities = (lib.optional eol "Garage version ${version} is EOL");
         inherit broken;
       };
     }

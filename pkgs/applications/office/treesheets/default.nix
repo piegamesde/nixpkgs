@@ -32,9 +32,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ wxGTK ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   env.NIX_CFLAGS_COMPILE = ''
-    -DPACKAGE_VERSION="${
-      builtins.replaceStrings [ "unstable-" ] [ "" ] version
-    }"'';
+    -DPACKAGE_VERSION="${builtins.replaceStrings [ "unstable-" ] [ "" ] version}"'';
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     shopt -s extglob

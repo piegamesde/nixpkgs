@@ -116,9 +116,7 @@ let
   integrationTests = lib.optionalAttrs (!python.isPyPy) (
     lib.optionalAttrs (python.isPy3k && !stdenv.isDarwin) {
       # darwin has no split-debug
-      cpython-gdb = callPackage ./tests/test_cpython_gdb {
-        interpreter = python;
-      };
+      cpython-gdb = callPackage ./tests/test_cpython_gdb { interpreter = python; };
     } // lib.optionalAttrs (python.pythonAtLeast "3.7") rec {
       # Before the addition of NIX_PYTHONPREFIX mypy was broken with typed packages
       nix-pythonprefix-mypy = callPackage ./tests/test_nix_pythonprefix {
@@ -160,9 +158,7 @@ let
             final: prev: {
               pythonPackagesExtensions =
                 prev.pythonPackagesExtensions
-                ++ [
-                  (python-final: python-prev: { foo = python-prev.setuptools; })
-                ]
+                ++ [ (python-final: python-prev: { foo = python-prev.setuptools; }) ]
               ;
             }
           );
@@ -210,9 +206,7 @@ let
           )
           { }
       ;
-      pythonWithRequests = requests.pythonModule.withPackages (
-        ps: [ requests ]
-      );
+      pythonWithRequests = requests.pythonModule.withPackages (ps: [ requests ]);
     in
     lib.optionalAttrs stdenv.isLinux {
       condaExamplePackage = runCommand "import-requests" { } ''

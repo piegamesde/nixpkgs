@@ -78,9 +78,7 @@ stdenv.mkDerivation rec {
       done
     ) || exit
 
-    ln -sf ${
-      lib.getLib openssl_1_1
-    }/lib/libcrypto.so $out/lib/libcrypto.so.1.1.0
+    ln -sf ${lib.getLib openssl_1_1}/lib/libcrypto.so $out/lib/libcrypto.so.1.1.0
   '';
 
   dontAutoPatchelf = true;

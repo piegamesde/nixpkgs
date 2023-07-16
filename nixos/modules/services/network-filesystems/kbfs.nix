@@ -85,9 +85,7 @@ in
               ''-${wrapperDir}/fusermount -uz "${cfg.mountPoint}"''
             ];
             ExecStart = ''
-              ${pkgs.kbfs}/bin/kbfsfuse ${
-                toString cfg.extraFlags
-              } "${cfg.mountPoint}"'';
+              ${pkgs.kbfs}/bin/kbfsfuse ${toString cfg.extraFlags} "${cfg.mountPoint}"'';
             ExecStop = ''${wrapperDir}/fusermount -uz "${cfg.mountPoint}"'';
             Restart = "on-failure";
             PrivateTmp = true;

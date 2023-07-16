@@ -27,9 +27,7 @@ let
       BOT_LOG_LEVEL = logging.${instanceCfg.logLevel}
       BOT_LOG_FILE = False
 
-      BOT_ADMINS = (${
-        concatMapStringsSep "," (name: "'${name}'") instanceCfg.admins
-      })
+      BOT_ADMINS = (${concatMapStringsSep "," (name: "'${name}'") instanceCfg.admins})
 
       BOT_IDENTITY = ${builtins.toJSON instanceCfg.identity}
 
@@ -83,10 +81,7 @@ in
             extraConfig = mkOption {
               type = types.lines;
               default = "";
-              description =
-                lib.mdDoc
-                  "String to be appended to the config verbatim"
-              ;
+              description = lib.mdDoc "String to be appended to the config verbatim";
             };
           };
         }

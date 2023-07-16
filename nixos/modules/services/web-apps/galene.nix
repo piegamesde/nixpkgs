@@ -95,10 +95,7 @@ in
       recordingsDir = mkOption {
         type = types.str;
         default = defaultrecordingsDir;
-        defaultText =
-          literalExpression
-            ''"''${config.${opt.stateDir}}/recordings"''
-        ;
+        defaultText = literalExpression ''"''${config.${opt.stateDir}}/recordings"'';
         example = "/var/lib/galene/recordings";
         description = lib.mdDoc "Recordings directory.";
       };
@@ -114,10 +111,7 @@ in
       groupsDir = mkOption {
         type = types.str;
         default = defaultgroupsDir;
-        defaultText =
-          literalExpression
-            ''"''${config.${opt.stateDir}}/groups"''
-        ;
+        defaultText = literalExpression ''"''${config.${opt.stateDir}}/groups"'';
         example = "/var/lib/galene/groups";
         description = lib.mdDoc "Web server directory.";
       };
@@ -174,9 +168,7 @@ in
           ++ optional (cfg.stateDir == defaultstateDir) "galene"
           ++ optional (cfg.dataDir == defaultdataDir) "galene/data"
           ++ optional (cfg.groupsDir == defaultgroupsDir) "galene/groups"
-          ++
-            optional (cfg.recordingsDir == defaultrecordingsDir)
-              "galene/recordings"
+          ++ optional (cfg.recordingsDir == defaultrecordingsDir) "galene/recordings"
         ;
 
         # Hardening

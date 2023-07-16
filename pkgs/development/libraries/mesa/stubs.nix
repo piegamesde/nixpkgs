@@ -85,10 +85,7 @@ stdenv.mkDerivation (
         ''
     ;
 
-    passthru.tests.pkg-config =
-      testers.testMetaPkgConfig
-        finalAttrs.finalPackage
-    ;
+    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
     meta = {
       description =
@@ -102,8 +99,7 @@ stdenv.mkDerivation (
         "glesv2"
       ];
     } // {
-      inherit
-        (if stdenv.hostPlatform.isDarwin then mesa.meta else libglvnd.meta)
+      inherit (if stdenv.hostPlatform.isDarwin then mesa.meta else libglvnd.meta)
         homepage
         license
         platforms

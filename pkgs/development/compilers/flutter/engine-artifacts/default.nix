@@ -43,11 +43,7 @@ let
                 (
                   variant: [
                     { archive = "artifacts.zip"; }
-                    {
-                      archive = "${
-                          lib.toLower hostPlatform.uname.system
-                        }-x64.zip";
-                    }
+                    { archive = "${lib.toLower hostPlatform.uname.system}-x64.zip"; }
                   ]
                 )
             ;
@@ -87,16 +83,9 @@ let
                         This patch should be removed.
                       fi
                       ln -s ${
-                        lib.findSingle
-                          (
-                            pkg:
-                            lib.getName pkg
-                            == "flutter-artifact-linux-x64-artifacts"
-                          )
+                        lib.findSingle (pkg: lib.getName pkg == "flutter-artifact-linux-x64-artifacts")
                           (throw "Could not find the x64 artifact archive.")
-                          (throw
-                            "Could not find the correct x64 artifact archive."
-                          )
+                          (throw "Could not find the correct x64 artifact archive.")
                           artifactDerivations.platform.linux.x64.base
                       }/shader_lib .
                     '';
@@ -152,12 +141,8 @@ let
             }/${archive}";
           stripRoot = false;
           hash =
-            (
-              if artifactDirectory == null then
-                hashes
-              else
-                hashes.${artifactDirectory}
-            ).${archive};
+            (if artifactDirectory == null then hashes else hashes.${artifactDirectory})
+            .${archive};
         };
 
         nativeBuildInputs = [ autoPatchelfHook ];
@@ -177,12 +162,7 @@ let
             (architecture: variants: {
               base =
                 map
-                  (
-                    args:
-                    mkArtifactDerivation (
-                      { platform = "${os}-${architecture}"; } // args
-                    )
-                  )
+                  (args: mkArtifactDerivation ({ platform = "${os}-${architecture}"; } // args))
                   variants.base
               ;
               variants =

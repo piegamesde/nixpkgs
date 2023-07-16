@@ -40,9 +40,7 @@ optionalWarning (openidPassword != "WILL_NEVER_BE_SET")
           echo "crowd.home=${home}" > crowd-webapp/WEB-INF/classes/crowd-init.properties
           substituteInPlace build.properties \
             --replace "openidserver.url=http://localhost:8095/openidserver" \
-                      "openidserver.url=http://localhost:${
-                        toString port
-                      }/openidserver"
+                      "openidserver.url=http://localhost:${toString port}/openidserver"
           substituteInPlace crowd-openidserver-webapp/WEB-INF/classes/crowd.properties \
             --replace "http://localhost:8095/" \
                       "http://localhost:${toString port}/"

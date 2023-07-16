@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
   buildInputs = lib.optional stdenv.isDarwin darwin.libobjc;
 
   configureFlags =
-    [ "--disable-examples" ] ++ lib.optional stdenv.isDarwin "--disable-sdltest"
-  ;
+    [ "--disable-examples" ] ++ lib.optional stdenv.isDarwin "--disable-sdltest";
 
   propagatedBuildInputs = [ SDL2 ];
 

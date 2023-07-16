@@ -70,10 +70,7 @@ in
     };
 
     index = mkOption {
-      description =
-        lib.mdDoc
-          "Elasticsearch index to use for saving kibana config."
-      ;
+      description = lib.mdDoc "Elasticsearch index to use for saving kibana config.";
       default = ".kibana";
       type = types.str;
     };
@@ -152,10 +149,7 @@ in
       };
 
       cert = mkOption {
-        description =
-          lib.mdDoc
-            "Certificate file to auth against elasticsearch."
-        ;
+        description = lib.mdDoc "Certificate file to auth against elasticsearch.";
         default = null;
         type = types.nullOr types.path;
       };

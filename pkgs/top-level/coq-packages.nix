@@ -30,19 +30,14 @@ let
       metaFetch = import ../build-support/coq/meta-fetch/default.nix {
         inherit lib stdenv fetchzip;
       };
-      mkCoqDerivation = lib.makeOverridable (
-        callPackage ../build-support/coq { }
-      );
+      mkCoqDerivation = lib.makeOverridable (callPackage ../build-support/coq { });
 
       contribs = recurseIntoAttrs (
         callPackage ../development/coq-modules/contribs { }
       );
 
       aac-tactics = callPackage ../development/coq-modules/aac-tactics { };
-      addition-chains =
-        callPackage ../development/coq-modules/addition-chains
-          { }
-      ;
+      addition-chains = callPackage ../development/coq-modules/addition-chains { };
       autosubst = callPackage ../development/coq-modules/autosubst { };
       bignums =
         if lib.versionAtLeast coq.coq-version "8.6" then
@@ -50,10 +45,7 @@ let
         else
           null
       ;
-      category-theory =
-        callPackage ../development/coq-modules/category-theory
-          { }
-      ;
+      category-theory = callPackage ../development/coq-modules/category-theory { };
       ceres = callPackage ../development/coq-modules/ceres { };
       Cheerios = callPackage ../development/coq-modules/Cheerios { };
       CoLoR = callPackage ../development/coq-modules/CoLoR { };
@@ -126,27 +118,18 @@ let
         callPackage ../development/coq-modules/mathcomp-analysis
           { }
       ;
-      mathcomp-apery =
-        callPackage ../development/coq-modules/mathcomp-apery
-          { }
-      ;
+      mathcomp-apery = callPackage ../development/coq-modules/mathcomp-apery { };
       mathcomp-bigenough =
         callPackage ../development/coq-modules/mathcomp-bigenough
           { }
       ;
       mathcomp-classical = self.mathcomp-analysis.classical;
-      mathcomp-finmap =
-        callPackage ../development/coq-modules/mathcomp-finmap
-          { }
-      ;
+      mathcomp-finmap = callPackage ../development/coq-modules/mathcomp-finmap { };
       mathcomp-real-closed =
         callPackage ../development/coq-modules/mathcomp-real-closed
           { }
       ;
-      mathcomp-tarjan =
-        callPackage ../development/coq-modules/mathcomp-tarjan
-          { }
-      ;
+      mathcomp-tarjan = callPackage ../development/coq-modules/mathcomp-tarjan { };
       mathcomp-word = callPackage ../development/coq-modules/mathcomp-word { };
       mathcomp-zify = callPackage ../development/coq-modules/mathcomp-zify { };
       metacoq = callPackage ../development/coq-modules/metacoq { };
@@ -163,10 +146,7 @@ let
       pocklington = callPackage ../development/coq-modules/pocklington { };
       QuickChick = callPackage ../development/coq-modules/QuickChick { };
       reglang = callPackage ../development/coq-modules/reglang { };
-      relation-algebra =
-        callPackage ../development/coq-modules/relation-algebra
-          { }
-      ;
+      relation-algebra = callPackage ../development/coq-modules/relation-algebra { };
       semantics = callPackage ../development/coq-modules/semantics { };
       serapi = callPackage ../development/coq-modules/serapi { };
       simple-io = callPackage ../development/coq-modules/simple-io { };
@@ -182,9 +162,9 @@ let
       VST = callPackage ../development/coq-modules/VST (
         (lib.optionalAttrs (lib.versionAtLeast self.coq.version "8.14") {
           compcert = self.compcert.override { version = "3.11"; };
-        }) // (lib.optionalAttrs (lib.versions.isEq self.coq.coq-version "8.13")
-          { ITree = self.ITree.override { version = "4.0.0"; }; }
-        )
+        }) // (lib.optionalAttrs (lib.versions.isEq self.coq.coq-version "8.13") {
+          ITree = self.ITree.override { version = "4.0.0"; };
+        })
       );
       zorns-lemma = callPackage ../development/coq-modules/zorns-lemma { };
       filterPackages =

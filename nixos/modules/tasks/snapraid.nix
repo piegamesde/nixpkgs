@@ -140,15 +140,10 @@ in
               prependExclude = mkPrepend "exclude ";
             in
             concatStringsSep "\n" (
-              map prependData (
-                (mapAttrsToList (name: value: name + " " + value)) dataDisks
-              )
+              map prependData ((mapAttrsToList (name: value: name + " " + value)) dataDisks)
               ++
                 zipListsWith (a: b: a + b)
-                  (
-                    [ "parity " ]
-                    ++ map (i: toString i + "-parity ") (range 2 6)
-                  )
+                  ([ "parity " ] ++ map (i: toString i + "-parity ") (range 2 6))
                   parityFiles
               ++ map prependContent contentFiles
               ++ map prependExclude exclude
@@ -165,9 +160,9 @@ in
           startAt = scrub.interval;
           serviceConfig = {
             Type = "oneshot";
-            ExecStart = "${pkgs.snapraid}/bin/snapraid scrub -p ${
-                toString scrub.plan
-              } -o ${toString scrub.olderThan}";
+            ExecStart = "${pkgs.snapraid}/bin/snapraid scrub -p ${toString scrub.plan} -o ${
+                toString scrub.olderThan
+              }";
             Nice = 19;
             IOSchedulingPriority = 7;
             CPUSchedulingPolicy = "batch";
@@ -233,9 +228,7 @@ in
             SystemCallFilter = "@system-service";
             SystemCallErrorNumber = "EPERM";
             CapabilityBoundingSet =
-              "CAP_DAC_OVERRIDE"
-              + lib.optionalString cfg.touchBeforeSync " CAP_FOWNER"
-            ;
+              "CAP_DAC_OVERRIDE" + lib.optionalString cfg.touchBeforeSync " CAP_FOWNER";
 
             ProtectSystem = "strict";
             ProtectHome = "read-only";

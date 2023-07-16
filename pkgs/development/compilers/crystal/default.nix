@@ -241,10 +241,7 @@ let
               ]
               ++
                 lib.optionals
-                  (
-                    lib.versionAtLeast version "1.3.0"
-                    && lib.versionOlder version "1.6.1"
-                  )
+                  (lib.versionAtLeast version "1.3.0" && lib.versionOlder version "1.6.1")
                   [
                     # ffi is only used by the interpreter and its spec are broken on < 1.6.1
                     "-Dwithout_ffi"
@@ -270,9 +267,7 @@ let
                   ]
                 } \
                 --suffix CRYSTAL_PATH : lib:$lib/crystal \
-                --suffix CRYSTAL_LIBRARY_PATH : ${
-                  lib.makeLibraryPath finalAttrs.buildInputs
-                }
+                --suffix CRYSTAL_LIBRARY_PATH : ${lib.makeLibraryPath finalAttrs.buildInputs}
               install -dm755 $lib/crystal
               cp -r src/* $lib/crystal/
 
@@ -301,9 +296,7 @@ let
             checkTarget = "compiler_spec";
 
             preCheck = ''
-              export LIBRARY_PATH=${
-                lib.makeLibraryPath nativeCheckInputs
-              }:$LIBRARY_PATH
+              export LIBRARY_PATH=${lib.makeLibraryPath nativeCheckInputs}:$LIBRARY_PATH
               export PATH=${lib.makeBinPath nativeCheckInputs}:$PATH
             '';
 

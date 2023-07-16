@@ -180,8 +180,7 @@ let
 
     src = srcDepsSet."java_tools_javac11_${system}-v10.6.zip";
 
-    nativeBuildInputs =
-      [ unzip ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
+    nativeBuildInputs = [ unzip ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
     buildInputs = [ gcc-unwrapped ];
 
     sourceRoot = ".";
@@ -324,18 +323,16 @@ stdenv.mkDerivation rec {
             # yes, this path is kinda magic. Sorry.
             "$HOME/.cache/bazel/_bazel_nixbld";
         in
-        runLocal "bazel-extracted-homedir"
-          { passthru.install_dir = install_dir; }
-          ''
-            export HOME=$(mktemp -d)
-            touch WORKSPACE # yeah, everything sucks
-            install_base="$(${bazelPkg}/bin/bazel info | grep install_base)"
-            # assert it’s actually below install_dir
-            [[ "$install_base" =~ ${install_dir} ]] \
-              || (echo "oh no! $install_base but we are \
-            trying to copy ${install_dir} to $out instead!"; exit 1)
-            cp -R ${install_dir} $out
-          ''
+        runLocal "bazel-extracted-homedir" { passthru.install_dir = install_dir; } ''
+          export HOME=$(mktemp -d)
+          touch WORKSPACE # yeah, everything sucks
+          install_base="$(${bazelPkg}/bin/bazel info | grep install_base)"
+          # assert it’s actually below install_dir
+          [[ "$install_base" =~ ${install_dir} ]] \
+            || (echo "oh no! $install_base but we are \
+          trying to copy ${install_dir} to $out instead!"; exit 1)
+          cp -R ${install_dir} $out
+        ''
       ;
 
       bazelTest =
@@ -645,8 +642,7 @@ stdenv.mkDerivation rec {
         patchShebangs .
       '';
     in
-    lib.optionalString stdenv.hostPlatform.isDarwin darwinPatches
-    + genericPatches
+    lib.optionalString stdenv.hostPlatform.isDarwin darwinPatches + genericPatches
   ;
 
   buildInputs = [ buildJdk ] ++ defaultShellUtils;

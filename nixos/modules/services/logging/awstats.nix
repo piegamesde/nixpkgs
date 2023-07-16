@@ -91,19 +91,13 @@ let
           hostname = mkOption {
             type = types.str;
             default = config.domain;
-            description =
-              lib.mdDoc
-                "The hostname the web service appears under."
-            ;
+            description = lib.mdDoc "The hostname the web service appears under.";
           };
 
           urlPrefix = mkOption {
             type = types.str;
             default = "/awstats";
-            description =
-              lib.mdDoc
-                "The URL prefix under which the awstats pages appear."
-            ;
+            description = lib.mdDoc "The URL prefix under which the awstats pages appear.";
           };
         };
       };
@@ -151,10 +145,7 @@ in
     dataDir = mkOption {
       type = types.path;
       default = "/var/lib/awstats";
-      description =
-        lib.mdDoc
-          "The directory where awstats data will be stored."
-      ;
+      description = lib.mdDoc "The directory where awstats data will be stored.";
     };
 
     configs = mkOption {
@@ -190,72 +181,68 @@ in
         (
           name: opts:
           nameValuePair "awstats/awstats.${name}.conf" {
-            source =
-              pkgs.runCommand "awstats.${name}.conf"
-                { preferLocalBuild = true; }
-                (
-                  ''
-                    sed \
-                  ''
-                  # set up mail stats
-                  + optionalString (opts.type == "mail") ''
-                    -e 's|^\(LogType\)=.*$|\1=M|' \
-                    -e 's|^\(LevelForBrowsersDetection\)=.*$|\1=0|' \
-                    -e 's|^\(LevelForOSDetection\)=.*$|\1=0|' \
-                    -e 's|^\(LevelForRefererAnalyze\)=.*$|\1=0|' \
-                    -e 's|^\(LevelForRobotsDetection\)=.*$|\1=0|' \
-                    -e 's|^\(LevelForSearchEnginesDetection\)=.*$|\1=0|' \
-                    -e 's|^\(LevelForFileTypesDetection\)=.*$|\1=0|' \
-                    -e 's|^\(LevelForWormsDetection\)=.*$|\1=0|' \
-                    -e 's|^\(ShowMenu\)=.*$|\1=1|' \
-                    -e 's|^\(ShowSummary\)=.*$|\1=HB|' \
-                    -e 's|^\(ShowMonthStats\)=.*$|\1=HB|' \
-                    -e 's|^\(ShowDaysOfMonthStats\)=.*$|\1=HB|' \
-                    -e 's|^\(ShowDaysOfWeekStats\)=.*$|\1=HB|' \
-                    -e 's|^\(ShowHoursStats\)=.*$|\1=HB|' \
-                    -e 's|^\(ShowDomainsStats\)=.*$|\1=0|' \
-                    -e 's|^\(ShowHostsStats\)=.*$|\1=HB|' \
-                    -e 's|^\(ShowAuthenticatedUsers\)=.*$|\1=0|' \
-                    -e 's|^\(ShowRobotsStats\)=.*$|\1=0|' \
-                    -e 's|^\(ShowEMailSenders\)=.*$|\1=HBML|' \
-                    -e 's|^\(ShowEMailReceivers\)=.*$|\1=HBML|' \
-                    -e 's|^\(ShowSessionsStats\)=.*$|\1=0|' \
-                    -e 's|^\(ShowPagesStats\)=.*$|\1=0|' \
-                    -e 's|^\(ShowFileTypesStats\)=.*$|\1=0|' \
-                    -e 's|^\(ShowFileSizesStats\)=.*$|\1=0|' \
-                    -e 's|^\(ShowBrowsersStats\)=.*$|\1=0|' \
-                    -e 's|^\(ShowOSStats\)=.*$|\1=0|' \
-                    -e 's|^\(ShowOriginStats\)=.*$|\1=0|' \
-                    -e 's|^\(ShowKeyphrasesStats\)=.*$|\1=0|' \
-                    -e 's|^\(ShowKeywordsStats\)=.*$|\1=0|' \
-                    -e 's|^\(ShowMiscStats\)=.*$|\1=0|' \
-                    -e 's|^\(ShowHTTPErrorsStats\)=.*$|\1=0|' \
-                    -e 's|^\(ShowSMTPErrorsStats\)=.*$|\1=1|' \
-                  ''
-                  +
-                    # common options
-                    ''
-                      -e 's|^\(DirData\)=.*$|\1="${cfg.dataDir}/${name}"|' \
-                      -e 's|^\(DirIcons\)=.*$|\1="icons"|' \
-                      -e 's|^\(CreateDirDataIfNotExists\)=.*$|\1=1|' \
-                      -e 's|^\(SiteDomain\)=.*$|\1="${name}"|' \
-                      -e 's|^\(LogFile\)=.*$|\1="${opts.logFile}"|' \
-                      -e 's|^\(LogFormat\)=.*$|\1="${opts.logFormat}"|' \
-                    ''
-                  +
-                    # extra config
-                    concatStringsSep "\n" (
-                      mapAttrsToList
-                        (n: v: ''
-                          -e 's|^\(${n}\)=.*$|\1="${v}"|' \
-                        '')
-                        opts.extraConfig
-                    )
-                  + ''
-                    < '${package.out}/wwwroot/cgi-bin/awstats.model.conf' > "$out"
-                  ''
+            source = pkgs.runCommand "awstats.${name}.conf" { preferLocalBuild = true; } (
+              ''
+                sed \
+              ''
+              # set up mail stats
+              + optionalString (opts.type == "mail") ''
+                -e 's|^\(LogType\)=.*$|\1=M|' \
+                -e 's|^\(LevelForBrowsersDetection\)=.*$|\1=0|' \
+                -e 's|^\(LevelForOSDetection\)=.*$|\1=0|' \
+                -e 's|^\(LevelForRefererAnalyze\)=.*$|\1=0|' \
+                -e 's|^\(LevelForRobotsDetection\)=.*$|\1=0|' \
+                -e 's|^\(LevelForSearchEnginesDetection\)=.*$|\1=0|' \
+                -e 's|^\(LevelForFileTypesDetection\)=.*$|\1=0|' \
+                -e 's|^\(LevelForWormsDetection\)=.*$|\1=0|' \
+                -e 's|^\(ShowMenu\)=.*$|\1=1|' \
+                -e 's|^\(ShowSummary\)=.*$|\1=HB|' \
+                -e 's|^\(ShowMonthStats\)=.*$|\1=HB|' \
+                -e 's|^\(ShowDaysOfMonthStats\)=.*$|\1=HB|' \
+                -e 's|^\(ShowDaysOfWeekStats\)=.*$|\1=HB|' \
+                -e 's|^\(ShowHoursStats\)=.*$|\1=HB|' \
+                -e 's|^\(ShowDomainsStats\)=.*$|\1=0|' \
+                -e 's|^\(ShowHostsStats\)=.*$|\1=HB|' \
+                -e 's|^\(ShowAuthenticatedUsers\)=.*$|\1=0|' \
+                -e 's|^\(ShowRobotsStats\)=.*$|\1=0|' \
+                -e 's|^\(ShowEMailSenders\)=.*$|\1=HBML|' \
+                -e 's|^\(ShowEMailReceivers\)=.*$|\1=HBML|' \
+                -e 's|^\(ShowSessionsStats\)=.*$|\1=0|' \
+                -e 's|^\(ShowPagesStats\)=.*$|\1=0|' \
+                -e 's|^\(ShowFileTypesStats\)=.*$|\1=0|' \
+                -e 's|^\(ShowFileSizesStats\)=.*$|\1=0|' \
+                -e 's|^\(ShowBrowsersStats\)=.*$|\1=0|' \
+                -e 's|^\(ShowOSStats\)=.*$|\1=0|' \
+                -e 's|^\(ShowOriginStats\)=.*$|\1=0|' \
+                -e 's|^\(ShowKeyphrasesStats\)=.*$|\1=0|' \
+                -e 's|^\(ShowKeywordsStats\)=.*$|\1=0|' \
+                -e 's|^\(ShowMiscStats\)=.*$|\1=0|' \
+                -e 's|^\(ShowHTTPErrorsStats\)=.*$|\1=0|' \
+                -e 's|^\(ShowSMTPErrorsStats\)=.*$|\1=1|' \
+              ''
+              +
+                # common options
+                ''
+                  -e 's|^\(DirData\)=.*$|\1="${cfg.dataDir}/${name}"|' \
+                  -e 's|^\(DirIcons\)=.*$|\1="icons"|' \
+                  -e 's|^\(CreateDirDataIfNotExists\)=.*$|\1=1|' \
+                  -e 's|^\(SiteDomain\)=.*$|\1="${name}"|' \
+                  -e 's|^\(LogFile\)=.*$|\1="${opts.logFile}"|' \
+                  -e 's|^\(LogFormat\)=.*$|\1="${opts.logFormat}"|' \
+                ''
+              +
+                # extra config
+                concatStringsSep "\n" (
+                  mapAttrsToList
+                    (n: v: ''
+                      -e 's|^\(${n}\)=.*$|\1="${v}"|' \
+                    '')
+                    opts.extraConfig
                 )
-            ;
+              + ''
+                < '${package.out}/wwwroot/cgi-bin/awstats.model.conf' > "$out"
+              ''
+            );
           }
         )
         cfg.configs
@@ -265,8 +252,7 @@ in
     systemd.tmpfiles.rules =
       [ "d '${cfg.dataDir}' 755 root root - -" ]
       ++
-        mapAttrsToList
-          (name: opts: "d '${cfg.dataDir}/${name}' 755 root root - -")
+        mapAttrsToList (name: opts: "d '${cfg.dataDir}/${name}' 755 root root - -")
           cfg.configs
       ++ [ "Z '${cfg.dataDir}' 755 root root - -" ]
     ;

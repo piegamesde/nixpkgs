@@ -35,8 +35,7 @@ let
           mainProgram = cmd;
           priority = 10;
           platforms =
-            lib.platforms.${stdenv.hostPlatform.parsed.kernel.name}
-              or lib.platforms.all;
+            lib.platforms.${stdenv.hostPlatform.parsed.kernel.name} or lib.platforms.all;
         };
         passthru = {
           inherit provider;

@@ -64,8 +64,7 @@ let
     filterAttrs
       (
         _: value:
-        versionAtLeast value.version "12"
-        && !(versionAtLeast value.version "15")
+        versionAtLeast value.version "12" && !(versionAtLeast value.version "15")
       )
       postgresql-versions
   ;

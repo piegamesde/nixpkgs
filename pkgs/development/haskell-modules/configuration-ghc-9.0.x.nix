@@ -214,8 +214,7 @@ self: super: {
   hiedb =
     overrideCabal
       (old: {
-        libraryHaskellDepends =
-          old.libraryHaskellDepends ++ [ self.ghc-api-compat ];
+        libraryHaskellDepends = old.libraryHaskellDepends ++ [ self.ghc-api-compat ];
       })
       super.hiedb
   ;

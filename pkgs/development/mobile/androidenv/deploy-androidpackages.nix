@@ -22,10 +22,7 @@ let
     "nativeBuildInputs"
     "patchesInstructions"
   ];
-  sortedPackages =
-    builtins.sort (x: y: builtins.lessThan x.name y.name)
-      packages
-  ;
+  sortedPackages = builtins.sort (x: y: builtins.lessThan x.name y.name) packages;
 
   mkXmlAttrs =
     attrs:
@@ -59,9 +56,7 @@ let
       hasXmlValues = builtins.length (builtins.attrNames xmlValues) > 0;
     in
     if hasXmlAttrs && hasXmlValues then
-      "<${tag}${mkXmlAttrs doc.element-attributes}>${
-        mkXmlValues xmlValues
-      }</${tag}>"
+      "<${tag}${mkXmlAttrs doc.element-attributes}>${mkXmlValues xmlValues}</${tag}>"
     else if hasXmlAttrs && !hasXmlValues then
       "<${tag}${mkXmlAttrs doc.element-attributes}/>"
     else if !hasXmlAttrs && hasXmlValues then
@@ -93,10 +88,7 @@ let
         <localPackage path="${
           builtins.replaceStrings [ "/" ] [ ";" ] package.path
         }" obsolete="${
-          if (lib.hasAttrByPath [ "obsolete" ] package) then
-            package.obsolete
-          else
-            "false"
+          if (lib.hasAttrByPath [ "obsolete" ] package) then package.obsolete else "false"
         }">
           ${mkXmlDoc "type-details" package.type-details}
           ${mkXmlDoc "revision" package.revision-details}

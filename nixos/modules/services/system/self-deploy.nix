@@ -22,9 +22,7 @@ let
         if builtins.isString value then
           " --argstr ${lib.escapeShellArg key} ${lib.escapeShellArg value}"
         else
-          " --arg ${lib.escapeShellArg key} ${
-             lib.escapeShellArg (toString value)
-           }"
+          " --arg ${lib.escapeShellArg key} ${lib.escapeShellArg (toString value)}"
       ;
     in
     lib.concatStrings (lib.mapAttrsToList toArg args)
@@ -152,9 +150,7 @@ in
 
       wantedBy = [ "multi-user.target" ];
 
-      requires = lib.mkIf (!(isPathType cfg.repository)) [
-        "network-online.target"
-      ];
+      requires = lib.mkIf (!(isPathType cfg.repository)) [ "network-online.target" ];
 
       environment.GIT_SSH_COMMAND =
         lib.mkIf (cfg.sshKeyFile != null)

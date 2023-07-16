@@ -10,9 +10,7 @@ let
 
   parentWrapperDir = dirOf wrapperDir;
 
-  securityWrapper = pkgs.callPackage ./wrapper.nix {
-    inherit parentWrapperDir;
-  };
+  securityWrapper = pkgs.callPackage ./wrapper.nix { inherit parentWrapperDir; };
 
   fileModeType =
     let
@@ -35,10 +33,7 @@ let
     {
       options.source = lib.mkOption {
         type = lib.types.path;
-        description =
-          lib.mdDoc
-            "The absolute path to the program to be wrapped."
-        ;
+        description = lib.mdDoc "The absolute path to the program to be wrapped.";
       };
       options.program = lib.mkOption {
         type = with lib.types; nullOr str;
@@ -87,18 +82,12 @@ let
       options.setuid = lib.mkOption {
         type = lib.types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to add the setuid bit the wrapper program."
-        ;
+        description = lib.mdDoc "Whether to add the setuid bit the wrapper program.";
       };
       options.setgid = lib.mkOption {
         type = lib.types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to add the setgid bit the wrapper program."
-        ;
+        description = lib.mdDoc "Whether to add the setgid bit the wrapper program.";
       };
     }
   );
@@ -162,10 +151,7 @@ let
     builtins.map
       (
         opts:
-        if opts.capabilities != "" then
-          mkSetcapProgram opts
-        else
-          mkSetuidProgram opts
+        if opts.capabilities != "" then mkSetcapProgram opts else mkSetuidProgram opts
       )
       (lib.attrValues wrappers)
   ;

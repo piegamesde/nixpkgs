@@ -23,10 +23,7 @@ in
       type = types.str;
       default = "*";
       example = "127.0.0.1";
-      description =
-        lib.mdDoc
-          "Address or host the web interface should listen on"
-      ;
+      description = lib.mdDoc "Address or host the web interface should listen on";
     };
     reverseProxy = mkOption {
       type = types.bool;
@@ -48,9 +45,7 @@ in
       environment = {
         CONVOS_HOME = "%S/convos";
         CONVOS_REVERSE_PROXY = if cfg.reverseProxy then "1" else "0";
-        MOJO_LISTEN = "http://${toString cfg.listenAddress}:${
-            toString cfg.listenPort
-          }";
+        MOJO_LISTEN = "http://${toString cfg.listenAddress}:${toString cfg.listenPort}";
       };
       serviceConfig = {
         ExecStart = "${pkgs.convos}/bin/convos daemon";

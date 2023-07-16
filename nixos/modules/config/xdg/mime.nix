@@ -12,8 +12,7 @@ let
   associationOptions =
     with types;
     attrsOf (
-      coercedTo (either (listOf str) str) (x: concatStringsSep ";" (toList x))
-        str
+      coercedTo (either (listOf str) str) (x: concatStringsSep ";" (toList x)) str
     )
   ;
 in

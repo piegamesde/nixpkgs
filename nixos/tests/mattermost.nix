@@ -81,20 +81,14 @@ import ./make-test-python.nix (
           jqExpression:
           pkgs.writeShellScript "expect-config" ''
             set -euo pipefail
-            echo "Expecting config to match: "${
-              lib.escapeShellArg jqExpression
-            } >&2
+            echo "Expecting config to match: "${lib.escapeShellArg jqExpression} >&2
             curl ${lib.escapeShellArg url} >/dev/null
-            config="$(curl ${
-              lib.escapeShellArg "${url}/api/v4/config/client?format=old"
-            })"
+            config="$(curl ${lib.escapeShellArg "${url}/api/v4/config/client?format=old"})"
             echo "Config: $(echo "$config" | ${pkgs.jq}/bin/jq)" >&2
             [[ "$(echo "$config" | ${pkgs.jq}/bin/jq -r ${
               lib.escapeShellArg
                 ".SiteName == $siteName and .Version == ($mattermostName / $sep)[-1] and (${jqExpression})"
-            } --arg siteName ${
-              lib.escapeShellArg siteName
-            } --arg mattermostName ${
+            } --arg siteName ${lib.escapeShellArg siteName} --arg mattermostName ${
               lib.escapeShellArg pkgs.mattermost.name
             } --arg sep '-')" = "true" ]]
           ''
@@ -132,8 +126,7 @@ import ./make-test-python.nix (
           setConfig ''.SupportSettings.AboutLink = "https://mattermost.com"''
         }")
         mutable.succeed("${
-          setConfig
-            ''.SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''
+          setConfig ''.SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''
         }")
         mutable.systemctl("restart mattermost.service")
         mutable.wait_for_open_port(8065)
@@ -150,17 +143,14 @@ import ./make-test-python.nix (
         mostlyMutable.wait_for_open_port(8065)
 
         # Get the initial config
-        mostlyMutable.succeed("${
-          expectConfig ''.AboutLink == "https://nixos.org"''
-        }")
+        mostlyMutable.succeed("${expectConfig ''.AboutLink == "https://nixos.org"''}")
 
         # Edit the config
         mostlyMutable.succeed("${
           setConfig ''.SupportSettings.AboutLink = "https://mattermost.com"''
         }")
         mostlyMutable.succeed("${
-          setConfig
-            ''.SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''
+          setConfig ''.SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''
         }")
         mostlyMutable.systemctl("restart mattermost.service")
         mostlyMutable.wait_for_open_port(8065)
@@ -188,8 +178,7 @@ import ./make-test-python.nix (
           setConfig ''.SupportSettings.AboutLink = "https://mattermost.com"''
         }")
         immutable.succeed("${
-          setConfig
-            ''.SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''
+          setConfig ''.SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''
         }")
         immutable.systemctl("restart mattermost.service")
         immutable.wait_for_open_port(8065)
@@ -207,9 +196,7 @@ import ./make-test-python.nix (
         environmentFile.wait_for_open_port(8065)
 
         # Settings in the environment file should override settings set otherwise
-        environmentFile.succeed("${
-          expectConfig ''.AboutLink == "https://nixos.org"''
-        }")
+        environmentFile.succeed("${expectConfig ''.AboutLink == "https://nixos.org"''}")
       ''
     ;
   }

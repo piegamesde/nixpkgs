@@ -58,11 +58,7 @@ let
     args:
     let
       efiSysMountPoint =
-        if args.efiSysMountPoint == null then
-          args.path
-        else
-          args.efiSysMountPoint
-      ;
+        if args.efiSysMountPoint == null then args.path else args.efiSysMountPoint;
       efiSysMountPoint' = replaceStrings [ "/" ] [ "-" ] efiSysMountPoint;
     in
     pkgs.writeText "grub-config.xml" (
@@ -90,11 +86,7 @@ let
             args.efiBootloaderId
         ;
         timeout =
-          if config.boot.loader.timeout == null then
-            -1
-          else
-            config.boot.loader.timeout
-        ;
+          if config.boot.loader.timeout == null then -1 else config.boot.loader.timeout;
         users =
           if cfg.users == { } || cfg.version != 1 then
             cfg.users
@@ -619,10 +611,7 @@ in
       font = mkOption {
         type = types.nullOr types.path;
         default = "${realGrub}/share/grub/unicode.pf2";
-        defaultText =
-          literalExpression
-            ''"''${pkgs.grub2}/share/grub/unicode.pf2"''
-        ;
+        defaultText = literalExpression ''"''${pkgs.grub2}/share/grub/unicode.pf2"'';
         description = lib.mdDoc ''
           Path to a TrueType, OpenType, or pf2 font to be used by Grub.
         '';
@@ -904,8 +893,7 @@ in
           ''
             #!${pkgs.runtimeShell}
             set -e
-            ${optionalString cfg.enableCryptodisk
-              "export GRUB_ENABLE_CRYPTODISK=y"}
+            ${optionalString cfg.enableCryptodisk "export GRUB_ENABLE_CRYPTODISK=y"}
           ''
           + flip concatMapStrings cfg.mirroredBoots (
             args: ''
@@ -949,8 +937,7 @@ in
             assertion =
               cfg.efiSupport
               || all (c: c < 2) (
-                mapAttrsToList (n: c: if n == "nodev" then 0 else c)
-                  bootDeviceCounters
+                mapAttrsToList (n: c: if n == "nodev" then 0 else c) bootDeviceCounters
               )
             ;
             message = "You cannot have duplicated devices in mirroredBoots";
@@ -980,9 +967,7 @@ in
           }
           {
             assertion =
-              cfg.efiInstallAsRemovable
-              -> !config.boot.loader.efi.canTouchEfiVariables
-            ;
+              cfg.efiInstallAsRemovable -> !config.boot.loader.efi.canTouchEfiVariables;
             message = "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn off boot.loader.efi.canTouchEfiVariables";
           }
         ]

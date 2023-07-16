@@ -77,10 +77,7 @@ in
         type = types.listOf types.str;
         default = [ ];
         example = [ "ENVIRONMENT=production" ];
-        description =
-          lib.mdDoc
-            "Environment Variables to pass to the tomcat service"
-        ;
+        description = lib.mdDoc "Environment Variables to pass to the tomcat service";
       };
 
       extraGroups = mkOption {
@@ -153,10 +150,7 @@ in
       webapps = mkOption {
         type = types.listOf types.path;
         default = [ tomcat.webapps ];
-        defaultText =
-          literalExpression
-            "[ config.services.tomcat.package.webapps ]"
-        ;
+        defaultText = literalExpression "[ config.services.tomcat.package.webapps ]";
         description =
           lib.mdDoc
             "List containing WAR files or directories with WAR files which are web applications to be deployed on Tomcat"
@@ -284,9 +278,7 @@ in
 
         ${if cfg.serverXml != "" then
           ''
-            cp -f ${
-              pkgs.writeTextDir "server.xml" cfg.serverXml
-            }/* ${cfg.baseDir}/conf/
+            cp -f ${pkgs.writeTextDir "server.xml" cfg.serverXml}/* ${cfg.baseDir}/conf/
           ''
         else
           let
@@ -416,9 +408,7 @@ in
               # Symlink all the given web applications files or paths into the webapps/ directory
               # of this virtual host
               for i in "${
-                optionalString (virtualHost ? webapps) (
-                  toString virtualHost.webapps
-                )
+                optionalString (virtualHost ? webapps) (toString virtualHost.webapps)
               }"; do
                 if [ -f $i ]; then
                   # If the given web application is a file, symlink it into the webapps/ directory

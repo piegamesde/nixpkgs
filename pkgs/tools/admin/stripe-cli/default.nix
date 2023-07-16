@@ -46,12 +46,10 @@ buildGoModule rec {
         (
           # delete plugin tests on all platforms but exact matches
           # https://github.com/stripe/stripe-cli/issues/850
-          !lib.lists.any
-            (platform: lib.meta.platformMatch stdenv.hostPlatform platform)
-            [
-              "x86_64-linux"
-              "x86_64-darwin"
-            ]
+          !lib.lists.any (platform: lib.meta.platformMatch stdenv.hostPlatform platform) [
+            "x86_64-linux"
+            "x86_64-darwin"
+          ]
         )
         ''
           rm pkg/plugins/plugin_test.go

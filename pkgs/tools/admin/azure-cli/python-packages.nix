@@ -156,14 +156,12 @@ let
         ;
 
         azure-mgmt-extendedlocation =
-          overrideAzureMgmtPackage super.azure-mgmt-extendedlocation "1.0.0b2"
-            "zip"
+          overrideAzureMgmtPackage super.azure-mgmt-extendedlocation "1.0.0b2" "zip"
             "sha256-mjfH35T81JQ97jVgElWmZ8P5MwXVxZQv/QJKNLS3T8A="
         ;
 
         azure-mgmt-policyinsights =
-          overrideAzureMgmtPackage super.azure-mgmt-policyinsights "1.1.0b2"
-            "zip"
+          overrideAzureMgmtPackage super.azure-mgmt-policyinsights "1.1.0b2" "zip"
             "sha256-e+I5MdbbX7WhxHCj1Ery3z2WUrJtpWGD1bhLbqReb58="
         ;
 
@@ -173,15 +171,12 @@ let
         ;
 
         azure-mgmt-recoveryservices =
-          overrideAzureMgmtPackage super.azure-mgmt-recoveryservices "2.1.0"
-            "zip"
+          overrideAzureMgmtPackage super.azure-mgmt-recoveryservices "2.1.0" "zip"
             "sha256-2DeOemVpkjeI/hUdG04IuHU2h3cmk3oG4kr1wIDvdbM="
         ;
 
         azure-mgmt-recoveryservicesbackup =
-          overrideAzureMgmtPackage super.azure-mgmt-recoveryservicesbackup
-            "5.1.0b1"
-            "zip"
+          overrideAzureMgmtPackage super.azure-mgmt-recoveryservicesbackup "5.1.0b1" "zip"
             "sha256-4djPfDzj9ql5WFn5fafLZWRKbofvb1Y7j05S77ly75s="
         ;
 
@@ -191,14 +186,12 @@ let
         ;
 
         azure-mgmt-appconfiguration =
-          overrideAzureMgmtPackage super.azure-mgmt-appconfiguration "2.2.0"
-            "zip"
+          overrideAzureMgmtPackage super.azure-mgmt-appconfiguration "2.2.0" "zip"
             "sha256-R2COS22pCtFp3oV98LLn/X2LkPOVUCasEONhFIhEdBQ="
         ;
 
         azure-mgmt-cognitiveservices =
-          overrideAzureMgmtPackage super.azure-mgmt-cognitiveservices "13.3.0"
-            "zip"
+          overrideAzureMgmtPackage super.azure-mgmt-cognitiveservices "13.3.0" "zip"
             "sha256-v1pTNPH0ujRm4VMt95Uw6d07lF8bgM3XIa3NJIbNLFI="
         ;
 
@@ -213,14 +206,12 @@ let
         ;
 
         azure-mgmt-containerinstance =
-          overrideAzureMgmtPackage super.azure-mgmt-containerinstance "9.1.0"
-            "zip"
+          overrideAzureMgmtPackage super.azure-mgmt-containerinstance "9.1.0" "zip"
             "sha256-IhZLDFkTize8SLptR2v2NRUrxCjctCC1IaFLjCXHl60="
         ;
 
         azure-mgmt-containerservice =
-          overrideAzureMgmtPackage super.azure-mgmt-containerservice "21.1.0"
-            "zip"
+          overrideAzureMgmtPackage super.azure-mgmt-containerservice "21.1.0" "zip"
             "sha256-5EOythXO7spLzzlqDWrwcdkkJAMH9W8OBv96rYaWxAY="
         ;
 
@@ -235,8 +226,7 @@ let
         ;
 
         azure-mgmt-deploymentmanager =
-          overrideAzureMgmtPackage super.azure-mgmt-deploymentmanager "0.2.0"
-            "zip"
+          overrideAzureMgmtPackage super.azure-mgmt-deploymentmanager "0.2.0" "zip"
             "sha256-RuNCInmT/JrKsd2kLy61ZrUiqMlFq50O6lYna0b21zA="
         ;
 
@@ -256,8 +246,7 @@ let
         ;
 
         azure-mgmt-iothubprovisioningservices =
-          overrideAzureMgmtPackage super.azure-mgmt-iothubprovisioningservices
-            "1.1.0"
+          overrideAzureMgmtPackage super.azure-mgmt-iothubprovisioningservices "1.1.0"
             "zip"
             "sha256-04OoJuff93L62G6IozpmHpEaUbHHHD6nKlkMHVoJvJ4="
         ;
@@ -288,8 +277,7 @@ let
         ;
 
         azure-mgmt-loganalytics =
-          overrideAzureMgmtPackage super.azure-mgmt-loganalytics "13.0.0b4"
-            "zip"
+          overrideAzureMgmtPackage super.azure-mgmt-loganalytics "13.0.0b4" "zip"
             "sha256-Jm1t7v5vyFjNNM/evVaEI9sXJKNwJk6XAXuJSRSnKHk="
         ;
 
@@ -304,20 +292,17 @@ let
         ;
 
         azure-mgmt-managedservices =
-          overrideAzureMgmtPackage super.azure-mgmt-managedservices "1.0.0"
-            "zip"
+          overrideAzureMgmtPackage super.azure-mgmt-managedservices "1.0.0" "zip"
             "sha256-/tg5n8Z3Oq2jfB0ElqRvWUENd8lJTQyllnxTHDN2rRk="
         ;
 
         azure-mgmt-managementgroups =
-          overrideAzureMgmtPackage super.azure-mgmt-managementgroups "1.0.0"
-            "zip"
+          overrideAzureMgmtPackage super.azure-mgmt-managementgroups "1.0.0" "zip"
             "sha256-urm9UyocNFV/Wwq5lQ5DHj8Au5boo85m3w9s4q4ZzXM="
         ;
 
         azure-mgmt-marketplaceordering =
-          overrideAzureMgmtPackage super.azure-mgmt-marketplaceordering "1.1.0"
-            "zip"
+          overrideAzureMgmtPackage super.azure-mgmt-marketplaceordering "1.1.0" "zip"
             "sha256-aLOB9SpN9ENdrK1al+HFmsTJgfZn3MqPnQRFNBfWCtg="
         ;
 
@@ -347,8 +332,7 @@ let
         ;
 
         azure-mgmt-redhatopenshift =
-          overrideAzureMgmtPackage super.azure-mgmt-redhatopenshift "1.1.0"
-            "zip"
+          overrideAzureMgmtPackage super.azure-mgmt-redhatopenshift "1.1.0" "zip"
             "sha256-Tq8h3fvajxIG2QjtCyHCQDE2deBDioxLLaQQek/O24U="
         ;
 
@@ -383,8 +367,7 @@ let
         ;
 
         azure-mgmt-sqlvirtualmachine =
-          overrideAzureMgmtPackage super.azure-mgmt-sqlvirtualmachine "1.0.0b4"
-            "zip"
+          overrideAzureMgmtPackage super.azure-mgmt-sqlvirtualmachine "1.0.0b4" "zip"
             "sha256-IB/ihVFm8WrJ2ZZfALp167Sq4u0cvIq1hllNriJxaz0="
         ;
 
@@ -419,8 +402,7 @@ let
         ;
 
         azure-mgmt-containerregistry =
-          overrideAzureMgmtPackage super.azure-mgmt-containerregistry "10.0.0"
-            "zip"
+          overrideAzureMgmtPackage super.azure-mgmt-containerregistry "10.0.0" "zip"
             "sha256-HjejK28Em5AeoQ20o4fucnXTlAwADF/SEpVfHn9anZk="
         ;
 
@@ -435,8 +417,7 @@ let
         ;
 
         azure-mgmt-applicationinsights =
-          overrideAzureMgmtPackage super.azure-mgmt-applicationinsights "1.0.0"
-            "zip"
+          overrideAzureMgmtPackage super.azure-mgmt-applicationinsights "1.0.0" "zip"
             "sha256-woeix9703hn5LAwxugKGf6xvW433G129qxkoi7RV/Fs="
         ;
 
@@ -461,8 +442,7 @@ let
         ;
 
         azure-mgmt-servicelinker =
-          overrideAzureMgmtPackage super.azure-mgmt-servicelinker "1.2.0b1"
-            "zip"
+          overrideAzureMgmtPackage super.azure-mgmt-servicelinker "1.2.0b1" "zip"
             "sha256-RK1Q51Q0wAG55oKrFmv65/2AUKl+gRdp27t/EcuMONk="
         ;
 
@@ -538,20 +518,17 @@ let
           }
         );
 
-        azure-synapse-accesscontrol =
-          super.azure-synapse-accesscontrol.overrideAttrs
-            (
-              oldAttrs: rec {
-                version = "0.5.0";
-                src = super.fetchPypi {
-                  inherit (oldAttrs) pname;
-                  inherit version;
-                  hash = "sha256-g14ySiByqPgkJGRH8EnIRJO9Q6H2usS5FOeMCQiUuwQ=";
-                  extension = "zip";
-                };
-              }
-            )
-        ;
+        azure-synapse-accesscontrol = super.azure-synapse-accesscontrol.overrideAttrs (
+          oldAttrs: rec {
+            version = "0.5.0";
+            src = super.fetchPypi {
+              inherit (oldAttrs) pname;
+              inherit version;
+              hash = "sha256-g14ySiByqPgkJGRH8EnIRJO9Q6H2usS5FOeMCQiUuwQ=";
+              extension = "zip";
+            };
+          }
+        );
 
         azure-synapse-managedprivateendpoints =
           super.azure-synapse-managedprivateendpoints.overrideAttrs
@@ -652,27 +629,24 @@ let
             )
         ;
 
-        azure-mgmt-datalake-store =
-          super.azure-mgmt-datalake-store.overrideAttrs
-            (
-              oldAttrs: rec {
-                version = "0.5.0";
+        azure-mgmt-datalake-store = super.azure-mgmt-datalake-store.overrideAttrs (
+          oldAttrs: rec {
+            version = "0.5.0";
 
-                src = super.fetchPypi {
-                  inherit (oldAttrs) pname;
-                  inherit version;
-                  hash = "sha256-k3bTVJVmHRn4rMVgT2ewvFlJOxg1u8SA+aGVL5ABekw=";
-                  extension = "zip";
-                };
+            src = super.fetchPypi {
+              inherit (oldAttrs) pname;
+              inherit version;
+              hash = "sha256-k3bTVJVmHRn4rMVgT2ewvFlJOxg1u8SA+aGVL5ABekw=";
+              extension = "zip";
+            };
 
-                preBuild = ''
-                  rm azure_bdist_wheel.py
-                  substituteInPlace setup.cfg \
-                    --replace "azure-namespace-package = azure-mgmt-datalake-nspkg" ""
-                '';
-              }
-            )
-        ;
+            preBuild = ''
+              rm azure_bdist_wheel.py
+              substituteInPlace setup.cfg \
+                --replace "azure-namespace-package = azure-mgmt-datalake-nspkg" ""
+            '';
+          }
+        );
 
         adal = super.adal.overridePythonAttrs (
           oldAttrs: rec {

@@ -171,10 +171,7 @@ stdenv.mkDerivation (
     doCheck = true;
 
     env = {
-      NIX_CFLAGS_COMPILE =
-        lib.optionalString stdenv.isDarwin
-          "-DGDK_OSX_BIG_SUR=16"
-      ;
+      NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-DGDK_OSX_BIG_SUR=16";
 
       # Check if librsvg was built with --disable-pixbuf-loader.
       PKG_CONFIG_GDK_PIXBUF_2_0_GDK_PIXBUF_MODULEDIR = "${librsvg}/${gdk-pixbuf.moduleDir}";

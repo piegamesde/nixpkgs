@@ -172,9 +172,7 @@ in
       }
       {
         assertion =
-          config.boot.loader.grub.enable
-          && (config.boot.loader.grub.efiSupport == false)
-        ;
+          config.boot.loader.grub.enable && (config.boot.loader.grub.efiSupport == false);
         message = "Xen currently does not support EFI boot";
       }
     ];
@@ -279,12 +277,10 @@ in
 
         ${cfg.domains.extraConfig}
       '';
-    } // optionalAttrs
-        (builtins.compareVersions cfg.package.version "4.10" >= 0)
-        {
-          # in V 4.10 oxenstored requires /etc/xen/oxenstored.conf to start
-          "xen/oxenstored.conf".source = "${cfg.package}/etc/xen/oxenstored.conf";
-        };
+    } // optionalAttrs (builtins.compareVersions cfg.package.version "4.10" >= 0) {
+      # in V 4.10 oxenstored requires /etc/xen/oxenstored.conf to start
+      "xen/oxenstored.conf".source = "${cfg.package}/etc/xen/oxenstored.conf";
+    };
 
     # Xen provides udev rules.
     services.udev.packages = [ cfg.package ];
@@ -331,23 +327,21 @@ in
           }
       ;
       postStart = ''
-        ${optionalString
-          (builtins.compareVersions cfg.package.version "4.8" < 0)
-          ''
-            time=0
-            timeout=30
-            # Wait for xenstored to actually come up, timing out after 30 seconds
-            while [ $time -lt $timeout ] && ! `${cfg.package}/bin/xenstore-read -s / >/dev/null 2>&1` ; do
-                time=$(($time+1))
-                sleep 1
-            done
+        ${optionalString (builtins.compareVersions cfg.package.version "4.8" < 0) ''
+          time=0
+          timeout=30
+          # Wait for xenstored to actually come up, timing out after 30 seconds
+          while [ $time -lt $timeout ] && ! `${cfg.package}/bin/xenstore-read -s / >/dev/null 2>&1` ; do
+              time=$(($time+1))
+              sleep 1
+          done
 
-            # Exit if we timed out
-            if ! [ $time -lt $timeout ] ; then
-                echo "Could not start Xenstore Daemon"
-                exit 1
-            fi
-          ''}
+          # Exit if we timed out
+          if ! [ $time -lt $timeout ] ; then
+              echo "Could not start Xenstore Daemon"
+              exit 1
+          fi
+        ''}
         echo "executing xen-init-dom0"
         ${cfg.package}/lib/xen/bin/xen-init-dom0
       '';
@@ -381,9 +375,7 @@ in
         ExecStart = ''
           ${cfg.package}/bin/xenconsoled\
             ${
-              optionalString
-                ((builtins.compareVersions cfg.package.version "4.8" >= 0))
-                " -i"
+              optionalString ((builtins.compareVersions cfg.package.version "4.8" >= 0)) " -i"
             }\
             ${optionalString cfg.trace " --log=all --log-dir=/var/log/xen"}
         '';

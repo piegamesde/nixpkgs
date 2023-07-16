@@ -39,10 +39,7 @@ lib.makeScope newScope (
     inherit gnuradio;
     inherit (gnuradio) python;
 
-    osmosdr =
-      callPackage ../development/gnuradio-modules/osmosdr/default.nix
-        { }
-    ;
+    osmosdr = callPackage ../development/gnuradio-modules/osmosdr/default.nix { };
 
     ais = callPackage ../development/gnuradio-modules/ais/default.nix { };
 
@@ -54,9 +51,6 @@ lib.makeScope newScope (
 
     rds = callPackage ../development/gnuradio-modules/rds/default.nix { };
 
-    limesdr =
-      callPackage ../development/gnuradio-modules/limesdr/default.nix
-        { }
-    ;
+    limesdr = callPackage ../development/gnuradio-modules/limesdr/default.nix { };
   }
 )

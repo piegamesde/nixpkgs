@@ -99,11 +99,7 @@ let
       ;
 
       bintoolsNoLibc' =
-        if bootBintoolsNoLibc == null then
-          tools.bintoolsNoLibc
-        else
-          bootBintoolsNoLibc
-      ;
+        if bootBintoolsNoLibc == null then tools.bintoolsNoLibc else bootBintoolsNoLibc;
       bintools' = if bootBintools == null then tools.bintools else bootBintools;
     in
     {
@@ -121,9 +117,7 @@ let
 
       llvm-polly = tools.libllvm-polly.lib // { outputSpecified = false; };
 
-      libclang = callPackage ./clang {
-        inherit clang-tools-extra_src llvm_meta;
-      };
+      libclang = callPackage ./clang { inherit clang-tools-extra_src llvm_meta; };
 
       clang-unwrapped = tools.libclang;
 
@@ -225,10 +219,7 @@ let
           ''
           +
             lib.optionalString
-              (
-                !stdenv.targetPlatform.isWasm
-                && stdenv.targetPlatform.useLLVM or false
-              )
+              (!stdenv.targetPlatform.isWasm && stdenv.targetPlatform.useLLVM or false)
               ''
                 echo "-lunwind" >> $out/nix-support/cc-ldflags
               ''

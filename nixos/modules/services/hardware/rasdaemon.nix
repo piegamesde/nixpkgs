@@ -19,10 +19,7 @@ in
     record = mkOption {
       type = types.bool;
       default = true;
-      description =
-        lib.mdDoc
-          "record events via sqlite3, required for ras-mc-ctl"
-      ;
+      description = lib.mdDoc "record events via sqlite3, required for ras-mc-ctl";
     };
 
     mainboard = mkOption {

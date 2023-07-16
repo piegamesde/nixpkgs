@@ -80,10 +80,7 @@ in
 
     localpart = mkOption {
       type = str;
-      description =
-        lib.mdDoc
-          "The user_id localpart to assign to the appservice"
-      ;
+      description = lib.mdDoc "The user_id localpart to assign to the appservice";
       default = "appservice-irc";
     };
 
@@ -192,9 +189,7 @@ in
               -out "${cfg.settings.ircService.passwordEncryptionKeyPath}" \
               -outform PEM \
               -algorithm RSA \
-              -pkeyopt "rsa_keygen_bits:${
-                toString cfg.passwordEncryptionKeyLength
-              }"
+              -pkeyopt "rsa_keygen_bits:${toString cfg.passwordEncryptionKeyLength}"
         fi
         # Generate registration file
         if ! [ -f "${registrationFile}" ]; then
@@ -215,9 +210,7 @@ in
           sed -i "s/^as_token:.*$/$as_token/g" ${registrationFile}
         fi
         # Allow synapse access to the registration
-        if ${
-          getBin pkgs.glibc
-        }/bin/getent group matrix-synapse > /dev/null; then
+        if ${getBin pkgs.glibc}/bin/getent group matrix-synapse > /dev/null; then
           chgrp matrix-synapse ${registrationFile}
           chmod g+r ${registrationFile}
         fi
@@ -241,9 +234,7 @@ in
         Group = "matrix-appservice-irc";
 
         CapabilityBoundingSet =
-          [ "CAP_CHOWN" ]
-          ++ optional (cfg.needBindingCap) "CAP_NET_BIND_SERVICE"
-        ;
+          [ "CAP_CHOWN" ] ++ optional (cfg.needBindingCap) "CAP_NET_BIND_SERVICE";
         AmbientCapabilities = CapabilityBoundingSet;
         NoNewPrivileges = true;
 

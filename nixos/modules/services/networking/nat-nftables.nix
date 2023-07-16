@@ -11,9 +11,7 @@ let
   cfg = config.networking.nat;
 
   mkDest =
-    externalIP:
-    if externalIP == null then "masquerade" else "snat ${externalIP}"
-  ;
+    externalIP: if externalIP == null then "masquerade" else "snat ${externalIP}";
   dest = mkDest cfg.externalIP;
   destIPv6 = mkDest cfg.externalIPv6;
 
@@ -39,8 +37,7 @@ let
     in
     {
       IP = if m == null then throw "bad ip:ports `${IPPorts}'" else elemAt m 0;
-      ports =
-        if m == null then throw "bad ip:ports `${IPPorts}'" else elemAt m 1;
+      ports = if m == null then throw "bad ip:ports `${IPPorts}'" else elemAt m 1;
     }
   ;
 
@@ -56,10 +53,7 @@ let
       # nftables does not support both port and port range as values in a dnat map.
       # e.g. "dnat th dport map { 80 : 10.0.0.1 . 80, 443 : 10.0.0.2 . 900-1000 }"
       # So we split them.
-      fwdPorts =
-        filter (x: length (splitString "-" x.destination) == 1)
-          forwardPorts
-      ;
+      fwdPorts = filter (x: length (splitString "-" x.destination) == 1) forwardPorts;
       fwdPortsRange =
         filter (x: length (splitString "-" x.destination) > 1)
           forwardPorts
@@ -94,9 +88,7 @@ let
                 (
                   loopbackip:
                   with (splitIPPorts fwd.destination);
-                  "${loopbackip} . ${fwd.proto} . ${
-                    toNftRange fwd.sourcePort
-                  } : ${IP} . ${ports}"
+                  "${loopbackip} . ${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}"
                 )
                 fwd.loopbackIPs
             )
@@ -110,11 +102,7 @@ let
       # daddr . l4proto . dport
       fwdLoopSnatSet = toNftSet (
         map
-          (
-            fwd:
-            with (splitIPPorts fwd.destination);
-            "${IP} . ${fwd.proto} . ${ports}"
-          )
+          (fwd: with (splitIPPorts fwd.destination); "${IP} . ${fwd.proto} . ${ports}")
           forwardPorts
       );
     in

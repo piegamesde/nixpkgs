@@ -19,8 +19,7 @@ let
     else if isi686 then
       "32bit"
     else
-      throw
-        "${system} not considered in build derivation. Might still be supported."
+      throw "${system} not considered in build derivation. Might still be supported."
   ;
   sha256 =
     with stdenv;

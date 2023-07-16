@@ -69,9 +69,7 @@ stdenv.mkDerivation rec {
   '';
 
   postInstall = ''
-    wrapProgram $out/bin/warp-svc --prefix PATH : ${
-      lib.makeBinPath [ nftables ]
-    }
+    wrapProgram $out/bin/warp-svc --prefix PATH : ${lib.makeBinPath [ nftables ]}
   '';
 
   meta = with lib; {

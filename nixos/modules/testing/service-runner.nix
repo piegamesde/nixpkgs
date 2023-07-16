@@ -136,8 +136,6 @@ in
 
 {
   options = {
-    systemd.services = mkOption {
-      type = with types; attrsOf (submodule opts);
-    };
+    systemd.services = mkOption { type = with types; attrsOf (submodule opts); };
   };
 }

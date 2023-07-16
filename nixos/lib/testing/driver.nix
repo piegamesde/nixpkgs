@@ -51,9 +51,7 @@ let
   withChecks =
     if lib.length invalidNodeNames > 0 then
       throw ''
-        Cannot create machines out of (${
-          lib.concatStringsSep ", " invalidNodeNames
-        })!
+        Cannot create machines out of (${lib.concatStringsSep ", " invalidNodeNames})!
         All machines are referenced as python variables in the testing framework which will break the
         script when special characters are used.
 
@@ -81,9 +79,7 @@ let
       ''
         mkdir -p $out/bin
 
-        vmStartScripts=($(for i in ${
-          toString vms
-        }; do echo $i/bin/run-*-vm; done))
+        vmStartScripts=($(for i in ${toString vms}; do echo $i/bin/run-*-vm; done))
 
         ${lib.optionalString (!config.skipTypeCheck) ''
           # prepend type hints so the test script can be type checked with mypy
@@ -107,9 +103,7 @@ let
         ${testDriver}/bin/generate-driver-symbols
         ${lib.optionalString (!config.skipLint) ''
           PYFLAKES_BUILTINS="$(
-            echo -n ${
-              lib.escapeShellArg (lib.concatStringsSep "," nodeHostNames)
-            },
+            echo -n ${lib.escapeShellArg (lib.concatStringsSep "," nodeHostNames)},
             < ${lib.escapeShellArg "driver-symbols"}
           )" ${hostPkgs.python3Packages.pyflakes}/bin/pyflakes $out/test-script
         ''}

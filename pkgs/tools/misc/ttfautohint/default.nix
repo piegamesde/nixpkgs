@@ -38,9 +38,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableGUI qtbase
   ;
 
-  configureFlags = [
-    "--with-qt=${if enableGUI then "${qtbase}/lib" else "no"}"
-  ];
+  configureFlags = [ "--with-qt=${if enableGUI then "${qtbase}/lib" else "no"}" ];
 
   # workaround https://github.com/NixOS/nixpkgs/issues/155458
   preBuild = lib.optionalString stdenv.cc.isClang ''

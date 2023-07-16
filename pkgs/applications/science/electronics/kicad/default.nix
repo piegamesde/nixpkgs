@@ -176,9 +176,7 @@ stdenv.mkDerivation rec {
     ++ optionals (with3d) [
       "--set-default KICAD7_3DMODEL_DIR ${packages3d}/share/kicad/3dmodels"
     ]
-    ++ optionals (withNgspice) [
-      "--prefix LD_LIBRARY_PATH : ${libngspice}/lib"
-    ]
+    ++ optionals (withNgspice) [ "--prefix LD_LIBRARY_PATH : ${libngspice}/lib" ]
 
     # infinisil's workaround for #39493
     ++ [
@@ -221,9 +219,7 @@ stdenv.mkDerivation rec {
           (
             tool:
             "makeWrapper ${base}/${bin}/${tool} $out/bin/${tool} $makeWrapperArgs"
-            +
-              optionalString (withScripting)
-                " --set PYTHONPATH \"$program_PYTHONPATH\""
+            + optionalString (withScripting) " --set PYTHONPATH \"$program_PYTHONPATH\""
           )
           tools
         )

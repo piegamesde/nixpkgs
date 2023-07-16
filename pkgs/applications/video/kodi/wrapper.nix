@@ -30,8 +30,7 @@ let
     in
     lib.concatMapStringsSep ":"
       (
-        addon:
-        "${addon}${kodiPackages.addonDir}/${addon.namespace}/${addon.pythonPath}"
+        addon: "${addon}${kodiPackages.addonDir}/${addon.namespace}/${addon.pythonPath}"
       )
       addonsWithPythonPath
   ;
@@ -54,8 +53,7 @@ buildEnv {
         --prefix KODI_HOME : $out/share/kodi \
         --prefix LD_LIBRARY_PATH ":" "${
           lib.makeLibraryPath (
-            lib.concatMap (plugin: plugin.extraRuntimeDependencies or [ ])
-              addons
+            lib.concatMap (plugin: plugin.extraRuntimeDependencies or [ ]) addons
           )
         }"
     done

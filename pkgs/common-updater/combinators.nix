@@ -49,10 +49,7 @@ let
     arg:
     if builtins.isPath arg then
       {
-        args =
-          args
-          ++ [ { __rawShell = ''"''$${builtins.toString maxArgIndex}"''; } ]
-        ;
+        args = args ++ [ { __rawShell = ''"''$${builtins.toString maxArgIndex}"''; } ];
         maxArgIndex = maxArgIndex + 1;
         paths = paths ++ [ arg ];
       }
@@ -171,8 +168,7 @@ rec {
               supportedFeatures,
               ...
             }:
-            supportedFeatures == [ "commit" ]
-            || supportedFeatures == [ "silent" ]
+            supportedFeatures == [ "commit" ] || supportedFeatures == [ "silent" ]
           )
         else
           (

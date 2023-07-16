@@ -14,8 +14,7 @@ runCommand "check-meta-pkg-config-modules-for-${package.name}"
         }";
     };
     dependsOn =
-      map
-        (moduleName: testers.hasPkgConfigModule { inherit package moduleName; })
+      map (moduleName: testers.hasPkgConfigModule { inherit package moduleName; })
         package.meta.pkgConfigModules
     ;
   }

@@ -44,8 +44,7 @@ let
   promtoolCheck =
     what: name: file:
     if checkConfigEnabled then
-      pkgs.runCommandLocal
-        "${name}-${replaceStrings [ " " ] [ "" ] what}-checked"
+      pkgs.runCommandLocal "${name}-${replaceStrings [ " " ] [ "" ] what}-checked"
         { buildInputs = [ cfg.package.cli ]; }
         ''
           ln -s ${file} $out
@@ -62,9 +61,7 @@ let
     global = filterValidPrometheus cfg.globalConfig;
     rule_files = map (promtoolCheck "check rules" "rules") (
       cfg.ruleFiles
-      ++ [
-        (pkgs.writeText "prometheus.rules" (concatStringsSep "\n" cfg.rules))
-      ]
+      ++ [ (pkgs.writeText "prometheus.rules" (concatStringsSep "\n" cfg.rules)) ]
     );
     scrape_configs = filterValidPrometheus cfg.scrapeConfigs;
     remote_write = filterValidPrometheus cfg.remoteWrite;
@@ -96,10 +93,7 @@ let
     ++ [
       "--storage.tsdb.path=${workingDir}/data/"
       "--config.file=${
-        if cfg.enableReload then
-          "/etc/prometheus/prometheus.yaml"
-        else
-          prometheusYml
+        if cfg.enableReload then "/etc/prometheus/prometheus.yaml" else prometheusYml
       }"
       "--web.listen-address=${cfg.listenAddress}:${builtins.toString cfg.port}"
       "--alertmanager.notification-queue-capacity=${
@@ -112,9 +106,7 @@ let
     ++
       optional (cfg.retentionTime != null)
         "--storage.tsdb.retention.time=${cfg.retentionTime}"
-    ++
-      optional (cfg.webConfigFile != null)
-        "--web.config.file=${cfg.webConfigFile}"
+    ++ optional (cfg.webConfigFile != null) "--web.config.file=${cfg.webConfigFile}"
   ;
 
   filterValidPrometheus = filterAttrsListRecursive (
@@ -432,12 +424,9 @@ let
         List of Docker service discovery configurations.
       '';
 
-      dockerswarm_sd_configs =
-        mkOpt (types.listOf promTypes.dockerswarm_sd_config)
-          ''
-            List of Docker Swarm service discovery configurations.
-          ''
-      ;
+      dockerswarm_sd_configs = mkOpt (types.listOf promTypes.dockerswarm_sd_config) ''
+        List of Docker Swarm service discovery configurations.
+      '';
 
       dns_sd_configs = mkOpt (types.listOf promTypes.dns_sd_config) ''
         List of DNS service discovery configurations.
@@ -470,23 +459,17 @@ let
         List of HTTP service discovery configurations.
       '';
 
-      kubernetes_sd_configs =
-        mkOpt (types.listOf promTypes.kubernetes_sd_config)
-          ''
-            List of Kubernetes service discovery configurations.
-          ''
-      ;
+      kubernetes_sd_configs = mkOpt (types.listOf promTypes.kubernetes_sd_config) ''
+        List of Kubernetes service discovery configurations.
+      '';
 
       kuma_sd_configs = mkOpt (types.listOf promTypes.kuma_sd_config) ''
         List of Kuma service discovery configurations.
       '';
 
-      lightsail_sd_configs =
-        mkOpt (types.listOf promTypes.lightsail_sd_config)
-          ''
-            List of Lightsail service discovery configurations.
-          ''
-      ;
+      lightsail_sd_configs = mkOpt (types.listOf promTypes.lightsail_sd_config) ''
+        List of Lightsail service discovery configurations.
+      '';
 
       linode_sd_configs = mkOpt (types.listOf promTypes.linode_sd_config) ''
         List of Linode service discovery configurations.
@@ -500,12 +483,9 @@ let
         List of AirBnB's Nerve service discovery configurations.
       '';
 
-      openstack_sd_configs =
-        mkOpt (types.listOf promTypes.openstack_sd_config)
-          ''
-            List of OpenStack service discovery configurations.
-          ''
-      ;
+      openstack_sd_configs = mkOpt (types.listOf promTypes.openstack_sd_config) ''
+        List of OpenStack service discovery configurations.
+      '';
 
       puppetdb_sd_configs = mkOpt (types.listOf promTypes.puppetdb_sd_config) ''
         List of PuppetDB service discovery configurations.
@@ -515,12 +495,9 @@ let
         List of Scaleway service discovery configurations.
       '';
 
-      serverset_sd_configs =
-        mkOpt (types.listOf promTypes.serverset_sd_config)
-          ''
-            List of Zookeeper Serverset service discovery configurations.
-          ''
-      ;
+      serverset_sd_configs = mkOpt (types.listOf promTypes.serverset_sd_config) ''
+        List of Zookeeper Serverset service discovery configurations.
+      '';
 
       triton_sd_configs = mkOpt (types.listOf promTypes.triton_sd_config) ''
         List of Triton Serverset service discovery configurations.
@@ -1960,10 +1937,7 @@ in
         let
           # Match something with dots (an IPv4 address) or something ending in
           # a square bracket (an IPv6 addresses) followed by a port number.
-          legacy =
-            builtins.match "(.*\\..*|.*]):([[:digit:]]+)"
-              cfg.listenAddress
-          ;
+          legacy = builtins.match "(.*\\..*|.*]):([[:digit:]]+)" cfg.listenAddress;
         in
         {
           assertion = legacy == null;
@@ -2005,9 +1979,7 @@ in
         StateDirectory = cfg.stateDir;
         StateDirectoryMode = "0700";
         # Hardening
-        AmbientCapabilities = lib.mkIf (cfg.port < 1024) [
-          "CAP_NET_BIND_SERVICE"
-        ];
+        AmbientCapabilities = lib.mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
         CapabilityBoundingSet =
           if (cfg.port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
         DeviceAllow = [ "/dev/null rw" ];

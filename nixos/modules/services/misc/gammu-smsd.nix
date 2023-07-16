@@ -91,10 +91,7 @@ in
         connection = mkOption {
           type = types.str;
           default = "at";
-          description =
-            lib.mdDoc
-              "Protocol which will be used to talk to the phone"
-          ;
+          description = lib.mdDoc "Protocol which will be used to talk to the phone";
         };
 
         synchronizeTime = mkOption {
@@ -134,10 +131,7 @@ in
             "binary"
           ];
           default = "errors";
-          description =
-            lib.mdDoc
-              "Determines what will be logged to the LogFile"
-          ;
+          description = lib.mdDoc "Determines what will be logged to the LogFile";
         };
       };
 
@@ -145,19 +139,13 @@ in
         gammu = mkOption {
           type = types.lines;
           default = "";
-          description =
-            lib.mdDoc
-              "Extra config lines to be added into [gammu] section"
-          ;
+          description = lib.mdDoc "Extra config lines to be added into [gammu] section";
         };
 
         smsd = mkOption {
           type = types.lines;
           default = "";
-          description =
-            lib.mdDoc
-              "Extra config lines to be added into [smsd] section"
-          ;
+          description = lib.mdDoc "Extra config lines to be added into [smsd] section";
         };
       };
 
@@ -194,10 +182,7 @@ in
           errorSMSPath = mkOption {
             type = types.path;
             default = "/var/spool/sms/error/";
-            description =
-              lib.mdDoc
-                "Where SMSes with error in transmission is placed"
-            ;
+            description = lib.mdDoc "Where SMSes with error in transmission is placed";
           };
         };
 
@@ -233,19 +218,13 @@ in
           user = mkOption {
             type = types.nullOr types.str;
             default = null;
-            description =
-              lib.mdDoc
-                "User name used for connection to the database"
-            ;
+            description = lib.mdDoc "User name used for connection to the database";
           };
 
           password = mkOption {
             type = types.nullOr types.str;
             default = null;
-            description =
-              lib.mdDoc
-                "User password used for connection to the database"
-            ;
+            description = lib.mdDoc "User password used for connection to the database";
           };
         };
       };
@@ -299,9 +278,7 @@ in
             execPsql =
               extraArgs:
               concatStringsSep " " [
-                (optionalString (sql.password != null)
-                  "PGPASSWORD=${sql.password}"
-                )
+                (optionalString (sql.password != null) "PGPASSWORD=${sql.password}")
                 "${config.services.postgresql.package}/bin/psql"
                 (optionalString (sql.host != null) "-h ${sql.host}")
                 (optionalString (sql.user != null) "-U ${sql.user}")

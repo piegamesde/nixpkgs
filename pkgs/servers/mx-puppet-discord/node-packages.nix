@@ -3420,11 +3420,7 @@ let
       )
       sources."domelementtype-2.3.0"
       sources."domhandler-3.3.0"
-      (
-        sources."domutils-2.8.0" // {
-          dependencies = [ sources."domhandler-4.3.1" ];
-        }
-      )
+      (sources."domutils-2.8.0" // { dependencies = [ sources."domhandler-4.3.1" ]; })
       sources."ee-first-1.1.1"
       sources."emoji-regex-8.0.0"
       sources."enabled-2.0.0"
@@ -3495,9 +3491,7 @@ let
       sources."html-to-text-6.0.0"
       sources."htmlencode-0.0.4"
       (
-        sources."htmlparser2-4.1.0" // {
-          dependencies = [ sources."entities-2.2.0" ];
-        }
+        sources."htmlparser2-4.1.0" // { dependencies = [ sources."entities-2.2.0" ]; }
       )
       sources."http-cache-semantics-4.1.0"
       sources."http-errors-2.0.0"
@@ -3529,11 +3523,7 @@ let
       sources."lowdb-1.0.0"
       sources."lowercase-keys-2.0.0"
       sources."lru-cache-6.0.0"
-      (
-        sources."make-dir-3.1.0" // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
-      )
+      (sources."make-dir-3.1.0" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."markdown-it-9.1.0"
       sources."mdurl-1.0.1"
       sources."media-typer-0.3.0"
@@ -3644,18 +3634,12 @@ let
       )
       sources."semver-7.3.7"
       (
-        sources."semver-closest-0.1.2" // {
-          dependencies = [ sources."semver-5.7.1" ];
-        }
+        sources."semver-closest-0.1.2" // { dependencies = [ sources."semver-5.7.1" ]; }
       )
       (
         sources."send-0.18.0" // {
           dependencies = [
-            (
-              sources."debug-2.6.9" // {
-                dependencies = [ sources."ms-2.0.0" ];
-              }
-            )
+            (sources."debug-2.6.9" // { dependencies = [ sources."ms-2.0.0" ]; })
             sources."mime-1.6.0"
             sources."ms-2.1.3"
           ];
@@ -3730,11 +3714,7 @@ let
           dependencies = [ sources."semver-5.7.1" ];
         }
       )
-      (
-        sources."util-0.10.4" // {
-          dependencies = [ sources."inherits-2.0.3" ];
-        }
-      )
+      (sources."util-0.10.4" // { dependencies = [ sources."inherits-2.0.3" ]; })
       sources."util-deprecate-1.0.2"
       sources."utils-merge-1.0.1"
       sources."uuid-3.4.0"
@@ -3757,11 +3737,7 @@ let
         }
       )
       sources."winston-transport-4.5.0"
-      (
-        sources."wordwrapjs-3.0.0" // {
-          dependencies = [ sources."typical-2.6.1" ];
-        }
-      )
+      (sources."wordwrapjs-3.0.0" // { dependencies = [ sources."typical-2.6.1" ]; })
       sources."wrappy-1.0.2"
       sources."ws-7.5.9"
       sources."xtend-4.0.2"

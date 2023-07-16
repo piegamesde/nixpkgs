@@ -23,10 +23,7 @@ let
           (imap0
             (
               i: c:
-              ''
-                password "{{password-${toString i}}}@${
-                  concatStringsSep "," c.permissions
-                }"''
+              ''password "{{password-${toString i}}}@${concatStringsSep "," c.permissions}"''
             )
             creds
           );
@@ -92,8 +89,7 @@ in
       };
 
       musicDirectory = mkOption {
-        type =
-          with types; either path (strMatching "(http|https|nfs|smb)://.+");
+        type = with types; either path (strMatching "(http|https|nfs|smb)://.+");
         default = "${cfg.dataDir}/music";
         defaultText = literalExpression ''"''${dataDir}/music"'';
         description = lib.mdDoc ''

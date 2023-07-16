@@ -5,8 +5,7 @@ import ../make-test-python.nix (
   }:
   let
     cert =
-      pkgs.runCommand "selfSignedCerts"
-        { nativeBuildInputs = [ pkgs.openssl ]; }
+      pkgs.runCommand "selfSignedCerts" { nativeBuildInputs = [ pkgs.openssl ]; }
         ''
           openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -subj '/CN=localhost' -days 36500
           mkdir -p $out
@@ -27,8 +26,7 @@ import ../make-test-python.nix (
           services.monica = {
             enable = true;
             hostname = "localhost";
-            appKeyFile = "${pkgs.writeText "keyfile"
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}";
+            appKeyFile = "${pkgs.writeText "keyfile" "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}";
             nginx = {
               forceSSL = true;
               sslCertificate = "${cert}/cert.pem";

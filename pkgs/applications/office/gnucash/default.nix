@@ -104,9 +104,7 @@ stdenv.mkDerivation rec {
       # db drivers location
       --set GNC_DBD_DIR ${libdbiDrivers}/lib/dbd
       # gnome settings schemas location on Nix
-      --set GSETTINGS_SCHEMA_DIR ${
-        glib.makeSchemaPath "$out" "${pname}-${version}"
-      }
+      --set GSETTINGS_SCHEMA_DIR ${glib.makeSchemaPath "$out" "${pname}-${version}"}
     )
   '';
 

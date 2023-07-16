@@ -13,10 +13,7 @@
   darwin,
   wineRelease ? "stable",
   wineBuild ?
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-      "wineWow"
-    else
-      "wine32",
+    if stdenv.hostPlatform.system == "x86_64-linux" then "wineWow" else "wine32",
   gettextSupport ? false,
   fontconfigSupport ? false,
   alsaSupport ? false,

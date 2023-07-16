@@ -479,15 +479,9 @@ let
       sources."center-align-0.1.3"
       sources."character-parser-1.2.1"
       (
-        sources."clean-css-3.4.28" // {
-          dependencies = [ sources."commander-2.8.1" ];
-        }
+        sources."clean-css-3.4.28" // { dependencies = [ sources."commander-2.8.1" ]; }
       )
-      (
-        sources."cliui-2.1.0" // {
-          dependencies = [ sources."wordwrap-0.0.2" ];
-        }
-      )
+      (sources."cliui-2.1.0" // { dependencies = [ sources."wordwrap-0.0.2" ]; })
       sources."commander-2.6.0"
       sources."constantinople-3.0.2"
       sources."css-1.0.8"
@@ -522,9 +516,7 @@ let
         }
       )
       (
-        sources."uglify-js-2.8.29" // {
-          dependencies = [ sources."source-map-0.5.7" ];
-        }
+        sources."uglify-js-2.8.29" // { dependencies = [ sources."source-map-0.5.7" ]; }
       )
       sources."uglify-to-browserify-1.0.2"
       sources."void-elements-2.0.1"

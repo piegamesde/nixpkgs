@@ -76,15 +76,9 @@ in
     serviceConfig = {
       ExecStart = ''
         ${pkgs.prometheus-pihole-exporter}/bin/pihole-exporter \
-          ${
-            optionalString (cfg.apiToken != "")
-              "-pihole_api_token ${cfg.apiToken}"
-          } \
+          ${optionalString (cfg.apiToken != "") "-pihole_api_token ${cfg.apiToken}"} \
           -pihole_hostname ${cfg.piholeHostname} \
-          ${
-            optionalString (cfg.password != "")
-              "-pihole_password ${cfg.password}"
-          } \
+          ${optionalString (cfg.password != "") "-pihole_password ${cfg.password}"} \
           -pihole_port ${toString cfg.piholePort} \
           -pihole_protocol ${cfg.protocol} \
           -port ${toString cfg.port} \

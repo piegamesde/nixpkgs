@@ -33,10 +33,7 @@ let
           i:
           attrNames (
             filterAttrs
-              (
-                name: config:
-                !(config.type == "internal" || hasAttr name cfg.interfaces)
-              )
+              (name: config: !(config.type == "internal" || hasAttr name cfg.interfaces))
               i.interfaces
           )
         )
@@ -87,9 +84,7 @@ let
 
   # We must escape interfaces due to the systemd interpretation
   subsystemDevice =
-    interface:
-    "sys-subsystem-net-devices-${escapeSystemdPath interface}.device"
-  ;
+    interface: "sys-subsystem-net-devices-${escapeSystemdPath interface}.device";
 
   addrOpts =
     v:
@@ -98,9 +93,7 @@ let
         address = mkOption {
           type = types.str;
           description = lib.mdDoc ''
-            IPv${
-              toString v
-            } address of the interface. Leave empty to configure the
+            IPv${toString v} address of the interface. Leave empty to configure the
             interface using DHCP.
           '';
         };
@@ -590,10 +583,7 @@ in
       # e.g. "man 5 hostname") and require valid DNS labels (recommended
       # syntax). Note: We also allow underscores for compatibility/legacy
       # reasons (as undocumented feature):
-      type =
-        types.strMatching
-          "^$|^[[:alnum:]]([[:alnum:]_-]{0,61}[[:alnum:]])?$"
-      ;
+      type = types.strMatching "^$|^[[:alnum:]]([[:alnum:]_-]{0,61}[[:alnum:]])?$";
       description = lib.mdDoc ''
         The name of the machine. Leave it empty if you want to obtain it from a
         DHCP server (if using DHCP). The hostname must be a valid DNS label (see
@@ -946,10 +936,7 @@ in
               rstp = mkOption {
                 default = false;
                 type = types.bool;
-                description =
-                  lib.mdDoc
-                    "Whether the bridge interface should enable rstp."
-                ;
+                description = lib.mdDoc "Whether the bridge interface should enable rstp.";
               };
             };
           }
@@ -1437,10 +1424,7 @@ in
               interface = mkOption {
                 example = "enp4s0";
                 type = types.str;
-                description =
-                  lib.mdDoc
-                    "The interface the vlan will transmit packets through."
-                ;
+                description = lib.mdDoc "The interface the vlan will transmit packets through.";
               };
             };
           }
@@ -1648,8 +1632,7 @@ in
       ))
       ++ (forEach interfaces (
         i: {
-          assertion =
-            (i.virtual && i.virtualType == "tun") -> i.macAddress == null;
+          assertion = (i.virtual && i.virtualType == "tun") -> i.macAddress == null;
           message = ''
             Setting a MAC Address for tun device ${i.name} isn't supported.
           '';
@@ -1657,9 +1640,7 @@ in
       ))
       ++ [ {
         assertion =
-          cfg.hostId == null
-          || (stringLength cfg.hostId == 8 && isHexString cfg.hostId)
-        ;
+          cfg.hostId == null || (stringLength cfg.hostId == 8 && isHexString cfg.hostId);
         message = "Invalid value given to the networking.hostId option.";
       } ]
     ;
@@ -1679,9 +1660,7 @@ in
       optionalString hasBonds "options bonding max_bonds=0";
 
     boot.kernel.sysctl = {
-      "net.ipv4.conf.all.forwarding" = mkDefault (
-        any (i: i.proxyARP) interfaces
-      );
+      "net.ipv4.conf.all.forwarding" = mkDefault (any (i: i.proxyARP) interfaces);
       "net.ipv6.conf.all.disable_ipv6" = mkDefault (!cfg.enableIPv6);
       "net.ipv6.conf.default.disable_ipv6" = mkDefault (!cfg.enableIPv6);
       # networkmanager falls back to "/proc/sys/net/ipv6/conf/default/use_tempaddr"
@@ -1690,8 +1669,7 @@ in
     } // listToAttrs (
       forEach interfaces (
         i:
-        nameValuePair
-          "net.ipv4.conf.${replaceStrings [ "." ] [ "/" ] i.name}.proxy_arp"
+        nameValuePair "net.ipv4.conf.${replaceStrings [ "." ] [ "/" ] i.name}.proxy_arp"
           i.proxyARP
       )
     ) // listToAttrs (
@@ -1741,8 +1719,7 @@ in
     # since it may have been set by dhcpcd in the meantime.
     system.activationScripts.hostname =
       let
-        effectiveHostname =
-          config.boot.kernel.sysctl."kernel.hostname" or cfg.hostName;
+        effectiveHostname = config.boot.kernel.sysctl."kernel.hostname" or cfg.hostName;
       in
       optionalString (effectiveHostname != "") ''
         hostname "${effectiveHostname}"
@@ -1855,11 +1832,8 @@ in
               # as device:interface key:value pairs.
               wlanDeviceInterfaces =
                 let
-                  allDevices = unique (
-                    mapAttrsToList (_: v: v.device) cfg.wlanInterfaces
-                  );
-                  interfacesOfDevice =
-                    d: filterAttrs (_: v: v.device == d) cfg.wlanInterfaces;
+                  allDevices = unique (mapAttrsToList (_: v: v.device) cfg.wlanInterfaces);
+                  interfacesOfDevice = d: filterAttrs (_: v: v.device == d) cfg.wlanInterfaces;
                 in
                 genAttrs allDevices (d: interfacesOfDevice d)
               ;
@@ -1884,59 +1858,51 @@ in
               # existing, default interface.
               curInterfaceScript =
                 device: current: new:
-                pkgs.writeScript "udev-run-script-wlan-interfaces-${device}.sh"
-                  ''
-                    #!${pkgs.runtimeShell}
-                    # Change the wireless phy device to a predictable name.
-                    ${pkgs.iw}/bin/iw phy `${pkgs.coreutils}/bin/cat /sys/class/net/$INTERFACE/phy80211/name` set name ${device}
+                pkgs.writeScript "udev-run-script-wlan-interfaces-${device}.sh" ''
+                  #!${pkgs.runtimeShell}
+                  # Change the wireless phy device to a predictable name.
+                  ${pkgs.iw}/bin/iw phy `${pkgs.coreutils}/bin/cat /sys/class/net/$INTERFACE/phy80211/name` set name ${device}
 
-                    # Add new WLAN interfaces
-                    ${flip concatMapStrings new (
-                      i: ''
-                        ${pkgs.iw}/bin/iw phy ${device} interface add ${i._iName} type managed
-                      ''
-                    )}
+                  # Add new WLAN interfaces
+                  ${flip concatMapStrings new (
+                    i: ''
+                      ${pkgs.iw}/bin/iw phy ${device} interface add ${i._iName} type managed
+                    ''
+                  )}
 
-                    # Configure the current interface
-                    ${pkgs.iw}/bin/iw dev ${device} set type ${current.type}
-                    ${optionalString
-                      (current.type == "mesh" && current.meshID != null)
-                      "${pkgs.iw}/bin/iw dev ${device} set meshid ${current.meshID}"}
-                    ${optionalString
-                      (current.type == "monitor" && current.flags != null)
-                      "${pkgs.iw}/bin/iw dev ${device} set monitor ${current.flags}"}
-                    ${optionalString
-                      (current.type == "managed" && current.fourAddr != null)
-                      "${pkgs.iw}/bin/iw dev ${device} set 4addr ${
-                        if current.fourAddr then "on" else "off"
-                      }"}
-                    ${optionalString (current.mac != null)
-                      "${pkgs.iproute2}/bin/ip link set dev ${device} address ${current.mac}"}
-                  ''
+                  # Configure the current interface
+                  ${pkgs.iw}/bin/iw dev ${device} set type ${current.type}
+                  ${optionalString (current.type == "mesh" && current.meshID != null)
+                    "${pkgs.iw}/bin/iw dev ${device} set meshid ${current.meshID}"}
+                  ${optionalString (current.type == "monitor" && current.flags != null)
+                    "${pkgs.iw}/bin/iw dev ${device} set monitor ${current.flags}"}
+                  ${optionalString (current.type == "managed" && current.fourAddr != null)
+                    "${pkgs.iw}/bin/iw dev ${device} set 4addr ${
+                      if current.fourAddr then "on" else "off"
+                    }"}
+                  ${optionalString (current.mac != null)
+                    "${pkgs.iproute2}/bin/ip link set dev ${device} address ${current.mac}"}
+                ''
               ;
 
               # Udev script to execute for a new WLAN interface. The script configures the new WLAN interface.
               newInterfaceScript =
                 new:
-                pkgs.writeScript
-                  "udev-run-script-wlan-interfaces-${new._iName}.sh"
-                  ''
-                    #!${pkgs.runtimeShell}
-                    # Configure the new interface
-                    ${pkgs.iw}/bin/iw dev ${new._iName} set type ${new.type}
-                    ${optionalString (new.type == "mesh" && new.meshID != null)
-                      "${pkgs.iw}/bin/iw dev ${new._iName} set meshid ${new.meshID}"}
-                    ${optionalString
-                      (new.type == "monitor" && new.flags != null)
-                      "${pkgs.iw}/bin/iw dev ${new._iName} set monitor ${new.flags}"}
-                    ${optionalString
-                      (new.type == "managed" && new.fourAddr != null)
-                      "${pkgs.iw}/bin/iw dev ${new._iName} set 4addr ${
-                        if new.fourAddr then "on" else "off"
-                      }"}
-                    ${optionalString (new.mac != null)
-                      "${pkgs.iproute2}/bin/ip link set dev ${new._iName} address ${new.mac}"}
-                  ''
+                pkgs.writeScript "udev-run-script-wlan-interfaces-${new._iName}.sh" ''
+                  #!${pkgs.runtimeShell}
+                  # Configure the new interface
+                  ${pkgs.iw}/bin/iw dev ${new._iName} set type ${new.type}
+                  ${optionalString (new.type == "mesh" && new.meshID != null)
+                    "${pkgs.iw}/bin/iw dev ${new._iName} set meshid ${new.meshID}"}
+                  ${optionalString (new.type == "monitor" && new.flags != null)
+                    "${pkgs.iw}/bin/iw dev ${new._iName} set monitor ${new.flags}"}
+                  ${optionalString (new.type == "managed" && new.fourAddr != null)
+                    "${pkgs.iw}/bin/iw dev ${new._iName} set 4addr ${
+                      if new.fourAddr then "on" else "off"
+                    }"}
+                  ${optionalString (new.mac != null)
+                    "${pkgs.iproute2}/bin/ip link set dev ${new._iName} address ${new.mac}"}
+                ''
               ;
 
               # Udev attributes for systemd to name the device and to create a .device target.
@@ -1949,10 +1915,7 @@ in
             flip (concatMapStringsSep "\n") (attrNames wlanDeviceInterfaces) (
               device:
               let
-                interfaces =
-                  wlanListDeviceFirst device
-                    wlanDeviceInterfaces.${device}
-                ;
+                interfaces = wlanListDeviceFirst device wlanDeviceInterfaces.${device};
                 curInterface = elemAt interfaces 0;
                 newInterfaces = drop 1 interfaces;
               in
@@ -1973,9 +1936,7 @@ in
                 # persistent, default name as assigned by udev.
                 ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", NAME=="${device}", ${
                   systemdAttrs curInterface._iName
-                }, RUN+="${
-                  curInterfaceScript device curInterface newInterfaces
-                }"
+                }, RUN+="${curInterfaceScript device curInterface newInterfaces}"
                 # Generate the same systemd events for both 'add' and 'move' udev events.
                 ACTION=="move", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", NAME=="${device}", ${
                   systemdAttrs curInterface._iName

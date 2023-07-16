@@ -38,9 +38,7 @@ stdenv.mkDerivation {
 
   buildFlags = [ (if stdenv.isDarwin then "osx-all" else "gcc-all") ];
 
-  installTargets = [
-    (if stdenv.isDarwin then "osx-install" else "gcc-install")
-  ];
+  installTargets = [ (if stdenv.isDarwin then "osx-install" else "gcc-install") ];
 
   meta = with lib; {
     description = "A tool that supports Japanese incremental search with Romaji";

@@ -36,9 +36,7 @@ let
     (valFlag "password" cfg.password)
     (valFlag "motd" cfg.messageOfTheDay)
     (valFlag "world" cfg.worldPath)
-    (valFlag "autocreate" (
-      builtins.getAttr cfg.autoCreatedWorldSize worldSizeMap
-    ))
+    (valFlag "autocreate" (builtins.getAttr cfg.autoCreatedWorldSize worldSizeMap))
     (valFlag "banlist" cfg.banListPath)
     (boolFlag "secure" cfg.secure)
     (boolFlag "noupnp" cfg.noUPnP)
@@ -134,10 +132,7 @@ in
       secure = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Adds additional cheat protection to the server."
-        ;
+        description = lib.mdDoc "Adds additional cheat protection to the server.";
       };
 
       noUPnP = mkOption {
@@ -156,10 +151,7 @@ in
         type = types.str;
         default = "/var/lib/terraria";
         example = "/srv/terraria";
-        description =
-          lib.mdDoc
-            "Path to variable state data directory for terraria."
-        ;
+        description = lib.mdDoc "Path to variable state data directory for terraria.";
       };
     };
   };

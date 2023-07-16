@@ -179,10 +179,7 @@ rec {
       ;
       ${if default != null then "default" else null} = defaultValue;
       ${if example != null then "example" else null} = literalExpression (
-        if isList example then
-          "pkgs." + concatStringsSep "." example
-        else
-          example
+        if isList example then "pkgs." + concatStringsSep "." example else example
       );
     }
   ;
@@ -218,10 +215,7 @@ rec {
           merge = loc: defs: false;
         };
         apply =
-          x:
-          throw
-            "Option value is not readable because the option is not declared."
-        ;
+          x: throw "Option value is not readable because the option is not declared.";
       } // attrs
     )
   ;
@@ -288,9 +282,7 @@ rec {
           first: def:
           if def.value != first.value then
             throw ''
-              The option `${
-                showOption loc
-              }' has conflicting definition values:${
+              The option `${showOption loc}' has conflicting definition values:${
                 showDefs [
                   first
                   def
@@ -352,8 +344,7 @@ rec {
             type = opt.type.description or "unspecified";
           } // optionalAttrs (opt ? example) {
             example =
-              builtins.addErrorContext
-                "while evaluating the example of option `${name}`"
+              builtins.addErrorContext "while evaluating the example of option `${name}`"
                 (renderOptionValue opt.example)
             ;
           } // optionalAttrs (opt ? default) {
@@ -362,9 +353,9 @@ rec {
                 "while evaluating the default value of option `${name}`"
                 (renderOptionValue (opt.defaultText or opt.default))
             ;
-          } // optionalAttrs
-              (opt ? relatedPackages && opt.relatedPackages != null)
-              { inherit (opt) relatedPackages; };
+          } // optionalAttrs (opt ? relatedPackages && opt.relatedPackages != null) {
+            inherit (opt) relatedPackages;
+          };
 
           subOptions =
             let
@@ -372,8 +363,7 @@ rec {
             in
             if ss != { } then optionAttrSetToDocList' opt.loc ss else [ ]
           ;
-          subOptionsVisible =
-            docOption.visible && opt.visible or null != "shallow";
+          subOptionsVisible = docOption.visible && opt.visible or null != "shallow";
         in
         # To find infinite recursion in NixOS option docs:
         # builtins.trace opt.loc

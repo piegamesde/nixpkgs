@@ -24,8 +24,7 @@ let
 
   # Provides a fake "docker" binary mapping to podman
   dockerCompat =
-    pkgs.runCommand
-      "${podmanPackage.pname}-docker-compat-${podmanPackage.version}"
+    pkgs.runCommand "${podmanPackage.pname}-docker-compat-${podmanPackage.version}"
       {
         outputs = [
           "out"
@@ -213,12 +212,8 @@ in
         network.network_backend = "netavark";
       } // lib.optionalAttrs cfg.enableNvidia {
         engine = {
-          conmon_env_vars = [
-            "PATH=${lib.makeBinPath [ pkgs.nvidia-podman ]}"
-          ];
-          runtimes.nvidia = [
-            "${pkgs.nvidia-podman}/bin/nvidia-container-runtime"
-          ];
+          conmon_env_vars = [ "PATH=${lib.makeBinPath [ pkgs.nvidia-podman ]}" ];
+          runtimes.nvidia = [ "${pkgs.nvidia-podman}/bin/nvidia-container-runtime" ];
         };
       };
     };
@@ -234,9 +229,7 @@ in
       serviceConfig.Type = "oneshot";
 
       script = ''
-        ${cfg.package}/bin/podman system prune -f ${
-          toString cfg.autoPrune.flags
-        }
+        ${cfg.package}/bin/podman system prune -f ${toString cfg.autoPrune.flags}
       '';
 
       startAt = lib.optional cfg.autoPrune.enable cfg.autoPrune.dates;
@@ -273,8 +266,7 @@ in
         message = "Option dockerCompat conflicts with docker";
       }
       {
-        assertion =
-          cfg.dockerSocket.enable -> !config.virtualisation.docker.enable;
+        assertion = cfg.dockerSocket.enable -> !config.virtualisation.docker.enable;
         message = ''
           The options virtualisation.podman.dockerSocket.enable and virtualisation.docker.enable conflict, because only one can serve the socket.
         '';

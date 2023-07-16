@@ -114,19 +114,14 @@ let
     # Obtain latest patch with ../update-mcfgthread-patches.sh
     ++
       optional
-        (
-          !crossStageStatic
-          && targetPlatform.isMinGW
-          && threadsCross.model == "mcf"
-        )
+        (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
         ./Added-mcf-thread-model-support-from-mcfgthread.patch
 
     ++ [ ../libsanitizer-no-cyclades-9.patch ]
   ;
 
   # Cross-gcc settings (build == host != target)
-  crossMingw =
-    targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
+  crossMingw = targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
   stageNameAddon = if crossStageStatic then "stage-static" else "stage-final";
   crossNameAddon =
     optionalString (targetPlatform != hostPlatform)
@@ -242,8 +237,7 @@ stdenv.mkDerivation (
         substituteInPlace libgfortran/configure \
           --replace "-install_name \\\$rpath/\\\$soname" "-install_name ''${!outputLib}/lib/\\\$soname"
       ''
-      + (lib.optionalString
-        (targetPlatform != hostPlatform || stdenv.cc.libc != null)
+      + (lib.optionalString (targetPlatform != hostPlatform || stdenv.cc.libc != null)
         # On NixOS, use the right path to the dynamic linker instead of
         # `/lib/ld*.so'.
         (
@@ -330,9 +324,7 @@ stdenv.mkDerivation (
     doCheck = false; # requires a lot of tools, causes a dependency cycle for stdenv
 
     # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
-    ${
-      if hostPlatform.system == "x86_64-solaris" then "CC" else null
-    } = "gcc -m64";
+    ${if hostPlatform.system == "x86_64-solaris" then "CC" else null} = "gcc -m64";
 
     # Setting $CPATH and $LIBRARY_PATH to make sure both `gcc' and `xgcc' find the
     # library headers and binaries, regarless of the language being compiled.

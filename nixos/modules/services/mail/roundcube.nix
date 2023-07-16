@@ -125,18 +125,13 @@ in
         30% is added automatically to [](#opt-services.roundcube.maxAttachmentSize).
       '';
       apply =
-        configuredMaxAttachmentSize:
-        "${toString (configuredMaxAttachmentSize * 1.3)}M"
-      ;
+        configuredMaxAttachmentSize: "${toString (configuredMaxAttachmentSize * 1.3)}M";
     };
 
     extraConfig = mkOption {
       type = types.lines;
       default = "";
-      description =
-        lib.mdDoc
-          "Extra configuration for roundcube webmail instance"
-      ;
+      description = lib.mdDoc "Extra configuration for roundcube webmail instance";
     };
   };
 
@@ -144,11 +139,7 @@ in
     # backward compatibility: if password is set but not passwordFile, make one.
     services.roundcube.database.passwordFile =
       mkIf (!localDB && cfg.database.password != "")
-        (
-          mkDefault (
-            "${pkgs.writeText "roundcube-password" cfg.database.password}"
-          )
-        )
+        (mkDefault ("${pkgs.writeText "roundcube-password" cfg.database.password}"))
     ;
     warnings =
       lib.optional (!localDB && cfg.database.password != "")
@@ -174,16 +165,12 @@ in
       }/${cfg.database.dbname}';
       $config['log_driver'] = 'syslog';
       $config['max_message_size'] =  '${cfg.maxAttachmentSize}';
-      $config['plugins'] = [${
-        concatMapStringsSep "," (p: "'${p}'") cfg.plugins
-      }];
+      $config['plugins'] = [${concatMapStringsSep "," (p: "'${p}'") cfg.plugins}];
       $config['des_key'] = file_get_contents('/var/lib/roundcube/des_key');
       $config['mime_types'] = '${pkgs.nginx}/conf/mime.types';
       # Roundcube uses PHP-FPM which has `PrivateTmp = true;`
       $config['temp_dir'] = '/tmp';
-      $config['enable_spellcheck'] = ${
-        if cfg.dicts == [ ] then "false" else "true"
-      };
+      $config['enable_spellcheck'] = ${if cfg.dicts == [ ] then "false" else "true"};
       # by default, spellchecking uses a third-party cloud services
       $config['spellcheck_engine'] = 'pspell';
       $config['spellcheck_languages'] = array(${
@@ -289,8 +276,7 @@ in
         script =
           let
             psql = "${
-                lib.optionalString (!localDB)
-                  "PGPASSFILE=${cfg.database.passwordFile}"
+                lib.optionalString (!localDB) "PGPASSFILE=${cfg.database.passwordFile}"
               } ${pkgs.postgresql}/bin/psql ${
                 lib.optionalString (!localDB)
                   "-h ${cfg.database.host} -U ${cfg.database.username} "

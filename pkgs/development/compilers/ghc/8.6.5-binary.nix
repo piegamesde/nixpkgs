@@ -145,8 +145,7 @@ stdenv.mkDerivation rec {
             }.so.5 libncurses.so \
             ${
               # This isn't required for x86_64-linux where we use ncurses6
-              lib.optionalString (!useNcurses6)
-                "--replace-needed libtinfo.so libtinfo.so.5"
+              lib.optionalString (!useNcurses6) "--replace-needed libtinfo.so libtinfo.so.5"
             } \
             --interpreter ${glibcDynLinker} {} \;
 

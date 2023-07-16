@@ -134,9 +134,7 @@ let
           createName =
             path:
 
-            builtins.replaceStrings [ "." ] [ "_" ] (
-              lib.concatStringsSep "_" path
-            )
+            builtins.replaceStrings [ "." ] [ "_" ] (lib.concatStringsSep "_" path)
           ;
 
           createSourceParams =
@@ -149,8 +147,7 @@ let
             in
             {
               system = builtins.head path;
-              phpMajor =
-                if builtins.length rest == 0 then null else builtins.head rest;
+              phpMajor = if builtins.length rest == 0 then null else builtins.head rest;
             }
           ;
 
@@ -158,9 +155,7 @@ let
             path: _value:
 
             lib.nameValuePair (createName path) (
-              self.overrideAttrs (
-                attrs: { src = makeSource (createSourceParams path); }
-              )
+              self.overrideAttrs (attrs: { src = makeSource (createSourceParams path); })
             )
           ;
 

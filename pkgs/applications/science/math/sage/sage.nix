@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
     mkdir -p "$out/bin"
     makeWrapper "${sage-with-env}/bin/sage" "$out/bin/sage" \
       --set SAGE_DOC_SRC_OVERRIDE "${src}/src/doc" ${
-        lib.optionalString withDoc
-          "--set SAGE_DOC_OVERRIDE ${sagedoc}/share/doc/sage"
+        lib.optionalString withDoc "--set SAGE_DOC_OVERRIDE ${sagedoc}/share/doc/sage"
       } \
       --prefix JUPYTER_PATH : "${jupyter-kernel-specs}"
   '';

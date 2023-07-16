@@ -40,9 +40,7 @@ in
           "debug logging including line numbers, high resolution timestamps, per-device logs"
       );
       quiet = mkEnableOption (lib.mdDoc "startup and error logs only");
-      prometheusErrors = mkEnableOption (
-        lib.mdDoc "emitting errors to prometheus"
-      );
+      prometheusErrors = mkEnableOption (lib.mdDoc "emitting errors to prometheus");
     };
   };
 

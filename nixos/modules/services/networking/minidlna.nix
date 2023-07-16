@@ -89,10 +89,7 @@ in
         default = config.networking.hostName;
         defaultText = literalExpression "config.networking.hostName";
         example = "rpi3";
-        description =
-          lib.mdDoc
-            "Name that the DLNA server presents to clients."
-        ;
+        description = lib.mdDoc "Name that the DLNA server presents to clients.";
       };
       options.root_container = mkOption {
         type = types.str;

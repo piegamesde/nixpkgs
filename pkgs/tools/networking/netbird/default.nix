@@ -89,9 +89,7 @@ buildGoModule rec {
         (
           module: binary:
           ''
-            mv $out/bin/${
-              lib.last (lib.splitString "/" module)
-            } $out/bin/${binary}
+            mv $out/bin/${lib.last (lib.splitString "/" module)} $out/bin/${binary}
           ''
           + lib.optionalString (!ui) ''
             installShellCompletion --cmd ${binary} \

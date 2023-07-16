@@ -132,14 +132,12 @@ in
       ;
 
       openjdk8-bootstrap =
-        mkBootstrap adoptopenjdk-8
-          ../development/compilers/openjdk/bootstrap.nix
+        mkBootstrap adoptopenjdk-8 ../development/compilers/openjdk/bootstrap.nix
           { version = "8"; }
       ;
 
       openjdk11-bootstrap =
-        mkBootstrap adoptopenjdk-11
-          ../development/compilers/openjdk/bootstrap.nix
+        mkBootstrap adoptopenjdk-11 ../development/compilers/openjdk/bootstrap.nix
           { version = "10"; }
       ;
 
@@ -284,9 +282,7 @@ in
   ;
 
   inherit
-    (callPackage ../development/java-modules/apache/ant.nix {
-      inherit fetchMaven;
-    })
+    (callPackage ../development/java-modules/apache/ant.nix { inherit fetchMaven; })
     ant_1_8_2
   ;
 
@@ -389,8 +385,7 @@ in
 
   inherit (callPackage ../development/java-modules/jogl { }) jogl_2_3_2;
 
-  inherit
-    (callPackage ../development/java-modules/log4j { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/log4j { inherit fetchMaven; })
     log4j_1_2_12
   ;
 
@@ -440,9 +435,7 @@ in
   ;
 
   inherit
-    (callPackage ../development/java-modules/maven/core.nix {
-      inherit fetchMaven;
-    })
+    (callPackage ../development/java-modules/maven/core.nix { inherit fetchMaven; })
     mavenCore_2_0_1
     mavenCore_2_0_6
     mavenCore_2_0_9
@@ -491,9 +484,7 @@ in
   ;
 
   inherit
-    (callPackage ../development/java-modules/maven-hello {
-      inherit mavenbuild;
-    })
+    (callPackage ../development/java-modules/maven-hello { inherit mavenbuild; })
     mavenHello_1_0
     mavenHello_1_1
   ;
@@ -549,10 +540,9 @@ in
   ;
 
   inherit
-    (callPackage
-      ../development/java-modules/maven/plugin-parameter-documenter.nix
-      { inherit fetchMaven; }
-    )
+    (callPackage ../development/java-modules/maven/plugin-parameter-documenter.nix {
+      inherit fetchMaven;
+    })
     mavenPluginParameterDocumenter_2_0_1
     mavenPluginParameterDocumenter_2_0_6
     mavenPluginParameterDocumenter_2_0_9
@@ -689,10 +679,9 @@ in
   ;
 
   inherit
-    (callPackage
-      ../development/java-modules/mojo/java-boot-classpath-detector.nix
-      { inherit fetchMaven; }
-    )
+    (callPackage ../development/java-modules/mojo/java-boot-classpath-detector.nix {
+      inherit fetchMaven;
+    })
     mojoJavaBootClasspathDetector_1_11
   ;
 
@@ -798,9 +787,7 @@ in
   ;
 
   inherit
-    (callPackage ../development/java-modules/plexus/io.nix {
-      inherit fetchMaven;
-    })
+    (callPackage ../development/java-modules/plexus/io.nix { inherit fetchMaven; })
     plexusIo_2_0_2
   ;
 
@@ -827,9 +814,7 @@ in
   ;
 
   inherit
-    (callPackage ../development/java-modules/sisu/guice.nix {
-      inherit fetchMaven;
-    })
+    (callPackage ../development/java-modules/sisu/guice.nix { inherit fetchMaven; })
     sisuGuice_2_9_4
   ;
 

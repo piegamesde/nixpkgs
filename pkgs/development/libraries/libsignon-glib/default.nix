@@ -56,9 +56,7 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [
     "-Dintrospection=true"
-    "-Dpy-overrides-dir=${
-      placeholder "py"
-    }/${python3.sitePackages}/gi/overrides"
+    "-Dpy-overrides-dir=${placeholder "py"}/${python3.sitePackages}/gi/overrides"
   ];
 
   postPatch = ''

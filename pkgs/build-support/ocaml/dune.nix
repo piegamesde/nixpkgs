@@ -19,8 +19,7 @@
 let
   Dune =
     let
-      dune-version =
-        args.duneVersion or (if args.useDune2 or true then "2" else "1");
+      dune-version = args.duneVersion or (if args.useDune2 or true then "2" else "1");
     in
     {
       "1" = dune_1;

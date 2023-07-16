@@ -31,9 +31,7 @@ stdenv.mkDerivation rec {
     gettext
   ];
 
-  makeFlags = [
-    "INSTALLBASE=${placeholder "out"}/share/gnome-shell/extensions"
-  ];
+  makeFlags = [ "INSTALLBASE=${placeholder "out"}/share/gnome-shell/extensions" ];
 
   passthru = {
     extensionUuid = "arcmenu@arcmenu.com";

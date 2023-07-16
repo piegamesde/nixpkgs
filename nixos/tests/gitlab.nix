@@ -48,17 +48,13 @@ import ./make-test-python.nix (
         {
           imports = [ common/user-account.nix ];
 
-          virtualisation.memorySize =
-            if pkgs.stdenv.is64bit then 4096 else 2047;
+          virtualisation.memorySize = if pkgs.stdenv.is64bit then 4096 else 2047;
           virtualisation.cores = 4;
           virtualisation.useNixStoreImage = true;
           virtualisation.writableStore = false;
 
           systemd.services.gitlab.serviceConfig.Restart = mkForce "no";
-          systemd.services.gitlab-workhorse.serviceConfig.Restart =
-            mkForce
-              "no"
-          ;
+          systemd.services.gitlab-workhorse.serviceConfig.Restart = mkForce "no";
           systemd.services.gitaly.serviceConfig.Restart = mkForce "no";
           systemd.services.gitlab-sidekiq.serviceConfig.Restart = mkForce "no";
 
@@ -84,10 +80,7 @@ import ./make-test-python.nix (
           services.gitlab = {
             enable = true;
             databasePasswordFile = pkgs.writeText "dbPassword" "xo0daiF4";
-            initialRootPasswordFile =
-              pkgs.writeText "rootPassword"
-                initialRootPassword
-            ;
+            initialRootPasswordFile = pkgs.writeText "rootPassword" initialRootPassword;
             smtp.enable = true;
             pages = {
               enable = true;

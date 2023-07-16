@@ -64,9 +64,7 @@ in
     dysnomia.enable = true;
 
     environment.systemPackages =
-      [ pkgs.disnix ]
-      ++ optional cfg.useWebServiceInterface pkgs.DisnixWebService
-    ;
+      [ pkgs.disnix ] ++ optional cfg.useWebServiceInterface pkgs.DisnixWebService;
     environment.variables.PATH = lib.optionals cfg.enableProfilePath (
       map (profileName: "/nix/var/nix/profiles/disnix/${profileName}/bin")
         cfg.profiles
@@ -88,9 +86,7 @@ in
     services.tomcat.sharedLibs =
       optional cfg.useWebServiceInterface
         "${pkgs.DisnixWebService}/share/java/DisnixConnection.jar"
-      ++
-        optional cfg.useWebServiceInterface
-          "${pkgs.dbus_java}/share/java/dbus.jar"
+      ++ optional cfg.useWebServiceInterface "${pkgs.dbus_java}/share/java/dbus.jar"
     ;
     services.tomcat.webapps =
       optional cfg.useWebServiceInterface

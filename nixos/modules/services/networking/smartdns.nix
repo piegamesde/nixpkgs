@@ -27,12 +27,7 @@ let
           mkKeyValueDefault
             {
               mkValueString =
-                v:
-                if isBool v then
-                  if v then "yes" else "no"
-                else
-                  mkValueStringDefault { } v
-              ;
+                v: if isBool v then if v then "yes" else "no" else mkValueStringDefault { } v;
             }
             " "
         ;

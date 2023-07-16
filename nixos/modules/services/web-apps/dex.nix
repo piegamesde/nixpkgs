@@ -21,8 +21,7 @@ let
       client
   ;
   filteredSettings =
-    mapAttrs
-      (n: v: if n == "staticClients" then (builtins.map fixClient v) else v)
+    mapAttrs (n: v: if n == "staticClients" then (builtins.map fixClient v) else v)
       cfg.settings
   ;
   secretFiles = flatten (
@@ -101,9 +100,7 @@ in
       wantedBy = [ "multi-user.target" ];
       after =
         [ "networking.target" ]
-        ++ (optional (cfg.settings.storage.type == "postgres")
-          "postgresql.service"
-        )
+        ++ (optional (cfg.settings.storage.type == "postgres") "postgresql.service")
       ;
       path = with pkgs; [ replace-secret ];
       serviceConfig = {

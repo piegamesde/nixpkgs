@@ -17,10 +17,7 @@ in
     port = mkOption {
       type = types.port;
       default = 8080;
-      description =
-        lib.mdDoc
-          "Port the chatgpt-retrieval-plugin service listens on."
-      ;
+      description = lib.mdDoc "Port the chatgpt-retrieval-plugin service listens on.";
     };
 
     host = mkOption {
@@ -117,10 +114,7 @@ in
 
       environment = {
         DATASTORE = cfg.datastore;
-        QDRANT_COLLECTION =
-          mkIf (cfg.datastore == "qdrant")
-            cfg.qdrantCollection
-        ;
+        QDRANT_COLLECTION = mkIf (cfg.datastore == "qdrant") cfg.qdrantCollection;
       };
     };
 

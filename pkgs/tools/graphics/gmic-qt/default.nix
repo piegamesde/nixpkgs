@@ -53,9 +53,7 @@ assert lib.assertMsg
 
 stdenv.mkDerivation (
   finalAttrs: {
-    pname = "gmic-qt${
-        lib.optionalString (variant != "standalone") "-${variant}"
-      }";
+    pname = "gmic-qt${lib.optionalString (variant != "standalone") "-${variant}"}";
     version = "3.2.4";
 
     src = fetchzip {

@@ -8,8 +8,7 @@ in
 (timeshift-wrapper timeshift-unwrapped [ ]).overrideAttrs (
   oldAttrs: {
     meta = oldAttrs.meta // {
-      description =
-        oldAttrs.meta.description + " (without runtime dependencies)";
+      description = oldAttrs.meta.description + " (without runtime dependencies)";
       longDescription =
         oldAttrs.meta.longDescription
         + ''

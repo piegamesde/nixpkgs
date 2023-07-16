@@ -53,9 +53,7 @@ let
   ];
   keepAll = keepAllPackages || (packageSet == "full");
   packagesToKeep =
-    requiredPackages
-    ++ lib.optionals (packageSet == "standard") autoloadedPackages
-  ;
+    requiredPackages ++ lib.optionals (packageSet == "standard") autoloadedPackages;
 
   # Generate bash script that removes all packages from the `pkg` subdirectory
   # that are not on the whitelist. The whitelist consists of strings expected by
@@ -65,9 +63,7 @@ let
     ''
       find pkg -type d -maxdepth 1 -mindepth 1 \
     ''
-    + (lib.concatStringsSep "\n" (
-      map (str: "-not -name '${str}' \\") whitelist
-    ))
+    + (lib.concatStringsSep "\n" (map (str: "-not -name '${str}' \\") whitelist))
     + ''
       -exec echo "Removing package {}" \; \
       -exec rm -r '{}' \;

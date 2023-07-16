@@ -110,8 +110,7 @@ in
     };
 
     boot.kernel.sysctl =
-      mkIf
-        (cfg.useRoutingFeatures == "server" || cfg.useRoutingFeatures == "both")
+      mkIf (cfg.useRoutingFeatures == "server" || cfg.useRoutingFeatures == "both")
         {
           "net.ipv4.conf.all.forwarding" = mkOverride 97 true;
           "net.ipv6.conf.all.forwarding" = mkOverride 97 true;
@@ -119,8 +118,7 @@ in
     ;
 
     networking.firewall.checkReversePath =
-      mkIf
-        (cfg.useRoutingFeatures == "client" || cfg.useRoutingFeatures == "both")
+      mkIf (cfg.useRoutingFeatures == "client" || cfg.useRoutingFeatures == "both")
         "loose"
     ;
 

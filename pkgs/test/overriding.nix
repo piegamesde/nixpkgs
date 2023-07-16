@@ -24,8 +24,7 @@ let
       })
       ({
         name = "repeatedOverrides-entangled-pname";
-        expr =
-          repeatedOverrides.entangled.pname == "a-better-figlet-with-blackjack";
+        expr = repeatedOverrides.entangled.pname == "a-better-figlet-with-blackjack";
         expected = true;
       })
     ]

@@ -65,8 +65,9 @@
   ,
   # What flavour to build. An empty string indicates no
   # specific flavour and falls back to ghc default values.
-  ghcFlavour ? lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
-      (if useLLVM then "perf-cross" else "perf-cross-ncg")
+  ghcFlavour ? lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform) (
+    if useLLVM then "perf-cross" else "perf-cross-ncg"
+  )
 
   ,
   #  Whether to build sphinx documentation.
@@ -75,8 +76,7 @@
     # all `sphinx` dependencies building in those environments.
     # `sphinx` pullls in among others:
     # Ruby, Python, Perl, Rust, OpenGL, Xorg, gtk, LLVM.
-    (stdenv.targetPlatform == stdenv.hostPlatform)
-    && !stdenv.hostPlatform.isMusl
+    (stdenv.targetPlatform == stdenv.hostPlatform) && !stdenv.hostPlatform.isMusl
   ),
 
   enableHaddockProgram ?
@@ -142,12 +142,7 @@ let
     # ourselves.
     + lib.optionalString (targetPlatform != hostPlatform) ''
       Stage1Only = ${
-        if
-          (
-            targetPlatform.system == hostPlatform.system
-            && !targetPlatform.isiOS
-          )
-        then
+        if (targetPlatform.system == hostPlatform.system && !targetPlatform.isiOS) then
           "NO"
         else
           "YES"
@@ -181,9 +176,7 @@ let
     lib.optional enableTerminfo ncurses
     ++ [ libffi ]
     ++ lib.optional (!enableIntegerSimple) gmp
-    ++
-      lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows)
-        libiconv
+    ++ lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows) libiconv
   ;
 
   # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
@@ -360,12 +353,10 @@ stdenv.mkDerivation (
         "--with-ffi-includes=${targetPackages.libffi.dev}/include"
         "--with-ffi-libraries=${targetPackages.libffi.out}/lib"
       ]
-      ++
-        lib.optionals (targetPlatform == hostPlatform && !enableIntegerSimple)
-          [
-            "--with-gmp-includes=${targetPackages.gmp.dev}/include"
-            "--with-gmp-libraries=${targetPackages.gmp.out}/lib"
-          ]
+      ++ lib.optionals (targetPlatform == hostPlatform && !enableIntegerSimple) [
+        "--with-gmp-includes=${targetPackages.gmp.dev}/include"
+        "--with-gmp-libraries=${targetPackages.gmp.out}/lib"
+      ]
       ++
         lib.optionals
           (
@@ -385,9 +376,7 @@ stdenv.mkDerivation (
         "CONF_GCC_LINKER_OPTS_STAGE1=-fuse-ld=gold"
         "CONF_GCC_LINKER_OPTS_STAGE2=-fuse-ld=gold"
       ]
-      ++ lib.optionals (disableLargeAddressSpace) [
-        "--disable-large-address-space"
-      ]
+      ++ lib.optionals (disableLargeAddressSpace) [ "--disable-large-address-space" ]
     ;
 
     # Make sure we never relax`$PATH` and hooks support for compatibility.
@@ -423,9 +412,7 @@ stdenv.mkDerivation (
     ;
 
     depsTargetTarget = map lib.getDev (libDeps targetPlatform);
-    depsTargetTargetPropagated = map (lib.getOutput "out") (
-      libDeps targetPlatform
-    );
+    depsTargetTargetPropagated = map (lib.getOutput "out") (libDeps targetPlatform);
 
     # required, because otherwise all symbols from HSffi.o are stripped, and
     # that in turn causes GHCi to abort
@@ -468,8 +455,7 @@ stdenv.mkDerivation (
     meta = {
       homepage = "http://haskell.org/ghc";
       description = "The Glasgow Haskell Compiler";
-      maintainers =
-        with lib.maintainers; [ guibou ] ++ lib.teams.haskell.members;
+      maintainers = with lib.maintainers; [ guibou ] ++ lib.teams.haskell.members;
       timeout = 24 * 3600;
       inherit (ghc.meta) license;
       # hardcode platforms because the bootstrap GHC differs depending on the platform,

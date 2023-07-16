@@ -33,12 +33,8 @@ stdenv.mkDerivation rec {
         url = "https://src.fedoraproject.org/rpms/libtar/raw/e25b692fc7ceaa387dafb865b472510754f51bd2/f/libtar-1.2.20-no-static-buffer.patch";
         sha256 = "sha256-QcWOgdkNlALb+YDVneT1zCNAMf4d8IUm2kUUUy2VvJs=";
       })
-      (fp "no_maxpathlen"
-        "11riv231wpbdb1cm4nbdwdsik97wny5sxcwdgknqbp61ibk572b7"
-      )
-      (fp "CVE-2013-4420"
-        "0d010190bqgr2ggy02qwxvjaymy9a22jmyfwdfh4086v876cbxpq"
-      )
+      (fp "no_maxpathlen" "11riv231wpbdb1cm4nbdwdsik97wny5sxcwdgknqbp61ibk572b7")
+      (fp "CVE-2013-4420" "0d010190bqgr2ggy02qwxvjaymy9a22jmyfwdfh4086v876cbxpq")
       (fp "th_get_size-unsigned-int"
         "1ravbs5yrfac98mnkrzciw9hd2fxq4dc07xl3wx8y2pv1bzkwm41"
       )

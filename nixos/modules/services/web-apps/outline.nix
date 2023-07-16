@@ -152,10 +152,7 @@ in
           };
           secretKeyFile = lib.mkOption {
             type = lib.types.path;
-            description =
-              lib.mdDoc
-                "File path that contains the S3 secret key."
-            ;
+            description = lib.mdDoc "File path that contains the S3 secret key.";
           };
           region = lib.mkOption {
             type = lib.types.str;
@@ -171,10 +168,7 @@ in
           };
           uploadBucketName = lib.mkOption {
             type = lib.types.str;
-            description =
-              lib.mdDoc
-                "Name of the bucket where uploads should be stored."
-            ;
+            description = lib.mdDoc "Name of the bucket where uploads should be stored.";
           };
           uploadMaxSize = lib.mkOption {
             type = lib.types.int;
@@ -217,10 +211,7 @@ in
             };
             secretFile = lib.mkOption {
               type = lib.types.str;
-              description =
-                lib.mdDoc
-                  "File path containing the authentication secret."
-              ;
+              description = lib.mdDoc "File path containing the authentication secret.";
             };
           };
         }
@@ -245,10 +236,7 @@ in
             };
             clientSecretFile = lib.mkOption {
               type = lib.types.str;
-              description =
-                lib.mdDoc
-                  "File path containing the authentication secret."
-              ;
+              description = lib.mdDoc "File path containing the authentication secret.";
             };
           };
         }
@@ -272,10 +260,7 @@ in
             };
             clientSecretFile = lib.mkOption {
               type = lib.types.str;
-              description =
-                lib.mdDoc
-                  "File path containing the authentication secret."
-              ;
+              description = lib.mdDoc "File path containing the authentication secret.";
             };
             resourceAppId = lib.mkOption {
               type = lib.types.str;
@@ -303,10 +288,7 @@ in
             };
             clientSecretFile = lib.mkOption {
               type = lib.types.str;
-              description =
-                lib.mdDoc
-                  "File path containing the authentication secret."
-              ;
+              description = lib.mdDoc "File path containing the authentication secret.";
             };
             authUrl = lib.mkOption {
               type = lib.types.str;
@@ -438,10 +420,7 @@ in
           options = {
             verificationTokenFile = lib.mkOption {
               type = lib.types.str;
-              description =
-                lib.mdDoc
-                  "File path containing the verification token."
-              ;
+              description = lib.mdDoc "File path containing the verification token.";
             };
             appId = lib.mkOption {
               type = lib.types.str;
@@ -506,10 +485,7 @@ in
           options = {
             host = lib.mkOption {
               type = lib.types.str;
-              description =
-                lib.mdDoc
-                  "Host name or IP address of the SMTP server."
-              ;
+              description = lib.mdDoc "Host name or IP address of the SMTP server.";
             };
             port = lib.mkOption {
               type = lib.types.port;
@@ -585,10 +561,7 @@ in
     rateLimiter.requests = lib.mkOption {
       type = lib.types.int;
       default = 5000;
-      description =
-        lib.mdDoc
-          "Maximum number of requests in a throttling window."
-      ;
+      description = lib.mdDoc "Maximum number of requests in a throttling window.";
     };
     rateLimiter.durationWindow = lib.mkOption {
       type = lib.types.int;
@@ -666,8 +639,7 @@ in
           {
             NODE_ENV = "production";
 
-            REDIS_URL =
-              if cfg.redisUrl == "local" then localRedisUrl else cfg.redisUrl;
+            REDIS_URL = if cfg.redisUrl == "local" then localRedisUrl else cfg.redisUrl;
             URL = cfg.publicUrl;
             PORT = builtins.toString cfg.port;
 
@@ -675,14 +647,8 @@ in
             AWS_REGION = cfg.storage.region;
             AWS_S3_UPLOAD_BUCKET_URL = cfg.storage.uploadBucketUrl;
             AWS_S3_UPLOAD_BUCKET_NAME = cfg.storage.uploadBucketName;
-            AWS_S3_UPLOAD_MAX_SIZE =
-              builtins.toString
-                cfg.storage.uploadMaxSize
-            ;
-            AWS_S3_FORCE_PATH_STYLE =
-              builtins.toString
-                cfg.storage.forcePathStyle
-            ;
+            AWS_S3_UPLOAD_MAX_SIZE = builtins.toString cfg.storage.uploadMaxSize;
+            AWS_S3_FORCE_PATH_STYLE = builtins.toString cfg.storage.forcePathStyle;
             AWS_S3_ACL = cfg.storage.acl;
 
             CDN_URL = cfg.cdnUrl;
@@ -695,23 +661,14 @@ in
               lib.optionalString (cfg.googleAnalyticsId != null)
                 cfg.googleAnalyticsId
             ;
-            SENTRY_DSN =
-              lib.optionalString (cfg.sentryDsn != null)
-                cfg.sentryDsn
-            ;
-            SENTRY_TUNNEL =
-              lib.optionalString (cfg.sentryTunnel != null)
-                cfg.sentryTunnel
-            ;
+            SENTRY_DSN = lib.optionalString (cfg.sentryDsn != null) cfg.sentryDsn;
+            SENTRY_TUNNEL = lib.optionalString (cfg.sentryTunnel != null) cfg.sentryTunnel;
             TEAM_LOGO = lib.optionalString (cfg.logo != null) cfg.logo;
             DEFAULT_LANGUAGE = cfg.defaultLanguage;
 
             RATE_LIMITER_ENABLED = builtins.toString cfg.rateLimiter.enable;
             RATE_LIMITER_REQUESTS = builtins.toString cfg.rateLimiter.requests;
-            RATE_LIMITER_DURATION_WINDOW =
-              builtins.toString
-                cfg.rateLimiter.durationWindow
-            ;
+            RATE_LIMITER_DURATION_WINDOW = builtins.toString cfg.rateLimiter.durationWindow;
           }
 
           (lib.mkIf (cfg.slackAuthentication != null) {
@@ -734,18 +691,12 @@ in
             OIDC_USERINFO_URI = cfg.oidcAuthentication.userinfoUrl;
             OIDC_USERNAME_CLAIM = cfg.oidcAuthentication.usernameClaim;
             OIDC_DISPLAY_NAME = cfg.oidcAuthentication.displayName;
-            OIDC_SCOPES =
-              lib.concatStringsSep " "
-                cfg.oidcAuthentication.scopes
-            ;
+            OIDC_SCOPES = lib.concatStringsSep " " cfg.oidcAuthentication.scopes;
           })
 
           (lib.mkIf (cfg.slackIntegration != null) {
             SLACK_APP_ID = cfg.slackIntegration.appId;
-            SLACK_MESSAGE_ACTIONS =
-              builtins.toString
-                cfg.slackIntegration.messageActions
-            ;
+            SLACK_MESSAGE_ACTIONS = builtins.toString cfg.slackIntegration.messageActions;
           })
 
           (lib.mkIf (cfg.smtp != null) {
@@ -811,12 +762,8 @@ in
         '';
 
         script = ''
-          export SECRET_KEY="$(head -n1 ${
-            lib.escapeShellArg cfg.secretKeyFile
-          })"
-          export UTILS_SECRET="$(head -n1 ${
-            lib.escapeShellArg cfg.utilsSecretFile
-          })"
+          export SECRET_KEY="$(head -n1 ${lib.escapeShellArg cfg.secretKeyFile})"
+          export UTILS_SECRET="$(head -n1 ${lib.escapeShellArg cfg.utilsSecretFile})"
           export AWS_SECRET_ACCESS_KEY="$(head -n1 ${
             lib.escapeShellArg cfg.storage.secretKeyFile
           })"
@@ -852,9 +799,7 @@ in
             })"
           ''}
           ${lib.optionalString (cfg.smtp != null) ''
-            export SMTP_PASSWORD="$(head -n1 ${
-              lib.escapeShellArg cfg.smtp.passwordFile
-            })"
+            export SMTP_PASSWORD="$(head -n1 ${lib.escapeShellArg cfg.smtp.passwordFile})"
           ''}
 
           ${if (cfg.databaseUrl == "local") then

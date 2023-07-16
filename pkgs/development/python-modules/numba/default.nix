@@ -49,8 +49,7 @@ buildPythonPackage rec {
       "-I${lib.getDev libcxx}/include/c++/v1"
   ;
 
-  nativeBuildInputs =
-    [ numpy ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
+  nativeBuildInputs = [ numpy ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
 
   propagatedBuildInputs =
     [

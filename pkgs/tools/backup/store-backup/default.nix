@@ -49,9 +49,7 @@ stdenv.mkDerivation rec {
     find $out -name "*.pl" | xargs sed -i \
       -e 's@/bin/pwd@${coreutils}/bin/pwd@' \
       -e 's@/bin/sync@${coreutils}/bin/sync@' \
-      -e '1 s@/usr/bin/env perl@${
-        perl.withPackages (p: [ p.DBFile ])
-      }/bin/perl@'
+      -e '1 s@/usr/bin/env perl@${perl.withPackages (p: [ p.DBFile ])}/bin/perl@'
 
     for p in $out/bin/*
       do wrapProgram "$p" --prefix PATH ":" "${

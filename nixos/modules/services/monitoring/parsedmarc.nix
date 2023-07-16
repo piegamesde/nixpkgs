@@ -25,8 +25,7 @@ let
         else if isSecret v then
           hashString "sha256" v._secret
         else
-          throw
-            "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}"
+          throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}"
       ;
     };
   };
@@ -115,8 +114,7 @@ in
       grafana = {
         datasource = lib.mkOption {
           type = lib.types.bool;
-          default =
-            cfg.provision.elasticsearch && config.services.grafana.enable;
+          default = cfg.provision.elasticsearch && config.services.grafana.enable;
           defaultText = lib.literalExpression ''
             config.${opt.provision.elasticsearch} && config.${options.services.grafana.enable}
           '';
@@ -447,8 +445,7 @@ in
       ;
 
       provision = {
-        enable =
-          cfg.provision.grafana.datasource || cfg.provision.grafana.dashboard;
+        enable = cfg.provision.grafana.datasource || cfg.provision.grafana.dashboard;
         datasources.settings.datasources =
           let
             esVersion = lib.getVersion config.services.elasticsearch.package;
@@ -476,13 +473,10 @@ in
             }
           ]
         ;
-        dashboards.settings.providers =
-          lib.mkIf cfg.provision.grafana.dashboard
-            [ {
-              name = "parsedmarc";
-              options.path = "${pkgs.python3Packages.parsedmarc.dashboard}";
-            } ]
-        ;
+        dashboards.settings.providers = lib.mkIf cfg.provision.grafana.dashboard [ {
+          name = "parsedmarc";
+          options.path = "${pkgs.python3Packages.parsedmarc.dashboard}";
+        } ];
       };
     };
 
@@ -529,9 +523,7 @@ in
         # Extract secrets (attributes set to an attrset with a
         # "_secret" key) from the settings and generate the commands
         # to run to perform the secret replacements.
-        secretPaths = lib.catAttrs "_secret" (
-          lib.collect isSecret filteredConfig
-        );
+        secretPaths = lib.catAttrs "_secret" (lib.collect isSecret filteredConfig);
         parsedmarcConfig = ini.generate "parsedmarc.ini" filteredConfig;
         mkSecretReplacement =
           file: ''
@@ -544,10 +536,7 @@ in
             }
           ''
         ;
-        secretReplacements =
-          lib.concatMapStrings mkSecretReplacement
-            secretPaths
-        ;
+        secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
       in
       {
         wantedBy = [ "multi-user.target" ];

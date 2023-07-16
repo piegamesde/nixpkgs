@@ -125,9 +125,7 @@ let
           sha256 = "0ja84kih5wkjn58pml53s59qnavb1z92dc88cbgw7vcyqwc1gs0h";
         })
       ]
-      ++ lib.optionals (!headless && enableGnome2) [
-        ./swing-use-gtk-jdk10.patch
-      ]
+      ++ lib.optionals (!headless && enableGnome2) [ ./swing-use-gtk-jdk10.patch ]
     ;
 
     prePatch = ''
@@ -152,9 +150,7 @@ let
       ]
       ++ lib.optional stdenv.isx86_64 "--with-jvm-features=zgc"
       ++ lib.optional headless "--enable-headless-only"
-      ++
-        lib.optional (!headless && enableJavaFX)
-          "--with-import-modules=${openjfx}"
+      ++ lib.optional (!headless && enableJavaFX) "--with-import-modules=${openjfx}"
     ;
 
     separateDebugInfo = true;

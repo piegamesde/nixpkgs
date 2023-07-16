@@ -26,9 +26,7 @@ let
               last = stringLength key - 1;
             in
             if isList x then
-              key
-              + optionalString (key != "" && substring last 1 key != "_") "_"
-              + head x
+              key + optionalString (key != "" && substring last 1 key != "_") "_" + head x
             else if key != "" && elem (substring 0 1 x) lowerChars then # to handle e.g. [ "disable" [ "2FAR" ] "emember" ]
               substring 0 last key
               + optionalString (substring (last - 1) 1 key != "_") "_"
@@ -41,10 +39,7 @@ let
           parts
       ;
     in
-    if builtins.match "[A-Z0-9_]+" name != null then
-      name
-    else
-      partsToEnvVar parts
+    if builtins.match "[A-Z0-9_]+" name != null then name else partsToEnvVar parts
   ;
 
   # Due to the different naming schemes allowed for config keys,
@@ -66,10 +61,7 @@ let
     {
       DATA_FOLDER = "/var/lib/bitwarden_rs";
     } // optionalAttrs
-      (
-        !(configEnv ? WEB_VAULT_ENABLED)
-        || configEnv.WEB_VAULT_ENABLED == "true"
-      )
+      (!(configEnv ? WEB_VAULT_ENABLED) || configEnv.WEB_VAULT_ENABLED == "true")
       { WEB_VAULT_FOLDER = "${cfg.webVaultPackage}/share/vaultwarden/vault"; }
     // configEnv
   ;
@@ -262,9 +254,7 @@ in
         User = user;
         Group = group;
         EnvironmentFile =
-          [ configFile ]
-          ++ optional (cfg.environmentFile != null) cfg.environmentFile
-        ;
+          [ configFile ] ++ optional (cfg.environmentFile != null) cfg.environmentFile;
         ExecStart = "${vaultwarden}/bin/vaultwarden";
         LimitNOFILE = "1048576";
         PrivateTmp = "true";

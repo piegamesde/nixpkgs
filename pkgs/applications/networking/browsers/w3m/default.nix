@@ -66,14 +66,11 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  postPatch =
-    lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
-      ''
-        ln -s ${mktable}/bin/mktable mktable
-        # stop make from recompiling mktable
-        sed -ie 's!mktable.*:.*!mktable:!' Makefile.in
-      ''
-  ;
+  postPatch = lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+    ln -s ${mktable}/bin/mktable mktable
+    # stop make from recompiling mktable
+    sed -ie 's!mktable.*:.*!mktable:!' Makefile.in
+  '';
 
   nativeBuildInputs = [
     pkg-config

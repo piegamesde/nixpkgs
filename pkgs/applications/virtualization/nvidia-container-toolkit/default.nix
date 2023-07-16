@@ -15,16 +15,13 @@ let
     name = "runc";
     path = containerRuntimePath;
   } ];
-  warnIfXdgConfigHomeIsSet =
-    writeShellScript "warn_if_xdg_config_home_is_set"
-      ''
-        set -eo pipefail
+  warnIfXdgConfigHomeIsSet = writeShellScript "warn_if_xdg_config_home_is_set" ''
+    set -eo pipefail
 
-        if [ -n "$XDG_CONFIG_HOME" ]; then
-          echo >&2 "$(tput setaf 3)warning: \$XDG_CONFIG_HOME=$XDG_CONFIG_HOME$(tput sgr 0)"
-        fi
-      ''
-  ;
+    if [ -n "$XDG_CONFIG_HOME" ]; then
+      echo >&2 "$(tput setaf 3)warning: \$XDG_CONFIG_HOME=$XDG_CONFIG_HOME$(tput sgr 0)"
+    fi
+  '';
 in
 buildGoPackage rec {
   pname = "container-toolkit/container-toolkit";

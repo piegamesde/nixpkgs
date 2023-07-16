@@ -39,10 +39,7 @@ with super; {
 
   mock = callPackage ../development/python2-modules/mock { };
 
-  more-itertools =
-    callPackage ../development/python2-modules/more-itertools
-      { }
-  ;
+  more-itertools = callPackage ../development/python2-modules/more-itertools { };
 
   packaging = callPackage ../development/python2-modules/packaging { };
 
@@ -81,10 +78,7 @@ with super; {
 
   setuptools = callPackage ../development/python2-modules/setuptools { };
 
-  setuptools-scm =
-    callPackage ../development/python2-modules/setuptools-scm
-      { }
-  ;
+  setuptools-scm = callPackage ../development/python2-modules/setuptools-scm { };
 
   typing = callPackage ../development/python2-modules/typing { };
 

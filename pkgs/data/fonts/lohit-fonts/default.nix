@@ -127,8 +127,7 @@ let
 
       meta = {
         inherit license;
-        description =
-          "Free and open source fonts for Indian languages (" + label + ")";
+        description = "Free and open source fonts for Indian languages (" + label + ")";
         homepage = "https://pagure.io/lohit";
         maintainers = [
           lib.maintainers.mathnerd314

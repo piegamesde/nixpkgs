@@ -163,8 +163,7 @@ let
 
       config.settings = {
         Address = mkDefault (
-          map (address: "${address.address} ${toString address.port}")
-            config.addresses
+          map (address: "${address.address} ${toString address.port}") config.addresses
         );
 
         Subnet = mkDefault (
@@ -174,9 +173,7 @@ let
               if subnet.prefixLength == null then
                 "${subnet.address}#${toString subnet.weight}"
               else
-                "${subnet.address}/${toString subnet.prefixLength}#${
-                  toString subnet.weight
-                }"
+                "${subnet.address}/${toString subnet.prefixLength}#${toString subnet.weight}"
             )
             config.subnets
         );
@@ -374,13 +371,10 @@ in
 
                   settings = {
                     DeviceType = mkDefault config.interfaceType;
-                    Name = mkDefault (
-                      if config.name == null then "$HOST" else config.name
+                    Name = mkDefault (if config.name == null then "$HOST" else config.name);
+                    Ed25519PrivateKeyFile = mkIf (config.ed25519PrivateKeyFile != null) (
+                      mkDefault config.ed25519PrivateKeyFile
                     );
-                    Ed25519PrivateKeyFile =
-                      mkIf (config.ed25519PrivateKeyFile != null)
-                        (mkDefault config.ed25519PrivateKeyFile)
-                    ;
                     PrivateKeyFile = mkIf (config.rsaPrivateKeyFile != null) (
                       mkDefault config.rsaPrivateKeyFile
                     );
@@ -423,9 +417,7 @@ in
             "tinc/${network}/tinc.conf" = {
               mode = "0444";
               text = ''
-                ${toTincConf (
-                  { Interface = "tinc.${network}"; } // data.settings
-                )}
+                ${toTincConf ({ Interface = "tinc.${network}"; } // data.settings)}
                 ${data.extraConfig}
               '';
             };
@@ -462,9 +454,7 @@ in
               ;
               ExecStart = "${data.package}/bin/tincd -D -U tinc.${network} -n ${network} ${
                   optionalString (data.chroot) "-R"
-                } --pidfile /run/tinc.${network}.pid -d ${
-                  toString data.debugLevel
-                }";
+                } --pidfile /run/tinc.${network}.pid -d ${toString data.debugLevel}";
             };
             preStart = ''
               mkdir -p /etc/tinc/${network}/hosts
@@ -510,13 +500,11 @@ in
                 mapAttrsToList
                   (
                     network: data:
-                    optionalString
-                      (versionAtLeast data.package.version "1.1pre")
-                      ''
-                        makeWrapper ${data.package}/bin/tinc "$out/bin/tinc.${network}" \
-                          --add-flags "--pidfile=/run/tinc.${network}.pid" \
-                          --add-flags "--config=/etc/tinc/${network}"
-                      ''
+                    optionalString (versionAtLeast data.package.version "1.1pre") ''
+                      makeWrapper ${data.package}/bin/tinc "$out/bin/tinc.${network}" \
+                        --add-flags "--pidfile=/run/tinc.${network}.pid" \
+                        --add-flags "--config=/etc/tinc/${network}"
+                    ''
                   )
                   cfg.networks
               )}

@@ -169,13 +169,9 @@ in
             if cfg.logoutKill then "yes" else "no"
           }" />
           <!-- set PATH variable for pam_mount module -->
-          <path>${
-            makeBinPath ([ pkgs.util-linux ] ++ cfg.additionalSearchPaths)
-          }</path>
+          <path>${makeBinPath ([ pkgs.util-linux ] ++ cfg.additionalSearchPaths)}</path>
           <!-- create mount point if not present -->
-          <mkmountpoint enable="${
-            if cfg.createMountPoints then "1" else "0"
-          }" remove="${
+          <mkmountpoint enable="${if cfg.createMountPoints then "1" else "0"}" remove="${
             if cfg.removeCreatedMountPoints then "true" else "false"
           }" />
           <!-- specify the binaries to be called -->

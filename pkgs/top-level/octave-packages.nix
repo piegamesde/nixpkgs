@@ -45,9 +45,7 @@ makeScope newScope (
         hasOctavePackage = drv: drv ? isOctavePackage;
         packages = filter hasOctavePackage drvs;
       in
-      unique (
-        packages ++ concatLists (catAttrs "requiredOctavePackages" packages)
-      )
+      unique (packages ++ concatLists (catAttrs "requiredOctavePackages" packages))
     ;
   in
   {
@@ -70,17 +68,11 @@ makeScope newScope (
 
     cgi = callPackage ../development/octave-modules/cgi { };
 
-    communications =
-      callPackage ../development/octave-modules/communications
-        { }
-    ;
+    communications = callPackage ../development/octave-modules/communications { };
 
     control = callPackage ../development/octave-modules/control { };
 
-    data-smoothing =
-      callPackage ../development/octave-modules/data-smoothing
-        { }
-    ;
+    data-smoothing = callPackage ../development/octave-modules/data-smoothing { };
 
     database = callPackage ../development/octave-modules/database { };
 
@@ -143,10 +135,7 @@ makeScope newScope (
 
     level-set = callPackage ../development/octave-modules/level-set { };
 
-    linear-algebra =
-      callPackage ../development/octave-modules/linear-algebra
-        { }
-    ;
+    linear-algebra = callPackage ../development/octave-modules/linear-algebra { };
 
     lssa = callPackage ../development/octave-modules/lssa { };
 

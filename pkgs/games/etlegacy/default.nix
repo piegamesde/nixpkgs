@@ -57,11 +57,7 @@ let
     fi
   '';
   mainProgram =
-    if stdenv.hostPlatform.system == "i686-linux" then
-      "etl.i386"
-    else
-      "etl.x86_64"
-  ;
+    if stdenv.hostPlatform.system == "i686-linux" then "etl.i386" else "etl.x86_64";
 in
 stdenv.mkDerivation rec {
   pname = pkgname;

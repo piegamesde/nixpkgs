@@ -309,10 +309,7 @@ let
       frequency = mkOption {
         type = types.str;
         default = "5m";
-        description =
-          lib.mdDoc
-            "How frequently should the notifier be sent reminders."
-        ;
+        description = lib.mdDoc "How frequently should the notifier be sent reminders.";
       };
       disable_resolve_message = mkOption {
         type = types.bool;
@@ -1175,10 +1172,7 @@ in
             static_root_path = mkOption {
               description = lib.mdDoc "Root path for static assets.";
               default = "${cfg.package}/share/grafana/public";
-              defaultText =
-                literalExpression
-                  ''"''${package}/share/grafana/public"''
-              ;
+              defaultText = literalExpression ''"''${package}/share/grafana/public"'';
               type = types.str;
             };
 
@@ -1342,10 +1336,7 @@ in
             };
 
             allow_org_create = mkOption {
-              description =
-                lib.mdDoc
-                  "Whether user is allowed to create organizations."
-              ;
+              description = lib.mdDoc "Whether user is allowed to create organizations.";
               default = false;
               type = types.bool;
             };
@@ -1360,10 +1351,7 @@ in
             };
 
             auto_assign_org_role = mkOption {
-              description =
-                lib.mdDoc
-                  "Default role new users will be auto assigned."
-              ;
+              description = lib.mdDoc "Default role new users will be auto assigned.";
               default = "Viewer";
               type = types.enum [
                 "Viewer"
@@ -1412,10 +1400,7 @@ in
                   };
 
                   datasources = mkOption {
-                    description =
-                      lib.mdDoc
-                        "List of datasources to insert/update."
-                    ;
+                    description = lib.mdDoc "List of datasources to insert/update.";
                     default = [ ];
                     type = types.listOf grafanaTypes.datasourceConfig;
                   };
@@ -1429,18 +1414,12 @@ in
                     type = types.listOf (
                       types.submodule {
                         options.name = mkOption {
-                          description =
-                            lib.mdDoc
-                              "Name of the datasource to delete."
-                          ;
+                          description = lib.mdDoc "Name of the datasource to delete.";
                           type = types.str;
                         };
 
                         options.orgId = mkOption {
-                          description =
-                            lib.mdDoc
-                              "Organization ID of the datasource to delete."
-                          ;
+                          description = lib.mdDoc "Organization ID of the datasource to delete.";
                           type = types.int;
                         };
                       }
@@ -1501,10 +1480,7 @@ in
                 };
 
                 options.providers = mkOption {
-                  description =
-                    lib.mdDoc
-                      "List of dashboards to insert/update."
-                  ;
+                  description = lib.mdDoc "List of dashboards to insert/update.";
                   default = [ ];
                   type = types.listOf grafanaTypes.dashboardConfig;
                 };
@@ -1571,20 +1547,14 @@ in
                   };
 
                   groups = mkOption {
-                    description =
-                      lib.mdDoc
-                        "List of rule groups to import or update."
-                    ;
+                    description = lib.mdDoc "List of rule groups to import or update.";
                     default = [ ];
                     type = types.listOf (
                       types.submodule {
                         freeformType = provisioningSettingsFormat.type;
 
                         options.name = mkOption {
-                          description =
-                            lib.mdDoc
-                              "Name of the rule group. Required."
-                          ;
+                          description = lib.mdDoc "Name of the rule group. Required.";
                           type = types.str;
                         };
 
@@ -1608,27 +1578,18 @@ in
                   };
 
                   deleteRules = mkOption {
-                    description =
-                      lib.mdDoc
-                        "List of alert rule UIDs that should be deleted."
-                    ;
+                    description = lib.mdDoc "List of alert rule UIDs that should be deleted.";
                     default = [ ];
                     type = types.listOf (
                       types.submodule {
                         options.orgId = mkOption {
-                          description =
-                            lib.mdDoc
-                              "Organization ID, default = 1"
-                          ;
+                          description = lib.mdDoc "Organization ID, default = 1";
                           default = 1;
                           type = types.int;
                         };
 
                         options.uid = mkOption {
-                          description =
-                            lib.mdDoc
-                              "Unique identifier for the rule. Required."
-                          ;
+                          description = lib.mdDoc "Unique identifier for the rule. Required.";
                           type = types.str;
                         };
                       }
@@ -1722,20 +1683,14 @@ in
                   };
 
                   contactPoints = mkOption {
-                    description =
-                      lib.mdDoc
-                        "List of contact points to import or update."
-                    ;
+                    description = lib.mdDoc "List of contact points to import or update.";
                     default = [ ];
                     type = types.listOf (
                       types.submodule {
                         freeformType = provisioningSettingsFormat.type;
 
                         options.name = mkOption {
-                          description =
-                            lib.mdDoc
-                              "Name of the contact point. Required."
-                          ;
+                          description = lib.mdDoc "Name of the contact point. Required.";
                           type = types.str;
                         };
                       }
@@ -1743,27 +1698,18 @@ in
                   };
 
                   deleteContactPoints = mkOption {
-                    description =
-                      lib.mdDoc
-                        "List of receivers that should be deleted."
-                    ;
+                    description = lib.mdDoc "List of receivers that should be deleted.";
                     default = [ ];
                     type = types.listOf (
                       types.submodule {
                         options.orgId = mkOption {
-                          description =
-                            lib.mdDoc
-                              "Organization ID, default = 1."
-                          ;
+                          description = lib.mdDoc "Organization ID, default = 1.";
                           default = 1;
                           type = types.int;
                         };
 
                         options.uid = mkOption {
-                          description =
-                            lib.mdDoc
-                              "Unique identifier for the receiver. Required."
-                          ;
+                          description = lib.mdDoc "Unique identifier for the receiver. Required.";
                           type = types.str;
                         };
                       }
@@ -1824,15 +1770,10 @@ in
                   };
 
                   policies = mkOption {
-                    description =
-                      lib.mdDoc
-                        "List of contact points to import or update."
-                    ;
+                    description = lib.mdDoc "List of contact points to import or update.";
                     default = [ ];
                     type = types.listOf (
-                      types.submodule {
-                        freeformType = provisioningSettingsFormat.type;
-                      }
+                      types.submodule { freeformType = provisioningSettingsFormat.type; }
                     );
                   };
 
@@ -1904,28 +1845,19 @@ in
                   };
 
                   templates = mkOption {
-                    description =
-                      lib.mdDoc
-                        "List of templates to import or update."
-                    ;
+                    description = lib.mdDoc "List of templates to import or update.";
                     default = [ ];
                     type = types.listOf (
                       types.submodule {
                         freeformType = provisioningSettingsFormat.type;
 
                         options.name = mkOption {
-                          description =
-                            lib.mdDoc
-                              "Name of the template, must be unique. Required."
-                          ;
+                          description = lib.mdDoc "Name of the template, must be unique. Required.";
                           type = types.str;
                         };
 
                         options.template = mkOption {
-                          description =
-                            lib.mdDoc
-                              "Alerting with a custom text template"
-                          ;
+                          description = lib.mdDoc "Alerting with a custom text template";
                           type = types.str;
                         };
                       }
@@ -1933,27 +1865,18 @@ in
                   };
 
                   deleteTemplates = mkOption {
-                    description =
-                      lib.mdDoc
-                        "List of alert rule UIDs that should be deleted."
-                    ;
+                    description = lib.mdDoc "List of alert rule UIDs that should be deleted.";
                     default = [ ];
                     type = types.listOf (
                       types.submodule {
                         options.orgId = mkOption {
-                          description =
-                            lib.mdDoc
-                              "Organization ID, default = 1."
-                          ;
+                          description = lib.mdDoc "Organization ID, default = 1.";
                           default = 1;
                           type = types.int;
                         };
 
                         options.name = mkOption {
-                          description =
-                            lib.mdDoc
-                              "Name of the template, must be unique. Required."
-                          ;
+                          description = lib.mdDoc "Name of the template, must be unique. Required.";
                           type = types.str;
                         };
                       }
@@ -2010,10 +1933,7 @@ in
                   };
 
                   muteTimes = mkOption {
-                    description =
-                      lib.mdDoc
-                        "List of mute time intervals to import or update."
-                    ;
+                    description = lib.mdDoc "List of mute time intervals to import or update.";
                     default = [ ];
                     type = types.listOf (
                       types.submodule {
@@ -2031,18 +1951,12 @@ in
                   };
 
                   deleteMuteTimes = mkOption {
-                    description =
-                      lib.mdDoc
-                        "List of mute time intervals that should be deleted."
-                    ;
+                    description = lib.mdDoc "List of mute time intervals that should be deleted.";
                     default = [ ];
                     type = types.listOf (
                       types.submodule {
                         options.orgId = mkOption {
-                          description =
-                            lib.mdDoc
-                              "Organization ID, default = 1."
-                          ;
+                          description = lib.mdDoc "Organization ID, default = 1.";
                           default = 1;
                           type = types.int;
                         };
@@ -2151,9 +2065,7 @@ in
                 ...
               }:
               secureJsonData != null
-              && any (flip doesntUseFileProvider null) (
-                attrValues secureJsonData
-              )
+              && any (flip doesntUseFileProvider null) (attrValues secureJsonData)
             ;
           in
           any declarationUnsafe datasourcesToCheck
@@ -2196,9 +2108,7 @@ in
             ;
           in
           cfg.provision.datasources.settings == null
-          ||
-            prometheusIsNotDirect
-              cfg.provision.datasources.settings.datasources
+          || prometheusIsNotDirect cfg.provision.datasources.settings.datasources
         ;
         message = "For datasources of type `prometheus`, the `direct` access mode is not supported anymore (since Grafana 9.2.0)";
       }
@@ -2306,9 +2216,7 @@ in
             "@system-service"
             "~@privileged"
           ]
-          ++ lib.optionals (cfg.settings.server.protocol == "socket") [
-            "@chown"
-          ]
+          ++ lib.optionals (cfg.settings.server.protocol == "socket") [ "@chown" ]
         ;
         UMask = "0027";
       };

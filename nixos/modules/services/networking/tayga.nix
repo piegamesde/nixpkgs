@@ -51,10 +51,7 @@ let
         router = {
           address = mkOption {
             type = types.str;
-            description =
-              lib.mdDoc
-                "The IPv${toString v} address of the router."
-            ;
+            description = lib.mdDoc "The IPv${toString v} address of the router.";
           };
         };
 
@@ -71,9 +68,7 @@ let
           type = with types; nullOr (submodule (addrOpts v));
           description =
             lib.mdDoc
-              "The pool of IPv${
-                toString v
-              } addresses which are used for translation."
+              "The pool of IPv${toString v} addresses which are used for translation."
           ;
         };
       };
@@ -89,10 +84,7 @@ in
         type = types.package;
         default = pkgs.tayga;
         defaultText = lib.literalMD "pkgs.tayga";
-        description =
-          lib.mdDoc
-            "This option specifies the TAYGA package to use."
-        ;
+        description = lib.mdDoc "This option specifies the TAYGA package to use.";
       };
 
       ipv4 = mkOption {

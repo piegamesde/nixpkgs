@@ -9,9 +9,7 @@ let
   versionNoPatch = "${toString major_version}.${toString minor_version}";
   version = "${versionNoPatch}.${toString patch_version}";
   safeX11 =
-    stdenv:
-    !(stdenv.isAarch32 || stdenv.isMips || stdenv.hostPlatform.isStatic)
-  ;
+    stdenv: !(stdenv.isAarch32 || stdenv.isMips || stdenv.hostPlatform.isStatic);
 in
 
 {
@@ -95,8 +93,7 @@ stdenv.mkDerivation (
     prefixKey = "-prefix ";
     configureFlags =
       let
-        flags =
-          new: old: if lib.versionAtLeast version "4.08" then new else old;
+        flags = new: old: if lib.versionAtLeast version "4.08" then new else old;
       in
       optionals useX11 (
         flags
@@ -122,15 +119,11 @@ stdenv.mkDerivation (
         "DEFAULT_STRING=unsafe"
       ]
       ++
-        optional
-          (stdenv.hostPlatform.isStatic && (lib.versionOlder version "4.08"))
+        optional (stdenv.hostPlatform.isStatic && (lib.versionOlder version "4.08"))
           "-no-shared-libs"
       ++
         optionals
-          (
-            stdenv.hostPlatform != stdenv.buildPlatform
-            && lib.versionOlder version "4.08"
-          )
+          (stdenv.hostPlatform != stdenv.buildPlatform && lib.versionOlder version "4.08")
           [
             "-host ${stdenv.hostPlatform.config}"
             "-target ${stdenv.targetPlatform.config}"
@@ -144,10 +137,7 @@ stdenv.mkDerivation (
     # See #144785 for details.
     configurePlatforms =
       lib.optionals
-        (
-          lib.versionAtLeast version "4.08"
-          && !(stdenv.isDarwin && stdenv.isAarch64)
-        )
+        (lib.versionAtLeast version "4.08" && !(stdenv.isDarwin && stdenv.isAarch64))
         [
           "host"
           "target"
@@ -155,8 +145,7 @@ stdenv.mkDerivation (
     ;
     # x86_64-unknown-linux-musl-ld: -r and -pie may not be used together
     hardeningDisable =
-      lib.optional
-        (lib.versionAtLeast version "4.09" && stdenv.hostPlatform.isMusl)
+      lib.optional (lib.versionAtLeast version "4.09" && stdenv.hostPlatform.isMusl)
         "pie"
       ++
         lib.optional (lib.versionAtLeast version "5.0" && stdenv.cc.isClang)
@@ -204,8 +193,7 @@ stdenv.mkDerivation (
         AS="${stdenv.cc}/bin/cc -c" ASPP="${stdenv.cc}/bin/cc -c"
       ''
       +
-        optionalString
-          (lib.versionOlder version "4.08" && stdenv.hostPlatform.isStatic)
+        optionalString (lib.versionOlder version "4.08" && stdenv.hostPlatform.isStatic)
           ''
             configureFlagsArray+=("-cc" "$CC" "-as" "$AS" "-partialld" "$LD -r")
           ''

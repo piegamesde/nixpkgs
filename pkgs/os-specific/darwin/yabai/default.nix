@@ -133,8 +133,7 @@ in
 
     passthru.tests.version = test-version;
 
-    meta =
-      _meta // { sourceProvenance = with lib.sourceTypes; [ fromSource ]; };
+    meta = _meta // { sourceProvenance = with lib.sourceTypes; [ fromSource ]; };
   };
 }
 .${stdenv.hostPlatform.system}

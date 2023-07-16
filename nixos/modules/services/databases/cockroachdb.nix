@@ -89,10 +89,7 @@ in
       join = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description =
-          lib.mdDoc
-            "The addresses for connecting the node to a cluster."
-        ;
+        description = lib.mdDoc "The addresses for connecting the node to a cluster.";
       };
 
       insecure = mkOption {

@@ -152,9 +152,7 @@ in
       systemPackages =
         optional (cfg.package != null) cfg.package ++ cfg.extraPackages;
       # Needed for the default wallpaper:
-      pathsToLink = optionals (cfg.package != null) [
-        "/share/backgrounds/sway"
-      ];
+      pathsToLink = optionals (cfg.package != null) [ "/share/backgrounds/sway" ];
       etc = {
         "sway/config.d/nixos.conf".source = pkgs.writeText "nixos.conf" ''
           # Import the most important environment variables into the D-Bus and systemd

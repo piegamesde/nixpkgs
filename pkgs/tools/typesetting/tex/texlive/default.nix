@@ -96,8 +96,7 @@ let
         };
 
         texdoc = orig.texdoc // {
-          version =
-            orig.texdoc.version + "-tlpdb-" + (toString tlpdbVersion.revision);
+          version = orig.texdoc.version + "-tlpdb-" + (toString tlpdbVersion.revision);
 
           # build Data.tlpdb.lua (part of the 'tlType == "run"' package)
           postUnpack = ''
@@ -296,9 +295,7 @@ let
               }@pkg:
               {
                 # outputName required to distinguish among bin.core-big outputs
-                key = "${
-                    pkg.pname or pkg.name
-                  }.${tlType}-${version}-${outputName}";
+                key = "${pkg.pname or pkg.name}.${tlType}-${version}-${outputName}";
                 inherit pkg;
               }
             )
@@ -357,9 +354,7 @@ tl // {
                 ${pname} = attrs;
                 extraName = "combined" + lib.removePrefix "scheme" pname;
                 extraVersion =
-                  with version;
-                  if final then "-final" else ".${year}${month}${day}"
-                ;
+                  with version; if final then "-final" else ".${year}${month}${day}";
               }
             )
         )

@@ -173,9 +173,7 @@ stdenv.mkDerivation (
         python3
         at-spi2-core
       ]
-      ++ lib.optionals (!stdenv.isDarwin) (
-        [ libinput ] ++ lib.optional withGtk3 gtk3
-      )
+      ++ lib.optionals (!stdenv.isDarwin) ([ libinput ] ++ lib.optional withGtk3 gtk3)
       ++ lib.optional developerBuild gdb
       ++ lib.optional (cups != null) cups
       ++ lib.optional (mysqlSupport) libmysqlclient
@@ -258,12 +256,10 @@ stdenv.mkDerivation (
                 -e "/^QMAKE_INCDIR_OPENGL/ s|$|${libGL.dev or libGL}/include|" \
                 -e "/^QMAKE_LIBDIR_OPENGL/ s|$|${libGL.out}/lib|"
           ''
-          +
-            lib.optionalString (stdenv.hostPlatform.isx86_32 && stdenv.cc.isGNU)
-              ''
-                sed -i mkspecs/common/gcc-base-unix.conf \
-                    -e "/^QMAKE_LFLAGS_SHLIB/ s/-shared/-shared -static-libgcc/"
-              ''
+          + lib.optionalString (stdenv.hostPlatform.isx86_32 && stdenv.cc.isGNU) ''
+            sed -i mkspecs/common/gcc-base-unix.conf \
+                -e "/^QMAKE_LFLAGS_SHLIB/ s/-shared/-shared -static-libgcc/"
+          ''
       )
     ;
 
@@ -312,9 +308,7 @@ stdenv.mkDerivation (
         ''-DLIBRESOLV_SO="${stdenv.cc.libc.out}/lib/libresolv"''
         ''-DNIXPKGS_LIBXCURSOR="${libXcursor.out}/lib/libXcursor"''
       ]
-      ++
-        lib.optional libGLSupported
-          ''-DNIXPKGS_MESA_GL="${libGL.out}/lib/libGL"''
+      ++ lib.optional libGLSupported ''-DNIXPKGS_MESA_GL="${libGL.out}/lib/libGL"''
       ++ lib.optional stdenv.isLinux "-DUSE_X11"
       ++
         lib.optionals (stdenv.hostPlatform.system == "x86_64-darwin")
@@ -323,8 +317,7 @@ stdenv.mkDerivation (
             "-Wno-error=unguarded-availability"
           ]
       ++ lib.optionals withGtk3 [
-        ''
-          -DNIXPKGS_QGTK3_XDG_DATA_DIRS="${gtk3}/share/gsettings-schemas/${gtk3.name}"''
+        ''-DNIXPKGS_QGTK3_XDG_DATA_DIRS="${gtk3}/share/gsettings-schemas/${gtk3.name}"''
         ''-DNIXPKGS_QGTK3_GIO_EXTRA_MODULES="${dconf.lib}/lib/gio/modules"''
       ]
       ++ lib.optional decryptSslTraffic "-DQT_DECRYPT_SSL_TRAFFIC"
@@ -381,22 +374,12 @@ stdenv.mkDerivation (
         else
           [
             "-sse2"
-            "${
-              lib.optionalString (!stdenv.hostPlatform.sse3Support) "-no"
-            }-sse3"
-            "${
-              lib.optionalString (!stdenv.hostPlatform.ssse3Support) "-no"
-            }-ssse3"
-            "${
-              lib.optionalString (!stdenv.hostPlatform.sse4_1Support) "-no"
-            }-sse4.1"
-            "${
-              lib.optionalString (!stdenv.hostPlatform.sse4_2Support) "-no"
-            }-sse4.2"
+            "${lib.optionalString (!stdenv.hostPlatform.sse3Support) "-no"}-sse3"
+            "${lib.optionalString (!stdenv.hostPlatform.ssse3Support) "-no"}-ssse3"
+            "${lib.optionalString (!stdenv.hostPlatform.sse4_1Support) "-no"}-sse4.1"
+            "${lib.optionalString (!stdenv.hostPlatform.sse4_2Support) "-no"}-sse4.2"
             "${lib.optionalString (!stdenv.hostPlatform.avxSupport) "-no"}-avx"
-            "${
-              lib.optionalString (!stdenv.hostPlatform.avx2Support) "-no"
-            }-avx2"
+            "${lib.optionalString (!stdenv.hostPlatform.avx2Support) "-no"}-avx2"
           ]
       )
       ++ [
@@ -520,10 +503,7 @@ stdenv.mkDerivation (
 
     setupHook = ../hooks/qtbase-setup-hook.sh;
 
-    passthru.tests.pkg-config =
-      testers.testMetaPkgConfig
-        finalAttrs.finalPackage
-    ;
+    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
     meta = with lib; {
       homepage = "https://www.qt.io/";

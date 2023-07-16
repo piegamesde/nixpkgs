@@ -8,29 +8,26 @@ import ./make-test-python.nix (
   let
     # Note: For some reason Privoxy can't issue valid
     # certificates if the CA is generated using gnutls :(
-    certs =
-      pkgs.runCommand "example-certs" { buildInputs = [ pkgs.openssl ]; }
-        ''
-          mkdir $out
+    certs = pkgs.runCommand "example-certs" { buildInputs = [ pkgs.openssl ]; } ''
+      mkdir $out
 
-          # generate CA keypair
-          openssl req -new -nodes -x509 \
-            -extensions v3_ca -keyout $out/ca.key \
-            -out $out/ca.crt -days 365 \
-            -subj "/O=Privoxy CA/CN=Privoxy CA"
+      # generate CA keypair
+      openssl req -new -nodes -x509 \
+        -extensions v3_ca -keyout $out/ca.key \
+        -out $out/ca.crt -days 365 \
+        -subj "/O=Privoxy CA/CN=Privoxy CA"
 
-          # generate server key/signing request
-          openssl genrsa -out $out/server.key 3072
-          openssl req -new -key $out/server.key \
-            -out server.csr -sha256 \
-            -subj "/O=An unhappy server./CN=example.com"
+      # generate server key/signing request
+      openssl genrsa -out $out/server.key 3072
+      openssl req -new -key $out/server.key \
+        -out server.csr -sha256 \
+        -subj "/O=An unhappy server./CN=example.com"
 
-          # sign the request/generate the certificate
-          openssl x509 -req -in server.csr -CA $out/ca.crt \
-          -CAkey $out/ca.key -CAcreateserial -out $out/server.crt \
-          -days 500 -sha256
-        ''
-    ;
+      # sign the request/generate the certificate
+      openssl x509 -req -in server.csr -CA $out/ca.crt \
+      -CAkey $out/ca.key -CAcreateserial -out $out/server.crt \
+      -days 500 -sha256
+    '';
   in
 
   {

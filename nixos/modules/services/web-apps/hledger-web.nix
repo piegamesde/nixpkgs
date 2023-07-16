@@ -113,9 +113,7 @@ in
         capabilityString =
           with cfg.capabilities;
           concatStringsSep "," (
-            (optional view "view")
-            ++ (optional add "add")
-            ++ (optional manage "manage")
+            (optional view "view") ++ (optional add "add") ++ (optional manage "manage")
           )
         ;
         serverArgs =

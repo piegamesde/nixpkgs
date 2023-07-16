@@ -44,8 +44,7 @@ let
         requireX ? false,
         broken ? false,
         platforms ? R.meta.platforms,
-        hydraPlatforms ?
-          if hydraPlatforms' != null then hydraPlatforms' else platforms,
+        hydraPlatforms ? if hydraPlatforms' != null then hydraPlatforms' else platforms,
         maintainers ? [ ],
       }:
       buildRPackage {
@@ -220,10 +219,7 @@ let
   overrideMaintainers =
     overrides: old:
     lib.mapAttrs
-      (
-        name: value:
-        (builtins.getAttr name old).override { maintainers = value; }
-      )
+      (name: value: (builtins.getAttr name old).override { maintainers = value; })
       overrides
   ;
 
@@ -395,8 +391,7 @@ let
       old2 = old1 // (overrideRequireHome packagesRequiringHome old1);
       old3 = old2 // (overrideSkipCheck packagesToSkipCheck old2);
       old4 = old3 // (overrideRDepends packagesWithRDepends old3);
-      old5 =
-        old4 // (overrideNativeBuildInputs packagesWithNativeBuildInputs old4);
+      old5 = old4 // (overrideNativeBuildInputs packagesWithNativeBuildInputs old4);
       old6 = old5 // (overrideBuildInputs packagesWithBuildInputs old5);
       old7 = old6 // (overrideBroken brokenPackages old6);
       old8 = old7 // (overrideMaintainers packagesWithMaintainers old7);
@@ -478,8 +473,7 @@ let
     ];
     curl = [ pkgs.curl.dev ];
     data_table =
-      [ pkgs.zlib.dev ] ++ lib.optional stdenv.isDarwin pkgs.llvmPackages.openmp
-    ;
+      [ pkgs.zlib.dev ] ++ lib.optional stdenv.isDarwin pkgs.llvmPackages.openmp;
     devEMF = with pkgs; [ xorg.libXft.dev ];
     diversitree = with pkgs; [
       gsl
@@ -1350,9 +1344,7 @@ let
         attrs: { preConfigure = "patchShebangs configure"; }
       );
 
-      Cairo = old.Cairo.overrideAttrs (
-        attrs: { NIX_LDFLAGS = "-lfontconfig"; }
-      );
+      Cairo = old.Cairo.overrideAttrs (attrs: { NIX_LDFLAGS = "-lfontconfig"; });
 
       curl = old.curl.overrideAttrs (
         attrs: { preConfigure = "patchShebangs configure"; }
@@ -1383,9 +1375,7 @@ let
         attrs: {
           env = (attrs.env or { }) // {
             NIX_CFLAGS_COMPILE =
-              attrs.env.NIX_CFLAGS_COMPILE
-              + lib.optionalString stdenv.isDarwin " -fopenmp"
-            ;
+              attrs.env.NIX_CFLAGS_COMPILE + lib.optionalString stdenv.isDarwin " -fopenmp";
           };
         }
       );
@@ -1455,9 +1445,7 @@ let
       );
 
       Rmpfr = old.Rmpfr.overrideAttrs (
-        attrs: {
-          configureFlags = [ "--with-mpfr-include=${pkgs.mpfr.dev}/include" ];
-        }
+        attrs: { configureFlags = [ "--with-mpfr-include=${pkgs.mpfr.dev}/include" ]; }
       );
 
       RVowpalWabbit = old.RVowpalWabbit.overrideAttrs (
@@ -1495,20 +1483,14 @@ let
       );
 
       slfm = old.slfm.overrideAttrs (
-        attrs: {
-          PKG_LIBS = "-L${pkgs.blas}/lib -lblas -L${pkgs.lapack}/lib -llapack";
-        }
+        attrs: { PKG_LIBS = "-L${pkgs.blas}/lib -lblas -L${pkgs.lapack}/lib -llapack"; }
       );
 
       SamplerCompare = old.SamplerCompare.overrideAttrs (
-        attrs: {
-          PKG_LIBS = "-L${pkgs.blas}/lib -lblas -L${pkgs.lapack}/lib -llapack";
-        }
+        attrs: { PKG_LIBS = "-L${pkgs.blas}/lib -lblas -L${pkgs.lapack}/lib -llapack"; }
       );
 
-      spMC = old.spMC.overrideAttrs (
-        attrs: { patches = [ ./patches/spMC.patch ]; }
-      );
+      spMC = old.spMC.overrideAttrs (attrs: { patches = [ ./patches/spMC.patch ]; });
 
       openssl = old.openssl.overrideAttrs (
         attrs: {
@@ -1554,14 +1536,11 @@ let
             patchShebangs configure
           '';
 
-          R_MAKEVARS_SITE =
-            lib.optionalString (pkgs.stdenv.system == "aarch64-linux")
-              (
-                pkgs.writeText "Makevars" ''
-                  CXX14PICFLAGS = -fPIC
-                ''
-              )
-          ;
+          R_MAKEVARS_SITE = lib.optionalString (pkgs.stdenv.system == "aarch64-linux") (
+            pkgs.writeText "Makevars" ''
+              CXX14PICFLAGS = -fPIC
+            ''
+          );
         }
       );
 
@@ -1657,9 +1636,7 @@ let
         attrs: {
           env = (attrs.env or { }) // {
             NIX_CFLAGS_COMPILE =
-              attrs.env.NIX_CFLAGS_COMPILE
-              + " -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION"
-            ;
+              attrs.env.NIX_CFLAGS_COMPILE + " -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION";
           };
         }
       );
@@ -1796,9 +1773,7 @@ let
         attrs: {
           preConfigure = ''
             substituteInPlace configure \
-              --replace "-lsqlite3" "-L${
-                lib.makeLibraryPath [ pkgs.sqlite ]
-              } -lsqlite3"
+              --replace "-lsqlite3" "-L${lib.makeLibraryPath [ pkgs.sqlite ]} -lsqlite3"
           '';
         }
       );
@@ -1832,9 +1807,7 @@ let
       Rhdf5lib =
         let
           hdf5 = pkgs.hdf5_1_10.overrideAttrs (
-            attrs: {
-              configureFlags = attrs.configureFlags ++ [ "--enable-cxx" ];
-            }
+            attrs: { configureFlags = attrs.configureFlags ++ [ "--enable-cxx" ]; }
           );
         in
         old.Rhdf5lib.overrideAttrs (

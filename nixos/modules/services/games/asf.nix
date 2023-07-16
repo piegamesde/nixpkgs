@@ -65,10 +65,7 @@ in
             type = types.package;
             default = pkgs.ArchiSteamFarm.ui;
             defaultText = lib.literalExpression "pkgs.ArchiSteamFarm.ui";
-            description =
-              lib.mdDoc
-                "Web-UI package to use. Contents must be in lib/dist."
-            ;
+            description = lib.mdDoc "Web-UI package to use. Contents must be in lib/dist.";
           };
         };
       };
@@ -252,9 +249,7 @@ in
               rm -rf $out/*.json
               for i in ${
                 strings.concatStringsSep " " (
-                  lists.map (x: "${getName x},${x}") (
-                    attrsets.mapAttrsToList mkBot cfg.bots
-                  )
+                  lists.map (x: "${getName x},${x}") (attrsets.mapAttrsToList mkBot cfg.bots)
                 )
               }; do IFS=",";
                 set -- $i

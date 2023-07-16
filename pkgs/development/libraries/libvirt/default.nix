@@ -285,8 +285,7 @@ stdenv.mkDerivation rec {
   mesonFlags =
     let
       cfg = option: val: "-D${option}=${val}";
-      feat =
-        option: enable: cfg option (if enable then "enabled" else "disabled");
+      feat = option: enable: cfg option (if enable then "enabled" else "disabled");
       driver = name: feat "driver_${name}";
       storage = name: feat "storage_${name}";
     in

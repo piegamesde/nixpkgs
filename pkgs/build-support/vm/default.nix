@@ -398,9 +398,7 @@ rec {
           mount -o loop,ro,ufstype=44bsd ${
             lib.optionalString (fs != null) "-t ${fs} "
           }${file} tmp ||
-            mount -o loop,ro ${
-              lib.optionalString (fs != null) "-t ${fs} "
-            }${file} tmp
+            mount -o loop,ro ${lib.optionalString (fs != null) "-t ${fs} "}${file} tmp
           cp -Rv tmp/* $out/ || exit 0
         '';
       }
@@ -552,9 +550,7 @@ rec {
 
           echo "installing RPMs..."
           PATH=/usr/bin:/bin:/usr/sbin:/sbin $chroot /mnt \
-            rpm -iv --nosignature ${
-              if runScripts then "" else "--noscripts"
-            } $rpms
+            rpm -iv --nosignature ${if runScripts then "" else "--noscripts"} $rpms
 
           echo "running post-install script..."
           eval "$postInstall"
@@ -819,9 +815,9 @@ rec {
           packagesLists}
         perl -w ${rpm/rpm-closure.pl} \
           ${
-            lib.concatImapStrings
-              (i: pl: "./packages_${toString i}.xml ${pl.snd} ")
-              (lib.zipLists packagesLists urlPrefixes)
+            lib.concatImapStrings (i: pl: "./packages_${toString i}.xml ${pl.snd} ") (
+              lib.zipLists packagesLists urlPrefixes
+            )
           } \
           ${toString packages} > $out
       ''

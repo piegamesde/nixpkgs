@@ -121,8 +121,7 @@ makeScope pkgs'.newScope (
           # Propagate overridden scope
           emacs = emacs'.overrideAttrs (
             old: {
-              passthru =
-                (old.passthru or { }) // { pkgs = dontRecurseIntoAttrs self; };
+              passthru = (old.passthru or { }) // { pkgs = dontRecurseIntoAttrs self; };
             }
           );
 

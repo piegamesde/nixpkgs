@@ -24,8 +24,7 @@ let
           name = "tuple";
           merge = mergeOneOption;
           check = xs: all id (zipListsWith (t: x: t.check x) ts xs);
-          description =
-            "tuple of" + concatMapStrings (t: " (${t.description})") ts;
+          description = "tuple of" + concatMapStrings (t: " (${t.description})") ts;
         }
       ;
       level = ints.unsigned;

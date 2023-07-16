@@ -37,9 +37,7 @@ stdenv.mkDerivation rec {
       --replace 'PROFILER=$SCRIPT_DIR/build/libasyncProfiler.so' \
                 'PROFILER=${placeholder "out"}/lib/libasyncProfiler.so'
 
-    wrapProgram $out/bin/async-profiler --prefix PATH : ${
-      lib.makeBinPath [ jdk ]
-    }
+    wrapProgram $out/bin/async-profiler --prefix PATH : ${lib.makeBinPath [ jdk ]}
   '';
 
   meta = with lib; {

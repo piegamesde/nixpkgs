@@ -35,8 +35,7 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies.toml = [ tomli ];
 
-  nativeCheckInputs =
-    [ pytestCheckHook ] ++ passthru.optional-dependencies.toml;
+  nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.toml;
 
   disabledTestPaths = [
     "src/tests/test_integration.py" # runs pip install

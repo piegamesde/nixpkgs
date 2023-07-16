@@ -45,13 +45,10 @@ let
         ];
 
       makeFlags =
-        common.makeFlags
-        ++ [ "VERSION=git-${version}-${lib.substring 0 8 src.rev}" ]
-      ;
+        common.makeFlags ++ [ "VERSION=git-${version}-${lib.substring 0 8 src.rev}" ];
 
       meta = common.meta // {
-        maintainers =
-          with lib.maintainers; common.meta.maintainers ++ [ rardiol ];
+        maintainers = with lib.maintainers; common.meta.maintainers ++ [ rardiol ];
       };
     }
   );

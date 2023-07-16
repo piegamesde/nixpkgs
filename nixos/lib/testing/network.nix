@@ -92,8 +92,7 @@ let
               fst,
               snd,
             }:
-            qemu-common.qemuNICFlags snd fst
-              config.virtualisation.test.nodeNumber
+            qemu-common.qemuNICFlags snd fst config.virtualisation.test.nodeNumber
           )
         ;
       };

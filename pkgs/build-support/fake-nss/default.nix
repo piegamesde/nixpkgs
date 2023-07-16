@@ -21,9 +21,7 @@ symlinkJoin {
     '')
     (writeTextDir "etc/group" ''
       root:x:0:
-      ${
-        lib.concatStrings (map (line: line + "\n") extraGroupLines)
-      }nobody:x:65534:
+      ${lib.concatStrings (map (line: line + "\n") extraGroupLines)}nobody:x:65534:
     '')
     (writeTextDir "etc/nsswitch.conf" ''
       hosts: files dns

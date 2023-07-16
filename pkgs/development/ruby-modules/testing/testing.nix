@@ -54,12 +54,7 @@ let
           (
             subName:
             run (name + "." + subName)
-              (
-                if hasAttr subName under then
-                  getAttr subName under
-                else
-                  "<MISSING!>"
-              )
+              (if hasAttr subName under then getAttr subName under else "<MISSING!>")
               (getAttr subName tests)
           )
           (attrNames tests)
@@ -69,11 +64,7 @@ let
         res = tests under;
       in
       if isBool res then
-        [
-          (prefixName name (
-            if tests under then passed "passed" else failed "failed"
-          ))
-        ]
+        [ (prefixName name (if tests under then passed "passed" else failed "failed")) ]
       else
         [ (prefixName name res) ]
     else

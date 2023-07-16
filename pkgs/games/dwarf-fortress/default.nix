@@ -86,9 +86,7 @@ let
               inherit dwarf-fortress-unfuck;
             };
 
-            dwarf-fortress-unfuck = callPackage ./unfuck.nix {
-              inherit dfVersion;
-            };
+            dwarf-fortress-unfuck = callPackage ./unfuck.nix { inherit dfVersion; };
 
             twbt = callPackage ./twbt { inherit dfVersion; };
 
@@ -98,13 +96,10 @@ let
               stdenv = gccStdenv;
             };
 
-            dwarf-therapist =
-              libsForQt5.callPackage ./dwarf-therapist/wrapper.nix
-                {
-                  inherit dwarf-fortress;
-                  dwarf-therapist = dwarf-therapist-original;
-                }
-            ;
+            dwarf-therapist = libsForQt5.callPackage ./dwarf-therapist/wrapper.nix {
+              inherit dwarf-fortress;
+              dwarf-therapist = dwarf-therapist-original;
+            };
           in
           callPackage ./wrapper {
             inherit (self) themes;

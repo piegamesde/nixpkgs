@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
         if enableUnfree then "parallel" else "sequential"
       } version)";
     homepage = "https://www.labri.fr/perso/lsimon/research/glucose/";
-    license =
-      if enableUnfree then licenses.unfreeRedistributable else licenses.mit;
+    license = if enableUnfree then licenses.unfreeRedistributable else licenses.mit;
     platforms = platforms.unix;
     maintainers = with maintainers; [ gebner ];
   };

@@ -144,8 +144,7 @@ stdenv.mkDerivation (
       updateScript =
         if type == "sdk" then
           let
-            majorVersion =
-              with lib; concatStringsSep "." (take 2 (splitVersion version));
+            majorVersion = with lib; concatStringsSep "." (take 2 (splitVersion version));
           in
           writeShellScript "update-dotnet-${majorVersion}" ''
             pushd pkgs/development/compilers/dotnet

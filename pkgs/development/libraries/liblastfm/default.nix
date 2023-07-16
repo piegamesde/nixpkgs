@@ -42,9 +42,7 @@ stdenv.mkDerivation rec {
       libsamplerate
       qtbase
     ]
-    ++
-      lib.optional stdenv.isDarwin
-        darwin.apple_sdk.frameworks.SystemConfiguration
+    ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.SystemConfiguration
   ;
 
   env.NIX_CFLAGS_COMPILE =

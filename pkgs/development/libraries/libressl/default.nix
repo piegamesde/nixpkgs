@@ -51,9 +51,7 @@ let
       preConfigure = ''
         rm configure
         substituteInPlace CMakeLists.txt \
-          --replace 'exec_prefix \''${prefix}' "exec_prefix ${
-            placeholder "bin"
-          }" \
+          --replace 'exec_prefix \''${prefix}' "exec_prefix ${placeholder "bin"}" \
           --replace 'libdir      \''${exec_prefix}' 'libdir \''${prefix}'
       '';
 

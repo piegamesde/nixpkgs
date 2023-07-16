@@ -181,13 +181,9 @@ stdenv.mkDerivation rec {
   postFixup =
     lib.concatMapStrings
       (library: ''
-        for i in $(grep -F ${
-          lib.escapeShellArg library.name
-        } -l -r $out/{lib,bin}); do
+        for i in $(grep -F ${lib.escapeShellArg library.name} -l -r $out/{lib,bin}); do
           origRpath=$(patchelf --print-rpath "$i")
-          patchelf --set-rpath "$origRpath:${
-            lib.makeLibraryPath [ library.pkg ]
-          }" "$i"
+          patchelf --set-rpath "$origRpath:${lib.makeLibraryPath [ library.pkg ]}" "$i"
         done
       '')
       dlopenLibs

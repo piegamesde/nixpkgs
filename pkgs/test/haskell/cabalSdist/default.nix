@@ -9,10 +9,7 @@ let
 in
 lib.recurseIntoAttrs rec {
 
-  helloFromCabalSdist =
-    haskellPackages.buildFromCabalSdist
-      haskellPackages.hello
-  ;
+  helloFromCabalSdist = haskellPackages.buildFromCabalSdist haskellPackages.hello;
 
   # A more complicated example with a cabal hook.
   hercules-ci-cnix-store =
@@ -34,10 +31,7 @@ lib.recurseIntoAttrs rec {
   localHasNoDirectReference =
     runCommand "localHasNoDirectReference"
       {
-        drvPath =
-          builtins.unsafeDiscardOutputDependency
-            localFromCabalSdist.drvPath
-        ;
+        drvPath = builtins.unsafeDiscardOutputDependency localFromCabalSdist.drvPath;
       }
       ''
         grep -v ${./local} $drvPath >/dev/null

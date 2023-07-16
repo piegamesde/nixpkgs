@@ -1812,16 +1812,12 @@ in
             }
           )
           (
-            sources."codepage-1.14.0" // {
-              dependencies = [ sources."commander-2.14.1" ];
-            }
+            sources."codepage-1.14.0" // { dependencies = [ sources."commander-2.14.1" ]; }
           )
           sources."coffee-css-0.0.5"
           sources."coffee-script-1.12.7"
           (
-            sources."coffeecup-0.3.21" // {
-              dependencies = [ sources."uglify-js-1.2.6" ];
-            }
+            sources."coffeecup-0.3.21" // { dependencies = [ sources."uglify-js-1.2.6" ]; }
           )
           sources."colors-0.6.2"
           sources."commander-2.17.1"
@@ -1829,11 +1825,7 @@ in
           sources."component-emitter-1.1.2"
           sources."component-inherit-0.0.3"
           sources."compressible-1.1.1"
-          (
-            sources."compression-1.0.11" // {
-              dependencies = [ sources."vary-1.0.1" ];
-            }
-          )
+          (sources."compression-1.0.11" // { dependencies = [ sources."vary-1.0.1" ]; })
           sources."concat-stream-2.0.0"
           sources."connect-2.25.9"
           sources."connect-timeout-1.2.2"
@@ -1842,11 +1834,7 @@ in
           sources."cookie-signature-1.0.4"
           sources."core-util-is-1.0.3"
           sources."cors-2.8.5"
-          (
-            sources."crc-32-1.2.1" // {
-              dependencies = [ sources."printj-1.3.1" ];
-            }
-          )
+          (sources."crc-32-1.2.1" // { dependencies = [ sources."printj-1.3.1" ]; })
           sources."csrf-2.0.7"
           sources."cssom-0.2.5"
           sources."csurf-1.4.1"
@@ -1857,11 +1845,7 @@ in
           sources."destroy-1.0.3"
           sources."ee-first-1.0.5"
           sources."emitter-http://github.com/component/emitter/archive/1.0.1.tar.gz"
-          (
-            sources."engine.io-1.3.1" // {
-              dependencies = [ sources."debug-0.6.0" ];
-            }
-          )
+          (sources."engine.io-1.3.1" // { dependencies = [ sources."debug-0.6.0" ]; })
           (
             sources."engine.io-client-1.3.1" // {
               dependencies = [ sources."debug-0.7.4" ];
@@ -1914,11 +1898,7 @@ in
                 sources."crc-32-1.0.2"
                 sources."frac-1.0.6"
                 sources."ssf-0.9.4"
-                (
-                  sources."xlsx-0.9.13" // {
-                    dependencies = [ sources."commander-2.9.0" ];
-                  }
-                )
+                (sources."xlsx-0.9.13" // { dependencies = [ sources."commander-2.9.0" ]; })
               ];
             }
           )
@@ -1929,20 +1909,14 @@ in
           sources."media-typer-0.2.0"
           sources."merge-descriptors-0.0.2"
           (
-            sources."method-override-2.1.3" // {
-              dependencies = [ sources."vary-1.0.1" ];
-            }
+            sources."method-override-2.1.3" // { dependencies = [ sources."vary-1.0.1" ]; }
           )
           sources."methods-1.1.0"
           sources."mime-1.2.11"
           sources."mime-types-1.0.2"
           sources."minimatch-5.0.1"
           sources."minimist-0.0.10"
-          (
-            sources."mkdirp-0.5.0" // {
-              dependencies = [ sources."minimist-0.0.8" ];
-            }
-          )
+          (sources."mkdirp-0.5.0" // { dependencies = [ sources."minimist-0.0.8" ]; })
           sources."morgan-1.2.3"
           sources."ms-0.6.2"
           (
@@ -1976,11 +1950,7 @@ in
           sources."proxy-addr-1.0.1"
           sources."qs-2.2.2"
           sources."range-parser-1.0.0"
-          (
-            sources."raw-body-1.3.0" // {
-              dependencies = [ sources."iconv-lite-0.4.4" ];
-            }
-          )
+          (sources."raw-body-1.3.0" // { dependencies = [ sources."iconv-lite-0.4.4" ]; })
           sources."readable-stream-3.6.0"
           sources."redis-0.12.1"
           sources."response-time-2.0.1"
@@ -1991,17 +1961,9 @@ in
           sources."send-0.8.3"
           sources."serve-favicon-2.0.1"
           sources."serve-index-1.1.6"
-          (
-            sources."serve-static-1.5.4" // {
-              dependencies = [ sources."send-0.8.5" ];
-            }
-          )
+          (sources."serve-static-1.5.4" // { dependencies = [ sources."send-0.8.5" ]; })
           sources."socialcalc-2.3.0"
-          (
-            sources."socket.io-1.0.6" // {
-              dependencies = [ sources."debug-0.7.4" ];
-            }
-          )
+          (sources."socket.io-1.0.6" // { dependencies = [ sources."debug-0.7.4" ]; })
           (
             sources."socket.io-adapter-0.2.0" // {
               dependencies = [
@@ -2032,11 +1994,7 @@ in
             }
           )
           sources."string_decoder-1.3.0"
-          (
-            sources."stylus-0.27.2" // {
-              dependencies = [ sources."mkdirp-0.3.5" ];
-            }
-          )
+          (sources."stylus-0.27.2" // { dependencies = [ sources."mkdirp-0.3.5" ]; })
           sources."thenify-3.3.1"
           sources."thenify-all-1.6.0"
           sources."tinycolor-0.0.1"
@@ -2064,11 +2022,7 @@ in
           sources."voc-1.2.0"
           sources."word-wrap-1.2.3"
           sources."wordwrap-0.0.3"
-          (
-            sources."ws-0.4.31" // {
-              dependencies = [ sources."commander-0.6.1" ];
-            }
-          )
+          (sources."ws-0.4.31" // { dependencies = [ sources."commander-0.6.1" ]; })
           (
             sources."xlsjs-0.7.6" // {
               dependencies = [

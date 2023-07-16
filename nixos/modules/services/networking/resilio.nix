@@ -233,10 +233,7 @@ in
         type = types.str;
         default = "";
         example = "/media";
-        description =
-          lib.mdDoc
-            "Default directory to add folders in the web UI."
-        ;
+        description = lib.mdDoc "Default directory to add folders in the web UI.";
       };
 
       sharedFolders = mkOption {

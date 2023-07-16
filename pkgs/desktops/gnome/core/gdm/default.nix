@@ -138,9 +138,7 @@ stdenv.mkDerivation rec {
   postPatch = ''
     # Upstream checks some common paths to find an `X` binary. We already know it.
     echo #!/bin/sh > build-aux/find-x-server.sh
-    echo "echo ${
-      lib.getBin xorg.xorgserver
-    }/bin/X" >> build-aux/find-x-server.sh
+    echo "echo ${lib.getBin xorg.xorgserver}/bin/X" >> build-aux/find-x-server.sh
     patchShebangs build-aux/find-x-server.sh
   '';
 

@@ -17,8 +17,7 @@ let
       if builtins.length l == 1 then
         generators.mkValueStringDefault { } (head l)
       else
-        lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault { } s}")
-          l
+        lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault { } s}") l
     ;
     mkKeyValue = generators.mkKeyValueDefault { } ":";
   };
@@ -28,9 +27,7 @@ in
 {
   options = {
     services.moonraker = {
-      enable = mkEnableOption (
-        lib.mdDoc "Moonraker, an API web server for Klipper"
-      );
+      enable = mkEnableOption (lib.mdDoc "Moonraker, an API web server for Klipper");
 
       klipperSocket = mkOption {
         type = types.path;
@@ -42,10 +39,7 @@ in
       stateDir = mkOption {
         type = types.path;
         default = "/var/lib/moonraker";
-        description =
-          lib.mdDoc
-            "The directory containing the Moonraker databases."
-        ;
+        description = lib.mdDoc "The directory containing the Moonraker databases.";
       };
 
       configDir = mkOption {

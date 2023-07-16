@@ -51,10 +51,7 @@ let
 
   _sdk =
     if sdk == null then
-      if release then
-        "iphoneos" + sdkVersion
-      else
-        "iphonesimulator" + sdkVersion
+      if release then "iphoneos" + sdkVersion else "iphonesimulator" + sdkVersion
     else
       sdk
   ;
@@ -160,12 +157,10 @@ stdenv.mkDerivation (
               <key>method</key>
               <string>${signMethod}</string>
               ${
-                lib.optionalString
-                  (signMethod == "enterprise" || signMethod == "ad-hoc")
-                  ''
-                    <key>compileBitcode</key>
-                    <false/>
-                  ''
+                lib.optionalString (signMethod == "enterprise" || signMethod == "ad-hoc") ''
+                  <key>compileBitcode</key>
+                  <false/>
+                ''
               }
           </dict>
           </plist>

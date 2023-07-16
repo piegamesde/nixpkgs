@@ -82,10 +82,7 @@ in
       server = {
         port = mkOption {
           type = types.port;
-          description =
-            lib.mdDoc
-              "The port of the Zabbix server to connect to."
-          ;
+          description = lib.mdDoc "The port of the Zabbix server to connect to.";
           default = 10051;
         };
 
@@ -169,9 +166,7 @@ in
       };
 
       virtualHost = mkOption {
-        type = types.submodule (
-          import ../web-servers/apache-httpd/vhost-options.nix
-        );
+        type = types.submodule (import ../web-servers/apache-httpd/vhost-options.nix);
         example = literalExpression ''
           {
             hostName = "zabbix.example.org";

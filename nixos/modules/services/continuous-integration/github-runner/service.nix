@@ -114,13 +114,9 @@ in
           unconfigureRunner = writeScript "unconfigure" ''
             copy_tokens() {
               # Copy the configured token file to the state dir and allow the service user to read the file
-              install --mode=666 ${
-                escapeShellArg cfg.tokenFile
-              } "${newConfigTokenPath}"
+              install --mode=666 ${escapeShellArg cfg.tokenFile} "${newConfigTokenPath}"
               # Also copy current file to allow for a diff on the next start
-              install --mode=600 ${
-                escapeShellArg cfg.tokenFile
-              } "${currentConfigTokenPath}"
+              install --mode=600 ${escapeShellArg cfg.tokenFile} "${currentConfigTokenPath}"
             }
             clean_state() {
               find "$STATE_DIRECTORY/" -mindepth 1 -delete
@@ -167,9 +163,7 @@ in
                 --disableupdate
                 --work "$WORK_DIRECTORY"
                 --url ${escapeShellArg cfg.url}
-                --labels ${
-                  escapeShellArg (concatStringsSep "," cfg.extraLabels)
-                }
+                --labels ${escapeShellArg (concatStringsSep "," cfg.extraLabels)}
                 --name ${escapeShellArg cfg.name}
                 ${optionalString cfg.replace "--replace"}
                 ${

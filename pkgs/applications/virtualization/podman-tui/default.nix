@@ -44,9 +44,7 @@ buildGoModule rec {
       export HOME=/home/$USER
 
       # Disable flaky tests
-      buildFlagsArray+=("-run" "[^(${
-        builtins.concatStringsSep "|" skippedTests
-      })]")
+      buildFlagsArray+=("-run" "[^(${builtins.concatStringsSep "|" skippedTests})]")
     ''
   ;
 

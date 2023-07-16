@@ -55,9 +55,7 @@ in
       # NOTE: Linode specifically requires images to be `gzip`-ed prior to upload
       # See: https://www.linode.com/docs/products/tools/images/guides/upload-an-image/#requirements-and-considerations
       postVM = ''
-        ${pkgs.gzip}/bin/gzip -${
-          toString cfg.compressionLevel
-        } -c -- $diskImage > \
+        ${pkgs.gzip}/bin/gzip -${toString cfg.compressionLevel} -c -- $diskImage > \
         $out/nixos-image-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.img.gz
         rm $diskImage
       '';

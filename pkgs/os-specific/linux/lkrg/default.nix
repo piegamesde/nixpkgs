@@ -58,7 +58,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ chivay ];
     platforms = platforms.linux;
-    broken =
-      kernel.kernelOlder "5.10" || kernel.kernelAtLeast "6.1" || isKernelRT;
+    broken = kernel.kernelOlder "5.10" || kernel.kernelAtLeast "6.1" || isKernelRT;
   };
 }

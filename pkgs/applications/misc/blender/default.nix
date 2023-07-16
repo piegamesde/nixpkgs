@@ -227,9 +227,7 @@ stdenv.mkDerivation rec {
       "-DWITH_IMAGE_OPENJPEG=ON"
       "-DWITH_OPENCOLLADA=${if colladaSupport then "ON" else "OFF"}"
     ]
-    ++ lib.optionals stdenv.hostPlatform.isAarch64 [
-      "-DWITH_CYCLES_EMBREE=OFF"
-    ]
+    ++ lib.optionals stdenv.hostPlatform.isAarch64 [ "-DWITH_CYCLES_EMBREE=OFF" ]
     ++ lib.optionals stdenv.isDarwin [
       "-DWITH_CYCLES_OSL=OFF" # requires LLVM
       "-DWITH_OPENVDB=OFF" # OpenVDB currently doesn't build on darwin

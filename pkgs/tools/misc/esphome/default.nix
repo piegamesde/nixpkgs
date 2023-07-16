@@ -11,10 +11,7 @@
 let
   python = python3.override {
     packageOverrides =
-      self: super: {
-        esphome-dashboard = self.callPackage ./dashboard.nix { };
-      }
-    ;
+      self: super: { esphome-dashboard = self.callPackage ./dashboard.nix { }; };
   };
 in
 python.pkgs.buildPythonApplication rec {

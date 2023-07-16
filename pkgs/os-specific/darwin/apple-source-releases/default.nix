@@ -268,8 +268,7 @@ let
         "sha256-FwgGoP97Sj47VGXMxbY0oUugKf7jtxAL1RzL6+315cU="
     ; # This is from 10.8 :(
     IOUSBFamily_older =
-      fetchApple "osx-10.8.4"
-        "sha256-5apCsqtHK0EC8x1uPTTll43x69eal/nsokfS80qLlxs="
+      fetchApple "osx-10.8.4" "sha256-5apCsqtHK0EC8x1uPTTll43x69eal/nsokfS80qLlxs="
         "IOUSBFamily"
     ; # This is even older :(
     IOKitUser =
@@ -280,8 +279,7 @@ let
   };
 
   IOKitSrcs =
-    lib.mapAttrs
-      (name: value: if lib.isFunction value then value name else value)
+    lib.mapAttrs (name: value: if lib.isFunction value then value name else value)
       IOKitSpecs
   ;
 in

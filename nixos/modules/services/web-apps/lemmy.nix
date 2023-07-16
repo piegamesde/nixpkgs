@@ -59,19 +59,13 @@ in
         options.hostname = mkOption {
           type = types.str;
           default = null;
-          description =
-            lib.mdDoc
-              "The domain name of your instance (eg 'lemmy.ml')."
-          ;
+          description = lib.mdDoc "The domain name of your instance (eg 'lemmy.ml').";
         };
 
         options.port = mkOption {
           type = types.port;
           default = 8536;
-          description =
-            lib.mdDoc
-              "Port where lemmy should listen for incoming requests."
-          ;
+          description = lib.mdDoc "Port where lemmy should listen for incoming requests.";
         };
 
         options.federation = {
@@ -104,8 +98,7 @@ in
         mapAttrs (name: mkDefault) {
           bind = "127.0.0.1";
           tls_enabled = true;
-          pictrs_url =
-            with config.services.pict-rs; "http://${address}:${toString port}";
+          pictrs_url = with config.services.pict-rs; "http://${address}:${toString port}";
           actor_name_max_length = 20;
 
           rate_limit.message = 180;
@@ -205,9 +198,7 @@ in
         ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ]
       ;
 
-      requires = lib.optionals cfg.database.createLocally [
-        "postgresql.service"
-      ];
+      requires = lib.optionals cfg.database.createLocally [ "postgresql.service" ];
 
       serviceConfig = {
         DynamicUser = true;

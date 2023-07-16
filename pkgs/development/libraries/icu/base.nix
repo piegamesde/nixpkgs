@@ -34,10 +34,7 @@ let
     # https://sourceware.org/glibc/wiki/Release/2.26#Removal_of_.27xlocale.h.27
     postPatch =
       if
-        (
-          stdenv.hostPlatform.libc == "glibc"
-          || stdenv.hostPlatform.libc == "musl"
-        )
+        (stdenv.hostPlatform.libc == "glibc" || stdenv.hostPlatform.libc == "musl")
         && lib.versionOlder version "62.1"
       then
         "substituteInPlace i18n/digitlst.cpp --replace '<xlocale.h>' '<locale.h>'"
@@ -124,8 +121,7 @@ let
         ''
           substituteInPlace "$dev/bin/icu-config" \
             ${
-              lib.concatMapStringsSep " " (r: "--replace '${r.from}' '${r.to}'")
-                replacements
+              lib.concatMapStringsSep " " (r: "--replace '${r.from}' '${r.to}'") replacements
             }
         ''
       )
@@ -159,9 +155,6 @@ in
 stdenv.mkDerivation (
   finalAttrs:
   attrs // {
-    passthru.tests.pkg-config =
-      testers.testMetaPkgConfig
-        finalAttrs.finalPackage
-    ;
+    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
   }
 )

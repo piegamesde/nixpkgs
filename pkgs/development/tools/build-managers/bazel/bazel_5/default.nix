@@ -218,11 +218,7 @@ stdenv.mkDerivation rec {
       (substituteAll {
         src = ./no-arc.patch;
         multiBinPatch =
-          if stdenv.hostPlatform.system == "aarch64-darwin" then
-            "arm64"
-          else
-            "x86_64"
-        ;
+          if stdenv.hostPlatform.system == "aarch64-darwin" then "arm64" else "x86_64";
       })
 
       # --experimental_strict_action_env (which may one day become the default
@@ -289,18 +285,16 @@ stdenv.mkDerivation rec {
             # yes, this path is kinda magic. Sorry.
             "$HOME/.cache/bazel/_bazel_nixbld";
         in
-        runLocal "bazel-extracted-homedir"
-          { passthru.install_dir = install_dir; }
-          ''
-            export HOME=$(mktemp -d)
-            touch WORKSPACE # yeah, everything sucks
-            install_base="$(${bazelPkg}/bin/bazel info | grep install_base)"
-            # assert it’s actually below install_dir
-            [[ "$install_base" =~ ${install_dir} ]] \
-              || (echo "oh no! $install_base but we are \
-            trying to copy ${install_dir} to $out instead!"; exit 1)
-            cp -R ${install_dir} $out
-          ''
+        runLocal "bazel-extracted-homedir" { passthru.install_dir = install_dir; } ''
+          export HOME=$(mktemp -d)
+          touch WORKSPACE # yeah, everything sucks
+          install_base="$(${bazelPkg}/bin/bazel info | grep install_base)"
+          # assert it’s actually below install_dir
+          [[ "$install_base" =~ ${install_dir} ]] \
+            || (echo "oh no! $install_base but we are \
+          trying to copy ${install_dir} to $out instead!"; exit 1)
+          cp -R ${install_dir} $out
+        ''
       ;
 
       bazelTest =
@@ -644,8 +638,7 @@ stdenv.mkDerivation rec {
         patchShebangs .
       '';
     in
-    lib.optionalString stdenv.hostPlatform.isDarwin darwinPatches
-    + genericPatches
+    lib.optionalString stdenv.hostPlatform.isDarwin darwinPatches + genericPatches
   ;
 
   buildInputs = [ buildJdk ] ++ defaultShellUtils;

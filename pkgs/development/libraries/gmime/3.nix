@@ -63,10 +63,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
       cp ${
-        if stdenv.hostPlatform.isMusl then
-          ./musl-iconv-detect.h
-        else
-          ./iconv-detect.h
+        if stdenv.hostPlatform.isMusl then ./musl-iconv-detect.h else ./iconv-detect.h
       } ./iconv-detect.h
     ''
   ;

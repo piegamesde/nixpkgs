@@ -114,8 +114,7 @@
   (
     o: {
       preBuild = "coq_makefile -f _CoqProject -o Makefile${
-          lib.optionalString
-            (lib.versionAtLeast o.version "1.2.1" || o.version == "dev")
+          lib.optionalString (lib.versionAtLeast o.version "1.2.1" || o.version == "dev")
             ".coq"
         }";
     }

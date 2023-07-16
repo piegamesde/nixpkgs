@@ -39,10 +39,7 @@ let
   parseGit =
     src:
     let
-      parts =
-        builtins.match "git\\+([^?]+)(\\?(rev|tag|branch)=(.*))?#(.*)"
-          src
-      ;
+      parts = builtins.match "git\\+([^?]+)(\\?(rev|tag|branch)=(.*))?#(.*)" src;
       type = builtins.elemAt parts 2; # rev, tag or branch
       value = builtins.elemAt parts 3;
     in
@@ -57,11 +54,7 @@ let
 
   # shadows args.lockFileContents
   lockFileContents =
-    if lockFile != null then
-      builtins.readFile lockFile
-    else
-      args.lockFileContents
-  ;
+    if lockFile != null then builtins.readFile lockFile else args.lockFileContents;
 
   parsedLockFile = builtins.fromTOML lockFileContents;
 

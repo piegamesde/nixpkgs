@@ -34,9 +34,7 @@ in
 # TODO: loop over targetPrefixed binaries too
 stdenv.mkDerivation {
   pname =
-    "${targetPrefix}cctools-binutils-darwin"
-    + lib.optionalString dualAs "-dualas"
-  ;
+    "${targetPrefix}cctools-binutils-darwin" + lib.optionalString dualAs "-dualas";
   inherit (cctools) version;
   outputs = [
     "out"
@@ -113,9 +111,7 @@ stdenv.mkDerivation {
     ''
   ;
 
-  nativeBuildInputs = lib.optionals (stdenv.isAarch64 || dualAs) [
-    makeWrapper
-  ];
+  nativeBuildInputs = lib.optionals (stdenv.isAarch64 || dualAs) [ makeWrapper ];
 
   passthru = {
     inherit targetPrefix;

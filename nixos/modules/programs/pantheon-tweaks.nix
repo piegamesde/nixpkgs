@@ -15,8 +15,7 @@ with lib;
   ###### interface
   options = {
     programs.pantheon-tweaks.enable = mkEnableOption (
-      lib.mdDoc
-        "Pantheon Tweaks, an unofficial system settings panel for Pantheon"
+      lib.mdDoc "Pantheon Tweaks, an unofficial system settings panel for Pantheon"
     );
   };
 

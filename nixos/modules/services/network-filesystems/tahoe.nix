@@ -255,9 +255,9 @@ in
             # arguments to $(tahoe run). The node directory must come first,
             # and arguments which alter Twisted's behavior come afterwards.
             ExecStart = ''
-              ${settings.package}/bin/tahoe run ${
-                lib.escapeShellArg nodedir
-              } --pidfile=${lib.escapeShellArg pidfile}
+              ${settings.package}/bin/tahoe run ${lib.escapeShellArg nodedir} --pidfile=${
+                lib.escapeShellArg pidfile
+              }
             '';
           };
           preStart = ''
@@ -360,9 +360,7 @@ in
           description = "Tahoe LAFS node ${node}";
           wantedBy = [ "multi-user.target" ];
           path = [ settings.package ];
-          restartTriggers = [
-            config.environment.etc."tahoe-lafs/${node}.cfg".source
-          ];
+          restartTriggers = [ config.environment.etc."tahoe-lafs/${node}.cfg".source ];
           serviceConfig = {
             Type = "simple";
             PIDFile = pidfile;
@@ -370,17 +368,15 @@ in
             # arguments to $(tahoe run). The node directory must come first,
             # and arguments which alter Twisted's behavior come afterwards.
             ExecStart = ''
-              ${settings.package}/bin/tahoe run ${
-                lib.escapeShellArg nodedir
-              } --pidfile=${lib.escapeShellArg pidfile}
+              ${settings.package}/bin/tahoe run ${lib.escapeShellArg nodedir} --pidfile=${
+                lib.escapeShellArg pidfile
+              }
             '';
           };
           preStart = ''
             if [ ! -d ${lib.escapeShellArg nodedir} ]; then
               mkdir -p /var/db/tahoe-lafs
-              tahoe create-node --hostname=localhost ${
-                lib.escapeShellArg nodedir
-              }
+              tahoe create-node --hostname=localhost ${lib.escapeShellArg nodedir}
             fi
 
             # Tahoe has created a predefined tahoe.cfg which we must now
@@ -388,9 +384,7 @@ in
             # XXX I thought that a symlink would work here, but it doesn't, so
             # we must do this on every prestart. Fixes welcome.
             # rm ${nodedir}/tahoe.cfg
-            # ln -s /etc/tahoe-lafs/${
-              lib.escapeShellArg node
-            }.cfg ${nodedir}/tahoe.cfg
+            # ln -s /etc/tahoe-lafs/${lib.escapeShellArg node}.cfg ${nodedir}/tahoe.cfg
             cp /etc/tahoe-lafs/${lib.escapeShellArg node}.cfg ${
               lib.escapeShellArg nodedir
             }/tahoe.cfg

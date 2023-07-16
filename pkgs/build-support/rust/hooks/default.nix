@@ -130,8 +130,7 @@ in
               cargoConfig = ''
                 [target."${rust.toRustTarget stdenv.buildPlatform}"]
                 "linker" = "${ccForBuild}"
-                ${lib.optionalString
-                  (stdenv.buildPlatform.config != stdenv.hostPlatform.config)
+                ${lib.optionalString (stdenv.buildPlatform.config != stdenv.hostPlatform.config)
                   ''
                     [target."${shortTarget}"]
                     "linker" = "${ccForHost}"

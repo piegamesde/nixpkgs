@@ -32,14 +32,11 @@ let
   subpathInvalidReason =
     value:
     if !isString value then
-      "The given value is of type ${
-        builtins.typeOf value
-      }, but a string was expected"
+      "The given value is of type ${builtins.typeOf value}, but a string was expected"
     else if value == "" then
       "The given string is empty"
     else if substring 0 1 value == "/" then
-      ''
-        The given string "${value}" starts with a `/`, representing an absolute path''
+      ''The given string "${value}" starts with a `/`, representing an absolute path''
     # We don't support ".." components, see ./path.md#parent-directory
     else if match "(.*/)?\\.\\.(/.*)?" value != null then
       ''

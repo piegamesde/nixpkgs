@@ -220,18 +220,13 @@ stdenv.mkDerivation rec {
     # though, so we need to replace the absolute path with a local one during build.
     # We are using a symlink that will be overridden during installation.
     mkdir -p ${placeholder "out"}/lib
-    ln -s $PWD/src/libnm-client-impl/libnm.so.0 ${
-      placeholder "out"
-    }/lib/libnm.so.0
+    ln -s $PWD/src/libnm-client-impl/libnm.so.0 ${placeholder "out"}/lib/libnm.so.0
   '';
 
-  postFixup =
-    lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform)
-      ''
-        cp -r ${buildPackages.networkmanager.devdoc} $devdoc
-        cp -r ${buildPackages.networkmanager.man} $man
-      ''
-  ;
+  postFixup = lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+    cp -r ${buildPackages.networkmanager.devdoc} $devdoc
+    cp -r ${buildPackages.networkmanager.man} $man
+  '';
 
   passthru = {
     updateScript = gnome.updateScript {

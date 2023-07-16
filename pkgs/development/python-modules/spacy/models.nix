@@ -26,8 +26,7 @@ let
 
     let
       lang = builtins.substring 0 2 pname;
-      requires-protobuf =
-        pname == "fr_dep_news_trf" || pname == "uk_core_news_trf";
+      requires-protobuf = pname == "fr_dep_news_trf" || pname == "uk_core_news_trf";
     in
     buildPythonPackage {
       inherit pname version;

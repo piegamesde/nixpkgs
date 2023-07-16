@@ -78,16 +78,12 @@ let
 
           ${
             optionalString i.useVmac (
-              "use_vmac"
-              + optionalString (i.vmacInterface != null) " ${i.vmacInterface}"
+              "use_vmac" + optionalString (i.vmacInterface != null) " ${i.vmacInterface}"
             )
           }
           ${optionalString i.vmacXmitBase "vmac_xmit_base"}
 
-          ${
-            optionalString (i.unicastSrcIp != null)
-              "unicast_src_ip ${i.unicastSrcIp}"
-          }
+          ${optionalString (i.unicastSrcIp != null) "unicast_src_ip ${i.unicastSrcIp}"}
           unicast_peer {
             ${concatStringsSep "\n" i.unicastPeers}
           }
@@ -363,10 +359,7 @@ in
           PIDFile = pidFile;
           KillMode = "process";
           RuntimeDirectory = "keepalived";
-          EnvironmentFile =
-            lib.optional (cfg.secretFile != null)
-              cfg.secretFile
-          ;
+          EnvironmentFile = lib.optional (cfg.secretFile != null) cfg.secretFile;
           ExecStartPre = lib.optional (cfg.secretFile != null) (
             pkgs.writeShellScript "keepalived-pre-start" ''
               umask 077

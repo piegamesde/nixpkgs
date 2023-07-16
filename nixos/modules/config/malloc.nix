@@ -99,10 +99,7 @@ in
         ${concatStringsSep "\n" (
           mapAttrsToList
             (
-              name: value:
-              "- `${name}`: ${
-                replaceStrings [ "\n" ] [ " " ] value.description
-              }"
+              name: value: "- `${name}`: ${replaceStrings [ "\n" ] [ " " ] value.description}"
             )
             providers
         )}

@@ -244,10 +244,7 @@ in
       description = "AFS client";
       wantedBy = [ "multi-user.target" ];
       after = singleton (
-        if cfg.startDisconnected then
-          "network.target"
-        else
-          "network-online.target"
+        if cfg.startDisconnected then "network.target" else "network-online.target"
       );
       serviceConfig = {
         RemainAfterExit = true;
@@ -261,10 +258,7 @@ in
         ${openafsBin}/sbin/afsd \
           -mountdir ${cfg.mountPoint} \
           -confdir ${afsConfig} \
-          ${
-            optionalString (!cfg.cache.diskless)
-              "-cachedir ${cfg.cache.directory}"
-          } \
+          ${optionalString (!cfg.cache.diskless) "-cachedir ${cfg.cache.directory}"} \
           -blocks ${toString cfg.cache.blocks} \
           -chunksize ${toString cfg.cache.chunksize} \
           ${optionalString cfg.cache.diskless "-memcache"} \
@@ -273,8 +267,7 @@ in
           ${if cfg.sparse then "-dynroot-sparse" else "-dynroot"} \
           ${optionalString cfg.afsdb "-afsdb"}
         ${openafsBin}/bin/fs setcrypt ${if cfg.crypt then "on" else "off"}
-        ${optionalString cfg.startDisconnected
-          "${openafsBin}/bin/fs discon offline"}
+        ${optionalString cfg.startDisconnected "${openafsBin}/bin/fs discon offline"}
       '';
 
       # Doing this in preStop, because after these commands AFS is basically

@@ -37,9 +37,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableVTK [ "-DGDCM_USE_VTK=ON" ]
     ++ lib.optionals enablePython [
       "-DGDCM_WRAP_PYTHON:BOOL=ON"
-      "-DGDCM_INSTALL_PYTHONMODULE_DIR=${
-        placeholder "out"
-      }/${python.sitePackages}"
+      "-DGDCM_INSTALL_PYTHONMODULE_DIR=${placeholder "out"}/${python.sitePackages}"
     ]
   ;
 

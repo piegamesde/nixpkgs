@@ -64,21 +64,14 @@ buildDunePackage rec {
     [ perl ]
     ++ [
       (
-        if lib.versionAtLeast version "1.15" || version == "dev" then
-          menhir
-        else
-          camlp5
+        if lib.versionAtLeast version "1.15" || version == "dev" then menhir else camlp5
       )
     ]
-    ++
-      lib.optional (lib.versionAtLeast version "1.16" || version == "dev")
-        atdgen
+    ++ lib.optional (lib.versionAtLeast version "1.16" || version == "dev") atdgen
   ;
   buildInputs =
     [ ncurses ]
-    ++
-      lib.optional (lib.versionAtLeast version "1.16" || version == "dev")
-        atdgen
+    ++ lib.optional (lib.versionAtLeast version "1.16" || version == "dev") atdgen
   ;
 
   propagatedBuildInputs =

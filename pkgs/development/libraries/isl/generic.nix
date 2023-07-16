@@ -24,8 +24,7 @@ stdenv.mkDerivation {
 
   strictDeps = true;
   nativeBuildInputs =
-    lib.optionals
-      (stdenv.hostPlatform.isRiscV && lib.versionOlder version "0.24")
+    lib.optionals (stdenv.hostPlatform.isRiscV && lib.versionOlder version "0.24")
       [ autoreconfHook ]
   ;
   buildInputs = [ gmp ];

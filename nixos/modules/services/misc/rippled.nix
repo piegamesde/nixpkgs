@@ -18,9 +18,7 @@ let
     db: ''
       type=${db.type}
       path=${db.path}
-      ${optionalString (db.compression != null) (
-        "compression=${b2i db.compression}"
-      )}
+      ${optionalString (db.compression != null) ("compression=${b2i db.compression}")}
       ${optionalString (db.onlineDelete != null) (
         "online_delete=${toString db.onlineDelete}"
       )}
@@ -157,10 +155,7 @@ let
         };
 
         admin = mkOption {
-          description =
-            lib.mdDoc
-              "A comma-separated list of admin IP addresses."
-          ;
+          description = lib.mdDoc "A comma-separated list of admin IP addresses.";
           type = types.listOf types.str;
           default = [ "127.0.0.1" ];
         };
@@ -221,10 +216,7 @@ let
       };
 
       onlineDelete = mkOption {
-        description =
-          lib.mdDoc
-            "Enable automatic purging of older ledger information."
-        ;
+        description = lib.mdDoc "Enable automatic purging of older ledger information.";
         type = types.nullOr (types.addCheck types.int (v: v > 256));
         default = cfg.ledgerHistory;
         defaultText = literalExpression "config.${opt.ledgerHistory}";
@@ -447,10 +439,7 @@ in
         };
 
         prefix = mkOption {
-          description =
-            lib.mdDoc
-              "A string prepended to each collected metric."
-          ;
+          description = lib.mdDoc "A string prepended to each collected metric.";
           default = "";
           type = types.str;
         };

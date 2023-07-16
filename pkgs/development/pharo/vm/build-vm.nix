@@ -180,9 +180,7 @@ stdenv.mkDerivation rec {
       mkdir -p "$out/bin"
 
       # Note: include ELF rpath in LD_LIBRARY_PATH for finding libc.
-      libs=$out:$(patchelf --print-rpath "$out/pharo"):${
-        lib.makeLibraryPath libs
-      }
+      libs=$out:$(patchelf --print-rpath "$out/pharo"):${lib.makeLibraryPath libs}
 
       # Create the script
       cat > "$out/bin/${cmd}" <<EOF

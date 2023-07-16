@@ -9,9 +9,7 @@ let
 in
 {
   options.services.podgrab = with lib; {
-    enable = mkEnableOption (
-      lib.mdDoc "Podgrab, a self-hosted podcast manager"
-    );
+    enable = mkEnableOption (lib.mdDoc "Podgrab, a self-hosted podcast manager");
 
     passwordFile = mkOption {
       type = with types; nullOr str;
@@ -46,9 +44,7 @@ in
       };
       serviceConfig = {
         DynamicUser = true;
-        EnvironmentFile = lib.optionals (cfg.passwordFile != null) [
-          cfg.passwordFile
-        ];
+        EnvironmentFile = lib.optionals (cfg.passwordFile != null) [ cfg.passwordFile ];
         ExecStart = "${pkgs.podgrab}/bin/podgrab";
         WorkingDirectory = "${pkgs.podgrab}/share";
         StateDirectory = [

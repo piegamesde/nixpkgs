@@ -92,8 +92,7 @@ lib.makeOverridable (
         else if type == "url" then
           fetchurl attrs.source
         else
-          throw
-            ''buildRubyGem: don't know how to build a gem of type "${type}"''
+          throw ''buildRubyGem: don't know how to build a gem of type "${type}"''
       );
     documentFlag =
       if document == [ ] then
@@ -161,9 +160,9 @@ lib.makeOverridable (
       # As of ruby 3.0, ruby headers require -fdeclspec when building with clang
       # Introduced in https://github.com/ruby/ruby/commit/0958e19ffb047781fe1506760c7cbd8d7fe74e57
       env.NIX_CFLAGS_COMPILE = toString (
-        lib.optionals
-          (stdenv.cc.isClang && lib.versionAtLeast ruby.version.major "3")
-          [ "-fdeclspec" ]
+        lib.optionals (stdenv.cc.isClang && lib.versionAtLeast ruby.version.major "3") [
+          "-fdeclspec"
+        ]
       );
 
       buildPhase =

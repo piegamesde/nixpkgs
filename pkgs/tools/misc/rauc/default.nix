@@ -64,9 +64,7 @@ stdenv.mkDerivation rec {
     (lib.mesonOption "dbusinterfacesdir"
       "${placeholder "out"}/share/dbus-1/interfaces"
     )
-    (lib.mesonOption "dbuspolicydir"
-      "${placeholder "out"}/share/dbus-1/system.d"
-    )
+    (lib.mesonOption "dbuspolicydir" "${placeholder "out"}/share/dbus-1/system.d")
     (lib.mesonOption "dbussystemservicedir"
       "${placeholder "out"}/share/dbus-1/system-services"
     )

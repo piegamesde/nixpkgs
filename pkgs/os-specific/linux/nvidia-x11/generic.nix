@@ -124,8 +124,7 @@ let
           sha256 = sha256_aarch64;
         }
       else
-        throw
-          "nvidia-x11 does not support platform ${stdenv.hostPlatform.system}"
+        throw "nvidia-x11 does not support platform ${stdenv.hostPlatform.system}"
     ;
 
     patches = if libsOnly then null else patches;
@@ -200,8 +199,7 @@ let
           }
       ;
       persistenced =
-        mapNullable
-          (hash: callPackage (import ./persistenced.nix self hash) { })
+        mapNullable (hash: callPackage (import ./persistenced.nix self hash) { })
           persistencedSha256
       ;
       inherit persistencedVersion settingsVersion;

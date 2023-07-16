@@ -282,10 +282,9 @@ self: super:
     }
   );
 
-  cmp-nvim-lsp-signature-help =
-    super.cmp-nvim-lsp-signature-help.overrideAttrs
-      (old: { dependencies = with self; [ nvim-cmp ]; })
-  ;
+  cmp-nvim-lsp-signature-help = super.cmp-nvim-lsp-signature-help.overrideAttrs (
+    old: { dependencies = with self; [ nvim-cmp ]; }
+  );
 
   cmp-nvim-tags = super.cmp-nvim-tags.overrideAttrs (
     old: { dependencies = with self; [ nvim-cmp ]; }
@@ -984,8 +983,7 @@ self: super:
 
   orgmode = super.orgmode.overrideAttrs (
     old: {
-      dependencies =
-        with self; [ (nvim-treesitter.withPlugins (p: [ p.org ])) ];
+      dependencies = with self; [ (nvim-treesitter.withPlugins (p: [ p.org ])) ];
     }
   );
 
@@ -1069,9 +1067,7 @@ self: super:
 
         buildInputs =
           [ openssl ]
-          ++ lib.optionals stdenv.isDarwin [
-            darwin.apple_sdk.frameworks.Security
-          ]
+          ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
         ;
 
         cargoBuildFlags = [ "--workspace" ];

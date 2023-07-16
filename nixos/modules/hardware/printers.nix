@@ -33,8 +33,8 @@ let
 
   # "graph but not # or /" can't be implemented as regex alone due to missing lookahead support
   noInvalidChars = str: all (c: c != "#" && c != "/") (stringToCharacters str);
-  printerName =
-    (types.addCheck (types.strMatching "[[:graph:]]+") noInvalidChars) // {
+  printerName = (types.addCheck (types.strMatching "[[:graph:]]+") noInvalidChars)
+    // {
       description = "printable string without spaces, # and /";
     };
 in
@@ -144,8 +144,7 @@ in
         ))
         # Note: if cupsd is "stateless" the service can't be stopped,
         # otherwise the configuration will be wiped on the next start.
-        (optionalString
-          (with config.services.printing; startWhenNeeded && !stateless)
+        (optionalString (with config.services.printing; startWhenNeeded && !stateless)
           "systemctl stop cups.service"
         )
       ];

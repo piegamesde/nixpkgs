@@ -46,9 +46,7 @@ rec {
         feat: info:
         (lib.optionals (hasFeature feat) (
           (lib.optionals (builtins.hasAttr "native" info) info.native)
-          ++ (lib.optionals (builtins.hasAttr "pythonNative" info)
-            info.pythonNative
-          )
+          ++ (lib.optionals (builtins.hasAttr "pythonNative" info) info.pythonNative)
         ))
       )
       featuresInfo
@@ -59,9 +57,7 @@ rec {
         feat: info:
         (lib.optionals (hasFeature feat) (
           (lib.optionals (builtins.hasAttr "runtime" info) info.runtime)
-          ++ (lib.optionals (builtins.hasAttr "pythonRuntime" info)
-            info.pythonRuntime
-          )
+          ++ (lib.optionals (builtins.hasAttr "pythonRuntime" info) info.pythonRuntime)
         ))
       )
       featuresInfo
@@ -101,9 +97,7 @@ rec {
     ]
     ++ lib.optionals (hasFeature "gr-audio") [ "share/gnuradio/examples/audio" ]
     ++ lib.optionals (hasFeature "gr-uhd") [ "share/gnuradio/examples/uhd" ]
-    ++ lib.optionals (hasFeature "gr-qtgui") [
-      "share/gnuradio/examples/qt-gui"
-    ]
+    ++ lib.optionals (hasFeature "gr-qtgui") [ "share/gnuradio/examples/qt-gui" ]
   ;
   postInstall =
     ""

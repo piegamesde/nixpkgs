@@ -56,8 +56,7 @@ in
       serviceConfig =
         let
           needsPrivileges = cfg.port < 1024;
-          capabilities =
-            [ "" ] ++ optionals needsPrivileges [ "CAP_NET_BIND_SERVICE" ];
+          capabilities = [ "" ] ++ optionals needsPrivileges [ "CAP_NET_BIND_SERVICE" ];
           rootDirectory = "/run/endlessh";
         in
         {
@@ -115,8 +114,7 @@ in
       ;
     };
 
-    networking.firewall.allowedTCPPorts =
-      with cfg; optionals openFirewall [ port ];
+    networking.firewall.allowedTCPPorts = with cfg; optionals openFirewall [ port ];
   };
 
   meta.maintainers = with maintainers; [ azahi ];

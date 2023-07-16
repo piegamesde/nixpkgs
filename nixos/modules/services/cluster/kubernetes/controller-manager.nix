@@ -53,10 +53,7 @@ in
     };
 
     bindAddress = mkOption {
-      description =
-        lib.mdDoc
-          "Kubernetes controller manager listening address."
-      ;
+      description = lib.mdDoc "Kubernetes controller manager listening address.";
       default = "127.0.0.1";
       type = str;
     };
@@ -108,10 +105,7 @@ in
     };
 
     securePort = mkOption {
-      description =
-        lib.mdDoc
-          "Kubernetes controller manager secure listening port."
-      ;
+      description = lib.mdDoc "Kubernetes controller manager secure listening port.";
       default = 10252;
       type = int;
     };
@@ -159,29 +153,23 @@ in
         Slice = "kubernetes.slice";
         ExecStart = ''
           ${top.package}/bin/kube-controller-manager \
-                    --allocate-node-cidrs=${
-                      boolToString cfg.allocateNodeCIDRs
-                    } \
+                    --allocate-node-cidrs=${boolToString cfg.allocateNodeCIDRs} \
                     --bind-address=${cfg.bindAddress} \
                     ${
-                      optionalString (cfg.clusterCidr != null)
-                        "--cluster-cidr=${cfg.clusterCidr}"
+                      optionalString (cfg.clusterCidr != null) "--cluster-cidr=${cfg.clusterCidr}"
                     } \
                     ${
                       optionalString (cfg.featureGates != [ ])
                         "--feature-gates=${
-                          concatMapStringsSep "," (feature: "${feature}=true")
-                            cfg.featureGates
+                          concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates
                         }"
                     } \
                     --kubeconfig=${
-                      top.lib.mkKubeConfig "kube-controller-manager"
-                        cfg.kubeconfig
+                      top.lib.mkKubeConfig "kube-controller-manager" cfg.kubeconfig
                     } \
                     --leader-elect=${boolToString cfg.leaderElect} \
                     ${
-                      optionalString (cfg.rootCaFile != null)
-                        "--root-ca-file=${cfg.rootCaFile}"
+                      optionalString (cfg.rootCaFile != null) "--root-ca-file=${cfg.rootCaFile}"
                     } \
                     --secure-port=${toString cfg.securePort} \
                     ${
@@ -189,21 +177,18 @@ in
                         "--service-account-private-key-file=${cfg.serviceAccountKeyFile}"
                     } \
                     ${
-                      optionalString (cfg.tlsCertFile != null)
-                        "--tls-cert-file=${cfg.tlsCertFile}"
+                      optionalString (cfg.tlsCertFile != null) "--tls-cert-file=${cfg.tlsCertFile}"
                     } \
                     ${
                       optionalString (cfg.tlsKeyFile != null)
                         "--tls-private-key-file=${cfg.tlsKeyFile}"
                     } \
                     ${
-                      optionalString
-                        (elem "RBAC" top.apiserver.authorizationMode)
+                      optionalString (elem "RBAC" top.apiserver.authorizationMode)
                         "--use-service-account-credentials"
                     } \
                     ${
-                      optionalString (cfg.verbosity != null)
-                        "--v=${toString cfg.verbosity}"
+                      optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"
                     } \
                     ${cfg.extraOpts}
         '';

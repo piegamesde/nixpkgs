@@ -73,9 +73,7 @@ in
             } --server-datafolder=${cfg.dataDir}";
           Restart = "on-failure";
         }
-        (mkIf (cfg.dataDir == "/var/lib/duplicati") {
-          StateDirectory = "duplicati";
-        })
+        (mkIf (cfg.dataDir == "/var/lib/duplicati") { StateDirectory = "duplicati"; })
       ];
     };
 

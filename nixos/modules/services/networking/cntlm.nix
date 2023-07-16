@@ -105,10 +105,7 @@ in
     port = mkOption {
       default = [ 3128 ];
       type = types.listOf types.port;
-      description =
-        lib.mdDoc
-          "Specifies on which ports the cntlm daemon listens."
-      ;
+      description = lib.mdDoc "Specifies on which ports the cntlm daemon listens.";
     };
 
     extraConfig = mkOption {

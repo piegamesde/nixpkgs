@@ -32,8 +32,7 @@
   # but may be helpful when you want to embed jit-compiled raw lua blobs in
   # binaries that you want to be reproducible.
   deterministicStringIds ? false,
-  luaAttr ?
-    "luajit_${lib.versions.major version}_${lib.versions.minor version}",
+  luaAttr ? "luajit_${lib.versions.major version}_${lib.versions.minor version}",
 }@inputs:
 assert enableJITDebugModule -> enableJIT;
 assert enableGDBJITSupport -> enableJIT;

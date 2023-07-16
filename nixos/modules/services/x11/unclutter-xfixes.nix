@@ -39,10 +39,7 @@ in
     };
 
     threshold = mkOption {
-      description =
-        lib.mdDoc
-          "Minimum number of pixels considered cursor movement."
-      ;
+      description = lib.mdDoc "Minimum number of pixels considered cursor movement.";
       type = types.int;
       default = 1;
     };

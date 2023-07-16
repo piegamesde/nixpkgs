@@ -16,9 +16,7 @@
         default = 10;
       };
     })
-    (lib.types.submodule {
-      options.str = lib.mkOption { type = lib.types.str; };
-    })
+    (lib.types.submodule { options.str = lib.mkOption { type = lib.types.str; }; })
   ];
 
   config.theOption.str = "hello";

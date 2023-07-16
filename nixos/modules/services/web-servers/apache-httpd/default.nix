@@ -46,17 +46,11 @@ let
         hostOpts:
         hostOpts // {
           certName =
-            if hostOpts.useACMEHost != null then
-              hostOpts.useACMEHost
-            else
-              hostOpts.hostName
+            if hostOpts.useACMEHost != null then hostOpts.useACMEHost else hostOpts.hostName
           ;
         }
       )
-      (
-        filter (hostOpts: hostOpts.enableACME || hostOpts.useACMEHost != null)
-          vhosts
-      )
+      (filter (hostOpts: hostOpts.enableACME || hostOpts.useACMEHost != null) vhosts)
   ;
 
   dependentCertNames = unique (
@@ -196,8 +190,7 @@ let
   luaSetPaths =
     let
       # support both lua and lua.withPackages derivations
-      luaversion =
-        cfg.package.lua5.lua.luaversion or cfg.package.lua5.luaversion;
+      luaversion = cfg.package.lua5.lua.luaversion or cfg.package.lua5.luaversion;
     in
     ''
       <IfModule mod_lua.c>
@@ -211,8 +204,7 @@ let
     hostOpts:
     let
       adminAddr =
-        if hostOpts.adminAddr != null then hostOpts.adminAddr else cfg.adminAddr
-      ;
+        if hostOpts.adminAddr != null then hostOpts.adminAddr else cfg.adminAddr;
       listen = filter (listen: !listen.ssl) (mkListenInfo hostOpts);
       listenSSL = filter (listen: listen.ssl) (mkListenInfo hostOpts);
 
@@ -227,11 +219,7 @@ let
       ;
 
       sslServerCert =
-        if useACME then
-          "${sslCertDir}/fullchain.pem"
-        else
-          hostOpts.sslServerCert
-      ;
+        if useACME then "${sslCertDir}/fullchain.pem" else hostOpts.sslServerCert;
       sslServerKey =
         if useACME then "${sslCertDir}/key.pem" else hostOpts.sslServerKey;
       sslServerChain =
@@ -249,8 +237,7 @@ let
     in
     optionalString (listen != [ ]) ''
       <VirtualHost ${
-        concatMapStringsSep " " (listen: "${listen.ip}:${toString listen.port}")
-          listen
+        concatMapStringsSep " " (listen: "${listen.ip}:${toString listen.port}") listen
       }>
           ServerName ${hostOpts.hostName}
           ${
@@ -349,11 +336,7 @@ let
                 ${config.extraConfig}
               </Location>
             '')
-            (
-              sortProperties (
-                mapAttrsToList (k: v: v // { location = k; }) locations
-              )
-            )
+            (sortProperties (mapAttrsToList (k: v: v // { location = k; }) locations))
         )
       ;
     in
@@ -460,8 +443,7 @@ let
         else if isAttrs module then
           { inherit (module) name path; }
         else
-          throw
-            "Expecting either a string or attribute set including a name and path."
+          throw "Expecting either a string or attribute set including a name and path."
       ;
     in
     concatMapStringsSep "\n"
@@ -930,9 +912,7 @@ in
               (
                 hostOpts:
                 with hostOpts;
-                !(addSSL && onlySSL)
-                && !(forceSSL && onlySSL)
-                && !(addSSL && forceSSL)
+                !(addSSL && onlySSL) && !(forceSSL && onlySSL) && !(addSSL && forceSSL)
               )
               vhosts
           ;
@@ -944,8 +924,7 @@ in
         }
         {
           assertion =
-            all
-              (hostOpts: !(hostOpts.enableACME && hostOpts.useACMEHost != null))
+            all (hostOpts: !(hostOpts.enableACME && hostOpts.useACMEHost != null))
               vhosts
           ;
           message = ''
@@ -979,10 +958,7 @@ in
         (name: hostOpts: ''
           Using config.services.httpd.virtualHosts."${name}".servedFiles is deprecated and will become unsupported in a future release. Your configuration will continue to work as is but please migrate your configuration to config.services.httpd.virtualHosts."${name}".locations before the 20.09 release of NixOS.
         '')
-        (
-          filterAttrs (name: hostOpts: hostOpts.servedFiles != [ ])
-            cfg.virtualHosts
-        )
+        (filterAttrs (name: hostOpts: hostOpts.servedFiles != [ ]) cfg.virtualHosts)
     ;
 
     users.users = optionalAttrs (cfg.user == "wwwrun") {
@@ -1011,20 +987,14 @@ in
                 # if acmeRoot is null inherit config.security.acme
                 # Since config.security.acme.certs.<cert>.webroot's own default value
                 # should take precedence set priority higher than mkOptionDefault
-                webroot =
-                  mkOverride (if hasRoot then 1000 else 2000)
-                    hostOpts.acmeRoot
-                ;
+                webroot = mkOverride (if hasRoot then 1000 else 2000) hostOpts.acmeRoot;
                 # Also nudge dnsProvider to null in case it is inherited
                 dnsProvider = mkOverride (if hasRoot then 1000 else 2000) null;
                 extraDomainNames = hostOpts.serverAliases;
                 # Use the vhost-specific email address if provided, otherwise let
                 # security.acme.email or security.acme.certs.<cert>.email be used.
                 email = mkOverride 2000 (
-                  if hostOpts.adminAddr != null then
-                    hostOpts.adminAddr
-                  else
-                    cfg.adminAddr
+                  if hostOpts.adminAddr != null then hostOpts.adminAddr else cfg.adminAddr
                 );
                 # Filter for enableACME-only vhosts. Don't want to create dud certs
               }
@@ -1125,14 +1095,11 @@ in
       description = "Apache HTTPD";
       wantedBy = [ "multi-user.target" ];
       wants = concatLists (
-        map (certName: [ "acme-finished-${certName}.target" ])
-          dependentCertNames
+        map (certName: [ "acme-finished-${certName}.target" ]) dependentCertNames
       );
       after =
         [ "network.target" ]
-        ++
-          map (certName: "acme-selfsigned-${certName}.service")
-            dependentCertNames
+        ++ map (certName: "acme-selfsigned-${certName}.service") dependentCertNames
       ;
       before = map (certName: "acme-${certName}.service") dependentCertNames;
       restartTriggers = [ cfg.configFile ];
@@ -1144,9 +1111,7 @@ in
       ];
 
       environment = optionalAttrs cfg.enablePHP { PHPRC = phpIni; }
-        // optionalAttrs cfg.enableMellon {
-          LD_LIBRARY_PATH = "${pkgs.xmlsec}/lib";
-        };
+        // optionalAttrs cfg.enableMellon { LD_LIBRARY_PATH = "${pkgs.xmlsec}/lib"; };
 
       preStart = ''
         # Get rid of old semaphores.  These tend to accumulate across
@@ -1179,10 +1144,7 @@ in
     # of certs end-to-end.
     systemd.services.httpd-config-reload =
       let
-        sslServices =
-          map (certName: "acme-${certName}.service")
-            dependentCertNames
-        ;
+        sslServices = map (certName: "acme-${certName}.service") dependentCertNames;
         sslTargets =
           map (certName: "acme-finished-${certName}.target")
             dependentCertNames

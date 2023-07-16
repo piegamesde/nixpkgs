@@ -45,9 +45,7 @@ let
   pname = if enableNpm then "nodejs" else "nodejs-slim";
 
   useSharedHttpParser =
-    !stdenv.isDarwin
-    && lib.versionOlder "${majorVersion}.${minorVersion}" "11.4"
-  ;
+    !stdenv.isDarwin && lib.versionOlder "${majorVersion}.${minorVersion}" "11.4";
 
   sharedLibDeps = {
     inherit openssl zlib libuv;
@@ -184,9 +182,7 @@ let
 
     passthru.interpreterName = "nodejs";
 
-    passthru.pkgs = callPackage ../../node-packages/default.nix {
-      nodejs = self;
-    };
+    passthru.pkgs = callPackage ../../node-packages/default.nix { nodejs = self; };
 
     setupHook = ./setup-hook.sh;
 
@@ -220,8 +216,7 @@ let
     postInstall = ''
       PATH=$out/bin:$PATH patchShebangs $out
 
-      ${lib.optionalString
-        (enableNpm && stdenv.hostPlatform == stdenv.buildPlatform)
+      ${lib.optionalString (enableNpm && stdenv.hostPlatform == stdenv.buildPlatform)
         ''
           mkdir -p $out/share/bash-completion/completions/
           HOME=$TMPDIR $out/bin/npm completion > $out/share/bash-completion/completions/npm

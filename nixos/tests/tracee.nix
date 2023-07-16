@@ -41,8 +41,7 @@ import ./make-test-python.nix (
                       --replace "/usr/bin" "/run/current-system/sw/bin"
                   ''
                 ;
-                nativeBuildInputs =
-                  oa.nativeBuildInputs or [ ] ++ [ makeWrapper ];
+                nativeBuildInputs = oa.nativeBuildInputs or [ ] ++ [ makeWrapper ];
                 buildPhase = ''
                   runHook preBuild
                   # just build the static lib we need for the go test binary

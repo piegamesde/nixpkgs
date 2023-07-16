@@ -175,9 +175,7 @@ in
     # These dicts contain identically-named dict files, so we only keep the
     # -large versions in case of clashes
     largeDicts =
-      with lib;
-      filter (d: hasInfix "-large-wordlist" d.name) hunspellDictionaries
-    ;
+      with lib; filter (d: hasInfix "-large-wordlist" d.name) hunspellDictionaries;
     otherDicts =
       with lib;
       filter

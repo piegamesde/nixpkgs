@@ -14,8 +14,7 @@
 stdenv.mkDerivation {
   pname = "libubox";
   version = "unstable-2023-01-03${
-      lib.optionalString with_ustream_ssl
-        "-${ustream-ssl.ssl_implementation.pname}"
+      lib.optionalString with_ustream_ssl "-${ustream-ssl.ssl_implementation.pname}"
     }";
 
   src = fetchgit {
@@ -27,10 +26,7 @@ stdenv.mkDerivation {
   cmakeFlags = [
     "-DBUILD_EXAMPLES=OFF"
     (
-      if with_lua then
-        "-DLUAPATH=${placeholder "out"}/lib/lua"
-      else
-        "-DBUILD_LUA=OFF"
+      if with_lua then "-DLUAPATH=${placeholder "out"}/lib/lua" else "-DBUILD_LUA=OFF"
     )
   ];
 

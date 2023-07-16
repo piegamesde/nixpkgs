@@ -26,8 +26,7 @@ let
         (option: ''
           menuentry '${defaults.name} ${
             # Name appended to menuentry defaults to params if no specific name given.
-            option.name
-              or (optionalString (option ? params) "(${option.params})")
+            option.name or (optionalString (option ? params) "(${option.params})")
           }' ${optionalString (option ? class) " --class ${option.class}"} {
             linux ${defaults.image} \''${isoboot} ${defaults.params} ${
               option.params or ""
@@ -96,11 +95,7 @@ let
   # null means max timeout (infinity)
   # 0 means disable timeout
   grubEfiTimeout =
-    if config.boot.loader.timeout == null then
-      -1
-    else
-      config.boot.loader.timeout
-  ;
+    if config.boot.loader.timeout == null then -1 else config.boot.loader.timeout;
 
   # The configuration file for syslinux.
 
@@ -386,10 +381,7 @@ let
           # to disable this.
           submenu "Disable display-manager" --class quirk-disable-displaymanager {
             ${grubMenuCfg}
-            ${
-              buildMenuAdditionalParamsGrub2
-                "systemd.mask=display-manager.service"
-            }
+            ${buildMenuAdditionalParamsGrub2 "systemd.mask=display-manager.service"}
           }
 
           # Some laptop and convertibles have the panel installed in an
@@ -556,8 +548,7 @@ in
     isoImage.volumeID = mkOption {
       # nixos-$EDITION-$RELEASE-$ARCH
       default = "nixos${
-          optionalString (config.isoImage.edition != "")
-            "-${config.isoImage.edition}"
+          optionalString (config.isoImage.edition != "") "-${config.isoImage.edition}"
         }-${config.system.nixos.release}-${pkgs.stdenv.hostPlatform.uname.processor}";
       description = lib.mdDoc ''
         Specifies the label or volume ID of the generated ISO image.
@@ -765,9 +756,7 @@ in
         grubPkgs.grub2
         grubPkgs.grub2_efi
       ]
-      ++
-        optional (config.isoImage.makeBiosBootable && canx86BiosBoot)
-          pkgs.syslinux
+      ++ optional (config.isoImage.makeBiosBootable && canx86BiosBoot) pkgs.syslinux
     ;
 
     # In stage 1 of the boot, mount the CD as the root FS by label so
@@ -807,13 +796,10 @@ in
     ;
 
     # Create the squashfs image that contains the Nix store.
-    system.build.squashfsStore =
-      pkgs.callPackage ../../../lib/make-squashfs.nix
-        {
-          storeContents = config.isoImage.storeContents;
-          comp = config.isoImage.squashfsCompression;
-        }
-    ;
+    system.build.squashfsStore = pkgs.callPackage ../../../lib/make-squashfs.nix {
+      storeContents = config.isoImage.storeContents;
+      comp = config.isoImage.squashfsCompression;
+    };
 
     # Individual files to be included on the CD, outside of the Nix
     # store on the CD.
@@ -821,18 +807,12 @@ in
       [
         {
           source =
-            config.boot.kernelPackages.kernel
-            + "/"
-            + config.system.boot.loader.kernelFile
-          ;
+            config.boot.kernelPackages.kernel + "/" + config.system.boot.loader.kernelFile;
           target = "/boot/" + config.system.boot.loader.kernelFile;
         }
         {
           source =
-            config.system.build.initialRamdisk
-            + "/"
-            + config.system.boot.loader.initrdFile
-          ;
+            config.system.build.initialRamdisk + "/" + config.system.boot.loader.initrdFile;
           target = "/boot/" + config.system.boot.loader.initrdFile;
         }
         {
@@ -873,9 +853,7 @@ in
         }
         {
           source =
-            (pkgs.writeTextDir "grub/loopback.cfg" "source /EFI/boot/grub.cfg")
-            + "/grub"
-          ;
+            (pkgs.writeTextDir "grub/loopback.cfg" "source /EFI/boot/grub.cfg") + "/grub";
           target = "/boot/grub";
         }
         {
@@ -903,39 +881,36 @@ in
     boot.loader.timeout = 10;
 
     # Create the ISO image.
-    system.build.isoImage =
-      pkgs.callPackage ../../../lib/make-iso9660-image.nix
+    system.build.isoImage = pkgs.callPackage ../../../lib/make-iso9660-image.nix (
+      {
+        inherit (config.isoImage)
+          isoName
+          compressImage
+          volumeID
+          contents
+        ;
+        bootable = config.isoImage.makeBiosBootable && canx86BiosBoot;
+        bootImage = "/isolinux/isolinux.bin";
+        syslinux =
+          if config.isoImage.makeBiosBootable && canx86BiosBoot then
+            pkgs.syslinux
+          else
+            null
+        ;
+      } // optionalAttrs
         (
-          {
-            inherit (config.isoImage)
-              isoName
-              compressImage
-              volumeID
-              contents
-            ;
-            bootable = config.isoImage.makeBiosBootable && canx86BiosBoot;
-            bootImage = "/isolinux/isolinux.bin";
-            syslinux =
-              if config.isoImage.makeBiosBootable && canx86BiosBoot then
-                pkgs.syslinux
-              else
-                null
-            ;
-          } // optionalAttrs
-            (
-              config.isoImage.makeUsbBootable
-              && config.isoImage.makeBiosBootable
-              && canx86BiosBoot
-            )
-            {
-              usbBootable = true;
-              isohybridMbrImage = "${pkgs.syslinux}/share/syslinux/isohdpfx.bin";
-            } // optionalAttrs config.isoImage.makeEfiBootable {
-              efiBootable = true;
-              efiBootImage = "boot/efi.img";
-            }
+          config.isoImage.makeUsbBootable
+          && config.isoImage.makeBiosBootable
+          && canx86BiosBoot
         )
-    ;
+        {
+          usbBootable = true;
+          isohybridMbrImage = "${pkgs.syslinux}/share/syslinux/isohdpfx.bin";
+        } // optionalAttrs config.isoImage.makeEfiBootable {
+          efiBootable = true;
+          efiBootImage = "boot/efi.img";
+        }
+    );
 
     boot.postBootCommands = ''
       # After booting, register the contents of the Nix store on the

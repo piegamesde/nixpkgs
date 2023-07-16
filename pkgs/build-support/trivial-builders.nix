@@ -365,9 +365,7 @@ rec {
             # use shellcheck which does not include docs
             # pandoc takes long to build and documentation isn't needed for in nixpkgs usage
             ${
-              lib.getExe (
-                haskell.lib.compose.justStaticExecutables shellcheck.unwrapped
-              )
+              lib.getExe (haskell.lib.compose.justStaticExecutables shellcheck.unwrapped)
             } "$target"
             runHook postCheck
           ''
@@ -593,9 +591,7 @@ rec {
         lib.mapAttrsToList
           (name: path: ''
             mkdir -p "$(dirname ${lib.escapeShellArg "${name}"})"
-            ln -s ${lib.escapeShellArg "${path}"} ${
-              lib.escapeShellArg "${name}"
-            }
+            ln -s ${lib.escapeShellArg "${path}"} ${lib.escapeShellArg "${name}"}
           '')
           entries'
       ;
@@ -647,8 +643,7 @@ rec {
   # docs in doc/builders/special/makesetuphook.section.md
   makeSetupHook =
     {
-      name ?
-        lib.warn "calling makeSetupHook without passing a name is deprecated."
+      name ? lib.warn "calling makeSetupHook without passing a name is deprecated."
           "hook",
       deps ? [ ],
       # hooks go in nativeBuildInput so these will be nativeBuildInput
@@ -794,8 +789,7 @@ rec {
           (name: value: {
             inherit value;
             name = lib.head (
-              builtins.match "${builtins.storeDir}/[${nixHashChars}]+-(.*).drv"
-                name
+              builtins.match "${builtins.storeDir}/[${nixHashChars}]+-(.*).drv" name
             );
           })
           derivations
@@ -815,8 +809,7 @@ rec {
               (
                 output:
                 lib.filter lib.isList (
-                  builtins.split
-                    "(${builtins.storeDir}/[${nixHashChars}]+-${name}-${output})"
+                  builtins.split "(${builtins.storeDir}/[${nixHashChars}]+-${name}-${output})"
                     string
                 )
               )
@@ -841,11 +834,7 @@ rec {
                     # the output name isn't `out`
                     lib.all (o: !lib.hasPrefix (lib.head x) o) namedOutputPaths
                 )
-                (
-                  builtins.split
-                    "(${builtins.storeDir}/[${nixHashChars}]+-${name})"
-                    string
-                )
+                (builtins.split "(${builtins.storeDir}/[${nixHashChars}]+-${name})" string)
             else
               [ ]
           )

@@ -110,8 +110,7 @@ with lib;
 
   config = {
     assertions = [ {
-      assertion =
-        config.system.nssModules.path != "" -> config.services.nscd.enable;
+      assertion = config.system.nssModules.path != "" -> config.services.nscd.enable;
       message = ''
         Loading NSS modules from system.nssModules (${config.system.nssModules.path}),
         requires services.nscd.enable being set to true.

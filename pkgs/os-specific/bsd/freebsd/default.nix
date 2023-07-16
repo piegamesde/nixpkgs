@@ -55,8 +55,7 @@ let
       i586 = "i386";
       i686 = "i386";
     }
-    .${stdenv'.hostPlatform.parsed.cpu.name}
-      or stdenv'.hostPlatform.parsed.cpu.name
+    .${stdenv'.hostPlatform.parsed.cpu.name} or stdenv'.hostPlatform.parsed.cpu.name
   ;
 
   install-wrapper = ''
@@ -108,10 +107,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
     # Why do we have splicing and yet do `nativeBuildInputs = with self; ...`?
     # See note in ../netbsd/default.nix.
 
-    compatIfNeeded =
-      lib.optional (!stdenvNoCC.hostPlatform.isFreeBSD)
-        self.compat
-    ;
+    compatIfNeeded = lib.optional (!stdenvNoCC.hostPlatform.isFreeBSD) self.compat;
 
     mkDerivation = lib.makeOverridable (
       attrs:
@@ -122,25 +118,19 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
         rec {
           pname = "${attrs.pname or (baseNameOf attrs.path)}-freebsd";
           inherit version;
-          src =
-            runCommand "${pname}-filtered-src"
-              { nativeBuildInputs = [ rsync ]; }
-              ''
-                for p in ${
-                  lib.concatStringsSep " " (
-                    [ attrs.path ] ++ attrs.extraPaths or [ ]
-                  )
-                }; do
-                  set -x
-                  path="$out/$p"
-                  mkdir -p "$(dirname "$path")"
-                  src_path="${freebsdSrc}/$p"
-                  if [[ -d "$src_path" ]]; then src_path+=/; fi
-                  rsync --chmod="+w" -r "$src_path" "$path"
-                  set +x
-                done
-              ''
-          ;
+          src = runCommand "${pname}-filtered-src" { nativeBuildInputs = [ rsync ]; } ''
+            for p in ${
+              lib.concatStringsSep " " ([ attrs.path ] ++ attrs.extraPaths or [ ])
+            }; do
+              set -x
+              path="$out/$p"
+              mkdir -p "$(dirname "$path")"
+              src_path="${freebsdSrc}/$p"
+              if [[ -d "$src_path" ]]; then src_path+=/; fi
+              rsync --chmod="+w" -r "$src_path" "$path"
+              set +x
+            done
+          '';
 
           extraPaths = [ ];
 
@@ -358,9 +348,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
           NIX_CFLAGS_COMPILE+=' -I../../include -I../../sys'
 
           cp ../../sys/${mkBsdArch stdenv}/include/elf.h ../../sys/sys
-          cp ../../sys/${mkBsdArch stdenv}/include/elf.h ../../sys/sys/${
-            mkBsdArch stdenv
-          }
+          cp ../../sys/${mkBsdArch stdenv}/include/elf.h ../../sys/sys/${mkBsdArch stdenv}
         ''
         + lib.optionalString stdenv.hostPlatform.isx86 ''
           cp ../../sys/x86/include/elf.h ../../sys/x86
@@ -419,12 +407,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
         makeMinimal
         mandoc
         groff
-        (
-          if stdenv.hostPlatform == stdenv.buildPlatform then
-            boot-install
-          else
-            install
-        )
+        (if stdenv.hostPlatform == stdenv.buildPlatform then boot-install else install)
       ];
       patches = lib.optionals (!stdenv.hostPlatform.isFreeBSD) [
         ./libnetbsd-do-install.patch
@@ -463,12 +446,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
           makeMinimal
           mandoc
           groff
-          (
-            if stdenv.hostPlatform == stdenv.buildPlatform then
-              boot-install
-            else
-              install
-          )
+          (if stdenv.hostPlatform == stdenv.buildPlatform then boot-install else install)
         ];
         skipIncludesPhase = true;
         buildInputs =
@@ -592,8 +570,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
         make -C $BSDSRCDIR/share/mk FILESDIR=$out/share/mk install
       '';
       extraPaths =
-        [ "share/mk" ]
-        ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "tools/build/mk"
+        [ "share/mk" ] ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "tools/build/mk"
       ;
     };
     mtree = mkDerivation {

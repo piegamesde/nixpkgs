@@ -42,10 +42,7 @@ in
 
               ca = mkOption {
                 type = types.path;
-                description =
-                  lib.mdDoc
-                    "Path to the certificate authority certificate."
-                ;
+                description = lib.mdDoc "Path to the certificate authority certificate.";
                 example = "/etc/nebula/ca.crt";
               };
 
@@ -212,11 +209,7 @@ in
                   tun = {
                     disabled = netCfg.tun.disable;
                     dev =
-                      if (netCfg.tun.device != null) then
-                        netCfg.tun.device
-                      else
-                        "nebula.${netName}"
-                    ;
+                      if (netCfg.tun.device != null) then netCfg.tun.device else "nebula.${netName}";
                   };
                   firewall = {
                     inbound = netCfg.firewall.inbound;
@@ -225,10 +218,7 @@ in
                 }
                 netCfg.settings
             ;
-            configFile =
-              format.generate "nebula-config-${netName}.yml"
-                settings
-            ;
+            configFile = format.generate "nebula-config-${netName}.yml" settings;
           in
           {
             # Create the systemd service for Nebula.
@@ -295,8 +285,7 @@ in
     );
 
     users.groups = mkMerge (
-      mapAttrsToList (netName: netCfg: { ${nameToId netName} = { }; })
-        enabledNetworks
+      mapAttrsToList (netName: netCfg: { ${nameToId netName} = { }; }) enabledNetworks
     );
   };
 }

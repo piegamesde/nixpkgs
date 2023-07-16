@@ -18,8 +18,7 @@ let
     useDisplayDevice = cfg.connectDisplay;
   };
 
-  useBbswitch =
-    cfg.pmMethod == "bbswitch" || cfg.pmMethod == "auto" && useNvidia;
+  useBbswitch = cfg.pmMethod == "bbswitch" || cfg.pmMethod == "auto" && useNvidia;
 
   primus = pkgs.primus.override { inherit useNvidia; };
 in
@@ -92,8 +91,7 @@ in
     ];
     boot.kernelModules = optional useBbswitch "bbswitch";
     boot.extraModulePackages =
-      optional useBbswitch kernel.bbswitch
-      ++ optional useNvidia kernel.nvidia_x11.bin
+      optional useBbswitch kernel.bbswitch ++ optional useNvidia kernel.nvidia_x11.bin
     ;
 
     environment.systemPackages = [

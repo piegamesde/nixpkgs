@@ -128,13 +128,9 @@ buildGoModule rec {
 
       # tinygo needs versioned binaries
       mkdir -p $out/libexec/tinygo
-      ln -s ${
-        lib.getBin clang.cc
-      }/bin/clang $out/libexec/tinygo/clang-${llvmMajor}
+      ln -s ${lib.getBin clang.cc}/bin/clang $out/libexec/tinygo/clang-${llvmMajor}
       ln -s ${lib.getBin lld}/bin/ld.lld $out/libexec/tinygo/ld.lld-${llvmMajor}
-      ln -s ${
-        lib.getBin lld
-      }/bin/wasm-ld $out/libexec/tinygo/wasm-ld-${llvmMajor}
+      ln -s ${lib.getBin lld}/bin/wasm-ld $out/libexec/tinygo/wasm-ld-${llvmMajor}
       ln -s ${gdb}/bin/gdb $out/libexec/tinygo/gdb-multiarch
     ''
     + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
@@ -177,9 +173,7 @@ buildGoModule rec {
   ;
 
   checkPhase = lib.optionalString (tinygoTests != [ ] && tinygoTests != null) ''
-    make ''${tinygoTests[@]} XTENSA=0 ${
-      lib.optionalString stdenv.isDarwin "AVR=0"
-    }
+    make ''${tinygoTests[@]} XTENSA=0 ${lib.optionalString stdenv.isDarwin "AVR=0"}
   '';
 
   installPhase = ''

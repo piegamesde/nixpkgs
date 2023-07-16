@@ -520,9 +520,7 @@ in
         ++
           lib.optional
             (
-              lib.versionAtLeast attrs.version "1.53.0"
-              && stdenv.isDarwin
-              && stdenv.isAarch64
+              lib.versionAtLeast attrs.version "1.53.0" && stdenv.isDarwin && stdenv.isAarch64
             )
             autoSignDarwinBinariesHook
       ;
@@ -545,8 +543,7 @@ in
             --replace '-Wno-invalid-source-encoding' ""
         ''
         +
-          lib.optionalString
-            (lib.versionOlder attrs.version "1.53.0" && stdenv.isDarwin)
+          lib.optionalString (lib.versionOlder attrs.version "1.53.0" && stdenv.isDarwin)
             ''
               # For < v1.48.0
               substituteInPlace src/ruby/ext/grpc/extconf.rb \
@@ -1086,6 +1083,5 @@ in
 
   zlib = attrs: { buildInputs = [ zlib ]; };
 
-  zookeeper =
-    attrs: { buildInputs = lib.optionals stdenv.isDarwin [ cctools ]; };
+  zookeeper = attrs: { buildInputs = lib.optionals stdenv.isDarwin [ cctools ]; };
 }

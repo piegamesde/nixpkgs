@@ -47,10 +47,7 @@ in
 
       pidpath = mkOption {
         default = "/run/rethinkdb";
-        description =
-          lib.mdDoc
-            "Location where each instance's pid file is located."
-        ;
+        description = lib.mdDoc "Location where each instance's pid file is located.";
       };
 
       #cfgpath = mkOption {

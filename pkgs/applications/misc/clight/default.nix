@@ -63,9 +63,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     # bash-completion.pc completionsdir=${bash-completion.out}
-    "-DBASH_COMPLETIONS_DIR=${
-      placeholder "out"
-    }/share/bash-completions/completions"
+    "-DBASH_COMPLETIONS_DIR=${placeholder "out"}/share/bash-completions/completions"
     "-DZSH_COMPLETIONS_DIR=${placeholder "out"}/share/zsh/site-functions"
   ];
 

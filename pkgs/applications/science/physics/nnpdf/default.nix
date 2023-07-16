@@ -62,8 +62,6 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
     # never built on aarch64-darwin since first introduction in nixpkgs
     broken =
-      (stdenv.isDarwin && stdenv.isAarch64)
-      || (stdenv.isLinux && stdenv.isAarch64)
-    ;
+      (stdenv.isDarwin && stdenv.isAarch64) || (stdenv.isLinux && stdenv.isAarch64);
   };
 }

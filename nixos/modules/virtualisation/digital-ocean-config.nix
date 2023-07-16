@@ -117,32 +117,29 @@ with lib; {
       # Fetch the root password from the digital ocean metadata.
       # There is no specific route for this, so we use jq to get
       # it from the One Big JSON metadata blob
-      systemd.services.digitalocean-set-root-password =
-        mkIf cfg.setRootPassword
-          {
-            path = [
-              pkgs.shadow
-              pkgs.jq
-            ];
-            description = "Set root password provided by Digitalocean";
-            wantedBy = [ "multi-user.target" ];
-            script = ''
-              set -eo pipefail
-              ROOT_PASSWORD=$(jq -er '.auth_key' ${doMetadataFile})
-              echo "root:$ROOT_PASSWORD" | chpasswd
-              mkdir -p /etc/do-metadata/set-root-password
-            '';
-            unitConfig = {
-              ConditionPathExists = "!/etc/do-metadata/set-root-password";
-              Before = optional config.services.openssh.enable "sshd.service";
-              After = [ "digitalocean-metadata.service" ];
-              Requires = [ "digitalocean-metadata.service" ];
-            };
-            serviceConfig = {
-              Type = "oneshot";
-            };
-          }
-      ;
+      systemd.services.digitalocean-set-root-password = mkIf cfg.setRootPassword {
+        path = [
+          pkgs.shadow
+          pkgs.jq
+        ];
+        description = "Set root password provided by Digitalocean";
+        wantedBy = [ "multi-user.target" ];
+        script = ''
+          set -eo pipefail
+          ROOT_PASSWORD=$(jq -er '.auth_key' ${doMetadataFile})
+          echo "root:$ROOT_PASSWORD" | chpasswd
+          mkdir -p /etc/do-metadata/set-root-password
+        '';
+        unitConfig = {
+          ConditionPathExists = "!/etc/do-metadata/set-root-password";
+          Before = optional config.services.openssh.enable "sshd.service";
+          After = [ "digitalocean-metadata.service" ];
+          Requires = [ "digitalocean-metadata.service" ];
+        };
+        serviceConfig = {
+          Type = "oneshot";
+        };
+      };
 
       # Set the hostname from Digital Ocean, unless the user configured it in
       # the NixOS configuration. The cached metadata file isn't used here

@@ -32,10 +32,7 @@ in
               user = mkOption {
                 type = types.str;
                 example = "bill";
-                description =
-                  lib.mdDoc
-                    "Name of the user the AutoSSH session should run as"
-                ;
+                description = lib.mdDoc "Name of the user the AutoSSH session should run as";
               };
               monitoringPort = mkOption {
                 type = types.int;

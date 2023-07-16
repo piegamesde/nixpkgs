@@ -20,10 +20,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ gnum4 ];
 
-  configureFlags =
-    lib.optional stdenv.hostPlatform.isStatic
-      "--disable-dynamic"
-  ;
+  configureFlags = lib.optional stdenv.hostPlatform.isStatic "--disable-dynamic";
 
   preConfigure =
     lib.optionalString stdenv.isDarwin

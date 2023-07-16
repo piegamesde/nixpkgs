@@ -34,9 +34,7 @@ let
       ''
         if [ -e ${declarativeLockFile} ]; then
           # Was declarative before, no need to back up anything
-          ${
-            if isDeluge1 then "ln -sf" else "cp"
-          } ${configFile} ${configDir}/core.conf
+          ${if isDeluge1 then "ln -sf" else "cp"} ${configFile} ${configDir}/core.conf
           ln -sf ${cfg.authFile} ${configDir}/auth
         else
           # Declarative for the first time, backup stateful files
@@ -286,12 +284,7 @@ in
     };
 
     networking.firewall = mkMerge [
-      (mkIf
-        (
-          cfg.declarative
-          && cfg.openFirewall
-          && !(cfg.config.random_port or true)
-        )
+      (mkIf (cfg.declarative && cfg.openFirewall && !(cfg.config.random_port or true))
         {
           allowedTCPPortRanges = singleton (
             listToRange (cfg.config.listen_ports or listenPortsDefault)

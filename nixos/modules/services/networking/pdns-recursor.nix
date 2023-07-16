@@ -50,9 +50,7 @@ let
 in
 {
   options.services.pdns-recursor = {
-    enable = mkEnableOption (
-      lib.mdDoc "PowerDNS Recursor, a recursive DNS server"
-    );
+    enable = mkEnableOption (lib.mdDoc "PowerDNS Recursor, a recursive DNS server");
 
     dns.address = mkOption {
       type = oneOrMore types.str;
@@ -219,10 +217,7 @@ in
       webserver-port = cfg.api.port;
       webserver-allow-from = cfg.api.allowFrom;
 
-      forward-zones =
-        mapAttrsToList (zone: uri: "${zone}.=${uri}")
-          cfg.forwardZones
-      ;
+      forward-zones = mapAttrsToList (zone: uri: "${zone}.=${uri}") cfg.forwardZones;
       forward-zones-recurse =
         mapAttrsToList (zone: uri: "${zone}.=${uri}")
           cfg.forwardZonesRecurse

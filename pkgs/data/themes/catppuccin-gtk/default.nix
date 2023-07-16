@@ -105,14 +105,10 @@ lib.checkListOfEnum "${pname}: theme accent" validAccents accents
 
       python3 install.py ${variant} \
         ${
-          lib.optionalString (accents != [ ]) "--accent "
-          + builtins.toString accents
+          lib.optionalString (accents != [ ]) "--accent " + builtins.toString accents
         } \
         ${lib.optionalString (size != [ ]) "--size " + size} \
-        ${
-          lib.optionalString (tweaks != [ ]) "--tweaks "
-          + builtins.toString tweaks
-        } \
+        ${lib.optionalString (tweaks != [ ]) "--tweaks " + builtins.toString tweaks} \
         --dest $out/share/themes
 
       runHook postInstall

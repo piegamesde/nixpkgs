@@ -76,8 +76,7 @@ in
         default = "${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf";
         defaultText =
           literalExpression
-            ''
-              "''${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf"''
+            ''"''${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf"''
         ;
         type = types.path;
         description = lib.mdDoc ''
@@ -157,9 +156,7 @@ in
     systemd.services.systemd-ask-password-plymouth.wantedBy = [
       "multi-user.target"
     ];
-    systemd.paths.systemd-ask-password-plymouth.wantedBy = [
-      "multi-user.target"
-    ];
+    systemd.paths.systemd-ask-password-plymouth.wantedBy = [ "multi-user.target" ];
 
     # Prevent Plymouth taking over the screen during system updates.
     systemd.services.plymouth-start.restartIfChanged = false;
@@ -197,39 +194,33 @@ in
               cp ${plymouth}/lib/plymouth/renderers/{drm,frame-buffer}.so $out/renderers
             ''
         ;
-        "/etc/plymouth/themes".source =
-          pkgs.runCommand "plymouth-initrd-themes" { }
-            ''
-              # Check if the actual requested theme is here
-              if [[ ! -d ${themesEnv}/share/plymouth/themes/${cfg.theme} ]]; then
-                  echo "The requested theme: ${cfg.theme} is not provided by any of the packages in boot.plymouth.themePackages"
-                  exit 1
-              fi
+        "/etc/plymouth/themes".source = pkgs.runCommand "plymouth-initrd-themes" { } ''
+          # Check if the actual requested theme is here
+          if [[ ! -d ${themesEnv}/share/plymouth/themes/${cfg.theme} ]]; then
+              echo "The requested theme: ${cfg.theme} is not provided by any of the packages in boot.plymouth.themePackages"
+              exit 1
+          fi
 
-              mkdir $out
-              cp -r ${themesEnv}/share/plymouth/themes/${cfg.theme} $out
-              # Copy more themes if the theme depends on others
-              for theme in $(grep -hRo '/etc/plymouth/themes/.*$' $out | xargs -n1 basename); do
-                  if [[ -d "${themesEnv}/share/plymouth/themes/$theme" ]]; then
-                      if [[ ! -d "$out/$theme" ]]; then
-                        echo "Adding dependent theme: $theme"
-                        cp -r "${themesEnv}/share/plymouth/themes/$theme" $out
-                      fi
-                  else
-                    echo "Missing theme dependency: $theme"
+          mkdir $out
+          cp -r ${themesEnv}/share/plymouth/themes/${cfg.theme} $out
+          # Copy more themes if the theme depends on others
+          for theme in $(grep -hRo '/etc/plymouth/themes/.*$' $out | xargs -n1 basename); do
+              if [[ -d "${themesEnv}/share/plymouth/themes/$theme" ]]; then
+                  if [[ ! -d "$out/$theme" ]]; then
+                    echo "Adding dependent theme: $theme"
+                    cp -r "${themesEnv}/share/plymouth/themes/$theme" $out
                   fi
-              done
-            ''
-        ;
+              else
+                echo "Missing theme dependency: $theme"
+              fi
+          done
+        '';
 
         # Fonts
-        "/etc/plymouth/fonts".source =
-          pkgs.runCommand "plymouth-initrd-fonts" { }
-            ''
-              mkdir -p $out
-              cp ${cfg.font} $out
-            ''
-        ;
+        "/etc/plymouth/fonts".source = pkgs.runCommand "plymouth-initrd-fonts" { } ''
+          mkdir -p $out
+          cp ${cfg.font} $out
+        '';
         "/etc/fonts/fonts.conf".text = ''
           <?xml version="1.0"?>
           <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">

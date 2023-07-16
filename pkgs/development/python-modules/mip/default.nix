@@ -67,9 +67,7 @@ buildPythonPackage rec {
   # Make MIP use the Gurobi solver, if configured to do so
   makeWrapperArgs =
     lib.optional gurobiSupport
-      "--set GUROBI_HOME ${
-        if gurobiHome == null then gurobi.outPath else gurobiHome
-      }"
+      "--set GUROBI_HOME ${if gurobiHome == null then gurobi.outPath else gurobiHome}"
   ;
 
   # Tests that rely on Gurobi are activated only when Gurobi support is enabled

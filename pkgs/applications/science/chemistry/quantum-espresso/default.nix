@@ -41,10 +41,7 @@ stdenv.mkDerivation rec {
   ;
 
   configureFlags =
-    if useMpi then
-      [ "LD=${mpi}/bin/mpif90" ]
-    else
-      [ "LD=${gfortran}/bin/gfortran" ]
+    if useMpi then [ "LD=${mpi}/bin/mpif90" ] else [ "LD=${gfortran}/bin/gfortran" ]
   ;
 
   makeFlags = [ "all" ];

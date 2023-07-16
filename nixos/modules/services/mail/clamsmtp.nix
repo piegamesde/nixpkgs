@@ -83,10 +83,7 @@ in
               maxConnections = mkOption {
                 type = types.int;
                 default = 64;
-                description =
-                  lib.mdDoc
-                    "Maximum number of connections to accept at once."
-                ;
+                description = lib.mdDoc "Maximum number of connections to accept at once.";
               };
 
               outAddress = mkOption {
@@ -115,10 +112,7 @@ in
               transparentProxy = mkOption {
                 type = types.bool;
                 default = false;
-                description =
-                  lib.mdDoc
-                    "Enable clamsmtp's transparent proxy support."
-                ;
+                description = lib.mdDoc "Enable clamsmtp's transparent proxy support.";
               };
 
               virusAction = mkOption {
@@ -164,8 +158,7 @@ in
           TimeOut: ${toString conf.timeout}
           TransparentProxy: ${if conf.transparentProxy then "on" else "off"}
           User: clamav
-          ${optionalString (conf.virusAction != null)
-            "VirusAction: ${conf.virusAction}"}
+          ${optionalString (conf.virusAction != null) "VirusAction: ${conf.virusAction}"}
           XClient: ${if conf.xClient then "on" else "off"}
         ''
       ;
@@ -183,9 +176,7 @@ in
             nameValuePair "clamsmtp-${toString i}" {
               description = "ClamSMTP instance ${toString i}";
               wantedBy = [ "multi-user.target" ];
-              script = "exec ${pkgs.clamsmtp}/bin/clamsmtpd -f ${
-                  configfile conf
-                }";
+              script = "exec ${pkgs.clamsmtp}/bin/clamsmtpd -f ${configfile conf}";
               after = [ "clamav-daemon.service" ];
               requires = [ "clamav-daemon.service" ];
               serviceConfig.Type = "forking";

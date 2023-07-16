@@ -111,10 +111,7 @@ lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
 # is in fact building a cross compiler although it doesn't believe it.
 +
   lib.optionalString
-    (
-      targetPlatform.config == hostPlatform.config
-      && targetPlatform != hostPlatform
-    )
+    (targetPlatform.config == hostPlatform.config && targetPlatform != hostPlatform)
     ''
       substituteInPlace configure --replace is_cross_compiler=no is_cross_compiler=yes
     ''

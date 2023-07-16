@@ -123,10 +123,7 @@ stdenv.mkDerivation rec {
       if
         (
           enableEmulation
-          && (
-            withAllEmulators
-            || (lib.lists.any (core: core == "WSWAN_ALL") emulators)
-          )
+          && (withAllEmulators || (lib.lists.any (core: core == "WSWAN_ALL") emulators))
         )
       then
         licenses.unfree # https://github.com/ValleyBell/libvgm/issues/43

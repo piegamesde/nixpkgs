@@ -241,9 +241,9 @@ rec {
             This function also copies the path to the Nix store and returns the store path, the same as "''${path}" will, which may not be what you want.
             This behavior is deprecated and will throw an error in the future.''
       (
-        builtins.foldl' (x: y: if y == "/" && hasSuffix "/" x then x else x + y)
-          ""
-          (stringToCharacters s)
+        builtins.foldl' (x: y: if y == "/" && hasSuffix "/" x then x else x + y) "" (
+          stringToCharacters s
+        )
       )
   ;
 
@@ -518,8 +518,7 @@ rec {
       toEscape = builtins.removeAttrs asciiTable unreserved;
     in
     replaceStrings (builtins.attrNames toEscape) (
-      lib.mapAttrsToList
-        (_: c: "%${fixedWidthString 2 "0" (lib.toHexString c)}")
+      lib.mapAttrsToList (_: c: "%${fixedWidthString 2 "0" (lib.toHexString c)}")
         toEscape
     )
   ;
@@ -532,8 +531,7 @@ rec {
        escapeShellArg "esc'ape\nme"
        => "'esc'\\''ape\nme'"
   */
-  escapeShellArg =
-    arg: "'${replaceStrings [ "'" ] [ "'\\''" ] (toString arg)}'";
+  escapeShellArg = arg: "'${replaceStrings [ "'" ] [ "'\\''" ] (toString arg)}'";
 
   /* Quote all arguments to be safely passed to the Bourne shell.
 
@@ -583,9 +581,7 @@ rec {
         if isAttrs value && !isStringLike value then
           "declare -A ${name}=(${
             concatStringsSep " " (
-              lib.mapAttrsToList
-                (n: v: "[${escapeShellArg n}]=${escapeShellArg v}")
-                value
+              lib.mapAttrsToList (n: v: "[${escapeShellArg n}]=${escapeShellArg v}") value
             )
           })"
         else if isList value then
@@ -609,8 +605,7 @@ rec {
          [[ "$foo" == "$bar" ]]
        ''
   */
-  toShellVars =
-    vars: concatStringsSep "\n" (lib.mapAttrsToList toShellVar vars);
+  toShellVars = vars: concatStringsSep "\n" (lib.mapAttrsToList toShellVar vars);
 
   /* Turn a string into a Nix expression representing that string
 
@@ -1214,9 +1209,7 @@ rec {
       # Attempt to parse input
       parsedInput = fromJSON (head strippedInput);
 
-      generalError = "toIntBase10: Could not convert ${
-          escapeNixString str
-        } to int.";
+      generalError = "toIntBase10: Could not convert ${escapeNixString str} to int.";
     in
     # Error on presence of non digit characters.
     if strippedInput == null then
@@ -1253,9 +1246,7 @@ rec {
         rootPath: file:
         let
           lines = lib.splitString "\n" (readFile file);
-          removeComments = lib.filter (
-            line: line != "" && !(lib.hasPrefix "#" line)
-          );
+          removeComments = lib.filter (line: line != "" && !(lib.hasPrefix "#" line));
           relativePaths = removeComments lines;
           absolutePaths = map (path: rootPath + "/${path}") relativePaths;
         in
@@ -1347,9 +1338,7 @@ rec {
         else if i == 0 then
           j
         else
-          lib.min (lib.min (d (i - 1) j + 1) (d i (j - 1) + 1)) (
-            d (i - 1) (j - 1) + c
-          )
+          lib.min (lib.min (d (i - 1) j + 1) (d i (j - 1) + 1)) (d (i - 1) (j - 1) + c)
       ;
     in
     d (stringLength a) (stringLength b)
@@ -1383,8 +1372,7 @@ rec {
         if i >= m then
           m
         else if
-          substring (stringLength a - i - 1) 1 a
-          == substring (stringLength b - i - 1) 1 b
+          substring (stringLength a - i - 1) 1 a == substring (stringLength b - i - 1) 1 b
         then
           go (i + 1)
         else

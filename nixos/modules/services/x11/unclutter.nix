@@ -45,19 +45,13 @@ in
     };
 
     threshold = mkOption {
-      description =
-        lib.mdDoc
-          "Minimum number of pixels considered cursor movement"
-      ;
+      description = lib.mdDoc "Minimum number of pixels considered cursor movement";
       type = types.int;
       default = 1;
     };
 
     excluded = mkOption {
-      description =
-        lib.mdDoc
-          "Names of windows where unclutter should not apply"
-      ;
+      description = lib.mdDoc "Names of windows where unclutter should not apply";
       type = types.listOf types.str;
       default = [ ];
       example = [ "" ];

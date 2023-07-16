@@ -18,9 +18,7 @@ let
   # Used to make unique paths for each cert/account config set
   mkHash = with builtins; val: substring 0 20 (hashString "sha256" val);
   mkAccountHash =
-    acmeServer: data:
-    mkHash "${toString acmeServer} ${data.keyType} ${data.email}"
-  ;
+    acmeServer: data: mkHash "${toString acmeServer} ${data.keyType} ${data.email}";
   accountDirRoot = "/var/lib/acme/.lego/accounts/";
 
   # There are many services required to make cert renewals work.
@@ -117,9 +115,7 @@ let
         + (concatStringsSep "\n" (
           mapAttrsToList
             (cert: data: ''
-              for fixpath in ${escapeShellArg cert} .lego/${
-                escapeShellArg cert
-              }; do
+              for fixpath in ${escapeShellArg cert} .lego/${escapeShellArg cert}; do
                 if [ -d "$fixpath" ]; then
                   chmod -R u=rwX,g=rX,o= "$fixpath"
                   chown -R ${user}:${data.group} "$fixpath"
@@ -337,9 +333,7 @@ let
             --ca-key ca/key.pem \
             --ca-cert ca/cert.pem \
             --domains ${
-              escapeShellArg (
-                builtins.concatStringsSep "," ([ data.domain ] ++ extraDomains)
-              )
+              escapeShellArg (builtins.concatStringsSep "," ([ data.domain ] ++ extraDomains))
             }
 
           # Create files to match directory layout for real certificates
@@ -559,11 +553,7 @@ let
           # security.acme.certs.<name> path, which has the extra inheritDefaults
           # option, which if disabled means that we can't inherit it
           default =
-            if isDefaults || !config.inheritDefaults then
-              default
-            else
-              cfg.defaults.${name}
-          ;
+            if isDefaults || !config.inheritDefaults then default else cfg.defaults.${name};
           # The docs however don't need to depend on inheritDefaults, they should
           # stay constant. Though notably it wouldn't matter much, because to get
           # the option information, a submodule with name `<name>` is evaluated
@@ -582,10 +572,7 @@ let
         validMinDays = mkOption {
           type = types.int;
           inherit (defaultAndText "validMinDays" 30) default defaultText;
-          description =
-            lib.mdDoc
-              "Minimum remaining validity before renewal in days."
-          ;
+          description = lib.mdDoc "Minimum remaining validity before renewal in days.";
         };
 
         renewInterval = mkOption {
@@ -707,10 +694,7 @@ let
 
         dnsPropagationCheck = mkOption {
           type = types.bool;
-          inherit (defaultAndText "dnsPropagationCheck" true)
-            default
-            defaultText
-          ;
+          inherit (defaultAndText "dnsPropagationCheck" true) default defaultText;
           description = lib.mdDoc ''
             Toggles lego DNS propagation check, which is used alongside DNS-01
             challenge to ensure the DNS entries required are available.
@@ -739,10 +723,7 @@ let
 
         extraLegoRenewFlags = mkOption {
           type = types.listOf types.str;
-          inherit (defaultAndText "extraLegoRenewFlags" [ ])
-            default
-            defaultText
-          ;
+          inherit (defaultAndText "extraLegoRenewFlags" [ ]) default defaultText;
           description = lib.mdDoc ''
             Additional flags to pass to lego renew.
           '';
@@ -1076,8 +1057,7 @@ in
         in
         [
           {
-            assertion =
-              cfg.email != null || all (certOpts: certOpts.email != null) certs;
+            assertion = cfg.email != null || all (certOpts: certOpts.email != null) certs;
             message = ''
               You must define `security.acme.certs.<name>.email` or
               `security.acme.email` to register with the CA. Note that using
@@ -1148,10 +1128,7 @@ in
               }
               {
                 assertion =
-                  data.dnsProvider != null
-                  || data.webroot != null
-                  || data.listenHTTP != null
-                ;
+                  data.dnsProvider != null || data.webroot != null || data.listenHTTP != null;
                 message = ''
                   One of `security.acme.certs.${cert}.dnsProvider`,
                   `security.acme.certs.${cert}.webroot`, or
@@ -1173,17 +1150,13 @@ in
 
       systemd.services = {
         "acme-fixperms" = userMigrationService;
-      } // (mapAttrs'
-        (cert: conf: nameValuePair "acme-${cert}" conf.renewService)
+      } // (mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewService)
         certConfigs
       ) // (optionalAttrs (cfg.preliminarySelfsigned) (
         {
           "acme-selfsigned-ca" = selfsignCAService;
         } // (mapAttrs'
-          (
-            cert: conf:
-            nameValuePair "acme-selfsigned-${cert}" conf.selfsignService
-          )
+          (cert: conf: nameValuePair "acme-selfsigned-${cert}" conf.selfsignService)
           certConfigs
         )
       ));

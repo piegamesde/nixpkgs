@@ -30,19 +30,13 @@ in
               script = mkOption {
                 type = str;
                 example = "sleep 5";
-                description =
-                  lib.mdDoc
-                    "Shell script to execute when metrics are requested."
-                ;
+                description = lib.mdDoc "Shell script to execute when metrics are requested.";
               };
               timeout = mkOption {
                 type = nullOr int;
                 default = null;
                 example = 60;
-                description =
-                  lib.mdDoc
-                    "Optional timeout for the script in seconds."
-                ;
+                description = lib.mdDoc "Optional timeout for the script in seconds.";
               };
             };
           }

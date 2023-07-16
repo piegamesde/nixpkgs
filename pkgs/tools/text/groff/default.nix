@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
   patches =
     [ ./0001-Fix-cross-compilation-by-looking-for-ar.patch ]
     ++
-      lib.optionals
-        (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9")
+      lib.optionals (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9")
         [
           # https://trac.macports.org/ticket/59783
           (fetchpatch {
@@ -77,9 +76,7 @@ stdenv.mkDerivation rec {
       substituteInPlace tmac/www.tmac.in \
         --replace "pnmcrop" "${lib.getBin netpbm}/bin/pnmcrop" \
         --replace "pngtopnm" "${lib.getBin netpbm}/bin/pngtopnm" \
-        --replace "@PNMTOPS_NOSETPAGE@" "${
-          lib.getBin netpbm
-        }/bin/pnmtops -nosetpage"
+        --replace "@PNMTOPS_NOSETPAGE@" "${lib.getBin netpbm}/bin/pnmtops -nosetpage"
       substituteInPlace contrib/groffer/roff2.pl \
         --replace "'gs'" "'${lib.getBin ghostscript}/bin/gs'"
       substituteInPlace contrib/pdfmark/pdfroff.sh \
@@ -99,8 +96,7 @@ stdenv.mkDerivation rec {
     ]
     # Required due to the patch that changes .ypp files.
     ++
-      lib.optional
-        (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9")
+      lib.optional (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9")
         bison
   ;
   buildInputs =

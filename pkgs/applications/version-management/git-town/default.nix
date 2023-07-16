@@ -42,9 +42,7 @@ buildGoModule rec {
 
   ldflags =
     let
-      modulePath = "github.com/git-town/git-town/v${
-          lib.versions.major version
-        }";
+      modulePath = "github.com/git-town/git-town/v${lib.versions.major version}";
     in
     [
       "-s"
@@ -68,9 +66,7 @@ buildGoModule rec {
     ''
       HOME=$(mktemp -d)
       # Disable tests requiring local operations
-      buildFlagsArray+=("-run" "[^(${
-        builtins.concatStringsSep "|" skippedTests
-      })]")
+      buildFlagsArray+=("-run" "[^(${builtins.concatStringsSep "|" skippedTests})]")
     ''
   ;
 

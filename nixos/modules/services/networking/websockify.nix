@@ -32,10 +32,7 @@ in
       sslKey = mkOption {
         description = lib.mdDoc "Path to the SSL key.";
         default = cfg.sslCert;
-        defaultText =
-          literalExpression
-            "config.services.networking.websockify.sslCert"
-        ;
+        defaultText = literalExpression "config.services.networking.websockify.sslCert";
         type = types.path;
       };
 
@@ -62,8 +59,7 @@ in
       description = "Target to start all default websockify@ services";
       unitConfig.X-StopOnReconfiguration = true;
       wants =
-        mapAttrsToList
-          (name: value: "websockify@${name}:${toString value}.service")
+        mapAttrsToList (name: value: "websockify@${name}:${toString value}.service")
           cfg.portMap
       ;
       wantedBy = [ "multi-user.target" ];

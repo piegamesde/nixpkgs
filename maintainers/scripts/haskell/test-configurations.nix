@@ -92,26 +92,21 @@ let
     fileName:
     let
       # extract the unique part of the config's file name
-      configName = builtins.head (
-        builtins.match "configuration-(.+).nix" fileName
-      );
+      configName = builtins.head (builtins.match "configuration-(.+).nix" fileName);
       # match the major and minor version of the GHC the config is intended for, if any
       configVersion = lib.concatStrings (
         builtins.match "ghc-([0-9]+).([0-9]+).x" configName
       );
       # return all package sets under haskell.packages matching the version components
-      setsForVersion =
-        builtins.map (name: packageSetsWithVersionedHead.${name})
+      setsForVersion = builtins.map (name: packageSetsWithVersionedHead.${name}) (
+        builtins.filter
           (
-            builtins.filter
-              (
-                setName:
-                lib.hasPrefix "ghc${configVersion}" setName
-                && (skipBinaryGHCs -> !(lib.hasInfix "Binary" setName))
-              )
-              (builtins.attrNames packageSetsWithVersionedHead)
+            setName:
+            lib.hasPrefix "ghc${configVersion}" setName
+            && (skipBinaryGHCs -> !(lib.hasInfix "Binary" setName))
           )
-      ;
+          (builtins.attrNames packageSetsWithVersionedHead)
+      );
 
       defaultSets = [ pkgs.haskellPackages ];
     in
@@ -159,8 +154,7 @@ let
       (
         v:
         lib.warnIf (v.meta.broken or false) "${v.pname} is marked as broken" (
-          v != null
-          && (skipEvalErrors -> (builtins.tryEval (v.outPath or v)).success)
+          v != null && (skipEvalErrors -> (builtins.tryEval (v.outPath or v)).success)
         )
       )
       (

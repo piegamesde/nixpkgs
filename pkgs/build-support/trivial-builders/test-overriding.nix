@@ -33,16 +33,13 @@ let
         {
           writeShellScript,
         }:
-        writeShellScript "test-trivial-callpackage-overriding-${case}"
-          extglobScript
+        writeShellScript "test-trivial-callpackage-overriding-${case}" extglobScript
       )
       { }
   ;
 
   binCase =
-    case:
-    writeShellScriptBin "test-trivial-overriding-bin-${case}" extglobScript
-  ;
+    case: writeShellScriptBin "test-trivial-overriding-bin-${case}" extglobScript;
 
   # building this derivation would fail without overriding
   textFileCase = writeTextFile {

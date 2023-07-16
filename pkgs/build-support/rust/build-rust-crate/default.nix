@@ -34,10 +34,7 @@ let
           findMatchOrUseExtern =
             choices:
             lib.findFirst
-              (
-                choice:
-                (!(choice ? version) || choice.version == dep.version or "")
-              )
+              (choice: (!(choice ? version) || choice.version == dep.version or ""))
               { rename = extern; }
               choices
           ;
@@ -79,8 +76,7 @@ let
   # special "noprelude:" modifier. If in later versions of Rust this is
   # stabilized we can account for that here, too, so we don't opt into
   # instability unnecessarily.
-  needUnstableCLI =
-    dependencies: lib.any (dep: dep.stdlib or false) dependencies;
+  needUnstableCLI = dependencies: lib.any (dep: dep.stdlib or false) dependencies;
 
   inherit (import ./log.nix { inherit lib; }) noisily echo_colored;
 
@@ -248,9 +244,7 @@ lib.makeOverridable
 
     let
       crate = crate_
-        // (lib.attrByPath [ crate_.crateName ] (attr: { }) crateOverrides
-          crate_
-        );
+        // (lib.attrByPath [ crate_.crateName ] (attr: { }) crateOverrides crate_);
       dependencies_ = dependencies;
       buildDependencies_ = buildDependencies;
       processedAttrs = [
@@ -308,9 +302,7 @@ lib.makeOverridable
           buildTests
         ;
 
-        src =
-          crate.src
-            or (fetchCrate { inherit (crate) crateName version sha256; });
+        src = crate.src or (fetchCrate { inherit (crate) crateName version sha256; });
         name = "rust_${crate.crateName}-${crate.version}${
             lib.optionalString buildTests_ "-test"
           }";
@@ -388,11 +380,7 @@ lib.makeOverridable
         crateVersion = crate.version;
         crateDescription = crate.description or "";
         crateAuthors =
-          if crate ? authors && lib.isList crate.authors then
-            crate.authors
-          else
-            [ ]
-        ;
+          if crate ? authors && lib.isList crate.authors then crate.authors else [ ];
         crateHomepage = crate.homepage or "";
         crateType =
           if lib.attrByPath [ "procMacro" ] false crate then
@@ -412,8 +400,7 @@ lib.makeOverridable
           ++ (lib.optional (edition != null) "--edition ${edition}")
         ;
         extraRustcOptsForBuildRs =
-          lib.optionals (crate ? extraRustcOptsForBuildRs)
-            crate.extraRustcOptsForBuildRs
+          lib.optionals (crate ? extraRustcOptsForBuildRs) crate.extraRustcOptsForBuildRs
           ++ extraRustcOptsForBuildRs_
           ++ (lib.optional (edition != null) "--edition ${edition}")
         ;

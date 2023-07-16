@@ -16,7 +16,5 @@ in
     );
   };
 
-  config = mkIf cfg.enable {
-    services.udev.packages = [ pkgs.teck-udev-rules ];
-  };
+  config = mkIf cfg.enable { services.udev.packages = [ pkgs.teck-udev-rules ]; };
 }

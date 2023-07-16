@@ -106,9 +106,7 @@ in
         ""
         ''
           ${cfg.package}/bin/gpg-agent --supervised \
-            --pinentry-program ${
-              pkgs.pinentry.${cfg.agent.pinentryFlavor}
-            }/bin/pinentry
+            --pinentry-program ${pkgs.pinentry.${cfg.agent.pinentryFlavor}}/bin/pinentry
         ''
       ];
     };
@@ -125,10 +123,9 @@ in
       wantedBy = [ "sockets.target" ];
     };
 
-    systemd.user.sockets.gpg-agent-browser =
-      mkIf cfg.agent.enableBrowserSocket
-        { wantedBy = [ "sockets.target" ]; }
-    ;
+    systemd.user.sockets.gpg-agent-browser = mkIf cfg.agent.enableBrowserSocket {
+      wantedBy = [ "sockets.target" ];
+    };
 
     systemd.user.sockets.dirmngr = mkIf cfg.dirmngr.enable {
       wantedBy = [ "sockets.target" ];

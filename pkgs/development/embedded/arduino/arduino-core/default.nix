@@ -277,9 +277,7 @@ stdenv.mkDerivation rec {
 
     # avrdude_bin is linked against libtinfo.so.5
     mkdir $out/lib/
-    ln -s ${
-      lib.makeLibraryPath [ ncurses5 ]
-    }/libtinfo.so.5 $out/lib/libtinfo.so.5
+    ln -s ${lib.makeLibraryPath [ ncurses5 ]}/libtinfo.so.5 $out/lib/libtinfo.so.5
 
     ${lib.optionalString withTeensyduino ''
       # Patch the Teensy loader binary

@@ -11998,16 +11998,12 @@ in
       sources."@fortawesome/fontawesome-svg-core-1.3.0"
       (
         sources."@fortawesome/free-regular-svg-icons-6.3.0" // {
-          dependencies = [
-            sources."@fortawesome/fontawesome-common-types-6.3.0"
-          ];
+          dependencies = [ sources."@fortawesome/fontawesome-common-types-6.3.0" ];
         }
       )
       (
         sources."@fortawesome/free-solid-svg-icons-5.15.4" // {
-          dependencies = [
-            sources."@fortawesome/fontawesome-common-types-0.2.36"
-          ];
+          dependencies = [ sources."@fortawesome/fontawesome-common-types-0.2.36" ];
         }
       )
       sources."@fortawesome/vue-fontawesome-2.0.10"
@@ -12118,9 +12114,7 @@ in
       sources."@protobufjs/utf8-1.1.0"
       sources."@redis/bloom-1.2.0"
       (
-        sources."@redis/client-1.5.6" // {
-          dependencies = [ sources."yallist-4.0.0" ];
-        }
+        sources."@redis/client-1.5.6" // { dependencies = [ sources."yallist-4.0.0" ]; }
       )
       sources."@redis/graph-1.1.0"
       sources."@redis/json-1.0.4"
@@ -12145,9 +12139,7 @@ in
       sources."@segment/loosely-validate-event-2.0.0"
       sources."@selderee/plugin-htmlparser2-0.10.0"
       (
-        sources."@sentry/core-7.40.0" // {
-          dependencies = [ sources."tslib-1.14.1" ];
-        }
+        sources."@sentry/core-7.40.0" // { dependencies = [ sources."tslib-1.14.1" ]; }
       )
       (
         sources."@sentry/integrations-7.40.0" // {
@@ -12155,15 +12147,11 @@ in
         }
       )
       (
-        sources."@sentry/node-7.40.0" // {
-          dependencies = [ sources."tslib-1.14.1" ];
-        }
+        sources."@sentry/node-7.40.0" // { dependencies = [ sources."tslib-1.14.1" ]; }
       )
       sources."@sentry/types-7.40.0"
       (
-        sources."@sentry/utils-7.40.0" // {
-          dependencies = [ sources."tslib-1.14.1" ];
-        }
+        sources."@sentry/utils-7.40.0" // { dependencies = [ sources."tslib-1.14.1" ]; }
       )
       sources."@servie/events-1.0.0"
       sources."@sqltools/formatter-1.2.5"
@@ -12366,11 +12354,7 @@ in
       sources."buffer-more-ints-1.0.0"
       sources."buffer-writer-2.0.0"
       sources."bufferutil-4.0.7"
-      (
-        sources."bull-4.10.4" // {
-          dependencies = [ sources."cron-parser-4.8.0" ];
-        }
-      )
+      (sources."bull-4.10.4" // { dependencies = [ sources."cron-parser-4.8.0" ]; })
       sources."busboy-1.6.0"
       sources."byte-length-1.0.2"
       sources."bytes-3.1.2"
@@ -12437,18 +12421,12 @@ in
       sources."cli-color-0.1.7"
       sources."cli-cursor-3.1.0"
       (
-        sources."cli-highlight-2.1.11" // {
-          dependencies = [ sources."yargs-16.2.0" ];
-        }
+        sources."cli-highlight-2.1.11" // { dependencies = [ sources."yargs-16.2.0" ]; }
       )
       sources."cli-progress-3.12.0"
       sources."cli-width-3.0.0"
       sources."client-oauth2-4.3.3"
-      (
-        sources."cliui-7.0.4" // {
-          dependencies = [ sources."wrap-ansi-7.0.0" ];
-        }
-      )
+      (sources."cliui-7.0.4" // { dependencies = [ sources."wrap-ansi-7.0.0" ]; })
       sources."cluster-key-slot-1.1.2"
       sources."codemirror-lang-html-n8n-1.0.0"
       sources."codemirror-lang-n8n-expression-0.2.0"
@@ -12493,9 +12471,7 @@ in
       sources."convict-6.2.4"
       sources."cookie-0.4.2"
       (
-        sources."cookie-parser-1.4.6" // {
-          dependencies = [ sources."cookie-0.4.1" ];
-        }
+        sources."cookie-parser-1.4.6" // { dependencies = [ sources."cookie-0.4.1" ]; }
       )
       sources."cookie-signature-1.0.6"
       sources."copy-to-2.0.1"
@@ -12506,11 +12482,7 @@ in
       sources."crelt-1.0.5"
       sources."cron-1.7.2"
       sources."cron-parser-2.18.0"
-      (
-        sources."cross-spawn-6.0.5" // {
-          dependencies = [ sources."semver-5.7.1" ];
-        }
-      )
+      (sources."cross-spawn-6.0.5" // { dependencies = [ sources."semver-5.7.1" ]; })
       sources."crypt-0.0.2"
       sources."crypto-js-4.1.1"
       sources."csrf-3.1.0"
@@ -12539,11 +12511,7 @@ in
       sources."debuglog-1.0.1"
       sources."decode-uri-component-0.2.2"
       sources."decompress-response-6.0.0"
-      (
-        sources."deep-equal-2.2.0" // {
-          dependencies = [ sources."isarray-2.0.5" ];
-        }
-      )
+      (sources."deep-equal-2.2.0" // { dependencies = [ sources."isarray-2.0.5" ]; })
       sources."deep-extend-0.6.0"
       sources."deep-is-0.1.4"
       sources."deepmerge-1.5.2"
@@ -12668,11 +12636,7 @@ in
       sources."file-saver-2.0.5"
       sources."file-type-16.5.4"
       sources."file-uri-to-path-1.0.0"
-      (
-        sources."filelist-1.0.4" // {
-          dependencies = [ sources."minimatch-5.1.6" ];
-        }
-      )
+      (sources."filelist-1.0.4" // { dependencies = [ sources."minimatch-5.1.6" ]; })
       sources."fill-range-7.0.1"
       sources."filter-obj-1.1.0"
       (
@@ -12691,11 +12655,7 @@ in
       sources."forever-agent-0.6.1"
       sources."form-data-4.0.0"
       sources."formidable-1.2.6"
-      (
-        sources."formstream-1.1.1" // {
-          dependencies = [ sources."mime-2.6.0" ];
-        }
-      )
+      (sources."formstream-1.1.1" // { dependencies = [ sources."mime-2.6.0" ]; })
       sources."forwarded-0.2.0"
       sources."frac-1.1.2"
       sources."fresh-0.5.2"
@@ -12804,11 +12764,7 @@ in
       sources."he-1.2.0"
       sources."header-case-2.0.4"
       sources."heap-0.2.7"
-      (
-        sources."help-me-1.1.0" // {
-          dependencies = [ sources."through2-2.0.5" ];
-        }
-      )
+      (sources."help-me-1.1.0" // { dependencies = [ sources."through2-2.0.5" ]; })
       sources."highlight.js-10.7.3"
       sources."homedir-polyfill-1.0.3"
       (
@@ -12817,9 +12773,7 @@ in
         }
       )
       (
-        sources."htmlparser2-8.0.1" // {
-          dependencies = [ sources."entities-4.4.0" ];
-        }
+        sources."htmlparser2-8.0.1" // { dependencies = [ sources."entities-4.4.0" ]; }
       )
       sources."http-cache-semantics-4.1.1"
       sources."http-errors-2.0.0"
@@ -12857,11 +12811,7 @@ in
       sources."inquirer-7.3.3"
       sources."internal-slot-1.0.5"
       sources."interpret-1.4.0"
-      (
-        sources."ioredis-5.3.1" // {
-          dependencies = [ sources."denque-2.1.0" ];
-        }
-      )
+      (sources."ioredis-5.3.1" // { dependencies = [ sources."denque-2.1.0" ]; })
       sources."ip-2.0.0"
       sources."ip-regex-2.1.0"
       sources."ipaddr.js-1.9.1"
@@ -12964,11 +12914,7 @@ in
       sources."limiter-1.1.5"
       sources."linkify-it-3.0.3"
       sources."localforage-1.10.0"
-      (
-        sources."localtunnel-2.0.2" // {
-          dependencies = [ sources."debug-4.3.2" ];
-        }
-      )
+      (sources."localtunnel-2.0.2" // { dependencies = [ sources."debug-4.3.2" ]; })
       sources."lodash-4.17.21"
       sources."lodash-es-4.17.21"
       sources."lodash.assign-4.2.0"
@@ -13039,20 +12985,10 @@ in
       sources."lru_map-0.3.3"
       sources."luxon-3.3.0"
       (
-        sources."mailparser-3.6.4" // {
-          dependencies = [ sources."linkify-it-4.0.1" ];
-        }
+        sources."mailparser-3.6.4" // { dependencies = [ sources."linkify-it-4.0.1" ]; }
       )
-      (
-        sources."mailsplit-5.4.0" // {
-          dependencies = [ sources."libmime-5.2.0" ];
-        }
-      )
-      (
-        sources."make-dir-3.1.0" // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
-      )
+      (sources."mailsplit-5.4.0" // { dependencies = [ sources."libmime-5.2.0" ]; })
+      (sources."make-dir-3.1.0" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."make-error-1.3.6"
       sources."make-error-cause-2.3.0"
       (
@@ -13221,11 +13157,7 @@ in
               }
             )
             sources."@js-joda/core-5.5.2"
-            (
-              sources."bl-5.1.0" // {
-                dependencies = [ sources."buffer-6.0.3" ];
-              }
-            )
+            (sources."bl-5.1.0" // { dependencies = [ sources."buffer-6.0.3" ]; })
             sources."bson-4.7.2"
             sources."buffer-5.7.1"
             sources."chokidar-3.5.2"
@@ -13337,11 +13269,7 @@ in
           dependencies = [ sources."socks-proxy-agent-5.0.1" ];
         }
       )
-      (
-        sources."pac-resolver-5.0.1" // {
-          dependencies = [ sources."ip-1.1.8" ];
-        }
-      )
+      (sources."pac-resolver-5.0.1" // { dependencies = [ sources."ip-1.1.8" ]; })
       sources."packet-reader-1.0.0"
       sources."pako-1.0.11"
       sources."param-case-3.0.4"
@@ -13375,11 +13303,7 @@ in
       sources."path-type-4.0.0"
       sources."pause-0.0.1"
       sources."pause-stream-0.0.11"
-      (
-        sources."pdf-parse-1.1.1" // {
-          dependencies = [ sources."debug-3.2.7" ];
-        }
-      )
+      (sources."pdf-parse-1.1.1" // { dependencies = [ sources."debug-3.2.7" ]; })
       sources."peberminta-0.8.0"
       sources."peek-readable-4.1.0"
       sources."performance-now-2.1.0"
@@ -13400,11 +13324,7 @@ in
         }
       )
       sources."pg-pool-3.5.2"
-      (
-        sources."pg-promise-10.15.4" // {
-          dependencies = [ sources."pg-8.8.0" ];
-        }
-      )
+      (sources."pg-promise-10.15.4" // { dependencies = [ sources."pg-8.8.0" ]; })
       sources."pg-protocol-1.6.0"
       sources."pg-query-stream-4.3.0"
       sources."pg-types-2.2.0"
@@ -13424,15 +13344,9 @@ in
       sources."postgres-bytea-1.0.0"
       sources."postgres-date-1.0.7"
       sources."postgres-interval-1.2.0"
+      (sources."posthog-node-2.5.4" // { dependencies = [ sources."axios-0.27.2" ]; })
       (
-        sources."posthog-node-2.5.4" // {
-          dependencies = [ sources."axios-0.27.2" ];
-        }
-      )
-      (
-        sources."prebuild-install-7.1.1" // {
-          dependencies = [ sources."pump-3.0.0" ];
-        }
+        sources."prebuild-install-7.1.1" // { dependencies = [ sources."pump-3.0.0" ]; }
       )
       sources."prelude-ls-1.1.2"
       sources."prettier-2.8.4"
@@ -13465,11 +13379,7 @@ in
       sources."pseudomap-1.0.2"
       sources."psl-1.9.0"
       sources."pump-2.0.1"
-      (
-        sources."pumpify-1.5.1" // {
-          dependencies = [ sources."duplexify-3.7.1" ];
-        }
-      )
+      (sources."pumpify-1.5.1" // { dependencies = [ sources."duplexify-3.7.1" ]; })
       sources."punycode-2.3.0"
       sources."python-struct-1.1.3"
       sources."qs-6.11.0"
@@ -13482,9 +13392,7 @@ in
       sources."randombytes-2.1.0"
       sources."range-parser-1.2.1"
       (
-        sources."raw-body-2.5.2" // {
-          dependencies = [ sources."iconv-lite-0.4.24" ];
-        }
+        sources."raw-body-2.5.2" // { dependencies = [ sources."iconv-lite-0.4.24" ]; }
       )
       sources."rc-1.2.8"
       (
@@ -13498,11 +13406,7 @@ in
         }
       )
       sources."readdirp-3.6.0"
-      (
-        sources."recast-0.21.5" // {
-          dependencies = [ sources."ast-types-0.15.2" ];
-        }
-      )
+      (sources."recast-0.21.5" // { dependencies = [ sources."ast-types-0.15.2" ]; })
       sources."rechoir-0.6.2"
       sources."redeyed-2.1.1"
       sources."redis-4.6.5"
@@ -13578,11 +13482,7 @@ in
       (
         sources."send-0.18.0" // {
           dependencies = [
-            (
-              sources."debug-2.6.9" // {
-                dependencies = [ sources."ms-2.0.0" ];
-              }
-            )
+            (sources."debug-2.6.9" // { dependencies = [ sources."ms-2.0.0" ]; })
             sources."ms-2.1.3"
           ];
         }
@@ -13599,11 +13499,7 @@ in
       sources."shebang-regex-1.0.0"
       sources."shell-escape-0.2.0"
       sources."shelljs-0.8.5"
-      (
-        sources."showdown-2.1.0" // {
-          dependencies = [ sources."commander-9.5.0" ];
-        }
-      )
+      (sources."showdown-2.1.0" // { dependencies = [ sources."commander-9.5.0" ]; })
       sources."side-channel-1.0.4"
       sources."signal-exit-3.0.7"
       sources."simple-concat-1.0.1"
@@ -13759,11 +13655,7 @@ in
       sources."title-case-3.0.3"
       sources."tlds-1.236.0"
       sources."tmp-0.0.33"
-      (
-        sources."tmp-promise-3.0.3" // {
-          dependencies = [ sources."tmp-0.2.1" ];
-        }
-      )
+      (sources."tmp-promise-3.0.3" // { dependencies = [ sources."tmp-0.2.1" ]; })
       sources."to-absolute-glob-2.0.2"
       sources."to-regex-range-5.0.1"
       sources."toidentifier-1.0.1"
@@ -13858,9 +13750,7 @@ in
       sources."validator-13.7.0"
       sources."vary-1.1.2"
       (
-        sources."verror-1.10.0" // {
-          dependencies = [ sources."core-util-is-1.0.2" ];
-        }
+        sources."verror-1.10.0" // { dependencies = [ sources."core-util-is-1.0.2" ]; }
       )
       sources."vm2-3.9.14"
       sources."vue-2.7.14"
@@ -13887,11 +13777,7 @@ in
       sources."which-typed-array-1.1.9"
       sources."wide-align-1.1.5"
       sources."widest-line-3.1.0"
-      (
-        sources."win-release-1.1.1" // {
-          dependencies = [ sources."semver-5.7.1" ];
-        }
-      )
+      (sources."win-release-1.1.1" // { dependencies = [ sources."semver-5.7.1" ]; })
       (
         sources."winston-3.8.2" // {
           dependencies = [ sources."readable-stream-3.6.1" ];
@@ -13917,11 +13803,7 @@ in
       sources."xpath-0.0.32"
       sources."xpath.js-1.1.0"
       sources."xregexp-2.0.0"
-      (
-        sources."xss-1.0.14" // {
-          dependencies = [ sources."commander-2.20.3" ];
-        }
-      )
+      (sources."xss-1.0.14" // { dependencies = [ sources."commander-2.20.3" ]; })
       sources."xtend-4.0.2"
       sources."y18n-5.0.8"
       sources."yallist-2.1.2"

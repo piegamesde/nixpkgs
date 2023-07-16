@@ -152,8 +152,7 @@ let
     makeWrapper ${rubyEnv}/bin/rake $out/bin/discourse-rake \
         ${
           lib.concatStrings (
-            lib.mapAttrsToList (name: value: "--set ${name} '${value}' ")
-              runtimeEnv
+            lib.mapAttrsToList (name: value: "--set ${name} '${value}' ") runtimeEnv
           )
         } \
         --prefix PATH : ${lib.makeBinPath runtimeDeps} \
@@ -322,8 +321,7 @@ let
       mkdir $NIX_BUILD_TOP/tmp_home
       export HOME=$NIX_BUILD_TOP/tmp_home
 
-      ${lib.concatMapStringsSep "\n"
-        (p: "ln -sf ${p} plugins/${p.pluginName or ""}")
+      ${lib.concatMapStringsSep "\n" (p: "ln -sf ${p} plugins/${p.pluginName or ""}")
         plugins}
 
       export RAILS_ENV=production
@@ -448,9 +446,7 @@ let
         assets
       ;
       enabledPlugins = plugins;
-      plugins = callPackage ./plugins/all-plugins.nix {
-        inherit mkDiscoursePlugin;
-      };
+      plugins = callPackage ./plugins/all-plugins.nix { inherit mkDiscoursePlugin; };
       ruby = rubyEnv.wrappedRuby;
       tests = import ../../../../nixos/tests/discourse.nix {
         inherit (stdenv) system;

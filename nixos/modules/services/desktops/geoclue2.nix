@@ -224,9 +224,7 @@ in
     systemd.services.geoclue = {
       after = lib.optionals cfg.enableWifi [ "network-online.target" ];
       # restart geoclue service when the configuration changes
-      restartTriggers = [
-        config.environment.etc."geoclue/geoclue.conf".source
-      ];
+      restartTriggers = [ config.environment.etc."geoclue/geoclue.conf".source ];
       serviceConfig.StateDirectory = "geoclue";
     };
 
@@ -264,8 +262,7 @@ in
       {
         agent = {
           whitelist = concatStringsSep ";" (
-            optional cfg.enableDemoAgent "geoclue-demo-agent"
-            ++ defaultWhitelist
+            optional cfg.enableDemoAgent "geoclue-demo-agent" ++ defaultWhitelist
           );
         };
         network-nmea = {

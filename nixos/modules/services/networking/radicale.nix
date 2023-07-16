@@ -11,9 +11,7 @@ let
   cfg = config.services.radicale;
 
   format = pkgs.formats.ini {
-    listToValue = concatMapStringsSep ", " (
-      generators.mkValueStringDefault { }
-    );
+    listToValue = concatMapStringsSep ", " (generators.mkValueStringDefault { });
   };
 
   pkg = if cfg.package == null then pkgs.radicale else cfg.package;
@@ -141,10 +139,7 @@ in
         ''
       ++
         optional
-          (
-            cfg.package == null
-            && versionOlder config.system.stateVersion "20.09"
-          )
+          (cfg.package == null && versionOlder config.system.stateVersion "20.09")
           ''
             The configuration format of your existing Radicale installation might be
             incompatible with the newest version.  For upgrade instructions see

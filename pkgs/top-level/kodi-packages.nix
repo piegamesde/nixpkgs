@@ -69,22 +69,13 @@ let
 
     # regular packages
 
-    kodi-platform =
-      callPackage ../applications/video/kodi/addons/kodi-platform
-        { }
-    ;
+    kodi-platform = callPackage ../applications/video/kodi/addons/kodi-platform { };
 
     # addon packages
 
-    a4ksubtitles =
-      callPackage ../applications/video/kodi/addons/a4ksubtitles
-        { }
-    ;
+    a4ksubtitles = callPackage ../applications/video/kodi/addons/a4ksubtitles { };
 
-    arteplussept =
-      callPackage ../applications/video/kodi/addons/arteplussept
-        { }
-    ;
+    arteplussept = callPackage ../applications/video/kodi/addons/arteplussept { };
 
     controller-topology-project =
       callPackage ../applications/video/kodi/addons/controller-topology-project
@@ -102,10 +93,9 @@ let
         { inherit genesis-plus-gx; }
     ;
 
-    libretro-mgba =
-      callPackage ../applications/video/kodi/addons/libretro-mgba
-        { inherit mgba; }
-    ;
+    libretro-mgba = callPackage ../applications/video/kodi/addons/libretro-mgba {
+      inherit mgba;
+    };
 
     libretro-snes9x =
       callPackage ../applications/video/kodi/addons/libretro-snes9x
@@ -134,19 +124,13 @@ let
         { }
     ;
 
-    steam-library =
-      callPackage ../applications/video/kodi/addons/steam-library
-        { }
-    ;
+    steam-library = callPackage ../applications/video/kodi/addons/steam-library { };
 
     pdfreader = callPackage ../applications/video/kodi/addons/pdfreader { };
 
     pvr-hts = callPackage ../applications/video/kodi/addons/pvr-hts { };
 
-    pvr-hdhomerun =
-      callPackage ../applications/video/kodi/addons/pvr-hdhomerun
-        { }
-    ;
+    pvr-hdhomerun = callPackage ../applications/video/kodi/addons/pvr-hdhomerun { };
 
     pvr-iptvsimple =
       callPackage ../applications/video/kodi/addons/pvr-iptvsimple
@@ -171,10 +155,7 @@ let
 
     # addon packages (dependencies)
 
-    archive_tool =
-      callPackage ../applications/video/kodi/addons/archive_tool
-        { }
-    ;
+    archive_tool = callPackage ../applications/video/kodi/addons/archive_tool { };
 
     certifi = callPackage ../applications/video/kodi/addons/certifi { };
 
@@ -240,10 +221,7 @@ let
 
     arrow = callPackage ../applications/video/kodi/addons/arrow { };
 
-    trakt-module =
-      callPackage ../applications/video/kodi/addons/trakt-module
-        { }
-    ;
+    trakt-module = callPackage ../applications/video/kodi/addons/trakt-module { };
 
     trakt = callPackage ../applications/video/kodi/addons/trakt { };
   };

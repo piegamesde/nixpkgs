@@ -112,10 +112,7 @@ in
       };
       pass = mkOption {
         type = types.path;
-        default =
-          pkgs.writeText "unpoller-influxdb-default.password"
-            "unifipoller"
-        ;
+        default = pkgs.writeText "unpoller-influxdb-default.password" "unifipoller";
         defaultText = literalExpression "unpoller-influxdb-default.password";
         description = lib.mdDoc ''
           Path of a file containing the password for influxdb.
@@ -319,8 +316,7 @@ in
         defaults = controllerOptions;
 
         controllers = mkOption {
-          type =
-            with types; listOf (submodule { options = controllerOptions; });
+          type = with types; listOf (submodule { options = controllerOptions; });
           default = [ ];
           description = lib.mdDoc ''
             List of Unifi controllers to poll. Use defaults if empty.

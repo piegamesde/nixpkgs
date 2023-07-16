@@ -23,9 +23,7 @@ stdenv.mkDerivation rec {
     cp "${core_jar}" "${javase_jar}" "$out/lib/java"
     substituteAll "${./java-zxing.sh}" "$out/bin/java-zxing"
     substituteAll "${./zxing-cmdline-runner.sh}" "$out/bin/zxing-cmdline-runner"
-    substituteAll "${
-      ./zxing-cmdline-encoder.sh
-    }" "$out/bin/zxing-cmdline-encoder"
+    substituteAll "${./zxing-cmdline-encoder.sh}" "$out/bin/zxing-cmdline-encoder"
     substituteAll "${./zxing.sh}" "$out/bin/zxing"
     chmod a+x "$out/bin"/*
     cd "$out/lib/java"; for i in *.jar; do mv "$i" "''${i#*-}"; done

@@ -68,10 +68,7 @@ in
       socket = mkOption {
         type = types.str;
         default = defaultSock;
-        description =
-          lib.mdDoc
-            "Socket which is used for communication with OpenDKIM."
-        ;
+        description = lib.mdDoc "Socket which is used for communication with OpenDKIM.";
       };
 
       user = mkOption {
@@ -89,10 +86,7 @@ in
       domains = mkOption {
         type = types.str;
         default = "csl:${config.networking.hostName}";
-        defaultText =
-          literalExpression
-            ''"csl:''${config.networking.hostName}"''
-        ;
+        defaultText = literalExpression ''"csl:''${config.networking.hostName}"'';
         example = "csl:example.com,mydomain.net";
         description = lib.mdDoc ''
           Local domains set (see `opendkim(8)` for more information on datasets).

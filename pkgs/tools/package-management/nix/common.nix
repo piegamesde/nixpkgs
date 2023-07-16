@@ -58,8 +58,7 @@ in
   util-linuxMinimal,
   xz,
 
-  enableDocumentation ?
-    !atLeast24 || stdenv.hostPlatform == stdenv.buildPlatform,
+  enableDocumentation ? !atLeast24 || stdenv.hostPlatform == stdenv.buildPlatform,
   enableStatic ? stdenv.hostPlatform.isStatic,
   withAWS ? !enableStatic && (stdenv.isLinux || stdenv.isDarwin),
   aws-sdk-cpp,
@@ -171,8 +170,7 @@ let
         # removes config.nix entirely and is not present in 2.3.x, we need to
         # patch around an issue where the Nix configure step pulls in the build
         # system's bash and other utilities when cross-compiling.
-        lib.optionalString
-          (stdenv.buildPlatform != stdenv.hostPlatform && !atLeast24)
+        lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform && !atLeast24)
           ''
             mkdir tmp/
             substitute corepkgs/config.nix.in tmp/config.nix.in \
@@ -208,8 +206,7 @@ let
         "--with-sandbox-shell=${busybox-sandbox-shell}/bin/busybox"
       ]
       ++
-        lib.optionals
-          (atLeast210 && stdenv.isLinux && stdenv.hostPlatform.isStatic)
+        lib.optionals (atLeast210 && stdenv.isLinux && stdenv.hostPlatform.isStatic)
           [ "--enable-embedded-sandbox-shell" ]
       ++
         lib.optionals

@@ -294,9 +294,7 @@ in
     };
 
     users.groups.jitsi-meet = { };
-    systemd.tmpfiles.rules = [
-      "d '/var/lib/jitsi-meet' 0750 root jitsi-meet - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '/var/lib/jitsi-meet' 0750 root jitsi-meet - -" ];
 
     systemd.services.jitsi-meet-init-secrets = {
       wantedBy = [ "multi-user.target" ];
@@ -320,9 +318,7 @@ in
               "jibri-auth-secret"
               "jibri-recorder-secret"
             ]
-            ++ (optional (cfg.videobridge.passwordFile == null)
-              "videobridge-secret"
-            )
+            ++ (optional (cfg.videobridge.passwordFile == null) "videobridge-secret")
           ;
         in
         ''
@@ -397,8 +393,7 @@ in
         };
         locations."=/interface_config.js" = mkDefault {
           alias =
-            overrideJs "${pkgs.jitsi-meet}/interface_config.js"
-              "interfaceConfig"
+            overrideJs "${pkgs.jitsi-meet}/interface_config.js" "interfaceConfig"
               cfg.interfaceConfig
               ""
           ;
@@ -425,8 +420,7 @@ in
                   cfg.extraConfig
               } $out/config.js
               cp ${
-                overrideJs "${pkgs.jitsi-meet}/interface_config.js"
-                  "interfaceConfig"
+                overrideJs "${pkgs.jitsi-meet}/interface_config.js" "interfaceConfig"
                   cfg.interfaceConfig
                   ""
               } $out/interface_config.js

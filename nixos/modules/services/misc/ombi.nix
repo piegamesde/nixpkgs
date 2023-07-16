@@ -24,10 +24,7 @@ in
       dataDir = mkOption {
         type = types.str;
         default = "/var/lib/ombi";
-        description =
-          lib.mdDoc
-            "The directory where Ombi stores its data files."
-        ;
+        description = lib.mdDoc "The directory where Ombi stores its data files.";
       };
 
       port = mkOption {
@@ -80,9 +77,7 @@ in
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
-    };
+    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
 
     users.users = mkIf (cfg.user == "ombi") {
       ombi = {

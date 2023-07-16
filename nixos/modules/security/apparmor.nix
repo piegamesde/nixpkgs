@@ -84,10 +84,7 @@ in
             }:
             {
               options = {
-                enable =
-                  mkDisableOption
-                    "loading of the profile into the kernel"
-                ;
+                enable = mkDisableOption "loading of the profile into the kernel";
                 enforce =
                   mkDisableOption
                     "enforcing of the policy or only complain in the logs"
@@ -277,12 +274,7 @@ in
           ExecStartPre = "${pkgs.apparmor-utils}/bin/aa-teardown";
           ExecStart =
             mapAttrsToList
-              (
-                n: p:
-                "${pkgs.apparmor-parser}/bin/apparmor_parser --add ${
-                  commonOpts p
-                }"
-              )
+              (n: p: "${pkgs.apparmor-parser}/bin/apparmor_parser --add ${commonOpts p}")
               enabledPolicies
           ;
           ExecStartPost =
@@ -293,12 +285,7 @@ in
             # Add or replace into the kernel profiles in enabledPolicies
             # (because AppArmor can do that without stopping the processes already confined).
             mapAttrsToList
-              (
-                n: p:
-                "${pkgs.apparmor-parser}/bin/apparmor_parser --replace ${
-                  commonOpts p
-                }"
-              )
+              (n: p: "${pkgs.apparmor-parser}/bin/apparmor_parser --replace ${commonOpts p}")
               enabledPolicies
             ++
               # Remove from the kernel any profile whose name is not

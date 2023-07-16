@@ -196,8 +196,7 @@ rec {
       }:
       {
         options = {
-          enable =
-            mkEnableOption (lib.mdDoc "copying of this file and symlinking it")
+          enable = mkEnableOption (lib.mdDoc "copying of this file and symlinking it")
             // {
               default = true;
             };

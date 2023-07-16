@@ -104,9 +104,7 @@ rustPlatform.buildRustPackage rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [ libappindicator-gtk3 ]
-      }"
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libappindicator-gtk3 ]}"
       --prefix PATH : "${lib.makeBinPath [ rclone ]}"
     )
   '';

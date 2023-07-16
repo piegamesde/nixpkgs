@@ -133,14 +133,11 @@ in
         let
           f =
             path: crossSystem: system:
-            builtins.toString (
-              lib.getAttrFromPath path (pkgsForCross crossSystem system)
-            )
+            builtins.toString (lib.getAttrFromPath path (pkgsForCross crossSystem system))
           ;
         in
         assertTrue (
-          f path null system
-          == f ([ "buildPackages" ] ++ path) crossSystem system
+          f path null system == f ([ "buildPackages" ] ++ path) crossSystem system
         )
       ;
 
@@ -203,10 +200,7 @@ in
   pogoplug4 = mapTestOnCross lib.systems.examples.pogoplug4 linuxCommon;
 
   # Linux on aarch64
-  aarch64 =
-    mapTestOnCross lib.systems.examples.aarch64-multiplatform
-      linuxCommon
-  ;
+  aarch64 = mapTestOnCross lib.systems.examples.aarch64-multiplatform linuxCommon;
   aarch64-musl =
     mapTestOnCross lib.systems.examples.aarch64-multiplatform-musl
       linuxCommon
@@ -266,10 +260,7 @@ in
       embedded
   ;
   i686-embedded = mapTestOnCross lib.systems.examples.i686-embedded embedded;
-  x86_64-embedded =
-    mapTestOnCross lib.systems.examples.x86_64-embedded
-      embedded
-  ;
+  x86_64-embedded = mapTestOnCross lib.systems.examples.x86_64-embedded embedded;
   riscv64-embedded =
     mapTestOnCross lib.systems.examples.riscv64-embedded
       embedded
@@ -302,8 +293,7 @@ in
         hydraJob' (lib.addMetaAttrs { inherit maintainers; } drv)
       ;
     in
-    lib.mapAttrsRecursiveCond (as: !lib.isDerivation as)
-      (name: mkBootstrapToolsJob)
+    lib.mapAttrsRecursiveCond (as: !lib.isDerivation as) (name: mkBootstrapToolsJob)
       # The `bootstrapTools.${platform}.bootstrapTools` derivation
       # *unpacks* the bootstrap-files using their own `busybox` binary,
       # so it will fail unless buildPlatform.canExecute hostPlatform.

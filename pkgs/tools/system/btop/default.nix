@@ -35,9 +35,7 @@ stdenv.mkDerivation rec {
       # TL;DR, the other headers in the include path for the macOS SDK is not compatible with the C++ stdlib and causes issues, so we copy
       # this to avoid those issues
       runCommand "${pname}_headers" { } ''
-        install -Dm444 "${
-          lib.getDev sdk
-        }"/include/libproc.h "$out"/include/libproc.h
+        install -Dm444 "${lib.getDev sdk}"/include/libproc.h "$out"/include/libproc.h
       ''
     )
   ;

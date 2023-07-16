@@ -178,8 +178,7 @@ in
   config = mkIf cfg.enable {
     environment = {
       # server references the dejavu fonts
-      systemPackages =
-        [ pkgs.dejavu_fonts ] ++ optional cfg.withCLI cfg.package;
+      systemPackages = [ pkgs.dejavu_fonts ] ++ optional cfg.withCLI cfg.package;
 
       variables = { } // optionalAttrs cfg.withCLI {
         # Make it more convenient to use the `jenkins-cli`.
@@ -233,8 +232,7 @@ in
             else
               let
                 pluginCmds =
-                  lib.attrsets.mapAttrsToList
-                    (n: v: "cp ${v} ${cfg.home}/plugins/${n}.jpi")
+                  lib.attrsets.mapAttrsToList (n: v: "cp ${v} ${cfg.home}/plugins/${n}.jpi")
                     cfg.plugins
                 ;
               in
@@ -256,14 +254,11 @@ in
         ${pkgs.jdk17}/bin/java ${
           concatStringsSep " " cfg.extraJavaOptions
         } -jar ${cfg.package}/webapps/jenkins.war --httpListenAddress=${cfg.listenAddress} \
-                                                  --httpPort=${
-                                                    toString cfg.port
-                                                  } \
+                                                  --httpPort=${toString cfg.port} \
                                                   --prefix=${cfg.prefix} \
                                                   -Djava.awt.headless=true \
                                                   ${
-                                                    concatStringsSep " "
-                                                      cfg.extraOptions
+                                                    concatStringsSep " " cfg.extraOptions
                                                   }
       '';
 

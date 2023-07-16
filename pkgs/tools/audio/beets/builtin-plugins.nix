@@ -14,10 +14,7 @@
 }:
 {
   absubmit = {
-    enable =
-      lib.elem stdenv.hostPlatform.system
-        essentia-extractor.meta.platforms
-    ;
+    enable = lib.elem stdenv.hostPlatform.system essentia-extractor.meta.platforms;
     wrapperBins = [ essentia-extractor ];
   };
   acousticbrainz.propagatedBuildInputs = [ python3Packages.requests ];

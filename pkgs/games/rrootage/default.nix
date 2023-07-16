@@ -38,12 +38,8 @@ stdenv.mkDerivation {
     (debianPatch "03_texture_filename"
       "1qxkxy6821xvanacf25mi43wj8nf40c1qiyavhc8av798xprpkjh"
     )
-    (debianPatch "04_home"
-      "0s15b0liv40jzjd9l4zsq688ky1yp9b1gmb1xhi3bih4y7q9awdz"
-    )
-    (debianPatch "05_gcc"
-      "06ihgbfrklabs7cb6216w1jjb9sglv86iagzhhmyydwyph4fb782"
-    )
+    (debianPatch "04_home" "0s15b0liv40jzjd9l4zsq688ky1yp9b1gmb1xhi3bih4y7q9awdz")
+    (debianPatch "05_gcc" "06ihgbfrklabs7cb6216w1jjb9sglv86iagzhhmyydwyph4fb782")
     (debianPatch "06_rrootage_highres"
       "0ifjmh236yiv3g896nfwwydgcnq3njdb8ldah7s3jxp3xkpvwcga"
     )

@@ -73,8 +73,7 @@ stdenv.mkDerivation (
 
     passthru.tests = {
       prefab =
-        runCommand "ploticus-prefab-test"
-          { buildInputs = [ finalAttrs.finalPackage ]; }
+        runCommand "ploticus-prefab-test" { buildInputs = [ finalAttrs.finalPackage ]; }
           ''
             # trivial test to see if the prefab path munging works
             mkdir $out/

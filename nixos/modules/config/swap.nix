@@ -181,10 +181,7 @@ let
       };
 
       config = rec {
-        device =
-          mkIf options.label.isDefined
-            "/dev/disk/by-label/${config.label}"
-        ;
+        device = mkIf options.label.isDefined "/dev/disk/by-label/${config.label}";
         deviceName = lib.replaceStrings [ "\\" ] [ "" ] (
           escapeSystemdPath config.device
         );
@@ -248,17 +245,14 @@ in
         (
           sw:
           if sw.size != null && hasPrefix "/dev/" sw.device then
-            [
-              "Setting the swap size of block device ${sw.device} has no effect"
-            ]
+            [ "Setting the swap size of block device ${sw.device} has no effect" ]
           else
             [ ]
         )
         config.swapDevices
     ;
 
-    system.requiredKernelConfig =
-      with config.lib.kernelConfig; [ (isYes "SWAP") ];
+    system.requiredKernelConfig = with config.lib.kernelConfig; [ (isYes "SWAP") ];
 
     # Create missing swapfiles.
     systemd.services =
@@ -285,26 +279,20 @@ in
             script = ''
               ${optionalString (sw.size != null) ''
                 currentSize=$(( $(stat -c "%s" "$DEVICE" 2>/dev/null || echo 0) / 1024 / 1024 ))
-                if [[ ! -b "$DEVICE" && "${
-                  toString sw.size
-                }" != "$currentSize" ]]; then
+                if [[ ! -b "$DEVICE" && "${toString sw.size}" != "$currentSize" ]]; then
                   # Disable CoW for CoW based filesystems like BTRFS.
                   truncate --size 0 "$DEVICE"
                   chattr +C "$DEVICE" 2>/dev/null || true
 
                   dd if=/dev/zero of="$DEVICE" bs=1M count=${toString sw.size}
                   chmod 0600 ${sw.device}
-                  ${
-                    optionalString (!sw.randomEncryption.enable)
-                      "mkswap ${sw.realDevice}"
-                  }
+                  ${optionalString (!sw.randomEncryption.enable) "mkswap ${sw.realDevice}"}
                 fi
               ''}
               ${optionalString sw.randomEncryption.enable ''
                 cryptsetup plainOpen -c ${sw.randomEncryption.cipher} -d ${sw.randomEncryption.source} \
                   ${
-                    optionalString sw.randomEncryption.allowDiscards
-                      "--allow-discards"
+                    optionalString sw.randomEncryption.allowDiscards "--allow-discards"
                   } ${sw.device} ${sw.deviceName}
                 mkswap ${sw.realDevice}
               ''}
@@ -324,8 +312,7 @@ in
       in
       listToAttrs (
         map createSwapDevice (
-          filter (sw: sw.size != null || sw.randomEncryption.enable)
-            config.swapDevices
+          filter (sw: sw.size != null || sw.randomEncryption.enable) config.swapDevices
         )
       )
     ;

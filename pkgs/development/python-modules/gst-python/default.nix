@@ -48,9 +48,7 @@ buildPythonPackage rec {
   ];
 
   mesonFlags = [
-    "-Dpygi-overrides-dir=${
-      placeholder "out"
-    }/${python.sitePackages}/gi/overrides"
+    "-Dpygi-overrides-dir=${placeholder "out"}/${python.sitePackages}/gi/overrides"
     # Exec format error during configure
     "-Dpython=${python.pythonForBuild.interpreter}"
   ];

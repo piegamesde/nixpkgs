@@ -22,9 +22,7 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ makeWrapper ];
 
   postInstall = ''
-    wrapProgram "$out/bin/alass-cli" --prefix PATH : "${
-      lib.makeBinPath [ ffmpeg ]
-    }"
+    wrapProgram "$out/bin/alass-cli" --prefix PATH : "${lib.makeBinPath [ ffmpeg ]}"
   '';
 
   meta = with lib; {

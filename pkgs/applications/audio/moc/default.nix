@@ -68,8 +68,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional pulseSupport ./pulseaudio.patch
   ;
 
-  nativeBuildInputs =
-    [ pkg-config ] ++ lib.optional pulseSupport autoreconfHook;
+  nativeBuildInputs = [ pkg-config ] ++ lib.optional pulseSupport autoreconfHook;
 
   buildInputs =
     [

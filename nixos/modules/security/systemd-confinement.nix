@@ -66,9 +66,7 @@ in
                     "ExecStop"
                     "ExecStopPost"
                   ]
-                } and ${
-                  mkScOption "ExecStart"
-                } options. If you want to have all the
+                } and ${mkScOption "ExecStart"} options. If you want to have all the
                 dependencies of this systemd unit, you can use
                 {option}`confinement.fullUnit`.
 
@@ -123,9 +121,7 @@ in
           config =
             let
               inherit (config.confinement) binSh fullUnit;
-              wantsAPIVFS = lib.mkDefault (
-                config.confinement.mode == "full-apivfs"
-              );
+              wantsAPIVFS = lib.mkDefault (config.confinement.mode == "full-apivfs");
             in
             lib.mkIf config.confinement.enable {
               serviceConfig = {
@@ -169,9 +165,7 @@ in
                         let
                           isSet = config.serviceConfig ? ${opt};
                         in
-                        lib.flatten (
-                          lib.optional isSet config.serviceConfig.${opt}
-                        )
+                        lib.flatten (lib.optional isSet config.serviceConfig.${opt})
                       )
                       execOpts
                   ;
@@ -220,9 +214,7 @@ in
           }
           {
             assertion =
-              cfg.serviceConfig ? ProtectSystem
-              -> cfg.serviceConfig.ProtectSystem == false
-            ;
+              cfg.serviceConfig ? ProtectSystem -> cfg.serviceConfig.ProtectSystem == false;
             message =
               "${whatOpt "ProtectSystem"}. ProtectSystem is not compatible"
               + " with service confinement as it fails to remount /usr within"

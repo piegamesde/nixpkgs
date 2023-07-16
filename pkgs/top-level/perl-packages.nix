@@ -12149,12 +12149,9 @@ with self;
       url = "mirror://cpan/authors/id/E/ET/ETHER/FCGI-0.79.tar.gz";
       hash = "sha256-jPpOGxT7jVrKoiztZyxq9owKjiXcKpaXoO1/Sk77NOQ=";
     };
-    postPatch =
-      lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
-        ''
-          sed -i '/use IO::File/d' Makefile.PL
-        ''
-    ;
+    postPatch = lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+      sed -i '/use IO::File/d' Makefile.PL
+    '';
     meta = {
       description = "Fast CGI module";
       license = with lib.licenses; [ oml ];
@@ -18786,12 +18783,9 @@ with self;
       WWWRobotRules
     ];
     # support cross-compilation by avoiding using `has_module` which does not work in miniperl (it requires B native module)
-    postPatch =
-      lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform)
-        ''
-          substituteInPlace Makefile.PL --replace 'if has_module' 'if 0; #'
-        ''
-    ;
+    postPatch = lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+      substituteInPlace Makefile.PL --replace 'if has_module' 'if 0; #'
+    '';
     doCheck = !stdenv.isDarwin;
     nativeCheckInputs = [
       HTTPDaemon
@@ -18868,9 +18862,7 @@ with self;
       url = "mirror://cpan/authors/id/O/OA/OALDERS/LWP-Protocol-https-6.09.tar.gz";
       hash = "sha256-Fs/hpRFpCwZttWZ8hxSALuK5xdKKMaPnvTb7xwo69ZI=";
     };
-    patches = [
-      ../development/perl-modules/lwp-protocol-https-cert-file.patch
-    ];
+    patches = [ ../development/perl-modules/lwp-protocol-https-cert-file.patch ];
     propagatedBuildInputs = [
       IOSocketSSL
       LWP
@@ -30136,9 +30128,7 @@ with self;
       url = "mirror://cpan/authors/id/C/CL/CLKAO/SVN-Simple-0.28.tar.gz";
       hash = "sha256-1jzBaeQ2m+mKU5q+nMFhG/zCs2lmplF+Z2aI/tGIT/s=";
     };
-    propagatedBuildInputs = [
-      (pkgs.subversionClient.override { inherit perl; })
-    ];
+    propagatedBuildInputs = [ (pkgs.subversionClient.override { inherit perl; }) ];
     meta = {
       description = "A simple interface to subversion's editor interface";
       license = with lib.licenses; [
@@ -30666,9 +30656,7 @@ with self;
         pkgs.tix
         pkgs.tk
       ]
-      ++ lib.optionals stdenv.isDarwin [
-        darwin.apple_sdk.frameworks.CoreServices
-      ]
+      ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreServices ]
     ;
     makeMakerFlags = lib.optionals stdenv.isLinux [
       "--tclsh=${pkgs.tcl}/bin/tclsh"
@@ -30995,9 +30983,7 @@ with self;
       );
 
       # TermReadKey uses itself in the build process
-      nativeBuildInputs = lib.optionals cross [
-        perl.perlOnBuild.pkgs.TermReadKey
-      ];
+      nativeBuildInputs = lib.optionals cross [ perl.perlOnBuild.pkgs.TermReadKey ];
       meta = {
         description = "A perl module for simple terminal control";
         license = with lib.licenses; [
@@ -33614,9 +33600,7 @@ with self;
       hash = "sha256-sBRYbmi9vK+wos+gQB6woE6l3oxNW8Nt0Pf66ras9Cw=";
     };
     # libbtparse.so: cannot open shared object file (aarch64 only)
-    patches = [
-      ../development/perl-modules/TextBibTeX-use-lib-on-aarch64.patch
-    ];
+    patches = [ ../development/perl-modules/TextBibTeX-use-lib-on-aarch64.patch ];
     perlPreHook = "export LD=$CC";
     perlPostHook = lib.optionalString stdenv.isDarwin ''
       oldPath="$(pwd)/btparse/src/libbtparse.dylib"

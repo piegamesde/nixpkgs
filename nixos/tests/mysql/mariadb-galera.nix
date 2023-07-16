@@ -6,10 +6,7 @@
 }:
 
 let
-  inherit (import ./common.nix { inherit pkgs lib; })
-    mkTestName
-    mariadbPackages
-  ;
+  inherit (import ./common.nix { inherit pkgs lib; }) mkTestName mariadbPackages;
 
   makeTest = import ./../make-test-python.nix;
 
@@ -116,12 +113,8 @@ let
                     wsrep_provider = "${galeraPackage}/lib/galera/libgalera_smm.so";
                     wsrep_cluster_address =
                       "gcomm://"
-                      +
-                        lib.optionalString (id == 2 || id == 3)
-                          "galera_01,galera_02,galera_03"
-                      +
-                        lib.optionalString (id == 5 || id == 6)
-                          "galera_04,galera_05,galera_06"
+                      + lib.optionalString (id == 2 || id == 3) "galera_01,galera_02,galera_03"
+                      + lib.optionalString (id == 5 || id == 6) "galera_04,galera_05,galera_06"
                     ;
                     wsrep_cluster_name = "galera";
                     wsrep_node_address = address;

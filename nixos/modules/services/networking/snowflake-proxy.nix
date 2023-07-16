@@ -13,9 +13,7 @@ in
 {
   options = {
     services.snowflake-proxy = {
-      enable = mkEnableOption (
-        lib.mdDoc "System to defeat internet censorship"
-      );
+      enable = mkEnableOption (lib.mdDoc "System to defeat internet censorship");
 
       broker = mkOption {
         description =
@@ -63,9 +61,7 @@ in
           "${pkgs.snowflake}/bin/proxy "
           + concatStringsSep " " (
             optional (cfg.broker != null) "-broker ${cfg.broker}"
-            ++
-              optional (cfg.capacity != null)
-                "-capacity ${builtins.toString cfg.capacity}"
+            ++ optional (cfg.capacity != null) "-capacity ${builtins.toString cfg.capacity}"
             ++ optional (cfg.relay != null) "-relay ${cfg.relay}"
             ++ optional (cfg.stun != null) "-stun ${cfg.stun}"
           )

@@ -32,8 +32,7 @@ stdenv.mkDerivation {
   pname = "StaticSitesClient-${versionFlavor}";
   version = flavor.buildId;
 
-  src =
-    sources.${stdenv.targetPlatform.system} or (throw "Unsupported platform");
+  src = sources.${stdenv.targetPlatform.system} or (throw "Unsupported platform");
 
   nativeBuildInputs = [ autoPatchelfHook ];
 
@@ -87,8 +86,7 @@ stdenv.mkDerivation {
     tests =
       with lib;
       genAttrs (map (x: x.version) versions) (
-        versionFlavor:
-        azure-static-sites-client.override { inherit versionFlavor; }
+        versionFlavor: azure-static-sites-client.override { inherit versionFlavor; }
       )
     ;
     updateScript = ./update.sh;

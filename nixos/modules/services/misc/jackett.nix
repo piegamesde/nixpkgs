@@ -18,10 +18,7 @@ in
       dataDir = mkOption {
         type = types.str;
         default = "/var/lib/jackett/.config/Jackett";
-        description =
-          lib.mdDoc
-            "The directory where Jackett stores its data files."
-        ;
+        description = lib.mdDoc "The directory where Jackett stores its data files.";
       };
 
       openFirewall = mkOption {

@@ -120,14 +120,8 @@ in
             ExecStart = "${dspam}/bin/dspam --daemon --nofork";
             User = cfg.user;
             Group = cfg.group;
-            RuntimeDirectory =
-              optional (cfg.domainSocket == defaultSock)
-                "dspam"
-            ;
-            RuntimeDirectoryMode =
-              optional (cfg.domainSocket == defaultSock)
-                "0750"
-            ;
+            RuntimeDirectory = optional (cfg.domainSocket == defaultSock) "dspam";
+            RuntimeDirectoryMode = optional (cfg.domainSocket == defaultSock) "0750";
             StateDirectory = "dspam";
             StateDirectoryMode = "0750";
             LogsDirectory = "dspam";

@@ -105,10 +105,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Enable the Plasma 5 (KDE 5) desktop environment."
-        ;
+        description = lib.mdDoc "Enable the Plasma 5 (KDE 5) desktop environment.";
       };
 
       phononBackend = mkOption {
@@ -248,9 +245,7 @@ in
           setuid = true;
           owner = "root";
           group = "root";
-          source = "${
-              getBin libsForQt5.kscreenlocker
-            }/libexec/kscreenlocker_greet";
+          source = "${getBin libsForQt5.kscreenlocker}/libexec/kscreenlocker_greet";
         };
         start_kdeinit = {
           setuid = true;
@@ -370,9 +365,7 @@ in
         ++
           lib.optional (cfg.phononBackend == "gstreamer")
             libsForQt5.phonon-backend-gstreamer
-        ++
-          lib.optional (cfg.phononBackend == "vlc")
-            libsForQt5.phonon-backend-vlc
+        ++ lib.optional (cfg.phononBackend == "vlc") libsForQt5.phonon-backend-vlc
 
         # Optional hardware support features
         ++ lib.optionals config.hardware.bluetooth.enable [
@@ -447,10 +440,9 @@ in
       # when changing an account picture the accounts-daemon reads a temporary file containing the image which systemsettings5 may place under /tmp
       systemd.services.accounts-daemon.serviceConfig.PrivateTmp = false;
       services.power-profiles-daemon.enable = mkDefault true;
-      services.system-config-printer.enable =
-        mkIf config.services.printing.enable
-          (mkDefault true)
-      ;
+      services.system-config-printer.enable = mkIf config.services.printing.enable (
+        mkDefault true
+      );
       services.udisks2.enable = true;
       services.upower.enable = config.powerManagement.enable;
       services.xserver.libinput.enable = mkDefault true;
@@ -498,10 +490,7 @@ in
     })
 
     (mkIf (cfg.kdeglobals != { }) {
-      environment.etc."xdg/kdeglobals".text =
-        lib.generators.toINI { }
-          cfg.kdeglobals
-      ;
+      environment.etc."xdg/kdeglobals".text = lib.generators.toINI { } cfg.kdeglobals;
     })
 
     # Plasma Desktop
@@ -593,10 +582,7 @@ in
           # The user interface breaks without pulse
           assertion =
             config.hardware.pulseaudio.enable
-            || (
-              config.services.pipewire.enable
-              && config.services.pipewire.pulse.enable
-            )
+            || (config.services.pipewire.enable && config.services.pipewire.pulse.enable)
           ;
           message = "Plasma Mobile requires pulseaudio.";
         }

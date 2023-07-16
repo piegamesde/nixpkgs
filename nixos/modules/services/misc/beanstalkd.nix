@@ -40,10 +40,7 @@ in
       openFirewall = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to open ports in the firewall for the server."
-        ;
+        description = lib.mdDoc "Whether to open ports in the firewall for the server.";
       };
     };
   };

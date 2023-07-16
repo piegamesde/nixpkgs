@@ -56,8 +56,7 @@ in
     # Prevent agetty from being instantiated on the serial device, since it
     # interferes with the backdoor (writes to it will randomly fail
     # with EIO).  Likewise for hvc0.
-    systemd.services."serial-getty@${qemu-common.qemuSerialDevice}".enable =
-      false;
+    systemd.services."serial-getty@${qemu-common.qemuSerialDevice}".enable = false;
     systemd.services."serial-getty@hvc0".enable = false;
 
     # Only set these settings when the options exist. Some tests (e.g. those

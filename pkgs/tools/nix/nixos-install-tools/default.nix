@@ -17,11 +17,7 @@ in
   name = "nixos-install-tools-${version}";
   paths = lib.attrValues {
     # See nixos/modules/installer/tools/tools.nix
-    inherit (config.system.build)
-      nixos-install
-      nixos-generate-config
-      nixos-enter
-    ;
+    inherit (config.system.build) nixos-install nixos-generate-config nixos-enter;
 
     # Required for --help.
     inherit (config.system.build.manual) manpages;

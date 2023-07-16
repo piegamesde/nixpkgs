@@ -55,9 +55,7 @@ mkDerivation rec {
       "--disable-qtgui"
       "--disable-x11mon"
     ]
-    ++ (
-      if stdenv.isLinux then [ "--with-inotify" ] else [ "--without-inotify" ]
-    )
+    ++ (if stdenv.isLinux then [ "--with-inotify" ] else [ "--without-inotify" ])
   ;
 
   env.NIX_CFLAGS_COMPILE = toString [ "-DNIXPKGS" ];
@@ -101,9 +99,7 @@ mkDerivation rec {
           substituteInPlace $f --replace '"antiword"'  '"${
             lib.getBin antiword
           }/bin/antiword"'
-          substituteInPlace $f --replace '"awk"'       '"${
-            lib.getBin gawk
-          }/bin/awk"'
+          substituteInPlace $f --replace '"awk"'       '"${lib.getBin gawk}/bin/awk"'
           substituteInPlace $f --replace '"catppt"'    '"${
             lib.getBin catdoc
           }/bin/catppt"'
@@ -155,17 +151,13 @@ mkDerivation rec {
           substituteInPlace $f --replace '"wpd2html"'  '"${
             lib.getBin libwpd
           }/bin/wpd2html"'
-          substituteInPlace $f --replace /usr/bin/perl   ${
-            lib.getBin perl
-          }/bin/perl
+          substituteInPlace $f --replace /usr/bin/perl   ${lib.getBin perl}/bin/perl
         fi
       done
       wrapProgram $out/share/recoll/filters/rclaudio.py \
         --prefix PYTHONPATH : $PYTHONPATH
       wrapProgram $out/share/recoll/filters/rclimg \
-        --prefix PERL5LIB : "${
-          with perlPackages; makeFullPerlPath [ ImageExifTool ]
-        }"
+        --prefix PERL5LIB : "${with perlPackages; makeFullPerlPath [ ImageExifTool ]}"
     ''
     + lib.optionalString stdenv.isLinux ''
       substituteInPlace  $f --replace '"lyx"' '"${lib.getBin lyx}/bin/lyx"'

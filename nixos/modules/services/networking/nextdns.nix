@@ -28,10 +28,7 @@ in
           "-config"
           "10.0.3.0/24=abcdef"
         ];
-        description =
-          lib.mdDoc
-            "Additional arguments to be passed to nextdns run."
-        ;
+        description = lib.mdDoc "Additional arguments to be passed to nextdns run.";
       };
     };
   };

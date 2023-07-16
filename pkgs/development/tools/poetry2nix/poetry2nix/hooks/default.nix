@@ -30,9 +30,7 @@ let
             substitutions = {
               # NOTE: We have to use a non-overlayed Python here because otherwise we run into an infinite recursion
               # because building of tomlkit and its dependencies also use these hooks.
-              pythonPath = nonOverlayedPython.pkgs.makePythonPath [
-                nonOverlayedPython
-              ];
+              pythonPath = nonOverlayedPython.pkgs.makePythonPath [ nonOverlayedPython ];
               pythonInterpreter = nonOverlayedPython.interpreter;
               pyprojectPatchScript = "${./pyproject-without-special-deps.py}";
               inherit fields;
@@ -140,8 +138,7 @@ in
           };
 
           pythonPath =
-            [ ] ++ lib.optional (lib.versionOlder python.version "3.9") unparser
-          ;
+            [ ] ++ lib.optional (lib.versionOlder python.version "3.9") unparser;
         in
         makeSetupHook
           {
@@ -160,10 +157,7 @@ in
   # It doesn't _really_ depend on wheel though, it just copies the wheel.
   wheelUnpackHook =
     callPackage
-      (
-        _:
-        makeSetupHook { name = "wheel-unpack-hook.sh"; } ./wheel-unpack-hook.sh
-      )
+      (_: makeSetupHook { name = "wheel-unpack-hook.sh"; } ./wheel-unpack-hook.sh)
       { }
   ;
 }

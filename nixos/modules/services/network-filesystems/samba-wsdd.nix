@@ -36,10 +36,7 @@ in
         type = types.nullOr types.int;
         default = null;
         example = 2;
-        description =
-          lib.mdDoc
-            "Hop limit for multicast packets (default = 1)."
-        ;
+        description = lib.mdDoc "Hop limit for multicast packets (default = 1).";
       };
       workgroup = mkOption {
         type = types.nullOr types.str;
@@ -69,10 +66,7 @@ in
       listen = mkOption {
         type = types.str;
         default = "/run/wsdd/wsdd.sock";
-        description =
-          lib.mdDoc
-            "Listen on path or localhost port in discovery mode."
-        ;
+        description = lib.mdDoc "Listen on path or localhost port in discovery mode.";
       };
       extraOptions = mkOption {
         type = types.listOf types.str;
@@ -101,28 +95,22 @@ in
         Type = "simple";
         ExecStart = ''
           ${pkgs.wsdd}/bin/wsdd ${
-            optionalString (cfg.interface != null)
-              "--interface '${cfg.interface}'"
+            optionalString (cfg.interface != null) "--interface '${cfg.interface}'"
           } \
                                 ${
-                                  optionalString (cfg.hoplimit != null)
-                                    "--hoplimit '${toString cfg.hoplimit}'"
+                                  optionalString (cfg.hoplimit != null) "--hoplimit '${toString cfg.hoplimit}'"
                                 } \
                                 ${
-                                  optionalString (cfg.workgroup != null)
-                                    "--workgroup '${cfg.workgroup}'"
+                                  optionalString (cfg.workgroup != null) "--workgroup '${cfg.workgroup}'"
                                 } \
                                 ${
-                                  optionalString (cfg.hostname != null)
-                                    "--hostname '${cfg.hostname}'"
+                                  optionalString (cfg.hostname != null) "--hostname '${cfg.hostname}'"
                                 } \
                                 ${
-                                  optionalString (cfg.domain != null)
-                                    "--domain '${cfg.domain}'"
+                                  optionalString (cfg.domain != null) "--domain '${cfg.domain}'"
                                 } \
                                 ${
-                                  optionalString cfg.discovery
-                                    "--discovery --listen '${cfg.listen}'"
+                                  optionalString cfg.discovery "--discovery --listen '${cfg.listen}'"
                                 } \
                                 ${escapeShellArgs cfg.extraOptions}
         '';

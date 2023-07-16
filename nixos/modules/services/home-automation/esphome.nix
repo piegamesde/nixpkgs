@@ -64,10 +64,7 @@ in
     openFirewall = mkOption {
       default = false;
       type = types.bool;
-      description =
-        mdDoc
-          "Whether to open the firewall for the specified port."
-      ;
+      description = mdDoc "Whether to open the firewall for the specified port.";
     };
 
     allowedDevices = mkOption {

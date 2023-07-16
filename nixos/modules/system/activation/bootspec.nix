@@ -84,8 +84,7 @@ let
             lib.escapeShellArgs [
               "${pkgs.jq}/bin/jq"
               "--sort-keys"
-              ''
-                ."org.nixos.specialisation.v1" = ($ARGS.named | map_values(. | first))''
+              ''."org.nixos.specialisation.v1" = ($ARGS.named | map_values(. | first))''
             ]
             + " ${lib.concatStringsSep " " specialisationLoader}"
           ;

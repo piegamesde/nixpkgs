@@ -34,11 +34,7 @@ let
   ];
   runtimeBins = lib.makeBinPath [ streamlink ];
   arch =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-      "linux64"
-    else
-      "linux32"
-  ;
+    if stdenv.hostPlatform.system == "x86_64-linux" then "linux64" else "linux32";
 in
 stdenv.mkDerivation rec {
   pname = "${basename}-bin";

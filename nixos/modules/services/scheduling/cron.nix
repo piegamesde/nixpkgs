@@ -17,9 +17,7 @@ let
       MAILTO="${config.services.cron.mailto}"
     ''}
     NIX_CONF_DIR=/etc/nix
-    ${lib.concatStrings (
-      map (job: job + "\n") config.services.cron.systemCronJobs
-    )}
+    ${lib.concatStrings (map (job: job + "\n") config.services.cron.systemCronJobs)}
   '';
 
   # Vixie cron requires build-time configuration for the sendmail path.
@@ -52,10 +50,7 @@ in
       mailto = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description =
-          lib.mdDoc
-            "Email address to which job output will be mailed."
-        ;
+        description = lib.mdDoc "Email address to which job output will be mailed.";
       };
 
       systemCronJobs = mkOption {

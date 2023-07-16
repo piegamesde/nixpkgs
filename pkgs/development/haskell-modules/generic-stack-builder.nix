@@ -35,9 +35,7 @@ stdenv.mkDerivation (
     __noChroot = true;
 
     buildInputs =
-      buildInputs
-      ++ lib.optional (stdenv.hostPlatform.libc == "glibc") glibcLocales
-    ;
+      buildInputs ++ lib.optional (stdenv.hostPlatform.libc == "glibc") glibcLocales;
 
     nativeBuildInputs =
       nativeBuildInputs

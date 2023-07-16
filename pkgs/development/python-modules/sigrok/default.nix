@@ -72,8 +72,7 @@ toPythonModule (
 
       meta = orig.meta // {
         description = "Python bindings for libsigrok";
-        maintainers =
-          orig.meta.maintainers ++ [ lib.maintainers.sternenseemann ];
+        maintainers = orig.meta.maintainers ++ [ lib.maintainers.sternenseemann ];
       };
     }
   )

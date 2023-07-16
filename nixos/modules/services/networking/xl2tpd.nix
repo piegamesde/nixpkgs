@@ -28,10 +28,7 @@ with lib;
 
       extraXl2tpOptions = mkOption {
         type = types.lines;
-        description =
-          lib.mdDoc
-            "Adds extra lines to the xl2tpd configuration file."
-        ;
+        description = lib.mdDoc "Adds extra lines to the xl2tpd configuration file.";
         default = "";
       };
 

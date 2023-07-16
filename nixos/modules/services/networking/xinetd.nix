@@ -35,10 +35,7 @@ let
         wait        = ${if srv.protocol == "udp" then "yes" else "no"}
         user        = ${srv.user}
         server      = ${srv.server}
-        ${
-          optionalString (srv.serverArgs != "")
-            "server_args = ${srv.serverArgs}"
-        }
+        ${optionalString (srv.serverArgs != "") "server_args = ${srv.serverArgs}"}
         ${srv.extraConfig}
       }
     ''
@@ -85,10 +82,7 @@ in
               protocol = mkOption {
                 type = types.str;
                 default = "tcp";
-                description =
-                  lib.mdDoc
-                    "Protocol of the service.  Usually `tcp` or `udp`."
-                ;
+                description = lib.mdDoc "Protocol of the service.  Usually `tcp` or `udp`.";
               };
 
               port = mkOption {
@@ -107,19 +101,13 @@ in
               server = mkOption {
                 type = types.str;
                 example = "/foo/bin/ftpd";
-                description =
-                  lib.mdDoc
-                    "Path of the program that implements the service."
-                ;
+                description = lib.mdDoc "Path of the program that implements the service.";
               };
 
               serverArgs = mkOption {
                 type = types.separatedString " ";
                 default = "";
-                description =
-                  lib.mdDoc
-                    "Command-line arguments for the server program."
-                ;
+                description = lib.mdDoc "Command-line arguments for the server program.";
               };
 
               flags = mkOption {

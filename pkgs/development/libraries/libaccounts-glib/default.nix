@@ -79,9 +79,7 @@ stdenv.mkDerivation rec {
   LC_ALL = "en_US.UTF-8";
 
   mesonFlags = [
-    "-Dpy-overrides-dir=${
-      placeholder "py"
-    }/${python3.sitePackages}/gi/overrides"
+    "-Dpy-overrides-dir=${placeholder "py"}/${python3.sitePackages}/gi/overrides"
   ];
 
   meta = with lib; {

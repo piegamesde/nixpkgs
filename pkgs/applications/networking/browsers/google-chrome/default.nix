@@ -202,8 +202,7 @@ stdenv.mkDerivation {
   '';
 
   rpath =
-    lib.makeLibraryPath deps + ":" + lib.makeSearchPathOutput "lib" "lib64" deps
-  ;
+    lib.makeLibraryPath deps + ":" + lib.makeSearchPathOutput "lib" "lib64" deps;
   binpath = lib.makeBinPath deps;
 
   installPhase = ''

@@ -107,9 +107,7 @@ rec {
       for lorefile in ${toString lore.types}; do
         cat ${
           lib.concatMapStrings (x: x + "/$lorefile ") (
-            map (make lore) (
-              map lib.getBin (builtins.filter lib.isDerivation drvs)
-            )
+            map (make lore) (map lib.getBin (builtins.filter lib.isDerivation drvs))
           )
         } > $out/$lorefile
         substituteInPlace $out/$lorefile ${

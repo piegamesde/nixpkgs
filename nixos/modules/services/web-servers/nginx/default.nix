@@ -15,8 +15,7 @@ let
       virtualHosts
   ;
   acmeEnabledVhosts =
-    filter
-      (vhostConfig: vhostConfig.enableACME || vhostConfig.useACMEHost != null)
+    filter (vhostConfig: vhostConfig.enableACME || vhostConfig.useACMEHost != null)
       vhostsConfigs
   ;
   dependentCertNames = unique (
@@ -28,22 +27,13 @@ let
         vhostName: vhostConfig:
         let
           serverName =
-            if vhostConfig.serverName != null then
-              vhostConfig.serverName
-            else
-              vhostName
-          ;
+            if vhostConfig.serverName != null then vhostConfig.serverName else vhostName;
           certName =
-            if vhostConfig.useACMEHost != null then
-              vhostConfig.useACMEHost
-            else
-              serverName
-          ;
+            if vhostConfig.useACMEHost != null then vhostConfig.useACMEHost else serverName;
         in
         vhostConfig // {
           inherit serverName certName;
-        } // (optionalAttrs
-          (vhostConfig.enableACME || vhostConfig.useACMEHost != null)
+        } // (optionalAttrs (vhostConfig.enableACME || vhostConfig.useACMEHost != null)
           {
             sslCertificate = "${certs.${certName}.directory}/fullchain.pem";
             sslCertificateKey = "${certs.${certName}.directory}/key.pem";
@@ -144,9 +134,7 @@ let
             "/var/cache/nginx/${name}"
             "keys_zone=${proxyCachePath.keysZoneName}:${proxyCachePath.keysZoneSize}"
             "levels=${proxyCachePath.levels}"
-            "use_temp_path=${
-              if proxyCachePath.useTempPath then "on" else "off"
-            }"
+            "use_temp_path=${if proxyCachePath.useTempPath then "on" else "off"}"
             "inactive=${proxyCachePath.inactive}"
             "max_size=${proxyCachePath.maxSize}"
           ]
@@ -208,8 +196,7 @@ let
         ${
           optionalString (cfg.resolver.addresses != [ ]) ''
             resolver ${toString cfg.resolver.addresses} ${
-              optionalString (cfg.resolver.valid != "")
-                "valid=${cfg.resolver.valid}"
+              optionalString (cfg.resolver.valid != "") "valid=${cfg.resolver.valid}"
             } ${optionalString (!cfg.resolver.ipv6) "ipv6=off"};
           ''
         }
@@ -226,14 +213,8 @@ let
         }
 
         ssl_protocols ${cfg.sslProtocols};
-        ${
-          optionalString (cfg.sslCiphers != null)
-            "ssl_ciphers ${cfg.sslCiphers};"
-        }
-        ${
-          optionalString (cfg.sslDhparam != null)
-            "ssl_dhparam ${cfg.sslDhparam};"
-        }
+        ${optionalString (cfg.sslCiphers != null) "ssl_ciphers ${cfg.sslCiphers};"}
+        ${optionalString (cfg.sslDhparam != null) "ssl_dhparam ${cfg.sslDhparam};"}
 
         ${
           optionalString cfg.recommendedTlsSettings ''
@@ -316,9 +297,7 @@ let
 
         ${
           optionalString (cfg.serverNamesHashBucketSize != null) ''
-            server_names_hash_bucket_size ${
-              toString cfg.serverNamesHashBucketSize
-            };
+            server_names_hash_bucket_size ${toString cfg.serverNamesHashBucketSize};
           ''
         }
 
@@ -346,8 +325,7 @@ let
             server {
               listen ${toString cfg.defaultHTTPListenPort};
               ${
-                optionalString enableIPv6
-                  "listen [::]:${toString cfg.defaultHTTPListenPort};"
+                optionalString enableIPv6 "listen [::]:${toString cfg.defaultHTTPListenPort};"
               }
 
               server_name localhost;
@@ -428,11 +406,7 @@ let
           ;
 
           hostListen =
-            if vhost.forceSSL then
-              filter (x: x.ssl) defaultListen
-            else
-              defaultListen
-          ;
+            if vhost.forceSSL then filter (x: x.ssl) defaultListen else defaultListen;
 
           listenString =
             {
@@ -455,8 +429,7 @@ let
                       "proxy_protocol"
                       "http2"
                     ];
-                    isCompatibleParameter =
-                      param: !(any (p: p == param) inCompatibleParameters);
+                    isCompatibleParameter = param: !(any (p: p == param) inCompatibleParameters);
                   in
                   filter isCompatibleParameter extraParameters
                 )
@@ -468,48 +441,37 @@ let
             + optionalString ssl "ssl "
             + optionalString vhost.default "default_server "
             + optionalString vhost.reuseport "reuseport "
-            + optionalString (extraParameters != [ ]) (
-              concatStringsSep " " extraParameters
-            )
+            + optionalString (extraParameters != [ ]) (concatStringsSep " " extraParameters)
             + ";"
           ;
 
           redirectListen = filter (x: !x.ssl) defaultListen;
 
-          acmeLocation =
-            optionalString (vhost.enableACME || vhost.useACMEHost != null)
-              ''
-                # Rule for legitimate ACME Challenge requests (like /.well-known/acme-challenge/xxxxxxxxx)
-                # We use ^~ here, so that we don't check any regexes (which could
-                # otherwise easily override this intended match accidentally).
-                location ^~ /.well-known/acme-challenge/ {
-                  ${
-                    optionalString (vhost.acmeFallbackHost != null)
-                      "try_files $uri @acme-fallback;"
-                  }
-                  ${
-                    optionalString (vhost.acmeRoot != null)
-                      "root ${vhost.acmeRoot};"
-                  }
-                  auth_basic off;
-                }
-                ${optionalString (vhost.acmeFallbackHost != null) ''
-                  location @acme-fallback {
-                    auth_basic off;
-                    proxy_pass http://${vhost.acmeFallbackHost};
-                  }
-                ''}
-              ''
-          ;
+          acmeLocation = optionalString (vhost.enableACME || vhost.useACMEHost != null) ''
+            # Rule for legitimate ACME Challenge requests (like /.well-known/acme-challenge/xxxxxxxxx)
+            # We use ^~ here, so that we don't check any regexes (which could
+            # otherwise easily override this intended match accidentally).
+            location ^~ /.well-known/acme-challenge/ {
+              ${
+                optionalString (vhost.acmeFallbackHost != null) "try_files $uri @acme-fallback;"
+              }
+              ${optionalString (vhost.acmeRoot != null) "root ${vhost.acmeRoot};"}
+              auth_basic off;
+            }
+            ${optionalString (vhost.acmeFallbackHost != null) ''
+              location @acme-fallback {
+                auth_basic off;
+                proxy_pass http://${vhost.acmeFallbackHost};
+              }
+            ''}
+          '';
         in
         ''
           ${optionalString vhost.forceSSL ''
             server {
               ${concatMapStringsSep "\n" listenString redirectListen}
 
-              server_name ${vhost.serverName} ${
-                concatStringsSep " " vhost.serverAliases
-              };
+              server_name ${vhost.serverName} ${concatStringsSep " " vhost.serverAliases};
               ${acmeLocation}
               location / {
                 return 301 https://$host$request_uri;
@@ -519,9 +481,7 @@ let
 
           server {
             ${concatMapStringsSep "\n" listenString hostListen}
-            server_name ${vhost.serverName} ${
-              concatStringsSep " " vhost.serverAliases
-            };
+            server_name ${vhost.serverName} ${concatStringsSep " " vhost.serverAliases};
             ${
               optionalString (hasSSL && vhost.quic) ''
                 http3 ${if vhost.http3 then "on" else "off"};
@@ -586,17 +546,14 @@ let
         (config: ''
           location ${config.location} {
             ${
-              optionalString
-                (config.proxyPass != null && !cfg.proxyResolveWhileRunning)
+              optionalString (config.proxyPass != null && !cfg.proxyResolveWhileRunning)
                 "proxy_pass ${config.proxyPass};"
             }
             ${
-              optionalString
-                (config.proxyPass != null && cfg.proxyResolveWhileRunning)
-                ''
-                  set $nix_proxy_target "${config.proxyPass}";
-                  proxy_pass $nix_proxy_target;
-                ''
+              optionalString (config.proxyPass != null && cfg.proxyResolveWhileRunning) ''
+                set $nix_proxy_target "${config.proxyPass}";
+                proxy_pass $nix_proxy_target;
+              ''
             }
             ${
               optionalString config.proxyWebsockets ''
@@ -615,27 +572,19 @@ let
               )
             }
             ${optionalString (config.index != null) "index ${config.index};"}
-            ${
-              optionalString (config.tryFiles != null)
-                "try_files ${config.tryFiles};"
-            }
+            ${optionalString (config.tryFiles != null) "try_files ${config.tryFiles};"}
             ${optionalString (config.root != null) "root ${config.root};"}
             ${optionalString (config.alias != null) "alias ${config.alias};"}
             ${optionalString (config.return != null) "return ${config.return};"}
             ${config.extraConfig}
             ${
-              optionalString
-                (config.proxyPass != null && config.recommendedProxySettings)
+              optionalString (config.proxyPass != null && config.recommendedProxySettings)
                 "include ${recommendedProxyConfig};"
             }
             ${mkBasicAuth "sublocation" config}
           }
         '')
-        (
-          sortProperties (
-            mapAttrsToList (k: v: v // { location = k; }) locations
-          )
-        )
+        (sortProperties (mapAttrsToList (k: v: v // { location = k; }) locations))
     )
   ;
 
@@ -757,8 +706,7 @@ in
         default = [ "0.0.0.0" ] ++ optional enableIPv6 "[::0]";
         defaultText =
           literalExpression
-            ''
-              [ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]"''
+            ''[ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]"''
         ;
         example = literalExpression ''[ "10.0.0.12" "[2002:a00:1::]" ]'';
         description = lib.mdDoc ''
@@ -787,10 +735,7 @@ in
       defaultMimeTypes = mkOption {
         type = types.path;
         default = "${pkgs.mailcap}/etc/nginx/mime.types";
-        defaultText =
-          literalExpression
-            "$''{pkgs.mailcap}/etc/nginx/mime.types"
-        ;
+        defaultText = literalExpression "$''{pkgs.mailcap}/etc/nginx/mime.types";
         example = literalExpression "$''{pkgs.nginx}/conf/mime.types";
         description = lib.mdDoc ''
           Default MIME types for NGINX, as MIME types definitions from NGINX are very incomplete,
@@ -804,11 +749,7 @@ in
         defaultText = literalExpression "pkgs.nginxStable";
         type = types.package;
         apply =
-          p:
-          p.override {
-            modules = lib.unique (p.modules ++ cfg.additionalModules);
-          }
-        ;
+          p: p.override { modules = lib.unique (p.modules ++ cfg.additionalModules); };
         description = lib.mdDoc ''
           Nginx package to use. This defaults to the stable version. Note
           that the nginx team recommends to use the mainline version which
@@ -967,10 +908,7 @@ in
       serverTokens = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Show nginx version in headers and error pages."
-        ;
+        description = lib.mdDoc "Show nginx version in headers and error pages.";
       };
 
       clientMaxBodySize = mkOption {
@@ -1061,9 +999,7 @@ in
             }:
             {
               options = {
-                enable = mkEnableOption (
-                  lib.mdDoc "this proxy cache path entry"
-                );
+                enable = mkEnableOption (lib.mdDoc "this proxy cache path entry");
 
                 keysZoneName = mkOption {
                   type = types.str;
@@ -1364,10 +1300,9 @@ in
       in
       [
         {
-          assertion =
-            all (host: all hostOrAliasIsNull (attrValues host.locations))
-              (attrValues virtualHosts)
-          ;
+          assertion = all (host: all hostOrAliasIsNull (attrValues host.locations)) (
+            attrValues virtualHosts
+          );
           message = "Only one of nginx root or alias can be specified on a location.";
         }
 
@@ -1417,10 +1352,9 @@ in
         }
 
         {
-          assertion =
-            all (host: !(host.enableACME && host.useACMEHost != null))
-              (attrValues virtualHosts)
-          ;
+          assertion = all (host: !(host.enableACME && host.useACMEHost != null)) (
+            attrValues virtualHosts
+          );
           message = ''
             Options services.nginx.service.virtualHosts.<name>.enableACME and
             services.nginx.virtualHosts.<name>.useACMEHost are mutually exclusive.
@@ -1460,14 +1394,11 @@ in
       description = "Nginx Web Server";
       wantedBy = [ "multi-user.target" ];
       wants = concatLists (
-        map (certName: [ "acme-finished-${certName}.target" ])
-          dependentCertNames
+        map (certName: [ "acme-finished-${certName}.target" ]) dependentCertNames
       );
       after =
         [ "network.target" ]
-        ++
-          map (certName: "acme-selfsigned-${certName}.service")
-            dependentCertNames
+        ++ map (certName: "acme-selfsigned-${certName}.service") dependentCertNames
       ;
       # Nginx needs to be started in order to be able to request certificates
       # (it's hosting the acme challenge after all)
@@ -1536,9 +1467,7 @@ in
         LockPersonality = true;
         MemoryDenyWriteExecute =
           !(
-            (builtins.any (mod: (mod.allowMemoryWriteExecute or false))
-              cfg.package.modules
-            )
+            (builtins.any (mod: (mod.allowMemoryWriteExecute or false)) cfg.package.modules)
             || (cfg.package == pkgs.openresty)
           )
         ;
@@ -1549,17 +1478,13 @@ in
         # System Call Filtering
         SystemCallArchitectures = "native";
         SystemCallFilter =
-          [
-            "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @setuid"
-          ]
+          [ "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @setuid" ]
           ++
             optionals
               (
                 (cfg.package != pkgs.tengine)
                 && (cfg.package != pkgs.openresty)
-                && (
-                  !lib.any (mod: (mod.disableIPC or false)) cfg.package.modules
-                )
+                && (!lib.any (mod: (mod.disableIPC or false)) cfg.package.modules)
               )
               [ "~@ipc" ]
         ;
@@ -1577,10 +1502,7 @@ in
     # of certs end-to-end.
     systemd.services.nginx-config-reload =
       let
-        sslServices =
-          map (certName: "acme-${certName}.service")
-            dependentCertNames
-        ;
+        sslServices = map (certName: "acme-${certName}.service") dependentCertNames;
         sslTargets =
           map (certName: "acme-finished-${certName}.target")
             dependentCertNames
@@ -1624,20 +1546,14 @@ in
                 # if acmeRoot is null inherit config.security.acme
                 # Since config.security.acme.certs.<cert>.webroot's own default value
                 # should take precedence set priority higher than mkOptionDefault
-                webroot =
-                  mkOverride (if hasRoot then 1000 else 2000)
-                    vhostConfig.acmeRoot
-                ;
+                webroot = mkOverride (if hasRoot then 1000 else 2000) vhostConfig.acmeRoot;
                 # Also nudge dnsProvider to null in case it is inherited
                 dnsProvider = mkOverride (if hasRoot then 1000 else 2000) null;
                 extraDomainNames = vhostConfig.serverAliases;
                 # Filter for enableACME-only vhosts. Don't want to create dud certs
               }
             )
-            (
-              filter (vhostConfig: vhostConfig.useACMEHost == null)
-                acmeEnabledVhosts
-            )
+            (filter (vhostConfig: vhostConfig.useACMEHost == null) acmeEnabledVhosts)
         ;
       in
       listToAttrs acmePairs

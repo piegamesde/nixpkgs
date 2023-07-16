@@ -1213,9 +1213,7 @@ let
             GRANT SELECT ON points TO "prometheus-sql-exporter";
           '';
         };
-        systemd.services.prometheus-sql-exporter.after = [
-          "postgresql.service"
-        ];
+        systemd.services.prometheus-sql-exporter.after = [ "postgresql.service" ];
       };
       exporterTest = ''
         wait_for_unit("prometheus-sql-exporter.service")
@@ -1249,9 +1247,7 @@ let
         modemAddress = "localhost";
       };
       metricProvider = {
-        systemd.services.prometheus-surfboard-exporter.after = [
-          "nginx.service"
-        ];
+        systemd.services.prometheus-surfboard-exporter.after = [ "nginx.service" ];
         services.nginx = {
           enable = true;
           virtualHosts.localhost.locations."/cgi-bin/status".extraConfig = ''
@@ -1410,9 +1406,7 @@ let
         group = "varnish";
       };
       metricProvider = {
-        systemd.services.prometheus-varnish-exporter.after = [
-          "varnish.service"
-        ];
+        systemd.services.prometheus-varnish-exporter.after = [ "varnish.service" ];
         services.varnish = {
           enable = true;
           config = ''
@@ -1499,10 +1493,7 @@ mapAttrs
         name = "prometheus-${exporter}-exporter";
 
         nodes.${nodeName} = mkMerge [
-          {
-            services.prometheus.exporters.${exporter} =
-              testConfig.exporterConfig;
-          }
+          { services.prometheus.exporters.${exporter} = testConfig.exporterConfig; }
           testConfig.metricProvider or { }
         ];
 
@@ -1513,10 +1504,7 @@ mapAttrs
               (
                 line:
                 if
-                  (
-                    builtins.substring 0 1 line == " "
-                    || builtins.substring 0 1 line == ")"
-                  )
+                  (builtins.substring 0 1 line == " " || builtins.substring 0 1 line == ")")
                 then
                   line
                 else

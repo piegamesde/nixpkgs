@@ -64,8 +64,7 @@ let
   filterEmbeddedMetadata =
     value:
     if isAttrs value then
-      (filterAttrs
-        (attrName: attrValue: attrName != "_module" && attrValue != null)
+      (filterAttrs (attrName: attrValue: attrName != "_module" && attrValue != null)
         value
       )
     else
@@ -112,10 +111,7 @@ let
   mkMappedAttrsOrString =
     value:
     concatMapStringsSep "\n"
-      (
-        line:
-        if builtins.stringLength line > 0 then "${indent}${line}" else line
-      )
+      (line: if builtins.stringLength line > 0 then "${indent}${line}" else line)
       (
         splitString "\n" (
           if isAttrs value then
@@ -177,10 +173,7 @@ in
           };
         '';
         apply = attrs: filterEmbeddedMetadata attrs;
-        description =
-          lib.mdDoc
-            "Realm-specific contact information and settings."
-        ;
+        description = lib.mdDoc "Realm-specific contact information and settings.";
       };
 
       domain_realm = mkOption {

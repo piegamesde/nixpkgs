@@ -49,10 +49,7 @@ in
 
       extraArguments = mkOption {
         default = [ "--disable-telemetry" ];
-        description =
-          lib.mdDoc
-            "Additional arguments that passed to code-server"
-        ;
+        description = lib.mdDoc "Additional arguments that passed to code-server";
         example = ''[ "--verbose" ]'';
         type = types.listOf types.str;
       };
@@ -126,8 +123,7 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "network-online.target" ];
       path = cfg.extraPackages;
-      environment =
-        { HASHED_PASSWORD = cfg.hashedPassword; } // cfg.extraEnvironment;
+      environment = { HASHED_PASSWORD = cfg.hashedPassword; } // cfg.extraEnvironment;
       serviceConfig = {
         ExecStart =
           "${cfg.package}/bin/code-server --bind-addr ${cfg.host}:${

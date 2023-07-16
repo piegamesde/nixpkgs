@@ -53,10 +53,7 @@ in
         type = types.bool;
         default = false;
         example = true;
-        description =
-          lib.mdDoc
-            "Create a VMDK version 6 image (instead of version 4)."
-        ;
+        description = lib.mdDoc "Create a VMDK version 6 image (instead of version 4).";
       };
     };
   };

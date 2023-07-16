@@ -58,8 +58,7 @@ lib.listToAttrs (
       lib.flip lib.mapAttrsToList tests (
         name: t:
         lib.nameValuePair "lvm-${name}-linux-${v'}" (
-          lib.optionalAttrs
-            (builtins.elem version (t.kernelFilter kernelVersionsToTest))
+          lib.optionalAttrs (builtins.elem version (t.kernelFilter kernelVersionsToTest))
             (
               t.test (
                 {

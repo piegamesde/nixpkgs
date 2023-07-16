@@ -71,10 +71,7 @@ stdenv.mkDerivation rec {
         "--without-libsigsegv"
     )
     (
-      if interactive then
-        "--with-readline=${readline.dev}"
-      else
-        "--without-readline"
+      if interactive then "--with-readline=${readline.dev}" else "--without-readline"
     )
   ];
 

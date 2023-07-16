@@ -68,18 +68,10 @@ import ./make-test-python.nix (
         out = machine.succeed(cmd_as_regular(cmd)).strip()
         assert out == expected, "Expected {0} to output {1}, but got {2}".format(cmd, expected, out)
 
-      test_as_regular('${busybox pkgs}/bin/busybox id -u', '${
-        toString userUid
-      }')
-      test_as_regular('${busybox pkgs}/bin/busybox id -ru', '${
-        toString userUid
-      }')
-      test_as_regular('${busybox pkgs}/bin/busybox id -g', '${
-        toString usersGid
-      }')
-      test_as_regular('${busybox pkgs}/bin/busybox id -rg', '${
-        toString usersGid
-      }')
+      test_as_regular('${busybox pkgs}/bin/busybox id -u', '${toString userUid}')
+      test_as_regular('${busybox pkgs}/bin/busybox id -ru', '${toString userUid}')
+      test_as_regular('${busybox pkgs}/bin/busybox id -g', '${toString usersGid}')
+      test_as_regular('${busybox pkgs}/bin/busybox id -rg', '${toString usersGid}')
 
       test_as_regular('/run/wrappers/bin/suid_root_busybox id -u', '0')
       test_as_regular('/run/wrappers/bin/suid_root_busybox id -ru', '${

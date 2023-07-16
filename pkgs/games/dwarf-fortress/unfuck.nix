@@ -114,10 +114,7 @@ stdenv.mkDerivation {
     ]
     # switched to gtk3 in 0.47.05
     ++ (
-      if lib.versionOlder release.unfuckRelease "0.47.05" then
-        [ gtk2 ]
-      else
-        [ gtk3 ]
+      if lib.versionOlder release.unfuckRelease "0.47.05" then [ gtk2 ] else [ gtk3 ]
     )
   ;
 

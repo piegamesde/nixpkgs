@@ -27,8 +27,7 @@ let
 
       # This patch is only necessary for NC version <26.
       patches = lib.optional (lib.versionOlder major "26") (
-        ./patches
-        + "/v${major}/0001-Setup-remove-custom-dbuser-creation-behavior.patch"
+        ./patches + "/v${major}/0001-Setup-remove-custom-dbuser-creation-behavior.patch"
       );
 
       passthru.tests = nixosTests.nextcloud;
@@ -55,9 +54,7 @@ let
         license = licenses.agpl3Plus;
         platforms = with platforms; unix;
         knownVulnerabilities =
-          extraVulnerabilities
-          ++ (optional eol "Nextcloud version ${version} is EOL")
-        ;
+          extraVulnerabilities ++ (optional eol "Nextcloud version ${version} is EOL");
       };
     }
   ;

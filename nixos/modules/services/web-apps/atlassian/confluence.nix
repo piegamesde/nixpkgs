@@ -30,9 +30,7 @@ let
 
     session.isauthenticated                 session.isauthenticated
     session.tokenkey                        session.tokenkey
-    session.validationinterval              ${
-      toString cfg.sso.validationInterval
-    }
+    session.validationinterval              ${toString cfg.sso.validationInterval}
     session.lastvalidation                  session.lastvalidation
   '';
 in
@@ -119,10 +117,7 @@ in
         applicationName = mkOption {
           type = types.str;
           example = "jira";
-          description =
-            lib.mdDoc
-              "Exact name of this Confluence instance in Crowd"
-          ;
+          description = lib.mdDoc "Exact name of this Confluence instance in Crowd";
         };
 
         applicationPassword = mkOption {
@@ -185,10 +180,7 @@ in
     assertions = [ {
       assertion =
         cfg.sso.enable
-        -> (
-          (cfg.sso.applicationPassword == null)
-          != (cfg.sso.applicationPasswordFile)
-        )
+        -> ((cfg.sso.applicationPassword == null) != (cfg.sso.applicationPasswordFile))
       ;
       message = "Please set either applicationPassword or applicationPasswordFile";
     } ];

@@ -116,15 +116,12 @@ in
     attrs: {
       nativeBuildInputs =
         [ pkg-config ]
-        ++
-          lib.optionals
-            (stdenv.buildPlatform.config != stdenv.hostPlatform.config)
-            [
-              python3
-              autoconf
-              automake
-              libtool
-            ]
+        ++ lib.optionals (stdenv.buildPlatform.config != stdenv.hostPlatform.config) [
+          python3
+          autoconf
+          automake
+          libtool
+        ]
       ;
       buildInputs = [ libevdev ];
 
@@ -357,8 +354,7 @@ in
     }
   ;
 
-  serde_derive =
-    attrs: { buildInputs = lib.optional stdenv.isDarwin Security; };
+  serde_derive = attrs: { buildInputs = lib.optional stdenv.isDarwin Security; };
 
   servo-fontconfig-sys =
     attrs: {

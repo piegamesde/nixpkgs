@@ -95,9 +95,7 @@ gccStdenv.mkDerivation rec {
 
     ${gambit-params.fix-stamp git-version}
 
-    ./configure --prefix=$out/gambit ${
-      builtins.concatStringsSep " " configureFlags
-    }
+    ./configure --prefix=$out/gambit ${builtins.concatStringsSep " " configureFlags}
 
     # OS-specific paths are hardcoded in ./configure
     substituteInPlace config.status \
@@ -121,8 +119,7 @@ gccStdenv.mkDerivation rec {
 
     # Now use the bootstrap compiler to build the real thing!
     make -j$NIX_BUILD_CORES from-scratch
-    ${lib.optionalString gambit-params.modules
-      "make -j$NIX_BUILD_CORES modules"}
+    ${lib.optionalString gambit-params.modules "make -j$NIX_BUILD_CORES modules"}
   '';
 
   postInstall = ''

@@ -26,9 +26,7 @@
 
 let
   invokeSamples =
-    file:
-    lib.concatStringsSep " " (lib.attrValues (import file { inherit pkgs; }))
-  ;
+    file: lib.concatStringsSep " " (lib.attrValues (import file { inherit pkgs; }));
 in
 testers.nixosTest {
   name = "nixpkgs-trivial-builders";

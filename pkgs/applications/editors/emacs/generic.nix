@@ -145,8 +145,7 @@ in
       pname =
         pname
         +
-          lib.optionalString
-            (!withX && !withNS && !withMacport && !withGTK2 && !withGTK3)
+          lib.optionalString (!withX && !withNS && !withMacport && !withGTK2 && !withGTK3)
             "-nox"
       ;
       inherit version;
@@ -243,9 +242,7 @@ in
         ]
         ++ lib.optionals (srcRepo || withMacport) [ texinfo ]
         ++ lib.optionals srcRepo [ autoreconfHook ]
-        ++
-          lib.optional (withPgtk || withX && (withGTK3 || withXwidgets))
-            wrapGAppsHook
+        ++ lib.optional (withPgtk || withX && (withGTK3 || withXwidgets)) wrapGAppsHook
       ;
 
       buildInputs =
@@ -414,9 +411,7 @@ in
       postFixup =
         lib.optionalString (stdenv.isLinux && withX && toolkit == "lucid")
           ''
-            patchelf --add-rpath ${
-              lib.makeLibraryPath [ libXcursor ]
-            } $out/bin/emacs
+            patchelf --add-rpath ${lib.makeLibraryPath [ libXcursor ]} $out/bin/emacs
             patchelf --add-needed "libXcursor.so.1" "$out/bin/emacs"
           ''
       ;
@@ -433,9 +428,7 @@ in
       meta = with lib; {
         description =
           "The extensible, customizable GNU text editor"
-          +
-            optionalString withMacport
-              " with Mitsuharu Yamamoto's macport patches"
+          + optionalString withMacport " with Mitsuharu Yamamoto's macport patches"
         ;
         homepage =
           if withMacport then

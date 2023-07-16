@@ -43,10 +43,7 @@ in
 
       config = mkOption {
         default = "";
-        description =
-          lib.mdDoc
-            "Control file to customize your shell behavior."
-        ;
+        description = lib.mdDoc "Control file to customize your shell behavior.";
         type = types.lines;
       };
     };

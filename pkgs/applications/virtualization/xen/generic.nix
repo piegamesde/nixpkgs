@@ -107,8 +107,7 @@ let
   efiBinutils = binutils-unwrapped.overrideAttrs (
     oldAttrs: {
       name = "efi-binutils";
-      configureFlags =
-        oldAttrs.configureFlags ++ [ "--enable-targets=x86_64-pep" ];
+      configureFlags = oldAttrs.configureFlags ++ [ "--enable-targets=x86_64-pep" ];
       doInstallCheck = false; # We get a spurious failure otherwise, due to host/target mis-match
     }
   );

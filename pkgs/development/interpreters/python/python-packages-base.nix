@@ -110,10 +110,7 @@ let
         passthru = (oldAttrs.passthru or { }) // {
           pythonModule = python;
           pythonPath = [ ]; # Deprecated, for compatibility.
-          requiredPythonModules =
-            requiredPythonModules
-              drv.propagatedBuildInputs
-          ;
+          requiredPythonModules = requiredPythonModules drv.propagatedBuildInputs;
         };
       }
     )

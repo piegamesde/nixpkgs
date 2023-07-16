@@ -262,10 +262,8 @@ in
     services.xserver.displayManager.job = {
       environment = {
         # Load themes from system environment
-        QT_PLUGIN_PATH =
-          "/run/current-system/sw/" + pkgs.qt5.qtbase.qtPluginPrefix;
-        QML2_IMPORT_PATH =
-          "/run/current-system/sw/" + pkgs.qt5.qtbase.qtQmlPrefix;
+        QT_PLUGIN_PATH = "/run/current-system/sw/" + pkgs.qt5.qtbase.qtPluginPrefix;
+        QML2_IMPORT_PATH = "/run/current-system/sw/" + pkgs.qt5.qtbase.qtQmlPrefix;
       };
 
       execCmd = "exec /run/current-system/sw/bin/sddm";

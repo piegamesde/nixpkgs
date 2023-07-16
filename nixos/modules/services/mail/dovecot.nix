@@ -46,9 +46,7 @@ let
         ''
           ssl_cert = <${cfg.sslServerCert}
           ssl_key = <${cfg.sslServerKey}
-          ${optionalString (cfg.sslCACert != null) (
-            "ssl_ca = <" + cfg.sslCACert
-          )}
+          ${optionalString (cfg.sslCACert != null) ("ssl_ca = <" + cfg.sslCACert)}
           ${optionalString cfg.enableDHE
             "ssl_dh = <${config.security.dhparams.params.dovecot2.path}"}
           disable_plaintext_auth = yes
@@ -80,9 +78,7 @@ let
 
       passdb {
         driver = pam
-        args = ${
-          optionalString cfg.showPAMFailure "failure_show_msg=yes"
-        } dovecot2
+        args = ${optionalString cfg.showPAMFailure "failure_show_msg=yes"} dovecot2
       }
     '')
 
@@ -337,12 +333,8 @@ in
     configFile = mkOption {
       type = types.nullOr types.path;
       default = null;
-      description =
-        lib.mdDoc
-          "Config file used for the whole dovecot configuration."
-      ;
-      apply =
-        v: if v != null then v else pkgs.writeText "dovecot.conf" dovecotConf;
+      description = lib.mdDoc "Config file used for the whole dovecot configuration.";
+      apply = v: if v != null then v else pkgs.writeText "dovecot.conf" dovecotConf;
     };
 
     mailLocation = mkOption {
@@ -405,8 +397,7 @@ in
     };
 
     enablePAM = mkEnableOption (
-      lib.mdDoc
-        "creating a own Dovecot PAM service and configure PAM user logins"
+      lib.mdDoc "creating a own Dovecot PAM service and configure PAM user logins"
     ) // {
       default = true;
     };
@@ -578,12 +569,9 @@ in
 
     environment.systemPackages = [ dovecotPkg ];
 
-    warnings =
-      mkIf (any isList options.services.dovecot2.mailboxes.definitions)
-        [
-          "Declaring `services.dovecot2.mailboxes' as a list is deprecated and will break eval in 21.05! See the release notes for more info for migration."
-        ]
-    ;
+    warnings = mkIf (any isList options.services.dovecot2.mailboxes.definitions) [
+      "Declaring `services.dovecot2.mailboxes' as a list is deprecated and will break eval in 21.05! See the release notes for more info for migration."
+    ];
 
     assertions = [
       {
@@ -602,9 +590,7 @@ in
       }
       {
         assertion =
-          cfg.sieveScripts != { }
-          -> (cfg.mailUser != null && cfg.mailGroup != null)
-        ;
+          cfg.sieveScripts != { } -> (cfg.mailUser != null && cfg.mailGroup != null);
         message = "dovecot requires mailUser and mailGroup to be set when sieveScripts is set";
       }
     ];

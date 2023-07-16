@@ -118,9 +118,7 @@ stdenv.mkDerivation (
       [
         "--datadir=${placeholder "dev"}/share"
         "-Dcairo=disabled"
-        "-Dgtk_doc=${
-          lib.boolToString (stdenv.hostPlatform == stdenv.buildPlatform)
-        }"
+        "-Dgtk_doc=${lib.boolToString (stdenv.hostPlatform == stdenv.buildPlatform)}"
       ]
       ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
         "-Dgi_cross_ldd_wrapper=${
@@ -132,9 +130,7 @@ stdenv.mkDerivation (
             buildlddtree = "${buildPackages.pax-utils}/bin/lddtree";
           }
         }"
-        "-Dgi_cross_binary_wrapper=${
-          stdenv.hostPlatform.emulator buildPackages
-        }"
+        "-Dgi_cross_binary_wrapper=${stdenv.hostPlatform.emulator buildPackages}"
         # can't use canExecute, we need prebuilt when cross
       ]
       ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [

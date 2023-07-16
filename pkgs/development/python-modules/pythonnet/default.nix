@@ -85,10 +85,7 @@ buildPythonPackage rec {
 
     ${builtins.concatStringsSep "\n" (
       builtins.map
-        (
-          x:
-          "ln -s ${x}/lib/dotnet/${x.pname} ./packages/${x.pname}.${x.version}"
-        )
+        (x: "ln -s ${x}/lib/dotnet/${x.pname} ./packages/${x.pname}.${x.version}")
         dotnetPkgs
     )}
 

@@ -59,9 +59,7 @@ let
       rewrites =
         depList:
         lib.fold mergeRewrites { } (
-          map (dep: dep.tbdRewrites) (
-            lib.filter (dep: dep ? tbdRewrites) depList
-          )
+          map (dep: dep.tbdRewrites) (lib.filter (dep: dep ? tbdRewrites) depList)
         )
       ;
     in
@@ -76,9 +74,7 @@ let
     }:
     let
       self = stdenv.mkDerivation {
-        pname = "apple-${
-            lib.optionalString private "private-"
-          }framework-${name}";
+        pname = "apple-${lib.optionalString private "private-"}framework-${name}";
         version = MacOSX-SDK.version;
 
         dontUnpack = true;
@@ -93,9 +89,7 @@ let
         installPhase = ''
           mkdir -p $out/Library/Frameworks
 
-          cp -r ${MacOSX-SDK}${
-            standardFrameworkPath name private
-          } $out/Library/Frameworks
+          cp -r ${MacOSX-SDK}${standardFrameworkPath name private} $out/Library/Frameworks
 
           if [[ -d ${MacOSX-SDK}/usr/lib/swift/${name}.swiftmodule ]]; then
             mkdir -p $out/lib/swift
@@ -431,13 +425,14 @@ rec {
         // (lib.mapAttrs (name: deps: generatedDeps.${name} // deps) extraDeps);
 
       # Create derivations, and add private frameworks.
-      bareFrameworks = (lib.mapAttrs framework deps)
-        // (lib.mapAttrs privateFramework (
+      bareFrameworks = (lib.mapAttrs framework deps) // (lib.mapAttrs privateFramework
+        (
           import ./private-frameworks.nix {
             inherit frameworks;
             libobjc = pkgs.darwin.apple_sdk_11_0.objc4;
           }
-        ));
+        )
+      );
     in
     # Apply derivation overrides.
     bareFrameworks // overrides bareFrameworks

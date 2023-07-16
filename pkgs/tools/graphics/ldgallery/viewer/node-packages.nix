@@ -8258,11 +8258,7 @@ let
       sources."@ampproject/remapping-2.2.0"
       sources."@babel/code-frame-7.18.6"
       sources."@babel/compat-data-7.19.1"
-      (
-        sources."@babel/core-7.19.1" // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
-      )
+      (sources."@babel/core-7.19.1" // { dependencies = [ sources."semver-6.3.0" ]; })
       (
         sources."@babel/generator-7.19.0" // {
           dependencies = [ sources."@jridgewell/gen-mapping-0.3.2" ];
@@ -8645,11 +8641,7 @@ let
       sources."bytes-3.0.0"
       sources."call-bind-1.0.2"
       sources."callsites-3.1.0"
-      (
-        sources."camel-case-4.1.2" // {
-          dependencies = [ sources."tslib-2.4.0" ];
-        }
-      )
+      (sources."camel-case-4.1.2" // { dependencies = [ sources."tslib-2.4.0" ]; })
       sources."camelcase-6.3.0"
       sources."caniuse-api-3.0.0"
       sources."caniuse-lite-1.0.30001402"
@@ -8716,11 +8708,7 @@ let
       sources."core-js-compat-3.25.1"
       sources."core-util-is-1.0.3"
       sources."cosmiconfig-6.0.0"
-      (
-        sources."cross-spawn-6.0.5" // {
-          dependencies = [ sources."semver-5.7.1" ];
-        }
-      )
+      (sources."cross-spawn-6.0.5" // { dependencies = [ sources."semver-5.7.1" ]; })
       sources."css-declaration-sorter-6.3.1"
       sources."css-loader-6.7.1"
       (
@@ -8775,11 +8763,7 @@ let
       sources."domelementtype-2.3.0"
       sources."domhandler-4.3.1"
       sources."domutils-2.8.0"
-      (
-        sources."dot-case-3.0.4" // {
-          dependencies = [ sources."tslib-2.4.0" ];
-        }
-      )
+      (sources."dot-case-3.0.4" // { dependencies = [ sources."tslib-2.4.0" ]; })
       sources."dotenv-10.0.0"
       sources."dotenv-expand-5.1.0"
       sources."duplexer-0.1.2"
@@ -8888,15 +8872,9 @@ let
       )
       sources."espree-9.4.0"
       sources."esprima-4.0.1"
+      (sources."esquery-1.4.0" // { dependencies = [ sources."estraverse-5.3.0" ]; })
       (
-        sources."esquery-1.4.0" // {
-          dependencies = [ sources."estraverse-5.3.0" ];
-        }
-      )
-      (
-        sources."esrecurse-4.3.0" // {
-          dependencies = [ sources."estraverse-5.3.0" ];
-        }
+        sources."esrecurse-4.3.0" // { dependencies = [ sources."estraverse-5.3.0" ]; }
       )
       sources."estraverse-4.3.0"
       sources."estree-walker-2.0.2"
@@ -9126,18 +9104,10 @@ let
           ];
         }
       )
-      (
-        sources."lower-case-2.0.2" // {
-          dependencies = [ sources."tslib-2.4.0" ];
-        }
-      )
+      (sources."lower-case-2.0.2" // { dependencies = [ sources."tslib-2.4.0" ]; })
       sources."lru-cache-6.0.0"
       sources."magic-string-0.25.9"
-      (
-        sources."make-dir-3.1.0" // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
-      )
+      (sources."make-dir-3.1.0" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."marked-4.0.19"
       sources."mdn-data-2.0.14"
       sources."media-typer-0.3.0"
@@ -9222,11 +9192,7 @@ let
       sources."p-locate-4.1.0"
       sources."p-retry-4.6.2"
       sources."p-try-2.2.0"
-      (
-        sources."param-case-3.0.4" // {
-          dependencies = [ sources."tslib-2.4.0" ];
-        }
-      )
+      (sources."param-case-3.0.4" // { dependencies = [ sources."tslib-2.4.0" ]; })
       sources."parent-module-1.0.1"
       sources."parse-json-5.2.0"
       sources."parse5-5.1.1"
@@ -9236,11 +9202,7 @@ let
         }
       )
       sources."parseurl-1.3.3"
-      (
-        sources."pascal-case-3.1.2" // {
-          dependencies = [ sources."tslib-2.4.0" ];
-        }
-      )
+      (sources."pascal-case-3.1.2" // { dependencies = [ sources."tslib-2.4.0" ]; })
       sources."path-exists-4.0.0"
       sources."path-is-absolute-1.0.1"
       sources."path-key-2.0.1"
@@ -9251,11 +9213,7 @@ let
       sources."picomatch-2.3.1"
       sources."pinia-2.0.21"
       sources."pkg-dir-4.2.0"
-      (
-        sources."portfinder-1.0.32" // {
-          dependencies = [ sources."debug-3.2.7" ];
-        }
-      )
+      (sources."portfinder-1.0.32" // { dependencies = [ sources."debug-3.2.7" ]; })
       sources."postcss-8.4.16"
       sources."postcss-calc-8.2.4"
       sources."postcss-colormin-5.3.0"
@@ -9301,9 +9259,7 @@ let
       sources."process-nextick-args-2.0.1"
       sources."progress-webpack-plugin-1.0.16"
       (
-        sources."proxy-addr-2.0.7" // {
-          dependencies = [ sources."ipaddr.js-1.9.1" ];
-        }
+        sources."proxy-addr-2.0.7" // { dependencies = [ sources."ipaddr.js-1.9.1" ]; }
       )
       sources."pseudomap-1.0.2"
       sources."pump-3.0.0"
@@ -9312,16 +9268,10 @@ let
       sources."queue-microtask-1.2.3"
       sources."randombytes-2.1.0"
       sources."range-parser-1.2.1"
-      (
-        sources."raw-body-2.5.1" // {
-          dependencies = [ sources."bytes-3.1.2" ];
-        }
-      )
+      (sources."raw-body-2.5.1" // { dependencies = [ sources."bytes-3.1.2" ]; })
       sources."read-pkg-5.2.0"
       (
-        sources."read-pkg-up-7.0.1" // {
-          dependencies = [ sources."type-fest-0.8.1" ];
-        }
+        sources."read-pkg-up-7.0.1" // { dependencies = [ sources."type-fest-0.8.1" ]; }
       )
       sources."readable-stream-3.6.0"
       sources."readdirp-3.6.0"
@@ -9333,11 +9283,7 @@ let
       sources."regexpp-3.2.0"
       sources."regexpu-core-5.2.1"
       sources."regjsgen-0.7.1"
-      (
-        sources."regjsparser-0.9.1" // {
-          dependencies = [ sources."jsesc-0.5.0" ];
-        }
-      )
+      (sources."regjsparser-0.9.1" // { dependencies = [ sources."jsesc-0.5.0" ]; })
       sources."relateurl-0.2.7"
       sources."renderkid-3.0.0"
       sources."require-directory-2.1.1"
@@ -9361,11 +9307,7 @@ let
       (
         sources."send-0.18.0" // {
           dependencies = [
-            (
-              sources."debug-2.6.9" // {
-                dependencies = [ sources."ms-2.0.0" ];
-              }
-            )
+            (sources."debug-2.6.9" // { dependencies = [ sources."ms-2.0.0" ]; })
             sources."ms-2.1.3"
           ];
         }
@@ -9428,11 +9370,7 @@ let
       sources."supports-color-5.5.0"
       sources."supports-preserve-symlinks-flag-1.0.0"
       sources."svg-tags-1.0.0"
-      (
-        sources."svgo-2.8.0" // {
-          dependencies = [ sources."commander-7.2.0" ];
-        }
-      )
+      (sources."svgo-2.8.0" // { dependencies = [ sources."commander-7.2.0" ]; })
       sources."tapable-2.2.1"
       sources."terser-5.15.0"
       (
@@ -9467,9 +9405,7 @@ let
         }
       )
       (
-        sources."tsconfig-paths-3.14.1" // {
-          dependencies = [ sources."json5-1.0.1" ];
-        }
+        sources."tsconfig-paths-3.14.1" // { dependencies = [ sources."json5-1.0.1" ]; }
       )
       sources."tslib-1.14.1"
       sources."tsutils-3.21.0"
@@ -9537,9 +9473,7 @@ let
       sources."wcwidth-1.0.1"
       sources."webidl-conversions-3.0.1"
       (
-        sources."webpack-5.74.0" // {
-          dependencies = [ sources."schema-utils-3.1.1" ];
-        }
+        sources."webpack-5.74.0" // { dependencies = [ sources."schema-utils-3.1.1" ]; }
       )
       (
         sources."webpack-bundle-analyzer-4.6.1" // {

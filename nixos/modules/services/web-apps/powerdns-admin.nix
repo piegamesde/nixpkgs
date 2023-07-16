@@ -81,10 +81,7 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "networking.target" ];
 
-      environment.FLASK_CONF =
-        builtins.toFile "powerdns-admin-config.py"
-          configText
-      ;
+      environment.FLASK_CONF = builtins.toFile "powerdns-admin-config.py" configText;
       environment.PYTHONPATH = pkgs.powerdns-admin.pythonPath;
       serviceConfig = {
         ExecStart = "${pkgs.powerdns-admin}/bin/powerdns-admin --pid /run/powerdns-admin/pid ${

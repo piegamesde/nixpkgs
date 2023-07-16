@@ -68,9 +68,7 @@ stdenv.mkDerivation {
     ++ param.buildInputs or [ ]
   ;
 
-  configureFlags = [
-    "--with-libdir=$(out)/lib/ocaml/${ocaml.version}/site-lib"
-  ];
+  configureFlags = [ "--with-libdir=$(out)/lib/ocaml/${ocaml.version}/site-lib" ];
   buildFlags = [ "world" ];
 
   preInstall = ''

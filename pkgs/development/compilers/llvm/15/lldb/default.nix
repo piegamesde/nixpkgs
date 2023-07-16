@@ -48,12 +48,9 @@ stdenv.mkDerivation (
     patches =
       [
         ./procfs.patch
-        (runCommand "resource-dir.patch"
-          { clangLibDir = "${libclang.lib}/lib"; }
-          ''
-            substitute '${./resource-dir.patch}' "$out" --subst-var clangLibDir
-          ''
-        )
+        (runCommand "resource-dir.patch" { clangLibDir = "${libclang.lib}/lib"; } ''
+          substitute '${./resource-dir.patch}' "$out" --subst-var clangLibDir
+        '')
         ./gnu-install-dirs.patch
       ]
       # This is a stopgap solution if/until the macOS SDK used for x86_64 is
@@ -127,9 +124,7 @@ stdenv.mkDerivation (
           (
             runCommand "bsm-audit-session-header" { } ''
               install -Dm444 \
-                "${
-                  lib.getDev darwin.apple_sdk.sdk
-                }/include/bsm/audit_session.h" \
+                "${lib.getDev darwin.apple_sdk.sdk}/include/bsm/audit_session.h" \
                 "$out/include/bsm/audit_session.h"
             ''
           )

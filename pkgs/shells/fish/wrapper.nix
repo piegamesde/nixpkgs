@@ -18,8 +18,7 @@ lib.makeOverridable (
 
   let
     aliasesStr = builtins.concatStringsSep "\n" (
-      lib.mapAttrsToList (k: v: "alias ${k} ${lib.escapeShellArg v}")
-        shellAliases
+      lib.mapAttrsToList (k: v: "alias ${k} ${lib.escapeShellArg v}") shellAliases
     );
 
     shellAliasesFishConfig = writeTextFile {

@@ -62,9 +62,7 @@ stdenv.mkDerivation rec {
       --replace '$$[QT_INSTALL_HEADERS]/QtXmlPatterns' '${
         lib.getDev qtxmlpatterns
       }/include/QtXmlPatterns' \
-      --replace '$$[QT_INSTALL_HEADERS]/QtSvg' '${
-        lib.getDev qtsvg
-      }/include/QtSvg' \
+      --replace '$$[QT_INSTALL_HEADERS]/QtSvg' '${lib.getDev qtsvg}/include/QtSvg' \
       --replace '$$[QT_INSTALL_HEADERS]/' '${lib.getDev qtbase}/include/' \
       --replace '$$[QT_INSTALL_HEADERS]' '${lib.getDev qtbase}'
     substituteInPlace src/app/translations.pri \

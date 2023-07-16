@@ -72,10 +72,7 @@ in
                     lib.lists.map (n: lib.replaceStrings [ "," ] [ "%2C" ] n)
                       disabledTests
                   ;
-                  filters =
-                    lib.lists.map (n: "FullyQualifiedName!=${n}")
-                      escapedNames
-                  ;
+                  filters = lib.lists.map (n: "FullyQualifiedName!=${n}") escapedNames;
                 in
                 "${lib.concatStringsSep "&" filters}"
               );

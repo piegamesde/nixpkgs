@@ -62,10 +62,7 @@ in
       user = mkOption {
         default = "bbworker";
         type = types.str;
-        description =
-          lib.mdDoc
-            "User the buildbot Worker should execute under."
-        ;
+        description = lib.mdDoc "User the buildbot Worker should execute under.";
       };
 
       group = mkOption {
@@ -110,10 +107,7 @@ in
 
       workerPassFile = mkOption {
         type = types.path;
-        description =
-          lib.mdDoc
-            "File used to store the Buildbot Worker password"
-        ;
+        description = lib.mdDoc "File used to store the Buildbot Worker password";
       };
 
       hostMessage = mkOption {
@@ -131,10 +125,7 @@ in
       masterUrl = mkOption {
         default = "localhost:9989";
         type = types.str;
-        description =
-          lib.mdDoc
-            "Specifies the Buildbot Worker connection string."
-        ;
+        description = lib.mdDoc "Specifies the Buildbot Worker connection string.";
       };
 
       keepalive = mkOption {
@@ -158,10 +149,7 @@ in
         default = with pkgs; [ git ];
         defaultText = literalExpression "[ pkgs.git ]";
         type = types.listOf types.package;
-        description =
-          lib.mdDoc
-            "Packages to add to PATH for the buildbot process."
-        ;
+        description = lib.mdDoc "Packages to add to PATH for the buildbot process.";
       };
     };
   };

@@ -10,9 +10,7 @@ rec {
     inherit licenseAccepted;
   };
 
-  buildApp = pkgs.callPackage ./build-app.nix {
-    inherit composeAndroidPackages;
-  };
+  buildApp = pkgs.callPackage ./build-app.nix { inherit composeAndroidPackages; };
 
   emulateApp = pkgs.callPackage ./emulate-app.nix {
     inherit composeAndroidPackages;

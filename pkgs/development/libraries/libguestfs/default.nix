@@ -194,10 +194,6 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     # this is to avoid "output size exceeded"
     hydraPlatforms =
-      if appliance != null then
-        appliance.meta.hydraPlatforms
-      else
-        platforms.linux
-    ;
+      if appliance != null then appliance.meta.hydraPlatforms else platforms.linux;
   };
 }

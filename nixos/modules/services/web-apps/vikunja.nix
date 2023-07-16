@@ -63,10 +63,7 @@ in
     };
     frontendHostname = mkOption {
       type = types.str;
-      description =
-        lib.mdDoc
-          "The Hostname under which the frontend is running."
-      ;
+      description = lib.mdDoc "The Hostname under which the frontend is running.";
     };
 
     settings = mkOption {
@@ -151,23 +148,20 @@ in
       };
     };
 
-    services.nginx.virtualHosts."${cfg.frontendHostname}" =
-      mkIf cfg.setupNginx
-        {
-          locations = {
-            "/" = {
-              root = cfg.package-frontend;
-              tryFiles = "try_files $uri $uri/ /";
-            };
-            "~* ^/(api|dav|\\.well-known)/" = {
-              proxyPass = "http://localhost:3456";
-              extraConfig = ''
-                client_max_body_size 20M;
-              '';
-            };
-          };
-        }
-    ;
+    services.nginx.virtualHosts."${cfg.frontendHostname}" = mkIf cfg.setupNginx {
+      locations = {
+        "/" = {
+          root = cfg.package-frontend;
+          tryFiles = "try_files $uri $uri/ /";
+        };
+        "~* ^/(api|dav|\\.well-known)/" = {
+          proxyPass = "http://localhost:3456";
+          extraConfig = ''
+            client_max_body_size 20M;
+          '';
+        };
+      };
+    };
 
     environment.etc."vikunja/config.yaml".source = configFile;
   };

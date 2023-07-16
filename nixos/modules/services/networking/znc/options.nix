@@ -279,11 +279,8 @@ in
                 ;
                 Chan = optionalAttrs net.hasBitlbeeControlChannel {
                   "&bitlbee" = mkDefault { };
-                } // listToAttrs (
-                  map (n: nameValuePair "#${n}" (mkDefault { })) net.channels
-                );
-                extraConfig =
-                  if net.extraConf == "" then mkDefault null else net.extraConf;
+                } // listToAttrs (map (n: nameValuePair "#${n}" (mkDefault { })) net.channels);
+                extraConfig = if net.extraConf == "" then mkDefault null else net.extraConf;
               })
               c.networks
           ;

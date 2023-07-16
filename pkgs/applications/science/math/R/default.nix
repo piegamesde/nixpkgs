@@ -141,9 +141,7 @@ stdenv.mkDerivation (
           --with-libtiff
           --with-ICU
           ${lib.optionalString enableStrictBarrier "--enable-strict-barrier"}
-          ${
-            lib.optionalString enableMemoryProfiling "--enable-memory-profiling"
-          }
+          ${lib.optionalString enableMemoryProfiling "--enable-memory-profiling"}
           ${if static then "--enable-R-static-lib" else "--enable-R-shlib"}
           AR=$(type -p ar)
           AWK=$(type -p gawk)
@@ -187,10 +185,7 @@ stdenv.mkDerivation (
 
     setupHook = ./setup-hook.sh;
 
-    passthru.tests.pkg-config =
-      testers.testMetaPkgConfig
-        finalAttrs.finalPackage
-    ;
+    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
     meta = with lib; {
       homepage = "http://www.r-project.org/";

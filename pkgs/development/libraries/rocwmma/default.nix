@@ -87,9 +87,7 @@ stdenv.mkDerivation (
     cmakeFlags =
       [
         "-DCMAKE_CXX_COMPILER=hipcc"
-        "-DROCWMMA_BUILD_TESTS=${
-          if buildTests || buildBenchmarks then "ON" else "OFF"
-        }"
+        "-DROCWMMA_BUILD_TESTS=${if buildTests || buildBenchmarks then "ON" else "OFF"}"
         "-DROCWMMA_BUILD_VALIDATION_TESTS=ON"
         "-DROCWMMA_BUILD_SAMPLES=${if buildSamples then "ON" else "OFF"}"
         "-DROCWMMA_VALIDATE_WITH_ROCBLAS=ON"
@@ -102,9 +100,7 @@ stdenv.mkDerivation (
       ++ lib.optionals (gpuTargets != [ ]) [
         "-DGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
       ]
-      ++ lib.optionals buildExtendedTests [
-        "-DROCWMMA_BUILD_EXTENDED_TESTS=ON"
-      ]
+      ++ lib.optionals buildExtendedTests [ "-DROCWMMA_BUILD_EXTENDED_TESTS=ON" ]
       ++ lib.optionals buildBenchmarks [
         "-DROCWMMA_BUILD_BENCHMARK_TESTS=ON"
         "-DROCWMMA_BENCHMARK_WITH_ROCBLAS=ON"

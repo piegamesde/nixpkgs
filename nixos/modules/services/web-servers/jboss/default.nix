@@ -70,10 +70,7 @@ in
 
       libUrl = mkOption {
         default = "file:///nix/var/nix/profiles/default/server/default/lib";
-        description =
-          lib.mdDoc
-            "Location where the shared library JARs are stored"
-        ;
+        description = lib.mdDoc "Location where the shared library JARs are stored";
         type = types.str;
       };
 
@@ -86,10 +83,7 @@ in
       useJK = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to use to connector to the Apache HTTP server"
-        ;
+        description = lib.mdDoc "Whether to use to connector to the Apache HTTP server";
       };
     };
   };

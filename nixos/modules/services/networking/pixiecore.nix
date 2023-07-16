@@ -73,19 +73,13 @@ in
       kernel = mkOption {
         type = types.str or types.path;
         default = "";
-        description =
-          lib.mdDoc
-            "Kernel path. Ignored unless mode is set to 'boot'"
-        ;
+        description = lib.mdDoc "Kernel path. Ignored unless mode is set to 'boot'";
       };
 
       initrd = mkOption {
         type = types.str or types.path;
         default = "";
-        description =
-          lib.mdDoc
-            "Initrd path. Ignored unless mode is set to 'boot'"
-        ;
+        description = lib.mdDoc "Initrd path. Ignored unless mode is set to 'boot'";
       };
 
       cmdLine = mkOption {

@@ -19,12 +19,7 @@ let
     ++ concatMap (i: i.interfaces) (attrValues cfg.bridges)
     ++
       concatMap
-        (
-          i:
-          attrNames (
-            filterAttrs (_: config: config.type != "internal") i.interfaces
-          )
-        )
+        (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces))
         (attrValues cfg.vswitches)
     ++ concatMap (i: [ i.interface ]) (attrValues cfg.macvlans)
     ++ concatMap (i: [ i.interface ]) (attrValues cfg.vlans)
@@ -32,12 +27,9 @@ let
 
   # We must escape interfaces due to the systemd interpretation
   subsystemDevice =
-    interface:
-    "sys-subsystem-net-devices-${escapeSystemdPath interface}.device"
-  ;
+    interface: "sys-subsystem-net-devices-${escapeSystemdPath interface}.device";
 
-  interfaceIps =
-    i: i.ipv4.addresses ++ optionals cfg.enableIPv6 i.ipv6.addresses;
+  interfaceIps = i: i.ipv4.addresses ++ optionals cfg.enableIPv6 i.ipv6.addresses;
 
   destroyBond =
     i: ''
@@ -66,9 +58,7 @@ let
     ];
     filterDeprecated =
       bond:
-      (filterAttrs (attrName: attr: elem attrName deprecated && attr != null)
-        bond
-      )
+      (filterAttrs (attrName: attr: elem attrName deprecated && attr != null) bond)
     ;
   };
 
@@ -76,9 +66,7 @@ let
     let
       oneBondWarnings =
         bondName: bond:
-        mapAttrsToList (bondText bondName) (
-          bondDeprecation.filterDeprecated bond
-        )
+        mapAttrsToList (bondText bondName) (bondDeprecation.filterDeprecated bond)
       ;
       bondText =
         bondName: optName: _:
@@ -97,12 +85,9 @@ let
           i:
           nameValuePair "40-${i.name}" {
             matchConfig.OriginalName = i.name;
-            linkConfig = optionalAttrs (i.macAddress != null) {
-              MACAddress = i.macAddress;
-            } // optionalAttrs (i.mtu != null) { MTUBytes = toString i.mtu; }
-              // optionalAttrs (i.wakeOnLan.enable == true) {
-                WakeOnLan = "magic";
-              };
+            linkConfig = optionalAttrs (i.macAddress != null) { MACAddress = i.macAddress; }
+              // optionalAttrs (i.mtu != null) { MTUBytes = toString i.mtu; }
+              // optionalAttrs (i.wakeOnLan.enable == true) { WakeOnLan = "magic"; };
           }
         ;
       in
@@ -170,8 +155,7 @@ let
           );
           conflicts = [ "shutdown.target" ];
           wantedBy =
-            [ "multi-user.target" ]
-            ++ optional hasDefaultGatewaySet "network-online.target"
+            [ "multi-user.target" ] ++ optional hasDefaultGatewaySet "network-online.target"
           ;
 
           unitConfig.ConditionCapability = "CAP_NET_ADMIN";
@@ -307,10 +291,7 @@ let
                 route:
                 let
                   cidr = "${route.address}/${toString route.prefixLength}";
-                  via =
-                    optionalString (route.via != null)
-                      ''via "${route.via}"''
-                  ;
+                  via = optionalString (route.via != null) ''via "${route.via}"'';
                   options = concatStrings (
                     mapAttrsToList (name: val: "${name} ${val} ") route.options
                   );
@@ -392,8 +373,7 @@ let
                 (subsystemDevice n)
               ];
               bindsTo = deps ++ optional v.rstp "mstpd.service";
-              partOf =
-                [ "network-setup.service" ] ++ optional v.rstp "mstpd.service";
+              partOf = [ "network-setup.service" ] ++ optional v.rstp "mstpd.service";
               after =
                 [ "network-pre.target" ]
                 ++ deps
@@ -480,9 +460,7 @@ let
                 }" > /run/${n}.interfaces
 
                 # (Un-)set stp on the bridge
-                echo ${
-                  if v.rstp then "2" else "0"
-                } > /sys/class/net/${n}/bridge/stp_state
+                echo ${if v.rstp then "2" else "0"} > /sys/class/net/${n}/bridge/stp_state
               '';
               reloadIfChanged = true;
             }
@@ -495,22 +473,13 @@ let
             let
               deps = concatLists (
                 map deviceDependency (
-                  attrNames (
-                    filterAttrs (_: config: config.type != "internal")
-                      v.interfaces
-                  )
+                  attrNames (filterAttrs (_: config: config.type != "internal") v.interfaces)
                 )
               );
               internalConfigs = map (i: "network-addresses-${i}.service") (
-                attrNames (
-                  filterAttrs (_: config: config.type == "internal")
-                    v.interfaces
-                )
+                attrNames (filterAttrs (_: config: config.type == "internal") v.interfaces)
               );
-              ofRules =
-                pkgs.writeText "vswitch-${n}-openFlowRules"
-                  v.openFlowRules
-              ;
+              ofRules = pkgs.writeText "vswitch-${n}-openFlowRules" v.openFlowRules;
             in
             {
               description = "Open vSwitch Interface ${n}";
@@ -556,9 +525,7 @@ let
                       (
                         name: config:
                         " -- add-port ${n} ${name}"
-                        +
-                          optionalString (config.vlan != null)
-                            " tag=${toString config.vlan}"
+                        + optionalString (config.vlan != null) " tag=${toString config.vlan}"
                       )
                       v.interfaces
                   )
@@ -574,15 +541,8 @@ let
                         v.interfaces
                     )
                   } \
-                  ${
-                    concatMapStrings (x: " -- set-controller ${n} " + x)
-                      v.controllers
-                  } \
-                  ${
-                    concatMapStrings (x: " -- " + x) (
-                      splitString "\n" v.extraOvsctlCmds
-                    )
-                  }
+                  ${concatMapStrings (x: " -- set-controller ${n} " + x) v.controllers} \
+                  ${concatMapStrings (x: " -- " + x) (splitString "\n" v.extraOvsctlCmds)}
 
 
                 echo "Adding OpenFlow rules for Open vSwitch ${n}..."
@@ -634,13 +594,10 @@ let
                 echo "Creating new bond ${n}..."
                 ip link add name "${n}" type bond \
                 ${let
-                  opts = (mapAttrs (const toString) (
-                    bondDeprecation.filterDeprecated v
-                  )) // v.driverOptions;
+                  opts = (mapAttrs (const toString) (bondDeprecation.filterDeprecated v))
+                    // v.driverOptions;
                 in
-                concatStringsSep "\n" (
-                  mapAttrsToList (set: val: "  ${set} ${val} \\") opts
-                )
+                concatStringsSep "\n" (mapAttrsToList (set: val: "  ${set} ${val} \\") opts)
                 }
 
                 # !!! There must be a better way to wait for the interface
@@ -700,19 +657,14 @@ let
               # if we have a device to bind to we can wait for its addresses to be
               # configured, otherwise external sequencing is required.
               deps = optionals (v.local != null && v.local.dev != null) (
-                deviceDependency v.local.dev
-                ++ [ "network-addresses-${v.local.dev}.service" ]
+                deviceDependency v.local.dev ++ [ "network-addresses-${v.local.dev}.service" ]
               );
               fouSpec = "port ${toString v.port} ${
-                  if v.protocol != null then
-                    "ipproto ${toString v.protocol}"
-                  else
-                    "gue"
+                  if v.protocol != null then "ipproto ${toString v.protocol}" else "gue"
                 } ${
                   optionalString (v.local != null)
                     "local ${escapeShellArg v.local.address} ${
-                      optionalString (v.local.dev != null)
-                        "dev ${escapeShellArg v.local.dev}"
+                      optionalString (v.local.dev != null) "dev ${escapeShellArg v.local.dev}"
                     }"
                 }";
             in
@@ -764,17 +716,13 @@ let
                 # Remove Dead Interfaces
                 ip link show "${n}" >/dev/null 2>&1 && ip link delete "${n}"
                 ip link add name "${n}" type sit \
-                  ${
-                    optionalString (v.remote != null) ''remote "${v.remote}"''
-                  } \
+                  ${optionalString (v.remote != null) ''remote "${v.remote}"''} \
                   ${optionalString (v.local != null) ''local "${v.local}"''} \
                   ${optionalString (v.ttl != null) "ttl ${toString v.ttl}"} \
                   ${optionalString (v.dev != null) ''dev "${v.dev}"''} \
                   ${
                     optionalString (v.encapsulation != null)
-                      "encap ${v.encapsulation.type} encap-dport ${
-                        toString v.encapsulation.port
-                      } ${
+                      "encap ${v.encapsulation.type} encap-dport ${toString v.encapsulation.port} ${
                         optionalString (v.encapsulation.sourcePort != null)
                           "encap-sport ${toString v.encapsulation.sourcePort}"
                       }"
@@ -812,13 +760,9 @@ let
                 # Remove Dead Interfaces
                 ip link show "${n}" >/dev/null 2>&1 && ip link delete "${n}"
                 ip link add name "${n}" type ${v.type} \
-                  ${
-                    optionalString (v.remote != null) ''remote "${v.remote}"''
-                  } \
+                  ${optionalString (v.remote != null) ''remote "${v.remote}"''} \
                   ${optionalString (v.local != null) ''local "${v.local}"''} \
-                  ${
-                    optionalString (v.ttl != null) "${ttlarg} ${toString v.ttl}"
-                  } \
+                  ${optionalString (v.ttl != null) "${ttlarg} ${toString v.ttl}"} \
                   ${optionalString (v.dev != null) ''dev "${v.dev}"''}
                 ip link set "${n}" up
               '';
@@ -851,9 +795,7 @@ let
               script = ''
                 # Remove Dead Interfaces
                 ip link show "${n}" >/dev/null 2>&1 && ip link delete "${n}"
-                ip link add link "${v.interface}" name "${n}" type vlan id "${
-                  toString v.id
-                }"
+                ip link add link "${v.interface}" name "${n}" type vlan id "${toString v.id}"
 
                 # We try to bring up the logical VLAN interface. If the master
                 # interface the logical interface is dependent upon is not up yet we will

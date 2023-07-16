@@ -151,8 +151,7 @@ rec {
           v
       ;
     in
-    trace
-      (generators.toPretty { allowPrettyValues = true; } (modify depth snip x))
+    trace (generators.toPretty { allowPrettyValues = true; } (modify depth snip x))
       y
   ;
 

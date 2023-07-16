@@ -131,8 +131,7 @@ stdenv.mkDerivation (
     # Emulate external/git/clone.sh
     postUnpack =
       let
-        inherit
-          (import ./clone-sources.nix { inherit fetchFromGitHub fetchgit; })
+        inherit (import ./clone-sources.nix { inherit fetchFromGitHub fetchgit; })
           letoram-openal-src
           freetype-src
           libuvc-src

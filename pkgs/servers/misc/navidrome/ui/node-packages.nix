@@ -12839,11 +12839,7 @@ let
       sources."@ampproject/remapping-2.2.0"
       sources."@babel/code-frame-7.18.6"
       sources."@babel/compat-data-7.19.3"
-      (
-        sources."@babel/core-7.19.3" // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
-      )
+      (sources."@babel/core-7.19.3" // { dependencies = [ sources."semver-6.3.0" ]; })
       (
         sources."@babel/eslint-parser-7.19.1" // {
           dependencies = [
@@ -13120,11 +13116,7 @@ let
           ];
         }
       )
-      (
-        sources."@jest/types-26.6.2" // {
-          dependencies = [ sources."chalk-4.1.0" ];
-        }
-      )
+      (sources."@jest/types-26.6.2" // { dependencies = [ sources."chalk-4.1.0" ]; })
       sources."@jridgewell/gen-mapping-0.1.1"
       sources."@jridgewell/resolve-uri-3.1.0"
       sources."@jridgewell/set-array-1.1.2"
@@ -13253,9 +13245,7 @@ let
       sources."@types/qs-6.9.7"
       sources."@types/range-parser-1.2.4"
       (
-        sources."@types/react-17.0.0" // {
-          dependencies = [ sources."csstype-3.0.6" ];
-        }
+        sources."@types/react-17.0.0" // { dependencies = [ sources."csstype-3.0.6" ]; }
       )
       sources."@types/react-dom-17.0.5"
       sources."@types/react-redux-7.1.24"
@@ -13418,11 +13408,7 @@ let
       )
       sources."bonjour-service-1.0.14"
       sources."boolbase-1.0.0"
-      (
-        sources."boxen-4.2.0" // {
-          dependencies = [ sources."camelcase-5.3.1" ];
-        }
-      )
+      (sources."boxen-4.2.0" // { dependencies = [ sources."camelcase-5.3.1" ]; })
       sources."brace-expansion-1.1.11"
       sources."braces-3.0.2"
       sources."browser-process-hrtime-1.0.0"
@@ -13442,11 +13428,7 @@ let
       )
       sources."call-bind-1.0.2"
       sources."callsites-3.1.0"
-      (
-        sources."camel-case-4.1.2" // {
-          dependencies = [ sources."tslib-2.4.0" ];
-        }
-      )
+      (sources."camel-case-4.1.2" // { dependencies = [ sources."tslib-2.4.0" ]; })
       sources."camelcase-6.3.0"
       sources."camelcase-css-2.0.1"
       (
@@ -13567,11 +13549,7 @@ let
         }
       )
       sources."cssom-0.4.4"
-      (
-        sources."cssstyle-2.3.0" // {
-          dependencies = [ sources."cssom-0.3.8" ];
-        }
-      )
+      (sources."cssstyle-2.3.0" // { dependencies = [ sources."cssom-0.3.8" ]; })
       sources."csstype-2.6.17"
       sources."damerau-levenshtein-1.0.8"
       sources."data-urls-2.0.0"
@@ -13622,11 +13600,7 @@ let
       sources."dom-accessibility-api-0.5.6"
       sources."dom-align-1.12.2"
       sources."dom-converter-0.2.0"
-      (
-        sources."dom-helpers-5.2.1" // {
-          dependencies = [ sources."csstype-3.0.8" ];
-        }
-      )
+      (sources."dom-helpers-5.2.1" // { dependencies = [ sources."csstype-3.0.8" ]; })
       (
         sources."dom-serializer-0.2.2" // {
           dependencies = [ sources."domelementtype-2.2.0" ];
@@ -13644,11 +13618,7 @@ let
         }
       )
       sources."domutils-1.7.0"
-      (
-        sources."dot-case-3.0.4" // {
-          dependencies = [ sources."tslib-2.4.0" ];
-        }
-      )
+      (sources."dot-case-3.0.4" // { dependencies = [ sources."tslib-2.4.0" ]; })
       sources."dot-prop-5.3.0"
       sources."dotenv-10.0.0"
       sources."dotenv-expand-5.1.0"
@@ -13773,11 +13743,7 @@ let
       sources."etag-1.8.1"
       sources."eventemitter3-3.1.2"
       sources."events-3.3.0"
-      (
-        sources."execa-5.1.1" // {
-          dependencies = [ sources."get-stream-6.0.1" ];
-        }
-      )
+      (sources."execa-5.1.1" // { dependencies = [ sources."get-stream-6.0.1" ]; })
       sources."exenv-1.2.2"
       sources."exit-0.1.2"
       (
@@ -13817,9 +13783,7 @@ let
         }
       )
       (
-        sources."file-selector-0.1.19" // {
-          dependencies = [ sources."tslib-2.3.1" ];
-        }
+        sources."file-selector-0.1.19" // { dependencies = [ sources."tslib-2.3.1" ]; }
       )
       (
         sources."filelist-1.0.4" // {
@@ -13878,17 +13842,9 @@ let
       sources."glob-7.1.7"
       sources."glob-parent-5.1.2"
       sources."glob-to-regexp-0.4.1"
-      (
-        sources."global-dirs-2.1.0" // {
-          dependencies = [ sources."ini-1.3.7" ];
-        }
-      )
+      (sources."global-dirs-2.1.0" // { dependencies = [ sources."ini-1.3.7" ]; })
       sources."global-modules-2.0.0"
-      (
-        sources."global-prefix-3.0.0" // {
-          dependencies = [ sources."which-1.3.1" ];
-        }
-      )
+      (sources."global-prefix-3.0.0" // { dependencies = [ sources."which-1.3.1" ]; })
       sources."globals-11.12.0"
       sources."globby-11.1.0"
       sources."got-9.6.0"
@@ -13968,11 +13924,7 @@ let
       sources."inflight-1.0.6"
       sources."inherits-2.0.4"
       sources."ini-1.3.8"
-      (
-        sources."inquirer-7.3.3" // {
-          dependencies = [ sources."chalk-4.1.2" ];
-        }
-      )
+      (sources."inquirer-7.3.3" // { dependencies = [ sources."chalk-4.1.2" ]; })
       sources."internal-slot-1.0.3"
       sources."ipaddr.js-2.0.1"
       sources."is-arrayish-0.2.1"
@@ -14079,11 +14031,7 @@ let
           ];
         }
       )
-      (
-        sources."jest-diff-26.6.2" // {
-          dependencies = [ sources."chalk-4.1.1" ];
-        }
-      )
+      (sources."jest-diff-26.6.2" // { dependencies = [ sources."chalk-4.1.1" ]; })
       sources."jest-docblock-27.5.1"
       (
         sources."jest-each-27.5.1" // {
@@ -14291,9 +14239,7 @@ let
         sources."jest-watch-typeahead-1.1.0" // {
           dependencies = [
             (
-              sources."@jest/console-28.1.3" // {
-                dependencies = [ sources."slash-3.0.0" ];
-              }
+              sources."@jest/console-28.1.3" // { dependencies = [ sources."slash-3.0.0" ]; }
             )
             sources."@jest/test-result-28.1.3"
             sources."@jest/types-28.1.3"
@@ -14329,9 +14275,7 @@ let
               }
             )
             (
-              sources."strip-ansi-7.0.1" // {
-                dependencies = [ sources."ansi-regex-6.0.1" ];
-              }
+              sources."strip-ansi-7.0.1" // { dependencies = [ sources."ansi-regex-6.0.1" ]; }
             )
           ];
         }
@@ -14391,26 +14335,14 @@ let
       sources."lodash.sortby-4.7.0"
       sources."lodash.throttle-4.1.1"
       sources."lodash.uniq-4.5.0"
-      (
-        sources."log-symbols-4.1.0" // {
-          dependencies = [ sources."chalk-4.1.2" ];
-        }
-      )
+      (sources."log-symbols-4.1.0" // { dependencies = [ sources."chalk-4.1.2" ]; })
       sources."loose-envify-1.4.0"
-      (
-        sources."lower-case-2.0.2" // {
-          dependencies = [ sources."tslib-2.4.0" ];
-        }
-      )
+      (sources."lower-case-2.0.2" // { dependencies = [ sources."tslib-2.4.0" ]; })
       sources."lowercase-keys-1.0.1"
       sources."lru-cache-6.0.0"
       sources."lz-string-1.4.4"
       sources."magic-string-0.25.7"
-      (
-        sources."make-dir-3.1.0" // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
-      )
+      (sources."make-dir-3.1.0" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."makeerror-1.0.12"
       sources."map-obj-4.3.0"
       sources."mdn-data-2.0.4"
@@ -14419,15 +14351,9 @@ let
       (
         sources."meow-7.1.1" // {
           dependencies = [
+            (sources."read-pkg-5.2.0" // { dependencies = [ sources."type-fest-0.6.0" ]; })
             (
-              sources."read-pkg-5.2.0" // {
-                dependencies = [ sources."type-fest-0.6.0" ];
-              }
-            )
-            (
-              sources."read-pkg-up-7.0.1" // {
-                dependencies = [ sources."type-fest-0.8.1" ];
-              }
+              sources."read-pkg-up-7.0.1" // { dependencies = [ sources."type-fest-0.8.1" ]; }
             )
             sources."type-fest-0.13.1"
           ];
@@ -14516,25 +14442,13 @@ let
       sources."p-locate-4.1.0"
       sources."p-retry-4.6.2"
       sources."p-try-2.2.0"
-      (
-        sources."package-json-6.5.0" // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
-      )
-      (
-        sources."param-case-3.0.4" // {
-          dependencies = [ sources."tslib-2.4.0" ];
-        }
-      )
+      (sources."package-json-6.5.0" // { dependencies = [ sources."semver-6.3.0" ]; })
+      (sources."param-case-3.0.4" // { dependencies = [ sources."tslib-2.4.0" ]; })
       sources."parent-module-1.0.1"
       sources."parse-json-5.2.0"
       sources."parse5-6.0.1"
       sources."parseurl-1.3.3"
-      (
-        sources."pascal-case-3.1.2" // {
-          dependencies = [ sources."tslib-2.4.0" ];
-        }
-      )
+      (sources."pascal-case-3.1.2" // { dependencies = [ sources."tslib-2.4.0" ]; })
       sources."path-exists-4.0.0"
       sources."path-is-absolute-1.0.1"
       sources."path-key-3.1.1"
@@ -14662,9 +14576,7 @@ let
         }
       )
       (
-        sources."proxy-addr-2.0.7" // {
-          dependencies = [ sources."ipaddr.js-1.9.1" ];
-        }
+        sources."proxy-addr-2.0.7" // { dependencies = [ sources."ipaddr.js-1.9.1" ]; }
       )
       sources."psl-1.9.0"
       sources."pump-3.0.0"
@@ -14677,9 +14589,7 @@ let
       sources."queue-microtask-1.2.3"
       sources."quick-lru-4.0.1"
       (
-        sources."ra-core-3.18.3" // {
-          dependencies = [ sources."inflection-1.12.0" ];
-        }
+        sources."ra-core-3.18.3" // { dependencies = [ sources."inflection-1.12.0" ]; }
       )
       sources."ra-data-json-server-3.18.3"
       sources."ra-i18n-polyglot-3.18.3"
@@ -14701,11 +14611,7 @@ let
       sources."raf-3.4.1"
       sources."randombytes-2.1.0"
       sources."range-parser-1.2.1"
-      (
-        sources."raw-body-2.5.1" // {
-          dependencies = [ sources."bytes-3.1.2" ];
-        }
-      )
+      (sources."raw-body-2.5.1" // { dependencies = [ sources."bytes-3.1.2" ]; })
       (
         sources."rc-1.2.8" // {
           dependencies = [ sources."strip-json-comments-2.0.1" ];
@@ -14753,9 +14659,7 @@ let
       sources."react-measure-2.5.2"
       sources."react-modal-3.11.2"
       (
-        sources."react-redux-7.2.9" // {
-          dependencies = [ sources."react-is-17.0.2" ];
-        }
+        sources."react-redux-7.2.9" // { dependencies = [ sources."react-is-17.0.2" ]; }
       )
       sources."react-refresh-0.11.0"
       sources."react-router-5.2.1"
@@ -14794,11 +14698,7 @@ let
       sources."registry-auth-token-4.2.1"
       sources."registry-url-5.1.0"
       sources."regjsgen-0.7.1"
-      (
-        sources."regjsparser-0.9.1" // {
-          dependencies = [ sources."jsesc-0.5.0" ];
-        }
-      )
+      (sources."regjsparser-0.9.1" // { dependencies = [ sources."jsesc-0.5.0" ]; })
       sources."relateurl-0.2.7"
       (
         sources."renderkid-3.0.0" // {
@@ -14861,19 +14761,11 @@ let
       sources."select-hose-2.0.0"
       sources."selfsigned-2.1.1"
       sources."semver-7.3.7"
-      (
-        sources."semver-diff-3.1.1" // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
-      )
+      (sources."semver-diff-3.1.1" // { dependencies = [ sources."semver-6.3.0" ]; })
       (
         sources."send-0.18.0" // {
           dependencies = [
-            (
-              sources."debug-2.6.9" // {
-                dependencies = [ sources."ms-2.0.0" ];
-              }
-            )
+            (sources."debug-2.6.9" // { dependencies = [ sources."ms-2.0.0" ]; })
             sources."ms-2.1.3"
           ];
         }
@@ -14983,11 +14875,7 @@ let
       )
       sources."tapable-2.2.1"
       sources."temp-dir-2.0.0"
-      (
-        sources."tempy-0.6.0" // {
-          dependencies = [ sources."type-fest-0.16.0" ];
-        }
-      )
+      (sources."tempy-0.6.0" // { dependencies = [ sources."type-fest-0.16.0" ]; })
       sources."term-size-2.2.1"
       sources."terminal-link-2.1.1"
       (
@@ -15160,11 +15048,7 @@ let
         }
       )
       sources."workbox-cacheable-response-6.5.4"
-      (
-        sources."workbox-cli-6.5.4" // {
-          dependencies = [ sources."chalk-4.1.2" ];
-        }
-      )
+      (sources."workbox-cli-6.5.4" // { dependencies = [ sources."chalk-4.1.2" ]; })
       sources."workbox-core-6.5.4"
       (
         sources."workbox-expiration-6.5.4" // {
@@ -15197,9 +15081,7 @@ let
       sources."yallist-4.0.0"
       sources."yaml-1.10.2"
       (
-        sources."yargs-16.2.0" // {
-          dependencies = [ sources."yargs-parser-20.2.9" ];
-        }
+        sources."yargs-16.2.0" // { dependencies = [ sources."yargs-parser-20.2.9" ]; }
       )
       (
         sources."yargs-parser-18.1.3" // {

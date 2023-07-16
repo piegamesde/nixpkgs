@@ -17,8 +17,7 @@ let
         )
       ;
     in
-    pkgs.runCommand "gamescope"
-      { nativeBuildInputs = [ pkgs.makeBinaryWrapper ]; }
+    pkgs.runCommand "gamescope" { nativeBuildInputs = [ pkgs.makeBinaryWrapper ]; }
       ''
         mkdir -p $out/bin
         makeWrapper ${cfg.package}/bin/gamescope $out/bin/gamescope --inherit-argv0 \

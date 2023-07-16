@@ -365,8 +365,7 @@ in
         nscache6 ${toString cfg.resolution.nscache6}
 
         ${concatMapStringsSep "\n" (x: "nsrecord " + x) (
-          mapAttrsToList (name: value: "${name} ${value}")
-            cfg.resolution.nsrecord
+          mapAttrsToList (name: value: "${name} ${value}") cfg.resolution.nsrecord
         )}
 
         ${optionalString (cfg.usersFile != null) ''users $"${cfg.usersFile}"''}
@@ -375,8 +374,7 @@ in
           (service: ''
             auth ${concatStringsSep " " service.auth}
 
-            ${optionalString (cfg.denyPrivate)
-              "deny * * ${optionalList cfg.privateRanges}"}
+            ${optionalString (cfg.denyPrivate) "deny * * ${optionalList cfg.privateRanges}"}
 
             ${concatMapStringsSep "\n"
               (
@@ -397,12 +395,8 @@ in
             ${optionalString (service.extraConfig != null) service.extraConfig}
 
             ${service.type} -i${toString service.bindAddress} ${
-              optionalString (service.bindPort != null)
-                "-p${toString service.bindPort}"
-            } ${
-              optionalString (service.extraArguments != null)
-                service.extraArguments
-            }
+              optionalString (service.bindPort != null) "-p${toString service.bindPort}"
+            } ${optionalString (service.extraArguments != null) service.extraArguments}
 
             flush
           '')

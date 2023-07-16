@@ -9,9 +9,7 @@
 
 let
   rocm_version =
-    with lib;
-    concatStrings (intersperse "0" (splitString "." stdenv.cc.version))
-  ;
+    with lib; concatStrings (intersperse "0" (splitString "." stdenv.cc.version));
 in
 stdenv.mkDerivation (
   finalAttrs: {
@@ -40,8 +38,7 @@ stdenv.mkDerivation (
           src = ./src/rocm_version.h;
         };
       in
-      runCommand "rocm-core-${finalAttrs.version}-source"
-        { preferLocalBuild = true; }
+      runCommand "rocm-core-${finalAttrs.version}-source" { preferLocalBuild = true; }
         ''
           mkdir -p $out/rocm-core
           ln -s ${cmake_lists} $out/CMakeLists.txt

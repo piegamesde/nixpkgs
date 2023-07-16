@@ -21,9 +21,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ makeWrapper ];
   postInstall = ''
-    wrapProgram $out/bin/wg-bond --set PATH ${
-      lib.makeBinPath [ wireguard-tools ]
-    }
+    wrapProgram $out/bin/wg-bond --set PATH ${lib.makeBinPath [ wireguard-tools ]}
   '';
 
   meta = with lib; {

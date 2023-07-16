@@ -114,8 +114,7 @@ let
       ${optionalString (icfg.protocol != null) "protocol=${icfg.protocol}"}
       ${optionalString (icfg.user != null) "user=${icfg.user}"}
       ${optionalString (icfg.passwordFile != null) "passwd-on-stdin"}
-      ${optionalString (icfg.certificate != null)
-        "certificate=${icfg.certificate}"}
+      ${optionalString (icfg.certificate != null) "certificate=${icfg.certificate}"}
       ${optionalString (icfg.privateKey != null) "sslkey=${icfg.privateKey}"}
 
       ${generateExtraConfig icfg.extraOptions}

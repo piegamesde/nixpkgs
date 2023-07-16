@@ -182,8 +182,7 @@ rec {
       let
         x = head inputList;
         isX = y: (compare (getter y) (getter x));
-        newOutputList =
-          outputList ++ (if any isX outputList then [ ] else [ x ]);
+        newOutputList = outputList ++ (if any isX outputList then [ ] else [ x ]);
       in
       uniqListExt {
         outputList = newOutputList;
@@ -220,9 +219,7 @@ rec {
           if elem key doneKeys then
             work (tail list) doneKeys result
           else
-            work (tail list ++ operator x) ([ key ] ++ doneKeys) (
-              [ x ] ++ result
-            )
+            work (tail list ++ operator x) ([ key ] ++ doneKeys) ([ x ] ++ result)
       ;
     in
     work startSet [ ] [ ]
@@ -308,10 +305,7 @@ rec {
   ;
 
   closePropagation =
-    if builtins ? genericClosure then
-      closePropagationFast
-    else
-      closePropagationSlow
+    if builtins ? genericClosure then closePropagationFast else closePropagationSlow
   ;
 
   # calls a function (f attr value ) for each record item. returns a list
@@ -338,8 +332,7 @@ rec {
   # exists in both sets
   mergeAttrsWithFunc =
     f: set1: set2:
-    foldr
-      (n: set: if set ? ${n} then setAttr set n (f set.${n} set2.${n}) else set)
+    foldr (n: set: if set ? ${n} then setAttr set n (f set.${n} set2.${n}) else set)
       (set2 // set1)
       (attrNames set2)
   ;

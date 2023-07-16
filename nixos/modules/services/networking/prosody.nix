@@ -41,10 +41,7 @@ let
     options = {
       url = mkOption {
         type = types.str;
-        description =
-          lib.mdDoc
-            "URL of the endpoint you want to make discoverable"
-        ;
+        description = lib.mdDoc "URL of the endpoint you want to make discoverable";
       };
       description = mkOption {
         type = types.str;
@@ -76,10 +73,7 @@ let
     tls = mkOption {
       type = types.bool;
       default = true;
-      description =
-        lib.mdDoc
-          "Add support for secure TLS on c2s/s2s connections"
-      ;
+      description = lib.mdDoc "Add support for secure TLS on c2s/s2s connections";
     };
 
     dialback = mkOption {
@@ -137,10 +131,7 @@ let
     blocklist = mkOption {
       type = types.bool;
       default = true;
-      description =
-        lib.mdDoc
-          "Allow users to block communications with other users"
-      ;
+      description = lib.mdDoc "Allow users to block communications with other users";
     };
 
     vcard = mkOption {
@@ -247,10 +238,7 @@ let
     admin_telnet = mkOption {
       type = types.bool;
       default = false;
-      description =
-        lib.mdDoc
-          "Opens telnet console interface on localhost port 5582"
-      ;
+      description = lib.mdDoc "Opens telnet console interface on localhost port 5582";
     };
 
     # HTTP modules
@@ -341,8 +329,7 @@ let
         certificate = "${o.cert}";
         ${
           concatStringsSep "\n" (
-            mapAttrsToList (name: value: "${name} = ${toLua value};")
-              o.extraOptions
+            mapAttrsToList (name: value: "${name} = ${toLua value};") o.extraOptions
           )
         }
       };
@@ -442,10 +429,7 @@ let
         roomDefaultPublic = mkOption {
           type = types.bool;
           default = true;
-          description =
-            lib.mdDoc
-              "If set, the MUC rooms will be public by default."
-          ;
+          description = lib.mdDoc "If set, the MUC rooms will be public by default.";
         };
         roomDefaultMembersOnly = mkOption {
           type = types.bool;
@@ -458,10 +442,7 @@ let
         roomDefaultModerated = mkOption {
           type = types.bool;
           default = false;
-          description =
-            lib.mdDoc
-              "If set, the MUC rooms will be moderated by default."
-          ;
+          description = lib.mdDoc "If set, the MUC rooms will be moderated by default.";
         };
         roomDefaultPublicJids = mkOption {
           type = types.bool;
@@ -514,18 +495,12 @@ let
         uploadFileSizeLimit = mkOption {
           type = types.str;
           default = "50 * 1024 * 1024";
-          description =
-            lib.mdDoc
-              "Maximum file size, in bytes. Defaults to 50MB."
-          ;
+          description = lib.mdDoc "Maximum file size, in bytes. Defaults to 50MB.";
         };
         uploadExpireAfter = mkOption {
           type = types.str;
           default = "60 * 60 * 24 * 7";
-          description =
-            lib.mdDoc
-              "Max age of a file before it gets deleted, in seconds."
-          ;
+          description = lib.mdDoc "Max age of a file before it gets deleted, in seconds.";
         };
         userQuota = mkOption {
           type = types.nullOr types.int;
@@ -578,10 +553,7 @@ let
         extraConfig = mkOption {
           type = types.lines;
           default = "";
-          description =
-            lib.mdDoc
-              "Additional virtual host specific configuration"
-          ;
+          description = lib.mdDoc "Additional virtual host specific configuration";
         };
       };
     }
@@ -650,10 +622,7 @@ in
       disco_items = mkOption {
         type = types.listOf (types.submodule discoOpts);
         default = [ ];
-        description =
-          lib.mdDoc
-            "List of discoverable items you want to advertise."
-        ;
+        description = lib.mdDoc "List of discoverable items you want to advertise.";
       };
 
       user = mkOption {
@@ -703,10 +672,7 @@ in
           "*"
           "::"
         ];
-        description =
-          lib.mdDoc
-            "Interfaces on which the HTTP server will listen on."
-        ;
+        description = lib.mdDoc "Interfaces on which the HTTP server will listen on.";
       };
 
       httpsPorts = mkOption {
@@ -721,10 +687,7 @@ in
           "*"
           "::"
         ];
-        description =
-          lib.mdDoc
-            "Interfaces on which the HTTPS server will listen on."
-        ;
+        description = lib.mdDoc "Interfaces on which the HTTPS server will listen on.";
       };
 
       c2sRequireEncryption = mkOption {
@@ -790,10 +753,7 @@ in
       extraPluginPaths = mkOption {
         type = types.listOf types.path;
         default = [ ];
-        description =
-          lib.mdDoc
-            "Additional path in which to look find plugins/modules"
-        ;
+        description = lib.mdDoc "Additional path in which to look find plugins/modules";
       };
 
       uploadHttp = mkOption {
@@ -888,8 +848,7 @@ in
         '';
         errors = [
           {
-            assertion =
-              (builtins.length cfg.muc > 0) || !cfg.xmppComplianceSuite;
+            assertion = (builtins.length cfg.muc > 0) || !cfg.xmppComplianceSuite;
             message =
               ''
                 You need to setup at least a MUC domain to comply with
@@ -950,9 +909,7 @@ in
 
         data_path = "${cfg.dataDir}"
         plugin_paths = {
-          ${
-            lib.concatStringsSep ", " (map (n: ''"${n}"'') cfg.extraPluginPaths)
-          }
+          ${lib.concatStringsSep ", " (map (n: ''"${n}"'') cfg.extraPluginPaths)}
         }
 
         ${optionalString (cfg.ssl != null) (createSSLOptsStr cfg.ssl)}
@@ -966,15 +923,11 @@ in
 
           ${
             lib.concatStringsSep "\n  " (
-              lib.mapAttrsToList
-                (name: val: optionalString val "${toLua name};")
-                cfg.modules
+              lib.mapAttrsToList (name: val: optionalString val "${toLua name};") cfg.modules
             )
           }
           ${
-            lib.concatStringsSep "\n" (
-              map (x: "${toLua x};") cfg.package.communityModules
-            )
+            lib.concatStringsSep "\n" (map (x: "${toLua x};") cfg.package.communityModules)
           }
           ${lib.concatStringsSep "\n" (map (x: "${toLua x};") cfg.extraModules)}
         };
@@ -1023,19 +976,11 @@ in
                 muc_tombstones = ${toLua muc.tombstones}
                 muc_tombstone_expiry = ${toLua muc.tombstoneExpiry}
                 muc_room_default_public = ${toLua muc.roomDefaultPublic}
-                muc_room_default_members_only = ${
-                  toLua muc.roomDefaultMembersOnly
-                }
+                muc_room_default_members_only = ${toLua muc.roomDefaultMembersOnly}
                 muc_room_default_moderated = ${toLua muc.roomDefaultModerated}
-                muc_room_default_public_jids = ${
-                  toLua muc.roomDefaultPublicJids
-                }
-                muc_room_default_change_subject = ${
-                  toLua muc.roomDefaultChangeSubject
-                }
-                muc_room_default_history_length = ${
-                  toLua muc.roomDefaultHistoryLength
-                }
+                muc_room_default_public_jids = ${toLua muc.roomDefaultPublicJids}
+                muc_room_default_change_subject = ${toLua muc.roomDefaultChangeSubject}
+                muc_room_default_history_length = ${toLua muc.roomDefaultHistoryLength}
                 muc_room_default_language = ${toLua muc.roomDefaultLanguage}
                 ${muc.extraConfig}
           '')
@@ -1082,9 +1027,7 @@ in
       after = [ "network-online.target" ];
       wants = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
-      restartTriggers = [
-        config.environment.etc."prosody/prosody.cfg.lua".source
-      ];
+      restartTriggers = [ config.environment.etc."prosody/prosody.cfg.lua".source ];
       serviceConfig = mkMerge [
         {
           User = cfg.user;
@@ -1108,9 +1051,7 @@ in
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
         }
-        (mkIf (cfg.dataDir == "/var/lib/prosody") {
-          StateDirectory = "prosody";
-        })
+        (mkIf (cfg.dataDir == "/var/lib/prosody") { StateDirectory = "prosody"; })
       ];
     };
   };

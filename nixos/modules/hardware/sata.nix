@@ -62,10 +62,7 @@ in
     };
 
     drives = mkOption {
-      description =
-        lib.mdDoc
-          "List of drives for which to configure the timeout."
-      ;
+      description = lib.mdDoc "List of drives for which to configure the timeout.";
       type = types.listOf (
         types.submodule {
           options = {
@@ -89,10 +86,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.udev.extraRules =
-      lib.concatMapStringsSep "\n" buildRule
-        cfg.drives
-    ;
+    services.udev.extraRules = lib.concatMapStringsSep "\n" buildRule cfg.drives;
 
     systemd.services = lib.listToAttrs (
       map

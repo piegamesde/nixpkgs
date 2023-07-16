@@ -95,7 +95,6 @@ in
       name = "lightdm-mini-greeter";
     };
 
-    environment.etc."lightdm/lightdm-mini-greeter.conf".source =
-      miniGreeterConf;
+    environment.etc."lightdm/lightdm-mini-greeter.conf".source = miniGreeterConf;
   };
 }

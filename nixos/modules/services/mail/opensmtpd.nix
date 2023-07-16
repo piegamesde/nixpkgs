@@ -13,13 +13,10 @@ let
   conf = pkgs.writeText "smtpd.conf" cfg.serverConfiguration;
   args = concatStringsSep " " cfg.extraServerArgs;
 
-  sendmail =
-    pkgs.runCommand "opensmtpd-sendmail" { preferLocalBuild = true; }
-      ''
-        mkdir -p $out/bin
-        ln -s ${cfg.package}/sbin/smtpctl $out/bin/sendmail
-      ''
-  ;
+  sendmail = pkgs.runCommand "opensmtpd-sendmail" { preferLocalBuild = true; } ''
+    mkdir -p $out/bin
+    ln -s ${cfg.package}/sbin/smtpctl $out/bin/sendmail
+  '';
 in
 {
 
@@ -60,10 +57,7 @@ in
       setSendmail = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Whether to set the system sendmail to OpenSMTPD's."
-        ;
+        description = lib.mdDoc "Whether to set the system sendmail to OpenSMTPD's.";
       };
 
       extraServerArgs = mkOption {

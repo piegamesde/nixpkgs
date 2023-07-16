@@ -32,10 +32,7 @@ in
       configuration = mkOption {
         type = types.attrs;
         default = { };
-        description =
-          lib.mdDoc
-            "Salt master configuration as Nix attribute set."
-        ;
+        description = lib.mdDoc "Salt master configuration as Nix attribute set.";
       };
     };
   };
@@ -46,9 +43,7 @@ in
       # The alternatives are
       # - passing --config-dir to all salt commands, not just the master unit,
       # - setting a global environment variable,
-      etc."salt/master".source = pkgs.writeText "master" (
-        builtins.toJSON fullConfig
-      );
+      etc."salt/master".source = pkgs.writeText "master" (builtins.toJSON fullConfig);
       systemPackages = with pkgs; [ salt ];
     };
     systemd.services.salt-master = {

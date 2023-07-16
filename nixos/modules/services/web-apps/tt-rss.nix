@@ -60,9 +60,7 @@ let
         }');
         putenv('TTRSS_DB_USER=${cfg.database.user}');
         putenv('TTRSS_DB_NAME=${cfg.database.name}');
-        putenv('TTRSS_DB_PASS=' ${
-          optionalString (password != null) ". ${password}"
-        });
+        putenv('TTRSS_DB_PASS=' ${optionalString (password != null) ". ${password}"});
         putenv('TTRSS_DB_PORT=${toString dbPort}');
 
         putenv('TTRSS_AUTH_AUTO_CREATE=${boolToString cfg.auth.autoCreate}');
@@ -95,9 +93,7 @@ let
         putenv('TTRSS_CHECK_FOR_UPDATES=false');
 
         putenv('TTRSS_FORCE_ARTICLE_PURGE=${toString cfg.forceArticlePurge}');
-        putenv('TTRSS_SESSION_COOKIE_LIFETIME=${
-          toString cfg.sessionCookieLifetime
-        }');
+        putenv('TTRSS_SESSION_COOKIE_LIFETIME=${toString cfg.sessionCookieLifetime}');
         putenv('TTRSS_ENABLE_GZIP_OUTPUT=${boolToString cfg.enableGZipOutput}');
 
         putenv('TTRSS_PLUGINS=${builtins.concatStringsSep "," cfg.plugins}');
@@ -106,9 +102,7 @@ let
         putenv('TTRSS_CONFIG_VERSION=${toString configVersion}');
 
 
-        putenv('TTRSS_PUBSUBHUBBUB_ENABLED=${
-          boolToString cfg.pubSubHubbub.enable
-        }');
+        putenv('TTRSS_PUBSUBHUBBUB_ENABLED=${boolToString cfg.pubSubHubbub.enable}');
         putenv('TTRSS_PUBSUBHUBBUB_HUB=${cfg.pubSubHubbub.hub}');
 
         putenv('TTRSS_SPHINX_SERVER=${cfg.sphinx.server}');
@@ -116,9 +110,7 @@ let
           builtins.concatStringsSep "," cfg.sphinx.index
         }');
 
-        putenv('TTRSS_ENABLE_REGISTRATION=${
-          boolToString cfg.registration.enable
-        }');
+        putenv('TTRSS_ENABLE_REGISTRATION=${boolToString cfg.registration.enable}');
         putenv('TTRSS_REG_NOTIFY_ADDRESS=${cfg.registration.notifyAddress}');
         putenv('TTRSS_REG_MAX_USERS=${toString cfg.registration.maxUsers}');
 
@@ -288,10 +280,7 @@ in
         createLocally = mkOption {
           type = types.bool;
           default = true;
-          description =
-            lib.mdDoc
-              "Create the database and database user locally."
-          ;
+          description = lib.mdDoc "Create the database and database user locally.";
         };
       };
 
@@ -618,8 +607,7 @@ in
   config = mkIf cfg.enable {
 
     assertions = [ {
-      assertion =
-        cfg.database.password != null -> cfg.database.passwordFile == null;
+      assertion = cfg.database.password != null -> cfg.database.passwordFile == null;
       message = "Cannot set both password and passwordFile";
     } ];
 
@@ -660,9 +648,7 @@ in
           locations."~ \\.php$" = {
             extraConfig = ''
               fastcgi_split_path_info ^(.+\.php)(/.+)$;
-              fastcgi_pass unix:${
-                config.services.phpfpm.pools.${cfg.pool}.socket
-              };
+              fastcgi_pass unix:${config.services.phpfpm.pools.${cfg.pool}.socket};
               fastcgi_index index.php;
             '';
           };
@@ -717,8 +703,7 @@ in
                   echo '${e}' | ${config.services.mysql.package}/bin/mysql \
                     -u ${cfg.database.user} \
                     ${
-                      optionalString (cfg.database.password != null)
-                        "-p${cfg.database.password}"
+                      optionalString (cfg.database.password != null) "-p${cfg.database.password}"
                     } \
                     ${
                       optionalString (cfg.database.host != null)
@@ -732,16 +717,12 @@ in
           in
           (optionalString (cfg.database.type == "pgsql") ''
             exists=$(${
-              callSql
-                "select count(*) > 0 from pg_tables where tableowner = user"
+              callSql "select count(*) > 0 from pg_tables where tableowner = user"
             } \
             | tail -n+3 | head -n-2 | sed -e 's/[ \n\t]*//')
 
             if [ "$exists" == 'f' ]; then
-              ${
-                callSql
-                  "\\i ${pkgs.tt-rss}/schema/ttrss_schema_${cfg.database.type}.sql"
-              }
+              ${callSql "\\i ${pkgs.tt-rss}/schema/ttrss_schema_${cfg.database.type}.sql"}
             else
               echo 'The database contains some data. Leaving it as it is.'
             fi;
@@ -755,10 +736,7 @@ in
             | tail -n+2 | sed -e 's/[ \n\t]*//')
 
             if [ "$exists" == '0' ]; then
-              ${
-                callSql
-                  "\\. ${pkgs.tt-rss}/schema/ttrss_schema_${cfg.database.type}.sql"
-              }
+              ${callSql "\\. ${pkgs.tt-rss}/schema/ttrss_schema_${cfg.database.type}.sql"}
             else
               echo 'The database contains some data. Leaving it as it is.'
             fi;
@@ -776,9 +754,7 @@ in
 
         wantedBy = [ "multi-user.target" ];
         requires =
-          optional mysqlLocal "mysql.service"
-          ++ optional pgsqlLocal "postgresql.service"
-        ;
+          optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
         after =
           [ "network.target" ]
           ++ optional mysqlLocal "mysql.service"

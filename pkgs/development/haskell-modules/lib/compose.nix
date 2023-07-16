@@ -57,8 +57,7 @@ rec {
         name: src:
         let
           isPath = x: builtins.substring 0 1 (toString x) == "/";
-          generateExprs =
-            if isPath src then self.callCabal2nix else self.callHackage;
+          generateExprs = if isPath src then self.callCabal2nix else self.callHackage;
         in
         generateExprs name src { }
       )
@@ -189,16 +188,12 @@ rec {
 
   addBuildDepend = x: addBuildDepends [ x ];
   addBuildDepends =
-    xs:
-    overrideCabal (drv: { buildDepends = (drv.buildDepends or [ ]) ++ xs; })
-  ;
+    xs: overrideCabal (drv: { buildDepends = (drv.buildDepends or [ ]) ++ xs; });
 
   addTestToolDepend = x: addTestToolDepends [ x ];
   addTestToolDepends =
     xs:
-    overrideCabal (
-      drv: { testToolDepends = (drv.testToolDepends or [ ]) ++ xs; }
-    )
+    overrideCabal (drv: { testToolDepends = (drv.testToolDepends or [ ]) ++ xs; })
   ;
 
   addPkgconfigDepend = x: addPkgconfigDepends [ x ];
@@ -229,8 +224,7 @@ rec {
     }
   );
   unmarkBroken = overrideCabal (drv: { broken = false; });
-  markBrokenVersion =
-    version: drv: assert drv.version == version; markBroken drv;
+  markBrokenVersion = version: drv: assert drv.version == version; markBroken drv;
   markUnbroken = overrideCabal (drv: { broken = false; });
 
   enableLibraryProfiling = overrideCabal (
@@ -254,9 +248,7 @@ rec {
     drv: { enableSharedExecutables = false; }
   );
 
-  enableSharedLibraries = overrideCabal (
-    drv: { enableSharedLibraries = true; }
-  );
+  enableSharedLibraries = overrideCabal (drv: { enableSharedLibraries = true; });
   disableSharedLibraries = overrideCabal (
     drv: { enableSharedLibraries = false; }
   );
@@ -268,9 +260,7 @@ rec {
     drv: { enableDeadCodeElimination = false; }
   );
 
-  enableStaticLibraries = overrideCabal (
-    drv: { enableStaticLibraries = true; }
-  );
+  enableStaticLibraries = overrideCabal (drv: { enableStaticLibraries = true; });
   disableStaticLibraries = overrideCabal (
     drv: { enableStaticLibraries = false; }
   );

@@ -264,10 +264,7 @@ python3.pkgs.buildPythonApplication rec {
               -e "s|^ASCIIDOC =.*|ASCIIDOC = '$out/bin/asciidoc'|" \
               -e "s|^XSLTPROC =.*|XSLTPROC = '${libxslt.bin}/bin/xsltproc'|" \
               -e "s|^DBLATEX =.*|DBLATEX = '${dblatexFull}/bin/dblatex'|" \
-              ${
-                optionalString enableJava
-                  ''-e "s|^FOP =.*|FOP = '${fop}/bin/fop'|"''
-              } \
+              ${optionalString enableJava ''-e "s|^FOP =.*|FOP = '${fop}/bin/fop'|"''} \
               -e "s|^W3M =.*|W3M = '${w3m}/bin/w3m'|" \
               -e "s|^LYNX =.*|LYNX = '${lynx}/bin/lynx'|" \
               -e "s|^XMLLINT =.*|XMLLINT = '${libxml2.bin}/bin/xmllint'|" \

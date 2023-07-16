@@ -85,9 +85,7 @@ stdenv.mkDerivation rec {
       "--enable-pie"
       "--enable-external-ell"
       "--with-dbusconfdir=${placeholder "out"}/share"
-      "--with-dbussystembusdir=${
-        placeholder "out"
-      }/share/dbus-1/system-services"
+      "--with-dbussystembusdir=${placeholder "out"}/share/dbus-1/system-services"
       "--with-dbussessionbusdir=${placeholder "out"}/share/dbus-1/services"
       "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
       "--with-systemduserunitdir=${placeholder "out"}/etc/systemd/user"

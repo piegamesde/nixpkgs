@@ -81,11 +81,7 @@ stdenv.mkDerivation (
 
     # Certain libs aren't being generated, try enabling tests next update
     checkTarget =
-      if buildRockCompiler then
-        "librockCompiler"
-      else
-        "check-mlir-miopen-build-only"
-    ;
+      if buildRockCompiler then "librockCompiler" else "check-mlir-miopen-build-only";
 
     postInstall =
       let
@@ -118,8 +114,7 @@ stdenv.mkDerivation (
       license = with licenses; [ asl20 ];
       maintainers = teams.rocm.members;
       platforms = platforms.linux;
-      broken =
-        versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
+      broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
     };
   }
 )

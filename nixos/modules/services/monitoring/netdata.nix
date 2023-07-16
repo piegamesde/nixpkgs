@@ -228,9 +228,7 @@ in
       ;
       environment = {
         PYTHONPATH = "${cfg.package}/libexec/netdata/python.d/python_modules";
-      } // lib.optionalAttrs (!cfg.enableAnalyticsReporting) {
-        DO_NOT_TRACK = "1";
-      };
+      } // lib.optionalAttrs (!cfg.enableAnalyticsReporting) { DO_NOT_TRACK = "1"; };
       restartTriggers = [
         config.environment.etc."netdata/netdata.conf".source
         config.environment.etc."netdata/conf.d".source

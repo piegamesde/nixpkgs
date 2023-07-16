@@ -49,10 +49,7 @@ let
         "No registered Mathematica version found to match"
         + " version=${toString version} and language=${lang},"
         + " ${
-             if webdoc then
-               "using web documentation"
-             else
-               "and with local documentation"
+             if webdoc then "using web documentation" else "and with local documentation"
            }"
       )
     else
@@ -61,8 +58,7 @@ let
 
   specific-drv = ./. + "/${lib.versions.major found-version.version}.nix";
 
-  real-drv =
-    if lib.pathExists specific-drv then specific-drv else ./generic.nix;
+  real-drv = if lib.pathExists specific-drv then specific-drv else ./generic.nix;
 
   isMatching =
     v1: v2:
@@ -77,8 +73,7 @@ let
 
   matchesDoc =
     v:
-    builtins.match
-      (if webdoc then ".*[0-9]_LINUX.sh" else ".*[0-9]_BNDL_LINUX.sh")
+    builtins.match (if webdoc then ".*[0-9]_LINUX.sh" else ".*[0-9]_BNDL_LINUX.sh")
       v.src.name != null
   ;
 in

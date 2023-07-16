@@ -229,10 +229,7 @@ let
           packedRefsName = path + "/packed-refs";
           absolutePath =
             base: path:
-            if lib.hasPrefix "/" path then
-              path
-            else
-              toString (/. + "${base}/${path}")
+            if lib.hasPrefix "/" path then path else toString (/. + "${base}/${path}")
           ;
         in
         if

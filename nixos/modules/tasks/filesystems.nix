@@ -110,9 +110,7 @@ let
 
       config = {
         mountPoint = mkDefault name;
-        device = mkIf (elem config.fsType specialFSTypes) (
-          mkDefault config.fsType
-        );
+        device = mkIf (elem config.fsType specialFSTypes) (mkDefault config.fsType);
       };
     }
   ;
@@ -367,10 +365,7 @@ in
     system.fsPackages = mkOption {
       internal = true;
       default = [ ];
-      description =
-        lib.mdDoc
-          "Packages supplying file system mounters and checkers."
-      ;
+      description = lib.mdDoc "Packages supplying file system mounters and checkers.";
     };
 
     boot.supportedFilesystems = mkOption {
@@ -428,9 +423,7 @@ in
       let
         ls = sep: concatMapStringsSep sep (x: x.mountPoint);
         notAutoResizable =
-          fs:
-          fs.autoResize && !(hasPrefix "ext" fs.fsType || fs.fsType == "f2fs")
-        ;
+          fs: fs.autoResize && !(hasPrefix "ext" fs.fsType || fs.fsType == "f2fs");
       in
       [
         {
@@ -447,8 +440,7 @@ in
             in
             ''
               Mountpoint '${fs.mountPoint}': 'autoResize = true' is not supported for 'fsType = "${fs.fsType}"':${
-                optionalString (fs.fsType == "auto")
-                  " fsType has to be explicitly set and"
+                optionalString (fs.fsType == "auto") " fsType has to be explicitly set and"
               } only the ext filesystems and f2fs support it.''
           ;
         }
@@ -486,8 +478,7 @@ in
             ++
               optional (sw.discardPolicy != null)
                 "discard${
-                  optionalString (sw.discardPolicy != "both")
-                    "=${toString sw.discardPolicy}"
+                  optionalString (sw.discardPolicy != "both") "=${toString sw.discardPolicy}"
                 }"
           )
         ;

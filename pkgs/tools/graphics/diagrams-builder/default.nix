@@ -21,9 +21,7 @@
 let
 
   # Used same technique as for the yiCustom package.
-  wrappedGhc = ghcWithPackages (
-    self: [ diagrams-builder ] ++ extraPackages self
-  );
+  wrappedGhc = ghcWithPackages (self: [ diagrams-builder ] ++ extraPackages self);
   ghcVersion = wrappedGhc.version;
 
   exeWrapper =

@@ -89,10 +89,7 @@ in
 {
   lib = haskellLibUncomposable;
 
-  package-list =
-    callPackage ../development/haskell-modules/package-list.nix
-      { }
-  ;
+  package-list = callPackage ../development/haskell-modules/package-list.nix { };
 
   compiler = rec {
 
@@ -159,9 +156,7 @@ in
         # Musl bindists do not exist for ghc 8.6.5, so we use 8.10.* for them
         if stdenv.hostPlatform.isAarch then
           packages.ghc8107BinaryMinimal
-        else if
-          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
-        then
+        else if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then
           # to my (@a-m-joseph) knowledge there are no newer official binaries for this platform
           packages.ghc865Binary
         else
@@ -182,9 +177,7 @@ in
         # the oldest ghc with aarch64-darwin support is 8.10.5
         if stdenv.hostPlatform.isAarch then
           packages.ghc8107BinaryMinimal
-        else if
-          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
-        then
+        else if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then
           packages.ghc810
         else
           packages.ghc8107Binary
@@ -200,9 +193,7 @@ in
         # aarch64 ghc8107Binary exceeds max output size on hydra
         if stdenv.hostPlatform.isAarch then
           packages.ghc8107BinaryMinimal
-        else if
-          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
-        then
+        else if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then
           packages.ghc810
         else
           packages.ghc8107Binary
@@ -220,9 +211,7 @@ in
         # aarch64 ghc8107Binary exceeds max output size on hydra
         if stdenv.hostPlatform.isAarch then
           packages.ghc8107BinaryMinimal
-        else if
-          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
-        then
+        else if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then
           packages.ghc810
         else
           packages.ghc8107Binary
@@ -240,9 +229,7 @@ in
         # aarch64 ghc8107Binary exceeds max output size on hydra
         if stdenv.hostPlatform.isAarch then
           packages.ghc8107BinaryMinimal
-        else if
-          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
-        then
+        else if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then
           packages.ghc810
         else
           packages.ghc8107Binary
@@ -260,9 +247,7 @@ in
         # aarch64 ghc8107Binary exceeds max output size on hydra
         if stdenv.hostPlatform.isAarch then
           packages.ghc8107BinaryMinimal
-        else if
-          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
-        then
+        else if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then
           packages.ghc810
         else
           packages.ghc8107Binary
@@ -287,9 +272,7 @@ in
           # TODO(@sternenseemann): package bindist
           packages.ghc902
         # No suitable bindists for powerpc64le
-        else if
-          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
-        then
+        else if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then
           packages.ghc902
         else
           packages.ghc8107Binary
@@ -314,9 +297,7 @@ in
           # TODO(@sternenseemann): package bindist
           packages.ghc902
         # No suitable bindists for powerpc64le
-        else if
-          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
-        then
+        else if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then
           packages.ghc902
         else
           packages.ghc8107Binary
@@ -341,9 +322,7 @@ in
           # TODO(@sternenseemann): package bindist
           packages.ghc902
         # No suitable bindists for powerpc64le
-        else if
-          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
-        then
+        else if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then
           packages.ghc902
         else
           packages.ghc8107Binary
@@ -368,9 +347,7 @@ in
           # TODO(@sternenseemann): package bindist
           packages.ghc902
         # No suitable bindists for powerpc64le
-        else if
-          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
-        then
+        else if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then
           packages.ghc902
         else
           packages.ghc8107Binary
@@ -390,9 +367,7 @@ in
         # For GHC 9.2 no armv7l bindists are available.
         if stdenv.hostPlatform.isAarch32 then
           packages.ghc924
-        else if
-          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
-        then
+        else if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then
           packages.ghc924
         else if stdenv.isAarch64 then
           packages.ghc924BinaryMinimal
@@ -414,9 +389,7 @@ in
         # For GHC 9.2 no armv7l bindists are available.
         if stdenv.hostPlatform.isAarch32 then
           packages.ghc924
-        else if
-          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
-        then
+        else if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then
           packages.ghc924
         else if stdenv.isAarch64 then
           packages.ghc924BinaryMinimal
@@ -496,8 +469,7 @@ in
         buildHaskellPackages = bh.packages.ghc8102Binary;
         ghc = bh.compiler.ghc8102Binary;
         compilerConfig =
-          callPackage
-            ../development/haskell-modules/configuration-ghc-8.10.x.nix
+          callPackage ../development/haskell-modules/configuration-ghc-8.10.x.nix
             { }
         ;
         packageSetConfig = bootstrapPackageSet;
@@ -506,8 +478,7 @@ in
         buildHaskellPackages = bh.packages.ghc8102BinaryMinimal;
         ghc = bh.compiler.ghc8102BinaryMinimal;
         compilerConfig =
-          callPackage
-            ../development/haskell-modules/configuration-ghc-8.10.x.nix
+          callPackage ../development/haskell-modules/configuration-ghc-8.10.x.nix
             { }
         ;
         packageSetConfig = bootstrapPackageSet;
@@ -516,8 +487,7 @@ in
         buildHaskellPackages = bh.packages.ghc8107Binary;
         ghc = bh.compiler.ghc8107Binary;
         compilerConfig =
-          callPackage
-            ../development/haskell-modules/configuration-ghc-8.10.x.nix
+          callPackage ../development/haskell-modules/configuration-ghc-8.10.x.nix
             { }
         ;
         packageSetConfig = bootstrapPackageSet;
@@ -526,8 +496,7 @@ in
         buildHaskellPackages = bh.packages.ghc8107BinaryMinimal;
         ghc = bh.compiler.ghc8107BinaryMinimal;
         compilerConfig =
-          callPackage
-            ../development/haskell-modules/configuration-ghc-8.10.x.nix
+          callPackage ../development/haskell-modules/configuration-ghc-8.10.x.nix
             { }
         ;
         packageSetConfig = bootstrapPackageSet;
@@ -563,8 +532,7 @@ in
         buildHaskellPackages = bh.packages.ghc8107;
         ghc = bh.compiler.ghc8107;
         compilerConfig =
-          callPackage
-            ../development/haskell-modules/configuration-ghc-8.10.x.nix
+          callPackage ../development/haskell-modules/configuration-ghc-8.10.x.nix
             { }
         ;
       };
@@ -667,8 +635,7 @@ in
         buildHaskellPackages = ghc.bootPkgs;
         ghc = bh.compiler.ghcjs810;
         compilerConfig =
-          callPackage
-            ../development/haskell-modules/configuration-ghc-8.10.x.nix
+          callPackage ../development/haskell-modules/configuration-ghc-8.10.x.nix
             { }
         ;
         packageSetConfig =
@@ -692,10 +659,9 @@ in
             oldAttrs: {
               ghc = bh.compiler.integer-simple.${name};
               buildHaskellPackages = bh.packages.integer-simple.${name};
-              overrides =
-                pkgs.lib.composeExtensions (oldAttrs.overrides or (_: _: { }))
-                  (_: _: { integer-simple = null; })
-              ;
+              overrides = pkgs.lib.composeExtensions (oldAttrs.overrides or (_: _: { })) (
+                _: _: { integer-simple = null; }
+              );
             }
           )
         )

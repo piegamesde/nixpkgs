@@ -26,9 +26,7 @@ in
     };
     keys = lib.mkOption {
       type = types.listOf (
-        types.submodule {
-          options.fingerprint = lib.mkOption { type = types.str; };
-        }
+        types.submodule { options.fingerprint = lib.mkOption { type = types.str; }; }
       );
       default = [ ];
     };

@@ -80,9 +80,7 @@ stdenv.mkDerivation rec {
 
     message = ''
       In order to use Citrix Workspace, you need to comply with the Citrix EULA and download
-      the ${
-        if stdenv.is64bit then "64-bit" else "32-bit"
-      } binaries, .tar.gz from:
+      the ${if stdenv.is64bit then "64-bit" else "32-bit"} binaries, .tar.gz from:
 
       ${homepage}
 
@@ -152,9 +150,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (lib.versionOlder version "20.04") 0.0 fsprogs
     ++ lib.optional (lib.versionAtLeast version "20.10") libpulseaudio
-    ++
-      lib.optional (lib.versionAtLeast version "21.12")
-        llvmPackages_12.libunwind
+    ++ lib.optional (lib.versionAtLeast version "21.12") llvmPackages_12.libunwind
   ;
 
   runtimeDependencies = [
@@ -181,8 +177,7 @@ stdenv.mkDerivation rec {
           "--icaroot"
         else if
           (
-            lib.versionAtLeast version "21.12"
-            && builtins.match "wfica(.*)" program != null
+            lib.versionAtLeast version "21.12" && builtins.match "wfica(.*)" program != null
           )
         then
           null
@@ -205,17 +200,13 @@ stdenv.mkDerivation rec {
       wrapLink =
         program: ''
           ${wrap program}
-          ln -sf $out/opt/citrix-icaclient/${program} $out/bin/${
-            baseNameOf program
-          }
+          ln -sf $out/opt/citrix-icaclient/${program} $out/bin/${baseNameOf program}
         ''
       ;
 
       copyCert =
         path: ''
-          cp -v ${path} $out/opt/citrix-icaclient/keystore/cacerts/${
-            baseNameOf path
-          }
+          cp -v ${path} $out/opt/citrix-icaclient/keystore/cacerts/${baseNameOf path}
         ''
       ;
 

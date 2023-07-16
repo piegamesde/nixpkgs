@@ -23,10 +23,9 @@ let
   ;
   source =
     product: javaVersion:
-    (import ./hashes.nix).${product}.${javaPlatformVersion javaVersion}
-      or (throw
-        "Unsupported product combination: product=${product} java=${javaVersion} system=${stdenv.system}"
-      )
+    (import ./hashes.nix).${product}.${javaPlatformVersion javaVersion} or (throw
+      "Unsupported product combination: product=${product} java=${javaVersion} system=${stdenv.system}"
+    )
   ;
 in
 rec {

@@ -191,8 +191,7 @@ let
       name,
       set ? { },
     }:
-    pkgs.runCommand "${name}-wrapper"
-      { nativeBuildInputs = [ pkgs.makeWrapper ]; }
+    pkgs.runCommand "${name}-wrapper" { nativeBuildInputs = [ pkgs.makeWrapper ]; }
       (
         with lib; ''
           makeWrapper "${original}" "$out/bin/${name}" \
@@ -275,10 +274,7 @@ let
           if cfg.allowSubRepos then "path" else "repository"
         } .";
       appendOnlyArg = optionalString appendOnly "--append-only";
-      quotaArg =
-        optionalString (cfg.quota != null)
-          "--storage-quota ${cfg.quota}"
-      ;
+      quotaArg = optionalString (cfg.quota != null) "--storage-quota ${cfg.quota}";
       serveCommand = "borg serve ${restrictedArg} ${appendOnlyArg} ${quotaArg}";
     in
     ''command="${cdCommand} && ${serveCommand}",restrict ${key}''
@@ -302,8 +298,7 @@ let
 
   mkKeysAssertion =
     name: cfg: {
-      assertion =
-        cfg.authorizedKeys != [ ] || cfg.authorizedKeysAppendOnly != [ ];
+      assertion = cfg.authorizedKeys != [ ] || cfg.authorizedKeysAppendOnly != [ ];
       message =
         "borgbackup.repos.${name} does not make sense"
         + " without at least one public key"
@@ -395,8 +390,7 @@ in
           options = {
 
             paths = mkOption {
-              type =
-                with types; nullOr (coercedTo str lib.singleton (listOf str));
+              type = with types; nullOr (coercedTo str lib.singleton (listOf str));
               default = null;
               description = lib.mdDoc ''
                 Path(s) to back up.
@@ -417,10 +411,7 @@ in
 
             repo = mkOption {
               type = types.str;
-              description =
-                lib.mdDoc
-                  "Remote or local repository to back up to."
-              ;
+              description = lib.mdDoc "Remote or local repository to back up to.";
               example = "user@machine:/path/to/repo";
             };
 
@@ -436,10 +427,7 @@ in
             archiveBaseName = mkOption {
               type = types.nullOr (types.strMatching "[^/{}]+");
               default = "${globalConfig.networking.hostName}-${name}";
-              defaultText =
-                literalExpression
-                  ''"''${config.networking.hostName}-<name>"''
-              ;
+              defaultText = literalExpression ''"''${config.networking.hostName}-<name>"'';
               description = lib.mdDoc ''
                 How to name the created archives. A timestamp, whose format is
                 determined by {option}`dateFormat`, will be appended. The full
@@ -646,10 +634,7 @@ in
               # Specifying e.g. `prune.keep.yearly = -1`
               # means there is no limit of yearly archives to keep
               # The regex is for use with e.g. --keep-within 1y
-              type =
-                with types;
-                attrsOf (either int (strMatching "[[:digit:]]+[Hdwmy]"))
-              ;
+              type = with types; attrsOf (either int (strMatching "[[:digit:]]+[Hdwmy]"));
               description = lib.mdDoc ''
                 Prune a repository by deleting all archives not matching any of the
                 specified retention options. See {command}`borg help prune`

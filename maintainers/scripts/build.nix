@@ -29,8 +29,7 @@ let
                 # that have disabled Python pkgs as dependencies.
                 builtins.seq pkg.outPath [ (return name pkg) ]
               else if
-                pkg.recurseForDerivations or false
-                || pkg.recurseForRelease or false
+                pkg.recurseForDerivations or false || pkg.recurseForRelease or false
               then
                 packagesWith cond return pkg
               else
@@ -47,9 +46,7 @@ packagesWith
   (
     name: pkg:
     (
-      if
-        builtins.hasAttr "meta" pkg && builtins.hasAttr "maintainers" pkg.meta
-      then
+      if builtins.hasAttr "meta" pkg && builtins.hasAttr "maintainers" pkg.meta then
         (
           if builtins.isList pkg.meta.maintainers then
             builtins.elem maintainer_ pkg.meta.maintainers

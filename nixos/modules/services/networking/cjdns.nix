@@ -38,10 +38,7 @@ let
         };
         publicKey = mkOption {
           type = types.str;
-          description =
-            lib.mdDoc
-              "Public key at the opposite end of the tunnel."
-          ;
+          description = lib.mdDoc "Public key at the opposite end of the tunnel.";
         };
         hostname = mkOption {
           default = "";
@@ -87,10 +84,7 @@ let
           bind = cfg.admin.bind;
           password = "@CJDNS_ADMIN_PASSWORD@";
         };
-        authorizedPasswords =
-          map (p: { password = p; })
-            cfg.authorizedPasswords
-        ;
+        authorizedPasswords = map (p: { password = p; }) cfg.authorizedPasswords;
         interfaces = {
           ETHInterface =
             if (cfg.ETHInterface.bind != "") then

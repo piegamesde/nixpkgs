@@ -42,10 +42,7 @@
 # https://developer.palemoon.org/build/linux/
 assert stdenv.cc.isGNU;
 assert with lib.strings;
-  (
-    versionAtLeast stdenv.cc.version "7.1"
-    && versionOlder stdenv.cc.version "13"
-  );
+  (versionAtLeast stdenv.cc.version "7.1" && versionOlder stdenv.cc.version "13");
 
 stdenv.mkDerivation rec {
   pname = "palemoon";

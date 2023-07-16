@@ -35,8 +35,7 @@ let
 
   # A type for a string of the form number{b|k|M|G}
   mbufferSizeType = str // {
-    check =
-      x: str.check x && builtins.isList (builtins.match "^[0-9]+[bkMG]$" x);
+    check = x: str.check x && builtins.isList (builtins.match "^[0-9]+[bkMG]$" x);
     description = "string of the form number{b|k|M|G}";
   };
 
@@ -383,10 +382,7 @@ in
       noDestroy = mkOption {
         type = bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Does all changes to the filesystem except destroy."
-        ;
+        description = lib.mdDoc "Does all changes to the filesystem except destroy.";
       };
 
       autoCreation = mkOption {

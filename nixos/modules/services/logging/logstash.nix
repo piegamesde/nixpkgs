@@ -192,10 +192,7 @@ in
       extraJvmOptions = mkOption {
         type = types.lines;
         default = "";
-        description =
-          lib.mdDoc
-            "Extra JVM options, one per line (jvm.options format)."
-        ;
+        description = lib.mdDoc "Extra JVM options, one per line (jvm.options format).";
         example = ''
           -Xms2g
           -Xmx2g

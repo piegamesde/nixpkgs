@@ -55,9 +55,7 @@ assert enableNumpy -> enablePython;
 # Boost <1.69 can't be built on linux with clang >8, because pth was removed
 assert with lib;
   (
-    stdenv.isLinux
-    && toolset == "clang"
-    && versionAtLeast stdenv.cc.version "8.0.0"
+    stdenv.isLinux && toolset == "clang" && versionAtLeast stdenv.cc.version "8.0.0"
   )
   -> versionAtLeast version "1.69";
 
@@ -134,9 +132,7 @@ let
             else
               toString stdenv.hostPlatform.parsed.cpu.family
           }"
-          "binary-format=${
-            toString stdenv.hostPlatform.parsed.kernel.execFormat.name
-          }"
+          "binary-format=${toString stdenv.hostPlatform.parsed.kernel.execFormat.name}"
           "target-os=${toString stdenv.hostPlatform.parsed.kernel.name}"
 
           # adapted from table in boost manual
@@ -160,12 +156,9 @@ let
     ++ lib.optional (!enablePython) "--without-python"
     ++ lib.optional needUserConfig "--user-config=user-config.jam"
     ++
-      lib.optional
-        (stdenv.buildPlatform.isDarwin && stdenv.hostPlatform.isLinux)
+      lib.optional (stdenv.buildPlatform.isDarwin && stdenv.hostPlatform.isLinux)
         "pch=off"
-    ++ lib.optionals (stdenv.hostPlatform.libc == "msvcrt") [
-      "threadapi=win32"
-    ]
+    ++ lib.optionals (stdenv.hostPlatform.libc == "msvcrt") [ "threadapi=win32" ]
     ++ extraB2Args
   );
 in
@@ -236,9 +229,7 @@ stdenv.mkDerivation {
     platforms = platforms.unix ++ platforms.windows;
     badPlatforms =
       optional (versionOlder version "1.59") "aarch64-linux"
-      ++
-        optional ((versionOlder version "1.57") || version == "1.58")
-          "x86_64-darwin"
+      ++ optional ((versionOlder version "1.57") || version == "1.58") "x86_64-darwin"
       ++ optionals (versionOlder version "1.73") platforms.riscv
     ;
     maintainers = with maintainers; [ hjones2199 ];

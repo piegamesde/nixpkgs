@@ -44,8 +44,7 @@ let
     else if builtins.isString freeze then
       [ freeze ]
     else
-      throw
-        "“freeze” argument needs to be either a boolean, or a version string."
+      throw "“freeze” argument needs to be either a boolean, or a version string."
   ;
   updateScript = writeScript "gnome-update-script" ''
     #!${python}/bin/python

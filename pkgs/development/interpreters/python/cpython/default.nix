@@ -243,10 +243,7 @@ let
       # https://github.com/python/cpython/blob/e488e300f5c01289c10906c2e53a8e43d6de32d8/configure.ac#L724
       multiarchCpu =
         if isAarch32 then
-          if parsed.cpu.significantByte.name == "littleEndian" then
-            "arm"
-          else
-            "armeb"
+          if parsed.cpu.significantByte.name == "littleEndian" then "arm" else "armeb"
         else if isx86_32 then
           "i386"
         else
@@ -420,9 +417,7 @@ stdenv.mkDerivation {
   ;
 
   env = {
-    CPPFLAGS = concatStringsSep " " (
-      map (p: "-I${getDev p}/include") buildInputs
-    );
+    CPPFLAGS = concatStringsSep " " (map (p: "-I${getDev p}/include") buildInputs);
     LDFLAGS = concatStringsSep " " (map (p: "-L${getLib p}/lib") buildInputs);
     LIBS = "${optionalString (!stdenv.isDarwin) "-lcrypt"}";
     NIX_LDFLAGS =
@@ -488,8 +483,7 @@ stdenv.mkDerivation {
       "ac_cv_file__dev_ptc=yes"
     ]
     ++
-      optionals
-        (stdenv.hostPlatform != stdenv.buildPlatform && pythonAtLeast "3.11")
+      optionals (stdenv.hostPlatform != stdenv.buildPlatform && pythonAtLeast "3.11")
         [ "--with-build-python=${pythonForBuildInterpreter}" ]
     ++
       optionals stdenv.hostPlatform.isLinux
@@ -660,9 +654,7 @@ stdenv.mkDerivation {
   # Enforce that we don't have references to the OpenSSL -dev package, which we
   # explicitly specify in our configure flags above.
   disallowedReferences =
-    lib.optionals (openssl' != null && !static && !enableFramework) [
-      openssl'.dev
-    ]
+    lib.optionals (openssl' != null && !static && !enableFramework) [ openssl'.dev ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       # Ensure we don't have references to build-time packages.
       # These typically end up in shebangs.

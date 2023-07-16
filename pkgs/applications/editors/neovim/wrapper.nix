@@ -141,9 +141,7 @@ let
           ''
             echo "Generating remote plugin manifest"
             export NVIM_RPLUGIN_MANIFEST=$out/rplugin.vim
-            makeWrapper ${
-              lib.escapeShellArgs manifestWrapperArgs
-            } ${wrapperArgsStr}
+            makeWrapper ${lib.escapeShellArgs manifestWrapperArgs} ${wrapperArgsStr}
 
             # Some plugins assume that the home directory is accessible for
             # initializing caches, temporary files, etc. Even if the plugin isn't
@@ -175,9 +173,7 @@ let
         + ''
           rm $out/bin/nvim
           touch $out/rplugin.vim
-          makeWrapper ${
-            lib.escapeShellArgs finalMakeWrapperArgs
-          } ${wrapperArgsStr}
+          makeWrapper ${lib.escapeShellArgs finalMakeWrapperArgs} ${wrapperArgsStr}
         ''
       ;
 

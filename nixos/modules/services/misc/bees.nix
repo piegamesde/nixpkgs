@@ -143,10 +143,7 @@ in
                 SyslogIdentifier = "beesd"; # would otherwise be "bees-service-wrapper"
               }
             ;
-            unitConfig.RequiresMountsFor =
-              lib.mkIf (lib.hasPrefix "/" fs.spec)
-                fs.spec
-            ;
+            unitConfig.RequiresMountsFor = lib.mkIf (lib.hasPrefix "/" fs.spec) fs.spec;
             wantedBy = [ "multi-user.target" ];
           }
         )

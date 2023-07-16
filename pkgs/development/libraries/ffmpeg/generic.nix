@@ -56,8 +56,7 @@
   withCelt ? withFullDeps # CELT decoder
   ,
   withCrystalhd ? withFullDeps,
-  withCuda ?
-    withFullDeps && (with stdenv; (!isDarwin && !hostPlatform.isAarch)),
+  withCuda ? withFullDeps && (with stdenv; (!isDarwin && !hostPlatform.isAarch)),
   withCudaLLVM ? withFullDeps,
   withDav1d ? withHeadlessDeps # AV1 decoder (focused on speed and correctness)
   ,
@@ -498,9 +497,7 @@ stdenv.mkDerivation (
         (enableFeature withHardcodedTables "hardcoded-tables")
         (enableFeature withSafeBitstreamReader "safe-bitstream-reader")
 
-        (enableFeature (withMultithread && stdenv.targetPlatform.isUnix)
-          "pthreads"
-        )
+        (enableFeature (withMultithread && stdenv.targetPlatform.isUnix) "pthreads")
         (enableFeature (withMultithread && stdenv.targetPlatform.isWindows)
           "w32threads"
         )
@@ -744,9 +741,7 @@ stdenv.mkDerivation (
       ++ optionals withSvg [ librsvg ]
       ++ optionals withSvtav1 [ svt-av1 ]
       ++ optionals withTheora [ libtheora ]
-      ++ optionals withVaapi [
-        (if withSmallDeps then libva else libva-minimal)
-      ]
+      ++ optionals withVaapi [ (if withSmallDeps then libva else libva-minimal) ]
       ++ optionals withVdpau [ libvdpau ]
       ++ optionals withVidStab [ vid-stab ]
       ++ optionals withVmaf [ libvmaf ]
@@ -842,10 +837,7 @@ stdenv.mkDerivation (
 
     enableParallelBuilding = true;
 
-    passthru.tests.pkg-config =
-      testers.testMetaPkgConfig
-        finalAttrs.finalPackage
-    ;
+    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
     meta = with lib; {
       description = "A complete, cross-platform solution to record, convert and stream audio and video";

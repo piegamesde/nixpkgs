@@ -53,9 +53,7 @@ rustPlatform.buildRustPackage rec {
 
   postFixup =
     ''
-      patchelf --set-rpath "${
-        lib.makeLibraryPath buildInputs
-      }" $out/bin/rusty-psn
+      patchelf --set-rpath "${lib.makeLibraryPath buildInputs}" $out/bin/rusty-psn
     ''
     + lib.optionalString withGui ''
       mv $out/bin/rusty-psn $out/bin/rusty-psn-gui

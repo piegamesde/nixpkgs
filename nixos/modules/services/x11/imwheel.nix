@@ -52,18 +52,15 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.imwheel ];
 
-    environment.etc."X11/imwheel/imwheelrc".source =
-      pkgs.writeText "imwheelrc"
-        (
-          concatStringsSep "\n\n" (
-            mapAttrsToList
-              (rule: conf: ''
-                "${rule}"
-                ${conf}'')
-              cfg.rules
-          )
-        )
-    ;
+    environment.etc."X11/imwheel/imwheelrc".source = pkgs.writeText "imwheelrc" (
+      concatStringsSep "\n\n" (
+        mapAttrsToList
+          (rule: conf: ''
+            "${rule}"
+            ${conf}'')
+          cfg.rules
+      )
+    );
 
     systemd.user.services.imwheel = {
       description = "imwheel service";

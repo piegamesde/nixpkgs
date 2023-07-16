@@ -22,8 +22,7 @@ writeShellScriptBin "vscodeExts2nix" ''
     ${
       lib.optionalString (extensionsToIgnore != [ ]) ''
         | grep -v -i '^\(${
-          lib.concatMapStringsSep "\\|" (e: "${e.publisher}.${e.name}")
-            extensionsToIgnore
+          lib.concatMapStringsSep "\\|" (e: "${e.publisher}.${e.name}") extensionsToIgnore
         }\)'
       ''
     }

@@ -56,8 +56,7 @@ stdenv.mkDerivation (
       homepage = "https://github.com/freebsd/pkg";
       description = "Package management tool for FreeBSD";
       maintainers = with maintainers; [ qyliss ];
-      platforms =
-        with platforms; darwin ++ freebsd ++ linux ++ netbsd ++ openbsd;
+      platforms = with platforms; darwin ++ freebsd ++ linux ++ netbsd ++ openbsd;
       license = licenses.bsd2;
     };
   }

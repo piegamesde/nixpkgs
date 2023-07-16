@@ -371,9 +371,7 @@ runTests {
             (import ../.. { system = "x86_64-linux"; }).hello
         ;
         storePathAppendix = isStorePath "${goodPath}/bin/python";
-        nonAbsolute = isStorePath (
-          concatStrings (tail (stringToCharacters goodPath))
-        );
+        nonAbsolute = isStorePath (concatStrings (tail (stringToCharacters goodPath)));
         asPath = isStorePath (/. + goodPath);
         otherPath = isStorePath "/something/else";
         otherVals = {
@@ -1313,9 +1311,7 @@ runTests {
     {
       expr =
         (builtins.tryEval (
-          generators.toPretty { } (
-            generators.withRecursion { depthLimit = 2; } a
-          )
+          generators.toPretty { } (generators.withRecursion { depthLimit = 2; } a)
         )).success;
       expected = false;
     }
@@ -1455,9 +1451,7 @@ runTests {
   };
 
   testToLuaAttrsetWithLuaInline = {
-    expr = generators.toLua { } {
-      x = generators.mkLuaInline ''"abc" .. "def"'';
-    };
+    expr = generators.toLua { } { x = generators.mkLuaInline ''"abc" .. "def"''; };
     expected = ''
       {
         ["x"] = ("abc" .. "def")
@@ -1656,9 +1650,7 @@ runTests {
             ...
           }:
           {
-            options.foo = lib.mkOption {
-              type = lib.types.submodule submodule;
-            };
+            options.foo = lib.mkOption { type = lib.types.submodule submodule; };
           }
         ;
 

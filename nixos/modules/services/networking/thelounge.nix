@@ -29,9 +29,7 @@ let
     echo ${escapeShellArg (builtins.toJSON pluginManifest)} >> $out/package.json
     ${concatMapStringsSep "\n"
       (pkg: ''
-        ln -s ${pkg}/lib/node_modules/${getName pkg} $out/node_modules/${
-          getName pkg
-        }
+        ln -s ${pkg}/lib/node_modules/${getName pkg} $out/node_modules/${getName pkg}
       '')
       cfg.plugins}
   '';

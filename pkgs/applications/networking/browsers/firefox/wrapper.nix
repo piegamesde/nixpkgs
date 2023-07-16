@@ -90,15 +90,11 @@ let
 
       nativeMessagingHosts =
         [ ]
-        ++ lib.optional (cfg.enableBrowserpass or false) (
-          lib.getBin browserpass
-        )
+        ++ lib.optional (cfg.enableBrowserpass or false) (lib.getBin browserpass)
         ++ lib.optional (cfg.enableBukubrow or false) bukubrow
         ++ lib.optional (cfg.enableEUWebID or false) web-eid-app
         ++ lib.optional (cfg.enableTridactylNative or false) tridactyl-native
-        ++
-          lib.optional (cfg.enableGnomeExtensions or false)
-            gnome-browser-connector
+        ++ lib.optional (cfg.enableGnomeExtensions or false) gnome-browser-connector
         ++ lib.optional (cfg.enableUgetIntegrator or false) uget-integrator
         ++
           lib.optional (cfg.enablePlasmaBrowserIntegration or false)
@@ -149,9 +145,7 @@ let
       #   EXTRA PREF CHANGES  #
       #                       #
       #########################
-      policiesJson = writeText "policies.json" (
-        builtins.toJSON enterprisePolicies
-      );
+      policiesJson = writeText "policies.json" (builtins.toJSON enterprisePolicies);
 
       usesNixExtensions = nixExtensions != null;
 
@@ -160,9 +154,7 @@ let
       );
 
       requiresSigning =
-        browser ? MOZ_REQUIRE_SIGNING
-        -> toString browser.MOZ_REQUIRE_SIGNING != ""
-      ;
+        browser ? MOZ_REQUIRE_SIGNING -> toString browser.MOZ_REQUIRE_SIGNING != "";
 
       # Check that every extension has a unqiue .name attribute
       # and an extid attribute
@@ -492,10 +484,7 @@ let
       preferLocalBuild = true;
 
       libs =
-        lib.makeLibraryPath libs
-        + ":"
-        + lib.makeSearchPathOutput "lib" "lib64" libs
-      ;
+        lib.makeLibraryPath libs + ":" + lib.makeSearchPathOutput "lib" "lib64" libs;
       gtk_modules = map (x: x + x.gtkModule) gtk_modules;
 
       passthru = {

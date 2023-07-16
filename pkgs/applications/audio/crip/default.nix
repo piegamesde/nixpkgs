@@ -60,9 +60,7 @@ stdenv.mkDerivation rec {
         --replace '$editor = "vim";' '$editor = "${nano}/bin/nano";'
 
       wrapProgram $out/bin/$script \
-        --set PERL5LIB "${
-          perlPackages.makePerlPath [ perlPackages.CDDB_get ]
-        }" \
+        --set PERL5LIB "${perlPackages.makePerlPath [ perlPackages.CDDB_get ]}" \
         --set PATH "${toolDeps}"
     done
   '';

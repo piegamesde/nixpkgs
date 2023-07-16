@@ -68,8 +68,7 @@ in
           ;
         in
         if value == null then
-          throw
-            "services.redshift.longitude is set to null, you can remove this"
+          throw "services.redshift.longitude is set to null, you can remove this"
         else
           builtins.fromJSON value
       )
@@ -193,12 +192,8 @@ in
           ExecStart = ''
             ${cfg.package}${cfg.executable} \
               -l ${providerString} \
-              -t ${toString cfg.temperature.day}:${
-                toString cfg.temperature.night
-              } \
-              -b ${toString cfg.brightness.day}:${
-                toString cfg.brightness.night
-              } \
+              -t ${toString cfg.temperature.day}:${toString cfg.temperature.night} \
+              -b ${toString cfg.brightness.day}:${toString cfg.brightness.night} \
               ${lib.strings.concatStringsSep " " cfg.extraOptions}
           '';
           RestartSec = 3;

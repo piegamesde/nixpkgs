@@ -45,9 +45,7 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/realTimeConfigQuickScan \
       --set PERL5LIB "$out/share/$pname"
     wrapProgram $out/bin/QuickScan \
-      --set PERL5LIB "$out/share/$pname:${
-        with perlPackages; makePerlPath [ Tk ]
-      }"
+      --set PERL5LIB "$out/share/$pname:${with perlPackages; makePerlPath [ Tk ]}"
   '';
 
   meta = with lib; {

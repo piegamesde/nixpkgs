@@ -146,10 +146,7 @@ in
       user = mkOption {
         default = "buildbot";
         type = types.str;
-        description =
-          lib.mdDoc
-            "User the buildbot server should execute under."
-        ;
+        description = lib.mdDoc "User the buildbot server should execute under.";
       };
 
       group = mkOption {
@@ -250,27 +247,18 @@ in
         default = [ pkgs.git ];
         defaultText = literalExpression "[ pkgs.git ]";
         type = types.listOf types.package;
-        description =
-          lib.mdDoc
-            "Packages to add to PATH for the buildbot process."
-        ;
+        description = lib.mdDoc "Packages to add to PATH for the buildbot process.";
       };
 
       pythonPackages = mkOption {
         type = types.functionTo (types.listOf types.package);
         default = pythonPackages: with pythonPackages; [ ];
-        defaultText =
-          literalExpression
-            "pythonPackages: with pythonPackages; [ ]"
-        ;
+        defaultText = literalExpression "pythonPackages: with pythonPackages; [ ]";
         description =
           lib.mdDoc
             "Packages to add the to the PYTHONPATH of the buildbot process."
         ;
-        example =
-          literalExpression
-            "pythonPackages: with pythonPackages; [ requests ]"
-        ;
+        example = literalExpression "pythonPackages: with pythonPackages; [ requests ]";
       };
     };
   };

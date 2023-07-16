@@ -25,9 +25,7 @@ let
   # /etc/passwd: "nixbld:x:1000:100:Nix build user:/build:/noshell"
   # sshd: "User nixbld not allowed because shell /noshell does not exist"
   opensshUnsafe = openssh.overrideAttrs (
-    oldAttrs: {
-      patches = oldAttrs.patches ++ [ ./openssh-nixos-sandbox.patch ];
-    }
+    oldAttrs: { patches = oldAttrs.patches ++ [ ./openssh-nixos-sandbox.patch ]; }
   );
 in
 stdenv.mkDerivation rec {

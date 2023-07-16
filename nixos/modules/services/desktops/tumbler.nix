@@ -37,9 +37,7 @@ in
 
     services.tumbler = {
 
-      enable = mkEnableOption (
-        lib.mdDoc "Tumbler, A D-Bus thumbnailer service"
-      );
+      enable = mkEnableOption (lib.mdDoc "Tumbler, A D-Bus thumbnailer service");
     };
   };
 

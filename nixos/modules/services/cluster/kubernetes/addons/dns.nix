@@ -28,8 +28,7 @@ in
       default =
         (concatStringsSep "." (
           take 3 (
-            splitString "."
-              config.services.kubernetes.apiserver.serviceClusterIpRange
+            splitString "." config.services.kubernetes.apiserver.serviceClusterIpRange
           )
         ))
         + ".254"
@@ -48,10 +47,7 @@ in
     };
 
     replicas = mkOption {
-      description =
-        lib.mdDoc
-          "Number of DNS pod replicas to deploy in the cluster."
-      ;
+      description = lib.mdDoc "Number of DNS pod replicas to deploy in the cluster.";
       default = 2;
       type = types.int;
     };

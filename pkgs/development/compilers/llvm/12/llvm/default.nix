@@ -114,9 +114,7 @@ stdenv.mkDerivation (
     ; # exegesis
 
     propagatedBuildInputs =
-      optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ ncurses ]
-      ++ [ zlib ]
-    ;
+      optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ ncurses ] ++ [ zlib ];
 
     patches =
       [

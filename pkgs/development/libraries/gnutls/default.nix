@@ -160,9 +160,7 @@ stdenv.mkDerivation rec {
   # Fixup broken libtool and pkg-config files
   preFixup =
     lib.optionalString (!isDarwin) ''
-      sed ${
-        lib.optionalString tpmSupport "-e 's,-ltspi,-L${trousers}/lib -ltspi,'"
-      } \
+      sed ${lib.optionalString tpmSupport "-e 's,-ltspi,-L${trousers}/lib -ltspi,'"} \
           -e 's,-lz,-L${zlib.out}/lib -lz,' \
           -e 's,-L${gmp.dev}/lib,-L${gmp.out}/lib,' \
           -e 's,-lgmp,-L${gmp.out}/lib -lgmp,' \

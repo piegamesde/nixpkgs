@@ -68,8 +68,7 @@ let
       ff = f origArgs;
       overrideWith =
         newArgs:
-        origArgs
-        // (if pkgs.lib.isFunction newArgs then newArgs origArgs else newArgs)
+        origArgs // (if pkgs.lib.isFunction newArgs then newArgs origArgs else newArgs)
       ;
     in
     if builtins.isAttrs ff then
@@ -102,9 +101,7 @@ let
       dontUnpack = true;
       buildPhase = ''
         cp -v ${asdf}/lib/common-lisp/asdf/build/asdf.lisp asdf.lisp
-        ${pkg}/bin/${program} ${
-          toString flags
-        } < <(echo '(compile-file "asdf.lisp")')
+        ${pkg}/bin/${program} ${toString flags} < <(echo '(compile-file "asdf.lisp")')
       '';
       installPhase = ''
         mkdir -p $out
@@ -281,11 +278,7 @@ let
           ;
           patches = [ ];
           propagatedBuildInputs =
-            args.propagatedBuildInputs or [ ]
-            ++ lispLibs
-            ++ javaLibs
-            ++ nativeLibs
-          ;
+            args.propagatedBuildInputs or [ ] ++ lispLibs ++ javaLibs ++ nativeLibs;
           meta = (args.meta or { }) // {
             maintainers = args.meta.maintainers or lib.teams.lisp.members;
           };

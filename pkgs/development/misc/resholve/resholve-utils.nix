@@ -161,18 +161,14 @@ rec {
 
   injectUnresholved =
     solutions: unresholved:
-    (builtins.mapAttrs (name: value: value // { inherit unresholved; })
-      solutions
-    )
+    (builtins.mapAttrs (name: value: value // { inherit unresholved; }) solutions)
   ;
 
   # Build resholve invocation for each solution.
   phraseCommands =
     solutions: unresholved:
     builtins.concatStringsSep "\n" (
-      lib.mapAttrsToList phraseInvocation (
-        injectUnresholved solutions unresholved
-      )
+      lib.mapAttrsToList phraseInvocation (injectUnresholved solutions unresholved)
     )
   ;
 
@@ -239,9 +235,7 @@ rec {
       checkPhase =
         ''
           ${phraseContextForOut (
-            phraseInvocation name (
-              partialSolution // { scripts = [ "bin/${name}" ]; }
-            )
+            phraseInvocation name (partialSolution // { scripts = [ "bin/${name}" ]; })
           )}
         ''
         + lib.optionalString (partialSolution.interpreter != "none") ''

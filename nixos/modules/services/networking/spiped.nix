@@ -61,10 +61,7 @@ in
 
               target = mkOption {
                 type = types.str;
-                description =
-                  lib.mdDoc
-                    "Address to which spiped should connect."
-                ;
+                description = lib.mdDoc "Address to which spiped should connect.";
               };
 
               keyfile = mkOption {
@@ -230,12 +227,7 @@ in
               (optionalString cfg.waitForDNS "-D") # Wait for DNS
               (optionalString cfg.weakHandshake "-f") # No PFS
               (optionalString cfg.disableKeepalives "-j") # Keepalives
-              (
-                if cfg.disableReresolution then
-                  "-R"
-                else
-                  "-r ${toString cfg.resolveRefresh}"
-              )
+              (if cfg.disableReresolution then "-R" else "-r ${toString cfg.resolveRefresh}")
             ];
           }
         )

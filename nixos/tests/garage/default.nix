@@ -65,13 +65,10 @@ foldl
         inherit system pkgs;
         mkNode = mkNode pkgs."garage_${ver}";
       };
-      "with-3node-replication${toString ver}" =
-        import ./with-3node-replication.nix
-          {
-            inherit system pkgs;
-            mkNode = mkNode pkgs."garage_${ver}";
-          }
-      ;
+      "with-3node-replication${toString ver}" = import ./with-3node-replication.nix {
+        inherit system pkgs;
+        mkNode = mkNode pkgs."garage_${ver}";
+      };
     }
   )
   { }

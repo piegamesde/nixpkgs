@@ -50,9 +50,7 @@ let
   ;
 
   configVal =
-    value:
-    if isBool value then if value then "on" else "off" else toString value
-  ;
+    value: if isBool value then if value then "on" else "off" else toString value;
   configGenerator =
     c:
     concatStrings (
@@ -192,9 +190,7 @@ in
             config.settings = mkIf (cfg.web.enable && config.webHost != null) {
               wwsympa_url =
                 mkDefault
-                  "https://${config.webHost}${
-                    strings.removeSuffix "/" config.webLocation
-                  }"
+                  "https://${config.webHost}${strings.removeSuffix "/" config.webLocation}"
               ;
             };
           }
@@ -256,15 +252,10 @@ in
       name = mkOption {
         type = str;
         default =
-          if cfg.database.type == "SQLite" then
-            "${dataDir}/sympa.sqlite"
-          else
-            "sympa"
-        ;
+          if cfg.database.type == "SQLite" then "${dataDir}/sympa.sqlite" else "sympa";
         defaultText =
           literalExpression
-            ''
-              if database.type == "SQLite" then "${dataDir}/sympa.sqlite" else "sympa"''
+            ''if database.type == "SQLite" then "${dataDir}/sympa.sqlite" else "sympa"''
         ;
         description = lib.mdDoc ''
           Database name. When using SQLite this must be an absolute
@@ -293,10 +284,7 @@ in
       createLocally = mkOption {
         type = bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Whether to create a local database automatically."
-        ;
+        description = lib.mdDoc "Whether to create a local database automatically.";
       };
     };
 
@@ -418,10 +406,7 @@ in
           };
         }
       '';
-      description =
-        lib.mdDoc
-          "Set of files to be linked in {file}`${dataDir}`."
-      ;
+      description = lib.mdDoc "Set of files to be linked in {file}`${dataDir}`.";
     };
   };
 
@@ -432,8 +417,7 @@ in
     services.sympa.settings =
       (
         mapAttrs (_: v: mkDefault v) {
-          domain =
-            if cfg.mainDomain != null then cfg.mainDomain else head fqdns;
+          domain = if cfg.mainDomain != null then cfg.mainDomain else head fqdns;
           listmaster = concatStringsSep "," cfg.listMasters;
           lang = cfg.lang;
 
@@ -498,8 +482,7 @@ in
         message = "services.sympa.database.user must be set to ${user} if services.sympa.database.createLocally is set to true";
       }
       {
-        assertion =
-          cfg.database.createLocally -> cfg.database.passwordFile == null;
+        assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;
         message = "a password cannot be specified if services.sympa.database.createLocally is set to true";
       }
     ];
@@ -615,14 +598,10 @@ in
     services.nginx.enable = mkIf usingNginx true;
     services.nginx.virtualHosts = mkIf usingNginx (
       let
-        vHosts = unique (
-          remove null (mapAttrsToList (_k: v: v.webHost) cfg.domains)
-        );
+        vHosts = unique (remove null (mapAttrsToList (_k: v: v.webHost) cfg.domains));
         hostLocations =
           host:
-          map (v: v.webLocation) (
-            filter (v: v.webHost == host) (attrValues cfg.domains)
-          )
+          map (v: v.webLocation) (filter (v: v.webHost == host) (attrValues cfg.domains))
         ;
         httpsOpts = optionalAttrs cfg.web.https {
           forceSSL = mkDefault true;

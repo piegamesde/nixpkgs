@@ -54,8 +54,7 @@ let
           parts = builtins.splitVersion c;
           pruned = lib.take ((builtins.length parts) - 1) parts;
           upper = builtins.toString (
-            (lib.toInt (builtins.elemAt pruned (builtins.length pruned - 1)))
-            + 1
+            (lib.toInt (builtins.elemAt pruned (builtins.length pruned - 1))) + 1
           );
           upperConstraint = builtins.concatStringsSep "." (
             ireplace (builtins.length pruned - 1) upper pruned
@@ -64,8 +63,7 @@ let
         operators.">=" v c && operators."<" v upperConstraint
       ;
       # Infix operators
-      "-" =
-        version: v: operators.">=" version v.vl && operators."<=" version v.vu;
+      "-" = version: v: operators.">=" version v.vl && operators."<=" version v.vu;
       # Arbitrary equality clause, just run simple comparison
       "===" = v: c: v == c;
       #

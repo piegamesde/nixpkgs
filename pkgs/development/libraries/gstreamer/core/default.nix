@@ -121,10 +121,7 @@ stdenv.mkDerivation (
 
     setupHook = ./setup-hook.sh;
 
-    passthru.tests.pkg-config =
-      testers.testMetaPkgConfig
-        finalAttrs.finalPackage
-    ;
+    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
     meta = with lib; {
       description = "Open source multimedia framework";

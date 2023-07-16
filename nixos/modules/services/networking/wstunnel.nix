@@ -13,10 +13,7 @@ let
     attrs:
     utils.escapeSystemdExecArgs (
       mapAttrsToList
-        (
-          name: value:
-          if value == true then "--${name}" else "--${name}=${value}"
-        )
+        (name: value: if value == true then "--${name}" else "--${name}=${value}")
         attrs
     )
   ;
@@ -341,10 +338,7 @@ let
         };
 
         customHeaders = mkOption {
-          description =
-            mdDoc
-              "Custom HTTP headers to send during the upgrade request."
-          ;
+          description = mdDoc "Custom HTTP headers to send during the upgrade request.";
           type = types.attrsOf types.str;
           default = { };
           example = {
@@ -385,26 +379,18 @@ let
                     tlsCertificate
                 ;
                 resolvedTlsKey =
-                  if useACMEHost != null then
-                    "${certConfig.directory}/key.pem"
-                  else
-                    tlsKey
-                ;
+                  if useACMEHost != null then "${certConfig.directory}/key.pem" else tlsKey;
               in
               ''
                 ${package}/bin/wstunnel \
                   --server \
                   ${
                     optionalString (restrictTo != null)
-                      "--restrictTo=${
-                        utils.escapeSystemdExecArg (hostPortToString restrictTo)
-                      }"
+                      "--restrictTo=${utils.escapeSystemdExecArg (hostPortToString restrictTo)}"
                   } \
                   ${
                     optionalString (resolvedTlsCertificate != null)
-                      "--tlsCertificate=${
-                        utils.escapeSystemdExecArg resolvedTlsCertificate
-                      }"
+                      "--tlsCertificate=${utils.escapeSystemdExecArg resolvedTlsCertificate}"
                   } \
                   ${
                     optionalString (resolvedTlsKey != null)
@@ -414,9 +400,7 @@ let
                   ${attrsToArgs extraArgs} \
                   ${
                     utils.escapeSystemdExecArg
-                      "${if enableHTTPS then "wss" else "ws"}://${
-                        hostPortToString listen
-                      }"
+                      "${if enableHTTPS then "wss" else "ws"}://${hostPortToString listen}"
                   }
               ''
             ;
@@ -425,10 +409,7 @@ let
                 serverCfg.environmentFile
             ;
             DynamicUser = true;
-            SupplementaryGroups =
-              optional (serverCfg.useACMEHost != null)
-                certConfig.group
-            ;
+            SupplementaryGroups = optional (serverCfg.useACMEHost != null) certConfig.group;
             PrivateTmp = true;
             AmbientCapabilities = optionals (serverCfg.listen.port < 1024) [
               "CAP_NET_BIND_SERVICE"
@@ -468,22 +449,18 @@ let
             ${package}/bin/wstunnel \
               ${
                 concatStringsSep " " (
-                  builtins.map (x: "--localToRemote=${localRemoteToString x}")
-                    localToRemote
+                  builtins.map (x: "--localToRemote=${localRemoteToString x}") localToRemote
                 )
               } \
               ${
                 concatStringsSep " " (
-                  mapAttrsToList (n: v: ''--customHeaders="${n}: ${v}"'')
-                    customHeaders
+                  mapAttrsToList (n: v: ''--customHeaders="${n}: ${v}"'') customHeaders
                 )
               } \
               ${
                 optionalString (dynamicToRemote != null)
                   "--dynamicToRemote=${
-                    utils.escapeSystemdExecArg (
-                      hostPortToString dynamicToRemote
-                    )
+                    utils.escapeSystemdExecArg (hostPortToString dynamicToRemote)
                   }"
               } \
               ${optionalString udp "--udp"} \
@@ -493,9 +470,7 @@ let
                 optionalString (upgradePathPrefix != null)
                   "--upgradePathPrefix=${upgradePathPrefix}"
               } \
-              ${
-                optionalString (hostHeader != null) "--hostHeader=${hostHeader}"
-              } \
+              ${optionalString (hostHeader != null) "--hostHeader=${hostHeader}"} \
               ${optionalString (tlsSNI != null) "--tlsSNI=${tlsSNI}"} \
               ${optionalString tlsVerifyCertificate "--tlsVerifyCertificate"} \
               ${
@@ -511,9 +486,7 @@ let
               ${attrsToArgs extraArgs} \
               ${
                 utils.escapeSystemdExecArg
-                  "${if enableHTTPS then "wss" else "ws"}://${
-                    hostPortToString connectTo
-                  }"
+                  "${if enableHTTPS then "wss" else "ws"}://${hostPortToString connectTo}"
               }
           '';
           EnvironmentFile =
@@ -598,9 +571,7 @@ in
   config = mkIf cfg.enable {
     systemd.services =
       (mapAttrs' generateServerUnit (filterAttrs (n: v: v.enable) cfg.servers))
-      // (mapAttrs' generateClientUnit (
-        filterAttrs (n: v: v.enable) cfg.clients
-      ));
+      // (mapAttrs' generateClientUnit (filterAttrs (n: v: v.enable) cfg.clients));
 
     assertions =
       (mapAttrsToList
@@ -634,11 +605,7 @@ in
       ++ (mapAttrsToList
         (name: clientCfg: {
           assertion =
-            !(
-              clientCfg.localToRemote == [ ]
-              && clientCfg.dynamicToRemote == null
-            )
-          ;
+            !(clientCfg.localToRemote == [ ] && clientCfg.dynamicToRemote == null);
           message = ''
             Either one of services.wstunnel.clients."${name}".localToRemote or services.wstunnel.clients."${name}".dynamicToRemote must be set.
           '';

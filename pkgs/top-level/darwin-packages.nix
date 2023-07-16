@@ -44,18 +44,11 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
       };
 
       # macOS 11.0 SDK
-      apple_sdk_11_0 =
-        pkgs.callPackage ../os-specific/darwin/apple-sdk-11.0
-          { }
-      ;
+      apple_sdk_11_0 = pkgs.callPackage ../os-specific/darwin/apple-sdk-11.0 { };
 
       # Pick an SDK
       apple_sdk =
-        if stdenv.hostPlatform.isAarch64 then
-          apple_sdk_11_0
-        else
-          apple_sdk_10_12
-      ;
+        if stdenv.hostPlatform.isAarch64 then apple_sdk_11_0 else apple_sdk_10_12;
 
       # Pick the source of libraries: either Apple's open source releases, or the
       # SDK.
@@ -65,12 +58,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
         attrs: names:
         lib.listToAttrs (
           lib.concatMap
-            (
-              n:
-              lib.optionals (attrs ? "${n}") [
-                (lib.nameValuePair n attrs."${n}")
-              ]
-            )
+            (n: lib.optionals (attrs ? "${n}") [ (lib.nameValuePair n attrs."${n}") ])
             names
         )
       ;
@@ -78,24 +66,17 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
       chooseLibs = (
         # There are differences in which libraries are exported. Avoid evaluation
         # errors when a package is not provided.
-        selectAttrs (if useAppleSDKLibs then apple_sdk else appleSourcePackages)
-          [
-            "Libsystem"
-            "LibsystemCross"
-            "libcharset"
-            "libunwind"
-            "objc4"
-            "configd"
-            "IOKit"
-          ]
+        selectAttrs (if useAppleSDKLibs then apple_sdk else appleSourcePackages) [
+          "Libsystem"
+          "LibsystemCross"
+          "libcharset"
+          "libunwind"
+          "objc4"
+          "configd"
+          "IOKit"
+        ]
       ) // {
-        inherit
-          (
-            if useAppleSDKLibs then
-              apple_sdk.frameworks
-            else
-              appleSourcePackages
-          )
+        inherit (if useAppleSDKLibs then apple_sdk.frameworks else appleSourcePackages)
           Security
         ;
       };
@@ -231,11 +212,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
       openwith =
         pkgs.darwin.apple_sdk_11_0.callPackage ../os-specific/darwin/openwith
           {
-            inherit (apple_sdk_11_0.frameworks)
-              AppKit
-              Foundation
-              UniformTypeIdentifiers
-            ;
+            inherit (apple_sdk_11_0.frameworks) AppKit Foundation UniformTypeIdentifiers;
           }
       ;
 
@@ -285,10 +262,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
         xcode
       ;
 
-      CoreSymbolication =
-        callPackage ../os-specific/darwin/CoreSymbolication
-          { }
-      ;
+      CoreSymbolication = callPackage ../os-specific/darwin/CoreSymbolication { };
 
       # TODO: make swift-corefoundation build with apple_sdk_11_0.Libsystem
       CF =
@@ -310,8 +284,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
             drv: { setupHook = null; }
           )
         else
-          callPackage ../os-specific/darwin/swift-corelibs/corefoundation.nix
-            { }
+          callPackage ../os-specific/darwin/swift-corelibs/corefoundation.nix { }
       ;
 
       # As the name says, this is broken, but I don't want to lose it since it's a direction we want to go in

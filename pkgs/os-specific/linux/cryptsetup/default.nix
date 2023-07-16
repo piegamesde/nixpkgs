@@ -73,8 +73,7 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  nativeBuildInputs =
-    [ pkg-config ] ++ lib.optionals rebuildMan [ asciidoctor ];
+  nativeBuildInputs = [ pkg-config ] ++ lib.optionals rebuildMan [ asciidoctor ];
   buildInputs = [
     lvm2
     json_c
@@ -92,8 +91,7 @@ stdenv.mkDerivation rec {
     tests = {
       nixos = lib.optionalAttrs stdenv.hostPlatform.isLinux (
         lib.recurseIntoAttrs (
-          lib.filterAttrs (name: _value: lib.hasPrefix "luks" name)
-            nixosTests.installer
+          lib.filterAttrs (name: _value: lib.hasPrefix "luks" name) nixosTests.installer
         )
       );
     };

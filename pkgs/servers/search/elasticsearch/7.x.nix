@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://artifacts.elastic.co/downloads/elasticsearch/${pname}-${version}-${plat}-${arch}.tar.gz";
-    sha256 =
-      shas.${stdenv.hostPlatform.system} or (throw "Unknown architecture");
+    sha256 = shas.${stdenv.hostPlatform.system} or (throw "Unknown architecture");
   };
 
   patches = [ ./es-home-6.x.patch ];
@@ -47,8 +46,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs =
-    [ makeWrapper ]
-    ++ lib.optional (!stdenv.hostPlatform.isDarwin) autoPatchelfHook
+    [ makeWrapper ] ++ lib.optional (!stdenv.hostPlatform.isDarwin) autoPatchelfHook
   ;
 
   buildInputs = [

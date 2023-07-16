@@ -15,8 +15,7 @@ let
 
   cfg = config.services.mxisd;
 
-  server =
-    optionalAttrs (cfg.server.name != null) { inherit (cfg.server) name; }
+  server = optionalAttrs (cfg.server.name != null) { inherit (cfg.server) name; }
     // optionalAttrs (cfg.server.port != null) { inherit (cfg.server) port; };
 
   baseConfig = {
@@ -135,9 +134,7 @@ in
           Type = "simple";
           User = "mxisd";
           Group = "mxisd";
-          EnvironmentFile = mkIf (cfg.environmentFile != null) [
-            cfg.environmentFile
-          ];
+          EnvironmentFile = mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
           ExecStart = "${cfg.package}/bin/${executable} -c ${cfg.dataDir}/mxisd-config.yaml";
           ExecStartPre = "${pkgs.writeShellScript "mxisd-substitute-secrets" ''
             umask 0077

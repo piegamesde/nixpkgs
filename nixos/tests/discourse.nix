@@ -66,8 +66,7 @@ import ./make-test-python.nix (
           hostname = discourseDomain;
           sslCertificate = "${certs.${discourseDomain}.cert}";
           sslCertificateKey = "${certs.${discourseDomain}.key}";
-          secretKeyBaseFile = "${pkgs.writeText "secret-key-base"
-              secretKeyBase}";
+          secretKeyBaseFile = "${pkgs.writeText "secret-key-base" secretKeyBase}";
           enableACME = false;
           mail.outgoing.serverAddress = clientDomain;
           mail.incoming.enable = true;

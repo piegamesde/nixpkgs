@@ -50,9 +50,7 @@ buildGoModule rec {
       # want but also limits the tests
       # Also avoid wasm tests on darwin due to wasmtime-go build issues
       getGoDirs() {
-        go list ./... | grep -v -e e2e ${
-          lib.optionalString stdenv.isDarwin "-e wasm"
-        }
+        go list ./... | grep -v -e e2e ${lib.optionalString stdenv.isDarwin "-e wasm"}
       }
     ''
     + lib.optionalString stdenv.isDarwin ''

@@ -9,9 +9,7 @@ let
 in
 {
   options.programs.nix-index = with lib; {
-    enable = mkEnableOption (
-      lib.mdDoc "nix-index, a file database for nixpkgs"
-    );
+    enable = mkEnableOption (lib.mdDoc "nix-index, a file database for nixpkgs");
 
     package = mkOption {
       type = types.package;
@@ -35,8 +33,7 @@ in
       let
         checkOpt =
           name: {
-            assertion =
-              cfg.${name} -> !config.programs.command-not-found.enable;
+            assertion = cfg.${name} -> !config.programs.command-not-found.enable;
             message = ''
               The 'programs.command-not-found.enable' option is mutually exclusive
               with the 'programs.nix-index.${name}' option.

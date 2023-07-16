@@ -92,8 +92,7 @@ in
           haveRequiredFeature =
             if bin ? requiredFeatures then
               # Check that all element in requiredFeatures are also present in crateFeatures
-              lib.intersectLists bin.requiredFeatures crateFeatures
-              == bin.requiredFeatures
+              lib.intersectLists bin.requiredFeatures crateFeatures == bin.requiredFeatures
             else
               true
           ;

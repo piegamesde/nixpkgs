@@ -12,8 +12,7 @@ in
 {
   options = {
     documentation.man.man-db = {
-      enable =
-        lib.mkEnableOption (lib.mdDoc "man-db as the default man page viewer")
+      enable = lib.mkEnableOption (lib.mdDoc "man-db as the default man page viewer")
         // {
           default = config.documentation.man.enable;
           defaultText = lib.literalExpression "config.documentation.man.enable";
@@ -34,15 +33,10 @@ in
         type = lib.types.path;
         default = pkgs.buildEnv {
           name = "man-paths";
-          paths =
-            lib.subtractLists cfg.skipPackages
-              config.environment.systemPackages
-          ;
+          paths = lib.subtractLists cfg.skipPackages config.environment.systemPackages;
           pathsToLink = [ "/share/man" ];
           extraOutputsToInstall =
-            [ "man" ]
-            ++ lib.optionals config.documentation.dev.enable [ "devman" ]
-          ;
+            [ "man" ] ++ lib.optionals config.documentation.dev.enable [ "devman" ];
           ignoreCollisions = true;
         };
         defaultText =

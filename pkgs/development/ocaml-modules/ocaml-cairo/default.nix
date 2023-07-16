@@ -71,9 +71,7 @@ else
       cp META $out/lib/ocaml/${ocaml.version}/site-lib/cairo/
     '';
 
-    makeFlags = [
-      "INSTALLDIR=$(out)/lib/ocaml/${ocaml.version}/site-lib/cairo"
-    ];
+    makeFlags = [ "INSTALLDIR=$(out)/lib/ocaml/${ocaml.version}/site-lib/cairo" ];
 
     meta = {
       homepage = "http://cairographics.org/cairo-ocaml";

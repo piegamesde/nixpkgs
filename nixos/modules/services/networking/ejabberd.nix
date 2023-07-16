@@ -70,10 +70,7 @@ in
 
       configFile = mkOption {
         type = types.nullOr types.path;
-        description =
-          lib.mdDoc
-            "Configuration file for ejabberd in YAML format"
-        ;
+        description = lib.mdDoc "Configuration file for ejabberd in YAML format";
         default = null;
       };
 

@@ -6,10 +6,7 @@
 }:
 
 let
-  inherit (import ./common.nix { inherit pkgs lib; })
-    mkTestName
-    mariadbPackages
-  ;
+  inherit (import ./common.nix { inherit pkgs lib; }) mkTestName mariadbPackages;
 
   replicateUser = "replicate";
   replicatePassword = "secret";

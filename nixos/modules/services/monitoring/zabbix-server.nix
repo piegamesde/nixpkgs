@@ -156,8 +156,7 @@ in
 
         port = mkOption {
           type = types.port;
-          default =
-            if cfg.database.type == "mysql" then mysql.port else pgsql.port;
+          default = if cfg.database.type == "mysql" then mysql.port else pgsql.port;
           defaultText = literalExpression ''
             if config.${opt.database.type} == "mysql"
             then config.${options.services.mysql.port}
@@ -201,10 +200,7 @@ in
         createLocally = mkOption {
           type = types.bool;
           default = true;
-          description =
-            lib.mdDoc
-              "Whether to create a local database automatically."
-          ;
+          description = lib.mdDoc "Whether to create a local database automatically.";
         };
       };
 
@@ -271,8 +267,7 @@ in
         message = "services.zabbixServer.database.user must be set to ${user} if services.zabbixServer.database.createLocally is set true";
       }
       {
-        assertion =
-          cfg.database.createLocally -> cfg.database.passwordFile == null;
+        assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;
         message = "a password cannot be specified if services.zabbixServer.database.createLocally is set to true";
       }
     ];
@@ -283,10 +278,7 @@ in
         ListenIP = cfg.listen.ip;
         ListenPort = cfg.listen.port;
         # TODO: set to cfg.database.socket if database type is pgsql?
-        DBHost =
-          optionalString (cfg.database.createLocally != true)
-            cfg.database.host
-        ;
+        DBHost = optionalString (cfg.database.createLocally != true) cfg.database.host;
         DBName = cfg.database.name;
         DBUser = cfg.database.user;
         PidFile = "${runtimeDir}/zabbix_server.pid";
@@ -294,12 +286,8 @@ in
         FpingLocation = "/run/wrappers/bin/fping";
         LoadModule = builtins.attrNames cfg.modules;
       }
-      (mkIf (cfg.database.createLocally != true) {
-        DBPort = cfg.database.port;
-      })
-      (mkIf (cfg.database.passwordFile != null) {
-        Include = [ "${passwordFile}" ];
-      })
+      (mkIf (cfg.database.createLocally != true) { DBPort = cfg.database.port; })
+      (mkIf (cfg.database.passwordFile != null) { Include = [ "${passwordFile}" ]; })
       (mkIf (mysqlLocal && cfg.database.socket != null) {
         DBSocket = cfg.database.socket;
       })
@@ -319,9 +307,7 @@ in
       optionalString mysqlLocal ''
         ( echo "CREATE DATABASE IF NOT EXISTS \`${cfg.database.name}\` CHARACTER SET utf8 COLLATE utf8_bin;"
           echo "CREATE USER IF NOT EXISTS '${cfg.database.user}'@'localhost' IDENTIFIED WITH ${
-            if
-              (getName config.services.mysql.package == getName pkgs.mariadb)
-            then
+            if (getName config.services.mysql.package == getName pkgs.mariadb) then
               "unix_socket"
             else
               "auth_socket"
@@ -366,9 +352,7 @@ in
 
       wantedBy = [ "multi-user.target" ];
       after =
-        optional mysqlLocal "mysql.service"
-        ++ optional pgsqlLocal "postgresql.service"
-      ;
+        optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
 
       path = [ "/run/wrappers" ] ++ cfg.extraPackages;
       preStart =

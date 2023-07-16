@@ -242,9 +242,7 @@ stdenv.mkDerivation rec {
       gdk-pixbuf
     ]
     ++ lib.optionals stdenv.isDarwin [ argp-standalone ]
-    ++ lib.optionals (stdenv.isDarwin && !stdenv.isAarch64) [
-      memorymappingHook
-    ]
+    ++ lib.optionals (stdenv.isDarwin && !stdenv.isAarch64) [ memorymappingHook ]
     ++ lib.optionals withBitshuffle [ hdf5-external-filter-plugins ]
   ;
 

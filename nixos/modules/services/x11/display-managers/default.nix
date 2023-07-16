@@ -173,10 +173,7 @@ in
 
       xserverBin = mkOption {
         type = types.path;
-        description =
-          lib.mdDoc
-            "Path to the X server used by display managers."
-        ;
+        description = lib.mdDoc "Path to the X server used by display managers.";
       };
 
       xserverArgs = mkOption {
@@ -285,10 +282,7 @@ in
       };
 
       sessionData = mkOption {
-        description =
-          lib.mdDoc
-            "Data exported for display managers’ convenience"
-        ;
+        description = lib.mdDoc "Data exported for display managers’ convenience";
         internal = true;
         default = { };
         apply =
@@ -321,19 +315,12 @@ in
               d:
               assertMsg
                 (
-                  d != null
-                  -> (
-                    str.check d
-                    && elem d cfg.displayManager.sessionData.sessionNames
-                  )
+                  d != null -> (str.check d && elem d cfg.displayManager.sessionData.sessionNames)
                 )
                 ''
                   Default graphical session, '${d}', not found.
                   Valid names for 'services.xserver.displayManager.defaultSession' are:
-                    ${
-                      concatStringsSep "\n  "
-                        cfg.displayManager.sessionData.sessionNames
-                    }
+                    ${concatStringsSep "\n  " cfg.displayManager.sessionData.sessionNames}
                 ''
             ;
           }
@@ -422,10 +409,7 @@ in
               enable = mkOption {
                 type = types.bool;
                 default = config.user != null;
-                defaultText =
-                  literalExpression
-                    "config.${options.user} != null"
-                ;
+                defaultText = literalExpression "config.${options.user} != null";
                 description = lib.mdDoc ''
                   Automatically log in as {option}`autoLogin.user`.
                 '';
@@ -454,8 +438,7 @@ in
     assertions = [
       {
         assertion =
-          cfg.displayManager.autoLogin.enable
-          -> cfg.displayManager.autoLogin.user != null
+          cfg.displayManager.autoLogin.enable -> cfg.displayManager.autoLogin.user != null
         ;
         message = ''
           services.xserver.displayManager.autoLogin.enable requires services.xserver.displayManager.autoLogin.user to be set
@@ -463,10 +446,8 @@ in
       }
       {
         assertion =
-          cfg.desktopManager.default != null
-          || cfg.windowManager.default != null
-          ->
-            cfg.displayManager.defaultSession == defaultSessionFromLegacyOptions
+          cfg.desktopManager.default != null || cfg.windowManager.default != null
+          -> cfg.displayManager.defaultSession == defaultSessionFromLegacyOptions
         ;
         message = "You cannot use both services.xserver.displayManager.defaultSession option and legacy options (services.xserver.desktopManager.default and services.xserver.windowManager.default).";
       }
@@ -554,9 +535,7 @@ in
             ${dm.start}
 
             ${optionalString cfg.updateDbusEnvironment ''
-              ${
-                lib.getBin pkgs.dbus
-              }/bin/dbus-update-activation-environment --systemd --all
+              ${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all
             ''}
 
             test -n "$waitPID" && wait "$waitPID"
@@ -576,16 +555,10 @@ in
               wm,
             }:
             let
-              sessionName = "${dm.name}${
-                  optionalString (wm.name != "none") ("+" + wm.name)
-                }";
+              sessionName = "${dm.name}${optionalString (wm.name != "none") ("+" + wm.name)}";
               script = xsession dm wm;
               desktopNames =
-                if dm ? desktopNames then
-                  concatStringsSep ";" dm.desktopNames
-                else
-                  sessionName
-              ;
+                if dm ? desktopNames then concatStringsSep ";" dm.desktopNames else sessionName;
             in
             optional (dm.name != "none" || wm.name != "none") (
               pkgs.writeTextFile {

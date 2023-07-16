@@ -19,12 +19,7 @@ gccStdenv.mkDerivation rec {
   };
 
   configureFlags =
-    (
-      if cudaSupport then
-        [ "--with-cuda=${cudatoolkit}" ]
-      else
-        [ "--enable-cpu" ]
-    );
+    (if cudaSupport then [ "--with-cuda=${cudatoolkit}" ] else [ "--enable-cpu" ]);
 
   nativeBuildInputs = [ pkg-config ];
 

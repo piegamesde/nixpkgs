@@ -58,9 +58,7 @@ stdenv.mkDerivation (
         libadwaita
         poppler
       ]
-      ++ lib.optionals stdenv.isDarwin [
-        darwin.apple_sdk.frameworks.Foundation
-      ]
+      ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Foundation ]
     ;
 
     doCheck = true;

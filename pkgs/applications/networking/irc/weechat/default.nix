@@ -129,9 +129,7 @@ stdenv.mkDerivation rec {
     ++ optionals stdenv.isDarwin [
       "-DICONV_LIBRARY=${libiconv}/lib/libiconv.dylib"
     ]
-    ++
-      map (p: "-D${p.cmakeFlag}=" + (if p.enabled then "ON" else "OFF"))
-        plugins
+    ++ map (p: "-D${p.cmakeFlag}=" + (if p.enabled then "ON" else "OFF")) plugins
   ;
 
   nativeBuildInputs =

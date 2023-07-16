@@ -72,9 +72,7 @@ rec {
       builder =
         name:
         pkgs.callPackage ./engine.nix (
-          common // {
-            engine = engine // { inherit name installExperimental; };
-          }
+          common // { engine = engine // { inherit name installExperimental; }; }
         )
       ;
     in
@@ -115,8 +113,6 @@ rec {
   ;
 
   # See `buildOpenRASet`.
-  engines = buildOpenRASet (import ./engines.nix) {
-    inherit buildOpenRAEngine;
-  };
+  engines = buildOpenRASet (import ./engines.nix) { inherit buildOpenRAEngine; };
   mods = buildOpenRASet (import ./mods.nix) { inherit buildOpenRAMod; };
 }

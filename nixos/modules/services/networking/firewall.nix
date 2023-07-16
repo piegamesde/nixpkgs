@@ -84,11 +84,7 @@ in
       package = mkOption {
         type = types.package;
         default =
-          if config.networking.nftables.enable then
-            pkgs.nftables
-          else
-            pkgs.iptables
-        ;
+          if config.networking.nftables.enable then pkgs.nftables else pkgs.iptables;
         defaultText =
           literalExpression
             ''

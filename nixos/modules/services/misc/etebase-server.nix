@@ -223,9 +223,7 @@ in
     ];
 
     systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' - ${cfg.user} ${
-        config.users.users.${cfg.user}.group
-      } - -"
+      "d '${cfg.dataDir}' - ${cfg.user} ${config.users.users.${cfg.user}.group} - -"
     ];
 
     systemd.services.etebase-server = {
@@ -280,8 +278,6 @@ in
       groups.${defaultUser} = { };
     };
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
-    };
+    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
   };
 }

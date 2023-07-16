@@ -75,8 +75,7 @@ in
     systemd.packages = [ cfg.package ];
 
     systemd.services.wireplumber.enable = config.services.pipewire.systemWide;
-    systemd.user.services.wireplumber.enable =
-      !config.services.pipewire.systemWide;
+    systemd.user.services.wireplumber.enable = !config.services.pipewire.systemWide;
 
     systemd.services.wireplumber.wantedBy = [ "pipewire.service" ];
     systemd.user.services.wireplumber.wantedBy = [ "pipewire.service" ];

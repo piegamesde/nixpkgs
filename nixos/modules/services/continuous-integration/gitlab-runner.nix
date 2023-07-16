@@ -28,8 +28,7 @@ let
   ;
 
   hashedServices =
-    mapAttrs'
-      (name: service: nameValuePair (genRunnerName name service) service)
+    mapAttrs' (name: service: nameValuePair (genRunnerName name service) service)
       cfg.services
   ;
   configPath = ''"$HOME"/.gitlab-runner/config.toml'';
@@ -63,18 +62,14 @@ let
           # update global options
           remarshal --if toml --of json ${configPath} \
             | jq -cM 'with_entries(select([.key] | inside(["runners"])))' \
-            | jq -scM '.[0] + .[1]' - <(echo ${
-              escapeShellArg (toJSON cfg.settings)
-            }) \
+            | jq -scM '.[0] + .[1]' - <(echo ${escapeShellArg (toJSON cfg.settings)}) \
             | remarshal --if json --of toml \
             | sponge ${configPath}
 
           # remove no longer existing services
           gitlab-runner verify --delete
 
-          ${toShellVar "NEEDED_SERVICES" (
-            lib.mapAttrs (name: value: 1) hashedServices
-          )}
+          ${toShellVar "NEEDED_SERVICES" (lib.mapAttrs (name: value: 1) hashedServices)}
 
           declare -A REGISTERED_SERVICES
 
@@ -118,18 +113,12 @@ let
                           "--name '${name}'"
                           "--executor ${service.executor}"
                           "--limit ${toString service.limit}"
-                          "--request-concurrency ${
-                            toString service.requestConcurrency
-                          }"
+                          "--request-concurrency ${toString service.requestConcurrency}"
                           "--maximum-timeout ${toString service.maximumTimeout}"
                         ]
                         ++ service.registrationFlags
-                        ++
-                          optional (service.buildsDir != null)
-                            "--builds-dir ${service.buildsDir}"
-                        ++
-                          optional (service.cloneUrl != null)
-                            "--clone-url ${service.cloneUrl}"
+                        ++ optional (service.buildsDir != null) "--builds-dir ${service.buildsDir}"
+                        ++ optional (service.cloneUrl != null) "--clone-url ${service.cloneUrl}"
                         ++
                           optional (service.preCloneScript != null)
                             "--pre-clone-script ${service.preCloneScript}"
@@ -143,43 +132,25 @@ let
                           optional (service.tagList != [ ])
                             "--tag-list ${concatStringsSep "," service.tagList}"
                         ++ optional service.runUntagged "--run-untagged"
-                        ++
-                          optional service.protected
-                            "--access-level ref_protected"
-                        ++
-                          optional service.debugTraceDisabled
-                            "--debug-trace-disabled"
+                        ++ optional service.protected "--access-level ref_protected"
+                        ++ optional service.debugTraceDisabled "--debug-trace-disabled"
                         ++ map (e: "--env ${escapeShellArg e}") (
-                          mapAttrsToList (name: value: "${name}=${value}")
-                            service.environmentVariables
+                          mapAttrsToList (name: value: "${name}=${value}") service.environmentVariables
                         )
                         ++ optionals (hasPrefix "docker" service.executor) (
                           assert (assertMsg (service.dockerImage != null)
                             "dockerImage option is required for ${service.executor} executor (${name})"
                           );
                           [ "--docker-image ${service.dockerImage}" ]
+                          ++ optional service.dockerDisableCache "--docker-disable-cache"
+                          ++ optional service.dockerPrivileged "--docker-privileged"
+                          ++ map (v: "--docker-volumes ${escapeShellArg v}") service.dockerVolumes
+                          ++ map (v: "--docker-extra-hosts ${escapeShellArg v}") service.dockerExtraHosts
                           ++
-                            optional service.dockerDisableCache
-                              "--docker-disable-cache"
-                          ++
-                            optional service.dockerPrivileged
-                              "--docker-privileged"
-                          ++
-                            map (v: "--docker-volumes ${escapeShellArg v}")
-                              service.dockerVolumes
-                          ++
-                            map (v: "--docker-extra-hosts ${escapeShellArg v}")
-                              service.dockerExtraHosts
-                          ++
-                            map
-                              (v: "--docker-allowed-images ${escapeShellArg v}")
+                            map (v: "--docker-allowed-images ${escapeShellArg v}")
                               service.dockerAllowedImages
                           ++
-                            map
-                              (
-                                v:
-                                "--docker-allowed-services ${escapeShellArg v}"
-                              )
+                            map (v: "--docker-allowed-services ${escapeShellArg v}")
                               service.dockerAllowedServices
                         )
                       )
@@ -602,10 +573,7 @@ in
         default = config.virtualisation.docker.package;
         defaultText = literalExpression "config.virtualisation.docker.package";
         example = literalExpression "pkgs.docker";
-        description =
-          lib.mdDoc
-            "Docker package to use for clearing up docker cache."
-        ;
+        description = lib.mdDoc "Docker package to use for clearing up docker cache.";
       };
     };
   };

@@ -58,10 +58,7 @@ in
       extraConfig = mkOption {
         type = types.lines;
         default = "";
-        description =
-          lib.mdDoc
-            "Any other configuration options you want to add"
-        ;
+        description = lib.mdDoc "Any other configuration options you want to add";
       };
     };
   };

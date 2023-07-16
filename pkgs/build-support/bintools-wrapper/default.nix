@@ -147,8 +147,7 @@ let
 in
 
 stdenv.mkDerivation {
-  pname =
-    targetPrefix + (if name != "" then name else "${bintoolsName}-wrapper");
+  pname = targetPrefix + (if name != "" then name else "${bintoolsName}-wrapper");
   version = if bintools == null then "" else bintoolsVersion;
 
   preferLocalBuild = true;
@@ -255,9 +254,7 @@ stdenv.mkDerivation {
       if !useMacosReexportHack then
         ''
           if [ -e ''${ld:-$ldPath/${targetPrefix}ld} ]; then
-            wrap ${targetPrefix}ld ${
-              ./ld-wrapper.sh
-            } ''${ld:-$ldPath/${targetPrefix}ld}
+            wrap ${targetPrefix}ld ${./ld-wrapper.sh} ''${ld:-$ldPath/${targetPrefix}ld}
           fi
         ''
       else
@@ -294,9 +291,7 @@ stdenv.mkDerivation {
     optionalString (libc != null) (
       ''
         touch "$out/nix-support/libc-ldflags"
-        echo "-L${libc_lib}${
-          libc.libdir or "/lib"
-        }" >> $out/nix-support/libc-ldflags
+        echo "-L${libc_lib}${libc.libdir or "/lib"}" >> $out/nix-support/libc-ldflags
 
         echo "${libc_lib}" > $out/nix-support/orig-libc
         echo "${libc_dev}" > $out/nix-support/orig-libc-dev
@@ -414,8 +409,7 @@ stdenv.mkDerivation {
     ### Remove LC_UUID
     ###
     +
-      optionalString
-        (stdenv.targetPlatform.isDarwin && !(bintools.isGNU or false))
+      optionalString (stdenv.targetPlatform.isDarwin && !(bintools.isGNU or false))
         ''
           echo "-no_uuid" >> $out/nix-support/libc-ldflags-before
         ''
@@ -514,7 +508,6 @@ stdenv.mkDerivation {
         + " (wrapper script)"
       ;
       priority = 10;
-    }
-    // optionalAttrs useMacosReexportHack { platforms = lib.platforms.darwin; }
+    } // optionalAttrs useMacosReexportHack { platforms = lib.platforms.darwin; }
   ;
 }

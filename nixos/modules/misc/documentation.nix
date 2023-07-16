@@ -24,9 +24,7 @@ let
     let
       f = import m;
       instance = f (
-        mapAttrs (n: _: abort "evaluating ${n} for `meta` failed") (
-          functionArgs f
-        )
+        mapAttrs (n: _: abort "evaluating ${n} for `meta` failed") (functionArgs f)
       );
     in
     cfg.nixos.options.splitBuild
@@ -43,9 +41,7 @@ let
     {
       lazy = p.right;
       eager =
-        p.wrong
-        ++ optionals cfg.nixos.includeAllModules (extraModules ++ modules)
-      ;
+        p.wrong ++ optionals cfg.nixos.includeAllModules (extraModules ++ modules);
     }
   ;
 
@@ -79,8 +75,7 @@ let
                 ;
               in
               if isAttrs value then
-                scrubDerivations wholeName value
-                // optionalAttrs (isDerivation value) {
+                scrubDerivations wholeName value // optionalAttrs (isDerivation value) {
                   outPath = guard "\${${wholeName}}";
                   drvPath = guard drvPath;
                 }
@@ -432,8 +427,7 @@ in
             echo -e "\e[31;1mwarning\e[0m: This configuration contains option documentation in docbook." \
                     "Support for docbook is deprecated and will be removed after NixOS 23.05." \
                     "See nix-store --read-log ${
-                      builtins.unsafeDiscardStringContext
-                        manual.optionsJSON.drvPath
+                      builtins.unsafeDiscardStringContext manual.optionsJSON.drvPath
                     }"
           fi
         '';

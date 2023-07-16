@@ -123,10 +123,7 @@ stdenv.mkDerivation rec {
       lib.mapAttrsToList
         (
           from: to:
-          if to == null then
-            "cp -v ${from} $out"
-          else
-            "cp -v ${from} $out/${to}"
+          if to == null then "cp -v ${from} $out" else "cp -v ${from} $out/${to}"
         )
         targets
     )}

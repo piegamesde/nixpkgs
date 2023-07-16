@@ -30,11 +30,8 @@ let
               // (lib.optionalAttrs (cfg'.config.statusPath == null) {
                 status_path = "/var/lib/vdirsyncer/${name}";
               });
-          }
-          // (mapAttrs' (name: nameValuePair "pair ${name}") cfg'.config.pairs)
-          // (mapAttrs' (name: nameValuePair "storage ${name}")
-            cfg'.config.storages
-          )
+          } // (mapAttrs' (name: nameValuePair "pair ${name}") cfg'.config.pairs)
+          // (mapAttrs' (name: nameValuePair "storage ${name}") cfg'.config.storages)
         )
       )
   ;
@@ -110,10 +107,7 @@ in
               additionalGroups = mkOption {
                 type = types.listOf types.str;
                 default = [ ];
-                description =
-                  mdDoc
-                    "additional groups to add the dynamic user to"
-                ;
+                description = mdDoc "additional groups to add the dynamic user to";
               };
 
               forceDiscover = mkOption {
@@ -143,10 +137,7 @@ in
                 statusPath = mkOption {
                   type = types.nullOr types.str;
                   default = null;
-                  defaultText =
-                    literalExpression
-                      "/var/lib/vdirsyncer/\${attrName}"
-                  ;
+                  defaultText = literalExpression "/var/lib/vdirsyncer/\${attrName}";
                   description = mdDoc "vdirsyncer's status path";
                 };
 

@@ -169,8 +169,7 @@
     # all `sphinx` dependencies building in those environments.
     # `sphinx` pulls in among others:
     # Ruby, Python, Perl, Rust, OpenGL, Xorg, gtk, LLVM.
-    (stdenv.targetPlatform == stdenv.hostPlatform)
-    && !stdenv.hostPlatform.isMusl
+    (stdenv.targetPlatform == stdenv.hostPlatform) && !stdenv.hostPlatform.isMusl
   )
 
   ,
@@ -229,9 +228,7 @@ let
     ++
       lib.optional
         (
-          platform.libc != "glibc"
-          && !targetPlatform.isWindows
-          && !targetPlatform.isGhcjs
+          platform.libc != "glibc" && !targetPlatform.isWindows && !targetPlatform.isGhcjs
         )
         libiconv
   ;
@@ -417,10 +414,7 @@ stdenv.mkDerivation (
     } = "emconfigure ./configure";
     # GHC currently ships an edited config.sub so ghcjs is accepted which we can not rollback
     ${
-      if targetPlatform.isGhcjs then
-        "dontUpdateAutotoolsGnuConfigScripts"
-      else
-        null
+      if targetPlatform.isGhcjs then "dontUpdateAutotoolsGnuConfigScripts" else null
     } = true;
 
     # TODO(@Ericson2314): Always pass "--target" and always prefix.
@@ -467,9 +461,7 @@ stdenv.mkDerivation (
         "CONF_GCC_LINKER_OPTS_STAGE1=-fuse-ld=gold"
         "CONF_GCC_LINKER_OPTS_STAGE2=-fuse-ld=gold"
       ]
-      ++ lib.optionals (disableLargeAddressSpace) [
-        "--disable-large-address-space"
-      ]
+      ++ lib.optionals (disableLargeAddressSpace) [ "--disable-large-address-space" ]
       ++ lib.optionals enableDwarf [
         "--enable-dwarf-unwind"
         "--with-libdw-includes=${lib.getDev elfutils}/include"
@@ -516,9 +508,7 @@ stdenv.mkDerivation (
     ;
 
     depsTargetTarget = map lib.getDev (libDeps targetPlatform);
-    depsTargetTargetPropagated = map (lib.getOutput "out") (
-      libDeps targetPlatform
-    );
+    depsTargetTargetPropagated = map (lib.getOutput "out") (libDeps targetPlatform);
 
     hadrianFlags = [
       "--flavour=${ghcFlavour}"
@@ -600,8 +590,7 @@ stdenv.mkDerivation (
     meta = {
       homepage = "http://haskell.org/ghc";
       description = "The Glasgow Haskell Compiler";
-      maintainers =
-        with lib.maintainers; [ guibou ] ++ lib.teams.haskell.members;
+      maintainers = with lib.maintainers; [ guibou ] ++ lib.teams.haskell.members;
       timeout = 24 * 3600;
       inherit (ghc.meta) license platforms;
     };

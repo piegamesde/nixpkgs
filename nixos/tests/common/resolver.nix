@@ -39,14 +39,12 @@
       name = ".";
       file =
         let
-          addDot =
-            zone: zone + lib.optionalString (!lib.hasSuffix "." zone) ".";
+          addDot = zone: zone + lib.optionalString (!lib.hasSuffix "." zone) ".";
           mkNsdZoneNames = zones: map addDot (lib.attrNames zones);
           mkBindZoneNames = zones: map (zone: addDot zone.name) zones;
           getZones =
             cfg:
-            mkNsdZoneNames cfg.services.nsd.zones
-            ++ mkBindZoneNames cfg.services.bind.zones
+            mkNsdZoneNames cfg.services.nsd.zones ++ mkBindZoneNames cfg.services.bind.zones
           ;
 
           getZonesForNode =
@@ -77,10 +75,7 @@
                 str:
                 let
                   matched = builtins.match "[ 	]+(${reHost})(.*)" str;
-                  continue =
-                    lib.singleton (lib.head matched)
-                    ++ matchAliases (lib.last matched)
-                  ;
+                  continue = lib.singleton (lib.head matched) ++ matchAliases (lib.last matched);
                 in
                 if matched == null then [ ] else continue
               ;
@@ -88,20 +83,14 @@
               matchLine =
                 str:
                 let
-                  result =
-                    builtins.match "[ 	]*(${reIp})[ 	]+(${reHost})(.*)"
-                      str
-                  ;
+                  result = builtins.match "[ 	]*(${reIp})[ 	]+(${reHost})(.*)" str;
                 in
                 if result == null then
                   null
                 else
                   {
                     ipAddr = lib.head result;
-                    hosts =
-                      lib.singleton (lib.elemAt result 1)
-                      ++ matchAliases (lib.last result)
-                    ;
+                    hosts = lib.singleton (lib.elemAt result 1) ++ matchAliases (lib.last result);
                   }
               ;
 
@@ -145,8 +134,7 @@
                     map
                       (host: {
                         inherit host;
-                        ${if isIPv6 entry.ipAddr then "ipv6" else "ipv4"} =
-                          entry.ipAddr;
+                        ${if isIPv6 entry.ipAddr then "ipv6" else "ipv4"} = entry.ipAddr;
                       })
                       entry.hosts
                   )
@@ -190,13 +178,7 @@
 
           # All the zones without 'subZones'.
           filteredZoneInfo =
-            map
-              (
-                zi:
-                zi // {
-                  zones = lib.filter (x: !lib.elem x subZones) zi.zones;
-                }
-              )
+            map (zi: zi // { zones = lib.filter (x: !lib.elem x subZones) zi.zones; })
               zoneInfo
           ;
         in

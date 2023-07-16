@@ -411,9 +411,7 @@ let
             new_iterations="$iterations"
             ${
               optionalString (dev.yubikey.iterationStep > 0) ''
-                new_iterations="$(($new_iterations + ${
-                  toString dev.yubikey.iterationStep
-                }))"
+                new_iterations="$(($new_iterations + ${toString dev.yubikey.iterationStep}))"
               ''
             }
 
@@ -549,21 +547,17 @@ let
                 ''
             }
             ${
-              optionalString
-                (lib.versionOlder kernelPackages.kernel.version "5.4")
-                ''
-                  echo "On systems with Linux Kernel < 5.4, it might take a while to initialize the CRNG, you might want to use linuxPackages_latest."
-                  echo "Please move your mouse to create needed randomness."
-                ''
+              optionalString (lib.versionOlder kernelPackages.kernel.version "5.4") ''
+                echo "On systems with Linux Kernel < 5.4, it might take a while to initialize the CRNG, you might want to use linuxPackages_latest."
+                echo "Please move your mouse to create needed randomness."
+              ''
             }
               echo "Waiting for your FIDO2 device..."
               fido2luks open${
                 optionalString dev.allowDiscards " --allow-discards"
               } ${dev.device} ${dev.name} "${
                 builtins.concatStringsSep "," fido2luksCredentials
-              }" --await-dev ${
-                toString dev.fido2.gracePeriod
-              } --salt string:$passphrase
+              }" --await-dev ${toString dev.fido2.gracePeriod} --salt string:$passphrase
             if [ $? -ne 0 ]; then
               echo "No FIDO2 key found, falling back to normal open procedure"
               open_normally
@@ -630,9 +624,7 @@ let
               ++
                 optional (v.keyFileOffset != null)
                   "keyfile-offset=${toString v.keyFileOffset}"
-              ++
-                optional (v.keyFileSize != null)
-                  "keyfile-size=${toString v.keyFileSize}"
+              ++ optional (v.keyFileSize != null) "keyfile-size=${toString v.keyFileSize}"
               ++
                 optional (v.keyFileTimeout != null)
                   "keyfile-timeout=${builtins.toString v.keyFileTimeout}s"
@@ -761,10 +753,7 @@ in
                 device = mkOption {
                   example = "/dev/disk/by-uuid/430e9eff-d852-4f68-aa3b-2fa3599ebe08";
                   type = types.str;
-                  description =
-                    lib.mdDoc
-                      "Path of the underlying encrypted block device."
-                  ;
+                  description = lib.mdDoc "Path of the underlying encrypted block device.";
                 };
 
                 header = mkOption {
@@ -891,18 +880,12 @@ in
                           gracePeriod = mkOption {
                             default = 10;
                             type = types.int;
-                            description =
-                              lib.mdDoc
-                                "Time in seconds to wait for the GPG Smartcard."
-                            ;
+                            description = lib.mdDoc "Time in seconds to wait for the GPG Smartcard.";
                           };
 
                           encryptedPass = mkOption {
                             type = types.path;
-                            description =
-                              lib.mdDoc
-                                "Path to the GPG encrypted passphrase."
-                            ;
+                            description = lib.mdDoc "Path to the GPG encrypted passphrase.";
                           };
 
                           publicKey = mkOption {
@@ -939,10 +922,7 @@ in
                   gracePeriod = mkOption {
                     default = 10;
                     type = types.int;
-                    description =
-                      lib.mdDoc
-                        "Time in seconds to wait for the FIDO2 key."
-                    ;
+                    description = lib.mdDoc "Time in seconds to wait for the FIDO2 key.";
                   };
 
                   passwordLess = mkOption {
@@ -980,10 +960,7 @@ in
                           slot = mkOption {
                             default = 2;
                             type = types.int;
-                            description =
-                              lib.mdDoc
-                                "Which slot on the YubiKey to challenge."
-                            ;
+                            description = lib.mdDoc "Which slot on the YubiKey to challenge.";
                           };
 
                           saltLength = mkOption {
@@ -1016,10 +993,7 @@ in
                           gracePeriod = mkOption {
                             default = 10;
                             type = types.int;
-                            description =
-                              lib.mdDoc
-                                "Time in seconds to wait for the YubiKey."
-                            ;
+                            description = lib.mdDoc "Time in seconds to wait for the YubiKey.";
                           };
 
                           /* TODO: Add to the documentation of the current module:
@@ -1039,10 +1013,7 @@ in
                             fsType = mkOption {
                               default = "vfat";
                               type = types.str;
-                              description =
-                                lib.mdDoc
-                                  "The filesystem of the unencrypted device."
-                              ;
+                              description = lib.mdDoc "The filesystem of the unencrypted device.";
                             };
 
                             path = mkOption {
@@ -1180,17 +1151,16 @@ in
       {
         assertion =
           config.boot.initrd.systemd.enable
-          ->
-            options.boot.initrd.luks.reusePassphrases.highestPrio == defaultPrio
+          -> options.boot.initrd.luks.reusePassphrases.highestPrio == defaultPrio
         ;
         message = "boot.initrd.luks.reusePassphrases has no effect with systemd stage 1.";
       }
       {
         assertion =
           config.boot.initrd.systemd.enable
-          ->
-            all (dev: dev.preOpenCommands == "" && dev.postOpenCommands == "")
-              (attrValues luks.devices)
+          -> all (dev: dev.preOpenCommands == "" && dev.postOpenCommands == "") (
+            attrValues luks.devices
+          )
         ;
         message = "boot.initrd.luks.devices.<name>.preOpenCommands and postOpenCommands is not supported by systemd stage 1. Please bind a service to cryptsetup.target or cryptsetup-pre.target instead.";
       }

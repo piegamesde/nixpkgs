@@ -98,23 +98,19 @@ rec {
             (mkDerivationSuper args).overrideAttrs (
               finalAttrs:
               {
-                NIX_CFLAGS_LINK =
-                  toString (finalAttrs.NIX_CFLAGS_LINK or "") + " -static";
-              } // lib.optionalAttrs
-                (!(finalAttrs.dontAddStaticConfigureFlags or false))
-                {
-                  configureFlags =
-                    (finalAttrs.configureFlags or [ ])
-                    ++ [
-                      "--disable-shared" # brrr...
-                    ]
-                  ;
-                }
+                NIX_CFLAGS_LINK = toString (finalAttrs.NIX_CFLAGS_LINK or "") + " -static";
+              } // lib.optionalAttrs (!(finalAttrs.dontAddStaticConfigureFlags or false)) {
+                configureFlags =
+                  (finalAttrs.configureFlags or [ ])
+                  ++ [
+                    "--disable-shared" # brrr...
+                  ]
+                ;
+              }
             )
         );
       } // lib.optionalAttrs (stdenv0.hostPlatform.libc == "libc") {
-        extraBuildInputs =
-          (old.extraBuildInputs or [ ]) ++ [ pkgs.glibc.static ];
+        extraBuildInputs = (old.extraBuildInputs or [ ]) ++ [ pkgs.glibc.static ];
       }
     )
   ;
@@ -129,20 +125,17 @@ rec {
           args:
           {
             dontDisableStatic = true;
-          } // lib.optionalAttrs (!(args.dontAddStaticConfigureFlags or false))
-            {
-              configureFlags =
-                (args.configureFlags or [ ])
-                ++ [
-                  "--enable-static"
-                  "--disable-shared"
-                ]
-              ;
-              cmakeFlags =
-                (args.cmakeFlags or [ ]) ++ [ "-DBUILD_SHARED_LIBS:BOOL=OFF" ];
-              mesonFlags =
-                (args.mesonFlags or [ ]) ++ [ "-Ddefault_library=static" ];
-            }
+          } // lib.optionalAttrs (!(args.dontAddStaticConfigureFlags or false)) {
+            configureFlags =
+              (args.configureFlags or [ ])
+              ++ [
+                "--enable-static"
+                "--disable-shared"
+              ]
+            ;
+            cmakeFlags = (args.cmakeFlags or [ ]) ++ [ "-DBUILD_SHARED_LIBS:BOOL=OFF" ];
+            mesonFlags = (args.mesonFlags or [ ]) ++ [ "-Ddefault_library=static" ];
+          }
         );
       }
     )
@@ -232,9 +225,7 @@ rec {
   addAttrsToDerivation =
     extraAttrs: stdenv:
     stdenv.override (
-      old: {
-        mkDerivationFromStdenv = extendMkDerivationArgs old (_: extraAttrs);
-      }
+      old: { mkDerivationFromStdenv = extendMkDerivationArgs old (_: extraAttrs); }
     )
   ;
 
@@ -254,9 +245,7 @@ rec {
                 drvPath = builtins.unsafeDiscardStringContext pkg.drvPath;
                 license = pkg.meta.license or null;
               in
-              builtins.trace
-                "@:drv:${toString drvPath}:${builtins.toString license}:@"
-                val
+              builtins.trace "@:drv:${toString drvPath}:${builtins.toString license}:@" val
             ;
           in
           pkg // {
@@ -296,8 +285,7 @@ rec {
       old: {
         mkDerivationFromStdenv = extendMkDerivationArgs old (
           args: {
-            NIX_CFLAGS_LINK =
-              toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=gold";
+            NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=gold";
           }
         );
       }
@@ -347,8 +335,7 @@ rec {
         {
           mkDerivationFromStdenv = extendMkDerivationArgs old (
             args: {
-              NIX_CFLAGS_LINK =
-                toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=mold";
+              NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=mold";
             }
           );
         }
@@ -402,9 +389,7 @@ rec {
           args: {
             env = (args.env or { }) // {
               NIX_CFLAGS_COMPILE =
-                toString (args.env.NIX_CFLAGS_COMPILE or "")
-                + " ${toString compilerFlags}"
-              ;
+                toString (args.env.NIX_CFLAGS_COMPILE or "") + " ${toString compilerFlags}";
             };
           }
         );

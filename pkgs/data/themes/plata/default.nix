@@ -72,8 +72,7 @@ stdenv.mkDerivation rec {
   configureFlags =
     let
       inherit (lib) enableFeature optional;
-      withOptional =
-        value: feat: optional (value != null) "--with-${feat}=${value}";
+      withOptional = value: feat: optional (value != null) "--with-${feat}=${value}";
     in
     [
       "--enable-parallel"

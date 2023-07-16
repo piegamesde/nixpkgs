@@ -55,8 +55,7 @@ let
   # See https://github.com/NixOS/nixpkgs/pull/209870#issuecomment-1500550903
   disableBootstrap' = disableBootstrap && !langFortran && !langGo;
 
-  crossMingw =
-    targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
+  crossMingw = targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
   crossDarwin =
     targetPlatform != hostPlatform && targetPlatform.libc == "libSystem";
 
@@ -114,9 +113,7 @@ let
             if crossDarwin then
               "--with-sysroot=${lib.getLib libcCross}/share/sysroot"
             else
-              "--with-headers=${lib.getDev libcCross}${
-                libcCross.incdir or "/include"
-              }"
+              "--with-headers=${lib.getDev libcCross}${libcCross.incdir or "/include"}"
           )
           "--enable-__cxa_atexit"
           "--enable-long-long"
@@ -131,8 +128,7 @@ let
           "--enable-nls"
         ]
         ++
-          lib.optionals
-            (targetPlatform.libc == "uclibc" || targetPlatform.libc == "musl")
+          lib.optionals (targetPlatform.libc == "uclibc" || targetPlatform.libc == "musl")
             [
               # libsanitizer requires netrom/netrom.h which is not
               # available in uclibc.
@@ -140,10 +136,7 @@ let
             ]
         ++
           lib.optional
-            (
-              targetPlatform.libc == "newlib"
-              || targetPlatform.libc == "newlib-nano"
-            )
+            (targetPlatform.libc == "newlib" || targetPlatform.libc == "newlib-nano")
             "--with-newlib"
         ++ lib.optional (targetPlatform.libc == "avrlibc") "--with-avrlibc"
     )
@@ -264,10 +257,7 @@ let
 
     # Ada options, gcc can't build the runtime library for a cross compiler
     ++ lib.optional langAda (
-      if hostPlatform == targetPlatform then
-        "--enable-libada"
-      else
-        "--disable-libada"
+      if hostPlatform == targetPlatform then "--enable-libada" else "--disable-libada"
     )
 
     # Java options
@@ -280,9 +270,7 @@ let
       "--with-java-home=\${prefix}/lib/jvm/jre"
     ]
     ++ lib.optional javaAwtGtk "--enable-java-awt=gtk"
-    ++
-      lib.optional (langJava && javaAntlr != null)
-        "--with-antlr-jar=${javaAntlr}"
+    ++ lib.optional (langJava && javaAntlr != null) "--with-antlr-jar=${javaAntlr}"
 
     ++ import ../common/platform-flags.nix {
       inherit (stdenv) targetPlatform;
@@ -311,8 +299,7 @@ let
         # musl at least, disable: https://git.buildroot.net/buildroot/commit/?id=873d4019f7fb00f6a80592224236b3ba7d657865
         "--disable-libmpx"
     ++
-      lib.optionals
-        (targetPlatform == hostPlatform && targetPlatform.libc == "musl")
+      lib.optionals (targetPlatform == hostPlatform && targetPlatform.libc == "musl")
         [
           "--disable-libsanitizer"
           "--disable-symvers"

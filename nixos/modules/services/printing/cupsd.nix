@@ -372,8 +372,7 @@ in
       [ cups.out ] ++ optional polkitEnabled cups-pk-helper;
     environment.etc.cups.source = "/var/lib/cups";
 
-    services.dbus.packages =
-      [ cups.out ] ++ optional polkitEnabled cups-pk-helper;
+    services.dbus.packages = [ cups.out ] ++ optional polkitEnabled cups-pk-helper;
     services.udev.packages = cfg.drivers;
 
     # Allow asswordless printer admin for members of wheel group
@@ -405,13 +404,7 @@ in
           "/run/cups/cups.sock"
         ]
         ++
-          map
-            (
-              x:
-              replaceStrings [ "localhost" ] [ "127.0.0.1" ] (
-                removePrefix "*:" x
-              )
-            )
+          map (x: replaceStrings [ "localhost" ] [ "127.0.0.1" ] (removePrefix "*:" x))
             cfg.listenAddresses
       ;
     };
@@ -463,9 +456,7 @@ in
 
           ${optionalString (containsGutenprint cfg.drivers) ''
             if [ -d /var/lib/cups/ppd ]; then
-              ${
-                getGutenprint cfg.drivers
-              }/bin/cups-genppdupdate -p /var/lib/cups/ppd
+              ${getGutenprint cfg.drivers}/bin/cups-genppdupdate -p /var/lib/cups/ppd
             fi
           ''}
         ''
@@ -479,21 +470,13 @@ in
 
       wantedBy = [ "multi-user.target" ];
       wants =
-        [ "avahi-daemon.service" ]
-        ++ optional (!cfg.startWhenNeeded) "cups.service"
-      ;
+        [ "avahi-daemon.service" ] ++ optional (!cfg.startWhenNeeded) "cups.service";
       bindsTo =
-        [ "avahi-daemon.service" ]
-        ++ optional (!cfg.startWhenNeeded) "cups.service"
-      ;
+        [ "avahi-daemon.service" ] ++ optional (!cfg.startWhenNeeded) "cups.service";
       partOf =
-        [ "avahi-daemon.service" ]
-        ++ optional (!cfg.startWhenNeeded) "cups.service"
-      ;
+        [ "avahi-daemon.service" ] ++ optional (!cfg.startWhenNeeded) "cups.service";
       after =
-        [ "avahi-daemon.service" ]
-        ++ optional (!cfg.startWhenNeeded) "cups.service"
-      ;
+        [ "avahi-daemon.service" ] ++ optional (!cfg.startWhenNeeded) "cups.service";
 
       path = [ cups ];
 

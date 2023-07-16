@@ -132,8 +132,7 @@ let
       optionalLocation =
         let
           pos =
-            builtins.unsafeGetAttrPos
-              (if attrs ? "pname" then "pname" else "name")
+            builtins.unsafeGetAttrPos (if attrs ? "pname" then "pname" else "name")
               attrs
           ;
         in
@@ -227,9 +226,7 @@ let
           ]
           ++ lib.optionals catchConflicts [ pythonCatchConflictsHook ]
           ++ lib.optionals removeBinBytecode [ pythonRemoveBinBytecodeHook ]
-          ++ lib.optionals (lib.hasSuffix "zip" (attrs.src.name or "")) [
-            unzip
-          ]
+          ++ lib.optionals (lib.hasSuffix "zip" (attrs.src.name or "")) [ unzip ]
           ++ lib.optionals (format == "setuptools") [ setuptoolsBuildHook ]
           ++ lib.optionals (format == "flit") [ flitBuildHook ]
           ++ lib.optionals (format == "pyproject") [ pipBuildHook ]
@@ -239,9 +236,7 @@ let
             eggBuildHook
             eggInstallHook
           ]
-          ++ lib.optionals (!(format == "other") || dontUsePipInstall) [
-            pipInstallHook
-          ]
+          ++ lib.optionals (!(format == "other") || dontUsePipInstall) [ pipInstallHook ]
           ++
             lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform)
               [
@@ -258,9 +253,7 @@ let
           ++ nativeBuildInputs
         ;
 
-        buildInputs = validatePythonMatches "buildInputs" (
-          buildInputs ++ pythonPath
-        );
+        buildInputs = validatePythonMatches "buildInputs" (buildInputs ++ pythonPath);
 
         propagatedBuildInputs = validatePythonMatches "propagatedBuildInputs" (
           propagatedBuildInputs
@@ -302,8 +295,7 @@ let
 
         # Python packages built through cross-compilation are always for the host platform.
         disallowedReferences =
-          lib.optionals
-            (python.stdenv.hostPlatform != python.stdenv.buildPlatform)
+          lib.optionals (python.stdenv.hostPlatform != python.stdenv.buildPlatform)
             [ python.pythonForBuild ]
         ;
 
@@ -335,9 +327,6 @@ let
   ;
 in
 lib.extendDerivation
-  (
-    disabled
-    -> throw "${name} not supported for interpreter ${python.executable}"
-  )
+  (disabled -> throw "${name} not supported for interpreter ${python.executable}")
   passthru
   self

@@ -114,9 +114,7 @@ in
             derp = {
               urls = mkOption {
                 type = types.listOf types.str;
-                default = [
-                  "https://controlplane.tailscale.com/derpmap/default"
-                ];
+                default = [ "https://controlplane.tailscale.com/derpmap/default" ];
                 description = lib.mdDoc ''
                   List of urls containing DERP maps.
                   See [How Tailscale works](https://tailscale.com/blog/how-tailscale-works/) for more information on DERP maps.
@@ -884,8 +882,7 @@ in
       serviceConfig =
         let
           capabilityBoundingSet =
-            [ "CAP_CHOWN" ] ++ optional (cfg.port < 1024) "CAP_NET_BIND_SERVICE"
-          ;
+            [ "CAP_CHOWN" ] ++ optional (cfg.port < 1024) "CAP_NET_BIND_SERVICE";
         in
         {
           Restart = "always";

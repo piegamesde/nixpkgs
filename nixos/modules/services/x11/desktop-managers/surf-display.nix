@@ -50,9 +50,7 @@ in
 {
   options = {
     services.xserver.desktopManager.surf-display = {
-      enable = mkEnableOption (
-        lib.mdDoc "surf-display as a kiosk browser session"
-      );
+      enable = mkEnableOption (lib.mdDoc "surf-display as a kiosk browser session");
 
       defaultWwwUri = mkOption {
         type = types.str;

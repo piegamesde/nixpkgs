@@ -153,8 +153,7 @@ stdenv.mkDerivation rec {
           "-Wno-error=narrowing"
         ]
     ++
-      lib.optionals
-        (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12")
+      lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12")
         [
           # Needed with GCC 12 but problematic with some old GCCs
           "-Wno-error=maybe-uninitialized"

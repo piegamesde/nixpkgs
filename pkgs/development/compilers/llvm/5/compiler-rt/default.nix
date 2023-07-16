@@ -48,16 +48,12 @@ stdenv.mkDerivation {
       "-DCOMPILER_RT_BUILD_XRAY=OFF"
       "-DCOMPILER_RT_BUILD_LIBFUZZER=OFF"
     ]
-    ++ lib.optionals (useLLVM || bareMetal) [
-      "-DCOMPILER_RT_BUILD_PROFILE=OFF"
-    ]
+    ++ lib.optionals (useLLVM || bareMetal) [ "-DCOMPILER_RT_BUILD_PROFILE=OFF" ]
     ++ lib.optionals (useLLVM || bareMetal) [
       "-DCMAKE_C_COMPILER_WORKS=ON"
       "-DCMAKE_CXX_COMPILER_WORKS=ON"
       "-DCOMPILER_RT_BAREMETAL_BUILD=ON"
-      "-DCMAKE_SIZEOF_VOID_P=${
-        toString (stdenv.hostPlatform.parsed.cpu.bits / 8)
-      }"
+      "-DCMAKE_SIZEOF_VOID_P=${toString (stdenv.hostPlatform.parsed.cpu.bits / 8)}"
     ]
     ++ lib.optionals (useLLVM) [
       "-DCOMPILER_RT_BUILD_BUILTINS=ON"
@@ -117,8 +113,7 @@ stdenv.mkDerivation {
 
   # Hack around weird upsream RPATH bug
   postInstall =
-    lib.optionalString
-      (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isWasm)
+    lib.optionalString (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isWasm)
       ''
         ln -s "$out/lib"/*/* "$out/lib"
       ''

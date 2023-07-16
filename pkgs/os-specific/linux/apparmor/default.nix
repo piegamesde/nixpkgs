@@ -122,10 +122,7 @@ let
     ;
 
     buildInputs =
-      [ libxcrypt ]
-      ++ lib.optional withPerl perl
-      ++ lib.optional withPython python
-    ;
+      [ libxcrypt ] ++ lib.optional withPerl perl ++ lib.optional withPython python;
 
     # required to build apparmor-parser
     dontDisableStatic = true;
@@ -288,9 +285,7 @@ let
           --replace "manpages htmlmanpages pdf" "manpages htmlmanpages"
         substituteInPlace parser/rc.apparmor.functions \
          --replace "/sbin/apparmor_parser" "$out/bin/apparmor_parser"
-        sed -i parser/rc.apparmor.functions -e '2i . ${
-          ./fix-rc.apparmor.functions.sh
-        }'
+        sed -i parser/rc.apparmor.functions -e '2i . ${./fix-rc.apparmor.functions.sh}'
       ''
     ;
     inherit patches;
@@ -410,9 +405,7 @@ let
         touch $out
         while read -r path
         do printf >>$out "%s,\n" ${
-          lib.concatMapStringsSep " " (x: ''"${x}"'') (
-            baseRules ++ additionalRules
-          )
+          lib.concatMapStringsSep " " (x: ''"${x}"'') (baseRules ++ additionalRules)
         }
         done <${closureInfo { inherit rootPaths; }}/store-paths
       ''

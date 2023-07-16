@@ -212,9 +212,7 @@ let
 
       # Enabled skins.
       ${
-        concatStringsSep "\n" (
-          mapAttrsToList (k: v: "wfLoadSkin('${k}');") cfg.skins
-        )
+        concatStringsSep "\n" (mapAttrsToList (k: v: "wfLoadSkin('${k}');") cfg.skins)
       }
 
       # Enabled extensions.
@@ -434,9 +432,7 @@ in
           default =
             if (cfg.database.type == "mysql" && cfg.database.createLocally) then
               "/run/mysqld/mysqld.sock"
-            else if
-              (cfg.database.type == "postgres" && cfg.database.createLocally)
-            then
+            else if (cfg.database.type == "postgres" && cfg.database.createLocally) then
               "/run/postgresql"
             else
               null
@@ -450,8 +446,7 @@ in
 
         createLocally = mkOption {
           type = types.bool;
-          default =
-            cfg.database.type == "mysql" || cfg.database.type == "postgres";
+          default = cfg.database.type == "mysql" || cfg.database.type == "postgres";
           defaultText = literalExpression "true";
           description = lib.mdDoc ''
             Create the database and database user locally.
@@ -461,9 +456,7 @@ in
       };
 
       httpd.virtualHost = mkOption {
-        type = types.submodule (
-          import ../web-servers/apache-httpd/vhost-options.nix
-        );
+        type = types.submodule (import ../web-servers/apache-httpd/vhost-options.nix);
         example = literalExpression ''
           {
             hostName = "mediawiki.example.org";
@@ -554,8 +547,7 @@ in
         message = "services.mediawiki.database.socket must be set if services.mediawiki.database.createLocally is set to true";
       }
       {
-        assertion =
-          cfg.database.createLocally -> cfg.database.passwordFile == null;
+        assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;
         message = "a password cannot be specified if services.mediawiki.database.createLocally is set to true";
       }
     ];
@@ -662,8 +654,7 @@ in
         optional (cfg.database.type == "mysql" && cfg.database.createLocally)
           "mysql.service"
         ++
-          optional
-            (cfg.database.type == "postgres" && cfg.database.createLocally)
+          optional (cfg.database.type == "postgres" && cfg.database.createLocally)
             "postgresql.service"
       ;
       script = ''

@@ -17,9 +17,7 @@ appimageTools.wrapType2 {
   inherit pname version src;
 
   extraPkgs =
-    pkgs:
-    (appimageTools.defaultFhsEnvArgs.multiPkgs pkgs) ++ [ pkgs.libsecret ]
-  ;
+    pkgs: (appimageTools.defaultFhsEnvArgs.multiPkgs pkgs) ++ [ pkgs.libsecret ];
 
   extraInstallCommands = ''
     mkdir -p $out/share/applications $out/share/pixmaps

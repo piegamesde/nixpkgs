@@ -31,10 +31,7 @@ in
       dataDir = mkOption {
         type = types.str;
         default = "/var/lib/plexpy";
-        description =
-          lib.mdDoc
-            "The directory where Tautulli stores its data files."
-        ;
+        description = lib.mdDoc "The directory where Tautulli stores its data files.";
       };
 
       configFile = mkOption {

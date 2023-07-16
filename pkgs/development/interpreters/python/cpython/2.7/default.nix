@@ -308,11 +308,8 @@ stdenv.mkDerivation (
     inherit (mkPaths buildInputs) C_INCLUDE_PATH LIBRARY_PATH;
 
     env.NIX_CFLAGS_COMPILE =
-      lib.optionalString (stdenv.targetPlatform.system == "x86_64-darwin")
-        "-msse2"
-      +
-        lib.optionalString stdenv.hostPlatform.isMusl
-          " -DTHREAD_STACK_SIZE=0x100000"
+      lib.optionalString (stdenv.targetPlatform.system == "x86_64-darwin") "-msse2"
+      + lib.optionalString stdenv.hostPlatform.isMusl " -DTHREAD_STACK_SIZE=0x100000"
     ;
     DETERMINISTIC_BUILD = 1;
 

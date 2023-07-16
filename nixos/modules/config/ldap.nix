@@ -66,9 +66,7 @@ in
 
     users.ldap = {
 
-      enable = mkEnableOption (
-        lib.mdDoc "authentication against an LDAP server"
-      );
+      enable = mkEnableOption (lib.mdDoc "authentication against an LDAP server");
 
       loginPam = mkOption {
         type = types.bool;
@@ -82,10 +80,7 @@ in
       nsswitch = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Whether to include lookup against LDAP in NSS."
-        ;
+        description = lib.mdDoc "Whether to include lookup against LDAP in NSS.";
       };
 
       server = mkOption {

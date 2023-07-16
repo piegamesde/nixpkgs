@@ -27,9 +27,7 @@ let
       adapter: ${cfg.database.type}
       database: ${cfg.database.name}
       host: ${
-        if
-          (cfg.database.type == "postgresql" && cfg.database.socket != null)
-        then
+        if (cfg.database.type == "postgresql" && cfg.database.socket != null) then
           cfg.database.socket
         else
           cfg.database.host
@@ -38,17 +36,13 @@ let
       username: ${cfg.database.user}
       password: #dbpass#
       ${
-        optionalString
-          (cfg.database.type == "mysql2" && cfg.database.socket != null)
+        optionalString (cfg.database.type == "mysql2" && cfg.database.socket != null)
           "socket: ${cfg.database.socket}"
       }
   '';
 
   configurationYml = format.generate "configuration.yml" cfg.settings;
-  additionalEnvironment =
-    pkgs.writeText "additional_environment.rb"
-      cfg.extraEnv
-  ;
+  additionalEnvironment = pkgs.writeText "additional_environment.rb" cfg.extraEnv;
 
   unpackTheme = unpack "theme";
   unpackPlugin = unpack "plugin";
@@ -102,10 +96,7 @@ in
         default = pkgs.redmine;
         defaultText = literalExpression "pkgs.redmine";
         description = lib.mdDoc "Which Redmine package to use.";
-        example =
-          literalExpression
-            "pkgs.redmine.override { ruby = pkgs.ruby_2_7; }"
-        ;
+        example = literalExpression "pkgs.redmine.override { ruby = pkgs.ruby_2_7; }";
       };
 
       user = mkOption {
@@ -265,10 +256,7 @@ in
         createLocally = mkOption {
           type = types.bool;
           default = true;
-          description =
-            lib.mdDoc
-              "Create the database and database user locally."
-          ;
+          description = lib.mdDoc "Create the database and database user locally.";
         };
       };
 
@@ -330,8 +318,7 @@ in
 
     assertions = [
       {
-        assertion =
-          cfg.database.passwordFile != null || cfg.database.socket != null;
+        assertion = cfg.database.passwordFile != null || cfg.database.socket != null;
         message = "one of services.redmine.database.socket or services.redmine.database.passwordFile must be set";
       }
       {
@@ -343,15 +330,12 @@ in
         message = "services.redmine.database.socket must be set if services.redmine.database.createLocally is set to true";
       }
       {
-        assertion =
-          cfg.database.createLocally -> cfg.database.host == "localhost";
+        assertion = cfg.database.createLocally -> cfg.database.host == "localhost";
         message = "services.redmine.database.host must be set to localhost if services.redmine.database.createLocally is set to true";
       }
       {
         assertion =
-          cfg.components.imagemagick
-          -> cfg.components.minimagick_font_path != ""
-        ;
+          cfg.components.imagemagick -> cfg.components.minimagick_font_path != "";
         message = "services.redmine.components.minimagick_font_path must be configured with a path to a font file if services.redmine.components.imagemagick is set to true.";
       }
     ];
@@ -366,14 +350,8 @@ in
           optionalString cfg.components.mercurial
             "${pkgs.mercurial}/bin/hg"
         ;
-        scm_git_command =
-          optionalString cfg.components.git
-            "${pkgs.git}/bin/git"
-        ;
-        scm_cvs_command =
-          optionalString cfg.components.cvs
-            "${pkgs.cvs}/bin/cvs"
-        ;
+        scm_git_command = optionalString cfg.components.git "${pkgs.git}/bin/git";
+        scm_cvs_command = optionalString cfg.components.cvs "${pkgs.cvs}/bin/cvs";
         scm_bazaar_command =
           optionalString cfg.components.breezy
             "${pkgs.breezy}/bin/bzr"
@@ -484,9 +462,7 @@ in
 
 
         # link in all user specified themes
-        for theme in ${
-          concatStringsSep " " (mapAttrsToList unpackTheme cfg.themes)
-        }; do
+        for theme in ${concatStringsSep " " (mapAttrsToList unpackTheme cfg.themes)}; do
           ln -fs $theme/* "${cfg.stateDir}/public/themes"
         done
 

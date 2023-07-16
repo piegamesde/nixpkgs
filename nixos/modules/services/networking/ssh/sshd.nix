@@ -36,9 +36,7 @@ let
       concatStringsSep "," v
     else
       throw
-        "unsupported type ${builtins.typeOf v}: ${
-          (lib.generators.toPretty { }) v
-        }"
+        "unsupported type ${builtins.typeOf v}: ${(lib.generators.toPretty { }) v}"
   ;
 
   # dont use the "=" operator
@@ -112,8 +110,7 @@ let
           mode = "0444";
           source = pkgs.writeText "${u.name}-authorized_keys" ''
             ${concatStringsSep "\n" u.openssh.authorizedKeys.keys}
-            ${concatMapStrings (f: readFile f + "\n")
-              u.openssh.authorizedKeys.keyFiles}
+            ${concatMapStrings (f: readFile f + "\n") u.openssh.authorizedKeys.keyFiles}
           '';
         }
       ;
@@ -662,9 +659,7 @@ in
       };
     };
 
-    users.users = mkOption {
-      type = with types; attrsOf (submodule userOptions);
-    };
+    users.users = mkOption { type = with types; attrsOf (submodule userOptions); };
   };
 
   ###### implementation
@@ -723,10 +718,7 @@ in
                       ${optionalString (k ? bits) "-b ${toString k.bits}"} \
                       ${optionalString (k ? rounds) "-a ${toString k.rounds}"} \
                       ${optionalString (k ? comment) "-C '${k.comment}'"} \
-                      ${
-                        optionalString (k ? openSSHFormat && k.openSSHFormat)
-                          "-o"
-                      } \
+                      ${optionalString (k ? openSSHFormat && k.openSSHFormat) "-o"} \
                       -f "${k.path}" \
                       -N ""
                 fi
@@ -767,13 +759,7 @@ in
             wantedBy = [ "sockets.target" ];
             socketConfig.ListenStream =
               if cfg.listenAddresses != [ ] then
-                map
-                  (
-                    l:
-                    "${l.addr}:${
-                      toString (if l.port != null then l.port else 22)
-                    }"
-                  )
+                map (l: "${l.addr}:${toString (if l.port != null then l.port else 22)}")
                   cfg.listenAddresses
               else
                 cfg.ports
@@ -813,10 +799,7 @@ in
       UsePAM yes
 
       Banner ${
-        if cfg.banner == null then
-          "none"
-        else
-          pkgs.writeText "ssh_banner" cfg.banner
+        if cfg.banner == null then "none" else pkgs.writeText "ssh_banner" cfg.banner
       }
 
       AddressFamily ${if config.networking.enableIPv6 then "any" else "inet"}
@@ -834,9 +817,7 @@ in
             ...
           }:
           ''
-            ListenAddress ${addr}${
-              optionalString (port != null) (":" + toString port)
-            }
+            ListenAddress ${addr}${optionalString (port != null) (":" + toString port)}
           ''
         )
         cfg.listenAddresses}
@@ -845,9 +826,7 @@ in
         XAuthLocation ${pkgs.xorg.xauth}/bin/xauth
       ''}
       ${optionalString cfg.allowSFTP ''
-        Subsystem sftp ${cfg.sftpServerExecutable} ${
-          concatStringsSep " " cfg.sftpFlags
-        }
+        Subsystem sftp ${cfg.sftpServerExecutable} ${concatStringsSep " " cfg.sftpFlags}
       ''}
       PrintMotd no # handled by pam_motd
       AuthorizedKeysFile ${toString cfg.authorizedKeysFiles}
@@ -865,8 +844,7 @@ in
 
     assertions =
       [ {
-        assertion =
-          if cfg.settings.X11Forwarding then cfgc.setXAuthLocation else true;
+        assertion = if cfg.settings.X11Forwarding then cfgc.setXAuthLocation else true;
         message = "cannot enable X11 forwarding without setting xauth location";
       } ]
       ++ forEach cfg.listenAddresses (

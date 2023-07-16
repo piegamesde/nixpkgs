@@ -37,9 +37,7 @@ let
   ;
 
   knownHostsFiles =
-    [ "/etc/ssh/ssh_known_hosts" ]
-    ++ map pkgs.copyPathToStore cfg.knownHostsFiles
-  ;
+    [ "/etc/ssh/ssh_known_hosts" ] ++ map pkgs.copyPathToStore cfg.knownHostsFiles;
 in
 {
   ###### interface
@@ -52,10 +50,7 @@ in
         type = types.bool;
         default = config.services.xserver.enable;
         defaultText = literalExpression "config.services.xserver.enable";
-        description =
-          lib.mdDoc
-            "Whether to configure SSH_ASKPASS in the environment."
-        ;
+        description = lib.mdDoc "Whether to configure SSH_ASKPASS in the environment.";
       };
 
       askPassword = mkOption {
@@ -364,17 +359,14 @@ in
       ForwardX11 ${if cfg.forwardX11 then "yes" else "no"}
 
       ${optionalString (cfg.pubkeyAcceptedKeyTypes != [ ])
-        "PubkeyAcceptedKeyTypes ${
-          concatStringsSep "," cfg.pubkeyAcceptedKeyTypes
-        }"}
+        "PubkeyAcceptedKeyTypes ${concatStringsSep "," cfg.pubkeyAcceptedKeyTypes}"}
       ${optionalString (cfg.hostKeyAlgorithms != [ ])
         "HostKeyAlgorithms ${concatStringsSep "," cfg.hostKeyAlgorithms}"}
       ${optionalString (cfg.kexAlgorithms != null)
         "KexAlgorithms ${concatStringsSep "," cfg.kexAlgorithms}"}
       ${optionalString (cfg.ciphers != null)
         "Ciphers ${concatStringsSep "," cfg.ciphers}"}
-      ${optionalString (cfg.macs != null)
-        "MACs ${concatStringsSep "," cfg.macs}"}
+      ${optionalString (cfg.macs != null) "MACs ${concatStringsSep "," cfg.macs}"}
     '';
 
     environment.etc."ssh/ssh_known_hosts".text = knownHostsText;
@@ -388,9 +380,7 @@ in
         ExecStartPre = "${pkgs.coreutils}/bin/rm -f %t/ssh-agent";
         ExecStart =
           "${cfg.package}/bin/ssh-agent "
-          + optionalString (cfg.agentTimeout != null) (
-            "-t ${cfg.agentTimeout} "
-          )
+          + optionalString (cfg.agentTimeout != null) ("-t ${cfg.agentTimeout} ")
           + optionalString (cfg.agentPKCS11Whitelist != null) (
             "-P ${cfg.agentPKCS11Whitelist} "
           )

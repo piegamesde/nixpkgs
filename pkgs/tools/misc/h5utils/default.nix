@@ -26,10 +26,7 @@ stdenv.mkDerivation rec {
     --replace "-ldf" "-lhdf" \
   '';
 
-  preBuild =
-    lib.optionalString hdf5.mpiSupport
-      "export CC=${hdf5.mpi}/bin/mpicc"
-  ;
+  preBuild = lib.optionalString hdf5.mpiSupport "export CC=${hdf5.mpi}/bin/mpicc";
 
   buildInputs =
     with lib;

@@ -109,8 +109,7 @@ stdenv.mkDerivation rec {
       # fixes paths to and checks for tools
       (substituteAll (
         let
-          optionalTool =
-            cond: pkg: if cond then pkg else "/run/current-system/sw";
+          optionalTool = cond: pkg: if cond then pkg else "/run/current-system/sw";
         in
         {
           src = ./fix-blkdeactivate.patch;

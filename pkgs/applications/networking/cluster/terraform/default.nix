@@ -103,8 +103,7 @@ let
           );
 
           passthru = {
-            withPlugins =
-              newplugins: withPlugins (x: newplugins x ++ actualPlugins);
+            withPlugins = newplugins: withPlugins (x: newplugins x ++ actualPlugins);
             full = withPlugins (
               p: lib.filter lib.isDerivation (lib.attrValues p.actualProviders)
             );
@@ -130,21 +129,15 @@ let
             #
             # See nixpkgs#158620 for details.
             overrideDerivation =
-              f:
-              (pluggable (terraform.overrideDerivation f)).withPlugins plugins
-            ;
-            overrideAttrs =
-              f: (pluggable (terraform.overrideAttrs f)).withPlugins plugins;
-            override =
-              x: (pluggable (terraform.override x)).withPlugins plugins;
+              f: (pluggable (terraform.overrideDerivation f)).withPlugins plugins;
+            overrideAttrs = f: (pluggable (terraform.overrideAttrs f)).withPlugins plugins;
+            override = x: (pluggable (terraform.override x)).withPlugins plugins;
           };
         in
         # Don't bother wrapping unless we actually have plugins, since the wrapper will stop automatic downloading
         # of plugins, which might be counterintuitive if someone just wants a vanilla Terraform.
         if actualPlugins == [ ] then
-          terraform.overrideAttrs (
-            orig: { passthru = orig.passthru // passthru; }
-          )
+          terraform.overrideAttrs (orig: { passthru = orig.passthru // passthru; })
         else
           lib.appendToName "with-plugins" (
             stdenv.mkDerivation {
@@ -220,17 +213,14 @@ rec {
         resource "random_id" "test" {}
       '';
       terraform = terraform_1.withPlugins (p: [ p.random ]);
-      test =
-        runCommand "terraform-plugin-test" { buildInputs = [ terraform ]; }
-          ''
-            set -e
-            # make it fail outside of sandbox
-            export HTTP_PROXY=http://127.0.0.1:0 HTTPS_PROXY=https://127.0.0.1:0
-            cp ${mainTf} main.tf
-            terraform init
-            touch $out
-          ''
-      ;
+      test = runCommand "terraform-plugin-test" { buildInputs = [ terraform ]; } ''
+        set -e
+        # make it fail outside of sandbox
+        export HTTP_PROXY=http://127.0.0.1:0 HTTPS_PROXY=https://127.0.0.1:0
+        cp ${mainTf} main.tf
+        terraform init
+        touch $out
+      '';
     in
     test
   ;

@@ -116,9 +116,7 @@ stdenv.mkDerivation rec {
   configurePhase = ''
     runHook preConfigure
 
-    makeFlagsArray+=(CFLAGS='-O2 -fPIC${
-      lib.optionalString compat compatFlags
-    } $(${
+    makeFlagsArray+=(CFLAGS='-O2 -fPIC${lib.optionalString compat compatFlags} $(${
       if lib.versionAtLeast luaversion "5.2" then "SYSCFLAGS" else "MYCFLAGS"
     })' )
     makeFlagsArray+=(${lib.optionalString stdenv.isDarwin ''CC="$CC"''}${

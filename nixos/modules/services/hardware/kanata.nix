@@ -105,10 +105,7 @@ let
           ${getExe cfg.package} \
             --cfg ${mkConfig name keyboard} \
             --symlink-path ''${RUNTIME_DIRECTORY}/${name} \
-            ${
-              optionalString (keyboard.port != null)
-                "--port ${toString keyboard.port}"
-            } \
+            ${optionalString (keyboard.port != null) "--port ${toString keyboard.port}"} \
             ${utils.escapeSystemdExecArgs keyboard.extraArgs}
         '';
 

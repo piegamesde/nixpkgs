@@ -38,8 +38,7 @@ let
         "zip"
     ;
     aarch64-darwin =
-      fetch "apple_universal"
-        "sha256-HSXbbeDWYrFTh9SsKwvNovprWRwaDr3rA6X6E1QJJos="
+      fetch "apple_universal" "sha256-HSXbbeDWYrFTh9SsKwvNovprWRwaDr3rA6X6E1QJJos="
         "pkg"
     ;
     x86_64-darwin = aarch64-darwin;

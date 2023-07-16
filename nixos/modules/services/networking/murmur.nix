@@ -120,10 +120,7 @@ in
       autobanTime = mkOption {
         type = types.int;
         default = 300;
-        description =
-          lib.mdDoc
-            "The amount of time an IP ban lasts (in seconds)."
-        ;
+        description = lib.mdDoc "The amount of time an IP ban lasts (in seconds).";
       };
 
       logFile = mkOption {
@@ -151,29 +148,20 @@ in
       hostName = mkOption {
         type = types.str;
         default = "";
-        description =
-          lib.mdDoc
-            "Host to bind to. Defaults binding on all addresses."
-        ;
+        description = lib.mdDoc "Host to bind to. Defaults binding on all addresses.";
       };
 
       package = mkOption {
         type = types.package;
         default = pkgs.murmur;
         defaultText = literalExpression "pkgs.murmur";
-        description =
-          lib.mdDoc
-            "Overridable attribute of the murmur package to use."
-        ;
+        description = lib.mdDoc "Overridable attribute of the murmur package to use.";
       };
 
       password = mkOption {
         type = types.str;
         default = "";
-        description =
-          lib.mdDoc
-            "Required password to join server, if specified."
-        ;
+        description = lib.mdDoc "Required password to join server, if specified.";
       };
 
       bandwidth = mkOption {
@@ -194,19 +182,13 @@ in
       textMsgLength = mkOption {
         type = types.int;
         default = 5000;
-        description =
-          lib.mdDoc
-            "Max length of text messages. Set 0 for no limit."
-        ;
+        description = lib.mdDoc "Max length of text messages. Set 0 for no limit.";
       };
 
       imgMsgLength = mkOption {
         type = types.int;
         default = 131072;
-        description =
-          lib.mdDoc
-            "Max length of image messages. Set 0 for no limit."
-        ;
+        description = lib.mdDoc "Max length of image messages. Set 0 for no limit.";
       };
 
       allowHtml = mkOption {
@@ -282,10 +264,7 @@ in
       clientCertRequired = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Require clients to authenticate via certificates."
-        ;
+        description = lib.mdDoc "Require clients to authenticate via certificates.";
       };
 
       sslCert = mkOption {
@@ -384,10 +363,7 @@ in
         # murmurd doesn't fork when logging to the console.
         Type = if forking then "forking" else "simple";
         PIDFile = mkIf forking "/run/murmur/murmurd.pid";
-        EnvironmentFile =
-          mkIf (cfg.environmentFile != null)
-            cfg.environmentFile
-        ;
+        EnvironmentFile = mkIf (cfg.environmentFile != null) cfg.environmentFile;
         ExecStart = "${cfg.package}/bin/mumble-server -ini /run/murmur/murmurd.ini";
         Restart = "always";
         RuntimeDirectory = "murmur";

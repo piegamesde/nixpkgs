@@ -182,8 +182,7 @@ let
         testScript =
           let
             valueObject =
-              lib.optionalString
-                (lib.versionAtLeast elk.elasticsearch.version "7")
+              lib.optionalString (lib.versionAtLeast elk.elasticsearch.version "7")
                 ".value"
             ;
           in

@@ -46,8 +46,7 @@ let
 
   babelfishTranslate =
     path: name:
-    pkgs.runCommandLocal "${name}.fish"
-      { nativeBuildInputs = [ pkgs.babelfish ]; }
+    pkgs.runCommandLocal "${name}.fish" { nativeBuildInputs = [ pkgs.babelfish ]; }
       "${pkgs.babelfish}/bin/babelfish < ${path} > $out;"
   ;
 in
@@ -167,10 +166,7 @@ in
           babelfishTranslate config.system.build.setEnvironment
             "setEnvironment"
         ;
-        etc."fish/shellInit.fish".source =
-          babelfishTranslate envShellInit
-            "shellInit"
-        ;
+        etc."fish/shellInit.fish".source = babelfishTranslate envShellInit "shellInit";
         etc."fish/loginShellInit.fish".source =
           babelfishTranslate envLoginShellInit
             "loginShellInit"
@@ -184,8 +180,7 @@ in
       (mkIf (!cfg.useBabelfish) {
         etc."fish/foreign-env/shellInit".source = envShellInit;
         etc."fish/foreign-env/loginShellInit".source = envLoginShellInit;
-        etc."fish/foreign-env/interactiveShellInit".source =
-          envInteractiveShellInit;
+        etc."fish/foreign-env/interactiveShellInit".source = envInteractiveShellInit;
       })
 
       {
@@ -313,12 +308,8 @@ in
         pathsToLink =
           [ ]
           ++ optional cfg.vendor.config.enable "/share/fish/vendor_conf.d"
-          ++
-            optional cfg.vendor.completions.enable
-              "/share/fish/vendor_completions.d"
-          ++
-            optional cfg.vendor.functions.enable
-              "/share/fish/vendor_functions.d"
+          ++ optional cfg.vendor.completions.enable "/share/fish/vendor_completions.d"
+          ++ optional cfg.vendor.functions.enable "/share/fish/vendor_functions.d"
         ;
       }
 

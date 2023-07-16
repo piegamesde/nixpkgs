@@ -62,15 +62,11 @@ in
       governorEnable = cfg.cpuFreqGovernor != null;
       maxEnable = cfg.cpufreq.max != null;
       minEnable = cfg.cpufreq.min != null;
-      enable =
-        !config.boot.isContainer && (governorEnable || maxEnable || minEnable);
+      enable = !config.boot.isContainer && (governorEnable || maxEnable || minEnable);
     in
     mkIf enable {
 
-      boot.kernelModules =
-        optional governorEnable
-          "cpufreq_${cfg.cpuFreqGovernor}"
-      ;
+      boot.kernelModules = optional governorEnable "cpufreq_${cfg.cpuFreqGovernor}";
 
       environment.systemPackages = [ cpupower ];
 

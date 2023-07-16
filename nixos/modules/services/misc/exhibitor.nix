@@ -34,10 +34,7 @@ let
     port = toString cfg.port;
     hostname = cfg.hostname;
     headingtext =
-      if (cfg.headingText != null) then
-        (lib.escapeShellArg cfg.headingText)
-      else
-        null
+      if (cfg.headingText != null) then (lib.escapeShellArg cfg.headingText) else null
     ;
     nodemodification = lib.boolToString cfg.nodeModification;
     configcheckms = toString cfg.configCheckMs;
@@ -77,8 +74,8 @@ let
   cliOptions = concatStringsSep " " (
     mapAttrsToList (k: v: "--${k} ${v}") (
       filterAttrs (k: v: v != null && v != "") (
-        cliOptionsCommon // cliOptionsPerConfig.${cfg.configType}
-        // s3CommonOptions // optionalAttrs cfg.s3Backup { s3backup = "true"; }
+        cliOptionsCommon // cliOptionsPerConfig.${cfg.configType} // s3CommonOptions
+        // optionalAttrs cfg.s3Backup { s3backup = "true"; }
         // optionalAttrs cfg.fileSystemBackup { filesystembackup = "true"; }
       )
     )

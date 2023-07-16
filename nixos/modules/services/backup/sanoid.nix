@@ -95,10 +95,7 @@ let
     };
 
     process_children_only = mkOption {
-      description =
-        lib.mdDoc
-          "Whether to only snapshot child datasets if recursing."
-      ;
+      description = lib.mdDoc "Whether to only snapshot child datasets if recursing.";
       type = types.bool;
       default = false;
     };
@@ -182,10 +179,9 @@ in
             config.use_template = modules.mkAliasAndWrapDefsWithPriority id (
               options.useTemplate or { }
             );
-            config.process_children_only =
-              modules.mkAliasAndWrapDefsWithPriority id
-                (options.processChildrenOnly or { })
-            ;
+            config.process_children_only = modules.mkAliasAndWrapDefsWithPriority id (
+              options.processChildrenOnly or { }
+            );
           }
         )
       );

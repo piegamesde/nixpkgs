@@ -41,9 +41,7 @@ buildGoModule rec {
       ];
     in
     ''
-      buildFlagsArray+=("-run" "[^(${
-        builtins.concatStringsSep "|" skippedTests
-      })]")
+      buildFlagsArray+=("-run" "[^(${builtins.concatStringsSep "|" skippedTests})]")
     ''
   ;
 

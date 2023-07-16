@@ -102,9 +102,7 @@ stdenv.mkDerivation (
         */
         ./reenable_DT_HASH.patch
       ]
-      ++
-        lib.optional stdenv.hostPlatform.isMusl
-          ./fix-rpc-types-musl-conflicts.patch
+      ++ lib.optional stdenv.hostPlatform.isMusl ./fix-rpc-types-musl-conflicts.patch
       ++ lib.optional stdenv.buildPlatform.isDarwin ./darwin-cross-build.patch
     ;
 
@@ -148,8 +146,7 @@ stdenv.mkDerivation (
         (lib.enableFeature profilingLibraries "profile")
       ]
       ++
-        lib.optionals
-          (stdenv.hostPlatform.isx86 || stdenv.hostPlatform.isAarch64)
+        lib.optionals (stdenv.hostPlatform.isx86 || stdenv.hostPlatform.isAarch64)
           [
             # This feature is currently supported on
             # i386, x86_64 and x32 with binutils 2.29 or later,
@@ -175,10 +172,7 @@ stdenv.mkDerivation (
       ]
       ++
         lib.optionals
-          (
-            stdenv.hostPlatform == stdenv.buildPlatform
-            && stdenv.hostPlatform.isAarch32
-          )
+          (stdenv.hostPlatform == stdenv.buildPlatform && stdenv.hostPlatform.isAarch32)
           [
             "--host=arm-linux-gnueabi"
             "--build=arm-linux-gnueabi"

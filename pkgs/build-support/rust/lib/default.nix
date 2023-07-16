@@ -42,8 +42,7 @@ rec {
         if builtins.isList f then f else [ f ]
       )
     else
-      lib.optional platform.isUnix "unix"
-      ++ lib.optional platform.isWindows "windows"
+      lib.optional platform.isUnix "unix" ++ lib.optional platform.isWindows "windows"
   ;
 
   # https://doc.rust-lang.org/reference/conditional-compilation.html#target_vendor

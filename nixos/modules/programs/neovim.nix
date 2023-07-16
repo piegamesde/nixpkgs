@@ -165,9 +165,7 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.finalPackage ];
-    environment.variables.EDITOR = mkIf cfg.defaultEditor (
-      mkOverride 900 "nvim"
-    );
+    environment.variables.EDITOR = mkIf cfg.defaultEditor (mkOverride 900 "nvim");
 
     environment.etc = listToAttrs (
       attrValues (

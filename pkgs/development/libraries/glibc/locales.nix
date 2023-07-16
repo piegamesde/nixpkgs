@@ -28,10 +28,7 @@ callPackage ./common.nix { inherit stdenv; } {
 
   LOCALEDEF_FLAGS = [
     (
-      if stdenv.hostPlatform.isLittleEndian then
-        "--little-endian"
-      else
-        "--big-endian"
+      if stdenv.hostPlatform.isLittleEndian then "--little-endian" else "--big-endian"
     )
   ];
 
@@ -67,9 +64,7 @@ callPackage ./common.nix { inherit stdenv; } {
         false
       fi
 
-      echo SUPPORTED-LOCALES='${
-        toString locales
-      }' > ../glibc-2*/localedata/SUPPORTED
+      echo SUPPORTED-LOCALES='${toString locales}' > ../glibc-2*/localedata/SUPPORTED
     ''
     + ''
       make localedata/install-locales \

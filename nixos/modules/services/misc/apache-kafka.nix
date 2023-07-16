@@ -95,10 +95,7 @@ in
     };
 
     jvmOptions = mkOption {
-      description =
-        lib.mdDoc
-          "Extra command line options for the JVM running Kafka."
-      ;
+      description = lib.mdDoc "Extra command line options for the JVM running Kafka.";
       default = [ ];
       type = types.listOf types.str;
       example = [

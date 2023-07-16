@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
   buildInputs =
     lib.optional
       (
-        stdenv.isLinux
-        && !(stdenv.hostPlatform.isAarch || stdenv.hostPlatform.isStatic)
+        stdenv.isLinux && !(stdenv.hostPlatform.isAarch || stdenv.hostPlatform.isStatic)
       )
       libunwind
   ;

@@ -119,9 +119,7 @@ stdenv.mkDerivation rec {
     # https://github.com/NixOS/nixpkgs/blob/efea022d6fe0da84aa6613d4ddeafb80de713457/pkgs/applications/audio/spotify/default.nix#L129
     mkdir -p $out/lib/upwork
     ln -s ${lib.getLib openssl}/lib/libssl.so $out/lib/upwork/libssl.so.1.0.0
-    ln -s ${
-      lib.getLib openssl
-    }/lib/libcrypto.so $out/lib/upwork/libcrypto.so.1.0.0
+    ln -s ${lib.getLib openssl}/lib/libcrypto.so $out/lib/upwork/libcrypto.so.1.0.0
 
     sed -e "s|/opt/Upwork|$out/bin|g" -i $out/share/applications/upwork.desktop
     makeWrapper $out/opt/Upwork/upwork \

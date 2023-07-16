@@ -18,9 +18,7 @@ let
   getName =
     attrs:
     attrs.name or (
-      "${attrs.pname or "«name-missing»"}-${
-        attrs.version or "«version-missing»"
-      }"
+      "${attrs.pname or "«name-missing»"}-${attrs.version or "«version-missing»"}"
     )
   ;
 
@@ -41,8 +39,7 @@ let
     if lib.mutuallyExclusive allowlist blocklist then
       true
     else
-      throw
-        "allowlistedLicenses and blocklistedLicenses are not mutually exclusive."
+      throw "allowlistedLicenses and blocklistedLicenses are not mutually exclusive."
   ;
 
   hasLicense = attrs: attrs ? meta.license;
@@ -100,9 +97,7 @@ let
   # package has an unfree license and is not explicitly allowed by the
   # `allowUnfreePredicate` function.
   hasDeniedUnfreeLicense =
-    attrs:
-    hasUnfreeLicense attrs && !allowUnfree && !allowUnfreePredicate attrs
-  ;
+    attrs: hasUnfreeLicense attrs && !allowUnfree && !allowUnfreePredicate attrs;
 
   allowInsecureDefaultPredicate =
     x: builtins.elem (getName x) (config.permittedInsecurePackages or [ ]);
@@ -143,9 +138,7 @@ let
   ;
 
   showLicenseOrSourceType =
-    value:
-    toString (map (v: v.shortName or "unknown") (lib.lists.toList value))
-  ;
+    value: toString (map (v: v.shortName or "unknown") (lib.lists.toList value));
   showLicense = showLicenseOrSourceType;
   showSourceType = showLicenseOrSourceType;
 
@@ -282,9 +275,7 @@ let
 
       and is missing the following ouputs:
 
-      ${lib.concatStrings (
-        builtins.map (output: "  - ${output}\n") missingOutputs
-      )}
+      ${lib.concatStrings (builtins.map (output: "  - ${output}\n") missingOutputs)}
     ''
   ;
 
@@ -303,20 +294,14 @@ let
           "Failed to evaluate ${getName attrs}: «${reason}»: ${errormsg}"
         else
           ''
-            Package ‘${getName attrs}’ in ${
-              pos_str meta
-            } ${errormsg}, refusing to evaluate.
+            Package ‘${getName attrs}’ in ${pos_str meta} ${errormsg}, refusing to evaluate.
 
           ''
           + (builtins.getAttr reason remediation) attrs
       ;
 
       handler =
-        if config ? handleEvalIssue then
-          config.handleEvalIssue reason
-        else
-          throw
-      ;
+        if config ? handleEvalIssue then config.handleEvalIssue reason else throw;
     in
     handler msg
   ;
@@ -336,9 +321,7 @@ let
         if inHydra then
           "Warning while evaluating ${getName attrs}: «${reason}»: ${errormsg}"
         else
-          "Package ${getName attrs} in ${
-            pos_str meta
-          } ${errormsg}, continuing anyway."
+          "Package ${getName attrs} in ${pos_str meta} ${errormsg}, continuing anyway."
           + (lib.optionalString (remediationMsg != "") ''
 
             ${remediationMsg}'')
@@ -434,16 +417,12 @@ let
         null
       else
         ''
-          key 'meta.${k}' has invalid value; expected ${
-            metaTypes.${k}.description
-          }, got
+          key 'meta.${k}' has invalid value; expected ${metaTypes.${k}.description}, got
               ${lib.generators.toPretty { indent = "    "; } v}''
     else
       ''
         key 'meta.${k}' is unrecognized; expected one of: 
-          [${
-            lib.concatMapStringsSep ", " (x: "'${x}'") (lib.attrNames metaTypes)
-          }]''
+          [${lib.concatMapStringsSep ", " (x: "'${x}'") (lib.attrNames metaTypes)}]''
   ;
   checkMeta =
     meta:
@@ -485,9 +464,7 @@ let
         valid = "no";
         reason = "unknown-meta";
         errormsg = ''
-          has an invalid meta attrset:${
-            lib.concatMapStrings (x: "\n  - " + x) res
-          }
+          has an invalid meta attrset:${lib.concatMapStrings (x: "\n  - " + x) res}
         '';
         unfree = false;
         nonSource = false;
@@ -512,23 +489,17 @@ let
           }
 
         # --- Put checks that can be ignored here ---
-        else if
-          hasDeniedUnfreeLicense attrs && !(hasAllowlistedLicense attrs)
-        then
+        else if hasDeniedUnfreeLicense attrs && !(hasAllowlistedLicense attrs) then
           {
             valid = "no";
             reason = "unfree";
-            errormsg = "has an unfree license (‘${
-                showLicense attrs.meta.license
-              }’)";
+            errormsg = "has an unfree license (‘${showLicense attrs.meta.license}’)";
           }
         else if hasBlocklistedLicense attrs then
           {
             valid = "no";
             reason = "blocklisted";
-            errormsg = "has a blocklisted license (‘${
-                showLicense attrs.meta.license
-              }’)";
+            errormsg = "has a blocklisted license (‘${showLicense attrs.meta.license}’)";
           }
         else if hasDeniedNonSourceProvenance attrs then
           {
@@ -557,12 +528,8 @@ let
             errormsg = ''
               is not available on the requested hostPlatform:
                 hostPlatform.config = "${hostPlatform.config}"
-                package.meta.platforms = ${
-                  toPretty (attrs.meta.platforms or [ ])
-                }
-                package.meta.badPlatforms = ${
-                  toPretty (attrs.meta.badPlatforms or [ ])
-                }
+                package.meta.platforms = ${toPretty (attrs.meta.platforms or [ ])}
+                package.meta.badPlatforms = ${toPretty (attrs.meta.badPlatforms or [ ])}
             '';
           }
         else if !(hasAllowedInsecure attrs) then

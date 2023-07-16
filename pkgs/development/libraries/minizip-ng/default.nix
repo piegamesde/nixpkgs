@@ -39,9 +39,7 @@ stdenv.mkDerivation (
 
     cmakeFlags =
       [
-        "-DBUILD_SHARED_LIBS=${
-          if stdenv.hostPlatform.isStatic then "OFF" else "ON"
-        }"
+        "-DBUILD_SHARED_LIBS=${if stdenv.hostPlatform.isStatic then "OFF" else "ON"}"
         "-DMZ_OPENSSL=ON"
         "-DMZ_BUILD_TESTS=${if finalAttrs.doCheck then "ON" else "OFF"}"
         "-DMZ_BUILD_UNIT_TESTS=${if finalAttrs.doCheck then "ON" else "OFF"}"

@@ -23,8 +23,7 @@
   xcbutil, # no longer experimental since 1.12
   libGLSupported ?
     lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
-  glSupport ?
-    x11Support && config.cairo.gl or (libGLSupported && stdenv.isLinux),
+  glSupport ? x11Support && config.cairo.gl or (libGLSupported && stdenv.isLinux),
   libGL, # libGLU libGL is no longer a big dependency
   pdfSupport ? true,
   darwin,
@@ -45,9 +44,7 @@ stdenv.mkDerivation (
 
     src = fetchurl {
       url = "https://cairographics.org/${
-          if
-            lib.mod (builtins.fromJSON (lib.versions.minor version)) 2 == 0
-          then
+          if lib.mod (builtins.fromJSON (lib.versions.minor version)) 2 == 0 then
             "releases"
           else
             "snapshots"
@@ -195,10 +192,7 @@ stdenv.mkDerivation (
 
     postInstall = lib.optionalString stdenv.isDarwin glib.flattenInclude;
 
-    passthru.tests.pkg-config =
-      testers.testMetaPkgConfig
-        finalAttrs.finalPackage
-    ;
+    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
     meta = with lib; {
       description = "A 2D graphics library with support for multiple output devices";

@@ -235,9 +235,7 @@ runCommand (appendToName "with-packages" emacs).name
             $out/Applications/Emacs.app/Contents
 
 
-      substitute ${
-        ./wrapper.sh
-      } $out/Applications/Emacs.app/Contents/MacOS/Emacs \
+      substitute ${./wrapper.sh} $out/Applications/Emacs.app/Contents/MacOS/Emacs \
         --subst-var-by bash ${emacs.stdenv.shell} \
         --subst-var-by wrapperSiteLisp "$deps/share/emacs/site-lisp" \
         --subst-var-by wrapperSiteLispNative "$deps/share/emacs/native-lisp:" \

@@ -210,10 +210,8 @@ in
         '';
         stringHosts =
           let
-            oneToString =
-              set: ip: ip + " " + concatStringsSep " " set.${ip} + "\n";
-            allToString =
-              set: concatMapStrings (oneToString set) (attrNames set);
+            oneToString = set: ip: ip + " " + concatStringsSep " " set.${ip} + "\n";
+            allToString = set: concatMapStrings (oneToString set) (attrNames set);
           in
           pkgs.writeText "string-hosts" (
             allToString (filterAttrs (_: v: v != [ ]) cfg.hosts)
@@ -263,9 +261,8 @@ in
       ftp_proxy = cfg.proxy.ftpProxy;
     } // optionalAttrs (cfg.proxy.allProxy != null) {
       all_proxy = cfg.proxy.allProxy;
-    } // optionalAttrs (cfg.proxy.noProxy != null) {
-      no_proxy = cfg.proxy.noProxy;
-    };
+    } // optionalAttrs (cfg.proxy.noProxy != null) { no_proxy = cfg.proxy.noProxy; }
+    ;
 
     # Install the proxy environment variables
     environment.sessionVariables = cfg.proxy.envVars;

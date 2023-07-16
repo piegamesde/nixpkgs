@@ -19,9 +19,7 @@ buildKodiAddon rec {
 
   passthru = {
     pythonPath = "lib";
-    updateScript = addonUpdateScript {
-      attrPath = "kodi.packages.requests-cache";
-    };
+    updateScript = addonUpdateScript { attrPath = "kodi.packages.requests-cache"; };
   };
 
   meta = with lib; {

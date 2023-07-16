@@ -47,8 +47,7 @@ let
       config.path =
         let
           generated =
-            pkgs.runCommand "dhparams-${name}.pem"
-              { nativeBuildInputs = [ pkgs.openssl ]; }
+            pkgs.runCommand "dhparams-${name}.pem" { nativeBuildInputs = [ pkgs.openssl ]; }
               ''openssl dhparam -out "$out" ${toString config.bits}''
           ;
         in
@@ -185,9 +184,7 @@ in
                     ''
                       if [ "$file" = ${lib.escapeShellArg path} ] && \
                          ${pkgs.openssl}/bin/openssl dhparam -in "$file" -text \
-                         | head -n 1 | grep "(${
-                           toString bits
-                         } bit)" > /dev/null; then
+                         | head -n 1 | grep "(${toString bits} bit)" > /dev/null; then
                         continue
                       fi
                     ''
@@ -221,9 +218,7 @@ in
             serviceConfig.Type = "oneshot";
             script = ''
               mkdir -p ${lib.escapeShellArg cfg.path}
-              ${pkgs.openssl}/bin/openssl dhparam -out ${
-                lib.escapeShellArg path
-              } \
+              ${pkgs.openssl}/bin/openssl dhparam -out ${lib.escapeShellArg path} \
                 ${toString bits}
             '';
           }

@@ -75,9 +75,7 @@ let
       (drv: {
         name = discard (toString drv);
         value =
-          elem oldStorepath (referencesOf drv)
-          || any dependsOnOld (referencesOf drv)
-        ;
+          elem oldStorepath (referencesOf drv) || any dependsOnOld (referencesOf drv);
       })
       (builtins.attrNames references)
   );
@@ -87,9 +85,7 @@ let
   drvName =
     drv:
     discard (
-      substring 33 (stringLength (builtins.baseNameOf drv)) (
-        builtins.baseNameOf drv
-      )
+      substring 33 (stringLength (builtins.baseNameOf drv)) (builtins.baseNameOf drv)
     )
   ;
 
@@ -100,8 +96,7 @@ let
         baseNameOf drv
       }|'$(basename $out)'|g' | sed -e ${
         concatStringsSep " -e " (
-          mapAttrsToList
-            (name: value: "'s|${baseNameOf name}|${baseNameOf value}|g'")
+          mapAttrsToList (name: value: "'s|${baseNameOf name}|${baseNameOf value}|g'")
             hashes
         )
       } | $nixStore --restore $out
@@ -121,9 +116,7 @@ let
           filterAttrs
             (
               n: v:
-              builtins.elem (builtins.storePath (discard (toString n))) (
-                referencesOf drv
-              )
+              builtins.elem (builtins.storePath (discard (toString n))) (referencesOf drv)
             )
             rewriteMemo
         );

@@ -224,8 +224,7 @@ let
   javaAwtGtk = langJava && x11Support;
 
   # Cross-gcc settings (build == host != target)
-  crossMingw =
-    targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
+  crossMingw = targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
   stageNameAddon = if crossStageStatic then "stage-static" else "stage-final";
   crossNameAddon =
     optionalString (targetPlatform != hostPlatform)
@@ -430,9 +429,7 @@ stdenv.mkDerivation (
     doCheck = false; # requires a lot of tools, causes a dependency cycle for stdenv
 
     # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
-    ${
-      if hostPlatform.system == "x86_64-solaris" then "CC" else null
-    } = "gcc -m64";
+    ${if hostPlatform.system == "x86_64-solaris" then "CC" else null} = "gcc -m64";
 
     # Setting $CPATH and $LIBRARY_PATH to make sure both `gcc' and `xgcc' find the
     # library headers and binaries, regarless of the language being compiled.

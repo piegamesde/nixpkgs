@@ -91,10 +91,7 @@ let
 
         testScript =
           let
-            inherit (import ./ssh-keys.nix pkgs)
-              snakeOilPrivateKey
-              snakeOilPublicKey
-            ;
+            inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
           in
           ''
             GIT_SSH_COMMAND = "ssh -i $HOME/.ssh/privk -o StrictHostKeyChecking=no"
@@ -122,9 +119,7 @@ let
 
             server.succeed(
                 "su -l gitea -c 'gpg --homedir /var/lib/gitea/data/home/.gnupg "
-                + "--import ${
-                  toString (pkgs.writeText "gitea.key" signingPrivateKey)
-                }'"
+                + "--import ${toString (pkgs.writeText "gitea.key" signingPrivateKey)}'"
             )
 
             assert "BEGIN PGP PUBLIC KEY BLOCK" in server.succeed("curl http://localhost:3000/api/v1/signing-key.gpg")

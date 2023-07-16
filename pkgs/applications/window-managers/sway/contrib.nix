@@ -71,8 +71,7 @@
       homepage = "https://github.com/swaywm/sway/tree/master/contrib";
       license = licenses.mit;
       platforms = platforms.all;
-      maintainers =
-        sway-unwrapped.meta.maintainers ++ (with maintainers; [ evils ]);
+      maintainers = sway-unwrapped.meta.maintainers ++ (with maintainers; [ evils ]);
     };
   };
 

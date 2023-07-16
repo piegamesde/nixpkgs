@@ -188,11 +188,7 @@ final: prev: {
   # ../../applications/video/epgstation/client
   epgstation-client =
     prev."epgstation-client-../../applications/video/epgstation/client".override
-      (
-        oldAttrs: {
-          meta = oldAttrs.meta // { platforms = lib.platforms.none; };
-        }
-      )
+      (oldAttrs: { meta = oldAttrs.meta // { platforms = lib.platforms.none; }; })
   ;
 
   expo-cli = prev."expo-cli".override (
@@ -375,8 +371,7 @@ final: prev: {
           installShellCompletion --cmd $cmd --bash <(./bin/$cmd --completion)
         done
       '';
-      meta =
-        oldAttrs.meta // { maintainers = with lib.maintainers; [ teutat3s ]; };
+      meta = oldAttrs.meta // { maintainers = with lib.maintainers; [ teutat3s ]; };
     }
   );
 
@@ -451,12 +446,9 @@ final: prev: {
       in
       ''
         ${lib.concatStringsSep "\n" (
-          map (patch: "patch -d $out/lib/node_modules/node2nix -p1 < ${patch}")
-            patches
+          map (patch: "patch -d $out/lib/node_modules/node2nix -p1 < ${patch}") patches
         )}
-        wrapProgram "$out/bin/node2nix" --prefix PATH : ${
-          lib.makeBinPath [ pkgs.nix ]
-        }
+        wrapProgram "$out/bin/node2nix" --prefix PATH : ${lib.makeBinPath [ pkgs.nix ]}
       ''
     ;
   };
@@ -504,8 +496,7 @@ final: prev: {
           inherit (final) postcss-cli;
         };
       };
-      meta =
-        oldAttrs.meta // { maintainers = with lib.maintainers; [ Luflosi ]; };
+      meta = oldAttrs.meta // { maintainers = with lib.maintainers; [ Luflosi ]; };
     }
   );
 
@@ -655,8 +646,7 @@ final: prev: {
       passthru.tests = {
         inherit (nixosTests) thelounge;
       };
-      meta =
-        oldAttrs.meta // { maintainers = with lib.maintainers; [ winter ]; };
+      meta = oldAttrs.meta // { maintainers = with lib.maintainers; [ winter ]; };
     }
   );
 
@@ -690,8 +680,7 @@ final: prev: {
       postInstall = ''
         installShellCompletion --cmd triton --bash <($out/bin/triton completion)
       '';
-      meta =
-        oldAttrs.meta // { maintainers = with lib.maintainers; [ teutat3s ]; };
+      meta = oldAttrs.meta // { maintainers = with lib.maintainers; [ teutat3s ]; };
     }
   );
 

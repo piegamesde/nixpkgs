@@ -127,10 +127,7 @@ in
       createLocally = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Create the database and database user locally."
-        ;
+        description = lib.mdDoc "Create the database and database user locally.";
       };
     };
 
@@ -184,10 +181,7 @@ in
       backupNotificationAddress = mkOption {
         type = types.str;
         default = "backup@example.com";
-        description =
-          lib.mdDoc
-            "Email Address to send Backup Notifications to."
-        ;
+        description = lib.mdDoc "Email Address to send Backup Notifications to.";
       };
       from = {
         name = mkOption {
@@ -250,9 +244,7 @@ in
     nginx = mkOption {
       type = types.submodule (
         recursiveUpdate
-          (import ../web-servers/nginx/vhost-options.nix {
-            inherit config lib;
-          })
+          (import ../web-servers/nginx/vhost-options.nix { inherit config lib; })
           { }
       );
       default = { };
@@ -434,9 +426,7 @@ in
                 include ${config.services.nginx.package}/conf/fastcgi_params;
                 fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
                 fastcgi_param REDIRECT_STATUS 200;
-                fastcgi_pass unix:${
-                  config.services.phpfpm.pools."snipe-it".socket
-                };
+                fastcgi_pass unix:${config.services.phpfpm.pools."snipe-it".socket};
                 ${optionalString
                   (
                     cfg.nginx.addSSL
@@ -473,9 +463,7 @@ in
         let
           isSecret =
             v:
-            isAttrs v
-            && v ? _secret
-            && (isString v._secret || builtins.isPath v._secret)
+            isAttrs v && v ? _secret && (isString v._secret || builtins.isPath v._secret)
           ;
           snipeITEnvVars = lib.generators.toKeyValue {
             mkKeyValue = lib.flip lib.generators.mkKeyValueDefault "=" {
@@ -496,10 +484,7 @@ in
                   else
                     hashString "sha256" (builtins.readFile v._secret)
                 else
-                  throw
-                    "unsupported type ${typeOf v}: ${
-                      (lib.generators.toPretty { }) v
-                    }"
+                  throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}"
               ;
             };
           };
@@ -522,10 +507,7 @@ in
               }
             ''
           ;
-          secretReplacements =
-            lib.concatMapStrings mkSecretReplacement
-              secretPaths
-          ;
+          secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
           filteredConfig =
             lib.converge
               (lib.filterAttrsRecursive (
@@ -537,9 +519,7 @@ in
               ))
               cfg.config
           ;
-          snipeITEnv = pkgs.writeText "snipeIT.env" (
-            snipeITEnvVars filteredConfig
-          );
+          snipeITEnv = pkgs.writeText "snipeIT.env" (snipeITEnvVars filteredConfig);
         in
         ''
           # error handling

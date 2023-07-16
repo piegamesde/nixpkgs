@@ -28,19 +28,13 @@ with lib;
 
       maxClients = mkOption {
         type = types.int;
-        description =
-          lib.mdDoc
-            "The maximum number of simultaneous connections."
-        ;
+        description = lib.mdDoc "The maximum number of simultaneous connections.";
         default = 10;
       };
 
       extraPptpdOptions = mkOption {
         type = types.lines;
-        description =
-          lib.mdDoc
-            "Adds extra lines to the pptpd configuration file."
-        ;
+        description = lib.mdDoc "Adds extra lines to the pptpd configuration file.";
         default = "";
       };
 

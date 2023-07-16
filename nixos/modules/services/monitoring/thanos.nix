@@ -105,9 +105,7 @@ let
       let
         args = cfg.${cmd}.arguments;
       in
-      optionalString (length args != 0) (
-        " \\\n  " + concatStringsSep " \\\n  " args
-      )
+      optionalString (length args != 0) (" \\\n  " + concatStringsSep " \\\n  " args)
     )
   ;
 
@@ -746,16 +744,13 @@ in
     };
 
     sidecar = paramsToOptions params.sidecar // {
-      enable = mkEnableOption (
-        lib.mdDoc "the Thanos sidecar for Prometheus server"
-      );
+      enable = mkEnableOption (lib.mdDoc "the Thanos sidecar for Prometheus server");
       arguments = mkArgumentsOption "sidecar";
     };
 
     store = paramsToOptions params.store // {
       enable = mkEnableOption (
-        lib.mdDoc
-          "the Thanos store node giving access to blocks in a bucket provider."
+        lib.mdDoc "the Thanos store node giving access to blocks in a bucket provider."
       );
       arguments = mkArgumentsOption "store";
     };

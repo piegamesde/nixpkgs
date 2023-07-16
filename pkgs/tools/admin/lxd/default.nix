@@ -93,9 +93,7 @@ buildGoModule rec {
     in
     ''
       # Disable tests requiring local operations
-      buildFlagsArray+=("-run" "[^(${
-        builtins.concatStringsSep "|" skippedTests
-      })]")
+      buildFlagsArray+=("-run" "[^(${builtins.concatStringsSep "|" skippedTests})]")
     ''
   ;
 

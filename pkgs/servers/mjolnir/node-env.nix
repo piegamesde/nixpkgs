@@ -215,8 +215,7 @@ let
         then
             cd node_modules
             ${
-              lib.concatMapStrings
-                (dependency: pinpointDependenciesOfPackage dependency)
+              lib.concatMapStrings (dependency: pinpointDependenciesOfPackage dependency)
                 dependencies
             }
             cd ..
@@ -242,10 +241,7 @@ let
           cd "${packageName}"
           ${pinpointDependencies { inherit dependencies production; }}
           cd ..
-          ${
-            lib.optionalString (builtins.substring 0 1 packageName == "@")
-              "cd .."
-          }
+          ${lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
       fi
     ''
   ;
@@ -390,8 +386,7 @@ let
     }:
     let
       forceOfflineFlag =
-        if bypassCache then "--offline" else "--registry http://www.example.com"
-      ;
+        if bypassCache then "--offline" else "--registry http://www.example.com";
     in
     ''
       # Pinpoint the versions of all dependencies to the ones that are actually being used
@@ -651,8 +646,7 @@ let
 
           # Go to the parent folder to make sure that all packages are pinpointed
           cd ..
-          ${lib.optionalString (builtins.substring 0 1 packageName == "@")
-            "cd .."}
+          ${lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
 
           ${prepareAndInvokeNPM {
             inherit
@@ -666,8 +660,7 @@ let
 
           # Expose the executables that were installed
           cd ..
-          ${lib.optionalString (builtins.substring 0 1 packageName == "@")
-            "cd .."}
+          ${lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
 
           mv ${packageName} lib
           ln -s $out/lib/node_modules/.bin $out/bin
@@ -710,9 +703,7 @@ let
     in
     stdenv.mkDerivation (
       {
-        name = "node-shell-${name}${
-            if version == null then "" else "-${version}"
-          }";
+        name = "node-shell-${name}${if version == null then "" else "-${version}"}";
 
         buildInputs =
           [

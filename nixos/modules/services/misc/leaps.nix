@@ -18,10 +18,7 @@ in
       port = mkOption {
         type = types.port;
         default = 8080;
-        description =
-          lib.mdDoc
-            "A port where leaps listens for incoming http requests"
-        ;
+        description = lib.mdDoc "A port where leaps listens for incoming http requests";
       };
       address = mkOption {
         default = "";

@@ -163,9 +163,7 @@ in
                     let
                       t = types.attrsOf (
                         types.either types.str (
-                          t // {
-                            description = "instances of this type recursively";
-                          }
+                          t // { description = "instances of this type recursively"; }
                         )
                       );
                     in
@@ -329,9 +327,7 @@ in
               sudo_doas_flag = "--${sudo_doas}";
             in
             ''
-              command="${pkgs.util-linux}/bin/ionice -t -c ${
-                toString ioniceClass
-              } ${
+              command="${pkgs.util-linux}/bin/ionice -t -c ${toString ioniceClass} ${
                 optionalString (cfg.niceness >= 1)
                   "${pkgs.coreutils}/bin/nice -n ${toString cfg.niceness}"
               } ${pkgs.btrbk}/share/btrbk/scripts/ssh_filter_btrbk.sh ${sudo_doas_flag} ${options}" ${v.key}''
@@ -389,10 +385,7 @@ in
             };
           };
         })
-        (
-          filterAttrs (name: instance: instance.onCalendar != null)
-            cfg.instances
-        )
+        (filterAttrs (name: instance: instance.onCalendar != null) cfg.instances)
     ;
   };
 }

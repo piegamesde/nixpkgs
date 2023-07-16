@@ -18,9 +18,7 @@ let
 
   lib = pkgs.lib;
 
-  docbook_xsl_ns = pkgs.docbook-xsl-ns.override {
-    withManOptDedupPatch = true;
-  };
+  docbook_xsl_ns = pkgs.docbook-xsl-ns.override { withManOptDedupPatch = true; };
 
   manpageUrls = pkgs.path + "/doc/manpage-urls.json";
 
@@ -73,9 +71,7 @@ let
                 decl:
                 if hasPrefix (toString ../../..) (toString decl) then
                   let
-                    subpath = removePrefix "/" (
-                      removePrefix (toString ../../..) (toString decl)
-                    );
+                    subpath = removePrefix "/" (removePrefix (toString ../../..) (toString decl));
                   in
                   {
                     url = "https://github.com/NixOS/nixpkgs/blob/master/${subpath}";

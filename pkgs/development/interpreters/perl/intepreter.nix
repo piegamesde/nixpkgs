@@ -145,13 +145,10 @@ stdenv.mkDerivation (
         "-Dlocincpth=${libcInc}/include"
         "-Dloclibpth=${libcLib}/lib"
       ]
-      ++
-        lib.optionals
-          ((builtins.match "5\\.[0-9]*[13579]\\..+" version) != null)
-          [
-            "-Dusedevel"
-            "-Uversiononly"
-          ]
+      ++ lib.optionals ((builtins.match "5\\.[0-9]*[13579]\\..+" version) != null) [
+        "-Dusedevel"
+        "-Uversiononly"
+      ]
       ++ lib.optional stdenv.isSunOS "-Dcc=gcc"
       ++ lib.optional enableThreading "-Dusethreads"
       ++ lib.optional (!enableCrypt) "-A clear:d_crypt_r"
@@ -185,8 +182,7 @@ stdenv.mkDerivation (
     preConfigure =
       ''
         cat > config.over <<EOF
-        ${lib.optionalString
-          (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isGnu)
+        ${lib.optionalString (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isGnu)
           ''osvers="gnulinux"''}
         myuname="nixpkgs"
         myhostname="nixpkgs"

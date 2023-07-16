@@ -107,13 +107,8 @@ import ./make-test-python.nix (
           # This is to avoid assigning a different network address to the new
           # generation.
           networking = lib.mapAttrs (lib.const lib.mkForce) {
-            interfaces.eth1.ipv4 =
-              nodes.server.config.networking.interfaces.eth1.ipv4;
-            inherit (nodes.server.config.networking)
-              hostName
-              primaryIPAddress
-              extraHosts
-            ;
+            interfaces.eth1.ipv4 = nodes.server.config.networking.interfaces.eth1.ipv4;
+            inherit (nodes.server.config.networking) hostName primaryIPAddress extraHosts;
           };
         }
       ;

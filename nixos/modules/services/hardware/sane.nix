@@ -74,10 +74,7 @@ in
     hardware.sane.snapshot = mkOption {
       type = types.bool;
       default = false;
-      description =
-        lib.mdDoc
-          "Use a development snapshot of SANE scanner drivers."
-      ;
+      description = lib.mdDoc "Use a development snapshot of SANE scanner drivers.";
     };
 
     hardware.sane.extraBackends = mkOption {
@@ -187,10 +184,9 @@ in
       services.udev.packages = backends;
 
       users.groups.scanner.gid = config.ids.gids.scanner;
-      networking.firewall.allowedUDPPorts =
-        mkIf config.hardware.sane.openFirewall
-          [ 8612 ]
-      ;
+      networking.firewall.allowedUDPPorts = mkIf config.hardware.sane.openFirewall [
+        8612
+      ];
     })
 
     (mkIf config.services.saned.enable {
@@ -224,8 +220,7 @@ in
       users.users.scanner = {
         uid = config.ids.uids.scanner;
         group = "scanner";
-        extraGroups =
-          [ "lp" ] ++ optionals config.services.avahi.enable [ "avahi" ];
+        extraGroups = [ "lp" ] ++ optionals config.services.avahi.enable [ "avahi" ];
       };
     })
   ];

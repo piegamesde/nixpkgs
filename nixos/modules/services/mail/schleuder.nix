@@ -31,8 +31,8 @@ in
 {
   options.services.schleuder = {
     enable = lib.mkEnableOption (lib.mdDoc "Schleuder secure remailer");
-    enablePostfix =
-      lib.mkEnableOption (lib.mdDoc "automatic postfix integration") // {
+    enablePostfix = lib.mkEnableOption (lib.mdDoc "automatic postfix integration")
+      // {
         default = true;
       };
     lists = lib.mkOption {
@@ -107,10 +107,7 @@ in
       }
       {
         assertion =
-          !(lib.any (db: db ? password) (
-            lib.attrValues cfg.settings.database or { }
-          ))
-        ;
+          !(lib.any (db: db ? password) (lib.attrValues cfg.settings.database or { }));
         message = ''
           A password is defined for at least one database in services.schleuder.settings.database. Defining passwords via NixOS config results in them being copied to the world-readable Nix store. Please use the extraSettingsFile option to store database passwords in a non-public location.
         '';
@@ -149,9 +146,7 @@ in
       {
         schleuder-init = {
           serviceConfig = commonServiceConfig // {
-            ExecStartPre = lib.mkIf (cfg.extraSettingsFile != null) [
-              "+${configScript}"
-            ];
+            ExecStartPre = lib.mkIf (cfg.extraSettingsFile != null) [ "+${configScript}" ];
             ExecStart = [ "${pkgs.schleuder}/bin/schleuder install" ];
             Type = "oneshot";
           };

@@ -21,7 +21,5 @@ in
     );
   };
 
-  config = mkIf cfg.enable {
-    services.udev.packages = [ pkgs.zsa-udev-rules ];
-  };
+  config = mkIf cfg.enable { services.udev.packages = [ pkgs.zsa-udev-rules ]; };
 }

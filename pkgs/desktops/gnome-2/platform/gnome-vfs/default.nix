@@ -79,10 +79,7 @@ stdenv.mkDerivation (
 
     doCheck = false; # needs dbus daemon
 
-    passthru.tests.pkg-config =
-      testers.testMetaPkgConfig
-        finalAttrs.finalPackage
-    ;
+    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
     meta = {
       pkgConfigModules = [

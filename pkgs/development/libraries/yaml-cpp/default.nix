@@ -40,9 +40,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DYAML_CPP_BUILD_TOOLS=false"
-    "-DYAML_BUILD_SHARED_LIBS=${
-      lib.boolToString (!stdenv.hostPlatform.isStatic)
-    }"
+    "-DYAML_BUILD_SHARED_LIBS=${lib.boolToString (!stdenv.hostPlatform.isStatic)}"
     "-DINSTALL_GTEST=false"
   ];
 

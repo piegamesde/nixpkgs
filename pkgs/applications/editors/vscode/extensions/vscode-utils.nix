@@ -85,12 +85,7 @@ let
       ]) // {
         name = "${mktplcRef.publisher}-${mktplcRef.name}-${mktplcRef.version}";
         version = mktplcRef.version;
-        src =
-          if (vsix != null) then
-            vsix
-          else
-            fetchVsixFromVscodeMarketplace mktplcRef
-        ;
+        src = if (vsix != null) then vsix else fetchVsixFromVscodeMarketplace mktplcRef;
         vscodeExtPublisher = mktplcRef.publisher;
         vscodeExtName = mktplcRef.name;
         vscodeExtUniqueId = "${mktplcRef.publisher}.${mktplcRef.name}";
@@ -120,9 +115,7 @@ let
 
   extensionFromVscodeMarketplace = mktplcExtRefToExtDrv;
   extensionsFromVscodeMarketplace =
-    mktplcExtRefList:
-    builtins.map extensionFromVscodeMarketplace mktplcExtRefList
-  ;
+    mktplcExtRefList: builtins.map extensionFromVscodeMarketplace mktplcExtRefList;
 
   vscodeWithConfiguration = import ./vscodeWithConfiguration.nix {
     inherit lib extensionsFromVscodeMarketplace writeShellScriptBin;
@@ -156,8 +149,7 @@ let
 
       location = {
         "$mid" = 1;
-        fsPath =
-          ext.outPath + "/share/vscode/extensions/${ext.vscodeExtUniqueId}";
+        fsPath = ext.outPath + "/share/vscode/extensions/${ext.vscodeExtUniqueId}";
         path = location.fsPath;
         scheme = "file";
       };

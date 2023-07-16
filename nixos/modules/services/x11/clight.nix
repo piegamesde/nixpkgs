@@ -94,9 +94,7 @@ in
       in
       mkOption {
         type =
-          with types;
-          attrsOf (nullOr (either collectionTypes (attrsOf collectionTypes)))
-        ;
+          with types; attrsOf (nullOr (either collectionTypes (attrsOf collectionTypes)));
         default = { };
         example = {
           captures = 20;

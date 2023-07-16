@@ -29,10 +29,7 @@ in
       listenPort = mkOption {
         type = types.port;
         default = 6767;
-        description =
-          lib.mdDoc
-            "Port on which the bazarr web interface should listen"
-        ;
+        description = lib.mdDoc "Port on which the bazarr web interface should listen";
       };
 
       user = mkOption {

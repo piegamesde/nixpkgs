@@ -92,8 +92,7 @@ makeSetupHook
                 ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
                   "GIO_EXTRA_MODULES"
                   "${dconf.lib}/lib/gio/modules"}
-                ${expectSomeLineContainingYInFileXToMentionZ
-                  "${tested}/libexec/bar"
+                ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
                   "GIO_EXTRA_MODULES"
                   "${dconf.lib}/lib/gio/modules"}
               ''
@@ -108,15 +107,10 @@ makeSetupHook
               testLib.skip stdenv.isDarwin ''
                 ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
                   "GDK_PIXBUF_MODULE_FILE"
-                  "${
-                    lib.getLib librsvg
-                  }/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"}
-                ${expectSomeLineContainingYInFileXToMentionZ
-                  "${tested}/libexec/bar"
+                  "${lib.getLib librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"}
+                ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
                   "GDK_PIXBUF_MODULE_FILE"
-                  "${
-                    lib.getLib librsvg
-                  }/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"}
+                  "${lib.getLib librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"}
               ''
             )
           ;
@@ -164,8 +158,7 @@ makeSetupHook
               ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
                 "GI_TYPELIB_PATH"
                 "${typelib-Mahjong}/lib/girepository-1.0"}
-              ${expectSomeLineContainingYInFileXToMentionZ
-                "${tested}/libexec/bar"
+              ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
                 "GI_TYPELIB_PATH"
                 "${typelib-Mahjong}/lib/girepository-1.0"}
             ''
@@ -222,8 +215,7 @@ makeSetupHook
               ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
                 "GI_TYPELIB_PATH"
                 "${typelib-Bechamel.lib}/lib/girepository-1.0"}
-              ${expectSomeLineContainingYInFileXToMentionZ
-                "${tested}/libexec/bar"
+              ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
                 "GI_TYPELIB_PATH"
                 "${typelib-Bechamel.lib}/lib/girepository-1.0"}
             ''
@@ -261,8 +253,7 @@ makeSetupHook
               ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
                 "GI_TYPELIB_PATH"
                 "${typelib-self-user}/lib/girepository-1.0"}
-              ${expectSomeLineContainingYInFileXToMentionZ
-                "${tested}/libexec/bar"
+              ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
                 "GI_TYPELIB_PATH"
                 "${typelib-self-user}/lib/girepository-1.0"}
             ''

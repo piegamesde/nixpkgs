@@ -50,18 +50,15 @@ let
       );
       content = concatStringsSep "\n" lines;
       file = pkgs.writeText "nagios.cfg" content;
-      validated =
-        pkgs.runCommand "nagios-checked.cfg" { preferLocalBuild = true; }
-          ''
-            cp ${file} nagios.cfg
-            # nagios checks the existence of /var/lib/nagios, but
-            # it does not exist in the build sandbox, so we fake it
-            mkdir lib
-            lib=$(readlink -f lib)
-            sed -i s@=${nagiosState}@=$lib@ nagios.cfg
-            ${pkgs.nagios}/bin/nagios -v nagios.cfg && cp ${file} $out
-          ''
-      ;
+      validated = pkgs.runCommand "nagios-checked.cfg" { preferLocalBuild = true; } ''
+        cp ${file} nagios.cfg
+        # nagios checks the existence of /var/lib/nagios, but
+        # it does not exist in the build sandbox, so we fake it
+        mkdir lib
+        lib=$(readlink -f lib)
+        sed -i s@=${nagiosState}@=$lib@ nagios.cfg
+        ${pkgs.nagios}/bin/nagios -v nagios.cfg && cp ${file} $out
+      '';
       defaultCfgFile = if cfg.validateConfig then validated else file;
     in
     if cfg.mainConfigFile == null then defaultCfgFile else cfg.mainConfigFile
@@ -109,8 +106,7 @@ in
   options = {
     services.nagios = {
       enable = mkEnableOption (
-        lib.mdDoc
-          "[Nagios](http://www.nagios.org/) to monitor your system or network."
+        lib.mdDoc "[Nagios](http://www.nagios.org/) to monitor your system or network."
       );
 
       objectDefs = mkOption {
@@ -191,9 +187,7 @@ in
       };
 
       virtualHost = mkOption {
-        type = types.submodule (
-          import ../web-servers/apache-httpd/vhost-options.nix
-        );
+        type = types.submodule (import ../web-servers/apache-httpd/vhost-options.nix);
         example = literalExpression ''
           { hostName = "example.org";
             adminAddr = "webmaster@example.org";

@@ -26,13 +26,11 @@ let
   settingsFormat = pkgs.formats.ini { };
 
   checks =
-    mapAttrs'
-      (n: v: nameValuePair "check.${n}" (filterAttrs (_: v: v != null) v))
+    mapAttrs' (n: v: nameValuePair "check.${n}" (filterAttrs (_: v: v != null) v))
       cfg.checks
   ;
   wakeups =
-    mapAttrs'
-      (n: v: nameValuePair "wakeup.${n}" (filterAttrs (_: v: v != null) v))
+    mapAttrs' (n: v: nameValuePair "wakeup.${n}" (filterAttrs (_: v: v != null) v))
       cfg.wakeups
   ;
 

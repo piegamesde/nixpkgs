@@ -25,9 +25,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     install -Dv yallback $out/bin/yallback
-    wrapProgram $out/bin/yallback --prefix PATH : ${
-      lib.makeBinPath [ coreutils ]
-    }
+    wrapProgram $out/bin/yallback --prefix PATH : ${lib.makeBinPath [ coreutils ]}
   '';
 
   meta = with lib; {

@@ -77,8 +77,7 @@ lib.makeScope pkgs.newScope (
                 updateScript = nix-update-script { };
               };
               meta = (previousAttrs.meta or { }) // {
-                mainProgram =
-                  previousAttrs.meta.mainProgram or previousAttrs.pname;
+                mainProgram = previousAttrs.meta.mainProgram or previousAttrs.pname;
               };
             })
             (if lib.isFunction origArgs then origArgs else (_: origArgs))
@@ -158,10 +157,7 @@ lib.makeScope pkgs.newScope (
             ${postPhpize}
 
             ${lib.concatMapStringsSep "\n"
-              (
-                dep:
-                "mkdir -p ext; ln -s ${dep.dev}/include ext/${dep.extensionName}"
-              )
+              (dep: "mkdir -p ext; ln -s ${dep.dev}/include ext/${dep.extensionName}")
               internalDeps}
           '';
 
@@ -243,10 +239,9 @@ lib.makeScope pkgs.newScope (
 
       ast = callPackage ../development/php-packages/ast { };
 
-      blackfire =
-        pkgs.callPackage ../development/tools/misc/blackfire/php-probe.nix
-          { inherit php; }
-      ;
+      blackfire = pkgs.callPackage ../development/tools/misc/blackfire/php-probe.nix {
+        inherit php;
+      };
 
       couchbase = callPackage ../development/php-packages/couchbase { };
 
@@ -444,9 +439,7 @@ lib.makeScope pkgs.newScope (
                 "LDAP_INCDIR=${openldap.dev}/include"
                 "LDAP_LIBDIR=${openldap.out}/lib"
               ]
-              ++ lib.optionals stdenv.isLinux [
-                "--with-ldap-sasl=${cyrus_sasl.dev}"
-              ]
+              ++ lib.optionals stdenv.isLinux [ "--with-ldap-sasl=${cyrus_sasl.dev}" ]
             ;
             doCheck = false;
           }
@@ -496,8 +489,7 @@ lib.makeScope pkgs.newScope (
           }
           {
             name = "opcache";
-            buildInputs =
-              [ pcre2 ] ++ lib.optionals (!stdenv.isDarwin) [ valgrind.dev ];
+            buildInputs = [ pcre2 ] ++ lib.optionals (!stdenv.isDarwin) [ valgrind.dev ];
             zendExtension = true;
             postPatch = lib.optionalString stdenv.isDarwin ''
               # Tests are flaky on darwin
@@ -514,11 +506,7 @@ lib.makeScope pkgs.newScope (
           {
             name = "openssl";
             buildInputs =
-              if (lib.versionAtLeast php.version "8.1") then
-                [ openssl ]
-              else
-                [ openssl_1_1 ]
-            ;
+              if (lib.versionAtLeast php.version "8.1") then [ openssl ] else [ openssl_1_1 ];
             configureFlags = [ "--with-openssl" ];
             doCheck = false;
           }

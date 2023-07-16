@@ -79,10 +79,7 @@ let
 
         # symlink additional templates
         ${concatMapStringsSep "\n"
-          (
-            template:
-            "cp -r ${template}/. $out/application/views/invoice_templates/pdf/"
-          )
+          (template: "cp -r ${template}/. $out/application/views/invoice_templates/pdf/")
           cfg.invoiceTemplates}
       '';
     }
@@ -147,10 +144,7 @@ let
           createLocally = mkOption {
             type = types.bool;
             default = true;
-            description =
-              lib.mdDoc
-                "Create the database and database user locally."
-            ;
+            description = lib.mdDoc "Create the database and database user locally.";
           };
         };
 
@@ -241,10 +235,7 @@ let
 
           key = mkOption {
             type = types.str;
-            description =
-              lib.mdDoc
-                "Cron key taken from the administration page."
-            ;
+            description = lib.mdDoc "Cron key taken from the administration page.";
           };
         };
       };
@@ -260,10 +251,7 @@ in
         options.sites = mkOption {
           type = types.attrsOf (types.submodule siteOpts);
           default = { };
-          description =
-            lib.mdDoc
-              "Specification of one or more WordPress sites to serve"
-          ;
+          description = lib.mdDoc "Specification of one or more WordPress sites to serve";
         };
 
         options.webserver = mkOption {
@@ -289,16 +277,12 @@ in
           mapAttrsToList
             (hostName: cfg: [
               {
-                assertion =
-                  cfg.database.createLocally -> cfg.database.user == user;
+                assertion = cfg.database.createLocally -> cfg.database.user == user;
                 message = ''
                   services.invoiceplane.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned'';
               }
               {
-                assertion =
-                  cfg.database.createLocally
-                  -> cfg.database.passwordFile == null
-                ;
+                assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;
                 message = ''
                   services.invoiceplane.sites."${hostName}".database.passwordFile cannot be specified if services.invoiceplane.sites."${hostName}".database.createLocally is set to true.'';
               }
@@ -316,10 +300,7 @@ in
             {
               enable = true;
               package = mkDefault pkgs.mariadb;
-              ensureDatabases =
-                mapAttrsToList (hostName: cfg: cfg.database.name)
-                  eachSite
-              ;
+              ensureDatabases = mapAttrsToList (hostName: cfg: cfg.database.name) eachSite;
               ensureUsers =
                 mapAttrsToList
                   (hostName: cfg: {
@@ -379,9 +360,7 @@ in
                 mkdir -p ${cfg.stateDir}/logs \
                          ${cfg.stateDir}/uploads
                 if ! grep -q IP_URL "${cfg.stateDir}/ipconfig.php"; then
-                  cp "${
-                    invoiceplane-config hostName cfg
-                  }" "${cfg.stateDir}/ipconfig.php"
+                  cp "${invoiceplane-config hostName cfg}" "${cfg.stateDir}/ipconfig.php"
                 fi
               '')
               eachSite

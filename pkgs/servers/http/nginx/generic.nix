@@ -73,9 +73,7 @@ let
         mod.${attrPath} or [ ]
       else
         throw
-          "Module at ${
-            toString mod.src
-          } does not support nginx version ${nginxVersion}!"
+          "Module at ${toString mod.src} does not support nginx version ${nginxVersion}!"
     )
   ;
 in
@@ -183,8 +181,7 @@ stdenv.mkDerivation {
       "-Wno-error=implicit-fallthrough"
     ]
     ++
-      lib.optionals
-        (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11")
+      lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11")
         [
           # fix build vts module on gcc11
           "-Wno-error=stringop-overread"

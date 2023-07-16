@@ -158,19 +158,13 @@ in
       type = types.str;
       default = "${cfg.dataDir}/consume";
       defaultText = literalExpression ''"''${dataDir}/consume"'';
-      description =
-        lib.mdDoc
-          "Directory from which new documents are imported."
-      ;
+      description = lib.mdDoc "Directory from which new documents are imported.";
     };
 
     consumptionDirIsPublic = mkOption {
       type = types.bool;
       default = false;
-      description =
-        lib.mdDoc
-          "Whether all users can write to the consumption dir."
-      ;
+      description = lib.mdDoc "Whether all users can write to the consumption dir.";
     };
 
     passwordFile = mkOption {
@@ -240,12 +234,8 @@ in
     services.redis.servers.paperless.enable = mkIf enableRedis true;
 
     systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' - ${cfg.user} ${
-        config.users.users.${cfg.user}.group
-      } - -"
-      "d '${cfg.mediaDir}' - ${cfg.user} ${
-        config.users.users.${cfg.user}.group
-      } - -"
+      "d '${cfg.dataDir}' - ${cfg.user} ${config.users.users.${cfg.user}.group} - -"
+      "d '${cfg.mediaDir}' - ${cfg.user} ${config.users.users.${cfg.user}.group} - -"
       (
         if cfg.consumptionDirIsPublic then
           "d '${cfg.consumptionDir}' 777 - - - -"
@@ -402,8 +392,7 @@ in
         Restart = "on-failure";
 
         # gunicorn needs setuid, liblapack needs mbind
-        SystemCallFilter =
-          defaultServiceConfig.SystemCallFilter ++ [ "@setuid mbind" ];
+        SystemCallFilter = defaultServiceConfig.SystemCallFilter ++ [ "@setuid mbind" ];
         # Needs to serve web page
         PrivateNetwork = false;
       } // lib.optionalAttrs (cfg.port < 1024) {

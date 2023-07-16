@@ -96,10 +96,7 @@ in
               && builtins.hasContext testModuleArgs.config.testScriptString
               && testModuleArgs.config.includeTestScriptReferences
             )
-            (
-              hostPkgs.writeStringReferencesToFile
-                testModuleArgs.config.testScriptString
-            )
+            (hostPkgs.writeStringReferencesToFile testModuleArgs.config.testScriptString)
         ;
       }
     ;

@@ -90,23 +90,18 @@ in
           ${top.package}/bin/kube-proxy \
                     --bind-address=${cfg.bindAddress} \
                     ${
-                      optionalString (top.clusterCidr != null)
-                        "--cluster-cidr=${top.clusterCidr}"
+                      optionalString (top.clusterCidr != null) "--cluster-cidr=${top.clusterCidr}"
                     } \
                     ${
                       optionalString (cfg.featureGates != [ ])
                         "--feature-gates=${
-                          concatMapStringsSep "," (feature: "${feature}=true")
-                            cfg.featureGates
+                          concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates
                         }"
                     } \
                     --hostname-override=${cfg.hostname} \
-                    --kubeconfig=${
-                      top.lib.mkKubeConfig "kube-proxy" cfg.kubeconfig
-                    } \
+                    --kubeconfig=${top.lib.mkKubeConfig "kube-proxy" cfg.kubeconfig} \
                     ${
-                      optionalString (cfg.verbosity != null)
-                        "--v=${toString cfg.verbosity}"
+                      optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"
                     } \
                     ${cfg.extraOpts}
         '';
@@ -119,8 +114,7 @@ in
       };
     };
 
-    services.kubernetes.proxy.hostname =
-      with config.networking; mkDefault hostName;
+    services.kubernetes.proxy.hostname = with config.networking; mkDefault hostName;
 
     services.kubernetes.pki.certs = {
       kubeProxyClient = top.lib.mkCert {
@@ -130,10 +124,7 @@ in
       };
     };
 
-    services.kubernetes.proxy.kubeconfig.server =
-      mkDefault
-        top.apiserverAddress
-    ;
+    services.kubernetes.proxy.kubeconfig.server = mkDefault top.apiserverAddress;
   };
 
   meta.buildDocsInSandbox = false;

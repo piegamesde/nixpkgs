@@ -98,7 +98,6 @@ mkDerivation rec {
       AndersonTorres
     ];
     inherit (qtbase.meta) platforms;
-    broken =
-      stdenv.isDarwin || python3Packages.isPy37 || python3Packages.isPy38;
+    broken = stdenv.isDarwin || python3Packages.isPy37 || python3Packages.isPy38;
   };
 }

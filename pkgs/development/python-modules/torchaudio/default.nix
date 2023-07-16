@@ -36,8 +36,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals cudaSupport [ cudaPackages.cudatoolkit ]
   ;
-  buildInputs =
-    [ pybind11 ] ++ lib.optionals cudaSupport [ cudaPackages.cudnn ];
+  buildInputs = [ pybind11 ] ++ lib.optionals cudaSupport [ cudaPackages.cudnn ];
   propagatedBuildInputs = [ torch ];
 
   BUILD_SOX = 0;

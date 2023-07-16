@@ -37,9 +37,7 @@ stdenv.mkDerivation rec {
 
     chmod a+x "$out/bin/nix-binary-cache.cgi"
 
-    substitute "${
-      ./nix-binary-cache-start.in
-    }" "$out"/bin/nix-binary-cache-start \
+    substitute "${./nix-binary-cache-start.in}" "$out"/bin/nix-binary-cache-start \
       --replace @out@ "$out/bin" \
       --replace @shell@ "${stdenv.shell}" \
       --replace @coreutils@ "${coreutils}/bin" \

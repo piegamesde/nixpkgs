@@ -26,8 +26,7 @@ let
           `path` or `base64` for included
           values or base-64 encoded values respectively.
         '';
-        check =
-          x: lib.isString x || (lib.isAttrs x && (x ? path || x ? base64));
+        check = x: lib.isString x || (lib.isAttrs x && (x ? path || x ? base64));
         merge = lib.mergeEqualOption;
       };
     in
@@ -48,10 +47,7 @@ let
           # Actual Nix evaluation is lazy, so this is not an issue there
           type =
             let
-              hiddenOptions =
-                lib.mapAttrs (name: attr: attr // { visible = false; })
-                  options
-              ;
+              hiddenOptions = lib.mapAttrs (name: attr: attr // { visible = false; }) options;
             in
             types.attrsOf (types.submodule { options = hiddenOptions; })
           ;
@@ -127,8 +123,7 @@ let
       includes
     )
     ++ (lib.flatten (
-      lib.mapAttrsToList (name: value: attrsToLdif "${name},${dn}" value)
-        children
+      lib.mapAttrsToList (name: value: attrsToLdif "${name},${dn}" value) children
     ))
   ;
 in
@@ -336,9 +331,7 @@ in
         [ {
           assertion = (cfg.declarativeContents != { }) -> cfg.configDir == null;
           message = ''
-            Declarative DB contents (${
-              attrNames cfg.declarativeContents
-            }) are not
+            Declarative DB contents (${attrNames cfg.declarativeContents}) are not
             supported with user-managed configuration.
           '';
         } ]
@@ -466,9 +459,7 @@ in
         };
       };
 
-      users.groups = lib.optionalAttrs (cfg.group == "openldap") {
-        openldap = { };
-      };
+      users.groups = lib.optionalAttrs (cfg.group == "openldap") { openldap = { }; };
     }
   ;
 }

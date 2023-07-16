@@ -231,9 +231,7 @@ let
         build --action_env TF_CUDA_VERSION="${
           lib.versions.majorMinor cudatoolkit.version
         }"
-        build --action_env TF_CUDNN_VERSION="${
-          lib.versions.major cudnn.version
-        }"
+        build --action_env TF_CUDNN_VERSION="${lib.versions.major cudnn.version}"
         build:cuda --action_env TF_CUDA_COMPUTE_CAPABILITIES="${
           builtins.concatStringsSep "," cudaFlags.realArches
         }"
@@ -299,8 +297,7 @@ let
       bazelFlags =
         bazelFlags
         ++
-          lib.optionals
-            (stdenv.targetPlatform.isx86_64 && stdenv.targetPlatform.isUnix)
+          lib.optionals (stdenv.targetPlatform.isx86_64 && stdenv.targetPlatform.isUnix)
             [ "--config=avx_posix" ]
         ++ lib.optionals cudaSupport [ "--config=cuda" ]
         ++ lib.optionals mklSupport [ "--config=mkl_open_source_only" ]

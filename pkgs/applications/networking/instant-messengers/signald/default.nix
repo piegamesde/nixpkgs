@@ -55,9 +55,7 @@ let
       gradle
       perl
     ];
-    patches = [
-      ./0001-Fetch-buildconfig-during-gradle-build-inside-Nix-FOD.patch
-    ];
+    patches = [ ./0001-Fetch-buildconfig-during-gradle-build-inside-Nix-FOD.patch ];
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d)
       gradle --no-daemon build

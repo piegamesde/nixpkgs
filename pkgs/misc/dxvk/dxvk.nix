@@ -119,7 +119,6 @@ stdenv.mkDerivation {
     changelog = "https://github.com/doitsujin/dxvk/releases";
     maintainers = [ lib.maintainers.reckenrode ];
     license = lib.licenses.zlib;
-    platforms =
-      lib.platforms.windows ++ lib.optionals isDxvk2 lib.platforms.linux;
+    platforms = lib.platforms.windows ++ lib.optionals isDxvk2 lib.platforms.linux;
   };
 }

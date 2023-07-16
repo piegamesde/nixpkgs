@@ -52,10 +52,7 @@ let
       ;
       fetch =
         x:
-        if args ? sha256 then
-          fetchzip (x // { inherit sha256; })
-        else
-          fetchTarball x
+        if args ? sha256 then fetchzip (x // { inherit sha256; }) else fetchTarball x
       ;
     in
     fetch { inherit url; }

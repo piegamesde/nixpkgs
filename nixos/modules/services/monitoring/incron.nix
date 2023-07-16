@@ -60,10 +60,7 @@ in
         type = types.listOf types.package;
         default = [ ];
         example = literalExpression "[ pkgs.rsync ]";
-        description =
-          lib.mdDoc
-            "Extra packages available to the system incrontab."
-        ;
+        description = lib.mdDoc "Extra packages available to the system incrontab.";
       };
     };
   };

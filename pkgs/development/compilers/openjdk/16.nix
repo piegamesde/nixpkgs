@@ -125,9 +125,7 @@ let
         })
         ./fix-glibc-2.34.patch
       ]
-      ++ lib.optionals (!headless && enableGnome2) [
-        ./swing-use-gtk-jdk13.patch
-      ]
+      ++ lib.optionals (!headless && enableGnome2) [ ./swing-use-gtk-jdk13.patch ]
     ;
 
     prePatch = ''
@@ -162,9 +160,7 @@ let
       ]
       ++ lib.optional stdenv.isx86_64 "--with-jvm-features=zgc"
       ++ lib.optional headless "--enable-headless-only"
-      ++
-        lib.optional (!headless && enableJavaFX)
-          "--with-import-modules=${openjfx}"
+      ++ lib.optional (!headless && enableJavaFX) "--with-import-modules=${openjfx}"
     ;
 
     separateDebugInfo = true;

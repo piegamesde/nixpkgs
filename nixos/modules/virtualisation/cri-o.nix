@@ -61,10 +61,7 @@ in
     pauseImage = mkOption {
       type = types.nullOr types.str;
       default = null;
-      description =
-        lib.mdDoc
-          "Override the default pause image for pod sandboxes"
-      ;
+      description = lib.mdDoc "Override the default pause image for pod sandboxes";
       example = "k8s.gcr.io/pause:3.2";
     };
 

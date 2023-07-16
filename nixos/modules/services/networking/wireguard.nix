@@ -73,13 +73,9 @@ let
         };
 
         preSetup = mkOption {
-          example =
-            literalExpression
-              ''"''${pkgs.iproute2}/bin/ip netns add foo"''
-          ;
+          example = literalExpression ''"''${pkgs.iproute2}/bin/ip netns add foo"'';
           default = "";
-          type =
-            with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
+          type = with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
           description = lib.mdDoc ''
             Commands called at the start of the interface setup.
           '';
@@ -90,26 +86,15 @@ let
             '''printf "nameserver 10.200.100.1" | ''${pkgs.openresolv}/bin/resolvconf -a wg0 -m 0'''
           '';
           default = "";
-          type =
-            with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
-          description =
-            lib.mdDoc
-              "Commands called at the end of the interface setup."
-          ;
+          type = with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
+          description = lib.mdDoc "Commands called at the end of the interface setup.";
         };
 
         postShutdown = mkOption {
-          example =
-            literalExpression
-              ''"''${pkgs.openresolv}/bin/resolvconf -d wg0"''
-          ;
+          example = literalExpression ''"''${pkgs.openresolv}/bin/resolvconf -d wg0"'';
           default = "";
-          type =
-            with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
-          description =
-            lib.mdDoc
-              "Commands called after shutting down the interface."
-          ;
+          type = with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
+          description = lib.mdDoc "Commands called after shutting down the interface.";
         };
 
         table = mkOption {
@@ -555,8 +540,7 @@ let
       };
 
       script = ''
-        ${optionalString (!config.boot.isContainer)
-          "modprobe wireguard || true"}
+        ${optionalString (!config.boot.isContainer) "modprobe wireguard || true"}
 
         ${values.preSetup}
 
@@ -666,8 +650,7 @@ in
         mapAttrsToList
           (
             interfaceName: interfaceCfg:
-            map (peer: { inherit interfaceName interfaceCfg peer; })
-              interfaceCfg.peers
+            map (peer: { inherit interfaceName interfaceCfg peer; }) interfaceCfg.peers
           )
           cfg.interfaces
       );
@@ -678,8 +661,7 @@ in
         (attrValues (
           mapAttrs
             (name: value: {
-              assertion =
-                (value.privateKey != null) != (value.privateKeyFile != null);
+              assertion = (value.privateKey != null) != (value.privateKeyFile != null);
               message = "Either networking.wireguard.interfaces.${name}.privateKey or networking.wireguard.interfaces.${name}.privateKeyFile must be set.";
             })
             cfg.interfaces
@@ -687,8 +669,7 @@ in
         ++ (attrValues (
           mapAttrs
             (name: value: {
-              assertion =
-                value.generatePrivateKeyFile -> (value.privateKey == null);
+              assertion = value.generatePrivateKeyFile -> (value.privateKey == null);
               message = "networking.wireguard.interfaces.${name}.generatePrivateKeyFile must not be set if networking.wireguard.interfaces.${name}.privateKey is set.";
             })
             cfg.interfaces
@@ -702,9 +683,7 @@ in
                 ...
               }:
               {
-                assertion =
-                  (peer.presharedKey == null) || (peer.presharedKeyFile == null)
-                ;
+                assertion = (peer.presharedKey == null) || (peer.presharedKeyFile == null);
                 message = "networking.wireguard.interfaces.${interfaceName} peer «${peer.publicKey}» has both presharedKey and presharedKeyFile set, but only one can be used.";
               }
             )

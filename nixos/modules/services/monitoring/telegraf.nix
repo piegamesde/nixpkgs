@@ -73,15 +73,12 @@ in
         after = [ "network-online.target" ];
         serviceConfig = {
           EnvironmentFile = config.services.telegraf.environmentFiles;
-          ExecStartPre =
-            lib.optional (config.services.telegraf.environmentFiles != [ ])
-              (
-                pkgs.writeShellScript "pre-start" ''
-                  umask 077
-                  ${pkgs.envsubst}/bin/envsubst -i "${configFile}" > /var/run/telegraf/config.toml
-                ''
-              )
-          ;
+          ExecStartPre = lib.optional (config.services.telegraf.environmentFiles != [ ]) (
+            pkgs.writeShellScript "pre-start" ''
+              umask 077
+              ${pkgs.envsubst}/bin/envsubst -i "${configFile}" > /var/run/telegraf/config.toml
+            ''
+          );
           ExecStart = "${cfg.package}/bin/telegraf -config ${finalConfigFile}";
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
           RuntimeDirectory = "telegraf";

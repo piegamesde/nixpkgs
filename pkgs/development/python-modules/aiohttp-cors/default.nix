@@ -18,8 +18,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.5";
 
-  propagatedBuildInputs =
-    [ aiohttp ] ++ lib.optional (pythonOlder "3.5") typing;
+  propagatedBuildInputs = [ aiohttp ] ++ lib.optional (pythonOlder "3.5") typing;
 
   # Requires network access
   doCheck = false;

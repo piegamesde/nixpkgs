@@ -131,8 +131,7 @@ let
         pname: fdeps:
         buildIntegration {
           inherit pname;
-          propagatedBuildInputs =
-            (fdeps python.pkgs) ++ [ datadog_checks_base ];
+          propagatedBuildInputs = (fdeps python.pkgs) ++ [ datadog_checks_base ];
         }
       )
       integrations

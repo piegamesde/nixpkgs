@@ -137,10 +137,7 @@ in
     mutualTlsCa = mkOption {
       default = null;
       type = types.nullOr types.path;
-      description =
-        lib.mdDoc
-          "Mutual TLS - require clients be signed by this CA."
-      ;
+      description = lib.mdDoc "Mutual TLS - require clients be signed by this CA.";
     };
 
     mutualTlsCn = mkOption {
