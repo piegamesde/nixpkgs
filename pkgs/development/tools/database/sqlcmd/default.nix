@@ -52,8 +52,7 @@ buildGoModule rec {
 
   meta = {
     description =
-      "A command line tool for working with Microsoft SQL Server, Azure SQL Database, and Azure Synapse"
-      ;
+      "A command line tool for working with Microsoft SQL Server, Azure SQL Database, and Azure Synapse";
     homepage = "https://github.com/microsoft/go-sqlcmd";
     changelog =
       "https://github.com/microsoft/go-sqlcmd/releases/tag/v${version}";

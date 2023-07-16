@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
     description = "Ayatana Display Indicator Objects";
     homepage = "https://github.com/AyatanaIndicators/ayatana-ido";
     changelog =
-      "https://github.com/AyatanaIndicators/ayatana-ido/blob/${version}/ChangeLog"
-      ;
+      "https://github.com/AyatanaIndicators/ayatana-ido/blob/${version}/ChangeLog";
     license = [
       licenses.lgpl3Plus
       licenses.lgpl21Plus

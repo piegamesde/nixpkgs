@@ -95,8 +95,7 @@ let
       patches = [ (fetchpatch {
         name = "musl.patch";
         url =
-          "https://github.com/openzfs/zfs/commit/1f19826c9ac85835cbde61a7439d9d1fefe43a4a.patch"
-          ;
+          "https://github.com/openzfs/zfs/commit/1f19826c9ac85835cbde61a7439d9d1fefe43a4a.patch";
         sha256 = "XEaK227ubfOwlB2s851UvZ6xp/QOtYUWYsKTkEHzmo0=";
       }) ] ++ extraPatches;
 

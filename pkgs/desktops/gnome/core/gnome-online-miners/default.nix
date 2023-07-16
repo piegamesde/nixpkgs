@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
     # https://gitlab.gnome.org/GNOME/gnome-online-miners/merge_requests/4
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/gnome-online-miners/commit/9eb57c6a8cd1a925c508646edae936eee0a8e46b.patch"
-        ;
+        "https://gitlab.gnome.org/GNOME/gnome-online-miners/commit/9eb57c6a8cd1a925c508646edae936eee0a8e46b.patch";
       sha256 = "O1GRnzs33I0mFzrNDFkTGiBKstq5krYg7fwj60367TA=";
     })
 
@@ -51,32 +50,27 @@ stdenv.mkDerivation rec {
     # https://gitlab.gnome.org/GNOME/gnome-online-miners/merge_requests/3
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/gnome-online-miners/commit/2d3798252807cad9eb061ed2b37e35170c1a1daf.patch"
-        ;
+        "https://gitlab.gnome.org/GNOME/gnome-online-miners/commit/2d3798252807cad9eb061ed2b37e35170c1a1daf.patch";
       sha256 = "hwrkxroMpTfOwJAPkYQFdDCroZ2qSsvOgDetrJDig20=";
     })
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/gnome-online-miners/commit/1548c0c527f0e4389047448d7d3b6cff55278c8e.patch"
-        ;
+        "https://gitlab.gnome.org/GNOME/gnome-online-miners/commit/1548c0c527f0e4389047448d7d3b6cff55278c8e.patch";
       sha256 = "U9w81c9Kze7kv5KHeGqvDeSNHzSayVrUG0XYsYMa1sg=";
     })
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/gnome-online-miners/commit/941ebd8890c9ac4f75a1f58ccbea9731f46ad912.patch"
-        ;
+        "https://gitlab.gnome.org/GNOME/gnome-online-miners/commit/941ebd8890c9ac4f75a1f58ccbea9731f46ad912.patch";
       sha256 = "JHtDlZ54/BlSiUA3ROHfCTtTKSin3g6JNm8NS6pYML8=";
     })
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/gnome-online-miners/commit/d1681a64bc3f65894af2549e3ba2bffbaf6f539a.patch"
-        ;
+        "https://gitlab.gnome.org/GNOME/gnome-online-miners/commit/d1681a64bc3f65894af2549e3ba2bffbaf6f539a.patch";
       sha256 = "9ZEatz5I81UAnjS1qCGWYDQQOxg/qp9Tg3xG/a+3goc=";
     })
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/gnome-online-miners/commit/3d2af8785c84d6e50d8a8e6a2569a4b709184e94.patch"
-        ;
+        "https://gitlab.gnome.org/GNOME/gnome-online-miners/commit/3d2af8785c84d6e50d8a8e6a2569a4b709184e94.patch";
       sha256 = "7bdUE2k6g3Z8sdGYEb6pUm1/wbKDe4BHbylXUzfuTG0=";
     })
   ];
@@ -125,8 +119,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Projects/GnomeOnlineMiners";
     description =
-      "A set of crawlers that go through your online content and index them locally in Tracker"
-      ;
+      "A set of crawlers that go through your online content and index them locally in Tracker";
     maintainers = teams.gnome.members;
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

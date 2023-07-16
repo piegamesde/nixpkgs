@@ -13,8 +13,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/tarides/tezos-base58/releases/download/${version}/${pname}-${version}.tbz"
-      ;
+      "https://github.com/tarides/tezos-base58/releases/download/${version}/${pname}-${version}.tbz";
     sha256 = "14w2pff5dy6mxnz588pxaf2k8xpkd51sbsys065wr51kbv1f36da";
   };
 

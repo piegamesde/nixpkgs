@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/cppit/jucipp";
     description =
-      "A lightweight, platform independent C++-IDE with support for C++11, C++14, and experimental C++17 features depending on libclang version"
-      ;
+      "A lightweight, platform independent C++-IDE with support for C++11, C++14, and experimental C++17 features depending on libclang version";
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ xnwdd ];

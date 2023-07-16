@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
     # backport upstream patch fixing tests
     (fetchpatch {
       url =
-        "https://gitlab.freedesktop.org/libfprint/fprintd/-/commit/ae04fa989720279e5558c3b8ff9ebe1959b1cf36.patch"
-        ;
+        "https://gitlab.freedesktop.org/libfprint/fprintd/-/commit/ae04fa989720279e5558c3b8ff9ebe1959b1cf36.patch";
       sha256 = "sha256-jW5vlzrbZQ1gUDLBf7G50GnZfZxhlnL2Eu+9Bghdwdw=";
     })
   ];
@@ -119,8 +118,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://fprint.freedesktop.org/";
     description =
-      "D-Bus daemon that offers libfprint functionality over the D-Bus interprocess communication bus"
-      ;
+      "D-Bus daemon that offers libfprint functionality over the D-Bus interprocess communication bus";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ abbradar ];

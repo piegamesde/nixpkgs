@@ -64,8 +64,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Easily and securely share files from the command line. A fully featured Firefox Send client"
-      ;
+      "Easily and securely share files from the command line. A fully featured Firefox Send client";
     longDescription = ''
       Easily and securely share files and directories from the command line through a safe, private
       and encrypted link using a single simple command. Files are shared using the Send service and

@@ -45,8 +45,7 @@ let
   pname = "warzone2100";
   sequences_src = fetchurl {
     url =
-      "mirror://sourceforge/${pname}/warzone2100/Videos/high-quality-en/sequences.wz"
-      ;
+      "mirror://sourceforge/${pname}/warzone2100/Videos/high-quality-en/sequences.wz";
     sha256 = "90ff552ca4a70e2537e027e22c5098ea4ed1bc11bb7fc94138c6c941a73d29fa";
   };
 

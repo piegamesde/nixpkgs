@@ -425,8 +425,7 @@ stdenv.mkDerivation (rec {
   meta = llvm_meta // {
     homepage = "https://llvm.org/";
     description =
-      "A collection of modular and reusable compiler and toolchain technologies"
-      ;
+      "A collection of modular and reusable compiler and toolchain technologies";
     longDescription = ''
       The LLVM Project is a collection of modular and reusable compiler and
       toolchain technologies. Despite its name, LLVM has little to do with

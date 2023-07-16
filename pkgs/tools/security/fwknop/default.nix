@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/mrash/fwknop/commit/a8214fd58bc46d23b64b3a55db023c7f5a5ea6af.patch"
-        ;
+        "https://github.com/mrash/fwknop/commit/a8214fd58bc46d23b64b3a55db023c7f5a5ea6af.patch";
       sha256 = "0cp1350q66n455hpd3rdydb9anx66bcirza5gyyyy5232zgg58bi";
     })
   ];

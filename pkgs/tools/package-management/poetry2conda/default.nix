@@ -22,8 +22,7 @@ buildPythonApplication rec {
   patches = [ (fetchpatch {
     name = "use-poetry-core.patch";
     url =
-      "https://github.com/dojeda/poetry2conda/commit/b127090498c89fbd8bbcbac45d03178a1e1c4219.patch"
-      ;
+      "https://github.com/dojeda/poetry2conda/commit/b127090498c89fbd8bbcbac45d03178a1e1c4219.patch";
     hash = "sha256-J26NhVPG1vD/QNXi5irtGW05CYsIYvZNQIi8YvHwCLc=";
   }) ];
 
@@ -42,8 +41,7 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "A script to convert a Python project declared on a pyproject.toml to a conda environment"
-      ;
+      "A script to convert a Python project declared on a pyproject.toml to a conda environment";
     homepage = "https://github.com/dojeda/poetry2conda";
     license = licenses.mit;
     maintainers = with maintainers; [ cpcloud ];

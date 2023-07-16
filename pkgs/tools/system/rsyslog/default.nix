@@ -67,8 +67,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.rsyslog.com/files/download/rsyslog/${pname}-${version}.tar.gz"
-      ;
+      "https://www.rsyslog.com/files/download/rsyslog/${pname}-${version}.tar.gz";
     hash = "sha256-0JDpAoPrS4Dei0Pl/8bktZxOOXDyqpHmO+7woRcg100=";
   };
 

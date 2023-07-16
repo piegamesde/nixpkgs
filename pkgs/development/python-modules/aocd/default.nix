@@ -70,8 +70,7 @@ buildPythonPackage rec {
     description = "Get your Advent of Code data with a single import statement";
     homepage = "https://github.com/wimglenn/advent-of-code-data";
     changelog =
-      "https://github.com/wimglenn/advent-of-code-data/releases/tag/v${version}"
-      ;
+      "https://github.com/wimglenn/advent-of-code-data/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ aadibajpai ];
     platforms = platforms.unix;

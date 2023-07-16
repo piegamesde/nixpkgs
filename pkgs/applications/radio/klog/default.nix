@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.savannah.nongnu.org/releases/klog/${pname}-${version}.tar.gz"
-      ;
+      "https://download.savannah.nongnu.org/releases/klog/${pname}-${version}.tar.gz";
     sha256 = "1d5x7rq0mgfrqws3q1y4z8wh2qa3gvsmd0ssf2yqgkyq3fhdrb5c";
   };
 

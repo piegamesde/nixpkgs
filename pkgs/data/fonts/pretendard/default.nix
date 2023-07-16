@@ -18,8 +18,7 @@ let
 
       src = fetchzip {
         url =
-          "https://github.com/orioncactus/pretendard/releases/download/v${version}/${typeface}-${version}.zip"
-          ;
+          "https://github.com/orioncactus/pretendard/releases/download/v${version}/${typeface}-${version}.zip";
         stripRoot = false;
         inherit hash;
       };

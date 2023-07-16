@@ -29,8 +29,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Correctly generate plurals, singular nouns, ordinals, indefinite articles"
-      ;
+      "Correctly generate plurals, singular nouns, ordinals, indefinite articles";
     homepage = "https://github.com/jaraco/inflect";
     changelog =
       "https://github.com/jaraco/inflect/blob/v${version}/CHANGES.rst";

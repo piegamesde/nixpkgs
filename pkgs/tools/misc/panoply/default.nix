@@ -12,8 +12,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.giss.nasa.gov/tools/panoply/download/PanoplyJ-${version}.tgz"
-      ;
+      "https://www.giss.nasa.gov/tools/panoply/download/PanoplyJ-${version}.tgz";
     sha256 = "sha256-C/FMR276qx7yo7UaZ3a794B3mDy1/mrrZiua2eaIoxg=";
   };
 

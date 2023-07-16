@@ -40,8 +40,7 @@ buildPythonPackage rec {
     description = "A plugin to fake subprocess for pytest";
     homepage = "https://github.com/aklajnert/pytest-subprocess";
     changelog =
-      "https://github.com/aklajnert/pytest-subprocess/blob/${version}/HISTORY.rst"
-      ;
+      "https://github.com/aklajnert/pytest-subprocess/blob/${version}/HISTORY.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

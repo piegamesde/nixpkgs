@@ -509,8 +509,7 @@ in {
     product = "IntelliJ IDEA CE";
     version = products.idea-community.version;
     description =
-      "Integrated Development Environment (IDE) by Jetbrains, community edition"
-      ;
+      "Integrated Development Environment (IDE) by Jetbrains, community edition";
     license = lib.licenses.asl20;
     src = fetchurl {
       url = products.idea-community.url;
@@ -525,8 +524,7 @@ in {
     product = "IntelliJ IDEA";
     version = products.idea-ultimate.version;
     description =
-      "Integrated Development Environment (IDE) by Jetbrains, requires paid license"
-      ;
+      "Integrated Development Environment (IDE) by Jetbrains, requires paid license";
     license = lib.licenses.unfree;
     src = fetchurl {
       url = products.idea-ultimate.url;

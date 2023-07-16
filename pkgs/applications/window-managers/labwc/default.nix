@@ -68,8 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/labwc/labwc";
     description = "A Wayland stacking compositor, similar to Openbox";
     changelog =
-      "https://raw.githubusercontent.com/labwc/labwc/${finalAttrs.version}/NEWS.md"
-      ;
+      "https://raw.githubusercontent.com/labwc/labwc/${finalAttrs.version}/NEWS.md";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ AndersonTorres ];
     inherit (wayland.meta) platforms;

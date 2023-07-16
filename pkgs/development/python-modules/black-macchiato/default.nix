@@ -31,8 +31,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "This is a small utility built on top of the black Python code formatter to enable formatting of partial files"
-      ;
+      "This is a small utility built on top of the black Python code formatter to enable formatting of partial files";
     homepage = "https://github.com/wbolster/black-macchiato";
     license = licenses.bsd3;
     maintainers = with maintainers; [ jperras ];

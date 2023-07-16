@@ -33,8 +33,7 @@ buildPythonPackage rec {
     description = "Compress responses in your Flask app with gzip";
     homepage = "https://github.com/colour-science/flask-compress";
     changelog =
-      "https://github.com/colour-science/flask-compress/blob/v${version}/CHANGELOG.md"
-      ;
+      "https://github.com/colour-science/flask-compress/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
   };
 }

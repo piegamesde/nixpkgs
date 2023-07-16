@@ -66,8 +66,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://updates.signal.org/desktop/apt/pool/main/s/${pname}/${pname}_${version}_amd64.deb"
-      ;
+      "https://updates.signal.org/desktop/apt/pool/main/s/${pname}/${pname}_${version}_amd64.deb";
     inherit hash;
   };
 

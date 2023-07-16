@@ -62,8 +62,7 @@ let
 
   meta = with lib; {
     description =
-      "JAX is Autograd and XLA, brought together for high-performance machine learning research."
-      ;
+      "JAX is Autograd and XLA, brought together for high-performance machine learning research.";
     homepage = "https://github.com/google/jax";
     license = licenses.asl20;
     maintainers = with maintainers; [ ndl ];

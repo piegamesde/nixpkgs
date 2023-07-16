@@ -274,15 +274,13 @@ in {
       {
         assertion = cfg.database.createLocally -> cfg.database.user == user;
         message =
-          "services.moodle.database.user must be set to ${user} if services.moodle.database.createLocally is set true"
-          ;
+          "services.moodle.database.user must be set to ${user} if services.moodle.database.createLocally is set true";
       }
       {
         assertion =
           cfg.database.createLocally -> cfg.database.passwordFile == null;
         message =
-          "a password cannot be specified if services.moodle.database.createLocally is set to true"
-          ;
+          "a password cannot be specified if services.moodle.database.createLocally is set to true";
       }
     ];
 
@@ -294,8 +292,7 @@ in {
         name = cfg.database.user;
         ensurePermissions = {
           "${cfg.database.name}.*" =
-            "SELECT, INSERT, UPDATE, DELETE, CREATE, CREATE TEMPORARY TABLES, DROP, INDEX, ALTER"
-            ;
+            "SELECT, INSERT, UPDATE, DELETE, CREATE, CREATE TEMPORARY TABLES, DROP, INDEX, ALTER";
         };
       } ];
     };

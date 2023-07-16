@@ -53,8 +53,7 @@ buildPythonPackage rec {
     description = "WebSocket implementation in Python";
     homepage = "https://websockets.readthedocs.io/";
     changelog =
-      "https://github.com/aaugustin/websockets/blob/${version}/docs/project/changelog.rst"
-      ;
+      "https://github.com/aaugustin/websockets/blob/${version}/docs/project/changelog.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ fab ];
   };

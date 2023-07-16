@@ -40,8 +40,7 @@ in {
     assertions = [ {
       assertion = pkgs.stdenv.hostPlatform.isx86;
       message =
-        "VMWare guest is not currently supported on ${pkgs.stdenv.hostPlatform.system}"
-        ;
+        "VMWare guest is not currently supported on ${pkgs.stdenv.hostPlatform.system}";
     } ];
 
     boot.initrd.availableKernelModules = [ "mptspi" ];
@@ -60,8 +59,7 @@ in {
       # Mount the vmblock for drag-and-drop and copy-and-paste.
     systemd.mounts = mkIf (!cfg.headless) [ {
       description = "VMware vmblock fuse mount";
-      documentation = [ "https://github.com/vmware/open-vm-tools/blob/master/open-vm-tools/vmblock-fuse/design.txt" ]
-        ;
+      documentation = [ "https://github.com/vmware/open-vm-tools/blob/master/open-vm-tools/vmblock-fuse/design.txt" ];
       unitConfig.ConditionVirtualization = "vmware";
       what = "${open-vm-tools}/bin/vmware-vmblock-fuse";
       where = "/run/vmblock-fuse";

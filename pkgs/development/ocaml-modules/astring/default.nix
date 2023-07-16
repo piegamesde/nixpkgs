@@ -30,8 +30,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://erratique.ch/software/astring/releases/astring-${param.version}.tbz"
-      ;
+      "https://erratique.ch/software/astring/releases/astring-${param.version}.tbz";
     inherit (param) sha256;
   };
 

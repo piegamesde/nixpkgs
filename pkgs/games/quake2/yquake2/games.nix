@@ -40,9 +40,9 @@ let
         inherit sha256;
         owner = "yquake2";
         repo = data.id;
-        rev =
-          "${lib.toUpper id}_${builtins.replaceStrings [ "." ] [ "_" ] version}"
-          ;
+        rev = "${lib.toUpper id}_${
+            builtins.replaceStrings [ "." ] [ "_" ] version
+          }";
       };
 
       installPhase = ''

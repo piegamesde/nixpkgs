@@ -79,8 +79,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "GUI that allows to control the cooling (fan and/or pump profiles) of NZXT Kraken AIO liquid coolers from Linux"
-      ;
+      "GUI that allows to control the cooling (fan and/or pump profiles) of NZXT Kraken AIO liquid coolers from Linux";
     homepage = "https://gitlab.com/leinardi/gkraken";
     changelog = "https://gitlab.com/leinardi/gkraken/-/tags/${version}";
     license = licenses.gpl3Plus;

@@ -564,8 +564,7 @@ in {
                     "${cfg.dataDir}/media"
                   ;
                 defaultText =
-                  "${cfg.dataDir}/media_store for when system.stateVersion is at least 22.05, ${cfg.dataDir}/media when lower than 22.05"
-                  ;
+                  "${cfg.dataDir}/media_store for when system.stateVersion is at least 22.05, ${cfg.dataDir}/media when lower than 22.05";
                 description = lib.mdDoc ''
                   Directory where uploaded images and attachments are stored.
                 '';

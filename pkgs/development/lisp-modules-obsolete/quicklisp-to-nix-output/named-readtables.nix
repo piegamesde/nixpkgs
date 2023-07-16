@@ -16,8 +16,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/named-readtables/2021-12-09/named-readtables-20211209-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/named-readtables/2021-12-09/named-readtables-20211209-git.tgz";
     sha256 = "0mlxbs7r6ksjk9ilsgp756qp4jlgplr30kxdn7npq27wg0rpvz2n";
   };
 

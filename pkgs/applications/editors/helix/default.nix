@@ -14,8 +14,7 @@ rustPlatform.buildRustPackage rec {
     # which is not ordinarily part of the repository.
   src = fetchzip {
     url =
-      "https://github.com/helix-editor/helix/releases/download/${version}/helix-${version}-source.tar.xz"
-      ;
+      "https://github.com/helix-editor/helix/releases/download/${version}/helix-${version}-source.tar.xz";
     hash = "sha256-FtY2V7za3WGeUaC2t2f63CcDUEg9zAS2cGUWI0YeGwk=";
     stripRoot = false;
   };

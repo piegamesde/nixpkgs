@@ -35,8 +35,7 @@ buildPythonPackage rec {
 
   meta = {
     description =
-      "Asynchronous parser taking incremental bites out of your byte input stream"
-      ;
+      "Asynchronous parser taking incremental bites out of your byte input stream";
     homepage = "https://github.com/jgosmann/bite-parser";
     changelog =
       "https://github.com/jgosmann/bite-parser/blob/v${version}/CHANGELOG.rst";

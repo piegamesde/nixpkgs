@@ -37,8 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "https://download.calibre-ebook.com/${finalAttrs.version}/calibre-${finalAttrs.version}.tar.xz"
-      ;
+      "https://download.calibre-ebook.com/${finalAttrs.version}/calibre-${finalAttrs.version}.tar.xz";
     hash = "sha256-HKSruKXYUMH1lj43CA3Rp3lXNlONXE1P9gFLaH16No4=";
   };
 
@@ -48,15 +47,13 @@ stdenv.mkDerivation (finalAttrs: {
     (fetchpatch {
       name = "0001-only-plugin-update.patch";
       url =
-        "https://raw.githubusercontent.com/debian-calibre/calibre/debian/${finalAttrs.version}-1/debian/patches/0001-only-plugin-update.patch"
-        ;
+        "https://raw.githubusercontent.com/debian-calibre/calibre/debian/${finalAttrs.version}-1/debian/patches/0001-only-plugin-update.patch";
       hash = "sha256-uL1mSjgCl5ZRLbSuKxJM6XTfvVwog70F7vgKtQzQNEQ=";
     })
     (fetchpatch {
       name = "0007-Hardening-Qt-code.patch";
       url =
-        "https://raw.githubusercontent.com/debian-calibre/calibre/debian/${finalAttrs.version}-1/debian/patches/0007-Hardening-Qt-code.patch"
-        ;
+        "https://raw.githubusercontent.com/debian-calibre/calibre/debian/${finalAttrs.version}-1/debian/patches/0007-Hardening-Qt-code.patch";
       hash = "sha256-9P1kGrQbWAWDzu5EUiQr7TiCPHRWUA8hxPpEvFpK20k=";
     })
   ] ++ lib.optional (!unrarSupport) ./dont_build_unrar_plugin.patch;
@@ -206,8 +203,7 @@ stdenv.mkDerivation (finalAttrs: {
       free and open source and great for both casual users and computer experts.
     '';
     changelog =
-      "https://github.com/kovidgoyal/calibre/releases/tag/v${finalAttrs.version}"
-      ;
+      "https://github.com/kovidgoyal/calibre/releases/tag/v${finalAttrs.version}";
     license =
       if unrarSupport then
         lib.licenses.unfreeRedistributable

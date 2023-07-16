@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://web.archive.org/web/20120315061213/http://www.iagora.com/~espel/xtris/xtris-${version}.tar.gz"
-      ;
+      "https://web.archive.org/web/20120315061213/http://www.iagora.com/~espel/xtris/xtris-${version}.tar.gz";
     sha256 = "1vqva99lyv7r6f9c7yikk8ahcfh9aq3clvwm4pz964wlbr9mj1v6";
   };
 
@@ -29,11 +28,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A multi-player version of the classical game of Tetris, for the X Window system"
-      ;
+      "A multi-player version of the classical game of Tetris, for the X Window system";
     homepage =
-      "https://web.archive.org/web/20120315061213/http://www.iagora.com/~espel/xtris/xtris.html"
-      ;
+      "https://web.archive.org/web/20120315061213/http://www.iagora.com/~espel/xtris/xtris.html";
     license = licenses.gpl2;
     platforms = platforms.unix;
   };

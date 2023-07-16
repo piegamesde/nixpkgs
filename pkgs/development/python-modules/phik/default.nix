@@ -72,8 +72,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Phi_K correlation analyzer library";
     longDescription =
-      "Phi_K is a new and practical correlation coefficient based on several refinements to Pearson’s hypothesis test of independence of two variables."
-      ;
+      "Phi_K is a new and practical correlation coefficient based on several refinements to Pearson’s hypothesis test of independence of two variables.";
     homepage = "https://phik.readthedocs.io/en/latest/";
     changelog = "https://github.com/KaveIO/PhiK/blob/${src.rev}/CHANGES.rst";
     maintainers = with maintainers; [ melsigl ];

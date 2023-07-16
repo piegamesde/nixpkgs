@@ -12,8 +12,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/dinosaure/overlap/releases/download/v${version}/bigarray-overlap-${version}.tbz"
-      ;
+      "https://github.com/dinosaure/overlap/releases/download/v${version}/bigarray-overlap-${version}.tbz";
     hash = "sha256-L1IKxHAFTjNYg+upJUvyi2Z23bV3U8+1iyLPhK4aZuA=";
   };
 
@@ -27,8 +26,7 @@ buildDunePackage rec {
   meta = with lib; {
     homepage = "https://github.com/dinosaure/overlap";
     description =
-      "A minimal library to know that 2 bigarray share physically the same memory or not"
-      ;
+      "A minimal library to know that 2 bigarray share physically the same memory or not";
     license = licenses.mit;
     maintainers = [ maintainers.sternenseemann ];
   };

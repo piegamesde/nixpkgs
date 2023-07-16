@@ -102,8 +102,7 @@ in {
 
           serviceConfig = serviceConfigSecurity // {
             ExecStart =
-              "${pkgs.rsync}/bin/rsync --daemon --no-detach --config=${configFile}"
-              ;
+              "${pkgs.rsync}/bin/rsync --daemon --no-detach --config=${configFile}";
             RestartSec = 1;
           };
 

@@ -109,8 +109,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A library for laying out and rendering of text, with an emphasis on internationalization"
-      ;
+      "A library for laying out and rendering of text, with an emphasis on internationalization";
 
     longDescription = ''
       Pango is a library for laying out and rendering of text, with an

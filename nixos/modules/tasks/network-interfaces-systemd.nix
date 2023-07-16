@@ -210,8 +210,7 @@ in {
           assertion = cfg.defaultGateway6 == null
             || cfg.defaultGateway6.interface == null;
           message =
-            "networking.defaultGateway6.interface is not supported by networkd."
-            ;
+            "networking.defaultGateway6.interface is not supported by networkd.";
         }
       ] ++ flip mapAttrsToList cfg.bridges (n:
         {
@@ -491,8 +490,8 @@ in {
                 "network-pre.target"
                 "ovs-vswitchd.service"
               ] ++ deps;
-              wants = deps
-                ; # if one or more interface fails, the switch should continue to run
+              wants =
+                deps; # if one or more interface fails, the switch should continue to run
               serviceConfig.Type = "oneshot";
               serviceConfig.RemainAfterExit = true;
               path = [

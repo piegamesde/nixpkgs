@@ -57,8 +57,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Replacement for a shell history which records additional commands context with optional encrypted synchronization between machines"
-      ;
+      "Replacement for a shell history which records additional commands context with optional encrypted synchronization between machines";
     homepage = "https://github.com/ellie/atuin";
     license = licenses.mit;
     maintainers = with maintainers; [

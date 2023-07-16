@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_${version}_build/ghidra_${version}_PUBLIC_${versiondate}.zip"
-      ;
+      "https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_${version}_build/ghidra_${version}_PUBLIC_${versiondate}.zip";
     sha256 = "sha256-0OcSdCN8vWUgTgFdgNtiI0OfHmfa/WD9IoaJUl+llqI=";
   };
 
@@ -73,8 +72,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A software reverse engineering (SRE) suite of tools developed by NSA's Research Directorate in support of the Cybersecurity mission"
-      ;
+      "A software reverse engineering (SRE) suite of tools developed by NSA's Research Directorate in support of the Cybersecurity mission";
     homepage = "https://github.com/NationalSecurityAgency/ghidra";
     platforms = [
       "x86_64-linux"

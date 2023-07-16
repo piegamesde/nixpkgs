@@ -17,11 +17,9 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A command-line tool to extract the dependency trees embedded in binaries by cargo-auditable"
-      ;
+      "A command-line tool to extract the dependency trees embedded in binaries by cargo-auditable";
     homepage =
-      "https://github.com/rust-secure-code/cargo-auditable/tree/master/rust-audit-info"
-      ;
+      "https://github.com/rust-secure-code/cargo-auditable/tree/master/rust-audit-info";
     license = with licenses; [
       mit # or
       asl20

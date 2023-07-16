@@ -16,8 +16,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/numerodix/ansicolor/";
     description =
-      "A library to produce ansi color output and colored highlighting and diffing"
-      ;
+      "A library to produce ansi color output and colored highlighting and diffing";
     license = licenses.asl20;
     maintainers = with maintainers; [ andsild ];
   };

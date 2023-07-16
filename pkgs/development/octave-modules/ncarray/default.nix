@@ -24,7 +24,6 @@ buildOctavePackage rec {
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ KarlJoad ];
     description =
-      "Access a single or a collection of NetCDF files as a multi-dimensional array"
-      ;
+      "Access a single or a collection of NetCDF files as a multi-dimensional array";
   };
 }

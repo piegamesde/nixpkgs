@@ -30,8 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/bochs/bochs/${finalAttrs.version}/bochs-${finalAttrs.version}.tar.gz"
-      ;
+      "mirror://sourceforge/project/bochs/bochs/${finalAttrs.version}/bochs-${finalAttrs.version}.tar.gz";
     hash = "sha256-oBCrG/3HKsWgjS4kEs1HHA/r1mrx2TSbwNeWh53lsXo=";
   };
 

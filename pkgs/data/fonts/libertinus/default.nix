@@ -10,8 +10,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/alerque/libertinus/releases/download/v${version}/Libertinus-${version}.tar.xz"
-      ;
+      "https://github.com/alerque/libertinus/releases/download/v${version}/Libertinus-${version}.tar.xz";
     hash = "sha256-f+nwInItHBzGfcLCihELO7VbrjV1GWFg0kIsiTM7OFA=";
   };
 

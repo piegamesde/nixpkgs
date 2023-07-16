@@ -18,8 +18,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/jump-pilot/OpenJUMP/1.15/OpenJUMP-Portable-1.15-r6241-CORE.zip"
-      ;
+      "mirror://sourceforge/jump-pilot/OpenJUMP/1.15/OpenJUMP-Portable-1.15-r6241-CORE.zip";
     sha256 = "12snzkv83w6khcdqzp6xahqapwp82af6c7j2q8n0lj62hk79rfgl";
   };
 
@@ -45,8 +44,7 @@ stdenv.mkDerivation {
 
   meta = {
     description =
-      "Open source Geographic Information System (GIS) written in the Java programming language"
-      ;
+      "Open source Geographic Information System (GIS) written in the Java programming language";
     homepage = "http://www.openjump.org/index.html";
     license = lib.licenses.gpl2;
     maintainers = [ lib.maintainers.marcweber ];

@@ -11,8 +11,7 @@ mkPulumiPackage rec {
   vendorHash = "sha256-HyzWPRYfjdjGGBByCc8N91qWhX2QBJoQMpudHWrkmFM=";
   cmdGen = "pulumi-gen-command";
   cmdRes = "pulumi-resource-command";
-  extraLdflags = [ "-X github.com/pulumi/${repo}/provider/v4/pkg/version.Version=v${version}" ]
-    ;
+  extraLdflags = [ "-X github.com/pulumi/${repo}/provider/v4/pkg/version.Version=v${version}" ];
 
   postConfigure = ''
     pushd ..
@@ -26,8 +25,7 @@ mkPulumiPackage rec {
 
   meta = with lib; {
     description =
-      "A Pulumi provider to execute commands and scripts either locally or remotely as part of the Pulumi resource model"
-      ;
+      "A Pulumi provider to execute commands and scripts either locally or remotely as part of the Pulumi resource model";
     homepage = "https://github.com/pulumi/pulumi-command";
     license = licenses.asl20;
     maintainers = with maintainers; [

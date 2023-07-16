@@ -10,8 +10,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/akryukov/theano/releases/download/v${version}/theano-${version}.otf.zip"
-      ;
+      "https://github.com/akryukov/theano/releases/download/v${version}/theano-${version}.otf.zip";
     stripRoot = false;
     hash = "sha256-9wnwHcRHB+AToOvGwZSXvHkQ8hqMd7Sdl26Ty/IwbPw=";
   };

@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/monicahq/monica/releases/download/v${version}/monica-v${version}.tar.bz2"
-      ;
+      "https://github.com/monicahq/monica/releases/download/v${version}/monica-v${version}.tar.bz2";
     hash = "sha256-uHsRCO7P5w1JmKDwyLUVjK6NwnTF2mjsz0hOnPrms+w=";
   };
 

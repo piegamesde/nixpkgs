@@ -13,8 +13,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/djs55/ocaml-${pname}/releases/download/v${version}/${pname}-${version}.tbz"
-      ;
+      "https://github.com/djs55/ocaml-${pname}/releases/download/v${version}/${pname}-${version}.tbz";
     hash = "sha256-beWxITmxmZzp30zHiloxiGwqVHydRIvyhT+LU7zx8bE=";
   };
 

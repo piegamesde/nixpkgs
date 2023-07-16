@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
     # This is a "superbuild" tarball containing both wsjtx and a hamlib fork
   src = fetchurl {
     url =
-      "https://sourceforge.net/projects/wsjt/files/wsjtx-${version}/wsjtx-${version}.tgz"
-      ;
+      "https://sourceforge.net/projects/wsjt/files/wsjtx-${version}/wsjtx-${version}.tgz";
     sha256 = "sha256-YNDiy0WkmmrVhbCQiCGp/yw6wlZNYQQmIP82wt3Mdl8=";
   };
 

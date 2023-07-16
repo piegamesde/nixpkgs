@@ -25,8 +25,7 @@ let
     # source updates without version bump. Prefer last from "Older releases" instead.
   src = fetchurl {
     url =
-      "https://www.informatik.uni-kiel.de/~pakcs/download/pakcs-${version}-src.tar.gz"
-      ;
+      "https://www.informatik.uni-kiel.de/~pakcs/download/pakcs-${version}-src.tar.gz";
     sha256 = "1jyg29j8r8pgcin7ixdya6c3zzfjdi66rghpwrfnkk133fz4iz7s";
   };
 

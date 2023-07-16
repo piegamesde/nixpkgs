@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     inherit (download) hash;
     url =
-      "http://static.jonof.id.au/dl/kenutils/pngout-${version}-${download.extension}"
-      ;
+      "http://static.jonof.id.au/dl/kenutils/pngout-${version}-${download.extension}";
   };
 
   nativeBuildInputs = lib.optionals stdenv.isDarwin [ unzip ];

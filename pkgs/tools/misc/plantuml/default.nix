@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/plantuml/plantuml/releases/download/v${version}/plantuml-pdf-${version}.jar"
-      ;
+      "https://github.com/plantuml/plantuml/releases/download/v${version}/plantuml-pdf-${version}.jar";
     sha256 = "sha256-Ce9e0B+Sb8o7a5rO5RC7f1TzeEjXSC25FdZ3aPLKlu4=";
   };
 

@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://wwwlehre.dhbw-stuttgart.de/~sschulz/WORK/E_DOWNLOAD/V_${version}/E.tgz"
-      ;
+      "https://wwwlehre.dhbw-stuttgart.de/~sschulz/WORK/E_DOWNLOAD/V_${version}/E.tgz";
     sha256 = "sha256-qh896qIpFR5g1gdWAwGkbNJLBqUQCeCpuoYHHkDXPt0=";
   };
 

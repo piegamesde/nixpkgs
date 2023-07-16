@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
     # The release tarballs include pretrained weights, which would otherwise need to be fetched with git-lfs
   src = fetchzip {
     url =
-      "https://github.com/OpenImageDenoise/oidn/releases/download/v${version}/oidn-${version}.src.tar.gz"
-      ;
+      "https://github.com/OpenImageDenoise/oidn/releases/download/v${version}/oidn-${version}.src.tar.gz";
     sha256 = "sha256-i73w/Vkr5TPLB1ulPbPU4OVGwdNlky1brfarueD7akE=";
   };
 

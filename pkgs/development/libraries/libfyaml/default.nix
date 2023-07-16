@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/pantoniou/libfyaml";
     description =
-      "Fully feature complete YAML parser and emitter, supporting the latest YAML spec and passing the full YAML testsuite"
-      ;
+      "Fully feature complete YAML parser and emitter, supporting the latest YAML spec and passing the full YAML testsuite";
     license = licenses.mit;
     maintainers = [ maintainers.marsam ];
     platforms = platforms.all;

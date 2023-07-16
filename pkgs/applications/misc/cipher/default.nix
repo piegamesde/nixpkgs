@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A simple application for encoding and decoding text, designed for elementary OS"
-      ;
+      "A simple application for encoding and decoding text, designed for elementary OS";
     homepage = "https://github.com/arshubham/cipher";
     maintainers = with maintainers; [ xiorcale ] ++ teams.pantheon.members;
     platforms = platforms.linux;

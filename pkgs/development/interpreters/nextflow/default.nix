@@ -19,8 +19,7 @@ let
 
     src = fetchurl {
       url =
-        "https://github.com/nextflow-io/nextflow/releases/download/v${version}/nextflow-${version}-all"
-        ;
+        "https://github.com/nextflow-io/nextflow/releases/download/v${version}/nextflow-${version}-all";
       hash = "sha256-zeYsKxWRnzr0W6CD+yjoAXwCN/AbN5P4HhH1oftnrjY=";
     };
 

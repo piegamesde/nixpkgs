@@ -10,8 +10,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/naver/${pname}/releases/download/VER${version}/D2Coding-Ver${version}-20180524.zip"
-      ;
+      "https://github.com/naver/${pname}/releases/download/VER${version}/D2Coding-Ver${version}-20180524.zip";
     stripRoot = false;
     hash = "sha256-iC6iaUSVg4zt3wVFJUU4HEeswuKDOTFsAxq/0gRiOCA=";
   };

@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://rxvt.sourceforge.net/";
     description =
-      "Colour vt102 terminal emulator with less features and lower memory consumption"
-      ;
+      "Colour vt102 terminal emulator with less features and lower memory consumption";
     longDescription = ''
       rxvt (acronym for our extended virtual terminal) is a terminal
       emulator for the X Window System, originally written by Rob Nation
@@ -49,7 +48,6 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ AndersonTorres ];
     license = licenses.gpl2;
     platforms = platforms.linux;
-    knownVulnerabilities = [ "Usage of ANSI escape sequences causes unexpected newline-termination, leading to unexpected command execution (https://www.openwall.com/lists/oss-security/2021/05/17/1)" ]
-      ;
+    knownVulnerabilities = [ "Usage of ANSI escape sequences causes unexpected newline-termination, leading to unexpected command execution (https://www.openwall.com/lists/oss-security/2021/05/17/1)" ];
   };
 }

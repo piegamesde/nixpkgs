@@ -41,8 +41,7 @@ buildPythonPackage rec {
     # https://github.com/anyoptimization/pymoo/pull/407
     (fetchpatch {
       url =
-        "https://github.com/anyoptimization/pymoo/commit/be57ece64275469daece1e8ef12b2b6ee05362c9.diff"
-        ;
+        "https://github.com/anyoptimization/pymoo/commit/be57ece64275469daece1e8ef12b2b6ee05362c9.diff";
       hash = "sha256-BLPrUqNbAsAecfYahESEJF6LD+kehUYmkTvl/nvyqII=";
     })
   ];

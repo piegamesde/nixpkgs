@@ -182,8 +182,7 @@ in {
         "mysql.service"
       ];
     };
-    systemd.services."phpfpm-engelsystem".after = [ "engelsystem-migrate.service" ]
-      ;
+    systemd.services."phpfpm-engelsystem".after = [ "engelsystem-migrate.service" ];
 
     users.users.engelsystem = {
       isSystemUser = true;

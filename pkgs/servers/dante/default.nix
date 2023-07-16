@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
   patches = lib.optionals remove_getaddrinfo_checks [ (fetchpatch {
     name = "0002-osdep-m4-Remove-getaddrinfo-too-low-checks.patch";
     url =
-      "https://raw.githubusercontent.com/buildroot/buildroot/master/package/dante/0002-osdep-m4-Remove-getaddrinfo-too-low-checks.patch"
-      ;
+      "https://raw.githubusercontent.com/buildroot/buildroot/master/package/dante/0002-osdep-m4-Remove-getaddrinfo-too-low-checks.patch";
     sha256 = "sha256-e+qF8lB5tkiA7RlJ+tX5O6KxQrQp33RSPdP1TxU961Y=";
   }) ];
 
@@ -56,8 +55,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A circuit-level SOCKS client/server that can be used to provide convenient and secure network connectivity"
-      ;
+      "A circuit-level SOCKS client/server that can be used to provide convenient and secure network connectivity";
     homepage = "https://www.inet.no/dante/";
     maintainers = [ maintainers.arobyn ];
     license = licenses.bsdOriginal;

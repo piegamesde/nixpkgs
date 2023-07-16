@@ -116,8 +116,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "OCaml interface to Tcl/Tk, including OCaml library explorer OCamlBrowser"
-      ;
+      "OCaml interface to Tcl/Tk, including OCaml library explorer OCamlBrowser";
     homepage = "http://labltk.forge.ocamlcore.org/";
     license = lib.licenses.lgpl21;
     inherit (ocaml.meta) platforms;

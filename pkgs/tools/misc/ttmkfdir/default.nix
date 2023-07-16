@@ -15,8 +15,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "http://mirror.fsf.org/trisquel/pool/main/t/ttmkfdir/ttmkfdir_3.0.9.orig.tar.gz"
-      ;
+      "http://mirror.fsf.org/trisquel/pool/main/t/ttmkfdir/ttmkfdir_3.0.9.orig.tar.gz";
     sha256 = "0n6bmmndmp4c1myisvv7cby559gzgvwsw4rfw065a3f92m87jxiq";
   };
 
@@ -25,8 +24,7 @@ stdenv.mkDerivation {
   patches = [
     (fetchurl {
       url =
-        "http://mirror.fsf.org/trisquel/pool/main/t/ttmkfdir/ttmkfdir_3.0.9-6.diff.gz"
-        ;
+        "http://mirror.fsf.org/trisquel/pool/main/t/ttmkfdir/ttmkfdir_3.0.9-6.diff.gz";
       sha256 = "141kxaf2by8nf87hqyszaxi0n7nnmswr1nh2i5r5bsvxxmaj9633";
     })
 

@@ -49,11 +49,9 @@ buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://rednotebook.sourceforge.io/";
     changelog =
-      "https://github.com/jendrikseipp/rednotebook/blob/v${version}/CHANGELOG.md"
-      ;
+      "https://github.com/jendrikseipp/rednotebook/blob/v${version}/CHANGELOG.md";
     description =
-      "A modern journal that includes a calendar navigation, customizable templates, export functionality and word clouds"
-      ;
+      "A modern journal that includes a calendar navigation, customizable templates, export functionality and word clouds";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ orivej ];
   };

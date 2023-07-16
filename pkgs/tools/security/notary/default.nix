@@ -42,8 +42,7 @@ buildGoPackage rec {
 
   meta = with lib; {
     description =
-      "A project that allows anyone to have trust over arbitrary collections of data"
-      ;
+      "A project that allows anyone to have trust over arbitrary collections of data";
     longDescription = ''
       The Notary project comprises a server and a client for running and
       interacting with trusted collections. See the service architecture

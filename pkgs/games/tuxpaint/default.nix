@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/tuxpaint/${version}/${pname}-${version}-sdl1.tar.gz"
-      ;
+      "mirror://sourceforge/tuxpaint/${version}/${pname}-${version}-sdl1.tar.gz";
     sha256 = "sha256-b4Ru9GqyGf2jMmM24szGXO2vbSxCwvPmA6tgEUWhhos=";
   };
 
@@ -62,8 +61,7 @@ stdenv.mkDerivation rec {
     # stamps
   stamps = fetchurl {
     url =
-      "mirror://sourceforge/project/tuxpaint/tuxpaint-stamps/2022-06-04/tuxpaint-stamps-2022.06.04.tar.gz"
-      ;
+      "mirror://sourceforge/project/tuxpaint/tuxpaint-stamps/2022-06-04/tuxpaint-stamps-2022.06.04.tar.gz";
     sha256 = "sha256-hCBlV2+uVUNY4A5R1xpJJhamSQsStZIigGdHfCh6C/g=";
   };
 

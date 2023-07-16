@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.evolonline.org/manaplus/download/${version}/manaplus-${version}.tar.xz"
-      ;
+      "https://download.evolonline.org/manaplus/download/${version}/manaplus-${version}.tar.xz";
     sha256 = "sha256-6NFqxUjEAp7aiIScyTOFh2tT7PfuTCKH1vTgPpTm+j0=";
   };
 

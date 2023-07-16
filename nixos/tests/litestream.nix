@@ -58,8 +58,7 @@ import ./make-test-python.nix ({
           port = 3000;
           extraOptions = {
             DATABASE_URL =
-              "sqlite3:///var/lib/grafana/data/grafana.db?cache=private&mode=rwc&_journal_mode=WAL"
-              ;
+              "sqlite3:///var/lib/grafana/data/grafana.db?cache=private&mode=rwc&_journal_mode=WAL";
           };
         };
         users.users.foo = {

@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9533/${pname}-${version}.tar.gz"
-      ;
+      "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9533/${pname}-${version}.tar.gz";
     sha256 = "0dwa24kjqyg9hmm40fh048sdxfpnasz43l2rm8wlkw1qbdlpd517";
   };
 

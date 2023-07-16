@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
   pname = "suitesparse";
   src = fetchurl {
     url =
-      "http://www.cise.ufl.edu/research/sparse/SuiteSparse/SuiteSparse-${version}.tar.gz"
-      ;
+      "http://www.cise.ufl.edu/research/sparse/SuiteSparse/SuiteSparse-${version}.tar.gz";
     sha256 = "1ga69637x7kdkiy3w3lq9dvva7220bdangv2lch2wx1hpi83h0p8";
   };
 

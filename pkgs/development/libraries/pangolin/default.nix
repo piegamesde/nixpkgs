@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "A lightweight portable rapid development library for managing OpenGL display / interaction and abstracting video input"
-      ;
+      "A lightweight portable rapid development library for managing OpenGL display / interaction and abstracting video input";
     longDescription = ''
       Pangolin is a lightweight portable rapid development library for managing
       OpenGL display / interaction and abstracting video input. At its heart is

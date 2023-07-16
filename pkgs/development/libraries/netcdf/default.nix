@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://downloads.unidata.ucar.edu/netcdf-c/${version}/netcdf-c-${version}.tar.gz"
-      ;
+      "https://downloads.unidata.ucar.edu/netcdf-c/${version}/netcdf-c-${version}.tar.gz";
     hash = "sha256-TJVgIrecCOXhTu6N9RsTwo5hIcK35/qtwhs3WUlAC0k=";
   };
 

@@ -19,8 +19,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Command line utility for creating GitHub comments on Commits, Pull Request Reviews or Issues"
-      ;
+      "Command line utility for creating GitHub comments on Commits, Pull Request Reviews or Issues";
     license = licenses.asl20;
     homepage = "https://github.com/cloudposse/github-commenter";
     maintainers = [ maintainers.mmahut ];

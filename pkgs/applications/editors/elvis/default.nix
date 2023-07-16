@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://www.the-little-red-haired-girl.org/pub/elvis/elvis-${version}.tar.gz"
-      ;
+      "http://www.the-little-red-haired-girl.org/pub/elvis/elvis-${version}.tar.gz";
     sha256 = "182fj9qzyq6cjq1r849gpam6nq9smwv9f9xwaq84961p56r6d14s";
   };
 
@@ -21,8 +20,7 @@ stdenv.mkDerivation rec {
 
   patches = [ (fetchpatch {
     url =
-      "https://github.com/mbert/elvis/commit/076cf4ad5cc993be0c6195ec0d5d57e5ad8ac1eb.patch"
-      ;
+      "https://github.com/mbert/elvis/commit/076cf4ad5cc993be0c6195ec0d5d57e5ad8ac1eb.patch";
     sha256 = "0yzkc1mxjwg09mfmrk20ksa0vfnb2x83ndybwvawq4xjm1qkcahc";
   }) ];
 

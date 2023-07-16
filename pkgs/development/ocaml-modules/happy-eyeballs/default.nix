@@ -18,8 +18,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/roburio/happy-eyeballs/releases/download/v${version}/happy-eyeballs-${version}.tbz"
-      ;
+      "https://github.com/roburio/happy-eyeballs/releases/download/v${version}/happy-eyeballs-${version}.tbz";
     hash = "sha256-T4BOFlSj3xfUFhP9v8UaCHgmhvGrMyeqNUQf79bdBh4=";
   };
 

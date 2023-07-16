@@ -27,8 +27,7 @@ rustPlatform.buildRustPackage rec {
       "A cargo plugin for showing a tree-like overview of a crate's modules";
     homepage = "https://github.com/regexident/cargo-modules";
     changelog =
-      "https://github.com/regexident/cargo-modules/blob/${version}/CHANGELOG.md"
-      ;
+      "https://github.com/regexident/cargo-modules/blob/${version}/CHANGELOG.md";
     license = with licenses; [ mpl20 ];
     maintainers = with maintainers; [
       figsoda

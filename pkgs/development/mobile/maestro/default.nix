@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mobile-dev-inc/maestro/releases/download/cli-${version}/maestro.zip"
-      ;
+      "https://github.com/mobile-dev-inc/maestro/releases/download/cli-${version}/maestro.zip";
     sha256 = "1ldlc8qj8nzy44h6qwgz0xiwp3a6fm0wkl05sl1r20iv7sr92grz";
   };
 

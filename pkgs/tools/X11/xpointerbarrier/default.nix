@@ -14,8 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "https://www.uninformativ.de/git/xpointerbarrier/archives/xpointerbarrier-v${finalAttrs.version}.tar.gz"
-      ;
+      "https://www.uninformativ.de/git/xpointerbarrier/archives/xpointerbarrier-v${finalAttrs.version}.tar.gz";
     hash = "sha256-V1sNAQjsPVSjJ2nhCSdZqZQA78pjUE0z3IU4+I85CpI=";
   };
 

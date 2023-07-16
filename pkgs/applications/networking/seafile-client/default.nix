@@ -46,8 +46,7 @@ mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/haiwen/seafile-client";
     description =
-      "Desktop client for Seafile, the Next-generation Open Source Cloud Storage"
-      ;
+      "Desktop client for Seafile, the Next-generation Open Source Cloud Storage";
     license = licenses.asl20;
     platforms = platforms.linux;
     maintainers = with maintainers; [

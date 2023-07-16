@@ -9,15 +9,13 @@
 }: rec {
   extraFontsSrc = fetchurl {
     url =
-      "ftp://ftp.texmacs.org/pub/TeXmacs/fonts/TeXmacs-extra-fonts-1.0-noarch.tar.gz"
-      ;
+      "ftp://ftp.texmacs.org/pub/TeXmacs/fonts/TeXmacs-extra-fonts-1.0-noarch.tar.gz";
     sha256 = "0hylgjmd95y9yahbblmawkkw0i71vb145xxv2xqrmff81301n6k7";
   };
 
   fullFontsSrc = fetchurl {
     url =
-      "ftp://ftp.texmacs.org/pub/TeXmacs/fonts/TeXmacs-windows-fonts-1.0-noarch.tar.gz"
-      ;
+      "ftp://ftp.texmacs.org/pub/TeXmacs/fonts/TeXmacs-windows-fonts-1.0-noarch.tar.gz";
     sha256 = "1yxzjpqpm7kvx0ly5jmfpzlfhsh41b0ibn1v84qv6xy73r2vis2f";
   };
 

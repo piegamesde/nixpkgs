@@ -126,8 +126,7 @@ in {
     assertions = [ {
       assertion = cfg.allowSystemControl -> config.security.polkit.enable;
       message =
-        "services.moonraker.allowSystemControl requires polkit to be enabled (security.polkit.enable)."
-        ;
+        "services.moonraker.allowSystemControl requires polkit to be enabled (security.polkit.enable).";
     } ];
 
     users.users = optionalAttrs (cfg.user == "moonraker") {

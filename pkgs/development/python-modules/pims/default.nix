@@ -49,8 +49,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python Image Sequence: Load video and sequential images in many formats with a simple, consistent interface"
-      ;
+      "Python Image Sequence: Load video and sequential images in many formats with a simple, consistent interface";
     homepage = "https://github.com/soft-matter/pims";
     license = licenses.bsd3;
     maintainers = with maintainers; [ costrouc ];

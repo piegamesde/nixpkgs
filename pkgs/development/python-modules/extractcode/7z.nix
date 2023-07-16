@@ -38,11 +38,9 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A ScanCode Toolkit plugin to provide pre-built binary libraries and utilities and their locations"
-      ;
+      "A ScanCode Toolkit plugin to provide pre-built binary libraries and utilities and their locations";
     homepage =
-      "https://github.com/nexB/scancode-plugins/tree/main/builtins/extractcode_7z-linux"
-      ;
+      "https://github.com/nexB/scancode-plugins/tree/main/builtins/extractcode_7z-linux";
     license = with licenses; [
       asl20
       lgpl21

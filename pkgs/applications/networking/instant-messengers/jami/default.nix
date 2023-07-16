@@ -117,8 +117,7 @@ stdenv.mkDerivation rec {
     inherit src version meta;
     sourceRoot = "source/daemon";
 
-    patches = [ ./0001-fix-annotations-in-bin-dbus-cx.ring.Ring.CallManager.patch ]
-      ;
+    patches = [ ./0001-fix-annotations-in-bin-dbus-cx.ring.Ring.CallManager.patch ];
 
     nativeBuildInputs = [
       autoreconfHook
@@ -207,8 +206,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://jami.net/";
     description =
-      "The free and universal communication platform that respects the privacy and freedoms of its users"
-      ;
+      "The free and universal communication platform that respects the privacy and freedoms of its users";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = [ maintainers.linsui ];

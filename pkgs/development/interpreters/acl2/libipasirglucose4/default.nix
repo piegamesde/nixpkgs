@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://baldur.iti.kit.edu/sat-competition-2017/solvers/incremental/glucose-ipasir.zip"
-      ;
+      "https://baldur.iti.kit.edu/sat-competition-2017/solvers/incremental/glucose-ipasir.zip";
     sha256 = "0xchgady9vwdh8frmc8swz6va53igp2wj1y9sshd0g7549n87wdj";
   };
   nativeBuildInputs = [ unzip ];

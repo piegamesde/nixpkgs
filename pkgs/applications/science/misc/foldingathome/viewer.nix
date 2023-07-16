@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.foldingathome.org/releases/public/release/fahviewer/debian-stable-64bit/v${majMin}/fahviewer_${version}_amd64.deb"
-      ;
+      "https://download.foldingathome.org/releases/public/release/fahviewer/debian-stable-64bit/v${majMin}/fahviewer_${version}_amd64.deb";
     sha256 = "00fd00pf6fcpplcaahvy9ir60mk69d9rcmwsyq3jrv9mxqm9aq7p";
   };
 

@@ -31,8 +31,8 @@ let
 in with py.pkgs;
 buildPythonApplication rec {
   pname = "awscli";
-  version = "1.27.79"
-    ; # N.B: if you change this, change botocore and boto3 to a matching version too
+  version =
+    "1.27.79"; # N.B: if you change this, change botocore and boto3 to a matching version too
 
   src = fetchPypi {
     inherit pname version;

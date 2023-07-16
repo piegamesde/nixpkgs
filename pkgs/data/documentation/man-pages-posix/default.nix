@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://kernel/linux/docs/man-pages/man-pages-posix/${pname}-${year}-${minor}.tar.xz"
-      ;
+      "mirror://kernel/linux/docs/man-pages/man-pages-posix/${pname}-${year}-${minor}.tar.xz";
     sha256 = "ce67bb25b5048b20dad772e405a83f4bc70faf051afa289361c81f9660318bc3";
   };
 

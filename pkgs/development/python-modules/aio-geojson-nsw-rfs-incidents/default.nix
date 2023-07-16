@@ -45,8 +45,7 @@ buildPythonPackage rec {
     homepage =
       "https://github.com/exxamalte/python-aio-geojson-nsw-rfs-incidents";
     changelog =
-      "https://github.com/exxamalte/python-aio-geojson-geonetnz-quakes/blob/v${version}/CHANGELOG.md"
-      ;
+      "https://github.com/exxamalte/python-aio-geojson-geonetnz-quakes/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

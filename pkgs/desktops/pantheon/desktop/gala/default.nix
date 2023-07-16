@@ -81,8 +81,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A window & compositing manager based on mutter and designed by elementary for use with Pantheon"
-      ;
+      "A window & compositing manager based on mutter and designed by elementary for use with Pantheon";
     homepage = "https://github.com/elementary/gala";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

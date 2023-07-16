@@ -59,8 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
       "man"
     ];
     description =
-      "Modified version of kerberos tools that support automatic ticket refresh"
-      ;
+      "Modified version of kerberos tools that support automatic ticket refresh";
     license = licenses.mit;
     platforms = platforms.linux ++ platforms.darwin;
   };

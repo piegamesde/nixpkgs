@@ -89,8 +89,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ColinIanKing/stress-ng";
     downloadPage = "https://github.com/ColinIanKing/stress-ng/tags";
     changelog =
-      "https://github.com/ColinIanKing/stress-ng/raw/V${version}/debian/changelog"
-      ;
+      "https://github.com/ColinIanKing/stress-ng/raw/V${version}/debian/changelog";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ c0bw3b ];
     platforms = platforms.unix;

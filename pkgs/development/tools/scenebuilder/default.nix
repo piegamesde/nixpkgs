@@ -86,8 +86,7 @@ let
     exec = "scenebuilder";
     icon = "scenebuilder";
     comment =
-      "A visual, drag'n'drop, layout tool for designing JavaFX application user interfaces."
-      ;
+      "A visual, drag'n'drop, layout tool for designing JavaFX application user interfaces.";
     desktopName = "Scene Builder";
     mimeTypes = [
       "application/java"
@@ -139,8 +138,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     broken = stdenv.isDarwin;
     description =
-      "A visual, drag'n'drop, layout tool for designing JavaFX application user interfaces."
-      ;
+      "A visual, drag'n'drop, layout tool for designing JavaFX application user interfaces.";
     homepage = "https://gluonhq.com/products/scene-builder/";
     sourceProvenance = with sourceTypes; [
       fromSource

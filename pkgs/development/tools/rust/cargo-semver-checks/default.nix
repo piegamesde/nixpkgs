@@ -57,8 +57,7 @@ rustPlatform.buildRustPackage rec {
     description = "A tool to scan your Rust crate for semver violations";
     homepage = "https://github.com/obi1kenobi/cargo-semver-checks";
     changelog =
-      "https://github.com/obi1kenobi/cargo-semver-checks/releases/tag/v${version}"
-      ;
+      "https://github.com/obi1kenobi/cargo-semver-checks/releases/tag/v${version}";
     license = with licenses; [
       mit # or
       asl20

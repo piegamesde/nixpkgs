@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/vifm/vifm/releases/download/v${version}/vifm-${version}.tar.bz2"
-      ;
+      "https://github.com/vifm/vifm/releases/download/v${version}/vifm-${version}.tar.bz2";
     hash = "sha256-DZKTdJp5QHat6Wfs3EfRQdheRQNwWUdlORvfGpvUUHU=";
   };
 

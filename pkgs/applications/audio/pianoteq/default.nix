@@ -71,8 +71,7 @@ let
       meta = with lib; {
         homepage = "https://www.modartt.com/pianoteq";
         description =
-          "Software synthesizer that features real-time MIDI-control of digital physically modeled pianos and related instruments"
-          ;
+          "Software synthesizer that features real-time MIDI-control of digital physically modeled pianos and related instruments";
         license = licenses.unfree;
         platforms = [
           "x86_64-linux"

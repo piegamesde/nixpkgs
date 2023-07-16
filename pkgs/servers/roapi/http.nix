@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/roapi/roapi/releases/download/${pname}-v${version}/${pname}-${target}.tar.gz"
-      ;
+      "https://github.com/roapi/roapi/releases/download/${pname}-v${version}/${pname}-${target}.tar.gz";
     sha256 = "sha256-lv6BHg/LkrOlyq8D1udAYW8/AbZRb344YCcVnwo3ZHk=";
   };
   dontUnpack = true;
@@ -50,8 +49,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Create full-fledged APIs for static datasets without writing a single line of code. "
-      ;
+      "Create full-fledged APIs for static datasets without writing a single line of code. ";
     homepage = "https://roapi.github.io/docs/";
     license = licenses.asl20;
     maintainers = with maintainers; [ happysalada ];

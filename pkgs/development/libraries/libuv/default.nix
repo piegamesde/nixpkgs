@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
     # https://github.com/libuv/libuv/pull/3735
     (fetchpatch {
       url =
-        "https://github.com/libuv/libuv/commit/9d898acc564351dde74e9ed9865144e5c41f5beb.patch"
-        ;
+        "https://github.com/libuv/libuv/commit/9d898acc564351dde74e9ed9865144e5c41f5beb.patch";
       sha256 = "sha256-6XsjrseD8a+ny887EKOX0NmHocLMXGf2YL13vkNHUZ0=";
     })
   ];

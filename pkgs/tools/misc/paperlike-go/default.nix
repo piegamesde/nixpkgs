@@ -21,8 +21,7 @@ buildGoModule {
 
   meta = {
     description =
-      "paperlike-go is a Linux Go library and CLI utility to control a Dasung Paperlike display via I2C DDC."
-      ;
+      "paperlike-go is a Linux Go library and CLI utility to control a Dasung Paperlike display via I2C DDC.";
     homepage = "https://github.com/leoluk/paperlike-go";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.adisbladis ];

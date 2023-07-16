@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/${version}/ncbi-blast-${version}+-src.tar.gz"
-      ;
+      "https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/${version}/ncbi-blast-${version}+-src.tar.gz";
     sha256 = "sha256-iVU3FNEz2vKMR3+D0zN5Szxi5BSECMByobRiDl7E/rI=";
   };
 

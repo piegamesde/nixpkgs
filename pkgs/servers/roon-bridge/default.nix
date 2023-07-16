@@ -30,8 +30,7 @@ let
     ;
   src = fetchurl {
     url =
-      "https://download.roonlabs.com/updates/stable/RoonBridge_${system}_${urlVersion}.tar.bz2"
-      ;
+      "https://download.roonlabs.com/updates/stable/RoonBridge_${system}_${urlVersion}.tar.bz2";
     hash =
       if system == "linuxx64" then
         "sha256-DbtKPFEz2WIoKTxP+zoehzz+BjfsLZ2ZQk/FMh+zFBM="

@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://pkg.cloudflareclient.com/uploads/cloudflare_warp_2023_3_398_1_amd64_002e48d521.deb"
-      ;
+      "https://pkg.cloudflareclient.com/uploads/cloudflare_warp_2023_3_398_1_amd64_002e48d521.deb";
     hash = "sha256-1var+/G3WwICRLXsMHke277tmPYRPFW8Yf9b1Ex9OmU=";
   };
 
@@ -76,8 +75,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Replaces the connection between your device and the Internet with a modern, optimized, protocol"
-      ;
+      "Replaces the connection between your device and the Internet with a modern, optimized, protocol";
     homepage = "https://pkg.cloudflareclient.com/packages/cloudflare-warp";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

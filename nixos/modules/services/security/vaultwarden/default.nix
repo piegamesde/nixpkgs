@@ -220,8 +220,7 @@ in {
     assertions = [ {
       assertion = cfg.backupDir != null -> cfg.dbBackend == "sqlite";
       message =
-        "Backups for database backends other than sqlite will need customization"
-        ;
+        "Backups for database backends other than sqlite will need customization";
     } ];
 
     users.users.vaultwarden = {

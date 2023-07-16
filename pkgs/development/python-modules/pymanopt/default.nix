@@ -55,8 +55,7 @@ buildPythonPackage rec {
 
   meta = {
     description =
-      "Python toolbox for optimization on Riemannian manifolds with support for automatic differentiation"
-      ;
+      "Python toolbox for optimization on Riemannian manifolds with support for automatic differentiation";
     homepage = "https://www.pymanopt.org/";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ yl3dy ];

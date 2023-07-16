@@ -38,8 +38,7 @@ buildPythonPackage rec {
     description = "Easy thumbnails for Django";
     homepage = "https://github.com/SmileyChris/easy-thumbnails";
     changelog =
-      "https://github.com/SmileyChris/easy-thumbnails/blob/${version}/CHANGES.rst"
-      ;
+      "https://github.com/SmileyChris/easy-thumbnails/blob/${version}/CHANGES.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

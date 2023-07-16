@@ -24,8 +24,7 @@ let
     version = "v1.4";
     src = pkgs.fetchzip {
       url =
-        "https://gitlab.common-lisp.net/alexandria/alexandria/-/archive/v1.4/alexandria-v1.4.tar.gz"
-        ;
+        "https://gitlab.common-lisp.net/alexandria/alexandria/-/archive/v1.4/alexandria-v1.4.tar.gz";
       sha256 = "0r1adhvf98h0104vq14q7y99h0hsa8wqwqw92h7ghrjxmsvz2z6l";
     };
     lisp = sbcl;

@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/hardinfo.berlios/hardinfo-${version}.tar.bz2"
-      ;
+      "mirror://sourceforge/project/hardinfo.berlios/hardinfo-${version}.tar.bz2";
     sha256 = "0yhvfc5icam3i4mphlz0m9d9d2irjw8mbsxq203x59wjgh6nrpx0";
   };
 

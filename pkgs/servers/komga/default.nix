@@ -13,8 +13,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/gotson/${pname}/releases/download/v${version}/${pname}-${version}.jar"
-      ;
+      "https://github.com/gotson/${pname}/releases/download/v${version}/${pname}-${version}.jar";
     sha256 = "sha256-J8dpw7GzLJnLiiFSFVCoqZFQ6mI2z0zBZHdbmxMgmf8=";
   };
 

@@ -45,8 +45,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python interface for the Alarm Decoder (AD2USB, AD2SERIAL and AD2PI) devices"
-      ;
+      "Python interface for the Alarm Decoder (AD2USB, AD2SERIAL and AD2PI) devices";
     homepage = "https://github.com/nutechsoftware/alarmdecoder";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];

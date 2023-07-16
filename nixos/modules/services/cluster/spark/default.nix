@@ -159,8 +159,7 @@ in with lib; {
             User = "spark";
             WorkingDirectory = "${cfg.package}/lib/${cfg.package.untarDir}";
             ExecStart =
-              "${cfg.package}/lib/${cfg.package.untarDir}/sbin/start-worker.sh spark://${cfg.worker.master}"
-              ;
+              "${cfg.package}/lib/${cfg.package.untarDir}/sbin/start-worker.sh spark://${cfg.worker.master}";
             ExecStop =
               "${cfg.package}/lib/${cfg.package.untarDir}/sbin/stop-worker.sh";
             TimeoutSec = 300;

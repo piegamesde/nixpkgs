@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://xorg.freedesktop.org/archive/individual/app/xrestop-${version}.tar.bz2"
-      ;
+      "https://xorg.freedesktop.org/archive/individual/app/xrestop-${version}.tar.bz2";
     sha256 = "06ym32famav8qhdms5k7y5i14nfq89hhvfn5g452jjqzkpcsbl49";
   };
 

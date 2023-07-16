@@ -45,8 +45,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ocaml-ppx/ppx_deriving/releases/download/v${version}/ppx_deriving-v${version}.tbz"
-      ;
+      "https://github.com/ocaml-ppx/ppx_deriving/releases/download/v${version}/ppx_deriving-v${version}.tbz";
     inherit (params) sha256;
   };
 
@@ -74,8 +73,7 @@ buildDunePackage rec {
 
   meta = with lib; {
     description =
-      "deriving is a library simplifying type-driven code generation on OCaml >=4.02."
-      ;
+      "deriving is a library simplifying type-driven code generation on OCaml >=4.02.";
     maintainers = [ maintainers.maurer ];
     license = licenses.mit;
   };

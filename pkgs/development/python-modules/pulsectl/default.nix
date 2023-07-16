@@ -24,8 +24,7 @@ buildPythonPackage rec {
     (substituteAll {
       src = ./library-paths.patch;
       libpulse =
-        "${libpulseaudio.out}/lib/libpulse${stdenv.hostPlatform.extensions.sharedLibrary}"
-        ;
+        "${libpulseaudio.out}/lib/libpulse${stdenv.hostPlatform.extensions.sharedLibrary}";
       librt =
         "${glibc.out}/lib/librt${stdenv.hostPlatform.extensions.sharedLibrary}";
     })
@@ -44,8 +43,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python high-level interface and ctypes-based bindings for PulseAudio (libpulse)"
-      ;
+      "Python high-level interface and ctypes-based bindings for PulseAudio (libpulse)";
     homepage = "https://pypi.python.org/pypi/pulsectl/";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];

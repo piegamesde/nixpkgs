@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Simple and clean GTK theme with vintage scrollbars, inspired by Absolute, based on Adwaita"
-      ;
+      "Simple and clean GTK theme with vintage scrollbars, inspired by Absolute, based on Adwaita";
     homepage = "https://github.com/monday15/lounge-gtk-theme";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;

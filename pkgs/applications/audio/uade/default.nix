@@ -90,8 +90,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Plays old Amiga tunes through UAE emulation and cloned m68k-assembler Eagleplayer API"
-      ;
+      "Plays old Amiga tunes through UAE emulation and cloned m68k-assembler Eagleplayer API";
     homepage = "https://zakalwe.fi/uade/";
       # It's a mix of licenses. "GPL", Public Domain, "LGPL", GPL2+, BSD, LGPL21+ and source code with unknown licenses. E.g.
       # - hippel-coso player is "[not] under any Open Source certified license"

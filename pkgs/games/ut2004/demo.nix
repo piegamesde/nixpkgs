@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://ftp.snt.utwente.nl/pub/games/UT2004/demo/UT2004-LNX-Demo${version}.run.gz"
-      ;
+      "http://ftp.snt.utwente.nl/pub/games/UT2004/demo/UT2004-LNX-Demo${version}.run.gz";
     sha256 = "0d5f84qz8l1rg16yzx2k4ikr46n9iwj68na1bqi87wrww7ck6jh7";
   };
 
@@ -43,8 +42,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A first-person shooter video game developed by Epic Games and Digital Extreme -- demo version"
-      ;
+      "A first-person shooter video game developed by Epic Games and Digital Extreme -- demo version";
     homepage = "http://www.unrealtournament2004.com";
     license = licenses.unfree;
     maintainers = with maintainers; [ abbradar ];

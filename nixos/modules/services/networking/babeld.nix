@@ -115,8 +115,7 @@ in {
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         ExecStart =
-          "${pkgs.babeld}/bin/babeld -c ${configFile} -I /run/babeld/babeld.pid -S /var/lib/babeld/state"
-          ;
+          "${pkgs.babeld}/bin/babeld -c ${configFile} -I /run/babeld/babeld.pid -S /var/lib/babeld/state";
         AmbientCapabilities = [ "CAP_NET_ADMIN" ];
         CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
         DevicePolicy = "closed";

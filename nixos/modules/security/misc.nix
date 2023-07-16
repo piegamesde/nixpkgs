@@ -123,8 +123,7 @@ with lib;
         assertion =
           config.nix.settings.sandbox -> config.security.allowUserNamespaces;
         message =
-          "`nix.settings.sandbox = true` conflicts with `!security.allowUserNamespaces`."
-          ;
+          "`nix.settings.sandbox = true` conflicts with `!security.allowUserNamespaces`.";
       } ];
     })
 
@@ -148,8 +147,7 @@ with lib;
     })
 
     (mkIf (config.security.virtualisation.flushL1DataCache != null) {
-      boot.kernelParams = [ "kvm-intel.vmentry_l1d_flush=${config.security.virtualisation.flushL1DataCache}" ]
-        ;
+      boot.kernelParams = [ "kvm-intel.vmentry_l1d_flush=${config.security.virtualisation.flushL1DataCache}" ];
     })
   ];
 }

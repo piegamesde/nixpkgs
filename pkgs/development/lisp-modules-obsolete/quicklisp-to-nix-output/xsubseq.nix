@@ -12,8 +12,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/xsubseq/2017-08-30/xsubseq-20170830-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/xsubseq/2017-08-30/xsubseq-20170830-git.tgz";
     sha256 = "1am63wkha97hyvkqf4ydx3q07mqpa0chkx65znr7kmqi83a8waml";
   };
 

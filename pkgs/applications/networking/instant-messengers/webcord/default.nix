@@ -80,8 +80,7 @@ buildNpmPackage rec {
 
   meta = with lib; {
     description =
-      "A Discord and Fosscord electron-based client implemented without Discord API"
-      ;
+      "A Discord and Fosscord electron-based client implemented without Discord API";
     homepage = "https://github.com/SpacingBat3/WebCord";
     downloadPage = "https://github.com/SpacingBat3/WebCord/releases";
     changelog =

@@ -11,8 +11,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/Unified_storcli_all_os_${version}00.0000.zip"
-      ;
+      "https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/Unified_storcli_all_os_${version}00.0000.zip";
     sha256 = "sha256-n2MzT2LHLHWMWhshWXJ/Q28w9EnLrW6t7hLNveltxLo=";
   };
 

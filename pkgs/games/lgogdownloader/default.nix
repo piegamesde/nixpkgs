@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Unofficial downloader to GOG.com for Linux users. It uses the same API as the official GOGDownloader"
-      ;
+      "Unofficial downloader to GOG.com for Linux users. It uses the same API as the official GOGDownloader";
     homepage = "https://github.com/Sude-/lgogdownloader";
     license = licenses.wtfpl;
     maintainers = with maintainers; [ _0x4A6F ];

@@ -25,8 +25,7 @@ buildPythonPackage rec {
   patches = [ (fetchpatch {
     name = "switch-to-poetry-core.patch";
     url =
-      "https://github.com/timothycrosley/hypothesis-auto/commit/8277b4232617c0433f80e9c2844452b9fae67a65.patch"
-      ;
+      "https://github.com/timothycrosley/hypothesis-auto/commit/8277b4232617c0433f80e9c2844452b9fae67a65.patch";
     hash = "sha256-/0z0nphtQnUBiLYhhzLZT59kQgktSugaBg+ePNxy0qI=";
   }) ];
 

@@ -105,8 +105,7 @@ in {
       before = [ "display-manager.service" ];
       serviceConfig = {
         ExecStart =
-          "${bumblebee}/bin/bumblebeed --use-syslog -g ${cfg.group} --driver ${cfg.driver} --pm-method ${cfg.pmMethod}"
-          ;
+          "${bumblebee}/bin/bumblebeed --use-syslog -g ${cfg.group} --driver ${cfg.driver} --pm-method ${cfg.pmMethod}";
       };
     };
   };

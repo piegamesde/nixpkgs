@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/jasmin-lang/jasmin/releases/download/v${version}/jasmin-compiler-v${version}.tar.bz2"
-      ;
+      "https://github.com/jasmin-lang/jasmin/releases/download/v${version}/jasmin-compiler-v${version}.tar.bz2";
     hash = "sha256-CGKaFR9Ax0O7BaW42DwYS4Air7zo5fOY2ExHkMGdtqo=";
   };
 

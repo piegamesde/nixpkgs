@@ -103,8 +103,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python library for creating Quantum Instruction Language (Quil) programs"
-      ;
+      "Python library for creating Quantum Instruction Language (Quil) programs";
     homepage = "https://github.com/rigetti/pyquil";
     changelog =
       "https://github.com/rigetti/pyquil/blob/v${version}/CHANGELOG.md";

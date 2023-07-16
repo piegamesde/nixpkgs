@@ -19,8 +19,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/ocaml-rpc/releases/download/${version}/rpclib-${version}.tbz"
-      ;
+      "https://github.com/mirage/ocaml-rpc/releases/download/${version}/rpclib-${version}.tbz";
     hash = "sha256-ziPrdWwCjZN0vRmCMpa923wjfT8FVFLTDRz30VIW6WM=";
   };
 

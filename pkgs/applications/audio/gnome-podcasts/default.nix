@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
     # podcasts-gtk/resources/meson.build:30:0: ERROR: Function does not take positional arguments.
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/World/podcasts/-/commit/6614bb62ecbec7c3b18ea7fe44beb50fe7942b27.patch"
-        ;
+        "https://gitlab.gnome.org/World/podcasts/-/commit/6614bb62ecbec7c3b18ea7fe44beb50fe7942b27.patch";
       sha256 = "3TVKFV9V6Ofdajgkdc+j+yxsU21C4JWSc6GjLExSM00=";
     })
   ];
@@ -95,7 +94,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     maintainers = teams.gnome.members;
     platforms = platforms.unix;
-    broken = stdenv.isDarwin
-      ; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/gnome-podcasts.x86_64-darwin
+    broken =
+      stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/gnome-podcasts.x86_64-darwin
   };
 }

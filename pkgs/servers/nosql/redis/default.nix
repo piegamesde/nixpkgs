@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
     # Fix flaky test tests/unit/memefficiency.tcl
     (fetchpatch {
       url =
-        "https://github.com/redis/redis/commit/bfe50a30edff6837897964ac3374c082b0d9e5da.patch"
-        ;
+        "https://github.com/redis/redis/commit/bfe50a30edff6837897964ac3374c082b0d9e5da.patch";
       sha256 = "sha256-0GMiygbO7LbL1rnuOByOJYE2BKUSI+yy6YH781E2zBw=";
     })
   ];

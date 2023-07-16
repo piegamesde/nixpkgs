@@ -10,8 +10,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/sevmeyer/${pname}/releases/download/${version}/${pname}-${version}.zip"
-      ;
+      "https://github.com/sevmeyer/${pname}/releases/download/${version}/${pname}-${version}.zip";
     stripRoot = false;
     hash = "sha256-xJQ9V7GlGUTEeYhqYFl/SemS6iqV0eW85YOn/tLgA+M=";
   };

@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://knightos.org/";
     description =
-      "Patches jumptables into TI calculator ROM files and generates an include file"
-      ;
+      "Patches jumptables into TI calculator ROM files and generates an include file";
     license = licenses.mit;
     maintainers = with maintainers; [ siraben ];
     platforms = platforms.unix;

@@ -28,8 +28,7 @@ buildOctavePackage rec {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
     description =
-      "Package for the resolution of partial differential equations based on fenics"
-      ;
+      "Package for the resolution of partial differential equations based on fenics";
       # Lots of compilation errors for newer octave versions and syntax errors
     broken = true;
   };

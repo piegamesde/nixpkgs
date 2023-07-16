@@ -38,8 +38,7 @@ rustPlatform.buildRustPackage rec {
     description = "Weather companion for the terminal";
     homepage = "https://github.com/tobealive/wthrr-the-weathercrab";
     changelog =
-      "https://github.com/tobealive/wthrr-the-weathercrab/releases/tag/${src.rev}"
-      ;
+      "https://github.com/tobealive/wthrr-the-weathercrab/releases/tag/${src.rev}";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
   };

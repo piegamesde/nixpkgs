@@ -31,8 +31,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A better alternative to `kubectl port-forward` that can forward TCP or UDP traffic to IP/Host which is accessible inside the cluster."
-      ;
+      "A better alternative to `kubectl port-forward` that can forward TCP or UDP traffic to IP/Host which is accessible inside the cluster.";
     homepage = "https://github.com/knight42/krelay";
     changelog = "https://github.com/knight42/krelay/releases/tag/v${version}";
     license = licenses.mit;

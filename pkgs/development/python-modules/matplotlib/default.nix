@@ -111,9 +111,8 @@ buildPythonPackage rec {
     # script.
   postPatch =
     let
-      tcl_tk_cache =
-        ''"${tk}/lib", "${tcl}/lib", "${lib.strings.substring 0 3 tk.version}"''
-        ;
+      tcl_tk_cache = ''
+        "${tk}/lib", "${tcl}/lib", "${lib.strings.substring 0 3 tk.version}"'';
     in
     lib.optionalString enableTk ''
       sed -i '/self.tcl_tk_cache = None/s|None|${tcl_tk_cache}|' setupext.py

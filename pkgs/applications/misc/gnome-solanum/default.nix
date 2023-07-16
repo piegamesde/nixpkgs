@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
     # https://gitlab.gnome.org/World/Solanum/-/merge_requests/49
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/World/Solanum/-/commit/e5c5d88f95b0fe4145c9ed346b8ca98a613d7cfe.patch"
-        ;
+        "https://gitlab.gnome.org/World/Solanum/-/commit/e5c5d88f95b0fe4145c9ed346b8ca98a613d7cfe.patch";
       sha256 = "j84P9KzMr0o38u4OD4ZPst+yqw1LCRoa1awT3nelFDI=";
     })
   ];

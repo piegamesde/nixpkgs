@@ -35,8 +35,8 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "keybase-gui";
-  version = "6.0.2"
-    ; # Find latest version from https://prerelease.keybase.io/deb/dists/stable/main/binary-amd64/Packages
+  version =
+    "6.0.2"; # Find latest version from https://prerelease.keybase.io/deb/dists/stable/main/binary-amd64/Packages
 
   src = fetchurl {
     url =

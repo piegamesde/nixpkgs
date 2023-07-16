@@ -77,8 +77,7 @@ in {
         ProtectSystem = "strict";
         ReadWritePaths = "/run/initramfs";
         ExecStart =
-          "${pkgs.makeInitrdNGTool}/bin/make-initrd-ng ${ramfsContents} /run/initramfs"
-          ;
+          "${pkgs.makeInitrdNGTool}/bin/make-initrd-ng ${ramfsContents} /run/initramfs";
       };
     };
   };

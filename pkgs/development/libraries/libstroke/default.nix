@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://web.archive.org/web/20161204100704/http://etla.net/libstroke/${pname}-${version}.tar.gz"
-      ;
+      "https://web.archive.org/web/20161204100704/http://etla.net/libstroke/${pname}-${version}.tar.gz";
     sha256 = "0bbpqzsqh9zrc6cg62f6vp1p4dzvv37blsd0gdlzdskgwvyzba8d";
   };
 

@@ -19,8 +19,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A small extensible programming language designed for concise expression with little code"
-      ;
+      "A small extensible programming language designed for concise expression with little code";
     homepage = "https://www.passerine.io/";
     license = licenses.mit;
     maintainers = with maintainers; [ siraben ];

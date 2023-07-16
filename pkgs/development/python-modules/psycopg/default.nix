@@ -53,15 +53,13 @@ let
   patches = [ (substituteAll {
     src = ./ctypes.patch;
     libpq =
-      "${postgresql.lib}/lib/libpq${stdenv.hostPlatform.extensions.sharedLibrary}"
-      ;
+      "${postgresql.lib}/lib/libpq${stdenv.hostPlatform.extensions.sharedLibrary}";
     libc = "${stdenv.cc.libc}/lib/libc.so.6";
   }) ];
 
   baseMeta = {
     changelog =
-      "https://github.com/psycopg/psycopg/blob/${version}/docs/news.rst#current-release"
-      ;
+      "https://github.com/psycopg/psycopg/blob/${version}/docs/news.rst#current-release";
     homepage = "https://github.com/psycopg/psycopg";
     license = lib.licenses.lgpl3Plus;
     maintainers = with lib.maintainers; [ hexa ];
@@ -136,8 +134,7 @@ buildPythonPackage rec {
     # Introduce this file necessary for the docs build via environment var
   LIBPQ_DOCS_FILE = fetchurl {
     url =
-      "https://raw.githubusercontent.com/postgres/postgres/REL_14_STABLE/doc/src/sgml/libpq.sgml"
-      ;
+      "https://raw.githubusercontent.com/postgres/postgres/REL_14_STABLE/doc/src/sgml/libpq.sgml";
     hash = "sha256-yn09fR9+7zQni8SvTG7BUmYRD7MK7u2arVAznWz2oAw=";
   };
 

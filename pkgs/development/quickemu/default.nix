@@ -90,8 +90,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Quickly create and run optimised Windows, macOS and Linux desktop virtual machines"
-      ;
+      "Quickly create and run optimised Windows, macOS and Linux desktop virtual machines";
     homepage = "https://github.com/quickemu-project/quickemu";
     license = licenses.mit;
     maintainers = with maintainers; [ fedx-sudo ];

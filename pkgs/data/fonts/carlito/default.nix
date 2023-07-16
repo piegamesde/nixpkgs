@@ -10,8 +10,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://commondatastorage.googleapis.com/chromeos-localmirror/distfiles/crosextrafonts-carlito-${version}.tar.gz"
-      ;
+      "https://commondatastorage.googleapis.com/chromeos-localmirror/distfiles/crosextrafonts-carlito-${version}.tar.gz";
     sha256 = "sha256-S9ErbLwyHBzxbaduLFhcklzpVqCAZ65vbGTv9sz9r1o=";
   };
 

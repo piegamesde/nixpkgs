@@ -120,7 +120,7 @@ stdenv.mkDerivation rec {
       publicDomain
     ];
     platforms = platforms.linux;
-    priority = 6
-      ; # lower priority than coreutils ("kill") and shadow ("login" etc.) packages
+    priority =
+      6; # lower priority than coreutils ("kill") and shadow ("login" etc.) packages
   };
 }

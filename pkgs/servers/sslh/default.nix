@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Applicative Protocol Multiplexer (e.g. share SSH and HTTPS on the same port)"
-      ;
+      "Applicative Protocol Multiplexer (e.g. share SSH and HTTPS on the same port)";
     license = licenses.gpl2Plus;
     homepage = "https://www.rutschle.net/tech/sslh/README.html";
     maintainers = with maintainers; [

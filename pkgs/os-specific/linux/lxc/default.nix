@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
     # Backport of https://github.com/lxc/lxc/pull/4179 for glibc-2.36 build
     (fetchpatch {
       url =
-        "https://github.com/lxc/lxc/commit/c1115e1503bf955c97f4cf3b925a6a9f619764c3.patch"
-        ;
+        "https://github.com/lxc/lxc/commit/c1115e1503bf955c97f4cf3b925a6a9f619764c3.patch";
       sha256 = "sha256-aC1XQesRJfkyQnloB3NvR4p/1WITrqkGYzw50PDxDrs=";
       excludes = [ "meson.build" ];
     })
@@ -120,8 +119,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://linuxcontainers.org/";
     description =
-      "Userspace tools for Linux Containers, a lightweight virtualization system"
-      ;
+      "Userspace tools for Linux Containers, a lightweight virtualization system";
     license = licenses.lgpl21Plus;
 
     longDescription = ''

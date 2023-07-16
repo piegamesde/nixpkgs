@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://launchpad.net/${pname}/1.0/${version}/+download/${pname}-${version}.tar.xz"
-      ;
+      "https://launchpad.net/${pname}/1.0/${version}/+download/${pname}-${version}.tar.xz";
     sha256 = "17cxlmy7n13jp1v8i4abxyx9hylzb39andhz3mk41ggzmrpa8qm6";
   };
 

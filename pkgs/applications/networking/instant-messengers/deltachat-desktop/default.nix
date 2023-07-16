@@ -145,8 +145,7 @@ buildNpmPackage rec {
     description = "Email-based instant messaging for Desktop";
     homepage = "https://github.com/deltachat/deltachat-desktop";
     changelog =
-      "https://github.com/deltachat/deltachat-desktop/blob/${src.rev}/CHANGELOG.md"
-      ;
+      "https://github.com/deltachat/deltachat-desktop/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     mainProgram = "deltachat";
     maintainers = with maintainers; [ dotlambda ];

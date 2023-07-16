@@ -9,30 +9,26 @@ let
   cdefs_h = fetchurl {
     name = "sys-cdefs.h";
     url =
-      "https://git.alpinelinux.org/aports/plain/main/libc-dev/sys-cdefs.h?id=7ca0ed62d4c0d713d9c7dd5b9a077fba78bce578"
-      ;
+      "https://git.alpinelinux.org/aports/plain/main/libc-dev/sys-cdefs.h?id=7ca0ed62d4c0d713d9c7dd5b9a077fba78bce578";
     sha256 = "16l3dqnfq0f20rzbkhc38v74nqcsh9n3f343bpczqq8b1rz6vfrh";
   };
   queue_h = fetchurl {
     name = "sys-queue.h";
     url =
-      "http://git.alpinelinux.org/aports/plain/main/libc-dev/sys-queue.h?id=7ca0ed62d4c0d713d9c7dd5b9a077fba78bce578"
-      ;
+      "http://git.alpinelinux.org/aports/plain/main/libc-dev/sys-queue.h?id=7ca0ed62d4c0d713d9c7dd5b9a077fba78bce578";
     sha256 = "12qm82id7zys92a1qh2l1qf2wqgq6jr4qlbjmqyfffz3s3nhfd61";
   };
   tree_h = fetchurl {
     name = "sys-tree.h";
     url =
-      "http://git.alpinelinux.org/aports/plain/main/libc-dev/sys-tree.h?id=7ca0ed62d4c0d713d9c7dd5b9a077fba78bce578"
-      ;
+      "http://git.alpinelinux.org/aports/plain/main/libc-dev/sys-tree.h?id=7ca0ed62d4c0d713d9c7dd5b9a077fba78bce578";
     sha256 = "14igk6k00bnpfw660qhswagyhvr0gfqg4q55dxvaaq7ikfkrir71";
   };
 
   stack_chk_fail_local_c = fetchurl {
     name = "__stack_chk_fail_local.c";
     url =
-      "https://git.alpinelinux.org/aports/plain/main/musl/__stack_chk_fail_local.c?id=9afbe3cbbf4c30ff23c733218c3c03d7e8c6461d"
-      ;
+      "https://git.alpinelinux.org/aports/plain/main/musl/__stack_chk_fail_local.c?id=9afbe3cbbf4c30ff23c733218c3c03d7e8c6461d";
     sha256 = "1nhkzzy9pklgjcq2yg89d3l18jif331srd3z3vhy5qwxl1spv6i9";
   };
 
@@ -43,8 +39,7 @@ let
   iconv_c = fetchurl {
     name = "iconv.c";
     url =
-      "https://git.alpinelinux.org/aports/plain/main/musl/iconv.c?id=a3d97e95f766c9c378194ee49361b375f093b26f"
-      ;
+      "https://git.alpinelinux.org/aports/plain/main/musl/iconv.c?id=a3d97e95f766c9c378194ee49361b375f093b26f";
     sha256 = "1mzxnc2ncq8lw9x6n7p00fvfklc9p3wfv28m68j0dfz5l8q2k6pp";
   };
 
@@ -85,16 +80,14 @@ stdenv.mkDerivation rec {
     # Minor touchup to build system making dynamic linker symlink relative
     (fetchurl {
       url =
-        "https://raw.githubusercontent.com/openwrt/openwrt/87606e25afac6776d1bbc67ed284434ec5a832b4/toolchain/musl/patches/300-relative.patch"
-        ;
+        "https://raw.githubusercontent.com/openwrt/openwrt/87606e25afac6776d1bbc67ed284434ec5a832b4/toolchain/musl/patches/300-relative.patch";
       sha256 = "0hfadrycb60sm6hb6by4ycgaqc9sgrhh42k39v8xpmcvdzxrsq2n";
     })
 
     # fix parsing lines with optional fields in fstab etc. NOTE: Remove for the next release since it has been merged upstream
     (fetchurl {
       url =
-        "https://git.musl-libc.org/cgit/musl/patch/?id=751bee0ee727e8d8b003c87cff77ac76f1dbecd6"
-        ;
+        "https://git.musl-libc.org/cgit/musl/patch/?id=751bee0ee727e8d8b003c87cff77ac76f1dbecd6";
       sha256 = "sha256-qCw132TCSaZrkISmtDb8Q8ufyt8sAJdwACkvfwuoi/0=";
     })
   ];

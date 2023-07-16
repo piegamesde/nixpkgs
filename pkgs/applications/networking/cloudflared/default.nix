@@ -75,8 +75,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Cloudflare Tunnel daemon, Cloudflare Access toolkit, and DNS-over-HTTPS client"
-      ;
+      "Cloudflare Tunnel daemon, Cloudflare Access toolkit, and DNS-over-HTTPS client";
     homepage = "https://www.cloudflare.com/products/tunnel";
     changelog =
       "https://github.com/cloudflare/cloudflared/releases/tag/${version}";

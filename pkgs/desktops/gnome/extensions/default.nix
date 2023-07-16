@@ -87,8 +87,7 @@ in rec {
           unite-shell = gnomeExtensions.unite; # added 2021-01-19
           arc-menu = gnomeExtensions.arcmenu; # added 2021-02-14
           disable-unredirect =
-            gnomeExtensions.disable-unredirect-fullscreen-windows
-            ; # added 2021-11-20
+            gnomeExtensions.disable-unredirect-fullscreen-windows; # added 2021-11-20
 
           nohotcorner = throw
             "gnomeExtensions.nohotcorner removed since 2019-10-09: Since 3.34, it is a part of GNOME Shell configurable through GNOME Tweaks."

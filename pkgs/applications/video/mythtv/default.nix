@@ -61,8 +61,7 @@ mkDerivation rec {
     (fetchpatch {
       name = "fix-qmake-var-syntax.patch";
       url =
-        "https://github.com/MythTV/mythtv/commit/a8da7f7e7ec069164adbef65a8104adc9bb52e36.patch"
-        ;
+        "https://github.com/MythTV/mythtv/commit/a8da7f7e7ec069164adbef65a8104adc9bb52e36.patch";
       stripLen = 1;
       hash = "sha256-JfRME00YNNjl6SKs1HBa0wBa/lR/Rt3zbQtWhsC36JM=";
     })

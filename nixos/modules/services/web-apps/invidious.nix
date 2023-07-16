@@ -125,8 +125,7 @@ let
 
     systemd.services.invidious-db-clean = {
       description = "Invidious database cleanup";
-      documentation = [ "https://docs.invidious.io/Database-Information-and-Maintenance.md" ]
-        ;
+      documentation = [ "https://docs.invidious.io/Database-Information-and-Maintenance.md" ];
       startAt = lib.mkDefault "weekly";
       path = [ config.services.postgresql.package ];
       script = ''
@@ -166,8 +165,7 @@ let
     assertions = [ {
       assertion = cfg.domain != null;
       message =
-        "To use services.invidious.nginx, you need to set services.invidious.domain"
-        ;
+        "To use services.invidious.nginx, you need to set services.invidious.domain";
     } ];
   };
 in {

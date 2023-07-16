@@ -33,8 +33,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "An E-component of Network Intrusion Detection System which emulates the IP stack of Linux 2.0.x"
-      ;
+      "An E-component of Network Intrusion Detection System which emulates the IP stack of Linux 2.0.x";
     homepage = "https://libnids.sourceforge.net/";
     license = licenses.gpl2;
     maintainers = [ maintainers.symphorien ];

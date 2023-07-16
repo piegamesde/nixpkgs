@@ -37,8 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     # https://github.com/luarocks/luarocks/pull/1433
     (fetchpatch {
       url =
-        "https://github.com/luarocks/luarocks/commit/d719541577a89909185aa8de7a33cf73b7a63ac3.diff"
-        ;
+        "https://github.com/luarocks/luarocks/commit/d719541577a89909185aa8de7a33cf73b7a63ac3.diff";
       sha256 = "sha256-rMnhZFqLEul0wnsxvw9nl6JXVanC5QgOZ+I/HJ0vRCM=";
     })
   ];

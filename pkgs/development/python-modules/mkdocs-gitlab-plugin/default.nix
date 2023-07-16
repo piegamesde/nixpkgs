@@ -14,8 +14,7 @@ buildPythonPackage rec {
 
   src = fetchzip {
     url =
-      "https://gitlab.inria.fr/vidjil/mkdocs-gitlab-plugin/-/archive/fb87fbfd404839e661a799c540664b1103096a5f/mkdocs-gitlab-plugin-fb87fbfd404839e661a799c540664b1103096a5f.tar.gz"
-      ;
+      "https://gitlab.inria.fr/vidjil/mkdocs-gitlab-plugin/-/archive/fb87fbfd404839e661a799c540664b1103096a5f/mkdocs-gitlab-plugin-fb87fbfd404839e661a799c540664b1103096a5f.tar.gz";
     hash = "sha256-z+U0PRwymDDXVNM7a2Yl4pNNVBxpx/BhJnlx6kgyvww=";
   };
 
@@ -27,8 +26,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "MkDocs plugin to transform strings such as #1234, %56, or !789 into links to a Gitlab repository."
-      ;
+      "MkDocs plugin to transform strings such as #1234, %56, or !789 into links to a Gitlab repository.";
     homepage = "https://gitlab.inria.fr/vidjil/mkdocs-gitlab-plugin";
     license = licenses.mit;
     maintainers = with maintainers; [ snpschaaf ];

@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://forge.ocamlcore.org/frs/download.php/1282/lablgtkextras-${version}.tar.gz"
-      ;
+      "http://forge.ocamlcore.org/frs/download.php/1282/lablgtkextras-${version}.tar.gz";
     sha256 = "09fqxwdib7r9yxynknc9gv3jw2hnhj5cak7q5jngk6m8rzvmhfcc";
   };
 
@@ -41,8 +40,7 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ vbgl ];
     homepage = "http://gtk-extras.forge.ocamlcore.org/";
     description =
-      "A collection of libraries and modules useful when developing OCaml/LablGtk2 applications"
-      ;
+      "A collection of libraries and modules useful when developing OCaml/LablGtk2 applications";
     license = lib.licenses.lgpl2Plus;
     branch = "1.4";
   };

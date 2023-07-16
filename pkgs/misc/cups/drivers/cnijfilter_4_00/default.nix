@@ -47,8 +47,7 @@ stdenv.mkDerivation {
 
   src = fetchzip {
     url =
-      "http://gdlp01.c-wss.com/gds/5/0100005515/01/cnijfilter-source-4.00-1.tar.gz"
-      ;
+      "http://gdlp01.c-wss.com/gds/5/0100005515/01/cnijfilter-source-4.00-1.tar.gz";
     sha256 = "1f6vpx1z3qa88590i5m0s49j9n90vpk81xmw6pvj0nfd3qbvzkya";
   };
 
@@ -178,11 +177,9 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "Canon InkJet printer drivers for the MG2400 MG2500 MG3500 MG5500 MG6400 MG6500 MG7100 and P200 series"
-      ;
+      "Canon InkJet printer drivers for the MG2400 MG2500 MG3500 MG5500 MG6400 MG6500 MG7100 and P200 series";
     homepage =
-      "https://www.canon-europe.com/support/consumer_products/products/fax__multifunctionals/inkjet/pixma_mg_series/pixma_mg5550.aspx?type=drivers&driverdetailid=tcm:13-1094072"
-      ;
+      "https://www.canon-europe.com/support/consumer_products/products/fax__multifunctionals/inkjet/pixma_mg_series/pixma_mg5550.aspx?type=drivers&driverdetailid=tcm:13-1094072";
     sourceProvenance = with sourceTypes; [
       fromSource
       binaryNativeCode

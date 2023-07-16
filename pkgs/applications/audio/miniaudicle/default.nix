@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://audicle.cs.princeton.edu/mini/release/files/miniAudicle-${version}.tgz"
-      ;
+      "https://audicle.cs.princeton.edu/mini/release/files/miniAudicle-${version}.tgz";
     hash = "sha256-dakDz69uHbKZFj8z67CubmRXEQ5X6GuYqlCXXvLzqSI=";
   };
 
@@ -52,8 +51,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A light-weight integrated development environment for the ChucK digital audio programming language"
-      ;
+      "A light-weight integrated development environment for the ChucK digital audio programming language";
     homepage = "https://audicle.cs.princeton.edu/mini/";
     downloadPage = "https://audicle.cs.princeton.edu/mini/linux/";
     license = licenses.gpl2Plus;

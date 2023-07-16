@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A simple backend for KRunner providing SSH hosts from your .ssh/known_hosts file as search results"
-      ;
+      "A simple backend for KRunner providing SSH hosts from your .ssh/known_hosts file as search results";
     homepage = "https://selfcoders.com/projects/krunner-ssh";
     license = licenses.mit;
     maintainers = with maintainers; [ aanderse ];

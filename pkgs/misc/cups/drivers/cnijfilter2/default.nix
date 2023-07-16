@@ -19,8 +19,7 @@ stdenv.mkDerivation {
 
   src = fetchzip {
     url =
-      "https://gdlp01.c-wss.com/gds/1/0100011381/01/cnijfilter2-source-6.40-1.tar.gz"
-      ;
+      "https://gdlp01.c-wss.com/gds/1/0100011381/01/cnijfilter2-source-6.40-1.tar.gz";
     sha256 = "3RoG83jLOsdTEmvUkkxb7wa8oBrJA4v1mGtxTGwSowU=";
   };
 

@@ -73,8 +73,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Modern, extensible Python project manager";
     homepage = "https://hatch.pypa.io/latest/";
     changelog =
-      "https://github.com/pypa/hatch/blob/hatch-v${version}/docs/history.md#hatch"
-      ;
+      "https://github.com/pypa/hatch/blob/hatch-v${version}/docs/history.md#hatch";
     license = licenses.mit;
     maintainers = with maintainers; [ onny ];
   };

@@ -89,8 +89,7 @@ let
 
   mscgenFilterSrc = fetchurl {
     url =
-      "https://asciidoc-mscgen-filter.googlecode.com/files/mscgen-filter-1.2.zip"
-      ;
+      "https://asciidoc-mscgen-filter.googlecode.com/files/mscgen-filter-1.2.zip";
     sha256 = "1nfwmj375gpv5dn9i770pjv59aihzy2kja0fflsk96xwnlqsqq61";
   };
 
@@ -102,8 +101,7 @@ let
 
   qrcodeFilterSrc = fetchurl {
     url =
-      "https://asciidoc-qrencode-filter.googlecode.com/files/qrcode-filter-1.0.zip"
-      ;
+      "https://asciidoc-qrencode-filter.googlecode.com/files/qrcode-filter-1.0.zip";
     sha256 = "0h4bql1nb4y4fmg2yvlpfjhvy22ln8jsaxdr10f8bfcg5lr0zkxs";
   };
 
@@ -121,8 +119,7 @@ let
 
   aafigureFilterSrc = fetchurl {
     url =
-      "https://asciidoc-aafigure-filter.googlecode.com/files/aafigure-filter-1.1.zip"
-      ;
+      "https://asciidoc-aafigure-filter.googlecode.com/files/aafigure-filter-1.1.zip";
     sha256 = "1hq2s30dvmv5dqvj0xm1qwdwafhgm9w1iyr0lr0c40cyk8h00j8j";
   };
 
@@ -331,8 +328,7 @@ python3.pkgs.buildPythonApplication rec {
       [ fromSource ] ++ lib.optional _enableDitaaFilter binaryBytecode;
     homepage = "https://asciidoc-py.github.io/";
     changelog =
-      "https://github.com/asciidoc-py/asciidoc-py/blob/${version}/CHANGELOG.adoc"
-      ;
+      "https://github.com/asciidoc-py/asciidoc-py/blob/${version}/CHANGELOG.adoc";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [

@@ -154,8 +154,7 @@ buildPythonPackage rec {
     description = "Serves multiple Jupyter notebook instances";
     homepage = "https://jupyter.org/";
     changelog =
-      "https://github.com/jupyterhub/jupyterhub/blob/${version}/docs/source/changelog.md"
-      ;
+      "https://github.com/jupyterhub/jupyterhub/blob/${version}/docs/source/changelog.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [
       ixxie

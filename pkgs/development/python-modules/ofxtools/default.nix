@@ -30,8 +30,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/csingley/ofxtools";
     description =
-      "Library for working with Open Financial Exchange (OFX) formatted data used by financial institutions"
-      ;
+      "Library for working with Open Financial Exchange (OFX) formatted data used by financial institutions";
     license = licenses.mit;
   };
 }

@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/sbt/sbt/releases/download/v${version}/sbt-${version}.tgz"
-      ;
+      "https://github.com/sbt/sbt/releases/download/v${version}/sbt-${version}.tgz";
     sha256 = "sha256-H2U0TaB029Zt/vqTwO/40xnXcuXK1H/L62rheLvfRoY=";
   };
 

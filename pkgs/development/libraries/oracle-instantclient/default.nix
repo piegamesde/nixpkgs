@@ -92,8 +92,7 @@ let
     srcFilename: hash:
     fetchurl {
       url =
-        "https://download.oracle.com/otn_software/${shortArch}/instantclient/${directory}/${srcFilename}"
-        ;
+        "https://download.oracle.com/otn_software/${shortArch}/instantclient/${directory}/${srcFilename}";
       sha256 = hash;
     }
     ;

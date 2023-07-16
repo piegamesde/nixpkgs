@@ -52,8 +52,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog =
-      "https://github.com/asfadmin/Discovery-asf_search/blob/${src.rev}/CHANGELOG.md"
-      ;
+      "https://github.com/asfadmin/Discovery-asf_search/blob/${src.rev}/CHANGELOG.md";
     description = "Python wrapper for the ASF SearchAPI";
     homepage = "https://github.com/asfadmin/Discovery-asf_search";
     license = licenses.bsd3;

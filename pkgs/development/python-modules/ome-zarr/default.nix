@@ -33,8 +33,7 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "fix-writer-bug";
       url =
-        "https://github.com/ome/ome-zarr-py/commit/c1302e05998dfe2faf94b0f958c92888681f5ffa.patch"
-        ;
+        "https://github.com/ome/ome-zarr-py/commit/c1302e05998dfe2faf94b0f958c92888681f5ffa.patch";
       hash = "sha256-1WANObABUXkjqeGdnmg0qJ48RcZcuAwgitZyMwiRYUw=";
     })
   ];
@@ -73,8 +72,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Implementation of next-generation file format (NGFF) specifications for storing bioimaging data in the cloud."
-      ;
+      "Implementation of next-generation file format (NGFF) specifications for storing bioimaging data in the cloud.";
     homepage = "https://pypi.org/project/ome-zarr";
     changelog =
       "https://github.com/ome/ome-zarr-py/blob/v${version}/CHANGELOG.md";

@@ -66,8 +66,7 @@ python3.pkgs.buildPythonApplication rec {
     changelog =
       "https://docs.saltproject.io/en/latest/topics/releases/${version}.html";
     description =
-      "Portable, distributed, remote execution and configuration management system"
-      ;
+      "Portable, distributed, remote execution and configuration management system";
     maintainers = with maintainers; [ Flakebi ];
     license = licenses.asl20;
   };

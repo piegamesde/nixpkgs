@@ -33,12 +33,10 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Karton service that uploads analyzed artifacts and metadata to MWDB Core"
-      ;
+      "Karton service that uploads analyzed artifacts and metadata to MWDB Core";
     homepage = "https://github.com/CERT-Polska/karton-mwdb-reporter";
     changelog =
-      "https://github.com/CERT-Polska/karton-mwdb-reporter/releases/tag/v${version}"
-      ;
+      "https://github.com/CERT-Polska/karton-mwdb-reporter/releases/tag/v${version}";
     license = with licenses; [ bsd3 ];
     maintainers = with maintainers; [ fab ];
   };

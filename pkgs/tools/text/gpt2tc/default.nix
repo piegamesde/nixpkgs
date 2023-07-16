@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://web.archive.org/web/20220603034455/https://bellard.org/libnc/gpt2tc-2021-04-24.tar.gz"
-      ;
+      "https://web.archive.org/web/20220603034455/https://bellard.org/libnc/gpt2tc-2021-04-24.tar.gz";
     hash = "sha256-6oTxnbBwjHAXVrWMjOQVwdODbqLRoinx00pi29ff5w0=";
   };
 

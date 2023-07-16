@@ -55,8 +55,8 @@ stdenv.mkDerivation rec {
       --replace /usr/share/doc $out/share/doc
   '';
 
-  enableParallelBuilding = false
-    ; # Undeclared dependencies + https://stackoverflow.com/a/19822767/1687334 for prolog.ps.
+  enableParallelBuilding =
+    false; # Undeclared dependencies + https://stackoverflow.com/a/19822767/1687334 for prolog.ps.
 
   meta = with lib; {
     homepage = "http://www.arkkra.com/";

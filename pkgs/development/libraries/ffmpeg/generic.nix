@@ -460,8 +460,7 @@ stdenv.mkDerivation (finalAttrs: {
       && lib.versionOlder version "6.1") { # this can be removed post 6.1
         name = "fix_aacps_tablegen";
         url =
-          "https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/814178f92647be2411516bbb82f48532373d2554"
-          ;
+          "https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/814178f92647be2411516bbb82f48532373d2554";
         hash = "sha256-FQV9/PiarPXCm45ldtCsxGHjlrriL8DKpn1LaKJ8owI=";
       }));
 
@@ -783,8 +782,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     description =
-      "A complete, cross-platform solution to record, convert and stream audio and video"
-      ;
+      "A complete, cross-platform solution to record, convert and stream audio and video";
     homepage = "https://www.ffmpeg.org/";
     changelog = "https://github.com/FFmpeg/FFmpeg/blob/n${version}/Changelog";
     longDescription = ''

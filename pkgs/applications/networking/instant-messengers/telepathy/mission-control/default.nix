@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://telepathy.freedesktop.org/releases/${pname}/${pname}-${version}.tar.gz"
-      ;
+      "https://telepathy.freedesktop.org/releases/${pname}/${pname}-${version}.tar.gz";
     sha256 = "0ibs575pfr0wmhfcw6ln6iz7gw2y45l3bah11rksf6g9jlwsxy1d";
   };
 

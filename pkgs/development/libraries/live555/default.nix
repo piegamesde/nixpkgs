@@ -73,8 +73,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://www.live555.com/liveMedia/";
     description =
-      "Set of C++ libraries for multimedia streaming, using open standard protocols (RTP/RTCP, RTSP, SIP)"
-      ;
+      "Set of C++ libraries for multimedia streaming, using open standard protocols (RTP/RTCP, RTSP, SIP)";
     changelog = "http://www.live555.com/liveMedia/public/changelog.txt";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ AndersonTorres ];

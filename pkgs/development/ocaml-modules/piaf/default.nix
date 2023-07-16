@@ -27,8 +27,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/anmonteiro/piaf/releases/download/${version}/piaf-${version}.tbz"
-      ;
+      "https://github.com/anmonteiro/piaf/releases/download/${version}/piaf-${version}.tbz";
     hash = "sha256-AMO+ptGox33Bi7u/H0SaeCU88XORrRU3UbLof3EwcmU=";
   };
 

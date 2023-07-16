@@ -26,15 +26,13 @@ gnustep.stdenv.mkDerivation rec {
     (fetchpatch {
       name = "sope-no-unnecessary-vars.patch";
       url =
-        "https://github.com/Alinto/sope/commit/0751a2f11961fd7de4e2728b6e34e9ba4ba5887e.patch"
-        ;
+        "https://github.com/Alinto/sope/commit/0751a2f11961fd7de4e2728b6e34e9ba4ba5887e.patch";
       hash = "sha256-1txj8Qehg2N7ZsiYQA2FXI4peQAE3HUwDYkJEP9WnEk=";
     })
     (fetchpatch {
       name = "sope-fix-wformat.patch";
       url =
-        "https://github.com/Alinto/sope/commit/6adfadd5dd2da4041657ad071892f2c9b1704d22.patch"
-        ;
+        "https://github.com/Alinto/sope/commit/6adfadd5dd2da4041657ad071892f2c9b1704d22.patch";
       hash = "sha256-zCbvVdbeBeNo3/cDVdYbyUUC2z8D6Q5ga0plUoMqr98=";
     })
   ];
@@ -82,8 +80,7 @@ gnustep.stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "An extensive set of frameworks which form a complete Web application server environment"
-      ;
+      "An extensive set of frameworks which form a complete Web application server environment";
     license = licenses.publicDomain;
     homepage = "https://github.com/inverse-inc/sope";
     platforms = platforms.linux;

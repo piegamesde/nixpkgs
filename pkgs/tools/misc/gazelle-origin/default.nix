@@ -31,8 +31,7 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Tool for generating origin files using the API of Gazelle-based torrent trackers"
-      ;
+      "Tool for generating origin files using the API of Gazelle-based torrent trackers";
     homepage = "https://github.com/spinfast319/gazelle-origin";
       # TODO license is unspecified in the upstream, as well as the fork
     license = licenses.unfree;

@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://ruby.chemie.uni-freiburg.de/~martin/${pname}/${pname}-${version}.tar.gz"
-      ;
+      "http://ruby.chemie.uni-freiburg.de/~martin/${pname}/${pname}-${version}.tar.gz";
     sha256 = "hhYaBGE4azNKX/sXzfCUpJGUGIRngnL0V0mBNRTdr8s=";
   };
 

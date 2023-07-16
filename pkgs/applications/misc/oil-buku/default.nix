@@ -44,8 +44,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Search-as-you-type cli frontend for the buku bookmarks manager using peco"
-      ;
+      "Search-as-you-type cli frontend for the buku bookmarks manager using peco";
     homepage = "https://github.com/AndreiUlmeyda/oil";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ atila ];

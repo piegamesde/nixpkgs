@@ -31,8 +31,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "IPython extension for printing date and timestamps, version numbers, and hardware information"
-      ;
+      "IPython extension for printing date and timestamps, version numbers, and hardware information";
     homepage = "https://github.com/rasbt/watermark";
     license = licenses.bsd3;
     maintainers = with maintainers; [ nphilou ];

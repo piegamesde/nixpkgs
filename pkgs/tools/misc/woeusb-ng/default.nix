@@ -47,8 +47,7 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "A tool to create a Windows USB stick installer from a real Windows DVD or image"
-      ;
+      "A tool to create a Windows USB stick installer from a real Windows DVD or image";
     homepage = "https://github.com/WoeUSB/WoeUSB-ng";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ stunkymonkey ];

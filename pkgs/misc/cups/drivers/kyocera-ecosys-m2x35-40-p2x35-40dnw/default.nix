@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
     in
     fetchzip {
       url =
-        "https://www.kyoceradocumentsolutions.de/content/download-center/de/drivers/all/Linux_${urlVersion}_ECOSYS_M2x35_40_P2x35_40dnw_zip.download.zip"
-        ;
+        "https://www.kyoceradocumentsolutions.de/content/download-center/de/drivers/all/Linux_${urlVersion}_ECOSYS_M2x35_40_P2x35_40dnw_zip.download.zip";
       sha256 = "10crxdfj62ini70vv471445zi6q0l9fmg2jsd74sp6fr0qa0kvr7";
     }
     ;
@@ -33,8 +32,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "PPD files for Kyocera ECOSYS M2040dn/M2135dn/M2540dn/M2540dw/M2635dn/M2635dw/M2640idw/M2735dw/P2040dn/M2040dw/P2235dn/P2235dw"
-      ;
+      "PPD files for Kyocera ECOSYS M2040dn/M2135dn/M2540dn/M2540dw/M2635dn/M2635dw/M2640idw/M2735dw/P2040dn/M2040dw/P2235dn/P2235dw";
     homepage = "https://www.kyoceradocumentsolutions.com";
     license = licenses.unfree;
     maintainers = with maintainers; [ hexa ];

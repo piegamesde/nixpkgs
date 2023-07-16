@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
     (substituteAll {
       src = ./hardcode-libcurl.patch;
       libcurl =
-        "${curl.out}/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary}"
-        ;
+        "${curl.out}/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary}";
     })
   ];
 

@@ -27,8 +27,7 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Standalone pandoc filter from the pandoc-xnos suite for numbering equations and equation references"
-      ;
+      "Standalone pandoc filter from the pandoc-xnos suite for numbering equations and equation references";
     homepage = "https://github.com/tomduck/pandoc-eqnos";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ ppenguin ];

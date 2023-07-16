@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
     # Reverts https://github.com/JoseExposito/touchegg/pull/603
     (fetchpatch {
       url =
-        "https://github.com/JoseExposito/touchegg/commit/34e947181d84620021601e7f28deb1983a154da8.patch"
-        ;
+        "https://github.com/JoseExposito/touchegg/commit/34e947181d84620021601e7f28deb1983a154da8.patch";
       sha256 = "sha256-qbWwmEzVXvDAhhrGvMkKN4YNtnFfRW+Yra+i6VEQX4g=";
       revert = true;
     })
@@ -42,8 +41,7 @@ stdenv.mkDerivation rec {
     # config does not conflict with Pantheon switchboard settings.
     (fetchpatch {
       url =
-        "https://github.com/elementary/os-patches/commit/7d9b133e02132d7f13cf2fe850b2fe4c015c3c5e.patch"
-        ;
+        "https://github.com/elementary/os-patches/commit/7d9b133e02132d7f13cf2fe850b2fe4c015c3c5e.patch";
       sha256 = "sha256-ZOGVkxiXoTORXC6doz5r9IObAbYjhsDjgg3HtzlTSUc=";
     })
   ];

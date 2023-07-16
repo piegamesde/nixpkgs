@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/andrenth/ocaml-mariadb/releases/download/${version}/ocaml-mariadb-${version}.tar.gz"
-      ;
+      "https://github.com/andrenth/ocaml-mariadb/releases/download/${version}/ocaml-mariadb-${version}.tar.gz";
     sha256 = "sha256-3/C1Gz6luUzS7oaudLlDHMT6JB2v5OdbLVzJhtayHGM=";
   };
 

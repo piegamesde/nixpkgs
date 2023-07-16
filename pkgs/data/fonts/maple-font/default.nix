@@ -18,8 +18,7 @@ let
       version = "6.3";
       src = fetchurl {
         url =
-          "https://github.com/subframe7536/Maple-font/releases/download/v${version}/${pname}.zip"
-          ;
+          "https://github.com/subframe7536/Maple-font/releases/download/v${version}/${pname}.zip";
         inherit sha256;
       };
 

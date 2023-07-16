@@ -65,8 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
       and run under Linux and macOS.
     '';
     changelog =
-      "https://github.com/bradharding/doomretro/releases/tag/${finalAttrs.src.rev}"
-      ;
+      "https://github.com/bradharding/doomretro/releases/tag/${finalAttrs.src.rev}";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ AndersonTorres ];
     platforms = lib.platforms.unix;

@@ -36,8 +36,7 @@ let
 
   helpersBin = symlinkJoin {
     name =
-      "${buildah-unwrapped.pname}-helper-binary-wrapper-${buildah-unwrapped.version}"
-      ;
+      "${buildah-unwrapped.pname}-helper-binary-wrapper-${buildah-unwrapped.version}";
 
       # this only works for some binaries, others may need to be be added to `binPath` or in the modules
     paths = [ ] ++ lib.optionals stdenv.isLinux [

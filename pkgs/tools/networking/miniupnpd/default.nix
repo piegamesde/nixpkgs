@@ -68,8 +68,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://miniupnp.tuxfamily.org/";
     description =
-      "A daemon that implements the UPnP Internet Gateway Device (IGD) specification"
-      ;
+      "A daemon that implements the UPnP Internet Gateway Device (IGD) specification";
     platforms = platforms.linux;
     license = licenses.bsd3;
   };

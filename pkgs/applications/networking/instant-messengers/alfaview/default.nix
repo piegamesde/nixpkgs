@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://production-alfaview-assets.alfaview.com/stable/linux/${pname}_${version}.deb"
-      ;
+      "https://production-alfaview-assets.alfaview.com/stable/linux/${pname}_${version}.deb";
     sha256 = "sha256-/1qYC2JCbgiR8fGL9R0mnRm8fY1DbAKhkjkDwEENWsA=";
   };
 
@@ -95,8 +94,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Video-conferencing application, specialized in virtual online meetings, seminars, training sessions and conferences"
-      ;
+      "Video-conferencing application, specialized in virtual online meetings, seminars, training sessions and conferences";
     homepage = "https://alfaview.com";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

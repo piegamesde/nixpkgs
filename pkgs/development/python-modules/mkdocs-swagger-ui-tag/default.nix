@@ -31,8 +31,7 @@ buildPythonPackage rec {
     description = "A MkDocs plugin supports for add Swagger UI in page";
     homepage = "https://github.com/Blueswen/mkdocs-swagger-ui-tag";
     changelog =
-      "https://github.com/blueswen/mkdocs-swagger-ui-tag/blob/v${version}/CHANGELOG"
-      ;
+      "https://github.com/blueswen/mkdocs-swagger-ui-tag/blob/v${version}/CHANGELOG";
     license = licenses.mit;
     maintainers = with maintainers; [ snpschaaf ];
   };

@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.signalyst.eu/bins/${pname}/fc36/${pname}-${version}.fc36.x86_64.rpm"
-      ;
+      "https://www.signalyst.eu/bins/${pname}/fc36/${pname}-${version}.fc36.x86_64.rpm";
     hash = "sha256-MCRZ0XKi6pztVTuPQpPEn6wHsOwtSxR0Px9r12jnC9U=";
   };
 

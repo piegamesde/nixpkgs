@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
     # Fix build failure when _SC_PHYS_PAGES is not defined
     (fetchpatch {
       url =
-        "https://codeberg.org/nsxiv/nsxiv/commit/1a50bff9f300f84e93a6e7035657e6029e7e8183.patch"
-        ;
+        "https://codeberg.org/nsxiv/nsxiv/commit/1a50bff9f300f84e93a6e7035657e6029e7e8183.patch";
       hash = "sha256-PpUqGVWaJ06EVu3tBKVzOh8HYvT6wAG3bvY6wUD+dTM=";
     })
   ];

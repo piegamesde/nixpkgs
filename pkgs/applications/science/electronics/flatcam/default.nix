@@ -21,8 +21,7 @@ let
           };
             # Environment variable used in shapely/_buildcfg.py
           GEOS_LIBRARY_PATH =
-            "${geos}/lib/libgeos_c${stdenv.hostPlatform.extensions.sharedLibrary}"
-            ;
+            "${geos}/lib/libgeos_c${stdenv.hostPlatform.extensions.sharedLibrary}";
           patches = [
             # Patch to search form GOES .so/.dylib files in a Nix-aware way
             (substituteAll {
@@ -67,8 +66,7 @@ python.pkgs.buildPythonApplication rec {
   packaging_fix_pull_request_patch = fetchpatch {
     name = "packaging_fix_pull_request.patch";
     url =
-      "https://bitbucket.org/trepetti/flatcam/commits/5591ed889d1f48a5190fe237b562cb932cb5876c/raw"
-      ;
+      "https://bitbucket.org/trepetti/flatcam/commits/5591ed889d1f48a5190fe237b562cb932cb5876c/raw";
     sha256 = "19rhjdrf1n1q29cgpcry6pl2kl90zq0d613hhkwdir9bhq5bkknp";
   };
 

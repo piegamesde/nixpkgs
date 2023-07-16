@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
     # https://gitlab.gnome.org/GNOME/gnome-nettool/-/merge_requests/3
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/gnome-nettool/-/commit/1124c3e1fdb8472d30b7636500229aa16cdc1244.patch"
-        ;
+        "https://gitlab.gnome.org/GNOME/gnome-nettool/-/commit/1124c3e1fdb8472d30b7636500229aa16cdc1244.patch";
       sha256 = "fbpfL8Xb1GsadpQzAdmu8FSPs++bsGCVdcwnzQWttGY=";
     })
   ];

@@ -154,8 +154,7 @@ pkgs.mkShell rec {
 
     # Ensures that we don't have to use a FHS env by using the nix store's aapt2.
   GRADLE_OPTS =
-    "-Dorg.gradle.project.android.aapt2FromMavenOverride=${ANDROID_SDK_ROOT}/build-tools/${android.versions.buildTools}/aapt2"
-    ;
+    "-Dorg.gradle.project.android.aapt2FromMavenOverride=${ANDROID_SDK_ROOT}/build-tools/${android.versions.buildTools}/aapt2";
 
   shellHook = ''
     # Add cmake to the path.

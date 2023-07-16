@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "RedWax CA service modules for SCEP (Automatic ceritifcate issue/renewal)"
-      ;
+      "RedWax CA service modules for SCEP (Automatic ceritifcate issue/renewal)";
 
     homepage = "https://redwax.eu";
     license = licenses.asl20;

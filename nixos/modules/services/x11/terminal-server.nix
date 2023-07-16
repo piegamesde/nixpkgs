@@ -56,8 +56,7 @@ with lib;
         StandardOutput = "socket";
         StandardError = "journal";
         ExecStart =
-          "@${pkgs.x11vnc}/bin/x11vnc x11vnc -inetd -display WAIT:1024x786:cmd=FINDCREATEDISPLAY-Xvfb.xdmcp -unixpw -ssl SAVE"
-          ;
+          "@${pkgs.x11vnc}/bin/x11vnc x11vnc -inetd -display WAIT:1024x786:cmd=FINDCREATEDISPLAY-Xvfb.xdmcp -unixpw -ssl SAVE";
           # Don't kill the X server when the user quits the VNC
           # connection.  FIXME: the X server should run in a
           # separate systemd session.

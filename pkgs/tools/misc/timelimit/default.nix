@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Execute a command and terminates the spawned process after a given time with a given signal"
-      ;
+      "Execute a command and terminates the spawned process after a given time with a given signal";
     homepage = "https://devel.ringlet.net/sysutils/timelimit/";
     license = licenses.bsd2;
     platforms = platforms.all;

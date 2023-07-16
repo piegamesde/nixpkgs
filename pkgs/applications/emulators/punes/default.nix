@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
     # Remove when version > 0.110
     (fetchpatch {
       url =
-        "https://github.com/punesemu/puNES/commit/90dd5bc90412bbd199c2716f67a24aa88b24d80f.patch"
-        ;
+        "https://github.com/punesemu/puNES/commit/90dd5bc90412bbd199c2716f67a24aa88b24d80f.patch";
       hash = "sha256-/KNpTds4qjwyaTUebWWPlVXfuxVh6M4zOInxUfYztJg=";
     })
   ];
@@ -75,8 +74,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Qt-based Nintendo Entertainment System emulator and NSF/NSFe Music Player"
-      ;
+      "Qt-based Nintendo Entertainment System emulator and NSF/NSFe Music Player";
     homepage = "https://github.com/punesemu/puNES";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ OPNA2608 ];

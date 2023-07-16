@@ -34,8 +34,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "haiwen";
     repo = "seafile-server";
-    rev = "881c270aa8d99ca6648e7aa1458fc283f38e6f31"
-      ; # using a fixed revision because upstream may re-tag releases :/
+    rev =
+      "881c270aa8d99ca6648e7aa1458fc283f38e6f31"; # using a fixed revision because upstream may re-tag releases :/
     sha256 = "sha256-M1jIysirtl1KKyEvScOIshLvSa5vjxTdFEARgy8bLTc=";
   };
 
@@ -69,8 +69,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "File syncing and sharing software with file encryption and group sharing, emphasis on reliability and high performance"
-      ;
+      "File syncing and sharing software with file encryption and group sharing, emphasis on reliability and high performance";
     homepage = "https://github.com/haiwen/seafile-server";
     license = licenses.agpl3Plus;
     platforms = platforms.linux;

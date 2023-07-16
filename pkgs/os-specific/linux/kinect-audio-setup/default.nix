@@ -13,8 +13,7 @@ let
   # by the upstream projet.
   # The firmware URL is hardcoded in the upstream project's installation script
   firmwareUrl =
-    "https://download.microsoft.com/download/F/9/9/F99791F2-D5BE-478A-B77A-830AD14950C3/KinectSDK-v1.0-beta2-x86.msi"
-    ;
+    "https://download.microsoft.com/download/F/9/9/F99791F2-D5BE-478A-B77A-830AD14950C3/KinectSDK-v1.0-beta2-x86.msi";
     # The original URL "https://research.microsoft.com/en-us/um/legal/kinectsdk-tou_noncommercial.htm"
     # redirects to the following url:
   licenseUrl = "https://www.microsoft.com/en-us/legal/terms-of-use";

@@ -528,8 +528,7 @@ let
       string = separatedString "" // {
         name = "string";
         deprecationMessage =
-          "See https://github.com/NixOS/nixpkgs/pull/66346 for better alternative types."
-          ;
+          "See https://github.com/NixOS/nixpkgs/pull/66346 for better alternative types.";
       };
 
       passwdEntry =
@@ -621,9 +620,9 @@ let
           list = addCheck (types.listOf elemType) (l: l != [ ]);
         in
         list // {
-          description =
-            "non-empty ${optionDescriptionPhrase (class: class == "noun") list}"
-            ;
+          description = "non-empty ${
+              optionDescriptionPhrase (class: class == "noun") list
+            }";
           emptyValue = { }; # no .value attr, meaning unset
         }
         ;

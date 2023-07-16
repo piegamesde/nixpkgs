@@ -190,8 +190,7 @@ in {
         Type = "dbus";
         BusName = "uk.org.thekelleys.dnsmasq";
         ExecStart =
-          "${dnsmasq}/bin/dnsmasq -k --enable-dbus --user=dnsmasq -C ${dnsmasqConf}"
-          ;
+          "${dnsmasq}/bin/dnsmasq -k --enable-dbus --user=dnsmasq -C ${dnsmasqConf}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         PrivateTmp = true;
         ProtectSystem = true;

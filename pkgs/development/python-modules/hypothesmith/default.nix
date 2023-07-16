@@ -60,8 +60,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Hypothesis strategies for generating Python programs, something like CSmith"
-      ;
+      "Hypothesis strategies for generating Python programs, something like CSmith";
     homepage = "https://github.com/Zac-HD/hypothesmith";
     license = licenses.mpl20;
     maintainers = with maintainers; [ SuperSandro2000 ];

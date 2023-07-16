@@ -30,8 +30,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "AMD Processor microcode patch";
     homepage =
-      "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git"
-      ;
+      "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git";
     license = licenses.unfreeRedistributableFirmware;
     platforms = platforms.linux;
   };

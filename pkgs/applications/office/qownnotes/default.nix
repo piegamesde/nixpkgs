@@ -56,8 +56,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "Plain-text file notepad and todo-list manager with markdown support and Nextcloud/ownCloud integration"
-      ;
+      "Plain-text file notepad and todo-list manager with markdown support and Nextcloud/ownCloud integration";
     homepage = "https://www.qownnotes.org/";
     changelog = "https://www.qownnotes.org/changelog.html";
     downloadPage = "https://github.com/pbek/QOwnNotes/releases/tag/v${version}";

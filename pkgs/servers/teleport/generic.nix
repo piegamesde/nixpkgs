@@ -180,8 +180,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Certificate authority and access plane for SSH, Kubernetes, web applications, and databases"
-      ;
+      "Certificate authority and access plane for SSH, Kubernetes, web applications, and databases";
     homepage = "https://goteleport.com/";
     license = licenses.asl20;
     maintainers = with maintainers; [

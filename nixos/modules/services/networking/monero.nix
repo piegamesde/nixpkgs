@@ -230,8 +230,7 @@ in {
         User = "monero";
         Group = "monero";
         ExecStart =
-          "${pkgs.monero-cli}/bin/monerod --config-file=${configFile} --non-interactive"
-          ;
+          "${pkgs.monero-cli}/bin/monerod --config-file=${configFile} --non-interactive";
         Restart = "always";
         SuccessExitStatus = [
           0

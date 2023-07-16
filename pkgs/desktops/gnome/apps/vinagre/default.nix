@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://gitlab.gnome.org/GNOME/vinagre/-/commit/c51662cf4338516773d64776c3c92796917ff2bd.diff"
-        ;
+        "https://gitlab.gnome.org/GNOME/vinagre/-/commit/c51662cf4338516773d64776c3c92796917ff2bd.diff";
       sha256 = "0zn8cd93hjdz6rw2d7gfl1ghzkc9h0x40k9l0jx3n5qfwdq4sir8";
     })
   ];

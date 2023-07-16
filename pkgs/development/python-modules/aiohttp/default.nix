@@ -47,8 +47,7 @@ buildPythonPackage rec {
   patches = [ (fetchpatch {
     # https://github.com/aio-libs/aiohttp/pull/7178
     url =
-      "https://github.com/aio-libs/aiohttp/commit/5718879cdb6a98bf48810a994b78bc02abaf3e07.patch"
-      ;
+      "https://github.com/aio-libs/aiohttp/commit/5718879cdb6a98bf48810a994b78bc02abaf3e07.patch";
     hash = "sha256-4UynkTZOzWzusQ2+MPZszhFA8I/PJNLeT/hHF/fASy8=";
   }) ];
 

@@ -22,8 +22,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/ca-certs/releases/download/v${version}/ca-certs-${version}.tbz"
-      ;
+      "https://github.com/mirage/ca-certs/releases/download/v${version}/ca-certs-${version}.tbz";
     hash = "sha256-0tjWRX2RXvbXg974Lzvl7C9W+S4gIU9Y7dY8nC/GDpw=";
   };
 

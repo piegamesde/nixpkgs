@@ -29,11 +29,9 @@ stdenv.mkDerivation {
   inherit version;
   src = fetchurl {
     url =
-      "mirror://apache/netbeans/netbeans/${version}/netbeans-${version}-bin.zip"
-      ;
+      "mirror://apache/netbeans/netbeans/${version}/netbeans-${version}-bin.zip";
     hash =
-      "sha512-k+Zj6TKW0tOSYvM6V1okF4Qz62gZMETC6XG98W23Vtz3+vdiaddd8BC2DBg7p9Z1CofRq8sbwtpeTJM3FaXv0g=="
-      ;
+      "sha512-k+Zj6TKW0tOSYvM6V1okF4Qz62gZMETC6XG98W23Vtz3+vdiaddd8BC2DBg7p9Z1CofRq8sbwtpeTJM3FaXv0g==";
   };
 
   buildCommand = ''

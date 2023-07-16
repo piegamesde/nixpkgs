@@ -31,8 +31,8 @@ let
     else if llvmMajor == "11" then
       {
         version = "unstable-2022-05-04";
-        rev = "4ef524240833abfeee1c5b9fff6b1bd53f4806b3"
-          ; # 267 commits ahead of v11.0.0
+        rev =
+          "4ef524240833abfeee1c5b9fff6b1bd53f4806b3"; # 267 commits ahead of v11.0.0
         hash = "sha256-NoIoa20+2sH41rEnr8lsMhtfesrtdPINiXtUnxYVm8s=";
       }
     else
@@ -93,8 +93,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://github.com/KhronosGroup/SPIRV-LLVM-Translator";
     description =
-      "A tool and a library for bi-directional translation between SPIR-V and LLVM IR"
-      ;
+      "A tool and a library for bi-directional translation between SPIR-V and LLVM IR";
     license = licenses.ncsa;
     platforms = platforms.unix;
     maintainers = with maintainers; [ gloaming ];

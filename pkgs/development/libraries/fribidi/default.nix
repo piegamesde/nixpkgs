@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
     # NOTE: Only URL tarball has "Have pre-generated man pages: true", which works-around upstream usage of some rare ancient `c2man` fossil application.
   src = fetchurl {
     url =
-      "https://github.com/fribidi/fribidi/releases/download/v${version}/${pname}-${version}.tar.xz"
-      ;
+      "https://github.com/fribidi/fribidi/releases/download/v${version}/${pname}-${version}.tar.xz";
     sha256 = "sha256-DNIz+X/IxnuzrCfOhEDe9dP/rPUWdluRwsxlRJgpNJU=";
   };
 

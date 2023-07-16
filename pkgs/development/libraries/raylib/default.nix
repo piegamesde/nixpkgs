@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
     # remove with next raylib version > 4.2.0 or when glfw 3.4.0 is released.
     (fetchpatch {
       url =
-        "https://github.com/raysan5/raylib/commit/2ad7967db80644a25ca123536cf2f6efcb869684.patch"
-        ;
+        "https://github.com/raysan5/raylib/commit/2ad7967db80644a25ca123536cf2f6efcb869684.patch";
       sha256 = "sha256-/xgzox1ITeoZ91QWdwnJJ+jJ5nJsMHcEgbIEdNYh4NY=";
       name = "raylib-glfw-fix.patch";
     })

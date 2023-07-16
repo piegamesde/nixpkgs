@@ -53,8 +53,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A collection of common interactive command line user interfaces, based on Inquirer.js"
-      ;
+      "A collection of common interactive command line user interfaces, based on Inquirer.js";
     homepage = "https://github.com/magmax/python-inquirer";
     changelog =
       "https://github.com/magmax/python-inquirer/releases/tag/v${version}";

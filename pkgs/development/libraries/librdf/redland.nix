@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "C libraries that provide support for the Resource Description Framework (RDF)"
-      ;
+      "C libraries that provide support for the Resource Description Framework (RDF)";
     homepage = "https://librdf.org/";
     platforms = platforms.unix;
     license = licenses.asl20;

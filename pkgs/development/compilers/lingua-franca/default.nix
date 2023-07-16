@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/lf-lang/lingua-franca/releases/download/v${version}/lfc_${version}.zip"
-      ;
+      "https://github.com/lf-lang/lingua-franca/releases/download/v${version}/lfc_${version}.zip";
     sha256 = "sha256-jSINlwHfSOPbti3LJTXpSk6lcUtwKfz7CMLtq2OuNns=";
   };
 

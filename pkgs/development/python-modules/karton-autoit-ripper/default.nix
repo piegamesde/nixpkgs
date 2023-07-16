@@ -46,8 +46,7 @@ buildPythonPackage rec {
     description = "AutoIt script ripper for Karton framework";
     homepage = "https://github.com/CERT-Polska/karton-autoit-ripper";
     changelog =
-      "https://github.com/CERT-Polska/karton-autoit-ripper/releases/tag/v${version}"
-      ;
+      "https://github.com/CERT-Polska/karton-autoit-ripper/releases/tag/v${version}";
     license = with licenses; [ bsd3 ];
     maintainers = with maintainers; [ fab ];
   };

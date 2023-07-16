@@ -39,8 +39,7 @@ buildPythonPackage rec {
 
   meta = {
     description =
-      "A wrapper library to read, manipulate and write data in xls using xlrd and xlwt"
-      ;
+      "A wrapper library to read, manipulate and write data in xls using xlrd and xlwt";
     homepage = "http://docs.pyexcel.org/";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ jtojnar ];

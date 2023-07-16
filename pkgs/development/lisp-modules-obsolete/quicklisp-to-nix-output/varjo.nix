@@ -25,8 +25,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/varjo/2021-01-24/varjo-release-quicklisp-92f9c75b-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/varjo/2021-01-24/varjo-release-quicklisp-92f9c75b-git.tgz";
     sha256 = "0xxi2ivjz3fqgw2nxzshf9m7ppvzv7wdg20lr0krq14i8j5gf5jy";
   };
 

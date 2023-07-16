@@ -30,8 +30,7 @@ buildPythonPackage rec {
 
   meta = {
     description =
-      "An open source grammar and typographic corrector for the French language"
-      ;
+      "An open source grammar and typographic corrector for the French language";
     homepage = "https://grammalecte.net";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ apeyroux ];

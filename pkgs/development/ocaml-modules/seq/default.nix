@@ -38,8 +38,7 @@ stdenv.mkDerivation ({
     createFindlibDestdir = true;
 
     meta.description =
-      "Compatibility package for OCaml’s standard iterator type starting from 4.07"
-      ;
+      "Compatibility package for OCaml’s standard iterator type starting from 4.07";
 
   }
 else

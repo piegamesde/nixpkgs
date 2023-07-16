@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://web.archive.org/web/20150801042353/http://kaictl.net/software/proggyfonts-${version}.tar.gz"
-      ;
+      "https://web.archive.org/web/20150801042353/http://kaictl.net/software/proggyfonts-${version}.tar.gz";
     hash = "sha256-SsLzZdR5icVJNbr5rcCPbagPPtWghbqs2Jxmrtufsa4=";
   };
 

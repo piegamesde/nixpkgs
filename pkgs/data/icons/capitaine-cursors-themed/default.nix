@@ -10,8 +10,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/sainnhe/capitaine-cursors/releases/download/r${version}/Linux.zip"
-      ;
+      "https://github.com/sainnhe/capitaine-cursors/releases/download/r${version}/Linux.zip";
     stripRoot = false;
     hash = "sha256-ipPpmZKU/xLA45fdOvxVbtFDCUsCYIvzeps/DjhFkNg=";
   };
@@ -27,8 +26,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A fork of the capitaine cursor theme, with some additional variants (Gruvbox, Nord, Palenight) and support for HiDPI"
-      ;
+      "A fork of the capitaine cursor theme, with some additional variants (Gruvbox, Nord, Palenight) and support for HiDPI";
     homepage = "https://github.com/sainnhe/capitaine-cursors";
     license = licenses.lgpl3Only;
     platforms = platforms.unix;

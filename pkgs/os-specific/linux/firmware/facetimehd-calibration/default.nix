@@ -14,10 +14,9 @@ let
 
     # From the wiki page, range extracted with binwalk:
   zipUrl =
-    "https://download.info.apple.com/Mac_OS_X/031-30890-20150812-ea191174-4130-11e5-a125-930911ba098f/bootcamp${version}.zip"
-    ;
-  zipRange = "2338085-3492508"
-    ; # the whole download is 518MB, this deflate stream is 1.2MB
+    "https://download.info.apple.com/Mac_OS_X/031-30890-20150812-ea191174-4130-11e5-a125-930911ba098f/bootcamp${version}.zip";
+  zipRange =
+    "2338085-3492508"; # the whole download is 518MB, this deflate stream is 1.2MB
 
     # CRC and length from the ZIP entry header (not strictly necessary, but makes it extract cleanly):
   gzFooter = "\\x51\\x1f\\x86\\x78\\xcf\\x5b\\x12\\x00";

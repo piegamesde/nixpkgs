@@ -108,8 +108,7 @@ in {
       assertions = [ {
         assertion = cfg.extraPortals != [ ];
         message =
-          "Setting xdg.portal.enable to true requires a portal implementation in xdg.portal.extraPortals such as xdg-desktop-portal-gtk or xdg-desktop-portal-kde."
-          ;
+          "Setting xdg.portal.enable to true requires a portal implementation in xdg.portal.extraPortals such as xdg-desktop-portal-gtk or xdg-desktop-portal-kde.";
       } ];
 
       services.dbus.packages = packages;

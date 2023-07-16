@@ -10,8 +10,7 @@ stdenvNoCC.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://github.com/jonpinhorn/shrikhand/raw/c11c9b0720fba977fad7cb4f339ebacdba1d1394/build/Shrikhand-Regular.ttf"
-      ;
+      "https://github.com/jonpinhorn/shrikhand/raw/c11c9b0720fba977fad7cb4f339ebacdba1d1394/build/Shrikhand-Regular.ttf";
     hash = "sha256-wHP1Bwu5Yw3a+RwDOHrmthsnuvwyCV4l6ma5EjA6EMA=";
   };
 
@@ -28,8 +27,7 @@ stdenvNoCC.mkDerivation {
   meta = with lib; {
     homepage = "https://jonpinhorn.github.io/shrikhand/";
     description =
-      "A vibrant and playful typeface for both Latin and Gujarati writing systems"
-      ;
+      "A vibrant and playful typeface for both Latin and Gujarati writing systems";
     maintainers = with maintainers; [ sternenseemann ];
     platforms = platforms.all;
     license = licenses.ofl;

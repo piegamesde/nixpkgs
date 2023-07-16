@@ -37,8 +37,7 @@ buildPythonPackage rec {
     description = "OneLogin's SAML Python Toolkit";
     homepage = "https://github.com/onelogin/python3-saml";
     changelog =
-      "https://github.com/SAML-Toolkits/python3-saml/blob/v${version}/changelog.md"
-      ;
+      "https://github.com/SAML-Toolkits/python3-saml/blob/v${version}/changelog.md";
     license = licenses.mit;
     maintainers = with maintainers; [ zhaofengli ];
   };

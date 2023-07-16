@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/socks-relay/socks-relay/srelay-${version}/srelay-${version}.tar.gz"
-      ;
+      "mirror://sourceforge/project/socks-relay/socks-relay/srelay-${version}/srelay-${version}.tar.gz";
     sha256 = "1sn6005aqyfvrlkm5445cyyaj6h6wfyskfncfmds55x34hfyxpvl";
   };
 

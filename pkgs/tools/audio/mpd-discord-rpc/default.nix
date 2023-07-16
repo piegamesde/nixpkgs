@@ -33,8 +33,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Rust application which displays your currently playing song / album / artist from MPD in Discord using Rich Presence"
-      ;
+      "Rust application which displays your currently playing song / album / artist from MPD in Discord using Rich Presence";
     homepage = "https://github.com/JakeStanger/mpd-discord-rpc";
     license = licenses.mit;
     maintainers = with maintainers; [ kranzes ];

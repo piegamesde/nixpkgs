@@ -20,8 +20,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A Protocol Buffers compiler that generates optimized marshaling & unmarshaling Go code for ProtoBuf APIv2"
-      ;
+      "A Protocol Buffers compiler that generates optimized marshaling & unmarshaling Go code for ProtoBuf APIv2";
     homepage = "https://github.com/planetscale/vtprotobuf";
     license = licenses.bsd3;
     maintainers = [ maintainers.zane ];

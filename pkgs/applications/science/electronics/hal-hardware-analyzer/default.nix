@@ -69,8 +69,7 @@ stdenv.mkDerivation rec {
     # https://github.com/emsec/hal/pull/463
     name = "hal-fix-python-3.10.patch";
     url =
-      "https://github.com/emsec/hal/commit/f695f55cb2209676ef76366185b7c419417fbbc9.patch"
-      ;
+      "https://github.com/emsec/hal/commit/f695f55cb2209676ef76366185b7c419417fbbc9.patch";
     sha256 = "sha256-HsCdG3tPllUsLw6kQtGaaEGkEHqZPSC2v9k6ycO2I/8=";
     includes = [ "plugins/gui/src/python/python_context.cpp" ];
   }) ];
@@ -121,8 +120,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A comprehensive reverse engineering and manipulation framework for gate-level netlists"
-      ;
+      "A comprehensive reverse engineering and manipulation framework for gate-level netlists";
     homepage = "https://github.com/emsec/hal";
     license = licenses.mit;
     platforms = platforms.unix;

@@ -8,8 +8,7 @@
 
 let
   patchPrefix =
-    "https://web.archive.org/web/20220422205751/https://github.com/samuelgrf/kjv/commit/"
-    ;
+    "https://web.archive.org/web/20220422205751/https://github.com/samuelgrf/kjv/commit/";
 
   add-apocrypha = fetchpatch {
     url = patchPrefix + "0856fa0d37b45de0d6b47d163b5ea9a0b7f2c061.patch";

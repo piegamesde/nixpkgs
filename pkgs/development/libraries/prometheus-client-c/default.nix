@@ -36,14 +36,12 @@ let
         # installs headers in /usr/include (absolute)
         (fetchpatch {
           url =
-            "https://github.com/digitalocean/prometheus-client-c/commit/5fcedeb506b7d47dd7bab35797f2c3f23db6fe10.patch"
-            ;
+            "https://github.com/digitalocean/prometheus-client-c/commit/5fcedeb506b7d47dd7bab35797f2c3f23db6fe10.patch";
           sha256 = "10hzg8v5jcgxz224kdq0nha9vs78wz098b0ys7gig2iwgrg018fy";
         })
         (fetchpatch {
           url =
-            "https://github.com/digitalocean/prometheus-client-c/commit/0c15e7e45ad0c3726593591fdd7d8f2fde845fe3.patch"
-            ;
+            "https://github.com/digitalocean/prometheus-client-c/commit/0c15e7e45ad0c3726593591fdd7d8f2fde845fe3.patch";
           sha256 = "06899v1xz3lpsdxww4p3q7pv8nrymnibncdc472056znr5fidlp0";
         })
       ];

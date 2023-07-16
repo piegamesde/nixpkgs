@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "High quality system independent, portable, open source libm implementation"
-      ;
+      "High quality system independent, portable, open source libm implementation";
     homepage = "https://openlibm.org/";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.ttuegel ];

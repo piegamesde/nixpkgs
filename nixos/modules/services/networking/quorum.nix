@@ -58,8 +58,7 @@ in {
       staticNodes = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "enode://dd333ec28f0a8910c92eb4d336461eea1c20803eed9cf2c056557f986e720f8e693605bba2f4e8f289b1162e5ac7c80c914c7178130711e393ca76abc1d92f57@0.0.0.0:30303?discport=0" ]
-          ;
+        example = [ "enode://dd333ec28f0a8910c92eb4d336461eea1c20803eed9cf2c056557f986e720f8e693605bba2f4e8f289b1162e5ac7c80c914c7178130711e393ca76abc1d92f57@0.0.0.0:30303?discport=0" ];
         description = lib.mdDoc "List of validator nodes.";
       };
 
@@ -117,8 +116,7 @@ in {
         api = mkOption {
           type = types.str;
           default =
-            "admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul"
-            ;
+            "admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul";
           description = lib.mdDoc "API's offered over the HTTP-RPC interface.";
         };
       };
@@ -147,8 +145,7 @@ in {
         api = mkOption {
           type = types.str;
           default =
-            "admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul"
-            ;
+            "admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul";
           description = lib.mdDoc "API's offered over the WS-RPC interface.";
         };
 
@@ -199,8 +196,7 @@ in {
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.quorum ];
-    systemd.tmpfiles.rules = [ "d '${dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ]
-      ;
+    systemd.tmpfiles.rules = [ "d '${dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ];
     systemd.services.quorum = {
       description = "Quorum daemon";
       after = [ "network.target" ];

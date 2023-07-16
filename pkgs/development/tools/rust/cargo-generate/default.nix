@@ -50,12 +50,10 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A tool to generaet a new Rust project by leveraging a pre-existing git repository as a template"
-      ;
+      "A tool to generaet a new Rust project by leveraging a pre-existing git repository as a template";
     homepage = "https://github.com/cargo-generate/cargo-generate";
     changelog =
-      "https://github.com/cargo-generate/cargo-generate/blob/v${version}/CHANGELOG.md"
-      ;
+      "https://github.com/cargo-generate/cargo-generate/blob/v${version}/CHANGELOG.md";
     license = with licenses; [
       asl20 # or
       mit

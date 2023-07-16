@@ -44,8 +44,8 @@ stdenv.mkDerivation rec {
     "--with-tests"
   ];
 
-  doCheck = false
-    ; # some tests fail in upstream, some fail because of the sandbox environment
+  doCheck =
+    false; # some tests fail in upstream, some fail because of the sandbox environment
   checkPhase = ''
     runHook preCheck
     LD_PRELOAD=build/libndn-cxx.so build/unit-tests
@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://named-data.net/";
     description =
-      "A Named Data Networking (NDN) or Content Centric Networking (CCN) abstraction"
-      ;
+      "A Named Data Networking (NDN) or Content Centric Networking (CCN) abstraction";
     longDescription = ''
       ndn-cxx is a C++ library, implementing Named Data Networking (NDN)
       primitives that can be used to implement various NDN applications.

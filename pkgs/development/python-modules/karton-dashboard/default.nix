@@ -31,8 +31,7 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "update-mistune.patch";
       url =
-        "https://github.com/CERT-Polska/karton-dashboard/commit/d0a2a1ffd21e9066acca77434acaff7b20e460d0.patch"
-        ;
+        "https://github.com/CERT-Polska/karton-dashboard/commit/d0a2a1ffd21e9066acca77434acaff7b20e460d0.patch";
       hash = "sha256-LOqeLWoCXmVTthruBiQUYR03yPOPHhgYF/fJMhhT6Wo=";
     })
   ];
@@ -62,8 +61,7 @@ buildPythonPackage rec {
       "Web application that allows for Karton task and queue introspection";
     homepage = "https://github.com/CERT-Polska/karton-dashboard";
     changelog =
-      "https://github.com/CERT-Polska/karton-dashboard/releases/tag/v${version}"
-      ;
+      "https://github.com/CERT-Polska/karton-dashboard/releases/tag/v${version}";
     license = with licenses; [ bsd3 ];
     maintainers = with maintainers; [ fab ];
   };

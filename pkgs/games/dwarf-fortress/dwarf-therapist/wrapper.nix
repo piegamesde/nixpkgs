@@ -15,8 +15,7 @@ let
       "linux64"
     ;
   inifile =
-    "linux/v0.${dwarf-fortress.baseVersion}.${dwarf-fortress.patchVersion}_${platformSlug}.ini"
-    ;
+    "linux/v0.${dwarf-fortress.baseVersion}.${dwarf-fortress.patchVersion}_${platformSlug}.ini";
 
 in
 stdenv.mkDerivation {

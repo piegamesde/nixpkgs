@@ -17,8 +17,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mnxn/promise_jsoo/releases/download/v${version}/promise_jsoo-v${version}.tbz"
-      ;
+      "https://github.com/mnxn/promise_jsoo/releases/download/v${version}/promise_jsoo-v${version}.tbz";
     sha256 = "00pjnsbv0yv3hhxbbl8dsljgr95kjgi9w8j1x46gjyxg9zayrxzl";
   };
 

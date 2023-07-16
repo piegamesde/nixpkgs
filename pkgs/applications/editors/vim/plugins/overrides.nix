@@ -411,15 +411,13 @@ self: super:
       (fetchpatch {
         name = "drop_python2_pt1.patch";
         url =
-          "https://github.com/JazzCore/ctrlp-cmatcher/commit/3abad6ea155a7f6e138e1de3ac5428177bfb0254.patch"
-          ;
+          "https://github.com/JazzCore/ctrlp-cmatcher/commit/3abad6ea155a7f6e138e1de3ac5428177bfb0254.patch";
         sha256 = "sha256-fn2puqYeJdPTdlTT4JjwVz7b3A+Xcuj/xtP6TETlB1U=";
       })
       (fetchpatch {
         name = "drop_python2_pt2.patch";
         url =
-          "https://github.com/JazzCore/ctrlp-cmatcher/commit/385c8d02398dbb328b1a943a94e7109fe6473a08.patch"
-          ;
+          "https://github.com/JazzCore/ctrlp-cmatcher/commit/385c8d02398dbb328b1a943a94e7109fe6473a08.patch";
         sha256 = "sha256-yXKCq8sqO0Db/sZREuSeqKwKO71cmTsAvWftoOQehZo=";
       })
     ];
@@ -485,8 +483,7 @@ self: super:
     passthru.python3Dependencies = ps: with ps; [ dbus-python ];
     meta = {
       description =
-        "Keep and restore fcitx state when leaving/re-entering insert mode or search mode"
-        ;
+        "Keep and restore fcitx state when leaving/re-entering insert mode or search mode";
       license = lib.licenses.mit;
     };
   });
@@ -1000,8 +997,7 @@ self: super:
     postPatch =
       let
         libsqlite =
-          "${sqlite.out}/lib/libsqlite3${stdenv.hostPlatform.extensions.sharedLibrary}"
-          ;
+          "${sqlite.out}/lib/libsqlite3${stdenv.hostPlatform.extensions.sharedLibrary}";
       in ''
         substituteInPlace lua/sqlite/defs.lua \
           --replace "path = vim.g.sqlite_clib_path" "path = vim.g.sqlite_clib_path or ${
@@ -1315,8 +1311,7 @@ self: super:
     patches = [ (fetchpatch {
       # https://github.com/xolox/vim-easytags/pull/170 fix version detection for universal-ctags
       url =
-        "https://github.com/xolox/vim-easytags/commit/46e4709500ba3b8e6cf3e90aeb95736b19e49be9.patch"
-        ;
+        "https://github.com/xolox/vim-easytags/commit/46e4709500ba3b8e6cf3e90aeb95736b19e49be9.patch";
       sha256 = "0x0xabb56xkgdqrg1mpvhbi3yw4d829n73lsnnyj5yrxjffy4ax4";
     }) ];
   });

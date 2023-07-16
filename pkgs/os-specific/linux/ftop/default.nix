@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/ftop/${pname}-${version}.tar.bz2"
-      ;
+      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/ftop/${pname}-${version}.tar.bz2";
     sha256 = "3a705f4f291384344cd32c3dd5f5f6a7cd7cea7624c83cb7e923966dbcd47f82";
   };
 

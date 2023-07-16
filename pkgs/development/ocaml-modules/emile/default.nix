@@ -21,8 +21,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/dinosaure/emile/releases/download/v${version}/emile-v${version}.tbz"
-      ;
+      "https://github.com/dinosaure/emile/releases/download/v${version}/emile-v${version}.tbz";
     hash = "sha256:0r1141makr0b900aby1gn0fccjv1qcqgyxib3bzq8fxmjqwjan8p";
   };
 

@@ -117,8 +117,7 @@ in {
       };
     };
 
-    services.xserver.desktopManager.budgie.sessionPath = [ pkgs.budgie.budgie-desktop-view ]
-      ;
+    services.xserver.desktopManager.budgie.sessionPath = [ pkgs.budgie.budgie-desktop-view ];
 
     environment.extraInit = ''
       ${concatMapStrings (p: ''
@@ -199,8 +198,7 @@ in {
 
       # GSettings overrides.
     environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR =
-      "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas"
-      ;
+      "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
 
       # Required by Budgie Desktop.
     services.xserver.updateDbusEnvironment = true;
@@ -232,8 +230,8 @@ in {
 
     services.geoclue2.enable =
       mkDefault true; # for BCC's Privacy > Location Services panel.
-    services.upower.enable = config.powerManagement.enable
-      ; # for Budgie's Status Indicator and BCC's Power panel.
+    services.upower.enable =
+      config.powerManagement.enable; # for Budgie's Status Indicator and BCC's Power panel.
     services.xserver.libinput.enable = mkDefault true; # for BCC's Mouse panel.
     services.colord.enable = mkDefault true; # for BCC's Color panel.
     services.gnome.at-spi2-core.enable = mkDefault true; # for BCC's A11y panel.

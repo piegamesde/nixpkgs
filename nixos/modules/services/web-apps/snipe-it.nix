@@ -310,14 +310,12 @@ in {
       {
         assertion = db.createLocally -> db.user == user;
         message =
-          "services.snipe-it.database.user must be set to ${user} if services.snipe-it.database.createLocally is set true."
-          ;
+          "services.snipe-it.database.user must be set to ${user} if services.snipe-it.database.createLocally is set true.";
       }
       {
         assertion = db.createLocally -> db.passwordFile == null;
         message =
-          "services.snipe-it.database.passwordFile cannot be specified if services.snipe-it.database.createLocally is set to true."
-          ;
+          "services.snipe-it.database.passwordFile cannot be specified if services.snipe-it.database.createLocally is set to true.";
       }
     ];
 

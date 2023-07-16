@@ -39,8 +39,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Command line interface for managing and enhancing git commit messages with co-authors"
-      ;
+      "Command line interface for managing and enhancing git commit messages with co-authors";
     homepage = "https://github.com/hekmekk/git-team";
     license = licenses.mit;
     maintainers = with maintainers; [ lockejan ];

@@ -10,8 +10,7 @@ let
 
   src = fetchurl {
     url =
-      "https://github.com/notion-enhancer/notion-repackaged/releases/download/v${version}/Notion-Enhanced-${version}.AppImage"
-      ;
+      "https://github.com/notion-enhancer/notion-repackaged/releases/download/v${version}/Notion-Enhanced-${version}.AppImage";
     sha256 = "sha256-SqeMnoMzxxaViJ3NPccj3kyMc1xvXWULM6hQIDZySWY=";
   };
 
@@ -31,8 +30,7 @@ appimageTools.wrapType2 {
 
   meta = with lib; {
     description =
-      "Notion Desktop builds with Notion Enhancer for Windows, MacOS and Linux."
-      ;
+      "Notion Desktop builds with Notion Enhancer for Windows, MacOS and Linux.";
     homepage = "https://github.com/notion-enhancer/desktop";
     license = licenses.unfree;
     maintainers = with maintainers; [ sei40kr ];

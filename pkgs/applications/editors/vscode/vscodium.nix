@@ -58,8 +58,7 @@ callPackage ./generic.nix rec {
 
   src = fetchurl {
     url =
-      "https://github.com/VSCodium/vscodium/releases/download/${version}/VSCodium-${plat}-${version}.${archive_fmt}"
-      ;
+      "https://github.com/VSCodium/vscodium/releases/download/${version}/VSCodium-${plat}-${version}.${archive_fmt}";
     inherit sha256;
   };
 

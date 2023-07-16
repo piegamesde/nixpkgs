@@ -10,8 +10,7 @@
     patch = fetchpatch {
       name = name + ".patch";
       url =
-        "https://github.com/openwrt/openwrt/raw/ed2015c38617ed6624471e77f27fbb0c58c8c660/package/kernel/mac80211/patches/ath/402-ath_regd_optional.patch"
-        ;
+        "https://github.com/openwrt/openwrt/raw/ed2015c38617ed6624471e77f27fbb0c58c8c660/package/kernel/mac80211/patches/ath/402-ath_regd_optional.patch";
       sha256 = "1ssDXSweHhF+pMZyd6kSrzeW60eb6MO6tlf0il17RC0=";
       postFetch = ''
         sed -i 's/CPTCFG_/CONFIG_/g' $out

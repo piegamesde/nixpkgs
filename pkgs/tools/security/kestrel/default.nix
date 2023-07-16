@@ -28,8 +28,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "File encryption done right";
     longDescription =
-      "\n      Kestrel is a data-at-rest file encryption program\n      that lets you encrypt files to anyone with a public key.\n    "
-      ;
+      "\n      Kestrel is a data-at-rest file encryption program\n      that lets you encrypt files to anyone with a public key.\n    ";
     homepage = "https://getkestrel.com";
     license = licenses.bsd3;
     maintainers = with maintainers; [ zendo ];

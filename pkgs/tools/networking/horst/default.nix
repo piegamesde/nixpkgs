@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "ncurses-6.3.patch";
       url =
-        "https://github.com/br101/horst/commit/c9e9b6cc1f97edb9c53f3a67b43f3588f3ac6ea7.patch"
-        ;
+        "https://github.com/br101/horst/commit/c9e9b6cc1f97edb9c53f3a67b43f3588f3ac6ea7.patch";
       sha256 = "15pahbnql44d5zzxmkd5ky8bl3c3hh3lh5190wynd90jrrhf1a26";
         # collides for context change, well apply this part in postPatch
       excludes = [ "display-main.c" ];
@@ -47,8 +46,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Small and lightweight IEEE802.11 wireless LAN analyzer with a text interface"
-      ;
+      "Small and lightweight IEEE802.11 wireless LAN analyzer with a text interface";
     homepage = "https://github.com/br101/horst";
     maintainers = [ maintainers.fpletz ];
     license = licenses.gpl2Plus;

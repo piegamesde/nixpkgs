@@ -3,8 +3,7 @@
   sources = [
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/af/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/af/thunderbird-102.10.1.tar.bz2";
       locale = "af";
       arch = "linux-x86_64";
       sha256 =
@@ -12,8 +11,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/ar/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/ar/thunderbird-102.10.1.tar.bz2";
       locale = "ar";
       arch = "linux-x86_64";
       sha256 =
@@ -21,8 +19,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/ast/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/ast/thunderbird-102.10.1.tar.bz2";
       locale = "ast";
       arch = "linux-x86_64";
       sha256 =
@@ -30,8 +27,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/be/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/be/thunderbird-102.10.1.tar.bz2";
       locale = "be";
       arch = "linux-x86_64";
       sha256 =
@@ -39,8 +35,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/bg/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/bg/thunderbird-102.10.1.tar.bz2";
       locale = "bg";
       arch = "linux-x86_64";
       sha256 =
@@ -48,8 +43,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/br/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/br/thunderbird-102.10.1.tar.bz2";
       locale = "br";
       arch = "linux-x86_64";
       sha256 =
@@ -57,8 +51,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/ca/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/ca/thunderbird-102.10.1.tar.bz2";
       locale = "ca";
       arch = "linux-x86_64";
       sha256 =
@@ -66,8 +59,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/cak/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/cak/thunderbird-102.10.1.tar.bz2";
       locale = "cak";
       arch = "linux-x86_64";
       sha256 =
@@ -75,8 +67,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/cs/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/cs/thunderbird-102.10.1.tar.bz2";
       locale = "cs";
       arch = "linux-x86_64";
       sha256 =
@@ -84,8 +75,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/cy/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/cy/thunderbird-102.10.1.tar.bz2";
       locale = "cy";
       arch = "linux-x86_64";
       sha256 =
@@ -93,8 +83,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/da/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/da/thunderbird-102.10.1.tar.bz2";
       locale = "da";
       arch = "linux-x86_64";
       sha256 =
@@ -102,8 +91,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/de/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/de/thunderbird-102.10.1.tar.bz2";
       locale = "de";
       arch = "linux-x86_64";
       sha256 =
@@ -111,8 +99,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/dsb/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/dsb/thunderbird-102.10.1.tar.bz2";
       locale = "dsb";
       arch = "linux-x86_64";
       sha256 =
@@ -120,8 +107,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/el/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/el/thunderbird-102.10.1.tar.bz2";
       locale = "el";
       arch = "linux-x86_64";
       sha256 =
@@ -129,8 +115,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/en-CA/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/en-CA/thunderbird-102.10.1.tar.bz2";
       locale = "en-CA";
       arch = "linux-x86_64";
       sha256 =
@@ -138,8 +123,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/en-GB/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/en-GB/thunderbird-102.10.1.tar.bz2";
       locale = "en-GB";
       arch = "linux-x86_64";
       sha256 =
@@ -147,8 +131,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/en-US/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/en-US/thunderbird-102.10.1.tar.bz2";
       locale = "en-US";
       arch = "linux-x86_64";
       sha256 =
@@ -156,8 +139,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/es-AR/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/es-AR/thunderbird-102.10.1.tar.bz2";
       locale = "es-AR";
       arch = "linux-x86_64";
       sha256 =
@@ -165,8 +147,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/es-ES/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/es-ES/thunderbird-102.10.1.tar.bz2";
       locale = "es-ES";
       arch = "linux-x86_64";
       sha256 =
@@ -174,8 +155,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/es-MX/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/es-MX/thunderbird-102.10.1.tar.bz2";
       locale = "es-MX";
       arch = "linux-x86_64";
       sha256 =
@@ -183,8 +163,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/et/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/et/thunderbird-102.10.1.tar.bz2";
       locale = "et";
       arch = "linux-x86_64";
       sha256 =
@@ -192,8 +171,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/eu/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/eu/thunderbird-102.10.1.tar.bz2";
       locale = "eu";
       arch = "linux-x86_64";
       sha256 =
@@ -201,8 +179,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/fi/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/fi/thunderbird-102.10.1.tar.bz2";
       locale = "fi";
       arch = "linux-x86_64";
       sha256 =
@@ -210,8 +187,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/fr/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/fr/thunderbird-102.10.1.tar.bz2";
       locale = "fr";
       arch = "linux-x86_64";
       sha256 =
@@ -219,8 +195,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/fy-NL/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/fy-NL/thunderbird-102.10.1.tar.bz2";
       locale = "fy-NL";
       arch = "linux-x86_64";
       sha256 =
@@ -228,8 +203,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/ga-IE/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/ga-IE/thunderbird-102.10.1.tar.bz2";
       locale = "ga-IE";
       arch = "linux-x86_64";
       sha256 =
@@ -237,8 +211,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/gd/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/gd/thunderbird-102.10.1.tar.bz2";
       locale = "gd";
       arch = "linux-x86_64";
       sha256 =
@@ -246,8 +219,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/gl/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/gl/thunderbird-102.10.1.tar.bz2";
       locale = "gl";
       arch = "linux-x86_64";
       sha256 =
@@ -255,8 +227,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/he/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/he/thunderbird-102.10.1.tar.bz2";
       locale = "he";
       arch = "linux-x86_64";
       sha256 =
@@ -264,8 +235,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/hr/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/hr/thunderbird-102.10.1.tar.bz2";
       locale = "hr";
       arch = "linux-x86_64";
       sha256 =
@@ -273,8 +243,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/hsb/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/hsb/thunderbird-102.10.1.tar.bz2";
       locale = "hsb";
       arch = "linux-x86_64";
       sha256 =
@@ -282,8 +251,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/hu/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/hu/thunderbird-102.10.1.tar.bz2";
       locale = "hu";
       arch = "linux-x86_64";
       sha256 =
@@ -291,8 +259,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/hy-AM/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/hy-AM/thunderbird-102.10.1.tar.bz2";
       locale = "hy-AM";
       arch = "linux-x86_64";
       sha256 =
@@ -300,8 +267,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/id/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/id/thunderbird-102.10.1.tar.bz2";
       locale = "id";
       arch = "linux-x86_64";
       sha256 =
@@ -309,8 +275,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/is/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/is/thunderbird-102.10.1.tar.bz2";
       locale = "is";
       arch = "linux-x86_64";
       sha256 =
@@ -318,8 +283,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/it/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/it/thunderbird-102.10.1.tar.bz2";
       locale = "it";
       arch = "linux-x86_64";
       sha256 =
@@ -327,8 +291,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/ja/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/ja/thunderbird-102.10.1.tar.bz2";
       locale = "ja";
       arch = "linux-x86_64";
       sha256 =
@@ -336,8 +299,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/ka/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/ka/thunderbird-102.10.1.tar.bz2";
       locale = "ka";
       arch = "linux-x86_64";
       sha256 =
@@ -345,8 +307,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/kab/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/kab/thunderbird-102.10.1.tar.bz2";
       locale = "kab";
       arch = "linux-x86_64";
       sha256 =
@@ -354,8 +315,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/kk/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/kk/thunderbird-102.10.1.tar.bz2";
       locale = "kk";
       arch = "linux-x86_64";
       sha256 =
@@ -363,8 +323,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/ko/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/ko/thunderbird-102.10.1.tar.bz2";
       locale = "ko";
       arch = "linux-x86_64";
       sha256 =
@@ -372,8 +331,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/lt/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/lt/thunderbird-102.10.1.tar.bz2";
       locale = "lt";
       arch = "linux-x86_64";
       sha256 =
@@ -381,8 +339,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/lv/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/lv/thunderbird-102.10.1.tar.bz2";
       locale = "lv";
       arch = "linux-x86_64";
       sha256 =
@@ -390,8 +347,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/ms/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/ms/thunderbird-102.10.1.tar.bz2";
       locale = "ms";
       arch = "linux-x86_64";
       sha256 =
@@ -399,8 +355,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/nb-NO/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/nb-NO/thunderbird-102.10.1.tar.bz2";
       locale = "nb-NO";
       arch = "linux-x86_64";
       sha256 =
@@ -408,8 +363,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/nl/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/nl/thunderbird-102.10.1.tar.bz2";
       locale = "nl";
       arch = "linux-x86_64";
       sha256 =
@@ -417,8 +371,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/nn-NO/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/nn-NO/thunderbird-102.10.1.tar.bz2";
       locale = "nn-NO";
       arch = "linux-x86_64";
       sha256 =
@@ -426,8 +379,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/pa-IN/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/pa-IN/thunderbird-102.10.1.tar.bz2";
       locale = "pa-IN";
       arch = "linux-x86_64";
       sha256 =
@@ -435,8 +387,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/pl/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/pl/thunderbird-102.10.1.tar.bz2";
       locale = "pl";
       arch = "linux-x86_64";
       sha256 =
@@ -444,8 +395,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/pt-BR/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/pt-BR/thunderbird-102.10.1.tar.bz2";
       locale = "pt-BR";
       arch = "linux-x86_64";
       sha256 =
@@ -453,8 +403,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/pt-PT/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/pt-PT/thunderbird-102.10.1.tar.bz2";
       locale = "pt-PT";
       arch = "linux-x86_64";
       sha256 =
@@ -462,8 +411,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/rm/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/rm/thunderbird-102.10.1.tar.bz2";
       locale = "rm";
       arch = "linux-x86_64";
       sha256 =
@@ -471,8 +419,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/ro/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/ro/thunderbird-102.10.1.tar.bz2";
       locale = "ro";
       arch = "linux-x86_64";
       sha256 =
@@ -480,8 +427,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/ru/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/ru/thunderbird-102.10.1.tar.bz2";
       locale = "ru";
       arch = "linux-x86_64";
       sha256 =
@@ -489,8 +435,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/sk/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/sk/thunderbird-102.10.1.tar.bz2";
       locale = "sk";
       arch = "linux-x86_64";
       sha256 =
@@ -498,8 +443,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/sl/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/sl/thunderbird-102.10.1.tar.bz2";
       locale = "sl";
       arch = "linux-x86_64";
       sha256 =
@@ -507,8 +451,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/sq/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/sq/thunderbird-102.10.1.tar.bz2";
       locale = "sq";
       arch = "linux-x86_64";
       sha256 =
@@ -516,8 +459,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/sr/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/sr/thunderbird-102.10.1.tar.bz2";
       locale = "sr";
       arch = "linux-x86_64";
       sha256 =
@@ -525,8 +467,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/sv-SE/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/sv-SE/thunderbird-102.10.1.tar.bz2";
       locale = "sv-SE";
       arch = "linux-x86_64";
       sha256 =
@@ -534,8 +475,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/th/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/th/thunderbird-102.10.1.tar.bz2";
       locale = "th";
       arch = "linux-x86_64";
       sha256 =
@@ -543,8 +483,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/tr/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/tr/thunderbird-102.10.1.tar.bz2";
       locale = "tr";
       arch = "linux-x86_64";
       sha256 =
@@ -552,8 +491,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/uk/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/uk/thunderbird-102.10.1.tar.bz2";
       locale = "uk";
       arch = "linux-x86_64";
       sha256 =
@@ -561,8 +499,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/uz/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/uz/thunderbird-102.10.1.tar.bz2";
       locale = "uz";
       arch = "linux-x86_64";
       sha256 =
@@ -570,8 +507,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/vi/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/vi/thunderbird-102.10.1.tar.bz2";
       locale = "vi";
       arch = "linux-x86_64";
       sha256 =
@@ -579,8 +515,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/zh-CN/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/zh-CN/thunderbird-102.10.1.tar.bz2";
       locale = "zh-CN";
       arch = "linux-x86_64";
       sha256 =
@@ -588,8 +523,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/zh-TW/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-x86_64/zh-TW/thunderbird-102.10.1.tar.bz2";
       locale = "zh-TW";
       arch = "linux-x86_64";
       sha256 =
@@ -597,8 +531,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/af/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/af/thunderbird-102.10.1.tar.bz2";
       locale = "af";
       arch = "linux-i686";
       sha256 =
@@ -606,8 +539,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/ar/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/ar/thunderbird-102.10.1.tar.bz2";
       locale = "ar";
       arch = "linux-i686";
       sha256 =
@@ -615,8 +547,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/ast/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/ast/thunderbird-102.10.1.tar.bz2";
       locale = "ast";
       arch = "linux-i686";
       sha256 =
@@ -624,8 +555,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/be/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/be/thunderbird-102.10.1.tar.bz2";
       locale = "be";
       arch = "linux-i686";
       sha256 =
@@ -633,8 +563,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/bg/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/bg/thunderbird-102.10.1.tar.bz2";
       locale = "bg";
       arch = "linux-i686";
       sha256 =
@@ -642,8 +571,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/br/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/br/thunderbird-102.10.1.tar.bz2";
       locale = "br";
       arch = "linux-i686";
       sha256 =
@@ -651,8 +579,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/ca/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/ca/thunderbird-102.10.1.tar.bz2";
       locale = "ca";
       arch = "linux-i686";
       sha256 =
@@ -660,8 +587,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/cak/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/cak/thunderbird-102.10.1.tar.bz2";
       locale = "cak";
       arch = "linux-i686";
       sha256 =
@@ -669,8 +595,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/cs/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/cs/thunderbird-102.10.1.tar.bz2";
       locale = "cs";
       arch = "linux-i686";
       sha256 =
@@ -678,8 +603,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/cy/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/cy/thunderbird-102.10.1.tar.bz2";
       locale = "cy";
       arch = "linux-i686";
       sha256 =
@@ -687,8 +611,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/da/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/da/thunderbird-102.10.1.tar.bz2";
       locale = "da";
       arch = "linux-i686";
       sha256 =
@@ -696,8 +619,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/de/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/de/thunderbird-102.10.1.tar.bz2";
       locale = "de";
       arch = "linux-i686";
       sha256 =
@@ -705,8 +627,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/dsb/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/dsb/thunderbird-102.10.1.tar.bz2";
       locale = "dsb";
       arch = "linux-i686";
       sha256 =
@@ -714,8 +635,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/el/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/el/thunderbird-102.10.1.tar.bz2";
       locale = "el";
       arch = "linux-i686";
       sha256 =
@@ -723,8 +643,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/en-CA/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/en-CA/thunderbird-102.10.1.tar.bz2";
       locale = "en-CA";
       arch = "linux-i686";
       sha256 =
@@ -732,8 +651,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/en-GB/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/en-GB/thunderbird-102.10.1.tar.bz2";
       locale = "en-GB";
       arch = "linux-i686";
       sha256 =
@@ -741,8 +659,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/en-US/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/en-US/thunderbird-102.10.1.tar.bz2";
       locale = "en-US";
       arch = "linux-i686";
       sha256 =
@@ -750,8 +667,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/es-AR/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/es-AR/thunderbird-102.10.1.tar.bz2";
       locale = "es-AR";
       arch = "linux-i686";
       sha256 =
@@ -759,8 +675,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/es-ES/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/es-ES/thunderbird-102.10.1.tar.bz2";
       locale = "es-ES";
       arch = "linux-i686";
       sha256 =
@@ -768,8 +683,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/es-MX/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/es-MX/thunderbird-102.10.1.tar.bz2";
       locale = "es-MX";
       arch = "linux-i686";
       sha256 =
@@ -777,8 +691,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/et/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/et/thunderbird-102.10.1.tar.bz2";
       locale = "et";
       arch = "linux-i686";
       sha256 =
@@ -786,8 +699,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/eu/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/eu/thunderbird-102.10.1.tar.bz2";
       locale = "eu";
       arch = "linux-i686";
       sha256 =
@@ -795,8 +707,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/fi/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/fi/thunderbird-102.10.1.tar.bz2";
       locale = "fi";
       arch = "linux-i686";
       sha256 =
@@ -804,8 +715,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/fr/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/fr/thunderbird-102.10.1.tar.bz2";
       locale = "fr";
       arch = "linux-i686";
       sha256 =
@@ -813,8 +723,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/fy-NL/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/fy-NL/thunderbird-102.10.1.tar.bz2";
       locale = "fy-NL";
       arch = "linux-i686";
       sha256 =
@@ -822,8 +731,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/ga-IE/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/ga-IE/thunderbird-102.10.1.tar.bz2";
       locale = "ga-IE";
       arch = "linux-i686";
       sha256 =
@@ -831,8 +739,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/gd/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/gd/thunderbird-102.10.1.tar.bz2";
       locale = "gd";
       arch = "linux-i686";
       sha256 =
@@ -840,8 +747,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/gl/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/gl/thunderbird-102.10.1.tar.bz2";
       locale = "gl";
       arch = "linux-i686";
       sha256 =
@@ -849,8 +755,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/he/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/he/thunderbird-102.10.1.tar.bz2";
       locale = "he";
       arch = "linux-i686";
       sha256 =
@@ -858,8 +763,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/hr/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/hr/thunderbird-102.10.1.tar.bz2";
       locale = "hr";
       arch = "linux-i686";
       sha256 =
@@ -867,8 +771,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/hsb/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/hsb/thunderbird-102.10.1.tar.bz2";
       locale = "hsb";
       arch = "linux-i686";
       sha256 =
@@ -876,8 +779,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/hu/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/hu/thunderbird-102.10.1.tar.bz2";
       locale = "hu";
       arch = "linux-i686";
       sha256 =
@@ -885,8 +787,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/hy-AM/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/hy-AM/thunderbird-102.10.1.tar.bz2";
       locale = "hy-AM";
       arch = "linux-i686";
       sha256 =
@@ -894,8 +795,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/id/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/id/thunderbird-102.10.1.tar.bz2";
       locale = "id";
       arch = "linux-i686";
       sha256 =
@@ -903,8 +803,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/is/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/is/thunderbird-102.10.1.tar.bz2";
       locale = "is";
       arch = "linux-i686";
       sha256 =
@@ -912,8 +811,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/it/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/it/thunderbird-102.10.1.tar.bz2";
       locale = "it";
       arch = "linux-i686";
       sha256 =
@@ -921,8 +819,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/ja/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/ja/thunderbird-102.10.1.tar.bz2";
       locale = "ja";
       arch = "linux-i686";
       sha256 =
@@ -930,8 +827,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/ka/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/ka/thunderbird-102.10.1.tar.bz2";
       locale = "ka";
       arch = "linux-i686";
       sha256 =
@@ -939,8 +835,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/kab/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/kab/thunderbird-102.10.1.tar.bz2";
       locale = "kab";
       arch = "linux-i686";
       sha256 =
@@ -948,8 +843,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/kk/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/kk/thunderbird-102.10.1.tar.bz2";
       locale = "kk";
       arch = "linux-i686";
       sha256 =
@@ -957,8 +851,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/ko/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/ko/thunderbird-102.10.1.tar.bz2";
       locale = "ko";
       arch = "linux-i686";
       sha256 =
@@ -966,8 +859,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/lt/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/lt/thunderbird-102.10.1.tar.bz2";
       locale = "lt";
       arch = "linux-i686";
       sha256 =
@@ -975,8 +867,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/lv/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/lv/thunderbird-102.10.1.tar.bz2";
       locale = "lv";
       arch = "linux-i686";
       sha256 =
@@ -984,8 +875,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/ms/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/ms/thunderbird-102.10.1.tar.bz2";
       locale = "ms";
       arch = "linux-i686";
       sha256 =
@@ -993,8 +883,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/nb-NO/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/nb-NO/thunderbird-102.10.1.tar.bz2";
       locale = "nb-NO";
       arch = "linux-i686";
       sha256 =
@@ -1002,8 +891,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/nl/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/nl/thunderbird-102.10.1.tar.bz2";
       locale = "nl";
       arch = "linux-i686";
       sha256 =
@@ -1011,8 +899,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/nn-NO/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/nn-NO/thunderbird-102.10.1.tar.bz2";
       locale = "nn-NO";
       arch = "linux-i686";
       sha256 =
@@ -1020,8 +907,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/pa-IN/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/pa-IN/thunderbird-102.10.1.tar.bz2";
       locale = "pa-IN";
       arch = "linux-i686";
       sha256 =
@@ -1029,8 +915,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/pl/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/pl/thunderbird-102.10.1.tar.bz2";
       locale = "pl";
       arch = "linux-i686";
       sha256 =
@@ -1038,8 +923,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/pt-BR/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/pt-BR/thunderbird-102.10.1.tar.bz2";
       locale = "pt-BR";
       arch = "linux-i686";
       sha256 =
@@ -1047,8 +931,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/pt-PT/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/pt-PT/thunderbird-102.10.1.tar.bz2";
       locale = "pt-PT";
       arch = "linux-i686";
       sha256 =
@@ -1056,8 +939,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/rm/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/rm/thunderbird-102.10.1.tar.bz2";
       locale = "rm";
       arch = "linux-i686";
       sha256 =
@@ -1065,8 +947,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/ro/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/ro/thunderbird-102.10.1.tar.bz2";
       locale = "ro";
       arch = "linux-i686";
       sha256 =
@@ -1074,8 +955,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/ru/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/ru/thunderbird-102.10.1.tar.bz2";
       locale = "ru";
       arch = "linux-i686";
       sha256 =
@@ -1083,8 +963,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/sk/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/sk/thunderbird-102.10.1.tar.bz2";
       locale = "sk";
       arch = "linux-i686";
       sha256 =
@@ -1092,8 +971,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/sl/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/sl/thunderbird-102.10.1.tar.bz2";
       locale = "sl";
       arch = "linux-i686";
       sha256 =
@@ -1101,8 +979,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/sq/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/sq/thunderbird-102.10.1.tar.bz2";
       locale = "sq";
       arch = "linux-i686";
       sha256 =
@@ -1110,8 +987,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/sr/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/sr/thunderbird-102.10.1.tar.bz2";
       locale = "sr";
       arch = "linux-i686";
       sha256 =
@@ -1119,8 +995,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/sv-SE/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/sv-SE/thunderbird-102.10.1.tar.bz2";
       locale = "sv-SE";
       arch = "linux-i686";
       sha256 =
@@ -1128,8 +1003,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/th/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/th/thunderbird-102.10.1.tar.bz2";
       locale = "th";
       arch = "linux-i686";
       sha256 =
@@ -1137,8 +1011,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/tr/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/tr/thunderbird-102.10.1.tar.bz2";
       locale = "tr";
       arch = "linux-i686";
       sha256 =
@@ -1146,8 +1019,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/uk/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/uk/thunderbird-102.10.1.tar.bz2";
       locale = "uk";
       arch = "linux-i686";
       sha256 =
@@ -1155,8 +1027,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/uz/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/uz/thunderbird-102.10.1.tar.bz2";
       locale = "uz";
       arch = "linux-i686";
       sha256 =
@@ -1164,8 +1035,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/vi/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/vi/thunderbird-102.10.1.tar.bz2";
       locale = "vi";
       arch = "linux-i686";
       sha256 =
@@ -1173,8 +1043,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/zh-CN/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/zh-CN/thunderbird-102.10.1.tar.bz2";
       locale = "zh-CN";
       arch = "linux-i686";
       sha256 =
@@ -1182,8 +1051,7 @@
     }
     {
       url =
-        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/zh-TW/thunderbird-102.10.1.tar.bz2"
-        ;
+        "http://archive.mozilla.org/pub/thunderbird/releases/102.10.1/linux-i686/zh-TW/thunderbird-102.10.1.tar.bz2";
       locale = "zh-TW";
       arch = "linux-i686";
       sha256 =

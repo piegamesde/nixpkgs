@@ -151,8 +151,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A tracepoint-based system tracing tool for Linux (with clients for other OSes)"
-      ;
+      "A tracepoint-based system tracing tool for Linux (with clients for other OSes)";
     license = with licenses; [
       asl20
       gpl2

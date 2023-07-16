@@ -68,8 +68,7 @@ let
 
     meta = with lib; {
       changelog =
-        "https://github.com/jupyter-server/pytest-jupyter/releases/tag/v${version}"
-        ;
+        "https://github.com/jupyter-server/pytest-jupyter/releases/tag/v${version}";
       description =
         "pytest plugin for testing Jupyter core libraries and extensions";
       homepage = "https://github.com/jupyter-server/pytest-jupyter";

@@ -84,8 +84,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Sound design, audio synthesis, and signal processing system, providing facilities for music composition and performance on all major operating systems and platforms"
-      ;
+      "Sound design, audio synthesis, and signal processing system, providing facilities for music composition and performance on all major operating systems and platforms";
     homepage = "https://csound.com/";
     license = licenses.lgpl21Plus;
     maintainers = [ maintainers.marcweber ];

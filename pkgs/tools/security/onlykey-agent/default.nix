@@ -72,8 +72,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      " The OnlyKey agent is essentially middleware that lets you use OnlyKey as a hardware SSH/GPG device."
-      ;
+      " The OnlyKey agent is essentially middleware that lets you use OnlyKey as a hardware SSH/GPG device.";
     homepage = "https://github.com/trustcrypto/onlykey-agent";
     license = licenses.lgpl3Only;
     maintainers = with maintainers; [ kalbasit ];

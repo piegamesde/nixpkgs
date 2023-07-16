@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://linux.thai.net/~thep/datrie/datrie.html";
     description =
-      "This is an implementation of double-array structure for representing trie"
-      ;
+      "This is an implementation of double-array structure for representing trie";
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [ SuperSandro2000 ];

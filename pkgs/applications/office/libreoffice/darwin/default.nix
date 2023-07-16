@@ -17,8 +17,7 @@ let
       arch = "aarch64";
       archSuffix = arch;
       url =
-        "https://download.documentfoundation.org/libreoffice/stable/${version}/mac/${arch}/LibreOffice_${version}_MacOS_${archSuffix}.dmg"
-        ;
+        "https://download.documentfoundation.org/libreoffice/stable/${version}/mac/${arch}/LibreOffice_${version}_MacOS_${archSuffix}.dmg";
       sha256 =
         "cf95f9ecd4451d27e8304cea3ba116675267bdf75f08fbb60e0d8917f86edc04";
     };
@@ -27,8 +26,7 @@ let
       arch = "x86_64";
       archSuffix = "x86-64";
       url =
-        "https://download.documentfoundation.org/libreoffice/stable/${version}/mac/${arch}/LibreOffice_${version}_MacOS_${archSuffix}.dmg"
-        ;
+        "https://download.documentfoundation.org/libreoffice/stable/${version}/mac/${arch}/LibreOffice_${version}_MacOS_${archSuffix}.dmg";
       sha256 =
         "fe569ba23bb74eb3e86974537dd80e504debe5fd8526a00edbad6be4da18986a";
     };
@@ -82,8 +80,7 @@ stdenvNoCC.mkDerivation {
 
   meta = with lib; {
     description =
-      "Comprehensive, professional-quality productivity suite, a variant of openoffice.org"
-      ;
+      "Comprehensive, professional-quality productivity suite, a variant of openoffice.org";
     homepage = "https://libreoffice.org/";
     license = licenses.lgpl3;
     maintainers = with maintainers; [ tricktron ];

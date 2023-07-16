@@ -149,8 +149,8 @@ let
       XDP_SOCKETS_DIAG = whenAtLeast "5.1" yes;
       WAN = yes;
       TCP_CONG_ADVANCED = yes;
-      TCP_CONG_CUBIC = yes
-        ; # This is the default congestion control algorithm since 2.6.19
+      TCP_CONG_CUBIC =
+        yes; # This is the default congestion control algorithm since 2.6.19
         # Required by systemd per-cgroup firewalling
       CGROUP_BPF = option yes;
       CGROUP_NET_PRIO = yes; # Required by systemd
@@ -420,8 +420,8 @@ let
       };
       USB_EHCI_ROOT_HUB_TT = yes; # Root Hub Transaction Translators
       USB_EHCI_TT_NEWSCHED = yes; # Improved transaction translator scheduling
-      USB_HIDDEV = yes
-        ; # USB Raw HID Devices (like monitor controls and Uninterruptable Power Supplies)
+      USB_HIDDEV =
+        yes; # USB Raw HID Devices (like monitor controls and Uninterruptable Power Supplies)
     };
 
       # Filesystem options - in particular, enable extended attributes and
@@ -555,8 +555,8 @@ let
       RANDOM_TRUST_BOOTLOADER = whenOlder "6.2" (whenAtLeast "5.4" yes)
         ; # allow the bootloader to seed the RNG
 
-      MODULE_SIG = no
-        ; # r13y, generates a random key during build and bakes it in
+      MODULE_SIG =
+        no; # r13y, generates a random key during build and bakes it in
         # Depends on MODULE_SIG and only really helps when you sign your modules
         # and enforce signatures which we don't do by default.
       SECURITY_LOCKDOWN_LSM = whenAtLeast "5.4" no;

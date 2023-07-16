@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A low-level library that provides a high level interface to XML processing for OpenSAML 2"
-      ;
+      "A low-level library that provides a high level interface to XML processing for OpenSAML 2";
     platforms = platforms.unix;
     license = licenses.asl20;
     maintainers = [ maintainers.jammerful ];

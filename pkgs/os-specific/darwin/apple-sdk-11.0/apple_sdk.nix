@@ -241,8 +241,9 @@ in rec {
           # this comment (and maybe document your findings).
           AVFoundation = { inherit ApplicationServices AVFCapture AVFCore; };
           Accelerate = { inherit CoreWLAN IOBluetooth; };
-          AddressBook = { inherit AddressBookCore ContactsPersistence libobjc; }
-            ;
+          AddressBook = {
+            inherit AddressBookCore ContactsPersistence libobjc;
+          };
           AppKit = { inherit AudioToolbox AudioUnit UIFoundation; };
           AudioToolbox = { inherit AudioToolboxCore; };
           AudioUnit = { inherit Carbon CoreAudio; };

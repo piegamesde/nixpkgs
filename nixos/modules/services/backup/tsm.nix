@@ -96,8 +96,7 @@ in {
           # The `-se` option must come after the command.
           # The `-optfile` option suppresses a `dsm.opt`-not-found warning.
         ExecStart =
-          "${cfgPrg.wrappedPackage}/bin/dsmc ${cfg.command} -se='${cfg.servername}' -optfile=/dev/null"
-          ;
+          "${cfgPrg.wrappedPackage}/bin/dsmc ${cfg.command} -se='${cfg.servername}' -optfile=/dev/null";
         LogsDirectory = "tsm-backup";
         StateDirectory = "tsm-backup";
         StateDirectoryMode = "0750";

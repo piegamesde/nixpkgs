@@ -10,8 +10,7 @@ stdenvNoCC.mkDerivation {
 
   src = fetchzip {
     url =
-      "https://github.com/tonsky/FiraCode/files/412440/FiraCode-Regular-Symbol.zip"
-      ;
+      "https://github.com/tonsky/FiraCode/files/412440/FiraCode-Regular-Symbol.zip";
     hash = "sha256-7y51blEn0Osf8azytK08zJgtfVX/CIWQkiOoRzYKIa4=";
   };
 

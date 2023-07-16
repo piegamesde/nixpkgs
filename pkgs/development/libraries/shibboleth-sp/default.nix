@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://shibboleth.net/products/service-provider.html";
     description =
-      "Enables SSO and Federation web applications written with any programming language or framework"
-      ;
+      "Enables SSO and Federation web applications written with any programming language or framework";
     platforms = platforms.unix;
     license = licenses.asl20;
     maintainers = [ maintainers.jammerful ];

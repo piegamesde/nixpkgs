@@ -11,8 +11,7 @@ import ./make-test-python.nix ({
     indexJSON = pkgs.writeText "index.json" (builtins.toJSON { inherit uid; });
     moviesJSON = pkgs.fetchurl {
       url =
-        "https://github.com/meilisearch/meilisearch/raw/v0.23.1/datasets/movies/movies.json"
-        ;
+        "https://github.com/meilisearch/meilisearch/raw/v0.23.1/datasets/movies/movies.json";
       sha256 = "1r3srld63dpmg9yrmysm6xl175661j5cspi93mk5q2wf8xwn50c5";
     };
   in {

@@ -101,8 +101,7 @@ in
 buildFHSEnv {
   name = "electron-fiddle";
   runScript =
-    "${electron}/bin/electron ${unwrapped}/lib/electron-fiddle/resources/app.asar"
-    ;
+    "${electron}/bin/electron ${unwrapped}/lib/electron-fiddle/resources/app.asar";
 
   extraInstallCommands = ''
     mkdir -p "$out/share/icons/hicolor/scalable/apps"

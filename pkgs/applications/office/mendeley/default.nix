@@ -14,8 +14,7 @@ let
 
   src = fetchurl {
     url =
-      "https://static.mendeley.com/bin/desktop/mendeley-reference-manager-2.80.1-x86_64.AppImage"
-      ;
+      "https://static.mendeley.com/bin/desktop/mendeley-reference-manager-2.80.1-x86_64.AppImage";
     sha256 = "sha256-uqmu7Yf4tXDlNGkeEZut4m339S6ZNKhAmej+epKLB/8=";
   };
 

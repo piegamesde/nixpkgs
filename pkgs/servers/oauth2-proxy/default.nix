@@ -22,8 +22,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A reverse proxy that provides authentication with Google, Github, or other providers"
-      ;
+      "A reverse proxy that provides authentication with Google, Github, or other providers";
     homepage = "https://github.com/oauth2-proxy/oauth2-proxy/";
     license = licenses.mit;
     maintainers = teams.serokell.members;

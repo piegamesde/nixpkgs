@@ -21,8 +21,7 @@ buildPythonPackage rec {
   patches = [ (substituteAll {
     src = ./library-paths.patch;
     freetype =
-      "${freetype.out}/lib/libfreetype${stdenv.hostPlatform.extensions.sharedLibrary}"
-      ;
+      "${freetype.out}/lib/libfreetype${stdenv.hostPlatform.extensions.sharedLibrary}";
   }) ];
 
   nativeBuildInputs = [ setuptools-scm ];

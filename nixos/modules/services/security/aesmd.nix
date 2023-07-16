@@ -55,8 +55,7 @@ in {
           type = with types; nullOr str;
           default = null;
           example =
-            "http://whitelist.trustedservices.intel.com/SGX/LCWL/Linux/sgx_white_list_cert.bin"
-            ;
+            "http://whitelist.trustedservices.intel.com/SGX/LCWL/Linux/sgx_white_list_cert.bin";
           description =
             lib.mdDoc "URL to retrieve authorized Intel SGX enclave signers.";
         };
@@ -167,8 +166,7 @@ in {
 
           DynamicUser = true;
           Group = "sgx";
-          SupplementaryGroups = [ config.hardware.cpu.intel.sgx.provision.group ]
-            ;
+          SupplementaryGroups = [ config.hardware.cpu.intel.sgx.provision.group ];
 
           Type = "simple";
 

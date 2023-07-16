@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/chocolate-doom/chocolate-doom/commit/a8fd4b1f563d24d4296c3e8225c8404e2724d4c2.patch"
-        ;
+        "https://github.com/chocolate-doom/chocolate-doom/commit/a8fd4b1f563d24d4296c3e8225c8404e2724d4c2.patch";
       sha256 = "1dmbygn952sy5n8qqp0asg11pmygwgygl17lrj7i0fxa0nrhixhj";
     })
   ];
@@ -60,8 +59,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "http://chocolate-doom.org/";
     description =
-      "A Doom source port that accurately reproduces the experience of Doom as it was played in the 1990s"
-      ;
+      "A Doom source port that accurately reproduces the experience of Doom as it was played in the 1990s";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
     hydraPlatforms = lib.platforms.linux; # darwin times out

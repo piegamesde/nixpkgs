@@ -55,8 +55,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "The strongly hyped graphical interpreter for the Haskell programming language"
-      ;
+      "The strongly hyped graphical interpreter for the Haskell programming language";
     homepage = "https://github.com/HeinrichApfelmus/hyper-haskell";
     license = licenses.bsd3;
     maintainers = [ maintainers.rvl ];

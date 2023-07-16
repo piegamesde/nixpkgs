@@ -25,8 +25,7 @@ rec {
         lang: hash:
         fetchurl {
           url =
-            "https://github.com/tesseract-ocr/tessdata/raw/${tessdataRev}/${lang}.traineddata"
-            ;
+            "https://github.com/tesseract-ocr/tessdata/raw/${tessdataRev}/${lang}.traineddata";
           inherit hash;
         }
         ;

@@ -40,8 +40,7 @@ import ./versions.nix ({
 
     meta = with lib; {
       description =
-        "An enterprise-class open source distributed monitoring solution (web frontend)"
-        ;
+        "An enterprise-class open source distributed monitoring solution (web frontend)";
       homepage = "https://www.zabbix.com/";
       license = licenses.gpl2;
       maintainers = [ maintainers.mmahut ];

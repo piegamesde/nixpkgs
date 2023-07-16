@@ -25,8 +25,7 @@ buildPythonPackage rec {
   patches = [ (fetchpatch {
     name = "remove-unittest2.patch";
     url =
-      "https://github.com/nickmaccarthy/python-datemath/commit/781daa0241ed327d5f211f3b62f553f3ee3d86e0.patch"
-      ;
+      "https://github.com/nickmaccarthy/python-datemath/commit/781daa0241ed327d5f211f3b62f553f3ee3d86e0.patch";
     hash = "sha256-WD6fuDaSSNXgYWoaUexiWnofCzEZzercEUlqTvOUT5I=";
   }) ];
 

@@ -12,8 +12,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/CraigFe/ocaml-rusage/releases/download/${version}/rusage-${version}.tbz"
-      ;
+      "https://github.com/CraigFe/ocaml-rusage/releases/download/${version}/rusage-${version}.tbz";
     hash = "sha256-OgYA2Fe1goqoaOS45Z6FBJNNYN/uq+KQoUwG8KSo6Fk=";
   };
 

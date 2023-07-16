@@ -36,8 +36,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A modern parsing library for Python, implementing Earley & LALR(1) and an easy interface"
-      ;
+      "A modern parsing library for Python, implementing Earley & LALR(1) and an easy interface";
     homepage = "https://lark-parser.readthedocs.io/";
     changelog = "https://github.com/lark-parser/lark/releases/tag/${version}";
     license = licenses.mit;

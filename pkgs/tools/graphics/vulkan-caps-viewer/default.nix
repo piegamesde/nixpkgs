@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ pedrohlc ];
     changelog =
-      "https://github.com/SaschaWillems/VulkanCapsViewer/releases/tag/${version}"
-      ;
+      "https://github.com/SaschaWillems/VulkanCapsViewer/releases/tag/${version}";
       # never built on aarch64-darwin, x86_64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin;
   };

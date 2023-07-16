@@ -68,8 +68,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A robust materials analysis code that defines core object representations for structures and molecules"
-      ;
+      "A robust materials analysis code that defines core object representations for structures and molecules";
     homepage = "https://pymatgen.org/";
     license = licenses.mit;
     maintainers = with maintainers; [ psyanticy ];

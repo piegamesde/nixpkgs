@@ -30,8 +30,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A pure functional compile target that is lazy, non-garbage-collected, and parallel"
-      ;
+      "A pure functional compile target that is lazy, non-garbage-collected, and parallel";
     homepage = "https://github.com/kindelia/hvm";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];

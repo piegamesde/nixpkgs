@@ -32,8 +32,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog =
-      "https://github.com/repo-helper/hatch-requirements-txt/releases/tag/${version}"
-      ;
+      "https://github.com/repo-helper/hatch-requirements-txt/releases/tag/${version}";
     description =
       "Hatchling plugin to read project dependencies from requirements.txt";
     homepage = "https://github.com/repo-helper/hatch-requirements-txt";

@@ -11,8 +11,7 @@ let
 
   src = fetchurl {
     url =
-      "https://s3.amazonaws.com/timeular-desktop-packages/linux/production/Timeular-${version}.AppImage"
-      ;
+      "https://s3.amazonaws.com/timeular-desktop-packages/linux/production/Timeular-${version}.AppImage";
     sha256 = "sha256-gIYo91ITpFtYdYGek4bXaOowMSILXZ4fJYNKeZDhk+Y=";
   };
 

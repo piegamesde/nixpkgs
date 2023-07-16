@@ -46,8 +46,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Build smaller, faster, and more secure desktop applications with a web frontend"
-      ;
+      "Build smaller, faster, and more secure desktop applications with a web frontend";
     homepage = "https://tauri.app/";
     license = with licenses; [
       asl20 # or

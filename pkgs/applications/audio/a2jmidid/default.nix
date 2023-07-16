@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Daemon for exposing legacy ALSA sequencer applications in JACK MIDI system"
-      ;
+      "Daemon for exposing legacy ALSA sequencer applications in JACK MIDI system";
     license = licenses.gpl2;
     maintainers = [ maintainers.goibhniu ];
     platforms = [

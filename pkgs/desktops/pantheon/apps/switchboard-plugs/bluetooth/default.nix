@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
     # https://github.com/elementary/switchboard-plug-bluetooth/pull/182
     (fetchpatch {
       url =
-        "https://github.com/elementary/switchboard-plug-bluetooth/commit/031dd5660b4bcb0bb4e82ebe6d8bcdaa1791c385.patch"
-        ;
+        "https://github.com/elementary/switchboard-plug-bluetooth/commit/031dd5660b4bcb0bb4e82ebe6d8bcdaa1791c385.patch";
       sha256 = "1g01ad6md7pqp1fx00avbra8yfnr8ipg8y6zhfg35fgjakj4aags";
     })
   ];

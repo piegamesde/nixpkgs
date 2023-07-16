@@ -58,8 +58,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Tool for pentesting networks";
     homepage = "https://github.com/Porchetta-Industries/CrackMapExec";
     changelog =
-      "https://github.com/Porchetta-Industries/CrackMapExec/releases/tag/v${version}"
-      ;
+      "https://github.com/Porchetta-Industries/CrackMapExec/releases/tag/v${version}";
     license = with licenses; [ bsd2 ];
     maintainers = with maintainers; [ fab ];
     mainProgram = "cme";

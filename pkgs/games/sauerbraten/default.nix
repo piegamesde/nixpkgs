@@ -71,8 +71,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A free multiplayer & singleplayer first person shooter, the successor of the Cube FPS"
-      ;
+      "A free multiplayer & singleplayer first person shooter, the successor of the Cube FPS";
     maintainers = with maintainers; [
       raskin
       ajs124
@@ -82,8 +81,8 @@ stdenv.mkDerivation rec {
       # raskin: tested amd64-linux;
       # not setting platforms because it is 0.5+ GiB of game data
       [ ];
-    license = "freeware"
-      ; # as an aggregate - data files have different licenses code is under zlib license
+    license =
+      "freeware"; # as an aggregate - data files have different licenses code is under zlib license
     platforms = platforms.linux;
   };
 }

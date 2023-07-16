@@ -36,8 +36,7 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Fast and Highly Extensible Vim script Language Lint implemented by Python"
-      ;
+      "Fast and Highly Extensible Vim script Language Lint implemented by Python";
     homepage = "https://github.com/Kuniwak/vint";
     license = licenses.mit;
     mainProgram = "vint";

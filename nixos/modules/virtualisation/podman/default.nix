@@ -193,10 +193,10 @@ in {
         network.network_backend = "netavark";
       } // lib.optionalAttrs cfg.enableNvidia {
         engine = {
-          conmon_env_vars = [ "PATH=${lib.makeBinPath [ pkgs.nvidia-podman ]}" ]
-            ;
-          runtimes.nvidia = [ "${pkgs.nvidia-podman}/bin/nvidia-container-runtime" ]
-            ;
+          conmon_env_vars = [ "PATH=${
+              lib.makeBinPath [ pkgs.nvidia-podman ]
+            }" ];
+          runtimes.nvidia = [ "${pkgs.nvidia-podman}/bin/nvidia-container-runtime" ];
         };
       };
     };

@@ -213,8 +213,7 @@
     version = "5.105.0";
     src = fetchurl {
       url =
-        "${mirror}/stable/frameworks/5.105/portingAids/kdelibs4support-5.105.0.tar.xz"
-        ;
+        "${mirror}/stable/frameworks/5.105/portingAids/kdelibs4support-5.105.0.tar.xz";
       sha256 = "1vc7iwngfmfwx942lwyw240szz7vyrym9mnf2k0fwfi93hi52l2d";
       name = "kdelibs4support-5.105.0.tar.xz";
     };
@@ -223,8 +222,7 @@
     version = "5.105.0";
     src = fetchurl {
       url =
-        "${mirror}/stable/frameworks/5.105/portingAids/kdesignerplugin-5.105.0.tar.xz"
-        ;
+        "${mirror}/stable/frameworks/5.105/portingAids/kdesignerplugin-5.105.0.tar.xz";
       sha256 = "0rmashvv60kfhl5g50p0jbzn7hrfywq4pdcgmd88ab9biiljwj77";
       name = "kdesignerplugin-5.105.0.tar.xz";
     };
@@ -241,8 +239,7 @@
     version = "5.105.0";
     src = fetchurl {
       url =
-        "${mirror}/stable/frameworks/5.105/portingAids/kdewebkit-5.105.0.tar.xz"
-        ;
+        "${mirror}/stable/frameworks/5.105/portingAids/kdewebkit-5.105.0.tar.xz";
       sha256 = "165nlkk9d6lzmpa1cdp9l5rydl82fs4xafqgilkqv4z1swc0sxiq";
       name = "kdewebkit-5.105.0.tar.xz";
     };
@@ -413,8 +410,7 @@
     version = "5.105.0";
     src = fetchurl {
       url =
-        "${mirror}/stable/frameworks/5.105/portingAids/kmediaplayer-5.105.0.tar.xz"
-        ;
+        "${mirror}/stable/frameworks/5.105/portingAids/kmediaplayer-5.105.0.tar.xz";
       sha256 = "1n2znpn5sxh5a86mqkd2db348fhcybvqwcfy7168g38zflhv1cvx";
       name = "kmediaplayer-5.105.0.tar.xz";
     };
@@ -584,8 +580,7 @@
     version = "5.105.0";
     src = fetchurl {
       url =
-        "${mirror}/stable/frameworks/5.105/portingAids/kxmlrpcclient-5.105.0.tar.xz"
-        ;
+        "${mirror}/stable/frameworks/5.105/portingAids/kxmlrpcclient-5.105.0.tar.xz";
       sha256 = "1l1ckiyqfrqq5q79p87mrmvyba04mvi8snjaamppqfw7mxpdx3ap";
       name = "kxmlrpcclient-5.105.0.tar.xz";
     };

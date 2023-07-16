@@ -155,8 +155,7 @@ in {
       serviceConfig = mkMerge [
         {
           ExecStart =
-            "${cfg.package}/bin/crossfire-server -conf /etc/crossfire -local '${cfg.stateDir}' -data '${cfg.dataDir}'"
-            ;
+            "${cfg.package}/bin/crossfire-server -conf /etc/crossfire -local '${cfg.stateDir}' -data '${cfg.dataDir}'";
           Restart = "always";
           User = "crossfire";
           Group = "crossfire";

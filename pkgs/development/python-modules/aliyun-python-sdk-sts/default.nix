@@ -29,8 +29,7 @@ buildPythonPackage rec {
     description = "STS module of Aliyun Python SDK";
     homepage = "https://github.com/aliyun/aliyun-openapi-python-sdk";
     changelog =
-      "https://github.com/aliyun/aliyun-openapi-python-sdk/blob/master/aliyun-python-sdk-sts/ChangeLog.txt"
-      ;
+      "https://github.com/aliyun/aliyun-openapi-python-sdk/blob/master/aliyun-python-sdk-sts/ChangeLog.txt";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

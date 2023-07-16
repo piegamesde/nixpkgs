@@ -37,8 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "https://jackaudio.org/downloads/jack-audio-connection-kit-${finalAttrs.version}.tar.gz"
-      ;
+      "https://jackaudio.org/downloads/jack-audio-connection-kit-${finalAttrs.version}.tar.gz";
     sha256 = "0i6l25dmfk2ji2lrakqq9icnwjxklgcjzzk65dmsff91z2zva5rm";
   };
 

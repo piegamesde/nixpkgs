@@ -48,8 +48,7 @@ in with lib; {
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         ExecStart =
-          "${cfg.package}/bin/meshcentral --datapath /var/lib/meshcentral --configfile ${configFile}"
-          ;
+          "${cfg.package}/bin/meshcentral --datapath /var/lib/meshcentral --configfile ${configFile}";
         DynamicUser = true;
         StateDirectory = "meshcentral";
         CacheDirectory = "meshcentral";

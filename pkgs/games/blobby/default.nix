@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/blobby/Blobby%20Volley%202%20%28Linux%29/1.0/blobby2-linux-1.0.tar.gz"
-      ;
+      "mirror://sourceforge/blobby/Blobby%20Volley%202%20%28Linux%29/1.0/blobby2-linux-1.0.tar.gz";
     sha256 = "1qpmbdlyhfbrdsq4vkb6cb3b8mh27fpizb71q4a21ala56g08yms";
   };
 
@@ -61,8 +60,7 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ raskin ];
     homepage = "https://blobbyvolley.de/";
     downloadPage =
-      "https://sourceforge.net/projects/blobby/files/Blobby%20Volley%202%20%28Linux%29/"
-      ;
+      "https://sourceforge.net/projects/blobby/files/Blobby%20Volley%202%20%28Linux%29/";
     mainProgram = "blobby";
   };
 }

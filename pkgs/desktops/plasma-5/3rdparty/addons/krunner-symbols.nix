@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A little krunner plugin (Plasma 5) to retrieve unicode symbols, or any other string, based on a corresponding keyword"
-      ;
+      "A little krunner plugin (Plasma 5) to retrieve unicode symbols, or any other string, based on a corresponding keyword";
     homepage = "https://github.com/domschrei/krunner-symbols";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ hqurve ];

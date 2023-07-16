@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   patches = [ (fetchpatch {
     name = "fix-aarch64.patch";
     url =
-      "https://github.com/lkrg-org/lkrg/commit/a4e5c00f13f7081b346bc3736e4c035e3d17d3f7.patch"
-      ;
+      "https://github.com/lkrg-org/lkrg/commit/a4e5c00f13f7081b346bc3736e4c035e3d17d3f7.patch";
     sha256 = "sha256-DPscqi+DySHwFxGuGe7P2itPkoyb3XGu5Xp2S/ezP4Y=";
   }) ];
 
@@ -50,8 +49,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "LKRG Linux Kernel module";
     longDescription =
-      "LKRG performs runtime integrity checking of the Linux kernel and detection of security vulnerability exploits against the kernel."
-      ;
+      "LKRG performs runtime integrity checking of the Linux kernel and detection of security vulnerability exploits against the kernel.";
     homepage = "https://lkrg.org/";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ chivay ];

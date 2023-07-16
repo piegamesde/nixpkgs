@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "0001-libfaketime.c-wrap-timespec_get-in-TIME_UTC-macro.patch";
       url =
-        "https://github.com/wolfcw/libfaketime/commit/e0e6b79568d36a8fd2b3c41f7214769221182128.patch"
-        ;
+        "https://github.com/wolfcw/libfaketime/commit/e0e6b79568d36a8fd2b3c41f7214769221182128.patch";
       sha256 = "sha256-KwwP76v0DXNW73p/YBvwUOPdKMAcVdbQSKexD/uFOYo=";
     })
   ] ++ (lib.optionals stdenv.cc.isClang [
@@ -51,8 +50,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Report faked system time to programs without having to change the system-wide time"
-      ;
+      "Report faked system time to programs without having to change the system-wide time";
     homepage = "https://github.com/wolfcw/libfaketime/";
     license = licenses.gpl2;
     platforms = platforms.all;

@@ -23,8 +23,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/azaghal/pydenticon";
     description =
-      "Library for generating identicons. Port of Sigil (https://github.com/cupcake/sigil) with enhancements"
-      ;
+      "Library for generating identicons. Port of Sigil (https://github.com/cupcake/sigil) with enhancements";
     license = licenses.bsd0;
   };
 

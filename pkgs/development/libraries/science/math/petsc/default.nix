@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-${version}.tar.gz"
-      ;
+      "http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-${version}.tar.gz";
     sha256 = "sha256-mcEnSGcio//ZWiaLTOsJdsvyF5JsaBqWMb1yRuq4yyo=";
   };
 

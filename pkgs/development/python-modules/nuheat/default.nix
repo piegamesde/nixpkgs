@@ -37,8 +37,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Library to interact with NuHeat Signature and Mapei Mapeheat radiant floor thermostats"
-      ;
+      "Library to interact with NuHeat Signature and Mapei Mapeheat radiant floor thermostats";
     homepage = "https://github.com/broox/python-nuheat";
     changelog =
       "https://github.com/broox/python-nuheat/releases/tag/${version}";

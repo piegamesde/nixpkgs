@@ -341,8 +341,7 @@ stdenv.mkDerivation {
       fetchpatch {
         name = "clang-cmake-fix-interpreter.patch";
         url =
-          "https://github.com/llvm/llvm-project/commit/b5eaf500f2441eff2277ea2973878fb1f171fd0a.patch"
-          ;
+          "https://github.com/llvm/llvm-project/commit/b5eaf500f2441eff2277ea2973878fb1f171fd0a.patch";
         sha256 = "1rma1al0rbm3s3ql6bnvbcighp74lri1lcrwbyacgdqp80fgw1b6";
       }
     }

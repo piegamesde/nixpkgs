@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
     # https://github.com/editorconfig/editorconfig-core-c/pull/81
     (fetchpatch {
       url =
-        "https://github.com/editorconfig/editorconfig-core-c/commit/e0ead79d3bb4179fe9bccd3e5598ed47cc0863a3.patch"
-        ;
+        "https://github.com/editorconfig/editorconfig-core-c/commit/e0ead79d3bb4179fe9bccd3e5598ed47cc0863a3.patch";
       sha256 = "t/DiPVyyYoMwFpNG6sD+rLWHheFCbMaILXyey6inGdc=";
     })
   ];

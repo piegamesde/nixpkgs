@@ -706,8 +706,7 @@ in rec {
     meta = with lib; {
       homepage = "https://github.com/tmux-plugins/vim-tmux-focus-events";
       description =
-        "Makes FocusGained and FocusLost autocommand events work in vim when using tmux"
-        ;
+        "Makes FocusGained and FocusLost autocommand events work in vim when using tmux";
       license = licenses.mit;
       platforms = platforms.unix;
       maintainers = with maintainers; [ ronanmacf ];

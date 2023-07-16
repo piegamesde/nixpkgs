@@ -25,8 +25,8 @@ let
   dbPassword = "please_dont_hack";
 
   userEmail = "meow@example.com";
-  userPassword = "also_super_secret_ZJWpBKZi668QGt"
-    ; # Must be complex to avoid interstitial warning on the signup page
+  userPassword =
+    "also_super_secret_ZJWpBKZi668QGt"; # Must be complex to avoid interstitial warning on the signup page
 
   storedPassword = "seeeecret";
 
@@ -73,8 +73,7 @@ let
                 };
 
                 services.vaultwarden.config.databaseUrl =
-                  "postgresql://bitwardenuser:${dbPassword}@localhost/bitwarden"
-                  ;
+                  "postgresql://bitwardenuser:${dbPassword}@localhost/bitwarden";
 
                 systemd.services.vaultwarden.after = [ "postgresql.service" ];
               };

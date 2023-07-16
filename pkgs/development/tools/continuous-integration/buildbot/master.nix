@@ -146,8 +146,7 @@ let
 
     meta = with lib; {
       description =
-        "An open-source continuous integration framework for automating software build, test, and release processes"
-        ;
+        "An open-source continuous integration framework for automating software build, test, and release processes";
       homepage = "https://buildbot.net/";
       changelog =
         "https://github.com/buildbot/buildbot/releases/tag/v${version}";

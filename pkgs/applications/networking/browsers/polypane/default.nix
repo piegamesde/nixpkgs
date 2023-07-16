@@ -10,8 +10,7 @@ let
 
   src = fetchurl {
     url =
-      "https://github.com/firstversionist/${pname}/releases/download/v${version}/${pname}-${version}.AppImage"
-      ;
+      "https://github.com/firstversionist/${pname}/releases/download/v${version}/${pname}-${version}.AppImage";
     name = "${pname}-${version}.AppImage";
     sha256 = "sha256-wMWO8eRH8O93m4/HaRTdG3DhyCvHWw+s3sAtN+VLBeY=";
   };

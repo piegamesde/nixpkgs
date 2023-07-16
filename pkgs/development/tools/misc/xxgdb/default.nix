@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://deb.debian.org/debian/pool/main/x/xxgdb/xxgdb_${version}.orig.tar.gz"
-      ;
+      "http://deb.debian.org/debian/pool/main/x/xxgdb/xxgdb_${version}.orig.tar.gz";
     sha256 = "0jwazg99wk2l7r390ggw0yr8xipl07bp0qynni141xss530i6d1a";
   };
 

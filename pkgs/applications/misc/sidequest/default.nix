@@ -34,8 +34,7 @@ let
 
     src = fetchurl {
       url =
-        "https://github.com/SideQuestVR/SideQuest/releases/download/v${version}/SideQuest-${version}.tar.xz"
-        ;
+        "https://github.com/SideQuestVR/SideQuest/releases/download/v${version}/SideQuest-${version}.tar.xz";
       sha256 =
         "8ac3d97400a8e3ce86902b5bea7b8d042a092acd888d20e5139490a38507f995";
     };
@@ -73,8 +72,7 @@ buildFHSEnv {
 
     meta = with lib; {
       description =
-        "An open app store and side-loading tool for Android-based VR devices such as the Oculus Go, Oculus Quest or Moverio BT 300"
-        ;
+        "An open app store and side-loading tool for Android-based VR devices such as the Oculus Go, Oculus Quest or Moverio BT 300";
       homepage = "https://github.com/SideQuestVR/SideQuest";
       downloadPage = "https://github.com/SideQuestVR/SideQuest/releases";
       sourceProvenance = with sourceTypes; [ binaryNativeCode ];

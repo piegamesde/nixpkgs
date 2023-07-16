@@ -14,14 +14,12 @@ let
   osu-lazer-bin-src = {
     aarch64-darwin = {
       url =
-        "https://github.com/ppy/osu/releases/download/${version}/osu.app.Apple.Silicon.zip"
-        ;
+        "https://github.com/ppy/osu/releases/download/${version}/osu.app.Apple.Silicon.zip";
       sha256 = "sha256-KItS8OykIjinSgm/CtF3YUMUQE9OfZ6aZ6DLBpyyDQE=";
     };
     x86_64-darwin = {
       url =
-        "https://github.com/ppy/osu/releases/download/${version}/osu.app.Intel.zip"
-        ;
+        "https://github.com/ppy/osu/releases/download/${version}/osu.app.Intel.zip";
       sha256 = "sha256-O4MlcawL6wlj6HilSH8wm0GJWN8DqWjNw51YJGu2NMs=";
     };
     x86_64-linux = {
@@ -71,8 +69,7 @@ let
 
   meta = with lib; {
     description =
-      "Rhythm is just a *click* away (AppImage version for score submission and multiplayer, and binary distribution for Darwin systems)"
-      ;
+      "Rhythm is just a *click* away (AppImage version for score submission and multiplayer, and binary distribution for Darwin systems)";
     homepage = "https://osu.ppy.sh";
     license = with licenses; [
       mit

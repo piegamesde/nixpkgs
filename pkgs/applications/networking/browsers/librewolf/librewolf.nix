@@ -32,8 +32,7 @@ in rec {
 
   extraPrefsFiles = [ "${source}/submodules/settings/librewolf.cfg" ];
 
-  extraPoliciesFiles = [ "${source}/submodules/settings/distribution/policies.json" ]
-    ;
+  extraPoliciesFiles = [ "${source}/submodules/settings/distribution/policies.json" ];
 
   extraPassthru = {
     librewolf = { inherit src extraPatches; };

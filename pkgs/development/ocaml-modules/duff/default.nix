@@ -18,8 +18,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/duff/releases/download/v${version}/duff-${version}.tbz"
-      ;
+      "https://github.com/mirage/duff/releases/download/v${version}/duff-${version}.tbz";
     sha256 = "sha256-0eqpfPWNOHYjkcjXRnZUTUFF0/L9E+TNoOqKCETN5hI=";
   };
 

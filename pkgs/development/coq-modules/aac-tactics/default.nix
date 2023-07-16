@@ -90,8 +90,7 @@ mkCoqDerivation {
 
   meta = with lib; {
     description =
-      "Coq plugin providing tactics for rewriting universally quantified equations"
-      ;
+      "Coq plugin providing tactics for rewriting universally quantified equations";
     longDescription = ''
       This Coq plugin provides tactics for rewriting universally quantified
       equations, modulo associativity and commutativity of some operator.

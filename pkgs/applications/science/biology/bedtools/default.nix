@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
       "gcc"
     ;
   buildPhase =
-    "make prefix=$out SHELL=${stdenv.shell} CXX=${cxx} CC=${cc} -j $NIX_BUILD_CORES"
-    ;
+    "make prefix=$out SHELL=${stdenv.shell} CXX=${cxx} CC=${cc} -j $NIX_BUILD_CORES";
   installPhase =
     "make prefix=$out SHELL=${stdenv.shell} CXX=${cxx} CC=${cc} install";
 

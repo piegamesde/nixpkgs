@@ -20,8 +20,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A utility to generate documentation from Terraform modules in various output formats"
-      ;
+      "A utility to generate documentation from Terraform modules in various output formats";
     homepage = "https://github.com/terraform-docs/terraform-docs/";
     license = licenses.mit;
     maintainers = with maintainers; [ zimbatm ];

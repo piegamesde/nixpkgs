@@ -369,8 +369,7 @@ in {
               lib.mdDoc "The Redis connection used for the Celery worker.";
             type = types.str;
             default =
-              "redis+socket:///run/redis-sourcehut-buildsrht/redis.sock?virtual_host=2"
-              ;
+              "redis+socket:///run/redis-sourcehut-buildsrht/redis.sock?virtual_host=2";
           };
           shell = mkOption {
             description = lib.mdDoc ''
@@ -447,8 +446,7 @@ in {
               lib.mdDoc "The Redis connection used for the webhooks worker.";
             type = types.str;
             default =
-              "redis+socket:///run/redis-sourcehut-gitsrht/redis.sock?virtual_host=1"
-              ;
+              "redis+socket:///run/redis-sourcehut-gitsrht/redis.sock?virtual_host=1";
           };
         };
         options."git.sr.ht::api" = {
@@ -508,8 +506,7 @@ in {
               lib.mdDoc "The Redis connection used for the webhooks worker.";
             type = types.str;
             default =
-              "redis+socket:///run/redis-sourcehut-hgsrht/redis.sock?virtual_host=1"
-              ;
+              "redis+socket:///run/redis-sourcehut-hgsrht/redis.sock?virtual_host=1";
           };
         };
 
@@ -534,16 +531,14 @@ in {
               lib.mdDoc "The Redis connection used for the Celery worker.";
             type = types.str;
             default =
-              "redis+socket:///run/redis-sourcehut-listssrht/redis.sock?virtual_host=2"
-              ;
+              "redis+socket:///run/redis-sourcehut-listssrht/redis.sock?virtual_host=2";
           };
           webhooks = mkOption {
             description =
               lib.mdDoc "The Redis connection used for the webhooks worker.";
             type = types.str;
             default =
-              "redis+socket:///run/redis-sourcehut-listssrht/redis.sock?virtual_host=1"
-              ;
+              "redis+socket:///run/redis-sourcehut-listssrht/redis.sock?virtual_host=1";
           };
         };
         options."lists.sr.ht::worker" = {
@@ -601,8 +596,7 @@ in {
               lib.mdDoc "The Redis connection used for the webhooks worker.";
             type = types.str;
             default =
-              "redis+socket:///run/redis-sourcehut-metasrht/redis.sock?virtual_host=1"
-              ;
+              "redis+socket:///run/redis-sourcehut-metasrht/redis.sock?virtual_host=1";
           };
           welcome-emails = mkEnableOption
             (lib.mdDoc "sending stock sourcehut welcome emails after signup");
@@ -713,8 +707,7 @@ in {
               lib.mdDoc "The Redis connection used for the webhooks worker.";
             type = types.str;
             default =
-              "redis+socket:///run/redis-sourcehut-todosrht/redis.sock?virtual_host=1"
-              ;
+              "redis+socket:///run/redis-sourcehut-todosrht/redis.sock?virtual_host=1";
           };
         };
         options."todo.sr.ht::mail" = {
@@ -1110,8 +1103,7 @@ in {
             # Allow nginx access to buildlogs
             users.users.${nginx.user}.extraGroups = [ cfg.builds.group ];
             systemd.services.nginx = {
-              serviceConfig.BindReadOnlyPaths = [ cfg.settings."builds.sr.ht::worker".buildlogs ]
-                ;
+              serviceConfig.BindReadOnlyPaths = [ cfg.settings."builds.sr.ht::worker".buildlogs ];
             };
             services.nginx.virtualHosts."logs.${domain}" = mkMerge [
               {

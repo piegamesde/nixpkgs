@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://gameoftrees.org/releases/portable/got-portable-${version}.tar.gz"
-      ;
+      "https://gameoftrees.org/releases/portable/got-portable-${version}.tar.gz";
     hash = "sha256-F8EHMKAQq/fV/i6+Vf42hmVjhbptuuiO8zfE9kfzzqA=";
   };
 
@@ -65,8 +64,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A version control system which prioritizes ease of use and simplicity over flexibility"
-      ;
+      "A version control system which prioritizes ease of use and simplicity over flexibility";
     longDescription = ''
       Game of Trees (Got) is a version control system which prioritizes
       ease of use and simplicity over flexibility.

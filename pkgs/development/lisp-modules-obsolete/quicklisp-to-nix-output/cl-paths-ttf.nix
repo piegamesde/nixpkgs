@@ -15,8 +15,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/cl-vectors/2018-02-28/cl-vectors-20180228-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/cl-vectors/2018-02-28/cl-vectors-20180228-git.tgz";
     sha256 = "0fcypjfzqra8ryb4nx1vx1fqy7fwvyz3f443qkjg2z81akhkscly";
   };
 

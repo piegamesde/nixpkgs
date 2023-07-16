@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://kernel/linux/kernel/people/kdave/btrfs-progs/btrfs-progs-v${version}.tar.xz"
-      ;
+      "mirror://kernel/linux/kernel/people/kdave/btrfs-progs/btrfs-progs-v${version}.tar.xz";
     sha256 = "sha256-5IiNuGN9kuZnRIOGmS0IVrlUzyUVuY05tmfaQ8SC1pM=";
   };
 

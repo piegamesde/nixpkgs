@@ -24,8 +24,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/kfdm/gntp/";
     description =
-      "Python library for working with the Growl Notification Transport Protocol"
-      ;
+      "Python library for working with the Growl Notification Transport Protocol";
     license = licenses.mit;
     maintainers = [ maintainers.jfroche ];
   };

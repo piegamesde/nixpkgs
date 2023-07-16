@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/sile-typesetter/sile/releases/download/v${version}/${pname}-${version}.tar.xz"
-      ;
+      "https://github.com/sile-typesetter/sile/releases/download/v${version}/${pname}-${version}.tar.xz";
     sha256 = "0528835iir2ws14fwb7w4dqs3wlzzcv5arjxs8v13drb194rlwcs";
   };
 

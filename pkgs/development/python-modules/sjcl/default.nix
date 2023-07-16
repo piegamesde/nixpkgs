@@ -30,8 +30,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = ''
-      Decrypt and encrypt messages compatible to the "Stanford Javascript Crypto Library (SJCL)" message format. This is a wrapper around pycrypto.''
-      ;
+      Decrypt and encrypt messages compatible to the "Stanford Javascript Crypto Library (SJCL)" message format. This is a wrapper around pycrypto.'';
     homepage = "https://github.com/berlincode/sjcl";
     license = licenses.bsd3;
     maintainers = with maintainers; [ binsky ];

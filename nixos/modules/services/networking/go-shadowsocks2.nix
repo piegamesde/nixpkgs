@@ -28,8 +28,7 @@ in {
 
       serviceConfig = {
         ExecStart =
-          "${pkgs.go-shadowsocks2}/bin/go-shadowsocks2 -s '${cfg.listenAddress}'"
-          ;
+          "${pkgs.go-shadowsocks2}/bin/go-shadowsocks2 -s '${cfg.listenAddress}'";
         DynamicUser = true;
       };
     };

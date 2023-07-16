@@ -88,8 +88,7 @@ in {
     boot.initrd.systemd = lib.mkIf initrdCfg.enable {
       additionalUpstreamUnits = [ "systemd-repart.service" ];
 
-      storePaths = [ "${config.boot.initrd.systemd.package}/bin/systemd-repart" ]
-        ;
+      storePaths = [ "${config.boot.initrd.systemd.package}/bin/systemd-repart" ];
 
         # Override defaults in upstream unit.
       services.systemd-repart = {

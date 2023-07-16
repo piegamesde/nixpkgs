@@ -310,14 +310,12 @@ in {
       {
         assertion = cfg.cellServDB != [ ];
         message =
-          "You must specify all cell-local database servers in config.services.openafsServer.cellServDB."
-          ;
+          "You must specify all cell-local database servers in config.services.openafsServer.cellServDB.";
       }
       {
         assertion = cfg.cellName != "";
         message =
-          "You must specify the local cell name in config.services.openafsServer.cellName."
-          ;
+          "You must specify the local cell name in config.services.openafsServer.cellName.";
       }
     ];
 

@@ -9,8 +9,7 @@ stdenv.mkDerivation rec {
   version = "1.1";
   src = fetchurl {
     url =
-      "https://www.codon.org.uk/~mjg59/libx86/downloads/${pname}-${version}.tar.gz"
-      ;
+      "https://www.codon.org.uk/~mjg59/libx86/downloads/${pname}-${version}.tar.gz";
     sha256 = "0j6h6bc02c6qi0q7c1ncraz4d1hkm5936r35rfsp4x1jrc233wav";
   };
   patches = [

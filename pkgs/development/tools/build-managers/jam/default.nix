@@ -83,8 +83,7 @@ in {
 
         src = fetchurl {
           url =
-            "https://swarm.workshop.perforce.com/projects/perforce_software-jam/download/main/${pname}-${version}.tar"
-            ;
+            "https://swarm.workshop.perforce.com/projects/perforce_software-jam/download/main/${pname}-${version}.tar";
           sha256 = "19xkvkpycxfsncxvin6yqrql3x3z9ypc1j8kzls5k659q4kv5rmc";
         };
 
@@ -114,8 +113,7 @@ in {
 
         src = fetchurl {
           url =
-            "https://downloads.sourceforge.net/project/freetype/${pname}/${version}/${pname}-${version}.tar.bz2"
-            ;
+            "https://downloads.sourceforge.net/project/freetype/${pname}/${version}/${pname}-${version}.tar.bz2";
           hash = "sha256-6JdzUAqSkS3pGOn+v/q+S2vOedaa8ZRDX04DK4ptZqM=";
         };
 

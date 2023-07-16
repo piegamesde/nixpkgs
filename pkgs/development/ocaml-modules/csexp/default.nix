@@ -11,8 +11,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ocaml-dune/csexp/releases/download/${version}/csexp-${version}.tbz"
-      ;
+      "https://github.com/ocaml-dune/csexp/releases/download/${version}/csexp-${version}.tbz";
     sha256 = "sha256-1gXkBl+pCliABEDvLzOi2TE5i/LCIGGorLffhFwKrAI=";
   };
 

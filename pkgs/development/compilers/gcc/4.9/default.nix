@@ -98,8 +98,7 @@ let
     (fetchpatch {
       name = "avoid-ustat-glibc-2.28.patch";
       url =
-        "https://gitweb.gentoo.org/proj/gcc-patches.git/plain/4.9.4/gentoo/100_all_avoid-ustat-glibc-2.28.patch?id=55fcb515620a8f7d3bb77eba938aa0fcf0d67c96"
-        ;
+        "https://gitweb.gentoo.org/proj/gcc-patches.git/plain/4.9.4/gentoo/100_all_avoid-ustat-glibc-2.28.patch?id=55fcb515620a8f7d3bb77eba938aa0fcf0d67c96";
       sha256 = "0b32sb4psv5lq0ij9fwhi1b4pjbwdjnv24nqprsk14dsc6xmi1g0";
     })
   ] ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
@@ -177,8 +176,7 @@ let
       (fetchpatch {
         name = "gcc4-char-reload.patch";
         url =
-          "https://gcc.gnu.org/git/?p=gcc.git;a=commitdiff_plain;h=d57c99458933a21fdf94f508191f145ad8d5ec58"
-          ;
+          "https://gcc.gnu.org/git/?p=gcc.git;a=commitdiff_plain;h=d57c99458933a21fdf94f508191f145ad8d5ec58";
         includes = [ "gcc/reload.h" ];
         sha256 = "sha256-66AMP7/ajunGKAN5WJz/yPn42URZ2KN51yPrFdsxEuM=";
       })
@@ -427,8 +425,8 @@ stdenv.mkDerivation ({
     preFixup
     ;
 
-  doCheck = false
-    ; # requires a lot of tools, causes a dependency cycle for stdenv
+  doCheck =
+    false; # requires a lot of tools, causes a dependency cycle for stdenv
 
     # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
   ${

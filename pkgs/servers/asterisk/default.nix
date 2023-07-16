@@ -42,15 +42,13 @@ let
     (fetchpatch {
       name = "CVE-2022-23537.patch";
       url =
-        "https://github.com/pjsip/pjproject/commit/d8440f4d711a654b511f50f79c0445b26f9dd1e1.patch"
-        ;
+        "https://github.com/pjsip/pjproject/commit/d8440f4d711a654b511f50f79c0445b26f9dd1e1.patch";
       sha256 = "sha256-7ueQCHIiJ7MLaWtR4+GmBc/oKaP+jmEajVnEYqiwLRA=";
     })
     (fetchpatch {
       name = "CVE-2022-23547.patch";
       url =
-        "https://github.com/pjsip/pjproject/commit/bc4812d31a67d5e2f973fbfaf950d6118226cf36.patch"
-        ;
+        "https://github.com/pjsip/pjproject/commit/bc4812d31a67d5e2f973fbfaf950d6118226cf36.patch";
       sha256 = "sha256-bpc8e8VAQpfyl5PX96G++6fzkFpw3Or1PJKNPKl7N5k=";
     })
   ];
@@ -110,8 +108,7 @@ let
 
       src = fetchurl {
         url =
-          "https://downloads.asterisk.org/pub/telephony/asterisk/old-releases/asterisk-${version}.tar.gz"
-          ;
+          "https://downloads.asterisk.org/pub/telephony/asterisk/old-releases/asterisk-${version}.tar.gz";
         inherit sha256;
       };
 
@@ -172,8 +169,7 @@ let
 
       meta = with lib; {
         description =
-          "Software implementation of a telephone private branch exchange (PBX)"
-          ;
+          "Software implementation of a telephone private branch exchange (PBX)";
         homepage = "https://www.asterisk.org/";
         license = licenses.gpl2Only;
         maintainers = with maintainers; [
@@ -187,8 +183,7 @@ let
 
   pjproject_2_13 = fetchurl {
     url =
-      "https://raw.githubusercontent.com/asterisk/third-party/master/pjproject/2.13/pjproject-2.13.tar.bz2"
-      ;
+      "https://raw.githubusercontent.com/asterisk/third-party/master/pjproject/2.13/pjproject-2.13.tar.bz2";
     hash = "sha256-Zj93PUAct13KVR5taOWEbQdKq76wicaBTNHpHC0rICY=";
   } // {
     pjsip_patches = pjsip_2_13_patches;

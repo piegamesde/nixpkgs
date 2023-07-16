@@ -41,8 +41,8 @@ stdenvNoCC.mkDerivation rec {
       cc-by-sa-40
       gpl3
     ];
-    platforms = platforms.linux
-      ; # hash mismatch on darwin due to file names differing only in case
+    platforms =
+      platforms.linux; # hash mismatch on darwin due to file names differing only in case
     maintainers = with maintainers; [ romildo ];
   };
 }

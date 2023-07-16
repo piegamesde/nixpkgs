@@ -17,8 +17,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/cl-html5-parser/2019-05-21/cl-html5-parser-20190521-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/cl-html5-parser/2019-05-21/cl-html5-parser-20190521-git.tgz";
     sha256 = "055jz0yqgjncvy2dxvnwg4iwdvmfsvkch46v58nymz5gi8gaaz7p";
   };
 

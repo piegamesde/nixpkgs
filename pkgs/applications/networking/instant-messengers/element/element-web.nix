@@ -90,8 +90,7 @@ stdenv.mkDerivation (finalAttrs:
       description = "A glossy Matrix collaboration client for the web";
       homepage = "https://element.io/";
       changelog =
-        "https://github.com/vector-im/element-web/blob/v${finalAttrs.version}/CHANGELOG.md"
-        ;
+        "https://github.com/vector-im/element-web/blob/v${finalAttrs.version}/CHANGELOG.md";
       maintainers = lib.teams.matrix.members;
       license = lib.licenses.asl20;
       platforms = lib.platforms.all;

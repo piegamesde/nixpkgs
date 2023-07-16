@@ -12,8 +12,7 @@ qt5.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://global.download.synology.com/download/Utility/SynologyCloudSyncDecryptionTool/${version}/Linux/x86_64/SynologyCloudSyncDecryptionTool-${version}_x64.tar.gz"
-      ;
+      "https://global.download.synology.com/download/Utility/SynologyCloudSyncDecryptionTool/${version}/Linux/x86_64/SynologyCloudSyncDecryptionTool-${version}_x64.tar.gz";
     sha256 = "sha256-EWxADvkfhnMwHIauJj3pH6SvSkkrc4cwAhsf1pWOOWQ=";
   };
 
@@ -44,8 +43,7 @@ qt5.mkDerivation rec {
   meta = with lib; {
     description = "A desktop tool to decrypt data encrypted by Cloud Sync.";
     homepage =
-      "https://kb.synology.com/en-global/DSM/help/SynologyCloudSyncDecryptionTool/synologycloudsyncdecryptiontool"
-      ;
+      "https://kb.synology.com/en-global/DSM/help/SynologyCloudSyncDecryptionTool/synologycloudsyncdecryptiontool";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     maintainers = with maintainers; [ kalbasit ];

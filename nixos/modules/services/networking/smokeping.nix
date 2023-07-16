@@ -351,8 +351,7 @@ in {
         User = cfg.user;
         Restart = "on-failure";
         ExecStart =
-          "${cfg.package}/bin/smokeping --config=/etc/smokeping.conf --nodaemon"
-          ;
+          "${cfg.package}/bin/smokeping --config=/etc/smokeping.conf --nodaemon";
       };
       preStart = ''
         mkdir -m 0755 -p ${smokepingHome}/cache ${smokepingHome}/data

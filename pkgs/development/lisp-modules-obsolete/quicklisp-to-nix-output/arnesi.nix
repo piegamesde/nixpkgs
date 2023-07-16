@@ -12,8 +12,7 @@ args@{
   ];
 
   description =
-    "A bag-of-tools utilities library used to aid in implementing the bese.it toolkit"
-    ;
+    "A bag-of-tools utilities library used to aid in implementing the bese.it toolkit";
 
   deps = [
     args."alexandria"
@@ -27,8 +26,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/arnesi/2017-04-03/arnesi-20170403-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/arnesi/2017-04-03/arnesi-20170403-git.tgz";
     sha256 = "01kirjpgv5pgbcdxjrnw3ld4jw7wrqm3rgqnxwac4gxaphr2s6q4";
   };
 

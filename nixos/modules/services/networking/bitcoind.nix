@@ -27,8 +27,7 @@ let
         passwordHMAC = mkOption {
           type = types.uniq (types.strMatching "[0-9a-f]+\\$[0-9a-f]{64}");
           example =
-            "f7efda5c189b999524f151318c0c86$d5b51b3beffbc02b724e5d095828e0bc8b2456e9ac8757ae3211a5d9b16a22ae"
-            ;
+            "f7efda5c189b999524f151318c0c86$d5b51b3beffbc02b724e5d095828e0bc8b2456e9ac8757ae3211a5d9b16a22ae";
           description = lib.mdDoc ''
             Password HMAC-SHA-256 for JSON-RPC connections. Must be a string of the
             format \<SALT-HEX\>$\<HMAC-HEX\>.

@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://bitcoinknots.org/files/23.x/${version}/bitcoin-${version}.tar.gz"
-      ;
+      "https://bitcoinknots.org/files/23.x/${version}/bitcoin-${version}.tar.gz";
     sha256 = "0c6l4bvj4ck8gp5vm4dla3l32swsp6ijk12fyf330wgry4mhqxyi";
   };
 

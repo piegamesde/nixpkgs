@@ -48,8 +48,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ocaml-community/utop/releases/download/${version}/utop-${version}.tbz"
-      ;
+      "https://github.com/ocaml-community/utop/releases/download/${version}/utop-${version}.tbz";
     sha256 = switch.sha256;
   };
 

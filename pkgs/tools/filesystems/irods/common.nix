@@ -106,8 +106,7 @@
       As data volumes grow and data services become more complex, iRODS is increasingly
       important in data management. The development infrastructure supports exhaustive
       testing on supported platforms; plug-in support for microservices, storage resources,
-      drivers, and databases; and extensive documentation, training and support services.''
-      ;
+      drivers, and databases; and extensive documentation, training and support services.'';
     homepage = "https://irods.org";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.bzizou ];

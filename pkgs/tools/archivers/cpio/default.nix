@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
         # upstream build fix against -fno-common compilers like >=gcc-10
         name = "fno-common-fix.patch";
         url =
-          "https://git.savannah.gnu.org/cgit/cpio.git/patch/?id=641d3f489cf6238bb916368d4ba0d9325a235afb"
-          ;
+          "https://git.savannah.gnu.org/cgit/cpio.git/patch/?id=641d3f489cf6238bb916368d4ba0d9325a235afb";
         sha256 = "1ffawzxjw72kzpdwffi2y7pvibrmwf4jzrxdq9f4a75q6crl66iq";
       })
     ]

@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "gcc-11.patch";
       url =
-        "https://sourceforge.net/p/ri-li/bugs/2/attachment/0001-Fix-build-on-gcc-11.patch"
-        ;
+        "https://sourceforge.net/p/ri-li/bugs/2/attachment/0001-Fix-build-on-gcc-11.patch";
       sha256 = "01il9lm3amwp3b435ka9q63p0jwlzajwnbshyazx6n9vcnrr17yw";
     })
   ];

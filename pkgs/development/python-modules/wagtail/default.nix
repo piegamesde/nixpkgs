@@ -59,8 +59,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A Django content management system focused on flexibility and user experience"
-      ;
+      "A Django content management system focused on flexibility and user experience";
     homepage = "https://github.com/wagtail/wagtail";
     changelog =
       "https://github.com/wagtail/wagtail/blob/v${version}/CHANGELOG.txt";

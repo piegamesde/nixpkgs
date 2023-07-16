@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.freedesktop.org/software/colord/releases/${pname}-${version}.tar.xz"
-      ;
+      "https://www.freedesktop.org/software/colord/releases/${pname}-${version}.tar.xz";
     sha256 = "dAdjGie/5dG2cueuQndwAcEF2GC3tzkig8jGMA3ojm8=";
   };
 
@@ -121,8 +120,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "System service to manage, install and generate color profiles to accurately color manage input and output devices"
-      ;
+      "System service to manage, install and generate color profiles to accurately color manage input and output devices";
     homepage = "https://www.freedesktop.org/software/colord/";
     license = licenses.lgpl2Plus;
     maintainers = [ maintainers.marcweber ] ++ teams.freedesktop.members;

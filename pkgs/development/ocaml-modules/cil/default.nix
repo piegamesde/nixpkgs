@@ -41,8 +41,7 @@ else
     meta = with lib; {
       homepage = "http://kerneis.github.io/cil/";
       description =
-        "A front-end for the C programming language that facilitates program analysis and transformation"
-        ;
+        "A front-end for the C programming language that facilitates program analysis and transformation";
       license = licenses.bsd3;
       maintainers = [ maintainers.vbgl ];
       platforms = ocaml.meta.platforms or [ ];

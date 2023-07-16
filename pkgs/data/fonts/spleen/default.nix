@@ -11,8 +11,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/fcambus/spleen/releases/download/${version}/spleen-${version}.tar.gz"
-      ;
+      "https://github.com/fcambus/spleen/releases/download/${version}/spleen-${version}.tar.gz";
     hash = "sha256-t60e2wKl3a0RfKlPAm64RQtRUE0ugbw6A4deEtTnayU=";
   };
 

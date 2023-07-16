@@ -57,8 +57,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "High performance, self-hosted, newsletter and mailing list manager with a modern dashboard."
-      ;
+      "High performance, self-hosted, newsletter and mailing list manager with a modern dashboard.";
     homepage = "https://github.com/knadh/listmonk";
     changelog = "https://github.com/knadh/listmonk/releases/tag/v${version}";
     maintainers = with maintainers; [ raitobezarius ];

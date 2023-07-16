@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
   version = "0.32";
   src = fetchurl {
     url =
-      "https://launchpad.net/cloud-utils/trunk/${version}/+download/cloud-utils-${version}.tar.gz"
-      ;
+      "https://launchpad.net/cloud-utils/trunk/${version}/+download/cloud-utils-${version}.tar.gz";
     sha256 = "0xxdi55lzw7j91zfajw7jhd2ilsqj2dy04i9brlk8j3pvb5ma8hk";
   };
   nativeBuildInputs = [ makeWrapper ];

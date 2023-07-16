@@ -15,8 +15,7 @@ in {
     version = "96.git.fc3cf0b";
     title = "Combined Arms";
     description =
-      "A game that combines units from the official OpenRA Red Alert and Tiberian Dawn mods"
-      ;
+      "A game that combines units from the official OpenRA Red Alert and Tiberian Dawn mods";
     homepage = "https://github.com/Inq8/CAmod";
     src = fetchFromGitHub {
       owner = "Inq8";

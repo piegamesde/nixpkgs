@@ -35,8 +35,7 @@ buildPythonPackage rec {
 
   meta = {
     description =
-      "Plug-in to pyexcel providing the capbility to read, manipulate and write data in ods formats using odfpy"
-      ;
+      "Plug-in to pyexcel providing the capbility to read, manipulate and write data in ods formats using odfpy";
     homepage = "http://docs.pyexcel.org/";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ jtojnar ];

@@ -94,8 +94,7 @@ let
       == hostPlatform && hostPlatform == targetPlatform) (fetchpatch {
         name = "gcc-12-darwin-aarch64-support.patch";
         url =
-          "https://github.com/Homebrew/formula-patches/raw/1d184289/gcc/gcc-12.2.0-arm.diff"
-          ;
+          "https://github.com/Homebrew/formula-patches/raw/1d184289/gcc/gcc-12.2.0-arm.diff";
         sha256 = "sha256-omclLslGi/2yCV4pNBMaIpPDMW3tcz/RXdupbNbeOHA=";
       }) ++ optional langD ../libphobos.patch
 
@@ -104,49 +103,42 @@ let
       (fetchpatch {
         excludes = [ "gcc/go/gofrontend/MERGE" ];
         url =
-          "https://github.com/gcc-mirror/gcc/commit/cf79b1117bd177d3d4c6ed24b6fa243c3628ac2d.diff"
-          ;
+          "https://github.com/gcc-mirror/gcc/commit/cf79b1117bd177d3d4c6ed24b6fa243c3628ac2d.diff";
         hash = "sha256-mS5ZiYi5D8CpGXrWg3tXlbhp4o86ew1imCTwaHLfl+I=";
       })
       (fetchpatch {
         excludes = [ "gcc/go/gofrontend/MERGE" ];
         url =
-          "https://github.com/gcc-mirror/gcc/commit/7f195a2270910a6ed08bd76e3a16b0a6503f9faf.diff"
-          ;
+          "https://github.com/gcc-mirror/gcc/commit/7f195a2270910a6ed08bd76e3a16b0a6503f9faf.diff";
         hash = "sha256-Ze/cFM0dQofKH00PWPDoklXUlwWhwA1nyTuiDAZ6FKo=";
       })
       (fetchpatch {
         excludes = [ "gcc/go/gofrontend/MERGE" ];
         url =
-          "https://github.com/gcc-mirror/gcc/commit/762fd5e5547e464e25b4bee435db6df4eda0de90.diff"
-          ;
+          "https://github.com/gcc-mirror/gcc/commit/762fd5e5547e464e25b4bee435db6df4eda0de90.diff";
         hash = "sha256-o28upwTcHAnHG2Iq0OewzwSBEhHs+XpBGdIfZdT81pk=";
       })
       (fetchpatch {
         excludes = [ "gcc/go/gofrontend/MERGE" ];
         url =
-          "https://github.com/gcc-mirror/gcc/commit/e73d9fcafbd07bc3714fbaf8a82db71d50015c92.diff"
-          ;
+          "https://github.com/gcc-mirror/gcc/commit/e73d9fcafbd07bc3714fbaf8a82db71d50015c92.diff";
         hash = "sha256-1SjYCVHLEUihdON2TOC3Z2ufM+jf2vH0LvYtZL+c1Fo=";
       })
       (fetchpatch {
         excludes = [ "gcc/go/gofrontend/MERGE" ];
         url =
-          "https://github.com/gcc-mirror/gcc/commit/b6c6a3d64f2e4e9347733290aca3c75898c44b2e.diff"
-          ;
+          "https://github.com/gcc-mirror/gcc/commit/b6c6a3d64f2e4e9347733290aca3c75898c44b2e.diff";
         hash = "sha256-RycJ3YCHd3MXtYFjxP0zY2Wuw7/C4bWoBAQtTKJZPOQ=";
       })
       (fetchpatch {
         excludes = [ "gcc/go/gofrontend/MERGE" ];
         url =
-          "https://github.com/gcc-mirror/gcc/commit/2b1a604a9b28fbf4f382060bebd04adb83acc2f9.diff"
-          ;
+          "https://github.com/gcc-mirror/gcc/commit/2b1a604a9b28fbf4f382060bebd04adb83acc2f9.diff";
         hash = "sha256-WiBQG0Xbk75rHk+AMDvsbrm+dc7lDH0EONJXSdEeMGE=";
       })
       (fetchpatch {
         url =
-          "https://github.com/gcc-mirror/gcc/commit/c86b726c048eddc1be320c0bf64a897658bee13d.diff"
-          ;
+          "https://github.com/gcc-mirror/gcc/commit/c86b726c048eddc1be320c0bf64a897658bee13d.diff";
         hash = "sha256-QSIlqDB6JRQhbj/c3ejlmbfWz9l9FurdSWxpwDebnlI=";
       })
     ]

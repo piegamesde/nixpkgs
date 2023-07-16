@@ -69,8 +69,7 @@ lib.trivial.pipe super [
   (patchExtension "freon@UshakovVasilii_Github.yahoo.com" (old: {
     patches = [ (substituteAll {
       src =
-        ./extensionOverridesPatches/freon_at_UshakovVasilii_Github.yahoo.com.patch
-        ;
+        ./extensionOverridesPatches/freon_at_UshakovVasilii_Github.yahoo.com.patch;
       inherit hddtemp liquidctl lm_sensors procps smartmontools;
       netcat = netcat-gnu;
       nvmecli = nvme-cli;

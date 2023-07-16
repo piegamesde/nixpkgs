@@ -220,8 +220,7 @@ in {
       ];
       serviceConfig = {
         ExecStart =
-          "${cfg.package}/bin/netdata -P /run/netdata/netdata.pid -D -c /etc/netdata/netdata.conf"
-          ;
+          "${cfg.package}/bin/netdata -P /run/netdata/netdata.pid -D -c /etc/netdata/netdata.conf";
         ExecReload =
           "${pkgs.util-linux}/bin/kill -s HUP -s USR1 -s USR2 $MAINPID";
         ExecStartPost = pkgs.writeShellScript "wait-for-netdata-up" ''

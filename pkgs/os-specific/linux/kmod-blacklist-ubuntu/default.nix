@@ -14,8 +14,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://launchpad.net/ubuntu/+archive/primary/+files/kmod_${version}.debian.tar.xz"
-      ;
+      "https://launchpad.net/ubuntu/+archive/primary/+files/kmod_${version}.debian.tar.xz";
     sha256 = "sha256-K8tWpaLmCm3Jcxw3OZ+D7Koiug7epooRn1YMfqjGAiw=";
   };
 

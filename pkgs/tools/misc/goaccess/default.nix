@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Real-time web log analyzer and interactive viewer that runs in a terminal in *nix systems"
-      ;
+      "Real-time web log analyzer and interactive viewer that runs in a terminal in *nix systems";
     homepage = "https://goaccess.io";
     changelog =
       "https://github.com/allinurl/goaccess/raw/v${version}/ChangeLog";

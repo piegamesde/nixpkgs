@@ -51,8 +51,7 @@ buildPythonPackage rec {
     description = "Python client for SendGrid";
     homepage = "https://github.com/sendgrid/sendgrid-python";
     changelog =
-      "https://github.com/sendgrid/sendgrid-python/blob/${version}/CHANGELOG.md"
-      ;
+      "https://github.com/sendgrid/sendgrid-python/blob/${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

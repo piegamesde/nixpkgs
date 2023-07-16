@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/libcheck/check/releases/download/${version}/check-${version}.tar.gz"
-      ;
+      "https://github.com/libcheck/check/releases/download/${version}/check-${version}.tar.gz";
     sha256 = "02m25y9m46pb6n46s51av62kpd936lkfv3b13kfpckgvmh5lxpm8";
   };
 

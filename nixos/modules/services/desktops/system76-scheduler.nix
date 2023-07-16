@@ -283,8 +283,7 @@ in {
 
     systemd.services.system76-scheduler = {
       description =
-        "Manage process priorities and CFS scheduler latencies for improved responsiveness on the desktop"
-        ;
+        "Manage process priorities and CFS scheduler latencies for improved responsiveness on the desktop";
       wantedBy = [ "multi-user.target" ];
       path = [
         # execsnoop needs those to extract kernel headers:
@@ -308,8 +307,7 @@ in {
         "system76-scheduler/process-scheduler/00-dist.kdl".source =
           "${cfg.package}/data/pop_os.kdl";
         "system76-scheduler/process-scheduler/01-fix-pipewire-paths.kdl".source =
-          ../../../../pkgs/os-specific/linux/system76-scheduler/01-fix-pipewire-paths.kdl
-          ;
+          ../../../../pkgs/os-specific/linux/system76-scheduler/01-fix-pipewire-paths.kdl;
       })
 
       (let

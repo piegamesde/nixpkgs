@@ -29,15 +29,13 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://debian/pool/main/x/xloadimage/xloadimage_${version}.orig.tar.gz"
-      ;
+      "mirror://debian/pool/main/x/xloadimage/xloadimage_${version}.orig.tar.gz";
     sha256 = "1i7miyvk5ydhi6yi8593vapavhwxcwciir8wg9d2dcyg9pccf2s0";
   };
 
   patches = fetchurl {
     url =
-      "mirror://debian/pool/main/x/xloadimage/xloadimage_${version}-${deb_patch}.debian.tar.xz"
-      ;
+      "mirror://debian/pool/main/x/xloadimage/xloadimage_${version}-${deb_patch}.debian.tar.xz";
     sha256 = "17k518vrdrya5c9dqhpmm4g0h2vlkq1iy87sg2ngzygypbli1xvn";
   };
 

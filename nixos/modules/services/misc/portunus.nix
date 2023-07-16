@@ -171,8 +171,7 @@ in {
     assertions = [ {
       assertion = cfg.dex.enable -> cfg.ldap.searchUserName != "";
       message =
-        "services.portunus.dex.enable requires services.portunus.ldap.searchUserName to be set."
-        ;
+        "services.portunus.dex.enable requires services.portunus.ldap.searchUserName to be set.";
     } ];
 
       # add ldapsearch(1) etc. to interactive shells

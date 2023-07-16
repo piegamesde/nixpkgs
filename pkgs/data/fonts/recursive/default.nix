@@ -10,8 +10,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/arrowtype/recursive/releases/download/v${version}/ArrowType-Recursive-${version}.zip"
-      ;
+      "https://github.com/arrowtype/recursive/releases/download/v${version}/ArrowType-Recursive-${version}.zip";
     sha256 = "sha256-hnGnKnRoQN8vFStW8TjLrrTL1dWsthUEWxfaGF0b0vM=";
   };
 

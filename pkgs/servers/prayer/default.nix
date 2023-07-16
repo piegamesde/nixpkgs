@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "ftp://ftp.csx.cam.ac.uk/pub/software/email/prayer/${pname}-${version}.tar.gz"
-      ;
+      "ftp://ftp.csx.cam.ac.uk/pub/software/email/prayer/${pname}-${version}.tar.gz";
     sha256 = "135fjbxjn385b6cjys6qhbwfw61mdcl2akkll4jfpdzfvhbxlyda";
   };
 
@@ -33,14 +32,12 @@ stdenv.mkDerivation rec {
     # fix build errors which result from openssl changes
     (fetchpatch {
       url =
-        "https://sources.debian.org/data/main/p/prayer/1.3.5-dfsg1-6/debian/patches/disable_ssl3.patch"
-        ;
+        "https://sources.debian.org/data/main/p/prayer/1.3.5-dfsg1-6/debian/patches/disable_ssl3.patch";
       sha256 = "1rx4bidc9prh4gffipykp144cyi3zd6qzd990s2aad3knzv5bkdd";
     })
     (fetchpatch {
       url =
-        "https://sources.debian.org/data/main/p/prayer/1.3.5-dfsg1-6/debian/patches/openssl1.1.patch"
-        ;
+        "https://sources.debian.org/data/main/p/prayer/1.3.5-dfsg1-6/debian/patches/openssl1.1.patch";
       sha256 = "0zinylvq3bcifdmki867gir49pbjx6qb5h019hawwif2l4jmlxw1";
     })
   ];
@@ -76,8 +73,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "http://www-uxsup.csx.cam.ac.uk/~dpc22/prayer/";
     description =
-      "Yet another Webmail interface for IMAP servers on Unix systems written in C"
-      ;
+      "Yet another Webmail interface for IMAP servers on Unix systems written in C";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
   };

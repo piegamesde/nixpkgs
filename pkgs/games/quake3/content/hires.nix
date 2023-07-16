@@ -11,8 +11,7 @@ stdenv.mkDerivation {
 
   src = fetchzip {
     url =
-      "https://web.archive.org/web/20200120024216/http://ioquake3.org/files/xcsv_hires.zip"
-      ;
+      "https://web.archive.org/web/20200120024216/http://ioquake3.org/files/xcsv_hires.zip";
     sha256 = "09vhrray8mh1ic2qgcwv0zlmsnz789y32dkkvrz1vdki4yqkf717";
     stripRoot = false;
   };

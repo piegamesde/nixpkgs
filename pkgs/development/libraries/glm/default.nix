@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
     # (https://github.com/g-truc/glm/pull/986 wasn't enough, and -Werror is used)
   patches = [ (fetchpatch {
     url =
-      "https://github.com/kraj/glm/commit/bd9b5060bc3b9581090d44f15b4e236566ea86a6.patch"
-      ;
+      "https://github.com/kraj/glm/commit/bd9b5060bc3b9581090d44f15b4e236566ea86a6.patch";
     sha256 = "sha256-QO4o/wV564kJimBcEyr9TWzREEnRJ1n0j0HPojN4pkI=";
   }) ];
 

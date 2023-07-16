@@ -50,8 +50,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/google/google-api-python-client";
     changelog =
-      "https://github.com/googleapis/google-api-python-client/releases/tag/v${version}"
-      ;
+      "https://github.com/googleapis/google-api-python-client/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ ];
   };

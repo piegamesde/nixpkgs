@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/hanatos/${pname}/releases/download/${version}/${pname}-${version}.tar.xz"
-      ;
+      "https://github.com/hanatos/${pname}/releases/download/${version}/${pname}-${version}.tar.xz";
     sha256 = "sha256-lyljfJ4RZETEED4bofC/Rq88PMNhoHO1kgHmmaXPuhM=";
   };
 

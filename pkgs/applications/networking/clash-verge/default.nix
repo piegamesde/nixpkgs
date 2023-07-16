@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/zzzgydi/clash-verge/releases/download/v${version}/clash-verge_${version}_amd64.deb"
-      ;
+      "https://github.com/zzzgydi/clash-verge/releases/download/v${version}/clash-verge_${version}_amd64.deb";
     hash = "sha256-AEOFMKxrkPditf5ks++tII6zeuH72Fxw/TVtZeXS3v4=";
   };
 

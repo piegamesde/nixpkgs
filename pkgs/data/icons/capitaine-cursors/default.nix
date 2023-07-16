@@ -25,8 +25,7 @@ stdenvNoCC.mkDerivation rec {
     (fetchpatch {
       name = "inkscape-1.0-compat";
       url =
-        "https://github.com/keeferrourke/capitaine-cursors/commit/9da0b53e6098ed023c5c24c6ef6bfb1f68a79924.patch"
-        ;
+        "https://github.com/keeferrourke/capitaine-cursors/commit/9da0b53e6098ed023c5c24c6ef6bfb1f68a79924.patch";
       sha256 = "0lx5i60ahy6a2pir4zzlqn5lqsv6claqg8mv17l1a028h9aha3cv";
     })
   ];

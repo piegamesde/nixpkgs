@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
     # https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/issues/99
     (fetchpatch2 {
       url =
-        "https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/commit/7d08150910974c6bd2c29f887c2c6d4a3526e085.patch"
-        ;
+        "https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/commit/7d08150910974c6bd2c29f887c2c6d4a3526e085.patch";
       hash = "sha256-LFrlm2ZqLqewLGO2FxL5kFYbZ7HaxdxvVHsFHYSgZ4Y=";
     })
   ];
@@ -100,7 +99,6 @@ stdenv.mkDerivation rec {
       gpl2Plus
     ];
     changelog =
-      "https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/blob/${version}/NEWS"
-      ;
+      "https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/blob/${version}/NEWS";
   };
 }

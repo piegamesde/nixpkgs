@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
   version = "0.9.9";
   src = fetchurl {
     url =
-      "https://bitbucket.org/ktakashi/${pname}/downloads/sagittarius-${version}.tar.gz"
-      ;
+      "https://bitbucket.org/ktakashi/${pname}/downloads/sagittarius-${version}.tar.gz";
     sha256 = "sha256-UB7Lfyc2afTIVW5SIiHxXi2wyoVC2Q2ClTkSOQ6UmPg=";
   };
   preBuild = ''

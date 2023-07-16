@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A pre-kernel/VMM module that uses Intel(R) TXT to perform a measured and verified launch of an OS kernel/VMM"
-      ;
+      "A pre-kernel/VMM module that uses Intel(R) TXT to perform a measured and verified launch of an OS kernel/VMM";
     homepage = "https://sourceforge.net/projects/tboot/";
     changelog =
       "https://sourceforge.net/p/tboot/code/ci/v${version}/tree/CHANGELOG";

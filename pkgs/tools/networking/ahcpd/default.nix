@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://www.pps.univ-paris-diderot.fr/~jch/software/files/ahcpd-${version}.tar.gz"
-      ;
+      "http://www.pps.univ-paris-diderot.fr/~jch/software/files/ahcpd-${version}.tar.gz";
     sha256 = "0lhdmky3zdyk51hclv2lrhw3hzymbdc8bw2khs3rnaibgn0jwqm4";
   };
 

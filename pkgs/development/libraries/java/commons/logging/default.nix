@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://apache/commons/logging/binaries/commons-logging-${version}-bin.tar.gz"
-      ;
+      "mirror://apache/commons/logging/binaries/commons-logging-${version}-bin.tar.gz";
     sha256 = "1gc70pmcv0x6ibl89jglmr22f8zpr63iaifi49nrq399qw2qhx9z";
   };
 

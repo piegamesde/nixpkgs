@@ -107,8 +107,7 @@ let
 
       src = fetchurl {
         url =
-          "https://releases.pagure.org/lohit/lohit-${pname}-ttf-${version}.tar.gz"
-          ;
+          "https://releases.pagure.org/lohit/lohit-${pname}-ttf-${version}.tar.gz";
         inherit hash;
       };
 

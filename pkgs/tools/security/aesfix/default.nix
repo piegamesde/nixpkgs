@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://citpsite.s3.amazonaws.com/memory-content/src/aesfix-${version}.tar.gz"
-      ;
+      "https://citpsite.s3.amazonaws.com/memory-content/src/aesfix-${version}.tar.gz";
     sha256 = "sha256-exd+h2yu5qrkjwEjEC8R32WUpzhIP5pH8sdv6BzARdQ=";
   };
   installPhase = ''

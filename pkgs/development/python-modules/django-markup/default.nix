@@ -61,8 +61,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Generic Django application to convert text with specific markup to html."
-      ;
+      "Generic Django application to convert text with specific markup to html.";
     homepage = "https://github.com/bartTC/django-markup";
     changelog =
       "https://github.com/bartTC/django-markup/blob/v${version}/CHANGELOG.rst";

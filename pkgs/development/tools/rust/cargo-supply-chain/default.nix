@@ -21,12 +21,10 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Gather author, contributor and publisher data on crates in your dependency graph"
-      ;
+      "Gather author, contributor and publisher data on crates in your dependency graph";
     homepage = "https://github.com/rust-secure-code/cargo-supply-chain";
     changelog =
-      "https://github.com/rust-secure-code/cargo-supply-chain/blob/master/CHANGELOG.md"
-      ;
+      "https://github.com/rust-secure-code/cargo-supply-chain/blob/master/CHANGELOG.md";
     license = with licenses; [
       asl20
       mit

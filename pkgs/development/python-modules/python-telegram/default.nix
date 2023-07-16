@@ -23,8 +23,7 @@ buildPythonPackage rec {
     # Search for the system library first, and fallback to the embedded one if the system was not found
     (fetchpatch {
       url =
-        "https://github.com/alexander-akhmetov/python-telegram/commit/b0af0985910ebb8940cff1b92961387aad683287.patch"
-        ;
+        "https://github.com/alexander-akhmetov/python-telegram/commit/b0af0985910ebb8940cff1b92961387aad683287.patch";
       hash = "sha256-ZqsntaiC2y9l034gXDMeD2BLO/RcsbBII8FomZ65/24=";
     })
   ];

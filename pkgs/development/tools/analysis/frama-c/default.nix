@@ -19,8 +19,7 @@ let
     version = "1.5.1";
     src = fetchurl {
       url =
-        "https://why3.gitlabpages.inria.fr/releases/${o.pname}-${version}.tar.gz"
-        ;
+        "https://why3.gitlabpages.inria.fr/releases/${o.pname}-${version}.tar.gz";
       hash = "sha256-vNR7WeiSvg+763GcovoZBFDfncekJMeqNegP4fVw06I=";
     };
   });
@@ -135,8 +134,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "An extensible and collaborative platform dedicated to source-code analysis of C software"
-      ;
+      "An extensible and collaborative platform dedicated to source-code analysis of C software";
     homepage = "http://frama-c.com/";
     license = lib.licenses.lgpl21;
     maintainers = with lib.maintainers; [

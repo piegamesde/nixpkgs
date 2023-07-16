@@ -28,8 +28,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Shipyard is a tool for building modern cloud native development environments"
-      ;
+      "Shipyard is a tool for building modern cloud native development environments";
     homepage = "https://shipyard.run";
     license = licenses.mpl20;
     maintainers = with maintainers; [ cpcloud ];

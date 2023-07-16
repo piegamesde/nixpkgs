@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
     # should be included in next release
     (fetchpatch {
       url =
-        "https://github.com/collectd/collectd/commit/3f575419e7ccb37a3b10ecc82adb2e83ff2826e1.patch"
-        ;
+        "https://github.com/collectd/collectd/commit/3f575419e7ccb37a3b10ecc82adb2e83ff2826e1.patch";
       sha256 = "0jwjdlfl0dp7mlbwygp6h0rsbaqfbgfm5z07lr5l26z6hhng2h2y";
     })
   ];

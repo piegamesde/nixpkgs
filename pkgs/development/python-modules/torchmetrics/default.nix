@@ -64,8 +64,7 @@ buildPythonPackage {
 
   meta = with lib; {
     description =
-      "Machine learning metrics for distributed, scalable PyTorch applications (used in pytorch-lightning)"
-      ;
+      "Machine learning metrics for distributed, scalable PyTorch applications (used in pytorch-lightning)";
     homepage = "https://torchmetrics.readthedocs.io";
     license = licenses.asl20;
     maintainers = with maintainers; [ SomeoneSerge ];

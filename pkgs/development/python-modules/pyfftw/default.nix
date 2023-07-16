@@ -44,8 +44,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A pythonic wrapper around FFTW, the FFT library, presenting a unified interface for all the supported transforms"
-      ;
+      "A pythonic wrapper around FFTW, the FFT library, presenting a unified interface for all the supported transforms";
     homepage = "http://hgomersall.github.com/pyFFTW/";
     license = with licenses; [
       bsd2

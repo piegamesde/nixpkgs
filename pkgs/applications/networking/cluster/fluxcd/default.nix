@@ -14,8 +14,7 @@ let
 
   manifests = fetchzip {
     url =
-      "https://github.com/fluxcd/flux2/releases/download/v${version}/manifests.tar.gz"
-      ;
+      "https://github.com/fluxcd/flux2/releases/download/v${version}/manifests.tar.gz";
     sha256 = manifestsSha256;
     stripRoot = false;
   };

@@ -24,15 +24,13 @@ stdenv.mkDerivation rec {
     # Cygwin patch is prereq for Darwin fix applying -- committed to master after 2.5 release
     (fetchpatch {
       url =
-        "https://github.com/mtrojnar/osslsigncode/commit/1c678bf926b78c947b14c46c3ce88e06268c738e.patch"
-        ;
+        "https://github.com/mtrojnar/osslsigncode/commit/1c678bf926b78c947b14c46c3ce88e06268c738e.patch";
       sha256 = "sha256-vOBMGIJ3PHJTvmsXRRfAUJRi7P929PcfmrUiRuM0pf4=";
     })
     # Fix build on Darwin when clang not identified as Apple (https://github.com/mtrojnar/osslsigncode/pull/247)
     (fetchpatch {
       url =
-        "https://github.com/charles-dyfis-net/osslsigncode/commit/b2ed89b35c8a26faa7eb6515fecaff3c4c5f7fed.patch"
-        ;
+        "https://github.com/charles-dyfis-net/osslsigncode/commit/b2ed89b35c8a26faa7eb6515fecaff3c4c5f7fed.patch";
       sha256 = "sha256-FGKZK/IzHbbkTzSoAtpC75z79d5+qQvvJrjEDY31WJ0=";
     })
   ];

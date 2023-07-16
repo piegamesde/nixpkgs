@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/davtest/davtest-${version}.tar.bz2"
-      ;
+      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/davtest/davtest-${version}.tar.bz2";
     sha256 = "0kigcgv1bbnan9yr5481s4b9islmvzl2arpg1ig1i39sxrna06y7";
   };
 
@@ -37,8 +36,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Tests WebDAV servers by uploading test files, and then optionally testing for command execution or other actions directly on the target"
-      ;
+      "Tests WebDAV servers by uploading test files, and then optionally testing for command execution or other actions directly on the target";
     homepage = "https://code.google.com/p/davtest/";
     mainProgram = "davtest.pl";
     license = licenses.gpl3Only;

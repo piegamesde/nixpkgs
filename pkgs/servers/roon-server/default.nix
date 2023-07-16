@@ -31,8 +31,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://download.roonlabs.com/updates/production/RoonServer_linuxx64_${urlVersion}.tar.bz2"
-      ;
+      "https://download.roonlabs.com/updates/production/RoonServer_linuxx64_${urlVersion}.tar.bz2";
     hash = "sha256-nd0dDiiUmwhuVivB78EXdj6LrK0ufdSrVYH/0Y++img=";
   };
 

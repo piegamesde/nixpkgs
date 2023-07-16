@@ -33,8 +33,7 @@ buildPythonPackage rec {
     description = "Encodes objects and arrays as RFC 7159 JSON";
     homepage = "https://github.com/matrix-org/python-canonicaljson";
     changelog =
-      "https://github.com/matrix-org/python-canonicaljson/blob/v${version}/CHANGES.md"
-      ;
+      "https://github.com/matrix-org/python-canonicaljson/blob/v${version}/CHANGES.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

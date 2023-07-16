@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.brother.com/welcome/dlf100974/${pname}-${version}.x86_64.rpm"
-      ;
+      "https://download.brother.com/welcome/dlf100974/${pname}-${version}.x86_64.rpm";
     sha256 = "1wfdbfbf51cc7njzikdg48kwpnpc0pg5s6p0s0y3z0q7y59x2wbq";
   };
 

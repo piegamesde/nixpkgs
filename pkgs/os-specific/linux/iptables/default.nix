@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.netfilter.org/projects/${pname}/files/${pname}-${version}.tar.xz"
-      ;
+      "https://www.netfilter.org/projects/${pname}/files/${pname}-${version}.tar.xz";
     sha256 = "72Y5pDvoMlpPjqaBI/+sI2y2lujHhQG2ToEGr7AIyH8=";
   };
 
@@ -31,15 +30,13 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "format-security.patch";
       url =
-        "https://git.netfilter.org/iptables/patch/?id=ed4082a7405a5838c205a34c1559e289949200cc"
-        ;
+        "https://git.netfilter.org/iptables/patch/?id=ed4082a7405a5838c205a34c1559e289949200cc";
       sha256 = "OdytFmHk+3Awu+sDQpGTl5/qip4doRblmW2vQzfNZiU=";
     })
     (fetchurl {
       name = "static.patch";
       url =
-        "https://lore.kernel.org/netfilter-devel/20230402232939.1060151-1-hi@alyssa.is/raw"
-        ;
+        "https://lore.kernel.org/netfilter-devel/20230402232939.1060151-1-hi@alyssa.is/raw";
       sha256 = "PkH+1HbJjBb3//ffBe0XUQok1lBwgj/STL8Ppu/28f4=";
     })
   ];

@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/sbcl/sbcl/${version}/${pname}-${version}-source.tar.bz2"
-      ;
+      "mirror://sourceforge/project/sbcl/sbcl/${version}/${pname}-${version}-source.tar.bz2";
     inherit sha256;
   };
 

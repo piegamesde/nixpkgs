@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/pganalyze/libpg_query";
     description =
-      "C library for accessing the PostgreSQL parser outside of the server environment"
-      ;
+      "C library for accessing the PostgreSQL parser outside of the server environment";
     changelog =
       "https://github.com/pganalyze/libpg_query/raw/${version}/CHANGELOG.md";
     license = licenses.bsd3;

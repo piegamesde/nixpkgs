@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Records and replays device descriptions and events to emulate input devices through the kernel's input system"
-      ;
+      "Records and replays device descriptions and events to emulate input devices through the kernel's input system";
     homepage = "https://www.freedesktop.org/wiki/Evemu/";
     license = with licenses; [
       lgpl3Only

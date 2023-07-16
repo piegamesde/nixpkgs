@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
   patches = [ (fetchpatch {
     name = "aarch64-darwin.patch";
     url =
-      "https://github.com/libLAS/libLAS/commit/ded463732db1f9baf461be6f3fe5b8bb683c41cd.patch"
-      ;
+      "https://github.com/libLAS/libLAS/commit/ded463732db1f9baf461be6f3fe5b8bb683c41cd.patch";
     sha256 = "sha256-aWMpazeefDHE9OzuLR3FJ8+oXeGhEsk1igEm6j2DUnw=";
   }) ];
 

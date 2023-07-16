@@ -104,8 +104,7 @@ in {
         type = types.path;
           # Dimensions are 48x48 to match GDM logo
         default =
-          "${nixos-icons}/share/icons/hicolor/48x48/apps/nix-snowflake-white.png"
-          ;
+          "${nixos-icons}/share/icons/hicolor/48x48/apps/nix-snowflake-white.png";
         defaultText = literalExpression ''
           pkgs.fetchurl {
                     url = "https://nixos.org/logo/nixos-hires.png";
@@ -154,10 +153,8 @@ in {
     systemd.services.plymouth-poweroff.wantedBy = [ "poweroff.target" ];
     systemd.services.plymouth-reboot.wantedBy = [ "reboot.target" ];
     systemd.services.plymouth-read-write.wantedBy = [ "sysinit.target" ];
-    systemd.services.systemd-ask-password-plymouth.wantedBy = [ "multi-user.target" ]
-      ;
-    systemd.paths.systemd-ask-password-plymouth.wantedBy = [ "multi-user.target" ]
-      ;
+    systemd.services.systemd-ask-password-plymouth.wantedBy = [ "multi-user.target" ];
+    systemd.paths.systemd-ask-password-plymouth.wantedBy = [ "multi-user.target" ];
 
       # Prevent Plymouth taking over the screen during system updates.
     systemd.services.plymouth-start.restartIfChanged = false;

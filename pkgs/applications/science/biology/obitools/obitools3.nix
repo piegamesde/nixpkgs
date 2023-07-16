@@ -13,8 +13,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchurl {
     url =
-      "https://git.metabarcoding.org/obitools/${pname}/repository/v${version}/archive.tar.gz"
-      ;
+      "https://git.metabarcoding.org/obitools/${pname}/repository/v${version}/archive.tar.gz";
     sha256 = "1x7a0nrr9agg1pfgq8i1j8r1p6c0jpyxsv196ylix1dd2iivmas1";
   };
 

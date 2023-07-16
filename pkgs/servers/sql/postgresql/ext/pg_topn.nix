@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
     description = "Efficient querying of 'top values' for PostgreSQL";
     homepage = "https://github.com/citusdata/postgresql-topn";
     changelog =
-      "https://github.com/citusdata/postgresql-topn/raw/v${version}/CHANGELOG.md"
-      ;
+      "https://github.com/citusdata/postgresql-topn/raw/v${version}/CHANGELOG.md";
     maintainers = with maintainers; [ thoughtpolice ];
     platforms = postgresql.meta.platforms;
     license = licenses.agpl3Only;

@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "000-fix-shebangs.patch";
       url =
-        "https://github.com/chernandezba/zesarux/commit/4493439b38f565c5be7c36239ecaf0cf80045627.diff"
-        ;
+        "https://github.com/chernandezba/zesarux/commit/4493439b38f565c5be7c36239ecaf0cf80045627.diff";
       sha256 = "sha256-f+21naPcPXdcVvqU8ymlGfl1WkYGOeOBe9B/WFUauTI=";
     })
 
@@ -57,8 +56,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "libcaca-0.99.beta20.patch";
       url =
-        "https://github.com/chernandezba/zesarux/commit/542786338d00ab6fcdf712bbd6f5e891e8b26c34.diff"
-        ;
+        "https://github.com/chernandezba/zesarux/commit/542786338d00ab6fcdf712bbd6f5e891e8b26c34.diff";
       sha256 = "sha256-UvXvBb9Nzw5HNz0uiv2SV1Oeiw7aVCa0jhEbThDRVec=";
     })
   ];

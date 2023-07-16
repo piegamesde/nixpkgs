@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A program and library for changing the tempo, pitch and playback rate of audio"
-      ;
+      "A program and library for changing the tempo, pitch and playback rate of audio";
     homepage = "https://www.surina.net/soundtouch/";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ orivej ];

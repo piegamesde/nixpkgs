@@ -80,8 +80,7 @@ symlinkJoin {
   ];
   meta = with lib; {
     description =
-      "Gordon's Arduino wiring-like WiringPi Library for the Raspberry Pi (Unofficial Mirror for WiringPi bindings)"
-      ;
+      "Gordon's Arduino wiring-like WiringPi Library for the Raspberry Pi (Unofficial Mirror for WiringPi bindings)";
     homepage = "https://github.com/WiringPi/WiringPi";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ doronbehar ];

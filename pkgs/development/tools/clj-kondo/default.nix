@@ -10,8 +10,7 @@ buildGraalvmNativeImage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/clj-kondo/${pname}/releases/download/v${version}/${pname}-${version}-standalone.jar"
-      ;
+      "https://github.com/clj-kondo/${pname}/releases/download/v${version}/${pname}-${version}-standalone.jar";
     sha256 = "sha256-SuhLt0FNZNRX803Doa2xT9a8n35WxDtOwxXj+dZ7YXc=";
   };
 

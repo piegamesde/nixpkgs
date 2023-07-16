@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/lastpass/lastpass-cli/commit/e3311cebdb29a3267843cf656a32f01c5062897e.patch"
-        ;
+        "https://github.com/lastpass/lastpass-cli/commit/e3311cebdb29a3267843cf656a32f01c5062897e.patch";
       sha256 = "1yjx2p98nb3n8ywc9lhf2zal5fswawb5i6lgnicdin23zngff5l8";
     })
   ];

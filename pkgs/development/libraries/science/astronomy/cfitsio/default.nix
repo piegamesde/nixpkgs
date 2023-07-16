@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio-${version}.tar.gz"
-      ;
+      "https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio-${version}.tar.gz";
     sha256 = "sha256-66U9Gz9uNFYyuwmnt1LsfO09Y+xRU6hIOA84gMXWGIk=";
   };
 

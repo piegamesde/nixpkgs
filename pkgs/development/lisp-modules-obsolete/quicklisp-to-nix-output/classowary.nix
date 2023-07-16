@@ -16,8 +16,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/classowary/2019-10-07/classowary-20191007-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/classowary/2019-10-07/classowary-20191007-git.tgz";
     sha256 = "1r3535lgap7218v51k5rn2wlml4mlam3sgjg1lvac1vybiv4c287";
   };
 

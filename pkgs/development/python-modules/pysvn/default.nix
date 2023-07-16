@@ -25,8 +25,7 @@ buildPythonPackage rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/pysvn/pysvn/V${version}/pysvn-${version}.tar.gz"
-      ;
+      "mirror://sourceforge/project/pysvn/pysvn/V${version}/pysvn-${version}.tar.gz";
     hash = "sha256-LbAz+KjEY3nkSJAzJNwlnSRYoWr4i1ITRUPV3ZBH7cc=";
   };
 

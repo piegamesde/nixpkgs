@@ -17,8 +17,7 @@ stdenvNoCC.mkDerivation rec {
     # we can safely reason about what version it is.
   src = fetchzip {
     url =
-      "https://github.com/rubjo/victor-mono/raw/v${version}/public/VictorMonoAll.zip"
-      ;
+      "https://github.com/rubjo/victor-mono/raw/v${version}/public/VictorMonoAll.zip";
     stripRoot = false;
     hash = "sha256-E8j1bfYrM8yRtasiwgTvyE4EYx2LyAbmw3MXH1l+owk=";
   };

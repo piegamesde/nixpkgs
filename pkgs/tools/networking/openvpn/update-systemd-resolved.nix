@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Helper script for OpenVPN to directly update the DNS settings of a link through systemd-resolved via DBus"
-      ;
+      "Helper script for OpenVPN to directly update the DNS settings of a link through systemd-resolved via DBus";
     homepage = "https://github.com/jonathanio/update-systemd-resolved";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ eadwu ];

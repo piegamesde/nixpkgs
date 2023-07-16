@@ -11,8 +11,7 @@ buildDunePackage (rec {
 
   src = fetchurl {
     url =
-      "https://github.com/janestreet/result/releases/download/${version}/result-${version}.tbz"
-      ;
+      "https://github.com/janestreet/result/releases/download/${version}/result-${version}.tbz";
     sha256 = "0cpfp35fdwnv3p30a06wd0py3805qxmq3jmcynjc3x2qhlimwfkw";
   };
 

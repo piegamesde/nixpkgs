@@ -157,8 +157,7 @@ let
       # --version`), as well as the local documentation for all builtins (and
       # maybe other things).
       url =
-        "https://github.com/fish-shell/fish-shell/releases/download/${version}/${pname}-${version}.tar.xz"
-        ;
+        "https://github.com/fish-shell/fish-shell/releases/download/${version}/${pname}-${version}.tar.xz";
       hash = "sha256-VUArtHymc52KuiXkF4CQW1zhvOCl4N0X3KkItbwLSbI=";
     };
 

@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.netfilter.org/projects/libnetfilter_queue/files/${pname}-${version}.tar.bz2"
-      ;
+      "https://www.netfilter.org/projects/libnetfilter_queue/files/${pname}-${version}.tar.bz2";
     sha256 = "1xdra6i4p8jkv943ygjw646qx8df27f7p5852kc06vjx608krzzr";
   };
 

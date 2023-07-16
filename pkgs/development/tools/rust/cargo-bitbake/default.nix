@@ -24,8 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Cargo extension that can generate BitBake recipes utilizing the classes from meta-rust"
-      ;
+      "Cargo extension that can generate BitBake recipes utilizing the classes from meta-rust";
     homepage = "https://github.com/meta-rust/cargo-bitbake";
     license = with licenses; [
       mit

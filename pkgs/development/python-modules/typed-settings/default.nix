@@ -54,8 +54,7 @@ buildPythonPackage rec {
     description = "Typed settings based on attrs classes";
     homepage = "https://gitlab.com/sscherfke/typed-settings";
     changelog =
-      "https://gitlab.com/sscherfke/typed-settings/-/blob/${version}/CHANGELOG.rst"
-      ;
+      "https://gitlab.com/sscherfke/typed-settings/-/blob/${version}/CHANGELOG.rst";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fridh ];
   };

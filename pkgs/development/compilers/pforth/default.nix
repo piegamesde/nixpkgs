@@ -18,8 +18,7 @@ stdenv.mkDerivation {
   patches = [ (fetchpatch {
     name = "gnumake-4.3-fix.patch";
     url =
-      "https://github.com/philburk/pforth/commit/457cb99f57292bc855e53abcdcb7b12d6681e847.patch"
-      ;
+      "https://github.com/philburk/pforth/commit/457cb99f57292bc855e53abcdcb7b12d6681e847.patch";
     sha256 = "0x1bwx3pqb09ddjhmdli47lnk1ys4ny42819g17kfn8nkjs5hbx7";
   }) ];
 

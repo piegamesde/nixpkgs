@@ -64,8 +64,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/sbtinstruments/asyncio-mqtt";
     license = licenses.bsd3;
     changelog =
-      "https://github.com/sbtinstruments/asyncio-mqtt/blob/v${version}/CHANGELOG.md"
-      ;
+      "https://github.com/sbtinstruments/asyncio-mqtt/blob/v${version}/CHANGELOG.md";
     maintainers = with maintainers; [ hexa ];
   };
 }

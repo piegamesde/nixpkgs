@@ -1190,15 +1190,13 @@ in {
         assertion =
           databaseActuallyCreateLocally -> (cfg.user == cfg.databaseUsername);
         message = ''
-          For local automatic database provisioning (services.gitlab.databaseCreateLocally == true) with peer authentication (services.gitlab.databaseHost == "") to work services.gitlab.user and services.gitlab.databaseUsername must be identical.''
-          ;
+          For local automatic database provisioning (services.gitlab.databaseCreateLocally == true) with peer authentication (services.gitlab.databaseHost == "") to work services.gitlab.user and services.gitlab.databaseUsername must be identical.'';
       }
       {
         assertion =
           (cfg.databaseHost != "") -> (cfg.databasePasswordFile != null);
         message =
-          "When services.gitlab.databaseHost is customized, services.gitlab.databasePasswordFile must be set!"
-          ;
+          "When services.gitlab.databaseHost is customized, services.gitlab.databasePasswordFile must be set!";
       }
       {
         assertion = cfg.initialRootPasswordFile != null;
@@ -1223,8 +1221,7 @@ in {
       {
         assertion = versionAtLeast postgresqlPackage.version "12.0.0";
         message =
-          "PostgreSQL >=12 is required to run GitLab 14. Follow the instructions in the manual section for upgrading PostgreSQL here: https://nixos.org/manual/nixos/stable/index.html#module-services-postgres-upgrading"
-          ;
+          "PostgreSQL >=12 is required to run GitLab 14. Follow the instructions in the manual section for upgrading PostgreSQL here: https://nixos.org/manual/nixos/stable/index.html#module-services-postgres-upgrading";
       }
     ];
 
@@ -1617,8 +1614,7 @@ in {
         Restart = "always";
         WorkingDirectory = "${cfg.packages.gitlab}/share/gitlab";
         ExecStart = ''
-          ${cfg.packages.gitlab.rubyEnv}/bin/sidekiq -C "${cfg.packages.gitlab}/share/gitlab/config/sidekiq_queues.yml" -e production''
-          ;
+          ${cfg.packages.gitlab.rubyEnv}/bin/sidekiq -C "${cfg.packages.gitlab}/share/gitlab/config/sidekiq_queues.yml" -e production'';
       };
     };
 
@@ -1733,8 +1729,7 @@ in {
             ${secretReplacements}
           '';
           ExecStart =
-            "${cfg.packages.pages}/bin/gitlab-pages -config=/run/gitlab-pages/gitlab-pages.conf"
-            ;
+            "${cfg.packages.pages}/bin/gitlab-pages -config=/run/gitlab-pages/gitlab-pages.conf";
           WorkingDirectory = gitlabEnv.HOME;
           RuntimeDirectory = "gitlab-pages";
           RuntimeDirectoryMode = "0700";
@@ -1802,8 +1797,7 @@ in {
           User = cfg.user;
           Group = cfg.group;
           ExecStart =
-            "${cfg.packages.gitlab.rubyEnv}/bin/bundle exec mail_room -c ${cfg.statePath}/config/mail_room.yml"
-            ;
+            "${cfg.packages.gitlab.rubyEnv}/bin/bundle exec mail_room -c ${cfg.statePath}/config/mail_room.yml";
           WorkingDirectory = gitlabEnv.HOME;
         };
       };

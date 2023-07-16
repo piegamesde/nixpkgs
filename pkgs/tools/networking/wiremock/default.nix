@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
   version = "2.35.0";
   src = fetchurl {
     url =
-      "mirror://maven/com/github/tomakehurst/wiremock-jre8-standalone/${version}/wiremock-jre8-standalone-${version}.jar"
-      ;
+      "mirror://maven/com/github/tomakehurst/wiremock-jre8-standalone/${version}/wiremock-jre8-standalone-${version}.jar";
     hash = "sha256-rhVq4oEuPPpHDEftBzEA707HeSc3Kk4gPw471THz61c=";
   };
 

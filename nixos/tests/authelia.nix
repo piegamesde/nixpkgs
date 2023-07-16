@@ -35,8 +35,7 @@ import ./make-test-python.nix ({
             mode = "0400";
             user = "authelia-testing";
             text =
-              "you_must_generate_a_random_string_of_more_than_twenty_chars_and_configure_this"
-              ;
+              "you_must_generate_a_random_string_of_more_than_twenty_chars_and_configure_this";
           };
           environment.etc."authelia/jwtSecretFile" = {
             mode = "0400";
@@ -80,8 +79,7 @@ import ./make-test-python.nix ({
                 ;
               http.middlewares.authelia.forwardAuth = {
                 address =
-                  "http://localhost:9091/api/verify?rd=https%3A%2F%2Fauth.example.com%2F"
-                  ;
+                  "http://localhost:9091/api/verify?rd=https%3A%2F%2Fauth.example.com%2F";
                 trustForwardHeader = true;
                 authResponseHeaders = [
                   "Remote-User"
@@ -146,8 +144,7 @@ import ./make-test-python.nix ({
               fakeWebPageDir = pkgs.writeTextDir "index.html" "hello";
             in {
               script =
-                "${pkgs.python3}/bin/python -m http.server --directory ${fakeWebPageDir} 8000"
-                ;
+                "${pkgs.python3}/bin/python -m http.server --directory ${fakeWebPageDir} 8000";
               serviceConfig.Type = "simple";
               wantedBy = [ "multi-user.target" ];
             }

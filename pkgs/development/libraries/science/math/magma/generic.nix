@@ -129,8 +129,7 @@ stdenv.mkDerivation {
   src = fetchurl {
     name = "magma-${version}.tar.gz";
     url =
-      "https://icl.cs.utk.edu/projectsfiles/magma/downloads/magma-${version}.tar.gz"
-      ;
+      "https://icl.cs.utk.edu/projectsfiles/magma/downloads/magma-${version}.tar.gz";
     inherit hash;
   };
 

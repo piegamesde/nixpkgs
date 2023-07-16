@@ -11,8 +11,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/xosview/${finalAttrs.pname}-${finalAttrs.version}.tar.gz"
-      ;
+      "mirror://sourceforge/xosview/${finalAttrs.pname}-${finalAttrs.version}.tar.gz";
     hash = "sha256-ex1GDBgx9Zzx5tOkZ2IRYskmBh/bUYpRTXHWRoE30vA=";
   };
 

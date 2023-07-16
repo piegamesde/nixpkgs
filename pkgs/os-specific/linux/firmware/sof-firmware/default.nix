@@ -10,8 +10,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/thesofproject/sof-bin/releases/download/v${version}/sof-bin-v${version}.tar.gz"
-      ;
+      "https://github.com/thesofproject/sof-bin/releases/download/v${version}/sof-bin-v${version}.tar.gz";
     sha256 = "sha256-zoquuhA6pWqCZiVSsPM/M6hZqhAI2L+8LCLwzPyMazo=";
   };
 

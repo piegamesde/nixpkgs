@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
   postBuild = "(cd contrib/src && make)";
 
   postInstall =
-    "\n    (cd contrib/src && make install)\n    (cd $out/include && ln -s wx-*/* .)\n  "
-    ;
+    "\n    (cd contrib/src && make install)\n    (cd $out/include && ln -s wx-*/* .)\n  ";
 
   passthru = { inherit compat24 compat26 unicode; };
 

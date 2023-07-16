@@ -144,8 +144,7 @@ in {
     attrs:
     let
       templates =
-        "${attrs.ruby.gemPath}/gems/${attrs.gemName}-${attrs.version}/lib/bundler/templates/"
-        ;
+        "${attrs.ruby.gemPath}/gems/${attrs.gemName}-${attrs.version}/lib/bundler/templates/";
     in {
       # patching shebangs would fail on the templates/Executable file, so we
       # temporarily remove the executable flag.

@@ -20,8 +20,7 @@ let
 
   freenet_ext = fetchurl {
     url =
-      "https://github.com/freenet/fred/releases/download/build01495/freenet-ext.jar"
-      ;
+      "https://github.com/freenet/fred/releases/download/build01495/freenet-ext.jar";
     sha256 = "sha256-MvKz1r7t9UE36i+aPr72dmbXafCWawjNF/19tZuk158=";
   };
 

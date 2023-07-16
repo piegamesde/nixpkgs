@@ -42,8 +42,7 @@ let
 
       src = fetchurl {
         url =
-          "https://www.openssl.org/source/${finalAttrs.pname}-${version}.tar.gz"
-          ;
+          "https://www.openssl.org/source/${finalAttrs.pname}-${version}.tar.gz";
         inherit sha256;
       };
 

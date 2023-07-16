@@ -12,8 +12,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/make-hash/2013-06-15/make-hash-20130615-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/make-hash/2013-06-15/make-hash-20130615-git.tgz";
     sha256 = "1ghcyqjhizkbfsvx1cih7d665w8yvbs1xv8pfi3hs1ghbn8njbkw";
   };
 

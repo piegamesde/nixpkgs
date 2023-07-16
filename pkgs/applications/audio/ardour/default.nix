@@ -71,8 +71,7 @@ stdenv.mkDerivation rec {
 
   bundledContent = fetchzip {
     url =
-      "https://web.archive.org/web/20221026200824/http://stuff.ardour.org/loops/ArdourBundledMedia.zip"
-      ;
+      "https://web.archive.org/web/20221026200824/http://stuff.ardour.org/loops/ArdourBundledMedia.zip";
     hash = "sha256-IbPQWFeyMuvCoghFl1ZwZNNcSvLNsH84rGArXnw+t7A=";
       # archive does not contain a single folder at the root
     stripRoot = false;

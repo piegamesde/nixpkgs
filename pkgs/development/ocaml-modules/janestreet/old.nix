@@ -162,8 +162,7 @@ in with self;
       ppx_sexp_conv
     ];
     meta.description =
-      "A ppx rewriter that generates hash functions from type expressions and definitions"
-      ;
+      "A ppx rewriter that generates hash functions from type expressions and definitions";
   };
 
   ppx_js_style = janePackage {
@@ -632,8 +631,7 @@ in with self;
     hash = "0w58z9jkz5qzbvf33wrzhfshzdvnrphj6dq8dmi52ykhfvxm7824";
     propagatedBuildInputs = [ async ];
     meta.description =
-      "Utilities for Versioned RPC communication with a child process over stdin and stdout"
-      ;
+      "Utilities for Versioned RPC communication with a child process over stdin and stdout";
   };
 
   core_bench = janePackage {

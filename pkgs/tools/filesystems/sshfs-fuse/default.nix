@@ -21,8 +21,7 @@ in if stdenv.isDarwin then
       (fetchpatch {
         name = "fix-configurable-blksize.patch";
         url =
-          "https://github.com/libfuse/sshfs/commit/667cf34622e2e873db776791df275c7a582d6295.patch"
-          ;
+          "https://github.com/libfuse/sshfs/commit/667cf34622e2e873db776791df275c7a582d6295.patch";
         sha256 = "0d65lawd2g2aisk1rw2vl65dgxywf4vqgv765n9zj9zysyya8a54";
       })
     ];

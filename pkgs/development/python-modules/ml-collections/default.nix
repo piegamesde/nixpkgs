@@ -11,14 +11,12 @@
 let
   requirements = fetchurl {
     url =
-      "https://raw.githubusercontent.com/google/ml_collections/7f749a281c69f9d0b339c05ecb94b80d95029f25/requirements.txt"
-      ;
+      "https://raw.githubusercontent.com/google/ml_collections/7f749a281c69f9d0b339c05ecb94b80d95029f25/requirements.txt";
     sha256 = "1xb351hiscj4zmajfkql3swpacdp6lmz8iwdvwwdx2zqw9a62zps";
   };
   requirements-test = fetchurl {
     url =
-      "https://raw.githubusercontent.com/google/ml_collections/7f749a281c69f9d0b339c05ecb94b80d95029f25/requirements-test.txt"
-      ;
+      "https://raw.githubusercontent.com/google/ml_collections/7f749a281c69f9d0b339c05ecb94b80d95029f25/requirements-test.txt";
     sha256 = "0r457k2nrg5jkf093r0x29yf8xwy6l7jxi6al0fh7mmnfrhr9cb1";
   };
 in
@@ -55,8 +53,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "ML Collections is a library of Python collections designed for ML usecases."
-      ;
+      "ML Collections is a library of Python collections designed for ML usecases.";
     homepage = "https://github.com/google/ml_collections";
     license = licenses.asl20;
     maintainers = with maintainers; [ samuela ];

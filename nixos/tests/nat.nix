@@ -55,8 +55,7 @@ import ./make-test-python.nix ({
         lib.mkMerge [ {
           virtualisation.vlans = [ 1 ];
           networking.defaultGateway = (pkgs.lib.head
-            nodes.router.config.networking.interfaces.eth2.ipv4.addresses).address
-            ;
+            nodes.router.config.networking.interfaces.eth2.ipv4.addresses).address;
           networking.nftables.enable = nftables;
         } ]
         ;

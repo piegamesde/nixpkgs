@@ -73,8 +73,7 @@ mkDerivation rec {
     description = "Featureful free software BitTorrent client";
     homepage = "https://www.qbittorrent.org/";
     changelog =
-      "https://github.com/qbittorrent/qBittorrent/blob/release-${version}/Changelog"
-      ;
+      "https://github.com/qbittorrent/qBittorrent/blob/release-${version}/Changelog";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [ Anton-Latukha ];

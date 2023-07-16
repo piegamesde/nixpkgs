@@ -48,8 +48,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "VAlidators Adapter makes validation by any existing validator with the same interface"
-      ;
+      "VAlidators Adapter makes validation by any existing validator with the same interface";
     homepage = "https://github.com/life4/vaa";
     license = licenses.mit;
     maintainers = with maintainers; [ gador ];

@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fix-parser-getc-char-casts.patch";
       url =
-        "https://github.com/Boolector/boolector/commit/cc3a70918538c1e71ea5e7273fa1ac098da37c1b.patch"
-        ;
+        "https://github.com/Boolector/boolector/commit/cc3a70918538c1e71ea5e7273fa1ac098da37c1b.patch";
       sha256 = "0pjvagcy74vxa2q75zbshcz8j7rvhl98549xfcf5y8yyxf5h8hyq";
     })
   ];

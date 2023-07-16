@@ -31,8 +31,7 @@ let
         ;
       src = fetchzip {
         url =
-          "mirror://apache/spark/${pname}-${version}/${pname}-${version}-bin-without-hadoop.tgz"
-          ;
+          "mirror://apache/spark/${pname}-${version}/${pname}-${version}-bin-without-hadoop.tgz";
         sha256 = sha256;
       };
       nativeBuildInputs = [ makeWrapper ];
@@ -76,8 +75,7 @@ let
 
       meta = {
         description =
-          "Apache Spark is a fast and general engine for large-scale data processing"
-          ;
+          "Apache Spark is a fast and general engine for large-scale data processing";
         homepage = "https://spark.apache.org/";
         sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
         license = lib.licenses.asl20;

@@ -95,8 +95,7 @@ in {
             # System Call Filtering
           SystemCallArchitectures = "native";
           SystemCallFilter =
-            "~@clock @privileged @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @reboot @setuid @swap"
-            ;
+            "~@clock @privileged @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @reboot @setuid @swap";
         };
         inherit (cfg) environment;
       };

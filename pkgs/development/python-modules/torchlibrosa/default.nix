@@ -29,8 +29,7 @@ buildPythonPackage rec {
     # Fix run against librosa 0.9.0, https://github.com/qiuqiangkong/torchlibrosa/pull/8
     (fetchpatch {
       url =
-        "https://github.com/qiuqiangkong/torchlibrosa/commit/eec7e7559a47d0ef0017322aee29a31dad0572d5.patch"
-        ;
+        "https://github.com/qiuqiangkong/torchlibrosa/commit/eec7e7559a47d0ef0017322aee29a31dad0572d5.patch";
       hash = "sha256-c1x3MA14Plm7+lVuqiuLWgSY6FW615qnKbcWAfbrcas=";
     })
   ];

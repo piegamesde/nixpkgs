@@ -129,8 +129,7 @@ in {
       wantedBy = [ "multi-user.target" ];
 
       preStart =
-        "mkdir -p ${cfg.logDir} && chown ${cfg.user}:${cfg.group} ${cfg.logDir}"
-        ;
+        "mkdir -p ${cfg.logDir} && chown ${cfg.user}:${cfg.group} ${cfg.logDir}";
       serviceConfig = {
         Type = "simple";
         ExecStart = "${pkgs.icecast}/bin/icecast -c ${configFile}";

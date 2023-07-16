@@ -47,12 +47,10 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A django model and form field for normalised phone numbers using python-phonenumbers"
-      ;
+      "A django model and form field for normalised phone numbers using python-phonenumbers";
     homepage = "https://github.com/stefanfoulis/django-phonenumber-field/";
     changelog =
-      "https://github.com/stefanfoulis/django-phonenumber-field/releases/tag/${version}"
-      ;
+      "https://github.com/stefanfoulis/django-phonenumber-field/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ sephi ];
   };

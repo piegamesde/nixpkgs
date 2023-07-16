@@ -98,8 +98,7 @@ in {
         PrivateTmp = true;
         PIDFile = "/run/ocserv.pid";
         ExecStart =
-          "${pkgs.ocserv}/bin/ocserv --foreground --pid-file /run/ocesrv.pid --config /etc/ocserv/ocserv.conf"
-          ;
+          "${pkgs.ocserv}/bin/ocserv --foreground --pid-file /run/ocesrv.pid --config /etc/ocserv/ocserv.conf";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
       };
     };

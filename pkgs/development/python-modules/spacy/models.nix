@@ -34,8 +34,7 @@ let
 
       src = fetchurl {
         url =
-          "https://github.com/explosion/spacy-models/releases/download/${pname}-${version}/${pname}-${version}.tar.gz"
-          ;
+          "https://github.com/explosion/spacy-models/releases/download/${pname}-${version}/${pname}-${version}.tar.gz";
         inherit sha256;
       };
 

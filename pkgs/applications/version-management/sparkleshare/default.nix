@@ -90,8 +90,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "Share and collaborate by syncing with any Git repository instantly. Linux, macOS, and Windows"
-      ;
+      "Share and collaborate by syncing with any Git repository instantly. Linux, macOS, and Windows";
     homepage = "https://sparkleshare.org";
     license = lib.licenses.gpl3;
     maintainers = with lib.maintainers; [ kevincox ];

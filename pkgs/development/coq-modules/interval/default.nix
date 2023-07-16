@@ -81,8 +81,7 @@ mkCoqDerivation rec {
 
   meta = with lib; {
     description =
-      "Tactics for simplifying the proofs of inequalities on expressions of real numbers for the Coq proof assistant"
-      ;
+      "Tactics for simplifying the proofs of inequalities on expressions of real numbers for the Coq proof assistant";
     license = licenses.cecill-c;
     maintainers = with maintainers; [ vbgl ];
   };

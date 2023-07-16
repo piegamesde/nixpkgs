@@ -28,8 +28,7 @@ let
 
   desktopIcon = fetchurl {
     url =
-      "https://github.com/CCEmuX/CCEmuX/raw/${rev}/src/main/resources/img/icon.png"
-      ;
+      "https://github.com/CCEmuX/CCEmuX/raw/${rev}/src/main/resources/img/icon.png";
     sha256 = "1vmb6rg9k2y99j8xqfgbsvfgfi3g985rmqwrd7w3y54ffr2r99c2";
   };
   desktopItem = makeDesktopItem {

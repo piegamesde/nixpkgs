@@ -88,8 +88,7 @@ gcc12Stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Hex Editor for Reverse Engineers, Programmers and people who value their retinas when working at 3 AM"
-      ;
+      "Hex Editor for Reverse Engineers, Programmers and people who value their retinas when working at 3 AM";
     homepage = "https://github.com/WerWolv/ImHex";
     license = with licenses; [ gpl2Only ];
     maintainers = with maintainers; [ luis ];

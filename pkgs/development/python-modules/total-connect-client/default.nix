@@ -34,8 +34,7 @@ buildPythonPackage rec {
     description = "Interact with Total Connect 2 alarm systems";
     homepage = "https://github.com/craigjmidwinter/total-connect-client";
     changelog =
-      "https://github.com/craigjmidwinter/total-connect-client/releases/tag/${version}"
-      ;
+      "https://github.com/craigjmidwinter/total-connect-client/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

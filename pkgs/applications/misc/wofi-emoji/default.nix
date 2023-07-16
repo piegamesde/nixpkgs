@@ -12,8 +12,7 @@
 let
   emojiJSON = fetchurl {
     url =
-      "https://raw.githubusercontent.com/muan/emojilib/v3.0.6/dist/emoji-en-US.json"
-      ;
+      "https://raw.githubusercontent.com/muan/emojilib/v3.0.6/dist/emoji-en-US.json";
     sha256 = "sha256-wf7zsIEbX/diLwmVvnN2Goxh2V5D3Z6nbEMSb5pSGt0=";
   };
 in

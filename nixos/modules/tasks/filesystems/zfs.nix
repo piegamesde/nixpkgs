@@ -129,8 +129,7 @@ let
       {
         hasKeys = cfgZfs.requestEncryptionCredentials;
         command =
-          "${cfgZfs.package}/sbin/zfs list -rHo name,keylocation,keystatus ${pool}"
-          ;
+          "${cfgZfs.package}/sbin/zfs list -rHo name,keylocation,keystatus ${pool}";
       }
     else
       let
@@ -591,15 +590,13 @@ in {
         {
           assertion = !cfgZfs.forceImportAll || cfgZfs.forceImportRoot;
           message =
-            "If you enable boot.zfs.forceImportAll, you must also enable boot.zfs.forceImportRoot"
-            ;
+            "If you enable boot.zfs.forceImportAll, you must also enable boot.zfs.forceImportRoot";
         }
         {
           assertion = cfgZfs.allowHibernation -> !cfgZfs.forceImportRoot
             && !cfgZfs.forceImportAll;
           message =
-            "boot.zfs.allowHibernation while force importing is enabled will cause data corruption"
-            ;
+            "boot.zfs.allowHibernation while force importing is enabled will cause data corruption";
         }
       ];
 
@@ -719,8 +716,7 @@ in {
         "zfs/zpool.d".source = "${cfgZfs.package}/etc/zfs/zpool.d/";
       };
 
-      system.fsPackages = [ cfgZfs.package ]
-        ; # XXX: needed? zfs doesn't have (need) a fsck
+      system.fsPackages = [ cfgZfs.package ]; # XXX: needed? zfs doesn't have (need) a fsck
       environment.systemPackages = [ cfgZfs.package ]
         ++ optional cfgSnapshots.enable autosnapPkg
         ; # so the user can run the command to see flags
@@ -919,8 +915,7 @@ in {
 
       systemd.timers.zfs-scrub = {
         wantedBy = [ "timers.target" ];
-        after = [ "multi-user.target" ]
-          ; # Apparently scrubbing before boot is complete hangs the system? #53583
+        after = [ "multi-user.target" ]; # Apparently scrubbing before boot is complete hangs the system? #53583
         timerConfig = {
           OnCalendar = cfgScrub.interval;
           Persistent = "yes";
@@ -939,8 +934,7 @@ in {
           # - There is a SSDs in a pool that is currently trimmed.
           # - There are only HDDs and we would set the system in a degraded state
         serviceConfig.ExecStart =
-          "${pkgs.runtimeShell} -c 'for pool in $(zpool list -H -o name); do zpool trim $pool;  done || true' "
-          ;
+          "${pkgs.runtimeShell} -c 'for pool in $(zpool list -H -o name); do zpool trim $pool;  done || true' ";
       };
 
       systemd.timers.zpool-trim.timerConfig.Persistent = "yes";

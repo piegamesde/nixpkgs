@@ -97,8 +97,7 @@ python.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Web app for browsing, reading and downloading eBooks stored in a Calibre database"
-      ;
+      "Web app for browsing, reading and downloading eBooks stored in a Calibre database";
     homepage = "https://github.com/janeczku/calibre-web";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ pborzenkov ];

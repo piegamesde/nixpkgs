@@ -20,8 +20,7 @@ let
 
   name = "burpsuite-${version}";
   description =
-    "An integrated platform for performing security testing of web applications"
-    ;
+    "An integrated platform for performing security testing of web applications";
   desktopItem = makeDesktopItem rec {
     name = "burpsuite";
     exec = name;

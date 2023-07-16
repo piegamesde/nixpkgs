@@ -22,8 +22,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/mirage-xen/releases/download/v${version}/mirage-xen-${version}.tbz"
-      ;
+      "https://github.com/mirage/mirage-xen/releases/download/v${version}/mirage-xen-${version}.tbz";
     hash = "sha256-x8i2Kbz0EcifZK/lbDIFa9Kwtl1/xzbYV9h9E+EtGP4=";
   };
 

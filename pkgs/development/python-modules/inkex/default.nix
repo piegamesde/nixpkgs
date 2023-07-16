@@ -73,8 +73,7 @@ buildPythonPackage rec {
 
   meta = {
     description =
-      "Library for manipulating SVG documents which is the basis for Inkscape extensions"
-      ;
+      "Library for manipulating SVG documents which is the basis for Inkscape extensions";
     homepage = "https://gitlab.com/inkscape/extensions";
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ dotlambda ];

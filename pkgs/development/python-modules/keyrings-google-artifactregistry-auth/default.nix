@@ -35,8 +35,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python package which allows you to configure keyring to interact with Python repositories stored in Artifact Registry"
-      ;
+      "Python package which allows you to configure keyring to interact with Python repositories stored in Artifact Registry";
     homepage = "https://pypi.org/project/keyrings.google-artifactregistry-auth";
     license = licenses.asl20;
     maintainers = with maintainers; [ lovesegfault ];

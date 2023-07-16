@@ -21,8 +21,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = {
     description =
-      "Numbered Files Leading Zeros helps you to manage ascending numbered file names"
-      ;
+      "Numbered Files Leading Zeros helps you to manage ascending numbered file names";
     longDescription = ''
       CLI to add leading zeros to ascending numbered file names.
       NFLZ stands for Numbered Files Leading Zeros.

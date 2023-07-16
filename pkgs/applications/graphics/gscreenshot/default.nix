@@ -60,8 +60,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description =
-      "A screenshot frontend (CLI and GUI) for a variety of screenshot backends"
-      ;
+      "A screenshot frontend (CLI and GUI) for a variety of screenshot backends";
 
     longDescription = ''
       gscreenshot provides a common frontend and expanded functionality to a

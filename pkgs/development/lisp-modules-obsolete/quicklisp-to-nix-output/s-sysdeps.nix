@@ -18,8 +18,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/s-sysdeps/2021-02-28/s-sysdeps-20210228-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/s-sysdeps/2021-02-28/s-sysdeps-20210228-git.tgz";
     sha256 = "0pybgicif1qavvix9183g4ahjrgcax3qf2ab523cas8l79lr1xkw";
   };
 

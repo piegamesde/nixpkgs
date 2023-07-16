@@ -64,8 +64,7 @@ mkDerivation rec {
 
   meta = with lib; {
     description =
-      "High performance layout viewer and editor with support for GDS and OASIS"
-      ;
+      "High performance layout viewer and editor with support for GDS and OASIS";
     license = with licenses; [ gpl2Plus ];
     homepage = "https://www.klayout.de/";
     changelog = "https://www.klayout.de/development.html#${version}";

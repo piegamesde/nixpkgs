@@ -20,8 +20,7 @@ mkYarnPackage rec {
     # uses js-yaml 4 which breaks the text editor
   src = fetchzip {
     url =
-      "https://github.com/hedgedoc/hedgedoc/releases/download/${version}/hedgedoc-${version}.tar.gz"
-      ;
+      "https://github.com/hedgedoc/hedgedoc/releases/download/${version}/hedgedoc-${version}.tar.gz";
     hash = "sha256-tPkhnnKDS5TICsW66YCOy7xWFj5usLyDMbYMYQ3Euoc=";
   };
 

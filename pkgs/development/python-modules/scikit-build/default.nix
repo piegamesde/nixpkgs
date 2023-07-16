@@ -86,8 +86,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Improved build system generator for CPython C/C++/Fortran/Cython extensions"
-      ;
+      "Improved build system generator for CPython C/C++/Fortran/Cython extensions";
     homepage = "https://github.com/scikit-build/scikit-build";
     license = with licenses; [
       mit

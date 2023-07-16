@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
   '';
 
   preInstall =
-    "mkdir -p $out/bin $out/sbin $out/share/man/man1 $out/share/man/man5 $out/share/man/man8"
-    ;
+    "mkdir -p $out/bin $out/sbin $out/share/man/man1 $out/share/man/man5 $out/share/man/man8";
 
   meta = with lib; {
     description = "Daemon for running commands at specific times (Vixie Cron)";

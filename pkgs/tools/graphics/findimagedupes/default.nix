@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
   '';
 
   buildPhase =
-    "\n    runHook preBuild\n    ${perl}/bin/pod2man findimagedupes > findimagedupes.1\n    runHook postBuild\n  "
-    ;
+    "\n    runHook preBuild\n    ${perl}/bin/pod2man findimagedupes > findimagedupes.1\n    runHook postBuild\n  ";
 
   installPhase = ''
     runHook preInstall

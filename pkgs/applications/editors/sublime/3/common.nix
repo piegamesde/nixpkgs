@@ -41,8 +41,7 @@ let
     "sublime3"
   ];
   downloadUrl =
-    "https://download.sublimetext.com/sublime_text_3_build_${buildVersion}_${arch}.tar.bz2"
-    ;
+    "https://download.sublimetext.com/sublime_text_3_build_${buildVersion}_${arch}.tar.bz2";
   versionUrl = "https://download.sublimetext.com/latest/${
       if dev then
         "dev"

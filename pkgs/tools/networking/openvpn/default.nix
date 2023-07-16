@@ -33,8 +33,7 @@ let
 
       src = fetchurl {
         url =
-          "https://swupdate.openvpn.net/community/releases/${pname}-${version}.tar.gz"
-          ;
+          "https://swupdate.openvpn.net/community/releases/${pname}-${version}.tar.gz";
         inherit sha256;
       };
 

@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://libburnia-project.org/";
     description =
-      "A library to create an ISO-9660 filesystem with extensions like RockRidge or Joliet"
-      ;
+      "A library to create an ISO-9660 filesystem with extensions like RockRidge or Joliet";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [
       abbradar

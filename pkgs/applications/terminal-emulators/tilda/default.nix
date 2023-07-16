@@ -38,8 +38,8 @@ stdenv.mkDerivation rec {
     vte
   ];
 
-  LD_LIBRARY_PATH = "${expat.out}/lib"
-    ; # ugly hack for xgettext to work during build
+  LD_LIBRARY_PATH =
+    "${expat.out}/lib"; # ugly hack for xgettext to work during build
 
     # The config locking scheme relies on the binary being called "tilda",
     # (`pgrep -C tilda`), so a simple `wrapProgram` won't suffice:

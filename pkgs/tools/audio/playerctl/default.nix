@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Command-line utility and library for controlling media players that implement MPRIS"
-      ;
+      "Command-line utility and library for controlling media players that implement MPRIS";
     homepage = "https://github.com/acrisci/playerctl";
     license = licenses.lgpl3;
     platforms = platforms.unix;

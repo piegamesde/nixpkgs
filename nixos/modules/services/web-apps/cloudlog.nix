@@ -316,8 +316,7 @@ in {
       assertion =
         cfg.database.createLocally -> cfg.database.passwordFile == null;
       message =
-        "services.cloudlog.database.passwordFile cannot be specified if services.cloudlog.database.createLocally is set to true."
-        ;
+        "services.cloudlog.database.passwordFile cannot be specified if services.cloudlog.database.createLocally is set to true.";
     } ];
 
     services.phpfpm = {

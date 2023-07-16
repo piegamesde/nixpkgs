@@ -25,8 +25,7 @@ import ../make-test-python.nix ({
 
             # Automatic failover configuration
           "dfs.client.failover.proxy.provider.ns1" =
-            "org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider"
-            ;
+            "org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider";
           "dfs.ha.automatic-failover.enabled.ns1" = "true";
           "dfs.ha.fencing.methods" = "shell(true)";
           "ha.zookeeper.quorum" = "zk1:2181";

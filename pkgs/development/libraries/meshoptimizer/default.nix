@@ -39,8 +39,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "Mesh optimization library that makes meshes smaller and faster to render"
-      ;
+      "Mesh optimization library that makes meshes smaller and faster to render";
     homepage = "https://github.com/zeux/meshoptimizer";
     license = licenses.mit;
     maintainers = [ maintainers.lillycham ];

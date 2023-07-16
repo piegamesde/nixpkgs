@@ -71,8 +71,7 @@ stdenv.mkDerivation rec {
     (fetchurl {
       name = "fix-static.patch";
       url =
-        "https://cgit.freebsd.org/ports/plain/shells/bash/files/patch-configure?id=3e147a1f594751a68fea00a28090d0792bee0b51"
-        ;
+        "https://cgit.freebsd.org/ports/plain/shells/bash/files/patch-configure?id=3e147a1f594751a68fea00a28090d0792bee0b51";
       sha256 = "XHFMQ6eXTReNoywdETyrfQEv1rKF8+XFbQZP4YoVKFk=";
     })
   ];

@@ -33,8 +33,7 @@ stdenv.mkDerivation {
 
   src = fetchzip {
     url =
-      "http://gdlp01.c-wss.com/gds/1/0100000841/01/cnijfilter-common-2.80-1.tar.gz"
-      ;
+      "http://gdlp01.c-wss.com/gds/1/0100000841/01/cnijfilter-common-2.80-1.tar.gz";
     sha256 = "06s9nl155yxmx56056y22kz1p5b2sb5fhr3gf4ddlczjkd1xch53";
   };
 
@@ -126,8 +125,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "Canon InkJet printer drivers for the iP5400, MP520, MP210, MP140, iP3500, and MP610 series.  (MP520 drivers also work for MX700.)"
-      ;
+      "Canon InkJet printer drivers for the iP5400, MP520, MP210, MP140, iP3500, and MP610 series.  (MP520 drivers also work for MX700.)";
     homepage = "http://support-asia.canon-asia.com/content/EN/0100084101.html";
     sourceProvenance = with sourceTypes; [
       fromSource

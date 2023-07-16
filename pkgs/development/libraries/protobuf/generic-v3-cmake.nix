@@ -54,8 +54,7 @@ let
       # https://github.com/protocolbuffers/protobuf/pull/10090
       (fetchpatch {
         url =
-          "https://github.com/protocolbuffers/protobuf/commit/a7324f88e92bc16b57f3683403b6c993bf68070b.patch"
-          ;
+          "https://github.com/protocolbuffers/protobuf/commit/a7324f88e92bc16b57f3683403b6c993bf68070b.patch";
         sha256 = "sha256-SmwaUjOjjZulg/wgNmR/F5b8rhYA2wkKAjHIOxjcQdQ=";
       })
     ] ++ lib.optionals

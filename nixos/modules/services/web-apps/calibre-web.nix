@@ -143,8 +143,7 @@ in {
           "config_converterpath = '${pkgs.calibre}/bin/ebook-convert'");
       in {
         description =
-          "Web app for browsing, reading and downloading eBooks stored in a Calibre database"
-          ;
+          "Web app for browsing, reading and downloading eBooks stored in a Calibre database";
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
 

@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "support-openfile-with-portal.patch";
       url =
-        "https://gitlab.freedesktop.org/xdg/xdg-utils/-/commit/5cd8c38f58d9db03240f4bc67267fe3853b66ec7.diff"
-        ;
+        "https://gitlab.freedesktop.org/xdg/xdg-utils/-/commit/5cd8c38f58d9db03240f4bc67267fe3853b66ec7.diff";
       hash = "sha256-snkhxwGF9hpqEh5NGG8xixTi/ydAk5apXRtgYrVgNY8=";
     })
   ];
@@ -107,8 +106,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.freedesktop.org/wiki/Software/xdg-utils/";
     description =
-      "A set of command line tools that assist applications with a variety of desktop integration tasks"
-      ;
+      "A set of command line tools that assist applications with a variety of desktop integration tasks";
     license =
       if mimiSupport then
         licenses.gpl2

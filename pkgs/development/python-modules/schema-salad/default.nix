@@ -59,8 +59,7 @@ buildPythonPackage rec {
     description = "Semantic Annotations for Linked Avro Data";
     homepage = "https://github.com/common-workflow-language/schema_salad";
     changelog =
-      "https://github.com/common-workflow-language/schema_salad/releases/tag/${version}"
-      ;
+      "https://github.com/common-workflow-language/schema_salad/releases/tag/${version}";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ veprbl ];
   };

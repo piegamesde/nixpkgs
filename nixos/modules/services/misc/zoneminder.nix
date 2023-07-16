@@ -207,8 +207,7 @@ in {
     assertions = [ {
       assertion = cfg.database.createLocally -> cfg.database.username == user;
       message =
-        "services.zoneminder.database.username must be set to ${user} if services.zoneminder.database.createLocally is set true"
-        ;
+        "services.zoneminder.database.username must be set to ${user} if services.zoneminder.database.createLocally is set true";
     } ];
 
     environment.etc = {

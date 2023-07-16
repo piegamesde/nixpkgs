@@ -19,8 +19,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A Realtime API Gateway used with NATS to build REST, real time, and RPC APIs"
-      ;
+      "A Realtime API Gateway used with NATS to build REST, real time, and RPC APIs";
     homepage = "https://resgate.io";
     license = licenses.mit;
     maintainers = with maintainers; [ farcaller ];

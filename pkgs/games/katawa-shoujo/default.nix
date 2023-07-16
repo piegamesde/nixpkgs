@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://dl.katawa-shoujo.com/gold_${version}/%5b4ls%5d_katawa_shoujo_${version}-${srcDetails.urlSuffix}"
-      ;
+      "https://dl.katawa-shoujo.com/gold_${version}/%5b4ls%5d_katawa_shoujo_${version}-${srcDetails.urlSuffix}";
     inherit (srcDetails) hash;
   };
 

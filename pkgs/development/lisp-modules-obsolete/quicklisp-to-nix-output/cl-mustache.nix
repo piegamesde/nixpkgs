@@ -12,8 +12,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/cl-mustache/2020-03-25/cl-mustache-20200325-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/cl-mustache/2020-03-25/cl-mustache-20200325-git.tgz";
     sha256 = "1x1rsmgqc39imx4ay3b35dzvzccaqjayz90qv2cylqbbq9sg9arr";
   };
 

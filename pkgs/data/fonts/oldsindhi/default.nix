@@ -10,8 +10,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/MihailJP/${pname}/releases/download/v${version}/OldSindhi-${version}.tar.xz"
-      ;
+      "https://github.com/MihailJP/${pname}/releases/download/v${version}/OldSindhi-${version}.tar.xz";
     hash = "sha256-jOcl+mo6CJ9Lnn3nAUiXXHCJssovVgLoPrbGxj4uzQs=";
   };
 

@@ -152,8 +152,8 @@ in {
                 Type = "simple";
                 Nice = 19;
                 IOSchedulingClass = "idle";
-                ExecStart = "${pkgs.btrfs-progs}/bin/btrfs scrub start -B ${fs}"
-                  ;
+                ExecStart =
+                  "${pkgs.btrfs-progs}/bin/btrfs scrub start -B ${fs}";
                   # if the service is stopped before scrub end, cancel it
                 ExecStop = pkgs.writeShellScript "btrfs-scrub-maybe-cancel" ''
                   (${pkgs.btrfs-progs}/bin/btrfs scrub status ${fs} | ${pkgs.gnugrep}/bin/grep finished) || ${pkgs.btrfs-progs}/bin/btrfs scrub cancel ${fs}

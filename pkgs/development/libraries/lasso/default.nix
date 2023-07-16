@@ -54,8 +54,7 @@ stdenv.mkDerivation rec {
     homepage = "https://lasso.entrouvert.org/";
     description = "Liberty Alliance Single Sign-On library";
     changelog =
-      "https://git.entrouvert.org/entrouvert/lasso/raw/tag/v${version}/ChangeLog"
-      ;
+      "https://git.entrouvert.org/entrouvert/lasso/raw/tag/v${version}/ChangeLog";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ womfoo ];

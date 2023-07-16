@@ -44,8 +44,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Module that acts as a WSGI application in place of a real URI for testing"
-      ;
+      "Module that acts as a WSGI application in place of a real URI for testing";
     homepage = "https://github.com/cdent/wsgi-intercept";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];

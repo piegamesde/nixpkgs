@@ -33,8 +33,7 @@ buildGoModule rec {
     changelog =
       "https://github.com/hashicorp/nomad-pack/blob/main/CHANGELOG.md";
     description =
-      "Nomad Pack is a templating and packaging tool used with HashiCorp Nomad."
-      ;
+      "Nomad Pack is a templating and packaging tool used with HashiCorp Nomad.";
     license = licenses.mpl20;
     maintainers = with maintainers; [ techknowlogick ];
   };

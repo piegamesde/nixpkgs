@@ -44,8 +44,7 @@ buildGoModule rec {
     description = "An IPMI exporter for Prometheus";
     homepage = "https://github.com/prometheus-community/ipmi_exporter";
     changelog =
-      "https://github.com/prometheus-community/ipmi_exporter/blob/${src.rev}/CHANGELOG.md"
-      ;
+      "https://github.com/prometheus-community/ipmi_exporter/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ snaar ];
   };

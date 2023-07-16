@@ -13,8 +13,7 @@ let
     # might be just enough.
   webext = fetchurl {
     url =
-      "https://github.com/browsh-org/browsh/releases/download/v${version}/browsh-${version}.xpi"
-      ;
+      "https://github.com/browsh-org/browsh/releases/download/v${version}/browsh-${version}.xpi";
     sha256 = "sha256-12xWbf4ngYHWLKV9yyxyi0Ny/zHSj2o7Icats+Ef+pA=";
   };
 

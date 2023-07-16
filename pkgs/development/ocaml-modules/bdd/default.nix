@@ -28,8 +28,7 @@ buildDunePackage {
 
   meta = with lib; {
     description =
-      "Quick implementation of a Binary Decision Diagrams (BDD) library for OCaml"
-      ;
+      "Quick implementation of a Binary Decision Diagrams (BDD) library for OCaml";
     homepage = "https://github.com/backtracking/ocaml-bdd";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ wegank ];

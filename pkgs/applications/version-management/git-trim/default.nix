@@ -29,8 +29,7 @@ rustPlatform.buildRustPackage rec {
     # Update git2 https://github.com/foriequal0/git-trim/pull/202
     (fetchpatch {
       url =
-        "https://github.com/foriequal0/git-trim/commit/4355cd1d6f605455087c4d7ad16bfb92ffee941f.patch"
-        ;
+        "https://github.com/foriequal0/git-trim/commit/4355cd1d6f605455087c4d7ad16bfb92ffee941f.patch";
       sha256 = "sha256-C1pX4oe9ZCgvqYTBJeSjMdr0KFyjv2PNVMJDlwCAngY=";
     })
   ];
@@ -57,8 +56,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Automatically trims your branches whose tracking remote refs are merged or gone"
-      ;
+      "Automatically trims your branches whose tracking remote refs are merged or gone";
     homepage = "https://github.com/foriequal0/git-trim";
     license = licenses.mit;
     maintainers = [ maintainers.marsam ];

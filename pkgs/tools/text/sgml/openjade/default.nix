@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "An implementation of DSSSL, an ISO standard for formatting SGML (and XML) documents"
-      ;
+      "An implementation of DSSSL, an ISO standard for formatting SGML (and XML) documents";
     license = lib.licenses.mit;
     homepage = "https://openjade.sourceforge.net/";
     platforms = lib.platforms.linux;

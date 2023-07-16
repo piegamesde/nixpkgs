@@ -102,15 +102,13 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/neuronsimulator/nrn/releases/download/${version}/full-src-package-${version}.tar.gz"
-      ;
+      "https://github.com/neuronsimulator/nrn/releases/download/${version}/full-src-package-${version}.tar.gz";
     sha256 = "sha256-orGeBxu3pu4AyAW5P1EGJv8G0dOUZcSOjpUaloqicZU=";
   };
 
   meta = with lib; {
     description =
-      "Simulation environment for empirically-based simulations of neurons and networks of neurons"
-      ;
+      "Simulation environment for empirically-based simulations of neurons and networks of neurons";
     longDescription = ''
       NEURON is a simulation environment for developing and exercising models of
       neurons and networks of neurons. It is particularly well-suited to problems where

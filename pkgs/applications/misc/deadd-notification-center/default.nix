@@ -86,8 +86,7 @@ mkDerivation rec {
   '';
 
   description =
-    "A haskell-written notification center for users that like a desktop with style"
-    ;
+    "A haskell-written notification center for users that like a desktop with style";
   homepage = "https://github.com/phuhl/linux_notification_center";
   license = lib.licenses.bsd3;
   maintainers = with lib.maintainers; [

@@ -19,20 +19,17 @@ let
   srcs = rec {
     x86_64-linux = fetchurl {
       url =
-        "https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/${version}/ncbi-blast-${version}+-x64-linux.tar.gz"
-        ;
+        "https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/${version}/ncbi-blast-${version}+-x64-linux.tar.gz";
       hash = "sha256-QPK3OdT++GoNI1NHyEpu2/hB2hqHYPQ/vNXFAVCwVEc=";
     };
     aarch64-linux = fetchurl {
       url =
-        "https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/${version}/ncbi-blast-${version}+-x64-arm-linux.tar.gz"
-        ;
+        "https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/${version}/ncbi-blast-${version}+-x64-arm-linux.tar.gz";
       hash = "sha256-vY8K66k7KunpBUjFsJTTb+ur5n1XmU0/mYxhZsi9ycs=";
     };
     x86_64-darwin = fetchurl {
       url =
-        "https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/${version}/ncbi-blast-${version}+-x64-macosx.tar.gz"
-        ;
+        "https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/${version}/ncbi-blast-${version}+-x64-macosx.tar.gz";
       hash = "sha256-Y0JlOUl9Ego6LTxTCNny3P5c1H3fApPXQm7Z6Zhq9RA=";
     };
     aarch64-darwin = x86_64-darwin;

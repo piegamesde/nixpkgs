@@ -17,18 +17,16 @@ let
 
     # From the Makefile:
   dmgUrl =
-    "https://updates.cdn-apple.com/2019/cert/041-88431-20191011-e7ee7d98-2878-4cd9-bc0a-d98b3a1e24b1/OSXUpd10.11.5.dmg"
-    ;
-  dmgRange = "204909802-207733123"
-    ; # the whole download is 1.3GB, this cuts it down to 2MB
+    "https://updates.cdn-apple.com/2019/cert/041-88431-20191011-e7ee7d98-2878-4cd9-bc0a-d98b3a1e24b1/OSXUpd10.11.5.dmg";
+  dmgRange =
+    "204909802-207733123"; # the whole download is 1.3GB, this cuts it down to 2MB
     # Notes:
     # 1. Be sure to update the sha256 below in the fetch_url
     # 2. Be sure to update the homepage in the meta
 
     # Also from the Makefile (OS_DRV, OS_DRV_DIR), but seems to not change:
   firmwareIn =
-    "./System/Library/Extensions/AppleCameraInterface.kext/Contents/MacOS/AppleCameraInterface"
-    ;
+    "./System/Library/Extensions/AppleCameraInterface.kext/Contents/MacOS/AppleCameraInterface";
   firmwareOut = "firmware.bin";
 
     # The following are from the extract-firmware.sh

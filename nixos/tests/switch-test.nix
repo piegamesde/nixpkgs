@@ -61,8 +61,7 @@ import ./make-test-python.nix ({
           lib,
           ...
         }: {
-          environment.systemPackages = [ pkgs.socat ]
-            ; # for the socket activation stuff
+          environment.systemPackages = [ pkgs.socat ]; # for the socket activation stuff
           users.mutableUsers = false;
 
             # For boot/switch testing
@@ -343,8 +342,7 @@ import ./make-test-python.nix ({
             };
 
             restart-and-reload-by-activation-script-modified.configuration = {
-              imports = [ restart-and-reload-by-activation-script.configuration ]
-                ;
+              imports = [ restart-and-reload-by-activation-script.configuration ];
               systemd.services.reload-triggers-and-restart.serviceConfig.X-Modified =
                 "test";
             };

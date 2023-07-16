@@ -57,8 +57,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A package for producing high-quality electrical circuit schematic diagrams"
-      ;
+      "A package for producing high-quality electrical circuit schematic diagrams";
     homepage = "https://schemdraw.readthedocs.io/en/latest/";
     changelog = "https://schemdraw.readthedocs.io/en/latest/changes.html";
     license = licenses.mit;

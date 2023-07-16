@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://distfiles.audacious-media-player.org/audacious-${version}.tar.bz2"
-      ;
+      "http://distfiles.audacious-media-player.org/audacious-${version}.tar.bz2";
     sha256 = "sha256-heniaEFQW1HjQu5yotBfGb74lPVnoCnrs/Pgwa20IEI=";
   };
 

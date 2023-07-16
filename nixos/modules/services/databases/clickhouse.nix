@@ -57,8 +57,7 @@ in with lib; {
         StateDirectory = "clickhouse";
         LogsDirectory = "clickhouse";
         ExecStart =
-          "${cfg.package}/bin/clickhouse-server --config-file=/etc/clickhouse-server/config.xml"
-          ;
+          "${cfg.package}/bin/clickhouse-server --config-file=/etc/clickhouse-server/config.xml";
       };
     };
 

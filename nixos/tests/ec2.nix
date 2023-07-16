@@ -66,8 +66,8 @@ in {
   boot-ec2-nixops = makeEc2Test {
     name = "nixops-userdata";
     inherit image;
-    sshPublicKey = snakeOilPublicKey
-      ; # That's right folks! My user's key is also the host key!
+    sshPublicKey =
+      snakeOilPublicKey; # That's right folks! My user's key is also the host key!
 
     userData = ''
       SSH_HOST_ED25519_KEY_PUB:${snakeOilPublicKey}
@@ -114,8 +114,8 @@ in {
 
   boot-ec2-config = makeEc2Test {
     name = "config-userdata";
-    meta.broken = true
-      ; # amazon-init wants to download from the internet while building the system
+    meta.broken =
+      true; # amazon-init wants to download from the internet while building the system
     inherit image;
     sshPublicKey = snakeOilPublicKey;
 

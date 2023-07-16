@@ -37,8 +37,7 @@ buildPerlPackage rec {
 
   meta = {
     description =
-      "Collection of advanced command-line tools to perform a variety of MySQL and system tasks"
-      ;
+      "Collection of advanced command-line tools to perform a variety of MySQL and system tasks";
     homepage =
       "https://www.percona.com/software/database-tools/percona-toolkit";
     license = with lib.licenses; [ gpl2Only ];

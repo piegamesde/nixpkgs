@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.tuxfamily.org/librep/${pname}/${pname}_${version}.tar.xz"
-      ;
+      "https://download.tuxfamily.org/librep/${pname}/${pname}_${version}.tar.xz";
     sha256 = "0hgkkywm8zczir3lqr727bn7ybgg71x9cwj1av8fykkr8pdpard9";
   };
 

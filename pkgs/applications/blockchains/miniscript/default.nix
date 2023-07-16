@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
     description =
       "Compiler and inspector for the miniscript Bitcoin policy language";
     longDescription =
-      "Miniscript is a language for writing (a subset of) Bitcoin Scripts in a structured way, enabling analysis, composition, generic signing and more."
-      ;
+      "Miniscript is a language for writing (a subset of) Bitcoin Scripts in a structured way, enabling analysis, composition, generic signing and more.";
     homepage = "https://bitcoin.sipa.be/miniscript/";
     license = licenses.mit;
     platforms = platforms.linux;

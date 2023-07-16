@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://s3.amazonaws.com/downloads.eviware/soapuios/${version}/SoapUI-${version}-linux-bin.tar.gz"
-      ;
+      "https://s3.amazonaws.com/downloads.eviware/soapuios/${version}/SoapUI-${version}-linux-bin.tar.gz";
     sha256 = "sha256-qzhy4yHmOk13dFUd2KEZhXtWY86QwyjJgYxx9GGoN80=";
   };
 

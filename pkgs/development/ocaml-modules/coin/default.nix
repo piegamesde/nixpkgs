@@ -14,8 +14,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/coin/releases/download/v${version}/coin-${version}.tbz"
-      ;
+      "https://github.com/mirage/coin/releases/download/v${version}/coin-${version}.tbz";
     sha256 = "sha256:0069qqswd1ik5ay3d5q1v1pz0ql31kblfsnv0ax0z8jwvacp3ack";
   };
 

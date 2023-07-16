@@ -15,8 +15,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/issuu/ocaml-zmq/releases/download/${version}/zmq-lwt-${version}.tbz"
-      ;
+      "https://github.com/issuu/ocaml-zmq/releases/download/${version}/zmq-lwt-${version}.tbz";
     sha256 = "sha256-mUfRPatLPFeSzWDwCIoFaVl85VkvDch4i6pOn3Kme1Y=";
   };
 

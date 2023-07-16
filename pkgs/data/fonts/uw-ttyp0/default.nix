@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://people.mpi-inf.mpg.de/~uwe/misc/${pname}/${pname}-${version}.tar.gz"
-      ;
+      "https://people.mpi-inf.mpg.de/~uwe/misc/${pname}/${pname}-${version}.tar.gz";
     sha256 = "1vp053bwv8sr40p3pn4sjaiq570zp7knh99z9ynk30v7ml4cz2i8";
   };
 

@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     # check https://teamspeak.com/en/downloads/#ts5 for version and checksum
     url =
-      "https://files.teamspeak-services.com/pre_releases/client/${version}/teamspeak-client.tar.gz"
-      ;
+      "https://files.teamspeak-services.com/pre_releases/client/${version}/teamspeak-client.tar.gz";
     sha256 = "44f1a29b915c3930e7385ce32b13e363a7be04c1e341226d0693600818411c6e";
   };
 

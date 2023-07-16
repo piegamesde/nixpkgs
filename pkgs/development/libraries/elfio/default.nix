@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Header-only C++ library for reading and generating files in the ELF binary format"
-      ;
+      "Header-only C++ library for reading and generating files in the ELF binary format";
     homepage = "https://github.com/serge1/ELFIO";
     license = licenses.mit;
     platforms = platforms.unix;

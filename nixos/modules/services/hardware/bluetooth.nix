@@ -171,8 +171,7 @@ in {
         wantedBy = [ "bluetooth.target" ];
 
         description =
-          "A prototype implementation used for connecting HSP/HFP Bluetooth devices"
-          ;
+          "A prototype implementation used for connecting HSP/HFP Bluetooth devices";
         serviceConfig.ExecStart = "${pkgs.hsphfpd}/bin/hsphfpd.pl";
       };
     });

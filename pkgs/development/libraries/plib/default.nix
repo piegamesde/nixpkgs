@@ -27,20 +27,17 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       url =
-        "https://sources.debian.net/data/main/p/plib/1.8.5-7/debian/patches/04_CVE-2011-4620.diff"
-        ;
+        "https://sources.debian.net/data/main/p/plib/1.8.5-7/debian/patches/04_CVE-2011-4620.diff";
       sha256 = "1b7y0vqqdzd48q68ldlzw0zzqy9mg4c10a754r4hi3ldjmcplf0j";
     })
     (fetchpatch {
       url =
-        "https://sources.debian.net/data/main/p/plib/1.8.5-7/debian/patches/05_CVE-2012-4552.diff"
-        ;
+        "https://sources.debian.net/data/main/p/plib/1.8.5-7/debian/patches/05_CVE-2012-4552.diff";
       sha256 = "0b6cwdwii5b5vy78sbw5cw1s96l4jyzr4dk69v63pa0wwi2b5dki";
     })
     (fetchpatch {
       url =
-        "https://sources.debian.org/data/main/p/plib/1.8.5-13/debian/patches/08_CVE-2021-38714.patch"
-        ;
+        "https://sources.debian.org/data/main/p/plib/1.8.5-13/debian/patches/08_CVE-2021-38714.patch";
       sha256 = "sha256-3f1wZn0QqK/hPWCg1KEzbB95IGoxBjLZoCOFlW98t5w=";
     })
   ];

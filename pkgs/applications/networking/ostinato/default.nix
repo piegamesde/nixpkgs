@@ -64,8 +64,7 @@ mkDerivation rec {
     extraConfig = {
       "GenericName[it]" = "Generatore ed Analizzatore di pacchetti di rete";
       "Comment[it]" =
-        "Generatore ed Analizzatore di pacchetti di rete con interfaccia amichevole"
-        ;
+        "Generatore ed Analizzatore di pacchetti di rete con interfaccia amichevole";
     };
   });
 

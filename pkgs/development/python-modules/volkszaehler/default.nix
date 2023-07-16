@@ -36,8 +36,7 @@ buildPythonPackage rec {
     homepage =
       "https://github.com/home-assistant-ecosystem/python-volkszaehler";
     changelog =
-      "https://github.com/home-assistant-ecosystem/python-volkszaehler/releases/tag/${version}"
-      ;
+      "https://github.com/home-assistant-ecosystem/python-volkszaehler/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

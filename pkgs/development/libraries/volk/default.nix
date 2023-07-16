@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
     # Remove a failing test
     (fetchpatch {
       url =
-        "https://github.com/gnuradio/volk/commit/fe2e4a73480bf2ac2e566052ea682817dddaf61f.patch"
-        ;
+        "https://github.com/gnuradio/volk/commit/fe2e4a73480bf2ac2e566052ea682817dddaf61f.patch";
       hash = "sha256-Vko/Plk7u6UAr32lieU+T9G34Dkg9EW3Noi/NArpRL4=";
     })
   ];

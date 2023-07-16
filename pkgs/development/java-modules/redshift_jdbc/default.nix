@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/aws/amazon-redshift-jdbc-driver/";
     description =
-      "JDBC 4.2 driver for Amazon Redshift allowing Java programs to connect to a Redshift database"
-      ;
+      "JDBC 4.2 driver for Amazon Redshift allowing Java programs to connect to a Redshift database";
     license = licenses.asl20;
     platforms = platforms.unix;
     maintainers = with maintainers; [ sir4ur0n ];

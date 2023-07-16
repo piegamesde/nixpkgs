@@ -44,8 +44,7 @@ let
     # Archive link's codes: https://www.pcloud.com/release-notes/linux.html
   src = fetchzip {
     url =
-      "https://api.pcloud.com/getpubzip?code=${code}&filename=${pname}-${version}.zip"
-      ;
+      "https://api.pcloud.com/getpubzip?code=${code}&filename=${pname}-${version}.zip";
     hash = "sha256-QzBlpF+qtNdSZFv3gU0mQhpVyPTWdGH3c+UHKKGfvKc=";
   };
 
@@ -116,8 +115,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "Secure and simple to use cloud storage for your files; pCloud Drive, Electron Edition"
-      ;
+      "Secure and simple to use cloud storage for your files; pCloud Drive, Electron Edition";
     homepage = "https://www.pcloud.com/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

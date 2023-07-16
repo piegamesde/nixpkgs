@@ -19,8 +19,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Help visualize profiling data from cProfile with kcachegrind and qcachegrind"
-      ;
+      "Help visualize profiling data from cProfile with kcachegrind and qcachegrind";
     homepage = "https://github.com/pwaller/pyprof2calltree";
     changelog =
       "https://github.com/pwaller/pyprof2calltree/releases/tag/v${version}";

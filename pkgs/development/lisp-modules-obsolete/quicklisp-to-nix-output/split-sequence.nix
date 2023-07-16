@@ -16,8 +16,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/split-sequence/2021-05-31/split-sequence-v2.0.1.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/split-sequence/2021-05-31/split-sequence-v2.0.1.tgz";
     sha256 = "0x6jdpx5nwby0mjhavqzbfr97725jaryvawjj2f5w9z2s4m9ciya";
   };
 

@@ -44,8 +44,7 @@ in {
     version = esVersion;
     src = fetchurl {
       url =
-        "https://artifacts.elastic.co/downloads/elasticsearch-plugins/${pluginName}/${pluginName}-${version}.zip"
-        ;
+        "https://artifacts.elastic.co/downloads/elasticsearch-plugins/${pluginName}/${pluginName}-${version}.zip";
       sha256 =
         if version == "7.17.4" then
           "a4e881d86694ae70ab6b18f72ea700415971200145d33d438e57c0374d9fc16f"
@@ -55,11 +54,9 @@ in {
     };
     meta = with lib; {
       homepage =
-        "https://github.com/elastic/elasticsearch/tree/master/plugins/analysis-icu"
-        ;
+        "https://github.com/elastic/elasticsearch/tree/master/plugins/analysis-icu";
       description =
-        "The ICU Analysis plugin integrates the Lucene ICU module into elasticsearch"
-        ;
+        "The ICU Analysis plugin integrates the Lucene ICU module into elasticsearch";
       license = licenses.asl20;
     };
   };
@@ -69,8 +66,7 @@ in {
     version = esVersion;
     src = fetchurl {
       url =
-        "https://artifacts.elastic.co/downloads/elasticsearch-plugins/${pluginName}/${pluginName}-${version}.zip"
-        ;
+        "https://artifacts.elastic.co/downloads/elasticsearch-plugins/${pluginName}/${pluginName}-${version}.zip";
       sha256 =
         if version == "7.17.4" then
           "sha256-O6GCTwuxRrFFht9pQGg8G0O8wrFP2YnSaG02yy7NZ6I="
@@ -80,11 +76,9 @@ in {
     };
     meta = with lib; {
       homepage =
-        "https://github.com/elastic/elasticsearch/tree/master/plugins/analysis-kuromoji"
-        ;
+        "https://github.com/elastic/elasticsearch/tree/master/plugins/analysis-kuromoji";
       description =
-        "The Japanese (kuromoji) Analysis plugin integrates Lucene kuromoji analysis module into Elasticsearch."
-        ;
+        "The Japanese (kuromoji) Analysis plugin integrates Lucene kuromoji analysis module into Elasticsearch.";
       license = licenses.asl20;
     };
   };
@@ -94,8 +88,7 @@ in {
     version = esVersion;
     src = fetchurl {
       url =
-        "https://github.com/vhyza/elasticsearch-${pluginName}/releases/download/v${version}/elasticsearch-${pluginName}-${version}-plugin.zip"
-        ;
+        "https://github.com/vhyza/elasticsearch-${pluginName}/releases/download/v${version}/elasticsearch-${pluginName}-${version}-plugin.zip";
       sha256 =
         if version == "7.17.4" then
           "sha256-5tg4Lts++kL3QEnP+TM7NGR3EQH17H3KmhGHuhIGVqU="
@@ -106,8 +99,7 @@ in {
     meta = with lib; {
       homepage = "https://github.com/vhyza/elasticsearch-analysis-lemmagen";
       description =
-        "LemmaGen Analysis plugin provides jLemmaGen lemmatizer as Elasticsearch token filter"
-        ;
+        "LemmaGen Analysis plugin provides jLemmaGen lemmatizer as Elasticsearch token filter";
       license = licenses.asl20;
     };
   };
@@ -117,8 +109,7 @@ in {
     version = esVersion;
     src = fetchurl {
       url =
-        "https://artifacts.elastic.co/downloads/elasticsearch-plugins/${pluginName}/${pluginName}-${version}.zip"
-        ;
+        "https://artifacts.elastic.co/downloads/elasticsearch-plugins/${pluginName}/${pluginName}-${version}.zip";
       sha256 =
         if version == "7.17.4" then
           "1c8175b2dac54277c1f41981fb4a784829e74e6e74268381fe0c27bc6652704b"
@@ -128,11 +119,9 @@ in {
     };
     meta = with lib; {
       homepage =
-        "https://github.com/elastic/elasticsearch/tree/master/plugins/analysis-phonetic"
-        ;
+        "https://github.com/elastic/elasticsearch/tree/master/plugins/analysis-phonetic";
       description =
-        "The Phonetic Analysis plugin integrates phonetic token filter analysis with elasticsearch"
-        ;
+        "The Phonetic Analysis plugin integrates phonetic token filter analysis with elasticsearch";
       license = licenses.asl20;
     };
   };
@@ -142,8 +131,7 @@ in {
     version = esVersion;
     src = fetchurl {
       url =
-        "https://artifacts.elastic.co/downloads/elasticsearch-plugins/${pluginName}/${pluginName}-${version}.zip"
-        ;
+        "https://artifacts.elastic.co/downloads/elasticsearch-plugins/${pluginName}/${pluginName}-${version}.zip";
       sha256 =
         if version == "7.17.4" then
           "702e446997bde5cb38af120a1cb4271d976fdd23444be49e53b6be3801d845a9"
@@ -153,8 +141,7 @@ in {
     };
     meta = with lib; {
       homepage =
-        "https://github.com/elastic/elasticsearch/tree/master/plugins/discovery-ec2"
-        ;
+        "https://github.com/elastic/elasticsearch/tree/master/plugins/discovery-ec2";
       description =
         "The EC2 discovery plugin uses the AWS API for unicast discovery.";
       license = licenses.asl20;
@@ -166,8 +153,7 @@ in {
     version = esVersion;
     src = fetchurl {
       url =
-        "https://artifacts.elastic.co/downloads/elasticsearch-plugins/${pluginName}/${pluginName}-${version}.zip"
-        ;
+        "https://artifacts.elastic.co/downloads/elasticsearch-plugins/${pluginName}/${pluginName}-${version}.zip";
       sha256 =
         if version == "7.17.4" then
           "7d1574a585a9db0988ee248159d51f62cce5578a8c082096ef3e26efdb24aee7"
@@ -177,8 +163,7 @@ in {
     };
     meta = with lib; {
       homepage =
-        "https://github.com/elastic/elasticsearch/tree/master/plugins/ingest-attachment"
-        ;
+        "https://github.com/elastic/elasticsearch/tree/master/plugins/ingest-attachment";
       description =
         "Ingest processor that uses Apache Tika to extract contents";
       license = licenses.asl20;
@@ -190,8 +175,7 @@ in {
     version = esVersion;
     src = fetchurl {
       url =
-        "https://artifacts.elastic.co/downloads/elasticsearch-plugins/${pluginName}/${pluginName}-${esVersion}.zip"
-        ;
+        "https://artifacts.elastic.co/downloads/elasticsearch-plugins/${pluginName}/${pluginName}-${esVersion}.zip";
       sha256 =
         if version == "7.17.4" then
           "cad923a662db705d40ca29698aa118e9e4cc50ae564c426a76d5acb777a4f57c"
@@ -201,11 +185,9 @@ in {
     };
     meta = with lib; {
       homepage =
-        "https://github.com/elastic/elasticsearch/tree/master/plugins/repository-s3"
-        ;
+        "https://github.com/elastic/elasticsearch/tree/master/plugins/repository-s3";
       description =
-        "The S3 repository plugin adds support for using AWS S3 as a repository for Snapshot/Restore."
-        ;
+        "The S3 repository plugin adds support for using AWS S3 as a repository for Snapshot/Restore.";
       license = licenses.asl20;
     };
   };
@@ -215,8 +197,7 @@ in {
     version = esVersion;
     src = fetchurl {
       url =
-        "https://artifacts.elastic.co/downloads/elasticsearch-plugins/${pluginName}/${pluginName}-${esVersion}.zip"
-        ;
+        "https://artifacts.elastic.co/downloads/elasticsearch-plugins/${pluginName}/${pluginName}-${esVersion}.zip";
       sha256 =
         if version == "7.17.4" then
           "a50be4cea5c68ad7615f87d672ba160d027fdfde2be0578bb2dabd6384cc8108"
@@ -226,11 +207,9 @@ in {
     };
     meta = with lib; {
       homepage =
-        "https://github.com/elastic/elasticsearch/tree/master/plugins/repository-gcs"
-        ;
+        "https://github.com/elastic/elasticsearch/tree/master/plugins/repository-gcs";
       description =
-        "The GCS repository plugin adds support for using Google Cloud Storage as a repository for Snapshot/Restore."
-        ;
+        "The GCS repository plugin adds support for using Google Cloud Storage as a repository for Snapshot/Restore.";
       license = licenses.asl20;
     };
   };
@@ -252,8 +231,7 @@ in {
         if esVersion == "7.17.4" then
           fetchurl {
             url =
-              "https://maven.search-guard.com/search-guard-suite-release/com/floragunn/search-guard-suite-plugin/${version}/search-guard-suite-plugin-${version}.zip"
-              ;
+              "https://maven.search-guard.com/search-guard-suite-release/com/floragunn/search-guard-suite-plugin/${version}/search-guard-suite-plugin-${version}.zip";
             sha256 = "sha256-PIRzhkxYryAiPjdjAXeV+g+O4YmQ1oV31m2GMC1PXu0=";
           }
         else
@@ -262,8 +240,7 @@ in {
       meta = with lib; {
         homepage = "https://search-guard.com";
         description =
-          "Elasticsearch plugin that offers encryption, authentication, and authorisation."
-          ;
+          "Elasticsearch plugin that offers encryption, authentication, and authorisation.";
         license = licenses.asl20;
       };
     }

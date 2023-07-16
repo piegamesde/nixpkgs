@@ -251,15 +251,13 @@ stdenv.mkDerivation (rec {
     (fetchpatch {
       name = "ghc-docs-sphinx-6.0.patch";
       url =
-        "https://gitlab.haskell.org/ghc/ghc/-/commit/10e94a556b4f90769b7fd718b9790d58ae566600.patch"
-        ;
+        "https://gitlab.haskell.org/ghc/ghc/-/commit/10e94a556b4f90769b7fd718b9790d58ae566600.patch";
       sha256 = "0kmhfamr16w8gch0lgln2912r8aryjky1hfcda3jkcwa5cdzgjdv";
     })
     # fix hyperlinked haddock sources: https://github.com/haskell/haddock/pull/1482
     (fetchpatch {
       url =
-        "https://patch-diff.githubusercontent.com/raw/haskell/haddock/pull/1482.patch"
-        ;
+        "https://patch-diff.githubusercontent.com/raw/haskell/haddock/pull/1482.patch";
       sha256 = "sha256-8w8QUCsODaTvknCDGgTfFNZa8ZmvIKaKS+2ZJZ9foYk=";
       extraPrefix = "utils/haddock/";
       stripLen = 1;
@@ -268,8 +266,7 @@ stdenv.mkDerivation (rec {
     # Can be removed if the Cabal library included with ghc backports the linked fix
     (fetchpatch {
       url =
-        "https://github.com/haskell/cabal/commit/6c796218c92f93c95e94d5ec2d077f6956f68e98.patch"
-        ;
+        "https://github.com/haskell/cabal/commit/6c796218c92f93c95e94d5ec2d077f6956f68e98.patch";
       stripLen = 1;
       extraPrefix = "libraries/Cabal/";
       sha256 = "sha256-yRQ6YmMiwBwiYseC5BsrEtDgFbWvst+maGgDtdD0vAY=";

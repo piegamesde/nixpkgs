@@ -15,8 +15,7 @@ let
 
   src = fetchzip {
     url =
-      "https://download.jetbrains.com/toolbox/jetbrains-toolbox-${version}.tar.gz"
-      ;
+      "https://download.jetbrains.com/toolbox/jetbrains-toolbox-${version}.tar.gz";
     sha256 = "sha256-IHs3tQtFXGS9xa5lKwSEWvp8aNffrCjNcoVE4tGX9ak=";
     stripRoot = false;
   };

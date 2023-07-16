@@ -33,8 +33,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "An easy to use base16 scheme manager/builder that integrates with any workflow"
-      ;
+      "An easy to use base16 scheme manager/builder that integrates with any workflow";
     homepage = "https://github.com/Misterio77/flavours";
     changelog =
       "https://github.com/Misterio77/flavours/releases/tag/v${version}";

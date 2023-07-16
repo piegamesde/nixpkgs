@@ -18,8 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
     in
     fetchurl {
       url =
-        "https://mesa.freedesktop.org/archive/${pname}/${pname}-${version}.tar.xz"
-        ;
+        "https://mesa.freedesktop.org/archive/${pname}/${pname}-${version}.tar.xz";
       sha256 = "sha256-bnKA/1hcah2d/N8vykiSUWNLM3e/wzwp5AAkZqONAtQ=";
     }
     ;

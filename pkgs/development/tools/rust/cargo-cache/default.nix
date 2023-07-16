@@ -29,8 +29,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Manage cargo cache (\${CARGO_HOME}, ~/.cargo/), print sizes of dirs and remove dirs selectively"
-      ;
+      "Manage cargo cache (\${CARGO_HOME}, ~/.cargo/), print sizes of dirs and remove dirs selectively";
     homepage = "https://github.com/matthiaskrgr/cargo-cache";
     license = with licenses; [
       asl20 # or

@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fix-install-directories";
       url =
-        "https://github.com/k4zmu2a/SpaceCadetPinball/commit/d8ee1b9bfeee21d3981a40e735411393392bc1f6.patch"
-        ;
+        "https://github.com/k4zmu2a/SpaceCadetPinball/commit/d8ee1b9bfeee21d3981a40e735411393392bc1f6.patch";
       sha256 = "sha256-BtCDJ+a9AFaOM8nyId0eU9GN/gUQT2kFCO4RIVTzZlE=";
     })
   ];
@@ -72,8 +71,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Reverse engineering of 3D Pinball for Windows – Space Cadet, a game bundled with Windows"
-      ;
+      "Reverse engineering of 3D Pinball for Windows – Space Cadet, a game bundled with Windows";
     homepage = "https://github.com/k4zmu2a/SpaceCadetPinball";
       # The assets are unfree while the code is labeled as MIT
     license = with licenses; [

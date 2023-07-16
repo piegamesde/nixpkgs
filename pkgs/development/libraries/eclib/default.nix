@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
     # see https://github.com/JohnCremona/eclib/issues/64#issuecomment-789788561
     # for upstream's explanation of the above
     url =
-      "https://github.com/JohnCremona/eclib/releases/download/${version}/eclib-${version}.tar.bz2"
-      ;
+      "https://github.com/JohnCremona/eclib/releases/download/${version}/eclib-${version}.tar.bz2";
     sha256 = "sha256-TPavWyn6BMt7fAo19rrlPICPbK/XKstBruB/ka1adBc=";
   };
   buildInputs = [

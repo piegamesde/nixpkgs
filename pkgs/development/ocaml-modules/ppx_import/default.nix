@@ -36,8 +36,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ocaml-ppx/ppx_import/releases/download/${version}/ppx_import-${version}.tbz"
-      ;
+      "https://github.com/ocaml-ppx/ppx_import/releases/download/${version}/ppx_import-${version}.tbz";
     inherit (param) sha256;
   };
 

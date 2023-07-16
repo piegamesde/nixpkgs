@@ -20,15 +20,13 @@ let
   srcs = {
     "x86_64-linux" = {
       url =
-        "https://releases.mattermost.com/desktop/${version}/${pname}-${version}-linux-x64.tar.gz"
-        ;
+        "https://releases.mattermost.com/desktop/${version}/${pname}-${version}-linux-x64.tar.gz";
       hash = "sha256-KmtQUqg2ODbZ6zJjsnwlvB+vhR1xbK2X9qqmZpyTR78=";
     };
 
     "i686-linux" = {
       url =
-        "https://releases.mattermost.com/desktop/${version}/${pname}-${version}-linux-ia32.tar.gz"
-        ;
+        "https://releases.mattermost.com/desktop/${version}/${pname}-${version}-linux-ia32.tar.gz";
       hash = "sha256-X8Zrthw1hZOqmcYidt72l2vonh31iiA3EDGmCQr7e4c=";
     };
   };

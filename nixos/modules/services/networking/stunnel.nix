@@ -194,8 +194,7 @@ in {
         assertion = (length (attrValues cfg.servers) != 0)
           || ((length (attrValues cfg.clients)) != 0);
         message =
-          "stunnel: At least one server- or client-configuration has to be present."
-          ;
+          "stunnel: At least one server- or client-configuration has to be present.";
       })
 
       (mapAttrsToList verifyChainPathAssert cfg.clients)

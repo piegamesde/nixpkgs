@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://commons.apache.org/proper/commons-bcel/";
     description =
-      "Gives users a convenient way to analyze, create, and manipulate (binary) Java class files"
-      ;
+      "Gives users a convenient way to analyze, create, and manipulate (binary) Java class files";
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
     maintainers = with lib.maintainers; [ copumpkin ];
     license = lib.licenses.asl20;

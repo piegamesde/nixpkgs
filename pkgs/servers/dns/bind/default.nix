@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://downloads.isc.org/isc/bind9/${version}/${pname}-${version}.tar.xz"
-      ;
+      "https://downloads.isc.org/isc/bind9/${version}/${pname}-${version}.tar.xz";
     sha256 = "sha256-R3Zrt7BjqrutBUOGsZCqf2wUUkQnr9Qnww7EJlEgJ+c=";
   };
 

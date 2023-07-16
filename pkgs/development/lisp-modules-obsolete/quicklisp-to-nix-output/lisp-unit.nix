@@ -12,8 +12,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/lisp-unit/2017-01-24/lisp-unit-20170124-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/lisp-unit/2017-01-24/lisp-unit-20170124-git.tgz";
     sha256 = "00bc19r7vr76rpk8lh8z7qln0glpf66mzqxw215488zwz3nwcq4m";
   };
 

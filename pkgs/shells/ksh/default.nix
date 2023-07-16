@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
 
   patches = [ (fetchpatch {
     url =
-      "https://github.com/att/ast/commit/11983a71f5e29df578b7e2184400728b4e3f451d.patch"
-      ;
+      "https://github.com/att/ast/commit/11983a71f5e29df578b7e2184400728b4e3f451d.patch";
     sha256 = "1n9558c4v2qpgpjb1vafs29n3qn3z0770wr1ayc0xjf5z5j4g3kv";
   }) ];
 

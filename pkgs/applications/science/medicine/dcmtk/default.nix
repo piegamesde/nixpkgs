@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "Collection of libraries and applications implementing large parts of the DICOM standard"
-      ;
+      "Collection of libraries and applications implementing large parts of the DICOM standard";
     longDescription = ''
       DCMTK is a collection of libraries and applications implementing large parts of the DICOM standard.
       It includes software for examining, constructing and converting DICOM image files, handling offline media,

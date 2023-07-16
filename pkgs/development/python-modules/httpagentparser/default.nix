@@ -24,8 +24,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Module to extract OS, Browser, etc. information from http user agent string"
-      ;
+      "Module to extract OS, Browser, etc. information from http user agent string";
     homepage = "https://github.com/shon/httpagentparser";
     license = licenses.mit;
     maintainers = with maintainers; [ gador ];

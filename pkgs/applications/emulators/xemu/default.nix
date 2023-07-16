@@ -134,8 +134,7 @@ stdenv.mkDerivation (finalAttrs: {
       Windows, macOS, and Linux systems.
     '';
     changelog =
-      "https://github.com/xemu-project/xemu/releases/tag/v${finalAttrs.version}"
-      ;
+      "https://github.com/xemu-project/xemu/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [
       AndersonTorres

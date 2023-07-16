@@ -38,8 +38,7 @@ buildPythonPackage rec {
     description = "Python QR Code image generator";
     homepage = "https://github.com/lincolnloop/python-qrcode";
     changelog =
-      "https://github.com/lincolnloop/python-qrcode/blob/v${version}/CHANGES.rst"
-      ;
+      "https://github.com/lincolnloop/python-qrcode/blob/v${version}/CHANGES.rst";
     license = licenses.bsd3;
   };
 

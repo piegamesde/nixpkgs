@@ -17,8 +17,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/agutil/2021-05-31/agutil-20210531-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/agutil/2021-05-31/agutil-20210531-git.tgz";
     sha256 = "01shs4qbr0bzmx9134cm84zbh8whbi2s5xngapd2fl8ag1rda9q1";
   };
 

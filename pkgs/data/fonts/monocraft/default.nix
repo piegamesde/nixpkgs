@@ -11,8 +11,7 @@ let
     fetchurl {
       inherit name hash;
       url =
-        "https://github.com/IdreesInc/Monocraft/releases/download/v${version}/${name}"
-        ;
+        "https://github.com/IdreesInc/Monocraft/releases/download/v${version}/${name}";
     }
     ;
 in

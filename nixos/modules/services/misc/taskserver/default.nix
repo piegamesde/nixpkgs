@@ -197,8 +197,7 @@ in {
         description =
           let
             url =
-              "https://nixos.org/manual/nixos/stable/index.html#module-services-taskserver"
-              ;
+              "https://nixos.org/manual/nixos/stable/index.html#module-services-taskserver";
           in
           lib.mdDoc ''
             Whether to enable the Taskwarrior server.

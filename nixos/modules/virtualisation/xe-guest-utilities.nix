@@ -48,8 +48,7 @@ in {
         Type = "simple";
         RemainAfterExit = "yes";
         ExecStart =
-          "${pkgs.xe-guest-utilities}/bin/xe-linux-distribution /var/cache/xe-linux-distribution"
-          ;
+          "${pkgs.xe-guest-utilities}/bin/xe-linux-distribution /var/cache/xe-linux-distribution";
       };
     };
 

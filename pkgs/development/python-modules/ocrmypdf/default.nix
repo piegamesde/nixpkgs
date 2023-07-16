@@ -96,8 +96,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/ocrmypdf/OCRmyPDF";
     description =
-      "Adds an OCR text layer to scanned PDF files, allowing them to be searched"
-      ;
+      "Adds an OCR text layer to scanned PDF files, allowing them to be searched";
     license = with licenses; [
       mpl20
       mit
@@ -107,7 +106,6 @@ buildPythonPackage rec {
       dotlambda
     ];
     changelog =
-      "https://github.com/ocrmypdf/OCRmyPDF/blob/${src.rev}/docs/release_notes.rst"
-      ;
+      "https://github.com/ocrmypdf/OCRmyPDF/blob/${src.rev}/docs/release_notes.rst";
   };
 }

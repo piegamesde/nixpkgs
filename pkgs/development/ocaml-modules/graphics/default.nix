@@ -15,8 +15,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ocaml/graphics/releases/download/${version}/graphics-${version}.tbz"
-      ;
+      "https://github.com/ocaml/graphics/releases/download/${version}/graphics-${version}.tbz";
     sha256 = "sha256-QA/YHSPxy0FGuWl5NCwkeXHdVPWHn/0vgOx80CEuMtQ=";
   };
 

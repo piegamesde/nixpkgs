@@ -352,16 +352,14 @@ in {
           assertion =
             offloadCfg.enable -> versionAtLeast nvidia_x11.version "435.21";
           message =
-            "NVIDIA PRIME render offload is currently only supported on versions >= 435.21."
-            ;
+            "NVIDIA PRIME render offload is currently only supported on versions >= 435.21.";
         }
 
         {
           assertion = (reverseSyncCfg.enable && pCfg.amdgpuBusId != "")
             -> versionAtLeast nvidia_x11.version "470.0";
           message =
-            "NVIDIA PRIME render offload for AMD APUs is currently only supported on versions >= 470 beta."
-            ;
+            "NVIDIA PRIME render offload for AMD APUs is currently only supported on versions >= 470 beta.";
         }
 
         {
@@ -389,16 +387,14 @@ in {
           assertion = cfg.powerManagement.enable
             -> versionAtLeast nvidia_x11.version "430.09";
           message =
-            "Required files for driver based power management only exist on versions >= 430.09."
-            ;
+            "Required files for driver based power management only exist on versions >= 430.09.";
         }
 
         {
           assertion =
             cfg.open -> (cfg.package ? open && cfg.package ? firmware);
           message =
-            "This version of NVIDIA driver does not provide a corresponding opensource kernel driver"
-            ;
+            "This version of NVIDIA driver does not provide a corresponding opensource kernel driver";
         }
       ];
 

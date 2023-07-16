@@ -135,8 +135,7 @@
   meta = with lib; {
     homepage = "https://dbeaver.io/";
     description =
-      "Universal SQL Client for developers, DBA and analysts. Supports MySQL, PostgreSQL, MariaDB, SQLite, and more"
-      ;
+      "Universal SQL Client for developers, DBA and analysts. Supports MySQL, PostgreSQL, MariaDB, SQLite, and more";
     longDescription = ''
       Free multi-platform database tool for developers, SQL programmers, database
       administrators and analysts. Supports all popular databases: MySQL,

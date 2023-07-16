@@ -903,8 +903,7 @@ in {
               The password hash of user "${user.name}" contains a ":" character.
               This is invalid and would break the login system because the fields
               of /etc/shadow (file where hashes are stored) are colon-separated.
-              Please check the value of option `users.users."${user.name}".hashedPassword`.''
-              ;
+              Please check the value of option `users.users."${user.name}".hashedPassword`.'';
           }
           {
             assertion =

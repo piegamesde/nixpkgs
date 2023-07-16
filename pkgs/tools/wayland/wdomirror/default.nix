@@ -26,8 +26,7 @@ stdenv.mkDerivation {
     # https://github.com/progandy/wdomirror/pull/7
     (fetchpatch {
       url =
-        "https://github.com/progandy/wdomirror/commit/142632208e9ea2b4a4ebd784532efdb8cad7b87c.patch"
-        ;
+        "https://github.com/progandy/wdomirror/commit/142632208e9ea2b4a4ebd784532efdb8cad7b87c.patch";
       hash = "sha256-MG71IEwRAjjacAkRoB7Tn45+FbY7LAqTDkVJkoWuQUU=";
     })
   ];

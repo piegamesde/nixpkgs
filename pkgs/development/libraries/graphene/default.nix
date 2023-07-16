@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
     # https://github.com/ebassi/graphene/issues/246
     (fetchpatch {
       url =
-        "https://github.com/ebassi/graphene/commit/4fbdd07ea3bcd0964cca3966010bf71cb6fa8209.patch"
-        ;
+        "https://github.com/ebassi/graphene/commit/4fbdd07ea3bcd0964cca3966010bf71cb6fa8209.patch";
       sha256 = "uFkkH0u4HuQ/ua1mfO7sJZ7MPrQdV/JON7mTYB4DW80=";
       includes = [ "tests/simd.c" ];
       revert = true;

@@ -17,8 +17,7 @@ let
   version = "3.0.1-1";
   cupsdeb = fetchurl {
     url =
-      "http://download.brother.com/welcome/dlf100421/hl1110cupswrapper-${version}.i386.deb"
-      ;
+      "http://download.brother.com/welcome/dlf100421/hl1110cupswrapper-${version}.i386.deb";
     sha256 = "a87880f4ece764a724411b5b24d15d1b912f6ffc6ecbfd9fac4cd5eda13d2eb7";
   };
   srcdir = "hl1110cupswrapper-GPL_src-${version}";
@@ -28,8 +27,7 @@ let
   };
   lprdeb = fetchurl {
     url =
-      "http://download.brother.com/welcome/dlf100419/hl1110lpr-${version}.i386.deb"
-      ;
+      "http://download.brother.com/welcome/dlf100419/hl1110lpr-${version}.i386.deb";
     sha256 = "5af241782a0d500d7f47e06ea43d61127f4019b5b1c6e68b4c1cb4521a742c22";
   };
 in
@@ -117,7 +115,6 @@ stdenv.mkDerivation {
     license = lib.licenses.unfree;
     platforms = lib.platforms.linux;
     downloadPage =
-      "http://support.brother.com/g/b/downloadlist.aspx?c=eu_ot&lang=en&prod=hl1110_us_eu_as&os=128#SelectLanguageType-561_0_1"
-      ;
+      "http://support.brother.com/g/b/downloadlist.aspx?c=eu_ot&lang=en&prod=hl1110_us_eu_as&os=128#SelectLanguageType-561_0_1";
   };
 }

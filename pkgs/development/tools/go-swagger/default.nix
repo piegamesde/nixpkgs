@@ -30,8 +30,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Golang implementation of Swagger 2.0, representation of your RESTful API"
-      ;
+      "Golang implementation of Swagger 2.0, representation of your RESTful API";
     homepage = "https://github.com/go-swagger/go-swagger";
     changelog =
       "https://github.com/go-swagger/go-swagger/releases/tag/v${version}";

@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://s3.amazonaws.com/fractalsoftworks/starsector/starsector_linux-${version}.zip"
-      ;
+      "https://s3.amazonaws.com/fractalsoftworks/starsector/starsector_linux-${version}.zip";
     sha256 = "sha256-+0zGJHM+SMonx3sytCQNQA/QBgzdPMEfQvOjrCDSOs8=";
   };
 
@@ -79,8 +78,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Open-world single-player space-combat, roleplaying, exploration, and economic game"
-      ;
+      "Open-world single-player space-combat, roleplaying, exploration, and economic game";
     homepage = "https://fractalsoftworks.com";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.unfree;

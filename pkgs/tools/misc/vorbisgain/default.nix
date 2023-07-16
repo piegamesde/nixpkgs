@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://sjeng.org/vorbisgain.html";
     description =
-      "A utility that corrects the volume of an Ogg Vorbis file to a predefined standardized loudness"
-      ;
+      "A utility that corrects the volume of an Ogg Vorbis file to a predefined standardized loudness";
     license = licenses.gpl2;
     platforms = platforms.unix;
     maintainers = with maintainers; [ pSub ];

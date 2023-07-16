@@ -16,8 +16,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/pqwy/psq/releases/download/v${version}/psq-${version}.tbz"
-      ;
+      "https://github.com/pqwy/psq/releases/download/v${version}/psq-${version}.tbz";
     hash = "sha256-QgBfUz6r50sXme4yuJBWVM1moivtSvK9Jmso2EYs00Q=";
   };
 

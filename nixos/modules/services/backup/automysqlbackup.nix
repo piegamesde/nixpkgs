@@ -100,8 +100,7 @@ in {
     assertions = [ {
       assertion = !config.services.mysqlBackup.enable;
       message =
-        "Please choose one of services.mysqlBackup or services.automysqlbackup."
-        ;
+        "Please choose one of services.mysqlBackup or services.automysqlbackup.";
     } ];
 
     services.automysqlbackup.config = mapAttrs (name: mkDefault) {
@@ -143,8 +142,7 @@ in {
     };
     users.groups.${group} = { };
 
-    systemd.tmpfiles.rules = [ "d '${cfg.config.backup_dir}' 0750 ${user} ${group} - -" ]
-      ;
+    systemd.tmpfiles.rules = [ "d '${cfg.config.backup_dir}' 0750 ${user} ${group} - -" ];
 
     services.mysql.ensureUsers = optional (config.services.mysql.enable
       && cfg.config.mysql_dump_host == "localhost") {

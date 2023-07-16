@@ -136,8 +136,7 @@ in
 
   meta = with lib; {
     description =
-      "Randomized property-based testing plugin for Coq; a clone of Haskell QuickCheck"
-      ;
+      "Randomized property-based testing plugin for Coq; a clone of Haskell QuickCheck";
     maintainers = with maintainers; [ jwiegley ];
   };
 }).overrideAttrs (o:

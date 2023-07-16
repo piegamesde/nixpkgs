@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/wojdyr/xylib/releases/download/v${version}/${pname}-${version}.tar.bz2"
-      ;
+      "https://github.com/wojdyr/xylib/releases/download/v${version}/${pname}-${version}.tar.bz2";
     sha256 = "1iqfrfrk78mki5csxysw86zm35ag71w0jvim0f12nwq1z8rwnhdn";
   };
 
@@ -28,8 +27,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Portable library for reading files that contain x-y data from powder diffraction, spectroscopy and other experimental methods"
-      ;
+      "Portable library for reading files that contain x-y data from powder diffraction, spectroscopy and other experimental methods";
     license = licenses.lgpl21;
     homepage = "https://xylib.sourceforge.net/";
     platforms = platforms.linux;

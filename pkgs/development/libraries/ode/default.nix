@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://bitbucket.org/odedevs/${pname}/downloads/${pname}-${version}.tar.gz"
-      ;
+      "https://bitbucket.org/odedevs/${pname}/downloads/${pname}-${version}.tar.gz";
     sha256 = "sha256-x0Hb9Jv8Rozilkgk5bw/kG6pVrGuNZTFDTUcOD8DxBM=";
   };
 

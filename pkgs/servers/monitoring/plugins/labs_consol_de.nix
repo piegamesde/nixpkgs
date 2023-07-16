@@ -33,8 +33,7 @@ let
 
       src = fetchurl {
         url =
-          "https://labs.consol.de/assets/downloads/nagios/${pname}-${version}.tar.gz"
-          ;
+          "https://labs.consol.de/assets/downloads/nagios/${pname}-${version}.tar.gz";
         inherit sha256;
       };
 

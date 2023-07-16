@@ -643,13 +643,11 @@ in {
     assertions = (attrValues (mapAttrs (name: value: {
       assertion = (value.privateKey != null) != (value.privateKeyFile != null);
       message =
-        "Either networking.wireguard.interfaces.${name}.privateKey or networking.wireguard.interfaces.${name}.privateKeyFile must be set."
-        ;
+        "Either networking.wireguard.interfaces.${name}.privateKey or networking.wireguard.interfaces.${name}.privateKeyFile must be set.";
     }) cfg.interfaces)) ++ (attrValues (mapAttrs (name: value: {
       assertion = value.generatePrivateKeyFile -> (value.privateKey == null);
       message =
-        "networking.wireguard.interfaces.${name}.generatePrivateKeyFile must not be set if networking.wireguard.interfaces.${name}.privateKey is set."
-        ;
+        "networking.wireguard.interfaces.${name}.generatePrivateKeyFile must not be set if networking.wireguard.interfaces.${name}.privateKey is set.";
     }) cfg.interfaces)) ++ map ({
         interfaceName,
         peer,
@@ -658,8 +656,7 @@ in {
         assertion =
           (peer.presharedKey == null) || (peer.presharedKeyFile == null);
         message =
-          "networking.wireguard.interfaces.${interfaceName} peer «${peer.publicKey}» has both presharedKey and presharedKeyFile set, but only one can be used."
-          ;
+          "networking.wireguard.interfaces.${interfaceName} peer «${peer.publicKey}» has both presharedKey and presharedKeyFile set, but only one can be used.";
       }) all_peers;
 
     boot.extraModulePackages =

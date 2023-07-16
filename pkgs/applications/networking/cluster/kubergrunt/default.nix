@@ -28,8 +28,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Collection of commands to fill in the gaps between Terraform, Helm, and Kubectl"
-      ;
+      "Collection of commands to fill in the gaps between Terraform, Helm, and Kubectl";
     homepage = "https://github.com/gruntwork-io/kubergrunt";
     license = licenses.asl20;
     maintainers = with maintainers; [ psibi ];

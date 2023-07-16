@@ -12,8 +12,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/clfswm/2016-12-04/clfswm-20161204-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/clfswm/2016-12-04/clfswm-20161204-git.tgz";
     sha256 = "1jgz127721dgcv3qm1knc335gy04vzh9gl0hshp256rxi82cpp73";
   };
 

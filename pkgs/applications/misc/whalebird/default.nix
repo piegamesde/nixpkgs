@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   src =
     let
       downloads =
-        "https://github.com/h3poteto/whalebird-desktop/releases/download/${version}"
-        ;
+        "https://github.com/h3poteto/whalebird-desktop/releases/download/${version}";
     in if stdenv.system == "x86_64-linux" then
       fetchurl {
         url = downloads + "/Whalebird-${version}-linux-x64.tar.bz2";
@@ -104,8 +103,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Electron based Mastodon, Pleroma and Misskey client for Windows, Mac and Linux"
-      ;
+      "Electron based Mastodon, Pleroma and Misskey client for Windows, Mac and Linux";
     homepage = "https://whalebird.social";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mit;

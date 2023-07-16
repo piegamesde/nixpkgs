@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://shallowsky.com/software/xbrightness/xbrightness-${version}.tar.gz"
-      ;
+      "https://shallowsky.com/software/xbrightness/xbrightness-${version}.tar.gz";
     sha256 = "2564dbd393544657cdabe4cbf535d9cfb9abe8edddb1b8cdb1ed4d12f358626e";
   };
 

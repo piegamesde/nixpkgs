@@ -24,29 +24,25 @@ stdenv.mkDerivation rec {
 
   bloop-bash = fetchurl {
     url =
-      "https://github.com/scalacenter/bloop/releases/download/v${version}/bash-completions"
-      ;
+      "https://github.com/scalacenter/bloop/releases/download/v${version}/bash-completions";
     sha256 = "sha256-2mt+zUEJvQ/5ixxFLZ3Z0m7uDSj/YE9sg/uNMjamvdE=";
   };
 
   bloop-fish = fetchurl {
     url =
-      "https://github.com/scalacenter/bloop/releases/download/v${version}/fish-completions"
-      ;
+      "https://github.com/scalacenter/bloop/releases/download/v${version}/fish-completions";
     sha256 = "sha256-eFESR6iPHRDViGv+Fk3sCvPgVAhk2L1gCG4LnfXO/v4=";
   };
 
   bloop-zsh = fetchurl {
     url =
-      "https://github.com/scalacenter/bloop/releases/download/v${version}/zsh-completions"
-      ;
+      "https://github.com/scalacenter/bloop/releases/download/v${version}/zsh-completions";
     sha256 = "sha256-WNMsPwBfd5EjeRbRtc06lCEVI2FVoLfrqL82OR0G7/c=";
   };
 
   bloop-binary = fetchurl rec {
     url =
-      "https://github.com/scalacenter/bloop/releases/download/v${version}/bloop-${platform}"
-      ;
+      "https://github.com/scalacenter/bloop/releases/download/v${version}/bloop-${platform}";
     sha256 =
       if stdenv.isLinux && stdenv.isx86_64 then
         "sha256-s/N0+5GQ1MzIxecn7QeJTZ8E+TCF+smL2nObGRkGMys="
@@ -88,8 +84,7 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.asl20;
     description =
-      "A Scala build server and command-line tool to make the compile and test developer workflows fast and productive in a build-tool-agnostic way"
-      ;
+      "A Scala build server and command-line tool to make the compile and test developer workflows fast and productive in a build-tool-agnostic way";
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"

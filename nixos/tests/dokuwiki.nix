@@ -22,8 +22,7 @@ import ./make-test-python.nix ({
       src = pkgs.fetchzip {
         stripRoot = false;
         url =
-          "https://github.com/real-or-random/dokuwiki-plugin-icalevents/releases/download/${version}/dokuwiki-plugin-icalevents-${version}.zip"
-          ;
+          "https://github.com/real-or-random/dokuwiki-plugin-icalevents/releases/download/${version}/dokuwiki-plugin-icalevents-${version}.zip";
         hash = "sha256-IPs4+qgEfe8AAWevbcCM9PnyI0uoyamtWeg4rEb+9Wc=";
       };
       installPhase = "mkdir -p $out; cp -R * $out/";

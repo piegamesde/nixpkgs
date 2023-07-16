@@ -25,8 +25,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "MDBook preprocessor for converting emojicodes (e.g. `: cat :`) into emojis 🐱"
-      ;
+      "MDBook preprocessor for converting emojicodes (e.g. `: cat :`) into emojis 🐱";
     homepage = "https://github.com/blyxyas/mdbook-emojicodes";
     license = licenses.mit;
     maintainers = with maintainers; [ blaggacao ];

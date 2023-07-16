@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
     # Fix build with GLib 2.70
     (fetchpatch {
       url =
-        "https://gitlab.com/libvirt/libvirt-glib/-/commit/9a34c4ea55e0246c34896e48b8ecd637bc559ac7.patch"
-        ;
+        "https://gitlab.com/libvirt/libvirt-glib/-/commit/9a34c4ea55e0246c34896e48b8ecd637bc559ac7.patch";
       sha256 = "UU70uTi55EzPMuLYVKRzpVcd3WogeAtWAWEC2hWlR7k=";
     })
   ];

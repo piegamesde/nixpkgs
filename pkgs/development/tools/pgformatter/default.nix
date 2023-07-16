@@ -29,8 +29,7 @@ perlPackages.buildPerlPackage rec {
     # Fix an uninitialized variable error. Remove with the next release.
     (fetchpatch {
       url =
-        "https://github.com/darold/pgFormatter/commit/c2622c47d48cee47effecbf58a588c3cd3a7bf1a.patch"
-        ;
+        "https://github.com/darold/pgFormatter/commit/c2622c47d48cee47effecbf58a588c3cd3a7bf1a.patch";
       sha256 = "sha256-WnQIOvfuzL2HrwtL0HaaYObrBxhXDu82jxGcqggQVhc=";
     })
   ];
@@ -53,8 +52,7 @@ perlPackages.buildPerlPackage rec {
 
   meta = with lib; {
     description =
-      "A PostgreSQL SQL syntax beautifier that can work as a console program or as a CGI"
-      ;
+      "A PostgreSQL SQL syntax beautifier that can work as a console program or as a CGI";
     homepage = "https://github.com/darold/pgFormatter";
     changelog =
       "https://github.com/darold/pgFormatter/releases/tag/v${version}";

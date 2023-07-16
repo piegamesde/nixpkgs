@@ -3493,8 +3493,7 @@ let
           # network daemons.
         systemd.network.units = lib.filterAttrs (n: _: hasSuffix ".link" n)
           config.systemd.network.units;
-        systemd.storePaths = [ "${config.boot.initrd.systemd.package}/lib/systemd/network/99-default.link" ]
-          ;
+        systemd.storePaths = [ "${config.boot.initrd.systemd.package}/lib/systemd/network/99-default.link" ];
       }
 
       (mkIf cfg.enable {
@@ -3523,8 +3522,7 @@ let
         systemd.contents."/etc/systemd/networkd.conf" = renderConfig cfg.config;
 
         systemd.services.systemd-networkd.wantedBy = [ "initrd.target" ];
-        systemd.services.systemd-network-generator.wantedBy = [ "sysinit.target" ]
-          ;
+        systemd.services.systemd-network-generator.wantedBy = [ "sysinit.target" ];
 
         systemd.storePaths = [
           "${config.boot.initrd.systemd.package}/lib/systemd/systemd-networkd"

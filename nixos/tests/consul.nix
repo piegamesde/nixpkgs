@@ -80,8 +80,8 @@ import ./make-test-python.nix ({
       let
         numConsensusServers = builtins.length allConsensusServerHosts;
         thisConsensusServerHost = builtins.elemAt allConsensusServerHosts index;
-        ip = thisConsensusServerHost
-          ; # since we already use IPs to identify servers
+        ip =
+          thisConsensusServerHost; # since we already use IPs to identify servers
       in {
         networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
           address = ip;

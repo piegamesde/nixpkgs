@@ -128,8 +128,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Handles input devices in Wayland compositors and provides a generic X.Org input driver"
-      ;
+      "Handles input devices in Wayland compositors and provides a generic X.Org input driver";
     homepage = "https://www.freedesktop.org/wiki/Software/libinput/";
     license = licenses.mit;
     platforms = platforms.unix;

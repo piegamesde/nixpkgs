@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fix-makefile-variables.patch";
       url =
-        "https://github.com/jtojnar/miranda/commit/be62d2150725a4c314aa7e3e1e75a165c90be65d.patch"
-        ;
+        "https://github.com/jtojnar/miranda/commit/be62d2150725a4c314aa7e3e1e75a165c90be65d.patch";
       sha256 = "0r8nnr7iyzp1a3w3n6y1xi0ralqhm1ifp75yhyj3h1g229vk51a6";
     })
 
@@ -41,8 +40,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "add-mkdirs-makefile.patch";
       url =
-        "https://github.com/jtojnar/miranda/commit/048754606625975d5358e946549c41ae7b5d3428.patch"
-        ;
+        "https://github.com/jtojnar/miranda/commit/048754606625975d5358e946549c41ae7b5d3428.patch";
       sha256 = "1n8xv679i7s789km2dxxrs2pphyyi7vr7rhafqvmkcdmhmxk9h2a";
     })
 
@@ -51,8 +49,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "c-path-fixes.patch";
       url =
-        "https://github.com/jtojnar/miranda/commit/aea0a118a802a0da6029b781f7cfd388224263cf.patch"
-        ;
+        "https://github.com/jtojnar/miranda/commit/aea0a118a802a0da6029b781f7cfd388224263cf.patch";
       sha256 = "1z3giv8fzc35a23ga9ahz9d1fbvya67kavnb8h4rv2icbzr5j5gd";
     })
 
@@ -61,8 +58,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "deterministic-build.patch";
       url =
-        "https://github.com/jtojnar/miranda/commit/daf8abb8f30ec1cca21698e3fc355578b9f7c571.patch"
-        ;
+        "https://github.com/jtojnar/miranda/commit/daf8abb8f30ec1cca21698e3fc355578b9f7c571.patch";
       sha256 = "TC/YrHrMzdlwicJ3oJ/TjwhkufmV3ypemgyqhMmVut4=";
     })
   ];
@@ -87,8 +83,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Compiler for Miranda -- a pure, non-strict, polymorphic, higher order functional programming language"
-      ;
+      "Compiler for Miranda -- a pure, non-strict, polymorphic, higher order functional programming language";
     homepage = "https://www.cs.kent.ac.uk/people/staff/dat/miranda/";
     license = licenses.bsd2;
     maintainers = with maintainers; [ siraben ];

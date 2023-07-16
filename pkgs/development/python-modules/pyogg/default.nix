@@ -46,19 +46,15 @@ buildPythonPackage rec {
     oggLibPath =
       "${libogg}/lib/libogg${stdenv.hostPlatform.extensions.sharedLibrary}";
     vorbisLibPath =
-      "${libvorbis}/lib/libvorbis${stdenv.hostPlatform.extensions.sharedLibrary}"
-      ;
+      "${libvorbis}/lib/libvorbis${stdenv.hostPlatform.extensions.sharedLibrary}";
     vorbisFileLibPath =
-      "${libvorbis}/lib/libvorbisfile${stdenv.hostPlatform.extensions.sharedLibrary}"
-      ;
+      "${libvorbis}/lib/libvorbisfile${stdenv.hostPlatform.extensions.sharedLibrary}";
     vorbisEncLibPath =
-      "${libvorbis}/lib/libvorbisenc${stdenv.hostPlatform.extensions.sharedLibrary}"
-      ;
+      "${libvorbis}/lib/libvorbisenc${stdenv.hostPlatform.extensions.sharedLibrary}";
     opusLibPath =
       "${libopus}/lib/libopus${stdenv.hostPlatform.extensions.sharedLibrary}";
     opusFileLibPath =
-      "${opusfile}/lib/libopusfile${stdenv.hostPlatform.extensions.sharedLibrary}"
-      ;
+      "${opusfile}/lib/libopusfile${stdenv.hostPlatform.extensions.sharedLibrary}";
   }) ];
 
   meta = {

@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
     # https://github.com/IntelRealSense/librealsense/pull/9253
     (fetchpatch {
       url =
-        "https://github.com/IntelRealSense/librealsense/commit/beb4c44debc8336de991c983274cad841eb5c323.patch"
-        ;
+        "https://github.com/IntelRealSense/librealsense/commit/beb4c44debc8336de991c983274cad841eb5c323.patch";
       sha256 = "05mxsd2pz3xrvywdqyxkwdvxx8hjfxzcgl51897avz4v2j89pyq8";
     })
     ./py_sitepackage_dir.patch
@@ -103,8 +102,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A cross-platform library for Intel® RealSense™ depth cameras (D400 series and the SR300)"
-      ;
+      "A cross-platform library for Intel® RealSense™ depth cameras (D400 series and the SR300)";
     homepage = "https://github.com/IntelRealSense/librealsense";
     license = licenses.asl20;
     maintainers = with maintainers; [

@@ -246,8 +246,7 @@ in {
               };
               hashedPassword = mkOption {
                 example =
-                  "grub.pbkdf2.sha512.10000.674DFFDEF76E13EA...2CC972B102CF4355"
-                  ;
+                  "grub.pbkdf2.sha512.10000.674DFFDEF76E13EA...2CC972B102CF4355";
                 default = null;
                 type = with types; uniq (nullOr str);
                 description = lib.mdDoc ''
@@ -391,8 +390,7 @@ in {
 
       extraGrubInstallArgs = mkOption {
         default = [ ];
-        example = [ "--modules=nativedisk ahci pata part_gpt part_msdos diskfilter mdraid1x lvm ext2" ]
-          ;
+        example = [ "--modules=nativedisk ahci pata part_gpt part_msdos diskfilter mdraid1x lvm ext2" ];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           Additional arguments passed to `grub-install`.
@@ -822,8 +820,7 @@ in {
       boot.loader.grub.splashImage = mkDefault (if cfg.version == 1 then
         pkgs.fetchurl {
           url =
-            "http://www.gnome-look.org/CONTENT/content-files/36909-soft-tux.xpm.gz"
-            ;
+            "http://www.gnome-look.org/CONTENT/content-files/36909-soft-tux.xpm.gz";
           sha256 = "14kqdx2lfqvh40h6fjjzqgff1mwk74dmbjvmqphi6azzra7z8d59";
         }
         # GRUB 1.97 doesn't support gzipped XPMs.
@@ -929,21 +926,18 @@ in {
           assertion = !cfg.trustedBoot.enable || cfg.trustedBoot.systemHasTPM
             == "YES_TPM_is_activated";
           message =
-            "Trusted GRUB can break the system! Confirm that the system has an activated TPM by setting 'systemHasTPM'."
-            ;
+            "Trusted GRUB can break the system! Confirm that the system has an activated TPM by setting 'systemHasTPM'.";
         }
         {
           assertion = cfg.efiInstallAsRemovable -> cfg.efiSupport;
           message =
-            "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn on boot.loader.grub.efiSupport"
-            ;
+            "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn on boot.loader.grub.efiSupport";
         }
         {
           assertion = cfg.efiInstallAsRemovable
             -> !config.boot.loader.efi.canTouchEfiVariables;
           message =
-            "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn off boot.loader.efi.canTouchEfiVariables"
-            ;
+            "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn off boot.loader.efi.canTouchEfiVariables";
         }
       ] ++ flip concatMap cfg.mirroredBoots (args:
         [
@@ -969,8 +963,7 @@ in {
         ] ++ forEach args.devices (device: {
           assertion = device == "nodev" || hasPrefix "/" device;
           message =
-            "GRUB devices must be absolute paths, not ${device} in ${args.path}"
-            ;
+            "GRUB devices must be absolute paths, not ${device} in ${args.path}";
         }));
     })
 

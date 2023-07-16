@@ -24,8 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A sway workspace tool which allows easy moving of workspaces to and from outputs"
-      ;
+      "A sway workspace tool which allows easy moving of workspaces to and from outputs";
     homepage = "https://gitlab.com/w0lff/swayws";
     license = licenses.mit;
     maintainers = [ maintainers.atila ];

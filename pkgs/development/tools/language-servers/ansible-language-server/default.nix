@@ -36,8 +36,7 @@ buildNpmPackage rec {
 
   meta = with lib; {
     changelog =
-      "https://github.com/ansible/ansible-language-server/releases/tag/v${version}"
-      ;
+      "https://github.com/ansible/ansible-language-server/releases/tag/v${version}";
     description = "Ansible Language Server";
     homepage = "https://github.com/ansible/ansible-language-server";
     license = licenses.mit;

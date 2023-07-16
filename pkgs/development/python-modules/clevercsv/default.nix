@@ -81,8 +81,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/alan-turing-institute/CleverCSV";
     changelog =
-      "https://github.com/alan-turing-institute/CleverCSV/blob/${src.rev}/CHANGELOG.md"
-      ;
+      "https://github.com/alan-turing-institute/CleverCSV/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];
   };

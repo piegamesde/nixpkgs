@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Static reflection for enums (to string, from string, iteration) for modern C++"
-      ;
+      "Static reflection for enums (to string, from string, iteration) for modern C++";
     homepage = "https://github.com/Neargye/magic_enum";
     license = licenses.mit;
     maintainers = with maintainers; [ Alper-Celik ];

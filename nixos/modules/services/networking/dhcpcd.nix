@@ -206,8 +206,7 @@ in {
       type = types.lines;
       default = "";
       example =
-        "if [[ $reason =~ BOUND ]]; then echo $interface: Routers are $new_routers - were $old_routers; fi"
-        ;
+        "if [[ $reason =~ BOUND ]]; then echo $interface: Routers are $new_routers - were $old_routers; fi";
       description = lib.mdDoc ''
         Shell code that will be run after all other hooks. See
         `man dhcpcd-run-hooks` for details on what is possible.

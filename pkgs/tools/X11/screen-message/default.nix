@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://debian/pool/main/s/screen-message/screen-message_${version}.orig.tar.gz"
-      ;
+      "mirror://debian/pool/main/s/screen-message/screen-message_${version}.orig.tar.gz";
     sha256 = "sha256-vBKnuXOEQZDACmlNP9wjJ3NbIdixIx7I72a6Nj6pjzc=";
   };
 

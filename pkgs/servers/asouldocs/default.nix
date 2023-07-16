@@ -19,8 +19,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Web server for multi-language, real-time synchronization and searchable documentation"
-      ;
+      "Web server for multi-language, real-time synchronization and searchable documentation";
     homepage = "https://asouldocs.dev/";
     license = licenses.mit;
     maintainers = with maintainers; [

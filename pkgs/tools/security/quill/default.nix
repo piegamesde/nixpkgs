@@ -67,8 +67,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/dfinity/quill";
     changelog = "https://github.com/dfinity/quill/releases/tag/v${version}";
     description =
-      "Minimalistic ledger and governance toolkit for cold wallets on the Internet Computer."
-      ;
+      "Minimalistic ledger and governance toolkit for cold wallets on the Internet Computer.";
     license = licenses.asl20;
     maintainers = with maintainers; [ imalison ];
   };

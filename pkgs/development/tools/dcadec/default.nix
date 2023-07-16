@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
 
   installPhase = "make PREFIX=/ DESTDIR=$out install";
 
-  doCheck = false
-    ; # fails with "ERROR: Run 'git submodule update --init test/samples' first."
+  doCheck =
+    false; # fails with "ERROR: Run 'git submodule update --init test/samples' first."
 
   meta = with lib; {
     description =

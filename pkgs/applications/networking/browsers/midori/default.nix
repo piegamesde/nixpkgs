@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/midori-browser/core/releases/download/v${version}/midori-v${version}.tar.gz"
-      ;
+      "https://github.com/midori-browser/core/releases/download/v${version}/midori-v${version}.tar.gz";
     sha256 = "05i04qa83dnarmgkx4xsk6fga5lw1lmslh4rb3vhyyy4ala562jy";
   };
 

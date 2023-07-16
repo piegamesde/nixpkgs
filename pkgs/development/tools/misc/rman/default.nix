@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "Parse formatted man pages and man page source from most flavors of UNIX and converts them to HTML, ASCII, TkMan, DocBook, and other formats"
-      ;
+      "Parse formatted man pages and man page source from most flavors of UNIX and converts them to HTML, ASCII, TkMan, DocBook, and other formats";
     license = "artistic";
     platforms = lib.platforms.all;
   };

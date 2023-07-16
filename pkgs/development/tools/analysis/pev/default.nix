@@ -27,8 +27,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "A full-featured, open source, multiplatform command line toolkit to work with PE (Portable Executables) binaries"
-      ;
+      "A full-featured, open source, multiplatform command line toolkit to work with PE (Portable Executables) binaries";
     homepage = "https://pev.sourceforge.net/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ jeschli ];

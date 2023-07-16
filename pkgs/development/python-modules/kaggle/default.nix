@@ -49,8 +49,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Official API for https://www.kaggle.com, accessible using a command line tool implemented in Python 3"
-      ;
+      "Official API for https://www.kaggle.com, accessible using a command line tool implemented in Python 3";
     homepage = "https://github.com/Kaggle/kaggle-api";
     license = licenses.asl20;
     maintainers = with maintainers; [ cdepillabout ];

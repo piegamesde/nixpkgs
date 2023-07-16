@@ -35,8 +35,7 @@ buildPythonPackage rec {
     description = "Python module to communicate with the AVM Fritz!Box";
     homepage = "https://github.com/kbr/fritzconnection";
     changelog =
-      "https://fritzconnection.readthedocs.io/en/${version}/sources/version_history.html"
-      ;
+      "https://fritzconnection.readthedocs.io/en/${version}/sources/version_history.html";
     license = licenses.mit;
     maintainers = with maintainers; [
       dotlambda

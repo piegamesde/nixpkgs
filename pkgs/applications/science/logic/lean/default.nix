@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
     description = "Automatic and interactive theorem prover";
     homepage = "https://leanprover.github.io/";
     changelog =
-      "https://github.com/leanprover-community/lean/blob/v${version}/doc/changes.md"
-      ;
+      "https://github.com/leanprover-community/lean/blob/v${version}/doc/changes.md";
     license = licenses.asl20;
     platforms = platforms.unix;
     maintainers = with maintainers; [

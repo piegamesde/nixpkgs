@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/${version}/line-awesome-${version}.zip"
-      ;
+      "https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/${version}/line-awesome-${version}.zip";
     sha256 = "07qkz8s1wjh5xwqlq1b4lpihr1zah3kh6bnqvfwvncld8l9wjqfk";
   };
 

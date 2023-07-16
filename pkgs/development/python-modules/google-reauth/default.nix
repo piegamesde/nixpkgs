@@ -37,8 +37,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Auth plugin allowing use the use of OAuth 2.0 credentials for Google Cloud Storage"
-      ;
+      "Auth plugin allowing use the use of OAuth 2.0 credentials for Google Cloud Storage";
     homepage = "https://github.com/Google/google-reauth-python";
     changelog =
       "https://github.com/google/google-reauth-python/releases/tag/${version}";

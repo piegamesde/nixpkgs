@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/zchunk/zchunk";
     description =
-      "File format designed for highly efficient deltas while maintaining good compression"
-      ;
+      "File format designed for highly efficient deltas while maintaining good compression";
     longDescription = ''
       zchunk is a compressed file format that splits the file into independent
       chunks. This allows you to only download changed chunks when downloading a

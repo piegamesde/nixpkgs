@@ -36,14 +36,12 @@ let
   zipcode_rel = "202011";
   jigyosyo = fetchurl {
     url =
-      "https://osdn.net/projects/ponsfoot-aur/storage/mozc/jigyosyo-${zipcode_rel}.zip"
-      ;
+      "https://osdn.net/projects/ponsfoot-aur/storage/mozc/jigyosyo-${zipcode_rel}.zip";
     sha256 = "j7MkNtd4+QTi91EreVig4/OV0o5y1+KIjEJBEmLK/mY=";
   };
   x-ken-all = fetchurl {
     url =
-      "https://osdn.net/projects/ponsfoot-aur/storage/mozc/x-ken-all-${zipcode_rel}.zip"
-      ;
+      "https://osdn.net/projects/ponsfoot-aur/storage/mozc/x-ken-all-${zipcode_rel}.zip";
     sha256 = "ExS0Cg3rs0I9IOVbZHLt8UEfk8/LmY9oAHPVVlYuTPw=";
   };
 
@@ -85,8 +83,7 @@ clangStdenv.mkDerivation rec {
     # Support linking system abseil-cpp
     (fetchpatch {
       url =
-        "https://salsa.debian.org/debian/mozc/-/raw/debian/sid/debian/patches/0007-Update-src-base-absl.gyp.patch"
-        ;
+        "https://salsa.debian.org/debian/mozc/-/raw/debian/sid/debian/patches/0007-Update-src-base-absl.gyp.patch";
       sha256 = "UiS0UScDKyAusXOhc7Bg8dF8ARQQiVTylEhAOxqaZt8=";
     })
 
@@ -161,8 +158,7 @@ clangStdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Fcitx5 Module of A Japanese Input Method for Chromium OS, Windows, Mac and Linux (the Open Source Edition of Google Japanese Input)"
-      ;
+      "Fcitx5 Module of A Japanese Input Method for Chromium OS, Windows, Mac and Linux (the Open Source Edition of Google Japanese Input)";
     homepage = "https://github.com/fcitx/mozc";
     license = licenses.bsd3;
     maintainers = with maintainers; [

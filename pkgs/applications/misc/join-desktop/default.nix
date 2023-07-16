@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/joaomgcd/JoinDesktop/releases/download/v${version}/com.joaomgcd.join_${version}_amd64.deb"
-      ;
+      "https://github.com/joaomgcd/JoinDesktop/releases/download/v${version}/com.joaomgcd.join_${version}_amd64.deb";
     sha256 = "sha256-k1LX/HC3tfL4Raipo7wp/LnfrPa38x8NBeKRyHJ72CU=";
   };
 

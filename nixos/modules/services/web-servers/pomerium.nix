@@ -149,11 +149,9 @@ in {
           Type = "oneshot";
           TimeoutSec = 60;
           ExecCondition =
-            "/run/current-system/systemd/bin/systemctl -q is-active pomerium.service"
-            ;
+            "/run/current-system/systemd/bin/systemctl -q is-active pomerium.service";
           ExecStart =
-            "/run/current-system/systemd/bin/systemctl --no-block restart pomerium.service"
-            ;
+            "/run/current-system/systemd/bin/systemctl --no-block restart pomerium.service";
         };
       };
     })

@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A small, easy-to-use and fast header-only library for reading comma separated value (CSV) files"
-      ;
+      "A small, easy-to-use and fast header-only library for reading comma separated value (CSV) files";
     homepage = "https://github.com/ben-strasser/fast-cpp-csv-parser";
     license = licenses.bsd3;
     maintainers = with maintainers; [ bhipple ];

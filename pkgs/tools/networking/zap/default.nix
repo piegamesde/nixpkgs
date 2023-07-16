@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
   version = "2.12.0";
   src = fetchurl {
     url =
-      "https://github.com/zaproxy/zaproxy/releases/download/v${version}/ZAP_${version}_Linux.tar.gz"
-      ;
+      "https://github.com/zaproxy/zaproxy/releases/download/v${version}/ZAP_${version}_Linux.tar.gz";
     sha256 = "sha256-nESTyZHLk0cGOGTSQ2o3lc87aXYGJeez20Ac00LT/FU=";
   };
 

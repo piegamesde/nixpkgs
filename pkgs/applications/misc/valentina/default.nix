@@ -66,8 +66,7 @@ stdenv.mkDerivation rec {
     description = "An open source sewing pattern drafting software";
     homepage = "https://smart-pattern.com.ua/";
     changelog =
-      "https://gitlab.com/smart-pattern/valentina/-/blob/v${version}/ChangeLog.txt"
-      ;
+      "https://gitlab.com/smart-pattern/valentina/-/blob/v${version}/ChangeLog.txt";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ jfrankenau ];

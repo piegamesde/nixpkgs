@@ -50,8 +50,7 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/libkeepass/pykeepass/blob/${src.rev}/CHANGELOG.rst";
     description =
-      "Python library to interact with keepass databases (supports KDBX3 and KDBX4)"
-      ;
+      "Python library to interact with keepass databases (supports KDBX3 and KDBX4)";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ dotlambda ];
   };

@@ -29,8 +29,7 @@ let
     };
     x86_64-darwin = fetchurl {
       url =
-        "https://web.archive.org/web/20220302083827/https://desktop.userapi.com/mac/master/vk.dmg"
-        ;
+        "https://web.archive.org/web/20220302083827/https://desktop.userapi.com/mac/master/vk.dmg";
       sha256 = "hxK8I9sF6njfCxSs1KBCHfnG81JGKUgHKAeFLtuCNe0=";
     };
   }.${stdenv.system} or (throw "Unsupported system: ${stdenv.system}");

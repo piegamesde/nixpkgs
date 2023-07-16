@@ -394,8 +394,7 @@ in {
           preStart =
             let
               pi-manage =
-                "${config.security.sudo.package}/bin/sudo -u privacyidea -HE ${penv}/bin/pi-manage"
-                ;
+                "${config.security.sudo.package}/bin/sudo -u privacyidea -HE ${penv}/bin/pi-manage";
               pgsu = config.services.postgresql.superUser;
               psql = config.services.postgresql.package;
             in ''
@@ -453,8 +452,7 @@ in {
           (cfg.ldap-proxy.configFile == null)
           ;
         message =
-          "configFile & settings are mutually exclusive for services.privacyidea.ldap-proxy!"
-          ;
+          "configFile & settings are mutually exclusive for services.privacyidea.ldap-proxy!";
       } ];
 
       warnings = mkIf (cfg.ldap-proxy.configFile

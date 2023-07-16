@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A network address discovering tool, developed mainly for those wireless networks without dhcp server, it also works on hub/switched networks"
-      ;
+      "A network address discovering tool, developed mainly for those wireless networks without dhcp server, it also works on hub/switched networks";
     homepage = "https://github.com/netdiscover-scanner/netdiscover";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ vdot0x23 ];

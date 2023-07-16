@@ -15,8 +15,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Multi-Language Vulkan/GL/GLES/EGL/GLX/WGL Loader-Generator based on the official specs"
-      ;
+      "Multi-Language Vulkan/GL/GLES/EGL/GLX/WGL Loader-Generator based on the official specs";
     homepage = "https://github.com/Dav1dde/glad";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

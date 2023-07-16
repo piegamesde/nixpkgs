@@ -242,8 +242,7 @@ with lib;
                   let
                     rev = "1976ca460796f28447b41e3618e5c1e234035dd5";
                     path =
-                      "debian/patches/pve/0026-PVE-Backup-add-vma-backup-format-code.patch"
-                      ;
+                      "debian/patches/pve/0026-PVE-Backup-add-vma-backup-format-code.patch";
                   in
                   "https://git.proxmox.com/?p=pve-qemu.git;a=blob_plain;hb=${rev};f=${path}"
                   ;

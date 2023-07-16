@@ -45,8 +45,7 @@ buildPythonPackage rec {
     description = "Library for iBeacon BLE devices";
     homepage = "https://github.com/Bluetooth-Devices/ibeacon-ble";
     changelog =
-      "https://github.com/Bluetooth-Devices/ibeacon-ble/blob/v${version}/CHANGELOG.md"
-      ;
+      "https://github.com/Bluetooth-Devices/ibeacon-ble/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

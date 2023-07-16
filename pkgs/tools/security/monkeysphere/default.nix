@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://archive.monkeysphere.info/debian/pool/monkeysphere/m/monkeysphere/monkeysphere_${version}.orig.tar.gz"
-      ;
+      "http://archive.monkeysphere.info/debian/pool/monkeysphere/m/monkeysphere/monkeysphere_${version}.orig.tar.gz";
     sha256 = "1ah7hy8r9gj96pni8azzjb85454qky5l17m3pqn37854l6grgika";
   };
 

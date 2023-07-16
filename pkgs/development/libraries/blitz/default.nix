@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "use-cmake-install-full-dir.patch";
       url =
-        "https://github.com/blitzpp/blitz/commit/020f1d768c7fa3265cec244dc28f3dc8572719c5.patch"
-        ;
+        "https://github.com/blitzpp/blitz/commit/020f1d768c7fa3265cec244dc28f3dc8572719c5.patch";
       hash = "sha256-8hYFNyWrejjIWPN/HzIOphD4Aq6Soe0FFUBmwV4tpWQ=";
     })
   ];

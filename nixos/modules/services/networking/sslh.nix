@@ -103,8 +103,7 @@ in {
     (mkIf cfg.enable {
       systemd.services.sslh = {
         description =
-          "Applicative Protocol Multiplexer (e.g. share SSH and HTTPS on the same port)"
-          ;
+          "Applicative Protocol Multiplexer (e.g. share SSH and HTTPS on the same port)";
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
 
@@ -150,15 +149,13 @@ in {
             {
               table = "nat";
               command =
-                "OUTPUT -m owner --uid-owner ${user} -p tcp --tcp-flags FIN,SYN,RST,ACK SYN -j CONNMARK --set-xmark 0x02/0x0f"
-                ;
+                "OUTPUT -m owner --uid-owner ${user} -p tcp --tcp-flags FIN,SYN,RST,ACK SYN -j CONNMARK --set-xmark 0x02/0x0f";
             }
             # Outgoing packets that should go to sslh instead have to be rerouted, so mark them accordingly (copying over the connection mark)
             {
               table = "mangle";
               command =
-                "OUTPUT ! -o lo -p tcp -m connmark --mark 0x02/0x0f -j CONNMARK --restore-mark --mask 0x0f"
-                ;
+                "OUTPUT ! -o lo -p tcp -m connmark --mark 0x02/0x0f -j CONNMARK --restore-mark --mask 0x0f";
             }
           ];
           ip6tablesCommands = [
@@ -173,14 +170,12 @@ in {
             {
               table = "nat";
               command =
-                "OUTPUT -m owner --uid-owner ${user} -p tcp --tcp-flags FIN,SYN,RST,ACK SYN -j CONNMARK --set-xmark 0x02/0x0f"
-                ;
+                "OUTPUT -m owner --uid-owner ${user} -p tcp --tcp-flags FIN,SYN,RST,ACK SYN -j CONNMARK --set-xmark 0x02/0x0f";
             }
             {
               table = "mangle";
               command =
-                "OUTPUT ! -o lo -p tcp -m connmark --mark 0x02/0x0f -j CONNMARK --restore-mark --mask 0x0f"
-                ;
+                "OUTPUT ! -o lo -p tcp -m connmark --mark 0x02/0x0f -j CONNMARK --restore-mark --mask 0x0f";
             }
           ];
         in {

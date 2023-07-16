@@ -72,8 +72,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Cross-platform CLI and Python drivers for AIO liquid coolers and other devices"
-      ;
+      "Cross-platform CLI and Python drivers for AIO liquid coolers and other devices";
     homepage = "https://github.com/liquidctl/liquidctl";
     changelog =
       "https://github.com/liquidctl/liquidctl/blob/v${version}/CHANGELOG.md";

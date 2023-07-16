@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://http.debian.net/debian/pool/non-free/a/amoeba-data/amoeba-data_${version}.orig.tar.gz"
-      ;
+      "http://http.debian.net/debian/pool/non-free/a/amoeba-data/amoeba-data_${version}.orig.tar.gz";
     sha256 = "1bgclr1v63n14bj9nwzm5zxg48nm0cla9bq1rbd5ylxra18k0jbg";
   };
 

@@ -96,8 +96,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.exodus.io/";
     description =
-      "Top-rated cryptocurrency wallet with Trezor integration and built-in Exchange"
-      ;
+      "Top-rated cryptocurrency wallet with Trezor integration and built-in Exchange";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = platforms.linux;

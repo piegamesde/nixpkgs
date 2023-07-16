@@ -127,8 +127,7 @@ stdenv.mkDerivation (rec {
     (fetchpatch {
       name = "headers-gcc-11.patch";
       url =
-        "https://github.com/llvm/llvm-project/commit/b498303066a63a203d24f739b2d2e0e56dca70d1.patch"
-        ;
+        "https://github.com/llvm/llvm-project/commit/b498303066a63a203d24f739b2d2e0e56dca70d1.patch";
       sha256 = "0nh123kld0dgz2h941lng331dkj3wbm5lfxm375k1f569gv83hlk";
       stripLen = 1;
     })
@@ -137,8 +136,7 @@ stdenv.mkDerivation (rec {
     (fetchpatch {
       name = "nvptx-gcc-12.patch";
       url =
-        "https://github.com/llvm/llvm-project/commit/99e64623ec9b31def9375753491cc6093c831809.patch"
-        ;
+        "https://github.com/llvm/llvm-project/commit/99e64623ec9b31def9375753491cc6093c831809.patch";
       sha256 = "0zjfjgavqzi2ypqwqnlvy6flyvdz8hi1anwv0ybwnm2zqixg7za3";
       stripLen = 1;
     })
@@ -333,8 +331,7 @@ stdenv.mkDerivation (rec {
   meta = llvm_meta // {
     homepage = "https://llvm.org/";
     description =
-      "A collection of modular and reusable compiler and toolchain technologies"
-      ;
+      "A collection of modular and reusable compiler and toolchain technologies";
     longDescription = ''
       The LLVM Project is a collection of modular and reusable compiler and
       toolchain technologies. Despite its name, LLVM has little to do with

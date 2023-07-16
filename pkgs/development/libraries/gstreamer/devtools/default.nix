@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz"
-      ;
+      "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz";
     hash = "sha256-62JybT4nqHgjaaJP1jZKiIXtJGKzu9qwkd/8gTnuBtg=";
   };
 

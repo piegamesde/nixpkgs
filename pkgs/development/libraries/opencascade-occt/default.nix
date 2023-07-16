@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     name = "occt-${commit}.tar.gz";
     url =
-      "https://git.dev.opencascade.org/gitweb/?p=occt.git;a=snapshot;h=${commit};sf=tgz"
-      ;
+      "https://git.dev.opencascade.org/gitweb/?p=occt.git;a=snapshot;h=${commit};sf=tgz";
     sha256 = "sha256-n3KFrN/mN1SVXfuhEUAQ1fJzrCvhiclxfEIouyj9Z18=";
   };
 
@@ -44,8 +43,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Open CASCADE Technology, libraries for 3D modeling and numerical simulation"
-      ;
+      "Open CASCADE Technology, libraries for 3D modeling and numerical simulation";
     homepage = "https://www.opencascade.org/";
     license = licenses.lgpl21; # essentially...
       # The special exception defined in the file OCCT_LGPL_EXCEPTION.txt

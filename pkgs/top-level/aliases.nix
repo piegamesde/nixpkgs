@@ -3277,8 +3277,8 @@ mapAliases ({
   varnish71 = throw
     "varnish71 was removed from nixpkgs, because it was superseded upstream. Please switch to a different release"
     ; # Added 2022-11-08
-  vdirsyncerStable = vdirsyncer
-    ; # Added 2020-11-08, see https://github.com/NixOS/nixpkgs/issues/103026#issuecomment-723428168
+  vdirsyncerStable =
+    vdirsyncer; # Added 2020-11-08, see https://github.com/NixOS/nixpkgs/issues/103026#issuecomment-723428168
   ventoy-bin = ventoy; # Added 2023-04-12
   ventoy-bin-full = ventoy-full; # Added 2023-04-12
   venus = throw "venus has been removed from nixpkgs, as it's unmaintained"
@@ -3367,8 +3367,8 @@ mapAliases ({
   wireguard =
     throw "'wireguard' has been renamed to/replaced by 'wireguard-tools'"
     ; # Converted to throw 2022-02-22
-  wormhole-rs = magic-wormhole-rs
-    ; # Added 2022-05-30. preserve, reason: Arch package name, main binary name
+  wormhole-rs =
+    magic-wormhole-rs; # Added 2022-05-30. preserve, reason: Arch package name, main binary name
   wmii_hg = wmii;
   wmc-mpris =
     throw "wmc-mpris has been abandoned by upstream due to its redundancy"

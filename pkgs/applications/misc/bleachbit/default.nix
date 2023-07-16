@@ -64,8 +64,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "http://bleachbit.sourceforge.net";
     description = "A program to clean your computer";
     longDescription =
-      "BleachBit helps you easily clean your computer to free space and maintain privacy."
-      ;
+      "BleachBit helps you easily clean your computer to free space and maintain privacy.";
     license = licenses.gpl3;
     maintainers = with maintainers; [
       leonardoce

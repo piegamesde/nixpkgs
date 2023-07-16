@@ -19,8 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "https://invisible-island.net/archives/ncurses/ncurses-${finalAttrs.version}.tar.gz"
-      ;
+      "https://invisible-island.net/archives/ncurses/ncurses-${finalAttrs.version}.tar.gz";
     hash = "sha256-aTEoPZrIfFBz8wtikMTHXyFjK7T8NgOsgQCBK+0kgVk=";
   };
 

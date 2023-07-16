@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://launchpad.net/pbzip2/${major}/${version}/+download/${pname}-${version}.tar.gz"
-      ;
+      "https://launchpad.net/pbzip2/${major}/${version}/+download/${pname}-${version}.tar.gz";
     sha256 = "1rnvgcdixjzbrmcr1nv9b6ccrjfrhryaj7jwz28yxxv6lam3xlcg";
   };
 

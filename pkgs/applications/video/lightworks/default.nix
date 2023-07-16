@@ -50,8 +50,7 @@ let
       if stdenv.hostPlatform.system == "x86_64-linux" then
         fetchurl {
           url =
-            "https://cdn.lwks.com/releases/${version}/lightworks_${version}_r${rev}.deb"
-            ;
+            "https://cdn.lwks.com/releases/${version}/lightworks_${version}_r${rev}.deb";
           sha256 = "sha256-f2lxfv0sFESpDnINDKlfVcR0pySAueMeOMbkgBWzz7Q=";
         }
       else

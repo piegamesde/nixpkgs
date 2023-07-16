@@ -197,8 +197,7 @@ in {
       assertion =
         cfg.dropPrivileges -> cfg.settings.data_dir == "/var/lib/nomad";
       message = ''
-        settings.data_dir must be equal to "/var/lib/nomad" if dropPrivileges is true''
-        ;
+        settings.data_dir must be equal to "/var/lib/nomad" if dropPrivileges is true'';
     } ];
 
       # Docker support requires the Docker daemon to be running.

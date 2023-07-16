@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://prosecco.gforge.inria.fr/personal/bblanche/cryptoverif/cryptoverif${version}.tar.gz"
-      ;
+      "http://prosecco.gforge.inria.fr/personal/bblanche/cryptoverif/cryptoverif${version}.tar.gz";
     sha256 = "sha256-F5eVN5ATYo9Ivpi2eYh96ktuTWUeoqgWMR4BqHu8EFs=";
   };
 

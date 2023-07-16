@@ -41,8 +41,7 @@ in {
     assertions = [ {
       assertion = config.networking.resolvconf.enable;
       message =
-        "rdnssd needs resolvconf to work (probably something sets up a static resolv.conf)"
-        ;
+        "rdnssd needs resolvconf to work (probably something sets up a static resolv.conf)";
     } ];
 
     systemd.services.rdnssd = {
@@ -69,8 +68,7 @@ in {
 
       serviceConfig = {
         ExecStart =
-          "@${pkgs.ndisc6}/bin/rdnssd rdnssd -p /run/rdnssd/rdnssd.pid -r /run/rdnssd/resolv.conf -u rdnssd -H ${mergeHook}"
-          ;
+          "@${pkgs.ndisc6}/bin/rdnssd rdnssd -p /run/rdnssd/rdnssd.pid -r /run/rdnssd/resolv.conf -u rdnssd -H ${mergeHook}";
         Type = "forking";
         PIDFile = "/run/rdnssd/rdnssd.pid";
       };

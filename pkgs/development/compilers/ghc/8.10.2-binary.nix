@@ -75,8 +75,7 @@ let
         variantSuffix = "";
         src = {
           url =
-            "${downloadsUrl}/${version}/ghc-${version}-x86_64-deb10-linux.tar.xz"
-            ;
+            "${downloadsUrl}/${version}/ghc-${version}-x86_64-deb10-linux.tar.xz";
           sha256 = "0chnzy9j23b2wa8clx5arwz8wnjfxyjmz9qkj548z14cqf13slcl";
         };
         exePathForLibraryCheck = "ghc/stage2/build/tmp/ghc-stage2";
@@ -95,8 +94,7 @@ let
         variantSuffix = "";
         src = {
           url =
-            "${downloadsUrl}/${version}/ghc-${version}-armv7-deb10-linux.tar.xz"
-            ;
+            "${downloadsUrl}/${version}/ghc-${version}-armv7-deb10-linux.tar.xz";
           sha256 = "1j41cq5d3rmlgz7hzw8f908fs79gc5mn3q5wz277lk8zdf19g75v";
         };
         exePathForLibraryCheck = "ghc/stage2/build/tmp/ghc-stage2";
@@ -115,8 +113,7 @@ let
         variantSuffix = "";
         src = {
           url =
-            "${downloadsUrl}/${version}/ghc-${version}-aarch64-deb10-linux.tar.xz"
-            ;
+            "${downloadsUrl}/${version}/ghc-${version}-aarch64-deb10-linux.tar.xz";
           sha256 = "14smwl3741ixnbgi0l51a7kh7xjkiannfqx15b72svky0y4l3wjw";
         };
         exePathForLibraryCheck = "ghc/stage2/build/tmp/ghc-stage2";
@@ -139,8 +136,7 @@ let
         variantSuffix = "";
         src = {
           url =
-            "${downloadsUrl}/${version}/ghc-${version}-x86_64-apple-darwin.tar.xz"
-            ;
+            "${downloadsUrl}/${version}/ghc-${version}-x86_64-apple-darwin.tar.xz";
           sha256 = "1hngyq14l4f950hzhh2d204ca2gfc98pc9xdasxihzqd1jq75dzd";
         };
         exePathForLibraryCheck =
@@ -167,8 +163,7 @@ let
         variantSuffix = "-musl";
         src = {
           url =
-            "${downloadsUrl}/${version}/ghc-${version}-x86_64-alpine3.10-linux-integer-simple.tar.xz"
-            ;
+            "${downloadsUrl}/${version}/ghc-${version}-x86_64-alpine3.10-linux-integer-simple.tar.xz";
           sha256 = "0xpcbyaxqyhbl6f0i3s4rp2jm67nqpkfh2qlbj3i2fiaix89ml0l";
         };
         exePathForLibraryCheck = "bin/ghc";
@@ -198,8 +193,7 @@ let
 
   binDistUsed =
     ghcBinDists.${distSetName}.${stdenv.hostPlatform.system} or (throw
-      "cannot bootstrap GHC on this platform ('${stdenv.hostPlatform.system}' with libc '${distSetName}')")
-    ;
+      "cannot bootstrap GHC on this platform ('${stdenv.hostPlatform.system}' with libc '${distSetName}')");
 
   useLLVM = !stdenv.targetPlatform.isx86;
 

@@ -525,14 +525,12 @@ let
     enabled = {
       sysctl = "1";
       description =
-        "generate IPv6 temporary addresses but still use EUI-64 addresses as source addresses"
-        ;
+        "generate IPv6 temporary addresses but still use EUI-64 addresses as source addresses";
     };
     default = {
       sysctl = "2";
       description =
-        "generate IPv6 temporary addresses and use these as source addresses in routing"
-        ;
+        "generate IPv6 temporary addresses and use these as source addresses in routing";
     };
   };
   tempaddrDoc = concatStringsSep "\n" (mapAttrsToList (name:

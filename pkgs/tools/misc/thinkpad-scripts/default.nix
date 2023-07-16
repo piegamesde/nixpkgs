@@ -20,8 +20,7 @@ buildPythonPackage rec {
 
   meta = {
     description =
-      "Screen rotation, docking and other scripts for ThinkPad® X220 and X230 Tablet"
-      ;
+      "Screen rotation, docking and other scripts for ThinkPad® X220 and X230 Tablet";
     homepage = "https://github.com/martin-ueding/thinkpad-scripts";
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ dawidsowa ];

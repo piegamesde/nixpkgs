@@ -99,8 +99,7 @@ let
       # the description of its subtypes, infinite recursion would occur without
       # explicitly breaking this cycle
       description =
-        "znc values (null, atoms (str, int, bool), list of atoms, or attrsets of znc values)"
-        ;
+        "znc values (null, atoms (str, int, bool), list of atoms, or attrsets of znc values)";
     });
   };
 
@@ -227,8 +226,8 @@ in {
       };
 
       mutable = mkOption {
-        default = true
-          ; # TODO: Default to true when config is set, make sure to not delete the old config if present
+        default =
+          true; # TODO: Default to true when config is set, make sure to not delete the old config if present
         type = types.bool;
         description = lib.mdDoc ''
           Indicates whether to allow the contents of the

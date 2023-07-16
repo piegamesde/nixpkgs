@@ -36,8 +36,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A file server that supports static serving, uploading, searching, accessing control, webdav"
-      ;
+      "A file server that supports static serving, uploading, searching, accessing control, webdav";
     homepage = "https://github.com/sigoden/dufs";
     license = with licenses; [
       asl20 # or

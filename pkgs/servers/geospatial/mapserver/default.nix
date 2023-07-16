@@ -79,8 +79,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Platform for publishing spatial data and interactive mapping applications to the web"
-      ;
+      "Platform for publishing spatial data and interactive mapping applications to the web";
     homepage = "https://mapserver.org/";
     changelog = "https://mapserver.org/development/changelog/";
     license = licenses.mit;

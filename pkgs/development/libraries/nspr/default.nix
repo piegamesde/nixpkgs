@@ -54,11 +54,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage =
-      "https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS/Reference/NSPR_functions"
-      ;
+      "https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS/Reference/NSPR_functions";
     description =
-      "Netscape Portable Runtime, a platform-neutral API for system-level and libc-like functions"
-      ;
+      "Netscape Portable Runtime, a platform-neutral API for system-level and libc-like functions";
     maintainers = with maintainers; [
       ajs124
       hexa

@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fallback-to-kill.diff";
       url =
-        "https://gitlab.com/psmisc/psmisc/-/commit/6892e321e7042e3df60a5501a1c59d076e8a856f.patch"
-        ;
+        "https://gitlab.com/psmisc/psmisc/-/commit/6892e321e7042e3df60a5501a1c59d076e8a856f.patch";
       sha256 = "sha256-3uk1KXEOqAxpHWBORUw5+dR5s/Z55JJs5tuBZlTdjlo=";
       excludes = [ "ChangeLog" ];
     })
@@ -52,8 +51,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://gitlab.com/psmisc/psmisc";
     description =
-      "A set of small useful utilities that use the proc filesystem (such as fuser, killall and pstree)"
-      ;
+      "A set of small useful utilities that use the proc filesystem (such as fuser, killall and pstree)";
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ ryantm ];

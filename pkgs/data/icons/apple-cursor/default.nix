@@ -10,8 +10,7 @@ let
     fetchzip ({
       name = variant;
       url =
-        "https://github.com/ful1e5/apple_cursor/releases/download/v${version}/${variant}.${suffix}"
-        ;
+        "https://github.com/ful1e5/apple_cursor/releases/download/v${version}/${variant}.${suffix}";
       hash = hash;
     } // (if suffix == "zip" then
       { stripRoot = false; }

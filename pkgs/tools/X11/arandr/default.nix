@@ -18,8 +18,7 @@ buildPythonApplication rec {
 
   src = fetchurl {
     url =
-      "https://christian.amsuess.com/tools/arandr/files/${pname}-${version}.tar.gz"
-      ;
+      "https://christian.amsuess.com/tools/arandr/files/${pname}-${version}.tar.gz";
     sha256 = "135q0llvm077jil2fr92ssw3p095m4r8jfj0lc5rr3m71n4srj6v";
   };
 

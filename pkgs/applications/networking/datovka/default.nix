@@ -17,8 +17,7 @@ mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://gitlab.nic.cz/datovka/datovka/-/archive/v${version}/datovka-v${version}.tar.gz"
-      ;
+      "https://gitlab.nic.cz/datovka/datovka/-/archive/v${version}/datovka-v${version}.tar.gz";
     sha256 = "sha256-R18dBsfrMBcBB3EraC0tIJABwZBROFqi/fhm62IDa2g=";
   };
 
@@ -35,8 +34,7 @@ mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Client application for operating Czech government-provided Databox infomation system"
-      ;
+      "Client application for operating Czech government-provided Databox infomation system";
     homepage = "https://www.datovka.cz/";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.mmahut ];

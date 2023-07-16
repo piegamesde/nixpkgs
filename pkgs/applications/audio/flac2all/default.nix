@@ -48,8 +48,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Multi process, clustered, FLAC to multi codec audio converter with tagging support"
-      ;
+      "Multi process, clustered, FLAC to multi codec audio converter with tagging support";
     homepage = "https://github.com/ZivaVatra/flac2all";
     license = licenses.gpl3;
       # TODO: This has only been tested on Linux, but may work on Mac too.

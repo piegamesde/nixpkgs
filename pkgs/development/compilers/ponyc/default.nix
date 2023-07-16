@@ -121,8 +121,7 @@ stdenv.mkDerivation (rec {
 
   meta = with lib; {
     description =
-      "Pony is an Object-oriented, actor-model, capabilities-secure, high performance programming language"
-      ;
+      "Pony is an Object-oriented, actor-model, capabilities-secure, high performance programming language";
     homepage = "https://www.ponylang.org";
     license = licenses.bsd2;
     maintainers = with maintainers; [

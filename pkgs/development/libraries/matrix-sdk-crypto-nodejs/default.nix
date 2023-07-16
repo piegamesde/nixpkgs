@@ -63,11 +63,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A no-network-IO implementation of a state machine that handles E2EE for Matrix clients"
-      ;
+      "A no-network-IO implementation of a state machine that handles E2EE for Matrix clients";
     homepage =
-      "https://github.com/matrix-org/matrix-rust-sdk/tree/${src.rev}/bindings/matrix-sdk-crypto-nodejs"
-      ;
+      "https://github.com/matrix-org/matrix-rust-sdk/tree/${src.rev}/bindings/matrix-sdk-crypto-nodejs";
     license = licenses.asl20;
     maintainers = with maintainers; [ winter ];
     inherit (nodejs.meta) platforms;

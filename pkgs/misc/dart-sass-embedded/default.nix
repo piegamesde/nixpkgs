@@ -67,12 +67,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     description =
-      "A wrapper for Dart Sass that implements the compiler side of the Embedded Sass protocol"
-      ;
+      "A wrapper for Dart Sass that implements the compiler side of the Embedded Sass protocol";
     homepage = "https://github.com/sass/dart-sass-embedded";
     changelog =
-      "https://github.com/sass/dart-sass-embedded/blob/${finalAttrs.version}/CHANGELOG.md"
-      ;
+      "https://github.com/sass/dart-sass-embedded/blob/${finalAttrs.version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ shyim ];
   };

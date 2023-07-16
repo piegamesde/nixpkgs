@@ -102,8 +102,7 @@
 
     src = fetchurl {
       url =
-        "https://dev.mysql.com/get/Downloads/Connector-ODBC/${majorVersion}/${pname}-${version}-src.tar.gz"
-        ;
+        "https://dev.mysql.com/get/Downloads/Connector-ODBC/${majorVersion}/${pname}-${version}-src.tar.gz";
       sha256 = "1smi4z49i4zm7cmykjkwlxxzqvn7myngsw5bc35z6gqxmi8c55xr";
     };
 
@@ -182,8 +181,7 @@
 
     src = fetchurl {
       url =
-        "https://packages.microsoft.com/debian/10/prod/pool/main/m/msodbcsql17/msodbcsql${versionMajor}_${version}_amd64.deb"
-        ;
+        "https://packages.microsoft.com/debian/10/prod/pool/main/m/msodbcsql17/msodbcsql${versionMajor}_${version}_amd64.deb";
       sha256 = "0vwirnp56jibm3qf0kmi4jnz1w7xfhnsfr8imr0c9hg6av4sk3a6";
     };
 
@@ -217,16 +215,14 @@
     passthru = {
       fancyName = "ODBC Driver 17 for SQL Server";
       driver =
-        "lib/libmsodbcsql-${versionMajor}.${versionMinor}.so.${versionAdditional}"
-        ;
+        "lib/libmsodbcsql-${versionMajor}.${versionMinor}.so.${versionAdditional}";
     };
 
     meta = with lib; {
       broken = stdenv.isDarwin;
       description = "ODBC Driver 17 for SQL Server";
       homepage =
-        "https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-2017"
-        ;
+        "https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-2017";
       sourceProvenance = with sourceTypes; [ binaryNativeCode ];
       license = licenses.unfree;
       platforms = platforms.linux;
@@ -240,8 +236,7 @@
 
     src = fetchurl {
       url =
-        "https://s3.amazonaws.com/redshift-downloads/drivers/odbc/${version}/AmazonRedshiftODBC-64-bit-${version}-1.x86_64.deb"
-        ;
+        "https://s3.amazonaws.com/redshift-downloads/drivers/odbc/${version}/AmazonRedshiftODBC-64-bit-${version}-1.x86_64.deb";
       sha256 = "sha256-r5HvsZjB7+x+ClxtWoONkE1/NAbz90NbHfzxC6tf7jA=";
     };
 
@@ -274,8 +269,7 @@
       broken = stdenv.isDarwin;
       description = "Amazon Redshift ODBC driver";
       homepage =
-        "https://docs.aws.amazon.com/redshift/latest/mgmt/configure-odbc-connection.html"
-        ;
+        "https://docs.aws.amazon.com/redshift/latest/mgmt/configure-odbc-connection.html";
       sourceProvenance = with sourceTypes; [ binaryNativeCode ];
       license = licenses.unfree;
       platforms = platforms.linux;

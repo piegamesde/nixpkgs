@@ -618,8 +618,7 @@ in {
           LockPersonality = true;
           SystemCallArchitectures = "native";
           ExecStart =
-            "${pkgs.python3Packages.parsedmarc}/bin/parsedmarc -c /run/parsedmarc/parsedmarc.ini"
-            ;
+            "${pkgs.python3Packages.parsedmarc}/bin/parsedmarc -c /run/parsedmarc/parsedmarc.ini";
         };
       }
       ;

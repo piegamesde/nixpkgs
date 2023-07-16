@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/jwilk/mwic/releases/download/${version}/${pname}-${version}.tar.gz"
-      ;
+      "https://github.com/jwilk/mwic/releases/download/${version}/${pname}-${version}.tar.gz";
     sha256 = "sha256-dmIHPehkxpSb78ymVpcPCu4L41coskrHQOg067dprOo=";
   };
 
@@ -32,8 +31,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://jwilk.net/software/mwic";
     description =
-      "spell-checker that groups possible misspellings and shows them in their contexts"
-      ;
+      "spell-checker that groups possible misspellings and shows them in their contexts";
     license = licenses.mit;
     maintainers = with maintainers; [ matthiasbeyer ];
   };

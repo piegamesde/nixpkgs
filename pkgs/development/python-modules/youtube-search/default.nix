@@ -27,8 +27,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Tool for searching for youtube videos to avoid using their heavily rate-limited API"
-      ;
+      "Tool for searching for youtube videos to avoid using their heavily rate-limited API";
     homepage = "https://github.com/joetats/youtube_search";
     license = licenses.mit;
     maintainers = with maintainers; [ j0hax ];

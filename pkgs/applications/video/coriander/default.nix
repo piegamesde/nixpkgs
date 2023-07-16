@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://damien.douxchamps.net/ieee1394/coriander/archives/coriander-${version}.tar.gz"
-      ;
+      "http://damien.douxchamps.net/ieee1394/coriander/archives/coriander-${version}.tar.gz";
     sha256 = "0l6hpfgy5r4yardilmdrggsnn1fbfww516sk5a90g1740cd435x5";
   };
 

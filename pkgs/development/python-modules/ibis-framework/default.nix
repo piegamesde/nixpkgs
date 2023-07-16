@@ -97,8 +97,7 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "fix-datafusion-compilation.patch";
       url =
-        "https://github.com/ibis-project/ibis/commit/009230421b2bc1f86591e8b850d37a489e8e4f06.patch"
-        ;
+        "https://github.com/ibis-project/ibis/commit/009230421b2bc1f86591e8b850d37a489e8e4f06.patch";
       hash = "sha256-5NHkgc8d2bkOMpbY1vme1XgNfyHSr0f7BrR3JTTjjPI=";
     })
   ];
@@ -256,8 +255,7 @@ buildPythonPackage rec {
     description = "Productivity-centric Python Big Data Framework";
     homepage = "https://github.com/ibis-project/ibis";
     changelog =
-      "https://github.com/ibis-project/ibis/blob/${version}/docs/release_notes.md"
-      ;
+      "https://github.com/ibis-project/ibis/blob/${version}/docs/release_notes.md";
     license = licenses.asl20;
     maintainers = with maintainers; [
       costrouc

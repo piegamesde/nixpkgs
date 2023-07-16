@@ -322,8 +322,7 @@ in {
         assertion =
           cfg.static-auth-secret != null -> cfg.static-auth-secret-file == null;
         message =
-          "static-auth-secret and static-auth-secret-file cannot be set at the same time"
-          ;
+          "static-auth-secret and static-auth-secret-file cannot be set at the same time";
       } ];
     }
 
@@ -375,8 +374,7 @@ in {
           };
         }
         ;
-      systemd.tmpfiles.rules = [ "d  /run/coturn 0700 turnserver turnserver - -" ]
-        ;
+      systemd.tmpfiles.rules = [ "d  /run/coturn 0700 turnserver turnserver - -" ];
     }
   ]));
 }

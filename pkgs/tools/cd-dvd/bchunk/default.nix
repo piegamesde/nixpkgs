@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://he.fi/bchunk/";
     description =
-      "A program that converts CD images in BIN/CUE format into a set of ISO and CDR tracks"
-      ;
+      "A program that converts CD images in BIN/CUE format into a set of ISO and CDR tracks";
     platforms = platforms.unix;
     license = licenses.gpl2;
   };

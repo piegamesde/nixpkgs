@@ -24,8 +24,7 @@ let
       #  4. Profit
     src = fetchurl {
       url =
-        "http://swcdn.apple.com/content/downloads/33/36/041-90419-A_7JJ4H9ZHO2/xs88ob5wjz6riz7g6764twblnvksusg4ps/DevSDK_OSX1012.pkg"
-        ;
+        "http://swcdn.apple.com/content/downloads/33/36/041-90419-A_7JJ4H9ZHO2/xs88ob5wjz6riz7g6764twblnvksusg4ps/DevSDK_OSX1012.pkg";
       sha256 = "13xq34sb7383b37hwy076gnhf96prpk1b4087p87xnwswxbrisih";
     };
 
@@ -324,8 +323,7 @@ in rec {
       });
 
       Carbon = lib.overrideDerivation super.Carbon (drv: {
-        extraTBDFiles = [ "Versions/A/Frameworks/HTMLRendering.framework/Versions/A/HTMLRendering.tbd" ]
-          ;
+        extraTBDFiles = [ "Versions/A/Frameworks/HTMLRendering.framework/Versions/A/HTMLRendering.tbd" ];
       });
 
       CoreFoundation = lib.overrideDerivation super.CoreFoundation
@@ -343,8 +341,7 @@ in rec {
       });
 
       IMServicePlugIn = lib.overrideDerivation super.IMServicePlugIn (drv: {
-        extraTBDFiles = [ "Versions/A/Frameworks/IMServicePlugInSupport.framework/Versions/A/IMServicePlugInSupport.tbd" ]
-          ;
+        extraTBDFiles = [ "Versions/A/Frameworks/IMServicePlugInSupport.framework/Versions/A/IMServicePlugInSupport.tbd" ];
       });
 
       Security = lib.overrideDerivation super.Security

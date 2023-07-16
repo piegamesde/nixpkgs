@@ -40,15 +40,13 @@ stdenv.mkDerivation {
     if stdenv.isLinux && stdenv.isAarch64 then
       fetchurl {
         url =
-          "mirror://gnu/mit-scheme/stable.pkg/${version}/mit-scheme-${version}-aarch64le.tar.gz"
-          ;
+          "mirror://gnu/mit-scheme/stable.pkg/${version}/mit-scheme-${version}-aarch64le.tar.gz";
         sha256 = "11maixldk20wqb5js5p4imq221zz9nf27649v9pqkdf8fv7rnrs9";
       }
     else
       fetchurl {
         url =
-          "mirror://gnu/mit-scheme/stable.pkg/${version}/mit-scheme-${version}-x86-64.tar.gz"
-          ;
+          "mirror://gnu/mit-scheme/stable.pkg/${version}/mit-scheme-${version}-x86-64.tar.gz";
         sha256 = "17822hs9y07vcviv2af17p3va7qh79dird49nj50bwi9rz64ia3w";
       }
     ;

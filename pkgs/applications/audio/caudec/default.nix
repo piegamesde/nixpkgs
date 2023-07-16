@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://caudec.cocatre.net/";
     description =
-      "A multiprocess audio converter that supports many formats (FLAC, MP3, Ogg Vorbis, Windows codecs and many more)"
-      ;
+      "A multiprocess audio converter that supports many formats (FLAC, MP3, Ogg Vorbis, Windows codecs and many more)";
     license = licenses.gpl3;
     platforms = platforms.linux ++ platforms.darwin;
   };

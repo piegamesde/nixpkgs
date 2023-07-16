@@ -28,8 +28,7 @@ with self;
     minimalOCamlVersion = "4.09";
     hash = "17rzf0jpc9s3yrxcnn630jhgsw5mrnrhwbfh62hqxqanascc5rxh";
     meta.description =
-      "A library that makes it nicer to work with nested functional data structures"
-      ;
+      "A library that makes it nicer to work with nested functional data structures";
     propagatedBuildInputs = [ higher_kinded ];
   };
 
@@ -488,8 +487,7 @@ with self;
     hash = "0xwf9mdxlyr3f0vv5y82cyw2bsckwl8rwf6jm6bai1gqpgxjq756";
     minimalOCamlVersion = "4.04.2";
     meta.description =
-      "Syntax extension to define first class values representing record fields, to get and set record fields, iterate and fold over all fields of a record and create new record values"
-      ;
+      "Syntax extension to define first class values representing record fields, to get and set record fields, iterate and fold over all fields of a record and create new record values";
     propagatedBuildInputs = [ base ];
   };
 
@@ -610,8 +608,7 @@ with self;
     pname = "jsonaf";
     hash = "1j9rn8vsvfpgmdpmdqb5qhvss5171j8n3ii1bcgnavqinchbvqa6";
     meta.description =
-      "A library for parsing, manipulating, and serializing data structured as JSON"
-      ;
+      "A library for parsing, manipulating, and serializing data structured as JSON";
     propagatedBuildInputs = [
       base
       ppx_jane
@@ -633,8 +630,7 @@ with self;
       # remove on next release
       (fetchpatch {
         url =
-          "https://github.com/janestreet/jst-config/commit/e5fdac6e5df9ba93e014a4d2db841fdbf209446f.patch"
-          ;
+          "https://github.com/janestreet/jst-config/commit/e5fdac6e5df9ba93e014a4d2db841fdbf209446f.patch";
         sha256 = "sha256-8hVC76z5ilYD/++xRHVswy/l+zzDt63jH4hfSJ/rPaA=";
       })
     ];
@@ -718,8 +714,7 @@ with self;
     minimalOCamlVersion = "4.09";
     hash = "0qv51if1nk0zff2v6q946h8ac7bpd5xa4ivyixl9g4h2mk29w4qb";
     meta.description =
-      "[@@deriving] plugin to generate accessors for use with the Accessor libraries"
-      ;
+      "[@@deriving] plugin to generate accessors for use with the Accessor libraries";
     propagatedBuildInputs = [ accessor ];
   };
 
@@ -803,8 +798,7 @@ with self;
     pname = "ppx_css";
     hash = "09dpmj3f3m3z1ji9hq775iqr3cfmv5gh7q9zlblizj4wx4y0ibyi";
     meta.description =
-      "A ppx that takes in css strings and produces a module for accessing the unique names defined within"
-      ;
+      "A ppx that takes in css strings and produces a module for accessing the unique names defined within";
     propagatedBuildInputs = [
       core_kernel
       ppxlib
@@ -819,8 +813,7 @@ with self;
     hash = "0sb5i4v7p9df2bxk66rjs30k9fqdrwsq1jgykjv6wyrx2d9bv955";
     minimalOCamlVersion = "4.04.2";
     meta.description = ''
-      Expands [@disable_unused_warnings] into [@warning "-20-26-32-33-34-35-36-37-38-39-60-66-67"]''
-      ;
+      Expands [@disable_unused_warnings] into [@warning "-20-26-32-33-34-35-36-37-38-39-60-66-67"]'';
     propagatedBuildInputs = [ ppxlib ];
   };
 
@@ -871,8 +864,7 @@ with self;
     hash = "15agkwavadllzxdv4syjna02083nfnap8qs4yqf5s0adjw73fzyg";
     minimalOCamlVersion = "4.04.2";
     meta.description =
-      "A ppx rewriter that generates hash functions from type expressions and definitions"
-      ;
+      "A ppx rewriter that generates hash functions from type expressions and definitions";
     propagatedBuildInputs = [
       ppx_compare
       ppx_sexp_conv
@@ -1135,8 +1127,7 @@ with self;
     pname = "profunctor";
     hash = "151vk0cagjwn0isnnwryn6gmvnpds4dyj1in9jvv5is8yij203gg";
     meta.description =
-      "A library providing a signature for simple profunctors and traversal of a record"
-      ;
+      "A library providing a signature for simple profunctors and traversal of a record";
     propagatedBuildInputs = [
       base
       ppx_jane
@@ -1287,8 +1278,7 @@ with self;
     hash = "sha256-6K0yrCbVFcUalN4cQuDI1TvWvNDjfXXRDhJKUskbqRY=";
     minimalOCamlVersion = "4.04.2";
     meta.description =
-      "Library containing the definition of S-expressions and some base converters"
-      ;
+      "Library containing the definition of S-expressions and some base converters";
   };
 
   sexplib = janePackage {

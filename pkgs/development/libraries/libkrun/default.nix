@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
     else
       fetchurl {
         url =
-          "https://github.com/containers/libkrun/releases/download/v${version}/v${version}-with_macos_prebuilts.tar.gz"
-          ;
+          "https://github.com/containers/libkrun/releases/download/v${version}/v${version}-with_macos_prebuilts.tar.gz";
         hash = "sha256-8hPbnZtDbiVdwBrtxt4nZ/QA2OFtui2VsQlaoOmWybo=";
       }
     ;
@@ -66,8 +65,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A dynamic library providing Virtualization-based process isolation capabilities"
-      ;
+      "A dynamic library providing Virtualization-based process isolation capabilities";
     homepage = "https://github.com/containers/libkrun";
     license = licenses.asl20;
     maintainers = with maintainers; [ nickcao ];

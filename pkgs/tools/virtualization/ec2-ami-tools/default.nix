@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://aws.amazon.com/developertools/Amazon-EC2/368";
     description =
-      "Command-line tools to create and manage Amazon EC2 virtual machine images"
-      ;
+      "Command-line tools to create and manage Amazon EC2 virtual machine images";
     license = lib.licenses.amazonsl;
   };
 

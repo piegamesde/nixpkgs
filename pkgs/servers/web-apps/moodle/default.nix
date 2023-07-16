@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.moodle.org/stable${stableVersion}/${pname}-${version}.tgz"
-      ;
+      "https://download.moodle.org/stable${stableVersion}/${pname}-${version}.tgz";
     sha256 = "sha256-ddXldOQLefV6Kjla+IeFwD50Vye4kholJD5R6X6A2Og=";
   };
 

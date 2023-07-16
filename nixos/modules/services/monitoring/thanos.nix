@@ -785,8 +785,7 @@ in {
         {
           assertion = config.services.prometheus.enable;
           message =
-            "Please enable services.prometheus when enabling services.thanos.sidecar."
-            ;
+            "Please enable services.prometheus when enabling services.thanos.sidecar.";
         }
         {
           assertion = !(config.services.prometheus.globalConfig.external_labels

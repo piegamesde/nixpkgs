@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://moosefs.com";
     description =
-      "Open Source, Petabyte, Fault-Tolerant, Highly Performing, Scalable Network Distributed File System"
-      ;
+      "Open Source, Petabyte, Fault-Tolerant, Highly Performing, Scalable Network Distributed File System";
     platforms = platforms.unix;
     license = licenses.gpl2;
     maintainers = [ maintainers.mfossen ];

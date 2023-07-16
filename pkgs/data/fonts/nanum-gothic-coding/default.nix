@@ -10,8 +10,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/naver/nanumfont/releases/download/VER${version}/NanumGothicCoding-${version}.zip"
-      ;
+      "https://github.com/naver/nanumfont/releases/download/VER${version}/NanumGothicCoding-${version}.zip";
     stripRoot = false;
     hash = "sha256-jHbbCMUxn54iQMKdAWI3r8CDxi+5LLJh8ucQzq2Ukdc=";
   };

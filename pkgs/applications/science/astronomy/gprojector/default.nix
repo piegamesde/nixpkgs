@@ -15,8 +15,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://www.giss.nasa.gov/tools/gprojector/download/G.ProjectorJ-${version}.tgz"
-      ;
+      "https://www.giss.nasa.gov/tools/gprojector/download/G.ProjectorJ-${version}.tgz";
     sha256 = "sha256-aw/p6mbTJl023d46NUZV3pnP4WVdYqZTFmgGlHEKfq0=";
   };
 
@@ -49,8 +48,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = {
     description =
-      "G.Projector transforms an input map image into any of about 200 global and regional map projections"
-      ;
+      "G.Projector transforms an input map image into any of about 200 global and regional map projections";
     homepage = "https://www.giss.nasa.gov/tools/gprojector/";
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
     maintainers = with lib.maintainers; [ alyaeanyx ];

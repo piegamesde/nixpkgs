@@ -43,8 +43,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Module to parse key-value pairs in the style of RFC 822 (e-mail) headers"
-      ;
+      "Module to parse key-value pairs in the style of RFC 822 (e-mail) headers";
     homepage = "https://github.com/jwodder/headerparser";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ ayazhafiz ];

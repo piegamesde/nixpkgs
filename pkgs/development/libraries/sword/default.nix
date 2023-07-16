@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.crosswire.org/ftpmirror/pub/sword/source/v1.8/${pname}-${version}.tar.gz"
-      ;
+      "https://www.crosswire.org/ftpmirror/pub/sword/source/v1.8/${pname}-${version}.tar.gz";
     sha256 = "14syphc47g6svkbg018nrsgq4z6hid1zydax243g8dx747vsi6nf";
   };
 
@@ -43,8 +42,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A software framework that allows research manipulation of Biblical texts"
-      ;
+      "A software framework that allows research manipulation of Biblical texts";
     homepage = "http://www.crosswire.org/sword/";
     longDescription = ''
       The SWORD Project is the CrossWire Bible Society's free Bible software

@@ -114,8 +114,7 @@ import ./make-test-python.nix ({
         services.gitolite = {
           enable = true;
           adminPubkey =
-            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJmoTOQnGqX+//us5oye8UuE+tQBx9QEM7PN13jrwgqY root@localhost"
-            ;
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJmoTOQnGqX+//us5oye8UuE+tQBx9QEM7PN13jrwgqY root@localhost";
         };
         systemd.services.public-inbox-httpd = {
           serviceConfig.SupplementaryGroups = [ gitolite.group ];

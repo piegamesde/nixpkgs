@@ -20,8 +20,7 @@ import ./make-test-python.nix ({
         services.xserver.displayManager.defaultSession =
           lib.mkForce "none+herbstluftwm";
         services.xserver.windowManager.herbstluftwm.enable = true;
-        environment.systemPackages = [ pkgs.dzen2 ]
-          ; # needed for upstream provided panel
+        environment.systemPackages = [ pkgs.dzen2 ]; # needed for upstream provided panel
       }
       ;
 

@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://debian/pool/main/x/xbindkeys-config/xbindkeys-config_${version}.orig.tar.gz"
-      ;
+      "mirror://debian/pool/main/x/xbindkeys-config/xbindkeys-config_${version}.orig.tar.gz";
     sha256 = "1rs3li2hyig6cdzvgqlbz0vw6x7rmgr59qd6m0cvrai8xhqqykda";
   };
 

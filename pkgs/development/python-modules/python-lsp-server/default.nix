@@ -140,8 +140,7 @@ buildPythonPackage rec {
     description = "Python implementation of the Language Server Protocol";
     homepage = "https://github.com/python-lsp/python-lsp-server";
     changelog =
-      "https://github.com/python-lsp/python-lsp-server/blob/v${version}/CHANGELOG.md"
-      ;
+      "https://github.com/python-lsp/python-lsp-server/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
     mainProgram = "pylsp";

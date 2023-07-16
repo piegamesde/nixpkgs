@@ -44,8 +44,7 @@ let
 
     src = fetchurl {
       url =
-        "mirror://sourceforge/flightgear/release-${shortVersion}/FlightGear-${version}-data.txz"
-        ;
+        "mirror://sourceforge/flightgear/release-${shortVersion}/FlightGear-${version}-data.txz";
       sha256 = "sha256-Kl66K5rmejaRKFgzps4/a73z8gIp9YcdfJQOFR1U2Og=";
     };
 
@@ -64,8 +63,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/flightgear/release-${shortVersion}/${pname}-${version}.tar.bz2"
-      ;
+      "mirror://sourceforge/flightgear/release-${shortVersion}/${pname}-${version}.tar.bz2";
     sha256 = "sha256-ZnDe3qyiaDrKd/nwa/nR2AYq4yoqVFnd3IqgmJxfGFQ=";
   };
 

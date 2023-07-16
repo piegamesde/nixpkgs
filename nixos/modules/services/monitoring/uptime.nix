@@ -97,13 +97,11 @@ in {
           NODE_CONFIG_DIR = configDir;
           NODE_ENV = cfg.nodeEnv;
           NODE_PATH =
-            "${pkgs.nodePackages.node-uptime}/lib/node_modules/node-uptime/node_modules"
-            ;
+            "${pkgs.nodePackages.node-uptime}/lib/node_modules/node-uptime/node_modules";
         };
         preStart = "mkdir -p /var/lib/uptime";
         serviceConfig.ExecStart =
-          "${pkgs.nodejs}/bin/node ${pkgs.nodePackages.node-uptime}/lib/node_modules/node-uptime/app.js"
-          ;
+          "${pkgs.nodejs}/bin/node ${pkgs.nodePackages.node-uptime}/lib/node_modules/node-uptime/app.js";
       };
 
       services.mongodb.enable = mkIf (!cfg.usesRemoteMongo) true;
@@ -118,8 +116,7 @@ in {
           NODE_CONFIG_DIR = configDir;
           NODE_ENV = cfg.nodeEnv;
           NODE_PATH =
-            "${pkgs.nodePackages.node-uptime}/lib/node_modules/node-uptime/node_modules"
-            ;
+            "${pkgs.nodePackages.node-uptime}/lib/node_modules/node-uptime/node_modules";
         };
           # Ugh, need to wait for web service to be up
         preStart =
@@ -129,8 +126,7 @@ in {
             "mkdir -p /var/lib/uptime"
           ;
         serviceConfig.ExecStart =
-          "${pkgs.nodejs}/bin/node ${pkgs.nodePackages.node-uptime}/lib/node_modules/node-uptime/monitor.js"
-          ;
+          "${pkgs.nodejs}/bin/node ${pkgs.nodePackages.node-uptime}/lib/node_modules/node-uptime/monitor.js";
       };
     })
   ];

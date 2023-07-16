@@ -45,8 +45,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog =
-      "https://github.com/agateblue/django-dynamic-preferences/blob/${version}/HISTORY.rst"
-      ;
+      "https://github.com/agateblue/django-dynamic-preferences/blob/${version}/HISTORY.rst";
     homepage = "https://github.com/EliotBerriot/django-dynamic-preferences";
     description =
       "Dynamic global and instance settings for your django project";

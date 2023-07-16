@@ -55,17 +55,13 @@ let
 
   downloadUrls = {
     aarch64-linux =
-      "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-aarch64.tar.bz2"
-      ;
+      "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-aarch64.tar.bz2";
     x86_64-linux =
-      "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-linux64.tar.bz2"
-      ;
+      "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-linux64.tar.bz2";
     aarch64-darwin =
-      "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-macos_arm64.tar.bz2"
-      ;
+      "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-macos_arm64.tar.bz2";
     x86_64-darwin =
-      "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-macos_x86_64.tar.bz2"
-      ;
+      "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-macos_x86_64.tar.bz2";
   };
 
 in with passthru;
@@ -176,8 +172,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "http://pypy.org/";
     description =
-      "Fast, compliant alternative implementation of the Python language (${pythonVersion})"
-      ;
+      "Fast, compliant alternative implementation of the Python language (${pythonVersion})";
     license = licenses.mit;
     platforms = lib.mapAttrsToList (arch: _: arch) downloadUrls;
   };

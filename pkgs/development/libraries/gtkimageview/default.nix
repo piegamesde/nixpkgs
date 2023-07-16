@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://sources.archlinux.org/other/packages/${pname}/${pname}-${version}.tar.gz"
-      ;
+      "https://sources.archlinux.org/other/packages/${pname}/${pname}-${version}.tar.gz";
     sha256 = "1wj63af9j9p5i067lpwi9lxvwalamakrmklvl983kvi7s4w1ss2c";
   };
 

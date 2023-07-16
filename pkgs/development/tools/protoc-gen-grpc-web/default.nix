@@ -57,8 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     homepage = "https://github.com/grpc/grpc-web";
     changelog =
-      "https://github.com/grpc/grpc-web/blob/${finalAttrs.version}/CHANGELOG.md"
-      ;
+      "https://github.com/grpc/grpc-web/blob/${finalAttrs.version}/CHANGELOG.md";
     description = "gRPC web support for Google's protocol buffers";
     license = licenses.asl20;
     maintainers = with maintainers; [ jk ];

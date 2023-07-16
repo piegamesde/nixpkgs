@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A wrapper to use wl-clipboard as a drop-in replacement for X11 clipboard tools"
-      ;
+      "A wrapper to use wl-clipboard as a drop-in replacement for X11 clipboard tools";
     homepage = "https://github.com/brunelli/wl-clipboard-x11";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ artturin ];

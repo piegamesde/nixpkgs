@@ -24,8 +24,7 @@ import ./make-test-python.nix ({
       '';
       environment.etc."ipsec.d/tunnel.secrets" = {
         text = ''
-          @alice @bob : PSK "j1JbIi9WY07rxwcNQ6nbyThKCf9DGxWOyokXIQcAQUnafsNTUJxfsxwk9WYK8fHj"''
-          ;
+          @alice @bob : PSK "j1JbIi9WY07rxwcNQ6nbyThKCf9DGxWOyokXIQcAQUnafsNTUJxfsxwk9WYK8fHj"'';
         mode = "600";
       };
     };

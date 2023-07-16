@@ -36,8 +36,7 @@ mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/lxqt/xdg-desktop-portal-lxqt";
     description =
-      "Backend implementation for xdg-desktop-portal that is using Qt/KF5/libfm-qt"
-      ;
+      "Backend implementation for xdg-desktop-portal that is using Qt/KF5/libfm-qt";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];

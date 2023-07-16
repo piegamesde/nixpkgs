@@ -85,8 +85,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Independent set of tools for working with Godot's GDScript - parser, linter and formatter"
-      ;
+      "Independent set of tools for working with Godot's GDScript - parser, linter and formatter";
     homepage = "https://github.com/Scony/godot-gdscript-toolkit";
     license = licenses.mit;
     maintainers = with maintainers; [

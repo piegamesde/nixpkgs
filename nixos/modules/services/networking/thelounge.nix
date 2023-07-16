@@ -33,8 +33,7 @@ in {
     "thelounge"
     "private"
   ]
-    "The option was renamed to `services.thelounge.public` to follow upstream changes.") ]
-    ;
+    "The option was renamed to `services.thelounge.public` to follow upstream changes.") ];
 
   options.services.thelounge = {
     enable = mkEnableOption (lib.mdDoc "The Lounge web IRC client");
@@ -103,9 +102,9 @@ in {
     systemd.services.thelounge = {
       description = "The Lounge web IRC client";
       wantedBy = [ "multi-user.target" ];
-      preStart =
-        "ln -sf ${pkgs.writeText "config.js" configJsData} ${dataDir}/config.js"
-        ;
+      preStart = "ln -sf ${
+          pkgs.writeText "config.js" configJsData
+        } ${dataDir}/config.js";
       environment.THELOUNGE_PACKAGES = mkIf (cfg.plugins != [ ]) "${plugins}";
       serviceConfig = {
         User = "thelounge";

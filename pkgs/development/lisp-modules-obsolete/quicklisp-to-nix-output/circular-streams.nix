@@ -22,8 +22,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/circular-streams/2016-12-04/circular-streams-20161204-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/circular-streams/2016-12-04/circular-streams-20161204-git.tgz";
     sha256 = "1i29b9sciqs5x59hlkdj2r4siyqgrwj5hb4lnc80jgfqvzbq4128";
   };
 

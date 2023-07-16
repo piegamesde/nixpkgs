@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
   patches = [ (fetchpatch {
     name = "CVE-2021-38165.patch";
     url =
-      "https://git.alpinelinux.org/aports/plain/main/lynx/CVE-2021-38165.patch?id=3400945dbbb8a87065360963e4caa0e17d3dcc61"
-      ;
+      "https://git.alpinelinux.org/aports/plain/main/lynx/CVE-2021-38165.patch?id=3400945dbbb8a87065360963e4caa0e17d3dcc61";
     sha256 = "1aykb9y2g2vdpbbpvjlm4r40x7py2yv6jbywwcqcxrlciqcw4x57";
   }) ];
 

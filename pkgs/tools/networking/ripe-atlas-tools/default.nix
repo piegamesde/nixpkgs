@@ -88,8 +88,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "RIPE ATLAS project tools";
     homepage = "https://github.com/RIPE-NCC/ripe-atlas-tools";
     changelog =
-      "https://github.com/RIPE-NCC/ripe-atlas-tools/blob/v${version}/CHANGES.rst"
-      ;
+      "https://github.com/RIPE-NCC/ripe-atlas-tools/blob/v${version}/CHANGES.rst";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ raitobezarius ];
   };

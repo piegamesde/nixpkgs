@@ -81,16 +81,14 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "include-schema-conversion-utils-source.patch";
       url =
-        "https://github.com/tensorflow/tensorflow/commit/f3c4f4733692150fd6174f2cd16438cfaba2e5ab.patch"
-        ;
+        "https://github.com/tensorflow/tensorflow/commit/f3c4f4733692150fd6174f2cd16438cfaba2e5ab.patch";
       sha256 = "0zx4hbz679kn79f30159rl1mq74dg45cvaawii0cyv48z472yy4k";
     })
     # TODO: remove on the next version bump
     (fetchpatch {
       name = "cxxstandard-var.patch";
       url =
-        "https://github.com/tensorflow/tensorflow/commit/9b128ae4200e10b4752f903492d1e7d11957ed5c.patch"
-        ;
+        "https://github.com/tensorflow/tensorflow/commit/9b128ae4200e10b4752f903492d1e7d11957ed5c.patch";
       sha256 = "1q0izdwdji5fbyqll6k4dmkzfykyvvz5cvc6hysdj285nkn2wy6h";
     })
   ];

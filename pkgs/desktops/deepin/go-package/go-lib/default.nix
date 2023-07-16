@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
   patches = [ (fetchpatch {
     name = "fix_IsDir_for_symlink.patch";
     url =
-      "https://github.com/linuxdeepin/go-lib/commit/79239904679dc70a11e1ac8e65670afcfdd7c122.patch"
-      ;
+      "https://github.com/linuxdeepin/go-lib/commit/79239904679dc70a11e1ac8e65670afcfdd7c122.patch";
     sha256 = "sha256-RsN9hK26i/W6P/+e1l1spCLdlgIEWTehhIW6POBOvW4=";
   }) ];
 
@@ -35,8 +34,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Library containing many useful go routines for things such as glib, gettext, archive, graphic, etc"
-      ;
+      "Library containing many useful go routines for things such as glib, gettext, archive, graphic, etc";
     homepage = "https://github.com/linuxdeepin/go-lib";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

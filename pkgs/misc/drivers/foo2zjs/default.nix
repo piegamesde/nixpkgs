@@ -68,8 +68,8 @@ stdenv.mkDerivation rec {
   '';
 
   nativeCheckInputs = [ time ];
-  doCheck = false
-    ; # fails to find its own binary. Also says "Tests will pass only if you are using ghostscript-8.71-16.fc14".
+  doCheck =
+    false; # fails to find its own binary. Also says "Tests will pass only if you are using ghostscript-8.71-16.fc14".
 
   preInstall = ''
     mkdir -pv $out/{etc/udev/rules.d,lib/udev/rules.d,etc/hotplug/usb}

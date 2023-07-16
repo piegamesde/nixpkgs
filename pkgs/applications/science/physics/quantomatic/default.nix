@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/Quantomatic/quantomatic/releases/download/v${version}/Quantomatic-v${version}.jar"
-      ;
+      "https://github.com/Quantomatic/quantomatic/releases/download/v${version}/Quantomatic-v${version}.jar";
     sha256 = "04dd5p73a7plb4l4x2balam8j7mxs8df06rjkalxycrr1id52q4r";
   };
 
@@ -31,8 +30,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A piece of software for reasoning about monoidal theories; in particular, quantum information processing"
-      ;
+      "A piece of software for reasoning about monoidal theories; in particular, quantum information processing";
     license = licenses.gpl3;
     homepage = "https://quantomatic.github.io/";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];

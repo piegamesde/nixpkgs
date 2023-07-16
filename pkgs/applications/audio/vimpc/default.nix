@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "ncurses-6.3.patch";
       url =
-        "https://github.com/boysetsfrog/vimpc/commit/055ecdce0720fdfc9ec2528c520b6c33da36271b.patch"
-        ;
+        "https://github.com/boysetsfrog/vimpc/commit/055ecdce0720fdfc9ec2528c520b6c33da36271b.patch";
       sha256 = "01p858jjxm0bf8hnk1z8h45j8c1y9i995mafa6ff3vg9vlak61pv";
     })
   ];

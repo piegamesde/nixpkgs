@@ -14,8 +14,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/binpack/2020-12-20/binpack-20201220-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/binpack/2020-12-20/binpack-20201220-git.tgz";
     sha256 = "1kyl19kjsii2nrbf229c5fb3bjw7r25736f991g2j8vig991imwm";
   };
 

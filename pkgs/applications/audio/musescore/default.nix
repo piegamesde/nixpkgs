@@ -45,8 +45,7 @@ mkDerivation rec {
     # See https://github.com/musescore/MuseScore/issues/15571
     (fetchpatch {
       url =
-        "https://github.com/musescore/MuseScore/commit/365be5dfb7296ebee4677cb74b67c1721bc2cf7b.patch"
-        ;
+        "https://github.com/musescore/MuseScore/commit/365be5dfb7296ebee4677cb74b67c1721bc2cf7b.patch";
       hash = "sha256-tJ2M21i3geO9OsjUQKNatSXTkJ5U9qMT4RLNdJnyoKw=";
     })
   ];

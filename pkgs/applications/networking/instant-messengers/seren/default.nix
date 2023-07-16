@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://holdenc.altervista.org/seren/downloads/${pname}-${version}.tar.gz"
-      ;
+      "http://holdenc.altervista.org/seren/downloads/${pname}-${version}.tar.gz";
     sha256 = "sha256-adI365McrJkvTexvnWjMzpHcJkLY3S/uWfE8u4yuqho=";
   };
 

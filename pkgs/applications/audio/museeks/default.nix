@@ -10,8 +10,7 @@ let
 
   src = fetchurl {
     url =
-      "https://github.com/martpie/museeks/releases/download/${version}/museeks-x86_64.AppImage"
-      ;
+      "https://github.com/martpie/museeks/releases/download/${version}/museeks-x86_64.AppImage";
     hash = "sha256-LvunhCFmpv00TnXzWjp3kQUAhoKpmp6pqKgcaUqZV+o=";
   };
 

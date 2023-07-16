@@ -548,8 +548,7 @@ in {
           auth
         ] <= 1;
       message = ''
-        options networking.wireless."${name}".{psk,pskRaw,auth} are mutually exclusive''
-        ;
+        options networking.wireless."${name}".{psk,pskRaw,auth} are mutually exclusive'';
     }) ++ [ {
       assertion = length cfg.interfaces > 1 -> !cfg.dbusControlled;
       message =

@@ -44,8 +44,7 @@ assert framePointerSupport -> lib.versionAtLeast version "4.01";
 let
   src = args.src or (fetchurl {
     url =
-      args.url or "http://caml.inria.fr/pub/distrib/ocaml-${versionNoPatch}/ocaml-${version}.tar.xz"
-      ;
+      args.url or "http://caml.inria.fr/pub/distrib/ocaml-${versionNoPatch}/ocaml-${version}.tar.xz";
     inherit (args) sha256;
   });
 
@@ -194,8 +193,7 @@ stdenv.mkDerivation (args // {
       lgpl2 # library
     ];
     description =
-      "OCaml is an industrial-strength programming language supporting functional, imperative and object-oriented styles"
-      ;
+      "OCaml is an industrial-strength programming language supporting functional, imperative and object-oriented styles";
 
     longDescription = ''
       OCaml is a general purpose programming language with an emphasis on expressiveness and safety. Developed for more than 20 years at Inria by a group of leading researchers, it has an advanced type system that helps catch your mistakes without getting in your way. It's used in environments where a single mistake can cost millions and speed matters, is supported by an active community, and has a rich set of libraries and development tools. It's widely used in teaching for its power and simplicity.

@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/lcdproc/lcdproc/commit/fda5302878692da933dc03cd011f8ddffefa07a4.patch"
-        ;
+        "https://github.com/lcdproc/lcdproc/commit/fda5302878692da933dc03cd011f8ddffefa07a4.patch";
       sha256 = "0ld6p1r4rjsnjr63afw3lp5lx25jxjs07lsp9yc3q96r91r835cy";
     })
   ];

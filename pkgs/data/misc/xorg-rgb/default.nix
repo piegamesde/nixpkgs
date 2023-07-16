@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://xorg.freedesktop.org/archive/individual/app/rgb-${version}.tar.bz2"
-      ;
+      "https://xorg.freedesktop.org/archive/individual/app/rgb-${version}.tar.bz2";
     sha256 = "1c76zcjs39ljil6f6jpx1x17c8fnvwazz7zvl3vbjfcrlmm7rjmv";
   };
 

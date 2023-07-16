@@ -34,8 +34,7 @@ buildPythonApplication rec {
       "A dialect-aware s-expression indenter written in Python and newLISP";
     homepage = "https://github.com/nkmathew/yasi-sexp-indenter";
     changelog =
-      "https://github.com/nkmathew/yasi-sexp-indenter/blob/${src.rev}/CHANGELOG.md"
-      ;
+      "https://github.com/nkmathew/yasi-sexp-indenter/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ kranzes ];
   };

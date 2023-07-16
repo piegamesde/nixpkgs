@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/libhangul/libhangul-${version}.tar.gz"
-      ;
+      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/libhangul/libhangul-${version}.tar.gz";
     sha256 = "0ni9b0v70wkm0116na7ghv03pgxsfpfszhgyj3hld3bxamfal1ar";
   };
 

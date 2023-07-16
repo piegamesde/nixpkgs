@@ -26,8 +26,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A Python module to access Java classes as Python classes using the Java Native Interface (JNI)"
-      ;
+      "A Python module to access Java classes as Python classes using the Java Native Interface (JNI)";
     homepage = "https://github.com/kivy/pyjnius";
     license = licenses.mit;
     maintainers = with maintainers; [ ifurther ];

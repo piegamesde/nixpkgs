@@ -98,8 +98,7 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Natural Language Search Assistant for your Org-Mode and Markdown notes, Beancount transactions and Photos"
-      ;
+      "Natural Language Search Assistant for your Org-Mode and Markdown notes, Beancount transactions and Photos";
     homepage = "https://github.com/debanjum/khoj";
     changelog = "https://github.com/debanjum/khoj/releases/tag/${version}";
     license = licenses.gpl3Only;

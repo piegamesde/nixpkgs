@@ -332,8 +332,7 @@ rec {
       haddockPhase = ":";
       checkPhase = ":";
       installPhase =
-        "install -D dist/${drv.pname}-*.tar.gz $out/${drv.pname}-${drv.version}.tar.gz"
-        ;
+        "install -D dist/${drv.pname}-*.tar.gz $out/${drv.pname}-${drv.version}.tar.gz";
       fixupPhase = ":";
     })
     ;

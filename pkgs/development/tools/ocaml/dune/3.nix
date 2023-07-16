@@ -18,8 +18,7 @@ else
 
     src = fetchurl {
       url =
-        "https://github.com/ocaml/dune/releases/download/${version}/dune-${version}.tbz"
-        ;
+        "https://github.com/ocaml/dune/releases/download/${version}/dune-${version}.tbz";
       sha256 = "sha256-rfw48UwBiKKtgNYUUdAR0nq4g5txdJLXrUL3y5EcVMM=";
     };
 

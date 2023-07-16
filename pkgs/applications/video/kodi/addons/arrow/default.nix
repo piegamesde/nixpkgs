@@ -13,8 +13,7 @@ buildKodiAddon rec {
 
   src = fetchzip {
     url =
-      "https://mirrors.kodi.tv/addons/nexus/script.module.arrow/script.module.arrow-${version}.zip"
-      ;
+      "https://mirrors.kodi.tv/addons/nexus/script.module.arrow/script.module.arrow-${version}.zip";
     sha256 = "sha256-dFCAHlWgslxsAVQAPP3aDM6Fw+I9PP0ITUVTKJY2QXU=";
   };
 

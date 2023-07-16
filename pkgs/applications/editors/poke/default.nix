@@ -123,8 +123,7 @@ stdenv.mkDerivation rec {
     description = "Interactive, extensible editor for binary data";
     homepage = "http://www.jemarch.net/poke";
     changelog =
-      "https://git.savannah.gnu.org/cgit/poke.git/plain/ChangeLog?h=releases/poke-${version}"
-      ;
+      "https://git.savannah.gnu.org/cgit/poke.git/plain/ChangeLog?h=releases/poke-${version}";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [
       AndersonTorres

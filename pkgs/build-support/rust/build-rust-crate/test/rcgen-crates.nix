@@ -2351,8 +2351,7 @@ rec {
           "serde_json" = [ "dep:serde_json" ];
           "spans" = [ "wasm-bindgen-macro/spans" ];
           "strict-macro" = [ "wasm-bindgen-macro/strict-macro" ];
-          "xxx_debug_only_print_generated_code" = [ "wasm-bindgen-macro/xxx_debug_only_print_generated_code" ]
-            ;
+          "xxx_debug_only_print_generated_code" = [ "wasm-bindgen-macro/xxx_debug_only_print_generated_code" ];
         };
         resolvedDefaultFeatures = [
           "default"
@@ -4497,8 +4496,7 @@ rec {
                 # https://www.pietroalbini.org/blog/downloading-crates-io/
                 # Not rate-limited, CDN URL.
               url =
-                "https://static.crates.io/crates/${crateConfig.crateName}/${crateConfig.crateName}-${crateConfig.version}.crate"
-                ;
+                "https://static.crates.io/crates/${crateConfig.crateName}/${crateConfig.crateName}-${crateConfig.version}.crate";
               sha256 = assert (lib.assertMsg (crateConfig ? sha256)
                 "Missing sha256 for ${name}");
                 crateConfig.sha256;

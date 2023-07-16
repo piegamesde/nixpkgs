@@ -11,8 +11,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://raw.githubusercontent.com/KenjiE20/highmon/182e67d070c75efc81999e68c2ac7fdfe44d2872/highmon.pl"
-      ;
+      "https://raw.githubusercontent.com/KenjiE20/highmon/182e67d070c75efc81999e68c2ac7fdfe44d2872/highmon.pl";
     sha256 = "1vvgzscb12l3cp2nq954fx6j3awvpjsb0nqylal51ps9cq9a3wir";
   };
 

@@ -13,8 +13,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/eqaf/releases/download/v${version}/eqaf-${version}.tbz"
-      ;
+      "https://github.com/mirage/eqaf/releases/download/v${version}/eqaf-${version}.tbz";
     hash = "sha256-7A4oqUasaBf5XVhU8FqZYa46hAi7YQ55z60BubJV3+A=";
   };
 

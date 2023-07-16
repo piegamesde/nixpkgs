@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://archive.apache.org/dist/thrift/${version}/${pname}-${version}.tar.gz"
-      ;
+      "https://archive.apache.org/dist/thrift/${version}/${pname}-${version}.tar.gz";
     hash = "sha256-fBk4nLeRCiDli45GkDyMGjY1MAj5/MGwP3SKzPm18+E=";
   };
 
@@ -65,27 +64,24 @@ stdenv.mkDerivation rec {
     # doesn't disable all UnitTests as in Darwin.
     ./disable-failing-test.patch
     (fetchpatch {
-      name = "setuptools-gte-62.1.0.patch"
-        ; # https://github.com/apache/thrift/pull/2635
+      name =
+        "setuptools-gte-62.1.0.patch"; # https://github.com/apache/thrift/pull/2635
       url =
-        "https://github.com/apache/thrift/commit/c41ad9d5119e9bdae1746167e77e224f390f2c42.diff"
-        ;
+        "https://github.com/apache/thrift/commit/c41ad9d5119e9bdae1746167e77e224f390f2c42.diff";
       hash = "sha256-FkErrg/6vXTomS4AsCsld7t+Iccc55ZiDaNjJ3W1km0=";
     })
     (fetchpatch {
-      name = "thrift-install-FindLibevent.patch"
-        ; # https://github.com/apache/thrift/pull/2726
+      name =
+        "thrift-install-FindLibevent.patch"; # https://github.com/apache/thrift/pull/2726
       url =
-        "https://github.com/apache/thrift/commit/2ab850824f75d448f2ba14a468fb77d2594998df.diff"
-        ;
+        "https://github.com/apache/thrift/commit/2ab850824f75d448f2ba14a468fb77d2594998df.diff";
       hash = "sha256-ejMKFG/cJgoPlAFzVDPI4vIIL7URqaG06/IWdQ2NkhY=";
     })
     (fetchpatch {
-      name = "thrift-fix-tests-OpenSSL3.patch"
-        ; # https://github.com/apache/thrift/pull/2760
+      name =
+        "thrift-fix-tests-OpenSSL3.patch"; # https://github.com/apache/thrift/pull/2760
       url =
-        "https://github.com/apache/thrift/commit/eae3ac418f36c73833746bcd53e69ed8a12f0e1a.diff"
-        ;
+        "https://github.com/apache/thrift/commit/eae3ac418f36c73833746bcd53e69ed8a12f0e1a.diff";
       hash = "sha256-0jlN4fo94cfGFUKcLFQgVMI/x7uxn5OiLiFk6txVPzs=";
     })
   ];

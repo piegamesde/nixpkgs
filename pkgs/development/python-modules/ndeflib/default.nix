@@ -31,8 +31,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python package for parsing and generating NFC Data Exchange Format messages"
-      ;
+      "Python package for parsing and generating NFC Data Exchange Format messages";
     homepage = "https://github.com/nfcpy/ndeflib";
     license = licenses.isc;
     maintainers = with maintainers; [ fab ];

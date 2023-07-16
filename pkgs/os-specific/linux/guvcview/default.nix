@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/guvcview/source/guvcview-src-${version}.tar.gz"
-      ;
+      "mirror://sourceforge/project/guvcview/source/guvcview-src-${version}.tar.gz";
     sha256 = "11byyfpkcik7wvf2qic77zjamfr2rhji97dpj1gy2fg1bvpiqf4m";
   };
 

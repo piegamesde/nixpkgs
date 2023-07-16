@@ -20,8 +20,7 @@ let
     # not going to bother.
   mkdep-darwin-src = fetchurl {
     url =
-      "https://opensource.apple.com/source/developer_cmds/developer_cmds-63/mkdep/mkdep.sh"
-      ;
+      "https://opensource.apple.com/source/developer_cmds/developer_cmds-63/mkdep/mkdep.sh";
     sha256 = "0n4wpqfslfjs5zbys5yri8pfi2awyhlmknsf6laa5jzqbzq9x541";
     executable = true;
   };

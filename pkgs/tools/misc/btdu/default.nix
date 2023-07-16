@@ -33,22 +33,19 @@ stdenv.mkDerivation rec {
     })
     (fetchurl {
       url =
-        "https://github.com/CyberShadow/d-btrfs/archive/v${_d_btrfs_ver}.tar.gz"
-        ;
+        "https://github.com/CyberShadow/d-btrfs/archive/v${_d_btrfs_ver}.tar.gz";
       sha256 =
         "05a59cd64000ce2af9bd0578ef5118ab4d10de0ec50410ba0d4e463f01cfaa4e";
     })
     (fetchurl {
       url =
-        "https://github.com/D-Programming-Deimos/ncurses/archive/v${_d_ncurses_ver}.tar.gz"
-        ;
+        "https://github.com/D-Programming-Deimos/ncurses/archive/v${_d_ncurses_ver}.tar.gz";
       sha256 =
         "2c8497f5dd93f9d3a05ca7ed57c4fcaee1e988fd25a24de106917ddf72f34646";
     })
     (fetchurl {
       url =
-        "https://github.com/dlang-community/containers/archive/v${_d_emsi_containers_ver}.tar.gz"
-        ;
+        "https://github.com/dlang-community/containers/archive/v${_d_emsi_containers_ver}.tar.gz";
       sha256 =
         "5e256b84bbdbd2bd625cba0472ea27a1fde6d673d37a85fe971a20d52874acaa";
     })

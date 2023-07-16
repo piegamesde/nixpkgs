@@ -34,22 +34,19 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "gir-dep";
       url =
-        "https://gitlab.gnome.org/GNOME/libgudev/-/commit/6bdde16a0cfde462502fce1d9a7eb6ec33f388bb.diff"
-        ;
+        "https://gitlab.gnome.org/GNOME/libgudev/-/commit/6bdde16a0cfde462502fce1d9a7eb6ec33f388bb.diff";
       sha256 = "sha256-bDtLUxOLEgyJURshqEQC4YCBTUVzQQP4qoWL786b3Z8=";
     })
     (fetchpatch {
       name = "vapi-dep";
       url =
-        "https://gitlab.gnome.org/GNOME/libgudev/-/commit/d1f6457910842ba869c9871e7a2131fbe0d6b6be.diff"
-        ;
+        "https://gitlab.gnome.org/GNOME/libgudev/-/commit/d1f6457910842ba869c9871e7a2131fbe0d6b6be.diff";
       sha256 = "sha256-/PY8ziZST/vQvksJm69a3O6/YesknIxCDvj0z40piik=";
     })
     (fetchpatch {
       name = "gtk-doc-dep";
       url =
-        "https://gitlab.gnome.org/GNOME/libgudev/-/commit/34336cbadbcaac8b9b029f730eed0bdf4c633617.diff"
-        ;
+        "https://gitlab.gnome.org/GNOME/libgudev/-/commit/34336cbadbcaac8b9b029f730eed0bdf4c633617.diff";
       sha256 = "sha256-Bk05xe69LGqWH1uhLMZhwbVMSsCTyBrrOvqWic2TTd4=";
     })
   ];

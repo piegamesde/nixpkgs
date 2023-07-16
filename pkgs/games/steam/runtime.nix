@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://repo.steampowered.com/steamrt-images-scout/snapshots/${version}/steam-runtime.tar.xz"
-      ;
+      "https://repo.steampowered.com/steamrt-images-scout/snapshots/${version}/steam-runtime.tar.xz";
     sha256 = "sha256-uYauNtbUlvrnATGks7hWy1zt4Y7AEeADrCr1eVylPbY=";
     name = "scout-runtime-${version}.tar.gz";
   };

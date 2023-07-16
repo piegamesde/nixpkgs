@@ -30,8 +30,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python Japanese character interconverter for Hiragana, Katakana, Hankaku and Zenkaku"
-      ;
+      "Python Japanese character interconverter for Hiragana, Katakana, Hankaku and Zenkaku";
     homepage = "https://github.com/ikegami-yukino/jaconv";
     changelog =
       "https://github.com/ikegami-yukino/jaconv/blob/v${version}/CHANGES.rst";

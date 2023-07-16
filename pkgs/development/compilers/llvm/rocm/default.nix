@@ -30,8 +30,8 @@ let
   # Stage 1
   # Base
   llvm = callPackage ./llvm.nix {
-    isBroken = stdenv.isAarch64
-      ; # https://github.com/RadeonOpenCompute/ROCm/issues/1831#issuecomment-1278205344
+    isBroken =
+      stdenv.isAarch64; # https://github.com/RadeonOpenCompute/ROCm/issues/1831#issuecomment-1278205344
   };
 
     # Projects
@@ -398,8 +398,8 @@ in rec {
     # Unfortunately, we cannot build `clang-tools-extra` separately.
   clang-tools-extra = callPackage ./llvm.nix {
     stdenv = rocmClangStdenv;
-    buildTests = false
-      ; # `invalid operands to binary expression ('std::basic_stringstream<char>' and 'const llvm::StringRef')`
+    buildTests =
+      false; # `invalid operands to binary expression ('std::basic_stringstream<char>' and 'const llvm::StringRef')`
     targetName = "clang-tools-extra";
 
     targetProjects = [

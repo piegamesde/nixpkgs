@@ -16,8 +16,7 @@ with self;
   sexplib0 = janePackage {
     pname = "sexplib0";
     meta.description =
-      "Library containing the definition of S-expressions and some base converters"
-      ;
+      "Library containing the definition of S-expressions and some base converters";
     hash = "07v3ggyss7xhfv14bjk1n87sr42iqwj4cgjiv2lcdfkqk49i2bmi";
   };
 
@@ -176,8 +175,7 @@ with self;
       ppx_sexp_conv
     ];
     meta.description =
-      "A ppx rewriter that generates hash functions from type expressions and definitions"
-      ;
+      "A ppx rewriter that generates hash functions from type expressions and definitions";
   };
 
   ppx_inline_test = janePackage {
@@ -408,8 +406,7 @@ with self;
     hash = "0s1ps7h54vgl76pll3y5qa1bw8f4h8wxc8mg8jq6bz8vxvl0dfv4";
     propagatedBuildInputs = [ core_kernel ];
     meta.description =
-      "The subset of textutils using only core_kernel and working in javascript"
-      ;
+      "The subset of textutils using only core_kernel and working in javascript";
   };
 
   textutils = janePackage {
@@ -582,8 +579,7 @@ with self;
     hash = "111v4km0ds8ixmpmwg9ck36ap97400mqzhijf57kj6wfwgzcmr2g";
     propagatedBuildInputs = [ async ];
     meta.description =
-      "Utilities for Versioned RPC communication with a child process over stdin and stdout"
-      ;
+      "Utilities for Versioned RPC communication with a child process over stdin and stdout";
   };
 
     # Deprecated libraries

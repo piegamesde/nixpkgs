@@ -41,8 +41,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A universal force engine for ab initio and force field driven (path integral) molecular dynamics"
-      ;
+      "A universal force engine for ab initio and force field driven (path integral) molecular dynamics";
     license = with licenses; [
       gpl3Only
       mit

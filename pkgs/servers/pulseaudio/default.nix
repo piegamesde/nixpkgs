@@ -80,8 +80,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://freedesktop.org/software/pulseaudio/releases/pulseaudio-${version}.tar.xz"
-      ;
+      "http://freedesktop.org/software/pulseaudio/releases/pulseaudio-${version}.tar.xz";
     sha256 = "sha256-ju8yzpHUeXn5X9mpNec4zX63RjQw2rxyhjJRdR5QSuQ=";
   };
 

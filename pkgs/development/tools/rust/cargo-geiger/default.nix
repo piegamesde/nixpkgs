@@ -53,8 +53,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     homepage = "https://github.com/rust-secure-code/cargo-geiger";
     changelog =
-      "https://github.com/rust-secure-code/cargo-geiger/blob/${pname}-${version}/CHANGELOG.md"
-      ;
+      "https://github.com/rust-secure-code/cargo-geiger/blob/${pname}-${version}/CHANGELOG.md";
     description =
       "Detects usage of unsafe Rust in a Rust crate and its dependencies";
     longDescription = ''

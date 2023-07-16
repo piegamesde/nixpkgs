@@ -39,8 +39,7 @@ buildPythonPackage rec {
 
   src = fetchzip {
     url =
-      "https://github.com/starkware-libs/cairo-lang/releases/download/v${version}/cairo-lang-${version}.zip"
-      ;
+      "https://github.com/starkware-libs/cairo-lang/releases/download/v${version}/cairo-lang-${version}.zip";
     hash = "sha256-MNbzDqqNhij9JizozLp9hhQjbRGzWxECOErS3TOPlAA=";
   };
 

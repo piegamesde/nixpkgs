@@ -155,8 +155,7 @@ in {
             Group = "sks";
             Restart = "always";
             ExecStart =
-              "${sksPkg}/bin/sks db -hkp_address ${hkpAddress} -hkp_port ${hkpPort}"
-              ;
+              "${sksPkg}/bin/sks db -hkp_address ${hkpAddress} -hkp_port ${hkpPort}";
           };
         };
       }

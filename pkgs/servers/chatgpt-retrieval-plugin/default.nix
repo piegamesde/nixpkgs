@@ -62,8 +62,7 @@ python3Packages.buildPythonApplication {
   meta = with lib; {
     homepage = "https://github.com/openai/chatgpt-retrieval-plugin";
     description =
-      "The ChatGPT Retrieval Plugin lets you easily search and find personal or work documents by asking questions in everyday language. "
-      ;
+      "The ChatGPT Retrieval Plugin lets you easily search and find personal or work documents by asking questions in everyday language. ";
     license = licenses.mit;
     maintainers = with maintainers; [ happysalada ];
   };

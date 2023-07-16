@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
       (fetchpatch {
         name = "getrandom-conditionalize.patch";
         url =
-          "https://git.gnupg.org/cgi-bin/gitweb.cgi?p=libgcrypt.git;a=commitdiff_plain;h=d41177937cea4aa1e9042ebcd195a349c40e8071"
-          ;
+          "https://git.gnupg.org/cgi-bin/gitweb.cgi?p=libgcrypt.git;a=commitdiff_plain;h=d41177937cea4aa1e9042ebcd195a349c40e8071";
         hash = "sha256-CgQjNtC1qLe5LicIc8rESc6Z1u4fk7ErMUVcG/2G9gM=";
       })
     ];
@@ -95,8 +94,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.gnu.org/software/libgcrypt/";
     changelog =
-      "https://git.gnupg.org/cgi-bin/gitweb.cgi?p=libgcrypt.git;a=blob;f=NEWS;hb=refs/tags/${pname}-${version}"
-      ;
+      "https://git.gnupg.org/cgi-bin/gitweb.cgi?p=libgcrypt.git;a=blob;f=NEWS;hb=refs/tags/${pname}-${version}";
     description = "General-purpose cryptographic library";
     license = licenses.lgpl2Plus;
     platforms = platforms.all;

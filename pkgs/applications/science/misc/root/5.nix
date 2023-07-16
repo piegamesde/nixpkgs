@@ -73,22 +73,19 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "root5-gcc9-fix.patch";
       url =
-        "https://github.com/root-project/root/commit/348f30a6a3b5905ef734a7bd318bc0ee8bca6dc9.diff"
-        ;
+        "https://github.com/root-project/root/commit/348f30a6a3b5905ef734a7bd318bc0ee8bca6dc9.diff";
       sha256 = "0dvrsrkpacyn5z87374swpy7aciv9a8s6m61b4iqd7a956r67rn3";
     })
     (fetchpatch {
       name = "root5-gcc10-fix.patch";
       url =
-        "https://github.com/root-project/root/commit/3c243b18768d3c3501faf3ca4e4acfc071021350.diff"
-        ;
+        "https://github.com/root-project/root/commit/3c243b18768d3c3501faf3ca4e4acfc071021350.diff";
       sha256 = "1hjmgnp4zx6im8ps78673x0rrhmfyy1nffhgxjlfl1r2z8cq210z";
     })
     (fetchpatch {
       name = "root5-python37-fix.patch";
       url =
-        "https://github.com/root-project/root/commit/c75458024082de0cc35b45505c652b8460a9e71b.patch"
-        ;
+        "https://github.com/root-project/root/commit/c75458024082de0cc35b45505c652b8460a9e71b.patch";
       sha256 = "sha256-A5zEjQE9OGPFp/L1HUs4NIdxQMRiwbwCRNWOLN2ENrM=";
     })
   ];

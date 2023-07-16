@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://archive.org/download/soundmodem-${version}/soundmodem-${version}.tar.gz"
-      ;
+      "https://archive.org/download/soundmodem-${version}/soundmodem-${version}.tar.gz";
     sha256 = "156l3wjnh5rcisxb42kcmlf74swf679v4xnj09zy5j74rd4h721z";
   };
 
@@ -45,8 +44,7 @@ stdenv.mkDerivation rec {
       #homepage = "http://gna.org/projects/soundmodem"; # official, but "Connection refused"
     homepage = "http://soundmodem.vk4msl.id.au/";
     downloadPage =
-      "https://archive.org/download/${pname}-${version}/${pname}-${version}.tar.gz"
-      ;
+      "https://archive.org/download/${pname}-${version}/${pname}-${version}.tar.gz";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ ymarkus ];
     platforms = platforms.all;

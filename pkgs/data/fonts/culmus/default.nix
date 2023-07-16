@@ -10,8 +10,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/${pname}/${pname}/${version}/${pname}-${version}.tar.gz"
-      ;
+      "mirror://sourceforge/${pname}/${pname}/${version}/${pname}-${version}.tar.gz";
     hash = "sha256-wMaHN0LQdUT2us8q1S65yzkpdNVkJ5ONwd+8g5nGTQU=";
   };
 
@@ -32,8 +31,7 @@ stdenvNoCC.mkDerivation rec {
   meta = {
     description = "Culmus Hebrew fonts";
     longDescription =
-      "The Culmus project aims at providing the Hebrew-speaking GNU/Linux and Unix community with a basic collection of Hebrew fonts for X Windows."
-      ;
+      "The Culmus project aims at providing the Hebrew-speaking GNU/Linux and Unix community with a basic collection of Hebrew fonts for X Windows.";
     platforms = lib.platforms.all;
     license = lib.licenses.gpl2;
     homepage = "http://culmus.sourceforge.net/";

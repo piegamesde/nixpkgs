@@ -35,8 +35,7 @@ mkDerivation rec {
     # release including submodule
   src = fetchurl {
     url =
-      "https://github.com/calamares/calamares/releases/download/v${version}/${pname}-${version}.tar.gz"
-      ;
+      "https://github.com/calamares/calamares/releases/download/v${version}/${pname}-${version}.tar.gz";
     sha256 = "sha256-oPvOwqQ4aTdT/BdCIDVhGa1624orGcMXUYqhywJdbdA=";
   };
 

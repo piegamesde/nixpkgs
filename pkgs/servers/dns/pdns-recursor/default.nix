@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://downloads.powerdns.com/releases/pdns-recursor-${version}.tar.bz2"
-      ;
+      "https://downloads.powerdns.com/releases/pdns-recursor-${version}.tar.bz2";
     sha256 = "sha256-8KY/0I4D2oL6INMz6lF50bkln0JkVGz0mVKGZ32UWMc=";
   };
 

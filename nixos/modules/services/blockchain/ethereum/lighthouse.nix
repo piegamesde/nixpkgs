@@ -303,8 +303,7 @@ in {
 
     systemd.services.lighthouse-validator = mkIf cfg.validator.enable {
       description =
-        "Lighthouse validtor node (manages validators, using data obtained from the beacon node via a HTTP API)"
-        ;
+        "Lighthouse validtor node (manages validators, using data obtained from the beacon node via a HTTP API)";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 

@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.hostPlatform.isMusl (fetchpatch {
       name = "fix-pthread-mutex.patch";
       url =
-        "https://git.alpinelinux.org/aports/plain/main/gamin/fix-pthread-mutex.patch?h=3.4-stable&id=a1a836b089573752c1b0da7d144c0948b04e8ea8"
-        ;
+        "https://git.alpinelinux.org/aports/plain/main/gamin/fix-pthread-mutex.patch?h=3.4-stable&id=a1a836b089573752c1b0da7d144c0948b04e8ea8";
       sha256 = "13igdbqsxb3sz0h417k6ifmq2n4siwqspj6slhc7fdl5wd1fxmdz";
     }) ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
     ./abstract-socket-namespace.patch;

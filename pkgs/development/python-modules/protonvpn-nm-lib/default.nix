@@ -71,8 +71,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "ProtonVPN NetworkManager Library intended for every ProtonVPN service user"
-      ;
+      "ProtonVPN NetworkManager Library intended for every ProtonVPN service user";
     homepage = "https://github.com/ProtonVPN/protonvpn-nm-lib";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ wolfangaukang ];

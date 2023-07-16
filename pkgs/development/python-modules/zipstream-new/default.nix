@@ -29,8 +29,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Like Python's ZipFile module, except it works as a generator that provides the file in many small chunks"
-      ;
+      "Like Python's ZipFile module, except it works as a generator that provides the file in many small chunks";
     homepage = "https://github.com/arjan-s/python-zipstream";
     license = licenses.gpl3;
     maintainers = with maintainers; [ hexa ];

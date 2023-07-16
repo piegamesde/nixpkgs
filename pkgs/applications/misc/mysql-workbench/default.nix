@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://cdn.mysql.com//Downloads/MySQLGUITools/mysql-workbench-community-${version}-src.tar.gz"
-      ;
+      "https://cdn.mysql.com//Downloads/MySQLGUITools/mysql-workbench-community-${version}-src.tar.gz";
     sha256 = "a6c9b05ee6f8accd45203d8234a43415da65ddc8118d427dd1a2ef2a209261bc";
   };
 

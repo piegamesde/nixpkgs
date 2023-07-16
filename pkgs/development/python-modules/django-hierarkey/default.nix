@@ -43,8 +43,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Flexible and powerful hierarchical key-value store for your Django models"
-      ;
+      "Flexible and powerful hierarchical key-value store for your Django models";
     homepage = "https://github.com/raphaelm/django-hierarkey";
     license = licenses.asl20;
     maintainers = with maintainers; [ hexa ];

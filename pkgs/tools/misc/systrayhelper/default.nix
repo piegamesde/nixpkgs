@@ -40,8 +40,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A systray utility written in go, using json over stdio for control and events"
-      ;
+      "A systray utility written in go, using json over stdio for control and events";
     homepage = "https://github.com/ssbc/systrayhelper";
     maintainers = with maintainers; [ cryptix ];
     license = licenses.mit;

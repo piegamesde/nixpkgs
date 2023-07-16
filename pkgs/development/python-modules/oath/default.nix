@@ -20,8 +20,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python implementation of the three main OATH specifications: HOTP, TOTP and OCRA"
-      ;
+      "Python implementation of the three main OATH specifications: HOTP, TOTP and OCRA";
     homepage = "https://github.com/bdauvergne/python-oath";
     license = licenses.bsd3;
     maintainers = with maintainers; [ aw ];

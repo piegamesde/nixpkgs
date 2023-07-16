@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
     # Fix getc return type
     (fetchpatch {
       url =
-        "https://github.com/leetronics/infnoise/commit/7ed7014e14253311c07e530c8f89f1c8f4705c2b.patch"
-        ;
+        "https://github.com/leetronics/infnoise/commit/7ed7014e14253311c07e530c8f89f1c8f4705c2b.patch";
       sha256 = "sha256-seB/fJaxQ/rXJp5iPtnobXXOccQ2KUAk6HFx31dhOhs=";
     })
   ];

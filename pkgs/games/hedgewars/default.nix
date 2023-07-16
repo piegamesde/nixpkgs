@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.hedgewars.org/download/releases/hedgewars-src-${version}.tar.bz2"
-      ;
+      "https://www.hedgewars.org/download/releases/hedgewars-src-${version}.tar.bz2";
     sha256 = "sha256-IB/l5FvYyls9gbGOwGvWu8n6fCxjvwGQBeL4C+W88hI=";
   };
 

@@ -35,8 +35,7 @@ buildPythonPackage rec {
     description = "Garmin Connect Python API wrapper";
     homepage = "https://github.com/cyberjunky/python-garminconnect";
     changelog =
-      "https://github.com/cyberjunky/python-garminconnect/releases/tag/${version}"
-      ;
+      "https://github.com/cyberjunky/python-garminconnect/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

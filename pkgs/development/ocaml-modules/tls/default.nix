@@ -32,8 +32,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirleft/ocaml-tls/releases/download/v${version}/tls-${version}.tbz"
-      ;
+      "https://github.com/mirleft/ocaml-tls/releases/download/v${version}/tls-${version}.tbz";
     sha256 = "sha256-uvIDZLNy6E/ce7YmzUUVaOeGRaHqPSUzuEPQDMu09tM=";
   };
 

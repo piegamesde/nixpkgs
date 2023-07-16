@@ -24,14 +24,12 @@ stdenv.mkDerivation rec {
     # build with Qt5
     (fetchpatch {
       url =
-        "https://github.com/Rohde-Schwarz/TPMManager/commit/f62c0f2de2097af9b504c80d6193818e6e4ca84f.patch"
-        ;
+        "https://github.com/Rohde-Schwarz/TPMManager/commit/f62c0f2de2097af9b504c80d6193818e6e4ca84f.patch";
       sha256 = "sha256-gMhDNN2UkX2lJf/oJEzOkCvF6+EGdIj9xwtXb1rCeys=";
     })
     (fetchpatch {
       url =
-        "https://github.com/Rohde-Schwarz/TPMManager/commit/c287a841ac6b057ed35799949211866b9f533561.patch"
-        ;
+        "https://github.com/Rohde-Schwarz/TPMManager/commit/c287a841ac6b057ed35799949211866b9f533561.patch";
       sha256 = "sha256-2ZyUml8Q9bKQLVZWr18AzLt8VYLICXH9VDeq6B5Xfto=";
     })
   ];

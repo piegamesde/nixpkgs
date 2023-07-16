@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://www.hpl.hp.com/personal/Jean_Tourrilhes/Linux/wireless_tools.${version}.tar.gz"
-      ;
+      "http://www.hpl.hp.com/personal/Jean_Tourrilhes/Linux/wireless_tools.${version}.tar.gz";
     sha256 = "0qscyd44jmhs4k32ggp107hlym1pcyjzihiai48xs7xzib4wbndb";
   };
 

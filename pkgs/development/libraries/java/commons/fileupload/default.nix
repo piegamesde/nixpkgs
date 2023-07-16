@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://apache/commons/fileupload/binaries/${pname}-${version}-bin.tar.gz"
-      ;
+      "mirror://apache/commons/fileupload/binaries/${pname}-${version}-bin.tar.gz";
     sha256 = "1avfv4gljp7flra767yzas54vfb6az9s1nhxfjv48jj2x0llxxkx";
   };
   installPhase = ''
@@ -23,8 +22,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://commons.apache.org/proper/commons-fileupload";
     description =
-      "Makes it easy to add robust, high-performance, file upload capability to your servlets and web applications"
-      ;
+      "Makes it easy to add robust, high-performance, file upload capability to your servlets and web applications";
     maintainers = with lib.maintainers; [ copumpkin ];
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
     license = lib.licenses.asl20;

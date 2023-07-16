@@ -10,8 +10,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/ocaml-magic-mime/releases/download/v${version}/magic-mime-v${version}.tbz"
-      ;
+      "https://github.com/mirage/ocaml-magic-mime/releases/download/v${version}/magic-mime-v${version}.tbz";
     sha256 = "sha256-8SG2dQD43Zfi/J/V0BxzJeTIS8XAI3RCd5+9b6IGlPU=";
   };
 

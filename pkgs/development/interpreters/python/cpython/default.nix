@@ -313,8 +313,7 @@ stdenv.mkDerivation {
     (fetchpatch {
       name = "asyncio-deprecation-3.11.patch";
       url =
-        "https://github.com/python/cpython/commit/3fae04b10e2655a20a3aadb5e0d63e87206d0c67.diff"
-        ;
+        "https://github.com/python/cpython/commit/3fae04b10e2655a20a3aadb5e0d63e87206d0c67.diff";
       revert = true;
       excludes = [ "Misc/NEWS.d/*" ];
       hash = "sha256-PmkXf2D9trtW1gXZilRIWgdg2Y47JfELq1z4DuG3wJY=";

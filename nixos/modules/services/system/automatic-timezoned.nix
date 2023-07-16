@@ -62,8 +62,7 @@ in {
           Type = "exec";
           User = "automatic-timezoned";
           ExecStart =
-            "${cfg.package}/bin/automatic-timezoned --zoneinfo-path=${pkgs.tzdata}/share/zoneinfo/zone1970.tab"
-            ;
+            "${cfg.package}/bin/automatic-timezoned --zoneinfo-path=${pkgs.tzdata}/share/zoneinfo/zone1970.tab";
         };
         wantedBy = [ "default.target" ];
       };

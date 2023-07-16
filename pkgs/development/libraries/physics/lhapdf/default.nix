@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "lhapdf-propagate_returncode.patch";
       url =
-        "https://gitlab.com/hepcedar/lhapdf/-/commit/2806ac795c7e4a69281d9c2a6a8bba5423f37e74.diff"
-        ;
+        "https://gitlab.com/hepcedar/lhapdf/-/commit/2806ac795c7e4a69281d9c2a6a8bba5423f37e74.diff";
       hash = "sha256-j8txlt0n5gpUy9zeuWKx+KRXL3HMMaGcwOxr908966k=";
     })
 
@@ -30,8 +29,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "lhapdf-Wl_stack_size.patch";
       url =
-        "https://gitlab.com/hepcedar/lhapdf/-/commit/463764d6613837b6ab57ecaf13bc61be2349e5e4.diff"
-        ;
+        "https://gitlab.com/hepcedar/lhapdf/-/commit/463764d6613837b6ab57ecaf13bc61be2349e5e4.diff";
       hash = "sha256-AbDs7gtU5HsJG5n/solMzu2bjX1juxfUIqIt5KmNffU=";
     })
   ];
@@ -65,8 +63,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A general purpose interpolator, used for evaluating Parton Distribution Functions from discretised data files"
-      ;
+      "A general purpose interpolator, used for evaluating Parton Distribution Functions from discretised data files";
     license = licenses.gpl2;
     homepage = "http://lhapdf.hepforge.org";
     platforms = platforms.unix;

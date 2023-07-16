@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "http://downloads.openmicroscopy.org/bio-formats/${version}/artifacts/bftools.zip"
-      ;
+      "http://downloads.openmicroscopy.org/bio-formats/${version}/artifacts/bftools.zip";
     sha256 = "02nvvmpfglpah1ihd08aw65g1794w588c988cdar1hfl4s80qwhb";
   };
 
@@ -41,8 +40,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A bundle of scripts for using Bio-Formats on the command line with bioformats_package.jar already included"
-      ;
+      "A bundle of scripts for using Bio-Formats on the command line with bioformats_package.jar already included";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.gpl2;
     platforms = platforms.all;

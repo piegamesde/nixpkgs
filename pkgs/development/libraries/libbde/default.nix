@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/libyal/libbde/releases/download/${version}/${pname}-alpha-${version}.tar.gz"
-      ;
+      "https://github.com/libyal/libbde/releases/download/${version}/${pname}-alpha-${version}.tar.gz";
     sha256 = "sha256-uMbwofboePCFWlxEOdRbZK7uZuj0MZC/qusWuu0Bm7g=";
   };
 

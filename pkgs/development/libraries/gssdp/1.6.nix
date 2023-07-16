@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
     # https://gitlab.gnome.org/GNOME/gssdp/-/merge_requests/11
     name = "gi-docgen-as-native-dep.patch";
     url =
-      "https://gitlab.gnome.org/GNOME/gssdp/-/commit/db9d02c22005be7e5e81b43a3ab777250bd7b27b.diff"
-      ;
+      "https://gitlab.gnome.org/GNOME/gssdp/-/commit/db9d02c22005be7e5e81b43a3ab777250bd7b27b.diff";
     hash = "sha256-Q2kwZlpNvSzIcMalrOm5lO5iFe+myS7J0S0vkcp10cw=";
   }) ];
 
@@ -88,8 +87,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     broken = stdenv.isDarwin;
     description =
-      "GObject-based API for handling resource discovery and announcement over SSDP"
-      ;
+      "GObject-based API for handling resource discovery and announcement over SSDP";
     homepage = "http://www.gupnp.org/";
     license = licenses.lgpl2Plus;
     maintainers = teams.gnome.members;

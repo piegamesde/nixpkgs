@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Simplifies the use of the video recording function integrated in gnome shell"
-      ;
+      "Simplifies the use of the video recording function integrated in gnome shell";
     homepage = "https://github.com/EasyScreenCast/EasyScreenCast";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ doronbehar ];

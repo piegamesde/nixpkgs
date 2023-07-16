@@ -39,8 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
 
     changelog =
-      "https://gitlab.com/AOMediaCodec/SVT-AV1/-/blob/v${finalAttrs.version}/CHANGELOG.md"
-      ;
+      "https://gitlab.com/AOMediaCodec/SVT-AV1/-/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = with licenses; [
       aom
       bsd3

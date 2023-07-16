@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://sonatype-download.global.ssl.fastly.net/nexus/3/nexus-${version}-unix.tar.gz"
-      ;
+      "https://sonatype-download.global.ssl.fastly.net/nexus/3/nexus-${version}-unix.tar.gz";
     hash = "sha256-ISTORslFPgFt0kEKK17fpBXi3yAMwgm6qDnk33V2wa0=";
   };
 

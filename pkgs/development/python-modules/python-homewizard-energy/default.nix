@@ -45,8 +45,7 @@ buildPythonPackage rec {
     description = "Library to communicate with HomeWizard Energy devices";
     homepage = "https://github.com/DCSBL/python-homewizard-energy";
     changelog =
-      "https://github.com/DCSBL/python-homewizard-energy/releases/tag/v${version}"
-      ;
+      "https://github.com/DCSBL/python-homewizard-energy/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

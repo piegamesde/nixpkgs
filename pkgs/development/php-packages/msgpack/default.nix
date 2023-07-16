@@ -11,8 +11,7 @@ buildPecl rec {
 
   meta = with lib; {
     changelog =
-      "https://pecl.php.net/package-info.php?package=msgpack&version=${version}"
-      ;
+      "https://pecl.php.net/package-info.php?package=msgpack&version=${version}";
     description = "PHP extension for interfacing with MessagePack";
     license = licenses.bsd3;
     homepage = "https://github.com/msgpack/msgpack-php";

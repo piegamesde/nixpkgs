@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/trousers/trousers/${version}/${pname}-${version}.tar.gz"
-      ;
+      "mirror://sourceforge/trousers/trousers/${version}/${pname}-${version}.tar.gz";
     sha256 = "0zy7r9cnr2gvwr2fb1q4fc5xnvx405ymcbrdv7qsqwl3a4zfjnqy";
   };
 

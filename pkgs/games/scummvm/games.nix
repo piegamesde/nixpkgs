@@ -113,8 +113,7 @@ in {
     pshort = "bass";
     pcode = "sky";
     description =
-      "2D point-and-click science fiction thriller set in a bleak vision of the future"
-      ;
+      "2D point-and-click science fiction thriller set in a bleak vision of the future";
     version = "1.2";
     src = fetchurl {
       url = "mirror://sourceforge/scummvm/${pshort}-cd-${version}.zip";
@@ -146,8 +145,7 @@ in {
     pshort = "drascula";
     pcode = "drascula";
     description =
-      "Spanish 2D classic point & click style adventure with tons of humor and an easy interface"
-      ;
+      "Spanish 2D classic point & click style adventure with tons of humor and an easy interface";
     version = "1.0";
       # srcs = {
     src = fetchurl {

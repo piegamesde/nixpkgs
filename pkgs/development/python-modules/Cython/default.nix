@@ -64,8 +64,7 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "disable-trashcan.patch";
       url =
-        "https://github.com/cython/cython/commit/e337825cdcf5e94d38ba06a0cb0188e99ce0cc92.patch"
-        ;
+        "https://github.com/cython/cython/commit/e337825cdcf5e94d38ba06a0cb0188e99ce0cc92.patch";
       hash = "sha256-q0f63eetKrDpmP5Z4v8EuGxg26heSyp/62OYqhRoSso=";
     })
   ];
@@ -92,8 +91,7 @@ buildPythonPackage rec {
   meta = {
     changelog = "https://github.com/cython/cython/blob/${version}/CHANGES.rst";
     description =
-      "An optimising static compiler for both the Python programming language and the extended Cython programming language"
-      ;
+      "An optimising static compiler for both the Python programming language and the extended Cython programming language";
     homepage = "https://cython.org";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ fridh ];

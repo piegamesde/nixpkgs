@@ -14,8 +14,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/mirage-device/releases/download/v${version}/mirage-device-v${version}.tbz"
-      ;
+      "https://github.com/mirage/mirage-device/releases/download/v${version}/mirage-device-v${version}.tbz";
     sha256 = "18alxyi6wlxqvb4lajjlbdfkgcajsmklxi9xqmpcz07j51knqa04";
   };
 

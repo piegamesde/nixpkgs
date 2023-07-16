@@ -68,8 +68,7 @@ buildPythonPackage rec {
     description = "Quickly generate HTML documentation from a JSON schema";
     homepage = "https://github.com/coveooss/json-schema-for-humans";
     changelog =
-      "https://github.com/coveooss/json-schema-for-humans/releases/tag/v${version}"
-      ;
+      "https://github.com/coveooss/json-schema-for-humans/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ astro ];
   };

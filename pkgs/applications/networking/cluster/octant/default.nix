@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
         version: sha256:
         fetchzip {
           url =
-            "https://github.com/vmware-tanzu/octant/releases/download/v${version}/octant_${version}_${suffix}.tar.gz"
-            ;
+            "https://github.com/vmware-tanzu/octant/releases/download/v${version}/octant_${version}_${suffix}.tar.gz";
           sha256 = sha256.${system};
         }
         ;
@@ -62,8 +61,7 @@ stdenv.mkDerivation rec {
     changelog =
       "https://github.com/vmware-tanzu/octant/blob/v${version}/CHANGELOG.md";
     description =
-      "Highly extensible platform for developers to better understand the complexity of Kubernetes clusters"
-      ;
+      "Highly extensible platform for developers to better understand the complexity of Kubernetes clusters";
     longDescription = ''
       Octant is a tool for developers to understand how applications run on a
       Kubernetes cluster.

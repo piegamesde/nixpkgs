@@ -30,8 +30,7 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "curl-3.83.patch";
       url =
-        "https://github.com/pycurl/pycurl/commit/d47c68b1364f8a1a45ab8c584c291d44b762f7b1.patch"
-        ;
+        "https://github.com/pycurl/pycurl/commit/d47c68b1364f8a1a45ab8c584c291d44b762f7b1.patch";
       hash = "sha256-/lGq7O7ZyytzBAxWJPigcWdvypM7OHLBcp9ItmX7z1g=";
     })
   ];

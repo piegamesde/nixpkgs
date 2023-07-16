@@ -22,8 +22,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/TaylorSMarks/playsound";
     description =
-      "Pure Python, cross platform, single function module with no dependencies for playing sounds"
-      ;
+      "Pure Python, cross platform, single function module with no dependencies for playing sounds";
     license = licenses.mit;
     platforms = platforms.all;
     maintainers = with maintainers; [ luc65r ];

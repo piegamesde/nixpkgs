@@ -65,8 +65,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.process-one.net/downloads/downloads-action.php?file=/${version}/ejabberd-${version}.tar.gz"
-      ;
+      "https://www.process-one.net/downloads/downloads-action.php?file=/${version}/ejabberd-${version}.tar.gz";
     sha256 = "sha256-K4P+A2u/Hbina4b3GP8T3wmPoQxiv88GuB4KZOb2+cA=";
   };
 

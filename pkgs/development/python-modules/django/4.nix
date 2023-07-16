@@ -136,8 +136,7 @@ buildPythonPackage rec {
         lib.versions.majorMinor version
       }/releases/${version}/";
     description =
-      "A high-level Python Web framework that encourages rapid development and clean, pragmatic design."
-      ;
+      "A high-level Python Web framework that encourages rapid development and clean, pragmatic design.";
     homepage = "https://www.djangoproject.com";
     license = licenses.bsd3;
     maintainers = with maintainers; [ hexa ];

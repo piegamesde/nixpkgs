@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/thinkingrock/ThinkingRock/TR%20${version}/tr-${version}.tar.gz"
-      ;
+      "mirror://sourceforge/thinkingrock/ThinkingRock/TR%20${version}/tr-${version}.tar.gz";
     sha256 = "0hnwvvyc8miiz8w2g4iy7s4rgfy0kfbncgbgfzpsq6nrzq334kgm";
   };
 

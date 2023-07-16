@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
   patches = [ (fetchpatch {
     name = "chore-do-not-use-hardcode-path.patch";
     url =
-      "https://github.com/linuxdeepin/dde-device-formatter/commit/b836a498b8e783e0dff3820302957f15ee8416eb.patch"
-      ;
+      "https://github.com/linuxdeepin/dde-device-formatter/commit/b836a498b8e783e0dff3820302957f15ee8416eb.patch";
     sha256 = "sha256-i/VqJ6EmCyhE6weHKUB66bW6b51gLyssIAzb5li4aJM=";
   }) ];
 
@@ -56,8 +55,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DVERSION=${version}" ];
 
     # qt5integration must be placed before qtsvg in QT_PLUGIN_PATH
-  qtWrapperArgs = [ "--prefix QT_PLUGIN_PATH : ${qt5integration}/${qtbase.qtPluginPrefix}" ]
-    ;
+  qtWrapperArgs = [ "--prefix QT_PLUGIN_PATH : ${qt5integration}/${qtbase.qtPluginPrefix}" ];
 
   meta = with lib; {
     description =

@@ -51,8 +51,7 @@ buildPythonPackage rec {
     description = "A very simple Salesforce.com REST API client for Python";
     homepage = "https://github.com/simple-salesforce/simple-salesforce";
     changelog =
-      "https://github.com/simple-salesforce/simple-salesforce/blob/v${version}/CHANGES"
-      ;
+      "https://github.com/simple-salesforce/simple-salesforce/blob/v${version}/CHANGES";
     license = licenses.asl20;
     maintainers = with maintainers; [ costrouc ];
   };

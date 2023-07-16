@@ -35,8 +35,7 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     homepage = "http://johncheetham.com/projects/gshogi/";
     description =
-      "A graphical implementation of the Shogi board game, also known as Japanese Chess"
-      ;
+      "A graphical implementation of the Shogi board game, also known as Japanese Chess";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = [ maintainers.ciil ];

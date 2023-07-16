@@ -64,8 +64,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A simple Kubernetes service mesh that improves security, observability and reliability"
-      ;
+      "A simple Kubernetes service mesh that improves security, observability and reliability";
     downloadPage = "https://github.com/linkerd/linkerd2/";
     homepage = "https://linkerd.io/";
     license = licenses.asl20;

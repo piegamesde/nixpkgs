@@ -53,8 +53,7 @@ stdenv.mkDerivation {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/tvheadend/tvheadend/commit/bd92f1389f1aacdd08e913b0383a0ca9dc223153.patch"
-        ;
+        "https://github.com/tvheadend/tvheadend/commit/bd92f1389f1aacdd08e913b0383a0ca9dc223153.patch";
       sha256 = "17bsx6mnv4pjiayvx1d57dphva0kvlppvnmmaym06dh4524pnly1";
     })
   ];

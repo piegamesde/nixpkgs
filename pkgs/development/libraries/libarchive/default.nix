@@ -130,8 +130,7 @@ assert xarSupport -> libxml2 != null;
       tools that use the libarchive library.
     '';
     changelog =
-      "https://github.com/libarchive/libarchive/releases/tag/v${finalAttrs.version}"
-      ;
+      "https://github.com/libarchive/libarchive/releases/tag/v${finalAttrs.version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [
       jcumming
@@ -150,8 +149,7 @@ assert xarSupport -> libxml2 != null;
       (fetchpatch {
         name = "001-only-add-iconv-to-pc-file-if-needed.patch";
         url =
-          "https://github.com/libarchive/libarchive/commit/1f35c466aaa9444335a1b854b0b7223b0d2346c2.patch"
-          ;
+          "https://github.com/libarchive/libarchive/commit/1f35c466aaa9444335a1b854b0b7223b0d2346c2.patch";
         hash = "sha256-lb+zwWSH6/MLUIROvu9I/hUjSbb2jOWO755WC/r+lbY=";
       })
     ];

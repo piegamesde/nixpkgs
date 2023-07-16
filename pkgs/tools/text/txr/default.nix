@@ -12,8 +12,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "http://www.kylheku.com/cgit/txr/snapshot/txr-${finalAttrs.version}.tar.bz2"
-      ;
+      "http://www.kylheku.com/cgit/txr/snapshot/txr-${finalAttrs.version}.tar.bz2";
     hash = "sha256-cI1wjxKPivTXwCSuhl6sIuRk68ZBUsOWTjQktGmmP6M=";
   };
 
@@ -74,8 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
       application development in a wide range of areas.
     '';
     changelog =
-      "https://www.kylheku.com/cgit/txr/tree/RELNOTES?h=txr-${finalAttrs.version}"
-      ;
+      "https://www.kylheku.com/cgit/txr/tree/RELNOTES?h=txr-${finalAttrs.version}";
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [
       AndersonTorres

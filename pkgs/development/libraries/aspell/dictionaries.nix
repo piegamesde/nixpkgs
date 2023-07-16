@@ -86,8 +86,7 @@ let
 
         src = fetchurl {
           url =
-            "mirror://gnu/aspell/dict/${language}/${filename}-${language}-${version}.tar.bz2"
-            ;
+            "mirror://gnu/aspell/dict/${language}/${filename}-${language}-${version}.tar.bz2";
           inherit sha256;
         };
 
@@ -1003,8 +1002,7 @@ in rec {
 
     meta = {
       homepage =
-        "http://www.jpetrie.net/scientific-word-list-for-spell-checkersspelling-dictionaries/"
-        ;
+        "http://www.jpetrie.net/scientific-word-list-for-spell-checkersspelling-dictionaries/";
     };
 
   };

@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www-fourier.ujf-grenoble.fr/~parisse/debian/dists/stable/main/source/giac_${version}.tar.gz"
-      ;
+      "https://www-fourier.ujf-grenoble.fr/~parisse/debian/dists/stable/main/source/giac_${version}.tar.gz";
     sha256 = "sha256-9jUVcsrV8jMfqrmnymZ4vIaWlabF9ppCuq7VDlZ5Cw4=";
   };
 
@@ -51,8 +50,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "pari_2_11.patch";
       url =
-        "https://git.sagemath.org/sage.git/plain/build/pkgs/giac/patches/pari_2_11.patch?id=21ba7540d385a9864b44850d6987893dfa16bfc0"
-        ;
+        "https://git.sagemath.org/sage.git/plain/build/pkgs/giac/patches/pari_2_11.patch?id=21ba7540d385a9864b44850d6987893dfa16bfc0";
       sha256 = "sha256-vEo/5MNzMdYRPWgLFPsDcMT1W80Qzj4EPBjx/B8j68k=";
     })
 
@@ -61,8 +59,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fix-string-compiler-error.patch";
       url =
-        "https://salsa.debian.org/science-team/giac/-/raw/08cb807ef41f5216b712928886ebf74f69d5ddf6/debian/patches/fix-string-compiler-error.patch"
-        ;
+        "https://salsa.debian.org/science-team/giac/-/raw/08cb807ef41f5216b712928886ebf74f69d5ddf6/debian/patches/fix-string-compiler-error.patch";
       sha256 = "sha256-K4KAJY1F9Y4DTZFmVEOCXTnxBmHo4//3A10UR3Wlliw=";
     })
 
@@ -70,8 +67,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "increase-pari-stack-size.patch";
       url =
-        "https://salsa.debian.org/science-team/giac/-/raw/08cb807ef41f5216b712928886ebf74f69d5ddf6/debian/patches/increase-pari-size.patch"
-        ;
+        "https://salsa.debian.org/science-team/giac/-/raw/08cb807ef41f5216b712928886ebf74f69d5ddf6/debian/patches/increase-pari-size.patch";
       sha256 = "sha256-764P0IJ7ndURap7hotOmYJK0wAhYdqMbQNOnhJxVNt0=";
     })
   ] ++ lib.optionals (!enableGUI) [
@@ -80,8 +76,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "nofltk-check.patch";
       url =
-        "https://git.sagemath.org/sage.git/plain/build/pkgs/giac/patches/nofltk-check.patch?id=7553a3c8dfa7bcec07241a07e6a4e7dcf5bb4f26"
-        ;
+        "https://git.sagemath.org/sage.git/plain/build/pkgs/giac/patches/nofltk-check.patch?id=7553a3c8dfa7bcec07241a07e6a4e7dcf5bb4f26";
       sha256 = "sha256-nAl5q3ufLjK3X9s0qMlGNowdRRf3EaC24eVtJABzdXY=";
     })
   ];

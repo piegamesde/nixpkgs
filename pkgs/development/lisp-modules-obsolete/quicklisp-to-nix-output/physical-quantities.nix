@@ -9,15 +9,13 @@ args@{
   parasites = [ "physical-quantities/test" ];
 
   description =
-    "A library that provides a numeric type with optional unit and/or uncertainty for computations with automatic error propagation."
-    ;
+    "A library that provides a numeric type with optional unit and/or uncertainty for computations with automatic error propagation.";
 
   deps = [ args."parseq" ];
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/physical-quantities/2021-10-20/physical-quantities-20211020-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/physical-quantities/2021-10-20/physical-quantities-20211020-git.tgz";
     sha256 = "1ix04gjcsjzry5rl1rqsrg1r3hw985gfvl1847va36y03qzbmhgx";
   };
 

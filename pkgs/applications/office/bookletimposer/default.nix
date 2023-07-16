@@ -47,8 +47,7 @@ python3.pkgs.buildPythonApplication rec {
   meta = {
     homepage = "https://kjo.herbesfolles.org/bookletimposer/";
     description =
-      "A utility to achieve some basic imposition on PDF documents, especially designed to work on booklets"
-      ;
+      "A utility to achieve some basic imposition on PDF documents, especially designed to work on booklets";
     platforms = lib.platforms.linux;
     license = "GPL-3.0-or-later";
     maintainers = with lib.maintainers; [ afontain ];

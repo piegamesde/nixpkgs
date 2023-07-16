@@ -63,12 +63,10 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Fully featured framework for fast, easy and documented API development with Flask"
-      ;
+      "Fully featured framework for fast, easy and documented API development with Flask";
     homepage = "https://github.com/python-restx/flask-restx";
     changelog =
-      "https://github.com/python-restx/flask-restx/raw/${version}/CHANGELOG.rst"
-      ;
+      "https://github.com/python-restx/flask-restx/raw/${version}/CHANGELOG.rst";
     license = licenses.bsd3;
     maintainers = [ maintainers.marsam ];
   };

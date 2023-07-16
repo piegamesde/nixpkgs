@@ -10,8 +10,7 @@ callPackage (import ./common.nix rec {
 
   src = fetchurl {
     url =
-      "https://git.causal.agency/cgit-pink/snapshot/cgit-pink-${version}.tar.gz"
-      ;
+      "https://git.causal.agency/cgit-pink/snapshot/cgit-pink-${version}.tar.gz";
     sha256 = "1ma6j3r4ba5fhd47pc6xn5bmxaqr8ci2pvky9v100n1hh5n6q97i";
   };
 

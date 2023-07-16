@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
     repo = pname;
     rev = version;
     hash =
-      "sha512-W+Zug1SiOGJ+o6FBf2jeDGHFj87vudR4drtjyXiOzdoM8fUCnCj4pp7+70eZGilg6CvBi7CYkbVn53LXJf5qWA=="
-      ;
+      "sha512-W+Zug1SiOGJ+o6FBf2jeDGHFj87vudR4drtjyXiOzdoM8fUCnCj4pp7+70eZGilg6CvBi7CYkbVn53LXJf5qWA==";
   };
 
   outputs = [

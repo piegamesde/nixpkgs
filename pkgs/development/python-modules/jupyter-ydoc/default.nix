@@ -42,8 +42,7 @@ buildPythonPackage rec {
 
   meta = {
     changelog =
-      "https://github.com/jupyter-server/jupyter_ydoc/blob/v${version}/CHANGELOG.md"
-      ;
+      "https://github.com/jupyter-server/jupyter_ydoc/blob/v${version}/CHANGELOG.md";
     description = "Document structures for collaborative editing using Ypy";
     homepage = "https://github.com/jupyter-server/jupyter_ydoc";
     license = lib.licenses.bsd3;

@@ -12,8 +12,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/anmonteiro/ocaml-h2/releases/download/${version}/h2-${version}.tbz"
-      ;
+      "https://github.com/anmonteiro/ocaml-h2/releases/download/${version}/h2-${version}.tbz";
     hash = "sha256-n9avpVL6HD2KBON2FpnUeuH3HOUDOA29iSmjdcxMRvE=";
   };
 

@@ -68,8 +68,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Quickly construct, mock & deploy PKI test configurations using simple declarative configuration"
-      ;
+      "Quickly construct, mock & deploy PKI test configurations using simple declarative configuration";
     homepage = "https://github.com/MatthiasValvekens/certomancer";
     license = licenses.mit;
     maintainers = with maintainers; [ wolfangaukang ];

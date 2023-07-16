@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/mongodb/mongo-c-driver/releases/download/${version}/mongo-c-driver-${version}.tar.gz"
-      ;
+      "https://github.com/mongodb/mongo-c-driver/releases/download/${version}/mongo-c-driver-${version}.tar.gz";
     sha256 = "sha256-wxcBnJENL3hMzf7GKLucjw7K08tK35+0sMNWZb2mWIo=";
   };
 

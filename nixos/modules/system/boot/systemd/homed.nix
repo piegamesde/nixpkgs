@@ -16,8 +16,7 @@ in {
     assertions = [ {
       assertion = config.services.nscd.enable;
       message =
-        "systemd-homed requires the use of systemd nss module. services.nscd.enable must be set to true,"
-        ;
+        "systemd-homed requires the use of systemd nss module. services.nscd.enable must be set to true,";
     } ];
 
     systemd.additionalUpstreamSystemUnits = [

@@ -12,8 +12,7 @@ stdenvNoCC.mkDerivation rec {
     if stdenvNoCC.hostPlatform.system == "x86_64-darwin" then
       fetchurl {
         url =
-          "https://github.com/camunda/zeebe/releases/download/${version}/zbctl.darwin"
-          ;
+          "https://github.com/camunda/zeebe/releases/download/${version}/zbctl.darwin";
         sha256 = "17hfjrcr6lmw91jq24nbw5yz61x6larmx39lyfj6pwlz0710y13p";
       }
     else if stdenvNoCC.hostPlatform.system == "x86_64-linux" then

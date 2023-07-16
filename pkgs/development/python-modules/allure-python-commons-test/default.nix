@@ -42,8 +42,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Just pack of hamcrest matchers for validation result in allure2 json format"
-      ;
+      "Just pack of hamcrest matchers for validation result in allure2 json format";
     homepage = "https://github.com/allure-framework/allure-python";
     license = licenses.asl20;
     maintainers = with maintainers; [ evanjs ];

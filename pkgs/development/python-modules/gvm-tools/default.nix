@@ -38,8 +38,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Collection of APIs that help with remote controlling a Greenbone Security Manager"
-      ;
+      "Collection of APIs that help with remote controlling a Greenbone Security Manager";
     homepage = "https://github.com/greenbone/gvm-tools";
     changelog =
       "https://github.com/greenbone/gvm-tools/releases/tag/v${version}";

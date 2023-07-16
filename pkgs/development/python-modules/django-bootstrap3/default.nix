@@ -35,8 +35,7 @@ buildPythonPackage rec {
     description = "Bootstrap 3 integration for Django";
     homepage = "https://github.com/zostera/django-bootstrap3";
     changelog =
-      "https://github.com/zostera/django-bootstrap3/blob/${version}/CHANGELOG.md"
-      ;
+      "https://github.com/zostera/django-bootstrap3/blob/${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ hexa ];
   };

@@ -38,8 +38,7 @@ import ./make-test-python.nix ({
             };
             wantedBy = [ "zammad-web.service" ];
             description =
-              "Hack in the locale files so zammad doesn't try to access the internet"
-              ;
+              "Hack in the locale files so zammad doesn't try to access the internet";
             script = ''
               mkdir -p ./config/translations
               VERSION=$(cat ${cfg.package}/VERSION)

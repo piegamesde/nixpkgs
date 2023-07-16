@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://sourceforge.net/projects/eflite/files/eflite/${version}/${pname}-${version}.tar.gz"
-      ;
+      "https://sourceforge.net/projects/eflite/files/eflite/${version}/${pname}-${version}.tar.gz";
     sha256 = "088p9w816s02s64grfs28gai3lnibzdjb9d1jwxzr8smbs2qbbci";
   };
 
@@ -33,20 +32,17 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       url =
-        "https://sources.debian.org/data/main/e/eflite/0.4.1-8/debian/patches/cvs-update"
-        ;
+        "https://sources.debian.org/data/main/e/eflite/0.4.1-8/debian/patches/cvs-update";
       sha256 = "0r631vzmky7b7qyhm152557y4fr0xqrpi3y4w66fcn6p4rj03j05";
     })
     (fetchpatch {
       url =
-        "https://sources.debian.org/data/main/e/eflite/0.4.1-8/debian/patches/buf-overflow"
-        ;
+        "https://sources.debian.org/data/main/e/eflite/0.4.1-8/debian/patches/buf-overflow";
       sha256 = "071qk133kb7n7bq6kxgh3p9bba6hcl1ixsn4lx8vp8klijgrvkmx";
     })
     (fetchpatch {
       url =
-        "https://sources.debian.org/data/main/e/eflite/0.4.1-8/debian/patches/link"
-        ;
+        "https://sources.debian.org/data/main/e/eflite/0.4.1-8/debian/patches/link";
       sha256 = "0p833dp4pdsya72bwh3syvkq85927pm6snxvx13lvcppisbhj0fc";
     })
     ./format.patch

@@ -17,8 +17,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/cl-semver/2020-12-20/cl-semver-20201220-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/cl-semver/2020-12-20/cl-semver-20201220-git.tgz";
     sha256 = "02m23kwsz49dh7jq2rgcd1c4asgjj1g7dy321hyr07k5hqmhk92y";
   };
 

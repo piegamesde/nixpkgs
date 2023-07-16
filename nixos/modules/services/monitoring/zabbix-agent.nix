@@ -184,8 +184,7 @@ in {
 
       serviceConfig = {
         ExecStart =
-          "@${cfg.package}/sbin/zabbix_agentd zabbix_agentd -f --config ${configFile}"
-          ;
+          "@${cfg.package}/sbin/zabbix_agentd zabbix_agentd -f --config ${configFile}";
         Restart = "always";
         RestartSec = 2;
 

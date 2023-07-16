@@ -42,8 +42,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python package to retrieve realtime data of passages at stops of De Lijn"
-      ;
+      "Python package to retrieve realtime data of passages at stops of De Lijn";
     homepage = "https://github.com/bollewolle/pydelijn";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];

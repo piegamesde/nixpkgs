@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://wrapper.tanukisoftware.com/download/${version}/wrapper_${version}_src.tar.gz"
-      ;
+      "https://wrapper.tanukisoftware.com/download/${version}/wrapper_${version}_src.tar.gz";
     hash = "sha256-mDXlsH+iu9CcqlMwtbrMicAwuRClK1WmPY2SYIF8USw=";
   };
 
@@ -55,12 +54,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Enables a Java Application to be run as a Windows Service or Unix Daemon"
-      ;
+      "Enables a Java Application to be run as a Windows Service or Unix Daemon";
     homepage = "https://wrapper.tanukisoftware.com/";
     changelog =
-      "https://wrapper.tanukisoftware.com/doc/english/release-notes.html#${version}"
-      ;
+      "https://wrapper.tanukisoftware.com/doc/english/release-notes.html#${version}";
     license = licenses.gpl2Only;
     platforms = [
       "x86_64-linux"

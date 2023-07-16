@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://gist.github.com/glandium/01d54cefdb70561b5f6675e08f2990f2/archive/2f430f0c136a69b0886281d0c76708997d8878af.zip"
-      ;
+      "https://gist.github.com/glandium/01d54cefdb70561b5f6675e08f2990f2/archive/2f430f0c136a69b0886281d0c76708997d8878af.zip";
     sha256 = "1mbmbyymgl75wparv3rgnyxnc44rd6n935jziz9anl9apy031ryi";
   };
 

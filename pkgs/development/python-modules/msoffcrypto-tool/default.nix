@@ -43,8 +43,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python tool and library for decrypting MS Office files with passwords or other keys"
-      ;
+      "Python tool and library for decrypting MS Office files with passwords or other keys";
     homepage = "https://github.com/nolze/msoffcrypto-tool";
     changelog =
       "https://github.com/nolze/msoffcrypto-tool/blob/v${version}/CHANGELOG.md";

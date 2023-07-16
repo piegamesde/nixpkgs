@@ -47,22 +47,19 @@ stdenv.mkDerivation rec {
     # Stop patching the generated GIR, fixes build with latest vala
     (fetchurl {
       url =
-        "https://gitlab.gnome.org/GNOME/caribou/-/commit/c52ce71c49dc8d6109a58d16cc8d491d7bd1d781.patch"
-        ;
+        "https://gitlab.gnome.org/GNOME/caribou/-/commit/c52ce71c49dc8d6109a58d16cc8d491d7bd1d781.patch";
       sha256 = "sha256-jbF1Ygp8Q0ENN/5aEpROuK5zkufIfn6cGW8dncl7ET4=";
     })
     (fetchurl {
       name = "fix-build-modern-vala.patch";
       url =
-        "https://gitlab.gnome.org/GNOME/caribou/-/commit/76fbd11575f918fc898cb0f5defe07f67c11ec38.patch"
-        ;
+        "https://gitlab.gnome.org/GNOME/caribou/-/commit/76fbd11575f918fc898cb0f5defe07f67c11ec38.patch";
       sha256 = "0qy27zk7889hg51nx40afgppcx9iaihxbg3aqz9w35d6fmhr2k2y";
     })
     (fetchurl {
       name = "CVE-2021-3567.patch";
       url =
-        "https://gitlab.gnome.org/GNOME/caribou/-/commit/d41c8e44b12222a290eaca16703406b113a630c6.patch"
-        ;
+        "https://gitlab.gnome.org/GNOME/caribou/-/commit/d41c8e44b12222a290eaca16703406b113a630c6.patch";
       sha256 = "1vd2j3823k2p3msv7fq2437p3jvxzbd7hyh07i80g9754ylh92y8";
     })
   ];

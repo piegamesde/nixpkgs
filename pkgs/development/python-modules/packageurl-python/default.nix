@@ -26,8 +26,7 @@ buildPythonPackage rec {
     description = "Python parser and builder for package URLs";
     homepage = "https://github.com/package-url/packageurl-python";
     changelog =
-      "https://github.com/package-url/packageurl-python/blob/v${version}/CHANGELOG.rst"
-      ;
+      "https://github.com/package-url/packageurl-python/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ armijnhemel ];
   };

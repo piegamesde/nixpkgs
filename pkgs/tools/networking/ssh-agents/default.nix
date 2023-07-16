@@ -19,8 +19,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "ssh-agents capable of spawning and maintaining multiple ssh-agents across terminals"
-      ;
+      "ssh-agents capable of spawning and maintaining multiple ssh-agents across terminals";
     longDescription = ''
       The SSH agent is usually spawned by running eval $(ssh-agent), however this
       spawns a new SSH agent at every invocation. This project provides an

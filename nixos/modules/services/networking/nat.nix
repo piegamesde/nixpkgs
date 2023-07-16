@@ -187,8 +187,7 @@ in {
         assertion =
           (cfg.forwardPorts != [ ]) -> (cfg.externalInterface != null);
         message =
-          "networking.nat.forwardPorts requires networking.nat.externalInterface"
-          ;
+          "networking.nat.forwardPorts requires networking.nat.externalInterface";
       }
     ];
 

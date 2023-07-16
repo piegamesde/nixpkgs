@@ -36,8 +36,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "This tool serializes the output of popular command line tools and filetypes to structured JSON output"
-      ;
+      "This tool serializes the output of popular command line tools and filetypes to structured JSON output";
     homepage = "https://github.com/kellyjonbrazil/jc";
     license = licenses.mit;
     maintainers = with maintainers; [ atemu ];

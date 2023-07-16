@@ -28,8 +28,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Class allowing for data models equivalently represented as Python dictionaries, JSON, and XML"
-      ;
+      "Class allowing for data models equivalently represented as Python dictionaries, JSON, and XML";
     homepage = "https://github.com/usnistgov/DataModelDict/";
     license = licenses.mit;
     maintainers = with maintainers; [ costrouc ];

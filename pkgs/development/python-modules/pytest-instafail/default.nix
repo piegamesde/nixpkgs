@@ -27,12 +27,10 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "pytest plugin that shows failures and errors instantly instead of waiting until the end of test session"
-      ;
+      "pytest plugin that shows failures and errors instantly instead of waiting until the end of test session";
     homepage = "https://github.com/pytest-dev/pytest-instafail";
     changelog =
-      "https://github.com/pytest-dev/pytest-instafail/blob/v${version}/CHANGES.rst"
-      ;
+      "https://github.com/pytest-dev/pytest-instafail/blob/v${version}/CHANGES.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ jacg ];
   };

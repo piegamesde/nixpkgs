@@ -17,8 +17,7 @@ let
   appname = "Obsidian";
   meta = with lib; {
     description =
-      "A powerful knowledge base that works on top of a local folder of plain text Markdown files"
-      ;
+      "A powerful knowledge base that works on top of a local folder of plain text Markdown files";
     homepage = "https://obsidian.md";
     downloadPage = "https://github.com/obsidianmd/obsidian-releases/releases";
     license = licenses.obsidian;
@@ -38,8 +37,7 @@ let
     ;
   src = fetchurl {
     url =
-      "https://github.com/obsidianmd/obsidian-releases/releases/download/v${version}/${filename}"
-      ;
+      "https://github.com/obsidianmd/obsidian-releases/releases/download/v${version}/${filename}";
     sha256 =
       if stdenv.isDarwin then
         "sha256-E+1B+KgdvOuDyJP4W5tnkDe8sC4NdplRqY24Yu/DlEA="
@@ -50,8 +48,7 @@ let
 
   icon = fetchurl {
     url =
-      "https://forum.obsidian.md/uploads/default/original/1X/bf119bd48f748f4fd2d65f2d1bb05d3c806883b5.png"
-      ;
+      "https://forum.obsidian.md/uploads/default/original/1X/bf119bd48f748f4fd2d65f2d1bb05d3c806883b5.png";
     sha256 = "18ylnbvxr6k4x44c4i1d55wxy2dq4fdppp43a4wl6h6zar0sc9s2";
   };
 

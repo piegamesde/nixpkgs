@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/brailcom/speechd/releases/download/${version}/${pname}-${version}.tar.gz"
-      ;
+      "https://github.com/brailcom/speechd/releases/download/${version}/${pname}-${version}.tar.gz";
     sha256 = "sha256-i0ZJkl5oy+GntMCge7BBznc4s1yQamAr+CmG2xqg82Q=";
   };
 

@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/wymarc/astrolabe-generator/releases/download/v${version}/AstrolabeGenerator-${version}.zip"
-      ;
+      "https://github.com/wymarc/astrolabe-generator/releases/download/v${version}/AstrolabeGenerator-${version}.zip";
     sha256 = "141gfmrqa1mf2qas87qig4phym9fg9gbrcfl2idzd5gi91824dn9";
   };
 
@@ -36,8 +35,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.astrolabeproject.com";
     description =
-      "A Java-based tool for generating EPS files for constructing astrolabes and related tools"
-      ;
+      "A Java-based tool for generating EPS files for constructing astrolabes and related tools";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.gpl3;
     maintainers = [ ];

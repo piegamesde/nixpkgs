@@ -29,8 +29,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python client to get data from the Swiss federal Office for Environment FEON"
-      ;
+      "Python client to get data from the Swiss federal Office for Environment FEON";
     homepage = "https://github.com/bouni/swisshydrodata";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

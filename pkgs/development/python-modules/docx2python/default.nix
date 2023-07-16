@@ -30,8 +30,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/ShayHill/docx2python";
     description =
-      "Extract docx headers, footers, (formatted) text, footnotes, endnotes, properties, and images"
-      ;
+      "Extract docx headers, footers, (formatted) text, footnotes, endnotes, properties, and images";
     maintainers = [ maintainers.ivar ];
     license = licenses.mit;
   };

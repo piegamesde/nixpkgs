@@ -461,17 +461,15 @@ let
               # should work without internalConfigs dependencies because address/link configuration depends
               # on the device, which is created by ovs-vswitchd with type=internal, but it does not...
             before = [ "network-setup.service" ] ++ internalConfigs;
-            partOf = [ "network-setup.service" ]
-              ; # shutdown the bridge when network is shutdown
-            bindsTo = [ "ovs-vswitchd.service" ]
-              ; # requires ovs-vswitchd to be alive at all times
+            partOf = [ "network-setup.service" ]; # shutdown the bridge when network is shutdown
+            bindsTo = [ "ovs-vswitchd.service" ]; # requires ovs-vswitchd to be alive at all times
             after = [
               "network-pre.target"
               "ovs-vswitchd.service"
             ] ++ deps
               ; # start switch after physical interfaces and vswitch daemon
-            wants = deps
-              ; # if one or more interface fails, the switch should continue to run
+            wants =
+              deps; # if one or more interface fails, the switch should continue to run
             serviceConfig.Type = "oneshot";
             serviceConfig.RemainAfterExit = true;
             path = [

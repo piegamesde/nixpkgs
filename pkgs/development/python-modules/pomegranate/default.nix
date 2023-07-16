@@ -43,8 +43,7 @@ buildPythonPackage rec {
   meta = with lib; {
     broken = stdenv.isDarwin;
     description =
-      "Probabilistic and graphical models for Python, implemented in cython for speed"
-      ;
+      "Probabilistic and graphical models for Python, implemented in cython for speed";
     homepage = "https://github.com/jmschrei/pomegranate";
     license = licenses.mit;
     maintainers = with maintainers; [ rybern ];

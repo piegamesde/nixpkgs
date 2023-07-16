@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
     # Patch taken from https://gitlab.gnome.org/GNOME/almanah/-/merge_requests/13
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/almanah/-/commit/8c42a67695621d1e30cec933a04e633e6030bbaf.patch"
-        ;
+        "https://gitlab.gnome.org/GNOME/almanah/-/commit/8c42a67695621d1e30cec933a04e633e6030bbaf.patch";
       sha256 = "qyqFgYSu4emFDG/Mjwz1bZb3v3/4gwQSKmGCoPPNYCQ=";
     })
 
@@ -52,8 +51,7 @@ stdenv.mkDerivation rec {
     # https://gitlab.gnome.org/GNOME/almanah/-/merge_requests/14
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/almanah/-/commit/cd44b476f4ffbf37c5d5f5b996ecd711db925576.patch"
-        ;
+        "https://gitlab.gnome.org/GNOME/almanah/-/commit/cd44b476f4ffbf37c5d5f5b996ecd711db925576.patch";
       sha256 = "wJ1035NxgeTwUa0LoNcB6TSLxffoXBR3WbGAGkfggYY=";
     })
 
@@ -61,8 +59,7 @@ stdenv.mkDerivation rec {
     # https://gitlab.gnome.org/GNOME/almanah/-/merge_requests/15
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/almanah/-/commit/0ba7f05cba7feaf2ae2c220596aead5dfc676675.patch"
-        ;
+        "https://gitlab.gnome.org/GNOME/almanah/-/commit/0ba7f05cba7feaf2ae2c220596aead5dfc676675.patch";
       sha256 = "5uvHTPzQloEq8SVt3EnZ+8mziBdXsDmu/e92/RtyFzE=";
     })
   ];

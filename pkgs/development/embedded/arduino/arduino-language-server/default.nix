@@ -31,12 +31,10 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "An Arduino Language Server based on Clangd to Arduino code autocompletion"
-      ;
+      "An Arduino Language Server based on Clangd to Arduino code autocompletion";
     homepage = "https://github.com/arduino/arduino-language-server";
     changelog =
-      "https://github.com/arduino/arduino-language-server/releases/tag/${version}"
-      ;
+      "https://github.com/arduino/arduino-language-server/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ BattleCh1cken ];
   };

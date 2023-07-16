@@ -65,20 +65,17 @@ let
 
   modprobePatch = fetchpatch {
     url =
-      "https://github.com/Bumblebee-Project/Bumblebee/commit/1ada79fe5916961fc4e4917f8c63bb184908d986.patch"
-      ;
+      "https://github.com/Bumblebee-Project/Bumblebee/commit/1ada79fe5916961fc4e4917f8c63bb184908d986.patch";
     sha256 = "02vq3vba6nx7gglpjdfchws9vjhs1x02a543yvqrxqpvvdfim2x2";
   };
   libkmodPatch = fetchpatch {
     url =
-      "https://github.com/Bumblebee-Project/Bumblebee/commit/deceb14cdf2c90ff64ebd1010a674305464587da.patch"
-      ;
+      "https://github.com/Bumblebee-Project/Bumblebee/commit/deceb14cdf2c90ff64ebd1010a674305464587da.patch";
     sha256 = "00c05i5lxz7vdbv445ncxac490vbl5g9w3vy3gd71qw1f0si8vwh";
   };
   gcc10Patch = fetchpatch {
     url =
-      "https://github.com/Bumblebee-Project/Bumblebee/commit/f94a118a88cd76e2dbea33d735bd53cf54b486a1.patch"
-      ;
+      "https://github.com/Bumblebee-Project/Bumblebee/commit/f94a118a88cd76e2dbea33d735bd53cf54b486a1.patch";
     hash = "sha256-3b5tLoMrGYSdg9Hz5bh0c44VIrbSZrY56JpWEyU/Pik=";
   };
 

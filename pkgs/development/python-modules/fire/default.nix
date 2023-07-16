@@ -31,8 +31,7 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "remove-asyncio-coroutine.patch";
       url =
-        "https://github.com/google/python-fire/pull/440/commits/30b775a7b36ce7fbc04656c7eec4809f99d3e178.patch"
-        ;
+        "https://github.com/google/python-fire/pull/440/commits/30b775a7b36ce7fbc04656c7eec4809f99d3e178.patch";
       hash = "sha256-GDAAlvZKbJl3OhajsEO0SZvWIXcPDi3eNKKVgbwSNKk=";
     })
   ];

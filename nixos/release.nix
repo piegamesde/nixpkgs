@@ -117,8 +117,7 @@ let
     tarball // {
       meta = {
         description =
-          "NixOS system tarball for ${system} - ${stdenv.hostPlatform.linux-kernel.name}"
-          ;
+          "NixOS system tarball for ${system} - ${stdenv.hostPlatform.linux-kernel.name}";
         maintainers = map (x: lib.maintainers.${x}) maintainers;
       };
       inherit config;
@@ -226,8 +225,7 @@ in rec {
   iso_plasma5 = forMatchingSystems supportedSystems (system:
     makeIso {
       module =
-        ./modules/installer/cd-dvd/installation-cd-graphical-calamares-plasma5.nix
-        ;
+        ./modules/installer/cd-dvd/installation-cd-graphical-calamares-plasma5.nix;
       type = "plasma5";
       inherit system;
     });
@@ -235,8 +233,7 @@ in rec {
   iso_gnome = forMatchingSystems supportedSystems (system:
     makeIso {
       module =
-        ./modules/installer/cd-dvd/installation-cd-graphical-calamares-gnome.nix
-        ;
+        ./modules/installer/cd-dvd/installation-cd-graphical-calamares-gnome.nix;
       type = "gnome";
       inherit system;
     });
@@ -262,8 +259,7 @@ in rec {
   ] (system:
     makeIso {
       module =
-        ./modules/installer/cd-dvd/installation-cd-minimal-new-kernel-no-zfs.nix
-        ;
+        ./modules/installer/cd-dvd/installation-cd-minimal-new-kernel-no-zfs.nix;
       type = "minimal-new-kernel-no-zfs";
       inherit system;
     });
@@ -278,8 +274,7 @@ in rec {
         armv6l-linux =
           ./modules/installer/sd-card/sd-image-raspberrypi-installer.nix;
         armv7l-linux =
-          ./modules/installer/sd-card/sd-image-armv7l-multiplatform-installer.nix
-          ;
+          ./modules/installer/sd-card/sd-image-armv7l-multiplatform-installer.nix;
         aarch64-linux =
           ./modules/installer/sd-card/sd-image-aarch64-installer.nix;
       }.${system};
@@ -300,8 +295,7 @@ in rec {
     makeSdImage {
       module = {
         aarch64-linux =
-          ./modules/installer/sd-card/sd-image-aarch64-new-kernel-no-zfs-installer.nix
-          ;
+          ./modules/installer/sd-card/sd-image-aarch64-new-kernel-no-zfs-installer.nix;
       }.${system};
       type = "minimal-new-kernel-no-zfs";
       inherit system;

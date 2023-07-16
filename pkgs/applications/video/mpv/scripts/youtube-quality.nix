@@ -32,8 +32,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A userscript for MPV that allows you to change youtube video quality (ytdl-format) on the fly"
-      ;
+      "A userscript for MPV that allows you to change youtube video quality (ytdl-format) on the fly";
     homepage = "https://github.com/jgreco/mpv-youtube-quality";
     license = licenses.unfree;
     platforms = platforms.all;

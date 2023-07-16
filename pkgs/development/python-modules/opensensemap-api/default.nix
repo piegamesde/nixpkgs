@@ -38,8 +38,7 @@ buildPythonPackage rec {
     homepage =
       "https://github.com/home-assistant-ecosystem/python-opensensemap-api";
     changelog =
-      "https://github.com/home-assistant-ecosystem/python-opensensemap-api/releases/tag/${version}"
-      ;
+      "https://github.com/home-assistant-ecosystem/python-opensensemap-api/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

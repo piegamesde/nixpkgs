@@ -30,8 +30,7 @@ let
     name = "azuredatastudio";
     desktopName = "Azure Data Studio";
     comment =
-      "Data Management Tool that enables you to work with SQL Server, Azure SQL DB and SQL DW from Windows, macOS and Linux."
-      ;
+      "Data Management Tool that enables you to work with SQL Server, Azure SQL DB and SQL DW from Windows, macOS and Linux.";
     genericName = "Text Editor";
     exec = "azuredatastudio --no-sandbox --unity-launch %F";
     icon = "azuredatastudio";
@@ -89,8 +88,7 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     name = "${pname}-${version}.tar.gz";
     url =
-      "https://azuredatastudio-update.azurewebsites.net/${version}/linux-x64/stable"
-      ;
+      "https://azuredatastudio-update.azurewebsites.net/${version}/linux-x64/stable";
     sha256 = "sha256-b/ha+81TlffnvSENzaePvfFugcKJffvjRU7y+x60OuQ=";
   };
 
@@ -135,8 +133,7 @@ stdenv.mkDerivation rec {
 
     # this will most likely need to be updated when azuredatastudio's version changes
   sqltoolsservicePath =
-    "${targetPath}/resources/app/extensions/mssql/sqltoolsservice/Linux/3.0.0-release.215"
-    ;
+    "${targetPath}/resources/app/extensions/mssql/sqltoolsservice/Linux/3.0.0-release.215";
 
   rpath = lib.concatStringsSep ":" [
     atomEnv.libPath
@@ -187,11 +184,9 @@ stdenv.mkDerivation rec {
   meta = {
     maintainers = with lib.maintainers; [ xavierzwirtz ];
     description =
-      "A data management tool that enables working with SQL Server, Azure SQL DB and SQL DW"
-      ;
+      "A data management tool that enables working with SQL Server, Azure SQL DB and SQL DW";
     homepage =
-      "https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio"
-      ;
+      "https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio";
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.unfreeRedistributable;
     platforms = [ "x86_64-linux" ];

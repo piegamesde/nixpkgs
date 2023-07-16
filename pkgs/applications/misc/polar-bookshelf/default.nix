@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
     # fetching a .deb because there's no easy way to package this Electron app
   src = fetchurl {
     url =
-      "https://github.com/burtonator/polar-bookshelf/releases/download/v${version}/polar-desktop-app-${version}-amd64.deb"
-      ;
+      "https://github.com/burtonator/polar-bookshelf/releases/download/v${version}/polar-desktop-app-${version}-amd64.deb";
     hash = "sha256-jcq0hW698bAhVM3fLQQeKAnld33XLkHsGjS3QwUpciQ=";
   };
 
@@ -130,8 +129,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://getpolarized.io/";
     description =
-      "Personal knowledge repository for PDF and web content supporting incremental reading and document annotation"
-      ;
+      "Personal knowledge repository for PDF and web content supporting incremental reading and document annotation";
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;

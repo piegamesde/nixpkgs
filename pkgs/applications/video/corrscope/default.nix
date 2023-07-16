@@ -68,8 +68,7 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Render wave files into oscilloscope views, featuring advanced correlation-based triggering algorithm"
-      ;
+      "Render wave files into oscilloscope views, featuring advanced correlation-based triggering algorithm";
     longDescription = ''
       Corrscope renders oscilloscope views of WAV files recorded from chiptune (game music from
       retro sound chips).

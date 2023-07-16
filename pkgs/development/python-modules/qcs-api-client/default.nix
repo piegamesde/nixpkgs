@@ -40,8 +40,7 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "switch-to-poetry-core.patch";
       url =
-        "https://github.com/rigetti/qcs-api-client-python/commit/32f0b3c7070a65f4edf5b2552648d88435469e44.patch"
-        ;
+        "https://github.com/rigetti/qcs-api-client-python/commit/32f0b3c7070a65f4edf5b2552648d88435469e44.patch";
       hash = "sha256-mOc+Q/5cmwPziojtxeEMWWHSDvqvzZlNRbPtOSeTinQ=";
     })
   ];
@@ -83,8 +82,7 @@ buildPythonPackage rec {
     description = "Python library for accessing the Rigetti QCS API";
     homepage = "https://qcs-api-client-python.readthedocs.io/";
     changelog =
-      "https://github.com/rigetti/qcs-api-client-python/releases/tag/v${version}"
-      ;
+      "https://github.com/rigetti/qcs-api-client-python/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

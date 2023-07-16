@@ -104,9 +104,9 @@ in {
 
               cachedir = mkOption {
                 type = types.nullOr types.path;
-                default =
-                  "/var/cache/tarsnap/${utils.escapeSystemdPath config.keyfile}"
-                  ;
+                default = "/var/cache/tarsnap/${
+                    utils.escapeSystemdPath config.keyfile
+                  }";
                 defaultText = literalExpression ''
                   "/var/cache/tarsnap/''${utils.escapeSystemdPath config.${options.keyfile}}"
                 '';

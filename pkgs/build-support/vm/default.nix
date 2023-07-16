@@ -924,8 +924,7 @@ in rec {
         fullName = "Fedora ${version} (x86_64)";
         packagesList = fetchurl rec {
           url =
-            "mirror://fedora/linux/releases/${version}/Everything/x86_64/os/repodata/${sha256}-primary.xml.gz"
-            ;
+            "mirror://fedora/linux/releases/${version}/Everything/x86_64/os/repodata/${sha256}-primary.xml.gz";
           sha256 =
             "880055a50c05b20641530d09b23f64501a000b2f92fe252417c530178730a95e";
         };
@@ -951,8 +950,7 @@ in rec {
         fullName = "Fedora ${version} (x86_64)";
         packagesList = fetchurl rec {
           url =
-            "mirror://fedora/linux/releases/${version}/Everything/x86_64/os/repodata/${sha256}-primary.xml.gz"
-            ;
+            "mirror://fedora/linux/releases/${version}/Everything/x86_64/os/repodata/${sha256}-primary.xml.gz";
           sha256 =
             "48986ce4583cd09825c6d437150314446f0f49fa1a1bd62dcfa1085295030fe9";
         };
@@ -1244,8 +1242,7 @@ in rec {
       fullName = "Debian 10.13 Buster (i386)";
       packagesList = fetchurl {
         url =
-          "https://snapshot.debian.org/archive/debian/20221126T084953Z/dists/buster/main/binary-i386/Packages.xz"
-          ;
+          "https://snapshot.debian.org/archive/debian/20221126T084953Z/dists/buster/main/binary-i386/Packages.xz";
         hash = "sha256-n9JquhtZgxw3qr9BX0MQoY3ZTIHN0dit+iru3DC31UY=";
       };
       urlPrefix = "mirror://debian";
@@ -1257,8 +1254,7 @@ in rec {
       fullName = "Debian 10.13 Buster (amd64)";
       packagesList = fetchurl {
         url =
-          "https://snapshot.debian.org/archive/debian/20221126T084953Z/dists/buster/main/binary-amd64/Packages.xz"
-          ;
+          "https://snapshot.debian.org/archive/debian/20221126T084953Z/dists/buster/main/binary-amd64/Packages.xz";
         hash = "sha256-YukIIB3u87jgp9oudwklsxyKVKjSL618wFgDSXiFmjU=";
       };
       urlPrefix = "mirror://debian";
@@ -1270,8 +1266,7 @@ in rec {
       fullName = "Debian 11.6 Bullseye (i386)";
       packagesList = fetchurl {
         url =
-          "https://snapshot.debian.org/archive/debian/20230131T034648Z/dists/bullseye/main/binary-i386/Packages.xz"
-          ;
+          "https://snapshot.debian.org/archive/debian/20230131T034648Z/dists/bullseye/main/binary-i386/Packages.xz";
         hash = "sha256-z9eG7RlvelEnZAaeCfIO+XxTZVL3d+zTA7ShU43l/pw=";
       };
       urlPrefix = "mirror://debian";
@@ -1283,8 +1278,7 @@ in rec {
       fullName = "Debian 11.6 Bullseye (amd64)";
       packagesList = fetchurl {
         url =
-          "https://snapshot.debian.org/archive/debian/20230131T034648Z/dists/bullseye/main/binary-amd64/Packages.xz"
-          ;
+          "https://snapshot.debian.org/archive/debian/20230131T034648Z/dists/bullseye/main/binary-amd64/Packages.xz";
         hash = "sha256-mz0eCWdn6uWt40OxsSPheHzEnMeLE52yR/vpb48/VF0=";
       };
       urlPrefix = "mirror://debian";

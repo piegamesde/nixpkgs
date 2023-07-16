@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Tool for storing/restoring JACK and/or ALSA connections to/from cml files"
-      ;
+      "Tool for storing/restoring JACK and/or ALSA connections to/from cml files";
     longDescription = ''
       Aj-snapshot is a small program that can be used to make snapshots of the connections made between JACK and/or ALSA clients.
       Because JACK can provide both audio and MIDI support to programs, aj-snapshot can store both types of connections for JACK.

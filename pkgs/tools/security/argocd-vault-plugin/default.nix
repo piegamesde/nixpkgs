@@ -23,11 +23,9 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://argocd-vault-plugin.readthedocs.io";
     changelog =
-      "https://github.com/argoproj-labs/argocd-vault-plugin/releases/tag/v${version}"
-      ;
+      "https://github.com/argoproj-labs/argocd-vault-plugin/releases/tag/v${version}";
     description =
-      "An Argo CD plugin to retrieve secrets from Secret Management tools and inject them into Kubernetes secrets"
-      ;
+      "An Argo CD plugin to retrieve secrets from Secret Management tools and inject them into Kubernetes secrets";
     license = licenses.asl20;
     maintainers = with maintainers; [ urandom ];
   };

@@ -24,8 +24,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A pure python module which implements the DES and Triple-DES encryption algorithms"
-      ;
+      "A pure python module which implements the DES and Triple-DES encryption algorithms";
     homepage = "https://github.com/twhiteman/pyDes";
     license = licenses.mit;
     maintainers = with maintainers; [ j0hax ];

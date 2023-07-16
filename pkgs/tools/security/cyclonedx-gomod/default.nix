@@ -22,8 +22,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Tool to create CycloneDX Software Bill of Materials (SBOM) from Go modules"
-      ;
+      "Tool to create CycloneDX Software Bill of Materials (SBOM) from Go modules";
     homepage = "https://github.com/CycloneDX/cyclonedx-gomod";
     changelog =
       "https://github.com/CycloneDX/cyclonedx-gomod/releases/tag/v${version}";

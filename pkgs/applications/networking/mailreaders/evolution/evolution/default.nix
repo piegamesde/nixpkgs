@@ -129,8 +129,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Evolution";
     description =
-      "Personal information management application that provides integrated mail, calendaring and address book functionality"
-      ;
+      "Personal information management application that provides integrated mail, calendaring and address book functionality";
     maintainers = teams.gnome.members;
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;

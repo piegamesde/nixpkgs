@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/${pname}/${pname}/releases/download/${version}/${pname}-${version}-source.tar.gz"
-      ;
+      "https://github.com/${pname}/${pname}/releases/download/${version}/${pname}-${version}-source.tar.gz";
     hash = "sha256-M2vAH1YAvNOhDsz+BWxvteR8YX89FHtbUcQZr1uVoCs=";
   };
 
@@ -68,8 +67,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A simple and lightweight translator that allows to translate and speak text using Google, Yandex and Bing"
-      ;
+      "A simple and lightweight translator that allows to translate and speak text using Google, Yandex and Bing";
     homepage = "https://crow-translate.github.io/";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ sikmir ];

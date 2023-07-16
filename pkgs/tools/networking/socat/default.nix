@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Utility for bidirectional data transfer between two independent data channels"
-      ;
+      "Utility for bidirectional data transfer between two independent data channels";
     homepage = "http://www.dest-unreach.org/socat/";
     platforms = platforms.unix;
     license = with licenses; [ gpl2Only ];

@@ -25,8 +25,9 @@ import ../make-test-python.nix ({
       lib.mkMerge [
         {
           subnets = [ { address = subnet; } ];
-          settings = { Ed25519PublicKey = snakeoil-keys.${name}.ed25519Public; }
-            ;
+          settings = {
+            Ed25519PublicKey = snakeoil-keys.${name}.ed25519Public;
+          };
           rsaPublicKey = snakeoil-keys.${name}.rsaPublic;
         }
         extraConfig

@@ -86,8 +86,7 @@ import ./versions.nix ({
 
     meta = with lib; {
       description =
-        "An enterprise-class open source distributed monitoring solution (client-side agent)"
-        ;
+        "An enterprise-class open source distributed monitoring solution (client-side agent)";
       homepage = "https://www.zabbix.com/";
       license = licenses.gpl2Plus;
       maintainers = [ maintainers.aanderse ];

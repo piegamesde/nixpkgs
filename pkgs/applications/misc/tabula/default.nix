@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/tabulapdf/tabula/releases/download/v${version}/tabula-jar-${version}.zip"
-      ;
+      "https://github.com/tabulapdf/tabula/releases/download/v${version}/tabula-jar-${version}.zip";
     sha256 = "0lkpv8hkji81fanyxm7ph8421fr9a6phqc3pbhw2bc4gljg7sgxi";
   };
 
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = [ maintainers.dpaetzel ];
     platforms = platforms.all;
-    broken = true
-      ; # on 2022-11-23 this package builds, but produces an executable that fails immediately
+    broken =
+      true; # on 2022-11-23 this package builds, but produces an executable that fails immediately
   };
 }

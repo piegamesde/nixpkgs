@@ -23,8 +23,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Protocol Buffer companion tool. Track your .proto files and prevent changes to messages and services which impact API compatibility. https://protolock.dev"
-      ;
+      "Protocol Buffer companion tool. Track your .proto files and prevent changes to messages and services which impact API compatibility. https://protolock.dev";
     homepage = "https://github.com/nilslice/protolock";
     license = licenses.bsd3;
     maintainers = with maintainers; [ groodt ];

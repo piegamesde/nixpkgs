@@ -27,8 +27,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A Kubernetes credential plugin implementing OpenID Connect (OIDC) authentication"
-      ;
+      "A Kubernetes credential plugin implementing OpenID Connect (OIDC) authentication";
     inherit (src.meta) homepage;
     license = licenses.asl20;
     maintainers = with maintainers; [ benley ];

@@ -73,11 +73,9 @@ import ./make-test-python.nix ({
         etagSystem =
           "${nodes.webserver.config.system.build.toplevel}/specialisation/etag";
         justReloadSystem =
-          "${nodes.webserver.config.system.build.toplevel}/specialisation/config-reload"
-          ;
+          "${nodes.webserver.config.system.build.toplevel}/specialisation/config-reload";
         multipleConfigs =
-          "${nodes.webserver.config.system.build.toplevel}/specialisation/multiple-configs"
-          ;
+          "${nodes.webserver.config.system.build.toplevel}/specialisation/multiple-configs";
       in ''
         url = "http://localhost/example.html"
         webserver.wait_for_unit("caddy")

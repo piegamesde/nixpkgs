@@ -29,8 +29,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Backup ZFS snapshots to cloud storage such as Google, Amazon, Azure, etc"
-      ;
+      "Backup ZFS snapshots to cloud storage such as Google, Amazon, Azure, etc";
     homepage = "https://github.com/someone1/zfsbackup-go";
     license = licenses.mit;
     maintainers = with maintainers; [ xfix ];

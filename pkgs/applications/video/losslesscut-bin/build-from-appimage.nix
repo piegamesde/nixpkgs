@@ -16,8 +16,7 @@ let
 
   src = fetchurl {
     url =
-      "https://github.com/mifi/lossless-cut/releases/download/v${version}/LosslessCut-linux-x86_64.AppImage"
-      ;
+      "https://github.com/mifi/lossless-cut/releases/download/v${version}/LosslessCut-linux-x86_64.AppImage";
     inherit hash;
   };
 

@@ -11,8 +11,7 @@ let
 
   src = fetchurl {
     url =
-      "https://github.com/GoldenCheetah/GoldenCheetah/releases/download/v${version}/GoldenCheetah_v3.6-DEV_x64.AppImage"
-      ;
+      "https://github.com/GoldenCheetah/GoldenCheetah/releases/download/v${version}/GoldenCheetah_v3.6-DEV_x64.AppImage";
     hash = "sha256-I5GafK/W1djSx67xrjcMyPqMSqGW9AfrcPYcGcf0Pag=";
   };
 
@@ -40,8 +39,7 @@ appimageTools.wrapType2 {
 
   meta = with lib; {
     description =
-      "Performance software for cyclists, runners and triathletes. This version includes the API Tokens for e.g. Strava"
-      ;
+      "Performance software for cyclists, runners and triathletes. This version includes the API Tokens for e.g. Strava";
     platforms = platforms.linux;
     broken = !stdenv.isx86_64;
     maintainers = with maintainers; [ gador ];

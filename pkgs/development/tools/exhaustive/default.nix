@@ -24,8 +24,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Check exhaustiveness of switch statements of enum-like constants in Go code"
-      ;
+      "Check exhaustiveness of switch statements of enum-like constants in Go code";
     homepage = "https://github.com/nishanths/exhaustive";
     license = licenses.bsd2;
     maintainers = with maintainers; [ meain ];

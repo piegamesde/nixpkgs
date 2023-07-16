@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/romfs/genromfs/${version}/${pname}-${version}.tar.gz"
-      ;
+      "mirror://sourceforge/romfs/genromfs/${version}/${pname}-${version}.tar.gz";
     sha256 = "0q6rpq7cmclmb4ayfyknvzbqysxs4fy8aiahlax1sb2p6k3pzwrh";
   };
 

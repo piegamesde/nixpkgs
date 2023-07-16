@@ -53,8 +53,7 @@ buildPythonApplication rec {
     description = "A jsonschema CLI and pre-commit hook";
     homepage = "https://github.com/python-jsonschema/check-jsonschema";
     changelog =
-      "https://github.com/python-jsonschema/check-jsonschema/blob/${version}/CHANGELOG.rst"
-      ;
+      "https://github.com/python-jsonschema/check-jsonschema/blob/${version}/CHANGELOG.rst";
     license = licenses.apsl20;
     maintainers = with maintainers; [ sudosubin ];
   };

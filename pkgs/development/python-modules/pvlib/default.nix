@@ -31,8 +31,7 @@ buildPythonPackage rec {
     # enable later pandas versions, remove next bump
     (fetchpatch {
       url =
-        "https://github.com/pvlib/pvlib-python/commit/010a2adc9e9ef6fe9f2aea4c02d7e6ede9f96a53.patch"
-        ;
+        "https://github.com/pvlib/pvlib-python/commit/010a2adc9e9ef6fe9f2aea4c02d7e6ede9f96a53.patch";
       sha256 = "0jibn4khixz6hv6racmp86m5mcms0ysz1y5bgpplw1kcvf8sn04x";
       excludes = [
         "pvlib/tests/test_inverter.py"

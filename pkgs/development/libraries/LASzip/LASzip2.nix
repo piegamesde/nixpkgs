@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Turn quickly bulky LAS files into compact LAZ files without information loss"
-      ;
+      "Turn quickly bulky LAS files into compact LAZ files without information loss";
     homepage = "https://laszip.org";
     license = licenses.lgpl2;
     maintainers = [ maintainers.michelk ];

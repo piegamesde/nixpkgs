@@ -10,8 +10,7 @@ let
 
   src = fetchurl {
     url =
-      "https://github.com/th-ch/youtube-music/releases/download/v${version}/YouTube-Music-${version}.AppImage"
-      ;
+      "https://github.com/th-ch/youtube-music/releases/download/v${version}/YouTube-Music-${version}.AppImage";
     sha256 = "sha256-o/a+6EKPEcE9waXQK3hxtp7FPqokteoUAt0iOJk8bYw=";
   };
 

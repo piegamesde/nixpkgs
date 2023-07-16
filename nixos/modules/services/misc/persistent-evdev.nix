@@ -48,8 +48,7 @@ in {
   config = lib.mkIf cfg.enable {
 
     systemd.services.persistent-evdev = {
-      documentation = [ "https://github.com/aiberia/persistent-evdev/blob/master/README.md" ]
-        ;
+      documentation = [ "https://github.com/aiberia/persistent-evdev/blob/master/README.md" ];
       description = "Persistent evdev proxy";
       wantedBy = [ "multi-user.target" ];
 

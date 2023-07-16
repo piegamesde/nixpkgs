@@ -107,8 +107,7 @@ lib.makeScope pkgs.newScope (self:
         # https://github.com/alessandrofrancesconi/gimp-plugin-bimp/pull/311
         (fetchpatch {
           url =
-            "https://github.com/alessandrofrancesconi/gimp-plugin-bimp/commit/098edb5f70a151a3f377478fd6e0d08ed56b8ef7.patch"
-            ;
+            "https://github.com/alessandrofrancesconi/gimp-plugin-bimp/commit/098edb5f70a151a3f377478fd6e0d08ed56b8ef7.patch";
           sha256 = "2Afx9fmdn6ztbsll2f2j7mfffMWYWyr4BuBy9ySV6vM=";
         })
       ];
@@ -138,8 +137,7 @@ lib.makeScope pkgs.newScope (self:
 
       src = fetchurl {
         url =
-          "https://ftp.gimp.org/pub/gimp/plug-ins/v2.6/gap/gimp-gap-2.6.0.tar.bz2"
-          ;
+          "https://ftp.gimp.org/pub/gimp/plug-ins/v2.6/gap/gimp-gap-2.6.0.tar.bz2";
         sha256 = "1jic7ixcmsn4kx2cn32nc5087rk6g8xsrz022xy11yfmgvhzb0ql";
       };
 
@@ -192,8 +190,7 @@ lib.makeScope pkgs.newScope (self:
 
       src = fetchurl {
         url =
-          "https://www.lprp.fr/files/old-web/soft/gimp/${pname}-${version}.tar.gz"
-          ;
+          "https://www.lprp.fr/files/old-web/soft/gimp/${pname}-${version}.tar.gz";
         sha256 = "0mf7f8vaqs2madx832x3kcxw3hv3w3wampvzvaps1mkf2kvrjbsn";
       };
 
@@ -217,8 +214,7 @@ lib.makeScope pkgs.newScope (self:
       meta = with lib; {
         description = "GIMP plug-in to do the fourier transform";
         homepage =
-          "https://people.via.ecp.fr/~remi/soft/gimp/gimp_plugin_en.php3#fourier"
-          ;
+          "https://people.via.ecp.fr/~remi/soft/gimp/gimp_plugin_en.php3#fourier";
         license = with licenses; [ gpl3Plus ];
       };
     };
@@ -273,8 +269,7 @@ lib.makeScope pkgs.newScope (self:
 
       src = fetchurl {
         url =
-          "https://github.com/pixlsus/registry.gimp.org_static/raw/master/registry.gimp.org/files/wavelet-sharpen-0.1.2.tar.gz"
-          ;
+          "https://github.com/pixlsus/registry.gimp.org_static/raw/master/registry.gimp.org/files/wavelet-sharpen-0.1.2.tar.gz";
         sha256 = "0vql1k67i21g5ivaa1jh56rg427m0icrkpryrhg75nscpirfxxqw";
       };
 
@@ -286,8 +281,8 @@ lib.makeScope pkgs.newScope (self:
         NIX_LDFLAGS = "-lm";
       };
 
-      installPhase = "installPlugin src/wavelet-sharpen"
-        ; # TODO translations are not copied .. How to do this on nix?
+      installPhase =
+        "installPlugin src/wavelet-sharpen"; # TODO translations are not copied .. How to do this on nix?
     };
 
     lqrPlugin = pluginDerivation rec {
@@ -309,8 +304,7 @@ lib.makeScope pkgs.newScope (self:
         (fetchpatch {
           name = "fno-common.patch";
           url =
-            "https://github.com/carlobaldassi/gimp-lqr-plugin/commit/ae3464a82e1395fc577cc94999bdc7c4a7bb35f1.patch"
-            ;
+            "https://github.com/carlobaldassi/gimp-lqr-plugin/commit/ae3464a82e1395fc577cc94999bdc7c4a7bb35f1.patch";
           sha256 = "EdjZWM6U1bhUmsOnLA8iJ4SFKuAXHIfNPzxZqel+JrY=";
         })
       ];
@@ -338,8 +332,7 @@ lib.makeScope pkgs.newScope (self:
 
       meta = {
         description =
-          "GIMP plugin to correct lens distortion using the lensfun library and database"
-          ;
+          "GIMP plugin to correct lens distortion using the lensfun library and database";
 
         homepage = "http://lensfun.sebastiankraft.net/";
 
@@ -365,8 +358,7 @@ lib.makeScope pkgs.newScope (self:
       name = "Lightning";
       src = fetchurl {
         url =
-          "https://github.com/pixlsus/registry.gimp.org_static/raw/master/registry.gimp.org/files/Lightning.scm"
-          ;
+          "https://github.com/pixlsus/registry.gimp.org_static/raw/master/registry.gimp.org/files/Lightning.scm";
         sha256 =
           "c14a8f4f709695ede3f77348728a25b3f3ded420da60f3f8de3944b7eae98a49";
       };

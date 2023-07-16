@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.tbi.univie.ac.at/RNA/download/sourcecode/2_5_x/${pname}-${version}.tar.gz"
-      ;
+      "https://www.tbi.univie.ac.at/RNA/download/sourcecode/2_5_x/${pname}-${version}.tar.gz";
     sha256 = "sha256-BUAEN88VWV4QsaJd9snEiFbzVhMPnR44D6iGa20n9Fc=";
   };
 

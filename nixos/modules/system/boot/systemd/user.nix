@@ -220,8 +220,8 @@ in {
 
       # Some overrides to upstream units.
     systemd.services."user@".restartIfChanged = false;
-    systemd.services.systemd-user-sessions.restartIfChanged = false
-      ; # Restart kills all active sessions.
+    systemd.services.systemd-user-sessions.restartIfChanged =
+      false; # Restart kills all active sessions.
 
       # enable systemd user tmpfiles
     systemd.user.services.systemd-tmpfiles-setup.wantedBy = optional

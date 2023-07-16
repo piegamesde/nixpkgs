@@ -27,8 +27,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "MozillaVPN configuration manager giving Linux, macOS users (among others), access to MozillaVPN"
-      ;
+      "MozillaVPN configuration manager giving Linux, macOS users (among others), access to MozillaVPN";
     homepage = "https://github.com/NilsIrl/MozWire";
     license = licenses.gpl3;
     maintainers = with maintainers; [

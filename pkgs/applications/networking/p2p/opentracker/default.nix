@@ -41,8 +41,7 @@ stdenv.mkDerivation {
     license = licenses.beerware;
     platforms = platforms.linux;
     description =
-      "Bittorrent tracker project which aims for minimal resource usage and is intended to run at your wlan router"
-      ;
+      "Bittorrent tracker project which aims for minimal resource usage and is intended to run at your wlan router";
     maintainers = with maintainers; [ makefu ];
   };
 }

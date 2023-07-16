@@ -77,8 +77,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-src.tar.bz2"
-      ;
+      "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-src.tar.bz2";
     inherit hash;
   };
 
@@ -259,8 +258,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://pypy.org/";
     description =
-      "Fast, compliant alternative implementation of the Python language (${pythonVersion})"
-      ;
+      "Fast, compliant alternative implementation of the Python language (${pythonVersion})";
     license = licenses.mit;
     platforms = [
       "aarch64-linux"

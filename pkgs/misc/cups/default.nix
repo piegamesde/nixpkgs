@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/OpenPrinting/cups/releases/download/v${version}/cups-${version}-source.tar.gz"
-      ;
+      "https://github.com/OpenPrinting/cups/releases/download/v${version}/cups-${version}-source.tar.gz";
     sha256 = "sha256-8DzLQLCH0eMJQKQOAUHcu6Jj85l0wg658lIQZsnGyQg=";
   };
 

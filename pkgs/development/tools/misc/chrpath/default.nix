@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://alioth-archive.debian.org/releases/${pname}/${pname}/${version}/${pname}-${version}.tar.gz"
-      ;
+      "https://alioth-archive.debian.org/releases/${pname}/${pname}/${version}/${pname}-${version}.tar.gz";
     sha256 = "0yvfq891mcdkf8g18gjjkn2m5rvs8z4z4cl1vwdhx6f2p9a4q3dv";
   };
 

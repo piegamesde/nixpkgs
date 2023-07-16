@@ -72,8 +72,7 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/p1c2u/openapi-spec-validator/releases/tag/${version}";
     description =
-      "Validates OpenAPI Specs against the OpenAPI 2.0 (aka Swagger) and OpenAPI 3.0.0 specification"
-      ;
+      "Validates OpenAPI Specs against the OpenAPI 2.0 (aka Swagger) and OpenAPI 3.0.0 specification";
     homepage = "https://github.com/p1c2u/openapi-spec-validator";
     license = licenses.asl20;
     maintainers = with maintainers; [ rvl ];

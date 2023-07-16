@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.ocenaudio.com/downloads/index.php/ocenaudio_debian9_64.deb?version=${version}"
-      ;
+      "https://www.ocenaudio.com/downloads/index.php/ocenaudio_debian9_64.deb?version=${version}";
     sha256 = "sha256-3NM2jw3XvzMxLpDQAR3LZzCJXwSnQXSDoN7IK4nr4wM=";
   };
 

@@ -25,8 +25,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/ocaml-dns/releases/download/v${version}/dns-${version}.tbz"
-      ;
+      "https://github.com/mirage/ocaml-dns/releases/download/v${version}/dns-${version}.tbz";
     hash = "sha256-vDe1U1NbbIPcD1AmMG265ke7651C64mds7KcFHUN4fU=";
   };
 

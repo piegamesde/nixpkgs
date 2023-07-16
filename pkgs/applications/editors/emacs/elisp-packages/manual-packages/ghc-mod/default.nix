@@ -23,8 +23,7 @@ melpaBuild {
 
   meta = {
     description =
-      "An extension of haskell-mode that provides completion of symbols and documentation browsing"
-      ;
+      "An extension of haskell-mode that provides completion of symbols and documentation browsing";
     license = lib.licenses.bsd3;
   };
 }

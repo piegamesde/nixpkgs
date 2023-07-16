@@ -76,8 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
     # https://github.com/ROCm-Developer-Tools/hipamd/commit/be33ec55acc104a59d01df5912261d007c7f3ee9
     (fetchpatch {
       url =
-        "https://github.com/ROCm-Developer-Tools/hipamd/commit/be33ec55acc104a59d01df5912261d007c7f3ee9.patch"
-        ;
+        "https://github.com/ROCm-Developer-Tools/hipamd/commit/be33ec55acc104a59d01df5912261d007c7f3ee9.patch";
       hash = "sha256-eTC4mUIN1FwRce1n38uDOlITFL/vpcOhvnaZTo5R7lo=";
     })
   ];
@@ -183,8 +182,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     description =
-      "C++ Heterogeneous-Compute Interface for Portability specifically for AMD platform"
-      ;
+      "C++ Heterogeneous-Compute Interface for Portability specifically for AMD platform";
     homepage = "https://github.com/ROCm-Developer-Tools/hipamd";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;

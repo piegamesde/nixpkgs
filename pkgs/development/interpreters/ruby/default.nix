@@ -129,8 +129,7 @@ let
 
           src = fetchurl {
             url =
-              "https://cache.ruby-lang.org/pub/ruby/${ver.majMin}/ruby-${ver}.tar.gz"
-              ;
+              "https://cache.ruby-lang.org/pub/ruby/${ver.majMin}/ruby-${ver}.tar.gz";
             inherit sha256;
           };
 
@@ -194,8 +193,7 @@ let
               # Ruby 3.0 adds `-fdeclspec` to $CC instead of $CFLAGS. Fixed in later versions.
               (fetchpatch {
                 url =
-                  "https://github.com/ruby/ruby/commit/0acc05caf7518cd0d63ab02bfa036455add02346.patch"
-                  ;
+                  "https://github.com/ruby/ruby/commit/0acc05caf7518cd0d63ab02bfa036455add02346.patch";
                 sha256 = "sha256-43hI9L6bXfeujgmgKFVmiWhg7OXvshPCCtQ4TxqK1zk=";
               })
             ] ++ ops (!atLeast30 && rubygemsSupport) [
@@ -210,8 +208,7 @@ let
               # See https://github.com/ruby/ruby/pull/2930
               (fetchpatch {
                 url =
-                  "https://github.com/ruby/ruby/commit/261d8dd20afd26feb05f00a560abd99227269c1c.patch"
-                  ;
+                  "https://github.com/ruby/ruby/commit/261d8dd20afd26feb05f00a560abd99227269c1c.patch";
                 sha256 = "0wrii25cxcz2v8bgkrf7ibcanjlxwclzhayin578bf0qydxdm9qy";
               })
             ] ++ ops atLeast31 [

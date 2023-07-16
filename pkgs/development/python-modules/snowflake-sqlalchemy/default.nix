@@ -33,8 +33,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog =
-      "https://github.com/snowflakedb/snowflake-sqlalchemy/blob/v${version}/DESCRIPTION.md"
-      ;
+      "https://github.com/snowflakedb/snowflake-sqlalchemy/blob/v${version}/DESCRIPTION.md";
     description = "Snowflake SQLAlchemy Dialect";
     homepage = "https://github.com/snowflakedb/snowflake-sqlalchemy";
     license = licenses.asl20;

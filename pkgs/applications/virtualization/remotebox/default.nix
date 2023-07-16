@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://remotebox.knobgoblin.org.uk/downloads/RemoteBox-${version}.tar.bz2"
-      ;
+      "http://remotebox.knobgoblin.org.uk/downloads/RemoteBox-${version}.tar.bz2";
     sha256 = "0csf6gd7pqq4abia4z0zpzlq865ri1z0821kjy7p3iawqlfn75pb";
   };
 

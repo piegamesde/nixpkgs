@@ -58,8 +58,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "Plugin for the Accounts-SSO gSignOn daemon that handles the OAuth 1.0 and 2.0 authentication protocols"
-      ;
+      "Plugin for the Accounts-SSO gSignOn daemon that handles the OAuth 1.0 and 2.0 authentication protocols";
     homepage = "https://gitlab.com/accounts-sso/gsignond-plugin-oa";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ ];

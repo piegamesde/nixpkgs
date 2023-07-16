@@ -63,8 +63,7 @@ stdenv.mkDerivation rec {
     # https://gitlab.freedesktop.org/polkit/polkit/-/merge_requests/100
     (fetchpatch {
       url =
-        "https://gitlab.freedesktop.org/polkit/polkit/-/commit/7ba07551dfcd4ef9a87b8f0d9eb8b91fabcb41b3.patch"
-        ;
+        "https://gitlab.freedesktop.org/polkit/polkit/-/commit/7ba07551dfcd4ef9a87b8f0d9eb8b91fabcb41b3.patch";
       sha256 = "ebbLILncq1hAZTBMsLm+vDGw6j0iQ0crGyhzyLZQgKA=";
     })
   ];
@@ -196,8 +195,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://www.freedesktop.org/wiki/Software/polkit";
     description =
-      "A toolkit for defining and handling the policy that allows unprivileged processes to speak to privileged processes"
-      ;
+      "A toolkit for defining and handling the policy that allows unprivileged processes to speak to privileged processes";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;
     maintainers = teams.freedesktop.members ++ (with maintainers; [ ]);

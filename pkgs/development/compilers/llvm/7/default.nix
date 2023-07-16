@@ -42,8 +42,7 @@ let
     name: sha256:
     fetchurl {
       url =
-        "https://releases.llvm.org/${release_version}/${name}-${version}.src.tar.xz"
-        ;
+        "https://releases.llvm.org/${release_version}/${name}-${version}.src.tar.xz";
       inherit sha256;
     }
     ;

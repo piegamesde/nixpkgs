@@ -160,8 +160,7 @@ in {
       assertion = cfg.database.createLocally -> cfg.settings.database.host
         == "localhost" || cfg.settings.database.host == "/run/postgresql";
       message =
-        "if you want to create the database locally, you need to use a local database"
-        ;
+        "if you want to create the database locally, you need to use a local database";
     } ];
 
     systemd.services.lemmy = {

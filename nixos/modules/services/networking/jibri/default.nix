@@ -368,8 +368,7 @@ in {
         StateDirectory = "jibri";
 
         ExecStart =
-          "${pkgs.xorg.xorgserver}/bin/Xorg -nocursor -noreset +extension RANDR +extension RENDER -config ${pkgs.jibri}/etc/jitsi/jibri/xorg-video-dummy.conf -logfile /dev/null :0"
-          ;
+          "${pkgs.xorg.xorgserver}/bin/Xorg -nocursor -noreset +extension RANDR +extension RENDER -config ${pkgs.jibri}/etc/jitsi/jibri/xorg-video-dummy.conf -logfile /dev/null :0";
       };
     };
 
@@ -441,8 +440,7 @@ in {
       # Configure Chromium to not show the "Chrome is being controlled by automatic test software" message.
     environment.etc."chromium/policies/managed/managed_policies.json".text =
       builtins.toJSON { CommandLineFlagSecurityWarningsEnabled = false; };
-    warnings = [ "All security warnings for Chromium have been disabled. This is necessary for Jibri, but it also impacts all other uses of Chromium on this system." ]
-      ;
+    warnings = [ "All security warnings for Chromium have been disabled. This is necessary for Jibri, but it also impacts all other uses of Chromium on this system." ];
 
     boot = {
       extraModprobeConfig = ''

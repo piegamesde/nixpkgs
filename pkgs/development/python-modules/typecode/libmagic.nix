@@ -39,11 +39,9 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A ScanCode Toolkit plugin to provide pre-built binary libraries and utilities and their locations"
-      ;
+      "A ScanCode Toolkit plugin to provide pre-built binary libraries and utilities and their locations";
     homepage =
-      "https://github.com/nexB/scancode-plugins/tree/main/builtins/typecode_libmagic-linux"
-      ;
+      "https://github.com/nexB/scancode-plugins/tree/main/builtins/typecode_libmagic-linux";
     license = licenses.asl20;
     maintainers = [ ];
     platforms = platforms.linux;

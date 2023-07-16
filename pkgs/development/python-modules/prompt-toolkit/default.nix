@@ -47,8 +47,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/jonathanslenders/python-prompt-toolkit";
     changelog =
-      "https://github.com/prompt-toolkit/python-prompt-toolkit/blob/${version}/CHANGELOG"
-      ;
+      "https://github.com/prompt-toolkit/python-prompt-toolkit/blob/${version}/CHANGELOG";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

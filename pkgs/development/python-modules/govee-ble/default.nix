@@ -47,8 +47,7 @@ buildPythonPackage rec {
     description = "Library for Govee BLE devices";
     homepage = "https://github.com/Bluetooth-Devices/govee-ble";
     changelog =
-      "https://github.com/bluetooth-devices/govee-ble/blob/v${version}/CHANGELOG.md"
-      ;
+      "https://github.com/bluetooth-devices/govee-ble/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

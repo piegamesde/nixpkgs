@@ -25,8 +25,7 @@ buildPythonPackage rec {
   meta = {
     homepage = "http://www.dabeaz.com/ply/";
     description =
-      "PLY (Python Lex-Yacc), an implementation of the lex and yacc parsing tools for Python"
-      ;
+      "PLY (Python Lex-Yacc), an implementation of the lex and yacc parsing tools for Python";
     longDescription = ''
       PLY is an implementation of lex and yacc parsing tools for Python.
       In a nutshell, PLY is nothing more than a straightforward lex/yacc

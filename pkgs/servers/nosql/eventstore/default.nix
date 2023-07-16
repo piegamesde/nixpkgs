@@ -68,8 +68,7 @@ buildDotnetModule rec {
 
   doCheck = true;
   testProjectFile =
-    "src/EventStore.Projections.Core.Tests/EventStore.Projections.Core.Tests.csproj"
-    ;
+    "src/EventStore.Projections.Core.Tests/EventStore.Projections.Core.Tests.csproj";
 
   doInstallCheck = true;
   installCheckPhase = ''

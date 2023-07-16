@@ -29,8 +29,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A Pythonic Implementation of lyrics.wikia.com for getting lyrics of songs "
-      ;
+      "A Pythonic Implementation of lyrics.wikia.com for getting lyrics of songs ";
     homepage = "https://github.com/geekpradd/PyLyrics";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];

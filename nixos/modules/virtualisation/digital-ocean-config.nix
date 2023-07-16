@@ -187,8 +187,7 @@ with lib; {
         # Digital Ocean metadata
       systemd.services.digitalocean-entropy-seed = mkIf cfg.seedEntropy {
         description =
-          "Run the kernel RNG entropy seeding script from the Digital Ocean vendor data"
-          ;
+          "Run the kernel RNG entropy seeding script from the Digital Ocean vendor data";
         wantedBy = [ "network.target" ];
         path = [
           pkgs.jq

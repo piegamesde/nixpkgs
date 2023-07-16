@@ -18,8 +18,7 @@
         }:
         import <nix/fetchurl.nix> {
           url =
-            "http://tarballs.nixos.org/stdenv-darwin/aarch64/20acd4c4f14040485f40e55c0a76c186aa8ca4f3/${file}"
-            ;
+            "http://tarballs.nixos.org/stdenv-darwin/aarch64/20acd4c4f14040485f40e55c0a76c186aa8ca4f3/${file}";
           inherit (localSystem) system;
           inherit sha256 executable;
         }
@@ -57,8 +56,7 @@
         }:
         import <nix/fetchurl.nix> {
           url =
-            "http://tarballs.nixos.org/stdenv-darwin/x86_64/c253216595572930316f2be737dc288a1da22558/${file}"
-            ;
+            "http://tarballs.nixos.org/stdenv-darwin/x86_64/c253216595572930316f2be737dc288a1da22558/${file}";
           inherit (localSystem) system;
           inherit sha256 executable;
         }
@@ -514,9 +512,8 @@ in rec {
         ;
     in with prevStage;
     stageFun 1 prevStage {
-      extraPreHook =
-        ''export NIX_CFLAGS_COMPILE+=" -F${bootstrapTools}/Library/Frameworks"''
-        ;
+      extraPreHook = ''
+        export NIX_CFLAGS_COMPILE+=" -F${bootstrapTools}/Library/Frameworks"'';
       extraNativeBuildInputs = [ ];
       extraBuildInputs = [ pkgs.darwin.CF ];
       libcxx = pkgs."${finalLlvmPackages}".libcxx;

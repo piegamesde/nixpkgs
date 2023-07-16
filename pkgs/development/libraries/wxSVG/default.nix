@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/wxsvg/wxsvg/${version}/wxsvg-${version}.tar.bz2"
-      ;
+      "mirror://sourceforge/project/wxsvg/wxsvg/${version}/wxsvg-${version}.tar.bz2";
     hash = "sha256-rkcykfjQpf6voGzScMgmxr6tS86yud1vzs8tt8JeJII=";
   };
 

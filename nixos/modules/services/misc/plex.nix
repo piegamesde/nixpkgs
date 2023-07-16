@@ -14,8 +14,8 @@ in {
     "services"
     "plex"
     "managePlugins"
-  ] "Please omit or define the option: `services.plex.extraPlugins' instead.") ]
-    ;
+  ]
+    "Please omit or define the option: `services.plex.extraPlugins' instead.") ];
 
   options = {
     services.plex = {

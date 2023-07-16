@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.accellera.org/images/downloads/standards/systemc/${pname}-${version}.tar.gz"
-      ;
+      "https://www.accellera.org/images/downloads/standards/systemc/${pname}-${version}.tar.gz";
     sha256 = "5781b9a351e5afedabc37d145e5f7edec08f3fd5de00ffeb8fa1f3086b1f7b3f";
   };
 

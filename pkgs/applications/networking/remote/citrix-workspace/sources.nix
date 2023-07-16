@@ -55,8 +55,7 @@ let
       x64suffix = "10";
       x86suffix = "10";
       homepage =
-        "https://www.citrix.com/downloads/workspace-app/linux/workspace-app-for-linux-latest.html"
-        ;
+        "https://www.citrix.com/downloads/workspace-app/linux/workspace-app-for-linux-latest.html";
     };
   };
 

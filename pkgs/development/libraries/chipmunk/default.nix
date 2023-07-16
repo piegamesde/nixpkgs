@@ -23,15 +23,13 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://chipmunk-physics.net/release/Chipmunk-${majorVersion}.x/Chipmunk-${version}.tgz"
-      ;
+      "https://chipmunk-physics.net/release/Chipmunk-${majorVersion}.x/Chipmunk-${version}.tgz";
     sha256 = "06j9cfxsyrrnyvl7hsf55ac5mgff939mmijliampphlizyg0r2q4";
   };
 
   patches = [ (fetchpatch {
     url =
-      "https://github.com/slembcke/Chipmunk2D/commit/9a051e6fb970c7afe09ce2d564c163b81df050a8.patch"
-      ;
+      "https://github.com/slembcke/Chipmunk2D/commit/9a051e6fb970c7afe09ce2d564c163b81df050a8.patch";
     sha256 = "0ps8bjba1k544vcdx5w0qk7gcjq94yfigxf67j50s63yf70k2n70";
   }) ];
 
@@ -58,7 +56,7 @@ stdenv.mkDerivation rec {
     description = "A fast and lightweight 2D game physics library";
     homepage = "http://chipmunk2d.net/";
     license = licenses.mit;
-    platforms = platforms.unix
-      ; # supports Windows and MacOS as well, but those require more work
+    platforms =
+      platforms.unix; # supports Windows and MacOS as well, but those require more work
   };
 }

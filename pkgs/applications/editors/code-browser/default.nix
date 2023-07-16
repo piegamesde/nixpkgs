@@ -63,8 +63,7 @@ mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Folding text editor, designed to hierarchically structure any kind of text file and especially source code"
-      ;
+      "Folding text editor, designed to hierarchically structure any kind of text file and especially source code";
     homepage = "https://tibleiz.net/code-browser/";
     license = licenses.gpl2;
     platforms = platforms.x86_64;

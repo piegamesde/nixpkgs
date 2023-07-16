@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
     # or fetchFromGitHub(owner,repo,rev) or fetchgit(rev)
   src = fetchurl {
     url =
-      "https://gist.githubusercontent.com/kaefer3000/73febe1eec898cd50ce4de1af79a332a/raw/a266410033455d6b4af515d7a9d34f5afd35beec/mozlz4a.py"
-      ;
+      "https://gist.githubusercontent.com/kaefer3000/73febe1eec898cd50ce4de1af79a332a/raw/a266410033455d6b4af515d7a9d34f5afd35beec/mozlz4a.py";
     sha256 = "1d1ai062kdms34bya9dlykkx011rj8d8nh5l7d76xj8k9kv4ssq6";
   };
 

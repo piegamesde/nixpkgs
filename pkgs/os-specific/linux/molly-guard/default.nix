@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://launchpad.net/ubuntu/+archive/primary/+files/molly-guard_${version}_all.deb"
-      ;
+      "https://launchpad.net/ubuntu/+archive/primary/+files/molly-guard_${version}_all.deb";
     sha256 = "1k6b1hn8lc4rj9n036imsl7s9lqj6ny3acdhnbnamsdkkndmxrw7";
   };
 
@@ -39,8 +38,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Attempts to prevent you from accidentally shutting down or rebooting machines"
-      ;
+      "Attempts to prevent you from accidentally shutting down or rebooting machines";
     homepage = "https://salsa.debian.org/debian/molly-guard";
     license = licenses.artistic2;
     platforms = platforms.linux;

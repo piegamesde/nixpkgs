@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ldc-developers/ldc/releases/download/v${version}/ldc-${version}-src.tar.gz"
-      ;
+      "https://github.com/ldc-developers/ldc/releases/download/v${version}/ldc-${version}-src.tar.gz";
     inherit sha256;
   };
 

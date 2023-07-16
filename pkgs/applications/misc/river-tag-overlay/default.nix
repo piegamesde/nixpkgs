@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
     # Backport cross fix.
     (fetchpatch {
       url =
-        "https://git.sr.ht/~leon_plickat/river-tag-overlay/commit/791eaadf46482121a4c811ffba13d03168d74d8f.patch"
-        ;
+        "https://git.sr.ht/~leon_plickat/river-tag-overlay/commit/791eaadf46482121a4c811ffba13d03168d74d8f.patch";
       sha256 = "CxSDcweHGup1EF3oD/2vhP6RFoeYorj0BwmlgA3tbPE=";
     })
   ];

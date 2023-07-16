@@ -10,22 +10,19 @@ let
   srcs = {
     "i686-linux" = fetchurl {
       url =
-        "https://web.archive.org/web/20220907001049/https://ftp.perforce.com/perforce/r22.1/bin.linux26x86/helix-core-server.tgz"
-        ;
+        "https://web.archive.org/web/20220907001049/https://ftp.perforce.com/perforce/r22.1/bin.linux26x86/helix-core-server.tgz";
       sha256 =
         "e9cf27c9dd2fa6432745058a93896d151543aff712fce9f7322152d6ea88a12a";
     };
     "x86_64-linux" = fetchurl {
       url =
-        "https://web.archive.org/web/20220907001202/https://ftp.perforce.com/perforce/r22.1/bin.linux26x86_64/helix-core-server.tgz"
-        ;
+        "https://web.archive.org/web/20220907001202/https://ftp.perforce.com/perforce/r22.1/bin.linux26x86_64/helix-core-server.tgz";
       sha256 =
         "9c272b67574264a4f49fe846ccda24fbd4baeb282665af74b6fbccff26a43558";
     };
     "x86_64-darwin" = fetchurl {
       url =
-        "https://web.archive.org/web/20220907001334/https://ftp.perforce.com/perforce/r22.1/bin.macosx1015x86_64/helix-core-server.tgz"
-        ;
+        "https://web.archive.org/web/20220907001334/https://ftp.perforce.com/perforce/r22.1/bin.macosx1015x86_64/helix-core-server.tgz";
       sha256 =
         "2500a23fe482a303bd400f0de460b7624ad3f940fef45246004b9f956e90ea45";
     };

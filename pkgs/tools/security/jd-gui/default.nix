@@ -29,8 +29,7 @@ let
     (fetchpatch {
       name = "nebula-plugin-gradle-6-compatibility.patch";
       url =
-        "https://github.com/java-decompiler/jd-gui/commit/91f805f9dc8ce0097460e63c8095ccea870687e6.patch"
-        ;
+        "https://github.com/java-decompiler/jd-gui/commit/91f805f9dc8ce0097460e63c8095ccea870687e6.patch";
       hash = "sha256-9eaM9Mx2FaKIhGSOHjATKN/CrtvJeXyrH8Mdx8LNtpE=";
     })
   ];

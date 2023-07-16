@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.muppetlabs.com/~breadbox/pub/software/ELFkickers-${version}.tar.gz"
-      ;
+      "https://www.muppetlabs.com/~breadbox/pub/software/ELFkickers-${version}.tar.gz";
     sha256 = "sha256-m4HmxT4MlPwZjZiC63NxVvNtVlFS3DIRiJfHewaiaHw=";
   };
 

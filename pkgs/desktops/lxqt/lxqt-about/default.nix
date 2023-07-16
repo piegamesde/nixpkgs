@@ -43,8 +43,7 @@ mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/lxqt/lxqt-about";
     description =
-      "Dialogue window providing information about LXQt and the system it's running on"
-      ;
+      "Dialogue window providing information about LXQt and the system it's running on";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
     maintainers = teams.lxqt.members;

@@ -13,8 +13,7 @@ in {
     "services"
     "geoip-updater"
   ]
-    "services.geoip-updater has been removed, use services.geoipupdate instead.") ]
-    ;
+    "services.geoip-updater has been removed, use services.geoipupdate instead.") ];
 
   options = {
     services.geoipupdate = {

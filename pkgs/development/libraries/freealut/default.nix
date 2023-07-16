@@ -13,8 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "http://www.openal.org/openal_webstf/downloads/freealut-${finalAttrs.version}.tar.gz"
-      ;
+      "http://www.openal.org/openal_webstf/downloads/freealut-${finalAttrs.version}.tar.gz";
     sha256 = "0kzlil6112x2429nw6mycmif8y6bxr2cwjcvp18vh6s7g63ymlb0";
   };
 

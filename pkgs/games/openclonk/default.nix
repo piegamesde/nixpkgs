@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.openclonk.org/builds/release/8.1/openclonk-${version}-src.tar.bz2"
-      ;
+      "https://www.openclonk.org/builds/release/8.1/openclonk-${version}-src.tar.bz2";
     sha256 = "0imkqjp8lww5p0cnqf4k4mb2v682mnsas63qmiz17rspakr7fxik";
   };
 
@@ -71,8 +70,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Free multiplayer action game in which you control clonks, small but witty and nimble humanoid beings"
-      ;
+      "Free multiplayer action game in which you control clonks, small but witty and nimble humanoid beings";
     homepage = "https://www.openclonk.org";
     license =
       if enableSoundtrack then

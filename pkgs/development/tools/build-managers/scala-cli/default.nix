@@ -39,8 +39,7 @@ stdenv.mkDerivation {
     in
     fetchurl {
       url =
-        "https://github.com/Virtuslab/scala-cli/releases/download/v${version}/${asset.asset}"
-        ;
+        "https://github.com/Virtuslab/scala-cli/releases/download/v${version}/${asset.asset}";
       sha256 = asset.sha256;
     }
     ;

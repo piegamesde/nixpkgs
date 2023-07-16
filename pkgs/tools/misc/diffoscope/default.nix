@@ -97,8 +97,7 @@ python3Packages.buildPythonApplication rec {
     # test_text_proper_indentation requires file >= 5.44
     (fetchpatch {
       url =
-        "https://salsa.debian.org/reproducible-builds/diffoscope/-/commit/9fdb78ec0bbc69f1980499dfdcbf6f1dd5e55cc8.patch"
-        ;
+        "https://salsa.debian.org/reproducible-builds/diffoscope/-/commit/9fdb78ec0bbc69f1980499dfdcbf6f1dd5e55cc8.patch";
       sha256 = "sha256-F0N3L9yymj2NjeIKtSnOEDsxPe+ZTb0m/M4f8LPRHg0=";
     })
   ];

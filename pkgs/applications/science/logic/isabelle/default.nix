@@ -59,22 +59,19 @@ stdenv.mkDerivation (finalAttrs: rec {
     if stdenv.isDarwin then
       fetchurl {
         url =
-          "https://isabelle.in.tum.de/website-${dirname}/dist/${dirname}_macos.tar.gz"
-          ;
+          "https://isabelle.in.tum.de/website-${dirname}/dist/${dirname}_macos.tar.gz";
         sha256 = "0b84rx9b7b5y8m1sg7xdp17j6yngd2dkx6v5bkd8h7ly102lai18";
       }
     else if stdenv.hostPlatform.isx86 then
       fetchurl {
         url =
-          "https://isabelle.in.tum.de/website-${dirname}/dist/${dirname}_linux.tar.gz"
-          ;
+          "https://isabelle.in.tum.de/website-${dirname}/dist/${dirname}_linux.tar.gz";
         sha256 = "1ih4gykkp1an43qdgc5xzyvf30fhs0dah3y0a5ksbmvmjsfnxyp7";
       }
     else
       fetchurl {
         url =
-          "https://isabelle.in.tum.de/website-${dirname}/dist/${dirname}_linux_arm.tar.gz"
-          ;
+          "https://isabelle.in.tum.de/website-${dirname}/dist/${dirname}_linux_arm.tar.gz";
         hash = "sha256-qI/BR/KZwLjnkO5q/yYeW4lN4xyUe78VOM2INC/Z/io=";
       }
     ;

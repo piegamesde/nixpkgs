@@ -12,8 +12,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/cl-yacc/2010-10-06/cl-yacc-20101006-darcs.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/cl-yacc/2010-10-06/cl-yacc-20101006-darcs.tgz";
     sha256 = "0cymvl0arp4yahqcnhxggs1z2g42bf6z4ix75ba7wbsi52zirjp7";
   };
 

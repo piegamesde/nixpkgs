@@ -108,8 +108,7 @@ let
       (fetchpatch {
         name = "gcc4-char-reload.patch";
         url =
-          "https://gcc.gnu.org/git/?p=gcc.git;a=commitdiff_plain;h=d57c99458933a21fdf94f508191f145ad8d5ec58"
-          ;
+          "https://gcc.gnu.org/git/?p=gcc.git;a=commitdiff_plain;h=d57c99458933a21fdf94f508191f145ad8d5ec58";
         includes = [ "gcc/reload.h" ];
         sha256 = "sha256-66AMP7/ajunGKAN5WJz/yPn42URZ2KN51yPrFdsxEuM=";
       })
@@ -346,8 +345,8 @@ stdenv.mkDerivation ({
     preFixup
     ;
 
-  doCheck = false
-    ; # requires a lot of tools, causes a dependency cycle for stdenv
+  doCheck =
+    false; # requires a lot of tools, causes a dependency cycle for stdenv
 
     # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
   ${

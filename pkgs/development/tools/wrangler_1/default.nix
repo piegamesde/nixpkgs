@@ -42,8 +42,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A CLI tool designed for folks who are interested in using Cloudflare Workers"
-      ;
+      "A CLI tool designed for folks who are interested in using Cloudflare Workers";
     homepage = "https://github.com/cloudflare/wrangler";
     license = with licenses; [
       asl20 # or
