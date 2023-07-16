@@ -132,7 +132,16 @@ stdenv.mkDerivation rec {
     moveToOutput bin "$bin"
   '';
 
-  passthru = { inherit uselibtirpc libtirpc szipSupport szip javaSupport jdk; };
+  passthru = {
+    inherit
+      uselibtirpc
+      libtirpc
+      szipSupport
+      szip
+      javaSupport
+      jdk
+    ;
+  };
 
   meta = with lib; {
     description =

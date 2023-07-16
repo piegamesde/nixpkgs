@@ -65,7 +65,12 @@ stdenv.mkDerivation (
 
     passthru = {
       inherit swift;
-      inherit (swift) swiftOs swiftArch swiftModuleSubdir swiftLibSubdir;
+      inherit (swift)
+        swiftOs
+        swiftArch
+        swiftModuleSubdir
+        swiftLibSubdir
+      ;
     };
   }
 )

@@ -57,7 +57,13 @@ let
   };
 
   backends = {
-    inherit freeimage libtiff libpng librsvg libheif;
+    inherit
+      freeimage
+      libtiff
+      libpng
+      librsvg
+      libheif
+    ;
     libjpeg = libjpeg_turbo;
     inherit (netsurf) libnsgif;
   };

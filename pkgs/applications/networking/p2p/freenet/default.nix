@@ -60,7 +60,12 @@ stdenv.mkDerivation rec {
 
   wrapper = substituteAll {
     src = ./freenetWrapper;
-    inherit bash coreutils jre seednodes;
+    inherit
+      bash
+      coreutils
+      jre
+      seednodes
+    ;
   };
 
   # https://github.com/freenet/fred/blob/next/build-offline.sh

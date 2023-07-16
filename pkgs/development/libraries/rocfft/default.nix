@@ -161,7 +161,13 @@ let
   '';
 in
 stdenv.mkDerivation {
-  inherit (rf) pname version src passthru meta;
+  inherit (rf)
+    pname
+    version
+    src
+    passthru
+    meta
+  ;
 
   outputs =
     [ "out" ]

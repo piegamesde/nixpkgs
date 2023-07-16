@@ -66,7 +66,14 @@ else
 
     outputHashMode = "recursive";
 
-    inherit curlOpts postFetch ipfs url port meta;
+    inherit
+      curlOpts
+      postFetch
+      ipfs
+      url
+      port
+      meta
+    ;
 
     # Doing the download on a remote machine just duplicates network
     # traffic, so don't do that.

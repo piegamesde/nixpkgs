@@ -50,7 +50,13 @@ let
     recurseIntoAttrs
   ;
 
-  inherit (builtins) head tail elem split storeDir;
+  inherit (builtins)
+    head
+    tail
+    elem
+    split
+    storeDir
+  ;
 
   inherit (pkgs) substituteAll;
 
@@ -199,7 +205,15 @@ let
         # load-system. Strange.
 
         # TODO(kasper) portable quit
-        asdfFasl = buildAsdf { inherit asdf pkg program flags faslExt; };
+        asdfFasl = buildAsdf {
+          inherit
+            asdf
+            pkg
+            program
+            flags
+            faslExt
+          ;
+        };
 
         buildScript = substituteAll {
           src = ./builder.lisp;
@@ -323,7 +337,13 @@ let
       first = head (lib.attrValues clpkgs);
     in
     (build-asdf-system {
-      inherit (first) pkg program flags faslExt asdf;
+      inherit (first)
+        pkg
+        program
+        flags
+        faslExt
+        asdf
+      ;
       # See dontUnpack in build-asdf-system
       src = null;
       pname = first.pkg.pname;
@@ -363,20 +383,39 @@ let
       packageOverrides ? (self: super: { }),
     }:
     let
-      spec = { inherit pkg faslExt program flags asdf; };
+      spec = {
+        inherit
+          pkg
+          faslExt
+          program
+          flags
+          asdf
+        ;
+      };
       pkgs = (commonLispPackagesFor spec).overrideScope' packageOverrides;
       withPackages = lispWithPackages pkgs;
       withOverrides =
         packageOverrides:
         wrapLisp {
-          inherit pkg faslExt program flags asdf;
+          inherit
+            pkg
+            faslExt
+            program
+            flags
+            asdf
+          ;
           inherit packageOverrides;
         }
       ;
       buildASDFSystem = args: build-asdf-system (args // spec);
     in
     pkg // {
-      inherit pkgs withPackages withOverrides buildASDFSystem;
+      inherit
+        pkgs
+        withPackages
+        withOverrides
+        buildASDFSystem
+      ;
     }
   ;
 in

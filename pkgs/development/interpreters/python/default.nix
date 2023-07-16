@@ -159,7 +159,13 @@
         };
         pkgs = pythonPackages;
         interpreter = "${self}/bin/${executable}";
-        inherit executable implementation libPrefix pythonVersion sitePackages;
+        inherit
+          executable
+          implementation
+          libPrefix
+          pythonVersion
+          sitePackages
+        ;
         inherit sourceVersion;
         pythonAtLeast = lib.versionAtLeast pythonVersion;
         pythonOlder = lib.versionOlder pythonVersion;

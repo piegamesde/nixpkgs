@@ -12,7 +12,12 @@ with frameworks;
 with libs; {
   AGL = { inherit Carbon OpenGL; };
   AVFoundation = {
-    inherit ApplicationServices CoreGraphics CoreMedia MediaToolbox;
+    inherit
+      ApplicationServices
+      CoreGraphics
+      CoreMedia
+      MediaToolbox
+    ;
   };
   AVKit = { };
   Accounts = { };
@@ -44,7 +49,14 @@ with libs; {
   CoreAudio = { inherit IOKit; };
   CoreAudioKit = { inherit AudioUnit; };
   CoreData = { };
-  CoreGraphics = { inherit Accelerate IOKit IOSurface SystemConfiguration; };
+  CoreGraphics = {
+    inherit
+      Accelerate
+      IOKit
+      IOSurface
+      SystemConfiguration
+    ;
+  };
   CoreImage = { };
   CoreLocation = { };
   CoreMIDI = { };
@@ -61,7 +73,14 @@ with libs; {
   };
   CoreMediaIO = { inherit CoreMedia; };
   CoreText = { inherit CoreGraphics; };
-  CoreVideo = { inherit ApplicationServices CoreGraphics IOSurface OpenGL; };
+  CoreVideo = {
+    inherit
+      ApplicationServices
+      CoreGraphics
+      IOSurface
+      OpenGL
+    ;
+  };
   CoreWLAN = { inherit SecurityFoundation; };
   DVDPlayback = { };
   DirectoryService = { };
@@ -137,7 +156,13 @@ with libs; {
   PreferencePanes = { };
   PubSub = { };
   QTKit = {
-    inherit CoreMediaIO CoreMedia MediaToolbox QuickTime VideoToolbox;
+    inherit
+      CoreMediaIO
+      CoreMedia
+      MediaToolbox
+      QuickTime
+      VideoToolbox
+    ;
   };
   QuickLook = { inherit ApplicationServices; };
   SceneKit = { };
@@ -158,12 +183,25 @@ with libs; {
   VideoDecodeAcceleration = { inherit CoreVideo; };
   VideoToolbox = { inherit CoreMedia CoreVideo; };
   WebKit = {
-    inherit libobjc ApplicationServices Carbon JavaScriptCore OpenGL;
+    inherit
+      libobjc
+      ApplicationServices
+      Carbon
+      JavaScriptCore
+      OpenGL
+    ;
   };
 
   # Umbrellas
   Accelerate = { inherit CoreWLAN IOBluetooth; };
-  ApplicationServices = { inherit CoreGraphics CoreServices CoreText ImageIO; };
+  ApplicationServices = {
+    inherit
+      CoreGraphics
+      CoreServices
+      CoreText
+      ImageIO
+    ;
+  };
   Carbon = {
     inherit
       libobjc
@@ -195,7 +233,14 @@ with libs; {
   OpenDirectory = { };
   Quartz = { inherit QuartzCore QuickLook QTKit; };
   QuartzCore = {
-    inherit libobjc ApplicationServices CoreVideo OpenCL CoreImage Metal;
+    inherit
+      libobjc
+      ApplicationServices
+      CoreVideo
+      OpenCL
+      CoreImage
+      Metal
+    ;
   };
   QuickTime = {
     inherit

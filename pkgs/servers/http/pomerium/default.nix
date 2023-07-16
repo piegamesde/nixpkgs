@@ -11,7 +11,12 @@
 }:
 
 let
-  inherit (lib) concatStringsSep concatMap id mapAttrsToList;
+  inherit (lib)
+    concatStringsSep
+    concatMap
+    id
+    mapAttrsToList
+  ;
 in
 buildGoModule rec {
   pname = "pomerium";

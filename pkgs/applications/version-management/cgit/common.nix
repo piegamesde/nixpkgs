@@ -32,7 +32,12 @@
 }:
 
 stdenv.mkDerivation {
-  inherit pname version src gitSrc;
+  inherit
+    pname
+    version
+    src
+    gitSrc
+  ;
 
   nativeBuildInputs =
     [

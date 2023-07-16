@@ -513,7 +513,14 @@ rec {
   ;
 
   inherit
-    (import ./build-vim-plugin.nix { inherit lib stdenv rtpPath toVimPlugin; })
+    (import ./build-vim-plugin.nix {
+      inherit
+        lib
+        stdenv
+        rtpPath
+        toVimPlugin
+      ;
+    })
     buildVimPlugin
     buildVimPluginFrom2Nix
   ;

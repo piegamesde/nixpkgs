@@ -29,7 +29,12 @@ let
   appimageContents = appimageTools.extract { inherit pname version src; };
 
   linux = appimageTools.wrapType2 rec {
-    inherit pname version src meta;
+    inherit
+      pname
+      version
+      src
+      meta
+    ;
 
     extraPkgs =
       p: [
@@ -56,7 +61,12 @@ let
   };
 
   darwin = stdenv.mkDerivation {
-    inherit pname version src meta;
+    inherit
+      pname
+      version
+      src
+      meta
+    ;
 
     nativeBuildInputs = [ undmg ];
 

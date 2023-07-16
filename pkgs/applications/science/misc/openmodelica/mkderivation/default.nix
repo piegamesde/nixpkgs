@@ -14,7 +14,12 @@
 }:
 pkg:
 let
-  inherit (builtins) hasAttr getAttr length elemAt;
+  inherit (builtins)
+    hasAttr
+    getAttr
+    length
+    elemAt
+  ;
   inherit (lib) attrByPath concatStringsSep;
 
   # A few helpers functions:

@@ -6,7 +6,13 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf mkOption optionalString types;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    optionalString
+    types
+  ;
 
   cfg = config.services.bird2;
   caps = [

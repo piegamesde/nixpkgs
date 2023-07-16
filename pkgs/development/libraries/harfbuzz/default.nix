@@ -127,7 +127,12 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.tests = {
-    inherit gimp gtk3 gtk4 mapnik;
+    inherit
+      gimp
+      gtk3
+      gtk4
+      mapnik
+    ;
     inherit (qt5) qtbase;
   };
 

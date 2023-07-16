@@ -91,7 +91,15 @@ stdenv.mkDerivation (
     ];
 
     passthru.tests = {
-      inherit libcaca diffoscopeMinimal feh icewm openbox fluxbox enlightenment;
+      inherit
+        libcaca
+        diffoscopeMinimal
+        feh
+        icewm
+        openbox
+        fluxbox
+        enlightenment
+      ;
     };
 
     passthru.tests.pkg-config =

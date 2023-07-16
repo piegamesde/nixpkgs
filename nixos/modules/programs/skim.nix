@@ -5,7 +5,13 @@
   ...
 }:
 let
-  inherit (lib) mdDoc mkEnableOption mkPackageOptionMD optional optionalString;
+  inherit (lib)
+    mdDoc
+    mkEnableOption
+    mkPackageOptionMD
+    optional
+    optionalString
+  ;
   cfg = config.programs.skim;
 in
 {

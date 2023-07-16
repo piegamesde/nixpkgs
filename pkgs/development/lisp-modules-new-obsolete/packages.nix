@@ -301,7 +301,12 @@ let
     };
 
     cl-fuse = build-with-compile-into-pwd {
-      inherit (ql.cl-fuse) pname version src lispLibs;
+      inherit (ql.cl-fuse)
+        pname
+        version
+        src
+        lispLibs
+      ;
       nativeBuildInputs = [ pkgs.fuse ];
       nativeLibs = [ pkgs.fuse ];
     };
@@ -316,7 +321,12 @@ let
     };
 
     swank = build-with-compile-into-pwd {
-      inherit (ql.swank) pname version src lispLibs;
+      inherit (ql.swank)
+        pname
+        version
+        src
+        lispLibs
+      ;
       patches = [ ./patches/swank-pure-paths.patch ];
       postConfigure = ''
         substituteAllInPlace swank-loader.lisp
@@ -347,7 +357,13 @@ let
     };
 
     mathkit = build-asdf-system {
-      inherit (ql.mathkit) pname version src asds lisp;
+      inherit (ql.mathkit)
+        pname
+        version
+        src
+        asds
+        lisp
+      ;
       lispLibs = ql.mathkit.lispLibs ++ [ ql.sb-cga ];
     };
 
@@ -515,14 +531,24 @@ let
     smokebase = qt-libs;
 
     qtools = build-with-compile-into-pwd {
-      inherit (ql.qtools) pname version src nativeLibs;
+      inherit (ql.qtools)
+        pname
+        version
+        src
+        nativeLibs
+      ;
       lispLibs =
         [ qt ] ++ remove ql.qt_plus_libs ql.qtools.lispLibs ++ [ qt-libs ];
       patches = [ ./patches/qtools-use-nix-libs.patch ];
     };
 
     magicl = build-with-compile-into-pwd {
-      inherit (ql.magicl) pname version src lispLibs;
+      inherit (ql.magicl)
+        pname
+        version
+        src
+        lispLibs
+      ;
       nativeBuildInputs = [ pkgs.gfortran ];
       nativeLibs = [ pkgs.openblas ];
       patches = [ ./patches/magicl-dont-build-fortran-twice.patch ];

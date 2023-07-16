@@ -51,7 +51,13 @@ let
     dontRecurseIntoAttrs
   ;
 
-  inherit (builtins) head tail elem split storeDir;
+  inherit (builtins)
+    head
+    tail
+    elem
+    split
+    storeDir
+  ;
 
   # Returns a flattened dependency tree without duplicates
   # This is probably causing performance problems...
@@ -163,7 +169,16 @@ let
       in
       stdenv.mkDerivation (
         rec {
-          inherit pname version nativeLibs javaLibs lispLibs lisp systems asds;
+          inherit
+            pname
+            version
+            nativeLibs
+            javaLibs
+            lispLibs
+            lisp
+            systems
+            asds
+          ;
 
           # When src is null, we are building a lispWithPackages and only
           # want to make use of the dependency environment variables

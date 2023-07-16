@@ -85,7 +85,12 @@
 }:
 
 let
-  inherit (stdenv) is64bit isMips isDarwin isCygwin;
+  inherit (stdenv)
+    is64bit
+    isMips
+    isDarwin
+    isCygwin
+  ;
   inherit (lib) enableFeature optional optionals;
 in
 

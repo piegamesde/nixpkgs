@@ -208,7 +208,12 @@ stdenv.mkDerivation rec {
 
   passthru = {
     tests.test = nixosTests.terminal-emulators.mlterm;
-    inherit enableTypeEngines enableTools enableGuis enableFeatures;
+    inherit
+      enableTypeEngines
+      enableTools
+      enableGuis
+      enableFeatures
+    ;
   };
 
   meta = with lib; {

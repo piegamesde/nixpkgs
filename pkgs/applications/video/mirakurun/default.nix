@@ -86,7 +86,15 @@ stdenvNoCC.mkDerivation rec {
   passthru.updateScript = import ./update.nix {
     inherit lib;
     inherit (src.meta) homepage;
-    inherit pname version gitUpdater writers jq yarn yarn2nix;
+    inherit
+      pname
+      version
+      gitUpdater
+      writers
+      jq
+      yarn
+      yarn2nix
+    ;
   };
 
   meta = with lib; {

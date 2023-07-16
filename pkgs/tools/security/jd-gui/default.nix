@@ -103,7 +103,12 @@ let
   };
 in
 stdenv.mkDerivation rec {
-  inherit pname version src patches;
+  inherit
+    pname
+    version
+    src
+    patches
+  ;
   name = "${pname}-${version}";
 
   nativeBuildInputs = [

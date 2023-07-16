@@ -31,7 +31,15 @@ let
       ;
     };
   };
-  inherit (builtins) elem isAttrs isString isInt isList typeOf hashString;
+  inherit (builtins)
+    elem
+    isAttrs
+    isString
+    isInt
+    isList
+    typeOf
+    hashString
+  ;
 in
 {
   options.services.parsedmarc = {

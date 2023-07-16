@@ -21,11 +21,24 @@ let
       "=>/conf"
       ./ircd.conf
     ];
-    inherit (pkgs) ircdHybrid coreutils su iproute2 gnugrep procps;
+    inherit (pkgs)
+      ircdHybrid
+      coreutils
+      su
+      iproute2
+      gnugrep
+      procps
+    ;
 
     ipv6Enabled = boolToString config.networking.enableIPv6;
 
-    inherit (cfg) serverName sid description adminEmail extraPort;
+    inherit (cfg)
+      serverName
+      sid
+      description
+      adminEmail
+      extraPort
+    ;
 
     cryptoSettings =
       (optionalString (cfg.rsaKey != null) ''

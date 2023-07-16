@@ -356,7 +356,12 @@ stdenv.mkDerivation rec {
         {
           # `extracted` doesn’t work on darwin
           shebang = callPackage ../shebang-test.nix {
-            inherit runLocal extracted bazelTest distDir;
+            inherit
+              runLocal
+              extracted
+              bazelTest
+              distDir
+            ;
             bazel = bazel_self;
           };
         }
@@ -368,11 +373,21 @@ stdenv.mkDerivation rec {
         bazel = bazel_self;
       };
       cpp = callPackage ../cpp-test.nix {
-        inherit runLocal bazelTest bazel-examples distDir;
+        inherit
+          runLocal
+          bazelTest
+          bazel-examples
+          distDir
+        ;
         bazel = bazel_self;
       };
       java = callPackage ../java-test.nix {
-        inherit runLocal bazelTest bazel-examples distDir;
+        inherit
+          runLocal
+          bazelTest
+          bazel-examples
+          distDir
+        ;
         bazel = bazel_self;
       };
       protobuf = callPackage ../protobuf-test.nix {
@@ -390,11 +405,21 @@ stdenv.mkDerivation rec {
       };
 
       cppWithNixHacks = callPackage ../cpp-test.nix {
-        inherit runLocal bazelTest bazel-examples distDir;
+        inherit
+          runLocal
+          bazelTest
+          bazel-examples
+          distDir
+        ;
         bazel = bazelWithNixHacks;
       };
       javaWithNixHacks = callPackage ../java-test.nix {
-        inherit runLocal bazelTest bazel-examples distDir;
+        inherit
+          runLocal
+          bazelTest
+          bazel-examples
+          distDir
+        ;
         bazel = bazelWithNixHacks;
       };
       protobufWithNixHacks = callPackage ../protobuf-test.nix {

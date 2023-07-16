@@ -30,7 +30,14 @@ stdenv.mkDerivation rec {
 
   inherit name src;
 
-  pharo-share = import ./share.nix { inherit lib stdenv fetchurl unzip; };
+  pharo-share = import ./share.nix {
+    inherit
+      lib
+      stdenv
+      fetchurl
+      unzip
+    ;
+  };
 
   hardeningDisable = [
     "format"

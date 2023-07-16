@@ -60,7 +60,12 @@ let
   };
 
   managed = buildDotnetModule {
-    inherit pname version src dotnet-sdk;
+    inherit
+      pname
+      version
+      src
+      dotnet-sdk
+    ;
 
     projectFile = "src/managed/ManagedPart.csproj";
     nugetDeps = ./deps.nix;

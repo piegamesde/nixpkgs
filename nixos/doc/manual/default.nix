@@ -35,7 +35,13 @@ let
   stripAnyPrefixes = lib.flip (lib.foldr lib.removePrefix) prefixesToStrip;
 
   optionsDoc = buildPackages.nixosOptionsDoc {
-    inherit options revision baseOptionsJSON warningsAreErrors allowDocBook;
+    inherit
+      options
+      revision
+      baseOptionsJSON
+      warningsAreErrors
+      allowDocBook
+    ;
     transformOptions =
       opt:
       opt // {
@@ -240,7 +246,12 @@ let
   ;
 in
 rec {
-  inherit (optionsDoc) optionsJSON optionsNix optionsDocBook optionsUsedDocbook;
+  inherit (optionsDoc)
+    optionsJSON
+    optionsNix
+    optionsDocBook
+    optionsUsedDocbook
+  ;
 
   # Generate the NixOS manual.
   manualHTML =

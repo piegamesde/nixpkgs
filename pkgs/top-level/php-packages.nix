@@ -55,7 +55,13 @@ lib.makeScope pkgs.newScope (
     buildPecl = import ../build-support/build-pecl.nix {
       php = php.unwrapped;
       inherit lib;
-      inherit (pkgs) stdenv autoreconfHook fetchurl re2c nix-update-script;
+      inherit (pkgs)
+        stdenv
+        autoreconfHook
+        fetchurl
+        re2c
+        nix-update-script
+      ;
     };
 
     # Wrap mkDerivation to prepend pname with "php-" to make names consistent
@@ -122,7 +128,13 @@ lib.makeScope pkgs.newScope (
             re2c
           ];
 
-          inherit configureFlags internalDeps buildInputs zendExtension doCheck;
+          inherit
+            configureFlags
+            internalDeps
+            buildInputs
+            zendExtension
+            doCheck
+          ;
 
           preConfigurePhases = [ "cdToExtensionRootPhase" ];
 

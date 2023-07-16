@@ -273,7 +273,16 @@ rec {
           collected =
             collectModules (specialArgs.modulesPath or "")
               (regularModules ++ [ internalModule ])
-              ({ inherit lib options config specialArgs; } // specialArgs)
+              (
+                {
+                  inherit
+                    lib
+                    options
+                    config
+                    specialArgs
+                  ;
+                } // specialArgs
+              )
           ;
         in
         mergeModules prefix (reverseList collected)

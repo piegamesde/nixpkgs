@@ -72,7 +72,12 @@ rec {
         # hardcode store paths of dependencies
         (substituteAll {
           src = ./fix-paths.patch;
-          inherit tor meek obfs4 snowflake;
+          inherit
+            tor
+            meek
+            obfs4
+            snowflake
+          ;
           inherit (tor) geoip;
         })
       ];
@@ -124,7 +129,12 @@ rec {
         # hardcode store paths of dependencies
         (substituteAll {
           src = ./fix-paths-gui.patch;
-          inherit tor meek obfs4 snowflake;
+          inherit
+            tor
+            meek
+            obfs4
+            snowflake
+          ;
           inherit (tor) geoip;
         })
       ];

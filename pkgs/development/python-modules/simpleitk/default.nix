@@ -12,7 +12,12 @@
 }:
 
 buildPythonPackage rec {
-  inherit (simpleitk) pname version src meta;
+  inherit (simpleitk)
+    pname
+    version
+    src
+    meta
+  ;
   format = "pyproject";
   disabled = pythonOlder "3.8";
 

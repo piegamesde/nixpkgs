@@ -36,7 +36,12 @@
 }:
 
 let
-  inherit (lib) optionals optional optionalString concatStringsSep;
+  inherit (lib)
+    optionals
+    optional
+    optionalString
+    concatStringsSep
+  ;
   inherit (darwin.apple_sdk.frameworks) Security;
 in
 stdenv.mkDerivation rec {

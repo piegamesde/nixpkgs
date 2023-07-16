@@ -19,7 +19,12 @@ let
   loname = lib.toLower productShort;
 in
 stdenvNoCC.mkDerivation {
-  inherit pname meta src version;
+  inherit
+    pname
+    meta
+    src
+    version
+  ;
   desktopName = product;
   installPhase = ''
     runHook preInstall

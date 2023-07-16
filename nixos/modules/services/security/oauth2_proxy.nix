@@ -73,7 +73,14 @@ let
       validate-url = validateURL;
       htpasswd-file = htpasswd.file;
       cookie = {
-        inherit (cookie) domain secure expire name secret refresh;
+        inherit (cookie)
+          domain
+          secure
+          expire
+          name
+          secret
+          refresh
+        ;
         httponly = cookie.httpOnly;
       };
       set-xauthrequest = setXauthrequest;

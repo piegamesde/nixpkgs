@@ -2,7 +2,12 @@ final: prev:
 let
 
   inherit (final) callPackage;
-  inherit (prev) cudatoolkit cudaVersion lib pkgs;
+  inherit (prev)
+    cudatoolkit
+    cudaVersion
+    lib
+    pkgs
+  ;
 
   ### TensorRT
 

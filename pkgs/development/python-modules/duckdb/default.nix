@@ -14,7 +14,12 @@
 }:
 
 buildPythonPackage rec {
-  inherit (duckdb) pname version src patches;
+  inherit (duckdb)
+    pname
+    version
+    src
+    patches
+  ;
   format = "setuptools";
 
   # we can't use sourceRoot otherwise patches don't apply, because the patches

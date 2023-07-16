@@ -25,7 +25,14 @@ let
       hash,
       ...
     }:
-    pkgs.fetchFromGitHub { inherit owner repo rev hash; } // args
+    pkgs.fetchFromGitHub {
+      inherit
+        owner
+        repo
+        rev
+        hash
+      ;
+    } // args
   ;
   fetchFromGitLab =
     args@{
@@ -36,7 +43,15 @@ let
       hash,
       ...
     }:
-    pkgs.fetchFromGitLab { inherit domain owner repo rev hash; } // args
+    pkgs.fetchFromGitLab {
+      inherit
+        domain
+        owner
+        repo
+        rev
+        hash
+      ;
+    } // args
   ;
 
   updateScriptPreamble = ''

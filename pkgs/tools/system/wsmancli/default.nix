@@ -43,6 +43,11 @@ stdenv.mkDerivation rec {
       WS-Management specification and Testing.
     '';
     downloadPage = "https://github.com/Openwsman/wsmancli/releases";
-    inherit (openwsman.meta) homepage license maintainers platforms;
+    inherit (openwsman.meta)
+      homepage
+      license
+      maintainers
+      platforms
+    ;
   };
 }

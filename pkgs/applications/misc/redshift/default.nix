@@ -45,7 +45,12 @@ let
       meta,
     }:
     stdenv.mkDerivation rec {
-      inherit pname version src meta;
+      inherit
+        pname
+        version
+        src
+        meta
+      ;
 
       patches = lib.optionals (pname != "gammastep") [
         # https://github.com/jonls/redshift/pull/575

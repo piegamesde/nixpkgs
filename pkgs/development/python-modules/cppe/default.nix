@@ -18,7 +18,12 @@
 }:
 
 buildPythonPackage rec {
-  inherit (cppe) pname version src meta;
+  inherit (cppe)
+    pname
+    version
+    src
+    meta
+  ;
 
   # The python interface requires eigen3, but builds from a checkout in tree.
   # Using the nixpkgs version instead.

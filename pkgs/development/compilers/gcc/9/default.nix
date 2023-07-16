@@ -269,7 +269,13 @@ stdenv.mkDerivation (
       ''
     ;
 
-    inherit noSysDirs staticCompiler crossStageStatic libcCross crossMingw;
+    inherit
+      noSysDirs
+      staticCompiler
+      crossStageStatic
+      libcCross
+      crossMingw
+    ;
 
     inherit (callFile ../common/dependencies.nix { })
       depsBuildBuild

@@ -46,7 +46,12 @@ let
   };
 in
 beamPackages.mixRelease {
-  inherit pname version src mixFodDeps;
+  inherit
+    pname
+    version
+    src
+    mixFodDeps
+  ;
 
   nativeBuildInputs = [ nodejs ];
 

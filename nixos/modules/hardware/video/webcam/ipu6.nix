@@ -6,7 +6,14 @@
 }:
 let
 
-  inherit (lib) mkDefault mkEnableOption mkIf mkOption optional types;
+  inherit (lib)
+    mkDefault
+    mkEnableOption
+    mkIf
+    mkOption
+    optional
+    types
+  ;
 
   cfg = config.hardware.ipu6;
 in

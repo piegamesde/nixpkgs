@@ -7,7 +7,14 @@
 
 let
   cfg = config.services.geoipupdate;
-  inherit (builtins) isAttrs isString isInt isList typeOf hashString;
+  inherit (builtins)
+    isAttrs
+    isString
+    isInt
+    isList
+    typeOf
+    hashString
+  ;
 in
 {
   imports = [

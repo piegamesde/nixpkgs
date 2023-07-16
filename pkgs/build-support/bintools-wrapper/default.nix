@@ -160,7 +160,15 @@ stdenv.mkDerivation {
 
   passthru = {
     inherit targetPrefix suffixSalt;
-    inherit bintools libc nativeTools nativeLibc nativePrefix isGNU isLLVM;
+    inherit
+      bintools
+      libc
+      nativeTools
+      nativeLibc
+      nativePrefix
+      isGNU
+      isLLVM
+    ;
 
     emacsBufferSetup =
       pkgs: ''
@@ -476,8 +484,18 @@ stdenv.mkDerivation {
     shell = getBin shell + shell.shellPath or "";
     gnugrep_bin = if nativeTools then "" else gnugrep;
     wrapperName = "BINTOOLS_WRAPPER";
-    inherit dynamicLinker targetPrefix suffixSalt coreutils_bin;
-    inherit bintools_bin libc_bin libc_dev libc_lib;
+    inherit
+      dynamicLinker
+      targetPrefix
+      suffixSalt
+      coreutils_bin
+    ;
+    inherit
+      bintools_bin
+      libc_bin
+      libc_dev
+      libc_lib
+    ;
   };
 
   meta =

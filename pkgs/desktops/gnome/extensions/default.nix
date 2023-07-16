@@ -25,7 +25,13 @@ let
       # Take in an `extension` object from the JSON and transform it into the correct args to call `buildShellExtension`
       (map (
         extension: {
-          inherit (extension) uuid name description link pname;
+          inherit (extension)
+            uuid
+            name
+            description
+            link
+            pname
+          ;
           inherit (extension.shell_version_map.${shell-version})
             version
             sha256

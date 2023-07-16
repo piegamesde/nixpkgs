@@ -5,7 +5,12 @@
   ...
 }:
 let
-  inherit (lib) literalExpression mkOption nameValuePair types;
+  inherit (lib)
+    literalExpression
+    mkOption
+    nameValuePair
+    types
+  ;
 in
 {
   options = {

@@ -506,7 +506,12 @@ in
           (
             wm:
             pkgs.gnome.gnome-flashback.mkSessionForWm {
-              inherit (wm) wmName wmLabel wmCommand enableGnomePanel;
+              inherit (wm)
+                wmName
+                wmLabel
+                wmCommand
+                enableGnomePanel
+              ;
               inherit (cfg.flashback) panelModulePackages;
             }
           )

@@ -10,7 +10,12 @@
 }:
 let
   lispPackages = rec {
-    inherit lib pkgs clwrapper stdenv;
+    inherit
+      lib
+      pkgs
+      clwrapper
+      stdenv
+    ;
     nixLib = pkgs.lib;
     callPackage = nixLib.callPackageWith lispPackages;
 

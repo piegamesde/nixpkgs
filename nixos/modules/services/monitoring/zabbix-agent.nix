@@ -8,7 +8,13 @@
 let
   cfg = config.services.zabbixAgent;
 
-  inherit (lib) mkDefault mkEnableOption mkIf mkMerge mkOption;
+  inherit (lib)
+    mkDefault
+    mkEnableOption
+    mkIf
+    mkMerge
+    mkOption
+  ;
   inherit (lib)
     attrValues
     concatMapStringsSep

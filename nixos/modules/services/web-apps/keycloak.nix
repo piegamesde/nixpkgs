@@ -34,7 +34,14 @@ let
     hasPrefix
   ;
 
-  inherit (builtins) elem typeOf isInt isString hashString isPath;
+  inherit (builtins)
+    elem
+    typeOf
+    isInt
+    isString
+    hashString
+    isPath
+  ;
 
   prefixUnlessEmpty =
     prefix: string: optionalString (string != "") "${prefix}${string}";
@@ -119,7 +126,18 @@ in
 
   options.services.keycloak =
     let
-      inherit (types) bool str int nullOr attrsOf oneOf path enum package port;
+      inherit (types)
+        bool
+        str
+        int
+        nullOr
+        attrsOf
+        oneOf
+        path
+        enum
+        package
+        port
+      ;
 
       assertStringPath =
         optionName: value:

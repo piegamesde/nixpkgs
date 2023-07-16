@@ -287,7 +287,15 @@ rec {
     };
   };
 
-  inherit (core-big) metafont mflua metapost luatex luahbtex luajittex xetex;
+  inherit (core-big)
+    metafont
+    mflua
+    metapost
+    luatex
+    luahbtex
+    luajittex
+    xetex
+  ;
   core-big = stdenv.mkDerivation {
     # TODO: upmendex
     pname = "texlive-core-big.bin";

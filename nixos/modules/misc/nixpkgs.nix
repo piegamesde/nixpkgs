@@ -106,7 +106,14 @@ let
       in
       import ../../.. ({ inherit (cfg) config overlays; } // systemArgs)
     else
-      import ../../.. { inherit (cfg) config overlays localSystem crossSystem; }
+      import ../../.. {
+        inherit (cfg)
+          config
+          overlays
+          localSystem
+          crossSystem
+        ;
+      }
   ;
 
   finalPkgs =

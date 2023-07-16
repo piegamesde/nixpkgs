@@ -60,7 +60,15 @@ in
 
 rec {
   launcher =
-    runCommand "clojupyter" { inherit pname version meta shellScript; }
+    runCommand "clojupyter"
+      {
+        inherit
+          pname
+          version
+          meta
+          shellScript
+        ;
+      }
       ''
         mkdir -p $out/bin
         ln -s $shellScript $out/bin/clojupyter

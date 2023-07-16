@@ -19,7 +19,12 @@ makeOverridable (
     preferLocalBuild ? true,
   }:
   stdenv.mkDerivation {
-    inherit version meta passthru preferLocalBuild;
+    inherit
+      version
+      meta
+      passthru
+      preferLocalBuild
+    ;
     pname = pname + "-src";
     pkgname = pname;
     builder = ./builder.sh;

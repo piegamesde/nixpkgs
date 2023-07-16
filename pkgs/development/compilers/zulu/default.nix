@@ -53,7 +53,13 @@ let
   runtimeLibraryPath = lib.makeLibraryPath runtimeDependencies;
 in
 stdenv.mkDerivation {
-  inherit version openjdk platform hash extension;
+  inherit
+    version
+    openjdk
+    platform
+    hash
+    extension
+  ;
 
   pname = "zulu";
 

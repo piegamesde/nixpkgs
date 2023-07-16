@@ -69,7 +69,12 @@ let
   };
 in
 stdenv.mkDerivation {
-  inherit meta name src version;
+  inherit
+    meta
+    name
+    src
+    version
+  ;
 
   nativeBuildInputs =
     [

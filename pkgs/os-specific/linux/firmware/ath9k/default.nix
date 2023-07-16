@@ -52,7 +52,13 @@ stdenv.mkDerivation (
     # applied to the xtensa support in both gcc and binutils.
     preBuild =
       let
-        inherit (lib) toUpper splitString last listToAttrs pipe;
+        inherit (lib)
+          toUpper
+          splitString
+          last
+          listToAttrs
+          pipe
+        ;
         inherit (builtins) map;
         urls-and-hashes = import (
           ./. + "/urls-and-hashes-${finalAttrs.version}.nix"

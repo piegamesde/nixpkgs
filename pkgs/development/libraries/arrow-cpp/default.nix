@@ -326,5 +326,12 @@ stdenv.mkDerivation rec {
       cpcloud
     ];
   };
-  passthru = { inherit enableFlight enableJemalloc enableS3 enableGcs; };
+  passthru = {
+    inherit
+      enableFlight
+      enableJemalloc
+      enableS3
+      enableGcs
+    ;
+  };
 }

@@ -67,7 +67,13 @@ buildPythonPackage {
   '';
 
   meta = {
-    inherit (cntk.meta) homepage description license maintainers platforms;
+    inherit (cntk.meta)
+      homepage
+      description
+      license
+      maintainers
+      platforms
+    ;
     # doesn't support Python 3.7
     broken = lib.versionAtLeast python.version "3.7";
   };

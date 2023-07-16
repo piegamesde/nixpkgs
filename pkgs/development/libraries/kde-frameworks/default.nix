@@ -125,7 +125,16 @@ let
             ;
           in
           mkDerivation (
-            args // { inherit pname meta outputs setupHook src version; }
+            args // {
+              inherit
+                pname
+                meta
+                outputs
+                setupHook
+                src
+                version
+              ;
+            }
           )
         ;
       };

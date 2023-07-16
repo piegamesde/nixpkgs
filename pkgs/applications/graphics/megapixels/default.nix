@@ -22,7 +22,12 @@
 assert jpgSupport -> tiffSupport;
 
 let
-  inherit (lib) makeBinPath optional optionals optionalString;
+  inherit (lib)
+    makeBinPath
+    optional
+    optionals
+    optionalString
+  ;
   runtimePath = makeBinPath (
     optional tiffSupport libraw
     ++ optionals jpgSupport [

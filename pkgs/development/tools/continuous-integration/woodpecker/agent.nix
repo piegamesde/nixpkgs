@@ -9,7 +9,12 @@ let
 in
 buildGoModule {
   pname = "woodpecker-agent";
-  inherit (common) version src ldflags postBuild;
+  inherit (common)
+    version
+    src
+    ldflags
+    postBuild
+  ;
   vendorSha256 = null;
 
   subPackages = "cmd/agent";

@@ -48,7 +48,12 @@ let
   '';
 
   linux = qt5.mkDerivation {
-    inherit pname version meta passthru;
+    inherit
+      pname
+      version
+      meta
+      passthru
+    ;
 
     src = fetchurl {
       url =
@@ -87,7 +92,12 @@ let
   };
 
   darwin = stdenv.mkDerivation {
-    inherit pname version meta passthru;
+    inherit
+      pname
+      version
+      meta
+      passthru
+    ;
 
     src = fetchurl {
       url =

@@ -6,7 +6,13 @@
 }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf mkPackageOptionMD singleton;
+  inherit (lib)
+    mdDoc
+    mkEnableOption
+    mkIf
+    mkPackageOptionMD
+    singleton
+  ;
   cfg = config.services.xserver.windowManager.katriawm;
 in
 {

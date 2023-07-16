@@ -12,7 +12,13 @@ let
 
   configFile = pkgs.writeText "unpoller.json" (
     generators.toJSON { } {
-      inherit (cfg) poller influxdb loki prometheus unifi;
+      inherit (cfg)
+        poller
+        influxdb
+        loki
+        prometheus
+        unifi
+      ;
     }
   );
 in

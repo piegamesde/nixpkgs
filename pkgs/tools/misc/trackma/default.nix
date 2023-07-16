@@ -18,7 +18,12 @@ let
   mkDesktopItem =
     name: desktopName: comment: terminal:
     makeDesktopItem {
-      inherit name desktopName comment terminal;
+      inherit
+        name
+        desktopName
+        comment
+        terminal
+      ;
       icon = "trackma";
       exec = name + " %u";
       type = "Application";

@@ -11,7 +11,12 @@ assert crossSystem == localSystem;
 
 let
   bootStages = import ../. {
-    inherit lib localSystem crossSystem overlays;
+    inherit
+      lib
+      localSystem
+      crossSystem
+      overlays
+    ;
     # Remove config.replaceStdenv to ensure termination.
     config = builtins.removeAttrs config [ "replaceStdenv" ];
   };

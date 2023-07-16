@@ -38,7 +38,15 @@ pythonPackages.callPackage
         normalizePackageName
       ;
 
-      inherit (import ./pep425.nix { inherit lib poetryLib python stdenv; })
+      inherit
+        (import ./pep425.nix {
+          inherit
+            lib
+            poetryLib
+            python
+            stdenv
+          ;
+        })
         selectWheel
       ;
       fileCandidates =

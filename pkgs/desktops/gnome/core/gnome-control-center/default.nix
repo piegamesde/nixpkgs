@@ -80,7 +80,12 @@ stdenv.mkDerivation rec {
     (substituteAll {
       src = ./paths.patch;
       gcm = gnome-color-manager;
-      inherit glibc libgnomekbd tzdata shadow;
+      inherit
+        glibc
+        libgnomekbd
+        tzdata
+        shadow
+      ;
       inherit cups networkmanagerapplet;
     })
   ];

@@ -659,7 +659,12 @@ in
   config = mkIf cfg.enable {
     environment.etc."multipath.conf".text =
       let
-        inherit (cfg) defaults blacklist blacklist_exceptions overrides;
+        inherit (cfg)
+          defaults
+          blacklist
+          blacklist_exceptions
+          overrides
+        ;
 
         mkDeviceBlock =
           cfg:

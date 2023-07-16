@@ -97,7 +97,14 @@ let
   };
 
   buildCrate = import ./build-crate.nix {
-    inherit lib stdenv mkRustcDepArgs mkRustcFeatureArgs needUnstableCLI rust;
+    inherit
+      lib
+      stdenv
+      mkRustcDepArgs
+      mkRustcFeatureArgs
+      needUnstableCLI
+      rust
+    ;
   };
 
   installCrate = import ./install-crate.nix { inherit stdenv; };

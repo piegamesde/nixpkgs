@@ -28,7 +28,13 @@ let
     else
       fetchurl {
         url = url;
-        inherit md5 sha1 sha256 sha512 hash;
+        inherit
+          md5
+          sha1
+          sha256
+          sha512
+          hash
+        ;
       }
   ;
 in

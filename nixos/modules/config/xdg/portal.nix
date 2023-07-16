@@ -6,7 +6,14 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf mkOption mkRenamedOptionModule teams types;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    mkRenamedOptionModule
+    teams
+    types
+  ;
 in
 
 {

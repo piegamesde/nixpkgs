@@ -191,7 +191,12 @@ stdenv.mkDerivation rec {
       ;
     in
     passthruFun rec {
-      inherit self luaversion packageOverrides luaAttr;
+      inherit
+        self
+        luaversion
+        packageOverrides
+        luaAttr
+      ;
       executable = "lua";
       luaOnBuildForBuild = override pkgsBuildBuild.${luaAttr};
       luaOnBuildForHost = override pkgsBuildHost.${luaAttr};

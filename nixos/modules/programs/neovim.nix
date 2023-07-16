@@ -181,7 +181,14 @@ in
     );
 
     programs.neovim.finalPackage = pkgs.wrapNeovim cfg.package {
-      inherit (cfg) viAlias vimAlias withPython3 withNodeJs withRuby configure;
+      inherit (cfg)
+        viAlias
+        vimAlias
+        withPython3
+        withNodeJs
+        withRuby
+        configure
+      ;
     };
   };
 }

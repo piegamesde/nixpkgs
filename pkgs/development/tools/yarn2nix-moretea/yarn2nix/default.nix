@@ -6,7 +6,14 @@
 }@inputs:
 
 let
-  inherit (pkgs) stdenv lib callPackage git rsync runCommandLocal;
+  inherit (pkgs)
+    stdenv
+    lib
+    callPackage
+    git
+    rsync
+    runCommandLocal
+  ;
 
   compose = f: g: x: f (g x);
   id = x: x;
@@ -517,7 +524,12 @@ rec {
           '';
 
         passthru = {
-          inherit pname package packageJSON deps;
+          inherit
+            pname
+            package
+            packageJSON
+            deps
+          ;
           workspaceDependencies = workspaceDependenciesTransitive;
         } // (attrs.passthru or { });
 

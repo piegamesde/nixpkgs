@@ -16,7 +16,13 @@ in
 with src; {
   wine32 = pkgsi686Linux.callPackage ./base.nix {
     pname = "wine";
-    inherit src version supportFlags patches moltenvk;
+    inherit
+      src
+      version
+      supportFlags
+      patches
+      moltenvk
+    ;
     pkgArches = [ pkgsi686Linux ];
     geckos = [ gecko32 ];
     mingwGccs = with pkgsCross; [ mingw32.buildPackages.gcc ];
@@ -28,7 +34,13 @@ with src; {
   };
   wine64 = callPackage ./base.nix {
     pname = "wine64";
-    inherit src version supportFlags patches moltenvk;
+    inherit
+      src
+      version
+      supportFlags
+      patches
+      moltenvk
+    ;
     pkgArches = [ pkgs ];
     mingwGccs = with pkgsCross; [ mingwW64.buildPackages.gcc ];
     geckos = [ gecko64 ];
@@ -42,7 +54,13 @@ with src; {
   };
   wineWow = callPackage ./base.nix {
     pname = "wine-wow";
-    inherit src version supportFlags patches moltenvk;
+    inherit
+      src
+      version
+      supportFlags
+      patches
+      moltenvk
+    ;
     stdenv = stdenv_32bit;
     pkgArches = [
       pkgs

@@ -41,7 +41,12 @@ let
           inherit vscodeExtPublisher vscodeExtName vscodeExtUniqueId;
         };
 
-        inherit configurePhase buildPhase dontPatchELF dontStrip;
+        inherit
+          configurePhase
+          buildPhase
+          dontPatchELF
+          dontStrip
+        ;
 
         installPrefix = "share/vscode/extensions/${vscodeExtUniqueId}";
 
@@ -130,7 +135,13 @@ let
   };
 
   vscodeEnv = import ./vscodeEnv.nix {
-    inherit lib buildEnv writeShellScriptBin extensionsFromVscodeMarketplace jq;
+    inherit
+      lib
+      buildEnv
+      writeShellScriptBin
+      extensionsFromVscodeMarketplace
+      jq
+    ;
     vscodeDefault = vscode;
   };
 

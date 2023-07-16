@@ -18,7 +18,12 @@ let
     mapAttrsToList
       (name: device: {
         deviceID = device.id;
-        inherit (device) name addresses introducer autoAcceptFolders;
+        inherit (device)
+          name
+          addresses
+          introducer
+          autoAcceptFolders
+        ;
       })
       cfg.devices
   ;
@@ -26,7 +31,12 @@ let
   folders =
     mapAttrsToList
       (_: folder: {
-        inherit (folder) path id label type;
+        inherit (folder)
+          path
+          id
+          label
+          type
+        ;
         devices =
           map (device: { deviceId = cfg.devices.${device}.id; })
             folder.devices

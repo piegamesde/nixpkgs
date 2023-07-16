@@ -25,7 +25,12 @@ let
   };
 in
 stdenv.mkDerivation {
-  inherit (generator) pname version src meta;
+  inherit (generator)
+    pname
+    version
+    src
+    meta
+  ;
   buildPhase = ''
     runHook preBuild
     ${generator}/bin/domain-list-community -datapath $src/data --exportlists=category-ads-all,tld-cn,cn,tld-\!cn,geolocation-\!cn,apple,icloud

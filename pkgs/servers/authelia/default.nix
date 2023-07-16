@@ -17,7 +17,12 @@ let
   web = callPackage ./web.nix { };
 in
 buildGoModule rec {
-  inherit pname version src vendorHash;
+  inherit
+    pname
+    version
+    src
+    vendorHash
+  ;
 
   nativeBuildInputs = [ installShellFiles ];
 

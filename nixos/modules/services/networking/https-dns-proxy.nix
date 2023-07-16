@@ -6,7 +6,13 @@
 }:
 
 let
-  inherit (lib) concatStringsSep mkEnableOption mkIf mkOption types;
+  inherit (lib)
+    concatStringsSep
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+  ;
 
   cfg = config.services.https-dns-proxy;
 

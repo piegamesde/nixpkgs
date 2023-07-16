@@ -126,7 +126,15 @@ let
       '';
       derivation = mkCoqDerivation (
         {
-          inherit version pname defaultVersion release releaseRev repo owner;
+          inherit
+            version
+            pname
+            defaultVersion
+            release
+            releaseRev
+            repo
+            owner
+          ;
 
           mlPlugin = versions.isLe "8.6" coq.coq-version;
           nativeBuildInputs = optionals withDoc [

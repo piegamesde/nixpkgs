@@ -8,7 +8,12 @@
 let
   cfg = config.services.system76-scheduler;
 
-  inherit (builtins) concatStringsSep map toString attrNames;
+  inherit (builtins)
+    concatStringsSep
+    map
+    toString
+    attrNames
+  ;
   inherit (lib)
     boolToString
     types
@@ -19,7 +24,16 @@ let
     mkIf
     mkMerge
   ;
-  inherit (types) nullOr listOf bool int ints float str enum;
+  inherit (types)
+    nullOr
+    listOf
+    bool
+    int
+    ints
+    float
+    str
+    enum
+  ;
 
   withDefaults =
     optionSpecs: defaults:

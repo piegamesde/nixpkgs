@@ -7,7 +7,12 @@
 }:
 
 let
-  inherit (pkgs.lib) concatMapStrings listToAttrs optionals optionalString;
+  inherit (pkgs.lib)
+    concatMapStrings
+    listToAttrs
+    optionals
+    optionalString
+  ;
   inherit (import ../lib/testing-python.nix { inherit system pkgs; }) makeTest;
 
   hello32 = "${pkgs.pkgsCross.mingw32.hello}/bin/hello.exe";

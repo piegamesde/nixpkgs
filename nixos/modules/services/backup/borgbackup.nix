@@ -159,7 +159,12 @@ let
       };
       environment = {
         BORG_REPO = cfg.repo;
-        inherit (cfg) extraArgs extraInitArgs extraCreateArgs extraPruneArgs;
+        inherit (cfg)
+          extraArgs
+          extraInitArgs
+          extraCreateArgs
+          extraPruneArgs
+        ;
       } // (mkPassEnv cfg) // cfg.environment;
     }
   ;

@@ -7,8 +7,18 @@
 
 let
   inherit (builtins) toString;
-  inherit (lib) types mkIf mkOption mkDefault;
-  inherit (lib) optional optionals optionalAttrs optionalString;
+  inherit (lib)
+    types
+    mkIf
+    mkOption
+    mkDefault
+  ;
+  inherit (lib)
+    optional
+    optionals
+    optionalAttrs
+    optionalString
+  ;
 
   inherit (pkgs) sqlite;
 

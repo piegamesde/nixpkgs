@@ -53,7 +53,13 @@ in
 
 let
   useNativeCompilers = !stdenv.isMips;
-  inherit (lib) optional optionals optionalString strings concatStrings;
+  inherit (lib)
+    optional
+    optionals
+    optionalString
+    strings
+    concatStrings
+  ;
   pname = concatStrings [
     "ocaml"
     (optionalString aflSupport "+afl")

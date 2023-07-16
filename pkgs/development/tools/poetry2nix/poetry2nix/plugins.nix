@@ -77,7 +77,12 @@ in
             pluginFn:
             mkPluginDrv {
               plugins = [ finalDrv ] ++ pluginFn self;
-              inherit self postInstall nativeBuildInputs buildInputs;
+              inherit
+                self
+                postInstall
+                nativeBuildInputs
+                buildInputs
+              ;
               drv = finalDrv;
             }
           ;

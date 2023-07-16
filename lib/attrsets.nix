@@ -5,7 +5,12 @@
 
 let
   inherit (builtins) head tail length;
-  inherit (lib.trivial) flip id mergeAttrs pipe;
+  inherit (lib.trivial)
+    flip
+    id
+    mergeAttrs
+    pipe
+  ;
   inherit (lib.strings)
     concatStringsSep
     concatMapStringsSep
@@ -27,7 +32,14 @@ let
 in
 
 rec {
-  inherit (builtins) attrNames listToAttrs hasAttr isAttrs getAttr removeAttrs;
+  inherit (builtins)
+    attrNames
+    listToAttrs
+    hasAttr
+    isAttrs
+    getAttr
+    removeAttrs
+  ;
 
   /* Return an attribute from nested attribute sets.
 

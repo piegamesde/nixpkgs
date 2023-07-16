@@ -21,7 +21,12 @@ let
   };
 in
 mixRelease {
-  inherit pname version src elixir;
+  inherit
+    pname
+    version
+    src
+    elixir
+  ;
 
   mixFodDeps = fetchMixDeps {
     pname = "mix-deps-${pname}";

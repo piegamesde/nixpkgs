@@ -33,7 +33,12 @@ buildPythonPackage rec {
 
   passthru.tests = {
     # test downstream dependencies
-    inherit flit black mypy setuptools-scm;
+    inherit
+      flit
+      black
+      mypy
+      setuptools-scm
+    ;
   };
 
   meta = with lib; {

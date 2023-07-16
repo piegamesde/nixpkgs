@@ -46,7 +46,12 @@ let
   isPy38OrNewer = lib.versionAtLeast pythonVersion "3.8";
   isPy39OrNewer = lib.versionAtLeast pythonVersion "3.9";
   passthru = passthruFun rec {
-    inherit self sourceVersion pythonVersion packageOverrides;
+    inherit
+      self
+      sourceVersion
+      pythonVersion
+      packageOverrides
+    ;
     implementation = "pypy";
     libPrefix = "pypy${pythonVersion}";
     executable =

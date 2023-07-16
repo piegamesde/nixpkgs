@@ -12,7 +12,13 @@
 
 let
   buildMongoDB = callPackage ./mongodb.nix {
-    inherit sasl boost Security CoreFoundation cctools;
+    inherit
+      sasl
+      boost
+      Security
+      CoreFoundation
+      cctools
+    ;
   };
 in
 buildMongoDB {

@@ -83,7 +83,12 @@ let
     mkChromiumDerivation = callPackage ./common.nix (
       {
         inherit channel chromiumVersionAtLeast versionRange;
-        inherit proprietaryCodecs cupsSupport pulseSupport ungoogled;
+        inherit
+          proprietaryCodecs
+          cupsSupport
+          pulseSupport
+          ungoogled
+        ;
         gnChromium = gn.overrideAttrs (
           oldAttrs: {
             inherit (upstream-info.deps.gn) version;
@@ -97,7 +102,12 @@ let
     );
 
     browser = callPackage ./browser.nix {
-      inherit channel chromiumVersionAtLeast enableWideVine ungoogled;
+      inherit
+        channel
+        chromiumVersionAtLeast
+        enableWideVine
+        ungoogled
+      ;
     };
 
     ungoogled-chromium = callPackage ./ungoogled.nix { };

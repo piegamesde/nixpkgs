@@ -21,7 +21,12 @@ let
 
   releaseLib = import ./release-lib.nix { inherit supportedSystems; };
 
-  inherit (releaseLib) lib mapTestOn packagePlatforms pkgs;
+  inherit (releaseLib)
+    lib
+    mapTestOn
+    packagePlatforms
+    pkgs
+  ;
 
   # Helper function which traverses a (nested) set
   # of derivations produced by mapTestOn and flattens

@@ -123,7 +123,12 @@ let
                         (
                           artifact:
                           mkPlatformArtifactLinkCommand {
-                            inherit artifact os architecture variant;
+                            inherit
+                              artifact
+                              os
+                              architecture
+                              variant
+                            ;
                           }
                         )
                         engineArtifacts.platform.${os}.${architecture}.variants.${variant}

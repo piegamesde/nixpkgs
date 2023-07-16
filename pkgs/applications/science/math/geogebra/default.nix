@@ -62,7 +62,13 @@ let
   };
 
   linuxPkg = stdenv.mkDerivation {
-    inherit pname version meta srcIcon desktopItem;
+    inherit
+      pname
+      version
+      meta
+      srcIcon
+      desktopItem
+    ;
 
     preferLocalBuild = true;
 

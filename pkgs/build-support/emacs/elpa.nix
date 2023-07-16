@@ -27,27 +27,38 @@ let
   };
 in
 
-import ./generic.nix { inherit lib stdenv emacs texinfo writeText gcc; } (
+import ./generic.nix
   {
-
-    dontUnpack = true;
-
-    installPhase = ''
-      runHook preInstall
-
-      emacs --batch -Q -l ${./elpa2nix.el} \
-          -f elpa2nix-install-package \
-          "$src" "$out/share/emacs/site-lisp/elpa"
-
-      runHook postInstall
-    '';
-
-    meta = defaultMeta // meta;
+    inherit
+      lib
+      stdenv
+      emacs
+      texinfo
+      writeText
+      gcc
+    ;
   }
+  (
+    {
 
-  // removeAttrs args [
-    "files"
-    "fileSpecs"
-    "meta"
-  ]
-)
+      dontUnpack = true;
+
+      installPhase = ''
+        runHook preInstall
+
+        emacs --batch -Q -l ${./elpa2nix.el} \
+            -f elpa2nix-install-package \
+            "$src" "$out/share/emacs/site-lisp/elpa"
+
+        runHook postInstall
+      '';
+
+      meta = defaultMeta // meta;
+    }
+
+    // removeAttrs args [
+      "files"
+      "fileSpecs"
+      "meta"
+    ]
+  )

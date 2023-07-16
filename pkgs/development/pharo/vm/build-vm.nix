@@ -56,7 +56,14 @@ stdenv.mkDerivation rec {
   ;
 
   # Shared data (for the sources file)
-  pharo-share = import ./share.nix { inherit lib stdenv fetchurl unzip; };
+  pharo-share = import ./share.nix {
+    inherit
+      lib
+      stdenv
+      fetchurl
+      unzip
+    ;
+  };
 
   # Note: -fPIC causes the VM to segfault.
   hardeningDisable = [

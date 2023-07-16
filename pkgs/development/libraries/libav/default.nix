@@ -40,7 +40,12 @@
 assert faacSupport -> enableUnfree;
 
 let
-  inherit (lib) optional optionals hasPrefix enableFeature;
+  inherit (lib)
+    optional
+    optionals
+    hasPrefix
+    enableFeature
+  ;
 in
 
 /* ToDo:

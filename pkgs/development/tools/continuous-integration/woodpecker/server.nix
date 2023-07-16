@@ -10,7 +10,12 @@ let
 in
 buildGoModule {
   pname = "woodpecker-server";
-  inherit (common) version src ldflags postBuild;
+  inherit (common)
+    version
+    src
+    ldflags
+    postBuild
+  ;
   vendorSha256 = null;
 
   postPatch = ''

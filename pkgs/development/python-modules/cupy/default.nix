@@ -15,7 +15,12 @@
 }:
 
 let
-  inherit (cudaPackages) cudatoolkit cudnn cutensor nccl;
+  inherit (cudaPackages)
+    cudatoolkit
+    cudnn
+    cutensor
+    nccl
+  ;
 in
 buildPythonPackage rec {
   pname = "cupy";

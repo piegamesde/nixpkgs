@@ -34,7 +34,12 @@
 }:
 
 let
-  inherit (lib) enableFeature optional optionals optionalString;
+  inherit (lib)
+    enableFeature
+    optional
+    optionals
+    optionalString
+  ;
 
   phase =
     name: args: ''

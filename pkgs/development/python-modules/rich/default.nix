@@ -44,7 +44,14 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "rich" ];
 
-  passthru.tests = { inherit enrich httpie rich-rst textual; };
+  passthru.tests = {
+    inherit
+      enrich
+      httpie
+      rich-rst
+      textual
+    ;
+  };
 
   meta = with lib; {
     description =

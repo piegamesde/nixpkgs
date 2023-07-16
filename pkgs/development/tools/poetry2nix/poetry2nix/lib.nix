@@ -191,7 +191,14 @@ let
       curlOpts ? "",
     }:
     let
-      predictedURL = predictURLFromPypi { inherit pname file hash kind; };
+      predictedURL = predictURLFromPypi {
+        inherit
+          pname
+          file
+          hash
+          kind
+        ;
+      };
     in
     (pkgs.stdenvNoCC.mkDerivation {
       name = file;
@@ -205,7 +212,13 @@ let
       preferLocalBuild = true;
       impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ [ "NIX_CURL_FLAGS" ];
 
-      inherit pname file version curlOpts predictedURL;
+      inherit
+        pname
+        file
+        version
+        curlOpts
+        predictedURL
+      ;
 
       builder = ./fetch-from-pypi.sh;
 

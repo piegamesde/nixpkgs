@@ -95,7 +95,12 @@ let
 
   octavePackages = import ../../../top-level/octave-packages.nix {
     inherit pkgs;
-    inherit lib stdenv fetchurl newScope;
+    inherit
+      lib
+      stdenv
+      fetchurl
+      newScope
+    ;
     octave = self;
   };
 

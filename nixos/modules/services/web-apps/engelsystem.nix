@@ -7,7 +7,14 @@
 }:
 
 let
-  inherit (lib) mkDefault mkEnableOption mkIf mkOption types literalExpression;
+  inherit (lib)
+    mkDefault
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    literalExpression
+  ;
   cfg = config.services.engelsystem;
 in
 {

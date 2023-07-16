@@ -30,7 +30,14 @@ let
       (
         dep:
         let
-          inherit (dep) sha1 groupId artifactId version metadata repository-id;
+          inherit (dep)
+            sha1
+            groupId
+            artifactId
+            version
+            metadata
+            repository-id
+          ;
           versionDir = dep.unresolved-version or version;
           authenticated = dep.authenticated or false;
           url = dep.url or "";

@@ -57,7 +57,12 @@ buildGoModule rec {
   ;
 
   passthru.tests = {
-    inherit (nixosTests) vault vault-postgresql vault-dev vault-agent;
+    inherit (nixosTests)
+      vault
+      vault-postgresql
+      vault-dev
+      vault-agent
+    ;
   };
 
   meta = with lib; {

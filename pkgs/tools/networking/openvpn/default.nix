@@ -16,7 +16,12 @@
 }:
 
 let
-  inherit (lib) versionOlder optional optionals optionalString;
+  inherit (lib)
+    versionOlder
+    optional
+    optionals
+    optionalString
+  ;
 
   generic =
     {

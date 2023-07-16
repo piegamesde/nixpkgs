@@ -154,7 +154,12 @@ let
         # ''
         ;
 
-        inherit initialPath shell defaultNativeBuildInputs defaultBuildInputs;
+        inherit
+          initialPath
+          shell
+          defaultNativeBuildInputs
+          defaultBuildInputs
+        ;
       } // lib.optionalAttrs buildPlatform.isDarwin {
         __sandboxProfile = stdenvSandboxProfile;
         __impureHostDeps = __stdenvImpureHostDeps;

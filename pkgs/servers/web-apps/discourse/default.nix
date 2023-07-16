@@ -103,7 +103,14 @@ let
     }@args:
     let
       rubyEnv = bundlerEnv (
-        bundlerEnvArgs // { inherit name pname version ruby; }
+        bundlerEnvArgs // {
+          inherit
+            name
+            pname
+            version
+            ruby
+          ;
+        }
       );
     in
     stdenv.mkDerivation (
@@ -432,7 +439,14 @@ let
     };
 
     passthru = {
-      inherit rubyEnv runtimeEnv runtimeDeps rake mkDiscoursePlugin assets;
+      inherit
+        rubyEnv
+        runtimeEnv
+        runtimeDeps
+        rake
+        mkDiscoursePlugin
+        assets
+      ;
       enabledPlugins = plugins;
       plugins = callPackage ./plugins/all-plugins.nix {
         inherit mkDiscoursePlugin;

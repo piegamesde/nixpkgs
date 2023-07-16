@@ -112,7 +112,12 @@ let
       ;
 
       meta = {
-        inherit (mpv.meta) homepage description longDescription maintainers;
+        inherit (mpv.meta)
+          homepage
+          description
+          longDescription
+          maintainers
+        ;
         mainProgram = "mpv";
       };
     }

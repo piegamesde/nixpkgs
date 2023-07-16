@@ -9,7 +9,12 @@
 }:
 
 let
-  inherit (ocamlPackages) ocaml findlib cryptokit num;
+  inherit (ocamlPackages)
+    ocaml
+    findlib
+    cryptokit
+    num
+  ;
 in
 
 stdenv.mkDerivation rec {

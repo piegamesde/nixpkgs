@@ -156,7 +156,12 @@ import ../make-test-python.nix (
           }:
           {
             services.hadoop = {
-              inherit package coreSite hdfsSite yarnSite;
+              inherit
+                package
+                coreSite
+                hdfsSite
+                yarnSite
+              ;
               yarn.resourcemanager = {
                 enable = true;
                 openFirewall = true;
@@ -171,7 +176,12 @@ import ../make-test-python.nix (
           }:
           {
             services.hadoop = {
-              inherit package coreSite hdfsSite yarnSite;
+              inherit
+                package
+                coreSite
+                hdfsSite
+                yarnSite
+              ;
               yarn.resourcemanager = {
                 enable = true;
                 openFirewall = true;
@@ -187,7 +197,12 @@ import ../make-test-python.nix (
           {
             virtualisation.memorySize = 2048;
             services.hadoop = {
-              inherit package coreSite hdfsSite yarnSite;
+              inherit
+                package
+                coreSite
+                hdfsSite
+                yarnSite
+              ;
               yarn.nodemanager = {
                 enable = true;
                 openFirewall = true;
@@ -203,7 +218,12 @@ import ../make-test-python.nix (
           {
             services.hadoop = {
               gatewayRole.enable = true;
-              inherit package coreSite hdfsSite yarnSite;
+              inherit
+                package
+                coreSite
+                hdfsSite
+                yarnSite
+              ;
             };
           }
         ;

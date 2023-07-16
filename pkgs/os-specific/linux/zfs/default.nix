@@ -41,7 +41,13 @@
 }:
 
 let
-  inherit (lib) any optionalString optionals optional makeBinPath;
+  inherit (lib)
+    any
+    optionalString
+    optionals
+    optional
+    makeBinPath
+  ;
 
   smartmon = smartmontools.override { inherit enableMail; };
 

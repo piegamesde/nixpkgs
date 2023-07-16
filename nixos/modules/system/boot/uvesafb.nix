@@ -6,7 +6,13 @@
 }:
 let
   cfg = config.boot.uvesafb;
-  inherit (lib) mkIf mkEnableOption mkOption mdDoc types;
+  inherit (lib)
+    mkIf
+    mkEnableOption
+    mkOption
+    mdDoc
+    types
+  ;
 in
 {
   options = {

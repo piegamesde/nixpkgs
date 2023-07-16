@@ -7,7 +7,15 @@ testModuleArgs@{
 }:
 
 let
-  inherit (lib) mkOption mkForce optional types mapAttrs mkDefault mdDoc;
+  inherit (lib)
+    mkOption
+    mkForce
+    optional
+    types
+    mapAttrs
+    mkDefault
+    mdDoc
+  ;
 
   system = hostPkgs.stdenv.hostPlatform.system;
 

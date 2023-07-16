@@ -99,7 +99,13 @@ let
   ;
 in
 stdenvNoCC.mkDerivation rec {
-  inherit name makeUInitrd extension uInitrdArch prepend;
+  inherit
+    name
+    makeUInitrd
+    extension
+    uInitrdArch
+    prepend
+  ;
 
   ${if makeUInitrd then "uInitrdCompression" else null} = uInitrdCompression;
 

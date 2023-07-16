@@ -33,7 +33,12 @@ let
       or (throw "${pname}-${version}: ${stdenv.system} is unsupported.");
 
   linux = appimageTools.wrapType2 rec {
-    inherit name pname version meta;
+    inherit
+      name
+      pname
+      version
+      meta
+    ;
 
     src = fetchurl (osu-lazer-bin-src);
 
@@ -54,7 +59,12 @@ let
   };
 
   darwin = stdenv.mkDerivation rec {
-    inherit name pname version meta;
+    inherit
+      name
+      pname
+      version
+      meta
+    ;
 
     src = fetchzip (osu-lazer-bin-src // { stripRoot = false; });
 

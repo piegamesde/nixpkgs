@@ -43,7 +43,13 @@
 */
 
 let
-  inherit (lib) concatStringsSep head isAttrs listToAttrs tail;
+  inherit (lib)
+    concatStringsSep
+    head
+    isAttrs
+    listToAttrs
+    tail
+  ;
 in
 rec {
 

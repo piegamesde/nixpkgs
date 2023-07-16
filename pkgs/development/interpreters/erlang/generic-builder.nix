@@ -100,7 +100,12 @@ assert odbcSupport -> unixODBC != null;
 assert javacSupport -> openjdk11 != null;
 
 let
-  inherit (lib) optional optionals optionalAttrs optionalString;
+  inherit (lib)
+    optional
+    optionals
+    optionalAttrs
+    optionalString
+  ;
   wxPackages2 = if stdenv.isDarwin then [ wxGTK ] else wxPackages;
 in
 stdenv.mkDerivation (

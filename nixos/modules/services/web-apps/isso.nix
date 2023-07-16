@@ -6,7 +6,13 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf mkOption types literalExpression;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    literalExpression
+  ;
 
   cfg = config.services.isso;
 

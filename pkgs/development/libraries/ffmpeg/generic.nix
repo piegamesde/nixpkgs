@@ -402,7 +402,13 @@
 #
 
 let
-  inherit (lib) optional optionals optionalString enableFeature versionAtLeast;
+  inherit (lib)
+    optional
+    optionals
+    optionalString
+    enableFeature
+    versionAtLeast
+  ;
 in
 
 assert lib.elem ffmpegVariant [

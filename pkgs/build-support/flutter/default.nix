@@ -168,7 +168,13 @@ builtins.foldl'
     if packageOverrideRepository ? ${package.name} then
       prev.overrideAttrs (
         packageOverrideRepository.${package.name} {
-          inherit (package) name version kind source dependencies;
+          inherit (package)
+            name
+            version
+            kind
+            source
+            dependencies
+          ;
         }
       )
     else

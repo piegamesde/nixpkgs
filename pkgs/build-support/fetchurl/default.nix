@@ -231,7 +231,13 @@ stdenvNoCC.mkDerivation (
         curlOpts
     ;
     curlOptsList = lib.escapeShellArgs curlOptsList;
-    inherit showURLs mirrorsFile postFetch downloadToTemp executable;
+    inherit
+      showURLs
+      mirrorsFile
+      postFetch
+      downloadToTemp
+      executable
+    ;
 
     impureEnvVars = impureEnvVars ++ netrcImpureEnvVars;
 

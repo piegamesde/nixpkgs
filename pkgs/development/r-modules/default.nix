@@ -7,7 +7,12 @@
 }:
 
 let
-  inherit (pkgs) cacert fetchurl stdenv lib;
+  inherit (pkgs)
+    cacert
+    fetchurl
+    stdenv
+    lib
+  ;
 
   buildRPackage = pkgs.callPackage ./generic-builder.nix {
     inherit R;

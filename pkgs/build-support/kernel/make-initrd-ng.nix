@@ -92,7 +92,12 @@ runCommand name
       compressorArgs = _compressorArgsReal;
     };
 
-    inherit extension makeUInitrd uInitrdArch prepend;
+    inherit
+      extension
+      makeUInitrd
+      uInitrdArch
+      prepend
+    ;
     ${if makeUInitrd then "uInitrdCompression" else null} = uInitrdCompression;
 
     passAsFile = [ "contents" ];

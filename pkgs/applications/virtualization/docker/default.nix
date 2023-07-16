@@ -247,7 +247,13 @@ rec {
       lib.optionalAttrs (!clientOnly) {
         # allow overrides of docker components
         # TODO: move packages out of the let...in into top-level to allow proper overrides
-        inherit docker-runc docker-containerd docker-proxy docker-tini moby;
+        inherit
+          docker-runc
+          docker-containerd
+          docker-proxy
+          docker-tini
+          moby
+        ;
       } // rec {
         pname = "docker";
         inherit version;

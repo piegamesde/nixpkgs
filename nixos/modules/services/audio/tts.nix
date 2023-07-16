@@ -12,7 +12,13 @@ in
 {
   options.services.tts =
     let
-      inherit (lib) literalExpression mkOption mdDoc mkEnableOption types;
+      inherit (lib)
+        literalExpression
+        mkOption
+        mdDoc
+        mkEnableOption
+        types
+      ;
     in
     {
       servers = mkOption {

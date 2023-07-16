@@ -68,6 +68,11 @@ if thunarPlugins == [ ] then
   unwrapped
 else
   import ./wrapper.nix {
-    inherit makeWrapper symlinkJoin thunarPlugins lib;
+    inherit
+      makeWrapper
+      symlinkJoin
+      thunarPlugins
+      lib
+    ;
     thunar = unwrapped;
   }

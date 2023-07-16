@@ -104,7 +104,13 @@ in
   strictDeps = true;
 
   passthru = {
-    inherit enableSeccomp enableSuid projectName removeCompat starterSuidPath;
+    inherit
+      enableSeccomp
+      enableSuid
+      projectName
+      removeCompat
+      starterSuidPath
+    ;
   };
 
   nativeBuildInputs = [

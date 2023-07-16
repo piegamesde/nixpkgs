@@ -45,7 +45,15 @@ import ./generic.nix (
       hash = "sha256-ocLXeARI65P7zDeJvzkWqlcg2ULjeUX0BWaAMX8c0j4=";
     };
 
-    passthru.tests = { inherit imageio matplotlib pilkit pydicom reportlab; };
+    passthru.tests = {
+      inherit
+        imageio
+        matplotlib
+        pilkit
+        pydicom
+        reportlab
+      ;
+    };
 
     meta = with lib; {
       homepage = "https://python-pillow.org/";

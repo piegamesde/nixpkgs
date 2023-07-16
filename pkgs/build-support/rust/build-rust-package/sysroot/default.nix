@@ -15,7 +15,13 @@
 
 let
   cargoSrc = import ../../sysroot/src.nix {
-    inherit lib stdenv rustPlatform buildPackages originalCargoToml;
+    inherit
+      lib
+      stdenv
+      rustPlatform
+      buildPackages
+      originalCargoToml
+    ;
   };
 in
 rustPlatform.buildRustPackage {

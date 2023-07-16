@@ -58,7 +58,13 @@ let
       Cheerios = callPackage ../development/coq-modules/Cheerios { };
       CoLoR = callPackage ../development/coq-modules/CoLoR { };
       compcert = callPackage ../development/coq-modules/compcert {
-        inherit fetchpatch makeWrapper coq2html lib stdenv;
+        inherit
+          fetchpatch
+          makeWrapper
+          coq2html
+          lib
+          stdenv
+        ;
       };
       coq-bits = callPackage ../development/coq-modules/coq-bits { };
       coq-elpi = callPackage ../development/coq-modules/coq-elpi { };

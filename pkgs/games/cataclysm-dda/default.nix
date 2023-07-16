@@ -29,7 +29,13 @@ let
   self = {
     inherit callPackage stable git;
 
-    inherit (lib) buildMod buildSoundPack buildTileSet wrapCDDA attachPkgs;
+    inherit (lib)
+      buildMod
+      buildSoundPack
+      buildTileSet
+      wrapCDDA
+      attachPkgs
+    ;
 
     inherit pkgs;
   };

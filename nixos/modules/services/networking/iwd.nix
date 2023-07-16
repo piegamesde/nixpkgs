@@ -6,7 +6,13 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf mkOption types recursiveUpdate;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    recursiveUpdate
+  ;
 
   cfg = config.networking.wireless.iwd;
   ini = pkgs.formats.ini { };

@@ -44,7 +44,13 @@ let
       tests,
     }:
     stdenv.mkDerivation rec {
-      inherit pname jdk libPatches untarDir openssl;
+      inherit
+        pname
+        jdk
+        libPatches
+        untarDir
+        openssl
+      ;
       version =
         platformAttrs.${stdenv.system}.version
           or (throw "Unsupported system: ${stdenv.system}");

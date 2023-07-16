@@ -63,7 +63,12 @@ in
 
 ocamlPackages.buildDunePackage {
 
-  inherit pname version src configureScript;
+  inherit
+    pname
+    version
+    src
+    configureScript
+  ;
 
   configureFlags = [ pname ];
 

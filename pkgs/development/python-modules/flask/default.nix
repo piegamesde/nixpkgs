@@ -40,7 +40,14 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  passthru.tests = { inherit flask-limiter flask-restful flask-restx moto; };
+  passthru.tests = {
+    inherit
+      flask-limiter
+      flask-restful
+      flask-restx
+      moto
+    ;
+  };
   passthru.optional-dependencies = {
     dotenv = [ python-dotenv ];
     async = [ asgiref ];

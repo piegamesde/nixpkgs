@@ -591,7 +591,14 @@ let
         ;
 
         dune-release = callPackage ../development/tools/ocaml/dune-release {
-          inherit (pkgs) opam git mercurial coreutils gnutar bzip2;
+          inherit (pkgs)
+            opam
+            git
+            mercurial
+            coreutils
+            gnutar
+            bzip2
+          ;
         };
 
         dune-rpc = callPackage ../development/ocaml-modules/dune-rpc { };
@@ -1078,12 +1085,24 @@ let
           if lib.versionOlder "4.10.2" ocaml.version then
             import ../development/ocaml-modules/janestreet/0.15.nix {
               inherit self;
-              inherit (pkgs) bash fetchpatch fzf lib openssl zstd;
+              inherit (pkgs)
+                bash
+                fetchpatch
+                fzf
+                lib
+                openssl
+                zstd
+              ;
             }
           else if lib.versionOlder "4.08" ocaml.version then
             import ../development/ocaml-modules/janestreet/0.14.nix {
               inherit self;
-              inherit (pkgs) fetchpatch lib openssl zstd;
+              inherit (pkgs)
+                fetchpatch
+                lib
+                openssl
+                zstd
+              ;
             }
           else if lib.versionOlder "4.07" ocaml.version then
             import ../development/ocaml-modules/janestreet/0.12.nix {

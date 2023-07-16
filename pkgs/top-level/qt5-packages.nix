@@ -78,7 +78,14 @@
     kdeFrameworks // plasmaMobileGear // plasma5 // plasma5.thirdParty
     // kdeGear // mauiPackages // qt5 // {
 
-      inherit kdeFrameworks plasmaMobileGear plasma5 kdeGear mauiPackages qt5;
+      inherit
+        kdeFrameworks
+        plasmaMobileGear
+        plasma5
+        kdeGear
+        mauiPackages
+        qt5
+      ;
 
       # Alias for backwards compatibility. Added 2021-05-07.
       kdeApplications = kdeGear;

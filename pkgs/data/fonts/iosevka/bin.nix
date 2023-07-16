@@ -44,7 +44,13 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    inherit (iosevka.meta) homepage downloadPage description license platforms;
+    inherit (iosevka.meta)
+      homepage
+      downloadPage
+      description
+      license
+      platforms
+    ;
     maintainers = with lib.maintainers; [
       cstrahan
       montchr

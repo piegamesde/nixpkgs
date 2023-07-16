@@ -5,8 +5,21 @@
 
 # Tested in lib/tests/sources.sh
 let
-  inherit (builtins) match readDir split storeDir tryEval;
-  inherit (lib) boolToString filter getAttr isString pathExists readFile;
+  inherit (builtins)
+    match
+    readDir
+    split
+    storeDir
+    tryEval
+  ;
+  inherit (lib)
+    boolToString
+    filter
+    getAttr
+    isString
+    pathExists
+    readFile
+  ;
 
   # Returns the type of a path: regular (for file), symlink, or directory.
   pathType = path: getAttr (baseNameOf path) (readDir (dirOf path));
