@@ -48,13 +48,13 @@ stdenv.mkDerivation rec {
   doCheck = stdenv.hostPlatform == stdenv.buildPlatform;
 
   mesonFlags = [
-      "-Dtests=${
-        if doCheck then
-          "enabled"
-        else
-          "disabled"
-      }"
-    ];
+    "-Dtests=${
+      if doCheck then
+        "enabled"
+      else
+        "disabled"
+    }"
+  ];
 
   nativeCheckInputs =
     [ valgrind ]

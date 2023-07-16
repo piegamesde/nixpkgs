@@ -126,23 +126,22 @@ stdenv.mkDerivation rec {
   version = "2.2.1";
 
   desktopItems = [
-      (makeDesktopItem {
-        type = "Application";
-        name = pname;
-        desktopName = "VCV Rack";
-        genericName = "Eurorack simulator";
-        comment =
-          "Create music by patching together virtual synthesizer modules";
-        exec = "Rack";
-        icon = "Rack";
-        categories = [
-          "AudioVideo"
-          "AudioVideoEditing"
-          "Audio"
-        ];
-        keywords = [ "music" ];
-      })
-    ];
+    (makeDesktopItem {
+      type = "Application";
+      name = pname;
+      desktopName = "VCV Rack";
+      genericName = "Eurorack simulator";
+      comment = "Create music by patching together virtual synthesizer modules";
+      exec = "Rack";
+      icon = "Rack";
+      categories = [
+        "AudioVideo"
+        "AudioVideoEditing"
+        "Audio"
+      ];
+      keywords = [ "music" ];
+    })
+  ];
 
   src = fetchFromGitHub {
     owner = "VCVRack";

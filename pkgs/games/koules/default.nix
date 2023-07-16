@@ -67,18 +67,18 @@ stdenv.mkDerivation rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        desktopName = "Koules";
-        name = "koules";
-        exec = "xkoules";
-        icon = "koules";
-        comment = "Push your enemies away, but stay away from obstacles";
-        categories = [
-          "Game"
-          "ArcadeGame"
-        ];
-      })
-    ];
+    (makeDesktopItem {
+      desktopName = "Koules";
+      name = "koules";
+      exec = "xkoules";
+      icon = "koules";
+      comment = "Push your enemies away, but stay away from obstacles";
+      categories = [
+        "Game"
+        "ArcadeGame"
+      ];
+    })
+  ];
 
   meta = with lib; {
     homepage = "https://www.ucw.cz/~hubicka/koules/English/";

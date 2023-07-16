@@ -105,8 +105,8 @@ in
         config.environment.pantheon.excludePackages;
 
       services.xserver.displayManager.sessionPackages = [
-          pkgs.pantheon.elementary-session-settings
-        ];
+        pkgs.pantheon.elementary-session-settings
+      ];
 
       # Ensure lightdm is used when Pantheon is enabled
       # Without it screen locking will be nonfunctional because of the use of lightlocker

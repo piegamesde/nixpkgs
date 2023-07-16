@@ -37,10 +37,10 @@ python3Packages.buildPythonApplication rec {
   '';
 
   makeWrapperArgs = [
-      "--prefix PYTHONPATH : ${
-        placeholder "out"
-      }/lib/${python3Packages.python.libPrefix}/site-packages"
-    ];
+    "--prefix PYTHONPATH : ${
+      placeholder "out"
+    }/lib/${python3Packages.python.libPrefix}/site-packages"
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/xonsh \

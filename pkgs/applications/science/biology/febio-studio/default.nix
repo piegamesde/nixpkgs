@@ -32,8 +32,8 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      ./febio-studio-cmake.patch # Fix Errors that appear with certain Cmake flags
-    ];
+    ./febio-studio-cmake.patch # Fix Errors that appear with certain Cmake flags
+  ];
 
   cmakeFlags =
     [

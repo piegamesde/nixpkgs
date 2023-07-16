@@ -70,8 +70,8 @@ stdenv.mkDerivation rec {
       "AR:=$(AR)" # For cross-compilation
     ]
     ++ lib.optionals withPkcs11 [
-        "PKCS11_ENGINE=${opensc}/lib/opensc-pkcs11.so" # Overrides configure script paths
-      ]
+      "PKCS11_ENGINE=${opensc}/lib/opensc-pkcs11.so" # Overrides configure script paths
+    ]
     ;
 
   doCheck = true;

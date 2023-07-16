@@ -40,19 +40,19 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "sauerbraten";
-        exec = "sauerbraten_client %u";
-        icon = "sauerbraten";
-        desktopName = "Sauerbraten";
-        comment = "FPS that uses an improved version of the Cube engine";
-        categories = [
-          "Application"
-          "Game"
-          "ActionGame"
-        ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "sauerbraten";
+      exec = "sauerbraten_client %u";
+      icon = "sauerbraten";
+      desktopName = "Sauerbraten";
+      comment = "FPS that uses an improved version of the Cube engine";
+      categories = [
+        "Application"
+        "Game"
+        "ActionGame"
+      ];
+    })
+  ];
 
   installPhase = ''
     runHook preInstall

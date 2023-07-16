@@ -25,11 +25,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix_gmenu.patch;
-        gmenu_path = "${gnome-menus}/lib/girepository-1.0";
-      })
-    ];
+    (substituteAll {
+      src = ./fix_gmenu.patch;
+      gmenu_path = "${gnome-menus}/lib/girepository-1.0";
+    })
+  ];
 
   nativeBuildInputs = [
     meson

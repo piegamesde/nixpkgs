@@ -64,8 +64,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isDarwin [ cctools ]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-        autoSignDarwinBinariesHook
-      ]
+      autoSignDarwinBinariesHook
+    ]
     ;
 
   postInstall = ''

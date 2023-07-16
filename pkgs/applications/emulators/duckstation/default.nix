@@ -67,22 +67,22 @@ stdenv.mkDerivation {
     [ "-DUSE_DRMKMS=ON" ] ++ lib.optionals enableWayland [ "-DUSE_WAYLAND=ON" ];
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "duckstation-qt";
-        desktopName = "DuckStation";
-        genericName = "PlayStation 1 Emulator";
-        icon = "duckstation";
-        tryExec = "duckstation-qt";
-        exec = "duckstation-qt %f";
-        comment = "Fast PlayStation 1 emulator";
-        categories = [
-          "Game"
-          "Emulator"
-          "Qt"
-        ];
-        type = "Application";
-      })
-    ];
+    (makeDesktopItem {
+      name = "duckstation-qt";
+      desktopName = "DuckStation";
+      genericName = "PlayStation 1 Emulator";
+      icon = "duckstation";
+      tryExec = "duckstation-qt";
+      exec = "duckstation-qt %f";
+      comment = "Fast PlayStation 1 emulator";
+      categories = [
+        "Game"
+        "Emulator"
+        "Qt"
+      ];
+      type = "Application";
+    })
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -105,13 +105,13 @@ stdenv.mkDerivation {
   '';
 
   qtWrapperArgs = [
-      "--prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          libpulseaudio
-          vulkan-loader
-        ]
-      }"
-    ];
+    "--prefix LD_LIBRARY_PATH : ${
+      lib.makeLibraryPath [
+        libpulseaudio
+        vulkan-loader
+      ]
+    }"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/stenzek/duckstation";

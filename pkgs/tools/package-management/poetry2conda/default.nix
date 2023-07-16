@@ -20,13 +20,13 @@ buildPythonApplication rec {
   };
 
   patches = [
-      (fetchpatch {
-        name = "use-poetry-core.patch";
-        url =
-          "https://github.com/dojeda/poetry2conda/commit/b127090498c89fbd8bbcbac45d03178a1e1c4219.patch";
-        hash = "sha256-J26NhVPG1vD/QNXi5irtGW05CYsIYvZNQIi8YvHwCLc=";
-      })
-    ];
+    (fetchpatch {
+      name = "use-poetry-core.patch";
+      url =
+        "https://github.com/dojeda/poetry2conda/commit/b127090498c89fbd8bbcbac45d03178a1e1c4219.patch";
+      hash = "sha256-J26NhVPG1vD/QNXi5irtGW05CYsIYvZNQIi8YvHwCLc=";
+    })
+  ];
 
   nativeBuildInputs = [ poetry-core ];
 

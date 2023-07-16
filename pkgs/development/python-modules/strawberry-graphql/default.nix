@@ -55,13 +55,13 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (fetchpatch {
-        name = "switch-to-poetry-core.patch";
-        url =
-          "https://github.com/strawberry-graphql/strawberry/commit/710bb96f47c244e78fc54c921802bcdb48f5f421.patch";
-        hash = "sha256-ekUZ2hDPCqwXp9n0YjBikwSkhCmVKUzQk7LrPECcD7Y=";
-      })
-    ];
+    (fetchpatch {
+      name = "switch-to-poetry-core.patch";
+      url =
+        "https://github.com/strawberry-graphql/strawberry/commit/710bb96f47c244e78fc54c921802bcdb48f5f421.patch";
+      hash = "sha256-ekUZ2hDPCqwXp9n0YjBikwSkhCmVKUzQk7LrPECcD7Y=";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

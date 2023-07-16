@@ -32,8 +32,8 @@ import ./make-test-python.nix (
               ssh = {
                 enable = true;
                 authorizedKeys = [
-                    (readFile ./initrd-network-ssh/id_ed25519.pub)
-                  ];
+                  (readFile ./initrd-network-ssh/id_ed25519.pub)
+                ];
                 port = 22;
                 # Terrible hack so it works with useBootLoader
                 hostKeys = [ {

@@ -231,8 +231,8 @@ let
           ++ lib.optionals catchConflicts [ pythonCatchConflictsHook ]
           ++ lib.optionals removeBinBytecode [ pythonRemoveBinBytecodeHook ]
           ++ lib.optionals (lib.hasSuffix "zip" (attrs.src.name or "")) [
-              unzip
-            ]
+            unzip
+          ]
           ++ lib.optionals (format == "setuptools") [ setuptoolsBuildHook ]
           ++ lib.optionals (format == "flit") [ flitBuildHook ]
           ++ lib.optionals (format == "pyproject") [ pipBuildHook ]
@@ -243,8 +243,8 @@ let
             eggInstallHook
           ]
           ++ lib.optionals (!(format == "other") || dontUsePipInstall) [
-              pipInstallHook
-            ]
+            pipInstallHook
+          ]
           ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [
             # This is a test, however, it should be ran independent of the checkPhase and checkInputs
             pythonImportsCheckHook

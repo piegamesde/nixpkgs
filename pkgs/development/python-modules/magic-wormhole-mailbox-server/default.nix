@@ -27,14 +27,14 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (fetchpatch {
-        # Remove the 'U' open mode removed, https://github.com/magic-wormhole/magic-wormhole-mailbox-server/pull/34
-        name = "fix-for-python-3.11.patch";
-        url =
-          "https://github.com/magic-wormhole/magic-wormhole-mailbox-server/commit/4b358859ba80de37c3dc0a5f67ec36909fd48234.patch";
-        hash = "sha256-RzZ5kD+xhmFYusVzAbGE+CODXtJVR1zN2rZ+VGApXiQ=";
-      })
-    ];
+    (fetchpatch {
+      # Remove the 'U' open mode removed, https://github.com/magic-wormhole/magic-wormhole-mailbox-server/pull/34
+      name = "fix-for-python-3.11.patch";
+      url =
+        "https://github.com/magic-wormhole/magic-wormhole-mailbox-server/commit/4b358859ba80de37c3dc0a5f67ec36909fd48234.patch";
+      hash = "sha256-RzZ5kD+xhmFYusVzAbGE+CODXtJVR1zN2rZ+VGApXiQ=";
+    })
+  ];
 
   propagatedBuildInputs =
     [

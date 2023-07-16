@@ -137,25 +137,25 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=use-after-free" ];
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "MAME";
-        desktopName = "MAME";
-        exec = "mame";
-        icon = "mame";
-        type = "Application";
-        genericName = "MAME is a multi-purpose emulation framework";
-        comment = "Play vintage games using the MAME emulator";
-        categories = [
-          "Game"
-          "Emulator"
-        ];
-        keywords = [
-          "Game"
-          "Emulator"
-          "Arcade"
-        ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "MAME";
+      desktopName = "MAME";
+      exec = "mame";
+      icon = "mame";
+      type = "Application";
+      genericName = "MAME is a multi-purpose emulation framework";
+      comment = "Play vintage games using the MAME emulator";
+      categories = [
+        "Game"
+        "Emulator"
+      ];
+      keywords = [
+        "Game"
+        "Emulator"
+        "Arcade"
+      ];
+    })
+  ];
 
   # TODO: copy shaders from src/osd/modules/opengl/shader/glsl*.*h
   # to the final package after we figure out how they work

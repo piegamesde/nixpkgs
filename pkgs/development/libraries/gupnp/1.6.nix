@@ -35,14 +35,14 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (fetchpatch {
-        # https://gitlab.gnome.org/GNOME/gupnp/-/merge_requests/32
-        name = "gi-docgen-as-native-dep.patch";
-        url =
-          "https://gitlab.gnome.org/GNOME/gupnp/-/commit/11d4a33cff1f5d8b8ad4b80c4506246a9e0dff8f.diff";
-        hash = "sha256-+p4vzUG2v+7mxtQ5AUcEI7SW0cDX6XlzqlyegF+I1Go=";
-      })
-    ];
+    (fetchpatch {
+      # https://gitlab.gnome.org/GNOME/gupnp/-/merge_requests/32
+      name = "gi-docgen-as-native-dep.patch";
+      url =
+        "https://gitlab.gnome.org/GNOME/gupnp/-/commit/11d4a33cff1f5d8b8ad4b80c4506246a9e0dff8f.diff";
+      hash = "sha256-+p4vzUG2v+7mxtQ5AUcEI7SW0cDX6XlzqlyegF+I1Go=";
+    })
+  ];
 
   depsBuildBuild = [ pkg-config ];
 

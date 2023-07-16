@@ -57,11 +57,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-paths.patch;
-        inherit isocodes;
-      })
-    ];
+    (substituteAll {
+      src = ./fix-paths.patch;
+      inherit isocodes;
+    })
+  ];
 
   nativeBuildInputs = [
     meson

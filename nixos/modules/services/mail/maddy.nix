@@ -363,8 +363,8 @@ in
             StateDirectory = [ "maddy" ];
           };
           restartTriggers = [
-              config.environment.etc."maddy/maddy.conf".source
-            ];
+            config.environment.etc."maddy/maddy.conf".source
+          ];
           wantedBy = [ "multi-user.target" ];
         };
         maddy-ensure-accounts = {

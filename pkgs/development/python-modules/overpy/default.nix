@@ -22,13 +22,13 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (fetchpatch {
-        # Remove pytest-runner
-        url =
-          "https://patch-diff.githubusercontent.com/raw/DinoTools/python-overpy/pull/104.patch";
-        hash = "sha256-ScS0vd2P+wyQGyCQV6/4cUcqoQ+S07tGpEovuz9oBMw=";
-      })
-    ];
+    (fetchpatch {
+      # Remove pytest-runner
+      url =
+        "https://patch-diff.githubusercontent.com/raw/DinoTools/python-overpy/pull/104.patch";
+      hash = "sha256-ScS0vd2P+wyQGyCQV6/4cUcqoQ+S07tGpEovuz9oBMw=";
+    })
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

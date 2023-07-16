@@ -44,8 +44,8 @@ stdenv.mkDerivation rec {
     groff
   ]; # (Yes, 'groff' is both native and build input)
   nativeCheckInputs = [
-      libiconv # for 'iconv' binary
-    ];
+    libiconv # for 'iconv' binary
+  ];
 
   patches = [ ./systemwide-man-db-conf.patch ];
 

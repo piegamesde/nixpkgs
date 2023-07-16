@@ -133,8 +133,8 @@ in
         (lib.mkIf cfg.netatop.enable cfg.netatop.package)
       ];
       boot.extraModulePackages = [
-          (lib.mkIf cfg.netatop.enable cfg.netatop.package)
-        ];
+        (lib.mkIf cfg.netatop.enable cfg.netatop.package)
+      ];
       systemd =
         let
           mkSystemd =
@@ -142,15 +142,15 @@ in
               ${name} = lib.mkIf cond {
                 inherit restartTriggers;
                 wantedBy = [
-                    (
-                      if type == "services" then
-                        "multi-user.target"
-                      else if type == "timers" then
-                        "timers.target"
-                      else
-                        null
-                    )
-                  ];
+                  (
+                    if type == "services" then
+                      "multi-user.target"
+                    else if type == "timers" then
+                      "timers.target"
+                    else
+                      null
+                  )
+                ];
               };
             }
             ;

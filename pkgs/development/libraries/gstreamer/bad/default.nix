@@ -143,8 +143,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals enableDocumentation [ hotdoc ]
     ++ lib.optionals stdenv.isLinux [
-        wayland # for wayland-scanner
-      ]
+      wayland # for wayland-scanner
+    ]
     ;
 
   buildInputs =
@@ -339,8 +339,8 @@ stdenv.mkDerivation rec {
       "-Dwildmidi=disabled" # see dependencies above
     ]
     ++ lib.optionals (!stdenv.isLinux || !stdenv.isx86_64) [
-        "-Dqsv=disabled" # Linux (and Windows) x86 only
-      ]
+      "-Dqsv=disabled" # Linux (and Windows) x86 only
+    ]
     ++ lib.optionals (!gst-plugins-base.glEnabled) [ "-Dgl=disabled" ]
     ++ lib.optionals (!gst-plugins-base.waylandEnabled) [
       "-Dgtk3=disabled" # Wayland-based GTK sink

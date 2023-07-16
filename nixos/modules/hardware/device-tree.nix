@@ -133,14 +133,14 @@ let
 in
 {
   imports = [
-      (mkRemovedOptionModule
-        [
-          "hardware"
-          "deviceTree"
-          "base"
-        ]
-        "Use hardware.deviceTree.kernelPackage instead")
-    ];
+    (mkRemovedOptionModule
+      [
+        "hardware"
+        "deviceTree"
+        "base"
+      ]
+      "Use hardware.deviceTree.kernelPackage instead")
+  ];
 
   options = {
     hardware.deviceTree = {

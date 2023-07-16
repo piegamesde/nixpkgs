@@ -288,12 +288,12 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (!enableShared) [ "-DARROW_TEST_LINKAGE=static" ]
     ++ lib.optionals stdenv.isDarwin [
-        "-DCMAKE_INSTALL_RPATH=@loader_path/../lib" # needed for tools executables
-      ]
+      "-DCMAKE_INSTALL_RPATH=@loader_path/../lib" # needed for tools executables
+    ]
     ++ lib.optionals (!stdenv.isx86_64) [ "-DARROW_USE_SIMD=OFF" ]
     ++ lib.optionals enableS3 [
-        "-DAWSSDK_CORE_HEADER_FILE=${aws-sdk-cpp-arrow}/include/aws/core/Aws.h"
-      ]
+      "-DAWSSDK_CORE_HEADER_FILE=${aws-sdk-cpp-arrow}/include/aws/core/Aws.h"
+    ]
     ;
 
   doInstallCheck = true;

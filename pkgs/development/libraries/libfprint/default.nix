@@ -71,8 +71,8 @@ stdenv.mkDerivation rec {
   ];
 
   nativeInstallCheckInputs = [
-      (python3.withPackages (p: with p; [ pygobject3 ]))
-    ];
+    (python3.withPackages (p: with p; [ pygobject3 ]))
+  ];
 
   # We need to run tests _after_ install so all the paths that get loaded are in
   # the right place.

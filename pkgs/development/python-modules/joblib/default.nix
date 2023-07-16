@@ -42,8 +42,8 @@ buildPythonPackage rec {
       "test_nested_parallel_warnings" # tests is flaky under load
     ]
     ++ lib.optionals stdenv.isDarwin [
-        "test_dispatch_multiprocessing" # test_dispatch_multiprocessing is broken only on Darwin.
-      ]
+      "test_dispatch_multiprocessing" # test_dispatch_multiprocessing is broken only on Darwin.
+    ]
     ;
 
   meta = with lib; {

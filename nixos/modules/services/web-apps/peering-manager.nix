@@ -273,7 +273,7 @@ in
     };
     users.groups.peering-manager = { };
     users.groups."${config.services.redis.servers.peering-manager.user}".members = [
-        "peering-manager"
-      ];
+      "peering-manager"
+    ];
   };
 }

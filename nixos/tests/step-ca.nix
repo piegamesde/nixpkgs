@@ -60,8 +60,8 @@ import ./make-test-python.nix (
           security.acme.acceptTerms = true;
 
           security.pki.certificateFiles = [
-              "${test-certificates}/root_ca.crt"
-            ];
+            "${test-certificates}/root_ca.crt"
+          ];
 
           networking.firewall.allowedTCPPorts = [
             80
@@ -87,8 +87,8 @@ import ./make-test-python.nix (
           ...
         }: {
           security.pki.certificateFiles = [
-              "${test-certificates}/root_ca.crt"
-            ];
+            "${test-certificates}/root_ca.crt"
+          ];
         }
         ;
     };

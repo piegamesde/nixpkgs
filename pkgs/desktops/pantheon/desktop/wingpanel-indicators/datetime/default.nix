@@ -34,11 +34,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-paths.patch;
-        elementary_calendar = elementary-calendar;
-      })
-    ];
+    (substituteAll {
+      src = ./fix-paths.patch;
+      elementary_calendar = elementary-calendar;
+    })
+  ];
 
   nativeBuildInputs = [
     libxml2

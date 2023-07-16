@@ -49,15 +49,15 @@ stdenv.mkDerivation rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        name = pname;
-        exec = "berry";
-        comment = meta.description;
-        desktopName = "Berry Window Manager";
-        genericName = "Berry Window Manager";
-        categories = [ "Utility" ];
-      })
-    ];
+    (makeDesktopItem {
+      name = pname;
+      exec = "berry";
+      comment = meta.description;
+      desktopName = "Berry Window Manager";
+      genericName = "Berry Window Manager";
+      categories = [ "Utility" ];
+    })
+  ];
 
   meta = with lib; {
     homepage = "https://berrywm.org/";

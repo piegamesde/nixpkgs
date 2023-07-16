@@ -24,8 +24,8 @@ buildPythonPackage rec {
   doCheck = false;
 
   pythonImportsCheck = [
-      "imdb"
-    ]; # Former "imdbpy", upstream is yet to rename here
+    "imdb"
+  ]; # Former "imdbpy", upstream is yet to rename here
 
   meta = with lib; {
     description =

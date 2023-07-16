@@ -77,16 +77,16 @@ let
       cmakeFlags = super.cmakeFlags ++ [ "-DSLIC3R_BUILD_TESTS=0" ];
 
       desktopItems = [
-          (makeDesktopItem {
-            name = "superslicer";
-            exec = "superslicer";
-            icon = appname;
-            comment = description;
-            desktopName = appname;
-            genericName = "3D printer tool";
-            categories = [ "Development" ];
-          })
-        ];
+        (makeDesktopItem {
+          name = "superslicer";
+          exec = "superslicer";
+          icon = appname;
+          comment = description;
+          desktopName = appname;
+          genericName = "3D printer tool";
+          categories = [ "Development" ];
+        })
+      ];
 
       meta = with lib; {
         inherit description;

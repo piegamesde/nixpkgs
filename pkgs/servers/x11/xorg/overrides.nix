@@ -175,8 +175,8 @@ self: super:
       depsBuildBuild =
         [ buildPackages.stdenv.cc ]
         ++ lib.optionals stdenv.hostPlatform.isStatic [
-            (xorg.buildPackages.stdenv.cc.libc.static or null)
-          ]
+          (xorg.buildPackages.stdenv.cc.libc.static or null)
+        ]
         ;
       preConfigure = ''
         sed 's,^as_dummy.*,as_dummy="\$PATH",' -i configure
@@ -883,12 +883,12 @@ self: super:
       nativeBuildInputs = attrs.nativeBuildInputs ++ [ autoreconfHook ];
       buildInputs = attrs.buildInputs ++ [ xorg.utilmacros ];
       patches = [
-          (fetchpatch {
-            url =
-              "https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati/-/commit/e0511968d04b42abf11bc0ffb387f143582bc144.patch";
-            sha256 = "sha256-79nqKuJRgMYXDEMB8IWxdmbxtI/m+Oca1wSLYeGMuEk=";
-          })
-        ];
+        (fetchpatch {
+          url =
+            "https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati/-/commit/e0511968d04b42abf11bc0ffb387f143582bc144.patch";
+          sha256 = "sha256-79nqKuJRgMYXDEMB8IWxdmbxtI/m+Oca1wSLYeGMuEk=";
+        })
+      ];
     }
   );
 
@@ -981,8 +981,8 @@ self: super:
   xkbcomp = super.xkbcomp.overrideAttrs (
     attrs: {
       configureFlags = [
-          "--with-xkb-config-root=${xorg.xkeyboardconfig}/share/X11/xkb"
-        ];
+        "--with-xkb-config-root=${xorg.xkeyboardconfig}/share/X11/xkb"
+      ];
     }
   );
 
@@ -1553,13 +1553,13 @@ self: super:
   xorgcffiles = super.xorgcffiles.overrideAttrs (
     attrs: {
       patches = [
-          (fetchpatch {
-            name = "add-aarch64-darwin-support.patch";
-            url =
-              "https://gitlab.freedesktop.org/xorg/util/cf/-/commit/8d88c559b177e832b581c8ac0aa383b6cf79e0d0.patch";
-            sha256 = "sha256-wCijdmlUtVgOh9Rp/LJrg1ObYm4OPTke5Xwu0xC0ap4=";
-          })
-        ];
+        (fetchpatch {
+          name = "add-aarch64-darwin-support.patch";
+          url =
+            "https://gitlab.freedesktop.org/xorg/util/cf/-/commit/8d88c559b177e832b581c8ac0aa383b6cf79e0d0.patch";
+          sha256 = "sha256-wCijdmlUtVgOh9Rp/LJrg1ObYm4OPTke5Xwu0xC0ap4=";
+        })
+      ];
       postInstall = lib.optionalString stdenv.isDarwin ''
         substituteInPlace $out/lib/X11/config/darwin.cf --replace "/usr/bin/" ""
       '';

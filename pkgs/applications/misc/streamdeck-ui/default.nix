@@ -37,16 +37,16 @@ python3Packages.buildPythonApplication rec {
   ];
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "streamdeck-ui";
-        desktopName = "Stream Deck UI";
-        icon = "streamdeck-ui";
-        exec = "streamdeck --no-ui";
-        comment = "UI for the Elgato Stream Deck";
-        categories = [ "Utility" ];
-        noDisplay = true;
-      })
-    ];
+    (makeDesktopItem {
+      name = "streamdeck-ui";
+      desktopName = "Stream Deck UI";
+      icon = "streamdeck-ui";
+      exec = "streamdeck --no-ui";
+      comment = "UI for the Elgato Stream Deck";
+      categories = [ "Utility" ];
+      noDisplay = true;
+    })
+  ];
 
   postInstall =
     let

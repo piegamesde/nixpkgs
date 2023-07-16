@@ -25,11 +25,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-cmake.patch; # cannot find mkl libraries without this
-        so = stdenv.hostPlatform.extensions.sharedLibrary;
-      })
-    ];
+    (substituteAll {
+      src = ./fix-cmake.patch; # cannot find mkl libraries without this
+      so = stdenv.hostPlatform.extensions.sharedLibrary;
+    })
+  ];
 
   cmakeFlags =
     lib.optional mklSupport "-DUSE_MKL=On"

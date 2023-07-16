@@ -92,8 +92,8 @@ stdenv.mkDerivation rec {
     [ bash ]
     # HACK, see #10874 (and 14664)
     ++ lib.optionals (!stdenv.isLinux && !stdenv.hostPlatform.isCygwin) [
-        libiconv
-      ]
+      libiconv
+    ]
     ;
 
   setupHooks = [

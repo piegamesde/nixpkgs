@@ -46,8 +46,8 @@ stdenv.mkDerivation rec {
   ];
 
   makeFlags = [
-      "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    ];
+    "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-fallthrough";
 

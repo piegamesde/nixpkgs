@@ -205,11 +205,11 @@ in
       } // lib.optionalAttrs cfg.enableNvidia {
         engine = {
           conmon_env_vars = [
-              "PATH=${lib.makeBinPath [ pkgs.nvidia-podman ]}"
-            ];
+            "PATH=${lib.makeBinPath [ pkgs.nvidia-podman ]}"
+          ];
           runtimes.nvidia = [
-              "${pkgs.nvidia-podman}/bin/nvidia-container-runtime"
-            ];
+            "${pkgs.nvidia-podman}/bin/nvidia-container-runtime"
+          ];
         };
       };
     };
@@ -253,8 +253,8 @@ in
       ];
 
     systemd.tmpfiles.rules = lib.optionals cfg.dockerSocket.enable [
-        "L! /run/docker.sock - - - - /run/podman/podman.sock"
-      ];
+      "L! /run/docker.sock - - - - /run/podman/podman.sock"
+    ];
 
     users.groups.podman = { };
 

@@ -19,11 +19,11 @@ mkTmuxPlugin rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix.patch;
-        tmuxThumbsDir = "${thumbs}/bin";
-      })
-    ];
+    (substituteAll {
+      src = ./fix.patch;
+      tmuxThumbsDir = "${thumbs}/bin";
+    })
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/fcsonline/tmux-thumbs";

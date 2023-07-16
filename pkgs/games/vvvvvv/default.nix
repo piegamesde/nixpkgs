@@ -64,17 +64,17 @@ stdenv.mkDerivation rec {
     ;
 
   desktopItems = [
-      (makeDesktopItem {
-        type = "Application";
-        name = "VVVVVV";
-        desktopName = "VVVVVV";
-        comment = meta.description;
-        exec = pname;
-        icon = "VVVVVV";
-        terminal = false;
-        categories = [ "Game" ];
-      })
-    ];
+    (makeDesktopItem {
+      type = "Application";
+      name = "VVVVVV";
+      desktopName = "VVVVVV";
+      comment = meta.description;
+      exec = pname;
+      icon = "VVVVVV";
+      terminal = false;
+      categories = [ "Game" ];
+    })
+  ];
 
   installPhase = ''
     runHook preInstall

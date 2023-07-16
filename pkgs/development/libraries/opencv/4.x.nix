@@ -266,14 +266,14 @@ let
       libnpp # npp.h
     ]
     ++ lib.optionals enableCublas [
-        libcublas # cublas_v2.h
-      ]
+      libcublas # cublas_v2.h
+    ]
     ++ lib.optionals enableCudnn [
-        cudnn # cudnn.h
-      ]
+      cudnn # cudnn.h
+    ]
     ++ lib.optionals enableCufft [
-        libcufft # cufft.h
-      ];
+      libcufft # cufft.h
+    ];
 
   cuda-native-redist = symlinkJoin {
     name = "cuda-native-redist-${cudaVersion}";
@@ -489,8 +489,8 @@ stdenv.mkDerivation {
       "-DWITH_LAPACK=OFF"
     ]
     ++ lib.optionals (!stdenv.isDarwin) [
-        "-DOPENCL_LIBRARY=${ocl-icd}/lib/libOpenCL.so"
-      ]
+      "-DOPENCL_LIBRARY=${ocl-icd}/lib/libOpenCL.so"
+    ]
     ++ lib.optionals enablePython [ "-DOPENCV_SKIP_PYTHON_LOADER=ON" ]
     ;
 

@@ -60,13 +60,13 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableOpenMP "-DZFP_WITH_OPENMP=ON"
     ++ lib.optional enablePython "-DBUILD_ZFPY=ON"
     ++ ([
-        "-DBUILD_UTILITIES=${
-          if enableUtilities then
-            "ON"
-          else
-            "OFF"
-        }"
-      ])
+      "-DBUILD_UTILITIES=${
+        if enableUtilities then
+          "ON"
+        else
+          "OFF"
+      }"
+    ])
     ;
 
   doCheck = true;

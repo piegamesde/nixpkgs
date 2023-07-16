@@ -20,8 +20,8 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [
-      unixODBC # for odbc_config
-    ];
+    unixODBC # for odbc_config
+  ];
 
   buildInputs = [ unixODBC ];
 

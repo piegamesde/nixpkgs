@@ -61,8 +61,8 @@ stdenv.mkDerivation (
     };
 
     patches = lib.optionals (buildTests || buildBenchmarks) [
-        ./0000-dont-fetch-googletest.patch
-      ];
+      ./0000-dont-fetch-googletest.patch
+    ];
 
     nativeBuildInputs = [
       cmake
@@ -109,11 +109,11 @@ stdenv.mkDerivation (
         "-DCMAKE_INSTALL_INCLUDEDIR=include"
       ]
       ++ lib.optionals (gpuTargets != [ ]) [
-          "-DGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
-        ]
+        "-DGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
+      ]
       ++ lib.optionals buildExtendedTests [
-          "-DROCWMMA_BUILD_EXTENDED_TESTS=ON"
-        ]
+        "-DROCWMMA_BUILD_EXTENDED_TESTS=ON"
+      ]
       ++ lib.optionals buildBenchmarks [
         "-DROCWMMA_BUILD_BENCHMARK_TESTS=ON"
         "-DROCWMMA_BENCHMARK_WITH_ROCBLAS=ON"

@@ -54,13 +54,13 @@ stdenv.mkDerivation rec {
     ;
 
   patches = [
-      (fetchpatch {
-        # part of https://github.com/intel/hyperscan/pull/336
-        url =
-          "https://github.com/intel/hyperscan/commit/e2c4010b1fc1272cab816ba543940b3586e68a0c.patch";
-        sha256 = "sha256-doVNwROL6MTcgOW8jBwGTnxe0zvxjawiob/g6AvXLak=";
-      })
-    ];
+    (fetchpatch {
+      # part of https://github.com/intel/hyperscan/pull/336
+      url =
+        "https://github.com/intel/hyperscan/commit/e2c4010b1fc1272cab816ba543940b3586e68a0c.patch";
+      sha256 = "sha256-doVNwROL6MTcgOW8jBwGTnxe0zvxjawiob/g6AvXLak=";
+    })
+  ];
 
   postPatch = ''
     sed -i '/examples/d' CMakeLists.txt
@@ -87,8 +87,8 @@ stdenv.mkDerivation rec {
     homepage = "https://www.hyperscan.io/";
     maintainers = with maintainers; [ avnik ];
     platforms = [
-        "x86_64-linux"
-      ]; # can't find nm on darwin ; might build on aarch64 but untested
+      "x86_64-linux"
+    ]; # can't find nm on darwin ; might build on aarch64 but untested
     license = licenses.bsd3;
   };
 }

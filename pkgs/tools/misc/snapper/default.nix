@@ -73,8 +73,8 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags = [
-      "--disable-ext4" # requires patched kernel & e2fsprogs
-    ];
+    "--disable-ext4" # requires patched kernel & e2fsprogs
+  ];
 
   enableParallelBuilding = true;
 

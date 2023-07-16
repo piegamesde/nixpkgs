@@ -28,12 +28,12 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (fetchpatch {
-        url =
-          "https://github.com/ssj71/infamousPlugins/commit/06dd967b4736ea886dc1dc07f882cb1563961582.patch";
-        sha256 = "08xwh6px13y1gykaw103nhvjms7vgbgkcm0avh9f5d2d7aadq0l2";
-      })
-    ];
+    (fetchpatch {
+      url =
+        "https://github.com/ssj71/infamousPlugins/commit/06dd967b4736ea886dc1dc07f882cb1563961582.patch";
+      sha256 = "08xwh6px13y1gykaw103nhvjms7vgbgkcm0avh9f5d2d7aadq0l2";
+    })
+  ];
   nativeBuildInputs = [
     pkg-config
     cmake

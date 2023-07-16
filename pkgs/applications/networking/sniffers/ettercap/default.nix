@@ -34,13 +34,13 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (fetchpatch2 {
-        name = "curl-8.patch";
-        url =
-          "https://github.com/Ettercap/ettercap/commit/9ec4066addc49483e40055e0738c2e0ef144702f.diff";
-        sha256 = "6D8lIxub0OS52BFr42yWRyqS2Q5CrpTLTt6rcItXFMM=";
-      })
-    ];
+    (fetchpatch2 {
+      name = "curl-8.patch";
+      url =
+        "https://github.com/Ettercap/ettercap/commit/9ec4066addc49483e40055e0738c2e0ef144702f.diff";
+      sha256 = "6D8lIxub0OS52BFr42yWRyqS2Q5CrpTLTt6rcItXFMM=";
+    })
+  ];
 
   strictDeps = true;
   nativeBuildInputs = [

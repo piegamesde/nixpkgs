@@ -29,8 +29,8 @@ stdenv.mkDerivation rec {
   '';
 
   makeFlags = [
-      "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    ];
+    "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+  ];
 
   installPhase = ''
     runHook preInstall

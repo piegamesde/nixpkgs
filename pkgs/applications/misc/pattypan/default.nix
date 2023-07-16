@@ -53,14 +53,14 @@ stdenv.mkDerivation rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        desktopName = "Pattypan";
-        genericName = "An uploader for Wikimedia Commons";
-        categories = [ "Utility" ];
-        exec = "pattypan";
-        name = "pattypan";
-      })
-    ];
+    (makeDesktopItem {
+      desktopName = "Pattypan";
+      genericName = "An uploader for Wikimedia Commons";
+      categories = [ "Utility" ];
+      exec = "pattypan";
+      name = "pattypan";
+    })
+  ];
 
   meta = with lib; {
     homepage = "https://commons.wikimedia.org/wiki/Commons:Pattypan";

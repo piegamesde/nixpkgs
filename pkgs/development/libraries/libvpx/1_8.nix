@@ -260,8 +260,8 @@ stdenv.mkDerivation rec {
     ;
 
   NIX_LDFLAGS = [
-      "-lpthread" # fixes linker errors
-    ];
+    "-lpthread" # fixes linker errors
+  ];
 
   enableParallelBuilding = true;
 

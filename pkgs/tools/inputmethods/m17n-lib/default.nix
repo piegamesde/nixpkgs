@@ -18,15 +18,15 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (fetchpatch {
-        # Patch pending upstream inclusion:
-        #   https://savannah.nongnu.org/bugs/index.php?61377
-        name = "parallel-build.patch";
-        url = "https://savannah.nongnu.org/bugs/download.php?file_id=53704";
-        hash = "sha256-1smKSIFVRJZSwCv0NiUsnndxKcPnJ/wqzH8+ka6nfNM=";
-        excludes = [ "src/ChangeLog" ];
-      })
-    ];
+    (fetchpatch {
+      # Patch pending upstream inclusion:
+      #   https://savannah.nongnu.org/bugs/index.php?61377
+      name = "parallel-build.patch";
+      url = "https://savannah.nongnu.org/bugs/download.php?file_id=53704";
+      hash = "sha256-1smKSIFVRJZSwCv0NiUsnndxKcPnJ/wqzH8+ka6nfNM=";
+      excludes = [ "src/ChangeLog" ];
+    })
+  ];
 
   strictDeps = true;
 

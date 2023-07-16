@@ -76,8 +76,8 @@ buildDotnetModule rec {
     ]
     ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-        autoSignDarwinBinariesHook
-      ]
+      autoSignDarwinBinariesHook
+    ]
     ;
 
   buildInputs = [ stdenv.cc.cc.lib ];
@@ -86,10 +86,10 @@ buildDotnetModule rec {
   dotnet-runtime = dotnetCorePackages.runtime_6_0;
 
   dotnetFlags = [
-      "-p:PackageRuntime=${
-        dotnetCorePackages.systemToDotnetRid stdenv.hostPlatform.system
-      }"
-    ];
+    "-p:PackageRuntime=${
+      dotnetCorePackages.systemToDotnetRid stdenv.hostPlatform.system
+    }"
+  ];
 
   # As given here: https://github.com/actions/runner/blob/0befa62/src/dir.proj#L33-L41
   projectFile = [

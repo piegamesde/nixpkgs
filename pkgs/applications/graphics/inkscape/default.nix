@@ -78,13 +78,13 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   patches = [
-      (substituteAll {
-        src = ./fix-python-paths.patch;
-        # Python is used at run-time to execute scripts,
-        # e.g., those from the "Effects" menu.
-        python3 = "${python3Env}/bin/python";
-      })
-    ];
+    (substituteAll {
+      src = ./fix-python-paths.patch;
+      # Python is used at run-time to execute scripts,
+      # e.g., those from the "Effects" menu.
+      python3 = "${python3Env}/bin/python";
+    })
+  ];
 
   postPatch = ''
     patchShebangs share/extensions

@@ -190,13 +190,13 @@ let
         {
           type = mkDefault name;
           includes = mkDefault [
-              "$CONFDIR/worker-${
-                if name == "rspamd_proxy" then
-                  "proxy"
-                else
-                  name
-              }.inc"
-            ];
+            "$CONFDIR/worker-${
+              if name == "rspamd_proxy" then
+                "proxy"
+              else
+                name
+            }.inc"
+          ];
           bindSockets =
             let
               unixSocket =

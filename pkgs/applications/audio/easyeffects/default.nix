@@ -90,8 +90,8 @@ stdenv.mkDerivation rec {
         zam-plugins # maximizer
       ];
       ladspaPlugins = [
-          rubberband # pitch shifting
-        ];
+        rubberband # pitch shifting
+      ];
     in
     ''
       gappsWrapperArgs+=(

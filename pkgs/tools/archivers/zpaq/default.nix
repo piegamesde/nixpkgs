@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-      perl # for pod2man
-    ];
+    perl # for pod2man
+  ];
 
   CPPFLAGS =
     [ "-Dunix" ] ++ lib.optional (!stdenv.isi686 && !stdenv.isx86_64) "-DNOJIT";

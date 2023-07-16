@@ -13852,15 +13852,15 @@ in
       (
         sources."@fortawesome/free-regular-svg-icons-6.3.0" // {
           dependencies = [
-              sources."@fortawesome/fontawesome-common-types-6.3.0"
-            ];
+            sources."@fortawesome/fontawesome-common-types-6.3.0"
+          ];
         }
       )
       (
         sources."@fortawesome/free-solid-svg-icons-5.15.4" // {
           dependencies = [
-              sources."@fortawesome/fontawesome-common-types-0.2.36"
-            ];
+            sources."@fortawesome/fontawesome-common-types-0.2.36"
+          ];
         }
       )
       sources."@fortawesome/vue-fontawesome-2.0.10"

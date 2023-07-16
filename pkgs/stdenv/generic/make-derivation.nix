@@ -621,14 +621,14 @@ let
                       "-DCMAKE_SYSTEM_PROCESSOR=${stdenv.hostPlatform.uname.processor}"
                     ]
                   ++ lib.optionals (stdenv.hostPlatform.uname.release != null) [
-                      "-DCMAKE_SYSTEM_VERSION=${stdenv.hostPlatform.uname.release}"
-                    ]
+                    "-DCMAKE_SYSTEM_VERSION=${stdenv.hostPlatform.uname.release}"
+                  ]
                   ++ lib.optionals (stdenv.hostPlatform.isDarwin) [
-                      "-DCMAKE_OSX_ARCHITECTURES=${stdenv.hostPlatform.darwinArch}"
-                    ]
+                    "-DCMAKE_OSX_ARCHITECTURES=${stdenv.hostPlatform.darwinArch}"
+                  ]
                   ++ lib.optionals (stdenv.buildPlatform.uname.system != null) [
-                      "-DCMAKE_HOST_SYSTEM_NAME=${stdenv.buildPlatform.uname.system}"
-                    ]
+                    "-DCMAKE_HOST_SYSTEM_NAME=${stdenv.buildPlatform.uname.system}"
+                  ]
                   ++ lib.optionals
                     (stdenv.buildPlatform.uname.processor != null)
                     [

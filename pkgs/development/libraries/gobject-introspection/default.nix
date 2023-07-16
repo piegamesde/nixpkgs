@@ -98,15 +98,15 @@ stdenv.mkDerivation (
         # can't use canExecute, we need prebuilt when cross
       ]
       ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-          gobject-introspection-unwrapped
-        ]
+        gobject-introspection-unwrapped
+      ]
       ;
 
     buildInputs = [ (python3.withPackages pythonModules) ];
 
     nativeCheckInputs = lib.optionals stdenv.isDarwin [
-        cctools # for otool
-      ];
+      cctools # for otool
+    ];
 
     propagatedBuildInputs = [
       libffi
@@ -137,8 +137,8 @@ stdenv.mkDerivation (
         # can't use canExecute, we need prebuilt when cross
       ]
       ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-          "-Dgi_cross_use_prebuilt_gi=true"
-        ]
+        "-Dgi_cross_use_prebuilt_gi=true"
+      ]
       ;
 
     doCheck = !stdenv.isAarch64;

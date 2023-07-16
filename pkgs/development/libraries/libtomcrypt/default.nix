@@ -23,13 +23,13 @@ stdenv.mkDerivation rec {
     lib.optionalString stdenv.isDarwin "-DTARGET_OS_IPHONE=0";
 
   patches = [
-      (fetchpatch {
-        name = "CVE-2019-17362.patch";
-        url =
-          "https://github.com/libtom/libtomcrypt/pull/508/commits/25c26a3b7a9ad8192ccc923e15cf62bf0108ef94.patch";
-        sha256 = "1bwsj0pwffxw648wd713z3xcyrbxc2z646psrzp38ys564fjh5zf";
-      })
-    ];
+    (fetchpatch {
+      name = "CVE-2019-17362.patch";
+      url =
+        "https://github.com/libtom/libtomcrypt/pull/508/commits/25c26a3b7a9ad8192ccc923e15cf62bf0108ef94.patch";
+      sha256 = "1bwsj0pwffxw648wd713z3xcyrbxc2z646psrzp38ys564fjh5zf";
+    })
+  ];
 
   nativeBuildInputs = [
     libtool

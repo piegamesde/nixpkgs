@@ -61,21 +61,21 @@ mkDerivation rec {
   ];
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "HDRMerge";
-        genericName = "HDR raw image merge";
-        desktopName = "HDRMerge";
-        comment = meta.description;
-        icon = "hdrmerge";
-        exec = "hdrmerge %F";
-        categories = [ "Graphics" ];
-        mimeTypes = [
-          "image/x-dcraw"
-          "image/x-adobe-dng"
-        ];
-        terminal = false;
-      })
-    ];
+    (makeDesktopItem {
+      name = "HDRMerge";
+      genericName = "HDR raw image merge";
+      desktopName = "HDRMerge";
+      comment = meta.description;
+      icon = "hdrmerge";
+      exec = "hdrmerge %F";
+      categories = [ "Graphics" ];
+      mimeTypes = [
+        "image/x-dcraw"
+        "image/x-adobe-dng"
+      ];
+      terminal = false;
+    })
+  ];
 
   postInstall = ''
     install -Dm444 ../data/images/icon.png $out/share/icons/hicolor/128x128/apps/hdrmerge.png

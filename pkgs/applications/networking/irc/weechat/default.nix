@@ -131,8 +131,8 @@ stdenv.mkDerivation rec {
       }"
     ]
     ++ optionals stdenv.isDarwin [
-        "-DICONV_LIBRARY=${libiconv}/lib/libiconv.dylib"
-      ]
+      "-DICONV_LIBRARY=${libiconv}/lib/libiconv.dylib"
+    ]
     ++ map
       (
         p:

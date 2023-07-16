@@ -33,8 +33,8 @@ stdenv.mkDerivation {
   buildInputs = lib.optional stdenv.hostPlatform.isDarwin libcxxabi;
 
   env.NIX_CFLAGS_COMPILE = toString [
-      "-DSCUDO_DEFAULT_OPTIONS=DeleteSizeMismatch=0:DeallocationTypeMismatch=0"
-    ];
+    "-DSCUDO_DEFAULT_OPTIONS=DeleteSizeMismatch=0:DeallocationTypeMismatch=0"
+  ];
 
   cmakeFlags =
     [
@@ -48,8 +48,8 @@ stdenv.mkDerivation {
       "-DCOMPILER_RT_BUILD_LIBFUZZER=OFF"
     ]
     ++ lib.optionals (useLLVM || bareMetal) [
-        "-DCOMPILER_RT_BUILD_PROFILE=OFF"
-      ]
+      "-DCOMPILER_RT_BUILD_PROFILE=OFF"
+    ]
     ++ lib.optionals ((useLLVM || bareMetal) && !haveLibc) [
       "-DCMAKE_C_COMPILER_WORKS=ON"
       "-DCMAKE_CXX_COMPILER_WORKS=ON"

@@ -51,8 +51,8 @@ import ./make-test-python.nix (
               network.wait-online.anyInterface = true;
               targets.network-online.requiredBy = [ "initrd.target" ];
               services.systemd-networkd-wait-online.requiredBy = [
-                  "network-online.target"
-                ];
+                "network-online.target"
+              ];
 
               initrdBin = [
                 pkgs.iproute2

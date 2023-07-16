@@ -41,8 +41,8 @@ mkDerivation rec {
   ];
 
   qtWrapperArgs = [
-      "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libsecret ]}"
-    ];
+    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libsecret ]}"
+  ];
 
   cmakeFlags = [
     "-UCMAKE_INSTALL_LIBDIR"

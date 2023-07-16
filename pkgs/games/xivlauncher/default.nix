@@ -87,16 +87,16 @@ buildDotnetModule rec {
   ];
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "xivlauncher";
-        exec = "XIVLauncher.Core";
-        icon = "xivlauncher";
-        desktopName = "XIVLauncher";
-        comment = meta.description;
-        categories = [ "Game" ];
-        startupWMClass = "XIVLauncher.Core";
-      })
-    ];
+    (makeDesktopItem {
+      name = "xivlauncher";
+      exec = "XIVLauncher.Core";
+      icon = "xivlauncher";
+      desktopName = "XIVLauncher";
+      comment = meta.description;
+      categories = [ "Game" ];
+      startupWMClass = "XIVLauncher.Core";
+    })
+  ];
 
   meta = with lib; {
     description = "Custom launcher for FFXIV";

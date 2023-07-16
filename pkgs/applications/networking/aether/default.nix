@@ -99,16 +99,16 @@ stdenv.mkDerivation rec {
   ];
 
   desktopItems = [
-      (makeDesktopItem {
-        name = pname;
-        exec = binaryName;
-        icon = pname;
-        desktopName = "Aether";
-        genericName = meta.description;
-        categories = [ "Network" ];
-        mimeTypes = [ "x-scheme-handler/aether" ];
-      })
-    ];
+    (makeDesktopItem {
+      name = pname;
+      exec = binaryName;
+      icon = pname;
+      desktopName = "Aether";
+      genericName = meta.description;
+      categories = [ "Network" ];
+      mimeTypes = [ "x-scheme-handler/aether" ];
+    })
+  ];
 
   installPhase =
     let

@@ -77,8 +77,8 @@ mkDerivation rec {
   '';
 
   qtWrapperArgs = [
-      "--prefix QT_XKB_CONFIG_ROOT : '${xorg.xkeyboardconfig}/share/X11/xkb'"
-    ];
+    "--prefix QT_XKB_CONFIG_ROOT : '${xorg.xkeyboardconfig}/share/X11/xkb'"
+  ];
 
   postFixup = ''
     substituteInPlace $out/share/applications/HP-myroom.desktop \

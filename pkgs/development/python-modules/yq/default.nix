@@ -22,11 +22,11 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./jq-path.patch;
-        jq = "${lib.getBin jq}/bin/jq";
-      })
-    ];
+    (substituteAll {
+      src = ./jq-path.patch;
+      jq = "${lib.getBin jq}/bin/jq";
+    })
+  ];
 
   nativeBuildInputs = [ setuptools-scm ];
 

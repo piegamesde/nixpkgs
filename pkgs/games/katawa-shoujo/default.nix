@@ -91,15 +91,15 @@ stdenv.mkDerivation rec {
     ;
 
   desktopItems = [
-      (makeDesktopItem rec {
-        name = "katawa-shoujo";
-        desktopName = "Katawa Shoujo";
-        comment = meta.description;
-        exec = name;
-        icon = name;
-        categories = [ "Game" ];
-      })
-    ];
+    (makeDesktopItem rec {
+      name = "katawa-shoujo";
+      desktopName = "Katawa Shoujo";
+      comment = meta.description;
+      exec = name;
+      icon = name;
+      categories = [ "Game" ];
+    })
+  ];
 
   dontConfigure = true;
   dontBuild = true;

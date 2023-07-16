@@ -161,8 +161,8 @@ in
         Restart = "always";
         RestartSec = "30";
         LoadCredential = mkIf cfg.enableGossipEncryption [
-            "gossip_secret:${cfg.gossipSecretFile}"
-          ];
+          "gossip_secret:${cfg.gossipSecretFile}"
+        ];
 
         ExecStartPre = mkIf cfg.enableGossipEncryption [ ''
           ${pkgs.envsubst}/bin/envsubst \

@@ -126,8 +126,8 @@ let
         })
       ]
       ++ lib.optionals (!headless && enableGnome2) [
-          ./swing-use-gtk-jdk10.patch
-        ]
+        ./swing-use-gtk-jdk10.patch
+      ]
       ;
 
     preConfigure = ''

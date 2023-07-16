@@ -221,8 +221,8 @@ buildPythonPackage {
     ;
 
   checkInputs = [
-      cmake # ctest
-    ];
+    cmake # ctest
+  ];
   dontUseSetuptoolsCheck = true;
   preCheck =
     # build/temp* refers to build_ext.build_temp (looked up in the build logs)

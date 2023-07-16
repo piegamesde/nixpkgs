@@ -31,11 +31,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-paths.patch;
-        touchegg = touchegg;
-      })
-    ];
+    (substituteAll {
+      src = ./fix-paths.patch;
+      touchegg = touchegg;
+    })
+  ];
 
   nativeBuildInputs = [
     meson

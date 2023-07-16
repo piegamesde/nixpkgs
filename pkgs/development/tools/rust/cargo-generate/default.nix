@@ -50,8 +50,8 @@ rustPlatform.buildRustPackage rec {
   checkFlags =
     [ "--skip=favorites::favorites_default_to_git_if_not_defined" ]
     ++ lib.optionals stdenv.isDarwin [
-        "--skip=git::utils::should_canonicalize"
-      ]
+      "--skip=git::utils::should_canonicalize"
+    ]
     ;
 
   meta = with lib; {

@@ -89,8 +89,8 @@ let
             };
 
             users.users."${config.services."${server}".user}".extraGroups = [
-                "acme"
-              ];
+              "acme"
+            ];
 
             services."${server}" = {
               enable = true;
@@ -390,8 +390,8 @@ in
                 };
 
                 users.users."${config.services.caddy.user}".extraGroups = [
-                    "acme"
-                  ];
+                  "acme"
+                ];
 
                 services.caddy = {
                   enable = true;

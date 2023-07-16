@@ -55,13 +55,13 @@ buildPythonPackage rec {
         unicode = lib.optional (pythonOlder "3.11") unicodedata2;
         graphite = [ lz4 ];
         interpolatable = [
-            (
-              if isPyPy then
-                munkres
-              else
-                scipy
-            )
-          ];
+          (
+            if isPyPy then
+              munkres
+            else
+              scipy
+          )
+        ];
         plot = [ matplotlib ];
         symfont = [ sympy ];
         type1 = lib.optional stdenv.isDarwin xattr;
@@ -84,8 +84,8 @@ buildPythonPackage rec {
           "interpolatable"
         ]
         ++ lib.optionals (!skia-pathops.meta.broken) [
-            "pathops" # broken
-          ]
+          "pathops" # broken
+        ]
         ++ [ "repacker" ]
       )
       passthru.optional-dependencies

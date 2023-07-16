@@ -212,14 +212,14 @@ let
 in
 {
   imports = [
-      (mkRemovedOptionModule
-        [
-          "services"
-          "dovecot2"
-          "package"
-        ]
-        "")
-    ];
+    (mkRemovedOptionModule
+      [
+        "services"
+        "dovecot2"
+        "package"
+      ]
+      "")
+  ];
 
   options.services.dovecot2 = {
     enable = mkEnableOption (lib.mdDoc "the dovecot 2.x POP3/IMAP server");

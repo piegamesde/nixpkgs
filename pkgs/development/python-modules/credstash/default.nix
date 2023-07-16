@@ -20,12 +20,12 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (fetchpatch {
-        url =
-          "https://github.com/fugue/credstash/commit/9c02ee43ed6e37596cafbca2fe80c532ec19d2d8.patch";
-        sha256 = "dlybrpfLK+PqwWWhH9iXgXHYysZGmcZAFGWNOwsG0xA=";
-      })
-    ];
+    (fetchpatch {
+      url =
+        "https://github.com/fugue/credstash/commit/9c02ee43ed6e37596cafbca2fe80c532ec19d2d8.patch";
+      sha256 = "dlybrpfLK+PqwWWhH9iXgXHYysZGmcZAFGWNOwsG0xA=";
+    })
+  ];
   # The install phase puts an executable and a copy of the library it imports in
   # bin/credstash and bin/credstash.py, despite the fact that the library is also
   # installed to lib/python<version>/site-packages/credstash.py.

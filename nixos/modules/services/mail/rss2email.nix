@@ -108,8 +108,8 @@ in
     services.rss2email.config.to = cfg.to;
 
     systemd.tmpfiles.rules = [
-        "d /var/rss2email 0700 rss2email rss2email - -"
-      ];
+      "d /var/rss2email 0700 rss2email rss2email - -"
+    ];
 
     systemd.services.rss2email =
       let

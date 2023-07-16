@@ -23,14 +23,14 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./libmpv-path.patch;
-        libmpv =
-          "${
-            lib.getLib mpv
-          }/lib/libmpv${stdenv.hostPlatform.extensions.sharedLibrary}";
-      })
-    ];
+    (substituteAll {
+      src = ./libmpv-path.patch;
+      libmpv =
+        "${
+          lib.getLib mpv
+        }/lib/libmpv${stdenv.hostPlatform.extensions.sharedLibrary}";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace usr/lib/hypnotix/hypnotix.py \

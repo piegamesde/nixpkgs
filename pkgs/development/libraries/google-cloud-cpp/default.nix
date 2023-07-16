@@ -137,8 +137,8 @@ stdenv.mkDerivation rec {
       "-DCMAKE_CXX_STANDARD=${grpc.cxxStandard}"
     ]
     ++ lib.optionals (apis != [ "*" ]) [
-        "-DGOOGLE_CLOUD_CPP_ENABLE=${lib.concatStringsSep ";" apis}"
-      ]
+      "-DGOOGLE_CLOUD_CPP_ENABLE=${lib.concatStringsSep ";" apis}"
+    ]
     ;
 
   meta = with lib; {

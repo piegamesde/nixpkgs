@@ -47,11 +47,11 @@ stdenv.mkDerivation rec {
   ];
 
   patches = [
-      (substituteAll {
-        src = ./fix-paths.patch;
-        sgdisk = "${gptfdisk}/bin/sgdisk";
-      })
-    ];
+    (substituteAll {
+      src = ./fix-paths.patch;
+      sgdisk = "${gptfdisk}/bin/sgdisk";
+    })
+  ];
 
   postPatch = ''
     patchShebangs scripts

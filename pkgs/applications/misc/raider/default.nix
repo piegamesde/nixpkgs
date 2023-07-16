@@ -39,8 +39,8 @@ stdenv.mkDerivation rec {
       wrapGAppsHook4
     ]
     ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-        mesonEmulatorHook
-      ]
+      mesonEmulatorHook
+    ]
     ;
 
   buildInputs = [

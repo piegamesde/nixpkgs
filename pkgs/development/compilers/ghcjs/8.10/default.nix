@@ -89,8 +89,8 @@ stdenv.mkDerivation {
       pkg-config
     ]
     ++ lib.optionals stdenv.isDarwin [
-        gcc # https://github.com/ghcjs/ghcjs/issues/663
-      ]
+      gcc # https://github.com/ghcjs/ghcjs/issues/663
+    ]
     ;
   dontConfigure = true;
   dontInstall = true;

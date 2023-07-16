@@ -129,15 +129,15 @@ stdenv.mkDerivation rec {
     ;
 
   propagatedBuildInputs = [
-      (python3.withPackages (
-        ps:
-        with ps; [
-          numpy
-          matplotlib
-          mpi4py
-        ]
-      ))
-    ];
+    (python3.withPackages (
+      ps:
+      with ps; [
+        numpy
+        matplotlib
+        mpi4py
+      ]
+    ))
+  ];
 
   meta = with lib; {
     homepage = "https://www.paraview.org/";

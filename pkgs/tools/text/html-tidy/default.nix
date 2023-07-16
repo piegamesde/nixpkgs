@@ -36,8 +36,8 @@ stdenv.mkDerivation rec {
     ;
 
   cmakeFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      "-DHOST_TIDY=tidy"
-    ];
+    "-DHOST_TIDY=tidy"
+  ];
 
   # ATM bin/tidy is statically linked, as upstream provides no other option yet.
   # https://github.com/htacg/tidy-html5/issues/326#issuecomment-160322107

@@ -48,8 +48,8 @@ mkDerivation rec {
   ];
 
   cmakeFlags = [
-      "-DCMAKE_INSTALL_UDEVRULESDIR=${placeholder "out"}/lib/udev/rules.d"
-    ];
+    "-DCMAKE_INSTALL_UDEVRULESDIR=${placeholder "out"}/lib/udev/rules.d"
+  ];
 
   doInstallCheck = true;
   installCheckPhase = ''

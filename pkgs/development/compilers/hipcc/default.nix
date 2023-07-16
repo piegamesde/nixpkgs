@@ -24,17 +24,17 @@ stdenv.mkDerivation (
     };
 
     patches = [
-        (substituteAll {
-          src = ./0000-fixup-paths.patch;
-          inherit llvm rocminfo;
-          version_major = lib.versions.major finalAttrs.version;
-          version_minor = lib.versions.minor finalAttrs.version;
-          version_patch = lib.versions.patch finalAttrs.version;
-          clang = stdenv.cc;
-          rocm_runtime = rocm-runtime;
-          lsb_release = lsb-release;
-        })
-      ];
+      (substituteAll {
+        src = ./0000-fixup-paths.patch;
+        inherit llvm rocminfo;
+        version_major = lib.versions.major finalAttrs.version;
+        version_minor = lib.versions.minor finalAttrs.version;
+        version_patch = lib.versions.patch finalAttrs.version;
+        clang = stdenv.cc;
+        rocm_runtime = rocm-runtime;
+        lsb_release = lsb-release;
+      })
+    ];
 
     nativeBuildInputs = [ cmake ];
 

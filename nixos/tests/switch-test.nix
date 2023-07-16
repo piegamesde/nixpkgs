@@ -64,8 +64,8 @@ import ./make-test-python.nix (
           ...
         }: {
           environment.systemPackages = [
-              pkgs.socat
-            ]; # for the socket activation stuff
+            pkgs.socat
+          ]; # for the socket activation stuff
           users.mutableUsers = false;
 
           # For boot/switch testing
@@ -146,43 +146,43 @@ import ./make-test-python.nix (
             simpleServiceWithExtraSection.configuration = {
               imports = [ simpleServiceNostop.configuration ];
               systemd.packages = [
-                  (pkgs.writeTextFile {
-                    name = "systemd-extra-section";
-                    destination = "/etc/systemd/system/test.service";
-                    text = ''
-                      [X-Test]
-                      X-Test-Value=a
-                    '';
-                  })
-                ];
+                (pkgs.writeTextFile {
+                  name = "systemd-extra-section";
+                  destination = "/etc/systemd/system/test.service";
+                  text = ''
+                    [X-Test]
+                    X-Test-Value=a
+                  '';
+                })
+              ];
             };
 
             simpleServiceWithExtraSectionOtherName.configuration = {
               imports = [ simpleServiceNostop.configuration ];
               systemd.packages = [
-                  (pkgs.writeTextFile {
-                    name = "systemd-extra-section";
-                    destination = "/etc/systemd/system/test.service";
-                    text = ''
-                      [X-Test2]
-                      X-Test-Value=a
-                    '';
-                  })
-                ];
+                (pkgs.writeTextFile {
+                  name = "systemd-extra-section";
+                  destination = "/etc/systemd/system/test.service";
+                  text = ''
+                    [X-Test2]
+                    X-Test-Value=a
+                  '';
+                })
+              ];
             };
 
             simpleServiceWithInstallSection.configuration = {
               imports = [ simpleServiceNostop.configuration ];
               systemd.packages = [
-                  (pkgs.writeTextFile {
-                    name = "systemd-extra-section";
-                    destination = "/etc/systemd/system/test.service";
-                    text = ''
-                      [Install]
-                      WantedBy=multi-user.target
-                    '';
-                  })
-                ];
+                (pkgs.writeTextFile {
+                  name = "systemd-extra-section";
+                  destination = "/etc/systemd/system/test.service";
+                  text = ''
+                    [Install]
+                    WantedBy=multi-user.target
+                  '';
+                })
+              ];
             };
 
             simpleServiceWithExtraKey.configuration = {
@@ -354,8 +354,8 @@ import ./make-test-python.nix (
 
             restart-and-reload-by-activation-script-modified.configuration = {
               imports = [
-                  restart-and-reload-by-activation-script.configuration
-                ];
+                restart-and-reload-by-activation-script.configuration
+              ];
               systemd.services.reload-triggers-and-restart.serviceConfig.X-Modified =
                 "test";
             };

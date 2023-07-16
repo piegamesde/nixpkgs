@@ -187,8 +187,8 @@ import ./make-test-python.nix (
             prefixLength = 64;
           } ];
           networking.firewall.allowedTCPPorts = [
-              53 # regular DNS
-            ];
+            53 # regular DNS
+          ];
           networking.firewall.allowedUDPPorts = [ 53 ];
 
           services.unbound = {

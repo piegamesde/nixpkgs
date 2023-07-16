@@ -105,11 +105,11 @@ let
         cuda_nvcc
       ]
       ++ lists.optionals (strings.versionOlder cudaVersion "11.8") [
-          cuda_nvprof # <cuda_profiler_api.h>
-        ]
+        cuda_nvprof # <cuda_profiler_api.h>
+      ]
       ++ lists.optionals (strings.versionAtLeast cudaVersion "11.8") [
-          cuda_profiler_api # <cuda_profiler_api.h>
-        ]
+        cuda_profiler_api # <cuda_profiler_api.h>
+      ]
       ++ cuda-common-redist;
   };
 

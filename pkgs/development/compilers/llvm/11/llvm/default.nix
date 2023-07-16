@@ -302,8 +302,8 @@ stdenv.mkDerivation (
         "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
       ]
       ++ optionals (enableGoldPlugin) [
-          "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include"
-        ]
+        "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include"
+      ]
       ++ optionals isDarwin [
         "-DLLVM_ENABLE_LIBCXX=ON"
         "-DCAN_TARGET_i386=false"

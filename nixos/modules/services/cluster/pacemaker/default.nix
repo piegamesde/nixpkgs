@@ -42,8 +42,8 @@ in
     users.groups.pacemaker = { };
 
     systemd.tmpfiles.rules = [
-        "d /var/log/pacemaker 0700 hacluster pacemaker -"
-      ];
+      "d /var/log/pacemaker 0700 hacluster pacemaker -"
+    ];
 
     systemd.packages = [ cfg.package ];
     systemd.services.pacemaker = {

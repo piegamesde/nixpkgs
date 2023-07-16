@@ -60,8 +60,8 @@ stdenv.mkDerivation (
         poppler
       ]
       ++ lib.optionals stdenv.isDarwin [
-          darwin.apple_sdk.frameworks.Foundation
-        ]
+        darwin.apple_sdk.frameworks.Foundation
+      ]
       ;
 
     doCheck = true;

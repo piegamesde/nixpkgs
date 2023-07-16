@@ -22,13 +22,13 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (fetchpatch {
-        # Migrate to poetry-core
-        url =
-          "https://github.com/pyradius/pyrad/commit/a4b70067dd6269e14a2f9530d820390a8a454231.patch";
-        hash = "sha256-1We9wrVY3Or3GLIKK6hZvEjVYv6JOaahgP9zOMvgErE=";
-      })
-    ];
+    (fetchpatch {
+      # Migrate to poetry-core
+      url =
+        "https://github.com/pyradius/pyrad/commit/a4b70067dd6269e14a2f9530d820390a8a454231.patch";
+      hash = "sha256-1We9wrVY3Or3GLIKK6hZvEjVYv6JOaahgP9zOMvgErE=";
+    })
+  ];
 
   nativeBuildInputs = [ poetry-core ];
 

@@ -12,8 +12,8 @@ mkPulumiPackage rec {
   cmdGen = "pulumi-gen-azure-native";
   cmdRes = "pulumi-resource-azure-native";
   extraLdflags = [
-      "-X github.com/pulumi/${repo}/provider/pkg/version.Version=v${version}"
-    ];
+    "-X github.com/pulumi/${repo}/provider/pkg/version.Version=v${version}"
+  ];
   fetchSubmodules = true;
   __darwinAllowLocalNetworking = true;
   meta = with lib; {

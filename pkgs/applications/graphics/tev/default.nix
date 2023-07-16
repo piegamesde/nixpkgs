@@ -50,8 +50,8 @@ stdenv.mkDerivation rec {
   dontWrapGApps = true; # We also need zenity (see below)
 
   cmakeFlags = [
-      "-DTEV_DEPLOY=1" # Only relevant not to append "dev" to the version
-    ];
+    "-DTEV_DEPLOY=1" # Only relevant not to append "dev" to the version
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/tev \

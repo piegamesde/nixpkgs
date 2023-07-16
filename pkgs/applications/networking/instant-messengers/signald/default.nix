@@ -56,8 +56,8 @@ let
       perl
     ];
     patches = [
-        ./0001-Fetch-buildconfig-during-gradle-build-inside-Nix-FOD.patch
-      ];
+      ./0001-Fetch-buildconfig-during-gradle-build-inside-Nix-FOD.patch
+    ];
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d)
       gradle --no-daemon build
@@ -104,11 +104,11 @@ stdenv.mkDerivation {
   inherit pname src version;
 
   patches = [
-      (substituteAll {
-        src = ./0002-buildconfig-local-deps-fixes.patch;
-        inherit deps;
-      })
-    ];
+    (substituteAll {
+      src = ./0002-buildconfig-local-deps-fixes.patch;
+      inherit deps;
+    })
+  ];
 
   passthru = {
     # Mostly for debugging purposes.

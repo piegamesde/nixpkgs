@@ -39,8 +39,8 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = [
-      "PKG_CONFIG=${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config"
-    ];
+    "PKG_CONFIG=${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config"
+  ];
 
   hardeningDisable = [ "format" ];
 

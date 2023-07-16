@@ -44,11 +44,11 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-wcgu4KApkn68Tpk3PQ9Tkxif++/8CmS4f8AOOpCA/X8=";
 
   patches = [
-      (substituteAll {
-        src = ./target-dir.patch;
-        rustTarget = rust.toRustTarget stdenv.hostPlatform;
-      })
-    ];
+    (substituteAll {
+      src = ./target-dir.patch;
+      rustTarget = rust.toRustTarget stdenv.hostPlatform;
+    })
+  ];
 
   postPatch = ''
     pushd $cargoDepsCopy/librclone-sys

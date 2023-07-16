@@ -30,11 +30,11 @@ buildPythonPackage rec {
   ];
 
   patches = [
-      (substituteAll {
-        src = ./libgnutls-path.patch;
-        gnutlslib = "${lib.getLib gnutls}/lib";
-      })
-    ];
+    (substituteAll {
+      src = ./libgnutls-path.patch;
+      gnutlslib = "${lib.getLib gnutls}/lib";
+    })
+  ];
 
   pythonImportsCheck = [ "gnutls" ];
 

@@ -37,8 +37,8 @@ stdenv.mkDerivation rec {
   '';
 
   cmakeFlags = [
-      "-DPLUGIN_INSTALL_PATH=${placeholder "plugin"}/hdf5/lib/plugin"
-    ];
+    "-DPLUGIN_INSTALL_PATH=${placeholder "plugin"}/hdf5/lib/plugin"
+  ];
 
   postInstall = ''
     mkdir -p $out/lib/pkgconfig

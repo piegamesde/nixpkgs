@@ -117,8 +117,8 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals stdenv.isDarwin [ "-DLLDB_USE_SYSTEM_DEBUGSERVER=ON" ]
       ++ lib.optionals (!stdenv.isDarwin) [
-          "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
-        ]
+        "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
+      ]
       ++ lib.optionals enableManpages [
         "-DLLVM_ENABLE_SPHINX=ON"
         "-DSPHINX_OUTPUT_MAN=ON"

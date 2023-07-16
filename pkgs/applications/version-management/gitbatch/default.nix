@@ -24,8 +24,8 @@ buildGoModule rec {
   ];
 
   nativeBuildInputs = [
-      git # required by unit tests
-    ];
+    git # required by unit tests
+  ];
 
   preCheck = ''
     HOME=$(mktemp -d)

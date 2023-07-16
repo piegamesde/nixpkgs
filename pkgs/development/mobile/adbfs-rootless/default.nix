@@ -20,13 +20,13 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (fetchpatch {
-        # https://github.com/spion/adbfs-rootless/issues/14
-        url =
-          "https://github.com/kronenpj/adbfs-rootless/commit/35f87ce0a7aeddaaad118daed3022e01453b838d.patch";
-        sha256 = "1iigla74n3hphnyx9ffli9wqk7v71ylvsxama868czlg7851jqj9";
-      })
-    ];
+    (fetchpatch {
+      # https://github.com/spion/adbfs-rootless/issues/14
+      url =
+        "https://github.com/kronenpj/adbfs-rootless/commit/35f87ce0a7aeddaaad118daed3022e01453b838d.patch";
+      sha256 = "1iigla74n3hphnyx9ffli9wqk7v71ylvsxama868czlg7851jqj9";
+    })
+  ];
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ fuse ];

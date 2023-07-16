@@ -37,8 +37,8 @@ stdenv.mkDerivation rec {
     ;
 
   propagatedBuildInputs = [
-      mpfr # flint.h includes mpfr.h
-    ];
+    mpfr # flint.h includes mpfr.h
+  ];
 
   configureFlags =
     [

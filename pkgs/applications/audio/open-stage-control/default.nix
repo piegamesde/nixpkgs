@@ -68,21 +68,21 @@ buildNpmPackage rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "open-stage-control";
-        exec = "open-stage-control";
-        icon = "open-stage-control";
-        desktopName = "Open Stage Control";
-        comment = meta.description;
-        categories = [
-          "Network"
-          "Audio"
-          "AudioVideo"
-          "Midi"
-        ];
-        startupWMClass = "open-stage-control";
-      })
-    ];
+    (makeDesktopItem {
+      name = "open-stage-control";
+      exec = "open-stage-control";
+      icon = "open-stage-control";
+      desktopName = "Open Stage Control";
+      comment = meta.description;
+      categories = [
+        "Network"
+        "Audio"
+        "AudioVideo"
+        "Midi"
+      ];
+      startupWMClass = "open-stage-control";
+    })
+  ];
 
   passthru.updateScript = nix-update-script { };
 

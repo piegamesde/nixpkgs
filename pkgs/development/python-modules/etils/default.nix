@@ -111,8 +111,8 @@ buildPythonPackage rec {
     ;
 
   disabledTests = [
-      "test_public_access" # requires network access
-    ];
+    "test_public_access" # requires network access
+  ];
 
   doCheck = false; # error: infinite recursion encountered
 

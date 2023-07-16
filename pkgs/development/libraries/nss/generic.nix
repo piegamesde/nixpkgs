@@ -150,8 +150,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.hostPlatform.is64bit [ "-DNSS_USE_64=1" ]
     ++ lib.optionals stdenv.hostPlatform.isILP32 [
-        "-DNS_PTR_LE_32=1" # See RNG_RandomUpdate() in drdbg.c
-      ]
+      "-DNS_PTR_LE_32=1" # See RNG_RandomUpdate() in drdbg.c
+    ]
   );
 
   installPhase = ''

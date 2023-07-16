@@ -19,8 +19,8 @@ buildGoModule rec {
 
   vendorHash = "sha256-HLKk64PcJUjKfY4pIwI2OXnjqFF1EkYlWOi0aWOVSbk=";
   ldflags = [
-      "-X github.com/cloudflare/cf-terraforming/internal/app/cf-terraforming/cmd.versionString=${version}"
-    ];
+    "-X github.com/cloudflare/cf-terraforming/internal/app/cf-terraforming/cmd.versionString=${version}"
+  ];
 
   # The test suite insists on downloading a binary release of Terraform from
   # Hashicorp at runtime, which isn't going to work in a nix build

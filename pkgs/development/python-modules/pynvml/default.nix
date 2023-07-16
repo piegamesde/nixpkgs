@@ -19,11 +19,11 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./0001-locate-libnvidia-ml.so.1-on-NixOS.patch;
-        inherit (addOpenGLRunpath) driverLink;
-      })
-    ];
+    (substituteAll {
+      src = ./0001-locate-libnvidia-ml.so.1-on-NixOS.patch;
+      inherit (addOpenGLRunpath) driverLink;
+    })
+  ];
 
   propagatedBuildInputs = [ cudatoolkit ];
 

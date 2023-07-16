@@ -64,8 +64,8 @@ let
 
                 firewall = {
                   allowedTCPPorts = [
-                      10250 # kubelet
-                    ];
+                    10250 # kubelet
+                  ];
                   trustedInterfaces = [ "mynet" ];
 
                   extraCommands = concatMapStrings
@@ -92,8 +92,8 @@ let
             }
             (optionalAttrs (any (role: role == "master") machine.roles) {
               networking.firewall.allowedTCPPorts = [
-                  443 # kubernetes apiserver
-                ];
+                443 # kubernetes apiserver
+              ];
             })
             (optionalAttrs (machine ? extraConfiguration) (
               machine.extraConfiguration { inherit config pkgs lib nodes; }

@@ -21,12 +21,12 @@ stdenv.mkDerivation rec {
     sha256 = "0jzl5py4ny4n4i58lxx2hdwq9zphqf7h3m14spl3079y5mlzssxj";
   };
   patches = [
-      (fetchurl {
-        url =
-          "http://http.debian.net/debian/pool/main/x/xzoom/xzoom_${version}-${patch}.diff.gz";
-        sha256 = "0zhc06whbvaz987bzzzi2bz6h9jp6rv812qs7b71drivvd820qbh";
-      })
-    ];
+    (fetchurl {
+      url =
+        "http://http.debian.net/debian/pool/main/x/xzoom/xzoom_${version}-${patch}.diff.gz";
+      sha256 = "0zhc06whbvaz987bzzzi2bz6h9jp6rv812qs7b71drivvd820qbh";
+    })
+  ];
 
   nativeBuildInputs = [
     imake

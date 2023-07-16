@@ -78,8 +78,8 @@ let
     makeFlags =
       [ "-C BaseTools" ]
       ++ lib.optionals (stdenv.cc.isClang) [
-          "CXX=llvm BUILD_AR=ar BUILD_CC=clang BUILD_CXX=clang++ BUILD_AS=clang BUILD_LD=ld"
-        ]
+        "CXX=llvm BUILD_AR=ar BUILD_CC=clang BUILD_CXX=clang++ BUILD_AS=clang BUILD_LD=ld"
+      ]
       ;
 
     env.NIX_CFLAGS_COMPILE =

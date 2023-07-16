@@ -28,19 +28,19 @@ stdenv.mkDerivation rec {
   buildInputs = [ jre ];
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "gpsprune";
-        exec = "gpsprune";
-        icon = "gpsprune";
-        desktopName = "GpsPrune";
-        genericName = "GPS Data Editor";
-        comment = meta.description;
-        categories = [
-          "Education"
-          "Geoscience"
-        ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "gpsprune";
+      exec = "gpsprune";
+      icon = "gpsprune";
+      desktopName = "GpsPrune";
+      genericName = "GPS Data Editor";
+      comment = meta.description;
+      categories = [
+        "Education"
+        "Geoscience"
+      ];
+    })
+  ];
 
   installPhase = ''
     runHook preInstall

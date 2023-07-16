@@ -20,11 +20,11 @@ python3Packages.buildPythonApplication rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./ffmpeg-location.patch;
-        inherit ffmpeg;
-      })
-    ];
+    (substituteAll {
+      src = ./ffmpeg-location.patch;
+      inherit ffmpeg;
+    })
+  ];
 
   propagatedBuildInputs = with python3Packages; [
     crcmod

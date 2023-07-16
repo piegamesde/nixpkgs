@@ -19,11 +19,11 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./nmap-path.patch;
-        nmap = "${lib.getBin nmap}/bin/nmap";
-      })
-    ];
+    (substituteAll {
+      src = ./nmap-path.patch;
+      nmap = "${lib.getBin nmap}/bin/nmap";
+    })
+  ];
 
   # upstream tests require sudo
   # make sure nmap is found instead

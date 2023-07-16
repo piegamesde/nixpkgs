@@ -127,8 +127,8 @@ let
         ./fix-glibc-2.34.patch
       ]
       ++ lib.optionals (!headless && enableGnome2) [
-          ./swing-use-gtk-jdk13.patch
-        ]
+        ./swing-use-gtk-jdk13.patch
+      ]
       ;
 
     prePatch = ''

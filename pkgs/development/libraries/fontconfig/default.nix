@@ -56,8 +56,8 @@ stdenv.mkDerivation rec {
       "--with-default-fonts=${dejavu_fonts.minimal}"
     ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-        "--with-arch=${stdenv.hostPlatform.parsed.cpu.name}"
-      ]
+      "--with-arch=${stdenv.hostPlatform.parsed.cpu.name}"
+    ]
     ;
 
   enableParallelBuilding = true;

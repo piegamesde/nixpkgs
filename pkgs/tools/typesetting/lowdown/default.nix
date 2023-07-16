@@ -44,8 +44,8 @@ stdenv.mkDerivation rec {
   '';
 
   makeFlags = [
-      "bins" # prevents shared object from being built unnecessarily
-    ];
+    "bins" # prevents shared object from being built unnecessarily
+  ];
 
   installTargets =
     [ "install" ]

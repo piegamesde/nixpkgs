@@ -52,8 +52,8 @@ stdenv.mkDerivation rec {
     ;
 
   configureFlags = lib.optionals cupsSupport [
-      "--disable-static-genppd" # should be harmless on NixOS
-    ];
+    "--disable-static-genppd" # should be harmless on NixOS
+  ];
 
   # FIXME: hacky because we modify generated configure, but I haven't found a better way.
   # makeFlags doesn't change this everywhere (e.g. in cups-genppdupdate).

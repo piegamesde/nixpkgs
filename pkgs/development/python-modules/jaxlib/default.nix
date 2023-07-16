@@ -279,8 +279,8 @@ let
       TF_SYSTEM_LIBS = lib.concatStringsSep "," (
         tf_system_libs
         ++ lib.optionals (!stdenv.isDarwin) [
-            "nsync" # fails to build on darwin
-          ]
+          "nsync" # fails to build on darwin
+        ]
       );
 
       bazelFlags =

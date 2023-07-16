@@ -250,8 +250,8 @@ let
                 "test_check_setup" # Why should it be able to call pip?
               ]
               ++ lib.optionals stdenv.isDarwin [
-                  "test_set_external_modification"
-                ]
+                "test_set_external_modification"
+              ]
               ;
 
             passthru = {

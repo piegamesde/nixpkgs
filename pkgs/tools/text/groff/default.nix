@@ -135,8 +135,8 @@ stdenv.mkDerivation rec {
       "--with-appresdir=${placeholder "out"}/lib/X11/app-defaults"
     ]
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-        "gl_cv_func_signbit=yes"
-      ]
+      "gl_cv_func_signbit=yes"
+    ]
     ;
 
   makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [

@@ -26,13 +26,13 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (fetchpatch {
-        name = "build-python3.patch";
-        url =
-          "https://github.com/ueno/libkkc/commit/ba1c1bd3eb86d887fc3689c3142732658071b5f7.patch";
-        hash = "sha256-4IVpcJJFrxmxJGNiRHteleAa6trOwbvMHRTE/qyjOPY=";
-      })
-    ];
+    (fetchpatch {
+      name = "build-python3.patch";
+      url =
+        "https://github.com/ueno/libkkc/commit/ba1c1bd3eb86d887fc3689c3142732658071b5f7.patch";
+      hash = "sha256-4IVpcJJFrxmxJGNiRHteleAa6trOwbvMHRTE/qyjOPY=";
+    })
+  ];
 
   nativeBuildInputs = [
     vala

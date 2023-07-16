@@ -19,17 +19,17 @@ let
 in
 {
   imports = [
-      (mkRenamedOptionModule
-        [
-          "services"
-          "vmwareGuest"
-        ]
-        [
-          "virtualisation"
-          "vmware"
-          "guest"
-        ])
-    ];
+    (mkRenamedOptionModule
+      [
+        "services"
+        "vmwareGuest"
+      ]
+      [
+        "virtualisation"
+        "vmware"
+        "guest"
+      ])
+  ];
 
   options.virtualisation.vmware.guest = {
     enable = mkEnableOption (lib.mdDoc "VMWare Guest Support");
@@ -65,8 +65,8 @@ in
     systemd.mounts = mkIf (!cfg.headless) [ {
       description = "VMware vmblock fuse mount";
       documentation = [
-          "https://github.com/vmware/open-vm-tools/blob/master/open-vm-tools/vmblock-fuse/design.txt"
-        ];
+        "https://github.com/vmware/open-vm-tools/blob/master/open-vm-tools/vmblock-fuse/design.txt"
+      ];
       unitConfig.ConditionVirtualization = "vmware";
       what = "${open-vm-tools}/bin/vmware-vmblock-fuse";
       where = "/run/vmblock-fuse";

@@ -90,8 +90,8 @@ pythonPackages.buildPythonApplication rec {
       par2cmdline # Add 'par2' to PATH.
     ]
     ++ lib.optionals stdenv.isLinux [
-        util-linux # Add 'setsid' to PATH.
-      ]
+      util-linux # Add 'setsid' to PATH.
+    ]
     ++ (
       with pythonPackages; [
         lockfile

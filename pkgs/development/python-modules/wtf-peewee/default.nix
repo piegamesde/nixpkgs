@@ -18,13 +18,13 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (fetchpatch {
-        name = "fix-wtforms3.patch";
-        url =
-          "https://github.com/coleifer/wtf-peewee/commit/b1764f4474c73a9a2b34ae6b7db61274f5252a7f.patch";
-        sha256 = "0maz3fm9bi8p80nk9sdb34xq55xq8ihm51y7k0m8ck9aaypvwbig";
-      })
-    ];
+    (fetchpatch {
+      name = "fix-wtforms3.patch";
+      url =
+        "https://github.com/coleifer/wtf-peewee/commit/b1764f4474c73a9a2b34ae6b7db61274f5252a7f.patch";
+      sha256 = "0maz3fm9bi8p80nk9sdb34xq55xq8ihm51y7k0m8ck9aaypvwbig";
+    })
+  ];
 
   propagatedBuildInputs = [
     peewee

@@ -128,18 +128,18 @@ stdenv.mkDerivation rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        name = pname;
-        exec = "snapmaker-luban";
-        icon = "snapmaker-luban";
-        desktopName = "Snapmaker Luban";
-        genericName = meta.description;
-        categories = [
-          "Office"
-          "Printing"
-        ];
-      })
-    ];
+    (makeDesktopItem {
+      name = pname;
+      exec = "snapmaker-luban";
+      icon = "snapmaker-luban";
+      desktopName = "Snapmaker Luban";
+      genericName = meta.description;
+      categories = [
+        "Office"
+        "Printing"
+      ];
+    })
+  ];
 
   meta = with lib; {
     description =

@@ -53,8 +53,8 @@ stdenv.mkDerivation rec {
   cmakeFlags =
     lib.optionals (!enableShared) [ "-DLIBUNWIND_ENABLE_SHARED=OFF" ]
     ++ lib.optionals (stdenv.hostPlatform.useLLVM or false) [
-        "-DLLVM_ENABLE_LIBCXX=ON"
-      ]
+      "-DLLVM_ENABLE_LIBCXX=ON"
+    ]
     ;
 
   meta = llvm_meta // {

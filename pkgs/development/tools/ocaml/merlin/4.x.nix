@@ -53,12 +53,12 @@ else
     };
 
     patches = [
-        (substituteAll {
-          src = ./fix-paths.patch;
-          dot_merlin_reader = "${dot-merlin-reader}/bin/dot-merlin-reader";
-          dune = "${dune_3}/bin/dune";
-        })
-      ];
+      (substituteAll {
+        src = ./fix-paths.patch;
+        dot_merlin_reader = "${dot-merlin-reader}/bin/dot-merlin-reader";
+        dune = "${dune_3}/bin/dune";
+      })
+    ];
 
     strictDeps = true;
 

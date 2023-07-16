@@ -36,12 +36,12 @@ stdenv.mkDerivation rec {
   ];
 
   patches = [
-      (fetchurl {
-        url =
-          "https://github.com/luntergroup/octopus/commit/17a597d192bcd5192689bf38c5836a98b824867a.patch";
-        sha256 = "sha256-VaUr63v7mzhh4VBghH7a7qrqOYwl6vucmmKzTi9yAjY=";
-      })
-    ];
+    (fetchurl {
+      url =
+        "https://github.com/luntergroup/octopus/commit/17a597d192bcd5192689bf38c5836a98b824867a.patch";
+      sha256 = "sha256-VaUr63v7mzhh4VBghH7a7qrqOYwl6vucmmKzTi9yAjY=";
+    })
+  ];
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Needed with GCC 12

@@ -68,8 +68,8 @@ stdenv.mkDerivation rec {
     # redistribution. However, the build artifacts that we actually touch for
     # this derivation are distributed under a free license.
     license = with licenses; [
-        lgpl2Plus # libfuse
-      ];
+      lgpl2Plus # libfuse
+    ];
   };
 
   passthru.warning = ''

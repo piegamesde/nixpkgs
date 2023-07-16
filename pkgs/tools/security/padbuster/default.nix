@@ -17,15 +17,15 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-      (perl.withPackages (
-        ps:
-        with ps; [
-          LWP
-          LWPProtocolHttps
-          CryptSSLeay
-        ]
-      ))
-    ];
+    (perl.withPackages (
+      ps:
+      with ps; [
+        LWP
+        LWPProtocolHttps
+        CryptSSLeay
+      ]
+    ))
+  ];
 
   installPhase = ''
     runHook preInstall

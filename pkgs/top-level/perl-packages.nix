@@ -3153,8 +3153,8 @@ with self;
       CatalystPluginAuthentication
     ];
     patches = [
-        ../development/perl-modules/CatalystAuthenticationStoreHtpasswd-test-replace-DES-hash-with-bcrypt.patch
-      ];
+      ../development/perl-modules/CatalystAuthenticationStoreHtpasswd-test-replace-DES-hash-with-bcrypt.patch
+    ];
     meta = {
       description = "Authen::Htpasswd based user storage/authentication";
       license = with lib.licenses; [
@@ -3899,8 +3899,8 @@ with self;
       hash = "sha256-Nrczj5a+9PJoX3pFVbFRl5Oud4O9PW0iyX87cY8wlFQ=";
     };
     patches = [
-        ../development/perl-modules/catalyst-plugin-static-simple-etag.patch
-      ];
+      ../development/perl-modules/catalyst-plugin-static-simple-etag.patch
+    ];
     propagatedBuildInputs = [
       CatalystRuntime
       MIMETypes
@@ -6643,12 +6643,12 @@ with self;
       hash = "sha256-n0hwPbTuyiluqCwtZuShOfInC437C+38T/lEVLt7IMc=";
     };
     patches = [
-        (fetchpatch {
-          url =
-            "https://gitweb.gentoo.org/repo/gentoo.git/plain/dev-perl/Crypt-Curve25519/files/Crypt-Curve25519-0.60.0-fmul-fixedvar.patch?id=cec727ad614986ca1e6b9468eea7f1a5a9183382";
-          hash = "sha256-Dq431QnMuI9V34BKy7SNaQMXD4lykDuo3wab278sAFA=";
-        })
-      ];
+      (fetchpatch {
+        url =
+          "https://gitweb.gentoo.org/repo/gentoo.git/plain/dev-perl/Crypt-Curve25519/files/Crypt-Curve25519-0.60.0-fmul-fixedvar.patch?id=cec727ad614986ca1e6b9468eea7f1a5a9183382";
+        hash = "sha256-Dq431QnMuI9V34BKy7SNaQMXD4lykDuo3wab278sAFA=";
+      })
+    ];
     meta = {
       description =
         "Generate shared secret using elliptic-curve Diffie-Hellman function";
@@ -13215,13 +13215,13 @@ with self;
       hash = "sha256-uv7uj9yW6wYwagxYu9tyCbbeRfhQ51/caxbbV24F5CI=";
     };
     patches = [
-        (fetchpatch {
-          name = "missing-pidfile.patch";
-          url =
-            "https://sources.debian.org/data/main/libf/libfile-pid-perl/1.01-2/debian/patches/missing-pidfile.patch";
-          hash = "sha256-VBsIYyCnjcZLYQ2Uq2MKPK3kF2wiMKvnq0m727DoavM=";
-        })
-      ];
+      (fetchpatch {
+        name = "missing-pidfile.patch";
+        url =
+          "https://sources.debian.org/data/main/libf/libfile-pid-perl/1.01-2/debian/patches/missing-pidfile.patch";
+        hash = "sha256-VBsIYyCnjcZLYQ2Uq2MKPK3kF2wiMKvnq0m727DoavM=";
+      })
+    ];
     propagatedBuildInputs = [ ClassAccessor ];
     meta = {
       description = "Pid File Manipulation";
@@ -14476,8 +14476,8 @@ with self;
       ParseRecDescent
     ];
     patches = [
-        ../development/perl-modules/Google-ProtocolBuffers-multiline-comments.patch
-      ];
+      ../development/perl-modules/Google-ProtocolBuffers-multiline-comments.patch
+    ];
     meta = {
       description = "Simple interface to Google Protocol Buffers";
       homepage = "https://github.com/csirtgadgets/google-protocolbuffers-perl";
@@ -16741,14 +16741,14 @@ with self;
       hash = "sha256-0vyuFuJ+F6yjkDpK1aK/L7wmjQZRzn8ARabQVG9YTy4=";
     };
     patches = [
-        (fetchpatch {
-          # Fixes test compatibility with OpenSSL 3
-          url =
-            "https://sources.debian.org/data/main/libi/libio-async-ssl-perl/0.23-1/debian/patches/upgrade-error-match.patch";
-          hash = "sha256-RK36nVba203I9awZtHiU7jwhCV7U8Gw6wnbs3e9Hbjk=";
-          name = "IO-Async-SSL-upgrade-error-match.patch";
-        })
-      ];
+      (fetchpatch {
+        # Fixes test compatibility with OpenSSL 3
+        url =
+          "https://sources.debian.org/data/main/libi/libio-async-ssl-perl/0.23-1/debian/patches/upgrade-error-match.patch";
+        hash = "sha256-RK36nVba203I9awZtHiU7jwhCV7U8Gw6wnbs3e9Hbjk=";
+        name = "IO-Async-SSL-upgrade-error-match.patch";
+      })
+    ];
     buildInputs = [ TestIdentity ];
     propagatedBuildInputs = [
       Future
@@ -17912,8 +17912,8 @@ with self;
       ExtUtilsXSBuilder
     ];
     propagatedBuildInputs = [
-        (pkgs.apacheHttpdPackages.mod_perl.override { inherit perl; })
-      ];
+      (pkgs.apacheHttpdPackages.mod_perl.override { inherit perl; })
+    ];
     makeMakerFlags = [
       "--with-apache2-src=${pkgs.apacheHttpd.dev}"
       "--with-apache2-apxs=${pkgs.apacheHttpd.dev}/bin/apxs"
@@ -17982,13 +17982,13 @@ with self;
       hash = "sha256-WjX7Hy1KopFoDrGvOImfq0U8IsKOcffHvTdHtaPbNIw=";
     };
     patches = [
-        (fetchpatch {
-          name = "deterministic-libnet.cfg";
-          url =
-            "https://github.com/steve-m-hay/perl-libnet/commit/7d076c4352f67ee4ed64092cfad3963a2321bd53.patch";
-          hash = "sha256-GyPx0ZQ/u/+DaFM7eNDvXrMFC0+d3GyLxVZJBKrg6V0=";
-        })
-      ];
+      (fetchpatch {
+        name = "deterministic-libnet.cfg";
+        url =
+          "https://github.com/steve-m-hay/perl-libnet/commit/7d076c4352f67ee4ed64092cfad3963a2321bd53.patch";
+        hash = "sha256-GyPx0ZQ/u/+DaFM7eNDvXrMFC0+d3GyLxVZJBKrg6V0=";
+      })
+    ];
     meta = {
       description = "Collection of network protocol modules";
       license = with lib.licenses; [
@@ -19337,8 +19337,8 @@ with self;
       hash = "sha256-Fs/hpRFpCwZttWZ8hxSALuK5xdKKMaPnvTb7xwo69ZI=";
     };
     patches = [
-        ../development/perl-modules/lwp-protocol-https-cert-file.patch
-      ];
+      ../development/perl-modules/lwp-protocol-https-cert-file.patch
+    ];
     propagatedBuildInputs = [
       IOSocketSSL
       LWP
@@ -27048,8 +27048,8 @@ with self;
       TryTiny
     ];
     patches = [
-        ../development/perl-modules/Plack-test-replace-DES-hash-with-bcrypt.patch
-      ];
+      ../development/perl-modules/Plack-test-replace-DES-hash-with-bcrypt.patch
+    ];
     meta = {
       description =
         "Perl Superglue for Web frameworks and Web Servers (PSGI toolkit)";
@@ -30249,12 +30249,12 @@ with self;
       hash = "sha256-chW2fLwyJuLQ4Ys47FjJO+C/YJAnhpi++VU0iCbNCvM=";
     };
     patches = [
-        (fetchpatch {
-          url =
-            "https://salsa.debian.org/perl-team/modules/packages/libstring-diff-perl/-/raw/d8120a93f73f4d4aa40d10819b2f0a312608ca9b/debian/patches/0001-Fix-the-test-suite-for-YAML-1.21-compatibility.patch";
-          hash = "sha256-RcYsn0jVa9sSF8iYPuaFTWx00LrF3m7hH9e6fC7j72U=";
-        })
-      ];
+      (fetchpatch {
+        url =
+          "https://salsa.debian.org/perl-team/modules/packages/libstring-diff-perl/-/raw/d8120a93f73f4d4aa40d10819b2f0a312608ca9b/debian/patches/0001-Fix-the-test-suite-for-YAML-1.21-compatibility.patch";
+        hash = "sha256-RcYsn0jVa9sSF8iYPuaFTWx00LrF3m7hH9e6fC7j72U=";
+      })
+    ];
     buildInputs = [
       TestBase
       ModuleBuildTiny
@@ -30900,8 +30900,8 @@ with self;
       hash = "sha256-1jzBaeQ2m+mKU5q+nMFhG/zCs2lmplF+Z2aI/tGIT/s=";
     };
     propagatedBuildInputs = [
-        (pkgs.subversionClient.override { inherit perl; })
-      ];
+      (pkgs.subversionClient.override { inherit perl; })
+    ];
     meta = {
       description = "A simple interface to subversion's editor interface";
       license = with lib.licenses; [
@@ -31443,8 +31443,8 @@ with self;
         pkgs.tk
       ]
       ++ lib.optionals stdenv.isDarwin [
-          darwin.apple_sdk.frameworks.CoreServices
-        ]
+        darwin.apple_sdk.frameworks.CoreServices
+      ]
       ;
     makeMakerFlags = lib.optionals stdenv.isLinux [
       "--tclsh=${pkgs.tcl}/bin/tclsh"
@@ -34468,8 +34468,8 @@ with self;
     };
     # libbtparse.so: cannot open shared object file (aarch64 only)
     patches = [
-        ../development/perl-modules/TextBibTeX-use-lib-on-aarch64.patch
-      ];
+      ../development/perl-modules/TextBibTeX-use-lib-on-aarch64.patch
+    ];
     perlPreHook = "export LD=$CC";
     perlPostHook = lib.optionalString stdenv.isDarwin ''
       oldPath="$(pwd)/btparse/src/libbtparse.dylib"
@@ -36689,13 +36689,13 @@ with self;
       hash = "sha256-Uv+rEQ4yNI13XyQclz61b5awju28EQ130lfNsKJKt7o=";
     };
     patches = [
-        (fetchpatch {
-          url =
-            "https://aur.archlinux.org/cgit/aur.git/plain/curl-7.71.0.patch?h=perl-www-curl&id=261d84887d736cc097abef61164339216fb79180";
-          hash = "sha256-2lHV8qKZPdM/WnuvNYphCGRAq7UOTdPKH0k56iYtPMI=";
-          name = "WWWCurl-curl-7.71.0.patch";
-        })
-      ];
+      (fetchpatch {
+        url =
+          "https://aur.archlinux.org/cgit/aur.git/plain/curl-7.71.0.patch?h=perl-www-curl&id=261d84887d736cc097abef61164339216fb79180";
+        hash = "sha256-2lHV8qKZPdM/WnuvNYphCGRAq7UOTdPKH0k56iYtPMI=";
+        name = "WWWCurl-curl-7.71.0.patch";
+      })
+    ];
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString stdenv.cc.isClang "-Wno-return-type";
     buildInputs = [ pkgs.curl ];
@@ -37385,8 +37385,8 @@ with self;
       hash = "sha256-0zEzJJHFHMz7TLlP/ET5zXM3jmGEmNSjffngQ2YcUV0=";
     };
     patches = [
-        ../development/perl-modules/xml-parser-0001-HACK-Assumes-Expat-paths-are-good.patch
-      ];
+      ../development/perl-modules/xml-parser-0001-HACK-Assumes-Expat-paths-are-good.patch
+    ];
     postPatch =
       lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
         substituteInPlace Expat/Makefile.PL --replace 'use English;' '#'

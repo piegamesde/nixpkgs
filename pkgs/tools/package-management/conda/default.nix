@@ -53,8 +53,8 @@ let
     (
       let
         libPath = lib.makeLibraryPath [
-            zlib # libz.so.1
-          ];
+          zlib # libz.so.1
+        ];
       in
       runCommand "conda-install"
       {

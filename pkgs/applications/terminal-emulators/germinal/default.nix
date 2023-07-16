@@ -39,8 +39,8 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = [
-      "--with-dbusservicesdir=${placeholder "out"}/etc/dbus-1/system-services/"
-    ];
+    "--with-dbusservicesdir=${placeholder "out"}/etc/dbus-1/system-services/"
+  ];
 
   dontWrapGApps = true;
 

@@ -40,8 +40,8 @@ stdenv.mkDerivation rec {
       "--with-logdir=/var/log"
     ]
     ++ lib.optionals (stdenv.isLinux) [
-        "--enable-sctp=${lksctp-tools.out}/lib"
-      ]
+      "--enable-sctp=${lksctp-tools.out}/lib"
+    ]
     ;
 
   nativeBuildInputs = [

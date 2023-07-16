@@ -20,15 +20,15 @@ stdenvNoCC.mkDerivation rec {
   };
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "gprojector";
-        exec = "gprojector";
-        desktopName = "G.Projector";
-        comment = meta.description;
-        categories = [ "Science" ];
-        startupWMClass = "gov-nasa-giss-projector-GProjector";
-      })
-    ];
+    (makeDesktopItem {
+      name = "gprojector";
+      exec = "gprojector";
+      desktopName = "G.Projector";
+      comment = meta.description;
+      categories = [ "Science" ];
+      startupWMClass = "gov-nasa-giss-projector-GProjector";
+    })
+  ];
 
   buildInputs = [ jre ];
   nativeBuildInputs = [

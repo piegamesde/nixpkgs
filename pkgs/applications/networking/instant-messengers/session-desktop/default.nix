@@ -30,17 +30,17 @@ stdenvNoCC.mkDerivation {
   ];
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "Session";
-        desktopName = "Session";
-        comment = "Onion routing based messenger";
-        exec = "${appimage}/bin/session-desktop-${version}";
-        icon = "${appimage-contents}/session-desktop.png";
-        terminal = false;
-        type = "Application";
-        categories = [ "Network" ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "Session";
+      desktopName = "Session";
+      comment = "Onion routing based messenger";
+      exec = "${appimage}/bin/session-desktop-${version}";
+      icon = "${appimage-contents}/session-desktop.png";
+      terminal = false;
+      type = "Application";
+      categories = [ "Network" ];
+    })
+  ];
 
   installPhase = ''
     runHook preInstall

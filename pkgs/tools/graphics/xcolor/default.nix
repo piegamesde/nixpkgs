@@ -39,16 +39,16 @@ rustPlatform.buildRustPackage rec {
   ];
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "XColor";
-        exec = "xcolor -s";
-        desktopName = "XColor";
-        comment =
-          "Select colors visible anywhere on the screen to get their RGB representation";
-        icon = "xcolor";
-        categories = [ "Graphics" ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "XColor";
+      exec = "xcolor -s";
+      desktopName = "XColor";
+      comment =
+        "Select colors visible anywhere on the screen to get their RGB representation";
+      icon = "xcolor";
+      categories = [ "Graphics" ];
+    })
+  ];
 
   postInstall = ''
     mkdir -p $out/share/applications

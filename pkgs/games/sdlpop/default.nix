@@ -66,18 +66,18 @@ stdenv.mkDerivation rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "sdlpop";
-        icon = "sdlpop";
-        exec = "prince";
-        desktopName = "SDLPoP";
-        comment = "An open-source port of Prince of Persia";
-        categories = [
-          "Game"
-          "AdventureGame"
-        ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "sdlpop";
+      icon = "sdlpop";
+      exec = "prince";
+      desktopName = "SDLPoP";
+      comment = "An open-source port of Prince of Persia";
+      categories = [
+        "Game"
+        "AdventureGame"
+      ];
+    })
+  ];
 
   meta = with lib; {
     description = "Open-source port of Prince of Persia";

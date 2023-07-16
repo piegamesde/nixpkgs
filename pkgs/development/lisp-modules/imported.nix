@@ -36222,10 +36222,10 @@ lib.makeScope pkgs.newScope (
           });
         systems = [ "com.clearly-useful.generic-collection-interface.test" ];
         lispLibs = [
-            (getAttr
-              "com_dot_clearly-useful_dot_generic-collection-interface"
-              self)
-          ];
+          (getAttr
+            "com_dot_clearly-useful_dot_generic-collection-interface"
+            self)
+        ];
         meta = { hydraPlatforms = [ ]; };
       });
     com_dot_clearly-useful_dot_iterate_plus =
@@ -67380,8 +67380,8 @@ lib.makeScope pkgs.newScope (
           });
         systems = [ "org.tfeb.tools.build-modules" ];
         lispLibs = [
-            (getAttr "org_dot_tfeb_dot_tools_dot_require-module" self)
-          ];
+          (getAttr "org_dot_tfeb_dot_tools_dot_require-module" self)
+        ];
         meta = { hydraPlatforms = [ ]; };
       });
     org_dot_tfeb_dot_tools_dot_deprecations =
@@ -67433,8 +67433,8 @@ lib.makeScope pkgs.newScope (
           });
         systems = [ "org.tfeb.tools.install-providers" ];
         lispLibs = [
-            (getAttr "org_dot_tfeb_dot_tools_dot_require-module" self)
-          ];
+          (getAttr "org_dot_tfeb_dot_tools_dot_require-module" self)
+        ];
         meta = { hydraPlatforms = [ ]; };
       });
     org_dot_tfeb_dot_tools_dot_require-module =

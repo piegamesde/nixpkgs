@@ -33,8 +33,8 @@ rustPlatform.buildRustPackage rec {
   RUSTY_V8_ARCHIVE = callPackage ./librusty_v8.nix { };
 
   cargoTestFlags = [
-      "-- --skip=uplink::test::stream_from_uplink_error_no_retry"
-    ];
+    "-- --skip=uplink::test::stream_from_uplink_error_no_retry"
+  ];
 
   meta = with lib; {
     description =

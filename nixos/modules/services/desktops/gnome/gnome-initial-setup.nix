@@ -52,20 +52,20 @@ in
 
   # Added 2021-05-07
   imports = [
-      (mkRenamedOptionModule
-        [
-          "services"
-          "gnome3"
-          "gnome-initial-setup"
-          "enable"
-        ]
-        [
-          "services"
-          "gnome"
-          "gnome-initial-setup"
-          "enable"
-        ])
-    ];
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gnome3"
+        "gnome-initial-setup"
+        "enable"
+      ]
+      [
+        "services"
+        "gnome"
+        "gnome-initial-setup"
+        "enable"
+      ])
+  ];
 
   ###### interface
 
@@ -100,7 +100,7 @@ in
     ];
 
     systemd.user.targets."gnome-session@gnome-initial-setup".wants = [
-        "gnome-initial-setup.service"
-      ];
+      "gnome-initial-setup.service"
+    ];
   };
 }

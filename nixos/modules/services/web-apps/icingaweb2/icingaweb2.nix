@@ -221,8 +221,8 @@ in
     };
 
     systemd.services."phpfpm-${poolName}".serviceConfig.ReadWritePaths = [
-        "/etc/icingaweb2"
-      ];
+      "/etc/icingaweb2"
+    ];
 
     services.nginx = {
       enable = true;

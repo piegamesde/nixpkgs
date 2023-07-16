@@ -21,16 +21,16 @@ stdenv.mkDerivation rec {
   dontUnpack = true;
 
   desktopItems = [
-      (makeDesktopItem {
-        type = "Application";
-        name = pname;
-        desktopName = "Stegsolve";
-        comment =
-          "A steganographic image analyzer, solver and data extractor for challanges";
-        exec = pname;
-        categories = [ "Graphics" ];
-      })
-    ];
+    (makeDesktopItem {
+      type = "Application";
+      name = pname;
+      desktopName = "Stegsolve";
+      comment =
+        "A steganographic image analyzer, solver and data extractor for challanges";
+      exec = pname;
+      categories = [ "Graphics" ];
+    })
+  ];
 
   nativeBuildInputs = [
     makeWrapper

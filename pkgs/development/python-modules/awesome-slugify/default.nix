@@ -22,8 +22,8 @@ buildPythonPackage rec {
   '';
 
   patches = [
-      ./slugify_filename_test.patch # fixes broken test by new unidecode
-    ];
+    ./slugify_filename_test.patch # fixes broken test by new unidecode
+  ];
 
   propagatedBuildInputs = [
     unidecode

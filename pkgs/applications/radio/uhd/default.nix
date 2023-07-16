@@ -154,8 +154,8 @@ stdenv.mkDerivation rec {
       "removeInstalledTests"
     ]
     ++ optionals (enableUtils && stdenv.targetPlatform.isLinux) [
-        "moveUdevRules"
-      ]
+      "moveUdevRules"
+    ]
     ;
 
   # UHD expects images in `$CMAKE_INSTALL_PREFIX/share/uhd/images`

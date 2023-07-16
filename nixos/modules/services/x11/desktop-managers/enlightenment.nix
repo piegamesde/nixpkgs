@@ -24,22 +24,22 @@ in
   meta = { maintainers = teams.enlightenment.members; };
 
   imports = [
-      (mkRenamedOptionModule
-        [
-          "services"
-          "xserver"
-          "desktopManager"
-          "e19"
-          "enable"
-        ]
-        [
-          "services"
-          "xserver"
-          "desktopManager"
-          "enlightenment"
-          "enable"
-        ])
-    ];
+    (mkRenamedOptionModule
+      [
+        "services"
+        "xserver"
+        "desktopManager"
+        "e19"
+        "enable"
+      ]
+      [
+        "services"
+        "xserver"
+        "desktopManager"
+        "enlightenment"
+        "enable"
+      ])
+  ];
 
   options = {
 
@@ -71,8 +71,8 @@ in
     ];
 
     services.xserver.displayManager.sessionPackages = [
-        pkgs.enlightenment.enlightenment
-      ];
+      pkgs.enlightenment.enlightenment
+    ];
 
     services.xserver.displayManager.sessionCommands = ''
       if test "$XDG_CURRENT_DESKTOP" = "Enlightenment"; then

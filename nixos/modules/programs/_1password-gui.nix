@@ -13,16 +13,16 @@ let
 in
 {
   imports = [
-      (mkRemovedOptionModule
-        [
-          "programs"
-          "_1password-gui"
-          "gid"
-        ]
-        ''
-          A preallocated GID will be used instead.
-        '')
-    ];
+    (mkRemovedOptionModule
+      [
+        "programs"
+        "_1password-gui"
+        "gid"
+      ]
+      ''
+        A preallocated GID will be used instead.
+      '')
+  ];
 
   options = {
     programs._1password-gui = {

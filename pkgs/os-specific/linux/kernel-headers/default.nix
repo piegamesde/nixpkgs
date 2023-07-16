@@ -164,8 +164,8 @@ in
         hash = "sha256-dIYvqKtA7a6FuzOFwLcf4QMoi85RhSbWMZeACzy97LE=";
       };
       patches = [
-          ./no-relocs.patch # for building x86 kernel headers on non-ELF platforms
-        ];
+        ./no-relocs.patch # for building x86 kernel headers on non-ELF platforms
+      ];
     }
     ;
 }

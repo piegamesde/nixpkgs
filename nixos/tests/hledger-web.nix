@@ -32,8 +32,8 @@ import ./make-test-python.nix (
             capabilities.manage = true;
           };
           networking.firewall.allowedTCPPorts = [
-              config.services.hledger-web.port
-            ];
+            config.services.hledger-web.port
+          ];
           systemd.services.hledger-web.preStart = ''
             ln -s ${journal} /var/lib/hledger-web/.hledger.journal
           '';

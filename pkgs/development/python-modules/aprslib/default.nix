@@ -19,12 +19,12 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (fetchpatch {
-        url =
-          "https://github.com/rossengeorgiev/aprs-python/commit/c2a0f18ce028a4cced582567a73d57f0d03cd00f.patch";
-        hash = "sha256-uxiLIagz1PIUUa6/qdBW15yhm/0QXqznVzZnzUVCWuQ=";
-      })
-    ];
+    (fetchpatch {
+      url =
+        "https://github.com/rossengeorgiev/aprs-python/commit/c2a0f18ce028a4cced582567a73d57f0d03cd00f.patch";
+      hash = "sha256-uxiLIagz1PIUUa6/qdBW15yhm/0QXqznVzZnzUVCWuQ=";
+    })
+  ];
 
   nativeCheckInputs = [
     mox3

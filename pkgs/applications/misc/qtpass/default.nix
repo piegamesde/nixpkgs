@@ -62,15 +62,15 @@ mkDerivation rec {
     ];
 
   qtWrapperArgs = [
-      "--suffix PATH : ${
-        lib.makeBinPath [
-          git
-          gnupg
-          pass
-          pwgen
-        ]
-      }"
-    ];
+    "--suffix PATH : ${
+      lib.makeBinPath [
+        git
+        gnupg
+        pass
+        pwgen
+      ]
+    }"
+  ];
 
   postInstall = ''
     install -D qtpass.desktop -t $out/share/applications

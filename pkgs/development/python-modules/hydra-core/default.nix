@@ -29,12 +29,12 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./antlr4.patch;
-        antlr_jar =
-          "${antlr4.out}/share/java/antlr-${antlr4.version}-complete.jar";
-      })
-    ];
+    (substituteAll {
+      src = ./antlr4.patch;
+      antlr_jar =
+        "${antlr4.out}/share/java/antlr-${antlr4.version}-complete.jar";
+    })
+  ];
 
   postPatch = ''
     # We substitute the path to the jar with the one from our antlr4

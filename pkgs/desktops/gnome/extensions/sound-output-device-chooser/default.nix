@@ -38,8 +38,8 @@ stdenv.mkDerivation rec {
   };
 
   makeFlags = [
-      "INSTALL_DIR=${placeholder "out"}/share/gnome-shell/extensions"
-    ];
+    "INSTALL_DIR=${placeholder "out"}/share/gnome-shell/extensions"
+  ];
 
   preInstall = ''
     mkdir -p ${placeholder "out"}/share/gnome-shell/extensions

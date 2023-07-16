@@ -52,11 +52,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-paths.patch;
-        zenity = gnome.zenity;
-      })
-    ];
+    (substituteAll {
+      src = ./fix-paths.patch;
+      zenity = gnome.zenity;
+    })
+  ];
 
   nativeBuildInputs = [
     desktop-file-utils

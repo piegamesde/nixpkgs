@@ -77,12 +77,12 @@ buildPythonPackage rec {
       ./numpy-1.24.patch
     ]
     ++ lib.optionals cudaSupport [
-        (substituteAll {
-          src = ./cuda_path.patch;
-          cuda_toolkit_path = cudatoolkit;
-          cuda_toolkit_lib_path = cudatoolkit.lib;
-        })
-      ]
+      (substituteAll {
+        src = ./cuda_path.patch;
+        cuda_toolkit_path = cudatoolkit;
+        cuda_toolkit_lib_path = cudatoolkit.lib;
+      })
+    ]
     ;
 
   postFixup = lib.optionalString cudaSupport ''

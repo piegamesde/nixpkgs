@@ -12,11 +12,11 @@ import ./make-test-python.nix (
       }: {
         programs.nix-ld.enable = true;
         environment.systemPackages = [
-            (pkgs.runCommand "patched-hello" { } ''
-              install -D -m755 ${pkgs.hello}/bin/hello $out/bin/hello
-              patchelf $out/bin/hello --set-interpreter $(cat ${pkgs.nix-ld}/nix-support/ldpath)
-            '')
-          ];
+          (pkgs.runCommand "patched-hello" { } ''
+            install -D -m755 ${pkgs.hello}/bin/hello $out/bin/hello
+            patchelf $out/bin/hello --set-interpreter $(cat ${pkgs.nix-ld}/nix-support/ldpath)
+          '')
+        ];
       }
       ;
     testScript = ''

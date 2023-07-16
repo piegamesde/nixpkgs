@@ -22,17 +22,17 @@ stdenv.mkDerivation rec {
     perl
   ];
   buildInputs = [
-      (
-        if stdenv.buildPlatform == stdenv.hostPlatform then
-          llvm
-        else
-          targetLlvm
-      )
-    ];
+    (
+      if stdenv.buildPlatform == stdenv.hostPlatform then
+        llvm
+      else
+        targetLlvm
+    )
+  ];
 
   cmakeFlags = [
-      "-DLIBOMPTARGET_BUILD_AMDGCN_BCLIB=OFF" # Building the AMDGCN device RTL currently fails
-    ];
+    "-DLIBOMPTARGET_BUILD_AMDGCN_BCLIB=OFF" # Building the AMDGCN device RTL currently fails
+  ];
 
   meta = llvm_meta // {
     homepage = "https://openmp.llvm.org/";

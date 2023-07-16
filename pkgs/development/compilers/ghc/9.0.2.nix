@@ -414,16 +414,16 @@ stdenv.mkDerivation (
           "--with-iconv-libraries=${libiconv}/lib"
         ]
       ++ lib.optionals (targetPlatform != hostPlatform) [
-          "--enable-bootstrap-with-devel-snapshot"
-        ]
+        "--enable-bootstrap-with-devel-snapshot"
+      ]
       ++ lib.optionals useLdGold [
         "CFLAGS=-fuse-ld=gold"
         "CONF_GCC_LINKER_OPTS_STAGE1=-fuse-ld=gold"
         "CONF_GCC_LINKER_OPTS_STAGE2=-fuse-ld=gold"
       ]
       ++ lib.optionals (disableLargeAddressSpace) [
-          "--disable-large-address-space"
-        ]
+        "--disable-large-address-space"
+      ]
       ;
 
     # Make sure we never relax`$PATH` and hooks support for compatibility.
@@ -445,8 +445,8 @@ stdenv.mkDerivation (
         bootPkgs.hscolour
       ]
       ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-          autoSignDarwinBinariesHook
-        ]
+        autoSignDarwinBinariesHook
+      ]
       ++ lib.optionals enableDocs [ sphinx ]
       ++ lib.optionals stdenv.isDarwin [
         # TODO(@sternenseemann): backport addition of XATTR env var like

@@ -66,8 +66,8 @@ import ./make-test-python.nix (
         };
 
         networking.hosts."${nodes.server.networking.primaryIPAddress}" = [
-            serverDomain
-          ];
+          serverDomain
+        ];
 
         security.pki.certificateFiles = [ certs.ca.cert ];
       }

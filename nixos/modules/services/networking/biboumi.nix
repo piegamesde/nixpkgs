@@ -211,14 +211,14 @@ in
         Restart = "always";
         # Use "+" because credentialsFile may not be accessible to User= or Group=.
         ExecStartPre = [
-            ("+"
-              + pkgs.writeShellScript "biboumi-prestart" ''
-                set -eux
-                cat ${settingsFile} '${cfg.credentialsFile}' |
-                install -m 644 /dev/stdin /run/biboumi/biboumi.cfg
-              ''
-            )
-          ];
+          ("+"
+            + pkgs.writeShellScript "biboumi-prestart" ''
+              set -eux
+              cat ${settingsFile} '${cfg.credentialsFile}' |
+              install -m 644 /dev/stdin /run/biboumi/biboumi.cfg
+            ''
+          )
+        ];
         ExecStart = "${pkgs.biboumi}/bin/biboumi /run/biboumi/biboumi.cfg";
         ExecReload = "${pkgs.coreutils}/bin/kill -USR1 $MAINPID";
         # Firewalls needing opening for output connections can still do that
@@ -255,11 +255,11 @@ in
         # The following options are only for optimizing:
         # systemd-analyze security biboumi
         AmbientCapabilities = [
-            (optionalString need_CAP_NET_BIND_SERVICE "CAP_NET_BIND_SERVICE")
-          ];
+          (optionalString need_CAP_NET_BIND_SERVICE "CAP_NET_BIND_SERVICE")
+        ];
         CapabilityBoundingSet = [
-            (optionalString need_CAP_NET_BIND_SERVICE "CAP_NET_BIND_SERVICE")
-          ];
+          (optionalString need_CAP_NET_BIND_SERVICE "CAP_NET_BIND_SERVICE")
+        ];
         # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
         LockPersonality = true;

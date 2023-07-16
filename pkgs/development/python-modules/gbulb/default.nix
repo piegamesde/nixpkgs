@@ -31,8 +31,8 @@ buildPythonPackage rec {
   ];
 
   disabledTests = [
-      "test_glib_events.TestBaseGLibEventLoop" # Somtimes fail due to imprecise timing
-    ];
+    "test_glib_events.TestBaseGLibEventLoop" # Somtimes fail due to imprecise timing
+  ];
 
   pythonImportsCheck = [ "gbulb" ];
 

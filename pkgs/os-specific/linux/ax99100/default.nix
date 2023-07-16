@@ -42,15 +42,15 @@ stdenv.mkDerivation {
       ./kernel-6.1-set_termios-const-ktermios.patch
     ]
     ++ (lib.optional (lib.versionAtLeast kernel.version "6.2") [
-        ./kernel-6.2-fix-pointer-type.patch
-      ])
+      ./kernel-6.2-fix-pointer-type.patch
+    ])
     ;
 
   patchFlags = [ "-p0" ];
 
   makeFlags = [
-      "KDIR='${kernel.dev}/lib/modules/${kernel.modDirVersion}/build'"
-    ];
+    "KDIR='${kernel.dev}/lib/modules/${kernel.modDirVersion}/build'"
+  ];
 
   installPhase = ''
     mkdir -p $out/lib/modules/${kernel.modDirVersion}/kernel/drivers/tty/serial

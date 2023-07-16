@@ -33,8 +33,8 @@ buildPythonPackage rec {
   '';
 
   nativeBuildInputs = [
-      R # needed at setup time to detect R_HOME
-    ];
+    R # needed at setup time to detect R_HOME
+  ];
 
   propagatedBuildInputs =
     [

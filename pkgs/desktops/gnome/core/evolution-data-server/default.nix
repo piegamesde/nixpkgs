@@ -67,11 +67,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-paths.patch;
-        inherit tzdata;
-      })
-    ];
+    (substituteAll {
+      src = ./fix-paths.patch;
+      inherit tzdata;
+    })
+  ];
 
   prePatch = ''
     substitute ${./hardcode-gsettings.patch} hardcode-gsettings.patch \

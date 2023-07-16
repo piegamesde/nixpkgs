@@ -38,8 +38,8 @@ in
         ExecStop = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
 
         ReadWritePaths = [
-            "/tmp" # wg-netmanager creates files in /tmp before deleting them after use
-          ];
+          "/tmp" # wg-netmanager creates files in /tmp before deleting them after use
+        ];
       };
       unitConfig = {
         ConditionPathExists = [

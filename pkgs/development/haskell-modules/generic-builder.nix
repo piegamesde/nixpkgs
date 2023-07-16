@@ -308,8 +308,8 @@ let
       (optionalString enableSeparateDocOutput "--docdir=${docdir "$doc"}")
     ]
     ++ optionals stdenv.hasCC [
-        "--with-gcc=$CC" # Clang won't work without that extra information.
-      ]
+      "--with-gcc=$CC" # Clang won't work without that extra information.
+    ]
     ++ [
       "--package-db=$packageConfDir"
       (optionalString

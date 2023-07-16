@@ -49,8 +49,8 @@ stdenv.mkDerivation rec {
   ];
 
   mesonFlags = [
-      "-Dtests=false" # requires NUnit
-    ];
+    "-Dtests=false" # requires NUnit
+  ];
 
   postPatch = ''
     patchShebangs .

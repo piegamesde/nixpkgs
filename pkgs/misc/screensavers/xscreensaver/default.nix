@@ -79,10 +79,8 @@ stdenv.mkDerivation (
     '';
 
     configureFlags = [
-        "--with-app-defaults=${
-          placeholder "out"
-        }/share/xscreensaver/app-defaults"
-      ];
+      "--with-app-defaults=${placeholder "out"}/share/xscreensaver/app-defaults"
+    ];
 
     # "marbling" has NEON code that mixes signed and unsigned vector types
     env.NIX_CFLAGS_COMPILE =

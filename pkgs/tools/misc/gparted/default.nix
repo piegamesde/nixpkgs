@@ -37,11 +37,11 @@ stdenv.mkDerivation rec {
   # however the binary won't be suid so it returns
   # an error preventing the program from detection
   patches = [
-      (substituteAll {
-        src = ./polkit.patch;
-        polkit_version = polkit.version;
-      })
-    ];
+    (substituteAll {
+      src = ./polkit.patch;
+      polkit_version = polkit.version;
+    })
+  ];
 
   enableParallelBuilding = true;
 

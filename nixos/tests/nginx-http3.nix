@@ -32,8 +32,8 @@ import ./make-test-python.nix (
           };
 
           security.pki.certificates = [
-              (builtins.readFile ./common/acme/server/ca.cert.pem)
-            ];
+            (builtins.readFile ./common/acme/server/ca.cert.pem)
+          ];
 
           services.nginx = {
             enable = true;
@@ -81,8 +81,8 @@ import ./make-test-python.nix (
           };
 
           security.pki.certificates = [
-              (builtins.readFile ./common/acme/server/ca.cert.pem)
-            ];
+            (builtins.readFile ./common/acme/server/ca.cert.pem)
+          ];
         }
         ;
     };

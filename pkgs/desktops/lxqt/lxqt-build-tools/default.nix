@@ -47,8 +47,8 @@ mkDerivation rec {
   ];
 
   propagatedBuildInputs = [
-      perl # needed by LXQtTranslateDesktop.cmake
-    ];
+    perl # needed by LXQtTranslateDesktop.cmake
+  ];
 
   setupHook = ./setup-hook.sh;
 

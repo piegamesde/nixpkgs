@@ -60,14 +60,14 @@ stdenv.mkDerivation rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        name = pname;
-        desktopName = "AppFlowy";
-        comment = meta.description;
-        exec = "appflowy";
-        categories = [ "Office" ];
-      })
-    ];
+    (makeDesktopItem {
+      name = pname;
+      desktopName = "AppFlowy";
+      comment = meta.description;
+      exec = "appflowy";
+      categories = [ "Office" ];
+    })
+  ];
 
   meta = with lib; {
     description = "An open-source alternative to Notion";

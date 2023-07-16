@@ -211,8 +211,8 @@ stdenv.mkDerivation (
         "-Ddevbindir=${placeholder "dev"}/bin"
       ]
       ++ lib.optionals (!stdenv.isDarwin) [
-          "-Dman=true" # broken on Darwin
-        ]
+        "-Dman=true" # broken on Darwin
+      ]
       ++ lib.optionals stdenv.isFreeBSD [
         "-Db_lundef=false"
         "-Dxattr=false"

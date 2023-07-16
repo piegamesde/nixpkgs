@@ -35,11 +35,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-paths.patch;
-        inherit coreutils;
-      })
-    ];
+    (substituteAll {
+      src = ./fix-paths.patch;
+      inherit coreutils;
+    })
+  ];
 
   nativeBuildInputs = [
     meson

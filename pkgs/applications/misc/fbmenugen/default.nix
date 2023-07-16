@@ -23,12 +23,12 @@ perlPackages.buildPerlPackage rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./0001-Fix-paths.patch;
-        xmessage = xorg.xmessage;
-        inherit fluxbox gnused;
-      })
-    ];
+    (substituteAll {
+      src = ./0001-Fix-paths.patch;
+      xmessage = xorg.xmessage;
+      inherit fluxbox gnused;
+    })
+  ];
 
   outputs = [ "out" ];
 

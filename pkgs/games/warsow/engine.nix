@@ -27,11 +27,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./libpath.patch;
-        inherit zlib curl libpng libjpeg libogg libvorbis libtheora freetype;
-      })
-    ];
+    (substituteAll {
+      src = ./libpath.patch;
+      inherit zlib curl libpng libjpeg libogg libvorbis libtheora freetype;
+    })
+  ];
 
   nativeBuildInputs = [ cmake ];
 

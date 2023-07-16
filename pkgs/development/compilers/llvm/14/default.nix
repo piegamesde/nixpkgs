@@ -216,8 +216,8 @@ let
             targetLlvmLibraries.compiler-rt
           ]
           ++ lib.optionals (!stdenv.targetPlatform.isWasm) [
-              targetLlvmLibraries.libunwind
-            ]
+            targetLlvmLibraries.libunwind
+          ]
           ;
         extraBuildCommands = mkExtraBuildCommands cc;
         nixSupport.cc-cflags =

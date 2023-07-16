@@ -55,8 +55,8 @@ stdenv.mkDerivation rec {
       "-Dglslang=disabled" # rely on shaderc for GLSL compilation instead
     ]
     ++ lib.optionals stdenv.isDarwin [
-        "-Dunwind=disabled" # libplacebo doesn’t build with `darwin.libunwind`
-      ]
+      "-Dunwind=disabled" # libplacebo doesn’t build with `darwin.libunwind`
+    ]
     ;
 
   postPatch = ''

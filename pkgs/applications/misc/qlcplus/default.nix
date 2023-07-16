@@ -28,13 +28,13 @@ mkDerivation rec {
   };
 
   patches = [
-      (fetchpatch {
-        name = "qt5.15-deprecation-fixes.patch";
-        url =
-          "https://github.com/mcallegari/qlcplus/commit/e4ce4b0226715876e8e9e3b23785d43689b2bb64.patch";
-        sha256 = "1zhrg6ava1nyc97xcx75r02zzkxmar0973w4jwkm5ch3iqa8bqnh";
-      })
-    ];
+    (fetchpatch {
+      name = "qt5.15-deprecation-fixes.patch";
+      url =
+        "https://github.com/mcallegari/qlcplus/commit/e4ce4b0226715876e8e9e3b23785d43689b2bb64.patch";
+      sha256 = "1zhrg6ava1nyc97xcx75r02zzkxmar0973w4jwkm5ch3iqa8bqnh";
+    })
+  ];
 
   nativeBuildInputs = [
     qmake

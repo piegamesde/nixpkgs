@@ -459,21 +459,21 @@ in
   };
 
   imports = [
-      (mkRemovedOptionModule
-        [
-          "services"
-          "taskserver"
-          "extraConfig"
-        ]
-        ''
-          This option was removed in favor of `services.taskserver.config` with
-          different semantics (it's now a list of attributes instead of lines).
+    (mkRemovedOptionModule
+      [
+        "services"
+        "taskserver"
+        "extraConfig"
+      ]
+      ''
+        This option was removed in favor of `services.taskserver.config` with
+        different semantics (it's now a list of attributes instead of lines).
 
-          Please look up the documentation of `services.taskserver.config' to get
-          more information about the new way to pass additional configuration
-          options.
-        '')
-    ];
+        Please look up the documentation of `services.taskserver.config' to get
+        more information about the new way to pass additional configuration
+        options.
+      '')
+  ];
 
   config = mkMerge [
     (mkIf cfg.enable {

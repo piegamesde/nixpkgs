@@ -123,8 +123,8 @@ rec {
       "-DXQuartzGL_gl_LIBRARY=${libGL}/lib/libGL.dylib"
     ]
     ++ lib.optionals (enableMultiThreading && enablePython) [
-        "-DGEANT4_BUILD_TLS_MODEL=global-dynamic"
-      ]
+      "-DGEANT4_BUILD_TLS_MODEL=global-dynamic"
+    ]
     ++ lib.optionals enableInventor [
       "-DINVENTOR_INCLUDE_DIR=${coin3d}/include"
       "-DINVENTOR_LIBRARY_RELEASE=${coin3d}/lib/libCoin.so"

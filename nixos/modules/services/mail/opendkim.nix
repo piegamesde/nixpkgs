@@ -36,18 +36,18 @@ let
 in
 {
   imports = [
-      (mkRenamedOptionModule
-        [
-          "services"
-          "opendkim"
-          "keyFile"
-        ]
-        [
-          "services"
-          "opendkim"
-          "keyPath"
-        ])
-    ];
+    (mkRenamedOptionModule
+      [
+        "services"
+        "opendkim"
+        "keyFile"
+      ]
+      [
+        "services"
+        "opendkim"
+        "keyPath"
+      ])
+  ];
 
   ###### interface
 
@@ -133,8 +133,8 @@ in
     environment.systemPackages = [ pkgs.opendkim ];
 
     systemd.tmpfiles.rules = [
-        "d '${cfg.keyPath}' - ${cfg.user} ${cfg.group} - -"
-      ];
+      "d '${cfg.keyPath}' - ${cfg.user} ${cfg.group} - -"
+    ];
 
     systemd.services.opendkim = {
       description = "OpenDKIM signing and verification daemon";

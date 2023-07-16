@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
   };
 
   depsBuildBuild = optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      buildPackages.stdenv.cc
-    ];
+    buildPackages.stdenv.cc
+  ];
   buildInputs =
     [ libxcrypt ]
     ++ optionals stdenv.isDarwin [ libiconv ]
@@ -71,8 +71,8 @@ stdenv.mkDerivation rec {
   # see https://github.com/landley/toybox/commit/b928ec480cd73fd83511c0f5ca786d1b9f3167c3
   #doCheck = true;
   nativeCheckInputs = [
-      which
-    ]; # used for tests with checkFlags = [ "DEBUG=true" ];
+    which
+  ]; # used for tests with checkFlags = [ "DEBUG=true" ];
   checkTarget = "tests";
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";

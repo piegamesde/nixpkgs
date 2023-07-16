@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = [
-      "--with-db-path=${placeholder "out"}/share/${pname}/hddtemp.db"
-    ];
+    "--with-db-path=${placeholder "out"}/share/${pname}/hddtemp.db"
+  ];
 
   postInstall = ''
     install -Dm444 ${db} $out/share/${pname}/hddtemp.db

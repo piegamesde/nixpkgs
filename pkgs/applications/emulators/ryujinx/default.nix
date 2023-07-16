@@ -84,8 +84,8 @@ buildDotnetModule rec {
   doCheck = true;
 
   dotnetFlags = [
-      "/p:ExtraDefineConstants=DISABLE_UPDATER%2CFORCE_EXTERNAL_BASE_DIR"
-    ];
+    "/p:ExtraDefineConstants=DISABLE_UPDATER%2CFORCE_EXTERNAL_BASE_DIR"
+  ];
 
   executables = [
     "Ryujinx.Headless.SDL2"

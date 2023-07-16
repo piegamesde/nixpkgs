@@ -30,12 +30,12 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./paths.patch;
-        inherit graphviz;
-        xdgutils = xdg-utils;
-      })
-    ];
+    (substituteAll {
+      src = ./paths.patch;
+      inherit graphviz;
+      xdgutils = xdg-utils;
+    })
+  ];
 
   postPatch = ''
     sed -i "/--cov/d" setup.cfg

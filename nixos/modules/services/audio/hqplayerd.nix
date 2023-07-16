@@ -123,8 +123,8 @@ in
         ];
 
         restartTriggers = optionals (cfg.config != null) [
-            config.environment.etc."hqplayer/hqplayerd.xml".source
-          ];
+          config.environment.etc."hqplayer/hqplayerd.xml".source
+        ];
 
         preStart =
           ''

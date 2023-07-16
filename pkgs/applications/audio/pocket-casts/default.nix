@@ -20,15 +20,15 @@ stdenv.mkDerivation rec {
   };
 
   desktopItems = [
-      (makeDesktopItem {
-        name = pname;
-        desktopName = "Pocket Casts";
-        genericName = "Podcasts Listener";
-        exec = "pocket-casts";
-        icon = "pocket-casts";
-        comment = meta.description;
-      })
-    ];
+    (makeDesktopItem {
+      name = pname;
+      desktopName = "Pocket Casts";
+      genericName = "Podcasts Listener";
+      exec = "pocket-casts";
+      icon = "pocket-casts";
+      comment = meta.description;
+    })
+  ];
 
   nativeBuildInputs = [
     copyDesktopItems

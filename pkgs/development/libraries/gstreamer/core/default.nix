@@ -64,8 +64,8 @@ stdenv.mkDerivation (
         gobject-introspection
       ]
       ++ lib.optionals stdenv.isLinux [
-          libcap # for setcap binary
-        ]
+        libcap # for setcap binary
+      ]
       ++ lib.optionals enableDocumentation [ hotdoc ]
       ;
 

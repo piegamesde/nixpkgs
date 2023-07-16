@@ -36,8 +36,8 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = [
-      "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
-    ];
+    "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
+  ];
 
   prePatch =
     ''

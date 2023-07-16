@@ -20,19 +20,19 @@ in
 
   # Added 2019-08-19
   imports = [
-      (mkRenamedOptionModule
-        [
-          "services"
-          "gnome3"
-          "gvfs"
-          "enable"
-        ]
-        [
-          "services"
-          "gvfs"
-          "enable"
-        ])
-    ];
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gnome3"
+        "gvfs"
+        "enable"
+      ]
+      [
+        "services"
+        "gvfs"
+        "enable"
+      ])
+  ];
 
   ###### interface
 
@@ -69,7 +69,7 @@ in
 
     # Needed for unwrapped applications
     environment.sessionVariables.GIO_EXTRA_MODULES = [
-        "${cfg.package}/lib/gio/modules"
-      ];
+      "${cfg.package}/lib/gio/modules"
+    ];
   };
 }

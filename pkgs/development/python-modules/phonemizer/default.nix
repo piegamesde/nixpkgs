@@ -29,15 +29,15 @@ buildPythonPackage rec {
   '';
 
   patches = [
-      (substituteAll {
-        src = ./backend-paths.patch;
-        libespeak =
-          "${
-            lib.getLib espeak-ng
-          }/lib/libespeak-ng${stdenv.hostPlatform.extensions.sharedLibrary}";
-        # FIXME package festival
-      })
-    ];
+    (substituteAll {
+      src = ./backend-paths.patch;
+      libespeak =
+        "${
+          lib.getLib espeak-ng
+        }/lib/libespeak-ng${stdenv.hostPlatform.extensions.sharedLibrary}";
+      # FIXME package festival
+    })
+  ];
 
   propagatedBuildInputs = [
     joblib

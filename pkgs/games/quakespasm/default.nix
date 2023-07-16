@@ -124,13 +124,13 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "quakespasm";
-        exec = "quake";
-        desktopName = "Quakespasm";
-        categories = [ "Game" ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "quakespasm";
+      exec = "quake";
+      desktopName = "Quakespasm";
+      categories = [ "Game" ];
+    })
+  ];
 
   meta = with lib; {
     description = "An engine for iD software's Quake";

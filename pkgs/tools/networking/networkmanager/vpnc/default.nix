@@ -32,11 +32,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-paths.patch;
-        inherit vpnc kmod;
-      })
-    ];
+    (substituteAll {
+      src = ./fix-paths.patch;
+      inherit vpnc kmod;
+    })
+  ];
 
   nativeBuildInputs = [
     intltool

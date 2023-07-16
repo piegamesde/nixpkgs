@@ -56,11 +56,11 @@ buildPythonPackage rec {
       ./tests.patch
     ]
     ++ lib.optionals (stdenv.hostPlatform.isLinux) [
-        (substituteAll {
-          src = ./bubblewrap-path.patch;
-          bwrap = "${bubblewrap}/bin/bwrap";
-        })
-      ]
+      (substituteAll {
+        src = ./bubblewrap-path.patch;
+        bwrap = "${bubblewrap}/bin/bwrap";
+      })
+    ]
     ;
 
   postPatch = ''

@@ -45,12 +45,12 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (fetchpatch {
-        url =
-          "https://gitlab.gnome.org/GNOME/grilo/-/commit/b0d75be00b06cb0163dabbedecf9122a55273349.patch";
-        sha256 = "sha256-Hwnc3TLN6n3w/MAFcprHv7nbTcwRfI0cmfDriNLnAvQ=";
-      })
-    ];
+    (fetchpatch {
+      url =
+        "https://gitlab.gnome.org/GNOME/grilo/-/commit/b0d75be00b06cb0163dabbedecf9122a55273349.patch";
+      sha256 = "sha256-Hwnc3TLN6n3w/MAFcprHv7nbTcwRfI0cmfDriNLnAvQ=";
+    })
+  ];
 
   mesonFlags = [ "-Denable-gtk-doc=true" ];
 
@@ -67,8 +67,8 @@ stdenv.mkDerivation rec {
       docbook_xml_dtd_43
     ]
     ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-        mesonEmulatorHook
-      ]
+      mesonEmulatorHook
+    ]
     ;
 
   buildInputs = [

@@ -40,11 +40,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-python-path.patch;
-        python = "${pythonEnv}/bin/python3";
-      })
-    ];
+    (substituteAll {
+      src = ./fix-python-path.patch;
+      python = "${pythonEnv}/bin/python3";
+    })
+  ];
 
   nativeBuildInputs = [
     meson

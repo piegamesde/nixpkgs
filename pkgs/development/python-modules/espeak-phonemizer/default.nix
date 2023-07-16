@@ -20,11 +20,11 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./cdll.patch;
-        libespeak_ng = "${lib.getLib espeak-ng}/lib/libespeak-ng.so";
-      })
-    ];
+    (substituteAll {
+      src = ./cdll.patch;
+      libespeak_ng = "${lib.getLib espeak-ng}/lib/libespeak-ng.so";
+    })
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

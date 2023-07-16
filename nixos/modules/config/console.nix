@@ -225,8 +225,8 @@ in
                 "${cfg.font}"
               ]
             ++ optionals (hasPrefix builtins.storeDir cfg.keyMap) [
-                "${cfg.keyMap}"
-              ]
+              "${cfg.keyMap}"
+            ]
             ;
 
           systemd.services.reload-systemd-vconsole-setup = {

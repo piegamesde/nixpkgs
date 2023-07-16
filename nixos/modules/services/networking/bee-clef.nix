@@ -62,8 +62,8 @@ in
     # environment.etc."bee-clef/rules.js".source = ${pkgs.bee-clef}/rules.js
 
     systemd.packages = [
-        pkgs.bee-clef
-      ]; # include the upstream bee-clef.service file
+      pkgs.bee-clef
+    ]; # include the upstream bee-clef.service file
 
     systemd.tmpfiles.rules = [
       "d '${cfg.dataDir}/'         0750 ${cfg.user} ${cfg.group}"

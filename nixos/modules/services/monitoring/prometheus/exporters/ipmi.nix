@@ -40,11 +40,11 @@ in
           "--web.listen-address ${listenAddress}:${toString port}"
         ]
         ++ optionals (cfg.webConfigFile != null) [
-            "--web.config.file ${escapeShellArg cfg.webConfigFile}"
-          ]
+          "--web.config.file ${escapeShellArg cfg.webConfigFile}"
+        ]
         ++ optionals (cfg.configFile != null) [
-            "--config.file ${escapeShellArg cfg.configFile}"
-          ]
+          "--config.file ${escapeShellArg cfg.configFile}"
+        ]
         ++ extraFlags
       );
 

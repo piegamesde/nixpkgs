@@ -70,8 +70,8 @@ rec {
   ];
 
   propagatedUserEnvPkgs = [
-      gtk-engine-murrine # murrine engine for Gtk2
-    ];
+    gtk-engine-murrine # murrine engine for Gtk2
+  ];
 
   postPatch = ''
     patchShebangs install.sh clean-old-theme.sh

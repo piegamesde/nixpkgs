@@ -83,8 +83,8 @@ stdenv.mkDerivation rec {
   FONTCONFIG_FILE = fontsConf;
   LD_LIBRARY_PATH = libPath;
   NIX_LDFLAGS = lib.concatStringsSep " " [
-      (lib.optionalString (stdenv.cc.isGNU && !stdenv.isDarwin) "-lgcc_s")
-    ];
+    (lib.optionalString (stdenv.cc.isGNU && !stdenv.isDarwin) "-lgcc_s")
+  ];
 
   nativeBuildInputs = [
     cacert

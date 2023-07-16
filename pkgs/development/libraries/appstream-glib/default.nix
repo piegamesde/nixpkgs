@@ -77,11 +77,11 @@ stdenv.mkDerivation rec {
   ];
 
   patches = [
-      (substituteAll {
-        src = ./paths.patch;
-        pngquant = "${pngquant}/bin/pngquant";
-      })
-    ];
+    (substituteAll {
+      src = ./paths.patch;
+      pngquant = "${pngquant}/bin/pngquant";
+    })
+  ];
 
   mesonFlags = [
     "-Drpm=false"

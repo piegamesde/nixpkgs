@@ -34,19 +34,19 @@ stdenv.mkDerivation rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        name = pname;
-        desktopName = "Tour of Nix";
-        genericName = "Tour of Nix";
-        comment =
-          "Interactive programming guide dedicated to the nix programming language";
-        categories = [
-          "Development"
-          "Documentation"
-        ];
-        exec = "nix-tour";
-      })
-    ];
+    (makeDesktopItem {
+      name = pname;
+      desktopName = "Tour of Nix";
+      genericName = "Tour of Nix";
+      comment =
+        "Interactive programming guide dedicated to the nix programming language";
+      categories = [
+        "Development"
+        "Documentation"
+      ];
+      exec = "nix-tour";
+    })
+  ];
 
   meta = with lib; {
     description = "'the tour of nix' from nixcloud.io/tour as offline version";

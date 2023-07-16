@@ -23,8 +23,8 @@ buildGoModule rec {
   subPackages = [ "cmd/kapp" ];
 
   ldflags = [
-      "-X github.com/vmware-tanzu/carvel-kapp/pkg/kapp/version.Version=${version}"
-    ];
+    "-X github.com/vmware-tanzu/carvel-kapp/pkg/kapp/version.Version=${version}"
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 

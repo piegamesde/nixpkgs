@@ -39,8 +39,8 @@ buildPythonPackage rec {
     [ pytestCheckHook ] ++ passthru.optional-dependencies.toml;
 
   disabledTestPaths = [
-      "src/tests/test_integration.py" # runs pip install
-    ];
+    "src/tests/test_integration.py" # runs pip install
+  ];
 
   meta = with lib; {
     description = "Python docstring style checker";

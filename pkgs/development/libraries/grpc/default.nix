@@ -35,14 +35,14 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (fetchpatch {
-        # armv6l support, https://github.com/grpc/grpc/pull/21341
-        name = "grpc-link-libatomic.patch";
-        url =
-          "https://github.com/lopsided98/grpc/commit/164f55260262c816e19cd2c41b564486097d62fe.patch";
-        hash = "sha256-d6kMyjL5ZnEnEz4XZfRgXJBH53gp1r7q1tlwh+HM6+Y=";
-      })
-    ];
+    (fetchpatch {
+      # armv6l support, https://github.com/grpc/grpc/pull/21341
+      name = "grpc-link-libatomic.patch";
+      url =
+        "https://github.com/lopsided98/grpc/commit/164f55260262c816e19cd2c41b564486097d62fe.patch";
+      hash = "sha256-d6kMyjL5ZnEnEz4XZfRgXJBH53gp1r7q1tlwh+HM6+Y=";
+    })
+  ];
 
   nativeBuildInputs =
     [
@@ -77,8 +77,8 @@ stdenv.mkDerivation rec {
       "-DCMAKE_CXX_STANDARD=${passthru.cxxStandard}"
     ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-        "-D_gRPC_PROTOBUF_PROTOC_EXECUTABLE=${buildPackages.protobuf}/bin/protoc"
-      ]
+      "-D_gRPC_PROTOBUF_PROTOC_EXECUTABLE=${buildPackages.protobuf}/bin/protoc"
+    ]
     ;
 
   # CMake creates a build directory by default, this conflicts with the

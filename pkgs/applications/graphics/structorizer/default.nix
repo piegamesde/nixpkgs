@@ -13,29 +13,29 @@ stdenv.mkDerivation rec {
   version = "3.32-11";
 
   desktopItems = [
-      (makeDesktopItem {
-        type = "Application";
-        name = "Structorizer";
-        desktopName = "Structorizer";
-        genericName = "Diagram creator";
-        comment = meta.description;
-        icon = pname;
-        exec = pname;
-        terminal = false;
-        mimeTypes = [ "application/nsd" ];
-        categories = [
-          "Development"
-          "Graphics"
-          "VectorGraphics"
-          "RasterGraphics"
-          "ComputerScience"
-        ];
-        keywords = [
-          "nsd"
-          "diagrams"
-        ];
-      })
-    ];
+    (makeDesktopItem {
+      type = "Application";
+      name = "Structorizer";
+      desktopName = "Structorizer";
+      genericName = "Diagram creator";
+      comment = meta.description;
+      icon = pname;
+      exec = pname;
+      terminal = false;
+      mimeTypes = [ "application/nsd" ];
+      categories = [
+        "Development"
+        "Graphics"
+        "VectorGraphics"
+        "RasterGraphics"
+        "ComputerScience"
+      ];
+      keywords = [
+        "nsd"
+        "diagrams"
+      ];
+    })
+  ];
 
   src = fetchFromGitHub {
     owner = "fesch";

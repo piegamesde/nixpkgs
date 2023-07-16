@@ -127,8 +127,8 @@ in
         LimitNPROC = mkDefault 65536;
       };
       restartTriggers = [
-          config.environment.etc."mackerel-agent/mackerel-agent.conf".source
-        ];
+        config.environment.etc."mackerel-agent/mackerel-agent.conf".source
+      ];
     };
   };
 }

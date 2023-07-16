@@ -61,8 +61,8 @@ gcc12Stdenv.mkDerivation {
   };
 
   patches = [
-      ./0001-llvm-ExecutionEngine-IntelJITEvents-only-use-ITTAPI_.patch
-    ];
+    ./0001-llvm-ExecutionEngine-IntelJITEvents-only-use-ITTAPI_.patch
+  ];
 
   passthru.updateScript = ./update.sh;
 

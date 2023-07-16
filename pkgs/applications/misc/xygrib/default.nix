@@ -44,8 +44,8 @@ stdenv.mkDerivation rec {
       }"
     ]
     ++ lib.optionals stdenv.isDarwin [
-        "-DLIBNOVA_LIBRARY=${libnova}/lib/libnova.dylib"
-      ]
+      "-DLIBNOVA_LIBRARY=${libnova}/lib/libnova.dylib"
+    ]
     ;
 
   postInstall =

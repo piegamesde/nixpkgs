@@ -33,11 +33,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-paths.patch;
-        inherit strongswan xl2tpd;
-      })
-    ];
+    (substituteAll {
+      src = ./fix-paths.patch;
+      inherit strongswan xl2tpd;
+    })
+  ];
 
   nativeBuildInputs = [
     autoreconfHook

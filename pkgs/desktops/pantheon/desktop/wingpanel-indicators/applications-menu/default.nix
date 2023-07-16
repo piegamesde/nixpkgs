@@ -37,11 +37,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-paths.patch;
-        bc = "${bc}/bin/bc";
-      })
-    ];
+    (substituteAll {
+      src = ./fix-paths.patch;
+      bc = "${bc}/bin/bc";
+    })
+  ];
 
   nativeBuildInputs = [
     gettext

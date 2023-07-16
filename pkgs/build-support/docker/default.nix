@@ -1339,10 +1339,10 @@ rec {
           # Slightly differs however: We use the passed-in homeDirectory instead of sandboxBuildDir.
           # We're doing this because it's arguably a bug in Nix that sandboxBuildDir is used here: https://github.com/NixOS/nix/issues/6379
           extraPasswdLines = [
-              "nixbld:x:${toString uid}:${
-                toString gid
-              }:Build user:${homeDirectory}:/noshell"
-            ];
+            "nixbld:x:${toString uid}:${
+              toString gid
+            }:Build user:${homeDirectory}:/noshell"
+          ];
           extraGroupLines = [ "nixbld:!:${toString gid}:" ];
         })
       ];

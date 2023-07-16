@@ -26,12 +26,12 @@ import ./make-test-python.nix (
         environment.memoryAllocator.provider = "graphene-hardened";
         nix.settings.sandbox = false;
         nixpkgs.overlays = [
-            (
-              final: super: {
-                dhcpcd = super.dhcpcd.override { enablePrivSep = false; };
-              }
-            )
-          ];
+          (
+            final: super: {
+              dhcpcd = super.dhcpcd.override { enablePrivSep = false; };
+            }
+          )
+        ];
         virtualisation.emptyDiskImages = [ 4096 ];
         boot.initrd.postDeviceCommands = ''
           ${pkgs.dosfstools}/bin/mkfs.vfat -n EFISYS /dev/vdb

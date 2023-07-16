@@ -19,8 +19,8 @@ python3Packages.buildPythonApplication rec {
   };
 
   patches = [
-      ./remove-argparse-manpage.diff # quickfix for ImportError: No module named build_manpages.build_manpages
-    ];
+    ./remove-argparse-manpage.diff # quickfix for ImportError: No module named build_manpages.build_manpages
+  ];
 
   buildInputs =
     [

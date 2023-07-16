@@ -23,11 +23,11 @@ buildPythonPackage rec {
   };
 
   patches = lib.optionals withGraphviz [
-      (substituteAll {
-        src = ./graphviz.patch;
-        inherit graphviz;
-      })
-    ];
+    (substituteAll {
+      src = ./graphviz.patch;
+      inherit graphviz;
+    })
+  ];
 
   propagatedBuildInputs = [ six ];
 

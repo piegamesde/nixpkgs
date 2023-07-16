@@ -29,12 +29,12 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (fetchpatch {
-        url =
-          "https://projects.archlinux.de/svntogit/packages.git/plain/trunk/gtk-sharp2-2.12.12-gtkrange.patch?h=packages/gtk-sharp-2";
-        sha256 = "bjx+OfgWnN8SO82p8G7pbGuxJ9EeQxMLeHnrtEm8RV8=";
-      })
-    ];
+    (fetchpatch {
+      url =
+        "https://projects.archlinux.de/svntogit/packages.git/plain/trunk/gtk-sharp2-2.12.12-gtkrange.patch?h=packages/gtk-sharp-2";
+      sha256 = "bjx+OfgWnN8SO82p8G7pbGuxJ9EeQxMLeHnrtEm8RV8=";
+    })
+  ];
 
   postInstall = ''
     pushd $out/bin

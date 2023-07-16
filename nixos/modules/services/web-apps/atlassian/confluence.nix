@@ -186,8 +186,8 @@ in
     } ];
 
     warnings = mkIf (cfg.sso.enable && cfg.sso.applicationPassword != null) [
-        "Using `services.confluence.sso.applicationPassword` is deprecated! Use `applicationPasswordFile` instead!"
-      ];
+      "Using `services.confluence.sso.applicationPassword` is deprecated! Use `applicationPasswordFile` instead!"
+    ];
 
     users.groups.${cfg.group} = { };
 

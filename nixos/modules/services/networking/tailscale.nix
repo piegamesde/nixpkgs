@@ -87,8 +87,8 @@ in
           ''"FLAGS=--tun ${lib.escapeShellArg cfg.interfaceName}"''
         ]
         ++ (lib.optionals (cfg.permitCertUid != null) [
-            "TS_PERMIT_CERT_UID=${cfg.permitCertUid}"
-          ])
+          "TS_PERMIT_CERT_UID=${cfg.permitCertUid}"
+        ])
         ;
       # Restart tailscaled with a single `systemctl restart` at the
       # end of activation, rather than a `stop` followed by a later

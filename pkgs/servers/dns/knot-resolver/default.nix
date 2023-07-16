@@ -159,8 +159,8 @@ let # un-indented, over the whole file
       license = licenses.gpl3Plus;
       platforms = platforms.unix;
       maintainers = [
-          maintainers.vcunat # upstream developer
-        ];
+        maintainers.vcunat # upstream developer
+      ];
       mainProgram = "kresd";
     };
   };

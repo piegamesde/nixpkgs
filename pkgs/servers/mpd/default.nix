@@ -263,8 +263,8 @@ let
         ;
 
       CXXFLAGS = lib.optionals stdenv.isDarwin [
-          "-D__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=0"
-        ];
+        "-D__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=0"
+      ];
 
       mesonFlags =
         [

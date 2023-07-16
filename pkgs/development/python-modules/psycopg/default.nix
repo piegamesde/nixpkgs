@@ -46,13 +46,13 @@ let
   };
 
   patches = [
-      (substituteAll {
-        src = ./ctypes.patch;
-        libpq =
-          "${postgresql.lib}/lib/libpq${stdenv.hostPlatform.extensions.sharedLibrary}";
-        libc = "${stdenv.cc.libc}/lib/libc.so.6";
-      })
-    ];
+    (substituteAll {
+      src = ./ctypes.patch;
+      libpq =
+        "${postgresql.lib}/lib/libpq${stdenv.hostPlatform.extensions.sharedLibrary}";
+      libc = "${stdenv.cc.libc}/lib/libc.so.6";
+    })
+  ];
 
   baseMeta = {
     changelog =

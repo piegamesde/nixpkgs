@@ -80,8 +80,8 @@ mkDerivation rec {
     [ "INSTALL_ROOT=$(out)" ] ++ lib.optional withDocumentation "install_docs";
 
   qtWrapperArgs = [
-      "--set-default PERFPROFILER_PARSER_FILEPATH ${lib.getBin perf}/bin"
-    ];
+    "--set-default PERFPROFILER_PARSER_FILEPATH ${lib.getBin perf}/bin"
+  ];
 
   preConfigure =
     ''

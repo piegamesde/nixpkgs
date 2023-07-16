@@ -64,8 +64,8 @@ python3.pkgs.buildPythonApplication rec {
   propagatedBuildInputs = with python3.pkgs; [ pygobject3 ];
 
   mesonFlags = [
-      "-Dtests=false" # needs dbus
-    ];
+    "-Dtests=false" # needs dbus
+  ];
 
   postPatch = ''
     chmod +x meson_post_install.py

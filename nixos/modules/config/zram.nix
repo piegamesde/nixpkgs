@@ -14,13 +14,13 @@ in
 {
 
   imports = [
-      (lib.mkRemovedOptionModule
-        [
-          "zramSwap"
-          "numDevices"
-        ]
-        "Using ZRAM devices as general purpose ephemeral block devices is no longer supported")
-    ];
+    (lib.mkRemovedOptionModule
+      [
+        "zramSwap"
+        "numDevices"
+      ]
+      "Using ZRAM devices as general purpose ephemeral block devices is no longer supported")
+  ];
 
   ###### interface
 
@@ -128,8 +128,8 @@ in
 
     systemd.packages = [ pkgs.zram-generator ];
     systemd.services."systemd-zram-setup@".path = [
-        pkgs.util-linux
-      ]; # for mkswap
+      pkgs.util-linux
+    ]; # for mkswap
 
     environment.etc."systemd/zram-generator.conf".source =
       (pkgs.formats.ini { }).generate "zram-generator.conf" (

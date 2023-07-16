@@ -145,15 +145,15 @@ stdenv.mkDerivation rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        name = pname;
-        exec = "PreMiD";
-        icon = pname;
-        desktopName = "PreMiD";
-        genericName = meta.description;
-        mimeTypes = [ "x-scheme-handler/premid" ];
-      })
-    ];
+    (makeDesktopItem {
+      name = pname;
+      exec = "PreMiD";
+      icon = pname;
+      desktopName = "PreMiD";
+      genericName = meta.description;
+      mimeTypes = [ "x-scheme-handler/premid" ];
+    })
+  ];
 
   meta = with lib; {
     description =

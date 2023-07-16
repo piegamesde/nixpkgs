@@ -677,8 +677,8 @@ in
               "AF_UNIX"
             ]
             ++ optionals (any useComponent componentsUsingBluetooth) [
-                "AF_BLUETOOTH"
-              ]
+              "AF_BLUETOOTH"
+            ]
             ;
           RestrictNamespaces = true;
           RestrictRealtime = true;
@@ -699,8 +699,8 @@ in
         }
         ;
       path = [
-          "/run/wrappers" # needed for ping
-        ];
+        "/run/wrappers" # needed for ping
+      ];
     };
 
     systemd.targets.home-assistant = rec {

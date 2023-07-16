@@ -317,16 +317,16 @@ in
             "--config /run/dendrite/dendrite.yaml"
           ]
           ++ lib.optionals (cfg.httpPort != null) [
-              "--http-bind-address :${builtins.toString cfg.httpPort}"
-            ]
+            "--http-bind-address :${builtins.toString cfg.httpPort}"
+          ]
           ++ lib.optionals (cfg.httpsPort != null) [
             "--https-bind-address :${builtins.toString cfg.httpsPort}"
             "--tls-cert ${cfg.tlsCert}"
             "--tls-key ${cfg.tlsKey}"
           ]
           ++ lib.optionals cfg.openRegistration [
-              "--really-enable-open-registration"
-            ]
+            "--really-enable-open-registration"
+          ]
         );
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         Restart = "on-failure";

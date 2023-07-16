@@ -70,8 +70,8 @@ stdenv.mkDerivation {
     ;
 
   configureFlags = [
-      "--with-libdir=$(out)/lib/ocaml/${ocaml.version}/site-lib"
-    ];
+    "--with-libdir=$(out)/lib/ocaml/${ocaml.version}/site-lib"
+  ];
   buildFlags = [ "world" ];
 
   preInstall = ''

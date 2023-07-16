@@ -39,8 +39,8 @@ stdenv.mkDerivation rec {
     ;
 
   configureFlags = [
-      "HOSTCC=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc"
-    ];
+    "HOSTCC=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc"
+  ];
 
   meta = with lib; {
     description = "Telescope is a w3m-like browser for Gemini";

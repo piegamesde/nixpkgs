@@ -607,8 +607,8 @@ let
         shm = super.shm.overrideAttrs (
           attrs: {
             propagatedUserEnvPkgs = [
-                pkgs.haskellPackages.structured-haskell-mode
-              ];
+              pkgs.haskellPackages.structured-haskell-mode
+            ];
           }
         );
 

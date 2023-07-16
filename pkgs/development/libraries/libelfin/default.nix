@@ -18,11 +18,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./0001-Don-t-detect-package-version-with-Git.patch;
-        inherit version;
-      })
-    ];
+    (substituteAll {
+      src = ./0001-Don-t-detect-package-version-with-Git.patch;
+      inherit version;
+    })
+  ];
 
   nativeBuildInputs = [ python3 ];
 

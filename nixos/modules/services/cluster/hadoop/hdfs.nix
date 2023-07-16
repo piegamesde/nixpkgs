@@ -228,8 +228,8 @@ in
       preStart = "mkdir -p $HTTPFS_TEMP";
       User = "httpfs";
       allowedTCPPorts = [
-          14000 # httpfs.http.port
-        ];
+        14000 # httpfs.http.port
+      ];
     })
 
     (mkIf cfg.gatewayRole.enable {

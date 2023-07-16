@@ -84,8 +84,8 @@ in
         23424 # mediabrowser
       ];
       allowedUDPPorts = [
-          1900 # UPnP service discovery
-        ];
+        1900 # UPnP service discovery
+      ];
     };
   };
 }

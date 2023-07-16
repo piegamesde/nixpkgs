@@ -72,8 +72,8 @@ let
       serviceConfig = {
         # Enable JIT-compiled C (via Inline::C)
         Environment = [
-            "PERL_INLINE_DIRECTORY=/run/public-inbox-${srv}/perl-inline"
-          ];
+          "PERL_INLINE_DIRECTORY=/run/public-inbox-${srv}/perl-inline"
+        ];
         # NonBlocking is REQUIRED to avoid a race condition
         # if running simultaneous services.
         NonBlocking = true;
@@ -471,8 +471,8 @@ in
         (
           proto:
           (mkIf (cfg.${proto}.enable && types.port.check cfg.${proto}.port) [
-              cfg.${proto}.port
-            ])
+            cfg.${proto}.port
+          ])
         )
         [
           "imap"

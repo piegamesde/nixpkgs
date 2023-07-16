@@ -67,18 +67,18 @@ buildNpmPackage rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "webcord";
-        exec = "webcord";
-        icon = "webcord";
-        desktopName = "WebCord";
-        comment = meta.description;
-        categories = [
-          "Network"
-          "InstantMessaging"
-        ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "webcord";
+      exec = "webcord";
+      icon = "webcord";
+      desktopName = "WebCord";
+      comment = meta.description;
+      categories = [
+        "Network"
+        "InstantMessaging"
+      ];
+    })
+  ];
 
   meta = with lib; {
     description =

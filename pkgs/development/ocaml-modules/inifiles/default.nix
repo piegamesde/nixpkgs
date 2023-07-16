@@ -19,12 +19,12 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (fetchpatch {
-        url =
-          "https://raw.githubusercontent.com/ocaml/opam-repository/master/packages/ocaml-inifiles/ocaml-inifiles.1.2/files/ocaml-inifiles.diff";
-        sha256 = "037kk3172s187w8vwsykdxlpklxzc7m7np57sapk499d8adzdgwn";
-      })
-    ];
+    (fetchpatch {
+      url =
+        "https://raw.githubusercontent.com/ocaml/opam-repository/master/packages/ocaml-inifiles/ocaml-inifiles.1.2/files/ocaml-inifiles.diff";
+      sha256 = "037kk3172s187w8vwsykdxlpklxzc7m7np57sapk499d8adzdgwn";
+    })
+  ];
 
   nativeBuildInputs = [
     ocaml

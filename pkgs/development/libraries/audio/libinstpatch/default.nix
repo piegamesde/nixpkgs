@@ -30,8 +30,8 @@ stdenv.mkDerivation rec {
   ]; # Both are needed for includes.
 
   cmakeFlags = [
-      "-DLIB_SUFFIX=" # Install in $out/lib.
-    ];
+    "-DLIB_SUFFIX=" # Install in $out/lib.
+  ];
 
   meta = with lib; {
     homepage = "http://www.swamiproject.org/";

@@ -39,8 +39,8 @@ let
       (configurationArm { inherit pkgs haskellLib; })
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
-        (configurationDarwin { inherit pkgs haskellLib; })
-      ]
+      (configurationDarwin { inherit pkgs haskellLib; })
+    ]
     ;
 
   extensions = lib.composeManyExtensions (

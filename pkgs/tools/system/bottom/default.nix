@@ -23,8 +23,8 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ installShellFiles ];
 
   buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
-      darwin.apple_sdk.frameworks.Foundation
-    ];
+    darwin.apple_sdk.frameworks.Foundation
+  ];
 
   doCheck = false;
 

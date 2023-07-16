@@ -77,16 +77,16 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs =
     [ ]
     ++ lib.optionals withPython [
-        (python3.withPackages (
-          ps: [
-            ps.numpy
-            ps.protobuf
-            ps.pyserial
-            ps.setuptools
-            ps.websockets
-          ]
-        ))
-      ]
+      (python3.withPackages (
+        ps: [
+          ps.numpy
+          ps.protobuf
+          ps.pyserial
+          ps.setuptools
+          ps.websockets
+        ]
+      ))
+    ]
     ;
 
   configureFlags =

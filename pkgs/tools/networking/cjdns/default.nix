@@ -26,11 +26,11 @@ rustPlatform.buildRustPackage rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./system-libsodium.patch;
-        libsodium_include_dir = "${libsodium.dev}/include";
-      })
-    ];
+    (substituteAll {
+      src = ./system-libsodium.patch;
+      libsodium_include_dir = "${libsodium.dev}/include";
+    })
+  ];
 
   cargoLock = {
     lockFile = ./Cargo.lock;

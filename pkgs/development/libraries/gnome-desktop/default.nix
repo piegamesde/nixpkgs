@@ -45,12 +45,12 @@ stdenv.mkDerivation rec {
   };
 
   patches = lib.optionals stdenv.isLinux [
-      (substituteAll {
-        src = ./bubblewrap-paths.patch;
-        bubblewrap_bin = "${bubblewrap}/bin/bwrap";
-        inherit (builtins) storeDir;
-      })
-    ];
+    (substituteAll {
+      src = ./bubblewrap-paths.patch;
+      bubblewrap_bin = "${bubblewrap}/bin/bwrap";
+      inherit (builtins) storeDir;
+    })
+  ];
 
   nativeBuildInputs = [
     pkg-config

@@ -21,8 +21,8 @@ rustPlatform.buildRustPackage rec {
 
   # include_hidden test tries to use `chflags` on darwin
   checkFlagsArray = lib.optionals stdenv.isDarwin [
-      "--skip=subcommand::torrent::create::tests::include_hidden"
-    ];
+    "--skip=subcommand::torrent::create::tests::include_hidden"
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 

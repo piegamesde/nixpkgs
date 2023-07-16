@@ -11,17 +11,17 @@ let
 in
 {
   imports = [
-      (mkRenamedOptionModule
-        [
-          "hardware"
-          "enableKSM"
-        ]
-        [
-          "hardware"
-          "ksm"
-          "enable"
-        ])
-    ];
+    (mkRenamedOptionModule
+      [
+        "hardware"
+        "enableKSM"
+      ]
+      [
+        "hardware"
+        "ksm"
+        "enable"
+      ])
+  ];
 
   options.hardware.ksm = {
     enable = mkEnableOption (lib.mdDoc "Kernel Same-Page Merging");

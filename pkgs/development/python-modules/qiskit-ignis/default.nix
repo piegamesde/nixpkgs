@@ -65,8 +65,8 @@ buildPythonPackage rec {
       "test_tensored_meas_cal_on_circuit" # Flaky test, occasionally returns result outside bounds
     ]
     ++ lib.optionals stdenv.isAarch64 [
-        "test_fitters" # Fails check that arrays are close. Might be due to aarch64 math issues.
-      ]
+      "test_fitters" # Fails check that arrays are close. Might be due to aarch64 math issues.
+    ]
     ;
 
   meta = with lib; {

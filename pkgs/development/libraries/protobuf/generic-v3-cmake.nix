@@ -62,8 +62,8 @@ let
         })
       ]
       ++ lib.optionals stdenv.hostPlatform.isStatic [
-          ./static-executables-have-no-rpath.patch
-        ]
+        ./static-executables-have-no-rpath.patch
+      ]
       ;
 
     nativeBuildInputs =
@@ -90,8 +90,8 @@ let
     cmakeFlags =
       [ "-Dprotobuf_ABSL_PROVIDER=package" ]
       ++ lib.optionals (!stdenv.targetPlatform.isStatic) [
-          "-Dprotobuf_BUILD_SHARED_LIBS=ON"
-        ]
+        "-Dprotobuf_BUILD_SHARED_LIBS=ON"
+      ]
       # Tests fail to build on 32-bit platforms; fixed in 3.22
       # https://github.com/protocolbuffers/protobuf/issues/10418
       ++ lib.optional

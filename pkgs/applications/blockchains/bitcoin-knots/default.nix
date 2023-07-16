@@ -47,8 +47,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isLinux [ util-linux ]
     ++ lib.optionals stdenv.isDarwin [ hexdump ]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-        autoSignDarwinBinariesHook
-      ]
+      autoSignDarwinBinariesHook
+    ]
     ++ lib.optionals withGui [ wrapQtAppsHook ]
     ;
 

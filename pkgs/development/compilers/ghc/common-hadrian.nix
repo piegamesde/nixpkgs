@@ -198,8 +198,8 @@ let
       "*.*.ghc.*.opts += -fPIC -fexternal-dynamic-refs"
     ]
     ++ lib.optionals targetPlatform.useAndroidPrebuilt [
-        "*.*.ghc.c.opts += -optc-std=gnu99"
-      ]
+      "*.*.ghc.c.opts += -optc-std=gnu99"
+    ]
     ;
 
   # GHC's build system hadrian built from the GHC-to-build's source tree
@@ -451,16 +451,16 @@ stdenv.mkDerivation (
           "--with-iconv-libraries=${libiconv}/lib"
         ]
       ++ lib.optionals (targetPlatform != hostPlatform) [
-          "--enable-bootstrap-with-devel-snapshot"
-        ]
+        "--enable-bootstrap-with-devel-snapshot"
+      ]
       ++ lib.optionals useLdGold [
         "CFLAGS=-fuse-ld=gold"
         "CONF_GCC_LINKER_OPTS_STAGE1=-fuse-ld=gold"
         "CONF_GCC_LINKER_OPTS_STAGE2=-fuse-ld=gold"
       ]
       ++ lib.optionals (disableLargeAddressSpace) [
-          "--disable-large-address-space"
-        ]
+        "--disable-large-address-space"
+      ]
       ++ lib.optionals enableDwarf [
         "--enable-dwarf-unwind"
         "--with-libdw-includes=${lib.getDev elfutils}/include"
@@ -490,8 +490,8 @@ stdenv.mkDerivation (
         python3
       ]
       ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-          autoSignDarwinBinariesHook
-        ]
+        autoSignDarwinBinariesHook
+      ]
       ++ lib.optionals enableDocs [ sphinx ]
       ;
 

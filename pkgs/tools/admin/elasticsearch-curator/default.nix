@@ -66,8 +66,8 @@ python.pkgs.buildPythonApplication rec {
   ];
 
   disabledTestPaths = [
-      "test/integration" # requires running elasticsearch
-    ];
+    "test/integration" # requires running elasticsearch
+  ];
 
   disabledTests = [
     # access network

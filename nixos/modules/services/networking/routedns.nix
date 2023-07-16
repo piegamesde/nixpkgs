@@ -69,8 +69,8 @@ in
     systemd.services.routedns = {
       description = "RouteDNS - DNS stub resolver, proxy and router";
       after = [
-          "network.target"
-        ]; # in case a bootstrap resolver is used, this might fail a few times until the respective server is actually reachable
+        "network.target"
+      ]; # in case a bootstrap resolver is used, this might fail a few times until the respective server is actually reachable
       wantedBy = [ "multi-user.target" ];
       wants = [ "network.target" ];
       startLimitIntervalSec = 30;

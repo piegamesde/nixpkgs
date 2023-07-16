@@ -102,8 +102,8 @@ let
     {
       nativeBuildInputs = [ pkgs.buildPackages.nukeReferences ];
       allowedReferences = [
-          "out"
-        ]; # prevent accidents like glibc being included in the initrd
+        "out"
+      ]; # prevent accidents like glibc being included in the initrd
     }
     ''
       set +o pipefail
@@ -863,18 +863,18 @@ in
   };
 
   imports = [
-      (mkRenamedOptionModule
-        [
-          "boot"
-          "initrd"
-          "mdadmConf"
-        ]
-        [
-          "boot"
-          "initrd"
-          "services"
-          "swraid"
-          "mdadmConf"
-        ])
-    ];
+    (mkRenamedOptionModule
+      [
+        "boot"
+        "initrd"
+        "mdadmConf"
+      ]
+      [
+        "boot"
+        "initrd"
+        "services"
+        "swraid"
+        "mdadmConf"
+      ])
+  ];
 }

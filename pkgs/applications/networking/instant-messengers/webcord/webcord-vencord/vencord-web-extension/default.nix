@@ -49,11 +49,11 @@ buildNpmPackage rec {
   '';
 
   patches = [
-      (substituteAll {
-        src = ./replace-git.patch;
-        inherit version;
-      })
-    ];
+    (substituteAll {
+      src = ./replace-git.patch;
+      inherit version;
+    })
+  ];
 
   installPhase = ''
     cp -r dist/extension-unpacked $out

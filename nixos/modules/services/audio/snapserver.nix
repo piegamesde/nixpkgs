@@ -80,19 +80,19 @@ let
 in
 {
   imports = [
-      (mkRenamedOptionModule
-        [
-          "services"
-          "snapserver"
-          "controlPort"
-        ]
-        [
-          "services"
-          "snapserver"
-          "tcp"
-          "port"
-        ])
-    ];
+    (mkRenamedOptionModule
+      [
+        "services"
+        "snapserver"
+        "controlPort"
+      ]
+      [
+        "services"
+        "snapserver"
+        "tcp"
+        "port"
+      ])
+  ];
 
   ###### interface
 

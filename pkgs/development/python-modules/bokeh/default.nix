@@ -42,12 +42,12 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./hardcode-nodejs-npmjs-paths.patch;
-        node_bin = "${nodejs}/bin/node";
-        npm_bin = "${nodejs}/bin/npm";
-      })
-    ];
+    (substituteAll {
+      src = ./hardcode-nodejs-npmjs-paths.patch;
+      node_bin = "${nodejs}/bin/node";
+      npm_bin = "${nodejs}/bin/npm";
+    })
+  ];
 
   disabled = isPyPy || isPy27;
 

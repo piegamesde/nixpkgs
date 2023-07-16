@@ -29,8 +29,8 @@ buildPythonPackage rec {
   ];
 
   nativeBuildInputs = [
-      sphinx # docbuild, called by make
-    ];
+    sphinx # docbuild, called by make
+  ];
 
   propagatedBuildInputs = [
     cython

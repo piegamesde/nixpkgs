@@ -60,18 +60,18 @@ let
 in
 {
   imports = [
-      (lib.mkRenamedOptionModule
-        [
-          "services"
-          "avahi"
-          "interfaces"
-        ]
-        [
-          "services"
-          "avahi"
-          "allowInterfaces"
-        ])
-    ];
+    (lib.mkRenamedOptionModule
+      [
+        "services"
+        "avahi"
+        "interfaces"
+      ]
+      [
+        "services"
+        "avahi"
+        "allowInterfaces"
+      ])
+  ];
 
   options.services.avahi = {
     enable = mkOption {

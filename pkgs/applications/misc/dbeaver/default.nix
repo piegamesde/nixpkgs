@@ -64,16 +64,16 @@ rec {
     ;
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "dbeaver";
-        exec = "dbeaver";
-        icon = "dbeaver";
-        desktopName = "dbeaver";
-        comment = "SQL Integrated Development Environment";
-        genericName = "SQL Integrated Development Environment";
-        categories = [ "Development" ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "dbeaver";
+      exec = "dbeaver";
+      icon = "dbeaver";
+      desktopName = "dbeaver";
+      comment = "SQL Integrated Development Environment";
+      genericName = "SQL Integrated Development Environment";
+      categories = [ "Development" ];
+    })
+  ];
 
   installPhase =
     let

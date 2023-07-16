@@ -26,8 +26,8 @@ in
       preFixupPhases =
         (previousAttrs.preFixupPhases or [ ])
         ++ lib.optionals ((!langC) || enableLibGccOutput) [
-            "preFixupLibGccPhase"
-          ]
+          "preFixupLibGccPhase"
+        ]
         ;
       preFixupLibGccPhase =
         # delete extra/unused builds of libgcc_s in non-langC builds

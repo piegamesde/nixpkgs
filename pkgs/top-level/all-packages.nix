@@ -25120,8 +25120,8 @@ with pkgs;
     containerRuntimePath = "${docker}/libexec/docker/runc";
     configTemplate = ../applications/virtualization/nvidia-docker/config.toml;
     additionalPaths = [
-        (callPackage ../applications/virtualization/nvidia-docker { })
-      ];
+      (callPackage ../applications/virtualization/nvidia-docker { })
+    ];
   };
 
   nvidia-podman = mkNvidiaContainerPkg {

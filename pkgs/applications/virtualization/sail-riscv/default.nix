@@ -35,12 +35,12 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   patches = [
-      (fetchpatch {
-        url =
-          "https://github.com/riscv/sail-riscv/pull/250/commits/8bd37c484b83a8ce89c8bb7a001b8ae34dc4d77f.patch";
-        hash = "sha256-tDgkGhcbT6phoCAvilxMI56YUuUqQFgvh+2QduOjdMg=";
-      })
-    ];
+    (fetchpatch {
+      url =
+        "https://github.com/riscv/sail-riscv/pull/250/commits/8bd37c484b83a8ce89c8bb7a001b8ae34dc4d77f.patch";
+      hash = "sha256-tDgkGhcbT6phoCAvilxMI56YUuUqQFgvh+2QduOjdMg=";
+    })
+  ];
 
   postPatch =
     ''

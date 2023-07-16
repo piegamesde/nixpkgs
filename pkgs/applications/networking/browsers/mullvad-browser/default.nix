@@ -122,20 +122,20 @@ stdenv.mkDerivation rec {
   allowSubstitutes = false;
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "mullvadbrowser";
-        exec = "mullvad-browser %U";
-        icon = "mullvad-browser";
-        desktopName = "Mullvad Browser";
-        genericName = "Web Browser";
-        comment = meta.description;
-        categories = [
-          "Network"
-          "WebBrowser"
-          "Security"
-        ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "mullvadbrowser";
+      exec = "mullvad-browser %U";
+      icon = "mullvad-browser";
+      desktopName = "Mullvad Browser";
+      genericName = "Web Browser";
+      comment = meta.description;
+      categories = [
+        "Network"
+        "WebBrowser"
+        "Security"
+      ];
+    })
+  ];
 
   buildPhase = ''
     runHook preBuild

@@ -70,14 +70,14 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./paths.patch;
-        budgie_desktop = budgie-desktop;
-        gcm = gnome.gnome-color-manager;
-        inherit cups glibc libgnomekbd shadow;
-        inherit networkmanagerapplet tzdata;
-      })
-    ];
+    (substituteAll {
+      src = ./paths.patch;
+      budgie_desktop = budgie-desktop;
+      gcm = gnome.gnome-color-manager;
+      inherit cups glibc libgnomekbd shadow;
+      inherit networkmanagerapplet tzdata;
+    })
+  ];
 
   nativeBuildInputs = [
     docbook-xsl-nons

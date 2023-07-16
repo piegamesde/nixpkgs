@@ -31,8 +31,8 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      ./0001-Call-weak-function-to-allow-adding-preloaded-plugins.patch
-    ];
+    ./0001-Call-weak-function-to-allow-adding-preloaded-plugins.patch
+  ];
 
   nativeBuildInputs = [
     pkg-config

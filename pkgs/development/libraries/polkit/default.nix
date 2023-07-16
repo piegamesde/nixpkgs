@@ -116,8 +116,8 @@ stdenv.mkDerivation rec {
     ;
 
   propagatedBuildInputs = [
-      glib # in .pc Requires
-    ];
+    glib # in .pc Requires
+  ];
 
   nativeCheckInputs = [
     dbus
@@ -148,13 +148,13 @@ stdenv.mkDerivation rec {
       "-Dman=true"
     ]
     ++ lib.optionals stdenv.isLinux [
-        "-Dsession_tracking=${
-          if useSystemd then
-            "libsystemd-login"
-          else
-            "libelogind"
-        }"
-      ]
+      "-Dsession_tracking=${
+        if useSystemd then
+          "libsystemd-login"
+        else
+          "libelogind"
+      }"
+    ]
     ;
 
   # HACK: We want to install policy files files to $out/share but polkit

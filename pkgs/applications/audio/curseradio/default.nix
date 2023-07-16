@@ -24,11 +24,11 @@ python3Packages.buildPythonApplication rec {
   ];
 
   patches = [
-      (substituteAll {
-        src = ./mpv.patch;
-        inherit mpv;
-      })
-    ];
+    (substituteAll {
+      src = ./mpv.patch;
+      inherit mpv;
+    })
+  ];
 
   # No tests
   doCheck = false;

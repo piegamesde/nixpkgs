@@ -72,16 +72,16 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "postman";
-        exec = "postman";
-        icon = "postman";
-        comment = "API Development Environment";
-        desktopName = "Postman";
-        genericName = "Postman";
-        categories = [ "Development" ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "postman";
+      exec = "postman";
+      icon = "postman";
+      comment = "API Development Environment";
+      desktopName = "Postman";
+      genericName = "Postman";
+      categories = [ "Development" ];
+    })
+  ];
 
   buildInputs = [
     stdenv.cc.cc.lib

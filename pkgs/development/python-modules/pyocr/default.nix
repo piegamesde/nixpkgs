@@ -26,11 +26,11 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./paths.patch;
-        inherit cuneiform tesseract;
-      })
-    ];
+    (substituteAll {
+      src = ./paths.patch;
+      inherit cuneiform tesseract;
+    })
+  ];
 
   # see the logic in setup.py
   ENABLE_SETUPTOOLS_SCM = "0";

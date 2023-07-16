@@ -51,8 +51,8 @@ import ./make-test-python.nix (
             server = domain;
           };
           systemd.tmpfiles.rules = [
-              "f /root/pw 0666 root root - ${password}"
-            ];
+            "f /root/pw 0666 root root - ${password}"
+          ];
           environment.systemPackages = [ pkgs.nagiosPluginsOfficial ];
         }
         ;

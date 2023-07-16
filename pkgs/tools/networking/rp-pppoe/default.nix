@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-      "rpppoe_cv_pack_bitfields=rev"
-    ];
+    "rpppoe_cv_pack_bitfields=rev"
+  ];
 
   postConfigure = ''
     sed -i Makefile -e 's@DESTDIR)/etc/ppp@out)/etc/ppp@'

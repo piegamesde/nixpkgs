@@ -15,20 +15,20 @@ in
 {
 
   imports = [
-      (mkRenamedOptionModule
-        [
-          "services"
-          "xserver"
-          "windowManager"
-          "fvwm"
-        ]
-        [
-          "services"
-          "xserver"
-          "windowManager"
-          "fvwm2"
-        ])
-    ];
+    (mkRenamedOptionModule
+      [
+        "services"
+        "xserver"
+        "windowManager"
+        "fvwm"
+      ]
+      [
+        "services"
+        "xserver"
+        "windowManager"
+        "fvwm2"
+      ])
+  ];
 
   ###### interface
 

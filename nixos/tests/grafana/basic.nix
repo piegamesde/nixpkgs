@@ -54,8 +54,8 @@ import ../make-test-python.nix (
 
       declarativePlugins = {
         services.grafana.declarativePlugins = [
-            pkgs.grafanaPlugins.grafana-clock-panel
-          ];
+          pkgs.grafanaPlugins.grafana-clock-panel
+        ];
       };
 
       postgresql = {

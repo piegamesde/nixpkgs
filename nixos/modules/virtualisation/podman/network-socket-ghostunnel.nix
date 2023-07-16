@@ -26,8 +26,8 @@ in
       };
     };
     systemd.services.ghostunnel-server-podman-socket.serviceConfig.SupplementaryGroups = [
-        "podman"
-      ];
+      "podman"
+    ];
   };
 
   meta.maintainers = lib.teams.podman.members ++ [ lib.maintainers.roberth ];

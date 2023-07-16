@@ -39,8 +39,8 @@ stdenv.mkDerivation {
   buildInputs = lib.optional stdenv.hostPlatform.isDarwin libcxxabi;
 
   env.NIX_CFLAGS_COMPILE = toString [
-      "-DSCUDO_DEFAULT_OPTIONS=DeleteSizeMismatch=0:DeallocationTypeMismatch=0"
-    ];
+    "-DSCUDO_DEFAULT_OPTIONS=DeleteSizeMismatch=0:DeallocationTypeMismatch=0"
+  ];
 
   cmakeFlags =
     [
@@ -49,11 +49,11 @@ stdenv.mkDerivation {
       "-DCMAKE_ASM_COMPILER_TARGET=${stdenv.hostPlatform.config}"
     ]
     ++ lib.optionals (haveLibc && stdenv.hostPlatform.isGnu) [
-        "-DSANITIZER_COMMON_CFLAGS=-I${libxcrypt}/include"
-      ]
+      "-DSANITIZER_COMMON_CFLAGS=-I${libxcrypt}/include"
+    ]
     ++ lib.optionals (useLLVM || bareMetal || isMusl || isAarch64) [
-        "-DCOMPILER_RT_BUILD_LIBFUZZER=OFF"
-      ]
+      "-DCOMPILER_RT_BUILD_LIBFUZZER=OFF"
+    ]
     ++ lib.optionals (useLLVM || bareMetal || isMusl) [
       "-DCOMPILER_RT_BUILD_SANITIZERS=OFF"
       "-DCOMPILER_RT_BUILD_XRAY=OFF"
@@ -61,8 +61,8 @@ stdenv.mkDerivation {
       "-DCOMPILER_RT_BUILD_ORC=OFF" # may be possible to build with musl if necessary
     ]
     ++ lib.optionals (useLLVM || bareMetal) [
-        "-DCOMPILER_RT_BUILD_PROFILE=OFF"
-      ]
+      "-DCOMPILER_RT_BUILD_PROFILE=OFF"
+    ]
     ++ lib.optionals ((useLLVM && !haveLibc) || bareMetal) [
       "-DCMAKE_C_COMPILER_WORKS=ON"
       "-DCMAKE_CXX_COMPILER_WORKS=ON"

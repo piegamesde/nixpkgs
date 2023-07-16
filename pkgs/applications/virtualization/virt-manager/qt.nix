@@ -39,13 +39,13 @@ mkDerivation rec {
   ];
 
   patches = [
-      (fetchpatch {
-        # drop with next update
-        url =
-          "https://github.com/F1ash/qt-virt-manager/commit/0d338b037ef58c376d468c1cd4521a34ea181edd.patch";
-        sha256 = "1wjqyc5wsnxfwwjzgqjr9hcqhd867amwhjd712qyvpvz8x7p2s24";
-      })
-    ];
+    (fetchpatch {
+      # drop with next update
+      url =
+        "https://github.com/F1ash/qt-virt-manager/commit/0d338b037ef58c376d468c1cd4521a34ea181edd.patch";
+      sha256 = "1wjqyc5wsnxfwwjzgqjr9hcqhd867amwhjd712qyvpvz8x7p2s24";
+    })
+  ];
 
   buildInputs = [
     qtbase

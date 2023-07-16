@@ -23,13 +23,13 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (fetchpatch {
-        # fix eventlet 0.30.3+ compability
-        url =
-          "https://github.com/benoitc/gunicorn/commit/6a8ebb4844b2f28596ffe7421eb9f7d08c8dc4d8.patch";
-        hash = "sha256-+iApgohzPZ/cHTGBNb7XkqLaHOVVPF26BnPUsvISoZw=";
-      })
-    ];
+    (fetchpatch {
+      # fix eventlet 0.30.3+ compability
+      url =
+        "https://github.com/benoitc/gunicorn/commit/6a8ebb4844b2f28596ffe7421eb9f7d08c8dc4d8.patch";
+      hash = "sha256-+iApgohzPZ/cHTGBNb7XkqLaHOVVPF26BnPUsvISoZw=";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

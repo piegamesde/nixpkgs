@@ -20,13 +20,13 @@ python3Packages.buildPythonApplication rec {
   };
 
   patches = [
-      (fetchpatch {
-        name = "support-for-pykeepass-4.0.3.patch";
-        url =
-          "https://github.com/roddhjav/pass-import/commit/f1b167578916d971ee4f99be99ba0e86ef49015e.patch";
-        hash = "sha256-u6bJbV3/QTfRaPauKSyCWNodpy6CKsreMXUZWKRbee0=";
-      })
-    ];
+    (fetchpatch {
+      name = "support-for-pykeepass-4.0.3.patch";
+      url =
+        "https://github.com/roddhjav/pass-import/commit/f1b167578916d971ee4f99be99ba0e86ef49015e.patch";
+      hash = "sha256-u6bJbV3/QTfRaPauKSyCWNodpy6CKsreMXUZWKRbee0=";
+    })
+  ];
 
   propagatedBuildInputs = with python3Packages; [
     cryptography
@@ -44,8 +44,8 @@ python3Packages.buildPythonApplication rec {
   ];
 
   disabledTests = [
-      "test_import_gnome_keyring" # requires dbus, which pytest doesn't support
-    ];
+    "test_import_gnome_keyring" # requires dbus, which pytest doesn't support
+  ];
 
   postInstall = ''
     mkdir -p $out/lib/password-store/extensions

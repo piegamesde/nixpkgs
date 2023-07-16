@@ -280,8 +280,8 @@ in
                 "RELEASE_COOKIE:${cfg.releaseCookiePath}"
               ]
               ++ lib.optionals (cfg.mail.smtp.passwordFile != null) [
-                  "SMTP_USER_PWD:${cfg.mail.smtp.passwordFile}"
-                ]
+                "SMTP_USER_PWD:${cfg.mail.smtp.passwordFile}"
+              ]
               ;
           };
         };

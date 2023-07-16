@@ -263,8 +263,8 @@ in
               unpackCmd = "cp $curSrc $(basename $curSrc)";
               sourceRoot = ".";
               patches = [
-                  ./fish_completion-generator.patch
-                ]; # to prevent collisions of identical completion files
+                ./fish_completion-generator.patch
+              ]; # to prevent collisions of identical completion files
               dontBuild = true;
               installPhase = ''
                 mkdir -p $out

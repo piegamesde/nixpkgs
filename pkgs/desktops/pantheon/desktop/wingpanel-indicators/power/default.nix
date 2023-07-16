@@ -32,11 +32,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-paths.patch;
-        gnome_power_manager = gnome-power-manager;
-      })
-    ];
+    (substituteAll {
+      src = ./fix-paths.patch;
+      gnome_power_manager = gnome-power-manager;
+    })
+  ];
 
   nativeBuildInputs = [
     meson

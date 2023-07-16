@@ -65,15 +65,15 @@ stdenv.mkDerivation rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "Protege";
-        desktopName = "Protege Desktop";
-        icon = "protege";
-        comment = "OWL2 ontology editor";
-        categories = [ "Development" ];
-        exec = "run-protege";
-      })
-    ];
+    (makeDesktopItem {
+      name = "Protege";
+      desktopName = "Protege Desktop";
+      icon = "protege";
+      comment = "OWL2 ontology editor";
+      categories = [ "Development" ];
+      exec = "run-protege";
+    })
+  ];
 
   meta = with lib; {
     description =

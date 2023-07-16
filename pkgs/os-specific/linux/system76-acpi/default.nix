@@ -25,8 +25,8 @@ stdenv.mkDerivation {
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
   buildFlags = [
-      "KERNEL_DIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    ];
+    "KERNEL_DIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+  ];
 
   installPhase = ''
     install -D system76_acpi.ko $out/lib/modules/${kernel.modDirVersion}/misc/system76_acpi.ko

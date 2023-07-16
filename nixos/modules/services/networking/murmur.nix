@@ -405,25 +405,25 @@ in
     # currently not included in upstream package, addition requested at
     # https://github.com/mumble-voip/mumble/issues/6078
     services.dbus.packages = mkIf (cfg.dbus == "system") [
-        (pkgs.writeTextFile {
-          name = "murmur-dbus-policy";
-          text = ''
-            <!DOCTYPE busconfig PUBLIC
-              "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
-              "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
-            <busconfig>
-              <policy user="murmur">
-                <allow own="net.sourceforge.mumble.murmur"/>
-              </policy>
+      (pkgs.writeTextFile {
+        name = "murmur-dbus-policy";
+        text = ''
+          <!DOCTYPE busconfig PUBLIC
+            "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
+            "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+          <busconfig>
+            <policy user="murmur">
+              <allow own="net.sourceforge.mumble.murmur"/>
+            </policy>
 
-              <policy context="default">
-                <allow send_destination="net.sourceforge.mumble.murmur"/>
-                <allow receive_sender="net.sourceforge.mumble.murmur"/>
-              </policy>
-            </busconfig>
-          '';
-          destination = "/share/dbus-1/system.d/murmur.conf";
-        })
-      ];
+            <policy context="default">
+              <allow send_destination="net.sourceforge.mumble.murmur"/>
+              <allow receive_sender="net.sourceforge.mumble.murmur"/>
+            </policy>
+          </busconfig>
+        '';
+        destination = "/share/dbus-1/system.d/murmur.conf";
+      })
+    ];
   };
 }

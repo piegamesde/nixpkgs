@@ -27,12 +27,12 @@ stdenv.mkDerivation (
     };
 
     patches = [
-        (substituteAll {
-          src = ./000-fix-zip-paths.diff;
-          zipPath = "${zip}/bin/zip";
-          unzipPath = "${unzip}/bin/unzip";
-        })
-      ];
+      (substituteAll {
+        src = ./000-fix-zip-paths.diff;
+        zipPath = "${zip}/bin/zip";
+        unzipPath = "${unzip}/bin/unzip";
+      })
+    ];
 
     nativeBuildInputs = [
       cmake
@@ -47,13 +47,13 @@ stdenv.mkDerivation (
     ];
 
     qtWrapperArgs = [
-        "--prefix PATH : ${
-          lib.makeBinPath [
-            unzip
-            zip
-          ]
-        }"
-      ];
+      "--prefix PATH : ${
+        lib.makeBinPath [
+          unzip
+          zip
+        ]
+      }"
+    ];
 
     meta = with lib; {
       homepage = "http://www.insilmaril.de/vym/";

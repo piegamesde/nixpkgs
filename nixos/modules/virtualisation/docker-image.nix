@@ -4,8 +4,8 @@
 
 {
   imports = [
-      ../profiles/docker-container.nix # FIXME, shouldn't include something from profiles/
-    ];
+    ../profiles/docker-container.nix # FIXME, shouldn't include something from profiles/
+  ];
 
   boot.postBootCommands = ''
     # Set virtualisation to docker

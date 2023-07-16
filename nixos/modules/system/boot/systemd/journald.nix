@@ -140,12 +140,12 @@ in
 
     systemd.services.systemd-journal-flush.restartIfChanged = false;
     systemd.services.systemd-journald.restartTriggers = [
-        config.environment.etc."systemd/journald.conf".source
-      ];
+      config.environment.etc."systemd/journald.conf".source
+    ];
     systemd.services.systemd-journald.stopIfChanged = false;
     systemd.services."systemd-journald@".restartTriggers = [
-        config.environment.etc."systemd/journald.conf".source
-      ];
+      config.environment.etc."systemd/journald.conf".source
+    ];
     systemd.services."systemd-journald@".stopIfChanged = false;
   };
 }

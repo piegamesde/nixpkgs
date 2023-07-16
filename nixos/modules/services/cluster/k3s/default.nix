@@ -23,8 +23,8 @@ let
 in
 {
   imports = [
-      (removeOption [ "docker" ] "k3s docker option is no longer supported.")
-    ];
+    (removeOption [ "docker" ] "k3s docker option is no longer supported.")
+  ];
 
   # interface
   options.services.k3s = {

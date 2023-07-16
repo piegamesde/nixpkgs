@@ -113,8 +113,8 @@ in
     makeFlags =
       (previousAttrs.makeFlags or [ ])
       ++ lib.optionals (stdenv.cc.cc ? libgcc) [
-          "user-defined-trusted-dirs=${stdenv.cc.cc.libgcc}/lib"
-        ]
+        "user-defined-trusted-dirs=${stdenv.cc.cc.libgcc}/lib"
+      ]
       ;
 
     postInstall =

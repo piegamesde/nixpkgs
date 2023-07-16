@@ -104,15 +104,15 @@ stdenv.mkDerivation rec {
   ];
 
   qtWrapperArgs = [
-      "--prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          libGL
-          libGLU
-          freeglut
-          physfs
-        ]
-      }"
-    ];
+    "--prefix LD_LIBRARY_PATH : ${
+      lib.makeLibraryPath [
+        libGL
+        libGLU
+        freeglut
+        physfs
+      ]
+    }"
+  ];
 
   meta = with lib; {
     description = "Turn-based strategy artillery game similar to Worms";

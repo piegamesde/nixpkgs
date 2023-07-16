@@ -19,8 +19,8 @@ buildKodiBinaryAddon rec {
   };
 
   extraCMakeFlags = [
-      "-DGENPLUS_LIB=${genesis-plus-gx}/lib/retroarch/cores/genesis_plus_gx_libretro.so"
-    ];
+    "-DGENPLUS_LIB=${genesis-plus-gx}/lib/retroarch/cores/genesis_plus_gx_libretro.so"
+  ];
 
   extraBuildInputs = [ genesis-plus-gx ];
   propagatedBuildInputs = [ libretro ];

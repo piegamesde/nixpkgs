@@ -26,12 +26,12 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./libgl-path.patch;
-        libgl =
-          "${libGL.out}/lib/libGL${stdenv.hostPlatform.extensions.sharedLibrary}";
-      })
-    ];
+    (substituteAll {
+      src = ./libgl-path.patch;
+      libgl =
+        "${libGL.out}/lib/libGL${stdenv.hostPlatform.extensions.sharedLibrary}";
+    })
+  ];
 
   propagatedBuildInputs = [
     imageio-ffmpeg

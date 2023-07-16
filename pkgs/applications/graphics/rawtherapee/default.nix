@@ -75,8 +75,8 @@ stdenv.mkDerivation rec {
       ''-DCACHE_NAME_SUFFIX=""''
     ]
     ++ lib.optionals stdenv.isDarwin [
-        "-DCMAKE_OSX_DEPLOYMENT_TARGET=${stdenv.hostPlatform.darwinMinVersion}"
-      ]
+      "-DCMAKE_OSX_DEPLOYMENT_TARGET=${stdenv.hostPlatform.darwinMinVersion}"
+    ]
     ;
 
   CMAKE_CXX_FLAGS = toString [

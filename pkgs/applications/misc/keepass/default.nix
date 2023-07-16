@@ -45,16 +45,16 @@ buildDotnetPackage rec {
   buildInputs = [ icoutils ];
 
   patches = [
-      (substituteAll {
-        src = ./fix-paths.patch;
-        xsel = "${xsel}/bin/xsel";
-        xprop = "${xorg.xprop}/bin/xprop";
-        xdotool = "${xdotool}/bin/xdotool";
-        uname = "${coreutils}/bin/uname";
-        whereis = "${unixtools.whereis}/bin/whereis";
-        gsettings = "${glib}/bin/gsettings";
-      })
-    ];
+    (substituteAll {
+      src = ./fix-paths.patch;
+      xsel = "${xsel}/bin/xsel";
+      xprop = "${xorg.xprop}/bin/xprop";
+      xdotool = "${xdotool}/bin/xdotool";
+      uname = "${coreutils}/bin/uname";
+      whereis = "${unixtools.whereis}/bin/whereis";
+      gsettings = "${glib}/bin/gsettings";
+    })
+  ];
 
   # KeePass looks for plugins in under directory in which KeePass.exe is
   # located. It follows symlinks where looking for that directory, so

@@ -31,13 +31,13 @@ mkDerivation rec {
   ];
 
   cmakeFlags = [
-      "-DBUILD_TESTER=${
-        if withTester then
-          "on"
-        else
-          "off"
-      }"
-    ];
+    "-DBUILD_TESTER=${
+      if withTester then
+        "on"
+      else
+        "off"
+    }"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/rlancaste/stellarsolver";

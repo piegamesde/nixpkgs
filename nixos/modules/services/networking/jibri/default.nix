@@ -473,8 +473,8 @@ in
     environment.etc."chromium/policies/managed/managed_policies.json".text =
       builtins.toJSON { CommandLineFlagSecurityWarningsEnabled = false; };
     warnings = [
-        "All security warnings for Chromium have been disabled. This is necessary for Jibri, but it also impacts all other uses of Chromium on this system."
-      ];
+      "All security warnings for Chromium have been disabled. This is necessary for Jibri, but it also impacts all other uses of Chromium on this system."
+    ];
 
     boot = {
       extraModprobeConfig = ''

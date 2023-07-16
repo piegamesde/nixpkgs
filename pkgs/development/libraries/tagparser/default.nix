@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags = [
-      "-DLANGUAGE_FILE_ISO_639_2=${isocodes}/share/iso-codes/json/iso_639-2.json"
-    ];
+    "-DLANGUAGE_FILE_ISO_639_2=${isocodes}/share/iso-codes/json/iso_639-2.json"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/Martchus/tagparser";

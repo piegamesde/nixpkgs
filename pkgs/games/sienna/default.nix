@@ -24,16 +24,16 @@ stdenv.mkDerivation rec {
   };
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "sienna";
-        exec = pname;
-        icon = icon;
-        comment = "Fast-paced one button platformer";
-        desktopName = "Sienna";
-        genericName = "sienna";
-        categories = [ "Game" ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "sienna";
+      exec = pname;
+      icon = icon;
+      comment = "Fast-paced one button platformer";
+      desktopName = "Sienna";
+      genericName = "sienna";
+      categories = [ "Game" ];
+    })
+  ];
 
   nativeBuildInputs = [
     makeWrapper

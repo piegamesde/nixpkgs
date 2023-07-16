@@ -19,8 +19,8 @@ buildKodiBinaryAddon rec {
   };
 
   extraCMakeFlags = [
-      "-DSNES9X_LIB=${snes9x}/lib/retroarch/cores/snes9x_libretro.so"
-    ];
+    "-DSNES9X_LIB=${snes9x}/lib/retroarch/cores/snes9x_libretro.so"
+  ];
 
   extraBuildInputs = [ snes9x ];
   propagatedBuildInputs = [ libretro ];

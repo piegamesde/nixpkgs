@@ -75,8 +75,8 @@ stdenv.mkDerivation (
     nativeBuildInputs =
       [ pkg-config ]
       ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-          buildPackages.ncurses
-        ]
+        buildPackages.ncurses
+      ]
       ;
 
     buildInputs = lib.optional (mouseSupport && stdenv.isLinux) gpm;

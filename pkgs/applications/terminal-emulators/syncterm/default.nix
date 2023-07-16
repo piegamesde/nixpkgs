@@ -30,8 +30,8 @@ stdenv.mkDerivation rec {
       "-Wformat-overflow=0"
     ]
     ++ (lib.optionals stdenv.isLinux [
-        "-DUSE_ALSA_SOUND" # Don't use OSS for beeps.
-      ])
+      "-DUSE_ALSA_SOUND" # Don't use OSS for beeps.
+    ])
     ;
   makeFlags = [
     "PREFIX=$(out)"

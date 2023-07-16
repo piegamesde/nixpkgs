@@ -32,11 +32,11 @@ buildPythonPackage rec {
   '';
 
   patches = [
-      (substituteAll {
-        src = ./dependencies.patch;
-        gtest_src = gtest.src;
-      })
-    ];
+    (substituteAll {
+      src = ./dependencies.patch;
+      gtest_src = gtest.src;
+    })
+  ];
 
   nativeBuildInputs = [ cmake ];
   dontUseCmakeConfigure = true;

@@ -16,8 +16,8 @@ buildGoModule rec {
   };
 
   ldflags = [
-      "-X github.com/containerd/containerd/version.Version=${version}"
-    ];
+    "-X github.com/containerd/containerd/version.Version=${version}"
+  ];
 
   vendorSha256 = null;
   subPackages = [

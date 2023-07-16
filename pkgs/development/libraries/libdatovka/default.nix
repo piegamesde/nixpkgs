@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
   patches = [ ./libdatovka-deprecated-fn-curl.patch ];
 
   configureFlags = [
-      "--with-docbook-xsl-stylesheets=${docbook_xsl}/xml/xsl/docbook"
-    ];
+    "--with-docbook-xsl-stylesheets=${docbook_xsl}/xml/xsl/docbook"
+  ];
 
   nativeBuildInputs = [
     pkg-config

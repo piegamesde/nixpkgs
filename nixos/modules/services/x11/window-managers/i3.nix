@@ -79,14 +79,14 @@ in
   };
 
   imports = [
-      (mkRemovedOptionModule
-        [
-          "services"
-          "xserver"
-          "windowManager"
-          "i3-gaps"
-          "enable"
-        ]
-        "i3-gaps was merged into i3. Use services.xserver.windowManager.i3.enable instead.")
-    ];
+    (mkRemovedOptionModule
+      [
+        "services"
+        "xserver"
+        "windowManager"
+        "i3-gaps"
+        "enable"
+      ]
+      "i3-gaps was merged into i3. Use services.xserver.windowManager.i3.enable instead.")
+  ];
 }

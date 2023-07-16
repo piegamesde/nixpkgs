@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-      perl # for pod2man
-    ];
+    perl # for pod2man
+  ];
   buildInputs = [
     udev
     sg3_utils

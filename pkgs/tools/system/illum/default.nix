@@ -23,14 +23,14 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (fetchpatch {
-        name =
-          "prevent-unplug-segfault"; # See https://github.com/jmesmon/illum/issues/19
-        url =
-          "https://github.com/jmesmon/illum/commit/47b7cd60ee892379e5d854f79db343a54ae5a3cc.patch";
-        sha256 = "sha256-hIBBCIJXAt8wnZuyKye1RiEfOCelP3+4kcGrM43vFOE=";
-      })
-    ];
+    (fetchpatch {
+      name =
+        "prevent-unplug-segfault"; # See https://github.com/jmesmon/illum/issues/19
+      url =
+        "https://github.com/jmesmon/illum/commit/47b7cd60ee892379e5d854f79db343a54ae5a3cc.patch";
+      sha256 = "sha256-hIBBCIJXAt8wnZuyKye1RiEfOCelP3+4kcGrM43vFOE=";
+    })
+  ];
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [

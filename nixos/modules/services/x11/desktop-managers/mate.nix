@@ -39,13 +39,13 @@ in
   config = mkIf cfg.enable {
 
     services.xserver.displayManager.sessionPackages = [
-        pkgs.mate.mate-session-manager
-      ];
+      pkgs.mate.mate-session-manager
+    ];
 
     # Let caja find extensions
     environment.sessionVariables.CAJA_EXTENSION_DIRS = [
-        "${config.system.path}/lib/caja/extensions-2.0"
-      ];
+      "${config.system.path}/lib/caja/extensions-2.0"
+    ];
 
     # Let mate-panel find applets
     environment.sessionVariables."MATE_PANEL_APPLETS_DIR" =

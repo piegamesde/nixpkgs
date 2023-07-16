@@ -1028,11 +1028,11 @@ in
                 type = types.listOf elixirValue;
                 visible = false;
                 default = with format.lib; [
-                    (mkTuple [
-                      (mkRaw "ExSyslogger")
-                      (mkAtom ":ex_syslogger")
-                    ])
-                  ];
+                  (mkTuple [
+                    (mkRaw "ExSyslogger")
+                    (mkAtom ":ex_syslogger")
+                  ])
+                ];
               };
 
               ":ex_syslogger" = {
@@ -1198,8 +1198,8 @@ in
           BindPaths = [ "${uploadDir}:${uploadDir}:norbind" ];
           BindReadOnlyPaths = mkMerge [
             (mkIf (!isStorePath staticDir) [
-                "${staticDir}:${staticDir}:norbind"
-              ])
+              "${staticDir}:${staticDir}:norbind"
+            ])
             (mkIf isConfined (
               mkMerge [
                 [
@@ -1217,8 +1217,8 @@ in
                   )
                 ))
                 (mkIf (db ? socket_dir) [
-                    "${db.socket_dir}:${db.socket_dir}:norbind"
-                  ])
+                  "${db.socket_dir}:${db.socket_dir}:norbind"
+                ])
                 (mkIf (db ? socket) [ "${db.socket}:${db.socket}:norbind" ])
               ]
             ))

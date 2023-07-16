@@ -30,8 +30,8 @@ stdenv.mkDerivation rec {
       "devdoc"
     ]
     ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [
-        "installedTests"
-      ]
+      "installedTests"
+    ]
     ;
 
   src = fetchFromGitHub {
@@ -71,8 +71,8 @@ stdenv.mkDerivation rec {
       makeWrapper
     ]
     ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-        mesonEmulatorHook
-      ]
+      mesonEmulatorHook
+    ]
     ;
 
   buildInputs = [ glib ];

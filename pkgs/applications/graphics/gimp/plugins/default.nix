@@ -128,8 +128,8 @@ lib.makeScope pkgs.newScope (
       nativeBuildInputs = with pkgs; [ which ];
 
       installFlags = [
-          "SYSTEM_INSTALL_DIR=${placeholder "out"}/${gimp.targetPluginDir}/bimp"
-        ];
+        "SYSTEM_INSTALL_DIR=${placeholder "out"}/${gimp.targetPluginDir}/bimp"
+      ];
 
       installTargets = [ "install-admin" ];
 

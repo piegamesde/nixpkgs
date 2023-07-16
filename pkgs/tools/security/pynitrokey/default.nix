@@ -51,8 +51,8 @@ buildPythonApplication rec {
   # libnitrokey is not propagated to users of pynitrokey
   # It is only usable from the wrapped bin/nitropy
   makeWrapperArgs = [
-      "--set LIBNK_PATH ${lib.makeLibraryPath [ libnitrokey ]}"
-    ];
+    "--set LIBNK_PATH ${lib.makeLibraryPath [ libnitrokey ]}"
+  ];
 
   # no tests
   doCheck = false;

@@ -83,8 +83,8 @@ stdenv.mkDerivation rec {
   ];
 
   qtWrapperArgs = [
-      "--set-default PERFPROFILER_PARSER_FILEPATH ${lib.getBin perf}/bin"
-    ];
+    "--set-default PERFPROFILER_PARSER_FILEPATH ${lib.getBin perf}/bin"
+  ];
 
   postInstall = ''
     substituteInPlace $out/share/applications/org.qt-project.qtcreator.desktop \

@@ -12,19 +12,19 @@ with lib;
 
   # Added 2019-08-09
   imports = [
-      (mkRenamedOptionModule
-        [
-          "services"
-          "gnome3"
-          "gpaste"
-          "enable"
-        ]
-        [
-          "programs"
-          "gpaste"
-          "enable"
-        ])
-    ];
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gnome3"
+        "gpaste"
+        "enable"
+      ]
+      [
+        "programs"
+        "gpaste"
+        "enable"
+      ])
+  ];
 
   ###### interface
   options = {

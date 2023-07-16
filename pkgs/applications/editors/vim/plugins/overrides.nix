@@ -589,11 +589,11 @@ self: super:
       old: {
         buildInputs = [ nim ];
         patches = [
-            (substituteAll {
-              src = ./patches/fruzzy/get_version.patch;
-              inherit (old) version;
-            })
-          ];
+          (substituteAll {
+            src = ./patches/fruzzy/get_version.patch;
+            inherit (old) version;
+          })
+        ];
         configurePhase = ''
           substituteInPlace Makefile \
             --replace \
@@ -761,11 +761,11 @@ self: super:
       # https://github.com/NixOS/nixpkgs/pull/105810#issuecomment-740007985
       # https://github.com/camspiers/lens.vim/pull/40/files
       patches = [
-          (substituteAll {
-            src = ./patches/lens-vim/remove_duplicate_g_lens_animate.patch;
-            inherit languagetool;
-          })
-        ];
+        (substituteAll {
+          src = ./patches/lens-vim/remove_duplicate_g_lens_animate.patch;
+          inherit languagetool;
+        })
+      ];
     }
   );
 
@@ -813,11 +813,11 @@ self: super:
     in
     {
       patches = [
-          (substituteAll {
-            src = ./markdown-preview-nvim/fix-node-paths.patch;
-            node = "${nodejs}/bin/node";
-          })
-        ];
+        (substituteAll {
+          src = ./markdown-preview-nvim/fix-node-paths.patch;
+          node = "${nodejs}/bin/node";
+        })
+      ];
       postInstall = ''
         ln -s ${nodeDep}/lib/node_modules/markdown-preview/node_modules $out/app
       '';
@@ -1064,8 +1064,8 @@ self: super:
         buildInputs =
           [ openssl ]
           ++ lib.optionals stdenv.isDarwin [
-              darwin.apple_sdk.frameworks.Security
-            ]
+            darwin.apple_sdk.frameworks.Security
+          ]
           ;
 
         cargoBuildFlags = [ "--workspace" ];
@@ -1532,13 +1532,13 @@ self: super:
     old: {
       dependencies = with self; [ vim-misc ];
       patches = [
-          (fetchpatch {
-            # https://github.com/xolox/vim-easytags/pull/170 fix version detection for universal-ctags
-            url =
-              "https://github.com/xolox/vim-easytags/commit/46e4709500ba3b8e6cf3e90aeb95736b19e49be9.patch";
-            sha256 = "0x0xabb56xkgdqrg1mpvhbi3yw4d829n73lsnnyj5yrxjffy4ax4";
-          })
-        ];
+        (fetchpatch {
+          # https://github.com/xolox/vim-easytags/pull/170 fix version detection for universal-ctags
+          url =
+            "https://github.com/xolox/vim-easytags/commit/46e4709500ba3b8e6cf3e90aeb95736b19e49be9.patch";
+          sha256 = "0x0xabb56xkgdqrg1mpvhbi3yw4d829n73lsnnyj5yrxjffy4ax4";
+        })
+      ];
     }
   );
 
@@ -1596,11 +1596,11 @@ self: super:
       #   let g:grammarous#show_first_error = 1
       # see https://github.com/rhysd/vim-grammarous/issues/39
       patches = [
-          (substituteAll {
-            src = ./patches/vim-grammarous/set_default_languagetool.patch;
-            inherit languagetool;
-          })
-        ];
+        (substituteAll {
+          src = ./patches/vim-grammarous/set_default_languagetool.patch;
+          inherit languagetool;
+        })
+      ];
     }
   );
 

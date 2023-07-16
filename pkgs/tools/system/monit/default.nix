@@ -28,8 +28,8 @@ stdenv.mkDerivation rec {
       flex
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
-        darwin.apple_sdk.frameworks.DiskArbitration
-      ]
+      darwin.apple_sdk.frameworks.DiskArbitration
+    ]
     ;
 
   buildInputs =

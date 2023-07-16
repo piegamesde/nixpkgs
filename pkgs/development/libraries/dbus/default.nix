@@ -104,8 +104,8 @@ stdenv.mkDerivation rec {
       "--enable-libaudit"
     ]
     ++ lib.optionals enableSystemd [
-        "SYSTEMCTL=${systemdMinimal}/bin/systemctl"
-      ]
+      "SYSTEMCTL=${systemdMinimal}/bin/systemctl"
+    ]
     ;
 
   NIX_CFLAGS_LINK = lib.optionalString (!stdenv.isDarwin) "-Wl,--as-needed";

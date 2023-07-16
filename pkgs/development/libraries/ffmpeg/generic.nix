@@ -691,16 +691,16 @@ stdenv.mkDerivation (
     buildInputs =
       optionals withFullDeps [ libdc1394 ]
       ++ optionals (withFullDeps && !stdenv.isDarwin) [
-          libraw1394
-        ] # TODO where does this belong to
+        libraw1394
+      ] # TODO where does this belong to
       ++ optionals (withNvdec || withNvenc) [
-          (
-            if (lib.versionAtLeast version "6") then
-              nv-codec-headers-11
-            else
-              nv-codec-headers
-          )
-        ]
+        (
+          if (lib.versionAtLeast version "6") then
+            nv-codec-headers-11
+          else
+            nv-codec-headers
+        )
+      ]
       ++ optionals withAlsa [ alsa-lib ]
       ++ optionals withAom [ libaom ]
       ++ optionals withAss [ libass ]
@@ -722,8 +722,8 @@ stdenv.mkDerivation (
       ++ optionals withGnutls [ gnutls ]
       ++ optionals withGsm [ gsm ]
       ++ optionals withIconv [
-          libiconv
-        ] # On Linux this should be in libc, do we really need it?
+        libiconv
+      ] # On Linux this should be in libc, do we really need it?
       ++ optionals withJack [ libjack2 ]
       ++ optionals withLadspa [ ladspaH ]
       ++ optionals withLibplacebo [
@@ -763,13 +763,13 @@ stdenv.mkDerivation (
       ++ optionals withSvtav1 [ svt-av1 ]
       ++ optionals withTheora [ libtheora ]
       ++ optionals withVaapi [
-          (
-            if withSmallDeps then
-              libva
-            else
-              libva-minimal
-          )
-        ]
+        (
+          if withSmallDeps then
+            libva
+          else
+            libva-minimal
+        )
+      ]
       ++ optionals withVdpau [ libvdpau ]
       ++ optionals withVidStab [ vid-stab ]
       ++ optionals withVmaf [ libvmaf ]

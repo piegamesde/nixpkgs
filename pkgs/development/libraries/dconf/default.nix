@@ -75,8 +75,8 @@ stdenv.mkDerivation rec {
     ;
 
   nativeCheckInputs = [
-      dbus # for dbus-daemon
-    ];
+    dbus # for dbus-daemon
+  ];
 
   doCheck = !stdenv.isAarch32 && !stdenv.isAarch64 && !stdenv.isDarwin;
 

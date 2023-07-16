@@ -33,11 +33,11 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ numpy ];
 
   patches = [
-      (substituteAll {
-        src = ./gnuplot-subprocess.patch;
-        gnuplot = "${gnuplot.out}/bin/gnuplot";
-      })
-    ];
+    (substituteAll {
+      src = ./gnuplot-subprocess.patch;
+      gnuplot = "${gnuplot.out}/bin/gnuplot";
+    })
+  ];
 
   # The current gnuplot version renders slightly different test
   # graphs, with emphasis on slightly. The plots are still correct.

@@ -37,15 +37,15 @@ stdenv.mkDerivation rec {
     copyDesktopItems
   ];
   desktopItems = [
-      (makeDesktopItem {
-        name = "stm32CubeMX";
-        exec = "stm32cubemx";
-        desktopName = "STM32CubeMX";
-        categories = [ "Development" ];
-        comment = "STM32Cube initialization code generator";
-        icon = "stm32cubemx";
-      })
-    ];
+    (makeDesktopItem {
+      name = "stm32CubeMX";
+      exec = "stm32cubemx";
+      desktopName = "STM32CubeMX";
+      categories = [ "Development" ];
+      comment = "STM32Cube initialization code generator";
+      icon = "stm32cubemx";
+    })
+  ];
 
   buildCommand = ''
     mkdir -p $out/{bin,opt/STM32CubeMX}

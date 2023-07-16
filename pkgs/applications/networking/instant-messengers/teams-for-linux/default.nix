@@ -124,19 +124,19 @@ stdenv.mkDerivation rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        name = pname;
-        exec = pname;
-        icon = pname;
-        desktopName = "Microsoft Teams for Linux";
-        comment = meta.description;
-        categories = [
-          "Network"
-          "InstantMessaging"
-          "Chat"
-        ];
-      })
-    ];
+    (makeDesktopItem {
+      name = pname;
+      exec = pname;
+      icon = pname;
+      desktopName = "Microsoft Teams for Linux";
+      comment = meta.description;
+      categories = [
+        "Network"
+        "InstantMessaging"
+        "Chat"
+      ];
+    })
+  ];
 
   passthru.updateScript = ./update.sh;
 

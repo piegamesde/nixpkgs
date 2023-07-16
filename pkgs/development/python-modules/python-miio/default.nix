@@ -40,13 +40,13 @@ buildPythonPackage rec {
   nativeBuildInputs = [ poetry-core ];
 
   patches = [
-      (fetchpatch {
-        # Fix pytest 7.2 compat
-        url =
-          "https://github.com/rytilahti/python-miio/commit/67d9d771d04d51f5bd97f361ca1c15ae4a18c274.patch";
-        hash = "sha256-Os9vCSKyieCqHs63oX6gcLrtv1N7hbX5WvEurelEp8w=";
-      })
-    ];
+    (fetchpatch {
+      # Fix pytest 7.2 compat
+      url =
+        "https://github.com/rytilahti/python-miio/commit/67d9d771d04d51f5bd97f361ca1c15ae4a18c274.patch";
+      hash = "sha256-Os9vCSKyieCqHs63oX6gcLrtv1N7hbX5WvEurelEp8w=";
+    })
+  ];
 
   propagatedBuildInputs =
     [

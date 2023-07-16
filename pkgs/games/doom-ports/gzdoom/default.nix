@@ -79,13 +79,13 @@ stdenv.mkDerivation rec {
   ];
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "gzdoom";
-        exec = "gzdoom";
-        desktopName = "GZDoom";
-        categories = [ "Game" ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "gzdoom";
+      exec = "gzdoom";
+      desktopName = "GZDoom";
+      categories = [ "Game" ];
+    })
+  ];
 
   postInstall = ''
     mv $out/bin/gzdoom $out/share/games/doom/gzdoom

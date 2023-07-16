@@ -4061,8 +4061,8 @@ let
       (
         sources."@babel/highlight-7.16.10" // {
           dependencies = [
-              sources."@babel/helper-validator-identifier-7.16.7"
-            ];
+            sources."@babel/helper-validator-identifier-7.16.7"
+          ];
         }
       )
       sources."@babel/parser-7.17.8"

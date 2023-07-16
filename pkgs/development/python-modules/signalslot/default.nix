@@ -36,8 +36,8 @@ buildPythonPackage rec {
   ];
 
   pythonRemoveDeps = [
-      "weakrefmethod" # needed until https://github.com/Numergy/signalslot/pull/17
-    ];
+    "weakrefmethod" # needed until https://github.com/Numergy/signalslot/pull/17
+  ];
 
   nativeCheckInputs = [
     eventlet

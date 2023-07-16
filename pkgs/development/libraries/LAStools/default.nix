@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      ./drop-64-suffix.patch # necessary to prevent '64' from being appended to the names of the executables
-    ];
+    ./drop-64-suffix.patch # necessary to prevent '64' from being appended to the names of the executables
+  ];
 
   hardeningDisable = [ "format" ];
 

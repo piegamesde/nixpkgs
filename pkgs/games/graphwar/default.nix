@@ -52,13 +52,13 @@ stdenv.mkDerivation rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "graphwar";
-        exec = "graphwar";
-        desktopName = "Graphwar";
-        categories = [ "Game" ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "graphwar";
+      exec = "graphwar";
+      desktopName = "Graphwar";
+      categories = [ "Game" ];
+    })
+  ];
 
   meta = with lib; {
     homepage = "http://www.graphwar.com/";

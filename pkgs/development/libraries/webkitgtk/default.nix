@@ -145,8 +145,8 @@ stdenv.mkDerivation (
         unifdef
       ]
       ++ lib.optionals stdenv.isLinux [
-          wayland # for wayland-scanner
-        ]
+        wayland # for wayland-scanner
+      ]
       ;
 
     buildInputs =
@@ -253,8 +253,8 @@ stdenv.mkDerivation (
         "-DUSE_OPENGL_OR_ES=OFF"
       ]
       ++ lib.optionals (lib.versionAtLeast gtk3.version "4.0") [
-          "-DUSE_GTK4=ON"
-        ]
+        "-DUSE_GTK4=ON"
+      ]
       ++ lib.optionals (!systemdSupport) [ "-DENABLE_JOURNALD_LOG=OFF" ]
       ++ lib.optionals (stdenv.isLinux && enableGLES) [ "-DENABLE_GLES2=ON" ]
       ;

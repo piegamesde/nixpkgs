@@ -42,8 +42,8 @@ buildPythonPackage rec {
   # As we disable configure via cmake, pass explicit global options to enable
   # spdlog and fmt packages
   setupPyGlobalFlags = [
-      ''--cmake-options="-DSPDLOG_SYS_DEP=ON;-DFMT_SYS_DEP=ON"''
-    ];
+    ''--cmake-options="-DSPDLOG_SYS_DEP=ON;-DFMT_SYS_DEP=ON"''
+  ];
 
   propagatedBuildInputs = [
     numpy

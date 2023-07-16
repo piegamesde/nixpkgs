@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
     "libs"
   ];
   installFlags = [
-      "libdir=/lib/"
-    ]; # Specify libdir so Makefile will also install library.
+    "libdir=/lib/"
+  ]; # Specify libdir so Makefile will also install library.
 
   preInstall = "mkdir -p $out/lib";
 

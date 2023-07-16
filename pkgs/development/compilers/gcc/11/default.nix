@@ -102,14 +102,14 @@ let
       ../ppc-musl.patch
 
     ++ optionals stdenv.isDarwin [
-        (fetchpatch {
-          # There are no upstream release tags in https://github.com/iains/gcc-11-branch.
-          # 2d280e7 is the commit from https://github.com/gcc-mirror/gcc/releases/tag/releases%2Fgcc-11.3.0
-          url =
-            "https://github.com/iains/gcc-11-branch/compare/2d280e7eafc086e9df85f50ed1a6526d6a3a204d..gcc-11.3-darwin-r2.diff";
-          sha256 = "sha256-LFAXUEoYD7YeCG8V9mWanygyQOI7U5OhCRIKOVCCDAg=";
-        })
-      ]
+      (fetchpatch {
+        # There are no upstream release tags in https://github.com/iains/gcc-11-branch.
+        # 2d280e7 is the commit from https://github.com/gcc-mirror/gcc/releases/tag/releases%2Fgcc-11.3.0
+        url =
+          "https://github.com/iains/gcc-11-branch/compare/2d280e7eafc086e9df85f50ed1a6526d6a3a204d..gcc-11.3-darwin-r2.diff";
+        sha256 = "sha256-LFAXUEoYD7YeCG8V9mWanygyQOI7U5OhCRIKOVCCDAg=";
+      })
+    ]
     # https://github.com/osx-cross/homebrew-avr/issues/280#issuecomment-1272381808
     ++ optional
       (stdenv.isDarwin && targetPlatform.isAvr)

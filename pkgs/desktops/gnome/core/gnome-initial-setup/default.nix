@@ -50,11 +50,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./0001-fix-paths.patch;
-        inherit tzdata libgnomekbd;
-      })
-    ];
+    (substituteAll {
+      src = ./0001-fix-paths.patch;
+      inherit tzdata libgnomekbd;
+    })
+  ];
 
   nativeBuildInputs = [
     gettext

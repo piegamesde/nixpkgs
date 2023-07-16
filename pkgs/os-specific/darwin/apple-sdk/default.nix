@@ -332,8 +332,8 @@ rec {
       Carbon = lib.overrideDerivation super.Carbon (
         drv: {
           extraTBDFiles = [
-              "Versions/A/Frameworks/HTMLRendering.framework/Versions/A/HTMLRendering.tbd"
-            ];
+            "Versions/A/Frameworks/HTMLRendering.framework/Versions/A/HTMLRendering.tbd"
+          ];
         }
       );
 
@@ -363,8 +363,8 @@ rec {
       IMServicePlugIn = lib.overrideDerivation super.IMServicePlugIn (
         drv: {
           extraTBDFiles = [
-              "Versions/A/Frameworks/IMServicePlugInSupport.framework/Versions/A/IMServicePlugInSupport.tbd"
-            ];
+            "Versions/A/Frameworks/IMServicePlugInSupport.framework/Versions/A/IMServicePlugInSupport.tbd"
+          ];
         }
       );
 

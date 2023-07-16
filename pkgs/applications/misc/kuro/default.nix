@@ -64,17 +64,17 @@ mkYarnPackage rec {
   distPhase = "true";
 
   desktopItems = [
-      (makeDesktopItem {
-        name = pname;
-        exec = pname;
-        icon = pname;
-        desktopName = "Kuro";
-        genericName = "Microsoft To-Do Client";
-        comment = meta.description;
-        categories = [ "Office" ];
-        startupWMClass = pname;
-      })
-    ];
+    (makeDesktopItem {
+      name = pname;
+      exec = pname;
+      icon = pname;
+      desktopName = "Kuro";
+      genericName = "Microsoft To-Do Client";
+      comment = meta.description;
+      categories = [ "Office" ];
+      startupWMClass = pname;
+    })
+  ];
 
   meta = with lib; {
     description =

@@ -30,12 +30,12 @@ buildPythonPackage rec {
 
   # force pyproj to use ${proj}
   patches = [
-      (substituteAll {
-        src = ./001.proj.patch;
-        proj = proj;
-        projdev = proj.dev;
-      })
-    ];
+    (substituteAll {
+      src = ./001.proj.patch;
+      proj = proj;
+      projdev = proj.dev;
+    })
+  ];
 
   nativeBuildInputs = [ cython ];
   buildInputs = [ proj ];

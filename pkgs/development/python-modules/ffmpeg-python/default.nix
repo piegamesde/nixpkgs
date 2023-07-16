@@ -33,11 +33,11 @@ buildPythonPackage rec {
   ];
 
   patches = [
-      (substituteAll {
-        src = ./ffmpeg-location.patch;
-        ffmpeg = ffmpeg_4;
-      })
-    ];
+    (substituteAll {
+      src = ./ffmpeg-location.patch;
+      ffmpeg = ffmpeg_4;
+    })
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

@@ -412,8 +412,8 @@ let
               optional (serverCfg.useACMEHost != null) certConfig.group;
             PrivateTmp = true;
             AmbientCapabilities = optionals (serverCfg.listen.port < 1024) [
-                "CAP_NET_BIND_SERVICE"
-              ];
+              "CAP_NET_BIND_SERVICE"
+            ];
             NoNewPrivileges = true;
             RestrictNamespaces = "uts ipc pid user cgroup";
             ProtectSystem = "strict";

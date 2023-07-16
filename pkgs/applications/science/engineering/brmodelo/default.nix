@@ -72,25 +72,25 @@ stdenv.mkDerivation rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "brmodelo";
-        desktopName = "brModelo";
-        genericName = "Entity-relationship diagramming tool";
-        exec = "brmodelo";
-        icon = "brmodelo";
-        comment = meta.description;
-        categories = [
-          "Development"
-          "Education"
-          "Database"
-          "2DGraphics"
-          "ComputerScience"
-          "DataVisualization"
-          "Engineering"
-          "Java"
-        ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "brmodelo";
+      desktopName = "brModelo";
+      genericName = "Entity-relationship diagramming tool";
+      exec = "brmodelo";
+      icon = "brmodelo";
+      comment = meta.description;
+      categories = [
+        "Development"
+        "Education"
+        "Database"
+        "2DGraphics"
+        "ComputerScience"
+        "DataVisualization"
+        "Engineering"
+        "Java"
+      ];
+    })
+  ];
 
   installPhase = ''
     install -d $out/bin $out/share/doc/${pname} $out/share/java

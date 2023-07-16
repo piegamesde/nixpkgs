@@ -26,13 +26,13 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (fetchpatch {
-        # python3.10 compat: Drop loop kwarg in asyncio.sleep call
-        url =
-          "https://github.com/dermotduffy/hyperion-py/commit/f02af52fcce17888984c99bfc03935e372011394.patch";
-        hash = "sha256-4nfsQVxd77VV9INwNxTyFRDlAjwdTYqfSGuF487hFCs=";
-      })
-    ];
+    (fetchpatch {
+      # python3.10 compat: Drop loop kwarg in asyncio.sleep call
+      url =
+        "https://github.com/dermotduffy/hyperion-py/commit/f02af52fcce17888984c99bfc03935e372011394.patch";
+      hash = "sha256-4nfsQVxd77VV9INwNxTyFRDlAjwdTYqfSGuF487hFCs=";
+    })
+  ];
 
   nativeBuildInputs = [ poetry-core ];
 
