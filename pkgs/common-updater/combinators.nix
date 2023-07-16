@@ -220,8 +220,7 @@ rec {
   /* copyAttrOutputToFile : String → FilePath → UpdateScript
      EXPERIMENTAL! Simple update script that copies the output of Nix derivation built by `attr` to `path`.
   */
-  copyAttrOutputToFile =
-    attr: path:
+  copyAttrOutputToFile = attr: path:
 
     {
       command = [
@@ -231,6 +230,5 @@ rec {
         path
       ];
       supportedFeatures = [ "silent" ];
-    }
-  ;
+    };
 }

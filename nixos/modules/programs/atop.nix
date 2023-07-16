@@ -135,23 +135,21 @@ in
       ];
       systemd =
         let
-          mkSystemd =
-            type: cond: name: restartTriggers: {
-              ${name} = lib.mkIf cond {
-                inherit restartTriggers;
-                wantedBy = [
-                  (
-                    if type == "services" then
-                      "multi-user.target"
-                    else if type == "timers" then
-                      "timers.target"
-                    else
-                      null
-                  )
-                ];
-              };
-            }
-          ;
+          mkSystemd = type: cond: name: restartTriggers: {
+            ${name} = lib.mkIf cond {
+              inherit restartTriggers;
+              wantedBy = [
+                (
+                  if type == "services" then
+                    "multi-user.target"
+                  else if type == "timers" then
+                    "timers.target"
+                  else
+                    null
+                )
+              ];
+            };
+          };
           mkService = mkSystemd "services";
           mkTimer = mkSystemd "timers";
         in

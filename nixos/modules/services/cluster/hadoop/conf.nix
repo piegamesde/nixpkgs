@@ -25,11 +25,9 @@ let
       </configuration>
     ''
   ;
-  cfgLine =
-    name: value: ''
-      ${name}=${builtins.toString value}
-    ''
-  ;
+  cfgLine = name: value: ''
+    ${name}=${builtins.toString value}
+  '';
   cfgFile =
     fileName: properties:
     pkgs.writeTextDir fileName ''

@@ -274,12 +274,10 @@ let
     ]
   ;
 
-  mkPaths =
-    paths: {
-      C_INCLUDE_PATH = lib.makeSearchPathOutput "dev" "include" paths;
-      LIBRARY_PATH = lib.makeLibraryPath paths;
-    }
-  ;
+  mkPaths = paths: {
+    C_INCLUDE_PATH = lib.makeSearchPathOutput "dev" "include" paths;
+    LIBRARY_PATH = lib.makeLibraryPath paths;
+  };
 
   # Python 2.7 needs this
   crossCompileEnv =

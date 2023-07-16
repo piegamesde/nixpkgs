@@ -666,34 +666,32 @@ lib.makeScope pkgs.newScope (
     inherit (poetryLib) cleanPythonSources;
 
     # Create a new default set of overrides with the same structure as the built-in ones
-    mkDefaultPoetryOverrides =
-      defaults: {
-        __functor = defaults;
+    mkDefaultPoetryOverrides = defaults: {
+      __functor = defaults;
 
-        extend =
-          overlay:
-          let
-            composed = lib.foldr lib.composeExtensions overlay [ defaults ];
-          in
-          self.mkDefaultPoetryOverrides composed
-        ;
+      extend =
+        overlay:
+        let
+          composed = lib.foldr lib.composeExtensions overlay [ defaults ];
+        in
+        self.mkDefaultPoetryOverrides composed
+      ;
 
-        overrideOverlay =
-          fn:
-          let
-            overlay =
-              self: super:
-              let
-                defaultSet = defaults self super;
-                customSet = fn self super;
-              in
-              defaultSet // customSet
-            ;
-          in
-          self.mkDefaultPoetryOverrides overlay
-        ;
-      }
-    ;
+      overrideOverlay =
+        fn:
+        let
+          overlay =
+            self: super:
+            let
+              defaultSet = defaults self super;
+              customSet = fn self super;
+            in
+            defaultSet // customSet
+          ;
+        in
+        self.mkDefaultPoetryOverrides overlay
+      ;
+    };
 
     /* The default list of poetry2nix override overlays
 
@@ -711,12 +709,10 @@ lib.makeScope pkgs.newScope (
       /* Returns the specified overlay and returns a list
          combining it with poetry2nix default overrides
       */
-      withDefaults =
-        overlay: [
-          overlay
-          self.defaultPoetryOverrides
-        ]
-      ;
+      withDefaults = overlay: [
+        overlay
+        self.defaultPoetryOverrides
+      ];
     };
   }
 )

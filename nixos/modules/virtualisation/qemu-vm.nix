@@ -1151,27 +1151,25 @@ in
     # test image (since those filesystems don't exist in the VM).
     virtualisation.fileSystems =
       let
-        mkSharedDir =
-          tag: share: {
-            name =
-              if tag == "nix-store" && cfg.writableStore then
-                "/nix/.ro-store"
-              else
-                share.target
-            ;
-            value.device = tag;
-            value.fsType = "9p";
-            value.neededForBoot = true;
-            value.options =
-              [
-                "trans=virtio"
-                "version=9p2000.L"
-                "msize=${toString cfg.msize}"
-              ]
-              ++ lib.optional (tag == "nix-store") "cache=loose"
-            ;
-          }
-        ;
+        mkSharedDir = tag: share: {
+          name =
+            if tag == "nix-store" && cfg.writableStore then
+              "/nix/.ro-store"
+            else
+              share.target
+          ;
+          value.device = tag;
+          value.fsType = "9p";
+          value.neededForBoot = true;
+          value.options =
+            [
+              "trans=virtio"
+              "version=9p2000.L"
+              "msize=${toString cfg.msize}"
+            ]
+            ++ lib.optional (tag == "nix-store") "cache=loose"
+          ;
+        };
       in
       lib.mkMerge [
         (lib.mapAttrs' mkSharedDir cfg.sharedDirectories)

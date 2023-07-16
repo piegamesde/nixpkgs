@@ -23,26 +23,20 @@ let
      results = run "Examples" underTest tests;
   */
 
-  passed =
-    desc: {
-      result = "pass";
-      description = desc;
-    }
-  ;
+  passed = desc: {
+    result = "pass";
+    description = desc;
+  };
 
-  failed =
-    desc: {
-      result = "failed";
-      description = desc;
-    }
-  ;
+  failed = desc: {
+    result = "failed";
+    description = desc;
+  };
 
-  prefixName =
-    name: res: {
-      inherit (res) result;
-      description = "${name}: ${res.description}";
-    }
-  ;
+  prefixName = name: res: {
+    inherit (res) result;
+    description = "${name}: ${res.description}";
+  };
 
   run =
     name: under: tests:

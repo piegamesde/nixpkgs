@@ -11,11 +11,9 @@ let
   parentWrapperDir = dirOf wrapperDir;
   vmwareWrappers = # Needed as hardcoded paths workaround
     let
-      mkVmwareSymlink =
-        program: ''
-          ln -s "${config.security.wrapperDir}/${program}" $wrapperDir/${program}
-        ''
-      ;
+      mkVmwareSymlink = program: ''
+        ln -s "${config.security.wrapperDir}/${program}" $wrapperDir/${program}
+      '';
     in
     [
       (mkVmwareSymlink "pkexec")

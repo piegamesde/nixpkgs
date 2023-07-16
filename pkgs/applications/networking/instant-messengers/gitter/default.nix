@@ -80,13 +80,11 @@ let
     stdenv.cc.cc
     systemd
   ];
-  doELFPatch =
-    target: ''
-      patchelf --set-interpreter ${stdenv.cc.bintools.dynamicLinker} \
-         --set-rpath "$out/${gitterDirectorySuffix}/lib:${libPath}" \
-         $out/${gitterDirectorySuffix}/${target}
-    ''
-  ;
+  doELFPatch = target: ''
+    patchelf --set-interpreter ${stdenv.cc.bintools.dynamicLinker} \
+       --set-rpath "$out/${gitterDirectorySuffix}/lib:${libPath}" \
+       $out/${gitterDirectorySuffix}/${target}
+  '';
 in
 stdenv.mkDerivation rec {
   pname = "gitter";

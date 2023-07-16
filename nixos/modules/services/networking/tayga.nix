@@ -45,35 +45,33 @@ let
     }
   ;
 
-  versionOpts =
-    v: {
-      options = {
-        router = {
-          address = mkOption {
-            type = types.str;
-            description = lib.mdDoc "The IPv${toString v} address of the router.";
-          };
-        };
-
+  versionOpts = v: {
+    options = {
+      router = {
         address = mkOption {
-          type = types.nullOr types.str;
-          default = null;
-          description =
-            lib.mdDoc
-              "The source IPv${toString v} address of the TAYGA server."
-          ;
-        };
-
-        pool = mkOption {
-          type = with types; nullOr (submodule (addrOpts v));
-          description =
-            lib.mdDoc
-              "The pool of IPv${toString v} addresses which are used for translation."
-          ;
+          type = types.str;
+          description = lib.mdDoc "The IPv${toString v} address of the router.";
         };
       };
-    }
-  ;
+
+      address = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description =
+          lib.mdDoc
+            "The source IPv${toString v} address of the TAYGA server."
+        ;
+      };
+
+      pool = mkOption {
+        type = with types; nullOr (submodule (addrOpts v));
+        description =
+          lib.mdDoc
+            "The pool of IPv${toString v} addresses which are used for translation."
+        ;
+      };
+    };
+  };
 in
 {
   options = {

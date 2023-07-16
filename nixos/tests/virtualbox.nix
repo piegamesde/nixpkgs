@@ -355,21 +355,17 @@ let
   # The VirtualBox Oracle Extension Pack lets you use USB 3.0 (xHCI).
   enableExtensionPackVMFlags = [ "--usbxhci on" ];
 
-  dhcpScript =
-    pkgs: ''
-      ${pkgs.dhcpcd}/bin/dhcpcd eth0 eth1
+  dhcpScript = pkgs: ''
+    ${pkgs.dhcpcd}/bin/dhcpcd eth0 eth1
 
-      otherIP="$(${pkgs.netcat}/bin/nc -l 1234 || :)"
-      ${pkgs.iputils}/bin/ping -I eth1 -c1 "$otherIP"
-      echo "$otherIP reachable" | ${pkgs.netcat}/bin/nc -l 5678 || :
-    ''
-  ;
+    otherIP="$(${pkgs.netcat}/bin/nc -l 1234 || :)"
+    ${pkgs.iputils}/bin/ping -I eth1 -c1 "$otherIP"
+    echo "$otherIP reachable" | ${pkgs.netcat}/bin/nc -l 5678 || :
+  '';
 
-  sysdDetectVirt =
-    pkgs: ''
-      ${pkgs.systemd}/bin/systemd-detect-virt > /mnt-root/result
-    ''
-  ;
+  sysdDetectVirt = pkgs: ''
+    ${pkgs.systemd}/bin/systemd-detect-virt > /mnt-root/result
+  '';
 
   vboxVMs = mapAttrs createVM {
     simple = { };

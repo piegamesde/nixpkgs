@@ -210,78 +210,66 @@ import ./make-test-python.nix (
     testScript =
       let
 
-        setUpPrivateKey =
-          name: ''
-            ${name}.start()
-            ${name}.succeed(
-                "mkdir -p /root/.ssh",
-                "chown 700 /root/.ssh",
-                "cat '${snakeOilPrivateKey}' > /root/.ssh/id_snakeoil",
-                "chown 600 /root/.ssh/id_snakeoil",
-                "mkdir -p /root"
-            )
-          ''
-        ;
+        setUpPrivateKey = name: ''
+          ${name}.start()
+          ${name}.succeed(
+              "mkdir -p /root/.ssh",
+              "chown 700 /root/.ssh",
+              "cat '${snakeOilPrivateKey}' > /root/.ssh/id_snakeoil",
+              "chown 600 /root/.ssh/id_snakeoil",
+              "mkdir -p /root"
+          )
+        '';
 
         # From what I can tell, StrictHostKeyChecking=no is necessary for ssh to work between machines.
         sshOpts = "-oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -oIdentityFile=/root/.ssh/id_snakeoil";
 
-        restartAndCheckNebula =
-          name: ip: ''
-            ${name}.systemctl("restart nebula@smoke.service")
-            ${name}.succeed("ping -c5 ${ip}")
-          ''
-        ;
+        restartAndCheckNebula = name: ip: ''
+          ${name}.systemctl("restart nebula@smoke.service")
+          ${name}.succeed("ping -c5 ${ip}")
+        '';
 
         # Create a keypair on the client node, then use the public key to sign a cert on the lighthouse.
-        signKeysFor =
-          name: ip: ''
-            lighthouse.wait_for_unit("sshd.service")
-            ${name}.wait_for_unit("sshd.service")
-            ${name}.succeed(
-                "mkdir -p /etc/nebula",
-                "nebula-cert keygen -out-key /etc/nebula/${name}.key -out-pub /etc/nebula/${name}.pub",
-                "scp ${sshOpts} /etc/nebula/${name}.pub root@192.168.1.1:/root/${name}.pub",
-            )
-            lighthouse.succeed(
-                'nebula-cert sign -ca-crt /etc/nebula/ca.crt -ca-key /etc/nebula/ca.key -name "${name}" -groups "${name}" -ip "${ip}" -in-pub /root/${name}.pub -out-crt /root/${name}.crt'
-            )
-            ${name}.succeed(
-                "scp ${sshOpts} root@192.168.1.1:/root/${name}.crt /etc/nebula/${name}.crt",
-                "scp ${sshOpts} root@192.168.1.1:/etc/nebula/ca.crt /etc/nebula/ca.crt",
-                '(id nebula-smoke >/dev/null && chown -R nebula-smoke:nebula-smoke /etc/nebula) || true'
-            )
-          ''
-        ;
+        signKeysFor = name: ip: ''
+          lighthouse.wait_for_unit("sshd.service")
+          ${name}.wait_for_unit("sshd.service")
+          ${name}.succeed(
+              "mkdir -p /etc/nebula",
+              "nebula-cert keygen -out-key /etc/nebula/${name}.key -out-pub /etc/nebula/${name}.pub",
+              "scp ${sshOpts} /etc/nebula/${name}.pub root@192.168.1.1:/root/${name}.pub",
+          )
+          lighthouse.succeed(
+              'nebula-cert sign -ca-crt /etc/nebula/ca.crt -ca-key /etc/nebula/ca.key -name "${name}" -groups "${name}" -ip "${ip}" -in-pub /root/${name}.pub -out-crt /root/${name}.crt'
+          )
+          ${name}.succeed(
+              "scp ${sshOpts} root@192.168.1.1:/root/${name}.crt /etc/nebula/${name}.crt",
+              "scp ${sshOpts} root@192.168.1.1:/etc/nebula/ca.crt /etc/nebula/ca.crt",
+              '(id nebula-smoke >/dev/null && chown -R nebula-smoke:nebula-smoke /etc/nebula) || true'
+          )
+        '';
 
-        getPublicIp =
-          node: ''
-            ${node}.succeed("ip --brief addr show eth1 | awk '{print $3}' | tail -n1 | cut -d/ -f1").strip()
-          ''
-        ;
+        getPublicIp = node: ''
+          ${node}.succeed("ip --brief addr show eth1 | awk '{print $3}' | tail -n1 | cut -d/ -f1").strip()
+        '';
 
         # Never do this for anything security critical! (Thankfully it's just a test.)
         # Restart Nebula right after the mutual block and/or restore so the state is fresh.
-        blockTrafficBetween =
-          nodeA: nodeB: ''
-            node_a = ${getPublicIp nodeA}
-            node_b = ${getPublicIp nodeB}
-            ${nodeA}.succeed("iptables -I INPUT -s " + node_b + " -j DROP")
-            ${nodeB}.succeed("iptables -I INPUT -s " + node_a + " -j DROP")
-            ${nodeA}.systemctl("restart nebula@smoke.service")
-            ${nodeB}.systemctl("restart nebula@smoke.service")
-          ''
-        ;
-        allowTrafficBetween =
-          nodeA: nodeB: ''
-            node_a = ${getPublicIp nodeA}
-            node_b = ${getPublicIp nodeB}
-            ${nodeA}.succeed("iptables -D INPUT -s " + node_b + " -j DROP")
-            ${nodeB}.succeed("iptables -D INPUT -s " + node_a + " -j DROP")
-            ${nodeA}.systemctl("restart nebula@smoke.service")
-            ${nodeB}.systemctl("restart nebula@smoke.service")
-          ''
-        ;
+        blockTrafficBetween = nodeA: nodeB: ''
+          node_a = ${getPublicIp nodeA}
+          node_b = ${getPublicIp nodeB}
+          ${nodeA}.succeed("iptables -I INPUT -s " + node_b + " -j DROP")
+          ${nodeB}.succeed("iptables -I INPUT -s " + node_a + " -j DROP")
+          ${nodeA}.systemctl("restart nebula@smoke.service")
+          ${nodeB}.systemctl("restart nebula@smoke.service")
+        '';
+        allowTrafficBetween = nodeA: nodeB: ''
+          node_a = ${getPublicIp nodeA}
+          node_b = ${getPublicIp nodeB}
+          ${nodeA}.succeed("iptables -D INPUT -s " + node_b + " -j DROP")
+          ${nodeB}.succeed("iptables -D INPUT -s " + node_a + " -j DROP")
+          ${nodeA}.systemctl("restart nebula@smoke.service")
+          ${nodeB}.systemctl("restart nebula@smoke.service")
+        '';
       in
       ''
         # Create the certificate and sign the lighthouse's keys.

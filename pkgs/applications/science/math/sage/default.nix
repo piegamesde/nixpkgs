@@ -13,26 +13,24 @@ let
   inherit (pkgs) symlinkJoin callPackage nodePackages;
 
   python3 = pkgs.python3.override {
-    packageOverrides =
-      self: super: {
-        # `sagelib`, i.e. all of sage except some wrappers and runtime dependencies
-        sagelib = self.callPackage ./sagelib.nix {
-          inherit flint arb;
-          inherit sage-src env-locations singular;
-          inherit (maxima) lisp-compiler;
-          linbox = pkgs.linbox.override { withSage = true; };
-          pkg-config = pkgs.pkg-config; # not to confuse with pythonPackages.pkg-config
-        };
+    packageOverrides = self: super: {
+      # `sagelib`, i.e. all of sage except some wrappers and runtime dependencies
+      sagelib = self.callPackage ./sagelib.nix {
+        inherit flint arb;
+        inherit sage-src env-locations singular;
+        inherit (maxima) lisp-compiler;
+        linbox = pkgs.linbox.override { withSage = true; };
+        pkg-config = pkgs.pkg-config; # not to confuse with pythonPackages.pkg-config
+      };
 
-        sage-docbuild = self.callPackage ./python-modules/sage-docbuild.nix {
-          inherit sage-src;
-        };
+      sage-docbuild = self.callPackage ./python-modules/sage-docbuild.nix {
+        inherit sage-src;
+      };
 
-        sage-setup = self.callPackage ./python-modules/sage-setup.nix {
-          inherit sage-src;
-        };
-      }
-    ;
+      sage-setup = self.callPackage ./python-modules/sage-setup.nix {
+        inherit sage-src;
+      };
+    };
   };
 
   jupyter-kernel-definition = {

@@ -64,39 +64,37 @@ stdenv.mkDerivation {
       # I didn't bother checking whether the symlinks are really necessary, but
       # I wouldn't put it past Roon to have custom code based on the binary
       # name, so we're playing it safe.
-      wrapBin =
-        binPath: ''
-          (
-            binDir="$(dirname "${binPath}")"
-            binName="$(basename "${binPath}")"
-            dotnetDir="$out/RoonDotnet"
+      wrapBin = binPath: ''
+        (
+          binDir="$(dirname "${binPath}")"
+          binName="$(basename "${binPath}")"
+          dotnetDir="$out/RoonDotnet"
 
-            ln -sf "$dotnetDir/dotnet" "$dotnetDir/$binName"
-            rm "${binPath}"
-            makeWrapper "$dotnetDir/$binName" "${binPath}" \
-              --add-flags "$binDir/$binName.dll" \
-              --argv0 "$binName" \
-              --prefix LD_LIBRARY_PATH : "${
-                lib.makeLibraryPath [
-                  alsa-lib
-                  icu66
-                  ffmpeg
-                  openssl
-                ]
-              }" \
-              --prefix PATH : "$dotnetDir" \
-              --prefix PATH : "${
-                lib.makeBinPath [
-                  alsa-utils
-                  cifs-utils
-                  ffmpeg
-                ]
-              }" \
-              --chdir "$binDir" \
-              --set DOTNET_ROOT "$dotnetDir"
-          )
-        ''
-      ;
+          ln -sf "$dotnetDir/dotnet" "$dotnetDir/$binName"
+          rm "${binPath}"
+          makeWrapper "$dotnetDir/$binName" "${binPath}" \
+            --add-flags "$binDir/$binName.dll" \
+            --argv0 "$binName" \
+            --prefix LD_LIBRARY_PATH : "${
+              lib.makeLibraryPath [
+                alsa-lib
+                icu66
+                ffmpeg
+                openssl
+              ]
+            }" \
+            --prefix PATH : "$dotnetDir" \
+            --prefix PATH : "${
+              lib.makeBinPath [
+                alsa-utils
+                cifs-utils
+                ffmpeg
+              ]
+            }" \
+            --chdir "$binDir" \
+            --set DOTNET_ROOT "$dotnetDir"
+        )
+      '';
     in
     ''
       runHook preInstall

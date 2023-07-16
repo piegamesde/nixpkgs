@@ -16,16 +16,14 @@ let
       includeSiteCustomize = true;
     }).override
       {
-        packageOverrides =
-          final: prev: {
-            markdown-it-py = prev.markdown-it-py.overridePythonAttrs (
-              _: { doCheck = false; }
-            );
-            mdit-py-plugins = prev.mdit-py-plugins.overridePythonAttrs (
-              _: { doCheck = false; }
-            );
-          }
-        ;
+        packageOverrides = final: prev: {
+          markdown-it-py = prev.markdown-it-py.overridePythonAttrs (
+            _: { doCheck = false; }
+          );
+          mdit-py-plugins = prev.mdit-py-plugins.overridePythonAttrs (
+            _: { doCheck = false; }
+          );
+        };
       }
   ;
 in

@@ -4,15 +4,13 @@
 with import ../default.nix;
 
 let
-  testingThrow =
-    expr: {
-      expr = (builtins.tryEval (builtins.seq expr "didn't throw"));
-      expected = {
-        success = false;
-        value = false;
-      };
-    }
-  ;
+  testingThrow = expr: {
+    expr = (builtins.tryEval (builtins.seq expr "didn't throw"));
+    expected = {
+      success = false;
+      value = false;
+    };
+  };
   testingDeepThrow = expr: testingThrow (builtins.deepSeq expr expr);
 
   testSanitizeDerivationName =
@@ -103,12 +101,10 @@ runTests {
     expr =
       let
         obj = makeExtensible (self: { foo = self.bar; });
-        f =
-          self: super: {
-            bar = false;
-            baz = true;
-          }
-        ;
+        f = self: super: {
+          bar = false;
+          baz = true;
+        };
         g = self: super: { bar = super.baz or false; };
         f_o_g = composeExtensions f g;
         composed = obj.extend f_o_g;
@@ -132,12 +128,10 @@ runTests {
 
   testComposeManyExtensions =
     let
-      f =
-        self: super: {
-          bar = false;
-          baz = true;
-        }
-      ;
+      f = self: super: {
+        bar = false;
+        baz = true;
+      };
       g = self: super: { bar = super.baz or false; };
       h = self: super: { qux = super.bar or false; };
       obj = makeExtensible (self: { foo = self.qux; });

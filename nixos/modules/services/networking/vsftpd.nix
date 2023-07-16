@@ -24,21 +24,19 @@ let
 
   inherit (pkgs) vsftpd;
 
-  yesNoOption =
-    nixosName: vsftpdName: default: description: {
-      cfgText = "${vsftpdName}=${if getAttr nixosName cfg then "YES" else "NO"}";
+  yesNoOption = nixosName: vsftpdName: default: description: {
+    cfgText = "${vsftpdName}=${if getAttr nixosName cfg then "YES" else "NO"}";
 
-      nixosOption = {
+    nixosOption = {
+      type = types.bool;
+      name = nixosName;
+      value = mkOption {
+        description = lib.mdDoc description;
+        inherit default;
         type = types.bool;
-        name = nixosName;
-        value = mkOption {
-          description = lib.mdDoc description;
-          inherit default;
-          type = types.bool;
-        };
       };
-    }
-  ;
+    };
+  };
 
   optionDescription = [
     (yesNoOption "allowWriteableChroot" "allow_writeable_chroot" false ''

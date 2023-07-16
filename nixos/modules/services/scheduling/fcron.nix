@@ -24,14 +24,12 @@ let
     ${lib.concatStrings (map (job: job + "\n") config.services.cron.systemCronJobs)}
   '';
 
-  allowdeny =
-    target: users: {
-      source = pkgs.writeText "fcron.${target}" (concatStringsSep "\n" users);
-      target = "fcron.${target}";
-      mode = "644";
-      gid = config.ids.gids.fcron;
-    }
-  ;
+  allowdeny = target: users: {
+    source = pkgs.writeText "fcron.${target}" (concatStringsSep "\n" users);
+    target = "fcron.${target}";
+    mode = "644";
+    gid = config.ids.gids.fcron;
+  };
 in
 
 {

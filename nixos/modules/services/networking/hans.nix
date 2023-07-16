@@ -113,20 +113,18 @@ in
 
     systemd.services =
       let
-        createHansClientService =
-          name: cfg: {
-            description = "hans client - ${name}";
-            after = [ "network.target" ];
-            wantedBy = [ "multi-user.target" ];
-            script = "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.extraConfig} -c ${cfg.server} ${
-                optionalString (cfg.passwordFile != "") ''-p $(cat "${cfg.passwordFile}")''
-              }";
-            serviceConfig = {
-              RestartSec = "30s";
-              Restart = "always";
-            };
-          }
-        ;
+        createHansClientService = name: cfg: {
+          description = "hans client - ${name}";
+          after = [ "network.target" ];
+          wantedBy = [ "multi-user.target" ];
+          script = "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.extraConfig} -c ${cfg.server} ${
+              optionalString (cfg.passwordFile != "") ''-p $(cat "${cfg.passwordFile}")''
+            }";
+          serviceConfig = {
+            RestartSec = "30s";
+            Restart = "always";
+          };
+        };
       in
       listToAttrs (
         mapAttrsToList

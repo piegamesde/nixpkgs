@@ -99,14 +99,12 @@ stdenv.mkDerivation rec {
     let
       installers = lib.sublist 0 2 src;
       components = lib.sublist 2 ((lib.length src) - 2) src;
-      copyInstaller =
-        installer: ''
-          # `$(cat $NIX_CC/nix-support/dynamic-linker) $src[0]` often segfaults, so cp + patchelf
-          cp ${installer} $TEMP/${installer.name}
-          chmod u+w,+x $TEMP/${installer.name}
-          patchelf --interpreter $(cat $NIX_CC/nix-support/dynamic-linker) $TEMP/${installer.name}
-        ''
-      ;
+      copyInstaller = installer: ''
+        # `$(cat $NIX_CC/nix-support/dynamic-linker) $src[0]` often segfaults, so cp + patchelf
+        cp ${installer} $TEMP/${installer.name}
+        chmod u+w,+x $TEMP/${installer.name}
+        patchelf --interpreter $(cat $NIX_CC/nix-support/dynamic-linker) $TEMP/${installer.name}
+      '';
       copyComponent = component: "cp ${component} $TEMP/${component.name}";
       # leaves enabled: quartus, modelsim_ase, devinfo
       disabledComponents =

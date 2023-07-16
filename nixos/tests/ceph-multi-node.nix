@@ -104,21 +104,19 @@ import ./make-test-python.nix (
       };
     };
 
-    networkOsd =
-      osd: {
-        dhcpcd.enable = false;
-        interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
-          address = osd.ip;
-          prefixLength = 24;
+    networkOsd = osd: {
+      dhcpcd.enable = false;
+      interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
+        address = osd.ip;
+        prefixLength = 24;
+      } ];
+      firewall = {
+        allowedTCPPortRanges = [ {
+          from = 6800;
+          to = 7300;
         } ];
-        firewall = {
-          allowedTCPPortRanges = [ {
-            from = 6800;
-            to = 7300;
-          } ];
-        };
-      }
-    ;
+      };
+    };
 
     cephConfigOsd =
       osd:

@@ -14,11 +14,9 @@ let
   opt = options.services.tor;
   stateDir = "/var/lib/tor";
   runDir = "/run/tor";
-  descriptionGeneric =
-    option: ''
-      See [torrc manual](https://2019.www.torproject.org/docs/tor-manual.html.en#${option}).
-    ''
-  ;
+  descriptionGeneric = option: ''
+    See [torrc manual](https://2019.www.torproject.org/docs/tor-manual.html.en#${option}).
+  '';
   bindsPrivilegedPort =
     any
       (

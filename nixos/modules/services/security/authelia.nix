@@ -410,22 +410,20 @@ in
           };
         }
       ;
-      mkInstanceUsersConfig =
-        instance: {
-          groups."authelia-${instance.name}" =
-            lib.mkIf (instance.group == "authelia-${instance.name}")
-              { name = "authelia-${instance.name}"; }
-          ;
-          users."authelia-${instance.name}" =
-            lib.mkIf (instance.user == "authelia-${instance.name}")
-              {
-                name = "authelia-${instance.name}";
-                isSystemUser = true;
-                group = instance.group;
-              }
-          ;
-        }
-      ;
+      mkInstanceUsersConfig = instance: {
+        groups."authelia-${instance.name}" =
+          lib.mkIf (instance.group == "authelia-${instance.name}")
+            { name = "authelia-${instance.name}"; }
+        ;
+        users."authelia-${instance.name}" =
+          lib.mkIf (instance.user == "authelia-${instance.name}")
+            {
+              name = "authelia-${instance.name}";
+              isSystemUser = true;
+              group = instance.group;
+            }
+        ;
+      };
       instances = lib.attrValues cfg.instances;
     in
     {

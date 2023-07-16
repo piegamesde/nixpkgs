@@ -163,19 +163,15 @@ let
     ++ flatten (map (vrrpScriptAssertion i.name) i.trackScripts)
   ;
 
-  virtualIpAssertions =
-    vrrpName: ip: [ {
-      assertion = ip.addr != "";
-      message = "The 'addr' option for an services.keepalived.vrrpInstances.${vrrpName}.virtualIps entry cannot be empty.";
-    } ]
-  ;
+  virtualIpAssertions = vrrpName: ip: [ {
+    assertion = ip.addr != "";
+    message = "The 'addr' option for an services.keepalived.vrrpInstances.${vrrpName}.virtualIps entry cannot be empty.";
+  } ];
 
-  vrrpScriptAssertion =
-    vrrpName: scriptName: {
-      assertion = builtins.hasAttr scriptName cfg.vrrpScripts;
-      message = "services.keepalived.vrrpInstances.${vrrpName} trackscript ${scriptName} is not defined in services.keepalived.vrrpScripts.";
-    }
-  ;
+  vrrpScriptAssertion = vrrpName: scriptName: {
+    assertion = builtins.hasAttr scriptName cfg.vrrpScripts;
+    message = "services.keepalived.vrrpInstances.${vrrpName} trackscript ${scriptName} is not defined in services.keepalived.vrrpScripts.";
+  };
 
   pidFile = "/run/keepalived.pid";
 in

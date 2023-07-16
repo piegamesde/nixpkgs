@@ -5,43 +5,41 @@ import ./make-test-python.nix (
   }:
 
   let
-    mkConfig =
-      name: keys: ''
-        import XMonad
-        import XMonad.Operations (restart)
-        import XMonad.Util.EZConfig
-        import XMonad.Util.SessionStart
-        import Control.Monad (when)
-        import Text.Printf (printf)
-        import System.Posix.Process (executeFile)
-        import System.Info (arch,os)
-        import System.Environment (getArgs)
-        import System.FilePath ((</>))
+    mkConfig = name: keys: ''
+      import XMonad
+      import XMonad.Operations (restart)
+      import XMonad.Util.EZConfig
+      import XMonad.Util.SessionStart
+      import Control.Monad (when)
+      import Text.Printf (printf)
+      import System.Posix.Process (executeFile)
+      import System.Info (arch,os)
+      import System.Environment (getArgs)
+      import System.FilePath ((</>))
 
-        main = do
-          dirs <- getDirectories
-          launch (def { startupHook = startup } `additionalKeysP` myKeys) dirs
+      main = do
+        dirs <- getDirectories
+        launch (def { startupHook = startup } `additionalKeysP` myKeys) dirs
 
-        startup = isSessionStart >>= \sessInit ->
-          spawn "touch /tmp/${name}"
-            >> if sessInit then setSessionStarted else spawn "xterm"
+      startup = isSessionStart >>= \sessInit ->
+        spawn "touch /tmp/${name}"
+          >> if sessInit then setSessionStarted else spawn "xterm"
 
-        myKeys = [${builtins.concatStringsSep ", " keys}]
+      myKeys = [${builtins.concatStringsSep ", " keys}]
 
-        compiledConfig = printf "xmonad-%s-%s" arch os
+      compiledConfig = printf "xmonad-%s-%s" arch os
 
-        compileRestart resume = do
-          dirs <- asks directories
+      compileRestart resume = do
+        dirs <- asks directories
 
-          whenX (recompile dirs True) $
-            when resume writeStateToFile
-              *> catchIO
-                ( do
-                    args <- getArgs
-                    executeFile (cacheDir dirs </> compiledConfig) False args Nothing
-                )
-      ''
-    ;
+        whenX (recompile dirs True) $
+          when resume writeStateToFile
+            *> catchIO
+              ( do
+                  args <- getArgs
+                  executeFile (cacheDir dirs </> compiledConfig) False args Nothing
+              )
+    '';
 
     oldKeys = [
       ''("M-C-x", spawn "xterm")''

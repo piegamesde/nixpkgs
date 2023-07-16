@@ -99,30 +99,28 @@ in
 buildFHSEnv {
   name = "Superposition";
 
-  targetPkgs =
-    pkgs: [
-      superposition
-      glib
-      stdenv.cc.cc
-      dbus
-      freetype
-      fontconfig
-      zlib
-      qtquickcontrols2
-      libXinerama
-      libxcb
-      libSM
-      libXi
-      libglvnd
-      libXext
-      libXrandr
-      mailspring
-      libX11
-      libICE
-      libXrender
-      openal
-    ]
-  ;
+  targetPkgs = pkgs: [
+    superposition
+    glib
+    stdenv.cc.cc
+    dbus
+    freetype
+    fontconfig
+    zlib
+    qtquickcontrols2
+    libXinerama
+    libxcb
+    libSM
+    libXi
+    libglvnd
+    libXext
+    libXrandr
+    mailspring
+    libX11
+    libICE
+    libXrender
+    openal
+  ];
   runScript = "superposition";
 
   extraInstallCommands = ''

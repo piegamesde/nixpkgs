@@ -252,11 +252,9 @@ stdenv.mkDerivation rec {
         QEMU_PR_HELPER = "/run/libvirt/nix-helpers/qemu-pr-helper";
       };
 
-      patchBuilder =
-        var: value: ''
-          sed -i meson.build -e "s|conf.set_quoted('${var}',.*|conf.set_quoted('${var}','${value}')|"
-        ''
-      ;
+      patchBuilder = var: value: ''
+        sed -i meson.build -e "s|conf.set_quoted('${var}',.*|conf.set_quoted('${var}','${value}')|"
+      '';
     in
     ''
       PATH="${binPath}:$PATH"

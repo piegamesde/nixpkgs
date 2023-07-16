@@ -142,14 +142,12 @@ let
         }
       );
       major = lib.versions.major release_version;
-      mkExtraBuildCommands0 =
-        cc: ''
-          rsrc="$out/resource-root"
-          mkdir "$rsrc"
-          ln -s "${cc.lib}/lib/clang/${major}/include" "$rsrc"
-          echo "-resource-dir=$rsrc" >> $out/nix-support/cc-cflags
-        ''
-      ;
+      mkExtraBuildCommands0 = cc: ''
+        rsrc="$out/resource-root"
+        mkdir "$rsrc"
+        ln -s "${cc.lib}/lib/clang/${major}/include" "$rsrc"
+        echo "-resource-dir=$rsrc" >> $out/nix-support/cc-cflags
+      '';
       mkExtraBuildCommands =
         cc:
         mkExtraBuildCommands0 cc

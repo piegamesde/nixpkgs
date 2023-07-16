@@ -38,21 +38,19 @@ buildGoModule rec {
     npmHooks.npmConfigHook
   ];
 
-  overrideModAttrs =
-    _: {
-      nativeBuildInputs = [
-        enumer
-        go
-        git
-        cacert
-        mockgen
-      ];
+  overrideModAttrs = _: {
+    nativeBuildInputs = [
+      enumer
+      go
+      git
+      cacert
+      mockgen
+    ];
 
-      preBuild = ''
-        make assets
-      '';
-    }
-  ;
+    preBuild = ''
+      make assets
+    '';
+  };
 
   tags = [
     "release"

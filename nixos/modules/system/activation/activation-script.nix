@@ -214,28 +214,26 @@ in
 
       type = with types; attrsOf (scriptType false);
 
-      apply =
-        set: {
-          script = ''
-            unset PATH
-            for i in ${toString path}; do
-              PATH=$PATH:$i/bin:$i/sbin
-            done
+      apply = set: {
+        script = ''
+          unset PATH
+          for i in ${toString path}; do
+            PATH=$PATH:$i/bin:$i/sbin
+          done
 
-            _status=0
-            trap "_status=1 _localstatus=\$?" ERR
+          _status=0
+          trap "_status=1 _localstatus=\$?" ERR
 
-            ${let
-              set' = mapAttrs (n: v: if isString v then noDepEntry v else v) set;
-              withHeadlines = addAttributeName set';
-            in
-            textClosureMap id (withHeadlines) (attrNames withHeadlines)
-            }
+          ${let
+            set' = mapAttrs (n: v: if isString v then noDepEntry v else v) set;
+            withHeadlines = addAttributeName set';
+          in
+          textClosureMap id (withHeadlines) (attrNames withHeadlines)
+          }
 
-            exit $_status
-          '';
-        }
-      ;
+          exit $_status
+        '';
+      };
     };
 
     environment.usrbinenv = mkOption {

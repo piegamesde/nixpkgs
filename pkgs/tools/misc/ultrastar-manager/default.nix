@@ -75,11 +75,9 @@ let
     }
   ;
 
-  patchApplicationPath =
-    file: path: ''
-      sed -e "s|QCore.*applicationDirPath()|QString(\"${path}\")|" -i "${file}"
-    ''
-  ;
+  patchApplicationPath = file: path: ''
+    sed -e "s|QCore.*applicationDirPath()|QString(\"${path}\")|" -i "${file}"
+  '';
 
   buildPlugin =
     name:

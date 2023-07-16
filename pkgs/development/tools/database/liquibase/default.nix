@@ -42,13 +42,11 @@ stdenv.mkDerivation rec {
 
   installPhase =
     let
-      addJars =
-        dir: ''
-          for jar in ${dir}/*.jar; do
-            CP="\$CP":"\$jar"
-          done
-        ''
-      ;
+      addJars = dir: ''
+        for jar in ${dir}/*.jar; do
+          CP="\$CP":"\$jar"
+        done
+      '';
     in
     ''
       mkdir -p $out

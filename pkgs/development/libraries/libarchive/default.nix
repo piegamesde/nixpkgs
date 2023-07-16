@@ -63,12 +63,10 @@ assert xarSupport -> libxml2 != null;
           "cpio/test/test_option_a.c"
           "cpio/test/test_option_t.c"
         ];
-        removeTest =
-          testPath: ''
-            substituteInPlace Makefile.am --replace "${testPath}" ""
-            rm "${testPath}"
-          ''
-        ;
+        removeTest = testPath: ''
+          substituteInPlace Makefile.am --replace "${testPath}" ""
+          rm "${testPath}"
+        '';
       in
       ''
         substituteInPlace Makefile.am --replace '/bin/pwd' "$(type -P pwd)"

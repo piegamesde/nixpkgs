@@ -83,13 +83,11 @@ let
     as.${platform.system} or (throw "Unsupported system: ${platform.system}")
   ;
 
-  common =
-    platform: {
-      inherit pname version meta;
-      src = fetcher version (get tags platform) (get hashes platform);
-      passthru.headers = headersFetcher version hashes.headers;
-    }
-  ;
+  common = platform: {
+    inherit pname version meta;
+    src = fetcher version (get tags platform) (get hashes platform);
+    passthru.headers = headersFetcher version hashes.headers;
+  };
 
   electronLibPath =
     with lib;

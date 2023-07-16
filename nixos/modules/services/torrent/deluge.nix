@@ -18,12 +18,10 @@ let
     6889
   ];
 
-  listToRange =
-    x: {
-      from = elemAt x 0;
-      to = elemAt x 1;
-    }
-  ;
+  listToRange = x: {
+    from = elemAt x 0;
+    to = elemAt x 1;
+  };
 
   configDir = "${cfg.dataDir}/.config/deluge";
   configFile = pkgs.writeText "core.conf" (builtins.toJSON cfg.config);

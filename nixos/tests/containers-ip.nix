@@ -1,17 +1,15 @@
 let
-  webserverFor =
-    hostAddress: localAddress: {
-      inherit hostAddress localAddress;
-      privateNetwork = true;
-      config = {
-        services.httpd = {
-          enable = true;
-          adminAddr = "foo@example.org";
-        };
-        networking.firewall.allowedTCPPorts = [ 80 ];
+  webserverFor = hostAddress: localAddress: {
+    inherit hostAddress localAddress;
+    privateNetwork = true;
+    config = {
+      services.httpd = {
+        enable = true;
+        adminAddr = "foo@example.org";
       };
-    }
-  ;
+      networking.firewall.allowedTCPPorts = [ 80 ];
+    };
+  };
 in
 import ./make-test-python.nix (
   {

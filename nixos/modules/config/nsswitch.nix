@@ -23,12 +23,10 @@ with lib;
         several DNS resolution methods to be specified via
         {file}`/etc/nsswitch.conf`.
       '';
-      apply =
-        list: {
-          inherit list;
-          path = makeLibraryPath list;
-        }
-      ;
+      apply = list: {
+        inherit list;
+        path = makeLibraryPath list;
+      };
     };
 
     system.nssDatabases = {

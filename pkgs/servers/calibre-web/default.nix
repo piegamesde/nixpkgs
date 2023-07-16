@@ -8,20 +8,18 @@
 
 let
   python = python3.override {
-    packageOverrides =
-      self: super: {
-        sqlalchemy = super.sqlalchemy.overridePythonAttrs (
-          old: rec {
-            version = "1.4.46";
-            src = self.fetchPypi {
-              pname = "SQLAlchemy";
-              inherit version;
-              hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
-            };
-          }
-        );
-      }
-    ;
+    packageOverrides = self: super: {
+      sqlalchemy = super.sqlalchemy.overridePythonAttrs (
+        old: rec {
+          version = "1.4.46";
+          src = self.fetchPypi {
+            pname = "SQLAlchemy";
+            inherit version;
+            hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
+          };
+        }
+      );
+    };
   };
 in
 python.pkgs.buildPythonApplication rec {

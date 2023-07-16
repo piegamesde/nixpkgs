@@ -45,12 +45,10 @@ in
     ;
   };
 
-  extraPythonPackages =
-    p: [
-      p.requests
-      p.types-requests
-    ]
-  ;
+  extraPythonPackages = p: [
+    p.requests
+    p.types-requests
+  ];
 
   testScript =
     {

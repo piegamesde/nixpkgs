@@ -16,16 +16,14 @@
 # then we’d need to still craft a script that does the `php libexec/arcanist/bin/...` dance
 # anyway... So just do everything at once.
 let
-  makeArcWrapper =
-    toolset: ''
-      cat << WRAPPER > $out/bin/${toolset}
-      #!$shell -e
-      export PATH='${php}/bin:${which}/bin'\''${PATH:+':'}\$PATH
-      exec ${php}/bin/php $out/libexec/arcanist/bin/${toolset} "\$@"
-      WRAPPER
-      chmod +x $out/bin/${toolset}
-    ''
-  ;
+  makeArcWrapper = toolset: ''
+    cat << WRAPPER > $out/bin/${toolset}
+    #!$shell -e
+    export PATH='${php}/bin:${which}/bin'\''${PATH:+':'}\$PATH
+    exec ${php}/bin/php $out/libexec/arcanist/bin/${toolset} "\$@"
+    WRAPPER
+    chmod +x $out/bin/${toolset}
+  '';
 in
 stdenv.mkDerivation {
   pname = "arcanist";

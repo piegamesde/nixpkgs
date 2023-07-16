@@ -740,10 +740,8 @@ rec {
      Type:
        mkLuaInline :: String -> AttrSet
   */
-  mkLuaInline =
-    expr: {
-      _type = "lua-inline";
-      inherit expr;
-    }
-  ;
+  mkLuaInline = expr: {
+    _type = "lua-inline";
+    inherit expr;
+  };
 }

@@ -102,21 +102,19 @@ let
     targetPkgs = pkgs: [ libstdcpp-preload-for-unvanquished-nacl ];
   };
 
-  wrapBinary =
-    binary: wrappername: ''
-      cat > $out/lib/${binary}-wrapper <<-EOT
-      #!/bin/sh
-      exec $out/lib/${binary} -pakpath ${unvanquished-assets} "\$@"
-      EOT
-      chmod +x $out/lib/${binary}-wrapper
+  wrapBinary = binary: wrappername: ''
+    cat > $out/lib/${binary}-wrapper <<-EOT
+    #!/bin/sh
+    exec $out/lib/${binary} -pakpath ${unvanquished-assets} "\$@"
+    EOT
+    chmod +x $out/lib/${binary}-wrapper
 
-      cat > $out/bin/${wrappername} <<-EOT
-      #!/bin/sh
-      exec ${fhsEnv}/bin/unvanquished-fhs-wrapper $out/lib/${binary}-wrapper "\$@"
-      EOT
-      chmod +x $out/bin/${wrappername}
-    ''
-  ;
+    cat > $out/bin/${wrappername} <<-EOT
+    #!/bin/sh
+    exec ${fhsEnv}/bin/unvanquished-fhs-wrapper $out/lib/${binary}-wrapper "\$@"
+    EOT
+    chmod +x $out/bin/${wrappername}
+  '';
 
   unvanquished-assets = stdenv.mkDerivation {
     pname = "unvanquished-assets";

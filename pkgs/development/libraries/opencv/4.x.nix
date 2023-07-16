@@ -235,12 +235,10 @@ let
       )
     )
   ;
-  installExtraFile =
-    extra: ''
-      mkdir -p "${extra.dst}"
-      ln -s "${extra.src}" "${extra.dst}/${extra.md5}-${extra.name}"
-    ''
-  ;
+  installExtraFile = extra: ''
+    mkdir -p "${extra.dst}"
+    ln -s "${extra.src}" "${extra.dst}/${extra.md5}-${extra.name}"
+  '';
 
   opencvFlag = name: enabled: "-DWITH_${name}=${printEnabled enabled}";
 

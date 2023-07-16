@@ -23,16 +23,14 @@
 
 let
 
-  addNetDev =
-    nd: ''
-      brsaneconfig4 -a \
-      name="${nd.name}" \
-      model="${nd.model}" \
-      ${if (lib.hasAttr "nodename" nd && nd.nodename != null) then
-        ''nodename="${nd.nodename}"''
-      else
-        ''ip="${nd.ip}"''}''
-  ;
+  addNetDev = nd: ''
+    brsaneconfig4 -a \
+    name="${nd.name}" \
+    model="${nd.model}" \
+    ${if (lib.hasAttr "nodename" nd && nd.nodename != null) then
+      ''nodename="${nd.nodename}"''
+    else
+      ''ip="${nd.ip}"''}'';
   addAllNetDev = xs: lib.concatStringsSep "\n" (map addNetDev xs);
 in
 

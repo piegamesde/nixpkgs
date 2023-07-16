@@ -198,17 +198,15 @@ let
   # environment is used as a work around for that.
   fhsEnv = buildFHSEnv {
     name = "${drvName}-fhs-env";
-    multiPkgs =
-      pkgs: [
-        ncurses5
+    multiPkgs = pkgs: [
+      ncurses5
 
-        # Flutter can only search for certs Fedora-way.
-        (runCommand "fedoracert" { } ''
-          mkdir -p $out/etc/pki/tls/
-          ln -s ${cacert}/etc/ssl/certs $out/etc/pki/tls/certs
-        '')
-      ]
-    ;
+      # Flutter can only search for certs Fedora-way.
+      (runCommand "fedoracert" { } ''
+        mkdir -p $out/etc/pki/tls/
+        ln -s ${cacert}/etc/ssl/certs $out/etc/pki/tls/certs
+      '')
+    ];
   };
 in
 runCommand drvName

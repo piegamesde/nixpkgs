@@ -630,12 +630,10 @@ rec {
   linkFarmFromDrvs =
     name: drvs:
     let
-      mkEntryFromDrv =
-        drv: {
-          name = drv.name;
-          path = drv;
-        }
-      ;
+      mkEntryFromDrv = drv: {
+        name = drv.name;
+        path = drv;
+      };
     in
     linkFarm name (map mkEntryFromDrv drvs)
   ;

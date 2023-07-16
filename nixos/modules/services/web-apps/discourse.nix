@@ -935,12 +935,10 @@ in
                 ;
               }
             ;
-            cache =
-              time: ''
-                expires ${time};
-                add_header Cache-Control public,immutable;
-              ''
-            ;
+            cache = time: ''
+              expires ${time};
+              add_header Cache-Control public,immutable;
+            '';
             cache_1y = cache "1y";
             cache_1d = cache "1d";
           in

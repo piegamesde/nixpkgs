@@ -16,15 +16,13 @@ import ./make-test-python.nix (
         ...
       }:
       let
-        makeNested =
-          subConf: {
-            containers.nested = {
-              autoStart = true;
-              privateNetwork = true;
-              config = subConf;
-            };
-          }
-        ;
+        makeNested = subConf: {
+          containers.nested = {
+            autoStart = true;
+            privateNetwork = true;
+            config = subConf;
+          };
+        };
       in
       makeNested (makeNested { })
     ;

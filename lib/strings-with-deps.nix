@@ -102,19 +102,15 @@ rec {
     concatStringsSep "\n" (map f (textClosureList predefined names))
   ;
 
-  noDepEntry =
-    text: {
-      inherit text;
-      deps = [ ];
-    }
-  ;
+  noDepEntry = text: {
+    inherit text;
+    deps = [ ];
+  };
   fullDepEntry = text: deps: { inherit text deps; };
-  packEntry =
-    deps: {
-      inherit deps;
-      text = "";
-    }
-  ;
+  packEntry = deps: {
+    inherit deps;
+    text = "";
+  };
 
   stringAfter = deps: text: { inherit text deps; };
 }

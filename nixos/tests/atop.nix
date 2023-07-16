@@ -9,22 +9,18 @@ with pkgs.lib;
 
 let
   assertions = rec {
-    path =
-      program: path: ''
-        with subtest("The path of ${program} should be ${path}"):
-            p = machine.succeed("type -p \"${program}\" | head -c -1")
-            assert p == "${path}", f"${program} is {p}, expected ${path}"
-      ''
-    ;
-    unit =
-      name: state: ''
-        with subtest("Unit ${name} should be ${state}"):
-            if "${state}" == "active":
-                machine.wait_for_unit("${name}")
-            else:
-                machine.require_unit_state("${name}", "${state}")
-      ''
-    ;
+    path = program: path: ''
+      with subtest("The path of ${program} should be ${path}"):
+          p = machine.succeed("type -p \"${program}\" | head -c -1")
+          assert p == "${path}", f"${program} is {p}, expected ${path}"
+    '';
+    unit = name: state: ''
+      with subtest("Unit ${name} should be ${state}"):
+          if "${state}" == "active":
+              machine.wait_for_unit("${name}")
+          else:
+              machine.require_unit_state("${name}", "${state}")
+    '';
     version = ''
       import re
 

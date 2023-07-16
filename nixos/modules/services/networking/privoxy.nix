@@ -315,21 +315,17 @@ in
 
   imports =
     let
-      top =
-        x: [
-          "services"
-          "privoxy"
-          x
-        ]
-      ;
-      setting =
-        x: [
-          "services"
-          "privoxy"
-          "settings"
-          x
-        ]
-      ;
+      top = x: [
+        "services"
+        "privoxy"
+        x
+      ];
+      setting = x: [
+        "services"
+        "privoxy"
+        "settings"
+        x
+      ];
     in
     [
       (mkRenamedOptionModule (top "enableEditActions") (

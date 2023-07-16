@@ -102,42 +102,40 @@ let
 
   secret = name: "${cfg.secretsPath}/${name}.pem";
 
-  mkKubeConfigOptions =
-    prefix: {
-      server = mkOption {
-        description = lib.mdDoc "${prefix} kube-apiserver server address.";
-        type = types.str;
-      };
+  mkKubeConfigOptions = prefix: {
+    server = mkOption {
+      description = lib.mdDoc "${prefix} kube-apiserver server address.";
+      type = types.str;
+    };
 
-      caFile = mkOption {
-        description =
-          lib.mdDoc
-            "${prefix} certificate authority file used to connect to kube-apiserver."
-        ;
-        type = types.nullOr types.path;
-        default = cfg.caFile;
-        defaultText = literalExpression "config.${opt.caFile}";
-      };
+    caFile = mkOption {
+      description =
+        lib.mdDoc
+          "${prefix} certificate authority file used to connect to kube-apiserver."
+      ;
+      type = types.nullOr types.path;
+      default = cfg.caFile;
+      defaultText = literalExpression "config.${opt.caFile}";
+    };
 
-      certFile = mkOption {
-        description =
-          lib.mdDoc
-            "${prefix} client certificate file used to connect to kube-apiserver."
-        ;
-        type = types.nullOr types.path;
-        default = null;
-      };
+    certFile = mkOption {
+      description =
+        lib.mdDoc
+          "${prefix} client certificate file used to connect to kube-apiserver."
+      ;
+      type = types.nullOr types.path;
+      default = null;
+    };
 
-      keyFile = mkOption {
-        description =
-          lib.mdDoc
-            "${prefix} client key file used to connect to kube-apiserver."
-        ;
-        type = types.nullOr types.path;
-        default = null;
-      };
-    }
-  ;
+    keyFile = mkOption {
+      description =
+        lib.mdDoc
+          "${prefix} client key file used to connect to kube-apiserver."
+      ;
+      type = types.nullOr types.path;
+      default = null;
+    };
+  };
 in
 {
 

@@ -107,20 +107,18 @@ let
     '';
   };
 
-  withConfigFile =
-    text: ''
-      db_pass=${
-        optionalString (cfg.database.passwordFile != null)
-          "$(head -n1 ${cfg.database.passwordFile})"
-      }
+  withConfigFile = text: ''
+    db_pass=${
+      optionalString (cfg.database.passwordFile != null)
+        "$(head -n1 ${cfg.database.passwordFile})"
+    }
 
-      cp -f ${configFile} '${cfg.stateDir}/config.ini'
-      sed -e "s,#dbpass#,$db_pass,g" -i '${cfg.stateDir}/config.ini'
-      chmod 440 '${cfg.stateDir}/config.ini'
+    cp -f ${configFile} '${cfg.stateDir}/config.ini'
+    sed -e "s,#dbpass#,$db_pass,g" -i '${cfg.stateDir}/config.ini'
+    chmod 440 '${cfg.stateDir}/config.ini'
 
-      ${text}
-    ''
-  ;
+    ${text}
+  '';
 
   withMysql =
     text:

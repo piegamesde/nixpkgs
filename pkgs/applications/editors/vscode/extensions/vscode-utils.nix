@@ -138,35 +138,33 @@ let
     vscodeDefault = vscode;
   };
 
-  toExtensionJsonEntry =
-    ext: rec {
-      identifier = {
-        id = ext.vscodeExtUniqueId;
-        uuid = "";
-      };
+  toExtensionJsonEntry = ext: rec {
+    identifier = {
+      id = ext.vscodeExtUniqueId;
+      uuid = "";
+    };
 
-      version = ext.version;
+    version = ext.version;
 
-      location = {
-        "$mid" = 1;
-        fsPath = ext.outPath + "/share/vscode/extensions/${ext.vscodeExtUniqueId}";
-        path = location.fsPath;
-        scheme = "file";
-      };
+    location = {
+      "$mid" = 1;
+      fsPath = ext.outPath + "/share/vscode/extensions/${ext.vscodeExtUniqueId}";
+      path = location.fsPath;
+      scheme = "file";
+    };
 
-      metadata = {
-        id = "";
-        publisherId = "";
-        publisherDisplayName = ext.vscodeExtPublisher;
-        targetPlatform = "undefined";
-        isApplicationScoped = false;
-        updated = false;
-        isPreReleaseVersion = false;
-        installedTimestamp = 0;
-        preRelease = false;
-      };
-    }
-  ;
+    metadata = {
+      id = "";
+      publisherId = "";
+      publisherDisplayName = ext.vscodeExtPublisher;
+      targetPlatform = "undefined";
+      isApplicationScoped = false;
+      updated = false;
+      isPreReleaseVersion = false;
+      installedTimestamp = 0;
+      preRelease = false;
+    };
+  };
 
   toExtensionJson =
     extensions: builtins.toJSON (map toExtensionJsonEntry extensions);

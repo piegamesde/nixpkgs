@@ -525,17 +525,15 @@ in
         # to run to perform the secret replacements.
         secretPaths = lib.catAttrs "_secret" (lib.collect isSecret filteredConfig);
         parsedmarcConfig = ini.generate "parsedmarc.ini" filteredConfig;
-        mkSecretReplacement =
-          file: ''
-            replace-secret ${
-              lib.escapeShellArgs [
-                (hashString "sha256" file)
-                file
-                "/run/parsedmarc/parsedmarc.ini"
-              ]
-            }
-          ''
-        ;
+        mkSecretReplacement = file: ''
+          replace-secret ${
+            lib.escapeShellArgs [
+              (hashString "sha256" file)
+              file
+              "/run/parsedmarc/parsedmarc.ini"
+            ]
+          }
+        '';
         secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
       in
       {

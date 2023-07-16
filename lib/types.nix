@@ -94,15 +94,13 @@ let
     ;
 
     # Default type functor
-    defaultFunctor =
-      name: {
-        inherit name;
-        type = types.${name} or null;
-        wrapped = null;
-        payload = null;
-        binOp = a: b: null;
-      }
-    ;
+    defaultFunctor = name: {
+      inherit name;
+      type = types.${name} or null;
+      wrapped = null;
+      payload = null;
+      binOp = a: b: null;
+    };
 
     isOptionType = isType "option-type";
     mkOptionType =
@@ -879,21 +877,19 @@ let
           description = "module";
           descriptionClass = "noun";
           check = x: isAttrs x || isFunction x || path.check x;
-          merge =
-            loc: defs: {
-              imports =
-                staticModules
-                ++
-                  map
-                    (
-                      def:
-                      lib.setDefaultModuleLocation "${def.file}, via option ${showOption loc}"
-                        def.value
-                    )
-                    defs
-              ;
-            }
-          ;
+          merge = loc: defs: {
+            imports =
+              staticModules
+              ++
+                map
+                  (
+                    def:
+                    lib.setDefaultModuleLocation "${def.file}, via option ${showOption loc}"
+                      def.value
+                  )
+                  defs
+            ;
+          };
           inherit (submoduleWith { modules = staticModules; })
             getSubOptions
             getSubModules
@@ -1048,46 +1044,44 @@ let
                 description
               ;
             };
-            binOp =
-              lhs: rhs: {
-                modules = lhs.modules ++ rhs.modules;
-                specialArgs =
-                  let
-                    intersecting = builtins.intersectAttrs lhs.specialArgs rhs.specialArgs;
-                  in
-                  if intersecting == { } then
-                    lhs.specialArgs // rhs.specialArgs
-                  else
-                    throw
-                      ''
-                        A submoduleWith option is declared multiple times with the same specialArgs "${
-                          toString (attrNames intersecting)
-                        }"''
-                ;
-                shorthandOnlyDefinesConfig =
-                  if lhs.shorthandOnlyDefinesConfig == null then
-                    rhs.shorthandOnlyDefinesConfig
-                  else if rhs.shorthandOnlyDefinesConfig == null then
-                    lhs.shorthandOnlyDefinesConfig
-                  else if lhs.shorthandOnlyDefinesConfig == rhs.shorthandOnlyDefinesConfig then
-                    lhs.shorthandOnlyDefinesConfig
-                  else
-                    throw
-                      "A submoduleWith option is declared multiple times with conflicting shorthandOnlyDefinesConfig values"
-                ;
-                description =
-                  if lhs.description == null then
-                    rhs.description
-                  else if rhs.description == null then
-                    lhs.description
-                  else if lhs.description == rhs.description then
-                    lhs.description
-                  else
-                    throw
-                      "A submoduleWith option is declared multiple times with conflicting descriptions"
-                ;
-              }
-            ;
+            binOp = lhs: rhs: {
+              modules = lhs.modules ++ rhs.modules;
+              specialArgs =
+                let
+                  intersecting = builtins.intersectAttrs lhs.specialArgs rhs.specialArgs;
+                in
+                if intersecting == { } then
+                  lhs.specialArgs // rhs.specialArgs
+                else
+                  throw
+                    ''
+                      A submoduleWith option is declared multiple times with the same specialArgs "${
+                        toString (attrNames intersecting)
+                      }"''
+              ;
+              shorthandOnlyDefinesConfig =
+                if lhs.shorthandOnlyDefinesConfig == null then
+                  rhs.shorthandOnlyDefinesConfig
+                else if rhs.shorthandOnlyDefinesConfig == null then
+                  lhs.shorthandOnlyDefinesConfig
+                else if lhs.shorthandOnlyDefinesConfig == rhs.shorthandOnlyDefinesConfig then
+                  lhs.shorthandOnlyDefinesConfig
+                else
+                  throw
+                    "A submoduleWith option is declared multiple times with conflicting shorthandOnlyDefinesConfig values"
+              ;
+              description =
+                if lhs.description == null then
+                  rhs.description
+                else if rhs.description == null then
+                  lhs.description
+                else if lhs.description == rhs.description then
+                  lhs.description
+                else
+                  throw
+                    "A submoduleWith option is declared multiple times with conflicting descriptions"
+              ;
+            };
           };
         }
       ;

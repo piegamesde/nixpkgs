@@ -59,12 +59,10 @@ import ./make-test-python.nix (
       done
     '';
 
-    hosts =
-      nodes: ''
-        ${nodes.akkoma.networking.primaryIPAddress} akkoma.nixos.test
-        ${nodes.client.networking.primaryIPAddress} client.nixos.test
-      ''
-    ;
+    hosts = nodes: ''
+      ${nodes.akkoma.networking.primaryIPAddress} akkoma.nixos.test
+      ${nodes.client.networking.primaryIPAddress} client.nixos.test
+    '';
   in
   {
     name = "akkoma";

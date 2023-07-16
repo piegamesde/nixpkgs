@@ -117,95 +117,93 @@ let
     }
   ;
 
-  dhcpConfig =
-    postfix: {
+  dhcpConfig = postfix: {
 
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = lib.mdDoc ''
-          Whether to enable the DHCPv${postfix} server.
-        '';
-      };
+    enable = mkOption {
+      type = types.bool;
+      default = false;
+      description = lib.mdDoc ''
+        Whether to enable the DHCPv${postfix} server.
+      '';
+    };
 
-      extraConfig = mkOption {
-        type = types.lines;
-        default = "";
-        example = ''
-          option subnet-mask 255.255.255.0;
-          option broadcast-address 192.168.1.255;
-          option routers 192.168.1.5;
-          option domain-name-servers 130.161.158.4, 130.161.33.17, 130.161.180.1;
-          option domain-name "example.org";
-          subnet 192.168.1.0 netmask 255.255.255.0 {
-            range 192.168.1.100 192.168.1.200;
-          }
-        '';
-        description = lib.mdDoc ''
-          Extra text to be appended to the DHCP server configuration
-          file. Currently, you almost certainly need to specify something
-          there, such as the options specifying the subnet mask, DNS servers,
-          etc.
-        '';
-      };
+    extraConfig = mkOption {
+      type = types.lines;
+      default = "";
+      example = ''
+        option subnet-mask 255.255.255.0;
+        option broadcast-address 192.168.1.255;
+        option routers 192.168.1.5;
+        option domain-name-servers 130.161.158.4, 130.161.33.17, 130.161.180.1;
+        option domain-name "example.org";
+        subnet 192.168.1.0 netmask 255.255.255.0 {
+          range 192.168.1.100 192.168.1.200;
+        }
+      '';
+      description = lib.mdDoc ''
+        Extra text to be appended to the DHCP server configuration
+        file. Currently, you almost certainly need to specify something
+        there, such as the options specifying the subnet mask, DNS servers,
+        etc.
+      '';
+    };
 
-      extraFlags = mkOption {
-        type = types.listOf types.str;
-        default = [ ];
-        description = lib.mdDoc ''
-          Additional command line flags to be passed to the dhcpd daemon.
-        '';
-      };
+    extraFlags = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      description = lib.mdDoc ''
+        Additional command line flags to be passed to the dhcpd daemon.
+      '';
+    };
 
-      configFile = mkOption {
-        type = types.nullOr types.path;
-        default = null;
-        description = lib.mdDoc ''
-          The path of the DHCP server configuration file.  If no file
-          is specified, a file is generated using the other options.
-        '';
-      };
+    configFile = mkOption {
+      type = types.nullOr types.path;
+      default = null;
+      description = lib.mdDoc ''
+        The path of the DHCP server configuration file.  If no file
+        is specified, a file is generated using the other options.
+      '';
+    };
 
-      interfaces = mkOption {
-        type = types.listOf types.str;
-        default = [ "eth0" ];
-        description = lib.mdDoc ''
-          The interfaces on which the DHCP server should listen.
-        '';
-      };
+    interfaces = mkOption {
+      type = types.listOf types.str;
+      default = [ "eth0" ];
+      description = lib.mdDoc ''
+        The interfaces on which the DHCP server should listen.
+      '';
+    };
 
-      machines = mkOption {
-        type = with types; listOf (submodule machineOpts);
-        default = [ ];
-        example = [
-          {
-            hostName = "foo";
-            ethernetAddress = "00:16:76:9a:32:1d";
-            ipAddress = "192.168.1.10";
-          }
-          {
-            hostName = "bar";
-            ethernetAddress = "00:19:d1:1d:c4:9a";
-            ipAddress = "192.168.1.11";
-          }
-        ];
-        description = lib.mdDoc ''
-          A list mapping Ethernet addresses to IPv${postfix} addresses for the
-          DHCP server.
-        '';
-      };
+    machines = mkOption {
+      type = with types; listOf (submodule machineOpts);
+      default = [ ];
+      example = [
+        {
+          hostName = "foo";
+          ethernetAddress = "00:16:76:9a:32:1d";
+          ipAddress = "192.168.1.10";
+        }
+        {
+          hostName = "bar";
+          ethernetAddress = "00:19:d1:1d:c4:9a";
+          ipAddress = "192.168.1.11";
+        }
+      ];
+      description = lib.mdDoc ''
+        A list mapping Ethernet addresses to IPv${postfix} addresses for the
+        DHCP server.
+      '';
+    };
 
-      authoritative = mkOption {
-        type = types.bool;
-        default = true;
-        description = lib.mdDoc ''
-          Whether the DHCP server shall send DHCPNAK messages to misconfigured
-          clients. If this is not done, clients may be unable to get a correct
-          IP address after changing subnets until their old lease has expired.
-        '';
-      };
-    }
-  ;
+    authoritative = mkOption {
+      type = types.bool;
+      default = true;
+      description = lib.mdDoc ''
+        Whether the DHCP server shall send DHCPNAK messages to misconfigured
+        clients. If this is not done, clients may be unable to get a correct
+        IP address after changing subnets until their old lease has expired.
+      '';
+    };
+  };
 in
 
 {

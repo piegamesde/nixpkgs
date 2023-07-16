@@ -158,11 +158,9 @@ with lib;
   config =
     let
       cfg = config.proxmox;
-      cfgLine =
-        name: value: ''
-          ${name}: ${builtins.toString value}
-        ''
-      ;
+      cfgLine = name: value: ''
+        ${name}: ${builtins.toString value}
+      '';
       virtio0Storage = builtins.head (builtins.split ":" cfg.qemuConf.virtio0);
       cfgFile =
         fileName: properties:

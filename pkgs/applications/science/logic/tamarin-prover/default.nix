@@ -24,17 +24,15 @@ let
 
   # tamarin has its own dependencies, but they're kept inside the repo,
   # no submodules. this factors out the common metadata among all derivations
-  common =
-    pname: src: {
-      inherit pname version src;
+  common = pname: src: {
+    inherit pname version src;
 
-      license = lib.licenses.gpl3;
-      homepage = "https://tamarin-prover.github.io";
-      description = "Security protocol verification in the symbolic model";
-      maintainers = [ lib.maintainers.thoughtpolice ];
-      hydraPlatforms = lib.platforms.linux; # maude is broken on darwin
-    }
-  ;
+    license = lib.licenses.gpl3;
+    homepage = "https://tamarin-prover.github.io";
+    description = "Security protocol verification in the symbolic model";
+    maintainers = [ lib.maintainers.thoughtpolice ];
+    hydraPlatforms = lib.platforms.linux; # maude is broken on darwin
+  };
 
   # tamarin use symlinks to the LICENSE and Setup.hs files, so for these sublibraries
   # we set the patchPhase to fix that. otherwise, cabal cries a lot.

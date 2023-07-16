@@ -39,64 +39,62 @@ let
     ignoreCollisions = true;
   };
 
-  instanceSettings =
-    name: {
-      freeformType =
-        with lib.types;
-        nullOr (
-          oneOf [
-            int
-            str
-            path
-            package
-          ]
-        )
-      ;
-      # override defaults:
-      # inject instance name into paths,
-      # also avoid conflicts between user names and special dirs
-      options.Out = lib.mkOption {
-        type = with lib.types; nullOr singleLineStr;
-        default = "/var/spool/cups-pdf-${name}/users/\${USER}";
-        defaultText = "/var/spool/cups-pdf-{instance-name}/users/\${USER}";
-        example = "\${HOME}/cups-pdf";
-        description = lib.mdDoc ''
-          output directory;
-          `''${HOME}` will be expanded to the user's home directory,
-          `''${USER}` will be expanded to the user name.
-        '';
-      };
-      options.AnonDirName = lib.mkOption {
-        type = with lib.types; nullOr singleLineStr;
-        default = "/var/spool/cups-pdf-${name}/anonymous";
-        defaultText = "/var/spool/cups-pdf-{instance-name}/anonymous";
-        example = "/var/lib/cups-pdf";
-        description = lib.mdDoc "path for anonymously created PDF files";
-      };
-      options.Spool = lib.mkOption {
-        type = with lib.types; nullOr singleLineStr;
-        default = "/var/spool/cups-pdf-${name}/spool";
-        defaultText = "/var/spool/cups-pdf-{instance-name}/spool";
-        example = "/var/lib/cups-pdf";
-        description = lib.mdDoc "spool directory";
-      };
-      options.Anonuser = lib.mkOption {
-        type = lib.types.singleLineStr;
-        default = "root";
-        description = lib.mdDoc ''
-          User for anonymous PDF creation.
-          An empty string disables this feature.
-        '';
-      };
-      options.GhostScript = lib.mkOption {
-        type = with lib.types; nullOr path;
-        default = lib.getExe pkgs.ghostscript;
-        defaultText = lib.literalExpression "lib.getExe pkgs.ghostscript";
-        example = lib.literalExpression "\${pkgs.ghostscript}/bin/ps2pdf";
-        description = lib.mdDoc "location of GhostScript binary";
-      };
-    }
-  ;
+  instanceSettings = name: {
+    freeformType =
+      with lib.types;
+      nullOr (
+        oneOf [
+          int
+          str
+          path
+          package
+        ]
+      )
+    ;
+    # override defaults:
+    # inject instance name into paths,
+    # also avoid conflicts between user names and special dirs
+    options.Out = lib.mkOption {
+      type = with lib.types; nullOr singleLineStr;
+      default = "/var/spool/cups-pdf-${name}/users/\${USER}";
+      defaultText = "/var/spool/cups-pdf-{instance-name}/users/\${USER}";
+      example = "\${HOME}/cups-pdf";
+      description = lib.mdDoc ''
+        output directory;
+        `''${HOME}` will be expanded to the user's home directory,
+        `''${USER}` will be expanded to the user name.
+      '';
+    };
+    options.AnonDirName = lib.mkOption {
+      type = with lib.types; nullOr singleLineStr;
+      default = "/var/spool/cups-pdf-${name}/anonymous";
+      defaultText = "/var/spool/cups-pdf-{instance-name}/anonymous";
+      example = "/var/lib/cups-pdf";
+      description = lib.mdDoc "path for anonymously created PDF files";
+    };
+    options.Spool = lib.mkOption {
+      type = with lib.types; nullOr singleLineStr;
+      default = "/var/spool/cups-pdf-${name}/spool";
+      defaultText = "/var/spool/cups-pdf-{instance-name}/spool";
+      example = "/var/lib/cups-pdf";
+      description = lib.mdDoc "spool directory";
+    };
+    options.Anonuser = lib.mkOption {
+      type = lib.types.singleLineStr;
+      default = "root";
+      description = lib.mdDoc ''
+        User for anonymous PDF creation.
+        An empty string disables this feature.
+      '';
+    };
+    options.GhostScript = lib.mkOption {
+      type = with lib.types; nullOr path;
+      default = lib.getExe pkgs.ghostscript;
+      defaultText = lib.literalExpression "lib.getExe pkgs.ghostscript";
+      example = lib.literalExpression "\${pkgs.ghostscript}/bin/ps2pdf";
+      description = lib.mdDoc "location of GhostScript binary";
+    };
+  };
 
   instanceConfig =
     {

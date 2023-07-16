@@ -187,39 +187,37 @@ in
 
     systemd.services =
       let
-        createIodineClientService =
-          name: cfg: {
-            description = "iodine client - ${name}";
-            after = [ "network.target" ];
-            wantedBy = [ "multi-user.target" ];
-            script = "exec ${pkgs.iodine}/bin/iodine -f -u ${iodinedUser} ${cfg.extraConfig} ${
-                optionalString (cfg.passwordFile != "")
-                  ''< "${builtins.toString cfg.passwordFile}"''
-              } ${cfg.relay} ${cfg.server}";
-            serviceConfig = {
-              RestartSec = "30s";
-              Restart = "always";
+        createIodineClientService = name: cfg: {
+          description = "iodine client - ${name}";
+          after = [ "network.target" ];
+          wantedBy = [ "multi-user.target" ];
+          script = "exec ${pkgs.iodine}/bin/iodine -f -u ${iodinedUser} ${cfg.extraConfig} ${
+              optionalString (cfg.passwordFile != "")
+                ''< "${builtins.toString cfg.passwordFile}"''
+            } ${cfg.relay} ${cfg.server}";
+          serviceConfig = {
+            RestartSec = "30s";
+            Restart = "always";
 
-              # hardening :
-              # Filesystem access
-              ProtectSystem = "strict";
-              ProtectHome = if isProtected cfg.passwordFile then "read-only" else "true";
-              PrivateTmp = true;
-              ReadWritePaths = "/dev/net/tun";
-              PrivateDevices = false;
-              ProtectKernelTunables = true;
-              ProtectKernelModules = true;
-              ProtectControlGroups = true;
-              # Caps
-              NoNewPrivileges = true;
-              # Misc.
-              LockPersonality = true;
-              RestrictRealtime = true;
-              PrivateMounts = true;
-              MemoryDenyWriteExecute = true;
-            };
-          }
-        ;
+            # hardening :
+            # Filesystem access
+            ProtectSystem = "strict";
+            ProtectHome = if isProtected cfg.passwordFile then "read-only" else "true";
+            PrivateTmp = true;
+            ReadWritePaths = "/dev/net/tun";
+            PrivateDevices = false;
+            ProtectKernelTunables = true;
+            ProtectKernelModules = true;
+            ProtectControlGroups = true;
+            # Caps
+            NoNewPrivileges = true;
+            # Misc.
+            LockPersonality = true;
+            RestrictRealtime = true;
+            PrivateMounts = true;
+            MemoryDenyWriteExecute = true;
+          };
+        };
       in
       listToAttrs (
         mapAttrsToList

@@ -82,17 +82,15 @@ buildFHSEnv {
     };
   };
 
-  targetPkgs =
-    pkgs: [
-      sidequest
-      # Needed in the environment on runtime, to make QuestSaberPatch work
-      icu
-      openssl
-      zlib
-      libxkbcommon
-      libxshmfence
-    ]
-  ;
+  targetPkgs = pkgs: [
+    sidequest
+    # Needed in the environment on runtime, to make QuestSaberPatch work
+    icu
+    openssl
+    zlib
+    libxkbcommon
+    libxshmfence
+  ];
 
   extraInstallCommands = ''
     mkdir -p "$out/share/applications"

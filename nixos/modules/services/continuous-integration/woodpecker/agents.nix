@@ -58,54 +58,52 @@ let
     };
   };
 
-  mkAgentService =
-    name: agentCfg: {
-      name = "woodpecker-agent-${name}";
-      value = {
-        description = "Woodpecker-Agent Service - ${name}";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network-online.target" ];
-        wants = [ "network-online.target" ];
-        serviceConfig = {
-          DynamicUser = true;
-          SupplementaryGroups = agentCfg.extraGroups;
-          EnvironmentFile = agentCfg.environmentFile;
-          ExecStart = lib.getExe agentCfg.package;
-          Restart = "on-failure";
-          RestartSec = 15;
-          CapabilityBoundingSet = "";
-          NoNewPrivileges = true;
-          ProtectSystem = "strict";
-          PrivateTmp = true;
-          PrivateDevices = true;
-          PrivateUsers = true;
-          ProtectHostname = true;
-          ProtectClock = true;
-          ProtectKernelTunables = true;
-          ProtectKernelModules = true;
-          ProtectKernelLogs = true;
-          ProtectControlGroups = true;
-          RestrictAddressFamilies = [ "AF_UNIX AF_INET AF_INET6" ];
-          LockPersonality = true;
-          MemoryDenyWriteExecute = true;
-          RestrictRealtime = true;
-          RestrictSUIDSGID = true;
-          PrivateMounts = true;
-          SystemCallArchitectures = "native";
-          SystemCallFilter = "~@clock @privileged @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @reboot @setuid @swap";
-          BindReadOnlyPaths = [
-            "-/etc/resolv.conf"
-            "-/etc/nsswitch.conf"
-            "-/etc/ssl/certs"
-            "-/etc/static/ssl/certs"
-            "-/etc/hosts"
-            "-/etc/localtime"
-          ];
-        };
-        inherit (agentCfg) environment;
+  mkAgentService = name: agentCfg: {
+    name = "woodpecker-agent-${name}";
+    value = {
+      description = "Woodpecker-Agent Service - ${name}";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
+      serviceConfig = {
+        DynamicUser = true;
+        SupplementaryGroups = agentCfg.extraGroups;
+        EnvironmentFile = agentCfg.environmentFile;
+        ExecStart = lib.getExe agentCfg.package;
+        Restart = "on-failure";
+        RestartSec = 15;
+        CapabilityBoundingSet = "";
+        NoNewPrivileges = true;
+        ProtectSystem = "strict";
+        PrivateTmp = true;
+        PrivateDevices = true;
+        PrivateUsers = true;
+        ProtectHostname = true;
+        ProtectClock = true;
+        ProtectKernelTunables = true;
+        ProtectKernelModules = true;
+        ProtectKernelLogs = true;
+        ProtectControlGroups = true;
+        RestrictAddressFamilies = [ "AF_UNIX AF_INET AF_INET6" ];
+        LockPersonality = true;
+        MemoryDenyWriteExecute = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        PrivateMounts = true;
+        SystemCallArchitectures = "native";
+        SystemCallFilter = "~@clock @privileged @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @reboot @setuid @swap";
+        BindReadOnlyPaths = [
+          "-/etc/resolv.conf"
+          "-/etc/nsswitch.conf"
+          "-/etc/ssl/certs"
+          "-/etc/static/ssl/certs"
+          "-/etc/hosts"
+          "-/etc/localtime"
+        ];
       };
-    }
-  ;
+      inherit (agentCfg) environment;
+    };
+  };
 in
 {
   meta.maintainers = with lib.maintainers; [

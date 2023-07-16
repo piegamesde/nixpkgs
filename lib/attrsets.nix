@@ -567,8 +567,7 @@ rec {
     # Attribute value
     value: {
       inherit name value;
-    }
-  ;
+    };
 
   /* Apply a function to each element in an attribute set, creating a new attribute set.
 

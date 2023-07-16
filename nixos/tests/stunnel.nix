@@ -54,14 +54,12 @@ let
       };
     }
   ;
-  copyCert =
-    src: dest: filename: ''
-      from shlex import quote
-      ${src}.wait_for_file("/test-key-and-cert.pem")
-      server_cert = ${src}.succeed("cat /test-cert.pem")
-      ${dest}.succeed("echo %s > ${filename}" % quote(server_cert))
-    ''
-  ;
+  copyCert = src: dest: filename: ''
+    from shlex import quote
+    ${src}.wait_for_file("/test-key-and-cert.pem")
+    server_cert = ${src}.succeed("cat /test-cert.pem")
+    ${dest}.succeed("echo %s > ${filename}" % quote(server_cert))
+  '';
 in
 {
   basicServer = makeTest {

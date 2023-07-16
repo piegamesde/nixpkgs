@@ -26,46 +26,44 @@ let
     || cfg.settings.publicinboxwatch.spamcheck == "spamc"
   ;
 
-  publicInboxDaemonOptions =
-    proto: defaultPort: {
-      args = mkOption {
-        type = with types; listOf str;
-        default = [ ];
-        description =
-          lib.mdDoc
-            "Command-line arguments to pass to {manpage}`public-inbox-${proto}d(1)`."
-        ;
-      };
-      port = mkOption {
-        type = with types; nullOr (either str port);
-        default = defaultPort;
-        description = lib.mdDoc ''
-          Listening port.
-          Beware that public-inbox uses well-known ports number to decide whether to enable TLS or not.
-          Set to null and use `systemd.sockets.public-inbox-${proto}d.listenStreams`
-          if you need a more advanced listening.
-        '';
-      };
-      cert = mkOption {
-        type = with types; nullOr str;
-        default = null;
-        example = "/path/to/fullchain.pem";
-        description =
-          lib.mdDoc
-            "Path to TLS certificate to use for connections to {manpage}`public-inbox-${proto}d(1)`."
-        ;
-      };
-      key = mkOption {
-        type = with types; nullOr str;
-        default = null;
-        example = "/path/to/key.pem";
-        description =
-          lib.mdDoc
-            "Path to TLS key to use for connections to {manpage}`public-inbox-${proto}d(1)`."
-        ;
-      };
-    }
-  ;
+  publicInboxDaemonOptions = proto: defaultPort: {
+    args = mkOption {
+      type = with types; listOf str;
+      default = [ ];
+      description =
+        lib.mdDoc
+          "Command-line arguments to pass to {manpage}`public-inbox-${proto}d(1)`."
+      ;
+    };
+    port = mkOption {
+      type = with types; nullOr (either str port);
+      default = defaultPort;
+      description = lib.mdDoc ''
+        Listening port.
+        Beware that public-inbox uses well-known ports number to decide whether to enable TLS or not.
+        Set to null and use `systemd.sockets.public-inbox-${proto}d.listenStreams`
+        if you need a more advanced listening.
+      '';
+    };
+    cert = mkOption {
+      type = with types; nullOr str;
+      default = null;
+      example = "/path/to/fullchain.pem";
+      description =
+        lib.mdDoc
+          "Path to TLS certificate to use for connections to {manpage}`public-inbox-${proto}d(1)`."
+      ;
+    };
+    key = mkOption {
+      type = with types; nullOr str;
+      default = null;
+      example = "/path/to/key.pem";
+      description =
+        lib.mdDoc
+          "Path to TLS key to use for connections to {manpage}`public-inbox-${proto}d(1)`."
+      ;
+    };
+  };
 
   serviceConfig =
     srv:

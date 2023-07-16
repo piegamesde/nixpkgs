@@ -58,21 +58,19 @@ let
 
   regexLocation = cfg: regexEscape (stripLocation cfg);
 
-  mkFastcgiPass =
-    cfg: ''
-      ${
-        if cfg.nginx.location == "/" then
-          ''
-            fastcgi_param PATH_INFO $uri;
-          ''
-        else
-          ''
-            fastcgi_split_path_info ^(${regexLocation cfg})(/.+)$;
-            fastcgi_param PATH_INFO $fastcgi_path_info;
-          ''
-      }fastcgi_pass unix:${config.services.fcgiwrap.socketAddress};
-    ''
-  ;
+  mkFastcgiPass = cfg: ''
+    ${
+      if cfg.nginx.location == "/" then
+        ''
+          fastcgi_param PATH_INFO $uri;
+        ''
+      else
+        ''
+          fastcgi_split_path_info ^(${regexLocation cfg})(/.+)$;
+          fastcgi_param PATH_INFO $fastcgi_path_info;
+        ''
+    }fastcgi_pass unix:${config.services.fcgiwrap.socketAddress};
+  '';
 
   cgitrcLine =
     name: value:

@@ -13,16 +13,14 @@ let
     machine.wait_for_unit("rspamd.service")
     machine.succeed("id rspamd >/dev/null")
   '';
-  checkSocket =
-    socket: user: group: mode: ''
-      machine.succeed(
-          "ls ${socket} >/dev/null",
-          '[[ "$(stat -c %U ${socket})" == "${user}" ]]',
-          '[[ "$(stat -c %G ${socket})" == "${group}" ]]',
-          '[[ "$(stat -c %a ${socket})" == "${mode}" ]]',
-      )
-    ''
-  ;
+  checkSocket = socket: user: group: mode: ''
+    machine.succeed(
+        "ls ${socket} >/dev/null",
+        '[[ "$(stat -c %U ${socket})" == "${user}" ]]',
+        '[[ "$(stat -c %G ${socket})" == "${group}" ]]',
+        '[[ "$(stat -c %a ${socket})" == "${mode}" ]]',
+    )
+  '';
   simple =
     name: enableIPv6:
     makeTest {

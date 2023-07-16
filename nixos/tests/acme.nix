@@ -24,18 +24,16 @@ let
     ''
   ;
 
-  dnsConfig =
-    nodes: {
-      dnsProvider = "exec";
-      dnsPropagationCheck = false;
-      credentialsFile = pkgs.writeText "wildcard.env" ''
-        EXEC_PATH=${dnsScript nodes}
-        EXEC_POLLING_INTERVAL=1
-        EXEC_PROPAGATION_TIMEOUT=1
-        EXEC_SEQUENCE_INTERVAL=1
-      '';
-    }
-  ;
+  dnsConfig = nodes: {
+    dnsProvider = "exec";
+    dnsPropagationCheck = false;
+    credentialsFile = pkgs.writeText "wildcard.env" ''
+      EXEC_PATH=${dnsScript nodes}
+      EXEC_POLLING_INTERVAL=1
+      EXEC_PROPAGATION_TIMEOUT=1
+      EXEC_SEQUENCE_INTERVAL=1
+    '';
+  };
 
   documentRoot = pkgs.runCommand "docroot" { } ''
     mkdir -p "$out"

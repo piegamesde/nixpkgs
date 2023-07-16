@@ -50,34 +50,32 @@ let
   # This may include nss_ldap, needed for samba if it has to use ldap.
   nssModulesPath = config.system.nssModules.path;
 
-  daemonService =
-    appName: args: {
-      description = "Samba Service Daemon ${appName}";
+  daemonService = appName: args: {
+    description = "Samba Service Daemon ${appName}";
 
-      after = [
-        (mkIf (cfg.enableNmbd && "${appName}" == "smbd") "samba-nmbd.service")
-      ];
-      requiredBy = [ "samba.target" ];
-      partOf = [ "samba.target" ];
+    after = [
+      (mkIf (cfg.enableNmbd && "${appName}" == "smbd") "samba-nmbd.service")
+    ];
+    requiredBy = [ "samba.target" ];
+    partOf = [ "samba.target" ];
 
-      environment = {
-        LD_LIBRARY_PATH = nssModulesPath;
-        LOCALE_ARCHIVE = "/run/current-system/sw/lib/locale/locale-archive";
-      };
+    environment = {
+      LD_LIBRARY_PATH = nssModulesPath;
+      LOCALE_ARCHIVE = "/run/current-system/sw/lib/locale/locale-archive";
+    };
 
-      serviceConfig = {
-        ExecStart = "${samba}/sbin/${appName} --foreground --no-process-group ${args}";
-        ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-        LimitNOFILE = 16384;
-        PIDFile = "/run/${appName}.pid";
-        Type = "notify";
-        NotifyAccess = "all"; # may not do anything...
-      };
-      unitConfig.RequiresMountsFor = "/var/lib/samba";
+    serviceConfig = {
+      ExecStart = "${samba}/sbin/${appName} --foreground --no-process-group ${args}";
+      ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+      LimitNOFILE = 16384;
+      PIDFile = "/run/${appName}.pid";
+      Type = "notify";
+      NotifyAccess = "all"; # may not do anything...
+    };
+    unitConfig.RequiresMountsFor = "/var/lib/samba";
 
-      restartTriggers = [ configFile ];
-    }
-  ;
+    restartTriggers = [ configFile ];
+  };
 in
 
 {

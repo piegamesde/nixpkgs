@@ -35,27 +35,25 @@
 
 let
 
-  http_proxy_connect_module_generic =
-    patchName: rec {
-      name = "http_proxy_connect";
-      src = fetchFromGitHub {
-        name = "http_proxy_connect_module_generic";
-        owner = "chobits";
-        repo = "ngx_http_proxy_connect_module";
-        rev = "96ae4e06381f821218f368ad0ba964f87cbe0266";
-        sha256 = "1nc7z31i7x9dzp67kzgvs34hs6ps749y26wcpi3wf5mm63i803rh";
-      };
+  http_proxy_connect_module_generic = patchName: rec {
+    name = "http_proxy_connect";
+    src = fetchFromGitHub {
+      name = "http_proxy_connect_module_generic";
+      owner = "chobits";
+      repo = "ngx_http_proxy_connect_module";
+      rev = "96ae4e06381f821218f368ad0ba964f87cbe0266";
+      sha256 = "1nc7z31i7x9dzp67kzgvs34hs6ps749y26wcpi3wf5mm63i803rh";
+    };
 
-      patches = [ "${src}/patch/${patchName}.patch" ];
+    patches = [ "${src}/patch/${patchName}.patch" ];
 
-      meta = with lib; {
-        description = "Forward proxy module for CONNECT request handling";
-        homepage = "https://github.com/chobits/ngx_http_proxy_connect_module";
-        license = with licenses; [ bsd2 ];
-        maintainers = with maintainers; [ ];
-      };
-    }
-  ;
+    meta = with lib; {
+      description = "Forward proxy module for CONNECT request handling";
+      homepage = "https://github.com/chobits/ngx_http_proxy_connect_module";
+      license = with licenses; [ bsd2 ];
+      maintainers = with maintainers; [ ];
+    };
+  };
 in
 
 let

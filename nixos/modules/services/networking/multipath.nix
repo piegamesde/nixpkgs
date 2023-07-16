@@ -659,14 +659,12 @@ in
         ;
         devices = lib.concatMapStringsSep "\n" mkDeviceBlock cfg.devices;
 
-        mkMultipathBlock =
-          m: ''
-            multipath {
-              wwid ${m.wwid}
-              alias ${toString m.alias}
-            }
-          ''
-        ;
+        mkMultipathBlock = m: ''
+          multipath {
+            wwid ${m.wwid}
+            alias ${toString m.alias}
+          }
+        '';
         multipaths = lib.concatMapStringsSep "\n" mkMultipathBlock cfg.pathGroups;
       in
       ''

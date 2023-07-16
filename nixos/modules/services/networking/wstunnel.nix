@@ -348,163 +348,71 @@ let
       };
     }
   ;
-  generateServerUnit =
-    name: serverCfg: {
-      name = "wstunnel-server-${name}";
-      value = {
-        description = "wstunnel server - ${name}";
-        requires = [
-          "network.target"
-          "network-online.target"
-        ];
-        after = [
-          "network.target"
-          "network-online.target"
-        ];
-        wantedBy = optional serverCfg.autoStart "multi-user.target";
+  generateServerUnit = name: serverCfg: {
+    name = "wstunnel-server-${name}";
+    value = {
+      description = "wstunnel server - ${name}";
+      requires = [
+        "network.target"
+        "network-online.target"
+      ];
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
+      wantedBy = optional serverCfg.autoStart "multi-user.target";
 
-        serviceConfig =
-          let
-            certConfig = config.security.acme.certs."${serverCfg.useACMEHost}";
-          in
-          {
-            Type = "simple";
-            ExecStart =
-              with serverCfg;
-              let
-                resolvedTlsCertificate =
-                  if useACMEHost != null then
-                    "${certConfig.directory}/fullchain.pem"
-                  else
-                    tlsCertificate
-                ;
-                resolvedTlsKey =
-                  if useACMEHost != null then "${certConfig.directory}/key.pem" else tlsKey;
-              in
-              ''
-                ${package}/bin/wstunnel \
-                  --server \
-                  ${
-                    optionalString (restrictTo != null)
-                      "--restrictTo=${utils.escapeSystemdExecArg (hostPortToString restrictTo)}"
-                  } \
-                  ${
-                    optionalString (resolvedTlsCertificate != null)
-                      "--tlsCertificate=${utils.escapeSystemdExecArg resolvedTlsCertificate}"
-                  } \
-                  ${
-                    optionalString (resolvedTlsKey != null)
-                      "--tlsKey=${utils.escapeSystemdExecArg resolvedTlsKey}"
-                  } \
-                  ${optionalString verboseLogging "--verbose"} \
-                  ${attrsToArgs extraArgs} \
-                  ${
-                    utils.escapeSystemdExecArg
-                      "${if enableHTTPS then "wss" else "ws"}://${hostPortToString listen}"
-                  }
-              ''
-            ;
-            EnvironmentFile =
-              optional (serverCfg.environmentFile != null)
-                serverCfg.environmentFile
-            ;
-            DynamicUser = true;
-            SupplementaryGroups = optional (serverCfg.useACMEHost != null) certConfig.group;
-            PrivateTmp = true;
-            AmbientCapabilities = optionals (serverCfg.listen.port < 1024) [
-              "CAP_NET_BIND_SERVICE"
-            ];
-            NoNewPrivileges = true;
-            RestrictNamespaces = "uts ipc pid user cgroup";
-            ProtectSystem = "strict";
-            ProtectHome = true;
-            ProtectKernelTunables = true;
-            ProtectKernelModules = true;
-            ProtectControlGroups = true;
-            PrivateDevices = true;
-            RestrictSUIDSGID = true;
-          }
-        ;
-      };
-    }
-  ;
-  generateClientUnit =
-    name: clientCfg: {
-      name = "wstunnel-client-${name}";
-      value = {
-        description = "wstunnel client - ${name}";
-        requires = [
-          "network.target"
-          "network-online.target"
-        ];
-        after = [
-          "network.target"
-          "network-online.target"
-        ];
-        wantedBy = optional clientCfg.autoStart "multi-user.target";
-
-        serviceConfig = {
+      serviceConfig =
+        let
+          certConfig = config.security.acme.certs."${serverCfg.useACMEHost}";
+        in
+        {
           Type = "simple";
-          ExecStart = with clientCfg; ''
-            ${package}/bin/wstunnel \
-              ${
-                concatStringsSep " " (
-                  builtins.map (x: "--localToRemote=${localRemoteToString x}") localToRemote
-                )
-              } \
-              ${
-                concatStringsSep " " (
-                  mapAttrsToList (n: v: ''--customHeaders="${n}: ${v}"'') customHeaders
-                )
-              } \
-              ${
-                optionalString (dynamicToRemote != null)
-                  "--dynamicToRemote=${
-                    utils.escapeSystemdExecArg (hostPortToString dynamicToRemote)
-                  }"
-              } \
-              ${optionalString udp "--udp"} \
-              ${optionalString (httpProxy != null) "--httpProxy=${httpProxy}"} \
-              ${optionalString (soMark != null) "--soMark=${toString soMark}"} \
-              ${
-                optionalString (upgradePathPrefix != null)
-                  "--upgradePathPrefix=${upgradePathPrefix}"
-              } \
-              ${optionalString (hostHeader != null) "--hostHeader=${hostHeader}"} \
-              ${optionalString (tlsSNI != null) "--tlsSNI=${tlsSNI}"} \
-              ${optionalString tlsVerifyCertificate "--tlsVerifyCertificate"} \
-              ${
-                optionalString (websocketPingInterval != null)
-                  "--websocketPingFrequency=${toString websocketPingInterval}"
-              } \
-              ${
-                optionalString (upgradeCredentials != null)
-                  "--upgradeCredentials=${upgradeCredentials}"
-              } \
-              --udpTimeoutSec=${toString udpTimeout} \
-              ${optionalString verboseLogging "--verbose"} \
-              ${attrsToArgs extraArgs} \
-              ${
-                utils.escapeSystemdExecArg
-                  "${if enableHTTPS then "wss" else "ws"}://${hostPortToString connectTo}"
-              }
-          '';
+          ExecStart =
+            with serverCfg;
+            let
+              resolvedTlsCertificate =
+                if useACMEHost != null then
+                  "${certConfig.directory}/fullchain.pem"
+                else
+                  tlsCertificate
+              ;
+              resolvedTlsKey =
+                if useACMEHost != null then "${certConfig.directory}/key.pem" else tlsKey;
+            in
+            ''
+              ${package}/bin/wstunnel \
+                --server \
+                ${
+                  optionalString (restrictTo != null)
+                    "--restrictTo=${utils.escapeSystemdExecArg (hostPortToString restrictTo)}"
+                } \
+                ${
+                  optionalString (resolvedTlsCertificate != null)
+                    "--tlsCertificate=${utils.escapeSystemdExecArg resolvedTlsCertificate}"
+                } \
+                ${
+                  optionalString (resolvedTlsKey != null)
+                    "--tlsKey=${utils.escapeSystemdExecArg resolvedTlsKey}"
+                } \
+                ${optionalString verboseLogging "--verbose"} \
+                ${attrsToArgs extraArgs} \
+                ${
+                  utils.escapeSystemdExecArg
+                    "${if enableHTTPS then "wss" else "ws"}://${hostPortToString listen}"
+                }
+            ''
+          ;
           EnvironmentFile =
-            optional (clientCfg.environmentFile != null)
-              clientCfg.environmentFile
+            optional (serverCfg.environmentFile != null)
+              serverCfg.environmentFile
           ;
           DynamicUser = true;
+          SupplementaryGroups = optional (serverCfg.useACMEHost != null) certConfig.group;
           PrivateTmp = true;
-          AmbientCapabilities =
-            (optionals (clientCfg.soMark != null) [ "CAP_NET_ADMIN" ])
-            ++ (optionals
-              (
-                (clientCfg.dynamicToRemote.port or 1024) < 1024
-                || (any (x: x.local.port < 1024) clientCfg.localToRemote)
-              )
-              [ "CAP_NET_BIND_SERVICE" ]
-            )
-          ;
+          AmbientCapabilities = optionals (serverCfg.listen.port < 1024) [
+            "CAP_NET_BIND_SERVICE"
+          ];
           NoNewPrivileges = true;
           RestrictNamespaces = "uts ipc pid user cgroup";
           ProtectSystem = "strict";
@@ -514,10 +422,98 @@ let
           ProtectControlGroups = true;
           PrivateDevices = true;
           RestrictSUIDSGID = true;
-        };
+        }
+      ;
+    };
+  };
+  generateClientUnit = name: clientCfg: {
+    name = "wstunnel-client-${name}";
+    value = {
+      description = "wstunnel client - ${name}";
+      requires = [
+        "network.target"
+        "network-online.target"
+      ];
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
+      wantedBy = optional clientCfg.autoStart "multi-user.target";
+
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = with clientCfg; ''
+          ${package}/bin/wstunnel \
+            ${
+              concatStringsSep " " (
+                builtins.map (x: "--localToRemote=${localRemoteToString x}") localToRemote
+              )
+            } \
+            ${
+              concatStringsSep " " (
+                mapAttrsToList (n: v: ''--customHeaders="${n}: ${v}"'') customHeaders
+              )
+            } \
+            ${
+              optionalString (dynamicToRemote != null)
+                "--dynamicToRemote=${
+                  utils.escapeSystemdExecArg (hostPortToString dynamicToRemote)
+                }"
+            } \
+            ${optionalString udp "--udp"} \
+            ${optionalString (httpProxy != null) "--httpProxy=${httpProxy}"} \
+            ${optionalString (soMark != null) "--soMark=${toString soMark}"} \
+            ${
+              optionalString (upgradePathPrefix != null)
+                "--upgradePathPrefix=${upgradePathPrefix}"
+            } \
+            ${optionalString (hostHeader != null) "--hostHeader=${hostHeader}"} \
+            ${optionalString (tlsSNI != null) "--tlsSNI=${tlsSNI}"} \
+            ${optionalString tlsVerifyCertificate "--tlsVerifyCertificate"} \
+            ${
+              optionalString (websocketPingInterval != null)
+                "--websocketPingFrequency=${toString websocketPingInterval}"
+            } \
+            ${
+              optionalString (upgradeCredentials != null)
+                "--upgradeCredentials=${upgradeCredentials}"
+            } \
+            --udpTimeoutSec=${toString udpTimeout} \
+            ${optionalString verboseLogging "--verbose"} \
+            ${attrsToArgs extraArgs} \
+            ${
+              utils.escapeSystemdExecArg
+                "${if enableHTTPS then "wss" else "ws"}://${hostPortToString connectTo}"
+            }
+        '';
+        EnvironmentFile =
+          optional (clientCfg.environmentFile != null)
+            clientCfg.environmentFile
+        ;
+        DynamicUser = true;
+        PrivateTmp = true;
+        AmbientCapabilities =
+          (optionals (clientCfg.soMark != null) [ "CAP_NET_ADMIN" ])
+          ++ (optionals
+            (
+              (clientCfg.dynamicToRemote.port or 1024) < 1024
+              || (any (x: x.local.port < 1024) clientCfg.localToRemote)
+            )
+            [ "CAP_NET_BIND_SERVICE" ]
+          )
+        ;
+        NoNewPrivileges = true;
+        RestrictNamespaces = "uts ipc pid user cgroup";
+        ProtectSystem = "strict";
+        ProtectHome = true;
+        ProtectKernelTunables = true;
+        ProtectKernelModules = true;
+        ProtectControlGroups = true;
+        PrivateDevices = true;
+        RestrictSUIDSGID = true;
       };
-    }
-  ;
+    };
+  };
 in
 {
   options.services.wstunnel = {

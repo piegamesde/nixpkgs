@@ -191,14 +191,12 @@ let
             ];
             bindSockets =
               let
-                unixSocket =
-                  name: {
-                    mode = "0660";
-                    socket = "/run/rspamd/${name}.sock";
-                    owner = cfg.user;
-                    group = cfg.group;
-                  }
-                ;
+                unixSocket = name: {
+                  mode = "0660";
+                  socket = "/run/rspamd/${name}.sock";
+                  owner = cfg.user;
+                  group = cfg.group;
+                };
               in
               mkDefault (
                 if name == "normal" then

@@ -27,16 +27,14 @@ let
       v
   ;
 
-  mkSection =
-    name: attrs: ''
-      [${name}]
-      ${lib.concatStringsSep "\n" (
-        lib.mapAttrsToList (k: v: "${k}=${mkValue v}") (
-          lib.filterAttrs (k: v: v != null) attrs
-        )
-      )}
-    ''
-  ;
+  mkSection = name: attrs: ''
+    [${name}]
+    ${lib.concatStringsSep "\n" (
+      lib.mapAttrsToList (k: v: "${k}=${mkValue v}") (
+        lib.filterAttrs (k: v: v != null) attrs
+      )
+    )}
+  '';
 
   configFile = pkgs.writeText "NetworkManager.conf" (
     lib.concatStringsSep "\n" [

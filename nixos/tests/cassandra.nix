@@ -31,19 +31,17 @@ import ./make-test-python.nix (
       [ 1 -eq "$(echo "$(${getHeapLimitCommand}) < ${numMaxHeapSize}" | ${pkgs.bc}/bin/bc)" ]
     '';
 
-    cassandraCfg =
-      ipAddress: {
-        enable = true;
-        inherit clusterName;
-        listenAddress = ipAddress;
-        rpcAddress = ipAddress;
-        seedAddresses = [ "192.168.1.1" ];
-        package = testPackage;
-        maxHeapSize = "${numMaxHeapSize}M";
-        heapNewSize = "100M";
-        inherit jmxPort;
-      }
-    ;
+    cassandraCfg = ipAddress: {
+      enable = true;
+      inherit clusterName;
+      listenAddress = ipAddress;
+      rpcAddress = ipAddress;
+      seedAddresses = [ "192.168.1.1" ];
+      package = testPackage;
+      maxHeapSize = "${numMaxHeapSize}M";
+      heapNewSize = "100M";
+      inherit jmxPort;
+    };
     nodeCfg =
       ipAddress: extra:
       {

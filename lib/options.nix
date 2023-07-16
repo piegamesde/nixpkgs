@@ -565,12 +565,10 @@ rec {
       defs
   ;
 
-  showOptionWithDefLocs =
-    opt: ''
-      ${showOption opt.loc}, with values defined in:
-      ${concatMapStringsSep "\n" (defFile: "  - ${defFile}") opt.files}
-    ''
-  ;
+  showOptionWithDefLocs = opt: ''
+    ${showOption opt.loc}, with values defined in:
+    ${concatMapStringsSep "\n" (defFile: "  - ${defFile}") opt.files}
+  '';
 
   unknownModule = "<unknown-file>";
 }

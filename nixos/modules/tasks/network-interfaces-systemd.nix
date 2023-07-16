@@ -47,14 +47,12 @@ let
             (cfg.defaultGateway6 != null && (cfg.defaultGateway6.address or "") != "")
             cfg.defaultGateway6.address
       ;
-      makeGateway =
-        gateway: {
-          routeConfig = {
-            Gateway = gateway;
-            GatewayOnLink = false;
-          };
-        }
-      ;
+      makeGateway = gateway: {
+        routeConfig = {
+          Gateway = gateway;
+          GatewayOnLink = false;
+        };
+      };
     in
     optionalAttrs (gateway != [ ]) { routes = override (map makeGateway gateway); }
     // optionalAttrs (domains != [ ]) { domains = override domains; }
@@ -281,12 +279,10 @@ in
                     # driver options.
                     driverOptionMapping =
                       let
-                        trans =
-                          f: optName: {
-                            valTransform = f;
-                            optNames = [ optName ];
-                          }
-                        ;
+                        trans = f: optName: {
+                          valTransform = f;
+                          optNames = [ optName ];
+                        };
                         simp = trans id;
                         ms = trans (v: v + "ms");
                       in

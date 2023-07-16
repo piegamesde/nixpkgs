@@ -5,18 +5,15 @@
   chickenEggs,
 }:
 let
-  addToBuildInputs =
-    pkg: old: { buildInputs = (old.buildInputs or [ ]) ++ lib.toList pkg; };
-  addToPropagatedBuildInputs =
-    pkg: old: {
-      propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ lib.toList pkg;
-    }
-  ;
-  addPkgConfig =
-    old: {
-      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ];
-    }
-  ;
+  addToBuildInputs = pkg: old: {
+    buildInputs = (old.buildInputs or [ ]) ++ lib.toList pkg;
+  };
+  addToPropagatedBuildInputs = pkg: old: {
+    propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ lib.toList pkg;
+  };
+  addPkgConfig = old: {
+    nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ];
+  };
   addToBuildInputsWithPkgConfig =
     pkg: old: (addPkgConfig old) // (addToBuildInputs pkg old);
   addToPropagatedBuildInputsWithPkgConfig =

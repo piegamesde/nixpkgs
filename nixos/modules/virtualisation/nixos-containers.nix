@@ -91,125 +91,121 @@ let
 
   nspawnExtraVethArgs = (name: cfg: "--network-veth-extra=${name}");
 
-  startScript =
-    cfg: ''
-      mkdir -p -m 0755 "$root/etc" "$root/var/lib"
-      mkdir -p -m 0700 "$root/var/lib/private" "$root/root" /run/nixos-containers
-      if ! [ -e "$root/etc/os-release" ]; then
-        touch "$root/etc/os-release"
-      fi
+  startScript = cfg: ''
+    mkdir -p -m 0755 "$root/etc" "$root/var/lib"
+    mkdir -p -m 0700 "$root/var/lib/private" "$root/root" /run/nixos-containers
+    if ! [ -e "$root/etc/os-release" ]; then
+      touch "$root/etc/os-release"
+    fi
 
-      if ! [ -e "$root/etc/machine-id" ]; then
-        touch "$root/etc/machine-id"
-      fi
+    if ! [ -e "$root/etc/machine-id" ]; then
+      touch "$root/etc/machine-id"
+    fi
 
-      mkdir -p -m 0755 \
-        "/nix/var/nix/profiles/per-container/$INSTANCE" \
-        "/nix/var/nix/gcroots/per-container/$INSTANCE"
+    mkdir -p -m 0755 \
+      "/nix/var/nix/profiles/per-container/$INSTANCE" \
+      "/nix/var/nix/gcroots/per-container/$INSTANCE"
 
-      cp --remove-destination /etc/resolv.conf "$root/etc/resolv.conf"
+    cp --remove-destination /etc/resolv.conf "$root/etc/resolv.conf"
 
-      if [ "$PRIVATE_NETWORK" = 1 ]; then
-        extraFlags+=" --private-network"
-      fi
+    if [ "$PRIVATE_NETWORK" = 1 ]; then
+      extraFlags+=" --private-network"
+    fi
 
-      if [ -n "$HOST_ADDRESS" ]  || [ -n "$LOCAL_ADDRESS" ] ||
-         [ -n "$HOST_ADDRESS6" ] || [ -n "$LOCAL_ADDRESS6" ]; then
-        extraFlags+=" --network-veth"
-      fi
+    if [ -n "$HOST_ADDRESS" ]  || [ -n "$LOCAL_ADDRESS" ] ||
+       [ -n "$HOST_ADDRESS6" ] || [ -n "$LOCAL_ADDRESS6" ]; then
+      extraFlags+=" --network-veth"
+    fi
 
-      if [ -n "$HOST_PORT" ]; then
-        OIFS=$IFS
-        IFS=","
-        for i in $HOST_PORT
-        do
-            extraFlags+=" --port=$i"
-        done
-        IFS=$OIFS
-      fi
-
-      if [ -n "$HOST_BRIDGE" ]; then
-        extraFlags+=" --network-bridge=$HOST_BRIDGE"
-      fi
-
-      extraFlags+=" ${
-        concatStringsSep " " (mapAttrsToList nspawnExtraVethArgs cfg.extraVeths)
-      }"
-
-      for iface in $INTERFACES; do
-        extraFlags+=" --network-interface=$iface"
+    if [ -n "$HOST_PORT" ]; then
+      OIFS=$IFS
+      IFS=","
+      for i in $HOST_PORT
+      do
+          extraFlags+=" --port=$i"
       done
+      IFS=$OIFS
+    fi
 
-      for iface in $MACVLANS; do
-        extraFlags+=" --network-macvlan=$iface"
-      done
+    if [ -n "$HOST_BRIDGE" ]; then
+      extraFlags+=" --network-bridge=$HOST_BRIDGE"
+    fi
 
-      # If the host is 64-bit and the container is 32-bit, add a
-      # --personality flag.
-      ${optionalString (pkgs.stdenv.hostPlatform.system == "x86_64-linux") ''
-        if [ "$(< ''${SYSTEM_PATH:-/nix/var/nix/profiles/per-container/$INSTANCE/system}/system)" = i686-linux ]; then
-          extraFlags+=" --personality=x86"
-        fi
-      ''}
+    extraFlags+=" ${
+      concatStringsSep " " (mapAttrsToList nspawnExtraVethArgs cfg.extraVeths)
+    }"
 
-      export SYSTEMD_NSPAWN_UNIFIED_HIERARCHY=1
+    for iface in $INTERFACES; do
+      extraFlags+=" --network-interface=$iface"
+    done
 
-      # Run systemd-nspawn without startup notification (we'll
-      # wait for the container systemd to signal readiness)
-      # Kill signal handling means systemd-nspawn will pass a system-halt signal
-      # to the container systemd when it receives SIGTERM for container shutdown;
-      # containerInit and stage2 have to handle this as well.
-      exec ${config.systemd.package}/bin/systemd-nspawn \
-        --keep-unit \
-        -M "$INSTANCE" -D "$root" $extraFlags \
-        $EXTRA_NSPAWN_FLAGS \
-        --notify-ready=yes \
-        --kill-signal=SIGRTMIN+3 \
-        --bind-ro=/nix/store \
-        --bind-ro=/nix/var/nix/db \
-        --bind-ro=/nix/var/nix/daemon-socket \
-        --bind="/nix/var/nix/profiles/per-container/$INSTANCE:/nix/var/nix/profiles" \
-        --bind="/nix/var/nix/gcroots/per-container/$INSTANCE:/nix/var/nix/gcroots" \
-        ${optionalString (!cfg.ephemeral) "--link-journal=try-guest"} \
-        --setenv PRIVATE_NETWORK="$PRIVATE_NETWORK" \
-        --setenv HOST_BRIDGE="$HOST_BRIDGE" \
-        --setenv HOST_ADDRESS="$HOST_ADDRESS" \
-        --setenv LOCAL_ADDRESS="$LOCAL_ADDRESS" \
-        --setenv HOST_ADDRESS6="$HOST_ADDRESS6" \
-        --setenv LOCAL_ADDRESS6="$LOCAL_ADDRESS6" \
-        --setenv HOST_PORT="$HOST_PORT" \
-        --setenv PATH="$PATH" \
-        ${optionalString cfg.ephemeral "--ephemeral"} \
-        ${
-          optionalString
-            (cfg.additionalCapabilities != null && cfg.additionalCapabilities != [ ])
-            ''--capability="${concatStringsSep "," cfg.additionalCapabilities}"''
-        } \
-        ${
-          optionalString (cfg.tmpfs != null && cfg.tmpfs != [ ])
-            "--tmpfs=${concatStringsSep " --tmpfs=" cfg.tmpfs}"
-        } \
-        ${containerInit cfg} "''${SYSTEM_PATH:-/nix/var/nix/profiles/system}/init"
-    ''
-  ;
+    for iface in $MACVLANS; do
+      extraFlags+=" --network-macvlan=$iface"
+    done
 
-  preStartScript =
-    cfg: ''
-      # Clean up existing machined registration and interfaces.
-      machinectl terminate "$INSTANCE" 2> /dev/null || true
-
-      if [ -n "$HOST_ADDRESS" ]  || [ -n "$LOCAL_ADDRESS" ] ||
-         [ -n "$HOST_ADDRESS6" ] || [ -n "$LOCAL_ADDRESS6" ]; then
-        ip link del dev "ve-$INSTANCE" 2> /dev/null || true
-        ip link del dev "vb-$INSTANCE" 2> /dev/null || true
+    # If the host is 64-bit and the container is 32-bit, add a
+    # --personality flag.
+    ${optionalString (pkgs.stdenv.hostPlatform.system == "x86_64-linux") ''
+      if [ "$(< ''${SYSTEM_PATH:-/nix/var/nix/profiles/per-container/$INSTANCE/system}/system)" = i686-linux ]; then
+        extraFlags+=" --personality=x86"
       fi
+    ''}
 
-      ${concatStringsSep "\n" (
-        mapAttrsToList (name: cfg: "ip link del dev ${name} 2> /dev/null || true ")
-          cfg.extraVeths
-      )}
-    ''
-  ;
+    export SYSTEMD_NSPAWN_UNIFIED_HIERARCHY=1
+
+    # Run systemd-nspawn without startup notification (we'll
+    # wait for the container systemd to signal readiness)
+    # Kill signal handling means systemd-nspawn will pass a system-halt signal
+    # to the container systemd when it receives SIGTERM for container shutdown;
+    # containerInit and stage2 have to handle this as well.
+    exec ${config.systemd.package}/bin/systemd-nspawn \
+      --keep-unit \
+      -M "$INSTANCE" -D "$root" $extraFlags \
+      $EXTRA_NSPAWN_FLAGS \
+      --notify-ready=yes \
+      --kill-signal=SIGRTMIN+3 \
+      --bind-ro=/nix/store \
+      --bind-ro=/nix/var/nix/db \
+      --bind-ro=/nix/var/nix/daemon-socket \
+      --bind="/nix/var/nix/profiles/per-container/$INSTANCE:/nix/var/nix/profiles" \
+      --bind="/nix/var/nix/gcroots/per-container/$INSTANCE:/nix/var/nix/gcroots" \
+      ${optionalString (!cfg.ephemeral) "--link-journal=try-guest"} \
+      --setenv PRIVATE_NETWORK="$PRIVATE_NETWORK" \
+      --setenv HOST_BRIDGE="$HOST_BRIDGE" \
+      --setenv HOST_ADDRESS="$HOST_ADDRESS" \
+      --setenv LOCAL_ADDRESS="$LOCAL_ADDRESS" \
+      --setenv HOST_ADDRESS6="$HOST_ADDRESS6" \
+      --setenv LOCAL_ADDRESS6="$LOCAL_ADDRESS6" \
+      --setenv HOST_PORT="$HOST_PORT" \
+      --setenv PATH="$PATH" \
+      ${optionalString cfg.ephemeral "--ephemeral"} \
+      ${
+        optionalString
+          (cfg.additionalCapabilities != null && cfg.additionalCapabilities != [ ])
+          ''--capability="${concatStringsSep "," cfg.additionalCapabilities}"''
+      } \
+      ${
+        optionalString (cfg.tmpfs != null && cfg.tmpfs != [ ])
+          "--tmpfs=${concatStringsSep " --tmpfs=" cfg.tmpfs}"
+      } \
+      ${containerInit cfg} "''${SYSTEM_PATH:-/nix/var/nix/profiles/system}/init"
+  '';
+
+  preStartScript = cfg: ''
+    # Clean up existing machined registration and interfaces.
+    machinectl terminate "$INSTANCE" 2> /dev/null || true
+
+    if [ -n "$HOST_ADDRESS" ]  || [ -n "$LOCAL_ADDRESS" ] ||
+       [ -n "$HOST_ADDRESS6" ] || [ -n "$LOCAL_ADDRESS6" ]; then
+      ip link del dev "ve-$INSTANCE" 2> /dev/null || true
+      ip link del dev "vb-$INSTANCE" 2> /dev/null || true
+    fi
+
+    ${concatStringsSep "\n" (
+      mapAttrsToList (name: cfg: "ip link del dev ${name} 2> /dev/null || true ")
+        cfg.extraVeths
+    )}
+  '';
 
   postStartScript =
     (
@@ -270,49 +266,47 @@ let
       ''
     );
 
-  serviceDirectives =
-    cfg: {
-      ExecReload = pkgs.writeScript "reload-container" ''
-        #! ${pkgs.runtimeShell} -e
-        ${nixos-container}/bin/nixos-container run "$INSTANCE" -- \
-          bash --login -c "''${SYSTEM_PATH:-/nix/var/nix/profiles/system}/bin/switch-to-configuration test"
-      '';
+  serviceDirectives = cfg: {
+    ExecReload = pkgs.writeScript "reload-container" ''
+      #! ${pkgs.runtimeShell} -e
+      ${nixos-container}/bin/nixos-container run "$INSTANCE" -- \
+        bash --login -c "''${SYSTEM_PATH:-/nix/var/nix/profiles/system}/bin/switch-to-configuration test"
+    '';
 
-      SyslogIdentifier = "container %i";
+    SyslogIdentifier = "container %i";
 
-      EnvironmentFile = "-${configurationDirectory}/%i.conf";
+    EnvironmentFile = "-${configurationDirectory}/%i.conf";
 
-      Type = "notify";
+    Type = "notify";
 
-      RuntimeDirectory =
-        lib.optional cfg.ephemeral
-          "${configurationDirectoryName}/%i"
-      ;
+    RuntimeDirectory =
+      lib.optional cfg.ephemeral
+        "${configurationDirectoryName}/%i"
+    ;
 
-      # Note that on reboot, systemd-nspawn returns 133, so this
-      # unit will be restarted. On poweroff, it returns 0, so the
-      # unit won't be restarted.
-      RestartForceExitStatus = "133";
-      SuccessExitStatus = "133";
+    # Note that on reboot, systemd-nspawn returns 133, so this
+    # unit will be restarted. On poweroff, it returns 0, so the
+    # unit won't be restarted.
+    RestartForceExitStatus = "133";
+    SuccessExitStatus = "133";
 
-      # Some containers take long to start
-      # especially when you automatically start many at once
-      TimeoutStartSec = cfg.timeoutStartSec;
+    # Some containers take long to start
+    # especially when you automatically start many at once
+    TimeoutStartSec = cfg.timeoutStartSec;
 
-      Restart = "on-failure";
+    Restart = "on-failure";
 
-      Slice = "machine.slice";
-      Delegate = true;
+    Slice = "machine.slice";
+    Delegate = true;
 
-      # We rely on systemd-nspawn turning a SIGTERM to itself into a shutdown
-      # signal (SIGRTMIN+3) for the inner container.
-      KillMode = "mixed";
-      KillSignal = "TERM";
+    # We rely on systemd-nspawn turning a SIGTERM to itself into a shutdown
+    # signal (SIGRTMIN+3) for the inner container.
+    KillMode = "mixed";
+    KillSignal = "TERM";
 
-      DevicePolicy = "closed";
-      DeviceAllow = map (d: "${d.node} ${d.modifier}") cfg.allowedDevices;
-    }
-  ;
+    DevicePolicy = "closed";
+    DeviceAllow = map (d: "${d.node} ${d.modifier}") cfg.allowedDevices;
+  };
 
   kernelVersion = config.boot.kernelPackages.kernel.version;
 

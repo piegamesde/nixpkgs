@@ -23,21 +23,19 @@ let
       exit 1
     fi
   '';
-  backupDatabaseScript =
-    db: ''
-      dest="${cfg.location}/${db}.gz"
-      if ${mariadb}/bin/mysqldump ${
-        optionalString cfg.singleTransaction "--single-transaction"
-      } ${db} | ${gzip}/bin/gzip -c > $dest.tmp; then
-        mv $dest.tmp $dest
-        echo "Backed up to $dest"
-      else
-        echo "Failed to back up to $dest"
-        rm -f $dest.tmp
-        failed="$failed ${db}"
-      fi
-    ''
-  ;
+  backupDatabaseScript = db: ''
+    dest="${cfg.location}/${db}.gz"
+    if ${mariadb}/bin/mysqldump ${
+      optionalString cfg.singleTransaction "--single-transaction"
+    } ${db} | ${gzip}/bin/gzip -c > $dest.tmp; then
+      mv $dest.tmp $dest
+      echo "Backed up to $dest"
+    else
+      echo "Failed to back up to $dest"
+      rm -f $dest.tmp
+      failed="$failed ${db}"
+    fi
+  '';
 in
 
 {

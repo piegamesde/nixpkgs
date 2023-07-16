@@ -111,71 +111,69 @@ let
     }
   ;
 
-  routeOpts =
-    v: {
-      options = {
-        address = mkOption {
-          type = types.str;
-          description = lib.mdDoc "IPv${toString v} address of the network.";
-        };
-
-        prefixLength = mkOption {
-          type = types.addCheck types.int (
-            n: n >= 0 && n <= (if v == 4 then 32 else 128)
-          );
-          description = lib.mdDoc ''
-            Subnet mask of the network, specified as the number of
-            bits in the prefix (`${if v == 4 then "24" else "64"}`).
-          '';
-        };
-
-        type = mkOption {
-          type = types.nullOr (
-            types.enum [
-              "unicast"
-              "local"
-              "broadcast"
-              "multicast"
-            ]
-          );
-          default = null;
-          description = lib.mdDoc ''
-            Type of the route.  See the `Route types` section
-            in the `ip-route(8)` manual page for the details.
-
-            Note that `prohibit`, `blackhole`,
-            `unreachable`, and `throw` cannot
-            be configured per device, so they are not available here. Similarly,
-            `nat` hasn't been supported since kernel 2.6.
-          '';
-        };
-
-        via = mkOption {
-          type = types.nullOr types.str;
-          default = null;
-          description = lib.mdDoc "IPv${toString v} address of the next hop.";
-        };
-
-        options = mkOption {
-          type = types.attrsOf types.str;
-          default = { };
-          example = {
-            mtu = "1492";
-            window = "524288";
-          };
-          description = lib.mdDoc ''
-            Other route options. See the symbol `OPTIONS`
-            in the `ip-route(8)` manual page for the details.
-            You may also specify `metric`,
-            `src`, `protocol`,
-            `scope`, `from`
-            and `table`, which are technically
-            not route options, in the sense used in the manual.
-          '';
-        };
+  routeOpts = v: {
+    options = {
+      address = mkOption {
+        type = types.str;
+        description = lib.mdDoc "IPv${toString v} address of the network.";
       };
-    }
-  ;
+
+      prefixLength = mkOption {
+        type = types.addCheck types.int (
+          n: n >= 0 && n <= (if v == 4 then 32 else 128)
+        );
+        description = lib.mdDoc ''
+          Subnet mask of the network, specified as the number of
+          bits in the prefix (`${if v == 4 then "24" else "64"}`).
+        '';
+      };
+
+      type = mkOption {
+        type = types.nullOr (
+          types.enum [
+            "unicast"
+            "local"
+            "broadcast"
+            "multicast"
+          ]
+        );
+        default = null;
+        description = lib.mdDoc ''
+          Type of the route.  See the `Route types` section
+          in the `ip-route(8)` manual page for the details.
+
+          Note that `prohibit`, `blackhole`,
+          `unreachable`, and `throw` cannot
+          be configured per device, so they are not available here. Similarly,
+          `nat` hasn't been supported since kernel 2.6.
+        '';
+      };
+
+      via = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = lib.mdDoc "IPv${toString v} address of the next hop.";
+      };
+
+      options = mkOption {
+        type = types.attrsOf types.str;
+        default = { };
+        example = {
+          mtu = "1492";
+          window = "524288";
+        };
+        description = lib.mdDoc ''
+          Other route options. See the symbol `OPTIONS`
+          in the `ip-route(8)` manual page for the details.
+          You may also specify `metric`,
+          `src`, `protocol`,
+          `scope`, `from`
+          and `table`, which are technically
+          not route options, in the sense used in the manual.
+        '';
+      };
+    };
+  };
 
   gatewayCoerce = address: { inherit address; };
 

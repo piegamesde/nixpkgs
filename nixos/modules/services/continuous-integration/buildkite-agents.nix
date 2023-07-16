@@ -30,16 +30,14 @@ let
   hooksDir =
     cfg:
     let
-      mkHookEntry =
-        name: value: ''
-          cat > $out/${name} <<'EOF'
-          #! ${pkgs.runtimeShell}
-          set -e
-          ${value}
-          EOF
-          chmod 755 $out/${name}
-        ''
-      ;
+      mkHookEntry = name: value: ''
+        cat > $out/${name} <<'EOF'
+        #! ${pkgs.runtimeShell}
+        set -e
+        ${value}
+        EOF
+        chmod 755 $out/${name}
+      '';
     in
     pkgs.runCommand "buildkite-agent-hooks" { preferLocalBuild = true; } ''
       mkdir $out

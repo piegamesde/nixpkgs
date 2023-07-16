@@ -83,12 +83,10 @@ let
       abort "no Nim OS support known for ${config}"
   ;
 
-  parsePlatform =
-    p: {
-      cpu = parseCpu p;
-      os = parseOs p;
-    }
-  ;
+  parsePlatform = p: {
+    cpu = parseCpu p;
+    os = parseOs p;
+  };
 
   nimHost = parsePlatform stdenv.hostPlatform;
   nimTarget = parsePlatform stdenv.targetPlatform;

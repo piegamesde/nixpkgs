@@ -120,20 +120,18 @@ let
 
   # patch CMakeLists.txt for a dependency and compare the versions to the ones expected by upstream
   # this has to be applied for every dependency (which it is in postPatch)
-  patchDep =
-    dep: ''
-      # check if our version of dep is the same version that upstream expects
-      echo "Checking version of ${dep.dep_name}"
-      expected_rev="$( sed -n -e 's|.*URL https://github.com/.*/archive/\(.*\)\.zip.*|\1|p' "deps/${dep.dep_name}/CMakeLists.txt" )"
-      if [ "$expected_rev" != '${dep.rev}' ]; then
-        echo "The ${dep.dep_name} dependency has the wrong version: ${dep.rev} while $expected_rev is expected."
-        exit 1
-      fi
+  patchDep = dep: ''
+    # check if our version of dep is the same version that upstream expects
+    echo "Checking version of ${dep.dep_name}"
+    expected_rev="$( sed -n -e 's|.*URL https://github.com/.*/archive/\(.*\)\.zip.*|\1|p' "deps/${dep.dep_name}/CMakeLists.txt" )"
+    if [ "$expected_rev" != '${dep.rev}' ]; then
+      echo "The ${dep.dep_name} dependency has the wrong version: ${dep.rev} while $expected_rev is expected."
+      exit 1
+    fi
 
-      # patch the CMakeLists.txt file to use our local copy of the dependency instead of fetching it at build time
-      sed -i -e 's|URL .*|URL ${dep}|' "deps/${dep.dep_name}/CMakeLists.txt"
-    ''
-  ;
+    # patch the CMakeLists.txt file to use our local copy of the dependency instead of fetching it at build time
+    sed -i -e 's|URL .*|URL ${dep}|' "deps/${dep.dep_name}/CMakeLists.txt"
+  '';
 in
 stdenv.mkDerivation rec {
   pname = "retdec";

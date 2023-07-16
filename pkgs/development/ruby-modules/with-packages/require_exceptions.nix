@@ -1,10 +1,8 @@
 let
-  cocoapod-plugin =
-    name: ''
-      require "cocoapods"
-      require "#{Gem::Specification.find_by_name(%(${name})).gem_dir}/lib/cocoapods_plugin"
-    ''
-  ;
+  cocoapod-plugin = name: ''
+    require "cocoapods"
+    require "#{Gem::Specification.find_by_name(%(${name})).gem_dir}/lib/cocoapods_plugin"
+  '';
 in
 {
   actioncable = [ "action_cable" ];

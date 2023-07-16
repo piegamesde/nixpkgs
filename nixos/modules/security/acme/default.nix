@@ -547,25 +547,23 @@ let
       ...
     }:
     let
-      defaultAndText =
-        name: default: {
-          # When ! isDefaults then this is the option declaration for the
-          # security.acme.certs.<name> path, which has the extra inheritDefaults
-          # option, which if disabled means that we can't inherit it
-          default =
-            if isDefaults || !config.inheritDefaults then default else cfg.defaults.${name};
-          # The docs however don't need to depend on inheritDefaults, they should
-          # stay constant. Though notably it wouldn't matter much, because to get
-          # the option information, a submodule with name `<name>` is evaluated
-          # without any definitions.
-          defaultText =
-            if isDefaults then
-              default
-            else
-              literalExpression "config.security.acme.defaults.${name}"
-          ;
-        }
-      ;
+      defaultAndText = name: default: {
+        # When ! isDefaults then this is the option declaration for the
+        # security.acme.certs.<name> path, which has the extra inheritDefaults
+        # option, which if disabled means that we can't inherit it
+        default =
+          if isDefaults || !config.inheritDefaults then default else cfg.defaults.${name};
+        # The docs however don't need to depend on inheritDefaults, they should
+        # stay constant. Though notably it wouldn't matter much, because to get
+        # the option information, a submodule with name `<name>` is evaluated
+        # without any definitions.
+        defaultText =
+          if isDefaults then
+            default
+          else
+            literalExpression "config.security.acme.defaults.${name}"
+        ;
+      };
     in
     {
       options = {

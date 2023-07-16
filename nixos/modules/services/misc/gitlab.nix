@@ -1673,17 +1673,15 @@ in
           };
         };
         secretPaths = lib.catAttrs "_secret" (lib.collect isSecret filteredConfig);
-        mkSecretReplacement =
-          file: ''
-            replace-secret ${
-              lib.escapeShellArgs [
-                (builtins.hashString "sha256" file)
-                file
-                "/run/gitlab-pages/gitlab-pages.conf"
-              ]
-            }
-          ''
-        ;
+        mkSecretReplacement = file: ''
+          replace-secret ${
+            lib.escapeShellArgs [
+              (builtins.hashString "sha256" file)
+              file
+              "/run/gitlab-pages/gitlab-pages.conf"
+            ]
+          }
+        '';
         secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
         configFile = pkgs.writeText "gitlab-pages.conf" (
           mkPagesKeyValue filteredConfig

@@ -3396,22 +3396,20 @@ let
     }
   ;
 
-  aliases =
-    super: {
-      _1Password = super."1Password";
-      _2gua = super."2gua";
-      _4ops = super."4ops";
-      Arjun.swagger-viewer = super.arjun.swagger-viewer;
-      jakebecker.elixir-ls = super.elixir-lsp.vscode-elixir-ls;
-      jpoissonnier.vscode-styled-components =
-        super.styled-components.vscode-styled-components;
-      matklad.rust-analyzer = super.rust-lang.rust-analyzer; # Previous publisher
-      ms-vscode.go = super.golang.go;
-      ms-vscode.PowerShell = super.ms-vscode.powershell;
-      rioj7.commandOnAllFiles = super.rioj7.commandonallfiles;
-      WakaTime.vscode-wakatime = super.wakatime.vscode-wakatime;
-    }
-  ;
+  aliases = super: {
+    _1Password = super."1Password";
+    _2gua = super."2gua";
+    _4ops = super."4ops";
+    Arjun.swagger-viewer = super.arjun.swagger-viewer;
+    jakebecker.elixir-ls = super.elixir-lsp.vscode-elixir-ls;
+    jpoissonnier.vscode-styled-components =
+      super.styled-components.vscode-styled-components;
+    matklad.rust-analyzer = super.rust-lang.rust-analyzer; # Previous publisher
+    ms-vscode.go = super.golang.go;
+    ms-vscode.PowerShell = super.ms-vscode.powershell;
+    rioj7.commandOnAllFiles = super.rioj7.commandonallfiles;
+    WakaTime.vscode-wakatime = super.wakatime.vscode-wakatime;
+  };
 
   # TODO: add overrides overlay, so that we can have a generated.nix
   # then apply extension specific modifcations to packages.

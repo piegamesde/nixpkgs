@@ -285,25 +285,23 @@ in
         description = lib.mdDoc "Data exported for display managers’ convenience";
         internal = true;
         default = { };
-        apply =
-          val: {
-            wrapper = xsessionWrapper;
-            desktops = installedSessions;
-            sessionNames =
-              concatMap (p: p.providedSessions)
-                cfg.displayManager.sessionPackages
-            ;
-            # We do not want to force users to set defaultSession when they have only single DE.
-            autologinSession =
-              if cfg.displayManager.defaultSession != null then
-                cfg.displayManager.defaultSession
-              else if cfg.displayManager.sessionData.sessionNames != [ ] then
-                head cfg.displayManager.sessionData.sessionNames
-              else
-                null
-            ;
-          }
-        ;
+        apply = val: {
+          wrapper = xsessionWrapper;
+          desktops = installedSessions;
+          sessionNames =
+            concatMap (p: p.providedSessions)
+              cfg.displayManager.sessionPackages
+          ;
+          # We do not want to force users to set defaultSession when they have only single DE.
+          autologinSession =
+            if cfg.displayManager.defaultSession != null then
+              cfg.displayManager.defaultSession
+            else if cfg.displayManager.sessionData.sessionNames != [ ] then
+              head cfg.displayManager.sessionData.sessionNames
+            else
+              null
+          ;
+        };
       };
 
       defaultSession = mkOption {

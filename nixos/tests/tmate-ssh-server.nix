@@ -7,17 +7,15 @@ import ./make-test-python.nix (
   let
     inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
 
-    setUpPrivateKey =
-      name: ''
-        ${name}.succeed(
-            "mkdir -p /root/.ssh",
-            "chown 700 /root/.ssh",
-            "cat '${snakeOilPrivateKey}' > /root/.ssh/id_snakeoil",
-            "chown 600 /root/.ssh/id_snakeoil",
-        )
-        ${name}.wait_for_file("/root/.ssh/id_snakeoil")
-      ''
-    ;
+    setUpPrivateKey = name: ''
+      ${name}.succeed(
+          "mkdir -p /root/.ssh",
+          "chown 700 /root/.ssh",
+          "cat '${snakeOilPrivateKey}' > /root/.ssh/id_snakeoil",
+          "chown 600 /root/.ssh/id_snakeoil",
+      )
+      ${name}.wait_for_file("/root/.ssh/id_snakeoil")
+    '';
 
     sshOpts = "-oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -oIdentityFile=/root/.ssh/id_snakeoil";
   in

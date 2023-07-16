@@ -1098,12 +1098,10 @@ in
             command = "smtpd";
             args =
               let
-                mkKeyVal =
-                  opt: val: [
-                    "-o"
-                    (opt + "=" + val)
-                  ]
-                ;
+                mkKeyVal = opt: val: [
+                  "-o"
+                  (opt + "=" + val)
+                ];
               in
               concatLists (mapAttrsToList mkKeyVal cfg.submissionOptions)
             ;
@@ -1130,12 +1128,10 @@ in
             command = "smtpd";
             args =
               let
-                mkKeyVal =
-                  opt: val: [
-                    "-o"
-                    (opt + "=" + val)
-                  ]
-                ;
+                mkKeyVal = opt: val: [
+                  "-o"
+                  (opt + "=" + val)
+                ];
                 adjustSmtpTlsSecurityLevel =
                   !(cfg.submissionsOptions ? smtpd_tls_security_level)
                   || cfg.submissionsOptions.smtpd_tls_security_level == "none"

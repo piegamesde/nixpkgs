@@ -79,24 +79,22 @@ let
   ;
 
   # generic template for all daemons
-  systemdService =
-    name: extraConfig: configFile: {
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [
-        "network.target"
-        "network-online.target"
-      ];
+  systemdService = name: extraConfig: configFile: {
+    wantedBy = [ "multi-user.target" ];
+    wants = [ "network-online.target" ];
+    after = [
+      "network.target"
+      "network-online.target"
+    ];
 
-      serviceConfig = {
-        Type = "forking";
-        ExecStart = "${pkgs.moosefs}/bin/mfs${name} -c ${configFile} start";
-        ExecStop = "${pkgs.moosefs}/bin/mfs${name} -c ${configFile} stop";
-        ExecReload = "${pkgs.moosefs}/bin/mfs${name} -c ${configFile} reload";
-        PIDFile = "${cfg."${name}".settings.DATA_PATH}/.mfs${name}.lock";
-      } // extraConfig;
-    }
-  ;
+    serviceConfig = {
+      Type = "forking";
+      ExecStart = "${pkgs.moosefs}/bin/mfs${name} -c ${configFile} start";
+      ExecStop = "${pkgs.moosefs}/bin/mfs${name} -c ${configFile} stop";
+      ExecReload = "${pkgs.moosefs}/bin/mfs${name} -c ${configFile} reload";
+      PIDFile = "${cfg."${name}".settings.DATA_PATH}/.mfs${name}.lock";
+    } // extraConfig;
+  };
 in
 {
   ###### interface

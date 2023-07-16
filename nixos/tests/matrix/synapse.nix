@@ -204,19 +204,17 @@ import ../make-test-python.nix (
         }
       ;
 
-      serversqlite =
-        args: {
-          services.matrix-synapse = {
-            enable = true;
-            settings = {
-              inherit listeners;
-              database.name = "sqlite3";
-              tls_certificate_path = "${cert}";
-              tls_private_key_path = "${key}";
-            };
+      serversqlite = args: {
+        services.matrix-synapse = {
+          enable = true;
+          settings = {
+            inherit listeners;
+            database.name = "sqlite3";
+            tls_certificate_path = "${cert}";
+            tls_private_key_path = "${key}";
           };
-        }
-      ;
+        };
+      };
     };
 
     testScript = ''

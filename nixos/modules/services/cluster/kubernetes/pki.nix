@@ -248,31 +248,29 @@ in
         svcManager = "command";
         specs =
           let
-            mkSpec =
-              _: cert: {
-                inherit (cert) action;
-                authority = {
-                  inherit remote;
-                  file.path = cert.caCert;
-                  root_ca = cert.caCert;
-                  profile = "default";
-                  auth_key_file = certmgrAPITokenPath;
+            mkSpec = _: cert: {
+              inherit (cert) action;
+              authority = {
+                inherit remote;
+                file.path = cert.caCert;
+                root_ca = cert.caCert;
+                profile = "default";
+                auth_key_file = certmgrAPITokenPath;
+              };
+              certificate = {
+                path = cert.cert;
+              };
+              private_key = cert.privateKeyOptions;
+              request = {
+                hosts = [ cert.CN ] ++ cert.hosts;
+                inherit (cert) CN;
+                key = {
+                  algo = "rsa";
+                  size = 2048;
                 };
-                certificate = {
-                  path = cert.cert;
-                };
-                private_key = cert.privateKeyOptions;
-                request = {
-                  hosts = [ cert.CN ] ++ cert.hosts;
-                  inherit (cert) CN;
-                  key = {
-                    algo = "rsa";
-                    size = 2048;
-                  };
-                  names = [ cert.fields ];
-                };
-              }
-            ;
+                names = [ cert.fields ];
+              };
+            };
           in
           mapAttrs mkSpec cfg.certs
         ;

@@ -44,16 +44,14 @@ let
     listToAttrs (map mkEtcFile cfg.extraTrustedKeys)
   ;
 
-  enableRemote =
-    base: remote: {
-      "fwupd/remotes.d/${remote}.conf" = {
-        source = pkgs.runCommand "${remote}-enabled.conf" { } ''
-          sed "s,^Enabled=false,Enabled=true," \
-          "${base}/etc/fwupd/remotes.d/${remote}.conf" > "$out"
-        '';
-      };
-    }
-  ;
+  enableRemote = base: remote: {
+    "fwupd/remotes.d/${remote}.conf" = {
+      source = pkgs.runCommand "${remote}-enabled.conf" { } ''
+        sed "s,^Enabled=false,Enabled=true," \
+        "${base}/etc/fwupd/remotes.d/${remote}.conf" > "$out"
+      '';
+    };
+  };
   remotes = (foldl'
     (configFiles: remote: configFiles // (enableRemote cfg.package remote))
     { }

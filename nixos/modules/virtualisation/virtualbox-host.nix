@@ -115,14 +115,12 @@ in
 
         security.wrappers =
           let
-            mkSuid =
-              program: {
-                source = "${virtualbox}/libexec/virtualbox/${program}";
-                owner = "root";
-                group = "vboxusers";
-                setuid = true;
-              }
-            ;
+            mkSuid = program: {
+              source = "${virtualbox}/libexec/virtualbox/${program}";
+              owner = "root";
+              group = "vboxusers";
+              setuid = true;
+            };
             executables =
               [
                 "VBoxHeadless"

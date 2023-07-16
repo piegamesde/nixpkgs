@@ -24,14 +24,12 @@ let
   wrappedGhc = ghcWithPackages (self: [ diagrams-builder ] ++ extraPackages self);
   ghcVersion = wrappedGhc.version;
 
-  exeWrapper =
-    backend: ''
-      makeWrapper \
-      "${diagrams-builder}/bin/diagrams-builder-${backend}" "$out/bin/diagrams-builder-${backend}" \
-        --set NIX_GHC ${wrappedGhc}/bin/ghc \
-        --set NIX_GHC_LIBDIR ${wrappedGhc}/lib/ghc-${ghcVersion}
-    ''
-  ;
+  exeWrapper = backend: ''
+    makeWrapper \
+    "${diagrams-builder}/bin/diagrams-builder-${backend}" "$out/bin/diagrams-builder-${backend}" \
+      --set NIX_GHC ${wrappedGhc}/bin/ghc \
+      --set NIX_GHC_LIBDIR ${wrappedGhc}/lib/ghc-${ghcVersion}
+  '';
 
   backends = [
     "svg"

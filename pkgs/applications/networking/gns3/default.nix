@@ -17,16 +17,14 @@ let
     }
   ;
   extraArgs = rec {
-    mkOverride =
-      attrname: version: sha256: self: super: {
-        "${attrname}" = super."${attrname}".overridePythonAttrs (
-          oldAttrs: {
-            inherit version;
-            src = oldAttrs.src.override { inherit version sha256; };
-          }
-        );
-      }
-    ;
+    mkOverride = attrname: version: sha256: self: super: {
+      "${attrname}" = super."${attrname}".overridePythonAttrs (
+        oldAttrs: {
+          inherit version;
+          src = oldAttrs.src.override { inherit version sha256; };
+        }
+      );
+    };
   };
   mkGui =
     args:

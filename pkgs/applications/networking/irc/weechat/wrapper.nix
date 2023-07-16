@@ -29,8 +29,9 @@ let
       perlInterpreter = perlPackages.perl;
       availablePlugins =
         let
-          simplePlugin =
-            name: { pluginFile = "${weechat.${name}}/lib/weechat/plugins/${name}.so"; };
+          simplePlugin = name: {
+            pluginFile = "${weechat.${name}}/lib/weechat/plugins/${name}.so";
+          };
         in
         rec {
           python = (simplePlugin "python") // {

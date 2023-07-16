@@ -493,13 +493,11 @@ rec {
   # nix-shell evaluation, return a nix-shell optimized environment.
   shellAware = p: if lib.inNixShell then p.env else p;
 
-  ghcInfo =
-    ghc: rec {
-      isCross = (ghc.cross or null) != null;
-      isGhcjs = ghc.isGhcjs or false;
-      nativeGhc = if isCross || isGhcjs then ghc.bootPkgs.ghc else ghc;
-    }
-  ;
+  ghcInfo = ghc: rec {
+    isCross = (ghc.cross or null) != null;
+    isGhcjs = ghc.isGhcjs or false;
+    nativeGhc = if isCross || isGhcjs then ghc.bootPkgs.ghc else ghc;
+  };
 
   ### mkDerivation helpers
   # These allow external users of a haskell package to extract
@@ -540,13 +538,11 @@ rec {
     let
       haskellPaths = builtins.attrNames (builtins.readDir directory);
 
-      toKeyVal =
-        file: {
-          name = builtins.replaceStrings [ ".nix" ] [ "" ] file;
+      toKeyVal = file: {
+        name = builtins.replaceStrings [ ".nix" ] [ "" ] file;
 
-          value = self.callPackage (directory + "/${file}") { };
-        }
-      ;
+        value = self.callPackage (directory + "/${file}") { };
+      };
     in
     builtins.listToAttrs (map toKeyVal haskellPaths)
   ;

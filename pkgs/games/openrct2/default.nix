@@ -136,12 +136,10 @@ stdenv.mkDerivation {
     # Verify that the correct version of each third party repository is used.
     (
       let
-        versionCheck =
-          cmakeKey: version: ''
-            grep -q '^set(${cmakeKey}_VERSION "${version}")$' CMakeLists.txt \
-              || (echo "${cmakeKey} differs from expected version!"; exit 1)
-          ''
-        ;
+        versionCheck = cmakeKey: version: ''
+          grep -q '^set(${cmakeKey}_VERSION "${version}")$' CMakeLists.txt \
+            || (echo "${cmakeKey} differs from expected version!"; exit 1)
+        '';
       in
       (versionCheck "OBJECTS" objects-version)
       + (versionCheck "OPENMSX" openmsx-version)

@@ -155,12 +155,10 @@ rec {
       ;
 
       # (regex -> regex) -> [regex, bool] -> [regex, bool]
-      mapPat =
-        f: l: [
-          (f (head l))
-          (last l)
-        ]
-      ;
+      mapPat = f: l: [
+        (f (head l))
+        (last l)
+      ];
     in
     map
       (
