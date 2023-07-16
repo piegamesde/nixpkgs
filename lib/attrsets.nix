@@ -7,28 +7,48 @@ let
   inherit (builtins) head tail length;
   inherit (lib.trivial) flip id mergeAttrs pipe;
   inherit (lib.strings)
-    concatStringsSep concatMapStringsSep escapeNixIdentifier
-    sanitizeDerivationName;
+    concatStringsSep
+    concatMapStringsSep
+    escapeNixIdentifier
+    sanitizeDerivationName
+    ;
   inherit (lib.lists)
-    foldr foldl' concatMap concatLists elemAt all partition groupBy take foldl;
+    foldr
+    foldl'
+    concatMap
+    concatLists
+    elemAt
+    all
+    partition
+    groupBy
+    take
+    foldl
+    ;
 
 in rec {
-  inherit (builtins) attrNames listToAttrs hasAttr isAttrs getAttr removeAttrs;
+  inherit (builtins)
+    attrNames
+    listToAttrs
+    hasAttr
+    isAttrs
+    getAttr
+    removeAttrs
+    ;
 
-  /* Return an attribute from nested attribute sets.
+    /* Return an attribute from nested attribute sets.
 
-     Example:
-       x = { a = { b = 3; }; }
-       # ["a" "b"] is equivalent to x.a.b
-       # 6 is a default value to return if the path does not exist in attrset
-       attrByPath ["a" "b"] 6 x
-       => 3
-       attrByPath ["z" "z"] 6 x
-       => 6
+       Example:
+         x = { a = { b = 3; }; }
+         # ["a" "b"] is equivalent to x.a.b
+         # 6 is a default value to return if the path does not exist in attrset
+         attrByPath ["a" "b"] 6 x
+         => 3
+         attrByPath ["z" "z"] 6 x
+         => 6
 
-     Type:
-       attrByPath :: [String] -> Any -> AttrSet -> Any
-  */
+       Type:
+         attrByPath :: [String] -> Any -> AttrSet -> Any
+    */
   attrByPath =
     # A list of strings representing the attribute path to return from `set`
     attrPath:

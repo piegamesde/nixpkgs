@@ -61,8 +61,18 @@ stdenv.mkDerivation rec {
     inherit python3;
 
     withPlugins = import ./plugin-interface.nix {
-      inherit lib python3 buildEnv writeText runCommandCC stdenv runCommand
-        vapoursynth makeWrapper withPlugins;
+      inherit
+        lib
+        python3
+        buildEnv
+        writeText
+        runCommandCC
+        stdenv
+        runCommand
+        vapoursynth
+        makeWrapper
+        withPlugins
+        ;
     };
 
     tests.version = testers.testVersion {

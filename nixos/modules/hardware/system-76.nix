@@ -8,8 +8,15 @@
 
 let
   inherit (lib)
-    literalExpression mkOption mkEnableOption types mkIf mkMerge optional
-    versionOlder;
+    literalExpression
+    mkOption
+    mkEnableOption
+    types
+    mkIf
+    mkMerge
+    optional
+    versionOlder
+    ;
   cfg = config.hardware.system76;
   opt = options.hardware.system76;
 

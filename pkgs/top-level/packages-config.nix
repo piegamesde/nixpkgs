@@ -10,11 +10,28 @@
     with super;
     lib.mapAttrs (_: set: recurseIntoAttrs set) {
       inherit (super)
-        apacheHttpdPackages atomPackages fdbPackages fusePackages gns3Packages
-        idrisPackages nodePackages nodePackages_latest platformioPackages
-        quicklispPackagesClisp quicklispPackagesSBCL rPackages roundcubePlugins
-        sconsPackages sourceHanPackages steamPackages ut2004Packages zabbix40
-        zabbix50 zabbix60 zeroadPackages;
+        apacheHttpdPackages
+        atomPackages
+        fdbPackages
+        fusePackages
+        gns3Packages
+        idrisPackages
+        nodePackages
+        nodePackages_latest
+        platformioPackages
+        quicklispPackagesClisp
+        quicklispPackagesSBCL
+        rPackages
+        roundcubePlugins
+        sconsPackages
+        sourceHanPackages
+        steamPackages
+        ut2004Packages
+        zabbix40
+        zabbix50
+        zabbix60
+        zeroadPackages
+        ;
 
       haskellPackages = super.haskellPackages // {
         # mesos, which this depends on, has been removed from nixpkgs. We are keeping

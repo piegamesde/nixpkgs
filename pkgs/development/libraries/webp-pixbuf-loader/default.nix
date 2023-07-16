@@ -11,10 +11,12 @@
 }:
 
 let
-  inherit (gdk-pixbuf) moduleDir;
+  inherit (gdk-pixbuf)
+    moduleDir
+    ;
 
-  # turning lib/gdk-pixbuf-#.#/#.#.#/loaders into lib/gdk-pixbuf-#.#/#.#.#/loaders.cache
-  # removeSuffix is just in case moduleDir gets a trailing slash
+    # turning lib/gdk-pixbuf-#.#/#.#.#/loaders into lib/gdk-pixbuf-#.#/#.#.#/loaders.cache
+    # removeSuffix is just in case moduleDir gets a trailing slash
   loadersPath = (lib.strings.removeSuffix "/" gdk-pixbuf.moduleDir) + ".cache";
 in
 stdenv.mkDerivation rec {

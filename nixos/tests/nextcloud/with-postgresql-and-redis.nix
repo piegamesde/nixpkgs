@@ -56,7 +56,8 @@ args@{
               inherit (pkgs."nextcloud${
                   lib.versions.major config.services.nextcloud.package.version
                 }Packages".apps)
-                notify_push;
+                notify_push
+                ;
             };
           };
 

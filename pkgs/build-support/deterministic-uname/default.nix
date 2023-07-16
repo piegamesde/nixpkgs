@@ -24,13 +24,15 @@ substituteAll {
     stdenv.buildPlatform.uname.system
   else
     "unknown";
-  inherit (stdenv.buildPlatform.uname) processor;
+  inherit (stdenv.buildPlatform.uname)
+    processor
+    ;
 
-  # uname -o
-  # maybe add to lib/systems/default.nix uname attrset
-  # https://github.com/coreutils/coreutils/blob/7fc84d1c0f6b35231b0b4577b70aaa26bf548a7c/src/uname.c#L373-L374
-  # https://stackoverflow.com/questions/61711186/where-does-host-operating-system-in-uname-c-comes-from
-  # https://github.com/coreutils/gnulib/blob/master/m4/host-os.m4
+    # uname -o
+    # maybe add to lib/systems/default.nix uname attrset
+    # https://github.com/coreutils/coreutils/blob/7fc84d1c0f6b35231b0b4577b70aaa26bf548a7c/src/uname.c#L373-L374
+    # https://stackoverflow.com/questions/61711186/where-does-host-operating-system-in-uname-c-comes-from
+    # https://github.com/coreutils/gnulib/blob/master/m4/host-os.m4
   operatingSystem = if
     stdenv.buildPlatform.isLinux
   then

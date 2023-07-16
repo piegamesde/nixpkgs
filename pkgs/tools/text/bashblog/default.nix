@@ -14,9 +14,11 @@
 }:
 
 let
-  inherit (perlPackages) TextMarkdown;
-  # As bashblog supports various markdown processors
-  # we can set flags to enable a certain processor
+  inherit (perlPackages)
+    TextMarkdown
+    ;
+    # As bashblog supports various markdown processors
+    # we can set flags to enable a certain processor
   markdownpl_path = "${perlPackages.TextMarkdown}/bin/Markdown.pl";
   pandoc_path = "${pandoc}/bin/pandoc";
 

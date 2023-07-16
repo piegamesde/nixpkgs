@@ -12,8 +12,16 @@ with lib;
 let
   inherit (utils) systemdUtils escapeSystemdPath;
   inherit (systemdUtils.lib)
-    generateUnits pathToUnit serviceToUnit sliceToUnit socketToUnit targetToUnit
-    timerToUnit mountToUnit automountToUnit;
+    generateUnits
+    pathToUnit
+    serviceToUnit
+    sliceToUnit
+    socketToUnit
+    targetToUnit
+    timerToUnit
+    mountToUnit
+    automountToUnit
+    ;
 
   cfg = config.boot.initrd.systemd;
 

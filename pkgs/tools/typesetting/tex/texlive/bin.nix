@@ -648,9 +648,11 @@ rec { # un-indented
     pname = "texlive-xindy.bin";
     inherit version;
 
-    inherit (common) src;
+    inherit (common)
+      src
+      ;
 
-    # If unset, xindy will try to mkdir /homeless-shelter
+      # If unset, xindy will try to mkdir /homeless-shelter
     HOME = ".";
 
     prePatch = "cd utils/xindy";

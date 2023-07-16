@@ -6,18 +6,30 @@
 }:
 let
   inherit (lib)
-    concatLists concatMap concatMapStringsSep concatStringsSep filterAttrs
-    isAttrs literalExpression mapAttrs' mapAttrsToList mkIf mkOption
-    optionalString sort types;
+    concatLists
+    concatMap
+    concatMapStringsSep
+    concatStringsSep
+    filterAttrs
+    isAttrs
+    literalExpression
+    mapAttrs'
+    mapAttrsToList
+    mkIf
+    mkOption
+    optionalString
+    sort
+    types
+    ;
 
-  # The priority of an option or section.
-  # The configurations format are order-sensitive. Pairs are added as children of
-  # the last sections if possible, otherwise, they start a new section.
-  # We sort them in topological order:
-  # 1. Leaf pairs.
-  # 2. Sections that may contain (1).
-  # 3. Sections that may contain (1) or (2).
-  # 4. Etc.
+    # The priority of an option or section.
+    # The configurations format are order-sensitive. Pairs are added as children of
+    # the last sections if possible, otherwise, they start a new section.
+    # We sort them in topological order:
+    # 1. Leaf pairs.
+    # 2. Sections that may contain (1).
+    # 3. Sections that may contain (1) or (2).
+    # 4. Etc.
   prioOf = {
       name,
       value,

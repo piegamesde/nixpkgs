@@ -134,11 +134,13 @@
 */
 
 let
-  inherit lib;
+  inherit
+    lib
+    ;
 
-  # make sure a plugin is a derivation and its dependencies are derivations. If
-  # plugin already is a derivation, this is a no-op. If it is a string, it is
-  # looked up in knownPlugins.
+    # make sure a plugin is a derivation and its dependencies are derivations. If
+    # plugin already is a derivation, this is a no-op. If it is a string, it is
+    # looked up in knownPlugins.
   pluginToDrv = knownPlugins: plugin:
     let
       drv = if
@@ -448,9 +450,11 @@ in rec {
   inherit (import ./build-vim-plugin.nix {
     inherit lib stdenv rtpPath toVimPlugin;
   })
-    buildVimPlugin buildVimPluginFrom2Nix;
+    buildVimPlugin
+    buildVimPluginFrom2Nix
+    ;
 
-  # used to figure out which python dependencies etc. neovim needs
+    # used to figure out which python dependencies etc. neovim needs
   requiredPlugins = {
       packages ? { },
       plug ? null,

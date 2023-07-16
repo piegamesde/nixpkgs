@@ -30,9 +30,13 @@
 }:
 
 let
-  inherit (lib) optional optionals optionalString;
+  inherit (lib)
+    optional
+    optionals
+    optionalString
+    ;
 
-  # Used when creating a versioned symlinks of libLLVM.dylib
+    # Used when creating a versioned symlinks of libLLVM.dylib
   versionSuffixes = with lib;
     let
       parts = splitVersion release_version;

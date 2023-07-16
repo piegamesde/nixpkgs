@@ -475,9 +475,11 @@ stdenv.mkDerivation rec {
     targetPrefix = "";
     enableShared = true;
 
-    inherit llvmPackages;
+    inherit
+      llvmPackages
+      ;
 
-    # Our Cabal compiler name
+      # Our Cabal compiler name
     haskellCompilerName = "ghc-${version}";
   } // lib.optionalAttrs (binDistUsed.isHadrian or false) {
     # Normal GHC derivations expose the hadrian derivation used to build them

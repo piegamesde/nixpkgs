@@ -114,9 +114,11 @@ let
 in
 runCommand "xcodebuild-${xcbuild.version}" {
   nativeBuildInputs = [ makeWrapper ];
-  inherit (xcbuild) meta;
+  inherit (xcbuild)
+    meta
+    ;
 
-  # ensure that the toolchain goes in PATH
+    # ensure that the toolchain goes in PATH
   propagatedBuildInputs = [ "${toolchains}/XcodeDefault.xctoolchain" ];
 
   passthru = {

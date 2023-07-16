@@ -329,7 +329,12 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         binutils-unwrapped =
           super.binutils-unwrapped.override { enableGold = false; };
         inherit (prevStage)
-          ccWrapperStdenv gcc-unwrapped coreutils gnugrep binutils;
+          ccWrapperStdenv
+          gcc-unwrapped
+          coreutils
+          gnugrep
+          binutils
+          ;
 
         ${localSystem.libc} = getLibc prevStage;
 
@@ -364,8 +369,17 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
       name = "bootstrap-stage-xgcc";
       overrides = final: prev: {
         inherit (prevStage)
-          ccWrapperStdenv coreutils gnugrep gettext bison texinfo zlib gnum4
-          perl patchelf;
+          ccWrapperStdenv
+          coreutils
+          gnugrep
+          gettext
+          bison
+          texinfo
+          zlib
+          gnum4
+          perl
+          patchelf
+          ;
         ${localSystem.libc} = getLibc prevStage;
         gmp = prev.gmp.override { cxx = false; };
         gcc-unwrapped = (prev.gcc-unwrapped.override (commonGccOverrides // {
@@ -447,8 +461,17 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
 
       overrides = self: super: {
         inherit (prevStage)
-          ccWrapperStdenv gettext gcc-unwrapped coreutils gnugrep perl gnum4
-          bison texinfo which;
+          ccWrapperStdenv
+          gettext
+          gcc-unwrapped
+          coreutils
+          gnugrep
+          perl
+          gnum4
+          bison
+          texinfo
+          which
+          ;
         dejagnu = super.dejagnu.overrideAttrs (a: { doCheck = false; });
 
         # We need libidn2 and its dependency libunistring as glibc dependency.
@@ -547,11 +570,23 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
       overrides = self: super:
         rec {
           inherit (prevStage)
-            ccWrapperStdenv binutils coreutils gnugrep gettext perl patchelf
-            linuxHeaders gnum4 bison libidn2 libunistring libxcrypt;
-          # We build a special copy of libgmp which doesn't use libstdc++, because
-          # xgcc++'s libstdc++ references the bootstrap-files (which is what
-          # compiles xgcc++).
+            ccWrapperStdenv
+            binutils
+            coreutils
+            gnugrep
+            gettext
+            perl
+            patchelf
+            linuxHeaders
+            gnum4
+            bison
+            libidn2
+            libunistring
+            libxcrypt
+            ;
+            # We build a special copy of libgmp which doesn't use libstdc++, because
+            # xgcc++'s libstdc++ references the bootstrap-files (which is what
+            # compiles xgcc++).
           gmp = super.gmp.override { cxx = false; };
         } // {
           ${localSystem.libc} = getLibc prevStage;
@@ -588,8 +623,16 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         # then if we already have a zlib we want to use that for the
         # other purposes (binutils and top-level pkgs) too.
         inherit (prevStage)
-          gettext gnum4 bison perl texinfo zlib linuxHeaders libidn2
-          libunistring;
+          gettext
+          gnum4
+          bison
+          perl
+          texinfo
+          zlib
+          linuxHeaders
+          libidn2
+          libunistring
+          ;
         ${localSystem.libc} = getLibc prevStage;
         binutils = super.binutils.override {
           # Don't use stdenv's shell but our own
@@ -737,8 +780,25 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         overrides = self: super:
           {
             inherit (prevStage)
-              gzip bzip2 xz bash coreutils diffutils findutils gawk gnused
-              gnutar gnugrep gnupatch patchelf attr acl zlib pcre libunistring;
+              gzip
+              bzip2
+              xz
+              bash
+              coreutils
+              diffutils
+              findutils
+              gawk
+              gnused
+              gnutar
+              gnugrep
+              gnupatch
+              patchelf
+              attr
+              acl
+              zlib
+              pcre
+              libunistring
+              ;
             ${localSystem.libc} = getLibc prevStage;
 
             # Hack: avoid libidn2.{bin,dev} referencing bootstrap tools.  There's a logical cycle.

@@ -154,10 +154,12 @@ in {
           packages.ghc865Binary
         else
           packages.ghc8107Binary;
-      inherit (buildPackages.python3Packages) sphinx;
-      # Need to use apple's patched xattr until
-      # https://github.com/xattr/xattr/issues/44 and
-      # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.python3Packages)
+        sphinx
+        ;
+        # Need to use apple's patched xattr until
+        # https://github.com/xattr/xattr/issues/44 and
+        # https://github.com/xattr/xattr/issues/55 are solved.
       inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_12;
       llvmPackages = pkgs.llvmPackages_12;
@@ -194,10 +196,12 @@ in {
           packages.ghc810
         else
           packages.ghc8107Binary;
-      inherit (buildPackages.python3Packages) sphinx;
-      # Need to use apple's patched xattr until
-      # https://github.com/xattr/xattr/issues/44 and
-      # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.python3Packages)
+        sphinx
+        ;
+        # Need to use apple's patched xattr until
+        # https://github.com/xattr/xattr/issues/44 and
+        # https://github.com/xattr/xattr/issues/55 are solved.
       inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_12;
       llvmPackages = pkgs.llvmPackages_12;
@@ -214,10 +218,12 @@ in {
           packages.ghc810
         else
           packages.ghc8107Binary;
-      inherit (buildPackages.python3Packages) sphinx;
-      # Need to use apple's patched xattr until
-      # https://github.com/xattr/xattr/issues/44 and
-      # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.python3Packages)
+        sphinx
+        ;
+        # Need to use apple's patched xattr until
+        # https://github.com/xattr/xattr/issues/44 and
+        # https://github.com/xattr/xattr/issues/55 are solved.
       inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_12;
       llvmPackages = pkgs.llvmPackages_12;
@@ -234,10 +240,12 @@ in {
           packages.ghc810
         else
           packages.ghc8107Binary;
-      inherit (buildPackages.python3Packages) sphinx;
-      # Need to use apple's patched xattr until
-      # https://github.com/xattr/xattr/issues/44 and
-      # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.python3Packages)
+        sphinx
+        ;
+        # Need to use apple's patched xattr until
+        # https://github.com/xattr/xattr/issues/44 and
+        # https://github.com/xattr/xattr/issues/55 are solved.
       inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_12;
       llvmPackages = pkgs.llvmPackages_12;
@@ -254,10 +262,12 @@ in {
           packages.ghc810
         else
           packages.ghc8107Binary;
-      inherit (buildPackages.python3Packages) sphinx;
-      # Need to use apple's patched xattr until
-      # https://github.com/xattr/xattr/issues/44 and
-      # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.python3Packages)
+        sphinx
+        ;
+        # Need to use apple's patched xattr until
+        # https://github.com/xattr/xattr/issues/44 and
+        # https://github.com/xattr/xattr/issues/55 are solved.
       inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_12;
       llvmPackages = pkgs.llvmPackages_12;
@@ -281,12 +291,17 @@ in {
           packages.ghc902
         else
           packages.ghc8107Binary;
-      inherit (buildPackages.python3Packages) sphinx;
-      # Need to use apple's patched xattr until
-      # https://github.com/xattr/xattr/issues/44 and
-      # https://github.com/xattr/xattr/issues/55 are solved.
-      inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
-      # Support range >= 10 && < 14
+      inherit (buildPackages.python3Packages)
+        sphinx
+        ;
+        # Need to use apple's patched xattr until
+        # https://github.com/xattr/xattr/issues/44 and
+        # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.darwin)
+        xattr
+        autoSignDarwinBinariesHook
+        ;
+        # Support range >= 10 && < 14
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_12;
       llvmPackages = pkgs.llvmPackages_12;
     };
@@ -308,12 +323,17 @@ in {
           packages.ghc902
         else
           packages.ghc8107Binary;
-      inherit (buildPackages.python3Packages) sphinx;
-      # Need to use apple's patched xattr until
-      # https://github.com/xattr/xattr/issues/44 and
-      # https://github.com/xattr/xattr/issues/55 are solved.
-      inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
-      # Support range >= 10 && < 14
+      inherit (buildPackages.python3Packages)
+        sphinx
+        ;
+        # Need to use apple's patched xattr until
+        # https://github.com/xattr/xattr/issues/44 and
+        # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.darwin)
+        xattr
+        autoSignDarwinBinariesHook
+        ;
+        # Support range >= 10 && < 14
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_12;
       llvmPackages = pkgs.llvmPackages_12;
     };
@@ -335,12 +355,17 @@ in {
           packages.ghc902
         else
           packages.ghc8107Binary;
-      inherit (buildPackages.python3Packages) sphinx;
-      # Need to use apple's patched xattr until
-      # https://github.com/xattr/xattr/issues/44 and
-      # https://github.com/xattr/xattr/issues/55 are solved.
-      inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
-      # Support range >= 10 && < 14
+      inherit (buildPackages.python3Packages)
+        sphinx
+        ;
+        # Need to use apple's patched xattr until
+        # https://github.com/xattr/xattr/issues/44 and
+        # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.darwin)
+        xattr
+        autoSignDarwinBinariesHook
+        ;
+        # Support range >= 10 && < 14
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_12;
       llvmPackages = pkgs.llvmPackages_12;
     };
@@ -362,12 +387,17 @@ in {
           packages.ghc902
         else
           packages.ghc8107Binary;
-      inherit (buildPackages.python3Packages) sphinx;
-      # Need to use apple's patched xattr until
-      # https://github.com/xattr/xattr/issues/44 and
-      # https://github.com/xattr/xattr/issues/55 are solved.
-      inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
-      # Support range >= 10 && < 14
+      inherit (buildPackages.python3Packages)
+        sphinx
+        ;
+        # Need to use apple's patched xattr until
+        # https://github.com/xattr/xattr/issues/44 and
+        # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.darwin)
+        xattr
+        autoSignDarwinBinariesHook
+        ;
+        # Support range >= 10 && < 14
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_12;
       llvmPackages = pkgs.llvmPackages_12;
     };
@@ -386,12 +416,17 @@ in {
           packages.ghc924BinaryMinimal
         else
           packages.ghc924Binary;
-      inherit (buildPackages.python3Packages) sphinx;
-      # Need to use apple's patched xattr until
-      # https://github.com/xattr/xattr/issues/44 and
-      # https://github.com/xattr/xattr/issues/55 are solved.
-      inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
-      # Support range >= 10 && < 15
+      inherit (buildPackages.python3Packages)
+        sphinx
+        ;
+        # Need to use apple's patched xattr until
+        # https://github.com/xattr/xattr/issues/44 and
+        # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.darwin)
+        xattr
+        autoSignDarwinBinariesHook
+        ;
+        # Support range >= 10 && < 15
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_14;
       llvmPackages = pkgs.llvmPackages_14;
     };
@@ -410,12 +445,17 @@ in {
           packages.ghc924BinaryMinimal
         else
           packages.ghc924Binary;
-      inherit (buildPackages.python3Packages) sphinx;
-      # Need to use apple's patched xattr until
-      # https://github.com/xattr/xattr/issues/44 and
-      # https://github.com/xattr/xattr/issues/55 are solved.
-      inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
-      # 2023-01-15: Support range >= 10 && < 15
+      inherit (buildPackages.python3Packages)
+        sphinx
+        ;
+        # Need to use apple's patched xattr until
+        # https://github.com/xattr/xattr/issues/44 and
+        # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.darwin)
+        xattr
+        autoSignDarwinBinariesHook
+        ;
+        # 2023-01-15: Support range >= 10 && < 15
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_14;
       llvmPackages = pkgs.llvmPackages_14;
     };

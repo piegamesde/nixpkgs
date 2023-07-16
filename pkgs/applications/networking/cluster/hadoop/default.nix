@@ -135,8 +135,10 @@ in {
     };
     untarDir = "${pname}-${platformAttrs.${stdenv.system}.version}";
     jdk = jdk11_headless;
-    inherit openssl;
-    # TODO: Package and add Intel Storage Acceleration Library
+    inherit
+      openssl
+      ;
+      # TODO: Package and add Intel Storage Acceleration Library
     nativeLibs = [
       stdenv.cc.cc.lib
       protobuf

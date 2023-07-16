@@ -217,9 +217,14 @@ let
   '';
 
 in rec {
-  inherit (optionsDoc) optionsJSON optionsNix optionsDocBook optionsUsedDocbook;
+  inherit (optionsDoc)
+    optionsJSON
+    optionsNix
+    optionsDocBook
+    optionsUsedDocbook
+    ;
 
-  # Generate the NixOS manual.
+    # Generate the NixOS manual.
   manualHTML = runCommand "nixos-manual-html" {
     nativeBuildInputs = if
       allowDocBook

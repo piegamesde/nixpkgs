@@ -6,9 +6,20 @@
 }:
 let
   inherit (lib)
-    attrValues concatMap concatStringsSep escapeShellArg literalExpression
-    mapAttrs' mkDefault mkEnableOption mkIf mkOption nameValuePair optional
-    types;
+    attrValues
+    concatMap
+    concatStringsSep
+    escapeShellArg
+    literalExpression
+    mapAttrs'
+    mkDefault
+    mkEnableOption
+    mkIf
+    mkOption
+    nameValuePair
+    optional
+    types
+    ;
 
   mainCfg = config.services.ghostunnel;
 

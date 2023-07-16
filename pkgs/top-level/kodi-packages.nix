@@ -19,9 +19,11 @@ in let
 
     callPackage = newScope self;
 
-    inherit kodi;
+    inherit
+      kodi
+      ;
 
-    # Convert derivation to a kodi module. Stolen from ../../../top-level/python-packages.nix
+      # Convert derivation to a kodi module. Stolen from ../../../top-level/python-packages.nix
     toKodiAddon = drv:
       drv.overrideAttrs (oldAttrs: {
         # Use passthru in order to prevent rebuilds when possible.

@@ -24,19 +24,23 @@
 }:
 
 let
-  inherit (lib.importJSON ./deps.json) links version versionHash;
-  # Sapling sets a Cargo config containing lines like so:
-  # [target.aarch64-apple-darwin]
-  # rustflags = ["-C", "link-args=-Wl,-undefined,dynamic_lookup"]
-  #
-  # The default cargo config that's set by the build hook will set
-  # unstable.host-config and unstable.target-applies-to-host which seems to
-  # result in the link arguments above being ignored and thus link failures.
-  # All it is there to do anyway is just to do stuff with musl and cross
-  # compilation, which doesn't work on macOS anyway so we can just stub it
-  # on macOS.
-  #
-  # See https://github.com/NixOS/nixpkgs/pull/198311#issuecomment-1326894295
+  inherit (lib.importJSON ./deps.json)
+    links
+    version
+    versionHash
+    ;
+    # Sapling sets a Cargo config containing lines like so:
+    # [target.aarch64-apple-darwin]
+    # rustflags = ["-C", "link-args=-Wl,-undefined,dynamic_lookup"]
+    #
+    # The default cargo config that's set by the build hook will set
+    # unstable.host-config and unstable.target-applies-to-host which seems to
+    # result in the link arguments above being ignored and thus link failures.
+    # All it is there to do anyway is just to do stuff with musl and cross
+    # compilation, which doesn't work on macOS anyway so we can just stub it
+    # on macOS.
+    #
+    # See https://github.com/NixOS/nixpkgs/pull/198311#issuecomment-1326894295
   myCargoSetupHook = rustPlatform.cargoSetupHook.overrideAttrs (old: {
     cargoConfig = if
       stdenv.isDarwin

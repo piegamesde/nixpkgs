@@ -90,11 +90,13 @@ let
       '';
 
       meta = {
-        inherit description;
-        # see https://dn-works.com/wp-content/uploads/2020/UFAS-Docs/License.pdf
-        # quite draconian: non-commercial, no modifications,
-        # no redistribution, "a single instantiation and no
-        # network installation"
+        inherit
+          description
+          ;
+          # see https://dn-works.com/wp-content/uploads/2020/UFAS-Docs/License.pdf
+          # quite draconian: non-commercial, no modifications,
+          # no redistribution, "a single instantiation and no
+          # network installation"
         license = lib.licenses.unfree;
         homepage = "https://dn-works.com/ufas/";
       };

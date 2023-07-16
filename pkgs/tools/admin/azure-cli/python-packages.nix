@@ -22,9 +22,11 @@ let
 
   py = python3.override {
     packageOverrides = self: super: {
-      inherit buildAzureCliPackage;
+      inherit
+        buildAzureCliPackage
+        ;
 
-      # core and the actual application are highly coupled
+        # core and the actual application are highly coupled
       azure-cli-core = buildAzureCliPackage {
         pname = "azure-cli-core";
         inherit version src;

@@ -14,7 +14,9 @@ let
         inherit Agda self;
         inherit (pkgs.haskellPackages) ghcWithPackages;
       })
-        withPackages mkDerivation;
+        withPackages
+        mkDerivation
+        ;
     in {
       inherit mkDerivation;
 

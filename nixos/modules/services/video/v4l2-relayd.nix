@@ -8,9 +8,20 @@
 let
 
   inherit (lib)
-    attrValues concatStringsSep filterAttrs length listToAttrs literalExpression
-    makeSearchPathOutput mkEnableOption mkIf mkOption nameValuePair optionals
-    types;
+    attrValues
+    concatStringsSep
+    filterAttrs
+    length
+    listToAttrs
+    literalExpression
+    makeSearchPathOutput
+    mkEnableOption
+    mkIf
+    mkOption
+    nameValuePair
+    optionals
+    types
+    ;
   inherit (utils) escapeSystemdPath;
 
   cfg = config.services.v4l2-relayd;

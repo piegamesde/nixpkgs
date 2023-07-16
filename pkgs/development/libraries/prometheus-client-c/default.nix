@@ -25,9 +25,11 @@ let
       };
 
       nativeBuildInputs = [ cmake ];
-      inherit buildInputs;
+      inherit
+        buildInputs
+        ;
 
-      # These patches will be in 0.1.2
+        # These patches will be in 0.1.2
       patches = [
         # Required so CMAKE_INSTALL_PREFIX is honored, otherwise it
         # installs headers in /usr/include (absolute)

@@ -77,12 +77,15 @@ let
   };
 in
 stdenv.mkDerivation {
-  inherit pname version;
+  inherit
+    pname
+    version
+    ;
 
-  # Build a "clean" version of the package so that we don't add extra ".bin" or
-  # configuration files to users' PATHs. We can't easily put the unwrapped
-  # package files in libexec (where they belong, probably) because the upstream
-  # wrapper scripts have the bin directory hardcoded.
+    # Build a "clean" version of the package so that we don't add extra ".bin" or
+    # configuration files to users' PATHs. We can't easily put the unwrapped
+    # package files in libexec (where they belong, probably) because the upstream
+    # wrapper scripts have the bin directory hardcoded.
   buildCommand = ''
     mkdir -p $out/bin
     for f in p4admin p4merge p4v p4vc; do

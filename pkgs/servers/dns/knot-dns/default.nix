@@ -101,10 +101,13 @@ stdenv.mkDerivation rec {
   passthru.tests = {
     inherit knot-resolver;
   } // lib.optionalAttrs stdenv.isLinux {
-    inherit (nixosTests) knot kea;
-    # Some dependencies are very version-sensitive, so the might get dropped
-    # or embedded after some update, even if the nixPackagers didn't intend to.
-    # For non-linux I don't know a good replacement for `ldd`.
+    inherit (nixosTests)
+      knot
+      kea
+      ;
+      # Some dependencies are very version-sensitive, so the might get dropped
+      # or embedded after some update, even if the nixPackagers didn't intend to.
+      # For non-linux I don't know a good replacement for `ldd`.
     deps = runCommandLocal "knot-deps-test" {
       nativeBuildInputs = [ (lib.getBin stdenv.cc.libc) ];
     } ''

@@ -471,7 +471,10 @@ in rec {
             });
             libraries = super."${finalLlvmPackages}".libraries.extend (_: _: {
               inherit (pkgs."${finalLlvmPackages}")
-                compiler-rt libcxx libcxxabi;
+                compiler-rt
+                libcxx
+                libcxxabi
+                ;
             });
           in
           { inherit tools libraries; } // tools // libraries
@@ -519,12 +522,55 @@ in rec {
     let
       persistent = self: super:
         with prevStage; {
-          inherit zlib patchutils m4 scons flex perl bison unifdef unzip openssl
-            python3 libxml2 gettext sharutils gmp libarchive ncurses pkg-config
-            libedit groff openssh sqlite sed serf openldap db cyrus-sasl expat
-            apr-util subversion xz findfreetype libssh curl cmake autoconf
-            automake libtool ed cpio coreutils libssh2 nghttp2 libkrb5 ninja
-            brotli libiconv;
+          inherit
+            zlib
+            patchutils
+            m4
+            scons
+            flex
+            perl
+            bison
+            unifdef
+            unzip
+            openssl
+            python3
+            libxml2
+            gettext
+            sharutils
+            gmp
+            libarchive
+            ncurses
+            pkg-config
+            libedit
+            groff
+            openssh
+            sqlite
+            sed
+            serf
+            openldap
+            db
+            cyrus-sasl
+            expat
+            apr-util
+            subversion
+            xz
+            findfreetype
+            libssh
+            curl
+            cmake
+            autoconf
+            automake
+            libtool
+            ed
+            cpio
+            coreutils
+            libssh2
+            nghttp2
+            libkrb5
+            ninja
+            brotli
+            libiconv
+            ;
 
           "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (let
             tools = super."${finalLlvmPackages}".tools.extend (_: _: {
@@ -557,9 +603,22 @@ in rec {
 
           darwin = super.darwin.overrideScope (_: _: {
             inherit (darwin)
-              binutils dyld Libsystem xnu configd ICU libdispatch libclosure
-              launchd CF objc4 darwin-stubs sigtool postLinkSignHook
-              signingUtils;
+              binutils
+              dyld
+              Libsystem
+              xnu
+              configd
+              ICU
+              libdispatch
+              libclosure
+              launchd
+              CF
+              objc4
+              darwin-stubs
+              sigtool
+              postLinkSignHook
+              signingUtils
+              ;
           });
         };
     in with prevStage;
@@ -611,13 +670,48 @@ in rec {
     let
       persistent = self: super:
         with prevStage; {
-          inherit patchutils m4 scons flex perl bison unifdef unzip openssl
-            python3 gettext sharutils libarchive pkg-config groff bash
-            subversion openssh sqlite sed serf openldap db cyrus-sasl expat
-            apr-util findfreetype libssh curl cmake autoconf automake libtool
-            cpio libssh2 nghttp2 libkrb5 ninja;
+          inherit
+            patchutils
+            m4
+            scons
+            flex
+            perl
+            bison
+            unifdef
+            unzip
+            openssl
+            python3
+            gettext
+            sharutils
+            libarchive
+            pkg-config
+            groff
+            bash
+            subversion
+            openssh
+            sqlite
+            sed
+            serf
+            openldap
+            db
+            cyrus-sasl
+            expat
+            apr-util
+            findfreetype
+            libssh
+            curl
+            cmake
+            autoconf
+            automake
+            libtool
+            cpio
+            libssh2
+            nghttp2
+            libkrb5
+            ninja
+            ;
 
-          # Avoid pulling in a full python and its extra dependencies for the llvm/clang builds.
+            # Avoid pulling in a full python and its extra dependencies for the llvm/clang builds.
           libxml2 = super.libxml2.override { pythonSupport = false; };
 
           "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (let
@@ -630,8 +724,18 @@ in rec {
 
           darwin = super.darwin.overrideScope (_: _: {
             inherit (darwin)
-              dyld Libsystem xnu configd libdispatch libclosure launchd libiconv
-              locale darwin-stubs sigtool;
+              dyld
+              Libsystem
+              xnu
+              configd
+              libdispatch
+              libclosure
+              launchd
+              libiconv
+              locale
+              darwin-stubs
+              sigtool
+              ;
           });
         };
     in with prevStage;
@@ -695,13 +799,34 @@ in rec {
     let
       persistent = self: super:
         with prevStage; {
-          inherit gnumake gzip gnused bzip2 ed xz patch bash python3 ncurses
-            libffi zlib gmp pcre gnugrep cmake coreutils findutils diffutils
-            patchutils ninja libxml2;
+          inherit
+            gnumake
+            gzip
+            gnused
+            bzip2
+            ed
+            xz
+            patch
+            bash
+            python3
+            ncurses
+            libffi
+            zlib
+            gmp
+            pcre
+            gnugrep
+            cmake
+            coreutils
+            findutils
+            diffutils
+            patchutils
+            ninja
+            libxml2
+            ;
 
-          # Hack to make sure we don't link ncurses in bootstrap tools. The proper
-          # solution is to avoid passing -L/nix-store/...-bootstrap-tools/lib,
-          # quite a sledgehammer just to get the C runtime.
+            # Hack to make sure we don't link ncurses in bootstrap tools. The proper
+            # solution is to avoid passing -L/nix-store/...-bootstrap-tools/lib,
+            # quite a sledgehammer just to get the C runtime.
           gettext = super.gettext.overrideAttrs (drv: {
             configureFlags = drv.configureFlags ++ [ "--disable-curses" ];
           });
@@ -719,16 +844,25 @@ in rec {
             libraries = super."${finalLlvmPackages}".libraries.extend
               (llvmSelf: _: {
                 inherit (pkgs."${finalLlvmPackages}")
-                  libcxx libcxxabi compiler-rt;
+                  libcxx
+                  libcxxabi
+                  compiler-rt
+                  ;
               });
           in
           { inherit tools libraries; } // tools // libraries
           );
 
           darwin = super.darwin.overrideScope (_: superDarwin: {
-            inherit (darwin) dyld Libsystem libiconv locale darwin-stubs;
+            inherit (darwin)
+              dyld
+              Libsystem
+              libiconv
+              locale
+              darwin-stubs
+              ;
 
-            # See useAppleSDKLibs in darwin-packages.nix
+              # See useAppleSDKLibs in darwin-packages.nix
             CF = if
               useAppleSDKLibs
             then
@@ -763,8 +897,28 @@ in rec {
       persistent = self: super:
         with prevStage;
         {
-          inherit gnumake gzip gnused bzip2 gawk ed xz patch bash ncurses libffi
-            zlib gmp pcre gnugrep coreutils findutils diffutils patchutils pbzx;
+          inherit
+            gnumake
+            gzip
+            gnused
+            bzip2
+            gawk
+            ed
+            xz
+            patch
+            bash
+            ncurses
+            libffi
+            zlib
+            gmp
+            pcre
+            gnugrep
+            coreutils
+            findutils
+            diffutils
+            patchutils
+            pbzx
+            ;
 
           darwin = super.darwin.overrideScope (_: _:
             {
@@ -774,16 +928,21 @@ in rec {
               inherit (darwin) binutils binutils-unwrapped cctools;
             });
         } // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
-          inherit llvm;
+          inherit
+            llvm
+            ;
 
-          # Need to get rid of these when cross-compiling.
+            # Need to get rid of these when cross-compiling.
           "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (let
             tools = super."${finalLlvmPackages}".tools.extend (_: super: {
               inherit (pkgs."${finalLlvmPackages}") llvm clang-unwrapped;
             });
             libraries = super."${finalLlvmPackages}".libraries.extend (_: _: {
               inherit (pkgs."${finalLlvmPackages}")
-                compiler-rt libcxx libcxxabi;
+                compiler-rt
+                libcxx
+                libcxxabi
+                ;
             });
           in
           { inherit tools libraries; } // tools // libraries

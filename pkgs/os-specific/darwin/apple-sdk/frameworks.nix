@@ -18,8 +18,14 @@ with libs; {
   Accounts = { };
   AddressBook = { inherit libobjc Carbon ContactsPersistence; };
   AppKit = {
-    inherit ApplicationServices AudioToolbox AudioUnit Foundation QuartzCore
-      UIFoundation;
+    inherit
+      ApplicationServices
+      AudioToolbox
+      AudioUnit
+      Foundation
+      QuartzCore
+      UIFoundation
+      ;
   };
   AppKitScripting = { };
   AppleScriptKit = { };
@@ -44,8 +50,14 @@ with libs; {
   CoreMIDI = { };
   CoreMIDIServer = { inherit CoreMIDI; };
   CoreMedia = {
-    inherit ApplicationServices AudioToolbox AudioUnit CoreAudio CoreGraphics
-      CoreVideo;
+    inherit
+      ApplicationServices
+      AudioToolbox
+      AudioUnit
+      CoreAudio
+      CoreGraphics
+      CoreVideo
+      ;
   };
   CoreMediaIO = { inherit CoreMedia; };
   CoreText = { inherit CoreGraphics; };
@@ -61,8 +73,13 @@ with libs; {
   FWAUserLib = { };
   ForceFeedback = { inherit IOKit; };
   Foundation = {
-    inherit libobjc CoreFoundation Security ApplicationServices
-      SystemConfiguration;
+    inherit
+      libobjc
+      CoreFoundation
+      Security
+      ApplicationServices
+      SystemConfiguration
+      ;
   };
   GLKit = { };
   GLUT = { inherit OpenGL; };
@@ -70,8 +87,18 @@ with libs; {
   GameCenter = { };
   GameController = { };
   GameKit = {
-    inherit Cocoa Foundation GameCenter GameController GameplayKit Metal
-      MetalKit ModelIO SceneKit SpriteKit;
+    inherit
+      Cocoa
+      Foundation
+      GameCenter
+      GameController
+      GameplayKit
+      Metal
+      MetalKit
+      ModelIO
+      SceneKit
+      SpriteKit
+      ;
   };
   GameplayKit = { };
   Hypervisor = { };
@@ -138,14 +165,30 @@ with libs; {
   Accelerate = { inherit CoreWLAN IOBluetooth; };
   ApplicationServices = { inherit CoreGraphics CoreServices CoreText ImageIO; };
   Carbon = {
-    inherit libobjc ApplicationServices CoreServices Foundation IOKit Security
-      QuartzCore;
+    inherit
+      libobjc
+      ApplicationServices
+      CoreServices
+      Foundation
+      IOKit
+      Security
+      QuartzCore
+      ;
   };
   CoreBluetooth = { };
   # TODO: figure out which part of the umbrella depends on CoreFoundation and move it there.
   CoreServices = {
-    inherit CFNetwork CoreFoundation CoreAudio CoreData DiskArbitration Security
-      NetFS OpenDirectory ServiceManagement;
+    inherit
+      CFNetwork
+      CoreFoundation
+      CoreAudio
+      CoreData
+      DiskArbitration
+      Security
+      NetFS
+      OpenDirectory
+      ServiceManagement
+      ;
   };
   IOBluetooth = { inherit CoreBluetooth IOKit; };
   JavaVM = { };
@@ -155,8 +198,15 @@ with libs; {
     inherit libobjc ApplicationServices CoreVideo OpenCL CoreImage Metal;
   };
   QuickTime = {
-    inherit ApplicationServices AudioUnit Carbon CoreAudio CoreServices OpenGL
-      QuartzCore;
+    inherit
+      ApplicationServices
+      AudioUnit
+      Carbon
+      CoreAudio
+      CoreServices
+      OpenGL
+      QuartzCore
+      ;
   };
 
   vmnet = { };

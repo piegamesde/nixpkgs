@@ -55,12 +55,37 @@ let
     lib.getAttr build (callPackage ./packages.nix {
       wineRelease = release;
       supportFlags = {
-        inherit cupsSupport gettextSupport dbusSupport cairoSupport odbcSupport
-          netapiSupport cursesSupport vaSupport pcapSupport v4lSupport
-          saneSupport gphoto2Support krb5Support fontconfigSupport alsaSupport
-          pulseaudioSupport xineramaSupport gtkSupport openclSupport tlsSupport
-          openglSupport gstreamerSupport udevSupport vulkanSupport sdlSupport
-          usbSupport mingwSupport waylandSupport embedInstallers;
+        inherit
+          cupsSupport
+          gettextSupport
+          dbusSupport
+          cairoSupport
+          odbcSupport
+          netapiSupport
+          cursesSupport
+          vaSupport
+          pcapSupport
+          v4lSupport
+          saneSupport
+          gphoto2Support
+          krb5Support
+          fontconfigSupport
+          alsaSupport
+          pulseaudioSupport
+          xineramaSupport
+          gtkSupport
+          openclSupport
+          tlsSupport
+          openglSupport
+          gstreamerSupport
+          udevSupport
+          vulkanSupport
+          sdlSupport
+          usbSupport
+          mingwSupport
+          waylandSupport
+          embedInstallers
+          ;
       };
       inherit moltenvk;
     });

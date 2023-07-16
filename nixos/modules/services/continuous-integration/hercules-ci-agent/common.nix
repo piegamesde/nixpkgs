@@ -12,8 +12,15 @@
 }:
 let
   inherit (lib)
-    filterAttrs literalMD literalExpression mkIf mkOption mkRemovedOptionModule
-    mkRenamedOptionModule types;
+    filterAttrs
+    literalMD
+    literalExpression
+    mkIf
+    mkOption
+    mkRemovedOptionModule
+    mkRenamedOptionModule
+    types
+    ;
 
   cfg = config.services.hercules-ci-agent;
 

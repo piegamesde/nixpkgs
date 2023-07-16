@@ -5,10 +5,15 @@
   ...
 }:
 let
-  inherit (lib) mkOption types literalMD mdDoc;
+  inherit (lib)
+    mkOption
+    types
+    literalMD
+    mdDoc
+    ;
 
-  # Reifies and correctly wraps the python test driver for
-  # the respective qemu version and with or without ocr support
+    # Reifies and correctly wraps the python test driver for
+    # the respective qemu version and with or without ocr support
   testDriver = hostPkgs.callPackage ../test-driver {
     inherit (config) enableOCR extraPythonPackages;
     qemu_pkg = config.qemu.package;

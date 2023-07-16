@@ -14,8 +14,15 @@ let
 
   inherit (lib) mkAfter mkDefault mkEnableOption mkIf mkMerge mkOption;
   inherit (lib)
-    attrValues concatMapStringsSep getName literalExpression optional
-    optionalAttrs optionalString types;
+    attrValues
+    concatMapStringsSep
+    getName
+    literalExpression
+    optional
+    optionalAttrs
+    optionalString
+    types
+    ;
   inherit (lib.generators) toKeyValue;
 
   user = "zabbix";

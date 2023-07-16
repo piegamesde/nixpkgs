@@ -55,11 +55,13 @@ let
       ];
       propagatedBuildInputs = lib.unique beamDeps;
 
-      inherit src;
+      inherit
+        src
+        ;
 
-      # stripping does not have any effect on beam files
-      # it is however needed for dependencies with NIFs
-      # false is the default but we keep this for readability
+        # stripping does not have any effect on beam files
+        # it is however needed for dependencies with NIFs
+        # false is the default but we keep this for readability
       dontStrip = false;
 
       setupHook = writeText "setupHook.sh" ''

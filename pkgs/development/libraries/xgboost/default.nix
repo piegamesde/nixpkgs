@@ -93,10 +93,12 @@ stdenv.mkDerivation rec {
     export R_LIBS_SITE="$R_LIBS_SITE''${R_LIBS_SITE:+:}$out/library"
   '';
 
-  inherit doCheck;
+  inherit
+    doCheck
+    ;
 
-  # By default, cmake build will run ctests with all checks enabled
-  # If we're building with cuda, we run ctest manually so that we can skip the GPU tests
+    # By default, cmake build will run ctests with all checks enabled
+    # If we're building with cuda, we run ctest manually so that we can skip the GPU tests
   checkPhase = lib.optionalString cudaSupport ''
     ctest --force-new-ctest-process ${
       lib.optionalString cudaSupport "-E TestXGBoostLib"

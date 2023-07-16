@@ -53,9 +53,11 @@ stdenv.mkDerivation rec {
       --replace 'bit 32 64' 'bit 64'
   '';
 
-  inherit testedTargets;
+  inherit
+    testedTargets
+    ;
 
-  # needs 'transcendentals' executable, which is only on linux
+    # needs 'transcendentals' executable, which is only on linux
   doCheck = stdenv.isLinux;
 
   # the compiler enforces -Werror, and -fno-strict-overflow makes it mad.

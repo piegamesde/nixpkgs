@@ -61,8 +61,15 @@ let
   dwarf-therapist-original = libsForQt5.callPackage ./dwarf-therapist {
     texlive = texlive.combine {
       inherit (texlive)
-        scheme-basic float caption wrapfig adjmulticol sidecap preprint
-        enumitem;
+        scheme-basic
+        float
+        caption
+        wrapfig
+        adjmulticol
+        sidecap
+        preprint
+        enumitem
+        ;
     };
   };
 

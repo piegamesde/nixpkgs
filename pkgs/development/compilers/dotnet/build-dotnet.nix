@@ -65,9 +65,12 @@ let
 
 in
 stdenv.mkDerivation (finalAttrs: rec {
-  inherit pname version;
+  inherit
+    pname
+    version
+    ;
 
-  # Some of these dependencies are `dlopen()`ed.
+    # Some of these dependencies are `dlopen()`ed.
   nativeBuildInputs = [ makeWrapper ]
     ++ lib.optional stdenv.isLinux autoPatchelfHook;
 

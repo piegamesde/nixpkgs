@@ -21,8 +21,10 @@ let
   };
   cudaStdenv = overrideCC stdenv cc;
   passthruExtra = {
-    inherit nixpkgsCompatibleLibstdcxx;
-    # cc already exposed
+    inherit
+      nixpkgsCompatibleLibstdcxx
+      ;
+      # cc already exposed
   };
   assertCondition = true;
 in

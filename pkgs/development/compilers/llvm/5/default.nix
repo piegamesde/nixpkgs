@@ -47,8 +47,17 @@ let
   tools = lib.makeExtensible (tools:
     let
       callPackage = newScope (tools // {
-        inherit stdenv cmake libxml2 python3 isl release_version version fetch
-          buildLlvmTools;
+        inherit
+          stdenv
+          cmake
+          libxml2
+          python3
+          isl
+          release_version
+          version
+          fetch
+          buildLlvmTools
+          ;
       });
       mkExtraBuildCommands = cc: ''
         rsrc="$out/resource-root"

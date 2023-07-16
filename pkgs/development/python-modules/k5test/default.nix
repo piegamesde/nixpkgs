@@ -23,8 +23,11 @@ buildPythonPackage rec {
 
   patches = [ (substituteAll {
     src = ./fix-paths.patch;
-    inherit findutils krb5;
-    # krb5-config is in dev output
+    inherit
+      findutils
+      krb5
+      ;
+      # krb5-config is in dev output
     krb5Dev = krb5.dev;
     which = "${which}/bin/which";
   }) ];

@@ -65,7 +65,13 @@ let
   luajit52 = luajit.override { enable52Compat = true; };
   inherit (lib) optional;
   inherit (darwin.apple_sdk.frameworks)
-    CoreText CoreFoundation AppKit Carbon IOKit Cocoa;
+    CoreText
+    CoreFoundation
+    AppKit
+    Carbon
+    IOKit
+    Cocoa
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "aegisub";

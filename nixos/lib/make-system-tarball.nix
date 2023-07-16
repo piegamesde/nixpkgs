@@ -47,9 +47,14 @@ stdenv.mkDerivation {
   builder = ./make-system-tarball.sh;
   nativeBuildInputs = extraInputs;
 
-  inherit fileName extraArgs extraCommands compressCommand;
+  inherit
+    fileName
+    extraArgs
+    extraCommands
+    compressCommand
+    ;
 
-  # !!! should use XML.
+    # !!! should use XML.
   sources = map (x: x.source) contents;
   targets = map (x: x.target) contents;
 

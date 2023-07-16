@@ -25,9 +25,11 @@ let
 
 in
 nodePackages.package.override {
-  inherit src;
+  inherit
+    src
+    ;
 
-  # upstream isn't tagged, but we are using the latest official commit for that specific asf version (assuming both get updated at the same time)
+    # upstream isn't tagged, but we are using the latest official commit for that specific asf version (assuming both get updated at the same time)
   version = ArchiSteamFarm.version;
 
   nativeBuildInputs = [ pkgs.nodePackages.node-gyp-build ];

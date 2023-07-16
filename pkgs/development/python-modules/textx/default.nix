@@ -68,8 +68,13 @@ let
 
     passthru.tests = {
       textxTests = callPackage ./tests.nix {
-        inherit textx-data-dsl textx-example-project textx-flow-codegen
-          textx-flow-dsl textx-types-dsl;
+        inherit
+          textx-data-dsl
+          textx-example-project
+          textx-flow-codegen
+          textx-flow-dsl
+          textx-types-dsl
+          ;
       };
     };
 
@@ -84,9 +89,11 @@ let
   textx-data-dsl = buildPythonPackage rec {
     pname = "textx-data-dsl";
     version = "1.0.0";
-    inherit (textx) src;
-    # `format` isn't included in the output of `mk-python-derivation`.
-    # So can't inherit format: `error: attribute 'format' missing`.
+    inherit (textx)
+      src
+      ;
+      # `format` isn't included in the output of `mk-python-derivation`.
+      # So can't inherit format: `error: attribute 'format' missing`.
     format = "setuptools";
     pathToSourceRoot = "tests/functional/registration/projects/data_dsl";
     sourceRoot = "${src.name}/" + pathToSourceRoot;

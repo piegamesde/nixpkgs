@@ -24,11 +24,16 @@
   import ./androidndk-pkgs.nix {
     inherit lib;
     inherit (buildPackages) makeWrapper autoPatchelfHook;
-    inherit (pkgs) stdenv runCommand wrapBintoolsWith wrapCCWith;
-    # buildPackages.foo rather than buildPackages.buildPackages.foo would work,
-    # but for splicing messing up on infinite recursion for the variants we
-    # *dont't* use. Using this workaround, but also making a test to ensure
-    # these two really are the same.
+    inherit (pkgs)
+      stdenv
+      runCommand
+      wrapBintoolsWith
+      wrapCCWith
+      ;
+      # buildPackages.foo rather than buildPackages.buildPackages.foo would work,
+      # but for splicing messing up on infinite recursion for the variants we
+      # *dont't* use. Using this workaround, but also making a test to ensure
+      # these two really are the same.
     buildAndroidndk = buildAndroidComposition.ndk-bundle;
     androidndk = androidComposition.ndk-bundle;
     targetAndroidndkPkgs = targetPackages.androidndkPkgs_21;
@@ -52,11 +57,16 @@
   import ./androidndk-pkgs.nix {
     inherit lib;
     inherit (buildPackages) makeWrapper autoPatchelfHook;
-    inherit (pkgs) stdenv runCommand wrapBintoolsWith wrapCCWith;
-    # buildPackages.foo rather than buildPackages.buildPackages.foo would work,
-    # but for splicing messing up on infinite recursion for the variants we
-    # *dont't* use. Using this workaround, but also making a test to ensure
-    # these two really are the same.
+    inherit (pkgs)
+      stdenv
+      runCommand
+      wrapBintoolsWith
+      wrapCCWith
+      ;
+      # buildPackages.foo rather than buildPackages.buildPackages.foo would work,
+      # but for splicing messing up on infinite recursion for the variants we
+      # *dont't* use. Using this workaround, but also making a test to ensure
+      # these two really are the same.
     buildAndroidndk = buildAndroidComposition.ndk-bundle;
     androidndk = androidComposition.ndk-bundle;
     targetAndroidndkPkgs = targetPackages.androidndkPkgs_23b;
@@ -80,11 +90,16 @@
   import ./androidndk-pkgs.nix {
     inherit lib;
     inherit (buildPackages) makeWrapper autoPatchelfHook;
-    inherit (pkgs) stdenv runCommand wrapBintoolsWith wrapCCWith;
-    # buildPackages.foo rather than buildPackages.buildPackages.foo would work,
-    # but for splicing messing up on infinite recursion for the variants we
-    # *dont't* use. Using this workaround, but also making a test to ensure
-    # these two really are the same.
+    inherit (pkgs)
+      stdenv
+      runCommand
+      wrapBintoolsWith
+      wrapCCWith
+      ;
+      # buildPackages.foo rather than buildPackages.buildPackages.foo would work,
+      # but for splicing messing up on infinite recursion for the variants we
+      # *dont't* use. Using this workaround, but also making a test to ensure
+      # these two really are the same.
     buildAndroidndk = buildAndroidComposition.ndk-bundle;
     androidndk = androidComposition.ndk-bundle;
     targetAndroidndkPkgs = targetPackages.androidndkPkgs_24;

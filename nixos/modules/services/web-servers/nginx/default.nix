@@ -46,11 +46,13 @@ let
           "${certs.${certName}.directory}/chain.pem";
       })
   ) cfg.virtualHosts;
-  inherit (config.networking) enableIPv6;
+  inherit (config.networking)
+    enableIPv6
+    ;
 
-  # Mime.types values are taken from brotli sample configuration - https://github.com/google/ngx_brotli
-  # and Nginx Server Configs - https://github.com/h5bp/server-configs-nginx
-  # "text/html" is implicitly included in {brotli,gzip,zstd}_types
+    # Mime.types values are taken from brotli sample configuration - https://github.com/google/ngx_brotli
+    # and Nginx Server Configs - https://github.com/h5bp/server-configs-nginx
+    # "text/html" is implicitly included in {brotli,gzip,zstd}_types
   compressMimeTypes = [
     "application/atom+xml"
     "application/geo+json"

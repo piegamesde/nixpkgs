@@ -97,10 +97,13 @@ let
   callPackage = newScope (packages // pkgs.darwin // { inherit MacOSX-SDK; });
 
   packages = stdenvs // {
-    inherit (callPackage ./apple_sdk.nix { }) frameworks libs;
+    inherit (callPackage ./apple_sdk.nix { })
+      frameworks
+      libs
+      ;
 
-    # TODO: this is nice to be private. is it worth the callPackage above?
-    # Probably, I don't think that callPackage costs much at all.
+      # TODO: this is nice to be private. is it worth the callPackage above?
+      # Probably, I don't think that callPackage costs much at all.
     inherit MacOSX-SDK CLTools_Executables;
 
     Libsystem = callPackage ./libSystem.nix { };
@@ -120,7 +123,10 @@ let
     xcodebuild = pkgs.xcbuild.override {
       inherit (pkgs.darwin.apple_sdk_11_0) stdenv;
       inherit (pkgs.darwin.apple_sdk_11_0.frameworks)
-        CoreServices CoreGraphics ImageIO;
+        CoreServices
+        CoreGraphics
+        ImageIO
+        ;
     };
 
     rustPlatform = pkgs.makeRustPlatform {
@@ -132,8 +138,15 @@ let
       inherit (pkgs.darwin.apple_sdk_11_0) xcodebuild rustPlatform;
       darwin = pkgs.darwin.overrideScope (_: prev: {
         inherit (prev.darwin.apple_sdk_11_0)
-          IOKit Libsystem LibsystemCross Security configd libcharset libunwind
-          objc4;
+          IOKit
+          Libsystem
+          LibsystemCross
+          Security
+          configd
+          libcharset
+          libunwind
+          objc4
+          ;
         apple_sdk = prev.darwin.apple_sdk_11_0;
         CF = prev.darwin.apple_sdk_11_0.CoreFoundation;
       });

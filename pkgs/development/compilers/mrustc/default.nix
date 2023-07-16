@@ -13,9 +13,11 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "mrustc";
-  inherit version;
+  inherit
+    version
+    ;
 
-  # Always update minicargo.nix and bootstrap.nix in lockstep with this
+    # Always update minicargo.nix and bootstrap.nix in lockstep with this
   src = fetchFromGitHub {
     owner = "thepowersgang";
     repo = "mrustc";

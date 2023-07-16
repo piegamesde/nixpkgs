@@ -11,15 +11,17 @@
 
 let
 
-  inherit (builtins) getAttr;
+  inherit (builtins)
+    getAttr
+    ;
 
-  # Ensures that every non-slashy `system` exists in a unique .asd file.
-  # (Think cl-async-base being declared in cl-async.asd upstream)
-  #
-  # This is required because we're building and loading a system called
-  # `system`, not `asd`, so otherwise `system` would not be loadable
-  # without building and loading `asd` first.
-  #
+    # Ensures that every non-slashy `system` exists in a unique .asd file.
+    # (Think cl-async-base being declared in cl-async.asd upstream)
+    #
+    # This is required because we're building and loading a system called
+    # `system`, not `asd`, so otherwise `system` would not be loadable
+    # without building and loading `asd` first.
+    #
   createAsd = {
       url,
       sha256,

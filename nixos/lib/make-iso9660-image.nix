@@ -61,10 +61,19 @@ stdenv.mkDerivation {
     libossp_uuid
   ];
 
-  inherit isoName bootable bootImage compressImage volumeID efiBootImage
-    efiBootable isohybridMbrImage usbBootable;
+  inherit
+    isoName
+    bootable
+    bootImage
+    compressImage
+    volumeID
+    efiBootImage
+    efiBootable
+    isohybridMbrImage
+    usbBootable
+    ;
 
-  # !!! should use XML.
+    # !!! should use XML.
   sources = map (x: x.source) contents;
   targets = map (x: x.target) contents;
 

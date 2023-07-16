@@ -9,8 +9,16 @@ let
 
   inherit (builtins) toFile;
   inherit (lib)
-    concatMapStringsSep concatStringsSep mapAttrsToList mkIf mkEnableOption
-    mkOption types literalExpression optionalString;
+    concatMapStringsSep
+    concatStringsSep
+    mapAttrsToList
+    mkIf
+    mkEnableOption
+    mkOption
+    types
+    literalExpression
+    optionalString
+    ;
 
   cfg = config.services.strongswan;
 
@@ -183,8 +191,14 @@ in {
         after = [ "network-online.target" ];
         environment = {
           STRONGSWAN_CONF = strongswanConf {
-            inherit setup connections ca secretsFile managePlugins
-              enabledPlugins;
+            inherit
+              setup
+              connections
+              ca
+              secretsFile
+              managePlugins
+              enabledPlugins
+              ;
           };
         };
         serviceConfig = {

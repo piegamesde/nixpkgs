@@ -191,8 +191,18 @@ buildPythonPackage rec {
     };
 
     tests = {
-      inherit cassandra-driver klein magic-wormhole scrapy treq txaio txamqp
-        txrequests txtorcon thrift;
+      inherit
+        cassandra-driver
+        klein
+        magic-wormhole
+        scrapy
+        treq
+        txaio
+        txamqp
+        txrequests
+        txtorcon
+        thrift
+        ;
       inherit (nixosTests) buildbot matrix-synapse;
     };
   };

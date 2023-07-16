@@ -11,9 +11,11 @@ let
   mkOcamlPackages = ocaml:
     (lib.makeScope newScope (self:
       with self; {
-        inherit ocaml;
+        inherit
+          ocaml
+          ;
 
-        ### A ###
+          ### A ###
         aches = callPackage ../development/ocaml-modules/aches { };
         aches-lwt = callPackage ../development/ocaml-modules/aches/lwt.nix { };
 
@@ -565,32 +567,49 @@ let
           callPackage ../development/ocaml-modules/ffmpeg/ffmpeg-av.nix {
             inherit (pkgs) ffmpeg;
             inherit (pkgs.darwin.apple_sdk.frameworks)
-              AudioToolbox VideoToolbox;
+              AudioToolbox
+              VideoToolbox
+              ;
           };
         ffmpeg-avcodec =
           callPackage ../development/ocaml-modules/ffmpeg/ffmpeg-avcodec.nix {
             inherit (pkgs) ffmpeg;
             inherit (pkgs.darwin.apple_sdk.frameworks)
-              AudioToolbox VideoToolbox;
+              AudioToolbox
+              VideoToolbox
+              ;
           };
         ffmpeg-avdevice =
           callPackage ../development/ocaml-modules/ffmpeg/ffmpeg-avdevice.nix {
             inherit (pkgs) ffmpeg;
             inherit (pkgs.darwin.apple_sdk.frameworks)
-              AppKit AudioToolbox AVFoundation Cocoa CoreImage ForceFeedback
-              OpenGL VideoToolbox;
+              AppKit
+              AudioToolbox
+              AVFoundation
+              Cocoa
+              CoreImage
+              ForceFeedback
+              OpenGL
+              VideoToolbox
+              ;
           };
         ffmpeg-avfilter =
           callPackage ../development/ocaml-modules/ffmpeg/ffmpeg-avfilter.nix {
             inherit (pkgs) ffmpeg;
             inherit (pkgs.darwin.apple_sdk.frameworks)
-              AppKit CoreImage OpenGL VideoToolbox;
+              AppKit
+              CoreImage
+              OpenGL
+              VideoToolbox
+              ;
           };
         ffmpeg-avutil =
           callPackage ../development/ocaml-modules/ffmpeg/ffmpeg-avutil.nix {
             inherit (pkgs) ffmpeg;
             inherit (pkgs.darwin.apple_sdk.frameworks)
-              AudioToolbox VideoToolbox;
+              AudioToolbox
+              VideoToolbox
+              ;
           };
         ffmpeg-swresample = callPackage
           ../development/ocaml-modules/ffmpeg/ffmpeg-swresample.nix {
@@ -1905,7 +1924,12 @@ let
 
         tsdl = callPackage ../development/ocaml-modules/tsdl {
           inherit (pkgs.darwin.apple_sdk.frameworks)
-            AudioToolbox Cocoa CoreAudio CoreVideo ForceFeedback;
+            AudioToolbox
+            Cocoa
+            CoreAudio
+            CoreVideo
+            ForceFeedback
+            ;
         };
 
         tsdl-image = callPackage ../development/ocaml-modules/tsdl-image { };

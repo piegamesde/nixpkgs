@@ -35,9 +35,11 @@
 # /lib will link to /lib32
 
 let
-  inherit (stdenv) is64bit;
+  inherit (stdenv)
+    is64bit
+    ;
 
-  # use of glibc_multi is only supported on x86_64-linux
+    # use of glibc_multi is only supported on x86_64-linux
   isMultiBuild = multiPkgs != null && stdenv.isx86_64 && stdenv.isLinux;
   isTargetBuild = !isMultiBuild;
 

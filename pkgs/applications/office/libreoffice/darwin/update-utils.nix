@@ -44,6 +44,12 @@ let
     (builtins.replaceStrings [ oldVersion ] [ newVersion ] dmgUrl) + ".sha256";
 
 in {
-  inherit extractLatestVersionFromHtml getHtml getLatestStableVersion
-    extractSha256FromHtml getSha256 getSha256Url;
+  inherit
+    extractLatestVersionFromHtml
+    getHtml
+    getLatestStableVersion
+    extractSha256FromHtml
+    getSha256
+    getSha256Url
+    ;
 }

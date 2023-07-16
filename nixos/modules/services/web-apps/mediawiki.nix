@@ -9,8 +9,14 @@ let
 
   inherit (lib) mkDefault mkEnableOption mkForce mkIf mkMerge mkOption;
   inherit (lib)
-    concatStringsSep literalExpression mapAttrsToList optional optionals
-    optionalString types;
+    concatStringsSep
+    literalExpression
+    mapAttrsToList
+    optional
+    optionals
+    optionalString
+    types
+    ;
 
   cfg = config.services.mediawiki;
   fpm = config.services.phpfpm.pools.mediawiki;

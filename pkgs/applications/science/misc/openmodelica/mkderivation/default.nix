@@ -15,11 +15,14 @@
 pkg:
 let
   inherit (builtins) hasAttr getAttr length elemAt;
-  inherit (lib) attrByPath concatStringsSep;
+  inherit (lib)
+    attrByPath
+    concatStringsSep
+    ;
 
-  # A few helpers functions:
+    # A few helpers functions:
 
-  # getAttrDef is just a getAttr with default fallback
+    # getAttrDef is just a getAttr with default fallback
   getAttrDef = attr: default: x: attrByPath [ attr ] default x;
 
   # getAttr-like helper for optional append to string:
@@ -91,8 +94,16 @@ let
 
 in
 stdenv.mkDerivation (pkg // {
-  inherit omtarget postPatch preAutoreconf configureFlags configurePhase
-    preBuild makeFlags installFlags;
+  inherit
+    omtarget
+    postPatch
+    preAutoreconf
+    configureFlags
+    configurePhase
+    preBuild
+    makeFlags
+    installFlags
+    ;
 
   src = fetchgit (import ./src-main.nix);
   version = "1.18.0";

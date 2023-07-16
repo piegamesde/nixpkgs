@@ -8,10 +8,22 @@
 let
 
   inherit (lib)
-    concatMapStringsSep concatStringsSep isInt isList literalExpression;
+    concatMapStringsSep
+    concatStringsSep
+    isInt
+    isList
+    literalExpression
+    ;
   inherit (lib)
-    mapAttrs mapAttrsToList mkDefault mkEnableOption mkIf mkOption optional
-    types;
+    mapAttrs
+    mapAttrsToList
+    mkDefault
+    mkEnableOption
+    mkIf
+    mkOption
+    optional
+    types
+    ;
 
   cfg = config.services.automysqlbackup;
   pkg = pkgs.automysqlbackup;

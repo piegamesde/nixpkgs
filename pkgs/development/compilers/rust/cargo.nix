@@ -26,9 +26,12 @@ rustPlatform.buildRustPackage.override {
   cargo-auditable = cargo-auditable.bootstrap;
 } ({
   pname = "cargo";
-  inherit (rustc) version src;
+  inherit (rustc)
+    version
+    src
+    ;
 
-  # the rust source tarball already has all the dependencies vendored, no need to fetch them again
+    # the rust source tarball already has all the dependencies vendored, no need to fetch them again
   cargoVendorDir = "vendor";
   buildAndTestSubdir = "src/tools/cargo";
 

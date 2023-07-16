@@ -177,9 +177,11 @@ let
 
   inherit (stdenv) buildPlatform hostPlatform targetPlatform;
 
-  inherit (bootPkgs) ghc;
+  inherit (bootPkgs)
+    ghc
+    ;
 
-  # TODO(@Ericson2314) Make unconditional
+    # TODO(@Ericson2314) Make unconditional
   targetPrefix = lib.optionalString (targetPlatform != hostPlatform)
     "${targetPlatform.config}-";
 
@@ -537,9 +539,11 @@ stdenv.mkDerivation ({
     inherit bootPkgs targetPrefix;
 
     inherit llvmPackages;
-    inherit enableShared;
+    inherit
+      enableShared
+      ;
 
-    # Our Cabal compiler name
+      # Our Cabal compiler name
     haskellCompilerName = "ghc-${version}";
 
     # Expose hadrian used for bootstrapping, for debugging purposes

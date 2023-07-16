@@ -20,9 +20,12 @@ let
   version = "2.5.4";
 in
 stdenv.mkDerivation {
-  inherit pname version;
+  inherit
+    pname
+    version
+    ;
 
-  # Release tarball includes vendored files
+    # Release tarball includes vendored files
   src = fetchurl {
     urls = [
       "https://static.wallabag.org/releases/wallabag-release-${version}.tar.gz"

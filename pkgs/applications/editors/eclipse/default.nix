@@ -50,8 +50,22 @@ in rec {
 
   # work around https://bugs.eclipse.org/bugs/show_bug.cgi?id=476075#c3
   buildEclipseUnversioned = callPackage ./build-eclipse.nix {
-    inherit stdenv makeDesktopItem freetype fontconfig libX11 libXrender zlib
-      jdk glib gtk libXtst gsettings-desktop-schemas webkitgtk makeWrapper;
+    inherit
+      stdenv
+      makeDesktopItem
+      freetype
+      fontconfig
+      libX11
+      libXrender
+      zlib
+      jdk
+      glib
+      gtk
+      libXtst
+      gsettings-desktop-schemas
+      webkitgtk
+      makeWrapper
+      ;
   };
   buildEclipse = eclipseData:
     buildEclipseUnversioned (eclipseData // {

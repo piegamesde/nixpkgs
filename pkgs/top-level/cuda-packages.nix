@@ -46,8 +46,10 @@ let
           "1.2.2.5"
         else
           "1.5.0.3";
-        inherit (cuTensorVersions.${version}) hash;
-        # This can go into generic.nix
+        inherit (cuTensorVersions.${version})
+          hash
+          ;
+          # This can go into generic.nix
         libPath = "lib/${
             if
               cudaMajorVersion == "10"

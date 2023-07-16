@@ -10,18 +10,28 @@ let
 in rec {
 
   inherit (builtins)
-    head tail length isList elemAt concatLists filter elem genList map;
+    head
+    tail
+    length
+    isList
+    elemAt
+    concatLists
+    filter
+    elem
+    genList
+    map
+    ;
 
-  /* Create a list consisting of a single element.  `singleton x` is
-      sometimes more convenient with respect to indentation than `[x]`
-      when x spans multiple lines.
+    /* Create a list consisting of a single element.  `singleton x` is
+        sometimes more convenient with respect to indentation than `[x]`
+        when x spans multiple lines.
 
-      Type: singleton :: a -> [a]
+        Type: singleton :: a -> [a]
 
-      Example:
-        singleton "foo"
-        => [ "foo" ]
-  */
+        Example:
+          singleton "foo"
+          => [ "foo" ]
+    */
   singleton = x: [ x ];
 
   /* Apply the function to each element in the list. Same as `map`, but arguments

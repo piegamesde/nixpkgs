@@ -13,7 +13,13 @@ let
 in
 mkDerivation {
   inherit (backintime-common)
-    version src installFlags meta dontAddPrefix nativeBuildInputs;
+    version
+    src
+    installFlags
+    meta
+    dontAddPrefix
+    nativeBuildInputs
+    ;
 
   pname = "backintime-qt";
 

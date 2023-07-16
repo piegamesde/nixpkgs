@@ -37,9 +37,18 @@ let
   libsForQt5 = pkgs.plasma5Packages;
   inherit (libsForQt5) kdeGear kdeFrameworks plasma5;
   inherit (lib)
-    getBin optionalString literalExpression mkRemovedOptionModule
-    mkRenamedOptionModule mkDefault mkIf mkMerge mkOption mkPackageOptionMD
-    types;
+    getBin
+    optionalString
+    literalExpression
+    mkRemovedOptionModule
+    mkRenamedOptionModule
+    mkDefault
+    mkIf
+    mkMerge
+    mkOption
+    mkPackageOptionMD
+    types
+    ;
 
   activationScript = ''
     ${set_XDG_CONFIG_HOME}

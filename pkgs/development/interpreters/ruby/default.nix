@@ -396,7 +396,10 @@ let
               gemConfig = defaultGemConfig;
               ruby = self;
             })
-              withPackages buildGems gems;
+              withPackages
+              buildGems
+              gems
+              ;
 
           } // lib.optionalAttrs useBaseRuby { inherit baseRuby; };
         }) args;

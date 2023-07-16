@@ -37,9 +37,13 @@
 }@args:
 
 let
-  inherit (lib) optional optionals optionalString;
+  inherit (lib)
+    optional
+    optionals
+    optionalString
+    ;
 
-  # Used when creating a version-suffixed symlink of libLLVM.dylib
+    # Used when creating a version-suffixed symlink of libLLVM.dylib
   shortVersion = with lib;
     concatStringsSep "." (take 1 (splitString "." release_version));
 

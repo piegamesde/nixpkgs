@@ -61,12 +61,15 @@ assert (noLibc || nativeLibc) == (libc == null);
 
 let
   stdenv = stdenvNoCC;
-  inherit (stdenv) hostPlatform targetPlatform;
+  inherit (stdenv)
+    hostPlatform
+    targetPlatform
+    ;
 
-  # Prefix for binaries. Customarily ends with a dash separator.
-  #
-  # TODO(@Ericson2314) Make unconditional, or optional but always true by
-  # default.
+    # Prefix for binaries. Customarily ends with a dash separator.
+    #
+    # TODO(@Ericson2314) Make unconditional, or optional but always true by
+    # default.
   targetPrefix = lib.optionalString (targetPlatform != hostPlatform)
     (targetPlatform.config + "-");
 
@@ -446,8 +449,11 @@ stdenv.mkDerivation {
     ###
     + optionalString stdenv.targetPlatform.isDarwin (let
       inherit (stdenv.targetPlatform)
-        darwinPlatform darwinSdkVersion darwinMinVersion
-        darwinMinVersionVariable;
+        darwinPlatform
+        darwinSdkVersion
+        darwinMinVersion
+        darwinMinVersionVariable
+        ;
     in ''
       export darwinPlatform=${darwinPlatform}
       export darwinMinVersion=${darwinMinVersion}

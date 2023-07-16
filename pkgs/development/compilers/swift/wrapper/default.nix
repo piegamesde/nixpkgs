@@ -18,8 +18,13 @@ stdenv.mkDerivation (swift._wrapperParams // {
   # Wrapper and setup hook variables.
   inherit swift;
   inherit (swift)
-    swiftOs swiftArch swiftModuleSubdir swiftLibSubdir swiftStaticModuleSubdir
-    swiftStaticLibSubdir;
+    swiftOs
+    swiftArch
+    swiftModuleSubdir
+    swiftLibSubdir
+    swiftStaticModuleSubdir
+    swiftStaticLibSubdir
+    ;
   swiftDriver =
     lib.optionalString useSwiftDriver "${swift-driver}/bin/swift-driver";
 

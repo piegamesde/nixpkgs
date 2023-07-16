@@ -14,7 +14,11 @@ let
     buildWrapper = import ./wrapper.nix { inherit dotnetenv; };
 
     inherit (dotnetfx)
-      assembly20Path wcfPath referenceAssembly30Path referenceAssembly35Path;
+      assembly20Path
+      wcfPath
+      referenceAssembly30Path
+      referenceAssembly35Path
+      ;
   };
 in
 dotnetenv

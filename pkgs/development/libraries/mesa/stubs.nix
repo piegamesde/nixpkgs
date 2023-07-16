@@ -14,7 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
     mesa
   else
     libglvnd)
-    version;
+    version
+    ;
   outputs = [
     "out"
     "dev"
@@ -110,6 +111,9 @@ stdenv.mkDerivation (finalAttrs: {
       mesa.meta
     else
       libglvnd.meta)
-      homepage license platforms;
+      homepage
+      license
+      platforms
+      ;
   };
 })

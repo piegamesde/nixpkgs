@@ -13,9 +13,11 @@
 
 stdenv.mkDerivation rec {
   pname = "lld";
-  inherit version;
+  inherit
+    version
+    ;
 
-  # Blank llvm dir just so relative path works
+    # Blank llvm dir just so relative path works
   src = runCommand "${pname}-src-${version}" { } ''
     mkdir -p "$out"
     cp -r ${monorepoSrc}/cmake "$out"

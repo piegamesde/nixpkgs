@@ -60,8 +60,18 @@ lib.makeOverridable ({
 
   in
   runCommand name rec {
-    inherit manifest ignoreCollisions checkCollisionContents passthru meta
-      pathsToLink extraPrefix postBuild nativeBuildInputs buildInputs;
+    inherit
+      manifest
+      ignoreCollisions
+      checkCollisionContents
+      passthru
+      meta
+      pathsToLink
+      extraPrefix
+      postBuild
+      nativeBuildInputs
+      buildInputs
+      ;
     pkgs = builtins.toJSON (map (drv: {
       paths =
         # First add the usual output(s): respect if user has chosen explicitly,

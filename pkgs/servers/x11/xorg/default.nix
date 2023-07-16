@@ -7,9 +7,11 @@
 self:
 with self; {
 
-  inherit pixman;
+  inherit
+    pixman
+    ;
 
-  # THIS IS A GENERATED FILE.  DO NOT EDIT!
+    # THIS IS A GENERATED FILE.  DO NOT EDIT!
   appres = callPackage ({
       stdenv,
       pkg-config,

@@ -81,7 +81,14 @@ stdenv.mkDerivation rec {
     libtool_2
   ] ++ lib.optionals enableDocs [ (texlive.combine {
     inherit (texlive)
-      scheme-medium koma-script optional framed enumitem multirow preprint;
+      scheme-medium
+      koma-script
+      optional
+      framed
+      enumitem
+      multirow
+      preprint
+      ;
   }) ];
 
   buildInputs = [

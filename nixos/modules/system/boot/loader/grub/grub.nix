@@ -108,11 +108,26 @@ let
       inherit (args) devices;
       inherit (efi) canTouchEfiVariables;
       inherit (cfg)
-        version extraConfig extraPerEntryConfig extraEntries forceInstall
-        useOSProber extraGrubInstallArgs extraEntriesBeforeNixOS
-        extraPrepareConfig configurationLimit copyKernels default fsIdentifier
-        efiSupport efiInstallAsRemovable gfxmodeEfi gfxmodeBios gfxpayloadEfi
-        gfxpayloadBios;
+        version
+        extraConfig
+        extraPerEntryConfig
+        extraEntries
+        forceInstall
+        useOSProber
+        extraGrubInstallArgs
+        extraEntriesBeforeNixOS
+        extraPrepareConfig
+        configurationLimit
+        copyKernels
+        default
+        fsIdentifier
+        efiSupport
+        efiInstallAsRemovable
+        gfxmodeEfi
+        gfxmodeBios
+        gfxpayloadEfi
+        gfxpayloadBios
+        ;
       path = with pkgs;
         makeBinPath ([
           coreutils

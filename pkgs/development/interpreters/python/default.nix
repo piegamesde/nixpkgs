@@ -126,9 +126,11 @@
       inherit sourceVersion;
       pythonAtLeast = lib.versionAtLeast pythonVersion;
       pythonOlder = lib.versionOlder pythonVersion;
-      inherit hasDistutilsCxxPatch;
-      # TODO: rename to pythonOnBuild
-      # Not done immediately because its likely used outside Nixpkgs.
+      inherit
+        hasDistutilsCxxPatch
+        ;
+        # TODO: rename to pythonOnBuild
+        # Not done immediately because its likely used outside Nixpkgs.
       pythonForBuild = pythonOnBuildForHost.override {
         inherit packageOverrides;
         self = pythonForBuild;

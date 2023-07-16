@@ -71,9 +71,11 @@ let
     format = "pyproject";
 
     # apply patches to base repo
-    inherit patches;
+    inherit
+      patches
+      ;
 
-    # move into source root after patching
+      # move into source root after patching
     postPatch = ''
       cd psycopg_c
     '';
@@ -99,9 +101,11 @@ let
     format = "setuptools";
 
     # apply patches to base repo
-    inherit patches;
+    inherit
+      patches
+      ;
 
-    # move into source root after patching
+      # move into source root after patching
     postPatch = ''
       cd psycopg_pool
     '';
@@ -135,9 +139,11 @@ buildPythonPackage rec {
     hash = "sha256-yn09fR9+7zQni8SvTG7BUmYRD7MK7u2arVAznWz2oAw=";
   };
 
-  inherit patches;
+  inherit
+    patches
+    ;
 
-  # only move to sourceRoot after patching, makes patching easier
+    # only move to sourceRoot after patching, makes patching easier
   postPatch = ''
     cd psycopg
   '';

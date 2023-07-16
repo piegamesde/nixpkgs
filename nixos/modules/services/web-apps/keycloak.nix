@@ -11,10 +11,28 @@ let
   opt = options.services.keycloak;
 
   inherit (lib)
-    types mkMerge mkOption mkChangedOptionModule mkRenamedOptionModule
-    mkRemovedOptionModule concatStringsSep mapAttrsToList escapeShellArg mkIf
-    optionalString optionals mkDefault literalExpression isAttrs literalMD
-    maintainers catAttrs collect splitString hasPrefix;
+    types
+    mkMerge
+    mkOption
+    mkChangedOptionModule
+    mkRenamedOptionModule
+    mkRemovedOptionModule
+    concatStringsSep
+    mapAttrsToList
+    escapeShellArg
+    mkIf
+    optionalString
+    optionals
+    mkDefault
+    literalExpression
+    isAttrs
+    literalMD
+    maintainers
+    catAttrs
+    collect
+    splitString
+    hasPrefix
+    ;
 
   inherit (builtins) elem typeOf isInt isString hashString isPath;
 

@@ -100,10 +100,12 @@ let
       outputHashMode = "recursive";
     } // {
       inherit name;
-      inherit disallowedRequisites;
+      inherit
+        disallowedRequisites
+        ;
 
-      # Nix itself uses the `system` field of a derivation to decide where to
-      # build it. This is a bit confusing for cross compilation.
+        # Nix itself uses the `system` field of a derivation to decide where to
+        # build it. This is a bit confusing for cross compilation.
       inherit (buildPlatform) system;
 
       builder = shell;
@@ -156,19 +158,37 @@ let
 
       inherit buildPlatform hostPlatform targetPlatform;
 
-      inherit extraNativeBuildInputs extraBuildInputs __extraImpureHostDeps
-        extraSandboxProfile;
+      inherit
+        extraNativeBuildInputs
+        extraBuildInputs
+        __extraImpureHostDeps
+        extraSandboxProfile
+        ;
 
-      # Utility flags to test the type of platform.
+        # Utility flags to test the type of platform.
       inherit (hostPlatform)
-        isDarwin isLinux isSunOS isCygwin isBSD isFreeBSD isOpenBSD isi686
-        isx86_32 isx86_64 is32bit is64bit isAarch32 isAarch64 isMips
-        isBigEndian;
+        isDarwin
+        isLinux
+        isSunOS
+        isCygwin
+        isBSD
+        isFreeBSD
+        isOpenBSD
+        isi686
+        isx86_32
+        isx86_64
+        is32bit
+        is64bit
+        isAarch32
+        isAarch64
+        isMips
+        isBigEndian
+        ;
 
-      # Override `system` so that packages can get the system of the host
-      # platform through `stdenv.system`. `system` is originally set to the
-      # build platform within the derivation above so that Nix directs the build
-      # to correct type of machine.
+        # Override `system` so that packages can get the system of the host
+        # platform through `stdenv.system`. `system` is originally set to the
+        # build platform within the derivation above so that Nix directs the build
+        # to correct type of machine.
       inherit (hostPlatform) system;
 
       mkDerivation = mkDerivationFromStdenv stdenv;
@@ -177,11 +197,14 @@ let
 
       inherit overrides;
 
-      inherit cc hasCC;
+      inherit
+        cc
+        hasCC
+        ;
 
-      # Convenience for doing some very basic shell syntax checking by parsing a script
-      # without running any commands. Because this will also skip `shopt -s extglob`
-      # commands and extglob affects the Bash parser, we enable extglob always.
+        # Convenience for doing some very basic shell syntax checking by parsing a script
+        # without running any commands. Because this will also skip `shopt -s extglob`
+        # commands and extglob affects the Bash parser, we enable extglob always.
       shellDryRun = "${stdenv.shell} -n -O extglob";
 
       tests = {

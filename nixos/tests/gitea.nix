@@ -78,7 +78,9 @@ let
 
       testScript = let
         inherit (import ./ssh-keys.nix pkgs)
-          snakeOilPrivateKey snakeOilPublicKey;
+          snakeOilPrivateKey
+          snakeOilPublicKey
+          ;
       in ''
         GIT_SSH_COMMAND = "ssh -i $HOME/.ssh/privk -o StrictHostKeyChecking=no"
         REPO = "gitea@server:test/repo"

@@ -38,16 +38,20 @@
 let
   inherit (lib) lists strings trivial;
   inherit (cudaPackages) backendStdenv cudaFlags cudaVersion;
-  inherit (magmaRelease) version hash supportedGpuTargets;
+  inherit (magmaRelease)
+    version
+    hash
+    supportedGpuTargets
+    ;
 
-  # NOTE: The lists.subtractLists function is perhaps a bit unintuitive. It subtracts the elements
-  #   of the first list *from* the second list. That means:
-  #   lists.subtractLists a b = b - a
+    # NOTE: The lists.subtractLists function is perhaps a bit unintuitive. It subtracts the elements
+    #   of the first list *from* the second list. That means:
+    #   lists.subtractLists a b = b - a
 
-  # For ROCm
-  # NOTE: The hip.gpuTargets are prefixed with "gfx" instead of "sm" like cudaFlags.realArches.
-  #   For some reason, Magma's CMakeLists.txt file does not handle the "gfx" prefix, so we must
-  #   remove it.
+    # For ROCm
+    # NOTE: The hip.gpuTargets are prefixed with "gfx" instead of "sm" like cudaFlags.realArches.
+    #   For some reason, Magma's CMakeLists.txt file does not handle the "gfx" prefix, so we must
+    #   remove it.
   rocmArches = lists.map (x: strings.removePrefix "gfx" x) hip.gpuTargets;
   supportedRocmArches = lists.intersectLists rocmArches supportedGpuTargets;
   unsupportedRocmArches = lists.subtractLists supportedRocmArches rocmArches;

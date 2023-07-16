@@ -89,7 +89,8 @@ let
     inherit (pkgs.lib.evalModules {
       modules = [ ../../pkgs/top-level/config.nix ];
     })
-      options;
+      options
+      ;
     documentType = "none";
     transformOptions = opt:
       opt // {

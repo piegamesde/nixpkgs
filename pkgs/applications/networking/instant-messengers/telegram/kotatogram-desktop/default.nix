@@ -77,9 +77,23 @@ let
     # tg_owt should use the same compiler
     inherit stdenv;
 
-    inherit Cocoa AppKit IOKit IOSurface Foundation AVFoundation CoreMedia
-      VideoToolbox CoreGraphics CoreVideo OpenGL Metal MetalKit CoreFoundation
-      ApplicationServices;
+    inherit
+      Cocoa
+      AppKit
+      IOKit
+      IOSurface
+      Foundation
+      AVFoundation
+      CoreMedia
+      VideoToolbox
+      CoreGraphics
+      CoreVideo
+      OpenGL
+      Metal
+      MetalKit
+      CoreFoundation
+      ApplicationServices
+      ;
   };
 in
 stdenv.mkDerivation rec {

@@ -95,11 +95,14 @@ self: super:
           (self.generateOptparseApplicativeCompletions [ "guardian" ])
         ];
   } )
-    cabal-install cabal-install-solver guardian;
+    cabal-install
+    cabal-install-solver
+    guardian
+    ;
 
-  #######################################
-  ### HASKELL-LANGUAGE-SERVER SECTION ###
-  #######################################
+    #######################################
+    ### HASKELL-LANGUAGE-SERVER SECTION ###
+    #######################################
 
   haskell-language-server = (lib.pipe super.haskell-language-server [
     dontCheck
@@ -2633,9 +2636,11 @@ self: super:
 
     purenix = super.purenix.overrideScope purescriptOverlay;
   } )
-    purescript purenix;
+    purescript
+    purenix
+    ;
 
-  # 2022-11-05: https://github.com/ysangkok/haskell-tzdata/issues/3
+    # 2022-11-05: https://github.com/ysangkok/haskell-tzdata/issues/3
   tzdata = dontCheck super.tzdata;
 
   # 2022-11-15: Needs newer witch package and brick 1.3 which in turn works with text-zipper 0.12

@@ -9,9 +9,11 @@
 }:
 let
 
-  inherit (stdenv.hostPlatform) extensions;
+  inherit (stdenv.hostPlatform)
+    extensions
+    ;
 
-  # This file exports shell snippets for use in postInstall.
+    # This file exports shell snippets for use in postInstall.
   mkInstallScript = module: template: ''
     mkdir -p $out/lib/cmake/${module}
     (

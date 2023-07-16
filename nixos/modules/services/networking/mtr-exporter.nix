@@ -7,8 +7,15 @@
 
 let
   inherit (lib)
-    maintainers types mkEnableOption mkOption mkIf literalExpression
-    escapeShellArg escapeShellArgs;
+    maintainers
+    types
+    mkEnableOption
+    mkOption
+    mkIf
+    literalExpression
+    escapeShellArg
+    escapeShellArgs
+    ;
   cfg = config.services.mtr-exporter;
 in {
   options = {

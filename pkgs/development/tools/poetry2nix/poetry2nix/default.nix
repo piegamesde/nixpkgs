@@ -11,9 +11,13 @@ let
   version = "1.41.0";
 
   inherit (poetryLib)
-    isCompatible readTOML normalizePackageName normalizePackageSet;
+    isCompatible
+    readTOML
+    normalizePackageName
+    normalizePackageSet
+    ;
 
-  # Map SPDX identifiers to license names
+    # Map SPDX identifiers to license names
   spdxLicenses = lib.listToAttrs (lib.filter (pair: pair.name != null)
     (builtins.map (v: {
       name = if
@@ -122,13 +126,15 @@ let
 in
 lib.makeScope pkgs.newScope (self: {
 
-  inherit version;
+  inherit
+    version
+    ;
 
-  /* Returns a package of editable sources whose changes will be available without needing to restart the
-     nix-shell.
-     In editablePackageSources you can pass a mapping from package name to source directory to have
-     those packages available in the resulting environment, whose source changes are immediately available.
-  */
+    /* Returns a package of editable sources whose changes will be available without needing to restart the
+       nix-shell.
+       In editablePackageSources you can pass a mapping from package name to source directory to have
+       those packages available in the resulting environment, whose source changes are immediately available.
+    */
   mkPoetryEditablePackage = {
       projectDir ? null,
       pyproject ? projectDir + "/pyproject.toml",
@@ -416,14 +422,25 @@ lib.makeScope pkgs.newScope (self: {
         excludedEditablePackageNames;
 
       poetryPython = self.mkPoetryPackages {
-        inherit pyproject poetrylock overrides python pwd preferWheels pyProject
-          groups extras;
+        inherit
+          pyproject
+          poetrylock
+          overrides
+          python
+          pwd
+          preferWheels
+          pyProject
+          groups
+          extras
+          ;
         editablePackageSources = editablePackageSources';
       };
 
-      inherit (poetryPython) poetryPackages;
+      inherit (poetryPython)
+        poetryPackages
+        ;
 
-      # Don't add editable sources to the environment since they will sometimes fail to build and are not useful in the development env
+        # Don't add editable sources to the environment since they will sometimes fail to build and are not useful in the development env
       editableAttrs = lib.attrNames editablePackageSources';
       envPkgs = builtins.filter
         (drv: !lib.elem (drv.pname or drv.name or "") editableAttrs)
@@ -464,8 +481,17 @@ lib.makeScope pkgs.newScope (self: {
     }@attrs:
     let
       poetryPython = self.mkPoetryPackages {
-        inherit pyproject poetrylock overrides python pwd preferWheels groups
-          checkGroups extras;
+        inherit
+          pyproject
+          poetrylock
+          overrides
+          python
+          pwd
+          preferWheels
+          groups
+          checkGroups
+          extras
+          ;
       };
       py = poetryPython.python;
 
@@ -546,9 +572,11 @@ lib.makeScope pkgs.newScope (self: {
 
   # inherit mkPoetryEnv mkPoetryApplication mkPoetryPackages;
 
-  inherit (poetryLib) cleanPythonSources;
+  inherit (poetryLib)
+    cleanPythonSources
+    ;
 
-  # Create a new default set of overrides with the same structure as the built-in ones
+    # Create a new default set of overrides with the same structure as the built-in ones
   mkDefaultPoetryOverrides = defaults: {
     __functor = defaults;
 

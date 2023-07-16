@@ -93,9 +93,11 @@ assert (stdenv.targetPlatform != stdenv.hostPlatform) -> !enableHaddockProgram;
 let
   inherit (stdenv) buildPlatform hostPlatform targetPlatform;
 
-  inherit (bootPkgs) ghc;
+  inherit (bootPkgs)
+    ghc
+    ;
 
-  # TODO(@Ericson2314) Make unconditional
+    # TODO(@Ericson2314) Make unconditional
   targetPrefix = lib.optionalString (targetPlatform != hostPlatform)
     "${targetPlatform.config}-";
 
@@ -416,10 +418,12 @@ stdenv.mkDerivation (rec {
     inherit bootPkgs targetPrefix;
 
     inherit llvmPackages;
-    inherit enableShared;
+    inherit
+      enableShared
+      ;
 
-    # This is used by the haskell builder to query
-    # the presence of the haddock program.
+      # This is used by the haskell builder to query
+      # the presence of the haddock program.
     hasHaddock = enableHaddockProgram;
 
     # Our Cabal compiler name
@@ -431,10 +435,12 @@ stdenv.mkDerivation (rec {
     description = "The Glasgow Haskell Compiler";
     maintainers = with lib.maintainers; [ guibou ] ++ lib.teams.haskell.members;
     timeout = 24 * 3600;
-    inherit (ghc.meta) license;
-    # hardcode platforms because the bootstrap GHC differs depending on the platform,
-    # with differing platforms available for each of them; See HACK comment in
-    # 8.10.2-binary.nix for an explanation of the musl special casing.
+    inherit (ghc.meta)
+      license
+      ;
+      # hardcode platforms because the bootstrap GHC differs depending on the platform,
+      # with differing platforms available for each of them; See HACK comment in
+      # 8.10.2-binary.nix for an explanation of the musl special casing.
     platforms = [ "x86_64-linux" ] ++ lib.optionals (!hostPlatform.isMusl) [
       "i686-linux"
       "aarch64-linux"

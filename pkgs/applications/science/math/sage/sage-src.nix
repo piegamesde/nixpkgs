@@ -27,34 +27,38 @@ let
       ...
     }@args:
     (fetchpatch ({
-      inherit name sha256 excludes;
+      inherit
+        name
+        sha256
+        excludes
+        ;
 
-      # There are three places to get changes from:
-      #
-      # 1) From Sage's Trac. Contains all release tags (like "9.4") and all developer
-      # branches (wip patches from tickets), but exports each commit as a separate
-      # patch, so merge commits can lead to conflicts. Used if squashed == false.
-      #
-      # The above is the preferred option. To use it, find a Trac ticket and pass the
-      # "Commit" field from the ticket as "rev", choosing "base" as an appropriate
-      # release tag, i.e. a tag that doesn't cause the patch to include a lot of
-      # unrelated changes. If there is no such tag (due to nonlinear history, for
-      # example), there are two other options, listed below.
-      #
-      # 2) From GitHub's sagemath/sage repo. This lets us use a GH feature that allows
-      # us to choose between a .patch file, with one patch per commit, or a .diff file,
-      # which squashes all commits into a single diff. This is used if squashed ==
-      # true. This repo has all release tags. However, it has no developer branches, so
-      # this option can't be used if a change wasn't yet shipped in a (possibly beta)
-      # release.
-      #
-      # 3) From GitHub's sagemath/sagetrac-mirror repo. Mirrors all developer branches,
-      # but has no release tags. The only use case not covered by 1 or 2 is when we need
-      # to apply a patch from an open ticket that contains merge commits.
-      #
-      # Item 3 could cover all use cases if the sagemath/sagetrack-mirror repo had
-      # release tags, but it requires a sha instead of a release number in "base", which
-      # is inconvenient.
+        # There are three places to get changes from:
+        #
+        # 1) From Sage's Trac. Contains all release tags (like "9.4") and all developer
+        # branches (wip patches from tickets), but exports each commit as a separate
+        # patch, so merge commits can lead to conflicts. Used if squashed == false.
+        #
+        # The above is the preferred option. To use it, find a Trac ticket and pass the
+        # "Commit" field from the ticket as "rev", choosing "base" as an appropriate
+        # release tag, i.e. a tag that doesn't cause the patch to include a lot of
+        # unrelated changes. If there is no such tag (due to nonlinear history, for
+        # example), there are two other options, listed below.
+        #
+        # 2) From GitHub's sagemath/sage repo. This lets us use a GH feature that allows
+        # us to choose between a .patch file, with one patch per commit, or a .diff file,
+        # which squashes all commits into a single diff. This is used if squashed ==
+        # true. This repo has all release tags. However, it has no developer branches, so
+        # this option can't be used if a change wasn't yet shipped in a (possibly beta)
+        # release.
+        #
+        # 3) From GitHub's sagemath/sagetrac-mirror repo. Mirrors all developer branches,
+        # but has no release tags. The only use case not covered by 1 or 2 is when we need
+        # to apply a patch from an open ticket that contains merge commits.
+        #
+        # Item 3 could cover all use cases if the sagemath/sagetrack-mirror repo had
+        # release tags, but it requires a sha instead of a release number in "base", which
+        # is inconvenient.
       urls = if
         squashed
       then [

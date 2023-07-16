@@ -145,8 +145,10 @@ let
     passthru = {
       inherit coq-version;
       inherit ocamlPackages ocamlNativeBuildInputs;
-      inherit ocamlPropagatedBuildInputs;
-      # For compatibility
+      inherit
+        ocamlPropagatedBuildInputs
+        ;
+        # For compatibility
       inherit (ocamlPackages) ocaml camlp5 findlib num;
       emacsBufferSetup = pkgs: ''
         ; Propagate coq paths to children

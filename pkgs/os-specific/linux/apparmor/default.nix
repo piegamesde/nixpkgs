@@ -396,7 +396,14 @@ let
       done <${closureInfo { inherit rootPaths; }}/store-paths
     '';
 in {
-  inherit libapparmor apparmor-utils apparmor-bin-utils apparmor-parser
-    apparmor-pam apparmor-profiles apparmor-kernel-patches
-    apparmorRulesFromClosure;
+  inherit
+    libapparmor
+    apparmor-utils
+    apparmor-bin-utils
+    apparmor-parser
+    apparmor-pam
+    apparmor-profiles
+    apparmor-kernel-patches
+    apparmorRulesFromClosure
+    ;
 }

@@ -36,19 +36,24 @@ in {
 
   # Backwards compat before `lib` was factored out.
   inherit (lib')
-    toTargetArch toTargetOs toRustTarget toRustTargetSpec IsNoStdTarget;
+    toTargetArch
+    toTargetOs
+    toRustTarget
+    toRustTargetSpec
+    IsNoStdTarget
+    ;
 
-  # This just contains tools for now. But it would conceivably contain
-  # libraries too, say if we picked some default/recommended versions to build
-  # by Hydra.
-  #
-  # In the end game, rustc, the rust standard library (`core`, `std`, etc.),
-  # and cargo would themselves be built with `buildRustCreate` like
-  # everything else. Tools and `build.rs` and procedural macro dependencies
-  # would be taken from `buildRustPackages` (and `bootstrapRustPackages` for
-  # anything provided prebuilt or their build-time dependencies to break
-  # cycles / purify builds). In this way, nixpkgs would be in control of all
-  # bootstrapping.
+    # This just contains tools for now. But it would conceivably contain
+    # libraries too, say if we picked some default/recommended versions to build
+    # by Hydra.
+    #
+    # In the end game, rustc, the rust standard library (`core`, `std`, etc.),
+    # and cargo would themselves be built with `buildRustCreate` like
+    # everything else. Tools and `build.rs` and procedural macro dependencies
+    # would be taken from `buildRustPackages` (and `bootstrapRustPackages` for
+    # anything provided prebuilt or their build-time dependencies to break
+    # cycles / purify builds). In this way, nixpkgs would be in control of all
+    # bootstrapping.
   packages = {
     prebuilt = callPackage ./bootstrap.nix {
       version = bootstrapVersion;
@@ -72,8 +77,13 @@ in {
           version = rustcVersion;
           sha256 = rustcSha256;
           inherit enableRustcDev;
-          inherit llvmShared llvmSharedForBuild llvmSharedForHost
-            llvmSharedForTarget llvmPackages;
+          inherit
+            llvmShared
+            llvmSharedForBuild
+            llvmSharedForHost
+            llvmSharedForTarget
+            llvmPackages
+            ;
 
           patches = rustcPatches;
 

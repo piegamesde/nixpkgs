@@ -7,9 +7,12 @@
 
 buildPythonPackage rec {
   pname = "tinyobjloader-py";
-  inherit (tinyobjloader) version src;
+  inherit (tinyobjloader)
+    version
+    src
+    ;
 
-  # Build needs headers from ${src}, setting sourceRoot or fetching from pypi won't work.
+    # Build needs headers from ${src}, setting sourceRoot or fetching from pypi won't work.
   preConfigure = ''
     cd python
   '';

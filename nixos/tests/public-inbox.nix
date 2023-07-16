@@ -25,9 +25,12 @@ import ./make-test-python.nix ({
         ...
       }:
       let
-        inherit (config.services) gitolite public-inbox;
-        # Git repositories paths in Gitolite.
-        # Only their baseNameOf is used for configuring public-inbox.
+        inherit (config.services)
+          gitolite
+          public-inbox
+          ;
+          # Git repositories paths in Gitolite.
+          # Only their baseNameOf is used for configuring public-inbox.
         repositories = [
           "user/repo1"
           "user/repo2"

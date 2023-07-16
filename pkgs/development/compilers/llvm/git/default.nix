@@ -136,8 +136,17 @@ in let
   tools = lib.makeExtensible (tools:
     let
       callPackage = newScope (tools // {
-        inherit stdenv cmake ninja libxml2 python3 release_version version
-          monorepoSrc buildLlvmTools;
+        inherit
+          stdenv
+          cmake
+          ninja
+          libxml2
+          python3
+          release_version
+          version
+          monorepoSrc
+          buildLlvmTools
+          ;
       });
       mkExtraBuildCommands0 = cc: ''
         rsrc="$out/resource-root"
@@ -312,8 +321,16 @@ in let
   libraries = lib.makeExtensible (libraries:
     let
       callPackage = newScope (libraries // buildLlvmTools // {
-        inherit stdenv cmake ninja libxml2 python3 release_version version
-          monorepoSrc;
+        inherit
+          stdenv
+          cmake
+          ninja
+          libxml2
+          python3
+          release_version
+          version
+          monorepoSrc
+          ;
       });
     in {
 

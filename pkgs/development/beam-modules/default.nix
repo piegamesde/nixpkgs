@@ -23,7 +23,9 @@ let
       beamPackages = self;
 
       inherit (callPackage ../tools/build-managers/rebar3 { })
-        rebar3 rebar3WithPlugins;
+        rebar3
+        rebar3WithPlugins
+        ;
       rebar = callPackage ../tools/build-managers/rebar { };
 
       pc = callPackage ./pc { };

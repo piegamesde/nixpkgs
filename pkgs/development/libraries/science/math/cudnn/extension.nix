@@ -12,10 +12,16 @@ final: prev:
 let
   inherit (final) callPackage;
   inherit (prev) cudaVersion;
-  inherit (prev.lib) attrsets lists versions strings trivial;
+  inherit (prev.lib)
+    attrsets
+    lists
+    versions
+    strings
+    trivial
+    ;
 
-  # Utilities
-  # majorMinorPatch :: String -> String
+    # Utilities
+    # majorMinorPatch :: String -> String
   majorMinorPatch = (trivial.flip trivial.pipe) [
     (versions.splitVersion)
     (lists.take 3)

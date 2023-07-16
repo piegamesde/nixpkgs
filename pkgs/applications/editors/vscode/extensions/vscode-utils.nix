@@ -151,8 +151,16 @@ let
   toExtensionJson = extensions:
     builtins.toJSON (map toExtensionJsonEntry extensions);
 in {
-  inherit fetchVsixFromVscodeMarketplace buildVscodeExtension
-    buildVscodeMarketplaceExtension extensionFromVscodeMarketplace
-    extensionsFromVscodeMarketplace vscodeWithConfiguration vscodeExts2nix
-    vscodeEnv toExtensionJsonEntry toExtensionJson;
+  inherit
+    fetchVsixFromVscodeMarketplace
+    buildVscodeExtension
+    buildVscodeMarketplaceExtension
+    extensionFromVscodeMarketplace
+    extensionsFromVscodeMarketplace
+    vscodeWithConfiguration
+    vscodeExts2nix
+    vscodeEnv
+    toExtensionJsonEntry
+    toExtensionJson
+    ;
 }

@@ -9,16 +9,24 @@
 let
 
   inherit (pkgs.lib)
-    head makeLibraryPath makeSearchPath setAttr hasAttr optionals hasSuffix
-    splitString remove;
+    head
+    makeLibraryPath
+    makeSearchPath
+    setAttr
+    hasAttr
+    optionals
+    hasSuffix
+    splitString
+    remove
+    ;
 
-  # Used by builds that would otherwise attempt to write into storeDir.
-  #
-  # Will run build two times, keeping all files created during the
-  # first run, exept the FASL's. Then using that directory tree as the
-  # source of the second run.
-  #
-  # E.g. cl-unicode creating .txt files during compilation
+    # Used by builds that would otherwise attempt to write into storeDir.
+    #
+    # Will run build two times, keeping all files created during the
+    # first run, exept the FASL's. Then using that directory tree as the
+    # source of the second run.
+    #
+    # E.g. cl-unicode creating .txt files during compilation
   build-with-compile-into-pwd = args:
     let
       build = (build-asdf-system
@@ -81,7 +89,13 @@ let
 
     cffi-libffi = build-asdf-system {
       inherit (super.cffi-libffi)
-        pname version asds lispLibs nativeLibs nativeBuildInputs;
+        pname
+        version
+        asds
+        lispLibs
+        nativeLibs
+        nativeBuildInputs
+        ;
       src = pkgs.fetchzip {
         url =
           "https://github.com/cffi/cffi/archive/3f842b92ef808900bf20dae92c2d74232c2f6d3a.tar.gz";

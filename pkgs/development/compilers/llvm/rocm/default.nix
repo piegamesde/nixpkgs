@@ -161,9 +161,15 @@ let
     ln -s ${lld}/bin/lld $out/bin/ld
   '';
 in rec {
-  inherit llvm clang-unwrapped lld bintools bintools-unwrapped;
+  inherit
+    llvm
+    clang-unwrapped
+    lld
+    bintools
+    bintools-unwrapped
+    ;
 
-  # Runtimes
+    # Runtimes
   libc = callPackage ./llvm.nix rec {
     stdenv = rStdenv;
     targetName = "libc";
@@ -325,9 +331,12 @@ in rec {
 
   clang = wrapCCWith rec {
     # inherit libc libcxx bintools;
-    inherit libcxx bintools;
+    inherit
+      libcxx
+      bintools
+      ;
 
-    # We do this to avoid HIP pathing problems, and mimic a monolithic install
+      # We do this to avoid HIP pathing problems, and mimic a monolithic install
     cc = stdenv.mkDerivation (finalAttrs: {
       inherit (clang-unwrapped) pname version;
       dontUnpack = true;

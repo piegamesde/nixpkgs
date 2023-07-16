@@ -72,9 +72,11 @@ buildPythonPackage rec {
     pyqt5
     python-magic
   ];
-  inherit doCheck;
+  inherit
+    doCheck
+    ;
 
-  # If it won't be verbose, you'll see nothing going on for a long time.
+    # If it won't be verbose, you'll see nothing going on for a long time.
   checkPhase = ''
     runHook preCheck
     nosetests --verbosity=3

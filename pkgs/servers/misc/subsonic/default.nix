@@ -14,10 +14,12 @@ stdenv.mkDerivation rec {
     sha256 = "180qdk8mnc147az8v9rmc1kgf8b13mmq88l195gjdwiqpflqzdyz";
   };
 
-  inherit jre;
+  inherit
+    jre
+    ;
 
-  # Create temporary directory to extract tarball into to satisfy Nix's need
-  # for a directory to be created in the unpack phase.
+    # Create temporary directory to extract tarball into to satisfy Nix's need
+    # for a directory to be created in the unpack phase.
   unpackPhase = ''
     runHook preUnpack
     mkdir ${pname}-${version}

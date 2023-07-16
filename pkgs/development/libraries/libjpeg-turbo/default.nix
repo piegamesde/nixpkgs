@@ -98,8 +98,20 @@ stdenv.mkDerivation rec {
   installCheckTarget = "test";
 
   passthru.tests = {
-    inherit dvgrab epeg freeimage gd graphicsmagick imagemagick imlib2 jhead
-      libjxl mjpegtools opencv vips;
+    inherit
+      dvgrab
+      epeg
+      freeimage
+      gd
+      graphicsmagick
+      imagemagick
+      imlib2
+      jhead
+      libjxl
+      mjpegtools
+      opencv
+      vips
+      ;
     inherit (python3.pkgs) pillow imread pyturbojpeg;
   };
 

@@ -60,9 +60,11 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = targetPrefix + "binutils";
-  inherit version;
+  inherit
+    version
+    ;
 
-  # HACK: Ensure that we preserve source from bootstrap binutils to not rebuild LLVM
+    # HACK: Ensure that we preserve source from bootstrap binutils to not rebuild LLVM
   src =
     stdenv.__bootPackages.binutils-unwrapped.src or srcs.${targetPlatform.system} or srcs.normal;
 

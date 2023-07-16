@@ -119,8 +119,15 @@ let
     dotnet-sdk.meta.platforms;
 
   inherit (callPackage ./hooks {
-    inherit dotnet-sdk dotnet-test-sdk disabledTests nuget-source dotnet-runtime
-      runtimeDeps buildType;
+    inherit
+      dotnet-sdk
+      dotnet-test-sdk
+      disabledTests
+      nuget-source
+      dotnet-runtime
+      runtimeDeps
+      buildType
+      ;
     runtimeId = if
       runtimeId != null
     then
@@ -128,8 +135,12 @@ let
     else
       dotnetCorePackages.systemToDotnetRid stdenvNoCC.targetPlatform.system;
   })
-    dotnetConfigureHook dotnetBuildHook dotnetCheckHook dotnetInstallHook
-    dotnetFixupHook;
+    dotnetConfigureHook
+    dotnetBuildHook
+    dotnetCheckHook
+    dotnetInstallHook
+    dotnetFixupHook
+    ;
 
   localDeps = if
     (projectReferences != [ ])

@@ -10,7 +10,15 @@ let
 
   inherit (builtins) concatStringsSep map toString attrNames;
   inherit (lib)
-    boolToString types mkOption literalExpression mdDoc optional mkIf mkMerge;
+    boolToString
+    types
+    mkOption
+    literalExpression
+    mdDoc
+    optional
+    mkIf
+    mkMerge
+    ;
   inherit (types) nullOr listOf bool int ints float str enum;
 
   withDefaults = optionSpecs: defaults:

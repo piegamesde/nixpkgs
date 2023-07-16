@@ -151,8 +151,10 @@ buildGoModule rec {
       command = "HOME=$TMPDIR podman --version";
     };
   } // lib.optionalAttrs stdenv.isLinux {
-    inherit (nixosTests) podman;
-    # related modules
+    inherit (nixosTests)
+      podman
+      ;
+      # related modules
     inherit (nixosTests) podman-tls-ghostunnel;
     oci-containers-podman = nixosTests.oci-containers.podman;
   };

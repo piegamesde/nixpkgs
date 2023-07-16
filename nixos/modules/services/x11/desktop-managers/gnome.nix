@@ -35,8 +35,10 @@ let
   nixos-gsettings-desktop-schemas =
     pkgs.gnome.nixos-gsettings-overrides.override {
       inherit (cfg)
-        extraGSettingsOverrides extraGSettingsOverridePackages
-        favoriteAppsOverride;
+        extraGSettingsOverrides
+        extraGSettingsOverridePackages
+        favoriteAppsOverride
+        ;
       inherit flashbackEnabled nixos-background-dark nixos-background-light;
     };
 

@@ -207,13 +207,15 @@ rec {
       ...
     }@attrs:
     let
-      inherit stdenv;
+      inherit
+        stdenv
+        ;
 
-      /* Knock out our special solutions arg, but otherwise
-         just build what the caller is giving us. We'll
-         actually resholve it separately below (after we
-         generate binlore for it).
-      */
+        /* Knock out our special solutions arg, but otherwise
+           just build what the caller is giving us. We'll
+           actually resholve it separately below (after we
+           generate binlore for it).
+        */
       unresholved = (stdenv.mkDerivation ((removeAttrs attrs [ "solutions" ])
         // {
           inherit version src;

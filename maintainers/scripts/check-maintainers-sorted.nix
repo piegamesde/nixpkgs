@@ -1,8 +1,17 @@
 let
   lib = import ../../lib;
   inherit (lib)
-    add attrNames elemAt foldl' genList length replaceStrings sort toLower
-    trace;
+    add
+    attrNames
+    elemAt
+    foldl'
+    genList
+    length
+    replaceStrings
+    sort
+    toLower
+    trace
+    ;
 
   maintainers = import ../maintainer-list.nix;
   simplify = replaceStrings [

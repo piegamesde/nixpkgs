@@ -123,8 +123,17 @@ else
     else
       builtins.concatStringsSep "\n" sparseCheckout;
 
-    inherit url rev leaveDotGit fetchLFS fetchSubmodules deepClone branchName
-      nonConeMode postFetch;
+    inherit
+      url
+      rev
+      leaveDotGit
+      fetchLFS
+      fetchSubmodules
+      deepClone
+      branchName
+      nonConeMode
+      postFetch
+      ;
 
     postHook = if
       netrcPhase == null

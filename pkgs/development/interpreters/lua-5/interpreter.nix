@@ -74,9 +74,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ readline ];
 
-  inherit patches;
+  inherit
+    patches
+    ;
 
-  # we can't pass flags to the lua makefile because for portability, everything is hardcoded
+    # we can't pass flags to the lua makefile because for portability, everything is hardcoded
   postPatch = ''
     {
       echo -e '

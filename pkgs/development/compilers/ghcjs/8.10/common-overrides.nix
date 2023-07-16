@@ -6,8 +6,13 @@
 
 let
   inherit (haskellLib)
-    addBuildTools appendConfigureFlag dontHaddock doJailbreak markUnbroken
-    overrideCabal;
+    addBuildTools
+    appendConfigureFlag
+    dontHaddock
+    doJailbreak
+    markUnbroken
+    overrideCabal
+    ;
 in
 self: super: {
   ghcjs = overrideCabal (drv: {

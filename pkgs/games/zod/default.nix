@@ -40,8 +40,15 @@ let
   hardeningDisable = [ "format" ];
   NIX_LDFLAGS = "-L${libmysqlclient}/lib/mysql";
   zod_engine = stdenv.mkDerivation {
-    inherit version src postPatch nativeBuildInputs buildInputs hardeningDisable
-      NIX_LDFLAGS;
+    inherit
+      version
+      src
+      postPatch
+      nativeBuildInputs
+      buildInputs
+      hardeningDisable
+      NIX_LDFLAGS
+      ;
     pname = "${name}-engine";
     enableParallelBuilding = true;
     preBuild = "cd zod_src";
@@ -52,8 +59,15 @@ let
     '';
   };
   zod_map_editor = stdenv.mkDerivation {
-    inherit version src postPatch nativeBuildInputs buildInputs hardeningDisable
-      NIX_LDFLAGS;
+    inherit
+      version
+      src
+      postPatch
+      nativeBuildInputs
+      buildInputs
+      hardeningDisable
+      NIX_LDFLAGS
+      ;
     pname = "${name}-map_editor";
     enableParallelBuilding = true;
     preBuild = "cd zod_src";

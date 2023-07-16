@@ -49,9 +49,14 @@ let
   ];
 in
 stdenv.mkDerivation (rec {
-  inherit pname version src meta;
+  inherit
+    pname
+    version
+    src
+    meta
+    ;
 
-  # Don't remove runtime deps.
+    # Don't remove runtime deps.
   dontPatchELF = true;
 
   nativeBuildInputs = [

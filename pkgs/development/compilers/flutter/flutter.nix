@@ -189,10 +189,12 @@ let
     '';
 
     passthru = {
-      inherit dart;
-      # The derivation containing the original Flutter SDK files.
-      # When other derivations wrap this one, any unmodified files
-      # found here should be included as-is, for tooling compatibility.
+      inherit
+        dart
+        ;
+        # The derivation containing the original Flutter SDK files.
+        # When other derivations wrap this one, any unmodified files
+        # found here should be included as-is, for tooling compatibility.
       sdk = unwrapped;
     };
 

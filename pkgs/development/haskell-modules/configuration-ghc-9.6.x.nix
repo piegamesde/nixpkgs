@@ -201,7 +201,18 @@ self: super: {
     ]) super.ghc-exactprint_1_7_0_0);
 
   inherit (pkgs.lib.mapAttrs (_: doJailbreak) super)
-    hls-cabal-plugin algebraic-graphs co-log-core lens cryptohash-sha1
-    cryptohash-md5 ghc-trace-events tasty-hspec constraints-extras tree-diff
-    implicit-hie-cradle focus hie-compat;
+    hls-cabal-plugin
+    algebraic-graphs
+    co-log-core
+    lens
+    cryptohash-sha1
+    cryptohash-md5
+    ghc-trace-events
+    tasty-hspec
+    constraints-extras
+    tree-diff
+    implicit-hie-cradle
+    focus
+    hie-compat
+    ;
 }

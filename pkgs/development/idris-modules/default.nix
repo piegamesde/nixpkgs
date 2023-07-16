@@ -5,9 +5,13 @@
   overrides ? (self: super: { })
 }:
 let
-  inherit (pkgs.lib) callPackageWith fix' extends;
+  inherit (pkgs.lib)
+    callPackageWith
+    fix'
+    extends
+    ;
 
-  # Taken from haskell-modules/default.nix, should probably abstract this away
+    # Taken from haskell-modules/default.nix, should probably abstract this away
   callPackageWithScope = scope: drv: args:
     (callPackageWith scope drv args) // {
       overrideScope = f:
@@ -46,9 +50,12 @@ let
 
     in
     {
-      inherit idris-no-deps callPackage;
+      inherit
+        idris-no-deps
+        callPackage
+        ;
 
-      # Idris wrapper with specified compiler and library paths, used to build packages
+        # Idris wrapper with specified compiler and library paths, used to build packages
 
       idris = pkgs.callPackage ./idris-wrapper.nix { inherit idris-no-deps; };
 

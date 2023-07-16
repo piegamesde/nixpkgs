@@ -14,11 +14,13 @@
 buildFHSEnv {
   name = "plexmediaserver";
 
-  inherit (plexRaw) meta;
+  inherit (plexRaw)
+    meta
+    ;
 
-  # Plex does some magic to detect if it is already running.
-  # The separate PID namespace somehow breaks this and Plex is thinking it's already
-  # running and refuses to start.
+    # Plex does some magic to detect if it is already running.
+    # The separate PID namespace somehow breaks this and Plex is thinking it's already
+    # running and refuses to start.
   unsharePid = false;
 
   # This script is run when we start our Plex binary

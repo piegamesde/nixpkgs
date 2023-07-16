@@ -11,8 +11,16 @@ let
   opt = options.system.nixos;
 
   inherit (lib)
-    concatStringsSep mapAttrsToList toLower literalExpression
-    mkRenamedOptionModule mkDefault mkOption trivial types;
+    concatStringsSep
+    mapAttrsToList
+    toLower
+    literalExpression
+    mkRenamedOptionModule
+    mkDefault
+    mkOption
+    trivial
+    types
+    ;
 
   needsEscaping = s: null != builtins.match "[a-zA-Z0-9]+" s;
   escapeIfNeccessary = s:

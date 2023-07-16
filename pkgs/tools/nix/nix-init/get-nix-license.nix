@@ -7,8 +7,19 @@
 
 let
   inherit (lib)
-    attrNames concatMapAttrs concatStringsSep filterAttrs flip id intersectLists
-    licenses mapAttrsToList optionalAttrs pipe warn;
+    attrNames
+    concatMapAttrs
+    concatStringsSep
+    filterAttrs
+    flip
+    id
+    intersectLists
+    licenses
+    mapAttrsToList
+    optionalAttrs
+    pipe
+    warn
+    ;
 
   licenseMap = flip concatMapAttrs licenses
     (k: v: optionalAttrs (v ? spdxId && !v.deprecated) { ${v.spdxId} = k; });

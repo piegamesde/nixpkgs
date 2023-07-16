@@ -9,26 +9,32 @@
 #   - See the documentation in ./gpus.nix.
 
 let
-  inherit (lib) attrsets lists strings trivial versions;
+  inherit (lib)
+    attrsets
+    lists
+    strings
+    trivial
+    versions
+    ;
 
-  # Flags are determined based on your CUDA toolkit by default.  You may benefit
-  # from improved performance, reduced file size, or greater hardware suppport by
-  # passing a configuration based on your specific GPU environment.
-  #
-  # config.cudaCapabilities :: List Capability
-  # List of hardware generations to build.
-  # E.g. [ "8.0" ]
-  # Currently, the last item is considered the optional forward-compatibility arch,
-  # but this may change in the future.
-  #
-  # config.cudaForwardCompat :: Bool
-  # Whether to include the forward compatibility gencode (+PTX)
-  # to support future GPU generations.
-  # E.g. true
-  #
-  # Please see the accompanying documentation or https://github.com/NixOS/nixpkgs/pull/205351
+    # Flags are determined based on your CUDA toolkit by default.  You may benefit
+    # from improved performance, reduced file size, or greater hardware suppport by
+    # passing a configuration based on your specific GPU environment.
+    #
+    # config.cudaCapabilities :: List Capability
+    # List of hardware generations to build.
+    # E.g. [ "8.0" ]
+    # Currently, the last item is considered the optional forward-compatibility arch,
+    # but this may change in the future.
+    #
+    # config.cudaForwardCompat :: Bool
+    # Whether to include the forward compatibility gencode (+PTX)
+    # to support future GPU generations.
+    # E.g. true
+    #
+    # Please see the accompanying documentation or https://github.com/NixOS/nixpkgs/pull/205351
 
-  # gpus :: List Gpu
+    # gpus :: List Gpu
   gpus = builtins.import ./gpus.nix;
 
   # isSupported :: Gpu -> Bool
@@ -105,10 +111,13 @@ let
       cudaCapabilities,
       enableForwardCompat ? true
     }: rec {
-      inherit cudaCapabilities enableForwardCompat;
+      inherit
+        cudaCapabilities
+        enableForwardCompat
+        ;
 
-      # archNames :: List String
-      # E.g. [ "Turing" "Ampere" ]
+        # archNames :: List String
+        # E.g. [ "Turing" "Ampere" ]
       archNames = lists.unique
         (builtins.map (cap: cudaComputeCapabilityToName.${cap})
           cudaCapabilities);
@@ -182,15 +191,21 @@ assert (formatCapabilities {
 };
 {
   # formatCapabilities :: { cudaCapabilities: List Capability, cudaForwardCompat: Boolean } ->  { ... }
-  inherit formatCapabilities;
+  inherit
+    formatCapabilities
+    ;
 
-  # cudaArchNameToVersions :: String => String
-  inherit cudaArchNameToVersions;
+    # cudaArchNameToVersions :: String => String
+  inherit
+    cudaArchNameToVersions
+    ;
 
-  # cudaComputeCapabilityToName :: String => String
-  inherit cudaComputeCapabilityToName;
+    # cudaComputeCapabilityToName :: String => String
+  inherit
+    cudaComputeCapabilityToName
+    ;
 
-  # dropDot :: String -> String
+    # dropDot :: String -> String
   inherit dropDot;
 } // formatCapabilities {
   cudaCapabilities = config.cudaCapabilities or defaultCapabilities;

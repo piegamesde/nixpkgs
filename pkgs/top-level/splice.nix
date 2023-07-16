@@ -129,13 +129,26 @@ let
 
   splicedPackages = splicePackages {
     inherit (pkgs)
-      pkgsBuildBuild pkgsBuildHost pkgsBuildTarget pkgsHostHost pkgsHostTarget
-      pkgsTargetTarget;
+      pkgsBuildBuild
+      pkgsBuildHost
+      pkgsBuildTarget
+      pkgsHostHost
+      pkgsHostTarget
+      pkgsTargetTarget
+      ;
   } // {
     # These should never be spliced under any circumstances
     inherit (pkgs)
-      pkgsBuildBuild pkgsBuildHost pkgsBuildTarget pkgsHostHost pkgsHostTarget
-      pkgsTargetTarget buildPackages pkgs targetPackages;
+      pkgsBuildBuild
+      pkgsBuildHost
+      pkgsBuildTarget
+      pkgsHostHost
+      pkgsHostTarget
+      pkgsTargetTarget
+      buildPackages
+      pkgs
+      targetPackages
+      ;
     inherit (pkgs.stdenv) buildPlatform targetPlatform hostPlatform;
   };
 
@@ -148,11 +161,13 @@ let
     ];
 
 in {
-  inherit splicePackages;
+  inherit
+    splicePackages
+    ;
 
-  # We use `callPackage' to be able to omit function arguments that can be
-  # obtained `pkgs` or `buildPackages` and their `xorg` package sets. Use
-  # `newScope' for sets of packages in `pkgs' (see e.g. `gnome' below).
+    # We use `callPackage' to be able to omit function arguments that can be
+    # obtained `pkgs` or `buildPackages` and their `xorg` package sets. Use
+    # `newScope' for sets of packages in `pkgs' (see e.g. `gnome' below).
   callPackage = pkgs.newScope { };
 
   callPackages = lib.callPackagesWith splicedPackagesWithXorg;

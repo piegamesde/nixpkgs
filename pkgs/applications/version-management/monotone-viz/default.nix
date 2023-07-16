@@ -23,8 +23,23 @@
 # This version is vulnerable, but monotone-viz will never feed it bad input.
 let
   graphviz_2_0 = import ./graphviz-2.0.nix {
-    inherit lib stdenv fetchurl pkg-config libX11 libpng libjpeg expat libXaw
-      bison libtool fontconfig pango gd libwebp;
+    inherit
+      lib
+      stdenv
+      fetchurl
+      pkg-config
+      libX11
+      libpng
+      libjpeg
+      expat
+      libXaw
+      bison
+      libtool
+      fontconfig
+      pango
+      gd
+      libwebp
+      ;
   };
 in let
   inherit (gnome2) libgnomecanvas;

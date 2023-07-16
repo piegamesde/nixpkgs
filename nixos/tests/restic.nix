@@ -53,8 +53,14 @@ import ./make-test-python.nix ({
         }: {
           services.restic.backups = {
             remotebackup = {
-              inherit passwordFile paths exclude pruneOpts backupPrepareCommand
-                backupCleanupCommand;
+              inherit
+                passwordFile
+                paths
+                exclude
+                pruneOpts
+                backupPrepareCommand
+                backupCleanupCommand
+                ;
               repository = remoteRepository;
               initialize = true;
             };

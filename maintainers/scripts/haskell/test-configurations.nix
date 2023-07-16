@@ -59,9 +59,11 @@
 
 let
   pkgs = import nixpkgsPath { inherit config; };
-  inherit (pkgs) lib;
+  inherit (pkgs)
+    lib
+    ;
 
-  # see usage explanation for the input format `files` allows
+    # see usage explanation for the input format `files` allows
   files' = builtins.map builtins.baseNameOf
     (if !builtins.isList files then [ files ] else files);
 

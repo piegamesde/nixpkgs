@@ -6,9 +6,16 @@
 # Tested in lib/tests/sources.sh
 let
   inherit (builtins) match readDir split storeDir tryEval;
-  inherit (lib) boolToString filter getAttr isString pathExists readFile;
+  inherit (lib)
+    boolToString
+    filter
+    getAttr
+    isString
+    pathExists
+    readFile
+    ;
 
-  # Returns the type of a path: regular (for file), symlink, or directory.
+    # Returns the type of a path: regular (for file), symlink, or directory.
   pathType = path: getAttr (baseNameOf path) (readDir (dirOf path));
 
   # Returns true if the path exists and is a directory, false otherwise.
@@ -338,13 +345,23 @@ let
     };
 
 in {
-  inherit pathType pathIsDirectory pathIsRegularFile
+  inherit
+    pathType
+    pathIsDirectory
+    pathIsRegularFile
 
-    pathIsGitRepo commitIdFromGitRepo
+    pathIsGitRepo
+    commitIdFromGitRepo
 
-    cleanSource cleanSourceWith cleanSourceFilter pathHasContext canCleanSource
+    cleanSource
+    cleanSourceWith
+    cleanSourceFilter
+    pathHasContext
+    canCleanSource
 
-    sourceByRegex sourceFilesBySuffices
+    sourceByRegex
+    sourceFilesBySuffices
 
-    trace;
+    trace
+    ;
 }

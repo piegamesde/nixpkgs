@@ -25,15 +25,17 @@ recursiveUpdate lib (rec {
          => "1.2.3.stuff"
     */
 
-    inherit truncate;
+    inherit
+      truncate
+      ;
 
-    /* Get string of the first three parts (major, minor and patch)
-       of a version string.
+      /* Get string of the first three parts (major, minor and patch)
+         of a version string.
 
-       Example:
-         majorMinorPatch "1.2.3-stuff"
-         => "1.2.3"
-    */
+         Example:
+           majorMinorPatch "1.2.3-stuff"
+           => "1.2.3"
+      */
     majorMinorPatch = truncate 3;
 
     /* Version comparison predicates,

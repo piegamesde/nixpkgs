@@ -737,10 +737,16 @@ stdenv.mkDerivation {
   '';
 
   passthru = {
-    inherit swiftOs swiftArch swiftModuleSubdir swiftLibSubdir
-      swiftStaticModuleSubdir swiftStaticLibSubdir;
+    inherit
+      swiftOs
+      swiftArch
+      swiftModuleSubdir
+      swiftLibSubdir
+      swiftStaticModuleSubdir
+      swiftStaticLibSubdir
+      ;
 
-    # Internal attr for the wrapper.
+      # Internal attr for the wrapper.
     _wrapperParams = wrapperParams;
   };
 

@@ -32,10 +32,13 @@
 }:
 
 let
-  inherit (cudaPackages) cudatoolkit nccl;
-  # The default for cudatoolkit 10.1 is CUDNN 8.0.5, the last version to support CUDA 10.1.
-  # However, this caffe does not build with CUDNN 8.x, so we use CUDNN 7.6.5 instead.
-  # Earlier versions of cudatoolkit use pre-8.x CUDNN, so we use the default.
+  inherit (cudaPackages)
+    cudatoolkit
+    nccl
+    ;
+    # The default for cudatoolkit 10.1 is CUDNN 8.0.5, the last version to support CUDA 10.1.
+    # However, this caffe does not build with CUDNN 8.x, so we use CUDNN 7.6.5 instead.
+    # Earlier versions of cudatoolkit use pre-8.x CUDNN, so we use the default.
   cudnn = if
     lib.versionOlder cudatoolkit.version "10.1"
   then
@@ -156,7 +159,9 @@ stdenv.mkDerivation rec {
   patches = [ ./darwin.patch ] ++ lib.optional pythonSupport (substituteAll {
     src = ./python.patch;
     inherit (python.sourceVersion)
-      major minor; # Should be changed in case of PyPy
+      major
+      minor
+      ; # Should be changed in case of PyPy
   });
 
   postPatch = ''

@@ -35,9 +35,36 @@ let
   nanodbc = nanodbc_llvm;
 in let
   common = import ./common.nix {
-    inherit lib stdenv bzip2 zlib autoconf automake cmake help2man texinfo
-      libtool cppzmq libarchive jansson zeromq openssl pam libiodbc libkrb5 gcc
-      libcxx boost avro-cpp which catch2 nanodbc fmt nlohmann_json spdlog;
+    inherit
+      lib
+      stdenv
+      bzip2
+      zlib
+      autoconf
+      automake
+      cmake
+      help2man
+      texinfo
+      libtool
+      cppzmq
+      libarchive
+      jansson
+      zeromq
+      openssl
+      pam
+      libiodbc
+      libkrb5
+      gcc
+      libcxx
+      boost
+      avro-cpp
+      which
+      catch2
+      nanodbc
+      fmt
+      nlohmann_json
+      spdlog
+      ;
   };
 in rec {
 

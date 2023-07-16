@@ -114,10 +114,12 @@ stdenv.mkDerivation rec {
     procps
   ];
 
-  inherit doCheck;
+  inherit
+    doCheck
+    ;
 
-  # to be exhaustive, one could run
-  # make oldtests too
+    # to be exhaustive, one could run
+    # make oldtests too
   checkPhase = ''
     make functionaltest
   '';

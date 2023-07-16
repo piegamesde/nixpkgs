@@ -7,7 +7,13 @@
 
 let
   inherit (lib)
-    mkIf concatStringsSep concatMapStrings toList mapAttrs mapAttrsToList;
+    mkIf
+    concatStringsSep
+    concatMapStrings
+    toList
+    mapAttrs
+    mapAttrsToList
+    ;
   cfg = config.services.kerberos_server;
   kerberos = config.krb5.kerberos;
   stateDir = "/var/heimdal";

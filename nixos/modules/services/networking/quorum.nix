@@ -8,7 +8,13 @@
 let
 
   inherit (lib)
-    mkEnableOption mkIf mkOption literalExpression types optionalString;
+    mkEnableOption
+    mkIf
+    mkOption
+    literalExpression
+    types
+    optionalString
+    ;
 
   cfg = config.services.quorum;
   opt = options.services.quorum;
