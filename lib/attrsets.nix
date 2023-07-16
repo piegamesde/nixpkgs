@@ -945,7 +945,13 @@ rec {
     lhs:
     # Right attribute set of the merge.
     rhs:
-    recursiveUpdateUntil (path: lhs: rhs: !(isAttrs lhs && isAttrs rhs)) lhs rhs
+    recursiveUpdateUntil
+      (
+        path: lhs: rhs:
+        !(isAttrs lhs && isAttrs rhs)
+      )
+      lhs
+      rhs
   ;
 
   /* Returns true if the pattern is contained in the set. False otherwise.

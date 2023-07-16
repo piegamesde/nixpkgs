@@ -58,7 +58,10 @@ rec {
   maybeAttrNullable = maybeAttr;
 
   # shortcut for attrByPath ["name"] default attrs
-  maybeAttr = name: default: attrs: attrs.${name} or default;
+  maybeAttr =
+    name: default: attrs:
+    attrs.${name} or default
+  ;
 
   # Return the second argument if the first one is true or the empty version
   # of the second argument.
@@ -317,7 +320,10 @@ rec {
   # attribute set containing one attribute
   nvs = name: value: listToAttrs [ (nameValuePair name value) ];
   # adds / replaces an attribute of an attribute set
-  setAttr = set: name: v: set // (nvs name v);
+  setAttr =
+    set: name: v:
+    set // (nvs name v)
+  ;
 
   # setAttrMerge (similar to mergeAttrsWithFunc but only merges the values of a particular name)
   # setAttrMerge "a" [] { a = [2];} (x: x ++ [3]) -> { a = [2 3]; }

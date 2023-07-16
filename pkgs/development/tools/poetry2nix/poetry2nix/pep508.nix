@@ -10,7 +10,10 @@ let
   targetMachine = poetryLib.getTargetMachine stdenv;
 
   # Like builtins.substring but with stop being offset instead of length
-  substr = start: stop: s: builtins.substring start (stop - start) s;
+  substr =
+    start: stop: s:
+    builtins.substring start (stop - start) s
+  ;
 
   # Strip leading/trailing whitespace from string
   stripStr =

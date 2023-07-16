@@ -25,13 +25,18 @@ let
   # A few helpers functions:
 
   # getAttrDef is just a getAttr with default fallback
-  getAttrDef = attr: default: x: attrByPath [ attr ] default x;
+  getAttrDef =
+    attr: default: x:
+    attrByPath [ attr ] default x
+  ;
 
   # getAttr-like helper for optional append to string:
   # "Hello" + appendByAttr "a" " " {a = "world";} = "Hello world"
   # "Hello" + appendByAttr "a" " " {} = "Hello"
   appendByAttr =
-    attr: sep: x: lib.optionalString (hasAttr attr x) (sep + (getAttr attr x));
+    attr: sep: x:
+    lib.optionalString (hasAttr attr x) (sep + (getAttr attr x))
+  ;
 
   # Are there any OM dependencies at all?
   ifDeps = length pkg.omdeps != 0;

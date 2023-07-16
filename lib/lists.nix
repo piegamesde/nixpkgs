@@ -392,7 +392,9 @@ rec {
        => { true = 12; false = 3; }
   */
   groupBy' =
-    op: nul: pred: lst: mapAttrs (name: foldl op nul) (groupBy pred lst);
+    op: nul: pred: lst:
+    mapAttrs (name: foldl op nul) (groupBy pred lst)
+  ;
 
   groupBy =
     builtins.groupBy or (

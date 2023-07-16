@@ -913,17 +913,30 @@ runTests {
       emptySet = foldlAttrs (throw "function not needed") 123 { };
       # should just evaluate to the last value
       accNotNeeded =
-        foldlAttrs (_acc: _name: v: v) (throw "accumulator not needed")
+        foldlAttrs
+          (
+            _acc: _name: v:
+            v
+          )
+          (throw "accumulator not needed")
           {
             z = 3;
             a = 2;
           }
       ;
       # the accumulator doesnt have to be an attrset it can be as trivial as being just a number or string
-      trivialAcc = foldlAttrs (acc: _name: v: acc * 10 + v) 1 {
-        z = 1;
-        a = 2;
-      };
+      trivialAcc =
+        foldlAttrs
+          (
+            acc: _name: v:
+            acc * 10 + v
+          )
+          1
+          {
+            z = 1;
+            a = 2;
+          }
+      ;
     };
     expected = {
       example = {
@@ -942,7 +955,11 @@ runTests {
   # code from the example
   testRecursiveUpdateUntil = {
     expr =
-      recursiveUpdateUntil (path: l: r: path == [ "foo" ])
+      recursiveUpdateUntil
+        (
+          path: l: r:
+          path == [ "foo" ]
+        )
         {
           # first attribute set
           foo.bar = 1;
