@@ -67,9 +67,7 @@ stdenv.mkDerivation rec {
     "-DADLplug_CHIP=${chip}"
     "-DADLplug_USE_SYSTEM_FMT=ON"
     "-DADLplug_Jack=${
-      if
-        withJack
-      then
+      if withJack then
         "ON"
       else
         "OFF"

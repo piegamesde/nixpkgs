@@ -33,9 +33,7 @@ stdenv.mkDerivation rec {
     # This patch disables build-time detection.
     ../openssl/3.0/openssl-disable-kernel-detection.patch
 
-    (if
-      stdenv.hostPlatform.isDarwin
-    then
+    (if stdenv.hostPlatform.isDarwin then
       ../openssl/use-etc-ssl-certs-darwin.patch
     else
       ../openssl/use-etc-ssl-certs.patch)
@@ -82,9 +80,7 @@ stdenv.mkDerivation rec {
     x86_64-linux = "./Configure linux-x86_64";
     x86_64-solaris = "./Configure solaris64-x86_64-gcc";
     riscv64-linux = "./Configure linux64-riscv64";
-    mips64el-linux = if
-      stdenv.hostPlatform.isMips64n64
-    then
+    mips64el-linux = if stdenv.hostPlatform.isMips64n64 then
       "./Configure linux64-mips64"
     else if stdenv.hostPlatform.isMips64n32 then
       "./Configure linux-mips64"
@@ -148,34 +144,35 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  postInstall = (if
-    static
-  then ''
-    # OPENSSLDIR has a reference to self
-    ${removeReferencesTo}/bin/remove-references-to -t $out $out/lib/*.a
-  '' else ''
-    # If we're building dynamic libraries, then don't install static
-    # libraries.
-    if [ -n "$(echo $out/lib/*.so $out/lib/*.dylib $out/lib/*.dll)" ]; then
-        rm "$out/lib/"*.a
-    fi
-  '') + ''
-    mkdir -p $bin
-    mv $out/bin $bin/bin
+  postInstall = (if static then
+    ''
+      # OPENSSLDIR has a reference to self
+      ${removeReferencesTo}/bin/remove-references-to -t $out $out/lib/*.a
+    ''
+  else
+    ''
+      # If we're building dynamic libraries, then don't install static
+      # libraries.
+      if [ -n "$(echo $out/lib/*.so $out/lib/*.dylib $out/lib/*.dll)" ]; then
+          rm "$out/lib/"*.a
+      fi
+    '') + ''
+      mkdir -p $bin
+      mv $out/bin $bin/bin
 
-    # c_rehash is a legacy perl script with the same functionality
-    # as `openssl rehash`
-    # this wrapper script is created to maintain backwards compatibility without
-    # depending on perl
-    makeWrapper $bin/bin/openssl $bin/bin/c_rehash \
-      --add-flags "rehash"
+      # c_rehash is a legacy perl script with the same functionality
+      # as `openssl rehash`
+      # this wrapper script is created to maintain backwards compatibility without
+      # depending on perl
+      makeWrapper $bin/bin/openssl $bin/bin/c_rehash \
+        --add-flags "rehash"
 
-    mkdir $dev
-    mv $out/include $dev/
-    # remove dependency on Perl at runtime
-    rm -r $out/etc/ssl/misc
-    rmdir $out/etc/ssl/{certs,private}
-  '';
+      mkdir $dev
+      mv $out/include $dev/
+      # remove dependency on Perl at runtime
+      rm -r $out/etc/ssl/misc
+      rmdir $out/etc/ssl/{certs,private}
+    '';
 
   postFixup = lib.optionalString (!stdenv.hostPlatform.isWindows) ''
     # Check to make sure the main output doesn't depend on perl

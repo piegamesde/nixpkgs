@@ -49,9 +49,7 @@ stdenv.mkDerivation {
     libmad
     libvorbis
     mpg123
-  ] ++ lib.singleton (if
-    pulseSupport
-  then
+  ] ++ lib.singleton (if pulseSupport then
     libpulseaudio
   else
     alsa-lib) ++ optional faad2Support faad2 ++ optional ffmpegSupport ffmpeg

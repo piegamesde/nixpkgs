@@ -30,13 +30,12 @@ with lib; {
               if [[ ! "$dtbCompat" =~ "$overlayCompat" ]]; then
                 echo "Skipping overlay ${o.name}: incompatible with $(basename "$dtb")"
               elif ${
-                if
-                  (o.filter == null)
-                then
+                if (o.filter == null) then
                   "false"
-                else ''
-                  [[ "''${dtb//${o.filter}/}" ==  "$dtb" ]]
-                ''
+                else
+                  ''
+                    [[ "''${dtb//${o.filter}/}" ==  "$dtb" ]]
+                  ''
               }
               then
                 echo "Skipping overlay ${o.name}: filter does not match $(basename "$dtb")"

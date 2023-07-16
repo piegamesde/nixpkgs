@@ -132,9 +132,7 @@ let
   # are part of libsystem. Adding its headers to the search path causes strange
   # mixing and errors.
   # TODO: Find a better way to prevent this conflict.
-  ncursesInput = if
-    stdenv.isDarwin
-  then
+  ncursesInput = if stdenv.isDarwin then
     ncurses.out
   else
     ncurses;

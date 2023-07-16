@@ -13,9 +13,7 @@ let
   ini = pkgs.formats.ini {
     mkKeyValue = lib.flip lib.generators.mkKeyValueDefault "=" rec {
       mkValueString = v:
-        if
-          isInt v
-        then
+        if isInt v then
           toString v
         else if isString v then
           v
@@ -251,13 +249,10 @@ in {
                 details).
               '';
               apply = x:
-                if
-                  isAttrs x || x == null
-                then
+                if isAttrs x || x == null then
                   x
-                else {
-                  _secret = x;
-                };
+                else
+                  { _secret = x; };
             };
           };
 
@@ -306,13 +301,10 @@ in {
                 details).
               '';
               apply = x:
-                if
-                  isAttrs x || x == null
-                then
+                if isAttrs x || x == null then
                   x
-                else {
-                  _secret = x;
-                };
+                else
+                  { _secret = x; };
             };
 
             from = lib.mkOption {
@@ -338,9 +330,7 @@ in {
               default = [ ];
               type = with lib.types; listOf str;
               apply = x:
-                if
-                  x == [ ]
-                then
+                if x == [ ] then
                   null
                 else
                   lib.concatStringsSep "," x;
@@ -372,13 +362,10 @@ in {
                 details).
               '';
               apply = x:
-                if
-                  isAttrs x || x == null
-                then
+                if isAttrs x || x == null then
                   x
-                else {
-                  _secret = x;
-                };
+                else
+                  { _secret = x; };
             };
 
             ssl = lib.mkOption {

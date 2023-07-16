@@ -104,9 +104,7 @@ in {
 
       # Format if unformatted. If 'n', resource disk will not be mounted.
       ResourceDisk.Format=${
-        if
-          cfg.mountResourceDisk
-        then
+        if cfg.mountResourceDisk then
           "y"
         else
           "n"
@@ -130,9 +128,7 @@ in {
 
       # Enable verbose logging (y|n)
       Logs.Verbose=${
-        if
-          cfg.verboseLogging
-        then
+        if cfg.verboseLogging then
           "y"
         else
           "n"

@@ -21,17 +21,13 @@ let
   # that the CUDA toolkit for `passthru.tests` is still
   # up-to-date.
   version = "2.0.0";
-  device = if
-    cudaSupport
-  then
+  device = if cudaSupport then
     "cuda"
   else
     "cpu";
   srcs = import ./binary-hashes.nix version;
   unavailable = throw "libtorch is not available for this platform";
-  libcxx-for-libtorch = if
-    stdenv.hostPlatform.system == "x86_64-darwin"
-  then
+  libcxx-for-libtorch = if stdenv.hostPlatform.system == "x86_64-darwin" then
     libcxx
   else
     stdenv.cc.cc.lib;
@@ -43,9 +39,9 @@ stdenv.mkDerivation {
   src =
     fetchzip srcs."${stdenv.targetPlatform.system}-${device}" or unavailable;
 
-  nativeBuildInputs = if
-    stdenv.isDarwin
-  then [ fixDarwinDylibNames ] else
+  nativeBuildInputs = if stdenv.isDarwin then
+    [ fixDarwinDylibNames ]
+  else
     [ patchelf ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
 
   dontBuild = true;

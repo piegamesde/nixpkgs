@@ -25,22 +25,19 @@ let
 
   buildCfg = name: c:
     let
-      plugins' = if
-        any (n: !any (m: m == n) cfg.plugins) (c.plugins or [ ])
-      then
-        throw
-        "`plugins` attribute in uWSGI configuration contains plugins not in config.services.uwsgi.plugins"
-      else
-        c.plugins or cfg.plugins;
+      plugins' =
+        if any (n: !any (m: m == n) cfg.plugins) (c.plugins or [ ]) then
+          throw
+          "`plugins` attribute in uWSGI configuration contains plugins not in config.services.uwsgi.plugins"
+        else
+          c.plugins or cfg.plugins;
       plugins = unique plugins';
 
       hasPython = v: filter (n: n == "python${v}") plugins != [ ];
       hasPython2 = hasPython "2";
       hasPython3 = hasPython "3";
 
-      python = if
-        hasPython2 && hasPython3
-      then
+      python = if hasPython2 && hasPython3 then
         throw
         "`plugins` attribute in uWSGI configuration shouldn't contain both python2 and python3"
       else if hasPython2 then
@@ -53,9 +50,7 @@ let
       pythonEnv = python.withPackages (c.pythonPackages or (self: [ ]));
 
       uwsgiCfg = {
-        uwsgi = if
-          c.type == "normal"
-        then
+        uwsgi = if c.type == "normal" then
           {
             inherit plugins;
           } // removeAttrs c [
@@ -77,9 +72,7 @@ let
           }
         else if isEmperor then
           {
-            emperor = if
-              builtins.typeOf c.vassals != "set"
-            then
+            emperor = if builtins.typeOf c.vassals != "set" then
               c.vassals
             else
               pkgs.buildEnv {

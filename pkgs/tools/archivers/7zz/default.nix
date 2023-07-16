@@ -40,9 +40,7 @@ stdenv.mkDerivation rec {
       free = "sha256-mp3cFXOEiVptkUdD1+X8XxwoJhBGs+Ns5qk3HBByfLg=";
       unfree = "sha256-OTCYcwxwBCOSr4CJF+dllF3CQ33ueq48/MSWbrkg+8U=";
     }.${
-        if
-          enableUnfree
-        then
+        if enableUnfree then
           "unfree"
         else
           "free"

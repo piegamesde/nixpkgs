@@ -29,15 +29,14 @@ let
     pkgs.writeText "interactiveShellInit" cfge.interactiveShellInit;
 
   sourceEnv = file:
-    if
-      cfg.useBabelfish
-    then
+    if cfg.useBabelfish then
       "source /etc/fish/${file}.fish"
-    else ''
-      set fish_function_path ${pkgs.fishPlugins.foreign-env}/share/fish/vendor_functions.d $fish_function_path
-      fenv source /etc/fish/foreign-env/${file} > /dev/null
-      set -e fish_function_path[1]
-    '';
+    else
+      ''
+        set fish_function_path ${pkgs.fishPlugins.foreign-env}/share/fish/vendor_functions.d $fish_function_path
+        fenv source /etc/fish/foreign-env/${file} > /dev/null
+        set -e fish_function_path[1]
+      '';
 
   babelfishTranslate = path: name:
     pkgs.runCommandLocal "${name}.fish" {
@@ -176,26 +175,27 @@ in {
       })
 
       {
-        etc."fish/nixos-env-preinit.fish".text = if
-          cfg.useBabelfish
-        then ''
-          # source the NixOS environment config
-          if [ -z "$__NIXOS_SET_ENVIRONMENT_DONE" ]
-            source /etc/fish/setEnvironment.fish
-          end
-        '' else ''
-          # This happens before $__fish_datadir/config.fish sets fish_function_path, so it is currently
-          # unset. We set it and then completely erase it, leaving its configuration to $__fish_datadir/config.fish
-          set fish_function_path ${pkgs.fishPlugins.foreign-env}/share/fish/vendor_functions.d $__fish_datadir/functions
+        etc."fish/nixos-env-preinit.fish".text = if cfg.useBabelfish then
+          ''
+            # source the NixOS environment config
+            if [ -z "$__NIXOS_SET_ENVIRONMENT_DONE" ]
+              source /etc/fish/setEnvironment.fish
+            end
+          ''
+        else
+          ''
+            # This happens before $__fish_datadir/config.fish sets fish_function_path, so it is currently
+            # unset. We set it and then completely erase it, leaving its configuration to $__fish_datadir/config.fish
+            set fish_function_path ${pkgs.fishPlugins.foreign-env}/share/fish/vendor_functions.d $__fish_datadir/functions
 
-          # source the NixOS environment config
-          if [ -z "$__NIXOS_SET_ENVIRONMENT_DONE" ]
-            fenv source ${config.system.build.setEnvironment}
-          end
+            # source the NixOS environment config
+            if [ -z "$__NIXOS_SET_ENVIRONMENT_DONE" ]
+              fenv source ${config.system.build.setEnvironment}
+            end
 
-          # clear fish_function_path so that it will be correctly set when we return to $__fish_datadir/config.fish
-          set -e fish_function_path
-        '';
+            # clear fish_function_path so that it will be correctly set when we return to $__fish_datadir/config.fish
+            set -e fish_function_path
+          '';
       }
 
       {

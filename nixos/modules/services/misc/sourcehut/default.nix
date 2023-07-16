@@ -13,16 +13,12 @@ let
   settingsFormat = pkgs.formats.ini {
     listToValue = concatMapStringsSep "," (generators.mkValueStringDefault { });
     mkKeyValue = k: v:
-      if
-        v == null
-      then
+      if v == null then
         ""
       else
         generators.mkKeyValueDefault {
           mkValueString = v:
-            if
-              v == true
-            then
+            if v == true then
               "yes"
             else if v == false then
               "no"
@@ -43,15 +39,17 @@ let
       then
         v
         # Enable Web links and integrations between services.
-      else if tail srvMatch == [ null ]
-      && elem (head srvMatch) cfg.services then {
-        inherit (v)
-          origin
-          ;
-          # mansrht crashes without it
-        oauth-client-id = v.oauth-client-id or null;
-      }
-      # Drop sub-sections of other services
+      else if
+        tail srvMatch == [ null ] && elem (head srvMatch) cfg.services
+      then
+        {
+          inherit (v)
+            origin
+            ;
+            # mansrht crashes without it
+          oauth-client-id = v.oauth-client-id or null;
+        }
+        # Drop sub-sections of other services
       else
         null) (recursiveUpdate cfg.settings {
           # Those paths are mounted using BindPaths= or BindReadOnlyPaths=

@@ -47,9 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_C_COMPILER=hipcc"
     "-DCMAKE_CXX_COMPILER=hipcc"
     "-DBUILD_CLIENTS_SAMPLES=${
-      if
-        buildSamples
-      then
+      if buildSamples then
         "ON"
       else
         "OFF"

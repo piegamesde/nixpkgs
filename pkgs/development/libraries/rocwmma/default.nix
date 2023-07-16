@@ -78,18 +78,14 @@ stdenv.mkDerivation (finalAttrs: {
   cmakeFlags = [
     "-DCMAKE_CXX_COMPILER=hipcc"
     "-DROCWMMA_BUILD_TESTS=${
-      if
-        buildTests || buildBenchmarks
-      then
+      if buildTests || buildBenchmarks then
         "ON"
       else
         "OFF"
     }"
     "-DROCWMMA_BUILD_VALIDATION_TESTS=ON"
     "-DROCWMMA_BUILD_SAMPLES=${
-      if
-        buildSamples
-      then
+      if buildSamples then
         "ON"
       else
         "OFF"

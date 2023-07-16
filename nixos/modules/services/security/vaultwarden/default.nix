@@ -20,21 +20,18 @@ let
         foldl' (key: x:
           let
             last = stringLength key - 1;
-          in if
-            isList x
-          then
+          in if isList x then
             key + optionalString (key != "" && substring last 1 key != "_") "_"
             + head x
-          else if key != "" && elem (substring 0 1 x)
-          lowerChars then # to handle e.g. [ "disable" [ "2FAR" ] "emember" ]
+          else if
+            key != "" && elem (substring 0 1 x) lowerChars
+          then # to handle e.g. [ "disable" [ "2FAR" ] "emember" ]
             substring 0 last key
             + optionalString (substring (last - 1) 1 key != "_") "_"
             + substring last 1 key + toUpper x
           else
             key + toUpper x) "" parts;
-    in if
-      builtins.match "[A-Z0-9_]+" name != null
-    then
+    in if builtins.match "[A-Z0-9_]+" name != null then
       name
     else
       partsToEnvVar parts;
@@ -44,9 +41,7 @@ let
   configEnv = let
     configEnv = concatMapAttrs (name: value:
       optionalAttrs (value != null) {
-        ${nameToEnvVar name} = if
-          isBool value
-        then
+        ${nameToEnvVar name} = if isBool value then
           boolToString value
         else
           toString value;

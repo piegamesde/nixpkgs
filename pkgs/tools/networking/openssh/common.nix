@@ -85,9 +85,7 @@ stdenv.mkDerivation rec {
     "--with-mantype=man"
     "--with-libedit=yes"
     "--disable-strip"
-    (if
-      stdenv.isLinux
-    then
+    (if stdenv.isLinux then
       "--with-pam"
     else
       "--without-pam")
@@ -99,9 +97,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!linkOpenssl) "--without-openssl" ++ extraConfigureFlags;
 
   ${
-    if
-      stdenv.hostPlatform.isStatic
-    then
+    if stdenv.hostPlatform.isStatic then
       "NIX_LDFLAGS"
     else
       null

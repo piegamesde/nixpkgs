@@ -16,9 +16,7 @@ let
   defaultTerminal = "screen";
 
   boolToStr = value:
-    if
-      value
-    then
+    if value then
       "on"
     else
       "off";
@@ -61,9 +59,7 @@ let
 
     setw -g aggressive-resize ${boolToStr cfg.aggressiveResize}
     setw -g clock-mode-style  ${
-      if
-        cfg.clock24
-      then
+      if cfg.clock24 then
         "24"
       else
         "12"

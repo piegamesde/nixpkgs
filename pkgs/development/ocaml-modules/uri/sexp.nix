@@ -8,9 +8,7 @@
   sexplib0,
 }:
 
-if
-  lib.versionOlder ocaml.version "4.04"
-then
+if lib.versionOlder ocaml.version "4.04" then
   throw "uri-sexp is not available for OCaml ${ocaml.version}"
 else
 

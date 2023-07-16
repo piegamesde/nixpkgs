@@ -22,9 +22,7 @@ buildDotnetModule rec {
 
   dotnet-runtime = dotnetCorePackages.aspnetcore_6_0;
 
-  buildType = if
-    altcoinSupport
-  then
+  buildType = if altcoinSupport then
     "Altcoins-Release"
   else
     "Release";

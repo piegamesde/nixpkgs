@@ -36,9 +36,7 @@ let
       inherit version src;
 
       MIX_ENV = mixEnv;
-      MIX_DEBUG = if
-        enableDebugInfo
-      then
+      MIX_DEBUG = if enableDebugInfo then
         1
       else
         0;

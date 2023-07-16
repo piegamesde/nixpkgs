@@ -57,21 +57,20 @@ stdenv.mkDerivation rec {
     pcre
     python3
     zlib
-  ] ++ lib.optionals enableJavaScript [ (if
-    stdenv.hostPlatform.isDarwin
-  then
+  ] ++ lib.optionals enableJavaScript [ (if stdenv.hostPlatform.isDarwin then
     JavaScriptCore
   else
-    duktape) ] ++ (if
-      stdenv.hostPlatform.isDarwin
-    then [
-      SystemConfiguration
-      CoreFoundation
-    ] else [
-      glib
-      dbus
-      networkmanager
-    ]);
+    duktape) ] ++ (if stdenv.hostPlatform.isDarwin then
+      [
+        SystemConfiguration
+        CoreFoundation
+      ]
+    else
+      [
+        glib
+        dbus
+        networkmanager
+      ]);
 
   cmakeFlags = [
     "-DWITH_PYTHON2=OFF"

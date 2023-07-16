@@ -67,9 +67,7 @@ let
       lz4Enabled = atLeast "14";
       zstdEnabled = atLeast "15";
 
-      stdenv' = if
-        jitSupport
-      then
+      stdenv' = if jitSupport then
         llvmPackages.stdenv
       else
         stdenv;
@@ -137,9 +135,7 @@ let
         "--with-system-tzdata=${tzdata}/share/zoneinfo"
         "--enable-debug"
         (lib.optionalString enableSystemd "--with-systemd")
-        (if
-          stdenv'.isDarwin
-        then
+        (if stdenv'.isDarwin then
           "--with-uuid=e2fs"
         else
           "--with-ossp-uuid")
@@ -155,9 +151,7 @@ let
         ./patches/hardcode-pgxs-path.patch
         ./patches/specify_pkglibdir_at_runtime.patch
         ./patches/findstring.patch
-      ] ++ lib.optionals stdenv'.isLinux [ (if
-        atLeast "13"
-      then
+      ] ++ lib.optionals stdenv'.isLinux [ (if atLeast "13" then
         ./patches/socketdir-in-run-13.patch
       else
         ./patches/socketdir-in-run.patch) ];
@@ -239,13 +233,13 @@ let
         #     ! ERROR:  could not load library "/build/postgresql-11.5/tmp_install/nix/store/...-postgresql-11.5-lib/lib/libpqwalreceiver.so": Error loading shared library libpq.so.5: No such file or directory (needed by /build/postgresql-11.5/tmp_install/nix/store/...-postgresql-11.5-lib/lib/libpqwalreceiver.so)
         # See also here:
         #     https://git.alpinelinux.org/aports/tree/main/postgresql/disable-broken-tests.patch?id=6d7d32c12e073a57a9e5946e55f4c1fbb68bd442
-        if
-          stdenv'.hostPlatform.isMusl
-        then ''
-          substituteInPlace src/test/regress/parallel_schedule \
-            --replace "subscription" "" \
-            --replace "object_address" ""
-        '' else
+        if stdenv'.hostPlatform.isMusl then
+          ''
+            substituteInPlace src/test/regress/parallel_schedule \
+              --replace "subscription" "" \
+              --replace "object_address" ""
+          ''
+        else
           null;
 
       doInstallCheck = false; # needs a running daemon?
@@ -261,15 +255,11 @@ let
       {
         inherit readline psqlSchema jitSupport;
 
-        withJIT = if
-          jitSupport
-        then
+        withJIT = if jitSupport then
           this
         else
           jitToggle;
-        withoutJIT = if
-          jitSupport
-        then
+        withoutJIT = if jitSupport then
           jitToggle
         else
           this;

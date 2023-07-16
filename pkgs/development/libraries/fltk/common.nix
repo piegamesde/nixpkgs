@@ -54,9 +54,7 @@
 
 let
   onOff = value:
-    if
-      value
-    then
+    if value then
       "ON"
     else
       "OFF";

@@ -34,13 +34,9 @@ in rec {
     merge = loc: defs:
       let
         defs' = filterOverrides defs;
-      in if
-        isList (head defs').value
-      then
+      in if isList (head defs').value then
         concatMap (def:
-          if
-            builtins.typeOf def.value == "list"
-          then
+          if builtins.typeOf def.value == "list" then
             def.value
           else
             throw
@@ -514,11 +510,10 @@ in rec {
           {option}`OnCalendar` set to the value given here.
         '';
         apply = v:
-          if
-            isList v
-          then
+          if isList v then
             v
-          else [ v ];
+          else
+            [ v ];
       };
     };
   };

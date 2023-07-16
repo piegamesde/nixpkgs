@@ -30,9 +30,7 @@ let
     sha256 = "15r2m5kcs0id64pa2fsw58qll3jyh71jzc04wy20pgsh2326zis6";
   };
   cmakeBool = b:
-    if
-      b
-    then
+    if b then
       "ON"
     else
       "OFF";

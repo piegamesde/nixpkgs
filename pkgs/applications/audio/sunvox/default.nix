@@ -17,9 +17,7 @@ let
     libXi
     SDL2
   ];
-  arch = if
-    stdenv.isAarch64
-  then
+  arch = if stdenv.isAarch64 then
     "arm64"
   else if stdenv.isAarch32 then
     "arm_armhf_raspberry_pi"

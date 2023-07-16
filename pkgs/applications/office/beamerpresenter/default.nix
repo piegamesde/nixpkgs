@@ -68,17 +68,13 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DGIT_VERSION=OFF"
     "-DUSE_POPPLER=${
-      if
-        usePoppler
-      then
+      if usePoppler then
         "ON"
       else
         "OFF"
     }"
     "-DUSE_MUPDF=${
-      if
-        useMupdf
-      then
+      if useMupdf then
         "ON"
       else
         "OFF"
@@ -86,9 +82,7 @@ stdenv.mkDerivation rec {
     "-DUSE_QTPDF=OFF"
     "-DUSE_MUPDF_THIRD=ON"
     "-DUSE_EXTERNAL_RENDERER=${
-      if
-        useExternalRenderer
-      then
+      if useExternalRenderer then
         "ON"
       else
         "OFF"

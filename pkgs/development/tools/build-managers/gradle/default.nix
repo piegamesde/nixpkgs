@@ -94,9 +94,7 @@ rec {
       dontFixup = !stdenv.isLinux;
 
       fixupPhase = let
-        arch = if
-          stdenv.is64bit
-        then
+        arch = if stdenv.is64bit then
           "amd64"
         else
           "i386";

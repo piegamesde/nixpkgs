@@ -97,9 +97,7 @@ with lib;
       agent = mkOption {
         type = types.bool;
         apply = x:
-          if
-            x
-          then
+          if x then
             "1"
           else
             "0";
@@ -137,9 +135,7 @@ with lib;
         Defaults to 'legacy' for 'proxmox.qemuConf.bios="seabios"' (default), other bios values defaults to 'efi'.
         Use 'hybrid' to build grub-based hybrid bios+efi images.
       '';
-      default = if
-        config.proxmox.qemuConf.bios == "seabios"
-      then
+      default = if config.proxmox.qemuConf.bios == "seabios" then
         "legacy"
       else
         "efi";

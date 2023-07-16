@@ -59,18 +59,19 @@ stdenv.mkDerivation rec {
 
   # this causes some python trouble on a darwin host so we skip this step.
   # also we have to tell libwally-core to use sed instead of gsed.
-  postPatch = if
-    !stdenv.isDarwin
-  then ''
-    patchShebangs \
-      tools/generate-wire.py \
-      tools/update-mocks.sh \
-      tools/mockup.sh \
-      devtools/sql-rewrite.py
-  '' else ''
-    substituteInPlace external/libwally-core/tools/autogen.sh --replace gsed sed && \
-    substituteInPlace external/libwally-core/configure.ac --replace gsed sed
-  '';
+  postPatch = if !stdenv.isDarwin then
+    ''
+      patchShebangs \
+        tools/generate-wire.py \
+        tools/update-mocks.sh \
+        tools/mockup.sh \
+        devtools/sql-rewrite.py
+    ''
+  else
+    ''
+      substituteInPlace external/libwally-core/tools/autogen.sh --replace gsed sed && \
+      substituteInPlace external/libwally-core/configure.ac --replace gsed sed
+    '';
 
   configureFlags = [
     "--disable-developer"

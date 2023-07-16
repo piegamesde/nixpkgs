@@ -13,19 +13,16 @@ let
   # on the derivations likely to be used as `cfgc.package`.
   # This middle-ground solution ensures *an* sshd can do their basic validation
   # on the configuration.
-  validationPackage = if
-    pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform
-  then
-    cfgc.package
-  else
-    pkgs.buildPackages.openssh;
+  validationPackage =
+    if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then
+      cfgc.package
+    else
+      pkgs.buildPackages.openssh;
 
   # reports boolean as yes / no
   mkValueStringSshd = with lib;
     v:
-    if
-      isInt v
-    then
+    if isInt v then
       toString v
     else if isString v then
       v
@@ -677,55 +674,51 @@ in {
             + # don't detach into a daemon process
             "-f /etc/ssh/sshd_config";
           KillMode = "process";
-        } // (if
-          cfg.startWhenNeeded
-        then {
-          StandardInput = "socket";
-          StandardError = "journal";
-        } else {
-          Restart = "always";
-          Type = "simple";
-        });
-
-      };
-
-    in if
-      cfg.startWhenNeeded
-    then {
-
-      sockets.sshd = {
-        description = "SSH Socket";
-        wantedBy = [ "sockets.target" ];
-        socketConfig.ListenStream = if
-          cfg.listenAddresses != [ ]
-        then
-          map (l:
-            "${l.addr}:${
-              toString (if
-                l.port != null
-              then
-                l.port
-              else
-                22)
-            }") cfg.listenAddresses
+        } // (if cfg.startWhenNeeded then
+          {
+            StandardInput = "socket";
+            StandardError = "journal";
+          }
         else
-          cfg.ports;
-        socketConfig.Accept = true;
-        # Prevent brute-force attacks from shutting down socket
-        socketConfig.TriggerLimitIntervalSec = 0;
+          {
+            Restart = "always";
+            Type = "simple";
+          });
+
       };
 
-      services."sshd@" = service;
+    in if cfg.startWhenNeeded then
+      {
 
-    } else {
+        sockets.sshd = {
+          description = "SSH Socket";
+          wantedBy = [ "sockets.target" ];
+          socketConfig.ListenStream = if cfg.listenAddresses != [ ] then
+            map (l:
+              "${l.addr}:${
+                toString (if l.port != null then
+                  l.port
+                else
+                  22)
+              }") cfg.listenAddresses
+          else
+            cfg.ports;
+          socketConfig.Accept = true;
+          # Prevent brute-force attacks from shutting down socket
+          socketConfig.TriggerLimitIntervalSec = 0;
+        };
 
-      services.sshd = service;
+        services."sshd@" = service;
 
-    };
+      }
+    else
+      {
 
-    networking.firewall.allowedTCPPorts = if
-      cfg.openFirewall
-    then
+        services.sshd = service;
+
+      };
+
+    networking.firewall.allowedTCPPorts = if cfg.openFirewall then
       cfg.ports
     else
       [ ];
@@ -748,18 +741,14 @@ in {
       UsePAM yes
 
       Banner ${
-        if
-          cfg.banner == null
-        then
+        if cfg.banner == null then
           "none"
         else
           pkgs.writeText "ssh_banner" cfg.banner
       }
 
       AddressFamily ${
-        if
-          config.networking.enableIPv6
-        then
+        if config.networking.enableIPv6 then
           "any"
         else
           "inet"
@@ -799,9 +788,7 @@ in {
     '';
 
     assertions = [ {
-      assertion = if
-        cfg.settings.X11Forwarding
-      then
+      assertion = if cfg.settings.X11Forwarding then
         cfgc.setXAuthLocation
       else
         true;

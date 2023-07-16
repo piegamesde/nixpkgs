@@ -10,9 +10,7 @@ let
   cfg = config.services.undervolt;
 
   mkPLimit = limit: window:
-    if
-      (limit == null && window == null)
-    then
+    if (limit == null && window == null) then
       null
     else
       assert asserts.assertMsg (limit != null && window != null)

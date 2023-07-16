@@ -37,16 +37,17 @@ mkDerivation rec {
     qttools
   ];
 
-  postInstall = if
-    stdenv.isDarwin
-  then ''
-    mkdir -p $out/Applications
-    mv $out/bin/quaternion.app $out/Applications
-    rmdir $out/bin || :
-  '' else ''
-    substituteInPlace $out/share/applications/com.github.quaternion.desktop \
-      --replace 'Exec=quaternion' "Exec=$out/bin/quaternion"
-  '';
+  postInstall = if stdenv.isDarwin then
+    ''
+      mkdir -p $out/Applications
+      mv $out/bin/quaternion.app $out/Applications
+      rmdir $out/bin || :
+    ''
+  else
+    ''
+      substituteInPlace $out/share/applications/com.github.quaternion.desktop \
+        --replace 'Exec=quaternion' "Exec=$out/bin/quaternion"
+    '';
 
   meta = with lib; {
     description = "Cross-platform desktop IM client for the Matrix protocol";

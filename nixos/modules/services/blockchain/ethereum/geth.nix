@@ -207,9 +207,7 @@ in {
     systemd.services = mapAttrs' (gethName: cfg:
       let
         stateDir = "goethereum/${gethName}/${
-            if
-              (cfg.network == null)
-            then
+            if (cfg.network == null) then
               "mainnet"
             else
               cfg.network
@@ -273,9 +271,7 @@ in {
               toString cfg.authrpc.port
             } --authrpc.vhosts ${lib.concatStringsSep "," cfg.authrpc.vhosts} \
             ${
-              if
-                (cfg.authrpc.jwtsecret != "")
-              then
+              if (cfg.authrpc.jwtsecret != "") then
                 "--authrpc.jwtsecret ${cfg.authrpc.jwtsecret}"
               else
                 "--authrpc.jwtsecret ${dataDir}/geth/jwtsecret"

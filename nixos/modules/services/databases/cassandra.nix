@@ -47,19 +47,15 @@ let
     } ];
   } // optionalAttrs atLeast3 { hints_directory = "${cfg.homeDir}/hints"; });
 
-  cassandraConfigWithAddresses = cassandraConfig // (if
-    cfg.listenAddress == null
-  then {
-    listen_interface = cfg.listenInterface;
-  } else {
-    listen_address = cfg.listenAddress;
-  }) // (if
-    cfg.rpcAddress == null
-  then {
-    rpc_interface = cfg.rpcInterface;
-  } else {
-    rpc_address = cfg.rpcAddress;
-  });
+  cassandraConfigWithAddresses = cassandraConfig
+    // (if cfg.listenAddress == null then
+      { listen_interface = cfg.listenInterface; }
+    else
+      { listen_address = cfg.listenAddress; })
+    // (if cfg.rpcAddress == null then
+      { rpc_interface = cfg.rpcInterface; }
+    else
+      { rpc_address = cfg.rpcAddress; });
 
   cassandraEtc = pkgs.stdenv.mkDerivation {
     name = "cassandra-etc";
@@ -449,9 +445,7 @@ in {
 
     jmxRolesFile = mkOption {
       type = types.nullOr types.path;
-      default = if
-        atLeast3_11
-      then
+      default = if atLeast3_11 then
         pkgs.writeText "jmx-roles-file" defaultJmxRolesFile
       else
         null;
@@ -511,9 +505,7 @@ in {
         MAX_HEAP_SIZE = toString cfg.maxHeapSize;
         HEAP_NEWSIZE = toString cfg.heapNewSize;
         MALLOC_ARENA_MAX = toString cfg.mallocArenaMax;
-        LOCAL_JMX = if
-          cfg.remoteJmx
-        then
+        LOCAL_JMX = if cfg.remoteJmx then
           "no"
         else
           "yes";

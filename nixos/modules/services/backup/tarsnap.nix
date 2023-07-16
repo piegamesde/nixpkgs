@@ -345,24 +345,24 @@ in {
                                     ${optionalString cfg.followSymlinks "-L"} \
                                     ${concatStringsSep " " cfg.directories}'';
           cachedir = escapeShellArg cfg.cachedir;
-        in if
-          (cfg.cachedir != null)
-        then ''
-          mkdir -p ${cachedir}
-          chmod 0700 ${cachedir}
+        in if (cfg.cachedir != null) then
+          ''
+            mkdir -p ${cachedir}
+            chmod 0700 ${cachedir}
 
-          ( flock 9
-            if [ ! -e ${cachedir}/firstrun ]; then
-              ( flock 10
-                flock -u 9
-                ${tarsnap} --fsck
-                flock 9
-              ) 10>${cachedir}/firstrun
-            fi
-          ) 9>${cachedir}/lockf
+            ( flock 9
+              if [ ! -e ${cachedir}/firstrun ]; then
+                ( flock 10
+                  flock -u 9
+                  ${tarsnap} --fsck
+                  flock 9
+                ) 10>${cachedir}/firstrun
+              fi
+            ) 9>${cachedir}/lockf
 
-           exec flock ${cachedir}/firstrun ${run}
-        '' else
+             exec flock ${cachedir}/firstrun ${run}
+          ''
+        else
           "exec ${run}";
 
         serviceConfig = {
@@ -394,24 +394,24 @@ in {
               }'';
             cachedir = escapeShellArg cfg.cachedir;
 
-          in if
-            (cfg.cachedir != null)
-          then ''
-            mkdir -p ${cachedir}
-            chmod 0700 ${cachedir}
+          in if (cfg.cachedir != null) then
+            ''
+              mkdir -p ${cachedir}
+              chmod 0700 ${cachedir}
 
-            ( flock 9
-              if [ ! -e ${cachedir}/firstrun ]; then
-                ( flock 10
-                  flock -u 9
-                  ${tarsnap} --fsck
-                  flock 9
-                ) 10>${cachedir}/firstrun
-              fi
-            ) 9>${cachedir}/lockf
+              ( flock 9
+                if [ ! -e ${cachedir}/firstrun ]; then
+                  ( flock 10
+                    flock -u 9
+                    ${tarsnap} --fsck
+                    flock 9
+                  ) 10>${cachedir}/firstrun
+                fi
+              ) 9>${cachedir}/lockf
 
-             exec flock ${cachedir}/firstrun ${run}
-          '' else
+               exec flock ${cachedir}/firstrun ${run}
+            ''
+          else
             "exec ${run}";
 
           serviceConfig = {

@@ -45,16 +45,12 @@ let
     stdenv.mkDerivation ({
       pname = "uboot-${defconfig}";
 
-      version = if
-        src == null
-      then
+      version = if src == null then
         defaultVersion
       else
         version;
 
-      src = if
-        src == null
-      then
+      src = if src == null then
         defaultSrc
       else
         src;

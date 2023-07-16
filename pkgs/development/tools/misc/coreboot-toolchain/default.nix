@@ -50,9 +50,7 @@ let
         buildInputs = [
           flex
           zlib
-          (if
-            withAda
-          then
+          (if withAda then
             gnat11
           else
             gcc)

@@ -17,9 +17,7 @@ let
     };
 
   toConfigFile = name: cfg':
-    if
-      cfg'.configFile != null
-    then
+    if cfg'.configFile != null then
       cfg'.configFile
     else
       pkgs.writeText "vdirsyncer-${name}.conf" (toIniJson ({
@@ -33,15 +31,11 @@ let
 
   userUnitConfig = name: cfg': {
     serviceConfig = {
-      User = if
-        cfg'.user == null
-      then
+      User = if cfg'.user == null then
         "vdirsyncer"
       else
         cfg'.user;
-      Group = if
-        cfg'.group == null
-      then
+      Group = if cfg'.group == null then
         "vdirsyncer"
       else
         cfg'.group;

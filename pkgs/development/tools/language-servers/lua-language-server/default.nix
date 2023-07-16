@@ -51,9 +51,7 @@ stdenv.mkDerivation rec {
   '';
 
   ninjaFlags = [ "-fcompile/ninja/${
-      if
-        stdenv.isDarwin
-      then
+      if stdenv.isDarwin then
         "macos"
       else
         "linux"

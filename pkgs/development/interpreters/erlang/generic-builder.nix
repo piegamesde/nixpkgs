@@ -88,9 +88,7 @@
   meta ? { }
 }:
 
-assert wxSupport -> (if
-  stdenv.isDarwin
-then
+assert wxSupport -> (if stdenv.isDarwin then
   wxGTK != null
 else
   libGL != null && libGLU != null && wxGTK != null && xorg != null);
@@ -100,7 +98,10 @@ assert javacSupport -> openjdk11 != null;
 
 let
   inherit (lib) optional optionals optionalAttrs optionalString;
-  wxPackages2 = if stdenv.isDarwin then [ wxGTK ] else wxPackages;
+  wxPackages2 = if stdenv.isDarwin then
+    [ wxGTK ]
+  else
+    wxPackages;
 
 in
 stdenv.mkDerivation ({

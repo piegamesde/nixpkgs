@@ -8,15 +8,11 @@ let
   previewVersion = stableVersion;
   addVersion = args:
     let
-      version = if
-        args.stable
-      then
+      version = if args.stable then
         stableVersion
       else
         previewVersion;
-      branch = if
-        args.stable
-      then
+      branch = if args.stable then
         "stable"
       else
         "preview";

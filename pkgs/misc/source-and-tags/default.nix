@@ -13,9 +13,7 @@
   # hack because passthru doesn't work the way I'd expect. Don't have time to spend on this right now
   # that's why I'm abusing meta for the same purpose in ghcsAndLibs
   sourceWithTagsFromDerivation = x:
-    if
-      x ? passthru && x.passthru ? sourceWithTags
-    then
+    if x ? passthru && x.passthru ? sourceWithTags then
       x.passthru.sourceWithTags
     else if x ? meta && x.meta ? sourceWithTags then
       x.meta.sourceWithTags
@@ -66,9 +64,7 @@
       passthru = {
         sourceWithTags = {
           inherit (deriv) src;
-          srcDir = if
-            deriv ? srcDir
-          then
+          srcDir = if deriv ? srcDir then
             deriv.srcDir
           else
             ".";

@@ -41,17 +41,13 @@ stdenv.mkDerivation rec {
     "PREFIX=$(out)"
     "INCLUDEDIR=$(dev)/include"
     "BUILD_STATIC=${
-      if
-        enableStatic
-      then
+      if enableStatic then
         "yes"
       else
         "no"
     }"
     "BUILD_SHARED=${
-      if
-        enableShared
-      then
+      if enableShared then
         "yes"
       else
         "no"

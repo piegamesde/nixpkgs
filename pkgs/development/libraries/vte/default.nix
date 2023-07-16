@@ -81,9 +81,7 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = assert (gtkVersion == "3" || gtkVersion == "4"); [
     # Required by vte-2.91.pc.
-    (if
-      gtkVersion == "3"
-    then
+    (if gtkVersion == "3" then
       gtk3
     else
       gtk4)

@@ -25,9 +25,7 @@
 
   mysqlSupport ? true,
   postgresSupport ? false,
-  defaultDriver ? if
-    mysqlSupport
-  then
+  defaultDriver ? if mysqlSupport then
     "MYSQL"
   else
     "POSTGRES",

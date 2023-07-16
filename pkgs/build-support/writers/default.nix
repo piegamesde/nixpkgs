@@ -11,9 +11,7 @@
 }:
 
 let
-  aliases = if
-    config.allowAliases
-  then
+  aliases = if config.allowAliases then
     (import ./aliases.nix lib)
   else
     prev: { };
@@ -37,52 +35,53 @@ let
         name = last (builtins.split "/" nameOrPath);
 
       in
-      pkgs.runCommandLocal name (if
-        (types.str.check content)
-      then {
-        inherit content interpreter;
-        passAsFile = [ "content" ];
-      } else {
-        inherit interpreter;
-        contentPath = content;
-      }) ''
-        # On darwin a script cannot be used as an interpreter in a shebang but
-        # there doesn't seem to be a limit to the size of shebang and multiple
-        # arguments to the interpreter are allowed.
-        if [[ -n "${
-          toString pkgs.stdenvNoCC.isDarwin
-        }" ]] && isScript $interpreter
-        then
-          wrapperInterpreterLine=$(head -1 "$interpreter" | tail -c+3)
-          # Get first word from the line (note: xargs echo remove leading spaces)
-          wrapperInterpreter=$(echo "$wrapperInterpreterLine" | xargs echo | cut -d " " -f1)
-
-          if isScript $wrapperInterpreter
+      pkgs.runCommandLocal name (if (types.str.check content) then
+        {
+          inherit content interpreter;
+          passAsFile = [ "content" ];
+        }
+      else
+        {
+          inherit interpreter;
+          contentPath = content;
+        }) ''
+          # On darwin a script cannot be used as an interpreter in a shebang but
+          # there doesn't seem to be a limit to the size of shebang and multiple
+          # arguments to the interpreter are allowed.
+          if [[ -n "${
+            toString pkgs.stdenvNoCC.isDarwin
+          }" ]] && isScript $interpreter
           then
-            echo "error: passed interpreter ($interpreter) is a script which has another script ($wrapperInterpreter) as an interpreter, which is not supported."
-            exit 1
+            wrapperInterpreterLine=$(head -1 "$interpreter" | tail -c+3)
+            # Get first word from the line (note: xargs echo remove leading spaces)
+            wrapperInterpreter=$(echo "$wrapperInterpreterLine" | xargs echo | cut -d " " -f1)
+
+            if isScript $wrapperInterpreter
+            then
+              echo "error: passed interpreter ($interpreter) is a script which has another script ($wrapperInterpreter) as an interpreter, which is not supported."
+              exit 1
+            fi
+
+            # This should work as long as wrapperInterpreter is a shell, which is
+            # the case for programs wrapped with makeWrapper, like
+            # python3.withPackages etc.
+            interpreterLine="$wrapperInterpreterLine $interpreter"
+          else
+            interpreterLine=$interpreter
           fi
 
-          # This should work as long as wrapperInterpreter is a shell, which is
-          # the case for programs wrapped with makeWrapper, like
-          # python3.withPackages etc.
-          interpreterLine="$wrapperInterpreterLine $interpreter"
-        else
-          interpreterLine=$interpreter
-        fi
-
-        echo "#! $interpreterLine" > $out
-        cat "$contentPath" >> $out
-        ${optionalString (check != "") ''
-          ${check} $out
-        ''}
-        chmod +x $out
-        ${optionalString (types.path.check nameOrPath) ''
-          mv $out tmp
-          mkdir -p $out/$(dirname "${nameOrPath}")
-          mv tmp $out/${nameOrPath}
-        ''}
-      ''
+          echo "#! $interpreterLine" > $out
+          cat "$contentPath" >> $out
+          ${optionalString (check != "") ''
+            ${check} $out
+          ''}
+          chmod +x $out
+          ${optionalString (types.path.check nameOrPath) ''
+            mv $out tmp
+            mkdir -p $out/$(dirname "${nameOrPath}")
+            mv tmp $out/${nameOrPath}
+          ''}
+        ''
     ;
 
     # Base implementation for compiled executables.
@@ -101,14 +100,13 @@ let
       let
         name = last (builtins.split "/" nameOrPath);
       in
-      pkgs.runCommand name ((if
-        (types.str.check content)
-      then {
-        inherit content;
-        passAsFile = [ "content" ];
-      } else {
-        contentPath = content;
-      }) // lib.optionalAttrs
+      pkgs.runCommand name ((if (types.str.check content) then
+        {
+          inherit content;
+          passAsFile = [ "content" ];
+        }
+      else
+        { contentPath = content; }) // lib.optionalAttrs
         (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) {
           # post-link-hook expects codesign_allocate to be in PATH
           # https://github.com/NixOS/nixpkgs/issues/154203
@@ -188,15 +186,11 @@ let
       }:
       let
         appendIfNotSet = el: list:
-          if
-            elem el list
-          then
+          if elem el list then
             list
           else
             list ++ [ el ];
-        ghcArgs' = if
-          threadedRuntime
-        then
+        ghcArgs' = if threadedRuntime then
           appendIfNotSet "-threaded" ghcArgs
         else
           ghcArgs;
@@ -323,9 +317,7 @@ let
           "--ignore ${concatMapStringsSep "," escapeShellArg flakeIgnore}";
       in
       makeScriptWriter {
-        interpreter = if
-          libraries == [ ]
-        then
+        interpreter = if libraries == [ ] then
           "${python}/bin/python"
         else
           "${python.withPackages (ps: libraries)}/bin/python";
@@ -397,9 +389,7 @@ let
       nameOrPath:
       let
         fname = last (builtins.split "/" nameOrPath);
-        path = if
-          strings.hasSuffix ".fsx" nameOrPath
-        then
+        path = if strings.hasSuffix ".fsx" nameOrPath then
           nameOrPath
         else
           "${nameOrPath}.fsx";

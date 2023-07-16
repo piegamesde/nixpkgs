@@ -33,30 +33,25 @@
   extraBuildInputs ? [ ],
   extraCMakeFlags ? [ ],
   extraPostPatch ? "",
-  checkTargets ? [ (lib.optionalString buildTests (if
-    targetDir == "runtimes"
-  then
-    "check-runtimes"
-  else
-    "check-all")) ],
+  checkTargets ? [ (lib.optionalString buildTests
+    (if targetDir == "runtimes" then
+      "check-runtimes"
+    else
+      "check-all")) ],
   extraPostInstall ? "",
   extraLicenses ? [ ],
   isBroken ? false
 }:
 
 let
-  llvmNativeTarget = if
-    stdenv.isx86_64
-  then
+  llvmNativeTarget = if stdenv.isx86_64 then
     "X86"
   else if stdenv.isAarch64 then
     "AArch64"
   else
     throw "Unsupported ROCm LLVM platform";
   inferNativeTarget = t:
-    if
-      t == "NATIVE"
-    then
+    if t == "NATIVE" then
       llvmNativeTarget
     else
       t;

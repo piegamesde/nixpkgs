@@ -21,14 +21,15 @@ buildGoModule rec {
 
   ui = callPackage ./webui.nix { inherit version src; };
 
-  postPatch = if
-    enableWebui
-  then ''
-    mkdir -p ui/build
-    cp -r ${ui}/* ui/build
-  '' else ''
-    sed -i '/go:/d' ui/assets.go
-  '';
+  postPatch = if enableWebui then
+    ''
+      mkdir -p ui/build
+      cp -r ${ui}/* ui/build
+    ''
+  else
+    ''
+      sed -i '/go:/d' ui/assets.go
+    '';
 
   ldflags = [
     "-s"

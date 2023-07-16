@@ -62,9 +62,7 @@
   , # What flavour to build. An empty string indicates no
   # specific flavour and falls back to ghc default values.
   ghcFlavour ? lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
-    (if
-      useLLVM
-    then
+    (if useLLVM then
       "perf-cross"
     else
       "perf-cross-ncg")
@@ -111,9 +109,7 @@ let
     include mk/flavours/\$(BuildFlavour).mk
     endif
     BUILD_SPHINX_HTML = ${
-      if
-        enableDocs
-      then
+      if enableDocs then
         "YES"
       else
         "NO"
@@ -132,9 +128,7 @@ let
     # build the haddock program (removing the `enableHaddockProgram` option).
     ''
       HADDOCK_DOCS = ${
-        if
-          enableHaddockProgram
-        then
+        if enableHaddockProgram then
           "YES"
         else
           "NO"
@@ -143,26 +137,20 @@ let
       EXTRA_HADDOCK_OPTS += --hyperlinked-source --quickjump
 
       DYNAMIC_GHC_PROGRAMS = ${
-        if
-          enableShared
-        then
+        if enableShared then
           "YES"
         else
           "NO"
       }
       BIGNUM_BACKEND = ${
-        if
-          enableNativeBignum
-        then
+        if enableNativeBignum then
           "native"
         else
           "gmp"
       }
     '' + lib.optionalString (targetPlatform != hostPlatform) ''
       Stage1Only = ${
-        if
-          targetPlatform.system == hostPlatform.system
-        then
+        if targetPlatform.system == hostPlatform.system then
           "NO"
         else
           "YES"
@@ -201,18 +189,14 @@ let
     # GHC needs install_name_tool on all darwin platforms. On aarch64-darwin it is
     # part of the bintools wrapper (due to codesigning requirements), but not on
     # x86_64-darwin.
-    install_name_tool = if
-      stdenv.targetPlatform.isAarch64
-    then
+    install_name_tool = if stdenv.targetPlatform.isAarch64 then
       targetCC.bintools
     else
       targetCC.bintools.bintools;
     # Same goes for strip.
     strip =
       # TODO(@sternenseemann): also use wrapper if linker == "bfd" or "gold"
-      if
-        stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin
-      then
+      if stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin then
         targetCC.bintools
       else
         targetCC.bintools.bintools;

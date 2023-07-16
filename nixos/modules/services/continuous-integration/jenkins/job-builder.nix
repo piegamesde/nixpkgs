@@ -124,9 +124,7 @@ in {
 
   config = mkIf (jenkinsCfg.enable && cfg.enable) {
     assertions = [ {
-      assertion = if
-        cfg.accessUser != ""
-      then
+      assertion = if cfg.accessUser != "" then
         (cfg.accessToken != "" && cfg.accessTokenFile == "")
         || (cfg.accessToken == "" && cfg.accessTokenFile != "")
       else
@@ -167,9 +165,7 @@ in {
           echo "Asking Jenkins to reload config"
           curl_opts="--silent --fail --show-error"
           access_token_file=${
-            if
-              cfg.accessTokenFile != ""
-            then
+            if cfg.accessTokenFile != "" then
               cfg.accessTokenFile
             else
               "$RUNTIME_DIRECTORY/jenkins_access_token.txt"

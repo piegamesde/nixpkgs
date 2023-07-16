@@ -142,9 +142,7 @@ self: super:
     hash = "sha256-sBuqSmgCQSgbXV6KPEZcIP09wbx81q5xjSg7/slH2HQ=";
   }) super.hls-test-utils;
 
-  hls-rename-plugin = if
-    lib.versionAtLeast super.ghc.version "9.4"
-  then
+  hls-rename-plugin = if lib.versionAtLeast super.ghc.version "9.4" then
     overrideCabal (drv: {
       prePatch = drv.prePatch or "" + ''
         "${pkgs.buildPackages.dos2unix}/bin/dos2unix" *.cabal
@@ -159,9 +157,7 @@ self: super:
   else
     super.hls-rename-plugin;
 
-  hls-floskell-plugin = if
-    lib.versionAtLeast super.ghc.version "9.4"
-  then
+  hls-floskell-plugin = if lib.versionAtLeast super.ghc.version "9.4" then
     overrideCabal (drv: {
       prePatch = drv.prePatch or "" + ''
         "${pkgs.buildPackages.dos2unix}/bin/dos2unix" *.cabal
@@ -176,26 +172,23 @@ self: super:
   else
     super.hls-floskell-plugin;
 
-  hls-stylish-haskell-plugin = if
-    lib.versionAtLeast super.ghc.version "9.4"
-  then
-    overrideCabal (drv: {
-      prePatch = drv.prePatch or "" + ''
-        "${pkgs.buildPackages.dos2unix}/bin/dos2unix" *.cabal
-      '';
-    }) (appendPatch (fetchpatch {
-      name = "hls-stylish-haskell-ghc-9.4-compat.patch";
-      url =
-        "https://github.com/haskell/haskell-language-server/commit/ddc67b2d4d719623b657aa54db20bf58c58a5d4a.patch";
-      relative = "plugins/hls-stylish-haskell-plugin";
-      hash = "sha256-GtN9t5zMOROCDSLiscLZ5GmqDV+ql9R2z/+W++C2h2Q=";
-    }) super.hls-stylish-haskell-plugin)
-  else
-    super.hls-stylish-haskell-plugin;
+  hls-stylish-haskell-plugin =
+    if lib.versionAtLeast super.ghc.version "9.4" then
+      overrideCabal (drv: {
+        prePatch = drv.prePatch or "" + ''
+          "${pkgs.buildPackages.dos2unix}/bin/dos2unix" *.cabal
+        '';
+      }) (appendPatch (fetchpatch {
+        name = "hls-stylish-haskell-ghc-9.4-compat.patch";
+        url =
+          "https://github.com/haskell/haskell-language-server/commit/ddc67b2d4d719623b657aa54db20bf58c58a5d4a.patch";
+        relative = "plugins/hls-stylish-haskell-plugin";
+        hash = "sha256-GtN9t5zMOROCDSLiscLZ5GmqDV+ql9R2z/+W++C2h2Q=";
+      }) super.hls-stylish-haskell-plugin)
+    else
+      super.hls-stylish-haskell-plugin;
 
-  hie-compat = if
-    lib.versionAtLeast super.ghc.version "9.6"
-  then
+  hie-compat = if lib.versionAtLeast super.ghc.version "9.6" then
     overrideCabal (drv: {
       prePatch = drv.prePatch or "" + ''
         "${pkgs.buildPackages.dos2unix}/bin/dos2unix" *.cabal
@@ -215,12 +208,9 @@ self: super:
     (disableCabalFlag "auto" super.ghc-lib-parser-ex);
 
   # For -fghc-lib see cabal.project in haskell-language-server.
-  stylish-haskell = if
-    lib.versionAtLeast super.ghc.version "9.2"
-  then
-    enableCabalFlag "ghc-lib" (if
-      lib.versionAtLeast super.ghc.version "9.4"
-    then
+  stylish-haskell = if lib.versionAtLeast super.ghc.version "9.2" then
+    enableCabalFlag "ghc-lib"
+    (if lib.versionAtLeast super.ghc.version "9.4" then
       super.stylish-haskell_0_14_4_0
     else
       super.stylish-haskell)
@@ -306,9 +296,7 @@ self: super:
   numerals = doJailbreak (dontCheck super.numerals);
 
   # This test keeps being aborted because it runs too quietly for too long
-  Lazy-Pbkdf2 = if
-    pkgs.stdenv.isi686
-  then
+  Lazy-Pbkdf2 = if pkgs.stdenv.isi686 then
     dontCheck super.Lazy-Pbkdf2
   else
     super.Lazy-Pbkdf2;
@@ -1293,9 +1281,7 @@ self: super:
 
   # musl fixes
   # dontCheck: use of non-standard strptime "%s" which musl doesn't support; only used in test
-  unix-time = if
-    pkgs.stdenv.hostPlatform.isMusl
-  then
+  unix-time = if pkgs.stdenv.hostPlatform.isMusl then
     dontCheck super.unix-time
   else
     super.unix-time;
@@ -1310,9 +1296,7 @@ self: super:
 
   # hslua has tests that break when using musl.
   # https://github.com/hslua/hslua/issues/106
-  hslua-core = if
-    pkgs.stdenv.hostPlatform.isMusl
-  then
+  hslua-core = if pkgs.stdenv.hostPlatform.isMusl then
     dontCheck super.hslua-core
   else
     super.hslua-core;

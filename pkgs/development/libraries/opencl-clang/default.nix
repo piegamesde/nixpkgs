@@ -57,9 +57,7 @@ let
 
   library = let
     inherit (llvmPackages_11) llvm;
-    inherit (if
-      buildWithPatches
-    then
+    inherit (if buildWithPatches then
       passthru
     else
       llvmPkgs)

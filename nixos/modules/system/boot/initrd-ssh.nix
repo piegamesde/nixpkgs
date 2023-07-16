@@ -10,9 +10,7 @@ with lib;
 let
 
   cfg = config.boot.initrd.network.ssh;
-  shell = if
-    cfg.shell == null
-  then
+  shell = if cfg.shell == null then
     "/bin/ash"
   else
     cfg.shell;
@@ -138,9 +136,7 @@ in {
     # Nix complains if you include a store hash in initrd path names, so
     # as an awful hack we drop the first character of the hash.
     initrdKeyPath = path:
-      if
-        isString path
-      then
+      if isString path then
         path
       else
         let
@@ -170,13 +166,14 @@ in {
 
       LogLevel ${sshdCfg.settings.LogLevel}
 
-      ${if
-        sshdCfg.settings.UseDns
-      then ''
-        UseDNS yes
-      '' else ''
-        UseDNS no
-      ''}
+      ${if sshdCfg.settings.UseDns then
+        ''
+          UseDNS yes
+        ''
+      else
+        ''
+          UseDNS no
+        ''}
 
       ${cfg.extraConfig}
     '';

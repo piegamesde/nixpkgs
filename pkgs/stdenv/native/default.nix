@@ -12,9 +12,7 @@ assert crossSystem == localSystem;
 let
   inherit (localSystem) system;
 
-  shell = if
-    system == "i686-freebsd" || system == "x86_64-freebsd"
-  then
+  shell = if system == "i686-freebsd" || system == "x86_64-freebsd" then
     "/usr/local/bin/bash"
   else
     "/bin/bash";
@@ -79,10 +77,11 @@ let
   extraNativeBuildInputsCygwin = [
     ../cygwin/all-buildinputs-as-runtimedep.sh
     ../cygwin/wrap-exes-to-find-dlls.sh
-  ] ++ (if
-    system == "i686-cygwin"
-  then [ ../cygwin/rebase-i686.sh ] else if system
-  == "x86_64-cygwin" then [ ../cygwin/rebase-x86_64.sh ] else
+  ] ++ (if system == "i686-cygwin" then
+    [ ../cygwin/rebase-i686.sh ]
+  else if system == "x86_64-cygwin" then
+    [ ../cygwin/rebase-x86_64.sh ]
+  else
     [ ]);
 
   # A function that builds a "native" stdenv (one that uses tools in
@@ -100,9 +99,7 @@ let
       hostPlatform = localSystem;
       targetPlatform = localSystem;
 
-      preHook = if
-        system == "i686-freebsd"
-      then
+      preHook = if system == "i686-freebsd" then
         prehookFreeBSD
       else if system == "x86_64-freebsd" then
         prehookFreeBSD
@@ -117,14 +114,13 @@ let
       else
         prehookBase;
 
-      extraNativeBuildInputs = extraNativeBuildInputs ++ (if
-        system == "i686-cygwin"
-      then
-        extraNativeBuildInputsCygwin
-      else if system == "x86_64-cygwin" then
-        extraNativeBuildInputsCygwin
-      else
-        [ ]);
+      extraNativeBuildInputs = extraNativeBuildInputs
+        ++ (if system == "i686-cygwin" then
+          extraNativeBuildInputsCygwin
+        else if system == "x86_64-cygwin" then
+          extraNativeBuildInputsCygwin
+        else
+          [ ]);
 
       initialPath = extraPath ++ path;
 
@@ -192,8 +188,10 @@ in [
       inherit (prevStage.stdenv) cc fetchurl;
       extraPath = [ prevStage.xz ];
       overrides = self: super: { inherit (prevStage) xz; };
-      extraNativeBuildInputs =
-        if localSystem.isLinux then [ prevStage.patchelf ] else [ ];
+      extraNativeBuildInputs = if localSystem.isLinux then
+        [ prevStage.patchelf ]
+      else
+        [ ];
     };
   })
 

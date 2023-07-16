@@ -16,9 +16,7 @@
 }:
 
 let
-  merlinVersion = if
-    lib.versionAtLeast ocaml.version "4.14"
-  then
+  merlinVersion = if lib.versionAtLeast ocaml.version "4.14" then
     "4.8"
   else
     "4.7";
@@ -35,9 +33,7 @@ let
 
   version = "${merlinVersion}-${ocamlVersionShorthand}";
 
-in if
-  !lib.hasAttr version hashes
-then
+in if !lib.hasAttr version hashes then
   builtins.throw
   "merlin ${merlinVersion} is not available for OCaml ${ocaml.version}"
 else
@@ -68,9 +64,7 @@ else
     buildInputs = [
       dot-merlin-reader
       yojson
-      (if
-        lib.versionAtLeast version "4.7-414"
-      then
+      (if lib.versionAtLeast version "4.7-414" then
         merlin-lib
       else
         csexp)

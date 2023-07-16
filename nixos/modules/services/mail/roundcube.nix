@@ -154,9 +154,7 @@ in {
       $config['db_dsnw'] = 'pgsql://${cfg.database.username}${
         lib.optionalString (!localDB) ":' . $password . '"
       }@${
-        if
-          localDB
-        then
+        if localDB then
           "unix(/run/postgresql)"
         else
           cfg.database.host
@@ -171,9 +169,7 @@ in {
       # Roundcube uses PHP-FPM which has `PrivateTmp = true;`
       $config['temp_dir'] = '/tmp';
       $config['enable_spellcheck'] = ${
-        if
-          cfg.dicts == [ ]
-        then
+        if cfg.dicts == [ ] then
           "false"
         else
           "true"
@@ -237,9 +233,7 @@ in {
     users.groups.${user} = mkIf localDB { };
 
     services.phpfpm.pools.roundcube = {
-      user = if
-        localDB
-      then
+      user = if localDB then
         user
       else
         "nginx";
@@ -306,9 +300,7 @@ in {
         serviceConfig = {
           Type = "oneshot";
           StateDirectory = "roundcube";
-          User = if
-            localDB
-          then
+          User = if localDB then
             user
           else
             "nginx";

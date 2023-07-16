@@ -72,9 +72,7 @@
 
 let
   mesonEnableFeature = b:
-    if
-      b
-    then
+    if b then
       "enabled"
     else
       "disabled";
@@ -144,8 +142,10 @@ let
       vulkan-loader
       webrtc-audio-processing
       tinycompress
-    ] ++ (if enableSystemd then [ systemd ] else [ eudev ])
-      ++ lib.optionals gstreamerSupport [
+    ] ++ (if enableSystemd then
+      [ systemd ]
+    else
+      [ eudev ]) ++ lib.optionals gstreamerSupport [
         gst_all_1.gst-plugins-base
         gst_all_1.gstreamer
       ] ++ lib.optionals libcameraSupport [

@@ -11,9 +11,7 @@
   name ? null,
   version ? null
 }:
-if
-  name != null || version != null
-then
+if name != null || version != null then
   throw ''
     `pkgs.fetchNextcloudApp` has been changed to use `fetchzip`.
     To update, please

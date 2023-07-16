@@ -223,71 +223,72 @@ python3.pkgs.buildPythonApplication rec {
       # the odp backend already has that fix. Copy it here until fixed upstream.
       sed -i "s|'/etc/asciidoc/backends/odt/asciidoc.ott'|os.path.dirname(__file__),'asciidoc.ott'|" \
           "$out/etc/asciidoc/backends/odt/a2x-backend.py"
-    '' + (if
-      enableStandardFeatures
-    then ''
-      sed -e "s|dot|${graphviz}/bin/dot|g" \
-          -e "s|neato|${graphviz}/bin/neato|g" \
-          -e "s|twopi|${graphviz}/bin/twopi|g" \
-          -e "s|circo|${graphviz}/bin/circo|g" \
-          -e "s|fdp|${graphviz}/bin/fdp|g" \
-          -i "asciidoc/resources/filters/graphviz/graphviz2png.py"
+    '' + (if enableStandardFeatures then
+      ''
+        sed -e "s|dot|${graphviz}/bin/dot|g" \
+            -e "s|neato|${graphviz}/bin/neato|g" \
+            -e "s|twopi|${graphviz}/bin/twopi|g" \
+            -e "s|circo|${graphviz}/bin/circo|g" \
+            -e "s|fdp|${graphviz}/bin/fdp|g" \
+            -i "asciidoc/resources/filters/graphviz/graphviz2png.py"
 
-      sed -e "s|run('latex|run('${texlive}/bin/latex|g" \
-          -e "s|cmd = 'dvipng'|cmd = '${texlive}/bin/dvipng'|g" \
-          -e "s|cmd = 'dvisvgm'|cmd = '${texlive}/bin/dvisvgm'|g" \
-          -i "asciidoc/resources/filters/latex/latex2img.py"
+        sed -e "s|run('latex|run('${texlive}/bin/latex|g" \
+            -e "s|cmd = 'dvipng'|cmd = '${texlive}/bin/dvipng'|g" \
+            -e "s|cmd = 'dvisvgm'|cmd = '${texlive}/bin/dvisvgm'|g" \
+            -i "asciidoc/resources/filters/latex/latex2img.py"
 
-      sed -e "s|run('abc2ly|run('${lilypond}/bin/abc2ly|g" \
-          -e "s|run('lilypond|run('${lilypond}/bin/lilypond|g" \
-          -e "s|run('convert|run('${imagemagick.out}/bin/convert|g" \
-          -i "asciidoc/resources/filters/music/music2png.py"
+        sed -e "s|run('abc2ly|run('${lilypond}/bin/abc2ly|g" \
+            -e "s|run('lilypond|run('${lilypond}/bin/lilypond|g" \
+            -e "s|run('convert|run('${imagemagick.out}/bin/convert|g" \
+            -i "asciidoc/resources/filters/music/music2png.py"
 
-      sed -e 's|filter="source-highlight|filter="${sourceHighlight}/bin/source-highlight|' \
-          -e 's|filter="highlight|filter="${highlight}/bin/highlight|' \
-          -e 's|filter="pygmentize|filter="${pygments}/bin/pygmentize|' \
-          -i "asciidoc/resources/filters/source/source-highlight-filter.conf"
+        sed -e 's|filter="source-highlight|filter="${sourceHighlight}/bin/source-highlight|' \
+            -e 's|filter="highlight|filter="${highlight}/bin/highlight|' \
+            -e 's|filter="pygmentize|filter="${pygments}/bin/pygmentize|' \
+            -i "asciidoc/resources/filters/source/source-highlight-filter.conf"
 
-      # ENV is custom environment passed to programs that a2x invokes. Here we
-      # use it to work around an impurity in the tetex package; tetex tools
-      # cannot find their neighbours (e.g. pdflatex doesn't find mktextfm).
-      # We can remove PATH= when those impurities are fixed.
-      # TODO: Is this still necessary when using texlive?
-      sed -e "s|^ENV =.*|ENV = dict(XML_CATALOG_FILES='${docbook_xml_dtd_45}/xml/dtd/docbook/catalog.xml ${docbook_xsl_ns}/xml/xsl/docbook/catalog.xml ${docbook_xsl}/xml/xsl/docbook/catalog.xml', PATH='${
-        lib.makeBinPath [
-          texlive
-          coreutils
-          gnused
-        ]
-      }', **(dict(filter(lambda v: v[0] == 'SOURCE_DATE_EPOCH', os.environ.items()))))|" \
-          -e "s|^ASCIIDOC =.*|ASCIIDOC = '$out/bin/asciidoc'|" \
-          -e "s|^XSLTPROC =.*|XSLTPROC = '${libxslt.bin}/bin/xsltproc'|" \
-          -e "s|^DBLATEX =.*|DBLATEX = '${dblatexFull}/bin/dblatex'|" \
-          ${
-            optionalString enableJava
-            ''-e "s|^FOP =.*|FOP = '${fop}/bin/fop'|"''
-          } \
-          -e "s|^W3M =.*|W3M = '${w3m}/bin/w3m'|" \
-          -e "s|^LYNX =.*|LYNX = '${lynx}/bin/lynx'|" \
-          -e "s|^XMLLINT =.*|XMLLINT = '${libxml2.bin}/bin/xmllint'|" \
-          -e "s|^EPUBCHECK =.*|EPUBCHECK = '${epubcheck}/bin/epubcheck'|" \
-          -i asciidoc/a2x.py
-    '' else ''
-      sed -e "s|^ENV =.*|ENV = dict(XML_CATALOG_FILES='${docbook_xml_dtd_45}/xml/dtd/docbook/catalog.xml ${docbook_xsl_ns}/xml/xsl/docbook/catalog.xml ${docbook_xsl}/xml/xsl/docbook/catalog.xml', **(dict(filter(lambda v: v[0] == 'SOURCE_DATE_EPOCH', os.environ.items()))))|" \
-          -e "s|^XSLTPROC =.*|XSLTPROC = '${libxslt.bin}/bin/xsltproc'|" \
-          -e "s|^XMLLINT =.*|XMLLINT = '${libxml2.bin}/bin/xmllint'|" \
-          -i asciidoc/a2x.py
-    '') + ''
-      # Fix tests
-      for f in $(grep -R --files-with-matches "2002-11-25") ; do
-        substituteInPlace $f --replace "2002-11-25" "1980-01-02"
-        substituteInPlace $f --replace "00:37:42" "00:00:00"
-      done
-    '' + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-      # We want to use asciidoc from the build platform to build the documentation.
-      substituteInPlace Makefile.in \
-        --replace "python3 -m asciidoc.a2x" "${buildPackages.asciidoc}/bin/a2x"
-    '';
+        # ENV is custom environment passed to programs that a2x invokes. Here we
+        # use it to work around an impurity in the tetex package; tetex tools
+        # cannot find their neighbours (e.g. pdflatex doesn't find mktextfm).
+        # We can remove PATH= when those impurities are fixed.
+        # TODO: Is this still necessary when using texlive?
+        sed -e "s|^ENV =.*|ENV = dict(XML_CATALOG_FILES='${docbook_xml_dtd_45}/xml/dtd/docbook/catalog.xml ${docbook_xsl_ns}/xml/xsl/docbook/catalog.xml ${docbook_xsl}/xml/xsl/docbook/catalog.xml', PATH='${
+          lib.makeBinPath [
+            texlive
+            coreutils
+            gnused
+          ]
+        }', **(dict(filter(lambda v: v[0] == 'SOURCE_DATE_EPOCH', os.environ.items()))))|" \
+            -e "s|^ASCIIDOC =.*|ASCIIDOC = '$out/bin/asciidoc'|" \
+            -e "s|^XSLTPROC =.*|XSLTPROC = '${libxslt.bin}/bin/xsltproc'|" \
+            -e "s|^DBLATEX =.*|DBLATEX = '${dblatexFull}/bin/dblatex'|" \
+            ${
+              optionalString enableJava
+              ''-e "s|^FOP =.*|FOP = '${fop}/bin/fop'|"''
+            } \
+            -e "s|^W3M =.*|W3M = '${w3m}/bin/w3m'|" \
+            -e "s|^LYNX =.*|LYNX = '${lynx}/bin/lynx'|" \
+            -e "s|^XMLLINT =.*|XMLLINT = '${libxml2.bin}/bin/xmllint'|" \
+            -e "s|^EPUBCHECK =.*|EPUBCHECK = '${epubcheck}/bin/epubcheck'|" \
+            -i asciidoc/a2x.py
+      ''
+    else
+      ''
+        sed -e "s|^ENV =.*|ENV = dict(XML_CATALOG_FILES='${docbook_xml_dtd_45}/xml/dtd/docbook/catalog.xml ${docbook_xsl_ns}/xml/xsl/docbook/catalog.xml ${docbook_xsl}/xml/xsl/docbook/catalog.xml', **(dict(filter(lambda v: v[0] == 'SOURCE_DATE_EPOCH', os.environ.items()))))|" \
+            -e "s|^XSLTPROC =.*|XSLTPROC = '${libxslt.bin}/bin/xsltproc'|" \
+            -e "s|^XMLLINT =.*|XMLLINT = '${libxml2.bin}/bin/xmllint'|" \
+            -i asciidoc/a2x.py
+      '') + ''
+        # Fix tests
+        for f in $(grep -R --files-with-matches "2002-11-25") ; do
+          substituteInPlace $f --replace "2002-11-25" "1980-01-02"
+          substituteInPlace $f --replace "00:37:42" "00:00:00"
+        done
+      '' + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+        # We want to use asciidoc from the build platform to build the documentation.
+        substituteInPlace Makefile.in \
+          --replace "python3 -m asciidoc.a2x" "${buildPackages.asciidoc}/bin/a2x"
+      '';
 
   postBuild = ''
     make manpages

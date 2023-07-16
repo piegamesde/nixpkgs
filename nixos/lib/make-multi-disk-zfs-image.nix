@@ -83,9 +83,7 @@
   includeChannel ? true
 }:
 let
-  formatOpt = if
-    format == "qcow2-compressed"
-  then
+  formatOpt = if format == "qcow2-compressed" then
     "qcow2"
   else
     format;
@@ -234,9 +232,7 @@ let
   ''
   ;
 
-  mergedConfig = if
-    configFile == null
-  then
+  mergedConfig = if configFile == null then
     fileSystemsCfgFile
   else
     pkgs.runCommand "configuration.nix" {
@@ -277,15 +273,16 @@ let
     '';
 
     postVM = ''
-      ${if
-        formatOpt == "raw"
-      then ''
-        mv $bootDiskImage $out/${bootFilename}
-        mv $rootDiskImage $out/${rootFilename}
-      '' else ''
-        ${pkgs.qemu}/bin/qemu-img convert -f raw -O ${formatOpt} ${compress} $bootDiskImage $out/${bootFilename}
-        ${pkgs.qemu}/bin/qemu-img convert -f raw -O ${formatOpt} ${compress} $rootDiskImage $out/${rootFilename}
-      ''}
+      ${if formatOpt == "raw" then
+        ''
+          mv $bootDiskImage $out/${bootFilename}
+          mv $rootDiskImage $out/${rootFilename}
+        ''
+      else
+        ''
+          ${pkgs.qemu}/bin/qemu-img convert -f raw -O ${formatOpt} ${compress} $bootDiskImage $out/${bootFilename}
+          ${pkgs.qemu}/bin/qemu-img convert -f raw -O ${formatOpt} ${compress} $rootDiskImage $out/${rootFilename}
+        ''}
       bootDiskImage=$out/${bootFilename}
       rootDiskImage=$out/${rootFilename}
       set -x

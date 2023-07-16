@@ -12,9 +12,7 @@ let
 
   cfg = config.services.gvpe;
 
-  finalConfig = if
-    cfg.configFile != null
-  then
+  finalConfig = if cfg.configFile != null then
     cfg.configFile
   else if cfg.configText != null then
     pkgs.writeTextFile {
@@ -25,9 +23,7 @@ let
     throw
     "You must either specify contents of the config file or the config file itself for GVPE";
 
-  ifupScript = if
-    cfg.ipAddress == null || cfg.subnet == null
-  then
+  ifupScript = if cfg.ipAddress == null || cfg.subnet == null then
     throw "Specify IP address and subnet (with mask) for GVPE"
   else if cfg.nodename == null then
     throw "You must set node name for GVPE"

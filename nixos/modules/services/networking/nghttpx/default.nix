@@ -9,9 +9,7 @@ let
 
   # renderHost :: Either ServerOptions Path -> String
   renderHost = server:
-    if
-      builtins.isString server
-    then
+    if builtins.isString server then
       "unix://${server}"
     else
       "${server.host},${builtins.toString server.port}";
@@ -35,9 +33,7 @@ let
       # omitted and the params may be given as a mixed collection of
       # 'key=val' pairs or atoms (e.g: 'proto=h2;tls')
       params = lib.mapAttrsToList (n: v:
-        if
-          builtins.isBool v
-        then
+        if builtins.isBool v then
           n
         else if builtins.isString v then
           "${n}=${v}"
@@ -60,9 +56,7 @@ let
     let
       host = renderHost frontend.server;
       params0 = lib.mapAttrsToList (n: v:
-        if
-          builtins.isBool v
-        then
+        if builtins.isBool v then
           n
         else
           v) (filterParams frontend.params);

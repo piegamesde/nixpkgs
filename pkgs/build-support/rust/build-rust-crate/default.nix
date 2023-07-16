@@ -33,24 +33,18 @@ let
             (!(choice ? version) || choice.version == dep.version or "")) {
               rename = extern;
             } choices;
-        name = if
-          lib.hasAttr dep.crateName crateRenames
-        then
+        name = if lib.hasAttr dep.crateName crateRenames then
           let
             choices = crateRenames.${dep.crateName};
           in
-          normalizeName (if
-            builtins.isList choices
-          then
+          normalizeName (if builtins.isList choices then
             (findMatchOrUseExtern choices).rename
           else
             choices)
         else
           extern;
         opts = lib.optionalString (dep.stdlib or false) "noprelude:";
-        filename = if
-          lib.any (x: x == "lib" || x == "rlib") dep.crateType
-        then
+        filename = if lib.any (x: x == "lib" || x == "rlib") dep.crateType then
           "${dep.metadata}.rlib"
         else
           "${dep.metadata}${stdenv.hostPlatform.extensions.sharedLibrary}";
@@ -343,9 +337,7 @@ lib.makeOverridable (
       (builtins.filter (f: !(lib.hasInfix "/" f || lib.hasPrefix "dep:" f))
         (crate.features ++ features));
 
-    libName = if
-      crate ? libName
-    then
+    libName = if crate ? libName then
       crate.libName
     else
       crate.crateName;
@@ -370,24 +362,21 @@ lib.makeOverridable (
     workspace_member = crate.workspace_member or ".";
     crateVersion = crate.version;
     crateDescription = crate.description or "";
-    crateAuthors = if
-      crate ? authors && lib.isList crate.authors
-    then
+    crateAuthors = if crate ? authors && lib.isList crate.authors then
       crate.authors
     else
       [ ];
     crateHomepage = crate.homepage or "";
-    crateType = if
-      lib.attrByPath [ "procMacro" ] false crate
-    then [ "proc-macro" ] else if lib.attrByPath [ "plugin" ] false
-    crate then [ "dylib" ] else
+    crateType = if lib.attrByPath [ "procMacro" ] false crate then
+      [ "proc-macro" ]
+    else if lib.attrByPath [ "plugin" ] false crate then
+      [ "dylib" ]
+    else
       (crate.type or [ "lib" ]);
     colors = lib.attrByPath [ "colors" ] "always" crate;
     extraLinkFlags = lib.concatStringsSep " " (crate.extraLinkFlags or [ ]);
     edition = crate.edition or null;
-    codegenUnits = if
-      crate ? codegenUnits
-    then
+    codegenUnits = if crate ? codegenUnits then
       crate.codegenUnits
     else
       1;
@@ -447,13 +436,17 @@ lib.makeOverridable (
 
     # depending on the test setting we are either producing something with bins
     # and libs or just test binaries
-    outputs = if
-      buildTests
-    then [ "out" ] else [
-      "out"
-      "lib"
-    ];
-    outputDev = if buildTests then [ "out" ] else [ "lib" ];
+    outputs = if buildTests then
+      [ "out" ]
+    else
+      [
+        "out"
+        "lib"
+      ];
+    outputDev = if buildTests then
+      [ "out" ]
+    else
+      [ "lib" ];
 
     meta = { mainProgram = crateName; };
   } // extraDerivationAttrs)

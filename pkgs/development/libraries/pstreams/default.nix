@@ -12,9 +12,7 @@ stdenv.mkDerivation rec {
     url = "https://git.code.sf.net/p/pstreams/code";
     rev = let
       dot2Underscore = lib.strings.stringAsChars (c:
-        if
-          c == "."
-        then
+        if c == "." then
           "_"
         else
           c);

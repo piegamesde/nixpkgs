@@ -33,9 +33,7 @@ stdenv.mkDerivation rec {
   # We need to force the autodetection because detection doesn't
   # work in pure build environments.
   configureFlags = [ "--with-pcap=${
-      if
-        stdenv.isLinux
-      then
+      if stdenv.isLinux then
         "linux"
       else
         "bpf"

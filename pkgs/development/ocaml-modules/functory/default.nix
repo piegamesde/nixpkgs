@@ -9,15 +9,16 @@
 assert lib.versionAtLeast (lib.getVersion ocaml) "3.11";
 
 let
-  param = if
-    lib.versionAtLeast ocaml.version "4.02"
-  then {
-    version = "0.6";
-    sha256 = "18wpyxblz9jh5bfp0hpffnd0q8cq1b0dqp0f36vhqydfknlnpx8y";
-  } else {
-    version = "0.5";
-    sha256 = "1j17rhifdjv1z262dma148ywg34x0zjn8vczdrnkwajsm4qg1hw3";
-  };
+  param = if lib.versionAtLeast ocaml.version "4.02" then
+    {
+      version = "0.6";
+      sha256 = "18wpyxblz9jh5bfp0hpffnd0q8cq1b0dqp0f36vhqydfknlnpx8y";
+    }
+  else
+    {
+      version = "0.5";
+      sha256 = "1j17rhifdjv1z262dma148ywg34x0zjn8vczdrnkwajsm4qg1hw3";
+    };
 
 in
 stdenv.mkDerivation {

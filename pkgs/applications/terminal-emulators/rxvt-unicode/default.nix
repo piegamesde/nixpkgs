@@ -82,24 +82,25 @@ stdenv.mkDerivation {
     "terminfo"
   ];
 
-  patches = (if
-    emojiSupport
-  then [
-    # the required patches to libXft are in nixpkgs by default, see
-    # ../../../servers/x11/xorg/overrides.nix
-    (fetchPatchFromAUR {
-      name = "enable-wide-glyphs.patch";
-      package = "rxvt-unicode-truecolor-wide-glyphs";
-      rev = "69701a09c2c206233952b84bc966407f6774f1dc";
-      sha256 = "0jfcj0ahky4dxdfrhqvh1v83mblhf5nak56dk1vq3bhyifdg7ffq";
-    })
-    (fetchPatchFromAUR {
-      name = "improve-font-rendering.patch";
-      package = "rxvt-unicode-truecolor-wide-glyphs";
-      rev = "69701a09c2c206233952b84bc966407f6774f1dc";
-      sha256 = "1jj5ai2182nq912279adihi4zph1w4dvbdqa1pwacy4na6y0fz9y";
-    })
-  ] else [ ./patches/9.06-font-width.patch ])
+  patches = (if emojiSupport then
+    [
+      # the required patches to libXft are in nixpkgs by default, see
+      # ../../../servers/x11/xorg/overrides.nix
+      (fetchPatchFromAUR {
+        name = "enable-wide-glyphs.patch";
+        package = "rxvt-unicode-truecolor-wide-glyphs";
+        rev = "69701a09c2c206233952b84bc966407f6774f1dc";
+        sha256 = "0jfcj0ahky4dxdfrhqvh1v83mblhf5nak56dk1vq3bhyifdg7ffq";
+      })
+      (fetchPatchFromAUR {
+        name = "improve-font-rendering.patch";
+        package = "rxvt-unicode-truecolor-wide-glyphs";
+        rev = "69701a09c2c206233952b84bc966407f6774f1dc";
+        sha256 = "1jj5ai2182nq912279adihi4zph1w4dvbdqa1pwacy4na6y0fz9y";
+      })
+    ]
+  else
+    [ ./patches/9.06-font-width.patch ])
     ++ [ ./patches/256-color-resources.patch ]
     ++ optional stdenv.isDarwin ./patches/makefile-phony.patch;
 

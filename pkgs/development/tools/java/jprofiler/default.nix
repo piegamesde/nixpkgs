@@ -29,9 +29,7 @@ let
     maintainers = with maintainers; [ catap ];
   };
 
-  src = if
-    stdenv.isLinux
-  then
+  src = if stdenv.isLinux then
     fetchurl {
       url =
         "https://download-gcdn.ej-technologies.com/jprofiler/jprofiler_linux_${
@@ -119,9 +117,7 @@ let
 
     meta = meta // { platforms = lib.platforms.darwin; };
   };
-in if
-  stdenv.isDarwin
-then
+in if stdenv.isDarwin then
   darwin
 else
   linux

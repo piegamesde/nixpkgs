@@ -67,14 +67,15 @@ stdenv.mkDerivation rec {
     make -C syd check
   '';
 
-  postInstall = if
-    installTests
-  then ''
-    moveToOutput bin/syd-test $installedTests
-  '' else ''
-    # Tests are installed despite --disable-installed-tests
-    rm -r $out/bin/syd-test $out/libexec
-  '';
+  postInstall = if installTests then
+    ''
+      moveToOutput bin/syd-test $installedTests
+    ''
+  else
+    ''
+      # Tests are installed despite --disable-installed-tests
+      rm -r $out/bin/syd-test $out/libexec
+    '';
 
   meta = with lib; {
     homepage = "https://sydbox.exherbo.org/";

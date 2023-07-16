@@ -24,23 +24,17 @@ in rec {
     }: {
       inherit gemdir;
 
-      gemfile = if
-        gemfile == null
-      then
+      gemfile = if gemfile == null then
         assert gemdir != null; gemdir + "/Gemfile"
       else
         gemfile;
 
-      lockfile = if
-        lockfile == null
-      then
+      lockfile = if lockfile == null then
         assert gemdir != null; gemdir + "/Gemfile.lock"
       else
         lockfile;
 
-      gemset = if
-        gemset == null
-      then
+      gemset = if gemset == null then
         assert gemdir != null; gemdir + "/gemset.nix"
       else
         gemset;
@@ -84,9 +78,7 @@ in rec {
     || (intersectLists (groups ++ [ "default" ]) attrs.groups) != [ ];
 
   applyGemConfigs = attrs:
-    (if
-      gemConfig ? ${attrs.gemName}
-    then
+    (if gemConfig ? ${attrs.gemName} then
       attrs // gemConfig.${attrs.gemName} attrs
     else
       attrs);

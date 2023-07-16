@@ -62,9 +62,7 @@ in {
             kernel = filterAttrs (n: v: (any (x: x == n) allowedKernelKeys))
               unfilteredKernel;
             config = builtins.toJSON (kernel // {
-              display_name = if
-                (kernel.displayName != "")
-              then
+              display_name = if (kernel.displayName != "") then
                 kernel.displayName
               else
                 kernelName;

@@ -40,9 +40,7 @@ let
   '')
   ;
 
-  xmonad = if
-    (cfg.config != null)
-  then
+  xmonad = if (cfg.config != null) then
     xmonad-config
   else
     xmonad-vanilla;

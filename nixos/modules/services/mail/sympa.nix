@@ -48,12 +48,8 @@ let
     } // commonServiceConfig;
 
   configVal = value:
-    if
-      isBool value
-    then
-      if
-        value
-      then
+    if isBool value then
+      if value then
         "on"
       else
         "off"
@@ -230,9 +226,7 @@ in {
 
       name = mkOption {
         type = str;
-        default = if
-          cfg.database.type == "SQLite"
-        then
+        default = if cfg.database.type == "SQLite" then
           "${dataDir}/sympa.sqlite"
         else
           "sympa";
@@ -386,9 +380,7 @@ in {
   config = mkIf cfg.enable {
 
     services.sympa.settings = (mapAttrs (_: v: mkDefault v) {
-      domain = if
-        cfg.mainDomain != null
-      then
+      domain = if cfg.mainDomain != null then
         cfg.mainDomain
       else
         head fqdns;

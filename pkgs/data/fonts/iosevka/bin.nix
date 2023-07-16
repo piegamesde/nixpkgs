@@ -8,9 +8,7 @@
 }:
 
 let
-  name = if
-    lib.hasPrefix "sgr" variant
-  then
+  name = if lib.hasPrefix "sgr" variant then
     variant
   else
     "iosevka" + lib.optionalString (variant != "") "-" + variant;

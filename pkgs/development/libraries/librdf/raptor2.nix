@@ -27,9 +27,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     # Build defaults to static libraries.
     "-DBUILD_SHARED_LIBS=${
-      if
-        static
-      then
+      if static then
         "OFF"
       else
         "ON"

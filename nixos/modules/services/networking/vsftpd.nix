@@ -26,9 +26,7 @@ let
 
   yesNoOption = nixosName: vsftpdName: default: description: {
     cfgText = "${vsftpdName}=${
-        if
-          getAttr nixosName cfg
-        then
+        if getAttr nixosName cfg then
           "YES"
         else
           "NO"
@@ -303,9 +301,7 @@ in {
         group = "vsftpd";
         isSystemUser = true;
         description = "VSFTPD user";
-        home = if
-          cfg.localRoot != null
-        then
+        home = if cfg.localRoot != null then
           cfg.localRoot # <= Necessary for virtual users.
         else
           "/homeless-shelter";
@@ -325,7 +321,10 @@ in {
 
     # If you really have to access root via FTP use mkOverride or userlistDeny
     # = false and whitelist root
-    services.vsftpd.userlist = if cfg.userlistDeny then [ "root" ] else [ ];
+    services.vsftpd.userlist = if cfg.userlistDeny then
+      [ "root" ]
+    else
+      [ ];
 
     systemd = {
       tmpfiles.rules = optional cfg.anonymousUser

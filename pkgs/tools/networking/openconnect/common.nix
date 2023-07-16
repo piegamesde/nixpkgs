@@ -44,9 +44,7 @@ stdenv.mkDerivation rec {
     libxml2
     stoken
     zlib
-    (if
-      useOpenSSL
-    then
+    (if useOpenSSL then
       openssl
     else
       gnutls)

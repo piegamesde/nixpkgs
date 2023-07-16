@@ -38,20 +38,21 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = lib.optionals (!stdenv.isDarwin) [ jre ];
 
-  installPhase = if
-    stdenv.isDarwin
-  then ''
-    mkdir -p $out/Applications
-    ${unzip}/bin/unzip ${srcs.macosx} 'JOSM.app/*' -d $out/Applications
-  '' else ''
-    install -Dm644 ${srcs.jar} $out/share/josm/josm.jar
-    cp -R ${srcs.pkg}/usr/share $out
+  installPhase = if stdenv.isDarwin then
+    ''
+      mkdir -p $out/Applications
+      ${unzip}/bin/unzip ${srcs.macosx} 'JOSM.app/*' -d $out/Applications
+    ''
+  else
+    ''
+      install -Dm644 ${srcs.jar} $out/share/josm/josm.jar
+      cp -R ${srcs.pkg}/usr/share $out
 
-    # Add libXxf86vm to path because it is needed by at least Kendzi3D plugin
-    makeWrapper ${jre}/bin/java $out/bin/josm \
-      --add-flags "${extraJavaOpts} -jar $out/share/josm/josm.jar" \
-      --prefix LD_LIBRARY_PATH ":" '${libXxf86vm}/lib'
-  '';
+      # Add libXxf86vm to path because it is needed by at least Kendzi3D plugin
+      makeWrapper ${jre}/bin/java $out/bin/josm \
+        --add-flags "${extraJavaOpts} -jar $out/share/josm/josm.jar" \
+        --prefix LD_LIBRARY_PATH ":" '${libXxf86vm}/lib'
+    '';
 
   meta = with lib; {
     description = "An extensible editor for OpenStreetMap";

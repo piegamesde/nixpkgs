@@ -245,9 +245,7 @@ let
       || ((values.privateKey != null) != (values.privateKeyFile != null)))
       "Only one of privateKey, configFile or privateKeyFile may be set";
     let
-      preUpFile = if
-        values.preUp != ""
-      then
+      preUpFile = if values.preUp != "" then
         writeScriptFile "preUp.sh" values.preUp
       else
         null;
@@ -257,22 +255,16 @@ let
           optional (peer.presharedKeyFile != null)
           "wg set ${name} peer ${peer.publicKey} preshared-key <(cat ${peer.presharedKeyFile})")
           values.peers) ++ optional (values.postUp != "") values.postUp;
-      postUpFile = if
-        postUp != [ ]
-      then
+      postUpFile = if postUp != [ ] then
         writeScriptFile "postUp.sh"
         (concatMapStringsSep "\n" (line: line) postUp)
       else
         null;
-      preDownFile = if
-        values.preDown != ""
-      then
+      preDownFile = if values.preDown != "" then
         writeScriptFile "preDown.sh" values.preDown
       else
         null;
-      postDownFile = if
-        values.postDown != ""
-      then
+      postDownFile = if values.postDown != "" then
         writeScriptFile "postDown.sh" values.postDown
       else
         null;

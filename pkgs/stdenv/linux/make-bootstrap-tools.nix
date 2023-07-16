@@ -72,9 +72,7 @@ in with pkgs; rec {
       set -x
       mkdir -p $out/bin $out/lib $out/libexec
 
-    '' + (if
-      (stdenv.hostPlatform.libc == "glibc")
-    then
+    '' + (if (stdenv.hostPlatform.libc == "glibc") then
       ''
         # Copy what we need of Glibc.
         cp -d ${libc.out}/lib/ld*.so* $out/lib
@@ -112,17 +110,19 @@ in with pkgs; rec {
         find $out/include -name ..install.cmd -exec rm {} \;
         mv $out/include $out/include-glibc
       ''
-    else if (stdenv.hostPlatform.libc == "musl") then ''
-      # Copy what we need from musl
-      cp ${libc.out}/lib/* $out/lib
-      cp -rL ${libc.dev}/include $out
-      chmod -R u+w "$out"
+    else if (stdenv.hostPlatform.libc == "musl") then
+      ''
+        # Copy what we need from musl
+        cp ${libc.out}/lib/* $out/lib
+        cp -rL ${libc.dev}/include $out
+        chmod -R u+w "$out"
 
-      rm -rf $out/include/mtd $out/include/rdma $out/include/sound $out/include/video
-      find $out/include -name .install -exec rm {} \;
-      find $out/include -name ..install.cmd -exec rm {} \;
-      mv $out/include $out/include-libc
-    '' else
+        rm -rf $out/include/mtd $out/include/rdma $out/include/sound $out/include/video
+        find $out/include -name .install -exec rm {} \;
+        find $out/include -name ..install.cmd -exec rm {} \;
+        mv $out/include $out/include-libc
+      ''
+    else
       throw "unsupported libc for bootstrap tools") + ''
         # Copy coreutils, bash, etc.
         cp -d ${coreutilsMinimal.out}/bin/* $out/bin
@@ -254,9 +254,7 @@ in with pkgs; rec {
       outputHashAlgo = "sha256";
       outputHashMode = "recursive";
     };
-  in if
-    (stdenv.hostPlatform.libc == "glibc")
-  then
+  in if (stdenv.hostPlatform.libc == "glibc") then
     import ./bootstrap-tools {
       inherit (stdenv.buildPlatform) system; # Used to determine where to build
       inherit bootstrapFiles extraAttrs;

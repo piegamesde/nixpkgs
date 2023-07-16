@@ -19,16 +19,14 @@ with pkgs.lib;
 
 let
   discoverTests = val:
-    if
-      isAttrs val
-    then
-      if
-        hasAttr "test" val
-      then
+    if isAttrs val then
+      if hasAttr "test" val then
         callTest val
       else
         mapAttrs (n: s: discoverTests s) val
-    else if isFunction val then
+    else if
+      isFunction val
+    then
     # Tests based on make-test-python.nix will return the second lambda
     # in that file, which are then forwarded to the test definition
     # following the `import make-test-python.nix` expression
@@ -39,9 +37,7 @@ let
   handleTest = path: args:
     discoverTests (import path ({ inherit system pkgs; } // args));
   handleTestOn = systems: path: args:
-    if
-      elem system systems
-    then
+    if elem system systems then
       handleTest path args
     else
       { };
@@ -59,9 +55,7 @@ let
         imports = [ arg ];
       }).config.result;
     findTests = tree:
-      if
-        tree ? recurseForDerivations && tree.recurseForDerivations
-      then
+      if tree ? recurseForDerivations && tree.recurseForDerivations then
         mapAttrs (k: findTests)
         (builtins.removeAttrs tree [ "recurseForDerivations" ])
       else
@@ -74,9 +68,7 @@ let
       findTests r
     ;
     runTestOn = systems: arg:
-      if
-        elem system systems
-      then
+      if elem system systems then
         runTest arg
       else
         { };

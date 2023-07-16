@@ -25,9 +25,7 @@ let
 
   allowNonSource = let
     envVar = builtins.getEnv "NIXPKGS_ALLOW_NONSOURCE";
-  in if
-    envVar != ""
-  then
+  in if envVar != "" then
     envVar != "0"
   else
     config.allowNonSource or true;
@@ -35,9 +33,7 @@ let
   allowlist = config.allowlistedLicenses or config.whitelistedLicenses or [ ];
   blocklist = config.blocklistedLicenses or config.blacklistedLicenses or [ ];
 
-  areLicenseListsValid = if
-    lib.mutuallyExclusive allowlist blocklist
-  then
+  areLicenseListsValid = if lib.mutuallyExclusive allowlist blocklist then
     true
   else
     throw
@@ -252,9 +248,7 @@ let
       errormsg ? ""
     }:
     let
-      msg = if
-        inHydra
-      then
+      msg = if inHydra then
         "Failed to evaluate ${getName attrs}: «${reason}»: ${errormsg}"
       else
         ''
@@ -264,9 +258,7 @@ let
 
         '' + (builtins.getAttr reason remediation) attrs;
 
-      handler = if
-        config ? handleEvalIssue
-      then
+      handler = if config ? handleEvalIssue then
         config.handleEvalIssue reason
       else
         throw;
@@ -284,9 +276,7 @@ let
     }:
     let
       remediationMsg = (builtins.getAttr reason remediation) attrs;
-      msg = if
-        inHydra
-      then
+      msg = if inHydra then
         "Warning while evaluating ${getName attrs}: «${reason}»: ${errormsg}"
       else
         "Package ${getName attrs} in ${
@@ -296,9 +286,7 @@ let
 
           ${remediationMsg}'');
       isEnabled = lib.findFirst (x: x == reason) null showWarnings;
-    in if
-      isEnabled != null
-    then
+    in if isEnabled != null then
       builtins.trace msg true
     else
       true;
@@ -378,23 +366,21 @@ let
   };
 
   checkMetaAttr = k: v:
-    if
-      metaTypes ? ${k}
-    then
-      if
-        typeCheck metaTypes.${k} v
-      then
+    if metaTypes ? ${k} then
+      if typeCheck metaTypes.${k} v then
         null
-      else ''
-        key 'meta.${k}' has invalid value; expected ${
-          metaTypes.${k}.description
-        }, got
-            ${lib.generators.toPretty { indent = "    "; } v}''
-    else ''
-      key 'meta.${k}' is unrecognized; expected one of: 
-        [${
-          lib.concatMapStringsSep ", " (x: "'${x}'") (lib.attrNames metaTypes)
-        }]'';
+      else
+        ''
+          key 'meta.${k}' has invalid value; expected ${
+            metaTypes.${k}.description
+          }, got
+              ${lib.generators.toPretty { indent = "    "; } v}''
+    else
+      ''
+        key 'meta.${k}' is unrecognized; expected one of: 
+          [${
+            lib.concatMapStringsSep ", " (x: "'${x}'") (lib.attrNames metaTypes)
+          }]'';
   checkMeta = meta:
     lib.optionals config.checkMeta
     (lib.remove null (lib.mapAttrsToList checkMetaAttr meta));
@@ -406,9 +392,7 @@ let
       missingOutputs =
         builtins.filter (output: !builtins.elem output actualOutputs)
         expectedOutputs;
-    in if
-      config.checkMeta
-    then
+    in if config.checkMeta then
       builtins.length missingOutputs > 0
     else
       false;
@@ -426,22 +410,22 @@ let
     # Note that this is not a full type check and functions below still need to by careful about their inputs!
     let
       res = checkMeta (attrs.meta or { });
-    in if
-      res != [ ]
-    then {
-      valid = "no";
-      reason = "unknown-meta";
-      errormsg = ''
-        has an invalid meta attrset:${
-          lib.concatMapStrings (x: "\n  - " + x) res
-        }
-      '';
-      unfree = false;
-      nonSource = false;
-      broken = false;
-      unsupported = false;
-      insecure = false;
-    } else
+    in if res != [ ] then
+      {
+        valid = "no";
+        reason = "unknown-meta";
+        errormsg = ''
+          has an invalid meta attrset:${
+            lib.concatMapStrings (x: "\n  - " + x) res
+          }
+        '';
+        unfree = false;
+        nonSource = false;
+        broken = false;
+        unsupported = false;
+        insecure = false;
+      }
+    else
       {
         unfree = hasUnfreeLicense attrs;
         nonSource = hasNonSourceProvenance attrs;
@@ -450,37 +434,45 @@ let
         insecure = isMarkedInsecure attrs;
       } // (
         # --- Put checks that cannot be ignored here ---
-        if
-          checkOutputsToInstall attrs
-        then {
-          valid = "no";
-          reason = "broken-outputs";
-          errormsg = "has invalid meta.outputsToInstall";
-        }
+        if checkOutputsToInstall attrs then
+          {
+            valid = "no";
+            reason = "broken-outputs";
+            errormsg = "has invalid meta.outputsToInstall";
+          }
 
-        # --- Put checks that can be ignored here ---
-        else if hasDeniedUnfreeLicense attrs
-        && !(hasAllowlistedLicense attrs) then {
-          valid = "no";
-          reason = "unfree";
-          errormsg =
-            "has an unfree license (‘${showLicense attrs.meta.license}’)";
-        } else if hasBlocklistedLicense attrs then {
-          valid = "no";
-          reason = "blocklisted";
-          errormsg =
-            "has a blocklisted license (‘${showLicense attrs.meta.license}’)";
-        } else if hasDeniedNonSourceProvenance attrs then {
-          valid = "no";
-          reason = "non-source";
-          errormsg = "contains elements not built from source (‘${
-              showSourceType attrs.meta.sourceProvenance
-            }’)";
-        } else if !allowBroken && attrs.meta.broken or false then {
-          valid = "no";
-          reason = "broken";
-          errormsg = "is marked as broken";
-        } else if !allowUnsupportedSystem && hasUnsupportedPlatform attrs then
+          # --- Put checks that can be ignored here ---
+        else if
+          hasDeniedUnfreeLicense attrs && !(hasAllowlistedLicense attrs)
+        then
+          {
+            valid = "no";
+            reason = "unfree";
+            errormsg =
+              "has an unfree license (‘${showLicense attrs.meta.license}’)";
+          }
+        else if hasBlocklistedLicense attrs then
+          {
+            valid = "no";
+            reason = "blocklisted";
+            errormsg =
+              "has a blocklisted license (‘${showLicense attrs.meta.license}’)";
+          }
+        else if hasDeniedNonSourceProvenance attrs then
+          {
+            valid = "no";
+            reason = "non-source";
+            errormsg = "contains elements not built from source (‘${
+                showSourceType attrs.meta.sourceProvenance
+              }’)";
+          }
+        else if !allowBroken && attrs.meta.broken or false then
+          {
+            valid = "no";
+            reason = "broken";
+            errormsg = "is marked as broken";
+          }
+        else if !allowUnsupportedSystem && hasUnsupportedPlatform attrs then
           let
             toPretty = lib.generators.toPretty {
               allowPrettyValues = true;
@@ -500,23 +492,24 @@ let
                 }
             '';
           }
-        else if !(hasAllowedInsecure attrs) then {
-          valid = "no";
-          reason = "insecure";
-          errormsg = "is marked as insecure";
-        }
+        else if !(hasAllowedInsecure attrs) then
+          {
+            valid = "no";
+            reason = "insecure";
+            errormsg = "is marked as insecure";
+          }
 
-        # --- warnings ---
-        # Please also update the type in /pkgs/top-level/config.nix alongside this.
-        else if hasNoMaintainers attrs then {
-          valid = "warn";
-          reason = "maintainerless";
-          errormsg = "has no maintainers";
-        }
-        # -----
-        else {
-          valid = "yes";
-        });
+          # --- warnings ---
+          # Please also update the type in /pkgs/top-level/config.nix alongside this.
+        else if hasNoMaintainers attrs then
+          {
+            valid = "warn";
+            reason = "maintainerless";
+            errormsg = "has no maintainers";
+          }
+          # -----
+        else
+          { valid = "yes"; });
 
   # The meta attribute is passed in the resulting attribute set,
   # but it's not part of the actual derivation, i.e., it's not
@@ -566,12 +559,11 @@ let
       # Expose the result of the checks for everyone to see.
       inherit (validity) unfree broken unsupported insecure;
 
-      available = validity.valid != "no" && (if
-        config.checkMetaRecursively or false
-      then
-        lib.all (d: d.meta.available or true) references
-      else
-        true);
+      available = validity.valid != "no"
+        && (if config.checkMetaRecursively or false then
+          lib.all (d: d.meta.available or true) references
+        else
+          true);
     }
   ;
 

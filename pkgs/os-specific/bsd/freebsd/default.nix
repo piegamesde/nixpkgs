@@ -108,9 +108,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
 
     mkDerivation = lib.makeOverridable (attrs:
       let
-        stdenv' = if
-          attrs.noCC or false
-        then
+        stdenv' = if attrs.noCC or false then
           stdenvNoCC
         else
           stdenv;
@@ -391,9 +389,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         makeMinimal
         mandoc
         groff
-        (if
-          stdenv.hostPlatform == stdenv.buildPlatform
-        then
+        (if stdenv.hostPlatform == stdenv.buildPlatform then
           boot-install
         else
           install)
@@ -427,9 +423,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         makeMinimal
         mandoc
         groff
-        (if
-          stdenv.hostPlatform == stdenv.buildPlatform
-        then
+        (if stdenv.hostPlatform == stdenv.buildPlatform then
           boot-install
         else
           install)

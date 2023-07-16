@@ -44,8 +44,10 @@ stdenv.mkDerivation rec {
     libxslt
     libiconv
     docbook_xml_dtd_412
-  ] ++ lib.optional stdenv.isDarwin Carbon
-    ++ (if withApplePCSC then [ PCSC ] else [ pcsclite ]);
+  ] ++ lib.optional stdenv.isDarwin Carbon ++ (if withApplePCSC then
+    [ PCSC ]
+  else
+    [ pcsclite ]);
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
@@ -61,9 +63,7 @@ stdenv.mkDerivation rec {
     "--sysconfdir=/etc"
     "--with-xsl-stylesheetsdir=${docbook_xsl}/xml/xsl/docbook"
     "--with-pcsc-provider=${
-      if
-        withApplePCSC
-      then
+      if withApplePCSC then
         "${PCSC}/Library/Frameworks/PCSC.framework/PCSC"
       else
         "${

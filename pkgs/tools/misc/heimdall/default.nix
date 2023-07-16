@@ -29,9 +29,7 @@ mkDerivation rec {
 
   cmakeFlags = [
     "-DDISABLE_FRONTEND=${
-      if
-        enableGUI
-      then
+      if enableGUI then
         "OFF"
       else
         "ON"

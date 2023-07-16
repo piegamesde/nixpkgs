@@ -53,9 +53,7 @@ let
   wrapper = writeShellScriptBin pname ''
     export WINEPREFIX="''${EXACT_AUDIO_COPY_HOME:-"''${XDG_DATA_HOME:-"''${HOME}/.local/share"}/exact-audio-copy"}/wine"
     export WINEARCH=${
-      if
-        use64
-      then
+      if use64 then
         "win64"
       else
         "win32"

@@ -40,9 +40,7 @@ assert libX11 != null
 let
   withX = libX11 != null && !aquaterm && !stdenv.isDarwin;
 in
-(if
-  withQt
-then
+(if withQt then
   mkDerivation
 else
   stdenv.mkDerivation) rec {
@@ -87,21 +85,15 @@ else
     '';
 
     configureFlags = [
-      (if
-        withX
-      then
+      (if withX then
         "--with-x"
       else
         "--without-x")
-      (if
-        withQt
-      then
+      (if withQt then
         "--with-qt=qt5"
       else
         "--without-qt")
-      (if
-        aquaterm
-      then
+      (if aquaterm then
         "--with-aquaterm"
       else
         "--without-aquaterm")

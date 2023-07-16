@@ -104,9 +104,7 @@ stdenv.mkDerivation rec {
 
   mesonFlags = (lib.mapAttrsToList (option: enable:
     "-D${option}=${
-      if
-        enable
-      then
+      if enable then
         "enabled"
       else
         "disabled"

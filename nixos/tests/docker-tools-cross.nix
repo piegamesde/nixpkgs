@@ -8,9 +8,7 @@ import ./make-test-python.nix ({
   }:
   let
 
-    remoteSystem = if
-      pkgs.stdenv.hostPlatform.system == "aarch64-linux"
-    then
+    remoteSystem = if pkgs.stdenv.hostPlatform.system == "aarch64-linux" then
       "x86_64-linux"
     else
       "aarch64-linux";

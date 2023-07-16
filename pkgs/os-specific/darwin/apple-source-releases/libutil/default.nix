@@ -10,9 +10,7 @@
   headersOnly ? false
 }:
 
-appleDerivation' (if
-  headersOnly
-then
+appleDerivation' (if headersOnly then
   stdenvNoCC
 else
   stdenv) {

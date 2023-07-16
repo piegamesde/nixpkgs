@@ -75,9 +75,7 @@ openjdk17.overrideAttrs (oldAttrs: rec {
 
     patchShebangs .
     ./jb/project/tools/linux/scripts/mkimages_x64.sh ${build} ${
-      if
-        debugBuild
-      then
+      if debugBuild then
         "fd"
       else
         "jcef"
@@ -87,9 +85,7 @@ openjdk17.overrideAttrs (oldAttrs: rec {
   '';
 
   installPhase = let
-    buildType = if
-      debugBuild
-    then
+    buildType = if debugBuild then
       "fastdebug"
     else
       "release";

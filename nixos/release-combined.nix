@@ -23,12 +23,8 @@ let
   pkgs = import ./.. { };
 
   removeMaintainers = set:
-    if
-      builtins.isAttrs set
-    then
-      if
-        (set.type or "") == "derivation"
-      then
+    if builtins.isAttrs set then
+      if (set.type or "") == "derivation" then
         set // {
           meta = builtins.removeAttrs (set.meta or { }) [ "maintainers" ];
         }

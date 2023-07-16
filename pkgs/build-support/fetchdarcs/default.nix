@@ -13,9 +13,7 @@
   name ? "fetchdarcs"
 }:
 
-if
-  md5 != ""
-then
+if md5 != "" then
   throw "fetchdarcs does not support md5 anymore, please use sha256"
 else
   stdenvNoCC.mkDerivation {

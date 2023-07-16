@@ -66,9 +66,7 @@ stdenv.mkDerivation {
   makeFlags = [
     "PREFIX=$(out)"
     "LANGUAGES=all"
-    (if
-      useXdgDir
-    then
+    (if useXdgDir then
       "USE_XDG_DIR=1"
     else
       "USE_HOME_DIR=1")
@@ -81,9 +79,7 @@ stdenv.mkDerivation {
     "OSX_MIN=${stdenv.targetPlatform.darwinMinVersion}"
   ];
 
-  postInstall = optionalString tiles (if
-    !stdenv.isDarwin
-  then
+  postInstall = optionalString tiles (if !stdenv.isDarwin then
     patchDesktopFile
   else
     installMacOSAppLauncher);

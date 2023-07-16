@@ -25,9 +25,7 @@ stdenv.mkDerivation rec {
 
   installPhase = let
     # The application ships with config directories for linux and mac
-    configDir = if
-      stdenv.isDarwin
-    then
+    configDir = if stdenv.isDarwin then
       "config_mac"
     else
       "config_linux";

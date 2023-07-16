@@ -133,9 +133,7 @@ let
     '';
   };
 
-  attrs = if
-    buildRootOnly
-  then
+  attrs = if buildRootOnly then
     buildRootOnlyAttrs
   else
     realAttrs;

@@ -11,9 +11,7 @@ with lib;
 let
   cfg = config.services.xserver.synaptics;
   opt = options.services.xserver.synaptics;
-  tapConfig = if
-    cfg.tapButtons
-  then
+  tapConfig = if cfg.tapButtons then
     enabledTapConfig
   else
     disabledTapConfig;
@@ -241,33 +239,25 @@ in {
         Option "ClickFinger2" "${builtins.elemAt cfg.buttonsMap 1}"
         Option "ClickFinger3" "${builtins.elemAt cfg.buttonsMap 2}"
         Option "VertTwoFingerScroll" "${
-          if
-            cfg.vertTwoFingerScroll
-          then
+          if cfg.vertTwoFingerScroll then
             "1"
           else
             "0"
         }"
         Option "HorizTwoFingerScroll" "${
-          if
-            cfg.horizTwoFingerScroll
-          then
+          if cfg.horizTwoFingerScroll then
             "1"
           else
             "0"
         }"
         Option "VertEdgeScroll" "${
-          if
-            cfg.vertEdgeScroll
-          then
+          if cfg.vertEdgeScroll then
             "1"
           else
             "0"
         }"
         Option "HorizEdgeScroll" "${
-          if
-            cfg.horizEdgeScroll
-          then
+          if cfg.horizEdgeScroll then
             "1"
           else
             "0"
@@ -286,9 +276,7 @@ in {
           ''Option "VertScrollDelta" "${toString cfg.scrollDelta}"''
         }
         ${
-          if
-            !cfg.horizontalScroll
-          then
+          if !cfg.horizontalScroll then
             ''Option "HorizScrollDelta" "0"''
           else
             (optionalString (cfg.scrollDelta != null)

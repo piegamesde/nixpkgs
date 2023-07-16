@@ -38,14 +38,13 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  preConfigure = if
-    !stdenv.hostPlatform.useAndroidPrebuilt
-  then
+  preConfigure = if !stdenv.hostPlatform.useAndroidPrebuilt then
     null
-  else ''
-    sed -i 's|DISTSUBDIRS = lib po|DISTSUBDIRS = lib|g' Makefile.in
-    sed -i 's|SUBDIRS = lib @POSUB@|SUBDIRS = lib|g' Makefile.in
-  '';
+  else
+    ''
+      sed -i 's|DISTSUBDIRS = lib po|DISTSUBDIRS = lib|g' Makefile.in
+      sed -i 's|SUBDIRS = lib @POSUB@|SUBDIRS = lib|g' Makefile.in
+    '';
 
   configureFlags = [ ]
     # Configure check for dynamic lib support is broken, see
@@ -57,9 +56,12 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.hostPlatform.isDarwin "--disable-nls";
 
   strictDeps = true;
-  nativeBuildInputs = (if
-    stdenv.hostPlatform.isFreeBSD
-  then [ freebsd.gencat ] else if stdenv.hostPlatform.isNetBSD then [ netbsd.gencat ] else [ gettext ])
+  nativeBuildInputs = (if stdenv.hostPlatform.isFreeBSD then
+    [ freebsd.gencat ]
+  else if stdenv.hostPlatform.isNetBSD then
+    [ netbsd.gencat ]
+  else
+    [ gettext ])
   # Need to regenerate configure script with newer version in order to pass
   # "mr_cv_target_elf=yes" and determine integer sizes correctly when
   # cross-compiling, but `autoreconfHook` brings in `makeWrapper` which

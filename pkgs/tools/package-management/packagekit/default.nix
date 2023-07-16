@@ -71,9 +71,7 @@ stdenv.mkDerivation rec {
   ];
 
   mesonFlags = [
-    (if
-      enableSystemd
-    then
+    (if enableSystemd then
       "-Dsystemd=true"
     else
       "-Dsystem=false")

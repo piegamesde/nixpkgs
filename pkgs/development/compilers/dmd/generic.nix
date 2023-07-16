@@ -40,9 +40,7 @@ let
   };
 
   bits = builtins.toString stdenv.hostPlatform.parsed.cpu.bits;
-  osname = if
-    stdenv.isDarwin
-  then
+  osname = if stdenv.isDarwin then
     "osx"
   else
     stdenv.hostPlatform.parsed.kernel.name;

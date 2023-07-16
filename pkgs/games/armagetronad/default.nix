@@ -20,9 +20,7 @@ let
   version = "${versionMajor}.${versionMinor}";
 in
 stdenv.mkDerivation {
-  pname = if
-    dedicatedServer
-  then
+  pname = if dedicatedServer then
     "armagetronad-dedicated"
   else
     "armagetronad";

@@ -9,9 +9,7 @@
 }:
 
 let
-  linkType = if
-    enableStatic
-  then
+  linkType = if enableStatic then
     "static"
   else
     "dynamic";

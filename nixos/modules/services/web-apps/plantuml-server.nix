@@ -122,16 +122,12 @@ in {
       environment = {
         PLANTUML_LIMIT_SIZE = builtins.toString cfg.plantumlLimitSize;
         GRAPHVIZ_DOT = "${cfg.graphvizPackage}/bin/dot";
-        PLANTUML_STATS = if
-          cfg.plantumlStats
-        then
+        PLANTUML_STATS = if cfg.plantumlStats then
           "on"
         else
           "off";
         HTTP_AUTHORIZATION = cfg.httpAuthorization;
-        ALLOW_PLANTUML_INCLUDE = if
-          cfg.allowPlantumlInclude
-        then
+        ALLOW_PLANTUML_INCLUDE = if cfg.allowPlantumlInclude then
           "true"
         else
           "false";

@@ -31,9 +31,7 @@ stdenv.mkDerivation rec {
   ];
   buildPhase = with xorg;
     let
-      stunnelBinary = if
-        stdenv.hostPlatform.system == "x86_64-linux"
-      then
+      stunnelBinary = if stdenv.hostPlatform.system == "x86_64-linux" then
         "linux/stunnel64"
       else if stdenv.hostPlatform.system == "i686-linux" then
         "linux/stunnel32"

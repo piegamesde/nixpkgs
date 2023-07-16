@@ -241,9 +241,7 @@ in {
     systemd.services.afsd = {
       description = "AFS client";
       wantedBy = [ "multi-user.target" ];
-      after = singleton (if
-        cfg.startDisconnected
-      then
+      after = singleton (if cfg.startDisconnected then
         "network.target"
       else
         "network-online.target");
@@ -266,26 +264,20 @@ in {
           ${optionalString cfg.cache.diskless "-memcache"} \
           -inumcalc ${cfg.inumcalc} \
           ${
-            if
-              cfg.fakestat
-            then
+            if cfg.fakestat then
               "-fakestat-all"
             else
               "-fakestat"
           } \
           ${
-            if
-              cfg.sparse
-            then
+            if cfg.sparse then
               "-dynroot-sparse"
             else
               "-dynroot"
           } \
           ${optionalString cfg.afsdb "-afsdb"}
         ${openafsBin}/bin/fs setcrypt ${
-          if
-            cfg.crypt
-          then
+          if cfg.crypt then
             "on"
           else
             "off"

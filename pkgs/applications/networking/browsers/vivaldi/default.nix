@@ -63,15 +63,11 @@
 }:
 
 let
-  branch = if
-    isSnapshot
-  then
+  branch = if isSnapshot then
     "snapshot"
   else
     "stable";
-  vivaldiName = if
-    isSnapshot
-  then
+  vivaldiName = if isSnapshot then
     "vivaldi-snapshot"
   else
     "vivaldi";

@@ -66,36 +66,37 @@ stdenv.mkDerivation rec {
   buildInputs = [
     libpng
     libtiff
-  ] ++ optionals enableQt (if
-    lib.versionOlder majorVersion "9"
-  then [
-    qtbase
-    qtx11extras
-    qttools
-  ] else [ (qtEnv "qvtk-qt-env" [
-    qtx11extras
-    qttools
-    qtdeclarative
-  ]) ]) ++ optionals stdenv.isLinux [
-    libGLU
-    xorgproto
-    libXt
-  ] ++ optionals stdenv.isDarwin [
-    xpc
-    AGL
-    Cocoa
-    CoreServices
-    DiskArbitration
-    IOKit
-    CFNetwork
-    Security
-    ApplicationServices
-    CoreText
-    IOSurface
-    ImageIO
-    OpenGL
-    GLUT
-  ] ++ optionals enablePython [ python ];
+  ] ++ optionals enableQt (if lib.versionOlder majorVersion "9" then
+    [
+      qtbase
+      qtx11extras
+      qttools
+    ]
+  else
+    [ (qtEnv "qvtk-qt-env" [
+      qtx11extras
+      qttools
+      qtdeclarative
+    ]) ]) ++ optionals stdenv.isLinux [
+      libGLU
+      xorgproto
+      libXt
+    ] ++ optionals stdenv.isDarwin [
+      xpc
+      AGL
+      Cocoa
+      CoreServices
+      DiskArbitration
+      IOKit
+      CFNetwork
+      Security
+      ApplicationServices
+      CoreText
+      IOSurface
+      ImageIO
+      OpenGL
+      GLUT
+    ] ++ optionals enablePython [ python ];
   propagatedBuildInputs = optionals stdenv.isDarwin [ libobjc ]
     ++ optionals stdenv.isLinux [
       libX11
@@ -116,17 +117,13 @@ stdenv.mkDerivation rec {
     "-DCMAKE_C_FLAGS=-fPIC"
     "-DCMAKE_CXX_FLAGS=-fPIC"
     "-D${
-      if
-        lib.versionOlder version "9.0"
-      then
+      if lib.versionOlder version "9.0" then
         "VTK_USE_SYSTEM_PNG"
       else
         "VTK_MODULE_USE_EXTERNAL_vtkpng"
     }=ON"
     "-D${
-      if
-        lib.versionOlder version "9.0"
-      then
+      if lib.versionOlder version "9.0" then
         "VTK_USE_SYSTEM_TIFF"
       else
         "VTK_MODULE_USE_EXTERNAL_vtktiff"
@@ -137,9 +134,7 @@ stdenv.mkDerivation rec {
     "-DCMAKE_INSTALL_BINDIR=bin"
     "-DVTK_VERSIONED_INSTALL=OFF"
   ] ++ optionals enableQt [ "-D${
-      if
-        lib.versionOlder version "9.0"
-      then
+      if lib.versionOlder version "9.0" then
         "VTK_Group_Qt:BOOL=ON"
       else
         "VTK_GROUP_ENABLE_Qt:STRING=YES"

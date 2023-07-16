@@ -21,9 +21,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     "--enable-openmp=${
-      if
-        stdenv.isLinux
-      then
+      if stdenv.isLinux then
         "yes"
       else
         "no"

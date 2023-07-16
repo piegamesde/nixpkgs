@@ -25,12 +25,8 @@ stdenv.mkDerivation rec {
   pname = "renoise";
   version = "3.3.2";
 
-  src = if
-    stdenv.hostPlatform.system == "x86_64-linux"
-  then
-    if
-      releasePath == null
-    then
+  src = if stdenv.hostPlatform.system == "x86_64-linux" then
+    if releasePath == null then
       fetchurl {
         urls = [
           "https://files.renoise.com/demo/Renoise_${

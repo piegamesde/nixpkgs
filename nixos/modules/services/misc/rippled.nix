@@ -13,9 +13,7 @@ let
   opt = options.services.rippled;
 
   b2i = val:
-    if
-      val
-    then
+    if val then
       "1"
     else
       "0";

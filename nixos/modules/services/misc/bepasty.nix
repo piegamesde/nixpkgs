@@ -113,9 +113,7 @@ in {
 
             };
             config = {
-              secretKeyFile = mkDefault (if
-                config.secretKey != ""
-              then
+              secretKeyFile = mkDefault (if config.secretKey != "" then
                 toString (pkgs.writeTextFile {
                   name = "bepasty-secret-key";
                   text = config.secretKey;

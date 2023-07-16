@@ -116,9 +116,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS:BOOL=${
-      if
-        staticOnly
-      then
+      if staticOnly then
         "OFF"
       else
         "ON"

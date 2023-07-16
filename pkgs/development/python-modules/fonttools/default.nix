@@ -43,9 +43,7 @@ buildPythonPackage rec {
       ufo = [ fs ];
       lxml = [ lxml ];
       woff = [
-        (if
-          isPyPy
-        then
+        (if isPyPy then
           brotlicffi
         else
           brotli)
@@ -53,9 +51,7 @@ buildPythonPackage rec {
       ];
       unicode = lib.optional (pythonOlder "3.11") unicodedata2;
       graphite = [ lz4 ];
-      interpolatable = [ (if
-        isPyPy
-      then
+      interpolatable = [ (if isPyPy then
         munkres
       else
         scipy) ];

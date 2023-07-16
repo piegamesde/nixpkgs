@@ -26,9 +26,7 @@ callPackage ./common.nix { inherit stdenv; } {
 
   extraNativeBuildInputs = [ glibc ];
 
-  LOCALEDEF_FLAGS = [ (if
-    stdenv.hostPlatform.isLittleEndian
-  then
+  LOCALEDEF_FLAGS = [ (if stdenv.hostPlatform.isLittleEndian then
     "--little-endian"
   else
     "--big-endian") ];

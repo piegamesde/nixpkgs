@@ -11,9 +11,7 @@ let
   cfg = config.services.xserver.libinput;
 
   xorgBool = v:
-    if
-      v
-    then
+    if v then
       "on"
     else
       "off";

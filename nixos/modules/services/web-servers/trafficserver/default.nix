@@ -18,18 +18,15 @@ let
   yaml = pkgs.formats.yaml { };
 
   mkYamlConf = name: cfg:
-    if
-      cfg != null
-    then {
-      "trafficserver/${name}.yaml".source = yaml.generate "${name}.yaml" cfg;
-    } else {
-      "trafficserver/${name}.yaml".text = "";
-    };
+    if cfg != null then
+      {
+        "trafficserver/${name}.yaml".source = yaml.generate "${name}.yaml" cfg;
+      }
+    else
+      { "trafficserver/${name}.yaml".text = ""; };
 
   mkRecordLines = path: value:
-    if
-      isAttrs value
-    then
+    if isAttrs value then
       lib.mapAttrsToList (n: v: mkRecordLines (path ++ [ n ]) v) value
     else if isInt value then
       "CONFIG ${concatStringsSep "." path} INT ${toString value}"

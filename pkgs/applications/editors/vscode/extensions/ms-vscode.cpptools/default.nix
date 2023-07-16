@@ -40,9 +40,7 @@
 */
 
 let
-  gdbDefaultsTo = if
-    gdbUseFixed
-  then
+  gdbDefaultsTo = if gdbUseFixed then
     "${gdb}/bin/gdb"
   else
     "gdb";

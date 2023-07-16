@@ -11,9 +11,7 @@ let
   cfg = config.services.redis;
 
   mkValueString = value:
-    if
-      value == true
-    then
+    if value == true then
       "yes"
     else if value == false then
       "no"
@@ -342,9 +340,7 @@ in {
 
                 port = mkOption {
                   type = types.port;
-                  default = if
-                    name == ""
-                  then
+                  default = if name == "" then
                     6379
                   else
                     0;
@@ -572,9 +568,7 @@ in {
                   supervised = "systemd";
                   loglevel = config.logLevel;
                   syslog-enabled = config.syslog;
-                  save = if
-                    config.save == [ ]
-                  then
+                  save = if config.save == [ ] then
                     ''""'' # Disable saving with `save = ""`
                   else
                     map (d:

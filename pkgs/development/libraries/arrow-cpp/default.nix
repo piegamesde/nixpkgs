@@ -102,9 +102,7 @@ stdenv.mkDerivation rec {
   # jemalloc: arrow uses a custom prefix to prevent default allocator symbol
   # collisions as well as custom build flags
   ${
-    if
-      enableJemalloc
-    then
+    if enableJemalloc then
       "ARROW_JEMALLOC_URL"
     else
       null
@@ -189,17 +187,13 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DARROW_BUILD_SHARED=${
-      if
-        enableShared
-      then
+      if enableShared then
         "ON"
       else
         "OFF"
     }"
     "-DARROW_BUILD_STATIC=${
-      if
-        enableShared
-      then
+      if enableShared then
         "OFF"
       else
         "ON"
@@ -212,9 +206,7 @@ stdenv.mkDerivation rec {
     "-DARROW_DEPENDENCY_SOURCE=SYSTEM"
     "-Dxsimd_SOURCE=AUTO"
     "-DARROW_DEPENDENCY_USE_SHARED=${
-      if
-        enableShared
-      then
+      if enableShared then
         "ON"
       else
         "OFF"
@@ -224,9 +216,7 @@ stdenv.mkDerivation rec {
     "-DARROW_DATASET=ON"
     "-DARROW_FILESYSTEM=ON"
     "-DARROW_FLIGHT_SQL=${
-      if
-        enableFlight
-      then
+      if enableFlight then
         "ON"
       else
         "OFF"
@@ -234,9 +224,7 @@ stdenv.mkDerivation rec {
     "-DARROW_HDFS=ON"
     "-DARROW_IPC=ON"
     "-DARROW_JEMALLOC=${
-      if
-        enableJemalloc
-      then
+      if enableJemalloc then
         "ON"
       else
         "OFF"
@@ -254,33 +242,25 @@ stdenv.mkDerivation rec {
     "-DARROW_MIMALLOC=ON"
     "-DARROW_SUBSTRAIT=ON"
     "-DARROW_FLIGHT=${
-      if
-        enableFlight
-      then
+      if enableFlight then
         "ON"
       else
         "OFF"
     }"
     "-DARROW_FLIGHT_TESTING=${
-      if
-        enableFlight
-      then
+      if enableFlight then
         "ON"
       else
         "OFF"
     }"
     "-DARROW_S3=${
-      if
-        enableS3
-      then
+      if enableS3 then
         "ON"
       else
         "OFF"
     }"
     "-DARROW_GCS=${
-      if
-        enableGcs
-      then
+      if enableGcs then
         "ON"
       else
         "OFF"

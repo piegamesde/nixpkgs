@@ -36,9 +36,7 @@ let
 in
 import ./generic.nix { inherit lib stdenv emacs texinfo writeText gcc; } ({
 
-  ename = if
-    ename == null
-  then
+  ename = if ename == null then
     pname
   else
     ename;

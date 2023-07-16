@@ -43,9 +43,7 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  configureFlags = [ (if
-    x11Support
-  then
+  configureFlags = [ (if x11Support then
     "--enable-x11"
   else
     "--disable-x11") ];

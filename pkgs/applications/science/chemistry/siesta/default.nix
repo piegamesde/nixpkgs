@@ -53,19 +53,20 @@ stdenv.mkDerivation rec {
     makeFlagsArray=(
         FFLAGS="-fallow-argument-mismatch"
     )
-  '' + (if
-    useMpi
-  then ''
-    makeFlagsArray+=(
-        CC="mpicc" FC="mpifort"
-        FPPFLAGS="-DMPI" MPI_INTERFACE="libmpi_f90.a" MPI_INCLUDE="."
-        COMP_LIBS="" LIBS="-lblas -llapack -lscalapack"
-    );
-  '' else ''
-    makeFlagsArray+=(
-      COMP_LIBS="" LIBS="-lblas -llapack"
-    );
-  '');
+  '' + (if useMpi then
+    ''
+      makeFlagsArray+=(
+          CC="mpicc" FC="mpifort"
+          FPPFLAGS="-DMPI" MPI_INTERFACE="libmpi_f90.a" MPI_INCLUDE="."
+          COMP_LIBS="" LIBS="-lblas -llapack -lscalapack"
+      );
+    ''
+  else
+    ''
+      makeFlagsArray+=(
+        COMP_LIBS="" LIBS="-lblas -llapack"
+      );
+    '');
 
   installPhase = ''
     mkdir -p $out/bin

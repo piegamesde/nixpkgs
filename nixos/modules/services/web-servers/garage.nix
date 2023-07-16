@@ -82,9 +82,7 @@ in {
 
     package = mkOption {
       # TODO: when 23.05 is released and if Garage 0.9 is the default, put a stateVersion check.
-      default = if
-        versionAtLeast config.system.stateVersion "23.05"
-      then
+      default = if versionAtLeast config.system.stateVersion "23.05" then
         pkgs.garage_0_8
       else
         pkgs.garage_0_7;

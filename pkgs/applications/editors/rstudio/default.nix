@@ -75,9 +75,7 @@ let
 
   description = "Set of integrated tools for the R language";
 in
-(if
-  server
-then
+(if server then
   stdenv.mkDerivation
 else
   mkDerivation) (rec {
@@ -110,24 +108,23 @@ else
       yaml-cpp
       soci
       postgresql
-    ] ++ (if
-      server
-    then [
-      sqlite.dev
-      pam
-    ] else [
-      qtbase
-      qtxmlpatterns
-      qtsensors
-      qtwebengine
-      qtwebchannel
-    ]);
+    ] ++ (if server then
+      [
+        sqlite.dev
+        pam
+      ]
+    else
+      [
+        qtbase
+        qtxmlpatterns
+        qtsensors
+        qtwebengine
+        qtwebchannel
+      ]);
 
     cmakeFlags = [
       "-DRSTUDIO_TARGET=${
-        if
-          server
-        then
+        if server then
           "Server"
         else
           "Desktop"
@@ -210,9 +207,7 @@ else
       ''}
 
       for f in {${
-        if
-          server
-        then
+        if server then
           "crash-handler-proxy,postback,r-ldpath,rpostback,rserver,rserver-pam,rsession,rstudio-server"
         else
           "diagnostics,rpostback,rstudio"

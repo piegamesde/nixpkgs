@@ -88,17 +88,13 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = let
     onOff = val:
-      if
-        val
-      then
+      if val then
         "ON"
       else
         "OFF";
   in [
     "-DCMAKE_BUILD_TYPE=${
-      if
-        debug
-      then
+      if debug then
         "Debug"
       else if !debug && includeDebugInfo then
         "RelWithDebInfo"
@@ -106,9 +102,7 @@ stdenv.mkDerivation rec {
         "MinSizeRel"
     }"
     "-DKLEE_RUNTIME_BUILD_TYPE=${
-      if
-        debugRuntime
-      then
+      if debugRuntime then
         "Debug"
       else
         "Release"

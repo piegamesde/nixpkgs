@@ -22,9 +22,7 @@ let
     }:
     stdenv.mkDerivation rec {
       inherit pname version;
-      jdk = if
-        hadoopSupport
-      then
+      jdk = if hadoopSupport then
         hadoop.jdk
       else
         jdk8;

@@ -18,9 +18,7 @@
 
 let
   Dune = let
-    dune-version = args.duneVersion or (if
-      args.useDune2 or true
-    then
+    dune-version = args.duneVersion or (if args.useDune2 or true then
       "2"
     else
       "1");
@@ -61,9 +59,7 @@ else
       runHook preInstall
       dune install --prefix $out --libdir $OCAMLFIND_DESTDIR ${pname} \
        ${
-         if
-           lib.versionAtLeast Dune.version "2.9"
-         then
+         if lib.versionAtLeast Dune.version "2.9" then
            "--docdir $out/share/doc --mandir $out/share/man"
          else
            ""

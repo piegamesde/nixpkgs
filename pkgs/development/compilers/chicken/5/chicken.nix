@@ -9,9 +9,7 @@
 
 let
   platform = with stdenv;
-    if
-      isDarwin
-    then
+    if isDarwin then
       "macosx"
     else if isCygwin then
       "cygwin"

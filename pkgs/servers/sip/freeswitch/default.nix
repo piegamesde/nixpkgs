@@ -101,9 +101,7 @@ let
       xml_int.scgi
     ] ++ lib.optionals stdenv.isLinux [ endpoints.gsmopen ];
 
-  enabledModules = (if
-    modules != null
-  then
+  enabledModules = (if modules != null then
     modules
   else
     defaultModules) availableModules;

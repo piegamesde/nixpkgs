@@ -19,9 +19,7 @@ let
       suffix ? ""
     }:
     let
-      legacySuffix = if
-        suffix == "-nons"
-      then
+      legacySuffix = if suffix == "-nons" then
         ""
       else
         "-ns";

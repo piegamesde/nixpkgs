@@ -39,9 +39,7 @@ let
     # The default for cudatoolkit 10.1 is CUDNN 8.0.5, the last version to support CUDA 10.1.
     # However, this caffe does not build with CUDNN 8.x, so we use CUDNN 7.6.5 instead.
     # Earlier versions of cudatoolkit use pre-8.x CUDNN, so we use the default.
-  cudnn = if
-    lib.versionOlder cudatoolkit.version "10.1"
-  then
+  cudnn = if lib.versionOlder cudatoolkit.version "10.1" then
     cudaPackages.cudnn
   else
     cudaPackages.cudnn_7_6_5;
@@ -54,9 +52,7 @@ assert pythonSupport -> (python != null && numpy != null);
 
 let
   toggle = bool:
-    if
-      bool
-    then
+    if bool then
       "ON"
     else
       "OFF";
@@ -88,19 +84,18 @@ stdenv.mkDerivation rec {
     # It's important that caffe is passed the major and minor version only because that's what
     # boost_python expects
     [
-      (if
-        pythonSupport
-      then
+      (if pythonSupport then
         "-Dpython_version=${python.pythonVersion}"
       else
         "-DBUILD_python=OFF")
       "-DBLAS=open"
-    ] ++ (if
-      cudaSupport
-    then [
-      "-DCUDA_ARCH_NAME=All"
-      "-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/cc"
-    ] else [ "-DCPU_ONLY=ON" ]) ++ [ "-DUSE_NCCL=${toggle ncclSupport}" ]
+    ] ++ (if cudaSupport then
+      [
+        "-DCUDA_ARCH_NAME=All"
+        "-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/cc"
+      ]
+    else
+      [ "-DCPU_ONLY=ON" ]) ++ [ "-DUSE_NCCL=${toggle ncclSupport}" ]
     ++ [ "-DUSE_LEVELDB=${toggle leveldbSupport}" ]
     ++ [ "-DUSE_LMDB=${toggle lmdbSupport}" ];
 

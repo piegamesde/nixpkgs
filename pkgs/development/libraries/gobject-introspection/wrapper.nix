@@ -26,12 +26,11 @@ let
 
   overriddenUnwrappedGir = gobject-introspection-unwrapped.override args;
   # if we have targetPackages.gobject-introspection then propagate that
-  overridenTargetUnwrappedGir = if
-    targetPackages ? gobject-introspection-unwrapped
-  then
-    targetPackages.gobject-introspection-unwrapped.override argsForTarget
-  else
-    overriddenUnwrappedGir;
+  overridenTargetUnwrappedGir =
+    if targetPackages ? gobject-introspection-unwrapped then
+      targetPackages.gobject-introspection-unwrapped.override argsForTarget
+    else
+      overriddenUnwrappedGir;
 
   # wrap both pkgsCrossX.buildPackages.gobject-introspection and {pkgs,pkgsSomethingExecutableOnBuildSystem).buildPackages.gobject-introspection
 in if

@@ -37,20 +37,20 @@ in
 }@args:
 
 let
-  hash_ = if
-    args ? hash
-  then {
-    outputHashAlgo = if
-      args.hash == ""
-    then
-      "sha256"
-    else
-      null;
-    outputHash = args.hash;
-  } else if args ? sha256 then {
-    outputHashAlgo = "sha256";
-    outputHash = args.sha256;
-  } else
+  hash_ = if args ? hash then
+    {
+      outputHashAlgo = if args.hash == "" then
+        "sha256"
+      else
+        null;
+      outputHash = args.hash;
+    }
+  else if args ? sha256 then
+    {
+      outputHashAlgo = "sha256";
+      outputHash = args.sha256;
+    }
+  else
     throw "fetchCargoTarball requires a hash for ${name}";
 in
 stdenv.mkDerivation ({

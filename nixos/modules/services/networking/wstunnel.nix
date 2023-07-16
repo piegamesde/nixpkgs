@@ -11,9 +11,7 @@ let
   cfg = config.services.wstunnel;
   attrsToArgs = attrs:
     utils.escapeSystemdExecArgs (mapAttrsToList (name: value:
-      if
-        value == true
-      then
+      if value == true then
         "--${name}"
       else
         "--${name}=${value}") attrs);
@@ -113,9 +111,7 @@ let
           type = types.submodule hostPortSubmodule;
           default = {
             address = "0.0.0.0";
-            port = if
-              config.enableHTTPS
-            then
+            port = if config.enableHTTPS then
               443
             else
               80;
@@ -325,15 +321,11 @@ let
         Type = "simple";
         ExecStart = with serverCfg;
           let
-            resolvedTlsCertificate = if
-              useACMEHost != null
-            then
+            resolvedTlsCertificate = if useACMEHost != null then
               "${certConfig.directory}/fullchain.pem"
             else
               tlsCertificate;
-            resolvedTlsKey = if
-              useACMEHost != null
-            then
+            resolvedTlsKey = if useACMEHost != null then
               "${certConfig.directory}/key.pem"
             else
               tlsKey;
@@ -359,9 +351,7 @@ let
               ${attrsToArgs extraArgs} \
               ${
                 utils.escapeSystemdExecArg "${
-                  if
-                    enableHTTPS
-                  then
+                  if enableHTTPS then
                     "wss"
                   else
                     "ws"
@@ -447,9 +437,7 @@ let
             ${attrsToArgs extraArgs} \
             ${
               utils.escapeSystemdExecArg "${
-                if
-                  enableHTTPS
-                then
+                if enableHTTPS then
                   "wss"
                 else
                   "ws"

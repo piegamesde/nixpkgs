@@ -18,17 +18,13 @@ let
       [General]
       No-Simultaneous-Conn=${toString cfg.nrConnections}
       Log=${
-        if
-          cfg.logging
-        then
+        if cfg.logging then
           "1"
         else
           "0"
       }
       Verbose=${
-        if
-          cfg.verbosity
-        then
+        if cfg.verbosity then
           "1"
         else
           "0"

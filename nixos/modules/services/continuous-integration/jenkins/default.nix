@@ -221,9 +221,7 @@ in {
       # Force .war (re)extraction, or else we might run stale Jenkins.
 
       preStart = let
-        replacePlugins = if
-          cfg.plugins == null
-        then
+        replacePlugins = if cfg.plugins == null then
           ""
         else
           let

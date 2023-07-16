@@ -95,9 +95,7 @@ let
     (import ./common.nix ({ inherit lib fetchFromGitHub; } // args)) {
       inherit Security storeDir stateDir confDir;
       boehmgc = boehmgc-nix;
-      aws-sdk-cpp = if
-        lib.versionAtLeast args.version "2.12pre"
-      then
+      aws-sdk-cpp = if lib.versionAtLeast args.version "2.12pre" then
         aws-sdk-cpp-nix
       else
         aws-sdk-cpp-old-nix;

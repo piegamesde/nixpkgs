@@ -58,17 +58,19 @@ let
               } ];
               # note that using pkgs.writeText here is generally not a good idea,
               # as it will store the password in world-readable /nix/store ;)
-              initialScript = pkgs.writeText "mysql-init.sql" (if
-                (!useSocketAuth)
-              then ''
-                CREATE USER 'testuser3'@'localhost' IDENTIFIED BY 'secure';
-                GRANT ALL PRIVILEGES ON testdb3.* TO 'testuser3'@'localhost';
-              '' else ''
-                ALTER USER root@localhost IDENTIFIED WITH unix_socket;
-                DELETE FROM mysql.user WHERE password = ''' AND plugin = ''';
-                DELETE FROM mysql.user WHERE user = ''';
-                FLUSH PRIVILEGES;
-              '');
+              initialScript = pkgs.writeText "mysql-init.sql"
+                (if (!useSocketAuth) then
+                  ''
+                    CREATE USER 'testuser3'@'localhost' IDENTIFIED BY 'secure';
+                    GRANT ALL PRIVILEGES ON testdb3.* TO 'testuser3'@'localhost';
+                  ''
+                else
+                  ''
+                    ALTER USER root@localhost IDENTIFIED WITH unix_socket;
+                    DELETE FROM mysql.user WHERE password = ''' AND plugin = ''';
+                    DELETE FROM mysql.user WHERE user = ''';
+                    FLUSH PRIVILEGES;
+                  '');
 
               ensureDatabases = [
                 "testdb"

@@ -171,18 +171,18 @@ let
 
       try_empty_passphrase() {
           ${
-            if
-              dev.tryEmptyPassphrase
-            then ''
-              echo "Trying empty passphrase!"
-              echo "" | ${csopen}
-              cs_status=$?
-              if [ $cs_status -eq 0 ]; then
-                  return 0
-              else
-                  return 1
-              fi
-            '' else
+            if dev.tryEmptyPassphrase then
+              ''
+                echo "Trying empty passphrase!"
+                echo "" | ${csopen}
+                cs_status=$?
+                if [ $cs_status -eq 0 ]; then
+                    return 0
+                else
+                    return 1
+                fi
+              ''
+            else
               "return 1"
           }
       }
@@ -207,14 +207,15 @@ let
                       IFS= read -t 1 -r passphrase
                       if [ -n "$passphrase" ]; then
                          ${
-                           if
-                             luks.reusePassphrases
-                           then ''
-                             # remember it for the next device
-                             echo -n "$passphrase" > /crypt-ramfs/passphrase
-                           '' else ''
-                             # Don't save it to ramfs. We are very paranoid
-                           ''
+                           if luks.reusePassphrases then
+                             ''
+                               # remember it for the next device
+                               echo -n "$passphrase" > /crypt-ramfs/passphrase
+                             ''
+                           else
+                             ''
+                               # Don't save it to ramfs. We are very paranoid
+                             ''
                          }
                          echo
                          break
@@ -226,13 +227,14 @@ let
               if [ $? == 0 ]; then
                   echo " - success"
                   ${
-                    if
-                      luks.reusePassphrases
-                    then ''
-                      # we don't rm here because we might reuse it for the next device
-                    '' else ''
-                      rm -f /crypt-ramfs/passphrase
-                    ''
+                    if luks.reusePassphrases then
+                      ''
+                        # we don't rm here because we might reuse it for the next device
+                      ''
+                    else
+                      ''
+                        rm -f /crypt-ramfs/passphrase
+                      ''
                   }
                   break
               else
@@ -246,55 +248,52 @@ let
       # LUKS
       open_normally() {
           ${
-            if
-              (dev.keyFile != null)
-            then ''
-              if wait_target "key file" ${dev.keyFile}; then
-                  ${csopen} --key-file=${dev.keyFile} \
-                    ${
-                      optionalString (dev.keyFileSize != null)
-                      "--keyfile-size=${toString dev.keyFileSize}"
-                    } \
-                    ${
-                      optionalString (dev.keyFileOffset != null)
-                      "--keyfile-offset=${toString dev.keyFileOffset}"
-                    }
-                  cs_status=$?
-                  if [ $cs_status -ne 0 ]; then
-                    echo "Key File ${dev.keyFile} failed!"
-                    if ! try_empty_passphrase; then
+            if (dev.keyFile != null) then
+              ''
+                if wait_target "key file" ${dev.keyFile}; then
+                    ${csopen} --key-file=${dev.keyFile} \
                       ${
-                        if
-                          dev.fallbackToPassword
-                        then
-                          "echo"
-                        else
-                          "die"
-                      } "${dev.keyFile} is unavailable"
-                      echo " - failing back to interactive password prompt"
-                      do_open_passphrase
+                        optionalString (dev.keyFileSize != null)
+                        "--keyfile-size=${toString dev.keyFileSize}"
+                      } \
+                      ${
+                        optionalString (dev.keyFileOffset != null)
+                        "--keyfile-offset=${toString dev.keyFileOffset}"
+                      }
+                    cs_status=$?
+                    if [ $cs_status -ne 0 ]; then
+                      echo "Key File ${dev.keyFile} failed!"
+                      if ! try_empty_passphrase; then
+                        ${
+                          if dev.fallbackToPassword then
+                            "echo"
+                          else
+                            "die"
+                        } "${dev.keyFile} is unavailable"
+                        echo " - failing back to interactive password prompt"
+                        do_open_passphrase
+                      fi
                     fi
-                  fi
-              else
-                  # If the key file never shows up we should also try the empty passphrase
-                  if ! try_empty_passphrase; then
-                     ${
-                       if
-                         dev.fallbackToPassword
-                       then
-                         "echo"
-                       else
-                         "die"
-                     } "${dev.keyFile} is unavailable"
-                     echo " - failing back to interactive password prompt"
-                     do_open_passphrase
-                  fi
-              fi
-            '' else ''
-              if ! try_empty_passphrase; then
-                 do_open_passphrase
-              fi
-            ''
+                else
+                    # If the key file never shows up we should also try the empty passphrase
+                    if ! try_empty_passphrase; then
+                       ${
+                         if dev.fallbackToPassword then
+                           "echo"
+                         else
+                           "die"
+                       } "${dev.keyFile} is unavailable"
+                       echo " - failing back to interactive password prompt"
+                       do_open_passphrase
+                    fi
+                fi
+              ''
+            else
+              ''
+                if ! try_empty_passphrase; then
+                   do_open_passphrase
+                fi
+              ''
           }
       }
 
@@ -349,14 +348,15 @@ let
                             IFS= read -t 1 -r k_user
                             if [ -n "$k_user" ]; then
                                ${
-                                 if
-                                   luks.reusePassphrases
-                                 then ''
-                                   # Remember it for the next device
-                                   echo -n "$k_user" > /crypt-ramfs/passphrase
-                                 '' else ''
-                                   # Don't save it to ramfs. We are very paranoid
-                                 ''
+                                 if luks.reusePassphrases then
+                                   ''
+                                     # Remember it for the next device
+                                     echo -n "$k_user" > /crypt-ramfs/passphrase
+                                   ''
+                                 else
+                                   ''
+                                     # Don't save it to ramfs. We are very paranoid
+                                   ''
                                }
                                echo
                                break
@@ -381,13 +381,14 @@ let
                 if [ $? == 0 ]; then
                     opened=true
                     ${
-                      if
-                        luks.reusePassphrases
-                      then ''
-                        # We don't rm here because we might reuse it for the next device
-                      '' else ''
-                        rm -f /crypt-ramfs/passphrase
-                      ''
+                      if luks.reusePassphrases then
+                        ''
+                          # We don't rm here because we might reuse it for the next device
+                        ''
+                      else
+                        ''
+                          rm -f /crypt-ramfs/passphrase
+                        ''
                     }
                     break
                 else
@@ -480,14 +481,15 @@ let
                         IFS= read -t 1 -r pin
                         if [ -n "$pin" ]; then
                            ${
-                             if
-                               luks.reusePassphrases
-                             then ''
-                               # remember it for the next device
-                               echo -n "$pin" > /crypt-ramfs/passphrase
-                             '' else ''
-                               # Don't save it to ramfs. We are very paranoid
-                             ''
+                             if luks.reusePassphrases then
+                               ''
+                                 # remember it for the next device
+                                 echo -n "$pin" > /crypt-ramfs/passphrase
+                               ''
+                             else
+                               ''
+                                 # Don't save it to ramfs. We are very paranoid
+                               ''
                            }
                            echo
                            break
@@ -499,13 +501,14 @@ let
                 if [ $? == 0 ]; then
                     echo " - success"
                     ${
-                      if
-                        luks.reusePassphrases
-                      then ''
-                        # we don't rm here because we might reuse it for the next device
-                      '' else ''
-                        rm -f /crypt-ramfs/passphrase
-                      ''
+                      if luks.reusePassphrases then
+                        ''
+                          # we don't rm here because we might reuse it for the next device
+                        ''
+                      else
+                        ''
+                          rm -f /crypt-ramfs/passphrase
+                        ''
                     }
                     break
                 else
@@ -534,14 +537,15 @@ let
           local passsphrase
 
             ${
-              if
-                dev.fido2.passwordLess
-              then ''
-                export passphrase=""
-              '' else ''
-                read -rsp "FIDO2 salt for ${dev.device}: " passphrase
-                echo
-              ''
+              if dev.fido2.passwordLess then
+                ''
+                  export passphrase=""
+                ''
+              else
+                ''
+                  read -rsp "FIDO2 salt for ${dev.device}: " passphrase
+                  echo
+                ''
             }
             ${
               optionalString
@@ -572,11 +576,14 @@ let
         (luks.yubikeySupport && (dev.yubikey != null))
         || (luks.gpgSupport && (dev.gpgCard != null))
         || (luks.fido2Support && fido2luksCredentials != [ ])
-      then ''
-        open_with_hardware
-      '' else ''
-        open_normally
-      ''}
+      then
+        ''
+          open_with_hardware
+        ''
+      else
+        ''
+          open_normally
+        ''}
 
       # commands to run right after we mounted our device
       ${dev.postOpenCommands}
@@ -620,9 +627,7 @@ let
           ++ optional (v.tryEmptyPassphrase) "try-empty-password=true";
       in
       "${n} ${v.device} ${
-        if
-          v.keyFile == null
-        then
+        if v.keyFile == null then
           "-"
         else
           v.keyFile
@@ -1161,7 +1166,10 @@ in {
     ] ++ luks.cryptoModules
       # workaround until https://marc.info/?l=linux-crypto-vger&m=148783562211457&w=4 is merged
       # remove once 'modprobe --show-depends xts' shows ecb as a dependency
-      ++ (if builtins.elem "xts" luks.cryptoModules then [ "ecb" ] else [ ]);
+      ++ (if builtins.elem "xts" luks.cryptoModules then
+        [ "ecb" ]
+      else
+        [ ]);
 
     # copy the cryptsetup binary and it's dependencies
     boot.initrd.extraUtilsCommands = let

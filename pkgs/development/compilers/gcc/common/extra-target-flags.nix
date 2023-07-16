@@ -29,12 +29,14 @@ in {
   EXTRA_LDFLAGS_FOR_TARGET = let
     mkFlags = dep:
       lib.optionals (targetPlatform != hostPlatform && dep != null)
-      ([ "-Wl,-L${lib.getLib dep}${dep.libdir or "/lib"}" ] ++ (if
-        crossStageStatic
-      then [ "-B${lib.getLib dep}${dep.libdir or "/lib"}" ] else [
-        "-Wl,-rpath,${lib.getLib dep}${dep.libdir or "/lib"}"
-        "-Wl,-rpath-link,${lib.getLib dep}${dep.libdir or "/lib"}"
-      ]));
+      ([ "-Wl,-L${lib.getLib dep}${dep.libdir or "/lib"}" ]
+        ++ (if crossStageStatic then
+          [ "-B${lib.getLib dep}${dep.libdir or "/lib"}" ]
+        else
+          [
+            "-Wl,-rpath,${lib.getLib dep}${dep.libdir or "/lib"}"
+            "-Wl,-rpath-link,${lib.getLib dep}${dep.libdir or "/lib"}"
+          ]));
   in
   mkFlags libcCross
   ++ lib.optionals (!crossStageStatic) (mkFlags (threadsCross.package or null))

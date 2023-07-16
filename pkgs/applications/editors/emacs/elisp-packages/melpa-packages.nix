@@ -27,9 +27,7 @@
 variant: self:
 let
   dontConfigure = pkg:
-    if
-      pkg != null
-    then
+    if pkg != null then
       pkg.override (args: {
         melpaBuild = drv: args.melpaBuild (drv // { dontConfigure = true; });
       })
@@ -37,9 +35,7 @@ let
       null;
 
   markBroken = pkg:
-    if
-      pkg != null
-    then
+    if pkg != null then
       pkg.override (args: {
         melpaBuild = drv:
           args.melpaBuild
@@ -49,9 +45,7 @@ let
       null;
 
   externalSrc = pkg: epkg:
-    if
-      pkg != null
-    then
+    if pkg != null then
       pkg.override (args: {
         melpaBuild = drv:
           args.melpaBuild (drv // {
@@ -69,9 +63,7 @@ let
     });
 
   fix-rtags = pkg:
-    if
-      pkg != null
-    then
+    if pkg != null then
       dontConfigure (externalSrc pkg pkgs.rtags)
     else
       null;
@@ -87,9 +79,7 @@ let
       overrides = lib.optionalAttrs (variant == "stable") {
 
         # upstream issue: missing file header
-        abridge-diff = if
-          super.abridge-diff.version == "0.1"
-        then
+        abridge-diff = if super.abridge-diff.version == "0.1" then
           markBroken super.abridge-diff
         else
           super.abridge-diff;
@@ -125,25 +115,19 @@ let
         dictionary = markBroken super.dictionary;
 
         # upstream issue: missing file header
-        fold-dwim = if
-          super.fold-dwim.version == "1.2"
-        then
+        fold-dwim = if super.fold-dwim.version == "1.2" then
           markBroken super.fold-dwim
         else
           super.fold-dwim;
 
         # upstream issue: missing file header
-        gl-conf-mode = if
-          super.gl-conf-mode.version == "0.3"
-        then
+        gl-conf-mode = if super.gl-conf-mode.version == "0.3" then
           markBroken super.gl-conf-mode
         else
           super.gl-conf-mode;
 
         # upstream issue: missing file header
-        ligo-mode = if
-          super.ligo-mode.version == "0.3"
-        then
+        ligo-mode = if super.ligo-mode.version == "0.3" then
           markBroken super.ligo-mode
         else
           null; # auto-updater is failing; use manual one
@@ -152,17 +136,13 @@ let
         link = markBroken super.link;
 
         # upstream issue: missing file header
-        org-dp = if
-          super.org-dp.version == "1"
-        then
+        org-dp = if super.org-dp.version == "1" then
           markBroken super.org-dp
         else
           super.org-dp;
 
         # upstream issue: missing file header
-        revbufs = if
-          super.revbufs.version == "1.2"
-        then
+        revbufs = if super.revbufs.version == "1.2" then
           markBroken super.revbufs
         else
           super.revbufs;
@@ -711,9 +691,7 @@ let
 
     in
     lib.mapAttrs (n: v:
-      if
-        lib.hasAttr n overrides
-      then
+      if lib.hasAttr n overrides then
         overrides.${n}
       else
         v) super

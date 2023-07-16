@@ -22,9 +22,7 @@
 
 let
   threadingSuffix = lib.optionalString withOpenMP "-mt";
-  blasIntSize = if
-    blas64
-  then
+  blasIntSize = if blas64 then
     "64"
   else
     "32";

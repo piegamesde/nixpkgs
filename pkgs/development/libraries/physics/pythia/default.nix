@@ -39,9 +39,10 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--enable-shared"
     "--with-lhapdf6=${lhapdf}"
-  ] ++ (if
-    lib.versions.major hepmc.version == "3"
-  then [ "--with-hepmc3=${hepmc}" ] else [ "--with-hepmc2=${hepmc}" ]);
+  ] ++ (if lib.versions.major hepmc.version == "3" then
+    [ "--with-hepmc3=${hepmc}" ]
+  else
+    [ "--with-hepmc2=${hepmc}" ]);
 
   enableParallelBuilding = true;
 

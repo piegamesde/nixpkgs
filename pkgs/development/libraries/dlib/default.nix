@@ -33,25 +33,19 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DUSE_DLIB_USE_CUDA=${
-      if
-        cudaSupport
-      then
+      if cudaSupport then
         "1"
       else
         "0"
     }"
     "-DUSE_SSE4_INSTRUCTIONS=${
-      if
-        sse4Support
-      then
+      if sse4Support then
         "yes"
       else
         "no"
     }"
     "-DUSE_AVX_INSTRUCTIONS=${
-      if
-        avxSupport
-      then
+      if avxSupport then
         "yes"
       else
         "no"

@@ -40,9 +40,7 @@ let
           ""
           ""
         ] num);
-    in if
-      lib.hasPrefix "p" tail && isPosInt p
-    then
+    in if lib.hasPrefix "p" tail && isPosInt p then
       p
     else
       null;
@@ -53,9 +51,7 @@ let
 
     # Ruby separates lib and gem folders by ABI version which isn't very
     # consistent.
-    libDir = if
-      lib.versionAtLeast majMinTiny "2.1.0"
-    then
+    libDir = if lib.versionAtLeast majMinTiny "2.1.0" then
       "${majMin}.0"
     else if lib.versionAtLeast majMinTiny "2.0.0" then
       "2.0.0"
@@ -67,9 +63,7 @@ let
     # How ruby releases are tagged on github.com/ruby/ruby
     gitTag = let
       base = "v${major}_${minor}_${tiny}";
-    in if
-      patchLevel != null
-    then
+    in if patchLevel != null then
       "${base}_${patchLevel}"
     else if tail != "" then
       "${base}_${tail}"
@@ -78,9 +72,7 @@ let
 
     # Implements the builtins.toString interface.
     __toString = self:
-      self.majMinTiny + (if
-        self.patchLevel != null
-      then
+      self.majMinTiny + (if self.patchLevel != null then
         "-p${self.patchLevel}"
       else
         lib.optionalString (self.tail != "") "-${self.tail}");

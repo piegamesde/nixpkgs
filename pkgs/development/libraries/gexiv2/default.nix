@@ -59,9 +59,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   preCheck = let
-    libSuffix = if
-      stdenv.isDarwin
-    then
+    libSuffix = if stdenv.isDarwin then
       "2.dylib"
     else
       "so.2";

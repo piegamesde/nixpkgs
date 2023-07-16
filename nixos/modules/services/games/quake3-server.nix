@@ -99,9 +99,7 @@ in {
       wantedBy = [ "multi-user.target" ];
       after = [ "networking.target" ];
 
-      environment.HOME = if
-        baseq3InStore
-      then
+      environment.HOME = if baseq3InStore then
         home
       else
         cfg.baseq3;
@@ -112,9 +110,7 @@ in {
         WorkingDirectory = home;
 
         # It is possible to alter configuration files via RCON. To ensure reproducibility we have to prevent this
-        ReadOnlyPaths = if
-          baseq3InStore
-        then
+        ReadOnlyPaths = if baseq3InStore then
           home
         else
           cfg.baseq3;

@@ -34,9 +34,7 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
 
   makeFlags = let
-    static = if
-      enableStatic
-    then
+    static = if enableStatic then
       "1"
     else
       "0";

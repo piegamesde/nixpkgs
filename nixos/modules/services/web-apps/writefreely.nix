@@ -15,17 +15,14 @@ let
   format = pkgs.formats.ini {
     mkKeyValue = key: value:
       let
-        value' = lib.optionalString (value != null) (if
-          builtins.isBool value
-        then
-          if
-            value == true
-          then
-            "true"
+        value' = lib.optionalString (value != null)
+          (if builtins.isBool value then
+            if value == true then
+              "true"
+            else
+              "false"
           else
-            "false"
-        else
-          toString value);
+            toString value);
       in
       "${key} = ${value'}"
     ;
@@ -37,9 +34,7 @@ let
   isMysql = cfg.database.type == "mysql";
   isMysqlLocal = isMysql && cfg.database.createLocally == true;
 
-  hostProtocol = if
-    cfg.acme.enable
-  then
+  hostProtocol = if cfg.acme.enable then
     "https"
   else
     "http";
@@ -49,21 +44,22 @@ let
       host = cfg.settings.app.host or "${hostProtocol}://${cfg.host}";
     };
 
-    database = if
-      cfg.database.type == "sqlite3"
-    then {
-      type = "sqlite3";
-      filename = cfg.settings.database.filename or "writefreely.db";
-      database = cfg.database.name;
-    } else {
-      type = "mysql";
-      username = cfg.database.user;
-      password = "#dbpass#";
-      database = cfg.database.name;
-      host = cfg.database.host;
-      port = cfg.database.port;
-      tls = cfg.database.tls;
-    };
+    database = if cfg.database.type == "sqlite3" then
+      {
+        type = "sqlite3";
+        filename = cfg.settings.database.filename or "writefreely.db";
+        database = cfg.database.name;
+      }
+    else
+      {
+        type = "mysql";
+        username = cfg.database.user;
+        password = "#dbpass#";
+        database = cfg.database.name;
+        host = cfg.database.host;
+        port = cfg.database.port;
+        tls = cfg.database.tls;
+      };
 
     server = cfg.settings.server or { } // {
       bind = cfg.settings.server.bind or "localhost";
@@ -210,9 +206,7 @@ in {
           server = {
             port = mkOption {
               type = types.port;
-              default = if
-                cfg.nginx.enable
-              then
+              default = if cfg.nginx.enable then
                 18080
               else
                 80;
@@ -242,9 +236,7 @@ in {
 
       user = mkOption {
         type = types.nullOr types.str;
-        default = if
-          cfg.database.type == "mysql"
-        then
+        default = if cfg.database.type == "mysql" then
           "writefreely"
         else
           null;

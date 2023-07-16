@@ -270,9 +270,7 @@ stdenv.mkDerivation {
   installPhase = ''
     libexec="$out/libexec/virtualbox"
     share="${
-      if
-        enableHardening
-      then
+      if enableHardening then
         "$out/share/virtualbox"
       else
         "$libexec"

@@ -18,9 +18,7 @@
 let
   inherit (melpaStablePackages) tree-sitter-langs;
 
-  libSuffix = if
-    stdenv.isDarwin
-  then
+  libSuffix = if stdenv.isDarwin then
     "dylib"
   else
     "so";

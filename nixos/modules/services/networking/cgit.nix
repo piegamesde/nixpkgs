@@ -57,22 +57,21 @@ let
 
   mkFastcgiPass = cfg: ''
     ${
-      if
-        cfg.nginx.location == "/"
-      then ''
-        fastcgi_param PATH_INFO $uri;
-      '' else ''
-        fastcgi_split_path_info ^(${regexLocation cfg})(/.+)$;
-        fastcgi_param PATH_INFO $fastcgi_path_info;
-      ''
+      if cfg.nginx.location == "/" then
+        ''
+          fastcgi_param PATH_INFO $uri;
+        ''
+      else
+        ''
+          fastcgi_split_path_info ^(${regexLocation cfg})(/.+)$;
+          fastcgi_param PATH_INFO $fastcgi_path_info;
+        ''
     }fastcgi_pass unix:${config.services.fcgiwrap.socketAddress};
   '';
 
   cgitrcLine = name: value:
     "${name}=${
-      if
-        value == true
-      then
+      if value == true then
         "1"
       else if value == false then
         "0"
@@ -100,9 +99,7 @@ let
     '';
 
   mkCgitReposDir = cfg:
-    if
-      cfg.scanPath != null
-    then
+    if cfg.scanPath != null then
       cfg.scanPath
     else
       pkgs.runCommand "cgit-repos" {

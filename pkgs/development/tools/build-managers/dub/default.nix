@@ -63,9 +63,7 @@ stdenv.mkDerivation rec {
     export DUB=$NIX_BUILD_TOP/source/bin/dub
     export PATH=$PATH:$NIX_BUILD_TOP/source/bin/
     export DC=${dcompiler.out}/bin/${
-      if
-        dcompiler.pname == "ldc"
-      then
+      if dcompiler.pname == "ldc" then
         "ldc2"
       else
         dcompiler.pname

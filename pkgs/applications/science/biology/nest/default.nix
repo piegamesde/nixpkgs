@@ -59,17 +59,13 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-Dwith-python=${
-      if
-        withPython
-      then
+      if withPython then
         "ON"
       else
         "OFF"
     }"
     "-Dwith-mpi=${
-      if
-        withMpi
-      then
+      if withMpi then
         "ON"
       else
         "OFF"

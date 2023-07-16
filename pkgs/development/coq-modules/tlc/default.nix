@@ -45,10 +45,10 @@
     maintainers = [ maintainers.vbgl ];
   };
 }).overrideAttrs (x:
-  if
-    lib.versionAtLeast x.version "20210316"
-  then
+  if lib.versionAtLeast x.version "20210316" then
     { }
-  else {
-    installFlags = [ "CONTRIB=$(out)/lib/coq/${coq.coq-version}/user-contrib" ];
-  })
+  else
+    {
+      installFlags =
+        [ "CONTRIB=$(out)/lib/coq/${coq.coq-version}/user-contrib" ];
+    })

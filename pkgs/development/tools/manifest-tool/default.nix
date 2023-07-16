@@ -34,15 +34,11 @@ buildGoModule rec {
     ldflags="-X main.gitCommit=$(cat .git-revision)"
   '';
 
-  CGO_ENABLED = if
-    stdenv.hostPlatform.isStatic
-  then
+  CGO_ENABLED = if stdenv.hostPlatform.isStatic then
     "0"
   else
     "1";
-  GO_EXTLINK_ENABLED = if
-    stdenv.hostPlatform.isStatic
-  then
+  GO_EXTLINK_ENABLED = if stdenv.hostPlatform.isStatic then
     "0"
   else
     "1";

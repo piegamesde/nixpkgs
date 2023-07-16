@@ -75,9 +75,7 @@
 }:
 
 # Check that Fortran bindings are not used together with SIMD real type
-assert (if
-  enableFortran
-then
+assert (if enableFortran then
   !enableSSE
 else
   true);

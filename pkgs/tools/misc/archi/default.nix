@@ -15,9 +15,7 @@ stdenv.mkDerivation rec {
   pname = "Archi";
   version = "4.7.1";
 
-  src = if
-    stdenv.hostPlatform.system == "x86_64-linux"
-  then
+  src = if stdenv.hostPlatform.system == "x86_64-linux" then
     fetchurl {
       url =
         "https://www.archimatetool.com/downloads/archi/Archi-Linux64-${version}.tgz";
@@ -39,22 +37,23 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ] ++ lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook;
 
-  installPhase = if
-    stdenv.hostPlatform.system == "x86_64-linux"
-  then ''
-    mkdir -p $out/bin $out/libexec
-    for f in configuration features p2 plugins Archi.ini; do
-      cp -r $f $out/libexec
-    done
+  installPhase = if stdenv.hostPlatform.system == "x86_64-linux" then
+    ''
+      mkdir -p $out/bin $out/libexec
+      for f in configuration features p2 plugins Archi.ini; do
+        cp -r $f $out/libexec
+      done
 
-    install -D -m755 Archi $out/libexec/Archi
-    makeWrapper $out/libexec/Archi $out/bin/Archi \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath ([ webkitgtk ])} \
-      --prefix PATH : ${jdk}/bin
-  '' else ''
-    mkdir -p "$out/Applications"
-    mv Archi.app "$out/Applications/"
-  '';
+      install -D -m755 Archi $out/libexec/Archi
+      makeWrapper $out/libexec/Archi $out/bin/Archi \
+        --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath ([ webkitgtk ])} \
+        --prefix PATH : ${jdk}/bin
+    ''
+  else
+    ''
+      mkdir -p "$out/Applications"
+      mv Archi.app "$out/Applications/"
+    '';
 
   meta = with lib; {
     description = "ArchiMate modelling toolkit";

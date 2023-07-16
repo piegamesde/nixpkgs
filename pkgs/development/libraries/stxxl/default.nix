@@ -8,9 +8,7 @@
 
 let
   mkFlag = optset: flag:
-    if
-      optset
-    then
+    if optset then
       "-D${flag}=ON"
     else
       "-D${flag}=OFF";

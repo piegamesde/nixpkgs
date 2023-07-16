@@ -276,9 +276,7 @@ in {
       ''}
       gc_roots_dir = ${cfg.gcRootsDir}
       use-substitutes = ${
-        if
-          cfg.useSubstitutes
-        then
+        if cfg.useSubstitutes then
           "1"
         else
           "0"

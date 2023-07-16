@@ -68,9 +68,7 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ marsam ];
     platforms = postgresql.meta.platforms;
     license = with licenses;
-      if
-        enableUnfree
-      then
+      if enableUnfree then
         tsl
       else
         asl20;

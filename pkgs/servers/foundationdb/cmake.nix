@@ -20,9 +20,7 @@
 }:
 
 let
-  stdenv = if
-    useClang
-  then
+  stdenv = if useClang then
     llvmPackages.libcxxStdenv
   else
     gccStdenv;

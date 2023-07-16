@@ -64,9 +64,7 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--sysconfdir=/etc"
     "--localstatedir=/var"
-    (if
-      withNcurses
-    then
+    (if withNcurses then
       "--with-curses"
     else
       "--without-curses")

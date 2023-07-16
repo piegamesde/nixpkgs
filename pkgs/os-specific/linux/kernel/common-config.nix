@@ -432,9 +432,7 @@ let
 
       TMPFS = yes;
       TMPFS_POSIX_ACL = yes;
-      FS_ENCRYPTION = if
-        (versionAtLeast version "5.1")
-      then
+      FS_ENCRYPTION = if (versionAtLeast version "5.1") then
         yes
       else
         option module;
@@ -790,13 +788,13 @@ let
       XZ_DEC_TEST = option no;
     };
 
-    criu = if
-      (versionAtLeast version "4.19")
-    then {
-      # Unconditionally enabled, because it is required for CRIU and
-      # it provides the kcmp() system call that Mesa depends on.
-      CHECKPOINT_RESTORE = yes;
-    } else
+    criu = if (versionAtLeast version "4.19") then
+      {
+        # Unconditionally enabled, because it is required for CRIU and
+        # it provides the kcmp() system call that Mesa depends on.
+        CHECKPOINT_RESTORE = yes;
+      }
+    else
       optionalAttrs (features.criu or false) ({
         # For older kernels, CHECKPOINT_RESTORE is hidden behind EXPERT.
         EXPERT = yes;

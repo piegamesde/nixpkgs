@@ -12,9 +12,7 @@ mkCoqDerivation {
   owner = "damien-pous";
 
   releaseRev = v:
-    if
-      lib.versions.isGe "1.7.6" v
-    then
+    if lib.versions.isGe "1.7.6" v then
       "v.${v}"
     else
       "v${v}";

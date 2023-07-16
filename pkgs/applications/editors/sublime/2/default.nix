@@ -21,9 +21,7 @@ stdenv.mkDerivation rec {
   pname = "sublimetext";
   version = "2.0.2";
 
-  src = if
-    stdenv.hostPlatform.system == "i686-linux"
-  then
+  src = if stdenv.hostPlatform.system == "i686-linux" then
     fetchurl {
       name = "sublimetext-${version}.tar.bz2";
       urls = [

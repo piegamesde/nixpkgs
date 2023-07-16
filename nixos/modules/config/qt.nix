@@ -23,20 +23,28 @@ let
   isLxqt = cfg.platformTheme == "lxqt";
   isKde = cfg.platformTheme == "kde";
 
-  packages = if
-    isQGnome
-  then [
-    pkgs.qgnomeplatform
-    pkgs.adwaita-qt
-    pkgs.qgnomeplatform-qt6
-    pkgs.adwaita-qt6
-  ] else if isQtStyle then [ pkgs.libsForQt5.qtstyleplugins ] else if isQt5ct then [ pkgs.libsForQt5.qt5ct ] else if isLxqt then [
-    pkgs.lxqt.lxqt-qtplugin
-    pkgs.lxqt.lxqt-config
-  ] else if isKde then [
-    pkgs.libsForQt5.plasma-integration
-    pkgs.libsForQt5.systemsettings
-  ] else
+  packages = if isQGnome then
+    [
+      pkgs.qgnomeplatform
+      pkgs.adwaita-qt
+      pkgs.qgnomeplatform-qt6
+      pkgs.adwaita-qt6
+    ]
+  else if isQtStyle then
+    [ pkgs.libsForQt5.qtstyleplugins ]
+  else if isQt5ct then
+    [ pkgs.libsForQt5.qt5ct ]
+  else if isLxqt then
+    [
+      pkgs.lxqt.lxqt-qtplugin
+      pkgs.lxqt.lxqt-config
+    ]
+  else if isKde then
+    [
+      pkgs.libsForQt5.plasma-integration
+      pkgs.libsForQt5.systemsettings
+    ]
+  else
     throw
     "`qt.platformTheme` ${cfg.platformTheme} and `qt.style` ${cfg.style} are not compatible.";
 

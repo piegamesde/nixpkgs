@@ -108,9 +108,7 @@ stdenv.mkDerivation rec {
     gappsWrapperArgs+=("--prefix" "LD_LIBRARY_PATH" ":" ${LD_LIBRARY_PATH})
   '';
 
-  shared = if
-    stdenv.isDarwin
-  then
+  shared = if stdenv.isDarwin then
     "dylib"
   else
     "shared";

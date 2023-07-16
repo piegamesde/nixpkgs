@@ -40,9 +40,7 @@ stdenv.mkDerivation rec {
     "SBINDIR=$(out)/bin"
     "LIBDIR=$(out)/lib"
     "LUA=${
-      if
-        luaSupport
-      then
+      if luaSupport then
         "lua"
       else
         "no"

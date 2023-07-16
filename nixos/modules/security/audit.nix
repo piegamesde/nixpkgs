@@ -44,9 +44,7 @@ let
     # Enable and configure auditing
     auditctl \
       -e ${
-        if
-          cfg.enable == "lock"
-        then
+        if cfg.enable == "lock" then
           "2"
         else
           "1"
@@ -139,9 +137,7 @@ in {
         Type = "oneshot";
         RemainAfterExit = true;
         ExecStart = "@${
-            if
-              enabled
-            then
+            if enabled then
               startScript
             else
               disableScript

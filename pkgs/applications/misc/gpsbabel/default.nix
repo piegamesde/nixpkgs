@@ -115,30 +115,32 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     install -Dm755 gpsbabel -t $out/bin
-  '' + lib.optionalString withGUI (if
-    stdenv.isDarwin
-  then ''
-    mkdir -p $out/Applications
-    mv gui/GPSBabelFE.app $out/Applications
-    install -Dm644 gui/*.qm gui/coretool/*.qm -t $out/Applications/GPSBabelFE.app/Contents/Resources/translations
-    ln -s $out/bin/gpsbabel $out/Applications/GPSBabelFE.app/Contents/MacOS
-  '' else ''
-    install -Dm755 gui/objects/gpsbabelfe -t $out/bin
-    install -Dm644 gui/gpsbabel.desktop -t $out/share/application
-    install -Dm644 gui/images/appicon.png $out/share/icons/hicolor/512x512/apps/gpsbabel.png
-    install -Dm644 gui/*.qm gui/coretool/*.qm -t $out/share/gpsbabel/translations
-  '') + lib.optionalString withDoc ''
-    install -Dm655 gpsbabel.{html,pdf} -t $doc/share/doc/gpsbabel
-    cp -r html $doc/share/doc/gpsbabel
-  '';
+  '' + lib.optionalString withGUI (if stdenv.isDarwin then
+    ''
+      mkdir -p $out/Applications
+      mv gui/GPSBabelFE.app $out/Applications
+      install -Dm644 gui/*.qm gui/coretool/*.qm -t $out/Applications/GPSBabelFE.app/Contents/Resources/translations
+      ln -s $out/bin/gpsbabel $out/Applications/GPSBabelFE.app/Contents/MacOS
+    ''
+  else
+    ''
+      install -Dm755 gui/objects/gpsbabelfe -t $out/bin
+      install -Dm644 gui/gpsbabel.desktop -t $out/share/application
+      install -Dm644 gui/images/appicon.png $out/share/icons/hicolor/512x512/apps/gpsbabel.png
+      install -Dm644 gui/*.qm gui/coretool/*.qm -t $out/share/gpsbabel/translations
+    '') + lib.optionalString withDoc ''
+      install -Dm655 gpsbabel.{html,pdf} -t $doc/share/doc/gpsbabel
+      cp -r html $doc/share/doc/gpsbabel
+    '';
 
-  postFixup = lib.optionalString withGUI (if
-    stdenv.isDarwin
-  then ''
-    wrapQtApp "$out/Applications/GPSBabelFE.app/Contents/MacOS/GPSBabelFE"
-  '' else ''
-    wrapQtApp "$out/bin/gpsbabelfe"
-  '');
+  postFixup = lib.optionalString withGUI (if stdenv.isDarwin then
+    ''
+      wrapQtApp "$out/Applications/GPSBabelFE.app/Contents/MacOS/GPSBabelFE"
+    ''
+  else
+    ''
+      wrapQtApp "$out/bin/gpsbabelfe"
+    '');
 
   meta = with lib; {
     description = "Convert, upload and download data from GPS and Map programs";

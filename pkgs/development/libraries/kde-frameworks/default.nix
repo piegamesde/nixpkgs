@@ -97,9 +97,7 @@ let
             ];
             hasSeparateDev = lib.elem "dev" outputs;
 
-            defaultSetupHook = if
-              hasSeparateDev
-            then
+            defaultSetupHook = if hasSeparateDev then
               propagateBin
             else
               null;

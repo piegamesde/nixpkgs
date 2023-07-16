@@ -66,9 +66,7 @@ in rec {
     description = "instruction set architecture name and information";
     merge = mergeOneOption;
     check = x:
-      types.bitWidth.check x.bits && (if
-        8 < x.bits
-      then
+      types.bitWidth.check x.bits && (if 8 < x.bits then
         types.significantByte.check x.significantByte
       else
         !(x ? significantByte));
@@ -704,39 +702,43 @@ in rec {
 
   mkSkeletonFromList = l:
     {
-      "1" = if
-        elemAt l 0 == "avr"
-      then {
-        cpu = elemAt l 0;
-        kernel = "none";
-        abi = "unknown";
-      } else
+      "1" = if elemAt l 0 == "avr" then
+        {
+          cpu = elemAt l 0;
+          kernel = "none";
+          abi = "unknown";
+        }
+      else
         throw "Target specification with 1 components is ambiguous";
       "2" = # We only do 2-part hacks for things Nix already supports
-        if
-          elemAt l 1 == "cygwin"
-        then {
-          cpu = elemAt l 0;
-          kernel = "windows";
-          abi = "cygnus";
-        }
-        # MSVC ought to be the default ABI so this case isn't needed. But then it
-        # becomes difficult to handle the gnu* variants for Aarch32 correctly for
-        # minGW. So it's easier to make gnu* the default for the MinGW, but
-        # hack-in MSVC for the non-MinGW case right here.
-        else if elemAt l 1 == "windows" then {
-          cpu = elemAt l 0;
-          kernel = "windows";
-          abi = "msvc";
-        } else if (elemAt l 1) == "elf" then {
-          cpu = elemAt l 0;
-          vendor = "unknown";
-          kernel = "none";
-          abi = elemAt l 1;
-        } else {
-          cpu = elemAt l 0;
-          kernel = elemAt l 1;
-        };
+        if elemAt l 1 == "cygwin" then
+          {
+            cpu = elemAt l 0;
+            kernel = "windows";
+            abi = "cygnus";
+          }
+          # MSVC ought to be the default ABI so this case isn't needed. But then it
+          # becomes difficult to handle the gnu* variants for Aarch32 correctly for
+          # minGW. So it's easier to make gnu* the default for the MinGW, but
+          # hack-in MSVC for the non-MinGW case right here.
+        else if elemAt l 1 == "windows" then
+          {
+            cpu = elemAt l 0;
+            kernel = "windows";
+            abi = "msvc";
+          }
+        else if (elemAt l 1) == "elf" then
+          {
+            cpu = elemAt l 0;
+            vendor = "unknown";
+            kernel = "none";
+            abi = elemAt l 1;
+          }
+        else
+          {
+            cpu = elemAt l 0;
+            kernel = elemAt l 1;
+          };
       "3" =
         # cpu-kernel-environment
         if
@@ -746,30 +748,33 @@ in rec {
             "elf"
             "gnu"
           ]
-        then {
-          cpu = elemAt l 0;
-          kernel = elemAt l 1;
-          abi = elemAt l 2;
-          vendor = "unknown";
-        }
-        # cpu-vendor-os
-        else if elemAt l 1 == "apple" || elem (elemAt l 2) [
-          "wasi"
-          "redox"
-          "mmixware"
-          "ghcjs"
-          "mingw32"
-        ] || hasPrefix "freebsd" (elemAt l 2) || hasPrefix "netbsd" (elemAt l 2)
-        || hasPrefix "genode" (elemAt l 2) then {
-          cpu = elemAt l 0;
-          vendor = elemAt l 1;
-          kernel = if
-            elemAt l 2 == "mingw32"
-          then
-            "windows" # autotools breaks on -gnu for window
-          else
-            elemAt l 2;
-        } else
+        then
+          {
+            cpu = elemAt l 0;
+            kernel = elemAt l 1;
+            abi = elemAt l 2;
+            vendor = "unknown";
+          }
+          # cpu-vendor-os
+        else if
+          elemAt l 1 == "apple" || elem (elemAt l 2) [
+            "wasi"
+            "redox"
+            "mmixware"
+            "ghcjs"
+            "mingw32"
+          ] || hasPrefix "freebsd" (elemAt l 2)
+          || hasPrefix "netbsd" (elemAt l 2) || hasPrefix "genode" (elemAt l 2)
+        then
+          {
+            cpu = elemAt l 0;
+            vendor = elemAt l 1;
+            kernel = if elemAt l 2 == "mingw32" then
+              "windows" # autotools breaks on -gnu for window
+            else
+              elemAt l 2;
+          }
+        else
           throw "Target specification with 3 components is ambiguous";
       "4" = {
         cpu = elemAt l 0;
@@ -796,9 +801,7 @@ in rec {
 
       parsed = {
         cpu = getCpu args.cpu;
-        vendor = if
-          args ? vendor
-        then
+        vendor = if args ? vendor then
           getVendor args.vendor
         else if isDarwin parsed then
           vendors.apple
@@ -806,25 +809,17 @@ in rec {
           vendors.pc
         else
           vendors.unknown;
-        kernel = if
-          hasPrefix "darwin" args.kernel
-        then
+        kernel = if hasPrefix "darwin" args.kernel then
           getKernel "darwin"
         else if hasPrefix "netbsd" args.kernel then
           getKernel "netbsd"
         else
           getKernel args.kernel;
-        abi = if
-          args ? abi
-        then
+        abi = if args ? abi then
           getAbi args.abi
         else if isLinux parsed || isWindows parsed then
-          if
-            isAarch32 parsed
-          then
-            if
-              lib.versionAtLeast (parsed.cpu.version or "0") "6"
-            then
+          if isAarch32 parsed then
+            if lib.versionAtLeast (parsed.cpu.version or "0") "6" then
               abis.gnueabihf
             else
               abis.gnueabi
@@ -852,9 +847,7 @@ in rec {
       abi,
       ...
     }:
-    if
-      abi == abis.cygnus
-    then
+    if abi == abis.cygnus then
       "${cpu.name}-cygwin"
     else if kernel.families ? darwin then
       "${cpu.name}-darwin"

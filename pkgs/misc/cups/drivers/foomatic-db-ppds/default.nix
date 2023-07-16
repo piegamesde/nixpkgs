@@ -110,9 +110,7 @@ stdenv.mkDerivation {
   meta = {
     description = "OpenPrinting ppd files";
     homepage = "https://openprinting.github.io/projects/02-foomatic/";
-    license = if
-      isFree
-    then
+    license = if isFree then
       lib.licenses.free
     else
       lib.licenses.unfree;

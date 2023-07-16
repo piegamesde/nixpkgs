@@ -154,9 +154,7 @@ stdenv.mkDerivation rec {
     export DYLD_FALLBACK_LIBRARY_PATH="${libPath}"
   '';
 
-  shared = if
-    stdenv.isDarwin
-  then
+  shared = if stdenv.isDarwin then
     "dylib"
   else
     "shared";

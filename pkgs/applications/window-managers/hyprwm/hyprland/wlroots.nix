@@ -51,14 +51,10 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
     hash = "sha256-LmI/4Yp/pOOoI4RxLRx9I90NBsiqdRLVOfbATKlgpkg=";
   };
 
-  pname = old.pname + "-hyprland" + (if
-    hidpiXWayland
-  then
+  pname = old.pname + "-hyprland" + (if hidpiXWayland then
     "-hidpi"
   else
-    "") + (if
-      nvidiaPatches
-    then
+    "") + (if nvidiaPatches then
       "-nvidia"
     else
       "");
@@ -78,11 +74,11 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
       sha256 = "A9f1p5EW++mGCaNq8w7ZJfeWmvTfUm4iO+1KDcnqYX8=";
     }) ]);
 
-  postPatch = (old.postPatch or "") + (if
-    nvidiaPatches
-  then ''
-    substituteInPlace render/gles2/renderer.c --replace "glFlush();" "glFinish();"
-  '' else
+  postPatch = (old.postPatch or "") + (if nvidiaPatches then
+    ''
+      substituteInPlace render/gles2/renderer.c --replace "glFlush();" "glFinish();"
+    ''
+  else
     "");
 
   buildInputs = old.buildInputs ++ [

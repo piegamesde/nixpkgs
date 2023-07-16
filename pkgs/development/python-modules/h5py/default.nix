@@ -40,9 +40,7 @@ buildPythonPackage rec {
   '';
 
   HDF5_DIR = "${hdf5}";
-  HDF5_MPI = if
-    mpiSupport
-  then
+  HDF5_MPI = if mpiSupport then
     "ON"
   else
     "OFF";

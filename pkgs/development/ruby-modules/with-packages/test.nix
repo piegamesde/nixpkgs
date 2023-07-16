@@ -30,9 +30,7 @@ let
   tests = ruby:
     lib.mapAttrs (name: gem:
       let
-        test = if
-          builtins.isList gemTests.${name}
-        then
+        test = if builtins.isList gemTests.${name} then
           pkgs.writeText "${name}.rb" ''
             puts "${name} GEM_HOME: #{ENV['GEM_HOME']}"
             ${lib.concatStringsSep "\n"

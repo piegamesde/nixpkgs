@@ -40,9 +40,7 @@ stdenv.mkDerivation rec {
       libpcap_stuff.c script.c
   '';
 
-  configureFlags = [ (if
-    withTcl
-  then
+  configureFlags = [ (if withTcl then
     "TCLSH=${tcl}/bin/tclsh"
   else
     "--no-tcl") ];

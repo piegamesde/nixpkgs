@@ -73,9 +73,9 @@ buildPythonPackage rec {
     urllib3
   ] ++ passthru.optional-dependencies.aiohttp
     # `cryptography` is still required on `aarch64-darwin` for `tests/crypt/*`
-    ++ (if
-      (stdenv.isDarwin && stdenv.isAarch64)
-    then [ cryptography ] else
+    ++ (if (stdenv.isDarwin && stdenv.isAarch64) then
+      [ cryptography ]
+    else
       passthru.optional-dependencies.enterprise_cert)
     ++ passthru.optional-dependencies.reauth;
 

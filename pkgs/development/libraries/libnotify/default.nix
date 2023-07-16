@@ -38,9 +38,7 @@ stdenv.mkDerivation rec {
     "-Ddocbook_docs=disabled"
     "-Dgtk_doc=false"
     "-Dintrospection=${
-      if
-        withIntrospection
-      then
+      if withIntrospection then
         "enabled"
       else
         "disabled"

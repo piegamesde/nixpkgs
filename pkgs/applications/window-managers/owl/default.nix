@@ -13,9 +13,7 @@
 assert wayland.withLibraries;
 
 let
-  mkDerivation = if
-    stdenv.isDarwin
-  then
+  mkDerivation = if stdenv.isDarwin then
     stdenv.mkDerivation
   else
     gnustep.gsmakeDerivation;

@@ -10,9 +10,7 @@ stdenv.mkDerivation rec {
   pname = "goku";
   version = "0.6.0";
 
-  src = if
-    stdenv.isAarch64
-  then
+  src = if stdenv.isAarch64 then
     fetchurl {
       url =
         "https://github.com/yqrashawn/GokuRakuJoudo/releases/download/v${version}/goku-arm.zip";
@@ -29,9 +27,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ joker ];
 
-  sourceRoot = if
-    stdenv.isAarch64
-  then
+  sourceRoot = if stdenv.isAarch64 then
     "goku"
   else
     ".";

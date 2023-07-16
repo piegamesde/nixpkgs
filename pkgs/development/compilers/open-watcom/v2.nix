@@ -50,26 +50,20 @@ stdenv.mkDerivation rec {
 
     export OWROOT=$(realpath $PWD)
     export OWTOOLS=${
-      if
-        stdenv.cc.isClang
-      then
+      if stdenv.cc.isClang then
         "CLANG"
       else
         "GCC"
     }
     export OWDOCBUILD=${
-      if
-        withDocs
-      then
+      if withDocs then
         "1"
       else
         "0"
     }
     export OWGHOSTSCRIPTPATH=${lib.optionalString withDocs "${ghostscript}/bin"}
     export OWGUINOBUILD=${
-      if
-        withGUI
-      then
+      if withGUI then
         "0"
       else
         "1"

@@ -256,17 +256,13 @@ stdenv.mkDerivation rec {
     "-Ddirectshow=disabled" # Windows-only
     "-Ddts=disabled" # required `libdca` library not packaged in nixpkgs as of writing, and marked as "BIG FAT WARNING: libdca is still in early development"
     "-Dzbar=${
-      if
-        enableZbar
-      then
+      if enableZbar then
         "enabled"
       else
         "disabled"
     }"
     "-Dfaac=${
-      if
-        faacSupport
-      then
+      if faacSupport then
         "enabled"
       else
         "disabled"
@@ -301,9 +297,7 @@ stdenv.mkDerivation rec {
     "-Donnx=disabled" # depends on `libonnxruntime` not packaged in nixpkgs as of writing
     "-Dopenaptx=enabled" # since gstreamer-1.20.1 `libfreeaptx` is supported for circumventing the dubious license conflict with `libopenaptx`
     "-Dbluez=${
-      if
-        bluezSupport
-      then
+      if bluezSupport then
         "enabled"
       else
         "disabled"
@@ -338,17 +332,18 @@ stdenv.mkDerivation rec {
       # `applemedia/videotexturecache.h` requires `gst/gl/gl.h`,
       # but its meson build system does not declare the dependency.
       "-Dapplemedia=disabled"
-    ] ++ (if
-      enableGplPlugins
-    then [ "-Dgpl=enabled" ] else [
-      "-Ddts=disabled"
-      "-Dfaad=disabled"
-      "-Diqa=disabled"
-      "-Dmpeg2enc=disabled"
-      "-Dmplex=disabled"
-      "-Dresindvd=disabled"
-      "-Dx265=disabled"
-    ]);
+    ] ++ (if enableGplPlugins then
+      [ "-Dgpl=enabled" ]
+    else
+      [
+        "-Ddts=disabled"
+        "-Dfaad=disabled"
+        "-Diqa=disabled"
+        "-Dmpeg2enc=disabled"
+        "-Dmplex=disabled"
+        "-Dresindvd=disabled"
+        "-Dx265=disabled"
+      ]);
 
   # Argument list too long
   strictDeps = true;
@@ -373,9 +368,7 @@ stdenv.mkDerivation rec {
       something - be it a good code review, some documentation, a set of tests,
       a real live maintainer, or some actual wide use.
     '';
-    license = if
-      enableGplPlugins
-    then
+    license = if enableGplPlugins then
       licenses.gpl2Plus
     else
       licenses.lgpl2Plus;

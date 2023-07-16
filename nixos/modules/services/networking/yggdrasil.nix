@@ -173,9 +173,7 @@ in {
         set -euo pipefail
 
         # prepare config file
-        ${(if
-          settingsProvided || configFileProvided || cfg.persistentKeys
-        then
+        ${(if settingsProvided || configFileProvided || cfg.persistentKeys then
           "echo "
 
           + (lib.optionalString settingsProvided
@@ -218,7 +216,10 @@ in {
           "@system-service"
           "~@privileged @keyring"
         ];
-      } // (if (cfg.group != null) then { Group = cfg.group; } else { });
+      } // (if (cfg.group != null) then
+        { Group = cfg.group; }
+      else
+        { });
     };
 
     networking.dhcpcd.denyInterfaces = cfg.denyDhcpcdInterfaces;

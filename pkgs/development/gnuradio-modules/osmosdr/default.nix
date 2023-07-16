@@ -77,9 +77,7 @@ mkDerivation {
       darwin.apple_sdk.frameworks.IOKit
       darwin.apple_sdk.frameworks.Security
     ];
-  cmakeFlags = [ (if
-    (gnuradio.hasFeature "python-support")
-  then
+  cmakeFlags = [ (if (gnuradio.hasFeature "python-support") then
     "-DENABLE_PYTHON=ON"
   else
     "-DENABLE_PYTHON=OFF") ];
@@ -88,9 +86,7 @@ mkDerivation {
     pkg-config
     swig
   ] ++ lib.optionals (gnuradio.hasFeature "python-support") [
-    (if
-      (gnuradio.versionAttr.major == "3.7")
-    then
+    (if (gnuradio.versionAttr.major == "3.7") then
       python.pkgs.cheetah
     else
       python.pkgs.mako)

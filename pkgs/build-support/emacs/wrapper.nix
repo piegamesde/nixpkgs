@@ -52,9 +52,7 @@ in
 packagesFun: # packages explicitly requested by the user
 
 let
-  explicitRequires = if
-    lib.isFunction packagesFun
-  then
+  explicitRequires = if lib.isFunction packagesFun then
     packagesFun self
   else
     packagesFun;

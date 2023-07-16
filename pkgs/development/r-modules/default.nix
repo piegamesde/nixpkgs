@@ -37,9 +37,7 @@ let
         requireX ? false,
         broken ? false,
         platforms ? R.meta.platforms,
-        hydraPlatforms ? if
-          hydraPlatforms' != null
-        then
+        hydraPlatforms ? if hydraPlatforms' != null then
           hydraPlatforms'
         else
           platforms,

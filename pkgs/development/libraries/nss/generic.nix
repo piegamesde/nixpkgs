@@ -54,9 +54,7 @@ stdenv.mkDerivation rec {
 
   patches = [
     # Based on http://patch-tracker.debian.org/patch/series/dl/nss/2:3.15.4-1/85_security_load.patch
-    (if
-      (lib.versionOlder version "3.84")
-    then
+    (if (lib.versionOlder version "3.84") then
       ./85_security_load_3.77+.patch
     else
       ./85_security_load_3.85+.patch)
@@ -88,9 +86,7 @@ stdenv.mkDerivation rec {
 
   buildPhase = let
     getArch = platform:
-      if
-        platform.isx86_64
-      then
+      if platform.isx86_64 then
         "x64"
       else if platform.isx86_32 then
         "ia32"
@@ -99,9 +95,7 @@ stdenv.mkDerivation rec {
       else if platform.isAarch64 then
         "arm64"
       else if platform.isPower && platform.is64bit then
-        (if
-          platform.isLittleEndian
-        then
+        (if platform.isLittleEndian then
           "ppc64le"
         else
           "ppc64")
@@ -182,9 +176,7 @@ stdenv.mkDerivation rec {
 
   postFixup = let
     isCross = stdenv.hostPlatform != stdenv.buildPlatform;
-    nss = if
-      isCross
-    then
+    nss = if isCross then
       buildPackages.nss.tools
     else
       "$out";
@@ -192,23 +184,24 @@ stdenv.mkDerivation rec {
   (lib.optionalString enableFIPS (''
     for libname in freebl3 nssdbm3 softokn3
     do libfile="$out/lib/lib$libname${stdenv.hostPlatform.extensions.sharedLibrary}"''
-    + (if
-      stdenv.isDarwin
-    then ''
-      DYLD_LIBRARY_PATH=$out/lib:${nspr.out}/lib \
-    '' else ''
-      LD_LIBRARY_PATH=$out/lib:${nspr.out}/lib \
-    '') + ''
-          ${nss}/bin/shlibsign -v -i "$libfile"
-      done
-    '')) + ''
-      moveToOutput bin "$tools"
-      moveToOutput bin/nss-config "$dev"
-      moveToOutput lib/libcrmf.a "$dev" # needed by firefox, for example
-      rm -f "$out"/lib/*.a
+    + (if stdenv.isDarwin then
+      ''
+        DYLD_LIBRARY_PATH=$out/lib:${nspr.out}/lib \
+      ''
+    else
+      ''
+        LD_LIBRARY_PATH=$out/lib:${nspr.out}/lib \
+      '') + ''
+            ${nss}/bin/shlibsign -v -i "$libfile"
+        done
+      '')) + ''
+        moveToOutput bin "$tools"
+        moveToOutput bin/nss-config "$dev"
+        moveToOutput lib/libcrmf.a "$dev" # needed by firefox, for example
+        rm -f "$out"/lib/*.a
 
-      runHook postInstall
-    ''
+        runHook postInstall
+      ''
   ;
 
   passthru.updateScript = ./update.sh;

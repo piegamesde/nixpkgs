@@ -207,9 +207,7 @@ callPackage (import ./generic.nix (rec {
   '';
 
   passthru = {
-    qemu-system-i386 = if
-      withInternalQemu
-    then
+    qemu-system-i386 = if withInternalQemu then
       "lib/xen/bin/qemu-system-i386"
     else
       throw "this xen has no qemu builtin";

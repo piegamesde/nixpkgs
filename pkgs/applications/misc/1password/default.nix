@@ -18,9 +18,7 @@ let
           "https://cache.agilebits.com/dist/1P/op2/pkg/v${version}/op_${srcPlatform}_v${version}.${extension}";
         inherit sha256;
       } // lib.optionalAttrs (extension == "zip") { stripRoot = false; };
-    in if
-      extension == "zip"
-    then
+    in if extension == "zip" then
       fetchzip args
     else
       fetchurl args;
@@ -47,9 +45,7 @@ let
 in
 stdenv.mkDerivation {
   inherit pname version;
-  src = if
-    (builtins.elem system platforms)
-  then
+  src = if (builtins.elem system platforms) then
     sources.${system}
   else
     throw "Source for ${pname} is not available for ${system}";

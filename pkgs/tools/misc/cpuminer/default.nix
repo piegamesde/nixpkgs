@@ -27,9 +27,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-lGAcwDcXgcJBFhasSEdQIEIY7pp6x/PEXHBsVwAOqhc=";
   }) ];
 
-  postPatch = if
-    stdenv.cc.isClang
-  then
+  postPatch = if stdenv.cc.isClang then
     "${perl}/bin/perl ./nomacro.pl"
   else
     null;

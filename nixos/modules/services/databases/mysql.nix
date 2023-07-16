@@ -326,12 +326,11 @@ in {
 
   config = mkIf cfg.enable {
 
-    services.mysql.dataDir = mkDefault (if
-      versionAtLeast config.system.stateVersion "17.09"
-    then
-      "/var/lib/mysql"
-    else
-      "/var/mysql");
+    services.mysql.dataDir = mkDefault
+      (if versionAtLeast config.system.stateVersion "17.09" then
+        "/var/lib/mysql"
+      else
+        "/var/mysql");
 
     services.mysql.settings.mysqld = mkMerge [
       {
@@ -385,19 +384,20 @@ in {
         pkgs.nettools
       ];
 
-      preStart = if
-        isMariaDB
-      then ''
-        if ! test -e ${cfg.dataDir}/mysql; then
-          ${cfg.package}/bin/mysql_install_db --defaults-file=/etc/my.cnf ${mysqldOptions}
-          touch ${cfg.dataDir}/mysql_init
-        fi
-      '' else ''
-        if ! test -e ${cfg.dataDir}/mysql; then
-          ${cfg.package}/bin/mysqld --defaults-file=/etc/my.cnf ${mysqldOptions} --initialize-insecure
-          touch ${cfg.dataDir}/mysql_init
-        fi
-      '';
+      preStart = if isMariaDB then
+        ''
+          if ! test -e ${cfg.dataDir}/mysql; then
+            ${cfg.package}/bin/mysql_install_db --defaults-file=/etc/my.cnf ${mysqldOptions}
+            touch ${cfg.dataDir}/mysql_init
+          fi
+        ''
+      else
+        ''
+          if ! test -e ${cfg.dataDir}/mysql; then
+            ${cfg.package}/bin/mysqld --defaults-file=/etc/my.cnf ${mysqldOptions} --initialize-insecure
+            touch ${cfg.dataDir}/mysql_init
+          fi
+        '';
 
       script = ''
         # https://mariadb.com/kb/en/getting-started-with-mariadb-galera-cluster/#systemd-and-galera-recovery
@@ -413,9 +413,7 @@ in {
 
       postStart = let
         # The super user account to use on *first* run of MySQL server
-        superUser = if
-          isMariaDB
-        then
+        superUser = if isMariaDB then
           cfg.user
         else
           "root";
@@ -442,9 +440,7 @@ in {
             # While MariaDB comes with a 'mysql' super user account since 10.4.x, MySQL does not
             # Since we don't want to run this service as 'root' we need to ensure the account exists on first run
             ( echo "CREATE USER IF NOT EXISTS '${cfg.user}'@'localhost' IDENTIFIED WITH ${
-              if
-                isMariaDB
-              then
+              if isMariaDB then
                 "unix_socket"
               else
                 "auth_socket"
@@ -526,9 +522,7 @@ in {
 
         ${concatMapStrings (user: ''
           ( echo "CREATE USER IF NOT EXISTS '${user.name}'@'localhost' IDENTIFIED WITH ${
-            if
-              isMariaDB
-            then
+            if isMariaDB then
               "unix_socket"
             else
               "auth_socket"
@@ -544,9 +538,7 @@ in {
 
       serviceConfig = mkMerge [
         {
-          Type = if
-            isMariaDB
-          then
+          Type = if isMariaDB then
             "notify"
           else
             "simple";

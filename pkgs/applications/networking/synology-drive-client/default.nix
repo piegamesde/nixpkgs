@@ -114,9 +114,7 @@ let
       cp -R 'Synology Drive Client.app' $out/Applications/
     '';
   };
-in if
-  stdenv.isDarwin
-then
+in if stdenv.isDarwin then
   darwin
 else
   linux

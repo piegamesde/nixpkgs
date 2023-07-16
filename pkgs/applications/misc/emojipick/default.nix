@@ -17,9 +17,7 @@
 
 let
   boolToInt = b:
-    if
-      b
-    then
+    if b then
       "1"
     else
       "0"; # Convert boolean to integer string
@@ -65,7 +63,10 @@ stdenvNoCC.mkDerivation {
     python3
     xclip
     libnotify
-  ] ++ (if emojipick-use-rofi then [ rofi ] else [ dmenu ]);
+  ] ++ (if emojipick-use-rofi then
+    [ rofi ]
+  else
+    [ dmenu ]);
 
   installPhase = ''
     runHook preInstall

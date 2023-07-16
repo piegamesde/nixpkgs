@@ -54,9 +54,7 @@ let
   };
 
   lint = flip pipe (flip mapAttrsToList lints (k: v:
-    if
-      v == [ ]
-    then
+    if v == [ ] then
       id
     else
       warn "${k}: ${concatStringsSep ", " v}"));

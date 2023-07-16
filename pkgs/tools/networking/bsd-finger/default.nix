@@ -23,9 +23,7 @@ stdenv.mkDerivation rec {
   patches = [ ./ubuntu-0.17-9.patch ];
 
   preBuild = let
-    srcdir = if
-      buildClient
-    then
+    srcdir = if buildClient then
       "finger"
     else
       "fingerd";
@@ -34,15 +32,11 @@ stdenv.mkDerivation rec {
   '' ;
 
   preInstall = let
-    bindir = if
-      buildClient
-    then
+    bindir = if buildClient then
       "bin"
     else
       "sbin";
-    mandir = if
-      buildClient
-    then
+    mandir = if buildClient then
       "man/man1"
     else
       "man/man8";
@@ -51,9 +45,7 @@ stdenv.mkDerivation rec {
   '' ;
 
   meta = with lib; {
-    description = if
-      buildClient
-    then
+    description = if buildClient then
       "User information lookup program"
     else
       "Remote user information server";

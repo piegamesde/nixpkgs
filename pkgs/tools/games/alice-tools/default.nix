@@ -96,9 +96,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.gpl2Plus;
     platforms = platforms.all;
     maintainers = with maintainers; [ OPNA2608 ];
-    mainProgram = if
-      withGUI
-    then
+    mainProgram = if withGUI then
       "galice"
     else
       "alice";

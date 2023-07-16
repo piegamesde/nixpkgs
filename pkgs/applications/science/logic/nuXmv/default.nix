@@ -12,16 +12,12 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://es-static.fbk.eu/tools/nuxmv/downloads/nuXmv-${version}-${
-        if
-          stdenv.isDarwin
-        then
+        if stdenv.isDarwin then
           "macosx64"
         else
           "linux64"
       }.tar.gz";
-    sha256 = if
-      stdenv.isDarwin
-    then
+    sha256 = if stdenv.isDarwin then
       "sha256-48I+FhJUUam1nMCMMM47CwGO82BYsNz0eHDHXBfqO2E="
     else
       "sha256-Gf+QgAjTrysZj7qTtt1wcQPganDtO0YtRY4ykhLPzVo=";

@@ -15,12 +15,8 @@ let
     toKeyValue {
       mkKeyValue = mkKeyValueDefault {
         mkValueString = v:
-          if
-            isBool v
-          then
-            if
-              v
-            then
+          if isBool v then
+            if v then
               "yes"
             else
               "no"

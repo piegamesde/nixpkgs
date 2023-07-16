@@ -6,9 +6,7 @@ args:
 
 # see the substituteAll in the nixpkgs documentation for usage and constaints
 stdenvNoCC.mkDerivation ({
-  name = if
-    args ? name
-  then
+  name = if args ? name then
     args.name
   else
     baseNameOf (toString args.src);

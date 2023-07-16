@@ -14,16 +14,17 @@ let
     concatMapStrings (propertyName:
       let
         property = properties.${propertyName};
-      in if
-        isList property
-      then ''
-        ${propertyName}=(${
-          lib.concatMapStrings (elem: ''"${toString elem}" '')
-          (properties.${propertyName})
-        })
-      '' else ''
-        ${propertyName}="${toString property}"
-      '') (builtins.attrNames properties);
+      in if isList property then
+        ''
+          ${propertyName}=(${
+            lib.concatMapStrings (elem: ''"${toString elem}" '')
+            (properties.${propertyName})
+          })
+        ''
+      else
+        ''
+          ${propertyName}="${toString property}"
+        '') (builtins.attrNames properties);
 
   properties = pkgs.stdenv.mkDerivation {
     name = "dysnomia-properties";

@@ -16,9 +16,7 @@
 }:
 
 let
-  pname-suffix = if
-    amd && nvidia
-  then
+  pname-suffix = if amd && nvidia then
     ""
   else if amd then
     "-amd"

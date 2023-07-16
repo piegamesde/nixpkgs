@@ -38,9 +38,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DFL_BUILD_TESTS:BOOL=OFF"
     "-DFL_USE_FLOAT:BOOL=${
-      if
-        useFloat
-      then
+      if useFloat then
         "ON"
       else
         "OFF"

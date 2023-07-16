@@ -57,7 +57,10 @@ stdenv.mkDerivation rec {
       with p; [ lxml ])) # fixes: man/meson.build:111:0: ERROR: Could not execute command "/build/source/tools/xml_helper.py".
   ];
 
-  buildInputs = if enableSystemd then [ udev ] else [ eudev ];
+  buildInputs = if enableSystemd then
+    [ udev ]
+  else
+    [ eudev ];
 
   # Inspired by the systemd `preConfigure`.
   # Conceptually we should patch all files required during the build, but not scripts

@@ -12,9 +12,7 @@ let
 
   specs = mapAttrsToList (n: v: rec {
     name = n + ".json";
-    path = if
-      isAttrs v
-    then
+    path = if isAttrs v then
       pkgs.writeText name (builtins.toJSON v)
     else
       v;
@@ -32,12 +30,11 @@ let
   });
 
   specPaths = map dirOf (concatMap (spec:
-    if
-      isAttrs spec
-    then
+    if isAttrs spec then
       collect isString
       (filterAttrsRecursive (n: v: isAttrs v || n == "path") spec)
-    else [ spec ]) (attrValues cfg.specs));
+    else
+      [ spec ]) (attrValues cfg.specs));
 
   preStart = ''
     ${concatStringsSep " \\\n" ([ "mkdir -p" ] ++ map escapeShellArg specPaths)}

@@ -30,9 +30,7 @@ buildDunePackage rec {
   };
 
   # dune 3 is required for tests to pass
-  duneVersion = if
-    doCheck
-  then
+  duneVersion = if doCheck then
     "3"
   else
     "2";

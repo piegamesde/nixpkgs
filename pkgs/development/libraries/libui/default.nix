@@ -9,9 +9,7 @@
 }:
 
 let
-  backend = if
-    stdenv.isDarwin
-  then
+  backend = if stdenv.isDarwin then
     "darwin"
   else
     "unix";

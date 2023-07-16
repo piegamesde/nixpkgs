@@ -12,9 +12,7 @@ let
 
   render = s: f: concatStringsSep "\n" (mapAttrsToList f s);
   prefer = a: b:
-    if
-      a != null
-    then
+    if a != null then
       a
     else
       b;

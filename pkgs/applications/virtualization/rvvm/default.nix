@@ -18,12 +18,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1wAKijRYB0FGBe4cSHUynkO4ePVG4QvVIgSoWzNbqtE=";
   };
 
-  buildInputs = if
-    stdenv.isDarwin
-  then [ SDL_compat ] else [
-    libX11
-    libXext
-  ];
+  buildInputs = if stdenv.isDarwin then
+    [ SDL_compat ]
+  else
+    [
+      libX11
+      libXext
+    ];
 
   buildFlags = [
     "all"

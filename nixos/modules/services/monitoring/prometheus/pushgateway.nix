@@ -166,9 +166,7 @@ in {
         ExecStart = "${cfg.package}/bin/pushgateway"
           + optionalString (length cmdlineArgs != 0)
           (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs);
-        StateDirectory = if
-          cfg.persistMetrics
-        then
+        StateDirectory = if cfg.persistMetrics then
           cfg.stateDir
         else
           null;

@@ -195,9 +195,7 @@ let
     });
   });
 
-  qlpkgs = if
-    builtins.pathExists ./imported.nix
-  then
+  qlpkgs = if builtins.pathExists ./imported.nix then
     pkgs.callPackage ./imported.nix { inherit build-asdf-system; }
   else
     { };

@@ -1421,9 +1421,7 @@ with self; {
 
   bcdoc = callPackage ../development/python-modules/bcdoc { };
 
-  bcrypt = if
-    stdenv.hostPlatform.system == "i686-linux"
-  then
+  bcrypt = if stdenv.hostPlatform.system == "i686-linux" then
     callPackage ../development/python-modules/bcrypt/3.nix { }
   else
     callPackage ../development/python-modules/bcrypt { };
@@ -4788,9 +4786,7 @@ with self; {
     callPackage ../development/python-modules/greeneye-monitor { };
 
   # built-in for pypi
-  greenlet = if
-    isPyPy
-  then
+  greenlet = if isPyPy then
     null
   else
     callPackage ../development/python-modules/greenlet { };
@@ -4866,9 +4862,7 @@ with self; {
 
   guppy3 = callPackage ../development/python-modules/guppy3 { };
 
-  gurobipy = if
-    stdenv.hostPlatform.system == "x86_64-darwin"
-  then
+  gurobipy = if stdenv.hostPlatform.system == "x86_64-darwin" then
     callPackage ../development/python-modules/gurobipy/darwin.nix {
       inherit (pkgs.darwin) cctools insert_dylib;
     }
@@ -6593,9 +6587,7 @@ with self; {
   matlink-gpapi = callPackage ../development/python-modules/matlink-gpapi { };
 
   matplotlib = callPackage ../development/python-modules/matplotlib {
-    stdenv = if
-      stdenv.isDarwin
-    then
+    stdenv = if stdenv.isDarwin then
       pkgs.clangStdenv
     else
       pkgs.stdenv;

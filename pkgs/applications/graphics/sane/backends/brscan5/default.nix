@@ -59,9 +59,7 @@ stdenv.mkDerivation rec {
   dontBuild = true;
 
   postPatch = let
-    patchOffsetBytes = if
-      system == "x86_64-linux"
-    then
+    patchOffsetBytes = if system == "x86_64-linux" then
       84632
     else if system == "i686-linux" then
       77396

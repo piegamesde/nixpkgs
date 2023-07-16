@@ -52,9 +52,7 @@ let
 in
 stdenv.mkDerivation rec {
   # executables don't adhere to the string gnatcoll-* scheme
-  pname = if
-    onlyExecutable
-  then
+  pname = if onlyExecutable then
     builtins.replaceStrings [ "_" ] [ "-" ] component
   else
     "gnatcoll-${component}";
@@ -86,9 +84,7 @@ stdenv.mkDerivation rec {
   # For executables this is of course not relevant and we can reduce
   # the closure size dramatically
   ${
-    if
-      onlyExecutable
-    then
+    if onlyExecutable then
       "buildInputs"
     else
       "propagatedBuildInputs"

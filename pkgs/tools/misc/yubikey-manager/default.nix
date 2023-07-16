@@ -26,9 +26,7 @@ python3Packages.buildPythonPackage rec {
       --replace 'fido2 = ">=0.9, <1.0"' 'fido2 = ">*"'
     substituteInPlace "ykman/pcsc/__init__.py" \
       --replace 'pkill' '${
-        if
-          stdenv.isLinux
-        then
+        if stdenv.isLinux then
           "${procps}"
         else
           "/usr"

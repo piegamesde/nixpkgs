@@ -31,9 +31,7 @@ bundlerApp {
   exes = [ "jekyll" ];
 
   inherit ruby;
-  gemdir = if
-    withOptionalDependencies
-  then
+  gemdir = if withOptionalDependencies then
     ./full
   else
     ./basic;

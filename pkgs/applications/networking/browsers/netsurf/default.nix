@@ -9,17 +9,13 @@ lib.makeScope pkgs.newScope (self:
     # requires a terminal that supports `sixel` capabilities, such as mlterm
     # or xterm -ti 340
     ui = "gtk3";
-    uilib = if
-      ui == "gtk2" || ui == "gtk3" || ui == "framebuffer"
-    then
+    uilib = if ui == "gtk2" || ui == "gtk3" || ui == "framebuffer" then
       ui
     else if ui == "sixel" then
       "framebuffer"
     else
       null; # Never will happen
-    SDL = if
-      ui == "sixel"
-    then
+    SDL = if ui == "sixel" then
       pkgs.SDL_sixel
     else if ui == "framebuffer" then
       pkgs.SDL

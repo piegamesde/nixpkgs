@@ -10,9 +10,7 @@ with lib;
 let
   cfg = config.services.node-red;
   defaultUser = "node-red";
-  finalPackage = if
-    cfg.withNpmAndGcc
-  then
+  finalPackage = if cfg.withNpmAndGcc then
     node-red_withNpmAndGcc
   else
     cfg.package;

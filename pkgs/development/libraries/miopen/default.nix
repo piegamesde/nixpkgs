@@ -155,17 +155,13 @@ stdenv.mkDerivation (finalAttrs: {
     rm $out/bin/install_precompiled_kernels.sh
   '' + lib.optionalString buildDocs ''
     mv ../doc/html $out/share/doc/miopen-${
-      if
-        useOpenCL
-      then
+      if useOpenCL then
         "opencl"
       else
         "hip"
     }
     mv ../doc/pdf/miopen.pdf $out/share/doc/miopen-${
-      if
-        useOpenCL
-      then
+      if useOpenCL then
         "opencl"
       else
         "hip"

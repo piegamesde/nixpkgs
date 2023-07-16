@@ -69,9 +69,7 @@ let
   kisDeps = [ qtx11extras ];
 
   boolToFlag = bool:
-    if
-      bool
-    then
+    if bool then
       "ON"
     else
       "OFF";

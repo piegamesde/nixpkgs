@@ -13,9 +13,7 @@ let
   # TODO: move to lib/ in separate PR
   overrideMeta = drv: overrideFn:
     let
-      drv' = if
-        drv ? meta
-      then
+      drv' = if drv ? meta then
         drv
       else
         drv // { meta = { }; };

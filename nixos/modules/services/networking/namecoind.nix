@@ -25,9 +25,7 @@ let
     txprevcache=1
     walletpath=${cfg.wallet}
     gen=${
-      if
-        cfg.generate
-      then
+      if cfg.generate then
         "1"
       else
         "0"

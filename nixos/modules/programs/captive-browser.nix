@@ -122,9 +122,7 @@ in {
         optionalString cfg.bindInterface
         (escapeShellArgs (prefixes ++ [ cfg.interface ]));
     in
-    mkOptionDefault (if
-      config.networking.networkmanager.enable
-    then
+    mkOptionDefault (if config.networking.networkmanager.enable then
       "${pkgs.networkmanager}/bin/nmcli dev show ${
         iface [ ]
       } | ${pkgs.gnugrep}/bin/fgrep IP4.DNS"

@@ -89,9 +89,7 @@ in {
         Set `true` for offline mode.
       '';
       apply = v:
-        if
-          true == v
-        then
+        if true == v then
           1
         else
           0;

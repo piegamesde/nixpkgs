@@ -103,15 +103,11 @@ stdenv.mkDerivation rec {
     "--disable-monolithic"
     "--enable-mediactrl"
     "--with-nanosvg"
-    (if
-      compat28
-    then
+    (if compat28 then
       "--enable-compat28"
     else
       "--disable-compat28")
-    (if
-      compat30
-    then
+    (if compat30 then
       "--enable-compat30"
     else
       "--disable-compat30")

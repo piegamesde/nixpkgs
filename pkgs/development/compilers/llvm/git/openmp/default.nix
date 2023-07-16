@@ -45,9 +45,7 @@ stdenv.mkDerivation rec {
     pkg-config
     lit
   ];
-  buildInputs = [ (if
-    stdenv.buildPlatform == stdenv.hostPlatform
-  then
+  buildInputs = [ (if stdenv.buildPlatform == stdenv.hostPlatform then
     llvm
   else
     targetLlvm) ];

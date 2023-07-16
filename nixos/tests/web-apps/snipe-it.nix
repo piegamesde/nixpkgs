@@ -56,9 +56,7 @@ in {
           shouldSucceed ? true
         }: ''
           snipeit.${
-            if
-              shouldSucceed
-            then
+            if shouldSucceed then
               "succeed"
             else
               "fail"

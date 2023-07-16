@@ -26,9 +26,7 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
 
   buildPhase = let
-    ccc = if
-      stdenv.isDarwin
-    then
+    ccc = if stdenv.isDarwin then
       "ccc.osx"
     else
       "ccc";

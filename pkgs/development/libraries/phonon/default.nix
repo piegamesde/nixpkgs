@@ -57,9 +57,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-fPIC";
 
   cmakeFlags = [ "-DCMAKE_BUILD_TYPE=${
-      if
-        debug
-      then
+      if debug then
         "Debug"
       else
         "Release"

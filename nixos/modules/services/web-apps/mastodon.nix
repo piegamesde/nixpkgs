@@ -39,9 +39,7 @@ let
     SMTP_FROM_ADDRESS = cfg.smtp.fromAddress;
     PAPERCLIP_ROOT_PATH = "/var/lib/mastodon/public-system";
     PAPERCLIP_ROOT_URL = "/system";
-    ES_ENABLED = if
-      (cfg.elasticsearch.host != null)
-    then
+    ES_ENABLED = if (cfg.elasticsearch.host != null) then
       "true"
     else
       "false";
@@ -118,8 +116,10 @@ let
 
   envFile = pkgs.writeText "mastodon.env" (lib.concatMapStrings (s: s + "\n")
     ((lib.concatLists (lib.mapAttrsToList (name: value:
-      if value != null then [ ''${name}="${toString value}"'' ] else [ ])
-      env))));
+      if value != null then
+        [ ''${name}="${toString value}"'' ]
+      else
+        [ ]) env))));
 
   mastodonTootctl = let
     sourceExtraEnv = lib.concatMapStrings (p: ''
@@ -146,9 +146,7 @@ let
       jobClassArgs =
         toString (builtins.map (c: "-q ${c}") processCfg.jobClasses);
       jobClassLabel = toString ([ "" ] ++ processCfg.jobClasses);
-      threads = toString (if
-        processCfg.threads == null
-      then
+      threads = toString (if processCfg.threads == null then
         cfg.sidekiqThreads
       else
         processCfg.threads);
@@ -460,9 +458,7 @@ in {
 
         port = lib.mkOption {
           type = lib.types.nullOr lib.types.port;
-          default = if
-            cfg.database.createLocally
-          then
+          default = if cfg.database.createLocally then
             null
           else
             5432;
@@ -801,13 +797,10 @@ in {
           ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
         wantedBy = [ "mastodon.target" ];
         description = "Mastodon streaming";
-        environment = env // (if
-          cfg.enableUnixSocket
-        then {
-          SOCKET = "/run/mastodon-streaming/streaming.socket";
-        } else {
-          PORT = toString (cfg.streamingPort);
-        });
+        environment = env // (if cfg.enableUnixSocket then
+          { SOCKET = "/run/mastodon-streaming/streaming.socket"; }
+        else
+          { PORT = toString (cfg.streamingPort); });
         serviceConfig = {
           ExecStart = "${cfg.package}/run-streaming.sh";
           Restart = "always";
@@ -841,13 +834,10 @@ in {
           ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
         wantedBy = [ "mastodon.target" ];
         description = "Mastodon web";
-        environment = env // (if
-          cfg.enableUnixSocket
-        then {
-          SOCKET = "/run/mastodon-web/web.socket";
-        } else {
-          PORT = toString (cfg.webPort);
-        });
+        environment = env // (if cfg.enableUnixSocket then
+          { SOCKET = "/run/mastodon-web/web.socket"; }
+        else
+          { PORT = toString (cfg.webPort); });
         serviceConfig = {
           ExecStart = "${cfg.package}/bin/puma -C config/puma.rb";
           Restart = "always";
@@ -905,9 +895,7 @@ in {
           locations."/" = { tryFiles = "$uri @proxy"; };
 
           locations."@proxy" = {
-            proxyPass = (if
-              cfg.enableUnixSocket
-            then
+            proxyPass = (if cfg.enableUnixSocket then
               "http://unix:/run/mastodon-web/web.socket"
             else
               "http://127.0.0.1:${toString (cfg.webPort)}");
@@ -915,9 +903,7 @@ in {
           };
 
           locations."/api/v1/streaming/" = {
-            proxyPass = (if
-              cfg.enableUnixSocket
-            then
+            proxyPass = (if cfg.enableUnixSocket then
               "http://unix:/run/mastodon-streaming/streaming.socket"
             else
               "http://127.0.0.1:${toString (cfg.streamingPort)}/");

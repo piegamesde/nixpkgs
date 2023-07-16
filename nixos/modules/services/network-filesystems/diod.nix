@@ -9,9 +9,7 @@ let
   cfg = config.services.diod;
 
   diodBool = b:
-    if
-      b
-    then
+    if b then
       "1"
     else
       "0";

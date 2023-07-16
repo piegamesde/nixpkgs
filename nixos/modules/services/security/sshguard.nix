@@ -17,9 +17,7 @@ let
       "-o cat"
       "-n1"
     ] ++ (map (name: "-t ${escapeShellArg name}") cfg.services));
-    backend = if
-      config.networking.nftables.enable
-    then
+    backend = if config.networking.nftables.enable then
       "sshg-fw-nft-sets"
     else
       "sshg-fw-ipset";
@@ -128,18 +126,19 @@ in {
       restartTriggers = [ configFile ];
 
       path = with pkgs;
-        if
-          config.networking.nftables.enable
-        then [
-          nftables
-          iproute2
-          systemd
-        ] else [
-          iptables
-          ipset
-          iproute2
-          systemd
-        ];
+        if config.networking.nftables.enable then
+          [
+            nftables
+            iproute2
+            systemd
+          ]
+        else
+          [
+            iptables
+            ipset
+            iproute2
+            systemd
+          ];
 
       # The sshguard ipsets must exist before we invoke
       # iptables. sshguard creates the ipsets after startup if

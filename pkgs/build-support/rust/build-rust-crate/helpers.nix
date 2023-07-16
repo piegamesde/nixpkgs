@@ -11,9 +11,7 @@
   mapFeatures = features: map (fun: fun { features = features; });
   mkFeatures = feat:
     lib.foldl (features: featureName:
-      if
-        feat.${featureName} or false
-      then
+      if feat.${featureName} or false then
         [ featureName ] ++ features
       else
         features) [ ] (lib.attrNames feat);

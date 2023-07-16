@@ -137,11 +137,10 @@ in {
 
           This defaults to the singleton list [ca] when the {option}`ca` option is defined.
         '';
-        default = if
-          cfg.elasticsearch.ca == null
-        then
+        default = if cfg.elasticsearch.ca == null then
           [ ]
-        else [ ca ];
+        else
+          [ ca ];
         defaultText = literalExpression ''
           if config.${opt.elasticsearch.ca} == null then [ ] else [ ca ]
         '';

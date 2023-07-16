@@ -59,9 +59,7 @@ let
       default = null;
       example = 365;
       apply = val:
-        if
-          val == null
-        then
+        if val == null then
           -1
         else
           val;
@@ -99,9 +97,7 @@ let
         mkSublist = key: val:
           let
             newPath = path ++ singleton key;
-          in if
-            isOption val
-          then
+          in if isOption val then
             attrByPath newPath (notFound newPath) cfg.pki.manual
           else
             findPkiDefinitions newPath val;
@@ -157,9 +153,7 @@ let
               certBits = cfg.pki.auto.bits;
               clientExpiration = cfg.pki.auto.expiration.client;
               crlExpiration = cfg.pki.auto.expiration.crl;
-              isAutoConfig = if
-                needToCreateCA
-              then
+              isAutoConfig = if needToCreateCA then
                 "True"
               else
                 "False";
@@ -414,19 +408,16 @@ in {
               mapper = name: val:
                 let
                   newPath = path ++ [ name ];
-                  scalar = if
-                    val == true
-                  then
+                  scalar = if val == true then
                     "true"
                   else if val == false then
                     "false"
                   else
                     toString val;
-                in if
-                  isAttrs val
-                then
+                in if isAttrs val then
                   recurse newPath val
-                else [ "${mkKey newPath}=${scalar}" ];
+                else
+                  [ "${mkKey newPath}=${scalar}" ];
             in
             concatLists (mapAttrsToList mapper attrs)
           ;
@@ -490,22 +481,21 @@ in {
         trust = cfg.trust;
         server = {
           listen = "${cfg.listenHost}:${toString cfg.listenPort}";
-        } // (if
-          needToCreateCA
-        then {
-          cert = "${cfg.dataDir}/keys/server.cert";
-          key = "${cfg.dataDir}/keys/server.key";
-          crl = "${cfg.dataDir}/keys/server.crl";
-        } else {
-          cert = "${cfg.pki.manual.server.cert}";
-          key = "${cfg.pki.manual.server.key}";
-          ${mapNullable (_: "crl") cfg.pki.manual.server.crl} =
-            "${cfg.pki.manual.server.crl}";
-        });
+        } // (if needToCreateCA then
+          {
+            cert = "${cfg.dataDir}/keys/server.cert";
+            key = "${cfg.dataDir}/keys/server.key";
+            crl = "${cfg.dataDir}/keys/server.crl";
+          }
+        else
+          {
+            cert = "${cfg.pki.manual.server.cert}";
+            key = "${cfg.pki.manual.server.key}";
+            ${mapNullable (_: "crl") cfg.pki.manual.server.crl} =
+              "${cfg.pki.manual.server.crl}";
+          });
 
-        ca.cert = if
-          needToCreateCA
-        then
+        ca.cert = if needToCreateCA then
           "${cfg.dataDir}/keys/ca.cert"
         else
           "${cfg.pki.manual.ca.cert}";

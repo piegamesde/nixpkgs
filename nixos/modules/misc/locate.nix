@@ -273,9 +273,7 @@ in {
           PRUNENAMES="${lib.concatStringsSep " " cfg.pruneNames}"
           PRUNEPATHS="${lib.concatStringsSep " " cfg.prunePaths}"
           PRUNE_BIND_MOUNTS="${
-            if
-              cfg.pruneBindMounts
-            then
+            if cfg.pruneBindMounts then
               "yes"
             else
               "no"
@@ -297,9 +295,7 @@ in {
 
       # mlocate's updatedb takes flags via a configuration file or
       # on the command line, but not by environment variable.
-      script = if
-        isMorPLocate
-      then
+      script = if isMorPLocate then
         let
           toFlags = x:
             optional (cfg.${x} != [ ])
@@ -313,30 +309,29 @@ in {
           exec ${cfg.locate}/bin/updatedb \
             --output ${toString cfg.output} ${concatStringsSep " " args} \
             --prune-bind-mounts ${
-              if
-                cfg.pruneBindMounts
-              then
+              if cfg.pruneBindMounts then
                 "yes"
               else
                 "no"
             } \
             ${concatStringsSep " " cfg.extraFlags}
         ''
-      else ''
-        exec ${cfg.locate}/bin/updatedb \
-          ${
-            optionalString (cfg.localuser != null && !isMorPLocate)
-            "--localuser=${cfg.localuser}"
-          } \
-          --output=${toString cfg.output} ${concatStringsSep " " cfg.extraFlags}
-      '';
+      else
+        ''
+          exec ${cfg.locate}/bin/updatedb \
+            ${
+              optionalString (cfg.localuser != null && !isMorPLocate)
+              "--localuser=${cfg.localuser}"
+            } \
+            --output=${toString cfg.output} ${
+              concatStringsSep " " cfg.extraFlags
+            }
+        '';
       environment = optionalAttrs (!isMorPLocate) {
         PRUNEFS = concatStringsSep " " cfg.pruneFS;
         PRUNEPATHS = concatStringsSep " " cfg.prunePaths;
         PRUNENAMES = concatStringsSep " " cfg.pruneNames;
-        PRUNE_BIND_MOUNTS = if
-          cfg.pruneBindMounts
-        then
+        PRUNE_BIND_MOUNTS = if cfg.pruneBindMounts then
           "yes"
         else
           "no";

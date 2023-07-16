@@ -30,9 +30,7 @@ buildGoModule rec {
 
   preBuild = ''
     export CGO_ENABLED=${
-      if
-        stdenv.isLinux
-      then
+      if stdenv.isLinux then
         "1"
       else
         "0"

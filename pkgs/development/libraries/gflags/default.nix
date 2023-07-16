@@ -24,9 +24,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DGFLAGS_BUILD_SHARED_LIBS=${
-      if
-        enableShared
-      then
+      if enableShared then
         "ON"
       else
         "OFF"

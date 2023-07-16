@@ -28,7 +28,10 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ] ++ lib.optional stdenv.isDarwin xcbuild;
-  buildInputs = if stdenv.isDarwin then [ PCSC ] else [ pcsclite ];
+  buildInputs = if stdenv.isDarwin then
+    [ PCSC ]
+  else
+    [ pcsclite ];
 
   patches = let
     url = commit:

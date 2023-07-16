@@ -145,15 +145,15 @@ stdenv.mkDerivation (finalAttrs:
     ] ++ optional gobjectSupport glib ++ optional glSupport
       libGL; # TODO: maybe liblzo but what would it be for here?
 
-    configureFlags = [ "--enable-tee" ] ++ (if
-      stdenv.isDarwin
-    then [
-      "--disable-dependency-tracking"
-      "--enable-quartz"
-      "--enable-quartz-font"
-      "--enable-quartz-image"
-      "--enable-ft"
-    ] else
+    configureFlags = [ "--enable-tee" ] ++ (if stdenv.isDarwin then
+      [
+        "--disable-dependency-tracking"
+        "--enable-quartz"
+        "--enable-quartz-font"
+        "--enable-quartz-image"
+        "--enable-ft"
+      ]
+    else
       (optional xcbSupport "--enable-xcb" ++ optional glSupport "--enable-gl"
         ++ optional pdfSupport "--enable-pdf"))
       ++ optional (!x11Support) "--disable-xlib";

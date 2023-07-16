@@ -448,21 +448,22 @@ in {
     });
 
     networking.firewall = mkMerge [
-      (mkIf cfg.openPeerPorts (if
-        cfg.settings.peer-port-random-on-start
-      then {
-        allowedTCPPortRanges = [ {
-          from = cfg.settings.peer-port-random-low;
-          to = cfg.settings.peer-port-random-high;
-        } ];
-        allowedUDPPortRanges = [ {
-          from = cfg.settings.peer-port-random-low;
-          to = cfg.settings.peer-port-random-high;
-        } ];
-      } else {
-        allowedTCPPorts = [ cfg.settings.peer-port ];
-        allowedUDPPorts = [ cfg.settings.peer-port ];
-      }))
+      (mkIf cfg.openPeerPorts (if cfg.settings.peer-port-random-on-start then
+        {
+          allowedTCPPortRanges = [ {
+            from = cfg.settings.peer-port-random-low;
+            to = cfg.settings.peer-port-random-high;
+          } ];
+          allowedUDPPortRanges = [ {
+            from = cfg.settings.peer-port-random-low;
+            to = cfg.settings.peer-port-random-high;
+          } ];
+        }
+      else
+        {
+          allowedTCPPorts = [ cfg.settings.peer-port ];
+          allowedUDPPorts = [ cfg.settings.peer-port ];
+        }))
       (mkIf cfg.openRPCPort { allowedTCPPorts = [ cfg.settings.rpc-port ]; })
     ];
 

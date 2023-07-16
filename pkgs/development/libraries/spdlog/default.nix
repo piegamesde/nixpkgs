@@ -23,17 +23,13 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DSPDLOG_BUILD_SHARED=${
-      if
-        staticBuild
-      then
+      if staticBuild then
         "OFF"
       else
         "ON"
     }"
     "-DSPDLOG_BUILD_STATIC=${
-      if
-        staticBuild
-      then
+      if staticBuild then
         "ON"
       else
         "OFF"

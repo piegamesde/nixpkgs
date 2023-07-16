@@ -57,19 +57,20 @@ stdenv.mkDerivation rec {
     Kernel
   ];
 
-  installPhase = if
-    stdenv.isDarwin
-  then ''
-    mkdir -p $out/Applications $out/bin
-    cp -r MIDIVisualizer.app $out/Applications/
-    ln -s ../Applications/MIDIVisualizer.app/Contents/MacOS/MIDIVisualizer $out/bin/
-  '' else ''
-    mkdir -p $out/bin
-    cp MIDIVisualizer $out/bin
+  installPhase = if stdenv.isDarwin then
+    ''
+      mkdir -p $out/Applications $out/bin
+      cp -r MIDIVisualizer.app $out/Applications/
+      ln -s ../Applications/MIDIVisualizer.app/Contents/MacOS/MIDIVisualizer $out/bin/
+    ''
+  else
+    ''
+      mkdir -p $out/bin
+      cp MIDIVisualizer $out/bin
 
-    wrapProgram $out/bin/MIDIVisualizer \
-      --prefix XDG_DATA_DIRS : "${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_DATA_DIRS"
-  '';
+      wrapProgram $out/bin/MIDIVisualizer \
+        --prefix XDG_DATA_DIRS : "${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_DATA_DIRS"
+    '';
 
   meta = with lib; {
     description = "A small MIDI visualizer tool, using OpenGL";

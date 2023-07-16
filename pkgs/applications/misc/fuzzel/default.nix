@@ -59,25 +59,19 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [
     "-Denable-cairo=${
-      if
-        enableCairo
-      then
+      if enableCairo then
         "enabled"
       else
         "disabled"
     }"
     "-Dpng-backend=${
-      if
-        pngSupport
-      then
+      if pngSupport then
         "libpng"
       else
         "none"
     }"
     "-Dsvg-backend=${
-      if
-        svgSupport
-      then
+      if svgSupport then
         "nanosvg"
       else
         "none"

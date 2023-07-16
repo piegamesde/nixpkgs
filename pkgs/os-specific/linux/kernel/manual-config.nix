@@ -108,9 +108,7 @@ lib.makeOverridable ({
       isSet = attr: hasAttr (attrName attr) config;
 
       getValue = attr:
-        if
-          config.isSet attr
-        then
+        if config.isSet attr then
           getAttr (attrName attr) config
         else
           null;
@@ -360,15 +358,15 @@ lib.makeOverridable ({
     '' ;
 
     # Some image types need special install targets (e.g. uImage is installed with make uinstall)
-    installTargets = [ (kernelConf.installTarget or (if
-      kernelConf.target == "uImage"
-    then
-      "uinstall"
-    else if kernelConf.target == "zImage" || kernelConf.target
-    == "Image.gz" then
-      "zinstall"
-    else
-      "install")) ];
+    installTargets =
+      [ (kernelConf.installTarget or (if kernelConf.target == "uImage" then
+        "uinstall"
+      else if
+        kernelConf.target == "zImage" || kernelConf.target == "Image.gz"
+      then
+        "zinstall"
+      else
+        "install")) ];
 
     postInstall = optionalString isModular ''
       if [ -z "''${dontStrip-}" ]; then
@@ -471,9 +469,7 @@ lib.makeOverridable ({
     requiredSystemFeatures = [ "big-parallel" ];
 
     meta = {
-      description = "The Linux kernel" + (if
-        kernelPatches == [ ]
-      then
+      description = "The Linux kernel" + (if kernelPatches == [ ] then
         ""
       else
         " (with patches: "

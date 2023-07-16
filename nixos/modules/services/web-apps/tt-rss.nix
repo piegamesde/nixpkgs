@@ -11,12 +11,8 @@ let
 
   configVersion = 26;
 
-  dbPort = if
-    cfg.database.port == null
-  then
-    (if
-      cfg.database.type == "pgsql"
-    then
+  dbPort = if cfg.database.port == null then
+    (if cfg.database.type == "pgsql" then
       5432
     else
       3306)
@@ -29,9 +25,7 @@ let
   pgsqlLocal = cfg.database.createLocally && cfg.database.type == "pgsql";
 
   tt-rss-config = let
-    password = if
-      (cfg.database.password != null)
-    then
+    password = if (cfg.database.password != null) then
       "'${
         (escape [
           "'"
@@ -670,38 +664,38 @@ in {
 
         preStart = let
           callSql = e:
-            if
-              cfg.database.type == "pgsql"
-            then ''
-              ${
-                optionalString (cfg.database.password != null)
-                "PGPASSWORD=${cfg.database.password}"
-              } \
-              ${
-                optionalString (cfg.database.passwordFile != null)
-                "PGPASSWORD=$(cat ${cfg.database.passwordFile})"
-              } \
-              ${config.services.postgresql.package}/bin/psql \
-                -U ${cfg.database.user} \
-                ${
-                  optionalString (cfg.database.host != null)
-                  "-h ${cfg.database.host} --port ${toString dbPort}"
-                } \
-                -c '${e}' \
-                ${cfg.database.name}''
-
-            else if cfg.database.type == "mysql" then ''
-              echo '${e}' | ${config.services.mysql.package}/bin/mysql \
-                -u ${cfg.database.user} \
+            if cfg.database.type == "pgsql" then
+              ''
                 ${
                   optionalString (cfg.database.password != null)
-                  "-p${cfg.database.password}"
+                  "PGPASSWORD=${cfg.database.password}"
                 } \
                 ${
-                  optionalString (cfg.database.host != null)
-                  "-h ${cfg.database.host} -P ${toString dbPort}"
+                  optionalString (cfg.database.passwordFile != null)
+                  "PGPASSWORD=$(cat ${cfg.database.passwordFile})"
                 } \
-                ${cfg.database.name}''
+                ${config.services.postgresql.package}/bin/psql \
+                  -U ${cfg.database.user} \
+                  ${
+                    optionalString (cfg.database.host != null)
+                    "-h ${cfg.database.host} --port ${toString dbPort}"
+                  } \
+                  -c '${e}' \
+                  ${cfg.database.name}''
+
+            else if cfg.database.type == "mysql" then
+              ''
+                echo '${e}' | ${config.services.mysql.package}/bin/mysql \
+                  -u ${cfg.database.user} \
+                  ${
+                    optionalString (cfg.database.password != null)
+                    "-p${cfg.database.password}"
+                  } \
+                  ${
+                    optionalString (cfg.database.host != null)
+                    "-h ${cfg.database.host} -P ${toString dbPort}"
+                  } \
+                  ${cfg.database.name}''
 
             else
               "";

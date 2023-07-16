@@ -71,9 +71,7 @@ stdenv.mkDerivation rec {
   }) ];
 
   # disable tests (broken on darwin)
-  gradleAction = if
-    stdenv.isDarwin
-  then
+  gradleAction = if stdenv.isDarwin then
     "assemble"
   else
     "build";

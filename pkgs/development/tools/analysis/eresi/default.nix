@@ -57,9 +57,7 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags = [
-    (if
-      stdenv.is64bit
-    then
+    (if stdenv.is64bit then
       "--enable-32-64"
     else
       "--enable-32")

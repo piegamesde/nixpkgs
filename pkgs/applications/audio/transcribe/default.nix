@@ -25,9 +25,7 @@ stdenv.mkDerivation rec {
   pname = "transcribe";
   version = "9.21";
 
-  src = if
-    stdenv.hostPlatform.system == "x86_64-linux"
-  then
+  src = if stdenv.hostPlatform.system == "x86_64-linux" then
     fetchzip {
       url =
         "https://www.seventhstring.com/xscribe/downlo/xscsetup-9.21.0.tar.gz";

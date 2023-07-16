@@ -40,9 +40,7 @@ let
       trap on_exit EXIT
 
       archiveName="${
-        if
-          cfg.archiveBaseName == null
-        then
+        if cfg.archiveBaseName == null then
           ""
         else
           cfg.archiveBaseName + "-"
@@ -71,9 +69,7 @@ let
           $extraCreateArgs \
           "::$archiveName$archiveSuffix" \
           ${
-            if
-              cfg.paths == null
-            then
+            if cfg.paths == null then
               "-"
             else
               escapeShellArgs cfg.paths
@@ -98,13 +94,11 @@ let
 
   mkPassEnv = cfg:
     with cfg.encryption;
-    if
-      passCommand != null
-    then {
-      BORG_PASSCOMMAND = passCommand;
-    } else if passphrase != null then {
-      BORG_PASSPHRASE = passphrase;
-    } else
+    if passCommand != null then
+      { BORG_PASSCOMMAND = passCommand; }
+    else if passphrase != null then
+      { BORG_PASSPHRASE = passphrase; }
+    else
       { };
 
   mkBackupService = name: cfg:
@@ -227,9 +221,7 @@ let
       # Because of the following line, clients do not need to specify an absolute repo path
       cdCommand = "cd ${escapeShellArg cfg.path}";
       restrictedArg = "--restrict-to-${
-          if
-            cfg.allowSubRepos
-          then
+          if cfg.allowSubRepos then
             "path"
           else
             "repository"

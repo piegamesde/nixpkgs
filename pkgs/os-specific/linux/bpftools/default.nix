@@ -31,19 +31,20 @@ stdenv.mkDerivation rec {
     bison
     flex
   ];
-  buildInputs = (if
-    (lib.versionAtLeast version "5.20")
-  then [
-    libopcodes
-    libbfd
-  ] else [
-    libopcodes_2_38
-    libbfd_2_38
-  ]) ++ [
-    elfutils
-    zlib
-    readline
-  ];
+  buildInputs = (if (lib.versionAtLeast version "5.20") then
+    [
+      libopcodes
+      libbfd
+    ]
+  else
+    [
+      libopcodes_2_38
+      libbfd_2_38
+    ]) ++ [
+      elfutils
+      zlib
+      readline
+    ];
 
   preConfigure = ''
     patchShebangs scripts/bpf_doc.py

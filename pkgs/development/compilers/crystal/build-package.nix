@@ -49,9 +49,7 @@ let
 
   crystalLib = linkFarm "crystal-lib" (lib.mapAttrsToList (name: value: {
     inherit name;
-    path = if
-      (builtins.hasAttr "url" value)
-    then
+    path = if (builtins.hasAttr "url" value) then
       fetchgit value
     else
       fetchFromGitHub value;

@@ -25,9 +25,7 @@ let
   # needs to be conditional based on isLinux because procps for other systems
   # might not support the withSystemd option.
   procpsWithoutSystemd = procps.override { withSystemd = false; };
-  procps_pkg = if
-    stdenv.isLinux
-  then
+  procps_pkg = if stdenv.isLinux then
     procpsWithoutSystemd
   else
     procps;

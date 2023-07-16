@@ -201,9 +201,7 @@ in {
 
         port = mkOption {
           type = types.port;
-          default = if
-            cfg.database.type == "postgresql"
-          then
+          default = if cfg.database.type == "postgresql" then
             5432
           else
             3306;
@@ -235,9 +233,7 @@ in {
 
         socket = mkOption {
           type = types.nullOr types.path;
-          default = if
-            mysqlLocal
-          then
+          default = if mysqlLocal then
             "/run/mysqld/mysqld.sock"
           else if pgsqlLocal then
             "/run/postgresql"

@@ -152,9 +152,7 @@ stdenv.mkDerivation rec {
     && !stdenv.isAarch32;
 
   # Prevents attempts of running 'help2man' on cross-built binaries.
-  PERL = if
-    isCross
-  then
+  PERL = if isCross then
     "missing"
   else
     null;

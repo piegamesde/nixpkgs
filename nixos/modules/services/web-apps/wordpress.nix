@@ -57,9 +57,7 @@ let
       AUTOMATIC_UPDATER_DISABLED = true;
       DB_NAME = cfg.database.name;
       DB_HOST = "${cfg.database.host}:${
-          if
-            cfg.database.socket != null
-          then
+          if cfg.database.socket != null then
             cfg.database.socket
           else
             toString cfg.database.port
@@ -68,11 +66,9 @@ let
       DB_CHARSET = "utf8";
       # Always set DB_PASSWORD even when passwordFile is not set. This is the
       # default Wordpress behaviour.
-      DB_PASSWORD = if
-        (cfg.database.passwordFile != null)
-      then {
-        _file = cfg.database.passwordFile;
-      } else
+      DB_PASSWORD = if (cfg.database.passwordFile != null) then
+        { _file = cfg.database.passwordFile; }
+      else
         "";
     } // cfg.settings;
 
@@ -106,9 +102,7 @@ let
   mkPhpValue = v:
     let
       isHasAttr = s: isAttrs v && hasAttr s v;
-    in if
-      isString v
-    then
+    in if isString v then
       escapeShellArg v
       # NOTE: If any value contains a , (comma) this will not get escaped
     else if isList v && any lib.strings.isCoercibleToString v then

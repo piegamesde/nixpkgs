@@ -138,9 +138,7 @@ stdenv.mkDerivation (finalAttrs: {
       ${lib.optionalString enableStrictBarrier "--enable-strict-barrier"}
       ${lib.optionalString enableMemoryProfiling "--enable-memory-profiling"}
       ${
-        if
-          static
-        then
+        if static then
           "--enable-R-static-lib"
         else
           "--enable-R-shlib"

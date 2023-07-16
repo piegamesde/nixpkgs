@@ -42,9 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   configurePhase = let
     # https://harelang.org/platforms/
-    arch = if
-      stdenv.isx86_64
-    then
+    arch = if stdenv.isx86_64 then
       "x86_64"
     else if stdenv.isAarch64 then
       "aarch64"
@@ -52,9 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
       "riscv64"
     else
       "unsupported";
-    platform = if
-      stdenv.isLinux
-    then
+    platform = if stdenv.isLinux then
       "linux"
     else if stdenv.isFreeBSD then
       "freebsd"

@@ -2,9 +2,7 @@
   version,
   rev ? null,
   sha256,
-  url ? if
-    rev != null
-  then
+  url ? if rev != null then
     "https://gitlab.haskell.org/ghc/ghc.git"
   else
     "https://downloads.haskell.org/ghc/${version}/ghc-${version}-src.tar.xz"
@@ -120,9 +118,7 @@
     -- no way to set this via the command line
     finalStage :: Stage
     finalStage = ${
-      if
-        stdenv.hostPlatform == stdenv.targetPlatform
-      then
+      if stdenv.hostPlatform == stdenv.targetPlatform then
         "Stage2" # native compiler
       else
         "Stage1" # cross compiler
@@ -166,9 +162,7 @@
 assert !enableNativeBignum -> gmp != null;
 
 let
-  src = (if
-    rev != null
-  then
+  src = (if rev != null then
     fetchgit
   else
     fetchurl) ({
@@ -216,9 +210,7 @@ let
 
   # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
   # GHC doesn't seem to have {LLC,OPT}_HOST
-  toolsForTarget = [ (if
-    targetPlatform.isGhcjs
-  then
+  toolsForTarget = [ (if targetPlatform.isGhcjs then
     pkgsBuildTarget.emscripten
   else
     pkgsBuildTarget.targetPackages.stdenv.cc) ]
@@ -232,18 +224,14 @@ let
     # GHC needs install_name_tool on all darwin platforms. On aarch64-darwin it is
     # part of the bintools wrapper (due to codesigning requirements), but not on
     # x86_64-darwin.
-    install_name_tool = if
-      stdenv.targetPlatform.isAarch64
-    then
+    install_name_tool = if stdenv.targetPlatform.isAarch64 then
       targetCC.bintools
     else
       targetCC.bintools.bintools;
     # Same goes for strip.
     strip =
       # TODO(@sternenseemann): also use wrapper if linker == "bfd" or "gold"
-      if
-        stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin
-      then
+      if stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin then
         targetCC.bintools
       else
         targetCC.bintools.bintools;
@@ -371,18 +359,14 @@ stdenv.mkDerivation ({
     '';
 
   ${
-    if
-      targetPlatform.isGhcjs
-    then
+    if targetPlatform.isGhcjs then
       "configureScript"
     else
       null
   } = "emconfigure ./configure";
   # GHC currently ships an edited config.sub so ghcjs is accepted which we can not rollback
   ${
-    if
-      targetPlatform.isGhcjs
-    then
+    if targetPlatform.isGhcjs then
       "dontUpdateAutotoolsGnuConfigScripts"
     else
       null
@@ -462,17 +446,13 @@ stdenv.mkDerivation ({
   hadrianFlags = [
     "--flavour=${ghcFlavour}"
     "--bignum=${
-      if
-        enableNativeBignum
-      then
+      if enableNativeBignum then
         "native"
       else
         "gmp"
     }"
     "--docs=${
-      if
-        enableDocs
-      then
+      if enableDocs then
         "no-sphinx-pdfs"
       else
         "no-sphinx"

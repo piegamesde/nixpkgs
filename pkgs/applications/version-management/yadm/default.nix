@@ -76,11 +76,10 @@ resholve.mkDerivation rec {
         gnutar
       ];
       fake = {
-        external = if
-          stdenv.isCygwin
-        then
+        external = if stdenv.isCygwin then
           [ ]
-        else [ "cygpath" ];
+        else
+          [ "cygpath" ];
       };
       fix = {
         "$GPG_PROGRAM" = [ "gpg" ];

@@ -20,9 +20,7 @@ let
   version = "${mklVersion}.${rel}";
 
   mklVersion = "2023.1.0";
-  rel = if
-    stdenvNoCC.isDarwin
-  then
+  rel = if stdenvNoCC.isDarwin then
     "43558"
   else
     "46342";
@@ -80,36 +78,38 @@ stdenvNoCC.mkDerivation ({
 
   dontUnpack = stdenvNoCC.isLinux;
 
-  unpackPhase = if
-    stdenvNoCC.isDarwin
-  then ''
-    7zz x $src
-  '' else
+  unpackPhase = if stdenvNoCC.isDarwin then
+    ''
+      7zz x $src
+    ''
+  else
     null;
 
-  nativeBuildInputs = [ validatePkgConfig ] ++ (if
-    stdenvNoCC.isDarwin
-  then [
-    _7zz
-    darwin.cctools
-  ] else [ rpmextract ]);
+  nativeBuildInputs = [ validatePkgConfig ] ++ (if stdenvNoCC.isDarwin then
+    [
+      _7zz
+      darwin.cctools
+    ]
+  else
+    [ rpmextract ]);
 
-  buildPhase = if
-    stdenvNoCC.isDarwin
-  then ''
-    for f in bootstrapper.app/Contents/Resources/packages/*/cupPayload.cup; do
-      tar -xf $f
-    done
-    mkdir -p opt/intel
-    mv _installdir opt/intel/oneapi
-  '' else ''
-    rpmextract ${oneapi-mkl}
-    rpmextract ${oneapi-mkl-common}
-    rpmextract ${oneapi-mkl-common-devel}
-    rpmextract ${oneapi-mkl-devel}
-    rpmextract ${oneapi-openmp}
-    rpmextract ${oneapi-tbb}
-  '';
+  buildPhase = if stdenvNoCC.isDarwin then
+    ''
+      for f in bootstrapper.app/Contents/Resources/packages/*/cupPayload.cup; do
+        tar -xf $f
+      done
+      mkdir -p opt/intel
+      mv _installdir opt/intel/oneapi
+    ''
+  else
+    ''
+      rpmextract ${oneapi-mkl}
+      rpmextract ${oneapi-mkl-common}
+      rpmextract ${oneapi-mkl-common-devel}
+      rpmextract ${oneapi-mkl-devel}
+      rpmextract ${oneapi-openmp}
+      rpmextract ${oneapi-tbb}
+    '';
 
   installPhase = ''
     for f in $(find . -name 'mkl*.pc') ; do
@@ -134,9 +134,7 @@ stdenvNoCC.mkDerivation ({
       lib.optionalString stdenvNoCC.isLinux "intel64"
     }/*${shlibExt}* $out/lib
     cp -a opt/intel/oneapi/compiler/${mklVersion}/${
-      if
-        stdenvNoCC.isDarwin
-      then
+      if stdenvNoCC.isDarwin then
         "mac"
       else
         "linux"
@@ -152,30 +150,31 @@ stdenvNoCC.mkDerivation ({
 
     # CMake config
     cp -r opt/intel/oneapi/mkl/${mklVersion}/lib/cmake $out/lib
-  '' + (if
-    enableStatic
-  then ''
-    install -Dm0644 -t $out/lib opt/intel/oneapi/mkl/${mklVersion}/lib/${
-      lib.optionalString stdenvNoCC.isLinux "intel64"
-    }/*.a
-    install -Dm0644 -t $out/lib/pkgconfig opt/intel/oneapi/mkl/${mklVersion}/tools/pkgconfig/*.pc
-  '' else ''
-    cp opt/intel/oneapi/mkl/${mklVersion}/lib/${
-      lib.optionalString stdenvNoCC.isLinux "intel64"
-    }/*${shlibExt}* $out/lib
-    install -Dm0644 -t $out/lib/pkgconfig opt/intel/oneapi/mkl/${mklVersion}/lib/pkgconfig/*dynamic*.pc
-  '') + ''
-    # Setup symlinks for blas / lapack
-    ln -s $out/lib/libmkl_rt${shlibExt} $out/lib/libblas${shlibExt}
-    ln -s $out/lib/libmkl_rt${shlibExt} $out/lib/libcblas${shlibExt}
-    ln -s $out/lib/libmkl_rt${shlibExt} $out/lib/liblapack${shlibExt}
-    ln -s $out/lib/libmkl_rt${shlibExt} $out/lib/liblapacke${shlibExt}
-  '' + lib.optionalString stdenvNoCC.hostPlatform.isLinux ''
-    ln -s $out/lib/libmkl_rt${shlibExt} $out/lib/libblas${shlibExt}".3"
-    ln -s $out/lib/libmkl_rt${shlibExt} $out/lib/libcblas${shlibExt}".3"
-    ln -s $out/lib/libmkl_rt${shlibExt} $out/lib/liblapack${shlibExt}".3"
-    ln -s $out/lib/libmkl_rt${shlibExt} $out/lib/liblapacke${shlibExt}".3"
-  '';
+  '' + (if enableStatic then
+    ''
+      install -Dm0644 -t $out/lib opt/intel/oneapi/mkl/${mklVersion}/lib/${
+        lib.optionalString stdenvNoCC.isLinux "intel64"
+      }/*.a
+      install -Dm0644 -t $out/lib/pkgconfig opt/intel/oneapi/mkl/${mklVersion}/tools/pkgconfig/*.pc
+    ''
+  else
+    ''
+      cp opt/intel/oneapi/mkl/${mklVersion}/lib/${
+        lib.optionalString stdenvNoCC.isLinux "intel64"
+      }/*${shlibExt}* $out/lib
+      install -Dm0644 -t $out/lib/pkgconfig opt/intel/oneapi/mkl/${mklVersion}/lib/pkgconfig/*dynamic*.pc
+    '') + ''
+      # Setup symlinks for blas / lapack
+      ln -s $out/lib/libmkl_rt${shlibExt} $out/lib/libblas${shlibExt}
+      ln -s $out/lib/libmkl_rt${shlibExt} $out/lib/libcblas${shlibExt}
+      ln -s $out/lib/libmkl_rt${shlibExt} $out/lib/liblapack${shlibExt}
+      ln -s $out/lib/libmkl_rt${shlibExt} $out/lib/liblapacke${shlibExt}
+    '' + lib.optionalString stdenvNoCC.hostPlatform.isLinux ''
+      ln -s $out/lib/libmkl_rt${shlibExt} $out/lib/libblas${shlibExt}".3"
+      ln -s $out/lib/libmkl_rt${shlibExt} $out/lib/libcblas${shlibExt}".3"
+      ln -s $out/lib/libmkl_rt${shlibExt} $out/lib/liblapack${shlibExt}".3"
+      ln -s $out/lib/libmkl_rt${shlibExt} $out/lib/liblapacke${shlibExt}".3"
+    '';
 
   # fixDarwinDylibName fails for libmkl_cdft_core.dylib because the
   # larger updated load commands do not fit. Use install_name_tool

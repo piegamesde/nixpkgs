@@ -30,17 +30,18 @@ let
       sha256 = "sha256-4sxHzU/ixMAkSo67FiE6/ZqWJq9Nb9OMNhMoXH2bEy4=";
     };
 
-    buildPhase = (if
-      stdenv.isDarwin
-    then ''
-      LDFLAGS="-dynamic -undefined dynamic_lookup -lSystem"
-    '' else ''
-      LDFLAGS="-fPIC -shared"
-    '') + ''
-      CFLAGS="-fPIC -I."
-      $CC $CFLAGS -c sha1.c -o sha1.o
-      $LD $LDFLAGS sha1.o -o libsha1.so
-    '';
+    buildPhase = (if stdenv.isDarwin then
+      ''
+        LDFLAGS="-dynamic -undefined dynamic_lookup -lSystem"
+      ''
+    else
+      ''
+        LDFLAGS="-fPIC -shared"
+      '') + ''
+        CFLAGS="-fPIC -I."
+        $CC $CFLAGS -c sha1.c -o sha1.o
+        $LD $LDFLAGS sha1.o -o libsha1.so
+      '';
 
     installPhase = ''
       mkdir -p $out/lib
@@ -54,9 +55,7 @@ stdenv.mkDerivation (finalAttrs: rec {
 
   dirname = "Isabelle${version}";
 
-  src = if
-    stdenv.isDarwin
-  then
+  src = if stdenv.isDarwin then
     fetchurl {
       url =
         "https://isabelle.in.tum.de/website-${dirname}/dist/${dirname}_macos.tar.gz";
@@ -137,9 +136,7 @@ stdenv.mkDerivation (finalAttrs: rec {
 
     for comp in contrib/jdk* contrib/polyml-* contrib/verit-* contrib/vampire-* contrib/e-*; do
       rm -rf $comp/${
-        if
-          stdenv.hostPlatform.isx86
-        then
+        if stdenv.hostPlatform.isx86 then
           "x86"
         else
           "arm"
@@ -163,9 +160,7 @@ stdenv.mkDerivation (finalAttrs: rec {
       --replace 'ISABELLE_APPLE_PLATFORM64=arm64-darwin' ""
   '' + lib.optionalString stdenv.isLinux ''
     arch=${
-      if
-        stdenv.hostPlatform.system == "x86_64-linux"
-      then
+      if stdenv.hostPlatform.system == "x86_64-linux" then
         "x86_64-linux"
       else if stdenv.hostPlatform.isx86 then
         "x86-linux"

@@ -47,11 +47,10 @@ let
       ];
 
       buildInputs = [ zlib ];
-      configureFlags = if
-        buildProtobuf == null
-      then
+      configureFlags = if buildProtobuf == null then
         [ ]
-      else [ "--with-protoc=${buildProtobuf}/bin/protoc" ];
+      else
+        [ "--with-protoc=${buildProtobuf}/bin/protoc" ];
 
       enableParallelBuilding = true;
 
@@ -73,9 +72,7 @@ let
       };
     };
 in
-mkProtobufDerivation (if
-  (stdenv.buildPlatform != stdenv.hostPlatform)
-then
+mkProtobufDerivation (if (stdenv.buildPlatform != stdenv.hostPlatform) then
   (mkProtobufDerivation null buildPackages.stdenv)
 else
   null) stdenv

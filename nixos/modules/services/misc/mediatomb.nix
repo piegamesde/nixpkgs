@@ -16,9 +16,7 @@ let
   name = cfg.package.pname;
   pkg = cfg.package;
   optionYesNo = option:
-    if
-      option
-    then
+    if option then
       "yes"
     else
       "no";
@@ -50,9 +48,7 @@ let
     }" hidden-files="${optionYesNo d.hidden-files}" />
   '';
 
-  transcodingConfig = if
-    cfg.transcoding
-  then
+  transcodingConfig = if cfg.transcoding then
     with pkgs; ''
       <transcoding enabled="yes">
         <mimetype-profile-mappings>
@@ -82,10 +78,11 @@ let
         </profiles>
       </transcoding>
     ''
-  else ''
-    <transcoding enabled="no">
-    </transcoding>
-  '';
+  else
+    ''
+      <transcoding enabled="no">
+      </transcoding>
+    '';
 
   configText = optionalString (!cfg.customCfg) ''
     <?xml version="1.0" encoding="UTF-8"?>

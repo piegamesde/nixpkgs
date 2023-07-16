@@ -19,9 +19,7 @@
 let
   inherit (lib) optionals optionalString;
   onOff = a:
-    if
-      a
-    then
+    if a then
       "ON"
     else
       "OFF";

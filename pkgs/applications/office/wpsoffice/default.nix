@@ -22,9 +22,7 @@ stdenv.mkDerivation rec {
   pname = "wpsoffice";
   version = "11.1.0.11698";
 
-  src = if
-    useChineseVersion
-  then
+  src = if useChineseVersion then
     fetchurl {
       url = "https://wps-linux-personal.wpscdn.cn/wps/download/ep/Linux2019/${
           lib.last (lib.splitString "." version)

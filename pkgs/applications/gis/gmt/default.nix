@@ -42,18 +42,19 @@ stdenv.mkDerivation rec {
     pcre
     dcw-gmt
     gshhg-gmt
-  ] ++ (if
-    stdenv.isDarwin
-  then [
-    Accelerate
-    CoreGraphics
-    CoreVideo
-  ] else [
-    glibc
-    fftwSinglePrec
-    blas
-    lapack
-  ]);
+  ] ++ (if stdenv.isDarwin then
+    [
+      Accelerate
+      CoreGraphics
+      CoreVideo
+    ]
+  else
+    [
+      glibc
+      fftwSinglePrec
+      blas
+      lapack
+    ]);
 
   propagatedBuildInputs = [ ghostscript ];
 

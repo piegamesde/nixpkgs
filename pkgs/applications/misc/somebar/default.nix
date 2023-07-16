@@ -14,9 +14,7 @@
 
 let
   # There is a configuration in src/config.def.hpp, which we use by default
-  configFile = if
-    lib.isDerivation conf || builtins.isPath conf
-  then
+  configFile = if lib.isDerivation conf || builtins.isPath conf then
     conf
   else
     "src/config.def.hpp";

@@ -21,9 +21,11 @@ stdenv.mkDerivation rec {
   preConfigure = if
     (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
       && stdenv.isDarwin)
-  then ''
-    MACOSX_DEPLOYMENT_TARGET=10.16
-  '' else
+  then
+    ''
+      MACOSX_DEPLOYMENT_TARGET=10.16
+    ''
+  else
     null;
 
   postInstall = ''

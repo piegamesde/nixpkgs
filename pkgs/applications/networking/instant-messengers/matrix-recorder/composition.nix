@@ -10,9 +10,7 @@ let
   nodeEnv = import ./node-env.nix {
     inherit (pkgs) lib stdenv python2 util-linux runCommand writeTextFile;
     inherit nodejs;
-    libtool = if
-      pkgs.stdenv.isDarwin
-    then
+    libtool = if pkgs.stdenv.isDarwin then
       pkgs.darwin.cctools
     else
       null;

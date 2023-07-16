@@ -25,9 +25,7 @@ let
     "neon_blue"
     "neon_green"
   ];
-  resolvedLogoName = if
-    (logoFile != null && logoName == null)
-  then
+  resolvedLogoName = if (logoFile != null && logoName == null) then
     lib.strings.removeSuffix ".png" (baseNameOf (toString logoFile))
   else
     logoName;

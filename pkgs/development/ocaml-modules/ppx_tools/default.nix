@@ -68,9 +68,7 @@ in let
     license = licenses.mit;
     maintainers = with maintainers; [ vbgl ];
   };
-in if
-  lib.versionAtLeast param.version "6.0"
-then
+in if lib.versionAtLeast param.version "6.0" then
   buildDunePackage {
     inherit pname src meta;
     inherit (param) version buildInputs nativeBuildInputs;

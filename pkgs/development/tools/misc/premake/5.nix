@@ -33,13 +33,14 @@ stdenv.mkDerivation rec {
       --replace -mmacosx-version-min=10.4 -mmacosx-version-min=10.5
   '';
 
-  buildPhase = if
-    stdenv.isDarwin
-  then ''
-    make -f Bootstrap.mak osx
-  '' else ''
-    make -f Bootstrap.mak linux
-  '';
+  buildPhase = if stdenv.isDarwin then
+    ''
+      make -f Bootstrap.mak osx
+    ''
+  else
+    ''
+      make -f Bootstrap.mak linux
+    '';
 
   installPhase = ''
     install -Dm755 bin/release/premake5 $out/bin/premake5

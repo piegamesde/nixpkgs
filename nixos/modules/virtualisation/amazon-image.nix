@@ -67,9 +67,7 @@ in {
       "xen_fbfront"
     ];
 
-    boot.loader.grub.device = if
-      cfg.efi
-    then
+    boot.loader.grub.device = if cfg.efi then
       "nodev"
     else
       "/dev/xvda";

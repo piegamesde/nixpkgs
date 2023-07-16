@@ -88,17 +88,13 @@ recursiveUpdate lib (rec {
   splitList = pred: l: # put in file lists
     let
       loop = (vv: v: l:
-        if
-          l == [ ]
-        then
+        if l == [ ] then
           vv ++ [ v ]
         else
           let
             hd = head l;
             tl = tail l;
-          in if
-            pred hd
-          then
+          in if pred hd then
             loop (vv ++ [
               v
               hd
@@ -169,16 +165,12 @@ recursiveUpdate lib (rec {
     with pred;
     let
       compare = f:
-        if
-          isFunction f
-        then
+        if isFunction f then
           f
         else
           equal f;
       combine = cl: var:
-        if
-          cl ? case
-        then
+        if cl ? case then
           compare cl.case var
         else
           all (equal true) (zipListsWith compare cl.cases var);

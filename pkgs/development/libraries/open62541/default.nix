@@ -60,9 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-DOPEN62541_VERSION=v${finalAttrs.version}"
 
     "-DBUILD_SHARED_LIBS=${
-      if
-        stdenv.hostPlatform.isStatic
-      then
+      if stdenv.hostPlatform.isStatic then
         "OFF"
       else
         "ON"
@@ -70,9 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-DUA_NAMESPACE_ZERO=FULL"
 
     "-DUA_BUILD_UNIT_TESTS=${
-      if
-        finalAttrs.doCheck
-      then
+      if finalAttrs.doCheck then
         "ON"
       else
         "OFF"

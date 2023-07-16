@@ -6,9 +6,7 @@
 }:
 
 let
-  target = if
-    stdenv.hostPlatform.system == "i686-linux"
-  then
+  target = if stdenv.hostPlatform.system == "i686-linux" then
     "linux"
   else if stdenv.hostPlatform.system == "x86_64-linux" then
     "linux-AMD64"

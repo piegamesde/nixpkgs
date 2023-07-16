@@ -67,9 +67,7 @@ stdenv.mkDerivation rec {
     "--with-xkb-base=${xkeyboard_config}/etc/X11/xkb"
     "--with-xkb-bin-base=${xorg.xkbcomp}/bin"
     "--disable-xmodmap-support"
-    "${if
-      withDoc
-    then
+    "${if withDoc then
       "--enable-gtk-doc"
     else
       "--disable-gtk-doc"}"

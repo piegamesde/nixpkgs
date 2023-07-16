@@ -12,24 +12,23 @@
 }:
 
 let
-  params = if
-    lib.versionAtLeast ocaml.version "4.08"
-  then {
-    version = "3.3.1";
-    sha256 = "sha256-C124bhdrY+XzL93zzNEbCr+U+7CYBZDm0hlAw+iqat4=";
-  } else {
-    version = "3.1.0";
-    sha256 = "1k0ykiz0vhpyyj9fkss29ajas4fh1xh449j702xkvayqipzj1mkg";
-  };
+  params = if lib.versionAtLeast ocaml.version "4.08" then
+    {
+      version = "3.3.1";
+      sha256 = "sha256-C124bhdrY+XzL93zzNEbCr+U+7CYBZDm0hlAw+iqat4=";
+    }
+  else
+    {
+      version = "3.1.0";
+      sha256 = "1k0ykiz0vhpyyj9fkss29ajas4fh1xh449j702xkvayqipzj1mkg";
+    };
 
 in
 buildDunePackage rec {
   pname = "lambda-term";
   inherit (params) version;
 
-  duneVersion = if
-    lib.versionAtLeast ocaml.version "4.08"
-  then
+  duneVersion = if lib.versionAtLeast ocaml.version "4.08" then
     "3"
   else
     "2";

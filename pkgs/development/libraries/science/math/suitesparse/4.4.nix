@@ -10,9 +10,7 @@
 }:
 
 let
-  int_t = if
-    blas.isILP64
-  then
+  int_t = if blas.isILP64 then
     "int64_t"
   else
     "int32_t";
@@ -74,23 +72,17 @@ stdenv.mkDerivation rec {
           ar -x $i
         done
         ${
-          if
-            enableCuda
-          then
+          if enableCuda then
             cudatoolkit
           else
             stdenv.cc.outPath
         }/bin/${
-          if
-            enableCuda
-          then
+          if enableCuda then
             "nvcc"
           else
             "cc"
         } *.o ${
-          if
-            stdenv.isDarwin
-          then
+          if stdenv.isDarwin then
             "-dynamiclib"
           else
             "--shared"

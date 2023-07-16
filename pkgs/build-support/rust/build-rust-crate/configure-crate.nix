@@ -31,25 +31,19 @@
 }:
 let
   version_ = lib.splitString "-" crateVersion;
-  versionPre = if
-    lib.tail version_ == [ ]
-  then
+  versionPre = if lib.tail version_ == [ ] then
     ""
   else
     lib.elemAt version_ 1;
   version = lib.splitVersion (lib.head version_);
-  rustcOpts = lib.foldl' (opts: opt: opts + " " + opt) (if
-    release
-  then
+  rustcOpts = lib.foldl' (opts: opt: opts + " " + opt) (if release then
     "-C opt-level=3"
   else
     "-C debuginfo=2") ([ "-C codegen-units=${toString codegenUnits}" ]
       ++ extraRustcOptsForBuildRs);
   buildDeps = mkRustcDepArgs buildDependencies crateRenames;
   authors = lib.concatStringsSep ":" crateAuthors;
-  optLevel = if
-    release
-  then
+  optLevel = if release then
     3
   else
     0;
@@ -162,9 +156,7 @@ in ''
   }
   export CARGO_CFG_TARGET_POINTER_WIDTH=${
     with stdenv.hostPlatform;
-    toString (if
-      isILP32
-    then
+    toString (if isILP32 then
       32
     else
       parsed.cpu.bits)
@@ -177,9 +169,7 @@ in ''
   export TARGET="${rust.toRustTargetSpec stdenv.hostPlatform}"
   export HOST="${rust.toRustTargetSpec stdenv.buildPlatform}"
   export PROFILE=${
-    if
-      release
-    then
+    if release then
       "release"
     else
       "debug"

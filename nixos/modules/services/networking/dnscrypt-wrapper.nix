@@ -11,9 +11,7 @@ let
   dataDir = "/var/lib/dnscrypt-wrapper";
 
   mkPath = path: default:
-    if
-      path != null
-    then
+    if path != null then
       toString path
     else
       default;

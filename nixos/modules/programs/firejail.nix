@@ -20,16 +20,15 @@ let
     mkdir -p $out/share/applications
     ${lib.concatStringsSep "\n" (lib.mapAttrsToList (command: value:
       let
-        opts = if
-          builtins.isAttrs value
-        then
+        opts = if builtins.isAttrs value then
           value
-        else {
-          executable = value;
-          desktop = null;
-          profile = null;
-          extraArgs = [ ];
-        };
+        else
+          {
+            executable = value;
+            desktop = null;
+            profile = null;
+            extraArgs = [ ];
+          };
         args = lib.escapeShellArgs (opts.extraArgs
           ++ (optional (opts.profile != null)
             "--profile=${toString opts.profile}"));

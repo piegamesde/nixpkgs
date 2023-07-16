@@ -77,17 +77,18 @@ let
 
       postInstall = ''
         install -Dm444 -t $out/lib/systemd/system packaging/systemd/*.service
-      '' + (if
-        withGUI
-      then ''
-        mkdir -p $out/share
-        cp -R deluge/ui/data/{icons,pixmaps} $out/share/
-        install -Dm444 -t $out/share/applications deluge/ui/data/share/applications/deluge.desktop
-      '' else ''
-        rm -r $out/bin/deluge-gtk
-        rm -r $out/lib/${python3Packages.python.libPrefix}/site-packages/deluge/ui/gtk3
-        rm -r $out/share/{icons,man/man1/deluge-gtk*,pixmaps}
-      '');
+      '' + (if withGUI then
+        ''
+          mkdir -p $out/share
+          cp -R deluge/ui/data/{icons,pixmaps} $out/share/
+          install -Dm444 -t $out/share/applications deluge/ui/data/share/applications/deluge.desktop
+        ''
+      else
+        ''
+          rm -r $out/bin/deluge-gtk
+          rm -r $out/lib/${python3Packages.python.libPrefix}/site-packages/deluge/ui/gtk3
+          rm -r $out/share/{icons,man/man1/deluge-gtk*,pixmaps}
+        '');
 
       postFixup = ''
         for f in $out/lib/systemd/system/*; do

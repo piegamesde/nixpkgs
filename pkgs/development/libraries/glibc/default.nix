@@ -99,12 +99,12 @@ in
   makeFlags = (previousAttrs.makeFlags or [ ]) ++ lib.optionals (stdenv.cc.cc
     ? libgcc) [ "user-defined-trusted-dirs=${stdenv.cc.cc.libgcc}/lib" ];
 
-  postInstall = (if
-    stdenv.hostPlatform == stdenv.buildPlatform
-  then ''
-    echo SUPPORTED-LOCALES=C.UTF-8/UTF-8 > ../glibc-2*/localedata/SUPPORTED
-    make -j''${NIX_BUILD_CORES:-1} localedata/install-locales
-  '' else
+  postInstall = (if stdenv.hostPlatform == stdenv.buildPlatform then
+    ''
+      echo SUPPORTED-LOCALES=C.UTF-8/UTF-8 > ../glibc-2*/localedata/SUPPORTED
+      make -j''${NIX_BUILD_CORES:-1} localedata/install-locales
+    ''
+  else
     lib.optionalString stdenv.buildPlatform.isLinux ''
       # This is based on http://www.linuxfromscratch.org/lfs/view/development/chapter06/glibc.html
       # Instead of using their patch to build a build-native localedef,

@@ -26,17 +26,13 @@ let
         kernel,
         libsOnly ? false
       }:
-      if
-        libsOnly
-      then
+      if libsOnly then
         { }
       else
         kernel) { };
 
   selectHighestVersion = a: b:
-    if
-      lib.versionOlder a.version b.version
-    then
+    if lib.versionOlder a.version b.version then
       b
     else
       a;
@@ -45,9 +41,7 @@ in rec {
   # Branch/Maturity data - http://people.freedesktop.org/~aplattner/nvidia-versions.txt
 
   # Policy: use the highest stable version as the default (on our master).
-  stable = if
-    stdenv.hostPlatform.system == "i686-linux"
-  then
+  stable = if stdenv.hostPlatform.system == "i686-linux" then
     legacy_390
   else
     latest;

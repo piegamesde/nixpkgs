@@ -46,30 +46,22 @@ let
 
   baseName = "microsoft-edge";
 
-  shortName = if
-    channel == "stable"
-  then
+  shortName = if channel == "stable" then
     "msedge"
   else
     "msedge-" + channel;
 
-  longName = if
-    channel == "stable"
-  then
+  longName = if channel == "stable" then
     baseName
   else
     baseName + "-" + channel;
 
-  iconSuffix = if
-    channel == "stable"
-  then
+  iconSuffix = if channel == "stable" then
     ""
   else
     "_${channel}";
 
-  desktopSuffix = if
-    channel == "stable"
-  then
+  desktopSuffix = if channel == "stable" then
     ""
   else
     "-${channel}";
@@ -195,9 +187,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out
     cp -R opt usr/bin usr/share $out
 
-    ${if
-      channel == "stable"
-    then
+    ${if channel == "stable" then
       ""
     else
       "ln -sf $out/opt/microsoft/${shortName}/${baseName}-${channel} $out/opt/microsoft/${shortName}/${baseName}"}

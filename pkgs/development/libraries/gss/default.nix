@@ -23,9 +23,7 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags = [ "--${
-      if
-        withShishi
-      then
+      if withShishi then
         "enable"
       else
         "disable"

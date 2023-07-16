@@ -354,9 +354,7 @@ stdenv.mkDerivation {
 
   cmakeFlags = [
     "-DAPP_RENDER_SYSTEM=${
-      if
-        gbmSupport
-      then
+      if gbmSupport then
         "gles"
       else
         "gl"

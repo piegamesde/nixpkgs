@@ -31,7 +31,10 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = {
     pycryptodome = [ pycryptodome ];
-    pysha3 = if pythonOlder "3.9" then [ pysha3 ] else [ safe-pysha3 ];
+    pysha3 = if pythonOlder "3.9" then
+      [ pysha3 ]
+    else
+      [ safe-pysha3 ];
   };
 
   meta = with lib; {

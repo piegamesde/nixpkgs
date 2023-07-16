@@ -7,9 +7,7 @@
   ocamlbuild,
 }:
 
-if
-  lib.versionOlder ocaml.version "4.08"
-then
+if lib.versionOlder ocaml.version "4.08" then
   throw "wasm is not available for OCaml ${ocaml.version}"
 else
 

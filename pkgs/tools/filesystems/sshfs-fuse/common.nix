@@ -23,9 +23,7 @@
 }:
 
 let
-  fuse = if
-    stdenv.isDarwin
-  then
+  fuse = if stdenv.isDarwin then
     macfuse-stubs
   else
     fuse3;

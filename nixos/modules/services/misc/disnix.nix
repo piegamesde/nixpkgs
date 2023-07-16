@@ -108,16 +108,12 @@ in {
 
         environment = {
           HOME = "/root";
-        } // (if
-          config.environment.variables ? DYSNOMIA_CONTAINERS_PATH
-        then {
-          inherit (config.environment.variables) DYSNOMIA_CONTAINERS_PATH;
-        } else
-          { }) // (if
-            config.environment.variables ? DYSNOMIA_MODULES_PATH
-          then {
-            inherit (config.environment.variables) DYSNOMIA_MODULES_PATH;
-          } else
+        } // (if config.environment.variables ? DYSNOMIA_CONTAINERS_PATH then
+          { inherit (config.environment.variables) DYSNOMIA_CONTAINERS_PATH; }
+        else
+          { }) // (if config.environment.variables ? DYSNOMIA_MODULES_PATH then
+            { inherit (config.environment.variables) DYSNOMIA_MODULES_PATH; }
+          else
             { });
 
         serviceConfig.ExecStart = "${cfg.package}/bin/disnix-service";

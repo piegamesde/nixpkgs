@@ -5,18 +5,14 @@
 }:
 
 let
-  arch = if
-    stdenv.hostPlatform.system == "x86_64-linux"
-  then
+  arch = if stdenv.hostPlatform.system == "x86_64-linux" then
     "x64"
   else if stdenv.hostPlatform.system == "i686-linux" then
     "x86"
   else
     throwSystem;
   throwSystem = throw "Unsupported system: ${stdenv.hostPlatform.system}";
-  sha256 = if
-    stdenv.hostPlatform.system == "x86_64-linux"
-  then
+  sha256 = if stdenv.hostPlatform.system == "x86_64-linux" then
     "0zy0jzvdqccfsg42m2lq1rj8r2c4iypd1h9vxl9824cbl92yim37"
   else if stdenv.hostPlatform.system == "i686-linux" then
     "03ml9xv19km99f0z7fpr21b1zkxvw7q39kjzd8wpb2pds51wnc62"

@@ -294,9 +294,7 @@ stdenv.mkDerivation (finalAttrs: {
     # `grep -ri '"lib[a-zA-Z0-9-]*\.so[\.0-9a-zA-z]*"'' $src` and update the below list.
     dlopenLibs = let
       opt = condition: pkg:
-        if
-          condition
-        then
+        if condition then
           pkg
         else
           null;
@@ -405,31 +403,32 @@ stdenv.mkDerivation (finalAttrs: {
     patchDlOpen = dl:
       let
         library = "${lib.makeLibraryPath [ dl.pkg ]}/${dl.name}";
-      in if
-        dl.pkg == null
-      then ''
-        # remove the dependency on the library by replacing it with an invalid path
-        for file in $(grep -lr '"${dl.name}"' src); do
-          echo "patching dlopen(\"${dl.name}\", …) in $file to an invalid store path ("${builtins.storeDir}/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-not-implemented/${dl.name}")…"
-          substituteInPlace "$file" --replace '"${dl.name}"' '"${builtins.storeDir}/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-not-implemented/${dl.name}"'
-        done
-      '' else ''
-        # ensure that the library we provide actually exists
-        if ! [ -e ${library} ]; then
-          # exceptional case, details:
-          # https://github.com/systemd/systemd-stable/blob/v249-stable/src/shared/tpm2-util.c#L157
-          if ! [[ "${library}" =~ .*libtss2-tcti-$ ]]; then
-            echo 'The shared library `${library}` does not exist but was given as substitute for `${dl.name}`'
-            exit 1
+      in if dl.pkg == null then
+        ''
+          # remove the dependency on the library by replacing it with an invalid path
+          for file in $(grep -lr '"${dl.name}"' src); do
+            echo "patching dlopen(\"${dl.name}\", …) in $file to an invalid store path ("${builtins.storeDir}/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-not-implemented/${dl.name}")…"
+            substituteInPlace "$file" --replace '"${dl.name}"' '"${builtins.storeDir}/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-not-implemented/${dl.name}"'
+          done
+        ''
+      else
+        ''
+          # ensure that the library we provide actually exists
+          if ! [ -e ${library} ]; then
+            # exceptional case, details:
+            # https://github.com/systemd/systemd-stable/blob/v249-stable/src/shared/tpm2-util.c#L157
+            if ! [[ "${library}" =~ .*libtss2-tcti-$ ]]; then
+              echo 'The shared library `${library}` does not exist but was given as substitute for `${dl.name}`'
+              exit 1
+            fi
           fi
-        fi
-        # make the path to the dependency explicit
-        for file in $(grep -lr '"${dl.name}"' src); do
-          echo "patching dlopen(\"${dl.name}\", …) in $file to ${library}…"
-          substituteInPlace "$file" --replace '"${dl.name}"' '"${library}"'
-        done
+          # make the path to the dependency explicit
+          for file in $(grep -lr '"${dl.name}"' src); do
+            echo "patching dlopen(\"${dl.name}\", …) in $file to ${library}…"
+            substituteInPlace "$file" --replace '"${dl.name}"' '"${library}"'
+          done
 
-      '';
+        '';
     # patch all the dlopen calls to contain absolute paths to the libraries
   in
   lib.concatMapStringsSep "\n" patchDlOpen dlopenLibs
@@ -877,9 +876,7 @@ stdenv.mkDerivation (finalAttrs: {
     tests = {
       inherit (nixosTests) switchTest;
       cross = pkgsCross.${
-          if
-            stdenv.buildPlatform.isAarch64
-          then
+          if stdenv.buildPlatform.isAarch64 then
             "gnu64"
           else
             "aarch64-multiplatform"

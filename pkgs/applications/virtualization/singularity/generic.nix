@@ -92,16 +92,15 @@ in
 let
   defaultPathOriginal =
     "/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin";
-  privileged-un-utils = if
-    ((newuidmapPath == null) && (newgidmapPath == null))
-  then
-    null
-  else
-    (runCommandLocal "privileged-un-utils" { } ''
-      mkdir -p "$out/bin"
-      ln -s ${lib.escapeShellArg newuidmapPath} "$out/bin/newuidmap"
-      ln -s ${lib.escapeShellArg newgidmapPath} "$out/bin/newgidmap"
-    '');
+  privileged-un-utils =
+    if ((newuidmapPath == null) && (newgidmapPath == null)) then
+      null
+    else
+      (runCommandLocal "privileged-un-utils" { } ''
+        mkdir -p "$out/bin"
+        ln -s ${lib.escapeShellArg newuidmapPath} "$out/bin/newuidmap"
+        ln -s ${lib.escapeShellArg newgidmapPath} "$out/bin/newgidmap"
+      '');
 in
 (buildGoModule {
   inherit
@@ -158,9 +157,7 @@ in
     "--localstatedir=/var/lib"
     "--runstatedir=/var/run"
   ] ++ lib.optional (!enableSeccomp) "--without-seccomp"
-    ++ lib.optional (enableSuid != defaultToSuid) (if
-      enableSuid
-    then
+    ++ lib.optional (enableSuid != defaultToSuid) (if enableSuid then
       "--with-suid"
     else
       "--without-suid") ++ extraConfigureFlags;

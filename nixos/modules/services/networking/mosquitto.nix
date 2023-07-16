@@ -32,9 +32,7 @@ let
       description = "string, path, bool, or integer";
     };
   optionToString = v:
-    if
-      isBool v
-    then
+    if isBool v then
       boolToString v
     else if path.check v then
       "${v}"
@@ -580,9 +578,7 @@ let
       "per_listener_settings true"
       "persistence ${optionToString cfg.persistence}"
     ] ++ map (d:
-      if
-        path.check d
-      then
+      if path.check d then
         "log_dest file ${d}"
       else
         "log_dest ${d}") cfg.logDest ++ map (t: "log_type ${t}") cfg.logType

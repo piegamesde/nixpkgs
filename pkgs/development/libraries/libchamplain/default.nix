@@ -52,9 +52,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     sqlite
-    (if
-      withLibsoup3
-    then
+    (if withLibsoup3 then
       libsoup_3
     else
       libsoup)

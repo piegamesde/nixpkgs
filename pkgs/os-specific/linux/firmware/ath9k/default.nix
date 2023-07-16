@@ -12,9 +12,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ath9k-htc-blobless-firmware";
-  version = if
-    enableUnstable
-  then
+  version = if enableUnstable then
     "unstable-2022-05-22"
   else
     "1.4.0";
@@ -22,15 +20,16 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub ({
     owner = "qca";
     repo = "open-ath9k-htc-firmware";
-  } // (if
-    enableUnstable
-  then {
-    rev = "d856466a068afe4069335257c0d28295ff777d92";
-    hash = "sha256-9OE6qYGABeXjf1r/Depd+811EJ2e8I0Ni5ePHSOh9G4=";
-  } else {
-    rev = finalAttrs.version;
-    hash = "sha256-Q/A0ryIC5E1pt2Sh7o79gxHbe4OgdlrwflOWtxWSS5o=";
-  }));
+  } // (if enableUnstable then
+    {
+      rev = "d856466a068afe4069335257c0d28295ff777d92";
+      hash = "sha256-9OE6qYGABeXjf1r/Depd+811EJ2e8I0Ni5ePHSOh9G4=";
+    }
+  else
+    {
+      rev = finalAttrs.version;
+      hash = "sha256-Q/A0ryIC5E1pt2Sh7o79gxHbe4OgdlrwflOWtxWSS5o=";
+    }));
 
   postPatch = ''
     patchShebangs target_firmware/firmware-crc.pl

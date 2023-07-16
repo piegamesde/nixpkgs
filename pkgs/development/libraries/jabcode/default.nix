@@ -34,15 +34,16 @@ stdenv.mkDerivation rec {
 
   preConfigure = "cd src/${subdir}";
 
-  installPhase = if
-    subproject == "library"
-  then ''
-    mkdir -p $out/lib
-    cp build/* $out/lib
-  '' else ''
-    mkdir -p $out/bin
-    cp -RT bin $out/bin
-  '';
+  installPhase = if subproject == "library" then
+    ''
+      mkdir -p $out/lib
+      cp build/* $out/lib
+    ''
+  else
+    ''
+      mkdir -p $out/bin
+      cp -RT bin $out/bin
+    '';
 
   meta = with lib; {
     description = "A high-capacity 2D color bar code (${subproject})";

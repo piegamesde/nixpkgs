@@ -79,46 +79,46 @@ let
 
     builder = ./builder.sh;
 
-    src = if
-      stdenv.hostPlatform.system == "x86_64-linux"
-    then
+    src = if stdenv.hostPlatform.system == "x86_64-linux" then
       fetchurl {
-        urls = if
-          args ? url
-        then [ args.url ] else [
-          "https://us.download.nvidia.com/XFree86/Linux-x86_64/${version}/NVIDIA-Linux-x86_64-${version}${pkgSuffix}.run"
-          "https://download.nvidia.com/XFree86/Linux-x86_64/${version}/NVIDIA-Linux-x86_64-${version}${pkgSuffix}.run"
-        ];
+        urls = if args ? url then
+          [ args.url ]
+        else
+          [
+            "https://us.download.nvidia.com/XFree86/Linux-x86_64/${version}/NVIDIA-Linux-x86_64-${version}${pkgSuffix}.run"
+            "https://download.nvidia.com/XFree86/Linux-x86_64/${version}/NVIDIA-Linux-x86_64-${version}${pkgSuffix}.run"
+          ];
         sha256 = sha256_64bit;
       }
     else if stdenv.hostPlatform.system == "i686-linux" then
       fetchurl {
-        urls = if
-          args ? url
-        then [ args.url ] else [
-          "https://us.download.nvidia.com/XFree86/Linux-x86/${version}/NVIDIA-Linux-x86-${version}${pkgSuffix}.run"
-          "https://download.nvidia.com/XFree86/Linux-x86/${version}/NVIDIA-Linux-x86-${version}${pkgSuffix}.run"
-        ];
+        urls = if args ? url then
+          [ args.url ]
+        else
+          [
+            "https://us.download.nvidia.com/XFree86/Linux-x86/${version}/NVIDIA-Linux-x86-${version}${pkgSuffix}.run"
+            "https://download.nvidia.com/XFree86/Linux-x86/${version}/NVIDIA-Linux-x86-${version}${pkgSuffix}.run"
+          ];
         sha256 = sha256_32bit;
       }
-    else if stdenv.hostPlatform.system == "aarch64-linux" && sha256_aarch64
-    != null then
+    else if
+      stdenv.hostPlatform.system == "aarch64-linux" && sha256_aarch64 != null
+    then
       fetchurl {
-        urls = if
-          args ? url
-        then [ args.url ] else [
-          "https://us.download.nvidia.com/XFree86/aarch64/${version}/NVIDIA-Linux-aarch64-${version}${pkgSuffix}.run"
-          "https://download.nvidia.com/XFree86/Linux-aarch64/${version}/NVIDIA-Linux-aarch64-${version}${pkgSuffix}.run"
-        ];
+        urls = if args ? url then
+          [ args.url ]
+        else
+          [
+            "https://us.download.nvidia.com/XFree86/aarch64/${version}/NVIDIA-Linux-aarch64-${version}${pkgSuffix}.run"
+            "https://download.nvidia.com/XFree86/Linux-aarch64/${version}/NVIDIA-Linux-aarch64-${version}${pkgSuffix}.run"
+          ];
         sha256 = sha256_aarch64;
       }
     else
       throw
       "nvidia-x11 does not support platform ${stdenv.hostPlatform.system}";
 
-    patches = if
-      libsOnly
-    then
+    patches = if libsOnly then
       null
     else
       patches;
@@ -130,22 +130,16 @@ let
     outputs = [ "out" ] ++ optional i686bundled "lib32"
       ++ optional (!libsOnly) "bin"
       ++ optional (!libsOnly && firmware) "firmware";
-    outputDev = if
-      libsOnly
-    then
+    outputDev = if libsOnly then
       null
     else
       "bin";
 
-    kernel = if
-      libsOnly
-    then
+    kernel = if libsOnly then
       null
     else
       kernel.dev;
-    kernelVersion = if
-      libsOnly
-    then
+    kernelVersion = if libsOnly then
       null
     else
       kernel.modDirVersion;
@@ -184,9 +178,7 @@ let
           nvidia_x11 = self;
           broken = brokenOpen;
         }) openSha256;
-      settings = (if
-        settings32Bit
-      then
+      settings = (if settings32Bit then
         pkgsi686Linux.callPackage
       else
         callPackage) (import ./settings.nix self settingsSha256) {

@@ -182,9 +182,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://dolphin-emu.org";
     description = "Gamecube/Wii/Triforce emulator for x86_64 and ARMv8";
-    mainProgram = if
-      stdenv.hostPlatform.isDarwin
-    then
+    mainProgram = if stdenv.hostPlatform.isDarwin then
       "Dolphin"
     else
       "dolphin-emu";

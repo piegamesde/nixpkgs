@@ -20,9 +20,7 @@ let
   patch = lib.versions.patch linux.modDirVersion;
 
   # See http://linux-libre.fsfla.org/pub/linux-libre/releases
-  versionPrefix = if
-    linux.kernelOlder "5.14"
-  then
+  versionPrefix = if linux.kernelOlder "5.14" then
     "gnu1"
   else
     "gnu";

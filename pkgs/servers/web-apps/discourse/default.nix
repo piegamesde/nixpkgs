@@ -107,9 +107,7 @@ let
         bundlerEnv (bundlerEnvArgs // { inherit name pname version ruby; });
     in
     stdenv.mkDerivation (builtins.removeAttrs args [ "bundlerEnvArgs" ] // {
-      pluginName = if
-        name != null
-      then
+      pluginName = if name != null then
         name
       else
         "${pname}-${version}";
@@ -119,11 +117,11 @@ let
         runHook preInstall
         mkdir -p $out
         cp -r * $out/
-      '' + lib.optionalString (bundlerEnvArgs != { }) (if
-        preserveGemsDir
-      then ''
-        cp -r ${rubyEnv}/lib/ruby/gems/* $out/gems/
-      '' else
+      '' + lib.optionalString (bundlerEnvArgs != { }) (if preserveGemsDir then
+        ''
+          cp -r ${rubyEnv}/lib/ruby/gems/* $out/gems/
+        ''
+      else
         ''
           if [[ -e $out/gems ]]; then
             echo "Warning: The repo contains a 'gems' directory which will be removed!"

@@ -64,9 +64,7 @@ let
     };
   };
 
-in if
-  thunarPlugins == [ ]
-then
+in if thunarPlugins == [ ] then
   unwrapped
 else
   import ./wrapper.nix {

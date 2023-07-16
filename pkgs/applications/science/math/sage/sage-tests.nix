@@ -20,16 +20,12 @@
 let
   src = sage-with-env.env.lib.src;
   runAllTests = files == null;
-  testArgs = if
-    runAllTests
-  then
+  testArgs = if runAllTests then
     "--all"
   else
     testFileList;
   patienceSpecifier = lib.optionalString longTests "--long";
-  timeSpecifier = if
-    timeLimit == null
-  then
+  timeSpecifier = if timeLimit == null then
     ""
   else
     "--short ${toString timeLimit}";

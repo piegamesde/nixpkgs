@@ -100,9 +100,7 @@ in {
     inherit (types) bool str int nullOr attrsOf oneOf path enum package port;
 
     assertStringPath = optionName: value:
-      if
-        isPath value
-      then
+      if isPath value then
         throw ''
           services.keycloak.${optionName}:
             ${toString value}
@@ -343,9 +341,7 @@ in {
             default = "/";
             example = "/auth";
             apply = x:
-              if
-                !(hasPrefix "/") x
-              then
+              if !(hasPrefix "/") x then
                 "/" + x
               else
                 x;
@@ -503,9 +499,7 @@ in {
       mkKeyValue = lib.flip lib.generators.mkKeyValueDefault "=" {
         mkValueString = v:
           with builtins;
-          if
-            isInt v
-          then
+          if isInt v then
             toString v
           else if isString v then
             v
@@ -567,33 +561,25 @@ in {
           "trustCertificateKeyStoreUrl=file:${mySqlCaKeystore}"
           "trustCertificateKeyStorePassword=notsosecretpassword"
         ]);
-      dbProps = if
-        cfg.database.type == "postgresql"
-      then
+      dbProps = if cfg.database.type == "postgresql" then
         postgresParams
       else
         mariadbParams;
     in
     mkMerge [
       {
-        db = if
-          cfg.database.type == "postgresql"
-        then
+        db = if cfg.database.type == "postgresql" then
           "postgres"
         else
           cfg.database.type;
-        db-username = if
-          databaseActuallyCreateLocally
-        then
+        db-username = if databaseActuallyCreateLocally then
           "keycloak"
         else
           cfg.database.username;
         db-password._secret = cfg.database.passwordFile;
         db-url-host = cfg.database.host;
         db-url-port = toString cfg.database.port;
-        db-url-database = if
-          databaseActuallyCreateLocally
-        then
+        db-url-database = if databaseActuallyCreateLocally then
           "keycloak"
         else
           cfg.database.name;
@@ -671,15 +657,17 @@ in {
     };
 
     systemd.services.keycloak = let
-      databaseServices = if
-        createLocalPostgreSQL
-      then [
-        "keycloakPostgreSQLInit.service"
-        "postgresql.service"
-      ] else if createLocalMySQL then [
-        "keycloakMySQLInit.service"
-        "mysql.service"
-      ] else
+      databaseServices = if createLocalPostgreSQL then
+        [
+          "keycloakPostgreSQLInit.service"
+          "postgresql.service"
+        ]
+      else if createLocalMySQL then
+        [
+          "keycloakMySQLInit.service"
+          "mysql.service"
+        ]
+      else
         [ ];
       secretPaths = catAttrs "_secret" (collect isSecret cfg.settings);
       mkSecretReplacement = file: ''
@@ -749,9 +737,7 @@ in {
     services.postgresql.enable = mkDefault createLocalPostgreSQL;
     services.mysql.enable = mkDefault createLocalMySQL;
     services.mysql.package = let
-      dbPkg = if
-        cfg.database.type == "mariadb"
-      then
+      dbPkg = if cfg.database.type == "mariadb" then
         pkgs.mariadb
       else
         pkgs.mysql80;

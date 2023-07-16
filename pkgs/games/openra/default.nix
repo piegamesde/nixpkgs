@@ -45,9 +45,7 @@ let
       if the attribute name and engine/mod name are equal.
   */
   callWithName = name: value:
-    if
-      isFunction value
-    then
+    if isFunction value then
       value name
     else
       value;
@@ -77,9 +75,7 @@ pkgs.recurseIntoAttrs rec {
       builder = name:
         pkgs.callPackage ./engine.nix
         (common // { engine = engine // { inherit name; }; });
-    in if
-      name == null
-    then
+    in if name == null then
       builder
     else
       builder name;
@@ -106,9 +102,7 @@ pkgs.recurseIntoAttrs rec {
             mod = mod // { inherit name assetsError; };
             engine = engine // { inherit mods; };
           });
-      in if
-        name == null
-      then
+      in if name == null then
         builder
       else
         builder name) engine;

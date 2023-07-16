@@ -16,9 +16,7 @@ let
   # Keep in sync with https://github.com/discourse/discourse_docker/blob/main/image/base/slim.Dockerfile#L5
   upstreamPostgresqlVersion = lib.getVersion pkgs.postgresql_13;
 
-  postgresqlPackage = if
-    config.services.postgresql.enable
-  then
+  postgresqlPackage = if config.services.postgresql.enable then
     config.services.postgresql.package
   else
     pkgs.postgresql;
@@ -352,9 +350,7 @@ in {
         notificationEmailAddress = lib.mkOption {
           type = lib.types.str;
           default = "${
-              if
-                cfg.mail.incoming.enable
-              then
+              if cfg.mail.incoming.enable then
                 "notifications"
               else
                 "noreply"
@@ -582,9 +578,7 @@ in {
       db_port = null;
       db_backup_port = 5432;
       db_name = cfg.database.name;
-      db_username = if
-        databaseActuallyCreateLocally
-      then
+      db_username = if databaseActuallyCreateLocally then
         "discourse"
       else
         cfg.database.username;
@@ -767,9 +761,7 @@ in {
           mkKeyValue = lib.flip lib.generators.mkKeyValueDefault " = " {
             mkValueString = v:
               with builtins;
-              if
-                isInt v
-              then
+              if isInt v then
                 toString v
               else if isString v then
                 ''"${v}"''
@@ -1040,9 +1032,7 @@ in {
           fi
         '';
         script = let
-          apiKeyPath = if
-            cfg.mail.incoming.apiKeyFile == null
-          then
+          apiKeyPath = if cfg.mail.incoming.apiKeyFile == null then
             "/var/lib/discourse-mail-receiver/api_key"
           else
             cfg.mail.incoming.apiKeyFile;

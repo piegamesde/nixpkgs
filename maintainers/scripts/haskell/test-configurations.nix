@@ -64,8 +64,10 @@ let
     ;
 
     # see usage explanation for the input format `files` allows
-  files' = builtins.map builtins.baseNameOf
-    (if !builtins.isList files then [ files ] else files);
+  files' = builtins.map builtins.baseNameOf (if !builtins.isList files then
+    [ files ]
+  else
+    files);
 
   packageSetsWithVersionedHead = pkgs.haskell.packages // (let
     headSet = pkgs.haskell.packages.ghcHEAD;

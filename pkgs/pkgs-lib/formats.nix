@@ -124,9 +124,7 @@
             description = "INI atom (null, bool, int, float or string)";
           };
 
-          iniAtom = if
-            listsAsDuplicateKeys
-          then
+          iniAtom = if listsAsDuplicateKeys then
             coercedTo singleIniAtom lib.singleton (listOf singleIniAtom) // {
               description = singleIniAtom.description
                 + " or a list of them for duplicate keys";
@@ -146,14 +144,10 @@
 
       generate = name: value:
         let
-          transformedValue = if
-            listToValue != null
-          then
+          transformedValue = if listToValue != null then
             lib.mapAttrs (section:
               lib.mapAttrs (key: val:
-                if
-                  lib.isList val
-                then
+                if lib.isList val then
                   listToValue val
                 else
                   val)) value
@@ -189,9 +183,7 @@
             description = "atom (null, bool, int, float or string)";
           };
 
-          atom = if
-            listsAsDuplicateKeys
-          then
+          atom = if listsAsDuplicateKeys then
             coercedTo singleAtom lib.singleton (listOf singleAtom) // {
               description = singleAtom.description
                 + " or a list of them for duplicate keys";
@@ -210,13 +202,9 @@
 
       generate = name: value:
         let
-          transformedValue = if
-            listToValue != null
-          then
+          transformedValue = if listToValue != null then
             lib.mapAttrs (key: val:
-              if
-                lib.isList val
-              then
+              if lib.isList val then
                 listToValue val
               else
                 val) value
@@ -323,9 +311,7 @@
     let
       toElixir = value:
         with builtins;
-        if
-          value == null
-        then
+        if value == null then
           "nil"
         else if value == true then
           "true"
@@ -350,9 +336,7 @@
       string = value: ''"${escapeElixir value}"'';
 
       attrs = set:
-        if
-          set ? _elixirType
-        then
+        if set ? _elixirType then
           specialType set
         else
           let
@@ -370,9 +354,7 @@
           value,
           _elixirType,
         }:
-        if
-          _elixirType == "raw"
-        then
+        if _elixirType == "raw" then
           value
         else if _elixirType == "atom" then
           value

@@ -77,9 +77,7 @@ let
   # since the build process is very hard-coded for a specific machine, architecture, and libraries.
   mosflm = let
     version = "7.4.0";
-    src = if
-      stdenv.isDarwin
-    then
+    src = if stdenv.isDarwin then
       fetchurl {
         url = "https://www.mrc-lmb.cam.ac.uk/mosflm/mosflm/ver${
             builtins.replaceStrings [ "." ] [ "" ] version
@@ -93,9 +91,7 @@ let
           }/pre-built/mosflm-linux-64-noX11.zip";
         sha256 = "1rqh3nprxfmnyihllw31nb8i3wfhybmsic6y7z6wn4rafyv3w4fk";
       };
-    mosflmBinary = if
-      stdenv.isDarwin
-    then
+    mosflmBinary = if stdenv.isDarwin then
       "bin/mosflm"
     else
       "mosflm-linux-64-noX11";

@@ -563,18 +563,14 @@
   # included in the platform in order to further elaborate it.
   select = platform:
     # x86
-    if
-      platform.isx86
-    then
+    if platform.isx86 then
       pc
 
       # ARM
     else if platform.isAarch32 then
       let
         version = platform.parsed.cpu.version or null;
-      in if
-        version == null
-      then
+      in if version == null then
         pc
       else if lib.versionOlder version "6" then
         sheevaplug
@@ -584,9 +580,7 @@
         armv7l-hf-multiplatform
 
     else if platform.isAarch64 then
-      if
-        platform.isDarwin
-      then
+      if platform.isDarwin then
         apple-m1
       else
         aarch64-multiplatform

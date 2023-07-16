@@ -24,9 +24,7 @@
 let
   mkFlag = optSet: flag:
     "-D${flag}=${
-      if
-        optSet
-      then
+      if optSet then
         "ON"
       else
         "OFF"

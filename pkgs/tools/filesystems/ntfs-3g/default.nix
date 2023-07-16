@@ -65,9 +65,7 @@ stdenv.mkDerivation rec {
     "--enable-posix-acls"
     "--enable-xattr-mappings"
     "--${
-      if
-        crypto
-      then
+      if crypto then
         "enable"
       else
         "disable"

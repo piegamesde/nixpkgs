@@ -56,21 +56,22 @@ mkDerivation {
   cmakeFlags =
     [ "-DGUILE_CCACHE_DIR=${placeholder "out"}/lib/guile/3.0/ccache" ];
 
-  postInstall = if
-    stdenv.isDarwin
-  then ''
-    # No rules to install the mac app, so do it manually.
-    mkdir -p $out/Applications
-    cp -r studio/Studio.app $out/Applications/Studio.app
+  postInstall = if stdenv.isDarwin then
+    ''
+      # No rules to install the mac app, so do it manually.
+      mkdir -p $out/Applications
+      cp -r studio/Studio.app $out/Applications/Studio.app
 
-    install_name_tool \
-      -change libfive.dylib $out/lib/libfive.dylib \
-      -change libfive-guile.dylib $out/lib/libfive-guile.dylib \
-      $out/Applications/Studio.app/Contents/MacOS/Studio
-  '' else ''
-    # Link "Studio" binary to "libfive-studio" to be more obvious:
-    ln -s "$out/bin/Studio" "$out/bin/libfive-studio"
-  '';
+      install_name_tool \
+        -change libfive.dylib $out/lib/libfive.dylib \
+        -change libfive-guile.dylib $out/lib/libfive-guile.dylib \
+        $out/Applications/Studio.app/Contents/MacOS/Studio
+    ''
+  else
+    ''
+      # Link "Studio" binary to "libfive-studio" to be more obvious:
+      ln -s "$out/bin/Studio" "$out/bin/libfive-studio"
+    '';
 
   meta = with lib; {
     description =

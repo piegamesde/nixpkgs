@@ -85,9 +85,7 @@ let
     srcs.bazel_skylib
     srcs.io_bazel_rules_sass
     srcs.platforms
-    (if
-      stdenv.hostPlatform.isDarwin
-    then
+    (if stdenv.hostPlatform.isDarwin then
       srcs."java_tools_javac11_darwin-v10.6.zip"
     else
       srcs."java_tools_javac11_linux-v10.6.zip")
@@ -167,18 +165,14 @@ let
   # however it contains prebuilt java binaries, with wrong interpreter
   # and libraries path.
   # We prefetch it, patch it, and override it in a global bazelrc.
-  system = if
-    stdenv.hostPlatform.isDarwin
-  then
+  system = if stdenv.hostPlatform.isDarwin then
     "darwin"
   else
     "linux";
 
   # on aarch64 Darwin, `uname -m` returns "arm64"
   arch = with stdenv.hostPlatform;
-    if
-      isDarwin && isAarch64
-    then
+    if isDarwin && isAarch64 then
       "arm64"
     else
       parsed.cpu.name;
@@ -382,15 +376,15 @@ stdenv.mkDerivation rec {
     };
 
   in
-  (if
-    !stdenv.hostPlatform.isDarwin
-  then {
-    # `extracted` doesn’t work on darwin
-    shebang = callPackage ../shebang-test.nix {
-      inherit runLocal extracted bazelTest distDir;
-      bazel = bazel_self;
-    };
-  } else
+  (if !stdenv.hostPlatform.isDarwin then
+    {
+      # `extracted` doesn’t work on darwin
+      shebang = callPackage ../shebang-test.nix {
+        inherit runLocal extracted bazelTest distDir;
+        bazel = bazel_self;
+      };
+    }
+  else
     { }) // {
       bashTools = callPackage ../bash-tools-test.nix {
         inherit runLocal bazelTest distDir;

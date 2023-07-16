@@ -48,9 +48,7 @@ let
 
   sharedFoldersSecretFiles = map (entry: {
     dir = entry.directory;
-    secretFile = if
-      builtins.hasAttr "secret" entry
-    then
+    secretFile = if builtins.hasAttr "secret" entry then
       toString (pkgs.writeTextFile {
         name = "secret-file";
         text = entry.secret;
@@ -61,22 +59,24 @@ let
 
   runConfigPath = "/run/rslsync/config.json";
 
-  createConfig = pkgs.writeShellScriptBin "create-resilio-config" (if
-    cfg.sharedFolders != [ ]
-  then ''
-    ${pkgs.jq}/bin/jq \
-      '.shared_folders |= map(.secret = $ARGS.named[.dir])' \
-      ${
-        lib.concatMapStringsSep " \\\n  "
-        (entry: ''--arg '${entry.dir}' "$(cat '${entry.secretFile}')"'')
-        sharedFoldersSecretFiles
-      } \
-      <${configFile} \
-      >${runConfigPath}
-  '' else ''
-    # no secrets, passing through config
-    cp ${configFile} ${runConfigPath};
-  '');
+  createConfig = pkgs.writeShellScriptBin "create-resilio-config"
+    (if cfg.sharedFolders != [ ] then
+      ''
+        ${pkgs.jq}/bin/jq \
+          '.shared_folders |= map(.secret = $ARGS.named[.dir])' \
+          ${
+            lib.concatMapStringsSep " \\\n  "
+            (entry: ''--arg '${entry.dir}' "$(cat '${entry.secretFile}')"'')
+            sharedFoldersSecretFiles
+          } \
+          <${configFile} \
+          >${runConfigPath}
+      ''
+    else
+      ''
+        # no secrets, passing through config
+        cp ${configFile} ${runConfigPath};
+      '');
 
 in {
   options = {

@@ -9,9 +9,7 @@ let
   pkg = pkgs._3proxy;
   cfg = config.services._3proxy;
   optionalList = list:
-    if
-      list == [ ]
-    then
+    if list == [ ] then
       "*"
     else
       concatMapStringsSep "," toString list;

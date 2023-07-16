@@ -10,9 +10,7 @@
 
 let
   optionalWarning = cond: msg:
-    if
-      cond
-    then
+    if cond then
       lib.warn msg
     else
       lib.id;

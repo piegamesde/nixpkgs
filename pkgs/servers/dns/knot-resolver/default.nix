@@ -30,9 +30,7 @@
 }:
 let # un-indented, over the whole file
 
-  result = if
-    extraFeatures
-  then
+  result = if extraFeatures then
     wrapped-full
   else
     unwrapped;

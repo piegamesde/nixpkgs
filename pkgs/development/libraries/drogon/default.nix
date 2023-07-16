@@ -41,9 +41,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DBUILD_TESTING=${
-      if
-        doInstallCheck
-      then
+      if doInstallCheck then
         "ON"
       else
         "OFF"

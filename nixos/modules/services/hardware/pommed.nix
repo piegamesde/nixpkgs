@@ -47,9 +47,7 @@ in {
       pkgs.pommed_light
     ];
 
-    environment.etc."pommed.conf".source = if
-      cfg.configFile == null
-    then
+    environment.etc."pommed.conf".source = if cfg.configFile == null then
       defaultConf
     else
       cfg.configFile;

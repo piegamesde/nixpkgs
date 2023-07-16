@@ -15,23 +15,17 @@ let
 
   grubPkgs =
     # Package set of targeted architecture
-    if
-      cfg.forcei686
-    then
+    if cfg.forcei686 then
       pkgs.pkgsi686Linux
     else
       pkgs;
 
-  realGrub = if
-    cfg.version == 1
-  then
+  realGrub = if cfg.version == 1 then
     grubPkgs.grub
   else if cfg.zfsSupport then
     grubPkgs.grub2.override { zfsSupport = true; }
   else if cfg.trustedBoot.enable then
-    if
-      cfg.trustedBoot.isHPLaptop
-    then
+    if cfg.trustedBoot.isHPLaptop then
       grubPkgs.trustedGrub-for-HP
     else
       grubPkgs.trustedGrub
@@ -41,18 +35,14 @@ let
   grub =
     # Don't include GRUB if we're only generating a GRUB menu (e.g.,
     # in EC2 instances).
-    if
-      cfg.devices == [ "nodev" ]
-    then
+    if cfg.devices == [ "nodev" ] then
       null
     else
       realGrub;
 
   grubEfi =
     # EFI version of Grub v2
-    if
-      cfg.efiSupport && (cfg.version == 2)
-    then
+    if cfg.efiSupport && (cfg.version == 2) then
       realGrub.override { efiSupport = cfg.efiSupport; }
     else
       null;
@@ -61,9 +51,7 @@ let
 
   grubConfig = args:
     let
-      efiSysMountPoint = if
-        args.efiSysMountPoint == null
-      then
+      efiSysMountPoint = if args.efiSysMountPoint == null then
         args.path
       else
         args.efiSysMountPoint;
@@ -85,21 +73,15 @@ let
         (f (grubEfi.grubTarget or ""));
       bootPath = args.path;
       storePath = config.boot.loader.grub.storePath;
-      bootloaderId = if
-        args.efiBootloaderId == null
-      then
+      bootloaderId = if args.efiBootloaderId == null then
         "${config.system.nixos.distroName}${efiSysMountPoint'}"
       else
         args.efiBootloaderId;
-      timeout = if
-        config.boot.loader.timeout == null
-      then
+      timeout = if config.boot.loader.timeout == null then
         -1
       else
         config.boot.loader.timeout;
-      users = if
-        cfg.users == { } || cfg.version != 1
-      then
+      users = if cfg.users == { } || cfg.version != 1 then
         cfg.users
       else
         throw "GRUB version 1 does not support user accounts.";
@@ -143,14 +125,10 @@ let
             busybox
             os-prober
           ]);
-      font = if
-        cfg.font == null
-      then
+      font = if cfg.font == null then
         ""
       else
-        (if
-          lib.last (lib.splitString "." cfg.font) == "pf2"
-        then
+        (if lib.last (lib.splitString "." cfg.font) == "pf2" then
           cfg.font
         else
           "${convertedFont}");
@@ -824,9 +802,7 @@ in {
   config = mkMerge [
 
     {
-      boot.loader.grub.splashImage = mkDefault (if
-        cfg.version == 1
-      then
+      boot.loader.grub.splashImage = mkDefault (if cfg.version == 1 then
         pkgs.fetchurl {
           url =
             "http://www.gnome-look.org/CONTENT/content-files/36909-soft-tux.xpm.gz";
@@ -911,9 +887,7 @@ in {
         }
         {
           assertion = cfg.efiSupport || all (c: c < 2) (mapAttrsToList (n: c:
-            if
-              n == "nodev"
-            then
+            if n == "nodev" then
               0
             else
               c) bootDeviceCounters);
@@ -960,9 +934,7 @@ in {
             message = "Boot paths must be absolute, not ${args.path}";
           }
           {
-            assertion = if
-              args.efiSysMountPoint == null
-            then
+            assertion = if args.efiSysMountPoint == null then
               true
             else
               hasPrefix "/" args.efiSysMountPoint;

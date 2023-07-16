@@ -37,7 +37,10 @@ stdenv.mkDerivation rec {
   buildInputs = [
     openssl
     check
-  ] ++ (if withApplePCSC then [ PCSC ] else [ pcsclite ]);
+  ] ++ (if withApplePCSC then
+    [ PCSC ]
+  else
+    [ pcsclite ]);
 
   cmakeFlags = [
     "-DGENERATE_MAN_PAGES=OFF" # Use the man page generated at release time
@@ -48,9 +51,7 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = [ "--with-backend=${
-      if
-        withApplePCSC
-      then
+      if withApplePCSC then
         "macscard"
       else
         "pcsc"

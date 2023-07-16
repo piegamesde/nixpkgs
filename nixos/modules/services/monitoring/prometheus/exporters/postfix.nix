@@ -93,9 +93,7 @@ in {
           ${
             concatStringsSep " \\\n  " (cfg.extraFlags
               ++ optional cfg.systemd.enable "--systemd.enable"
-              ++ optional cfg.systemd.enable (if
-                cfg.systemd.slice != null
-              then
+              ++ optional cfg.systemd.enable (if cfg.systemd.slice != null then
                 "--systemd.slice ${cfg.systemd.slice}"
               else
                 "--systemd.unit ${cfg.systemd.unit}") ++ optional

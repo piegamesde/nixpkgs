@@ -31,9 +31,7 @@ mkDerivation rec {
   ];
 
   cmakeFlags = [ "-DBUILD_TESTER=${
-      if
-        withTester
-      then
+      if withTester then
         "on"
       else
         "off"

@@ -125,9 +125,7 @@ in {
       bootPkgs =
         # aarch64 ghc865Binary gets SEGVs due to haskell#15449 or similar
         # 8.10.2 is needed as using 8.10.7 is broken due to RTS-incompatibilities
-        if
-          stdenv.isAarch64
-        then
+        if stdenv.isAarch64 then
           packages.ghc8102BinaryMinimal
           # Musl bindists do not exist for ghc 8.6.5, so we use 8.10.* for them
         else if stdenv.hostPlatform.isMusl then
@@ -144,12 +142,11 @@ in {
         # aarch64 ghc865Binary gets SEGVs due to haskell#15449 or similar
         # the oldest ghc with aarch64-darwin support is 8.10.5
         # Musl bindists do not exist for ghc 8.6.5, so we use 8.10.* for them
-        if
-          stdenv.hostPlatform.isAarch
-        then
+        if stdenv.hostPlatform.isAarch then
           packages.ghc8107BinaryMinimal
-        else if stdenv.hostPlatform.isPower64
-        && stdenv.hostPlatform.isLittleEndian then
+        else if
+          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
+        then
         # to my (@a-m-joseph) knowledge there are no newer official binaries for this platform
           packages.ghc865Binary
         else
@@ -169,12 +166,11 @@ in {
       bootPkgs =
         # aarch64 ghc8107Binary exceeds max output size on hydra
         # the oldest ghc with aarch64-darwin support is 8.10.5
-        if
-          stdenv.hostPlatform.isAarch
-        then
+        if stdenv.hostPlatform.isAarch then
           packages.ghc8107BinaryMinimal
-        else if stdenv.hostPlatform.isPower64
-        && stdenv.hostPlatform.isLittleEndian then
+        else if
+          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
+        then
           packages.ghc810
         else
           packages.ghc8107Binary;
@@ -187,12 +183,11 @@ in {
     ghc924 = callPackage ../development/compilers/ghc/9.2.4.nix {
       bootPkgs =
         # aarch64 ghc8107Binary exceeds max output size on hydra
-        if
-          stdenv.hostPlatform.isAarch
-        then
+        if stdenv.hostPlatform.isAarch then
           packages.ghc8107BinaryMinimal
-        else if stdenv.hostPlatform.isPower64
-        && stdenv.hostPlatform.isLittleEndian then
+        else if
+          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
+        then
           packages.ghc810
         else
           packages.ghc8107Binary;
@@ -209,12 +204,11 @@ in {
     ghc925 = callPackage ../development/compilers/ghc/9.2.5.nix {
       bootPkgs =
         # aarch64 ghc8107Binary exceeds max output size on hydra
-        if
-          stdenv.hostPlatform.isAarch
-        then
+        if stdenv.hostPlatform.isAarch then
           packages.ghc8107BinaryMinimal
-        else if stdenv.hostPlatform.isPower64
-        && stdenv.hostPlatform.isLittleEndian then
+        else if
+          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
+        then
           packages.ghc810
         else
           packages.ghc8107Binary;
@@ -231,12 +225,11 @@ in {
     ghc926 = callPackage ../development/compilers/ghc/9.2.6.nix {
       bootPkgs =
         # aarch64 ghc8107Binary exceeds max output size on hydra
-        if
-          stdenv.hostPlatform.isAarch
-        then
+        if stdenv.hostPlatform.isAarch then
           packages.ghc8107BinaryMinimal
-        else if stdenv.hostPlatform.isPower64
-        && stdenv.hostPlatform.isLittleEndian then
+        else if
+          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
+        then
           packages.ghc810
         else
           packages.ghc8107Binary;
@@ -253,12 +246,11 @@ in {
     ghc927 = callPackage ../development/compilers/ghc/9.2.7.nix {
       bootPkgs =
         # aarch64 ghc8107Binary exceeds max output size on hydra
-        if
-          stdenv.hostPlatform.isAarch
-        then
+        if stdenv.hostPlatform.isAarch then
           packages.ghc8107BinaryMinimal
-        else if stdenv.hostPlatform.isPower64
-        && stdenv.hostPlatform.isLittleEndian then
+        else if
+          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
+        then
           packages.ghc810
         else
           packages.ghc8107Binary;
@@ -286,8 +278,9 @@ in {
         # TODO(@sternenseemann): package bindist
           packages.ghc902
           # No suitable bindists for powerpc64le
-        else if stdenv.hostPlatform.isPower64
-        && stdenv.hostPlatform.isLittleEndian then
+        else if
+          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
+        then
           packages.ghc902
         else
           packages.ghc8107Binary;
@@ -318,8 +311,9 @@ in {
         # TODO(@sternenseemann): package bindist
           packages.ghc902
           # No suitable bindists for powerpc64le
-        else if stdenv.hostPlatform.isPower64
-        && stdenv.hostPlatform.isLittleEndian then
+        else if
+          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
+        then
           packages.ghc902
         else
           packages.ghc8107Binary;
@@ -350,8 +344,9 @@ in {
         # TODO(@sternenseemann): package bindist
           packages.ghc902
           # No suitable bindists for powerpc64le
-        else if stdenv.hostPlatform.isPower64
-        && stdenv.hostPlatform.isLittleEndian then
+        else if
+          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
+        then
           packages.ghc902
         else
           packages.ghc8107Binary;
@@ -382,8 +377,9 @@ in {
         # TODO(@sternenseemann): package bindist
           packages.ghc902
           # No suitable bindists for powerpc64le
-        else if stdenv.hostPlatform.isPower64
-        && stdenv.hostPlatform.isLittleEndian then
+        else if
+          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
+        then
           packages.ghc902
         else
           packages.ghc8107Binary;
@@ -405,12 +401,11 @@ in {
     ghc961 = callPackage ../development/compilers/ghc/9.6.1.nix {
       bootPkgs =
         # For GHC 9.2 no armv7l bindists are available.
-        if
-          stdenv.hostPlatform.isAarch32
-        then
+        if stdenv.hostPlatform.isAarch32 then
           packages.ghc924
-        else if stdenv.hostPlatform.isPower64
-        && stdenv.hostPlatform.isLittleEndian then
+        else if
+          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
+        then
           packages.ghc924
         else if stdenv.isAarch64 then
           packages.ghc924BinaryMinimal
@@ -434,12 +429,11 @@ in {
     ghcHEAD = callPackage ../development/compilers/ghc/head.nix {
       bootPkgs =
         # For GHC 9.2 no armv7l bindists are available.
-        if
-          stdenv.hostPlatform.isAarch32
-        then
+        if stdenv.hostPlatform.isAarch32 then
           packages.ghc924
-        else if stdenv.hostPlatform.isPower64
-        && stdenv.hostPlatform.isLittleEndian then
+        else if
+          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
+        then
           packages.ghc924
         else if stdenv.isAarch64 then
           packages.ghc924BinaryMinimal

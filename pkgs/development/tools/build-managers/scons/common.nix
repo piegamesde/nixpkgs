@@ -14,9 +14,7 @@ python.pkgs.buildPythonApplication rec {
   inherit version;
 
   src = fetchurl {
-    url = if
-      lib.versionAtLeast version "4.3.0"
-    then
+    url = if lib.versionAtLeast version "4.3.0" then
       "mirror://sourceforge/project/scons/scons/${version}/SCons-${version}.tar.gz"
     else
       "mirror://sourceforge/scons/scons-${version}.tar.gz";

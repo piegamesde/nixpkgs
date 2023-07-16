@@ -30,9 +30,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  makefile = if
-    stdenv.isDarwin
-  then
+  makefile = if stdenv.isDarwin then
     "ClangOSX64.mak"
   else
     "gccLinux64.mak";

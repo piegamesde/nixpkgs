@@ -94,9 +94,7 @@ stdenv.mkDerivation {
     # We assume every nix-based cross target has urandom.
     # This might not hold for e.g. BSD.
     "--with-sysdep-devurandom=yes"
-    (if
-      stdenv.isDarwin
-    then
+    (if stdenv.isDarwin then
       "--disable-shared"
     else
       "--enable-shared")

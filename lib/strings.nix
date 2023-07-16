@@ -82,9 +82,7 @@ in rec {
     separator:
     # Input list
     list:
-    if
-      list == [ ] || length list == 1
-    then
+    if list == [ ] || length list == 1 then
       list
     else
       tail (lib.concatMap (x: [
@@ -228,9 +226,7 @@ in rec {
           This function also copies the path to the Nix store and returns the store path, the same as "''${path}" will, which may not be what you want.
           This behavior is deprecated and will throw an error in the future.''
     (builtins.foldl' (x: y:
-      if
-        y == "/" && hasSuffix "/" x
-      then
+      if y == "/" && hasSuffix "/" x then
         x
       else
         x + y) "" (stringToCharacters s));
@@ -251,9 +247,7 @@ in rec {
     cond:
     # String to return if condition is true
     string:
-    if
-      cond
-    then
+    if cond then
       string
     else
       "";
@@ -554,9 +548,8 @@ in rec {
   */
   toShellVar = name: value:
     lib.throwIfNot (isValidPosixName name)
-    "toShellVar: ${name} is not a valid shell variable name" (if
-      isAttrs value && !isStringLike value
-    then
+    "toShellVar: ${name} is not a valid shell variable name"
+    (if isAttrs value && !isStringLike value then
       "declare -A ${name}=(${
         concatStringsSep " "
         (lib.mapAttrsToList (n: v: "[${escapeShellArg n}]=${escapeShellArg v}")
@@ -616,9 +609,7 @@ in rec {
   */
   escapeNixIdentifier = s:
     # Regex from https://github.com/NixOS/nix/blob/d048577909e383439c2549e849c5c2f2016c997e/src/libexpr/lexer.l#L91
-    if
-      match "[a-zA-Z_][a-zA-Z0-9_'-]*" s != null
-    then
+    if match "[a-zA-Z_][a-zA-Z0-9_'-]*" s != null then
       s
     else
       escapeNixString s;
@@ -734,9 +725,7 @@ in rec {
     (let
       preLen = stringLength prefix;
       sLen = stringLength str;
-    in if
-      substring 0 preLen str == prefix
-    then
+    in if substring 0 preLen str == prefix then
       substring preLen (sLen - preLen) str
     else
       str);
@@ -768,9 +757,7 @@ in rec {
     (let
       sufLen = stringLength suffix;
       sLen = stringLength str;
-    in if
-      sufLen <= sLen && suffix == substring (sLen - sufLen) sufLen str
-    then
+    in if sufLen <= sLen && suffix == substring (sLen - sufLen) sufLen str then
       substring 0 (sLen - sufLen) str
     else
       str);
@@ -810,9 +797,7 @@ in rec {
   getName = x:
     let
       parse = drv: (parseDrvName drv).name;
-    in if
-      isString x
-    then
+    in if isString x then
       parse x
     else
       x.pname or (parse x.name);
@@ -830,9 +815,7 @@ in rec {
   getVersion = x:
     let
       parse = drv: (parseDrvName drv).version;
-    in if
-      isString x
-    then
+    in if isString x then
       parse x
     else
       x.version or (parse x.name);
@@ -908,9 +891,7 @@ in rec {
   mesonEnable = feature: flag:
     assert (lib.isString feature);
     assert (lib.isBool flag);
-    mesonOption feature (if
-      flag
-    then
+    mesonOption feature (if flag then
       "enabled"
     else
       "disabled");
@@ -927,9 +908,7 @@ in rec {
   enableFeature = enable: feat:
     assert isString feat; # e.g. passing openssl instead of "openssl"
     "--${
-      if
-        enable
-      then
+      if enable then
         "enable"
       else
         "disable"
@@ -959,9 +938,7 @@ in rec {
   withFeature = with_: feat:
     assert isString feat; # e.g. passing openssl instead of "openssl"
     "--${
-      if
-        with_
-      then
+      if with_ then
         "with"
       else
         "without"
@@ -1000,9 +977,7 @@ in rec {
       "fixedWidthString: requested string length (${
         toString width
       }) must not be shorter than actual length (${toString strw})";
-    if
-      strw == width
-    then
+    if strw == width then
       str
     else
       filler + fixedWidthString reqWidth filler str
@@ -1076,9 +1051,7 @@ in rec {
        => false
   */
   isStorePath = x:
-    if
-      isStringLike x
-    then
+    if isStringLike x then
       let
         str = toString x;
       in
@@ -1127,9 +1100,7 @@ in rec {
         + " between octal and zero padded integer.";
 
       # Error on presence of non digit characters.
-    in if
-      strippedInput == null
-    then
+    in if strippedInput == null then
       throw generalError
       # Error on presence of leading zero/octal ambiguity.
     else if isLeadingZero then
@@ -1178,9 +1149,7 @@ in rec {
         "toIntBase10: Could not convert ${escapeNixString str} to int.";
 
       # Error on presence of non digit characters.
-    in if
-      strippedInput == null
-    then
+    in if strippedInput == null then
       throw generalError
       # In the special case zero-padded zero (00000), return early.
     else if isZero then
@@ -1249,9 +1218,7 @@ in rec {
   in
   string:
   # First detect the common case of already valid strings, to speed those up
-  if
-    stringLength string <= 207 && okRegex string != null
-  then
+  if stringLength string <= 207 && okRegex string != null then
     unsafeDiscardStringContext string
   else
     lib.pipe string [
@@ -1266,9 +1233,7 @@ in rec {
       (split "[^[:alnum:]+._?=-]+")
       # Replace invalid character ranges with a "-"
       (concatMapStrings (s:
-        if
-          lib.isList s
-        then
+        if lib.isList s then
           "-"
         else
           s))
@@ -1276,9 +1241,7 @@ in rec {
       (x: substring (lib.max (stringLength x - 207) 0) (-1) x)
       # If the result is empty, replace it with "unknown"
       (x:
-        if
-          stringLength x == 0
-        then
+        if stringLength x == 0 then
           "unknown"
         else
           x)
@@ -1307,15 +1270,11 @@ in rec {
       d = x: y: lib.elemAt (lib.elemAt arr x) y;
       dist = i: j:
         let
-          c = if
-            substring (i - 1) 1 a == substring (j - 1) 1 b
-          then
+          c = if substring (i - 1) 1 a == substring (j - 1) 1 b then
             0
           else
             1;
-        in if
-          j == 0
-        then
+        in if j == 0 then
           i
         else if i == 0 then
           j
@@ -1331,9 +1290,7 @@ in rec {
     let
       m = lib.min (stringLength a) (stringLength b);
       go = i:
-        if
-          i >= m
-        then
+        if i >= m then
           m
         else if substring i 1 a == substring i 1 b then
           go (i + 1)
@@ -1348,12 +1305,12 @@ in rec {
     let
       m = lib.min (stringLength a) (stringLength b);
       go = i:
-        if
-          i >= m
-        then
+        if i >= m then
           m
-        else if substring (stringLength a - i - 1) 1 a
-        == substring (stringLength b - i - 1) 1 b then
+        else if
+          substring (stringLength a - i - 1) 1 a
+          == substring (stringLength b - i - 1) 1 b
+        then
           go (i + 1)
         else
           i;
@@ -1407,9 +1364,7 @@ in rec {
         # A length difference of 2 can only be gotten with 2 delete edits,
         # which have to have happened at the start and end of x
         # Example: "abcdef" -> "bcde"
-      in if
-        diff == 2
-      then
+      in if diff == 2 then
         xinfix == y
         # A length difference of 1 can only be gotten with a deletion on the
         # right and a replacement on the left or vice versa.
@@ -1425,9 +1380,7 @@ in rec {
 
   in
   k:
-  if
-    k <= 0
-  then
+  if k <= 0 then
     a: b: a == b
   else
     let
@@ -1441,9 +1394,7 @@ in rec {
           ainfix = substring prelen (alen - presuflen) a;
           binfix = substring prelen (blen - presuflen) b;
           # Make a be the bigger string
-        in if
-          alen < blen
-        then
+        in if alen < blen then
           f b a
           # If a has over k more characters than b, even with k deletes on a, b can't be reached
         else if alen - blen > k then

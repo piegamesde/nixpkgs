@@ -18,23 +18,17 @@ let
     #     package = pkgs.postgresql_<major>;
     #   };
     # works.
-    base = if
-      cfg.enableJIT && !cfg.package.jitSupport
-    then
+    base = if cfg.enableJIT && !cfg.package.jitSupport then
       cfg.package.withJIT
     else
       cfg.package;
-  in if
-    cfg.extraPlugins == [ ]
-  then
+  in if cfg.extraPlugins == [ ] then
     base
   else
     base.withPackages (_: cfg.extraPlugins);
 
   toStr = value:
-    if
-      true == value
-    then
+    if true == value then
       "yes"
     else if false == value then
       "no"
@@ -472,16 +466,12 @@ in {
       ident_file = "${pkgs.writeText "pg_ident.conf" cfg.identMap}";
       log_destination = "stderr";
       log_line_prefix = cfg.logLinePrefix;
-      listen_addresses = if
-        cfg.enableTCPIP
-      then
+      listen_addresses = if cfg.enableTCPIP then
         "*"
       else
         "localhost";
       port = cfg.port;
-      jit = mkDefault (if
-        cfg.enableJIT
-      then
+      jit = mkDefault (if cfg.enableJIT then
         "on"
       else
         "off");
@@ -491,9 +481,7 @@ in {
       mkThrow = ver:
         throw
         "postgresql_${ver} was removed, please upgrade your postgresql version.";
-      base = if
-        versionAtLeast config.system.stateVersion "22.05"
-      then
+      base = if versionAtLeast config.system.stateVersion "22.05" then
         pkgs.postgresql_14
       else if versionAtLeast config.system.stateVersion "21.11" then
         pkgs.postgresql_13
@@ -507,9 +495,7 @@ in {
       # ‘system.stateVersion’ to maintain compatibility with existing
       # systems!
     in
-    mkDefault (if
-      cfg.enableJIT
-    then
+    mkDefault (if cfg.enableJIT then
       base.withJIT
     else
       base)
@@ -607,9 +593,7 @@ in {
               filterAttrs (name: value: value != null) user.ensureClauses;
 
             clauseSqlStatements = attrValues (mapAttrs (n: v:
-              if
-                v
-              then
+              if v then
                 n
               else
                 "no${n}") filteredClauses);
@@ -631,9 +615,7 @@ in {
           User = "postgres";
           Group = "postgres";
           RuntimeDirectory = "postgresql";
-          Type = if
-            versionAtLeast cfg.package.version "9.6"
-          then
+          Type = if versionAtLeast cfg.package.version "9.6" then
             "notify"
           else
             "simple";
@@ -651,9 +633,7 @@ in {
         }
         (mkIf (cfg.dataDir == "/var/lib/postgresql/${cfg.package.psqlSchema}") {
           StateDirectory = "postgresql postgresql/${cfg.package.psqlSchema}";
-          StateDirectoryMode = if
-            groupAccessAvailable
-          then
+          StateDirectoryMode = if groupAccessAvailable then
             "0750"
           else
             "0700";

@@ -14,9 +14,7 @@ let
   teeworldsConf = pkgs.writeText "teeworlds.cfg" ''
     sv_port ${toString cfg.port}
     sv_register ${
-      if
-        cfg.register
-      then
+      if cfg.register then
         "1"
       else
         "0"

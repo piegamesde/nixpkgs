@@ -56,9 +56,7 @@ let
   #
   # So, we "manually" assemble one python derivation for the package to depend
   # on, taking into account whether checks are enabled or not:
-  python = if
-    doCheck
-  then
+  python = if doCheck then
     let
       checkDeps = ps: with ps; [ psutil ];
     in
@@ -206,18 +204,14 @@ stdenv.mkDerivation (rec {
     in
     flagsForLlvmConfig ++ [
       "-DCMAKE_BUILD_TYPE=${
-        if
-          debugVersion
-        then
+        if debugVersion then
           "Debug"
         else
           "Release"
       }"
       "-DLLVM_INSTALL_UTILS=ON" # Needed by rustc
       "-DLLVM_BUILD_TESTS=${
-        if
-          doCheck
-        then
+        if doCheck then
           "ON"
         else
           "OFF"
@@ -284,9 +278,7 @@ stdenv.mkDerivation (rec {
     mv $out/share/opt-viewer $python/share/opt-viewer
     moveToOutput "bin/llvm-config*" "$dev"
     substituteInPlace "$dev/lib/cmake/llvm/LLVMExports-${
-      if
-        debugVersion
-      then
+      if debugVersion then
         "debug"
       else
         "release"

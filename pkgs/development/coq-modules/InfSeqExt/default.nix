@@ -9,9 +9,7 @@ mkCoqDerivation {
   pname = "InfSeqExt";
   owner = "DistributedComponents";
   inherit version;
-  defaultVersion = if
-    lib.versions.range "8.5" "8.16" coq.version
-  then
+  defaultVersion = if lib.versions.range "8.5" "8.16" coq.version then
     "20200131"
   else
     null;

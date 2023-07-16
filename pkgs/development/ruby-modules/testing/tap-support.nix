@@ -16,9 +16,7 @@ let
       result,
       ...
     }:
-    if
-      result == "pass"
-    then
+    if result == "pass" then
       "ok"
     else
       "not ok";

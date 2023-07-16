@@ -9,9 +9,7 @@
   python3,
   fixDarwinDylibNames,
   version,
-  cxxabi ? if
-    stdenv.hostPlatform.isFreeBSD
-  then
+  cxxabi ? if stdenv.hostPlatform.isFreeBSD then
     libcxxrt
   else
     libcxxabi,
@@ -90,9 +88,7 @@ stdenv.mkDerivation rec {
   [
     "-DLLVM_ENABLE_RUNTIMES=libcxx"
     "-DLIBCXX_CXX_ABI=${
-      if
-        headersOnly
-      then
+      if headersOnly then
         "none"
       else
         libcxx_cxx_abi_opt

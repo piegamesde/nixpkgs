@@ -38,9 +38,7 @@
 
 let
   onOffBool = b:
-    if
-      b
-    then
+    if b then
       "ON"
     else
       "OFF";
@@ -130,9 +128,7 @@ stdenv.mkDerivation rec {
   preConfigure = "cd host";
   # TODO: Check if this still needed, perhaps relevant:
   # https://files.ettus.com/manual_archive/v3.15.0.0/html/page_build_guide.html#build_instructions_unix_arm
-  patches = if
-    stdenv.isAarch32
-  then
+  patches = if stdenv.isAarch32 then
     ./neon.patch
   else
     null;

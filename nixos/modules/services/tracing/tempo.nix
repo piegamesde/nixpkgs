@@ -52,9 +52,7 @@ in {
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = let
-        conf = if
-          cfg.configFile == null
-        then
+        conf = if cfg.configFile == null then
           settingsFormat.generate "config.yaml" cfg.settings
         else
           cfg.configFile;

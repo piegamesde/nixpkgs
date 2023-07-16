@@ -103,9 +103,7 @@ let
       fixup = lib.lists.elemAt (lib.versions.splitVersion version) 3;
     in
     "https://public.dhe.ibm.com/storage/tivoli-storage-management/${
-      if
-        fixup == "0"
-      then
+      if fixup == "0" then
         "maintenance"
       else
         "patches"

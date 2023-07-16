@@ -92,7 +92,9 @@ let
           || (hasAttr dev cfg.bridges) || (hasAttr dev cfg.bonds)
           || (hasAttr dev cfg.macvlans) || (hasAttr dev cfg.sits)
           || (hasAttr dev cfg.vlans) || (hasAttr dev cfg.vswitches)
-        then [ "${dev}-netdev.service" ] else
+        then
+          [ "${dev}-netdev.service" ]
+        else
           optional (dev != null && dev != "lo" && !config.boot.isContainer)
           (subsystemDevice dev);
 
@@ -402,9 +404,7 @@ let
 
             # (Un-)set stp on the bridge
             echo ${
-              if
-                v.rstp
-              then
+              if v.rstp then
                 "2"
               else
                 "0"
@@ -574,9 +574,7 @@ let
             (deviceDependency v.local.dev
               ++ [ "network-addresses-${v.local.dev}.service" ]);
           fouSpec = "port ${toString v.port} ${
-              if
-                v.protocol != null
-              then
+              if v.protocol != null then
                 "ipproto ${toString v.protocol}"
               else
                 "gue"
@@ -653,9 +651,7 @@ let
       createGreDevice = n: v:
         nameValuePair "${n}-netdev" (let
           deps = deviceDependency v.dev;
-          ttlarg = if
-            lib.hasPrefix "ip6" v.type
-          then
+          ttlarg = if lib.hasPrefix "ip6" v.type then
             "hoplimit"
           else
             "ttl";

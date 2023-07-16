@@ -20,9 +20,7 @@
 let
   # Taken from Idris2/idris2/flake.nix. Check if the idris2 project does it this
   # way, still, every now and then.
-  platformChez = if
-    stdenv.system == "x86_64-linux"
-  then
+  platformChez = if stdenv.system == "x86_64-linux" then
     chez
   else
     chez-racket;

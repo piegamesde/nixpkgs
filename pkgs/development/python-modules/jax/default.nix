@@ -24,9 +24,7 @@ let
   # jaxlib is broken on aarch64-* as of 2023-03-05, but the binary wheels work
   # fine. jaxlib is only used in the checkPhase, so switching backends does not
   # impact package behavior. Get rid of this once jaxlib is fixed on aarch64-*.
-  jaxlib' = if
-    jaxlib.meta.broken
-  then
+  jaxlib' = if jaxlib.meta.broken then
     jaxlib-bin
   else
     jaxlib;

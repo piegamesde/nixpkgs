@@ -31,9 +31,7 @@
 with lib;
 
 let
-  warn = if
-    verbose
-  then
+  warn = if verbose then
     builtins.trace
   else
     (x: y: y);

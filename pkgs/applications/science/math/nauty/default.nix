@@ -25,17 +25,13 @@ stdenv.mkDerivation rec {
     # https://groups.google.com/forum/#!topic/sage-packaging/Pe4SRDNYlhA
     "--enable-generic" # don't use -march=native
     "--${
-      if
-        stdenv.hostPlatform.sse4_2Support
-      then
+      if stdenv.hostPlatform.sse4_2Support then
         "enable"
       else
         "disable"
     }-popcnt"
     "--${
-      if
-        stdenv.hostPlatform.sse4_aSupport
-      then
+      if stdenv.hostPlatform.sse4_aSupport then
         "enable"
       else
         "disable"

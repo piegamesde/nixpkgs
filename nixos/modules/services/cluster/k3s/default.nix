@@ -175,9 +175,7 @@ in {
       path = optional config.boot.zfs.enabled config.boot.zfs.package;
       serviceConfig = {
         # See: https://github.com/rancher/k3s/blob/dddbd16305284ae4bd14c0aade892412310d7edc/install.sh#L197
-        Type = if
-          cfg.role == "agent"
-        then
+        Type = if cfg.role == "agent" then
           "exec"
         else
           "notify";

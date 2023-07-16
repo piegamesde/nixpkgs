@@ -25,9 +25,7 @@
 }:
 let
   toCMakeBoolean = v:
-    if
-      v
-    then
+    if v then
       "ON"
     else
       "OFF";

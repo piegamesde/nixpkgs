@@ -132,9 +132,7 @@ stdenv.mkDerivation rec {
 
     ( # tools
       cd tools/tools${
-        if
-          stdenv.isAarch64
-        then
+        if stdenv.isAarch64 then
           "-arm64"
         else if stdenv.isx86_64 then
           "64"

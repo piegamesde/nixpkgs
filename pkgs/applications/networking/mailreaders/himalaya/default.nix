@@ -34,12 +34,13 @@ rustPlatform.buildRustPackage rec {
     installShellFiles
     ++ lib.optional (!stdenv.hostPlatform.isDarwin) pkg-config;
 
-  buildInputs = [ ] ++ (if
-    stdenv.hostPlatform.isDarwin
-  then [
-    Security
-    libiconv
-  ] else [ openssl ]) ++ lib.optional withNotmuchBackend notmuch;
+  buildInputs = [ ] ++ (if stdenv.hostPlatform.isDarwin then
+    [
+      Security
+      libiconv
+    ]
+  else
+    [ openssl ]) ++ lib.optional withNotmuchBackend notmuch;
 
   buildNoDefaultFeatures = true;
   buildFeatures = [ ] ++ lib.optional withImapBackend "imap-backend"

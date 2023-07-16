@@ -15,9 +15,7 @@ let
   # https://docs.npmjs.com/files/package.json#license
   # TODO: support expression syntax (OR, AND, etc)
   getLicenseFromSpdxId = licstr:
-    if
-      licstr == "UNLICENSED"
-    then
+    if licstr == "UNLICENSED" then
       lib.licenses.unfree
     else
       lib.getLicenseFromSpdxId licstr;
@@ -32,9 +30,7 @@ rec {
   inherit pkgs;
 
   unlessNull = item: alt:
-    if
-      item == null
-    then
+    if item == null then
       alt
     else
       item;
@@ -109,13 +105,13 @@ rec {
         (builtins.attrNames pkgConfig);
 
       postInstall = (builtins.map (key:
-        if
-          (pkgConfig.${key} ? postInstall)
-        then ''
-          for f in $(find -L -path '*/node_modules/${key}' -type d); do
-            (cd "$f" && (${pkgConfig.${key}.postInstall}))
-          done
-        '' else
+        if (pkgConfig.${key} ? postInstall) then
+          ''
+            for f in $(find -L -path '*/node_modules/${key}' -type d); do
+              (cd "$f" && (${pkgConfig.${key}.postInstall}))
+            done
+          ''
+        else
           "") (builtins.attrNames pkgConfig));
 
       # build-time JSON generation to avoid IFD
@@ -216,9 +212,7 @@ rec {
     let
       package = lib.importJSON packageJSON;
 
-      packageGlobs = if
-        lib.isList package.workspaces
-      then
+      packageGlobs = if lib.isList package.workspaces then
         package.workspaces
       else
         package.workspaces.packages;
@@ -241,9 +235,9 @@ rec {
               (builtins.readDir base));
           matchingChildren =
             lib.filter (child: builtins.match elemRegex child != null) children;
-        in if
-          globElems == [ ]
-        then [ base ] else
+        in if globElems == [ ] then
+          [ base ]
+        else
           lib.concatMap (child: expandGlobList (base + ("/" + child)) rest)
           matchingChildren;
 

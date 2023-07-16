@@ -40,33 +40,25 @@ stdenv.mkDerivation rec {
       "--mandir=$out/share/man"
       "--with-machines=/etc/pdsh/machines"
       ${
-        if
-          readline == null
-        then
+        if readline == null then
           "--without-readline"
         else
           "--with-readline"
       }
       ${
-        if
-          ssh == null
-        then
+        if ssh == null then
           "--without-ssh"
         else
           "--with-ssh"
       }
       ${
-        if
-          rsh == false
-        then
+        if rsh == false then
           "--without-rsh"
         else
           "--with-rsh"
       }
       ${
-        if
-          slurmSupport
-        then
+        if slurmSupport then
           "--with-slurm"
         else
           "--without-slurm"

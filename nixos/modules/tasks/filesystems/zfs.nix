@@ -117,13 +117,13 @@ let
   ;
 
   getKeyLocations = pool:
-    if
-      isBool cfgZfs.requestEncryptionCredentials
-    then {
-      hasKeys = cfgZfs.requestEncryptionCredentials;
-      command =
-        "${cfgZfs.package}/sbin/zfs list -rHo name,keylocation,keystatus ${pool}";
-    } else
+    if isBool cfgZfs.requestEncryptionCredentials then
+      {
+        hasKeys = cfgZfs.requestEncryptionCredentials;
+        command =
+          "${cfgZfs.package}/sbin/zfs list -rHo name,keylocation,keystatus ${pool}";
+      }
+    else
       let
         keys = filter (x: datasetToPool x == pool)
           cfgZfs.requestEncryptionCredentials;
@@ -217,9 +217,7 @@ let
   zedConf = generators.toKeyValue {
     mkKeyValue = generators.mkKeyValueDefault {
       mkValueString = v:
-        if
-          isInt v
-        then
+        if isInt v then
           toString v
         else if isString v then
           ''"${v}"''
@@ -249,9 +247,7 @@ in {
       package = mkOption {
         readOnly = true;
         type = types.package;
-        default = if
-          config.boot.zfs.enableUnstable
-        then
+        default = if config.boot.zfs.enableUnstable then
           pkgs.zfsUnstable
         else
           pkgs.zfs;
@@ -595,9 +591,7 @@ in {
         kernelParams =
           lib.optionals (!config.boot.zfs.allowHibernation) [ "nohibernate" ];
 
-        extraModulePackages = [ (if
-          config.boot.zfs.enableUnstable
-        then
+        extraModulePackages = [ (if config.boot.zfs.enableUnstable then
           config.boot.kernelPackages.zfsUnstable
         else
           config.boot.kernelPackages.zfs) ];
@@ -636,9 +630,7 @@ in {
             fi
             poolImported "${pool}" || poolImport "${pool}"  # Try one last time, e.g. to import a degraded pool.
           fi
-          ${if
-            isBool cfgZfs.requestEncryptionCredentials
-          then
+          ${if isBool cfgZfs.requestEncryptionCredentials then
             optionalString cfgZfs.requestEncryptionCredentials ''
               zfs load-key -a
             ''
@@ -794,9 +786,7 @@ in {
         # If the `pools` option is `true`, we want to dynamically
         # expand every pool. Otherwise we want to enumerate
         # just the specifically provided list of pools.
-        poolListProvider = if
-          cfgExpandOnBoot == "all"
-        then
+        poolListProvider = if cfgExpandOnBoot == "all" then
           "$(zpool list -H -o name)"
         else
           lib.escapeShellArgs cfgExpandOnBoot;
@@ -823,9 +813,7 @@ in {
     (mkIf (cfgZfs.enabled && cfgSnapshots.enable) {
       systemd.services = let
         descr = name:
-          if
-            name == "frequent"
-          then
+          if name == "frequent" then
             "15 mins"
           else if name == "hourly" then
             "hour"
@@ -857,9 +845,7 @@ in {
 
       systemd.timers = let
         timer = name:
-          if
-            name == "frequent"
-          then
+          if name == "frequent" then
             "*:0,15,30,45"
           else
             name;
@@ -884,9 +870,7 @@ in {
         serviceConfig = { Type = "simple"; };
         script = ''
           ${cfgZfs.package}/bin/zpool scrub -w ${
-            if
-              cfgScrub.pools != [ ]
-            then
+            if cfgScrub.pools != [ ] then
               (concatStringsSep " " cfgScrub.pools)
             else
               "$(${cfgZfs.package}/bin/zpool list -H -o name)"

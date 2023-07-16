@@ -52,9 +52,7 @@ stdenv.mkDerivation rec {
     filterdir = "$out/cups/lib/filter";
     docdir = "$out/share/doc";
     ppddir = "$out/share/cups/model/${pname}";
-    libdir = if
-      stdenv.system == "x86_64-linux"
-    then
+    libdir = if stdenv.system == "x86_64-linux" then
       "lib64"
     else if stdenv.system == "i686_linux" then
       "lib"

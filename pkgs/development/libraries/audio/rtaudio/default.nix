@@ -37,33 +37,25 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DRTAUDIO_API_ALSA=${
-      if
-        alsaSupport
-      then
+      if alsaSupport then
         "ON"
       else
         "OFF"
     }"
     "-DRTAUDIO_API_PULSE=${
-      if
-        pulseaudioSupport
-      then
+      if pulseaudioSupport then
         "ON"
       else
         "OFF"
     }"
     "-DRTAUDIO_API_JACK=${
-      if
-        jackSupport
-      then
+      if jackSupport then
         "ON"
       else
         "OFF"
     }"
     "-DRTAUDIO_API_CORE=${
-      if
-        coreaudioSupport
-      then
+      if coreaudioSupport then
         "ON"
       else
         "OFF"

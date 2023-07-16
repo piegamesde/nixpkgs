@@ -78,9 +78,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DLLDB_INCLUDE_TESTS=${
-      if
-        doCheck
-      then
+      if doCheck then
         "YES"
       else
         "NO"

@@ -15,9 +15,7 @@
 
 let
   cmakeBool = b:
-    if
-      b
-    then
+    if b then
       "ON"
     else
       "OFF";

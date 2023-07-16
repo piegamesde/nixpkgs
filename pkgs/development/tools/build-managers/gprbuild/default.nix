@@ -27,9 +27,7 @@ stdenv.mkDerivation {
 
   makeFlags = [
     "ENABLE_SHARED=${
-      if
-        stdenv.hostPlatform.isStatic
-      then
+      if stdenv.hostPlatform.isStatic then
         "no"
       else
         "yes"

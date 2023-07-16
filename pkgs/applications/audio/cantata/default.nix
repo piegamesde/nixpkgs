@@ -56,9 +56,7 @@ assert withLibVlc -> withHttpStream;
 let
   fstat = x: fn:
     "-DENABLE_${fn}=${
-      if
-        x
-      then
+      if x then
         "ON"
       else
         "OFF"

@@ -12,9 +12,7 @@
   cstruct-sexp,
 }:
 
-if
-  lib.versionOlder (cstruct.version or "1") "3"
-then
+if lib.versionOlder (cstruct.version or "1") "3" then
   cstruct
 else
 

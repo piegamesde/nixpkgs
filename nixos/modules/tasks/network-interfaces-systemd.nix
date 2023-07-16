@@ -20,9 +20,7 @@ let
   interfaceRoutes = i: i.ipv4.routes ++ optionals cfg.enableIPv6 i.ipv6.routes;
 
   dhcpStr = useDHCP:
-    if
-      useDHCP == true || useDHCP == null
-    then
+    if useDHCP == true || useDHCP == null then
       "yes"
     else
       "no";
@@ -83,9 +81,7 @@ let
           "eth*"
         ];
         DHCP = "yes";
-        linkConfig.RequiredForOnline = lib.mkDefault (if
-          initrd
-        then
+        linkConfig.RequiredForOnline = lib.mkDefault (if initrd then
           config.boot.initrd.systemd.network.wait-online.anyInterface
         else
           config.systemd.network.wait-online.anyInterface);
@@ -121,9 +117,7 @@ let
       (genericNetwork id)
       {
         name = mkDefault i.name;
-        DHCP = mkForce (dhcpStr (if
-          i.useDHCP != null
-        then
+        DHCP = mkForce (dhcpStr (if i.useDHCP != null then
           i.useDHCP
         else
           false));
@@ -304,9 +298,7 @@ in {
                 # options that apparently don’t exist in the networkd config
                 unknownOptions = [ "primary" ];
                 assertTrace = bool: msg:
-                  if
-                    bool
-                  then
+                  if bool then
                     true
                   else
                     builtins.trace msg false;
@@ -369,9 +361,7 @@ in {
             # in networkd.
             fooOverUDPConfig = {
               Port = fou.port;
-              Encapsulation = if
-                fou.protocol != null
-              then
+              Encapsulation = if fou.protocol != null then
                 "FooOverUDP"
               else
                 "GenericUDPEncapsulation";
@@ -392,9 +382,7 @@ in {
               // (optionalAttrs (sit.ttl != null) { TTL = sit.ttl; })
               // (optionalAttrs (sit.encapsulation != null) ({
                 FooOverUDP = true;
-                Encapsulation = if
-                  sit.encapsulation.type == "fou"
-                then
+                Encapsulation = if sit.encapsulation.type == "fou" then
                   "FooOverUDP"
                 else
                   "GenericUDPEncapsulation";

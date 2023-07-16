@@ -19,9 +19,7 @@ let
   # Substitution for environment variable FOO is represented as attribute set
   # { __hocon_envvar = "FOO"; }
   toHOCON = x:
-    if
-      isAttrs x && x ? __hocon_envvar
-    then
+    if isAttrs x && x ? __hocon_envvar then
       ("\${" + x.__hocon_envvar + "}")
     else if isAttrs x then
       "{${
@@ -36,9 +34,7 @@ let
   # from an attribute name, which may not be a valid bash identifier.
   toVarName = s:
     "XMPP_PASSWORD_" + stringAsChars (c:
-      if
-        builtins.match "[A-Za-z0-9]" c != null
-      then
+      if builtins.match "[A-Za-z0-9]" c != null then
         c
       else
         "_") s;
@@ -262,9 +258,7 @@ in {
         export ${toVarName name}=$(cat ${xmppConfig.passwordFile})
       '') cfg.xmppConfigs)) + ''
         ${pkgs.jitsi-videobridge}/bin/jitsi-videobridge --apis=${
-          if
-            (cfg.apis == [ ])
-          then
+          if (cfg.apis == [ ]) then
             "none"
           else
             concatStringsSep "," cfg.apis

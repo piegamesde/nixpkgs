@@ -11,9 +11,7 @@ mkCoqDerivation {
   pname = "coq-haskell";
   owner = "jwiegley";
   inherit version;
-  defaultVersion = if
-    lib.versions.range "8.5" "8.8" coq.coq-version
-  then
+  defaultVersion = if lib.versions.range "8.5" "8.8" coq.coq-version then
     "20171215"
   else
     null;

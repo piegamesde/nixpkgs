@@ -130,7 +130,10 @@ let
   getLicenses = drv:
     let
       lics = drv.meta.license or [ ];
-    in if lib.isAttrs lics || lib.isString lics then [ lics ] else lics;
+    in if lib.isAttrs lics || lib.isString lics then
+      [ lics ]
+    else
+      lics;
 
   # Whether any member of list1 is also member of list2, i. e. set intersection.
   anyMembers = list1: list2: lib.any (m1: lib.elem m1 list2) list1;

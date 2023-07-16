@@ -80,9 +80,7 @@ stdenv.mkDerivation {
   cmakeFlags = [
     "-DCAF_ROOT=${caf'}"
     "-DENABLE_STATIC_ONLY:BOOL=${
-      if
-        isStatic
-      then
+      if isStatic then
         "ON"
       else
         "OFF"

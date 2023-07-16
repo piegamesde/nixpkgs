@@ -37,9 +37,7 @@
 let
   dfhack_ = dfhack.override { inherit enableStoneSense; };
 
-  ptheme = if
-    builtins.isString theme
-  then
+  ptheme = if builtins.isString theme then
     builtins.getAttr theme themes
   else
     theme;
@@ -60,9 +58,7 @@ let
 
   settings_ = lib.recursiveUpdate {
     init = {
-      PRINT_MODE = if
-        enableTextMode
-      then
+      PRINT_MODE = if enableTextMode then
         "TEXT"
       else if enableTWBT then
         "TWBT"
@@ -80,12 +76,8 @@ let
   forEach = attrs: f: lib.concatStrings (lib.mapAttrsToList f attrs);
 
   toTxt = v:
-    if
-      lib.isBool v
-    then
-      if
-        v
-      then
+    if lib.isBool v then
+      if v then
         "YES"
       else
         "NO"
@@ -163,9 +155,7 @@ stdenv.mkDerivation {
     name = "dwarf-fortress-init";
     src = ./dwarf-fortress-init.in;
     inherit env;
-    exe = if
-      stdenv.isLinux
-    then
+    exe = if stdenv.isLinux then
       "libs/Dwarf_Fortress"
     else
       "dwarfort.exe";

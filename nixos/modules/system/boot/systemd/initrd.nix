@@ -424,9 +424,7 @@ in {
         # console, but some software like OpenSSH won't even allow you
         # to log in with an SSH key if you use ! so we use * instead
         "/etc/shadow".text = "root:${
-            if
-              isBool cfg.emergencyAccess
-            then
+            if isBool cfg.emergencyAccess then
               optionalString (!cfg.emergencyAccess) "*"
             else
               cfg.emergencyAccess

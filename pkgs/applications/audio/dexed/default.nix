@@ -72,16 +72,12 @@ stdenv.mkDerivation rec {
   ]);
 
   installPhase = let
-    vst3Dir = if
-      stdenv.hostPlatform.isDarwin
-    then
+    vst3Dir = if stdenv.hostPlatform.isDarwin then
       "$out/Library/Audio/Plug-Ins/VST3"
     else
       "$out/lib/vst3";
     # this one's a guess, don't know where ppl have agreed to put them yet
-    clapDir = if
-      stdenv.hostPlatform.isDarwin
-    then
+    clapDir = if stdenv.hostPlatform.isDarwin then
       "$out/Library/Audio/Plug-Ins/CLAP"
     else
       "$out/lib/clap";
@@ -90,25 +86,26 @@ stdenv.mkDerivation rec {
   ''
     runHook preInstall
 
-  '' + (if
-    stdenv.hostPlatform.isDarwin
-  then ''
-    mkdir -p $out/{Applications,bin}
-    mv Source/Dexed_artefacts/Release/Standalone/Dexed.app $out/Applications/
-    ln -s $out/{Applications/Dexed.app/Contents/MacOS,bin}/Dexed
-  '' else ''
-    install -Dm755 {Source/Dexed_artefacts/Release/Standalone,$out/bin}/Dexed
-  '') + ''
-    mkdir -p ${vst3Dir} ${clapDir}
-    mv Source/Dexed_artefacts/Release/VST3/* ${vst3Dir}
-    mv Source/Dexed_artefacts/Release/CLAP/* ${clapDir}
-  '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
-    mkdir -p ${auDir}
-    mv Source/Dexed_artefacts/Release/AU/* ${auDir}
-  '' + ''
+  '' + (if stdenv.hostPlatform.isDarwin then
+    ''
+      mkdir -p $out/{Applications,bin}
+      mv Source/Dexed_artefacts/Release/Standalone/Dexed.app $out/Applications/
+      ln -s $out/{Applications/Dexed.app/Contents/MacOS,bin}/Dexed
+    ''
+  else
+    ''
+      install -Dm755 {Source/Dexed_artefacts/Release/Standalone,$out/bin}/Dexed
+    '') + ''
+      mkdir -p ${vst3Dir} ${clapDir}
+      mv Source/Dexed_artefacts/Release/VST3/* ${vst3Dir}
+      mv Source/Dexed_artefacts/Release/CLAP/* ${clapDir}
+    '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      mkdir -p ${auDir}
+      mv Source/Dexed_artefacts/Release/AU/* ${auDir}
+    '' + ''
 
-    runHook postInstall
-  ''
+      runHook postInstall
+    ''
   ;
 
   meta = with lib; {

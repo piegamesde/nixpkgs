@@ -8,9 +8,7 @@
   licenseAccepted ? config.sc2-headless.accept_license or false
 }:
 
-if
-  !licenseAccepted
-then
+if !licenseAccepted then
   throw ''
     You must accept the Blizzard® Starcraft® II AI and Machine Learning License at
     https://blzdistsc2-a.akamaihd.net/AI_AND_MACHINE_LEARNING_LICENSE.html

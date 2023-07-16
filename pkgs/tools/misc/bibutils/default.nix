@@ -20,9 +20,7 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags = [
-    (if
-      static
-    then
+    (if static then
       "--static"
     else
       "--dynamic")

@@ -35,9 +35,11 @@ stdenv.mkDerivation rec {
 
   postInstall = if
     stdenv.hostPlatform != stdenv.buildPlatform && stdenv.hostPlatform.isWindows
-  then ''
-    mv "$out"/bin/optipng{,.exe}
-  '' else
+  then
+    ''
+      mv "$out"/bin/optipng{,.exe}
+    ''
+  else
     null;
 
   meta = with lib; {

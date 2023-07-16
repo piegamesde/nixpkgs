@@ -101,9 +101,7 @@ let
             hasBin = lib.elem "bin" outputs;
             hasDev = lib.elem "dev" outputs;
 
-            defaultSetupHook = if
-              hasBin && hasDev
-            then
+            defaultSetupHook = if hasBin && hasDev then
               propagateBin
             else
               null;

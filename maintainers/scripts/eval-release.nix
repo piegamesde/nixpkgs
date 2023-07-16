@@ -4,9 +4,7 @@
 with import ../../lib;
 
 let
-  trace = if
-    builtins.getEnv "VERBOSE" == "1"
-  then
+  trace = if builtins.getEnv "VERBOSE" == "1" then
     builtins.trace
   else
     (x: y: y);
@@ -20,19 +18,12 @@ let
   # Add the ‘recurseForDerivations’ attribute to ensure that
   # nix-instantiate recurses into nested attribute sets.
   recurse = path: attrs:
-    if
-      (builtins.tryEval attrs).success
-    then
-      if
-        isDerivation attrs
-      then
-        if
-          (builtins.tryEval attrs.drvPath).success
-        then {
-          inherit (attrs) name drvPath;
-        } else {
-          failed = true;
-        }
+    if (builtins.tryEval attrs).success then
+      if isDerivation attrs then
+        if (builtins.tryEval attrs.drvPath).success then
+          { inherit (attrs) name drvPath; }
+        else
+          { failed = true; }
       else if attrs == null then
         { }
       else

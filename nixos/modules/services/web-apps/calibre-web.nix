@@ -124,17 +124,13 @@ in {
       settings = concatStringsSep ", " ([
         "config_port = ${toString cfg.listen.port}"
         "config_uploading = ${
-          if
-            cfg.options.enableBookUploading
-          then
+          if cfg.options.enableBookUploading then
             "1"
           else
             "0"
         }"
         "config_allow_reverse_proxy_header_login = ${
-          if
-            cfg.options.reverseProxyAuth.enable
-          then
+          if cfg.options.reverseProxyAuth.enable then
             "1"
           else
             "0"

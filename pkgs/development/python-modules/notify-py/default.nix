@@ -58,20 +58,23 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytest ] ++ lib.optionals stdenv.isLinux [ dbus ];
 
-  checkPhase = if
-    stdenv.isDarwin
-  then ''
-    # Tests search for "afplay" binary which is built in to macOS and not available in nixpkgs
-    mkdir $TMP/bin
-    ln -s ${coreutils}/bin/true $TMP/bin/afplay
-    PATH="$TMP/bin:$PATH" pytest
-  '' else if stdenv.isLinux then ''
-    dbus-run-session \
-      --config-file=${dbus}/share/dbus-1/session.conf \
+  checkPhase = if stdenv.isDarwin then
+    ''
+      # Tests search for "afplay" binary which is built in to macOS and not available in nixpkgs
+      mkdir $TMP/bin
+      ln -s ${coreutils}/bin/true $TMP/bin/afplay
+      PATH="$TMP/bin:$PATH" pytest
+    ''
+  else if stdenv.isLinux then
+    ''
+      dbus-run-session \
+        --config-file=${dbus}/share/dbus-1/session.conf \
+        pytest
+    ''
+  else
+    ''
       pytest
-  '' else ''
-    pytest
-  '';
+    '';
 
   # GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name
   # org.freedesktop.Notifications was not provided by any .service files

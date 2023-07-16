@@ -75,9 +75,7 @@ pkgs.lib.listToAttrs (builtins.map ({
       testScript = ''
         print(machine.succeed("ip link"))
         machine.${
-          if
-            predictable
-          then
+          if predictable then
             "fail"
           else
             "succeed"

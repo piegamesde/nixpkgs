@@ -76,14 +76,14 @@ in {
     };
 
     users.groups.${cfg.group} = { };
-    users.users.${cfg.user} = if
-      cfg.user == "roon-bridge"
-    then {
-      isSystemUser = true;
-      description = "Roon Bridge user";
-      group = cfg.group;
-      extraGroups = [ "audio" ];
-    } else
+    users.users.${cfg.user} = if cfg.user == "roon-bridge" then
+      {
+        isSystemUser = true;
+        description = "Roon Bridge user";
+        group = cfg.group;
+        extraGroups = [ "audio" ];
+      }
+    else
       { };
   };
 }

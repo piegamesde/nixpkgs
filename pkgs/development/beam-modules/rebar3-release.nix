@@ -72,9 +72,7 @@ let
       buildPhase = ''
         runHook preBuild
         HOME=. DEBUG=1 rebar3 as ${profile} ${
-          if
-            releaseType == "escript"
-          then
+          if releaseType == "escript" then
             "escriptize"
           else
             "release"
@@ -85,9 +83,7 @@ let
       installPhase = ''
         runHook preInstall
         dir=${
-          if
-            releaseType == "escript"
-          then
+          if releaseType == "escript" then
             "bin"
           else
             "rel"
@@ -113,9 +109,7 @@ let
       passthru = ({
         packageName = pname;
         env = shell self;
-      } // (if
-        attrs ? passthru
-      then
+      } // (if attrs ? passthru then
         attrs.passthru
       else
         { }));

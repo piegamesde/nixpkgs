@@ -24,9 +24,7 @@ stdenv.mkDerivation rec {
     ecm
   ];
 
-  ECM = if
-    ecm == null
-  then
+  ECM = if ecm == null then
     "0"
   else
     "1";

@@ -73,9 +73,7 @@ let
       #
       # We therefor use --strip-components=1 vs 3 depending on the platform.
       tar xf "$src" -C "$out" --strip-components=${
-        if
-          stdenv.isLinux
-        then
+        if stdenv.isLinux then
           "1"
         else
           "3"

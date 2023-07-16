@@ -14,9 +14,7 @@ let
       getStr = str: # maybeString2String
         let
           res = builtins.tryEval str;
-        in if
-          (res.success && res.value != null)
-        then
+        in if (res.success && res.value != null) then
           res.value
         else
           "null";

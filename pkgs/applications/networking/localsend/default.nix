@@ -73,9 +73,7 @@ let
     maintainers = with maintainers; [ sikmir ];
     platforms = builtins.attrNames srcs;
   };
-in if
-  stdenv.isDarwin
-then
+in if stdenv.isDarwin then
   darwin
 else
   linux

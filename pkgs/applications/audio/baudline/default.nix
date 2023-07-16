@@ -25,9 +25,7 @@ stdenv.mkDerivation rec {
   pname = "baudline";
   version = "1.08";
 
-  src = if
-    stdenv.hostPlatform.system == "x86_64-linux"
-  then
+  src = if stdenv.hostPlatform.system == "x86_64-linux" then
     fetchurl {
       url = "http://www.baudline.com/baudline_${version}_linux_x86_64.tar.gz";
       sha256 = "09fn0046i69in1jpizkzbaq5ggij0mpflcsparyskm3wh71mbzvr";

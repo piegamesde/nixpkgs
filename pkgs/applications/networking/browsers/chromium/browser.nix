@@ -93,26 +93,23 @@ mkChromiumDerivation (base: rec {
       the web. It has a minimalist user interface and provides the vast majority
       of source code for Google Chrome (which has some additional features).
     '';
-    homepage = if
-      ungoogled
-    then
+    homepage = if ungoogled then
       "https://github.com/ungoogled-software/ungoogled-chromium"
     else
       "https://www.chromium.org/";
     maintainers = with lib.maintainers;
-      if
-        ungoogled
-      then [
-        squalus
-        primeos
-        michaeladler
-      ] else [
-        primeos
-        thefloweringash
-      ];
-    license = if
-      enableWideVine
-    then
+      if ungoogled then
+        [
+          squalus
+          primeos
+          michaeladler
+        ]
+      else
+        [
+          primeos
+          thefloweringash
+        ];
+    license = if enableWideVine then
       lib.licenses.unfree
     else
       lib.licenses.bsd3;

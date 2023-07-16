@@ -177,9 +177,7 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ offline ];
     platforms = platforms.linux;
     # this is to avoid "output size exceeded"
-    hydraPlatforms = if
-      appliance != null
-    then
+    hydraPlatforms = if appliance != null then
       appliance.meta.hydraPlatforms
     else
       platforms.linux;

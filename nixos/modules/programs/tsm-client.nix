@@ -178,9 +178,7 @@ let
         tcpserveraddress = config.server;
         tcpport = builtins.toString config.port;
         nodename = config.node;
-        passwordaccess = if
-          config.genPasswd
-        then
+        passwordaccess = if config.genPasswd then
           "generate"
         else
           "prompt";

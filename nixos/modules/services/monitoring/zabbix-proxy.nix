@@ -65,9 +65,7 @@ in {
 
       package = mkOption {
         type = types.package;
-        default = if
-          cfg.database.type == "mysql"
-        then
+        default = if cfg.database.type == "mysql" then
           pkgs.zabbix.proxy-mysql
         else if cfg.database.type == "pgsql" then
           pkgs.zabbix.proxy-pgsql
@@ -131,9 +129,7 @@ in {
 
         port = mkOption {
           type = types.port;
-          default = if
-            cfg.database.type == "mysql"
-          then
+          default = if cfg.database.type == "mysql" then
             mysql.port
           else
             pgsql.port;
@@ -147,9 +143,7 @@ in {
 
         name = mkOption {
           type = types.str;
-          default = if
-            cfg.database.type == "sqlite"
-          then
+          default = if cfg.database.type == "sqlite" then
             "${stateDir}/zabbix.db"
           else
             "zabbix";

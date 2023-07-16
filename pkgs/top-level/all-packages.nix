@@ -33,9 +33,7 @@ with pkgs;
   # A stdenv capable of building 32-bit binaries.
   # On x86_64-linux, it uses GCC compiled with multilib support; on i686-linux,
   # it's just the plain stdenv.
-  stdenv_32bit = lowPrio (if
-    stdenv.hostPlatform.is32bit
-  then
+  stdenv_32bit = lowPrio (if stdenv.hostPlatform.is32bit then
     stdenv
   else
     multiStdenv);
@@ -1001,9 +999,7 @@ with pkgs;
   fetchNextcloudApp = callPackage ../build-support/fetchnextcloudapp { };
 
   # `fetchurl' downloads a file from the network.
-  fetchurl = if
-    stdenv.buildPlatform != stdenv.hostPlatform
-  then
+  fetchurl = if stdenv.buildPlatform != stdenv.hostPlatform then
     buildPackages.fetchurl # No need to do special overrides twice,
   else
     makeOverridable (import ../build-support/fetchurl) {
@@ -1042,9 +1038,7 @@ with pkgs;
         # converting many packages to fetchurl_boot to avoid evaluation cycles.
         # So turn gssSupport off there, and on Windows.
         # On other platforms, keep the previous value.
-        gssSupport = if
-          stdenv.isDarwin || stdenv.hostPlatform.isWindows
-        then
+        gssSupport = if stdenv.isDarwin || stdenv.hostPlatform.isWindows then
           false
         else
           old.gssSupport or true; # `? true` is the default
@@ -1148,9 +1142,7 @@ with pkgs;
     propagatedBuildInputs = [ dieHook ];
     substitutions = {
       # targetPackages.runtimeShell only exists when pkgs == targetPackages (when targetPackages is not  __raw)
-      shell = if
-        targetPackages ? runtimeShell
-      then
+      shell = if targetPackages ? runtimeShell then
         targetPackages.runtimeShell
       else
         throw "makeWrapper/makeShellWrapper must be in nativeBuildInputs";
@@ -2161,9 +2153,7 @@ with pkgs;
   git-radar = callPackage ../applications/version-management/git-radar { };
 
   git-recent = callPackage ../applications/version-management/git-recent {
-    util-linux = if
-      stdenv.isLinux
-    then
+    util-linux = if stdenv.isLinux then
       util-linuxMinimal
     else
       util-linux;
@@ -2373,9 +2363,7 @@ with pkgs;
   };
 
   box64 = callPackage ../applications/emulators/box64 {
-    hello-x86_64 = if
-      stdenv.hostPlatform.isx86_64
-    then
+    hello-x86_64 = if stdenv.hostPlatform.isx86_64 then
       hello
     else
       pkgsCross.gnu64.hello;
@@ -2414,9 +2402,7 @@ with pkgs;
   dlx = callPackage ../applications/emulators/dlx { };
 
   dosbox = callPackage ../applications/emulators/dosbox {
-    SDL = if
-      stdenv.isDarwin
-    then
+    SDL = if stdenv.isDarwin then
       SDL
     else
       SDL_compat;
@@ -2631,9 +2617,7 @@ with pkgs;
       VideoToolbox
       ;
     inherit (darwin) moltenvk;
-    stdenv = if
-      stdenv.isDarwin && stdenv.isAarch64
-    then
+    stdenv = if stdenv.isDarwin && stdenv.isAarch64 then
       llvmPackages_14.stdenv
     else
       stdenv;
@@ -3005,9 +2989,7 @@ with pkgs;
     ammonite_2_12
     ammonite_2_13
     ;
-  ammonite = if
-    scala == scala_2_12
-  then
+  ammonite = if scala == scala_2_12 then
     ammonite_2_12
   else
     ammonite_2_13;
@@ -3277,14 +3259,10 @@ with pkgs;
   # Derivation's result is not used by nixpkgs. Useful for validation for
   # regressions of bootstrapTools on hydra and on ofborg. Example:
   #     pkgsCross.aarch64-multiplatform.freshBootstrapTools.build
-  freshBootstrapTools = if
-    stdenv.hostPlatform.isDarwin
-  then
+  freshBootstrapTools = if stdenv.hostPlatform.isDarwin then
     callPackage ../stdenv/darwin/make-bootstrap-tools.nix {
       localSystem = stdenv.buildPlatform;
-      crossSystem = if
-        stdenv.buildPlatform == stdenv.hostPlatform
-      then
+      crossSystem = if stdenv.buildPlatform == stdenv.hostPlatform then
         null
       else
         stdenv.hostPlatform;
@@ -5333,9 +5311,7 @@ with pkgs;
 
   ghdorker = callPackage ../tools/security/ghdorker { };
 
-  ghidra = if
-    stdenv.isDarwin
-  then
+  ghidra = if stdenv.isDarwin then
     darwin.apple_sdk_11_0.callPackage ../tools/security/ghidra/build.nix { }
   else
     callPackage ../tools/security/ghidra/build.nix { };
@@ -5748,23 +5724,22 @@ with pkgs;
   # which needs an emulator
   # example of an error which this fixes
   # [Errno 8] Exec format error: './gdk3-scan'
-  mesonEmulatorHook = if
-    (!stdenv.buildPlatform.canExecute stdenv.targetPlatform)
-  then
-    makeSetupHook {
-      name = "mesonEmulatorHook";
-      substitutions = {
-        crossFile = writeText "cross-file.conf" ''
-          [binaries]
-          exe_wrapper = ${
-            lib.escapeShellArg (stdenv.targetPlatform.emulator buildPackages)
-          }
-        '';
-      };
-    } ../development/tools/build-managers/meson/emulator-hook.sh
-  else
-    throw
-    "mesonEmulatorHook has to be in a conditional to check if the target binaries can be executed i.e. (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)";
+  mesonEmulatorHook =
+    if (!stdenv.buildPlatform.canExecute stdenv.targetPlatform) then
+      makeSetupHook {
+        name = "mesonEmulatorHook";
+        substitutions = {
+          crossFile = writeText "cross-file.conf" ''
+            [binaries]
+            exe_wrapper = ${
+              lib.escapeShellArg (stdenv.targetPlatform.emulator buildPackages)
+            }
+          '';
+        };
+      } ../development/tools/build-managers/meson/emulator-hook.sh
+    else
+      throw
+      "mesonEmulatorHook has to be in a conditional to check if the target binaries can be executed i.e. (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)";
 
   meson-tools = callPackage ../misc/meson-tools { };
 
@@ -7564,9 +7539,7 @@ with pkgs;
 
   volctl = callPackage ../tools/audio/volctl { };
 
-  volk = if
-    (stdenv.isDarwin && stdenv.isAarch64)
-  then
+  volk = if (stdenv.isDarwin && stdenv.isAarch64) then
     (callPackage ../development/libraries/volk/2.5.0.nix { })
   else
     (callPackage ../development/libraries/volk { });
@@ -8437,9 +8410,7 @@ with pkgs;
     gnupg1compat; # use config.packageOverrides if you prefer original gnupg1
 
   gnupg22 = callPackage ../tools/security/gnupg/22.nix {
-    pinentry = if
-      stdenv.isDarwin
-    then
+    pinentry = if stdenv.isDarwin then
       pinentry_mac
     else
       pinentry-gtk2;
@@ -8447,9 +8418,7 @@ with pkgs;
   };
 
   gnupg24 = callPackage ../tools/security/gnupg/24.nix {
-    pinentry = if
-      stdenv.isDarwin
-    then
+    pinentry = if stdenv.isDarwin then
       pinentry_mac
     else
       pinentry-gtk2;
@@ -9664,9 +9633,7 @@ with pkgs;
 
   libcryptui = callPackage ../development/libraries/libcryptui {
     autoreconfHook = buildPackages.autoreconfHook269;
-    gtk3 = if
-      stdenv.isDarwin
-    then
+    gtk3 = if stdenv.isDarwin then
       gtk3-x11
     else
       gtk3;
@@ -10972,9 +10939,7 @@ with pkgs;
 
   nvidia-thrust-intel = callPackage ../development/libraries/nvidia-thrust {
     hostSystem = "TBB";
-    deviceSystem = if
-      config.cudaSupport or false
-    then
+    deviceSystem = if config.cudaSupport or false then
       "CUDA"
     else
       "TBB";
@@ -11816,9 +11781,7 @@ with pkgs;
 
   platformioPackages =
     dontRecurseIntoAttrs (callPackage ../development/embedded/platformio { });
-  platformio = if
-    stdenv.isLinux
-  then
+  platformio = if stdenv.isLinux then
     platformioPackages.platformio-chrootenv
   else
     platformioPackages.platformio-core;
@@ -12216,9 +12179,7 @@ with pkgs;
   qovery-cli = callPackage ../tools/admin/qovery-cli { };
 
   qownnotes = qt6Packages.callPackage ../applications/office/qownnotes {
-    stdenv = if
-      stdenv.isDarwin
-    then
+    stdenv = if stdenv.isDarwin then
       darwin.apple_sdk_11_0.stdenv
     else
       stdenv;
@@ -12229,9 +12190,7 @@ with pkgs;
   qprint = callPackage ../tools/text/qprint { };
 
   qscintilla = libsForQt5.callPackage ../development/libraries/qscintilla {
-    stdenv = if
-      stdenv.isDarwin
-    then
+    stdenv = if stdenv.isDarwin then
       darwin.apple_sdk_11_0.stdenv
     else
       stdenv;
@@ -12265,9 +12224,7 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) CoreServices Security;
   };
 
-  quota = if
-    stdenv.isLinux
-  then
+  quota = if stdenv.isLinux then
     linuxquota
   else
     unixtools.quota;
@@ -13477,9 +13434,7 @@ with pkgs;
 
   tewisay = callPackage ../tools/misc/tewisay { };
 
-  texmacs = if
-    stdenv.isDarwin
-  then
+  texmacs = if stdenv.isDarwin then
     callPackage ../applications/editors/texmacs/darwin.nix {
       inherit (darwin.apple_sdk.frameworks) CoreFoundation Cocoa;
       tex = texlive.combined.scheme-small;
@@ -14653,9 +14608,7 @@ with pkgs;
   clipnotify = callPackage ../tools/misc/clipnotify { };
 
   clipboard-jh = callPackage ../tools/misc/clipboard-jh {
-    stdenv = if
-      stdenv.isDarwin
-    then
+    stdenv = if stdenv.isDarwin then
       llvmPackages_15.stdenv
     else
       stdenv;
@@ -15342,16 +15295,12 @@ with pkgs;
   };
 
   #Use this instead of stdenv to build with clang
-  clangStdenv = if
-    stdenv.cc.isClang
-  then
+  clangStdenv = if stdenv.cc.isClang then
     stdenv
   else
     lowPrio llvmPackages.stdenv;
   clang-sierraHack-stdenv = overrideCC stdenv buildPackages.clang-sierraHack;
-  libcxxStdenv = if
-    stdenv.isDarwin
-  then
+  libcxxStdenv = if stdenv.isDarwin then
     stdenv
   else
     lowPrio llvmPackages.libcxxStdenv;
@@ -15394,9 +15343,7 @@ with pkgs;
 
   inherit (callPackages ../development/compilers/crystal {
     llvmPackages = llvmPackages_13;
-    stdenv = if
-      stdenv.isDarwin
-    then
+    stdenv = if stdenv.isDarwin then
       darwin.apple_sdk_11_0.stdenv
     else
       stdenv;
@@ -15407,9 +15354,7 @@ with pkgs;
 
   inherit (callPackages ../development/compilers/crystal {
     llvmPackages = llvmPackages_15;
-    stdenv = if
-      stdenv.isDarwin
-    then
+    stdenv = if stdenv.isDarwin then
       darwin.apple_sdk_11_0.stdenv
     else
       stdenv;
@@ -15455,9 +15400,7 @@ with pkgs;
 
   fasmg = callPackage ../development/compilers/fasmg { };
 
-  fbc = if
-    stdenv.hostPlatform.isDarwin
-  then
+  fbc = if stdenv.hostPlatform.isDarwin then
     callPackage ../development/compilers/fbc/mac-bin.nix { }
   else
     callPackage ../development/compilers/fbc { };
@@ -15505,9 +15448,7 @@ with pkgs;
   gbforth = callPackage ../development/compilers/gbforth { };
 
   inherit (let
-    num = if
-      (with stdenv.targetPlatform; isVc4 || libc == "relibc")
-    then
+    num = if (with stdenv.targetPlatform; isVc4 || libc == "relibc") then
       6
     else
       12;
@@ -15522,9 +15463,7 @@ with pkgs;
   gcc-unwrapped = gcc.cc;
 
   wrapNonDeterministicGcc = stdenv: ccWrapper:
-    if
-      ccWrapper.isGNU
-    then
+    if ccWrapper.isGNU then
       ccWrapper.overrideAttrs (old: {
         env = old.env // {
           cc = old.env.cc.override {
@@ -15536,9 +15475,7 @@ with pkgs;
     else
       ccWrapper;
 
-  gccStdenv = if
-    stdenv.cc.isGNU
-  then
+  gccStdenv = if stdenv.cc.isGNU then
     stdenv
   else
     stdenv.override {
@@ -15559,12 +15496,11 @@ with pkgs;
   gcc12Stdenv = overrideCC gccStdenv buildPackages.gcc12;
 
   # Meant for packages that fail with newer than gcc10.
-  gcc10StdenvCompat = if
-    stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11"
-  then
-    gcc10Stdenv
-  else
-    stdenv;
+  gcc10StdenvCompat =
+    if stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11" then
+      gcc10Stdenv
+    else
+      stdenv;
 
   # This is not intended for use in nixpkgs but for providing a faster-running
   # compiler to nixpkgs users by building gcc with reproducibility-breaking
@@ -15573,9 +15509,7 @@ with pkgs;
     (wrapNonDeterministicGcc gccStdenv buildPackages.gcc_latest);
 
   wrapCCMulti = cc:
-    if
-      stdenv.targetPlatform.system == "x86_64-linux"
-    then
+    if stdenv.targetPlatform.system == "x86_64-linux" then
       let
         # Binutils with glibc multi
         bintools = cc.bintools.override { libc = glibc_multi; };
@@ -15601,9 +15535,7 @@ with pkgs;
       "Multilib ${cc.name} not supported for ‘${stdenv.targetPlatform.system}’";
 
   wrapClangMulti = clang:
-    if
-      stdenv.targetPlatform.system == "x86_64-linux"
-    then
+    if stdenv.targetPlatform.system == "x86_64-linux" then
       callPackage ../development/compilers/llvm/multi.nix {
         inherit clang;
         gcc32 = pkgsi686Linux.gcc;
@@ -15618,9 +15550,7 @@ with pkgs;
 
   gccMultiStdenv = overrideCC stdenv buildPackages.gcc_multi;
   clangMultiStdenv = overrideCC stdenv buildPackages.clang_multi;
-  multiStdenv = if
-    stdenv.cc.isClang
-  then
+  multiStdenv = if stdenv.cc.isClang then
     clangMultiStdenv
   else
     gccMultiStdenv;
@@ -15630,12 +15560,11 @@ with pkgs;
 
   gccCrossLibcStdenv = overrideCC stdenv buildPackages.gccCrossStageStatic;
 
-  crossLibcStdenv = if
-    stdenv.hostPlatform.useLLVM or false || stdenv.hostPlatform.isDarwin
-  then
-    overrideCC stdenv buildPackages.llvmPackages.clangNoLibc
-  else
-    gccCrossLibcStdenv;
+  crossLibcStdenv =
+    if stdenv.hostPlatform.useLLVM or false || stdenv.hostPlatform.isDarwin then
+      overrideCC stdenv buildPackages.llvmPackages.clangNoLibc
+    else
+      gccCrossLibcStdenv;
 
   # The GCC used to build libc for the target platform. Normal gccs will be
   # built with, and use, that cross-compiled libc.
@@ -15651,9 +15580,7 @@ with pkgs;
         reproducibleBuild = true;
         profiledCompiler = false;
 
-        isl = if
-          !stdenv.isDarwin
-        then
+        isl = if !stdenv.isDarwin then
           isl_0_20
         else
           null;
@@ -15677,28 +15604,20 @@ with pkgs;
     reproducibleBuild = true;
     profiledCompiler = false;
 
-    libcCross = if
-      stdenv.targetPlatform != stdenv.buildPlatform
-    then
+    libcCross = if stdenv.targetPlatform != stdenv.buildPlatform then
       libcCross
     else
       null;
-    threadsCross = if
-      stdenv.targetPlatform != stdenv.buildPlatform
-    then
+    threadsCross = if stdenv.targetPlatform != stdenv.buildPlatform then
       threadsCross
     else
       { };
 
-    isl = if
-      !stdenv.isDarwin
-    then
+    isl = if !stdenv.isDarwin then
       isl_0_14
     else
       null;
-    cloog = if
-      !stdenv.isDarwin
-    then
+    cloog = if !stdenv.isDarwin then
       cloog
     else
       null;
@@ -15711,37 +15630,27 @@ with pkgs;
     reproducibleBuild = true;
     profiledCompiler = false;
 
-    libcCross = if
-      stdenv.targetPlatform != stdenv.buildPlatform
-    then
+    libcCross = if stdenv.targetPlatform != stdenv.buildPlatform then
       libcCross
     else
       null;
-    threadsCross = if
-      stdenv.targetPlatform != stdenv.buildPlatform
-    then
+    threadsCross = if stdenv.targetPlatform != stdenv.buildPlatform then
       threadsCross
     else
       { };
 
-    isl = if
-      !stdenv.isDarwin
-    then
+    isl = if !stdenv.isDarwin then
       isl_0_11
     else
       null;
 
-    cloog = if
-      !stdenv.isDarwin
-    then
+    cloog = if !stdenv.isDarwin then
       cloog_0_18_0
     else
       null;
 
     # Build fails on Darwin with clang
-    stdenv = if
-      stdenv.isDarwin
-    then
+    stdenv = if stdenv.isDarwin then
       gccStdenv
     else
       stdenv;
@@ -15753,30 +15662,23 @@ with pkgs;
     reproducibleBuild = true;
     profiledCompiler = false;
 
-    libcCross = if
-      stdenv.targetPlatform != stdenv.buildPlatform
-    then
+    libcCross = if stdenv.targetPlatform != stdenv.buildPlatform then
       libcCross
     else
       null;
-    threadsCross = if
-      stdenv.targetPlatform != stdenv.buildPlatform
-    then
+    threadsCross = if stdenv.targetPlatform != stdenv.buildPlatform then
       threadsCross
     else
       { };
 
     # gcc 10 is too strict to cross compile gcc <= 8
-    stdenv = if
-      (stdenv.targetPlatform != stdenv.buildPlatform) && stdenv.cc.isGNU
-    then
-      gcc7Stdenv
-    else
-      stdenv;
+    stdenv =
+      if (stdenv.targetPlatform != stdenv.buildPlatform) && stdenv.cc.isGNU then
+        gcc7Stdenv
+      else
+        stdenv;
 
-    isl = if
-      stdenv.isDarwin
-    then
+    isl = if stdenv.isDarwin then
       null
     else if stdenv.targetPlatform.isRedox then
       isl_0_17
@@ -15790,30 +15692,23 @@ with pkgs;
     reproducibleBuild = true;
     profiledCompiler = false;
 
-    libcCross = if
-      stdenv.targetPlatform != stdenv.buildPlatform
-    then
+    libcCross = if stdenv.targetPlatform != stdenv.buildPlatform then
       libcCross
     else
       null;
-    threadsCross = if
-      stdenv.targetPlatform != stdenv.buildPlatform
-    then
+    threadsCross = if stdenv.targetPlatform != stdenv.buildPlatform then
       threadsCross
     else
       { };
 
     # gcc 10 is too strict to cross compile gcc <= 8
-    stdenv = if
-      (stdenv.targetPlatform != stdenv.buildPlatform) && stdenv.cc.isGNU
-    then
-      gcc7Stdenv
-    else
-      stdenv;
+    stdenv =
+      if (stdenv.targetPlatform != stdenv.buildPlatform) && stdenv.cc.isGNU then
+        gcc7Stdenv
+      else
+        stdenv;
 
-    isl = if
-      !stdenv.isDarwin
-    then
+    isl = if !stdenv.isDarwin then
       isl_0_17
     else
       null;
@@ -15825,30 +15720,23 @@ with pkgs;
     reproducibleBuild = true;
     profiledCompiler = false;
 
-    libcCross = if
-      stdenv.targetPlatform != stdenv.buildPlatform
-    then
+    libcCross = if stdenv.targetPlatform != stdenv.buildPlatform then
       libcCross
     else
       null;
-    threadsCross = if
-      stdenv.targetPlatform != stdenv.buildPlatform
-    then
+    threadsCross = if stdenv.targetPlatform != stdenv.buildPlatform then
       threadsCross
     else
       { };
 
     # gcc 10 is too strict to cross compile gcc <= 8
-    stdenv = if
-      (stdenv.targetPlatform != stdenv.buildPlatform) && stdenv.cc.isGNU
-    then
-      gcc7Stdenv
-    else
-      stdenv;
+    stdenv =
+      if (stdenv.targetPlatform != stdenv.buildPlatform) && stdenv.cc.isGNU then
+        gcc7Stdenv
+      else
+        stdenv;
 
-    isl = if
-      !stdenv.isDarwin
-    then
+    isl = if !stdenv.isDarwin then
       isl_0_17
     else
       null;
@@ -15860,22 +15748,16 @@ with pkgs;
     reproducibleBuild = true;
     profiledCompiler = false;
 
-    libcCross = if
-      stdenv.targetPlatform != stdenv.buildPlatform
-    then
+    libcCross = if stdenv.targetPlatform != stdenv.buildPlatform then
       libcCross
     else
       null;
-    threadsCross = if
-      stdenv.targetPlatform != stdenv.buildPlatform
-    then
+    threadsCross = if stdenv.targetPlatform != stdenv.buildPlatform then
       threadsCross
     else
       { };
 
-    isl = if
-      !stdenv.isDarwin
-    then
+    isl = if !stdenv.isDarwin then
       isl_0_20
     else
       null;
@@ -15887,22 +15769,16 @@ with pkgs;
     reproducibleBuild = true;
     profiledCompiler = false;
 
-    libcCross = if
-      stdenv.targetPlatform != stdenv.buildPlatform
-    then
+    libcCross = if stdenv.targetPlatform != stdenv.buildPlatform then
       libcCross
     else
       null;
-    threadsCross = if
-      stdenv.targetPlatform != stdenv.buildPlatform
-    then
+    threadsCross = if stdenv.targetPlatform != stdenv.buildPlatform then
       threadsCross
     else
       { };
 
-    isl = if
-      !stdenv.isDarwin
-    then
+    isl = if !stdenv.isDarwin then
       isl_0_20
     else
       null;
@@ -15914,22 +15790,16 @@ with pkgs;
     reproducibleBuild = true;
     profiledCompiler = false;
 
-    libcCross = if
-      stdenv.targetPlatform != stdenv.buildPlatform
-    then
+    libcCross = if stdenv.targetPlatform != stdenv.buildPlatform then
       libcCross
     else
       null;
-    threadsCross = if
-      stdenv.targetPlatform != stdenv.buildPlatform
-    then
+    threadsCross = if stdenv.targetPlatform != stdenv.buildPlatform then
       threadsCross
     else
       { };
 
-    isl = if
-      !stdenv.isDarwin
-    then
+    isl = if !stdenv.isDarwin then
       isl_0_20
     else
       null;
@@ -15941,22 +15811,16 @@ with pkgs;
     reproducibleBuild = true;
     profiledCompiler = false;
 
-    libcCross = if
-      stdenv.targetPlatform != stdenv.buildPlatform
-    then
+    libcCross = if stdenv.targetPlatform != stdenv.buildPlatform then
       libcCross
     else
       null;
-    threadsCross = if
-      stdenv.targetPlatform != stdenv.buildPlatform
-    then
+    threadsCross = if stdenv.targetPlatform != stdenv.buildPlatform then
       threadsCross
     else
       { };
 
-    isl = if
-      !stdenv.isDarwin
-    then
+    isl = if !stdenv.isDarwin then
       isl_0_20
     else
       null;
@@ -16202,9 +16066,7 @@ with pkgs;
 
   haskellPackages = dontRecurseIntoAttrs
     # JS backend is only available for GHC >= 9.6
-    (if
-      stdenv.hostPlatform.isGhcjs
-    then
+    (if stdenv.hostPlatform.isGhcjs then
       haskell.packages.native-bignum.ghc96
       # Prefer native-bignum to avoid linking issues with gmp
     else if stdenv.hostPlatform.isStatic then
@@ -16222,9 +16084,7 @@ with pkgs;
   # plain, cross-compiled compiler (which is only theoretical at the moment).
   ghc = targetPackages.haskellPackages.ghc or
     # Prefer native-bignum to avoid linking issues with gmp
-    (if
-      stdenv.targetPlatform.isStatic
-    then
+    (if stdenv.targetPlatform.isStatic then
       haskell.compiler.native-bignum.ghc92
     else
       haskell.compiler.ghc92);
@@ -16599,9 +16459,7 @@ with pkgs;
     # This returns the minimum supported version for the platform. The
     # assumption is that or any later version is good.
     choose = platform:
-      if
-        platform.isDarwin
-      then
+      if platform.isDarwin then
         11
       else if platform.isFreeBSD then
         12
@@ -17660,9 +17518,7 @@ with pkgs;
 
   wrapBintoolsWith = {
       bintools,
-      libc ? if
-        stdenv.targetPlatform != stdenv.hostPlatform
-      then
+      libc ? if stdenv.targetPlatform != stdenv.hostPlatform then
         libcCross
       else
         stdenv.cc.libc,
@@ -17740,9 +17596,7 @@ with pkgs;
     # * CBQN using gcc is broken at runtime on i686 due to
     #   https://gcc.gnu.org/bugzilla/show_bug.cgi?id=58416,
     # * CBQN uses some CPP macros gcc doesn't like for aarch64.
-    stdenv = if
-      !stdenv.cc.isClang
-    then
+    stdenv = if !stdenv.cc.isClang then
       clangStdenv
     else
       stdenv;
@@ -18012,9 +17866,7 @@ with pkgs;
   ### End of CuboCore
 
   maude = callPackage ../development/interpreters/maude {
-    stdenv = if
-      stdenv.cc.isClang
-    then
+    stdenv = if stdenv.cc.isClang then
       llvmPackages_5.stdenv
     else
       stdenv;
@@ -18069,9 +17921,7 @@ with pkgs;
 
   # Import PHP82 interpreter, extensions and packages
   php82 = callPackage ../development/interpreters/php/8.2.nix {
-    stdenv = if
-      stdenv.cc.isClang
-    then
+    stdenv = if stdenv.cc.isClang then
       llvmPackages.stdenv
     else
       stdenv;
@@ -18085,9 +17935,7 @@ with pkgs;
 
   # Import PHP81 interpreter, extensions and packages
   php81 = callPackage ../development/interpreters/php/8.1.nix {
-    stdenv = if
-      stdenv.cc.isClang
-    then
+    stdenv = if stdenv.cc.isClang then
       llvmPackages.stdenv
     else
       stdenv;
@@ -18101,9 +17949,7 @@ with pkgs;
 
   # Import PHP80 interpreter, extensions and packages
   php80 = callPackage ../development/interpreters/php/8.0.nix {
-    stdenv = if
-      stdenv.cc.isClang
-    then
+    stdenv = if stdenv.cc.isClang then
       llvmPackages.stdenv
     else
       stdenv;
@@ -18292,18 +18138,14 @@ with pkgs;
     # racket 6.11 doesn't build with gcc6 + recent glibc:
     # https://github.com/racket/racket/pull/1886
     # https://github.com/NixOS/nixpkgs/pull/31017#issuecomment-343574769
-    stdenv = if
-      stdenv.isDarwin
-    then
+    stdenv = if stdenv.isDarwin then
       stdenv
     else
       gcc7Stdenv;
     inherit (darwin.apple_sdk.frameworks) CoreFoundation;
   };
   racket_7_9 = callPackage ../development/interpreters/racket/racket_7_9.nix {
-    stdenv = if
-      stdenv.isDarwin
-    then
+    stdenv = if stdenv.isDarwin then
       stdenv
     else
       gcc7Stdenv;
@@ -18864,9 +18706,7 @@ with pkgs;
     buildJdk = jdk11_headless;
     buildJdkName = "java11";
     runJdk = jdk11_headless;
-    stdenv = if
-      stdenv.cc.isClang
-    then
+    stdenv = if stdenv.cc.isClang then
       llvmPackages.stdenv
     else
       gcc10StdenvCompat;
@@ -18882,9 +18722,7 @@ with pkgs;
       ;
     buildJdk = jdk11_headless;
     runJdk = jdk11_headless;
-    stdenv = if
-      stdenv.cc.isClang
-    then
+    stdenv = if stdenv.cc.isClang then
       llvmPackages.stdenv
     else
       stdenv;
@@ -18901,9 +18739,7 @@ with pkgs;
         ;
       buildJdk = jdk11_headless;
       runJdk = jdk11_headless;
-      stdenv = if
-        stdenv.isDarwin
-      then
+      stdenv = if stdenv.isDarwin then
         darwin.apple_sdk_11_0.stdenv
       else if stdenv.cc.isClang then
         llvmPackages.stdenv
@@ -18948,9 +18784,7 @@ with pkgs;
   };
   binutils-unwrapped-all-targets =
     callPackage ../development/tools/misc/binutils {
-      autoreconfHook = if
-        targetPlatform.isiOS
-      then
+      autoreconfHook = if targetPlatform.isiOS then
         autoreconfHook269
       else
         autoreconfHook;
@@ -19007,9 +18841,7 @@ with pkgs;
   # wrappers from the next stage.
   bintools-unwrapped = let
     inherit (stdenv.targetPlatform) linker;
-  in if
-    linker == "lld"
-  then
+  in if linker == "lld" then
     llvmPackages.bintools-unwrapped
   else if linker == "cctools" then
     darwin.binutils-unwrapped
@@ -19398,9 +19230,7 @@ with pkgs;
     wrapCC (distcc.links extraConfig)) { };
   distccStdenv = lowPrio (overrideCC stdenv buildPackages.distccWrapper);
 
-  distccMasquerade = if
-    stdenv.isDarwin
-  then
+  distccMasquerade = if stdenv.isDarwin then
     null
   else
     callPackage ../development/tools/misc/distcc/masq.nix {
@@ -19989,9 +19819,7 @@ with pkgs;
 
   mold = callPackage ../development/tools/mold {
     # C++20 is required, aarch64-linux has gcc 9 by default
-    stdenv = if
-      stdenv.isLinux && stdenv.isAarch64
-    then
+    stdenv = if stdenv.isLinux && stdenv.isAarch64 then
       llvmPackages_12.libcxxStdenv
     else
       llvmPackages.stdenv;
@@ -20098,9 +19926,7 @@ with pkgs;
 
   parse-cli-bin = callPackage ../development/tools/parse-cli-bin { };
 
-  patchelf = if
-    with stdenv.buildPlatform; isAarch64 && isMusl
-  then
+  patchelf = if with stdenv.buildPlatform; isAarch64 && isMusl then
     patchelf_0_13
   else
     patchelfStable;
@@ -20945,9 +20771,7 @@ with pkgs;
   };
 
   # TODO(@Ericson2314): Build bionic libc from source
-  bionic = if
-    stdenv.hostPlatform.useAndroidPrebuilt
-  then
+  bionic = if stdenv.hostPlatform.useAndroidPrebuilt then
     pkgs."androidndkPkgs_${stdenv.hostPlatform.ndkVer}".libraries
   else
     callPackage ../os-specific/linux/bionic-prebuilt { };
@@ -21124,18 +20948,14 @@ with pkgs;
   cln = callPackage ../development/libraries/cln { };
 
   clucene_core_2 = callPackage ../development/libraries/clucene-core/2.x.nix {
-    stdenv = if
-      stdenv.cc.isClang
-    then
+    stdenv = if stdenv.cc.isClang then
       llvmPackages_6.stdenv
     else
       stdenv;
   };
 
   clucene_core_1 = callPackage ../development/libraries/clucene-core {
-    stdenv = if
-      stdenv.cc.isClang
-    then
+    stdenv = if stdenv.cc.isClang then
       llvmPackages_6.stdenv
     else
       stdenv;
@@ -21278,9 +21098,7 @@ with pkgs;
   cypress = callPackage ../development/web/cypress { };
 
   cyrus_sasl = callPackage ../development/libraries/cyrus-sasl {
-    libkrb5 = if
-      stdenv.isFreeBSD
-    then
+    libkrb5 = if stdenv.isFreeBSD then
       heimdal
     else
       libkrb5;
@@ -21391,9 +21209,7 @@ with pkgs;
 
   eccodes = callPackage ../development/libraries/eccodes {
     pythonPackages = python3Packages;
-    stdenv = if
-      stdenv.isDarwin
-    then
+    stdenv = if stdenv.isDarwin then
       gccStdenv
     else
       stdenv;
@@ -21477,9 +21293,7 @@ with pkgs;
   fancypp = callPackage ../development/libraries/fancypp { };
 
   far2l = callPackage ../applications/misc/far2l {
-    stdenv = if
-      stdenv.cc.isClang
-    then
+    stdenv = if stdenv.cc.isClang then
       llvmPackages.stdenv
     else
       stdenv;
@@ -21905,12 +21719,11 @@ with pkgs;
   mtrace = callPackage ../development/libraries/glibc/mtrace.nix { };
 
   # Provided by libc on Operating Systems that use the Extensible Linker Format.
-  elf-header = if
-    stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf"
-  then
-    null
-  else
-    elf-header-real;
+  elf-header =
+    if stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf" then
+      null
+    else
+      elf-header-real;
 
   elf-header-real = callPackage ../development/libraries/elf-header { };
 
@@ -21927,9 +21740,7 @@ with pkgs;
   # These are used when buiding compiler-rt / libgcc, prior to building libc.
   preLibcCrossHeaders = let
     inherit (stdenv.targetPlatform) libc;
-  in if
-    libc == "msvcrt"
-  then
+  in if libc == "msvcrt" then
     targetPackages.windows.mingw_w64_headers or windows.mingw_w64_headers
   else if libc == "nblibc" then
     targetPackages.netbsdCross.headers or netbsdCross.headers
@@ -21942,9 +21753,7 @@ with pkgs;
   libcCrossChooser = name:
     # libc is hackily often used from the previous stage. This `or`
     # hack fixes the hack, *sigh*.
-    if
-      name == "glibc"
-    then
+    if name == "glibc" then
       targetPackages.glibcCross or glibcCross
     else if name == "bionic" then
       targetPackages.bionic or bionic
@@ -21967,9 +21776,7 @@ with pkgs;
     else if name == "msvcrt" then
       targetPackages.windows.mingw_w64 or windows.mingw_w64
     else if name == "libSystem" then
-      if
-        stdenv.targetPlatform.useiOSPrebuilt
-      then
+      if stdenv.targetPlatform.useiOSPrebuilt then
         targetPackages.darwin.iosSdkPkgs.libraries or darwin.iosSdkPkgs.libraries
       else
         targetPackages.darwin.LibsystemCross or (throw
@@ -21992,12 +21799,14 @@ with pkgs;
 
   threadsCross = if
     stdenv.targetPlatform.isMinGW && !(stdenv.targetPlatform.useLLVM or false)
-  then {
-    # other possible values: win32 or posix
-    model = "mcf";
-    # For win32 or posix set this to null
-    package = targetPackages.windows.mcfgthreads or windows.mcfgthreads;
-  } else
+  then
+    {
+      # other possible values: win32 or posix
+      model = "mcf";
+      # For win32 or posix set this to null
+      package = targetPackages.windows.mcfgthreads or windows.mcfgthreads;
+    }
+  else
     { };
 
   wasilibc =
@@ -22006,20 +21815,18 @@ with pkgs;
   relibc = callPackage ../development/libraries/relibc { };
 
   # Only supported on Linux and only on glibc
-  glibcLocales = if
-    stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isGnu
-  then
-    callPackage ../development/libraries/glibc/locales.nix { }
-  else
-    null;
-  glibcLocalesUtf8 = if
-    stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isGnu
-  then
-    callPackage ../development/libraries/glibc/locales.nix {
-      allLocales = false;
-    }
-  else
-    null;
+  glibcLocales =
+    if stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isGnu then
+      callPackage ../development/libraries/glibc/locales.nix { }
+    else
+      null;
+  glibcLocalesUtf8 =
+    if stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isGnu then
+      callPackage ../development/libraries/glibc/locales.nix {
+        allLocales = false;
+      }
+    else
+      null;
 
   glibcInfo = callPackage ../development/libraries/glibc/info.nix { };
 
@@ -22188,9 +21995,7 @@ with pkgs;
 
   gnu-config = callPackage ../development/libraries/gnu-config { };
 
-  gnu-efi = if
-    stdenv.hostPlatform.isEfi
-  then
+  gnu-efi = if stdenv.hostPlatform.isEfi then
     callPackage ../development/libraries/gnu-efi { }
   else
     null;
@@ -22614,9 +22419,7 @@ with pkgs;
 
   iir1 = callPackage ../development/libraries/iir1 { };
 
-  irrlicht = if
-    !stdenv.isDarwin
-  then
+  irrlicht = if !stdenv.isDarwin then
     callPackage ../development/libraries/irrlicht { }
   else
     callPackage ../development/libraries/irrlicht/mac.nix {
@@ -22719,9 +22522,7 @@ with pkgs;
   };
 
   keybinder3 = callPackage ../development/libraries/keybinder3 {
-    gtk3 = if
-      stdenv.isDarwin
-    then
+    gtk3 = if stdenv.isDarwin then
       gtk3-x11
     else
       gtk3;
@@ -22779,9 +22580,7 @@ with pkgs;
   lmdbxx = callPackage ../development/libraries/lmdbxx { };
 
   lemon-graph = callPackage ../development/libraries/lemon-graph {
-    stdenv = if
-      stdenv.isLinux
-    then
+    stdenv = if stdenv.isLinux then
       gcc12Stdenv
     else
       stdenv;
@@ -22926,9 +22725,7 @@ with pkgs;
   libcanberra-gtk2 = pkgs.libcanberra.override { gtkSupport = "gtk2"; };
   libcanberra-gtk3 = pkgs.libcanberra.override { gtkSupport = "gtk3"; };
 
-  libcanberra_kde = if
-    (config.kde_runtime.libcanberraWithoutGTK or true)
-  then
+  libcanberra_kde = if (config.kde_runtime.libcanberraWithoutGTK or true) then
     pkgs.libcanberra
   else
     pkgs.libcanberra-gtk2;
@@ -23021,9 +22818,7 @@ with pkgs;
   libcutl = callPackage ../development/libraries/libcutl { };
 
   libcxxrt = callPackage ../development/libraries/libcxxrt {
-    stdenv = if
-      stdenv.hostPlatform.useLLVM or false
-    then
+    stdenv = if stdenv.hostPlatform.useLLVM or false then
       overrideCC stdenv buildPackages.llvmPackages.tools.clangNoLibcxx
     else
       stdenv;
@@ -23549,9 +23344,7 @@ with pkgs;
       "wasilibc"
     ]
   then
-    libcIconv (if
-      stdenv.hostPlatform != stdenv.buildPlatform
-    then
+    libcIconv (if stdenv.hostPlatform != stdenv.buildPlatform then
       libcCross
     else
       stdenv.cc.libc)
@@ -23586,9 +23379,7 @@ with pkgs;
     lib.getBin libiconvReal;
 
   # On non-GNU systems we need GNU Gettext for libintl.
-  libintl = if
-    stdenv.hostPlatform.libc != "glibc"
-  then
+  libintl = if stdenv.hostPlatform.libc != "glibc" then
     gettext
   else
     null;
@@ -23978,9 +23769,7 @@ with pkgs;
 
   libtorrent-rasterbar-2_0_x =
     callPackage ../development/libraries/libtorrent-rasterbar {
-      stdenv = if
-        stdenv.isDarwin
-      then
+      stdenv = if stdenv.isDarwin then
         llvmPackages_14.stdenv
       else
         stdenv;
@@ -24089,9 +23878,7 @@ with pkgs;
 
   libuldaq = callPackage ../development/libraries/libuldaq { };
 
-  libunwind = if
-    stdenv.isDarwin
-  then
+  libunwind = if stdenv.isDarwin then
     darwin.libunwind
   else if stdenv.hostPlatform.system == "riscv32-linux" then
     llvmPackages_latest.libunwind
@@ -24427,9 +24214,7 @@ with pkgs;
   # Default libGL implementation, should provide headers and
   # libGL.so/libEGL.so/... to link agains them. Android NDK provides
   # an OpenGL implementation, we can just use that.
-  libGL = if
-    stdenv.hostPlatform.useAndroidPrebuilt
-  then
+  libGL = if stdenv.hostPlatform.useAndroidPrebuilt then
     stdenv
   else
     callPackage ../development/libraries/mesa/stubs.nix {
@@ -24451,9 +24236,7 @@ with pkgs;
       inherit (darwin.apple_sdk_11_0.frameworks) OpenGL;
       inherit (darwin.apple_sdk_11_0.libs) Xplugin;
     };
-  mesa = if
-    stdenv.isDarwin
-  then
+  mesa = if stdenv.isDarwin then
     mesa_22_3
   else
     mesa_23_0;
@@ -24509,9 +24292,7 @@ with pkgs;
   minizip-ng = callPackage ../development/libraries/minizip-ng { };
 
   mkvtoolnix = libsForQt5.callPackage ../applications/video/mkvtoolnix {
-    stdenv = if
-      stdenv.isDarwin
-    then
+    stdenv = if stdenv.isDarwin then
       darwin.apple_sdk_11_0.stdenv
     else
       stdenv;
@@ -24630,9 +24411,7 @@ with pkgs;
 
   ncurses5 = ncurses.override { abiVersion = "5"; };
   ncurses6 = ncurses.override { abiVersion = "6"; };
-  ncurses = if
-    stdenv.hostPlatform.useiOSPrebuilt
-  then
+  ncurses = if stdenv.hostPlatform.useiOSPrebuilt then
     null
   else
     callPackage ../development/libraries/ncurses { };
@@ -25128,9 +24907,7 @@ with pkgs;
     callPackage ../development/libraries/nanopb { mallocBuild = true; };
 
   gnupth = callPackage ../development/libraries/pth { };
-  pth = if
-    stdenv.hostPlatform.isMusl
-  then
+  pth = if stdenv.hostPlatform.isMusl then
     npth
   else
     gnupth;
@@ -25169,17 +24946,13 @@ with pkgs;
   qt48 = callPackage ../development/libraries/qt-4.x/4.8 {
     # GNOME dependencies are not used unless gtkStyle == true
     inherit (gnome2) libgnomeui GConf gnome_vfs;
-    cups = if
-      stdenv.isLinux
-    then
+    cups = if stdenv.isLinux then
       cups
     else
       null;
 
     # XXX: mariadb doesn't built on fbsd as of nov 2015
-    libmysqlclient = if
-      (!stdenv.isFreeBSD)
-    then
+    libmysqlclient = if (!stdenv.isFreeBSD) then
       libmysqlclient
     else
       null;
@@ -25227,9 +25000,7 @@ with pkgs;
         ;
       inherit (__splicedPackages.gst_all_1) gstreamer gst-plugins-base;
       inherit config;
-      stdenv = if
-        stdenv.isDarwin
-      then
+      stdenv = if stdenv.isDarwin then
         darwin.apple_sdk_11_0.stdenv
       else
         stdenv;
@@ -25260,9 +25031,7 @@ with pkgs;
 
   qt6Packages = recurseIntoAttrs (import ./qt6-packages.nix {
     inherit lib pkgs qt6;
-    stdenv = if
-      stdenv.isDarwin
-    then
+    stdenv = if stdenv.isDarwin then
       darwin.apple_sdk_11_0.stdenv
     else
       stdenv;
@@ -27054,9 +26823,7 @@ with pkgs;
   directx-shader-compiler =
     callPackage ../tools/graphics/directx-shader-compiler {
       # https://github.com/NixOS/nixpkgs/issues/216294
-      stdenv = if
-        stdenv.cc.isGNU && stdenv.isi686
-      then
+      stdenv = if stdenv.cc.isGNU && stdenv.isi686 then
         gcc11Stdenv
       else
         stdenv;
@@ -27718,9 +27485,7 @@ with pkgs;
       boost = boost178.override { enableShared = false; };
       inherit (darwin) cctools;
       inherit (darwin.apple_sdk.frameworks) CoreFoundation Security;
-      stdenv = if
-        stdenv.isDarwin
-      then
+      stdenv = if stdenv.isDarwin then
         darwin.apple_sdk_11_0.stdenv.override (old: {
           hostPlatform = old.hostPlatform // { darwinMinVersion = "10.14"; };
           buildPlatform = old.buildPlatform // { darwinMinVersion = "10.14"; };
@@ -28168,9 +27933,7 @@ with pkgs;
   check-wmiplus = callPackage ../servers/monitoring/plugins/wmiplus { };
 
   shishi = callPackage ../servers/shishi {
-    pam = if
-      stdenv.isLinux
-    then
+    pam = if stdenv.isLinux then
       pam
     else
       null;
@@ -28346,15 +28109,11 @@ with pkgs;
         inherit (darwin.apple_sdk.frameworks) ApplicationServices Carbon Cocoa;
         inherit (darwin.apple_sdk.libs) Xplugin;
         inherit (buildPackages.darwin) bootstrap_cmds;
-        udev = if
-          stdenv.isLinux
-        then
+        udev = if stdenv.isLinux then
           udev
         else
           null;
-        libdrm = if
-          stdenv.isLinux
-        then
+        libdrm = if stdenv.isLinux then
           libdrm
         else
           null;
@@ -28693,9 +28452,7 @@ with pkgs;
 
   libossp_uuid = callPackage ../development/libraries/libossp-uuid { };
 
-  libuuid = if
-    stdenv.isLinux
-  then
+  libuuid = if stdenv.isLinux then
     util-linuxMinimal
   else
     null;
@@ -28741,9 +28498,7 @@ with pkgs;
 
   fusePackages = dontRecurseIntoAttrs
     (callPackage ../os-specific/linux/fuse { util-linux = util-linuxMinimal; });
-  fuse = lowPrio (if
-    stdenv.isDarwin
-  then
+  fuse = lowPrio (if stdenv.isDarwin then
     macfuse-stubs
   else
     fusePackages.fuse_2);
@@ -29212,9 +28967,7 @@ with pkgs;
     inherit (darwin.apple_sdk_11_0.frameworks) IOKit CoreFoundation;
   };
 
-  nettools = if
-    stdenv.isLinux
-  then
+  nettools = if stdenv.isLinux then
     callPackage ../os-specific/linux/net-tools { }
   else
     unixtools.nettools;
@@ -29387,9 +29140,7 @@ with pkgs;
 
   pagemon = callPackage ../os-specific/linux/pagemon { };
 
-  pam = if
-    stdenv.isLinux
-  then
+  pam = if stdenv.isLinux then
     linux-pam
   else
     openpam;
@@ -29469,9 +29220,7 @@ with pkgs;
 
   prayer = callPackage ../servers/prayer { };
 
-  procps = if
-    stdenv.isLinux
-  then
+  procps = if stdenv.isLinux then
     callPackage ../os-specific/linux/procps-ng { }
   else
     unixtools.procps;
@@ -29703,9 +29452,7 @@ with pkgs;
     withLibidn2 = true;
   };
 
-  udev = if
-    (with stdenv.hostPlatform; isLinux && isStatic)
-  then
+  udev = if (with stdenv.hostPlatform; isLinux && isStatic) then
     libudev-zero
   else
     systemd; # TODO: change to systemdMinimal
@@ -29839,16 +29586,12 @@ with pkgs;
 
   usermount = callPackage ../os-specific/linux/usermount { };
 
-  util-linux = if
-    stdenv.isLinux
-  then
+  util-linux = if stdenv.isLinux then
     callPackage ../os-specific/linux/util-linux { }
   else
     unixtools.util-linux;
 
-  util-linuxMinimal = if
-    stdenv.isLinux
-  then
+  util-linuxMinimal = if stdenv.isLinux then
     util-linux.override {
       nlsSupport = false;
       ncursesSupport = false;
@@ -31424,18 +31167,14 @@ with pkgs;
   azpainter = callPackage ../applications/graphics/azpainter { };
 
   bambootracker = libsForQt5.callPackage ../applications/audio/bambootracker {
-    stdenv = if
-      stdenv.hostPlatform.isDarwin
-    then
+    stdenv = if stdenv.hostPlatform.isDarwin then
       darwin.apple_sdk_11_0.stdenv
     else
       stdenv;
   };
   bambootracker-qt6 =
     qt6Packages.callPackage ../applications/audio/bambootracker {
-      stdenv = if
-        stdenv.hostPlatform.isDarwin
-      then
+      stdenv = if stdenv.hostPlatform.isDarwin then
         darwin.apple_sdk_11_0.stdenv
       else
         stdenv;
@@ -31611,9 +31350,7 @@ with pkgs;
 
   blender = callPackage ../applications/misc/blender {
     # LLVM 11 crashes when compiling GHOST_SystemCocoa.mm
-    stdenv = if
-      stdenv.isDarwin
-    then
+    stdenv = if stdenv.isDarwin then
       llvmPackages_10.stdenv
     else
       stdenv;
@@ -32459,9 +32196,7 @@ with pkgs;
 
   keepassxc = libsForQt5.callPackage ../applications/misc/keepassxc {
     inherit (darwin.apple_sdk_11_0.frameworks) LocalAuthentication;
-    stdenv = if
-      stdenv.isDarwin
-    then
+    stdenv = if stdenv.isDarwin then
       darwin.apple_sdk_11_0.stdenv
     else
       stdenv;
@@ -33725,9 +33460,7 @@ with pkgs;
   hikari = callPackage ../applications/window-managers/hikari { };
 
   i3 = callPackage ../applications/window-managers/i3 {
-    xcb-util-cursor = if
-      stdenv.isDarwin
-    then
+    xcb-util-cursor = if stdenv.isDarwin then
       xcb-util-cursor-HEAD
     else
       xcb-util-cursor;
@@ -34198,9 +33931,7 @@ with pkgs;
         MetalKit
         ;
 
-      stdenv = if
-        stdenv.isDarwin
-      then
+      stdenv = if stdenv.isDarwin then
         darwin.apple_sdk_11_0.stdenv
       else
         stdenv;
@@ -34412,9 +34143,7 @@ with pkgs;
 
   ladybird =
     qt6Packages.callPackage ../applications/networking/browsers/ladybird {
-      stdenv = if
-        stdenv.isDarwin
-      then
+      stdenv = if stdenv.isDarwin then
         darwin.apple_sdk_11_0.clang14Stdenv
       else
         stdenv;
@@ -35120,9 +34849,7 @@ with pkgs;
   }).mumble;
 
   mumble_overlay = callPackage ../applications/networking/mumble/overlay.nix {
-    mumble_i686 = if
-      stdenv.hostPlatform.system == "x86_64-linux"
-    then
+    mumble_i686 = if stdenv.hostPlatform.system == "x86_64-linux" then
       pkgsi686Linux.mumble
     else
       null;
@@ -35133,9 +34860,7 @@ with pkgs;
   };
 
   # TODO: we should probably merge these 2
-  musescore = if
-    stdenv.isDarwin
-  then
+  musescore = if stdenv.isDarwin then
     callPackage ../applications/audio/musescore/darwin.nix { }
   else
     libsForQt5.callPackage ../applications/audio/musescore { };
@@ -36191,9 +35916,7 @@ with pkgs;
   quantomatic = callPackage ../applications/science/physics/quantomatic { };
 
   quassel = libsForQt5.callPackage ../applications/networking/irc/quassel {
-    stdenv = if
-      stdenv.isDarwin
-    then
+    stdenv = if stdenv.isDarwin then
       darwin.apple_sdk_11_0.stdenv
     else
       stdenv;
@@ -36350,9 +36073,7 @@ with pkgs;
 
   ries = callPackage ../applications/science/math/ries { };
 
-  ripcord = if
-    stdenv.isLinux
-  then
+  ripcord = if stdenv.isLinux then
     qt5.callPackage ../applications/networking/instant-messengers/ripcord { }
   else
     callPackage ../applications/networking/instant-messengers/ripcord/darwin.nix
@@ -37448,9 +37169,7 @@ with pkgs;
     lib.makeOverridable (neovimUtils.legacyWrapper neovim-unwrapped);
   neovim-unwrapped = callPackage ../applications/editors/neovim {
     CoreServices = darwin.apple_sdk.frameworks.CoreServices;
-    lua = if
-      lib.meta.availableOn stdenv.hostPlatform luajit
-    then
+    lua = if lib.meta.availableOn stdenv.hostPlatform luajit then
       luajit
     else
       lua5_1;
@@ -37522,9 +37241,7 @@ with pkgs;
   virtualglLib = callPackage ../tools/X11/virtualgl/lib.nix { fltk = fltk13; };
 
   virtualgl = callPackage ../tools/X11/virtualgl {
-    virtualglLib_i686 = if
-      stdenv.hostPlatform.system == "x86_64-linux"
-    then
+    virtualglLib_i686 = if stdenv.hostPlatform.system == "x86_64-linux" then
       pkgsi686Linux.virtualglLib
     else
       null;
@@ -37538,9 +37255,7 @@ with pkgs;
 
   primus = callPackage ../tools/X11/primus {
     stdenv_i686 = pkgsi686Linux.stdenv;
-    primusLib_i686 = if
-      stdenv.hostPlatform.system == "x86_64-linux"
-    then
+    primusLib_i686 = if stdenv.hostPlatform.system == "x86_64-linux" then
       pkgsi686Linux.primusLib
     else
       null;
@@ -37548,15 +37263,11 @@ with pkgs;
 
   bumblebee = callPackage ../tools/X11/bumblebee {
     nvidia_x11 = linuxPackages.nvidia_x11;
-    nvidia_x11_i686 = if
-      stdenv.hostPlatform.system == "x86_64-linux"
-    then
+    nvidia_x11_i686 = if stdenv.hostPlatform.system == "x86_64-linux" then
       pkgsi686Linux.linuxPackages.nvidia_x11.override { libsOnly = true; }
     else
       null;
-    libglvnd_i686 = if
-      stdenv.hostPlatform.system == "x86_64-linux"
-    then
+    libglvnd_i686 = if stdenv.hostPlatform.system == "x86_64-linux" then
       pkgsi686Linux.libglvnd
     else
       null;
@@ -37765,9 +37476,7 @@ with pkgs;
 
   chatterino2 = libsForQt5.callPackage
     ../applications/networking/instant-messengers/chatterino2 {
-      stdenv = if
-        stdenv.isDarwin
-      then
+      stdenv = if stdenv.isDarwin then
         darwin.apple_sdk_11_0.stdenv
       else
         stdenv;
@@ -39523,9 +39232,7 @@ with pkgs;
   };
 
   scummvm = callPackage ../games/scummvm {
-    stdenv = if
-      (stdenv.isDarwin && stdenv.isAarch64)
-    then
+    stdenv = if (stdenv.isDarwin && stdenv.isAarch64) then
       llvmPackages_14.stdenv
     else
       stdenv;
@@ -41287,9 +40994,7 @@ with pkgs;
 
   root5 = lowPrio (callPackage ../applications/science/misc/root/5.nix {
     inherit (darwin.apple_sdk.frameworks) Cocoa OpenGL;
-    stdenv = if
-      stdenv.cc.isClang
-    then
+    stdenv = if stdenv.cc.isClang then
       llvmPackages_5.stdenv
     else
       stdenv;
@@ -41954,11 +41659,10 @@ with pkgs;
           }: {
             config.nixpkgs.pkgs = lib.mkDefault pkgs;
             config.nixpkgs.localSystem = lib.mkDefault stdenv.hostPlatform;
-          }) ] ++ (if
-            builtins.isList configuration
-          then
+          }) ] ++ (if builtins.isList configuration then
             configuration
-          else [ configuration ]);
+          else
+            [ configuration ]);
       };
     in
     c.config.system.build // c
@@ -41970,15 +41674,16 @@ with pkgs;
       options,
       ...
     }: {
-      config = if
-        options ? nixpkgs.pkgs
-      then {
-        # legacy / nixpkgs.nix style
-        nixpkgs.pkgs = pkgs;
-      } else {
-        # minimal
-        _module.args.pkgs = pkgs;
-      };
+      config = if options ? nixpkgs.pkgs then
+        {
+          # legacy / nixpkgs.nix style
+          nixpkgs.pkgs = pkgs;
+        }
+      else
+        {
+          # minimal
+          _module.args.pkgs = pkgs;
+        };
     };
 
   nixosOptionsDoc = attrs:
@@ -43118,9 +42823,7 @@ with pkgs;
     watch
     ;
 
-  fts = if
-    stdenv.hostPlatform.isMusl
-  then
+  fts = if stdenv.hostPlatform.isMusl then
     netbsd.fts
   else
     null;

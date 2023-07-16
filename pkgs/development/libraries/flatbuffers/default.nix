@@ -29,9 +29,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DFLATBUFFERS_BUILD_TESTS=${
-      if
-        doCheck
-      then
+      if doCheck then
         "ON"
       else
         "OFF"

@@ -48,9 +48,7 @@ stdenv.mkDerivation {
   pname = "moneyplex";
   version = "16.0.22424";
 
-  src = fetchurl (if
-    stdenv.hostPlatform.system == "i686-linux"
-  then
+  src = fetchurl (if stdenv.hostPlatform.system == "i686-linux" then
     src_i686
   else if stdenv.hostPlatform.system == "x86_64-linux" then
     src_x86_64

@@ -58,9 +58,7 @@
   , # What flavour to build. An empty string indicates no
   # specific flavour and falls back to ghc default values.
   ghcFlavour ? lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
-    (if
-      useLLVM
-    then
+    (if useLLVM then
       "perf-cross"
     else
       "perf-cross-ncg")
@@ -108,9 +106,7 @@ let
       include mk/flavours/\$(BuildFlavour).mk
       endif
       BUILD_SPHINX_HTML = ${
-        if
-          enableDocs
-        then
+        if enableDocs then
           "YES"
         else
           "NO"
@@ -129,25 +125,19 @@ let
     # build the haddock program (removing the `enableHaddockProgram` option).
     ''
       HADDOCK_DOCS = ${
-        if
-          enableHaddockProgram
-        then
+        if enableHaddockProgram then
           "YES"
         else
           "NO"
       }
       DYNAMIC_GHC_PROGRAMS = ${
-        if
-          enableShared
-        then
+        if enableShared then
           "YES"
         else
           "NO"
       }
       INTEGER_LIBRARY = ${
-        if
-          enableIntegerSimple
-        then
+        if enableIntegerSimple then
           "integer-simple"
         else
           "integer-gmp"

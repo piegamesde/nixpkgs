@@ -17,9 +17,7 @@ let
 
   backendsIni = let
     formatBool = b:
-      if
-        b
-      then
+      if b then
         "1"
       else
         "0";

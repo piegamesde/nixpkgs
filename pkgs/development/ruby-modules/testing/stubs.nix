@@ -31,9 +31,7 @@ let
       ...
     }:
     "fetchurl:${
-      if
-        urls == [ ]
-      then
+      if urls == [ ] then
         url
       else
         builtins.head urls

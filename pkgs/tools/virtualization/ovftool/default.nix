@@ -52,16 +52,12 @@ let
     };
   } ;
 
-  ovftoolSystem = if
-    builtins.hasAttr system ovftoolSystems
-  then
+  ovftoolSystem = if builtins.hasAttr system ovftoolSystems then
     ovftoolSystems.${system}
   else
     throw "System '${system}' is unsupported by ovftool";
 
-  ovftoolSource = if
-    builtins.hasAttr system ovftoolBundles
-  then
+  ovftoolSource = if builtins.hasAttr system ovftoolBundles then
     ovftoolBundles.${system}
   else
     fetchurl {

@@ -94,9 +94,7 @@
   canokey-qemu,
   enableDocs ? true,
   hostCpuOnly ? false,
-  hostCpuTargets ? (if
-    hostCpuOnly
-  then
+  hostCpuTargets ? (if hostCpuOnly then
     (lib.optional stdenv.isx86_64 "i386-softmmu"
       ++ [ "${stdenv.hostPlatform.qemuArch}-softmmu" ])
   else

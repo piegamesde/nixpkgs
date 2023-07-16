@@ -19,9 +19,7 @@
 }:
 let
   mesonEnableFeature = b:
-    if
-      b
-    then
+    if b then
       "enabled"
     else
       "disabled";

@@ -63,9 +63,7 @@ in {
         type = with types; either str path;
         description = lib.mdDoc "The SpamAssassin init.pre config.";
         apply = val:
-          if
-            builtins.isPath val
-          then
+          if builtins.isPath val then
             val
           else
             pkgs.writeText "init.pre" val;

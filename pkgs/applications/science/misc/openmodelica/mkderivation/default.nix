@@ -36,9 +36,7 @@ let
 
   # Dependencies of current OpenModelica-target joined in one file tree.
   # Return the dep itself in case it is a single one.
-  joinedDeps = if
-    length pkg.omdeps == 1
-  then
+  joinedDeps = if length pkg.omdeps == 1 then
     elemAt pkg.omdeps 0
   else
     symlinkJoin {

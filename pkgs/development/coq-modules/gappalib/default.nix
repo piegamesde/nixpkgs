@@ -14,9 +14,7 @@ mkCoqDerivation {
   owner = "gappa";
   domain = "gitlab.inria.fr";
   inherit version;
-  defaultVersion = if
-    lib.versions.range "8.8" "8.16" coq.coq-version
-  then
+  defaultVersion = if lib.versions.range "8.8" "8.16" coq.coq-version then
     "1.5.2"
   else
     null;

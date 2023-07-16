@@ -18,16 +18,12 @@ let
   version = import ./version.nix;
   fontsShas = import ./shas.nix;
   knownFonts = builtins.attrNames fontsShas;
-  selectedFonts = if
-    (fonts == [ ])
-  then
+  selectedFonts = if (fonts == [ ]) then
     knownFonts
   else
     let
       unknown = lib.subtractLists knownFonts fonts;
-    in if
-      (unknown != [ ])
-    then
+    in if (unknown != [ ]) then
       throw "Unknown font(s): ${lib.concatStringsSep " " unknown}"
     else
       fonts;

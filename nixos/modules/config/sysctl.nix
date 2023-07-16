@@ -30,9 +30,7 @@ in {
           type = types.nullOr types.ints.unsigned // {
             merge = loc: defs:
               foldl (a: b:
-                if
-                  b.value == null
-                then
+                if b.value == null then
                   null
                 else
                   lib.max a b.value) 0 (filterOverrides defs);
@@ -66,9 +64,7 @@ in {
       (mapAttrsToList (n: v:
         optionalString (v != null) ''
           ${n}=${
-            if
-              v == false
-            then
+            if v == false then
               "0"
             else
               toString v

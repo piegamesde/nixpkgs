@@ -32,15 +32,11 @@ stdenvNoCC.mkDerivation (attrs // {
   ];
 
   MIX_ENV = mixEnv;
-  MIX_DEBUG = if
-    debug
-  then
+  MIX_DEBUG = if debug then
     1
   else
     0;
-  DEBUG = if
-    debug
-  then
+  DEBUG = if debug then
     1
   else
     0; # for rebar3

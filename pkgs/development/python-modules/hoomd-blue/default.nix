@@ -17,9 +17,7 @@ let
     metal = true;
   };
   onOffBool = b:
-    if
-      b
-    then
+    if b then
       "ON"
     else
       "OFF";

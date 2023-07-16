@@ -51,9 +51,7 @@ assert withQt -> qt5 != null;
 
 let
   version = "4.0.5";
-  variant = if
-    withQt
-  then
+  variant = if withQt then
     "qt"
   else
     "cli";
@@ -75,17 +73,13 @@ stdenv.mkDerivation {
 
   cmakeFlags = [
     "-DBUILD_wireshark=${
-      if
-        withQt
-      then
+      if withQt then
         "ON"
       else
         "OFF"
     }"
     "-DENABLE_APPLICATION_BUNDLE=${
-      if
-        withQt && stdenv.isDarwin
-      then
+      if withQt && stdenv.isDarwin then
         "ON"
       else
         "OFF"
@@ -171,18 +165,18 @@ stdenv.mkDerivation {
     # to remove "cycle detected in the references"
     mkdir -p $dev/lib/wireshark
     mv $out/lib/wireshark/cmake $dev/lib/wireshark
-  '' + (if
-    stdenv.isDarwin && withQt
-  then ''
-    mkdir -p $out/Applications
-    mv $out/bin/Wireshark.app $out/Applications/Wireshark.app
+  '' + (if stdenv.isDarwin && withQt then
+    ''
+      mkdir -p $out/Applications
+      mv $out/bin/Wireshark.app $out/Applications/Wireshark.app
 
-    for f in $(find $out/Applications/Wireshark.app/Contents/PlugIns -name "*.so"); do
-        for dylib in $(otool -L $f | awk '/^\t*lib/ {print $1}'); do
-            install_name_tool -change "$dylib" "$out/lib/$dylib" "$f"
-        done
-    done
-  '' else
+      for f in $(find $out/Applications/Wireshark.app/Contents/PlugIns -name "*.so"); do
+          for dylib in $(otool -L $f | awk '/^\t*lib/ {print $1}'); do
+              install_name_tool -change "$dylib" "$out/lib/$dylib" "$f"
+          done
+      done
+    ''
+  else
     lib.optionalString withQt ''
       pwd
       install -Dm644 -t $out/share/applications ../resources/freedesktop/org.wireshark.Wireshark.desktop
@@ -231,9 +225,7 @@ stdenv.mkDerivation {
       bjornfor
       fpletz
     ];
-    mainProgram = if
-      withQt
-    then
+    mainProgram = if withQt then
       "wireshark"
     else
       "tshark";

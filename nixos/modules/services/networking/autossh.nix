@@ -84,9 +84,7 @@ in {
       lib.foldr (s: acc:
         acc // {
           "autossh-${s.name}" = let
-            mport = if
-              s ? monitoringPort
-            then
+            mport = if s ? monitoringPort then
               s.monitoringPort
             else
               0;

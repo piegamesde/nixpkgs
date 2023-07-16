@@ -16,9 +16,7 @@
 }:
 
 let
-  luaValue = if
-    luaSupport
-  then
+  luaValue = if luaSupport then
     lua5
   else
     "no";

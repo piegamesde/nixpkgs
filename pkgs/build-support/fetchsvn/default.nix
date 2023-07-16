@@ -28,18 +28,14 @@ let
       snd = l: head (tail l);
       trd = l: head (tail (tail l));
       path_ = (p:
-        if
-          head p == ""
-        then
+        if head p == "" then
           tail p
         else
           p) # ~ drop final slash if any
         (reverseList (splitString "/" url));
       path = [ (removeSuffix "/" (head path_)) ] ++ (tail path_);
       # ../repo/trunk -> repo
-    in if
-      fst path == "trunk"
-    then
+    in if fst path == "trunk" then
       snd path
       # ../repo/branches/branch -> repo-branch
     else if snd path == "branches" then
@@ -51,16 +47,12 @@ let
     else
       fst path;
 
-  name_ = if
-    name == null
-  then
+  name_ = if name == null then
     "${repoName}-r${toString rev}"
   else
     name;
 
-in if
-  md5 != ""
-then
+in if md5 != "" then
   throw "fetchsvn does not support md5 anymore, please use sha256"
 else
   stdenvNoCC.mkDerivation {
@@ -71,9 +63,7 @@ else
       glibcLocales
     ] ++ lib.optional sshSupport openssh;
 
-    SVN_SSH = if
-      sshSupport
-    then
+    SVN_SSH = if sshSupport then
       "${buildPackages.openssh}/bin/ssh"
     else
       null;

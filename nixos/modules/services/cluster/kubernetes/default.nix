@@ -335,9 +335,7 @@ in {
         services.kubernetes.addons.dns.enable = mkDefault true;
 
         services.kubernetes.apiserverAddress = mkDefault ("https://${
-            if
-              cfg.apiserver.advertiseAddress != null
-            then
+            if cfg.apiserver.advertiseAddress != null then
               cfg.apiserver.advertiseAddress
             else
               "${cfg.masterAddress}:${toString cfg.apiserver.securePort}"

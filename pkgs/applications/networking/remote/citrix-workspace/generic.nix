@@ -83,9 +83,7 @@ stdenv.mkDerivation rec {
     message = ''
       In order to use Citrix Workspace, you need to comply with the Citrix EULA and download
       the ${
-        if
-          stdenv.is64bit
-        then
+        if stdenv.is64bit then
           "64-bit"
         else
           "32-bit"
@@ -178,12 +176,12 @@ stdenv.mkDerivation rec {
 
   installPhase = let
     icaFlag = program:
-      if
-        (builtins.match "selfservice(.*)" program) != null
-      then
+      if (builtins.match "selfservice(.*)" program) != null then
         "--icaroot"
-      else if (lib.versionAtLeast version "21.12"
-        && builtins.match "wfica(.*)" program != null) then
+      else if
+        (lib.versionAtLeast version "21.12"
+          && builtins.match "wfica(.*)" program != null)
+      then
         null
       else
         "-icaroot";

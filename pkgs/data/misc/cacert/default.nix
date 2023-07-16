@@ -36,9 +36,7 @@ let
     (lib.concatStringsSep "\n\n" extraCertificateStrings);
 
   srcVersion = "3.86";
-  version = if
-    nssOverride != null
-  then
+  version = if nssOverride != null then
     nssOverride.version
   else
     srcVersion;
@@ -57,9 +55,7 @@ let
     pname = "nss-cacert-certdata";
     inherit version;
 
-    src = if
-      nssOverride != null
-    then
+    src = if nssOverride != null then
       nssOverride.src
     else
       fetchurl {

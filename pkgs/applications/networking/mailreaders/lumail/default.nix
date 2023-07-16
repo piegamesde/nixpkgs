@@ -17,26 +17,25 @@
 
 let
   version = "3.1";
-  binaryName = if
-    debugBuild
-  then
+  binaryName = if debugBuild then
     "lumail2-debug"
   else
     "lumail2";
   alternativeConfig = builtins.toFile "lumail2.lua"
     (builtins.readFile alternativeGlobalConfigFilePath);
 
-  globalConfig = if
-    alternativeGlobalConfigFilePath == null
-  then ''
-    mkdir -p $out/etc/lumail2
-    cp global.config.lua $out/etc/lumail2.lua
-    for n in ./lib/*.lua; do
-      cp "$n" $out/etc/lumail2/
-    done
-  '' else ''
-    ln -s ${alternativeConfig} $out/etc/lumail2.lua
-  '';
+  globalConfig = if alternativeGlobalConfigFilePath == null then
+    ''
+      mkdir -p $out/etc/lumail2
+      cp global.config.lua $out/etc/lumail2.lua
+      for n in ./lib/*.lua; do
+        cp "$n" $out/etc/lumail2/
+      done
+    ''
+  else
+    ''
+      ln -s ${alternativeConfig} $out/etc/lumail2.lua
+    '';
 
   getPath = type: "${lua}/lib/?.${type};";
   luaPath = getPath "lua";

@@ -40,9 +40,7 @@ stdenv.mkDerivation rec {
   dontWrapQtApps = true;
 
   cmakeFlags = [ "-DCMAKE_BUILD_TYPE=${
-      if
-        debug
-      then
+      if debug then
         "Debug"
       else
         "Release"

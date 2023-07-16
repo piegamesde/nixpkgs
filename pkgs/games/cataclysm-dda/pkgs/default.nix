@@ -16,9 +16,7 @@ let
   pkgs' = lib.mapAttrs (_: mods: lib.filterAttrs isAvailable mods) pkgs;
 
   isAvailable = _: mod:
-    if
-      (build == null)
-    then
+    if (build == null) then
       true
     else if build.isTiles then
       mod.forTiles or false

@@ -9,9 +9,7 @@
 }:
 
 let
-  arch = if
-    stdenv.isAarch64
-  then
+  arch = if stdenv.isAarch64 then
     "arm64"
   else
     "x86_64";

@@ -27,9 +27,7 @@ let
     ];
 
   mkArgs = rule:
-    if
-      (rule.args == null)
-    then
+    if (rule.args == null) then
       ""
     else if (length rule.args == 0) then
       "args"

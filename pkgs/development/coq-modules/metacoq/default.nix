@@ -67,21 +67,15 @@ let
 
   metacoq_ = package:
     let
-      metacoq-deps = if
-        package == "single"
-      then
+      metacoq-deps = if package == "single" then
         [ ]
       else
         map metacoq_ (head (splitList (lib.pred.equal package) packages));
-      pkgpath = if
-        package == "single"
-      then
+      pkgpath = if package == "single" then
         "./"
       else
         "./${package}";
-      pname = if
-        package == "all"
-      then
+      pname = if package == "all" then
         "metacoq"
       else
         "metacoq-${package}";
@@ -145,9 +139,7 @@ let
     derivation
   ;
 in
-metacoq_ (if
-  single
-then
+metacoq_ (if single then
   "single"
 else
   "all")

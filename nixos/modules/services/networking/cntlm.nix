@@ -11,9 +11,7 @@ let
 
   cfg = config.services.cntlm;
 
-  configFile = if
-    cfg.configText != ""
-  then
+  configFile = if cfg.configText != "" then
     pkgs.writeText "cntlm.conf" ''
       ${cfg.configText}
     ''

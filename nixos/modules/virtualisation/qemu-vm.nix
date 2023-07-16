@@ -67,12 +67,8 @@ let
       useEFIBoot,
       useDefaultFilesystems,
     }:
-    if
-      useDefaultFilesystems
-    then
-      if
-        useEFIBoot
-      then
+    if useDefaultFilesystems then
+      if useEFIBoot then
         "efi"
       else
         "legacy"
@@ -97,9 +93,7 @@ let
         inherit file;
       });
       deviceOpts = mkOpts (deviceExtraOpts // { drive = drvId; });
-      device = if
-        cfg.qemu.diskInterface == "scsi"
-      then
+      device = if cfg.qemu.diskInterface == "scsi" then
         "-device lsi53c895a -device scsi-hd,${deviceOpts}"
       else
         "-device virtio-blk-pci,${deviceOpts}";
@@ -116,9 +110,7 @@ let
   driveDeviceName = idx:
     let
       letter = elemAt lowerChars (idx - 1);
-    in if
-      cfg.qemu.diskInterface == "scsi"
-    then
+    in if cfg.qemu.diskInterface == "scsi" then
       "/dev/sd${letter}"
     else
       "/dev/vd${letter}";
@@ -172,36 +164,37 @@ let
         TMPDIR=$(mktemp -d nix-vm.XXXXXXXXXX --tmpdir)
     fi
 
-    ${lib.optionalString (cfg.useNixStoreImage) (if
-      cfg.writableStore
-    then ''
-      # Create a writable copy/snapshot of the store image.
-      ${qemu}/bin/qemu-img create -f qcow2 -F qcow2 -b ${storeImage}/nixos.qcow2 "$TMPDIR"/store.img
-    '' else ''
-      (
-        cd ${builtins.storeDir}
-        ${pkgs.erofs-utils}/bin/mkfs.erofs \
-          --force-uid=0 \
-          --force-gid=0 \
-          -U eb176051-bd15-49b7-9e6b-462e0b467019 \
-          -T 0 \
-          --exclude-regex="$(
-            <${
-              pkgs.closureInfo {
-                rootPaths = [
-                  config.system.build.toplevel
-                  regInfo
-                ];
-              }
-            }/store-paths \
-              sed -e 's^.*/^^g' \
-            | cut -c -10 \
-            | ${pkgs.python3}/bin/python ${./includes-to-excludes.py} )" \
-          "$TMPDIR"/store.img \
-          . \
-          </dev/null >/dev/null
-      )
-    '')}
+    ${lib.optionalString (cfg.useNixStoreImage) (if cfg.writableStore then
+      ''
+        # Create a writable copy/snapshot of the store image.
+        ${qemu}/bin/qemu-img create -f qcow2 -F qcow2 -b ${storeImage}/nixos.qcow2 "$TMPDIR"/store.img
+      ''
+    else
+      ''
+        (
+          cd ${builtins.storeDir}
+          ${pkgs.erofs-utils}/bin/mkfs.erofs \
+            --force-uid=0 \
+            --force-gid=0 \
+            -U eb176051-bd15-49b7-9e6b-462e0b467019 \
+            -T 0 \
+            --exclude-regex="$(
+              <${
+                pkgs.closureInfo {
+                  rootPaths = [
+                    config.system.build.toplevel
+                    regInfo
+                  ];
+                }
+              }/store-paths \
+                sed -e 's^.*/^^g' \
+              | cut -c -10 \
+              | ${pkgs.python3}/bin/python ${./includes-to-excludes.py} )" \
+            "$TMPDIR"/store.img \
+            . \
+            </dev/null >/dev/null
+        )
+      '')}
 
     # Create a directory for exchanging data with the VM.
     mkdir -p "$TMPDIR/xchg"
@@ -300,15 +293,9 @@ let
     copyChannel = false;
   };
 
-  bootConfiguration = if
-    cfg.useDefaultFilesystems
-  then
-    if
-      cfg.useBootLoader
-    then
-      if
-        cfg.useEFIBoot
-      then
+  bootConfiguration = if cfg.useDefaultFilesystems then
+    if cfg.useBootLoader then
+      if cfg.useEFIBoot then
         "efi_bootloading_with_default_fs"
       else
         "legacy_bootloading_with_default_fs"
@@ -412,9 +399,7 @@ in {
 
     virtualisation.bootPartition = mkOption {
       type = types.nullOr types.path;
-      default = if
-        cfg.useEFIBoot
-      then
+      default = if cfg.useEFIBoot then
         "${cfg.bootLoaderDevice}1"
       else
         null;
@@ -698,9 +683,7 @@ in {
             "${qemu-common.qemuSerialDevice},115200n8"
             "tty0"
           ];
-        in if
-          cfg.graphics
-        then
+        in if cfg.graphics then
           consoles
         else
           reverseList consoles;
@@ -926,9 +909,7 @@ in {
     # legacy and UEFI. In order to avoid this, we have to put "nodev" to force UEFI-only installs.
     # Otherwise, we set the proper bootloader device for this.
     # FIXME: make a sense of this mess wrt to multiple ESP present in the system, probably use boot.efiSysMountpoint?
-    boot.loader.grub.device = mkVMOverride (if
-      cfg.useEFIBoot
-    then
+    boot.loader.grub.device = mkVMOverride (if cfg.useEFIBoot then
       "nodev"
     else
       cfg.bootLoaderDevice);
@@ -1023,9 +1004,7 @@ in {
           host,
           guest,
         }:
-        if
-          from == "host"
-        then
+        if from == "host" then
           "hostfwd=${proto}:${host.address}:${toString host.port}-"
           + "${guest.address}:${toString guest.port},"
         else
@@ -1060,9 +1039,7 @@ in {
         # Replace all non-alphanumeric characters with underscores
         sanitizeShellIdent = s:
           concatMapStrings (c:
-            if
-              builtins.elem c alphaNumericChars
-            then
+            if builtins.elem c alphaNumericChars then
               c
             else
               "_") (stringToCharacters s);
@@ -1096,9 +1073,7 @@ in {
         name = "nix-store";
         file = ''"$TMPDIR"/store.img'';
         deviceExtraOpts.bootindex = "2";
-        driveExtraOpts.format = if
-          cfg.writableStore
-        then
+        driveExtraOpts.format = if cfg.writableStore then
           "qcow2"
         else
           "raw";
@@ -1119,9 +1094,7 @@ in {
     # test image (since those filesystems don't exist in the VM).
     virtualisation.fileSystems = let
       mkSharedDir = tag: share: {
-        name = if
-          tag == "nix-store" && cfg.writableStore
-        then
+        name = if tag == "nix-store" && cfg.writableStore then
           "/nix/.ro-store"
         else
           share.target;
@@ -1138,16 +1111,17 @@ in {
     lib.mkMerge [
       (lib.mapAttrs' mkSharedDir cfg.sharedDirectories)
       {
-        "/" = lib.mkIf cfg.useDefaultFilesystems (if
-          cfg.diskImage == null
-        then {
-          device = "tmpfs";
-          fsType = "tmpfs";
-        } else {
-          device = cfg.rootDevice;
-          fsType = "ext4";
-          autoFormat = true;
-        });
+        "/" = lib.mkIf cfg.useDefaultFilesystems (if cfg.diskImage == null then
+          {
+            device = "tmpfs";
+            fsType = "tmpfs";
+          }
+        else
+          {
+            device = cfg.rootDevice;
+            fsType = "ext4";
+            autoFormat = true;
+          });
         "/tmp" = lib.mkIf config.boot.tmp.useTmpfs {
           device = "tmpfs";
           fsType = "tmpfs";
@@ -1162,9 +1136,7 @@ in {
           ];
         };
         "/nix/${
-          if
-            cfg.writableStore
-          then
+          if cfg.writableStore then
             ".ro-store"
           else
             "store"
@@ -1216,15 +1188,11 @@ in {
         };
       };
 
-    swapDevices = (if
-      cfg.useDefaultFilesystems
-    then
+    swapDevices = (if cfg.useDefaultFilesystems then
       mkVMOverride
     else
       mkDefault) [ ];
-    boot.initrd.luks.devices = (if
-      cfg.useDefaultFilesystems
-    then
+    boot.initrd.luks.devices = (if cfg.useDefaultFilesystems then
       mkVMOverride
     else
       mkDefault) { };

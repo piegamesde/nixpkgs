@@ -152,18 +152,14 @@ let
 
       # Check that every extension has a unqiue .name attribute
       # and an extid attribute
-      extensions = if
-        nameArray != (lib.unique nameArray)
-      then
+      extensions = if nameArray != (lib.unique nameArray) then
         throw "Firefox addon name needs to be unique"
       else if requiresSigning && !lib.hasSuffix "esr" browser.name then
         throw
         "Nix addons are only supported without signature enforcement (eg. Firefox ESR)"
       else
         builtins.map (a:
-          if
-            !(builtins.hasAttr "extid" a)
-          then
+          if !(builtins.hasAttr "extid" a) then
             throw
             "nixExtensions has an invalid entry. Missing extid attribute. Please use fetchfirefoxaddon"
           else
@@ -225,72 +221,73 @@ let
         startupNotify = true;
         startupWMClass = wmClass;
         terminal = false;
-      } // (if
-        libName == "thunderbird"
-      then {
-        genericName = "Email Client";
-        comment =
-          "Read and write e-mails or RSS feeds, or manage tasks on calendars.";
-        categories = [
-          "Network"
-          "Chat"
-          "Email"
-          "Feed"
-          "GTK"
-          "News"
-        ];
-        keywords = [
-          "mail"
-          "email"
-          "e-mail"
-          "messages"
-          "rss"
-          "calendar"
-          "address book"
-          "addressbook"
-          "chat"
-        ];
-        mimeTypes = [
-          "message/rfc822"
-          "x-scheme-handler/mailto"
-          "text/calendar"
-          "text/x-vcard"
-        ];
-        actions = {
-          profile-manager-window = {
-            name = "Profile Manager";
-            exec = "${launcherName} --ProfileManager";
+      } // (if libName == "thunderbird" then
+        {
+          genericName = "Email Client";
+          comment =
+            "Read and write e-mails or RSS feeds, or manage tasks on calendars.";
+          categories = [
+            "Network"
+            "Chat"
+            "Email"
+            "Feed"
+            "GTK"
+            "News"
+          ];
+          keywords = [
+            "mail"
+            "email"
+            "e-mail"
+            "messages"
+            "rss"
+            "calendar"
+            "address book"
+            "addressbook"
+            "chat"
+          ];
+          mimeTypes = [
+            "message/rfc822"
+            "x-scheme-handler/mailto"
+            "text/calendar"
+            "text/x-vcard"
+          ];
+          actions = {
+            profile-manager-window = {
+              name = "Profile Manager";
+              exec = "${launcherName} --ProfileManager";
+            };
           };
-        };
-      } else {
-        genericName = "Web Browser";
-        categories = [
-          "Network"
-          "WebBrowser"
-        ];
-        mimeTypes = [
-          "text/html"
-          "text/xml"
-          "application/xhtml+xml"
-          "application/vnd.mozilla.xul+xml"
-          "x-scheme-handler/http"
-          "x-scheme-handler/https"
-        ];
-        actions = {
-          new-window = {
-            name = "New Window";
-            exec = "${launcherName} --new-window %U";
+        }
+      else
+        {
+          genericName = "Web Browser";
+          categories = [
+            "Network"
+            "WebBrowser"
+          ];
+          mimeTypes = [
+            "text/html"
+            "text/xml"
+            "application/xhtml+xml"
+            "application/vnd.mozilla.xul+xml"
+            "x-scheme-handler/http"
+            "x-scheme-handler/https"
+          ];
+          actions = {
+            new-window = {
+              name = "New Window";
+              exec = "${launcherName} --new-window %U";
+            };
+            new-private-window = {
+              name = "New Private Window";
+              exec = "${launcherName} --private-window %U";
+            };
+            profile-manager-window = {
+              name = "Profile Manager";
+              exec = "${launcherName} --ProfileManager";
+            };
           };
-          new-private-window = {
-            name = "New Private Window";
-            exec = "${launcherName} --private-window %U";
-          };
-          profile-manager-window = {
-            name = "Profile Manager";
-            exec = "${launcherName} --ProfileManager";
-          };
-        };
-      }));
+        }));
 
       nativeBuildInputs = [
         makeWrapper

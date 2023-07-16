@@ -70,17 +70,13 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DENABLE_GTK_DOC=False"
     "-DGOBJECT_INTROSPECTION=${
-      if
-        withIntrospection
-      then
+      if withIntrospection then
         "True"
       else
         "False"
     }"
     "-DICAL_GLIB_VAPI=${
-      if
-        withIntrospection
-      then
+      if withIntrospection then
         "True"
       else
         "False"
@@ -101,15 +97,15 @@ stdenv.mkDerivation rec {
   # Musl does not support TZDIR.
   doInstallCheck = !stdenv.hostPlatform.isMusl;
   enableParallelChecking = false;
-  preInstallCheck = if
-    stdenv.isDarwin
-  then ''
-    for testexe in $(find ./src/test -maxdepth 1 -type f -executable); do
-      for lib in $(cd lib && ls *.3.dylib); do
-        install_name_tool -change $lib $out/lib/$lib $testexe
+  preInstallCheck = if stdenv.isDarwin then
+    ''
+      for testexe in $(find ./src/test -maxdepth 1 -type f -executable); do
+        for lib in $(cd lib && ls *.3.dylib); do
+          install_name_tool -change $lib $out/lib/$lib $testexe
+        done
       done
-    done
-  '' else
+    ''
+  else
     null;
   installCheckPhase = ''
     runHook preInstallCheck

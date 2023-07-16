@@ -31,9 +31,7 @@ stdenv.mkDerivation (args // {
       matthewbauer
     ];
     platforms = lib.platforms.linux;
-  } // (if
-    builtins.hasAttr "meta" args
-  then
+  } // (if builtins.hasAttr "meta" args then
     args.meta
   else
     { });

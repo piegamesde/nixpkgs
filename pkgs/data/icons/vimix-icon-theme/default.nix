@@ -57,9 +57,7 @@ stdenvNoCC.mkDerivation rec {
 
     ./install.sh \
       ${
-        if
-          colorVariants != [ ]
-        then
+        if colorVariants != [ ] then
           builtins.toString colorVariants
         else
           "-a"

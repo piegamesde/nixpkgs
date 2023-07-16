@@ -214,9 +214,7 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     binName=${
-      if
-        stdenv.isLinux
-      then
+      if stdenv.isLinux then
         "kotatogram-desktop"
       else
         "Kotatogram"

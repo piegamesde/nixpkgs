@@ -30,9 +30,7 @@ let
     "--max-sql-memory=${cfg.maxSqlMemory}"
 
     # Certificate/security settings.
-    (if
-      cfg.insecure
-    then
+    (if cfg.insecure then
       "--insecure"
     else
       "--certs-dir=${cfg.certsDir}")

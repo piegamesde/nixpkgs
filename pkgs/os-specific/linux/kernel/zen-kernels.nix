@@ -41,9 +41,7 @@ let
 
       passthru.updateScript = [
         ./update-zen.py
-        (if
-          isLqx
-        then
+        (if isLqx then
           "lqx"
         else
           "zen")

@@ -75,9 +75,7 @@ in {
 
       package = mkOption {
         type = types.package;
-        default = if
-          cfg.database.type == "mysql"
-        then
+        default = if cfg.database.type == "mysql" then
           pkgs.zabbix.server-mysql
         else
           pkgs.zabbix.server-pgsql;
@@ -138,9 +136,7 @@ in {
 
         port = mkOption {
           type = types.port;
-          default = if
-            cfg.database.type == "mysql"
-          then
+          default = if cfg.database.type == "mysql" then
             mysql.port
           else
             pgsql.port;

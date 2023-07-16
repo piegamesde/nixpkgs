@@ -7,9 +7,7 @@
   systemdMinimal,
 }:
 let
-  binDirPrefix = if
-    stdenv.isDarwin
-  then
+  binDirPrefix = if stdenv.isDarwin then
     "osx_"
   else
     "linux_";

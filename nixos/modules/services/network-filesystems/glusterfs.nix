@@ -10,22 +10,23 @@ with lib;
 let
   inherit (pkgs) glusterfs rsync;
 
-  tlsCmd = if
-    (cfg.tlsSettings != null)
-  then ''
-    mkdir -p /var/lib/glusterd
-    touch /var/lib/glusterd/secure-access
-  '' else ''
-    rm -f /var/lib/glusterd/secure-access
-  '';
+  tlsCmd = if (cfg.tlsSettings != null) then
+    ''
+      mkdir -p /var/lib/glusterd
+      touch /var/lib/glusterd/secure-access
+    ''
+  else
+    ''
+      rm -f /var/lib/glusterd/secure-access
+    '';
 
-  restartTriggers = if
-    (cfg.tlsSettings != null)
-  then [
-    config.environment.etc."ssl/glusterfs.pem".source
-    config.environment.etc."ssl/glusterfs.key".source
-    config.environment.etc."ssl/glusterfs.ca".source
-  ] else
+  restartTriggers = if (cfg.tlsSettings != null) then
+    [
+      config.environment.etc."ssl/glusterfs.pem".source
+      config.environment.etc."ssl/glusterfs.key".source
+      config.environment.etc."ssl/glusterfs.ca".source
+    ]
+  else
     [ ];
 
   cfg = config.services.glusterfs;

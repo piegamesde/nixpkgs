@@ -38,9 +38,7 @@ stdenv.mkDerivation rec {
 
   preBuild = ''
     pushd ${
-      if
-        stdenv.isDarwin
-      then
+      if stdenv.isDarwin then
         "macos/cmdline"
       else
         "unix"
@@ -48,8 +46,10 @@ stdenv.mkDerivation rec {
   '';
 
   # TODO: build graphic version for darwin
-  buildFlags = (if stdenv.isDarwin then [ "nox" ] else [ "all" ])
-    ++ [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  buildFlags = (if stdenv.isDarwin then
+    [ "nox" ]
+  else
+    [ "all" ]) ++ [ "CC=${stdenv.cc.targetPrefix}cc" ];
 
   postBuild = ''
     popd
@@ -61,9 +61,7 @@ stdenv.mkDerivation rec {
     runHook preCheck
 
     bin/${
-      if
-        stdenv.isDarwin
-      then
+      if stdenv.isDarwin then
         "minimacyMac"
       else
         "minimacy"

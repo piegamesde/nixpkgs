@@ -12,9 +12,7 @@
 
 let
   oz = x:
-    if
-      x
-    then
+    if x then
       "1"
     else
       "0";

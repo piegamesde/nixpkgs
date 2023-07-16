@@ -53,9 +53,7 @@ stdenv.mkDerivation rec {
     "-C src"
     "DESTDIR=$(out)/bin"
   ];
-  buildFlags = [ (if
-    stdenv.isDarwin
-  then
+  buildFlags = [ (if stdenv.isDarwin then
     "mac"
   else
     "linux-alsa") ];

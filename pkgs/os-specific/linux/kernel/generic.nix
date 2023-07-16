@@ -158,9 +158,7 @@ let
 
     platformName = stdenv.hostPlatform.linux-kernel.name;
     # e.g. "defconfig"
-    kernelBaseConfig = if
-      defconfig != null
-    then
+    kernelBaseConfig = if defconfig != null then
       defconfig
     else
       stdenv.hostPlatform.linux-kernel.baseConfig;
@@ -272,9 +270,7 @@ let
         override = args:
           lib.warn
           ("override is stubbed for NixOS kernel tests, not applying changes these arguments: "
-            + toString (lib.attrNames (if
-              lib.isAttrs args
-            then
+            + toString (lib.attrNames (if lib.isAttrs args then
               args
             else
               args { }))) overridableKernel;

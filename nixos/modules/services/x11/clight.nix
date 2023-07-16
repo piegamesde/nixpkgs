@@ -11,9 +11,7 @@ let
   cfg = config.services.clight;
 
   toConf = v:
-    if
-      builtins.isFloat v
-    then
+    if builtins.isFloat v then
       toString v
     else if isInt v then
       toString v
@@ -34,9 +32,7 @@ let
       abort "clight.toConf: unexpected type (v = ${v})";
 
   getSep = v:
-    if
-      isAttrs v
-    then
+    if isAttrs v then
       ":"
     else
       "=";

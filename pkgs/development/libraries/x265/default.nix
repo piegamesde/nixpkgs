@@ -37,9 +37,7 @@
 
 let
   mkFlag = optSet: flag:
-    if
-      optSet
-    then
+    if optSet then
       "-D${flag}=ON"
     else
       "-D${flag}=OFF";
@@ -144,9 +142,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = cmakeCommonFlags ++ [
     "-DGIT_ARCHETYPE=1" # https://bugs.gentoo.org/814116
     "-DENABLE_SHARED=${
-      if
-        stdenv.hostPlatform.isStatic
-      then
+      if stdenv.hostPlatform.isStatic then
         "OFF"
       else
         "ON"

@@ -9,9 +9,7 @@ mkCoqDerivation {
   pname = "LibHyps";
   owner = "Matafou";
   inherit version;
-  defaultVersion = if
-    (lib.versions.range "8.11" "8.17") coq.version
-  then
+  defaultVersion = if (lib.versions.range "8.11" "8.17") coq.version then
     "2.0.4.1"
   else
     null;

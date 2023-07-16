@@ -91,9 +91,7 @@ let
       crateName = crateArgs.crateName or "nixtestcrate";
       libName = crateArgs.libName or crateName;
 
-      libTestBinary = if
-        !isLib
-      then
+      libTestBinary = if !isLib then
         null
       else
         mkHostCrate {
@@ -108,37 +106,40 @@ let
 
     runCommand "run-buildRustCrate-${crateName}-test" {
       nativeBuildInputs = [ crate ];
-    } (if
-      !hasTests
-    then ''
-      ${lib.concatMapStringsSep "\n" (binary:
-        # Can't actually run the binary when cross-compiling
-        (lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
-          "type ") + binary) binaries}
-      ${lib.optionalString isLib ''
-        test -e ${crate}/lib/*.rlib || exit 1
-        ${
-          lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
-          "test -x "
-        } \
-          ${libTestBinary}/bin/run-test-${crateName}
-      ''}
-      touch $out
-    '' else if stdenv.hostPlatform == stdenv.buildPlatform then ''
-      for file in ${crate}/tests/*; do
-        $file 2>&1 >> $out
-      done
-      set -e
-      ${lib.concatMapStringsSep "\n" (o:
-        ''
-          grep '${o}' $out || {  echo 'output "${o}" not found in:'; cat $out; exit 23; }'')
-      expectedTestOutputs}
-    '' else ''
-      for file in ${crate}/tests/*; do
-        test -x "$file"
-      done
-      touch "$out"
-    '')
+    } (if !hasTests then
+      ''
+        ${lib.concatMapStringsSep "\n" (binary:
+          # Can't actually run the binary when cross-compiling
+          (lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
+            "type ") + binary) binaries}
+        ${lib.optionalString isLib ''
+          test -e ${crate}/lib/*.rlib || exit 1
+          ${
+            lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
+            "test -x "
+          } \
+            ${libTestBinary}/bin/run-test-${crateName}
+        ''}
+        touch $out
+      ''
+    else if stdenv.hostPlatform == stdenv.buildPlatform then
+      ''
+        for file in ${crate}/tests/*; do
+          $file 2>&1 >> $out
+        done
+        set -e
+        ${lib.concatMapStringsSep "\n" (o:
+          ''
+            grep '${o}' $out || {  echo 'output "${o}" not found in:'; cat $out; exit 23; }'')
+        expectedTestOutputs}
+      ''
+    else
+      ''
+        for file in ${crate}/tests/*; do
+          test -x "$file"
+        done
+        touch "$out"
+      '')
   ;
 
   /* Returns a derivation that asserts that the crate specified by `crateArgs`
@@ -168,9 +169,7 @@ let
     let
       crate =
         mkHostCrate (builtins.removeAttrs crateArgs [ "expectedTestOutput" ]);
-      crateOutput = if
-        output == null
-      then
+      crateOutput = if output == null then
         crate
       else
         crate."${output}";
@@ -719,13 +718,15 @@ in rec {
     brotliTest = let
       pkg = brotliCrates.brotli_2_5_0 { };
     in
-    runCommand "run-brotli-test-cmd" { nativeBuildInputs = [ pkg ]; } (if
-      stdenv.hostPlatform == stdenv.buildPlatform
-    then ''
-      ${pkg}/bin/brotli -c ${pkg}/bin/brotli > /dev/null && touch $out
-    '' else ''
-      test -x '${pkg}/bin/brotli' && touch $out
-    '')
+    runCommand "run-brotli-test-cmd" { nativeBuildInputs = [ pkg ]; }
+    (if stdenv.hostPlatform == stdenv.buildPlatform then
+      ''
+        ${pkg}/bin/brotli -c ${pkg}/bin/brotli > /dev/null && touch $out
+      ''
+    else
+      ''
+        test -x '${pkg}/bin/brotli' && touch $out
+      '')
     ;
     allocNoStdLibTest = let
       pkg = brotliCrates.alloc_no_stdlib_1_3_0 { };
@@ -749,13 +750,15 @@ in rec {
     rcgenTest = let
       pkg = rcgenCrates.rootCrate.build;
     in
-    runCommand "run-rcgen-test-cmd" { nativeBuildInputs = [ pkg ]; } (if
-      stdenv.hostPlatform == stdenv.buildPlatform
-    then ''
-      ${pkg}/bin/rcgen && touch $out
-    '' else ''
-      test -x '${pkg}/bin/rcgen' && touch $out
-    '')
+    runCommand "run-rcgen-test-cmd" { nativeBuildInputs = [ pkg ]; }
+    (if stdenv.hostPlatform == stdenv.buildPlatform then
+      ''
+        ${pkg}/bin/rcgen && touch $out
+      ''
+    else
+      ''
+        test -x '${pkg}/bin/rcgen' && touch $out
+      '')
     ;
   }
   ;

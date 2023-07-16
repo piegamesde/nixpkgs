@@ -14,16 +14,12 @@ let
   opt = options.services.ntopng;
 
   createRedis = cfg.redis.createInstance != null;
-  redisService = if
-    cfg.redis.createInstance == ""
-  then
+  redisService = if cfg.redis.createInstance == "" then
     "redis.service"
   else
     "redis-${cfg.redis.createInstance}.service";
 
-  configFile = if
-    cfg.configText != ""
-  then
+  configFile = if cfg.configText != "" then
     pkgs.writeText "ntopng.conf" ''
       ${cfg.configText}
     ''

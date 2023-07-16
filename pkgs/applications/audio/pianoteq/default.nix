@@ -21,9 +21,7 @@ let
       name,
       src,
       version,
-      archdir ? if
-        (stdenv.hostPlatform.system == "aarch64-linux")
-      then
+      archdir ? if (stdenv.hostPlatform.system == "aarch64-linux") then
         "arm-64bit"
       else
         "x86-64bit",
@@ -229,9 +227,7 @@ in {
   stage-6 = mkPianoteq rec {
     name = "stage-6";
     version = "6.7.3";
-    archdir = if
-      (stdenv.hostPlatform.system == "aarch64-linux")
-    then
+    archdir = if (stdenv.hostPlatform.system == "aarch64-linux") then
       throw "Pianoteq stage-6 is not supported on aarch64-linux"
     else
       "amd64";

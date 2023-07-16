@@ -35,17 +35,18 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-  '' + (if
-    stdenv.isDarwin
-  then ''
-    mkdir -p $out/{Applications,bin}
-    mv odalaunch/odalaunch.app $out/Applications
-    makeWrapper $out/{Applications/odalaunch.app/Contents/MacOS,bin}/odalaunch
-  '' else ''
-    make install
-  '') + ''
-    runHook postInstall
-  '';
+  '' + (if stdenv.isDarwin then
+    ''
+      mkdir -p $out/{Applications,bin}
+      mv odalaunch/odalaunch.app $out/Applications
+      makeWrapper $out/{Applications/odalaunch.app/Contents/MacOS,bin}/odalaunch
+    ''
+  else
+    ''
+      make install
+    '') + ''
+      runHook postInstall
+    '';
 
   meta = {
     homepage = "http://odamex.net/";

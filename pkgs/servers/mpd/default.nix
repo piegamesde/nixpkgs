@@ -180,23 +180,17 @@ let
         ++ builtins.attrNames nativeFeatureDependencies;
       platformFeatures = lib.subtractLists platformMask knownFeatures;
 
-      features_ = if
-        (features == null)
-      then
+      features_ = if (features == null) then
         platformFeatures
       else
         let
           unknown = lib.subtractLists knownFeatures features;
-        in if
-          (unknown != [ ])
-        then
+        in if (unknown != [ ]) then
           throw "Unknown feature(s): ${lib.concatStringsSep " " unknown}"
         else
           let
             unsupported = lib.subtractLists platformFeatures features;
-          in if
-            (unsupported != [ ])
-          then
+          in if (unsupported != [ ]) then
             throw "Feature(s) ${
               lib.concatStringsSep " " unsupported
             } are not supported on ${stdenv.hostPlatform.system}"

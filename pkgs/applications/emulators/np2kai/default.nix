@@ -63,21 +63,15 @@ let
     SDL2_ttf
     SDL2_mixer
   ];
-  sdlDepsBuildonly = if
-    isSDL2
-  then
+  sdlDepsBuildonly = if isSDL2 then
     sdlDeps1
   else
     sdlDeps2;
-  sdlDepsTarget = if
-    isSDL2
-  then
+  sdlDepsTarget = if isSDL2 then
     sdlDeps2
   else
     sdlDeps1;
-  sdlMakefileSuffix = if
-    stdenv.hostPlatform.isWindows
-  then
+  sdlMakefileSuffix = if stdenv.hostPlatform.isWindows then
     "win"
   else if stdenv.hostPlatform.isDarwin then
     "mac"
@@ -93,7 +87,13 @@ let
   x11ConfigureFlags = concatStringsSep " " ((if
     ((enableHAXM && (enable16Bit || enable32Bit))
       || (enable16Bit && enable32Bit))
-  then [ "--enable-build-all" ] else if enableHAXM then [ "--enable-haxm" ] else if enable32Bit then [ "--enable-ia32" ] else
+  then
+    [ "--enable-build-all" ]
+  else if enableHAXM then
+    [ "--enable-haxm" ]
+  else if enable32Bit then
+    [ "--enable-ia32" ]
+  else
     [ ]) ++ optionals (!isSDL2) [
       "--enable-sdl"
       "--enable-sdlmixer"

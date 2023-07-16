@@ -7,9 +7,7 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = if
-    withoutInitTools
-  then
+  pname = if withoutInitTools then
     "sysvtools"
   else
     "sysvinit";

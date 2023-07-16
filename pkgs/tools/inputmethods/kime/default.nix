@@ -33,9 +33,7 @@ let
     ++ lib.optionals withQt6 [ "-DENABLE_QT6=ON" ];
 
   optFlag = w:
-    (if
-      w
-    then
+    (if w then
       "1"
     else
       "0");

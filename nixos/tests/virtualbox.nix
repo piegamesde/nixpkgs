@@ -114,9 +114,7 @@ let
       rotated = map (i: "${logfile}.${toString i}") (range 1 9);
       all = concatMapStringsSep " " (f: ''"${f}"'') ([ logfile ] ++ rotated);
       logcmd = ''tail -F ${all} 2> /dev/null | logger -t "${tag}"'';
-    in if
-      debug
-    then
+    in if debug then
       "machine.execute(ru('${logcmd} & disown'))"
     else
       "pass";
@@ -124,9 +122,7 @@ let
   testVM = vmName: vmScript:
     let
       cfg = (import ../lib/eval-config.nix {
-        system = if
-          use64bitGuest
-        then
+        system = if use64bitGuest then
           "x86_64-linux"
         else
           "i686-linux";
@@ -183,9 +179,7 @@ let
 
       createFlags = mkFlags [
         "--ostype ${
-          if
-            use64bitGuest
-          then
+          if use64bitGuest then
             "Linux26_64"
           else
             "Linux26"
@@ -583,9 +577,7 @@ mapAttrs (mkVBoxTest false vboxVMs) {
     destroy_vm_test1()
     destroy_vm_test2()
   '';
-} // (if
-  enableUnfree
-then
+} // (if enableUnfree then
   unfreeTests
 else
   { })

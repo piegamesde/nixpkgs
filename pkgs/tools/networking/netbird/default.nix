@@ -20,15 +20,14 @@
   ui ? false
 }:
 let
-  modules = if
-    ui
-  then {
-    "client/ui" = "netbird-ui";
-  } else {
-    client = "netbird";
-    management = "netbird-mgmt";
-    signal = "netbird-signal";
-  };
+  modules = if ui then
+    { "client/ui" = "netbird-ui"; }
+  else
+    {
+      client = "netbird";
+      management = "netbird-mgmt";
+      signal = "netbird-signal";
+    };
 in
 buildGoModule rec {
   pname = "netbird";

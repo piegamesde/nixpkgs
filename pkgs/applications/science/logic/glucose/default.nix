@@ -18,9 +18,7 @@ stdenv.mkDerivation rec {
   };
 
   sourceRoot = "glucose-${version}/sources/${
-      if
-        enableUnfree
-      then
+      if enableUnfree then
         "parallel"
       else
         "simp"
@@ -49,17 +47,13 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Modern, parallel SAT solver (${
-        if
-          enableUnfree
-        then
+        if enableUnfree then
           "parallel"
         else
           "sequential"
       } version)";
     homepage = "https://www.labri.fr/perso/lsimon/research/glucose/";
-    license = if
-      enableUnfree
-    then
+    license = if enableUnfree then
       licenses.unfreeRedistributable
     else
       licenses.mit;

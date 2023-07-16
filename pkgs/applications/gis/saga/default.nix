@@ -79,9 +79,7 @@ mkDerivation rec {
     ];
 
   cmakeFlags = [ "-DOpenMP_SUPPORT=${
-      if
-        stdenv.isDarwin
-      then
+      if stdenv.isDarwin then
         "OFF"
       else
         "ON"

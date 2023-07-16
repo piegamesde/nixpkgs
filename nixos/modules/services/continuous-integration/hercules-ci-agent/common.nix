@@ -159,9 +159,7 @@ let
     };
 
   # TODO (roberth, >=2022) remove
-  checkNix = if
-    !cfg.checkNix
-  then
+  checkNix = if !cfg.checkNix then
     ""
   else if lib.versionAtLeast config.nix.package.version "2.3.10" then
     ""

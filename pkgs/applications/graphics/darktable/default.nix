@@ -137,9 +137,7 @@ stdenv.mkDerivation rec {
   # binaries can't find libdarktable.so, so change LD_LIBRARY_PATH in
   # the wrappers:
   preFixup = let
-    libPathEnvVar = if
-      stdenv.isDarwin
-    then
+    libPathEnvVar = if stdenv.isDarwin then
       "DYLD_LIBRARY_PATH"
     else
       "LD_LIBRARY_PATH";

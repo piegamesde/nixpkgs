@@ -22,9 +22,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ llvmPackages.openmp ];
 
   NIX_ENFORCE_NO_NATIVE = !enableAVX;
-  __AVX2__ = if
-    enableAVX
-  then
+  __AVX2__ = if enableAVX then
     1
   else
     0;

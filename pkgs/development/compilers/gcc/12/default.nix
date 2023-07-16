@@ -159,9 +159,7 @@ let
   # Cross-gcc settings (build == host != target)
   crossMingw = targetPlatform != hostPlatform && targetPlatform.libc
     == "msvcrt";
-  stageNameAddon = if
-    crossStageStatic
-  then
+  stageNameAddon = if crossStageStatic then
     "stage-static"
   else
     "stage-final";
@@ -284,9 +282,7 @@ lib.pipe (stdenv.mkDerivation ({
       # On NixOS, use the right path to the dynamic linker instead of
       # `/lib/ld*.so'.
       (let
-        libc = if
-          libcCross != null
-        then
+        libc = if libcCross != null then
           libcCross
         else
           stdenv.cc.libc;
@@ -337,9 +333,7 @@ lib.pipe (stdenv.mkDerivation ({
 
   configureFlags = callFile ../common/configure-flags.nix { };
 
-  targetConfig = if
-    targetPlatform != hostPlatform
-  then
+  targetConfig = if targetPlatform != hostPlatform then
     targetPlatform.config
   else
     null;
@@ -363,9 +357,7 @@ lib.pipe (stdenv.mkDerivation ({
 
     # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
   ${
-    if
-      hostPlatform.system == "x86_64-solaris"
-    then
+    if hostPlatform.system == "x86_64-solaris" then
       "CC"
     else
       null

@@ -178,9 +178,7 @@ let
 
   suffix = lib.optionalString (channel != "stable") "-${channel}";
 
-  crashpadHandlerBinary = if
-    lib.versionAtLeast version "94"
-  then
+  crashpadHandlerBinary = if lib.versionAtLeast version "94" then
     "chrome_crashpad_handler"
   else
     "crashpad_handler";
@@ -283,9 +281,7 @@ stdenv.mkDerivation {
     # will try to merge PRs and respond to issues but I'm not actually using
     # Google Chrome.
     platforms = [ "x86_64-linux" ];
-    mainProgram = if
-      (channel == "dev")
-    then
+    mainProgram = if (channel == "dev") then
       "google-chrome-unstable"
     else
       "google-chrome-${channel}";

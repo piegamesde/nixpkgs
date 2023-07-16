@@ -252,9 +252,7 @@ in {
     makeFlags = let
       # linux = bsd
       # https://github.com/DerKoun/bsnes-hd/blob/f0b6cf34e9780d53516977ed2de64137a8bcc3c5/bsnes/GNUmakefile#L37
-      platform = if
-        stdenv.isDarwin
-      then
+      platform = if stdenv.isDarwin then
         "macos"
       else
         "linux";

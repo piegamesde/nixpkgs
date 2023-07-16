@@ -41,7 +41,11 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = let
-    edf = c: o: if c then [ "--enable-${o}" ] else [ "--disable-${o}" ];
+    edf = c: o:
+      if c then
+        [ "--enable-${o}" ]
+      else
+        [ "--disable-${o}" ];
   in
   edf bind8Stats "bind8-stats" ++ edf checking "checking" ++ edf ipv6 "ipv6"
   ++ edf mmap "mmap" ++ edf minimalResponses "minimal-responses"

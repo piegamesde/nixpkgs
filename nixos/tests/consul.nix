@@ -101,9 +101,7 @@ import ./make-test-python.nix ({
                 # If there's only 1 node in the network, we allow self-join;
                 # otherwise, the node must not try to join itself, and join only the other servers.
                 # See https://github.com/hashicorp/consul/issues/2868
-                if
-                  numConsensusServers == 1
-                then
+                if numConsensusServers == 1 then
                   allConsensusServerHosts
                 else
                   builtins.filter (h: h != thisConsensusServerHost)

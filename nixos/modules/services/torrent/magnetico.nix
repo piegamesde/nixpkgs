@@ -13,9 +13,7 @@ let
   dataDir = "/var/lib/magnetico";
 
   credFile = with cfg.web;
-    if
-      credentialsFile != null
-    then
+    if credentialsFile != null then
       credentialsFile
     else
       pkgs.writeText "magnetico-credentials" (concatStrings (mapAttrsToList
@@ -42,9 +40,7 @@ let
   webArgs = with cfg.web;
     escapeShellArgs ([
       "--database=${dbURI}"
-      (if
-        (cfg.web.credentialsFile != null || cfg.web.credentials != { })
-      then
+      (if (cfg.web.credentialsFile != null || cfg.web.credentials != { }) then
         "--credentials=${toString credFile}"
       else
         "--no-auth")

@@ -47,9 +47,7 @@ let
 
       inherit src;
 
-      setupHook = if
-        setupHook == null
-      then
+      setupHook = if setupHook == null then
         writeText "setupHook.sh" ''
           addToSearchPath ERL_LIBS "$1/lib/erlang/lib"
         ''
@@ -69,53 +67,53 @@ let
         ++ lib.optional (enableDebugInfo || erlang.debugInfo)
         ''ERL_OPTS="$ERL_OPTS +debug_info"'' ++ buildFlags;
 
-      configurePhase = if
-        configurePhase == null
-      then ''
-        runHook preConfigure
+      configurePhase = if configurePhase == null then
+        ''
+          runHook preConfigure
 
-        # We shouldnt need to do this, but it seems at times there is a *.app in
-        # the repo/package. This ensures we start from a clean slate
-        make SKIP_DEPS=1 clean
+          # We shouldnt need to do this, but it seems at times there is a *.app in
+          # the repo/package. This ensures we start from a clean slate
+          make SKIP_DEPS=1 clean
 
-        runHook postConfigure
-      '' else
+          runHook postConfigure
+        ''
+      else
         configurePhase;
 
-      buildPhase = if
-        buildPhase == null
-      then ''
-        runHook preBuild
+      buildPhase = if buildPhase == null then
+        ''
+          runHook preBuild
 
-        make $buildFlags "''${buildFlagsArray[@]}"
+          make $buildFlags "''${buildFlagsArray[@]}"
 
-        runHook postBuild
-      '' else
+          runHook postBuild
+        ''
+      else
         buildPhase;
 
-      installPhase = if
-        installPhase == null
-      then ''
-        runHook preInstall
+      installPhase = if installPhase == null then
+        ''
+          runHook preInstall
 
-        mkdir -p $out/lib/erlang/lib/${name}
-        cp -r ebin $out/lib/erlang/lib/${name}/
-        cp -r src $out/lib/erlang/lib/${name}/
+          mkdir -p $out/lib/erlang/lib/${name}
+          cp -r ebin $out/lib/erlang/lib/${name}/
+          cp -r src $out/lib/erlang/lib/${name}/
 
-        if [ -d include ]; then
-          cp -r include $out/lib/erlang/lib/${name}/
-        fi
+          if [ -d include ]; then
+            cp -r include $out/lib/erlang/lib/${name}/
+          fi
 
-        if [ -d priv ]; then
-          cp -r priv $out/lib/erlang/lib/${name}/
-        fi
+          if [ -d priv ]; then
+            cp -r priv $out/lib/erlang/lib/${name}/
+          fi
 
-        if [ -d doc ]; then
-          cp -r doc $out/lib/erlang/lib/${name}/
-        fi
+          if [ -d doc ]; then
+            cp -r doc $out/lib/erlang/lib/${name}/
+          fi
 
-        runHook postInstall
-      '' else
+          runHook postInstall
+        ''
+      else
         installPhase;
 
       passthru = {

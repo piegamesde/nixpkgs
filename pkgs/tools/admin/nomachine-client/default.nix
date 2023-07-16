@@ -18,9 +18,7 @@ stdenv.mkDerivation rec {
   pname = "nomachine-client";
   version = "${versionMajor}.${versionMinor}";
 
-  src = if
-    stdenv.hostPlatform.system == "x86_64-linux"
-  then
+  src = if stdenv.hostPlatform.system == "x86_64-linux" then
     fetchurl {
       url =
         "https://download.nomachine.com/download/${versionMajor}/Linux/nomachine_${version}_${versionBuild_x86_64}_x86_64.tar.gz";

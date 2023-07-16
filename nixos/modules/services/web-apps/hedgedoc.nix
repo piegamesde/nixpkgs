@@ -14,9 +14,7 @@ let
   # versionAtLeast statement remains set to 21.03 for backwards compatibility.
   # See https://github.com/NixOS/nixpkgs/pull/108899 and
   # https://github.com/NixOS/rfcs/blob/master/rfcs/0080-nixos-release-schedule.md.
-  name = if
-    versionAtLeast config.system.stateVersion "21.03"
-  then
+  name = if versionAtLeast config.system.stateVersion "21.03" then
     "hedgedoc"
   else
     "codimd";

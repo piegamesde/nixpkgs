@@ -13,9 +13,7 @@ let
     "${major python.version}${minor python.version}";
   withPython = python != null;
   # ensure that root is built with the same python interpreter, as it links against numpy
-  root_py = if
-    withPython
-  then
+  root_py = if withPython then
     root.override { inherit python; }
   else
     root;
@@ -42,17 +40,13 @@ stdenv.mkDerivation rec {
     '';
 
   cmakeFlags = [ "-DHEPMC3_ENABLE_PYTHON=${
-      if
-        withPython
-      then
+      if withPython then
         "ON"
       else
         "OFF"
     }" ] ++ lib.optionals withPython [
       "-DHEPMC3_PYTHON_VERSIONS=${
-        if
-          python.isPy3k
-        then
+        if python.isPy3k then
           "3.X"
         else
           "2.X"

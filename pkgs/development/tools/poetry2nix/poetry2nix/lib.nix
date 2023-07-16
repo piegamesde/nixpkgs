@@ -13,9 +13,7 @@ let
     # Replace a list entry at defined index with set value
   ireplace = idx: value: list:
     (genList (i:
-      if
-        i == idx
-      then
+      if i == idx then
         value
       else
         (builtins.elemAt list i)) (length list));
@@ -43,9 +41,7 @@ let
       minor = l: lib.elemAt l 1;
       joinVersion = v: lib.concatStringsSep "." v;
     in
-    joinVersion (if
-      major pyVer == major ver && minor pyVer == minor ver
-    then
+    joinVersion (if major pyVer == major ver && minor pyVer == minor ver then
       ver
     else
       pyVer)
@@ -69,27 +65,23 @@ let
       combine = acc: v:
         let
           isOperator = builtins.typeOf v == "list";
-          operator = if
-            isOperator
-          then
+          operator = if isOperator then
             (builtins.elemAt v 0)
           else
             acc.operator;
-        in if
-          isOperator
-        then
+        in if isOperator then
           (acc // { inherit operator; })
-        else {
-          inherit operator;
-          state = operators."${operator}" acc.state (satisfiesSemver version v);
-        };
+        else
+          {
+            inherit operator;
+            state =
+              operators."${operator}" acc.state (satisfiesSemver version v);
+          };
       initial = {
         operator = "&&";
         state = true;
       };
-    in if
-      expr == ""
-    then
+    in if expr == "" then
       true
     else
       (builtins.foldl' combine initial tokens).state
@@ -114,24 +106,31 @@ let
   getManyLinuxDeps = f:
     let
       ml = pkgs.pythonManylinuxPackages;
-    in if
-      lib.strings.hasInfix "manylinux1" f
-    then {
-      pkg = [ ml.manylinux1 ];
-      str = "1";
-    } else if lib.strings.hasInfix "manylinux2010" f then {
-      pkg = [ ml.manylinux2010 ];
-      str = "2010";
-    } else if lib.strings.hasInfix "manylinux2014" f then {
-      pkg = [ ml.manylinux2014 ];
-      str = "2014";
-    } else if lib.strings.hasInfix "manylinux_" f then {
-      pkg = [ ml.manylinux2014 ];
-      str = "pep600";
-    } else {
-      pkg = [ ];
-      str = null;
-    };
+    in if lib.strings.hasInfix "manylinux1" f then
+      {
+        pkg = [ ml.manylinux1 ];
+        str = "1";
+      }
+    else if lib.strings.hasInfix "manylinux2010" f then
+      {
+        pkg = [ ml.manylinux2010 ];
+        str = "2010";
+      }
+    else if lib.strings.hasInfix "manylinux2014" f then
+      {
+        pkg = [ ml.manylinux2014 ];
+        str = "2014";
+      }
+    else if lib.strings.hasInfix "manylinux_" f then
+      {
+        pkg = [ ml.manylinux2014 ];
+        str = "pep600";
+      }
+    else
+      {
+        pkg = [ ];
+        str = null;
+      };
 
   # Predict URL from the PyPI index.
   # Args:
@@ -208,9 +207,7 @@ let
           path,
         }:
         "NETRC" == prefix) builtins.nixPath);
-      netrc_file = if
-        (pathParts != [ ])
-      then
+      netrc_file = if (pathParts != [ ]) then
         (builtins.head pathParts).path
       else
         "";
@@ -256,7 +253,10 @@ let
       gitIgnore = path + "/.gitignore";
       isGitRoot = builtins.pathExists (path + "/.git");
       hasGitIgnore = builtins.pathExists gitIgnore;
-      gitIgnores = if hasGitIgnore then [ gitIgnore ] else [ ];
+      gitIgnores = if hasGitIgnore then
+        [ gitIgnore ]
+      else
+        [ ];
     in
     lib.optionals
     (builtins.pathExists path && builtins.toString path != "/" && !isGitRoot)

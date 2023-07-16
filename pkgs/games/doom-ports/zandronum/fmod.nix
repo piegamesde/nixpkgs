@@ -21,16 +21,17 @@ stdenv.mkDerivation rec {
   version = "4.44.64";
   shortVersion = builtins.replaceStrings [ "." ] [ "" ] version;
 
-  src = fetchurl (if
-    stdenv.isLinux
-  then {
-    url = "https://zdoom.org/files/fmod/fmodapi${shortVersion}linux.tar.gz";
-    sha256 = "047hk92xapwwqj281f4zwl0ih821rrliya70gfj82sdfjh9lz8i1";
-  } else {
-    url =
-      "https://zdoom.org/files/fmod/fmodapi${shortVersion}mac-installer.dmg";
-    sha256 = "1m1y4cpcwpkl8x31d3s68xzp107f343ma09w2437i2adn5y7m8ii";
-  });
+  src = fetchurl (if stdenv.isLinux then
+    {
+      url = "https://zdoom.org/files/fmod/fmodapi${shortVersion}linux.tar.gz";
+      sha256 = "047hk92xapwwqj281f4zwl0ih821rrliya70gfj82sdfjh9lz8i1";
+    }
+  else
+    {
+      url =
+        "https://zdoom.org/files/fmod/fmodapi${shortVersion}mac-installer.dmg";
+      sha256 = "1m1y4cpcwpkl8x31d3s68xzp107f343ma09w2437i2adn5y7m8ii";
+    });
 
   nativeBuildInputs = [ undmg ];
 

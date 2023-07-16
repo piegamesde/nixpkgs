@@ -9,9 +9,7 @@ mkCoqDerivation {
   pname = "Velisarios";
   owner = "vrahli";
   inherit version;
-  defaultVersion = if
-    lib.versions.range "8.6" "8.8" coq.coq-version
-  then
+  defaultVersion = if lib.versions.range "8.6" "8.8" coq.coq-version then
     "20180221"
   else
     null;

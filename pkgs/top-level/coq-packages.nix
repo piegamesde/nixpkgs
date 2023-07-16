@@ -37,9 +37,7 @@ in let
       addition-chains =
         callPackage ../development/coq-modules/addition-chains { };
       autosubst = callPackage ../development/coq-modules/autosubst { };
-      bignums = if
-        lib.versionAtLeast coq.coq-version "8.6"
-      then
+      bignums = if lib.versionAtLeast coq.coq-version "8.6" then
         callPackage ../development/coq-modules/bignums { }
       else
         null;
@@ -153,9 +151,7 @@ in let
           }));
       zorns-lemma = callPackage ../development/coq-modules/zorns-lemma { };
       filterPackages = doesFilter:
-        if
-          doesFilter
-        then
+        if doesFilter then
           filterCoqPackages self
         else
           self;
@@ -166,12 +162,11 @@ in let
       let
         v = set.${name} or null;
       in
-      lib.optional (!v.meta.coqFilter or false) (lib.nameValuePair name (if
-        lib.isAttrs v && v.recurseForDerivations or false
-      then
-        filterCoqPackages v
-      else
-        v))
+      lib.optional (!v.meta.coqFilter or false) (lib.nameValuePair name
+        (if lib.isAttrs v && v.recurseForDerivations or false then
+          filterCoqPackages v
+        else
+          v))
     ) (lib.attrNames set));
   mkCoq = version:
     callPackage ../applications/science/logic/coq {

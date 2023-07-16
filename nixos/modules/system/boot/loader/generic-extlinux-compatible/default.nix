@@ -12,9 +12,7 @@ let
   dtCfg = config.hardware.deviceTree;
   cfg = blCfg.generic-extlinux-compatible;
 
-  timeoutStr = if
-    blCfg.timeout == null
-  then
+  timeoutStr = if blCfg.timeout == null then
     "-1"
   else
     toString blCfg.timeout;

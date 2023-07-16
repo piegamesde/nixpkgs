@@ -6,9 +6,7 @@
   findlib,
 }:
 
-if
-  lib.versionAtLeast ocaml.version "4.06"
-then
+if lib.versionAtLeast ocaml.version "4.06" then
   throw "cryptgps is not available for OCaml ${ocaml.version}"
 else
 

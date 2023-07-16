@@ -12,9 +12,7 @@ lib.makeScope pkgs.newScope (self:
     #### PLATFORM
 
     libIDL = callPackage ./platform/libIDL {
-      gettext = if
-        stdenv.isDarwin
-      then
+      gettext = if stdenv.isDarwin then
         pkgs.gettext
       else
         null;

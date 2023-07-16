@@ -96,9 +96,7 @@ stdenv.mkDerivation rec {
     "--with-protobuf=${protobuf}"
     "--with-mpi=${mpi}"
     "--cuda=${
-      if
-        cudaSupport
-      then
+      if cudaSupport then
         "yes"
       else
         "no"
@@ -151,9 +149,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/Microsoft/CNTK";
     description = "An open source deep-learning toolkit";
-    license = if
-      onebitSGDSupport
-    then
+    license = if onebitSGDSupport then
       licenses.unfreeRedistributable
     else
       licenses.mit;

@@ -17,9 +17,7 @@ in
 runCommand "${pname}-${version}" rec {
   inherit (stdenv) shell;
   inherit pname version;
-  src = if
-    stdenv.hostPlatform.system == "x86_64-linux"
-  then
+  src = if stdenv.hostPlatform.system == "x86_64-linux" then
     fetchzip {
       url =
         "https://github.com/webtorrent/webtorrent-desktop/releases/download/v${version}/WebTorrent-v${version}-linux.zip";

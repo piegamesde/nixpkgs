@@ -17,9 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
       free = "sha256-5r7M9BVcAryZNTkqJ/BfHnSSWov1PwoZhUnLBwEbJoA=";
       unfree = "sha256-z3qXgv/TkNRbb85Ew1OcJNxoyssfzHShc0b0/4NZOb0=";
     }.${
-        if
-          enableUnfree
-        then
+        if enableUnfree then
           "unfree"
         else
           "free"

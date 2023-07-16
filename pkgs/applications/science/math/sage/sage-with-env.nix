@@ -54,9 +54,7 @@ let
     let
       parts = lib.splitString "-" pkg.name;
       # remove python3.8-
-      stripped_parts = if
-        (builtins.head parts) == python3.libPrefix
-      then
+      stripped_parts = if (builtins.head parts) == python3.libPrefix then
         builtins.tail parts
       else
         parts;
@@ -76,9 +74,7 @@ let
     # (although that might be considered a programming error in the derivation)
       [ ]
     else
-      [ dep ] ++ (if
-        builtins.hasAttr "propagatedBuildInputs" dep
-      then
+      [ dep ] ++ (if builtins.hasAttr "propagatedBuildInputs" dep then
         lib.unique
         (builtins.concatLists (map transitiveClosure dep.propagatedBuildInputs))
       else

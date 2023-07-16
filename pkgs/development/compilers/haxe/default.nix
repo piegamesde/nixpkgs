@@ -13,9 +13,7 @@
 
 let
   ocamlDependencies = version:
-    if
-      lib.versionAtLeast version "4.2"
-    then
+    if lib.versionAtLeast version "4.2" then
       with ocaml-ng.ocamlPackages_4_12; [
         ocaml
         findlib

@@ -33,9 +33,7 @@ stdenv.mkDerivation rec {
 
     # Using overrideAttrs on src does not build the gems and modules with the overridden src.
     # Putting the callPackage up in the arguments list also does not work.
-  src = if
-    srcOverride != null
-  then
+  src = if srcOverride != null then
     srcOverride
   else
     callPackage ./source.nix { };

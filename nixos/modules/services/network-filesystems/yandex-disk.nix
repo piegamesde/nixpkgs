@@ -13,9 +13,7 @@ let
 
   dir = "/var/lib/yandex-disk";
 
-  u = if
-    cfg.user != null
-  then
+  u = if cfg.user != null then
     cfg.user
   else
     "yandexdisk";

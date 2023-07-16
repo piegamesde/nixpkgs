@@ -20,18 +20,14 @@ let
 
   # Returns true if the path exists and is a directory, false otherwise.
   pathIsDirectory = path:
-    if
-      pathExists path
-    then
+    if pathExists path then
       (pathType path) == "directory"
     else
       false;
 
   # Returns true if the path exists and is a regular file, false otherwise.
   pathIsRegularFile = path:
-    if
-      pathExists path
-    then
+    if pathExists path then
       (pathType path) == "regular"
     else
       false;
@@ -108,9 +104,7 @@ let
     fromSourceAttributes {
       inherit (orig) origSrc;
       filter = path: type: filter path type && orig.filter path type;
-      name = if
-        name != null
-      then
+      name = if name != null then
         name
       else
         orig.name;
@@ -147,9 +141,7 @@ let
   sourceByRegex = src: regexes:
     let
       isFiltered = src ? _isLibCleanSourceWith;
-      origSrc = if
-        isFiltered
-      then
+      origSrc = if isFiltered then
         src.origSrc
       else
         src;
@@ -216,9 +208,7 @@ let
         fileName = path + "/${file}";
         packedRefsName = path + "/packed-refs";
         absolutePath = base: path:
-          if
-            lib.hasPrefix "/" path
-          then
+          if lib.hasPrefix "/" path then
             path
           else
             toString (/. + "${base}/${path}");
@@ -228,16 +218,12 @@ let
       then
         let
           m = match "^gitdir: (.*)$" (lib.fileContents path);
-        in if
-          m == null
-        then {
-          error = "File contains no gitdir reference: " + path;
-        } else
+        in if m == null then
+          { error = "File contains no gitdir reference: " + path; }
+        else
           let
             gitDir = absolutePath (dirOf path) (lib.head m);
-            commonDir'' = if
-              pathIsRegularFile "${gitDir}/commondir"
-            then
+            commonDir'' = if pathIsRegularFile "${gitDir}/commondir" then
               lib.fileContents "${gitDir}/commondir"
             else
               gitDir;
@@ -247,23 +233,23 @@ let
           in
           readCommitFromFile refFile commonDir
 
-      else if pathIsRegularFile fileName
-      # Sometimes git stores the commitId directly in the file but
-      # sometimes it stores something like: «ref: refs/heads/branch-name»
+      else if
+        pathIsRegularFile fileName
+        # Sometimes git stores the commitId directly in the file but
+        # sometimes it stores something like: «ref: refs/heads/branch-name»
       then
         let
           fileContent = lib.fileContents fileName;
           matchRef = match "^ref: (.*)$" fileContent;
-        in if
-          matchRef == null
-        then {
-          value = fileContent;
-        } else
+        in if matchRef == null then
+          { value = fileContent; }
+        else
           readCommitFromFile (lib.head matchRef) path
 
-      else if pathIsRegularFile packedRefsName
-      # Sometimes, the file isn't there at all and has been packed away in the
-      # packed-refs file, so we have to grep through it:
+      else if
+        pathIsRegularFile packedRefsName
+        # Sometimes, the file isn't there at all and has been packed away in the
+        # packed-refs file, so we have to grep through it:
       then
         let
           fileContent = readFile packedRefsName;
@@ -272,17 +258,13 @@ let
           # there is a bug in libstdc++ leading to stackoverflow for long strings:
           # https://github.com/NixOS/nix/issues/2147#issuecomment-659868795
           refs = filter isRef (split "\n" fileContent);
-        in if
-          refs == [ ]
-        then {
-          error = "Could not find " + file + " in " + packedRefsName;
-        } else {
-          value = lib.head (matchRef (lib.head refs));
-        }
+        in if refs == [ ] then
+          { error = "Could not find " + file + " in " + packedRefsName; }
+        else
+          { value = lib.head (matchRef (lib.head refs)); }
 
-      else {
-        error = "Not a .git directory: " + toString path;
-      };
+      else
+        { error = "Not a .git directory: " + toString path; };
   in
   readCommitFromFile "HEAD"
   ;
@@ -308,21 +290,15 @@ let
       isFiltered = src ? _isLibCleanSourceWith;
     in {
       # The original path
-      origSrc = if
-        isFiltered
-      then
+      origSrc = if isFiltered then
         src.origSrc
       else
         src;
-      filter = if
-        isFiltered
-      then
+      filter = if isFiltered then
         src.filter
       else
         _: _: true;
-      name = if
-        isFiltered
-      then
+      name = if isFiltered then
         src.name
       else
         "source";

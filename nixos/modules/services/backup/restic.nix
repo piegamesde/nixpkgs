@@ -307,17 +307,15 @@ in {
       let
         extraOptions = concatMapStrings (arg: " -o ${arg}") backup.extraOptions;
         resticCmd = "${backup.package}/bin/restic${extraOptions}";
-        excludeFlags = if
-          (backup.exclude != [ ])
-        then [ "--exclude-file=${
-          pkgs.writeText "exclude-patterns"
-          (concatStringsSep "\n" backup.exclude)
-        }" ] else
+        excludeFlags = if (backup.exclude != [ ]) then
+          [ "--exclude-file=${
+            pkgs.writeText "exclude-patterns"
+            (concatStringsSep "\n" backup.exclude)
+          }" ]
+        else
           [ ];
         filesFromTmpFile = "/run/restic-backups-${name}/includes";
-        backupPaths = if
-          (backup.dynamicFilesFrom == null)
-        then
+        backupPaths = if (backup.dynamicFilesFrom == null) then
           optionalString (backup.paths != null)
           (concatStringsSep " " backup.paths)
         else
@@ -335,9 +333,7 @@ in {
         rcloneAttrToConf = v:
           "RCLONE_CONFIG_" + toUpper (rcloneRemoteName + "_" + v);
         toRcloneVal = v:
-          if
-            lib.isBool v
-          then
+          if lib.isBool v then
             lib.boolToString v
           else
             v;

@@ -47,9 +47,7 @@ stdenv.mkDerivation rec {
     "-Dcrypto-library-kdf=disabled"
     "-Ddoc=disabled"
     "-Dtests=${
-      if
-        doCheck
-      then
+      if doCheck then
         "enabled"
       else
         "disabled"

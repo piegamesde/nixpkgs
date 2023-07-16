@@ -11,22 +11,22 @@
 }:
 
 let
-  param = if
-    lib.versionAtLeast ppxlib.version "0.26.0"
-  then
-    if
-      lib.versionAtLeast ocaml.version "4.14"
-    then {
-      version = "3.1";
-      sha256 = "sha256-qG8Wxd/ATwoogeKJDyt5gkGhP5Wvc0j0mMqcoVDkeq4=";
-    } else {
-      version = "3.0";
-      sha256 = "sha256-+4ggynMznVfjviMBjXil8CXdMByq4kSmDz6P2PyEETA=";
-    }
-  else {
-    version = "2.5";
-    sha256 = "sha256:062a5dvrzvb81l3a9phljrhxfw9nlb61q341q0a6xn65hll3z2wy";
-  };
+  param = if lib.versionAtLeast ppxlib.version "0.26.0" then
+    if lib.versionAtLeast ocaml.version "4.14" then
+      {
+        version = "3.1";
+        sha256 = "sha256-qG8Wxd/ATwoogeKJDyt5gkGhP5Wvc0j0mMqcoVDkeq4=";
+      }
+    else
+      {
+        version = "3.0";
+        sha256 = "sha256-+4ggynMznVfjviMBjXil8CXdMByq4kSmDz6P2PyEETA=";
+      }
+  else
+    {
+      version = "2.5";
+      sha256 = "sha256:062a5dvrzvb81l3a9phljrhxfw9nlb61q341q0a6xn65hll3z2wy";
+    };
 
 in let
   unicodeVersion = "15.0.0";

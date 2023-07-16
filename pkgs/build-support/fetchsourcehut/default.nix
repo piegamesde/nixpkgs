@@ -40,9 +40,7 @@ let
     inherit rev;
     url = baseUrl;
   };
-  fetcher = if
-    fetchSubmodules
-  then
+  fetcher = if fetchSubmodules then
     vc
   else
     "zip";

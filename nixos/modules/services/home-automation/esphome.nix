@@ -20,9 +20,7 @@ let
 
   stateDir = "/var/lib/esphome";
 
-  esphomeParams = if
-    cfg.enableUnixSocket
-  then
+  esphomeParams = if cfg.enableUnixSocket then
     "--socket /run/esphome/esphome.sock"
   else
     "--address ${cfg.address} --port ${toString cfg.port}";

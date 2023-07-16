@@ -54,9 +54,7 @@ stdenv.mkDerivation rec {
     opusfile
     libogg
     libxmp
-    (if
-      useSDL2
-    then
+    (if useSDL2 then
       SDL2
     else
       SDL)
@@ -85,9 +83,7 @@ stdenv.mkDerivation rec {
     "USE_SDL2=1"
   ];
 
-  makefile = if
-    (stdenv.isDarwin)
-  then
+  makefile = if (stdenv.isDarwin) then
     "Makefile.darwin"
   else
     "Makefile";

@@ -21,9 +21,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-1wDlYQXRJSkXyQU7H+mQWtsLSpX7i7SdmFYLjyRWfx8=";
 
   LIBCAPNG_LIB_PATH = "${lib.getLib libcap_ng}/lib";
-  LIBCAPNG_LINK_TYPE = if
-    stdenv.hostPlatform.isStatic
-  then
+  LIBCAPNG_LINK_TYPE = if stdenv.hostPlatform.isStatic then
     "static"
   else
     "dylib";

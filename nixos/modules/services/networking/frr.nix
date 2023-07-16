@@ -35,9 +35,7 @@ let
   isEnabled = service: cfg.${service}.enable;
 
   daemonName = service:
-    if
-      service == "zebra"
-    then
+    if service == "zebra" then
       service
     else
       "${service}d";
@@ -45,9 +43,7 @@ let
   configFile = service:
     let
       scfg = cfg.${service};
-    in if
-      scfg.configFile != null
-    then
+    in if scfg.configFile != null then
       scfg.configFile
     else
       pkgs.writeText "${daemonName service}.conf" ''
@@ -199,16 +195,12 @@ in {
           bindsTo = lib.optionals (service != "zebra") [ "zebra.service" ];
           wants = [ "network.target" ];
 
-          description = if
-            service == "zebra"
-          then
+          description = if service == "zebra" then
             "FRR Zebra routing manager"
           else
             "FRR ${toUpper service} routing daemon";
 
-          unitConfig.Documentation = if
-            service == "zebra"
-          then
+          unitConfig.Documentation = if service == "zebra" then
             "man:zebra(8)"
           else
             "man:${daemon}(8) man:zebra(8)";

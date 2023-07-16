@@ -34,9 +34,7 @@
 }:
 
 let
-  hipPlatform = if
-    useNVIDIA
-  then
+  hipPlatform = if useNVIDIA then
     "nvidia"
   else
     "amd";

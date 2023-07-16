@@ -16,9 +16,7 @@
   src,
   lib,
   stdenv,
-  name ? if
-    doCoverageAnalysis
-  then
+  name ? if doCoverageAnalysis then
     "nix-coverage"
   else
     "nix-build",
@@ -153,15 +151,11 @@ stdenv.mkDerivation (
 
     postPhases = postPhases ++ [ "finalPhase" ];
 
-    meta = (if
-      args ? meta
-    then
+    meta = (if args ? meta then
       args.meta
     else
       { }) // {
-        description = if
-          doCoverageAnalysis
-        then
+        description = if doCoverageAnalysis then
           "Coverage analysis"
         else
           "Nix package for ${stdenv.hostPlatform.system}";
@@ -171,22 +165,22 @@ stdenv.mkDerivation (
 
   //
 
-  (if
-    buildOutOfSourceTree
-  then {
-    preConfigure =
-      # Build out of source tree and make the source tree read-only.  This
-      # helps catch violations of the GNU Coding Standards (info
-      # "(standards) Configuration"), like `make distcheck' does.
-      ''
-        mkdir "../build"
-                 cd "../build"
-                 configureScript="../$sourceRoot/configure"
-                 chmod -R a-w "../$sourceRoot"
+  (if buildOutOfSourceTree then
+    {
+      preConfigure =
+        # Build out of source tree and make the source tree read-only.  This
+        # helps catch violations of the GNU Coding Standards (info
+        # "(standards) Configuration"), like `make distcheck' does.
+        ''
+          mkdir "../build"
+                   cd "../build"
+                   configureScript="../$sourceRoot/configure"
+                   chmod -R a-w "../$sourceRoot"
 
-                 echo "building out of source tree, from \`$PWD'..."
+                   echo "building out of source tree, from \`$PWD'..."
 
-                 ${lib.optionalString (preConfigure != null) preConfigure}
-      '';
-  } else
+                   ${lib.optionalString (preConfigure != null) preConfigure}
+        '';
+    }
+  else
     { }))

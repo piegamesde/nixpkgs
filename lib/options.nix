@@ -93,9 +93,7 @@ in rec {
     mkOption {
       default = false;
       example = true;
-      description = if
-        name ? _type && name._type == "mdDoc"
-      then
+      description = if name ? _type && name._type == "mdDoc" then
         lib.mdDoc "Whether to enable ${name.text}."
       else
         "Whether to enable ${name}.";
@@ -157,17 +155,14 @@ in rec {
       extraDescription ? "",
     }:
     let
-      name' = if
-        isList name
-      then
+      name' = if isList name then
         last name
       else
         name;
-      default' = if
-        isList default
-      then
+      default' = if isList default then
         default
-      else [ default ];
+      else
+        [ default ];
       defaultPath = concatStringsSep "." default';
       defaultValue =
         attrByPath default' (throw "${defaultPath} cannot be found in pkgs")
@@ -176,30 +171,23 @@ in rec {
     mkOption {
       defaultText = literalExpression ("pkgs." + defaultPath);
       type = lib.types.package;
-      description = "The ${name'} package to use." + (if
-        extraDescription == ""
-      then
-        ""
-      else
-        " ") + extraDescription;
+      description = "The ${name'} package to use."
+        + (if extraDescription == "" then
+          ""
+        else
+          " ") + extraDescription;
       ${
-        if
-          default != null
-        then
+        if default != null then
           "default"
         else
           null
       } = defaultValue;
       ${
-        if
-          example != null
-        then
+        if example != null then
           "example"
         else
           null
-      } = literalExpression (if
-        isList example
-      then
+      } = literalExpression (if isList example then
         "pkgs." + concatStringsSep "." example
       else
         example);
@@ -239,9 +227,7 @@ in rec {
   mergeDefaultOption = loc: defs:
     let
       list = getValues defs;
-    in if
-      length list == 1
-    then
+    in if length list == 1 then
       head list
     else if all isFunction list then
       x: mergeDefaultOption loc (map (f: f x) list)
@@ -267,9 +253,7 @@ in rec {
       message,
     }:
     loc: defs:
-    if
-      length defs == 1
-    then
+    if length defs == 1 then
       (head defs).value
     else
       assert length defs > 1;
@@ -283,9 +267,7 @@ in rec {
 
   # "Merge" option definitions by checking that they all have the same value.
   mergeEqualOption = loc: defs:
-    if
-      defs == [ ]
-    then
+    if defs == [ ] then
       abort "This case should never happen."
       # Return early if we only have one element
       # This also makes it work for functions, because the foldl' below would try
@@ -294,9 +276,7 @@ in rec {
       (head defs).value
     else
       (foldl' (first: def:
-        if
-          def.value != first.value
-        then
+        if def.value != first.value then
           throw ''
             The option `${showOption loc}' has conflicting definition values:${
               showDefs [
@@ -342,9 +322,7 @@ in rec {
           description = opt.description or null;
           declarations = filter (x: x != unknownModule) opt.declarations;
           internal = opt.internal or false;
-          visible = if
-            (opt ? visible && opt.visible == "shallow")
-          then
+          visible = if (opt ? visible && opt.visible == "shallow") then
             true
           else
             opt.visible or true;
@@ -365,9 +343,7 @@ in rec {
 
         subOptions = let
           ss = opt.type.getSubOptions opt.loc;
-        in if
-          ss != { }
-        then
+        in if ss != { } then
           optionAttrSetToDocList' opt.loc ss
         else
           [ ];
@@ -391,14 +367,14 @@ in rec {
      compatibility with out-of-tree code.
   */
   scrubOptionValue = x:
-    if
-      isDerivation x
-    then {
-      type = "derivation";
-      drvPath = x.name;
-      outPath = x.name;
-      name = x.name;
-    } else if isList x then
+    if isDerivation x then
+      {
+        type = "derivation";
+        drvPath = x.name;
+        outPath = x.name;
+        name = x.name;
+      }
+    else if isList x then
       map scrubOptionValue x
     else if isAttrs x then
       mapAttrs (n: v: scrubOptionValue v) (removeAttrs x [ "_args" ])
@@ -409,9 +385,7 @@ in rec {
      by rendering Nix values to `literalExpression`s.
   */
   renderOptionValue = v:
-    if
-      v ? _type && v ? text
-    then
+    if v ? _type && v ? text then
       v
     else
       literalExpression (lib.generators.toPretty {
@@ -425,14 +399,13 @@ in rec {
      other values or packages.
   */
   literalExpression = text:
-    if
-      !isString text
-    then
+    if !isString text then
       throw "literalExpression expects a string."
-    else {
-      _type = "literalExpression";
-      inherit text;
-    };
+    else
+      {
+        _type = "literalExpression";
+        inherit text;
+      };
 
   literalExample = lib.warn
     "literalExample is deprecated, use literalExpression instead, or use literalDocBook for a non-Nix description."
@@ -443,9 +416,7 @@ in rec {
      a `literalExpression` would be too hard to read.
   */
   literalDocBook = text:
-    if
-      !isString text
-    then
+    if !isString text then
       throw "literalDocBook expects a string."
     else
       lib.warnIf (lib.isInOldestRelease 2211)
@@ -458,28 +429,26 @@ in rec {
      syntax.
   */
   mdDoc = text:
-    if
-      !isString text
-    then
+    if !isString text then
       throw "mdDoc expects a string."
-    else {
-      _type = "mdDoc";
-      inherit text;
-    };
+    else
+      {
+        _type = "mdDoc";
+        inherit text;
+      };
 
   /* For use in the `defaultText` and `example` option attributes. Causes the
      given MD text to be inserted verbatim in the documentation, for when
      a `literalExpression` would be too hard to read.
   */
   literalMD = text:
-    if
-      !isString text
-    then
+    if !isString text then
       throw "literalMD expects a string."
-    else {
-      _type = "literalMD";
-      inherit text;
-    };
+    else
+      {
+        _type = "literalMD";
+        inherit text;
+      };
 
   # Helper functions.
 
@@ -506,9 +475,7 @@ in rec {
             "*" # listOf (submodule {})
             "<function body>" # functionTo
           ];
-        in if
-          builtins.elem part specialIdentifiers
-        then
+        in if builtins.elem part specialIdentifiers then
           part
         else
           lib.strings.escapeNixIdentifier part;
@@ -533,9 +500,7 @@ in rec {
           (take 5 lines ++ optional (length lines > 5) "...");
         result =
           # Don't print any value if evaluating the value strictly fails
-          if
-            !prettyEval.success
-          then
+          if !prettyEval.success then
             ""
             # Put it on a new line if it consists of multiple
           else if length lines > 1 then

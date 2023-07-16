@@ -8,21 +8,15 @@ let
   cross = "${stdenv.hostPlatform.config}";
   static = stdenv.hostPlatform.isStatic;
 
-  cc = if
-    !isCross
-  then
+  cc = if !isCross then
     "cc"
   else
     "${cross}-cc";
-  ar = if
-    !isCross
-  then
+  ar = if !isCross then
     "ar"
   else
     "${cross}-ar";
-  ranlib = if
-    !isCross
-  then
+  ranlib = if !isCross then
     "ranlib"
   else
     "${cross}-ranlib";
@@ -53,15 +47,16 @@ stdenv.mkDerivation rec {
     mkdir -p $dev/lib $out/bin
     mv $out/lib/libcdb.a $dev/lib
     rmdir $out/lib
-  '' + (if
-    static
-  then ''
-    cp cdb $out/bin/cdb
-  '' else ''
-    mkdir -p $lib/lib
-    cp libcdb.so* $lib/lib
-    cp cdb-shared $out/bin/cdb
-  '');
+  '' + (if static then
+    ''
+      cp cdb $out/bin/cdb
+    ''
+  else
+    ''
+      mkdir -p $lib/lib
+      cp libcdb.so* $lib/lib
+      cp cdb-shared $out/bin/cdb
+    '');
 
   src = fetchurl {
     url = "http://www.corpit.ru/mjt/tinycdb/${pname}-${version}.tar.gz";

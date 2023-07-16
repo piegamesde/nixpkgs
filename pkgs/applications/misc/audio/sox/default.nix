@@ -81,9 +81,7 @@ stdenv.mkDerivation rec {
     description = "Sample Rate Converter for audio";
     homepage = "https://sox.sourceforge.net/";
     maintainers = with maintainers; [ marcweber ];
-    license = if
-      enableAMR
-    then
+    license = if enableAMR then
       licenses.unfree
     else
       licenses.gpl2Plus;

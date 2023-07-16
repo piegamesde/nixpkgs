@@ -13,9 +13,7 @@
 
 let
   inherit (stdenv) hostPlatform;
-  OS = if
-    hostPlatform.isDarwin
-  then
+  OS = if hostPlatform.isDarwin then
     "osx"
   else
     hostPlatform.parsed.kernel.name;

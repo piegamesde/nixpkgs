@@ -14,9 +14,7 @@ buildDunePackage rec {
   pname = "ounit2";
   version = "2.2.6";
 
-  duneVersion = if
-    lib.versionAtLeast ocaml.version "4.08"
-  then
+  duneVersion = if lib.versionAtLeast ocaml.version "4.08" then
     "2"
   else
     "1";

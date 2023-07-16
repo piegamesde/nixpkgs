@@ -51,9 +51,7 @@ self: super: {
   stm = null;
   template-haskell = null;
   # GHC only builds terminfo if it is a native compiler
-  terminfo = if
-    pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform
-  then
+  terminfo = if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then
     null
   else
     self.terminfo_0_4_1_6;
@@ -97,9 +95,7 @@ self: super: {
 
   # https://github.com/fpco/inline-c/pull/131
   # and/or https://gitlab.haskell.org/ghc/ghc/-/merge_requests/7739
-  inline-c-cpp = (if
-    isDarwin
-  then
+  inline-c-cpp = (if isDarwin then
     appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ]
   else
     x: x) super.inline-c-cpp;

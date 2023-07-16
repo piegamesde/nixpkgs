@@ -60,16 +60,12 @@ stdenv.mkDerivation (overridable // {
   buildInputs = buildInputs ++ builtins.attrValues mixNixDeps;
 
   MIX_ENV = mixEnv;
-  MIX_DEBUG = if
-    enableDebugInfo
-  then
+  MIX_DEBUG = if enableDebugInfo then
     1
   else
     0;
   HEX_OFFLINE = 1;
-  DEBUG = if
-    enableDebugInfo
-  then
+  DEBUG = if enableDebugInfo then
     1
   else
     0; # for Rebar3 compilation

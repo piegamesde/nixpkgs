@@ -156,18 +156,14 @@ let
 
   platforms = lib.platforms.linux ++ lib.platforms.darwin;
 
-  system = if
-    stdenv.hostPlatform.isDarwin
-  then
+  system = if stdenv.hostPlatform.isDarwin then
     "darwin"
   else
     "linux";
 
   # on aarch64 Darwin, `uname -m` returns "arm64"
   arch = with stdenv.hostPlatform;
-    if
-      isDarwin && isAarch64
-    then
+    if isDarwin && isAarch64 then
       "arm64"
     else
       parsed.cpu.name;
@@ -225,9 +221,7 @@ stdenv.mkDerivation rec {
     # we accept this fact because xcode_locator is only a short-lived process used during the build.
     (substituteAll {
       src = ./no-arc.patch;
-      multiBinPatch = if
-        stdenv.hostPlatform.system == "aarch64-darwin"
-      then
+      multiBinPatch = if stdenv.hostPlatform.system == "aarch64-darwin" then
         "arm64"
       else
         "x86_64";
@@ -347,15 +341,15 @@ stdenv.mkDerivation rec {
     };
 
   in
-  (if
-    !stdenv.hostPlatform.isDarwin
-  then {
-    # `extracted` doesn’t work on darwin
-    shebang = callPackage ../shebang-test.nix {
-      inherit runLocal extracted bazelTest distDir;
-      bazel = bazel_self;
-    };
-  } else
+  (if !stdenv.hostPlatform.isDarwin then
+    {
+      # `extracted` doesn’t work on darwin
+      shebang = callPackage ../shebang-test.nix {
+        inherit runLocal extracted bazelTest distDir;
+        bazel = bazel_self;
+      };
+    }
+  else
     { }) // {
       bashTools = callPackage ../bash-tools-test.nix {
         inherit runLocal bazelTest distDir;

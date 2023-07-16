@@ -20,43 +20,56 @@ let
       ] || v == null
     then
       null
-    else if builtins.elem n [ "frequency" ] then ''
-      ${v}
-    '' else if builtins.elem n [
-      "firstaction"
-      "lastaction"
-      "prerotate"
-      "postrotate"
-      "preremove"
-    ] then ''
-      ${n}
-          ${v}
-        endscript
-    '' else if isInt v then ''
-      ${n} ${toString v}
-    '' else if v == true then ''
-      ${n}
-    '' else if v == false then ''
-      no${n}
-    '' else ''
-      ${n} ${v}
-    '';
+    else if builtins.elem n [ "frequency" ] then
+      ''
+        ${v}
+      ''
+    else if
+      builtins.elem n [
+        "firstaction"
+        "lastaction"
+        "prerotate"
+        "postrotate"
+        "preremove"
+      ]
+    then
+      ''
+        ${n}
+            ${v}
+          endscript
+      ''
+    else if isInt v then
+      ''
+        ${n} ${toString v}
+      ''
+    else if v == true then
+      ''
+        ${n}
+      ''
+    else if v == false then
+      ''
+        no${n}
+      ''
+    else
+      ''
+        ${n} ${v}
+      '';
   generateSection = indent: settings:
     concatStringsSep (fixedWidthString indent " " "")
     (filter (x: x != null) (mapAttrsToList generateLine settings));
 
   # generateSection includes a final newline hence weird closing brace
   mkConf = settings:
-    if
-      settings.global or false
-    then
+    if settings.global or false then
       generateSection 0 settings
-    else ''
-      ${
-        concatMapStringsSep "\n" (files: ''"${files}"'') (toList settings.files)
-      } {
-        ${generateSection 2 settings}}
-    '';
+    else
+      ''
+        ${
+          concatMapStringsSep "\n" (files: ''"${files}"'')
+          (toList settings.files)
+        } {
+          ${generateSection 2 settings}}
+      '';
 
   settings = sortProperties (attrValues
     (filterAttrs (_: settings: settings.enable) (foldAttrs recursiveUpdate { } [

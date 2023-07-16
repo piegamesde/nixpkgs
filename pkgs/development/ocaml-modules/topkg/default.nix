@@ -17,19 +17,22 @@
 }:
 
 let
-  param = if
-    lib.versionAtLeast ocaml.version "4.05"
-  then {
-    version = "1.0.5";
-    sha256 = "sha256-RSCCYm5lGsSxYzwrSuTK16vrH7ahMEbmmfle7Fi10cc=";
-  } else if lib.versionAtLeast ocaml.version "4.03" then {
-    version = "1.0.3";
-    sha256 = "0b77gsz9bqby8v77kfi4lans47x9p2lmzanzwins5r29maphb8y6";
-  } else {
-    version = "1.0.0";
-    sha256 = "1df61vw6v5bg2mys045682ggv058yqkqb67w7r2gz85crs04d5fw";
-    propagatedBuildInputs = [ result ];
-  };
+  param = if lib.versionAtLeast ocaml.version "4.05" then
+    {
+      version = "1.0.5";
+      sha256 = "sha256-RSCCYm5lGsSxYzwrSuTK16vrH7ahMEbmmfle7Fi10cc=";
+    }
+  else if lib.versionAtLeast ocaml.version "4.03" then
+    {
+      version = "1.0.3";
+      sha256 = "0b77gsz9bqby8v77kfi4lans47x9p2lmzanzwins5r29maphb8y6";
+    }
+  else
+    {
+      version = "1.0.0";
+      sha256 = "1df61vw6v5bg2mys045682ggv058yqkqb67w7r2gz85crs04d5fw";
+      propagatedBuildInputs = [ result ];
+    };
 
   # This command allows to run the “topkg” build system.
   # It is usually called with `build` or `test` as argument.

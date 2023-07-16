@@ -34,12 +34,13 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" ] ++ lib.optional withUtils "lib" ++ [ "dev" ];
 
-  configureFlags = (if
-    withUtils
-  then [
-    "--with-localedir=${placeholder "lib"}/share/locale"
-    "--with-udevdir=${placeholder "out"}/lib/udev"
-  ] else [ "--disable-v4l-utils" ]);
+  configureFlags = (if withUtils then
+    [
+      "--with-localedir=${placeholder "lib"}/share/locale"
+      "--with-udevdir=${placeholder "out"}/lib/udev"
+    ]
+  else
+    [ "--disable-v4l-utils" ]);
 
   postFixup = ''
     # Create symlink for V4l1 compatibility

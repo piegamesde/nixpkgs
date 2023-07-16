@@ -76,9 +76,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  configureFlags = [ (if
-    interactive
-  then
+  configureFlags = [ (if interactive then
     "--with-installed-readline"
   else
     "--disable-readline") ]
@@ -121,16 +119,16 @@ stdenv.mkDerivation rec {
     rm -f $out/lib/bash/Makefile.inc
   '';
 
-  postFixup = if
-    interactive
-  then ''
-    substituteInPlace "$out/bin/bashbug" \
-      --replace '#!/bin/sh' "#!$out/bin/bash"
-  ''
-  # most space is taken by locale data
-  else ''
-    rm -rf "$out/share" "$out/bin/bashbug"
-  '';
+  postFixup = if interactive then
+    ''
+      substituteInPlace "$out/bin/bashbug" \
+        --replace '#!/bin/sh' "#!$out/bin/bash"
+    ''
+    # most space is taken by locale data
+  else
+    ''
+      rm -rf "$out/share" "$out/bin/bashbug"
+    '';
 
   passthru = {
     shellPath = "/bin/bash";

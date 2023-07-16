@@ -57,17 +57,13 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=ON"
     "-DINTERFACE64=${
-      if
-        blas.isILP64
-      then
+      if blas.isILP64 then
         "1"
       else
         "0"
     }"
     "-DMPI=${
-      if
-        useMpi
-      then
+      if useMpi then
         "ON"
       else
         "OFF"

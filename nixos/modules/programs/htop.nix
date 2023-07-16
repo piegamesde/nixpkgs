@@ -12,9 +12,7 @@ let
   cfg = config.programs.htop;
 
   fmt = value:
-    if
-      isList value
-    then
+    if isList value then
       concatStringsSep " " (map fmt value)
     else if isString value then
       value

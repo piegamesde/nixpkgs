@@ -68,9 +68,7 @@ stdenv.mkDerivation {
   configureFlags = [
     "--without-libnm-glib"
     "--with-gnome=${
-      if
-        withGnome
-      then
+      if withGnome then
         "yes"
       else
         "no"

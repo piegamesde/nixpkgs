@@ -68,9 +68,7 @@ rec {
   escapeSystemdPath = s:
     let
       replacePrefix = p: r: s:
-        (if
-          (hasPrefix p s)
-        then
+        (if (hasPrefix p s) then
           r + (removePrefix p s)
         else
           s);
@@ -80,9 +78,7 @@ rec {
     replaceStrings [ "/" ] [ "-" ]
     (replacePrefix "." (strings.escapeC [ "." ] ".")
       (strings.escapeC (stringToCharacters " !\"#$%&'()*+,;<=>=@[\\]^`{|}~-")
-        (if
-          normalizedPath == "/"
-        then
+        (if normalizedPath == "/" then
           normalizedPath
         else
           trim normalizedPath)))
@@ -97,9 +93,7 @@ rec {
   # substitution for the directive.
   escapeSystemdExecArg = arg:
     let
-      s = if
-        builtins.isPath arg
-      then
+      s = if builtins.isPath arg then
         "${arg}"
       else if builtins.isString arg then
         arg
@@ -123,9 +117,7 @@ rec {
 
   # Returns a system path for a given shell package
   toShellPath = shell:
-    if
-      types.shellPackage.check shell
-    then
+    if types.shellPackage.check shell then
       "/run/current-system/sw${shell.shellPath}"
     else if types.package.check shell then
       throw "${shell} is not a shell package"
@@ -157,9 +149,7 @@ rec {
   recursiveGetAttrWithJqPrefix = item: attr:
     let
       recurse = prefix: item:
-        if
-          item ? ${attr}
-        then
+        if item ? ${attr} then
           nameValuePair prefix item.${attr}
         else if isAttrs item then
           map (name:

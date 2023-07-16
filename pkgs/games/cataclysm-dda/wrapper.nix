@@ -9,16 +9,12 @@ unwrapped:
 pkgsSpec:
 
 let
-  mods = if
-    lib.isFunction pkgsSpec
-  then
+  mods = if lib.isFunction pkgsSpec then
     pkgsSpec unwrapped.pkgs
   else
     pkgsSpec;
 
-in if
-  builtins.length mods == 0
-then
+in if builtins.length mods == 0 then
   unwrapped
 else
   symlinkJoin {

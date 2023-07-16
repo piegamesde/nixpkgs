@@ -249,9 +249,7 @@ stdenv.mkDerivation rec {
 
     substituteInPlace src/util/virpolkit.h \
       --replace '"/usr/bin/pkttyagent"' '"${
-        if
-          isLinux
-        then
+        if isLinux then
           polkit.bin
         else
           "/usr"
@@ -266,9 +264,7 @@ stdenv.mkDerivation rec {
   mesonFlags = let
     cfg = option: val: "-D${option}=${val}";
     feat = option: enable:
-      cfg option (if
-        enable
-      then
+      cfg option (if enable then
         "enabled"
       else
         "disabled");
@@ -280,9 +276,7 @@ stdenv.mkDerivation rec {
     (cfg "localstatedir" "/var")
     (cfg "runstatedir" "/run")
 
-    (cfg "init_script" (if
-      isDarwin
-    then
+    (cfg "init_script" (if isDarwin then
       "none"
     else
       "systemd"))

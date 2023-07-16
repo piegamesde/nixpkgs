@@ -13,9 +13,7 @@ let
   stateDir = "/var/lib/biboumi";
   settingsFile = pkgs.writeText "biboumi.cfg" (generators.toKeyValue {
     mkKeyValue = k: v:
-      if
-        v == null
-      then
+      if v == null then
         ""
       else
         generators.mkKeyValueDefault { } "=" k v;

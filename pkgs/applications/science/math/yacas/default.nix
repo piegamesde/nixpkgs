@@ -34,25 +34,19 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DENABLE_CYACAS_GUI=${
-      if
-        enableGui
-      then
+      if enableGui then
         "ON"
       else
         "OFF"
     }"
     "-DENABLE_CYACAS_KERNEL=${
-      if
-        enableJupyter
-      then
+      if enableJupyter then
         "ON"
       else
         "OFF"
     }"
     "-DENABLE_JYACAS=${
-      if
-        enableJava
-      then
+      if enableJava then
         "ON"
       else
         "OFF"

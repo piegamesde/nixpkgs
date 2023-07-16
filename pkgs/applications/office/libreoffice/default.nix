@@ -190,9 +190,7 @@ let
 
   langsSpaces = concatStringsSep " " langs;
 
-  mkDrv = if
-    kdeIntegration
-  then
+  mkDrv = if kdeIntegration then
     mkDerivation
   else
     stdenv.mkDerivation;
@@ -277,9 +275,7 @@ in
   postPatch = ''
     substituteInPlace shell/source/unix/exec/shellexec.cxx \
       --replace xdg-open ${
-        if
-          kdeIntegration
-        then
+        if kdeIntegration then
           "kde-open5"
         else
           "xdg-open"
@@ -475,9 +471,7 @@ in
   dontWrapQtApps = true;
 
   configureFlags = [
-    (if
-      withHelp
-    then
+    (if withHelp then
       ""
     else
       "--without-help")

@@ -56,9 +56,7 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = [
-    (if
-      threadSupport
-    then
+    (if threadSupport then
       "--enable-threads"
     else
       "--disable-threads")

@@ -68,8 +68,10 @@ let
 
   envFile = pkgs.writeText "peertube.env" (lib.concatMapStrings (s: s + "\n")
     ((lib.concatLists (lib.mapAttrsToList (name: value:
-      if value != null then [ ''${name}="${toString value}"'' ] else [ ])
-      env))));
+      if value != null then
+        [ ''${name}="${toString value}"'' ]
+      else
+        [ ]) env))));
 
   peertubeEnv = pkgs.writeShellScriptBin "peertube-env" ''
     set -a
@@ -202,9 +204,7 @@ in {
 
       host = lib.mkOption {
         type = lib.types.str;
-        default = if
-          cfg.database.createLocally
-        then
+        default = if cfg.database.createLocally then
           "/run/postgresql"
         else
           null;
@@ -252,9 +252,7 @@ in {
 
       host = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
-        default = if
-          cfg.redis.createLocally && !cfg.redis.enableUnixSocket
-        then
+        default = if cfg.redis.createLocally && !cfg.redis.enableUnixSocket then
           "127.0.0.1"
         else
           null;
@@ -268,9 +266,7 @@ in {
 
       port = lib.mkOption {
         type = lib.types.nullOr lib.types.port;
-        default = if
-          cfg.redis.createLocally && cfg.redis.enableUnixSocket
-        then
+        default = if cfg.redis.createLocally && cfg.redis.enableUnixSocket then
           null
         else
           31638;
@@ -385,9 +381,7 @@ in {
       {
         listen = { port = cfg.listenHttp; };
         webserver = {
-          https = (if
-            cfg.enableWebHttps
-          then
+          https = (if cfg.enableWebHttps then
             true
           else
             false);
@@ -402,9 +396,7 @@ in {
         };
         redis = {
           hostname = "${toString cfg.redis.host}";
-          port = (if
-            cfg.redis.port == null
-          then
+          port = (if cfg.redis.port == null then
             ""
           else
             cfg.redis.port);

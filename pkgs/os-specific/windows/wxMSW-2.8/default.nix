@@ -17,15 +17,11 @@ stdenv.mkDerivation rec {
   };
 
   configureFlags = [
-    (if
-      compat24
-    then
+    (if compat24 then
       "--enable-compat24"
     else
       "--disable-compat24")
-    (if
-      compat26
-    then
+    (if compat26 then
       "--enable-compat26"
     else
       "--disable-compat26")

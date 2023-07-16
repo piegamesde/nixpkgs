@@ -154,9 +154,7 @@ let
     };
   };
 
-  qlpkgs = if
-    builtins.pathExists ./imported.nix
-  then
+  qlpkgs = if builtins.pathExists ./imported.nix then
     import ./imported.nix {
       inherit (pkgs) runCommand fetchzip;
       pkgs = builtQlpkgs;

@@ -34,9 +34,7 @@ assert (enableCrypt -> (libxcrypt != null));
 
 let
   crossCompiling = stdenv.buildPlatform != stdenv.hostPlatform;
-  libc = if
-    stdenv.cc.libc or null != null
-  then
+  libc = if stdenv.cc.libc or null != null then
     stdenv.cc.libc
   else
     "/usr";
@@ -90,16 +88,17 @@ stdenv.mkDerivation (rec {
 
   # This is not done for native builds because pwd may need to come from
   # bootstrap tools when building bootstrap perl.
-  postPatch = (if
-    crossCompiling
-  then ''
-    substituteInPlace dist/PathTools/Cwd.pm \
-      --replace "/bin/pwd" '${coreutils}/bin/pwd'
-    substituteInPlace cnf/configure_tool.sh --replace "cc -E -P" "cc -E"
-  '' else ''
-    substituteInPlace dist/PathTools/Cwd.pm \
-      --replace "/bin/pwd" "$(type -P pwd)"
-  '') +
+  postPatch = (if crossCompiling then
+    ''
+      substituteInPlace dist/PathTools/Cwd.pm \
+        --replace "/bin/pwd" '${coreutils}/bin/pwd'
+      substituteInPlace cnf/configure_tool.sh --replace "cc -E -P" "cc -E"
+    ''
+  else
+    ''
+      substituteInPlace dist/PathTools/Cwd.pm \
+        --replace "/bin/pwd" "$(type -P pwd)"
+    '') +
     # Perl's build system uses the src variable, and its value may end up in
     # the output in some cases (when cross-compiling)
     ''
@@ -111,22 +110,23 @@ stdenv.mkDerivation (rec {
   # $out/lib/perl5 - this is the general default, but because $out
   # contains the string "perl", Configure would select $out/lib.
   # Miniperl needs -lm. perl needs -lrt.
-  configureFlags = (if
-    crossCompiling
-  then [
-    ''-Dlibpth=""''
-    ''-Dglibpth=""''
-    "-Ddefault_inc_excludes_dot"
-  ] else [
-    "-de"
-    "-Dcc=cc"
-  ]) ++ [
-    "-Uinstallusrbinperl"
-    "-Dinstallstyle=lib/perl5"
-  ] ++ lib.optional (!crossCompiling) "-Duseshrplib" ++ [
-    "-Dlocincpth=${libcInc}/include"
-    "-Dloclibpth=${libcLib}/lib"
-  ] ++ lib.optionals
+  configureFlags = (if crossCompiling then
+    [
+      ''-Dlibpth=""''
+      ''-Dglibpth=""''
+      "-Ddefault_inc_excludes_dot"
+    ]
+  else
+    [
+      "-de"
+      "-Dcc=cc"
+    ]) ++ [
+      "-Uinstallusrbinperl"
+      "-Dinstallstyle=lib/perl5"
+    ] ++ lib.optional (!crossCompiling) "-Duseshrplib" ++ [
+      "-Dlocincpth=${libcInc}/include"
+      "-Dloclibpth=${libcLib}/lib"
+    ] ++ lib.optionals
     ((builtins.match "5\\.[0-9]*[13579]\\..+" version) != null) [
       "-Dusedevel"
       "-Uversiononly"
@@ -208,9 +208,7 @@ stdenv.mkDerivation (rec {
     perlOnBuildForHost = override pkgsBuildHost.${perlAttr};
     perlOnBuildForTarget = override pkgsBuildTarget.${perlAttr};
     perlOnHostForHost = override pkgsHostHost.${perlAttr};
-    perlOnTargetForTarget = if
-      lib.hasAttr perlAttr pkgsTargetTarget
-    then
+    perlOnTargetForTarget = if lib.hasAttr perlAttr pkgsTargetTarget then
       (override pkgsTargetTarget.${perlAttr})
     else
       { };
@@ -231,9 +229,7 @@ stdenv.mkDerivation (rec {
     substituteInPlace "$out"/lib/perl5/*/*/Config_heavy.pl \
       --replace "${libcInc}" /no-such-path \
       --replace "${
-        if
-          stdenv.hasCC
-        then
+        if stdenv.hasCC then
           stdenv.cc.cc
         else
           "/no-such-path"

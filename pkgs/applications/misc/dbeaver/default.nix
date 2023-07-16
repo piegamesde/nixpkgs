@@ -82,52 +82,53 @@
 
     systemPlatform = platformMap.${stdenv.hostPlatform.system} or (throw
       "dbeaver not supported on ${stdenv.hostPlatform.system}");
-  in if
-    stdenv.isDarwin
-  then ''
-    runHook preInstall
+  in if stdenv.isDarwin then
+    ''
+      runHook preInstall
 
-    mkdir -p $out/Applications $out/bin
-    cp -r ${productTargetPath}/macosx/cocoa/${systemPlatform}/DBeaver.app $out/Applications
+      mkdir -p $out/Applications $out/bin
+      cp -r ${productTargetPath}/macosx/cocoa/${systemPlatform}/DBeaver.app $out/Applications
 
-    sed -i "/^-vm/d; /bin\/java/d" $out/Applications/DBeaver.app/Contents/Eclipse/dbeaver.ini
+      sed -i "/^-vm/d; /bin\/java/d" $out/Applications/DBeaver.app/Contents/Eclipse/dbeaver.ini
 
-    ln -s $out/Applications/DBeaver.app/Contents/MacOS/dbeaver $out/bin/dbeaver
+      ln -s $out/Applications/DBeaver.app/Contents/MacOS/dbeaver $out/bin/dbeaver
 
-    wrapProgram $out/Applications/DBeaver.app/Contents/MacOS/dbeaver \
-      --prefix JAVA_HOME : ${jdk17.home} \
-      --prefix PATH : ${jdk17}/bin
+      wrapProgram $out/Applications/DBeaver.app/Contents/MacOS/dbeaver \
+        --prefix JAVA_HOME : ${jdk17.home} \
+        --prefix PATH : ${jdk17}/bin
 
-    runHook postInstall
-  '' else ''
-    runHook preInstall
+      runHook postInstall
+    ''
+  else
+    ''
+      runHook preInstall
 
-    mkdir -p $out/
-    cp -r ${productTargetPath}/linux/gtk/${systemPlatform}/dbeaver $out/dbeaver
+      mkdir -p $out/
+      cp -r ${productTargetPath}/linux/gtk/${systemPlatform}/dbeaver $out/dbeaver
 
-    # Patch binaries.
-    interpreter=$(cat $NIX_CC/nix-support/dynamic-linker)
-    patchelf --set-interpreter $interpreter $out/dbeaver/dbeaver
+      # Patch binaries.
+      interpreter=$(cat $NIX_CC/nix-support/dynamic-linker)
+      patchelf --set-interpreter $interpreter $out/dbeaver/dbeaver
 
-    makeWrapper $out/dbeaver/dbeaver $out/bin/dbeaver \
-      --prefix PATH : ${jdk17}/bin \
-      --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath ([
-          glib
-          gtk3
-          libXtst
-          webkitgtk_4_1
-          glib-networking
-        ])
-      } \
-      --prefix GIO_EXTRA_MODULES : "${glib-networking}/lib/gio/modules" \
-      --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH"
+      makeWrapper $out/dbeaver/dbeaver $out/bin/dbeaver \
+        --prefix PATH : ${jdk17}/bin \
+        --prefix LD_LIBRARY_PATH : ${
+          lib.makeLibraryPath ([
+            glib
+            gtk3
+            libXtst
+            webkitgtk_4_1
+            glib-networking
+          ])
+        } \
+        --prefix GIO_EXTRA_MODULES : "${glib-networking}/lib/gio/modules" \
+        --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH"
 
-    mkdir -p $out/share/pixmaps
-    ln -s $out/dbeaver/icon.xpm $out/share/pixmaps/dbeaver.xpm
+      mkdir -p $out/share/pixmaps
+      ln -s $out/dbeaver/icon.xpm $out/share/pixmaps/dbeaver.xpm
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
   meta = with lib; {
     homepage = "https://dbeaver.io/";

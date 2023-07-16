@@ -62,9 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   # Allow users to set an alternative config.def.h
   postPatch = let
-    configFile = if
-      lib.isDerivation conf || builtins.isPath conf
-    then
+    configFile = if lib.isDerivation conf || builtins.isPath conf then
       conf
     else
       writeText "config.def.h" conf;

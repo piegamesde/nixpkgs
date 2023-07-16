@@ -21,9 +21,7 @@ rec {
   subdir = "${major}.${minor}.${patch}";
 
   version = "${subdir}${
-      if
-        tweak == ""
-      then
+      if tweak == "" then
         ""
       else
         "."

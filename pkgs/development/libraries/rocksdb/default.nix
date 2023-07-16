@@ -64,9 +64,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DPORTABLE=1"
     "-DWITH_JEMALLOC=${
-      if
-        enableJemalloc
-      then
+      if enableJemalloc then
         "1"
       else
         "0"
@@ -87,9 +85,7 @@ stdenv.mkDerivation rec {
     (lib.optional sse42Support "-DFORCE_SSE42=1")
     (lib.optional enableLite "-DROCKSDB_LITE=1")
     "-DFAIL_ON_WARNINGS=${
-      if
-        stdenv.hostPlatform.isMinGW
-      then
+      if stdenv.hostPlatform.isMinGW then
         "NO"
       else
         "YES"

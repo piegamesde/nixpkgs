@@ -4,9 +4,7 @@
   writeShellScriptBin,
 }:
 let
-  arch = if
-    stdenv.hostPlatform.system == "i686-linux"
-  then
+  arch = if stdenv.hostPlatform.system == "i686-linux" then
     "32"
   else
     "64";

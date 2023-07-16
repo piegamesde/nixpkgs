@@ -54,8 +54,10 @@ stdenv.mkDerivation rec {
     lcms2
   ];
 
-  propagatedBuildInputs = [ colord ]
-    ++ (if withGtk4 then [ gtk4 ] else [ gtk3 ]);
+  propagatedBuildInputs = [ colord ] ++ (if withGtk4 then
+    [ gtk4 ]
+  else
+    [ gtk3 ]);
 
   mesonFlags = [
     "-Dgtk4=${lib.boolToString withGtk4}"

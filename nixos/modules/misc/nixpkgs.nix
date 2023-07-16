@@ -15,9 +15,7 @@ let
   isConfig = x: builtins.isAttrs x || lib.isFunction x;
 
   optCall = f: x:
-    if
-      lib.isFunction f
-    then
+    if lib.isFunction f then
       f x
     else
       f;
@@ -44,9 +42,7 @@ let
     check = x:
       let
         traceXIfNot = c:
-          if
-            c x
-          then
+          if c x then
             true
           else
             lib.traceSeqN 1 x false;
@@ -93,27 +89,22 @@ let
     ++ optional (opt.crossSystem.highestPrio < (mkOptionDefault { }).priority)
     opt.crossSystem;
 
-  defaultPkgs = if
-    opt.hostPlatform.isDefined
-  then
+  defaultPkgs = if opt.hostPlatform.isDefined then
     let
       isCross = cfg.buildPlatform != cfg.hostPlatform;
-      systemArgs = if
-        isCross
-      then {
-        localSystem = cfg.buildPlatform;
-        crossSystem = cfg.hostPlatform;
-      } else {
-        localSystem = cfg.hostPlatform;
-      };
+      systemArgs = if isCross then
+        {
+          localSystem = cfg.buildPlatform;
+          crossSystem = cfg.hostPlatform;
+        }
+      else
+        { localSystem = cfg.hostPlatform; };
     in
     import ../../.. ({ inherit (cfg) config overlays; } // systemArgs)
   else
     import ../../.. { inherit (cfg) config overlays localSystem crossSystem; };
 
-  finalPkgs = if
-    opt.pkgs.isDefined
-  then
+  finalPkgs = if opt.pkgs.isDefined then
     cfg.pkgs.appendOverlays cfg.overlays
   else
     defaultPkgs;
@@ -325,9 +316,7 @@ in {
     system = mkOption {
       type = types.str;
       example = "i686-linux";
-      default = if
-        opt.hostPlatform.isDefined
-      then
+      default = if opt.hostPlatform.isDefined then
         throw ''
           Neither ${opt.system} nor any other option in nixpkgs.* is meant
           to be read by modules and configurations.
@@ -373,9 +362,7 @@ in {
 
     assertions = [
       (let
-        nixosExpectedSystem = if
-          config.nixpkgs.crossSystem != null
-        then
+        nixosExpectedSystem = if config.nixpkgs.crossSystem != null then
           config.nixpkgs.crossSystem.system or (lib.systems.parse.doubleFromSystem
             (lib.systems.parse.mkSystemFromString
               config.nixpkgs.crossSystem.config))
@@ -383,9 +370,7 @@ in {
           config.nixpkgs.localSystem.system or (lib.systems.parse.doubleFromSystem
             (lib.systems.parse.mkSystemFromString
               config.nixpkgs.localSystem.config));
-        nixosOption = if
-          config.nixpkgs.crossSystem != null
-        then
+        nixosOption = if config.nixpkgs.crossSystem != null then
           "nixpkgs.crossSystem"
         else
           "nixpkgs.localSystem";

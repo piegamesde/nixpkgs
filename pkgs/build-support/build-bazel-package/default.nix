@@ -137,9 +137,7 @@ stdenv.mkDerivation (fBuildAttrs // {
       runHook preBuild
 
       ${bazelCmd {
-        cmd = if
-          fetchConfigured
-        then
+        cmd = if fetchConfigured then
           "build --nobuild"
         else
           "fetch";

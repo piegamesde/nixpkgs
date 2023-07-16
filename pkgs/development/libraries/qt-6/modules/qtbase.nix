@@ -240,9 +240,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals (!stdenv.isDarwin) [
     "-DQT_FEATURE_sctp=ON"
     "-DQT_FEATURE_journald=${
-      if
-        systemdSupport
-      then
+      if systemdSupport then
         "ON"
       else
         "OFF"

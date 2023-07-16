@@ -85,41 +85,31 @@ gnuradio.pkgs.mkDerivation rec {
     "-DENABLE_ORC=ON"
     "-DENABLE_LOG=ON"
     "-DENABLE_RAW_UDP=${
-      if
-        enableRawUdp
-      then
+      if enableRawUdp then
         "ON"
       else
         "OFF"
     }"
     "-DENABLE_UHD=${
-      if
-        (gnuradio.hasFeature "gr-uhd")
-      then
+      if (gnuradio.hasFeature "gr-uhd") then
         "ON"
       else
         "OFF"
     }"
     "-DENABLE_FMCOMMS2=${
-      if
-        (gnuradio.hasFeature "gr-iio" && gnuradio.hasFeature "gr-pdu")
-      then
+      if (gnuradio.hasFeature "gr-iio" && gnuradio.hasFeature "gr-pdu") then
         "ON"
       else
         "OFF"
     }"
     "-DENABLE_PLUTOSDR=${
-      if
-        (gnuradio.hasFeature "gr-iio")
-      then
+      if (gnuradio.hasFeature "gr-iio") then
         "ON"
       else
         "OFF"
     }"
     "-DENABLE_AD9361=${
-      if
-        (gnuradio.hasFeature "gr-pdu")
-      then
+      if (gnuradio.hasFeature "gr-pdu") then
         "ON"
       else
         "OFF"

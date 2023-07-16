@@ -154,9 +154,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-Dwith_wayland=enabled"
     "-Duse_system_spdlog=enabled"
     "-Dtests=${
-      if
-        finalAttrs.doCheck
-      then
+      if finalAttrs.doCheck then
         "enabled"
       else
         "disabled"

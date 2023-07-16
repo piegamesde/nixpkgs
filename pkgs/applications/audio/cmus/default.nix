@@ -87,15 +87,16 @@ assert tremorSupport -> !vorbisSupport;
 let
 
   mkFlag = b: f: dep:
-    if
-      b
-    then {
-      flags = [ f ];
-      deps = [ dep ];
-    } else {
-      flags = [ ];
-      deps = [ ];
-    };
+    if b then
+      {
+        flags = [ f ];
+        deps = [ dep ];
+      }
+    else
+      {
+        flags = [ ];
+        deps = [ ];
+      };
 
   opts = [
     # Audio output

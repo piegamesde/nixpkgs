@@ -29,9 +29,7 @@ rustPlatform.buildRustPackage rec {
   # As of rustc 1.45.0, these env vars are required to build rustfmt (due to
   # https://github.com/rust-lang/rust/pull/72001)
   CFG_RELEASE = rustPlatform.rust.rustc.version;
-  CFG_RELEASE_CHANNEL = if
-    asNightly
-  then
+  CFG_RELEASE_CHANNEL = if asNightly then
     "nightly"
   else
     "stable";

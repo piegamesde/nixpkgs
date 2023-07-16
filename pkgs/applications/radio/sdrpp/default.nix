@@ -107,9 +107,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = lib.mapAttrsToList (k: v:
     "-D${k}=${
-      if
-        v
-      then
+      if v then
         "ON"
       else
         "OFF"

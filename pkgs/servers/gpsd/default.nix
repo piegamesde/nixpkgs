@@ -98,9 +98,7 @@ stdenv.mkDerivation rec {
     "gpsd_group=${gpsdGroup}"
     "systemd=yes"
     "xgps=${
-      if
-        guiSupport
-      then
+      if guiSupport then
         "True"
       else
         "False"

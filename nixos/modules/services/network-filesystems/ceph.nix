@@ -24,9 +24,7 @@ let
   makeService = (daemonType: daemonId: clusterName: ceph:
     let
       stateDirectory = "ceph/${
-          if
-            daemonType == "rgw"
-          then
+          if daemonType == "rgw" then
             "radosgw"
           else
             daemonType
@@ -51,14 +49,14 @@ let
 
       # Don't start services that are not yet initialized
       unitConfig.ConditionPathExists = "/var/lib/${stateDirectory}/keyring";
-      startLimitBurst = if
-        daemonType == "osd"
-      then
+      startLimitBurst = if daemonType == "osd" then
         30
-      else if lib.elem daemonType [
-        "mgr"
-        "mds"
-      ] then
+      else if
+        lib.elem daemonType [
+          "mgr"
+          "mds"
+        ]
+      then
         3
       else
         5;
@@ -76,17 +74,13 @@ let
         Restart = "on-failure";
         StateDirectory = stateDirectory;
         User = "ceph";
-        Group = if
-          daemonType == "osd"
-        then
+        Group = if daemonType == "osd" then
           "disk"
         else
           "ceph";
         ExecStart = ''
           ${ceph.out}/bin/${
-            if
-              daemonType == "rgw"
-            then
+            if daemonType == "rgw" then
               "radosgw"
             else
               "ceph-${daemonType}"

@@ -164,9 +164,7 @@ let
     };
   };
 
-in if
-  plugins == [ ]
-then
+in if plugins == [ ] then
   unwrapped
 else
   callPackage ./wrapper.nix {

@@ -32,9 +32,7 @@ stdenv.mkDerivation rec {
   postBuild = ''
     $CXX -shared -o ${libname} \
         ${
-          if
-            stdenv.cc.isClang
-          then
+          if stdenv.cc.isClang then
             ""
           else
             "-Wl,-soname,${libname}"

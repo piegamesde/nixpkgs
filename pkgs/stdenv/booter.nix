@@ -65,9 +65,7 @@ let
     let
       len = builtins.length list;
       go = pred: n:
-        if
-          n == len
-        then
+        if n == len then
           rnul pred
         else
           let
@@ -106,35 +104,30 @@ let
           __hatPackages = nextStage;
         };
       };
-      thisStage = if
-        args.__raw or false
-      then
+      thisStage = if args.__raw or false then
         args'
       else
         allPackages ((builtins.removeAttrs args' [ "selfBuild" ]) // {
-          adjacentPackages = if
-            args.selfBuild or true
-          then
+          adjacentPackages = if args.selfBuild or true then
             null
-          else rec {
-            pkgsBuildBuild = prevStage.buildPackages;
-            pkgsBuildHost = prevStage;
-            pkgsBuildTarget = if
-              args.stdenv.targetPlatform == args.stdenv.hostPlatform
-            then
-              pkgsBuildHost
-            else
-              assert args.stdenv.hostPlatform == args.stdenv.buildPlatform;
-              thisStage;
-            pkgsHostHost = if
-              args.stdenv.hostPlatform == args.stdenv.targetPlatform
-            then
-              thisStage
-            else
-              assert args.stdenv.buildPlatform == args.stdenv.hostPlatform;
-              pkgsBuildHost;
-            pkgsTargetTarget = nextStage;
-          };
+          else
+            rec {
+              pkgsBuildBuild = prevStage.buildPackages;
+              pkgsBuildHost = prevStage;
+              pkgsBuildTarget =
+                if args.stdenv.targetPlatform == args.stdenv.hostPlatform then
+                  pkgsBuildHost
+                else
+                  assert args.stdenv.hostPlatform == args.stdenv.buildPlatform;
+                  thisStage;
+              pkgsHostHost =
+                if args.stdenv.hostPlatform == args.stdenv.targetPlatform then
+                  thisStage
+                else
+                  assert args.stdenv.buildPlatform == args.stdenv.hostPlatform;
+                  pkgsBuildHost;
+              pkgsTargetTarget = nextStage;
+            };
         });
     in
     thisStage
@@ -145,9 +138,7 @@ let
   # opposed to used to cross-compile packages.)
   postStage = buildPackages: {
     __raw = true;
-    stdenv.cc = if
-      buildPackages.stdenv.hasCC
-    then
+    stdenv.cc = if buildPackages.stdenv.hasCC then
       if
         buildPackages.stdenv.cc.isClang or false
         # buildPackages.clang checks targetPackages.stdenv.cc (i. e. this

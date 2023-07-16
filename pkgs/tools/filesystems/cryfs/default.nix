@@ -72,9 +72,7 @@ stdenv.mkDerivation rec {
     "-DCRYFS_UPDATE_CHECKS:BOOL=FALSE"
     "-DBoost_USE_STATIC_LIBS:BOOL=FALSE" # this option is case sensitive
     "-DBUILD_TESTING:BOOL=${
-      if
-        doCheck
-      then
+      if doCheck then
         "TRUE"
       else
         "FALSE"

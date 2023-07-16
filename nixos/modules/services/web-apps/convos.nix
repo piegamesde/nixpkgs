@@ -44,9 +44,7 @@ in {
       after = [ "networking.target" ];
       environment = {
         CONVOS_HOME = "%S/convos";
-        CONVOS_REVERSE_PROXY = if
-          cfg.reverseProxy
-        then
+        CONVOS_REVERSE_PROXY = if cfg.reverseProxy then
           "1"
         else
           "0";

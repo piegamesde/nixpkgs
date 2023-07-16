@@ -25,9 +25,7 @@ stdenv.mkDerivation rec {
     # The default libcxx stdenv in llvmPackages doesn't provide
     # this and so will fail.
     "-DENABLE_LIBCXX=${
-      if
-        libcxxCmakeModule
-      then
+      if libcxxCmakeModule then
         "ON"
       else
         "OFF"

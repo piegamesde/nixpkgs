@@ -33,9 +33,7 @@ let
     libudev0-shim
   ];
   runtimeBins = lib.makeBinPath [ streamlink ];
-  arch = if
-    stdenv.hostPlatform.system == "x86_64-linux"
-  then
+  arch = if stdenv.hostPlatform.system == "x86_64-linux" then
     "linux64"
   else
     "linux32";
@@ -48,9 +46,7 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     url =
       "https://github.com/streamlink/${basename}/releases/download/v${version}/${basename}-v${version}-${arch}.tar.gz";
-    hash = if
-      arch == "linux64"
-    then
+    hash = if arch == "linux64" then
       "sha256-kfCGhIgKMI0siDqnmIHSMk6RMHFlW6uwVsW48aiRua0="
     else
       "sha256-+jgTpIYb4BPM7Ixmo+YUeOX5OlQlMaRVEXf3WzS2lAI=";

@@ -12,9 +12,7 @@
   callPackage,
   darwin,
   wineRelease ? "stable",
-  wineBuild ? if
-    stdenv.hostPlatform.system == "x86_64-linux"
-  then
+  wineBuild ? if stdenv.hostPlatform.system == "x86_64-linux" then
     "wineWow"
   else
     "wine32",
@@ -90,9 +88,7 @@ let
       inherit moltenvk;
     });
 
-in if
-  wineRelease == "staging"
-then
+in if wineRelease == "staging" then
   callPackage ./staging.nix { wineUnstable = wine-build wineBuild "unstable"; }
 else
   wine-build wineBuild wineRelease

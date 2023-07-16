@@ -29,9 +29,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     libX11
-    (if
-      withGtk3
-    then
+    (if withGtk3 then
       gtk3
     else
       gtk2)

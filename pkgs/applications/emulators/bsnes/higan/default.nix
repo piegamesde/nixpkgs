@@ -83,71 +83,70 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-  '' + (if
-    stdenv.isDarwin
-  then ''
-    mkdir ${placeholder "out"}
-    mv higan/out/higan.app ${placeholder "out"}/
-    mv icarus/out/icarus.app ${placeholder "out"}/
-  '' else ''
-    install -d ${placeholder "out"}/bin
-    install higan-ui/out/higan -t ${placeholder "out"}/bin/
-    install icarus/out/icarus -t ${placeholder "out"}/bin/
+  '' + (if stdenv.isDarwin then
+    ''
+      mkdir ${placeholder "out"}
+      mv higan/out/higan.app ${placeholder "out"}/
+      mv icarus/out/icarus.app ${placeholder "out"}/
+    ''
+  else
+    ''
+      install -d ${placeholder "out"}/bin
+      install higan-ui/out/higan -t ${placeholder "out"}/bin/
+      install icarus/out/icarus -t ${placeholder "out"}/bin/
 
-    install -d ${placeholder "out"}/share/applications
-    install higan-ui/resource/higan.desktop -t ${
-      placeholder "out"
-    }/share/applications/
-    install icarus/resource/icarus.desktop -t ${
-      placeholder "out"
-    }/share/applications/
-
-    install -d ${placeholder "out"}/share/pixmaps
-    install higan/higan/resource/higan.svg ${
-      placeholder "out"
-    }/share/pixmaps/higan-icon.svg
-    install higan/higan/resource/logo.png ${
-      placeholder "out"
-    }/share/pixmaps/higan-icon.png
-    install icarus/resource/icarus.svg ${
-      placeholder "out"
-    }/share/pixmaps/icarus-icon.svg
-    install icarus/resource/icarus.png ${
-      placeholder "out"
-    }/share/pixmaps/icarus-icon.png
-  '') + ''
-    install -d ${placeholder "out"}/share/higan
-    cp -rd extras/ higan/System/ ${placeholder "out"}/share/higan/
-
-    install -d ${placeholder "out"}/share/icarus
-    cp -rd icarus/Database icarus/Firmware ${placeholder "out"}/share/icarus/
-  '' + (
-    # A dirty workaround, suggested by @cpages:
-    # we create a first-run script to populate
-    # $HOME with all the stuff needed at runtime
-    let
-      dest = if
-        stdenv.isDarwin
-      then
-        "\\$HOME/Library/Application Support/higan"
-      else
-        "\\$HOME/higan";
-    in ''
-      mkdir -p ${placeholder "out"}/bin
-      cat <<EOF > ${placeholder "out"}/bin/higan-init.sh
-      #!${runtimeShell}
-
-      cp --recursive --update ${
+      install -d ${placeholder "out"}/share/applications
+      install higan-ui/resource/higan.desktop -t ${
         placeholder "out"
-      }/share/higan/System/ "${dest}"/
+      }/share/applications/
+      install icarus/resource/icarus.desktop -t ${
+        placeholder "out"
+      }/share/applications/
 
-      EOF
+      install -d ${placeholder "out"}/share/pixmaps
+      install higan/higan/resource/higan.svg ${
+        placeholder "out"
+      }/share/pixmaps/higan-icon.svg
+      install higan/higan/resource/logo.png ${
+        placeholder "out"
+      }/share/pixmaps/higan-icon.png
+      install icarus/resource/icarus.svg ${
+        placeholder "out"
+      }/share/pixmaps/icarus-icon.svg
+      install icarus/resource/icarus.png ${
+        placeholder "out"
+      }/share/pixmaps/icarus-icon.png
+    '') + ''
+      install -d ${placeholder "out"}/share/higan
+      cp -rd extras/ higan/System/ ${placeholder "out"}/share/higan/
 
-      chmod +x ${placeholder "out"}/bin/higan-init.sh
-    '' ) + ''
+      install -d ${placeholder "out"}/share/icarus
+      cp -rd icarus/Database icarus/Firmware ${placeholder "out"}/share/icarus/
+    '' + (
+      # A dirty workaround, suggested by @cpages:
+      # we create a first-run script to populate
+      # $HOME with all the stuff needed at runtime
+      let
+        dest = if stdenv.isDarwin then
+          "\\$HOME/Library/Application Support/higan"
+        else
+          "\\$HOME/higan";
+      in ''
+        mkdir -p ${placeholder "out"}/bin
+        cat <<EOF > ${placeholder "out"}/bin/higan-init.sh
+        #!${runtimeShell}
 
-      runHook postInstall
-    '';
+        cp --recursive --update ${
+          placeholder "out"
+        }/share/higan/System/ "${dest}"/
+
+        EOF
+
+        chmod +x ${placeholder "out"}/bin/higan-init.sh
+      '' ) + ''
+
+        runHook postInstall
+      '';
 
   meta = with lib; {
     homepage = "https://github.com/higan-emu/higan";

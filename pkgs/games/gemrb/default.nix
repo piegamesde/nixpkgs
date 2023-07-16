@@ -18,9 +18,7 @@
 
 let
   # the GLES backend on rpi is untested as I don't have the hardware
-  backend = if
-    stdenv.hostPlatform.isx86
-  then
+  backend = if stdenv.hostPlatform.isx86 then
     "OpenGL"
   else
     "GLES";

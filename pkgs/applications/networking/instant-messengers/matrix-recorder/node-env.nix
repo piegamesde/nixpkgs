@@ -12,9 +12,7 @@
 }:
 
 let
-  python = if
-    nodejs ? python
-  then
+  python = if nodejs ? python then
     nodejs.python
   else
     python2;
@@ -185,9 +183,7 @@ let
       };
     in ''
       node ${pinpointDependenciesFromPackageJSON} ${
-        if
-          production
-        then
+        if production then
           "production"
         else
           "development"
@@ -367,9 +363,7 @@ let
       production,
     }:
     let
-      forceOfflineFlag = if
-        bypassCache
-      then
+      forceOfflineFlag = if bypassCache then
         "--offline"
       else
         "--registry http://www.example.com";

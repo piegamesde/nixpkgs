@@ -16,9 +16,7 @@ let
     (mapAttrsToList (name: value: "-o ${name}=${escapeShellArg (toStr value)}")
       cfg.settings);
   toStr = v:
-    if
-      v == true
-    then
+    if v == true then
       "yes"
     else if v == false then
       "no"

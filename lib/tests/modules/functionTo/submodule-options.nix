@@ -47,11 +47,10 @@ in {
       type = types.str;
       default = lib.concatStringsSep " " (lib.concatLists (lib.mapAttrsToList
         (k: v:
-          if
-            k == "_module"
-          then
+          if k == "_module" then
             [ ]
-          else [ (lib.showOption v.loc) ])
+          else
+            [ (lib.showOption v.loc) ])
         ((options.fun.type.getSubOptions [ "fun" ]))));
     };
   };

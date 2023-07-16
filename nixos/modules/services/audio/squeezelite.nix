@@ -10,9 +10,7 @@ let
 
   dataDir = "/var/lib/squeezelite";
   cfg = config.services.squeezelite;
-  pkg = if
-    cfg.pulseAudio
-  then
+  pkg = if cfg.pulseAudio then
     pkgs.squeezelite-pulse
   else
     pkgs.squeezelite;

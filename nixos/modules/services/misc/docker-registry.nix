@@ -10,9 +10,7 @@ with lib;
 let
   cfg = config.services.dockerRegistry;
 
-  blobCache = if
-    cfg.enableRedisCache
-  then
+  blobCache = if cfg.enableRedisCache then
     "redis"
   else
     "inmemory";
@@ -23,11 +21,9 @@ let
     storage = {
       cache.blobdescriptor = blobCache;
       delete.enabled = cfg.enableDelete;
-    } // (if
-      cfg.storagePath != null
-    then {
-      filesystem.rootdirectory = cfg.storagePath;
-    } else
+    } // (if cfg.storagePath != null then
+      { filesystem.rootdirectory = cfg.storagePath; }
+    else
       { });
     http = {
       addr = "${cfg.listenAddress}:${builtins.toString cfg.port}";
@@ -155,12 +151,12 @@ in {
       startAt = optional cfg.enableGarbageCollect cfg.garbageCollectDates;
     };
 
-    users.users.docker-registry = (if
-      cfg.storagePath != null
-    then {
-      createHome = true;
-      home = cfg.storagePath;
-    } else
+    users.users.docker-registry = (if cfg.storagePath != null then
+      {
+        createHome = true;
+        home = cfg.storagePath;
+      }
+    else
       { }) // {
         group = "docker-registry";
         isSystemUser = true;

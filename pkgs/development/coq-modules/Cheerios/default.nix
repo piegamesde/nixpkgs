@@ -10,9 +10,7 @@ mkCoqDerivation {
   pname = "cheerios";
   owner = "uwplse";
   inherit version;
-  defaultVersion = if
-    lib.versions.range "8.6" "8.16" coq.version
-  then
+  defaultVersion = if lib.versions.range "8.6" "8.16" coq.version then
     "20200201"
   else
     null;

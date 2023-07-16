@@ -12,9 +12,7 @@
 }:
 
 let
-  pname = if
-    lib.hasPrefix "rocm-llvm-" name
-  then
+  pname = if lib.hasPrefix "rocm-llvm-" name then
     "llvmPackages_rocm.${lib.removePrefix "rocm-llvm-" name}"
   else
     name;

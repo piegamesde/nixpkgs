@@ -13,9 +13,7 @@ let
   rev = "af12e2e4da586275ba931eae8f40a2201251bf59";
 
   baseUrl = "https://emux.cc/versions/${lib.substring 0 8 rev}/CCEmuX";
-  jar = if
-    useCCTweaked
-  then
+  jar = if useCCTweaked then
     fetchurl {
       url = "${baseUrl}-cct.jar";
       sha256 = "0d9gzi1h5vz32fp4lfn7dam189jcm7bwbqwmlpj0c47p8l0d4lsv";

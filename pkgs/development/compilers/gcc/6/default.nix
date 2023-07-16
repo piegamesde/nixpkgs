@@ -161,9 +161,7 @@ let
   # Cross-gcc settings (build == host != target)
   crossMingw = targetPlatform != hostPlatform && targetPlatform.libc
     == "msvcrt";
-  stageNameAddon = if
-    crossStageStatic
-  then
+  stageNameAddon = if crossStageStatic then
     "stage-static"
   else
     "stage-final";
@@ -264,9 +262,7 @@ stdenv.mkDerivation ({
 
   builder = ../builder.sh;
 
-  src = if
-    stdenv.targetPlatform.isVc4
-  then
+  src = if stdenv.targetPlatform.isVc4 then
     fetchFromGitHub {
       owner = "itszor";
       repo = "gcc-vc4";
@@ -288,18 +284,19 @@ stdenv.mkDerivation ({
 
   inherit patches;
 
-  outputs = if
-    langJava || langGo || langJit
-  then [
-    "out"
-    "man"
-    "info"
-  ] else [
-    "out"
-    "lib"
-    "man"
-    "info"
-  ];
+  outputs = if langJava || langGo || langJit then
+    [
+      "out"
+      "man"
+      "info"
+    ]
+  else
+    [
+      "out"
+      "lib"
+      "man"
+      "info"
+    ];
   setOutputFlags = false;
   NIX_NO_SELF_RPATH = true;
 
@@ -327,9 +324,7 @@ stdenv.mkDerivation ({
       # On NixOS, use the right path to the dynamic linker instead of
       # `/lib/ld*.so'.
       (let
-        libc = if
-          libcCross != null
-        then
+        libc = if libcCross != null then
           libcCross
         else
           stdenv.cc.libc;
@@ -380,18 +375,14 @@ stdenv.mkDerivation ({
 
   configureFlags = callFile ../common/configure-flags.nix { };
 
-  targetConfig = if
-    targetPlatform != hostPlatform
-  then
+  targetConfig = if targetPlatform != hostPlatform then
     targetPlatform.config
   else
     null;
 
   buildFlags =
     optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
-    (if
-      profiledCompiler
-    then
+    (if profiledCompiler then
       "profiledbootstrap"
     else
       "bootstrap");
@@ -407,9 +398,7 @@ stdenv.mkDerivation ({
 
   # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
   ${
-    if
-      hostPlatform.system == "x86_64-solaris"
-    then
+    if hostPlatform.system == "x86_64-solaris" then
       "CC"
     else
       null

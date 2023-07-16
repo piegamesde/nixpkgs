@@ -41,9 +41,7 @@ stdenv.mkDerivation rec {
   sourceRoot = "rott-${version}/rott";
 
   makeFlags = [ "SHAREWARE=${
-      if
-        buildShareware
-      then
+      if buildShareware then
         "1"
       else
         "0"
@@ -67,9 +65,7 @@ stdenv.mkDerivation rec {
     name = "rott";
     exec = "rott";
     desktopName = "Rise of the Triad: ${
-        if
-          buildShareware
-        then
+        if buildShareware then
           "The HUNT Begins"
         else
           "Dark War"

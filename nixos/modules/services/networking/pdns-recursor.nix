@@ -21,17 +21,13 @@ let
   configType = with types; attrsOf (nullOr (oneOrMore valueType));
 
   toBool = val:
-    if
-      val
-    then
+    if val then
       "yes"
     else
       "no";
   serialize = val:
     with types;
-    if
-      str.check val
-    then
+    if str.check val then
       val
     else if int.check val then
       toString val

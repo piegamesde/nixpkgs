@@ -6,9 +6,7 @@
 }:
 
 let
-  ghdl = if
-    backend == "llvm"
-  then
+  ghdl = if backend == "llvm" then
     ghdl-llvm
   else
     ghdl-mcode;
@@ -23,13 +21,14 @@ stdenv.mkDerivation {
     mkdir -p ghdlwork
     ghdl -a --workdir=ghdlwork --ieee=synopsys simple.vhd simple-tb.vhd
     ghdl -e --workdir=ghdlwork --ieee=synopsys -o sim-simple tb
-  '' + (if
-    backend == "llvm"
-  then ''
-    ./sim-simple --assert-level=warning > output.txt
-  '' else ''
-    ghdl -r --workdir=ghdlwork --ieee=synopsys tb > output.txt
-  '') + ''
-    diff output.txt ${./expected-output.txt} && touch $out
-  '';
+  '' + (if backend == "llvm" then
+    ''
+      ./sim-simple --assert-level=warning > output.txt
+    ''
+  else
+    ''
+      ghdl -r --workdir=ghdlwork --ieee=synopsys tb > output.txt
+    '') + ''
+      diff output.txt ${./expected-output.txt} && touch $out
+    '';
 }

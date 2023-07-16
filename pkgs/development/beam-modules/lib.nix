@@ -10,9 +10,7 @@ in rec {
   # Similar to callPackageWith/callPackage, but without makeOverridable
   callPackageWith = autoArgs: fn: args:
     let
-      f = if
-        pkgs.lib.isFunction fn
-      then
+      f = if pkgs.lib.isFunction fn then
         fn
       else
         import fn;
