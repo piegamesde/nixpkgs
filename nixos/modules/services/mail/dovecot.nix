@@ -211,14 +211,13 @@ let
 in
 {
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "dovecot2"
-          "package"
-        ]
-        ""
+    (mkRemovedOptionModule
+      [
+        "services"
+        "dovecot2"
+        "package"
+      ]
+      ""
     )
   ];
 

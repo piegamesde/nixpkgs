@@ -66,9 +66,8 @@ let
     ];
     filterDeprecated =
       bond:
-      (
-        filterAttrs (attrName: attr: elem attrName deprecated && attr != null)
-          bond
+      (filterAttrs (attrName: attr: elem attrName deprecated && attr != null)
+        bond
       )
     ;
   };

@@ -354,13 +354,12 @@ let
         )
       ;
     in
-    (
-      builtins.foldl' reduceExpressionsFun
-        {
-          value = true;
-          cond = "and";
-        }
-        exprs
+    (builtins.foldl' reduceExpressionsFun
+      {
+        value = true;
+        cond = "and";
+      }
+      exprs
     ).value
   ;
 in

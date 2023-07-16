@@ -817,9 +817,8 @@ rec {
       };
     }
     .${toString (length l)}
-      or (
-        throw
-          "system string has invalid number of hyphen-separated components"
+      or (throw
+        "system string has invalid number of hyphen-separated components"
       )
   ;
 

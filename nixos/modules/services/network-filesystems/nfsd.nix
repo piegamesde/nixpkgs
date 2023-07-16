@@ -16,33 +16,31 @@ in
 
 {
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "nfs"
-          "lockdPort"
-        ]
-        [
-          "services"
-          "nfs"
-          "server"
-          "lockdPort"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "nfs"
+        "lockdPort"
+      ]
+      [
+        "services"
+        "nfs"
+        "server"
+        "lockdPort"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "nfs"
-          "statdPort"
-        ]
-        [
-          "services"
-          "nfs"
-          "server"
-          "statdPort"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "nfs"
+        "statdPort"
+      ]
+      [
+        "services"
+        "nfs"
+        "server"
+        "statdPort"
+      ]
     )
   ];
 

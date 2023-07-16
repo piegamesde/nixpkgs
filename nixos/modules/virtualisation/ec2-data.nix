@@ -13,13 +13,12 @@ with lib;
 
 {
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "ec2"
-          "metadata"
-        ]
-        ""
+    (mkRemovedOptionModule
+      [
+        "ec2"
+        "metadata"
+      ]
+      ""
     )
   ];
 

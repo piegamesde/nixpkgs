@@ -101,9 +101,8 @@ in
       wantedBy = [ "multi-user.target" ];
       after =
         [ "networking.target" ]
-        ++ (
-          optional (cfg.settings.storage.type == "postgres")
-            "postgresql.service"
+        ++ (optional (cfg.settings.storage.type == "postgres")
+          "postgresql.service"
         )
       ;
       path = with pkgs; [ replace-secret ];

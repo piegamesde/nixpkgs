@@ -113,16 +113,15 @@ in
   ];
 
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "paperless-ng"
-        ]
-        [
-          "services"
-          "paperless"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "paperless-ng"
+      ]
+      [
+        "services"
+        "paperless"
+      ]
     )
   ];
 

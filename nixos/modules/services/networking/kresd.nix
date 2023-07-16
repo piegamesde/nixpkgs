@@ -57,50 +57,48 @@ in
   ];
 
   imports = [
-    (
-      mkChangedOptionModule
-        [
-          "services"
-          "kresd"
-          "interfaces"
-        ]
-        [
-          "services"
-          "kresd"
-          "listenPlain"
-        ]
-        (
-          config:
-          let
-            value =
-              getAttrFromPath
-                [
-                  "services"
-                  "kresd"
-                  "interfaces"
-                ]
-                config
-            ;
-          in
-          map
-            (
-              iface:
-              if elem ":" (stringToCharacters iface) then
-                "[${iface}]:53"
-              else
-                "${iface}:53"
-            ) # Syntax depends on being IPv6 or IPv4.
-            value
-        )
+    (mkChangedOptionModule
+      [
+        "services"
+        "kresd"
+        "interfaces"
+      ]
+      [
+        "services"
+        "kresd"
+        "listenPlain"
+      ]
+      (
+        config:
+        let
+          value =
+            getAttrFromPath
+              [
+                "services"
+                "kresd"
+                "interfaces"
+              ]
+              config
+          ;
+        in
+        map
+          (
+            iface:
+            if elem ":" (stringToCharacters iface) then
+              "[${iface}]:53"
+            else
+              "${iface}:53"
+          ) # Syntax depends on being IPv6 or IPv4.
+          value
+      )
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "kresd"
-          "cacheDir"
-        ]
-        "Please use (bind-)mounting instead."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "kresd"
+        "cacheDir"
+      ]
+      "Please use (bind-)mounting instead."
     )
   ];
 

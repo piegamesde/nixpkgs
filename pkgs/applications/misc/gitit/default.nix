@@ -23,10 +23,9 @@ let
   ;
   static = haskell.lib.compose.justStaticExecutables plugins;
 in
-(
-  haskell.lib.compose.overrideCabal
-    (drv: { buildTools = (drv.buildTools or [ ]) ++ [ removeReferencesTo ]; })
-    static
+(haskell.lib.compose.overrideCabal
+  (drv: { buildTools = (drv.buildTools or [ ]) ++ [ removeReferencesTo ]; })
+  static
 ).overrideAttrs
   (
     drv: {

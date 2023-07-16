@@ -77,61 +77,57 @@ in
 {
 
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "nextcloud"
-          "config"
-          "adminpass"
-        ]
-        ''
-          Please use `services.nextcloud.config.adminpassFile' instead!
-        ''
+    (mkRemovedOptionModule
+      [
+        "services"
+        "nextcloud"
+        "config"
+        "adminpass"
+      ]
+      ''
+        Please use `services.nextcloud.config.adminpassFile' instead!
+      ''
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "nextcloud"
-          "config"
-          "dbpass"
-        ]
-        ''
-          Please use `services.nextcloud.config.dbpassFile' instead!
-        ''
+    (mkRemovedOptionModule
+      [
+        "services"
+        "nextcloud"
+        "config"
+        "dbpass"
+      ]
+      ''
+        Please use `services.nextcloud.config.dbpassFile' instead!
+      ''
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "nextcloud"
-          "nginx"
-          "enable"
-        ]
-        ''
-          The nextcloud module supports `nginx` as reverse-proxy by default and doesn't
-          support other reverse-proxies officially.
+    (mkRemovedOptionModule
+      [
+        "services"
+        "nextcloud"
+        "nginx"
+        "enable"
+      ]
+      ''
+        The nextcloud module supports `nginx` as reverse-proxy by default and doesn't
+        support other reverse-proxies officially.
 
-          However it's possible to use an alternative reverse-proxy by
+        However it's possible to use an alternative reverse-proxy by
 
-            * disabling nginx
-            * setting `listen.owner` & `listen.group` in the phpfpm-pool to a different value
+          * disabling nginx
+          * setting `listen.owner` & `listen.group` in the phpfpm-pool to a different value
 
-          Further details about this can be found in the `Nextcloud`-section of the NixOS-manual
-          (which can be opened e.g. by running `nixos-help`).
-        ''
+        Further details about this can be found in the `Nextcloud`-section of the NixOS-manual
+        (which can be opened e.g. by running `nixos-help`).
+      ''
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "nextcloud"
-          "disableImagemagick"
-        ]
-        ''
-          Use services.nextcloud.enableImagemagick instead.
-        ''
+    (mkRemovedOptionModule
+      [
+        "services"
+        "nextcloud"
+        "disableImagemagick"
+      ]
+      ''
+        Use services.nextcloud.enableImagemagick instead.
+      ''
     )
   ];
 
@@ -824,16 +820,15 @@ in
 
             For more context, here is the implementing pull request: https://github.com/NixOS/nixpkgs/pull/198470
           '')
-          ++ (
-            optional
-              (
-                cfg.enableBrokenCiphersForSSE
-                && versionAtLeast cfg.package.version "26"
-              )
-              ''
-                Nextcloud26 supports RC4 without requiring legacy OpenSSL, so
-                `services.nextcloud.enableBrokenCiphersForSSE` can be set to `false`.
-              ''
+          ++ (optional
+            (
+              cfg.enableBrokenCiphersForSSE
+              && versionAtLeast cfg.package.version "26"
+            )
+            ''
+              Nextcloud26 supports RC4 without requiring legacy OpenSSL, so
+              `services.nextcloud.enableBrokenCiphersForSSE` can be set to `false`.
+            ''
           )
         ;
 

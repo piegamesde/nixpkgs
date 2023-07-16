@@ -65,19 +65,18 @@ with lib;
           builtins.map
             (
               l:
-              (
-                replaceStrings
-                  [
-                    "utf8"
-                    "utf-8"
-                    "UTF8"
-                  ]
-                  [
-                    "UTF-8"
-                    "UTF-8"
-                    "UTF-8"
-                  ]
-                  l
+              (replaceStrings
+                [
+                  "utf8"
+                  "utf-8"
+                  "UTF8"
+                ]
+                [
+                  "UTF-8"
+                  "UTF-8"
+                  "UTF-8"
+                ]
+                l
               )
               + "/UTF-8"
             )

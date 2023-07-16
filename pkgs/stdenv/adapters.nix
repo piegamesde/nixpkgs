@@ -163,15 +163,14 @@ rec {
             nativeBuildInputs =
               (args.nativeBuildInputs or [ ])
               ++ [
-                (
-                  pkgs.buildPackages.makeSetupHook
-                    {
-                      name = "darwin-portable-libSystem-hook";
-                      substitutions = {
-                        libsystem = "${stdenv.cc.libc}/lib/libSystem.B.dylib";
-                      };
-                    }
-                    ./darwin/portable-libsystem.sh
+                (pkgs.buildPackages.makeSetupHook
+                  {
+                    name = "darwin-portable-libSystem-hook";
+                    substitutions = {
+                      libsystem = "${stdenv.cc.libc}/lib/libSystem.B.dylib";
+                    };
+                  }
+                  ./darwin/portable-libsystem.sh
                 )
               ]
             ;

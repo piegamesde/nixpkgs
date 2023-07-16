@@ -32,34 +32,33 @@ with lib;
 
 let
   warn = if verbose then builtins.trace else (x: y: y);
-  references = import (
-    runCommandLocal "references.nix"
-      {
-        exportReferencesGraph = [
-          "graph"
-          drv
-        ];
-      }
-      ''
-        (echo {
-        while read path
-        do
-            echo "  \"$path\" = ["
-            read count
-            read count
-            while [ "0" != "$count" ]
-            do
-                read ref_path
-                if [ "$ref_path" != "$path" ]
-                then
-                    echo "    (builtins.storePath (/. + \"$ref_path\"))"
-                fi
-                count=$(($count - 1))
-            done
-            echo "  ];"
-        done < graph
-        echo }) > $out
-      ''
+  references = import (runCommandLocal "references.nix"
+    {
+      exportReferencesGraph = [
+        "graph"
+        drv
+      ];
+    }
+    ''
+      (echo {
+      while read path
+      do
+          echo "  \"$path\" = ["
+          read count
+          read count
+          while [ "0" != "$count" ]
+          do
+              read ref_path
+              if [ "$ref_path" != "$path" ]
+              then
+                  echo "    (builtins.storePath (/. + \"$ref_path\"))"
+              fi
+              count=$(($count - 1))
+          done
+          echo "  ];"
+      done < graph
+      echo }) > $out
+    ''
   ).outPath;
 
   discard = builtins.unsafeDiscardStringContext;
@@ -135,10 +134,9 @@ assert (
   stringLength (drvName (toString oldDependency))
   == stringLength (drvName (toString newDependency))
 );
-rewriteMemo.${drvHash} or (
-  warn
-    "replace-dependency.nix: Derivation ${drvHash} does not depend on ${
-      discard (toString oldDependency)
-    }"
-    drv
+rewriteMemo.${drvHash} or (warn
+  "replace-dependency.nix: Derivation ${drvHash} does not depend on ${
+    discard (toString oldDependency)
+  }"
+  drv
 )

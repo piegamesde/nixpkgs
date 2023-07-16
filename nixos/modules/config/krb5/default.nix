@@ -64,10 +64,9 @@ let
   filterEmbeddedMetadata =
     value:
     if isAttrs value then
-      (
-        filterAttrs
-          (attrName: attrValue: attrName != "_module" && attrValue != null)
-          value
+      (filterAttrs
+        (attrName: attrValue: attrName != "_module" && attrValue != null)
+        value
       )
     else
       value
@@ -97,12 +96,11 @@ let
           map (splitString "\n") (mapAttrsToList mkRelation value)
         );
       in
-      (
-        concatStringsSep
-          ''
+      (concatStringsSep
+        ''
 
-            ${indent}''
-          ([ "{" ] ++ configLines)
+          ${indent}''
+        ([ "{" ] ++ configLines)
       )
       + ''
 

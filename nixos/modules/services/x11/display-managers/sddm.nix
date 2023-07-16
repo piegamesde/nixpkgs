@@ -93,63 +93,59 @@ let
 in
 {
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "xserver"
-          "displayManager"
-          "sddm"
-          "themes"
-        ]
-        "Set the option `services.xserver.displayManager.sddm.package' instead."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "xserver"
+        "displayManager"
+        "sddm"
+        "themes"
+      ]
+      "Set the option `services.xserver.displayManager.sddm.package' instead."
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "xserver"
-          "displayManager"
-          "sddm"
-          "autoLogin"
-          "enable"
-        ]
-        [
-          "services"
-          "xserver"
-          "displayManager"
-          "autoLogin"
-          "enable"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "xserver"
+        "displayManager"
+        "sddm"
+        "autoLogin"
+        "enable"
+      ]
+      [
+        "services"
+        "xserver"
+        "displayManager"
+        "autoLogin"
+        "enable"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "xserver"
-          "displayManager"
-          "sddm"
-          "autoLogin"
-          "user"
-        ]
-        [
-          "services"
-          "xserver"
-          "displayManager"
-          "autoLogin"
-          "user"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "xserver"
+        "displayManager"
+        "sddm"
+        "autoLogin"
+        "user"
+      ]
+      [
+        "services"
+        "xserver"
+        "displayManager"
+        "autoLogin"
+        "user"
+      ]
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "xserver"
-          "displayManager"
-          "sddm"
-          "extraConfig"
-        ]
-        "Set the option `services.xserver.displayManager.sddm.settings' instead."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "xserver"
+        "displayManager"
+        "sddm"
+        "extraConfig"
+      ]
+      "Set the option `services.xserver.displayManager.sddm.settings' instead."
     )
   ];
 

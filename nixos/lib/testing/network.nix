@@ -58,10 +58,9 @@ let
 
         networking.interfaces = listToAttrs interfaces;
 
-        networking.primaryIPAddress = optionalString (interfaces != [ ]) (head (
-          head
-            interfaces
-        ).value.ipv4.addresses).address;
+        networking.primaryIPAddress = optionalString (interfaces != [ ]) (head
+          (head interfaces).value.ipv4.addresses
+        ).address;
 
         # Put the IP addresses of all VMs in this machine's
         # /etc/hosts file.  If a machine has multiple

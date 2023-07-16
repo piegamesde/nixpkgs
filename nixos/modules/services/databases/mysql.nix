@@ -22,50 +22,45 @@ in
 
 {
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "mysql"
-          "pidDir"
-        ]
-        "Don't wait for pidfiles, describe dependencies through systemd."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "mysql"
+        "pidDir"
+      ]
+      "Don't wait for pidfiles, describe dependencies through systemd."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "mysql"
-          "rootPassword"
-        ]
-        "Use socket authentication or set the password outside of the nix store."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "mysql"
+        "rootPassword"
+      ]
+      "Use socket authentication or set the password outside of the nix store."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "mysql"
-          "extraOptions"
-        ]
-        "Use services.mysql.settings.mysqld instead."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "mysql"
+        "extraOptions"
+      ]
+      "Use services.mysql.settings.mysqld instead."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "mysql"
-          "bind"
-        ]
-        "Use services.mysql.settings.mysqld.bind-address instead."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "mysql"
+        "bind"
+      ]
+      "Use services.mysql.settings.mysqld.bind-address instead."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "mysql"
-          "port"
-        ]
-        "Use services.mysql.settings.mysqld.port instead."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "mysql"
+        "port"
+      ]
+      "Use services.mysql.settings.mysqld.port instead."
     )
   ];
 
@@ -368,21 +363,20 @@ in
         datadir = cfg.dataDir;
         port = mkDefault 3306;
       }
-      (
-        mkIf
-          (cfg.replication.role == "master" || cfg.replication.role == "slave")
-          {
-            log-bin = "mysql-bin-${toString cfg.replication.serverId}";
-            log-bin-index =
-              "mysql-bin-${toString cfg.replication.serverId}.index";
-            relay-log = "mysql-relay-bin";
-            server-id = cfg.replication.serverId;
-            binlog-ignore-db = [
-              "information_schema"
-              "performance_schema"
-              "mysql"
-            ];
-          }
+      (mkIf
+        (cfg.replication.role == "master" || cfg.replication.role == "slave")
+        {
+          log-bin = "mysql-bin-${toString cfg.replication.serverId}";
+          log-bin-index =
+            "mysql-bin-${toString cfg.replication.serverId}.index";
+          relay-log = "mysql-relay-bin";
+          server-id = cfg.replication.serverId;
+          binlog-ignore-db = [
+            "information_schema"
+            "performance_schema"
+            "mysql"
+          ];
+        }
       )
       (mkIf (!isMariaDB) { plugin-load-add = "auth_socket.so"; })
     ];

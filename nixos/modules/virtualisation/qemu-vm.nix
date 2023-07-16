@@ -127,11 +127,10 @@ let
 
   lookupDriveDeviceName =
     driveName: driveList:
-    (
-      findSingle (drive: drive.name == driveName)
-        (throw "Drive ${driveName} not found")
-        (throw "Multiple drives named ${driveName}")
-        driveList
+    (findSingle (drive: drive.name == driveName)
+      (throw "Drive ${driveName} not found")
+      (throw "Multiple drives named ${driveName}")
+      driveList
     ).device
   ;
 
@@ -350,40 +349,36 @@ in
 {
   imports = [
     ../profiles/qemu-guest.nix
-    (
-      mkRenamedOptionModule
-        [
-          "virtualisation"
-          "pathsInNixDB"
-        ]
-        [
-          "virtualisation"
-          "additionalPaths"
-        ]
+    (mkRenamedOptionModule
+      [
+        "virtualisation"
+        "pathsInNixDB"
+      ]
+      [
+        "virtualisation"
+        "additionalPaths"
+      ]
     )
-    (
-      mkRemovedOptionModule
-        [
-          "virtualisation"
-          "bootDevice"
-        ]
-        "This option was renamed to `virtualisation.rootDevice`, as it was incorrectly named and misleading. Take the time to review what you want to do and look at the new options like `virtualisation.{bootLoaderDevice, bootPartition}`, open an issue in case of issues."
+    (mkRemovedOptionModule
+      [
+        "virtualisation"
+        "bootDevice"
+      ]
+      "This option was renamed to `virtualisation.rootDevice`, as it was incorrectly named and misleading. Take the time to review what you want to do and look at the new options like `virtualisation.{bootLoaderDevice, bootPartition}`, open an issue in case of issues."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "virtualisation"
-          "efiVars"
-        ]
-        "This option was removed, it is possible to provide a template UEFI variable with `virtualisation.efi.variables` ; if this option is important to you, open an issue"
+    (mkRemovedOptionModule
+      [
+        "virtualisation"
+        "efiVars"
+      ]
+      "This option was removed, it is possible to provide a template UEFI variable with `virtualisation.efi.variables` ; if this option is important to you, open an issue"
     )
-    (
-      mkRemovedOptionModule
-        [
-          "virtualisation"
-          "persistBootDevice"
-        ]
-        "Boot device is always persisted if you use a bootloader through the root disk image ; if this does not work for your usecase, please examine carefully what `virtualisation.{bootDevice, rootDevice, bootPartition}` options offer you and open an issue explaining your need.`"
+    (mkRemovedOptionModule
+      [
+        "virtualisation"
+        "persistBootDevice"
+      ]
+      "Boot device is always persisted if you use a bootloader through the root disk image ; if this does not work for your usecase, please examine carefully what `virtualisation.{bootDevice, rootDevice, bootPartition}` options offer you and open an issue explaining your need.`"
     )
   ];
 
@@ -1163,13 +1158,12 @@ in
         deviceExtraOpts.bootindex = "2";
         driveExtraOpts.format = if cfg.writableStore then "qcow2" else "raw";
       } ])
-      (
-        imap0
-          (idx: _: {
-            file = "$(pwd)/empty${toString idx}.qcow2";
-            driveExtraOpts.werror = "report";
-          })
-          cfg.emptyDiskImages
+      (imap0
+        (idx: _: {
+          file = "$(pwd)/empty${toString idx}.qcow2";
+          driveExtraOpts.werror = "report";
+        })
+        cfg.emptyDiskImages
       )
     ];
 

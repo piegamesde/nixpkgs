@@ -157,9 +157,8 @@ rec {
 
   injectUnresholved =
     solutions: unresholved:
-    (
-      builtins.mapAttrs (name: value: value // { inherit unresholved; })
-        solutions
+    (builtins.mapAttrs (name: value: value // { inherit unresholved; })
+      solutions
     )
   ;
 

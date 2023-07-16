@@ -1426,9 +1426,8 @@ self: super:
   );
 
   xinit =
-    (
-      super.xinit.override
-        { stdenv = if isDarwin then clangStdenv else stdenv; }
+    (super.xinit.override
+      { stdenv = if isDarwin then clangStdenv else stdenv; }
     ).overrideAttrs
       (
         attrs: {

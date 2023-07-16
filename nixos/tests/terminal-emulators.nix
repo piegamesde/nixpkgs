@@ -166,9 +166,8 @@ mapAttrs
               done
               sleep infinity
             '')
-            (
-              pkgs.writeShellScriptBin "run-in-this-term"
-                "sudo -u alice run-in-this-term-wrapped $1"
+            (pkgs.writeShellScriptBin "run-in-this-term"
+              "sudo -u alice run-in-this-term-wrapped $1"
             )
 
             (pkgs.writeShellScriptBin "run-in-this-term-wrapped" ''

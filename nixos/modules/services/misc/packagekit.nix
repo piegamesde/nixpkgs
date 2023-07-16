@@ -49,14 +49,13 @@ let
 in
 {
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "packagekit"
-          "backend"
-        ]
-        "Always set to Nix."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "packagekit"
+        "backend"
+      ]
+      "Always set to Nix."
     )
   ];
 

@@ -189,23 +189,21 @@ let
 in
 {
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "phpfpm"
-          "poolConfigs"
-        ]
-        "Use services.phpfpm.pools instead."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "phpfpm"
+        "poolConfigs"
+      ]
+      "Use services.phpfpm.pools instead."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "phpfpm"
-          "phpIni"
-        ]
-        ""
+    (mkRemovedOptionModule
+      [
+        "services"
+        "phpfpm"
+        "phpIni"
+      ]
+      ""
     )
   ];
 

@@ -84,55 +84,50 @@ let
 in
 {
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "kubernetes"
-          "kubelet"
-          "applyManifests"
-        ]
-        ""
+    (mkRemovedOptionModule
+      [
+        "services"
+        "kubernetes"
+        "kubelet"
+        "applyManifests"
+      ]
+      ""
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "kubernetes"
-          "kubelet"
-          "cadvisorPort"
-        ]
-        ""
+    (mkRemovedOptionModule
+      [
+        "services"
+        "kubernetes"
+        "kubelet"
+        "cadvisorPort"
+      ]
+      ""
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "kubernetes"
-          "kubelet"
-          "allowPrivileged"
-        ]
-        ""
+    (mkRemovedOptionModule
+      [
+        "services"
+        "kubernetes"
+        "kubelet"
+        "allowPrivileged"
+      ]
+      ""
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "kubernetes"
-          "kubelet"
-          "networkPlugin"
-        ]
-        ""
+    (mkRemovedOptionModule
+      [
+        "services"
+        "kubernetes"
+        "kubelet"
+        "networkPlugin"
+      ]
+      ""
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "kubernetes"
-          "kubelet"
-          "containerRuntime"
-        ]
-        ""
+    (mkRemovedOptionModule
+      [
+        "services"
+        "kubernetes"
+        "kubelet"
+        "containerRuntime"
+      ]
+      ""
     )
   ];
 

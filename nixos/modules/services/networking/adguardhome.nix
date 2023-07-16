@@ -147,21 +147,19 @@ in
           cfg.settings != null
           ->
             cfg.mutableSettings
-            || (
-              hasAttrByPath
-                [
-                  "dns"
-                  "bind_host"
-                ]
-                cfg.settings
+            || (hasAttrByPath
+              [
+                "dns"
+                "bind_host"
+              ]
+              cfg.settings
             )
-            || (
-              hasAttrByPath
-                [
-                  "dns"
-                  "bind_hosts"
-                ]
-                cfg.settings
+            || (hasAttrByPath
+              [
+                "dns"
+                "bind_hosts"
+              ]
+              cfg.settings
             )
         ;
         message =

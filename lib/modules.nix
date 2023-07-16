@@ -1587,9 +1587,8 @@ rec {
       } // setAttrByPath to (
         mkMerge (
           optional
-            (
-              any (f: (getAttrFromPath f config) != "_mkMergedOptionModule")
-                from
+            (any (f: (getAttrFromPath f config) != "_mkMergedOptionModule")
+              from
             )
             (mergeFn config)
         )

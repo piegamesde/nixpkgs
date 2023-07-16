@@ -223,14 +223,13 @@ in
   cgit = handleTest ./cgit.nix { };
   charliecloud = handleTest ./charliecloud.nix { };
   chromium =
-    (
-      handleTestOn
-        [
-          "aarch64-linux"
-          "x86_64-linux"
-        ]
-        ./chromium.nix
-        { }
+    (handleTestOn
+      [
+        "aarch64-linux"
+        "x86_64-linux"
+      ]
+      ./chromium.nix
+      { }
     ).stable or { };
   chrony-ptp =
     handleTestOn

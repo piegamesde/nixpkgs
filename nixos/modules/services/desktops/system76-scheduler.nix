@@ -346,30 +346,27 @@ in
               assignments {
                 ${
                   if ps.foregroundBoost.enable then
-                    (
-                      schedulerProfileToString "foreground"
-                        ps.foregroundBoost.foreground
-                        "    "
+                    (schedulerProfileToString "foreground"
+                      ps.foregroundBoost.foreground
+                      "    "
                     )
                   else
                     ""
                 }
                 ${
                   if ps.foregroundBoost.enable then
-                    (
-                      schedulerProfileToString "background"
-                        ps.foregroundBoost.background
-                        "    "
+                    (schedulerProfileToString "background"
+                      ps.foregroundBoost.background
+                      "    "
                     )
                   else
                     ""
                 }
                 ${
                   if ps.pipewireBoost.enable then
-                    (
-                      schedulerProfileToString "pipewire"
-                        ps.pipewireBoost.profile
-                        "    "
+                    (schedulerProfileToString "pipewire"
+                      ps.pipewireBoost.profile
+                      "    "
                     )
                   else
                     ""

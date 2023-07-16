@@ -73,18 +73,17 @@ let
               (builtins.attrNames depSet)
           ;
         in
-        (
-          builtins.map
-            (
-              dep:
-              let
-                pkg = py.pkgs."${normalizePackageName dep}";
-                constraints = depSet.${dep}.python or "";
-                isCompat = compat constraints;
-              in
-              if isCompat then pkg else null
-            )
-            depAttrs
+        (builtins.map
+          (
+            dep:
+            let
+              pkg = py.pkgs."${normalizePackageName dep}";
+              constraints = depSet.${dep}.python or "";
+              isCompat = compat constraints;
+            in
+            if isCompat then pkg else null
+          )
+          depAttrs
         )
       ;
 
@@ -306,18 +305,14 @@ lib.makeScope pkgs.newScope (
                         pythonPackages = self;
 
                         sourceSpec =
-                          ((
-                            normalizePackageSet
-                              pyProject.tool.poetry.dependencies or { }
-                          ).${normalizedName} or (
-                              normalizePackageSet
-                                pyProject.tool.poetry.dev-dependencies or { }
-                            ).${normalizedName} or (
-                                normalizePackageSet
-                                  pyProject.tool.poetry.group.dev.dependencies
-                                    or { }
-                              ).${normalizedName} # Poetry 1.2.0+
-                                  or { }
+                          ((normalizePackageSet
+                            pyProject.tool.poetry.dependencies or { }
+                          ).${normalizedName} or (normalizePackageSet
+                            pyProject.tool.poetry.dev-dependencies or { }
+                          ).${normalizedName} or (normalizePackageSet
+                            pyProject.tool.poetry.group.dev.dependencies or { }
+                          ).${normalizedName} # Poetry 1.2.0+
+                            or { }
                           );
                       }
                     );
@@ -504,23 +499,23 @@ lib.makeScope pkgs.newScope (
 
         allEditablePackageSources =
           (
-            (getEditableDeps (pyProject.tool.poetry."dependencies" or { })) // (
-              getEditableDeps
-                (pyProject.tool.poetry."dev-dependencies" or { })
-            ) // (
-                # Poetry>=1.2.0
-                if pyProject.tool.poetry.group or { } != { } then
-                  builtins.foldl'
-                    (
-                      acc: g:
-                      acc // getEditableDeps
-                        pyProject.tool.poetry.group.${g}.dependencies
-                    )
-                    { }
-                    groups
-                else
+            (getEditableDeps (pyProject.tool.poetry."dependencies" or { }))
+            // (getEditableDeps (
+              pyProject.tool.poetry."dev-dependencies" or { }
+            )) // (
+              # Poetry>=1.2.0
+              if pyProject.tool.poetry.group or { } != { } then
+                builtins.foldl'
+                  (
+                    acc: g:
+                    acc // getEditableDeps
+                      pyProject.tool.poetry.group.${g}.dependencies
+                  )
                   { }
-              ) // editablePackageSources
+                  groups
+              else
+                { }
+            ) // editablePackageSources
           );
 
         editablePackageSources' =

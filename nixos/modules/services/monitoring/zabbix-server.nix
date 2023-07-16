@@ -46,37 +46,34 @@ in
 
 {
   imports = [
-    (
-      lib.mkRenamedOptionModule
-        [
-          "services"
-          "zabbixServer"
-          "dbServer"
-        ]
-        [
-          "services"
-          "zabbixServer"
-          "database"
-          "host"
-        ]
+    (lib.mkRenamedOptionModule
+      [
+        "services"
+        "zabbixServer"
+        "dbServer"
+      ]
+      [
+        "services"
+        "zabbixServer"
+        "database"
+        "host"
+      ]
     )
-    (
-      lib.mkRemovedOptionModule
-        [
-          "services"
-          "zabbixServer"
-          "dbPassword"
-        ]
-        "Use services.zabbixServer.database.passwordFile instead."
+    (lib.mkRemovedOptionModule
+      [
+        "services"
+        "zabbixServer"
+        "dbPassword"
+      ]
+      "Use services.zabbixServer.database.passwordFile instead."
     )
-    (
-      lib.mkRemovedOptionModule
-        [
-          "services"
-          "zabbixServer"
-          "extraConfig"
-        ]
-        "Use services.zabbixServer.settings instead."
+    (lib.mkRemovedOptionModule
+      [
+        "services"
+        "zabbixServer"
+        "extraConfig"
+      ]
+      "Use services.zabbixServer.settings instead."
     )
   ];
 
@@ -290,9 +287,8 @@ in
         FpingLocation = "/run/wrappers/bin/fping";
         LoadModule = builtins.attrNames cfg.modules;
       }
-      (
-        mkIf (cfg.database.createLocally != true)
-          { DBPort = cfg.database.port; }
+      (mkIf (cfg.database.createLocally != true)
+        { DBPort = cfg.database.port; }
       )
       (mkIf (cfg.database.passwordFile != null) {
         Include = [ "${passwordFile}" ];

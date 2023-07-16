@@ -47,25 +47,23 @@ let
 in
 {
   imports = [
-    (
-      lib.mkRemovedOptionModule
-        [
-          "virtualisation"
-          "podman"
-          "defaultNetwork"
-          "dnsname"
-        ]
-        "Use virtualisation.podman.defaultNetwork.settings.dns_enabled instead."
+    (lib.mkRemovedOptionModule
+      [
+        "virtualisation"
+        "podman"
+        "defaultNetwork"
+        "dnsname"
+      ]
+      "Use virtualisation.podman.defaultNetwork.settings.dns_enabled instead."
     )
-    (
-      lib.mkRemovedOptionModule
-        [
-          "virtualisation"
-          "podman"
-          "defaultNetwork"
-          "extraPlugins"
-        ]
-        "Netavark isn't compatible with CNI plugins."
+    (lib.mkRemovedOptionModule
+      [
+        "virtualisation"
+        "podman"
+        "defaultNetwork"
+        "extraPlugins"
+      ]
+      "Netavark isn't compatible with CNI plugins."
     )
     ./network-socket.nix
   ];

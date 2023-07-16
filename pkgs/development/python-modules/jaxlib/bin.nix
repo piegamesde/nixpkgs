@@ -86,9 +86,8 @@ buildPythonPackage rec {
   src =
     if !cudaSupport then
       (cpuSrcs."${stdenv.hostPlatform.system}"
-        or (
-          throw
-            "jaxlib-bin is not supported on ${stdenv.hostPlatform.system}"
+        or (throw
+          "jaxlib-bin is not supported on ${stdenv.hostPlatform.system}"
         )
       )
     else

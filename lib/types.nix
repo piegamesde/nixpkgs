@@ -618,21 +618,18 @@ let
                       imap1
                         (
                           m: def':
-                          (
-                            mergeDefinitions
-                              (
-                                loc
-                                ++ [
-                                  "[definition ${toString n}-entry ${
-                                    toString m
-                                  }]"
-                                ]
-                              )
-                              elemType
-                              [ {
-                                inherit (def) file;
-                                value = def';
-                              } ]
+                          (mergeDefinitions
+                            (
+                              loc
+                              ++ [
+                                "[definition ${toString n}-entry ${toString m}]"
+                              ]
+                            )
+                            elemType
+                            [ {
+                              inherit (def) file;
+                              value = def';
+                            } ]
                           ).optionalValue
                         )
                         def.value

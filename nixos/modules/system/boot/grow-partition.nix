@@ -13,16 +13,15 @@ with lib;
 
 {
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "virtualisation"
-          "growPartition"
-        ]
-        [
-          "boot"
-          "growPartition"
-        ]
+    (mkRenamedOptionModule
+      [
+        "virtualisation"
+        "growPartition"
+      ]
+      [
+        "boot"
+        "growPartition"
+      ]
     )
   ];
 

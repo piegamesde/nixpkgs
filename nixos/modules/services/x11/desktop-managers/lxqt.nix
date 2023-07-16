@@ -60,9 +60,8 @@ in
     environment.systemPackages =
       pkgs.lxqt.preRequisitePackages
       ++ pkgs.lxqt.corePackages
-      ++ (
-        utils.removePackagesByName pkgs.lxqt.optionalPackages
-          config.environment.lxqt.excludePackages
+      ++ (utils.removePackagesByName pkgs.lxqt.optionalPackages
+        config.environment.lxqt.excludePackages
       )
     ;
 

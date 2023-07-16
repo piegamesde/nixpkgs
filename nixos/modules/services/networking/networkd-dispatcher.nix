@@ -96,18 +96,17 @@ in
                 lib.mapAttrsToList
                   (
                     name: cfg:
-                    (
-                      map
-                        (
-                          state:
-                          pkgs.writeTextFile {
-                            inherit name;
-                            text = cfg.script;
-                            destination = "/${state}.d/${name}";
-                            executable = true;
-                          }
-                        )
-                        cfg.onState
+                    (map
+                      (
+                        state:
+                        pkgs.writeTextFile {
+                          inherit name;
+                          text = cfg.script;
+                          destination = "/${state}.d/${name}";
+                          executable = true;
+                        }
+                      )
+                      cfg.onState
                     )
                   )
                   cfg.rules

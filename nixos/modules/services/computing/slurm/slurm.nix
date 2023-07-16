@@ -317,31 +317,29 @@ in
   };
 
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "slurm"
-          "dbdserver"
-          "storagePass"
-        ]
-        ''
-          This option has been removed so that the database password is not exposed via the nix store.
-          Use services.slurm.dbdserver.storagePassFile to provide the database password.
-        ''
+    (mkRemovedOptionModule
+      [
+        "services"
+        "slurm"
+        "dbdserver"
+        "storagePass"
+      ]
+      ''
+        This option has been removed so that the database password is not exposed via the nix store.
+        Use services.slurm.dbdserver.storagePassFile to provide the database password.
+      ''
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "slurm"
-          "dbdserver"
-          "configFile"
-        ]
-        ''
-          This option has been removed. Use services.slurm.dbdserver.storagePassFile
-          and services.slurm.dbdserver.extraConfig instead.
-        ''
+    (mkRemovedOptionModule
+      [
+        "services"
+        "slurm"
+        "dbdserver"
+        "configFile"
+      ]
+      ''
+        This option has been removed. Use services.slurm.dbdserver.storagePassFile
+        and services.slurm.dbdserver.extraConfig instead.
+      ''
     )
   ];
 

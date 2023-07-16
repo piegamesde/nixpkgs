@@ -45,13 +45,12 @@ let
       lib.mapAttrsToList
         (
           feat: info:
-          (
-            lib.optionals
-              (
-                (unwrapped.hasFeature feat)
-                && (builtins.hasAttr "pythonRuntime" info)
-              )
-              info.pythonRuntime
+          (lib.optionals
+            (
+              (unwrapped.hasFeature feat)
+              && (builtins.hasAttr "pythonRuntime" info)
+            )
+            info.pythonRuntime
           )
         )
         unwrapped.featuresInfo

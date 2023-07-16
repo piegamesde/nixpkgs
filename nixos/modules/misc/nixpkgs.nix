@@ -121,13 +121,12 @@ in
   imports = [
     ./assertions.nix
     ./meta.nix
-    (
-      mkRemovedOptionModule
-        [
-          "nixpkgs"
-          "initialSystem"
-        ]
-        "The NixOS options `nesting.clone` and `nesting.children` have been deleted, and replaced with named specialisation. Therefore `nixpgks.initialSystem` has no effect anymore."
+    (mkRemovedOptionModule
+      [
+        "nixpkgs"
+        "initialSystem"
+      ]
+      "The NixOS options `nesting.clone` and `nesting.children` have been deleted, and replaced with named specialisation. Therefore `nixpgks.initialSystem` has no effect anymore."
     )
   ];
 
@@ -384,21 +383,17 @@ in
         let
           nixosExpectedSystem =
             if config.nixpkgs.crossSystem != null then
-              config.nixpkgs.crossSystem.system or (
-                lib.systems.parse.doubleFromSystem
-                  (
-                    lib.systems.parse.mkSystemFromString
-                      config.nixpkgs.crossSystem.config
-                  )
-              )
+              config.nixpkgs.crossSystem.system
+                or (lib.systems.parse.doubleFromSystem (
+                  lib.systems.parse.mkSystemFromString
+                    config.nixpkgs.crossSystem.config
+                ))
             else
-              config.nixpkgs.localSystem.system or (
-                lib.systems.parse.doubleFromSystem
-                  (
-                    lib.systems.parse.mkSystemFromString
-                      config.nixpkgs.localSystem.config
-                  )
-              )
+              config.nixpkgs.localSystem.system
+                or (lib.systems.parse.doubleFromSystem (
+                  lib.systems.parse.mkSystemFromString
+                    config.nixpkgs.localSystem.config
+                ))
           ;
           nixosOption =
             if config.nixpkgs.crossSystem != null then

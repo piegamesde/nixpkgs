@@ -32,14 +32,13 @@ rec {
           z:
           z // {
             function = foldArgs merger f arg;
-            args = (
-              lib.attrByPath
-                [
-                  "passthru"
-                  "args"
-                ]
-                { }
-                z
+            args = (lib.attrByPath
+              [
+                "passthru"
+                "args"
+              ]
+              { }
+              z
             ) // x;
           }
         ));
@@ -88,23 +87,22 @@ rec {
   # Output : its value or default.
   getValue =
     attrSet: argList: name:
-    (
-      attrByPath [ name ]
-        (
-          if checkFlag attrSet name then
-            true
-          else if argList == [ ] then
-            null
+    (attrByPath [ name ]
+      (
+        if checkFlag attrSet name then
+          true
+        else if argList == [ ] then
+          null
+        else
+          let
+            x = builtins.head argList;
+          in
+          if (head x) == name then
+            (head (tail x))
           else
-            let
-              x = builtins.head argList;
-            in
-            if (head x) == name then
-              (head (tail x))
-            else
-              (getValue attrSet (tail argList) name)
-        )
-        attrSet
+            (getValue attrSet (tail argList) name)
+      )
+      attrSet
     )
   ;
 
@@ -399,25 +397,24 @@ rec {
     foldr lib.mergeAttrs { } [
       x
       y
-      (
-        mapAttrs
-          (
-            a: v: # merge special names using given functions
-            if x ? ${a} then
-              if y ? ${a} then
-                v x.${a} y.${a} # both have attr, use merge func
-              else
-                x.${a} # only x has attr
+      (mapAttrs
+        (
+          a: v: # merge special names using given functions
+          if x ? ${a} then
+            if y ? ${a} then
+              v x.${a} y.${a} # both have attr, use merge func
             else
-              y.${a} # only y has attr)
-          )
-          (
-            removeAttrs mergeAttrBy2
-              # don't merge attrs which are neither in x nor y
-              (
-                filter (a: !x ? ${a} && !y ? ${a}) (attrNames mergeAttrBy2)
-              )
-          )
+              x.${a} # only x has attr
+          else
+            y.${a} # only y has attr)
+        )
+        (
+          removeAttrs mergeAttrBy2
+            # don't merge attrs which are neither in x nor y
+            (
+              filter (a: !x ? ${a} && !y ? ${a}) (attrNames mergeAttrBy2)
+            )
+        )
       )
     ]
   ;

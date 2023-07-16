@@ -149,24 +149,23 @@ in
             "killtime has to be at least 10 minutes according to `man xautolock`";
         }
       ]
-      ++ (
-        lib.forEach
-          [
-            "locker"
-            "notifier"
-            "nowlocker"
-            "killer"
-          ]
-          (
-            option: {
-              assertion =
-                cfg.${option} != null
-                -> builtins.substring 0 1 cfg.${option} == "/"
-              ;
-              message =
-                "Please specify a canonical path for `services.xserver.xautolock.${option}`";
-            }
-          )
+      ++ (lib.forEach
+        [
+          "locker"
+          "notifier"
+          "nowlocker"
+          "killer"
+        ]
+        (
+          option: {
+            assertion =
+              cfg.${option} != null
+              -> builtins.substring 0 1 cfg.${option} == "/"
+            ;
+            message =
+              "Please specify a canonical path for `services.xserver.xautolock.${option}`";
+          }
+        )
       )
     ;
   };

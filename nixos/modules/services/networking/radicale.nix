@@ -217,13 +217,12 @@ in
         ProtectSystem = "strict";
         ReadWritePaths =
           lib.optional
-            (
-              hasAttrByPath
-                [
-                  "storage"
-                  "filesystem_folder"
-                ]
-                cfg.settings
+            (hasAttrByPath
+              [
+                "storage"
+                "filesystem_folder"
+              ]
+              cfg.settings
             )
             cfg.settings.storage.filesystem_folder
         ;

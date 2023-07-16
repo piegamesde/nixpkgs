@@ -132,16 +132,15 @@ in
           lib.attrsets.nameValuePair "crossfire/${name}" {
             mode = "0644";
             text =
-              (
-                optionalString
-                  (
-                    !elem name [
-                      "motd"
-                      "news"
-                      "rules"
-                    ]
-                  )
-                  (fileContents "${cfg.package}/etc/crossfire/${name}")
+              (optionalString
+                (
+                  !elem name [
+                    "motd"
+                    "news"
+                    "rules"
+                  ]
+                )
+                (fileContents "${cfg.package}/etc/crossfire/${name}")
               )
               + ''
 

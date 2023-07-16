@@ -20,19 +20,18 @@ in
 
   # Added 2019-08-19
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "gnome3"
-          "gnome-terminal-server"
-          "enable"
-        ]
-        [
-          "programs"
-          "gnome-terminal"
-          "enable"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gnome3"
+        "gnome-terminal-server"
+        "enable"
+      ]
+      [
+        "programs"
+        "gnome-terminal"
+        "enable"
+      ]
     )
   ];
 

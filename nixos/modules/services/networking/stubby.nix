@@ -15,27 +15,25 @@ in
 {
   imports =
     [
-      (
-        mkRemovedOptionModule
-          [
-            "stubby"
-            "debugLogging"
-          ]
-          ''Use services.stubby.logLevel = "debug"; instead.''
+      (mkRemovedOptionModule
+        [
+          "stubby"
+          "debugLogging"
+        ]
+        ''Use services.stubby.logLevel = "debug"; instead.''
       )
     ]
     ++
       map
         (
           x:
-          (
-            mkRemovedOptionModule
-              [
-                "services"
-                "stubby"
-                x
-              ]
-              "Stubby configuration moved to services.stubby.settings."
+          (mkRemovedOptionModule
+            [
+              "services"
+              "stubby"
+              x
+            ]
+            "Stubby configuration moved to services.stubby.settings."
           )
         )
         [

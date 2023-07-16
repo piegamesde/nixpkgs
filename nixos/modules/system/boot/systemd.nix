@@ -472,22 +472,18 @@ in
             ;
           in
           concatLists [
-            (
-              optional
-                (
-                  type == "oneshot"
-                  && (restart == "always" || restart == "on-success")
-                )
-                "Service '${name}.service' with 'Type=oneshot' cannot have 'Restart=always' or 'Restart=on-success'"
+            (optional
+              (
+                type == "oneshot"
+                && (restart == "always" || restart == "on-success")
+              )
+              "Service '${name}.service' with 'Type=oneshot' cannot have 'Restart=always' or 'Restart=on-success'"
             )
-            (
-              optional hasDeprecated
-                "Service '${name}.service' uses the attribute 'StartLimitInterval' in the Service section, which is deprecated. See https://github.com/NixOS/nixpkgs/issues/45786."
+            (optional hasDeprecated
+              "Service '${name}.service' uses the attribute 'StartLimitInterval' in the Service section, which is deprecated. See https://github.com/NixOS/nixpkgs/issues/45786."
             )
-            (
-              optional
-                (service.reloadIfChanged && service.reloadTriggers != [ ])
-                "Service '${name}.service' has both 'reloadIfChanged' and 'reloadTriggers' set. This is probably not what you want, because 'reloadTriggers' behave the same whay as 'restartTriggers' if 'reloadIfChanged' is set."
+            (optional (service.reloadIfChanged && service.reloadTriggers != [ ])
+              "Service '${name}.service' has both 'reloadIfChanged' and 'reloadTriggers' set. This is probably not what you want, because 'reloadTriggers' behave the same whay as 'restartTriggers' if 'reloadIfChanged' is set."
             )
           ]
         )
@@ -500,21 +496,18 @@ in
     system.nssDatabases = {
       hosts =
         (mkMerge [
-          (
-            mkOrder 400
-              [ "mymachines" ]
+          (mkOrder 400
+            [ "mymachines" ]
           ) # 400 to ensure it comes before resolve (which is mkBefore'd)
-          (
-            mkOrder 999
-              [ "myhostname" ]
+          (mkOrder 999
+            [ "myhostname" ]
           ) # after files (which is 998), but before regular nss modules
         ]);
       passwd = (mkMerge [ (mkAfter [ "systemd" ]) ]);
       group =
         (mkMerge [
-          (
-            mkAfter
-              [ "[success=merge] systemd" ]
+          (mkAfter
+            [ "[success=merge] systemd" ]
           ) # need merge so that NSS won't stop at file-based groups
         ]);
     };
@@ -777,53 +770,49 @@ in
 
   # FIXME: Remove these eventually.
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "boot"
-          "systemd"
-          "sockets"
-        ]
-        [
-          "systemd"
-          "sockets"
-        ]
+    (mkRenamedOptionModule
+      [
+        "boot"
+        "systemd"
+        "sockets"
+      ]
+      [
+        "systemd"
+        "sockets"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "boot"
-          "systemd"
-          "targets"
-        ]
-        [
-          "systemd"
-          "targets"
-        ]
+    (mkRenamedOptionModule
+      [
+        "boot"
+        "systemd"
+        "targets"
+      ]
+      [
+        "systemd"
+        "targets"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "boot"
-          "systemd"
-          "services"
-        ]
-        [
-          "systemd"
-          "services"
-        ]
+    (mkRenamedOptionModule
+      [
+        "boot"
+        "systemd"
+        "services"
+      ]
+      [
+        "systemd"
+        "services"
+      ]
     )
     (mkRenamedOptionModule [ "jobs" ] [
       "systemd"
       "services"
     ])
-    (
-      mkRemovedOptionModule
-        [
-          "systemd"
-          "generator-packages"
-        ]
-        "Use systemd.packages instead."
+    (mkRemovedOptionModule
+      [
+        "systemd"
+        "generator-packages"
+      ]
+      "Use systemd.packages instead."
     )
   ];
 }

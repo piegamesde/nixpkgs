@@ -16,13 +16,11 @@ let
   limitOptions =
     opts:
     concatStringsSep " " [
-      (
-        optionalString (opts.sizeSoftLimit != null)
-          "bsoft=${opts.sizeSoftLimit}"
+      (optionalString (opts.sizeSoftLimit != null)
+        "bsoft=${opts.sizeSoftLimit}"
       )
-      (
-        optionalString (opts.sizeHardLimit != null)
-          "bhard=${opts.sizeHardLimit}"
+      (optionalString (opts.sizeHardLimit != null)
+        "bhard=${opts.sizeHardLimit}"
       )
     ]
   ;

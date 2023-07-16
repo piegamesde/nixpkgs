@@ -25,9 +25,8 @@ stdenv.mkDerivation rec {
   dontDisableStatic = true;
 
   configureFlags = [
-    (
-      lib.optionalString withTimestamp
-        "--with-timestamp"
+    (lib.optionalString withTimestamp
+      "--with-timestamp"
     ) # to allow the "persist" setting
     (lib.optionalString (!withPAM) "--without-pam")
   ];

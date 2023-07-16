@@ -465,52 +465,50 @@ in
             };
           })
 
-          (
-            mapAttrs
-              (
-                timerName: timer:
-                (baseService timerName { } (
-                  mkMerge [
-                    {
-                      description = "sourcehut ${timerName} service";
-                      after = [
-                        "network.target"
-                        "${srvsrht}.service"
-                      ];
-                      serviceConfig = {
-                        Type = "oneshot";
-                        ExecStart = "${cfg.python}/bin/${timerName}";
-                      };
-                    }
-                    (timer.service or { })
-                  ]
-                ))
-              )
-              extraTimers
+          (mapAttrs
+            (
+              timerName: timer:
+              (baseService timerName { } (
+                mkMerge [
+                  {
+                    description = "sourcehut ${timerName} service";
+                    after = [
+                      "network.target"
+                      "${srvsrht}.service"
+                    ];
+                    serviceConfig = {
+                      Type = "oneshot";
+                      ExecStart = "${cfg.python}/bin/${timerName}";
+                    };
+                  }
+                  (timer.service or { })
+                ]
+              ))
+            )
+            extraTimers
           )
 
-          (
-            mapAttrs
-              (
-                serviceName: extraService:
-                baseService serviceName { } (
-                  mkMerge [
-                    {
-                      description = "sourcehut ${serviceName} service";
-                      # So that extraServices have the PostgreSQL database initialized.
-                      after = [ "${srvsrht}.service" ];
-                      wantedBy = [ "${srvsrht}.service" ];
-                      partOf = [ "${srvsrht}.service" ];
-                      serviceConfig = {
-                        Type = "simple";
-                        Restart = mkDefault "always";
-                      };
-                    }
-                    extraService
-                  ]
-                )
+          (mapAttrs
+            (
+              serviceName: extraService:
+              baseService serviceName { } (
+                mkMerge [
+                  {
+                    description = "sourcehut ${serviceName} service";
+                    # So that extraServices have the PostgreSQL database initialized.
+                    after = [ "${srvsrht}.service" ];
+                    wantedBy = [ "${srvsrht}.service" ];
+                    partOf = [ "${srvsrht}.service" ];
+                    serviceConfig = {
+                      Type = "simple";
+                      Restart = mkDefault "always";
+                    };
+                  }
+                  extraService
+                ]
               )
-              extraServices
+            )
+            extraServices
           )
         ];
 

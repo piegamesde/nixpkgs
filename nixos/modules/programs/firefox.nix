@@ -267,13 +267,12 @@ in
     # Preferences are converted into a policy
     programs.firefox.policies = {
       Preferences =
-        (
-          mapAttrs
-            (_: value: {
-              Value = value;
-              Status = cfg.preferencesStatus;
-            })
-            cfg.preferences
+        (mapAttrs
+          (_: value: {
+            Value = value;
+            Status = cfg.preferencesStatus;
+          })
+          cfg.preferences
         );
       ExtensionSettings = listToAttrs (
         map

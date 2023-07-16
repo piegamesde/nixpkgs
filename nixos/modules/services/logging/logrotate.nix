@@ -153,32 +153,29 @@ let
 in
 {
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "logrotate"
-          "config"
-        ]
-        "Modify services.logrotate.settings.header instead"
+    (mkRemovedOptionModule
+      [
+        "services"
+        "logrotate"
+        "config"
+      ]
+      "Modify services.logrotate.settings.header instead"
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "logrotate"
-          "extraConfig"
-        ]
-        "Modify services.logrotate.settings.header instead"
+    (mkRemovedOptionModule
+      [
+        "services"
+        "logrotate"
+        "extraConfig"
+      ]
+      "Modify services.logrotate.settings.header instead"
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "logrotate"
-          "paths"
-        ]
-        "Add attributes to services.logrotate.settings instead"
+    (mkRemovedOptionModule
+      [
+        "services"
+        "logrotate"
+        "paths"
+      ]
+      "Add attributes to services.logrotate.settings instead"
     )
   ];
 

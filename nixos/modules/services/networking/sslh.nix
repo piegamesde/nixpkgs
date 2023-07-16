@@ -46,18 +46,17 @@ let
 in
 {
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "sslh"
-          "listenAddress"
-        ]
-        [
-          "services"
-          "sslh"
-          "listenAddresses"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "sslh"
+        "listenAddress"
+      ]
+      [
+        "services"
+        "sslh"
+        "listenAddresses"
+      ]
     )
   ];
 

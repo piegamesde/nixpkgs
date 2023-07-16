@@ -106,20 +106,19 @@ rec {
       ;
 
       postInstall =
-        (
-          builtins.map
-            (
-              key:
-              if (pkgConfig.${key} ? postInstall) then
-                ''
-                  for f in $(find -L -path '*/node_modules/${key}' -type d); do
-                    (cd "$f" && (${pkgConfig.${key}.postInstall}))
-                  done
-                ''
-              else
-                ""
-            )
-            (builtins.attrNames pkgConfig)
+        (builtins.map
+          (
+            key:
+            if (pkgConfig.${key} ? postInstall) then
+              ''
+                for f in $(find -L -path '*/node_modules/${key}' -type d); do
+                  (cd "$f" && (${pkgConfig.${key}.postInstall}))
+                done
+              ''
+            else
+              ""
+          )
+          (builtins.attrNames pkgConfig)
         );
 
       # build-time JSON generation to avoid IFD

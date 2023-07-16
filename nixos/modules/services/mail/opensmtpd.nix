@@ -26,18 +26,17 @@ in
   ###### interface
 
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "opensmtpd"
-          "addSendmailToSystemPath"
-        ]
-        [
-          "services"
-          "opensmtpd"
-          "setSendmail"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "opensmtpd"
+        "addSendmailToSystemPath"
+      ]
+      [
+        "services"
+        "opensmtpd"
+        "setSendmail"
+      ]
     )
   ];
 

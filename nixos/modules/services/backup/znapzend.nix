@@ -549,8 +549,8 @@ in
                 (optionalString cfg.noDestroy "--nodestroy")
                 (optionalString cfg.autoCreation "--autoCreation")
                 (optionalString (enabledFeatures != [ ]) "--features=${
-                      concatStringsSep "," enabledFeatures
-                    }")
+                    concatStringsSep "," enabledFeatures
+                  }")
               ];
             in
             "${pkgs.znapzend}/bin/znapzend ${args}"

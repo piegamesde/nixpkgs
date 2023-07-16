@@ -36,29 +36,27 @@ let
 in
 {
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "codimd"
-        ]
-        [
-          "services"
-          "hedgedoc"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "codimd"
+      ]
+      [
+        "services"
+        "hedgedoc"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "hedgedoc"
-          "configuration"
-        ]
-        [
-          "services"
-          "hedgedoc"
-          "settings"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "hedgedoc"
+        "configuration"
+      ]
+      [
+        "services"
+        "hedgedoc"
+        "settings"
+      ]
     )
   ];
 

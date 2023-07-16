@@ -43,13 +43,12 @@ in
   ;
   iterate = multiOverride [
     skipBuildPhase
-    (
-      ifLispNotIn
-        [
-          "sbcl"
-          "gcl"
-        ]
-        (x: { parasites = [ ]; })
+    (ifLispNotIn
+      [
+        "sbcl"
+        "gcl"
+      ]
+      (x: { parasites = [ ]; })
     )
   ];
   cl-fuse =
@@ -146,32 +145,28 @@ in
         }
       ;
     })
-    (
-      ifLispIn
-        [
-          "ecl"
-          "clisp"
-        ]
-        (
-          x: {
-            deps =
-              pkgs.lib.filter
-                (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath)
-                (
-                  x.deps
-                  ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ])
-                )
-            ;
-            overrides =
-              y:
-              (x.overrides y) // {
-                postUnpack = ''
-                  sed -e '1i(cl:push :clsql-cffi cl:*features*)' -i "$sourceRoot/clsql.asd"
-                '';
-              }
-            ;
-          }
-        )
+    (ifLispIn
+      [
+        "ecl"
+        "clisp"
+      ]
+      (
+        x: {
+          deps =
+            pkgs.lib.filter
+              (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath)
+              (x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ]))
+          ;
+          overrides =
+            y:
+            (x.overrides y) // {
+              postUnpack = ''
+                sed -e '1i(cl:push :clsql-cffi cl:*features*)' -i "$sourceRoot/clsql.asd"
+              '';
+            }
+          ;
+        }
+      )
     )
   ];
   clsql-postgresql-socket =

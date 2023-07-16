@@ -36,23 +36,21 @@ let
 in
 {
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "bookstack"
-          "extraConfig"
-        ]
-        "Use services.bookstack.config instead."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "bookstack"
+        "extraConfig"
+      ]
+      "Use services.bookstack.config instead."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "bookstack"
-          "cacheDir"
-        ]
-        "The cache directory is now handled automatically."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "bookstack"
+        "cacheDir"
+      ]
+      "The cache directory is now handled automatically."
     )
   ];
 
@@ -235,9 +233,8 @@ in
     nginx = mkOption {
       type = types.submodule (
         recursiveUpdate
-          (
-            import ../web-servers/nginx/vhost-options.nix
-              { inherit config lib; }
+          (import ../web-servers/nginx/vhost-options.nix
+            { inherit config lib; }
           )
           { }
       );

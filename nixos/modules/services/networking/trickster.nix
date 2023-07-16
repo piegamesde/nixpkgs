@@ -12,18 +12,17 @@ let
 in
 {
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "trickster"
-          "origin"
-        ]
-        [
-          "services"
-          "trickster"
-          "origin-url"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "trickster"
+        "origin"
+      ]
+      [
+        "services"
+        "trickster"
+        "origin-url"
+      ]
     )
   ];
 

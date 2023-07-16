@@ -129,10 +129,9 @@ let
               (
                 binary:
                 # Can't actually run the binary when cross-compiling
-                (
-                  lib.optionalString
-                    (stdenv.hostPlatform != stdenv.buildPlatform)
-                    "type "
+                (lib.optionalString
+                  (stdenv.hostPlatform != stdenv.buildPlatform)
+                  "type "
                 )
                 + binary
               )

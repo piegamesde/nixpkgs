@@ -193,21 +193,19 @@ in
 {
   imports = [
     ../build.nix
-    (
-      mkRemovedOptionModule
-        [
-          "nesting"
-          "clone"
-        ]
-        "Use `specialisation.«name» = { inheritParentConfig = true; configuration = { ... }; }` instead."
+    (mkRemovedOptionModule
+      [
+        "nesting"
+        "clone"
+      ]
+      "Use `specialisation.«name» = { inheritParentConfig = true; configuration = { ... }; }` instead."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "nesting"
-          "children"
-        ]
-        "Use `specialisation.«name».configuration = { ... }` instead."
+    (mkRemovedOptionModule
+      [
+        "nesting"
+        "children"
+      ]
+      "Use `specialisation.«name».configuration = { ... }` instead."
     )
   ];
 

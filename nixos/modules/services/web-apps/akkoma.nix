@@ -14,16 +14,15 @@ let
 
   isConfined = config.systemd.services.akkoma.confinement.enable;
   hasSmtp =
-    (
-      attrByPath
-        [
-          ":pleroma"
-          "Pleroma.Emails.Mailer"
-          "adapter"
-          "value"
-        ]
-        null
-        ex
+    (attrByPath
+      [
+        ":pleroma"
+        "Pleroma.Emails.Mailer"
+        "adapter"
+        "value"
+      ]
+      null
+      ex
     ) == "Swoosh.Adapters.SMTP"
   ;
 

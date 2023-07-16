@@ -94,14 +94,13 @@ let
 in
 {
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "nagios"
-          "urlPath"
-        ]
-        "The urlPath option has been removed as it is hard coded to /nagios in the nagios package."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "nagios"
+        "urlPath"
+      ]
+      "The urlPath option has been removed as it is hard coded to /nagios in the nagios package."
     )
   ];
 

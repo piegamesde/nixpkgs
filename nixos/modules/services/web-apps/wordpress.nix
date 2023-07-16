@@ -513,29 +513,25 @@ in
       {
 
         assertions =
-          (
-            mapAttrsToList
-              (hostName: cfg: {
-                assertion =
-                  cfg.database.createLocally -> cfg.database.user == user;
-                message =
-                  ''
-                    services.wordpress.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned'';
-              })
-              eachSite
+          (mapAttrsToList
+            (hostName: cfg: {
+              assertion =
+                cfg.database.createLocally -> cfg.database.user == user;
+              message =
+                ''
+                  services.wordpress.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned'';
+            })
+            eachSite
           )
-          ++ (
-            mapAttrsToList
-              (hostName: cfg: {
-                assertion =
-                  cfg.database.createLocally
-                  -> cfg.database.passwordFile == null
-                ;
-                message =
-                  ''
-                    services.wordpress.sites."${hostName}".database.passwordFile cannot be specified if services.wordpress.sites."${hostName}".database.createLocally is set to true.'';
-              })
-              eachSite
+          ++ (mapAttrsToList
+            (hostName: cfg: {
+              assertion =
+                cfg.database.createLocally -> cfg.database.passwordFile == null;
+              message =
+                ''
+                  services.wordpress.sites."${hostName}".database.passwordFile cannot be specified if services.wordpress.sites."${hostName}".database.createLocally is set to true.'';
+            })
+            eachSite
           )
         ;
 
@@ -645,30 +641,28 @@ in
         );
 
         systemd.services = mkMerge [
-          (
-            mapAttrs'
-              (
-                hostName: cfg:
-                (nameValuePair "wordpress-init-${hostName}" {
-                  wantedBy = [ "multi-user.target" ];
-                  before = [ "phpfpm-wordpress-${hostName}.service" ];
-                  after = optional cfg.database.createLocally "mysql.service";
-                  script = secretsScript (stateDir hostName);
+          (mapAttrs'
+            (
+              hostName: cfg:
+              (nameValuePair "wordpress-init-${hostName}" {
+                wantedBy = [ "multi-user.target" ];
+                before = [ "phpfpm-wordpress-${hostName}.service" ];
+                after = optional cfg.database.createLocally "mysql.service";
+                script = secretsScript (stateDir hostName);
 
-                  serviceConfig = {
-                    Type = "oneshot";
-                    User = user;
-                    Group = webserver.group;
-                  };
-                })
-              )
-              eachSite
+                serviceConfig = {
+                  Type = "oneshot";
+                  User = user;
+                  Group = webserver.group;
+                };
+              })
+            )
+            eachSite
           )
 
-          (
-            optionalAttrs
-              (any (v: v.database.createLocally) (attrValues eachSite))
-              { httpd.after = [ "mysql.service" ]; }
+          (optionalAttrs
+            (any (v: v.database.createLocally) (attrValues eachSite))
+            { httpd.after = [ "mysql.service" ]; }
           )
         ];
 

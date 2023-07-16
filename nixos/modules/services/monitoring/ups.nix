@@ -97,8 +97,8 @@ let
             "sdorder = ${toString config.shutdownOrder}"
           ]
           ++ (optional (config.maxStartDelay != null) "maxstartdelay = ${
-                toString config.maxStartDelay
-              }")
+              toString config.maxStartDelay
+            }")
         );
 
         summary = concatStringsSep "\n      " (

@@ -31,16 +31,15 @@
 #    DOCKER_CREDENTIALS path
 let
   pathParts =
-    (
-      builtins.filter
-        (
-          {
-            prefix,
-            path,
-          }:
-          "DOCKER_CREDENTIALS" == prefix
-        )
-        builtins.nixPath
+    (builtins.filter
+      (
+        {
+          prefix,
+          path,
+        }:
+        "DOCKER_CREDENTIALS" == prefix
+      )
+      builtins.nixPath
     );
 in
 lib.optionalString (pathParts != [ ]) ((builtins.head pathParts).path)

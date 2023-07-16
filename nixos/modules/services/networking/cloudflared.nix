@@ -326,24 +326,21 @@ in
               tunnel = name;
               "credentials-file" = tunnel.credentialsFile;
               ingress =
-                (
-                  map
-                    (
-                      key:
-                      {
-                        hostname = key;
-                      }
-                      // getAttr key (filterConfig (filterConfig ingressesSet))
-                    )
-                    (attrNames ingressesSet)
-                )
-                ++ (
-                  map
-                    (key: {
+                (map
+                  (
+                    key:
+                    {
                       hostname = key;
-                      service = getAttr key ingressesStr;
-                    })
-                    (attrNames ingressesStr)
+                    } // getAttr key (filterConfig (filterConfig ingressesSet))
+                  )
+                  (attrNames ingressesSet)
+                )
+                ++ (map
+                  (key: {
+                    hostname = key;
+                    service = getAttr key ingressesStr;
+                  })
+                  (attrNames ingressesStr)
                 )
                 ++ [ { service = tunnel.default; } ]
               ;

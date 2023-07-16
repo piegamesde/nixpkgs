@@ -26,52 +26,48 @@ let
 in
 {
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "etebase-server"
-          "customIni"
-        ]
-        "Set the option `services.etebase-server.settings' instead."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "etebase-server"
+        "customIni"
+      ]
+      "Set the option `services.etebase-server.settings' instead."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "etebase-server"
-          "database"
-        ]
-        "Set the option `services.etebase-server.settings.database' instead."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "etebase-server"
+        "database"
+      ]
+      "Set the option `services.etebase-server.settings.database' instead."
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "etebase-server"
-          "secretFile"
-        ]
-        [
-          "services"
-          "etebase-server"
-          "settings"
-          "secret_file"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "etebase-server"
+        "secretFile"
+      ]
+      [
+        "services"
+        "etebase-server"
+        "settings"
+        "secret_file"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "etebase-server"
-          "host"
-        ]
-        [
-          "services"
-          "etebase-server"
-          "settings"
-          "allowed_hosts"
-          "allowed_host1"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "etebase-server"
+        "host"
+      ]
+      [
+        "services"
+        "etebase-server"
+        "settings"
+        "allowed_hosts"
+        "allowed_host1"
+      ]
     )
   ];
 

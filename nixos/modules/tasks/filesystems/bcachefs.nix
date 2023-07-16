@@ -69,43 +69,40 @@ in
         boot.kernelPackages = pkgs.linuxPackages_testing_bcachefs;
       }
 
-      (
-        mkIf
-          (
-            (elem "bcachefs" config.boot.initrd.supportedFilesystems)
-            || (bootFs != { })
-          )
-          {
-            # chacha20 and poly1305 are required only for decryption attempts
-            boot.initrd.availableKernelModules = [
-              "bcachefs"
-              "sha256"
-              "chacha20"
-              "poly1305"
-            ];
+      (mkIf
+        (
+          (elem "bcachefs" config.boot.initrd.supportedFilesystems)
+          || (bootFs != { })
+        )
+        {
+          # chacha20 and poly1305 are required only for decryption attempts
+          boot.initrd.availableKernelModules = [
+            "bcachefs"
+            "sha256"
+            "chacha20"
+            "poly1305"
+          ];
 
-            boot.initrd.systemd.extraBin = {
-              "bcachefs" = "${pkgs.bcachefs-tools}/bin/bcachefs";
-              "mount.bcachefs" = pkgs.runCommand "mount.bcachefs" { } ''
-                cp -pdv ${pkgs.bcachefs-tools}/bin/.mount.bcachefs.sh-wrapped $out
-              '';
-            };
-
-            boot.initrd.extraUtilsCommands =
-              lib.mkIf (!config.boot.initrd.systemd.enable)
-                ''
-                  copy_bin_and_libs ${pkgs.bcachefs-tools}/bin/bcachefs
-                ''
-            ;
-            boot.initrd.extraUtilsCommandsTest = ''
-              $out/bin/bcachefs version
+          boot.initrd.systemd.extraBin = {
+            "bcachefs" = "${pkgs.bcachefs-tools}/bin/bcachefs";
+            "mount.bcachefs" = pkgs.runCommand "mount.bcachefs" { } ''
+              cp -pdv ${pkgs.bcachefs-tools}/bin/.mount.bcachefs.sh-wrapped $out
             '';
+          };
 
-            boot.initrd.postDeviceCommands =
-              commonFunctions
-              + concatStrings (mapAttrsToList openCommand bootFs)
-            ;
-          }
+          boot.initrd.extraUtilsCommands =
+            lib.mkIf (!config.boot.initrd.systemd.enable)
+              ''
+                copy_bin_and_libs ${pkgs.bcachefs-tools}/bin/bcachefs
+              ''
+          ;
+          boot.initrd.extraUtilsCommandsTest = ''
+            $out/bin/bcachefs version
+          '';
+
+          boot.initrd.postDeviceCommands =
+            commonFunctions + concatStrings (mapAttrsToList openCommand bootFs);
+        }
       )
     ]
   );

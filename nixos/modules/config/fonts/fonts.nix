@@ -21,13 +21,12 @@ let
 in
 {
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "fonts"
-          "enableCoreFonts"
-        ]
-        "Use fonts.fonts = [ pkgs.corefonts ]; instead."
+    (mkRemovedOptionModule
+      [
+        "fonts"
+        "enableCoreFonts"
+      ]
+      "Use fonts.fonts = [ pkgs.corefonts ]; instead."
     )
   ];
 

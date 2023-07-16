@@ -10,18 +10,17 @@ with lib;
   meta = { maintainers = [ maintainers.joachifm ]; };
 
   imports = [
-    (
-      lib.mkRenamedOptionModule
-        [
-          "security"
-          "virtualization"
-          "flushL1DataCache"
-        ]
-        [
-          "security"
-          "virtualisation"
-          "flushL1DataCache"
-        ]
+    (lib.mkRenamedOptionModule
+      [
+        "security"
+        "virtualization"
+        "flushL1DataCache"
+      ]
+      [
+        "security"
+        "virtualisation"
+        "flushL1DataCache"
+      ]
     )
   ];
 

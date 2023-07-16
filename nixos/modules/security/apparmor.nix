@@ -24,23 +24,21 @@ in
 
 {
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "security"
-          "apparmor"
-          "confineSUIDApplications"
-        ]
-        "Please use the new options: `security.apparmor.policies.<policy>.enable'."
+    (mkRemovedOptionModule
+      [
+        "security"
+        "apparmor"
+        "confineSUIDApplications"
+      ]
+      "Please use the new options: `security.apparmor.policies.<policy>.enable'."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "security"
-          "apparmor"
-          "profiles"
-        ]
-        "Please use the new option: `security.apparmor.policies'."
+    (mkRemovedOptionModule
+      [
+        "security"
+        "apparmor"
+        "profiles"
+      ]
+      "Please use the new option: `security.apparmor.policies'."
     )
     apparmor/includes.nix
     apparmor/profiles.nix

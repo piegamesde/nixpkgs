@@ -719,14 +719,13 @@ let
             ...
           }:
           mkMerge [
-            (
-              node
-                {
-                  address4 = "192.168.1.1";
-                  remote = "192.168.1.2";
-                  address6 = "fc00::1";
-                }
-                args
+            (node
+              {
+                address4 = "192.168.1.1";
+                remote = "192.168.1.2";
+                address6 = "fc00::1";
+              }
+              args
             )
             {
               networking = {
@@ -745,14 +744,13 @@ let
             ...
           }:
           mkMerge [
-            (
-              node
-                {
-                  address4 = "192.168.1.2";
-                  remote = "192.168.1.1";
-                  address6 = "fc00::2";
-                }
-                args
+            (node
+              {
+                address4 = "192.168.1.2";
+                remote = "192.168.1.1";
+                address6 = "fc00::2";
+              }
+              args
             )
             {
               networking = {

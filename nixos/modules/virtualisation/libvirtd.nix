@@ -141,95 +141,88 @@ in
 {
 
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "virtualisation"
-          "libvirtd"
-          "enableKVM"
-        ]
-        "Set the option `virtualisation.libvirtd.qemu.package' instead."
+    (mkRemovedOptionModule
+      [
+        "virtualisation"
+        "libvirtd"
+        "enableKVM"
+      ]
+      "Set the option `virtualisation.libvirtd.qemu.package' instead."
     )
-    (
-      mkRenamedOptionModule
-        [
-          "virtualisation"
-          "libvirtd"
-          "qemuPackage"
-        ]
-        [
-          "virtualisation"
-          "libvirtd"
-          "qemu"
-          "package"
-        ]
+    (mkRenamedOptionModule
+      [
+        "virtualisation"
+        "libvirtd"
+        "qemuPackage"
+      ]
+      [
+        "virtualisation"
+        "libvirtd"
+        "qemu"
+        "package"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "virtualisation"
-          "libvirtd"
-          "qemuRunAsRoot"
-        ]
-        [
-          "virtualisation"
-          "libvirtd"
-          "qemu"
-          "runAsRoot"
-        ]
+    (mkRenamedOptionModule
+      [
+        "virtualisation"
+        "libvirtd"
+        "qemuRunAsRoot"
+      ]
+      [
+        "virtualisation"
+        "libvirtd"
+        "qemu"
+        "runAsRoot"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "virtualisation"
-          "libvirtd"
-          "qemuVerbatimConfig"
-        ]
-        [
-          "virtualisation"
-          "libvirtd"
-          "qemu"
-          "verbatimConfig"
-        ]
+    (mkRenamedOptionModule
+      [
+        "virtualisation"
+        "libvirtd"
+        "qemuVerbatimConfig"
+      ]
+      [
+        "virtualisation"
+        "libvirtd"
+        "qemu"
+        "verbatimConfig"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "virtualisation"
-          "libvirtd"
-          "qemuOvmf"
-        ]
-        [
-          "virtualisation"
-          "libvirtd"
-          "qemu"
-          "ovmf"
-          "enable"
-        ]
+    (mkRenamedOptionModule
+      [
+        "virtualisation"
+        "libvirtd"
+        "qemuOvmf"
+      ]
+      [
+        "virtualisation"
+        "libvirtd"
+        "qemu"
+        "ovmf"
+        "enable"
+      ]
     )
-    (
-      mkRemovedOptionModule
-        [
-          "virtualisation"
-          "libvirtd"
-          "qemuOvmfPackage"
-        ]
-        "If this option was set to `foo`, set the option `virtualisation.libvirtd.qemu.ovmf.packages' to `[foo.fd]` instead."
+    (mkRemovedOptionModule
+      [
+        "virtualisation"
+        "libvirtd"
+        "qemuOvmfPackage"
+      ]
+      "If this option was set to `foo`, set the option `virtualisation.libvirtd.qemu.ovmf.packages' to `[foo.fd]` instead."
     )
-    (
-      mkRenamedOptionModule
-        [
-          "virtualisation"
-          "libvirtd"
-          "qemuSwtpm"
-        ]
-        [
-          "virtualisation"
-          "libvirtd"
-          "qemu"
-          "swtpm"
-          "enable"
-        ]
+    (mkRenamedOptionModule
+      [
+        "virtualisation"
+        "libvirtd"
+        "qemuSwtpm"
+      ]
+      [
+        "virtualisation"
+        "libvirtd"
+        "qemu"
+        "swtpm"
+        "enable"
+      ]
     )
   ];
 

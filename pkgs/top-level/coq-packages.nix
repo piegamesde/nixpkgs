@@ -176,9 +176,8 @@ let
       VST = callPackage ../development/coq-modules/VST (
         (lib.optionalAttrs (lib.versionAtLeast self.coq.version "8.14") {
           compcert = self.compcert.override { version = "3.11"; };
-        }) // (
-          lib.optionalAttrs (lib.versions.isEq self.coq.coq-version "8.13")
-            { ITree = self.ITree.override { version = "4.0.0"; }; }
+        }) // (lib.optionalAttrs (lib.versions.isEq self.coq.coq-version "8.13")
+          { ITree = self.ITree.override { version = "4.0.0"; }; }
         )
       );
       zorns-lemma = callPackage ../development/coq-modules/zorns-lemma { };

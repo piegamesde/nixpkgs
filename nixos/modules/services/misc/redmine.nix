@@ -73,24 +73,22 @@ let
 in
 {
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "redmine"
-          "extraConfig"
-        ]
-        "Use services.redmine.settings instead."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "redmine"
+        "extraConfig"
+      ]
+      "Use services.redmine.settings instead."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "redmine"
-          "database"
-          "password"
-        ]
-        "Use services.redmine.database.passwordFile instead."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "redmine"
+        "database"
+        "password"
+      ]
+      "Use services.redmine.database.passwordFile instead."
     )
   ];
 

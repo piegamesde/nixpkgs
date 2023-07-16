@@ -1505,9 +1505,8 @@ rec {
   */
   diskImageFuns =
     (lib.mapAttrs (name: as: as2: makeImageFromRPMDist (as // as2)) rpmDistros)
-    // (
-      lib.mapAttrs (name: as: as2: makeImageFromDebDist (as // as2))
-        debDistros
+    // (lib.mapAttrs (name: as: as2: makeImageFromDebDist (as // as2))
+      debDistros
     );
 
   # Shorthand for `diskImageFuns.<attr> { extraPackages = ... }'.

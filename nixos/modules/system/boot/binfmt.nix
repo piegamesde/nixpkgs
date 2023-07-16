@@ -226,17 +226,16 @@ let
 in
 {
   imports = [
-    (
-      lib.mkRenamedOptionModule
-        [
-          "boot"
-          "binfmtMiscRegistrations"
-        ]
-        [
-          "boot"
-          "binfmt"
-          "registrations"
-        ]
+    (lib.mkRenamedOptionModule
+      [
+        "boot"
+        "binfmtMiscRegistrations"
+      ]
+      [
+        "boot"
+        "binfmt"
+        "registrations"
+      ]
     )
   ];
 
@@ -431,9 +430,8 @@ in
                 interpreterSandboxPath = mkDefault (
                   dirOf (dirOf config.interpreter)
                 );
-              } // (magics.${system} or (
-                throw
-                  "Cannot create binfmt registration for system ${system}"
+              } // (magics.${system} or (throw
+                "Cannot create binfmt registration for system ${system}"
               )
               )
             )
@@ -456,9 +454,8 @@ in
         in
         [ "/run/binfmt" ]
         ++ lib.optional hasWrappedRule "${pkgs.bash}"
-        ++ (
-          map (system: (ruleFor system).interpreterSandboxPath)
-            cfg.emulatedSystems
+        ++ (map (system: (ruleFor system).interpreterSandboxPath)
+          cfg.emulatedSystems
         )
       ;
     };

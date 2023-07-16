@@ -39,13 +39,12 @@ let
       concatMap
         (s: [
           "  "
-          (
-            trim
-              [
-                " "
-                "	"
-              ]
-              s
+          (trim
+            [
+              " "
+              "	"
+            ]
+            s
           )
           "\n"
         ])

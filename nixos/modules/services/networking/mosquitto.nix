@@ -206,10 +206,8 @@ let
       concatStringsSep "\n" (
         flatten [
           supplement
-          (
-            mapAttrsToList
-              (n: u: [ "user ${n}" ] ++ map (t: "topic ${t}") u.acl)
-              users
+          (mapAttrsToList (n: u: [ "user ${n}" ] ++ map (t: "topic ${t}") u.acl)
+            users
           )
         ]
       )
@@ -640,13 +638,11 @@ let
     prefix: cfg:
     flatten [
       (assertKeysValid "${prefix}.settings" freeformGlobalKeys cfg.settings)
-      (
-        imap0 (n: l: listenerAsserts "${prefix}.listener.${toString n}" l)
-          cfg.listeners
+      (imap0 (n: l: listenerAsserts "${prefix}.listener.${toString n}" l)
+        cfg.listeners
       )
-      (
-        mapAttrsToList (n: b: bridgeAsserts "${prefix}.bridge.${n}" b)
-          cfg.bridges
+      (mapAttrsToList (n: b: bridgeAsserts "${prefix}.bridge.${n}" b)
+        cfg.bridges
       )
     ]
   ;
@@ -729,29 +725,27 @@ in
           cfg.includeDirs
           ++ filter (v: v != null) (
             flatten [
-              (
-                map
-                  (l: [
-                    (l.settings.psk_file or null)
-                    (l.settings.http_dir or null)
-                    (l.settings.cafile or null)
-                    (l.settings.capath or null)
-                    (l.settings.certfile or null)
-                    (l.settings.crlfile or null)
-                    (l.settings.dhparamfile or null)
-                    (l.settings.keyfile or null)
-                  ])
-                  cfg.listeners
+              (map
+                (l: [
+                  (l.settings.psk_file or null)
+                  (l.settings.http_dir or null)
+                  (l.settings.cafile or null)
+                  (l.settings.capath or null)
+                  (l.settings.certfile or null)
+                  (l.settings.crlfile or null)
+                  (l.settings.dhparamfile or null)
+                  (l.settings.keyfile or null)
+                ])
+                cfg.listeners
               )
-              (
-                mapAttrsToList
-                  (_: b: [
-                    (b.settings.bridge_cafile or null)
-                    (b.settings.bridge_capath or null)
-                    (b.settings.bridge_certfile or null)
-                    (b.settings.bridge_keyfile or null)
-                  ])
-                  cfg.bridges
+              (mapAttrsToList
+                (_: b: [
+                  (b.settings.bridge_cafile or null)
+                  (b.settings.bridge_capath or null)
+                  (b.settings.bridge_certfile or null)
+                  (b.settings.bridge_keyfile or null)
+                ])
+                cfg.bridges
               )
             ]
           )

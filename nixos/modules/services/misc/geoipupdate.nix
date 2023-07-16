@@ -11,13 +11,12 @@ let
 in
 {
   imports = [
-    (
-      lib.mkRemovedOptionModule
-        [
-          "services"
-          "geoip-updater"
-        ]
-        "services.geoip-updater has been removed, use services.geoipupdate instead."
+    (lib.mkRemovedOptionModule
+      [
+        "services"
+        "geoip-updater"
+      ]
+      "services.geoip-updater has been removed, use services.geoipupdate instead."
     )
   ];
 

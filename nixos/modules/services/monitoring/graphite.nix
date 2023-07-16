@@ -82,32 +82,29 @@ in
 {
 
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "graphite"
-          "api"
-        ]
-        ""
+    (mkRemovedOptionModule
+      [
+        "services"
+        "graphite"
+        "api"
+      ]
+      ""
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "graphite"
-          "beacon"
-        ]
-        ""
+    (mkRemovedOptionModule
+      [
+        "services"
+        "graphite"
+        "beacon"
+      ]
+      ""
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "graphite"
-          "pager"
-        ]
-        ""
+    (mkRemovedOptionModule
+      [
+        "services"
+        "graphite"
+        "pager"
+      ]
+      ""
     )
   ];
 
@@ -413,14 +410,13 @@ in
       ;
     })
 
-    (
-      mkIf
-        (
-          cfg.carbon.enableCache
-          || cfg.carbon.enableAggregator
-          || cfg.carbon.enableRelay
-        )
-        { environment.systemPackages = [ pkgs.python3Packages.carbon ]; }
+    (mkIf
+      (
+        cfg.carbon.enableCache
+        || cfg.carbon.enableAggregator
+        || cfg.carbon.enableRelay
+      )
+      { environment.systemPackages = [ pkgs.python3Packages.carbon ]; }
     )
 
     (mkIf cfg.web.enable ({
@@ -511,24 +507,23 @@ in
       services.mongodb.enable = mkDefault true;
     })
 
-    (
-      mkIf
-        (
-          cfg.carbon.enableCache
-          || cfg.carbon.enableAggregator
-          || cfg.carbon.enableRelay
-          || cfg.web.enable
-          || cfg.seyren.enable
-        )
-        {
-          users.users.graphite = {
-            uid = config.ids.uids.graphite;
-            group = "graphite";
-            description = "Graphite daemon user";
-            home = dataDir;
-          };
-          users.groups.graphite.gid = config.ids.gids.graphite;
-        }
+    (mkIf
+      (
+        cfg.carbon.enableCache
+        || cfg.carbon.enableAggregator
+        || cfg.carbon.enableRelay
+        || cfg.web.enable
+        || cfg.seyren.enable
+      )
+      {
+        users.users.graphite = {
+          uid = config.ids.uids.graphite;
+          group = "graphite";
+          description = "Graphite daemon user";
+          home = dataDir;
+        };
+        users.groups.graphite.gid = config.ids.gids.graphite;
+      }
     )
   ];
 }

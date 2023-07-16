@@ -37,9 +37,8 @@ let
       splitBin.right
       ++
         lib.optional
-          (
-            lib.any (p: p.tlType == "run" && p.pname == "pdfcrop")
-              splitBin.wrong
+          (lib.any (p: p.tlType == "run" && p.pname == "pdfcrop")
+            splitBin.wrong
           )
           (lib.getBin ghostscript)
     ;

@@ -292,17 +292,16 @@ in
   };
 
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "znc"
-          "zncConf"
-        ]
-        ''
-          Instead of `services.znc.zncConf = "... foo ...";`, use
-          `services.znc.configFile = pkgs.writeText "znc.conf" "... foo ...";`.
-        ''
+    (mkRemovedOptionModule
+      [
+        "services"
+        "znc"
+        "zncConf"
+      ]
+      ''
+        Instead of `services.znc.zncConf = "... foo ...";`, use
+        `services.znc.configFile = pkgs.writeText "znc.conf" "... foo ...";`.
+      ''
     )
   ];
 }

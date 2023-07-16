@@ -124,23 +124,21 @@ with lib; {
   };
 
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "zeronet"
-          "dataDir"
-        ]
-        "Zeronet will store data by default in /var/lib/zeronet"
+    (mkRemovedOptionModule
+      [
+        "services"
+        "zeronet"
+        "dataDir"
+      ]
+      "Zeronet will store data by default in /var/lib/zeronet"
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "zeronet"
-          "logDir"
-        ]
-        "Zeronet will log by default in /var/lib/zeronet"
+    (mkRemovedOptionModule
+      [
+        "services"
+        "zeronet"
+        "logDir"
+      ]
+      "Zeronet will log by default in /var/lib/zeronet"
     )
   ];
 

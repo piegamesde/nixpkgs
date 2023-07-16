@@ -35,9 +35,8 @@ let
         };
 
         systemPlatform =
-          platformMap.${pkgs.stdenv.hostPlatform.system} or (
-            throw
-              "scudo not supported on ${pkgs.stdenv.hostPlatform.system}"
+          platformMap.${pkgs.stdenv.hostPlatform.system} or (throw
+            "scudo not supported on ${pkgs.stdenv.hostPlatform.system}"
           );
       in
       {

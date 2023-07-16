@@ -3844,10 +3844,9 @@ with pkgs;
   };
 
   inherit
-    (
-      python3.pkgs.callPackage
-        ../development/tools/continuous-integration/buildbot
-        { }
+    (python3.pkgs.callPackage
+      ../development/tools/continuous-integration/buildbot
+      { }
     )
     buildbot
     buildbot-ui
@@ -13780,9 +13779,8 @@ with pkgs;
   ;
 
   inherit
-    (
-      callPackage ../applications/networking/instant-messengers/signal-desktop
-        { }
+    (callPackage ../applications/networking/instant-messengers/signal-desktop
+      { }
     )
     signal-desktop
     signal-desktop-beta
@@ -23432,9 +23430,8 @@ with pkgs;
         targetPackages.darwin.iosSdkPkgs.libraries
           or darwin.iosSdkPkgs.libraries
       else
-        targetPackages.darwin.LibsystemCross or (
-          throw
-            "don't yet have a `targetPackages.darwin.LibsystemCross for ${stdenv.targetPlatform.config}`"
+        targetPackages.darwin.LibsystemCross or (throw
+          "don't yet have a `targetPackages.darwin.LibsystemCross for ${stdenv.targetPlatform.config}`"
         )
     else if name == "fblibc" then
       targetPackages.freebsdCross.libc or freebsdCross.libc
@@ -39441,10 +39438,10 @@ with pkgs;
   ;
 
   sweethome3d = recurseIntoAttrs (
-    (callPackage ../applications/misc/sweethome3d { }) // (
-      callPackage ../applications/misc/sweethome3d/editors.nix
-        { sweethome3dApp = sweethome3d.application; }
-    )
+    (callPackage ../applications/misc/sweethome3d { })
+    // (callPackage ../applications/misc/sweethome3d/editors.nix {
+      sweethome3dApp = sweethome3d.application;
+    })
   );
 
   swingsane = callPackage ../applications/graphics/swingsane { };

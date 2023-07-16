@@ -199,16 +199,15 @@ in
                       p
                     ])
                     cfg.exclude
-                ++ (
-                  lib.optionals
-                    (
-                      cfg.fullIfOlderThan != "never"
-                      && cfg.fullIfOlderThan != "always"
-                    )
-                    [
-                      "--full-if-older-than"
-                      cfg.fullIfOlderThan
-                    ]
+                ++ (lib.optionals
+                  (
+                    cfg.fullIfOlderThan != "never"
+                    && cfg.fullIfOlderThan != "always"
+                  )
+                  [
+                    "--full-if-older-than"
+                    cfg.fullIfOlderThan
+                  ]
                 )
               )
             } ${extra}

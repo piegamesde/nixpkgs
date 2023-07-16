@@ -533,155 +533,139 @@ in
 {
 
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "httpd"
-          "extraSubservices"
-        ]
-        "Most existing subservices have been ported to the NixOS module system. Please update your configuration accordingly."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "httpd"
+        "extraSubservices"
+      ]
+      "Most existing subservices have been ported to the NixOS module system. Please update your configuration accordingly."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "httpd"
-          "stateDir"
-        ]
-        "The httpd module now uses /run/httpd as a runtime directory."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "httpd"
+        "stateDir"
+      ]
+      "The httpd module now uses /run/httpd as a runtime directory."
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "httpd"
-          "multiProcessingModule"
-        ]
-        [
-          "services"
-          "httpd"
-          "mpm"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "httpd"
+        "multiProcessingModule"
+      ]
+      [
+        "services"
+        "httpd"
+        "mpm"
+      ]
     )
 
     # virtualHosts options
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "httpd"
-          "documentRoot"
-        ]
-        "Please define a virtual host using `services.httpd.virtualHosts`."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "httpd"
+        "documentRoot"
+      ]
+      "Please define a virtual host using `services.httpd.virtualHosts`."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "httpd"
-          "enableSSL"
-        ]
-        "Please define a virtual host using `services.httpd.virtualHosts`."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "httpd"
+        "enableSSL"
+      ]
+      "Please define a virtual host using `services.httpd.virtualHosts`."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "httpd"
-          "enableUserDir"
-        ]
-        "Please define a virtual host using `services.httpd.virtualHosts`."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "httpd"
+        "enableUserDir"
+      ]
+      "Please define a virtual host using `services.httpd.virtualHosts`."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "httpd"
-          "globalRedirect"
-        ]
-        "Please define a virtual host using `services.httpd.virtualHosts`."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "httpd"
+        "globalRedirect"
+      ]
+      "Please define a virtual host using `services.httpd.virtualHosts`."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "httpd"
-          "hostName"
-        ]
-        "Please define a virtual host using `services.httpd.virtualHosts`."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "httpd"
+        "hostName"
+      ]
+      "Please define a virtual host using `services.httpd.virtualHosts`."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "httpd"
-          "listen"
-        ]
-        "Please define a virtual host using `services.httpd.virtualHosts`."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "httpd"
+        "listen"
+      ]
+      "Please define a virtual host using `services.httpd.virtualHosts`."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "httpd"
-          "robotsEntries"
-        ]
-        "Please define a virtual host using `services.httpd.virtualHosts`."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "httpd"
+        "robotsEntries"
+      ]
+      "Please define a virtual host using `services.httpd.virtualHosts`."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "httpd"
-          "servedDirs"
-        ]
-        "Please define a virtual host using `services.httpd.virtualHosts`."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "httpd"
+        "servedDirs"
+      ]
+      "Please define a virtual host using `services.httpd.virtualHosts`."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "httpd"
-          "servedFiles"
-        ]
-        "Please define a virtual host using `services.httpd.virtualHosts`."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "httpd"
+        "servedFiles"
+      ]
+      "Please define a virtual host using `services.httpd.virtualHosts`."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "httpd"
-          "serverAliases"
-        ]
-        "Please define a virtual host using `services.httpd.virtualHosts`."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "httpd"
+        "serverAliases"
+      ]
+      "Please define a virtual host using `services.httpd.virtualHosts`."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "httpd"
-          "sslServerCert"
-        ]
-        "Please define a virtual host using `services.httpd.virtualHosts`."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "httpd"
+        "sslServerCert"
+      ]
+      "Please define a virtual host using `services.httpd.virtualHosts`."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "httpd"
-          "sslServerChain"
-        ]
-        "Please define a virtual host using `services.httpd.virtualHosts`."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "httpd"
+        "sslServerChain"
+      ]
+      "Please define a virtual host using `services.httpd.virtualHosts`."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "httpd"
-          "sslServerKey"
-        ]
-        "Please define a virtual host using `services.httpd.virtualHosts`."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "httpd"
+        "sslServerKey"
+      ]
+      "Please define a virtual host using `services.httpd.virtualHosts`."
     )
   ];
 

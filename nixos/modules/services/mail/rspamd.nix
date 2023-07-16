@@ -292,21 +292,19 @@ let
 
   filterFiles = files: filterAttrs (n: v: v.enable) files;
   rspamdDir = pkgs.linkFarm "etc-rspamd-dir" (
-    (
-      mapAttrsToList
-        (name: file: {
-          name = "local.d/${name}";
-          path = file.source;
-        })
-        (filterFiles cfg.locals)
+    (mapAttrsToList
+      (name: file: {
+        name = "local.d/${name}";
+        path = file.source;
+      })
+      (filterFiles cfg.locals)
     )
-    ++ (
-      mapAttrsToList
-        (name: file: {
-          name = "override.d/${name}";
-          path = file.source;
-        })
-        (filterFiles cfg.overrides)
+    ++ (mapAttrsToList
+      (name: file: {
+        name = "override.d/${name}";
+        path = file.source;
+      })
+      (filterFiles cfg.overrides)
     )
     ++ (optional (cfg.localLuaRules != null) {
       name = "rspamd.local.lua";
@@ -358,20 +356,20 @@ let
     }
   ;
 
-  configOverrides = (
-    mapAttrs'
-      (
-        n: v:
-        nameValuePair "worker-${if n == "rspamd_proxy" then "proxy" else n}.inc"
-          { text = v.extraConfig; }
-      )
-      (filterAttrs (n: v: v.extraConfig != "") cfg.workers)
+  configOverrides = (mapAttrs'
+    (
+      n: v:
+      nameValuePair "worker-${if n == "rspamd_proxy" then "proxy" else n}.inc" {
+        text = v.extraConfig;
+      }
+    )
+    (filterAttrs (n: v: v.extraConfig != "") cfg.workers)
   ) // (
-      if cfg.extraConfig == "" then
-        { }
-      else
-        { "extra-config.inc".text = cfg.extraConfig; }
-    );
+    if cfg.extraConfig == "" then
+      { }
+    else
+      { "extra-config.inc".text = cfg.extraConfig; }
+  );
 in
 
 {
@@ -607,52 +605,48 @@ in
     };
   };
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "rspamd"
-          "socketActivation"
-        ]
-        "Socket activation never worked correctly and could at this time not be fixed and so was removed"
+    (mkRemovedOptionModule
+      [
+        "services"
+        "rspamd"
+        "socketActivation"
+      ]
+      "Socket activation never worked correctly and could at this time not be fixed and so was removed"
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "rspamd"
-          "bindSocket"
-        ]
-        [
-          "services"
-          "rspamd"
-          "workers"
-          "normal"
-          "bindSockets"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "rspamd"
+        "bindSocket"
+      ]
+      [
+        "services"
+        "rspamd"
+        "workers"
+        "normal"
+        "bindSockets"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "rspamd"
-          "bindUISocket"
-        ]
-        [
-          "services"
-          "rspamd"
-          "workers"
-          "controller"
-          "bindSockets"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "rspamd"
+        "bindUISocket"
+      ]
+      [
+        "services"
+        "rspamd"
+        "workers"
+        "controller"
+        "bindSockets"
+      ]
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "rmilter"
-        ]
-        "Use services.rspamd.* instead to set up milter service"
+    (mkRemovedOptionModule
+      [
+        "services"
+        "rmilter"
+      ]
+      "Use services.rspamd.* instead to set up milter service"
     )
   ];
 }

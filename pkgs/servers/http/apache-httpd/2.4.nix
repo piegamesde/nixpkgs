@@ -90,9 +90,8 @@ stdenv.mkDerivation rec {
     (lib.enableFeature proxySupport "proxy")
     (lib.enableFeature sslSupport "ssl")
     (lib.enableFeature modTlsSupport "tls")
-    (
-      lib.withFeatureAs libxml2Support "libxml2"
-        "${libxml2.dev}/include/libxml2"
+    (lib.withFeatureAs libxml2Support "libxml2"
+      "${libxml2.dev}/include/libxml2"
     )
     "--docdir=$(doc)/share/doc"
 

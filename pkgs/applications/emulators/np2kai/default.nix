@@ -44,9 +44,8 @@ assert lib.assertOneOf "withSDLVersion" withSDLVersion [
   "2"
 ];
 assert enableHAXM
-  -> (
-    lib.assertMsg enableX11
-      "Must enable X11 graphics interface for HAXM build."
+  -> (lib.assertMsg enableX11
+    "Must enable X11 graphics interface for HAXM build."
   );
 let
   inherit (lib) optional optionals optionalString;

@@ -75,13 +75,12 @@ stdenv.mkDerivation {
         chmod +w $out/lib/liblapack${canonicalExtension}
 
       ''
-      + (
-        lib.optionalString
-          (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf")
-          ''
-            patchelf --set-soname liblapack${canonicalExtension} $out/lib/liblapack${canonicalExtension}
-            patchelf --set-rpath "$(patchelf --print-rpath $out/lib/liblapack${canonicalExtension}):${lapackProvider'}/lib" $out/lib/liblapack${canonicalExtension}
-          ''
+      + (lib.optionalString
+        (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf")
+        ''
+          patchelf --set-soname liblapack${canonicalExtension} $out/lib/liblapack${canonicalExtension}
+          patchelf --set-rpath "$(patchelf --print-rpath $out/lib/liblapack${canonicalExtension}):${lapackProvider'}/lib" $out/lib/liblapack${canonicalExtension}
+        ''
       )
       + ''
 
@@ -114,15 +113,14 @@ stdenv.mkDerivation {
           chmod +w $out/lib/liblapacke${canonicalExtension}
 
       ''
-      + (
-        lib.optionalString
-          (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf")
-          ''
-            patchelf --set-soname liblapacke${canonicalExtension} $out/lib/liblapacke${canonicalExtension}
-            patchelf --set-rpath "$(patchelf --print-rpath $out/lib/liblapacke${canonicalExtension}):${
-              lib.getLib lapackProvider'
-            }/lib" $out/lib/liblapacke${canonicalExtension}
-          ''
+      + (lib.optionalString
+        (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf")
+        ''
+          patchelf --set-soname liblapacke${canonicalExtension} $out/lib/liblapacke${canonicalExtension}
+          patchelf --set-rpath "$(patchelf --print-rpath $out/lib/liblapacke${canonicalExtension}):${
+            lib.getLib lapackProvider'
+          }/lib" $out/lib/liblapacke${canonicalExtension}
+        ''
       )
       + ''
 

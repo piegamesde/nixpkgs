@@ -11,17 +11,16 @@ let
 in
 {
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "hardware"
-          "enableKSM"
-        ]
-        [
-          "hardware"
-          "ksm"
-          "enable"
-        ]
+    (mkRenamedOptionModule
+      [
+        "hardware"
+        "enableKSM"
+      ]
+      [
+        "hardware"
+        "ksm"
+        "enable"
+      ]
     )
   ];
 

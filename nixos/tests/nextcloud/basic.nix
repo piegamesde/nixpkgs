@@ -41,9 +41,8 @@ args@{
               options =
                 let
                   davfs2Conf =
-                    (
-                      pkgs.writeText "davfs2.conf"
-                        "secrets /tmp/davfs2-secrets"
+                    (pkgs.writeText "davfs2.conf"
+                      "secrets /tmp/davfs2-secrets"
                     );
                 in
                 [

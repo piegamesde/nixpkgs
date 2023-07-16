@@ -1734,46 +1734,43 @@ in
       };
     })
 
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "sourcehut"
-          "originBase"
-        ]
-        [
-          "services"
-          "sourcehut"
-          "settings"
-          "sr.ht"
-          "global-domain"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "sourcehut"
+        "originBase"
+      ]
+      [
+        "services"
+        "sourcehut"
+        "settings"
+        "sr.ht"
+        "global-domain"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "sourcehut"
-          "address"
-        ]
-        [
-          "services"
-          "sourcehut"
-          "listenAddress"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "sourcehut"
+        "address"
+      ]
+      [
+        "services"
+        "sourcehut"
+        "listenAddress"
+      ]
     )
 
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "sourcehut"
-          "dispatch"
-        ]
-        ''
-          dispatch is deprecated. See https://sourcehut.org/blog/2022-08-01-dispatch-deprecation-plans/
-          for more information.
-        ''
+    (mkRemovedOptionModule
+      [
+        "services"
+        "sourcehut"
+        "dispatch"
+      ]
+      ''
+        dispatch is deprecated. See https://sourcehut.org/blog/2022-08-01-dispatch-deprecation-plans/
+        for more information.
+      ''
     )
   ];
 

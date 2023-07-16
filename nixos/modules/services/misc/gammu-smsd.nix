@@ -292,9 +292,8 @@ in
             execPsql =
               extraArgs:
               concatStringsSep " " [
-                (
-                  optionalString (sql.password != null)
-                    "PGPASSWORD=${sql.password}"
+                (optionalString (sql.password != null)
+                  "PGPASSWORD=${sql.password}"
                 )
                 "${config.services.postgresql.package}/bin/psql"
                 (optionalString (sql.host != null) "-h ${sql.host}")

@@ -172,9 +172,8 @@ let
                   readline
                 ])
                 ++ (op zlibSupport zlib)
-                ++ (
-                  op (lib.versionOlder ver.majMin "3.0" && opensslSupport)
-                    openssl_1_1
+                ++ (op (lib.versionOlder ver.majMin "3.0" && opensslSupport)
+                  openssl_1_1
                 )
                 ++ (op (atLeast30 && opensslSupport) openssl_1_1)
                 ++ (op gdbmSupport gdbm)
@@ -280,9 +279,8 @@ let
                   (lib.enableFeature (!stdenv.hostPlatform.isStatic) "shared")
                   (lib.enableFeature true "pthread")
                   (lib.withFeatureAs true "soname" "ruby-${version}")
-                  (
-                    lib.withFeatureAs useBaseRuby "baseruby"
-                      "${baseRuby}/bin/ruby"
+                  (lib.withFeatureAs useBaseRuby "baseruby"
+                    "${baseRuby}/bin/ruby"
                   )
                   (lib.enableFeature dtraceSupport "dtrace")
                   (lib.enableFeature jitSupport "jit-support")
@@ -290,8 +288,8 @@ let
                   (lib.enableFeature docSupport "install-doc")
                   (lib.withFeature jemallocSupport "jemalloc")
                   (lib.withFeatureAs docSupport "ridir" "${
-                        placeholder "devdoc"
-                      }/share/ri")
+                      placeholder "devdoc"
+                    }/share/ri")
                   # ruby enables -O3 for gcc, however our compiler hardening wrapper
                   # overrides that by enabling `-O2` which is the minimum optimization
                   # needed for `_FORTIFY_SOURCE`.

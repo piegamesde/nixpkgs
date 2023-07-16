@@ -20,9 +20,8 @@ let
             #    final format during development.
             value =
               lib.throwIfNot (formatSet.type.check def)
-                (
-                  builtins.trace def
-                    "definition does not pass the type's check function"
+                (builtins.trace def
+                  "definition does not pass the type's check function"
                 )
                 def
             ;
