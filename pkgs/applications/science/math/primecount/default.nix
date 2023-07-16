@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/kimwalisch/primecount";
-    changelog =
-      "https://github.com/kimwalisch/primecount/blob/v${version}/ChangeLog";
+    changelog = "https://github.com/kimwalisch/primecount/blob/v${version}/ChangeLog";
     description = "Fast prime counting function implementations";
     longDescription = ''
       primecount is a command-line program and C/C++ library that counts the

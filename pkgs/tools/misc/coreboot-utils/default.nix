@@ -84,8 +84,7 @@ let
     };
     ifdtool = generic {
       pname = "ifdtool";
-      meta.description =
-        "Extract and dump Intel Firmware Descriptor information";
+      meta.description = "Extract and dump Intel Firmware Descriptor information";
     };
     intelmetool = generic {
       pname = "intelmetool";
@@ -105,13 +104,11 @@ let
     };
     nvramtool = generic {
       pname = "nvramtool";
-      meta.description =
-        "Read and write coreboot parameters and display information from the coreboot table in CMOS/NVRAM";
+      meta.description = "Read and write coreboot parameters and display information from the coreboot table in CMOS/NVRAM";
     };
     superiotool = generic {
       pname = "superiotool";
-      meta.description =
-        "User-space utility to detect Super I/O of a mainboard and provide detailed information about the register contents of the Super I/O";
+      meta.description = "User-space utility to detect Super I/O of a mainboard and provide detailed information about the register contents of the Super I/O";
       buildInputs = [
         pciutils
         zlib
@@ -119,8 +116,7 @@ let
     };
     ectool = generic {
       pname = "ectool";
-      meta.description =
-        "Dump the RAM of a laptop's Embedded/Environmental Controller (EC)";
+      meta.description = "Dump the RAM of a laptop's Embedded/Environmental Controller (EC)";
       meta.platforms = [
         "x86_64-linux"
         "i686-linux"
@@ -129,8 +125,7 @@ let
     };
     inteltool = generic {
       pname = "inteltool";
-      meta.description =
-        "Provides information about Intel CPU/chipset hardware configuration (register contents, MSRs, etc)";
+      meta.description = "Provides information about Intel CPU/chipset hardware configuration (register contents, MSRs, etc)";
       buildInputs = [
         pciutils
         zlib

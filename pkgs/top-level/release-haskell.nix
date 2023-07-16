@@ -629,8 +629,7 @@ let
       maintained = pkgs.releaseTools.aggregate {
         name = "maintained-haskell-packages";
         meta = {
-          description =
-            "Aggregate jobset of all haskell packages with a maintainer";
+          description = "Aggregate jobset of all haskell packages with a maintainer";
           maintainers = lib.teams.haskell.members;
         };
         constituents = accumulateDerivations (
@@ -670,8 +669,7 @@ let
       staticHaskellPackages = pkgs.releaseTools.aggregate {
         name = "static-haskell-packages";
         meta = {
-          description =
-            "Static haskell builds using the pkgsStatic infrastructure";
+          description = "Static haskell builds using the pkgsStatic infrastructure";
           maintainers = [
             lib.maintainers.sternenseemann
             lib.maintainers.rnhmjoj

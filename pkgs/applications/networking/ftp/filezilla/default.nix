@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
   version = "3.63.1";
 
   src = fetchurl {
-    url =
-      "https://download.filezilla-project.org/client/FileZilla_${version}_src.tar.bz2";
+    url = "https://download.filezilla-project.org/client/FileZilla_${version}_src.tar.bz2";
     hash = "sha256-TgtcD3n0+LykuiHnE7qXuG1bRcRyPeZ7nBDSO/QXo38=";
   };
 

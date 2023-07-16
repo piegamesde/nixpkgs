@@ -20,7 +20,6 @@ gsmakeDerivation rec {
   ];
 
   meta = {
-    description =
-      "Graphical Object Relationship Modeller is an easy-to-use interface designer for GNUstep";
+    description = "Graphical Object Relationship Modeller is an easy-to-use interface designer for GNUstep";
   };
 }

@@ -142,8 +142,7 @@ in
                   type = str;
                   description = lib.mdDoc "The database connection string";
                   default = "nedb://var/lib/matrix-appservice-irc/data";
-                  example =
-                    "postgres://username:password@host:port/databasename";
+                  example = "postgres://username:password@host:port/databasename";
                 };
               };
             };
@@ -228,8 +227,7 @@ in
 
       serviceConfig = rec {
         Type = "simple";
-        ExecStart =
-          "${bin} --config ${configFile} --file ${registrationFile} --port ${
+        ExecStart = "${bin} --config ${configFile} --file ${registrationFile} --port ${
             toString cfg.port
           }";
 
@@ -254,8 +252,7 @@ in
         LockPersonality = true;
         RestrictRealtime = true;
         PrivateMounts = true;
-        SystemCallFilter =
-          "~@aio @clock @cpu-emulation @debug @keyring @memlock @module @mount @obsolete @raw-io @setuid @swap";
+        SystemCallFilter = "~@aio @clock @cpu-emulation @debug @keyring @memlock @module @mount @obsolete @raw-io @setuid @swap";
         SystemCallArchitectures = "native";
         # AF_UNIX is required to connect to a postgres socket.
         RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";

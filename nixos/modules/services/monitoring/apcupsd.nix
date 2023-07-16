@@ -139,8 +139,7 @@ in
       hooks = mkOption {
         default = { };
         example = {
-          doshutdown =
-            "# shell commands to notify that the computer is shutting down";
+          doshutdown = "# shell commands to notify that the computer is shutting down";
         };
         type = types.attrsOf types.lines;
         description = lib.mdDoc ''

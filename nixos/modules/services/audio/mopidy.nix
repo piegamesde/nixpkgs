@@ -84,8 +84,7 @@ in
       ];
       description = "mopidy music player daemon";
       serviceConfig = {
-        ExecStart =
-          "${mopidyEnv}/bin/mopidy --config ${
+        ExecStart = "${mopidyEnv}/bin/mopidy --config ${
             concatStringsSep ":" ([ mopidyConf ] ++ cfg.extraConfigFiles)
           }";
         User = "mopidy";
@@ -95,8 +94,7 @@ in
     systemd.services.mopidy-scan = {
       description = "mopidy local files scanner";
       serviceConfig = {
-        ExecStart =
-          "${mopidyEnv}/bin/mopidy --config ${
+        ExecStart = "${mopidyEnv}/bin/mopidy --config ${
             concatStringsSep ":" ([ mopidyConf ] ++ cfg.extraConfigFiles)
           } local scan";
         User = "mopidy";

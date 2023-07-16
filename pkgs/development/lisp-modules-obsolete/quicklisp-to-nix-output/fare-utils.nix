@@ -7,14 +7,12 @@ rec {
   baseName = "fare-utils";
   version = "20170124-git";
 
-  description =
-    "Basic functions and macros, interfaces, pure and stateful datastructures";
+  description = "Basic functions and macros, interfaces, pure and stateful datastructures";
 
   deps = [ args."asdf" ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/fare-utils/2017-01-24/fare-utils-20170124-git.tgz";
+    url = "http://beta.quicklisp.org/archive/fare-utils/2017-01-24/fare-utils-20170124-git.tgz";
     sha256 = "0jhb018ccn3spkgjywgd0524m5qacn8x15fdiban4zz3amj9dapq";
   };
 

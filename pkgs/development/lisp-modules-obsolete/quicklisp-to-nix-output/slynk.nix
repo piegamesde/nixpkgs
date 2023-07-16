@@ -24,8 +24,7 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/sly/2021-04-11/sly-20210411-git.tgz";
+    url = "http://beta.quicklisp.org/archive/sly/2021-04-11/sly-20210411-git.tgz";
     sha256 = "1a96aapsz3fhnnnb8njn8v2ddrh6kwisppd90cc7v8knh043xgks";
   };
 

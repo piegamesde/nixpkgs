@@ -87,7 +87,6 @@ in
     environment.etc."pki/tls/certs/ca-bundle.crt".source = caBundle;
 
     # P11-Kit trust source.
-    environment.etc."ssl/trust-source".source =
-      "${cacertPackage.p11kit}/etc/ssl/trust-source";
+    environment.etc."ssl/trust-source".source = "${cacertPackage.p11kit}/etc/ssl/trust-source";
   };
 }

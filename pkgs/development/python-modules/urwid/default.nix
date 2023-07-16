@@ -22,8 +22,7 @@ buildPythonPackage rec {
       # https://github.com/urwid/urwid/pull/517
       (fetchpatch {
         name = "python311-compat.patch";
-        url =
-          "https://github.com/urwid/urwid/commit/42c1ed1eeb663179b265bae9b384d7ec11c8a9b5.patch";
+        url = "https://github.com/urwid/urwid/commit/42c1ed1eeb663179b265bae9b384d7ec11c8a9b5.patch";
         hash = "sha256-Oz8O/M6AdqbB6C/BB5rtxp8FgdGhZUxkSxKIyq5Dmho=";
       })
     ];
@@ -38,8 +37,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "urwid" ];
 
   meta = with lib; {
-    description =
-      "A full-featured console (xterm et al.) user interface library";
+    description = "A full-featured console (xterm et al.) user interface library";
     homepage = "https://urwid.org/";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ SuperSandro2000 ];

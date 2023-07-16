@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with lib; {
-    description =
-      "A library to extract valid data from within an Excel (.xls) spreadsheet";
+    description = "A library to extract valid data from within an Excel (.xls) spreadsheet";
     homepage = "https://www.gaia-gis.it/fossil/freexl";
     # They allow any of these
     license = with licenses; [

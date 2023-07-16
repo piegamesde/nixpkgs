@@ -46,8 +46,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pytest_randomly" ];
 
   meta = with lib; {
-    description =
-      "Pytest plugin to randomly order tests and control random.seed";
+    description = "Pytest plugin to randomly order tests and control random.seed";
     homepage = "https://github.com/pytest-dev/pytest-randomly";
     license = licenses.mit;
     maintainers = with maintainers; [ sternenseemann ];

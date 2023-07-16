@@ -198,8 +198,7 @@ let
   ;
 
   # flakeNote will be printed in the remediation messages below.
-  flakeNote =
-    "\n Note: For `nix shell`, `nix build`, `nix develop` or any other Nix 2.4+\n (Flake) command, `--impure` must be passed in order to read this\n environment variable.\n    ";
+  flakeNote = "\n Note: For `nix shell`, `nix build`, `nix develop` or any other Nix 2.4+\n (Flake) command, `--impure` must be passed in order to read this\n environment variable.\n    ";
 
   remediate_allowlist =
     allow_attr: rebuild_amendment: attrs: ''
@@ -528,22 +527,23 @@ let
           {
             valid = "no";
             reason = "unfree";
-            errormsg =
-              "has an unfree license (‘${showLicense attrs.meta.license}’)";
+            errormsg = "has an unfree license (‘${
+                showLicense attrs.meta.license
+              }’)";
           }
         else if hasBlocklistedLicense attrs then
           {
             valid = "no";
             reason = "blocklisted";
-            errormsg =
-              "has a blocklisted license (‘${showLicense attrs.meta.license}’)";
+            errormsg = "has a blocklisted license (‘${
+                showLicense attrs.meta.license
+              }’)";
           }
         else if hasDeniedNonSourceProvenance attrs then
           {
             valid = "no";
             reason = "non-source";
-            errormsg =
-              "contains elements not built from source (‘${
+            errormsg = "contains elements not built from source (‘${
                 showSourceType attrs.meta.sourceProvenance
               }’)";
           }

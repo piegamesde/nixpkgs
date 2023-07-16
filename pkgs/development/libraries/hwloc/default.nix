@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
   version = "2.9.1";
 
   src = fetchurl {
-    url =
-      "https://www.open-mpi.org/software/hwloc/v${
+    url = "https://www.open-mpi.org/software/hwloc/v${
         lib.versions.majorMinor version
       }/downloads/hwloc-${version}.tar.bz2";
     sha256 = "sha256-fMSTGiD+9Ffgkzrz83W+bq+ncD/eIeE3v7loWxQJWZ4=";
@@ -77,8 +76,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Portable abstraction of hierarchical architectures for high-performance computing";
+    description = "Portable abstraction of hierarchical architectures for high-performance computing";
     longDescription = ''
       hwloc provides a portable abstraction (across OS,
       versions, architectures, ...) of the hierarchical topology of

@@ -21,8 +21,7 @@ buildGoModule rec {
     [
       # fix build with go 1.17
       (fetchpatch {
-        url =
-          "https://github.com/jawn-smith/textql/commit/a0d7038c8c30671dfd618f47322814ab492c11a1.patch";
+        url = "https://github.com/jawn-smith/textql/commit/a0d7038c8c30671dfd618f47322814ab492c11a1.patch";
         sha256 = "1yjdbwipjxxhfcqlj1z6ngsm7dr8gfp4l61jynn2iw7f02cn1yck";
       })
     ];

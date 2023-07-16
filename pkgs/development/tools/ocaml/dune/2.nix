@@ -15,8 +15,7 @@ else
     version = "2.9.3";
 
     src = fetchurl {
-      url =
-        "https://github.com/ocaml/dune/releases/download/${version}/dune-site-${version}.tbz";
+      url = "https://github.com/ocaml/dune/releases/download/${version}/dune-site-${version}.tbz";
       sha256 = "sha256:1ml8bxym8sdfz25bx947al7cvsi2zg5lcv7x9w6xb01cmdryqr9y";
     };
 

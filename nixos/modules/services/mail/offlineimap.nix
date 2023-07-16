@@ -68,8 +68,7 @@ in
   };
   config = mkIf (cfg.enable || cfg.install) {
     systemd.user.services.offlineimap = {
-      description =
-        "Offlineimap: a software to dispose your mailbox(es) as a local Maildir(s)";
+      description = "Offlineimap: a software to dispose your mailbox(es) as a local Maildir(s)";
       serviceConfig = {
         Type = "oneshot";
         ExecStart = "${cfg.package}/bin/offlineimap -u syslog -o -1";

@@ -63,8 +63,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description =
-      "Pronterface, Pronsole, and Printcore - Pure Python 3d printing host software";
+    description = "Pronterface, Pronsole, and Printcore - Pure Python 3d printing host software";
     homepage = "https://github.com/kliment/Printrun";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

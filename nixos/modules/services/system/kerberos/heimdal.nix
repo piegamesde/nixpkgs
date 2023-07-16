@@ -72,8 +72,7 @@ in
       preStart = ''
         mkdir -m 0755 -p ${stateDir}
       '';
-      serviceConfig.ExecStart =
-        "${kerberos}/libexec/heimdal/kadmind --config-file=/etc/heimdal-kdc/kdc.conf";
+      serviceConfig.ExecStart = "${kerberos}/libexec/heimdal/kadmind --config-file=/etc/heimdal-kdc/kdc.conf";
       restartTriggers = [ kdcConfFile ];
     };
 
@@ -83,8 +82,7 @@ in
       preStart = ''
         mkdir -m 0755 -p ${stateDir}
       '';
-      serviceConfig.ExecStart =
-        "${kerberos}/libexec/heimdal/kdc --config-file=/etc/heimdal-kdc/kdc.conf";
+      serviceConfig.ExecStart = "${kerberos}/libexec/heimdal/kdc --config-file=/etc/heimdal-kdc/kdc.conf";
       restartTriggers = [ kdcConfFile ];
     };
 

@@ -47,8 +47,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "SQLAlchemy extension for Flask";
     homepage = "http://flask-sqlalchemy.pocoo.org/";
-    changelog =
-      "https://github.com/pallets-eco/flask-sqlalchemy/blob/${version}/CHANGES.rst";
+    changelog = "https://github.com/pallets-eco/flask-sqlalchemy/blob/${version}/CHANGES.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ gerschtli ];
   };

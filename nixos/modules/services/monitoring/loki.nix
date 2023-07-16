@@ -119,8 +119,7 @@ in
           ;
         in
         {
-          ExecStart =
-            "${cfg.package}/bin/loki --config.file=${conf} ${
+          ExecStart = "${cfg.package}/bin/loki --config.file=${conf} ${
               escapeShellArgs cfg.extraFlags
             }";
           User = cfg.user;

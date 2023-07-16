@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   sourceRoot = ".";
 
   src = fetchurl {
-    url =
-      "https://github.com/morpheus65535/bazarr/releases/download/v${version}/bazarr.zip";
+    url = "https://github.com/morpheus65535/bazarr/releases/download/v${version}/bazarr.zip";
     sha256 = "sha256-rlph8On/dc9Xyx8/KQzp4vX49wY4fr1oTtBEyfVhrsc=";
   };
 

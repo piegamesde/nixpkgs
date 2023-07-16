@@ -188,8 +188,7 @@ stdenv.mkDerivation rec {
     platforms = subtractLists platforms.i686 platforms.unix;
     license = licenses.gpl3; # Or GPLv2 at your option - but not GPLv4
     homepage = "https://www.singular.uni-kl.de";
-    downloadPage =
-      "http://www.mathematik.uni-kl.de/ftp/pub/Math/Singular/SOURCES/";
+    downloadPage = "http://www.mathematik.uni-kl.de/ftp/pub/Math/Singular/SOURCES/";
     mainProgram = "Singular";
   };
 }

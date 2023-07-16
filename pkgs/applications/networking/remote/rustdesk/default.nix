@@ -49,19 +49,13 @@ rustPlatform.buildRustPackage rec {
     lockFile = ./Cargo.lock;
     outputHashes = {
       "confy-0.4.0" = "sha256-e91cvEixhpPzIthAxzTa3fDY6eCsHUy/eZQAqs7QTDo=";
-      "parity-tokio-ipc-0.7.3-1" =
-        "sha256-eULJePtBu0iBI3It/bPH0h82Obsb1PJALgwYwrnCFYI=";
+      "parity-tokio-ipc-0.7.3-1" = "sha256-eULJePtBu0iBI3It/bPH0h82Obsb1PJALgwYwrnCFYI=";
       "rdev-0.5.0-2" = "sha256-7CEZ2wIM4QAPfY1tGKqXfHplTaxHnccVqFRPjY21Svo=";
-      "tokio-socks-0.5.1-1" =
-        "sha256-45QQ6FrhGU9uEhbKXTKd/mY6MDumO6p46NmlakdyDQk=";
-      "libappindicator-0.6.1" =
-        "sha256-JGnnZrcwbh8WJ6+/4bYhfD3HvgF2C7XaaGb6TaMRWdw=";
-      "magnum-opus-0.4.0" =
-        "sha256-U5uuN4YolOYDnFNbtPpwYefcBDTUUyioui0UCcW8dyo=";
-      "rust-pulsectl-0.2.12" =
-        "sha256-8jXTspWvjONFcvw9/Z8C43g4BuGZ3rsG32tvLMQbtbM=";
-      "sciter-rs-0.5.57" =
-        "sha256-ZZnZDhMjK0LjgmK0da1yvB0uoKueLhhhQtzmjoN+1R0=";
+      "tokio-socks-0.5.1-1" = "sha256-45QQ6FrhGU9uEhbKXTKd/mY6MDumO6p46NmlakdyDQk=";
+      "libappindicator-0.6.1" = "sha256-JGnnZrcwbh8WJ6+/4bYhfD3HvgF2C7XaaGb6TaMRWdw=";
+      "magnum-opus-0.4.0" = "sha256-U5uuN4YolOYDnFNbtPpwYefcBDTUUyioui0UCcW8dyo=";
+      "rust-pulsectl-0.2.12" = "sha256-8jXTspWvjONFcvw9/Z8C43g4BuGZ3rsG32tvLMQbtbM=";
+      "sciter-rs-0.5.57" = "sha256-ZZnZDhMjK0LjgmK0da1yvB0uoKueLhhhQtzmjoN+1R0=";
       "systray-0.4.1" = "sha256-p1PMr/8oS6zHx4+Ng4zCqt0xZ57cq3wAu6/agyWq5Jw=";
     };
   };

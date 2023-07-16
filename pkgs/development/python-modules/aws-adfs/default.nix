@@ -50,8 +50,7 @@ buildPythonPackage rec {
     [
       # Apply new fido2 api (See: venth/aws-adfs#243)
       (fetchpatch {
-        url =
-          "https://github.com/venth/aws-adfs/commit/09836d89256f3537270d760d8aa30ab9284725a8.diff";
+        url = "https://github.com/venth/aws-adfs/commit/09836d89256f3537270d760d8aa30ab9284725a8.diff";
         hash = "sha256-pAAJvOa43BXtyWvV8hsLe2xqd5oI+vzndckRTRol61s=";
       })
     ];
@@ -74,8 +73,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "aws_adfs" ];
 
   meta = with lib; {
-    description =
-      "Command line tool to ease AWS CLI authentication against ADFS";
+    description = "Command line tool to ease AWS CLI authentication against ADFS";
     homepage = "https://github.com/venth/aws-adfs";
     license = licenses.psfl;
     maintainers = with maintainers; [ bhipple ];

@@ -35,8 +35,7 @@ mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Core libraries to manage the desktop to be shared between Maui Settings and Cask";
+    description = "Core libraries to manage the desktop to be shared between Maui Settings and Cask";
     homepage = "https://github.com/Nitrux/maui-core";
     # Missing license information https://github.com/Nitrux/maui-core/issues/1
     license = licenses.unfree;

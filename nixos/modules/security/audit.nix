@@ -138,8 +138,9 @@ in
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        ExecStart =
-          "@${if enabled then startScript else disableScript} audit-start";
+        ExecStart = "@${
+            if enabled then startScript else disableScript
+          } audit-start";
         ExecStop = "@${stopScript} audit-stop";
       };
     };

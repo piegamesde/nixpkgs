@@ -10,8 +10,7 @@ let
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url =
-      "https://github.com/getstation/desktop-app-releases/releases/download/${version}/Station-${version}-x86_64.AppImage";
+    url = "https://github.com/getstation/desktop-app-releases/releases/download/${version}/Station-${version}-x86_64.AppImage";
     sha256 = "0lhiwvnf94is9klvzrqv2wri53gj8nms9lg2678bs4y58pvjxwid";
   };
 

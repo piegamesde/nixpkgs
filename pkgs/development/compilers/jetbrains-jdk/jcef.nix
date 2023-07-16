@@ -105,8 +105,7 @@ stdenv.mkDerivation rec {
   };
   cef-bin =
     let
-      fileName =
-        "cef_binary_104.4.26+g4180781+chromium-104.0.5112.102_linux64_minimal";
+      fileName = "cef_binary_104.4.26+g4180781+chromium-104.0.5112.102_linux64_minimal";
       urlName = builtins.replaceStrings [ "+" ] [ "%2B" ] fileName;
     in
     fetchzip rec {
@@ -116,8 +115,7 @@ stdenv.mkDerivation rec {
     }
   ;
   clang-fmt = fetchurl {
-    url =
-      "https://storage.googleapis.com/chromium-clang-format/942fc8b1789144b8071d3fc03ff0fcbe1cf81ac8";
+    url = "https://storage.googleapis.com/chromium-clang-format/942fc8b1789144b8071d3fc03ff0fcbe1cf81ac8";
     hash = "sha256-5iAU49tQmLS7zkS+6iGT+6SEdERRo1RkyRpiRvc9nVY=";
   };
 

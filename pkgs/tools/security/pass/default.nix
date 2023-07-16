@@ -87,8 +87,7 @@ stdenv.mkDerivation rec {
   pname = "password-store";
 
   src = fetchurl {
-    url =
-      "https://git.zx2c4.com/password-store/snapshot/${pname}-${version}.tar.xz";
+    url = "https://git.zx2c4.com/password-store/snapshot/${pname}-${version}.tar.xz";
     sha256 = "1h4k6w7g8pr169p5w9n6mkdhxl3pw51zphx7www6pvgjb7vgmafg";
   };
 
@@ -207,8 +206,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "Stores, retrieves, generates, and synchronizes passwords securely";
+    description = "Stores, retrieves, generates, and synchronizes passwords securely";
     homepage = "https://www.passwordstore.org/";
     license = licenses.gpl2Plus;
     mainProgram = "pass";

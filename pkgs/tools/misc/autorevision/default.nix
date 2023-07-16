@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   version = "1.22";
 
   src = fetchurl {
-    url =
-      "https://github.com/Autorevision/autorevision/releases/download/v%2F${version}/autorevision-${version}.tgz";
+    url = "https://github.com/Autorevision/autorevision/releases/download/v%2F${version}/autorevision-${version}.tgz";
     sha256 = "sha256-3ktLVC73m2xddq5BhxVKw/FJd6pZ5RVb7fv29dxUoRE=";
   };
 

@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://multitran.sourceforge.net/";
-    description =
-      "Multitran: simple command line utilities for dictionary maintenance";
+    description = "Multitran: simple command line utilities for dictionary maintenance";
     license = lib.licenses.gpl2;
     maintainers = with lib.maintainers; [ viric ];
     platforms = with lib.platforms; linux;

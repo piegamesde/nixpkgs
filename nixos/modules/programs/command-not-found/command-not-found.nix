@@ -42,8 +42,7 @@ in
     };
 
     dbPath = mkOption {
-      default =
-        "/nix/var/nix/profiles/per-user/root/channels/nixos/programs.sqlite";
+      default = "/nix/var/nix/profiles/per-user/root/channels/nixos/programs.sqlite";
       description = lib.mdDoc ''
         Absolute path to programs.sqlite.
 

@@ -26,8 +26,7 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Continuous Integration platform built on container technology";
+    description = "Continuous Integration platform built on container technology";
     homepage = "https://github.com/harness/drone";
     maintainers = with maintainers; [
       elohmeier

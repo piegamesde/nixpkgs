@@ -15,8 +15,7 @@ let
     patchname: hash:
     fetchpatch {
       name = "${patchname}.patch";
-      url =
-        "https://sources.debian.org/data/main/t/titanion/0.3.dfsg1-7/debian/patches/${patchname}";
+      url = "https://sources.debian.org/data/main/t/titanion/0.3.dfsg1-7/debian/patches/${patchname}";
       sha256 = hash;
     }
   ;
@@ -26,8 +25,7 @@ stdenv.mkDerivation rec {
   version = "0.3";
 
   src = fetchurl {
-    url =
-      "http://abagames.sakura.ne.jp/windows/ttn${
+    url = "http://abagames.sakura.ne.jp/windows/ttn${
         lib.replaceStrings [ "." ] [ "_" ] version
       }.zip";
     sha256 = "sha256-fR0cufi6dU898wP8KGl/vxbfQJzMmMxlYZ3QNGLajfM=";

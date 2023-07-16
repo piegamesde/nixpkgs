@@ -86,8 +86,7 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "3D printer / slicing GUI built on top of the Uranium framework";
+    description = "3D printer / slicing GUI built on top of the Uranium framework";
     homepage = "https://github.com/Ultimaker/Cura";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;

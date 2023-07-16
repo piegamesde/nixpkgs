@@ -40,10 +40,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/Teekeks/pyTwitchAPI/blob/v${version}/docs/changelog.rst";
-    description =
-      "Python implementation of the Twitch Helix API, its Webhook, PubSub and EventSub";
+    changelog = "https://github.com/Teekeks/pyTwitchAPI/blob/v${version}/docs/changelog.rst";
+    description = "Python implementation of the Twitch Helix API, its Webhook, PubSub and EventSub";
     homepage = "https://github.com/Teekeks/pyTwitchAPI";
     license = licenses.mit;
     maintainers = with maintainers; [

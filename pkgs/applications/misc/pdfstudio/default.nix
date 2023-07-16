@@ -44,8 +44,7 @@ in
       PDF Studio Viewer is an easy to use, full-featured PDF editing software. This is the free edition. For the standard/pro edition, see the package pdfstudio.
     '';
     src = fetchurl {
-      url =
-        "https://download.qoppa.com/pdfstudioviewer/PDFStudioViewer_linux64.deb";
+      url = "https://download.qoppa.com/pdfstudioviewer/PDFStudioViewer_linux64.deb";
       sha256 = "sha256-QXNsH1T+ItV3s9r8CnwgRUo1mhVbe8LkEun9gUmlVQg=";
     };
     jdk = jdk17;
@@ -61,8 +60,7 @@ in
     ;
     version = "${year}.2.1";
     src = fetchurl {
-      url =
-        "https://download.qoppa.com/pdfstudio/v${year}/PDFStudio_v${
+      url = "https://download.qoppa.com/pdfstudio/v${year}/PDFStudio_v${
           dot2dash version
         }_linux64.deb";
       sha256 = "sha256-yELpza2C3HJJIP+ZQP7x3Tfez0Nl6ctCbHCmTmpX3jo=";
@@ -83,8 +81,7 @@ in
     ;
     version = "${year}.2.4";
     src = fetchurl {
-      url =
-        "https://download.qoppa.com/pdfstudio/v${year}/PDFStudio_v${
+      url = "https://download.qoppa.com/pdfstudio/v${year}/PDFStudio_v${
           dot2dash version
         }_linux64.deb";
       sha256 = "sha256-bti+WI8JdOmUsHq8ijfxGC4ZsWXwbwwM26kuBgPDUMQ=";

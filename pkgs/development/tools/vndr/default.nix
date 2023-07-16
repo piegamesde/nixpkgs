@@ -20,8 +20,7 @@ buildGoPackage rec {
   };
 
   meta = {
-    description =
-      "Stupid golang vendoring tool, inspired by docker vendor script";
+    description = "Stupid golang vendoring tool, inspired by docker vendor script";
     homepage = "https://github.com/LK4D4/vndr";
     maintainers = with lib.maintainers; [
       vdemeester

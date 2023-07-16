@@ -20,8 +20,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/pydron/ifaddr";
-    description =
-      "Enumerates all IP addresses on all network adapters of the system";
+    description = "Enumerates all IP addresses on all network adapters of the system";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

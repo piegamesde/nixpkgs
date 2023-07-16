@@ -312,8 +312,7 @@ in
     services.dbus.packages = [ cfg.package ];
 
     systemd.services.system76-scheduler = {
-      description =
-        "Manage process priorities and CFS scheduler latencies for improved responsiveness on the desktop";
+      description = "Manage process priorities and CFS scheduler latencies for improved responsiveness on the desktop";
       wantedBy = [ "multi-user.target" ];
       path = [
         # execsnoop needs those to extract kernel headers:
@@ -332,12 +331,9 @@ in
     environment.etc = mkMerge [
       (mkIf cfg.useStockConfig {
         # No custom settings: just use stock configuration with a fix for Pipewire
-        "system76-scheduler/config.kdl".source =
-          "${cfg.package}/data/config.kdl";
-        "system76-scheduler/process-scheduler/00-dist.kdl".source =
-          "${cfg.package}/data/pop_os.kdl";
-        "system76-scheduler/process-scheduler/01-fix-pipewire-paths.kdl".source =
-          ../../../../pkgs/os-specific/linux/system76-scheduler/01-fix-pipewire-paths.kdl;
+        "system76-scheduler/config.kdl".source = "${cfg.package}/data/config.kdl";
+        "system76-scheduler/process-scheduler/00-dist.kdl".source = "${cfg.package}/data/pop_os.kdl";
+        "system76-scheduler/process-scheduler/01-fix-pipewire-paths.kdl".source = ../../../../pkgs/os-specific/linux/system76-scheduler/01-fix-pipewire-paths.kdl;
       })
 
       (

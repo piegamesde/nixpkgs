@@ -47,10 +47,8 @@ rustPlatform.buildRustPackage rec {
     outputHashes = {
       "amcl-0.3.0" = "sha256-Mj4dXTlGVSleFfuTKgVDQ7S3jANMsdtVE5L90WGxA4U=";
       "arbitrary-1.3.0" = "sha256-BMxcBfxBRf+Kb0Tz55jtFbwokSeD2GPtB+KV8Wbne0g=";
-      "beacon-api-client-0.1.0" =
-        "sha256-fI8qST6HZrchg7yr/nVtRNrsW3f5ONSX+mGRYW+iiqA=";
-      "ethereum-consensus-0.1.1" =
-        "sha256-aBrZ786Me0BWpnncxQc5MT3r+O0yLQhqGKFBiNTdqSA=";
+      "beacon-api-client-0.1.0" = "sha256-fI8qST6HZrchg7yr/nVtRNrsW3f5ONSX+mGRYW+iiqA=";
+      "ethereum-consensus-0.1.1" = "sha256-aBrZ786Me0BWpnncxQc5MT3r+O0yLQhqGKFBiNTdqSA=";
       "libmdbx-0.1.4" = "sha256-NMsR/Wl1JIj+YFPyeMMkrJFfoS07iEAKEQawO89a+/Q=";
       "lmdb-rkv-0.14.0" = "sha256-sxmguwqqcyOlfXOZogVz1OLxfJPo+Q0+UjkROkbbOCk=";
       "mev-rs-0.2.1" = "sha256-n3ns1oynw5fKQtp/CQHER41+C1EmLCVEBqggkHc3or4=";
@@ -82,20 +80,17 @@ rustPlatform.buildRustPackage rec {
   ;
 
   depositContractSpec = fetchurl {
-    url =
-      "https://raw.githubusercontent.com/ethereum/eth2.0-specs/v${depositContractSpecVersion}/deposit_contract/contracts/validator_registration.json";
+    url = "https://raw.githubusercontent.com/ethereum/eth2.0-specs/v${depositContractSpecVersion}/deposit_contract/contracts/validator_registration.json";
     hash = "sha256-ZslAe1wkmkg8Tua/AmmEfBmjqMVcGIiYHwi+WssEwa8=";
   };
 
   testnetDepositContractSpec = fetchurl {
-    url =
-      "https://raw.githubusercontent.com/sigp/unsafe-eth2-deposit-contract/v${testnetDepositContractSpecVersion}/unsafe_validator_registration.json";
+    url = "https://raw.githubusercontent.com/sigp/unsafe-eth2-deposit-contract/v${testnetDepositContractSpecVersion}/unsafe_validator_registration.json";
     hash = "sha256-aeTeHRT3QtxBRSNMCITIWmx89vGtox2OzSff8vZ+RYY=";
   };
 
   LIGHTHOUSE_DEPOSIT_CONTRACT_SPEC_URL = "file://${depositContractSpec}";
-  LIGHTHOUSE_DEPOSIT_CONTRACT_TESTNET_URL =
-    "file://${testnetDepositContractSpec}";
+  LIGHTHOUSE_DEPOSIT_CONTRACT_TESTNET_URL = "file://${testnetDepositContractSpec}";
 
   cargoBuildFlags = [ "--package lighthouse" ];
 

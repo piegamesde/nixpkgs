@@ -85,8 +85,7 @@ stdenv.mkDerivation rec {
     '';
     maintainers = with maintainers; [ edcragg ];
     homepage = "https://www.domoticz.com/";
-    changelog =
-      "https://github.com/domoticz/domoticz/blob/${version}/History.txt";
+    changelog = "https://github.com/domoticz/domoticz/blob/${version}/History.txt";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
     broken =

@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Low-level I/O helpers for hexadecimal, tty/serial devices and so on";
+    description = "Low-level I/O helpers for hexadecimal, tty/serial devices and so on";
     homepage = "https://github.com/vanrein/hexio";
     license = licenses.bsd2;
     platforms = platforms.linux;

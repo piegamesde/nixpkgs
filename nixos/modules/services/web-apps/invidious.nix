@@ -92,8 +92,7 @@ let
     assertions = [ {
       assertion =
         cfg.database.host != null -> cfg.database.passwordFile != null;
-      message =
-        "If database host isn't null, database password needs to be set";
+      message = "If database host isn't null, database password needs to be set";
     } ];
   };
 
@@ -167,8 +166,7 @@ let
 
     assertions = [ {
       assertion = cfg.domain != null;
-      message =
-        "To use services.invidious.nginx, you need to set services.invidious.domain";
+      message = "To use services.invidious.nginx, you need to set services.invidious.domain";
     } ];
   };
 in

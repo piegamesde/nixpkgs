@@ -92,8 +92,7 @@ stdenv.mkDerivation rec {
 
     (fetchpatch {
       name = "Catch-up-to-highlight-4.0-API-change";
-      url =
-        "http://source.ikiwiki.branchable.com/?p=source.git;a=patch;h=9ea3f9dfe7c0341f4e002b48728b8139293e19d0";
+      url = "http://source.ikiwiki.branchable.com/?p=source.git;a=patch;h=9ea3f9dfe7c0341f4e002b48728b8139293e19d0";
       sha256 = "16s4wvsfclx0a5cm2awr69dvw2vsi8lpm0d7kyl5w0kjlmzfc7h9";
     })
   ];

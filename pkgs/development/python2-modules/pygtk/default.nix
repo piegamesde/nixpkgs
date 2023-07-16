@@ -25,8 +25,7 @@ buildPythonPackage rec {
   disabled = isPy3k;
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.bz2";
     sha256 = "04k942gn8vl95kwf0qskkv6npclfm31d78ljkrkgyqxxcni1w76d";
@@ -35,13 +34,11 @@ buildPythonPackage rec {
   patches = [
     # https://bugzilla.gnome.org/show_bug.cgi?id=660216 - fixes some memory leaks
     (fetchpatch {
-      url =
-        "https://gitlab.gnome.org/Archive/pygtk/commit/eca72baa5616fbe4dbebea43c7e5940847dc5ab8.diff";
+      url = "https://gitlab.gnome.org/Archive/pygtk/commit/eca72baa5616fbe4dbebea43c7e5940847dc5ab8.diff";
       sha256 = "031px4w5cshcx1sns430sdbr2i007b9zyb2carb3z65nzr77dpdd";
     })
     (fetchpatch {
-      url =
-        "https://gitlab.gnome.org/Archive/pygtk/commit/4aaa48eb80c6802aec6d03e5695d2a0ff20e0fc2.patch";
+      url = "https://gitlab.gnome.org/Archive/pygtk/commit/4aaa48eb80c6802aec6d03e5695d2a0ff20e0fc2.patch";
       sha256 = "0z8cg7nr3qki8gg8alasdzzyxcihfjlxn518glq5ajglk3q5pzsn";
     })
   ];

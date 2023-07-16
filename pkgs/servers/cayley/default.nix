@@ -33,8 +33,7 @@ buildGoModule rec {
   ;
 
   meta = with lib; {
-    description =
-      "Graph database designed for ease of use and storing complex data";
+    description = "Graph database designed for ease of use and storing complex data";
     longDescription = ''
       Cayley is an open-source database for Linked Data. It is inspired by the
       graph database behind Google's Knowledge Graph (formerly Freebase).

@@ -85,8 +85,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Library for managing accounts which can be used from GLib applications";
+    description = "Library for managing accounts which can be used from GLib applications";
     platforms = platforms.linux;
     license = licenses.lgpl21;
   };

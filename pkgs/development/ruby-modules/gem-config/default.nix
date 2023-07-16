@@ -147,8 +147,7 @@ in
   bundler =
     attrs:
     let
-      templates =
-        "${attrs.ruby.gemPath}/gems/${attrs.gemName}-${attrs.version}/lib/bundler/templates/";
+      templates = "${attrs.ruby.gemPath}/gems/${attrs.gemName}-${attrs.version}/lib/bundler/templates/";
     in
     {
       # patching shebangs would fail on the templates/Executable file, so we
@@ -308,8 +307,7 @@ in
 
   mimemagic =
     attrs: {
-      FREEDESKTOP_MIME_TYPES_PATH =
-        "${shared-mime-info}/share/mime/packages/freedesktop.org.xml";
+      FREEDESKTOP_MIME_TYPES_PATH = "${shared-mime-info}/share/mime/packages/freedesktop.org.xml";
     }
   ;
 
@@ -406,8 +404,7 @@ in
       postPatch = ''
         sed -i "s;'https://codeload.github.com.*';'${
           fetchurl {
-            url =
-              "https://codeload.github.com/lfittl/libpg_query/tar.gz/10-1.0.3";
+            url = "https://codeload.github.com/lfittl/libpg_query/tar.gz/10-1.0.3";
             sha256 = "0jfij8apzxsdabl70j42xgd5f3ka1gdcrk764nccp66164gpcchk";
           }
         }';" ext/pg_query/extconf.rb
@@ -424,8 +421,7 @@ in
       postPatch = ''
         sed -i "s;'https://codeload.github.com.*';'${
           fetchurl {
-            url =
-              "https://codeload.github.com/lfittl/libpg_query/tar.gz/13-2.0.2";
+            url = "https://codeload.github.com/lfittl/libpg_query/tar.gz/13-2.0.2";
             sha256 = "0ms2s6hmy8qyzv4g1hj4i2p5fws1v8lrj73b2knwbp2ipd45yj7y";
           }
         }';" ext/pg_query/extconf.rb
@@ -436,8 +432,7 @@ in
       postPatch = ''
         sed -i "s;'https://codeload.github.com.*';'${
           fetchurl {
-            url =
-              "https://codeload.github.com/lfittl/libpg_query/tar.gz/10-1.0.4";
+            url = "https://codeload.github.com/lfittl/libpg_query/tar.gz/10-1.0.4";
             sha256 = "0f0kshhai0pnkqj0w4kgz3fssnvwidllc31n1fysxjjzdqlr1k48";
           }
         }';" ext/pg_query/extconf.rb

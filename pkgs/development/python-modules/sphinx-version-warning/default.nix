@@ -35,8 +35,7 @@ buildPythonPackage rec {
   # and gets permission denied, since Nix store is immutable.
   patches = [
     (fetchpatch {
-      url =
-        "https://github.com/humitos/sphinx-version-warning/commit/cb1b47becf2a0d3b2570ca9929f42f7d7e472b6f.patch";
+      url = "https://github.com/humitos/sphinx-version-warning/commit/cb1b47becf2a0d3b2570ca9929f42f7d7e472b6f.patch";
       hash = "sha256-Vj0QAHIBmc0VxE+TTmJePzvr5nc45Sn2qqM+C/pkgtM=";
     })
   ];
@@ -56,8 +55,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "versionwarning" ];
 
   meta = with lib; {
-    description =
-      "A sphinx extension to show a warning banner at the top of your documentation";
+    description = "A sphinx extension to show a warning banner at the top of your documentation";
     homepage = "https://github.com/humitos/sphinx-version-warning";
     license = licenses.mit;
     maintainers = with maintainers; [ kaction ];

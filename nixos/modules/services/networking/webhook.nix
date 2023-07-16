@@ -192,13 +192,11 @@ in
       [
         {
           assertion = hookFiles != [ ];
-          message =
-            "At least one hook needs to be configured for webhook to run.";
+          message = "At least one hook needs to be configured for webhook to run.";
         }
         {
           assertion = overlappingHooks == { };
-          message =
-            "`services.webhook.hooks` and `services.webhook.hooksTemplated` have overlapping attribute(s): ${
+          message = "`services.webhook.hooks` and `services.webhook.hooksTemplated` have overlapping attribute(s): ${
               concatStringsSep ", " (builtins.attrNames overlappingHooks)
             }";
         }

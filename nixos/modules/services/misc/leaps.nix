@@ -64,8 +64,7 @@ in
         Restart = "on-failure";
         WorkingDirectory = stateDir;
         PrivateTmp = true;
-        ExecStart =
-          "${pkgs.leaps}/bin/leaps -path ${
+        ExecStart = "${pkgs.leaps}/bin/leaps -path ${
             toString cfg.path
           } -address ${cfg.address}:${toString cfg.port}";
       };

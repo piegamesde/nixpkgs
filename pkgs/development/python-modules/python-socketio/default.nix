@@ -55,8 +55,7 @@ buildPythonPackage rec {
       bidirectional event-based communication between clients and a server.
     '';
     homepage = "https://github.com/miguelgrinberg/python-socketio/";
-    changelog =
-      "https://github.com/miguelgrinberg/python-socketio/blob/v${version}/CHANGES.md";
+    changelog = "https://github.com/miguelgrinberg/python-socketio/blob/v${version}/CHANGES.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ mic92 ];
   };

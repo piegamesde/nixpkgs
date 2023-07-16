@@ -17,8 +17,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = {
-    description =
-      "Interface to the Google WebRTC Voice Activity Detector (VAD)";
+    description = "Interface to the Google WebRTC Voice Activity Detector (VAD)";
     homepage = "https://github.com/wiseman/py-webrtcvad";
     license = with lib.licenses; [ mit ];
     maintainers = with lib.maintainers; [ prusnak ];

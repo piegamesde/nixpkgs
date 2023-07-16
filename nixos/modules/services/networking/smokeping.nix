@@ -316,8 +316,7 @@ in
   config = mkIf cfg.enable {
     assertions = [ {
       assertion = !(cfg.sendmail != null && cfg.mailHost != "");
-      message =
-        "services.smokeping: sendmail and Mailhost cannot both be enabled.";
+      message = "services.smokeping: sendmail and Mailhost cannot both be enabled.";
     } ];
     security.wrappers = {
       fping = {
@@ -355,8 +354,7 @@ in
       serviceConfig = {
         User = cfg.user;
         Restart = "on-failure";
-        ExecStart =
-          "${cfg.package}/bin/smokeping --config=/etc/smokeping.conf --nodaemon";
+        ExecStart = "${cfg.package}/bin/smokeping --config=/etc/smokeping.conf --nodaemon";
       };
       preStart = ''
         mkdir -m 0755 -p ${smokepingHome}/cache ${smokepingHome}/data

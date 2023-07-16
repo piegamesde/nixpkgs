@@ -24,7 +24,6 @@ buildOctavePackage rec {
     homepage = "https://octave.sourceforge.io/arduino/index.html";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
-    description =
-      "Basic Octave implementation of the matlab arduino extension, allowing communication to a programmed arduino board to control its hardware";
+    description = "Basic Octave implementation of the matlab arduino extension, allowing communication to a programmed arduino board to control its hardware";
   };
 }

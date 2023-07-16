@@ -36,12 +36,12 @@ stdenv.mkDerivation rec {
 
   src =
     let
-      baseVersion =
-        "${lib.versions.major version}.${lib.versions.minor version}";
+      baseVersion = "${lib.versions.major version}.${
+          lib.versions.minor version
+        }";
     in
     fetchurl {
-      url =
-        "mirror://sourceforge/jmol/Jmol/Version%20${baseVersion}/Jmol%20${version}/Jmol-${version}-binary.tar.gz";
+      url = "mirror://sourceforge/jmol/Jmol/Version%20${baseVersion}/Jmol%20${version}/Jmol-${version}-binary.tar.gz";
       hash = "sha256-QGduoUKWNUjNlMEYO0wD5+igjuF03V5SVlgq44d2HDs=";
     }
   ;

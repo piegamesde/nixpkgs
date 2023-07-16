@@ -64,7 +64,6 @@ rustPlatform.buildRustPackage rec {
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ trepetti ];
     platforms = platforms.all;
-    changelog =
-      "https://github.com/martinber/noaa-apt/releases/tag/v${version}";
+    changelog = "https://github.com/martinber/noaa-apt/releases/tag/v${version}";
   };
 }

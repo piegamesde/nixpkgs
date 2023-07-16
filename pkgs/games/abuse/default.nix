@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
   version = "0.8";
 
   src = fetchurl {
-    url =
-      "http://abuse.zoy.org/raw-attachment/wiki/download/${pname}-${version}.tar.gz";
+    url = "http://abuse.zoy.org/raw-attachment/wiki/download/${pname}-${version}.tar.gz";
     sha256 = "0104db5fd2695c9518583783f7aaa7e5c0355e27c5a803840a05aef97f9d3488";
   };
 
@@ -32,8 +31,7 @@ stdenv.mkDerivation rec {
       exec = "abuse";
       icon = "abuse";
       desktopName = "Abuse";
-      comment =
-        "Side-scroller action game that pits you against ruthless alien killers";
+      comment = "Side-scroller action game that pits you against ruthless alien killers";
       categories = [
         "Game"
         "ActionGame"
@@ -60,8 +58,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Side-scroller action game that pits you against ruthless alien killers";
+    description = "Side-scroller action game that pits you against ruthless alien killers";
     homepage = "http://abuse.zoy.org/";
     license = with licenses; [ unfree ];
     # Most of abuse is free (public domain, GPL2+, WTFPL), however the creator

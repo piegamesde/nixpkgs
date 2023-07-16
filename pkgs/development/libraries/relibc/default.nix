@@ -14,8 +14,7 @@ let
 
     src = buildPackages.fetchzip {
       name = "redox-rust-toolchain.tar.gz";
-      url =
-        "https://www.dropbox.com/s/qt7as0j7cwnin8z/redox-rust-toolchain.tar.gz?dl=1";
+      url = "https://www.dropbox.com/s/qt7as0j7cwnin8z/redox-rust-toolchain.tar.gz?dl=1";
       sha256 = "1g17qp2q6b88p04yclkw6amm374pqlakrmw9kd86vw8z4g70jkxm";
     };
 
@@ -73,8 +72,7 @@ redoxRustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "redox_syscall-0.2.0" =
-        "sha256-nwbJBrhuc01fPbBgd5ShboNu0Nauqp2UjkA+sm9oCeE=";
+      "redox_syscall-0.2.0" = "sha256-nwbJBrhuc01fPbBgd5ShboNu0Nauqp2UjkA+sm9oCeE=";
     };
   };
 

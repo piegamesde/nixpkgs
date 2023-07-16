@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
     (makeDesktopItem {
       name = "rott";
       exec = "rott";
-      desktopName =
-        "Rise of the Triad: ${
+      desktopName = "Rise of the Triad: ${
           if buildShareware then "The HUNT Begins" else "Dark War"
         }";
       categories = [ "Game" ];

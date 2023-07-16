@@ -404,8 +404,7 @@ in
         HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-queue-runner";
       };
       serviceConfig = {
-        ExecStart =
-          "@${hydra-package}/bin/hydra-queue-runner hydra-queue-runner -v";
+        ExecStart = "@${hydra-package}/bin/hydra-queue-runner hydra-queue-runner -v";
         ExecStopPost = "${hydra-package}/bin/hydra-queue-runner --unlock";
         User = "hydra-queue-runner";
         Restart = "always";
@@ -448,8 +447,7 @@ in
         HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-update-gc-roots";
       };
       serviceConfig = {
-        ExecStart =
-          "@${hydra-package}/bin/hydra-update-gc-roots hydra-update-gc-roots";
+        ExecStart = "@${hydra-package}/bin/hydra-update-gc-roots hydra-update-gc-roots";
         User = "hydra";
       };
       startAt = "2,14:15";

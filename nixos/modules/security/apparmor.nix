@@ -149,9 +149,8 @@ in
       map
         (policy: {
           assertion = match ".*/.*" policy == null;
-          message =
-            ''
-              `security.apparmor.policies."${policy}"' must not contain a slash.'';
+          message = ''
+            `security.apparmor.policies."${policy}"' must not contain a slash.'';
           # Because, for instance, aa-remove-unknown uses profiles_names_list() in rc.apparmor.functions
           # which does not recurse into sub-directories.
         })

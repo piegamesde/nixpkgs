@@ -31,8 +31,7 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url =
-      "https://github.com/mirage/awa-ssh/releases/download/v${version}/awa-${version}.tbz";
+    url = "https://github.com/mirage/awa-ssh/releases/download/v${version}/awa-${version}.tbz";
     hash = "sha256-hsmTuoubBdsEyGe8zmfG7JihY0LFM4lErpPKUVobIX8=";
   };
 

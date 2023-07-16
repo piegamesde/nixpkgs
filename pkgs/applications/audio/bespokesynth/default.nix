@@ -46,8 +46,7 @@ let
   vst-sdk = stdenv.mkDerivation rec {
     name = "vstsdk3610_11_06_2018_build_37";
     src = fetchzip {
-      url =
-        "https://web.archive.org/web/20181016150224if_/https://download.steinberg.net/sdk_downloads/${name}.zip";
+      url = "https://web.archive.org/web/20181016150224if_/https://download.steinberg.net/sdk_downloads/${name}.zip";
       sha256 = "0da16iwac590wphz2sm5afrfj42jrsnkr1bxcy93lj7a369ildkj";
     };
     installPhase = ''
@@ -161,8 +160,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = with lib; {
-    description =
-      "Software modular synth with controllers support, scripting and VST";
+    description = "Software modular synth with controllers support, scripting and VST";
     homepage = "https://github.com/awwbees/BespokeSynth";
     license = with licenses; [ gpl3Plus ] ++ lib.optional enableVST2 unfree;
     maintainers = with maintainers; [

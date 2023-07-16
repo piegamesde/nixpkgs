@@ -17,8 +17,7 @@ bundlerApp rec {
   meta = with lib; {
     inherit (ruby.meta) platforms;
 
-    description =
-      "Export existing AWS resources to Terraform style (tf, tfstate)";
+    description = "Export existing AWS resources to Terraform style (tf, tfstate)";
     homepage = "https://github.com/dtan4/terraforming";
     license = with licenses; mit;
     maintainers = with maintainers; [ kalbasit ];

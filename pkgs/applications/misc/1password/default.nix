@@ -15,8 +15,7 @@ let
     srcPlatform: sha256: extension:
     let
       args = {
-        url =
-          "https://cache.agilebits.com/dist/1P/op2/pkg/v${version}/op_${srcPlatform}_v${version}.${extension}";
+        url = "https://cache.agilebits.com/dist/1P/op2/pkg/v${version}/op_${srcPlatform}_v${version}.${extension}";
         inherit sha256;
       } // lib.optionalAttrs (extension == "zip") { stripRoot = false; };
     in

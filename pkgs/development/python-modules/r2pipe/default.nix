@@ -19,8 +19,7 @@ buildPythonPackage rec {
   postPatch =
     let
       r2lib = "${lib.getOutput "lib" radare2}/lib";
-      libr_core =
-        "${r2lib}/libr_core${stdenv.hostPlatform.extensions.sharedLibrary}";
+      libr_core = "${r2lib}/libr_core${stdenv.hostPlatform.extensions.sharedLibrary}";
     in
     ''
       # Fix find_library, can be removed after

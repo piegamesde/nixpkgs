@@ -633,8 +633,7 @@ in
     systemd.services.outline =
       let
         localRedisUrl = "redis+unix:///run/redis-outline/redis.sock";
-        localPostgresqlUrl =
-          "postgres://localhost/outline?host=/run/postgresql";
+        localPostgresqlUrl = "postgres://localhost/outline?host=/run/postgresql";
 
         # Create an outline-sequalize wrapper (a wrapper around the wrapper) that
         # has the config file's path baked in. This is necessary because there is

@@ -136,8 +136,9 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  PKG_CONFIG_POLKIT_GOBJECT_1_POLICYDIR =
-    "${placeholder "out"}/share/polkit-1/actions";
+  PKG_CONFIG_POLKIT_GOBJECT_1_POLICYDIR = "${
+      placeholder "out"
+    }/share/polkit-1/actions";
 
   mesonFlags =
     [

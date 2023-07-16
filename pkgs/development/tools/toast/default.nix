@@ -20,8 +20,7 @@ rustPlatform.buildRustPackage rec {
   checkFlags = [ "--skip=format::tests::code_str_display" ]; # fails
 
   meta = with lib; {
-    description =
-      "Containerize your development and continuous integration environments";
+    description = "Containerize your development and continuous integration environments";
     homepage = "https://github.com/stepchowfun/toast";
     license = licenses.mit;
     maintainers = with maintainers; [ dit7ya ];

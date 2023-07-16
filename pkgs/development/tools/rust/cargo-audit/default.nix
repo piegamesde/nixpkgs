@@ -29,11 +29,9 @@ rustPlatform.buildRustPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Audit Cargo.lock files for crates with security vulnerabilities";
+    description = "Audit Cargo.lock files for crates with security vulnerabilities";
     homepage = "https://rustsec.org";
-    changelog =
-      "https://github.com/rustsec/rustsec/blob/cargo-audit/${version}/cargo-audit/CHANGELOG.md";
+    changelog = "https://github.com/rustsec/rustsec/blob/cargo-audit/${version}/cargo-audit/CHANGELOG.md";
     license = with licenses; [
       mit # or
       asl20

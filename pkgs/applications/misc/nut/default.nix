@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
   version = "2.8.0";
 
   src = fetchurl {
-    url =
-      "https://networkupstools.org/source/${
+    url = "https://networkupstools.org/source/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.gz";
     sha256 = "19r5dm07sfz495ckcgbfy0pasx0zy3faa0q7bih69lsjij8q43lq";
@@ -31,8 +30,7 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       # Fix build with openssl >= 1.1.0
-      url =
-        "https://github.com/networkupstools/nut/commit/612c05efb3c3b243da603a3a050993281888b6e3.patch";
+      url = "https://github.com/networkupstools/nut/commit/612c05efb3c3b243da603a3a050993281888b6e3.patch";
       sha256 = "0jdbii1z5sqyv24286j5px65j7b3gp8zk3ahbph83pig6g46m3hs";
     })
     (substituteAll {

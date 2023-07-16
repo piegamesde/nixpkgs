@@ -19,8 +19,7 @@ mkDerivation rec {
   pname = "qsstv";
 
   src = fetchurl {
-    url =
-      "http://users.telenet.be/on4qz/qsstv/downloads/qsstv_${version}.tar.gz";
+    url = "http://users.telenet.be/on4qz/qsstv/downloads/qsstv_${version}.tar.gz";
     sha256 = "0s3sivc0xan6amibdiwfnknrl3248wzgy98w6gyxikl0qsjpygy0";
   };
 

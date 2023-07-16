@@ -26,8 +26,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Blazing fast Rust JSONPath query engine";
     homepage = "https://github.com/v0ldek/rsonpath";
-    changelog =
-      "https://github.com/v0ldek/rsonpath/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/v0ldek/rsonpath/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
   };

@@ -84,8 +84,7 @@ stdenv.mkDerivation rec {
   version = "3.4.1";
 
   src = fetchurl {
-    url =
-      "https://github.com/vercel/hyper/releases/download/v${version}/hyper_${version}_amd64.deb";
+    url = "https://github.com/vercel/hyper/releases/download/v${version}/hyper_${version}_amd64.deb";
     sha256 = "sha256-jEzZ6MWFaNXBS8CAzfn/ufMPpWcua9HhBFzetWMlH1Y=";
   };
 

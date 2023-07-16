@@ -44,8 +44,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Collection of custom storage backends for Django";
     homepage = "https://django-storages.readthedocs.io";
-    changelog =
-      "https://github.com/jschneier/django-storages/blob/${version}/CHANGELOG.rst";
+    changelog = "https://github.com/jschneier/django-storages/blob/${version}/CHANGELOG.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ mmai ];
   };

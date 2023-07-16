@@ -41,8 +41,7 @@ python3Packages.buildPythonApplication {
   '';
 
   meta = with lib; {
-    description =
-      "Open files by MIME-type or file name using regular expressions";
+    description = "Open files by MIME-type or file name using regular expressions";
     homepage = "https://xyne.dev/projects/mimeo/";
     license = [ licenses.gpl2Only ];
     maintainers = [ maintainers.rycee ];

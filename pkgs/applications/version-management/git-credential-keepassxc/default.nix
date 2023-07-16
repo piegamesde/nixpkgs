@@ -38,8 +38,7 @@ rustPlatform.buildRustPackage rec {
   ;
 
   meta = with lib; {
-    description =
-      "Helper that allows Git (and shell scripts) to use KeePassXC as credential store";
+    description = "Helper that allows Git (and shell scripts) to use KeePassXC as credential store";
     longDescription = ''
       git-credential-keepassxc is a Git credential helper that allows Git
       (and shell scripts) to get/store logins from/to KeePassXC.

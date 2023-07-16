@@ -38,8 +38,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "SQLAlchemy integration with marshmallow";
     homepage = "https://github.com/marshmallow-code/marshmallow-sqlalchemy";
-    changelog =
-      "https://github.com/marshmallow-code/marshmallow-sqlalchemy/blob/${version}/CHANGELOG.rst";
+    changelog = "https://github.com/marshmallow-code/marshmallow-sqlalchemy/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

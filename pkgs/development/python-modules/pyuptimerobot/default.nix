@@ -42,8 +42,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python API wrapper for Uptime Robot";
     homepage = "https://github.com/ludeeus/pyuptimerobot";
-    changelog =
-      "https://github.com/ludeeus/pyuptimerobot/releases/tag/${version}";
+    changelog = "https://github.com/ludeeus/pyuptimerobot/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

@@ -26,8 +26,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/cl-csv/2020-10-16/cl-csv-20201016-git.tgz";
+    url = "http://beta.quicklisp.org/archive/cl-csv/2020-10-16/cl-csv-20201016-git.tgz";
     sha256 = "1w12ads26v5sgcmy6rjm6ys9lml7l6rz86w776s2an2maci9kzmf";
   };
 

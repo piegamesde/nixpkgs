@@ -576,8 +576,7 @@ buildPythonPackage rec {
   meta = with lib; {
     changelog = "https://github.com/pytorch/pytorch/releases/tag/v${version}";
     # keep PyTorch in the description so the package can be found under that name on search.nixos.org
-    description =
-      "PyTorch: Tensors and Dynamic neural networks in Python with strong GPU acceleration";
+    description = "PyTorch: Tensors and Dynamic neural networks in Python with strong GPU acceleration";
     homepage = "https://pytorch.org/";
     license = licenses.bsd3;
     maintainers = with maintainers; [

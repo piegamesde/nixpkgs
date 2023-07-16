@@ -31,8 +31,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "DateTime data type, as known from Zope";
     homepage = "https://github.com/zopefoundation/DateTime";
-    changelog =
-      "https://github.com/zopefoundation/DateTime/releases/tag/${version}";
+    changelog = "https://github.com/zopefoundation/DateTime/releases/tag/${version}";
     license = licenses.zpl21;
     maintainers = with maintainers; [ icyrockcom ];
   };

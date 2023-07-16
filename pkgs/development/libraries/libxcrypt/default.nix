@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
   version = "4.4.33";
 
   src = fetchurl {
-    url =
-      "https://github.com/besser82/libxcrypt/releases/download/v${version}/libxcrypt-${version}.tar.xz";
+    url = "https://github.com/besser82/libxcrypt/releases/download/v${version}/libxcrypt-${version}.tar.xz";
     hash = "sha256-6HrPnGUsVzpHE9VYIVn5jzBdVu1fdUzmT1fUGU1rOm8=";
   };
 
@@ -56,8 +55,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "Extended crypt library for descrypt, md5crypt, bcrypt, and others";
+    description = "Extended crypt library for descrypt, md5crypt, bcrypt, and others";
     homepage = "https://github.com/besser82/libxcrypt/";
     platforms = platforms.all;
     maintainers = with maintainers; [

@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = with lib; {
-    description =
-      "A multi-platform GUI for bit-based analysis, processing, and visualization";
+    description = "A multi-platform GUI for bit-based analysis, processing, and visualization";
     homepage = "https://github.com/Mahlet-Inc/hobbits";
     license = licenses.mit;
     maintainers = with maintainers; [ sikmir ];

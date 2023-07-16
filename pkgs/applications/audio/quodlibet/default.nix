@@ -62,8 +62,7 @@ python3.pkgs.buildPythonApplication rec {
   patches = [
     (fetchpatch {
       # Fixes cover globbing under python 3.10.5+
-      url =
-        "https://github.com/quodlibet/quodlibet/commit/5eb7c30766e1dcb30663907664855ee94a3accc0.patch";
+      url = "https://github.com/quodlibet/quodlibet/commit/5eb7c30766e1dcb30663907664855ee94a3accc0.patch";
       hash = "sha256-bDyEOE7Vs4df4BeN4QMvt6niisVEpvc1onmX5rtoAWc=";
     })
   ];
@@ -192,8 +191,7 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description =
-      "GTK-based audio player written in Python, using the Mutagen tagging library";
+    description = "GTK-based audio player written in Python, using the Mutagen tagging library";
     license = licenses.gpl2Plus;
 
     longDescription = ''

@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
   version = "1.6.0";
 
   src = fetchurl {
-    url =
-      "https://why3.gitlabpages.inria.fr/releases/${pname}-${version}.tar.gz";
+    url = "https://why3.gitlabpages.inria.fr/releases/${pname}-${version}.tar.gz";
     hash = "sha256-hFvM6kHScaCtcHCc6Vezl9CR7BFbiKPoTEh7kj0ZJxw=";
   };
 

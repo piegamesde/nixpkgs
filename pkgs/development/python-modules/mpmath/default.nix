@@ -19,8 +19,7 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       name = "CVE-2021-29063.patch";
-      url =
-        "https://github.com/fredrik-johansson/mpmath/commit/46d44c3c8f3244017fe1eb102d564eb4ab8ef750.patch";
+      url = "https://github.com/fredrik-johansson/mpmath/commit/46d44c3c8f3244017fe1eb102d564eb4ab8ef750.patch";
       hash = "sha256-DaZ6nj9rEsjTAomu481Ujun364bL5E6lkXFvgBfHyeA=";
     })
   ];
@@ -31,8 +30,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://mpmath.org/";
-    description =
-      "A pure-Python library for multiprecision floating arithmetic";
+    description = "A pure-Python library for multiprecision floating arithmetic";
     license = licenses.bsd3;
     maintainers = with maintainers; [ lovek323 ];
     platforms = platforms.unix;

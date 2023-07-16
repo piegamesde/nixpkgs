@@ -109,8 +109,7 @@ self: super: {
   snap-core =
     overrideCabal
       (drv: {
-        prePatch =
-          "substituteInPlace src/Snap/Internal/Core.hs --replace 'fail   = Fail.fail' ''";
+        prePatch = "substituteInPlace src/Snap/Internal/Core.hs --replace 'fail   = Fail.fail' ''";
       })
       super.snap-core
   ;

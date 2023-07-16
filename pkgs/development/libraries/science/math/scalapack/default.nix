@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "gcc-10";
-      url =
-        "https://github.com/Reference-ScaLAPACK/scalapack/commit/a0f76fc0c1c16646875b454b7d6f8d9d17726b5a.patch";
+      url = "https://github.com/Reference-ScaLAPACK/scalapack/commit/a0f76fc0c1c16646875b454b7d6f8d9d17726b5a.patch";
       sha256 = "0civn149ikghakic30bynqg1bal097hr7i12cm4kq3ssrhq073bp";
     })
   ];
@@ -92,8 +91,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://www.netlib.org/scalapack/";
-    description =
-      "Library of high-performance linear algebra routines for parallel distributed memory machines";
+    description = "Library of high-performance linear algebra routines for parallel distributed memory machines";
     license = licenses.bsd3;
     platforms = platforms.unix;
     maintainers = with maintainers; [

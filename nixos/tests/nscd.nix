@@ -76,8 +76,7 @@ import ./make-test-python.nix (
         ...
       }:
       let
-        specialisations =
-          "${nodes.machine.system.build.toplevel}/specialisation";
+        specialisations = "${nodes.machine.system.build.toplevel}/specialisation";
       in
       ''
         # Regression test for https://github.com/NixOS/nixpkgs/issues/50273

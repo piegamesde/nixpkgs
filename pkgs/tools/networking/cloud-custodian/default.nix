@@ -43,8 +43,7 @@ buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description =
-      "Rules engine for cloud security, cost optimization, and governance";
+    description = "Rules engine for cloud security, cost optimization, and governance";
     homepage = "https://cloudcustodian.io";
     license = licenses.asl20;
     maintainers = with maintainers; [ bhipple ];

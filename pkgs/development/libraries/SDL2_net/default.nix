@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
   version = "2.2.0";
 
   src = fetchurl {
-    url =
-      "https://www.libsdl.org/projects/SDL_net/release/${pname}-${version}.tar.gz";
+    url = "https://www.libsdl.org/projects/SDL_net/release/${pname}-${version}.tar.gz";
     sha256 = "sha256-TkqJGYgxYnGXT/TpWF7R73KaEj0iwIvUcxKRedyFf+s=";
   };
 

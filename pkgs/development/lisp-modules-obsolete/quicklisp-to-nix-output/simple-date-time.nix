@@ -12,8 +12,7 @@ rec {
   deps = [ args."cl-ppcre" ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/simple-date-time/2016-04-21/simple-date-time-20160421-git.tgz";
+    url = "http://beta.quicklisp.org/archive/simple-date-time/2016-04-21/simple-date-time-20160421-git.tgz";
     sha256 = "1db9n7pspxkqkzz12829a1lp7v4ghrnlb7g3wh04yz6m224d3i4h";
   };
 

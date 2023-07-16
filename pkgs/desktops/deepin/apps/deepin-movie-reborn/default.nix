@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "feat-rewrite-libPath-to-read-LD_LIBRARY_PATH.patch";
-      url =
-        "https://github.com/linuxdeepin/deepin-movie-reborn/commit/432bf452ed244c256e99ecaf80bb6a0eef9b4a74.patch";
+      url = "https://github.com/linuxdeepin/deepin-movie-reborn/commit/432bf452ed244c256e99ecaf80bb6a0eef9b4a74.patch";
       sha256 = "sha256-5hRQ8D9twBKgouVpIBa1pdAGk0lI/wEdQaHBBHFCZBA";
     })
   ];
@@ -159,8 +158,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Full-featured video player supporting playing local and streaming media in multiple video formats";
+    description = "Full-featured video player supporting playing local and streaming media in multiple video formats";
     homepage = "https://github.com/linuxdeepin/deepin-movie-reborn";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

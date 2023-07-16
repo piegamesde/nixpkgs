@@ -278,8 +278,7 @@ in
         DISTRIB_ID = "${cfg.distroId}";
         DISTRIB_RELEASE = cfg.release;
         DISTRIB_CODENAME = toLower cfg.codeName;
-        DISTRIB_DESCRIPTION =
-          "${cfg.distroName} ${cfg.release} (${cfg.codeName})";
+        DISTRIB_DESCRIPTION = "${cfg.distroName} ${cfg.release} (${cfg.codeName})";
       };
 
       "os-release".text = attrsToText osReleaseContents;

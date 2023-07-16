@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
   version = "3.0.10.1567";
 
   src = fetchurl {
-    url =
-      "https://download.sonarr.tv/v3/main/${version}/Sonarr.main.${version}.linux.tar.gz";
+    url = "https://download.sonarr.tv/v3/main/${version}/Sonarr.main.${version}.linux.tar.gz";
     hash = "sha256-6zdp/Bg+9pcrElW5neB+BC16Vn1VhTjhMRRIxGrKhxc=";
   };
 

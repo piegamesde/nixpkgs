@@ -92,8 +92,7 @@ perlPackages.buildPerlPackage rec {
   doCheck = false; # no tests, would fail
 
   meta = {
-    changelog =
-      "https://github.com/OpenPrinting/foomatic-db-engine/blob/${src.rev}/ChangeLog";
+    changelog = "https://github.com/OpenPrinting/foomatic-db-engine/blob/${src.rev}/ChangeLog";
     description = "OpenPrinting printer support database engine";
     downloadPage = "https://www.openprinting.org/download/foomatic/";
     homepage = "https://openprinting.github.io/projects/02-foomatic/";

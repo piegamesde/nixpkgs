@@ -14,8 +14,7 @@
 
 let
   data = fetchzip {
-    url =
-      "https://mirandir.pagesperso-orange.fr/files/additional-levels.tar.xz";
+    url = "https://mirandir.pagesperso-orange.fr/files/additional-levels.tar.xz";
     sha256 = "167hisscsbldrwrs54gq6446shl8h26qdqigmfg0lq3daynqycg2";
   };
 in

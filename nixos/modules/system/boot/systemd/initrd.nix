@@ -436,8 +436,7 @@ in
       managerEnvironment.PATH = "/bin:/sbin";
 
       contents = {
-        "/tmp/.keep".text =
-          "systemd requires the /tmp mount point in the initrd cpio archive";
+        "/tmp/.keep".text = "systemd requires the /tmp mount point in the initrd cpio archive";
         "/init".source = "${cfg.package}/lib/systemd/systemd";
         "/etc/systemd/system".source = stage1Units;
 
@@ -464,8 +463,7 @@ in
         # We can use either ! or * to lock the root account in the
         # console, but some software like OpenSSH won't even allow you
         # to log in with an SSH key if you use ! so we use * instead
-        "/etc/shadow".text =
-          "root:${
+        "/etc/shadow".text = "root:${
             if isBool cfg.emergencyAccess then
               optionalString (!cfg.emergencyAccess) "*"
             else
@@ -476,8 +474,7 @@ in
         "/sbin".source = "${initrdBinEnv}/sbin";
 
         "/etc/sysctl.d/nixos.conf".text = "kernel.modprobe = /sbin/modprobe";
-        "/etc/modprobe.d/systemd.conf".source =
-          "${cfg.package}/lib/modprobe.d/systemd.conf";
+        "/etc/modprobe.d/systemd.conf".source = "${cfg.package}/lib/modprobe.d/systemd.conf";
         "/etc/modprobe.d/ubuntu.conf".source =
           pkgs.runCommand "initrd-kmod-blacklist-ubuntu" { }
             ''

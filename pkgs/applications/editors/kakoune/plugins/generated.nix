@@ -113,8 +113,7 @@ let
           rev = "8ffeec08068edfee42e076c5f6d56a54a498bad2";
           sha256 = "1v87aqfk2jcysbdls3mh2v1yafk1albbinfxsxp11m4nxd2b9agl";
         };
-        meta.homepage =
-          "https://github.com/kakoune-editor/kakoune-extra-filetypes/";
+        meta.homepage = "https://github.com/kakoune-editor/kakoune-extra-filetypes/";
       };
 
       kakoune-rainbow = buildKakounePluginFrom2Nix {
@@ -150,8 +149,7 @@ let
           rev = "227b3fd9643e6e3b9d36fab324081a988c038e21";
           sha256 = "0ygqhlk31ilczpwws28iqya8i1qhnwkb5rw6bn2zqgxj428a1kqj";
         };
-        meta.homepage =
-          "https://github.com/occivink/kakoune-vertical-selection/";
+        meta.homepage = "https://github.com/occivink/kakoune-vertical-selection/";
       };
 
       openscad-kak = buildKakounePluginFrom2Nix {

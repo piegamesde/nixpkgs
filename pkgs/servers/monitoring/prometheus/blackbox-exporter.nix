@@ -35,8 +35,7 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    description =
-      "Blackbox probing of endpoints over HTTP, HTTPS, DNS, TCP and ICMP";
+    description = "Blackbox probing of endpoints over HTTP, HTTPS, DNS, TCP and ICMP";
     homepage = "https://github.com/prometheus/blackbox_exporter";
     license = licenses.asl20;
     maintainers = with maintainers; [

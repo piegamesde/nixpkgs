@@ -44,8 +44,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/aio-libs/pytest-aiohttp/";
-    changelog =
-      "https://github.com/aio-libs/pytest-aiohttp/blob/v${version}/CHANGES.rst";
+    changelog = "https://github.com/aio-libs/pytest-aiohttp/blob/v${version}/CHANGES.rst";
     description = "Pytest plugin for aiohttp support";
     license = licenses.asl20;
     maintainers = with maintainers; [ dotlambda ];

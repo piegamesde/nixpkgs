@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
       # https://github.com/Komet/MediaElch/issues/1557
       # build: Fix build issue with Qt 6.5 on macOS (also other platforms)
       (fetchpatch {
-        url =
-          "https://github.com/Komet/MediaElch/commit/872b21decf95d70073400bedbe1ad183a8267791.patch";
+        url = "https://github.com/Komet/MediaElch/commit/872b21decf95d70073400bedbe1ad183a8267791.patch";
         hash = "sha256-D1Ui5xg5cpvNX4IHfXQ7wN9I7Y3SuPFOWxWidcAlLEA=";
       })
     ];

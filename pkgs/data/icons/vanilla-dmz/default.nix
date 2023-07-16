@@ -11,8 +11,7 @@ stdenvNoCC.mkDerivation rec {
   version = "0.4.5";
 
   src = fetchzip {
-    url =
-      "mirror://debian/pool/main/d/dmz-cursor-theme/dmz-cursor-theme_${version}.tar.xz";
+    url = "mirror://debian/pool/main/d/dmz-cursor-theme/dmz-cursor-theme_${version}.tar.xz";
     sha256 = "14r8fri4byyzavzdifpga6118hxqjwpzd11xxj28s16zxcanq16m";
   };
 

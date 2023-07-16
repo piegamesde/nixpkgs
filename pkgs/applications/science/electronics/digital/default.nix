@@ -40,8 +40,7 @@ let
   # provide that version number manually as a property.
   # (see https://github.com/hneemann/Digital/issues/289#issuecomment-513721481)
   # Also use the commit date as a build and output timestamp.
-  mvnOptions =
-    "-Pno-git-rev -Dgit.commit.id.describe=${version} -Dproject.build.outputTimestamp=${buildDate} -DbuildTimestamp=${buildDate}";
+  mvnOptions = "-Pno-git-rev -Dgit.commit.id.describe=${version} -Dproject.build.outputTimestamp=${buildDate} -DbuildTimestamp=${buildDate}";
 in
 stdenv.mkDerivation rec {
   pname = "digital";

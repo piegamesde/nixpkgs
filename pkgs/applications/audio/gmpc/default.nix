@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
     pname = "libmpd";
     version = "11.8.17";
     src = fetchurl {
-      url =
-        "https://download.sarine.nl/Programs/gmpc/${
+      url = "https://download.sarine.nl/Programs/gmpc/${
           lib.versions.majorMinor version
         }/libmpd-${version}.tar.gz";
       sha256 = "10vspwsgr8pwf3qp2bviw6b2l8prgdiswgv7qiqiyr0h1mmk487y";

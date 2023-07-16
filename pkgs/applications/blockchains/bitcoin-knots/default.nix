@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
   version = "23.0.knots20220529";
 
   src = fetchurl {
-    url =
-      "https://bitcoinknots.org/files/23.x/${version}/bitcoin-${version}.tar.gz";
+    url = "https://bitcoinknots.org/files/23.x/${version}/bitcoin-${version}.tar.gz";
     sha256 = "0c6l4bvj4ck8gp5vm4dla3l32swsp6ijk12fyf330wgry4mhqxyi";
   };
 
@@ -98,8 +97,7 @@ stdenv.mkDerivation rec {
   passthru.tests = { smoke-test = nixosTests.bitcoind-knots; };
 
   meta = with lib; {
-    description =
-      "A derivative of Bitcoin Core with a collection of improvements";
+    description = "A derivative of Bitcoin Core with a collection of improvements";
     homepage = "https://bitcoinknots.org/";
     maintainers = with maintainers; [
       prusnak

@@ -28,8 +28,7 @@ buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/dlenski/vpn-slice";
-    description =
-      "vpnc-script replacement for easy and secure split-tunnel VPN setup";
+    description = "vpnc-script replacement for easy and secure split-tunnel VPN setup";
     license = licenses.gpl3;
     maintainers = with maintainers; [ jdbaldry ];
   };

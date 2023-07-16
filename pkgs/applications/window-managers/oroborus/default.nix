@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   meta = with lib; {
-    homepage =
-      "https://web.archive.org/web/20191129172107/https://www.oroborus.org/";
+    homepage = "https://web.archive.org/web/20191129172107/https://www.oroborus.org/";
     description = "A really minimalistic X window manager";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.AndersonTorres ];

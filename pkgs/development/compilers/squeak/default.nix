@@ -60,8 +60,7 @@ let
 
   squeakVmCommitHash = nullableOr args.squeakVmCommitHash or null (
     fetchurl {
-      url =
-        "https://api.github.com/repos/OpenSmalltalk/opensmalltalk-vm/commits/${squeakVmVersionRelease}";
+      url = "https://api.github.com/repos/OpenSmalltalk/opensmalltalk-vm/commits/${squeakVmVersionRelease}";
       curlOpts = "--header Accept:application/vnd.github.v3.sha";
       hash =
         nullableOr args.squeakVmCommitHashHash or null
@@ -89,12 +88,12 @@ stdenv.mkDerivation {
   };
   imageSrc =
     let
-      squeakImageName =
-        "Squeak${squeakVersionBase}-${squeakImageVersion}-${toString bits}bit";
+      squeakImageName = "Squeak${squeakVersionBase}-${squeakImageVersion}-${
+          toString bits
+        }bit";
     in
     fetchzip {
-      url =
-        "https://files.squeak.org/${squeakVersionBase}/${squeakImageName}/${squeakImageName}.zip";
+      url = "https://files.squeak.org/${squeakVersionBase}/${squeakImageName}/${squeakImageName}.zip";
       name = "source";
       stripRoot = false;
       hash =
@@ -104,8 +103,7 @@ stdenv.mkDerivation {
     }
   ;
   sourcesSrc = fetchurl {
-    url =
-      "https://files.squeak.org/sources_files/SqueakV${squeakSourcesVersion}.sources.gz";
+    url = "https://files.squeak.org/sources_files/SqueakV${squeakSourcesVersion}.sources.gz";
     hash =
       nullableOr args.squeakSourcesHash or null
         "sha256-ZViZ1VgI32LwLTEyw7utp8oaAK3UmCNJnHqsGm1IKYE="

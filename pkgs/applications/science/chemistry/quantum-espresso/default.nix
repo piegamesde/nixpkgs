@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
   makeFlags = [ "all" ];
 
   meta = with lib; {
-    description =
-      "Electronic-structure calculations and materials modeling at the nanoscale";
+    description = "Electronic-structure calculations and materials modeling at the nanoscale";
     longDescription = ''
       Quantum ESPRESSO is an integrated suite of Open-Source computer codes for
       electronic-structure calculations and materials modeling at the

@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
   passthru.updateScript = gitUpdater { };
 
   meta = with lib; {
-    description =
-      "GTK theme supporting Budgie, Pantheon, Mate, Xfce4 and GNOME desktops";
+    description = "GTK theme supporting Budgie, Pantheon, Mate, Xfce4 and GNOME desktops";
     homepage = "https://www.pling.com/p/1239855/";
     license = licenses.gpl3Only;
     platforms = platforms.unix;

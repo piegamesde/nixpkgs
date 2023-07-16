@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Notifications Indicator for Wingpanel";
-    homepage =
-      "https://github.com/elementary/wingpanel-indicator-notifications";
+    homepage = "https://github.com/elementary/wingpanel-indicator-notifications";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
     maintainers = teams.pantheon.members;

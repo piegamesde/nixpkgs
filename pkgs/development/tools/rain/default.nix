@@ -33,8 +33,7 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description =
-      "A development workflow tool for working with AWS CloudFormation";
+    description = "A development workflow tool for working with AWS CloudFormation";
     homepage = "https://github.com/aws-cloudformation/rain";
     license = licenses.asl20;
     maintainers = with maintainers; [ jiegec ];

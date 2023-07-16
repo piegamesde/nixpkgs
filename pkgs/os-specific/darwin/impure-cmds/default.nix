@@ -9,8 +9,7 @@
 let
   commands = {
     ditto = "/usr/bin/ditto"; # ditto is not opensource
-    sudo =
-      "/usr/bin/sudo"; # sudo must be owned by uid 0 and have the setuid bit set
+    sudo = "/usr/bin/sudo"; # sudo must be owned by uid 0 and have the setuid bit set
   };
 
   mkImpureDrv =

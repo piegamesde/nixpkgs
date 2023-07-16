@@ -14,8 +14,7 @@ mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url =
-      "https://github.com/phpmd/phpmd/releases/download/${version}/phpmd.phar";
+    url = "https://github.com/phpmd/phpmd/releases/download/${version}/phpmd.phar";
     sha256 = "LNR7qT3KIhIeq9WPdXVGsnuzzXN4ze/juDMpt1Ke/A0=";
   };
 

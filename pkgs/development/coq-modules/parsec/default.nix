@@ -35,10 +35,8 @@ mkCoqDerivation {
       ]
       null
   ;
-  release."0.1.1".sha256 =
-    "sha256:1c0l18s68pzd4c8i3jimh2yz0pqm4g38pca4bm7fr18r8xmqf189";
-  release."0.1.0".sha256 =
-    "sha256:01avfcqirz2b9wjzi9iywbhz9szybpnnj3672dgkfsimyg9jgnsr";
+  release."0.1.1".sha256 = "sha256:1c0l18s68pzd4c8i3jimh2yz0pqm4g38pca4bm7fr18r8xmqf189";
+  release."0.1.0".sha256 = "sha256:01avfcqirz2b9wjzi9iywbhz9szybpnnj3672dgkfsimyg9jgnsr";
 
   meta = with lib; {
     description = "Library for serialization to S-expressions";

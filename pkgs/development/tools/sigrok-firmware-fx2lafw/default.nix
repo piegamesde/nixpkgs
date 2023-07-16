@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
   version = "0.1.7";
 
   src = fetchurl {
-    url =
-      "https://sigrok.org/download/source/sigrok-firmware-fx2lafw/sigrok-firmware-fx2lafw-${version}.tar.gz";
+    url = "https://sigrok.org/download/source/sigrok-firmware-fx2lafw/sigrok-firmware-fx2lafw-${version}.tar.gz";
     sha256 = "sha256-o/RA1qhSpG4sXRmfwcjk2s0Aa8BODVV2KY7lXQVqzjs=";
   };
 

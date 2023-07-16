@@ -297,8 +297,9 @@ let
               }@pkg:
               {
                 # outputName required to distinguish among bin.core-big outputs
-                key =
-                  "${pkg.pname or pkg.name}.${tlType}-${version}-${outputName}";
+                key = "${
+                    pkg.pname or pkg.name
+                  }.${tlType}-${version}-${outputName}";
                 inherit pkg;
               }
             )

@@ -21,8 +21,7 @@ buildGoModule rec {
       # https://github.com/pwnesia/dnstake/pull/36
       (fetchpatch {
         name = "update-x-sys-fix-darwin.patch";
-        url =
-          "https://github.com/pwnesia/dnstake/commit/974efbbff4ce26d2f2646ca2ceb1316c131cefbe.patch";
+        url = "https://github.com/pwnesia/dnstake/commit/974efbbff4ce26d2f2646ca2ceb1316c131cefbe.patch";
         sha256 = "sha256-fLOGF8damdLROd8T0fH/FGSVX23dtc+yHhSvVCwVeuY=";
       })
     ];

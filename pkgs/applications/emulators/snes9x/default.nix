@@ -109,8 +109,7 @@ stdenv.mkDerivation rec {
     in
     {
       homepage = "https://www.snes9x.com";
-      description =
-        "Super Nintendo Entertainment System (SNES) emulator, ${interface} version";
+      description = "Super Nintendo Entertainment System (SNES) emulator, ${interface} version";
 
       longDescription = ''
         Snes9x is a portable, freeware Super Nintendo Entertainment System (SNES)

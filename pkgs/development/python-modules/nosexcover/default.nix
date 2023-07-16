@@ -21,8 +21,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Extends nose.plugins.cover to add Cobertura-style XML reports";
+    description = "Extends nose.plugins.cover to add Cobertura-style XML reports";
     homepage = "https://github.com/cmheisel/nose-xcover/";
     license = licenses.bsd3;
   };

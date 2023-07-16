@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
 
     # DPDK 21.11 compatibility.
     (fetchpatch {
-      url =
-        "https://github.com/spdk/spdk/commit/f72cab94dd35d7b45ec5a4f35967adf3184ca616.patch";
+      url = "https://github.com/spdk/spdk/commit/f72cab94dd35d7b45ec5a4f35967adf3184ca616.patch";
       sha256 = "sha256-sSetvyNjlM/hSOUsUO3/dmPzAliVcteNDvy34yM5d4A=";
     })
   ];

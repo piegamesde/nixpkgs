@@ -40,11 +40,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "aiomusiccast" ];
 
   meta = with lib; {
-    description =
-      "Companion library for musiccast devices intended for the Home Assistant integration";
+    description = "Companion library for musiccast devices intended for the Home Assistant integration";
     homepage = "https://github.com/vigonotion/aiomusiccast";
-    changelog =
-      "https://github.com/vigonotion/aiomusiccast/releases/tag/${version}";
+    changelog = "https://github.com/vigonotion/aiomusiccast/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

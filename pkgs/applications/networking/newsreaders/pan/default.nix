@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
   version = "0.146";
 
   src = fetchurl {
-    url =
-      "https://pan.rebelbase.com/download/releases/${version}/source/pan-${version}.tar.bz2";
+    url = "https://pan.rebelbase.com/download/releases/${version}/source/pan-${version}.tar.bz2";
     sha256 = "17agd27sn4a7nahvkpg0w39kv74njgdrrygs74bbvpaj8rk2hb55";
   };
 
@@ -77,8 +76,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description =
-      "A GTK-based Usenet newsreader good at both text and binaries";
+    description = "A GTK-based Usenet newsreader good at both text and binaries";
     homepage = "http://pan.rebelbase.com/";
     maintainers = [ maintainers.eelco ];
     platforms = platforms.linux;

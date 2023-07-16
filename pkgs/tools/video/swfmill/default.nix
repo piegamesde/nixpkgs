@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = {
-    description =
-      "An xml2swf and swf2xml processor with import functionalities";
+    description = "An xml2swf and swf2xml processor with import functionalities";
     homepage = "http://swfmill.org";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;

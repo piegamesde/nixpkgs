@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
   version = "1.3.2";
 
   src = fetchurl {
-    url =
-      "https://github.com/taisei-project/${pname}/releases/download/v${version}/${pname}-v${version}.tar.xz";
+    url = "https://github.com/taisei-project/${pname}/releases/download/v${version}/${pname}-v${version}.tar.xz";
     sha256 = "1g53fcyrlzmvlsb40pw90gaglysv6n1w42hk263iv61ibhdmzh6v";
   };
 

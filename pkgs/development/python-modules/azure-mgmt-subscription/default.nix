@@ -35,8 +35,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "azure.mgmt.subscription" ];
 
   meta = with lib; {
-    description =
-      "This is the Microsoft Azure Subscription Management Client Library";
+    description = "This is the Microsoft Azure Subscription Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [ maxwilson ];

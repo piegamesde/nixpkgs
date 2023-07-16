@@ -19,8 +19,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/stefil/2018-12-10/stefil-20181210-git.tgz";
+    url = "http://beta.quicklisp.org/archive/stefil/2018-12-10/stefil-20181210-git.tgz";
     sha256 = "10dr8yjrjc2pyx55knds5llh9k716khlvbkmpxh0vn8rdmxmz96g";
   };
 

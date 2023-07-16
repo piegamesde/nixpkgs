@@ -43,15 +43,13 @@ stdenv.mkDerivation rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "C++ program to generate waveform data and render waveform images from audio files";
+    description = "C++ program to generate waveform data and render waveform images from audio files";
     longDescription = ''
       audiowaveform is a C++ command-line application that generates waveform data from either MP3, WAV, FLAC, or Ogg Vorbis format audio files.
       Waveform data can be used to produce a visual rendering of the audio, similar in appearance to audio editing applications.
     '';
     homepage = "https://github.com/bbc/audiowaveform";
-    changelog =
-      "https://github.com/bbc/audiowaveform/blob/${version}/ChangeLog";
+    changelog = "https://github.com/bbc/audiowaveform/blob/${version}/ChangeLog";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
     maintainers = with maintainers; [ edbentley ];

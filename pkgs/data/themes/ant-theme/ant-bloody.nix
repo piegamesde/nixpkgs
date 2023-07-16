@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
   version = "1.3.0";
 
   src = fetchurl {
-    url =
-      "https://github.com/EliverLara/${themeName}/releases/download/v${version}/${themeName}.tar";
+    url = "https://github.com/EliverLara/${themeName}/releases/download/v${version}/${themeName}.tar";
     sha256 = "0rrz50kmzjmqj17hvrw67pbaclwxv85i5m08s7842iky6dnn5z8s";
   };
 

@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
   pname = "zathura-pdf-mupdf";
 
   src = fetchurl {
-    url =
-      "https://pwmt.org/projects/${pname}/download/${pname}-${version}.tar.xz";
+    url = "https://pwmt.org/projects/${pname}/download/${pname}-${version}.tar.xz";
     sha256 = "0pcjxvlh4hls8mjhjghhhihyy2kza8l27wdx0yq4bkd1g1b5f74c";
   };
 

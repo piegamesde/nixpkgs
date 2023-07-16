@@ -149,8 +149,7 @@ stdenv.mkDerivation rec {
   version = "1.51.110";
 
   src = fetchurl {
-    url =
-      "https://github.com/brave/brave-browser/releases/download/v${version}/brave-browser_${version}_amd64.deb";
+    url = "https://github.com/brave/brave-browser/releases/download/v${version}/brave-browser_${version}_amd64.deb";
     sha256 = "sha256-O0nzJvnZU1xIzEtGdp/syQJqS4xMTrWBcNj01dLKc0U=";
   };
 
@@ -174,8 +173,7 @@ stdenv.mkDerivation rec {
     gnome.adwaita-icon-theme
   ];
 
-  unpackPhase =
-    "dpkg-deb --fsys-tarfile $src | tar -x --no-same-permissions --no-same-owner";
+  unpackPhase = "dpkg-deb --fsys-tarfile $src | tar -x --no-same-permissions --no-same-owner";
 
   installPhase = ''
     runHook preInstall

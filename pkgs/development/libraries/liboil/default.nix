@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
   buildFlags = lib.optional stdenv.isDarwin "CFLAGS=-fheinous-gnu-extensions";
 
   meta = with lib; {
-    description =
-      "A library of simple functions that are optimized for various CPUs";
+    description = "A library of simple functions that are optimized for various CPUs";
     homepage = "https://liboil.freedesktop.org";
     license = licenses.bsd2;
     maintainers = with maintainers; [ lovek323 ];

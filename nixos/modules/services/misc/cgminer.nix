@@ -177,8 +177,7 @@ in
 
       startLimitIntervalSec = 60; # 1 min
       serviceConfig = {
-        ExecStart =
-          "${pkgs.cgminer}/bin/cgminer --syslog --text-only --config ${cgminerConfig}";
+        ExecStart = "${pkgs.cgminer}/bin/cgminer --syslog --text-only --config ${cgminerConfig}";
         User = cfg.user;
         RestartSec = "30s";
         Restart = "always";

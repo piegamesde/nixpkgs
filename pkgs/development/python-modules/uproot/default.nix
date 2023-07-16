@@ -74,8 +74,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "ROOT I/O in pure Python and Numpy";
     homepage = "https://github.com/scikit-hep/uproot5";
-    changelog =
-      "https://github.com/scikit-hep/uproot5/releases/tag/v${version}";
+    changelog = "https://github.com/scikit-hep/uproot5/releases/tag/v${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ veprbl ];
   };

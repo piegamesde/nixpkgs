@@ -37,8 +37,7 @@ in
     name = mkOption {
       type = types.str;
       description = lib.mdDoc "The name of the generated derivation";
-      default =
-        "nixos-amazon-image-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
+      default = "nixos-amazon-image-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
     };
 
     contents = mkOption {

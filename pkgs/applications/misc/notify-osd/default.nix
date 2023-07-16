@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
   version = "0.9.34";
 
   src = fetchurl {
-    url =
-      "https://launchpad.net/notify-osd/precise/${version}/+download/notify-osd-${version}.tar.gz";
+    url = "https://launchpad.net/notify-osd/precise/${version}/+download/notify-osd-${version}.tar.gz";
     sha256 = "0g5a7a680b05x27apz0y1ldl5csxpp152wqi42s107jymbp0s20j";
   };
 

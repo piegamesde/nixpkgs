@@ -55,8 +55,7 @@ let
             inherit (metadata) url sha1;
           };
 
-          layout =
-            "${
+          layout = "${
               builtins.replaceStrings [ "." ] [ "/" ] groupId
             }/${artifactId}/${versionDir}";
         in
@@ -70,8 +69,7 @@ let
             drv = fetchMetadata;
           } ]
           ++ lib.optional (fetch != "") {
-            layout =
-              "${layout}/${
+            layout = "${layout}/${
                 builtins.replaceStrings [ version ] [ dep.unresolved-version ]
                   fetch.name
               }";

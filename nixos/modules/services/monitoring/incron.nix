@@ -101,8 +101,7 @@ in
       wantedBy = [ "multi-user.target" ];
       path = cfg.extraPackages;
       serviceConfig.PIDFile = "/run/incrond.pid";
-      serviceConfig.ExecStartPre =
-        "${pkgs.coreutils}/bin/mkdir -m 710 -p /var/spool/incron";
+      serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/mkdir -m 710 -p /var/spool/incron";
       serviceConfig.ExecStart = "${pkgs.incron}/bin/incrond --foreground";
     };
   };

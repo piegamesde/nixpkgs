@@ -36,14 +36,12 @@ stdenv.mkDerivation rec {
     ./cert-paths.patch
     # fix openssl 3
     (fetchpatch {
-      url =
-        "https://github.com/void-linux/xbps/commit/db1766986c4389eb7e17c0e0076971b711617ef9.patch";
+      url = "https://github.com/void-linux/xbps/commit/db1766986c4389eb7e17c0e0076971b711617ef9.patch";
       hash = "sha256-CmyZdsHStPsELdEgeJBWIbXIuVeBhv7VYb2uGYxzUWQ=";
     })
   ];
 
-  env.NIX_CFLAGS_COMPILE =
-    "-Wno-error=unused-result -Wno-error=deprecated-declarations";
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=unused-result -Wno-error=deprecated-declarations";
 
   postPatch = ''
     # fix unprefixed ranlib (needed on cross)

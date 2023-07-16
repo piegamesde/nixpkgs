@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     inherit sha256;
-    url =
-      "mirror://apache/cassandra/${version}/apache-cassandra-${version}-bin.tar.gz";
+    url = "mirror://apache/cassandra/${version}/apache-cassandra-${version}-bin.tar.gz";
   };
 
   nativeBuildInputs = [ makeWrapper ];

@@ -28,8 +28,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A library for exchanging data between Python and JavaScript";
     homepage = "https://github.com/wagtail/telepath";
-    changelog =
-      "https://github.com/wagtail/telepath/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/wagtail/telepath/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ sephi ];
   };

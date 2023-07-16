@@ -29,8 +29,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description =
-      "An interactive NVIDIA-GPU process viewer, the one-stop solution for GPU process management";
+    description = "An interactive NVIDIA-GPU process viewer, the one-stop solution for GPU process management";
     homepage = "https://github.com/XuehaiPan/nvitop";
     license = licenses.gpl3;
     maintainers = with maintainers; [ GaetanLepage ];

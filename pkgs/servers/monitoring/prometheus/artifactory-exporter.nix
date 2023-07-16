@@ -35,8 +35,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "JFrog Artifactory Prometheus Exporter";
     homepage = "https://github.com/peimanja/artifactory_exporter";
-    changelog =
-      "https://github.com/peimanja/artifactory_exporter/releases/tag/v${version}";
+    changelog = "https://github.com/peimanja/artifactory_exporter/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ lbpdt ];
   };

@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/evolution-data-server/${
+    url = "mirror://gnome/sources/evolution-data-server/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "XOYsHmfyeJNCp/SgNbEC905i7YX2DoGlt/PgQWVATf8=";
@@ -184,8 +183,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "Unified backend for programs that work with contacts, tasks, and calendar information";
+    description = "Unified backend for programs that work with contacts, tasks, and calendar information";
     homepage = "https://wiki.gnome.org/Apps/Evolution";
     license = licenses.lgpl2Plus;
     maintainers = teams.gnome.members;

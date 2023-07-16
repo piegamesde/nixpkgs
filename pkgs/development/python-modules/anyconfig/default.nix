@@ -39,8 +39,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "anyconfig" ];
 
   meta = with lib; {
-    description =
-      "Python library provides common APIs to load and dump configuration files in various formats";
+    description = "Python library provides common APIs to load and dump configuration files in various formats";
     homepage = "https://github.com/ssato/python-anyconfig";
     license = licenses.mit;
     maintainers = with maintainers; [ tboerger ];

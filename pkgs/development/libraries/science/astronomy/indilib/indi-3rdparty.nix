@@ -91,10 +91,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.indilib.org/";
-    description =
-      "Third party drivers for the INDI astronomical software suite";
-    changelog =
-      "https://github.com/indilib/indi-3rdparty/releases/tag/v${version}";
+    description = "Third party drivers for the INDI astronomical software suite";
+    changelog = "https://github.com/indilib/indi-3rdparty/releases/tag/v${version}";
     license = licenses.lgpl2Plus;
     maintainers = with maintainers; [ hjones2199 ];
     platforms = platforms.linux;

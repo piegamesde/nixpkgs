@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
   pname = "fahcontrol";
 
   src = fetchurl {
-    url =
-      "https://download.foldingathome.org/releases/public/release/fahcontrol/debian-stable-64bit/v${majMin}/fahcontrol_${version}-1_all.deb";
+    url = "https://download.foldingathome.org/releases/public/release/fahcontrol/debian-stable-64bit/v${majMin}/fahcontrol_${version}-1_all.deb";
     sha256 = "1vfrdqkrvdlyxaw3f6z92w5dllrv6810lmf8yhcmjcwmphipvf71";
   };
 

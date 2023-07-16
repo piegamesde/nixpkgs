@@ -47,8 +47,7 @@ else
     createFindlibDestdir = true;
 
     meta = {
-      homepage =
-        "https://ocaml-batteries-team.github.io/batteries-included/hdoc2/";
+      homepage = "https://ocaml-batteries-team.github.io/batteries-included/hdoc2/";
       description = "OCaml Batteries Included";
       longDescription = ''
         A community-driven effort to standardize on an consistent, documented,

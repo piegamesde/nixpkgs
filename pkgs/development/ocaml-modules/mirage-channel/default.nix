@@ -18,8 +18,7 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url =
-      "https://github.com/mirage/mirage-channel/releases/download/v${version}/mirage-channel-${version}.tbz";
+    url = "https://github.com/mirage/mirage-channel/releases/download/v${version}/mirage-channel-${version}.tbz";
     hash = "sha256-sBdoUdTd9ZeNcHK0IBGBeOYDDqULM7EYX+Pz2f2nIQA=";
   };
 

@@ -98,8 +98,7 @@ python.pkgs.buildPythonApplication rec {
   passthru.tests.calibre-web = nixosTests.calibre-web;
 
   meta = with lib; {
-    description =
-      "Web app for browsing, reading and downloading eBooks stored in a Calibre database";
+    description = "Web app for browsing, reading and downloading eBooks stored in a Calibre database";
     homepage = "https://github.com/janeczku/calibre-web";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ pborzenkov ];

@@ -32,8 +32,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "reflink" ];
 
   meta = with lib; {
-    description =
-      "Python reflink wraps around platform specific reflink implementations";
+    description = "Python reflink wraps around platform specific reflink implementations";
     homepage = "https://gitlab.com/rubdos/pyreflink";
     license = licenses.mit;
     maintainers = with maintainers; [ lovesegfault ];

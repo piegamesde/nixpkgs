@@ -16,32 +16,19 @@ let
   repo = "analysis";
   owner = "math-comp";
 
-  release."0.6.1".sha256 =
-    "sha256-1VyNXu11/pDMuH4DmFYSUF/qZ4Bo+/Zl3Y0JkyrH/r0=";
-  release."0.6.0".sha256 =
-    "sha256-0msICcIrK6jbOSiBu0gIVU3RHwoEEvB88CMQqW/06rg=";
-  release."0.5.3".sha256 =
-    "sha256-1NjFsi5TITF8ZWx1NyppRmi8g6YaoUtTdS9bU/sUe5k=";
-  release."0.5.2".sha256 =
-    "0yx5p9zyl8jv1vg7rgkyq8dqzkdnkqv969mi62whmhkvxbavgzbw";
-  release."0.5.1".sha256 =
-    "1hnzqb1gxf88wgj2n1b0f2xm6sxg9j0735zdsv6j12hlvx5lwk68";
-  release."0.3.13".sha256 =
-    "sha256-Yaztew79KWRC933kGFOAUIIoqukaZOdNOdw4XszR1Hg=";
-  release."0.3.10".sha256 =
-    "sha256-FBH2c8QRibq5Ycw/ieB8mZl0fDiPrYdIzZ6W/A3pIhI=";
-  release."0.3.9".sha256 =
-    "sha256-uUU9diBwUqBrNRLiDc0kz0CGkwTZCUmigPwLbpDOeg4=";
-  release."0.3.6".sha256 =
-    "0g2j7b2hca4byz62ssgg90bkbc8wwp7xkb2d3225bbvihi92b4c5";
-  release."0.3.4".sha256 =
-    "18mgycjgg829dbr7ps77z6lcj03h3dchjbj5iir0pybxby7gd45c";
-  release."0.3.3".sha256 =
-    "1m2mxcngj368vbdb8mlr91hsygl430spl7lgyn9qmn3jykack867";
-  release."0.3.1".sha256 =
-    "1iad288yvrjv8ahl9v18vfblgqb1l5z6ax644w49w9hwxs93f2k8";
-  release."0.2.3".sha256 =
-    "0p9mr8g1qma6h10qf7014dv98ln90dfkwn76ynagpww7qap8s966";
+  release."0.6.1".sha256 = "sha256-1VyNXu11/pDMuH4DmFYSUF/qZ4Bo+/Zl3Y0JkyrH/r0=";
+  release."0.6.0".sha256 = "sha256-0msICcIrK6jbOSiBu0gIVU3RHwoEEvB88CMQqW/06rg=";
+  release."0.5.3".sha256 = "sha256-1NjFsi5TITF8ZWx1NyppRmi8g6YaoUtTdS9bU/sUe5k=";
+  release."0.5.2".sha256 = "0yx5p9zyl8jv1vg7rgkyq8dqzkdnkqv969mi62whmhkvxbavgzbw";
+  release."0.5.1".sha256 = "1hnzqb1gxf88wgj2n1b0f2xm6sxg9j0735zdsv6j12hlvx5lwk68";
+  release."0.3.13".sha256 = "sha256-Yaztew79KWRC933kGFOAUIIoqukaZOdNOdw4XszR1Hg=";
+  release."0.3.10".sha256 = "sha256-FBH2c8QRibq5Ycw/ieB8mZl0fDiPrYdIzZ6W/A3pIhI=";
+  release."0.3.9".sha256 = "sha256-uUU9diBwUqBrNRLiDc0kz0CGkwTZCUmigPwLbpDOeg4=";
+  release."0.3.6".sha256 = "0g2j7b2hca4byz62ssgg90bkbc8wwp7xkb2d3225bbvihi92b4c5";
+  release."0.3.4".sha256 = "18mgycjgg829dbr7ps77z6lcj03h3dchjbj5iir0pybxby7gd45c";
+  release."0.3.3".sha256 = "1m2mxcngj368vbdb8mlr91hsygl430spl7lgyn9qmn3jykack867";
+  release."0.3.1".sha256 = "1iad288yvrjv8ahl9v18vfblgqb1l5z6ax644w49w9hwxs93f2k8";
+  release."0.2.3".sha256 = "0p9mr8g1qma6h10qf7014dv98ln90dfkwn76ynagpww7qap8s966";
 
   defaultVersion =
     with versions;
@@ -194,8 +181,7 @@ let
         '';
 
         meta = {
-          description =
-            "Analysis library compatible with Mathematical Components";
+          description = "Analysis library compatible with Mathematical Components";
           maintainers = [ maintainers.cohencyril ];
           license = licenses.cecill-c;
         };

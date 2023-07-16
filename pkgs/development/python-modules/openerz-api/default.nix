@@ -40,8 +40,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module to interact with the OpenERZ API";
     homepage = "https://github.com/misialq/openerz-api";
-    changelog =
-      "https://github.com/misialq/openerz-api/releases/tag/v${version}";
+    changelog = "https://github.com/misialq/openerz-api/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

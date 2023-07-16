@@ -32,8 +32,7 @@ let
     text =
       (lib.generators.toINI { } {
         Environment = {
-          DFLAGS =
-            "-I@out@/include/dmd -L-L@out@/lib -fPIC ${
+          DFLAGS = "-I@out@/include/dmd -L-L@out@/lib -fPIC ${
               lib.optionalString (!targetPackages.stdenv.cc.isClang)
                 "-L--export-dynamic"
             }";
@@ -88,8 +87,7 @@ stdenv.mkDerivation rec {
       # Migrates D1-style operator overloads in DMD source, to allow building with
       # a newer DMD
       (fetchpatch {
-        url =
-          "https://github.com/dlang/dmd/commit/c4d33e5eb46c123761ac501e8c52f33850483a8a.patch";
+        url = "https://github.com/dlang/dmd/commit/c4d33e5eb46c123761ac501e8c52f33850483a8a.patch";
         stripLen = 1;
         extraPrefix = "dmd/";
         sha256 = "sha256-N21mAPfaTo+zGCip4njejasraV5IsWVqlGR5eOdFZZE=";
@@ -98,8 +96,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (lib.versionOlder version "2.092.2") [
       # Fixes C++ tests that compiled on older C++ but not on the current one
       (fetchpatch {
-        url =
-          "https://github.com/dlang/druntime/commit/438990def7e377ca1f87b6d28246673bb38022ab.patch";
+        url = "https://github.com/dlang/druntime/commit/438990def7e377ca1f87b6d28246673bb38022ab.patch";
         stripLen = 1;
         extraPrefix = "druntime/";
         sha256 = "sha256-/pPKK7ZK9E/mBrxm2MZyBNhYExE8p9jz8JqBdZSE6uY=";

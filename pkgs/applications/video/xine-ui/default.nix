@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       # Fix build on aarch64
       name = "xine-ui_FTBS_aarch64.patch";
-      url =
-        "https://salsa.debian.org/debian/xine-ui/-/raw/b2f04f64947a8975a805950e7e67b15cb44007ef/debian/patches/backport/0003-Fix-build.patch";
+      url = "https://salsa.debian.org/debian/xine-ui/-/raw/b2f04f64947a8975a805950e7e67b15cb44007ef/debian/patches/backport/0003-Fix-build.patch";
       sha256 = "03f8nkm7q11v5vssl1bj500ja4ljz4y752mfk22k2g4djkwimx62";
     })
   ];

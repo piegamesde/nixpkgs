@@ -106,8 +106,7 @@ in
       wantedBy = [ "multi-user.target" ];
       before = [ "display-manager.service" ];
       serviceConfig = {
-        ExecStart =
-          "${bumblebee}/bin/bumblebeed --use-syslog -g ${cfg.group} --driver ${cfg.driver} --pm-method ${cfg.pmMethod}";
+        ExecStart = "${bumblebee}/bin/bumblebeed --use-syslog -g ${cfg.group} --driver ${cfg.driver} --pm-method ${cfg.pmMethod}";
       };
     };
   };

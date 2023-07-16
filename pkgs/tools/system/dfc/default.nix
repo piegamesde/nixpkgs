@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
   version = "3.1.1";
 
   src = fetchurl {
-    url =
-      "https://projects.gw-computing.net/attachments/download/615/${pname}-${version}.tar.gz";
+    url = "https://projects.gw-computing.net/attachments/download/615/${pname}-${version}.tar.gz";
     sha256 = "0m1fd7l85ckb7bq4c5c3g257bkjglm8gq7x42pkmpp87fkknc94n";
   };
 

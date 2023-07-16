@@ -79,8 +79,7 @@ stdenv.mkDerivation rec {
       or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   src = fetchurl {
-    url =
-      "https://downloads.vivaldi.com/${branch}/vivaldi-${branch}_${version}-1_${suffix}.deb";
+    url = "https://downloads.vivaldi.com/${branch}/vivaldi-${branch}_${version}-1_${suffix}.deb";
     hash =
       {
         aarch64-linux = "sha256-6rETxeExtHxWrKFO0MHzjLgnaHUeREVqsOB9264jZr8=";

@@ -18,8 +18,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
     version = "1.1.1";
 
     src = fetchurl {
-      url =
-        "https://erratique.ch/software/${pname}/releases/${pname}-${version}.tbz";
+      url = "https://erratique.ch/software/${pname}/releases/${pname}-${version}.tbz";
       sha256 = "sha256-oa6Hw6eZQO+NHdWfdED3dtHckm4BmEbdMiAuRkYntfs=";
     };
 
@@ -37,8 +36,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
 
     meta = with lib; {
       homepage = "https://erratique.ch/software/cmdliner";
-      description =
-        "An OCaml module for the declarative definition of command line interfaces";
+      description = "An OCaml module for the declarative definition of command line interfaces";
       license = licenses.isc;
       inherit (ocaml.meta) platforms;
       maintainers = [ maintainers.vbgl ];

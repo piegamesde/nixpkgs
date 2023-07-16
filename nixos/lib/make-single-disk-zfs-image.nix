@@ -314,8 +314,7 @@ let
         pkgs.runCommand name
           {
             memSize = 1024;
-            QEMU_OPTS =
-              "-drive file=$rootDiskImage,if=virtio,cache=unsafe,werror=report";
+            QEMU_OPTS = "-drive file=$rootDiskImage,if=virtio,cache=unsafe,werror=report";
             preVM = ''
               PATH=$PATH:${pkgs.qemu_kvm}/bin
               mkdir $out

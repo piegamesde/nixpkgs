@@ -158,8 +158,7 @@ buildPythonApplication rec {
   meta = with lib; {
     description = "Static code analysis tool for infrastructure-as-code";
     homepage = "https://github.com/bridgecrewio/checkov";
-    changelog =
-      "https://github.com/bridgecrewio/checkov/releases/tag/${version}";
+    changelog = "https://github.com/bridgecrewio/checkov/releases/tag/${version}";
     longDescription = ''
       Prevent cloud misconfigurations during build-time for Terraform, Cloudformation,
       Kubernetes, Serverless framework and other infrastructure-as-code-languages.

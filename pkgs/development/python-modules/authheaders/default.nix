@@ -36,11 +36,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "authheaders" ];
 
   meta = with lib; {
-    description =
-      "Python library for the generation of email authentication headers";
+    description = "Python library for the generation of email authentication headers";
     homepage = "https://github.com/ValiMail/authentication-headers";
-    changelog =
-      "https://github.com/ValiMail/authentication-headers/blob${version}/CHANGES";
+    changelog = "https://github.com/ValiMail/authentication-headers/blob${version}/CHANGES";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

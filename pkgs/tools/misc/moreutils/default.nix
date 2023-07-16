@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Growing collection of the unix tools that nobody thought to write long ago when unix was young";
+    description = "Growing collection of the unix tools that nobody thought to write long ago when unix was young";
     homepage = "https://joeyh.name/code/moreutils/";
     maintainers = with maintainers; [
       koral

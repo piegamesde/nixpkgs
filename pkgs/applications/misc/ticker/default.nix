@@ -27,11 +27,9 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Terminal stock ticker with live updates and position tracking";
+    description = "Terminal stock ticker with live updates and position tracking";
     homepage = "https://github.com/achannarasappa/ticker";
-    changelog =
-      "https://github.com/achannarasappa/ticker/releases/tag/v${version}";
+    changelog = "https://github.com/achannarasappa/ticker/releases/tag/v${version}";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ siraben ];
   };

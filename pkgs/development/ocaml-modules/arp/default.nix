@@ -27,8 +27,7 @@ buildDunePackage rec {
   version = "3.0.0";
 
   src = fetchurl {
-    url =
-      "https://github.com/mirage/${pname}/releases/download/v${version}/${pname}-v${version}.tbz";
+    url = "https://github.com/mirage/${pname}/releases/download/v${version}/${pname}-v${version}.tbz";
     sha256 = "1x3l8v96ywc3wrcwbf0j04b8agap4fif0fz6ki2ndzx57yqcjszn";
   };
 

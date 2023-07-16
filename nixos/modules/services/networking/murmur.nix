@@ -386,8 +386,7 @@ in
           mkIf (cfg.environmentFile != null)
             cfg.environmentFile
         ;
-        ExecStart =
-          "${cfg.package}/bin/mumble-server -ini /run/murmur/murmurd.ini";
+        ExecStart = "${cfg.package}/bin/mumble-server -ini /run/murmur/murmurd.ini";
         Restart = "always";
         RuntimeDirectory = "murmur";
         RuntimeDirectoryMode = "0700";

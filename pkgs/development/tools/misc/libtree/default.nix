@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with lib; {
-    description =
-      "Tree ldd with an option to bundle dependencies into a single folder";
+    description = "Tree ldd with an option to bundle dependencies into a single folder";
     homepage = "https://github.com/haampie/libtree";
     license = licenses.mit;
     platforms = platforms.linux;

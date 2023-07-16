@@ -40,8 +40,7 @@ stdenv.mkDerivation {
     owner = "aseprite";
     repo = "skia";
     # latest commit from aseprite-m71 branch
-    rev =
-      "89e4ca4352d05adc892f5983b108433f29b2c0c2"; # TODO: Remove the gnOld override
+    rev = "89e4ca4352d05adc892f5983b108433f29b2c0c2"; # TODO: Remove the gnOld override
     sha256 = "0n3vrkswvi6rib9zv2pzi18h3j5wm7flmgkgaikcm6q7iw4l2c7x";
   };
 
@@ -106,8 +105,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description =
-      "Skia is a complete 2D graphic library for drawing Text, Geometries, and Images";
+    description = "Skia is a complete 2D graphic library for drawing Text, Geometries, and Images";
     homepage = "https://skia.org/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];

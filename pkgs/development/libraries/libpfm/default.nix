@@ -25,8 +25,7 @@ stdenv.mkDerivation (
     env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
     meta = with lib; {
-      description =
-        "Helper library to program the performance monitoring events";
+      description = "Helper library to program the performance monitoring events";
       longDescription = ''
         This package provides a library, called libpfm4 which is used to
         develop monitoring tools exploiting the performance monitoring

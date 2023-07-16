@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Click on a pixel on your screen and print its color value in RGB";
+    description = "Click on a pixel on your screen and print its color value in RGB";
     homepage = "https://github.com/Ancurio/colorpicker";
     maintainers = with maintainers; [ jb55 ];
     license = licenses.mit;

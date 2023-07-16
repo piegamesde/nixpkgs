@@ -130,8 +130,7 @@ self: super:
         ./imake-cc-wrapper-uberhack.patch
       ];
       setupHook = ./imake-setup-hook.sh;
-      CFLAGS =
-        "-DIMAKE_COMPILETIME_CPP='\"${
+      CFLAGS = "-DIMAKE_COMPILETIME_CPP='\"${
           if stdenv.isDarwin then "${tradcpp}/bin/cpp" else "gcc"
         }\"'";
 
@@ -598,8 +597,7 @@ self: super:
         "dev"
         "out"
       ]; # tiny man in $bin
-      patchPhase =
-        "sed -i '/USE_GETTEXT_TRUE/d' sxpm/Makefile.in cxpm/Makefile.in";
+      patchPhase = "sed -i '/USE_GETTEXT_TRUE/d' sxpm/Makefile.in cxpm/Makefile.in";
       XPM_PATH_COMPRESS = lib.makeBinPath [ ncompress ];
     }
   );
@@ -897,8 +895,7 @@ self: super:
       buildInputs = attrs.buildInputs ++ [ xorg.utilmacros ];
       patches = [
         (fetchpatch {
-          url =
-            "https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati/-/commit/e0511968d04b42abf11bc0ffb387f143582bc144.patch";
+          url = "https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati/-/commit/e0511968d04b42abf11bc0ffb387f143582bc144.patch";
           sha256 = "sha256-79nqKuJRgMYXDEMB8IWxdmbxtI/m+Oca1wSLYeGMuEk=";
         })
       ];
@@ -1209,8 +1206,7 @@ self: super:
             commit: sha256: name:
             fetchpatch (
               {
-                url =
-                  "https://gitlab.freedesktop.org/xorg/xserver/-/commit/${commit}.diff";
+                url = "https://gitlab.freedesktop.org/xorg/xserver/-/commit/${commit}.diff";
                 inherit sha256;
               } // lib.optionalAttrs (name != null) { name = name + ".patch"; }
             )
@@ -1312,26 +1308,22 @@ self: super:
             patches = [
               # XQuartz patchset
               (fetchpatch {
-                url =
-                  "https://github.com/XQuartz/xorg-server/commit/e88fd6d785d5be477d5598e70d105ffb804771aa.patch";
+                url = "https://github.com/XQuartz/xorg-server/commit/e88fd6d785d5be477d5598e70d105ffb804771aa.patch";
                 sha256 = "1q0a30m1qj6ai924afz490xhack7rg4q3iig2gxsjjh98snikr1k";
                 name = "use-cppflags-not-cflags.patch";
               })
               (fetchpatch {
-                url =
-                  "https://github.com/XQuartz/xorg-server/commit/75ee9649bcfe937ac08e03e82fd45d9e18110ef4.patch";
+                url = "https://github.com/XQuartz/xorg-server/commit/75ee9649bcfe937ac08e03e82fd45d9e18110ef4.patch";
                 sha256 = "1vlfylm011y00j8mig9zy6gk9bw2b4ilw2qlsc6la49zi3k0i9fg";
                 name = "use-old-mitrapezoids-and-mitriangles-routines.patch";
               })
               (fetchpatch {
-                url =
-                  "https://github.com/XQuartz/xorg-server/commit/c58f47415be79a6564a9b1b2a62c2bf866141e73.patch";
+                url = "https://github.com/XQuartz/xorg-server/commit/c58f47415be79a6564a9b1b2a62c2bf866141e73.patch";
                 sha256 = "19sisqzw8x2ml4lfrwfvavc2jfyq2bj5xcf83z89jdxg8g1gdd1i";
                 name = "revert-fb-changes-1.patch";
               })
               (fetchpatch {
-                url =
-                  "https://github.com/XQuartz/xorg-server/commit/56e6f1f099d2821e5002b9b05b715e7b251c0c97.patch";
+                url = "https://github.com/XQuartz/xorg-server/commit/56e6f1f099d2821e5002b9b05b715e7b251c0c97.patch";
                 sha256 = "0zm9g0g1jvy79sgkvy0rjm6ywrdba2xjd1nsnjbxjccckbr6i396";
                 name = "revert-fb-changes-2.patch";
               })
@@ -1452,8 +1444,7 @@ self: super:
               # don't unset DBUS_SESSION_BUS_ADDRESS in startx
               (fetchpatch {
                 name = "dont-unset-DBUS_SESSION_BUS_ADDRESS.patch";
-                url =
-                  "https://raw.githubusercontent.com/archlinux/svntogit-packages/40f3ac0a31336d871c76065270d3f10e922d06f3/trunk/fs46369.patch";
+                url = "https://raw.githubusercontent.com/archlinux/svntogit-packages/40f3ac0a31336d871c76065270d3f10e922d06f3/trunk/fs46369.patch";
                 sha256 = "18kb88i3s9nbq2jxl7l2hyj6p56c993hivk8mzxg811iqbbawkp7";
               })
             ];
@@ -1523,8 +1514,7 @@ self: super:
           # Pull upstream fix for -fno-common toolchains.
           (fetchpatch {
             name = "fno-common.patch";
-            url =
-              "https://github.com/freedesktop/openchrome-xf86-video-openchrome/commit/edb46574d4686c59e80569ba236d537097dcdd0e.patch";
+            url = "https://github.com/freedesktop/openchrome-xf86-video-openchrome/commit/edb46574d4686c59e80569ba236d537097dcdd0e.patch";
             sha256 = "0xqawg9zzwb7x5vaf3in60isbkl3zfjq0wcnfi45s3hiii943sxz";
           })
         ];
@@ -1537,20 +1527,17 @@ self: super:
         # fixes invalid open mode
         # https://cgit.freedesktop.org/xorg/driver/xf86-video-xgi/commit/?id=bd94c475035739b42294477cff108e0c5f15ef67
         (fetchpatch {
-          url =
-            "https://cgit.freedesktop.org/xorg/driver/xf86-video-xgi/patch/?id=bd94c475035739b42294477cff108e0c5f15ef67";
+          url = "https://cgit.freedesktop.org/xorg/driver/xf86-video-xgi/patch/?id=bd94c475035739b42294477cff108e0c5f15ef67";
           sha256 = "0myfry07655adhrpypa9rqigd6rfx57pqagcwibxw7ab3wjay9f6";
         })
         (fetchpatch {
-          url =
-            "https://cgit.freedesktop.org/xorg/driver/xf86-video-xgi/patch/?id=78d1138dd6e214a200ca66fa9e439ee3c9270ec8";
+          url = "https://cgit.freedesktop.org/xorg/driver/xf86-video-xgi/patch/?id=78d1138dd6e214a200ca66fa9e439ee3c9270ec8";
           sha256 = "0z3643afgrync280zrp531ija0hqxc5mrwjif9nh9lcnzgnz2d6d";
         })
         # Pull upstream fix for -fno-common toolchains.
         (fetchpatch {
           name = "fno-common.patch";
-          url =
-            "https://github.com/freedesktop/xorg-xf86-video-xgi/commit/3143bdee580c4d397e21adb0fa35502d4dc8e888.patch";
+          url = "https://github.com/freedesktop/xorg-xf86-video-xgi/commit/3143bdee580c4d397e21adb0fa35502d4dc8e888.patch";
           sha256 = "0by6k26rj1xmljnbfd08v90s1f9bkmnf17aclhv50081m83lmm07";
         })
       ];
@@ -1562,8 +1549,7 @@ self: super:
       patches = [
         (fetchpatch {
           name = "add-aarch64-darwin-support.patch";
-          url =
-            "https://gitlab.freedesktop.org/xorg/util/cf/-/commit/8d88c559b177e832b581c8ac0aa383b6cf79e0d0.patch";
+          url = "https://gitlab.freedesktop.org/xorg/util/cf/-/commit/8d88c559b177e832b581c8ac0aa383b6cf79e0d0.patch";
           sha256 = "sha256-wCijdmlUtVgOh9Rp/LJrg1ObYm4OPTke5Xwu0xC0ap4=";
         })
       ];

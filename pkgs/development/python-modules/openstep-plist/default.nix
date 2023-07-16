@@ -27,8 +27,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "openstep_plist" ];
 
   meta = {
-    description =
-      "Parser for the 'old style' OpenStep property list format also known as ASCII plist";
+    description = "Parser for the 'old style' OpenStep property list format also known as ASCII plist";
     homepage = "https://github.com/fonttools/openstep-plist";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.BarinovMaxim ];

@@ -63,8 +63,7 @@ buildPythonApplication rec {
   pythonImportsCheck = [ "bikeshed" ];
 
   meta = with lib; {
-    description =
-      "Preprocessor for anyone writing specifications that converts source files into actual specs";
+    description = "Preprocessor for anyone writing specifications that converts source files into actual specs";
     longDescription = ''
       Bikeshed is a pre-processor for spec documents, turning a source document
       (containing only the actual spec content, plus several shorthands for linking

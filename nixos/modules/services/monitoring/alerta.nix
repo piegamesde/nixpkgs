@@ -112,8 +112,7 @@ in
       after = [ "networking.target" ];
       environment = { ALERTA_SVR_CONF_FILE = alertaConf; };
       serviceConfig = {
-        ExecStart =
-          "${pkgs.alerta-server}/bin/alertad run --port ${
+        ExecStart = "${pkgs.alerta-server}/bin/alertad run --port ${
             toString cfg.port
           } --host ${cfg.bind}";
         User = "alerta";

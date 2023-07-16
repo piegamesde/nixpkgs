@@ -69,8 +69,7 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "update-informer-0.6.0" =
-        "sha256-uMp6PE4ccNGflbYz5WbLBKDtTlXNjOPA3vAnIMSdMEs=";
+      "update-informer-0.6.0" = "sha256-uMp6PE4ccNGflbYz5WbLBKDtTlXNjOPA3vAnIMSdMEs=";
     };
   };
   RUSTC_BOOTSTRAP = 1;
@@ -93,8 +92,7 @@ rustPlatform.buildRustPackage rec {
   passthru.tests.version = testers.testVersion { package = turbo; };
 
   meta = with lib; {
-    description =
-      "High-performance build system for JavaScript and TypeScript codebases";
+    description = "High-performance build system for JavaScript and TypeScript codebases";
     homepage = "https://turbo.build/";
     maintainers = with maintainers; [ dlip ];
     license = licenses.mpl20;

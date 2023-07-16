@@ -370,8 +370,7 @@ in
         {
           assertion =
             offloadCfg.enable -> versionAtLeast nvidia_x11.version "435.21";
-          message =
-            "NVIDIA PRIME render offload is currently only supported on versions >= 435.21.";
+          message = "NVIDIA PRIME render offload is currently only supported on versions >= 435.21.";
         }
 
         {
@@ -379,8 +378,7 @@ in
             (reverseSyncCfg.enable && pCfg.amdgpuBusId != "")
             -> versionAtLeast nvidia_x11.version "470.0"
           ;
-          message =
-            "NVIDIA PRIME render offload for AMD APUs is currently only supported on versions >= 470 beta.";
+          message = "NVIDIA PRIME render offload for AMD APUs is currently only supported on versions >= 470 beta.";
         }
 
         {
@@ -400,8 +398,7 @@ in
 
         {
           assertion = cfg.powerManagement.finegrained -> offloadCfg.enable;
-          message =
-            "Fine-grained power management requires offload to be enabled.";
+          message = "Fine-grained power management requires offload to be enabled.";
         }
 
         {
@@ -409,15 +406,13 @@ in
             cfg.powerManagement.enable
             -> versionAtLeast nvidia_x11.version "430.09"
           ;
-          message =
-            "Required files for driver based power management only exist on versions >= 430.09.";
+          message = "Required files for driver based power management only exist on versions >= 430.09.";
         }
 
         {
           assertion =
             cfg.open -> (cfg.package ? open && cfg.package ? firmware);
-          message =
-            "This version of NVIDIA driver does not provide a corresponding opensource kernel driver";
+          message = "This version of NVIDIA driver does not provide a corresponding opensource kernel driver";
         }
       ];
 
@@ -514,14 +509,12 @@ in
       environment.etc."nvidia/nvidia-application-profiles-rc" =
         mkIf nvidia_x11.useProfiles
           {
-            source =
-              "${nvidia_x11.bin}/share/nvidia/nvidia-application-profiles-rc";
+            source = "${nvidia_x11.bin}/share/nvidia/nvidia-application-profiles-rc";
           }
       ;
 
       # 'nvidia_x11' installs it's files to /run/opengl-driver/...
-      environment.etc."egl/egl_external_platform.d".source =
-        "/run/opengl-driver/share/egl/egl_external_platform.d/";
+      environment.etc."egl/egl_external_platform.d".source = "/run/opengl-driver/share/egl/egl_external_platform.d/";
 
       hardware.opengl.extraPackages = [
         nvidia_x11.out
@@ -598,10 +591,8 @@ in
               Type = "forking";
               Restart = "always";
               PIDFile = "/var/run/nvidia-persistenced/nvidia-persistenced.pid";
-              ExecStart =
-                "${nvidia_x11.persistenced}/bin/nvidia-persistenced --verbose";
-              ExecStopPost =
-                "${pkgs.coreutils}/bin/rm -rf /var/run/nvidia-persistenced";
+              ExecStart = "${nvidia_x11.persistenced}/bin/nvidia-persistenced --verbose";
+              ExecStopPost = "${pkgs.coreutils}/bin/rm -rf /var/run/nvidia-persistenced";
             };
           };
         }

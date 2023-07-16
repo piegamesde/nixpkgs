@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
   passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
-    description =
-      "Image viewer and converter, designed for prepress (print) work";
+    description = "Image viewer and converter, designed for prepress (print) work";
     homepage = "https://github.com/rodlie/cyan";
     mainProgram = "Cyan";
     license = licenses.cecill21;

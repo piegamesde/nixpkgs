@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Tracks the route taken by packets over an IP network";
     homepage = "https://traceroute.sourceforge.net/";
-    changelog =
-      "https://sourceforge.net/projects/traceroute/files/traceroute/traceroute-${version}/";
+    changelog = "https://sourceforge.net/projects/traceroute/files/traceroute/traceroute-${version}/";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ koral ];
     platforms = platforms.linux;

@@ -23,8 +23,7 @@ stdenv.mkDerivation {
   inherit pname appname version;
 
   src = fetchurl {
-    url =
-      "https://download.tuxfamily.org/${pname}/src/${pname}-${version}.tar.xz";
+    url = "https://download.tuxfamily.org/${pname}/src/${pname}-${version}.tar.xz";
     hash = "sha256-W1bu3isEe1j7XTj+deLNk6Ncssy2UKG+eF36fe1FFWs=";
   };
 
@@ -62,8 +61,7 @@ stdenv.mkDerivation {
   ;
 
   meta = with lib; {
-    description =
-      "Plain-text file notepad and todo-list manager with markdown support and Nextcloud/ownCloud integration";
+    description = "Plain-text file notepad and todo-list manager with markdown support and Nextcloud/ownCloud integration";
     homepage = "https://www.qownnotes.org/";
     changelog = "https://www.qownnotes.org/changelog.html";
     downloadPage = "https://github.com/pbek/QOwnNotes/releases/tag/v${version}";

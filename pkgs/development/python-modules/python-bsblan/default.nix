@@ -53,11 +53,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "bsblan" ];
 
   meta = with lib; {
-    description =
-      "Module to control and monitor an BSBLan device programmatically";
+    description = "Module to control and monitor an BSBLan device programmatically";
     homepage = "https://github.com/liudger/python-bsblan";
-    changelog =
-      "https://github.com/liudger/python-bsblan/releases/tag/v${version}";
+    changelog = "https://github.com/liudger/python-bsblan/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

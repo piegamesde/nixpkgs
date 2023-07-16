@@ -12,8 +12,7 @@ let
   # wasm32-unknown-unknown rustc target isn't available in nixpkgs yet.
   # Tracking issue: https://github.com/NixOS/nixpkgs/issues/89426
   frontend = fetchzip {
-    url =
-      "https://github.com/lldap/lldap/releases/download/v${lldap.version}/amd64-lldap.tar.gz";
+    url = "https://github.com/lldap/lldap/releases/download/v${lldap.version}/amd64-lldap.tar.gz";
     hash = "sha256-/Ml4L5Gxpnmt1pLSiLNuxtzQYjTCatsVe/hE+Btl8BI=";
     name = "lldap-frontend-${lldap.version}";
     postFetch = ''
@@ -56,8 +55,7 @@ rustPlatform.buildRustPackage rec {
   passthru.tests = { inherit (nixosTests) lldap; };
 
   meta = with lib; {
-    description =
-      "A lightweight authentication server that provides an opinionated, simplified LDAP interface for authentication";
+    description = "A lightweight authentication server that provides an opinionated, simplified LDAP interface for authentication";
     homepage = "https://github.com/lldap/lldap";
     changelog = "https://github.com/lldap/lldap/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Only;

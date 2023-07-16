@@ -9,8 +9,7 @@ stdenv.mkDerivation rec {
   version = "1.1";
 
   src = fetchurl {
-    url =
-      "mirror://ibiblioPubLinux/system/network/misc/${pname}-${version}.tar.gz";
+    url = "mirror://ibiblioPubLinux/system/network/misc/${pname}-${version}.tar.gz";
     hash = "sha256-PfXrj4d2SHmatiPPFxjsxvhusML1HTRNjoYEQtzFzW8=";
   };
 

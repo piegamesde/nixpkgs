@@ -45,8 +45,7 @@ buildPythonPackage rec {
     # plus follow-up (1e677567) from https://github.com/ytdl-org/youtube-dl/pull/30582
     (fetchpatch {
       name = "fix-youtube-dl-speed.patch";
-      url =
-        "https://github.com/ytdl-org/youtube-dl/compare/57044eacebc6f2f3cd83c345e1b6e659a22e4773...1e677567cd083d43f55daef0cc74e5fa24575ae3.diff";
+      url = "https://github.com/ytdl-org/youtube-dl/compare/57044eacebc6f2f3cd83c345e1b6e659a22e4773...1e677567cd083d43f55daef0cc74e5fa24575ae3.diff";
       sha256 = "11s0j3w60r75xx20p0x2j3yc4d3yvz99r0572si8b5qd93lqs4pr";
     })
     # The above patch may fail to decode the n-parameter (if, say, YouTube is updated). Failure to decode
@@ -54,15 +53,13 @@ buildPythonPackage rec {
     # better fallback behaviour.
     (fetchpatch {
       name = "avoid-crashing-if-nsig-decode-fails.patch";
-      url =
-        "https://github.com/ytdl-org/youtube-dl/commit/41f0043983c831b7c0c3614340d2f66ec153087b.diff";
+      url = "https://github.com/ytdl-org/youtube-dl/commit/41f0043983c831b7c0c3614340d2f66ec153087b.diff";
       sha256 = "sha256-a72gWhBXCLjuBBD36PpZ5F/AHBdiBv4W8Wf9g4P/aBY=";
     })
     # YouTube changed the n-parameter format in April 2022, so decoder updates are required.
     (fetchpatch {
       name = "fix-n-descrambling.patch";
-      url =
-        "https://github.com/ytdl-org/youtube-dl/commit/a0068bd6bec16008bda7a39caecccbf84881c603.diff";
+      url = "https://github.com/ytdl-org/youtube-dl/commit/a0068bd6bec16008bda7a39caecccbf84881c603.diff";
       sha256 = "sha256-tSuEns4jputa2nOOo6JsFXpK3hvJ/+z1/ymcLsd3A6w=";
     })
   ];
@@ -100,8 +97,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://ytdl-org.github.io/youtube-dl/";
-    description =
-      "Command-line tool to download videos from YouTube.com and other sites";
+    description = "Command-line tool to download videos from YouTube.com and other sites";
     longDescription = ''
       youtube-dl is a small, Python-based command-line program to download
       videos from YouTube.com and a few more sites.  youtube-dl is released to

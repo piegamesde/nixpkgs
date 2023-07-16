@@ -35,8 +35,7 @@ rustPlatform.buildRustPackage rec {
   passthru.tests = { inherit (nixosTests) podman; };
 
   meta = with lib; {
-    changelog =
-      "https://github.com/containers/netavark/releases/tag/${src.rev}";
+    changelog = "https://github.com/containers/netavark/releases/tag/${src.rev}";
     description = "Rust based network stack for containers";
     homepage = "https://github.com/containers/netavark";
     license = licenses.asl20;

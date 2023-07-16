@@ -171,20 +171,19 @@ rec {
             (
               name:
               let
-                escapedName =
-                  ''
-                    "${
-                      replaceStrings
-                        [
-                          ''"''
-                          "\\"
-                        ]
-                        [
-                          ''\"''
-                          "\\\\"
-                        ]
-                        name
-                    }"'';
+                escapedName = ''
+                  "${
+                    replaceStrings
+                      [
+                        ''"''
+                        "\\"
+                      ]
+                      [
+                        ''\"''
+                        "\\\\"
+                      ]
+                      name
+                  }"'';
               in
               recurse (prefix + "." + escapedName) item.${name}
             )

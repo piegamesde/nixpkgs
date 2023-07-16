@@ -15,14 +15,12 @@ stdenv.mkDerivation rec {
   src =
     if stdenv.hostPlatform.system == "i686-linux" then
       (fetchurl {
-        url =
-          "http://www.scmmicro.com/support/download/scmccid_${version}_linux.tar.gz";
+        url = "http://www.scmmicro.com/support/download/scmccid_${version}_linux.tar.gz";
         sha256 = "1r5wkarhzl09ncgj55baizf573czw0nplh1pgddzx9xck66kh5bm";
       })
     else if stdenv.hostPlatform.system == "x86_64-linux" then
       (fetchurl {
-        url =
-          "http://www.scmmicro.com/support/download/scmccid_${version}_linux_x64.tar.gz";
+        url = "http://www.scmmicro.com/support/download/scmccid_${version}_linux_x64.tar.gz";
         sha256 = "0k9lzlk01sl4ycfqgrqqy3bildz0mcr1r0kkicgjz96l4s0jgz0i";
       })
     else
@@ -45,10 +43,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage =
-      "http://www.scmmicro.com/support/pc-security-support/downloads.html";
-    description =
-      "PCSC drivers for linux, for the SCM SCR3310 v2.0 card and others";
+    homepage = "http://www.scmmicro.com/support/pc-security-support/downloads.html";
+    description = "PCSC drivers for linux, for the SCM SCR3310 v2.0 card and others";
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.unfree;
     maintainers = with lib.maintainers; [ viric ];

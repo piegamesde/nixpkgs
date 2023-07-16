@@ -192,8 +192,7 @@ in
 
       serviceConfig = {
         Type = "forking";
-        ExecStart =
-          "${pkgs.fcron}/sbin/fcron -m ${
+        ExecStart = "${pkgs.fcron}/sbin/fcron -m ${
             toString cfg.maxSerialJobs
           } ${queuelen}";
       };

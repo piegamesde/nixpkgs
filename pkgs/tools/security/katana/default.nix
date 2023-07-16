@@ -24,8 +24,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "A next-generation crawling and spidering framework";
     homepage = "https://github.com/projectdiscovery/katana";
-    changelog =
-      "https://github.com/projectdiscovery/katana/releases/tag/v${version}";
+    changelog = "https://github.com/projectdiscovery/katana/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ dit7ya ];
   };

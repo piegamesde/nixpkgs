@@ -99,8 +99,7 @@ stdenv.mkDerivation rec {
   passthru.providedSessions = [ "budgie-desktop" ];
 
   meta = with lib; {
-    description =
-      "A feature-rich, modern desktop designed to keep out the way of the user";
+    description = "A feature-rich, modern desktop designed to keep out the way of the user";
     homepage = "https://github.com/BuddiesOfBudgie/budgie-desktop";
     platforms = platforms.linux;
     maintainers = [ maintainers.federicoschonborn ];

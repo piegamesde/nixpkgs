@@ -26,8 +26,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A runner for `mdbooks` to keep your documentation tested";
     homepage = "https://github.com/Byron/termbook/";
-    changelog =
-      "https://github.com/Byron/termbook/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/Byron/termbook/blob/${src.rev}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ phaer ];
   };

@@ -66,8 +66,7 @@ stdenv.mkDerivation rec {
   version = "1.0.42";
 
   src = fetchurl {
-    url =
-      "https://downloads.uclibc-ng.org/releases/${version}/uClibc-ng-${version}.tar.xz";
+    url = "https://downloads.uclibc-ng.org/releases/${version}/uClibc-ng-${version}.tar.xz";
     sha256 = "sha256-7G2uRM6GVYiF5WvDvva9TQgjlxFObh/BV5X3HoBNcBY=";
   };
 

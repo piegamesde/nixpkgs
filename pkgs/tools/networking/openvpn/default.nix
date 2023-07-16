@@ -37,8 +37,7 @@ let
       inherit version;
 
       src = fetchurl {
-        url =
-          "https://swupdate.openvpn.net/community/releases/${pname}-${version}.tar.gz";
+        url = "https://swupdate.openvpn.net/community/releases/${pname}-${version}.tar.gz";
         inherit sha256;
       };
 

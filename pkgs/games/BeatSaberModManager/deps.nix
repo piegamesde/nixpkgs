@@ -9,8 +9,7 @@
     pname = "Avalonia";
     version = "11.0.999-cibuild0030643-beta";
     sha256 = "0bcc3h5hxy8mfkgxn07vnnq2rn8whn2gx3d67lmlpm01r16rndyc";
-    url =
-      "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia/11.0.999-cibuild0030643-beta/avalonia.11.0.999-cibuild0030643-beta.nupkg";
+    url = "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia/11.0.999-cibuild0030643-beta/avalonia.11.0.999-cibuild0030643-beta.nupkg";
   })
   (fetchNuGet {
     pname = "Avalonia.Angle.Windows.Natives";
@@ -21,92 +20,79 @@
     pname = "Avalonia.Controls.ColorPicker";
     version = "11.0.999-cibuild0030643-beta";
     sha256 = "06n0c8dyh1q4a97nm31vyr8b6jzcq8nvvligwzp4xaxdwhkphg2x";
-    url =
-      "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.controls.colorpicker/11.0.999-cibuild0030643-beta/avalonia.controls.colorpicker.11.0.999-cibuild0030643-beta.nupkg";
+    url = "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.controls.colorpicker/11.0.999-cibuild0030643-beta/avalonia.controls.colorpicker.11.0.999-cibuild0030643-beta.nupkg";
   })
   (fetchNuGet {
     pname = "Avalonia.Controls.DataGrid";
     version = "11.0.999-cibuild0030643-beta";
     sha256 = "1vfkbjy9fl24i6skn02wgr047579x4a1liiw79qwbkx7mgvw9pvn";
-    url =
-      "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.controls.datagrid/11.0.999-cibuild0030643-beta/avalonia.controls.datagrid.11.0.999-cibuild0030643-beta.nupkg";
+    url = "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.controls.datagrid/11.0.999-cibuild0030643-beta/avalonia.controls.datagrid.11.0.999-cibuild0030643-beta.nupkg";
   })
   (fetchNuGet {
     pname = "Avalonia.Desktop";
     version = "11.0.999-cibuild0030643-beta";
     sha256 = "0nh6hdw07hwq92n0m1sx7qxwp4ccqash5f8sivj3lflx786s9i5f";
-    url =
-      "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.desktop/11.0.999-cibuild0030643-beta/avalonia.desktop.11.0.999-cibuild0030643-beta.nupkg";
+    url = "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.desktop/11.0.999-cibuild0030643-beta/avalonia.desktop.11.0.999-cibuild0030643-beta.nupkg";
   })
   (fetchNuGet {
     pname = "Avalonia.Diagnostics";
     version = "11.0.999-cibuild0030643-beta";
     sha256 = "0ddcq2w54cywpzcwb9av54zkblvpnp0g7xs4dsw6s39wrxyh8spw";
-    url =
-      "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.diagnostics/11.0.999-cibuild0030643-beta/avalonia.diagnostics.11.0.999-cibuild0030643-beta.nupkg";
+    url = "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.diagnostics/11.0.999-cibuild0030643-beta/avalonia.diagnostics.11.0.999-cibuild0030643-beta.nupkg";
   })
   (fetchNuGet {
     pname = "Avalonia.FreeDesktop";
     version = "11.0.999-cibuild0030643-beta";
     sha256 = "1wshqaikd1b2a91yixgsnvl8i1arhmlviavjywi67a2w1xv98das";
-    url =
-      "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.freedesktop/11.0.999-cibuild0030643-beta/avalonia.freedesktop.11.0.999-cibuild0030643-beta.nupkg";
+    url = "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.freedesktop/11.0.999-cibuild0030643-beta/avalonia.freedesktop.11.0.999-cibuild0030643-beta.nupkg";
   })
   (fetchNuGet {
     pname = "Avalonia.Native";
     version = "11.0.999-cibuild0030643-beta";
     sha256 = "10pp6lh5hlcfs3xrqg1rv7xkckkpnbvdvx0ndfqgpfqxyv99jdhd";
-    url =
-      "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.native/11.0.999-cibuild0030643-beta/avalonia.native.11.0.999-cibuild0030643-beta.nupkg";
+    url = "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.native/11.0.999-cibuild0030643-beta/avalonia.native.11.0.999-cibuild0030643-beta.nupkg";
   })
   (fetchNuGet {
     pname = "Avalonia.ReactiveUI";
     version = "11.0.999-cibuild0030643-beta";
     sha256 = "1pl35gkpc36hydd350ch6iilyfngbg8wxw3vkx5a971761lqrgbz";
-    url =
-      "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.reactiveui/11.0.999-cibuild0030643-beta/avalonia.reactiveui.11.0.999-cibuild0030643-beta.nupkg";
+    url = "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.reactiveui/11.0.999-cibuild0030643-beta/avalonia.reactiveui.11.0.999-cibuild0030643-beta.nupkg";
   })
   (fetchNuGet {
     pname = "Avalonia.Remote.Protocol";
     version = "11.0.999-cibuild0030643-beta";
     sha256 = "179l5w9j2hy683fhxi25q98sfgz03l48qj8mgg1asjjpqcbybgh2";
-    url =
-      "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.remote.protocol/11.0.999-cibuild0030643-beta/avalonia.remote.protocol.11.0.999-cibuild0030643-beta.nupkg";
+    url = "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.remote.protocol/11.0.999-cibuild0030643-beta/avalonia.remote.protocol.11.0.999-cibuild0030643-beta.nupkg";
   })
   (fetchNuGet {
     pname = "Avalonia.Skia";
     version = "11.0.999-cibuild0030643-beta";
     sha256 = "0fvc83phdjxhfg3pndr7j178i2km5wjbm1xiplh4bvg6pwa2xypz";
-    url =
-      "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.skia/11.0.999-cibuild0030643-beta/avalonia.skia.11.0.999-cibuild0030643-beta.nupkg";
+    url = "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.skia/11.0.999-cibuild0030643-beta/avalonia.skia.11.0.999-cibuild0030643-beta.nupkg";
   })
   (fetchNuGet {
     pname = "Avalonia.Themes.Fluent";
     version = "11.0.999-cibuild0030643-beta";
     sha256 = "1ch7v19xpg4nkq2aqap82sd237735g5nrp06h1i0m83kks4xz6as";
-    url =
-      "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.themes.fluent/11.0.999-cibuild0030643-beta/avalonia.themes.fluent.11.0.999-cibuild0030643-beta.nupkg";
+    url = "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.themes.fluent/11.0.999-cibuild0030643-beta/avalonia.themes.fluent.11.0.999-cibuild0030643-beta.nupkg";
   })
   (fetchNuGet {
     pname = "Avalonia.Themes.Simple";
     version = "11.0.999-cibuild0030643-beta";
     sha256 = "0aify5nh31bf347k4s4d5c36mhh6yc6q4l6araq3fxb05v4pb5c0";
-    url =
-      "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.themes.simple/11.0.999-cibuild0030643-beta/avalonia.themes.simple.11.0.999-cibuild0030643-beta.nupkg";
+    url = "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.themes.simple/11.0.999-cibuild0030643-beta/avalonia.themes.simple.11.0.999-cibuild0030643-beta.nupkg";
   })
   (fetchNuGet {
     pname = "Avalonia.Win32";
     version = "11.0.999-cibuild0030643-beta";
     sha256 = "1b86hlr25w8i3hdxxxb9qrbaf91d56vmiwm5ikywglk28c9x8zyq";
-    url =
-      "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.win32/11.0.999-cibuild0030643-beta/avalonia.win32.11.0.999-cibuild0030643-beta.nupkg";
+    url = "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.win32/11.0.999-cibuild0030643-beta/avalonia.win32.11.0.999-cibuild0030643-beta.nupkg";
   })
   (fetchNuGet {
     pname = "Avalonia.X11";
     version = "11.0.999-cibuild0030643-beta";
     sha256 = "15pcbv0hw099080s2ndi7cqm3gnyzcvva3jgp8z33g4h8qaiiyvn";
-    url =
-      "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.x11/11.0.999-cibuild0030643-beta/avalonia.x11.11.0.999-cibuild0030643-beta.nupkg";
+    url = "https://pkgs.dev.azure.com/AvaloniaUI/aa84306f-2981-47b9-8206-edb3bed6250d/_packaging/5ebc1fbc-7d49-4641-8a57-d18c55ed6602/nuget/v3/flat2/avalonia.x11/11.0.999-cibuild0030643-beta/avalonia.x11.11.0.999-cibuild0030643-beta.nupkg";
   })
   (fetchNuGet {
     pname = "Devlooped.SponsorLink";

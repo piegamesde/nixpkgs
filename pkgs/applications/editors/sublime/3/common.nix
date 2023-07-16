@@ -40,10 +40,8 @@ let
     "sublime"
     "sublime3"
   ];
-  downloadUrl =
-    "https://download.sublimetext.com/sublime_text_3_build_${buildVersion}_${arch}.tar.bz2";
-  versionUrl =
-    "https://download.sublimetext.com/latest/${
+  downloadUrl = "https://download.sublimetext.com/sublime_text_3_build_${buildVersion}_${arch}.tar.bz2";
+  versionUrl = "https://download.sublimetext.com/latest/${
       if dev then "dev" else "stable"
     }";
   versionFile = builtins.toString ./packages.nix;

@@ -34,8 +34,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/xmlrunner/unittest-xml-reporting";
-    description =
-      "unittest-based test runner with Ant/JUnit like XML reporting";
+    description = "unittest-based test runner with Ant/JUnit like XML reporting";
     license = licenses.bsd2;
     maintainers = with maintainers; [
       rprospero

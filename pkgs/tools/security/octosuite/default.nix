@@ -36,8 +36,7 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Advanced Github OSINT framework";
     homepage = "https://github.com/bellingcat/octosuite";
-    changelog =
-      "https://github.com/bellingcat/octosuite/releases/tag/${version}";
+    changelog = "https://github.com/bellingcat/octosuite/releases/tag/${version}";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ fab ];
   };

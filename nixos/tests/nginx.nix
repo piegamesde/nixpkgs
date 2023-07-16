@@ -80,8 +80,7 @@ import ./make-test-python.nix (
 
           specialisation.reloadWithErrorsSystem.configuration = {
             services.nginx.package = pkgs.nginxMainline;
-            services.nginx.virtualHosts."!@$$(#*%".locations."~@#*$*!)".proxyPass =
-              ";;;";
+            services.nginx.virtualHosts."!@$$(#*%".locations."~@#*$*!)".proxyPass = ";;;";
           };
         }
       ;
@@ -93,14 +92,10 @@ import ./make-test-python.nix (
         ...
       }:
       let
-        etagSystem =
-          "${nodes.webserver.system.build.toplevel}/specialisation/etagSystem";
-        justReloadSystem =
-          "${nodes.webserver.system.build.toplevel}/specialisation/justReloadSystem";
-        reloadRestartSystem =
-          "${nodes.webserver.system.build.toplevel}/specialisation/reloadRestartSystem";
-        reloadWithErrorsSystem =
-          "${nodes.webserver.system.build.toplevel}/specialisation/reloadWithErrorsSystem";
+        etagSystem = "${nodes.webserver.system.build.toplevel}/specialisation/etagSystem";
+        justReloadSystem = "${nodes.webserver.system.build.toplevel}/specialisation/justReloadSystem";
+        reloadRestartSystem = "${nodes.webserver.system.build.toplevel}/specialisation/reloadRestartSystem";
+        reloadWithErrorsSystem = "${nodes.webserver.system.build.toplevel}/specialisation/reloadWithErrorsSystem";
       in
       ''
         url = "http://localhost/index.html"

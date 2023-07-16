@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
   # few additional steps and might not be the best idea.)
 
   src = fetchurl {
-    url =
-      "https://updates.signal.org/desktop/apt/pool/main/s/${pname}/${pname}_${version}_amd64.deb";
+    url = "https://updates.signal.org/desktop/apt/pool/main/s/${pname}/${pname}_${version}_amd64.deb";
     inherit hash;
   };
 
@@ -176,8 +175,7 @@ stdenv.mkDerivation rec {
       "Signal Android" or "Signal iOS" app.
     '';
     homepage = "https://signal.org/";
-    changelog =
-      "https://github.com/signalapp/Signal-Desktop/releases/tag/v${version}";
+    changelog = "https://github.com/signalapp/Signal-Desktop/releases/tag/v${version}";
     license = lib.licenses.agpl3Only;
     maintainers = with lib.maintainers; [
       mic92

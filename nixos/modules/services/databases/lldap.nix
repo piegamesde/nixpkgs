@@ -112,8 +112,7 @@ in
             type = types.str;
             description = mdDoc "Database URL.";
             default = "sqlite://./users.db?mode=rwc";
-            example =
-              "postgres://postgres-user:password@postgres-server/my-database";
+            example = "postgres://postgres-user:password@postgres-server/my-database";
           };
         };
       };
@@ -126,8 +125,7 @@ in
       after = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart =
-          "${lib.getExe cfg.package} run --config-file ${
+        ExecStart = "${lib.getExe cfg.package} run --config-file ${
             format.generate "lldap_config.toml" cfg.settings
           }";
         StateDirectory = "lldap";

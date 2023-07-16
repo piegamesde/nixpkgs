@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
       in accordance with the libva project.
     '';
     homepage = "https://github.com/intel/libva-utils";
-    changelog =
-      "https://raw.githubusercontent.com/intel/libva-utils/${version}/NEWS";
+    changelog = "https://raw.githubusercontent.com/intel/libva-utils/${version}/NEWS";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];
     platforms = platforms.unix;

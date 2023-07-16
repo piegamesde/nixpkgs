@@ -29,16 +29,14 @@ buildPerlPackage rec {
   pname = "po4a";
   version = "0.62";
   src = fetchurl {
-    url =
-      "https://github.com/mquinson/po4a/releases/download/v${version}/po4a-${version}.tar.gz";
+    url = "https://github.com/mquinson/po4a/releases/download/v${version}/po4a-${version}.tar.gz";
     sha256 = "0eb510a66f59de68cf7a205342036cc9fc08b39334b91f1456421a5f3359e68b";
   };
   patches = [
     (fetchpatch {
       # make devdoc output reproducible
       # https://github.com/mquinson/po4a/pull/387
-      url =
-        "https://github.com/mquinson/po4a/commit/df7433b58f6570558d44b6aac885c2a8f7862e51.patch";
+      url = "https://github.com/mquinson/po4a/commit/df7433b58f6570558d44b6aac885c2a8f7862e51.patch";
       sha256 = "9MVkYiItR2P3PBCUc4OhEOUHQuLqTWUYtYlZ3L8miC8=";
     })
   ];
@@ -84,9 +82,8 @@ buildPerlPackage rec {
     touch Makefile.PL
     export PERL_MB_OPT="--install_base=$out --prefix=$out"
   '';
-  buildPhase =
-    ''
-      perl Build.PL --install_base=$out --install_path="lib=$out/${perl.libPrefix}"; ./Build build'';
+  buildPhase = ''
+    perl Build.PL --install_base=$out --install_path="lib=$out/${perl.libPrefix}"; ./Build build'';
 
   # Disabling tests on musl
   # Void linux package have investigated the failure and tracked it down to differences in gettext behavior. They decided to disable tests.

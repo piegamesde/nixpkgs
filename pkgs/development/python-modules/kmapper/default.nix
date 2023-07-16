@@ -42,8 +42,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Python implementation of Mapper algorithm for Topological Data Analysis";
+    description = "Python implementation of Mapper algorithm for Topological Data Analysis";
     homepage = "https://kepler-mapper.scikit-tda.org/";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];

@@ -34,8 +34,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A Python library for generating dbus-python client code";
     homepage = "https://github.com/stratis-storage/dbus-python-client-gen";
-    changelog =
-      "https://github.com/stratis-storage/dbus-python-client-gen/blob/v${version}/CHANGES.txt";
+    changelog = "https://github.com/stratis-storage/dbus-python-client-gen/blob/v${version}/CHANGES.txt";
     license = licenses.mpl20;
     maintainers = with maintainers; [ nickcao ];
   };

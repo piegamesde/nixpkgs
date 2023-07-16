@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
     [
       # gcc11 header fix
       (fetchpatch {
-        url =
-          "https://github.com/asmaloney/libE57Format/commit/13f6a16394ce3eb50ea4cd21f31f77f53294e8d0.patch";
+        url = "https://github.com/asmaloney/libE57Format/commit/13f6a16394ce3eb50ea4cd21f31f77f53294e8d0.patch";
         sha256 = "sha256-4vVhKrCxnWO106DSAk+xxo4uk6zC89m9VQAPaDJ8Ed4=";
       })
     ];

@@ -29,8 +29,7 @@ buildPythonPackage rec {
       # Convert @asyncio.coroutine to async def, https://github.com/syrusakbary/promise/pull/99
       (fetchpatch {
         name = "use-async-def.patch";
-        url =
-          "https://github.com/syrusakbary/promise/commit/3cde549d30b38dcff81b308e18c7f61783003791.patch";
+        url = "https://github.com/syrusakbary/promise/commit/3cde549d30b38dcff81b308e18c7f61783003791.patch";
         hash = "sha256-XCbTo6RCv75nNrpbK3TFdV0h7tBJ0QK+WOAR8S8w9as=";
       })
     ];
@@ -55,8 +54,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Ultra-performant Promise implementation in Python";
     homepage = "https://github.com/syrusakbary/promise";
-    changelog =
-      "https://github.com/syrusakbary/promise/releases/tag/v${version}";
+    changelog = "https://github.com/syrusakbary/promise/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ kamadorueda ];
   };

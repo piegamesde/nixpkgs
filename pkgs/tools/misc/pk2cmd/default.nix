@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
   pname = "pk2cmd";
   version = "1.20";
   src = fetchurl {
-    url =
-      "https://ww1.microchip.com/downloads/en/DeviceDoc/pk2cmdv${version}LinuxMacSource.tar.gz";
+    url = "https://ww1.microchip.com/downloads/en/DeviceDoc/pk2cmdv${version}LinuxMacSource.tar.gz";
     sha256 = "1yjpi2qshnqfpan4w3ggakkr3znfrx5cxkny92ka7v9na3g2fc4h";
   };
 
@@ -33,7 +32,6 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://www.microchip.com/pickit2";
     license = lib.licenses.unfree; # MicroChip-PK2
-    description =
-      "Microchip PIC programming software for the PICKit2 programmer";
+    description = "Microchip PIC programming software for the PICKit2 programmer";
   };
 }

@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
       on them, and libliftoff will pick planes for these layers if possible.
     '';
     inherit (src.meta) homepage;
-    changelog =
-      "https://github.com/emersion/libliftoff/releases/tag/v${version}";
+    changelog = "https://github.com/emersion/libliftoff/releases/tag/v${version}";
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [

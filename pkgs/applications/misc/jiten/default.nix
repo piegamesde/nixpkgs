@@ -63,8 +63,7 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description =
-      "Japanese android/cli/web dictionary based on jmdict/kanjidic";
+    description = "Japanese android/cli/web dictionary based on jmdict/kanjidic";
     longDescription = ''
       Jiten is a Japanese dictionary based on JMDict/Kanjidic
 

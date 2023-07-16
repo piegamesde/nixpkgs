@@ -134,10 +134,8 @@ let
                 # the PR is 8 commits from 2019, so just fetch the whole thing
                 # and hope it doesn't change
                 (fetchpatch {
-                  url =
-                    "https://github.com/crystal-lang/crystal/pull/11399.patch";
-                  sha256 =
-                    "sha256-CjNpkQQ2UREADmlyLUt7zbhjXf0rTjFhNbFYLwJKkc8=";
+                  url = "https://github.com/crystal-lang/crystal/pull/11399.patch";
+                  sha256 = "sha256-CjNpkQQ2UREADmlyLUt7zbhjXf0rTjFhNbFYLwJKkc8=";
                 })
               ]
             ;
@@ -314,8 +312,7 @@ let
 
             meta = with lib; {
               inherit (binary.meta) platforms;
-              description =
-                "A compiled language with Ruby like syntax and type inference";
+              description = "A compiled language with Ruby like syntax and type inference";
               homepage = "https://crystal-lang.org/";
               license = licenses.asl20;
               maintainers = with maintainers; [

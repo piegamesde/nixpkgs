@@ -55,8 +55,7 @@ let
         }
       ];
     }).config;
-  image =
-    "${imageCfg.system.build.amazonImage}/${imageCfg.amazonImage.name}.vhd";
+  image = "${imageCfg.system.build.amazonImage}/${imageCfg.amazonImage.name}.vhd";
 
   sshKeys = import ./ssh-keys.nix pkgs;
   snakeOilPrivateKey = sshKeys.snakeOilPrivateKey.text;

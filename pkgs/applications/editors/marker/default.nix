@@ -48,7 +48,6 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ trepetti ];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    changelog =
-      "https://github.com/fabiocolacio/Marker/releases/tag/${version}";
+    changelog = "https://github.com/fabiocolacio/Marker/releases/tag/${version}";
   };
 }

@@ -118,8 +118,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Multi-Joint dynamics with Contact. A general purpose physics simulator.";
+    description = "Multi-Joint dynamics with Contact. A general purpose physics simulator.";
     homepage = "https://mujoco.org/";
     license = licenses.asl20;
     maintainers = with maintainers; [ samuela ];

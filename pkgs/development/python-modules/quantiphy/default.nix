@@ -47,8 +47,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module for physical quantities (numbers with units)";
     homepage = "https://quantiphy.readthedocs.io";
-    changelog =
-      "https://github.com/KenKundert/quantiphy/releases/tag/v${version}";
+    changelog = "https://github.com/KenKundert/quantiphy/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ jpetrucciani ];
   };

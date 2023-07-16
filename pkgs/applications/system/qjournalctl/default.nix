@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Qt-based graphical user interface for systemd's journalctl command";
+    description = "Qt-based graphical user interface for systemd's journalctl command";
     homepage = "https://github.com/pentix/qjournalctl";
     license = licenses.gpl3Only;
     platforms = platforms.all;

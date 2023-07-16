@@ -74,8 +74,7 @@ buildPythonPackage rec {
     ];
 
   meta = with lib; {
-    description =
-      "Gremlin-Python implements Gremlin, the graph traversal language of Apache TinkerPop, within the Python language";
+    description = "Gremlin-Python implements Gremlin, the graph traversal language of Apache TinkerPop, within the Python language";
     homepage = "https://tinkerpop.apache.org/";
     license = licenses.asl20;
     maintainers = with maintainers; [

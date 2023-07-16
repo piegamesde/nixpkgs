@@ -112,11 +112,9 @@ stdenv.mkDerivation (
     ];
 
     meta = with lib; {
-      description =
-        "A graphical tool for developing on containers and Kubernetes";
+      description = "A graphical tool for developing on containers and Kubernetes";
       homepage = "https://podman-desktop.io";
-      changelog =
-        "https://github.com/containers/podman-desktop/releases/tag/v${finalAttrs.version}";
+      changelog = "https://github.com/containers/podman-desktop/releases/tag/v${finalAttrs.version}";
       license = licenses.asl20;
       maintainers = with maintainers; [ panda2134 ];
       inherit (electron.meta) platforms;

@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    changelog =
-      "https://github.com/romkatv/powerlevel10k/releases/tag/v${version}";
+    changelog = "https://github.com/romkatv/powerlevel10k/releases/tag/v${version}";
     description = "A fast reimplementation of Powerlevel9k ZSH theme";
     homepage = "https://github.com/romkatv/powerlevel10k";
     license = lib.licenses.mit;

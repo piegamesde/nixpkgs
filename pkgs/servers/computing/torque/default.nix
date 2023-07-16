@@ -92,8 +92,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://www.adaptivecomputing.com/products/open-source/torque";
-    description =
-      "Resource management system for submitting and controlling jobs on supercomputers, clusters, and grids";
+    description = "Resource management system for submitting and controlling jobs on supercomputers, clusters, and grids";
     platforms = platforms.linux;
     license = "TORQUEv1.1";
   };

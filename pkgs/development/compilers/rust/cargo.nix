@@ -145,8 +145,7 @@ rustPlatform.buildRustPackage.override
 
       meta = with lib; {
         homepage = "https://crates.io";
-        description =
-          "Downloads your Rust project's dependencies and builds your project";
+        description = "Downloads your Rust project's dependencies and builds your project";
         maintainers = teams.rust.members;
         license = [
           licenses.mit

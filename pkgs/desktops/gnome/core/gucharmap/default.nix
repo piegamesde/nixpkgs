@@ -111,8 +111,7 @@ stdenv.mkDerivation rec {
   passthru = { updateScript = gitUpdater { }; };
 
   meta = with lib; {
-    description =
-      "GNOME Character Map, based on the Unicode Character Database";
+    description = "GNOME Character Map, based on the Unicode Character Database";
     homepage = "https://wiki.gnome.org/Apps/Gucharmap";
     license = licenses.gpl3;
     maintainers = teams.gnome.members;

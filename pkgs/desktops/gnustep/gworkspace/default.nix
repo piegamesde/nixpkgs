@@ -12,8 +12,7 @@ in
 gsmakeDerivation {
   name = "gworkspace-${version}";
   src = fetchurl {
-    url =
-      "ftp://ftp.gnustep.org/pub/gnustep/usr-apps/gworkspace-${version}.tar.gz";
+    url = "ftp://ftp.gnustep.org/pub/gnustep/usr-apps/gworkspace-${version}.tar.gz";
     sha256 = "sha256-M7dV7RVatw8gdYHQlRi5wNBd6MGT9GqW04R/DoKNu6I=";
   };
   # additional dependencies:

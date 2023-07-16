@@ -17,8 +17,7 @@ in
 stdenv.mkDerivation rec {
   pname = "global-platform-pro";
   version = "18.09.14";
-  GPPRO_VERSION =
-    "18.09.14-0-gb439b52"; # git describe --tags --always --long --dirty
+  GPPRO_VERSION = "18.09.14-0-gb439b52"; # git describe --tags --always --long --dirty
 
   src = fetchFromGitHub {
     owner = "martinpaljak";
@@ -72,8 +71,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Command-line utility for managing applets and keys on Java Cards";
+    description = "Command-line utility for managing applets and keys on Java Cards";
     longDescription = ''
       This command-line utility can be used to manage applets and keys
       on Java Cards. It is made available as the `gp` executable.

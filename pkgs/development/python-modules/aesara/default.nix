@@ -89,11 +89,9 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Python library to define, optimize, and efficiently evaluate mathematical expressions involving multi-dimensional arrays";
+    description = "Python library to define, optimize, and efficiently evaluate mathematical expressions involving multi-dimensional arrays";
     homepage = "https://github.com/aesara-devs/aesara";
-    changelog =
-      "https://github.com/aesara-devs/aesara/releases/tag/rel-${version}";
+    changelog = "https://github.com/aesara-devs/aesara/releases/tag/rel-${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ Etjean ];
     broken = (stdenv.isLinux && stdenv.isAarch64);

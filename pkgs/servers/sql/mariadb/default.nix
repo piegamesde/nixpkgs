@@ -79,8 +79,7 @@ let
         inherit version;
 
         src = fetchurl {
-          url =
-            "https://downloads.mariadb.com/MariaDB/mariadb-${version}/source/mariadb-${version}.tar.gz";
+          url = "https://downloads.mariadb.com/MariaDB/mariadb-${version}/source/mariadb-${version}.tar.gz";
           inherit hash;
         };
 
@@ -234,8 +233,7 @@ let
 
         passthru.tests =
           let
-            testVersion =
-              "mariadb_${
+            testVersion = "mariadb_${
                 builtins.replaceStrings [ "." ] [ "" ] (
                   lib.versions.majorMinor version
                 )

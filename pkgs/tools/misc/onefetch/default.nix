@@ -67,8 +67,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Git repository summary on your terminal";
     homepage = "https://github.com/o2sh/onefetch";
-    changelog =
-      "https://github.com/o2sh/onefetch/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/o2sh/onefetch/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [
       Br1ght0ne

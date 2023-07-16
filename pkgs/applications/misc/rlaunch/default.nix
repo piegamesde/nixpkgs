@@ -24,8 +24,7 @@ rustPlatform.buildRustPackage rec {
       # Fixes "error[E0308]: mismatched types; expected `u8`, found `i8`" on aarch64
       # Remove with next version update
       (fetchpatch {
-        url =
-          "https://github.com/PonasKovas/rlaunch/commit/f78f36876bba45fe4e7310f58086ddc63f27a57e.patch";
+        url = "https://github.com/PonasKovas/rlaunch/commit/f78f36876bba45fe4e7310f58086ddc63f27a57e.patch";
         hash = "sha256-rTS1khw1zt3i1AJ11BhAILcmaohAwVc7Qfl6Fc76Kvs=";
       })
     ];

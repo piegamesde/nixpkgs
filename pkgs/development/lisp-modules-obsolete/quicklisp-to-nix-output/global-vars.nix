@@ -12,8 +12,7 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/global-vars/2014-11-06/global-vars-20141106-git.tgz";
+    url = "http://beta.quicklisp.org/archive/global-vars/2014-11-06/global-vars-20141106-git.tgz";
     sha256 = "0bjgmsifs9vrq409rfrsgrhlxwklvls1dpvh2d706i0incxq957j";
   };
 

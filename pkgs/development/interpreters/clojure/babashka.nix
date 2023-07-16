@@ -12,8 +12,7 @@ buildGraalvmNativeImage rec {
   version = "1.3.179";
 
   src = fetchurl {
-    url =
-      "https://github.com/babashka/${pname}/releases/download/v${version}/${pname}-${version}-standalone.jar";
+    url = "https://github.com/babashka/${pname}/releases/download/v${version}/${pname}-${version}-standalone.jar";
     sha256 = "sha256-tF+SqKY7tcJvmOATVwKIZemR2A3eqrbhvSBvr7tcq5U=";
   };
 
@@ -85,8 +84,7 @@ buildGraalvmNativeImage rec {
       - Library support via popular tools like the clojure CLI
     '';
     homepage = "https://github.com/babashka/babashka";
-    changelog =
-      "https://github.com/babashka/babashka/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/babashka/babashka/blob/v${version}/CHANGELOG.md";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.epl10;
     maintainers = with maintainers; [

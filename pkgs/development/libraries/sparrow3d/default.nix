@@ -95,8 +95,7 @@ stdenv.mkDerivation (
 
     meta = {
       homepage = "https://github.com/theZiz/sparrow3d";
-      description =
-        "A software renderer for different open handhelds like the gp2x, wiz, caanoo and pandora";
+      description = "A software renderer for different open handhelds like the gp2x, wiz, caanoo and pandora";
       license = lib.licenses.lgpl21;
       maintainers = with lib.maintainers; [ colinsane ];
       platforms = lib.platforms.linux;

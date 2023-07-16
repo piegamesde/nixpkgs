@@ -40,8 +40,7 @@ stdenv.mkDerivation (
     ];
 
     meta = with lib; {
-      description =
-        "A c/c++ network library for developing TCP/UDP/SSL/HTTP/WebSocket/MQTT client/server";
+      description = "A c/c++ network library for developing TCP/UDP/SSL/HTTP/WebSocket/MQTT client/server";
       homepage = "https://github.com/ithewei/libhv";
       license = licenses.bsd3;
       maintainers = with maintainers; [ sikmir ];

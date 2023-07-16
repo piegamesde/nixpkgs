@@ -72,8 +72,7 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/coldfix/udiskie";
-    changelog =
-      "https://github.com/coldfix/udiskie/blob/${src.rev}/CHANGES.rst";
+    changelog = "https://github.com/coldfix/udiskie/blob/${src.rev}/CHANGES.rst";
     description = "Removable disk automounter for udisks";
     longDescription = ''
       udiskie is a udisks2 front-end that allows to manage removeable media such

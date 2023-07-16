@@ -42,8 +42,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Minimalistic, blazing-fast, and extendable prompt for bash and zsh";
+    description = "Minimalistic, blazing-fast, and extendable prompt for bash and zsh";
     homepage = "https://github.com/aaqaishtyaq/iay";
     license = licenses.mit;
     maintainers = with maintainers; [

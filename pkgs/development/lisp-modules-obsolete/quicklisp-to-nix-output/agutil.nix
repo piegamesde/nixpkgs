@@ -7,8 +7,7 @@ rec {
   baseName = "agutil";
   version = "20210531-git";
 
-  description =
-    "A collection of utility functions not found in other utility libraries.";
+  description = "A collection of utility functions not found in other utility libraries.";
 
   deps = [
     args."alexandria"
@@ -17,8 +16,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/agutil/2021-05-31/agutil-20210531-git.tgz";
+    url = "http://beta.quicklisp.org/archive/agutil/2021-05-31/agutil-20210531-git.tgz";
     sha256 = "01shs4qbr0bzmx9134cm84zbh8whbi2s5xngapd2fl8ag1rda9q1";
   };
 

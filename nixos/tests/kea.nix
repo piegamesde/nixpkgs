@@ -181,8 +181,7 @@ import ./make-test-python.nix (
         }:
         {
           virtualisation.vlans = [ 1 ];
-          systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL =
-            "debug";
+          systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL = "debug";
           networking = {
             useNetworkd = true;
             useDHCP = false;

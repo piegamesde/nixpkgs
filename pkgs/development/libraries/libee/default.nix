@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
   version = "0.4.1";
 
   src = fetchurl {
-    url =
-      "http://www.libee.org/download/files/download/libee-${version}.tar.gz";
+    url = "http://www.libee.org/download/files/download/libee-${version}.tar.gz";
     sha256 = "09xhgzmsq0g3jsyj24vy67bhzk2fv971w5ixdkhfwgar70cw1nn0";
   };
 

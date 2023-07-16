@@ -11,8 +11,7 @@ stdenvNoCC.mkDerivation rec {
   version = "8.2.6";
 
   src = fetchurl {
-    url =
-      "https://product-downloads.atlassian.com/software/bamboo/downloads/atlassian-bamboo-${version}.tar.gz";
+    url = "https://product-downloads.atlassian.com/software/bamboo/downloads/atlassian-bamboo-${version}.tar.gz";
     sha256 = "sha256-9TYTXSdGQ7qSqvF25Bn1l5N8NbKndcO8HiJSc4NUois=";
   };
 

@@ -58,8 +58,7 @@ let
 
     meta = with lib; {
       homepage = "https://github.com/GrammarSoft/cg3";
-      description =
-        "Constraint Grammar interpreter, compiler and applicator vislcg3";
+      description = "Constraint Grammar interpreter, compiler and applicator vislcg3";
       maintainers = with maintainers; [ unhammer ];
       license = licenses.gpl3Plus;
       platforms = platforms.all;

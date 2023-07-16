@@ -92,20 +92,17 @@ stdenv.mkDerivation rec {
   patches = [
     # Fix detection of TBB, see https://github.com/prusa3d/PrusaSlicer/issues/6355
     (fetchpatch {
-      url =
-        "https://github.com/prusa3d/PrusaSlicer/commit/76f4d6fa98bda633694b30a6e16d58665a634680.patch";
+      url = "https://github.com/prusa3d/PrusaSlicer/commit/76f4d6fa98bda633694b30a6e16d58665a634680.patch";
       sha256 = "1r806ycp704ckwzgrw1940hh1l6fpz0k1ww3p37jdk6mygv53nv6";
     })
     # Fix compile error with boost 1.79. See https://github.com/prusa3d/PrusaSlicer/issues/8238
     # Can be removed with the next version update
     (fetchpatch {
-      url =
-        "https://github.com/prusa3d/PrusaSlicer/commit/408e56f0390f20aaf793e0aa0c70c4d9544401d4.patch";
+      url = "https://github.com/prusa3d/PrusaSlicer/commit/408e56f0390f20aaf793e0aa0c70c4d9544401d4.patch";
       sha256 = "sha256-vzEPjLE3Yy5szawPn2Yp3i7MceWewpdnLUPVu9+H3W8=";
     })
     (fetchpatch {
-      url =
-        "https://github.com/prusa3d/PrusaSlicer/commit/926ae0471800abd1e5335e251a5934570eb8f6ff.patch";
+      url = "https://github.com/prusa3d/PrusaSlicer/commit/926ae0471800abd1e5335e251a5934570eb8f6ff.patch";
       sha256 = "sha256-tAEgubeGGKFWY7r7p/6pmI2HXUGKi2TM1X5ILVZVT20=";
     })
   ];

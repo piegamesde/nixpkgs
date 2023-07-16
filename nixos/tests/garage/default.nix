@@ -35,8 +35,7 @@ let
 
           rpc_bind_addr = "[::]:3901";
           rpc_public_addr = "[${publicV6Address}]:3901";
-          rpc_secret =
-            "5c1915fa04d0b6739675c61bf5907eb0fe3d9c69850c83820f51b4d25d13868c";
+          rpc_secret = "5c1915fa04d0b6739675c61bf5907eb0fe3d9c69850c83820f51b4d25d13868c";
 
           s3_api = {
             s3_region = "garage";

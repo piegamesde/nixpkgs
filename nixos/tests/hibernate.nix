@@ -25,8 +25,7 @@ let
 
     systemd.services.backdoor.conflicts = [ "sleep.target" ];
 
-    powerManagement.resumeCommands =
-      "systemctl --no-block restart backdoor.service";
+    powerManagement.resumeCommands = "systemctl --no-block restart backdoor.service";
 
     fileSystems."/" = {
       device = "/dev/vda2";

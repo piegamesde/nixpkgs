@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "A secure suspend/hibernate-friendly alternative to `vlock -an`";
+    description = "A secure suspend/hibernate-friendly alternative to `vlock -an`";
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

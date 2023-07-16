@@ -25,8 +25,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Simple but maybe too simple config management through python data classes";
+    description = "Simple but maybe too simple config management through python data classes";
     longDescription = ''
       Simple, light-weight and no dependency config handling through python data classes with to/from JSON serialization/deserialization.
     '';

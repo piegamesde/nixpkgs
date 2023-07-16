@@ -39,8 +39,7 @@ in
       };
       configTemplate = mkOption {
         type = types.path;
-        default =
-          "${config.services.freeswitch.package}/share/freeswitch/conf/vanilla";
+        default = "${config.services.freeswitch.package}/share/freeswitch/conf/vanilla";
         defaultText = literalExpression ''
           "''${config.services.freeswitch.package}/share/freeswitch/conf/vanilla"''
         ;
@@ -90,15 +89,13 @@ in
       wantedBy = [ "multi-user.target" ];
       restartTriggers = [ configDirectory ];
       serviceConfig = {
-        ExecStart =
-          "/run/current-system/systemd/bin/systemctl try-reload-or-restart freeswitch.service";
+        ExecStart = "/run/current-system/systemd/bin/systemctl try-reload-or-restart freeswitch.service";
         RemainAfterExit = true;
         Type = "oneshot";
       };
     };
     systemd.services.freeswitch = {
-      description =
-        "Free and open-source application server for real-time communication";
+      description = "Free and open-source application server for real-time communication";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {

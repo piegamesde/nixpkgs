@@ -40,8 +40,7 @@
 let
   pname = "warzone2100";
   sequences_src = fetchurl {
-    url =
-      "mirror://sourceforge/${pname}/warzone2100/Videos/high-quality-en/sequences.wz";
+    url = "mirror://sourceforge/${pname}/warzone2100/Videos/high-quality-en/sequences.wz";
     sha256 = "90ff552ca4a70e2537e027e22c5098ea4ed1bc11bb7fc94138c6c941a73d29fa";
   };
 in
@@ -51,8 +50,7 @@ stdenv.mkDerivation rec {
   version = "4.3.5";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/${pname}/releases/${version}/${pname}_src.tar.xz";
+    url = "mirror://sourceforge/${pname}/releases/${version}/${pname}_src.tar.xz";
     sha256 = "sha256-AdYI9vljjhTXyFffQK0znBv8IHoF2q/nFXrYZSo0BcM=";
   };
 

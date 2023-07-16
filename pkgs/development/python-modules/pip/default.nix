@@ -54,8 +54,7 @@ buildPythonPackage rec {
     description = "The PyPA recommended tool for installing Python packages";
     license = with lib.licenses; [ mit ];
     homepage = "https://pip.pypa.io/";
-    changelog =
-      "https://pip.pypa.io/en/stable/news/#v${
+    changelog = "https://pip.pypa.io/en/stable/news/#v${
         lib.replaceStrings [ "." ] [ "-" ] version
       }";
     priority = 10;

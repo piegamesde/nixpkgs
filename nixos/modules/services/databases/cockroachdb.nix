@@ -191,8 +191,7 @@ in
   config = mkIf config.services.cockroachdb.enable {
     assertions = [ {
       assertion = !cfg.insecure -> cfg.certsDir != null;
-      message =
-        "CockroachDB must have a set of SSL certificates (.certsDir), or run in Insecure Mode (.insecure = true)";
+      message = "CockroachDB must have a set of SSL certificates (.certsDir), or run in Insecure Mode (.insecure = true)";
     } ];
 
     environment.systemPackages = [ crdb ];

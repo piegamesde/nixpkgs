@@ -28,8 +28,7 @@ buildPythonPackage rec {
   version = "2.45";
 
   src = fetchurl {
-    url =
-      "https://downloads.skewed.de/graph-tool/graph-tool-${version}.tar.bz2";
+    url = "https://downloads.skewed.de/graph-tool/graph-tool-${version}.tar.bz2";
     hash = "sha256-+S2nrM/aArKXke/k8LPtkzKfJyMq9NOvwHySQh7Ghmg=";
   };
 
@@ -67,8 +66,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Python module for manipulation and statistical analysis of graphs";
+    description = "Python module for manipulation and statistical analysis of graphs";
     homepage = "https://graph-tool.skewed.de";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ ];

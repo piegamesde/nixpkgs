@@ -27,8 +27,7 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    description =
-      "Python module for parsing semi-structured text into python tables";
+    description = "Python module for parsing semi-structured text into python tables";
     homepage = "https://github.com/google/textfsm";
     license = licenses.asl20;
     maintainers = with maintainers; [ hexa ];

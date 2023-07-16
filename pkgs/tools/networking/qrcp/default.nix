@@ -32,8 +32,7 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://claudiodangelis.com/qrcp/";
-    description =
-      "Transfer files over wifi by scanning a QR code from your terminal";
+    description = "Transfer files over wifi by scanning a QR code from your terminal";
     longDescription = ''
       qrcp binds a web server to the address of your Wi-Fi network
       interface on a random port and creates a handler for it. The default

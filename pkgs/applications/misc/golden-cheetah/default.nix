@@ -103,8 +103,7 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Performance software for cyclists, runners and triathletes. Built from source and without API tokens";
+    description = "Performance software for cyclists, runners and triathletes. Built from source and without API tokens";
     platforms = platforms.linux;
     maintainers = with maintainers; [ adamcstephens ];
     license = licenses.gpl2Plus;

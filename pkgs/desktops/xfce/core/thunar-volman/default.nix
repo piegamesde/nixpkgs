@@ -28,8 +28,7 @@ mkXfceDerivation {
   odd-unstable = false;
 
   meta = with lib; {
-    description =
-      "Thunar extension for automatic management of removable drives and media";
+    description = "Thunar extension for automatic management of removable drives and media";
     maintainers = with maintainers; [ ] ++ teams.xfce.members;
   };
 }

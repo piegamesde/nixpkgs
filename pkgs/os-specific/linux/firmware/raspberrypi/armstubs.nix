@@ -15,8 +15,7 @@ stdenv.mkDerivation {
     owner = "raspberrypi";
     repo = "tools";
     rev = "439b6198a9b340de5998dd14a26a0d9d38a6bcac";
-    hash =
-      "sha512-KMHgj73eXHT++IE8DbCsFeJ87ngc9R3XxMUJy4Z3s4/MtMeB9zblADHkyJqz9oyeugeJTrDtuVETPBRo7M4Y8A==";
+    hash = "sha512-KMHgj73eXHT++IE8DbCsFeJ87ngc9R3XxMUJy4Z3s4/MtMeB9zblADHkyJqz9oyeugeJTrDtuVETPBRo7M4Y8A==";
   };
 
   env.NIX_CFLAGS_COMPILE = toString [ "-march=armv8-a+crc" ];

@@ -69,8 +69,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    description =
-      "A free, portable and enhanced version of the Dink Smallwood game engine";
+    description = "A free, portable and enhanced version of the Dink Smallwood game engine";
 
     longDescription = ''
       GNU FreeDink is a new and portable version of the Dink Smallwood
@@ -78,8 +77,7 @@ stdenv.mkDerivation rec {
       with close compatibility, under multiple platforms.
     '';
 
-    homepage =
-      "https://www.gnu.org/software/freedink/"; # Formerly http://www.freedink.org
+    homepage = "https://www.gnu.org/software/freedink/"; # Formerly http://www.freedink.org
     license = lib.licenses.gpl3Plus;
 
     maintainers = [ ];

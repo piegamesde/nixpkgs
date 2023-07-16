@@ -9,8 +9,7 @@ stdenv.mkDerivation rec {
   version = "2.5.3";
 
   src = fetchurl {
-    url =
-      "https://github.com/aerogear/keycloak-metrics-spi/releases/download/${version}/keycloak-metrics-spi-${version}.jar";
+    url = "https://github.com/aerogear/keycloak-metrics-spi/releases/download/${version}/keycloak-metrics-spi-${version}.jar";
     sha256 = "15lsy8wjw6nlfdfhllc45z9l5474p0lsghrwzzsssvd68bw54gwv";
   };
 

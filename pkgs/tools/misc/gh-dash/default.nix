@@ -28,8 +28,7 @@ buildGoModule rec {
   passthru.tests = { version = testers.testVersion { package = gh-dash; }; };
 
   meta = {
-    description =
-      "gh extension to display a dashboard with pull requests and issues";
+    description = "gh extension to display a dashboard with pull requests and issues";
     homepage = "https://github.com/dlvhdr/gh-dash";
     changelog = "https://github.com/dlvhdr/gh-dash/releases/tag/${src.rev}";
     license = lib.licenses.mit;

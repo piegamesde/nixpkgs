@@ -14,8 +14,7 @@ mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url =
-      "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
+    url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
     sha256 = "sha256-56vLT/t+3f5ZyH1pFmgy4vtSMQcDYLQZIF/iIkwd2vM=";
   };
 
@@ -34,8 +33,7 @@ mkDerivation {
 
   meta = with lib; {
     changelog = "https://github.com/vimeo/psalm/releases/tag/${version}";
-    description =
-      "A static analysis tool for finding errors in PHP applications";
+    description = "A static analysis tool for finding errors in PHP applications";
     license = licenses.mit;
     homepage = "https://github.com/vimeo/psalm";
     maintainers = teams.php.members;

@@ -317,8 +317,7 @@ in
         {
           StateDirectory = "kanidm";
           StateDirectoryMode = "0700";
-          ExecStart =
-            "${pkgs.kanidm}/bin/kanidmd server -c ${serverConfigFile}";
+          ExecStart = "${pkgs.kanidm}/bin/kanidmd server -c ${serverConfigFile}";
           User = "kanidm";
           Group = "kanidm";
 

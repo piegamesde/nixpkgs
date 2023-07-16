@@ -16,8 +16,7 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url =
-      "https://www-verimag.imag.fr/DIST-TOOLS/SYNCHRONE/pool/lustre-v6.v${version}.tgz";
+    url = "https://www-verimag.imag.fr/DIST-TOOLS/SYNCHRONE/pool/lustre-v6.v${version}.tgz";
     hash = "sha256-z3cljDyxtotCGUIdYEzYu7fQd04RC3hhWpROcMh6Zng=";
   };
 

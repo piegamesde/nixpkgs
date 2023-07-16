@@ -67,8 +67,7 @@ python.pkgs.buildPythonApplication rec {
 
   # latest release is at https://github.com/odoo/docker/blob/master/15.0/Dockerfile
   src = fetchurl {
-    url =
-      "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.tar.gz";
+    url = "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.tar.gz";
     name = "${pname}-${version}";
     hash = "sha256-nJEFPtZhq7DLLDCL9xt0RV75d/a45o6hBKsUlQAWh1U="; # odoo
   };

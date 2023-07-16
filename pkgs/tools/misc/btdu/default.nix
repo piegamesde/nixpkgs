@@ -21,33 +21,24 @@ stdenv.mkDerivation rec {
 
   srcs = [
     (fetchurl {
-      url =
-        "https://github.com/CyberShadow/${pname}/archive/v${version}.tar.gz";
-      sha256 =
-        "90ba4d8997575993e9d39a503779fb32b37bb62b8d9386776e95743bfc859606";
+      url = "https://github.com/CyberShadow/${pname}/archive/v${version}.tar.gz";
+      sha256 = "90ba4d8997575993e9d39a503779fb32b37bb62b8d9386776e95743bfc859606";
     })
     (fetchurl {
       url = "https://github.com/CyberShadow/ae/archive/v${_d_ae_ver}.tar.gz";
-      sha256 =
-        "6b3da61d9f7f1a7343dbe5691a16482cabcd78532b7c09ed9d63eb1934f1b9d8";
+      sha256 = "6b3da61d9f7f1a7343dbe5691a16482cabcd78532b7c09ed9d63eb1934f1b9d8";
     })
     (fetchurl {
-      url =
-        "https://github.com/CyberShadow/d-btrfs/archive/v${_d_btrfs_ver}.tar.gz";
-      sha256 =
-        "05a59cd64000ce2af9bd0578ef5118ab4d10de0ec50410ba0d4e463f01cfaa4e";
+      url = "https://github.com/CyberShadow/d-btrfs/archive/v${_d_btrfs_ver}.tar.gz";
+      sha256 = "05a59cd64000ce2af9bd0578ef5118ab4d10de0ec50410ba0d4e463f01cfaa4e";
     })
     (fetchurl {
-      url =
-        "https://github.com/D-Programming-Deimos/ncurses/archive/v${_d_ncurses_ver}.tar.gz";
-      sha256 =
-        "2c8497f5dd93f9d3a05ca7ed57c4fcaee1e988fd25a24de106917ddf72f34646";
+      url = "https://github.com/D-Programming-Deimos/ncurses/archive/v${_d_ncurses_ver}.tar.gz";
+      sha256 = "2c8497f5dd93f9d3a05ca7ed57c4fcaee1e988fd25a24de106917ddf72f34646";
     })
     (fetchurl {
-      url =
-        "https://github.com/dlang-community/containers/archive/v${_d_emsi_containers_ver}.tar.gz";
-      sha256 =
-        "5e256b84bbdbd2bd625cba0472ea27a1fde6d673d37a85fe971a20d52874acaa";
+      url = "https://github.com/dlang-community/containers/archive/v${_d_emsi_containers_ver}.tar.gz";
+      sha256 = "5e256b84bbdbd2bd625cba0472ea27a1fde6d673d37a85fe971a20d52874acaa";
     })
   ];
 

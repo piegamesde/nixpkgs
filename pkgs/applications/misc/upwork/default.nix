@@ -133,8 +133,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Online freelancing platform desktop application for time tracking";
+    description = "Online freelancing platform desktop application for time tracking";
     homepage = "https://www.upwork.com/ab/downloads/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

@@ -528,8 +528,7 @@ in
         )
         cfg.plugins
     ) // optionalAttrs cfg.enableFccUnlock {
-      "ModemManager/fcc-unlock.d".source =
-        "${pkgs.modemmanager}/share/ModemManager/fcc-unlock.available.d/*";
+      "ModemManager/fcc-unlock.d".source = "${pkgs.modemmanager}/share/ModemManager/fcc-unlock.available.d/*";
     } // optionalAttrs
         (cfg.appendNameservers != [ ] || cfg.insertNameservers != [ ])
         {
@@ -538,8 +537,7 @@ in
         } // listToAttrs (
           lib.imap1
             (i: s: {
-              name =
-                "NetworkManager/dispatcher.d/${
+              name = "NetworkManager/dispatcher.d/${
                   dispatcherTypesSubdirMap.${s.type}
                 }03userscript${lib.fixedWidthNumber 4 i}";
               value = {

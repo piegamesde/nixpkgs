@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "OSX-like window decoration for KDE Plasma written in C++";
     homepage = "https://github.com/kupiqu/SierraBreezeEnhanced";
-    changelog =
-      "https://github.com/kupiqu/SierraBreezeEnhanced/releases/tag/V${version}";
+    changelog = "https://github.com/kupiqu/SierraBreezeEnhanced/releases/tag/V${version}";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ flexagoon ];
   };

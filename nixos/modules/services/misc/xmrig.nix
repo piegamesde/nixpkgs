@@ -63,8 +63,7 @@ with lib;
       after = [ "network.target" ];
       description = "XMRig Mining Software Service";
       serviceConfig = {
-        ExecStartPre =
-          "${cfg.package}/bin/xmrig --config=${configFile} --dry-run";
+        ExecStartPre = "${cfg.package}/bin/xmrig --config=${configFile} --dry-run";
         ExecStart = "${cfg.package}/bin/xmrig --config=${configFile}";
         # https://xmrig.com/docs/miner/randomx-optimization-guide/msr
         # If you use recent XMRig with root privileges (Linux) or admin

@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = with lib; {
-    description =
-      "Enhanched SDL-based port of Wolfenstein 3D for various platforms";
+    description = "Enhanched SDL-based port of Wolfenstein 3D for various platforms";
     homepage = "https://maniacsvault.net/ecwolf/";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [

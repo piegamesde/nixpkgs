@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
       # https://github.com/dajobe/raptor/pull/52
       (fetchpatch {
         name = "fix-cmake-generated-pc-file";
-        url =
-          "https://github.com/dajobe/raptor/commit/fa1ef9a27d8762f5588ac2e92554a188e73dee9f.diff";
+        url = "https://github.com/dajobe/raptor/commit/fa1ef9a27d8762f5588ac2e92554a188e73dee9f.diff";
         sha256 = "sha256-zXIbrYGgC9oTpiD0WUikT4vRdc9b6bsyfnDkwUSlqao=";
       })
     ];

@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
   version = "0.16";
 
   src = fetchurl {
-    url =
-      "https://s3.amazonaws.com/json-c_releases/releases/${pname}-${version}.tar.gz";
+    url = "https://s3.amazonaws.com/json-c_releases/releases/${pname}-${version}.tar.gz";
     sha256 = "sha256-jkWsj5bsd5Hq87t+5Q6cIQC7vIe40PHQMMW6igKI2Ws=";
   };
 

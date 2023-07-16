@@ -25,8 +25,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Prometheus exporter for Consul metrics";
     homepage = "https://github.com/prometheus/consul_exporter";
-    changelog =
-      "https://github.com/prometheus/consul_exporter/releases/tag/v${version}";
+    changelog = "https://github.com/prometheus/consul_exporter/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ hectorj ];
     platforms = platforms.unix;

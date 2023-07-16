@@ -144,8 +144,7 @@ let
   version = "2.7.2";
 
   meta = with lib; {
-    description =
-      "Library for the evaluation of molecular integrals of many-body operators over Gaussian functions";
+    description = "Library for the evaluation of molecular integrals of many-body operators over Gaussian functions";
     homepage = "https://github.com/evaleev/libint";
     license = with licenses; [
       lgpl3Only

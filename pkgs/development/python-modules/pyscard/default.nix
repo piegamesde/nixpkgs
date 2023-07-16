@@ -28,8 +28,7 @@ buildPythonPackage rec {
       # present in master - remove after 2.0.2
       (fetchpatch {
         name = "darwin-typo-test-fix.patch";
-        url =
-          "https://github.com/LudovicRousseau/pyscard/commit/ce842fcc76fd61b8b6948d0b07306d82ad1ec12a.patch";
+        url = "https://github.com/LudovicRousseau/pyscard/commit/ce842fcc76fd61b8b6948d0b07306d82ad1ec12a.patch";
         sha256 = "0wsaj87wp9d2vnfzwncfxp2w95m0zhr7zpkmg5jccn06z52ihis3";
       })
     ];

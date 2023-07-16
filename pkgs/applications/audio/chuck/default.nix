@@ -62,8 +62,7 @@ stdenv.mkDerivation rec {
   buildFlags = [ (if stdenv.isDarwin then "mac" else "linux-alsa") ];
 
   meta = with lib; {
-    description =
-      "Programming language for real-time sound synthesis and music creation";
+    description = "Programming language for real-time sound synthesis and music creation";
     homepage = "http://chuck.cs.princeton.edu";
     license = licenses.gpl2;
     platforms = platforms.unix;

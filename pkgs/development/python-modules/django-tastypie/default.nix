@@ -34,8 +34,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Utilities and helpers for writing Pylint plugins";
     homepage = "https://github.com/django-tastypie/django-tastypie";
-    changelog =
-      "https://github.com/django-tastypie/django-tastypie/releases/tag/v${version}";
+    changelog = "https://github.com/django-tastypie/django-tastypie/releases/tag/v${version}";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ fab ];
   };

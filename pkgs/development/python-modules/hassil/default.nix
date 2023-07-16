@@ -31,8 +31,7 @@ buildPythonPackage {
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/home-assistant/hassil/releases/tag/v${version}";
+    changelog = "https://github.com/home-assistant/hassil/releases/tag/v${version}";
     description = "Intent parsing for Home Assistant";
     homepage = "https://github.com/home-assistant/hassil";
     license = licenses.asl20;

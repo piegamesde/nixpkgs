@@ -49,8 +49,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "rxv" ];
 
   meta = with lib; {
-    description =
-      "Python library for communicate with Yamaha RX-Vxxx receivers";
+    description = "Python library for communicate with Yamaha RX-Vxxx receivers";
     homepage = "https://github.com/wuub/rxv";
     license = licenses.mit;
     maintainers = with maintainers; [ flyfloh ];

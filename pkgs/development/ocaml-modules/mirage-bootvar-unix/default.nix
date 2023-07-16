@@ -13,8 +13,7 @@ buildDunePackage rec {
   useDune2 = true;
 
   src = fetchurl {
-    url =
-      "https://github.com/mirage/mirage-bootvar-unix/releases/download/${version}/mirage-bootvar-unix-${version}.tbz";
+    url = "https://github.com/mirage/mirage-bootvar-unix/releases/download/${version}/mirage-bootvar-unix-${version}.tbz";
     sha256 = "0r92s6y7nxg0ci330a7p0hii4if51iq0sixn20cnm5j4a2clprbf";
   };
 

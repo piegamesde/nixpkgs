@@ -18,14 +18,12 @@ stdenv.mkDerivation rec {
   src =
     if (stdenv.isDarwin) then
       fetchurl {
-        url =
-          "https://github.com/unisonweb/unison/releases/download/release/${milestone_id}/ucm-macos.tar.gz";
+        url = "https://github.com/unisonweb/unison/releases/download/release/${milestone_id}/ucm-macos.tar.gz";
         hash = "sha256-7yphap7qZBkbTKiwhyCTLgbBO/aA0eUWtva+XjpaZDI=";
       }
     else
       fetchurl {
-        url =
-          "https://github.com/unisonweb/unison/releases/download/release/${milestone_id}/ucm-linux.tar.gz";
+        url = "https://github.com/unisonweb/unison/releases/download/release/${milestone_id}/ucm-linux.tar.gz";
         hash = "sha256-vrZpYFoQw1hxgZ7lAoejIqnjIOFFMahAI9SjFN/Cnms=";
       }
   ;

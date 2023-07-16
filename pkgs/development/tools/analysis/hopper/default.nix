@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   rev = "v4";
 
   src = fetchurl {
-    url =
-      "https://d2ap6ypl1xbe4k.cloudfront.net/Hopper-${rev}-${version}-Linux-demo.pkg.tar.xz";
+    url = "https://d2ap6ypl1xbe4k.cloudfront.net/Hopper-${rev}-${version}-Linux-demo.pkg.tar.xz";
     hash = "sha256-xq9ZVg1leHm/tq6LYyQLa8p5dDwBd64Jt92uMoE0z58=";
   };
 

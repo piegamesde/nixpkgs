@@ -84,8 +84,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "weboob" ];
 
   meta = with lib; {
-    description =
-      "Collection of applications and APIs to interact with websites";
+    description = "Collection of applications and APIs to interact with websites";
     homepage = "http://weboob.org";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ ];

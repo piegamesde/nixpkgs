@@ -12,8 +12,7 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/cl-jpeg/2017-06-30/cl-jpeg-20170630-git.tgz";
+    url = "http://beta.quicklisp.org/archive/cl-jpeg/2017-06-30/cl-jpeg-20170630-git.tgz";
     sha256 = "1wwzn2valhh5ka7qkmab59pb1ijagcj296553fp8z03migl0sil0";
   };
 

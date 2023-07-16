@@ -58,8 +58,9 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   # Fix installation path for gdk-pixbuf module
-  PKG_CONFIG_GDK_PIXBUF_2_0_GDK_PIXBUF_MODULEDIR =
-    "${placeholder "out"}/${gdk-pixbuf.moduleDir}";
+  PKG_CONFIG_GDK_PIXBUF_2_0_GDK_PIXBUF_MODULEDIR = "${
+      placeholder "out"
+    }/${gdk-pixbuf.moduleDir}";
 
   passthru.tests = {
     inherit
@@ -73,8 +74,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "http://www.libheif.org/";
-    description =
-      "ISO/IEC 23008-12:2017 HEIF image file format decoder and encoder";
+    description = "ISO/IEC 23008-12:2017 HEIF image file format decoder and encoder";
     license = lib.licenses.lgpl3Plus;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ gebner ];

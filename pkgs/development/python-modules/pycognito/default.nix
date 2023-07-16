@@ -51,8 +51,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pycognito" ];
 
   meta = with lib; {
-    description =
-      "Python class to integrate Boto3's Cognito client so it is easy to login users. With SRP support";
+    description = "Python class to integrate Boto3's Cognito client so it is easy to login users. With SRP support";
     homepage = "https://github.com/pvizeli/pycognito";
     license = licenses.asl20;
     maintainers = with maintainers; [ mic92 ];

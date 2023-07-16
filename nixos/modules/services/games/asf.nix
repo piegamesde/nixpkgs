@@ -205,8 +205,7 @@ in
             Group = "asf";
             WorkingDirectory = cfg.dataDir;
             Type = "simple";
-            ExecStart =
-              "${cfg.package}/bin/ArchiSteamFarm --path ${cfg.dataDir} --process-required --no-restart --service --no-config-migrate";
+            ExecStart = "${cfg.package}/bin/ArchiSteamFarm --path ${cfg.dataDir} --process-required --no-restart --service --no-config-migrate";
             Restart = "always";
 
             # mostly copied from the default systemd service

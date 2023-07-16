@@ -38,8 +38,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "whodap" ];
 
   meta = with lib; {
-    description =
-      "Python RDAP utility for querying and parsing information about domain names";
+    description = "Python RDAP utility for querying and parsing information about domain names";
     homepage = "https://github.com/pogzyb/whodap";
     changelog = "https://github.com/pogzyb/whodap/releases/tag/v${version}";
     license = with licenses; [ mit ];

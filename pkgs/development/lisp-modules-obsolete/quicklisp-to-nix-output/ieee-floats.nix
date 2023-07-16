@@ -9,14 +9,12 @@ rec {
 
   parasites = [ "ieee-floats-tests" ];
 
-  description =
-    "Convert floating point values to IEEE 754 binary representation";
+  description = "Convert floating point values to IEEE 754 binary representation";
 
   deps = [ args."fiveam" ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/ieee-floats/2017-08-30/ieee-floats-20170830-git.tgz";
+    url = "http://beta.quicklisp.org/archive/ieee-floats/2017-08-30/ieee-floats-20170830-git.tgz";
     sha256 = "15c4q4w3cda82vqlpvdfrnah6ms6vxbjf4a0chd10daw72rwayqk";
   };
 

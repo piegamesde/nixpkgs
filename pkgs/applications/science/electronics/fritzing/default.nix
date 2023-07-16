@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url =
-        "https://aur.archlinux.org/cgit/aur.git/plain/0001-Quick-Dirty-patch-to-allow-finding-quazip-qt5-on-Arc.patch?h=fritzing&id=1ae0dc88464f375a54b156e6761315bcb04bcc1f";
+      url = "https://aur.archlinux.org/cgit/aur.git/plain/0001-Quick-Dirty-patch-to-allow-finding-quazip-qt5-on-Arc.patch?h=fritzing&id=1ae0dc88464f375a54b156e6761315bcb04bcc1f";
       sha256 = "sha256-iS18EWw920gyeXDoHBRGwXvwMJurJS21H77Erl+fqog=";
     })
   ];
@@ -76,8 +75,7 @@ stdenv.mkDerivation rec {
     cp -a ${parts}/* parts/
   '';
 
-  env.NIX_CFLAGS_COMPILE =
-    "-I${lib.getDev quazip}/include/QuaZip-Qt${
+  env.NIX_CFLAGS_COMPILE = "-I${lib.getDev quazip}/include/QuaZip-Qt${
       lib.versions.major qtbase.version
     }-${quazip.version}/quazip";
 

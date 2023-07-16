@@ -27,8 +27,7 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       name = "python311-compat.patch";
-      url =
-        "https://github.com/sloria/webtest-aiohttp/commit/64e5ab1867ea9ef87901bb2a1a6142566bffc90b.patch";
+      url = "https://github.com/sloria/webtest-aiohttp/commit/64e5ab1867ea9ef87901bb2a1a6142566bffc90b.patch";
       hash = "sha256-OKJGajqJLFMkcbGmGfU9G5hCpJaj24Gs363sI0z7YZw=";
     })
   ];
@@ -44,10 +43,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "webtest_aiohttp" ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/sloria/webtest-aiohttp/blob/${src.rev}/CHANGELOG.rst";
-    description =
-      "Provides integration of WebTest with aiohttp.web applications";
+    changelog = "https://github.com/sloria/webtest-aiohttp/blob/${src.rev}/CHANGELOG.rst";
+    description = "Provides integration of WebTest with aiohttp.web applications";
     homepage = "https://github.com/sloria/webtest-aiohttp";
     license = licenses.mit;
     maintainers = with maintainers; [ cript0nauta ];

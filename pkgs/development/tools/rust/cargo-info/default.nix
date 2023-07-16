@@ -31,8 +31,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Cargo subcommand to show crates info from crates.io";
     homepage = "https://gitlab.com/imp/cargo-info";
-    changelog =
-      "https://gitlab.com/imp/cargo-info/-/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://gitlab.com/imp/cargo-info/-/blob/${src.rev}/CHANGELOG.md";
     license = with licenses; [
       mit
       asl20

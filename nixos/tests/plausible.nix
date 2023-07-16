@@ -17,10 +17,9 @@ import ./make-test-python.nix (
         virtualisation.memorySize = 4096;
         services.plausible = {
           enable = true;
-          releaseCookiePath =
-            "${pkgs.runCommand "cookie" { } ''
-              ${pkgs.openssl}/bin/openssl rand -base64 64 >"$out"
-            ''}";
+          releaseCookiePath = "${pkgs.runCommand "cookie" { } ''
+            ${pkgs.openssl}/bin/openssl rand -base64 64 >"$out"
+          ''}";
           adminUser = {
             email = "admin@example.org";
             passwordFile = "${pkgs.writeText "pwd" "foobar"}";
@@ -28,8 +27,7 @@ import ./make-test-python.nix (
           };
           server = {
             baseUrl = "http://localhost:8000";
-            secretKeybaseFile =
-              "${pkgs.writeText "dont-try-this-at-home"
+            secretKeybaseFile = "${pkgs.writeText "dont-try-this-at-home"
                 "nannannannannannannannannannannannannannannannannannannan_batman!"}";
           };
         };

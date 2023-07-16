@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/ugtrain/ugtrain";
-    description =
-      "The Universal Elite Game Trainer for CLI (Linux game trainer research project)";
+    description = "The Universal Elite Game Trainer for CLI (Linux game trainer research project)";
     maintainers = with maintainers; [ mtrsk ];
     platforms = platforms.linux;
     license = licenses.gpl3Only;

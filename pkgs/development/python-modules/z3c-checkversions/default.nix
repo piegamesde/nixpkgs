@@ -28,8 +28,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/zopefoundation/z3c.checkversions";
-    changelog =
-      "https://github.com/zopefoundation/z3c.checkversions/blob/${version}/CHANGES.rst";
+    changelog = "https://github.com/zopefoundation/z3c.checkversions/blob/${version}/CHANGES.rst";
     description = "Find newer package versions on PyPI";
     license = licenses.zpl21;
   };

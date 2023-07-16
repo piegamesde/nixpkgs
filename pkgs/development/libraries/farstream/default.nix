@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "https://www.freedesktop.org/software/farstream/releases/farstream/${pname}-${version}.tar.gz";
+    url = "https://www.freedesktop.org/software/farstream/releases/farstream/${pname}-${version}.tar.gz";
     sha256 = "0yzlh9jf47a3ir40447s7hlwp98f9yr8z4gcm0vjwz6g6cj12zfb";
   };
 
@@ -35,8 +34,7 @@ stdenv.mkDerivation rec {
     [
       # Fix build with newer gnumake.
       (fetchpatch {
-        url =
-          "https://gitlab.freedesktop.org/farstream/farstream/-/commit/54987d44.diff";
+        url = "https://gitlab.freedesktop.org/farstream/farstream/-/commit/54987d44.diff";
         sha256 = "02pka68p2j1wg7768rq7afa5wl9xv82wp86q7izrmwwnxdmz4zyg";
       })
     ];
@@ -64,8 +62,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.freedesktop.org/wiki/Software/Farstream";
-    description =
-      "Audio/Video Communications Framework formely known as farsight";
+    description = "Audio/Video Communications Framework formely known as farsight";
     platforms = platforms.unix;
     license = licenses.lgpl21;
   };

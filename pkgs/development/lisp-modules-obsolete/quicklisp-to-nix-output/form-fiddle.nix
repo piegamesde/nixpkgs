@@ -15,8 +15,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/form-fiddle/2019-07-10/form-fiddle-20190710-git.tgz";
+    url = "http://beta.quicklisp.org/archive/form-fiddle/2019-07-10/form-fiddle-20190710-git.tgz";
     sha256 = "12zmqm2vls043kaka7jp6pnsvkxlyv6x183yjyrs8jk461qfydwl";
   };
 

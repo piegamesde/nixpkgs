@@ -44,8 +44,7 @@ rustPlatform.buildRustPackage rec {
   passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
-    description =
-      "Toolkit for building cross-platform software components in Rust";
+    description = "Toolkit for building cross-platform software components in Rust";
     homepage = "https://mozilla.github.io/uniffi-rs/";
     license = licenses.mpl20;
     maintainers = with maintainers; [

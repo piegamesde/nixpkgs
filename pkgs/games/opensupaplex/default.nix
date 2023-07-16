@@ -14,8 +14,7 @@
 let
   # Doesn't seem to be included in tagged releases, but does exist on master.
   icon = fetchurl {
-    url =
-      "https://raw.githubusercontent.com/sergiou87/open-supaplex/b102548699cf16910b59559f689ecfad88d2a7d2/open-supaplex.svg";
+    url = "https://raw.githubusercontent.com/sergiou87/open-supaplex/b102548699cf16910b59559f689ecfad88d2a7d2/open-supaplex.svg";
     sha256 = "sha256-nKeSBUGjSulbEP7xxc6smsfCRjyc/xsLykH0o3Rq5wo=";
   };
 in
@@ -87,8 +86,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A decompilation of Supaplex in C and SDL";
     homepage = "https://github.com/sergiou87/open-supaplex";
-    changelog =
-      "https://github.com/sergiou87/open-supaplex/blob/master/changelog/v${version}.txt";
+    changelog = "https://github.com/sergiou87/open-supaplex/blob/master/changelog/v${version}.txt";
     license = licenses.gpl3Only;
     maintainers = [ maintainers.ivar ];
     platforms =

@@ -9,8 +9,7 @@ stdenvNoCC.mkDerivation rec {
   version = "2.2";
 
   src = fetchzip {
-    url =
-      "https://int10h.org/oldschool-pc-fonts/download/oldschool_pc_font_pack_v${version}_linux.zip";
+    url = "https://int10h.org/oldschool-pc-fonts/download/oldschool_pc_font_pack_v${version}_linux.zip";
     stripRoot = false;
     hash = "sha256-54U8tZzvivTSOgmGesj9QbIgkSTm9w4quMhsuEc0Xy4=";
   };

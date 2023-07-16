@@ -35,8 +35,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description =
-      "Data for Frog, a Tagger-Lemmatizer-Morphological-Analyzer-Dependency-Parser for Dutch";
+    description = "Data for Frog, a Tagger-Lemmatizer-Morphological-Analyzer-Dependency-Parser for Dutch";
     homepage = "https://languagemachines.github.io/frog";
     license = licenses.gpl3;
     platforms = platforms.all;

@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
   version = "2.1";
 
   src = fetchzip {
-    url =
-      "https://github.com/urbit/vere/releases/download/vere-v${version}/${platform}.tgz";
+    url = "https://github.com/urbit/vere/releases/download/vere-v${version}/${platform}.tgz";
     sha256 =
       {
         x86_64-linux = "sha256-i5WofHC0aYldnA+KldeAmZQQo6yeI3yhmLHqPZOvi1c=";

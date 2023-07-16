@@ -70,8 +70,7 @@ rustPlatform.buildRustPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Very resource-friendly and feature-rich replacement for i3status";
+    description = "Very resource-friendly and feature-rich replacement for i3status";
     homepage = "https://github.com/greshake/i3status-rust";
     license = licenses.gpl3Only;
     mainProgram = "i3status-rs";

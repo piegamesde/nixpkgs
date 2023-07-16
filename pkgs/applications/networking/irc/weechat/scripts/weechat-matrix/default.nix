@@ -40,8 +40,7 @@ buildPythonPackage {
   };
 
   patches = fetchpatch {
-    url =
-      "https://patch-diff.githubusercontent.com/raw/poljar/weechat-matrix/pull/309.patch";
+    url = "https://patch-diff.githubusercontent.com/raw/poljar/weechat-matrix/pull/309.patch";
     sha256 = "sha256-Grdht+TOFvCYRpL7uhPivqL7YzLoNVF3iQNHgbv1Te0=";
   };
 
@@ -94,8 +93,7 @@ buildPythonPackage {
   '';
 
   meta = with lib; {
-    description =
-      "A Python plugin for Weechat that lets Weechat communicate over the Matrix protocol";
+    description = "A Python plugin for Weechat that lets Weechat communicate over the Matrix protocol";
     homepage = "https://github.com/poljar/weechat-matrix";
     license = licenses.isc;
     platforms = platforms.unix;

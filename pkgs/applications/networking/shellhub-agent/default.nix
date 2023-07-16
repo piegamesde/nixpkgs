@@ -52,8 +52,7 @@ buildGo120Module rec {
   '';
 
   meta = with lib; {
-    description =
-      "Enables easy access any Linux device behind firewall and NAT";
+    description = "Enables easy access any Linux device behind firewall and NAT";
     longDescription = ''
       ShellHub is a modern SSH server for remotely accessing Linux devices via
       command line (using any SSH client) or web-based user interface, designed

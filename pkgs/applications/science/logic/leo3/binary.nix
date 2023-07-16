@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
   version = "1.2";
 
   src = fetchurl {
-    url =
-      "https://github.com/leoprover/Leo-III/releases/download/v${version}/leo3.jar";
+    url = "https://github.com/leoprover/Leo-III/releases/download/v${version}/leo3.jar";
     sha256 = "1lgwxbr1rnk72rnvc8raq5i1q71ckhn998pwd9xk6zf27wlzijk7";
   };
 
@@ -26,8 +25,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "An automated theorem prover for classical higher-order logic with choice";
+    description = "An automated theorem prover for classical higher-order logic with choice";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.bsd3;
     maintainers = [ maintainers.raskin ];

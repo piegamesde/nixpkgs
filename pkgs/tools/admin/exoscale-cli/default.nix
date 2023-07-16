@@ -47,8 +47,7 @@ buildGoModule rec {
   '';
 
   meta = {
-    description =
-      "Command-line tool for everything at Exoscale: compute, storage, dns";
+    description = "Command-line tool for everything at Exoscale: compute, storage, dns";
     homepage = "https://github.com/exoscale/cli";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ viraptor ];

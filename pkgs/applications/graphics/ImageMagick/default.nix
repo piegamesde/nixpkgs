@@ -188,8 +188,7 @@ stdenv.mkDerivation (
 
     meta = with lib; {
       homepage = "http://www.imagemagick.org/";
-      description =
-        "A software suite to create, edit, compose, or convert bitmap images";
+      description = "A software suite to create, edit, compose, or convert bitmap images";
       pkgConfigModules = [
         "ImageMagick"
         "MagickWand"

@@ -40,8 +40,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "requests_toolbelt" ];
 
   meta = with lib; {
-    description =
-      "Toolbelt of useful classes and functions to be used with requests";
+    description = "Toolbelt of useful classes and functions to be used with requests";
     homepage = "http://toolbelt.rtfd.org";
     license = licenses.asl20;
     maintainers = with maintainers; [ matthiasbeyer ];

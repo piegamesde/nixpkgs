@@ -11,8 +11,7 @@ let
       inherit name;
 
       src = fetchurl {
-        url =
-          "https://lhapdfsets.web.cern.ch/lhapdfsets/current/${name}.tar.gz";
+        url = "https://lhapdfsets.web.cern.ch/lhapdfsets/current/${name}.tar.gz";
         inherit sha256;
       };
 
@@ -37,31 +36,22 @@ lib.mapAttrs mkPdfSet {
   "ABMP16_4_nnlo" = "1cw52ijyrhgvyqc28pp278bavy9acvs6qywysgc7qjifygb14mca";
   "ABMP16_5_nlo" = "0s7yz85fjfkmmxj3xdkhz5658n3nx8rr4yjz4hrqbcy00zdcscr2";
   "ABMP16_5_nnlo" = "0iyypvj4645g7nh8w6v88pz37p81bxilgc4p7wlkaa90hiq0wrk0";
-  "ABMP16als112_5_nnlo" =
-    "17kg6gvl09p5gm99yb9d8hkl1q51904qflsziv3r5ybxs18ym5g8";
-  "ABMP16als113_5_nnlo" =
-    "1gaiyq70zxx7c7c0gkkad3ygbhdwc563al2a6ksy78q8is3bhdy9";
+  "ABMP16als112_5_nnlo" = "17kg6gvl09p5gm99yb9d8hkl1q51904qflsziv3r5ybxs18ym5g8";
+  "ABMP16als113_5_nnlo" = "1gaiyq70zxx7c7c0gkkad3ygbhdwc563al2a6ksy78q8is3bhdy9";
   "ABMP16als114_5_nlo" = "0vnwbz6v2d02d5r34ysd7b4d22h948f3zri2n3yj93k6za9y42gw";
-  "ABMP16als114_5_nnlo" =
-    "1gd41d8ay8i8m35qfqsm96jcv8vx6hpdsrdzsj415f4zpw5j29fm";
+  "ABMP16als114_5_nnlo" = "1gd41d8ay8i8m35qfqsm96jcv8vx6hpdsrdzsj415f4zpw5j29fm";
   "ABMP16als115_5_nlo" = "0pyk43d6v3hzcq487nzj5awd2zhcjbg9ak0pcs1lykhvxwm227hz";
-  "ABMP16als115_5_nnlo" =
-    "0i70z8i0qgzr875szdh8sa6x3xcdkvrfsba97a6ha7b6km4p1yjk";
+  "ABMP16als115_5_nnlo" = "0i70z8i0qgzr875szdh8sa6x3xcdkvrfsba97a6ha7b6km4p1yjk";
   "ABMP16als116_5_nlo" = "0nyrcb3hbzngj5j3yhpwlnz8a7dx7higngzmp26kmcrr4bmhiq6w";
-  "ABMP16als116_5_nnlo" =
-    "11rph6vmmvvsi8msfp2agb7747n7xjgxb7z766i5jkvnggbmz75m";
+  "ABMP16als116_5_nnlo" = "11rph6vmmvvsi8msfp2agb7747n7xjgxb7z766i5jkvnggbmz75m";
   "ABMP16als117_5_nlo" = "1pfjdxxdwrwz5n5206jcv61l8ycliwigqgram6hlm8ibl9a828cy";
-  "ABMP16als117_5_nnlo" =
-    "1sz9hy2m983aiwyssg60v4kq1zvz4xxvbzrgsdik1qv13bj4wx9w";
+  "ABMP16als117_5_nnlo" = "1sz9hy2m983aiwyssg60v4kq1zvz4xxvbzrgsdik1qv13bj4wx9w";
   "ABMP16als118_5_nlo" = "0ddaf2a7v3kdynsmls6zxld9zflv9m8qkp8gibc5xd6vqsg64f8x";
-  "ABMP16als118_5_nnlo" =
-    "1slvr5ygwwryk63mah45xp5x31qwrf0gkrnh4p9fvl4rdkji6z0z";
+  "ABMP16als118_5_nnlo" = "1slvr5ygwwryk63mah45xp5x31qwrf0gkrnh4p9fvl4rdkji6z0z";
   "ABMP16als119_5_nlo" = "1brv76x4z0r0vrxr51gqvfzn4d03srhvab6dmxhhj3sy23qnbxg5";
-  "ABMP16als119_5_nnlo" =
-    "1iqs1bi8r22awflf698cj39q8s2w86fwvdfgqb6sr8csm36ih6qp";
+  "ABMP16als119_5_nnlo" = "1iqs1bi8r22awflf698cj39q8s2w86fwvdfgqb6sr8csm36ih6qp";
   "ABMP16als120_5_nlo" = "133vy2zhvh49fa9xkp889mxy6xbriv10q8r4lx74wb9d1kqwfx81";
-  "ABMP16als120_5_nnlo" =
-    "051bqfyh2017vnvlisvkm1ik6x7n829p8205f5algsw7wi1s7b9v";
+  "ABMP16als120_5_nnlo" = "051bqfyh2017vnvlisvkm1ik6x7n829p8205f5algsw7wi1s7b9v";
   "ABMP16als121_5_nlo" = "1l41qgba24rslg6ascsn1i0y0y0d7yh6hszhclxqyn07gzwq7p78";
   "ABMP16als122_5_nlo" = "1ivy4m9fah8i0ipfxfq8caxa7pz8y86wgrqydg9wal9qin8n8xcd";
   "ABMP16als123_5_nlo" = "0gcf7dqr1gzjfa6iy0qzivyibw72qpagfda0a5aksd0h6aap5mxc";
@@ -73,16 +63,11 @@ lib.mapAttrs mkPdfSet {
   "ATLAS-epWZ16-EIG" = "0b1zzp8p0kh4xjn76nm6waqlvdpqvnwyqsnnqdp2n7b9r9ssryyf";
   "ATLAS-epWZ16-THEO" = "0b0wqa203b2x159y54xhf9yh34lkchp48vp9693k51g9aznx8gjm";
   "ATLAS-epWZ16-VAR" = "1zkhlv8yxfla46gj57119w9prsd3zyy5vg275bayfwa6b71gmc0b";
-  "ATLAS-epWZtop18-EIG" =
-    "069rysd9mf3cshx7xkcv7735ydh2g6szvljbfkcqwckaqjg2x3v5";
-  "ATLAS-epWZtop18-VAR" =
-    "0hpyp52dwl8fnw47pyw8g7fsz97wr6sk4yli6sx0zbj8yy2j28yj";
-  "ATLASepWZVjet20-EIG" =
-    "0lvd3zkmisx95rbjx7r9wkk0s0mxvaybp3pk66sxrxf1bj1l9r52";
-  "ATLASepWZVjet20-MOD" =
-    "1iyb50isdsy3a5wnlm0185z9bfs6nxwlcl1aqlh4h3j1dbmz4ba9";
-  "ATLASepWZVjet20-PAR" =
-    "1kfqii7sbcs8zdsyd9kiy3r233nawc9yfc23fb6ql0xcwfzpyb1d";
+  "ATLAS-epWZtop18-EIG" = "069rysd9mf3cshx7xkcv7735ydh2g6szvljbfkcqwckaqjg2x3v5";
+  "ATLAS-epWZtop18-VAR" = "0hpyp52dwl8fnw47pyw8g7fsz97wr6sk4yli6sx0zbj8yy2j28yj";
+  "ATLASepWZVjet20-EIG" = "0lvd3zkmisx95rbjx7r9wkk0s0mxvaybp3pk66sxrxf1bj1l9r52";
+  "ATLASepWZVjet20-MOD" = "1iyb50isdsy3a5wnlm0185z9bfs6nxwlcl1aqlh4h3j1dbmz4ba9";
+  "ATLASepWZVjet20-PAR" = "1kfqii7sbcs8zdsyd9kiy3r233nawc9yfc23fb6ql0xcwfzpyb1d";
   "CJ12max" = "1vk2zkaiqbl6fixaxy7mrggmmxv7lvnw736lxm5sh25dapg6s8ag";
   "CJ12mid" = "0s2558ihypn0l9qqx25qwnawbc7fkbi2wwwhbyb108rjk2klaf8v";
   "CJ12min" = "1kdla638m3axr65ndid9irmqhby4gl084r297xw3jxxlrb0b7hj9";
@@ -209,8 +194,7 @@ lib.mapAttrs mkPdfSet {
   "CT14nnlo_as_0121" = "1w12xmxqclrrwvfb2g3zvivkq858n0lpp0bzfibvh4wamdyyx3an";
   "CT14nnlo_as_0122" = "1hgghn4ad7fj3ya17qnka3xcwz7sp4fl0vpcbqkrs9mbbz570fjc";
   "CT14nnlo_as_0123" = "0m66gwhw2n668sg4srq683qbavwabrk4f4vfcsbppzbcgm7i4yz7";
-  "CT14qed_inc_neutron" =
-    "0ph835nfx98i74nncmspj7qb5798yciq76hqvc505n5zd0hwp87x";
+  "CT14qed_inc_neutron" = "0ph835nfx98i74nncmspj7qb5798yciq76hqvc505n5zd0hwp87x";
   "CT14qed_inc_proton" = "0gv0rlr6l62gidqp02ifn75d1ribvbihgpaqc92fww73zwilr7l0";
   "CT14qed_neutron" = "0ck1vmqk17i7rq42hra79cz2rm8ngxv4da6dvz62l6m2nrga3l2k";
   "CT14qed_proton" = "1gijxkq5gpsljijblzd13kgr7xjjvnjv18v02jivylf73igsakd7";
@@ -342,275 +326,153 @@ lib.mapAttrs mkPdfSet {
   "CT18ZNNLO_as_0122" = "1bd4193ggv4nb48d0mw2n93ia30h4myfy197k9b0m3qc90xjq77z";
   "CT18ZNNLO_as_0123" = "0r2vri1brq0xcrpj0cg9hf9kwhkh2czmimrsg5bfvx35adiiis19";
   "CT18ZNNLO_as_0124" = "1wq0nz9jfb5fmzwnnh0xyra2j62kb5xpmh2nyy8ih4lvxhgi16mg";
-  "EPPS16_B_90CL_Au_hess" =
-    "0ab3pnv8fq45mdp29m6lfmrhhnr88k6qvkq6lwxmn17k39v8j9w4";
-  "EPPS16_B_90CL_Pb_hess" =
-    "1cjc79sygpxnir3qw9n6cdwvd3flfn11ajqs5y64svrpsqcx5ng0";
-  "EPPS16_B_c_90CL_Au_hess" =
-    "1ijvnglq4wrjhhvksyd60s7c6nv50vwyk5vd8c3gs0qr8yz1fk69";
-  "EPPS16_B_c_90CL_Pb_hess" =
-    "1347cqsfkim0xcds5imxmsdxh8x0h2n97x5zwpf035rbdk5mkr4n";
-  "EPPS16_B_d_90CL_Au_hess" =
-    "088jrj6xf1ph19sypa5dizllydfzi6ikxq2gisdlxpj1qnwjymsg";
-  "EPPS16_B_d_90CL_Pb_hess" =
-    "0x12r31l0nvqsc2ml1zkil0w1iji52xgbnxn3wss9pnmswrf3cah";
-  "EPPS16_B_u_90CL_Au_hess" =
-    "1pq7agglirpk2w566c1ql15ps1aglmnph2p2dfa535zlv89s7c0d";
-  "EPPS16_B_u_90CL_Pb_hess" =
-    "137jkcbikmcjaxp8rpr5j193cmr329mcvyy7j0s0a6ynglhpr76k";
-  "EPPS16_D_90CL_Au_hess" =
-    "01ggm0xxwd3nc95cjcf36sy0pdb0xvk6bkiaq328w2sfajccr5mk";
-  "EPPS16_D_90CL_Pb_hess" =
-    "1z3zam84m2kbs7zinn87xhlca90d5zwk8j72yj19nx3r92brnq8h";
-  "EPPS16_D_c_90CL_Au_hess" =
-    "18sviyvm3rm9n7x79w1sx8j9mcc6dnc2il8hsw2avjgy2aqmwj87";
-  "EPPS16_D_c_90CL_Pb_hess" =
-    "1ryv83iq1lrphgxvdsmh70j6iky993sax0s9cfrswpjyl2pcilq2";
-  "EPPS16_D_d_90CL_Au_hess" =
-    "15j6s9mj1ci9wjgsfhbxfikcyxc5pilv56cyzxjhgjhfgwvi1xyz";
-  "EPPS16_D_d_90CL_Pb_hess" =
-    "1qjyb57fhf6d3g7l48jcl6jizj2c5g63xahzanrmkm9r538hvhcc";
-  "EPPS16_D_u_90CL_Au_hess" =
-    "0jjk2rccvv0ngxn7wf33j21y72wvs4dhwl56yhmf7bfzd6v70rp2";
-  "EPPS16_D_u_90CL_Pb_hess" =
-    "09npz68wwvcsvd6h8lsgmlr19l0af4h4rppcd6jlwd88c2zpb3r3";
-  "EPPS16_Jpsi_90CL_Au_hess" =
-    "0msvkihdmhap0bbiydxbp552k1sgk20wadvc2s2h9jldakdx0pk9";
-  "EPPS16_Jpsi_90CL_Pb_hess" =
-    "13vc490k1769gbph3xn1lffj0ilvhz78by3lhw45lwkra4vx5zp4";
-  "EPPS16_Jpsi_c_90CL_Au_hess" =
-    "069lzrnm5kx56rblr4lxqvr014nrf2yyf1iw42s37q2xsxpjip87";
-  "EPPS16_Jpsi_c_90CL_Pb_hess" =
-    "1895iqzmcnaqkidcy96z4766wppycp1riwg9clg71cb404wz74as";
-  "EPPS16_Jpsi_d_90CL_Au_hess" =
-    "0ndh23dyaszam144dsdbg4281c61vai8avgi4y7x8kb0paha4icm";
-  "EPPS16_Jpsi_d_90CL_Pb_hess" =
-    "0xflijnwabg931z19v8c18dzh1lbqivkg94kpwm8j135ya1vpmm2";
-  "EPPS16_Jpsi_u_90CL_Au_hess" =
-    "1hagv9akwm337kq3kvkpkdkcpnic7klnigh9pyif1gm16i1q40jf";
-  "EPPS16_Jpsi_u_90CL_Pb_hess" =
-    "0dw68rky105lyaagkzkmfx6l9jk763m293m7s972jhnl5037bj74";
-  "EPPS16nlo_CT14nlo_Ag108" =
-    "1p7gckhv44h04rvknd6fdizy9c1jqfwic7ppf0ra14ic8wp1g7wg";
-  "EPPS16nlo_CT14nlo_Al27" =
-    "0hxyakfgknmixxndfj14i44afp5gcfz9afjvjdaj702sv42a7qa8";
-  "EPPS16nlo_CT14nlo_Au197" =
-    "1g272110y3a1fr6raxdfhagn68i0lcnwbdhiiqg4j6wb6v4m3p6i";
-  "EPPS16nlo_CT14nlo_Be9" =
-    "0zxsdmvz919ajwwb917613byshhpr876jcg9kik0pkz8c4ddr2z0";
-  "EPPS16nlo_CT14nlo_C12" =
-    "0mjmjk9n36aikhm8i6zwzfszyb5zcy1syn13vs2rm12x535j6dm5";
-  "EPPS16nlo_CT14nlo_Ca40" =
-    "18vd67splj75sjijfvhyq0q6068yr8l083sczamwpmy8z3l798ih";
-  "EPPS16nlo_CT14nlo_Cu64" =
-    "0g64gpc5cssmwl1sn7cl0ramsg2zfq7snr9bzr41q2dznbvqahgd";
-  "EPPS16nlo_CT14nlo_Fe56" =
-    "0dxfzpx99ha9g27bxx6xzxxh87va91qqwq6hnz1qsligjfx7q4yz";
-  "EPPS16nlo_CT14nlo_He4" =
-    "1ln5kz3270kyx6m3ji6q5xyp5a23f3kbwh9z9dmdwwsw7q9n8way";
-  "EPPS16nlo_CT14nlo_Li6" =
-    "04rviiml0rnym9qppsczcydw37r923ljx8hj63vv6dxng0g617qb";
-  "EPPS16nlo_CT14nlo_Pb208" =
-    "1b2zibpigdvvkg29zh7zm32jpdr2prm35jasafh17pfpwlfc55mb";
-  "EPPS16nlo_CT14nlo_Pt195" =
-    "14v1gicvm8i8z9d98rlv5rbhaglkbi9fhs3z465p4d764al6znnc";
-  "EPPS16nlo_CT14nlo_Sn119" =
-    "10nxn6rdp7svsrkdcdwxryjmirn1s871yj1w493adpfcy3chqw9k";
-  "EPPS16nlo_CT14nlo_W184" =
-    "1x8ndmkzmnl79vz1bgi9972190x03asvgnls6qiz746xl37q4ky7";
+  "EPPS16_B_90CL_Au_hess" = "0ab3pnv8fq45mdp29m6lfmrhhnr88k6qvkq6lwxmn17k39v8j9w4";
+  "EPPS16_B_90CL_Pb_hess" = "1cjc79sygpxnir3qw9n6cdwvd3flfn11ajqs5y64svrpsqcx5ng0";
+  "EPPS16_B_c_90CL_Au_hess" = "1ijvnglq4wrjhhvksyd60s7c6nv50vwyk5vd8c3gs0qr8yz1fk69";
+  "EPPS16_B_c_90CL_Pb_hess" = "1347cqsfkim0xcds5imxmsdxh8x0h2n97x5zwpf035rbdk5mkr4n";
+  "EPPS16_B_d_90CL_Au_hess" = "088jrj6xf1ph19sypa5dizllydfzi6ikxq2gisdlxpj1qnwjymsg";
+  "EPPS16_B_d_90CL_Pb_hess" = "0x12r31l0nvqsc2ml1zkil0w1iji52xgbnxn3wss9pnmswrf3cah";
+  "EPPS16_B_u_90CL_Au_hess" = "1pq7agglirpk2w566c1ql15ps1aglmnph2p2dfa535zlv89s7c0d";
+  "EPPS16_B_u_90CL_Pb_hess" = "137jkcbikmcjaxp8rpr5j193cmr329mcvyy7j0s0a6ynglhpr76k";
+  "EPPS16_D_90CL_Au_hess" = "01ggm0xxwd3nc95cjcf36sy0pdb0xvk6bkiaq328w2sfajccr5mk";
+  "EPPS16_D_90CL_Pb_hess" = "1z3zam84m2kbs7zinn87xhlca90d5zwk8j72yj19nx3r92brnq8h";
+  "EPPS16_D_c_90CL_Au_hess" = "18sviyvm3rm9n7x79w1sx8j9mcc6dnc2il8hsw2avjgy2aqmwj87";
+  "EPPS16_D_c_90CL_Pb_hess" = "1ryv83iq1lrphgxvdsmh70j6iky993sax0s9cfrswpjyl2pcilq2";
+  "EPPS16_D_d_90CL_Au_hess" = "15j6s9mj1ci9wjgsfhbxfikcyxc5pilv56cyzxjhgjhfgwvi1xyz";
+  "EPPS16_D_d_90CL_Pb_hess" = "1qjyb57fhf6d3g7l48jcl6jizj2c5g63xahzanrmkm9r538hvhcc";
+  "EPPS16_D_u_90CL_Au_hess" = "0jjk2rccvv0ngxn7wf33j21y72wvs4dhwl56yhmf7bfzd6v70rp2";
+  "EPPS16_D_u_90CL_Pb_hess" = "09npz68wwvcsvd6h8lsgmlr19l0af4h4rppcd6jlwd88c2zpb3r3";
+  "EPPS16_Jpsi_90CL_Au_hess" = "0msvkihdmhap0bbiydxbp552k1sgk20wadvc2s2h9jldakdx0pk9";
+  "EPPS16_Jpsi_90CL_Pb_hess" = "13vc490k1769gbph3xn1lffj0ilvhz78by3lhw45lwkra4vx5zp4";
+  "EPPS16_Jpsi_c_90CL_Au_hess" = "069lzrnm5kx56rblr4lxqvr014nrf2yyf1iw42s37q2xsxpjip87";
+  "EPPS16_Jpsi_c_90CL_Pb_hess" = "1895iqzmcnaqkidcy96z4766wppycp1riwg9clg71cb404wz74as";
+  "EPPS16_Jpsi_d_90CL_Au_hess" = "0ndh23dyaszam144dsdbg4281c61vai8avgi4y7x8kb0paha4icm";
+  "EPPS16_Jpsi_d_90CL_Pb_hess" = "0xflijnwabg931z19v8c18dzh1lbqivkg94kpwm8j135ya1vpmm2";
+  "EPPS16_Jpsi_u_90CL_Au_hess" = "1hagv9akwm337kq3kvkpkdkcpnic7klnigh9pyif1gm16i1q40jf";
+  "EPPS16_Jpsi_u_90CL_Pb_hess" = "0dw68rky105lyaagkzkmfx6l9jk763m293m7s972jhnl5037bj74";
+  "EPPS16nlo_CT14nlo_Ag108" = "1p7gckhv44h04rvknd6fdizy9c1jqfwic7ppf0ra14ic8wp1g7wg";
+  "EPPS16nlo_CT14nlo_Al27" = "0hxyakfgknmixxndfj14i44afp5gcfz9afjvjdaj702sv42a7qa8";
+  "EPPS16nlo_CT14nlo_Au197" = "1g272110y3a1fr6raxdfhagn68i0lcnwbdhiiqg4j6wb6v4m3p6i";
+  "EPPS16nlo_CT14nlo_Be9" = "0zxsdmvz919ajwwb917613byshhpr876jcg9kik0pkz8c4ddr2z0";
+  "EPPS16nlo_CT14nlo_C12" = "0mjmjk9n36aikhm8i6zwzfszyb5zcy1syn13vs2rm12x535j6dm5";
+  "EPPS16nlo_CT14nlo_Ca40" = "18vd67splj75sjijfvhyq0q6068yr8l083sczamwpmy8z3l798ih";
+  "EPPS16nlo_CT14nlo_Cu64" = "0g64gpc5cssmwl1sn7cl0ramsg2zfq7snr9bzr41q2dznbvqahgd";
+  "EPPS16nlo_CT14nlo_Fe56" = "0dxfzpx99ha9g27bxx6xzxxh87va91qqwq6hnz1qsligjfx7q4yz";
+  "EPPS16nlo_CT14nlo_He4" = "1ln5kz3270kyx6m3ji6q5xyp5a23f3kbwh9z9dmdwwsw7q9n8way";
+  "EPPS16nlo_CT14nlo_Li6" = "04rviiml0rnym9qppsczcydw37r923ljx8hj63vv6dxng0g617qb";
+  "EPPS16nlo_CT14nlo_Pb208" = "1b2zibpigdvvkg29zh7zm32jpdr2prm35jasafh17pfpwlfc55mb";
+  "EPPS16nlo_CT14nlo_Pt195" = "14v1gicvm8i8z9d98rlv5rbhaglkbi9fhs3z465p4d764al6znnc";
+  "EPPS16nlo_CT14nlo_Sn119" = "10nxn6rdp7svsrkdcdwxryjmirn1s871yj1w493adpfcy3chqw9k";
+  "EPPS16nlo_CT14nlo_W184" = "1x8ndmkzmnl79vz1bgi9972190x03asvgnls6qiz746xl37q4ky7";
   "GKG18_DPDF_FitA_LO" = "0ql03hp30wfaw9gfyska0v5vf4p3n2dsxvkapjqnyfl01ad6vjw2";
-  "GKG18_DPDF_FitA_NLO" =
-    "0n9khzvhyxfwbl758vzy8jgyqkgcgl328m657vlami3w22hmpbrz";
+  "GKG18_DPDF_FitA_NLO" = "0n9khzvhyxfwbl758vzy8jgyqkgcgl328m657vlami3w22hmpbrz";
   "GKG18_DPDF_FitB_LO" = "0s15ia8mcn00xl28rhdxjigpq0ai80a831366sx0w7qx44bb5n0p";
-  "GKG18_DPDF_FitB_NLO" =
-    "0qlv7p1fx3gq2cqrvamlpn6r54nssbk7rrx1znhfdzx3x9v1ii1q";
+  "GKG18_DPDF_FitB_NLO" = "0qlv7p1fx3gq2cqrvamlpn6r54nssbk7rrx1znhfdzx3x9v1ii1q";
   "GRVPI0" = "0i5icsw9hf4jm25d0szxqc3r1131n417lv8b4gslg93xqj4ry1hf";
   "GRVPI1" = "05j3mcrb0sq4nzv7y0k68f2m3v8vnd13mzbhq43gjq712cbj126p";
   "H1PDF2017" = "10yfikq1mlw6bzhbvwblajicpqzhi06gl1aabhxr6mcf9vby4zw8";
   "HERAPDF15LO_EIG" = "12cqj3vqwi86sfgxkiwbd7rnpw1awnbqbc852b0x32d9j18nz9c2";
-  "HERAPDF15NLO_ALPHAS" =
-    "06yiid611zi5i9snqrkjr3g4z2n1gwkvqjs606ha0b4nrwlpnkhc";
+  "HERAPDF15NLO_ALPHAS" = "06yiid611zi5i9snqrkjr3g4z2n1gwkvqjs606ha0b4nrwlpnkhc";
   "HERAPDF15NLO_EIG" = "0h5brmk7w70dgbwhjikfpprni924c2f3kxsmxzcm2qlrlgj0nswd";
   "HERAPDF15NLO_VAR" = "049bfsgkcfnz4z7vzkl4vr6ivp9kvak2f07nmarm8q2wwd6pjjqy";
-  "HERAPDF15NNLO_ALPHAS" =
-    "09qf93b336yak3aqnfqlvz5j6xvvrsqkc4ag41xh4prpswj8fmrc";
+  "HERAPDF15NNLO_ALPHAS" = "09qf93b336yak3aqnfqlvz5j6xvvrsqkc4ag41xh4prpswj8fmrc";
   "HERAPDF15NNLO_EIG" = "1yf48sr7nak6lph2s1vd3s91mrw0da9kjxlvqzcg3n9j48l3f3r0";
   "HERAPDF15NNLO_VAR" = "0di4b75ag82iysyrv5wfvn8728jdi8mkq96ycpq534078ps2n3bd";
-  "HERAPDF20_AG_NLO_EIG" =
-    "0jr2s4dj5w9xwidrqbqi8af2dqycm4vr36qy3x5javllp4dn04cr";
-  "HERAPDF20_AG_NNLO_EIG" =
-    "11cdhjwz4qm2hxf8i5kl38ny4nbsrd2vf3jkwz17lrgls716wh00";
-  "HERAPDF20_HiQ2_NLO_EIG" =
-    "09wwkv8lk7gy14avvamk3sqdsvig2bvnzha5d4v5s2ln7g6g7vhq";
-  "HERAPDF20_HiQ2_NLO_VAR" =
-    "1cgprisw1bksi8nryqqsy6ac097ywxdgj5yg796izari7j72p4bh";
-  "HERAPDF20_HiQ2_NNLO_EIG" =
-    "05670fr76fx14gp4ywywz71scr6f25jk14i4k84gpcb2l6rnbv9g";
-  "HERAPDF20_HiQ2_NNLO_VAR" =
-    "15nxgq5hy6ncvqma6ai8k7601bfw97p0h9db2gqbbyyvxf2ldnc7";
-  "HERAPDF20_Jets_NLO_EIG" =
-    "1c2n2cn9l8x9jc8c4dh2whgz3378nnnvb3448cgpv0qfm589ygxy";
-  "HERAPDF20_Jets_NLO_VAR_Duv" =
-    "0z2pkmlpffy29x2bh0086m1ybbb94x507fkr4khmdb4d0h33ppdw";
-  "HERAPDF20_Jets_NLO_VAR_fsdn" =
-    "1ya4hbr3shjggpqi6h3g9j3jnbmmgrva2djbsaxgp7icii39yf1a";
-  "HERAPDF20_Jets_NLO_VAR_fshdn" =
-    "1sl2sq27xx40mj4zn00vc44k3vf1yxb7fwpqp0p3lqlp9gcwlycp";
-  "HERAPDF20_Jets_NLO_VAR_fshup" =
-    "0qs8g45s70d0l3g7xh0bqhk65ac9g003bjpacd9v97gzpm6jvr45";
-  "HERAPDF20_Jets_NLO_VAR_fsup" =
-    "17ix21qwjkp9gy9gvn3143d8ganzg9r78n6q47wdfxh12jzvgc7k";
-  "HERAPDF20_Jets_NLO_VAR_haddn" =
-    "15rbsdddm5ayg5r0gljxxcmrrvzhfdr44ky2d6a70wjr2g6lc5yc";
-  "HERAPDF20_Jets_NLO_VAR_hadup" =
-    "1x3rnr2hkcfglpmv732blziygzvdlw2rkks1ap9majnayh01vvfk";
-  "HERAPDF20_Jets_NLO_VAR_mbdn" =
-    "1fi0rp4gpqj7yjmv6b68ac7m8v4f9m4q9kd6nq4ndk2gp11i6799";
-  "HERAPDF20_Jets_NLO_VAR_mbup" =
-    "062dfx73lihlhndn5xjlsimfxalxbfhn1xyqzbk7bsqj9mffmwli";
-  "HERAPDF20_Jets_NLO_VAR_mcdn" =
-    "092hwkx9kliib8lf405sy9bvxg6xgydnsxl92yjqwyicajihhij4";
-  "HERAPDF20_Jets_NLO_VAR_mcup" =
-    "0qcirk0sqnkfyb3pdxlpkl51pbj2gybw7kgw9xzmj4j3jdg2zjqg";
-  "HERAPDF20_Jets_NLO_VAR_q0dn" =
-    "1xv319ai4pwy1mcy6i3wk3mp4nkdpjb2zcnz17gxvdx2l6z1bz5m";
-  "HERAPDF20_Jets_NLO_VAR_q0up" =
-    "0bfsqx23jsrjjsczl5j90hp3njvlwaw8mypj1si83mr1z0s9q4rx";
-  "HERAPDF20_Jets_NLO_VAR_q2mdn" =
-    "16qfw118c3lh91zsg2nb49xjynbd9w1rh4y5ybr35v38i4acpdab";
-  "HERAPDF20_Jets_NLO_VAR_q2mup" =
-    "1q80h7r0cklpz1jam3nzxs7h3i8jpgpc03l7c3g4mkz61ynh0ida";
+  "HERAPDF20_AG_NLO_EIG" = "0jr2s4dj5w9xwidrqbqi8af2dqycm4vr36qy3x5javllp4dn04cr";
+  "HERAPDF20_AG_NNLO_EIG" = "11cdhjwz4qm2hxf8i5kl38ny4nbsrd2vf3jkwz17lrgls716wh00";
+  "HERAPDF20_HiQ2_NLO_EIG" = "09wwkv8lk7gy14avvamk3sqdsvig2bvnzha5d4v5s2ln7g6g7vhq";
+  "HERAPDF20_HiQ2_NLO_VAR" = "1cgprisw1bksi8nryqqsy6ac097ywxdgj5yg796izari7j72p4bh";
+  "HERAPDF20_HiQ2_NNLO_EIG" = "05670fr76fx14gp4ywywz71scr6f25jk14i4k84gpcb2l6rnbv9g";
+  "HERAPDF20_HiQ2_NNLO_VAR" = "15nxgq5hy6ncvqma6ai8k7601bfw97p0h9db2gqbbyyvxf2ldnc7";
+  "HERAPDF20_Jets_NLO_EIG" = "1c2n2cn9l8x9jc8c4dh2whgz3378nnnvb3448cgpv0qfm589ygxy";
+  "HERAPDF20_Jets_NLO_VAR_Duv" = "0z2pkmlpffy29x2bh0086m1ybbb94x507fkr4khmdb4d0h33ppdw";
+  "HERAPDF20_Jets_NLO_VAR_fsdn" = "1ya4hbr3shjggpqi6h3g9j3jnbmmgrva2djbsaxgp7icii39yf1a";
+  "HERAPDF20_Jets_NLO_VAR_fshdn" = "1sl2sq27xx40mj4zn00vc44k3vf1yxb7fwpqp0p3lqlp9gcwlycp";
+  "HERAPDF20_Jets_NLO_VAR_fshup" = "0qs8g45s70d0l3g7xh0bqhk65ac9g003bjpacd9v97gzpm6jvr45";
+  "HERAPDF20_Jets_NLO_VAR_fsup" = "17ix21qwjkp9gy9gvn3143d8ganzg9r78n6q47wdfxh12jzvgc7k";
+  "HERAPDF20_Jets_NLO_VAR_haddn" = "15rbsdddm5ayg5r0gljxxcmrrvzhfdr44ky2d6a70wjr2g6lc5yc";
+  "HERAPDF20_Jets_NLO_VAR_hadup" = "1x3rnr2hkcfglpmv732blziygzvdlw2rkks1ap9majnayh01vvfk";
+  "HERAPDF20_Jets_NLO_VAR_mbdn" = "1fi0rp4gpqj7yjmv6b68ac7m8v4f9m4q9kd6nq4ndk2gp11i6799";
+  "HERAPDF20_Jets_NLO_VAR_mbup" = "062dfx73lihlhndn5xjlsimfxalxbfhn1xyqzbk7bsqj9mffmwli";
+  "HERAPDF20_Jets_NLO_VAR_mcdn" = "092hwkx9kliib8lf405sy9bvxg6xgydnsxl92yjqwyicajihhij4";
+  "HERAPDF20_Jets_NLO_VAR_mcup" = "0qcirk0sqnkfyb3pdxlpkl51pbj2gybw7kgw9xzmj4j3jdg2zjqg";
+  "HERAPDF20_Jets_NLO_VAR_q0dn" = "1xv319ai4pwy1mcy6i3wk3mp4nkdpjb2zcnz17gxvdx2l6z1bz5m";
+  "HERAPDF20_Jets_NLO_VAR_q0up" = "0bfsqx23jsrjjsczl5j90hp3njvlwaw8mypj1si83mr1z0s9q4rx";
+  "HERAPDF20_Jets_NLO_VAR_q2mdn" = "16qfw118c3lh91zsg2nb49xjynbd9w1rh4y5ybr35v38i4acpdab";
+  "HERAPDF20_Jets_NLO_VAR_q2mup" = "1q80h7r0cklpz1jam3nzxs7h3i8jpgpc03l7c3g4mkz61ynh0ida";
   "HERAPDF20_LO_EIG" = "1r6ylwi2yszsk5dmw27734s0ghkvdawmqa6fik1k3j82d9s22mkl";
-  "HERAPDF20_NLO_ALPHAS_110" =
-    "0zmmg0k33bf52skbz42cgxdjw0ap33fyf0h1kfd9ciw4gra2rakn";
-  "HERAPDF20_NLO_ALPHAS_111" =
-    "1mlc33kfs4zlmn305hifjh2d85byvym1mzdj9bc3nlypv4zcszlf";
-  "HERAPDF20_NLO_ALPHAS_112" =
-    "0wswbdmkyv0a6fw531s1s7jnskzxsvwh9bydvgiav53pfpibsyx6";
-  "HERAPDF20_NLO_ALPHAS_113" =
-    "0qx7kh3cmqz59sm6vjcvi2hj5c7d816mc7jfhqr03hvavqcsla14";
-  "HERAPDF20_NLO_ALPHAS_114" =
-    "1n2434j9gvdz24h30sng8z5jmc9hhnm9nbr3hi82n6ssnwabsl97";
-  "HERAPDF20_NLO_ALPHAS_115" =
-    "05wk9glb6xpg5n689slihcfkdvm3kgwpxw8dxp4rp8zyvrsh6l6f";
-  "HERAPDF20_NLO_ALPHAS_116" =
-    "133vvg5bh1lx6zcacnaphkj11608wafim4rb6lcqx4mkpxabmzxa";
-  "HERAPDF20_NLO_ALPHAS_117" =
-    "18n1s7qqzf67lg8gphpm606dvz802i6xmlz5if5jdhjz8r3qklzf";
-  "HERAPDF20_NLO_ALPHAS_118" =
-    "07xj5j7k54bwi9xq51cf8zanqlkjcbdrvw9k8ch3h40bk961c5pz";
-  "HERAPDF20_NLO_ALPHAS_119" =
-    "0njyfp84kf51m9rw9z3d3figp23043p5ml7cdb45dvh9hbpssh40";
-  "HERAPDF20_NLO_ALPHAS_120" =
-    "02paa7bng9nycd8dd2zf2099592mbaz8c4a5hamcmvzqfz0sdy7d";
-  "HERAPDF20_NLO_ALPHAS_121" =
-    "07hmbvpm96pm5yp9bsx9aksznksh6k4qrw0k28bns0wjn75khxsl";
-  "HERAPDF20_NLO_ALPHAS_122" =
-    "1pjn3h1wr6l6sy7kjvk72qc409dr939z787q2qbaph7xh5rf7k2s";
-  "HERAPDF20_NLO_ALPHAS_123" =
-    "09hz6pw4nklwf94krna7g80659v9c2c0f5rf99mnx900xyhk7pxa";
-  "HERAPDF20_NLO_ALPHAS_124" =
-    "1d9gmc3g0j32kgwyfddmx9f3gxwrgnq3xcbrabdx9cw554ysd6sg";
-  "HERAPDF20_NLO_ALPHAS_125" =
-    "0mi2q9yhkcdpj7336kbs1vw4zvm8c9fryz0c7hdj246kj26rb0mv";
-  "HERAPDF20_NLO_ALPHAS_126" =
-    "067rng6gv24qf1j8lz37115mc42k8wjpzrfcw4jw2d1yg22ci0lb";
-  "HERAPDF20_NLO_ALPHAS_127" =
-    "0v3xcdr8wsradqf3bzayvvlsdjzr54qa2kbqb5pyvfi3rafrwrmi";
-  "HERAPDF20_NLO_ALPHAS_128" =
-    "0ywnd9c6bq5bp02s3b3pql8a74wm472p11alqi4b4pmlzphzk1ix";
-  "HERAPDF20_NLO_ALPHAS_129" =
-    "055ya2wxscbzp2w3zx2a5xgs94wl60bm6c2vxrs2rgnab72382j9";
-  "HERAPDF20_NLO_ALPHAS_130" =
-    "0k91azhwxrfni5yfasn83f67ma9w8fax2k1k9xc8pvgmbh3c14wi";
+  "HERAPDF20_NLO_ALPHAS_110" = "0zmmg0k33bf52skbz42cgxdjw0ap33fyf0h1kfd9ciw4gra2rakn";
+  "HERAPDF20_NLO_ALPHAS_111" = "1mlc33kfs4zlmn305hifjh2d85byvym1mzdj9bc3nlypv4zcszlf";
+  "HERAPDF20_NLO_ALPHAS_112" = "0wswbdmkyv0a6fw531s1s7jnskzxsvwh9bydvgiav53pfpibsyx6";
+  "HERAPDF20_NLO_ALPHAS_113" = "0qx7kh3cmqz59sm6vjcvi2hj5c7d816mc7jfhqr03hvavqcsla14";
+  "HERAPDF20_NLO_ALPHAS_114" = "1n2434j9gvdz24h30sng8z5jmc9hhnm9nbr3hi82n6ssnwabsl97";
+  "HERAPDF20_NLO_ALPHAS_115" = "05wk9glb6xpg5n689slihcfkdvm3kgwpxw8dxp4rp8zyvrsh6l6f";
+  "HERAPDF20_NLO_ALPHAS_116" = "133vvg5bh1lx6zcacnaphkj11608wafim4rb6lcqx4mkpxabmzxa";
+  "HERAPDF20_NLO_ALPHAS_117" = "18n1s7qqzf67lg8gphpm606dvz802i6xmlz5if5jdhjz8r3qklzf";
+  "HERAPDF20_NLO_ALPHAS_118" = "07xj5j7k54bwi9xq51cf8zanqlkjcbdrvw9k8ch3h40bk961c5pz";
+  "HERAPDF20_NLO_ALPHAS_119" = "0njyfp84kf51m9rw9z3d3figp23043p5ml7cdb45dvh9hbpssh40";
+  "HERAPDF20_NLO_ALPHAS_120" = "02paa7bng9nycd8dd2zf2099592mbaz8c4a5hamcmvzqfz0sdy7d";
+  "HERAPDF20_NLO_ALPHAS_121" = "07hmbvpm96pm5yp9bsx9aksznksh6k4qrw0k28bns0wjn75khxsl";
+  "HERAPDF20_NLO_ALPHAS_122" = "1pjn3h1wr6l6sy7kjvk72qc409dr939z787q2qbaph7xh5rf7k2s";
+  "HERAPDF20_NLO_ALPHAS_123" = "09hz6pw4nklwf94krna7g80659v9c2c0f5rf99mnx900xyhk7pxa";
+  "HERAPDF20_NLO_ALPHAS_124" = "1d9gmc3g0j32kgwyfddmx9f3gxwrgnq3xcbrabdx9cw554ysd6sg";
+  "HERAPDF20_NLO_ALPHAS_125" = "0mi2q9yhkcdpj7336kbs1vw4zvm8c9fryz0c7hdj246kj26rb0mv";
+  "HERAPDF20_NLO_ALPHAS_126" = "067rng6gv24qf1j8lz37115mc42k8wjpzrfcw4jw2d1yg22ci0lb";
+  "HERAPDF20_NLO_ALPHAS_127" = "0v3xcdr8wsradqf3bzayvvlsdjzr54qa2kbqb5pyvfi3rafrwrmi";
+  "HERAPDF20_NLO_ALPHAS_128" = "0ywnd9c6bq5bp02s3b3pql8a74wm472p11alqi4b4pmlzphzk1ix";
+  "HERAPDF20_NLO_ALPHAS_129" = "055ya2wxscbzp2w3zx2a5xgs94wl60bm6c2vxrs2rgnab72382j9";
+  "HERAPDF20_NLO_ALPHAS_130" = "0k91azhwxrfni5yfasn83f67ma9w8fax2k1k9xc8pvgmbh3c14wi";
   "HERAPDF20_NLO_EIG" = "1ryamdwblj1ysbha672q2z9qai62h6cibb0laizfq2nq4j4ml3vz";
-  "HERAPDF20_NLO_FF3A_EIG" =
-    "1fs6ldnwflmn5ysqkq9aky2xskd0dvq372h48x89h4vmsvd302wn";
-  "HERAPDF20_NLO_FF3A_VAR" =
-    "0jd9wgrhchqjcjrkh5hjx7x8agm43jq5p8dmyvk0rniz9zybx64d";
-  "HERAPDF20_NLO_FF3B_EIG" =
-    "0r04zjfaaq686g3bd6c753vkcwsbgdcfzr67ngm7vsz27zscbjbz";
-  "HERAPDF20_NLO_FF3B_VAR" =
-    "12qrfld8958gvk9c2q8l0mvccx6wkrgnsiapgzl37s6s6zcgid10";
+  "HERAPDF20_NLO_FF3A_EIG" = "1fs6ldnwflmn5ysqkq9aky2xskd0dvq372h48x89h4vmsvd302wn";
+  "HERAPDF20_NLO_FF3A_VAR" = "0jd9wgrhchqjcjrkh5hjx7x8agm43jq5p8dmyvk0rniz9zybx64d";
+  "HERAPDF20_NLO_FF3B_EIG" = "0r04zjfaaq686g3bd6c753vkcwsbgdcfzr67ngm7vsz27zscbjbz";
+  "HERAPDF20_NLO_FF3B_VAR" = "12qrfld8958gvk9c2q8l0mvccx6wkrgnsiapgzl37s6s6zcgid10";
   "HERAPDF20_NLO_VAR" = "0q5ih9ac3z6n158h6q149h0ggkfjrdn5rqwf7nzi3j50fhs63swj";
-  "HERAPDF20_NNLO_ALPHAS_110" =
-    "1828i4ybdzs7zj62lzsifgshxdas81vjvhfg86ixry4xqkfprlfg";
-  "HERAPDF20_NNLO_ALPHAS_111" =
-    "011d1a900jjpa78ph05sdy353gfmrr8azpngcf0cjigcn4fwdna6";
-  "HERAPDF20_NNLO_ALPHAS_112" =
-    "0xb2bnigwlhs0vs3fwzsz66zidchwgs97kn6vjfhxnik8xdfkyb8";
-  "HERAPDF20_NNLO_ALPHAS_113" =
-    "13b8gh0qwpy574ra6184vgff3wba0blr44lxj56xrkaql9zi1jx1";
-  "HERAPDF20_NNLO_ALPHAS_114" =
-    "09n30p5pbw2wyjss2jjz1h4nl9scin42s91sxdcrwinnc3y5n1in";
-  "HERAPDF20_NNLO_ALPHAS_115" =
-    "0nlimqmfhx2ijx48ylciih5diwlsb5zzkli82rgnnxci3r4ycjq4";
-  "HERAPDF20_NNLO_ALPHAS_116" =
-    "0nr8svx60zrf42nxg74v0h759y9lwg54892xpdmswg7mw0nwcrm9";
-  "HERAPDF20_NNLO_ALPHAS_117" =
-    "0xiqdr2r5dyyp5q56b3w04wy3raqrh1mjsv1fm05xswxn2xwyhlq";
-  "HERAPDF20_NNLO_ALPHAS_118" =
-    "0d0w0f077g11s4clx1556y9xx5nn1dgm8zcp0bk92v4lapngf33c";
-  "HERAPDF20_NNLO_ALPHAS_119" =
-    "1w9nl0pnfc1cii4knmqdq4cnh6shhhgj8pg4a42bx20lvqc3aqgb";
-  "HERAPDF20_NNLO_ALPHAS_120" =
-    "1lksn0rcxq2scwpnps8dawlzijhvwbg0pn2is4r29igbqck2jvb3";
-  "HERAPDF20_NNLO_ALPHAS_121" =
-    "03d58rbibvgcvmsw86q3030qnw5nnvq8p6diqscd9srb8br06p8m";
-  "HERAPDF20_NNLO_ALPHAS_122" =
-    "0541yx5fcadw7rggpypd8kg393m5hwzsw5jangsmsrsby1rc2m4a";
-  "HERAPDF20_NNLO_ALPHAS_123" =
-    "1ckc8s04jf7x19xpwwb8g60likrlz3dp91qzaafljvbd9b27aa61";
-  "HERAPDF20_NNLO_ALPHAS_124" =
-    "13dx2wh0dhxsjjk6ak7wy1gr8g297dpc9xvkxvb5ayd0rzmhjlwb";
-  "HERAPDF20_NNLO_ALPHAS_125" =
-    "0yh6jakycsqhh4h6jqrilw1afmk1jkcq2px978z4qcz4y0m6bx4a";
-  "HERAPDF20_NNLO_ALPHAS_126" =
-    "0045sa1kl4w75ja6an38i2a3fi78q6xg22av536l9h1c8j82ql13";
-  "HERAPDF20_NNLO_ALPHAS_127" =
-    "1f5l9cy59dc3rc9xqrsq85g0mbhyaqkbpzi40f3gjg6bxjlgb4rx";
-  "HERAPDF20_NNLO_ALPHAS_128" =
-    "1c2pbd4zam5av582r777197638l6i5a0chmw9ci7l05lzm19nzmi";
-  "HERAPDF20_NNLO_ALPHAS_129" =
-    "1aipmxxn7s1r66m6gmrjgr2yca7sxvpf8r86s4a5j768akkgmlld";
-  "HERAPDF20_NNLO_ALPHAS_130" =
-    "1g2q3438bivd20i685jmx565cq108yv72vhxmpmhysh4qwvwpqqw";
+  "HERAPDF20_NNLO_ALPHAS_110" = "1828i4ybdzs7zj62lzsifgshxdas81vjvhfg86ixry4xqkfprlfg";
+  "HERAPDF20_NNLO_ALPHAS_111" = "011d1a900jjpa78ph05sdy353gfmrr8azpngcf0cjigcn4fwdna6";
+  "HERAPDF20_NNLO_ALPHAS_112" = "0xb2bnigwlhs0vs3fwzsz66zidchwgs97kn6vjfhxnik8xdfkyb8";
+  "HERAPDF20_NNLO_ALPHAS_113" = "13b8gh0qwpy574ra6184vgff3wba0blr44lxj56xrkaql9zi1jx1";
+  "HERAPDF20_NNLO_ALPHAS_114" = "09n30p5pbw2wyjss2jjz1h4nl9scin42s91sxdcrwinnc3y5n1in";
+  "HERAPDF20_NNLO_ALPHAS_115" = "0nlimqmfhx2ijx48ylciih5diwlsb5zzkli82rgnnxci3r4ycjq4";
+  "HERAPDF20_NNLO_ALPHAS_116" = "0nr8svx60zrf42nxg74v0h759y9lwg54892xpdmswg7mw0nwcrm9";
+  "HERAPDF20_NNLO_ALPHAS_117" = "0xiqdr2r5dyyp5q56b3w04wy3raqrh1mjsv1fm05xswxn2xwyhlq";
+  "HERAPDF20_NNLO_ALPHAS_118" = "0d0w0f077g11s4clx1556y9xx5nn1dgm8zcp0bk92v4lapngf33c";
+  "HERAPDF20_NNLO_ALPHAS_119" = "1w9nl0pnfc1cii4knmqdq4cnh6shhhgj8pg4a42bx20lvqc3aqgb";
+  "HERAPDF20_NNLO_ALPHAS_120" = "1lksn0rcxq2scwpnps8dawlzijhvwbg0pn2is4r29igbqck2jvb3";
+  "HERAPDF20_NNLO_ALPHAS_121" = "03d58rbibvgcvmsw86q3030qnw5nnvq8p6diqscd9srb8br06p8m";
+  "HERAPDF20_NNLO_ALPHAS_122" = "0541yx5fcadw7rggpypd8kg393m5hwzsw5jangsmsrsby1rc2m4a";
+  "HERAPDF20_NNLO_ALPHAS_123" = "1ckc8s04jf7x19xpwwb8g60likrlz3dp91qzaafljvbd9b27aa61";
+  "HERAPDF20_NNLO_ALPHAS_124" = "13dx2wh0dhxsjjk6ak7wy1gr8g297dpc9xvkxvb5ayd0rzmhjlwb";
+  "HERAPDF20_NNLO_ALPHAS_125" = "0yh6jakycsqhh4h6jqrilw1afmk1jkcq2px978z4qcz4y0m6bx4a";
+  "HERAPDF20_NNLO_ALPHAS_126" = "0045sa1kl4w75ja6an38i2a3fi78q6xg22av536l9h1c8j82ql13";
+  "HERAPDF20_NNLO_ALPHAS_127" = "1f5l9cy59dc3rc9xqrsq85g0mbhyaqkbpzi40f3gjg6bxjlgb4rx";
+  "HERAPDF20_NNLO_ALPHAS_128" = "1c2pbd4zam5av582r777197638l6i5a0chmw9ci7l05lzm19nzmi";
+  "HERAPDF20_NNLO_ALPHAS_129" = "1aipmxxn7s1r66m6gmrjgr2yca7sxvpf8r86s4a5j768akkgmlld";
+  "HERAPDF20_NNLO_ALPHAS_130" = "1g2q3438bivd20i685jmx565cq108yv72vhxmpmhysh4qwvwpqqw";
   "HERAPDF20_NNLO_EIG" = "12zn49jx7qjr8apgpbhknzll4vwlz3x9y1ai908ix2h86pgap2ml";
   "HERAPDF20_NNLO_VAR" = "152h21khvkhxwx87c5lqwzpakmahcpj1ixw6kgl0wrrwjknvfgxn";
   "JAM19FF_kaon_nlo" = "05mcahzr0k5w0hqfbn902lmkwxlkbf8wrk6akpqnfsyqpbmhja5k";
   "JAM19FF_pion_nlo" = "06krcf0c9jbbpwf1rk1xd5z7rz904ji984xz05kv9p1j1vgk0ha0";
-  "JAM19PDF_proton_nlo" =
-    "1zrcijik60rci6km5d8pn8ivww8w3v8pb1m5dshqjs51lhf56ayp";
-  "JAM20-SIDIS_FF_hadron_nlo" =
-    "0bx3igckr2dszxskz5f952vl0q7kwvxgyb28yksjk75325dp2f9c";
-  "JAM20-SIDIS_FF_kaon_nlo" =
-    "060r6ah5843vm1r3rhjvlgp7w45z39cqgibfc2g2m1q7mwjqccjy";
-  "JAM20-SIDIS_FF_pion_nlo" =
-    "0fpkbl5fw76wgk8l599kf51mqa0fy92bq9ksfjfks0c4m6ah1g5i";
-  "JAM20-SIDIS_PDF_proton_nlo" =
-    "1g1g9n2ij58yzvgrw8g1f8jbqyhj9yvbvl9iqjxllkhkb2zbllpl";
+  "JAM19PDF_proton_nlo" = "1zrcijik60rci6km5d8pn8ivww8w3v8pb1m5dshqjs51lhf56ayp";
+  "JAM20-SIDIS_FF_hadron_nlo" = "0bx3igckr2dszxskz5f952vl0q7kwvxgyb28yksjk75325dp2f9c";
+  "JAM20-SIDIS_FF_kaon_nlo" = "060r6ah5843vm1r3rhjvlgp7w45z39cqgibfc2g2m1q7mwjqccjy";
+  "JAM20-SIDIS_FF_pion_nlo" = "0fpkbl5fw76wgk8l599kf51mqa0fy92bq9ksfjfks0c4m6ah1g5i";
+  "JAM20-SIDIS_PDF_proton_nlo" = "1g1g9n2ij58yzvgrw8g1f8jbqyhj9yvbvl9iqjxllkhkb2zbllpl";
   "JAM21PionPDFnlo" = "0zn7p9ny6072dkhsiaq64f2gdzpqbqc06d9a21rvvg3cgsba9jg3";
   "JAM21PionPDFnlo_pT" = "1wxpkk1wzx1z1kwxfj6kz14pxlckb96aqaq2fa4sf1a0ph1ibrc8";
-  "JAM21PionPDFnlonll_cosine" =
-    "0nbmdc0744kl6r7r9lfs20gffpjyxpcfpkp7f336fn1mcl89wggn";
-  "JAM21PionPDFnlonll_double_Mellin" =
-    "1n8fqar0dddc92054kg3pl1xlh6z7smm3glv5fvfxr933bxli5g8";
-  "JAM21PionPDFnlonll_expansion" =
-    "0dmmalgmp4xjwimyfx0sa8yafzzm0xzqk557qwkli3ramzwrwy8p";
+  "JAM21PionPDFnlonll_cosine" = "0nbmdc0744kl6r7r9lfs20gffpjyxpcfpkp7f336fn1mcl89wggn";
+  "JAM21PionPDFnlonll_double_Mellin" = "1n8fqar0dddc92054kg3pl1xlh6z7smm3glv5fvfxr933bxli5g8";
+  "JAM21PionPDFnlonll_expansion" = "0dmmalgmp4xjwimyfx0sa8yafzzm0xzqk557qwkli3ramzwrwy8p";
   "JR14NLO08FF" = "16azkqxf1yw1j32ay6j01gf8n9n7qm56jh4yzgjag0zdhm01lbip";
   "JR14NLO08VF" = "1ilw38pp4vy8c8v1glfi4ixca73wjkdg3di1wh9p8xqrifdb096p";
   "JR14NNLO08FF" = "1w0pywmjb4xi7bsvv1mdd4q2adf1g7khspfbkphmlh8zipx29nxx";
   "JR14NNLO08VF" = "0kzszj1r141fcg9vbf53480224nxcc5wfk9zmpmzbmrxzi0w127r";
   "JR14NNLO20FF" = "0wc3qib90dpd1wgiymrn5lzwhqmh58ji2s92vpj2v9v4spws7pdq";
   "JR14NNLO20VF" = "18l4ipn80gmh9kdw7a1k49fwgbl7b1frgc0hsa04vbwnv6hm73hn";
-  "LUXlep-NNPDF31_nlo_as_0118_luxqed" =
-    "09ch6mjfn6rjsd31jfb59j92ngqiy0x19qamyxh0jwk0sbyr1dpw";
-  "LUXqed17_plus_PDF4LHC15_nnlo_100" =
-    "18y3pa6gjmcv2s21si9a5dvbq6xxqphbqz5qiy39c62g2zf8512c";
-  "LUXqed17_plus_PDF4LHC15_nnlo_30" =
-    "1bnwlxr8p4xmr36zd2flhqssil6w7jh50k46j0mxfnd8jgxgwn6n";
-  "LUXqed_plus_PDF4LHC15_nnlo_100" =
-    "08jzl4wcsrr9agycq1r5kd5bqxsx4b637nxk34s82vs7vwpq7qib";
+  "LUXlep-NNPDF31_nlo_as_0118_luxqed" = "09ch6mjfn6rjsd31jfb59j92ngqiy0x19qamyxh0jwk0sbyr1dpw";
+  "LUXqed17_plus_PDF4LHC15_nnlo_100" = "18y3pa6gjmcv2s21si9a5dvbq6xxqphbqz5qiy39c62g2zf8512c";
+  "LUXqed17_plus_PDF4LHC15_nnlo_30" = "1bnwlxr8p4xmr36zd2flhqssil6w7jh50k46j0mxfnd8jgxgwn6n";
+  "LUXqed_plus_PDF4LHC15_nnlo_100" = "08jzl4wcsrr9agycq1r5kd5bqxsx4b637nxk34s82vs7vwpq7qib";
   "MAPFF10NLOPIm" = "0w875dh5klqgggcr84g0g7qmh4q2xim8nrf0xdnfc665xww7v4my";
   "MAPFF10NLOPIp" = "1493k3p7b03sw0n7va60vqxcry2b3xgpww6fnk2gx8b4w1632yn2";
   "MAPFF10NLOPIsum" = "0x6sashkhg1hs7wy6fyln12s1f4yavvc90zv4k7rclbah4hr75wm";
@@ -620,274 +482,153 @@ lib.mapAttrs mkPdfSet {
   "METAv10LHCas0116" = "0y1l6djkmx8zcsii9j9krwhvgh071a9y5d4m1rkqpbqf6dnq9kll";
   "METAv10LHCas0120" = "1g1izkf3j0vdrjskbjzh8lzsdn1bqssidr0gsapyzlx0dzc2ixdp";
   "MMHT2014lo68cl" = "03wrjv448zdqblv4zx5b2p4m0nj8h4igabh8pzskj0327w7g91lm";
-  "MMHT2014lo_asmzsmallrange" =
-    "16ki4aib5dslb7lx6w9nzx18nh0sgh41zbiw4hszf2qxn3asdyhz";
+  "MMHT2014lo_asmzsmallrange" = "16ki4aib5dslb7lx6w9nzx18nh0sgh41zbiw4hszf2qxn3asdyhz";
   "MMHT2014nlo68cl" = "039zw5zrzm661bgjv7d0imzhfv3j3ixnrssi13ynfpin9v2izy6g";
-  "MMHT2014nlo68cl_nf3" =
-    "0bjmng4ifdswi88kf59zzxpdq8ka80m01208nb2ij3dkpw0n5hnf";
-  "MMHT2014nlo68cl_nf4" =
-    "01g0bbfwxaqhgpv0yz17fvwa4q1a1vh9867kp9fyavn600kd91ds";
-  "MMHT2014nlo68cl_nf4as5" =
-    "1wdrk7b1hs6s8f2gxp7b3c1qrxvncs41h4aph1dhf8zffn3653yy";
-  "MMHT2014nlo68clas118" =
-    "1nv7h2j31z061mgph5154qgxn8rl5sdgwzzs3d3clxfshh5gcccn";
-  "MMHT2014nlo68clas118_nf3" =
-    "1d7k0vablssy1vfimsvxdiklaachw44lg37fgj1im52k81qxzd3n";
-  "MMHT2014nlo68clas118_nf4" =
-    "1s8gv434b4mz6y5rv4kms69ghliafcmih09icj4qwk66hj7pn5lj";
-  "MMHT2014nlo68clas118_nf4as5" =
-    "00zvf9zkrp9lk9psqvzsn04l1rw1xmq37bd2c8mqc2px3zdq9q0f";
-  "MMHT2014nlo_asmzlargerange" =
-    "186jz5r74qas28x04daqkxhs5p31i68hhy8a7q6lzd5nh42x6kk0";
-  "MMHT2014nlo_asmzsmallrange" =
-    "1x347h5g8d2k73wg6naj6zs7m2glankiwjgzy0gmmrnz3pyryq6x";
-  "MMHT2014nlo_asmzsmallrange_nf3" =
-    "0ckw5971pwvvix8idw2m6j7w6bjivqpa1ynm6ml0bhc75cmm6l4i";
-  "MMHT2014nlo_asmzsmallrange_nf4" =
-    "1asnk3pl3dw1sh76k0s95jb57cv5k90zjgpbkr3nnrbhvnkizl5a";
-  "MMHT2014nlo_mbrange_nf3" =
-    "0bghvriw01jxmzcm9isz7in43ph7vz6zzr0rmmi81snrwvg8918h";
-  "MMHT2014nlo_mbrange_nf4" =
-    "1gad7269hz4jj3946yyqzmcx3zyxx2p4r0h88x3lfrm0rd0fg00d";
-  "MMHT2014nlo_mbrange_nf5" =
-    "03id7bfds16kbnd0nwjla8sn4pl3q3qa5v0a3pykdwj14k9igi3n";
-  "MMHT2014nlo_mcrange_nf3" =
-    "1zfmdclsgwf6517v88zg34wby40606sspcghh4yahc2bbznd6a63";
-  "MMHT2014nlo_mcrange_nf4" =
-    "0hzhkv81a0z3ichj5kfhwnhc720xw48h63llijl0pcfv8qqpvl19";
-  "MMHT2014nlo_mcrange_nf5" =
-    "148hg5dc60yhfmwsm0svasxc7l1py6ggj7lzv0mrshl07rwfh62a";
-  "MMHT2014nloas118_mbrange_nf3" =
-    "03w1wish6ig3mw9j195rakxsjr7gr46qz8dh009sigqcgp3s9fad";
-  "MMHT2014nloas118_mbrange_nf4" =
-    "1lbj3r1bbxx2y1ybnxpd0cw7jzkdz0rb1grn1pmwmrl0l13s7j59";
-  "MMHT2014nloas118_mbrange_nf5" =
-    "12q0gkqzhxqwrvy8lpg66ldsxnwr8id6jv6k4dj6f0p93qif5wr8";
-  "MMHT2014nloas118_mcrange_nf3" =
-    "093yh7wa3p4028x5zxw15pwkrkjxzfl7kcdm7jqlf08zwm52clyx";
-  "MMHT2014nloas118_mcrange_nf4" =
-    "0q0y77i0fgdvjk9y76kqzxpn22jbzsh64qbx8186ri9fqzfi868i";
-  "MMHT2014nloas118_mcrange_nf5" =
-    "187wsfm49ack0jh9rwy5h29b1511b17myqn28bm6nbn7r4rfvnkz";
+  "MMHT2014nlo68cl_nf3" = "0bjmng4ifdswi88kf59zzxpdq8ka80m01208nb2ij3dkpw0n5hnf";
+  "MMHT2014nlo68cl_nf4" = "01g0bbfwxaqhgpv0yz17fvwa4q1a1vh9867kp9fyavn600kd91ds";
+  "MMHT2014nlo68cl_nf4as5" = "1wdrk7b1hs6s8f2gxp7b3c1qrxvncs41h4aph1dhf8zffn3653yy";
+  "MMHT2014nlo68clas118" = "1nv7h2j31z061mgph5154qgxn8rl5sdgwzzs3d3clxfshh5gcccn";
+  "MMHT2014nlo68clas118_nf3" = "1d7k0vablssy1vfimsvxdiklaachw44lg37fgj1im52k81qxzd3n";
+  "MMHT2014nlo68clas118_nf4" = "1s8gv434b4mz6y5rv4kms69ghliafcmih09icj4qwk66hj7pn5lj";
+  "MMHT2014nlo68clas118_nf4as5" = "00zvf9zkrp9lk9psqvzsn04l1rw1xmq37bd2c8mqc2px3zdq9q0f";
+  "MMHT2014nlo_asmzlargerange" = "186jz5r74qas28x04daqkxhs5p31i68hhy8a7q6lzd5nh42x6kk0";
+  "MMHT2014nlo_asmzsmallrange" = "1x347h5g8d2k73wg6naj6zs7m2glankiwjgzy0gmmrnz3pyryq6x";
+  "MMHT2014nlo_asmzsmallrange_nf3" = "0ckw5971pwvvix8idw2m6j7w6bjivqpa1ynm6ml0bhc75cmm6l4i";
+  "MMHT2014nlo_asmzsmallrange_nf4" = "1asnk3pl3dw1sh76k0s95jb57cv5k90zjgpbkr3nnrbhvnkizl5a";
+  "MMHT2014nlo_mbrange_nf3" = "0bghvriw01jxmzcm9isz7in43ph7vz6zzr0rmmi81snrwvg8918h";
+  "MMHT2014nlo_mbrange_nf4" = "1gad7269hz4jj3946yyqzmcx3zyxx2p4r0h88x3lfrm0rd0fg00d";
+  "MMHT2014nlo_mbrange_nf5" = "03id7bfds16kbnd0nwjla8sn4pl3q3qa5v0a3pykdwj14k9igi3n";
+  "MMHT2014nlo_mcrange_nf3" = "1zfmdclsgwf6517v88zg34wby40606sspcghh4yahc2bbznd6a63";
+  "MMHT2014nlo_mcrange_nf4" = "0hzhkv81a0z3ichj5kfhwnhc720xw48h63llijl0pcfv8qqpvl19";
+  "MMHT2014nlo_mcrange_nf5" = "148hg5dc60yhfmwsm0svasxc7l1py6ggj7lzv0mrshl07rwfh62a";
+  "MMHT2014nloas118_mbrange_nf3" = "03w1wish6ig3mw9j195rakxsjr7gr46qz8dh009sigqcgp3s9fad";
+  "MMHT2014nloas118_mbrange_nf4" = "1lbj3r1bbxx2y1ybnxpd0cw7jzkdz0rb1grn1pmwmrl0l13s7j59";
+  "MMHT2014nloas118_mbrange_nf5" = "12q0gkqzhxqwrvy8lpg66ldsxnwr8id6jv6k4dj6f0p93qif5wr8";
+  "MMHT2014nloas118_mcrange_nf3" = "093yh7wa3p4028x5zxw15pwkrkjxzfl7kcdm7jqlf08zwm52clyx";
+  "MMHT2014nloas118_mcrange_nf4" = "0q0y77i0fgdvjk9y76kqzxpn22jbzsh64qbx8186ri9fqzfi868i";
+  "MMHT2014nloas118_mcrange_nf5" = "187wsfm49ack0jh9rwy5h29b1511b17myqn28bm6nbn7r4rfvnkz";
   "MMHT2014nnlo68cl" = "0sss77zwv94vcy4ghv6493vbw08xwm264dk081w34jc4ifa0vg90";
-  "MMHT2014nnlo68cl_nf3" =
-    "06paq3nzs87babpksabnkqi38gvvyfvpqlh8p18140zrdpdffaj2";
-  "MMHT2014nnlo68cl_nf4" =
-    "0lbqpdy66v3ns6ax9vj1ix4wjn2pwlw5y1z26hlbrxz3l8hbizg1";
-  "MMHT2014nnlo68cl_nf4as5" =
-    "1bh5nsral3lrlqq6afvq9ahkfmhfw3mq0m0qcvsx4ma5jx5rv7dv";
-  "MMHT2014nnlo_asmzlargerange" =
-    "00l2jqccsl3jfwdj7lndr4b5cpx44krjvnm3h0hjw6hkv4irxb5s";
-  "MMHT2014nnlo_asmzsmallrange" =
-    "1x36pv9nhj74whibb16bc414ypcks6nd1s7q1jc0fb7ndf5rijy6";
-  "MMHT2014nnlo_asmzsmallrange_nf3" =
-    "0svpc51n25cbz2b43zbd60bfckrlz3q2jn3x668xnha9qsd3c2vq";
-  "MMHT2014nnlo_asmzsmallrange_nf4" =
-    "15jggp2nbm828nprxyyinmp7kfxngpm0apg446hvwd8hg7blb1a4";
-  "MMHT2014nnlo_mbrange_nf3" =
-    "0r9gi5cw76zn0lq3fcs7s2xxh6jl9y5vdv31bhv6mac9jmhjb458";
-  "MMHT2014nnlo_mbrange_nf4" =
-    "190wva3k49mymflbm1v5xd449j38jm7ylfcdiflym8pgkdvwcgyl";
-  "MMHT2014nnlo_mbrange_nf5" =
-    "19mnv9nz01lmbiv01qmflhg24kldhqpmcc8mgp7bnkhicgivb5ib";
-  "MMHT2014nnlo_mcrange_nf3" =
-    "0zskxladqr40v6wqafbl1pl04vq43babqf437c4xxg4sz9435l3l";
-  "MMHT2014nnlo_mcrange_nf4" =
-    "0sny8r9zap8gnjh9id1klr59d9hs0bb40pf8hpy8q5pg6052vx3q";
-  "MMHT2014nnlo_mcrange_nf5" =
-    "1l340c1x4fz647bhybrvbb6z00mla81b78jfqpnwd4vwfxnqmq9y";
+  "MMHT2014nnlo68cl_nf3" = "06paq3nzs87babpksabnkqi38gvvyfvpqlh8p18140zrdpdffaj2";
+  "MMHT2014nnlo68cl_nf4" = "0lbqpdy66v3ns6ax9vj1ix4wjn2pwlw5y1z26hlbrxz3l8hbizg1";
+  "MMHT2014nnlo68cl_nf4as5" = "1bh5nsral3lrlqq6afvq9ahkfmhfw3mq0m0qcvsx4ma5jx5rv7dv";
+  "MMHT2014nnlo_asmzlargerange" = "00l2jqccsl3jfwdj7lndr4b5cpx44krjvnm3h0hjw6hkv4irxb5s";
+  "MMHT2014nnlo_asmzsmallrange" = "1x36pv9nhj74whibb16bc414ypcks6nd1s7q1jc0fb7ndf5rijy6";
+  "MMHT2014nnlo_asmzsmallrange_nf3" = "0svpc51n25cbz2b43zbd60bfckrlz3q2jn3x668xnha9qsd3c2vq";
+  "MMHT2014nnlo_asmzsmallrange_nf4" = "15jggp2nbm828nprxyyinmp7kfxngpm0apg446hvwd8hg7blb1a4";
+  "MMHT2014nnlo_mbrange_nf3" = "0r9gi5cw76zn0lq3fcs7s2xxh6jl9y5vdv31bhv6mac9jmhjb458";
+  "MMHT2014nnlo_mbrange_nf4" = "190wva3k49mymflbm1v5xd449j38jm7ylfcdiflym8pgkdvwcgyl";
+  "MMHT2014nnlo_mbrange_nf5" = "19mnv9nz01lmbiv01qmflhg24kldhqpmcc8mgp7bnkhicgivb5ib";
+  "MMHT2014nnlo_mcrange_nf3" = "0zskxladqr40v6wqafbl1pl04vq43babqf437c4xxg4sz9435l3l";
+  "MMHT2014nnlo_mcrange_nf4" = "0sny8r9zap8gnjh9id1klr59d9hs0bb40pf8hpy8q5pg6052vx3q";
+  "MMHT2014nnlo_mcrange_nf5" = "1l340c1x4fz647bhybrvbb6z00mla81b78jfqpnwd4vwfxnqmq9y";
   "MMHT2015qed_nlo" = "130fmxnaashvwwaaiz5b787ldz8l78ar5h2h038xvisdjkxvdqni";
-  "MMHT2015qed_nlo_elastic" =
-    "1whplgg2s55wjii1hd32hzd5wsqbgvjjbnfw4fzjmnx4vwn63n2j";
-  "MMHT2015qed_nlo_inelastic" =
-    "1b24flby6n9q2cg4haldmjs8ql35lhlw0bgynwja1v2n0fbf550y";
+  "MMHT2015qed_nlo_elastic" = "1whplgg2s55wjii1hd32hzd5wsqbgvjjbnfw4fzjmnx4vwn63n2j";
+  "MMHT2015qed_nlo_inelastic" = "1b24flby6n9q2cg4haldmjs8ql35lhlw0bgynwja1v2n0fbf550y";
   "MMHT2015qed_nnlo" = "1ypqiz0yz6hnxfml7ym83k4qqvqsbl39abbr38galns8xzzpi03m";
-  "MMHT2015qed_nnlo_elastic" =
-    "17in1cz5j7mm9qjk8i27fif6x276lcqmccl7kfz8a5yn73xxzja4";
-  "MMHT2015qed_nnlo_inelastic" =
-    "1ngk4p7w8l8b8sfg6hlm8ypxz97i1iwzlrc48szy7bi99kn8rmy1";
-  "MRST2004qed_neutron" =
-    "12vna0ic6gh313k22b44b0k9kd939v7zjl2hj65k1075j23mq425";
+  "MMHT2015qed_nnlo_elastic" = "17in1cz5j7mm9qjk8i27fif6x276lcqmccl7kfz8a5yn73xxzja4";
+  "MMHT2015qed_nnlo_inelastic" = "1ngk4p7w8l8b8sfg6hlm8ypxz97i1iwzlrc48szy7bi99kn8rmy1";
+  "MRST2004qed_neutron" = "12vna0ic6gh313k22b44b0k9kd939v7zjl2hj65k1075j23mq425";
   "MRST2004qed_proton" = "10z0cr8pnr0lfxxi916naiz381a2cqn461jblfzvvddwqmqbllbc";
   "MRST2007lomod" = "13ar6hzw9al20zlm8lg0hvwmgrmv0dbam820gm36rj8p7i33qlr6";
   "MRSTMCal" = "0kbyp4rypw8jm28zfpvf0grvfvxmsrp3grwsmfxpa2c38x6la3rq";
   "MSHT20lo_as130" = "0ivjvqabk9jnrlrczjlqywmijx5ql8wy579j77qkl1vhv7sqccm1";
   "MSHT20nlo_as118" = "1qwbwcq8p4hrprz4ib18mp5142b0lbyyzc1bf5a4iq5jjvi5qm93";
   "MSHT20nlo_as120" = "10y1a6iryahrafzdqskypjrnad6xxq08gm72pa9yc61xdy6andc6";
-  "MSHT20nlo_as120_mbrange_nf3" =
-    "0548pw6lkwwqhlrg7c4cyqh76bcyz78yh06fs7crdbx7hfl47cj7";
-  "MSHT20nlo_as120_mbrange_nf4" =
-    "0pg49mad4845llj49a1piaggd8wpwb2s4ar7jydlhrv7im886by4";
-  "MSHT20nlo_as120_mbrange_nf5" =
-    "0148agm89p7pwzdfjk8gjdaicll30xhz6sawca632kp5qwyd4g3d";
-  "MSHT20nlo_as120_mcrange_nf3" =
-    "187hgg8klk5jhcadiy8viyrfi0jfb3i18jckv6d7nsapixz1wgkz";
-  "MSHT20nlo_as120_mcrange_nf4" =
-    "12pjy0igjcsih100g238v143kq5cjjm5a13cghcipgcz2w4ldglf";
-  "MSHT20nlo_as120_mcrange_nf5" =
-    "00mipn9ndnw1k4nx6pmxb95wddmh98hg9k0317vlirxrf2n2jy7g";
-  "MSHT20nlo_as120_nf3" =
-    "1zy0j9qc28xpav3gx24r6r02zfz49r11ic66hkyq83d3q3fj751b";
-  "MSHT20nlo_as120_nf4" =
-    "0fpyf9s9ppb6w49chsmb2xfp9gwkx3ky9v8gwwqxli9fpzsc2ywn";
-  "MSHT20nlo_as_largerange" =
-    "1f57dvxas2c6qnv38ysnsyf0y8imafnrxkcqh3b0an19mkln5mmg";
-  "MSHT20nlo_as_smallrange" =
-    "1rygvj33g84whl24kgpqa47g11c48l93jlnpzqq8f5zr1ijqcq7i";
-  "MSHT20nlo_as_smallrange_nf3" =
-    "1d6cr1akc25mwfyghvn1986i60l76fxb8fd02h7f4pl4lmnn6i8n";
-  "MSHT20nlo_as_smallrange_nf4" =
-    "08js1l5g6knjx3813i0rf34xfjkbn3mdsrbawzkn00vf49xzcxdj";
-  "MSHT20nlo_mbrange_nf3" =
-    "1bwl4inshg5h3sslss4lgvcqahb5q0n794ag73hyacxd1kmx7d2z";
-  "MSHT20nlo_mbrange_nf4" =
-    "1sm995pzzr601wcs4rjgjs6alm74vc23szgmkqa5dvxghw7x8w55";
-  "MSHT20nlo_mbrange_nf5" =
-    "1sal7iqma7770593ifxypl9zapvba693asc8m2fjsbgpbfjjid60";
-  "MSHT20nlo_mcrange_nf3" =
-    "0lmv6m8m7zv0s8kjfm8parr9xlfy39dhwxn71z33f5x6cyp08zlg";
-  "MSHT20nlo_mcrange_nf4" =
-    "0875zfv0dws8n44fqawa1jp5p8b9vky8yyq48wijhrcph8qbxbrx";
-  "MSHT20nlo_mcrange_nf5" =
-    "0qjvam29zwibx54fgijry58vdwqkiwyavdwn736bmckjycncnv8p";
+  "MSHT20nlo_as120_mbrange_nf3" = "0548pw6lkwwqhlrg7c4cyqh76bcyz78yh06fs7crdbx7hfl47cj7";
+  "MSHT20nlo_as120_mbrange_nf4" = "0pg49mad4845llj49a1piaggd8wpwb2s4ar7jydlhrv7im886by4";
+  "MSHT20nlo_as120_mbrange_nf5" = "0148agm89p7pwzdfjk8gjdaicll30xhz6sawca632kp5qwyd4g3d";
+  "MSHT20nlo_as120_mcrange_nf3" = "187hgg8klk5jhcadiy8viyrfi0jfb3i18jckv6d7nsapixz1wgkz";
+  "MSHT20nlo_as120_mcrange_nf4" = "12pjy0igjcsih100g238v143kq5cjjm5a13cghcipgcz2w4ldglf";
+  "MSHT20nlo_as120_mcrange_nf5" = "00mipn9ndnw1k4nx6pmxb95wddmh98hg9k0317vlirxrf2n2jy7g";
+  "MSHT20nlo_as120_nf3" = "1zy0j9qc28xpav3gx24r6r02zfz49r11ic66hkyq83d3q3fj751b";
+  "MSHT20nlo_as120_nf4" = "0fpyf9s9ppb6w49chsmb2xfp9gwkx3ky9v8gwwqxli9fpzsc2ywn";
+  "MSHT20nlo_as_largerange" = "1f57dvxas2c6qnv38ysnsyf0y8imafnrxkcqh3b0an19mkln5mmg";
+  "MSHT20nlo_as_smallrange" = "1rygvj33g84whl24kgpqa47g11c48l93jlnpzqq8f5zr1ijqcq7i";
+  "MSHT20nlo_as_smallrange_nf3" = "1d6cr1akc25mwfyghvn1986i60l76fxb8fd02h7f4pl4lmnn6i8n";
+  "MSHT20nlo_as_smallrange_nf4" = "08js1l5g6knjx3813i0rf34xfjkbn3mdsrbawzkn00vf49xzcxdj";
+  "MSHT20nlo_mbrange_nf3" = "1bwl4inshg5h3sslss4lgvcqahb5q0n794ag73hyacxd1kmx7d2z";
+  "MSHT20nlo_mbrange_nf4" = "1sm995pzzr601wcs4rjgjs6alm74vc23szgmkqa5dvxghw7x8w55";
+  "MSHT20nlo_mbrange_nf5" = "1sal7iqma7770593ifxypl9zapvba693asc8m2fjsbgpbfjjid60";
+  "MSHT20nlo_mcrange_nf3" = "0lmv6m8m7zv0s8kjfm8parr9xlfy39dhwxn71z33f5x6cyp08zlg";
+  "MSHT20nlo_mcrange_nf4" = "0875zfv0dws8n44fqawa1jp5p8b9vky8yyq48wijhrcph8qbxbrx";
+  "MSHT20nlo_mcrange_nf5" = "0qjvam29zwibx54fgijry58vdwqkiwyavdwn736bmckjycncnv8p";
   "MSHT20nlo_nf3" = "1v0mzsa2sxp0g3m3d8yqcs7dgi74am6cpx79f341ahpwybz5x829";
   "MSHT20nlo_nf4" = "1lyii55adqaah6sm8b778q8scaq5yjycq3s8jdi3k48z8m23zqng";
   "MSHT20nnlo_as118" = "1yz0003ixjg97974648qba5d37vb4fhzzmq4k9xh4c37pnc3kgyn";
-  "MSHT20nnlo_as_largerange" =
-    "014a9x6zsw3w7b6w3v6lg8qxdjicxslr79bnagi6ci0skqs2v7z9";
-  "MSHT20nnlo_as_smallrange" =
-    "1bv7cbdynp6dm5c9v7r32gqy1lch4428apw426pr0d7xpm0abnxv";
-  "MSHT20nnlo_as_smallrange_nf3" =
-    "0n1j9dd069qdmgmd85m7wp29g96cnbgsdxrvlh6y51q063lkqbwb";
-  "MSHT20nnlo_as_smallrange_nf4" =
-    "1jkdl3rd933czz753qbi7yvszg376r6bvwq2inqbslnzfkfav5bh";
-  "MSHT20nnlo_mbrange_nf3" =
-    "095zcxhpfhlsb67ki4j6a8z4d1r5hzx92xlzprwkwd4v5ya4f732";
-  "MSHT20nnlo_mbrange_nf4" =
-    "1114z5a0pk9svps918zifff23difxf37rbmr3jnzxnyp1vfgzws7";
-  "MSHT20nnlo_mbrange_nf5" =
-    "12i6m01bmnzqadi6jg5gmah1jliq4wr4p0vpjgmpgyagsk4drx4b";
-  "MSHT20nnlo_mcrange_nf3" =
-    "01wq537083dr9ibiahwdwdaxj0j2ys211m478w9wgvihdjjvjvvv";
-  "MSHT20nnlo_mcrange_nf4" =
-    "04abrnlnbr94lksn29w9ws9a3b6sqkqvi9awmbk4715dxk2amnpk";
-  "MSHT20nnlo_mcrange_nf5" =
-    "0za255xi66a1mfch2b91qqmsr305m0kvs4rzvqlzf7k0v141j90y";
+  "MSHT20nnlo_as_largerange" = "014a9x6zsw3w7b6w3v6lg8qxdjicxslr79bnagi6ci0skqs2v7z9";
+  "MSHT20nnlo_as_smallrange" = "1bv7cbdynp6dm5c9v7r32gqy1lch4428apw426pr0d7xpm0abnxv";
+  "MSHT20nnlo_as_smallrange_nf3" = "0n1j9dd069qdmgmd85m7wp29g96cnbgsdxrvlh6y51q063lkqbwb";
+  "MSHT20nnlo_as_smallrange_nf4" = "1jkdl3rd933czz753qbi7yvszg376r6bvwq2inqbslnzfkfav5bh";
+  "MSHT20nnlo_mbrange_nf3" = "095zcxhpfhlsb67ki4j6a8z4d1r5hzx92xlzprwkwd4v5ya4f732";
+  "MSHT20nnlo_mbrange_nf4" = "1114z5a0pk9svps918zifff23difxf37rbmr3jnzxnyp1vfgzws7";
+  "MSHT20nnlo_mbrange_nf5" = "12i6m01bmnzqadi6jg5gmah1jliq4wr4p0vpjgmpgyagsk4drx4b";
+  "MSHT20nnlo_mcrange_nf3" = "01wq537083dr9ibiahwdwdaxj0j2ys211m478w9wgvihdjjvjvvv";
+  "MSHT20nnlo_mcrange_nf4" = "04abrnlnbr94lksn29w9ws9a3b6sqkqvi9awmbk4715dxk2amnpk";
+  "MSHT20nnlo_mcrange_nf5" = "0za255xi66a1mfch2b91qqmsr305m0kvs4rzvqlzf7k0v141j90y";
   "MSHT20nnlo_nf3" = "10yx59r32q4rl0yn4gpc29z8xskbvizkdr7k219qf16lnv892jpa";
   "MSHT20nnlo_nf4" = "17d10rba8b0aqi1npnx93j1995has5sw2l4izd6lly3yhjynbgp6";
   "MSHT20qed_nnlo" = "05c2hjgysyvkcyqg1lq3y00hqixgc8w984zivxkr76nj5csyf6m3";
-  "MSHT20qed_nnlo_elastic" =
-    "0in0y27gn4k9h6ya77krhizv8rg3i6s3d6h4bk0fhz91hbi4l3gh";
-  "MSHT20qed_nnlo_inelastic" =
-    "0vna0gbadf92w3xngb8gnsxd3lil8m029as8260wlki2axm4gqlw";
-  "MSHT20qed_nnlo_neutron" =
-    "1hiq7m8j7736477vfs18mqwhkxyvjmcrs7jiqysa8v6rmhb4bali";
-  "MSHT20qed_nnlo_neutron_elastic" =
-    "06dbvsysszpbvabgafb569vq88q1sm9mvz1iwv1m2b9vzin2ixiy";
-  "MSHT20qed_nnlo_neutron_inelastic" =
-    "0gfh6nhl4vq4qz1jhnv5vhhz4h4wlkwgj4ffjqll6jqa5anfhbqr";
-  "MSTW2008CPdeutnlo68cl" =
-    "1x2y7hl8ckplx175bp3wi04xafm44dd7vzfgnmvvai1x0072xi51";
-  "MSTW2008CPdeutnnlo68cl" =
-    "1szsdqjkmny30mpw4pdzi97vj7i55agxm285dvnkzp06ycgp1ld3";
+  "MSHT20qed_nnlo_elastic" = "0in0y27gn4k9h6ya77krhizv8rg3i6s3d6h4bk0fhz91hbi4l3gh";
+  "MSHT20qed_nnlo_inelastic" = "0vna0gbadf92w3xngb8gnsxd3lil8m029as8260wlki2axm4gqlw";
+  "MSHT20qed_nnlo_neutron" = "1hiq7m8j7736477vfs18mqwhkxyvjmcrs7jiqysa8v6rmhb4bali";
+  "MSHT20qed_nnlo_neutron_elastic" = "06dbvsysszpbvabgafb569vq88q1sm9mvz1iwv1m2b9vzin2ixiy";
+  "MSHT20qed_nnlo_neutron_inelastic" = "0gfh6nhl4vq4qz1jhnv5vhhz4h4wlkwgj4ffjqll6jqa5anfhbqr";
+  "MSTW2008CPdeutnlo68cl" = "1x2y7hl8ckplx175bp3wi04xafm44dd7vzfgnmvvai1x0072xi51";
+  "MSTW2008CPdeutnnlo68cl" = "1szsdqjkmny30mpw4pdzi97vj7i55agxm285dvnkzp06ycgp1ld3";
   "MSTW2008lo68cl" = "0j12mv286r4ds9v7piqh4n44yjnc51hm74lqa4vv5xznxhibng7l";
   "MSTW2008lo68cl_nf3" = "1s5z55b2aj37bx0p305lcgrdclgvyl99xgfrl0rhmdgr2byg33wi";
   "MSTW2008lo68cl_nf4" = "0m539ihcz3dxy4gpfbam5badhhsimywlbgnczbybph8yn1118j9r";
-  "MSTW2008lo68cl_nf4as5" =
-    "0vl1q7xnr425sscbk4djqi56jbpzpi8l3z2nknfqiy3l7ykg23ng";
+  "MSTW2008lo68cl_nf4as5" = "0vl1q7xnr425sscbk4djqi56jbpzpi8l3z2nknfqiy3l7ykg23ng";
   "MSTW2008lo90cl" = "0af5j0s1i8yn0mjs4nb77migihw643lhd7dfl184v6wik3031yg3";
   "MSTW2008lo90cl_nf3" = "1a6kc1lgswjk800jzcqlbpwzz4rs3g6agckhnlr8cizmp9p7risk";
   "MSTW2008lo90cl_nf4" = "1bdjl58gslhw539650qwi7vbvsr22hpxpca17rkbqz9szh0ljhym";
-  "MSTW2008lo90cl_nf4as5" =
-    "1crsm7dfcs0fn1i2ng18wy23z2ap01xr2rsnafqlra0q135m6hfp";
+  "MSTW2008lo90cl_nf4as5" = "1crsm7dfcs0fn1i2ng18wy23z2ap01xr2rsnafqlra0q135m6hfp";
   "MSTW2008nlo68cl" = "0pdvb5nshjjw7ddmdmj1v88m3jlk3vwfnab0pf2kf8hfx10hbv4q";
-  "MSTW2008nlo68cl_asmz+68cl" =
-    "0gwmxs0f7raxvmpn12zavzqsrp3x0a82y1vq2kf9p9fq17in55yn";
-  "MSTW2008nlo68cl_asmz+68clhalf" =
-    "1rmda4zpm6cs9kyxkhwpz38iv6g259156bmka4dc4zyfg1lcw85d";
-  "MSTW2008nlo68cl_asmz-68cl" =
-    "15mmdnd3wwlrs5pwwhfa9f88vjpgza8vwxwxpyadxsmhx9jk79hy";
-  "MSTW2008nlo68cl_asmz-68clhalf" =
-    "0dd7llc6ip6myy2yvf16riqs334f20l8wkmkksq53xngmz9qf263";
-  "MSTW2008nlo68cl_nf3" =
-    "1j82imyylvnf3x39x1mb19hhp2nbcq2lk82hf7sj72c557l3qpjk";
-  "MSTW2008nlo68cl_nf4" =
-    "08f008by768c8v3cmrsbgxpglqdj58nwwf22dmk2mbf2jq449s0n";
-  "MSTW2008nlo68cl_nf4as5" =
-    "0hrqmmnp20vpj6dpz3bvm531i0pvl06als8irqz91cknv6zsvxf9";
+  "MSTW2008nlo68cl_asmz+68cl" = "0gwmxs0f7raxvmpn12zavzqsrp3x0a82y1vq2kf9p9fq17in55yn";
+  "MSTW2008nlo68cl_asmz+68clhalf" = "1rmda4zpm6cs9kyxkhwpz38iv6g259156bmka4dc4zyfg1lcw85d";
+  "MSTW2008nlo68cl_asmz-68cl" = "15mmdnd3wwlrs5pwwhfa9f88vjpgza8vwxwxpyadxsmhx9jk79hy";
+  "MSTW2008nlo68cl_asmz-68clhalf" = "0dd7llc6ip6myy2yvf16riqs334f20l8wkmkksq53xngmz9qf263";
+  "MSTW2008nlo68cl_nf3" = "1j82imyylvnf3x39x1mb19hhp2nbcq2lk82hf7sj72c557l3qpjk";
+  "MSTW2008nlo68cl_nf4" = "08f008by768c8v3cmrsbgxpglqdj58nwwf22dmk2mbf2jq449s0n";
+  "MSTW2008nlo68cl_nf4as5" = "0hrqmmnp20vpj6dpz3bvm531i0pvl06als8irqz91cknv6zsvxf9";
   "MSTW2008nlo90cl" = "1d3p4cialrngci9kn7225zcmyrr547dskzi74dfgdhbqc0256a2r";
-  "MSTW2008nlo90cl_asmz+90cl" =
-    "19cd358yqklc8bxv0mg69cq3sf6zah7di0q9ilfqbiddmw1flw3p";
-  "MSTW2008nlo90cl_asmz+90clhalf" =
-    "0ngn8f149agvmc54nrxjxqa0rifbd8a1hbcgpa443l75bmd9sqcp";
-  "MSTW2008nlo90cl_asmz-90cl" =
-    "0fnqj7ywnp9nz5733ggjwmhxpy15zs2xgxjz7ixmql5mmaz3sxb6";
-  "MSTW2008nlo90cl_asmz-90clhalf" =
-    "1jrp9q8li7a4bwhgh7q9h9zc0sdhck957zn14q9ca9kjsflyb9f5";
-  "MSTW2008nlo90cl_nf3" =
-    "02ihabrcgp474wkq4w2fshpiqdznjaxyg5vawv52yj6hxifyy5a9";
-  "MSTW2008nlo90cl_nf4" =
-    "1wrdl79qy8mimqk48705f3sd651zy130k1dmvvzwvdsjd9y8q58w";
-  "MSTW2008nlo90cl_nf4as5" =
-    "18d1pvijcyfxkipmd2v2zrkxdbhxygkcyn3p8vz0vzq5q7s1s7r2";
-  "MSTW2008nlo_asmzrange" =
-    "161364fvc8w8ggad58r1c58b0kngqa1bjpabaqi5cigmzazj3rl8";
-  "MSTW2008nlo_mbrange" =
-    "1b7z4mm3f8wjjbxb8hs8l7kclh1yfz5yffzdsch2i09c7wh79616";
-  "MSTW2008nlo_mbrange_nf4" =
-    "02s7ljzwamsha87i6nsd4kdfb9ky4k6m8xpqa1iz9wgrcy4pmw5p";
-  "MSTW2008nlo_mcrange" =
-    "1bndxfi27r8k0m4r26bfsflbbrjc4s2vp5ixy7qidkw33g6mqh96";
-  "MSTW2008nlo_mcrange_fixasmz" =
-    "10s2sfhdx5668cffwb0sbh5m54zq0inmpfnhkj0zk9ij4f5y815f";
-  "MSTW2008nlo_mcrange_fixasmz_nf3" =
-    "0zwnicbmmqbak5sw92njpmvxpjnnhwl1ggvlj8q39hn5w5kdy1kq";
-  "MSTW2008nlo_mcrange_nf3" =
-    "01mlzqwk30glr95g7n2y3yvvy7s6mkbdb5cqwl1m7k8d6m18n49g";
+  "MSTW2008nlo90cl_asmz+90cl" = "19cd358yqklc8bxv0mg69cq3sf6zah7di0q9ilfqbiddmw1flw3p";
+  "MSTW2008nlo90cl_asmz+90clhalf" = "0ngn8f149agvmc54nrxjxqa0rifbd8a1hbcgpa443l75bmd9sqcp";
+  "MSTW2008nlo90cl_asmz-90cl" = "0fnqj7ywnp9nz5733ggjwmhxpy15zs2xgxjz7ixmql5mmaz3sxb6";
+  "MSTW2008nlo90cl_asmz-90clhalf" = "1jrp9q8li7a4bwhgh7q9h9zc0sdhck957zn14q9ca9kjsflyb9f5";
+  "MSTW2008nlo90cl_nf3" = "02ihabrcgp474wkq4w2fshpiqdznjaxyg5vawv52yj6hxifyy5a9";
+  "MSTW2008nlo90cl_nf4" = "1wrdl79qy8mimqk48705f3sd651zy130k1dmvvzwvdsjd9y8q58w";
+  "MSTW2008nlo90cl_nf4as5" = "18d1pvijcyfxkipmd2v2zrkxdbhxygkcyn3p8vz0vzq5q7s1s7r2";
+  "MSTW2008nlo_asmzrange" = "161364fvc8w8ggad58r1c58b0kngqa1bjpabaqi5cigmzazj3rl8";
+  "MSTW2008nlo_mbrange" = "1b7z4mm3f8wjjbxb8hs8l7kclh1yfz5yffzdsch2i09c7wh79616";
+  "MSTW2008nlo_mbrange_nf4" = "02s7ljzwamsha87i6nsd4kdfb9ky4k6m8xpqa1iz9wgrcy4pmw5p";
+  "MSTW2008nlo_mcrange" = "1bndxfi27r8k0m4r26bfsflbbrjc4s2vp5ixy7qidkw33g6mqh96";
+  "MSTW2008nlo_mcrange_fixasmz" = "10s2sfhdx5668cffwb0sbh5m54zq0inmpfnhkj0zk9ij4f5y815f";
+  "MSTW2008nlo_mcrange_fixasmz_nf3" = "0zwnicbmmqbak5sw92njpmvxpjnnhwl1ggvlj8q39hn5w5kdy1kq";
+  "MSTW2008nlo_mcrange_nf3" = "01mlzqwk30glr95g7n2y3yvvy7s6mkbdb5cqwl1m7k8d6m18n49g";
   "MSTW2008nnlo68cl" = "0y6lv1wkhydfnlakjrrrjapxaapa0bcbmfx0w9c4psgy156kv1fv";
-  "MSTW2008nnlo68cl_asmz+68cl" =
-    "0fhkbkshrc29kz0fc9vi2dqsg6irjm4sfw4sp0s4wkj766wg19nz";
-  "MSTW2008nnlo68cl_asmz+68clhalf" =
-    "1z0fplsv1fij4fgrz7npr34hcmc2qkf7g398bq1smvb6b2qy5jb8";
-  "MSTW2008nnlo68cl_asmz-68cl" =
-    "1qhjhdzpy67665ccwv0n3g7jlyb2vfk60cphjr0jb1adgv9fxa7q";
-  "MSTW2008nnlo68cl_asmz-68clhalf" =
-    "0rlsis3r7l32jdiq2yhx1mz7q6qlzlsrarljvrmxf0g0g2d8nr4c";
-  "MSTW2008nnlo68cl_nf3" =
-    "07nrz7afd1mcsqc3lqv9vk2phs1nfxdl63qh1bc0g7nznxwmmn97";
-  "MSTW2008nnlo68cl_nf4" =
-    "1kd62hzk2p3q56kj79bs101arp55ajlyhwwa3vq3yp37i3ynz9ds";
-  "MSTW2008nnlo68cl_nf4as5" =
-    "0x19rq5k9c97vzskqppf4k0fjahwiw2c1nb6iy5c2fq8mj1pz2gj";
+  "MSTW2008nnlo68cl_asmz+68cl" = "0fhkbkshrc29kz0fc9vi2dqsg6irjm4sfw4sp0s4wkj766wg19nz";
+  "MSTW2008nnlo68cl_asmz+68clhalf" = "1z0fplsv1fij4fgrz7npr34hcmc2qkf7g398bq1smvb6b2qy5jb8";
+  "MSTW2008nnlo68cl_asmz-68cl" = "1qhjhdzpy67665ccwv0n3g7jlyb2vfk60cphjr0jb1adgv9fxa7q";
+  "MSTW2008nnlo68cl_asmz-68clhalf" = "0rlsis3r7l32jdiq2yhx1mz7q6qlzlsrarljvrmxf0g0g2d8nr4c";
+  "MSTW2008nnlo68cl_nf3" = "07nrz7afd1mcsqc3lqv9vk2phs1nfxdl63qh1bc0g7nznxwmmn97";
+  "MSTW2008nnlo68cl_nf4" = "1kd62hzk2p3q56kj79bs101arp55ajlyhwwa3vq3yp37i3ynz9ds";
+  "MSTW2008nnlo68cl_nf4as5" = "0x19rq5k9c97vzskqppf4k0fjahwiw2c1nb6iy5c2fq8mj1pz2gj";
   "MSTW2008nnlo90cl" = "13xqlfys37b8chinah2yqmzd0clzli06p7vjk30ha22wgwm02dq3";
-  "MSTW2008nnlo90cl_asmz+90cl" =
-    "0pd6imc3hvq7vgyv1db9y8rvpgz4ffwqv6rqzp27c7ipxg0wjyz0";
-  "MSTW2008nnlo90cl_asmz+90clhalf" =
-    "1xn52ppixjg22ybd8ggf0azb3zg5zyilqjss033g0k9crq4a6y2v";
-  "MSTW2008nnlo90cl_asmz-90cl" =
-    "10wxgh52zs0fp0bwd0b6csnz9x6mvp45gvjhk0y1dhgfwbcvw9y9";
-  "MSTW2008nnlo90cl_asmz-90clhalf" =
-    "1kmvp1yfgsx4jhsjc4drg82cq4xs6as4grwrymfkrqnvhcg86vap";
-  "MSTW2008nnlo90cl_nf3" =
-    "0vw0cmszwp49fsskacccl921za88cl5cfy0sqckgxzs4hx21x43n";
-  "MSTW2008nnlo90cl_nf4" =
-    "1b3fy8mfclgsmvpyzfs34fjry6djmkjcjppdxni1ipjyp1bcaia3";
-  "MSTW2008nnlo90cl_nf4as5" =
-    "05phi752spikwq74i0hfid7lsqi51hdvwxm520kdmbdz2pblbz4f";
-  "MSTW2008nnlo_asmzrange" =
-    "1nj68qhvlsqi7299d9rrsmq7pr6bdil4gzr6yla2cgn4wwiggdwn";
-  "MSTW2008nnlo_mbrange" =
-    "0jnmy4i593wz80lbm0r0cwdj9xw496p3in0lq8ksr4yjwz0agpbk";
-  "MSTW2008nnlo_mbrange_nf4" =
-    "0lw3p4q0ixj7plcmwqh43lfgv1i7ljar3f3k1v6f0imyvz8swfgr";
-  "MSTW2008nnlo_mcrange" =
-    "17v549iq2wn5zvxfdvq8pf5f7zvgnpa72i6gxvxzfqwkji7mv522";
-  "MSTW2008nnlo_mcrange_fixasmz" =
-    "05c8z2q2866550clx2mwb1jvhpn0agkyg82vvrswi3h4hgkvlfjx";
-  "MSTW2008nnlo_mcrange_fixasmz_nf3" =
-    "0r86xsl1wfphwdj2hhlilkwc2949m7bcn42dms14g7w45i24g6id";
-  "MSTW2008nnlo_mcrange_nf3" =
-    "1c9lsggncwghvw9mgd18h50ljrnlpp1p5r2zlzf8z3g8i4f3aaih";
+  "MSTW2008nnlo90cl_asmz+90cl" = "0pd6imc3hvq7vgyv1db9y8rvpgz4ffwqv6rqzp27c7ipxg0wjyz0";
+  "MSTW2008nnlo90cl_asmz+90clhalf" = "1xn52ppixjg22ybd8ggf0azb3zg5zyilqjss033g0k9crq4a6y2v";
+  "MSTW2008nnlo90cl_asmz-90cl" = "10wxgh52zs0fp0bwd0b6csnz9x6mvp45gvjhk0y1dhgfwbcvw9y9";
+  "MSTW2008nnlo90cl_asmz-90clhalf" = "1kmvp1yfgsx4jhsjc4drg82cq4xs6as4grwrymfkrqnvhcg86vap";
+  "MSTW2008nnlo90cl_nf3" = "0vw0cmszwp49fsskacccl921za88cl5cfy0sqckgxzs4hx21x43n";
+  "MSTW2008nnlo90cl_nf4" = "1b3fy8mfclgsmvpyzfs34fjry6djmkjcjppdxni1ipjyp1bcaia3";
+  "MSTW2008nnlo90cl_nf4as5" = "05phi752spikwq74i0hfid7lsqi51hdvwxm520kdmbdz2pblbz4f";
+  "MSTW2008nnlo_asmzrange" = "1nj68qhvlsqi7299d9rrsmq7pr6bdil4gzr6yla2cgn4wwiggdwn";
+  "MSTW2008nnlo_mbrange" = "0jnmy4i593wz80lbm0r0cwdj9xw496p3in0lq8ksr4yjwz0agpbk";
+  "MSTW2008nnlo_mbrange_nf4" = "0lw3p4q0ixj7plcmwqh43lfgv1i7ljar3f3k1v6f0imyvz8swfgr";
+  "MSTW2008nnlo_mcrange" = "17v549iq2wn5zvxfdvq8pf5f7zvgnpa72i6gxvxzfqwkji7mv522";
+  "MSTW2008nnlo_mcrange_fixasmz" = "05c8z2q2866550clx2mwb1jvhpn0agkyg82vvrswi3h4hgkvlfjx";
+  "MSTW2008nnlo_mcrange_fixasmz_nf3" = "0r86xsl1wfphwdj2hhlilkwc2949m7bcn42dms14g7w45i24g6id";
+  "MSTW2008nnlo_mcrange_nf3" = "1c9lsggncwghvw9mgd18h50ljrnlpp1p5r2zlzf8z3g8i4f3aaih";
   "NNFF10_KAm_lo" = "19wn44svz61lhk33kzc6id18w6qbkw4bfnwncar19phrjjp965v6";
   "NNFF10_KAm_nlo" = "191db9pj5yspiqc7598r147j9wvfc4s6cm0q805m5vmzpfg2cgr6";
   "NNFF10_KAm_nnlo" = "1hm8vhk1p31zdn72bgcyyq0w5qii1ba0cf81wjlbhwv4fadfd4sy";
@@ -915,635 +656,331 @@ lib.mapAttrs mkPdfSet {
   "NNFF10_PRsum_lo" = "1a9m77rl49wzzgdkr6x618bzcm2p50f915bbggknx5xjw550dqd1";
   "NNFF10_PRsum_nlo" = "1qambqywda7lvvkd6kx2r1g60v6lnqcamdd51396id33fvw3k45h";
   "NNFF10_PRsum_nnlo" = "1kijaxw6v1w33q6l89raz7ic59zcmd3nx5djp83lyg134a15crmw";
-  "NNFF11_HadronSum_nlo" =
-    "1n9fb71kl7y8rp1smyal28wdvdx1b410mhqkxmavnr1fs85hkh85";
-  "NNPDF21_lo_as_0119_100" =
-    "19qw2hp1yk82qgcrpx8wp2fg8wklaj6rr653m6mndhhr0aa0w80v";
-  "NNPDF21_lo_as_0130_100" =
-    "0p5cw77dg5pkhl3d0y6r3k8vhw4m467wf3gd8kp2l5vcbdwb4izv";
-  "NNPDF21_lostar_as_0119_100" =
-    "0i23axf0xl11nb2dn6p34bnm1xfisnn3a82db9dz863n60gqb5x4";
-  "NNPDF21_lostar_as_0130_100" =
-    "1aka01747071l53jx4v7rgmfj5danzjillbwincgi1b28mw78yhq";
-  "NNPDF23_lo_as_0119_qed" =
-    "02d85an11mr66yg3vi5fq4919ymbrh9h8b8qzzzm9dvfarzmbwxi";
-  "NNPDF23_lo_as_0130_qed" =
-    "0qsxxw3nds42924xqnhs56wmd8ihmrip28glj47q9r9i3kgw3lv0";
-  "NNPDF23_nlo_FFN_NF4_as_0116" =
-    "1d5wccg8l5xmdr8pvks6851zxrlgq1rk2y5dgp10k6r108059rgn";
-  "NNPDF23_nlo_FFN_NF4_as_0116_mc" =
-    "1sc13cqah6di97fmlnb6qw454jyrp0i9jv2pfxvi8ix2vzd6km00";
-  "NNPDF23_nlo_FFN_NF4_as_0117" =
-    "1gkzb46fnf9k97fgbbxljdnklffwnxmg58z01x55iklq4sn2aww3";
-  "NNPDF23_nlo_FFN_NF4_as_0117_mc" =
-    "0nc3fx9ggqybymw5kglwq3kmznc9hm28sp58gs1l4gwx3xiy0bj6";
-  "NNPDF23_nlo_FFN_NF4_as_0118" =
-    "1zlcqh0nfy8yf2cnzs0iy615nbmhpa2zh4carvifcqd4lv4azkp6";
-  "NNPDF23_nlo_FFN_NF4_as_0118_mc" =
-    "0518z8jakc9r74kzanraf2n8haminfipp2rvr1288ymhsl5bxyp0";
-  "NNPDF23_nlo_FFN_NF4_as_0119" =
-    "1k5mcql2411020m6vq26ck8ig3q01j79ndjgci2biq743m8nlvm2";
-  "NNPDF23_nlo_FFN_NF4_as_0119_mc" =
-    "06yv9mwgvhag5442581r7by3nsxcy7c76llgaalphbzszqr2vy0p";
-  "NNPDF23_nlo_FFN_NF4_as_0120" =
-    "1m97g47p44vq3izjji6agwmj2fwdvgddzy8w40mqqbr9fk19lbyi";
-  "NNPDF23_nlo_FFN_NF4_as_0120_mc" =
-    "0bjllckv61jc1y6f8c1gqdh36r15glqn8fqp99q0kckaxyszy5vw";
-  "NNPDF23_nlo_FFN_NF5_as_0116" =
-    "0x4kjj791hkwng4l5dvch8z0ig1nkliirlz9mkv02g54qrilnkmy";
-  "NNPDF23_nlo_FFN_NF5_as_0116_mc" =
-    "055clf0m8l8gnby2lgwh4wkyqciskwp54y34vb1kwfbhdf71zmnj";
-  "NNPDF23_nlo_FFN_NF5_as_0117" =
-    "1cplvrizlsjcixsjzlm2drssbjsrzj9bvq0k5mnv79r3p1xdp997";
-  "NNPDF23_nlo_FFN_NF5_as_0117_mc" =
-    "17nic3kw991dbrhyjyxpk0zzv8rjh0r0whd6nl8v6wsf5q5h0ny2";
-  "NNPDF23_nlo_FFN_NF5_as_0118" =
-    "07fgr71x2zk2ywcbnw0ikv0p9kzsmd83kdidfs49vm7azcbm0qfw";
-  "NNPDF23_nlo_FFN_NF5_as_0118_mc" =
-    "0s365gsidichyj9x5926q1gm0x1bp52chv7fkpirflrrsywf0lc3";
-  "NNPDF23_nlo_FFN_NF5_as_0119" =
-    "1qspxbwswz7ssqj2rx2jdg0bkj8prawwshvjd26ifz9i0l9qnqc0";
-  "NNPDF23_nlo_FFN_NF5_as_0119_mc" =
-    "0aqyhrcrzs3kqhj1hndilpibvdwfw9qhg1x0cypx97h16n37j46x";
-  "NNPDF23_nlo_FFN_NF5_as_0120" =
-    "1k9savpyg2iqr1ab4i5y7q1qhd8zxq413040h2v46jl8mp7x6bjn";
-  "NNPDF23_nlo_FFN_NF5_as_0120_mc" =
-    "01g7mh7v62s47cwdf6ws6j37gxl4mrb26ivdzzwmhy6ydiw8ka53";
-  "NNPDF23_nlo_as_0114" =
-    "0mmq32kddspgpacx2qj086das9z2bxh3l37qvp9yf84gqzjj7mml";
-  "NNPDF23_nlo_as_0115" =
-    "0jn1gv137d2x3vxq7ny0qc0hnfmcd4hs3cxkyn7j26w7p59q81x7";
-  "NNPDF23_nlo_as_0116" =
-    "1mnq360acd5vfwz9z8fzynldchkqrfiqhsxvi3s9a263h3p44bsa";
-  "NNPDF23_nlo_as_0116_mc" =
-    "0ngw2hls52bax6dmis3nfa2ix8q8nh2d9mwjax4cjdkmmf7rdn2g";
-  "NNPDF23_nlo_as_0117" =
-    "01wkq68b8zl3mznzvc4p7p9b4ik2bnqgjq97mw2287i448mnj9jn";
-  "NNPDF23_nlo_as_0117_mc" =
-    "1s2g55240gh9j32ach9rban0iw4hjmw5haj1c21wgyh4nqiqlfwr";
-  "NNPDF23_nlo_as_0117_qed" =
-    "1l2rbxn9fw72nmhqazfkh568q4df0q2jp0pn0fj368wdpf36fk0b";
-  "NNPDF23_nlo_as_0117_qed_neutron" =
-    "17rpz4bdp3fxvafiz32aawxw64prkhqwqpnfnbqsigcslm18bwnc";
-  "NNPDF23_nlo_as_0118" =
-    "01kax3g4d8nd6n1gip70d02kl3kvbqib93b99xgwc1f0np85p3r0";
-  "NNPDF23_nlo_as_0118_mc" =
-    "0qhs7r4zzw68grrmfh7qdad49w4y4mvf55qnp86piri5vi8lklwk";
-  "NNPDF23_nlo_as_0118_qed" =
-    "10xfv8nkg2jjy3yg9m9gakz6lixdvmahdy1z12znqyr1br57bdhy";
-  "NNPDF23_nlo_as_0118_qed_neutron" =
-    "1zffxfykx2v3dniypsvyyqbz5pb4dcww653amaxv96hplw3fvr0h";
-  "NNPDF23_nlo_as_0119" =
-    "1v24iwddahxy6sd43bxv6ywf8n7302qkwl9hv7d074q1d932kgr1";
-  "NNPDF23_nlo_as_0119_mc" =
-    "0l95fgr5bwhsh0h3qqlnx9czkgmrf5y084zlzk3qhix3ldh8zbp4";
-  "NNPDF23_nlo_as_0119_qed" =
-    "0rayscazcacy89lzg0ynpwrl9g4pnjwwp0l0vwc3gjz9cwznmwsk";
-  "NNPDF23_nlo_as_0119_qed_mc" =
-    "1cc3candpavcfbv681zpg8gmwbh3g14vqkhs2s6v7rr9xhx6zqv1";
-  "NNPDF23_nlo_as_0119_qed_neutron" =
-    "12h4x97yglcklrvwh937xa5bgqahq949a5wm3nyjbvrfsw9n330i";
-  "NNPDF23_nlo_as_0120" =
-    "0f8lwydw45vy7c0mqmz60hpc0b40czx0gx35liyrhcbjvj9129m7";
-  "NNPDF23_nlo_as_0120_mc" =
-    "0kqiizf0c0mbdavnv7ivk89kga84j7p7xprqi10589ggplchx8ag";
-  "NNPDF23_nlo_as_0121" =
-    "17603srm35158sdwrqijyxm614splx7k6bjyzphgvznnkwpgi0i3";
-  "NNPDF23_nlo_as_0122" =
-    "0c16498ngx436k9mb8fwkhhvcbdyjd4m0jh54v2n1dl354jz60sm";
-  "NNPDF23_nlo_as_0123" =
-    "1j6d7k8d04gfx532iipd4vzm0nldbvy86pg8asgv4xrh80c1zslc";
-  "NNPDF23_nlo_as_0124" =
-    "0dwv41kc9qsvvp22gvxi56gj13dnklgfp4ndrm0475q6gvfz25ak";
-  "NNPDF23_nlo_collider_as_0116" =
-    "1hl7xw8jz0gijxh9cjkxv1rb1xncb1622ghf6wnsaarlqr4947ky";
-  "NNPDF23_nlo_collider_as_0117" =
-    "08krhmjbgza9f4mbq7cdj9g7hh260aaniqqi5awbgp7idbn3nccj";
-  "NNPDF23_nlo_collider_as_0118" =
-    "17645h9l8z8nk7pdaxdhvcfmcvi8ib8yylhiijkkw9yrywb5pakm";
-  "NNPDF23_nlo_collider_as_0119" =
-    "0csf74lpxgzg48v6962falxd8n2nc9xdrqnxxwadqqyrnrfs06dw";
-  "NNPDF23_nlo_collider_as_0120" =
-    "17xqx8hnwy7a67ah0ds8m3nv3cbq20vri83nlwahwfsbig7w505x";
-  "NNPDF23_nlo_noLHC_as_0116" =
-    "02nhh7n2qzx3ak7ih2d3vw3a4dffxbbpv9wrh2yhz30zbrqqlzv2";
-  "NNPDF23_nlo_noLHC_as_0117" =
-    "14j8hx346krwbi2fyyk77k60d7dlk2xlsc6zd543y03jdpk4ahlx";
-  "NNPDF23_nlo_noLHC_as_0118" =
-    "0vwi6h1fkwjg28p2f3br1g601i8ca4dpfjs9vxg80kjzkif6k310";
-  "NNPDF23_nlo_noLHC_as_0119" =
-    "02l15h62gn0njnj459pkp3k1nhiaivlknmbxb3giqpg6wmm2m9y1";
-  "NNPDF23_nlo_noLHC_as_0120" =
-    "13lxmwmywg7wrwhgp0cb41b42479fgfa1bz3aqkbrnf6gi6pviln";
-  "NNPDF23_nnlo_FFN_NF4_as_0116" =
-    "0j4ng2vl955vnq40zv5v9sb0wk8qari61v7995p2l0sxz268sz50";
-  "NNPDF23_nnlo_FFN_NF4_as_0117" =
-    "1wjqlv6mbl2lgvwr5av47amrs8gnqkpkxzq91jvpaxkya3bmglc3";
-  "NNPDF23_nnlo_FFN_NF4_as_0118" =
-    "113s8lxrmif79c6f11pnk5jz7q4lq7108gcfx84nanpksr9dmi6m";
-  "NNPDF23_nnlo_FFN_NF4_as_0119" =
-    "1688qacmp9kl50q1vzffcprf9ydbi2bb2brc68jvid5f7bjkyfmw";
-  "NNPDF23_nnlo_FFN_NF4_as_0120" =
-    "1i3cjnz5zgk8jw5jcrqy6kxx1i5v2a2lgy2fdck3j19cvn0iqqr9";
-  "NNPDF23_nnlo_FFN_NF5_as_0116" =
-    "0v6ap405v9zapbi5sqldvs5lyhz5wsh4cxl8ssxj0l4789qm24hb";
-  "NNPDF23_nnlo_FFN_NF5_as_0117" =
-    "153f95cqd0hkxfy9p81mf2dfdp13h3fhhp0qyxmiknhqm10ykdxq";
-  "NNPDF23_nnlo_FFN_NF5_as_0118" =
-    "0fch9i9qj1k8h3sdwfdcd75idi0bv2q7a338dvj4697xqpxf2mj4";
-  "NNPDF23_nnlo_FFN_NF5_as_0119" =
-    "03r72mrbvy9jkkbmgvp2776xxgjx0jyxsv4bvpxmhscpym9mjvq7";
-  "NNPDF23_nnlo_FFN_NF5_as_0120" =
-    "0rsflim77kdp849pg6f87rq6j0wirj4gayvrnvi4xvfjlk1mxkll";
-  "NNPDF23_nnlo_as_0114" =
-    "1p32hw48zwmvj9i5iyg9pqhf11zwf7m7g5q8prfj8825dvsgql94";
-  "NNPDF23_nnlo_as_0115" =
-    "0smmwd7xla73sb3bci46grj1kfd751pybkf7fz3w3qdkp5jjglqp";
-  "NNPDF23_nnlo_as_0116" =
-    "14blxcfb2jbdgwh73f2spvqxy5dhn5v6ygwi346dzwswipwbixir";
-  "NNPDF23_nnlo_as_0117" =
-    "0di0a5dkskalllnh90ngfb046z5hm9ihjra1r1ck06v9ryam2w9c";
-  "NNPDF23_nnlo_as_0117_qed" =
-    "0dvzz7ac45j4m655k0i3ycy6xwfm6y6801qsb5bgp1kdv7g2pj3z";
-  "NNPDF23_nnlo_as_0117_qed_neutron" =
-    "0v05yw5nc1r7vh8sjag4fmdklkn4jmcdpsmgvwm7sblgfc6gnssm";
-  "NNPDF23_nnlo_as_0118" =
-    "14p9y1ryc1j26gl01sn60pmrfpnkm81bhark2g98xz8dmfmjp7iq";
-  "NNPDF23_nnlo_as_0118_qed" =
-    "15mcq4q20ijmf06pcc626jlk22fm8c473p4i80bmi27h5x2pl56i";
-  "NNPDF23_nnlo_as_0118_qed_neutron" =
-    "15vsjjc1i2x6lb0603h6knj68si8cvxml2xk97pw343qn3p8h4ka";
-  "NNPDF23_nnlo_as_0119" =
-    "1qzap9zlpwyyshh8hc0gm82y9rl9hpy232j03gd6vwmcw5pgm2d2";
-  "NNPDF23_nnlo_as_0119_qed" =
-    "1cqvdmq0hm9rh6749bn08i6c94gshpjafmwv8siizdlm8v9af442";
-  "NNPDF23_nnlo_as_0119_qed_mc" =
-    "0a77i8grscxwnybgikik94ldiddrif3yy6d4bqb6x1aj4hr9i5ag";
-  "NNPDF23_nnlo_as_0119_qed_neutron" =
-    "182jqm5019n94givs4rwblpz02hp90mbizp0b5svrxf21zdyrmbx";
-  "NNPDF23_nnlo_as_0120" =
-    "1v8ykgxnqbvfra57xpamhgbcjvj89dndhk62pmji004gvqpmwi61";
-  "NNPDF23_nnlo_as_0121" =
-    "1fv1m86ya7zi77ajd8r1nls2zcr7n6s3wqrdiwq5ikxidqxc6cgy";
-  "NNPDF23_nnlo_as_0122" =
-    "0bn6bmvs8w9qsqcpq8y8a7w64xbkvrqwiikm5shjprwqy9xbspyf";
-  "NNPDF23_nnlo_as_0123" =
-    "0w7sqyyf98ymxpgqfh8gr9g1pdwr2pw12zc8gqykn5nkjbbmijgy";
-  "NNPDF23_nnlo_as_0124" =
-    "1hilgda0gqyj81a5h0mxrl5g9ahlm1n6mhd3ajkicxz2fvxm2n1l";
-  "NNPDF23_nnlo_collider_as_0116" =
-    "07m2jwjwzjc4bdsx9dkrp41qn04f9z3k2m6n4q308hwdq9lmcm99";
-  "NNPDF23_nnlo_collider_as_0117" =
-    "0i4kggkkkp407r33a2nsdy329zxpx8h6dq0h0wwpvq1kmyrjk6i4";
-  "NNPDF23_nnlo_collider_as_0118" =
-    "027wlw7lk04grz5qavyymj21ik4zr9fy9yk2kwjc9gx2ycp3sj2z";
-  "NNPDF23_nnlo_collider_as_0119" =
-    "0jq3q3sh1p8rn1qap77794v9hh3j0b7pmfl24wxvpc4dly4al0vs";
-  "NNPDF23_nnlo_collider_as_0120" =
-    "1s0jic8amasmxczdflbbhn6071nx8cxr3ynfrinllp36d92pmgsx";
-  "NNPDF23_nnlo_noLHC_as_0116" =
-    "0jzn78p2gygsqip50jfnnrmwl7issbp4vzpf71cbvj39ihsmavy0";
-  "NNPDF23_nnlo_noLHC_as_0117" =
-    "0zns2yy50c0bm91y8xaafmzhgx1wafvmv39cykw7xwsnkgclh487";
-  "NNPDF23_nnlo_noLHC_as_0118" =
-    "0v5bdc8d9w5g606h42rpn6zw31y1a5nk9akgfd1lyrhilvh7ayck";
-  "NNPDF23_nnlo_noLHC_as_0119" =
-    "1zacfd5jc5wvcig0g8g4jkr77zcxvzcvppa4ci81c1n8d0whnr5s";
-  "NNPDF23_nnlo_noLHC_as_0120" =
-    "1lx7m8ajwvhkzxck2ngxng1g90fpay5r5iwdnk2w7xgp1hb1ayc3";
+  "NNFF11_HadronSum_nlo" = "1n9fb71kl7y8rp1smyal28wdvdx1b410mhqkxmavnr1fs85hkh85";
+  "NNPDF21_lo_as_0119_100" = "19qw2hp1yk82qgcrpx8wp2fg8wklaj6rr653m6mndhhr0aa0w80v";
+  "NNPDF21_lo_as_0130_100" = "0p5cw77dg5pkhl3d0y6r3k8vhw4m467wf3gd8kp2l5vcbdwb4izv";
+  "NNPDF21_lostar_as_0119_100" = "0i23axf0xl11nb2dn6p34bnm1xfisnn3a82db9dz863n60gqb5x4";
+  "NNPDF21_lostar_as_0130_100" = "1aka01747071l53jx4v7rgmfj5danzjillbwincgi1b28mw78yhq";
+  "NNPDF23_lo_as_0119_qed" = "02d85an11mr66yg3vi5fq4919ymbrh9h8b8qzzzm9dvfarzmbwxi";
+  "NNPDF23_lo_as_0130_qed" = "0qsxxw3nds42924xqnhs56wmd8ihmrip28glj47q9r9i3kgw3lv0";
+  "NNPDF23_nlo_FFN_NF4_as_0116" = "1d5wccg8l5xmdr8pvks6851zxrlgq1rk2y5dgp10k6r108059rgn";
+  "NNPDF23_nlo_FFN_NF4_as_0116_mc" = "1sc13cqah6di97fmlnb6qw454jyrp0i9jv2pfxvi8ix2vzd6km00";
+  "NNPDF23_nlo_FFN_NF4_as_0117" = "1gkzb46fnf9k97fgbbxljdnklffwnxmg58z01x55iklq4sn2aww3";
+  "NNPDF23_nlo_FFN_NF4_as_0117_mc" = "0nc3fx9ggqybymw5kglwq3kmznc9hm28sp58gs1l4gwx3xiy0bj6";
+  "NNPDF23_nlo_FFN_NF4_as_0118" = "1zlcqh0nfy8yf2cnzs0iy615nbmhpa2zh4carvifcqd4lv4azkp6";
+  "NNPDF23_nlo_FFN_NF4_as_0118_mc" = "0518z8jakc9r74kzanraf2n8haminfipp2rvr1288ymhsl5bxyp0";
+  "NNPDF23_nlo_FFN_NF4_as_0119" = "1k5mcql2411020m6vq26ck8ig3q01j79ndjgci2biq743m8nlvm2";
+  "NNPDF23_nlo_FFN_NF4_as_0119_mc" = "06yv9mwgvhag5442581r7by3nsxcy7c76llgaalphbzszqr2vy0p";
+  "NNPDF23_nlo_FFN_NF4_as_0120" = "1m97g47p44vq3izjji6agwmj2fwdvgddzy8w40mqqbr9fk19lbyi";
+  "NNPDF23_nlo_FFN_NF4_as_0120_mc" = "0bjllckv61jc1y6f8c1gqdh36r15glqn8fqp99q0kckaxyszy5vw";
+  "NNPDF23_nlo_FFN_NF5_as_0116" = "0x4kjj791hkwng4l5dvch8z0ig1nkliirlz9mkv02g54qrilnkmy";
+  "NNPDF23_nlo_FFN_NF5_as_0116_mc" = "055clf0m8l8gnby2lgwh4wkyqciskwp54y34vb1kwfbhdf71zmnj";
+  "NNPDF23_nlo_FFN_NF5_as_0117" = "1cplvrizlsjcixsjzlm2drssbjsrzj9bvq0k5mnv79r3p1xdp997";
+  "NNPDF23_nlo_FFN_NF5_as_0117_mc" = "17nic3kw991dbrhyjyxpk0zzv8rjh0r0whd6nl8v6wsf5q5h0ny2";
+  "NNPDF23_nlo_FFN_NF5_as_0118" = "07fgr71x2zk2ywcbnw0ikv0p9kzsmd83kdidfs49vm7azcbm0qfw";
+  "NNPDF23_nlo_FFN_NF5_as_0118_mc" = "0s365gsidichyj9x5926q1gm0x1bp52chv7fkpirflrrsywf0lc3";
+  "NNPDF23_nlo_FFN_NF5_as_0119" = "1qspxbwswz7ssqj2rx2jdg0bkj8prawwshvjd26ifz9i0l9qnqc0";
+  "NNPDF23_nlo_FFN_NF5_as_0119_mc" = "0aqyhrcrzs3kqhj1hndilpibvdwfw9qhg1x0cypx97h16n37j46x";
+  "NNPDF23_nlo_FFN_NF5_as_0120" = "1k9savpyg2iqr1ab4i5y7q1qhd8zxq413040h2v46jl8mp7x6bjn";
+  "NNPDF23_nlo_FFN_NF5_as_0120_mc" = "01g7mh7v62s47cwdf6ws6j37gxl4mrb26ivdzzwmhy6ydiw8ka53";
+  "NNPDF23_nlo_as_0114" = "0mmq32kddspgpacx2qj086das9z2bxh3l37qvp9yf84gqzjj7mml";
+  "NNPDF23_nlo_as_0115" = "0jn1gv137d2x3vxq7ny0qc0hnfmcd4hs3cxkyn7j26w7p59q81x7";
+  "NNPDF23_nlo_as_0116" = "1mnq360acd5vfwz9z8fzynldchkqrfiqhsxvi3s9a263h3p44bsa";
+  "NNPDF23_nlo_as_0116_mc" = "0ngw2hls52bax6dmis3nfa2ix8q8nh2d9mwjax4cjdkmmf7rdn2g";
+  "NNPDF23_nlo_as_0117" = "01wkq68b8zl3mznzvc4p7p9b4ik2bnqgjq97mw2287i448mnj9jn";
+  "NNPDF23_nlo_as_0117_mc" = "1s2g55240gh9j32ach9rban0iw4hjmw5haj1c21wgyh4nqiqlfwr";
+  "NNPDF23_nlo_as_0117_qed" = "1l2rbxn9fw72nmhqazfkh568q4df0q2jp0pn0fj368wdpf36fk0b";
+  "NNPDF23_nlo_as_0117_qed_neutron" = "17rpz4bdp3fxvafiz32aawxw64prkhqwqpnfnbqsigcslm18bwnc";
+  "NNPDF23_nlo_as_0118" = "01kax3g4d8nd6n1gip70d02kl3kvbqib93b99xgwc1f0np85p3r0";
+  "NNPDF23_nlo_as_0118_mc" = "0qhs7r4zzw68grrmfh7qdad49w4y4mvf55qnp86piri5vi8lklwk";
+  "NNPDF23_nlo_as_0118_qed" = "10xfv8nkg2jjy3yg9m9gakz6lixdvmahdy1z12znqyr1br57bdhy";
+  "NNPDF23_nlo_as_0118_qed_neutron" = "1zffxfykx2v3dniypsvyyqbz5pb4dcww653amaxv96hplw3fvr0h";
+  "NNPDF23_nlo_as_0119" = "1v24iwddahxy6sd43bxv6ywf8n7302qkwl9hv7d074q1d932kgr1";
+  "NNPDF23_nlo_as_0119_mc" = "0l95fgr5bwhsh0h3qqlnx9czkgmrf5y084zlzk3qhix3ldh8zbp4";
+  "NNPDF23_nlo_as_0119_qed" = "0rayscazcacy89lzg0ynpwrl9g4pnjwwp0l0vwc3gjz9cwznmwsk";
+  "NNPDF23_nlo_as_0119_qed_mc" = "1cc3candpavcfbv681zpg8gmwbh3g14vqkhs2s6v7rr9xhx6zqv1";
+  "NNPDF23_nlo_as_0119_qed_neutron" = "12h4x97yglcklrvwh937xa5bgqahq949a5wm3nyjbvrfsw9n330i";
+  "NNPDF23_nlo_as_0120" = "0f8lwydw45vy7c0mqmz60hpc0b40czx0gx35liyrhcbjvj9129m7";
+  "NNPDF23_nlo_as_0120_mc" = "0kqiizf0c0mbdavnv7ivk89kga84j7p7xprqi10589ggplchx8ag";
+  "NNPDF23_nlo_as_0121" = "17603srm35158sdwrqijyxm614splx7k6bjyzphgvznnkwpgi0i3";
+  "NNPDF23_nlo_as_0122" = "0c16498ngx436k9mb8fwkhhvcbdyjd4m0jh54v2n1dl354jz60sm";
+  "NNPDF23_nlo_as_0123" = "1j6d7k8d04gfx532iipd4vzm0nldbvy86pg8asgv4xrh80c1zslc";
+  "NNPDF23_nlo_as_0124" = "0dwv41kc9qsvvp22gvxi56gj13dnklgfp4ndrm0475q6gvfz25ak";
+  "NNPDF23_nlo_collider_as_0116" = "1hl7xw8jz0gijxh9cjkxv1rb1xncb1622ghf6wnsaarlqr4947ky";
+  "NNPDF23_nlo_collider_as_0117" = "08krhmjbgza9f4mbq7cdj9g7hh260aaniqqi5awbgp7idbn3nccj";
+  "NNPDF23_nlo_collider_as_0118" = "17645h9l8z8nk7pdaxdhvcfmcvi8ib8yylhiijkkw9yrywb5pakm";
+  "NNPDF23_nlo_collider_as_0119" = "0csf74lpxgzg48v6962falxd8n2nc9xdrqnxxwadqqyrnrfs06dw";
+  "NNPDF23_nlo_collider_as_0120" = "17xqx8hnwy7a67ah0ds8m3nv3cbq20vri83nlwahwfsbig7w505x";
+  "NNPDF23_nlo_noLHC_as_0116" = "02nhh7n2qzx3ak7ih2d3vw3a4dffxbbpv9wrh2yhz30zbrqqlzv2";
+  "NNPDF23_nlo_noLHC_as_0117" = "14j8hx346krwbi2fyyk77k60d7dlk2xlsc6zd543y03jdpk4ahlx";
+  "NNPDF23_nlo_noLHC_as_0118" = "0vwi6h1fkwjg28p2f3br1g601i8ca4dpfjs9vxg80kjzkif6k310";
+  "NNPDF23_nlo_noLHC_as_0119" = "02l15h62gn0njnj459pkp3k1nhiaivlknmbxb3giqpg6wmm2m9y1";
+  "NNPDF23_nlo_noLHC_as_0120" = "13lxmwmywg7wrwhgp0cb41b42479fgfa1bz3aqkbrnf6gi6pviln";
+  "NNPDF23_nnlo_FFN_NF4_as_0116" = "0j4ng2vl955vnq40zv5v9sb0wk8qari61v7995p2l0sxz268sz50";
+  "NNPDF23_nnlo_FFN_NF4_as_0117" = "1wjqlv6mbl2lgvwr5av47amrs8gnqkpkxzq91jvpaxkya3bmglc3";
+  "NNPDF23_nnlo_FFN_NF4_as_0118" = "113s8lxrmif79c6f11pnk5jz7q4lq7108gcfx84nanpksr9dmi6m";
+  "NNPDF23_nnlo_FFN_NF4_as_0119" = "1688qacmp9kl50q1vzffcprf9ydbi2bb2brc68jvid5f7bjkyfmw";
+  "NNPDF23_nnlo_FFN_NF4_as_0120" = "1i3cjnz5zgk8jw5jcrqy6kxx1i5v2a2lgy2fdck3j19cvn0iqqr9";
+  "NNPDF23_nnlo_FFN_NF5_as_0116" = "0v6ap405v9zapbi5sqldvs5lyhz5wsh4cxl8ssxj0l4789qm24hb";
+  "NNPDF23_nnlo_FFN_NF5_as_0117" = "153f95cqd0hkxfy9p81mf2dfdp13h3fhhp0qyxmiknhqm10ykdxq";
+  "NNPDF23_nnlo_FFN_NF5_as_0118" = "0fch9i9qj1k8h3sdwfdcd75idi0bv2q7a338dvj4697xqpxf2mj4";
+  "NNPDF23_nnlo_FFN_NF5_as_0119" = "03r72mrbvy9jkkbmgvp2776xxgjx0jyxsv4bvpxmhscpym9mjvq7";
+  "NNPDF23_nnlo_FFN_NF5_as_0120" = "0rsflim77kdp849pg6f87rq6j0wirj4gayvrnvi4xvfjlk1mxkll";
+  "NNPDF23_nnlo_as_0114" = "1p32hw48zwmvj9i5iyg9pqhf11zwf7m7g5q8prfj8825dvsgql94";
+  "NNPDF23_nnlo_as_0115" = "0smmwd7xla73sb3bci46grj1kfd751pybkf7fz3w3qdkp5jjglqp";
+  "NNPDF23_nnlo_as_0116" = "14blxcfb2jbdgwh73f2spvqxy5dhn5v6ygwi346dzwswipwbixir";
+  "NNPDF23_nnlo_as_0117" = "0di0a5dkskalllnh90ngfb046z5hm9ihjra1r1ck06v9ryam2w9c";
+  "NNPDF23_nnlo_as_0117_qed" = "0dvzz7ac45j4m655k0i3ycy6xwfm6y6801qsb5bgp1kdv7g2pj3z";
+  "NNPDF23_nnlo_as_0117_qed_neutron" = "0v05yw5nc1r7vh8sjag4fmdklkn4jmcdpsmgvwm7sblgfc6gnssm";
+  "NNPDF23_nnlo_as_0118" = "14p9y1ryc1j26gl01sn60pmrfpnkm81bhark2g98xz8dmfmjp7iq";
+  "NNPDF23_nnlo_as_0118_qed" = "15mcq4q20ijmf06pcc626jlk22fm8c473p4i80bmi27h5x2pl56i";
+  "NNPDF23_nnlo_as_0118_qed_neutron" = "15vsjjc1i2x6lb0603h6knj68si8cvxml2xk97pw343qn3p8h4ka";
+  "NNPDF23_nnlo_as_0119" = "1qzap9zlpwyyshh8hc0gm82y9rl9hpy232j03gd6vwmcw5pgm2d2";
+  "NNPDF23_nnlo_as_0119_qed" = "1cqvdmq0hm9rh6749bn08i6c94gshpjafmwv8siizdlm8v9af442";
+  "NNPDF23_nnlo_as_0119_qed_mc" = "0a77i8grscxwnybgikik94ldiddrif3yy6d4bqb6x1aj4hr9i5ag";
+  "NNPDF23_nnlo_as_0119_qed_neutron" = "182jqm5019n94givs4rwblpz02hp90mbizp0b5svrxf21zdyrmbx";
+  "NNPDF23_nnlo_as_0120" = "1v8ykgxnqbvfra57xpamhgbcjvj89dndhk62pmji004gvqpmwi61";
+  "NNPDF23_nnlo_as_0121" = "1fv1m86ya7zi77ajd8r1nls2zcr7n6s3wqrdiwq5ikxidqxc6cgy";
+  "NNPDF23_nnlo_as_0122" = "0bn6bmvs8w9qsqcpq8y8a7w64xbkvrqwiikm5shjprwqy9xbspyf";
+  "NNPDF23_nnlo_as_0123" = "0w7sqyyf98ymxpgqfh8gr9g1pdwr2pw12zc8gqykn5nkjbbmijgy";
+  "NNPDF23_nnlo_as_0124" = "1hilgda0gqyj81a5h0mxrl5g9ahlm1n6mhd3ajkicxz2fvxm2n1l";
+  "NNPDF23_nnlo_collider_as_0116" = "07m2jwjwzjc4bdsx9dkrp41qn04f9z3k2m6n4q308hwdq9lmcm99";
+  "NNPDF23_nnlo_collider_as_0117" = "0i4kggkkkp407r33a2nsdy329zxpx8h6dq0h0wwpvq1kmyrjk6i4";
+  "NNPDF23_nnlo_collider_as_0118" = "027wlw7lk04grz5qavyymj21ik4zr9fy9yk2kwjc9gx2ycp3sj2z";
+  "NNPDF23_nnlo_collider_as_0119" = "0jq3q3sh1p8rn1qap77794v9hh3j0b7pmfl24wxvpc4dly4al0vs";
+  "NNPDF23_nnlo_collider_as_0120" = "1s0jic8amasmxczdflbbhn6071nx8cxr3ynfrinllp36d92pmgsx";
+  "NNPDF23_nnlo_noLHC_as_0116" = "0jzn78p2gygsqip50jfnnrmwl7issbp4vzpf71cbvj39ihsmavy0";
+  "NNPDF23_nnlo_noLHC_as_0117" = "0zns2yy50c0bm91y8xaafmzhgx1wafvmv39cykw7xwsnkgclh487";
+  "NNPDF23_nnlo_noLHC_as_0118" = "0v5bdc8d9w5g606h42rpn6zw31y1a5nk9akgfd1lyrhilvh7ayck";
+  "NNPDF23_nnlo_noLHC_as_0119" = "1zacfd5jc5wvcig0g8g4jkr77zcxvzcvppa4ci81c1n8d0whnr5s";
+  "NNPDF23_nnlo_noLHC_as_0120" = "1lx7m8ajwvhkzxck2ngxng1g90fpay5r5iwdnk2w7xgp1hb1ayc3";
   "NNPDF30_lo_as_0118" = "12adhizxskpjzdr6inc2hi6bxrs8ns3bnyihz09hfh9q53d5ayik";
-  "NNPDF30_lo_as_0118_nf_3" =
-    "1gjaiwqdhlswf1qmw39xr6g0w4bnnbinfpwl9c37jnggk6dxwdjz";
-  "NNPDF30_lo_as_0118_nf_4" =
-    "121xn280f5xx04q0rr4ina9iqzbc1v8cay78km836kqvgb3pcpyx";
-  "NNPDF30_lo_as_0118_nf_6" =
-    "1s77g0bf1qjb9rn1svnpfx10laxx87lw660ark9fhhx14zgybs3i";
+  "NNPDF30_lo_as_0118_nf_3" = "1gjaiwqdhlswf1qmw39xr6g0w4bnnbinfpwl9c37jnggk6dxwdjz";
+  "NNPDF30_lo_as_0118_nf_4" = "121xn280f5xx04q0rr4ina9iqzbc1v8cay78km836kqvgb3pcpyx";
+  "NNPDF30_lo_as_0118_nf_6" = "1s77g0bf1qjb9rn1svnpfx10laxx87lw660ark9fhhx14zgybs3i";
   "NNPDF30_lo_as_0130" = "0nvpwbmdzm8fn4wlb2rhzar71kk4myfddpqsqhd7wb1fqxkj5b7y";
-  "NNPDF30_lo_as_0130_nf_3" =
-    "10diiahiy3yk6y7m1r4bd6nr1kf4mnccgj5qyq2lw49highn4s8k";
-  "NNPDF30_lo_as_0130_nf_4" =
-    "0j3b3rj5pr2ws3yaq6h74hhsjy7lv3d2x5nryc55q22xfkgf451i";
-  "NNPDF30_lo_as_0130_nf_6" =
-    "0w7k4a9ir4xvfh3v6dba70rhwkkq7qk16z178wld26zl6a7gw1hk";
-  "NNPDF30_nlo_as_0115" =
-    "15g9alyc317qydqy3g7sqlh6pc4pxn3xmhmzv9lcw2ghg3gn35fi";
-  "NNPDF30_nlo_as_0115_nf_3" =
-    "05b5xl89jvk6bgp86yl5hwdh3x8211czdsbianqkfix35rqrvlx3";
-  "NNPDF30_nlo_as_0115_nf_4" =
-    "02p9lhvricjl5r79pkcm2fv14p9gw1d2qizka4w254ang3i1hcm0";
-  "NNPDF30_nlo_as_0115_nf_6" =
-    "1iabf2qszv1270ac2sr2bqs7rb3gm58fj388saqbhnra4p2kv9fw";
-  "NNPDF30_nlo_as_0117" =
-    "01my1m7vx7yax8ldnjp7s1mz1w3x3m0h1gdd8mamfrvphaghwp4x";
-  "NNPDF30_nlo_as_0117_atlas" =
-    "0vjfh6kihsypvkpg3fwqf96kd2ldq0azcl72ia6w1nr52rsqc27l";
-  "NNPDF30_nlo_as_0117_cms" =
-    "1sbaq99731ihrkp9a2fj6lxj9dr2c9j4vp2335249nrkinfpf4mq";
-  "NNPDF30_nlo_as_0117_cons" =
-    "14qwjsa633v3h0sbizmhifrwdm7fmglyk608lq4ims8y7nn491nq";
-  "NNPDF30_nlo_as_0117_hera" =
-    "05gs9ril5vkm7xrnz5pvjd6pk8ivgk0bl4bh45gx658fgg2snhiy";
-  "NNPDF30_nlo_as_0117_nf_3" =
-    "0jc8p8h9pny0l7j3hv55iwaw684ymj0hl62d6bxlvw8sqvhxcqyl";
-  "NNPDF30_nlo_as_0117_nf_4" =
-    "0a37b46ach3m0gqniwk79qk963w0m96dknda2rhp1glpg5xdxl0z";
-  "NNPDF30_nlo_as_0117_nf_6" =
-    "1hjj6k5g2fia7xq5piy0dhsqs9lwriasmppjwil9wxnwklnwmr2m";
-  "NNPDF30_nlo_as_0117_nojet" =
-    "0z3s8ixmq2l4znv2dn0dcz9rq5f9b3jgnlwmvjzcab3wvj1za687";
-  "NNPDF30_nlo_as_0117_nolhc" =
-    "1x9nbnxm72wzaky4rvlrq1kmqs86ypphqwvsng33n0zdd9yr82pr";
-  "NNPDF30_nlo_as_0118" =
-    "0b51qb2i3h9d7hrviarfszwljsy88m8ibzgz7dd5gn88k9kardrm";
-  "NNPDF30_nlo_as_0118_1000" =
-    "17yla3w0rqy1a5hxq3bfq94ddda2qv6zzj76lfrm4zahl6m02kdy";
-  "NNPDF30_nlo_as_0118_atlas" =
-    "034h2wgakbm3mx70034nwb44ii38rca7xv3az3fhcnjbpg9vnf0p";
-  "NNPDF30_nlo_as_0118_cms" =
-    "08g9315fpc4khwfjf76vvyqa9nannvwq0bpc42f9f7yc0pck71qa";
-  "NNPDF30_nlo_as_0118_cons" =
-    "1lw0fhy9gwk3zr7vq7qh9p6zprbyd4faln3npnxs2snncic1mnz6";
-  "NNPDF30_nlo_as_0118_hera" =
-    "1833gd9h3gg75hblxf5qh5hp61k7n9vavb91ll9lbqmcbfr34aas";
-  "NNPDF30_nlo_as_0118_hera_1000" =
-    "0lljb96d3q25yw3fz3cbk2in90q6srpc4alkz95nyrvgp25xgbgy";
-  "NNPDF30_nlo_as_0118_hessian" =
-    "0h8d2zc02ccr1rmlsf4xd5a41irbs9q9wx68caj2xy0i7qr8rsmp";
-  "NNPDF30_nlo_as_0118_mc" =
-    "12nnyzh2f6mv4gq4x4b8nlqx34lbj5y2y60zivfdbcpyg2spj5y8";
-  "NNPDF30_nlo_as_0118_nf_3" =
-    "10f5md8bhf44n5x6r7ln8c58a9ylm4mfgxg30vd0d8mvjc3zpsng";
-  "NNPDF30_nlo_as_0118_nf_4" =
-    "0q14zqkzqy2hgh8wli5db7dsqgsljgbc717da661wj8kqa23w4r4";
-  "NNPDF30_nlo_as_0118_nf_6" =
-    "08ajfn1r27hdarff464j2gpi7ffjjxs6pwzh3vil8lpjij5y7d4l";
-  "NNPDF30_nlo_as_0118_nojet" =
-    "0zzzk72n7nq1mcaalbv7mpfpb9kh095j0zazbzfjf2k6r3p0v082";
-  "NNPDF30_nlo_as_0118_nolhc" =
-    "1p7iac75znr1li8qg9xf1my37i70flhvjkfjmrb5b0h3hk9agb1r";
-  "NNPDF30_nlo_as_0118_nolhc_1000" =
-    "04mgjfq1ncy90gqljfdzw1iwzav5infkfv7zj2rid088n3qfs91p";
-  "NNPDF30_nlo_as_0119" =
-    "0p0kgw17c97p99zy3ffr6g7pphhc8ccdhcq4iip5drqm4hc6nb58";
-  "NNPDF30_nlo_as_0119_atlas" =
-    "1hpx2jm4y6kz9b4j42ags98j115hd2s41km670979z9zxmj2qm5q";
-  "NNPDF30_nlo_as_0119_cms" =
-    "1j0135mxdiyn22iqrmg0d44w2w7ql1cdacprxgdz4jfb0ppn68rx";
-  "NNPDF30_nlo_as_0119_cons" =
-    "00qvhq9ypqv62zvlg32k3x5gibl5jh0b78hyrpvxf1l3y2b77nw1";
-  "NNPDF30_nlo_as_0119_hera" =
-    "008f4m8p9gi4w61mgjiqqpw346rgqxaayc1rncy2fggl4gs64yi1";
-  "NNPDF30_nlo_as_0119_nf_3" =
-    "1bh0sl8pjy5n90j5dz9c80n3vy21hdsv8vxwbqkq0b2lkv8gzw5g";
-  "NNPDF30_nlo_as_0119_nf_4" =
-    "0swgnmbxz0g3ziib1992s0454jfsdi7l0x3lrvs5qzzjk6rg6qgd";
-  "NNPDF30_nlo_as_0119_nf_6" =
-    "001awj8h76wybmxj9vvkxgqixzak4zbhsvjmj2lscb2v5qq3y68r";
-  "NNPDF30_nlo_as_0119_nojet" =
-    "1x961nmad1rxmf4yzbz2drpi5hfac2ag1bs1jbvvlw3p04xr2c38";
-  "NNPDF30_nlo_as_0119_nolhc" =
-    "1yx6f4n577zqwhp0i440r6zk06702jg4kkib9nmgws3jl5f28big";
-  "NNPDF30_nlo_as_0121" =
-    "10k01z1amzp3jmfvfb2snrm8d04vr31kly1m30pw4fv0qn78idlw";
-  "NNPDF30_nlo_as_0121_nf_3" =
-    "1gb40ycnf42fkrbdwfhb8wp56nmzxyi7fzbqgvlkby7pn86m2f7m";
-  "NNPDF30_nlo_as_0121_nf_4" =
-    "18ywp6b9f83rxmh7gfn648wslvvf5g4ffm83rradp308smr1sv6p";
-  "NNPDF30_nlo_as_0121_nf_6" =
-    "12dps7n3glrzwb8vsfghwbvnh1yyxvjnvqfilbrrcy0dm3sams7b";
-  "NNPDF30_nlo_nf_4_pdfas" =
-    "0hrx872m52bb894c32jrvlvm9lcpy3yllj5ps52nmywqd8n1simj";
-  "NNPDF30_nlo_nf_5_pdfas" =
-    "0q25jxvwpz8inkax0j2zq9pj8swqfn4jmkhs4ibkl6xs78bhjfb8";
-  "NNPDF30_nnlo_as_0115" =
-    "03apmzw7krj77zdyl6sxwqg5fyv3vicp8iax445qdx8ld9kv225w";
-  "NNPDF30_nnlo_as_0115_nf_3" =
-    "08y1gjzkpnjn6mn247n7a9ya8z6pml3602p08rjha4ljggxhyffq";
-  "NNPDF30_nnlo_as_0115_nf_4" =
-    "19mjfk1rib9dxbsn0473ggi6akwv1zs9y3q9nzjg47mdjqlspb2q";
-  "NNPDF30_nnlo_as_0115_nf_6" =
-    "1zcjjbjwjgbkrhgh0kira7wzwmy5vvi1n15wycg33yk09m06db6b";
-  "NNPDF30_nnlo_as_0117" =
-    "1225gj4ihmphnfav2h38rz17lj1dyi9j1lazqlwww8vizl8933bz";
-  "NNPDF30_nnlo_as_0117_atlas" =
-    "0i9nc7q1cwl8cxxaj1xaz28wmj09q5bjmh19p1fcbcln7hklvj5x";
-  "NNPDF30_nnlo_as_0117_cms" =
-    "01ffhsw191nrr58x6wnjizx7bbijkknicvgk73pjbwyr67gfj581";
-  "NNPDF30_nnlo_as_0117_cons" =
-    "1blfi0p231r5j34wspk192fmbv34gbvx3bkisjh7wxpiab80qdws";
-  "NNPDF30_nnlo_as_0117_hera" =
-    "0ds02aj1q6y4dndfk9l9fyxci0dhpwr7jx1jq1qb9g5bb7bbhzz1";
-  "NNPDF30_nnlo_as_0117_nf_3" =
-    "087rz8bz3j2h7yk7rknlqz3rpbczgx2r2zdag8pjccdqi9jnk9pg";
-  "NNPDF30_nnlo_as_0117_nf_4" =
-    "1w44bwx6m6g8r990vl6f505bgf3v583mi19r0nfh2pahx2k2djaw";
-  "NNPDF30_nnlo_as_0117_nf_6" =
-    "1l7gwbsl2haqaj6hqsnnqwrnxrkdv1h63qbs7iwfdq6474ndzwsf";
-  "NNPDF30_nnlo_as_0117_nojet" =
-    "1nmv44arab9gfhs02jf4zijdb0644pvdmi6k809bxbfhir9sry8v";
-  "NNPDF30_nnlo_as_0117_nolhc" =
-    "0zn2b05jv9da7394in14mswvma48y26lvpw7rwh7wmyw323rxpfv";
-  "NNPDF30_nnlo_as_0118" =
-    "09xxi0vq90n9vfzq72c0mbf4yz4zif3kl6xwcjdb8r620ihwrnfw";
-  "NNPDF30_nnlo_as_0118_1000" =
-    "1iy5inrsfpn70w65hy42pmz0630pbrgg4l48qgsamcjgqdhd3n84";
-  "NNPDF30_nnlo_as_0118_atlas" =
-    "013jm6f2hnmzc2di7spf6zp31fwhm6c9sddwql36hww63w8sys71";
-  "NNPDF30_nnlo_as_0118_cms" =
-    "1w0ax68rg5877s35zlg13c451fcz2rij4adzwhz4yf4skkbgflng";
-  "NNPDF30_nnlo_as_0118_cons" =
-    "1qniswwj6cmcs7bm4n11jx2disqcwszl08cb7im824nvrcjka2pg";
-  "NNPDF30_nnlo_as_0118_hera" =
-    "05j5yrra93dxh1nah19hszd0q3pj4zfica8a7vm5akbfn02rccj6";
-  "NNPDF30_nnlo_as_0118_hera_1000" =
-    "0ssiw9fk5fqwg77rbycrxrclldws35n6gj4a4sj6d9yc87vz1g7z";
-  "NNPDF30_nnlo_as_0118_hessian" =
-    "1hb32bamwlx5il8g2sf5gy6xjr7r4rky7xgvdhf5ndq7v3n1ncx1";
-  "NNPDF30_nnlo_as_0118_mc" =
-    "1gxl4c5z2vh382y8l2kpr8vy4fqvbxvrw6xjc6dp229ak89cd6c2";
-  "NNPDF30_nnlo_as_0118_nf_3" =
-    "0iccjcds9j9pp8s3mwrshhzl5anklax4rgcwm5im90hipj450rgj";
-  "NNPDF30_nnlo_as_0118_nf_4" =
-    "002r0179jsl0l43psvw3hd1drg9fcrlzw57sbyndlswvq4zkyzyc";
-  "NNPDF30_nnlo_as_0118_nf_6" =
-    "1mwh2dxymayxa2khxjfxqmbhaj85jdnz548wmq6fyrxr63cfmw07";
-  "NNPDF30_nnlo_as_0118_nojet" =
-    "0nly14fxfww78qihrd8b6wk3da24x5sxkb13h8l2cgdxkq90fxbd";
-  "NNPDF30_nnlo_as_0118_nolhc" =
-    "11yvr5h66v37376d5p2m2g8fajdycv9baqq6mjfphf4a2abrl7m5";
-  "NNPDF30_nnlo_as_0118_nolhc_1000" =
-    "1bi0mxs6v1izlbvich55vi7qab72v1sizd4wj13787w47ffqm89p";
-  "NNPDF30_nnlo_as_0119" =
-    "11bvbqqjbyz0vjd4kh5qyd0a4rb62l103n10d1cyffgdfxxsk8f9";
-  "NNPDF30_nnlo_as_0119_atlas" =
-    "1fm46crfparx2swpxnyscpwqgicxb4skhclnc5xaijcpzraflzp7";
-  "NNPDF30_nnlo_as_0119_cms" =
-    "0i2d4wq7bsbfp8hqdr88nbii980zhfmpg6758czz7swd5yv8076a";
-  "NNPDF30_nnlo_as_0119_cons" =
-    "0v54zyz410rg3wcdw44japzynzvvrbjrspk91d0129rdv2xz51cg";
-  "NNPDF30_nnlo_as_0119_hera" =
-    "09w3krirq117cnhfkxlb8pld3xb5g2r3nhgc11v3ksavq746jhvk";
-  "NNPDF30_nnlo_as_0119_nf_3" =
-    "1k00h1c0lv6884lb02qmqki7sfmxkqpj88fkvf057frk120f59ah";
-  "NNPDF30_nnlo_as_0119_nf_4" =
-    "0pqjvaw2ad3g9zzjdyhh72580jrj4p8hxlvy9h6q9hhpwdihnnmh";
-  "NNPDF30_nnlo_as_0119_nf_6" =
-    "096fc9958s3z559knxqccwj3vylxviq2g58rwirj3qdjvy96y2cc";
-  "NNPDF30_nnlo_as_0119_nojet" =
-    "0l5crj00jm2vxgyr5nhs6h1n64xnxwpanrsjk8f8qfis37s68ar7";
-  "NNPDF30_nnlo_as_0119_nolhc" =
-    "1nl4gkjjz3kpq1sbzqk2d0d50vmb3ks7j5z14hqf9dib2xr39jl1";
-  "NNPDF30_nnlo_as_0121" =
-    "1c0ddbjskxw4rq1p8sp63vayxkvcnls062qp16wvrrbw7zkj1jaa";
-  "NNPDF30_nnlo_as_0121_nf_3" =
-    "1sj9g0wg6x2cvwp45i726dcs44hpqjiqa011xzindnjh8cq7m6xn";
-  "NNPDF30_nnlo_as_0121_nf_4" =
-    "1j4khzpw52vc26n7a95xg1wyqz720fnz2kbb8l9a5bsbmxmaa7xv";
-  "NNPDF30_nnlo_as_0121_nf_6" =
-    "1kln7zjgl0hwl621wnhhsih0m8f9ir2i8ligfg2s0qp8s3787lrg";
-  "NNPDF30_nnlo_nf_4_pdfas" =
-    "0s460v9712ahz09fhzhlnsnkl9arsy3l82g1z6xjz4la8fwkr9wq";
-  "NNPDF30_nnlo_nf_5_pdfas" =
-    "1vjfm9j39m4389b0r51axlbzdbkpk2vbs3vks3yqcr3hr09g9myk";
+  "NNPDF30_lo_as_0130_nf_3" = "10diiahiy3yk6y7m1r4bd6nr1kf4mnccgj5qyq2lw49highn4s8k";
+  "NNPDF30_lo_as_0130_nf_4" = "0j3b3rj5pr2ws3yaq6h74hhsjy7lv3d2x5nryc55q22xfkgf451i";
+  "NNPDF30_lo_as_0130_nf_6" = "0w7k4a9ir4xvfh3v6dba70rhwkkq7qk16z178wld26zl6a7gw1hk";
+  "NNPDF30_nlo_as_0115" = "15g9alyc317qydqy3g7sqlh6pc4pxn3xmhmzv9lcw2ghg3gn35fi";
+  "NNPDF30_nlo_as_0115_nf_3" = "05b5xl89jvk6bgp86yl5hwdh3x8211czdsbianqkfix35rqrvlx3";
+  "NNPDF30_nlo_as_0115_nf_4" = "02p9lhvricjl5r79pkcm2fv14p9gw1d2qizka4w254ang3i1hcm0";
+  "NNPDF30_nlo_as_0115_nf_6" = "1iabf2qszv1270ac2sr2bqs7rb3gm58fj388saqbhnra4p2kv9fw";
+  "NNPDF30_nlo_as_0117" = "01my1m7vx7yax8ldnjp7s1mz1w3x3m0h1gdd8mamfrvphaghwp4x";
+  "NNPDF30_nlo_as_0117_atlas" = "0vjfh6kihsypvkpg3fwqf96kd2ldq0azcl72ia6w1nr52rsqc27l";
+  "NNPDF30_nlo_as_0117_cms" = "1sbaq99731ihrkp9a2fj6lxj9dr2c9j4vp2335249nrkinfpf4mq";
+  "NNPDF30_nlo_as_0117_cons" = "14qwjsa633v3h0sbizmhifrwdm7fmglyk608lq4ims8y7nn491nq";
+  "NNPDF30_nlo_as_0117_hera" = "05gs9ril5vkm7xrnz5pvjd6pk8ivgk0bl4bh45gx658fgg2snhiy";
+  "NNPDF30_nlo_as_0117_nf_3" = "0jc8p8h9pny0l7j3hv55iwaw684ymj0hl62d6bxlvw8sqvhxcqyl";
+  "NNPDF30_nlo_as_0117_nf_4" = "0a37b46ach3m0gqniwk79qk963w0m96dknda2rhp1glpg5xdxl0z";
+  "NNPDF30_nlo_as_0117_nf_6" = "1hjj6k5g2fia7xq5piy0dhsqs9lwriasmppjwil9wxnwklnwmr2m";
+  "NNPDF30_nlo_as_0117_nojet" = "0z3s8ixmq2l4znv2dn0dcz9rq5f9b3jgnlwmvjzcab3wvj1za687";
+  "NNPDF30_nlo_as_0117_nolhc" = "1x9nbnxm72wzaky4rvlrq1kmqs86ypphqwvsng33n0zdd9yr82pr";
+  "NNPDF30_nlo_as_0118" = "0b51qb2i3h9d7hrviarfszwljsy88m8ibzgz7dd5gn88k9kardrm";
+  "NNPDF30_nlo_as_0118_1000" = "17yla3w0rqy1a5hxq3bfq94ddda2qv6zzj76lfrm4zahl6m02kdy";
+  "NNPDF30_nlo_as_0118_atlas" = "034h2wgakbm3mx70034nwb44ii38rca7xv3az3fhcnjbpg9vnf0p";
+  "NNPDF30_nlo_as_0118_cms" = "08g9315fpc4khwfjf76vvyqa9nannvwq0bpc42f9f7yc0pck71qa";
+  "NNPDF30_nlo_as_0118_cons" = "1lw0fhy9gwk3zr7vq7qh9p6zprbyd4faln3npnxs2snncic1mnz6";
+  "NNPDF30_nlo_as_0118_hera" = "1833gd9h3gg75hblxf5qh5hp61k7n9vavb91ll9lbqmcbfr34aas";
+  "NNPDF30_nlo_as_0118_hera_1000" = "0lljb96d3q25yw3fz3cbk2in90q6srpc4alkz95nyrvgp25xgbgy";
+  "NNPDF30_nlo_as_0118_hessian" = "0h8d2zc02ccr1rmlsf4xd5a41irbs9q9wx68caj2xy0i7qr8rsmp";
+  "NNPDF30_nlo_as_0118_mc" = "12nnyzh2f6mv4gq4x4b8nlqx34lbj5y2y60zivfdbcpyg2spj5y8";
+  "NNPDF30_nlo_as_0118_nf_3" = "10f5md8bhf44n5x6r7ln8c58a9ylm4mfgxg30vd0d8mvjc3zpsng";
+  "NNPDF30_nlo_as_0118_nf_4" = "0q14zqkzqy2hgh8wli5db7dsqgsljgbc717da661wj8kqa23w4r4";
+  "NNPDF30_nlo_as_0118_nf_6" = "08ajfn1r27hdarff464j2gpi7ffjjxs6pwzh3vil8lpjij5y7d4l";
+  "NNPDF30_nlo_as_0118_nojet" = "0zzzk72n7nq1mcaalbv7mpfpb9kh095j0zazbzfjf2k6r3p0v082";
+  "NNPDF30_nlo_as_0118_nolhc" = "1p7iac75znr1li8qg9xf1my37i70flhvjkfjmrb5b0h3hk9agb1r";
+  "NNPDF30_nlo_as_0118_nolhc_1000" = "04mgjfq1ncy90gqljfdzw1iwzav5infkfv7zj2rid088n3qfs91p";
+  "NNPDF30_nlo_as_0119" = "0p0kgw17c97p99zy3ffr6g7pphhc8ccdhcq4iip5drqm4hc6nb58";
+  "NNPDF30_nlo_as_0119_atlas" = "1hpx2jm4y6kz9b4j42ags98j115hd2s41km670979z9zxmj2qm5q";
+  "NNPDF30_nlo_as_0119_cms" = "1j0135mxdiyn22iqrmg0d44w2w7ql1cdacprxgdz4jfb0ppn68rx";
+  "NNPDF30_nlo_as_0119_cons" = "00qvhq9ypqv62zvlg32k3x5gibl5jh0b78hyrpvxf1l3y2b77nw1";
+  "NNPDF30_nlo_as_0119_hera" = "008f4m8p9gi4w61mgjiqqpw346rgqxaayc1rncy2fggl4gs64yi1";
+  "NNPDF30_nlo_as_0119_nf_3" = "1bh0sl8pjy5n90j5dz9c80n3vy21hdsv8vxwbqkq0b2lkv8gzw5g";
+  "NNPDF30_nlo_as_0119_nf_4" = "0swgnmbxz0g3ziib1992s0454jfsdi7l0x3lrvs5qzzjk6rg6qgd";
+  "NNPDF30_nlo_as_0119_nf_6" = "001awj8h76wybmxj9vvkxgqixzak4zbhsvjmj2lscb2v5qq3y68r";
+  "NNPDF30_nlo_as_0119_nojet" = "1x961nmad1rxmf4yzbz2drpi5hfac2ag1bs1jbvvlw3p04xr2c38";
+  "NNPDF30_nlo_as_0119_nolhc" = "1yx6f4n577zqwhp0i440r6zk06702jg4kkib9nmgws3jl5f28big";
+  "NNPDF30_nlo_as_0121" = "10k01z1amzp3jmfvfb2snrm8d04vr31kly1m30pw4fv0qn78idlw";
+  "NNPDF30_nlo_as_0121_nf_3" = "1gb40ycnf42fkrbdwfhb8wp56nmzxyi7fzbqgvlkby7pn86m2f7m";
+  "NNPDF30_nlo_as_0121_nf_4" = "18ywp6b9f83rxmh7gfn648wslvvf5g4ffm83rradp308smr1sv6p";
+  "NNPDF30_nlo_as_0121_nf_6" = "12dps7n3glrzwb8vsfghwbvnh1yyxvjnvqfilbrrcy0dm3sams7b";
+  "NNPDF30_nlo_nf_4_pdfas" = "0hrx872m52bb894c32jrvlvm9lcpy3yllj5ps52nmywqd8n1simj";
+  "NNPDF30_nlo_nf_5_pdfas" = "0q25jxvwpz8inkax0j2zq9pj8swqfn4jmkhs4ibkl6xs78bhjfb8";
+  "NNPDF30_nnlo_as_0115" = "03apmzw7krj77zdyl6sxwqg5fyv3vicp8iax445qdx8ld9kv225w";
+  "NNPDF30_nnlo_as_0115_nf_3" = "08y1gjzkpnjn6mn247n7a9ya8z6pml3602p08rjha4ljggxhyffq";
+  "NNPDF30_nnlo_as_0115_nf_4" = "19mjfk1rib9dxbsn0473ggi6akwv1zs9y3q9nzjg47mdjqlspb2q";
+  "NNPDF30_nnlo_as_0115_nf_6" = "1zcjjbjwjgbkrhgh0kira7wzwmy5vvi1n15wycg33yk09m06db6b";
+  "NNPDF30_nnlo_as_0117" = "1225gj4ihmphnfav2h38rz17lj1dyi9j1lazqlwww8vizl8933bz";
+  "NNPDF30_nnlo_as_0117_atlas" = "0i9nc7q1cwl8cxxaj1xaz28wmj09q5bjmh19p1fcbcln7hklvj5x";
+  "NNPDF30_nnlo_as_0117_cms" = "01ffhsw191nrr58x6wnjizx7bbijkknicvgk73pjbwyr67gfj581";
+  "NNPDF30_nnlo_as_0117_cons" = "1blfi0p231r5j34wspk192fmbv34gbvx3bkisjh7wxpiab80qdws";
+  "NNPDF30_nnlo_as_0117_hera" = "0ds02aj1q6y4dndfk9l9fyxci0dhpwr7jx1jq1qb9g5bb7bbhzz1";
+  "NNPDF30_nnlo_as_0117_nf_3" = "087rz8bz3j2h7yk7rknlqz3rpbczgx2r2zdag8pjccdqi9jnk9pg";
+  "NNPDF30_nnlo_as_0117_nf_4" = "1w44bwx6m6g8r990vl6f505bgf3v583mi19r0nfh2pahx2k2djaw";
+  "NNPDF30_nnlo_as_0117_nf_6" = "1l7gwbsl2haqaj6hqsnnqwrnxrkdv1h63qbs7iwfdq6474ndzwsf";
+  "NNPDF30_nnlo_as_0117_nojet" = "1nmv44arab9gfhs02jf4zijdb0644pvdmi6k809bxbfhir9sry8v";
+  "NNPDF30_nnlo_as_0117_nolhc" = "0zn2b05jv9da7394in14mswvma48y26lvpw7rwh7wmyw323rxpfv";
+  "NNPDF30_nnlo_as_0118" = "09xxi0vq90n9vfzq72c0mbf4yz4zif3kl6xwcjdb8r620ihwrnfw";
+  "NNPDF30_nnlo_as_0118_1000" = "1iy5inrsfpn70w65hy42pmz0630pbrgg4l48qgsamcjgqdhd3n84";
+  "NNPDF30_nnlo_as_0118_atlas" = "013jm6f2hnmzc2di7spf6zp31fwhm6c9sddwql36hww63w8sys71";
+  "NNPDF30_nnlo_as_0118_cms" = "1w0ax68rg5877s35zlg13c451fcz2rij4adzwhz4yf4skkbgflng";
+  "NNPDF30_nnlo_as_0118_cons" = "1qniswwj6cmcs7bm4n11jx2disqcwszl08cb7im824nvrcjka2pg";
+  "NNPDF30_nnlo_as_0118_hera" = "05j5yrra93dxh1nah19hszd0q3pj4zfica8a7vm5akbfn02rccj6";
+  "NNPDF30_nnlo_as_0118_hera_1000" = "0ssiw9fk5fqwg77rbycrxrclldws35n6gj4a4sj6d9yc87vz1g7z";
+  "NNPDF30_nnlo_as_0118_hessian" = "1hb32bamwlx5il8g2sf5gy6xjr7r4rky7xgvdhf5ndq7v3n1ncx1";
+  "NNPDF30_nnlo_as_0118_mc" = "1gxl4c5z2vh382y8l2kpr8vy4fqvbxvrw6xjc6dp229ak89cd6c2";
+  "NNPDF30_nnlo_as_0118_nf_3" = "0iccjcds9j9pp8s3mwrshhzl5anklax4rgcwm5im90hipj450rgj";
+  "NNPDF30_nnlo_as_0118_nf_4" = "002r0179jsl0l43psvw3hd1drg9fcrlzw57sbyndlswvq4zkyzyc";
+  "NNPDF30_nnlo_as_0118_nf_6" = "1mwh2dxymayxa2khxjfxqmbhaj85jdnz548wmq6fyrxr63cfmw07";
+  "NNPDF30_nnlo_as_0118_nojet" = "0nly14fxfww78qihrd8b6wk3da24x5sxkb13h8l2cgdxkq90fxbd";
+  "NNPDF30_nnlo_as_0118_nolhc" = "11yvr5h66v37376d5p2m2g8fajdycv9baqq6mjfphf4a2abrl7m5";
+  "NNPDF30_nnlo_as_0118_nolhc_1000" = "1bi0mxs6v1izlbvich55vi7qab72v1sizd4wj13787w47ffqm89p";
+  "NNPDF30_nnlo_as_0119" = "11bvbqqjbyz0vjd4kh5qyd0a4rb62l103n10d1cyffgdfxxsk8f9";
+  "NNPDF30_nnlo_as_0119_atlas" = "1fm46crfparx2swpxnyscpwqgicxb4skhclnc5xaijcpzraflzp7";
+  "NNPDF30_nnlo_as_0119_cms" = "0i2d4wq7bsbfp8hqdr88nbii980zhfmpg6758czz7swd5yv8076a";
+  "NNPDF30_nnlo_as_0119_cons" = "0v54zyz410rg3wcdw44japzynzvvrbjrspk91d0129rdv2xz51cg";
+  "NNPDF30_nnlo_as_0119_hera" = "09w3krirq117cnhfkxlb8pld3xb5g2r3nhgc11v3ksavq746jhvk";
+  "NNPDF30_nnlo_as_0119_nf_3" = "1k00h1c0lv6884lb02qmqki7sfmxkqpj88fkvf057frk120f59ah";
+  "NNPDF30_nnlo_as_0119_nf_4" = "0pqjvaw2ad3g9zzjdyhh72580jrj4p8hxlvy9h6q9hhpwdihnnmh";
+  "NNPDF30_nnlo_as_0119_nf_6" = "096fc9958s3z559knxqccwj3vylxviq2g58rwirj3qdjvy96y2cc";
+  "NNPDF30_nnlo_as_0119_nojet" = "0l5crj00jm2vxgyr5nhs6h1n64xnxwpanrsjk8f8qfis37s68ar7";
+  "NNPDF30_nnlo_as_0119_nolhc" = "1nl4gkjjz3kpq1sbzqk2d0d50vmb3ks7j5z14hqf9dib2xr39jl1";
+  "NNPDF30_nnlo_as_0121" = "1c0ddbjskxw4rq1p8sp63vayxkvcnls062qp16wvrrbw7zkj1jaa";
+  "NNPDF30_nnlo_as_0121_nf_3" = "1sj9g0wg6x2cvwp45i726dcs44hpqjiqa011xzindnjh8cq7m6xn";
+  "NNPDF30_nnlo_as_0121_nf_4" = "1j4khzpw52vc26n7a95xg1wyqz720fnz2kbb8l9a5bsbmxmaa7xv";
+  "NNPDF30_nnlo_as_0121_nf_6" = "1kln7zjgl0hwl621wnhhsih0m8f9ir2i8ligfg2s0qp8s3787lrg";
+  "NNPDF30_nnlo_nf_4_pdfas" = "0s460v9712ahz09fhzhlnsnkl9arsy3l82g1z6xjz4la8fwkr9wq";
+  "NNPDF30_nnlo_nf_5_pdfas" = "1vjfm9j39m4389b0r51axlbzdbkpk2vbs3vks3yqcr3hr09g9myk";
   "NNPDF31_lo_as_0118" = "1jq8ad68kym717qinwdldvrjnry9sfsfq7lvfv6ipm1sdzixqm96";
   "NNPDF31_lo_as_0130" = "1lg49cbg43yrpb7fgqfk0d55m28rrw781mks3zn9m24fv0hiyzqp";
-  "NNPDF31_lo_pch_as_0118" =
-    "0xm3fyvrm77hd2layrfwc74vncc470gvf7hx8nzd2sw3ai1g9h7x";
-  "NNPDF31_lo_pch_as_0130" =
-    "18fip94c0ywzj543qq154z2wnllbn8jw61nx6l8v9wmg2sdzi6zi";
-  "NNPDF31_nlo_as_0116" =
-    "0i6bpa2wf52vsc6x5nlsmncal1ghqpsyz7pya2a2zg0k7z6dfcsp";
-  "NNPDF31_nlo_as_0118" =
-    "0vwbgaxs5gj5cnyncmc7m3650pd6bplwdga3fnyy1vrrh3mpsngh";
-  "NNPDF31_nlo_as_0118_1000" =
-    "0ql0phs563ck7bx7cm5x242icfb2jrlsxhsv80m0hxyr3fhyc06h";
-  "NNPDF31_nlo_as_0118_C1p6" =
-    "0nn6krh6vk8rxiwhpnn3nbxian8hw8d1vq31ywh9560hbi3vpcrl";
-  "NNPDF31_nlo_as_0118_hessian" =
-    "10v2ayms2mhm9zi7k0fw9rshawc7njdlbjs8rfg5hiqn1adss4w3";
-  "NNPDF31_nlo_as_0118_luxqed" =
-    "19fdqxfmx8kzcgq13dk4k1nhkgqpnm5xgahp13hwz1i2vcp6xq87";
-  "NNPDF31_nlo_as_0118_mc" =
-    "1yw21cs6p85ij8lm9k0cvlm651a3x9f73f23ysxjgh1r5kqnhz9y";
-  "NNPDF31_nlo_as_0118_nf_4" =
-    "0qywlyd34yqb2r8ch9wjimyfi1jr3rdhxliwrmns0558hbd47a3z";
-  "NNPDF31_nlo_as_0118_nf_6" =
-    "1pb22z2s0ir130dk5pkxwyid37i6mf8jpr7k7nlfi45gl9zy5ldd";
-  "NNPDF31_nlo_as_0120" =
-    "1b5wsab66karm1ay5vxpjw21g2ywhnzqnlahxnvnaf80izha35hl";
-  "NNPDF31_nlo_hessian_pdfas" =
-    "0sxka18qp99gjj9abml2ba4877zavijmjfzg6m0qczx9m8v9m3xg";
-  "NNPDF31_nlo_pch_as_0116" =
-    "1wqpq2qj5czvcj754nd6c7rrss8skjx58vp2gj2bc5n95jv1qazn";
-  "NNPDF31_nlo_pch_as_0118" =
-    "113xpp3xvpfpivlj6p7av4czfbfnh6bk2kd4d2635ddvy0clqkpf";
-  "NNPDF31_nlo_pch_as_0118_1000" =
-    "1sbjqkwq7iy7fnk3r9ga1rzadzy8x3ld933vcih87is09bzg5rfl";
-  "NNPDF31_nlo_pch_as_0118_hessian" =
-    "0xmz2hc3n8alhf210axv3amf7klhbyl1dd1z2yyx6c3pcvcrf80m";
-  "NNPDF31_nlo_pch_as_0118_mc" =
-    "1w1jifp5f7ypf5xqdw1mkx1d6shknryhqzk8rk8naf37bms68mfn";
-  "NNPDF31_nlo_pch_as_0118_nf_3" =
-    "0m7rq7k8x6bsakkw3kmcicq04c39flrw1axv72dqaf9xci9w3pii";
-  "NNPDF31_nlo_pch_as_0118_nf_4" =
-    "0k77chw866shjkc0ml6kb4az75sdcvdd897r8d56jl72d2lkxp3m";
-  "NNPDF31_nlo_pch_as_0118_nf_6" =
-    "0bdc60dxj7jmqacbbaxp2m9qzg82r6pgn7h9pi2k15d07qm6fc4d";
-  "NNPDF31_nlo_pch_as_0120" =
-    "15s1b5w52c3q1nfzckdxmdwrnxw08pprmphc1p33am9v7cwwq2jk";
-  "NNPDF31_nlo_pch_hessian_pdfas" =
-    "0qdswml17bg68y67yw2zbwwp233nxpd1qpc23rqjwyzk2r7qk9bg";
-  "NNPDF31_nlo_pch_pdfas" =
-    "196pcdwsi5p9g88g1c8958qkdj6qmzvl7rsg3j8zll6274m42s4c";
+  "NNPDF31_lo_pch_as_0118" = "0xm3fyvrm77hd2layrfwc74vncc470gvf7hx8nzd2sw3ai1g9h7x";
+  "NNPDF31_lo_pch_as_0130" = "18fip94c0ywzj543qq154z2wnllbn8jw61nx6l8v9wmg2sdzi6zi";
+  "NNPDF31_nlo_as_0116" = "0i6bpa2wf52vsc6x5nlsmncal1ghqpsyz7pya2a2zg0k7z6dfcsp";
+  "NNPDF31_nlo_as_0118" = "0vwbgaxs5gj5cnyncmc7m3650pd6bplwdga3fnyy1vrrh3mpsngh";
+  "NNPDF31_nlo_as_0118_1000" = "0ql0phs563ck7bx7cm5x242icfb2jrlsxhsv80m0hxyr3fhyc06h";
+  "NNPDF31_nlo_as_0118_C1p6" = "0nn6krh6vk8rxiwhpnn3nbxian8hw8d1vq31ywh9560hbi3vpcrl";
+  "NNPDF31_nlo_as_0118_hessian" = "10v2ayms2mhm9zi7k0fw9rshawc7njdlbjs8rfg5hiqn1adss4w3";
+  "NNPDF31_nlo_as_0118_luxqed" = "19fdqxfmx8kzcgq13dk4k1nhkgqpnm5xgahp13hwz1i2vcp6xq87";
+  "NNPDF31_nlo_as_0118_mc" = "1yw21cs6p85ij8lm9k0cvlm651a3x9f73f23ysxjgh1r5kqnhz9y";
+  "NNPDF31_nlo_as_0118_nf_4" = "0qywlyd34yqb2r8ch9wjimyfi1jr3rdhxliwrmns0558hbd47a3z";
+  "NNPDF31_nlo_as_0118_nf_6" = "1pb22z2s0ir130dk5pkxwyid37i6mf8jpr7k7nlfi45gl9zy5ldd";
+  "NNPDF31_nlo_as_0120" = "1b5wsab66karm1ay5vxpjw21g2ywhnzqnlahxnvnaf80izha35hl";
+  "NNPDF31_nlo_hessian_pdfas" = "0sxka18qp99gjj9abml2ba4877zavijmjfzg6m0qczx9m8v9m3xg";
+  "NNPDF31_nlo_pch_as_0116" = "1wqpq2qj5czvcj754nd6c7rrss8skjx58vp2gj2bc5n95jv1qazn";
+  "NNPDF31_nlo_pch_as_0118" = "113xpp3xvpfpivlj6p7av4czfbfnh6bk2kd4d2635ddvy0clqkpf";
+  "NNPDF31_nlo_pch_as_0118_1000" = "1sbjqkwq7iy7fnk3r9ga1rzadzy8x3ld933vcih87is09bzg5rfl";
+  "NNPDF31_nlo_pch_as_0118_hessian" = "0xmz2hc3n8alhf210axv3amf7klhbyl1dd1z2yyx6c3pcvcrf80m";
+  "NNPDF31_nlo_pch_as_0118_mc" = "1w1jifp5f7ypf5xqdw1mkx1d6shknryhqzk8rk8naf37bms68mfn";
+  "NNPDF31_nlo_pch_as_0118_nf_3" = "0m7rq7k8x6bsakkw3kmcicq04c39flrw1axv72dqaf9xci9w3pii";
+  "NNPDF31_nlo_pch_as_0118_nf_4" = "0k77chw866shjkc0ml6kb4az75sdcvdd897r8d56jl72d2lkxp3m";
+  "NNPDF31_nlo_pch_as_0118_nf_6" = "0bdc60dxj7jmqacbbaxp2m9qzg82r6pgn7h9pi2k15d07qm6fc4d";
+  "NNPDF31_nlo_pch_as_0120" = "15s1b5w52c3q1nfzckdxmdwrnxw08pprmphc1p33am9v7cwwq2jk";
+  "NNPDF31_nlo_pch_hessian_pdfas" = "0qdswml17bg68y67yw2zbwwp233nxpd1qpc23rqjwyzk2r7qk9bg";
+  "NNPDF31_nlo_pch_pdfas" = "196pcdwsi5p9g88g1c8958qkdj6qmzvl7rsg3j8zll6274m42s4c";
   "NNPDF31_nlo_pdfas" = "1as7bkp56pwpn2vinxdnhzlnvnxx5ng0mlpmwzz5n7gsinyaz1x9";
-  "NNPDF31_nnlo_as_0108" =
-    "03kg0i43wxf794c4xhvismks6c7nw9hq9ihn58sz628lqcjmsccq";
-  "NNPDF31_nnlo_as_0110" =
-    "04a5gf6nyd58h9sad8zv46vmb074dx7j19r23lbc9w1di23sk104";
-  "NNPDF31_nnlo_as_0112" =
-    "1xkjjm49nlm72f4l3ynrm4g2ayzask22saaf6p1p61lx0jv1hjyd";
-  "NNPDF31_nnlo_as_0114" =
-    "1j4q47qscyw52swmnn0a3lr0avfsjvy20ca50xfhjsvla6wd9lpg";
-  "NNPDF31_nnlo_as_0116" =
-    "1k2d4jzg5jfs6f2mscpvalmh7i5fypx98lnb5wjycprlwd3nr3i9";
-  "NNPDF31_nnlo_as_0117" =
-    "0b6d1xlq4qwjalvrc7ppavw44w5zf0fn3rbsvh3k4qy9r19wk5fb";
-  "NNPDF31_nnlo_as_0118" =
-    "1bw2ksmxdfbwdcimc0ld87hanbqy514sridrcarqwgqh9yv5n0qp";
-  "NNPDF31_nnlo_as_0118_1000" =
-    "026d0xygh046y10jxsfc91hr4qxgark12m393r0afip69dzdsrx0";
-  "NNPDF31_nnlo_as_0118_CMSW1" =
-    "0vqjyziilfzi0gz3a2rv0i6hk3ri3krc2zcdjwfa61z1mg5syi4a";
-  "NNPDF31_nnlo_as_0118_CMSW1_hessian_100" =
-    "1jc8k64pj1mfcw8v9qq9v8m222d09bgfkla7viqzzzbdhy5f6yy1";
-  "NNPDF31_nnlo_as_0118_CMSW2" =
-    "14acp7w3sx5v4ly5wa32vpsk8xw2rh8g5gl7x3f72c0s5jcs4n81";
-  "NNPDF31_nnlo_as_0118_CMSW2_hessian_100" =
-    "0ykaw8x0i6k8vlbms2inm9zm860apsi5mf4wkxha416v4chrpd04";
-  "NNPDF31_nnlo_as_0118_CMSW3" =
-    "1snkandx6apar3sp0c182n770rxn2s64pc07h5k18627cnvpzing";
-  "NNPDF31_nnlo_as_0118_CMSW3_hessian_100" =
-    "03n59yvpgciipkv3k0yr0ab3myhx263n90ah3q3h8hdszkf80ri1";
-  "NNPDF31_nnlo_as_0118_CMSW4" =
-    "1zpnvawdj20izx0mx9a3xz0d0an6i65axbzg5z7fkiq0p09rfx70";
-  "NNPDF31_nnlo_as_0118_CMSW4_hessian_100" =
-    "1qczy2935iq2h4mfq0mv53v2vlfsyvhkff36c5dkdlkrzfkvpl8x";
-  "NNPDF31_nnlo_as_0118_collider" =
-    "1y2axnkjwx7yg301mj1yx1x937j7mhsnbbdpip94pl3vm5hz10dk";
-  "NNPDF31_nnlo_as_0118_hessian" =
-    "0jvzl1bs0mh9c7ypkdgw0s06qn9jkww1d124lc7aq48w1g4n0zyy";
-  "NNPDF31_nnlo_as_0118_luxqed" =
-    "10fwxncr1y7hnja5nxywldpkzrijxz5ayldqjc21jamyhyj3qsh7";
-  "NNPDF31_nnlo_as_0118_mc" =
-    "0sg939j6xn7d5g46547np3123srgz44h9clh29ybl5cnmccv23cl";
-  "NNPDF31_nnlo_as_0118_mc_138" =
-    "1kbxhjzrr4802kcpi7m2g2dx4ywvs9rqjispjwbjc60rqkqispyv";
-  "NNPDF31_nnlo_as_0118_mc_164" =
-    "0i9yxnbps63nz6ala4jk6qmpxlg6p46w6jja8qn73hp0n69w2acz";
-  "NNPDF31_nnlo_as_0118_mc_hessian_pdfas" =
-    "1b9ijn595qfq32yz9rlnn2br7lssbk8ka39ripfcfyf33v9sv460";
-  "NNPDF31_nnlo_as_0118_nf_4" =
-    "0l796ns5xm0biyl0jra5z6y7vddv52v48wlbdywsq54082scfpl0";
-  "NNPDF31_nnlo_as_0118_nf_4_mc_hessian" =
-    "1bw0x75pah1kp387s8m0rv2qc54k5pbncbv507d5278hhfsn68qa";
-  "NNPDF31_nnlo_as_0118_nf_6" =
-    "0dbxxk0p001sk6sb9nf5ipzi39w65vf4c4g8cbhll7p4fqi8f8dy";
-  "NNPDF31_nnlo_as_0118_noLHC" =
-    "18y9mnp1gmvdbikgfdybw8wz2w5x60wk8lya13g7z6nhbfs08qa4";
-  "NNPDF31_nnlo_as_0118_noZpt" =
-    "1jwhkz8b1x6a2qi62jvprcp1rmcq5aq7s31qhw0skcpx8r6r6gnb";
-  "NNPDF31_nnlo_as_0118_nojets" =
-    "1bg714agc25p7zw2yydvl340sns7fhszpbphzap6fc0jsg511zh5";
-  "NNPDF31_nnlo_as_0118_notop" =
-    "1v675r4qk0wz1hg000fw79nmf1zjqi2ghvgjgs7hyzzbh5g4l3ds";
-  "NNPDF31_nnlo_as_0118_proton" =
-    "0ipsp8kk59fb3w9d1y4pq85f4fl6789rypjfbpp44gcy8hzshbm7";
-  "NNPDF31_nnlo_as_0118_wEMC" =
-    "0savd87jahlac4ag3qfamhnpa7mpnm00j104f3ci17gdax1sds50";
-  "NNPDF31_nnlo_as_0119" =
-    "1s7ildlffbh6cpmzlmafxzbbrlgggfqxsv4qic99yvgqvdgqar8w";
-  "NNPDF31_nnlo_as_0120" =
-    "1z6lqcq1dgvqnpwlfymlf9yhcaqc2p8ny7wv4xs57639dsp5xarb";
-  "NNPDF31_nnlo_as_0122" =
-    "0482r1hip6c4kpq24xzi8nw8awky0669k4plgpgv0av12l4bh9c9";
-  "NNPDF31_nnlo_as_0124" =
-    "0cf3djgs4gayzwy8p0qvynripz3hxd3866m8ldlhxnjmcsgcps11";
-  "NNPDF31_nnlo_hessian_pdfas" =
-    "1m5wdnj7hvg2a51w1qmhm934glhjf9db0x5nry5blp90y5x0v185";
-  "NNPDF31_nnlo_pch_as_0116" =
-    "1i8yzqywg4hcf53vcp25fg8llybis3pz6xbp5ajpyjvrvsgii1pc";
-  "NNPDF31_nnlo_pch_as_0118" =
-    "01rsx0ss67772b20dnnw463328pgbd57d8zcj3lqymlb4a6fq8f7";
-  "NNPDF31_nnlo_pch_as_0118_1000" =
-    "187xkvp7y1wssgpb21r1w4yxn6m1280jac9nmiavrma06jfd57c1";
-  "NNPDF31_nnlo_pch_as_0118_hessian" =
-    "0fs5d450hc15hqs6xv9nxfsnhwszmg9ybjypgwa9kn4s4kkaz1wl";
-  "NNPDF31_nnlo_pch_as_0118_mc" =
-    "06vgb01l1yigln7cn9y3lslg35grwvydpd8g04xn4pj4pj2vjrs0";
-  "NNPDF31_nnlo_pch_as_0118_mc_138" =
-    "0za3v1mg8gb631039kg5mkr9zhn390dkyim9p663srpk85j7h5g5";
-  "NNPDF31_nnlo_pch_as_0118_mc_164" =
-    "1xc02sbmhyjr4gjwim4p0gg90zh26zdmnz89395pxzbq2navcraz";
-  "NNPDF31_nnlo_pch_as_0118_nf_3" =
-    "14xb6m1wqc5f7xjiklwnshn7ljrlg6kmbzr2rib44pgbj6pnl2xn";
-  "NNPDF31_nnlo_pch_as_0118_nf_4" =
-    "1sg823n82j9ijqx4ldysh0g53pjzn4sysvag837ywfyns4p5qy9k";
-  "NNPDF31_nnlo_pch_as_0118_nf_6" =
-    "14ls2yd1n2pqvdvq18qmhizms3a8pwqvksdkvwn0m1379lkss106";
-  "NNPDF31_nnlo_pch_as_0120" =
-    "09zc56cmpj9iw0qp2bm9a8d86r0mdagg1vrpf2xqza4fr841r5km";
-  "NNPDF31_nnlo_pch_hessian_pdfas" =
-    "08baysni2lhbpr1scx7h0zf64gyncj2ahcv4y86142gl4zqrafvp";
-  "NNPDF31_nnlo_pch_pdfas" =
-    "09mw3gr7dz0vwdnralaplvlz2c464lmdizf673xsb0wlm12pqf6g";
+  "NNPDF31_nnlo_as_0108" = "03kg0i43wxf794c4xhvismks6c7nw9hq9ihn58sz628lqcjmsccq";
+  "NNPDF31_nnlo_as_0110" = "04a5gf6nyd58h9sad8zv46vmb074dx7j19r23lbc9w1di23sk104";
+  "NNPDF31_nnlo_as_0112" = "1xkjjm49nlm72f4l3ynrm4g2ayzask22saaf6p1p61lx0jv1hjyd";
+  "NNPDF31_nnlo_as_0114" = "1j4q47qscyw52swmnn0a3lr0avfsjvy20ca50xfhjsvla6wd9lpg";
+  "NNPDF31_nnlo_as_0116" = "1k2d4jzg5jfs6f2mscpvalmh7i5fypx98lnb5wjycprlwd3nr3i9";
+  "NNPDF31_nnlo_as_0117" = "0b6d1xlq4qwjalvrc7ppavw44w5zf0fn3rbsvh3k4qy9r19wk5fb";
+  "NNPDF31_nnlo_as_0118" = "1bw2ksmxdfbwdcimc0ld87hanbqy514sridrcarqwgqh9yv5n0qp";
+  "NNPDF31_nnlo_as_0118_1000" = "026d0xygh046y10jxsfc91hr4qxgark12m393r0afip69dzdsrx0";
+  "NNPDF31_nnlo_as_0118_CMSW1" = "0vqjyziilfzi0gz3a2rv0i6hk3ri3krc2zcdjwfa61z1mg5syi4a";
+  "NNPDF31_nnlo_as_0118_CMSW1_hessian_100" = "1jc8k64pj1mfcw8v9qq9v8m222d09bgfkla7viqzzzbdhy5f6yy1";
+  "NNPDF31_nnlo_as_0118_CMSW2" = "14acp7w3sx5v4ly5wa32vpsk8xw2rh8g5gl7x3f72c0s5jcs4n81";
+  "NNPDF31_nnlo_as_0118_CMSW2_hessian_100" = "0ykaw8x0i6k8vlbms2inm9zm860apsi5mf4wkxha416v4chrpd04";
+  "NNPDF31_nnlo_as_0118_CMSW3" = "1snkandx6apar3sp0c182n770rxn2s64pc07h5k18627cnvpzing";
+  "NNPDF31_nnlo_as_0118_CMSW3_hessian_100" = "03n59yvpgciipkv3k0yr0ab3myhx263n90ah3q3h8hdszkf80ri1";
+  "NNPDF31_nnlo_as_0118_CMSW4" = "1zpnvawdj20izx0mx9a3xz0d0an6i65axbzg5z7fkiq0p09rfx70";
+  "NNPDF31_nnlo_as_0118_CMSW4_hessian_100" = "1qczy2935iq2h4mfq0mv53v2vlfsyvhkff36c5dkdlkrzfkvpl8x";
+  "NNPDF31_nnlo_as_0118_collider" = "1y2axnkjwx7yg301mj1yx1x937j7mhsnbbdpip94pl3vm5hz10dk";
+  "NNPDF31_nnlo_as_0118_hessian" = "0jvzl1bs0mh9c7ypkdgw0s06qn9jkww1d124lc7aq48w1g4n0zyy";
+  "NNPDF31_nnlo_as_0118_luxqed" = "10fwxncr1y7hnja5nxywldpkzrijxz5ayldqjc21jamyhyj3qsh7";
+  "NNPDF31_nnlo_as_0118_mc" = "0sg939j6xn7d5g46547np3123srgz44h9clh29ybl5cnmccv23cl";
+  "NNPDF31_nnlo_as_0118_mc_138" = "1kbxhjzrr4802kcpi7m2g2dx4ywvs9rqjispjwbjc60rqkqispyv";
+  "NNPDF31_nnlo_as_0118_mc_164" = "0i9yxnbps63nz6ala4jk6qmpxlg6p46w6jja8qn73hp0n69w2acz";
+  "NNPDF31_nnlo_as_0118_mc_hessian_pdfas" = "1b9ijn595qfq32yz9rlnn2br7lssbk8ka39ripfcfyf33v9sv460";
+  "NNPDF31_nnlo_as_0118_nf_4" = "0l796ns5xm0biyl0jra5z6y7vddv52v48wlbdywsq54082scfpl0";
+  "NNPDF31_nnlo_as_0118_nf_4_mc_hessian" = "1bw0x75pah1kp387s8m0rv2qc54k5pbncbv507d5278hhfsn68qa";
+  "NNPDF31_nnlo_as_0118_nf_6" = "0dbxxk0p001sk6sb9nf5ipzi39w65vf4c4g8cbhll7p4fqi8f8dy";
+  "NNPDF31_nnlo_as_0118_noLHC" = "18y9mnp1gmvdbikgfdybw8wz2w5x60wk8lya13g7z6nhbfs08qa4";
+  "NNPDF31_nnlo_as_0118_noZpt" = "1jwhkz8b1x6a2qi62jvprcp1rmcq5aq7s31qhw0skcpx8r6r6gnb";
+  "NNPDF31_nnlo_as_0118_nojets" = "1bg714agc25p7zw2yydvl340sns7fhszpbphzap6fc0jsg511zh5";
+  "NNPDF31_nnlo_as_0118_notop" = "1v675r4qk0wz1hg000fw79nmf1zjqi2ghvgjgs7hyzzbh5g4l3ds";
+  "NNPDF31_nnlo_as_0118_proton" = "0ipsp8kk59fb3w9d1y4pq85f4fl6789rypjfbpp44gcy8hzshbm7";
+  "NNPDF31_nnlo_as_0118_wEMC" = "0savd87jahlac4ag3qfamhnpa7mpnm00j104f3ci17gdax1sds50";
+  "NNPDF31_nnlo_as_0119" = "1s7ildlffbh6cpmzlmafxzbbrlgggfqxsv4qic99yvgqvdgqar8w";
+  "NNPDF31_nnlo_as_0120" = "1z6lqcq1dgvqnpwlfymlf9yhcaqc2p8ny7wv4xs57639dsp5xarb";
+  "NNPDF31_nnlo_as_0122" = "0482r1hip6c4kpq24xzi8nw8awky0669k4plgpgv0av12l4bh9c9";
+  "NNPDF31_nnlo_as_0124" = "0cf3djgs4gayzwy8p0qvynripz3hxd3866m8ldlhxnjmcsgcps11";
+  "NNPDF31_nnlo_hessian_pdfas" = "1m5wdnj7hvg2a51w1qmhm934glhjf9db0x5nry5blp90y5x0v185";
+  "NNPDF31_nnlo_pch_as_0116" = "1i8yzqywg4hcf53vcp25fg8llybis3pz6xbp5ajpyjvrvsgii1pc";
+  "NNPDF31_nnlo_pch_as_0118" = "01rsx0ss67772b20dnnw463328pgbd57d8zcj3lqymlb4a6fq8f7";
+  "NNPDF31_nnlo_pch_as_0118_1000" = "187xkvp7y1wssgpb21r1w4yxn6m1280jac9nmiavrma06jfd57c1";
+  "NNPDF31_nnlo_pch_as_0118_hessian" = "0fs5d450hc15hqs6xv9nxfsnhwszmg9ybjypgwa9kn4s4kkaz1wl";
+  "NNPDF31_nnlo_pch_as_0118_mc" = "06vgb01l1yigln7cn9y3lslg35grwvydpd8g04xn4pj4pj2vjrs0";
+  "NNPDF31_nnlo_pch_as_0118_mc_138" = "0za3v1mg8gb631039kg5mkr9zhn390dkyim9p663srpk85j7h5g5";
+  "NNPDF31_nnlo_pch_as_0118_mc_164" = "1xc02sbmhyjr4gjwim4p0gg90zh26zdmnz89395pxzbq2navcraz";
+  "NNPDF31_nnlo_pch_as_0118_nf_3" = "14xb6m1wqc5f7xjiklwnshn7ljrlg6kmbzr2rib44pgbj6pnl2xn";
+  "NNPDF31_nnlo_pch_as_0118_nf_4" = "1sg823n82j9ijqx4ldysh0g53pjzn4sysvag837ywfyns4p5qy9k";
+  "NNPDF31_nnlo_pch_as_0118_nf_6" = "14ls2yd1n2pqvdvq18qmhizms3a8pwqvksdkvwn0m1379lkss106";
+  "NNPDF31_nnlo_pch_as_0120" = "09zc56cmpj9iw0qp2bm9a8d86r0mdagg1vrpf2xqza4fr841r5km";
+  "NNPDF31_nnlo_pch_hessian_pdfas" = "08baysni2lhbpr1scx7h0zf64gyncj2ahcv4y86142gl4zqrafvp";
+  "NNPDF31_nnlo_pch_pdfas" = "09mw3gr7dz0vwdnralaplvlz2c464lmdizf673xsb0wlm12pqf6g";
   "NNPDF31_nnlo_pdfas" = "0l92q3xhdk5nrnhkmrirxnvplj531rdpnblnacd759cl4hgxcs2q";
-  "NNPDF40_lo_as_01180" =
-    "0m630n5i7s0qnlxzk6ka43qfp6ipz2jgzr7ys42hdb66kg3z5lkc";
-  "NNPDF40_lo_pch_as_01180" =
-    "0wrvmcgdaipi7vy7j85yszaa3c57hs3xll9lfn9cdbjscvmsx6x5";
-  "NNPDF40_nlo_as_01170" =
-    "14j21qryc25k1jk4ypdcr3cgfkhyy4hsb57hy8x5pggfwc2w3f36";
-  "NNPDF40_nlo_as_01180" =
-    "0399bnxvgl2h2ini198jmzjjb179f6dpxfv5x8imlfl515llivx2";
-  "NNPDF40_nlo_as_01180_nf_4" =
-    "01kwziiyg8vbl26znv7khqdckm501d7ccxlkq1y0cd9s1f5ff8xi";
-  "NNPDF40_nlo_as_01180_nf_6" =
-    "1gv8anb3vqpzdymp9g69702x64pbh6l2rn9257hdpz4i4m98rsjy";
-  "NNPDF40_nlo_as_01190" =
-    "0wf8p2i4mxs3hkqvxg1clj082yinbdgccr6qx5kbwkzsck4yybar";
-  "NNPDF40_nlo_nf_4_pdfas" =
-    "1ia9glingyds6bj6yxy867ahriqdhfkxczzc4nki933h6jbj74bf";
-  "NNPDF40_nlo_pch_as_01180" =
-    "0gad0hjq9kwiymc9pljj4z52jsg794m3knb38zj9icgjk0p9lwxm";
-  "NNPDF40_nlo_pch_as_01180_nf_3" =
-    "15j3vvc0vaf13d8cnyr4h7gwb7iznrcajnw59ryx6ksz7cn84sy4";
-  "NNPDF40_nnlo_as_01160" =
-    "0y9115xlg14m1ahfffiam4zp0axga86bhzfxf0xiaxb36yzbmdhw";
-  "NNPDF40_nnlo_as_01170" =
-    "1h6if1zw9dqlfnn7glbl5flj792i7fqiy7pprhwk93k4snh3800i";
-  "NNPDF40_nnlo_as_01175" =
-    "1dkzzhmkmzm92gmb83lyirj3clicrg70h5grzh0j8nfcw0xlz4rm";
-  "NNPDF40_nnlo_as_01180" =
-    "1bhysjkji0k7xy9njarkfvxff05kjl1byhkknxv0875p2znzkpva";
-  "NNPDF40_nnlo_as_01180_1000" =
-    "04yai94qwd7187wg26icwf2wbwi20747l6zikd66ygsz9n34xn9y";
-  "NNPDF40_nnlo_as_01180_hessian" =
-    "0cmpqgaz341hif0gdkzq8mnfh9apxn1zxjwa12fk5svbig9i1a81";
-  "NNPDF40_nnlo_as_01180_nf_4" =
-    "1aj5y3fyvna2jwxbsrgr2cbc452aprxnwv78vh3ph20jlnww20pd";
-  "NNPDF40_nnlo_as_01180_nf_6" =
-    "0bf6s6s0w7l592bm87mazwff05d8s4qlblzl9yj91am3xlv0cvn1";
-  "NNPDF40_nnlo_as_01185" =
-    "0y1xn9qcv2l81sbz9rayzrpd1bjsdyixr42lzfgmqbq45sw2m04n";
-  "NNPDF40_nnlo_as_01190" =
-    "1ibz4yfrw1n8plq4gi03yxi9afaca2yprxfk2y9lvbkycn608d0q";
-  "NNPDF40_nnlo_as_01200" =
-    "1cfcn819aali7ylv9y6yb2ggqy0yghyj0dys9lf9gv5wiqjwh5q2";
-  "NNPDF40_nnlo_hessian_pdfas" =
-    "1b5jvhdk7fmnz8gl38i3408h2qrqcsr7s9v7bh6ilc7x52xsg65k";
-  "NNPDF40_nnlo_nf_4_pdfas" =
-    "1ssp315xcqpc4md5gijbi2c02r6hpazp8yw1661r4m7xy5qm62wc";
-  "NNPDF40_nnlo_pch_as_01180" =
-    "173l2178plrir9fb3bq17l4dw5qfy9clic4m54wqg7y3r71bmv7p";
-  "NNPDF40_nnlo_pch_as_01180_nf_3" =
-    "1mh0pl1f1ayx1fjj0q1fw9s7wc7gmj7a46jli87s4g5nxrhyki9f";
+  "NNPDF40_lo_as_01180" = "0m630n5i7s0qnlxzk6ka43qfp6ipz2jgzr7ys42hdb66kg3z5lkc";
+  "NNPDF40_lo_pch_as_01180" = "0wrvmcgdaipi7vy7j85yszaa3c57hs3xll9lfn9cdbjscvmsx6x5";
+  "NNPDF40_nlo_as_01170" = "14j21qryc25k1jk4ypdcr3cgfkhyy4hsb57hy8x5pggfwc2w3f36";
+  "NNPDF40_nlo_as_01180" = "0399bnxvgl2h2ini198jmzjjb179f6dpxfv5x8imlfl515llivx2";
+  "NNPDF40_nlo_as_01180_nf_4" = "01kwziiyg8vbl26znv7khqdckm501d7ccxlkq1y0cd9s1f5ff8xi";
+  "NNPDF40_nlo_as_01180_nf_6" = "1gv8anb3vqpzdymp9g69702x64pbh6l2rn9257hdpz4i4m98rsjy";
+  "NNPDF40_nlo_as_01190" = "0wf8p2i4mxs3hkqvxg1clj082yinbdgccr6qx5kbwkzsck4yybar";
+  "NNPDF40_nlo_nf_4_pdfas" = "1ia9glingyds6bj6yxy867ahriqdhfkxczzc4nki933h6jbj74bf";
+  "NNPDF40_nlo_pch_as_01180" = "0gad0hjq9kwiymc9pljj4z52jsg794m3knb38zj9icgjk0p9lwxm";
+  "NNPDF40_nlo_pch_as_01180_nf_3" = "15j3vvc0vaf13d8cnyr4h7gwb7iznrcajnw59ryx6ksz7cn84sy4";
+  "NNPDF40_nnlo_as_01160" = "0y9115xlg14m1ahfffiam4zp0axga86bhzfxf0xiaxb36yzbmdhw";
+  "NNPDF40_nnlo_as_01170" = "1h6if1zw9dqlfnn7glbl5flj792i7fqiy7pprhwk93k4snh3800i";
+  "NNPDF40_nnlo_as_01175" = "1dkzzhmkmzm92gmb83lyirj3clicrg70h5grzh0j8nfcw0xlz4rm";
+  "NNPDF40_nnlo_as_01180" = "1bhysjkji0k7xy9njarkfvxff05kjl1byhkknxv0875p2znzkpva";
+  "NNPDF40_nnlo_as_01180_1000" = "04yai94qwd7187wg26icwf2wbwi20747l6zikd66ygsz9n34xn9y";
+  "NNPDF40_nnlo_as_01180_hessian" = "0cmpqgaz341hif0gdkzq8mnfh9apxn1zxjwa12fk5svbig9i1a81";
+  "NNPDF40_nnlo_as_01180_nf_4" = "1aj5y3fyvna2jwxbsrgr2cbc452aprxnwv78vh3ph20jlnww20pd";
+  "NNPDF40_nnlo_as_01180_nf_6" = "0bf6s6s0w7l592bm87mazwff05d8s4qlblzl9yj91am3xlv0cvn1";
+  "NNPDF40_nnlo_as_01185" = "0y1xn9qcv2l81sbz9rayzrpd1bjsdyixr42lzfgmqbq45sw2m04n";
+  "NNPDF40_nnlo_as_01190" = "1ibz4yfrw1n8plq4gi03yxi9afaca2yprxfk2y9lvbkycn608d0q";
+  "NNPDF40_nnlo_as_01200" = "1cfcn819aali7ylv9y6yb2ggqy0yghyj0dys9lf9gv5wiqjwh5q2";
+  "NNPDF40_nnlo_hessian_pdfas" = "1b5jvhdk7fmnz8gl38i3408h2qrqcsr7s9v7bh6ilc7x52xsg65k";
+  "NNPDF40_nnlo_nf_4_pdfas" = "1ssp315xcqpc4md5gijbi2c02r6hpazp8yw1661r4m7xy5qm62wc";
+  "NNPDF40_nnlo_pch_as_01180" = "173l2178plrir9fb3bq17l4dw5qfy9clic4m54wqg7y3r71bmv7p";
+  "NNPDF40_nnlo_pch_as_01180_nf_3" = "1mh0pl1f1ayx1fjj0q1fw9s7wc7gmj7a46jli87s4g5nxrhyki9f";
   "NNPDF40_nnlo_pdfas" = "16d81h0pzxzgwwrfjghmradx4bijf08xbrdn79y9bxf6czacm8n6";
   "NNPDFpol10_100" = "0r5qfa8cyanalphgjdsh57s3viqv9i10v51p1pyamj1f90gb9pr8";
   "NNPDFpol11_100" = "0nny1lpw37jcillpfxjx82hq7wlzp4yksxialmc2ivr192qqdda8";
   "PDF4LHC15_nlo_100" = "0m9d4zy7608iryqy1ypgkr1d3yhw2wv1nrrc70zrfih7x0fp7lz7";
-  "PDF4LHC15_nlo_100_pdfas" =
-    "05wyqyh9y32sxflq69igcnnsl0ifnkyw3vnnnjn6kscl8h8hs7lp";
+  "PDF4LHC15_nlo_100_pdfas" = "05wyqyh9y32sxflq69igcnnsl0ifnkyw3vnnnjn6kscl8h8hs7lp";
   "PDF4LHC15_nlo_30" = "05n0i1mr7v7ssvxvdmv9fn621rinl08frz71apjj7wfdm7s7bk72";
-  "PDF4LHC15_nlo_30_pdfas" =
-    "0xi4xydx0x4ina0wmqv9jf4978xhd8x0l91dwfxh5vy39r5x4lm4";
-  "PDF4LHC15_nlo_asvar" =
-    "14hdgj5g8ia7y6hi40zbh925dacrk7hd6cli6lkhlqzxl755nbs3";
+  "PDF4LHC15_nlo_30_pdfas" = "0xi4xydx0x4ina0wmqv9jf4978xhd8x0l91dwfxh5vy39r5x4lm4";
+  "PDF4LHC15_nlo_asvar" = "14hdgj5g8ia7y6hi40zbh925dacrk7hd6cli6lkhlqzxl755nbs3";
   "PDF4LHC15_nlo_mc" = "09p7y0z04r6wdkf8gi3yj85qk5hmp0mmhab8c7a7lly4731fyf42";
-  "PDF4LHC15_nlo_mc_pdfas" =
-    "0sds9rkvbjkk7pardwq959qqbrvgwswxmsqcfppky2p0qmdsjs0s";
-  "PDF4LHC15_nlo_nf4_30" =
-    "1ysy6dqlacg4bwb2f16p1aza5gwm9qnhmc0g0mhsdw4d2i4ml5yg";
+  "PDF4LHC15_nlo_mc_pdfas" = "0sds9rkvbjkk7pardwq959qqbrvgwswxmsqcfppky2p0qmdsjs0s";
+  "PDF4LHC15_nlo_nf4_30" = "1ysy6dqlacg4bwb2f16p1aza5gwm9qnhmc0g0mhsdw4d2i4ml5yg";
   "PDF4LHC15_nnlo_100" = "1gcq3qrf39dhq2pmpjrj3z0i0ycrk76mjdwmgfvzdxysp530ax54";
-  "PDF4LHC15_nnlo_100_pdfas" =
-    "16r8far43ymsd64a4bbqlj56qvbjmcyxbawv4lkfxysjvbydxj4w";
+  "PDF4LHC15_nnlo_100_pdfas" = "16r8far43ymsd64a4bbqlj56qvbjmcyxbawv4lkfxysjvbydxj4w";
   "PDF4LHC15_nnlo_30" = "10cm4wa0mk34rnvsr5q8g9w7fs9cblsryms2nl370wdvcrhzsxph";
-  "PDF4LHC15_nnlo_30_pdfas" =
-    "13xln0y8l0qcj9951glj4f1kqfaagj8gwkxzlvdkgjnj1scdy6yj";
-  "PDF4LHC15_nnlo_asvar" =
-    "03fh1jcbmvla7n2jj3zq4ibwvq66h0rniply7h93d94zawcgsy4v";
+  "PDF4LHC15_nnlo_30_pdfas" = "13xln0y8l0qcj9951glj4f1kqfaagj8gwkxzlvdkgjnj1scdy6yj";
+  "PDF4LHC15_nnlo_asvar" = "03fh1jcbmvla7n2jj3zq4ibwvq66h0rniply7h93d94zawcgsy4v";
   "PDF4LHC15_nnlo_mc" = "0c6nfkv3x1p5iw514knjvqcs1dcaryf74qqg1za8x234yr5ndi3p";
-  "PDF4LHC15_nnlo_mc_pdfas" =
-    "0l8hlcz69cdii7mpgargi9nsx7iy746nad5pnn7pvycrc40marij";
+  "PDF4LHC15_nnlo_mc_pdfas" = "0l8hlcz69cdii7mpgargi9nsx7iy746nad5pnn7pvycrc40marij";
   "PDF4LHC21_40" = "037bs1l7zr3z8zi6wzh5kxgml84bl64258fr2sm0dzv9yxh8lvp5";
   "PDF4LHC21_40_nf4" = "0m2ki4qmgl1ggim2inlgynjzqr4ya3qgjph63jf72kia8ks2hfl0";
   "PDF4LHC21_40_pdfas" = "0pigpix2x2bv1a5ib17zjlfjqygjpjra0pgvmf6knm7mbgwxhqm3";
-  "PDF4LHC21_40_pdfas_nf4" =
-    "0dayiilh94cszqiphr487589qacawfp4za2cngr3da03yg1aswbd";
+  "PDF4LHC21_40_pdfas_nf4" = "0dayiilh94cszqiphr487589qacawfp4za2cngr3da03yg1aswbd";
   "PDF4LHC21_mc" = "17fbwk7fp2m3fd0xzp94sp7m0mmjmzakg870rbhg8vi88bimmwry";
   "PDF4LHC21_mc_nf4" = "1n7h45yxw2mwppf6zblc8v415khy9vgrackmbfkm5lb9c79faas6";
   "PDF4LHC21_mc_pdfas" = "1pn9a7z0xl1bn18z461j90sjglccswimm4p23nyq0fxal5ziidbl";
-  "PDF4LHC21_mc_pdfas_nf4" =
-    "1andl5n1lw5iyd337czph5abd0sqc3l90b21g67af96am5pprcpk";
+  "PDF4LHC21_mc_pdfas_nf4" = "1andl5n1lw5iyd337czph5abd0sqc3l90b21g67af96am5pprcpk";
   "TUJU19_nlo_119_50" = "1q1dhsxz1kq75rpzv6gg6p6bzvvv0d44pc4y3wsiy9g14aff85vq";
   "TUJU19_nlo_12_6" = "006j6y4xbjss9apzagjcc3r1z6s61a1hzafhcyriiffqhn8bg50k";
   "TUJU19_nlo_131_54" = "0ymf35alyar6fwagmdny2zz2aag576f38kail7gh2lvqpmjmv6np";
@@ -1592,45 +1029,28 @@ lib.mapAttrs mkPdfSet {
   "cteq61" = "14hbc855b3wsjk7ypg86md46cjm1bj7n4hins9nr8kgzs69i6vss";
   "cteq66" = "09i69ac3gkrai5jmazjyjvi5sl8k2vm48m90ijn6pl24p31qf68y";
   "cteq6l1" = "1b5m7g7wawk72h76l9yr3gx3n67jggna1004lwffvj43gffwkjap";
-  "nCTEQ15FullNuc_108_54" =
-    "107klcpsr9d4dwavcqqs3849k90mdb3bdjam3pd79cmsy7ncr2hf";
-  "nCTEQ15FullNuc_119_59" =
-    "14az155s3xfl8nscwpajzwj0dy94dadc4qdc64njlg3xlnxsgxy7";
-  "nCTEQ15FullNuc_12_6" =
-    "14z11wyzclx5k6dl46zr0jp6mja178bvd547cqqfy811nbzmmri3";
-  "nCTEQ15FullNuc_131_54" =
-    "1984nphc6sqizaq1c1laphw3hdvkp5k7sy7g563wq18578fifbmk";
-  "nCTEQ15FullNuc_14_7" =
-    "11i2xcd6ncp2aqw3y8pgcp63zkaj383ciwvqpzmjnqraiqqqa77i";
-  "nCTEQ15FullNuc_184_74" =
-    "1m311m5bkzq00qf117dli9xrmcmx8qqh716wff1yj8ri4c4h9m8x";
-  "nCTEQ15FullNuc_197_79" =
-    "0vi29fdxaj7fnpc01k3y2ylb7ngpdnmbnzgxdnr6p9bj5wfa69z5";
-  "nCTEQ15FullNuc_197_98" =
-    "0qjkdfgpbcmwc39wzyfb07wrqnkkwn7v8235y1m25x4wy5bbpjbg";
+  "nCTEQ15FullNuc_108_54" = "107klcpsr9d4dwavcqqs3849k90mdb3bdjam3pd79cmsy7ncr2hf";
+  "nCTEQ15FullNuc_119_59" = "14az155s3xfl8nscwpajzwj0dy94dadc4qdc64njlg3xlnxsgxy7";
+  "nCTEQ15FullNuc_12_6" = "14z11wyzclx5k6dl46zr0jp6mja178bvd547cqqfy811nbzmmri3";
+  "nCTEQ15FullNuc_131_54" = "1984nphc6sqizaq1c1laphw3hdvkp5k7sy7g563wq18578fifbmk";
+  "nCTEQ15FullNuc_14_7" = "11i2xcd6ncp2aqw3y8pgcp63zkaj383ciwvqpzmjnqraiqqqa77i";
+  "nCTEQ15FullNuc_184_74" = "1m311m5bkzq00qf117dli9xrmcmx8qqh716wff1yj8ri4c4h9m8x";
+  "nCTEQ15FullNuc_197_79" = "0vi29fdxaj7fnpc01k3y2ylb7ngpdnmbnzgxdnr6p9bj5wfa69z5";
+  "nCTEQ15FullNuc_197_98" = "0qjkdfgpbcmwc39wzyfb07wrqnkkwn7v8235y1m25x4wy5bbpjbg";
   "nCTEQ15FullNuc_1_1" = "0nx1n814mkikd01pxmpndk2qxpwqwd55cbn6z1kgxm8qlhhhd2zw";
-  "nCTEQ15FullNuc_207_103" =
-    "09py38s7shcyy07p5mxfiil5wlxijzbv9k4l3x0g1v191k0vi3m6";
-  "nCTEQ15FullNuc_208_82" =
-    "1c9r5wr43291rw965axdzpshzjhnynsrlf28kfr17v7vpd9dykl4";
-  "nCTEQ15FullNuc_20_10" =
-    "19vhxi7ch9vxa1vyjpxknk69hnnm2n5wpz4qybg1cznk59dvpi28";
-  "nCTEQ15FullNuc_27_13" =
-    "09pflgyxl2ydzrmys7rv0mmvl32z3dmdx63wpilrw592aa70bc2i";
+  "nCTEQ15FullNuc_207_103" = "09py38s7shcyy07p5mxfiil5wlxijzbv9k4l3x0g1v191k0vi3m6";
+  "nCTEQ15FullNuc_208_82" = "1c9r5wr43291rw965axdzpshzjhnynsrlf28kfr17v7vpd9dykl4";
+  "nCTEQ15FullNuc_20_10" = "19vhxi7ch9vxa1vyjpxknk69hnnm2n5wpz4qybg1cznk59dvpi28";
+  "nCTEQ15FullNuc_27_13" = "09pflgyxl2ydzrmys7rv0mmvl32z3dmdx63wpilrw592aa70bc2i";
   "nCTEQ15FullNuc_3_2" = "1l2js36nh4jawwkpiq386blgwbmgi9ccvvzbwq92jb5kpd2fvh7z";
-  "nCTEQ15FullNuc_40_18" =
-    "11pw23fbrz97i9278cxrvc0a4wbdyhz788axq8jn7yka9mg9kch6";
-  "nCTEQ15FullNuc_40_20" =
-    "0raiqn6w90n17irf4l197my77999ygqwhim9lnjqgbn68yjqfqf3";
+  "nCTEQ15FullNuc_40_18" = "11pw23fbrz97i9278cxrvc0a4wbdyhz788axq8jn7yka9mg9kch6";
+  "nCTEQ15FullNuc_40_20" = "0raiqn6w90n17irf4l197my77999ygqwhim9lnjqgbn68yjqfqf3";
   "nCTEQ15FullNuc_4_2" = "0fip3n3pjd94rz3f4gcv2szrx5k72m5b8xcmsgjfd1671r5kmlkd";
-  "nCTEQ15FullNuc_56_26" =
-    "13msj49c1lfisgcigvc4wr32w597jwir8cggrcdq74b0d0ab85ch";
-  "nCTEQ15FullNuc_64_32" =
-    "1spgcb340nz8by8051hngnh6pa1wjf19vi5a40xr8gyprdzhwb4a";
+  "nCTEQ15FullNuc_56_26" = "13msj49c1lfisgcigvc4wr32w597jwir8cggrcdq74b0d0ab85ch";
+  "nCTEQ15FullNuc_64_32" = "1spgcb340nz8by8051hngnh6pa1wjf19vi5a40xr8gyprdzhwb4a";
   "nCTEQ15FullNuc_6_3" = "0v5yabjw3xkjq5c1zjqmj3wwb7yz1blkprxnrpvai54v17w3sk3r";
   "nCTEQ15FullNuc_7_3" = "1ncarbncfkqk6l3rx3zg34a3sj7mpm2diqsafyldpn92cw66bcs2";
-  "nCTEQ15FullNuc_84_42" =
-    "1z719mcx5lnx2ciwlnxxhgc4s00jrr9sfrxcimh69sj14hmzgx0d";
+  "nCTEQ15FullNuc_84_42" = "1z719mcx5lnx2ciwlnxxhgc4s00jrr9sfrxcimh69sj14hmzgx0d";
   "nCTEQ15FullNuc_9_4" = "180ipb4m2zy54h7n4s0jwqk9k6562bygvnv7mg9dp2f7vf5317a1";
   "nCTEQ15HIX_108_47" = "0iqv6rsvvr5mqiaddn2cs6psrslw6ncqxca993v0z0hng9ahnnwd";
   "nCTEQ15HIX_119_50" = "0gxdr596gk69sb76r90p5ksvx9bk4axj21qrsyxjf1bmgdg2rv72";
@@ -1652,66 +1072,38 @@ lib.mapAttrs mkPdfSet {
   "nCTEQ15HIX_7_3" = "1y9k2snzymzgs26ayfn2c8n6isqzqq14pzf05xvlxmc3k1fbsfyx";
   "nCTEQ15HIX_84_36" = "130g553b22s7plgy51n56az05v1pnfgrg5knpg1knx8xr8a9xhh5";
   "nCTEQ15HIX_9_4" = "05igk9g2i1gm7d7npdwd7y3k7xf39scx1mwiw4m39b52kbq7kszp";
-  "nCTEQ15HIX_FullNuc_108_47" =
-    "1h2x2h2n02nwinf8ba3yyqa61384p4g29ib8vnrzwzc7q34940i0";
-  "nCTEQ15HIX_FullNuc_119_50" =
-    "0m5z036py2m1863k62pzysjdr92dhyiwmb8lxgky5skd7514rrsd";
-  "nCTEQ15HIX_FullNuc_12_6" =
-    "13rsl7lczf5qzjgy8m3dp4f1gyib2ffvf86iwci91sq51sma5kk9";
-  "nCTEQ15HIX_FullNuc_131_54" =
-    "1bsi3y6b7sxykwablgghqc89s3vxrvjr9y4bvhwcm21c2i4y6vbp";
-  "nCTEQ15HIX_FullNuc_14_7" =
-    "0w93qfiqdnzvrry9ddpbqcy6y16sszxfmvvgdy6r8i8py8dzfkyr";
-  "nCTEQ15HIX_FullNuc_184_74" =
-    "1q93f9rvlc4z3hzfhdmmxlyqfschrf99a0xyrc78rq1z2pfgmm9b";
-  "nCTEQ15HIX_FullNuc_197_79" =
-    "0kb2lnvh8mq25i5pkfis86ggs0s6hmpmyqqgimhcsamk8xnf2pcv";
-  "nCTEQ15HIX_FullNuc_1_1" =
-    "1nk792chip0iamc6dlqgqqlc2qlxlbgvgnhsvbmzkmmzvp2ji961";
-  "nCTEQ15HIX_FullNuc_208_82" =
-    "1l038nhnwc0pd7sq4yki3sjrrn66bsvqkvba2j3kf4f852gsyswr";
-  "nCTEQ15HIX_FullNuc_27_13" =
-    "1gdb09429xn5n07qqjch9x1cnq4xinf05wla8fsq69qr7bcdq9mp";
-  "nCTEQ15HIX_FullNuc_2_1" =
-    "0fnbpwv8qzgchc2r2gcjgw9yh4r94vm1rzbwj1f6ahbwrsl4rfp3";
-  "nCTEQ15HIX_FullNuc_3_2" =
-    "1r1s7ljwa169nbgc1439cj0gkaqza6ilx3x4gyq2jg9byz30khzx";
-  "nCTEQ15HIX_FullNuc_40_20" =
-    "13p7mnh2h8abih8y24rfapnrsd036pc8xy8qm82j8g4bk0j5jacx";
-  "nCTEQ15HIX_FullNuc_4_2" =
-    "0j1w7d11ybmpfci79lz99i94szxf5xn6z4kxvh8hly3qlcgn636j";
-  "nCTEQ15HIX_FullNuc_56_26" =
-    "08wds8afv0fzlaxck5i2d3pzvi5nqnc1jmq58fpnc7i0g238wl8k";
-  "nCTEQ15HIX_FullNuc_64_29" =
-    "0w4hn5iwqa65lnf6mhihx5qrq4wpcqw04ii3jphy79l58j3i1iam";
-  "nCTEQ15HIX_FullNuc_6_3" =
-    "1ki2cfsg0wmvfkzv2j9akiyl4d4b8v3d6f65iryxakjkhqj6vvgx";
-  "nCTEQ15HIX_FullNuc_7_3" =
-    "14mx5lh278p3zdc572bhxw9sc6n7ga0ak0ch85h3lx9zwg2a1m5i";
-  "nCTEQ15HIX_FullNuc_84_36" =
-    "0hyxyhb2mn64fwmijigw8m3v5zlj52hf2hicvx4gcq0lw063jxj4";
-  "nCTEQ15HIX_FullNuc_9_4" =
-    "17pydzll5lgs974gz4bchl2wxc9ixfpnqjrsidzksl4jf03gn77z";
-  "nCTEQ15WZSIH_108_54" =
-    "02z08pzvl8fa0bi6ddrlbknj0iryimw02r40z0nn7p8xf99qabhz";
-  "nCTEQ15WZSIH_119_59" =
-    "0r03k6j6nd2mvdkidw4gx1xm1s9hil9z5kanxsn2hzp30ab971db";
+  "nCTEQ15HIX_FullNuc_108_47" = "1h2x2h2n02nwinf8ba3yyqa61384p4g29ib8vnrzwzc7q34940i0";
+  "nCTEQ15HIX_FullNuc_119_50" = "0m5z036py2m1863k62pzysjdr92dhyiwmb8lxgky5skd7514rrsd";
+  "nCTEQ15HIX_FullNuc_12_6" = "13rsl7lczf5qzjgy8m3dp4f1gyib2ffvf86iwci91sq51sma5kk9";
+  "nCTEQ15HIX_FullNuc_131_54" = "1bsi3y6b7sxykwablgghqc89s3vxrvjr9y4bvhwcm21c2i4y6vbp";
+  "nCTEQ15HIX_FullNuc_14_7" = "0w93qfiqdnzvrry9ddpbqcy6y16sszxfmvvgdy6r8i8py8dzfkyr";
+  "nCTEQ15HIX_FullNuc_184_74" = "1q93f9rvlc4z3hzfhdmmxlyqfschrf99a0xyrc78rq1z2pfgmm9b";
+  "nCTEQ15HIX_FullNuc_197_79" = "0kb2lnvh8mq25i5pkfis86ggs0s6hmpmyqqgimhcsamk8xnf2pcv";
+  "nCTEQ15HIX_FullNuc_1_1" = "1nk792chip0iamc6dlqgqqlc2qlxlbgvgnhsvbmzkmmzvp2ji961";
+  "nCTEQ15HIX_FullNuc_208_82" = "1l038nhnwc0pd7sq4yki3sjrrn66bsvqkvba2j3kf4f852gsyswr";
+  "nCTEQ15HIX_FullNuc_27_13" = "1gdb09429xn5n07qqjch9x1cnq4xinf05wla8fsq69qr7bcdq9mp";
+  "nCTEQ15HIX_FullNuc_2_1" = "0fnbpwv8qzgchc2r2gcjgw9yh4r94vm1rzbwj1f6ahbwrsl4rfp3";
+  "nCTEQ15HIX_FullNuc_3_2" = "1r1s7ljwa169nbgc1439cj0gkaqza6ilx3x4gyq2jg9byz30khzx";
+  "nCTEQ15HIX_FullNuc_40_20" = "13p7mnh2h8abih8y24rfapnrsd036pc8xy8qm82j8g4bk0j5jacx";
+  "nCTEQ15HIX_FullNuc_4_2" = "0j1w7d11ybmpfci79lz99i94szxf5xn6z4kxvh8hly3qlcgn636j";
+  "nCTEQ15HIX_FullNuc_56_26" = "08wds8afv0fzlaxck5i2d3pzvi5nqnc1jmq58fpnc7i0g238wl8k";
+  "nCTEQ15HIX_FullNuc_64_29" = "0w4hn5iwqa65lnf6mhihx5qrq4wpcqw04ii3jphy79l58j3i1iam";
+  "nCTEQ15HIX_FullNuc_6_3" = "1ki2cfsg0wmvfkzv2j9akiyl4d4b8v3d6f65iryxakjkhqj6vvgx";
+  "nCTEQ15HIX_FullNuc_7_3" = "14mx5lh278p3zdc572bhxw9sc6n7ga0ak0ch85h3lx9zwg2a1m5i";
+  "nCTEQ15HIX_FullNuc_84_36" = "0hyxyhb2mn64fwmijigw8m3v5zlj52hf2hicvx4gcq0lw063jxj4";
+  "nCTEQ15HIX_FullNuc_9_4" = "17pydzll5lgs974gz4bchl2wxc9ixfpnqjrsidzksl4jf03gn77z";
+  "nCTEQ15WZSIH_108_54" = "02z08pzvl8fa0bi6ddrlbknj0iryimw02r40z0nn7p8xf99qabhz";
+  "nCTEQ15WZSIH_119_59" = "0r03k6j6nd2mvdkidw4gx1xm1s9hil9z5kanxsn2hzp30ab971db";
   "nCTEQ15WZSIH_12_6" = "00d4lis1qas1k8yzfb3dbqgvy9ynv7h9lx67ys3mj1ws5fqyn5al";
-  "nCTEQ15WZSIH_131_54" =
-    "10frai6qmzvp8xpkanl1qlpnc6chf6k5j70f4pw4abw8ycbjymij";
+  "nCTEQ15WZSIH_131_54" = "10frai6qmzvp8xpkanl1qlpnc6chf6k5j70f4pw4abw8ycbjymij";
   "nCTEQ15WZSIH_14_7" = "02qd5x041p6n8rzv5l446481jb9vkc5nrc018vcg41735azr0d0p";
   "nCTEQ15WZSIH_16_8" = "164ciyxkrxp33r5nrkl86gq0jvdzm90hf602raamn1b5l5yrnadl";
-  "nCTEQ15WZSIH_184_74" =
-    "00nrwb8q6sa3zwbdc9mx4jz5ndibml84lfz8gad9vhy20zayyh3q";
-  "nCTEQ15WZSIH_197_79" =
-    "03hzr05vhb0l58iv9c2743c688ygagy1bi5a7zqn8nilsmykbvag";
-  "nCTEQ15WZSIH_197_98" =
-    "1mdlhp643z0gkjpj2jdi5zdd4qxxjqsy93rkv69cn1x5abawdl8l";
+  "nCTEQ15WZSIH_184_74" = "00nrwb8q6sa3zwbdc9mx4jz5ndibml84lfz8gad9vhy20zayyh3q";
+  "nCTEQ15WZSIH_197_79" = "03hzr05vhb0l58iv9c2743c688ygagy1bi5a7zqn8nilsmykbvag";
+  "nCTEQ15WZSIH_197_98" = "1mdlhp643z0gkjpj2jdi5zdd4qxxjqsy93rkv69cn1x5abawdl8l";
   "nCTEQ15WZSIH_1_1" = "13wskph284niaxqx92yaa4jg749ry6y98ds1ifvwc9970iccdnk2";
-  "nCTEQ15WZSIH_207_103" =
-    "0mpc6msqqjbcs756zd426xgzxmmmcmk8cp8wh2mpagib1drrg1x8";
-  "nCTEQ15WZSIH_208_82" =
-    "130bs9y9337pmgwi1ix0ar2xvhfhl4rs0626kbin5yrxhdy7rpha";
+  "nCTEQ15WZSIH_207_103" = "0mpc6msqqjbcs756zd426xgzxmmmcmk8cp8wh2mpagib1drrg1x8";
+  "nCTEQ15WZSIH_208_82" = "130bs9y9337pmgwi1ix0ar2xvhfhl4rs0626kbin5yrxhdy7rpha";
   "nCTEQ15WZSIH_27_13" = "1r01sbzixlrqxkjp9kx3s4zgsd48myivyc70p7ha83i1qrq50g7w";
   "nCTEQ15WZSIH_2_1" = "1qlh3zxbg13sq187k1fmssan00ifmqr0q2l7i45vc8jz3mk70098";
   "nCTEQ15WZSIH_3_1" = "057zyvlxz3hwlwgydccl2y124bvc6iwqqgav2jqw0r53a39rc25g";
@@ -1724,54 +1116,30 @@ lib.mapAttrs mkPdfSet {
   "nCTEQ15WZSIH_7_3" = "0d6cmpv6csysr96knip033mw7sg56ls1gcq8gvz2qy7isj167gx7";
   "nCTEQ15WZSIH_84_42" = "15zva7n91p6s98kkhcfsvws20s26fl1bvjql8m1n1c2d5pr29wj5";
   "nCTEQ15WZSIH_9_4" = "04cs89s2m99p31jkc2k4f5i5rr0l4fpa6a41d59zvknhgfy74yvw";
-  "nCTEQ15WZSIH_FullNuc_108_54" =
-    "1wk8vhhlzj3wrb994s66q5zmwxhcy9vxpyks36s3jr5729jxk1j1";
-  "nCTEQ15WZSIH_FullNuc_119_59" =
-    "1rrkj7inah6bg03mmxgza39z40ghdr8km9hy5v5b69bvqcyr42a3";
-  "nCTEQ15WZSIH_FullNuc_12_6" =
-    "14wgacbimifnaji6byq1cds9zz266a63bvv616b0n06391plvzff";
-  "nCTEQ15WZSIH_FullNuc_131_54" =
-    "0k6gncwq4l5avlnr4qpvakklysi6g855yqksylc42ndlgjm4jxfy";
-  "nCTEQ15WZSIH_FullNuc_14_7" =
-    "1mlffwsn3f942flxvvi0rp63xlcrq88ir9vffmkzh3br3qpm4q41";
-  "nCTEQ15WZSIH_FullNuc_16_8" =
-    "1ga0kijnlzjz98j32bakcan89bfhbhq8y08d84d90xpgaqkpb9z2";
-  "nCTEQ15WZSIH_FullNuc_184_74" =
-    "1nhly8065kabzjjkapr75vafx46f1zl21xc6fdcv15a2qwx54n0p";
-  "nCTEQ15WZSIH_FullNuc_197_79" =
-    "0l9c684f427b8hhwm68swh78n6104nbpdxq6v50zipwc6df0j6w9";
-  "nCTEQ15WZSIH_FullNuc_197_98" =
-    "0vc285bd21arpmaykb6baspzr8ak42yx9h4j0sx2vj07l648g5hi";
-  "nCTEQ15WZSIH_FullNuc_1_1" =
-    "13gbjq46f5cdpdr902nxv261hqw041f7ryxbwgvxr3k2zm7h8fw0";
-  "nCTEQ15WZSIH_FullNuc_207_103" =
-    "08m08pcz0f72nd7zcrvi8cl5va49djlvdff1w4is4gmsb44khyv2";
-  "nCTEQ15WZSIH_FullNuc_208_82" =
-    "04x5icmidi1p3j8bdarl3sj0ak6g2ygyc5wmkkn9g80qqn4mxwva";
-  "nCTEQ15WZSIH_FullNuc_27_13" =
-    "0x4iv1kxb5lp514qm1nr3k32m68aw7sgy12nhdjhy2dv018snd8n";
-  "nCTEQ15WZSIH_FullNuc_2_1" =
-    "177qv17wv15sr1zcm2p6av20h32cjkspf4jj3jvvvgvks947n7dl";
-  "nCTEQ15WZSIH_FullNuc_3_1" =
-    "0aawk1ppg3nhl5n6gpdi6l1rw53l2x2sv3fwjz5821b6d7cmb9f6";
-  "nCTEQ15WZSIH_FullNuc_40_20" =
-    "1271dlp580a5gm29sv6b8plpc8d06j57x2xrfjyp7kafxa1158ii";
-  "nCTEQ15WZSIH_FullNuc_4_2" =
-    "0sv20zpzbinrz5biia1g3jzgyq0wbqaqrmrhhcyg2yxg9z48vgca";
-  "nCTEQ15WZSIH_FullNuc_56_26" =
-    "1wz1vwy2q85qz85kdy9gzzhnvv0jy4iazzavf9janz2xzw7833gg";
-  "nCTEQ15WZSIH_FullNuc_56_28" =
-    "01y0f2bz5yxmfd719fq8s1i3q5wb0dd81l0qkllpa961db83zmz2";
-  "nCTEQ15WZSIH_FullNuc_64_32" =
-    "1a93nqx26pj9kyvy66dmm4ib2pl5qwf03420q84zdl1hlcgaszzc";
-  "nCTEQ15WZSIH_FullNuc_6_3" =
-    "157j927a4x53gcam5kmpcpkyk76qgdlszxa4bcj9wlqrygwxsk3k";
-  "nCTEQ15WZSIH_FullNuc_7_3" =
-    "0l369wpd3gcb6i452w2hsjvidz80xl623xf1g1p8d2485nrvh6jm";
-  "nCTEQ15WZSIH_FullNuc_84_42" =
-    "1nikb7yk35s27g43k1wlgcfxqfyjf40csn8a6aiabliqdfjacaqv";
-  "nCTEQ15WZSIH_FullNuc_9_4" =
-    "0nnxf32kllwvm3fyjlswnyjx8cpsanx15qwsn03z6d67wx2f87sw";
+  "nCTEQ15WZSIH_FullNuc_108_54" = "1wk8vhhlzj3wrb994s66q5zmwxhcy9vxpyks36s3jr5729jxk1j1";
+  "nCTEQ15WZSIH_FullNuc_119_59" = "1rrkj7inah6bg03mmxgza39z40ghdr8km9hy5v5b69bvqcyr42a3";
+  "nCTEQ15WZSIH_FullNuc_12_6" = "14wgacbimifnaji6byq1cds9zz266a63bvv616b0n06391plvzff";
+  "nCTEQ15WZSIH_FullNuc_131_54" = "0k6gncwq4l5avlnr4qpvakklysi6g855yqksylc42ndlgjm4jxfy";
+  "nCTEQ15WZSIH_FullNuc_14_7" = "1mlffwsn3f942flxvvi0rp63xlcrq88ir9vffmkzh3br3qpm4q41";
+  "nCTEQ15WZSIH_FullNuc_16_8" = "1ga0kijnlzjz98j32bakcan89bfhbhq8y08d84d90xpgaqkpb9z2";
+  "nCTEQ15WZSIH_FullNuc_184_74" = "1nhly8065kabzjjkapr75vafx46f1zl21xc6fdcv15a2qwx54n0p";
+  "nCTEQ15WZSIH_FullNuc_197_79" = "0l9c684f427b8hhwm68swh78n6104nbpdxq6v50zipwc6df0j6w9";
+  "nCTEQ15WZSIH_FullNuc_197_98" = "0vc285bd21arpmaykb6baspzr8ak42yx9h4j0sx2vj07l648g5hi";
+  "nCTEQ15WZSIH_FullNuc_1_1" = "13gbjq46f5cdpdr902nxv261hqw041f7ryxbwgvxr3k2zm7h8fw0";
+  "nCTEQ15WZSIH_FullNuc_207_103" = "08m08pcz0f72nd7zcrvi8cl5va49djlvdff1w4is4gmsb44khyv2";
+  "nCTEQ15WZSIH_FullNuc_208_82" = "04x5icmidi1p3j8bdarl3sj0ak6g2ygyc5wmkkn9g80qqn4mxwva";
+  "nCTEQ15WZSIH_FullNuc_27_13" = "0x4iv1kxb5lp514qm1nr3k32m68aw7sgy12nhdjhy2dv018snd8n";
+  "nCTEQ15WZSIH_FullNuc_2_1" = "177qv17wv15sr1zcm2p6av20h32cjkspf4jj3jvvvgvks947n7dl";
+  "nCTEQ15WZSIH_FullNuc_3_1" = "0aawk1ppg3nhl5n6gpdi6l1rw53l2x2sv3fwjz5821b6d7cmb9f6";
+  "nCTEQ15WZSIH_FullNuc_40_20" = "1271dlp580a5gm29sv6b8plpc8d06j57x2xrfjyp7kafxa1158ii";
+  "nCTEQ15WZSIH_FullNuc_4_2" = "0sv20zpzbinrz5biia1g3jzgyq0wbqaqrmrhhcyg2yxg9z48vgca";
+  "nCTEQ15WZSIH_FullNuc_56_26" = "1wz1vwy2q85qz85kdy9gzzhnvv0jy4iazzavf9janz2xzw7833gg";
+  "nCTEQ15WZSIH_FullNuc_56_28" = "01y0f2bz5yxmfd719fq8s1i3q5wb0dd81l0qkllpa961db83zmz2";
+  "nCTEQ15WZSIH_FullNuc_64_32" = "1a93nqx26pj9kyvy66dmm4ib2pl5qwf03420q84zdl1hlcgaszzc";
+  "nCTEQ15WZSIH_FullNuc_6_3" = "157j927a4x53gcam5kmpcpkyk76qgdlszxa4bcj9wlqrygwxsk3k";
+  "nCTEQ15WZSIH_FullNuc_7_3" = "0l369wpd3gcb6i452w2hsjvidz80xl623xf1g1p8d2485nrvh6jm";
+  "nCTEQ15WZSIH_FullNuc_84_42" = "1nikb7yk35s27g43k1wlgcfxqfyjf40csn8a6aiabliqdfjacaqv";
+  "nCTEQ15WZSIH_FullNuc_9_4" = "0nnxf32kllwvm3fyjlswnyjx8cpsanx15qwsn03z6d67wx2f87sw";
   "nCTEQ15WZ_108_47" = "0v1s95f0wxyz73pfv5z6hc4mslxb7ml6imjmkhn2p9yx5mvk94qf";
   "nCTEQ15WZ_108_54" = "0zqw1p1sls58v7aacmwamlic0vsjyjijfam6bas5lh92rrmcf9h6";
   "nCTEQ15WZ_119_50" = "1wwx1rsjhd8rqrvyq68r70issnsby8zrlr8d76br3622mxqr83a7";
@@ -1806,74 +1174,40 @@ lib.mapAttrs mkPdfSet {
   "nCTEQ15WZ_84_42" = "1jslkk9wc0fzbm6s5czpmaf004pndwc2ggwnxgkga2idn45204xz";
   "nCTEQ15WZ_9_4" = "0farphic6jyzc5x3ja715wdmvv5rfcgil1c49i8fxqlap5mlgv89";
   "nCTEQ15WZ_9_4_iso" = "01zxmn50r14n1a5gq75pia8mz4ibyqhyjl5d31kv3h69xgdrlizc";
-  "nCTEQ15WZ_FullNuc_108_47" =
-    "0yl5ll4j3mr6nhiz9ynn9w3hybgwdypg0b8zwsxz1rjcr3c8bmz5";
-  "nCTEQ15WZ_FullNuc_108_54" =
-    "1c8cdilw9n91apqj9lrv9j6hf6mcg3ndndchc96d5svrqlqk4fg6";
-  "nCTEQ15WZ_FullNuc_119_50" =
-    "19lb71cmmi4fvpb0bxmz0ipjlzg6b5hrlwiml4bj5r65km46whyk";
-  "nCTEQ15WZ_FullNuc_119_59" =
-    "0r9cwy2znpl59ynv2av6whjl3igm4b19rzh6sjqsm6a85d5jjdpc";
-  "nCTEQ15WZ_FullNuc_12_6" =
-    "1972j8lziq1ckwq2s7qpcf9g7mg3762kfrnbdjf4ilfw5b2b9i9n";
-  "nCTEQ15WZ_FullNuc_131_54" =
-    "06w9yl6a11ir8qjyxaakyzs8b51hf3jhm8nj5nvrh4f6cicp1g66";
-  "nCTEQ15WZ_FullNuc_14_7" =
-    "095x9pphc9lx71hlhpwcb71p8wx3b1pnv6qd3s6992visismyb02";
-  "nCTEQ15WZ_FullNuc_16_8" =
-    "005h4mbf9c7d9w61pmgghpxb5yh63i6cbyxyylngznbbbaxggjcc";
-  "nCTEQ15WZ_FullNuc_184_74" =
-    "0niyiq85bmbr596gfrsmf79rksql7n2gqdxw72yrki5ywc3iy4sr";
-  "nCTEQ15WZ_FullNuc_197_79" =
-    "0vbgg6m0b1wlrsx2c5xxga0crz0nwvcq9a88f032yjzihh6rscjd";
-  "nCTEQ15WZ_FullNuc_197_98" =
-    "0sf4q5bb4b44zkbxq51pf0xhpldr5dj5d0gqpqs40qkdlmkb9z7k";
-  "nCTEQ15WZ_FullNuc_1_0" =
-    "1il9j3ggn9kc8k8jpql46lw5c9lq45ngaip45vqppgvl3zcrc4fv";
-  "nCTEQ15WZ_FullNuc_1_1" =
-    "0nxvm11qlapnpdkkymqhy86axcvcx84r9hk0dswa2ji5gmk18jww";
-  "nCTEQ15WZ_FullNuc_207_103" =
-    "05qqg6ckkhv30nfbs5rdpiwz7dkgywjrd8a9gr3skvlayj2bisni";
-  "nCTEQ15WZ_FullNuc_207_82" =
-    "0s27py7i2h0va79q9ivmgrpwk5pxrjx9csyad76fc7pmvi4xsgjl";
-  "nCTEQ15WZ_FullNuc_208_82" =
-    "1xygz9px4jwz3vkbx86384775vhiqqv5l2rp2qi42zy8y8ijwaqd";
-  "nCTEQ15WZ_FullNuc_20_10" =
-    "06bgr8r6pz8cpvqbncjaazxw7j2qzhh183brs7r5mi6yckg318gz";
-  "nCTEQ15WZ_FullNuc_27_13" =
-    "1qrs82jscmxyhqkd4fa2kjglzgig23kqwc7r2n8p23352ggcsn9x";
-  "nCTEQ15WZ_FullNuc_2_1" =
-    "0jxam0p1ypd3x8l83d2f14h2av9wk1r69prfhl6pgd6pdh3nx2gh";
-  "nCTEQ15WZ_FullNuc_3_1" =
-    "0kjgsiidi33p442bpp1g6sss62qn4pj90ag4hcmdqsdf5m9vpc5s";
-  "nCTEQ15WZ_FullNuc_3_2" =
-    "0srxdvk5jh4ga4r8hniikzanfa8fh65xc4g51arxwd9sda4n0mqb";
-  "nCTEQ15WZ_FullNuc_40_18" =
-    "1x7d1cpglijq4rag57m8sp6qyzn3c7r3zs5z9jqarsaqc9wv2ypw";
-  "nCTEQ15WZ_FullNuc_40_20" =
-    "1l58bvdhqs9i4mgc39dw9c13rsh5vq5vh6zq8xk35150cbysiwza";
-  "nCTEQ15WZ_FullNuc_4_2" =
-    "0s1zdn5r9hk7bjk2ggn7bhrzq2iaxspdhmwi9rq1xbsk7n8k3wif";
-  "nCTEQ15WZ_FullNuc_56_26" =
-    "15ilca90cvw7p3w1xr15jynqnvnyw8zhpydhyq11x1kc647bgirm";
-  "nCTEQ15WZ_FullNuc_56_28" =
-    "16bs4yq4jr4y3431csabgps6330gcw1ymgm2161z4nmmyp988w1g";
-  "nCTEQ15WZ_FullNuc_64_29" =
-    "17wqyn8g5zbrm6ywvqn2y5kphy9xwbgijwlzxsni5k821nzmjyxn";
-  "nCTEQ15WZ_FullNuc_64_32" =
-    "0ivyka1g2cj6ign8wm28pzim3saas3bvnxqhixxkr91m1gl40b86";
-  "nCTEQ15WZ_FullNuc_6_3" =
-    "00v5wydvrvw1fgbzc436cap7amk8yr7dj5wf3ykyd6415vxmlzl3";
-  "nCTEQ15WZ_FullNuc_7_3" =
-    "06z2p0gx988q5w4d3c0qx6pj7lp6mqlz1qrnwy5lf4i4i4vcqkkx";
-  "nCTEQ15WZ_FullNuc_84_36" =
-    "0rfn82f8f9f6bgngrs67maip2kfhy42i4ppa904d7dspyqkgfa31";
-  "nCTEQ15WZ_FullNuc_84_42" =
-    "14lyhhc5jwccqnz85msaqzdx7cn2vxkvm2l9mf1p2kmgy7p5jis3";
-  "nCTEQ15WZ_FullNuc_9_4" =
-    "1895lr4yydzk4cry5wnjhpl6gs2kcspjlm2mv2y00sb7gzinjs94";
-  "nCTEQ15WZ_FullNuc_9_4_iso" =
-    "0kvjk4wvw98w7y02ishjacn9frncspl6rsxlzcd4y2pdk1ckr29i";
+  "nCTEQ15WZ_FullNuc_108_47" = "0yl5ll4j3mr6nhiz9ynn9w3hybgwdypg0b8zwsxz1rjcr3c8bmz5";
+  "nCTEQ15WZ_FullNuc_108_54" = "1c8cdilw9n91apqj9lrv9j6hf6mcg3ndndchc96d5svrqlqk4fg6";
+  "nCTEQ15WZ_FullNuc_119_50" = "19lb71cmmi4fvpb0bxmz0ipjlzg6b5hrlwiml4bj5r65km46whyk";
+  "nCTEQ15WZ_FullNuc_119_59" = "0r9cwy2znpl59ynv2av6whjl3igm4b19rzh6sjqsm6a85d5jjdpc";
+  "nCTEQ15WZ_FullNuc_12_6" = "1972j8lziq1ckwq2s7qpcf9g7mg3762kfrnbdjf4ilfw5b2b9i9n";
+  "nCTEQ15WZ_FullNuc_131_54" = "06w9yl6a11ir8qjyxaakyzs8b51hf3jhm8nj5nvrh4f6cicp1g66";
+  "nCTEQ15WZ_FullNuc_14_7" = "095x9pphc9lx71hlhpwcb71p8wx3b1pnv6qd3s6992visismyb02";
+  "nCTEQ15WZ_FullNuc_16_8" = "005h4mbf9c7d9w61pmgghpxb5yh63i6cbyxyylngznbbbaxggjcc";
+  "nCTEQ15WZ_FullNuc_184_74" = "0niyiq85bmbr596gfrsmf79rksql7n2gqdxw72yrki5ywc3iy4sr";
+  "nCTEQ15WZ_FullNuc_197_79" = "0vbgg6m0b1wlrsx2c5xxga0crz0nwvcq9a88f032yjzihh6rscjd";
+  "nCTEQ15WZ_FullNuc_197_98" = "0sf4q5bb4b44zkbxq51pf0xhpldr5dj5d0gqpqs40qkdlmkb9z7k";
+  "nCTEQ15WZ_FullNuc_1_0" = "1il9j3ggn9kc8k8jpql46lw5c9lq45ngaip45vqppgvl3zcrc4fv";
+  "nCTEQ15WZ_FullNuc_1_1" = "0nxvm11qlapnpdkkymqhy86axcvcx84r9hk0dswa2ji5gmk18jww";
+  "nCTEQ15WZ_FullNuc_207_103" = "05qqg6ckkhv30nfbs5rdpiwz7dkgywjrd8a9gr3skvlayj2bisni";
+  "nCTEQ15WZ_FullNuc_207_82" = "0s27py7i2h0va79q9ivmgrpwk5pxrjx9csyad76fc7pmvi4xsgjl";
+  "nCTEQ15WZ_FullNuc_208_82" = "1xygz9px4jwz3vkbx86384775vhiqqv5l2rp2qi42zy8y8ijwaqd";
+  "nCTEQ15WZ_FullNuc_20_10" = "06bgr8r6pz8cpvqbncjaazxw7j2qzhh183brs7r5mi6yckg318gz";
+  "nCTEQ15WZ_FullNuc_27_13" = "1qrs82jscmxyhqkd4fa2kjglzgig23kqwc7r2n8p23352ggcsn9x";
+  "nCTEQ15WZ_FullNuc_2_1" = "0jxam0p1ypd3x8l83d2f14h2av9wk1r69prfhl6pgd6pdh3nx2gh";
+  "nCTEQ15WZ_FullNuc_3_1" = "0kjgsiidi33p442bpp1g6sss62qn4pj90ag4hcmdqsdf5m9vpc5s";
+  "nCTEQ15WZ_FullNuc_3_2" = "0srxdvk5jh4ga4r8hniikzanfa8fh65xc4g51arxwd9sda4n0mqb";
+  "nCTEQ15WZ_FullNuc_40_18" = "1x7d1cpglijq4rag57m8sp6qyzn3c7r3zs5z9jqarsaqc9wv2ypw";
+  "nCTEQ15WZ_FullNuc_40_20" = "1l58bvdhqs9i4mgc39dw9c13rsh5vq5vh6zq8xk35150cbysiwza";
+  "nCTEQ15WZ_FullNuc_4_2" = "0s1zdn5r9hk7bjk2ggn7bhrzq2iaxspdhmwi9rq1xbsk7n8k3wif";
+  "nCTEQ15WZ_FullNuc_56_26" = "15ilca90cvw7p3w1xr15jynqnvnyw8zhpydhyq11x1kc647bgirm";
+  "nCTEQ15WZ_FullNuc_56_28" = "16bs4yq4jr4y3431csabgps6330gcw1ymgm2161z4nmmyp988w1g";
+  "nCTEQ15WZ_FullNuc_64_29" = "17wqyn8g5zbrm6ywvqn2y5kphy9xwbgijwlzxsni5k821nzmjyxn";
+  "nCTEQ15WZ_FullNuc_64_32" = "0ivyka1g2cj6ign8wm28pzim3saas3bvnxqhixxkr91m1gl40b86";
+  "nCTEQ15WZ_FullNuc_6_3" = "00v5wydvrvw1fgbzc436cap7amk8yr7dj5wf3ykyd6415vxmlzl3";
+  "nCTEQ15WZ_FullNuc_7_3" = "06z2p0gx988q5w4d3c0qx6pj7lp6mqlz1qrnwy5lf4i4i4vcqkkx";
+  "nCTEQ15WZ_FullNuc_84_36" = "0rfn82f8f9f6bgngrs67maip2kfhy42i4ppa904d7dspyqkgfa31";
+  "nCTEQ15WZ_FullNuc_84_42" = "14lyhhc5jwccqnz85msaqzdx7cn2vxkvm2l9mf1p2kmgy7p5jis3";
+  "nCTEQ15WZ_FullNuc_9_4" = "1895lr4yydzk4cry5wnjhpl6gs2kcspjlm2mv2y00sb7gzinjs94";
+  "nCTEQ15WZ_FullNuc_9_4_iso" = "0kvjk4wvw98w7y02ishjacn9frncspl6rsxlzcd4y2pdk1ckr29i";
   "nCTEQ15_108_54" = "1bjx2d61qjhabfx28pfi64hf8br4gl67nzir3ygdpwdcah4k6lz8";
   "nCTEQ15_119_59" = "0g7wffsyjh84r2wv8w67skx8gwdb3clv9c1dlpijwqmpkcm3b8q5";
   "nCTEQ15_12_6" = "1xnnqp38zz3b61jb38hz54wv09w06fwwnb66sf93r1agcajvv1vi";
@@ -1897,100 +1231,53 @@ lib.mapAttrs mkPdfSet {
   "nCTEQ15_7_3" = "13b9wbm2hqx4lixq3dad1y3cr6didcch8kg7mqm9lgbism7dwaqw";
   "nCTEQ15_84_42" = "12vkqpvjjyh0x0hbn7r4gx5za01yqs9a7lqirdxd15k04fp5rnjr";
   "nCTEQ15_9_4" = "1rkxhxwp0v9dm6f71c5635ihlspfx0sj666maif4iaw1sf4hazln";
-  "nCTEQ15_B_90CL_Au_hess" =
-    "13sdn1ng4nd6935dksk7jin8yilp29zys3d0jvf7m7vx8gyxi187";
-  "nCTEQ15_B_90CL_Pb_hess" =
-    "1j11x8y5sbs5lz4z06wcl702ijvh1bcb4i222jdcq9gh9j40xn17";
-  "nCTEQ15_B_c_90CL_Au_hess" =
-    "0k0pn3yqb632j254h8w9wbdvcasnfxr7d9g47drqw3f4w1as3s16";
-  "nCTEQ15_B_c_90CL_Pb_hess" =
-    "0gvvwnc298qgxhpj4wgnzcrgz0wqlj5r7sfsl1fj21zhm3kc45jl";
-  "nCTEQ15_B_d_90CL_Au_hess" =
-    "0lzfa2gsl5cs2i6y833lhvf2pifzkysj9jgq22v9iyyz5q0nbsh4";
-  "nCTEQ15_B_d_90CL_Pb_hess" =
-    "0zp7dirc2l42f9zjyq1a2qbnir1bbj1firmg3s856mn7sp3p4i0k";
-  "nCTEQ15_B_u_90CL_Au_hess" =
-    "1w2ifnl9waqvsaz1yg696mmqxcijm2bphq8zp3rcbimck3rmr978";
-  "nCTEQ15_B_u_90CL_Pb_hess" =
-    "0j95dg6kyvd30qgivd9495glcd152cr1j3zh1cg76s6sdzfkhvs5";
-  "nCTEQ15_D_90CL_Au_hess" =
-    "0y3n008i22g9ny0v8z6hyc47730xb6qldkpall6p8icn8yzfdga9";
-  "nCTEQ15_D_90CL_Pb_hess" =
-    "0mp1plqxsd6j0ybnf7yrl4hgl68a85q56vdjhs911xah1bgrpix1";
-  "nCTEQ15_D_c_90CL_Au_hess" =
-    "1xk6ngc488n9immd9nbv8ygvxav5n7b7902k44rkxnw42kbx2c4m";
-  "nCTEQ15_D_c_90CL_Pb_hess" =
-    "1ldig46l08n00jvj0dl36jsnpjl2ycv3jdr9d9g375rwgv671kad";
-  "nCTEQ15_D_d_90CL_Au_hess" =
-    "059fz4rfhydnk25hmabavwi346cy2hzxaw2ciq8jx64fmawb3v79";
-  "nCTEQ15_D_d_90CL_Pb_hess" =
-    "0zgs89yjypn2sd97948z2r78sydadivvw6wy7pwi3a5b0yx1zpzn";
-  "nCTEQ15_D_u_90CL_Au_hess" =
-    "0j8sfih3r2wps1l7vapnllh88ibw7672f646m5p67aw5k2an4f8j";
-  "nCTEQ15_D_u_90CL_Pb_hess" =
-    "0d2nxsabard1yq8f2v9a7kwk0fzv549hx1k15k0dfif9523i6xqf";
-  "nCTEQ15_Jpsi_90CL_Au_hess" =
-    "0x75jizpqi8vss62xb2913vdhvckq2b468iqxd0ggr0fic1f8q9a";
-  "nCTEQ15_Jpsi_90CL_Pb_hess" =
-    "09a9s6gmf7q9rk8c88iskra5kxaiz131s5650964znxv29lpzlqm";
-  "nCTEQ15_Jpsi_c_90CL_Au_hess" =
-    "0mh3ikdkca7xc5bc2knjbyr7dkgbydnaa4i1gqln0i29b89j5nw0";
-  "nCTEQ15_Jpsi_c_90CL_Pb_hess" =
-    "1gs39gla77sqgry1799l9kapc1c48pzxgfba6p70fdbwdac45n3j";
-  "nCTEQ15_Jpsi_d_90CL_Au_hess" =
-    "1qn4f4nn8avjrsdqgab25053zadwx7vlr27w8bsmcxg25si104y9";
-  "nCTEQ15_Jpsi_d_90CL_Pb_hess" =
-    "107w4yiv6dl8gqfx0mpbnii06wzf15ih2kqmb8hkmz988x49l65q";
-  "nCTEQ15_Jpsi_u_90CL_Au_hess" =
-    "1mdm8qlzkyzrszsng49ns9hq7zdqaal61vbi64449fkvmxd0a7mk";
-  "nCTEQ15_Jpsi_u_90CL_Pb_hess" =
-    "1y0bcr3g9znjz2c3s4487yjl1ipf0ls05krfpdn8gcsxymf4cirm";
-  "nCTEQ15npFullNuc_108_54" =
-    "1g8id10rpys9566r8h92diqrr43mww6q8nhvlns0kfjkvkr22m9y";
-  "nCTEQ15npFullNuc_119_59" =
-    "0df499pvfls1281zkvngrhicnc0ac0bfwamzs027k7f2y6ygkfb4";
-  "nCTEQ15npFullNuc_12_6" =
-    "0mb3zixcikagsqzpxb7jzrcg05dln37d7anz5359ssjyd6p1mqyi";
-  "nCTEQ15npFullNuc_131_54" =
-    "0i83f1wg81nr742jf9407w7fbknigz6pyx64h7p65x82s4wmj9gf";
-  "nCTEQ15npFullNuc_14_7" =
-    "1k2554rg82msxzkarjx85p6di3kmfqxmbfxpasi1x74laz38663n";
-  "nCTEQ15npFullNuc_184_74" =
-    "1pnl4y2arxf87b1pp95b9jajzlqdyzs7mv82xhmw9fcn9yliy5s0";
-  "nCTEQ15npFullNuc_197_79" =
-    "0d5c6g4185k6pwm5bs5fqlwc97l0gvf6bhk9l8a5vc039dggsgkj";
-  "nCTEQ15npFullNuc_197_98" =
-    "0ql9xnwggsqibld13yisvsdkkymzph8wnqffnxhlyp5digwhl64v";
-  "nCTEQ15npFullNuc_1_1" =
-    "1fq80hzfy16gs00knvl0g0yqrys27vzyk8h5jzs1ra981zgcw1zp";
-  "nCTEQ15npFullNuc_207_103" =
-    "04bg7hnngfsckk92gdrxbrxhsbb1ac1s7dscj7ycdy64fxn4lq8x";
-  "nCTEQ15npFullNuc_208_82" =
-    "0f9ddimq9av2jr3yr15n630bi30bxh5nxrsbrcfw9cx8dwnjscwb";
-  "nCTEQ15npFullNuc_20_10" =
-    "03dv3z7j69l97xacd38wbp7iyyi36g0bbc2xmxhm3l64rjs21bmz";
-  "nCTEQ15npFullNuc_27_13" =
-    "03lb2dznl5dpv0cwsl08dlrh7x26yi9acx3n70imr13gspfxp8ag";
-  "nCTEQ15npFullNuc_3_2" =
-    "0rqjxc8q53jndxjrxd293r1m8gin3vif33jzr35y2ail9bhkjyzp";
-  "nCTEQ15npFullNuc_40_18" =
-    "1827gpzdrxdkg9ikk7pjgv9h983mwzk21p60635l1zhwby5p4mn6";
-  "nCTEQ15npFullNuc_40_20" =
-    "11mjdibgypwpphm1wmf4z311wg4lp37010vwyys8q6d927jzikn2";
-  "nCTEQ15npFullNuc_4_2" =
-    "12gx03drv7hnmsgk6sni7mc7c4rbpag5gn2czyha1n19v13rry93";
-  "nCTEQ15npFullNuc_56_26" =
-    "1hq6qv19gqzjv57msdajb9kc0lv5jvl3b6x2fc905lg0dc7h2ab5";
-  "nCTEQ15npFullNuc_64_32" =
-    "15gq3l91p69dba5gfxvh7j4npwl7rwkakjnsv9lx84hvys7hgba9";
-  "nCTEQ15npFullNuc_6_3" =
-    "1gcxs7vcjcdyniczd1rprvzlc1p9yf08sy1fcrny2jfbxkfndqwx";
-  "nCTEQ15npFullNuc_7_3" =
-    "09kwf5kbshw4pwh6iilqy1mzgvlg83jhakmvvgz27f569f20ci68";
-  "nCTEQ15npFullNuc_84_42" =
-    "0ah349jih2ia0x14mnrygzzw38prfgcmbxyw1hdvzqvgk73wazwa";
-  "nCTEQ15npFullNuc_9_4" =
-    "0gsh5jmyn7jlasp9ixx7imvkbp5rxmvfa480vy0bnxwjwz0924ia";
+  "nCTEQ15_B_90CL_Au_hess" = "13sdn1ng4nd6935dksk7jin8yilp29zys3d0jvf7m7vx8gyxi187";
+  "nCTEQ15_B_90CL_Pb_hess" = "1j11x8y5sbs5lz4z06wcl702ijvh1bcb4i222jdcq9gh9j40xn17";
+  "nCTEQ15_B_c_90CL_Au_hess" = "0k0pn3yqb632j254h8w9wbdvcasnfxr7d9g47drqw3f4w1as3s16";
+  "nCTEQ15_B_c_90CL_Pb_hess" = "0gvvwnc298qgxhpj4wgnzcrgz0wqlj5r7sfsl1fj21zhm3kc45jl";
+  "nCTEQ15_B_d_90CL_Au_hess" = "0lzfa2gsl5cs2i6y833lhvf2pifzkysj9jgq22v9iyyz5q0nbsh4";
+  "nCTEQ15_B_d_90CL_Pb_hess" = "0zp7dirc2l42f9zjyq1a2qbnir1bbj1firmg3s856mn7sp3p4i0k";
+  "nCTEQ15_B_u_90CL_Au_hess" = "1w2ifnl9waqvsaz1yg696mmqxcijm2bphq8zp3rcbimck3rmr978";
+  "nCTEQ15_B_u_90CL_Pb_hess" = "0j95dg6kyvd30qgivd9495glcd152cr1j3zh1cg76s6sdzfkhvs5";
+  "nCTEQ15_D_90CL_Au_hess" = "0y3n008i22g9ny0v8z6hyc47730xb6qldkpall6p8icn8yzfdga9";
+  "nCTEQ15_D_90CL_Pb_hess" = "0mp1plqxsd6j0ybnf7yrl4hgl68a85q56vdjhs911xah1bgrpix1";
+  "nCTEQ15_D_c_90CL_Au_hess" = "1xk6ngc488n9immd9nbv8ygvxav5n7b7902k44rkxnw42kbx2c4m";
+  "nCTEQ15_D_c_90CL_Pb_hess" = "1ldig46l08n00jvj0dl36jsnpjl2ycv3jdr9d9g375rwgv671kad";
+  "nCTEQ15_D_d_90CL_Au_hess" = "059fz4rfhydnk25hmabavwi346cy2hzxaw2ciq8jx64fmawb3v79";
+  "nCTEQ15_D_d_90CL_Pb_hess" = "0zgs89yjypn2sd97948z2r78sydadivvw6wy7pwi3a5b0yx1zpzn";
+  "nCTEQ15_D_u_90CL_Au_hess" = "0j8sfih3r2wps1l7vapnllh88ibw7672f646m5p67aw5k2an4f8j";
+  "nCTEQ15_D_u_90CL_Pb_hess" = "0d2nxsabard1yq8f2v9a7kwk0fzv549hx1k15k0dfif9523i6xqf";
+  "nCTEQ15_Jpsi_90CL_Au_hess" = "0x75jizpqi8vss62xb2913vdhvckq2b468iqxd0ggr0fic1f8q9a";
+  "nCTEQ15_Jpsi_90CL_Pb_hess" = "09a9s6gmf7q9rk8c88iskra5kxaiz131s5650964znxv29lpzlqm";
+  "nCTEQ15_Jpsi_c_90CL_Au_hess" = "0mh3ikdkca7xc5bc2knjbyr7dkgbydnaa4i1gqln0i29b89j5nw0";
+  "nCTEQ15_Jpsi_c_90CL_Pb_hess" = "1gs39gla77sqgry1799l9kapc1c48pzxgfba6p70fdbwdac45n3j";
+  "nCTEQ15_Jpsi_d_90CL_Au_hess" = "1qn4f4nn8avjrsdqgab25053zadwx7vlr27w8bsmcxg25si104y9";
+  "nCTEQ15_Jpsi_d_90CL_Pb_hess" = "107w4yiv6dl8gqfx0mpbnii06wzf15ih2kqmb8hkmz988x49l65q";
+  "nCTEQ15_Jpsi_u_90CL_Au_hess" = "1mdm8qlzkyzrszsng49ns9hq7zdqaal61vbi64449fkvmxd0a7mk";
+  "nCTEQ15_Jpsi_u_90CL_Pb_hess" = "1y0bcr3g9znjz2c3s4487yjl1ipf0ls05krfpdn8gcsxymf4cirm";
+  "nCTEQ15npFullNuc_108_54" = "1g8id10rpys9566r8h92diqrr43mww6q8nhvlns0kfjkvkr22m9y";
+  "nCTEQ15npFullNuc_119_59" = "0df499pvfls1281zkvngrhicnc0ac0bfwamzs027k7f2y6ygkfb4";
+  "nCTEQ15npFullNuc_12_6" = "0mb3zixcikagsqzpxb7jzrcg05dln37d7anz5359ssjyd6p1mqyi";
+  "nCTEQ15npFullNuc_131_54" = "0i83f1wg81nr742jf9407w7fbknigz6pyx64h7p65x82s4wmj9gf";
+  "nCTEQ15npFullNuc_14_7" = "1k2554rg82msxzkarjx85p6di3kmfqxmbfxpasi1x74laz38663n";
+  "nCTEQ15npFullNuc_184_74" = "1pnl4y2arxf87b1pp95b9jajzlqdyzs7mv82xhmw9fcn9yliy5s0";
+  "nCTEQ15npFullNuc_197_79" = "0d5c6g4185k6pwm5bs5fqlwc97l0gvf6bhk9l8a5vc039dggsgkj";
+  "nCTEQ15npFullNuc_197_98" = "0ql9xnwggsqibld13yisvsdkkymzph8wnqffnxhlyp5digwhl64v";
+  "nCTEQ15npFullNuc_1_1" = "1fq80hzfy16gs00knvl0g0yqrys27vzyk8h5jzs1ra981zgcw1zp";
+  "nCTEQ15npFullNuc_207_103" = "04bg7hnngfsckk92gdrxbrxhsbb1ac1s7dscj7ycdy64fxn4lq8x";
+  "nCTEQ15npFullNuc_208_82" = "0f9ddimq9av2jr3yr15n630bi30bxh5nxrsbrcfw9cx8dwnjscwb";
+  "nCTEQ15npFullNuc_20_10" = "03dv3z7j69l97xacd38wbp7iyyi36g0bbc2xmxhm3l64rjs21bmz";
+  "nCTEQ15npFullNuc_27_13" = "03lb2dznl5dpv0cwsl08dlrh7x26yi9acx3n70imr13gspfxp8ag";
+  "nCTEQ15npFullNuc_3_2" = "0rqjxc8q53jndxjrxd293r1m8gin3vif33jzr35y2ail9bhkjyzp";
+  "nCTEQ15npFullNuc_40_18" = "1827gpzdrxdkg9ikk7pjgv9h983mwzk21p60635l1zhwby5p4mn6";
+  "nCTEQ15npFullNuc_40_20" = "11mjdibgypwpphm1wmf4z311wg4lp37010vwyys8q6d927jzikn2";
+  "nCTEQ15npFullNuc_4_2" = "12gx03drv7hnmsgk6sni7mc7c4rbpag5gn2czyha1n19v13rry93";
+  "nCTEQ15npFullNuc_56_26" = "1hq6qv19gqzjv57msdajb9kc0lv5jvl3b6x2fc905lg0dc7h2ab5";
+  "nCTEQ15npFullNuc_64_32" = "15gq3l91p69dba5gfxvh7j4npwl7rwkakjnsv9lx84hvys7hgba9";
+  "nCTEQ15npFullNuc_6_3" = "1gcxs7vcjcdyniczd1rprvzlc1p9yf08sy1fcrny2jfbxkfndqwx";
+  "nCTEQ15npFullNuc_7_3" = "09kwf5kbshw4pwh6iilqy1mzgvlg83jhakmvvgz27f569f20ci68";
+  "nCTEQ15npFullNuc_84_42" = "0ah349jih2ia0x14mnrygzzw38prfgcmbxyw1hdvzqvgk73wazwa";
+  "nCTEQ15npFullNuc_9_4" = "0gsh5jmyn7jlasp9ixx7imvkbp5rxmvfa480vy0bnxwjwz0924ia";
   "nCTEQ15np_108_54" = "16hsl5ihcbx7wvrabrff5h422zfhlfrpskn5dy8s1phhla4r4ff3";
   "nCTEQ15np_119_59" = "1bwhbfhw5xyb1dm18vxm095l1d9l9v0yl072qdbb6z9l29pa71dp";
   "nCTEQ15np_12_6" = "0zv9g7r648f1h1f9qifii0mk2afdvphbfib3hp2sf960zb0d0nsv";
@@ -2014,144 +1301,75 @@ lib.mapAttrs mkPdfSet {
   "nCTEQ15np_7_3" = "0ndqi05g88b769p1chfc6maz6wvs33rx45r4k8f68n79yy6kvrh1";
   "nCTEQ15np_84_42" = "0v968jw1m9ky1mh82w1bjidvg7r7cx23bnpv0vr4c1kqz0n5hb5s";
   "nCTEQ15np_9_4" = "0akxbyrs4y8gmnjiwma8z8ryrzmaw6dj148iq7ihsllwar3hp3p0";
-  "nNNPDF10_nlo_as_0118_Ag108" =
-    "1xqhzgvkicxd9wy4lnhqw6brsksxqsq429r6bb0ghn1ll5ln4qzx";
-  "nNNPDF10_nlo_as_0118_Al27" =
-    "0z836h7a5abbwq988zdvvf8yhr92krzzmys6lkkgkcffdf2pc0zq";
-  "nNNPDF10_nlo_as_0118_Au197" =
-    "1f6vn6n0zz8wml8zn7n2n6wj5y41yanw9b9av51m5kiq4n1r9lrk";
-  "nNNPDF10_nlo_as_0118_Be9" =
-    "1jy2cix4gkx648dypdqfj7xi8gdlflh20xlasmwl78av5j7s7rs5";
-  "nNNPDF10_nlo_as_0118_C12" =
-    "1c6fvp82cs3464akqf0skrqpcvyp75yqp39zxafzgbqd4wc3pv9f";
-  "nNNPDF10_nlo_as_0118_Ca40" =
-    "0r903a01085yhfagnljvjaqfn190r3q0ggvx87kh54xsbv1wkvbl";
-  "nNNPDF10_nlo_as_0118_Cu64" =
-    "1vq8a6drcp606fkx8mml2qq37if59cakmcq73y4n7c7swp6q51r3";
-  "nNNPDF10_nlo_as_0118_D2" =
-    "07kjzhyh6n6723h2fylgwm7w7ljxz4m6fs9bgwjxp987i00msrra";
-  "nNNPDF10_nlo_as_0118_Fe56" =
-    "1smkjmymykhlp0vvlpsp6p6p44pw5aa705sw9lcyxmg8ccy9kmpj";
-  "nNNPDF10_nlo_as_0118_He4" =
-    "0mdxsh41m0vzcdq4axvz81m9ra0p6dff88k09gjb4adx9vv52mjc";
-  "nNNPDF10_nlo_as_0118_Li6" =
-    "1hrryxhhg9xxg817brrd39k5wz6iq1fv6z8sdabrpxn0nwr1bj7r";
-  "nNNPDF10_nlo_as_0118_N1" =
-    "01h7g4w3nc09jyi7g8j5yx2yzqair3ysbx9rx244k1rjx6jppian";
-  "nNNPDF10_nlo_as_0118_N14" =
-    "1ny3znivkkl7xhdw8pxkdadwc957236rh60wviiyw4cdqjb6a3iq";
-  "nNNPDF10_nlo_as_0118_Pb208" =
-    "066w59xm6lkwrm3glssc6n3qyvv38mx47mkx39p8z9r2spb8igks";
-  "nNNPDF10_nlo_as_0118_Sn119" =
-    "1mqx7wj095v0799wxbvfxvb6bl1qh5wdkf14a8gqsj0f5qjnpmyw";
-  "nNNPDF10_nlo_as_0118_Xe131" =
-    "0mz9fgxfyx1asi2vxs1xfwn8z51z08naiq1ycl77f4yp6wim6s54";
-  "nNNPDF10_nnlo_as_0118_Ag108" =
-    "08vy16fskrvc62y3h0hsikmi6q86njwfm2msmajxbd7vzcv5wkkn";
-  "nNNPDF10_nnlo_as_0118_Al27" =
-    "0vm95lawgsncsx10ypy99746sz34y6shblkj9pgn6si2cy8gpcwp";
-  "nNNPDF10_nnlo_as_0118_Au197" =
-    "0b3ld033f2hwjaqp5p5pzmmzfid8hl416a1q8fc0zmd2lfiamsac";
-  "nNNPDF10_nnlo_as_0118_Be9" =
-    "10skffir8hqfv2wj01ghc14lfs516kmh59q3v48nw3a724kxr93a";
-  "nNNPDF10_nnlo_as_0118_C12" =
-    "12rrpcq9bvwcncj1hk28wkym5zzdjkf0d0pdj1nx9asm6vpbjsdv";
-  "nNNPDF10_nnlo_as_0118_Ca40" =
-    "0k914fnqsv45f16s6zmdwbnbnhj5lxnrk9pbnnaap4vk7vx7101j";
-  "nNNPDF10_nnlo_as_0118_Cu64" =
-    "137n1nsq75g0n4hmbqfl1gihngfrz0rqd2gwj24m5byhbylwlg83";
-  "nNNPDF10_nnlo_as_0118_D2" =
-    "0xa17gjjh0mphg1h711vb6p2pjln0lqy7401lamnib2z7p7mss0m";
-  "nNNPDF10_nnlo_as_0118_Fe56" =
-    "0h0qwbckdcppqgbhfy3kyy9p4nryh3p45sjmlxhm94mlznipjwrd";
-  "nNNPDF10_nnlo_as_0118_He4" =
-    "022h44i8k2ybvm9lkgc4lkcv4z7r0xzlrq2bxyqkfmpp5fpp7gkw";
-  "nNNPDF10_nnlo_as_0118_Li6" =
-    "11bci8mnv57a583ayrpvvnz4lsxz43z23iqgqjc3b3rychgiz57a";
-  "nNNPDF10_nnlo_as_0118_N1" =
-    "174gscxa2acqpgf2mks5xpim1jcpb0vg76pggxazm376vyyjk883";
-  "nNNPDF10_nnlo_as_0118_N14" =
-    "1g2gwnbfzlfa094px1rnjgk8py8qzwq7bi68n7p49bqjj88km3av";
-  "nNNPDF10_nnlo_as_0118_Pb208" =
-    "0bdi3z36ckf788v3ld3ngvchyxzsxcfl9fj7rzs2lwkg80rclgd9";
-  "nNNPDF10_nnlo_as_0118_Sn119" =
-    "0k7lnr1ils38sqybipmf13n582wb0cf9rr288ibrbmx15rkk5c3w";
-  "nNNPDF10_nnlo_as_0118_Xe131" =
-    "17k1afk6j53nl83ixyy6nyds3wy5agacdyn62bwp7ykfs8x97s4n";
-  "nNNPDF20_nlo_as_0118_Ag108" =
-    "1fb2h6752vn0v66h12dhhk2izxjs4b10mdqx17djrvpkzl97hf8d";
-  "nNNPDF20_nlo_as_0118_Al27" =
-    "1lfkg84hf0chgk0qzp45ch23pzjixkzxxh3x7xphcmnpri4cgl3r";
-  "nNNPDF20_nlo_as_0118_Au197" =
-    "08ll61b96iggm1qnr9q2qdzyxasxn9mlshnxz7kzigfsnqqnkfbw";
-  "nNNPDF20_nlo_as_0118_Be9" =
-    "1g4vlr9p6i6n87bx6w2i5d4qkhymldkyxj1i2qnl8v467vhsz6la";
-  "nNNPDF20_nlo_as_0118_C12" =
-    "15366p04rh31nnd6zxcmcs9ki5fwzn8d8cvzms45apnw928k6pqn";
-  "nNNPDF20_nlo_as_0118_Ca40" =
-    "1abxkr4r5psi6n8rrsbf97gwwkh1dg9jqfd46hn2725r22c6k8l4";
-  "nNNPDF20_nlo_as_0118_Cu64" =
-    "1nkkiwx22b649pmyfykn2ggdq99y985mnkv3fnkm8i43scwbswvb";
-  "nNNPDF20_nlo_as_0118_D2" =
-    "0gvf9qqgr4ixm9cf2654xyvkc624k5ijqwdds61frljlhd49yqm1";
-  "nNNPDF20_nlo_as_0118_Fe56" =
-    "1ci132hc8mpsj0zjr9fichnkapagjs6q9pqli0yzgnnv6l2aih3a";
-  "nNNPDF20_nlo_as_0118_He4" =
-    "1phq7m6lbx87s4whs2xygigq7fz1qhzj3nd9anx5r67w7q99rcad";
-  "nNNPDF20_nlo_as_0118_Li6" =
-    "0pwdqrmivpm0j7hrg6h2qqshpna2vjlslxnz0sd100kc3lfq7xab";
-  "nNNPDF20_nlo_as_0118_N1" =
-    "09y7pd3nnys49w25gb4524x5xkahillvaypjgncbn8n5x1a11nsr";
-  "nNNPDF20_nlo_as_0118_N14" =
-    "0nb3kcmhbyncp9frs27ww550mjl3f7yiahyyrm3aik93ycpm16n7";
-  "nNNPDF20_nlo_as_0118_O16" =
-    "1wmi63l6cpj3nx0vwiqaa1pfw0im5ps96g7842428skzrg0q4yx3";
-  "nNNPDF20_nlo_as_0118_Pb208" =
-    "1rwb7vca0y1aj38mz8m3wg07q9hq66qd5j3y6hs9bh0jz6hkifzh";
-  "nNNPDF20_nlo_as_0118_Sn119" =
-    "1dan86ckd5padipp4x12x8msfg5p97b8hwxm78gfyf88kq725m6z";
-  "nNNPDF20_nlo_as_0118_W184" =
-    "0wzd8vw2svf3mzpyy1wryr5jz3anhykp5z3cx4hdljprws2b8nll";
-  "nNNPDF20_nlo_as_0118_Xe131" =
-    "1a62qi3qy5kli9q80p2w80mj5v3ps2g6p40zxlgm65q5mphkx1qi";
-  "nNNPDF30_nlo_as_0118_A108_Z54" =
-    "0n67w44rmz5s6cg2h58d8sf51dsfd0i5g09dh08mgfcn640bqlqw";
-  "nNNPDF30_nlo_as_0118_A119_Z59" =
-    "1zj5gn5021ig0j6p7jpyy683avg0890blmr90yjm6skqzxfjq48i";
-  "nNNPDF30_nlo_as_0118_A12_Z6" =
-    "0jvaq9a1w19dybv2hzvn8swk4i4z16lab9yfhbywq0vixyfn1swd";
-  "nNNPDF30_nlo_as_0118_A131_Z54" =
-    "01mcqnixjw5m9di508aq8fp74f3aqnvhc1bjirfvi3ca0jz0c1jz";
-  "nNNPDF30_nlo_as_0118_A14_Z7" =
-    "0hqpni9fxbf5qfamcirglr04cbwx58pwylqh8hqm3vc03ap3nmjd";
-  "nNNPDF30_nlo_as_0118_A16_Z8" =
-    "0f0h3hckxg4xgfd6ldblavhcidzdy2b5660a5nvv96y63sdsx2x4";
-  "nNNPDF30_nlo_as_0118_A184_Z74" =
-    "01jsbla72c3b6gbc7w4nx5bb5ws3g864avznb9vxmmk3prib7n8x";
-  "nNNPDF30_nlo_as_0118_A197_Z79" =
-    "1gm7nx0cn3lmjlsy6c7dr5vzyfmi1fcdib9656d4039m0ningrhg";
-  "nNNPDF30_nlo_as_0118_A208_Z82" =
-    "0r1spnj4qmjwpjybqv9aa6w3wybvgk4qzivzwz4s9bacz0kb3z4n";
-  "nNNPDF30_nlo_as_0118_A27_Z13" =
-    "17vmr3pwjp1prb83yngada7sw8553sv39dnncksabnklfp1l5x59";
-  "nNNPDF30_nlo_as_0118_A2_Z1" =
-    "1g97mc7c14hnkfsfvg4n9jmb4l461i9lka643s626hw0gcq053f5";
-  "nNNPDF30_nlo_as_0118_A31_Z15" =
-    "0h5rx9113yq6jw1l2alwyvw77vv733y5mcpa3m9773s7y61w3fpk";
-  "nNNPDF30_nlo_as_0118_A40_Z20" =
-    "1937kk4039hi9cslw4417174s83rs4n9vm16ay70pp1c8bcqzp6l";
-  "nNNPDF30_nlo_as_0118_A4_Z2" =
-    "147npkmbvzk6j95hnnil6jafc2gxjqavaawl9cilr93f9h64w54w";
-  "nNNPDF30_nlo_as_0118_A56_Z26" =
-    "06dxsapqirmajh107j24b3w2nhqz39gs9c2pglq71fc53i0fra5a";
-  "nNNPDF30_nlo_as_0118_A64_Z29" =
-    "1drvfd3i1drrb15m3vk9sm2lzx2x01da44gdq3wbc90nxvzc7d56";
-  "nNNPDF30_nlo_as_0118_A6_Z3" =
-    "0zp1cixj6ixayzdra2i5qyfn2b6y6qfxd5d1l101n8sgf4bdh6fb";
-  "nNNPDF30_nlo_as_0118_A9_Z4" =
-    "07i30jk29cgdbdk4n5acdki5aihaki5w0mqibjww1hy7mwh4y45w";
-  "nNNPDF30_nlo_as_0118_p" =
-    "0k4bs4zhlm7l14mbd2q9n0n7rdnpqwgnfwj289ql62v3kh8mnn18";
+  "nNNPDF10_nlo_as_0118_Ag108" = "1xqhzgvkicxd9wy4lnhqw6brsksxqsq429r6bb0ghn1ll5ln4qzx";
+  "nNNPDF10_nlo_as_0118_Al27" = "0z836h7a5abbwq988zdvvf8yhr92krzzmys6lkkgkcffdf2pc0zq";
+  "nNNPDF10_nlo_as_0118_Au197" = "1f6vn6n0zz8wml8zn7n2n6wj5y41yanw9b9av51m5kiq4n1r9lrk";
+  "nNNPDF10_nlo_as_0118_Be9" = "1jy2cix4gkx648dypdqfj7xi8gdlflh20xlasmwl78av5j7s7rs5";
+  "nNNPDF10_nlo_as_0118_C12" = "1c6fvp82cs3464akqf0skrqpcvyp75yqp39zxafzgbqd4wc3pv9f";
+  "nNNPDF10_nlo_as_0118_Ca40" = "0r903a01085yhfagnljvjaqfn190r3q0ggvx87kh54xsbv1wkvbl";
+  "nNNPDF10_nlo_as_0118_Cu64" = "1vq8a6drcp606fkx8mml2qq37if59cakmcq73y4n7c7swp6q51r3";
+  "nNNPDF10_nlo_as_0118_D2" = "07kjzhyh6n6723h2fylgwm7w7ljxz4m6fs9bgwjxp987i00msrra";
+  "nNNPDF10_nlo_as_0118_Fe56" = "1smkjmymykhlp0vvlpsp6p6p44pw5aa705sw9lcyxmg8ccy9kmpj";
+  "nNNPDF10_nlo_as_0118_He4" = "0mdxsh41m0vzcdq4axvz81m9ra0p6dff88k09gjb4adx9vv52mjc";
+  "nNNPDF10_nlo_as_0118_Li6" = "1hrryxhhg9xxg817brrd39k5wz6iq1fv6z8sdabrpxn0nwr1bj7r";
+  "nNNPDF10_nlo_as_0118_N1" = "01h7g4w3nc09jyi7g8j5yx2yzqair3ysbx9rx244k1rjx6jppian";
+  "nNNPDF10_nlo_as_0118_N14" = "1ny3znivkkl7xhdw8pxkdadwc957236rh60wviiyw4cdqjb6a3iq";
+  "nNNPDF10_nlo_as_0118_Pb208" = "066w59xm6lkwrm3glssc6n3qyvv38mx47mkx39p8z9r2spb8igks";
+  "nNNPDF10_nlo_as_0118_Sn119" = "1mqx7wj095v0799wxbvfxvb6bl1qh5wdkf14a8gqsj0f5qjnpmyw";
+  "nNNPDF10_nlo_as_0118_Xe131" = "0mz9fgxfyx1asi2vxs1xfwn8z51z08naiq1ycl77f4yp6wim6s54";
+  "nNNPDF10_nnlo_as_0118_Ag108" = "08vy16fskrvc62y3h0hsikmi6q86njwfm2msmajxbd7vzcv5wkkn";
+  "nNNPDF10_nnlo_as_0118_Al27" = "0vm95lawgsncsx10ypy99746sz34y6shblkj9pgn6si2cy8gpcwp";
+  "nNNPDF10_nnlo_as_0118_Au197" = "0b3ld033f2hwjaqp5p5pzmmzfid8hl416a1q8fc0zmd2lfiamsac";
+  "nNNPDF10_nnlo_as_0118_Be9" = "10skffir8hqfv2wj01ghc14lfs516kmh59q3v48nw3a724kxr93a";
+  "nNNPDF10_nnlo_as_0118_C12" = "12rrpcq9bvwcncj1hk28wkym5zzdjkf0d0pdj1nx9asm6vpbjsdv";
+  "nNNPDF10_nnlo_as_0118_Ca40" = "0k914fnqsv45f16s6zmdwbnbnhj5lxnrk9pbnnaap4vk7vx7101j";
+  "nNNPDF10_nnlo_as_0118_Cu64" = "137n1nsq75g0n4hmbqfl1gihngfrz0rqd2gwj24m5byhbylwlg83";
+  "nNNPDF10_nnlo_as_0118_D2" = "0xa17gjjh0mphg1h711vb6p2pjln0lqy7401lamnib2z7p7mss0m";
+  "nNNPDF10_nnlo_as_0118_Fe56" = "0h0qwbckdcppqgbhfy3kyy9p4nryh3p45sjmlxhm94mlznipjwrd";
+  "nNNPDF10_nnlo_as_0118_He4" = "022h44i8k2ybvm9lkgc4lkcv4z7r0xzlrq2bxyqkfmpp5fpp7gkw";
+  "nNNPDF10_nnlo_as_0118_Li6" = "11bci8mnv57a583ayrpvvnz4lsxz43z23iqgqjc3b3rychgiz57a";
+  "nNNPDF10_nnlo_as_0118_N1" = "174gscxa2acqpgf2mks5xpim1jcpb0vg76pggxazm376vyyjk883";
+  "nNNPDF10_nnlo_as_0118_N14" = "1g2gwnbfzlfa094px1rnjgk8py8qzwq7bi68n7p49bqjj88km3av";
+  "nNNPDF10_nnlo_as_0118_Pb208" = "0bdi3z36ckf788v3ld3ngvchyxzsxcfl9fj7rzs2lwkg80rclgd9";
+  "nNNPDF10_nnlo_as_0118_Sn119" = "0k7lnr1ils38sqybipmf13n582wb0cf9rr288ibrbmx15rkk5c3w";
+  "nNNPDF10_nnlo_as_0118_Xe131" = "17k1afk6j53nl83ixyy6nyds3wy5agacdyn62bwp7ykfs8x97s4n";
+  "nNNPDF20_nlo_as_0118_Ag108" = "1fb2h6752vn0v66h12dhhk2izxjs4b10mdqx17djrvpkzl97hf8d";
+  "nNNPDF20_nlo_as_0118_Al27" = "1lfkg84hf0chgk0qzp45ch23pzjixkzxxh3x7xphcmnpri4cgl3r";
+  "nNNPDF20_nlo_as_0118_Au197" = "08ll61b96iggm1qnr9q2qdzyxasxn9mlshnxz7kzigfsnqqnkfbw";
+  "nNNPDF20_nlo_as_0118_Be9" = "1g4vlr9p6i6n87bx6w2i5d4qkhymldkyxj1i2qnl8v467vhsz6la";
+  "nNNPDF20_nlo_as_0118_C12" = "15366p04rh31nnd6zxcmcs9ki5fwzn8d8cvzms45apnw928k6pqn";
+  "nNNPDF20_nlo_as_0118_Ca40" = "1abxkr4r5psi6n8rrsbf97gwwkh1dg9jqfd46hn2725r22c6k8l4";
+  "nNNPDF20_nlo_as_0118_Cu64" = "1nkkiwx22b649pmyfykn2ggdq99y985mnkv3fnkm8i43scwbswvb";
+  "nNNPDF20_nlo_as_0118_D2" = "0gvf9qqgr4ixm9cf2654xyvkc624k5ijqwdds61frljlhd49yqm1";
+  "nNNPDF20_nlo_as_0118_Fe56" = "1ci132hc8mpsj0zjr9fichnkapagjs6q9pqli0yzgnnv6l2aih3a";
+  "nNNPDF20_nlo_as_0118_He4" = "1phq7m6lbx87s4whs2xygigq7fz1qhzj3nd9anx5r67w7q99rcad";
+  "nNNPDF20_nlo_as_0118_Li6" = "0pwdqrmivpm0j7hrg6h2qqshpna2vjlslxnz0sd100kc3lfq7xab";
+  "nNNPDF20_nlo_as_0118_N1" = "09y7pd3nnys49w25gb4524x5xkahillvaypjgncbn8n5x1a11nsr";
+  "nNNPDF20_nlo_as_0118_N14" = "0nb3kcmhbyncp9frs27ww550mjl3f7yiahyyrm3aik93ycpm16n7";
+  "nNNPDF20_nlo_as_0118_O16" = "1wmi63l6cpj3nx0vwiqaa1pfw0im5ps96g7842428skzrg0q4yx3";
+  "nNNPDF20_nlo_as_0118_Pb208" = "1rwb7vca0y1aj38mz8m3wg07q9hq66qd5j3y6hs9bh0jz6hkifzh";
+  "nNNPDF20_nlo_as_0118_Sn119" = "1dan86ckd5padipp4x12x8msfg5p97b8hwxm78gfyf88kq725m6z";
+  "nNNPDF20_nlo_as_0118_W184" = "0wzd8vw2svf3mzpyy1wryr5jz3anhykp5z3cx4hdljprws2b8nll";
+  "nNNPDF20_nlo_as_0118_Xe131" = "1a62qi3qy5kli9q80p2w80mj5v3ps2g6p40zxlgm65q5mphkx1qi";
+  "nNNPDF30_nlo_as_0118_A108_Z54" = "0n67w44rmz5s6cg2h58d8sf51dsfd0i5g09dh08mgfcn640bqlqw";
+  "nNNPDF30_nlo_as_0118_A119_Z59" = "1zj5gn5021ig0j6p7jpyy683avg0890blmr90yjm6skqzxfjq48i";
+  "nNNPDF30_nlo_as_0118_A12_Z6" = "0jvaq9a1w19dybv2hzvn8swk4i4z16lab9yfhbywq0vixyfn1swd";
+  "nNNPDF30_nlo_as_0118_A131_Z54" = "01mcqnixjw5m9di508aq8fp74f3aqnvhc1bjirfvi3ca0jz0c1jz";
+  "nNNPDF30_nlo_as_0118_A14_Z7" = "0hqpni9fxbf5qfamcirglr04cbwx58pwylqh8hqm3vc03ap3nmjd";
+  "nNNPDF30_nlo_as_0118_A16_Z8" = "0f0h3hckxg4xgfd6ldblavhcidzdy2b5660a5nvv96y63sdsx2x4";
+  "nNNPDF30_nlo_as_0118_A184_Z74" = "01jsbla72c3b6gbc7w4nx5bb5ws3g864avznb9vxmmk3prib7n8x";
+  "nNNPDF30_nlo_as_0118_A197_Z79" = "1gm7nx0cn3lmjlsy6c7dr5vzyfmi1fcdib9656d4039m0ningrhg";
+  "nNNPDF30_nlo_as_0118_A208_Z82" = "0r1spnj4qmjwpjybqv9aa6w3wybvgk4qzivzwz4s9bacz0kb3z4n";
+  "nNNPDF30_nlo_as_0118_A27_Z13" = "17vmr3pwjp1prb83yngada7sw8553sv39dnncksabnklfp1l5x59";
+  "nNNPDF30_nlo_as_0118_A2_Z1" = "1g97mc7c14hnkfsfvg4n9jmb4l461i9lka643s626hw0gcq053f5";
+  "nNNPDF30_nlo_as_0118_A31_Z15" = "0h5rx9113yq6jw1l2alwyvw77vv733y5mcpa3m9773s7y61w3fpk";
+  "nNNPDF30_nlo_as_0118_A40_Z20" = "1937kk4039hi9cslw4417174s83rs4n9vm16ay70pp1c8bcqzp6l";
+  "nNNPDF30_nlo_as_0118_A4_Z2" = "147npkmbvzk6j95hnnil6jafc2gxjqavaawl9cilr93f9h64w54w";
+  "nNNPDF30_nlo_as_0118_A56_Z26" = "06dxsapqirmajh107j24b3w2nhqz39gs9c2pglq71fc53i0fra5a";
+  "nNNPDF30_nlo_as_0118_A64_Z29" = "1drvfd3i1drrb15m3vk9sm2lzx2x01da44gdq3wbc90nxvzc7d56";
+  "nNNPDF30_nlo_as_0118_A6_Z3" = "0zp1cixj6ixayzdra2i5qyfn2b6y6qfxd5d1l101n8sgf4bdh6fb";
+  "nNNPDF30_nlo_as_0118_A9_Z4" = "07i30jk29cgdbdk4n5acdki5aihaki5w0mqibjww1hy7mwh4y45w";
+  "nNNPDF30_nlo_as_0118_p" = "0k4bs4zhlm7l14mbd2q9n0n7rdnpqwgnfwj289ql62v3kh8mnn18";
   "xFitterPI_NLO_EIG" = "1v6mfhmcrmdvica0wlc2ilfca1srxc7vjyli113wjvpd7wfpnvj5";
   "xFitterPI_NLO_VAR" = "09mlsww89hhm2s96rlkqbkfwwf9qkblw7n3nnrgas6l1kn2hxq1i";
 }

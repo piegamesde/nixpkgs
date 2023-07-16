@@ -7,14 +7,12 @@ rec {
   baseName = "alexandria";
   version = "20211209-git";
 
-  description =
-    "Alexandria is a collection of portable public domain utilities.";
+  description = "Alexandria is a collection of portable public domain utilities.";
 
   deps = [ ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/alexandria/2021-12-09/alexandria-20211209-git.tgz";
+    url = "http://beta.quicklisp.org/archive/alexandria/2021-12-09/alexandria-20211209-git.tgz";
     sha256 = "13xyajg5n3ad3x2hrmzni1w87b0wc41wn7manbvc3dc5n55afxk0";
   };
 

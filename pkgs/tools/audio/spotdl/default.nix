@@ -111,11 +111,9 @@ python.pkgs.buildPythonApplication rec {
   ];
 
   meta = with lib; {
-    description =
-      "Download your Spotify playlists and songs along with album art and metadata";
+    description = "Download your Spotify playlists and songs along with album art and metadata";
     homepage = "https://github.com/spotDL/spotify-downloader";
-    changelog =
-      "https://github.com/spotDL/spotify-downloader/releases/tag/v${version}";
+    changelog = "https://github.com/spotDL/spotify-downloader/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

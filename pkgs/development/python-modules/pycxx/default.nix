@@ -10,8 +10,7 @@ buildPythonPackage rec {
   version = "7.1.4";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/cxx/CXX/PyCXX%20V${version}/pycxx-${version}.tar.gz";
+    url = "mirror://sourceforge/cxx/CXX/PyCXX%20V${version}/pycxx-${version}.tar.gz";
     sha256 = "MUMU+/qsm92WENYFxfjQsSuR8/nE/asYG8HgIbaAaz0=";
   };
 
@@ -28,8 +27,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "set of classes to help create extensions of Python in the C++ language";
+    description = "set of classes to help create extensions of Python in the C++ language";
     homepage = "https://sourceforge.net/projects/cxx/";
     maintainers = with maintainers; [ freezeboy ];
     platforms = platforms.all;

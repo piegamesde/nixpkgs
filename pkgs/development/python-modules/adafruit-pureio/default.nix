@@ -29,8 +29,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python interface to Linux IO including I2C and SPI";
     homepage = "https://github.com/adafruit/Adafruit_Python_PureIO";
-    changelog =
-      "https://github.com/adafruit/Adafruit_Python_PureIO/releases/tag/${version}";
+    changelog = "https://github.com/adafruit/Adafruit_Python_PureIO/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

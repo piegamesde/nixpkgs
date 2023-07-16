@@ -24,8 +24,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     name = "haka_${version}_source.tar.gz";
-    url =
-      "https://github.com/haka-security/haka/releases/download/v${version}/haka_${version}_source.tar.gz";
+    url = "https://github.com/haka-security/haka/releases/download/v${version}/haka_${version}_source.tar.gz";
     sha256 = "0dm39g3k77sa70zrjsqadidg27a6iqq61jzfdxazpllnrw4mjy4w";
   };
 
@@ -53,8 +52,7 @@ stdenv.mkDerivation {
   passthru.tests = { inherit (nixosTests) haka; };
 
   meta = {
-    description =
-      "A collection of tools that allows capturing TCP/IP packets and filtering them based on Lua policy files";
+    description = "A collection of tools that allows capturing TCP/IP packets and filtering them based on Lua policy files";
     homepage = "http://www.haka-security.org/";
     license = lib.licenses.mpl20;
     maintainers = [ lib.maintainers.tvestelind ];

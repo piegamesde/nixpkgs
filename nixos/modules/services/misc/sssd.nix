@@ -177,8 +177,7 @@ in
           exec ${pkgs.sssd}/bin/sss_ssh_authorizedkeys "$@"
         '';
       };
-      services.openssh.authorizedKeysCommand =
-        "/etc/ssh/authorized_keys_command";
+      services.openssh.authorizedKeysCommand = "/etc/ssh/authorized_keys_command";
       services.openssh.authorizedKeysCommandUser = "nobody";
     })
   ];

@@ -53,10 +53,8 @@ let
       i686-linux = {
         variantSuffix = "";
         src = {
-          url =
-            "${downloadsUrl}/${version}/ghc-${version}-i386-deb9-linux.tar.xz";
-          sha256 =
-            "5dc1eb9c65f01b1e5c5693af72af07a4e9e75c6920e620fd598daeefa804487a";
+          url = "${downloadsUrl}/${version}/ghc-${version}-i386-deb9-linux.tar.xz";
+          sha256 = "5dc1eb9c65f01b1e5c5693af72af07a4e9e75c6920e620fd598daeefa804487a";
         };
         exePathForLibraryCheck = "ghc/stage2/build/tmp/ghc-stage2";
         archSpecificLibraries = [
@@ -76,10 +74,8 @@ let
       x86_64-linux = {
         variantSuffix = "";
         src = {
-          url =
-            "${downloadsUrl}/${version}/ghc-${version}-x86_64-deb10-linux.tar.xz";
-          sha256 =
-            "a77a91a39d9b0167124b7e97648b2b52973ae0978cb259e0d44f0752a75037cb";
+          url = "${downloadsUrl}/${version}/ghc-${version}-x86_64-deb10-linux.tar.xz";
+          sha256 = "a77a91a39d9b0167124b7e97648b2b52973ae0978cb259e0d44f0752a75037cb";
         };
         exePathForLibraryCheck = "ghc/stage2/build/tmp/ghc-stage2";
         archSpecificLibraries = [
@@ -96,10 +92,8 @@ let
       aarch64-linux = {
         variantSuffix = "";
         src = {
-          url =
-            "${downloadsUrl}/${version}/ghc-${version}-aarch64-deb10-linux.tar.xz";
-          sha256 =
-            "fc7dbc6bae36ea5ac30b7e9a263b7e5be3b45b0eb3e893ad0bc2c950a61f14ec";
+          url = "${downloadsUrl}/${version}/ghc-${version}-aarch64-deb10-linux.tar.xz";
+          sha256 = "fc7dbc6bae36ea5ac30b7e9a263b7e5be3b45b0eb3e893ad0bc2c950a61f14ec";
         };
         exePathForLibraryCheck = "ghc/stage2/build/tmp/ghc-stage2";
         archSpecificLibraries = [
@@ -120,10 +114,8 @@ let
       x86_64-darwin = {
         variantSuffix = "";
         src = {
-          url =
-            "${downloadsUrl}/${version}/ghc-${version}-x86_64-apple-darwin.tar.xz";
-          sha256 =
-            "f2e8366fd3754dd9388510792aba2d2abecb1c2f7f1e5555f6065c3c5e2ffec4";
+          url = "${downloadsUrl}/${version}/ghc-${version}-x86_64-apple-darwin.tar.xz";
+          sha256 = "f2e8366fd3754dd9388510792aba2d2abecb1c2f7f1e5555f6065c3c5e2ffec4";
         };
         exePathForLibraryCheck =
           null; # we don't have a library check for darwin yet
@@ -146,10 +138,8 @@ let
       aarch64-darwin = {
         variantSuffix = "";
         src = {
-          url =
-            "${downloadsUrl}/${version}/ghc-${version}-aarch64-apple-darwin.tar.xz";
-          sha256 =
-            "8cf8408544a1a43adf1bbbb0dd6b074efadffc68bfa1a792947c52e825171224";
+          url = "${downloadsUrl}/${version}/ghc-${version}-aarch64-apple-darwin.tar.xz";
+          sha256 = "8cf8408544a1a43adf1bbbb0dd6b074efadffc68bfa1a792947c52e825171224";
         };
         exePathForLibraryCheck =
           null; # we don't have a library check for darwin yet
@@ -175,10 +165,8 @@ let
       x86_64-linux = {
         variantSuffix = "-musl";
         src = {
-          url =
-            "${downloadsUrl}/${version}/ghc-${version}-x86_64-alpine3.12-linux-gmp.tar.xz";
-          sha256 =
-            "026348947d30a156b84de5d6afeaa48fdcb2795b47954cd8341db00d3263a481";
+          url = "${downloadsUrl}/${version}/ghc-${version}-x86_64-alpine3.12-linux-gmp.tar.xz";
+          sha256 = "026348947d30a156b84de5d6afeaa48fdcb2795b47954cd8341db00d3263a481";
         };
         isStatic = true;
         isHadrian = true;
@@ -268,8 +256,8 @@ stdenv.mkDerivation rec {
       # As a result, don't shell-quote this glob when splicing the string.
       (
         let
-          buildExeGlob =
-            ''ghc-${version}*/"${binDistUsed.exePathForLibraryCheck}"'';
+          buildExeGlob = ''
+            ghc-${version}*/"${binDistUsed.exePathForLibraryCheck}"'';
         in
         lib.concatStringsSep "\n" [
           (''

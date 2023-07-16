@@ -59,8 +59,7 @@ buildPythonApplication rec {
   meta = with lib; {
     description = "Minimalistic configuration management system";
     homepage = "https://www.sdi.st";
-    changelog =
-      "https://code.ungleich.ch/ungleich-public/cdist/src/tag/${version}/docs/changelog";
+    changelog = "https://code.ungleich.ch/ungleich-public/cdist/src/tag/${version}/docs/changelog";
 
     # Mostly. There are still couple types that are gpl3-only.
     license = licenses.gpl3Plus;

@@ -79,8 +79,7 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/awslabs/aws-sam-cli";
-    description =
-      "CLI tool for local development and testing of Serverless applications";
+    description = "CLI tool for local development and testing of Serverless applications";
     license = licenses.asl20;
     maintainers = with maintainers; [ lo1tuma ];
   };

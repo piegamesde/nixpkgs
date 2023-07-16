@@ -134,8 +134,7 @@ python3Packages.buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Danbooru-like image tagging and searching system for the desktop";
+    description = "Danbooru-like image tagging and searching system for the desktop";
     license = licenses.wtfpl;
     homepage = "https://hydrusnetwork.github.io/hydrus/";
     maintainers = with maintainers; [

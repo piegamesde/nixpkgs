@@ -36,8 +36,7 @@ buildLinux (
         rt-patch = {
           name = "rt";
           patch = fetchurl {
-            url =
-              "mirror://kernel/linux/kernel/projects/rt/${branch}/older/patch-${version}.patch.xz";
+            url = "mirror://kernel/linux/kernel/projects/rt/${branch}/older/patch-${version}.patch.xz";
             sha256 = "1nd3x7rgssf3f9vxsplnp5zg0cbixm9lf6sswlnl6pcvj4adagg1";
           };
         };

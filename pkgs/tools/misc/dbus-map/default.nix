@@ -28,8 +28,7 @@ stdenv.mkDerivation {
     mv dbus-map $out/bin
   '';
   meta = with lib; {
-    description =
-      "Simple utility for enumerating D-Bus endpoints, an nmap for D-Bus";
+    description = "Simple utility for enumerating D-Bus endpoints, an nmap for D-Bus";
     homepage = "https://github.com/taviso/dbusmap";
     license = licenses.gpl2;
     platforms = platforms.linux;

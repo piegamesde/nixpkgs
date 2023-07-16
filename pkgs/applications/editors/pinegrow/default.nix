@@ -20,8 +20,7 @@ let
     "6" = {
       version = "6.8";
       src = fetchurl {
-        url =
-          "https://download.pinegrow.com/PinegrowLinux64.${
+        url = "https://download.pinegrow.com/PinegrowLinux64.${
             versions."6".version
           }.zip";
         hash = "sha256-gqRmu0VR8Aj57UwYYLKICd4FnYZMhM6pTTSGIY5MLMk=";
@@ -30,8 +29,7 @@ let
     "7" = {
       version = "7.05.2";
       src = fetchurl {
-        url =
-          "https://github.com/Pinegrow/PinegrowReleases/releases/download/pg${
+        url = "https://github.com/Pinegrow/PinegrowReleases/releases/download/pg${
             builtins.substring 0 4 (versions."7".version)
           }/PinegrowLinux64.${versions."7".version}.zip";
         hash = "sha256-Cvy4JwnQHMp7K0mKtIH8lk1bZ9hwa8nvtmimBK0UAf8=";

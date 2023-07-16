@@ -65,8 +65,7 @@ let
     lxterminal.pkg = p: p.lxterminal;
 
     mate-terminal.pkg = p: p.mate.mate-terminal;
-    mate-terminal.cmd =
-      "SHELL=$command mate-terminal --disable-factory"; # factory mode uses dbus, and we don't have a proper dbus session set up
+    mate-terminal.cmd = "SHELL=$command mate-terminal --disable-factory"; # factory mode uses dbus, and we don't have a proper dbus session set up
 
     mlterm.pkg = p: p.mlterm;
 

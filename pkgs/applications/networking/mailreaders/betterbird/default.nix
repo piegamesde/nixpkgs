@@ -20,10 +20,8 @@
 
   src = fetchurl {
     # https://download.cdn.mozilla.net/pub/mozilla.org/thunderbird/releases/
-    url =
-      "mirror://mozilla/thunderbird/releases/${version}/source/thunderbird-${version}.source.tar.xz";
-    sha512 =
-      "2431eb8799184b261609c96bed3c9368bec9035a831aa5f744fa89e48aedb130385b268dd90f03bbddfec449dc3e5fad1b5f8727fe9e11e1d1f123a81b97ddf8";
+    url = "mirror://mozilla/thunderbird/releases/${version}/source/thunderbird-${version}.source.tar.xz";
+    sha512 = "2431eb8799184b261609c96bed3c9368bec9035a831aa5f744fa89e48aedb130385b268dd90f03bbddfec449dc3e5fad1b5f8727fe9e11e1d1f123a81b97ddf8";
   };
 
   extraPostPatch =
@@ -102,8 +100,7 @@
   ];
 
   meta = with lib; {
-    description =
-      "Betterbird is a fine-tuned version of Mozilla Thunderbird, Thunderbird on steroids, if you will";
+    description = "Betterbird is a fine-tuned version of Mozilla Thunderbird, Thunderbird on steroids, if you will";
     homepage = "https://www.betterbird.eu/";
     maintainers = with maintainers; [ SuperSandro2000 ];
     inherit (thunderbird-unwrapped.meta)

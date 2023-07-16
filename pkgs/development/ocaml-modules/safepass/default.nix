@@ -19,8 +19,7 @@ buildDunePackage rec {
 
   meta = {
     inherit (src.meta) homepage;
-    description =
-      "An OCaml library offering facilities for the safe storage of user passwords";
+    description = "An OCaml library offering facilities for the safe storage of user passwords";
     license = lib.licenses.lgpl21;
     maintainers = with lib.maintainers; [ vbgl ];
   };

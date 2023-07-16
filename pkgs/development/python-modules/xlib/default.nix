@@ -48,8 +48,7 @@ buildPythonPackage rec {
     ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/python-xlib/python-xlib/releases/tag/${version}";
+    changelog = "https://github.com/python-xlib/python-xlib/releases/tag/${version}";
     description = "Fully functional X client library for Python programs";
     homepage = "https://github.com/python-xlib/python-xlib";
     license = licenses.lgpl21Plus;

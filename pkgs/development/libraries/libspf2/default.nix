@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
     [
       # glibc-2.34 compat
       (fetchpatch {
-        url =
-          "https://raw.githubusercontent.com/gentoo/gentoo/dbb8a5c9f749cc11e61cfe558f164b165cbc30cb/mail-filter/libspf2/files/libspf2-1.2.11-undefined-dn_.patch";
+        url = "https://raw.githubusercontent.com/gentoo/gentoo/dbb8a5c9f749cc11e61cfe558f164b165cbc30cb/mail-filter/libspf2/files/libspf2-1.2.11-undefined-dn_.patch";
         sha256 = "sha256-6JVVkVGCcFJsNeBdVTPcLhW4KoHLY4ai/KXDMliXgPA=";
       })
     ];

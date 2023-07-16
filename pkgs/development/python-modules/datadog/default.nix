@@ -56,8 +56,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "The Datadog Python library";
     homepage = "https://github.com/DataDog/datadogpy";
-    changelog =
-      "https://github.com/DataDog/datadogpy/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/DataDog/datadogpy/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

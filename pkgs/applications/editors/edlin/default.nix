@@ -14,8 +14,7 @@ stdenv.mkDerivation (
         inherit (finalAttrs) version;
       in
       fetchurl {
-        url =
-          "mirror://sourceforge/freedos-edlin/freedos-edlin/${version}/edlin-${version}.tar.bz2";
+        url = "mirror://sourceforge/freedos-edlin/freedos-edlin/${version}/edlin-${version}.tar.bz2";
         hash = "sha256-lQ/tw8dvEKV81k5GV05o49glOmfYcEeJBmgPUmL3S2I=";
       }
     ;

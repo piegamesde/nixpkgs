@@ -158,8 +158,7 @@ in
 
       serviceConfig = {
         ExecStart = "@${cfg.package}/bin/lxd lxd --group lxd";
-        ExecStartPost =
-          "${cfg.package}/bin/lxd waitready --timeout=${cfg.startTimeout}";
+        ExecStartPost = "${cfg.package}/bin/lxd waitready --timeout=${cfg.startTimeout}";
         ExecStop = "${cfg.package}/bin/lxd shutdown";
 
         KillMode = "process"; # when stopping, leave the containers alone

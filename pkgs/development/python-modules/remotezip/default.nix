@@ -34,8 +34,7 @@ buildPythonPackage {
   pythonImportsCheck = [ "remotezip" ];
 
   meta = with lib; {
-    description =
-      "Python module to access single members of a zip archive without downloading the full content";
+    description = "Python module to access single members of a zip archive without downloading the full content";
     homepage = "https://github.com/gtsystem/python-remotezip";
     license = licenses.mit;
     maintainers = with maintainers; [ nickcao ];

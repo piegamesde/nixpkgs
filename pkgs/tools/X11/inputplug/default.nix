@@ -30,8 +30,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Monitor XInput events and run arbitrary scripts on hierarchy change events";
+    description = "Monitor XInput events and run arbitrary scripts on hierarchy change events";
     homepage = "https://github.com/andrewshadura/inputplug";
     license = licenses.mit;
     maintainers = with maintainers; [ jecaro ];

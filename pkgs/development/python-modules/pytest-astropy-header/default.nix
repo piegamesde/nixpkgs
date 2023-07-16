@@ -30,8 +30,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Plugin to add diagnostic information to the header of the test output";
+    description = "Plugin to add diagnostic information to the header of the test output";
     homepage = "https://astropy.org";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];

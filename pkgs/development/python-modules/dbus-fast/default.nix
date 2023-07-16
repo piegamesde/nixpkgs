@@ -90,8 +90,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Faster version of dbus-next";
     homepage = "https://github.com/bluetooth-devices/dbus-fast";
-    changelog =
-      "https://github.com/Bluetooth-Devices/dbus-fast/releases/tag/v${version}";
+    changelog = "https://github.com/Bluetooth-Devices/dbus-fast/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

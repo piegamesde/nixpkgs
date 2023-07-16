@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
   version = "0.4.2";
 
   src = fetchurl {
-    url =
-      "https://sigrok.org/download/source/pulseview/pulseview-${version}.tar.gz";
+    url = "https://sigrok.org/download/source/pulseview/pulseview-${version}.tar.gz";
     hash = "sha256-8EL3ej4bNb8wZmMw427Dj6uNJIw2k8N7fjXUAcO/q8s=";
   };
 
@@ -65,21 +64,18 @@ stdenv.mkDerivation rec {
     # Allow building with glib 2.68
     # PR at https://github.com/sigrokproject/pulseview/pull/39
     (fetchpatch {
-      url =
-        "https://github.com/sigrokproject/pulseview/commit/fb89dd11f2a4a08b73c498869789e38677181a8d.patch";
+      url = "https://github.com/sigrokproject/pulseview/commit/fb89dd11f2a4a08b73c498869789e38677181a8d.patch";
       hash = "sha256-0PlE/z4tbN1JFfAUBeZiXc3ENzwuhCaulIBRmXTULh4=";
     })
     # Fixes replaced/obsolete Qt methods
     (fetchpatch {
-      url =
-        "https://github.com/sigrokproject/pulseview/commit/ae726b70a7ada9a4be5808e00f0c951318479684.patch";
+      url = "https://github.com/sigrokproject/pulseview/commit/ae726b70a7ada9a4be5808e00f0c951318479684.patch";
       hash = "sha256-6bFXFAnTO+MBUmslw55gWWSCCPwnejqKGpHeJOoH0e8=";
     })
   ];
 
   meta = with lib; {
-    description =
-      "Qt-based LA/scope/MSO GUI for sigrok (a signal analysis software suite)";
+    description = "Qt-based LA/scope/MSO GUI for sigrok (a signal analysis software suite)";
     homepage = "https://sigrok.org/";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ bjornfor ];

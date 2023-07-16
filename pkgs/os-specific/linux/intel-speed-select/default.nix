@@ -16,8 +16,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description =
-      "Tool to enumerate and control the Intel Speed Select Technology features";
+    description = "Tool to enumerate and control the Intel Speed Select Technology features";
     homepage = "https://www.kernel.org/";
     license = licenses.gpl2;
     platforms = [

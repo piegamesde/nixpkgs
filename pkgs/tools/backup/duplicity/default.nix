@@ -146,8 +146,7 @@ pythonPackages.buildPythonApplication rec {
   doCheck = !stdenv.isDarwin;
 
   meta = with lib; {
-    description =
-      "Encrypted bandwidth-efficient backup using the rsync algorithm";
+    description = "Encrypted bandwidth-efficient backup using the rsync algorithm";
     homepage = "https://duplicity.gitlab.io/duplicity-web/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

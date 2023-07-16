@@ -35,8 +35,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "sqlglot" ];
 
   meta = with lib; {
-    description =
-      "A no dependency Python SQL parser, transpiler, and optimizer";
+    description = "A no dependency Python SQL parser, transpiler, and optimizer";
     homepage = "https://github.com/tobymao/sqlglot";
     license = licenses.mit;
     maintainers = with maintainers; [ cpcloud ];

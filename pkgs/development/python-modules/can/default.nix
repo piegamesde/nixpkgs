@@ -95,8 +95,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "CAN support for Python";
     homepage = "https://python-can.readthedocs.io";
-    changelog =
-      "https://github.com/hardbyte/python-can/releases/tag/v${version}";
+    changelog = "https://github.com/hardbyte/python-can/releases/tag/v${version}";
     license = licenses.lgpl3Only;
     maintainers = with maintainers; [
       fab

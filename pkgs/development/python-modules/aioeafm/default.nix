@@ -26,8 +26,7 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       name = "use-poetry-core.patch";
-      url =
-        "https://github.com/Jc2k/aioeafm/commit/549590e2ed465be40e2406416d89b8a8cd8c6185.patch";
+      url = "https://github.com/Jc2k/aioeafm/commit/549590e2ed465be40e2406416d89b8a8cd8c6185.patch";
       hash = "sha256-cG/vQI1XQO8LVvWsHrAj8KlPGRulvO7Ny+k0CKUpPqQ=";
     })
   ];

@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
   version = "0.21.2";
 
   src = fetchurl {
-    url =
-      "https://github.com/rockdaboot/libpsl/releases/download/${version}/libpsl-${version}.tar.lz";
+    url = "https://github.com/rockdaboot/libpsl/releases/download/${version}/libpsl-${version}.tar.lz";
     sha256 = "sha256-qj1wbEUnhtE0XglNriAc022B8Dz4HWNtXPwQ02WQfxc=";
   };
 
@@ -93,8 +92,7 @@ stdenv.mkDerivation rec {
       the domain in a user interface or sorting domain lists by site.
     '';
     homepage = "https://rockdaboot.github.io/libpsl/";
-    changelog =
-      "https://raw.githubusercontent.com/rockdaboot/${pname}/${pname}-${version}/NEWS";
+    changelog = "https://raw.githubusercontent.com/rockdaboot/${pname}/${pname}-${version}/NEWS";
     license = licenses.mit;
     maintainers = [ maintainers.c0bw3b ];
     mainProgram = "psl";

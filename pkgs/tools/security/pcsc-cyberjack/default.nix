@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   inherit version;
 
   src = fetchurl {
-    url =
-      "http://support.reiner-sct.de/downloads/LINUX/V${version}_${suffix}/${pname}_${tarBall}.tar.gz";
+    url = "http://support.reiner-sct.de/downloads/LINUX/V${version}_${suffix}/${pname}_${tarBall}.tar.gz";
     sha256 = "1lx4bfz4riz7j77sl65akyxzww0ygm63w0c1b75knr1pijlv8d3b";
   };
 

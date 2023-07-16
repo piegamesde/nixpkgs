@@ -54,10 +54,8 @@ in
             serviceConfig = {
               Type = "oneshot";
               RemainAfterExit = "yes";
-              ExecStart =
-                "${pkgs.profile-sync-daemon}/bin/profile-sync-daemon sync";
-              ExecStop =
-                "${pkgs.profile-sync-daemon}/bin/profile-sync-daemon unsync";
+              ExecStart = "${pkgs.profile-sync-daemon}/bin/profile-sync-daemon sync";
+              ExecStop = "${pkgs.profile-sync-daemon}/bin/profile-sync-daemon unsync";
             };
           };
 
@@ -78,8 +76,7 @@ in
             ];
             serviceConfig = {
               Type = "oneshot";
-              ExecStart =
-                "${pkgs.profile-sync-daemon}/bin/profile-sync-daemon resync";
+              ExecStart = "${pkgs.profile-sync-daemon}/bin/profile-sync-daemon resync";
             };
           };
         };

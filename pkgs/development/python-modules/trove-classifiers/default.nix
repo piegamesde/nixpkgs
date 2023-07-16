@@ -28,8 +28,7 @@ buildPythonPackage rec {
   meta = {
     description = "Canonical source for classifiers on PyPI";
     homepage = "https://github.com/pypa/trove-classifiers";
-    changelog =
-      "https://github.com/pypa/trove-classifiers/releases/tag/${version}";
+    changelog = "https://github.com/pypa/trove-classifiers/releases/tag/${version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ dotlambda ];
   };

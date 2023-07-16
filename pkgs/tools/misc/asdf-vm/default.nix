@@ -88,8 +88,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Extendable version manager with support for Ruby, Node.js, Erlang & more";
+    description = "Extendable version manager with support for Ruby, Node.js, Erlang & more";
     homepage = "https://asdf-vm.com/";
     license = licenses.mit;
     maintainers = [ maintainers.c4605 ];

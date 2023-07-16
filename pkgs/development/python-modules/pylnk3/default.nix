@@ -30,8 +30,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pylnk3" ];
 
   meta = with lib; {
-    description =
-      "Python library for reading and writing Windows shortcut files (.lnk)";
+    description = "Python library for reading and writing Windows shortcut files (.lnk)";
     homepage = "https://github.com/strayge/pylnk";
     license = with licenses; [ lgpl3Only ];
     maintainers = with maintainers; [ fedx-sudo ];

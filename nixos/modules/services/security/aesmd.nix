@@ -66,8 +66,7 @@ in
         options.whitelistUrl = mkOption {
           type = with types; nullOr str;
           default = null;
-          example =
-            "http://whitelist.trustedservices.intel.com/SGX/LCWL/Linux/sgx_white_list_cert.bin";
+          example = "http://whitelist.trustedservices.intel.com/SGX/LCWL/Linux/sgx_white_list_cert.bin";
           description =
             lib.mdDoc
               "URL to retrieve authorized Intel SGX enclave signers."

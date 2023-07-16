@@ -121,8 +121,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/samuelcolvin/pydantic";
-    description =
-      "Data validation and settings management using Python type hinting";
+    description = "Data validation and settings management using Python type hinting";
     license = licenses.mit;
     maintainers = with maintainers; [ wd15 ];
   };

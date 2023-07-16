@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
   passthru.tests = { inherit nix; };
 
   meta = with lib; {
-    description =
-      "C99 implementation of the vnd.amazon.eventstream content-type";
+    description = "C99 implementation of the vnd.amazon.eventstream content-type";
     homepage = "https://github.com/awslabs/aws-c-event-stream";
     license = licenses.asl20;
     platforms = platforms.unix;

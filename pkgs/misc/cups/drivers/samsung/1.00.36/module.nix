@@ -35,15 +35,11 @@ in
     services.printing.drivers = [ pkg ];
     hardware.sane.extraBackends = [ pkg ];
     environment.etc = {
-      "samsung/scanner/share/oem.conf".source =
-        "${pkg}/etc/samsung/scanner/share/oem.conf";
-      "smfp-common/scanner/share/libsane-smfp.cfg".source =
-        "${pkg}/etc/smfp-common/scanner/share/libsane-smfp.cfg";
-      "smfp-common/scanner/share/pagesize.xml".source =
-        "${pkg}/etc/smfp-common/scanner/share/pagesize.xml";
+      "samsung/scanner/share/oem.conf".source = "${pkg}/etc/samsung/scanner/share/oem.conf";
+      "smfp-common/scanner/share/libsane-smfp.cfg".source = "${pkg}/etc/smfp-common/scanner/share/libsane-smfp.cfg";
+      "smfp-common/scanner/share/pagesize.xml".source = "${pkg}/etc/smfp-common/scanner/share/pagesize.xml";
       "sane.d/smfp.conf".source = "${pkg}/etc/sane.d/smfp.conf";
-      "sane.d/dll.d/smfp-scanner.conf".source =
-        "${pkg}/etc/sane.d/dll.d/smfp-scanner.conf";
+      "sane.d/dll.d/smfp-scanner.conf".source = "${pkg}/etc/sane.d/dll.d/smfp-scanner.conf";
     };
   };
 }

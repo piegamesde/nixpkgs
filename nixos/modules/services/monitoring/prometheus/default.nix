@@ -2061,8 +2061,7 @@ in
         Type = "oneshot";
         RemainAfterExit = true;
         TimeoutSec = 60;
-        ExecStart =
-          "${pkgs.logger}/bin/logger 'prometheus-config-reload will only reload prometheus when reloaded itself.'";
+        ExecStart = "${pkgs.logger}/bin/logger 'prometheus-config-reload will only reload prometheus when reloaded itself.'";
         ExecReload = [ "${triggerReload}/bin/trigger-reload-prometheus" ];
       };
     };

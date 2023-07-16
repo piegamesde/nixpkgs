@@ -28,8 +28,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Python plotting library for collaborative, interactive, publication-quality graphs";
+    description = "Python plotting library for collaborative, interactive, publication-quality graphs";
     homepage = "https://plot.ly/python/";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ ];

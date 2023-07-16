@@ -41,8 +41,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     platforms = platforms.linux;
     homepage = "https://github.com/brendangregg/perf-tools";
-    description =
-      "Performance analysis tools based on Linux perf_events (aka perf) and ftrace";
+    description = "Performance analysis tools based on Linux perf_events (aka perf) and ftrace";
     maintainers = [ maintainers.eelco ];
     license = licenses.gpl2Plus;
   };

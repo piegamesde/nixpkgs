@@ -47,8 +47,7 @@ buildPerlPackage {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "A tool to manage big projects consisting of multiple loosely-coupled git repositories";
+    description = "A tool to manage big projects consisting of multiple loosely-coupled git repositories";
     homepage = "https://github.com/kernkonzept/ham";
     license = licenses.bsd2;
     maintainers = with maintainers; [ aw ];

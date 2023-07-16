@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Mail fetching and delivery tool - should do the job of getmail and procmail";
+    description = "Mail fetching and delivery tool - should do the job of getmail and procmail";
     maintainers = with maintainers; [ raskin ];
     platforms = with platforms; linux;
     homepage = "https://github.com/nicm/fdm";

@@ -155,10 +155,8 @@ in
       };
     };
 
-    environment.etc."cni/net.d/10-crio-bridge.conflist".source =
-      "${cfg.package}/etc/cni/net.d/10-crio-bridge.conflist";
-    environment.etc."cni/net.d/99-loopback.conflist".source =
-      "${cfg.package}/etc/cni/net.d/99-loopback.conflist";
+    environment.etc."cni/net.d/10-crio-bridge.conflist".source = "${cfg.package}/etc/cni/net.d/10-crio-bridge.conflist";
+    environment.etc."cni/net.d/99-loopback.conflist".source = "${cfg.package}/etc/cni/net.d/99-loopback.conflist";
     environment.etc."crio/crio.conf.d/00-default.conf".source = cfgFile;
 
     # Enable common /etc/containers configuration

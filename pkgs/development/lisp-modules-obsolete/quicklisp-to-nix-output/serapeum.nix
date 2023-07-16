@@ -45,8 +45,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/serapeum/2021-12-09/serapeum-20211209-git.tgz";
+    url = "http://beta.quicklisp.org/archive/serapeum/2021-12-09/serapeum-20211209-git.tgz";
     sha256 = "19ndbi69b60rxh1jvs7jrwg6bgzpkrfd22cnhyd2mir4ybmrdllh";
   };
 

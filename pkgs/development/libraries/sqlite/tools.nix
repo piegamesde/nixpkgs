@@ -26,8 +26,9 @@ let
       src =
         assert version == sqlite.version;
         fetchurl {
-          url =
-            "https://sqlite.org/2023/sqlite-src-${archiveVersion version}.zip";
+          url = "https://sqlite.org/2023/sqlite-src-${
+              archiveVersion version
+            }.zip";
           hash = "sha256-hxkfzsuLcH2aEO2xNgdoYxfXFpwIC5vcXTnQY1g3bMw=";
         }
       ;
@@ -53,8 +54,7 @@ in
   sqldiff = mkTool {
     pname = "sqldiff";
     makeTarget = "sqldiff";
-    description =
-      "A tool that displays the differences between SQLite databases";
+    description = "A tool that displays the differences between SQLite databases";
     homepage = "https://www.sqlite.org/sqldiff.html";
     mainProgram = "sqldiff";
   };

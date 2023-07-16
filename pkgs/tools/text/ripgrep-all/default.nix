@@ -67,8 +67,7 @@ rustPlatform.buildRustPackage rec {
   doInstallCheck = true;
 
   meta = with lib; {
-    description =
-      "Ripgrep, but also search in PDFs, E-Books, Office documents, zip, tar.gz, and more";
+    description = "Ripgrep, but also search in PDFs, E-Books, Office documents, zip, tar.gz, and more";
     longDescription = ''
       Ripgrep, but also search in PDFs, E-Books, Office documents, zip, tar.gz, etc.
 

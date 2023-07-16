@@ -39,8 +39,7 @@ mkDerivation rec {
       );
     in
     fetchurl {
-      url =
-        "mirror://kde/stable/KBibTeX/${majorMinorPatch}/kbibtex-${version}.tar.xz";
+      url = "mirror://kde/stable/KBibTeX/${majorMinorPatch}/kbibtex-${version}.tar.xz";
       hash = "sha256-sSeyQKfNd8U4YZ3IgqOZs8bM13oEQopJevkG8U0JuMQ=";
     }
   ;
@@ -81,8 +80,7 @@ mkDerivation rec {
   meta = with lib; {
     description = "Bibliography editor for KDE";
     homepage = "https://userbase.kde.org/KBibTeX";
-    changelog =
-      "https://invent.kde.org/office/kbibtex/-/raw/v${version}/ChangeLog";
+    changelog = "https://invent.kde.org/office/kbibtex/-/raw/v${version}/ChangeLog";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ dotlambda ];
     platforms = platforms.linux;

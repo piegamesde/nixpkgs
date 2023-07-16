@@ -26,8 +26,7 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/tomcz/openldap_exporter";
-    description =
-      "Simple service that scrapes metrics from OpenLDAP and exports them via HTTP for Prometheus consumption";
+    description = "Simple service that scrapes metrics from OpenLDAP and exports them via HTTP for Prometheus consumption";
     license = licenses.mit;
     maintainers = with maintainers; [ ma27 ];
   };

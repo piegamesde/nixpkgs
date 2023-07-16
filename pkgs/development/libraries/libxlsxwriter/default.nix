@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "C library for creating Excel XLSX files";
     homepage = "https://libxlsxwriter.github.io/";
-    changelog =
-      "https://github.com/jmcnamara/libxlsxwriter/blob/${src.rev}/Changes.txt";
+    changelog = "https://github.com/jmcnamara/libxlsxwriter/blob/${src.rev}/Changes.txt";
     license = licenses.bsd2;
     maintainers = with maintainers; [ dotlambda ];
     platforms = platforms.unix;

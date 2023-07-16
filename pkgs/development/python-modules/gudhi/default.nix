@@ -78,8 +78,7 @@ buildPythonPackage rec {
   ];
 
   meta = {
-    description =
-      "Library for Computational Topology and Topological Data Analysis (TDA)";
+    description = "Library for Computational Topology and Topological Data Analysis (TDA)";
     homepage = "https://gudhi.inria.fr/python/latest/";
     downloadPage = "https://github.com/GUDHI/gudhi-devel";
     license = with lib.licenses; [

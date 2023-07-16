@@ -51,8 +51,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Standalone JIT-style runtime for WebAssembly, using Cranelift";
+    description = "Standalone JIT-style runtime for WebAssembly, using Cranelift";
     homepage = "https://github.com/bytecodealliance/wasmtime";
     license = licenses.asl20;
     maintainers = with maintainers; [

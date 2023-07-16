@@ -16,13 +16,11 @@
 }:
 let
   pname = "synology-drive-client";
-  baseUrl =
-    "https://global.download.synology.com/download/Utility/SynologyDriveClient";
+  baseUrl = "https://global.download.synology.com/download/Utility/SynologyDriveClient";
   version = "3.2.1-13272";
   buildNumber = with lib; last (splitString "-" version);
   meta = with lib; {
-    description =
-      "Desktop application to synchronize files and folders between the computer and the Synology Drive server.";
+    description = "Desktop application to synchronize files and folders between the computer and the Synology Drive server.";
     homepage = "https://www.synology.com/en-global/dsm/feature/drive";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
@@ -56,8 +54,7 @@ let
     ;
 
     src = fetchurl {
-      url =
-        "${baseUrl}/${version}/Ubuntu/Installer/x86_64/synology-drive-client-${buildNumber}.x86_64.deb";
+      url = "${baseUrl}/${version}/Ubuntu/Installer/x86_64/synology-drive-client-${buildNumber}.x86_64.deb";
       sha256 = "sha256-olORBipyAv3jYQ7Gv8i4dHoCAdMcTcJR72/UYCPAVt0=";
     };
 
@@ -100,8 +97,7 @@ let
     ;
 
     src = fetchurl {
-      url =
-        "${baseUrl}/${version}/Mac/Installer/synology-drive-client-${buildNumber}.dmg";
+      url = "${baseUrl}/${version}/Mac/Installer/synology-drive-client-${buildNumber}.dmg";
       sha256 = "sha256-oNo/2Fim63xiWiVuY99Q18dHOPHydQJr7C9tib8LLOE=";
     };
 

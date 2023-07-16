@@ -90,8 +90,7 @@ rec {
       patches = [ ./irods_root_path.patch ];
 
       # fix build with recent llvm versions
-      env.NIX_CFLAGS_COMPILE =
-        "-Wno-deprecated-register -Wno-deprecated-declarations";
+      env.NIX_CFLAGS_COMPILE = "-Wno-deprecated-register -Wno-deprecated-declarations";
 
       postPatch =
         common.postPatch

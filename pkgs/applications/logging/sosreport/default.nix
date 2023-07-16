@@ -39,8 +39,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "sos" ];
 
   meta = with lib; {
-    description =
-      "Unified tool for collecting system logs and other debug information";
+    description = "Unified tool for collecting system logs and other debug information";
     homepage = "https://github.com/sosreport/sos";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ SuperSandro2000 ];

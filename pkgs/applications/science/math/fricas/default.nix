@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   version = "1.3.8";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/fricas/fricas/${version}/fricas-${version}-full.tar.bz2";
+    url = "mirror://sourceforge/fricas/fricas/${version}/fricas-${version}-full.tar.bz2";
     sha256 = "sha256-amAGPLQo70nKATyZM7h3yX5mMUxCwOFwb/fTIWB5hUQ=";
   };
 

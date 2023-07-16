@@ -25,8 +25,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "overrides" ];
 
   meta = with lib; {
-    description =
-      "Decorator to automatically detect mismatch when overriding a method";
+    description = "Decorator to automatically detect mismatch when overriding a method";
     homepage = "https://github.com/mkorpela/overrides";
     changelog = "https://github.com/mkorpela/overrides/releases/tag/${version}";
     license = licenses.asl20;

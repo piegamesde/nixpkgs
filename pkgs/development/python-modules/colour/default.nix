@@ -17,8 +17,7 @@ buildPythonPackage rec {
   buildInputs = [ d2to1 ];
 
   meta = with lib; {
-    description =
-      "Converts and manipulates common color representation (RGB, HSV, web, ...)";
+    description = "Converts and manipulates common color representation (RGB, HSV, web, ...)";
     homepage = "https://github.com/vaab/colour";
     license = licenses.bsd2;
   };

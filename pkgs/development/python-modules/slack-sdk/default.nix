@@ -76,8 +76,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Slack Developer Kit for Python";
     homepage = "https://slack.dev/python-slack-sdk/";
-    changelog =
-      "https://github.com/slackapi/python-slack-sdk/releases/tag/v${version}";
+    changelog = "https://github.com/slackapi/python-slack-sdk/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

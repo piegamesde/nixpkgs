@@ -48,8 +48,7 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "BDD test framework for terraform";
     homepage = "https://github.com/terraform-compliance/cli";
-    changelog =
-      "https://github.com/terraform-compliance/cli/releases/tag/${version}";
+    changelog = "https://github.com/terraform-compliance/cli/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ kalbasit ];
   };

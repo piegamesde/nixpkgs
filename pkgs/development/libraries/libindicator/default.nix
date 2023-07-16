@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
   version = "12.10.1";
 
   src = fetchurl {
-    url =
-      "https://launchpad.net/libindicator/${
+    url = "https://launchpad.net/libindicator/${
         lib.versions.majorMinor version
       }/${version}/+download/libindicator-${version}.tar.gz";
     sha256 = "b2d2e44c10313d5c9cd60db455d520f80b36dc39562df079a3f29495e8f9447f";
@@ -55,8 +54,7 @@ stdenv.mkDerivation rec {
   doCheck = false; # fails 8 out of 8 tests
 
   meta = with lib; {
-    description =
-      "A set of symbols and convenience functions for Ayatana indicators";
+    description = "A set of symbols and convenience functions for Ayatana indicators";
     homepage = "https://launchpad.net/libindicator";
     license = licenses.gpl3;
     platforms = platforms.linux;

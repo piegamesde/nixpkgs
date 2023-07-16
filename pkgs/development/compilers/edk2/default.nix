@@ -39,8 +39,7 @@ let
       [
         # pass targetPrefix as an env var
         (fetchpatch {
-          url =
-            "https://src.fedoraproject.org/rpms/edk2/raw/08f2354cd280b4ce5a7888aa85cf520e042955c3/f/0021-Tweak-the-tools_def-to-support-cross-compiling.patch";
+          url = "https://src.fedoraproject.org/rpms/edk2/raw/08f2354cd280b4ce5a7888aa85cf520e042955c3/f/0021-Tweak-the-tools_def-to-support-cross-compiling.patch";
           sha256 = "sha256-E1/fiFNVx0aB1kOej2DJ2DlBIs9tAAcxoedym2Zhjxw=";
         })
       ];
@@ -96,8 +95,7 @@ let
 
     meta = with lib; {
       description = "Intel EFI development kit";
-      homepage =
-        "https://github.com/tianocore/tianocore.github.io/wiki/EDK-II/";
+      homepage = "https://github.com/tianocore/tianocore.github.io/wiki/EDK-II/";
       license = licenses.bsd2;
       platforms = with platforms; aarch64 ++ arm ++ i686 ++ x86_64;
     };

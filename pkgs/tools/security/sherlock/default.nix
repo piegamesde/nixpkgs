@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://sherlock-project.github.io/";
-    description =
-      "Hunt down social media accounts by username across social networks";
+    description = "Hunt down social media accounts by username across social networks";
     license = licenses.mit;
     maintainers = with maintainers; [ applePrincess ];
   };

@@ -80,8 +80,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Stunt Rally game with Track Editor, based on VDrift and OGRE";
+    description = "Stunt Rally game with Track Editor, based on VDrift and OGRE";
     homepage = "http://stuntrally.tuxfamily.org/";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ pSub ];

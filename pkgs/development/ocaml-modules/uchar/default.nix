@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
   version = "0.0.2";
 
   src = fetchurl {
-    url =
-      "https://github.com/ocaml/uchar/releases/download/v${version}/uchar-${version}.tbz";
+    url = "https://github.com/ocaml/uchar/releases/download/v${version}/uchar-${version}.tbz";
     sha256 = "1w2saw7zanf9m9ffvz2lvcxvlm118pws2x1wym526xmydhqpyfa7";
   };
 
@@ -27,8 +26,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  buildPhase =
-    "ocaml pkg/build.ml native=true native-dynlink=${
+  buildPhase = "ocaml pkg/build.ml native=true native-dynlink=${
       lib.boolToString withShared
     }";
   installPhase = "${opaline}/bin/opaline -libdir $OCAMLFIND_DESTDIR";

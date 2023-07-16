@@ -22,8 +22,7 @@ mkDerivation rec {
   # Add missing QAction include
   patches = [
     (fetchpatch {
-      url =
-        "https://github.com/fcoiffie/fontmatrix/commit/dc6de8c414ae21516b72daead79c8db88309b102.patch";
+      url = "https://github.com/fcoiffie/fontmatrix/commit/dc6de8c414ae21516b72daead79c8db88309b102.patch";
       sha256 = "092860fdyf5gq67jqfxnlgwzjgpizi6j0njjv3m62aiznrhig7c8";
     })
   ];
@@ -38,8 +37,7 @@ mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   meta = with lib; {
-    description =
-      "Fontmatrix is a free/libre font explorer for Linux, Windows and Mac";
+    description = "Fontmatrix is a free/libre font explorer for Linux, Windows and Mac";
     homepage = "https://github.com/fontmatrix/fontmatrix";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

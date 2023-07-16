@@ -24,8 +24,7 @@ buildGoModule rec {
     tests = { local-relay = callPackage ./test-local-relay.nix { }; };
   };
   meta = with lib; {
-    description =
-      "Easily and securely send things from one computer to another";
+    description = "Easily and securely send things from one computer to another";
     longDescription = ''
       Croc is a command line tool written in Go that allows any two computers to
       simply and securely transfer files and folders.

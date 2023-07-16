@@ -37,8 +37,7 @@ let
   ver_dash = "${ver1}-${ver2}${lib.optionalString (ver3 != "") "-${ver3}"}";
 
   binary_src = fetchurl {
-    url =
-      "mirror://sourceforge/simutrans/simutrans/${ver_dash}/simutrans-src-${ver_dash}.zip";
+    url = "mirror://sourceforge/simutrans/simutrans/${ver_dash}/simutrans-src-${ver_dash}.zip";
     sha256 = "1f463r6kr5ig0zd3mncc74k93xbjywsq3d06j5r17831jyc9bzb9";
   };
 
@@ -57,8 +56,7 @@ let
         };
 
         pak128 = {
-          srcPath =
-            "pak128%20for%20ST%20120.4.1%20%282.8.1%2C%20priority%20signals%20%2B%20bugfix%29/pak128";
+          srcPath = "pak128%20for%20ST%20120.4.1%20%282.8.1%2C%20priority%20signals%20%2B%20bugfix%29/pak128";
           sha256 = "0z01y7r0rz7q79vr17bbnkgcbjjrimphy1dwb1pgbiv4klz7j5xw";
         };
         "pak128.britain" = {
@@ -67,8 +65,7 @@ let
         };
         "pak128.cs" = {
           # note: it needs pak128 to work
-          url =
-            "mirror://sourceforge/simutrans/Pak128.CS/pak128.cz_v.0.2.1.zip";
+          url = "mirror://sourceforge/simutrans/Pak128.CS/pak128.cz_v.0.2.1.zip";
           sha256 = "008d8x1s0vxsq78rkczlnf57pv1n5hi1v5nbd1l5w3yls7lk11sc";
         };
         "pak128.german" = {
@@ -206,8 +203,7 @@ let
     '';
 
     meta = with lib; {
-      description =
-        "A simulation game in which the player strives to run a successful transport system";
+      description = "A simulation game in which the player strives to run a successful transport system";
       longDescription = ''
         Simutrans is a cross-platform simulation game in which the
         player strives to run a successful transport system by

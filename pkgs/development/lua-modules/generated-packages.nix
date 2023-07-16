@@ -59,8 +59,7 @@ final: prev: {
 
           meta = {
             homepage = "https://github.com/cheusov/lua-alt-getopt";
-            description =
-              "Process application arguments the same way as getopt_long";
+            description = "Process application arguments the same way as getopt_long";
             maintainers = with lib.maintainers; [ arobyn ];
             license.fullName = "MIT/X11";
           };
@@ -141,8 +140,7 @@ final: prev: {
 
           meta = {
             homepage = "https://github.com/aiq/basexx";
-            description =
-              "A base2, base16, base32, base64 and base85 library for Lua";
+            description = "A base2, base16, base32, base64 and base85 library for Lua";
             license.fullName = "MIT";
           };
         }
@@ -164,8 +162,7 @@ final: prev: {
           version = "0.4-1";
 
           src = fetchurl {
-            url =
-              "https://github.com/Tieske/binaryheap.lua/archive/version_0v4.tar.gz";
+            url = "https://github.com/Tieske/binaryheap.lua/archive/version_0v4.tar.gz";
             sha256 = "0f5l4nb5s7dycbkgh3rrl7pf0npcf9k6m2gr2bsn09fjyb3bdc8h";
           };
 
@@ -440,8 +437,7 @@ final: prev: {
               sha256 = "1r7a3q1cjrcmdycrv2ikgl83irjhxs53sa88v2fdpr9aaamlb101";
             }).outPath;
           src = fetchzip {
-            url =
-              "https://github.com/keplerproject/lua-compat-5.3/archive/v0.7.zip";
+            url = "https://github.com/keplerproject/lua-compat-5.3/archive/v0.7.zip";
             sha256 = "02a14nvn7aggg1yikj9h3dcf8aqjbxlws1bfvqbpfxv9d5phnrpz";
           };
 
@@ -450,8 +446,7 @@ final: prev: {
 
           meta = {
             homepage = "https://github.com/keplerproject/lua-compat-5.3";
-            description =
-              "Compatibility module providing Lua-5.3-style APIs for Lua 5.2 and 5.1";
+            description = "Compatibility module providing Lua-5.3-style APIs for Lua 5.2 and 5.1";
             maintainers = with lib.maintainers; [ vcunat ];
             license.fullName = "MIT";
           };
@@ -573,8 +568,7 @@ final: prev: {
               sha256 = "0w2kq9w0wda56k02rjmvmzccz6bc3mn70s9v7npjadh85i5zlhhp";
             }).outPath;
           src = fetchurl {
-            url =
-              "https://github.com/wahern/cqueues/archive/rel-20200726.tar.gz";
+            url = "https://github.com/wahern/cqueues/archive/rel-20200726.tar.gz";
             sha256 = "0lhd02ag3r1sxr2hx847rdjkddm04l1vf5234v5cz9bd4kfjw4cy";
           };
 
@@ -582,10 +576,8 @@ final: prev: {
           propagatedBuildInputs = [ lua ];
 
           meta = {
-            homepage =
-              "http://25thandclement.com/~william/projects/cqueues.html";
-            description =
-              "Continuation Queues: Embeddable asynchronous networking, threading, and notification framework for Lua on Unix.";
+            homepage = "http://25thandclement.com/~william/projects/cqueues.html";
+            description = "Continuation Queues: Embeddable asynchronous networking, threading, and notification framework for Lua on Unix.";
             maintainers = with lib.maintainers; [ vcunat ];
             license.fullName = "MIT/X11";
           };
@@ -768,8 +760,7 @@ final: prev: {
               sha256 = "1hhmgz2nixqg23shfnl0kq6wxdadx36z6hhsrz33g7idbm6rbwm1";
             }).outPath;
           src = fetchurl {
-            url =
-              "http://dkolf.de/src/dkjson-lua.fsl/tarball/dkjson-2.6.tar.gz?uuid=release_2_6";
+            url = "http://dkolf.de/src/dkjson-lua.fsl/tarball/dkjson-2.6.tar.gz?uuid=release_2_6";
             sha256 = "0wwpdz20fvg5j36902892mnb99craf22697r6v7xdblqnd7fw1xx";
           };
 
@@ -980,8 +971,7 @@ final: prev: {
               sha256 = "1m7fasn5iz9hv9l1ycsjiaah14i1s5nssvqq9sypbwcpc9slj93b";
             }).outPath;
           src = fetchzip {
-            url =
-              "https://github.com/mrcjkb/haskell-tools.nvim/archive/1.9.1.zip";
+            url = "https://github.com/mrcjkb/haskell-tools.nvim/archive/1.9.1.zip";
             sha256 = "0m425ipfvbb1f1m2wmz8qg57b901vspvvpckxr380crbwl3dflpr";
           };
 
@@ -1343,8 +1333,7 @@ final: prev: {
               sha256 = "0zna5s852vn7q414z56kkyqwpighaghyq7h7in3myap4d9vcgm01";
             }).outPath;
           src = fetchurl {
-            url =
-              "https://github.com/justincormack/ljsyscall/archive/v0.12.tar.gz";
+            url = "https://github.com/justincormack/ljsyscall/archive/v0.12.tar.gz";
             sha256 = "1w9g36nhxv92cypjia7igg1xpfrn3dbs3hfy6gnnz5mx14v50abf";
           };
 
@@ -1379,8 +1368,7 @@ final: prev: {
               sha256 = "181wzsj1mxjyia43y8zwaydxahnl7a70qzcgc8jhhgic7jyi9pgv";
             }).outPath;
           src = fetchurl {
-            url =
-              "http://www.tecgraf.puc-rio.br/~lhf/ftp/lua/5.3/lmathx.tar.gz";
+            url = "http://www.tecgraf.puc-rio.br/~lhf/ftp/lua/5.3/lmathx.tar.gz";
             sha256 = "1r0ax3lq4xx6469aqc6qlfl3jynlghzhl5j65mpdj0kyzv4nknzf";
           };
 
@@ -1477,8 +1465,7 @@ final: prev: {
 
           meta = {
             homepage = "https://github.com/leafo/loadkit";
-            description =
-              "Loadkit allows you to load arbitrary files within the Lua package path";
+            description = "Loadkit allows you to load arbitrary files within the Lua package path";
             maintainers = with lib.maintainers; [ alerque ];
             license.fullName = "MIT";
           };
@@ -1541,8 +1528,7 @@ final: prev: {
               sha256 = "1vzl3ryryc624mchclzsfl3hsrprb9q214zbi1xsjcc4ckq5qfh7";
             }).outPath;
           src = fetchzip {
-            url =
-              "https://github.com/daurnimator/lpeg_patterns/archive/v0.5.zip";
+            url = "https://github.com/daurnimator/lpeg_patterns/archive/v0.5.zip";
             sha256 = "1s3c179a64r45ffkawv9dnxw4mzwkzj00nr9z2gs5haajgpjivw6";
           };
 
@@ -1552,8 +1538,7 @@ final: prev: {
           ];
 
           meta = {
-            homepage =
-              "https://github.com/daurnimator/lpeg_patterns/archive/v0.5.zip";
+            homepage = "https://github.com/daurnimator/lpeg_patterns/archive/v0.5.zip";
             description = "a collection of LPEG patterns";
             license.fullName = "MIT";
           };
@@ -1580,8 +1565,7 @@ final: prev: {
               sha256 = "13gc32pggng6f95xx5zw9n9ian518wlgb26mna9kh4q2xa1k42pm";
             }).outPath;
           src = fetchurl {
-            url =
-              "https://github.com/sqmedeiros/lpeglabel/archive/v1.6.0-1.tar.gz";
+            url = "https://github.com/sqmedeiros/lpeglabel/archive/v1.6.0-1.tar.gz";
             sha256 = "1i02lsxj20iygqm8fy6dih1gh21lqk5qj1mv14wlrkaywnv35wcv";
           };
 
@@ -1590,8 +1574,7 @@ final: prev: {
 
           meta = {
             homepage = "https://github.com/sqmedeiros/lpeglabel/";
-            description =
-              "Parsing Expression Grammars For Lua with Labeled Failures";
+            description = "Parsing Expression Grammars For Lua with Labeled Failures";
             license.fullName = "MIT/X11";
           };
         }
@@ -1626,8 +1609,7 @@ final: prev: {
 
           meta = {
             homepage = "http://www.tset.de/lpty/";
-            description =
-              "A simple facility for lua to control other programs via PTYs.";
+            description = "A simple facility for lua to control other programs via PTYs.";
             license.fullName = "MIT";
           };
         }
@@ -1883,8 +1865,7 @@ final: prev: {
 
           meta = {
             homepage = "http://github.com/antirez/lua-cmsgpack";
-            description =
-              "MessagePack C implementation and bindings for Lua 5.1/5.2/5.3";
+            description = "MessagePack C implementation and bindings for Lua 5.1/5.2/5.3";
             license.fullName = "Two-clause BSD";
           };
         }
@@ -1946,8 +1927,7 @@ final: prev: {
               sha256 = "0qh5vsaxd7s31p7a8rl08lwd6zv90wnvp15nll4fcz452kffpp72";
             }).outPath;
           src = fetchurl {
-            url =
-              "https://github.com/downloads/ittner/lua-iconv/lua-iconv-7.tar.gz";
+            url = "https://github.com/downloads/ittner/lua-iconv/lua-iconv-7.tar.gz";
             sha256 = "02dg5x79fg5mwsycr0fj6w04zykdpiki9xjswkkwzdalqwaikny1";
           };
 
@@ -2016,8 +1996,7 @@ final: prev: {
 
           meta = {
             homepage = "https://github.com/Alloyed/lua-lsp";
-            description =
-              "A Language Server implementation for lua, the language";
+            description = "A Language Server implementation for lua, the language";
             license.fullName = "MIT";
           };
         }
@@ -2043,8 +2022,7 @@ final: prev: {
               sha256 = "15liz6v8hsqgb3xrcd74a71nnjcz79gpc3ak351hk6k4gyjq2rfc";
             }).outPath;
           src = fetchurl {
-            url =
-              "https://framagit.org/fperrad/lua-MessagePack/raw/releases/lua-messagepack-0.5.2.tar.gz";
+            url = "https://framagit.org/fperrad/lua-MessagePack/raw/releases/lua-messagepack-0.5.2.tar.gz";
             sha256 = "1jgi944d0vx4zs9lrphys9pw0wrsibip93sh141qjwymrjyjg1nc";
           };
 
@@ -2053,8 +2031,7 @@ final: prev: {
 
           meta = {
             homepage = "https://fperrad.frama.io/lua-MessagePack/";
-            description =
-              "a pure Lua implementation of the MessagePack serialization format";
+            description = "a pure Lua implementation of the MessagePack serialization format";
             license.fullName = "MIT/X11";
           };
         }
@@ -2157,8 +2134,7 @@ final: prev: {
 
           meta = {
             homepage = "https://github.com/ledgetech/lua-resty-http";
-            description =
-              "Lua HTTP client cosocket driver for OpenResty / ngx_lua.";
+            description = "Lua HTTP client cosocket driver for OpenResty / ngx_lua.";
             license.fullName = "2-clause BSD";
           };
         }
@@ -2272,8 +2248,7 @@ final: prev: {
 
           meta = {
             homepage = "https://github.com/zmartzone/lua-resty-openidc";
-            description =
-              "A library for NGINX implementing the OpenID Connect Relying Party (RP) and the OAuth 2.0 Resource Server (RS) functionality";
+            description = "A library for NGINX implementing the OpenID Connect Relying Party (RP) and the OAuth 2.0 Resource Server (RS) functionality";
             license.fullName = "Apache 2.0";
           };
         }
@@ -2423,8 +2398,7 @@ final: prev: {
 
           meta = {
             homepage = "https://github.com/xlq/lua-subprocess";
-            description =
-              "A Lua module written in C that allows you to create child processes and communicate with them.";
+            description = "A Lua module written in C that allows you to create child processes and communicate with them.";
             maintainers = with lib.maintainers; [ scoder12 ];
             license.fullName = "MIT";
           };
@@ -3074,8 +3048,7 @@ final: prev: {
 
           meta = {
             homepage = "http://siffiejoe.github.io/lua-luaepnf/";
-            description =
-              "Extended PEG Notation Format (easy grammars for LPeg)";
+            description = "Extended PEG Notation Format (easy grammars for LPeg)";
             license.fullName = "MIT";
           };
         }
@@ -3267,8 +3240,7 @@ final: prev: {
 
           meta = {
             homepage = "git://github.com/keplerproject/luafilesystem";
-            description =
-              "File System Library for the Lua Programming Language";
+            description = "File System Library for the Lua Programming Language";
             maintainers = with lib.maintainers; [ flosse ];
             license.fullName = "MIT/X11";
           };
@@ -3402,10 +3374,8 @@ final: prev: {
           propagatedBuildInputs = [ lua ];
 
           meta = {
-            homepage =
-              "http://25thandclement.com/~william/projects/luaossl.html";
-            description =
-              "Most comprehensive OpenSSL module in the Lua universe.";
+            homepage = "http://25thandclement.com/~william/projects/luaossl.html";
+            description = "Most comprehensive OpenSSL module in the Lua universe.";
             license.fullName = "MIT/X11";
           };
         }
@@ -3539,8 +3509,7 @@ final: prev: {
 
           meta = {
             homepage = "https://github.com/brunoos/luasec/wiki";
-            description =
-              "A binding for OpenSSL library to provide TLS/SSL communication over LuaSocket.";
+            description = "A binding for OpenSSL library to provide TLS/SSL communication over LuaSocket.";
             maintainers = with lib.maintainers; [ flosse ];
             license.fullName = "MIT";
           };
@@ -3797,8 +3766,7 @@ final: prev: {
               sha256 = "111435fa8p2819vcvg76qmknj0wqk01gy9d1nh55c36616xnj54n";
             }).outPath;
           src = fetchzip {
-            url =
-              "https://github.com/bluebird75/luaunit/releases/download/LUAUNIT_V3_4/rock-luaunit-3.4.zip";
+            url = "https://github.com/bluebird75/luaunit/releases/download/LUAUNIT_V3_4/rock-luaunit-3.4.zip";
             sha256 = "0qf07y3229lq3qq1mfkv83gzbc7dgyr67hysqjb5bbk333flv56r";
           };
 
@@ -3834,8 +3802,7 @@ final: prev: {
               sha256 = "0v788kk1aj7r70w9fgjlp3qrpjbpa9z9l1m7d13csk0pgfkm5iqz";
             }).outPath;
           src = fetchurl {
-            url =
-              "https://github.com/starwing/luautf8/archive/refs/tags/0.1.5.tar.gz";
+            url = "https://github.com/starwing/luautf8/archive/refs/tags/0.1.5.tar.gz";
             sha256 = "077ji840wfmy7hq0y13l01dv6jhasznykf89gk9m672jhz6dxggl";
           };
 
@@ -3945,8 +3912,7 @@ final: prev: {
 
           meta = {
             homepage = "https://github.com/rktjmp/lush.nvim";
-            description =
-              "Define Neovim themes as a DSL in lua, with real-time feedback.";
+            description = "Define Neovim themes as a DSL in lua, with real-time feedback.";
             maintainers = with lib.maintainers; [ teto ];
             license.fullName = "MIT/X11";
           };
@@ -4009,8 +3975,7 @@ final: prev: {
               sha256 = "07jwi50i16rv7sj914k1q3l9dy9wldbw2skmsdrzlkc57mqvg348";
             }).outPath;
           src = fetchurl {
-            url =
-              "https://github.com/luvit/luv/releases/download/1.44.2-1/luv-1.44.2-1.tar.gz";
+            url = "https://github.com/luvit/luv/releases/download/1.44.2-1/luv-1.44.2-1.tar.gz";
             sha256 = "0c2wkszxw6gwa4l6g1d2zzh660j13lif6c7a910vq7zn8jycgd9y";
           };
 
@@ -4134,8 +4099,7 @@ final: prev: {
               sha256 = "0frzvf7i256260a1s8xh92crwa2m42972qxfq29zl05aw3pyn7bm";
             }).outPath;
           src = fetchurl {
-            url =
-              "https://github.com/Olivine-Labs/mediator_lua/archive/v1.1.2-0.tar.gz";
+            url = "https://github.com/Olivine-Labs/mediator_lua/archive/v1.1.2-0.tar.gz";
             sha256 = "16zzzhiy3y35v8advmlkzpryzxv5vji7727vwkly86q8sagqbxgs";
           };
 
@@ -4224,8 +4188,7 @@ final: prev: {
               sha256 = "1v10kmw3qw559bbm142z40ib26bwvcyi64qjrk0vf8v6n1mx8wcn";
             }).outPath;
           src = fetchurl {
-            url =
-              "https://github.com/libmpack/libmpack-lua/releases/download/1.0.9/libmpack-lua-1.0.9.tar.gz";
+            url = "https://github.com/libmpack/libmpack-lua/releases/download/1.0.9/libmpack-lua-1.0.9.tar.gz";
             sha256 = "17lyjmnbychacwahqgs128nb00xky777g7zw5wf20vrzkiq7xl0g";
           };
 
@@ -4369,8 +4332,7 @@ final: prev: {
 
           meta = {
             homepage = "https://lunarmodules.github.io/penlight";
-            description =
-              "Lua utility libraries loosely based on the Python standard libraries";
+            description = "Lua utility libraries loosely based on the Python standard libraries";
             maintainers = with lib.maintainers; [ alerque ];
             license.fullName = "MIT/X11";
           };
@@ -4700,8 +4662,7 @@ final: prev: {
 
           meta = {
             homepage = "https://github.com/tami5/sqlite.lua";
-            description =
-              "SQLite/LuaJIT binding and a highly opinionated wrapper for storing, retrieving, caching, and persisting [SQLite] databases";
+            description = "SQLite/LuaJIT binding and a highly opinionated wrapper for storing, retrieving, caching, and persisting [SQLite] databases";
             license.fullName = "MIT";
           };
         }
@@ -4828,8 +4789,7 @@ final: prev: {
               sha256 = "0rscb4cm8s8bb8fk8rknc269y7bjqpslspsaxgs91i8bvabja6f6";
             }).outPath;
           src = fetchzip {
-            url =
-              "http://github.com/lua-stdlib/lua-stdlib/archive/release-v41.2.2.zip";
+            url = "http://github.com/lua-stdlib/lua-stdlib/archive/release-v41.2.2.zip";
             sha256 = "0ry6k0wh4vyar1z68s0qmqzkdkfn9lcznsl8av7x78qz6l16wfw4";
           };
 
@@ -4933,8 +4893,7 @@ final: prev: {
 
           meta = {
             homepage = "https://github.com/mrcjkb/telescope-manix";
-            description =
-              "A telescope.nvim extension for Manix - A fast documentation searcher for Nix";
+            description = "A telescope.nvim extension for Manix - A fast documentation searcher for Nix";
             license.fullName = "GPL-2.0";
           };
         }

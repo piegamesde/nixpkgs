@@ -40,8 +40,7 @@ buildDunePackage {
   ];
 
   meta = letsencrypt.meta // {
-    description =
-      "An ACME client implementation of the ACME protocol (RFC 8555) for OCaml";
+    description = "An ACME client implementation of the ACME protocol (RFC 8555) for OCaml";
     mainProgram = "oacmel";
   };
 }

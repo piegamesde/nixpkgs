@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   version = "4.9.0";
 
   src = fetchurl {
-    url =
-      "https://downloads.unidata.ucar.edu/netcdf-c/${version}/netcdf-c-${version}.tar.gz";
+    url = "https://downloads.unidata.ucar.edu/netcdf-c/${version}/netcdf-c-${version}.tar.gz";
     hash = "sha256-TJVgIrecCOXhTu6N9RsTwo5hIcK35/qtwhs3WUlAC0k=";
   };
 
@@ -90,8 +89,7 @@ stdenv.mkDerivation rec {
     description = "Libraries for the Unidata network Common Data Format";
     platforms = lib.platforms.unix;
     homepage = "https://www.unidata.ucar.edu/software/netcdf/";
-    changelog =
-      "https://docs.unidata.ucar.edu/netcdf-c/${version}/RELEASE_NOTES.html";
+    changelog = "https://docs.unidata.ucar.edu/netcdf-c/${version}/RELEASE_NOTES.html";
     license = lib.licenses.bsd3;
   };
 }

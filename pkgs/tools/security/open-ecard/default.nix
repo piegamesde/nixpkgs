@@ -12,8 +12,7 @@ let
   version = "1.2.4";
   srcs = {
     richclient = fetchurl {
-      url =
-        "https://jnlp.openecard.org/richclient-${version}-20171212-0958.jar";
+      url = "https://jnlp.openecard.org/richclient-${version}-20171212-0958.jar";
       sha256 = "1ckhyhszp4zhfb5mn67lz603b55z814jh0sz0q5hriqzx017j7nr";
     };
     cifs = fetchurl {
@@ -21,8 +20,7 @@ let
       sha256 = "0rc862lx3y6sw87r1v5xjmqqpysyr1x6yqhycqmcdrwz0j3wykrr";
     };
     logo = fetchurl {
-      url =
-        "https://raw.githubusercontent.com/ecsec/open-ecard/1.2.3/gui/graphics/src/main/ext/oec_logo_bg-transparent.svg";
+      url = "https://raw.githubusercontent.com/ecsec/open-ecard/1.2.3/gui/graphics/src/main/ext/oec_logo_bg-transparent.svg";
       sha256 = "0rpmyv10vjx2yfpm03mqliygcww8af2wnrnrppmsazdplksaxkhs";
     };
   };

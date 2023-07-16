@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
   version = "1.3.9";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/${pname}/nifty_reg-${version}/nifty_reg-${version}.tar.gz";
+    url = "mirror://sourceforge/${pname}/nifty_reg-${version}/nifty_reg-${version}.tar.gz";
     sha256 = "07v9v9s41lvw72wpb1jgh2nzanyc994779bd35p76vg8mzifmprl";
   };
 

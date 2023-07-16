@@ -29,8 +29,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/janLuke/cloup";
-    description =
-      "Click extended with option groups, constraints, aliases, help themes";
+    description = "Click extended with option groups, constraints, aliases, help themes";
     longDescription = ''
       Enriches Click with option groups, constraints, command aliases, help sections for subcommands, themes for --help and other stuff.
     '';

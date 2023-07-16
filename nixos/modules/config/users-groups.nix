@@ -763,8 +763,9 @@ in
 
   config =
     let
-      cryptSchemeIdPatternGroup =
-        "(${lib.concatStringsSep "|" pkgs.libxcrypt.enabledCryptSchemeIds})";
+      cryptSchemeIdPatternGroup = "(${
+          lib.concatStringsSep "|" pkgs.libxcrypt.enabledCryptSchemeIds
+        })";
     in
     {
 

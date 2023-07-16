@@ -25,8 +25,7 @@ buildPythonPackage rec {
 
   patches = [
     (fetchpatch {
-      url =
-        "https://github.com/breathe-doc/breathe/commit/de3504c81c7cefc87c8229743f93232ca00a685d.patch";
+      url = "https://github.com/breathe-doc/breathe/commit/de3504c81c7cefc87c8229743f93232ca00a685d.patch";
       hash = "sha256-UGld5j0F/hnTuS7KUFvgQL52xCUdaJ3/NeuEuHhpCxI=";
     })
   ];

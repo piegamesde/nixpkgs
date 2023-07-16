@@ -22,15 +22,13 @@ let
     if stdenv.hostPlatform.system == "i686-linux" then
       fetchurl {
         name = "rescuetime-installer.deb";
-        url =
-          "https://www.rescuetime.com/installers/rescuetime_${version}_i386.deb";
+        url = "https://www.rescuetime.com/installers/rescuetime_${version}_i386.deb";
         sha256 = "1xrvyy0higc1fbc8ascpaszvg2bl6x0a35bzmdq6dkay48hnrd8b";
       }
     else
       fetchurl {
         name = "rescuetime-installer.deb";
-        url =
-          "https://www.rescuetime.com/installers/rescuetime_${version}_amd64.deb";
+        url = "https://www.rescuetime.com/installers/rescuetime_${version}_amd64.deb";
         sha256 = "09ng0yal66d533vzfv27k9l2va03rqbqmsni43qi3hgx7w9wx5ii";
       }
   ;
@@ -87,8 +85,7 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Helps you understand your daily habits so you can focus and be more productive";
+    description = "Helps you understand your daily habits so you can focus and be more productive";
     homepage = "https://www.rescuetime.com";
     maintainers = with maintainers; [ cstrahan ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];

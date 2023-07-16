@@ -61,8 +61,7 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description =
-      "Offline English-English dictionary application built for GNOME";
+    description = "Offline English-English dictionary application built for GNOME";
     homepage = "https://github.com/fushinari/Wordbook";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

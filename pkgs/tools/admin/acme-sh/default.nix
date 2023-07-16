@@ -54,8 +54,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://acme.sh/";
-    changelog =
-      "https://github.com/acmesh-official/acme.sh/releases/tag/${version}";
+    changelog = "https://github.com/acmesh-official/acme.sh/releases/tag/${version}";
     description = "A pure Unix shell script implementing ACME client protocol";
     longDescription = ''
       An ACME Shell script: acme.sh

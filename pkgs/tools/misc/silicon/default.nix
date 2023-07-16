@@ -33,8 +33,7 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "pathfinder_simd-0.5.1" =
-        "sha256-jQCa8TpGHLWvDT9kXWmlw51QtpKImPlWi082Va721cE=";
+      "pathfinder_simd-0.5.1" = "sha256-jQCa8TpGHLWvDT9kXWmlw51QtpKImPlWi082Va721cE=";
     };
   };
 

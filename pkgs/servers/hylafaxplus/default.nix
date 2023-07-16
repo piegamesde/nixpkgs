@@ -37,8 +37,7 @@ let
 
   pname = "hylafaxplus";
   version = "7.0.7";
-  hash =
-    "sha512-nUvt+M0HBYN+MsGskuuDt1j0nI5Dk8MbfK/OVxP2FCDby3eiDg0eDtcpIxlOe4o0klko07zDRIb06zqh8ABuKA==";
+  hash = "sha512-nUvt+M0HBYN+MsGskuuDt1j0nI5Dk8MbfK/OVxP2FCDby3eiDg0eDtcpIxlOe4o0klko07zDRIb06zqh8ABuKA==";
 
   configSite = substituteAll {
     name = "${pname}-config.site";
@@ -116,8 +115,7 @@ stdenv.mkDerivation {
   postInstallCheck = ". ${./post-install-check.sh}";
   meta = {
     changelog = "https://hylafax.sourceforge.io/news/${version}.php";
-    description =
-      "enterprise-class system for sending and receiving facsimiles";
+    description = "enterprise-class system for sending and receiving facsimiles";
     downloadPage = "https://hylafax.sourceforge.io/download.php";
     homepage = "https://hylafax.sourceforge.io";
     license = lib.licenses.bsd3;

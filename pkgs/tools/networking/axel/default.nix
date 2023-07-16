@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Console downloading program with some features for parallel connections for faster downloading";
+    description = "Console downloading program with some features for parallel connections for faster downloading";
     homepage = "https://github.com/axel-download-accelerator/axel";
     maintainers = with maintainers; [ pSub ];
     platforms = with platforms; unix;

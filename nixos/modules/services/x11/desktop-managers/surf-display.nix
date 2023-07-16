@@ -87,8 +87,7 @@ in
 
       pointerButtonMap = mkOption {
         type = types.str;
-        default =
-          "1 0 0 4 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0";
+        default = "1 0 0 4 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0";
         description = lib.mdDoc ''
           Disable right and middle pointer device click in browser sessions
           while keeping scrolling wheels' functionality intact. See pointer

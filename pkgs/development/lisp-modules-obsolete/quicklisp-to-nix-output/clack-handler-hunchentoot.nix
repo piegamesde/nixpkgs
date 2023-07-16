@@ -33,8 +33,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/clack/2021-04-11/clack-20210411-git.tgz";
+    url = "http://beta.quicklisp.org/archive/clack/2021-04-11/clack-20210411-git.tgz";
     sha256 = "0yai9cx1gha684ljr8k1s5n4mi6mpj2wmvv6b9iw7pw1vhw5m8mf";
   };
 

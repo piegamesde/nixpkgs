@@ -46,8 +46,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python bindings for libsamplerate based on CFFI and NumPy";
     homepage = "https://github.com/tuxu/python-samplerate";
-    changelog =
-      "https://github.com/tuxu/python-samplerate/releases/tag/${version}";
+    changelog = "https://github.com/tuxu/python-samplerate/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];
   };

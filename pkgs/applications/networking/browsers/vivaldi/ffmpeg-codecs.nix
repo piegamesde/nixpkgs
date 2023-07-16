@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
   version = "104.0.5112.101";
 
   src = fetchurl {
-    url =
-      "https://launchpadlibrarian.net/618703258/${pname}_${version}-0ubuntu0.18.04.1_amd64.deb";
+    url = "https://launchpadlibrarian.net/618703258/${pname}_${version}-0ubuntu0.18.04.1_amd64.deb";
     sha256 = "sha256-V+zqLhI8L/8ssxSR6S2v4gUAtoK3fB8Fi9bajBFEauU=";
   };
 

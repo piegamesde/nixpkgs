@@ -86,8 +86,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "LV2 & VST3 synthesizer plug-in (previously released as Vember Audio Surge)";
+    description = "LV2 & VST3 synthesizer plug-in (previously released as Vember Audio Surge)";
     homepage = "https://surge-synthesizer.github.io";
     license = licenses.gpl3;
     platforms = [ "x86_64-linux" ];

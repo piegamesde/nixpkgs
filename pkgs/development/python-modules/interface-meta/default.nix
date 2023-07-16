@@ -32,8 +32,7 @@ buildPythonPackage rec {
 
   meta = {
     homepage = "https://github.com/matthewwardrop/interface_meta";
-    description =
-      "Convenient way to expose an extensible API with enforced method signatures and consistent documentation";
+    description = "Convenient way to expose an extensible API with enforced method signatures and consistent documentation";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ swflint ];
   };

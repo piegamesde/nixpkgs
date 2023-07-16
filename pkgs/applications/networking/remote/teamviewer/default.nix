@@ -33,8 +33,7 @@ mkDerivation rec {
   version = "15.38.3";
 
   src = fetchurl {
-    url =
-      "https://dl.tvcdn.de/download/linux/version_${
+    url = "https://dl.tvcdn.de/download/linux/version_${
         lib.versions.major version
       }x/teamviewer_${version}_amd64.deb";
     sha256 = "sha256-+GGpGV8rl15VQvPRA2PWngQI4VoxCrZ0ArEm9FgdOVE=";
@@ -166,8 +165,7 @@ mkDerivation rec {
     homepage = "https://www.teamviewer.com";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    description =
-      "Desktop sharing application, providing remote support and online meetings";
+    description = "Desktop sharing application, providing remote support and online meetings";
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [
       jagajaga

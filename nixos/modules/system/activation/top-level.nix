@@ -247,8 +247,7 @@ in
         # "; true" => make the `$out` argument from switch-to-configuration.pl
         #             go to `true` instead of `echo`, hiding the useless path
         #             from the log.
-        default =
-          "echo 'Warning: do not know how to make this configuration bootable; please enable a boot loader.' 1>&2; true";
+        default = "echo 'Warning: do not know how to make this configuration bootable; please enable a boot loader.' 1>&2; true";
         description = lib.mdDoc ''
           A program that writes a bootloader installation script to the path passed in the first command line argument.
 

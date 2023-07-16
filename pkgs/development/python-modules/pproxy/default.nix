@@ -41,8 +41,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Proxy server that can tunnel among remote servers by regex rules";
+    description = "Proxy server that can tunnel among remote servers by regex rules";
     homepage = "https://github.com/qwj/python-proxy";
     license = licenses.mit;
     maintainers = with maintainers; [ drewrisinger ];

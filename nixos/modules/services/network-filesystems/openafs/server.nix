@@ -359,13 +359,11 @@ in
     assertions = [
       {
         assertion = cfg.cellServDB != [ ];
-        message =
-          "You must specify all cell-local database servers in config.services.openafsServer.cellServDB.";
+        message = "You must specify all cell-local database servers in config.services.openafsServer.cellServDB.";
       }
       {
         assertion = cfg.cellName != "";
-        message =
-          "You must specify the local cell name in config.services.openafsServer.cellName.";
+        message = "You must specify the local cell name in config.services.openafsServer.cellName.";
       }
     ];
 
@@ -409,8 +407,7 @@ in
         '';
         serviceConfig = {
           ExecStart = "${openafsBin}/bin/bosserver -nofork";
-          ExecStop =
-            "${openafsBin}/bin/bos shutdown localhost -wait -localauth";
+          ExecStop = "${openafsBin}/bin/bos shutdown localhost -wait -localauth";
         };
       };
     };

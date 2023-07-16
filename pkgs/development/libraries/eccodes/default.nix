@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
   version = "2.28.0";
 
   src = fetchurl {
-    url =
-      "https://confluence.ecmwf.int/download/attachments/45757960/eccodes-${version}-Source.tar.gz";
+    url = "https://confluence.ecmwf.int/download/attachments/45757960/eccodes-${version}-Source.tar.gz";
     sha256 = "sha256-KDE0exUXr569cN08rYiugYqESNTmyGcapyhhfnNDHNU=";
   };
 
@@ -79,7 +78,6 @@ stdenv.mkDerivation rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ knedlsepp ];
     platforms = platforms.unix;
-    description =
-      "ECMWF library for reading and writing GRIB, BUFR and GTS abbreviated header";
+    description = "ECMWF library for reading and writing GRIB, BUFR and GTS abbreviated header";
   };
 }

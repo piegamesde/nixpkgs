@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
   version = "1.2.0";
 
   src = fetchurl {
-    url =
-      "https://infraroot.at/pub/squashfs/squashfs-tools-ng-${version}.tar.xz";
+    url = "https://infraroot.at/pub/squashfs/squashfs-tools-ng-${version}.tar.xz";
     sha256 = "sha256-1zYHYJXVhJdWQKeM0VVM4VzL3r3XPXebfR7IAEgyt+c=";
   };
 

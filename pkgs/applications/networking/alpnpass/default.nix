@@ -18,8 +18,7 @@ buildGoModule rec {
   vendorSha256 = null;
 
   meta = with lib; {
-    description =
-      "Inspect the plaintext payload inside of proxied TLS connections";
+    description = "Inspect the plaintext payload inside of proxied TLS connections";
     longDescription = ''
       This tool will listen on a given port, strip SSL encryption,
       forward traffic through a plain TCP proxy,

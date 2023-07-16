@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Context-free design grammar - a tool for graphics generation";
+    description = "Context-free design grammar - a tool for graphics generation";
     maintainers = with maintainers; [ raskin ];
     platforms = platforms.linux;
     homepage = "https://contextfreeart.org/";

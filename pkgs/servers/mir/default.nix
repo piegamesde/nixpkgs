@@ -194,8 +194,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "A display server and Wayland compositor developed by Canonical";
+    description = "A display server and Wayland compositor developed by Canonical";
     homepage = "https://mir-server.io";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [

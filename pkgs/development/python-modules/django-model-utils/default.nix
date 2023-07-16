@@ -46,8 +46,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/jazzband/django-model-utils";
     description = "Django model mixins and utilities";
-    changelog =
-      "https://github.com/jazzband/django-model-utils/blob/${version}/CHANGES.rst";
+    changelog = "https://github.com/jazzband/django-model-utils/blob/${version}/CHANGES.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

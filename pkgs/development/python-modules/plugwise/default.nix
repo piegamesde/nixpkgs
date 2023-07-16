@@ -62,8 +62,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module for Plugwise Smiles, Stretch and USB stick";
     homepage = "https://github.com/plugwise/python-plugwise";
-    changelog =
-      "https://github.com/plugwise/python-plugwise/releases/tag/v${version}";
+    changelog = "https://github.com/plugwise/python-plugwise/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

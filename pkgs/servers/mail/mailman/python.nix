@@ -16,8 +16,7 @@ python3.override {
           src = super.fetchPypi {
             inherit version;
             inherit (a) pname;
-            sha256 =
-              "fb23f6c71107c37fd667cb4ea363ddeb936b348bbd6449278eb92c189699f543";
+            sha256 = "fb23f6c71107c37fd667cb4ea363ddeb936b348bbd6449278eb92c189699f543";
           };
         })
       );

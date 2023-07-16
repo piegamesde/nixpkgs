@@ -20,8 +20,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/cl-unification/2020-09-25/cl-unification-20200925-git.tgz";
+    url = "http://beta.quicklisp.org/archive/cl-unification/2020-09-25/cl-unification-20200925-git.tgz";
     sha256 = "05i1bmbabfgym9v28cbl37yr0r1m4a4k4a844z6wlq6qf45vzais";
   };
 

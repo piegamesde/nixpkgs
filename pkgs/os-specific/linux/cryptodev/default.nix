@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = {
-    description =
-      "Device that allows access to Linux kernel cryptographic drivers";
+    description = "Device that allows access to Linux kernel cryptographic drivers";
     homepage = "http://cryptodev-linux.org/";
     maintainers = with lib.maintainers; [ fortuneteller2k ];
     license = lib.licenses.gpl2Plus;

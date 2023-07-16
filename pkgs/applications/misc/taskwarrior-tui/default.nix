@@ -24,8 +24,7 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "task-hookrs-0.7.0" =
-        "sha256-EGnhUgYxygU3JrYXQPE9SheuXWS91qEwR+w3whaYuYw=";
+      "task-hookrs-0.7.0" = "sha256-EGnhUgYxygU3JrYXQPE9SheuXWS91qEwR+w3whaYuYw=";
     };
   };
 

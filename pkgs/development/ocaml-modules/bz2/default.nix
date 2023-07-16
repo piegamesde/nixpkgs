@@ -41,8 +41,7 @@ else
     preInstall = "mkdir -p $OCAMLFIND_DESTDIR/stublibs";
 
     meta = with lib; {
-      description =
-        "OCaml bindings for the libbz2 (AKA, bzip2) (de)compression library";
+      description = "OCaml bindings for the libbz2 (AKA, bzip2) (de)compression library";
       downloadPage = "https://gitlab.com/irill/camlbz2";
       license = licenses.lgpl21;
       maintainers = with maintainers; [ ];

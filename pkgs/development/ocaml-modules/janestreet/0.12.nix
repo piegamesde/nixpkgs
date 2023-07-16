@@ -16,8 +16,7 @@ with self;
   sexplib0 = janePackage {
     pname = "sexplib0";
     hash = "13xdd0pvypxqn0ldwdgikmlinrp3yfh8ixknv1xrpxbx3np4qp0g";
-    meta.description =
-      "Library containing the definition of S-expressions and some base converters";
+    meta.description = "Library containing the definition of S-expressions and some base converters";
   };
 
   base = janePackage {
@@ -39,8 +38,7 @@ with self;
   ppx_sexp_conv = janePackage {
     pname = "ppx_sexp_conv";
     hash = "0idzp1kzds0gnilschzs9ydi54if8y5xpn6ajn710vkipq26qcld";
-    meta.description =
-      "[@@deriving] plugin to generate S-expression conversion functions";
+    meta.description = "[@@deriving] plugin to generate S-expression conversion functions";
     propagatedBuildInputs = [ ppxlib ];
   };
 
@@ -61,8 +59,7 @@ with self;
   ppx_assert = janePackage {
     pname = "ppx_assert";
     hash = "0as6mzr6ki2a9d4k6132p9dskn0qssla1s7j5rkzp75bfikd0ip8";
-    meta.description =
-      "Assert-like extension nodes that raise useful errors on failure";
+    meta.description = "Assert-like extension nodes that raise useful errors on failure";
     propagatedBuildInputs = [
       ppx_compare
       ppx_here
@@ -73,8 +70,7 @@ with self;
   ppx_inline_test = janePackage {
     pname = "ppx_inline_test";
     hash = "0nyz411zim94pzbxm2l2v2l9jishcxwvxhh142792g2s18r4vn50";
-    meta.description =
-      "Syntax extension for writing in-line tests in ocaml code";
+    meta.description = "Syntax extension for writing in-line tests in ocaml code";
     propagatedBuildInputs = [ ppxlib ];
   };
 
@@ -82,24 +78,21 @@ with self;
     pname = "ppx_custom_printf";
     version = "0.12.1";
     hash = "0q7591agvd3qy9ihhbyk4db48r0ng7yxspfj8afxxiawl7k5bas6";
-    meta.description =
-      "Printf-style format-strings for user-defined string conversion";
+    meta.description = "Printf-style format-strings for user-defined string conversion";
     propagatedBuildInputs = [ ppx_sexp_conv ];
   };
 
   fieldslib = janePackage {
     pname = "fieldslib";
     hash = "0dlgr7cimqmjlcymk3bdcyzqzvdy12q5lqa844nqix0k2ymhyphf";
-    meta.description =
-      "Syntax extension to define first class values representing record fields, to get and set record fields, iterate and fold over all fields of a record and create new record values";
+    meta.description = "Syntax extension to define first class values representing record fields, to get and set record fields, iterate and fold over all fields of a record and create new record values";
     propagatedBuildInputs = [ base ];
   };
 
   ppx_fields_conv = janePackage {
     pname = "ppx_fields_conv";
     hash = "0flrdyxdfcqcmdrbipxdjq0s3djdgs7z5pvjdycsvs6czbixz70v";
-    meta.description =
-      "Generation of accessor and iteration functions for ocaml records";
+    meta.description = "Generation of accessor and iteration functions for ocaml records";
     propagatedBuildInputs = [
       fieldslib
       ppxlib
@@ -116,8 +109,7 @@ with self;
   ppx_variants_conv = janePackage {
     pname = "ppx_variants_conv";
     hash = "05j9bgra8xq6fcp12ch3z9vjrk139p2wrcjjcs4h52n5hhc8vzbz";
-    meta.description =
-      "Generation of accessor and iteration functions for ocaml variant types";
+    meta.description = "Generation of accessor and iteration functions for ocaml variant types";
     propagatedBuildInputs = [
       variantslib
       ppxlib
@@ -148,8 +140,7 @@ with self;
   ppx_hash = janePackage {
     pname = "ppx_hash";
     hash = "1dfsfvhiyp1mnf24mr93svpdn432kla0y7x631lssacxxp2sadbg";
-    meta.description =
-      "A ppx rewriter that generates hash functions from type expressions and definitions";
+    meta.description = "A ppx rewriter that generates hash functions from type expressions and definitions";
     propagatedBuildInputs = [
       ppx_compare
       ppx_sexp_conv
@@ -180,8 +171,7 @@ with self;
   ppx_bench = janePackage {
     pname = "ppx_bench";
     hash = "1ib81irawxzq091bmpi50z0kmpx6z2drg14k2xcgmwbb1d4063xn";
-    meta.description =
-      "Syntax extension for writing in-line benchmarks in ocaml code";
+    meta.description = "Syntax extension for writing in-line benchmarks in ocaml code";
     propagatedBuildInputs = [ ppx_inline_test ];
   };
 
@@ -217,8 +207,7 @@ with self;
   base_quickcheck = janePackage {
     pname = "base_quickcheck";
     hash = "1la6qgq1zwmfyq1hqy6i337w435ym5yqgx2ygk86qip6nws0s6r3";
-    meta.description =
-      "Randomized testing framework, designed for compatibility with Base";
+    meta.description = "Randomized testing framework, designed for compatibility with Base";
     propagatedBuildInputs = [
       ppx_base
       ppx_fields_conv
@@ -305,8 +294,7 @@ with self;
   ppx_module_timer = janePackage {
     pname = "ppx_module_timer";
     hash = "0yziakm7f4c894na76k1z4bp7azy82xc33mh36fj761w1j9zy3wm";
-    meta.description =
-      "Ppx rewriter that records top-level module startup times";
+    meta.description = "Ppx rewriter that records top-level module startup times";
     propagatedBuildInputs = [ time_now ];
   };
 
@@ -320,16 +308,14 @@ with self;
   ppx_pipebang = janePackage {
     pname = "ppx_pipebang";
     hash = "1p4pdpl8h2bblbhpn5nk17ri4rxpz0aih0gffg3cl1186irkj0xj";
-    meta.description =
-      "A ppx rewriter that inlines reverse application operators `|>` and `|!`";
+    meta.description = "A ppx rewriter that inlines reverse application operators `|>` and `|!`";
     propagatedBuildInputs = [ ppxlib ];
   };
 
   ppx_sexp_value = janePackage {
     pname = "ppx_sexp_value";
     hash = "1mg81834a6dx1x7x9zb9wc58438cabjjw08yhkx6i386hxfy891p";
-    meta.description =
-      "A ppx rewriter that simplifies building s-expressions from ocaml values";
+    meta.description = "A ppx rewriter that simplifies building s-expressions from ocaml values";
     propagatedBuildInputs = [
       ppx_here
       ppx_sexp_conv
@@ -376,8 +362,7 @@ with self;
   base_bigstring = janePackage {
     pname = "base_bigstring";
     hash = "0rbgyg511847fbnxad40prz2dyp4da6sffzyzl88j18cxqxbh1by";
-    meta.description =
-      "String type based on [Bigarray], for use in I/O and C-bindings";
+    meta.description = "String type based on [Bigarray], for use in I/O and C-bindings";
     propagatedBuildInputs = [ ppx_jane ];
   };
 
@@ -394,8 +379,7 @@ with self;
   sexplib = janePackage {
     pname = "sexplib";
     hash = "0780klc5nnv0ij6aklzra517cfnfkjdlp8ylwjrqwr8dl9rvxza2";
-    meta.description =
-      "Library for serializing OCaml values to and from S-expressions";
+    meta.description = "Library for serializing OCaml values to and from S-expressions";
     propagatedBuildInputs = [
       num
       parsexp
@@ -505,8 +489,7 @@ with self;
   re2 = janePackage {
     pname = "re2";
     hash = "1sw32lb0y501y971ij7287796lvfhs0nfgla895r74ymfks2rcjb";
-    meta.description =
-      "OCaml bindings for RE2, Google's regular expression library";
+    meta.description = "OCaml bindings for RE2, Google's regular expression library";
     propagatedBuildInputs = [ core_kernel ];
     prePatch = ''
       substituteInPlace src/re2_c/dune --replace 'CXX=g++' 'CXX=c++'
@@ -517,8 +500,7 @@ with self;
   shell = janePackage {
     pname = "shell";
     hash = "158857rdr6qgglc5iksg0l54jgf51b5lmsw7nlazpxwdwc9fcn5n";
-    meta.description =
-      "Yet another implementation of fork&exec and related functionality";
+    meta.description = "Yet another implementation of fork&exec and related functionality";
     buildInputs = [ jst-config ];
     propagatedBuildInputs = [
       re2
@@ -546,8 +528,7 @@ with self;
   core_extended = janePackage {
     pname = "core_extended";
     hash = "1gwx66235irpf5krb1r25a3c7w52qhmass8hp7rdv89il9jn49w4";
-    meta.description =
-      "Extra components that are not as closely vetted or as stable as Core";
+    meta.description = "Extra components that are not as closely vetted or as stable as Core";
     propagatedBuildInputs = [ core ];
   };
 
@@ -586,8 +567,7 @@ with self;
   patience_diff = janePackage {
     pname = "patience_diff";
     hash = "055kd3piadjnplip8c8q99ssh79d4irmhg2wng7aida5pbqp2p9f";
-    meta.description =
-      "Diff library using Bram Cohen's patience diff algorithm";
+    meta.description = "Diff library using Bram Cohen's patience diff algorithm";
     propagatedBuildInputs = [ core_kernel ];
   };
 

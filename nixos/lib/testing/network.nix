@@ -44,8 +44,7 @@ let
         }:
         nameValuePair "eth${toString snd}" {
           ipv4.addresses = [ {
-            address =
-              "192.168.${toString fst}.${
+            address = "192.168.${toString fst}.${
                 toString config.virtualisation.test.nodeNumber
               }";
             prefixLength = 24;

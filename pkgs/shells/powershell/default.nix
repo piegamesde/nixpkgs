@@ -76,8 +76,7 @@ stdenv.mkDerivation rec {
   version = "7.3.2";
 
   src = fetchzip {
-    url =
-      "https://github.com/PowerShell/PowerShell/releases/download/v${version}/powershell-${version}-${platformString}-${archString}.tar.gz";
+    url = "https://github.com/PowerShell/PowerShell/releases/download/v${version}/powershell-${version}-${platformString}-${archString}.tar.gz";
     sha256 = platformSha;
     stripRoot = false;
   };
@@ -131,8 +130,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Powerful cross-platform (Windows, Linux, and macOS) shell and scripting language based on .NET";
+    description = "Powerful cross-platform (Windows, Linux, and macOS) shell and scripting language based on .NET";
     homepage = "https://github.com/PowerShell/PowerShell";
     sourceProvenance = with sourceTypes; [
       binaryBytecode

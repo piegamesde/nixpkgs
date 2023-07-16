@@ -72,8 +72,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://muse-sequencer.github.io/";
-    description =
-      "MIDI/Audio sequencer with recording and editing capabilities";
+    description = "MIDI/Audio sequencer with recording and editing capabilities";
     longDescription = ''
       MusE is a MIDI/Audio sequencer with recording and editing capabilities
       written originally by Werner Schweer now developed and maintained

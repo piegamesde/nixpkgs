@@ -60,15 +60,12 @@ rustPlatform.buildRustPackage {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "azure_core-0.5.0" =
-        "sha256-fojO7dhntpymMjV58TtYb7N4UN6rOp30D54x09RDXfQ=";
+      "azure_core-0.5.0" = "sha256-fojO7dhntpymMjV58TtYb7N4UN6rOp30D54x09RDXfQ=";
       "chrono-0.4.24" = "sha256-SVPRfixSt0m14MmOcmBVseC/moj1DIA3B+m0pvT41K0=";
-      "datadog-filter-0.1.0" =
-        "sha256-CNAIoDyJJo+D2Qzt6Fb2FwpQpzX02XurT8j1gHkz1bE=";
+      "datadog-filter-0.1.0" = "sha256-CNAIoDyJJo+D2Qzt6Fb2FwpQpzX02XurT8j1gHkz1bE=";
       "heim-0.1.0-rc.1" = "sha256-ODKEQ1udt7FlxI5fvoFMG7C2zmM45eeEYDUEaLTsdYo=";
       "nix-0.26.2" = "sha256-uquYvRT56lhupkrESpxwKEimRFhmYvri10n3dj0f2yg=";
-      "tokio-util-0.7.4" =
-        "sha256-rAzj44O+GOZhG+o6FVN5qCcG/NWxW8fUpScm+xsRjIs=";
+      "tokio-util-0.7.4" = "sha256-rAzj44O+GOZhG+o6FVN5qCcG/NWxW8fUpScm+xsRjIs=";
       "tracing-0.2.0" = "sha256-YAxeEofFA43PX2hafh3RY+C81a2v6n1fGzYz2FycC3M=";
     };
   };

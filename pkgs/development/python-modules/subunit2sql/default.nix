@@ -48,8 +48,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "subunit2sql" ];
 
   meta = with lib; {
-    description =
-      "Command to Read a subunit file or stream and put the data in a SQL DB";
+    description = "Command to Read a subunit file or stream and put the data in a SQL DB";
     homepage = "https://opendev.org/opendev/subunit2sql";
     license = licenses.asl20;
     maintainers = teams.openstack.members;

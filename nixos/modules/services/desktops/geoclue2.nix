@@ -150,10 +150,8 @@ in
 
       geoProviderUrl = mkOption {
         type = types.str;
-        default =
-          "https://location.services.mozilla.com/v1/geolocate?key=geoclue";
-        example =
-          "https://www.googleapis.com/geolocation/v1/geolocate?key=YOUR_KEY";
+        default = "https://location.services.mozilla.com/v1/geolocate?key=geoclue";
+        example = "https://www.googleapis.com/geolocation/v1/geolocate?key=YOUR_KEY";
         description = lib.mdDoc ''
           The url to the wifi GeoLocation Service.
         '';

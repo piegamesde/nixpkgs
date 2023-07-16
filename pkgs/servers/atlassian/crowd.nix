@@ -20,8 +20,7 @@ optionalWarning (openidPassword != "WILL_NEVER_BE_SET")
       version = "5.0.1";
 
       src = fetchurl {
-        url =
-          "https://www.atlassian.com/software/crowd/downloads/binary/${pname}-${version}.tar.gz";
+        url = "https://www.atlassian.com/software/crowd/downloads/binary/${pname}-${version}.tar.gz";
         sha256 = "sha256-ccXSNuiXP0+b9WObboikqVd0nKH0Fi2gMVEF3+WAx5M=";
       };
 

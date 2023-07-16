@@ -12,8 +12,7 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/ptester/2016-09-29/ptester-20160929-git.tgz";
+    url = "http://beta.quicklisp.org/archive/ptester/2016-09-29/ptester-20160929-git.tgz";
     sha256 = "04rlq1zljhxc65pm31bah3sq3as24l0sdivz440s79qlnnyh13hz";
   };
 

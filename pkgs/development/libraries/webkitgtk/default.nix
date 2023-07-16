@@ -74,8 +74,7 @@ stdenv.mkDerivation (
   finalAttrs: {
     pname = "webkitgtk";
     version = "2.40.1";
-    name =
-      "${finalAttrs.pname}-${finalAttrs.version}+abi=${
+    name = "${finalAttrs.pname}-${finalAttrs.version}+abi=${
         if lib.versionAtLeast gtk3.version "4.0" then
           "6.0"
         else
@@ -93,8 +92,7 @@ stdenv.mkDerivation (
     separateDebugInfo = stdenv.isLinux && !stdenv.is32bit;
 
     src = fetchurl {
-      url =
-        "https://webkitgtk.org/releases/webkitgtk-${finalAttrs.version}.tar.xz";
+      url = "https://webkitgtk.org/releases/webkitgtk-${finalAttrs.version}.tar.xz";
       hash = "sha256-ZOUmmE+M0hYe8DrpSa+ZwAL/Mz1hXmOGtGAWSjwbfvY=";
     };
 

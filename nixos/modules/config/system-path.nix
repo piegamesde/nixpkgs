@@ -63,8 +63,9 @@ let
       )
       defaultPackageNames
   ;
-  defaultPackagesText =
-    "[ ${concatMapStringsSep " " (n: "pkgs.${n}") defaultPackageNames} ]";
+  defaultPackagesText = "[ ${
+      concatMapStringsSep " " (n: "pkgs.${n}") defaultPackageNames
+    } ]";
 in
 
 {

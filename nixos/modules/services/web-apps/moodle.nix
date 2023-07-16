@@ -295,14 +295,12 @@ in
     assertions = [
       {
         assertion = cfg.database.createLocally -> cfg.database.user == user;
-        message =
-          "services.moodle.database.user must be set to ${user} if services.moodle.database.createLocally is set true";
+        message = "services.moodle.database.user must be set to ${user} if services.moodle.database.createLocally is set true";
       }
       {
         assertion =
           cfg.database.createLocally -> cfg.database.passwordFile == null;
-        message =
-          "a password cannot be specified if services.moodle.database.createLocally is set to true";
+        message = "a password cannot be specified if services.moodle.database.createLocally is set to true";
       }
     ];
 
@@ -313,8 +311,7 @@ in
       ensureUsers = [ {
         name = cfg.database.user;
         ensurePermissions = {
-          "${cfg.database.name}.*" =
-            "SELECT, INSERT, UPDATE, DELETE, CREATE, CREATE TEMPORARY TABLES, DROP, INDEX, ALTER";
+          "${cfg.database.name}.*" = "SELECT, INSERT, UPDATE, DELETE, CREATE, CREATE TEMPORARY TABLES, DROP, INDEX, ALTER";
         };
       } ];
     };
@@ -405,8 +402,7 @@ in
       serviceConfig = {
         User = user;
         Group = group;
-        ExecStart =
-          "${phpExt}/bin/php ${cfg.package}/share/moodle/admin/cli/cron.php";
+        ExecStart = "${phpExt}/bin/php ${cfg.package}/share/moodle/admin/cli/cron.php";
       };
     };
 

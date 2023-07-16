@@ -67,8 +67,7 @@ rec {
   };
   packetbeat7 = beat "packetbeat" {
     buildInputs = [ libpcap ];
-    meta.description =
-      "Network packet analyzer that ships data to Elasticsearch";
+    meta.description = "Network packet analyzer that ships data to Elasticsearch";
     meta.longDescription = ''
       Packetbeat is an open source network packet analyzer that ships the
       data to Elasticsearch.

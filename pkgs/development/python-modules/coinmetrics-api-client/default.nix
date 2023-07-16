@@ -57,8 +57,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Coin Metrics API v4 client library";
-    homepage =
-      "https://coinmetrics.github.io/api-client-python/site/index.html";
+    homepage = "https://coinmetrics.github.io/api-client-python/site/index.html";
     license = licenses.mit;
     maintainers = with maintainers; [ centromere ];
   };

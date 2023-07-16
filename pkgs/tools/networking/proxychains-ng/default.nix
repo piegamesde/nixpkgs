@@ -19,13 +19,11 @@ stdenv.mkDerivation rec {
   patches = [
     # zsh completion
     (fetchpatch {
-      url =
-        "https://github.com/rofl0r/proxychains-ng/commit/04023d3811d8ee34b498b429bac7a871045de59c.patch";
+      url = "https://github.com/rofl0r/proxychains-ng/commit/04023d3811d8ee34b498b429bac7a871045de59c.patch";
       sha256 = "sha256-Xcg2kmAhj/OJn/RKJAxb9MOJNJQY7FXmxEIzQ5dvabo=";
     })
     (fetchpatch {
-      url =
-        "https://github.com/rofl0r/proxychains-ng/commit/9b42da71f4df7b783cf07a58ffa095e293c43380.patch";
+      url = "https://github.com/rofl0r/proxychains-ng/commit/9b42da71f4df7b783cf07a58ffa095e293c43380.patch";
       sha256 = "sha256-tYv9XP51WtsjaoklwQk3D/MQceoOvtdMwBraECt6AXQ=";
     })
     # https://github.com/NixOS/nixpkgs/issues/136093
@@ -43,8 +41,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A preloader which hooks calls to sockets in dynamically linked programs and redirects it through one or more socks/http proxies";
+    description = "A preloader which hooks calls to sockets in dynamically linked programs and redirects it through one or more socks/http proxies";
     homepage = "https://github.com/rofl0r/proxychains-ng";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ zenithal ];

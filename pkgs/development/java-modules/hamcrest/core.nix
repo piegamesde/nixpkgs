@@ -18,13 +18,11 @@
       [
         {
           type = "jar";
-          sha512 =
-            "14vx453pk5shchdn3sz17s5im1cq1vav19rwnybafnsq2blfn3d0xz01cf9h1gnzclivhc4wgf7vvs23wcr7iiy4nksakxcb9rswdz2";
+          sha512 = "14vx453pk5shchdn3sz17s5im1cq1vav19rwnybafnsq2blfn3d0xz01cf9h1gnzclivhc4wgf7vvs23wcr7iiy4nksakxcb9rswdz2";
         }
         {
           type = "pom";
-          sha512 =
-            "3rn4bs9ixdnwg916qdkjjv9m17l0ym7zj6cxaf18304wlbshxcb1fpa11rnll9g76ap0f4z8r70z3snfj6kyf6sw9xf9xpq4n1796rg";
+          sha512 = "3rn4bs9ixdnwg916qdkjjv9m17l0ym7zj6cxaf18304wlbshxcb1fpa11rnll9g76ap0f4z8r70z3snfj6kyf6sw9xf9xpq4n1796rg";
         }
       ]
   ;

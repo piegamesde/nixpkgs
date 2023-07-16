@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
   version = "1.2.12";
 
   src = fetchurl {
-    url =
-      "https://birdfont.org/${pname}-releases/lib${pname}-${version}.tar.xz";
+    url = "https://birdfont.org/${pname}-releases/lib${pname}-${version}.tar.xz";
     sha256 = "15z4rvii3p54g2hasibjnf83c1702d84367fnl8pbisjqqrdcl04";
   };
 

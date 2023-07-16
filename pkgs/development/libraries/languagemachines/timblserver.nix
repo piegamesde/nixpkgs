@@ -41,8 +41,7 @@ stdenv.mkDerivation {
   preConfigure = "sh bootstrap.sh";
 
   meta = with lib; {
-    description =
-      "This server for TiMBL implements several memory-based learning algorithms";
+    description = "This server for TiMBL implements several memory-based learning algorithms";
     homepage = "https://github.com/LanguageMachines/timblserver/";
     license = licenses.gpl3;
     platforms = platforms.all;

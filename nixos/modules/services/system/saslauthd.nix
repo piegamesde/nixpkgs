@@ -58,8 +58,7 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart =
-          "@${cfg.package}/sbin/saslauthd saslauthd -a ${cfg.mechanism} -O ${
+        ExecStart = "@${cfg.package}/sbin/saslauthd saslauthd -a ${cfg.mechanism} -O ${
             pkgs.writeText "saslauthd.conf" cfg.config
           }";
         Type = "forking";

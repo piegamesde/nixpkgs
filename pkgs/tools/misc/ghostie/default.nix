@@ -23,8 +23,7 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "clokwerk-0.4.0-rc1" =
-        "sha256-GQDWEN2arDDRu2ft8QYdXsNhBEIhBNZTnLoLy27cbAI=";
+      "clokwerk-0.4.0-rc1" = "sha256-GQDWEN2arDDRu2ft8QYdXsNhBEIhBNZTnLoLy27cbAI=";
     };
   };
 
@@ -48,8 +47,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Github notifications in your terminal";
     homepage = "https://github.com/attriaayush/ghostie";
-    changelog =
-      "https://github.com/attriaayush/ghostie/releases/tag/v${version}";
+    changelog = "https://github.com/attriaayush/ghostie/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ matthiasbeyer ];
     broken = stdenv.isx86_64 && stdenv.isDarwin;

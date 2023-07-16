@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   version = "2.20";
 
   src = fetchurl {
-    url =
-      "http://hep.itp.tuwien.ac.at/~kreuzer/CY/palp/${pname}-${version}.tar.gz";
+    url = "http://hep.itp.tuwien.ac.at/~kreuzer/CY/palp/${pname}-${version}.tar.gz";
     sha256 = "1q1cl3vpdir16szy0jcadysydcrjp48hqxyx42kr8g9digkqjgkj";
   };
 

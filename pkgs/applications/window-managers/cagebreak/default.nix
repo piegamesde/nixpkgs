@@ -84,8 +84,7 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = with maintainers; [ berbiche ];
     platforms = platforms.linux;
-    changelog =
-      "https://github.com/project-repo/cagebreak/blob/${version}/Changelog.md";
+    changelog = "https://github.com/project-repo/cagebreak/blob/${version}/Changelog.md";
   };
 
   passthru.tests.basic = nixosTests.cagebreak;

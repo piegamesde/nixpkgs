@@ -24,8 +24,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Transform Linux Audit logs for SIEM usage";
     homepage = "https://github.com/threathunters-io/laurel";
-    changelog =
-      "https://github.com/threathunters-io/laurel/releases/tag/v${version}";
+    changelog = "https://github.com/threathunters-io/laurel/releases/tag/v${version}";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ indeednotjames ];
     platforms = platforms.linux;

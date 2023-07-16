@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
   dontWrapQtApps = true;
 
   meta = with lib; {
-    description =
-      "Qt-style API to interact with the wayland-client and wayland-server";
+    description = "Qt-style API to interact with the wayland-client and wayland-server";
     homepage = "https://github.com/linuxdeepin/dwayland";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;

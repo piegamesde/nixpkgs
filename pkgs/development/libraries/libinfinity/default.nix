@@ -31,8 +31,7 @@ let
     pname = "libinfinity";
     version = "0.7.2";
     src = fetchurl {
-      url =
-        "https://github.com/gobby/${pname}/releases/download/${version}/${pname}-${version}.tar.gz";
+      url = "https://github.com/gobby/${pname}/releases/download/${version}/${pname}-${version}.tar.gz";
       sha256 = "17i3g61hxz9pzl3ryd1yr15142r25m06jfzjrpdy7ic1b8vjjw3f";
     };
 
@@ -78,14 +77,14 @@ let
     ];
 
     passthru = {
-      infinoted =
-        "${self.bin}/bin/infinoted-${lib.versions.majorMinor version}";
+      infinoted = "${self.bin}/bin/infinoted-${
+          lib.versions.majorMinor version
+        }";
     };
 
     meta = {
       homepage = "https://gobby.github.io/";
-      description =
-        "An implementation of the Infinote protocol written in GObject-based C";
+      description = "An implementation of the Infinote protocol written in GObject-based C";
       license = lib.licenses.lgpl2Plus;
       maintainers = [ ];
       platforms = with lib.platforms; linux ++ darwin;

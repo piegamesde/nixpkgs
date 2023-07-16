@@ -82,8 +82,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "Simple notification daemon with a GUI built for Sway";
       homepage = "https://github.com/ErikReider/SwayNotificationCenter";
-      changelog =
-        "https://github.com/ErikReider/SwayNotificationCenter/releases/tag/v${version}";
+      changelog = "https://github.com/ErikReider/SwayNotificationCenter/releases/tag/v${version}";
       license = licenses.gpl3;
       platforms = platforms.linux;
       maintainers = with maintainers; [

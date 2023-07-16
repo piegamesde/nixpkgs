@@ -61,8 +61,7 @@ lib.makePackageOverridable (
     } // lib.optionalAttrs document {
       documentationRoot = "${src}/${prefix}";
 
-      baseImportUrl =
-        "https://raw.githubusercontent.com/${owner}/${repo}/${rev}${prefix}";
+      baseImportUrl = "https://raw.githubusercontent.com/${owner}/${repo}/${rev}${prefix}";
     }
   )
 )

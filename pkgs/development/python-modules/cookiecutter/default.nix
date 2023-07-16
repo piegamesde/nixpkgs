@@ -53,8 +53,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/audreyr/cookiecutter";
-    description =
-      "A command-line utility that creates projects from project templates";
+    description = "A command-line utility that creates projects from project templates";
     license = licenses.bsd3;
     maintainers = with maintainers; [ kragniz ];
   };

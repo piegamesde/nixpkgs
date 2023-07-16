@@ -70,8 +70,7 @@ buildPythonApplication rec {
   pythonImportsCheck = [ "catt" ];
 
   meta = with lib; {
-    description =
-      "Tool to send media from online sources to Chromecast devices";
+    description = "Tool to send media from online sources to Chromecast devices";
     homepage = "https://github.com/skorokithakis/catt";
     license = licenses.bsd2;
     maintainers = with maintainers; [ dtzWill ];

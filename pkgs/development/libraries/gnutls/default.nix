@@ -63,8 +63,7 @@ stdenv.mkDerivation rec {
   version = "3.8.0";
 
   src = fetchurl {
-    url =
-      "mirror://gnupg/gnutls/v${
+    url = "mirror://gnupg/gnutls/v${
         lib.versions.majorMinor version
       }/gnutls-${version}.tar.xz";
     sha256 = "sha256-DqDRGhZgoeY/lg8Vexl6vm0MjLMlW+JOH7OBWTC5vcU=";

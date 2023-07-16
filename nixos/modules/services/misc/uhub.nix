@@ -156,8 +156,7 @@ in
                 pkg = pkgs.uhub.override { tlsSupport = cfg.enableTLS; };
               in
               {
-                description =
-                  "high performance peer-to-peer hub for the ADC network";
+                description = "high performance peer-to-peer hub for the ADC network";
                 after = [ "network.target" ];
                 wantedBy = [ "multi-user.target" ];
                 reloadIfChanged = true;

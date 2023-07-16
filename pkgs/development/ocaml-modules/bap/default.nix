@@ -57,8 +57,7 @@ else
     };
 
     sigs = fetchurl {
-      url =
-        "https://github.com/BinaryAnalysisPlatform/bap/releases/download/v${version}/sigs.zip";
+      url = "https://github.com/BinaryAnalysisPlatform/bap/releases/download/v${version}/sigs.zip";
       sha256 = "0d69jd28z4g64mglq94kj5imhmk5f6sgcsh9q2nij3b0arpcliwk";
     };
 
@@ -141,8 +140,7 @@ else
     ];
 
     meta = with lib; {
-      description =
-        "Platform for binary analysis. It is written in OCaml, but can be used from other languages.";
+      description = "Platform for binary analysis. It is written in OCaml, but can be used from other languages.";
       homepage = "https://github.com/BinaryAnalysisPlatform/bap/";
       license = licenses.mit;
       maintainers = [ maintainers.maurer ];

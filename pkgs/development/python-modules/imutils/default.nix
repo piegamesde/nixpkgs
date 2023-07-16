@@ -29,8 +29,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/jrosebr1/imutils";
-    description =
-      "A series of convenience functions to make basic image processing functions";
+    description = "A series of convenience functions to make basic image processing functions";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

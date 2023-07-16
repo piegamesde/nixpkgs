@@ -74,8 +74,7 @@ in
         after = [ "network.target" ];
         serviceConfig = {
           Type = "forking";
-          ExecStart =
-            "${pkgs.eternal-terminal}/bin/etserver --daemon --cfgfile=${
+          ExecStart = "${pkgs.eternal-terminal}/bin/etserver --daemon --cfgfile=${
               pkgs.writeText "et.cfg" ''
                 ; et.cfg : Config file for Eternal Terminal
                 ;

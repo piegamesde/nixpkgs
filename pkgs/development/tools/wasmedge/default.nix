@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://wasmedge.org/";
     license = with licenses; [ asl20 ];
-    description =
-      "A lightweight, high-performance, and extensible WebAssembly runtime for cloud native, edge, and decentralized applications";
+    description = "A lightweight, high-performance, and extensible WebAssembly runtime for cloud native, edge, and decentralized applications";
     maintainers = with maintainers; [ dit7ya ];
     # error: no member named 'utimensat' in the global namespace
     broken = stdenv.isDarwin && stdenv.isx86_64;

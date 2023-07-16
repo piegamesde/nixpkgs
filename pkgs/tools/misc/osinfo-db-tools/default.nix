@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Tools for managing the osinfo database";
     homepage = "https://libosinfo.org/";
-    changelog =
-      "https://gitlab.com/libosinfo/osinfo-db-tools/-/blob/v${version}/NEWS";
+    changelog = "https://gitlab.com/libosinfo/osinfo-db-tools/-/blob/v${version}/NEWS";
     license = licenses.lgpl2Plus;
     platforms = platforms.unix;
     maintainers = [ maintainers.bjornfor ];

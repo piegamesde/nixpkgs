@@ -55,8 +55,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/charliermarsh/ruff-lsp";
     description = "A Language Server Protocol implementation for Ruff";
-    changelog =
-      "https://github.com/charliermarsh/ruff-lsp/releases/tag/v${version}";
+    changelog = "https://github.com/charliermarsh/ruff-lsp/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ kalekseev ];
   };

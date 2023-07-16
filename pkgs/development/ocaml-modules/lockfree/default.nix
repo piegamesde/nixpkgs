@@ -15,8 +15,7 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url =
-      "https://github.com/ocaml-multicore/lockfree/releases/download/${version}/lockfree-${version}.tbz";
+    url = "https://github.com/ocaml-multicore/lockfree/releases/download/${version}/lockfree-${version}.tbz";
     hash = "sha256-XdJR5ojFsA7bJ4aZ5rh10NjopE0NjfqQ9KitOLMh3Jo=";
   };
 

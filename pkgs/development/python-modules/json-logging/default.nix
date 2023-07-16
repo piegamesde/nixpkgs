@@ -52,8 +52,7 @@ buildPythonPackage rec {
       infrastructure such as ELK, EFK, AWS Cloudwatch, GCP Stackdriver.
     '';
     homepage = "https://github.com/bobbui/json-logging-python";
-    changelog =
-      "https://github.com/bobbui/json-logging-python/releases/tag/${version}";
+    changelog = "https://github.com/bobbui/json-logging-python/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ AluisioASG ];
   };

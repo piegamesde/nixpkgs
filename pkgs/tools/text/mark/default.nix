@@ -24,8 +24,7 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    description =
-      "A tool for syncing your markdown documentation with Atlassian Confluence pages";
+    description = "A tool for syncing your markdown documentation with Atlassian Confluence pages";
     homepage = "https://github.com/kovetskiy/mark";
     license = licenses.asl20;
     maintainers = with maintainers; [ rguevara84 ];

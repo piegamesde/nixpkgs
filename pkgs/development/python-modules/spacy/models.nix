@@ -33,8 +33,7 @@ let
       inherit pname version;
 
       src = fetchurl {
-        url =
-          "https://github.com/explosion/spacy-models/releases/download/${pname}-${version}/${pname}-${version}.tar.gz";
+        url = "https://github.com/explosion/spacy-models/releases/download/${pname}-${version}/${pname}-${version}.tar.gz";
         inherit sha256;
       };
 

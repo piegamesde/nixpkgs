@@ -256,8 +256,7 @@ let
     ignoreCollisions = true;
   };
 
-  fontconfigNote =
-    "Consider manually configuring fonts.fontconfig according to personal preference.";
+  fontconfigNote = "Consider manually configuring fonts.fontconfig according to personal preference.";
 in
 {
   imports =

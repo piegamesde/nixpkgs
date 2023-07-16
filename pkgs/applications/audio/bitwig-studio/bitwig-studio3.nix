@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
   version = "3.3.7";
 
   src = fetchurl {
-    url =
-      "https://downloads.bitwig.com/stable/${version}/${pname}-${version}.deb";
+    url = "https://downloads.bitwig.com/stable/${version}/${pname}-${version}.deb";
     sha256 = "13jr45kzv0xjhhqk30qpq793349qyx8jpas4kl6i6bk3xfrd3fbz";
   };
 

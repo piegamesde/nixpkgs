@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
     [
       # Fix missing pthread_compat.h, see https://github.com/intel/linux-sgx/pull/784
       (fetchpatch {
-        url =
-          "https://github.com/intel/linux-sgx/commit/254b58f922a6bd49c308a4f47f05f525305bd760.patch";
+        url = "https://github.com/intel/linux-sgx/commit/254b58f922a6bd49c308a4f47f05f525305bd760.patch";
         sha256 = "sha256-sHU++K7NJ+PdITx3y0PwstA9MVh10rj2vrLn01N9F4w=";
       })
     ];

@@ -470,8 +470,7 @@ in
     ];
 
     # We don't place this into `extraModprobeConfig` so that stage-1 ramdisk doesn't bloat.
-    environment.etc."modprobe.d/firmware.conf".text =
-      "options firmware_class path=${config.hardware.firmware}/lib/firmware";
+    environment.etc."modprobe.d/firmware.conf".text = "options firmware_class path=${config.hardware.firmware}/lib/firmware";
 
     system.activationScripts.udevd = ''
       # The deprecated hotplug uevent helper is not used anymore

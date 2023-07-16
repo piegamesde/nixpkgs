@@ -86,8 +86,7 @@ in
           setuid = true;
           owner = "root";
           group = "root";
-          source =
-            "${cfg.packageOverriden}/libexec/${cfg.packageOverriden.projectName}/bin/starter-suid.orig";
+          source = "${cfg.packageOverriden}/libexec/${cfg.packageOverriden.projectName}/bin/starter-suid.orig";
         }
     ;
     systemd.tmpfiles.rules = [

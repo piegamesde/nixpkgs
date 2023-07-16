@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = with lib; {
-    description =
-      "Autoclicker application, which enables you to automatically click the left mousebutton";
+    description = "Autoclicker application, which enables you to automatically click the left mousebutton";
     homepage = "https://github.com/qarkai/xautoclick";
     license = licenses.gpl2;
     platforms = platforms.linux;

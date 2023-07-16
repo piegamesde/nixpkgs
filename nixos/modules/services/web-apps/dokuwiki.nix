@@ -279,8 +279,7 @@ let
                 ++ suffix
               )
             ;
-            replaceExtraConfig =
-              "Please use `${
+            replaceExtraConfig = "Please use `${
                 showPath [ "settings" ]
               }' to pass structured settings instead.";
             ecOpt = options.extraConfig;
@@ -310,8 +309,7 @@ let
                   config.mergedConfig.useacl
                   -> (config.acl != null || config.aclFile != null)
                 ;
-                message =
-                  "Either ${showPath [ "acl" ]} or ${
+                message = "Either ${showPath [ "acl" ]} or ${
                     showPath [ "aclFile" ]
                   } is mandatory if ${
                     showPath [
@@ -325,8 +323,7 @@ let
                   config.usersFile != null
                   -> config.mergedConfig.useacl != false
                 ;
-                message =
-                  "${
+                message = "${
                     showPath [
                       "settings"
                       "useacl"

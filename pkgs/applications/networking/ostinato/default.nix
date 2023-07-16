@@ -56,16 +56,14 @@ mkDerivation rec {
       name = "ostinato";
       desktopName = "Ostinato";
       genericName = "Packet/Traffic Generator and Analyzer";
-      comment =
-        "Network packet and traffic generator and analyzer with a friendly GUI";
+      comment = "Network packet and traffic generator and analyzer with a friendly GUI";
       categories = [ "Network" ];
       startupNotify = true;
       exec = "@out@/bin/ostinato";
       icon = ostinatoIcon;
       extraConfig = {
         "GenericName[it]" = "Generatore ed Analizzatore di pacchetti di rete";
-        "Comment[it]" =
-          "Generatore ed Analizzatore di pacchetti di rete con interfaccia amichevole";
+        "Comment[it]" = "Generatore ed Analizzatore di pacchetti di rete con interfaccia amichevole";
       };
     }
   );

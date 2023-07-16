@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
   version = "1.17.11";
 
   src = fetchurl {
-    url =
-      "https://cdn.vintagestory.at/gamefiles/stable/vs_archive_${version}.tar.gz";
+    url = "https://cdn.vintagestory.at/gamefiles/stable/vs_archive_${version}.tar.gz";
     sha256 = "sha256-iIQRwnJX+7GJcOqXJutInqpSX2fKlPmwFFAq6TqNWWY=";
   };
 
@@ -86,8 +85,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "An in-development indie sandbox game about innovation and exploration";
+    description = "An in-development indie sandbox game about innovation and exploration";
     homepage = "https://www.vintagestory.at/";
     license = licenses.unfree;
     maintainers = with maintainers; [ artturin ];

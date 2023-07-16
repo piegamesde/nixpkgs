@@ -187,8 +187,7 @@ stdenv.mkDerivation {
         (lib.versionAtLeast version "1.61" && lib.versionOlder version "1.71")
         (
           fetchpatch {
-            url =
-              "https://github.com/boostorg/context/commit/2354eca9b776a6739112833f64754108cc0d1dc5.patch";
+            url = "https://github.com/boostorg/context/commit/2354eca9b776a6739112833f64754108cc0d1dc5.patch";
             sha256 = "067m4bjpmcanqvg28djax9a10avmdwhlpfx6gn73kbqqq70dnz29";
             stripLen = 1;
             extraPrefix = "libs/context/";
@@ -200,8 +199,7 @@ stdenv.mkDerivation {
         (lib.versionAtLeast version "1.65" && lib.versionOlder version "1.67")
         (
           fetchpatch {
-            url =
-              "https://github.com/boostorg/mpl/commit/f48fd09d021db9a28bd7b8452c175897e1af4485.patch";
+            url = "https://github.com/boostorg/mpl/commit/f48fd09d021db9a28bd7b8452c175897e1af4485.patch";
             sha256 = "15d2a636hhsb1xdyp44x25dyqfcaws997vnp9kl1mhzvxjzz7hb0";
             stripLen = 1;
           }
@@ -212,8 +210,7 @@ stdenv.mkDerivation {
         (
           fetchpatch {
             # support for Mips64n64 appeared in boost-context 1.70; this patch won't apply to pre-1.65 cleanly
-            url =
-              "https://github.com/boostorg/context/commit/e3f744a1862164062d579d1972272d67bdaa9c39.patch";
+            url = "https://github.com/boostorg/context/commit/e3f744a1862164062d579d1972272d67bdaa9c39.patch";
             sha256 = "sha256-qjQy1b4jDsIRrI+UYtcguhvChrMbGWO0UlEzEJHYzRI=";
             stripLen = 1;
             extraPrefix = "libs/context/";
@@ -226,8 +223,7 @@ stdenv.mkDerivation {
     ++ lib.optional (lib.versionAtLeast version "1.73") ./cmake-paths-173.patch
     ++ lib.optional (version == "1.77.0") (
       fetchpatch {
-        url =
-          "https://github.com/boostorg/math/commit/7d482f6ebc356e6ec455ccb5f51a23971bf6ce5b.patch";
+        url = "https://github.com/boostorg/math/commit/7d482f6ebc356e6ec455ccb5f51a23971bf6ce5b.patch";
         relative = "include";
         sha256 = "sha256-KlmIbixcds6GyKYt1fx5BxDIrU7msrgDdYo9Va/KJR4=";
       }

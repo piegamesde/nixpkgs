@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = with lib; {
-    description =
-      "The aucatctl utility sends MIDI messages to control sndiod and/or aucat volumes";
+    description = "The aucatctl utility sends MIDI messages to control sndiod and/or aucat volumes";
     homepage = "http://www.sndio.org";
     license = licenses.isc;
     maintainers = with maintainers; [ sna ];

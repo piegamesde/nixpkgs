@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
   ;
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "r4qBLaDYl2oADh1iVywlYIaoFzI/vzWwZtv92NLKYgM=";
@@ -110,8 +109,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "A library to access weather information from online services for numerous locations";
+    description = "A library to access weather information from online services for numerous locations";
     homepage = "https://wiki.gnome.org/Projects/LibGWeather";
     license = licenses.gpl2Plus;
     maintainers = teams.gnome.members;

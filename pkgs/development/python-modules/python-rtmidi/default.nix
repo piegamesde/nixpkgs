@@ -42,8 +42,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "A Python binding for the RtMidi C++ library implemented using Cython";
+    description = "A Python binding for the RtMidi C++ library implemented using Cython";
     homepage = "https://chrisarndt.de/projects/python-rtmidi/";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];

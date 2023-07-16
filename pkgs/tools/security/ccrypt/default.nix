@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://ccrypt.sourceforge.net/";
-    description =
-      "Utility for encrypting and decrypting files and streams with AES-256";
+    description = "Utility for encrypting and decrypting files and streams with AES-256";
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ viric ];
     platforms = with lib.platforms; all;

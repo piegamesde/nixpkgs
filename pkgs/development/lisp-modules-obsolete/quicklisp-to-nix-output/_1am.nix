@@ -12,8 +12,7 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/1am/2014-11-06/1am-20141106-git.tgz";
+    url = "http://beta.quicklisp.org/archive/1am/2014-11-06/1am-20141106-git.tgz";
     sha256 = "0vnnqd4fiq9z34i1k9gqczg3j6xllwba1f6nx0b82sgsdccmsly6";
   };
 

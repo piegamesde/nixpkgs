@@ -39,8 +39,7 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart =
-          "${pkgs.croc}/bin/croc --pass '${cfg.pass}' ${
+        ExecStart = "${pkgs.croc}/bin/croc --pass '${cfg.pass}' ${
             lib.optionalString cfg.debug "--debug"
           } relay --ports ${lib.concatMapStringsSep "," toString cfg.ports}";
         # The following options are only for optimizing:

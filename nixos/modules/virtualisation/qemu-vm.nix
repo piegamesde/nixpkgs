@@ -1261,8 +1261,7 @@ in
             where = "/sysroot/nix/store";
             what = "overlay";
             type = "overlay";
-            options =
-              "lowerdir=/sysroot/nix/.ro-store,upperdir=/sysroot/nix/.rw-store/store,workdir=/sysroot/nix/.rw-store/work";
+            options = "lowerdir=/sysroot/nix/.ro-store,upperdir=/sysroot/nix/.rw-store/store,workdir=/sysroot/nix/.rw-store/work";
             wantedBy = [ "initrd-fs.target" ];
             before = [ "initrd-fs.target" ];
             requires = [ "rw-store.service" ];
@@ -1276,8 +1275,7 @@ in
             };
             serviceConfig = {
               Type = "oneshot";
-              ExecStart =
-                "/bin/mkdir -p -m 0755 /sysroot/nix/.rw-store/store /sysroot/nix/.rw-store/work /sysroot/nix/store";
+              ExecStart = "/bin/mkdir -p -m 0755 /sysroot/nix/.rw-store/store /sysroot/nix/.rw-store/work /sysroot/nix/store";
             };
           };
         }

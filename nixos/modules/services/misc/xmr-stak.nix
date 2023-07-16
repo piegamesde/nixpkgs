@@ -90,8 +90,9 @@ in
           rootRequired = cfg.openclSupport || cfg.cudaSupport;
         in
         {
-          ExecStart =
-            "${pkg}/bin/xmr-stak ${concatStringsSep " " cfg.extraArgs}";
+          ExecStart = "${pkg}/bin/xmr-stak ${
+              concatStringsSep " " cfg.extraArgs
+            }";
           # xmr-stak generates cpu and/or gpu configuration files
           WorkingDirectory = "/tmp";
           PrivateTmp = true;

@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
   version = "1.0.4";
 
   src = fetchurl {
-    url =
-      "http://www.ferzkopp.net/Software/${pname}/${pname}-${version}.tar.gz";
+    url = "http://www.ferzkopp.net/Software/${pname}/${pname}-${version}.tar.gz";
     sha256 = "0qk2ax7f7grlxb13ba0ll3zlm8780s7j8fmrhlpxzjgdvldf1q33";
   };
 

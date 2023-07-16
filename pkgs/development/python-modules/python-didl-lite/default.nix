@@ -26,8 +26,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "didl_lite" ];
 
   meta = with lib; {
-    description =
-      "DIDL-Lite (Digital Item Declaration Language) tools for Python";
+    description = "DIDL-Lite (Digital Item Declaration Language) tools for Python";
     homepage = "https://github.com/StevenLooman/python-didl-lite";
     license = licenses.asl20;
     maintainers = with maintainers; [ hexa ];

@@ -27,8 +27,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "azure.servicemanagement" ];
 
   meta = with lib; {
-    description =
-      "This is the Microsoft Azure Service Management Legacy Client Library";
+    description = "This is the Microsoft Azure Service Management Legacy Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [

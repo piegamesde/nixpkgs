@@ -172,8 +172,8 @@ lib.composeManyExtensions [
       ansible-base = super.ansible-base.overridePythonAttrs (
         old:
         {
-          prePatch =
-            ''sed -i "s/\[python, /[/" lib/ansible/executor/task_executor.py'';
+          prePatch = ''
+            sed -i "s/\[python, /[/" lib/ansible/executor/task_executor.py'';
           postInstall = ''
             for m in docs/man/man1/*; do
                 install -vD $m -t $out/share/man/man1
@@ -1249,8 +1249,7 @@ lib.composeManyExtensions [
           buildInputs = [ pkgs.jq ];
           patches = [
             (pkgs.fetchpatch {
-              url =
-                "https://raw.githubusercontent.com/NixOS/nixpkgs/088da8735f6620b60d724aa7db742607ea216087/pkgs/development/python-modules/jq/jq-py-setup.patch";
+              url = "https://raw.githubusercontent.com/NixOS/nixpkgs/088da8735f6620b60d724aa7db742607ea216087/pkgs/development/python-modules/jq/jq-py-setup.patch";
               sha256 = "sha256-MYvX3S1YGe0QsUtExtOtULvp++AdVrv+Fid4Jh1xewQ=";
             })
           ];
@@ -1611,11 +1610,10 @@ lib.composeManyExtensions [
           # script.
           postPatch =
             let
-              tcl_tk_cache =
-                ''
-                  "${tk}/lib", "${tcl}/lib", "${
-                    lib.strings.substring 0 3 tk.version
-                  }"'';
+              tcl_tk_cache = ''
+                "${tk}/lib", "${tcl}/lib", "${
+                  lib.strings.substring 0 3 tk.version
+                }"'';
             in
             lib.optionalString enableTk ''
               sed -i '/self.tcl_tk_cache = None/s|None|${tcl_tk_cache}|' setupext.py
@@ -1672,10 +1670,8 @@ lib.composeManyExtensions [
                 ++ [
                   # Fix build with more recent setuptools versions
                   (pkgs.fetchpatch {
-                    url =
-                      "https://github.com/ansible-community/molecule/commit/c9fee498646a702c77b5aecf6497cff324acd056.patch";
-                    sha256 =
-                      "1g1n45izdz0a3c9akgxx14zhdw6c3dkb48j8pq64n82fa6ndl1b7";
+                    url = "https://github.com/ansible-community/molecule/commit/c9fee498646a702c77b5aecf6497cff324acd056.patch";
+                    sha256 = "1g1n45izdz0a3c9akgxx14zhdw6c3dkb48j8pq64n82fa6ndl1b7";
                     excludes = [ "pyproject.toml" ];
                   })
                 ]
@@ -1766,10 +1762,8 @@ lib.composeManyExtensions [
                 )
                 [
                   (pkgs.fetchpatch {
-                    url =
-                      "https://github.com/python/mypy/commit/f1755259d54330cd087cae763cd5bbbff26e3e8a.patch";
-                    sha256 =
-                      "sha256-5gPahX2X6+/qUaqDQIGJGvh9lQ2EDtks2cpQutgbOHk=";
+                    url = "https://github.com/python/mypy/commit/f1755259d54330cd087cae763cd5bbbff26e3e8a.patch";
+                    sha256 = "sha256-5gPahX2X6+/qUaqDQIGJGvh9lQ2EDtks2cpQutgbOHk=";
                   })
                 ]
             ++
@@ -1780,10 +1774,8 @@ lib.composeManyExtensions [
                 )
                 [
                   (pkgs.fetchpatch {
-                    url =
-                      "https://github.com/python/mypy/commit/e7869f05751561958b946b562093397027f6d5fa.patch";
-                    sha256 =
-                      "sha256-waIZ+m3tfvYE4HJ8kL6rN/C4fMjvLEe9UoPbt9mHWIM=";
+                    url = "https://github.com/python/mypy/commit/e7869f05751561958b946b562093397027f6d5fa.patch";
+                    sha256 = "sha256-waIZ+m3tfvYE4HJ8kL6rN/C4fMjvLEe9UoPbt9mHWIM=";
                   })
                 ]
             ++
@@ -1794,10 +1786,8 @@ lib.composeManyExtensions [
                 )
                 [
                   (pkgs.fetchpatch {
-                    url =
-                      "https://github.com/python/mypy/commit/2004ae023b9d3628d9f09886cbbc20868aee8554.patch";
-                    sha256 =
-                      "sha256-y+tXvgyiECO5+66YLvaje8Bz5iPvfWNIBJcsnZ2nOdI=";
+                    url = "https://github.com/python/mypy/commit/2004ae023b9d3628d9f09886cbbc20868aee8554.patch";
+                    sha256 = "sha256-y+tXvgyiECO5+66YLvaje8Bz5iPvfWNIBJcsnZ2nOdI=";
                   })
                 ]
           ;
@@ -2333,8 +2323,7 @@ lib.composeManyExtensions [
               ARROW_HOME = _arrow-cpp;
               arrowCppVersion = parseMinor _arrow-cpp;
               pyArrowVersion = parseMinor super.pyarrow;
-              errorMessage =
-                "arrow-cpp version (${arrowCppVersion}) mismatches pyarrow version (${pyArrowVersion})";
+              errorMessage = "arrow-cpp version (${arrowCppVersion}) mismatches pyarrow version (${pyArrowVersion})";
             in
             if arrowCppVersion != pyArrowVersion then
               throw errorMessage
@@ -3065,8 +3054,7 @@ lib.composeManyExtensions [
         old: {
           nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.geos ];
 
-          GEOS_LIBRARY_PATH =
-            "${pkgs.geos}/lib/libgeos_c${stdenv.hostPlatform.extensions.sharedLibrary}";
+          GEOS_LIBRARY_PATH = "${pkgs.geos}/lib/libgeos_c${stdenv.hostPlatform.extensions.sharedLibrary}";
 
           GEOS_LIBC = lib.optionalString (!stdenv.isDarwin) "${
                 lib.getLib stdenv.cc.libc
@@ -3090,8 +3078,7 @@ lib.composeManyExtensions [
           # Make fetching/installing external binaries no-ops
           preConfigure =
             let
-              fakeCommand =
-                "type('FakeCommand', (Command,), {'initialize_options': lambda self: None, 'finalize_options': lambda self: None, 'run': lambda self: None})";
+              fakeCommand = "type('FakeCommand', (Command,), {'initialize_options': lambda self: None, 'finalize_options': lambda self: None, 'run': lambda self: None})";
             in
             ''
               substituteInPlace setup.py \
@@ -3787,8 +3774,7 @@ lib.composeManyExtensions [
         let
           patchJinja2Imports = self.pkgs.fetchpatch {
             name = "fix-jinja2-imports.patch";
-            url =
-              "https://github.com/mkdocstrings/mkdocstrings/commit/b37722716b1e0ed6393ec71308dfb0f85e142f3b.patch";
+            url = "https://github.com/mkdocstrings/mkdocstrings/commit/b37722716b1e0ed6393ec71308dfb0f85e142f3b.patch";
             hash = "sha256-DD1SjEvs5HBlSRLrqP3jhF/yoeWkF7F3VXCD1gyt5Fc=";
           };
         in

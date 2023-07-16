@@ -57,8 +57,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library to interact with TimeTagger";
     homepage = "https://github.com/almarklein/timetagger";
-    changelog =
-      "https://github.com/almarklein/timetagger/releases/tag/v${version}";
+    changelog = "https://github.com/almarklein/timetagger/releases/tag/v${version}";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ matthiasbeyer ];
     broken = stdenv.isDarwin;

@@ -17,8 +17,7 @@ buildPythonPackage rec {
   };
 
   meta = with lib; {
-    description =
-      "Easy transactional database for Python dicts, backed by SQLite";
+    description = "Easy transactional database for Python dicts, backed by SQLite";
     license = licenses.bsd2;
     homepage = "https://itemdb.readthedocs.io";
     maintainers = [ maintainers.matthiasbeyer ];

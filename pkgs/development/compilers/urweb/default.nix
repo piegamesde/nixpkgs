@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   version = "20200209";
 
   src = fetchurl {
-    url =
-      "https://github.com/urweb/urweb/releases/download/${version}/${pname}-${version}.tar.gz";
+    url = "https://github.com/urweb/urweb/releases/download/${version}/${pname}-${version}.tar.gz";
     sha256 = "0qh6wcxfk5kf735i5gqwnkdirnnmqhnnpkfz96gz144dgz2i0c5c";
   };
 

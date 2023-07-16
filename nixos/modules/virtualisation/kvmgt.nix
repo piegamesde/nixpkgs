@@ -96,8 +96,7 @@ in
               description = "KVMGT VGPU ${opt.uuid} path";
               wantedBy = [ "multi-user.target" ];
               pathConfig = {
-                PathExists =
-                  "/sys/bus/pci/devices/${cfg.device}/mdev_supported_types/${opt.mdev}/create";
+                PathExists = "/sys/bus/pci/devices/${cfg.device}/mdev_supported_types/${opt.mdev}/create";
               };
             })
             vgpus
@@ -110,10 +109,8 @@ in
               serviceConfig = {
                 Type = "oneshot";
                 RemainAfterExit = true;
-                ExecStart =
-                  "${pkgs.runtimeShell} -c 'echo ${opt.uuid} > /sys/bus/pci/devices/${cfg.device}/mdev_supported_types/${opt.mdev}/create'";
-                ExecStop =
-                  "${pkgs.runtimeShell} -c 'echo 1 > /sys/bus/pci/devices/${cfg.device}/${opt.uuid}/remove'";
+                ExecStart = "${pkgs.runtimeShell} -c 'echo ${opt.uuid} > /sys/bus/pci/devices/${cfg.device}/mdev_supported_types/${opt.mdev}/create'";
+                ExecStop = "${pkgs.runtimeShell} -c 'echo 1 > /sys/bus/pci/devices/${cfg.device}/${opt.uuid}/remove'";
               };
             })
             vgpus

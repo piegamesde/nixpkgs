@@ -25,7 +25,6 @@ buildOctavePackage rec {
     homepage = "https://octave.sourceforge.io/quaternion/index.html";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
-    description =
-      "Quaternion package for GNU Octave, includes a quaternion class with overloaded operators";
+    description = "Quaternion package for GNU Octave, includes a quaternion class with overloaded operators";
   };
 }

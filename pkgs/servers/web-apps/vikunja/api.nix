@@ -60,8 +60,7 @@ buildGoModule rec {
   passthru.tests.vikunja = nixosTests.vikunja;
 
   meta = {
-    changelog =
-      "https://kolaente.dev/vikunja/api/src/tag/v${version}/CHANGELOG.md";
+    changelog = "https://kolaente.dev/vikunja/api/src/tag/v${version}/CHANGELOG.md";
     description = "API of the Vikunja to-do list app";
     homepage = "https://vikunja.io/";
     license = lib.licenses.agpl3Plus;

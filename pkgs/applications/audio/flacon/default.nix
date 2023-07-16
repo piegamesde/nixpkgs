@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Extracts audio tracks from an audio CD image to separate tracks";
+    description = "Extracts audio tracks from an audio CD image to separate tracks";
     homepage = "https://flacon.github.io/";
     license = licenses.lgpl21;
     platforms = platforms.linux;

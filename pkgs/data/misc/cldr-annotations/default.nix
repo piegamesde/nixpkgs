@@ -9,8 +9,7 @@ stdenvNoCC.mkDerivation rec {
   version = "43.0";
 
   src = fetchzip {
-    url =
-      "https://unicode.org/Public/cldr/${
+    url = "https://unicode.org/Public/cldr/${
         lib.versions.major version
       }/cldr-common-${version}.zip";
     stripRoot = false;
@@ -27,8 +26,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Names and keywords for Unicode characters from the Common Locale Data Repository";
+    description = "Names and keywords for Unicode characters from the Common Locale Data Repository";
     homepage = "https://cldr.unicode.org";
     license = licenses.unicode-dfs-2016;
     platforms = platforms.all;

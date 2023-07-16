@@ -84,8 +84,7 @@ stdenv.mkDerivation rec {
   passthru.tests.charliecloud = nixosTests.charliecloud;
 
   meta = {
-    description =
-      "User-defined software stacks (UDSS) for high-performance computing (HPC) centers";
+    description = "User-defined software stacks (UDSS) for high-performance computing (HPC) centers";
     longDescription = ''
       Charliecloud uses Linux user namespaces to run containers with no
       privileged operations or daemons and minimal configuration changes on

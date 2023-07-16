@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Library for generating, refining and rendering 2-Dimensional Constrained Delaunay Triangulations";
+    description = "Library for generating, refining and rendering 2-Dimensional Constrained Delaunay Triangulations";
     homepage = "https://code.google.com/archive/p/poly2tri-c/";
     license = licenses.bsd3;
     maintainers = with lib.maintainers; [ jtojnar ];

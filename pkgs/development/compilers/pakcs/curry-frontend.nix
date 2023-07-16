@@ -66,7 +66,6 @@ mkDerivation {
     filepath
   ];
   homepage = "http://curry-language.org";
-  description =
-    "Compile the functional logic language Curry to several intermediate formats";
+  description = "Compile the functional logic language Curry to several intermediate formats";
   license = lib.licenses.bsd3;
 }

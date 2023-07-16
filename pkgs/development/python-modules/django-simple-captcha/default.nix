@@ -37,11 +37,9 @@ buildPythonPackage rec {
   ;
 
   meta = with lib; {
-    description =
-      "Customizable Django application to add captcha images to any Django form";
+    description = "Customizable Django application to add captcha images to any Django form";
     homepage = "https://github.com/mbi/django-simple-captcha";
-    changelog =
-      "https://github.com/mbi/django-simple-captcha/blob/v${version}/CHANGES";
+    changelog = "https://github.com/mbi/django-simple-captcha/blob/v${version}/CHANGES";
     license = licenses.mit;
     maintainers = with maintainers; [
       mrmebelman

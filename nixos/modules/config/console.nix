@@ -199,13 +199,13 @@ in
             "/etc/vconsole.conf".source = vconsoleConf;
             # Add everything if we want full console setup...
             "/etc/kbd" = lib.mkIf cfg.earlySetup {
-              source =
-                "${consoleEnv config.boot.initrd.systemd.package.kbd}/share";
+              source = "${
+                  consoleEnv config.boot.initrd.systemd.package.kbd
+                }/share";
             };
             # ...but only the keymaps if we don't
             "/etc/kbd/keymaps" = lib.mkIf (!cfg.earlySetup) {
-              source =
-                "${
+              source = "${
                   consoleEnv config.boot.initrd.systemd.package.kbd
                 }/share/keymaps";
             };
@@ -237,8 +237,7 @@ in
             serviceConfig = {
               RemainAfterExit = true;
               ExecStart = "${pkgs.coreutils}/bin/true";
-              ExecReload =
-                "/run/current-system/systemd/bin/systemctl restart systemd-vconsole-setup";
+              ExecReload = "/run/current-system/systemd/bin/systemctl restart systemd-vconsole-setup";
             };
           };
         }

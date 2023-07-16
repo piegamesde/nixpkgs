@@ -66,8 +66,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "dal" ];
 
   meta = with lib; {
-    description =
-      "A fresh approach to autocomplete implementations, specially for Django";
+    description = "A fresh approach to autocomplete implementations, specially for Django";
     homepage = "https://django-autocomplete-light.readthedocs.io";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ambroisie ];

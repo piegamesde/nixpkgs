@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   version = "2.6.4";
 
   src = fetchurl {
-    url =
-      "https://github.com/westes/flex/releases/download/v${version}/flex-${version}.tar.gz";
+    url = "https://github.com/westes/flex/releases/download/v${version}/flex-${version}.tar.gz";
     sha256 = "15g9bv236nzi665p9ggqjlfn4dwck5835vf0bbw2cz7h5c1swyp8";
   };
 
@@ -28,8 +27,7 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchurl {
       name = "glibc-2.26.patch";
-      url =
-        "https://raw.githubusercontent.com/lede-project/source/0fb14a2b1ab2f82ce63f4437b062229d73d90516/tools/flex/patches/200-build-AC_USE_SYSTEM_EXTENSIONS-in-configure.ac.patch";
+      url = "https://raw.githubusercontent.com/lede-project/source/0fb14a2b1ab2f82ce63f4437b062229d73d90516/tools/flex/patches/200-build-AC_USE_SYSTEM_EXTENSIONS-in-configure.ac.patch";
       sha256 = "0mpp41zdg17gx30kcpj83jl8hssks3adbks0qzbhcz882b9c083r";
     })
   ];

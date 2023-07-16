@@ -46,8 +46,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "spaCy pipelines for pretrained BERT, XLNet and GPT-2";
     homepage = "https://github.com/explosion/spacy-transformers";
-    changelog =
-      "https://github.com/explosion/spacy-transformers/releases/tag/v${version}";
+    changelog = "https://github.com/explosion/spacy-transformers/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

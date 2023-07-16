@@ -14,8 +14,7 @@ perlPackages.buildPerlPackage rec {
   version = "3.4.6";
 
   src = fetchurl {
-    url =
-      "mirror://apache/spamassassin/source/Mail-${pname}-${version}.tar.bz2";
+    url = "mirror://apache/spamassassin/source/Mail-${pname}-${version}.tar.bz2";
     sha256 = "044ng2aazqy8g0m17q0a4939ck1ca4x230q2q7q7jndvwkrpaj5w";
   };
 

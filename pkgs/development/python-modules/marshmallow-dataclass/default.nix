@@ -50,11 +50,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "marshmallow_dataclass" ];
 
   meta = with lib; {
-    description =
-      "Automatic generation of marshmallow schemas from dataclasses";
+    description = "Automatic generation of marshmallow schemas from dataclasses";
     homepage = "https://github.com/lovasoa/marshmallow_dataclass";
-    changelog =
-      "https://github.com/lovasoa/marshmallow_dataclass/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/lovasoa/marshmallow_dataclass/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

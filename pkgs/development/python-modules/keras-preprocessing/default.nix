@@ -41,8 +41,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Easy data preprocessing and data augmentation for deep learning models";
+    description = "Easy data preprocessing and data augmentation for deep learning models";
     homepage = "https://github.com/keras-team/keras-preprocessing";
     license = licenses.mit;
   };

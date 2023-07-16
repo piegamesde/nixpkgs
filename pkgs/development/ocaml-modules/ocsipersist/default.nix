@@ -18,7 +18,6 @@ buildDunePackage {
   propagatedBuildInputs = [ ocsipersist-lib ];
 
   meta = ocsipersist-lib.meta // {
-    description =
-      "Persistent key/value storage (for Ocsigen) using multiple backends";
+    description = "Persistent key/value storage (for Ocsigen) using multiple backends";
   };
 }

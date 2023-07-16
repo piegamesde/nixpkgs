@@ -81,8 +81,7 @@ in
 
     services.tomcat.enable = cfg.useWebServiceInterface;
     services.tomcat.extraGroups = [ "disnix" ];
-    services.tomcat.javaOpts =
-      "${
+    services.tomcat.javaOpts = "${
         optionalString cfg.useWebServiceInterface
           "-Djava.library.path=${pkgs.libmatthew_java}/lib/jni"
       } ";

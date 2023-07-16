@@ -37,8 +37,7 @@ in
           rm $diskImageBase
           popd
         '';
-        diskImageBase =
-          "nixos-image-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.raw";
+        diskImageBase = "nixos-image-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.raw";
         buildInputs = [
           pkgs.util-linux
           pkgs.perl

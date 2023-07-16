@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description =
-      "Hackerswork to generate an EDID blob from given Xorg Modelines";
+    description = "Hackerswork to generate an EDID blob from given Xorg Modelines";
     homepage = "https://github.com/akatrevorjay/edid-generator";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [

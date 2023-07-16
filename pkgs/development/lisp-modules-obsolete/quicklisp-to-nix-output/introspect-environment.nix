@@ -7,14 +7,12 @@ rec {
   baseName = "introspect-environment";
   version = "20210807-git";
 
-  description =
-    "Small interface to portable but nonstandard introspection of CL environments.";
+  description = "Small interface to portable but nonstandard introspection of CL environments.";
 
   deps = [ ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/introspect-environment/2021-08-07/introspect-environment-20210807-git.tgz";
+    url = "http://beta.quicklisp.org/archive/introspect-environment/2021-08-07/introspect-environment-20210807-git.tgz";
     sha256 = "124rnbcjygw7wm07bpcibsqkvsqxhr8pq42p7phw39kmcp9hns4j";
   };
 

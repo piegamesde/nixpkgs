@@ -11,8 +11,7 @@ stdenvNoCC.mkDerivation rec {
   version = "1.3";
 
   src = fetchurl {
-    url =
-      "https://repos.fusiondirectory.org/sources/schema2ldif/schema2ldif-${version}.tar.gz";
+    url = "https://repos.fusiondirectory.org/sources/schema2ldif/schema2ldif-${version}.tar.gz";
     hash = "sha256-KmXdqVuINUnJ6EF5oKgk6BsT3h5ebVqss7aCl3pPjQE=";
   };
 
@@ -43,8 +42,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     description = "Utilities to manage schema in .schema and .ldif format";
-    homepage =
-      "https://www.fusiondirectory.org/schema2ldif-project-and-components/";
+    homepage = "https://www.fusiondirectory.org/schema2ldif-project-and-components/";
     license = licenses.bsd3;
     platforms = platforms.unix;
     maintainers = with maintainers; [ das_j ];

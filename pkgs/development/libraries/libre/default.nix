@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
   ;
   enableParallelBuilding = true;
   meta = {
-    description =
-      "A library for real-time communications with async IO support and a complete SIP stack";
+    description = "A library for real-time communications with async IO support and a complete SIP stack";
     homepage = "https://github.com/baresip/re";
     maintainers = with lib.maintainers; [
       elohmeier

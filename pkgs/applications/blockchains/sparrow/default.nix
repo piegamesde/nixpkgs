@@ -25,8 +25,7 @@ let
   version = "1.7.6";
 
   src = fetchurl {
-    url =
-      "https://github.com/sparrowwallet/${pname}/releases/download/${version}/${pname}-${version}-x86_64.tar.gz";
+    url = "https://github.com/sparrowwallet/${pname}/releases/download/${version}/${pname}-${version}-x86_64.tar.gz";
     sha256 = "01ksl790i8swvj8nvl2r27bbd8kad80shsbw3di39925841dp8z3";
   };
 
@@ -233,8 +232,7 @@ stdenv.mkDerivation rec {
   passthru.updateScript = ./update.sh;
 
   meta = with lib; {
-    description =
-      "A modern desktop Bitcoin wallet application supporting most hardware wallets and built on common standards such as PSBT, with an emphasis on transparency and usability.";
+    description = "A modern desktop Bitcoin wallet application supporting most hardware wallets and built on common standards such as PSBT, with an emphasis on transparency and usability.";
     homepage = "https://sparrowwallet.com";
     sourceProvenance = with sourceTypes; [
       binaryBytecode

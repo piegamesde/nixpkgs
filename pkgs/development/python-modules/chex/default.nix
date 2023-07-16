@@ -52,8 +52,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Chex is a library of utilities for helping to write reliable JAX code.";
+    description = "Chex is a library of utilities for helping to write reliable JAX code.";
     homepage = "https://github.com/deepmind/chex";
     license = licenses.asl20;
     maintainers = with maintainers; [ ndl ];

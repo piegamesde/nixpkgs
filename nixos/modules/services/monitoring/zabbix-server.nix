@@ -268,14 +268,12 @@ in
     assertions = [
       {
         assertion = cfg.database.createLocally -> cfg.database.user == user;
-        message =
-          "services.zabbixServer.database.user must be set to ${user} if services.zabbixServer.database.createLocally is set true";
+        message = "services.zabbixServer.database.user must be set to ${user} if services.zabbixServer.database.createLocally is set true";
       }
       {
         assertion =
           cfg.database.createLocally -> cfg.database.passwordFile == null;
-        message =
-          "a password cannot be specified if services.zabbixServer.database.createLocally is set to true";
+        message = "a password cannot be specified if services.zabbixServer.database.createLocally is set to true";
       }
     ];
 
@@ -404,8 +402,7 @@ in
       ;
 
       serviceConfig = {
-        ExecStart =
-          "@${cfg.package}/sbin/zabbix_server zabbix_server -f --config ${configFile}";
+        ExecStart = "@${cfg.package}/sbin/zabbix_server zabbix_server -f --config ${configFile}";
         Restart = "always";
         RestartSec = 2;
 

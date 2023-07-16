@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A graphical application for configuring displays in Wayland compositors";
+    description = "A graphical application for configuring displays in Wayland compositors";
     homepage = "https://github.com/luispabon/wdisplays";
     maintainers = with maintainers; [
       lheckemann

@@ -65,8 +65,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Reusable library for GPU-accelerated video/image rendering primitives";
+    description = "Reusable library for GPU-accelerated video/image rendering primitives";
     longDescription = ''
       Reusable library for GPU-accelerated image/view processing primitives and
       shaders, as well a batteries-included, extensible, high-quality rendering
@@ -74,8 +73,7 @@ stdenv.mkDerivation rec {
       MoltenVK).
     '';
     homepage = "https://code.videolan.org/videolan/libplacebo";
-    changelog =
-      "https://code.videolan.org/videolan/libplacebo/-/tags/v${version}";
+    changelog = "https://code.videolan.org/videolan/libplacebo/-/tags/v${version}";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [
       primeos

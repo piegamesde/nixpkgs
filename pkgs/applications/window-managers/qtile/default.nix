@@ -77,8 +77,7 @@ python3Packages.buildPythonPackage rec {
   meta = with lib; {
     homepage = "http://www.qtile.org/";
     license = licenses.mit;
-    description =
-      "A small, flexible, scriptable tiling window manager written in Python";
+    description = "A small, flexible, scriptable tiling window manager written in Python";
     platforms = platforms.linux;
     maintainers = with maintainers; [
       kamilchm

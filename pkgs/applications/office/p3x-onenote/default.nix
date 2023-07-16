@@ -27,8 +27,7 @@ let
     .${stdenv.hostPlatform.system};
 
   src = fetchurl {
-    url =
-      "https://github.com/patrikx3/onenote/releases/download/v${version}/P3X-OneNote-${version}${plat}.AppImage";
+    url = "https://github.com/patrikx3/onenote/releases/download/v${version}/P3X-OneNote-${version}${plat}.AppImage";
     inherit sha256;
   };
 
@@ -52,8 +51,7 @@ appimageTools.wrapType2 rec {
 
   meta = with lib; {
     homepage = "https://github.com/patrikx3/onenote";
-    description =
-      "Linux Electron Onenote - A Linux compatible version of OneNote";
+    description = "Linux Electron Onenote - A Linux compatible version of OneNote";
     license = licenses.mit;
     maintainers = with maintainers; [ tiagolobocastro ];
     platforms = [

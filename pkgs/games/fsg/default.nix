@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     name = "fsg-src-${version}.tar.gz";
-    url =
-      "https://github.com/ctrlcctrlv/wxsand/blob/master/fsg-src-${version}-ORIGINAL.tar.gz?raw=true";
+    url = "https://github.com/ctrlcctrlv/wxsand/blob/master/fsg-src-${version}-ORIGINAL.tar.gz?raw=true";
     sha256 = "1756y01rkvd3f1pkj88jqh83fqcfl2fy0c48mcq53pjzln9ycv8c";
   };
 
@@ -54,8 +53,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description =
-      "Cellular automata engine tuned towards the likes of Falling Sand";
+    description = "Cellular automata engine tuned towards the likes of Falling Sand";
     maintainers = [ lib.maintainers.raskin ];
     platforms = lib.platforms.linux;
   };

@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
       #   https://github.com/lastpass/lastpass-cli/pull/576
       (fetchpatch {
         name = "fno-common.patch";
-        url =
-          "https://github.com/lastpass/lastpass-cli/commit/e3311cebdb29a3267843cf656a32f01c5062897e.patch";
+        url = "https://github.com/lastpass/lastpass-cli/commit/e3311cebdb29a3267843cf656a32f01c5062897e.patch";
         sha256 = "1yjx2p98nb3n8ywc9lhf2zal5fswawb5i6lgnicdin23zngff5l8";
       })
     ];
@@ -64,8 +63,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Stores, retrieves, generates, and synchronizes passwords securely";
+    description = "Stores, retrieves, generates, and synchronizes passwords securely";
     homepage = "https://github.com/lastpass/lastpass-cli";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

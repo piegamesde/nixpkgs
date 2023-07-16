@@ -38,9 +38,8 @@ in
     };
 
     meta = with lib; {
-      description =
-        ''
-          Changes the "Motors off" button in octoprint's control tab to issue an M84 command to allow compatibility with Repetier firmware Resources'';
+      description = ''
+        Changes the "Motors off" button in octoprint's control tab to issue an M84 command to allow compatibility with Repetier firmware Resources'';
       homepage = "https://github.com/ntoff/OctoPrint-M84MotOff";
       license = licenses.agpl3Only;
       maintainers = with maintainers; [ stunkymonkey ];
@@ -60,8 +59,7 @@ in
     };
 
     meta = with lib; {
-      description =
-        "Marlin auto bed leveling control, mesh correction, and z probe handling";
+      description = "Marlin auto bed leveling control, mesh correction, and z probe handling";
       homepage = "https://framagit.org/razer/Octoprint_ABL_Expert/";
       license = licenses.agpl3;
       maintainers = with maintainers; [ WhittlesJr ];
@@ -101,8 +99,7 @@ in
     };
 
     meta = with lib; {
-      description =
-        "Plugin to display the estimated print cost for the loaded model.";
+      description = "Plugin to display the estimated print cost for the loaded model.";
       homepage = "https://github.com/OllisGit/OctoPrint-CostEstimation";
       license = licenses.agpl3Only;
       maintainers = with maintainers; [ stunkymonkey ];
@@ -159,8 +156,7 @@ in
     };
 
     meta = with lib; {
-      description =
-        "OctoPrint-Plugin that sends the current progress of a print via M117 command";
+      description = "OctoPrint-Plugin that sends the current progress of a print via M117 command";
       homepage = "https://github.com/OllisGit/OctoPrint-DisplayLayerProgress";
       license = licenses.agpl3;
       maintainers = with maintainers; [ j0hax ];
@@ -179,10 +175,8 @@ in
     };
 
     meta = with lib; {
-      description =
-        "Fixes the double temperature reporting from the Creality Ender-3 v2 printer";
-      homepage =
-        "https://github.com/SimplyPrint/OctoPrint-Creality2xTemperatureReportingFix";
+      description = "Fixes the double temperature reporting from the Creality Ender-3 v2 printer";
+      homepage = "https://github.com/SimplyPrint/OctoPrint-Creality2xTemperatureReportingFix";
       license = licenses.mit;
       maintainers = with maintainers; [ illustris ];
     };
@@ -219,8 +213,7 @@ in
     };
 
     meta = with lib; {
-      description =
-        "Displays GCode documentation for Marlin in the Octoprint terminal command line";
+      description = "Displays GCode documentation for Marlin in the Octoprint terminal command line";
       homepage = "https://github.com/costas-basdekis/MarlinGcodeDocumentation";
       license = licenses.agpl3;
       maintainers = with maintainers; [ lovesegfault ];
@@ -316,8 +309,7 @@ in
     };
 
     meta = with lib; {
-      description =
-        "A simple plugin that add an emergency stop buton on NavBar of OctoPrint";
+      description = "A simple plugin that add an emergency stop buton on NavBar of OctoPrint";
       homepage = "https://github.com/Sebclem/OctoPrint-SimpleEmergencyStop";
       license = licenses.agpl3;
       maintainers = with maintainers; [ WhittlesJr ];
@@ -357,8 +349,7 @@ in
     propagatedBuildInputs = with super; [ pillow ];
 
     meta = with lib; {
-      description =
-        "Plugin to send status messages and receive commands via Telegram messenger.";
+      description = "Plugin to send status messages and receive commands via Telegram messenger.";
       homepage = "https://github.com/fabianonline/OctoPrint-Telegram";
       license = licenses.agpl3Only;
       maintainers = with maintainers; [ stunkymonkey ];
@@ -415,8 +406,7 @@ in
     };
 
     meta = with lib; {
-      description =
-        "Touch friendly interface for a small TFT module or phone for OctoPrint";
+      description = "Touch friendly interface for a small TFT module or phone for OctoPrint";
       homepage = "https://github.com/BillyBlaze/OctoPrint-TouchUI";
       license = licenses.agpl3;
       maintainers = with maintainers; [ gebner ];
@@ -435,8 +425,7 @@ in
     };
 
     meta = with lib; {
-      description =
-        "A plugin for a better integration of Klipper into OctoPrint";
+      description = "A plugin for a better integration of Klipper into OctoPrint";
       homepage = "https://github.com/AliceGrey/OctoprintKlipperPlugin";
       license = licenses.agpl3;
       maintainers = with maintainers; [ lovesegfault ];
@@ -459,8 +448,7 @@ in
         # fix version constraint
         # https://github.com/FormerLurker/Octolapse/pull/894
         (fetchpatch {
-          url =
-            "https://github.com/FormerLurker/Octolapse/commit/0bd7db2430aef370f2665c6c7011fc3bb559122e.patch";
+          url = "https://github.com/FormerLurker/Octolapse/commit/0bd7db2430aef370f2665c6c7011fc3bb559122e.patch";
           hash = "sha256-z2aEq5sJGarGtIDbTRCvXdSj+kq8HIVvLRWpKutmJNY=";
         })
       ];

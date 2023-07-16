@@ -43,8 +43,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-UL/vP8055JRbbf5bqf0V3wGh+iF9ztVhyoMrtNs/c+4=";
 
   meta = with lib; {
-    description =
-      "An easy-to-use, zero-downtime schema migration tool for Postgres";
+    description = "An easy-to-use, zero-downtime schema migration tool for Postgres";
     homepage = "https://github.com/fabianlindfors/reshape";
     license = licenses.mit;
     maintainers = with maintainers; [ ilyakooo0 ];

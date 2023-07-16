@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Tool for integrating Rust into an existing CMake project";
     homepage = "https://github.com/corrosion-rs/corrosion";
-    changelog =
-      "https://github.com/corrosion-rs/corrosion/blob/${src.rev}/RELEASES.md";
+    changelog = "https://github.com/corrosion-rs/corrosion/blob/${src.rev}/RELEASES.md";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

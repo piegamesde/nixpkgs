@@ -225,15 +225,13 @@ in
     assertions = [
       {
         assertion = cfg.database.createLocally -> cfg.database.user == "zammad";
-        message =
-          ''
-            services.zammad.database.user must be set to "zammad" if services.zammad.database.createLocally is set to true'';
+        message = ''
+          services.zammad.database.user must be set to "zammad" if services.zammad.database.createLocally is set to true'';
       }
       {
         assertion =
           cfg.database.createLocally -> cfg.database.passwordFile == null;
-        message =
-          "a password cannot be specified if services.zammad.database.createLocally is set to true";
+        message = "a password cannot be specified if services.zammad.database.createLocally is set to true";
       }
     ];
 
@@ -336,8 +334,7 @@ in
       requires = [ "zammad-web.service" ];
       description = "Zammad websocket";
       wantedBy = [ "multi-user.target" ];
-      script =
-        "./script/websocket-server.rb -b ${cfg.host} -p ${
+      script = "./script/websocket-server.rb -b ${cfg.host} -p ${
           toString cfg.websocketPort
         } start";
     };

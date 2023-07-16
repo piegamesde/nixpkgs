@@ -56,8 +56,7 @@ in
         Type = "simple";
         User = "nzbhydra2";
         Group = "nzbhydra2";
-        ExecStart =
-          "${cfg.package}/bin/nzbhydra2 --nobrowser --datafolder '${cfg.dataDir}'";
+        ExecStart = "${cfg.package}/bin/nzbhydra2 --nobrowser --datafolder '${cfg.dataDir}'";
         Restart = "on-failure";
         # Hardening
         NoNewPrivileges = true;

@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
   version = "0.15.1";
 
   src = fetchurl {
-    url =
-      "https://www.spice-space.org/download/releases/spice-server/${pname}-${version}.tar.bz2";
+    url = "https://www.spice-space.org/download/releases/spice-server/${pname}-${version}.tar.bz2";
     sha256 = "ramvZ6syGRa9frWePWGaSneWwIooxzLt/H8C/ICxo3o=";
   };
 
@@ -90,8 +89,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Complete open source solution for interaction with virtualized desktop devices";
+    description = "Complete open source solution for interaction with virtualized desktop devices";
     longDescription = ''
       The Spice project aims to provide a complete open source solution for interaction
       with virtualized desktop devices.The Spice project deals with both the virtualized

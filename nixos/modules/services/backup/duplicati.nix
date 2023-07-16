@@ -68,8 +68,7 @@ in
         {
           User = cfg.user;
           Group = "duplicati";
-          ExecStart =
-            "${pkgs.duplicati}/bin/duplicati-server --webservice-interface=${cfg.interface} --webservice-port=${
+          ExecStart = "${pkgs.duplicati}/bin/duplicati-server --webservice-interface=${cfg.interface} --webservice-port=${
               toString cfg.port
             } --server-datafolder=${cfg.dataDir}";
           Restart = "on-failure";

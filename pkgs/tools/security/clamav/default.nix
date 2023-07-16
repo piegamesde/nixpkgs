@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
   version = "1.0.1";
 
   src = fetchurl {
-    url =
-      "https://www.clamav.net/downloads/production/${pname}-${version}.tar.gz";
+    url = "https://www.clamav.net/downloads/production/${pname}-${version}.tar.gz";
     hash = "sha256-CHLcG4L/TNfo5DI/r17kGh9mroCGXQVCkIW5RjVdhu4=";
   };
 
@@ -79,8 +78,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.clamav.net";
-    description =
-      "Antivirus engine designed for detecting Trojans, viruses, malware and other malicious threats";
+    description = "Antivirus engine designed for detecting Trojans, viruses, malware and other malicious threats";
     license = licenses.gpl2;
     maintainers = with maintainers; [
       robberer

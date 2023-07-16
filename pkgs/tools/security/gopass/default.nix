@@ -69,16 +69,14 @@ buildGoModule rec {
   passthru = { inherit wrapperPath; };
 
   meta = with lib; {
-    description =
-      "The slightly more awesome Standard Unix Password Manager for Teams. Written in Go";
+    description = "The slightly more awesome Standard Unix Password Manager for Teams. Written in Go";
     homepage = "https://www.gopass.pw/";
     license = licenses.mit;
     maintainers = with maintainers; [
       rvolosatovs
       sikmir
     ];
-    changelog =
-      "https://github.com/gopasspw/gopass/raw/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/gopasspw/gopass/raw/v${version}/CHANGELOG.md";
 
     longDescription = ''
       gopass is a rewrite of the pass password manager in Go with the aim of

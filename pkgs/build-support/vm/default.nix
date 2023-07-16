@@ -982,13 +982,10 @@ rec {
         name = "fedora-${version}-x86_64";
         fullName = "Fedora ${version} (x86_64)";
         packagesList = fetchurl rec {
-          url =
-            "mirror://fedora/linux/releases/${version}/Everything/x86_64/os/repodata/${sha256}-primary.xml.gz";
-          sha256 =
-            "880055a50c05b20641530d09b23f64501a000b2f92fe252417c530178730a95e";
+          url = "mirror://fedora/linux/releases/${version}/Everything/x86_64/os/repodata/${sha256}-primary.xml.gz";
+          sha256 = "880055a50c05b20641530d09b23f64501a000b2f92fe252417c530178730a95e";
         };
-        urlPrefix =
-          "mirror://fedora/linux/releases/${version}/Everything/x86_64/os";
+        urlPrefix = "mirror://fedora/linux/releases/${version}/Everything/x86_64/os";
         archs = [
           "noarch"
           "x86_64"
@@ -1012,13 +1009,10 @@ rec {
         name = "fedora-${version}-x86_64";
         fullName = "Fedora ${version} (x86_64)";
         packagesList = fetchurl rec {
-          url =
-            "mirror://fedora/linux/releases/${version}/Everything/x86_64/os/repodata/${sha256}-primary.xml.gz";
-          sha256 =
-            "48986ce4583cd09825c6d437150314446f0f49fa1a1bd62dcfa1085295030fe9";
+          url = "mirror://fedora/linux/releases/${version}/Everything/x86_64/os/repodata/${sha256}-primary.xml.gz";
+          sha256 = "48986ce4583cd09825c6d437150314446f0f49fa1a1bd62dcfa1085295030fe9";
         };
-        urlPrefix =
-          "mirror://fedora/linux/releases/${version}/Everything/x86_64/os";
+        urlPrefix = "mirror://fedora/linux/releases/${version}/Everything/x86_64/os";
         archs = [
           "noarch"
           "x86_64"
@@ -1044,8 +1038,7 @@ rec {
         urlPrefix = "mirror://centos/${version}/os/i386";
         packagesList = fetchurl rec {
           url = "${urlPrefix}/repodata/${sha256}-primary.xml.gz";
-          sha256 =
-            "b826a45082ef68340325c0855f3d2e5d5a4d0f77d28ba3b871791d6f14a97aeb";
+          sha256 = "b826a45082ef68340325c0855f3d2e5d5a4d0f77d28ba3b871791d6f14a97aeb";
         };
         archs = [
           "noarch"
@@ -1065,8 +1058,7 @@ rec {
         urlPrefix = "mirror://centos/${version}/os/x86_64";
         packagesList = fetchurl rec {
           url = "${urlPrefix}/repodata/${sha256}-primary.xml.gz";
-          sha256 =
-            "ed2b2d4ac98d774d4cd3e91467e1532f7e8b0275cfc91a0d214b532dcaf1e979";
+          sha256 = "ed2b2d4ac98d774d4cd3e91467e1532f7e8b0275cfc91a0d214b532dcaf1e979";
         };
         archs = [
           "noarch"
@@ -1087,8 +1079,7 @@ rec {
         urlPrefix = "mirror://centos/${version}/os/x86_64";
         packagesList = fetchurl rec {
           url = "${urlPrefix}/repodata/${sha256}-primary.xml.gz";
-          sha256 =
-            "b686d3a0f337323e656d9387b9a76ce6808b26255fc3a138b1a87d3b1cb95ed5";
+          sha256 = "b686d3a0f337323e656d9387b9a76ce6808b26255fc3a138b1a87d3b1cb95ed5";
         };
         archs = [
           "noarch"
@@ -1111,8 +1102,7 @@ rec {
           sha256 = "1d5y3v3v079gdq45hc07ja0bjlmzqfwdwwlq0brwxi8m75k3iz7x";
         })
         (fetchurl {
-          url =
-            "mirror://ubuntu/dists/trusty/universe/binary-i386/Packages.bz2";
+          url = "mirror://ubuntu/dists/trusty/universe/binary-i386/Packages.bz2";
           sha256 = "03x9w92by320rfklrqhcl3qpwmnxds9c8ijl5zhcb21d6dcz5z1a";
         })
       ];
@@ -1135,8 +1125,7 @@ rec {
           sha256 = "1hhzbyqfr5i0swahwnl5gfp5l9p9hspywb1vpihr3b74p1z935bh";
         })
         (fetchurl {
-          url =
-            "mirror://ubuntu/dists/trusty/universe/binary-amd64/Packages.bz2";
+          url = "mirror://ubuntu/dists/trusty/universe/binary-amd64/Packages.bz2";
           sha256 = "04560ba8s4z4v5iawknagrkn9q1nzvpn081ycmqvhh73p3p3g1jm";
         })
       ];
@@ -1182,8 +1171,7 @@ rec {
           sha256 = "110qnkhjkkwm316fbig3aivm2595ydz6zskc4ld5cr8ngcrqm1bn";
         })
         (fetchurl {
-          url =
-            "mirror://ubuntu/dists/xenial/universe/binary-amd64/Packages.xz";
+          url = "mirror://ubuntu/dists/xenial/universe/binary-amd64/Packages.xz";
           sha256 = "0mm7gj491yi6q4v0n4qkbsm94s59bvqir6fk60j73w7y4la8rg68";
         })
       ];
@@ -1229,8 +1217,7 @@ rec {
           sha256 = "1ls81bjyvmfz6i919kszl7xks1ibrh1xqhsk6698ackndkm0wp39";
         })
         (fetchurl {
-          url =
-            "mirror://ubuntu/dists/bionic/universe/binary-amd64/Packages.xz";
+          url = "mirror://ubuntu/dists/bionic/universe/binary-amd64/Packages.xz";
           sha256 = "1832nqpn4ap95b3sj870xqayrza9in4kih9jkmjax27pq6x15v1r";
         })
       ];
@@ -1340,8 +1327,7 @@ rec {
       name = "debian-10.13-buster-i386";
       fullName = "Debian 10.13 Buster (i386)";
       packagesList = fetchurl {
-        url =
-          "https://snapshot.debian.org/archive/debian/20221126T084953Z/dists/buster/main/binary-i386/Packages.xz";
+        url = "https://snapshot.debian.org/archive/debian/20221126T084953Z/dists/buster/main/binary-i386/Packages.xz";
         hash = "sha256-n9JquhtZgxw3qr9BX0MQoY3ZTIHN0dit+iru3DC31UY=";
       };
       urlPrefix = "mirror://debian";
@@ -1352,8 +1338,7 @@ rec {
       name = "debian-10.13-buster-amd64";
       fullName = "Debian 10.13 Buster (amd64)";
       packagesList = fetchurl {
-        url =
-          "https://snapshot.debian.org/archive/debian/20221126T084953Z/dists/buster/main/binary-amd64/Packages.xz";
+        url = "https://snapshot.debian.org/archive/debian/20221126T084953Z/dists/buster/main/binary-amd64/Packages.xz";
         hash = "sha256-YukIIB3u87jgp9oudwklsxyKVKjSL618wFgDSXiFmjU=";
       };
       urlPrefix = "mirror://debian";
@@ -1364,8 +1349,7 @@ rec {
       name = "debian-11.6-bullseye-i386";
       fullName = "Debian 11.6 Bullseye (i386)";
       packagesList = fetchurl {
-        url =
-          "https://snapshot.debian.org/archive/debian/20230131T034648Z/dists/bullseye/main/binary-i386/Packages.xz";
+        url = "https://snapshot.debian.org/archive/debian/20230131T034648Z/dists/bullseye/main/binary-i386/Packages.xz";
         hash = "sha256-z9eG7RlvelEnZAaeCfIO+XxTZVL3d+zTA7ShU43l/pw=";
       };
       urlPrefix = "mirror://debian";
@@ -1376,8 +1360,7 @@ rec {
       name = "debian-11.6-bullseye-amd64";
       fullName = "Debian 11.6 Bullseye (amd64)";
       packagesList = fetchurl {
-        url =
-          "https://snapshot.debian.org/archive/debian/20230131T034648Z/dists/bullseye/main/binary-amd64/Packages.xz";
+        url = "https://snapshot.debian.org/archive/debian/20230131T034648Z/dists/bullseye/main/binary-amd64/Packages.xz";
         hash = "sha256-mz0eCWdn6uWt40OxsSPheHzEnMeLE52yR/vpb48/VF0=";
       };
       urlPrefix = "mirror://debian";

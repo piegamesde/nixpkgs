@@ -26,8 +26,7 @@ rustPlatform.buildRustPackage rec {
       characters and non-ASCII).
     '';
     homepage = "https://github.com/sharkdp/hexyl";
-    changelog =
-      "https://github.com/sharkdp/hexyl/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/sharkdp/hexyl/blob/v${version}/CHANGELOG.md";
     license = with licenses; [
       asl20 # or
       mit

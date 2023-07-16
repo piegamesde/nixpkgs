@@ -72,8 +72,7 @@ stdenv.mkDerivation (
     '';
 
     meta = with lib; {
-      description =
-        "Applications and router for I2P, anonymity over the Internet";
+      description = "Applications and router for I2P, anonymity over the Internet";
       homepage = "https://geti2p.net";
       sourceProvenance = with sourceTypes; [
         fromSource

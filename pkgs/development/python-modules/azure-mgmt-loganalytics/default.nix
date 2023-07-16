@@ -33,8 +33,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "azure.mgmt.loganalytics" ];
 
   meta = with lib; {
-    description =
-      "This is the Microsoft Azure Log Analytics Management Client Library";
+    description = "This is the Microsoft Azure Log Analytics Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [ maxwilson ];

@@ -360,8 +360,7 @@ import ./make-test-python.nix (
               imports = [
                 restart-and-reload-by-activation-script.configuration
               ];
-              systemd.services.reload-triggers-and-restart.serviceConfig.X-Modified =
-                "test";
+              systemd.services.reload-triggers-and-restart.serviceConfig.X-Modified = "test";
             };
 
             simple-socket.configuration = {
@@ -423,8 +422,7 @@ import ./make-test-python.nix (
             timer.configuration = {
               systemd.timers.test-timer = {
                 wantedBy = [ "timers.target" ];
-                timerConfig.OnCalendar =
-                  "@1395716396"; # chosen by fair dice roll
+                timerConfig.OnCalendar = "@1395716396"; # chosen by fair dice roll
               };
               systemd.services.test-timer = {
                 serviceConfig = {
@@ -453,8 +451,7 @@ import ./make-test-python.nix (
               # printed when they are started/stopped.
               systemd.services.test-service = {
                 bindsTo = [ "test-target.target" ];
-                serviceConfig.ExecStart =
-                  "${pkgs.coreutils}/bin/sleep infinity";
+                serviceConfig.ExecStart = "${pkgs.coreutils}/bin/sleep infinity";
               };
             };
 
@@ -492,8 +489,7 @@ import ./make-test-python.nix (
             };
 
             slice.configuration = {
-              systemd.slices.testslice.sliceConfig.MemoryMax =
-                "1"; # don't allow memory allocation
+              systemd.slices.testslice.sliceConfig.MemoryMax = "1"; # don't allow memory allocation
               systemd.services.testservice = {
                 serviceConfig = {
                   Type = "oneshot";

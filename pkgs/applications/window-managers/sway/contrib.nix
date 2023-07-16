@@ -96,8 +96,7 @@
 
     meta = sway-unwrapped.meta // {
       description = "It makes inactive sway windows transparent";
-      homepage =
-        "https://github.com/swaywm/sway/tree/${sway-unwrapped.version}/contrib";
+      homepage = "https://github.com/swaywm/sway/tree/${sway-unwrapped.version}/contrib";
     };
   };
 }

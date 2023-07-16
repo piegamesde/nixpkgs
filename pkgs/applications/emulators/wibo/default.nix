@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
       gc = srcOnly {
         name = "GC_WII_COMPILERS";
         src = fetchzip {
-          url =
-            "https://cdn.discordapp.com/attachments/727918646525165659/917185027656286218/GC_WII_COMPILERS.zip";
+          url = "https://cdn.discordapp.com/attachments/727918646525165659/917185027656286218/GC_WII_COMPILERS.zip";
           hash = "sha256-o+UrmIbCsa74LxtLofT0DKrTRgT0qDK5/V7GsG2Zprc=";
           stripRoot = false;
         };

@@ -42,8 +42,7 @@ buildPythonPackage rec {
   patches = [
     # https://github.com/mapnik/python-mapnik/issues/239
     (fetchpatch {
-      url =
-        "https://github.com/koordinates/python-mapnik/commit/318b1edac16f48a7f21902c192c1dd86f6210a44.patch";
+      url = "https://github.com/koordinates/python-mapnik/commit/318b1edac16f48a7f21902c192c1dd86f6210a44.patch";
       hash = "sha256-cfU8ZqPPGCqoHEyGvJ8Xy/bGpbN2vSDct6A3N5+I8xM=";
     })
     ./find-pycairo-with-pkg-config.patch

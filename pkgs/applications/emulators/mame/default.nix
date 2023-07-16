@@ -221,8 +221,7 @@ stdenv.mkDerivation rec {
       calculators, in addition to the arcade video games that were its initial
       focus.
     '';
-    changelog =
-      "https://github.com/mamedev/mame/releases/download/mame${srcVersion}/whatsnew_${srcVersion}.txt";
+    changelog = "https://github.com/mamedev/mame/releases/download/mame${srcVersion}/whatsnew_${srcVersion}.txt";
     license = with licenses; [
       bsd3
       gpl2Plus

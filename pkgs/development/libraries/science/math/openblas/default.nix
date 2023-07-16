@@ -176,8 +176,7 @@ stdenv.mkDerivation rec {
     # https://github.com/xianyi/OpenBLAS/pull/3626
     (fetchpatch {
       name = "openblas-0.3.21-fix-loong.patch";
-      url =
-        "https://gitweb.gentoo.org/repo/gentoo.git/plain/sci-libs/openblas/files/openblas-0.3.21-fix-loong.patch?id=37ee4c70278eb41181f69e175575b0152b941655";
+      url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/sci-libs/openblas/files/openblas-0.3.21-fix-loong.patch?id=37ee4c70278eb41181f69e175575b0152b941655";
       hash = "sha256-iWy11l3wEvzNV08LbhOjnSPj1SjPH8RMnb3ORz7V+gc";
     })
   ];
@@ -221,8 +220,7 @@ stdenv.mkDerivation rec {
   makeFlags = mkMakeFlagsFromConfig (
     config // {
       FC = "${stdenv.cc.targetPrefix}gfortran";
-      CC =
-        "${stdenv.cc.targetPrefix}${
+      CC = "${stdenv.cc.targetPrefix}${
           if stdenv.cc.isClang then "clang" else "cc"
         }";
       PREFIX = placeholder "out";

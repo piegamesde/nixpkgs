@@ -76,8 +76,9 @@ let
     }:
     let
       self = stdenv.mkDerivation {
-        pname =
-          "apple-${lib.optionalString private "private-"}framework-${name}";
+        pname = "apple-${
+            lib.optionalString private "private-"
+          }framework-${name}";
         version = MacOSX-SDK.version;
 
         dontUnpack = true;
@@ -122,8 +123,9 @@ let
 
         passthru = {
           tbdRewrites = {
-            prefix."${standardFrameworkPath name private}/" =
-              "${self}/Library/Frameworks/${name}.framework/";
+            prefix."${
+              standardFrameworkPath name private
+            }/" = "${self}/Library/Frameworks/${name}.framework/";
           };
         };
 

@@ -103,8 +103,7 @@ in
     };
 
     security.wrappers.x2gosqliteWrapper = {
-      source =
-        "${pkgs.x2goserver}/lib/x2go/libx2go-server-db-sqlite3-wrapper.pl";
+      source = "${pkgs.x2goserver}/lib/x2go/libx2go-server-db-sqlite3-wrapper.pl";
       owner = "x2go";
       group = "x2go";
       setuid = false;

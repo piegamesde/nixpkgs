@@ -18,8 +18,7 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-AiWKSWwMh6KWCTTRRCBxekv2rukz+ijnRit11K/AnhU=";
 
   meta = with lib; {
-    description =
-      "A `nix` and `nix-shell` wrapper for shells other than `bash`";
+    description = "A `nix` and `nix-shell` wrapper for shells other than `bash`";
     homepage = "https://github.com/MercuryTechnologies/nix-your-shell";
     license = [ licenses.mit ];
     maintainers = [ maintainers._9999years ];

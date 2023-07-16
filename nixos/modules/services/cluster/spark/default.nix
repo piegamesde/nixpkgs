@@ -133,10 +133,8 @@ with lib; {
             User = "spark";
             Group = "spark";
             WorkingDirectory = "${cfg.package}/lib/${cfg.package.untarDir}";
-            ExecStart =
-              "${cfg.package}/lib/${cfg.package.untarDir}/sbin/start-master.sh";
-            ExecStop =
-              "${cfg.package}/lib/${cfg.package.untarDir}/sbin/stop-master.sh";
+            ExecStart = "${cfg.package}/lib/${cfg.package.untarDir}/sbin/start-master.sh";
+            ExecStop = "${cfg.package}/lib/${cfg.package.untarDir}/sbin/stop-master.sh";
             TimeoutSec = 300;
             StartLimitBurst = 10;
             Restart = "always";
@@ -163,10 +161,8 @@ with lib; {
             Type = "forking";
             User = "spark";
             WorkingDirectory = "${cfg.package}/lib/${cfg.package.untarDir}";
-            ExecStart =
-              "${cfg.package}/lib/${cfg.package.untarDir}/sbin/start-worker.sh spark://${cfg.worker.master}";
-            ExecStop =
-              "${cfg.package}/lib/${cfg.package.untarDir}/sbin/stop-worker.sh";
+            ExecStart = "${cfg.package}/lib/${cfg.package.untarDir}/sbin/start-worker.sh spark://${cfg.worker.master}";
+            ExecStop = "${cfg.package}/lib/${cfg.package.untarDir}/sbin/stop-worker.sh";
             TimeoutSec = 300;
             StartLimitBurst = 10;
             Restart = "always";

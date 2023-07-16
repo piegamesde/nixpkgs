@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
   version = "2.1.0-beta1";
 
   src = fetchurl {
-    url =
-      "https://www.gaia-gis.it/gaia-sins/spatialite-gui-sources/spatialite_gui-${version}.tar.gz";
+    url = "https://www.gaia-gis.it/gaia-sins/spatialite-gui-sources/spatialite_gui-${version}.tar.gz";
     hash = "sha256-ukjZbfGM68P/I/aXlyB64VgszmL0WWtpuuMAyjwj2zM=";
   };
 

@@ -24,8 +24,7 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description =
-      "An authenticating proxy for Second Generation Google Cloud SQL databases";
+    description = "An authenticating proxy for Second Generation Google Cloud SQL databases";
     homepage = "https://github.com/GoogleCloudPlatform/cloudsql-proxy";
     license = licenses.asl20;
     maintainers = with maintainers; [ nicknovitski ];

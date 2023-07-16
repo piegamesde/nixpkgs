@@ -118,8 +118,7 @@ let
     ++ optional enableUserDir "userdir"
     ++ optional cfg.enableMellon {
       name = "auth_mellon";
-      path =
-        "${pkgs.apacheHttpdPackages.mod_auth_mellon}/modules/mod_auth_mellon.so";
+      path = "${pkgs.apacheHttpdPackages.mod_auth_mellon}/modules/mod_auth_mellon.so";
     }
     ++ optional cfg.enablePHP {
       name = phpModuleName;
@@ -1047,8 +1046,7 @@ in
         sharedscripts = true;
         compress = true;
         delaycompress = true;
-        postrotate =
-          "systemctl reload httpd.service > /dev/null 2>/dev/null || true";
+        postrotate = "systemctl reload httpd.service > /dev/null 2>/dev/null || true";
       };
     };
 
@@ -1201,11 +1199,9 @@ in
         serviceConfig = {
           Type = "oneshot";
           TimeoutSec = 60;
-          ExecCondition =
-            "/run/current-system/systemd/bin/systemctl -q is-active httpd.service";
+          ExecCondition = "/run/current-system/systemd/bin/systemctl -q is-active httpd.service";
           ExecStartPre = "${pkg}/bin/httpd -f /etc/httpd/httpd.conf -t";
-          ExecStart =
-            "/run/current-system/systemd/bin/systemctl reload httpd.service";
+          ExecStart = "/run/current-system/systemd/bin/systemctl reload httpd.service";
         };
       }
     ;

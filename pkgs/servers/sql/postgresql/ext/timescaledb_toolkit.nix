@@ -30,8 +30,7 @@
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Provide additional tools to ease all things analytic when using TimescaleDB";
+    description = "Provide additional tools to ease all things analytic when using TimescaleDB";
     homepage = "https://github.com/timescale/timescaledb-toolkit";
     maintainers = with maintainers; [ typetetris ];
     platforms = postgresql.meta.platforms;

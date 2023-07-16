@@ -38,8 +38,7 @@ stdenv.mkDerivation (
 
     meta = with lib; {
       homepage = "https://tools.suckless.org/tabbed";
-      description =
-        "Simple generic tabbed fronted to xembed aware applications";
+      description = "Simple generic tabbed fronted to xembed aware applications";
       license = licenses.mit;
       maintainers = with maintainers; [ vrthra ];
       platforms = platforms.linux;

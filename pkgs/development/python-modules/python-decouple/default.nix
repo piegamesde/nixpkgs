@@ -31,8 +31,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module to handle code and condifuration";
     homepage = "https://github.com/HBNetwork/python-decouple";
-    changelog =
-      "https://github.com/HBNetwork/python-decouple/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/HBNetwork/python-decouple/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

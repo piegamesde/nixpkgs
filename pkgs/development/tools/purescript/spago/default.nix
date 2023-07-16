@@ -17,8 +17,7 @@ let
       oldAttrs: {
         maintainers =
           (oldAttrs.maintainers or [ ]) ++ [ lib.maintainers.cdepillabout ];
-        changelog =
-          "https://github.com/purescript/spago/releases/tag/${oldAttrs.version}";
+        changelog = "https://github.com/purescript/spago/releases/tag/${oldAttrs.version}";
       }
     ))
     haskell.lib.compose.unmarkBroken

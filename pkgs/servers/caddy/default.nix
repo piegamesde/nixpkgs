@@ -64,8 +64,7 @@ buildGoModule {
 
   meta = with lib; {
     homepage = "https://caddyserver.com";
-    description =
-      "Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS";
+    description = "Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS";
     license = licenses.asl20;
     maintainers = with maintainers; [
       Br1ght0ne

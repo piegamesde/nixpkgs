@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/clvv/fasd";
-    description =
-      "Quick command-line access to files and directories for POSIX shells";
+    description = "Quick command-line access to files and directories for POSIX shells";
     license = licenses.mit;
 
     longDescription = ''

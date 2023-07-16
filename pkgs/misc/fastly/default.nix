@@ -52,8 +52,7 @@ buildGoModule rec {
   preBuild =
     let
       cliConfigToml = fetchurl {
-        url =
-          "https://web.archive.org/web/20230412222811/https://developer.fastly.com/api/internal/cli-config";
+        url = "https://web.archive.org/web/20230412222811/https://developer.fastly.com/api/internal/cli-config";
         hash = "sha256-NACjeBGOvBL6kUBZtSx4ChZgn7V69f4K2yyDCwTZsbU=";
       };
     in

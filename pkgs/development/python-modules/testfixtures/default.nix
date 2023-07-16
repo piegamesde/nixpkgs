@@ -48,11 +48,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "testfixtures" ];
 
   meta = with lib; {
-    description =
-      "Collection of helpers and mock objects for unit tests and doc tests";
+    description = "Collection of helpers and mock objects for unit tests and doc tests";
     homepage = "https://github.com/Simplistix/testfixtures";
-    changelog =
-      "https://github.com/simplistix/testfixtures/blob/${version}/CHANGELOG.rst";
+    changelog = "https://github.com/simplistix/testfixtures/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ siriobalmelli ];
   };

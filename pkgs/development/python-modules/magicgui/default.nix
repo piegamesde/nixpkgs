@@ -45,8 +45,7 @@ buildPythonPackage rec {
   passthru.tests = { inherit napari; };
 
   meta = with lib; {
-    description =
-      "Build GUIs from python functions, using magic.  (napari/magicgui)";
+    description = "Build GUIs from python functions, using magic.  (napari/magicgui)";
     homepage = "https://github.com/napari/magicgui";
     license = licenses.mit;
     maintainers = with maintainers; [ SomeoneSerge ];

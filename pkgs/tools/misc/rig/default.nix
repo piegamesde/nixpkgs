@@ -9,8 +9,7 @@ stdenv.mkDerivation rec {
   pname = "rig";
 
   src = fetchurl {
-    url =
-      "https://ayera.dl.sourceforge.net/project/rig/rig/${version}/rig-${version}.tar.gz";
+    url = "https://ayera.dl.sourceforge.net/project/rig/rig/${version}/rig-${version}.tar.gz";
     sha256 = "1f3snysjqqlpk2kgvm5p2icrj4lsdymccmn3igkc2f60smqckgq0";
   };
 

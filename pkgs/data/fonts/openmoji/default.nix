@@ -42,13 +42,11 @@ let
       };
       patches = [
         (fetchpatch {
-          url =
-            "https://salsa.debian.org/fonts-team/fontforge/raw/76bffe6ccf8ab20a0c81476a80a87ad245e2fd1c/debian/patches/0001-add-extra-cmake-install-rules.patch";
+          url = "https://salsa.debian.org/fonts-team/fontforge/raw/76bffe6ccf8ab20a0c81476a80a87ad245e2fd1c/debian/patches/0001-add-extra-cmake-install-rules.patch";
           sha256 = "u3D9od2xLECNEHhZ+8dkuv9818tPkdP6y/Tvd9CADJg=";
         })
         (fetchpatch {
-          url =
-            "https://github.com/fontforge/fontforge/commit/69e263b2aff29ad22f97f13935cfa97a1eabf207.patch";
+          url = "https://github.com/fontforge/fontforge/commit/69e263b2aff29ad22f97f13935cfa97a1eabf207.patch";
           sha256 = "06yyf90605aq6ppfiz83mqkdmnaq5418axp9jgsjyjq78b00xb29";
         })
       ];
@@ -104,7 +102,6 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
     homepage = "https://openmoji.org/";
     downloadPage = "https://github.com/hfg-gmuend/openmoji/releases";
-    description =
-      "Open-source emojis for designers, developers and everyone else";
+    description = "Open-source emojis for designers, developers and everyone else";
   };
 }

@@ -31,8 +31,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Development library for quickly writing configurable applications and daemons";
+    description = "Development library for quickly writing configurable applications and daemons";
     homepage = "https://helper.readthedocs.org/";
     license = licenses.bsd3;
   };

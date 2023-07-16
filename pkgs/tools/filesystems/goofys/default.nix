@@ -28,8 +28,7 @@ buildGoModule {
 
   meta = {
     homepage = "https://github.com/kahing/goofys";
-    description =
-      "A high-performance, POSIX-ish Amazon S3 file system written in Go.";
+    description = "A high-performance, POSIX-ish Amazon S3 file system written in Go.";
     license = [ lib.licenses.mit ];
     maintainers = [ lib.maintainers.adisbladis ];
     broken =

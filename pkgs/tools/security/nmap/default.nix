@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
         # nping/EchoServer.cc, which is otherwise resolved to std::bind.
         # https://github.com/nmap/nmap/pull/1363
         fetchpatch {
-          url =
-            "https://github.com/nmap/nmap/commit/5bbe66f1bd8cbd3718f5805139e2e8139e6849bb.diff";
+          url = "https://github.com/nmap/nmap/commit/5bbe66f1bd8cbd3718f5805139e2e8139e6849bb.diff";
           includes = [ "nping/EchoServer.cc" ];
           sha256 = "0xcph9mycy57yryjg253frxyz87c4135rrbndlqw1400c8jxq70c";
         }
@@ -74,8 +73,7 @@ stdenv.mkDerivation rec {
   doCheck = false; # fails 3 tests, probably needs the net
 
   meta = with lib; {
-    description =
-      "A free and open source utility for network discovery and security auditing";
+    description = "A free and open source utility for network discovery and security auditing";
     homepage = "http://www.nmap.org";
     license = licenses.gpl2;
     platforms = platforms.all;

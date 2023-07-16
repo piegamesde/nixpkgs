@@ -364,8 +364,7 @@ in
         !cfg.redisCreateLocally
         || (cfg.cache.redisHost == "localhost" && cfg.cache.redisPort == 6379)
       ;
-      message =
-        "When services.nitter.redisCreateLocally is enabled, you need to use localhost:6379 as a cache server.";
+      message = "When services.nitter.redisCreateLocally is enabled, you need to use localhost:6379 as a cache server.";
     } ];
 
     systemd.services.nitter = {

@@ -26,8 +26,7 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    description =
-      "Like cURL, but for gRPC: Command-line tool for interacting with gRPC servers";
+    description = "Like cURL, but for gRPC: Command-line tool for interacting with gRPC servers";
     homepage = "https://github.com/fullstorydev/grpcurl";
     license = licenses.mit;
     maintainers = with maintainers; [ knl ];

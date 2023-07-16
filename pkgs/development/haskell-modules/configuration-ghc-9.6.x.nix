@@ -159,8 +159,7 @@ self: super: {
       [
         (pkgs.fetchpatch {
           name = "foundation-pr-572.patch";
-          url =
-            "https://github.com/haskell-foundation/foundation/commit/d3136f4bb8b69e273535352620e53f2196941b35.patch";
+          url = "https://github.com/haskell-foundation/foundation/commit/d3136f4bb8b69e273535352620e53f2196941b35.patch";
           sha256 = "sha256-oPadhQdCPJHICdCPxn+GsSQUARIYODG8Ed6g2sK+eC4=";
           stripLen = 1;
         })
@@ -175,8 +174,7 @@ self: super: {
       [
         (pkgs.fetchpatch {
           name = "hourglass-pr-56.patch";
-          url =
-            "https://github.com/vincenthz/hs-hourglass/commit/cfc2a4b01f9993b1b51432f0a95fa6730d9a558a.patch";
+          url = "https://github.com/vincenthz/hs-hourglass/commit/cfc2a4b01f9993b1b51432f0a95fa6730d9a558a.patch";
           sha256 = "sha256-gntZf7RkaR4qzrhjrXSC69jE44SknPDBmfs4z9rVa5Q=";
         })
       ]

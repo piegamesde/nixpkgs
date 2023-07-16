@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "http://www.autistici.org/bakunin/libmrss/doc";
-    description =
-      "C library for parsing, writing and creating RSS/ATOM files or streams";
+    description = "C library for parsing, writing and creating RSS/ATOM files or streams";
     license = lib.licenses.lgpl2;
 
     platforms = lib.platforms.all;

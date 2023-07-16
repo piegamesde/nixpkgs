@@ -44,8 +44,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for Moat BLE devices";
     homepage = "https://github.com/Bluetooth-Devices/moat-ble";
-    changelog =
-      "https://github.com/Bluetooth-Devices/moat-ble/releases/tag/v${version}";
+    changelog = "https://github.com/Bluetooth-Devices/moat-ble/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

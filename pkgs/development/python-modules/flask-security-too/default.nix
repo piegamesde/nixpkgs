@@ -112,8 +112,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "flask_security" ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/Flask-Middleware/flask-security/blob/${version}/CHANGES.rst";
+    changelog = "https://github.com/Flask-Middleware/flask-security/blob/${version}/CHANGES.rst";
     homepage = "https://github.com/Flask-Middleware/flask-security";
     description = "Simple security for Flask apps (fork)";
     license = licenses.mit;

@@ -10,8 +10,7 @@ let
   # Please make sure to update this when updating citra!
   compat-list = fetchurl {
     name = "citra-compat-list";
-    url =
-      "https://web.archive.org/web/20220502114622/https://api.citra-emu.org/gamedb/";
+    url = "https://web.archive.org/web/20220502114622/https://api.citra-emu.org/gamedb/";
     sha256 = "sha256-blIlaYaUQjw7Azgg+Dd7ZPEQf+ddZMO++Yxinwe+VG0=";
   };
 in

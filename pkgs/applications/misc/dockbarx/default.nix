@@ -75,8 +75,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/xuzhen/dockbarx";
-    description =
-      "Lightweight taskbar/panel replacement which works as a stand-alone dock";
+    description = "Lightweight taskbar/panel replacement which works as a stand-alone dock";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
     maintainers = [ maintainers.romildo ];

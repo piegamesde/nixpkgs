@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Graphical tool to analyze data, gathered from various hardware devices";
+    description = "Graphical tool to analyze data, gathered from various hardware devices";
     homepage = "https://www.nongnu.org/dataexplorer/index.html";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ panicgh ];

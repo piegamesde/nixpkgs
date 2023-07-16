@@ -23,8 +23,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/h2non/riprova";
-    description =
-      "Small and versatile library to retry failed operations using different backoff strategies";
+    description = "Small and versatile library to retry failed operations using different backoff strategies";
     license = licenses.mit;
     maintainers = with maintainers; [ mmilata ];
   };

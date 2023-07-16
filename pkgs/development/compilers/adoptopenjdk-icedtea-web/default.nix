@@ -77,8 +77,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description =
-      "Java web browser plugin and an implementation of Java Web Start";
+    description = "Java web browser plugin and an implementation of Java Web Start";
     longDescription = ''
       A Free Software web browser plugin running applets written in the Java
       programming language and an implementation of Java Web Start, originally

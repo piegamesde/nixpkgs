@@ -25,8 +25,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "This package is used to launch an application built using JupyterLab";
+    description = "This package is used to launch an application built using JupyterLab";
     license = with licenses; [ bsd3 ];
     homepage = "https://jupyter.org/";
     maintainers = with maintainers; [ zimbatm ];

@@ -24,8 +24,7 @@ lib.overrideDerivation
         owner = "raspberrypi";
         repo = "linux";
         rev = tag;
-        hash =
-          "sha512-6Dcpo81JBvc8NOv1nvO8JwjUgOOviRgHmXLLcGpE/pI2lEOcSeDRlB/FZtflzXTGilapvmwOSx5NxQfAmysHqQ==";
+        hash = "sha512-6Dcpo81JBvc8NOv1nvO8JwjUgOOviRgHmXLLcGpE/pI2lEOcSeDRlB/FZtflzXTGilapvmwOSx5NxQfAmysHqQ==";
       };
 
       defconfig =

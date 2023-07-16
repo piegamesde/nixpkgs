@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  preConfigure =
-    "substituteInPlace ./configure --replace /usr/bin/file ${file}/bin/file";
+  preConfigure = "substituteInPlace ./configure --replace /usr/bin/file ${file}/bin/file";
 
   configureFlags = [ "--disable-debug" ];
 

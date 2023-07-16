@@ -57,8 +57,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "ansible_compat" ];
 
   meta = with lib; {
-    description =
-      "A python package containing functions that help interacting with various versions of Ansible";
+    description = "A python package containing functions that help interacting with various versions of Ansible";
     homepage = "https://github.com/ansible/ansible-compat";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

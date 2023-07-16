@@ -51,8 +51,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "docformatter" ];
 
   meta = {
-    changelog =
-      "https://github.com/PyCQA/docformatter/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/PyCQA/docformatter/blob/${src.rev}/CHANGELOG.md";
     description = "Formats docstrings to follow PEP 257";
     homepage = "https://github.com/myint/docformatter";
     license = lib.licenses.mit;

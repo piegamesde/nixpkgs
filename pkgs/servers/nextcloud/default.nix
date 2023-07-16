@@ -21,8 +21,7 @@ let
       inherit version;
 
       src = fetchurl {
-        url =
-          "https://download.nextcloud.com/server/releases/${pname}-${version}.tar.bz2";
+        url = "https://download.nextcloud.com/server/releases/${pname}-${version}.tar.bz2";
         inherit sha256;
       };
 
@@ -42,12 +41,10 @@ let
       '';
 
       meta = with lib; {
-        changelog =
-          "https://nextcloud.com/changelog/#${
+        changelog = "https://nextcloud.com/changelog/#${
             lib.replaceStrings [ "." ] [ "-" ] version
           }";
-        description =
-          "Sharing solution for files, calendars, contacts and more";
+        description = "Sharing solution for files, calendars, contacts and more";
         homepage = "https://nextcloud.com";
         maintainers = with maintainers; [
           schneefux

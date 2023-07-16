@@ -74,8 +74,9 @@ in
         GuessMainPID = "no";
         User = "${cfg.user}";
         Group = "${cfg.group}";
-        ExecStart =
-          "${lib.getBin cfg.package}/bin/sabnzbd -d -f ${cfg.configFile}";
+        ExecStart = "${
+            lib.getBin cfg.package
+          }/bin/sabnzbd -d -f ${cfg.configFile}";
       };
     };
   };

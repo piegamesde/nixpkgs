@@ -228,10 +228,8 @@ stdenv.mkDerivation (
     pname = "${targetPrefix}ghc${variantSuffix}";
 
     src = fetchurl {
-      url =
-        "https://downloads.haskell.org/ghc/${version}/ghc-${version}-src.tar.xz";
-      sha256 =
-        "6256cf9caf6d6dc7b611dcfbb247df2d528e85aa39d22a698e870e5a590e8601";
+      url = "https://downloads.haskell.org/ghc/${version}/ghc-${version}-src.tar.xz";
+      sha256 = "6256cf9caf6d6dc7b611dcfbb247df2d528e85aa39d22a698e870e5a590e8601";
     };
 
     enableParallelBuilding = true;
@@ -245,8 +243,7 @@ stdenv.mkDerivation (
       # Don't generate code that doesn't compile when --enable-relocatable is passed to Setup.hs
       # Can be removed if the Cabal library included with ghc backports the linked fix
       (fetchpatch {
-        url =
-          "https://github.com/haskell/cabal/commit/6c796218c92f93c95e94d5ec2d077f6956f68e98.patch";
+        url = "https://github.com/haskell/cabal/commit/6c796218c92f93c95e94d5ec2d077f6956f68e98.patch";
         stripLen = 1;
         extraPrefix = "libraries/Cabal/";
         sha256 = "sha256-yRQ6YmMiwBwiYseC5BsrEtDgFbWvst+maGgDtdD0vAY=";
@@ -256,8 +253,7 @@ stdenv.mkDerivation (
       # https://gitlab.haskell.org/ghc/ghc/-/issues/22766
       (fetchpatch {
         name = "ghc-docs-sphinx-6.0.patch";
-        url =
-          "https://gitlab.haskell.org/ghc/ghc/-/commit/10e94a556b4f90769b7fd718b9790d58ae566600.patch";
+        url = "https://gitlab.haskell.org/ghc/ghc/-/commit/10e94a556b4f90769b7fd718b9790d58ae566600.patch";
         sha256 = "0kmhfamr16w8gch0lgln2912r8aryjky1hfcda3jkcwa5cdzgjdv";
       })
     ];

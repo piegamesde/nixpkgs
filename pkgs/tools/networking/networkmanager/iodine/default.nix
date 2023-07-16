@@ -39,8 +39,7 @@ stdenv.mkDerivation {
     })
     # Don't use etc/dbus-1/system.d
     (fetchpatch {
-      url =
-        "https://gitlab.gnome.org/GNOME/network-manager-iodine/merge_requests/2.patch";
+      url = "https://gitlab.gnome.org/GNOME/network-manager-iodine/merge_requests/2.patch";
       sha256 = "108pkf0mddj32s46k7jkmpwcaq2ylci4dqpp7wck3zm9q2jffff2";
     })
   ];

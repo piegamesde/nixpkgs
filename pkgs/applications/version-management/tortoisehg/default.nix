@@ -11,8 +11,7 @@ python3Packages.buildPythonApplication rec {
   version = "6.2.2";
 
   src = fetchurl {
-    url =
-      "https://www.mercurial-scm.org/release/tortoisehg/targz/tortoisehg-${version}.tar.gz";
+    url = "https://www.mercurial-scm.org/release/tortoisehg/targz/tortoisehg-${version}.tar.gz";
     sha256 = "sha256-Xbvg/FcuX/AL2reWsaM2oaFyLby3+HDCfYtRyswE7DA=";
   };
 

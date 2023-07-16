@@ -129,8 +129,7 @@ with lib;
       assertions = [ {
         assertion =
           config.nix.settings.sandbox -> config.security.allowUserNamespaces;
-        message =
-          "`nix.settings.sandbox = true` conflicts with `!security.allowUserNamespaces`.";
+        message = "`nix.settings.sandbox = true` conflicts with `!security.allowUserNamespaces`.";
       } ];
     })
 

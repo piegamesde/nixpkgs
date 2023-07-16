@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   version = "1.8.3";
 
   src = fetchurl {
-    url =
-      "https://github.com/BrunoLevy/geogram/releases/download/v${version}/geogram_${version}.tar.gz";
+    url = "https://github.com/BrunoLevy/geogram/releases/download/v${version}/geogram_${version}.tar.gz";
     hash = "sha256-91q0M/4kAr0UoWXOQIEYS1VbgEQ/F4EBOfJE9Vr1bnw=";
   };
 

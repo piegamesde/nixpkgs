@@ -34,29 +34,25 @@ stdenv.mkDerivation rec {
   src =
     {
       x86_64-linux = fetchurl {
-        url =
-          "https://julialang-s3.julialang.org/bin/linux/x64/${
+        url = "https://julialang-s3.julialang.org/bin/linux/x64/${
             lib.versions.majorMinor version
           }/julia-${version}-linux-x86_64.tar.gz";
         sha256 = "sha256-5xokgW6P6dX0gHZky7tCc49aqf4FOX01yB1MXWSbnQU=";
       };
       aarch64-linux = fetchurl {
-        url =
-          "https://julialang-s3.julialang.org/bin/linux/aarch64/${
+        url = "https://julialang-s3.julialang.org/bin/linux/aarch64/${
             lib.versions.majorMinor version
           }/julia-${version}-linux-aarch64.tar.gz";
         sha256 = "sha256-ofY3tExx6pvJbXw+80dyTAVKHlInuYCt6/wzWZ5RU6Q=";
       };
       x86_64-darwin = fetchurl {
-        url =
-          "https://julialang-s3.julialang.org/bin/mac/x64/${
+        url = "https://julialang-s3.julialang.org/bin/mac/x64/${
             lib.versions.majorMinor version
           }/julia-${version}-mac64.tar.gz";
         sha256 = "sha256-oahZ7af7QaC1VGczmhHDwcDfeLJ9HhYOgLxnWLPY2uA=";
       };
       aarch64-darwin = fetchurl {
-        url =
-          "https://julialang-s3.julialang.org/bin/mac/aarch64/${
+        url = "https://julialang-s3.julialang.org/bin/mac/aarch64/${
             lib.versions.majorMinor version
           }/julia-${version}-macaarch64.tar.gz";
         sha256 = "sha256-6oXgSJw2MkxNpiFjqhuC/PL1L3LRc+590hOjqSmSyrc=";
@@ -112,8 +108,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description =
-      "High-level, high-performance, dynamic language for technical computing";
+    description = "High-level, high-performance, dynamic language for technical computing";
     homepage = "https://julialang.org";
     # Bundled and linked with various GPL code, although Julia itself is MIT.
     license = lib.licenses.gpl2Plus;

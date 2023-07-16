@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   version = "0.9.5";
 
   src = fetchgit {
-    url =
-      "https://git.kernel.org/pub/scm/linux/kernel/git/jejb/sbsigntools.git";
+    url = "https://git.kernel.org/pub/scm/linux/kernel/git/jejb/sbsigntools.git";
     rev = "v${version}";
     hash = "sha256-5DInWgl1gThjjfGOsts1H1s1GbMCkd0gjbmG3gA3Fhg=";
   };
@@ -59,8 +58,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Tools for maintaining UEFI signature databases";
-    homepage =
-      "http://jk.ozlabs.org/docs/sbkeysync-maintaing-uefi-key-databases";
+    homepage = "http://jk.ozlabs.org/docs/sbkeysync-maintaing-uefi-key-databases";
     maintainers = with maintainers; [
       hmenke
       raitobezarius

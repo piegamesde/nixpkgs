@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description =
-      "Java framework around the IRC protocol to allow application writers easy manipulation of the protocol and client state";
+    description = "Java framework around the IRC protocol to allow application writers easy manipulation of the protocol and client state";
     homepage = "https://martyr.sourceforge.net/";
     license = lib.licenses.lgpl21;
   };

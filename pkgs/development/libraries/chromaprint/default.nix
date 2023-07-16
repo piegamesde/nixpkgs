@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
   version = "1.5.1";
 
   src = fetchurl {
-    url =
-      "https://github.com/acoustid/chromaprint/releases/download/v${version}/${pname}-${version}.tar.gz";
+    url = "https://github.com/acoustid/chromaprint/releases/download/v${version}/${pname}-${version}.tar.gz";
     sha256 = "sha256-oarY+juLGLeNN1Wzdn+v+au2ckLgG0eOyaZOGQ8zXhw=";
   };
 

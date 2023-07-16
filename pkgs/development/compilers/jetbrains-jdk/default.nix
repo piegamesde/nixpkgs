@@ -163,8 +163,7 @@ openjdk17.overrideAttrs (
         JetBrains Runtime is not a certified build of OpenJDK. Please, use at
         your own risk.
       '';
-      homepage =
-        "https://confluence.jetbrains.com/display/JBR/JetBrains+Runtime";
+      homepage = "https://confluence.jetbrains.com/display/JBR/JetBrains+Runtime";
       inherit (openjdk17.meta) license platforms mainProgram;
       maintainers = with maintainers; [ edwtjo ];
 

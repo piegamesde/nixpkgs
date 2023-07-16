@@ -23,8 +23,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Add support for showwing that command line app is active to Click";
+    description = "Add support for showwing that command line app is active to Click";
     homepage = "https://github.com/click-contrib/click-spinner";
     license = licenses.mit;
     maintainers = with maintainers; [ jtojnar ];

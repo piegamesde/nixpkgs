@@ -14,8 +14,7 @@ args@{
     adminpass = "notproduction";
     nextcloudBase = {
       networking.firewall.allowedTCPPorts = [ 80 ];
-      system.stateVersion =
-        "22.05"; # stateVersions <22.11 use openssl 1.1 by default
+      system.stateVersion = "22.05"; # stateVersions <22.11 use openssl 1.1 by default
       services.nextcloud = {
         enable = true;
         config.adminpassFile = "${pkgs.writeText "adminpass" adminpass}";

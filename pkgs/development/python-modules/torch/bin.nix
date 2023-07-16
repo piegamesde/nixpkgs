@@ -109,8 +109,7 @@ buildPythonPackage {
   pythonImportsCheck = [ "torch" ];
 
   meta = with lib; {
-    description =
-      "PyTorch: Tensors and Dynamic neural networks in Python with strong GPU acceleration";
+    description = "PyTorch: Tensors and Dynamic neural networks in Python with strong GPU acceleration";
     homepage = "https://pytorch.org/";
     changelog = "https://github.com/pytorch/pytorch/releases/tag/v${version}";
     # Includes CUDA and Intel MKL, but redistributions of the binary are not limited.

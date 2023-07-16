@@ -48,10 +48,8 @@ import ./make-test-python.nix (
           };
           # For convenience:
           shellAliases = {
-            test-x11 =
-              "glinfo | tee /tmp/test-x11.out && touch /tmp/test-x11-exit-ok";
-            test-wayland =
-              "wayland-info | tee /tmp/test-wayland.out && touch /tmp/test-wayland-exit-ok";
+            test-x11 = "glinfo | tee /tmp/test-x11.out && touch /tmp/test-x11-exit-ok";
+            test-wayland = "wayland-info | tee /tmp/test-wayland.out && touch /tmp/test-wayland-exit-ok";
           };
 
           # To help with OCR:

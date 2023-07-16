@@ -65,8 +65,7 @@ stdenv.mkDerivation {
   version = dfVersion;
 
   src = fetchurl {
-    url =
-      "https://www.bay12games.com/dwarves/df_${baseVersion}_${patchVersion}_${dfPlatform}.tar.bz2";
+    url = "https://www.bay12games.com/dwarves/df_${baseVersion}_${patchVersion}_${dfPlatform}.tar.bz2";
     inherit sha256;
   };
 
@@ -118,8 +117,7 @@ stdenv.mkDerivation {
   };
 
   meta = {
-    description =
-      "A single-player fantasy game with a randomly generated adventure world";
+    description = "A single-player fantasy game with a randomly generated adventure world";
     homepage = "https://www.bay12games.com/dwarves/";
     license = licenses.unfreeRedistributable;
     platforms = attrNames platforms;

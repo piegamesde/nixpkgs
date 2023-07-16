@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   version = "2.4.0";
 
   src = fetchurl {
-    url =
-      "https://github.com/ImaginarySense/Imaginary-Teleprompter-Electron/releases/download/${
+    url = "https://github.com/ImaginarySense/Imaginary-Teleprompter-Electron/releases/download/${
         lib.versions.majorMinor version
       }/imaginary-teleprompter-${version}.tar.gz";
     sha256 = "bgdtK8l5d26avv1WUw9cfOgZrIL1q/a9890Ams4yidQ=";

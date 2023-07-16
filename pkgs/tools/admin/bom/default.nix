@@ -62,10 +62,8 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/kubernetes-sigs/bom";
-    changelog =
-      "https://github.com/kubernetes-sigs/bom/releases/tag/v${version}";
-    description =
-      "A utility to generate SPDX-compliant Bill of Materials manifests";
+    changelog = "https://github.com/kubernetes-sigs/bom/releases/tag/v${version}";
+    description = "A utility to generate SPDX-compliant Bill of Materials manifests";
     license = licenses.asl20;
     maintainers = with maintainers; [ developer-guy ];
   };

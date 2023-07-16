@@ -14,12 +14,10 @@ stdenv.mkDerivation rec {
   src = requireFile {
     name = "iaca-version-${version}-lin64.zip";
     sha256 = "11s1134ijf66wrc77ksky9mnb0lq6ml6fzmr86a6p6r5xclzay2m";
-    url =
-      "https://software.intel.com/en-us/articles/intel-architecture-code-analyzer-download";
+    url = "https://software.intel.com/en-us/articles/intel-architecture-code-analyzer-download";
   };
-  unpackCmd =
-    ''
-      ${unzip}/bin/unzip "$src" -x __MACOSX/ __MACOSX/iaca-lin64/ __MACOSX/iaca-lin64/._.DS_Store'';
+  unpackCmd = ''
+    ${unzip}/bin/unzip "$src" -x __MACOSX/ __MACOSX/iaca-lin64/ __MACOSX/iaca-lin64/._.DS_Store'';
   nativeBuildInputs = [ makeWrapper ];
   installPhase = ''
     mkdir -p $out/bin $out/lib
@@ -43,8 +41,7 @@ stdenv.mkDerivation rec {
   postFixup = "wrapProgram $out/bin/iaca --set LD_LIBRARY_PATH $out/lib";
   meta = with lib; {
     description = "Intel Architecture Code Analyzer";
-    homepage =
-      "https://software.intel.com/en-us/articles/intel-architecture-code-analyzer/";
+    homepage = "https://software.intel.com/en-us/articles/intel-architecture-code-analyzer/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];

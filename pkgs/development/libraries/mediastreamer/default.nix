@@ -88,8 +88,7 @@ stdenv.mkDerivation rec {
   NIX_LDFLAGS = "-lXext";
 
   meta = with lib; {
-    description =
-      "A powerful and lightweight streaming engine specialized for voice/video telephony applications. Part of the Linphone project";
+    description = "A powerful and lightweight streaming engine specialized for voice/video telephony applications. Part of the Linphone project";
     homepage = "https://www.linphone.org/technical-corner/mediastreamer2";
     license = licenses.gpl3Only;
     platforms = platforms.linux;

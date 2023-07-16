@@ -21,8 +21,7 @@ let
               hash = "sha256-oZXlHKr6IYKR8suqP+9p/TNTyT7EtlsqRyLEz0DDGYw=";
             };
             # Environment variable used in shapely/_buildcfg.py
-            GEOS_LIBRARY_PATH =
-              "${geos}/lib/libgeos_c${stdenv.hostPlatform.extensions.sharedLibrary}";
+            GEOS_LIBRARY_PATH = "${geos}/lib/libgeos_c${stdenv.hostPlatform.extensions.sharedLibrary}";
             patches =
               [
                 # Patch to search form GOES .so/.dylib files in a Nix-aware way
@@ -48,8 +47,7 @@ python.pkgs.buildPythonApplication rec {
   src = fetchFromBitbucket {
     owner = "jpcgt";
     repo = pname;
-    rev =
-      "533afd6a1772857cb633c011b5e0a15b60b1e92e"; # 8.5 with Red Hat packaging.
+    rev = "533afd6a1772857cb633c011b5e0a15b60b1e92e"; # 8.5 with Red Hat packaging.
     sha256 = "199kiiml18k34z1zhk2hbhibphmnv0kb11kxiajq52alps0mjb3m";
   };
 
@@ -69,8 +67,7 @@ python.pkgs.buildPythonApplication rec {
 
   packaging_fix_pull_request_patch = fetchpatch {
     name = "packaging_fix_pull_request.patch";
-    url =
-      "https://bitbucket.org/trepetti/flatcam/commits/5591ed889d1f48a5190fe237b562cb932cb5876c/raw";
+    url = "https://bitbucket.org/trepetti/flatcam/commits/5591ed889d1f48a5190fe237b562cb932cb5876c/raw";
     sha256 = "19rhjdrf1n1q29cgpcry6pl2kl90zq0d613hhkwdir9bhq5bkknp";
   };
 

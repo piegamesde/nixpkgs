@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   version = "0.20";
 
   src = fetchurl {
-    url =
-      "http://www.mcternan.me.uk/mscgen/software/mscgen-src-${version}.tar.gz";
+    url = "http://www.mcternan.me.uk/mscgen/software/mscgen-src-${version}.tar.gz";
     sha256 = "3c3481ae0599e1c2d30b7ed54ab45249127533ab2f20e768a0ae58d8551ddc23";
   };
 
@@ -48,8 +47,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "http://www.mcternan.me.uk/mscgen/";
-    description =
-      "Convert Message Sequence Chart descriptions into PNG, SVG, or EPS images";
+    description = "Convert Message Sequence Chart descriptions into PNG, SVG, or EPS images";
     license = lib.licenses.gpl2;
 
     longDescription = ''

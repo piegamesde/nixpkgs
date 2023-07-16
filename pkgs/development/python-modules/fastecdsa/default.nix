@@ -39,8 +39,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Fast elliptic curve digital signatures";
     homepage = "https://github.com/AntonKueltz/fastecdsa";
-    changelog =
-      "https://github.com/AntonKueltz/fastecdsa/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/AntonKueltz/fastecdsa/blob/v${version}/CHANGELOG.md";
     license = licenses.unlicense;
     maintainers = with maintainers; [ prusnak ];
   };

@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   meta = with lib; {
-    description =
-      "Arbitrary-order scalar-relativistic Douglas-Kroll-Hess module";
+    description = "Arbitrary-order scalar-relativistic Douglas-Kroll-Hess module";
     license = licenses.lgpl3Only;
     homepage = "https://github.com/psi4/dkh";
     platforms = platforms.unix;

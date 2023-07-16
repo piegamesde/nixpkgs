@@ -34,8 +34,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Distributed malware processing framework";
     homepage = "https://karton-core.readthedocs.io/";
-    changelog =
-      "https://github.com/CERT-Polska/karton/releases/tag/v${version}";
+    changelog = "https://github.com/CERT-Polska/karton/releases/tag/v${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [
       chivay

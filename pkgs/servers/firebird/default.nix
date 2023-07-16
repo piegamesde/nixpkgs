@@ -20,8 +20,7 @@ let
       description = "SQL relational database management system";
       downloadPage = "https://github.com/FirebirdSQL/firebird/";
       homepage = "https://firebirdsql.org/";
-      changelog =
-        "https://github.com/FirebirdSQL/firebird/blob/master/CHANGELOG.md";
+      changelog = "https://github.com/FirebirdSQL/firebird/blob/master/CHANGELOG.md";
       license = [
         "IDPL"
         "Interbase-1.0"

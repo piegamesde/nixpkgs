@@ -34,8 +34,7 @@ buildPythonPackage rec {
   doCheck = false; # require redis-server
 
   meta = with lib; {
-    description =
-      "Simple app that provides django integration for RQ (Redis Queue)";
+    description = "Simple app that provides django integration for RQ (Redis Queue)";
     homepage = "https://github.com/rq/django-rq";
     changelog = "https://github.com/rq/django-rq/releases/tag/v${version}";
     license = licenses.mit;

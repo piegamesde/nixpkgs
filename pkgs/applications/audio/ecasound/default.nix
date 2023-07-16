@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
       #  https://sourceforge.net/p/ecasound/bugs/54/
       (fetchpatch {
         name = "ncursdes-6.3.patch";
-        url =
-          "https://sourceforge.net/p/ecasound/bugs/54/attachment/0001-ecasignalview.cpp-always-use-s-style-format-for-prin.patch";
+        url = "https://sourceforge.net/p/ecasound/bugs/54/attachment/0001-ecasignalview.cpp-always-use-s-style-format-for-prin.patch";
         sha256 = "1x1gsjzd43lh19mhpmwrbq269h56s8bxgyv0yfi5yf0sqjf9vaq0";
       })
     ];

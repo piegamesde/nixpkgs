@@ -47,8 +47,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for generating and manipulating PyPI tokens";
     homepage = "https://pypitoken.readthedocs.io/";
-    changelog =
-      "https://github.com/ewjoachim/pypitoken/releases/tag/6.0.3${version}";
+    changelog = "https://github.com/ewjoachim/pypitoken/releases/tag/6.0.3${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

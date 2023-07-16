@@ -10,8 +10,7 @@ let
   version = "2.57.0";
 
   src = fetchurl {
-    url =
-      "https://download.live.ledger.com/${pname}-${version}-linux-x86_64.AppImage";
+    url = "https://download.live.ledger.com/${pname}-${version}-linux-x86_64.AppImage";
     hash = "sha256-fXvCj9eBEp/kGPSiNUdir19eU0x461KzXgl5YgeapHI=";
   };
 

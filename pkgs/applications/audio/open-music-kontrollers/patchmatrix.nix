@@ -9,8 +9,7 @@ callPackage ./generic.nix (
     pname = "patchmatrix";
     version = "0.26.0";
 
-    url =
-      "https://git.open-music-kontrollers.ch/lad/${pname}/snapshot/${pname}-${version}.tar.xz";
+    url = "https://git.open-music-kontrollers.ch/lad/${pname}/snapshot/${pname}-${version}.tar.xz";
     sha256 = "sha256-cqPHCnrAhHB6a0xmPUYOAsZfLsqnGpXEuGR1W6i6W7I=";
 
     additionalBuildInputs = [ libjack2 ];

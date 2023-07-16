@@ -28,7 +28,6 @@ buildOctavePackage rec {
     homepage = "https://octave.sourceforge.io/database/index.html";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
-    description =
-      "Interface to SQL databases, currently only postgresql using libpq";
+    description = "Interface to SQL databases, currently only postgresql using libpq";
   };
 }

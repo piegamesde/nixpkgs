@@ -40,8 +40,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "accuweather" ];
 
   meta = with lib; {
-    description =
-      "Python wrapper for getting weather data from AccuWeather servers";
+    description = "Python wrapper for getting weather data from AccuWeather servers";
     homepage = "https://github.com/bieniu/accuweather";
     changelog = "https://github.com/bieniu/accuweather/releases/tag/${version}";
     license = licenses.asl20;

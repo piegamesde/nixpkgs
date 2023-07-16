@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
   version = "0.8.5";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "sha256-sD0qWUndguJzTw0uy0FIqupFf4OX6dTFvcd+Mz+8Su0=";
@@ -73,8 +72,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/OCRFeeder";
-    description =
-      "Complete Optical Character Recognition and Document Analysis and Recognition program";
+    description = "Complete Optical Character Recognition and Document Analysis and Recognition program";
     maintainers = with maintainers; [ doronbehar ];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

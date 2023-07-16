@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   version = "2.7.2";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/drumstick/${version}/${pname}-${version}.tar.bz2";
+    url = "mirror://sourceforge/drumstick/${version}/${pname}-${version}.tar.bz2";
     hash = "sha256-5XxG5ur584fgW4oCONgMiWzV48Q02HEdmpb9+YhBFe0=";
   };
 

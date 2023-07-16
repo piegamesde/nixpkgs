@@ -356,16 +356,14 @@ in
         (name: _: {
           name = "btrbk-${name}";
           value = {
-            description =
-              "Takes BTRFS snapshots and maintains retention policies.";
+            description = "Takes BTRFS snapshots and maintains retention policies.";
             unitConfig.Documentation = "man:btrbk(1)";
             path = [ "/run/wrappers" ] ++ cfg.extraPackages;
             serviceConfig = {
               User = "btrbk";
               Group = "btrbk";
               Type = "oneshot";
-              ExecStart =
-                "${pkgs.btrbk}/bin/btrbk -c /etc/btrbk/${name}.conf run";
+              ExecStart = "${pkgs.btrbk}/bin/btrbk -c /etc/btrbk/${name}.conf run";
               Nice = cfg.niceness;
               IOSchedulingClass = cfg.ioSchedulingClass;
               StateDirectory = "btrbk";
@@ -380,8 +378,7 @@ in
         (name: instance: {
           name = "btrbk-${name}";
           value = {
-            description =
-              "Timer to take BTRFS snapshots and maintain retention policies.";
+            description = "Timer to take BTRFS snapshots and maintain retention policies.";
             wantedBy = [ "timers.target" ];
             timerConfig = {
               OnCalendar = instance.onCalendar;

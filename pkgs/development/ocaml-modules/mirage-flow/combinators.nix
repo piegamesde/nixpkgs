@@ -24,7 +24,6 @@ buildDunePackage {
   ];
 
   meta = mirage-flow.meta // {
-    description =
-      "Flow implementations and combinators for MirageOS specialized to lwt";
+    description = "Flow implementations and combinators for MirageOS specialized to lwt";
   };
 }

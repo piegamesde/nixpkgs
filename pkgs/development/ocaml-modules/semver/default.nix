@@ -15,8 +15,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.02")
     pname = "ocaml${ocaml.version}-semver";
     version = "0.1.0";
     src = fetchzip {
-      url =
-        "https://github.com/rgrinberg/ocaml-semver/archive/v${version}.tar.gz";
+      url = "https://github.com/rgrinberg/ocaml-semver/archive/v${version}.tar.gz";
       sha256 = "sha256-0BzeuVTpuRIQjadGg08hTvMzZtKCl2utW2YK269oETk=";
     };
 

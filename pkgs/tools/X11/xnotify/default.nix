@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
   makeFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {
-    description =
-      "A tool to read notifications from stdin and pop them up on the screen";
+    description = "A tool to read notifications from stdin and pop them up on the screen";
     longDescription = ''
       XNotify displays a notification on the screen. XNotify receives a
       notification specification in stdin and shows a notification for the user

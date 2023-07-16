@@ -119,8 +119,9 @@ stdenvNoCC.mkDerivation rec {
     ++ lib.optional makeUInitrd ubootTools
   ;
 
-  compress =
-    "${_compressorExecutable} ${lib.escapeShellArgs _compressorArgsReal}";
+  compress = "${_compressorExecutable} ${
+      lib.escapeShellArgs _compressorArgsReal
+    }";
 
   # Pass the function through, for reuse in append-initrd-secrets. The
   # function is used instead of the string, in order to support

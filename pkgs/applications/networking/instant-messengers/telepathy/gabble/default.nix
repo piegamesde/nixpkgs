@@ -21,15 +21,13 @@ stdenv.mkDerivation rec {
   version = "0.18.4";
 
   src = fetchurl {
-    url =
-      "https://telepathy.freedesktop.org/releases/telepathy-gabble/telepathy-gabble-${version}.tar.gz";
+    url = "https://telepathy.freedesktop.org/releases/telepathy-gabble/telepathy-gabble-${version}.tar.gz";
     sha256 = "174nlkqm055vrhv11gy73m20jbsggcb0ddi51c7s9m3j5ibr2p0i";
   };
 
   patches = [
     (fetchpatch {
-      url =
-        "https://github.com/archlinux/svntogit-packages/raw/edcf78c831894000f2fbfd3e5818e363911c746a/trunk/telepathy-gabble-0.18.4-python3.patch";
+      url = "https://github.com/archlinux/svntogit-packages/raw/edcf78c831894000f2fbfd3e5818e363911c746a/trunk/telepathy-gabble-0.18.4-python3.patch";
       hash = "sha256-bvcZW6gbCNogqwPDaXHTbohe7c2GAYjXeHGyBEDVsB4=";
     })
   ];

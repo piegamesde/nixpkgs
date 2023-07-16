@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Trashcan/ recycle bin utility for the command line";
     homepage = "https://github.com/theimpossibleastronaut/rmw";
-    changelog =
-      "https://github.com/theimpossibleastronaut/rmw/blob/${src.rev}/ChangeLog";
+    changelog = "https://github.com/theimpossibleastronaut/rmw/blob/${src.rev}/ChangeLog";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ dit7ya ];
   };

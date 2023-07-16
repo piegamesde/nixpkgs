@@ -59,8 +59,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pdoc" ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/mitmproxy/pdoc/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/mitmproxy/pdoc/blob/${src.rev}/CHANGELOG.md";
     homepage = "https://pdoc.dev/";
     description = "API Documentation for Python Projects";
     license = licenses.unlicense;

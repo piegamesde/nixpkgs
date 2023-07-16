@@ -68,16 +68,14 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
       ++ (lib.optionals (enableXWayland && hidpiXWayland) [
         "${hyprland.src}/nix/wlroots-hidpi.patch"
         (fetchpatch {
-          url =
-            "https://gitlab.freedesktop.org/wlroots/wlroots/-/commit/18595000f3a21502fd60bf213122859cc348f9af.diff";
+          url = "https://gitlab.freedesktop.org/wlroots/wlroots/-/commit/18595000f3a21502fd60bf213122859cc348f9af.diff";
           sha256 = "sha256-jvfkAMh3gzkfuoRhB4E9T5X1Hu62wgUjj4tZkJm0mrI=";
           revert = true;
         })
       ])
       ++ (lib.optionals nvidiaPatches [
         (fetchpatch {
-          url =
-            "https://aur.archlinux.org/cgit/aur.git/plain/0001-nvidia-format-workaround.patch?h=hyprland-nvidia-screenshare-git&id=2830d3017d7cdd240379b4cc7e5dd6a49cf3399a";
+          url = "https://aur.archlinux.org/cgit/aur.git/plain/0001-nvidia-format-workaround.patch?h=hyprland-nvidia-screenshare-git&id=2830d3017d7cdd240379b4cc7e5dd6a49cf3399a";
           sha256 = "A9f1p5EW++mGCaNq8w7ZJfeWmvTfUm4iO+1KDcnqYX8=";
         })
       ])

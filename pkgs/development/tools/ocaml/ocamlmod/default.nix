@@ -22,8 +22,7 @@ lib.throwIf (lib.versionAtLeast ocaml.version "5.0")
     version = "0.0.9";
 
     src = fetchurl {
-      url =
-        "https://forge.ocamlcore.org/frs/download.php/1702/ocamlmod-0.0.9.tar.gz";
+      url = "https://forge.ocamlcore.org/frs/download.php/1702/ocamlmod-0.0.9.tar.gz";
       sha256 = "0cgp9qqrq7ayyhddrmqmq1affvfqcn722qiakjq4dkywvp67h4aa";
     };
 

@@ -69,8 +69,7 @@ stdenv.mkDerivation rec {
   passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
-    description =
-      "A library for managing single signon credentials which can be used from GLib applications";
+    description = "A library for managing single signon credentials which can be used from GLib applications";
     homepage = "https://gitlab.com/accounts-sso/libsignon-glib";
     license = licenses.lgpl21;
     maintainers = with maintainers; [ ];

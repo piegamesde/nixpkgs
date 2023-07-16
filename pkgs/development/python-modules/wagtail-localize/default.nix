@@ -51,8 +51,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Translation plugin for Wagtail CMS";
     homepage = "https://github.com/wagtail/wagtail-localize";
-    changelog =
-      "https://github.com/wagtail/wagtail-localize/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/wagtail/wagtail-localize/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ sephi ];
   };

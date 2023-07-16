@@ -44,8 +44,7 @@ buildDunePackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/fdopen/ppx_cstubs";
-    changelog =
-      "https://github.com/fdopen/ppx_cstubs/raw/${version}/CHANGES.md";
+    changelog = "https://github.com/fdopen/ppx_cstubs/raw/${version}/CHANGES.md";
     description = "Preprocessor for easier stub generation with ocaml-ctypes";
     license = licenses.lgpl21Plus;
     maintainers = [ maintainers.osener ];

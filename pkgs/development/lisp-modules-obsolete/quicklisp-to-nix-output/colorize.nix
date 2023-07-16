@@ -16,8 +16,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/colorize/2018-02-28/colorize-20180228-git.tgz";
+    url = "http://beta.quicklisp.org/archive/colorize/2018-02-28/colorize-20180228-git.tgz";
     sha256 = "1g0xbryavsf17zy9iy0sbqsb4lyva04h93sbaj3iwv12w50fwz2h";
   };
 

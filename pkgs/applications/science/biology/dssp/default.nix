@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Calculate the most likely secondary structure assignment given the 3D structure of a protein";
+    description = "Calculate the most likely secondary structure assignment given the 3D structure of a protein";
     homepage = "https://github.com/PDB-REDO/dssp";
     license = licenses.bsd2;
     maintainers = with maintainers; [ natsukium ];

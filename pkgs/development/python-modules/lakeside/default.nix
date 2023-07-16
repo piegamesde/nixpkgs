@@ -36,8 +36,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for controlling LED bulbs from Eufy";
     homepage = "https://github.com/nkgilley/python-lakeside";
-    changelog =
-      "https://github.com/nkgilley/python-lakeside/releases/tag/${version}";
+    changelog = "https://github.com/nkgilley/python-lakeside/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

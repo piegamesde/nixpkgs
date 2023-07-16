@@ -31,7 +31,6 @@ buildDunePackage {
   checkInputs = [ ounit ];
 
   meta = shared-memory-ring.meta // {
-    description =
-      "Shared memory rings for RPC and bytestream communications using Lwt";
+    description = "Shared memory rings for RPC and bytestream communications using Lwt";
   };
 }

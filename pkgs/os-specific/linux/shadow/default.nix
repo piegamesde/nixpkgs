@@ -73,8 +73,7 @@ stdenv.mkDerivation rec {
     ./fix-install-with-tcb.patch
     # Fix HAVE_SHADOWGRP configure check
     (fetchpatch {
-      url =
-        "https://github.com/shadow-maint/shadow/commit/a281f241b592aec636d1b93a99e764499d68c7ef.patch";
+      url = "https://github.com/shadow-maint/shadow/commit/a281f241b592aec636d1b93a99e764499d68c7ef.patch";
       sha256 = "sha256-GJWg/8ggTnrbIgjI+HYa26DdVbjTHTk/IHhy7GU9G5w=";
     })
   ];
@@ -125,8 +124,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/shadow-maint";
-    description =
-      "Suite containing authentication-related tools such as passwd and su";
+    description = "Suite containing authentication-related tools such as passwd and su";
     license = licenses.bsd3;
     platforms = platforms.linux;
   };

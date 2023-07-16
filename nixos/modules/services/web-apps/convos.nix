@@ -48,8 +48,9 @@ in
       environment = {
         CONVOS_HOME = "%S/convos";
         CONVOS_REVERSE_PROXY = if cfg.reverseProxy then "1" else "0";
-        MOJO_LISTEN =
-          "http://${toString cfg.listenAddress}:${toString cfg.listenPort}";
+        MOJO_LISTEN = "http://${toString cfg.listenAddress}:${
+            toString cfg.listenPort
+          }";
       };
       serviceConfig = {
         ExecStart = "${pkgs.convos}/bin/convos daemon";

@@ -23,8 +23,7 @@ stdenv.mkDerivation {
   pname = if dedicatedServer then "armagetronad-dedicated" else "armagetronad";
   inherit version;
   src = fetchurl {
-    url =
-      "https://launchpad.net/armagetronad/${versionMajor}/${version}/+download/armagetronad-${version}.tbz";
+    url = "https://launchpad.net/armagetronad/${versionMajor}/${version}/+download/armagetronad-${version}.tbz";
     sha256 = "sha256-WbbHwBzj+MylQ34z+XSmN1KVQaEapPUsGlwXSZ4m9qE";
   };
 
@@ -63,8 +62,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "http://armagetronad.org";
-    description =
-      "A multiplayer networked arcade racing game in 3D similar to Tron";
+    description = "A multiplayer networked arcade racing game in 3D similar to Tron";
     maintainers = with maintainers; [ numinit ];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

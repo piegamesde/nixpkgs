@@ -48,8 +48,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "tldextract" ];
 
   meta = with lib; {
-    description =
-      "Python module to accurately separate the TLD from the domain of an URL";
+    description = "Python module to accurately separate the TLD from the domain of an URL";
     longDescription = ''
       tldextract accurately separates the gTLD or ccTLD (generic or country code top-level domain)
       from the registered domain and subdomains of a URL.

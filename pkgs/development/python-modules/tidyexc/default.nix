@@ -22,8 +22,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Raise rich, helpful exceptions";
     homepage = "https://github.com/kalekundert/tidyexc";
-    changelog =
-      "https://github.com/kalekundert/tidyexc/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/kalekundert/tidyexc/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ jpetrucciani ];
   };

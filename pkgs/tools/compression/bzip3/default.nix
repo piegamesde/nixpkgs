@@ -51,8 +51,7 @@ stdenv.mkDerivation (
     meta = {
       description = "A better and stronger spiritual successor to BZip2";
       homepage = "https://github.com/kspalaiologos/bzip3";
-      changelog =
-        "https://github.com/kspalaiologos/bzip3/blob/${finalAttrs.src.rev}/NEWS";
+      changelog = "https://github.com/kspalaiologos/bzip3/blob/${finalAttrs.src.rev}/NEWS";
       license = lib.licenses.lgpl3Plus;
       maintainers = with lib.maintainers; [ dotlambda ];
       pkgConfigModules = [ "bzip3" ];

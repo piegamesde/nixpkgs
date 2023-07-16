@@ -94,8 +94,9 @@ in
       serviceConfig = with pkgs; {
         DynamicUser = true;
         StateDirectory = baseNameOf libDir;
-        ExecStartPre =
-          "${getBin pykms}/libexec/create_pykms_db.sh ${libDir}/clients.db";
+        ExecStartPre = "${
+            getBin pykms
+          }/libexec/create_pykms_db.sh ${libDir}/clients.db";
         ExecStart = lib.concatStringsSep " " (
           [
             "${getBin pykms}/bin/server"

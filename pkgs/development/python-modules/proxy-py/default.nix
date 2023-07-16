@@ -71,8 +71,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python proxy framework";
     homepage = "https://github.com/abhinavsingh/proxy.py";
-    changelog =
-      "https://github.com/abhinavsingh/proxy.py/releases/tag/v${version}";
+    changelog = "https://github.com/abhinavsingh/proxy.py/releases/tag/v${version}";
     license = with licenses; [ bsd3 ];
     maintainers = with maintainers; [ fab ];
     broken = (stdenv.isLinux && stdenv.isAarch64) || stdenv.isDarwin;

@@ -24,8 +24,7 @@ buildPythonPackage rec {
 
   patches = [
     (fetchpatch {
-      url =
-        "https://patch-diff.githubusercontent.com/raw/gugarosa/opytimark/pull/2.patch";
+      url = "https://patch-diff.githubusercontent.com/raw/gugarosa/opytimark/pull/2.patch";
       hash = "sha256-r/oCKI9Q1nuCZDGHx7UW8j523sFe4EFmguMOJTs/LOU=";
     })
   ];
@@ -47,8 +46,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library consisting of optimization benchmarking functions";
     homepage = "https://github.com/gugarosa/opytimark";
-    changelog =
-      "https://github.com/gugarosa/opytimark/releases/tag/v${version}";
+    changelog = "https://github.com/gugarosa/opytimark/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ firefly-cpp ];
   };

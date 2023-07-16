@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
   patches = [
     ./install.patch
     (fetchpatch {
-      url =
-        "https://raw.githubusercontent.com/riscv/riscv-poky/master/meta/recipes-extended/at/at/0001-remove-glibc-assumption.patch";
+      url = "https://raw.githubusercontent.com/riscv/riscv-poky/master/meta/recipes-extended/at/at/0001-remove-glibc-assumption.patch";
       sha256 = "1rk4hskp0c1jqkanzdxf873i6jgki3xhrm609fsam8an8sl1njnm";
     })
   ];

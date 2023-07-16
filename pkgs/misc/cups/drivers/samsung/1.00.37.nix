@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     sha256 = "0r66l9zp0p1qgakh4j08hynwsr4lsgq5yrpxyr0x4ldvl0z2b1bb";
-    url =
-      "http://www.bchemnet.com/suldr/driver/UnifiedLinuxDriver-${version}.tar.gz";
+    url = "http://www.bchemnet.com/suldr/driver/UnifiedLinuxDriver-${version}.tar.gz";
   };
 
   buildInputs = [

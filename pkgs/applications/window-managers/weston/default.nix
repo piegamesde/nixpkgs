@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
   version = "11.0.1";
 
   src = fetchurl {
-    url =
-      "https://gitlab.freedesktop.org/wayland/weston/uploads/f5648c818fba5432edc3ea63c4db4813/weston-${version}.tar.xz";
+    url = "https://gitlab.freedesktop.org/wayland/weston/uploads/f5648c818fba5432edc3ea63c4db4813/weston-${version}.tar.xz";
     sha256 = "sha256-pBP2jCUpV/wxkcNlCCPsNWrowSTMwMtEDaXNxOLLnlc=";
   };
 

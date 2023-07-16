@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
   version = "0.12";
 
   src = fetchurl {
-    url =
-      "https://github.com/ZmnSCPxj/clboss/releases/download/${version}/clboss-${version}.tar.gz";
+    url = "https://github.com/ZmnSCPxj/clboss/releases/download/${version}/clboss-${version}.tar.gz";
     hash = "sha256-UZcSfbpp3vPsD3CDukp+r5Z60h0UEWTduqF4DhJ+H2U=";
   };
 

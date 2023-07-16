@@ -35,8 +35,7 @@
 let
   version = "2.42.0";
   webUiStatic = fetchurl {
-    url =
-      "https://github.com/prometheus/prometheus/releases/download/v${version}/prometheus-web-ui-${version}.tar.gz";
+    url = "https://github.com/prometheus/prometheus/releases/download/v${version}/prometheus-web-ui-${version}.tar.gz";
     sha256 = "sha256-QOnt8YZkq+/cmoaI8ZOrVbgVh5MnaKpDBVtPTckl4+A=";
   };
 in

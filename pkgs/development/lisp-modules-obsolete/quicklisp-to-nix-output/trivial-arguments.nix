@@ -12,8 +12,7 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/trivial-arguments/2020-09-25/trivial-arguments-20200925-git.tgz";
+    url = "http://beta.quicklisp.org/archive/trivial-arguments/2020-09-25/trivial-arguments-20200925-git.tgz";
     sha256 = "079xm6f1vmsng7dzgb2x3m7k46jfw19wskwf1l5cid5nm267d295";
   };
 

@@ -46,11 +46,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A header-only C++20 bencode serialization/deserialization library";
+    description = "A header-only C++20 bencode serialization/deserialization library";
     homepage = "https://github.com/fbdtemme/bencode";
-    changelog =
-      "https://github.com/fbdtemme/bencode/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/fbdtemme/bencode/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ azahi ];
     platforms = platforms.unix;

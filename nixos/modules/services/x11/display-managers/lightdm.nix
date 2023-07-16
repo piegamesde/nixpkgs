@@ -252,8 +252,7 @@ in
     ;
 
     # setSessionScript needs session-files in XDG_DATA_DIRS
-    services.xserver.displayManager.job.environment.XDG_DATA_DIRS =
-      "${dmcfg.sessionData.desktops}/share/";
+    services.xserver.displayManager.job.environment.XDG_DATA_DIRS = "${dmcfg.sessionData.desktops}/share/";
 
     # setSessionScript wants AccountsService
     systemd.services.display-manager.wants = [ "accounts-daemon.service" ];

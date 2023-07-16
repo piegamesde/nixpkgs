@@ -37,8 +37,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Collection of core plugins for markdown-it-py";
     homepage = "https://github.com/executablebooks/mdit-py-plugins";
-    changelog =
-      "https://github.com/executablebooks/mdit-py-plugins/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/executablebooks/mdit-py-plugins/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ AluisioASG ];
   };

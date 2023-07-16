@@ -45,8 +45,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "leidenalg" ];
 
   meta = with lib; {
-    description =
-      "Implementation of the Leiden algorithm for various quality functions to be used with igraph in Python";
+    description = "Implementation of the Leiden algorithm for various quality functions to be used with igraph in Python";
     homepage = "https://leidenalg.readthedocs.io";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ jboy ];

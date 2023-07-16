@@ -40,8 +40,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "trustme" ];
 
   meta = with lib; {
-    description =
-      "High quality TLS certs while you wait, for the discerning tester";
+    description = "High quality TLS certs while you wait, for the discerning tester";
     homepage = "https://github.com/python-trio/trustme";
     license = with licenses; [
       mit

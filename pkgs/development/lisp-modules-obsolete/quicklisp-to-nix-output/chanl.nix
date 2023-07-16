@@ -21,8 +21,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/chanl/2021-04-11/chanl-20210411-git.tgz";
+    url = "http://beta.quicklisp.org/archive/chanl/2021-04-11/chanl-20210411-git.tgz";
     sha256 = "1c1yiw616q5hv6vzyg1y4kg68v94p37s5jrq387rwadfnnf46rgi";
   };
 

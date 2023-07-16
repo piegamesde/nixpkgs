@@ -11,8 +11,7 @@
 
 let
   pname = "tome2";
-  description =
-    "A dungeon crawler similar to Angband, based on the works of Tolkien";
+  description = "A dungeon crawler similar to Angband, based on the works of Tolkien";
 
   desktopItem = makeDesktopItem {
     desktopName = pname;

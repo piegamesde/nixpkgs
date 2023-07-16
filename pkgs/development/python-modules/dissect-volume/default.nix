@@ -41,11 +41,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "dissect.volume" ];
 
   meta = with lib; {
-    description =
-      "Dissect module implementing various utility functions for the other Dissect modules";
+    description = "Dissect module implementing various utility functions for the other Dissect modules";
     homepage = "https://github.com/fox-it/dissect.volume";
-    changelog =
-      "https://github.com/fox-it/dissect.volume/releases/tag/${version}";
+    changelog = "https://github.com/fox-it/dissect.volume/releases/tag/${version}";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ fab ];
   };

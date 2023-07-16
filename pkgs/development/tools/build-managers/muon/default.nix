@@ -56,8 +56,7 @@ stdenv.mkDerivation (
         # URLs manually extracted from subprojects directory
         meson-docs-wrap = fetchurl {
           name = "meson-docs-wrap";
-          url =
-            "https://mochiro.moe/wrap/meson-docs-1.0.1-19-gdd8d4ee22.tar.gz";
+          url = "https://mochiro.moe/wrap/meson-docs-1.0.1-19-gdd8d4ee22.tar.gz";
           hash = "sha256-jHSPdLFR5jUeds4e+hLZ6JOblor5iuCV5cIwoc4K9gI=";
         };
 

@@ -65,8 +65,7 @@ stdenv.mkDerivation (
         to no support is provided, DOOM Retro's source code may also be compiled
         and run under Linux and macOS.
       '';
-      changelog =
-        "https://github.com/bradharding/doomretro/releases/tag/${finalAttrs.src.rev}";
+      changelog = "https://github.com/bradharding/doomretro/releases/tag/${finalAttrs.src.rev}";
       license = lib.licenses.gpl3Plus;
       maintainers = with lib.maintainers; [ AndersonTorres ];
       platforms = lib.platforms.unix;

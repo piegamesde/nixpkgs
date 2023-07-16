@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
   passthru.tests = { inherit nix; };
 
   meta = with lib; {
-    description =
-      "C99 library implementation of AWS client-side authentication";
+    description = "C99 library implementation of AWS client-side authentication";
     homepage = "https://github.com/awslabs/aws-c-auth";
     license = licenses.asl20;
     platforms = platforms.unix;

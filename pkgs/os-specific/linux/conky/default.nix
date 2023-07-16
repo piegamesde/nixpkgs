@@ -196,8 +196,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://conky.sourceforge.net/";
-    description =
-      "Advanced, highly configurable system monitor based on torsmo";
+    description = "Advanced, highly configurable system monitor based on torsmo";
     maintainers = [ maintainers.guibert ];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

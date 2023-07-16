@@ -27,8 +27,7 @@ buildPythonPackage rec {
     [
       # add 3.10 compatibility, merged remove on next update
       (fetchpatch {
-        url =
-          "https://github.com/harvimt/quamash/pull/126/commits/1e9047bec739dbc9d6ab337fc1a111a8b1090244.patch";
+        url = "https://github.com/harvimt/quamash/pull/126/commits/1e9047bec739dbc9d6ab337fc1a111a8b1090244.patch";
         hash = "sha256-6gomY82AOKkrt32SEBKnRugzhnC5FAyKDs6K5xaxnRM=";
       })
     ];
@@ -41,8 +40,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Implementation of the PEP 3156 event-loop (asyncio) api using the Qt Event-Loop";
+    description = "Implementation of the PEP 3156 event-loop (asyncio) api using the Qt Event-Loop";
     homepage = "https://github.com/harvimt/quamash";
     license = licenses.bsd2;
     maintainers = with maintainers; [ borisbabic ];

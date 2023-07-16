@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   version = "44.0";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "6y3kXK2QWZSEnmQqYjret11BshsGJtQNKge46igf7A4=";
@@ -63,8 +62,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas";
-    description =
-      "Collection of GSettings schemas for settings shared by various components of a desktop";
+    description = "Collection of GSettings schemas for settings shared by various components of a desktop";
     license = licenses.lgpl21Plus;
     maintainers = teams.gnome.members;
   };

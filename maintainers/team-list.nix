@@ -122,8 +122,7 @@ with lib.maintainers; {
       bobby285271
       mkg20001
     ];
-    scope =
-      "Maintain Cinnamon desktop environment and applications made by the Linux Mint team.";
+    scope = "Maintain Cinnamon desktop environment and applications made by the Linux Mint team.";
     shortName = "Cinnamon";
     enableFeatureFreezePing = true;
   };
@@ -151,8 +150,7 @@ with lib.maintainers; {
   darwin = {
     members = [ toonn ];
     githubTeams = [ "darwin-maintainers" ];
-    scope =
-      "Maintain Darwin compatibility of packages and Darwin-only packages.";
+    scope = "Maintain Darwin compatibility of packages and Darwin-only packages.";
     shortName = "Darwin";
     enableFeatureFreezePing = true;
   };
@@ -176,8 +174,7 @@ with lib.maintainers; {
   deshaw = {
     # Verify additions to this team with at least one already existing member of the team.
     members = [ limeytexan ];
-    scope =
-      "Group registration for D. E. Shaw employees who collectively maintain packages.";
+    scope = "Group registration for D. E. Shaw employees who collectively maintain packages.";
     shortName = "Shaw employees";
   };
 
@@ -189,8 +186,7 @@ with lib.maintainers; {
       hoverbear
       lheckemann
     ];
-    scope =
-      "Group registration for packages maintained by Determinate Systems.";
+    scope = "Group registration for packages maintained by Determinate Systems.";
     shortName = "Determinate Systems employees";
   };
 
@@ -244,8 +240,7 @@ with lib.maintainers; {
       "nixpkgs-committers"
       "release-engineers"
     ];
-    scope =
-      "Dummy team for the #everyone else' section during feture freezes, not to be used as package maintainers!";
+    scope = "Dummy team for the #everyone else' section during feture freezes, not to be used as package maintainers!";
     shortName = "Everyone else";
     enableFeatureFreezePing = true;
   };
@@ -444,8 +439,7 @@ with lib.maintainers; {
       roelvandijk
       lucus16
     ];
-    scope =
-      "Group registration for LumiGuide employees who collectively maintain packages.";
+    scope = "Group registration for LumiGuide employees who collectively maintain packages.";
     shortName = "Lumiguide employees";
   };
 
@@ -556,8 +550,7 @@ with lib.maintainers; {
       tazjin
       zimbatm
     ];
-    scope =
-      "Group registration for Numtide team members who collectively maintain packages.";
+    scope = "Group registration for Numtide team members who collectively maintain packages.";
     shortName = "Numtide team";
   };
 
@@ -617,8 +610,7 @@ with lib.maintainers; {
 
   postgres = {
     members = [ thoughtpolice ];
-    scope =
-      "Maintain the PostgreSQL package and plugins along with the NixOS module.";
+    scope = "Maintain the PostgreSQL package and plugins along with the NixOS module.";
     shortName = "PostgreSQL";
   };
 
@@ -706,8 +698,7 @@ with lib.maintainers; {
       raskin
       collares
     ];
-    scope =
-      "Maintain SageMath and the dependencies that are likely to break it.";
+    scope = "Maintain SageMath and the dependencies that are likely to break it.";
     shortName = "SageMath";
   };
 
@@ -720,8 +711,7 @@ with lib.maintainers; {
   serokell = {
     # Verify additions by approval of an already existing member of the team.
     members = [ balsoft ];
-    scope =
-      "Group registration for Serokell employees who collectively maintain packages.";
+    scope = "Group registration for Serokell employees who collectively maintain packages.";
     shortName = "Serokell employees";
   };
 

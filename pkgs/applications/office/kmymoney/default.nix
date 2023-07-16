@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
   version = "5.1.3";
 
   src = fetchurl {
-    url =
-      "mirror://kde/stable/kmymoney/${version}/src/${pname}-${version}.tar.xz";
+    url = "mirror://kde/stable/kmymoney/${version}/src/${pname}-${version}.tar.xz";
     sha256 = "sha256-OTi4B4tzkboy4Su0I5di+uE0aDoMLsGnUQXDAso+Xj8=";
   };
 

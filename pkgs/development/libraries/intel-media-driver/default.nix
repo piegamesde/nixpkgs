@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
     [
       # fix platform detection
       (fetchpatch {
-        url =
-          "https://salsa.debian.org/multimedia-team/intel-media-driver-non-free/-/raw/master/debian/patches/0002-Remove-settings-based-on-ARCH.patch";
+        url = "https://salsa.debian.org/multimedia-team/intel-media-driver-non-free/-/raw/master/debian/patches/0002-Remove-settings-based-on-ARCH.patch";
         sha256 = "sha256-f4M0CPtAVf5l2ZwfgTaoPw7sPuAP/Uxhm5JSHEGhKT0=";
       })
     ];
@@ -86,8 +85,7 @@ stdenv.mkDerivation rec {
       video post processing for GEN based graphics hardware.
     '';
     homepage = "https://github.com/intel/media-driver";
-    changelog =
-      "https://github.com/intel/media-driver/releases/tag/intel-media-${version}";
+    changelog = "https://github.com/intel/media-driver/releases/tag/intel-media-${version}";
     license = with licenses; [
       bsd3
       mit

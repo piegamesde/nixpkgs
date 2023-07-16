@@ -25,8 +25,7 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "cargo-test-macro-0.1.0" =
-        "sha256-nlFhe1q0D60dljAi6pFNaz+ssju2Ymtx/PNUl5kJmWo=";
+      "cargo-test-macro-0.1.0" = "sha256-nlFhe1q0D60dljAi6pFNaz+ssju2Ymtx/PNUl5kJmWo=";
     };
   };
 
@@ -49,11 +48,10 @@ rustPlatform.buildRustPackage rec {
   buildNoDefaultFeatures = true;
 
   meta = with lib; {
-    description =
-      ''Cargo subcommand "release": everything about releasing a rust crate'';
+    description = ''
+      Cargo subcommand "release": everything about releasing a rust crate'';
     homepage = "https://github.com/crate-ci/cargo-release";
-    changelog =
-      "https://github.com/crate-ci/cargo-release/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/crate-ci/cargo-release/blob/v${version}/CHANGELOG.md";
     license = with licenses; [
       asl20 # or
       mit

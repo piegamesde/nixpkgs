@@ -31,8 +31,7 @@ in
     environment.pathsToLink = [ "/share/autojump" ];
     environment.systemPackages = [ pkgs.autojump ];
 
-    programs.bash.interactiveShellInit =
-      "source ${pkgs.autojump}/share/autojump/autojump.bash";
+    programs.bash.interactiveShellInit = "source ${pkgs.autojump}/share/autojump/autojump.bash";
     programs.zsh.interactiveShellInit =
       mkIf prg.zsh.enable
         "source ${pkgs.autojump}/share/autojump/autojump.zsh"

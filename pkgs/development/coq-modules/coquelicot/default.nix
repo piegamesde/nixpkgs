@@ -35,14 +35,10 @@ mkCoqDerivation {
       ]
       null
   ;
-  release."3.3.0".sha256 =
-    "sha256-bh9qP/EhWrHpTe2GMGG3S2vgBSSK088mFfhAIGejVoU=";
-  release."3.2.0".sha256 =
-    "07w7dbl8x7xxnbr2q39wrdh054gvi3daqjpdn1jm53crsl1fjxm4";
-  release."3.1.0".sha256 =
-    "02i0djar13yk01hzaqprcldhhscn9843x9nf6x3jkv4wv1jwnx9f";
-  release."3.0.2".sha256 =
-    "1rqfbbskgz7b1bcpva8wh3v3456sq2364y804f94sc8y5sij23nl";
+  release."3.3.0".sha256 = "sha256-bh9qP/EhWrHpTe2GMGG3S2vgBSSK088mFfhAIGejVoU=";
+  release."3.2.0".sha256 = "07w7dbl8x7xxnbr2q39wrdh054gvi3daqjpdn1jm53crsl1fjxm4";
+  release."3.1.0".sha256 = "02i0djar13yk01hzaqprcldhhscn9843x9nf6x3jkv4wv1jwnx9f";
+  release."3.0.2".sha256 = "1rqfbbskgz7b1bcpva8wh3v3456sq2364y804f94sc8y5sij23nl";
   releaseRev = v: "coquelicot-${v}";
 
   nativeBuildInputs = [ autoconf ];

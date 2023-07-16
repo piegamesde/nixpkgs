@@ -37,8 +37,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Save matplotlib figures as TikZ/PGFplots for smooth integration into LaTeX";
+    description = "Save matplotlib figures as TikZ/PGFplots for smooth integration into LaTeX";
     homepage = "https://github.com/nschloe/tikzplotlib";
     license = licenses.mit;
     maintainers = with maintainers; [ doronbehar ];

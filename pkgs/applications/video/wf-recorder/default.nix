@@ -45,11 +45,9 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Utility program for screen recording of wlroots-based compositors";
+    description = "Utility program for screen recording of wlroots-based compositors";
     inherit (src.meta) homepage;
-    changelog =
-      "https://github.com/ammen99/wf-recorder/releases/tag/v${version}";
+    changelog = "https://github.com/ammen99/wf-recorder/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ yuka ];
     platforms = platforms.linux;

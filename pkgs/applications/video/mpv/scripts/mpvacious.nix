@@ -40,8 +40,7 @@ stdenvNoCC.mkDerivation rec {
   passthru.scriptName = "mpvacious";
 
   meta = with lib; {
-    description =
-      "Adds mpv keybindings to create Anki cards from movies and TV shows";
+    description = "Adds mpv keybindings to create Anki cards from movies and TV shows";
     homepage = "https://github.com/Ajatt-Tools/mpvacious";
     license = licenses.gpl3Plus;
     platforms = platforms.all;

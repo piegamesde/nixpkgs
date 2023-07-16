@@ -129,8 +129,7 @@ let
     if isBool cfgZfs.requestEncryptionCredentials then
       {
         hasKeys = cfgZfs.requestEncryptionCredentials;
-        command =
-          "${cfgZfs.package}/sbin/zfs list -rHo name,keylocation,keystatus ${pool}";
+        command = "${cfgZfs.package}/sbin/zfs list -rHo name,keylocation,keystatus ${pool}";
       }
     else
       let
@@ -141,8 +140,7 @@ let
       in
       {
         hasKeys = keys != [ ];
-        command =
-          "${cfgZfs.package}/sbin/zfs list -Ho name,keylocation,keystatus ${
+        command = "${cfgZfs.package}/sbin/zfs list -Ho name,keylocation,keystatus ${
             toString keys
           }";
       }
@@ -615,16 +613,14 @@ in
         }
         {
           assertion = !cfgZfs.forceImportAll || cfgZfs.forceImportRoot;
-          message =
-            "If you enable boot.zfs.forceImportAll, you must also enable boot.zfs.forceImportRoot";
+          message = "If you enable boot.zfs.forceImportAll, you must also enable boot.zfs.forceImportRoot";
         }
         {
           assertion =
             cfgZfs.allowHibernation
             -> !cfgZfs.forceImportRoot && !cfgZfs.forceImportAll
           ;
-          message =
-            "boot.zfs.allowHibernation while force importing is enabled will cause data corruption";
+          message = "boot.zfs.allowHibernation while force importing is enabled will cause data corruption";
         }
       ];
 
@@ -931,8 +927,7 @@ in
                 after = [ "zfs-import.target" ];
                 serviceConfig = {
                   Type = "oneshot";
-                  ExecStart =
-                    "${zfsAutoSnap} ${cfgSnapFlags} ${snapName} ${
+                  ExecStart = "${zfsAutoSnap} ${cfgSnapFlags} ${snapName} ${
                       toString (numSnapshots snapName)
                     }";
                 };
@@ -1001,8 +996,7 @@ in
         # - HDDs are mixed with SSDs
         # - There is a SSDs in a pool that is currently trimmed.
         # - There are only HDDs and we would set the system in a degraded state
-        serviceConfig.ExecStart =
-          "${pkgs.runtimeShell} -c 'for pool in $(zpool list -H -o name); do zpool trim $pool;  done || true' ";
+        serviceConfig.ExecStart = "${pkgs.runtimeShell} -c 'for pool in $(zpool list -H -o name); do zpool trim $pool;  done || true' ";
       };
 
       systemd.timers.zpool-trim.timerConfig.Persistent = "yes";

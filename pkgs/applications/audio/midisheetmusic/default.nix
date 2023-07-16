@@ -18,8 +18,7 @@ stdenv.mkDerivation {
   inherit version;
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/midisheetmusic/MidiSheetMusic-${version}-linux-src.tar.gz";
+    url = "mirror://sourceforge/midisheetmusic/MidiSheetMusic-${version}-linux-src.tar.gz";
     sha256 = "05c6zskj50g29f51lx8fvgzsi3f31z01zj6ssjjrgr7jfs7ak70p";
   };
 

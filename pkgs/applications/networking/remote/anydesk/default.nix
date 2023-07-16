@@ -27,8 +27,7 @@
 }:
 
 let
-  description =
-    "Desktop sharing application, providing remote support and online meetings";
+  description = "Desktop sharing application, providing remote support and online meetings";
 
   desktopItem = makeDesktopItem {
     name = "AnyDesk";

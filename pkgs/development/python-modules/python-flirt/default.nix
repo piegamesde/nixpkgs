@@ -43,10 +43,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "flirt" ];
 
   meta = with lib; {
-    description =
-      "Python library for parsing, compiling, and matching Fast Library Identification and Recognition Technology (FLIRT) signatures";
-    homepage =
-      "https://github.com/williballenthin/lancelot/tree/master/pyflirt";
+    description = "Python library for parsing, compiling, and matching Fast Library Identification and Recognition Technology (FLIRT) signatures";
+    homepage = "https://github.com/williballenthin/lancelot/tree/master/pyflirt";
     license = licenses.asl20;
     maintainers = with maintainers; [ sbruder ];
   };

@@ -9,26 +9,22 @@
 }:
 rec {
   extraFontsSrc = fetchurl {
-    url =
-      "ftp://ftp.texmacs.org/pub/TeXmacs/fonts/TeXmacs-extra-fonts-1.0-noarch.tar.gz";
+    url = "ftp://ftp.texmacs.org/pub/TeXmacs/fonts/TeXmacs-extra-fonts-1.0-noarch.tar.gz";
     sha256 = "0hylgjmd95y9yahbblmawkkw0i71vb145xxv2xqrmff81301n6k7";
   };
 
   fullFontsSrc = fetchurl {
-    url =
-      "ftp://ftp.texmacs.org/pub/TeXmacs/fonts/TeXmacs-windows-fonts-1.0-noarch.tar.gz";
+    url = "ftp://ftp.texmacs.org/pub/TeXmacs/fonts/TeXmacs-windows-fonts-1.0-noarch.tar.gz";
     sha256 = "1yxzjpqpm7kvx0ly5jmfpzlfhsh41b0ibn1v84qv6xy73r2vis2f";
   };
 
   chineseFontsSrc = fetchurl {
-    url =
-      "ftp://ftp.texmacs.org/pub/TeXmacs/fonts/TeXmacs-chinese-fonts.tar.gz";
+    url = "ftp://ftp.texmacs.org/pub/TeXmacs/fonts/TeXmacs-chinese-fonts.tar.gz";
     sha256 = "0yprqjsx5mfsaxr525mcm3xqwcadzxp14njm38ir1325baada2fp";
   };
 
   japaneseFontsSrc = fetchurl {
-    url =
-      "ftp://ftp.texmacs.org/pub/TeXmacs/fonts/TeXmacs-japanese-fonts.tar.gz";
+    url = "ftp://ftp.texmacs.org/pub/TeXmacs/fonts/TeXmacs-japanese-fonts.tar.gz";
     sha256 = "1dn6zvsa7gk59d61xicwpbapab3rm6kz48rp5w1bhmihxixw21jn";
   };
 
@@ -60,8 +56,7 @@ rec {
   ;
 
   meta = {
-    description =
-      "WYSIWYW editing platform with special features for scientists";
+    description = "WYSIWYW editing platform with special features for scientists";
     longDescription = ''
       GNU TeXmacs is a free wysiwyw (what you see is what you want)
          editing platform with special features for scientists.  The software

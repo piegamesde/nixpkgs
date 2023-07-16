@@ -39,8 +39,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://nipy.org/nitime";
-    description =
-      "Algorithms and containers for time-series analysis in time and spectral domains";
+    description = "Algorithms and containers for time-series analysis in time and spectral domains";
     license = licenses.bsd3;
     maintainers = [ maintainers.bcdarwin ];
   };

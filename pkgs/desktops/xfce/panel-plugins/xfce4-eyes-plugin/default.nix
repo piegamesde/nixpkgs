@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
   version = "4.6.0";
 
   src = fetchurl {
-    url =
-      "mirror://xfce/src/${category}/${pname}/${
+    url = "mirror://xfce/src/${category}/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.bz2";
     sha256 = "sha256-rQ/wXYi6OTt8iSL4Iz7dM/wKTosAC2HeH486EMWuUyQ=";
@@ -47,8 +46,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://docs.xfce.org/panel-plugins/xfce4-eyes-plugin";
-    description =
-      "Rolling eyes (following mouse pointer) plugin for the Xfce panel";
+    description = "Rolling eyes (following mouse pointer) plugin for the Xfce panel";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ] ++ teams.xfce.members;

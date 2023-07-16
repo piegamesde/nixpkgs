@@ -320,8 +320,7 @@ in
     assertions = [ {
       assertion =
         cfg.database.createLocally -> cfg.database.passwordFile == null;
-      message =
-        "services.cloudlog.database.passwordFile cannot be specified if services.cloudlog.database.createLocally is set to true.";
+      message = "services.cloudlog.database.passwordFile cannot be specified if services.cloudlog.database.createLocally is set to true.";
     } ];
 
     services.phpfpm = {
@@ -401,8 +400,7 @@ in
         cloudlog-update-clublog-scp = {
           description = "Update Clublog SCP Database File";
           enable = cfg.update-clublog-scp.enable;
-          script =
-            "${pkgs.curl}/bin/curl -s ${cfg.baseUrl}/update/update_clublog_scp";
+          script = "${pkgs.curl}/bin/curl -s ${cfg.baseUrl}/update/update_clublog_scp";
         };
         cloudlog-update-wwff = {
           description = "Update WWFF File for autocomplete";

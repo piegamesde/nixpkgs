@@ -68,8 +68,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://sharkwouter.github.io/minigalaxy/";
-    changelog =
-      "https://github.com/sharkwouter/minigalaxy/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/sharkwouter/minigalaxy/blob/${version}/CHANGELOG.md";
     downloadPage = "https://github.com/sharkwouter/minigalaxy/releases";
     description = "A simple GOG client for Linux";
     license = licenses.gpl3;

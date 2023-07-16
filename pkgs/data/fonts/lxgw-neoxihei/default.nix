@@ -9,8 +9,7 @@ stdenvNoCC.mkDerivation rec {
   version = "1.010";
 
   src = fetchurl {
-    url =
-      "https://github.com/lxgw/LxgwNeoXiHei/releases/download/v${version}/LXGWNeoXiHei.ttf";
+    url = "https://github.com/lxgw/LxgwNeoXiHei/releases/download/v${version}/LXGWNeoXiHei.ttf";
     hash = "sha256-IIiQn2Qlac4ZFy/gVubrpqEpJIt0Dav2TEL29xDC7w4=";
   };
 
@@ -25,8 +24,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A Simplified Chinese sans-serif font derived from IPAex Gothic";
+    description = "A Simplified Chinese sans-serif font derived from IPAex Gothic";
     homepage = "https://github.com/lxgw/LxgwNeoXiHei";
     license = licenses.ipa;
     platforms = platforms.all;

@@ -551,8 +551,7 @@ in
 
               ROOT_URL = mkOption {
                 type = types.str;
-                default =
-                  "http://${cfg.settings.server.DOMAIN}:${
+                default = "http://${cfg.settings.server.DOMAIN}:${
                     toString cfg.settings.server.HTTP_PORT
                   }/";
                 defaultText = literalExpression ''
@@ -636,8 +635,7 @@ in
         cfg.database.createDatabase
         -> useSqlite || cfg.database.user == cfg.user
       ;
-      message =
-        "services.gitea.database.user must match services.gitea.user if the database is to be automatically provisioned";
+      message = "services.gitea.database.user must match services.gitea.user if the database is to be automatically provisioned";
     } ];
 
     services.gitea.settings = {
@@ -770,10 +768,8 @@ in
           runConfig = "${cfg.customDir}/conf/app.ini";
           secretKey = "${cfg.customDir}/conf/secret_key";
           oauth2JwtSecret = "${cfg.customDir}/conf/oauth2_jwt_secret";
-          oldLfsJwtSecret =
-            "${cfg.customDir}/conf/jwt_secret"; # old file for LFS_JWT_SECRET
-          lfsJwtSecret =
-            "${cfg.customDir}/conf/lfs_jwt_secret"; # new file for LFS_JWT_SECRET
+          oldLfsJwtSecret = "${cfg.customDir}/conf/jwt_secret"; # old file for LFS_JWT_SECRET
+          lfsJwtSecret = "${cfg.customDir}/conf/lfs_jwt_secret"; # new file for LFS_JWT_SECRET
           internalToken = "${cfg.customDir}/conf/internal_token";
           replaceSecretBin = "${pkgs.replace-secret}/bin/replace-secret";
         in
@@ -887,8 +883,7 @@ in
         PrivateMounts = true;
         # System Call Filtering
         SystemCallArchitectures = "native";
-        SystemCallFilter =
-          "~@clock @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @reboot @setuid @swap";
+        SystemCallFilter = "~@clock @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @reboot @setuid @swap";
       };
 
       environment = {

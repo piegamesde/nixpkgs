@@ -26,8 +26,7 @@ buildPythonPackage rec {
       # Update version specifiers, https://github.com/ulodciv/httpx-ntlm/pull/15
       (fetchpatch {
         name = "update-version-specifiers.patch";
-        url =
-          "https://github.com/ulodciv/httpx-ntlm/commit/dac67a957c5c23df29d4790ddbc7cc4bccfc0e35.patch";
+        url = "https://github.com/ulodciv/httpx-ntlm/commit/dac67a957c5c23df29d4790ddbc7cc4bccfc0e35.patch";
         hash = "sha256-YtgRrgGG/x7jvNg+NuQIrkOUdyD6Bk53fRaiXBwiV+o=";
       })
     ];

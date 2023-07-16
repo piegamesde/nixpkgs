@@ -38,8 +38,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/pbs/pycaption/blob/${version}/docs/changelog.rst";
+    changelog = "https://github.com/pbs/pycaption/blob/${version}/docs/changelog.rst";
     description = "Closed caption converter";
     homepage = "https://github.com/pbs/pycaption";
     license = licenses.asl20;

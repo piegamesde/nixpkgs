@@ -86,8 +86,7 @@ lib.checkListOfEnum "${pname}: color variants"
     passthru.updateScript = gitUpdater { };
 
     meta = with lib; {
-      description =
-        "A stylish flat Design theme for GTK based desktop environments";
+      description = "A stylish flat Design theme for GTK based desktop environments";
       homepage = "https://vinceliuice.github.io/theme-matcha";
       license = licenses.gpl3Only;
       platforms = platforms.unix;

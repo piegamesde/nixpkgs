@@ -22,8 +22,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     broken = true; # Relies on 2to3 via setuptools
-    description =
-      "Bindings and command line utility for the Pushover notification service";
+    description = "Bindings and command line utility for the Pushover notification service";
     homepage = "https://github.com/Thibauth/python-pushover";
     license = licenses.gpl3;
     maintainers = with maintainers; [ peterhoeg ];

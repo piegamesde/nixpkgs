@@ -140,8 +140,7 @@ in
             "key"
             "rep"
           ];
-          command =
-            "${alsa-utils}/bin/amixer -q set Master ${config.sound.mediaKeys.volumeStep}- unmute";
+          command = "${alsa-utils}/bin/amixer -q set Master ${config.sound.mediaKeys.volumeStep}- unmute";
         }
 
         # "Raise Volume" media key
@@ -151,8 +150,7 @@ in
             "key"
             "rep"
           ];
-          command =
-            "${alsa-utils}/bin/amixer -q set Master ${config.sound.mediaKeys.volumeStep}+ unmute";
+          command = "${alsa-utils}/bin/amixer -q set Master ${config.sound.mediaKeys.volumeStep}+ unmute";
         }
 
         # "Mic Mute" media key

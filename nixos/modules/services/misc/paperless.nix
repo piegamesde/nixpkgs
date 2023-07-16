@@ -412,8 +412,7 @@ in
       };
       environment = env // {
         PATH = mkForce pkg.path;
-        PYTHONPATH =
-          "${
+        PYTHONPATH = "${
             pkg.python.pkgs.makePythonPath pkg.propagatedBuildInputs
           }:${pkg}/lib/paperless-ngx/src";
       };

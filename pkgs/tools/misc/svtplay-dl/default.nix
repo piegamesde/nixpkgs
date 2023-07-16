@@ -99,8 +99,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/spaam/svtplay-dl";
-    description =
-      "Command-line tool to download videos from svtplay.se and other sites";
+    description = "Command-line tool to download videos from svtplay.se and other sites";
     license = licenses.mit;
     platforms = lib.platforms.unix;
   };

@@ -37,11 +37,9 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "A tool that automatically provides external dependencies for software projects";
+    description = "A tool that automatically provides external dependencies for software projects";
     homepage = "https://riff.sh";
-    changelog =
-      "https://github.com/DeterminateSystems/riff/releases/tag/v${version}";
+    changelog = "https://github.com/DeterminateSystems/riff/releases/tag/v${version}";
     license = licenses.mpl20;
     maintainers = with maintainers; [ figsoda ];
   };

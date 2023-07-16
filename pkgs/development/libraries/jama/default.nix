@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://math.nist.gov/tnt/";
-    description =
-      "JAMA/C++ Linear Algebra Package: Java-like matrix C++ templates";
+    description = "JAMA/C++ Linear Algebra Package: Java-like matrix C++ templates";
     platforms = platforms.unix;
     license = licenses.publicDomain;
   };

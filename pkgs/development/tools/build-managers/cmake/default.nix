@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
   version = "3.25.3";
 
   src = fetchurl {
-    url =
-      "https://cmake.org/files/v${
+    url = "https://cmake.org/files/v${
         lib.versions.majorMinor version
       }/cmake-${version}.tar.gz";
     sha256 = "sha256-zJlXAdWQym3rxCRemYmTkJnKUoJ91GtdNZLwk6/hkBw=";
@@ -207,8 +206,7 @@ stdenv.mkDerivation rec {
       configuration files, and generate native makefiles and workspaces that can
       be used in the compiler environment of your choice.
     '';
-    changelog =
-      "https://cmake.org/cmake/help/v${
+    changelog = "https://cmake.org/cmake/help/v${
         lib.versions.majorMinor version
       }/release/${lib.versions.majorMinor version}.html";
     license = licenses.bsd3;

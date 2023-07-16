@@ -73,8 +73,7 @@ buildPythonPackage {
   meta = with lib; {
     description = "Modern, extensible Python build backend";
     homepage = "https://hatch.pypa.io/latest/";
-    changelog =
-      "https://github.com/pypa/hatch/releases/tag/hatchling-v${version}";
+    changelog = "https://github.com/pypa/hatch/releases/tag/hatchling-v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [
       hexa

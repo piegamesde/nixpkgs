@@ -34,8 +34,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "elftools" ];
 
   meta = with lib; {
-    description =
-      "Python library for analyzing ELF files and DWARF debugging information";
+    description = "Python library for analyzing ELF files and DWARF debugging information";
     homepage = "https://github.com/eliben/pyelftools";
     changelog = "https://github.com/eliben/pyelftools/blob/v${version}/CHANGES";
     license = licenses.publicDomain;

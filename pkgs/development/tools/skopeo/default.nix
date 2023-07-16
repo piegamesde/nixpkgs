@@ -88,8 +88,7 @@ buildGoModule rec {
 
   meta = with lib; {
     changelog = "https://github.com/containers/skopeo/releases/tag/${src.rev}";
-    description =
-      "A command line utility for various operations on container images and image repositories";
+    description = "A command line utility for various operations on container images and image repositories";
     homepage = "https://github.com/containers/skopeo";
     maintainers =
       with maintainers;

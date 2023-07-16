@@ -53,11 +53,9 @@ buildPythonPackage rec {
   __darwinAllowLocalNetworking = true;
 
   meta = with lib; {
-    description =
-      "Python library for interacting with RainMachine smart sprinkler controllers";
+    description = "Python library for interacting with RainMachine smart sprinkler controllers";
     homepage = "https://github.com/bachya/regenmaschine";
-    changelog =
-      "https://github.com/bachya/regenmaschine/releases/tag/${version}";
+    changelog = "https://github.com/bachya/regenmaschine/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

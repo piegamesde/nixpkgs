@@ -44,8 +44,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for Kegtron BLE devices";
     homepage = "https://github.com/Bluetooth-Devices/kegtron-ble";
-    changelog =
-      "https://github.com/Bluetooth-Devices/kegtron-ble/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/Bluetooth-Devices/kegtron-ble/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

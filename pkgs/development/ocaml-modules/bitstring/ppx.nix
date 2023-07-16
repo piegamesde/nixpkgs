@@ -26,7 +26,6 @@ else
     checkInputs = [ ounit ];
 
     meta = bitstring.meta // {
-      description =
-        "Bitstrings and bitstring matching for OCaml - PPX extension";
+      description = "Bitstrings and bitstring matching for OCaml - PPX extension";
     };
   }

@@ -1017,8 +1017,7 @@ in
                   };
                   identifierFormat = mkOption {
                     type = types.str;
-                    default =
-                      "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress";
+                    default = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress";
                     description = lib.mdDoc ''
                       Optional name identifier format.
                     '';

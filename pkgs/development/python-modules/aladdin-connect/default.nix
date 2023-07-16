@@ -28,11 +28,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "aladdin_connect" ];
 
   meta = with lib; {
-    description =
-      "Python library for interacting with Genie Aladdin Connect devices";
+    description = "Python library for interacting with Genie Aladdin Connect devices";
     homepage = "https://github.com/shoejosh/aladdin-connect";
-    changelog =
-      "https://github.com/shoejosh/aladdin-connect/releases/tag/${version}";
+    changelog = "https://github.com/shoejosh/aladdin-connect/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

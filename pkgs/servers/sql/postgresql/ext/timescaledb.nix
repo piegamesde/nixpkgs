@@ -63,11 +63,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Scales PostgreSQL for time-series data via automatic partitioning across time and space";
+    description = "Scales PostgreSQL for time-series data via automatic partitioning across time and space";
     homepage = "https://www.timescale.com/";
-    changelog =
-      "https://github.com/timescale/timescaledb/raw/${version}/CHANGELOG.md";
+    changelog = "https://github.com/timescale/timescaledb/raw/${version}/CHANGELOG.md";
     maintainers = with maintainers; [ marsam ];
     platforms = postgresql.meta.platforms;
     license = with licenses; if enableUnfree then tsl else asl20;

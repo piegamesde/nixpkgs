@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with lib; {
-    description =
-      "A 2D graphics library with support for multiple output devices";
+    description = "A 2D graphics library with support for multiple output devices";
 
     longDescription = ''
       Cairo is a 2D graphics library with support for multiple output

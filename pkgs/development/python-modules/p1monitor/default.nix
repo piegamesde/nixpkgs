@@ -49,8 +49,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module for interacting with the P1 Monitor";
     homepage = "https://github.com/klaasnicolaas/python-p1monitor";
-    changelog =
-      "https://github.com/klaasnicolaas/python-p1monitor/releases/tag/v${version}";
+    changelog = "https://github.com/klaasnicolaas/python-p1monitor/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

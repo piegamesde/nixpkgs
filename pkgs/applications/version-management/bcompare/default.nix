@@ -104,8 +104,7 @@ let
   };
 
   meta = with lib; {
-    description =
-      "GUI application that allows to quickly and easily compare files and folders";
+    description = "GUI application that allows to quickly and easily compare files and folders";
     longDescription = ''
       Beyond Compare is focused. Beyond Compare allows you to quickly and easily compare your files and folders.
       By using simple, powerful commands you can focus on the differences you're interested in and ignore those you're not.

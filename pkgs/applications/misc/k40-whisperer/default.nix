@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
   version = "0.62";
 
   src = fetchzip {
-    url =
-      "https://www.scorchworks.com/K40whisperer/K40_Whisperer-${version}_src.zip";
+    url = "https://www.scorchworks.com/K40whisperer/K40_Whisperer-${version}_src.zip";
     stripRoot = true;
     sha256 = "sha256-3O+lCpmsCCu61REuxhrV8Uy01AgEGq/1DlMhjo45URM=";
   };
@@ -70,8 +69,7 @@ stdenv.mkDerivation rec {
       K40 Whisperer does not require a USB key (dongle) to function.
     '';
     homepage = "https://www.scorchworks.com/K40whisperer/k40whisperer.html";
-    downloadPage =
-      "https://www.scorchworks.com/K40whisperer/k40whisperer.html#download";
+    downloadPage = "https://www.scorchworks.com/K40whisperer/k40whisperer.html#download";
     license = licenses.gpl3;
     maintainers = with maintainers; [ fooker ];
     platforms = platforms.all;

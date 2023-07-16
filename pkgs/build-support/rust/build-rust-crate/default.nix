@@ -311,8 +311,7 @@ lib.makeOverridable
         src =
           crate.src
             or (fetchCrate { inherit (crate) crateName version sha256; });
-        name =
-          "rust_${crate.crateName}-${crate.version}${
+        name = "rust_${crate.crateName}-${crate.version}${
             lib.optionalString buildTests_ "-test"
           }";
         version = crate.version;

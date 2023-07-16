@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with lib; {
-    description =
-      "Portable C library of density functionals with van der Waals interactions for density functional theory";
+    description = "Portable C library of density functionals with van der Waals interactions for density functional theory";
     license = with licenses; [
       lgpl3Plus
       bsd3

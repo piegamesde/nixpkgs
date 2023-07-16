@@ -59,8 +59,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Interface to netCDF library (versions 3 and 4)";
     homepage = "https://github.com/Unidata/netcdf4-python";
-    changelog =
-      "https://github.com/Unidata/netcdf4-python/raw/v${version}/Changelog";
+    changelog = "https://github.com/Unidata/netcdf4-python/raw/v${version}/Changelog";
     maintainers = with maintainers; [ ];
     license = licenses.mit;
   };

@@ -188,8 +188,7 @@ in
             {
               dns_enabled = false;
               driver = "bridge";
-              id =
-                "0000000000000000000000000000000000000000000000000000000000000000";
+              id = "0000000000000000000000000000000000000000000000000000000000000000";
               internal = false;
               ipam_options = { driver = "host-local"; };
               ipv6_enabled = false;

@@ -106,8 +106,7 @@ in
       wantedBy = [ "multi-user.target" ];
       wants = [ "network-online.target" ];
       after = [ "network-online.target" ];
-      preStart =
-        "ln -sf ${
+      preStart = "ln -sf ${
           pkgs.writeText "config.js" finalConfigFile
         } ${shoutHome}/config.js";
       script = concatStringsSep " " [

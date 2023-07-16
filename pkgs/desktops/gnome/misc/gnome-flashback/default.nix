@@ -72,8 +72,7 @@ let
     name = "${pname}-${version}";
 
     src = fetchurl {
-      url =
-        "mirror://gnome/sources/${pname}/${
+      url = "mirror://gnome/sources/${pname}/${
           lib.versions.majorMinor version
         }/${name}.tar.xz";
       sha256 = "sha256-eo1cAzEOTfrdGKZeAKN3QQMq/upUGN1oBKl1xLCYAEU=";
@@ -133,10 +132,12 @@ let
 
     enableParallelBuilding = true;
 
-    PKG_CONFIG_LIBGNOME_PANEL_LAYOUTSDIR =
-      "${placeholder "out"}/share/gnome-panel/layouts";
-    PKG_CONFIG_LIBGNOME_PANEL_MODULESDIR =
-      "${placeholder "out"}/lib/gnome-panel/modules";
+    PKG_CONFIG_LIBGNOME_PANEL_LAYOUTSDIR = "${
+        placeholder "out"
+      }/share/gnome-panel/layouts";
+    PKG_CONFIG_LIBGNOME_PANEL_MODULESDIR = "${
+        placeholder "out"
+      }/lib/gnome-panel/modules";
 
     passthru = {
       updateScript = gnome.updateScript {
@@ -173,8 +174,7 @@ let
 
           gnomeSession = writeTextFile {
             name = "gnome-flashback-${wmName}-gnome-session";
-            destination =
-              "/share/gnome-session/sessions/gnome-flashback-${wmName}.session";
+            destination = "/share/gnome-session/sessions/gnome-flashback-${wmName}.session";
             text = ''
               [GNOME Session]
               Name=GNOME Flashback (${wmLabel})

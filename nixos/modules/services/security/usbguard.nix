@@ -191,8 +191,7 @@ in
 
       serviceConfig = {
         Type = "simple";
-        ExecStart =
-          "${cfg.package}/bin/usbguard-daemon -P -k -c ${daemonConfFile}";
+        ExecStart = "${cfg.package}/bin/usbguard-daemon -P -k -c ${daemonConfFile}";
         Restart = "on-failure";
 
         StateDirectory = [

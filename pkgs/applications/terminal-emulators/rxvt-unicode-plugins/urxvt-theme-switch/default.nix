@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "urxvt plugin that allows to switch color themes during runtime";
+    description = "urxvt plugin that allows to switch color themes during runtime";
     homepage = "https://github.com/felixr/urxvt-theme-switch";
     license = "CCBYNC";
     maintainers = with maintainers; [ ];

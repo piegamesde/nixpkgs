@@ -111,20 +111,17 @@ stdenv.mkDerivation rec {
     #   https://github.com/darbyjohnston/DJV/pull/477
     (fetchpatch {
       name = "gcc-11-limits.patch";
-      url =
-        "https://github.com/darbyjohnston/DJV/commit/0544ffa1a263a6b8e8518b47277de7601b21b4f4.patch";
+      url = "https://github.com/darbyjohnston/DJV/commit/0544ffa1a263a6b8e8518b47277de7601b21b4f4.patch";
       hash = "sha256-x6ye0xMwTlKyNW4cVFb64RvAayvo71kuOooPj3ROn0g=";
     })
     (fetchpatch {
       name = "gcc-11-IO.patch";
-      url =
-        "https://github.com/darbyjohnston/DJV/commit/ce79f2d2cb35d03322648323858834bff942c792.patch";
+      url = "https://github.com/darbyjohnston/DJV/commit/ce79f2d2cb35d03322648323858834bff942c792.patch";
       hash = "sha256-oPbXOnN5Y5QL+bs/bL5eJALu45YHnyTBLQcC8XcJi0c=";
     })
     (fetchpatch {
       name = "gcc-11-sleep_for.patch";
-      url =
-        "https://github.com/darbyjohnston/DJV/commit/6989f43db27f66a7691f6048a2eb3299ef43a92e.patch";
+      url = "https://github.com/darbyjohnston/DJV/commit/6989f43db27f66a7691f6048a2eb3299ef43a92e.patch";
       hash = "sha256-1kiF3VrZiO+FSoR7NHCbduQ8tMq/Uuu6Z+sQII4xBAw=";
     })
   ];
@@ -164,8 +161,7 @@ stdenv.mkDerivation rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "A professional review software for VFX, animation, and film production";
+    description = "A professional review software for VFX, animation, and film production";
     homepage = "https://darbyjohnston.github.io/DJV/";
     platforms = platforms.linux;
     maintainers = [ maintainers.blitz ];

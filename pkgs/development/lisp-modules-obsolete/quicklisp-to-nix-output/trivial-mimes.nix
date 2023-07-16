@@ -12,8 +12,7 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/trivial-mimes/2020-07-15/trivial-mimes-20200715-git.tgz";
+    url = "http://beta.quicklisp.org/archive/trivial-mimes/2020-07-15/trivial-mimes-20200715-git.tgz";
     sha256 = "10mk1v5ad0m3bg5pl7lqhh827jvg5jb896807vmi8wznwk7zaif1";
   };
 

@@ -747,8 +747,7 @@ let
               [
                 # Fix build; maintainer email fails to parse
                 (pkgs.fetchpatch {
-                  url =
-                    "https://github.com/lightquake/hamlet-mode/commit/253495d1330d6ec88d97fac136c78f57c650aae0.patch";
+                  url = "https://github.com/lightquake/hamlet-mode/commit/253495d1330d6ec88d97fac136c78f57c650aae0.patch";
                   sha256 = "dSxS5yuXzCW96CUyvJWwjkhf1FMGBfiKKoBxeDVdz9Y=";
                 })
               ];

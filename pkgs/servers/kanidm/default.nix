@@ -30,8 +30,7 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "tracing-forest-0.1.4" =
-        "sha256-ofBLxSzZ5SYy8cbViVUa6VXKbOgd8lt7QUYhL0BW6I4=";
+      "tracing-forest-0.1.4" = "sha256-ofBLxSzZ5SYy8cbViVUa6VXKbOgd8lt7QUYhL0BW6I4=";
     };
   };
 

@@ -60,8 +60,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module to access information from the Meteo-France API";
     homepage = "https://github.com/hacf-fr/meteofrance-api";
-    changelog =
-      "https://github.com/hacf-fr/meteofrance-api/releases/tag/v${version}";
+    changelog = "https://github.com/hacf-fr/meteofrance-api/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

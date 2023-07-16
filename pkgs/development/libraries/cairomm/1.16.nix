@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
   doCheck = !stdenv.isDarwin;
 
   meta = with lib; {
-    description =
-      "A 2D graphics library with support for multiple output devices";
+    description = "A 2D graphics library with support for multiple output devices";
     longDescription = ''
       Cairo is a 2D graphics library with support for multiple output
       devices.  Currently supported output targets include the X

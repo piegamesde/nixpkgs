@@ -147,8 +147,7 @@ python3.pkgs.buildPythonApplication rec {
       if a script is vulnerable.
     '';
     homepage = "https://wapiti-scanner.github.io/";
-    changelog =
-      "https://github.com/wapiti-scanner/wapiti/blob/${version}/doc/ChangeLog_Wapiti";
+    changelog = "https://github.com/wapiti-scanner/wapiti/blob/${version}/doc/ChangeLog_Wapiti";
     license = with licenses; [ gpl2Only ];
     maintainers = with maintainers; [ fab ];
   };

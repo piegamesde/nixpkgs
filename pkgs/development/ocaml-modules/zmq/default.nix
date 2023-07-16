@@ -14,8 +14,7 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url =
-      "https://github.com/issuu/ocaml-zmq/releases/download/${version}/zmq-lwt-${version}.tbz";
+    url = "https://github.com/issuu/ocaml-zmq/releases/download/${version}/zmq-lwt-${version}.tbz";
     sha256 = "sha256-mUfRPatLPFeSzWDwCIoFaVl85VkvDch4i6pOn3Kme1Y=";
   };
 

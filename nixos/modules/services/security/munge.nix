@@ -56,8 +56,7 @@ in
 
       serviceConfig = {
         ExecStartPre = "+${pkgs.coreutils}/bin/chmod 0400 ${cfg.password}";
-        ExecStart =
-          "${pkgs.munge}/bin/munged --syslog --key-file ${cfg.password}";
+        ExecStart = "${pkgs.munge}/bin/munged --syslog --key-file ${cfg.password}";
         PIDFile = "/run/munge/munged.pid";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         User = "munge";

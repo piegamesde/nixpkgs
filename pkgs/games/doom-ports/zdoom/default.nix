@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
   version = "${majorVersion}.1";
 
   src = fetchurl {
-    url =
-      "https://zdoom.org/files/zdoom/${majorVersion}/zdoom-${version}-src.7z";
+    url = "https://zdoom.org/files/zdoom/${majorVersion}/zdoom-${version}-src.7z";
     sha256 = "0453fqrh9l00xwphfxni5qkf9y134n3s1mr1dvi5cbkxcva7j8bq";
   };
 

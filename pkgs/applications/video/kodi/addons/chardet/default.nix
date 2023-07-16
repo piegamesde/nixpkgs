@@ -10,8 +10,7 @@ buildKodiAddon rec {
   version = "4.0.0+matrix.1";
 
   src = fetchzip {
-    url =
-      "https://mirrors.kodi.tv/addons/nexus/${namespace}/${namespace}-${version}.zip";
+    url = "https://mirrors.kodi.tv/addons/nexus/${namespace}/${namespace}-${version}.zip";
     sha256 = "sha256-sh1lMlB3+fkVr4yxzkRVHag+/GhySWFVk2iFVYsJTcs=";
   };
 

@@ -18,8 +18,7 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description =
-      "Opens the user's crontab and echos the time when the next cronjob will be ran";
+    description = "Opens the user's crontab and echos the time when the next cronjob will be ran";
     homepage = "https://git.sr.ht/~anjan/mnc";
     license = licenses.unlicense;
     platforms = platforms.linux;

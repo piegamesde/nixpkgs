@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
   preConfigure = "sh bootstrap.sh";
 
   meta = {
-    description =
-      "Abandoned library. Alternative lightweight Matroska muxer written for HandBrake";
+    description = "Abandoned library. Alternative lightweight Matroska muxer written for HandBrake";
     longDescription = ''
       Library was meant to be an alternative to the official libmatroska library.
       It is written in plain C, and intended to be very portable.

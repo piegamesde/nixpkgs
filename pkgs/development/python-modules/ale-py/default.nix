@@ -77,8 +77,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "ale_py" ];
 
   meta = with lib; {
-    description =
-      "a simple framework that allows researchers and hobbyists to develop AI agents for Atari 2600 games";
+    description = "a simple framework that allows researchers and hobbyists to develop AI agents for Atari 2600 games";
     homepage = "https://github.com/mgbellemare/Arcade-Learning-Environment";
     license = licenses.gpl2;
     maintainers = with maintainers; [ billhuang ];

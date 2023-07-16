@@ -21,8 +21,7 @@ let
   darwinAttrs = rec {
     version = "0.12.6-2";
     src = fetchurl {
-      url =
-        "https://github.com/wkhtmltopdf/packaging/releases/download/${version}/wkhtmltox-${version}.macos-cocoa.pkg";
+      url = "https://github.com/wkhtmltopdf/packaging/releases/download/${version}/wkhtmltox-${version}.macos-cocoa.pkg";
       sha256 = "sha256-gaZrd7UI/t6NvKpnEnIDdIN2Vos2c6F/ZhG21R6YlPg=";
     };
 
@@ -48,8 +47,7 @@ let
   linuxAttrs = rec {
     version = "0.12.6-3";
     src = fetchurl {
-      url =
-        "https://github.com/wkhtmltopdf/packaging/releases/download/${version}/wkhtmltox-${version}.archlinux-x86_64.pkg.tar.xz";
+      url = "https://github.com/wkhtmltopdf/packaging/releases/download/${version}/wkhtmltox-${version}.archlinux-x86_64.pkg.tar.xz";
       sha256 = "sha256-6Ewu8sPRbqvYWj27mBlQYpEN+mb+vKT46ljrdEUxckI=";
     };
 
@@ -93,8 +91,7 @@ stdenv.mkDerivation (
 
     meta = with lib; {
       homepage = "https://wkhtmltopdf.org/";
-      description =
-        "Tools for rendering web pages to PDF or images (binary package)";
+      description = "Tools for rendering web pages to PDF or images (binary package)";
       longDescription = ''
         wkhtmltopdf and wkhtmltoimage are open source (LGPL) command line tools
         to render HTML into PDF and various image formats using the QT Webkit

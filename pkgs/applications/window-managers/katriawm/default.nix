@@ -15,8 +15,7 @@ stdenv.mkDerivation (
 
     src = fetchzip {
       name = finalAttrs.pname + "-" + finalAttrs.version;
-      url =
-        "https://www.uninformativ.de/git/katriawm/archives/katriawm-v${finalAttrs.version}.tar.gz";
+      url = "https://www.uninformativ.de/git/katriawm/archives/katriawm-v${finalAttrs.version}.tar.gz";
       hash = "sha256-xFKr4PxqvnQEAWplhRsaL5rhmSJpnImpk1eXFX0N1tc=";
     };
 
@@ -36,8 +35,7 @@ stdenv.mkDerivation (
 
     meta = {
       homepage = "https://www.uninformativ.de/git/katriawm/file/README.html";
-      description =
-        "A non-reparenting, dynamic window manager with decorations";
+      description = "A non-reparenting, dynamic window manager with decorations";
       license = lib.licenses.mit;
       maintainers = [ lib.maintainers.AndersonTorres ];
       inherit (libX11.meta) platforms;

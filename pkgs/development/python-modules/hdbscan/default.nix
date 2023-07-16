@@ -26,8 +26,7 @@ buildPythonPackage rec {
       # should be included in next release
       (fetchpatch {
         name = "joblib-1.2.0-compat.patch";
-        url =
-          "https://github.com/scikit-learn-contrib/hdbscan/commit/d829c639923f6866e1917e46ddbde45b513913f3.patch";
+        url = "https://github.com/scikit-learn-contrib/hdbscan/commit/d829c639923f6866e1917e46ddbde45b513913f3.patch";
         excludes = [
           "docs/basic_hdbscan.rst"
           "docs/how_hdbscan_works.rst"
@@ -68,8 +67,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "hdbscan" ];
 
   meta = with lib; {
-    description =
-      "Hierarchical Density-Based Spatial Clustering of Applications with Noise, a clustering algorithm with a scikit-learn compatible API";
+    description = "Hierarchical Density-Based Spatial Clustering of Applications with Noise, a clustering algorithm with a scikit-learn compatible API";
     homepage = "https://github.com/scikit-learn-contrib/hdbscan";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ixxie ];

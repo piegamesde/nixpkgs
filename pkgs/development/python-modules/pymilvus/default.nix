@@ -60,8 +60,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python SDK for Milvus";
     homepage = "https://github.com/milvus-io/pymilvus";
-    changelog =
-      "https://github.com/milvus-io/pymilvus/releases/tag/v${version}";
+    changelog = "https://github.com/milvus-io/pymilvus/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ happysalada ];
   };

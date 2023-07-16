@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
   version = "2.0.26";
 
   src = fetchurl {
-    url =
-      "https://www.ferzkopp.net/Software/SDL_gfx-2.0/${pname}-${version}.tar.gz";
+    url = "https://www.ferzkopp.net/Software/SDL_gfx-2.0/${pname}-${version}.tar.gz";
     sha256 = "0ijljhs0v99dj6y27hc10z6qchyp8gdp4199y6jzngy6dzxlzsvw";
   };
 

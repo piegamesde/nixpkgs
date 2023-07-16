@@ -54,8 +54,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/geventhttpclient/geventhttpclient";
-    description =
-      "High performance, concurrent HTTP client library using gevent";
+    description = "High performance, concurrent HTTP client library using gevent";
     license = licenses.mit;
     maintainers = with maintainers; [ koral ];
   };

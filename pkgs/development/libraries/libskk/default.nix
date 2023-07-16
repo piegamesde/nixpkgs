@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    description =
-      "A library to deal with Japanese kana-to-kanji conversion method";
+    description = "A library to deal with Japanese kana-to-kanji conversion method";
     longDescription = ''
       Libskk is a library that implements basic features of SKK including:
       new word registration, completion, numeric conversion, abbrev mode, kuten input,

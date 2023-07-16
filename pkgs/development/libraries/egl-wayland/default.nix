@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
       # remove after next update
       # https://github.com/NVIDIA/egl-wayland/pull/79
       (fetchpatch {
-        url =
-          "https://github.com/NVIDIA/egl-wayland/commit/13737c6af4c0a7cfef5ec9013a4382bbeb7b495c.patch";
+        url = "https://github.com/NVIDIA/egl-wayland/commit/13737c6af4c0a7cfef5ec9013a4382bbeb7b495c.patch";
         hash = "sha256-EEqI6iJb+uv0HkhnauYNxSzny4YapTm73PLgK8A9Km8=";
       })
     ];

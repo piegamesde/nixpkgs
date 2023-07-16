@@ -69,8 +69,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pontos" ];
 
   meta = with lib; {
-    description =
-      "Collection of Python utilities, tools, classes and functions";
+    description = "Collection of Python utilities, tools, classes and functions";
     homepage = "https://github.com/greenbone/pontos";
     changelog = "https://github.com/greenbone/pontos/releases/tag/v${version}";
     license = with licenses; [ gpl3Plus ];

@@ -7,14 +7,12 @@ rec {
   baseName = "cl-speedy-queue";
   version = "20150302-git";
 
-  description =
-    "cl-speedy-queue is a portable, non-consing, optimized queue implementation.";
+  description = "cl-speedy-queue is a portable, non-consing, optimized queue implementation.";
 
   deps = [ ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/cl-speedy-queue/2015-03-02/cl-speedy-queue-20150302-git.tgz";
+    url = "http://beta.quicklisp.org/archive/cl-speedy-queue/2015-03-02/cl-speedy-queue-20150302-git.tgz";
     sha256 = "1w83vckk0ldr61vpkwg4i8l2b2yx54cs4ak62j4lxhshax105rqr";
   };
 

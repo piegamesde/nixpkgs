@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
   version = "0.244";
 
   src = fetchurl {
-    url =
-      "http://open.comsultia.com/docbook2odf/dwn/docbook2odf-${version}.tar.gz";
+    url = "http://open.comsultia.com/docbook2odf/dwn/docbook2odf-${version}.tar.gz";
     sha256 = "10k44g0qqa37k30pfj8vz95j6zdzz0nmnqjq1lyahfs2h4glzgwb";
   };
 

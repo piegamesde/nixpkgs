@@ -45,8 +45,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "A tool to determine which gc-roots take space in your nix store";
+    description = "A tool to determine which gc-roots take space in your nix store";
     homepage = "https://github.com/symphorien/nix-du";
     license = licenses.lgpl3Only;
     maintainers = [ maintainers.symphorien ];

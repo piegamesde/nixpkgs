@@ -18,8 +18,7 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url =
-      "https://github.com/mirage/alcotest/releases/download/${version}/alcotest-${version}.tbz";
+    url = "https://github.com/mirage/alcotest/releases/download/${version}/alcotest-${version}.tbz";
     hash = "sha256-gSus2zS0XoiZXgfXMGvasvckee8ZlmN/HV0fQWZ5At8=";
   };
 

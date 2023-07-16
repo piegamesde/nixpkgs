@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/ksnip/ksnip";
-    description =
-      "Cross-platform screenshot tool with many annotation features";
+    description = "Cross-platform screenshot tool with many annotation features";
     longDescription = ''
       Features:
 

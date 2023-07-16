@@ -25,8 +25,7 @@ buildPythonPackage {
   # Override existing logic for locating libxgboost.so which is not appropriate for Nix
   prePatch =
     let
-      libPath =
-        "${xgboost}/lib/libxgboost${stdenv.hostPlatform.extensions.sharedLibrary}";
+      libPath = "${xgboost}/lib/libxgboost${stdenv.hostPlatform.extensions.sharedLibrary}";
     in
     ''
       echo 'find_lib_path = lambda: ["${libPath}"]' > python-package/xgboost/libpath.py

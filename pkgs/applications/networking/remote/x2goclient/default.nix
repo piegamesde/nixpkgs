@@ -21,8 +21,7 @@ qt5.mkDerivation rec {
   version = "4.1.2.2";
 
   src = fetchurl {
-    url =
-      "https://code.x2go.org/releases/source/${pname}/${pname}-${version}.tar.gz";
+    url = "https://code.x2go.org/releases/source/${pname}/${pname}-${version}.tar.gz";
     sha256 = "yZUyZ8QPpnEZrZanO6yx8mYZbaIFnwzc0bjVGZQh0So=";
   };
 

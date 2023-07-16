@@ -265,8 +265,7 @@ in
       description = "Lighttpd Web Server";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      serviceConfig.ExecStart =
-        "${cfg.package}/sbin/lighttpd -D -f ${configFile}";
+      serviceConfig.ExecStart = "${cfg.package}/sbin/lighttpd -D -f ${configFile}";
       # SIGINT => graceful shutdown
       serviceConfig.KillSignal = "SIGINT";
     };

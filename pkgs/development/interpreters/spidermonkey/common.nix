@@ -46,8 +46,7 @@ stdenv.mkDerivation (
     ];
 
     src = fetchurl {
-      url =
-        "mirror://mozilla/firefox/releases/${version}esr/source/firefox-${version}esr.source.tar.xz";
+      url = "mirror://mozilla/firefox/releases/${version}esr/source/firefox-${version}esr.source.tar.xz";
       inherit hash;
     };
 
@@ -56,10 +55,8 @@ stdenv.mkDerivation (
         # Fix build failure on armv7l using Debian patch
         # Upstream bug: https://bugzilla.mozilla.org/show_bug.cgi?id=1526653
         (fetchpatch {
-          url =
-            "https://salsa.debian.org/mozilla-team/firefox/commit/fd6847c9416f9eebde636e21d794d25d1be8791d.patch";
-          hash =
-            "sha512-K8U3Qyo7g4si2r/8kJdXyRoTrDHAY48x/YJ7YL+YBwlpfNQcHxX+EZvhRzW8FHYW+f7kOnJu9QykhE8PhSQ9zQ==";
+          url = "https://salsa.debian.org/mozilla-team/firefox/commit/fd6847c9416f9eebde636e21d794d25d1be8791d.patch";
+          hash = "sha512-K8U3Qyo7g4si2r/8kJdXyRoTrDHAY48x/YJ7YL+YBwlpfNQcHxX+EZvhRzW8FHYW+f7kOnJu9QykhE8PhSQ9zQ==";
         })
 
         # Remove this when updating to 79 - The patches are already applied upstream

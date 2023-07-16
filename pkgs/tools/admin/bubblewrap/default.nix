@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
   doCheck = false;
 
   meta = with lib; {
-    changelog =
-      "https://github.com/containers/bubblewrap/releases/tag/${src.rev}";
+    changelog = "https://github.com/containers/bubblewrap/releases/tag/${src.rev}";
     description = "Unprivileged sandboxing tool";
     homepage = "https://github.com/containers/bubblewrap";
     license = licenses.lgpl2Plus;

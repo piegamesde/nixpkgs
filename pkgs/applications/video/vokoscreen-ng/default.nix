@@ -70,8 +70,7 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "User friendly Open Source screencaster for Linux and Windows";
+    description = "User friendly Open Source screencaster for Linux and Windows";
     license = licenses.gpl2Plus;
     homepage = "https://github.com/vkohaupt/vokoscreenNG";
     maintainers = with maintainers; [ shamilton ];

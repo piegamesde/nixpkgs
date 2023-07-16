@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "https://telepathy.freedesktop.org/releases/${pname}/${pname}-${version}.tar.gz";
+    url = "https://telepathy.freedesktop.org/releases/${pname}/${pname}-${version}.tar.gz";
     sha256 = "0ibs575pfr0wmhfcw6ln6iz7gw2y45l3bah11rksf6g9jlwsxy1d";
   };
 
@@ -47,10 +46,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "An account manager and channel dispatcher for the Telepathy framework";
-    homepage =
-      "https://telepathy.freedesktop.org/components/telepathy-mission-control/";
+    description = "An account manager and channel dispatcher for the Telepathy framework";
+    homepage = "https://telepathy.freedesktop.org/components/telepathy-mission-control/";
     license = licenses.lgpl21Only;
     maintainers = with maintainers; [ ];
     platforms = platforms.unix;

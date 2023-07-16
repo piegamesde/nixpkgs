@@ -23,8 +23,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "hijri_converter" ];
 
   meta = with lib; {
-    description =
-      "Accurate Hijri-Gregorian date converter based on the Umm al-Qura calendar";
+    description = "Accurate Hijri-Gregorian date converter based on the Umm al-Qura calendar";
     homepage = "https://github.com/dralshehri/hijri-converter";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];

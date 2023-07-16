@@ -96,8 +96,7 @@ in
           reloadIfChanged = true;
           restartTriggers = [ configFile ];
           serviceConfig = {
-            ExecStart =
-              "${solanum}/bin/solanum -foreground -logfile /dev/stdout -configfile /etc/solanum/ircd.conf -pidfile /run/solanum/ircd.pid";
+            ExecStart = "${solanum}/bin/solanum -foreground -logfile /dev/stdout -configfile /etc/solanum/ircd.conf -pidfile /run/solanum/ircd.pid";
             ExecReload = "${util-linux}/bin/kill -HUP $MAINPID";
             DynamicUser = true;
             User = "solanum";

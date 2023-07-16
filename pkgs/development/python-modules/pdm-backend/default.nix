@@ -41,8 +41,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/pdm-project/pdm-backend";
-    changelog =
-      "https://github.com/pdm-project/pdm-backend/releases/tag/${version}";
+    changelog = "https://github.com/pdm-project/pdm-backend/releases/tag/${version}";
     description = "Yet another PEP 517 backend.";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];

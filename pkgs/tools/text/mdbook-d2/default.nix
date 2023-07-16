@@ -27,8 +27,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "D2 diagram generator plugin for MdBook";
     homepage = "https://github.com/danieleades/mdbook-d2";
-    changelog =
-      "https://github.com/danieleades/mdbook-d2/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/danieleades/mdbook-d2/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ blaggacao ];
   };

@@ -16,8 +16,7 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url =
-      "https://github.com/verbosemode/${pname}/releases/download/${version}/${pname}-${version}.tbz";
+    url = "https://github.com/verbosemode/${pname}/releases/download/${version}/${pname}-${version}.tbz";
     hash = "sha256:0vy4dkl2q2fa6rzyfsvjyc9r1b9ymfqd6j35z2kp5vdc4r87053g";
   };
 

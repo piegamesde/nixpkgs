@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "OBS Studio plugin to make sources available to record via a filter";
+    description = "OBS Studio plugin to make sources available to record via a filter";
     homepage = "https://github.com/exeldro/obs-source-record";
     maintainers = with maintainers; [ robbins ];
     license = licenses.gpl2Only;

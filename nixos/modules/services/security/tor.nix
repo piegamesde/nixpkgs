@@ -920,8 +920,7 @@ in
                 options.secretKey = mkOption {
                   type = with types; nullOr path;
                   default = null;
-                  example =
-                    "/run/keys/tor/onion/expyuzz4wqqyqhjn/hs_ed25519_secret_key";
+                  example = "/run/keys/tor/onion/expyuzz4wqqyqhjn/hs_ed25519_secret_key";
                   description = lib.mdDoc ''
                     Secret key of the onion service.
                     If null, Tor reuses any preexisting secret key (in {option}`path`)

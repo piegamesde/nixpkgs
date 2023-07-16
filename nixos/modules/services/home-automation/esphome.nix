@@ -104,8 +104,7 @@ in
       environment.PLATFORMIO_CORE_DIR = "${stateDir}/.platformio";
 
       serviceConfig = {
-        ExecStart =
-          "${cfg.package}/bin/esphome dashboard ${esphomeParams} ${stateDir}";
+        ExecStart = "${cfg.package}/bin/esphome dashboard ${esphomeParams} ${stateDir}";
         DynamicUser = true;
         User = "esphome";
         Group = "esphome";

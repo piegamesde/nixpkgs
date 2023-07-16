@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
       #   https://github.com/mikemb/wayV/pull/1
       (fetchpatch {
         name = "fno-common.patch";
-        url =
-          "https://github.com/mikemb/wayV/commit/b927793e2a2c92ff1f97b9df9e58c26e73e72012.patch";
+        url = "https://github.com/mikemb/wayV/commit/b927793e2a2c92ff1f97b9df9e58c26e73e72012.patch";
         sha256 = "19i10966b0n710dic64p5ajsllkjnz16bp0crxfy9vv08hj1xygi";
       })
     ];

@@ -84,8 +84,7 @@ buildPythonPackage rec {
       does not depend on Git itself. All functionality is available in pure Python.
     '';
     homepage = "https://www.dulwich.io/";
-    changelog =
-      "https://github.com/dulwich/dulwich/blob/dulwich-${version}/NEWS";
+    changelog = "https://github.com/dulwich/dulwich/blob/dulwich-${version}/NEWS";
     license = with licenses; [
       asl20
       gpl2Plus

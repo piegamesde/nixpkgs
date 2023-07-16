@@ -163,8 +163,7 @@ in
       startLimitIntervalSec = 86400;
       startLimitBurst = 5;
       serviceConfig = {
-        ExecStart =
-          "${cfg.package}/bin/traefik --configfile=${staticConfigFile}";
+        ExecStart = "${cfg.package}/bin/traefik --configfile=${staticConfigFile}";
         Type = "simple";
         User = "traefik";
         Group = cfg.group;

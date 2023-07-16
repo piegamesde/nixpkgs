@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
   version = "23.4.10";
 
   src = fetchzip {
-    url =
-      "https://downloads.exodus.com/releases/${pname}-linux-x64-${version}.zip";
+    url = "https://downloads.exodus.com/releases/${pname}-linux-x64-${version}.zip";
     sha256 = "sha256-NWUIJCsoCsG8FKZnApicHsBTBwTL2fNb0su1KWd1E1o=";
   };
 
@@ -96,8 +95,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.exodus.io/";
-    description =
-      "Top-rated cryptocurrency wallet with Trezor integration and built-in Exchange";
+    description = "Top-rated cryptocurrency wallet with Trezor integration and built-in Exchange";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = platforms.linux;

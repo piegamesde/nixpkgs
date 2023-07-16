@@ -71,8 +71,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Offline Console Russian Dictionary (based on openrussian.org)";
+    description = "Offline Console Russian Dictionary (based on openrussian.org)";
     homepage = "https://github.com/rhaberkorn/openrussian-cli";
     license = with licenses; [
       gpl3Only

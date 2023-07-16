@@ -101,8 +101,7 @@ in
           restartTriggers = [ configFile ];
           environment = { BANDB_DBPATH = "${cfg.statedir}/ban.db"; };
           serviceConfig = {
-            ExecStart =
-              "${charybdis}/bin/charybdis -foreground -logfile /dev/stdout -configfile /etc/charybdis/ircd.conf";
+            ExecStart = "${charybdis}/bin/charybdis -foreground -logfile /dev/stdout -configfile /etc/charybdis/ircd.conf";
             ExecReload = "${coreutils}/bin/kill -HUP $MAINPID";
             Group = cfg.group;
             User = cfg.user;

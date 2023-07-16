@@ -108,8 +108,7 @@ import ./make-test-python.nix (
             after = [ "network.target" ];
             wantedBy = [ "multi-user.target" ];
             serviceConfig = {
-              ExecStart =
-                "${python}/bin/gunicorn -b 0.0.0.0:80 httpbin:app -k gevent";
+              ExecStart = "${python}/bin/gunicorn -b 0.0.0.0:80 httpbin:app -k gevent";
             };
           };
 

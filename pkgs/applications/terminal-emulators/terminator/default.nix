@@ -70,8 +70,7 @@ python3.pkgs.buildPythonApplication rec {
       quadkonsole, etc. in that the main focus is arranging terminals in grids
       (tabs is the most common default method, which Terminator also supports).
     '';
-    changelog =
-      "https://github.com/gnome-terminator/terminator/releases/tag/v${version}";
+    changelog = "https://github.com/gnome-terminator/terminator/releases/tag/v${version}";
     homepage = "https://github.com/gnome-terminator/terminator";
     license = licenses.gpl2;
     maintainers = with maintainers; [ bjornfor ];

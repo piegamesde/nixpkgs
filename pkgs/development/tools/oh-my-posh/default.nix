@@ -52,8 +52,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "A prompt theme engine for any shell";
     homepage = "https://ohmyposh.dev";
-    changelog =
-      "https://github.com/JanDeDobbeleer/oh-my-posh/releases/tag/v${version}";
+    changelog = "https://github.com/JanDeDobbeleer/oh-my-posh/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [
       lucperkins

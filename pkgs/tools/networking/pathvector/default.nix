@@ -30,8 +30,7 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Declarative edge routing platform that automates route optimization and control plane configuration";
+    description = "Declarative edge routing platform that automates route optimization and control plane configuration";
     homepage = "https://pathvector.io";
     license = licenses.gpl3;
     maintainers = with maintainers; [ matthewpi ];

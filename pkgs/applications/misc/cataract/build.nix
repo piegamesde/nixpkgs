@@ -50,8 +50,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "http://cgg.bzatek.net/";
-    description =
-      "A simple static web photo gallery, designed to be clean and easily usable";
+    description = "A simple static web photo gallery, designed to be clean and easily usable";
     license = licenses.gpl2;
     maintainers = [ maintainers.matthiasbeyer ];
     platforms = with platforms; linux ++ darwin;

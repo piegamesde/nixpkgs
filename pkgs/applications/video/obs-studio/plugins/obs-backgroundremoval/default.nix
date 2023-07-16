@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "OBS plugin to replace the background in portrait images and video";
+    description = "OBS plugin to replace the background in portrait images and video";
     homepage = "https://github.com/royshil/obs-backgroundremoval";
     maintainers = with maintainers; [ zahrun ];
     license = licenses.mit;

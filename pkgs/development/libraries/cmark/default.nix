@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "CommonMark parsing and rendering library and program in C";
     homepage = "https://github.com/commonmark/cmark";
-    changelog =
-      "https://github.com/commonmark/cmark/raw/${version}/changelog.txt";
+    changelog = "https://github.com/commonmark/cmark/raw/${version}/changelog.txt";
     maintainers = [ maintainers.michelk ];
     platforms = platforms.all;
     license = licenses.bsd2;

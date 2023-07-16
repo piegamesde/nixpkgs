@@ -60,8 +60,7 @@ buildPythonPackage rec {
     ];
 
   meta = with lib; {
-    description =
-      "A fancy curses interface to the Python interactive interpreter";
+    description = "A fancy curses interface to the Python interactive interpreter";
     homepage = "https://bpython-interpreter.org/";
     license = licenses.mit;
     maintainers = with maintainers; [

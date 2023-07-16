@@ -13,14 +13,12 @@ stdenv.mkDerivation rec {
   version = "1.1.1";
 
   src = fetchurl {
-    url =
-      "https://github.com/JetpackDuba/Gitnuro/releases/download/v${version}/Gitnuro-linux-${version}.jar";
+    url = "https://github.com/JetpackDuba/Gitnuro/releases/download/v${version}/Gitnuro-linux-${version}.jar";
     hash = "sha256-ugZBk/aQ2pjL9xY66g20MorAQ02GHIdJTv8ejadaBgY=";
   };
 
   icon = fetchurl {
-    url =
-      "https://raw.githubusercontent.com/JetpackDuba/Gitnuro/4cfc45069c176f807d9bfb1a7cba410257078d3c/icons/logo.svg";
+    url = "https://raw.githubusercontent.com/JetpackDuba/Gitnuro/4cfc45069c176f807d9bfb1a7cba410257078d3c/icons/logo.svg";
     hash = "sha256-QGJcWTSJesIpDArOWiS3Kn1iznzeMFzvqS+CuNXh3as=";
   };
 

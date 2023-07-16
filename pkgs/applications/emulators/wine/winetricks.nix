@@ -54,8 +54,7 @@ stdenv.mkDerivation rec {
   passthru = { inherit (src) updateScript; };
 
   meta = {
-    description =
-      "A script to install DLLs needed to work around problems in Wine";
+    description = "A script to install DLLs needed to work around problems in Wine";
     license = lib.licenses.lgpl21;
     homepage = "https://github.com/Winetricks/winetricks";
     platforms = with lib.platforms; linux;

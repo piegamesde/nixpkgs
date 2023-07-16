@@ -24,8 +24,7 @@ stdenv.mkDerivation {
   inherit version;
 
   src = fetchurl {
-    url =
-      "https://github.com/SRI-CSL/Maude/archive/refs/tags/Maude${version}.tar.gz";
+    url = "https://github.com/SRI-CSL/Maude/archive/refs/tags/Maude${version}.tar.gz";
     sha256 = "ueM8qi3fLogWT8bA+ZyBnd9Zr9oOKuoiu2YpG6o5J1E=";
   };
 

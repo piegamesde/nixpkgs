@@ -118,8 +118,7 @@ in
             description = "hans client - ${name}";
             after = [ "network.target" ];
             wantedBy = [ "multi-user.target" ];
-            script =
-              "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.extraConfig} -c ${cfg.server} ${
+            script = "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.extraConfig} -c ${cfg.server} ${
                 optionalString (cfg.passwordFile != "") ''
                   -p $(cat "${cfg.passwordFile}")''
               }";
@@ -142,8 +141,7 @@ in
           description = "hans, ip over icmp server daemon";
           after = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
-          script =
-            "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.server.extraConfig} -s ${cfg.server.ip} ${
+          script = "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.server.extraConfig} -s ${cfg.server.ip} ${
               optionalString cfg.server.respondToSystemPings "-r"
             } ${
               optionalString (cfg.server.passwordFile != "") ''

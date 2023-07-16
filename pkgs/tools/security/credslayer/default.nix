@@ -45,8 +45,7 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description =
-      "Extract credentials and other useful info from network captures";
+    description = "Extract credentials and other useful info from network captures";
     homepage = "https://github.com/ShellCode33/CredSLayer";
     license = with licenses; [ gpl3Only ];
     maintainers = with maintainers; [ fab ];

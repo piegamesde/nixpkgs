@@ -154,7 +154,6 @@ rustPlatform.buildRustPackage rec {
       mic92
     ];
     platforms = platforms.unix;
-    changelog =
-      "https://github.com/alacritty/alacritty/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/alacritty/alacritty/blob/v${version}/CHANGELOG.md";
   };
 }

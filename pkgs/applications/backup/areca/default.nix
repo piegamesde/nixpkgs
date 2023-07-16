@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
   version = "7.5";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/project/areca/areca-stable/areca-${version}/areca-${version}-src.tar.gz";
+    url = "mirror://sourceforge/project/areca/areca-stable/areca-${version}/areca-${version}-src.tar.gz";
     sha256 = "1q4ha9s96c1syplxm04bh1v1gvjq16l4pa8w25w95d2ywwvyq1xb";
   };
 

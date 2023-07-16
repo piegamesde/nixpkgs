@@ -19,9 +19,7 @@ in
       "ScriptInstall" # suppresses prompt
     ];
     language = "Wolfram Language";
-    logo32 =
-      "${wolfram-engine}/share/icons/hicolor/32x32/apps/wolfram-wolframlanguage.png";
-    logo64 =
-      "${wolfram-engine}/share/icons/hicolor/64x64/apps/wolfram-wolframlanguage.png";
+    logo32 = "${wolfram-engine}/share/icons/hicolor/32x32/apps/wolfram-wolframlanguage.png";
+    logo64 = "${wolfram-engine}/share/icons/hicolor/64x64/apps/wolfram-wolframlanguage.png";
   };
 }

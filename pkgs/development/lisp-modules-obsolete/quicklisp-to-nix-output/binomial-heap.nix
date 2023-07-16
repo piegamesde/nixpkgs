@@ -12,8 +12,7 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/binomial-heap/2013-04-20/binomial-heap-20130420-git.tgz";
+    url = "http://beta.quicklisp.org/archive/binomial-heap/2013-04-20/binomial-heap-20130420-git.tgz";
     sha256 = "0fl062psd0jn94raip46lq342xmsq0xgrql6v5f9j9w0ps0dg2ap";
   };
 

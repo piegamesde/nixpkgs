@@ -12,8 +12,7 @@ let
   programs = callPackage ./programs.nix { };
 
   webapp = fetchurl {
-    url =
-      "https://github.com/root-gg/plik/releases/download/${version}/plik-${version}-linux-amd64.tar.gz";
+    url = "https://github.com/root-gg/plik/releases/download/${version}/plik-${version}-linux-amd64.tar.gz";
     sha256 = "sha256-UGzevhZDfQBoFgPZQIs5Ftgz1cUHGfY/IRSEWQHFVSQ=";
   };
 in

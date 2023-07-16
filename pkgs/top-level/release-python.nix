@@ -43,8 +43,7 @@ let
 
     tested = pkgs.releaseTools.aggregate {
       name = "python-tested";
-      meta.description =
-        "Release-critical packages from the python package sets";
+      meta.description = "Release-critical packages from the python package sets";
       constituents = [
         jobs.remarshal.x86_64-linux # Used in pkgs.formats helper
         jobs.python39Packages.buildcatrust.x86_64-linux # Used in pkgs.cacert

@@ -60,11 +60,9 @@ stdenv.mkDerivation rec {
   mesonFlags = [ "-Dplugin_bluez=true" ];
 
   meta = with lib; {
-    description =
-      "An implementation of the KDE Connect protocol, built on GNOME platform libraries";
+    description = "An implementation of the KDE Connect protocol, built on GNOME platform libraries";
     homepage = "https://github.com/andyholmes/valent/";
-    changelog =
-      "https://github.com/andyholmes/valent/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/andyholmes/valent/blob/${src.rev}/CHANGELOG.md";
     license = with licenses; [
       gpl3Plus
       cc0

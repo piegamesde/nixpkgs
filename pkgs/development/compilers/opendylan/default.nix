@@ -68,13 +68,11 @@ stdenv.mkDerivation {
   ];
   buildPhase = "make 3-stage-bootstrap";
 
-  postInstall =
-    "wrapProgram $out/bin/dylan-compiler --suffix PATH : ${gcc}/bin";
+  postInstall = "wrapProgram $out/bin/dylan-compiler --suffix PATH : ${gcc}/bin";
 
   meta = {
     homepage = "https://opendylan.org";
-    description =
-      "A multi-paradigm functional and object-oriented programming language";
+    description = "A multi-paradigm functional and object-oriented programming language";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
   };

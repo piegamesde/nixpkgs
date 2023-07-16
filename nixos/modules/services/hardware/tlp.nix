@@ -97,8 +97,7 @@ in
     environment.etc = {
       "tlp.conf".text = (mkTlpConfig cfg.settings) + cfg.extraConfig;
     } // optionalAttrs enableRDW {
-      "NetworkManager/dispatcher.d/99tlp-rdw-nm".source =
-        "${tlp}/etc/NetworkManager/dispatcher.d/99tlp-rdw-nm";
+      "NetworkManager/dispatcher.d/99tlp-rdw-nm".source = "${tlp}/etc/NetworkManager/dispatcher.d/99tlp-rdw-nm";
     };
 
     environment.systemPackages = [ tlp ];

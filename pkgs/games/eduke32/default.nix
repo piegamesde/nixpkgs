@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
   revExtra = "122aee012";
 
   src = fetchurl {
-    url =
-      "https://dukeworld.com/eduke32/synthesis/${version}-${rev}-${revExtra}/eduke32_src_${version}-${rev}-${revExtra}.tar.xz";
+    url = "https://dukeworld.com/eduke32/synthesis/${version}-${rev}-${revExtra}/eduke32_src_${version}-${rev}-${revExtra}.tar.xz";
     sha256 = "sha256-3pBYZJqoH7XBkJ537wPwBSmNaZprvOlVtAKTo8EOT3Q=";
   };
 

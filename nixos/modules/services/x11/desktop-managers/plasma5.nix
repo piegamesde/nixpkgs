@@ -248,8 +248,9 @@ in
           setuid = true;
           owner = "root";
           group = "root";
-          source =
-            "${getBin libsForQt5.kscreenlocker}/libexec/kscreenlocker_greet";
+          source = "${
+              getBin libsForQt5.kscreenlocker
+            }/libexec/kscreenlocker_greet";
         };
         start_kdeinit = {
           setuid = true;
@@ -417,8 +418,7 @@ in
         # but kpackage is a library so we can't just wrap the one thing invoking it and be done.
         # This also means things won't work for people not on Plasma, but at least this way it
         # works for SOME people.
-        KPACKAGE_DEP_RESOLVERS_PATH =
-          "${pkgs.plasma5Packages.frameworkintegration.out}/libexec/kf5/kpackagehandlers";
+        KPACKAGE_DEP_RESOLVERS_PATH = "${pkgs.plasma5Packages.frameworkintegration.out}/libexec/kf5/kpackagehandlers";
       };
 
       # Enable GTK applications to load SVG icons
@@ -653,8 +653,7 @@ in
         };
         kwinrc = {
           "Wayland" = {
-            "InputMethod[$e]" =
-              "/run/current-system/sw/share/applications/com.github.maliit.keyboard.desktop";
+            "InputMethod[$e]" = "/run/current-system/sw/share/applications/com.github.maliit.keyboard.desktop";
             "VirtualKeyboardEnabled" = "true";
           };
           "org.kde.kdecoration2" = {

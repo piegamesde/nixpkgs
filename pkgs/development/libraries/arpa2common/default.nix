@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   meta = {
-    description =
-      "ARPA2 ID and ACL libraries and other core data structures for ARPA2";
+    description = "ARPA2 ID and ACL libraries and other core data structures for ARPA2";
     longDescription = ''
       The ARPA2 Common Library package offers elementary services that can
       benefit many software packages.  They are designed to be easy to

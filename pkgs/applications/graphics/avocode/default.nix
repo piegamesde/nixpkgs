@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
   version = "4.15.6";
 
   src = fetchurl {
-    url =
-      "https://media.avocode.com/download/avocode-app/${version}/avocode-${version}-linux.zip";
+    url = "https://media.avocode.com/download/avocode-app/${version}/avocode-${version}-linux.zip";
     sha256 = "sha256-vNQT4jyMIIAk1pV3Hrp40nawFutWCv7xtwg2gU6ejy0=";
   };
 

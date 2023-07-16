@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/ivan-tkatchev/makerpm/";
-    description =
-      "A clean, simple RPM packager reimplemented completely from scratch";
+    description = "A clean, simple RPM packager reimplemented completely from scratch";
     license = licenses.free;
     platforms = platforms.all;
     maintainers = [ maintainers.ivan-tkatchev ];

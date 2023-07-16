@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   sourceRoot = "${appName}.app";
 
   src = fetchurl {
-    url =
-      "https://github.com/musescore/MuseScore/releases/download/v${version}/MuseScore-${version}.${ref}.dmg";
+    url = "https://github.com/musescore/MuseScore/releases/download/v${version}/MuseScore-${version}.${ref}.dmg";
     hash = "sha256-tkIEV+tCS0SYh2TlC70/zEBUEOSg//EaSKDGA7kH/vo=";
   };
 

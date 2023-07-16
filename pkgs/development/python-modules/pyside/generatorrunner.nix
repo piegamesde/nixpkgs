@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Eases the development of binding generators for C++ and Qt-based libraries by providing a framework to help automating most of the process";
+    description = "Eases the development of binding generators for C++ and Qt-based libraries by providing a framework to help automating most of the process";
     license = licenses.gpl2;
     homepage = "http://www.pyside.org/docs/generatorrunner/";
     maintainers = [ ];

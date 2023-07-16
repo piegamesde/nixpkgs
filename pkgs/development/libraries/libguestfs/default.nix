@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
   version = "1.48.4";
 
   src = fetchurl {
-    url =
-      "https://libguestfs.org/download/${
+    url = "https://libguestfs.org/download/${
         lib.versions.majorMinor version
       }-stable/${pname}-${version}.tar.gz";
     sha256 = "sha256-ncIrbFpF8ZwsupEaN7Oo2G9idEUhsQ61PD05B+UIAxI=";
@@ -185,8 +184,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Tools for accessing and modifying virtual machine disk images";
+    description = "Tools for accessing and modifying virtual machine disk images";
     license = with licenses; [
       gpl2Plus
       lgpl21Plus

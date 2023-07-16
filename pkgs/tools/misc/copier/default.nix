@@ -46,8 +46,7 @@ python3.pkgs.buildPythonApplication rec {
   makeWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ git ]}" ];
 
   meta = with lib; {
-    description =
-      "Library and command-line utility for rendering projects templates";
+    description = "Library and command-line utility for rendering projects templates";
     homepage = "https://copier.readthedocs.io";
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer ];

@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
   version = "1.02";
 
   src = fetchurl {
-    url =
-      "http://http.debian.net/debian/pool/main/x/xsok/xsok_1.02.orig.tar.gz";
+    url = "http://http.debian.net/debian/pool/main/x/xsok/xsok_1.02.orig.tar.gz";
     sha256 = "0f4z53xsy4w8x8zp5jya689xp3rcfpi5wri2ip0qa8nk3sw7zj73";
   };
 

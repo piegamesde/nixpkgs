@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
   version = "43.0";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/totem/${
+    url = "mirror://gnome/sources/totem/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "s202VZKLWJZGKk05+Dtq1m0328nJnc6wLqii43OUpB4=";
@@ -46,20 +45,17 @@ stdenv.mkDerivation rec {
   patches = [
     # Lower X11 dependency version since we do not have it.
     (fetchpatch {
-      url =
-        "https://gitlab.gnome.org/GNOME/totem/-/commit/140d9eea70c3101ef3234abb4de5974cb84b13db.patch";
+      url = "https://gitlab.gnome.org/GNOME/totem/-/commit/140d9eea70c3101ef3234abb4de5974cb84b13db.patch";
       sha256 = "ohppxqMiH8Ksc9B2e3AXighfM6KVN+RNXYL+fLELSN8=";
       revert = true;
     })
     (fetchpatch {
-      url =
-        "https://gitlab.gnome.org/GNOME/totem/-/commit/2610b4536f73493587e4a5a38e01c9961fcabb96.patch";
+      url = "https://gitlab.gnome.org/GNOME/totem/-/commit/2610b4536f73493587e4a5a38e01c9961fcabb96.patch";
       sha256 = "nPfzS+LQuAlyQOz67hCdtx93w2frhgWlg1KGX5bEU38=";
       revert = true;
     })
     (fetchpatch {
-      url =
-        "https://gitlab.gnome.org/GNOME/totem/-/commit/5b871aee5292f25bbf39dca18045732e979e7a68.patch";
+      url = "https://gitlab.gnome.org/GNOME/totem/-/commit/5b871aee5292f25bbf39dca18045732e979e7a68.patch";
       sha256 = "LqQLdgyZkIVc+/hQ5sdBLqhtjCVIMDSs9tjVXwMFodg=";
       revert = true;
     })

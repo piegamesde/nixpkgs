@@ -32,8 +32,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "amarna" ];
 
   meta = with lib; {
-    description =
-      "Static-analyzer and linter for the Cairo programming language";
+    description = "Static-analyzer and linter for the Cairo programming language";
     homepage = "https://github.com/crytic/amarna";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ raitobezarius ];

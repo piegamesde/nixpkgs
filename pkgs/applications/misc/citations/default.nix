@@ -33,8 +33,7 @@ stdenv.mkDerivation (
     cargoDeps = rustPlatform.importCargoLock {
       lockFile = ./Cargo.lock;
       outputHashes = {
-        "nom-bibtex-0.3.0" =
-          "sha256-Dy7xauwXGnMtK/w/T5gZgqJ8fPyyd/FfZTLjvwMODFI=";
+        "nom-bibtex-0.3.0" = "sha256-Dy7xauwXGnMtK/w/T5gZgqJ8fPyyd/FfZTLjvwMODFI=";
       };
     };
 

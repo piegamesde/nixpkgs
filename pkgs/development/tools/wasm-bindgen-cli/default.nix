@@ -43,8 +43,7 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    description =
-      "Facilitating high-level interactions between wasm modules and JavaScript";
+    description = "Facilitating high-level interactions between wasm modules and JavaScript";
     maintainers = with maintainers; [
       nitsky
       rizary

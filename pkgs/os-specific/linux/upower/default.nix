@@ -161,8 +161,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://upower.freedesktop.org/";
-    changelog =
-      "https://gitlab.freedesktop.org/upower/upower/-/blob/v${version}/NEWS";
+    changelog = "https://gitlab.freedesktop.org/upower/upower/-/blob/v${version}/NEWS";
     description = "A D-Bus service for power management";
     maintainers = teams.freedesktop.members;
     platforms = platforms.linux;

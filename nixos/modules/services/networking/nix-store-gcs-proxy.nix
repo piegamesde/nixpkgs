@@ -56,8 +56,7 @@ in
   config.systemd.services = mapProxies (
     name: cfg: {
       "nix-store-gcs-proxy-${name}" = {
-        description =
-          "A HTTP nix store that proxies requests to Google Storage";
+        description = "A HTTP nix store that proxies requests to Google Storage";
         wantedBy = [ "multi-user.target" ];
 
         startLimitIntervalSec = 10;

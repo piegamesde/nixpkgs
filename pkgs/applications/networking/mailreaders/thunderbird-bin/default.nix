@@ -105,8 +105,7 @@ stdenv.mkDerivation {
   inherit version;
 
   src = fetchurl {
-    url =
-      "https://download-installer.cdn.mozilla.net/pub/thunderbird/releases/${version}/${source.arch}/${source.locale}/thunderbird-${version}.tar.bz2";
+    url = "https://download-installer.cdn.mozilla.net/pub/thunderbird/releases/${version}/${source.arch}/${source.locale}/thunderbird-${version}.tar.bz2";
     inherit (source) sha256;
   };
 
@@ -235,10 +234,8 @@ stdenv.mkDerivation {
   passthru = { binaryName = "thunderbird"; };
 
   meta = with lib; {
-    changelog =
-      "https://www.thunderbird.net/en-US/thunderbird/${version}/releasenotes/";
-    description =
-      "Mozilla Thunderbird, a full-featured email client (binary package)";
+    changelog = "https://www.thunderbird.net/en-US/thunderbird/${version}/releasenotes/";
+    description = "Mozilla Thunderbird, a full-featured email client (binary package)";
     homepage = "http://www.mozilla.org/thunderbird/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mpl20;

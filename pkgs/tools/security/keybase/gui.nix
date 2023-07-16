@@ -35,12 +35,10 @@ in
 
 stdenv.mkDerivation rec {
   pname = "keybase-gui";
-  version =
-    "6.0.2"; # Find latest version from https://prerelease.keybase.io/deb/dists/stable/main/binary-amd64/Packages
+  version = "6.0.2"; # Find latest version from https://prerelease.keybase.io/deb/dists/stable/main/binary-amd64/Packages
 
   src = fetchurl {
-    url =
-      "https://s3.amazonaws.com/prerelease.keybase.io/linux_binaries/deb/keybase_${
+    url = "https://s3.amazonaws.com/prerelease.keybase.io/linux_binaries/deb/keybase_${
         version + "-" + versionSuffix
       }_amd64.deb";
     hash = "sha256-FMhbMSuJHq5d5E0dTVAk02y85UXmhtKZYk4qcbnhRxI=";

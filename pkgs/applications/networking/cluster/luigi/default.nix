@@ -26,8 +26,7 @@ python3.pkgs.buildPythonApplication rec {
   makeWrapperArgs = [ "--prefix PYTHONPATH . :" ];
 
   meta = with lib; {
-    description =
-      "Python package that helps you build complex pipelines of batch jobs";
+    description = "Python package that helps you build complex pipelines of batch jobs";
     longDescription = ''
       Luigi handles dependency resolution, workflow management, visualization,
       handling failures, command line integration, and much more.

@@ -7,8 +7,7 @@ rec {
   baseName = "trivia_dot_level2";
   version = "trivia-20211020-git";
 
-  description =
-    "NON-optimized pattern matcher compatible with OPTIMA, with extensible optimizer interface and clean codebase";
+  description = "NON-optimized pattern matcher compatible with OPTIMA, with extensible optimizer interface and clean codebase";
 
   deps = [
     args."alexandria"
@@ -20,8 +19,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/trivia/2021-10-20/trivia-20211020-git.tgz";
+    url = "http://beta.quicklisp.org/archive/trivia/2021-10-20/trivia-20211020-git.tgz";
     sha256 = "0gf63v42pq8cxr7an177p2mf25n5jpqxdf0zb4xqlm2sydk7ng1g";
   };
 

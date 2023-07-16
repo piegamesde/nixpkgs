@@ -50,8 +50,7 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    changelog =
-      "https://github.com/jupyterlab/jupyter_collaboration/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/jupyterlab/jupyter_collaboration/blob/${src.rev}/CHANGELOG.md";
     description = "A Jupyter Server Extension Providing Y Documents";
     homepage = "https://github.com/jupyterlab/jupyter_collaboration";
     license = lib.licenses.bsd3;

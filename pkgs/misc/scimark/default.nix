@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://math.nist.gov/scimark2/index.html";
-    description =
-      "Scientific and numerical computing benchmark (ANSI C version)";
+    description = "Scientific and numerical computing benchmark (ANSI C version)";
     license = licenses.publicDomain;
     maintainers = with maintainers; [ AndersonTorres ];
     mainProgram = "scimark4";

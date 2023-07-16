@@ -157,8 +157,7 @@ stdenv.mkDerivation (
     '';
 
     meta = {
-      description =
-        "A Vulkan Portability implementation built on top of Apple’s Metal API";
+      description = "A Vulkan Portability implementation built on top of Apple’s Metal API";
       homepage = "https://github.com/KhronosGroup/MoltenVK";
       changelog = "https://github.com/KhronosGroup/MoltenVK/releases";
       maintainers = [ lib.maintainers.reckenrode ];

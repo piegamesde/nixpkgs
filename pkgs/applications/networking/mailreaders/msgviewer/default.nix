@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
   uname = "MSGViewer";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/msgviewer/${uname}-${version}/${uname}-${version}.zip";
+    url = "mirror://sourceforge/msgviewer/${uname}-${version}/${uname}-${version}.zip";
     sha256 = "0igmr8c0757xsc94xlv2470zv2mz57zaj52dwr9wj8agmj23jbjz";
   };
 

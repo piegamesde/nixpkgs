@@ -55,8 +55,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/jopohl/urh";
-    description =
-      "Universal Radio Hacker: investigate wireless protocols like a boss";
+    description = "Universal Radio Hacker: investigate wireless protocols like a boss";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ fpletz ];

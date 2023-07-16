@@ -20,8 +20,7 @@ python3.pkgs.buildPythonApplication rec {
   doCheck = false;
 
   src = fetchurl {
-    url =
-      "https://pub.mate-desktop.org/releases/${
+    url = "https://pub.mate-desktop.org/releases/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "RyxILg7y+xYp5h4X2qoaSH9kOSsCmEncmkCCr7OLye4=";

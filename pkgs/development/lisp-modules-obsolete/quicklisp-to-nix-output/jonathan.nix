@@ -7,8 +7,7 @@ rec {
   baseName = "jonathan";
   version = "20200925-git";
 
-  description =
-    "High performance JSON encoder and decoder. Currently support: SBCL, CCL.";
+  description = "High performance JSON encoder and decoder. Currently support: SBCL, CCL.";
 
   deps = [
     args."alexandria"
@@ -30,8 +29,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/jonathan/2020-09-25/jonathan-20200925-git.tgz";
+    url = "http://beta.quicklisp.org/archive/jonathan/2020-09-25/jonathan-20200925-git.tgz";
     sha256 = "1y5v3g351nsy7px0frdr2asmcy0lyfbj73ic1f5yf4q65hrgvryx";
   };
 

@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
   version = "0.9.2";
 
   src = fetchurl {
-    url =
-      "http://download.tuxfamily.org/hnm/${version}/hikounomizu-${version}-src.tar.bz2";
+    url = "http://download.tuxfamily.org/hnm/${version}/hikounomizu-${version}-src.tar.bz2";
     hash = "sha256-ZtvzQAiYG4IcdgKiBDIQFOJVnLbz1TsiIbdZr/0Y2U8=";
   };
 

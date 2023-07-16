@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
   version = "1.0.18";
 
   src = fetchurl {
-    url =
-      "https://launchpad.net/libmemcached/${
+    url = "https://launchpad.net/libmemcached/${
         lib.versions.majorMinor version
       }/${version}/+download/libmemcached-${version}.tar.gz";
     sha256 = "10jzi14j32lpq0if0p9vygcl2c1352hwbywzvr9qzq7x6aq0nb72";
@@ -28,8 +27,7 @@ stdenv.mkDerivation rec {
     lib.optional stdenv.isLinux ./libmemcached-fix-linking-with-libpthread.patch
     ++ lib.optional stdenv.isDarwin (
       fetchpatch {
-        url =
-          "https://raw.githubusercontent.com/Homebrew/homebrew/bfd4a0a4626b61c2511fdf573bcbbc6bbe86340e/Library/Formula/libmemcached.rb";
+        url = "https://raw.githubusercontent.com/Homebrew/homebrew/bfd4a0a4626b61c2511fdf573bcbbc6bbe86340e/Library/Formula/libmemcached.rb";
         sha256 = "1gjf3vd7hiyzxjvlg2zfc3y2j0lyr6nhbws4xb5dmin3csyp8qb8";
       }
     )
@@ -43,8 +41,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://libmemcached.org";
-    description =
-      "Open source C/C++ client library and tools for the memcached server";
+    description = "Open source C/C++ client library and tools for the memcached server";
     license = licenses.bsd3;
     platforms = platforms.linux ++ platforms.darwin;
   };

@@ -75,11 +75,9 @@ buildGoModule rec {
   ;
 
   meta = with lib; {
-    description =
-      "Command line program to sync files and directories to and from major cloud storage";
+    description = "Command line program to sync files and directories to and from major cloud storage";
     homepage = "https://rclone.org";
-    changelog =
-      "https://github.com/rclone/rclone/blob/v${version}/docs/content/changelog.md";
+    changelog = "https://github.com/rclone/rclone/blob/v${version}/docs/content/changelog.md";
     license = licenses.mit;
     maintainers = with maintainers; [
       danielfullmer

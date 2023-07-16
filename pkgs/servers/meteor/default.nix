@@ -14,15 +14,12 @@ let
 
   srcs = {
     x86_64-linux = fetchurl {
-      url =
-        "https://static-meteor.netdna-ssl.com/packages-bootstrap/${version}/meteor-bootstrap-os.linux.x86_64.tar.gz";
+      url = "https://static-meteor.netdna-ssl.com/packages-bootstrap/${version}/meteor-bootstrap-os.linux.x86_64.tar.gz";
       sha256 = "sha256-ovsE7jUJIKf96WEoITXECUlPo+o1tEKvHzCc7Xgj614=";
     };
     x86_64-darwin = fetchurl {
-      url =
-        "https://static-meteor.netdna-ssl.com/packages-bootstrap/${version}/meteor-bootstrap-os.osx.x86_64.tar.gz";
-      sha256 =
-        "11206dbda50a680fdab7044def7ea68ea8f4a9bca948ca56df91fe1392b2ac16";
+      url = "https://static-meteor.netdna-ssl.com/packages-bootstrap/${version}/meteor-bootstrap-os.osx.x86_64.tar.gz";
+      sha256 = "11206dbda50a680fdab7044def7ea68ea8f4a9bca948ca56df91fe1392b2ac16";
     };
   };
 in
@@ -112,8 +109,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description =
-      "Complete open source platform for building web and mobile apps in pure JavaScript";
+    description = "Complete open source platform for building web and mobile apps in pure JavaScript";
     homepage = "https://www.meteor.com/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mit;

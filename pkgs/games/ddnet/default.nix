@@ -100,8 +100,7 @@ stdenv.mkDerivation rec {
   checkTarget = "run_tests";
 
   meta = with lib; {
-    description =
-      "A Teeworlds modification with a unique cooperative gameplay.";
+    description = "A Teeworlds modification with a unique cooperative gameplay.";
     longDescription = ''
       DDraceNetwork (DDNet) is an actively maintained version of DDRace,
       a Teeworlds modification with a unique cooperative gameplay.

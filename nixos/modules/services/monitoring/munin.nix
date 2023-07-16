@@ -380,8 +380,7 @@ in
           ''}
         '';
         serviceConfig = {
-          ExecStart =
-            "${pkgs.munin}/sbin/munin-node --config ${nodeConf} --servicedir /etc/munin/plugins/ --sconfdir=${pluginConfDir}";
+          ExecStart = "${pkgs.munin}/sbin/munin-node --config ${nodeConf} --servicedir /etc/munin/plugins/ --sconfdir=${pluginConfDir}";
         };
       };
 

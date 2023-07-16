@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      " A library for 2D/3D vectors and matrices and other mathematical objects, functions and data types for computer graphics";
+    description = " A library for 2D/3D vectors and matrices and other mathematical objects, functions and data types for computer graphics";
     homepage = "https://www.openexr.com/";
     license = licenses.bsd3;
     platforms = platforms.all;

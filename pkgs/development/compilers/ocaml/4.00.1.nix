@@ -18,16 +18,14 @@ stdenv.mkDerivation rec {
   version = "4.00.1";
 
   src = fetchurl {
-    url =
-      "https://caml.inria.fr/pub/distrib/ocaml-4.00/${pname}-${version}.tar.bz2";
+    url = "https://caml.inria.fr/pub/distrib/ocaml-4.00/${pname}-${version}.tar.bz2";
     sha256 = "33c3f4acff51685f5bfd7c260f066645e767d4e865877bf1613c176a77799951";
   };
 
   # Compatibility with Glibc 2.34
   patches = [
     (fetchpatch {
-      url =
-        "https://github.com/ocaml/ocaml/commit/60b0cdaf2519d881947af4175ac4c6ff68901be3.patch";
+      url = "https://github.com/ocaml/ocaml/commit/60b0cdaf2519d881947af4175ac4c6ff68901be3.patch";
       sha256 = "sha256:07g9q9sjk4xsbqix7jxggfp36v15pmqw4bms80g5car0hfbszirn";
     })
   ];

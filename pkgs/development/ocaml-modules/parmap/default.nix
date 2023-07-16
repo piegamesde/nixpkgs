@@ -10,8 +10,7 @@ buildDunePackage rec {
   version = "1.2.4";
 
   src = fetchurl {
-    url =
-      "https://github.com/rdicosmo/${pname}/releases/download/${version}/${pname}-${version}.tbz";
+    url = "https://github.com/rdicosmo/${pname}/releases/download/${version}/${pname}-${version}.tbz";
     sha256 = "sha256-BTkSEjIK3CVNloJACFo6eQ6Ob9o/cdrA9xuv87NKas4=";
   };
 

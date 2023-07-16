@@ -99,8 +99,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/linuxmint/cinnamon-control-center";
-    description =
-      "A collection of configuration plugins used in cinnamon-settings";
+    description = "A collection of configuration plugins used in cinnamon-settings";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = teams.cinnamon.members;

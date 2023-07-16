@@ -35,14 +35,12 @@ let
     exec = name;
     icon = fetchurl {
       name = "netflix-icon-2016.png";
-      url =
-        "https://assets.nflxext.com/us/ffe/siteui/common/icons/nficon2016.png";
+      url = "https://assets.nflxext.com/us/ffe/siteui/common/icons/nficon2016.png";
       sha256 = "sha256-c0H3uLCuPA2krqVZ78MfC1PZ253SkWZP3PfWGP2V7Yo=";
       meta.license = lib.licenses.unfree;
     };
     desktopName = "Netflix via Google Chrome";
-    genericName =
-      "A video streaming service providing films and exclusive TV series";
+    genericName = "A video streaming service providing films and exclusive TV series";
     categories = [
       "TV"
       "AudioVideo"

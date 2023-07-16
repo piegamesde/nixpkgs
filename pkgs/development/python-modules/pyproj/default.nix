@@ -102,8 +102,7 @@ buildPythonPackage rec {
   meta = {
     description = "Python interface to PROJ library";
     homepage = "https://github.com/pyproj4/pyproj";
-    changelog =
-      "https://github.com/pyproj4/pyproj/blob/${src.rev}/docs/history.rst";
+    changelog = "https://github.com/pyproj4/pyproj/blob/${src.rev}/docs/history.rst";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [
       lsix

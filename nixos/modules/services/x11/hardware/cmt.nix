@@ -94,12 +94,10 @@ in
         source = "${pkgs.chromium-xorg-conf}/40-touchpad-cmt.conf";
       };
       "${etcPath}/50-touchpad-cmt-${cfg.models}.conf" = {
-        source =
-          "${pkgs.chromium-xorg-conf}/50-touchpad-cmt-${cfg.models}.conf";
+        source = "${pkgs.chromium-xorg-conf}/50-touchpad-cmt-${cfg.models}.conf";
       };
       "${etcPath}/60-touchpad-cmt-${cfg.models}.conf" = {
-        source =
-          "${pkgs.chromium-xorg-conf}/60-touchpad-cmt-${cfg.models}.conf";
+        source = "${pkgs.chromium-xorg-conf}/60-touchpad-cmt-${cfg.models}.conf";
       };
     };
 

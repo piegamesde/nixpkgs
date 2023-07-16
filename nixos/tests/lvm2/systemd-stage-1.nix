@@ -106,8 +106,7 @@ import ../make-test-python.nix (
           kernelPackages = lib.mkIf (kernelPackages != null) kernelPackages;
         };
 
-        specialisation.boot-lvm.configuration.virtualisation.rootDevice =
-          "/dev/test_vg/test_lv";
+        specialisation.boot-lvm.configuration.virtualisation.rootDevice = "/dev/test_vg/test_lv";
       }
     ;
 

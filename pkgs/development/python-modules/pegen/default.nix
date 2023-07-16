@@ -36,8 +36,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library to generate PEG parsers";
     homepage = "https://github.com/we-like-parsers/pegen";
-    changelog =
-      "https://github.com/we-like-parsers/pegen/releases/tag/v${version}";
+    changelog = "https://github.com/we-like-parsers/pegen/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

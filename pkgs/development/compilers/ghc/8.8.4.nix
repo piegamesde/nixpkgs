@@ -219,8 +219,7 @@ stdenv.mkDerivation (
     pname = "${targetPrefix}ghc${variantSuffix}";
 
     src = fetchurl {
-      url =
-        "https://downloads.haskell.org/ghc/${version}/ghc-${version}-src.tar.xz";
+      url = "https://downloads.haskell.org/ghc/${version}/ghc-${version}-src.tar.xz";
       sha256 = "0bgwbxxvdn56l91bp9p5d083gzcfdi6z8l8b17qzjpr3n8w5wl7h";
     };
 
@@ -249,8 +248,7 @@ stdenv.mkDerivation (
       # cabal passes incorrect --host= when cross-compiling
       # https://github.com/haskell/cabal/issues/5887
       (fetchpatch {
-        url =
-          "https://raw.githubusercontent.com/input-output-hk/haskell.nix/122bd81150386867da07fdc9ad5096db6719545a/overlays/patches/ghc/cabal-host.patch";
+        url = "https://raw.githubusercontent.com/input-output-hk/haskell.nix/122bd81150386867da07fdc9ad5096db6719545a/overlays/patches/ghc/cabal-host.patch";
         sha256 = "sha256:0yd0sajgi24sc1w5m55lkg2lp6kfkgpp3lgija2c8y3cmkwfpdc1";
       })
 

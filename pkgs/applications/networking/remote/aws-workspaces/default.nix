@@ -89,8 +89,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Client for Amazon WorkSpaces, a managed, secure Desktop-as-a-Service (DaaS) solution";
+    description = "Client for Amazon WorkSpaces, a managed, secure Desktop-as-a-Service (DaaS) solution";
     homepage = "https://clients.amazonworkspaces.com";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

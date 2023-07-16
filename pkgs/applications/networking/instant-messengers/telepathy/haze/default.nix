@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   version = "0.8.1";
 
   src = fetchurl {
-    url =
-      "https://telepathy.freedesktop.org/releases/telepathy-haze/telepathy-haze-${version}.tar.gz";
+    url = "https://telepathy.freedesktop.org/releases/telepathy-haze/telepathy-haze-${version}.tar.gz";
     hash = "sha256-cEvvpC7sIXPspLrAH/0AQBRmXyutRtyJSOVCM2TN4wo=";
   };
 

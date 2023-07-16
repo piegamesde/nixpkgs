@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/ghex/${
+    url = "mirror://gnome/sources/ghex/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "QEvfZJ6qE5IqgK4y8Z/kDnHw7g9GHEXtrHKIigDq1sI=";

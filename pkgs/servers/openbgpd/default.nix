@@ -10,8 +10,7 @@
 }:
 
 let
-  openbsd_version =
-    "OPENBSD_6_8"; # This has to be equal to ${src}/OPENBSD_BRANCH
+  openbsd_version = "OPENBSD_6_8"; # This has to be equal to ${src}/OPENBSD_BRANCH
   openbsd = fetchFromGitHub {
     name = "portable";
     owner = "openbgpd-portable";
@@ -58,8 +57,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   meta = with lib; {
-    description =
-      "A free implementation of the Border Gateway Protocol, Version 4. It allows ordinary machines to be used as routers exchanging routes with other systems speaking the BGP protocol";
+    description = "A free implementation of the Border Gateway Protocol, Version 4. It allows ordinary machines to be used as routers exchanging routes with other systems speaking the BGP protocol";
     license = licenses.isc;
     homepage = "http://www.openbgpd.org/";
     maintainers = with maintainers; [ kloenk ];

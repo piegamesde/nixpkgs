@@ -58,8 +58,7 @@ python3.pkgs.buildPythonApplication rec {
   pythonImportsCheck = [ "jrnl" ];
 
   meta = with lib; {
-    description =
-      "Simple command line journal application that stores your journal in a plain text file";
+    description = "Simple command line journal application that stores your journal in a plain text file";
     homepage = "https://jrnl.sh/";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [

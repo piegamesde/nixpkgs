@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
       sha256 = "1hs0krxrncxq1w36bhad02yk8yx71zcfs35cw87c82sl2sfwasjg";
     })
     (fetchpatch {
-      url =
-        "https://sources.debian.org/data/main/p/partimage/0.6.9-8/debian/patches/04-fix-FTBFS-glic-2.28.patch";
+      url = "https://sources.debian.org/data/main/p/partimage/0.6.9-8/debian/patches/04-fix-FTBFS-glic-2.28.patch";
       sha256 = "0xid5636g58sxbhxnjmfjdy7y8rf3c77zmmpfbbqv4lv9jd2gmxm";
     })
   ];

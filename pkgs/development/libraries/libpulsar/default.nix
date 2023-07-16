@@ -68,8 +68,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     hash = "sha256-IONnsSDbnX2qz+Xya0taHYSViTOiRI36AfcxmY3dNpo=";
-    url =
-      "mirror://apache/pulsar/pulsar-${version}/apache-pulsar-${version}-src.tar.gz";
+    url = "mirror://apache/pulsar/pulsar-${version}/apache-pulsar-${version}-src.tar.gz";
   };
 
   sourceRoot = "apache-pulsar-${version}-src/pulsar-client-cpp";

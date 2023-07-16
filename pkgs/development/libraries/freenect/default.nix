@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = {
-    description =
-      "Drivers and libraries for the Xbox Kinect device on Windows, Linux, and macOS";
+    description = "Drivers and libraries for the Xbox Kinect device on Windows, Linux, and macOS";
     homepage = "http://openkinect.org";
     license = with lib.licenses; [
       gpl2

@@ -205,8 +205,7 @@ let
 
   binDir = if enableSeparateBinOutput then "$bin/bin" else "$out/bin";
 
-  newCabalFileUrl =
-    "mirror://hackage/${pname}-${version}/revision/${revision}.cabal";
+  newCabalFileUrl = "mirror://hackage/${pname}-${version}/revision/${revision}.cabal";
   newCabalFile = fetchurl {
     url = newCabalFileUrl;
     sha256 = editedCabalFile;
@@ -526,8 +525,7 @@ lib.fix (
       ;
       propagatedBuildInputs = optionals isLibrary propagatedBuildInputs;
 
-      LANG =
-        "en_US.UTF-8"; # GHC needs the locale configured during the Haddock phase.
+      LANG = "en_US.UTF-8"; # GHC needs the locale configured during the Haddock phase.
 
       prePatch =
         optionalString (editedCabalFile != null) ''

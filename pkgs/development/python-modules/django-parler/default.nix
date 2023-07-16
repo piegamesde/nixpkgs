@@ -34,8 +34,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Simple Django model translations without nasty hacks";
     homepage = "https://github.com/django-parler/django-parler";
-    changelog =
-      "https://github.com/django-parler/django-parler/releases/tag/v${version}";
+    changelog = "https://github.com/django-parler/django-parler/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ derdennisop ];
   };

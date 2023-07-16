@@ -68,8 +68,7 @@ buildPythonPackage rec {
       (fetchpatch {
         # Conditionally skip tests that require METHOD_CRYPT
         # https://github.com/twisted/twisted/pull/11827
-        url =
-          "https://github.com/mweinelt/twisted/commit/e69e652de671aac0abf5c7e6c662fc5172758c5a.patch";
+        url = "https://github.com/mweinelt/twisted/commit/e69e652de671aac0abf5c7e6c662fc5172758c5a.patch";
         hash = "sha256-LmvKUTViZoY/TPBmSlx4S9FbJNZfB5cxzn/YcciDmoI=";
       })
     ]
@@ -80,8 +79,7 @@ buildPythonPackage rec {
         hash = "sha256-Td08pDxHwl7fPLCA6rUySuXpy8YmZfvXPHGsBpdcmSo=";
       })
       (fetchpatch {
-        url =
-          "https://github.com/twisted/twisted/commit/00bf5be704bee022ba4d9b24eb6c2c768b4a1921.patch";
+        url = "https://github.com/twisted/twisted/commit/00bf5be704bee022ba4d9b24eb6c2c768b4a1921.patch";
         hash = "sha256-fnBzczm3OlhbjRcePIQ7dSX6uldlCZ9DJTS+UFO2nAQ=";
       })
     ]

@@ -242,8 +242,7 @@ in
               serviceConfig = {
                 Type = "simple";
                 Restart = "always";
-                ExecStart =
-                  "${netCfg.package}/bin/nebula -config ${configFile}";
+                ExecStart = "${netCfg.package}/bin/nebula -config ${configFile}";
                 UMask = "0027";
                 CapabilityBoundingSet = "CAP_NET_ADMIN";
                 AmbientCapabilities = "CAP_NET_ADMIN";

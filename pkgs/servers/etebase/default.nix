@@ -54,8 +54,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/etesync/server";
     description = "An Etebase (EteSync 2.0) server so you can run your own";
-    changelog =
-      "https://github.com/etesync/server/blob/${version}/ChangeLog.md";
+    changelog = "https://github.com/etesync/server/blob/${version}/ChangeLog.md";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ felschr ];
   };

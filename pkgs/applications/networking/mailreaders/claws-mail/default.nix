@@ -284,8 +284,7 @@ stdenv.mkDerivation rec {
   version = "4.1.1";
 
   src = fetchurl {
-    url =
-      "https://claws-mail.org/download.php?file=releases/claws-mail-${version}.tar.xz";
+    url = "https://claws-mail.org/download.php?file=releases/claws-mail-${version}.tar.xz";
     hash = "sha256-sYnnAMGJb14N6wt21L+oIOt6wZNe4Qqpr7raPPU6A0Q=";
   };
 

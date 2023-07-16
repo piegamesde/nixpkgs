@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
   version = "34.0.0";
 
   src = fetchurl {
-    url =
-      "https://github.com/nmeum/android-tools/releases/download/${version}/android-tools-${version}.tar.xz";
+    url = "https://github.com/nmeum/android-tools/releases/download/${version}/android-tools-${version}.tar.xz";
     hash = "sha256-+I7FaGk39/svaJw7BQYSPyOZJ2oUZzFksPlUVKTHuXo=";
   };
 

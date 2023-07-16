@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Clean, friendly gtk-based serial terminal for the gnome desktop";
+    description = "Clean, friendly gtk-based serial terminal for the gnome desktop";
     homepage = "https://wiki.gnome.org/moserial";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ linsui ];

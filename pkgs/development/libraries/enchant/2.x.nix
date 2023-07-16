@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "https://github.com/AbiWord/${pname}/releases/download/v${version}/${pname}-${version}.tar.gz";
+    url = "https://github.com/AbiWord/${pname}/releases/download/v${version}/${pname}-${version}.tar.gz";
     sha256 = "sha256-H34mdE2xyaD+ph0hafTlwc5DXPjCcxw34+QFQRnplKA=";
   };
 

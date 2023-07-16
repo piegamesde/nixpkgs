@@ -46,8 +46,7 @@ buildDotnetModule rec {
   ];
 
   projectFile = "src/XIVLauncher.Core/XIVLauncher.Core.csproj";
-  nugetDeps =
-    ./deps.nix; # File generated with `nix-build -A xivlauncher.passthru.fetch-deps`
+  nugetDeps = ./deps.nix; # File generated with `nix-build -A xivlauncher.passthru.fetch-deps`
 
   dotnetFlags = [
     "-p:BuildHash=${rev}"

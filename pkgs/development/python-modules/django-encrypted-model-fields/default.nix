@@ -28,10 +28,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "encrypted_model_fields" ];
 
   meta = with lib; {
-    description =
-      "A set of fields that wrap standard Django fields with encryption provided by the python cryptography library";
-    homepage =
-      "https://gitlab.com/lansharkconsulting/django/django-encrypted-model-fields";
+    description = "A set of fields that wrap standard Django fields with encryption provided by the python cryptography library";
+    homepage = "https://gitlab.com/lansharkconsulting/django/django-encrypted-model-fields";
     license = licenses.mit;
     maintainers = with maintainers; [ centromere ];
   };

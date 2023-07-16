@@ -21,8 +21,7 @@ buildPythonPackage rec {
       # substitute libusb path
       (substituteAll {
         src = ./hardcode-libusb.patch;
-        libusb =
-          "${pkgs.hidapi}/lib/libhidapi-libusb${stdenv.hostPlatform.extensions.sharedLibrary}";
+        libusb = "${pkgs.hidapi}/lib/libhidapi-libusb${stdenv.hostPlatform.extensions.sharedLibrary}";
       })
     ];
 

@@ -42,8 +42,7 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description =
-      "Advanced SSH config - Regex, aliases, gateways, includes and dynamic hosts";
+    description = "Advanced SSH config - Regex, aliases, gateways, includes and dynamic hosts";
     homepage = "https://github.com/moul/assh";
     changelog = "https://github.com/moul/assh/releases/tag/v${version}";
     license = licenses.mit;

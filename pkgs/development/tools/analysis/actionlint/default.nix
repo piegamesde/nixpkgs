@@ -51,8 +51,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://rhysd.github.io/actionlint/";
     description = "Static checker for GitHub Actions workflow files";
-    changelog =
-      "https://github.com/rhysd/actionlint/raw/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/rhysd/actionlint/raw/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = [ maintainers.marsam ];
     mainProgram = "actionlint";

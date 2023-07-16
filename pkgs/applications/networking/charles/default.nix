@@ -46,8 +46,7 @@ let
       inherit version;
 
       src = fetchurl {
-        url =
-          "https://www.charlesproxy.com/assets/release/${version}/charles-proxy-${version}${platform}.tar.gz";
+        url = "https://www.charlesproxy.com/assets/release/${version}/charles-proxy-${version}${platform}.tar.gz";
         curlOptsList = [
           "--user-agent"
           "Mozilla/5.0"

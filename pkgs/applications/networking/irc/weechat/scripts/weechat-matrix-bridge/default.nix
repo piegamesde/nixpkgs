@@ -49,8 +49,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description =
-      "A WeeChat script in Lua that implements the matrix.org chat protocol";
+    description = "A WeeChat script in Lua that implements the matrix.org chat protocol";
     homepage = "https://github.com/torhve/weechat-matrix-protocol-script";
     maintainers = with maintainers; [ ];
     license =

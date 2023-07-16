@@ -218,8 +218,7 @@ in
           cfg.enableSSL
           -> cfg.certFile != null && cfg.keyFile != null && cfg.caFile != null
         ;
-        message =
-          "SSL is enabled for ttyd, but no certFile, keyFile or caFile has been specified.";
+        message = "SSL is enabled for ttyd, but no certFile, keyFile or caFile has been specified.";
       }
       {
         assertion = !(cfg.interface != null && cfg.socket != null);

@@ -64,8 +64,7 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    changelog =
-      "https://github.com/kubeshark/kubeshark/releases/tag/${version}";
+    changelog = "https://github.com/kubeshark/kubeshark/releases/tag/${version}";
     description = "The API Traffic Viewer for Kubernetes";
     homepage = "https://kubeshark.co/";
     license = licenses.asl20;

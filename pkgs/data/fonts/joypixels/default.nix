@@ -26,16 +26,14 @@ let
   joypixels-free-license = with systemSpecific; {
     spdxId = "LicenseRef-JoyPixels-Free-6.0";
     fullName = "JoyPixels Free License Agreement 6.0";
-    url =
-      "https://cdn.joypixels.com/distributions/${systemTag}/license/free-license.pdf";
+    url = "https://cdn.joypixels.com/distributions/${systemTag}/license/free-license.pdf";
     free = false;
   };
 
   joypixels-license-appendix = with systemSpecific; {
     spdxId = "LicenseRef-JoyPixels-NixOS-Appendix";
     fullName = "JoyPixels ${capitalized} License Appendix";
-    url =
-      "https://cdn.joypixels.com/distributions/${systemTag}/appendix/joypixels-license-appendix.pdf";
+    url = "https://cdn.joypixels.com/distributions/${systemTag}/appendix/joypixels-license-appendix.pdf";
     free = false;
   };
 
@@ -70,8 +68,7 @@ stdenv.mkDerivation rec {
     with systemSpecific;
     fetchurl {
       name = fontFile;
-      url =
-        "https://cdn.joypixels.com/distributions/${systemTag}/font/${version}/${fontFile}";
+      url = "https://cdn.joypixels.com/distributions/${systemTag}/font/${version}/${fontFile}";
       sha256 =
         {
           darwin = "0qcmb2vn2nykyikzgnlma627zhks7ksy1vkgvpcmqwyxq4bd38d7";

@@ -49,8 +49,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for testing asyncio code with pytest";
     homepage = "https://github.com/pytest-dev/pytest-asyncio";
-    changelog =
-      "https://github.com/pytest-dev/pytest-asyncio/blob/v${version}/CHANGELOG.rst";
+    changelog = "https://github.com/pytest-dev/pytest-asyncio/blob/v${version}/CHANGELOG.rst";
     license = licenses.asl20;
     maintainers = with maintainers; [ dotlambda ];
   };

@@ -11,8 +11,7 @@ import ./make-test-python.nix (
     anonPort = 1890;
     bindTestPort = 18910;
     password = "VERY_secret";
-    hashedPassword =
-      "$7$101$/WJc4Mp+I+uYE9sR$o7z9rD1EYXHPwEP5GqQj6A7k4W1yVbePlb8TqNcuOLV9WNCiDgwHOB0JHC1WCtdkssqTBduBNUnUGd6kmZvDSw==";
+    hashedPassword = "$7$101$/WJc4Mp+I+uYE9sR$o7z9rD1EYXHPwEP5GqQj6A7k4W1yVbePlb8TqNcuOLV9WNCiDgwHOB0JHC1WCtdkssqTBduBNUnUGd6kmZvDSw==";
     topic = "test/foo";
 
     snakeOil =

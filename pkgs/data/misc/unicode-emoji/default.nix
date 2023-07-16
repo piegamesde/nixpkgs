@@ -18,8 +18,7 @@ let
       inherit version;
 
       src = fetchurl {
-        url =
-          "https://www.unicode.org/Public/emoji/${version}/emoji-${suffix}.txt";
+        url = "https://www.unicode.org/Public/emoji/${version}/emoji-${suffix}.txt";
         inherit hash;
       };
 

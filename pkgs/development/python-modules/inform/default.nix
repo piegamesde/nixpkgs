@@ -46,8 +46,7 @@ buildPythonPackage rec {
       allow you to simply and cleanly print different types of messages.
     '';
     homepage = "https://inform.readthedocs.io";
-    changelog =
-      "https://github.com/KenKundert/inform/blob/v${version}/doc/releases.rst";
+    changelog = "https://github.com/KenKundert/inform/blob/v${version}/doc/releases.rst";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ jeremyschlatter ];
   };

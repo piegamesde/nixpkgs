@@ -90,8 +90,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "libcst" ];
 
   meta = with lib; {
-    description =
-      "Concrete Syntax Tree (CST) parser and serializer library for Python";
+    description = "Concrete Syntax Tree (CST) parser and serializer library for Python";
     homepage = "https://github.com/Instagram/libcst";
     license = with licenses; [
       mit

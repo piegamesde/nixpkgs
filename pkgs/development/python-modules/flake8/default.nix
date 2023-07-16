@@ -41,8 +41,7 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    description =
-      "Flake8 is a wrapper around pyflakes, pycodestyle and mccabe.";
+    description = "Flake8 is a wrapper around pyflakes, pycodestyle and mccabe.";
     homepage = "https://github.com/pycqa/flake8";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];

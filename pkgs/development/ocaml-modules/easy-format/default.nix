@@ -25,16 +25,14 @@ buildDunePackage rec {
   inherit (params) version;
 
   src = fetchurl {
-    url =
-      "https://github.com/ocaml-community/easy-format/releases/download/${version}/easy-format-${version}.tbz";
+    url = "https://github.com/ocaml-community/easy-format/releases/download/${version}/easy-format-${version}.tbz";
     inherit (params) sha256;
   };
 
   doCheck = true;
 
   meta = with lib; {
-    description =
-      "A high-level and functional interface to the Format module of the OCaml standard library";
+    description = "A high-level and functional interface to the Format module of the OCaml standard library";
     homepage = "https://github.com/ocaml-community/easy-format";
     license = licenses.bsd3;
     maintainers = [ maintainers.vbgl ];

@@ -23,8 +23,9 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "gphoto";
     repo = "libgphoto2";
-    rev =
-      "libgphoto2-${builtins.replaceStrings [ "." ] [ "_" ] version}-release";
+    rev = "libgphoto2-${
+        builtins.replaceStrings [ "." ] [ "_" ] version
+      }-release";
     sha256 = "sha256-4UwD283mKhZwC7setBU0BLRLsyfjD/6m/InSedrqgAU=";
   };
 

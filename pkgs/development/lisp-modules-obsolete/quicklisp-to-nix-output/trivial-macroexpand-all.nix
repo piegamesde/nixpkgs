@@ -12,8 +12,7 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/trivial-macroexpand-all/2017-10-23/trivial-macroexpand-all-20171023-git.tgz";
+    url = "http://beta.quicklisp.org/archive/trivial-macroexpand-all/2017-10-23/trivial-macroexpand-all-20171023-git.tgz";
     sha256 = "0h5h9zn32pn26x7ll9h08g0csr2f5hvk1wgbr7kdhx5zbrszd7zm";
   };
 

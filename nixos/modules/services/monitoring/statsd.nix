@@ -162,8 +162,7 @@ in
             !isBuiltinBackend backend
             -> hasAttrByPath [ backend ] pkgs.nodePackages
           ;
-          message =
-            "Only builtin backends (graphite, console, repeater) or backends enumerated in `pkgs.nodePackages` are allowed!";
+          message = "Only builtin backends (graphite, console, repeater) or backends enumerated in `pkgs.nodePackages` are allowed!";
         })
         cfg.backends
     ;

@@ -116,8 +116,7 @@ in
           ReadWriteDirectories = ""; # override upstream
 
           # LocalCredential handles file permission problems arising from the use of DynamicUser.
-          LoadCredential =
-            "intermediate_password:${cfg.intermediatePasswordFile}";
+          LoadCredential = "intermediate_password:${cfg.intermediatePasswordFile}";
 
           ExecStart = [
             "" # override upstream

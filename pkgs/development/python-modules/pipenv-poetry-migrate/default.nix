@@ -42,8 +42,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "This is simple migration script, migrate pipenv to poetry";
     homepage = "https://github.com/yhino/pipenv-poetry-migrate";
-    changelog =
-      "https://github.com/yhino/pipenv-poetry-migrate/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/yhino/pipenv-poetry-migrate/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ gador ];
   };

@@ -23,8 +23,7 @@ python3.pkgs.buildPythonApplication rec {
       # patch setup.py to generate $out/bin/mautrix-googlechat
       # https://github.com/mautrix/googlechat/pull/81
       name = "mautrix-googlechat-entry-point.patch";
-      url =
-        "https://github.com/mautrix/googlechat/pull/81/commits/112fa3d27bc6f89a02321cb80d219de149e00df8.patch";
+      url = "https://github.com/mautrix/googlechat/pull/81/commits/112fa3d27bc6f89a02321cb80d219de149e00df8.patch";
       sha256 = "sha256-DsITDNLsIgBIqN6sD5JHaFW0LToxVUTzWc7mE2L09IQ=";
     })
   ];

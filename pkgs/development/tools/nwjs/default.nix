@@ -94,8 +94,7 @@ stdenv.mkDerivation rec {
   src =
     if sdk then
       fetchurl {
-        url =
-          "https://dl.nwjs.io/v${version}/nwjs-sdk-v${version}-linux-${bits}.tar.gz";
+        url = "https://dl.nwjs.io/v${version}/nwjs-sdk-v${version}-linux-${bits}.tar.gz";
         sha256 =
           if bits == "x64" then
             "sha256-1qeU4+EIki0M7yJPkRuzFwMdswfDOni5gltdmM6A/ds="
@@ -105,8 +104,7 @@ stdenv.mkDerivation rec {
       }
     else
       fetchurl {
-        url =
-          "https://dl.nwjs.io/v${version}/nwjs-v${version}-linux-${bits}.tar.gz";
+        url = "https://dl.nwjs.io/v${version}/nwjs-v${version}-linux-${bits}.tar.gz";
         sha256 =
           if bits == "x64" then
             "sha256-TACEM06K2t6dDXRD44lSW7GRi77yzSW4BZJw8gT+fl4="

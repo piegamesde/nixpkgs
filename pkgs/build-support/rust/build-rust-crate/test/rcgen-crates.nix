@@ -4520,12 +4520,10 @@ rec {
             crateConfig // {
               src =
                 crateConfig.src or (pkgs.fetchurl rec {
-                  name =
-                    "${crateConfig.crateName}-${crateConfig.version}.tar.gz";
+                  name = "${crateConfig.crateName}-${crateConfig.version}.tar.gz";
                   # https://www.pietroalbini.org/blog/downloading-crates-io/
                   # Not rate-limited, CDN URL.
-                  url =
-                    "https://static.crates.io/crates/${crateConfig.crateName}/${crateConfig.crateName}-${crateConfig.version}.crate";
+                  url = "https://static.crates.io/crates/${crateConfig.crateName}/${crateConfig.crateName}-${crateConfig.version}.crate";
                   sha256 =
                     assert (lib.assertMsg (crateConfig ? sha256)
                       "Missing sha256 for ${name}"

@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
       # sets static ports 7000 7100 (tcp) and 6000 6001 7011 (udp)
       (fetchpatch {
         name = "use-static-ports.patch";
-        url =
-          "https://github.com/FD-/RPiPlay/commit/2ffc287ba822e1d2b2ed0fc0e41a2bb3d9dab105.patch";
+        url = "https://github.com/FD-/RPiPlay/commit/2ffc287ba822e1d2b2ed0fc0e41a2bb3d9dab105.patch";
         sha256 = "08dy829gyhyzw2n54zn5m3176cmd24k5hij24vpww5bhbwkbabww";
       })
     ];
@@ -57,8 +56,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     broken = stdenv.isDarwin;
     homepage = "https://github.com/FD-/RPiPlay";
-    description =
-      "An open-source implementation of an AirPlay mirroring server.";
+    description = "An open-source implementation of an AirPlay mirroring server.";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ ];
     platforms = platforms.unix;

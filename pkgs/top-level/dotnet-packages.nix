@@ -299,8 +299,7 @@ let
         '';
 
         meta = with lib; {
-          description =
-            "A programming language with built-in specification constructs";
+          description = "A programming language with built-in specification constructs";
           homepage = "https://research.microsoft.com/dafny";
           maintainers = with maintainers; [ layus ];
           license = licenses.mit;
@@ -331,8 +330,7 @@ let
       buildInputs = [ pkgs.gtk-sharp-2_0 ];
 
       meta = {
-        description =
-          "A generic framework for creating extensible applications";
+        description = "A generic framework for creating extensible applications";
         homepage = "https://www.mono-project.com/Mono.Addins";
         longDescription = ''
           A generic framework for creating extensible applications,

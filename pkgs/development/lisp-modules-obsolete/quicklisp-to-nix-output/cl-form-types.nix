@@ -28,8 +28,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/cl-form-types/2021-12-09/cl-form-types-20211209-git.tgz";
+    url = "http://beta.quicklisp.org/archive/cl-form-types/2021-12-09/cl-form-types-20211209-git.tgz";
     sha256 = "1w1918a9rjw9dp5qpwq3mf0p4yyd2xladnd6sz4zk645y7wxd08i";
   };
 

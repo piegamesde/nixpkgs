@@ -27,8 +27,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "luxtronik" ];
 
   meta = with lib; {
-    description =
-      "Python library to interact with Luxtronik heatpump controllers";
+    description = "Python library to interact with Luxtronik heatpump controllers";
     homepage = "https://github.com/Bouni/python-luxtronik";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];

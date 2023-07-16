@@ -66,8 +66,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://computing.llnl.gov/projects/zfp";
-    description =
-      "Library for random-access compression of floating-point arrays";
+    description = "Library for random-access compression of floating-point arrays";
     license = licenses.bsd3;
     maintainers = [ maintainers.spease ];
     # 64-bit only

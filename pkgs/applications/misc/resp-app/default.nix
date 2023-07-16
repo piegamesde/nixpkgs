@@ -26,8 +26,7 @@ let
       patches = [
         (fetchpatch {
           name = "Add-flag-to-parse-only-key-names.patch";
-          url =
-            "https://github.com/uglide/redis-rdb-tools/commit/b74946e6fbca589947ef0186429d5ce45a074b87.patch";
+          url = "https://github.com/uglide/redis-rdb-tools/commit/b74946e6fbca589947ef0186429d5ce45a074b87.patch";
           hash = "sha256-1gjqB/IDSsAbrwzWSezlAW/2SYr6BFm1QJ2HAHK2fFs=";
         })
       ];

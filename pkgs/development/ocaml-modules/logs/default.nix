@@ -51,8 +51,7 @@ else
 
     strictDeps = true;
 
-    buildPhase =
-      "${topkg.run} build --with-js_of_ocaml ${
+    buildPhase = "${topkg.run} build --with-js_of_ocaml ${
         lib.boolToString jsooSupport
       } --with-fmt ${lib.boolToString fmtSupport}";
 

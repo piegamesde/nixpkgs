@@ -22,8 +22,7 @@ buildGoModule rec {
     [
       # fix failing test on go 1.15
       (fetchpatch {
-        url =
-          "https://github.com/fd0/grobi/commit/176988ab087ff92d1408fbc454c77263457f3d7e.patch";
+        url = "https://github.com/fd0/grobi/commit/176988ab087ff92d1408fbc454c77263457f3d7e.patch";
         sha256 = "0j8y3gns4lm0qxqxzmdn2ll0kq34mmfhf83lvsq13iqhp5bx3y31";
       })
     ];

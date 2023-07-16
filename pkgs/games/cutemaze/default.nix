@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = with lib; {
-    changelog =
-      "https://github.com/gottcode/cutemaze/blob/v${version}/ChangeLog";
+    changelog = "https://github.com/gottcode/cutemaze/blob/v${version}/ChangeLog";
     description = "Simple, top-down game in which mazes are randomly generated";
     homepage = "https://gottcode.org/cutemaze/";
     license = licenses.gpl3Plus;

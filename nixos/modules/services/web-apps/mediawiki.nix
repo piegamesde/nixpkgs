@@ -543,24 +543,20 @@ in
           cfg.database.createLocally
           -> (cfg.database.type == "mysql" || cfg.database.type == "postgres")
         ;
-        message =
-          "services.mediawiki.createLocally is currently only supported for database type 'mysql' and 'postgres'";
+        message = "services.mediawiki.createLocally is currently only supported for database type 'mysql' and 'postgres'";
       }
       {
         assertion = cfg.database.createLocally -> cfg.database.user == user;
-        message =
-          "services.mediawiki.database.user must be set to ${user} if services.mediawiki.database.createLocally is set true";
+        message = "services.mediawiki.database.user must be set to ${user} if services.mediawiki.database.createLocally is set true";
       }
       {
         assertion = cfg.database.createLocally -> cfg.database.socket != null;
-        message =
-          "services.mediawiki.database.socket must be set if services.mediawiki.database.createLocally is set to true";
+        message = "services.mediawiki.database.socket must be set if services.mediawiki.database.createLocally is set to true";
       }
       {
         assertion =
           cfg.database.createLocally -> cfg.database.passwordFile == null;
-        message =
-          "a password cannot be specified if services.mediawiki.database.createLocally is set to true";
+        message = "a password cannot be specified if services.mediawiki.database.createLocally is set to true";
       }
     ];
 

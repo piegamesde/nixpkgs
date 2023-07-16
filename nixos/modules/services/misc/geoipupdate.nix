@@ -226,8 +226,7 @@ in
           in
           "+${pkgs.writeShellScript "start-pre-full-privileges" script}"
         ;
-        ExecStart =
-          "${pkgs.geoipupdate}/bin/geoipupdate -f /run/geoipupdate/GeoIP.conf";
+        ExecStart = "${pkgs.geoipupdate}/bin/geoipupdate -f /run/geoipupdate/GeoIP.conf";
         User = "geoip";
         DynamicUser = true;
         ReadWritePaths = cfg.settings.DatabaseDirectory;

@@ -37,8 +37,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python client for the BSH Home Connect REST API";
     homepage = "https://github.com/DavidMStraub/homeconnect";
-    changelog =
-      "https://github.com/DavidMStraub/homeconnect/releases/tag/v${version}";
+    changelog = "https://github.com/DavidMStraub/homeconnect/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

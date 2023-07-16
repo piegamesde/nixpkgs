@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/stanford-rc/slurm-spank-stunnel";
-    description =
-      "Plugin for SLURM for SSH tunneling and port forwarding support";
+    description = "Plugin for SLURM for SSH tunneling and port forwarding support";
     platforms = platforms.linux;
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ markuskowa ];

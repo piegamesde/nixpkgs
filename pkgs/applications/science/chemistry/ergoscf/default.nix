@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with lib; {
-    description =
-      "Quantum chemistry program for large-scale self-consistent field calculations";
+    description = "Quantum chemistry program for large-scale self-consistent field calculations";
     homepage = "http://www.ergoscf.org";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.markuskowa ];

@@ -14,8 +14,7 @@ stdenv.mkDerivation (
     version = "22.06";
 
     src = fetchurl {
-      url =
-        "https://www.uninformativ.de/git/bevelbar/archives/bevelbar-v${finalAttrs.version}.tar.gz";
+      url = "https://www.uninformativ.de/git/bevelbar/archives/bevelbar-v${finalAttrs.version}.tar.gz";
       hash = "sha256-8ceFwQFHhJ1qEXJtzoDXU0XRgudaAfsoWq7LYgGEqsM=";
     };
 

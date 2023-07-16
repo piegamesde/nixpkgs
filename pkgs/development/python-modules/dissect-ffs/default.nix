@@ -41,8 +41,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "dissect.ffs" ];
 
   meta = with lib; {
-    description =
-      "Dissect module implementing a parser for the FFS file system";
+    description = "Dissect module implementing a parser for the FFS file system";
     homepage = "https://github.com/fox-it/dissect.ffs";
     changelog = "https://github.com/fox-it/dissect.ffs/releases/tag/${version}";
     license = licenses.agpl3Only;

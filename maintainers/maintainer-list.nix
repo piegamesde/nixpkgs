@@ -15118,8 +15118,7 @@
     name = "Taha Gharib";
   };
   taikx4 = {
-    email =
-      "taikx4@taikx4szlaj2rsdupcwabg35inbny4jk322ngeb7qwbbhd5i55nf5yyd.onion";
+    email = "taikx4@taikx4szlaj2rsdupcwabg35inbny4jk322ngeb7qwbbhd5i55nf5yyd.onion";
     github = "taikx4";
     githubId = 94917129;
     name = "taikx4";

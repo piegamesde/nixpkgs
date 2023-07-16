@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   version = "${minorVersion}.${patchVersion}";
 
   src = fetchurl {
-    url =
-      "http://selenium-release.storage.googleapis.com/${minorVersion}/selenium-server-standalone-${version}.jar";
+    url = "http://selenium-release.storage.googleapis.com/${minorVersion}/selenium-server-standalone-${version}.jar";
     sha256 = "1jzkx0ahsb27zzzfvjqv660x9fz2pbcddgmhdzdmasxns5vipxxc";
   };
 

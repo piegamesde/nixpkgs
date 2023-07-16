@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Identifies duplicate files residing within specified directories";
+    description = "Identifies duplicate files residing within specified directories";
     longDescription = ''
       fdupes searches the given path for duplicate files.
       Such files are found by comparing file sizes and MD5 signatures,

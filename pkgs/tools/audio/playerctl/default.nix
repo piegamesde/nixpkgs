@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
   mesonFlags = [ "-Dbash-completions=true" ];
 
   meta = with lib; {
-    description =
-      "Command-line utility and library for controlling media players that implement MPRIS";
+    description = "Command-line utility and library for controlling media players that implement MPRIS";
     homepage = "https://github.com/acrisci/playerctl";
     license = licenses.lgpl3;
     platforms = platforms.unix;

@@ -10,8 +10,7 @@ let
     params:
     fetchpatch rec {
       inherit (params) name sha256;
-      url =
-        "https://salsa.debian.org/debian/acpitool/raw/33e2ef42a663de820457b212ea2925e506df3b88/debian/patches/${name}";
+      url = "https://salsa.debian.org/debian/acpitool/raw/33e2ef42a663de820457b212ea2925e506df3b88/debian/patches/${name}";
     }
   ;
 in
@@ -52,8 +51,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = {
-    description =
-      "A small, convenient command-line ACPI client with a lot of features";
+    description = "A small, convenient command-line ACPI client with a lot of features";
     homepage = "https://sourceforge.net/projects/acpitool/";
     license = lib.licenses.gpl2Plus;
     maintainers = [ lib.maintainers.guibert ];

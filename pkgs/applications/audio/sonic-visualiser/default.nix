@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
   version = "4.5.1";
 
   src = fetchurl {
-    url =
-      "https://code.soundsoftware.ac.uk/attachments/download/2841/${pname}-${version}.tar.gz";
+    url = "https://code.soundsoftware.ac.uk/attachments/download/2841/${pname}-${version}.tar.gz";
     sha256 = "1sgg4m3035a03ldipgysz7zqfa9pqaqa4j024gyvvcwh4ml8iasr";
   };
 

@@ -39,8 +39,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module for interacting with NETIO devices";
     homepage = "https://github.com/netioproducts/PyNetio";
-    changelog =
-      "https://github.com/netioproducts/PyNetio/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/netioproducts/PyNetio/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

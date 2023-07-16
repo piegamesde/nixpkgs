@@ -26,8 +26,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "saneyaml" ];
 
   meta = with lib; {
-    description =
-      "A PyYaml wrapper with sane behaviour to read and write readable YAML safely";
+    description = "A PyYaml wrapper with sane behaviour to read and write readable YAML safely";
     homepage = "https://github.com/nexB/saneyaml";
     license = licenses.asl20;
     maintainers = [ ];

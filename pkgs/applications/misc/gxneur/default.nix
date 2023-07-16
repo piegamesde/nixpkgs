@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
   version = "0.20.0";
 
   src = fetchurl {
-    url =
-      "https://github.com/AndrewCrewKuznetsov/xneur-devel/raw/f66723feb272c68f7c22a8bf0dbcafa5e3a8a5ee/dists/${version}/gxneur_${version}.orig.tar.gz";
+    url = "https://github.com/AndrewCrewKuznetsov/xneur-devel/raw/f66723feb272c68f7c22a8bf0dbcafa5e3a8a5ee/dists/${version}/gxneur_${version}.orig.tar.gz";
     sha256 = "0avmhdcj0hpr55fc0iih8fjykmdhn34c8mwdnqvl8jh4nhxxchxr";
   };
 

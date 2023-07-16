@@ -140,8 +140,7 @@ stdenv.mkDerivation (
       (fetchpatch {
         # fixes EDL error on youtube DASH streams https://github.com/mpv-player/mpv/issues/11392
         # to be removed on next release
-        url =
-          "https://github.com/mpv-player/mpv/commit/94c189dae76ba280d9883b16346c3dfb9720687e.patch";
+        url = "https://github.com/mpv-player/mpv/commit/94c189dae76ba280d9883b16346c3dfb9720687e.patch";
         sha256 = "sha256-GeAltLAwkOKk82YfXYSrkNEX08uPauh7+kVbBGPWeT8=";
       })
     ];
@@ -313,14 +312,12 @@ stdenv.mkDerivation (
 
     meta = with lib; {
       homepage = "https://mpv.io";
-      description =
-        "General-purpose media player, fork of MPlayer and mplayer2";
+      description = "General-purpose media player, fork of MPlayer and mplayer2";
       longDescription = ''
         mpv is a free and open-source general-purpose video player, based on the
         MPlayer and mplayer2 projects, with great improvements above both.
       '';
-      changelog =
-        "https://github.com/mpv-player/mpv/releases/tag/v${finalAttrs.version}";
+      changelog = "https://github.com/mpv-player/mpv/releases/tag/v${finalAttrs.version}";
       license = licenses.gpl2Plus;
       maintainers = with maintainers; [
         AndersonTorres

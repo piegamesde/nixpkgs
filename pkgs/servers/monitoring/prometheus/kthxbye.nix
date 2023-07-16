@@ -30,8 +30,7 @@ buildGoModule rec {
   passthru.tests = { kthxbye = nixosTests.kthxbye; };
 
   meta = with lib; {
-    description =
-      "Prometheus Alertmanager alert acknowledgement management daemon";
+    description = "Prometheus Alertmanager alert acknowledgement management daemon";
     homepage = "https://github.com/prymitive/kthxbye";
     license = licenses.asl20;
     maintainers = with maintainers; [ nukaduka ];

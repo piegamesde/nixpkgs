@@ -41,8 +41,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "dissect.xfs" ];
 
   meta = with lib; {
-    description =
-      "Dissect module implementing a parser for the XFS file system";
+    description = "Dissect module implementing a parser for the XFS file system";
     homepage = "https://github.com/fox-it/dissect.xfs";
     changelog = "https://github.com/fox-it/dissect.xfs/releases/tag/${version}";
     license = licenses.agpl3Only;

@@ -44,8 +44,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module for native access to the systemd facilities";
     homepage = "https://www.freedesktop.org/software/systemd/python-systemd/";
-    changelog =
-      "https://github.com/systemd/python-systemd/blob/v${version}/NEWS";
+    changelog = "https://github.com/systemd/python-systemd/blob/v${version}/NEWS";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

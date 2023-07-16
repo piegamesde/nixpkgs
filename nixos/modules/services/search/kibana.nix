@@ -198,8 +198,7 @@ in
       }
       {
         assertion = lt6_6 -> cfg.elasticsearch.hosts == null;
-        message =
-          "The option services.kibana.elasticsearch.hosts is only valid for kibana >= 6.6.";
+        message = "The option services.kibana.elasticsearch.hosts is only valid for kibana >= 6.6.";
       }
     ];
     systemd.services.kibana = {

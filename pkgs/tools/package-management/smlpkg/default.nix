@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Generic package manager for Standard ML libraries and programs";
+    description = "Generic package manager for Standard ML libraries and programs";
     homepage = "https://github.com/diku-dk/smlpkg";
     license = licenses.mit;
     platforms = mlton.meta.platforms;

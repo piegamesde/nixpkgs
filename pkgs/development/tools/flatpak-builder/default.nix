@@ -44,10 +44,12 @@
 }:
 
 let
-  installed_testdir =
-    "${placeholder "installedTests"}/libexec/installed-tests/flatpak-builder";
-  installed_test_metadir =
-    "${placeholder "installedTests"}/share/installed-tests/flatpak-builder";
+  installed_testdir = "${
+      placeholder "installedTests"
+    }/libexec/installed-tests/flatpak-builder";
+  installed_test_metadir = "${
+      placeholder "installedTests"
+    }/share/installed-tests/flatpak-builder";
 in
 stdenv.mkDerivation rec {
   pname = "flatpak-builder";
@@ -61,8 +63,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "https://github.com/flatpak/flatpak-builder/releases/download/${version}/${pname}-${version}.tar.xz";
+    url = "https://github.com/flatpak/flatpak-builder/releases/download/${version}/${pname}-${version}.tar.xz";
     sha256 = "sha256-4leCWkf3o+ceMPsPgPLZrG5IAfdG9VLfrw5WTj7jUcg=";
   };
 

@@ -59,8 +59,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Keboola Connection Storage API client";
     homepage = "https://github.com/keboola/sapi-python-client";
-    changelog =
-      "https://github.com/keboola/sapi-python-client/releases/tag/${version}";
+    changelog = "https://github.com/keboola/sapi-python-client/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ mrmebelman ];
   };

@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
   version = "3.48.1";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/evolution/${
+    url = "mirror://gnome/sources/evolution/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "tJpa3u3JGx0yVPAw9affjiYYLjNAzvd3Ecob9FU+5lA=";
@@ -122,15 +121,16 @@ stdenv.mkDerivation rec {
     };
   };
 
-  PKG_CONFIG_CAMEL_1_2_CAMEL_PROVIDERDIR =
-    "${placeholder "out"}/lib/evolution-data-server/camel-providers";
-  PKG_CONFIG_LIBEDATASERVERUI_1_2_UIMODULEDIR =
-    "${placeholder "out"}/lib/evolution-data-server/ui-modules";
+  PKG_CONFIG_CAMEL_1_2_CAMEL_PROVIDERDIR = "${
+      placeholder "out"
+    }/lib/evolution-data-server/camel-providers";
+  PKG_CONFIG_LIBEDATASERVERUI_1_2_UIMODULEDIR = "${
+      placeholder "out"
+    }/lib/evolution-data-server/ui-modules";
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Evolution";
-    description =
-      "Personal information management application that provides integrated mail, calendaring and address book functionality";
+    description = "Personal information management application that provides integrated mail, calendaring and address book functionality";
     maintainers = teams.gnome.members;
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;

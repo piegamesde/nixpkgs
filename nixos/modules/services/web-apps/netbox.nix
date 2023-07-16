@@ -219,13 +219,11 @@ in
         # IDs.
         REDIS = {
           tasks = {
-            URL =
-              "unix://${config.services.redis.servers.netbox.unixSocket}?db=0";
+            URL = "unix://${config.services.redis.servers.netbox.unixSocket}?db=0";
             SSL = false;
           };
           caching = {
-            URL =
-              "unix://${config.services.redis.servers.netbox.unixSocket}?db=1";
+            URL = "unix://${config.services.redis.servers.netbox.unixSocket}?db=1";
             SSL = false;
           };
         };

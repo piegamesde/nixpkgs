@@ -339,8 +339,7 @@ in
             (data.publicKey == null && data.publicKeyFile != null)
             || (data.publicKey != null && data.publicKeyFile == null)
           ;
-          message =
-            "knownHost ${name} must contain either a publicKey or publicKeyFile";
+          message = "knownHost ${name} must contain either a publicKey or publicKeyFile";
         }
       )
     ;
@@ -411,8 +410,7 @@ in
         optionalString cfg.enableAskPassword
           askPasswordWrapper
       ;
-      environment.DISPLAY =
-        "fake"; # required to make ssh-agent start $SSH_ASKPASS
+      environment.DISPLAY = "fake"; # required to make ssh-agent start $SSH_ASKPASS
     };
 
     environment.extraInit = optionalString cfg.startAgent ''

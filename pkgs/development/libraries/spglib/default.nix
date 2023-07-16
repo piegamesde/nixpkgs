@@ -8,8 +8,7 @@
 
 stdenv.mkDerivation rec {
   pname = "spglib";
-  version =
-    "2.0.2"; # N.B: if you change this, please update: pythonPackages.spglib
+  version = "2.0.2"; # N.B: if you change this, please update: pythonPackages.spglib
 
   src = fetchFromGitHub {
     owner = "spglib";

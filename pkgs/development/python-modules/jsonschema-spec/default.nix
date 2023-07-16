@@ -40,8 +40,7 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/p1c2u/jsonschema-spec/releases/tag/${version}";
+    changelog = "https://github.com/p1c2u/jsonschema-spec/releases/tag/${version}";
     description = "JSONSchema Spec with object-oriented paths";
     homepage = "https://github.com/p1c2u/jsonschema-spec";
     license = licenses.asl20;

@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "Q+qa0T98r5gwPmQXKxkb6blrqzQLAZ3u7HIlHuFA/js=";
@@ -49,8 +48,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "A library that reads information about processes and the running system";
+    description = "A library that reads information about processes and the running system";
     license = licenses.gpl2Plus;
     maintainers = teams.gnome.members;
     platforms = platforms.unix;

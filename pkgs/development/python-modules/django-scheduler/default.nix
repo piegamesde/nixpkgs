@@ -44,8 +44,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A calendar app for Django";
     homepage = "https://github.com/llazzaro/django-scheduler";
-    changelog =
-      "https://github.com/llazzaro/django-scheduler/releases/tag/${version}";
+    changelog = "https://github.com/llazzaro/django-scheduler/releases/tag/${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ derdennisop ];
   };

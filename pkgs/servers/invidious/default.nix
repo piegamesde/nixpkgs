@@ -44,16 +44,14 @@ crystal.buildCrystalPackage rec {
       # Replacing by the value (templates) of the variables ensures that building
       # fails if upstream changes the way the metadata is formatted.
       branchTemplate = ''{{ "#{`git branch | sed -n '/* /s///p'`.strip}" }}'';
-      commitTemplate =
-        ''{{ "#{`git rev-list HEAD --max-count=1 --abbrev-commit`.strip}" }}'';
-      versionTemplate =
-        ''
-          {{ "#{`git log -1 --format=%ci | awk '{print $1}' | sed s/-/./g`.strip}" }}'';
+      commitTemplate = ''
+        {{ "#{`git rev-list HEAD --max-count=1 --abbrev-commit`.strip}" }}'';
+      versionTemplate = ''
+        {{ "#{`git log -1 --format=%ci | awk '{print $1}' | sed s/-/./g`.strip}" }}'';
       # This always uses the latest commit which invalidates the cache even if
       # the assets were not changed
-      assetCommitTemplate =
-        ''
-          {{ "#{`git rev-list HEAD --max-count=1 --abbrev-commit -- assets`.strip}" }}'';
+      assetCommitTemplate = ''
+        {{ "#{`git rev-list HEAD --max-count=1 --abbrev-commit -- assets`.strip}" }}'';
     in
     ''
       for d in ${videojs}/*; do ln -s "$d" assets/videojs; done

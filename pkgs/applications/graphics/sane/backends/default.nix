@@ -47,8 +47,7 @@ stdenv.mkDerivation {
     # unfortunately this make the url unpredictable on update, to find the link
     # go to https://gitlab.com/sane-project/backends/-/releases and choose
     # the link under the heading "Other".
-    url =
-      "https://gitlab.com/sane-project/backends/uploads/110fc43336d0fb5e514f1fdc7360dd87/sane-backends-1.2.1.tar.gz";
+    url = "https://gitlab.com/sane-project/backends/uploads/110fc43336d0fb5e514f1fdc7360dd87/sane-backends-1.2.1.tar.gz";
     sha256 = "f832395efcb90bb5ea8acd367a820c393dda7e0dd578b16f48928b8f5bdd0524";
   };
 
@@ -57,8 +56,7 @@ stdenv.mkDerivation {
     # https://github.com/void-linux/void-packages/blob/master/srcpkgs/sane/patches/sane-desc-cross.patch
     (fetchpatch {
       name = "compile-sane-desc-for-build.patch";
-      url =
-        "https://raw.githubusercontent.com/void-linux/void-packages/4b97cd2fb4ec38712544438c2491b6d7d5ab334a/srcpkgs/sane/patches/sane-desc-cross.patch";
+      url = "https://raw.githubusercontent.com/void-linux/void-packages/4b97cd2fb4ec38712544438c2491b6d7d5ab334a/srcpkgs/sane/patches/sane-desc-cross.patch";
       sha256 = "sha256-y6BOXnOJBSTqvRp6LwAucqaqv+OLLyhCS/tXfLpnAPI=";
     })
     # generate hwdb entries for scanners handled by other backends like epkowa

@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
       fp =
         name: sha256:
         fetchpatch {
-          url =
-            "https://sources.debian.net/data/main/libt/libtar/1.2.20-4/debian/patches/${name}.patch";
+          url = "https://sources.debian.net/data/main/libt/libtar/1.2.20-4/debian/patches/${name}.patch";
           inherit sha256;
         }
       ;
@@ -31,8 +30,7 @@ stdenv.mkDerivation rec {
     [
       (fetchpatch {
         name = "no_static_buffers.patch";
-        url =
-          "https://src.fedoraproject.org/rpms/libtar/raw/e25b692fc7ceaa387dafb865b472510754f51bd2/f/libtar-1.2.20-no-static-buffer.patch";
+        url = "https://src.fedoraproject.org/rpms/libtar/raw/e25b692fc7ceaa387dafb865b472510754f51bd2/f/libtar-1.2.20-no-static-buffer.patch";
         sha256 = "sha256-QcWOgdkNlALb+YDVneT1zCNAMf4d8IUm2kUUUy2VvJs=";
       })
       (fp "no_maxpathlen"
@@ -46,14 +44,12 @@ stdenv.mkDerivation rec {
       )
       (fetchpatch {
         name = "CVE-2021-33643_CVE-2021-33644.patch";
-        url =
-          "https://src.fedoraproject.org/rpms/libtar/raw/e25b692fc7ceaa387dafb865b472510754f51bd2/f/libtar-1.2.20-CVE-2021-33643-CVE-2021-33644.patch";
+        url = "https://src.fedoraproject.org/rpms/libtar/raw/e25b692fc7ceaa387dafb865b472510754f51bd2/f/libtar-1.2.20-CVE-2021-33643-CVE-2021-33644.patch";
         sha256 = "sha256-HdjotTvKJNntkdcV+kR08Ht/MyNeB6qUT0qo67BBOVA=";
       })
       (fetchpatch {
         name = "CVE-2021-33645_CVE-2021-33646_CVE-2021-33640.patch";
-        url =
-          "https://src.fedoraproject.org/rpms/libtar/raw/e25b692fc7ceaa387dafb865b472510754f51bd2/f/libtar-1.2.20-CVE-2021-33645-CVE-2021-33646.patch";
+        url = "https://src.fedoraproject.org/rpms/libtar/raw/e25b692fc7ceaa387dafb865b472510754f51bd2/f/libtar-1.2.20-CVE-2021-33645-CVE-2021-33646.patch";
         sha256 = "sha256-p9DEFAL5Y+Ldy5c9Wj9h/BSg4TDxIxCjCQJD+wGQ7oI=";
       })
     ]

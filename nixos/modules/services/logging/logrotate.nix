@@ -337,8 +337,7 @@ in
       serviceConfig = {
         Restart = "no";
         User = "root";
-        ExecStart =
-          "${pkgs.logrotate}/sbin/logrotate ${mailOption} ${cfg.configFile}";
+        ExecStart = "${pkgs.logrotate}/sbin/logrotate ${mailOption} ${cfg.configFile}";
       };
     };
     systemd.services.logrotate-checkconf = {
@@ -347,8 +346,7 @@ in
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        ExecStart =
-          "${pkgs.logrotate}/sbin/logrotate --debug ${cfg.configFile}";
+        ExecStart = "${pkgs.logrotate}/sbin/logrotate --debug ${cfg.configFile}";
       };
     };
   };

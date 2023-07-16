@@ -229,8 +229,7 @@ in
           description = "Pebble ACME challenge test server";
           wantedBy = [ "network.target" ];
           serviceConfig = {
-            ExecStart =
-              "${pkgs.pebble}/bin/pebble-challtestsrv -dns01 ':53' -defaultIPv6 '' -defaultIPv4 '${nodes.webserver.networking.primaryIPAddress}'";
+            ExecStart = "${pkgs.pebble}/bin/pebble-challtestsrv -dns01 ':53' -defaultIPv6 '' -defaultIPv4 '${nodes.webserver.networking.primaryIPAddress}'";
             # Required to bind on privileged ports.
             AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
           };
@@ -276,8 +275,7 @@ in
           accountchange.configuration = lib.mkMerge [
             simpleConfig
             {
-              security.acme.certs."http.example.test".email =
-                "admin@example.test";
+              security.acme.certs."http.example.test".email = "admin@example.test";
             }
           ];
 

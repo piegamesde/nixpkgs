@@ -59,8 +59,7 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.nextcloud-notify_push =
       let
-        nextcloudUrl =
-          "http${
+        nextcloudUrl = "http${
             lib.optionalString config.services.nextcloud.https "s"
           }://${config.services.nextcloud.hostName}";
       in
@@ -99,8 +98,7 @@ in
                 "@${cfg.dbhost}"
             );
             dbName = lib.optionalString (cfg.dbname != null) "/${cfg.dbname}";
-            dbUrl =
-              "${dbType}://${dbUser}${dbPass}${
+            dbUrl = "${dbType}://${dbUser}${dbPass}${
                 lib.optionalString (!isSocket) dbHost
               }${dbName}${lib.optionalString isSocket dbHost}";
           in

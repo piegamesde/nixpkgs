@@ -35,8 +35,7 @@ buildPythonPackage rec {
       in Sphinx themes or extensions
     '';
     homepage = "https://github.com/sphinx-contrib/jquery";
-    changelog =
-      "https://github.com/sphinx-contrib/jquery/blob/v${version}/CHANGES.rst";
+    changelog = "https://github.com/sphinx-contrib/jquery/blob/v${version}/CHANGES.rst";
     license = licenses.bsd0;
     maintainers = with maintainers; [ kaction ];
   };

@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
   version = "1.3.1";
 
   src = fetchurl {
-    url =
-      "https://github.com/iina/iina/releases/download/v${version}/IINA.v${version}.dmg";
+    url = "https://github.com/iina/iina/releases/download/v${version}/IINA.v${version}.dmg";
     sha256 = "sha256-xkZkKiiEywUWkiFw4PbUmQsStB1iRLCNU/MY27lRjC8=";
   };
 

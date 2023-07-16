@@ -12,8 +12,7 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/trivial-shell/2018-02-28/trivial-shell-20180228-git.tgz";
+    url = "http://beta.quicklisp.org/archive/trivial-shell/2018-02-28/trivial-shell-20180228-git.tgz";
     sha256 = "058gk7fld8v5m84r5fcwl5z8j3pw68xs0jdy9xx6vi1svaxrzngp";
   };
 

@@ -13,8 +13,7 @@ let
 
   isMariaDB = lib.getName cfg.package == lib.getName pkgs.mariadb;
 
-  mysqldOptions =
-    "--user=${cfg.user} --datadir=${cfg.dataDir} --basedir=${cfg.package}";
+  mysqldOptions = "--user=${cfg.user} --datadir=${cfg.dataDir} --basedir=${cfg.package}";
 
   format = pkgs.formats.ini { listsAsDuplicateKeys = true; };
   configFile = format.generate "my.cnf" cfg.settings;
@@ -367,8 +366,9 @@ in
         (cfg.replication.role == "master" || cfg.replication.role == "slave")
         {
           log-bin = "mysql-bin-${toString cfg.replication.serverId}";
-          log-bin-index =
-            "mysql-bin-${toString cfg.replication.serverId}.index";
+          log-bin-index = "mysql-bin-${
+              toString cfg.replication.serverId
+            }.index";
           relay-log = "mysql-relay-bin";
           server-id = cfg.replication.serverId;
           binlog-ignore-db = [

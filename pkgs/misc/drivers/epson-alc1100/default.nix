@@ -15,8 +15,7 @@ let
   version = "1.2-0";
 
   libstdcpp5 = fetchurl {
-    url =
-      "mirror://ubuntu/pool/universe/g/gcc-3.3/libstdc++5_3.3.6-17ubuntu1_i386.deb";
+    url = "mirror://ubuntu/pool/universe/g/gcc-3.3/libstdc++5_3.3.6-17ubuntu1_i386.deb";
     sha256 = "10f8zcmqaa7skvg2bz94mnlgqpan4iscvi8913r6iawjh7hiisjy";
   };
 in
@@ -25,8 +24,7 @@ stdenv.mkDerivation {
   inherit version;
 
   src = fetchurl {
-    url =
-      "https://download3.ebz.epson.net/dsc/f/03/00/11/33/07/4027e99517b5c388d444b8444d719b4b77f7e9db/Epson-ALC1100-filter-1.2.tar.gz";
+    url = "https://download3.ebz.epson.net/dsc/f/03/00/11/33/07/4027e99517b5c388d444b8444d719b4b77f7e9db/Epson-ALC1100-filter-1.2.tar.gz";
     sha256 = "1dfw75a3kj2aa4iicvlk9kz3jarrsikpnpd4cdpw79scfc5mwm2p";
   };
 

@@ -54,8 +54,7 @@ python3.pkgs.buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Extension for nautilus, which adds an context-entry for opening other terminal-emulators then `gnome-terminal`";
+    description = "Extension for nautilus, which adds an context-entry for opening other terminal-emulators then `gnome-terminal`";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ stunkymonkey ];
     homepage = "https://github.com/Stunkymonkey/nautilus-open-any-terminal";

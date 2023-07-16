@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
       # https://tracker.ceph.com/issues/53060
       # https://build.opensuse.org/package/show/openSUSE:Factory/snappy
       (fetchpatch {
-        url =
-          "https://build.opensuse.org/public/source/openSUSE:Factory/snappy/reenable-rtti.patch?rev=a759aa6fba405cd40025e3f0ab89941d";
+        url = "https://build.opensuse.org/public/source/openSUSE:Factory/snappy/reenable-rtti.patch?rev=a759aa6fba405cd40025e3f0ab89941d";
         sha256 = "sha256-RMuM5yd6zP1eekN/+vfS54EyY4cFbGDVor1E1vj3134=";
       })
     ];

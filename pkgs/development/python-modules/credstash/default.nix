@@ -21,8 +21,7 @@ buildPythonPackage rec {
 
   patches = [
     (fetchpatch {
-      url =
-        "https://github.com/fugue/credstash/commit/9c02ee43ed6e37596cafbca2fe80c532ec19d2d8.patch";
+      url = "https://github.com/fugue/credstash/commit/9c02ee43ed6e37596cafbca2fe80c532ec19d2d8.patch";
       sha256 = "dlybrpfLK+PqwWWhH9iXgXHYysZGmcZAFGWNOwsG0xA=";
     })
   ];
@@ -47,8 +46,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "A utility for managing secrets in the cloud using AWS KMS and DynamoDB";
+    description = "A utility for managing secrets in the cloud using AWS KMS and DynamoDB";
     homepage = "https://github.com/LuminalOSS/credstash";
     license = licenses.asl20;
   };

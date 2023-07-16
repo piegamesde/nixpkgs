@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
       a Cherrytree document where you can easily find it.
     '';
     homepage = "https://www.giuspen.com/cherrytree";
-    changelog =
-      "https://raw.githubusercontent.com/giuspen/cherrytree/${version}/changelog.txt";
+    changelog = "https://raw.githubusercontent.com/giuspen/cherrytree/${version}/changelog.txt";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ ];
   };

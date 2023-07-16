@@ -63,8 +63,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://rakshasa.github.io/rtorrent/";
-    description =
-      "An ncurses client for libtorrent, ideal for use with screen, tmux, or dtach";
+    description = "An ncurses client for libtorrent, ideal for use with screen, tmux, or dtach";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [
       ebzzry

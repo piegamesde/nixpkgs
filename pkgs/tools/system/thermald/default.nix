@@ -71,8 +71,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Thermal Daemon";
     homepage = "https://github.com/intel/thermal_daemon";
-    changelog =
-      "https://github.com/intel/thermal_daemon/blob/master/README.txt";
+    changelog = "https://github.com/intel/thermal_daemon/blob/master/README.txt";
     license = licenses.gpl2Plus;
     platforms = [
       "x86_64-linux"

@@ -52,8 +52,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python client for the AdGuard Home API";
     homepage = "https://github.com/frenck/python-adguardhome";
-    changelog =
-      "https://github.com/frenck/python-adguardhome/releases/tag/v${version}";
+    changelog = "https://github.com/frenck/python-adguardhome/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ jamiemagee ];
   };

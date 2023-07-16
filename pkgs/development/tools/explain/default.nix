@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
         fname: hash:
         fetchpatch {
           name = fname;
-          url =
-            "${debian-src}/libe/libexplain/${debian-ver}/debian/patches/${fname}";
+          url = "${debian-src}/libe/libexplain/${debian-ver}/debian/patches/${fname}";
           hash = hash;
         }
       ;

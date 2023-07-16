@@ -119,8 +119,7 @@ buildPythonPackage rec {
     broken = stdenv.isDarwin;
     maintainers = [ lib.maintainers.SomeoneSerge ];
     license = lib.licenses.bsd2;
-    changelog =
-      "https://github.com/mapillary/OpenSfM/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/mapillary/OpenSfM/blob/${src.rev}/CHANGELOG.md";
     description = "Open source Structure-from-Motion pipeline from Mapillary";
     homepage = "https://opensfm.org/";
   };

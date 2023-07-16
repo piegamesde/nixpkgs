@@ -132,8 +132,7 @@ in
         jicofoProps = {
           "-Dnet.java.sip.communicator.SC_HOME_DIR_LOCATION" = "/etc/jitsi";
           "-Dnet.java.sip.communicator.SC_HOME_DIR_NAME" = "jicofo";
-          "-Djava.util.logging.config.file" =
-            "/etc/jitsi/jicofo/logging.properties";
+          "-Djava.util.logging.config.file" = "/etc/jitsi/jicofo/logging.properties";
           "-Dconfig.file" = configFile;
         };
       in

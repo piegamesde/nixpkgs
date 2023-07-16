@@ -47,8 +47,7 @@ buildPythonPackage rec {
   meta = {
     description = "ONNX Converter and Optimization Tools";
     homepage = "https://github.com/microsoft/onnxconverter-common";
-    changelog =
-      "https://github.com/microsoft/onnxconverter-common/releases/tag/v${version}";
+    changelog = "https://github.com/microsoft/onnxconverter-common/releases/tag/v${version}";
     maintainers = with lib.maintainers; [ fridh ];
     license = with lib.licenses; [ mit ];
   };

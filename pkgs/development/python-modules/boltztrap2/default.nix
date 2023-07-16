@@ -49,8 +49,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "BoltzTraP2" ];
 
   meta = with lib; {
-    description =
-      "Band-structure interpolator and transport coefficient calculator";
+    description = "Band-structure interpolator and transport coefficient calculator";
     homepage = "http://www.boltztrap.org/";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ costrouc ];

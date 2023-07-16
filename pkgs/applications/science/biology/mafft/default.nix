@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Multiple alignment program for amino acid or nucleotide sequences";
+    description = "Multiple alignment program for amino acid or nucleotide sequences";
     homepage = "https://mafft.cbrc.jp/alignment/software/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ natsukium ];

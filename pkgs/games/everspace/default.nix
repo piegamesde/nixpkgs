@@ -120,8 +120,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Action-focused single-player space shooter with roguelike elements";
+    description = "Action-focused single-player space shooter with roguelike elements";
     homepage = "https://classic.everspace-game.com/";
     license = licenses.unfree;
     maintainers = with maintainers; [ jtrees ];

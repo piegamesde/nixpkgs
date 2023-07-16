@@ -38,11 +38,9 @@ buildGoModule rec {
   '';
 
   meta = {
-    description =
-      "Fast and powerful Git hooks manager for any type of projects";
+    description = "Fast and powerful Git hooks manager for any type of projects";
     homepage = "https://github.com/evilmartians/lefthook";
-    changelog =
-      "https://github.com/evilmartians/lefthook/raw/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/evilmartians/lefthook/raw/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ AndersonTorres ];
   };

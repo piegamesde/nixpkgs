@@ -24,8 +24,7 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url =
-      "https://github.com/Deducteam/lambdapi/releases/download/${version}/lambdapi-${version}.tbz";
+    url = "https://github.com/Deducteam/lambdapi/releases/download/${version}/lambdapi-${version}.tbz";
     hash = "sha256-7ww2TjVcbEQyfmLnnEhLGAjW4US9a4mdOfDJw6NR1fI=";
   };
 
@@ -53,8 +52,7 @@ buildDunePackage rec {
     homepage = "https://github.com/Deducteam/lambdapi";
     description = "Proof assistant based on the λΠ-calculus modulo rewriting";
     license = licenses.cecill21;
-    changelog =
-      "https://github.com/Deducteam/lambdapi/raw/${version}/CHANGES.md";
+    changelog = "https://github.com/Deducteam/lambdapi/raw/${version}/CHANGES.md";
     maintainers = with maintainers; [ bcdarwin ];
   };
 }

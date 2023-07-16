@@ -31,8 +31,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Client library for Ledger Bitcoin application.";
-    homepage =
-      "https://github.com/LedgerHQ/app-bitcoin-new/tree/develop/bitcoin_client/ledger_bitcoin";
+    homepage = "https://github.com/LedgerHQ/app-bitcoin-new/tree/develop/bitcoin_client/ledger_bitcoin";
     license = licenses.asl20;
   };
 }

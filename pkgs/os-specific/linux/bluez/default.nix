@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
     [
       # replace use of a non-standard symbol to fix build with musl libc (pkgsMusl.bluez)
       (fetchpatch {
-        url =
-          "https://git.alpinelinux.org/aports/plain/main/bluez/max-input.patch?id=32b31b484cb13009bd8081c4106e4cf064ec2f1f";
+        url = "https://git.alpinelinux.org/aports/plain/main/bluez/max-input.patch?id=32b31b484cb13009bd8081c4106e4cf064ec2f1f";
         sha256 = "sha256-SczbXtsxBkCO+izH8XOBcrJEO2f7MdtYVT3+2fCV8wU=";
       })
     ];

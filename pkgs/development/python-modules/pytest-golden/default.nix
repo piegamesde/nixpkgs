@@ -58,8 +58,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pytest_golden" ];
 
   meta = with lib; {
-    description =
-      "Plugin for pytest that offloads expected outputs to data files";
+    description = "Plugin for pytest that offloads expected outputs to data files";
     homepage = "https://github.com/oprypin/pytest-golden";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];

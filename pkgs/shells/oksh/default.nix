@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
   configureFlags = [ "--no-strip" ];
 
   meta = with lib; {
-    description =
-      "Portable OpenBSD ksh, based on the Public Domain Korn Shell (pdksh)";
+    description = "Portable OpenBSD ksh, based on the Public Domain Korn Shell (pdksh)";
     homepage = "https://github.com/ibara/oksh";
     license = licenses.publicDomain;
     maintainers = with maintainers; [ siraben ];

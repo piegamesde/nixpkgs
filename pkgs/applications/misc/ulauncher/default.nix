@@ -25,8 +25,7 @@ python3Packages.buildPythonApplication rec {
   version = "5.15.0";
 
   src = fetchurl {
-    url =
-      "https://github.com/Ulauncher/Ulauncher/releases/download/${version}/ulauncher_${version}.tar.gz";
+    url = "https://github.com/Ulauncher/Ulauncher/releases/download/${version}/ulauncher_${version}.tar.gz";
     sha256 = "sha256-1Qo6ffMtVRtZDPCHvHEl7T0dPdDUxP4TP2hkSVSdQpo";
   };
 
@@ -117,8 +116,7 @@ python3Packages.buildPythonApplication rec {
   passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
-    description =
-      "A fast application launcher for Linux, written in Python, using GTK";
+    description = "A fast application launcher for Linux, written in Python, using GTK";
     homepage = "https://ulauncher.io/";
     license = licenses.gpl3;
     platforms = platforms.linux;

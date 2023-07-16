@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
   pname = "guvcview";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/project/guvcview/source/guvcview-src-${version}.tar.gz";
+    url = "mirror://sourceforge/project/guvcview/source/guvcview-src-${version}.tar.gz";
     sha256 = "11byyfpkcik7wvf2qic77zjamfr2rhji97dpj1gy2fg1bvpiqf4m";
   };
 
@@ -71,8 +70,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = with lib; {
-    description =
-      "A simple interface for devices supported by the linux UVC driver";
+    description = "A simple interface for devices supported by the linux UVC driver";
     homepage = "https://guvcview.sourceforge.net";
     maintainers = [ maintainers.coconnor ];
     license = licenses.gpl3;

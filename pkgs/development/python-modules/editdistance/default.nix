@@ -32,8 +32,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "editdistance" ];
 
   meta = with lib; {
-    description =
-      "Python implementation of the edit distance (Levenshtein distance)";
+    description = "Python implementation of the edit distance (Levenshtein distance)";
     homepage = "https://github.com/roy-ht/editdistance";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

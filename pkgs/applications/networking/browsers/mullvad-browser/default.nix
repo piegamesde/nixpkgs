@@ -84,8 +84,7 @@ let
 
   srcs = {
     x86_64-linux = fetchurl {
-      url =
-        "https://github.com/mullvad/mullvad-browser/releases/download/${tag}/mullvad-browser-linux64-${version}_${lang}.tar.xz";
+      url = "https://github.com/mullvad/mullvad-browser/releases/download/${tag}/mullvad-browser-linux64-${version}_${lang}.tar.xz";
       hash = "sha256-q4dTKNQkcqaRwiF25iVOQSvwVLA3tJRlQ4DzC3tuG5A=";
     };
   };
@@ -240,11 +239,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Privacy-focused browser made in a collaboration between The Tor Project and Mullvad";
+    description = "Privacy-focused browser made in a collaboration between The Tor Project and Mullvad";
     homepage = "https://www.mullvad.net/en/browser";
-    changelog =
-      "https://github.com/mullvad/mullvad-browser/releases/tag/${tag}";
+    changelog = "https://github.com/mullvad/mullvad-browser/releases/tag/${tag}";
     platforms = attrNames srcs;
     maintainers = with maintainers; [ felschr ];
     # MPL2.0+, GPL+, &c.  While it's not entirely clear whether

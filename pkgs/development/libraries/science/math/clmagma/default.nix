@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
   pname = "clmagma";
   version = "1.3.0";
   src = fetchurl {
-    url =
-      "https://icl.cs.utk.edu/projectsfiles/magma/cl/clmagma-${version}.tar.gz";
+    url = "https://icl.cs.utk.edu/projectsfiles/magma/cl/clmagma-${version}.tar.gz";
     sha256 = "1n27ny0xhwirw2ydn46pfcwy53gzia9zbam4irx44fd4d7f9ydv7";
     name = "clmagma-${version}.tar.gz";
   };
@@ -76,8 +75,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Matrix Algebra on GPU and Multicore Architectures, OpenCL port";
+    description = "Matrix Algebra on GPU and Multicore Architectures, OpenCL port";
     license = licenses.bsd3;
     homepage = "https://icl.cs.utk.edu/magma/index.html";
     platforms = platforms.linux;

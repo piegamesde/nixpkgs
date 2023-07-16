@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   version = "0.1.4";
 
   src = fetchurl {
-    url =
-      "https://github.com/flatpak/xdg-dbus-proxy/releases/download/${version}/${pname}-${version}.tar.xz";
+    url = "https://github.com/flatpak/xdg-dbus-proxy/releases/download/${version}/${pname}-${version}.tar.xz";
     sha256 = "sha256-HsDqtT0eSZZtciNSvP1RrEAtzlGQuu3HSahUHnYWcKs=";
   };
 

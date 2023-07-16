@@ -25,8 +25,7 @@ mkDerivation rec {
   version = "5.0.1";
 
   src = fetchurl {
-    url =
-      "mirror://kde/stable/${pname}/${version}/src/${pname}-${version}.tar.xz";
+    url = "mirror://kde/stable/${pname}/${version}/src/${pname}-${version}.tar.xz";
     sha256 = "0jp63fby052rapjjaz413b1wjz4qsgpxh82y2d75jzimch0n5s02";
   };
 

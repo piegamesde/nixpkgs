@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
     # Needed until https://github.com/elementary/greeter/issues/360 is fixed
     (substituteAll {
       src = ./hardcode-fallback-background.patch;
-      default_wallpaper =
-        "${nixos-artwork.wallpapers.simple-dark-gray.gnomeFilePath}";
+      default_wallpaper = "${nixos-artwork.wallpapers.simple-dark-gray.gnomeFilePath}";
     })
   ];
 
@@ -114,8 +113,7 @@ stdenv.mkDerivation rec {
     updateScript = nix-update-script { };
 
     xgreeters = linkFarm "pantheon-greeter-xgreeters" [ {
-      path =
-        "${elementary-greeter}/share/xgreeters/io.elementary.greeter.desktop";
+      path = "${elementary-greeter}/share/xgreeters/io.elementary.greeter.desktop";
       name = "io.elementary.greeter.desktop";
     } ];
   };

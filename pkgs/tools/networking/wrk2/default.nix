@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description =
-      "Constant throughput, correct latency recording variant of wrk";
+    description = "Constant throughput, correct latency recording variant of wrk";
     homepage = "https://github.com/giltene/wrk2";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux;

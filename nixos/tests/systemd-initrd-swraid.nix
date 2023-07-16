@@ -44,8 +44,7 @@ import ./make-test-python.nix (
           kernelModules = [ "raid0" ];
         };
 
-        specialisation.boot-swraid.configuration.virtualisation.rootDevice =
-          "/dev/disk/by-label/testraid";
+        specialisation.boot-swraid.configuration.virtualisation.rootDevice = "/dev/disk/by-label/testraid";
       }
     ;
 

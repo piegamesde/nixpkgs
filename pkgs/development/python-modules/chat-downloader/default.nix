@@ -36,11 +36,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "chat_downloader" ];
 
   meta = with lib; {
-    description =
-      "A simple tool used to retrieve chat messages from livestreams, videos, clips and past broadcasts";
+    description = "A simple tool used to retrieve chat messages from livestreams, videos, clips and past broadcasts";
     homepage = "https://github.com/xenova/chat-downloader";
-    changelog =
-      "https://github.com/xenova/chat-downloader/releases/tag/v${version}";
+    changelog = "https://github.com/xenova/chat-downloader/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ marsam ];
   };

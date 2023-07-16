@@ -59,8 +59,7 @@ buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/nvbn/thefuck";
-    description =
-      "Magnificent app which corrects your previous console command";
+    description = "Magnificent app which corrects your previous console command";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

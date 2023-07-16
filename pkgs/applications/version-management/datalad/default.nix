@@ -93,8 +93,7 @@ python3.pkgs.buildPythonApplication rec {
   pythonImportsCheck = [ "datalad" ];
 
   meta = with lib; {
-    description =
-      "Keep code, data, containers under control with git and git-annex";
+    description = "Keep code, data, containers under control with git and git-annex";
     homepage = "https://www.datalad.org";
     license = licenses.mit;
     maintainers = with maintainers; [ renesat ];

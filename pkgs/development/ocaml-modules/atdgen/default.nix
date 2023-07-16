@@ -34,7 +34,6 @@ buildDunePackage {
   ];
 
   meta = (builtins.removeAttrs atd.meta [ "mainProgram" ]) // {
-    description =
-      "Generates efficient JSON serializers, deserializers and validators";
+    description = "Generates efficient JSON serializers, deserializers and validators";
   };
 }

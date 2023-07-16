@@ -39,8 +39,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://pytest-relaxed.readthedocs.io/";
     description = "Relaxed test discovery/organization for pytest";
-    changelog =
-      "https://github.com/bitprophet/pytest-relaxed/blob/${version}/docs/changelog.rst";
+    changelog = "https://github.com/bitprophet/pytest-relaxed/blob/${version}/docs/changelog.rst";
     license = licenses.bsd0;
     maintainers = with maintainers; [ costrouc ];
   };

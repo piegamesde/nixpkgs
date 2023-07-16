@@ -61,8 +61,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A CSS Cascading Style Sheets library for Python";
     homepage = "https://github.com/jaraco/cssutils";
-    changelog =
-      "https://github.com/jaraco/cssutils/blob/v${version}/CHANGES.rst";
+    changelog = "https://github.com/jaraco/cssutils/blob/v${version}/CHANGES.rst";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ dotlambda ];
   };

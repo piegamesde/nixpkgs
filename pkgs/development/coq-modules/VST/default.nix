@@ -53,11 +53,9 @@ mkCoqDerivation {
       ]
       null
   ;
-  release."2.11.1".sha256 =
-    "sha256-unpNstZBnRT4dIqAYOv9n1J0tWJMeRuaaa2RG1U0Xs0=";
+  release."2.11.1".sha256 = "sha256-unpNstZBnRT4dIqAYOv9n1J0tWJMeRuaaa2RG1U0Xs0=";
   release."2.10".sha256 = "sha256-RIxfPWoHnV1CFkpxCusoGY/LIk07TgC7wWGRP4BSq8w=";
-  release."2.9".sha256 =
-    "sha256:1adwzbl1pprrrwrm7cm493098fizxanxpv7nyfbvwdhgbhcnv6qf";
+  release."2.9".sha256 = "sha256:1adwzbl1pprrrwrm7cm493098fizxanxpv7nyfbvwdhgbhcnv6qf";
   release."2.8".sha256 = "sha256-cyK88uzorRfjapNQ6XgQEmlbWnDsiyLve5po1VG52q0=";
   releaseRev = v: "v${v}";
   buildInputs = [ ITree ];

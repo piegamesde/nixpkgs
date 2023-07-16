@@ -44,8 +44,7 @@ stdenv.mkDerivation (
     version = "1.16.0";
 
     src = fetchurl {
-      url =
-        "https://cairographics.org/${
+      url = "https://cairographics.org/${
           if
             lib.mod (builtins.fromJSON (lib.versions.minor version)) 2 == 0
           then
@@ -64,16 +63,14 @@ stdenv.mkDerivation (
       # This patch is the merged commit from the above PR.
       (fetchpatch {
         name = "CVE-2018-19876.patch";
-        url =
-          "https://gitlab.freedesktop.org/cairo/cairo/commit/6edf572ebb27b00d3c371ba5ae267e39d27d5b6d.patch";
+        url = "https://gitlab.freedesktop.org/cairo/cairo/commit/6edf572ebb27b00d3c371ba5ae267e39d27d5b6d.patch";
         sha256 = "112hgrrsmcwxh1r52brhi5lksq4pvrz4xhkzcf2iqp55jl2pb7n1";
       })
 
       # Fix PDF output.
       # https://gitlab.freedesktop.org/cairo/cairo/issues/342
       (fetchpatch {
-        url =
-          "https://gitlab.freedesktop.org/cairo/cairo/commit/5e34c5a9640e49dcc29e6b954c4187cfc838dbd1.patch";
+        url = "https://gitlab.freedesktop.org/cairo/cairo/commit/5e34c5a9640e49dcc29e6b954c4187cfc838dbd1.patch";
         sha256 = "yCwsDUY7efVvOZkA6a0bPS+RrVc8Yk9bfPwWHeOjq5o=";
       })
 
@@ -83,8 +80,7 @@ stdenv.mkDerivation (
       (fetchpatch {
         name = "CVE-2020-35492.patch";
         includes = [ "src/cairo-image-compositor.c" ];
-        url =
-          "https://github.com/freedesktop/cairo/commit/78266cc8c0f7a595cfe8f3b694bfb9bcc3700b38.patch";
+        url = "https://github.com/freedesktop/cairo/commit/78266cc8c0f7a595cfe8f3b694bfb9bcc3700b38.patch";
         sha256 = "048nzfz7rkgqb9xs0dfs56qdw7ckkxr87nbj3p0qziqdq4nb6wki";
       })
 
@@ -94,8 +90,7 @@ stdenv.mkDerivation (
       # Fixes cairo crash on macOS Big Sur
       # Upstream PR: https://gitlab.freedesktop.org/cairo/cairo/-/issues/420
       (fetchpatch {
-        url =
-          "https://gitlab.freedesktop.org/cairo/cairo/-/commit/e22d7212acb454daccc088619ee147af03883974.diff";
+        url = "https://gitlab.freedesktop.org/cairo/cairo/-/commit/e22d7212acb454daccc088619ee147af03883974.diff";
         sha256 = "sha256-8G98nsPz3MLEWPDX9F0jKgXC4hC4NNdFQLSpmW3ay2s=";
       })
 
@@ -104,8 +99,7 @@ stdenv.mkDerivation (
       # Can be removed after 1.18 release
       (fetchpatch {
         name = "fix-grayscale-anialias.patch";
-        url =
-          "https://gitlab.freedesktop.org/cairo/cairo/-/commit/4f4d89506f58a64b4829b1bb239bab9e46d63727.diff";
+        url = "https://gitlab.freedesktop.org/cairo/cairo/-/commit/4f4d89506f58a64b4829b1bb239bab9e46d63727.diff";
         sha256 = "sha256-mbTg67e7APfdELsuMAgXdY3xokWbGtHF7VDD5UyYqKM=";
       })
     ];
@@ -207,8 +201,7 @@ stdenv.mkDerivation (
     ;
 
     meta = with lib; {
-      description =
-        "A 2D graphics library with support for multiple output devices";
+      description = "A 2D graphics library with support for multiple output devices";
       longDescription = ''
         Cairo is a 2D graphics library with support for multiple output
         devices.  Currently supported output targets include the X

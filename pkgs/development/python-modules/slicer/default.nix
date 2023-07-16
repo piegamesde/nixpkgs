@@ -33,8 +33,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Wraps tensor-like objects and provides a uniform slicing interface via __getitem__";
+    description = "Wraps tensor-like objects and provides a uniform slicing interface via __getitem__";
     homepage = "https://github.com/interpretml/slicer";
     license = licenses.mit;
     maintainers = with maintainers; [ evax ];

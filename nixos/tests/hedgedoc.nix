@@ -33,8 +33,7 @@ import ./make-test-python.nix (
           services = {
             hedgedoc = {
               enable = true;
-              settings.dbURL =
-                "postgres://hedgedoc:\${DB_PASSWORD}@localhost:5432/hedgedocdb";
+              settings.dbURL = "postgres://hedgedoc:\${DB_PASSWORD}@localhost:5432/hedgedocdb";
 
               # Do not use pkgs.writeText for secrets as
               # they will end up in the world-readable Nix store.

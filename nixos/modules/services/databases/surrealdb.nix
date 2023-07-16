@@ -78,8 +78,7 @@ in
     environment.systemPackages = [ cfg.package ];
 
     systemd.services.surrealdb = {
-      description =
-        "A scalable, distributed, collaborative, document-graph database, for the realtime web ";
+      description = "A scalable, distributed, collaborative, document-graph database, for the realtime web ";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 

@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
   version = "43.0";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "F6GS3uYfWOPNRHJQC+cBGUa5n75SvFrBJPqurC8zQUc=";
@@ -96,8 +95,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Polari";
-    description =
-      "IRC chat client designed to integrate with the GNOME desktop";
+    description = "IRC chat client designed to integrate with the GNOME desktop";
     maintainers = teams.gnome.members;
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

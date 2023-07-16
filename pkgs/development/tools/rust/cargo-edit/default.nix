@@ -23,8 +23,7 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "cargo-test-macro-0.1.0" =
-        "sha256-nlFhe1q0D60dljAi6pFNaz+ssju2Ymtx/PNUl5kJmWo=";
+      "cargo-test-macro-0.1.0" = "sha256-nlFhe1q0D60dljAi6pFNaz+ssju2Ymtx/PNUl5kJmWo=";
     };
   };
 
@@ -41,11 +40,9 @@ rustPlatform.buildRustPackage rec {
   doCheck = false; # integration tests depend on changing cargo config
 
   meta = with lib; {
-    description =
-      "A utility for managing cargo dependencies from the command line";
+    description = "A utility for managing cargo dependencies from the command line";
     homepage = "https://github.com/killercup/cargo-edit";
-    changelog =
-      "https://github.com/killercup/cargo-edit/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/killercup/cargo-edit/blob/v${version}/CHANGELOG.md";
     license = with licenses; [
       asl20 # or
       mit

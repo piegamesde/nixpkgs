@@ -66,8 +66,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "bonsai" ];
 
   meta = {
-    changelog =
-      "https://github.com/noirello/bonsai/blob/${src.rev}/CHANGELOG.rst";
+    changelog = "https://github.com/noirello/bonsai/blob/${src.rev}/CHANGELOG.rst";
     description = "Python 3 module for accessing LDAP directory servers";
     homepage = "https://github.com/noirello/bonsai";
     license = lib.licenses.mit;

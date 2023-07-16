@@ -60,11 +60,9 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DGVM_RUN_DIR=${placeholder "out"}/run/gvm" ];
 
   meta = with lib; {
-    description =
-      "Libraries module for the Greenbone Vulnerability Management Solution";
+    description = "Libraries module for the Greenbone Vulnerability Management Solution";
     homepage = "https://github.com/greenbone/gvm-libs";
-    changelog =
-      "https://github.com/greenbone/gvm-libs/releases/tag/v${version}";
+    changelog = "https://github.com/greenbone/gvm-libs/releases/tag/v${version}";
     license = with licenses; [ gpl2Plus ];
     maintainers = with maintainers; [ fab ];
     platforms = platforms.linux;

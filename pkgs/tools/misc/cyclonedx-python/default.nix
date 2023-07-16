@@ -38,8 +38,7 @@ python3.pkgs.buildPythonApplication rec {
   pythonImportsCheck = [ "cyclonedx" ];
 
   meta = with lib; {
-    description =
-      "Creates CycloneDX Software Bill of Materials (SBOM) from Python projects";
+    description = "Creates CycloneDX Software Bill of Materials (SBOM) from Python projects";
     homepage = "https://github.com/CycloneDX/cyclonedx-python";
     license = licenses.asl20;
     maintainers = [ ];

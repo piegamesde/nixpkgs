@@ -56,8 +56,7 @@ let
         # fix protobuf-targets.cmake installation paths, and allow for CMAKE_INSTALL_LIBDIR to be absolute
         # https://github.com/protocolbuffers/protobuf/pull/10090
         (fetchpatch {
-          url =
-            "https://github.com/protocolbuffers/protobuf/commit/a7324f88e92bc16b57f3683403b6c993bf68070b.patch";
+          url = "https://github.com/protocolbuffers/protobuf/commit/a7324f88e92bc16b57f3683403b6c993bf68070b.patch";
           sha256 = "sha256-SmwaUjOjjZulg/wgNmR/F5b8rhYA2wkKAjHIOxjcQdQ=";
         })
       ]
@@ -68,8 +67,9 @@ let
 
     nativeBuildInputs =
       let
-        protobufVersion =
-          "${lib.versions.major version}_${lib.versions.minor version}";
+        protobufVersion = "${lib.versions.major version}_${
+            lib.versions.minor version
+          }";
       in
       [ cmake ]
       ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [

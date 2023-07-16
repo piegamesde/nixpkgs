@@ -88,8 +88,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/huggingface/transformers";
     description = "Natural Language Processing for TensorFlow 2.0 and PyTorch";
-    changelog =
-      "https://github.com/huggingface/transformers/releases/tag/v${version}";
+    changelog = "https://github.com/huggingface/transformers/releases/tag/v${version}";
     license = licenses.asl20;
     platforms = platforms.unix;
     maintainers = with maintainers; [ pashashocky ];

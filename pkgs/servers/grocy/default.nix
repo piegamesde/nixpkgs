@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
   version = "3.3.2";
 
   src = fetchurl {
-    url =
-      "https://github.com/grocy/grocy/releases/download/v${version}/grocy_${version}.zip";
+    url = "https://github.com/grocy/grocy/releases/download/v${version}/grocy_${version}.zip";
     sha256 = "sha256-KF4zxrC8rlRUaBKc4iLIt6TSAHMJ+tOWptMsVcixVWs=";
   };
 
@@ -44,8 +43,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     license = licenses.mit;
     maintainers = with maintainers; [ ma27 ];
-    description =
-      "ERP beyond your fridge - grocy is a web-based self-hosted groceries & household management solution for your home";
+    description = "ERP beyond your fridge - grocy is a web-based self-hosted groceries & household management solution for your home";
     homepage = "https://grocy.info/";
   };
 }

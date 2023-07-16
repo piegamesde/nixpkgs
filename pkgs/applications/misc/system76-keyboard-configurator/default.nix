@@ -43,8 +43,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-0SFph9quh4QWR3nU5IJr4FyLGqrYvmHcZHDRli6phsc=";
 
   meta = with lib; {
-    description =
-      "Keyboard configuration application for System76 keyboards and laptops";
+    description = "Keyboard configuration application for System76 keyboards and laptops";
     homepage = "https://github.com/pop-os/keyboard-configurator";
     license = with licenses; [ gpl3Only ];
     maintainers = with maintainers; [ mirrexagon ];

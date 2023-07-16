@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://ceph.com/";
-    description =
-      "Container Storage Interface (CSI) driver for Ceph RBD and CephFS";
+    description = "Container Storage Interface (CSI) driver for Ceph RBD and CephFS";
     license = [ licenses.asl20 ];
     maintainers = with maintainers; [ johanot ];
     platforms = [

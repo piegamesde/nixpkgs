@@ -47,8 +47,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Make creating nix expressions easy";
     homepage = "https://github.com/jonringer/nix-template/";
-    changelog =
-      "https://github.com/jonringer/nix-template/releases/tag/v${version}";
+    changelog = "https://github.com/jonringer/nix-template/releases/tag/v${version}";
     license = licenses.cc0;
     maintainers = with maintainers; [ jonringer ];
   };

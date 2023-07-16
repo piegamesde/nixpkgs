@@ -128,8 +128,7 @@ in
             inRange config.location.latitude (-90) 90
             && inRange config.location.longitude (-180) 180
         ;
-        message =
-          "You must specify a valid latitude and longitude if manually providing location";
+        message = "You must specify a valid latitude and longitude if manually providing location";
       } ]
     ;
 
@@ -166,8 +165,7 @@ in
       requires = [ "polkit.service" ];
       wantedBy = [ "multi-user.target" ];
 
-      description =
-        "Bus service to manage various screen related properties (gamma, dpms, backlight)";
+      description = "Bus service to manage various screen related properties (gamma, dpms, backlight)";
       serviceConfig = {
         Type = "dbus";
         BusName = "org.clightd.clightd";
@@ -191,8 +189,7 @@ in
       partOf = [ "graphical-session.target" ];
       wantedBy = [ "graphical-session.target" ];
 
-      description =
-        "C daemon to adjust screen brightness to match ambient brightness, as computed capturing frames from webcam";
+      description = "C daemon to adjust screen brightness to match ambient brightness, as computed capturing frames from webcam";
       serviceConfig = {
         Restart = "on-failure";
         RestartSec = 5;

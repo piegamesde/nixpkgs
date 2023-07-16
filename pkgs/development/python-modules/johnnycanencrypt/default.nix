@@ -76,8 +76,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/kushaldas/johnnycanencrypt";
-    changelog =
-      "https://github.com/kushaldas/johnnycanencrypt/blob/v${version}/changelog.md";
+    changelog = "https://github.com/kushaldas/johnnycanencrypt/blob/v${version}/changelog.md";
     description = "Python module for OpenPGP written in Rust";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ _0x4A6F ];

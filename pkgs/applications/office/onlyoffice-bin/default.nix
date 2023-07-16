@@ -79,8 +79,7 @@ stdenv.mkDerivation rec {
   version = "7.2.0";
   minor = null;
   src = fetchurl {
-    url =
-      "https://github.com/ONLYOFFICE/DesktopEditors/releases/download/v${version}/onlyoffice-desktopeditors_amd64.deb";
+    url = "https://github.com/ONLYOFFICE/DesktopEditors/releases/download/v${version}/onlyoffice-desktopeditors_amd64.deb";
     sha256 = "sha256-O9gC/b5/eZ1YImuXpEZOJhI1rzCNuFrm5IqablnYo9Y=";
   };
 
@@ -178,12 +177,10 @@ stdenv.mkDerivation rec {
   passthru.updateScript = ./update.sh;
 
   meta = with lib; {
-    description =
-      "Office suite that combines text, spreadsheet and presentation editors allowing to create, view and edit local documents";
+    description = "Office suite that combines text, spreadsheet and presentation editors allowing to create, view and edit local documents";
     homepage = "https://www.onlyoffice.com/";
     downloadPage = "https://github.com/ONLYOFFICE/DesktopEditors/releases";
-    changelog =
-      "https://github.com/ONLYOFFICE/DesktopEditors/blob/master/CHANGELOG.md";
+    changelog = "https://github.com/ONLYOFFICE/DesktopEditors/blob/master/CHANGELOG.md";
     platforms = [ "x86_64-linux" ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.agpl3Plus;

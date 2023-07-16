@@ -37,8 +37,7 @@ stdenv.mkDerivation {
   src =
     if stdenv.hostPlatform.system == "x86_64-linux" then
       fetchurl {
-        url =
-          "https://www.openprinting.org/download/printdriver/debian/dists/lsb3.1/main/binary-amd64/gutenprint_5.0.1-1lsb3.1_amd64.deb";
+        url = "https://www.openprinting.org/download/printdriver/debian/dists/lsb3.1/main/binary-amd64/gutenprint_5.0.1-1lsb3.1_amd64.deb";
         sha256 = "0an5gba6r6v54r53s2gj2fjk8fzpl4lrksjas2333528b0k8gbbc";
       }
     else

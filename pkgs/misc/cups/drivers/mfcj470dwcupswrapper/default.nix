@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
   version = "3.0.0-1";
 
   src = fetchurl {
-    url =
-      "https://download.brother.com/welcome/dlf006866/mfcj470dw_cupswrapper_GPL_source_${version}.tar.gz";
+    url = "https://download.brother.com/welcome/dlf006866/mfcj470dw_cupswrapper_GPL_source_${version}.tar.gz";
     sha256 = "b88f9b592723a00c024129560367f40a560ca3cba06fd99512ab368dd6855853";
   };
 
@@ -63,8 +62,7 @@ stdenv.mkDerivation rec {
     description = "Brother MFC-J470DW CUPS wrapper driver";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
-    downloadPage =
-      "http://support.brother.com/g/b/downloadlist.aspx?c=us&lang=en&prod=mfcj470dw_us_eu_as&os=128";
+    downloadPage = "http://support.brother.com/g/b/downloadlist.aspx?c=us&lang=en&prod=mfcj470dw_us_eu_as&os=128";
     maintainers = [ lib.maintainers.yochai ];
   };
 }

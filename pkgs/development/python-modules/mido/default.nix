@@ -21,8 +21,7 @@ buildPythonPackage rec {
   patches = [
     (substituteAll {
       src = ./libportmidi-cdll.patch;
-      libportmidi =
-        "${portmidi.out}/lib/libportmidi${stdenv.targetPlatform.extensions.sharedLibrary}";
+      libportmidi = "${portmidi.out}/lib/libportmidi${stdenv.targetPlatform.extensions.sharedLibrary}";
     })
   ];
 

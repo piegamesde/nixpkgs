@@ -21,8 +21,7 @@ buildDotnetModule rec {
     owner = "trippsc2";
     repo = pname;
     rev = "refs/tags/${version}";
-    hash =
-      "sha512-nWkPgVYdnBJibyJRdLPe3O3RioDPbzumSritRejmr4CeiPb7aUTON7HjivcV/GKor1guEYu+TJ+QxYrqO/eppg==";
+    hash = "sha512-nWkPgVYdnBJibyJRdLPe3O3RioDPbzumSritRejmr4CeiPb7aUTON7HjivcV/GKor1guEYu+TJ+QxYrqO/eppg==";
   };
 
   patches = [ ./remove-project.patch ];

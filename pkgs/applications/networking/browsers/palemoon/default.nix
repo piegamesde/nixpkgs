@@ -189,8 +189,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.palemoon.org/";
-    description =
-      "An Open Source, Goanna-based web browser focusing on efficiency and customization";
+    description = "An Open Source, Goanna-based web browser focusing on efficiency and customization";
     longDescription = ''
       Pale Moon is an Open Source, Goanna-based web browser focusing on
       efficiency and customization.
@@ -202,8 +201,7 @@ stdenv.mkDerivation rec {
       experience, while offering full customization and a growing collection of
       extensions and themes to make the browser truly your own.
     '';
-    changelog =
-      "https://repo.palemoon.org/MoonchildProductions/Pale-Moon/releases/tag/${version}_Release";
+    changelog = "https://repo.palemoon.org/MoonchildProductions/Pale-Moon/releases/tag/${version}_Release";
     license = licenses.mpl20;
     maintainers = with maintainers; [
       AndersonTorres

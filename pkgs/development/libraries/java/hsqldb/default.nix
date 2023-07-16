@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
   );
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/project/hsqldb/hsqldb/hsqldb_${underscoreMajMin}/hsqldb-${version}.zip";
+    url = "mirror://sourceforge/project/hsqldb/hsqldb/hsqldb_${underscoreMajMin}/hsqldb-${version}.zip";
     sha256 = "sha256-d0FruJXNnwme1gPHWcIXpD2LO0fL8CzZOn8H14Quo50=";
   };
 
@@ -44,8 +43,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://hsqldb.org";
-    description =
-      "A relational, embedable database management system written in Java and a set of related tools";
+    description = "A relational, embedable database management system written in Java and a set of related tools";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     platforms = platforms.unix;
     license = licenses.bsd3;

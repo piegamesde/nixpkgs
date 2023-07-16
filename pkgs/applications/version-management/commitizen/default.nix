@@ -106,11 +106,9 @@ buildPythonApplication rec {
   };
 
   meta = with lib; {
-    description =
-      "Tool to create committing rules for projects, auto bump versions, and generate changelogs";
+    description = "Tool to create committing rules for projects, auto bump versions, and generate changelogs";
     homepage = "https://github.com/commitizen-tools/commitizen";
-    changelog =
-      "https://github.com/commitizen-tools/commitizen/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/commitizen-tools/commitizen/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [
       lovesegfault

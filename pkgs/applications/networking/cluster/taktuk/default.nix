@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ perl ];
 
   src = fetchurl {
-    url =
-      "https://gforge.inria.fr/frs/download.php/33412/${pname}-${version}.tar.gz";
+    url = "https://gforge.inria.fr/frs/download.php/33412/${pname}-${version}.tar.gz";
     sha256 = "0w0h3ynlcxvq2nzm8hkj20g0805ww3vkw53g0qwj7wvp7p3gcvnr";
   };
 
@@ -22,8 +21,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description =
-      "Efficient, large scale, parallel remote execution of commands";
+    description = "Efficient, large scale, parallel remote execution of commands";
     longDescription = ''
       TakTuk allows one to execute commands in parallel on a potentially large set
       of remote nodes (using ssh to connect to each node). It is typically used

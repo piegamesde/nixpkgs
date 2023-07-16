@@ -113,8 +113,7 @@ buildGoPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Dbus interfaces used for screen zone detecting, thumbnail generating, sound playing, etc";
+    description = "Dbus interfaces used for screen zone detecting, thumbnail generating, sound playing, etc";
     homepage = "https://github.com/linuxdeepin/dde-api";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

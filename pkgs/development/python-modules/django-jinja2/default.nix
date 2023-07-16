@@ -39,8 +39,7 @@ buildPythonPackage rec {
   meta = {
     description = "Simple and nonobstructive jinja2 integration with Django";
     homepage = "https://github.com/niwinz/django-jinja";
-    changelog =
-      "https://github.com/niwinz/django-jinja/blob/${src.rev}/CHANGES.adoc";
+    changelog = "https://github.com/niwinz/django-jinja/blob/${src.rev}/CHANGES.adoc";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ dotlambda ];
   };

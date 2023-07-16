@@ -11,8 +11,7 @@ mkCoqDerivation {
 
   releaseRev = v: "v${v}";
 
-  release."1.1.2".sha256 =
-    "sha256-SEnMilLNxh6a3oiDNGLaBr8quQ/nO2T9Fwdf/1il2Yk=";
+  release."1.1.2".sha256 = "sha256-SEnMilLNxh6a3oiDNGLaBr8quQ/nO2T9Fwdf/1il2Yk=";
 
   inherit version;
   defaultVersion =

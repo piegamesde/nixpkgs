@@ -20,8 +20,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Dork scanner";
     homepage = "https://github.com/dwisiswant0/go-dork";
-    changelog =
-      "https://github.com/dwisiswant0/go-dork/releases/tag/v${version}";
+    changelog = "https://github.com/dwisiswant0/go-dork/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

@@ -26,8 +26,7 @@ buildDunePackage rec {
   propagatedBuildInputs = [ printbox-text ];
 
   meta = with lib; {
-    description =
-      "Native Reason + JSOO cross-platform performance benchmarking tools";
+    description = "Native Reason + JSOO cross-platform performance benchmarking tools";
     longDescription = ''
       Inspired by the core_bench tools from Janestreet.
 

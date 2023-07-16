@@ -21,8 +21,7 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url =
-      "https://github.com/dinosaure/mimic/releases/download/${version}/mimic-${version}.tbz";
+    url = "https://github.com/dinosaure/mimic/releases/download/${version}/mimic-${version}.tbz";
     sha256 = "sha256-gVvBj4NqqKR2mn944g9F0bFZ8Me+WC87skti0dBW3Cg=";
   };
 

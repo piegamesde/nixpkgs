@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
   };
   patches = [
     (fetchurl {
-      url =
-        "http://http.debian.net/debian/pool/main/x/xzoom/xzoom_${version}-${patch}.diff.gz";
+      url = "http://http.debian.net/debian/pool/main/x/xzoom/xzoom_${version}-${patch}.diff.gz";
       sha256 = "0zhc06whbvaz987bzzzi2bz6h9jp6rv812qs7b71drivvd820qbh";
     })
   ];

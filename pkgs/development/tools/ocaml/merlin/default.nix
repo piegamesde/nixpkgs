@@ -16,8 +16,7 @@ buildDunePackage rec {
   version = "3.8.0";
 
   src = fetchurl {
-    url =
-      "https://github.com/ocaml/merlin/releases/download/v${version}/merlin-${version}.tbz";
+    url = "https://github.com/ocaml/merlin/releases/download/v${version}/merlin-${version}.tbz";
     sha256 = "sha256-wmBGNwXL3BduF4o1sUXtAOUHJ4xmMvsWAxl/QdNj/28=";
   };
 
@@ -42,8 +41,7 @@ buildDunePackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "An editor-independent tool to ease the development of programs in OCaml";
+    description = "An editor-independent tool to ease the development of programs in OCaml";
     homepage = "https://github.com/ocaml/merlin";
     license = licenses.mit;
     maintainers = [ maintainers.vbgl ];

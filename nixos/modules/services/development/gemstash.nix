@@ -118,8 +118,7 @@ in
       after = [ "network.target" ];
       serviceConfig = mkMerge [
         {
-          ExecStart =
-            "${pkgs.gemstash}/bin/gemstash start --no-daemonize --config-file ${
+          ExecStart = "${pkgs.gemstash}/bin/gemstash start --no-daemonize --config-file ${
               settingsFormat.generate "gemstash.yaml" (prefixColon cfg.settings)
             }";
           NoNewPrivileges = true;

@@ -73,8 +73,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://gitlab.com/o9000/tint2";
-    description =
-      "Simple panel/taskbar unintrusive and light (memory, cpu, aestetic)";
+    description = "Simple panel/taskbar unintrusive and light (memory, cpu, aestetic)";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
     maintainers = [ maintainers.romildo ];

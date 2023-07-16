@@ -92,8 +92,7 @@ stdenv.mkDerivation rec {
     '';
     inherit (src.meta) homepage;
     # https://gitlab.freedesktop.org/glvnd/libglvnd#libglvnd:
-    changelog =
-      "https://gitlab.freedesktop.org/glvnd/libglvnd/-/tags/v${version}";
+    changelog = "https://gitlab.freedesktop.org/glvnd/libglvnd/-/tags/v${version}";
     license = with licenses; [
       mit
       bsd1

@@ -41,8 +41,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = {
-    description =
-      "Poetry plugin for checking security vulnerabilities in dependencies";
+    description = "Poetry plugin for checking security vulnerabilities in dependencies";
     homepage = "https://github.com/opeco17/poetry-audit-plugin";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ dotlambda ];

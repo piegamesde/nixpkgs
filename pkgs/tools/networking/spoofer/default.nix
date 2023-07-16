@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
   version = "1.4.11";
 
   src = fetchurl {
-    url =
-      "https://www.caida.org/projects/spoofer/downloads/${pname}-${version}.tar.gz";
+    url = "https://www.caida.org/projects/spoofer/downloads/${pname}-${version}.tar.gz";
     sha256 = "sha256-FCGFOweeL4o31H/JgqeGiLm3uBjYHz6zzor2ockpA/w=";
   };
 
@@ -40,8 +39,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.caida.org/projects/spoofer";
-    description =
-      "Assess and report on deployment of source address validation";
+    description = "Assess and report on deployment of source address validation";
     longDescription = ''
       Spoofer is a new client-server system for Windows, MacOS, and
       UNIX-like systems that periodically tests a network's ability to

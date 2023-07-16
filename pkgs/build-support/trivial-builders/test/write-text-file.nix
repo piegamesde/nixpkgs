@@ -2,8 +2,8 @@
   writeTextFile,
 }:
 let
-  veryWeirdName =
-    ''here's a name with some "bad" characters, like spaces and quotes'';
+  veryWeirdName = ''
+    here's a name with some "bad" characters, like spaces and quotes'';
 in
 writeTextFile {
   name = "weird-names";

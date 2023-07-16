@@ -188,8 +188,7 @@ in
 
         serviceConfig = mkMerge [
           (mkIf (cfg.dataDir == "/var/lib/gitolite") {
-            StateDirectory =
-              "gitolite gitolite/.gitolite gitolite/.gitolite/logs";
+            StateDirectory = "gitolite gitolite/.gitolite gitolite/.gitolite/logs";
             StateDirectoryMode = "0750";
           })
           {

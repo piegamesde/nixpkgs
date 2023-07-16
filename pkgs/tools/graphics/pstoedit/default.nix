@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Translates PostScript and PDF graphics into other vector formats";
+    description = "Translates PostScript and PDF graphics into other vector formats";
     homepage = "https://sourceforge.net/projects/pstoedit/";
     license = licenses.gpl2;
     maintainers = [ maintainers.marcweber ];

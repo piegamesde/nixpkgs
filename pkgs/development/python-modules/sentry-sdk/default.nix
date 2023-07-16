@@ -127,8 +127,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python SDK for Sentry.io";
     homepage = "https://github.com/getsentry/sentry-python";
-    changelog =
-      "https://github.com/getsentry/sentry-python/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/getsentry/sentry-python/blob/${version}/CHANGELOG.md";
     license = licenses.bsd2;
     maintainers = with maintainers; [
       fab

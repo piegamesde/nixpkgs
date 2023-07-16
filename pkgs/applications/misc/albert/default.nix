@@ -66,8 +66,7 @@ stdenv.mkDerivation rec {
       framework.
     '';
     homepage = "https://albertlauncher.github.io";
-    changelog =
-      "https://github.com/albertlauncher/albert/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/albertlauncher/albert/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [
       ericsagnes

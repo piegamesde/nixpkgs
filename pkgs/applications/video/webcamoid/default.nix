@@ -49,8 +49,7 @@ mkDerivation rec {
 
   meta = with lib; {
     description = "Webcam Capture Software";
-    longDescription =
-      "Webcamoid is a full featured and multiplatform webcam suite.";
+    longDescription = "Webcamoid is a full featured and multiplatform webcam suite.";
     homepage = "https://github.com/webcamoid/webcamoid/";
     license = [ licenses.gpl3Plus ];
     platforms = platforms.linux;

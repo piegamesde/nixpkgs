@@ -44,8 +44,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pierone" ];
 
   meta = with lib; {
-    description =
-      "Convenient command line client for STUPS' Pier One Docker registry";
+    description = "Convenient command line client for STUPS' Pier One Docker registry";
     homepage = "https://github.com/zalando-stups/pierone-cli";
     license = licenses.asl20;
     maintainers = with maintainers; [ mschuwalow ];

@@ -71,8 +71,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-std=c99";
 
   meta = with lib; {
-    description =
-      "A server that implements tile caching to speed up access to WMS layers";
+    description = "A server that implements tile caching to speed up access to WMS layers";
     homepage = "https://mapserver.org/mapcache/";
     changelog = "https://www.mapserver.org/development/changelog/mapcache/";
     license = licenses.mit;

@@ -30,8 +30,7 @@ stdenv.mkDerivation (
 
     patches = [
       (fetchurl {
-        url =
-          "https://ftp.suse.com/pub/people/sbrabec/bzip2/for_downstream/bzip2-1.0.6.2-autoconfiscated.patch";
+        url = "https://ftp.suse.com/pub/people/sbrabec/bzip2/for_downstream/bzip2-1.0.6.2-autoconfiscated.patch";
         sha256 = "sha256-QMufl6ffJVVVVZespvkCbFpB6++R1lnq1687jEsUjr0=";
       })
     ];
@@ -78,8 +77,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "High-quality data compression program";
       homepage = "https://www.sourceware.org/bzip2";
-      changelog =
-        "https://sourceware.org/git/?p=bzip2.git;a=blob;f=CHANGES;hb=HEAD";
+      changelog = "https://sourceware.org/git/?p=bzip2.git;a=blob;f=CHANGES;hb=HEAD";
       license = licenses.bsdOriginal;
       pkgConfigModules = [ "bzip2" ];
       platforms = platforms.all;

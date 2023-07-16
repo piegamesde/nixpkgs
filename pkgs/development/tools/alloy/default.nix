@@ -19,8 +19,7 @@ let
 
       src = fetchurl {
         inherit sha256;
-        url =
-          "https://github.com/AlloyTools/org.alloytools.alloy/releases/download/v${version}/org.alloytools.alloy.dist.jar";
+        url = "https://github.com/AlloyTools/org.alloytools.alloy/releases/download/v${version}/org.alloytools.alloy.dist.jar";
       };
 
       desktopItem = makeDesktopItem rec {

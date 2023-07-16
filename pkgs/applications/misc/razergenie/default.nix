@@ -45,8 +45,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://github.com/z3ntu/RazerGenie";
-    description =
-      "Qt application for configuring your Razer devices under GNU/Linux";
+    description = "Qt application for configuring your Razer devices under GNU/Linux";
     license = licenses.gpl3;
     maintainers = with maintainers; [
       f4814n

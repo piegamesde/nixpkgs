@@ -122,8 +122,7 @@ in
     services.dgraph.settings = { badger.compression = mkDefault "zstd:3"; };
 
     systemd.services.dgraph-zero = {
-      description =
-        "Dgraph native GraphQL database with a graph backend. Zero controls node clustering";
+      description = "Dgraph native GraphQL database with a graph backend. Zero controls node clustering";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
@@ -131,8 +130,7 @@ in
         StateDirectory = "dgraph-zero";
         WorkingDirectory = "/var/lib/dgraph-zero";
         DynamicUser = true;
-        ExecStart =
-          "${cfg.package}/bin/dgraph zero --my ${cfg.zero.host}:${
+        ExecStart = "${cfg.package}/bin/dgraph zero --my ${cfg.zero.host}:${
             toString cfg.zero.port
           }";
         Restart = "on-failure";
@@ -140,8 +138,7 @@ in
     };
 
     systemd.services.dgraph-alpha = {
-      description =
-        "Dgraph native GraphQL database with a graph backend. Alpha serves data";
+      description = "Dgraph native GraphQL database with a graph backend. Alpha serves data";
       after = [
         "network.target"
         "dgraph-zero.service"
@@ -153,8 +150,7 @@ in
         StateDirectory = "dgraph-alpha";
         WorkingDirectory = "/var/lib/dgraph-alpha";
         DynamicUser = true;
-        ExecStart =
-          "${dgraphWithNode}/bin/dgraph alpha --config ${configFile} --my ${cfg.alpha.host}:${
+        ExecStart = "${dgraphWithNode}/bin/dgraph alpha --config ${configFile} --my ${cfg.alpha.host}:${
             toString cfg.alpha.port
           } --zero ${cfg.zero.host}:${toString cfg.zero.port}";
         ExecStop = ''

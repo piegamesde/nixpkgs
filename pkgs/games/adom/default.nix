@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
   version = "1.2.0_pre23";
 
   src = fetchurl {
-    url =
-      "http://ancardia.uk.to/download/adom_noteye_linux_ubuntu_64_${version}.tar.gz";
+    url = "http://ancardia.uk.to/download/adom_noteye_linux_ubuntu_64_${version}.tar.gz";
     sha256 = "0sbn0csaqb9cqi0z5fdwvnymkf84g64csg0s9mm6fzh0sm2mi0hz";
   };
 

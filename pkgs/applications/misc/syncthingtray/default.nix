@@ -86,8 +86,7 @@ mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/Martchus/syncthingtray";
-    description =
-      "Tray application and Dolphin/Plasma integration for Syncthing";
+    description = "Tray application and Dolphin/Plasma integration for Syncthing";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ doronbehar ];
     platforms = platforms.linux ++ platforms.darwin;

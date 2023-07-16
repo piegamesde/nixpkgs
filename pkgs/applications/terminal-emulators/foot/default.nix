@@ -40,8 +40,7 @@ let
     name = "foot-generate-alt-random-writes";
 
     src = fetchurl {
-      url =
-        "https://codeberg.org/dnkl/foot/raw/tag/${version}/scripts/generate-alt-random-writes.py";
+      url = "https://codeberg.org/dnkl/foot/raw/tag/${version}/scripts/generate-alt-random-writes.py";
       sha256 = "0w4d0rxi54p8lvbynypcywqqwbbzmyyzc0svjab27ngmdj1034ii";
     };
 
@@ -221,8 +220,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://codeberg.org/dnkl/foot/";
     changelog = "https://codeberg.org/dnkl/foot/releases/tag/${version}";
-    description =
-      "A fast, lightweight and minimalistic Wayland terminal emulator";
+    description = "A fast, lightweight and minimalistic Wayland terminal emulator";
     license = licenses.mit;
     maintainers = [ maintainers.sternenseemann ];
     platforms = platforms.linux;

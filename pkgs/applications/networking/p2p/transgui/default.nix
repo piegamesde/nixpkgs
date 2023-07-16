@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
     [
       # TDDO: remove when transgui updates for transmission-daemon v3 rpc protocol
       (fetchpatch {
-        url =
-          "https://github.com/transmission-remote-gui/transgui/commit/9275c3fb877dd753a1940d1b900630cdc09a0cc2.patch";
+        url = "https://github.com/transmission-remote-gui/transgui/commit/9275c3fb877dd753a1940d1b900630cdc09a0cc2.patch";
         sha256 = "0w2x7gcxp5kqczdz7ckfqhdz9hhkm62k8gcws54d6km7x9vc1023";
       })
     ];
@@ -111,8 +110,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description =
-      "A cross platform front-end for the Transmission BitTorrent client";
+    description = "A cross platform front-end for the Transmission BitTorrent client";
     homepage = "https://sourceforge.net/p/transgui";
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ ramkromberg ];

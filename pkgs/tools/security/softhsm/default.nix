@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.opendnssec.org/softhsm";
     description = "Cryptographic store accessible through a PKCS #11 interface";
-    longDescription =
-      "\n      SoftHSM provides a software implementation of a generic\n      cryptographic device with a PKCS#11 interface, which is of\n      course especially useful in environments where a dedicated hardware\n      implementation of such a device - for instance a Hardware\n      Security Module (HSM) or smartcard - is not available.\n\n      SoftHSM follows the OASIS PKCS#11 standard, meaning it should be\n      able to work with many cryptographic products. SoftHSM is a\n      programme of The Commons Conservancy.\n    ";
+    longDescription = "\n      SoftHSM provides a software implementation of a generic\n      cryptographic device with a PKCS#11 interface, which is of\n      course especially useful in environments where a dedicated hardware\n      implementation of such a device - for instance a Hardware\n      Security Module (HSM) or smartcard - is not available.\n\n      SoftHSM follows the OASIS PKCS#11 standard, meaning it should be\n      able to work with many cryptographic products. SoftHSM is a\n      programme of The Commons Conservancy.\n    ";
     license = licenses.bsd2;
     maintainers = [ maintainers.leenaars ];
     platforms = platforms.unix;

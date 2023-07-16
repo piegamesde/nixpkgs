@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
   version = "0.13";
 
   src = fetchurl {
-    url =
-      "https://github.com/vifm/vifm/releases/download/v${version}/vifm-${version}.tar.bz2";
+    url = "https://github.com/vifm/vifm/releases/download/v${version}/vifm-${version}.tar.bz2";
     hash = "sha256-DZKTdJp5QHat6Wfs3EfRQdheRQNwWUdlORvfGpvUUHU=";
   };
 
@@ -58,8 +57,7 @@ stdenv.mkDerivation rec {
         (python3.withPackages (p: [ p.dbus-python ]))
       ];
 
-      wrapVifmMedia =
-        "wrapProgram $out/share/vifm/vifm-media --prefix PATH : ${path}";
+      wrapVifmMedia = "wrapProgram $out/share/vifm/vifm-media --prefix PATH : ${path}";
     in
     ''
       ${lib.optionalString mediaSupport wrapVifmMedia}
@@ -73,8 +71,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "A vi-like file manager${
+    description = "A vi-like file manager${
         lib.optionalString isFullPackage
           "; Includes support for optional features"
       }";

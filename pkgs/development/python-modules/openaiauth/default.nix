@@ -26,7 +26,6 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ realsnick ];
     homepage = "https://github.com/acheong08/OpenAIAuth";
-    changelog =
-      "https://github.com/acheong08/OpenAIAuth/releases/tag/${version}";
+    changelog = "https://github.com/acheong08/OpenAIAuth/releases/tag/${version}";
   };
 }

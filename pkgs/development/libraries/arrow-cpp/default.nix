@@ -98,8 +98,7 @@ stdenv.mkDerivation rec {
   version = "12.0.0";
 
   src = fetchurl {
-    url =
-      "mirror://apache/arrow/arrow-${version}/apache-arrow-${version}.tar.gz";
+    url = "mirror://apache/arrow/arrow-${version}/apache-arrow-${version}.tar.gz";
     hash = "sha256-3dg0eIJ3XlOvfQlloZArfY/NCgMP0U94PU+F6CE1LVI=";
   };
 
@@ -111,8 +110,7 @@ stdenv.mkDerivation rec {
   # jemalloc: arrow uses a custom prefix to prevent default allocator symbol
   # collisions as well as custom build flags
   ${if enableJemalloc then "ARROW_JEMALLOC_URL" else null} = fetchurl {
-    url =
-      "https://github.com/jemalloc/jemalloc/releases/download/5.3.0/jemalloc-5.3.0.tar.bz2";
+    url = "https://github.com/jemalloc/jemalloc/releases/download/5.3.0/jemalloc-5.3.0.tar.bz2";
     hash = "sha256-LbgtHnEZ3z5xt2QCGbbf6EeJvAU3mDw7esT3GJrs/qo=";
   };
 

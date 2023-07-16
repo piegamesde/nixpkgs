@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Ayatana Application Indicators Shared Library";
     homepage = "https://github.com/AyatanaIndicators/libayatana-appindicator";
-    changelog =
-      "https://github.com/AyatanaIndicators/libayatana-appindicator/blob/${version}/ChangeLog";
+    changelog = "https://github.com/AyatanaIndicators/libayatana-appindicator/blob/${version}/ChangeLog";
     license = [
       licenses.lgpl3Plus
       licenses.lgpl21Plus

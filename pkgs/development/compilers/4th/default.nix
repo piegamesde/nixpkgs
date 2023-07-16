@@ -9,8 +9,7 @@ stdenv.mkDerivation rec {
   version = "3.64.1";
 
   src = fetchurl {
-    url =
-      "https://sourceforge.net/projects/forth-4th/files/${pname}-${version}/${pname}-${version}-unix.tar.gz";
+    url = "https://sourceforge.net/projects/forth-4th/files/${pname}-${version}/${pname}-${version}-unix.tar.gz";
     hash = "sha256-+W6nTNsqrf3Dvr+NbSz3uJdrXVbBI3OHR5v/rs7en+M=";
   };
 

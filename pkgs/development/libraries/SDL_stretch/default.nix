@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
   version = "0.3.1";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/sdl-stretch/${version}/${pname}-${version}.tar.bz2";
+    url = "mirror://sourceforge/sdl-stretch/${version}/${pname}-${version}.tar.bz2";
     sha256 = "1mzw68sn4yxbp8429jg2h23h8xw2qjid51z1f5pdsghcn3x0pgvw";
   };
 

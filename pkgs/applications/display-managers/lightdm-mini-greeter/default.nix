@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.xgreeters = linkFarm "lightdm-mini-greeter-xgreeters" [ {
-    path =
-      "${lightdm-mini-greeter}/share/xgreeters/lightdm-mini-greeter.desktop";
+    path = "${lightdm-mini-greeter}/share/xgreeters/lightdm-mini-greeter.desktop";
     name = "lightdm-mini-greeter.desktop";
   } ];
 
@@ -61,7 +60,6 @@ stdenv.mkDerivation rec {
       prikhi
     ];
     platforms = platforms.linux;
-    changelog =
-      "https://github.com/prikhi/lightdm-mini-greeter/blob/master/CHANGELOG.md";
+    changelog = "https://github.com/prikhi/lightdm-mini-greeter/blob/master/CHANGELOG.md";
   };
 }

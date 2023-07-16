@@ -150,8 +150,7 @@ rec {
           version = "13";
 
           src = fetchurl {
-            url =
-              "https://git.gitano.org.uk/luxio.git/snapshot/luxio-luxio-${version}.tar.bz2";
+            url = "https://git.gitano.org.uk/luxio.git/snapshot/luxio-luxio-${version}.tar.bz2";
             sha256 = "1hvwslc25q7k82rxk461zr1a2041nxg7sn3sw3w0y5jxf0giz2pz";
           };
 
@@ -217,8 +216,7 @@ rec {
           '';
 
           meta = with lib; {
-            description =
-              "A modular widget library for the awesome window manager";
+            description = "A modular widget library for the awesome window manager";
             homepage = "https://vicious.rtfd.io";
             changelog = "https://vicious.rtfd.io/en/v${version}/changelog.html";
             license = licenses.gpl2Plus;

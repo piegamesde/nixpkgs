@@ -74,8 +74,7 @@ python3Packages.buildPythonApplication rec {
     ./patches/bash-completion-always-print.patch
     (fetchpatch {
       # Fix unidecode>=1.3.5 compat
-      url =
-        "https://github.com/beetbox/beets/commit/5ae1e0f3c8d3a450cb39f7933aa49bb78c2bc0d9.patch";
+      url = "https://github.com/beetbox/beets/commit/5ae1e0f3c8d3a450cb39f7933aa49bb78c2bc0d9.patch";
       hash = "sha256-gqkrE+U1j3tt1qPRJufTGS/GftaSw/gweXunO/mCVG8=";
     })
   ];

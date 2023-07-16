@@ -19,10 +19,8 @@ let
     pname = "fahclient";
 
     src = fetchurl {
-      url =
-        "https://download.foldingathome.org/releases/public/release/fahclient/debian-stable-64bit/v${majMin}/fahclient_${version}_amd64.deb";
-      sha256 =
-        "2827f05f1c311ee6c7eca294e4ffb856c81957e8f5bfc3113a0ed27bb463b094";
+      url = "https://download.foldingathome.org/releases/public/release/fahclient/debian-stable-64bit/v${majMin}/fahclient_${version}_amd64.deb";
+      sha256 = "2827f05f1c311ee6c7eca294e4ffb856c81957e8f5bfc3113a0ed27bb463b094";
     };
 
     nativeBuildInputs = [

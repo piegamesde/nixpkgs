@@ -53,8 +53,9 @@ let
     in
     str // {
       check = x: str.check x && all isList (matching x);
-      description =
-        "string containing all of the characters ${concatStringsSep ", " list}";
+      description = "string containing all of the characters ${
+          concatStringsSep ", " list
+        }";
     }
   ;
 

@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   version = "3.3.1";
 
   src = fetchurl {
-    url =
-      "mirror://apache/couchdb/source/${version}/apache-${pname}-${version}.tar.gz";
+    url = "mirror://apache/couchdb/source/${version}/apache-${pname}-${version}.tar.gz";
     sha256 = "sha256-m4nXtU9+9StCvVGmoKLTsbBszjld8smdjx9H+TVeK+4=";
   };
 
@@ -46,8 +45,7 @@ stdenv.mkDerivation rec {
   passthru.tests = { inherit (nixosTests) couchdb; };
 
   meta = with lib; {
-    description =
-      "A database that uses JSON for documents, JavaScript for MapReduce queries, and regular HTTP for an API";
+    description = "A database that uses JSON for documents, JavaScript for MapReduce queries, and regular HTTP for an API";
     homepage = "https://couchdb.apache.org";
     license = licenses.asl20;
     platforms = platforms.all;

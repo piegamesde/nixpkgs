@@ -54,8 +54,7 @@ buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description =
-      "A Python based monitoring and tracking tool for Plex Media Server";
+    description = "A Python based monitoring and tracking tool for Plex Media Server";
     homepage = "https://tautulli.com/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

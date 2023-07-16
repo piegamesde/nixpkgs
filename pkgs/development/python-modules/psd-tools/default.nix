@@ -43,8 +43,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python package for reading Adobe Photoshop PSD files";
     homepage = "https://github.com/kmike/psd-tools";
-    changelog =
-      "https://github.com/psd-tools/psd-tools/blob/v${version}/CHANGES.rst";
+    changelog = "https://github.com/psd-tools/psd-tools/blob/v${version}/CHANGES.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ onny ];
   };

@@ -26,8 +26,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs = lib.optional withSixel libsixel;
 
   meta = with lib; {
-    description =
-      "A command-line application to view images from the terminal written in Rust";
+    description = "A command-line application to view images from the terminal written in Rust";
     homepage = "https://github.com/atanunq/viu";
     license = licenses.mit;
     maintainers = with maintainers; [ chuangzhu ];

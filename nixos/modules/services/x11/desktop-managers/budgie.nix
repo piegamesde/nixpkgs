@@ -215,8 +215,7 @@ in
     ];
 
     # GSettings overrides.
-    environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR =
-      "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
+    environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR = "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
 
     # Required by Budgie Desktop.
     services.xserver.updateDbusEnvironment = true;

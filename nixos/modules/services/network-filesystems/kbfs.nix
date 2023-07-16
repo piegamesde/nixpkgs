@@ -84,11 +84,10 @@ in
               ''${pkgs.coreutils}/bin/mkdir -p "${cfg.mountPoint}"''
               ''-${wrapperDir}/fusermount -uz "${cfg.mountPoint}"''
             ];
-            ExecStart =
-              ''
-                ${pkgs.kbfs}/bin/kbfsfuse ${
-                  toString cfg.extraFlags
-                } "${cfg.mountPoint}"'';
+            ExecStart = ''
+              ${pkgs.kbfs}/bin/kbfsfuse ${
+                toString cfg.extraFlags
+              } "${cfg.mountPoint}"'';
             ExecStop = ''${wrapperDir}/fusermount -uz "${cfg.mountPoint}"'';
             Restart = "on-failure";
             PrivateTmp = true;
@@ -102,8 +101,7 @@ in
       }
 
       (mkIf cfg.enableRedirector {
-        security.wrappers."keybase-redirector".source =
-          "${pkgs.kbfs}/bin/redirector";
+        security.wrappers."keybase-redirector".source = "${pkgs.kbfs}/bin/redirector";
 
         systemd.tmpfiles.rules = [ "d /keybase 0755 root root 0" ];
 

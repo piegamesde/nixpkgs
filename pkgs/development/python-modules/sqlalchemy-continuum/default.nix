@@ -64,8 +64,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Versioning and auditing extension for SQLAlchemy";
     homepage = "https://github.com/kvesteri/sqlalchemy-continuum/";
-    changelog =
-      "https://github.com/kvesteri/sqlalchemy-continuum/blob/${version}/CHANGES.rst";
+    changelog = "https://github.com/kvesteri/sqlalchemy-continuum/blob/${version}/CHANGES.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

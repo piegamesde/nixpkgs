@@ -23,8 +23,7 @@ buildPythonPackage rec {
       # Fixes test on 32-bit systems.
       # Remove if https://github.com/bmc/munkres/pull/41 is merged.
       (fetchpatch {
-        url =
-          "https://github.com/bmc/munkres/commit/380a0d593a0569a761c4a035edaa4414c3b4b31d.patch";
+        url = "https://github.com/bmc/munkres/commit/380a0d593a0569a761c4a035edaa4414c3b4b31d.patch";
         sha256 = "0ga63k68r2080blzi04ajdl1m6xd87mmlqa8hxn9hyixrg1682vb";
       })
     ];

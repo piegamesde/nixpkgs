@@ -74,8 +74,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/blakemcbride/TECOC";
     license = {
-      url =
-        "https://github.com/blakemcbride/TECOC/tree/master/doc/readme-1st.txt";
+      url = "https://github.com/blakemcbride/TECOC/tree/master/doc/readme-1st.txt";
     };
     maintainers = [ maintainers.AndersonTorres ];
     platforms = platforms.unix;

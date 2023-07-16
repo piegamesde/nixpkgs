@@ -117,8 +117,7 @@ let
           compositor; or about 50,000 lines of code you were going to write anyway.
         '';
         inherit (src.meta) homepage;
-        changelog =
-          "https://gitlab.freedesktop.org/wlroots/wlroots/-/tags/${version}";
+        changelog = "https://gitlab.freedesktop.org/wlroots/wlroots/-/tags/${version}";
         license = licenses.mit;
         platforms = platforms.linux;
         maintainers = with maintainers; [

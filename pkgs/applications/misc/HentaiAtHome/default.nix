@@ -14,8 +14,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url = "https://repo.e-hentai.org/hath/HentaiAtHome_${version}_src.zip";
-    hash =
-      "sha512-j+B0kx6fjUibI3MjVJ5PVTq9xxtSOTTY/XizAJKjeNkpExJF9DIV4VCwf+sfLlg+7W4UBosnyb8hZNNoidRBKA==";
+    hash = "sha512-j+B0kx6fjUibI3MjVJ5PVTq9xxtSOTTY/XizAJKjeNkpExJF9DIV4VCwf+sfLlg+7W4UBosnyb8hZNNoidRBKA==";
     stripRoot = false;
   };
 
@@ -54,8 +53,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://ehwiki.org/wiki/Hentai@Home";
-    description =
-      "Hentai@Home is an open-source P2P gallery distribution system which reduces the load on the E-Hentai Galleries";
+    description = "Hentai@Home is an open-source P2P gallery distribution system which reduces the load on the E-Hentai Galleries";
     license = licenses.gpl3;
     maintainers = with maintainers; [ terrorjack ];
   };

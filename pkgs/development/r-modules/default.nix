@@ -1445,8 +1445,7 @@ let
       s2 = old.s2.overrideAttrs (
         attrs: {
           PKGCONFIG_CFLAGS = "-I${pkgs.openssl.dev}/include";
-          PKGCONFIG_LIBS =
-            "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
+          PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
               lib.getLib pkgs.openssl
             }/lib -lssl -lcrypto";
         }
@@ -1518,8 +1517,7 @@ let
             patchShebangs configure
           '';
           PKGCONFIG_CFLAGS = "-I${pkgs.openssl.dev}/include";
-          PKGCONFIG_LIBS =
-            "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
+          PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
               lib.getLib pkgs.openssl
             }/lib -lssl -lcrypto";
         }
@@ -1528,8 +1526,7 @@ let
       websocket = old.websocket.overrideAttrs (
         attrs: {
           PKGCONFIG_CFLAGS = "-I${pkgs.openssl.dev}/include";
-          PKGCONFIG_LIBS =
-            "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
+          PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
               lib.getLib pkgs.openssl
             }/lib -lssl -lcrypto";
         }
@@ -1673,10 +1670,8 @@ let
           preConfigure = ''
             patchShebangs configure
           '';
-          PKGCONFIG_CFLAGS =
-            "-I${pkgs.openssl.dev}/include -I${pkgs.cyrus_sasl.dev}/include -I${pkgs.zlib.dev}/include";
-          PKGCONFIG_LIBS =
-            "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
+          PKGCONFIG_CFLAGS = "-I${pkgs.openssl.dev}/include -I${pkgs.cyrus_sasl.dev}/include -I${pkgs.zlib.dev}/include";
+          PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
               lib.getLib pkgs.openssl
             }/lib -L${pkgs.cyrus_sasl.out}/lib -L${pkgs.zlib.out}/lib -lssl -lcrypto -lsasl2 -lz";
         }

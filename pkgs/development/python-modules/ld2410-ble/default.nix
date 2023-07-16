@@ -44,8 +44,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for the LD2410B modules from HiLinks";
     homepage = "https://github.com/930913/ld2410-ble";
-    changelog =
-      "https://github.com/930913/ld2410-ble/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/930913/ld2410-ble/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

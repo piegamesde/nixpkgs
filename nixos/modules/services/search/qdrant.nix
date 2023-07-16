@@ -102,8 +102,7 @@ in
     };
 
     systemd.services.qdrant = {
-      description =
-        "Vector Search Engine for the next generation of AI applications";
+      description = "Vector Search Engine for the next generation of AI applications";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 

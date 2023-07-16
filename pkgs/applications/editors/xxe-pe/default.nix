@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
         or by using `xxe-pe.override { acceptLicense = true; }` package.
       '';
     fetchurl {
-      url =
-        "https://www.xmlmind.com/xmleditor/_download/xxe-perso-${
+      url = "https://www.xmlmind.com/xmleditor/_download/xxe-perso-${
           builtins.replaceStrings [ "." ] [ "_" ] version
         }.zip";
       sha256 = "sha256-JZ9nQwMrQL/1HKGwvXoWlnTx55ZK/UYjMJAddCtm0rw=";
@@ -79,8 +78,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Strictly validating, near WYSIWYG, XML editor with DocBook support";
+    description = "Strictly validating, near WYSIWYG, XML editor with DocBook support";
     homepage = "https://www.xmlmind.com/xmleditor/";
     license = licenses.unfree;
     maintainers = [ ];

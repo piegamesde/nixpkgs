@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://orama-interactive.itch.io/pixelorama";
-    description =
-      "A free & open-source 2D sprite editor, made with the Godot Engine!";
+    description = "A free & open-source 2D sprite editor, made with the Godot Engine!";
     license = licenses.mit;
     platforms = [
       "i686-linux"

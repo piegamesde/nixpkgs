@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
   version = "21.04";
 
   src = fetchurl {
-    url =
-      "https://github.com/verifast/verifast/releases/download/${version}/${pname}-${version}-linux.tar.gz";
+    url = "https://github.com/verifast/verifast/releases/download/${version}/${pname}-${version}-linux.tar.gz";
     sha256 = "sha256-PlRsf4wFXoM+E+60SbeKzs/RZK0HNVirX47AnI6NeYM=";
   };
 

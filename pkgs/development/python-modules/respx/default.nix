@@ -45,8 +45,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library for mocking HTTPX";
     homepage = "https://lundberg.github.io/respx/";
-    changelog =
-      "https://github.com/lundberg/respx/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/lundberg/respx/blob/${src.rev}/CHANGELOG.md";
     license = with licenses; [ bsd3 ];
     maintainers = with maintainers; [ fab ];
   };

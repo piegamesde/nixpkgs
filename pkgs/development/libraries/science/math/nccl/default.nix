@@ -69,8 +69,7 @@ backendStdenv.mkDerivation rec {
   passthru = { inherit cudaPackages; };
 
   meta = with lib; {
-    description =
-      "Multi-GPU and multi-node collective communication primitives for NVIDIA GPUs";
+    description = "Multi-GPU and multi-node collective communication primitives for NVIDIA GPUs";
     homepage = "https://developer.nvidia.com/nccl";
     license = licenses.bsd3;
     platforms = [ "x86_64-linux" ];

@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A fast file search utility for Unix-like systems based on GTK+3";
+    description = "A fast file search utility for Unix-like systems based on GTK+3";
     homepage = "https://github.com/cboxdoerfer/fsearch.git";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ artturin ];

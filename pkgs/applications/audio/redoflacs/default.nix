@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Parallel BASH commandline FLAC compressor, verifier, organizer, analyzer, and retagger";
+    description = "Parallel BASH commandline FLAC compressor, verifier, organizer, analyzer, and retagger";
     homepage = src.meta.homepage;
     license = licenses.gpl2;
     maintainers = with maintainers; [ peterhoeg ];

@@ -18,8 +18,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-1ugExUtrzqyd9dTlBHcc44UrtEfYrfUryuG79IkTv2Y=";
 
   meta = with lib; {
-    description =
-      "Raw wayland greeter for greetd, to be run under sway or similar";
+    description = "Raw wayland greeter for greetd, to be run under sway or similar";
     homepage = "https://git.sr.ht/~kennylevinsen/wlgreet";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ luc65r ];

@@ -34,8 +34,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module/library for retrieving WHOIS information";
     homepage = "https://github.com/DannyCork/python-whois/";
-    changelog =
-      "https://github.com/DannyCork/python-whois/releases/tag/${version}";
+    changelog = "https://github.com/DannyCork/python-whois/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

@@ -60,13 +60,11 @@ let
 
     # The CMake external projects expect the packed archives
     rxcpp = fetchurl {
-      url =
-        "https://github.com/Reactive-Extensions/RxCpp/archive/v${rxcppVersion}.tar.gz";
+      url = "https://github.com/Reactive-Extensions/RxCpp/archive/v${rxcppVersion}.tar.gz";
       sha256 = "0y2isr8dy2n1yjr9c5570kpc9lvdlch6jv0jvw000amwn5d3krsh";
     };
     gtest = fetchurl {
-      url =
-        "https://github.com/google/googletest/archive/release-${gtestVersion}.tar.gz";
+      url = "https://github.com/google/googletest/archive/release-${gtestVersion}.tar.gz";
       sha256 = "1n5p1m2m3fjrjdj752lf92f9wq3pl5cbsfrb49jqbg52ghkz99jq";
     };
   };
@@ -88,21 +86,18 @@ stdenv.mkDerivation rec {
       # Fix compile errors with json-c
       # https://github.com/shogun-toolbox/shogun/pull/4104
       (fetchpatch {
-        url =
-          "https://github.com/shogun-toolbox/shogun/commit/365ce4c4c700736d2eec8ba6c975327a5ac2cd9b.patch";
+        url = "https://github.com/shogun-toolbox/shogun/commit/365ce4c4c700736d2eec8ba6c975327a5ac2cd9b.patch";
         sha256 = "158hqv4xzw648pmjbwrhxjp7qcppqa7kvriif87gn3zdn711c49s";
       })
 
       # Fix compile errors with GCC 9+
       # https://github.com/shogun-toolbox/shogun/pull/4811
       (fetchpatch {
-        url =
-          "https://github.com/shogun-toolbox/shogun/commit/c8b670be4790e0f06804b048a6f3d77c17c3ee95.patch";
+        url = "https://github.com/shogun-toolbox/shogun/commit/c8b670be4790e0f06804b048a6f3d77c17c3ee95.patch";
         sha256 = "sha256-MxsR3Y2noFQevfqWK3nmX5iK4OVWeKBl5tfeDNgjcXk=";
       })
       (fetchpatch {
-        url =
-          "https://github.com/shogun-toolbox/shogun/commit/5aceefd9fb0e2132c354b9a0c0ceb9160cc9b2f7.patch";
+        url = "https://github.com/shogun-toolbox/shogun/commit/5aceefd9fb0e2132c354b9a0c0ceb9160cc9b2f7.patch";
         sha256 = "sha256-AgJJKQA8vc5oKaTQDqMdwBR4hT4sn9+uW0jLe7GteJw=";
       })
 
@@ -221,8 +216,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A toolbox which offers a wide range of efficient and unified machine learning methods";
+    description = "A toolbox which offers a wide range of efficient and unified machine learning methods";
     homepage = "http://shogun-toolbox.org/";
     license = if withSvmLight then licenses.unfree else licenses.gpl3Plus;
     maintainers = with maintainers; [

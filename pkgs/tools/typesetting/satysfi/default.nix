@@ -105,8 +105,7 @@ ocamlPackages.buildDunePackage rec {
   meta = with lib; {
     homepage = "https://github.com/gfngfn/SATySFi";
     description = "A statically-typed, functional typesetting system";
-    changelog =
-      "https://github.com/gfngfn/SATySFi/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/gfngfn/SATySFi/blob/v${version}/CHANGELOG.md";
     license = licenses.lgpl3Only;
     maintainers = [
       maintainers.mt-caret

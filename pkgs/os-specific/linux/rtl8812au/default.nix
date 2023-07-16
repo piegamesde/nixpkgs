@@ -65,8 +65,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description =
-      "Driver for Realtek 802.11ac, rtl8812au, provides the 8812au mod";
+    description = "Driver for Realtek 802.11ac, rtl8812au, provides the 8812au mod";
     homepage = "https://github.com/morrownr/8812au-20210629";
     license = licenses.gpl2Only;
     platforms = platforms.linux;

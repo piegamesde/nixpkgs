@@ -21,8 +21,7 @@ buildPythonPackage {
   propagatedBuildInputs = [ flask ];
 
   meta = with lib; {
-    description =
-      "Adds silk icons to your Flask application or module, or extension";
+    description = "Adds silk icons to your Flask application or module, or extension";
     license = licenses.bsd3;
     maintainers = teams.sage.members;
     homepage = "https://github.com/sublee/flask-silk";

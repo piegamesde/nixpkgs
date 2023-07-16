@@ -330,8 +330,7 @@ in
         (
           pool: poolOpts:
           nameValuePair "phpfpm-${pool}" {
-            description =
-              "PHP FastCGI Process Manager service for pool ${pool}";
+            description = "PHP FastCGI Process Manager service for pool ${pool}";
             after = [ "network.target" ];
             wantedBy = [ "phpfpm.target" ];
             partOf = [ "phpfpm.target" ];
@@ -349,8 +348,7 @@ in
                 # XXX: We need AF_NETLINK to make the sendmail SUID binary from postfix work
                 RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
                 Type = "notify";
-                ExecStart =
-                  "${poolOpts.phpPackage}/bin/php-fpm -y ${cfgFile} -c ${iniFile}";
+                ExecStart = "${poolOpts.phpPackage}/bin/php-fpm -y ${cfgFile} -c ${iniFile}";
                 ExecReload = "${pkgs.coreutils}/bin/kill -USR2 $MAINPID";
                 RuntimeDirectory = "phpfpm";
                 RuntimeDirectoryPreserve =

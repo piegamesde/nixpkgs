@@ -16,10 +16,8 @@ import ./make-test-python.nix (
           enable = true;
           rpc = {
             port = 8332;
-            users.rpc.passwordHMAC =
-              "acc2374e5f9ba9e62a5204d3686616cf$53abdba5e67a9005be6a27ca03a93ce09e58854bc2b871523a0d239a72968033";
-            users.rpc2.passwordHMAC =
-              "1495e4a3ad108187576c68f7f9b5ddc5$accce0881c74aa01bb8960ff3bdbd39f607fd33178147679e055a4ac35f53225";
+            users.rpc.passwordHMAC = "acc2374e5f9ba9e62a5204d3686616cf$53abdba5e67a9005be6a27ca03a93ce09e58854bc2b871523a0d239a72968033";
+            users.rpc2.passwordHMAC = "1495e4a3ad108187576c68f7f9b5ddc5$accce0881c74aa01bb8960ff3bdbd39f607fd33178147679e055a4ac35f53225";
           };
         };
 

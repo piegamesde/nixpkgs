@@ -29,8 +29,7 @@ buildPythonPackage rec {
   checkPhase = "pytest";
 
   meta = with lib; {
-    description =
-      "Tools for generators, generator functions, and generator-based coroutines";
+    description = "Tools for generators, generator functions, and generator-based coroutines";
     license = licenses.mit;
     homepage = "https://gentools.readthedocs.io/";
     maintainers = with maintainers; [ mredaelli ];

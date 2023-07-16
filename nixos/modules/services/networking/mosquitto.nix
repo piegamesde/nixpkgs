@@ -147,8 +147,7 @@ let
               u.hashedPasswordFile
             ] <= 1
           ;
-          message =
-            "Cannot set more than one password option for user ${n} in ${prefix}";
+          message = "Cannot set more than one password option for user ${n} in ${prefix}";
         })
         users
   ;

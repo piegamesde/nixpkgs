@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Keyboard and hardware I/O driver for TUXEDO Computers laptops";
+    description = "Keyboard and hardware I/O driver for TUXEDO Computers laptops";
     longDescription = ''
       This driver provides support for Fn keys, brightness/color/mode for most TUXEDO
       keyboards (except white backlight-only models).

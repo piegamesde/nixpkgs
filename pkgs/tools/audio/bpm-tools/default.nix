@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
   version = "0.3";
 
   src = fetchurl {
-    url =
-      "http://www.pogo.org.uk/~mark/bpm-tools/releases/bpm-tools-${version}.tar.gz";
+    url = "http://www.pogo.org.uk/~mark/bpm-tools/releases/bpm-tools-${version}.tar.gz";
     sha256 = "151vfbs8h3cibs7kbdps5pqrsxhpjv16y2iyfqbxzsclylgfivrp";
   };
 

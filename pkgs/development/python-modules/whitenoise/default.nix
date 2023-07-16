@@ -49,8 +49,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "whitenoise" ];
 
   meta = with lib; {
-    description =
-      "Radically simplified static file serving for WSGI applications";
+    description = "Radically simplified static file serving for WSGI applications";
     homepage = "https://whitenoise.evans.io/";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

@@ -24,8 +24,7 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    description =
-      "Command-line tool for rendering metrics dashboards inspired by Grafana";
+    description = "Command-line tool for rendering metrics dashboards inspired by Grafana";
     homepage = "https://github.com/slok/grafterm";
     license = licenses.asl20;
     maintainers = with maintainers; [ arikgrahl ];

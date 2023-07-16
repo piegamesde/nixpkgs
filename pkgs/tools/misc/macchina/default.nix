@@ -34,8 +34,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A fast, minimal and customizable system information fetcher";
     homepage = "https://github.com/Macchina-CLI/macchina";
-    changelog =
-      "https://github.com/Macchina-CLI/macchina/releases/tag/v${version}";
+    changelog = "https://github.com/Macchina-CLI/macchina/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [
       _414owen

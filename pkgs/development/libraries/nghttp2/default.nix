@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
   version = "1.51.0";
 
   src = fetchurl {
-    url =
-      "https://github.com/${pname}/${pname}/releases/download/v${version}/${pname}-${version}.tar.bz2";
+    url = "https://github.com/${pname}/${pname}/releases/download/v${version}/${pname}-${version}.tar.bz2";
     sha256 = "sha256-6z6m9bYMbT7b8GXgT0NOjtYpGlyxoHkZxBcwqx/MAOA=";
   };
 

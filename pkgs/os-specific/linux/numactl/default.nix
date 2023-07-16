@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
   doCheck = false; # never ever!
 
   meta = with lib; {
-    description =
-      "Library and tools for non-uniform memory access (NUMA) machines";
+    description = "Library and tools for non-uniform memory access (NUMA) machines";
     homepage = "https://github.com/numactl/numactl";
     license = with licenses; [
       gpl2

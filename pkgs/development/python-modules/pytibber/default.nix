@@ -53,8 +53,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library to communicate with Tibber";
     homepage = "https://github.com/Danielhiversen/pyTibber";
-    changelog =
-      "https://github.com/Danielhiversen/pyTibber/releases/tag/${version}";
+    changelog = "https://github.com/Danielhiversen/pyTibber/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

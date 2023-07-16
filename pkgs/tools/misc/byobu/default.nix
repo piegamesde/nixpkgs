@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
   pname = "byobu";
 
   src = fetchurl {
-    url =
-      "https://launchpad.net/byobu/trunk/${version}/+download/byobu_${version}.orig.tar.gz";
+    url = "https://launchpad.net/byobu/trunk/${version}/+download/byobu_${version}.orig.tar.gz";
     sha256 = "0qvmmdnvwqbgbhn5c8asmrmjhclcl029py2d2zvmd7h5ij7s93jd";
   };
 

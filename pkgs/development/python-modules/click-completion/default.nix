@@ -34,8 +34,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Add or enhance bash, fish, zsh and powershell completion in Click";
+    description = "Add or enhance bash, fish, zsh and powershell completion in Click";
     homepage = "https://github.com/click-contrib/click-completion";
     license = licenses.mit;
     maintainers = with maintainers; [ mbode ];

@@ -14,8 +14,7 @@ rec {
   deps = [ args."rt" ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/cl-store/2020-09-25/cl-store-20200925-git.tgz";
+    url = "http://beta.quicklisp.org/archive/cl-store/2020-09-25/cl-store-20200925-git.tgz";
     sha256 = "0vqlrci1634jgfg6c1dzwvx58qjjwbcbwdbpm7xxw2s823xl9jf3";
   };
 

@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
   version = "1.0.24";
 
   src = fetchurl {
-    url =
-      "https://github.com/chaos/diod/releases/download/${version}/${pname}-${version}.tar.gz";
+    url = "https://github.com/chaos/diod/releases/download/${version}/${pname}-${version}.tar.gz";
     sha256 = "17wckwfsqj61yixz53nwkc35z66arb1x3napahpi64m7q68jn7gl";
   };
 
@@ -33,8 +32,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "An I/O forwarding server that implements a variant of the 9P protocol";
+    description = "An I/O forwarding server that implements a variant of the 9P protocol";
     maintainers = with maintainers; [ rnhmjoj ];
     platforms = platforms.linux;
     license = licenses.gpl2Plus;

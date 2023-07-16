@@ -89,8 +89,7 @@ in
       };
       serviceConfig = {
         Type = "notify";
-        ExecStart =
-          "${cfg.package}/bin/dockerd-rootless --config-file=${daemonSettingsFile}";
+        ExecStart = "${cfg.package}/bin/dockerd-rootless --config-file=${daemonSettingsFile}";
         ExecReload = "${pkgs.procps}/bin/kill -s HUP $MAINPID";
         TimeoutSec = 0;
         RestartSec = 2;

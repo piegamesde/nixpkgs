@@ -19,8 +19,7 @@ mkDerivation rec {
   version = "0.5.0";
 
   src = fetchurl {
-    url =
-      "https://launchpad.net/qpdfview/trunk/${version}/+download/qpdfview-0.5.tar.gz";
+    url = "https://launchpad.net/qpdfview/trunk/${version}/+download/qpdfview-0.5.tar.gz";
     hash = "sha256-RO/EQKRhy911eps5bxRh7novQ2ToHfVb0CIfkQIZvpk=";
   };
 

@@ -340,8 +340,7 @@ buildFHSEnv rec {
     '';
 
     meta = steam.meta // {
-      description =
-        "Run commands in the same FHS environment that is used for Steam";
+      description = "Run commands in the same FHS environment that is used for Steam";
       name = "steam-run";
     };
   };

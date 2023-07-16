@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   version = "0.11.3";
 
   src = fetchurl {
-    url =
-      "mirror://kde/stable/phonon/${pname}/${version}/${pname}-${version}.tar.xz";
+    url = "mirror://kde/stable/phonon/${pname}/${version}/${pname}-${version}.tar.xz";
     sha256 = "sha256-Xmn97MsGDH5rWSTO8uZb7loIrOQScAW5U0TtMHfcY5c=";
   };
 

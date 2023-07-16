@@ -45,8 +45,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Command line utility for building fully self contained Python zipapps";
+    description = "Command line utility for building fully self contained Python zipapps";
     homepage = "https://github.com/linkedin/shiv";
     license = licenses.bsd2;
     maintainers = with maintainers; [ prusnak ];

@@ -30,8 +30,7 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "tui-utils-0.10.0" =
-        "sha256-xazeXTGiMFZEcSFEF26te3LQ5oFFcskIiYkLzfsXf/A=";
+      "tui-utils-0.10.0" = "sha256-xazeXTGiMFZEcSFEF26te3LQ5oFFcskIiYkLzfsXf/A=";
     };
   };
 

@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url =
-        "https://github.com/OpenCPN/OpenCPN/commit/30fa16850ba97d3df0622273947e3e3975b8e6c0.patch";
+      url = "https://github.com/OpenCPN/OpenCPN/commit/30fa16850ba97d3df0622273947e3e3975b8e6c0.patch";
       sha256 = "sha256-Sb4FE9QJA5kMJi52/x1Az6rMTS3WSURPx4QAhcv2j9E=";
     })
   ];

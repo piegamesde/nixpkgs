@@ -216,8 +216,7 @@ in
 
       script =
         let
-          nixos-rebuild =
-            "${config.system.build.nixos-rebuild}/bin/nixos-rebuild";
+          nixos-rebuild = "${config.system.build.nixos-rebuild}/bin/nixos-rebuild";
           date = "${pkgs.coreutils}/bin/date";
           readlink = "${pkgs.coreutils}/bin/readlink";
           shutdown = "${config.systemd.package}/bin/shutdown";

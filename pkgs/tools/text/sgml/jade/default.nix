@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
   };
 
   patchsrc = fetchurl {
-    url =
-      "mirror://debian/pool/main/j/jade/jade_${version}-${debpatch}.diff.gz";
+    url = "mirror://debian/pool/main/j/jade/jade_${version}-${debpatch}.diff.gz";
     sha256 = "8e94486898e3503308805f856a65ba5b499a6f21994151270aa743de48305464";
   };
 

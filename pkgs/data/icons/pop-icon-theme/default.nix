@@ -34,8 +34,7 @@ stdenvNoCC.mkDerivation rec {
   dontDropIconThemeCache = true;
 
   meta = with lib; {
-    description =
-      "Icon theme for Pop!_OS with a semi-flat design and raised 3D motifs";
+    description = "Icon theme for Pop!_OS with a semi-flat design and raised 3D motifs";
     homepage = "https://github.com/pop-os/icon-theme";
     license = with licenses; [
       cc-by-sa-40

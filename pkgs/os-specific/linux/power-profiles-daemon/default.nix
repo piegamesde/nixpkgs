@@ -103,8 +103,9 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  PKG_CONFIG_POLKIT_GOBJECT_1_POLICYDIR =
-    "${placeholder "out"}/share/polkit-1/actions";
+  PKG_CONFIG_POLKIT_GOBJECT_1_POLICYDIR = "${
+      placeholder "out"
+    }/share/polkit-1/actions";
 
   # Avoid double wrapping
   dontWrapGApps = true;
@@ -132,8 +133,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://gitlab.freedesktop.org/hadess/power-profiles-daemon";
-    description =
-      "Makes user-selected power profiles handling available over D-Bus";
+    description = "Makes user-selected power profiles handling available over D-Bus";
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [

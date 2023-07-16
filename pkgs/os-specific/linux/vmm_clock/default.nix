@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = with lib; {
-    description =
-      "Experimental implementation of a kvmclock-derived clocksource for Linux guests under OpenBSD's hypervisor";
+    description = "Experimental implementation of a kvmclock-derived clocksource for Linux guests under OpenBSD's hypervisor";
     homepage = "https://github.com/voutilad/vmm_clock";
     license = licenses.gpl2;
     maintainers = with maintainers; [ qbit ];

@@ -23,8 +23,7 @@ python3.pkgs.buildPythonApplication rec {
   format = "other";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/d-feet/${
+    url = "mirror://gnome/sources/d-feet/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "hzPOS5qaVOwYWx2Fv02p2dEQUogqiAdg/2D5d5stHMs=";
@@ -37,8 +36,7 @@ python3.pkgs.buildPythonApplication rec {
       # data/meson.build:27:0: ERROR: Function does not take positional arguments.
       # Patch taken from https://gitlab.gnome.org/GNOME/d-feet/-/merge_requests/32
       (fetchpatch {
-        url =
-          "https://gitlab.gnome.org/GNOME/d-feet/-/commit/05465d486afdba116dbc22fc22c1e6573aea4f22.patch";
+        url = "https://gitlab.gnome.org/GNOME/d-feet/-/commit/05465d486afdba116dbc22fc22c1e6573aea4f22.patch";
         sha256 = "sFI3nd0YE/deGws/YcTpzC/em9QNgicyb4j7cTfOdhY=";
       })
     ];

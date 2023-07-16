@@ -40,8 +40,7 @@ in
 
     assertions = [ {
       assertion = !config.services.strongswan.enable;
-      message =
-        "cannot enable both services.strongswan and services.strongswan-swanctl. Choose either one.";
+      message = "cannot enable both services.strongswan and services.strongswan-swanctl. Choose either one.";
     } ];
 
     environment.etc."swanctl/swanctl.conf".text =

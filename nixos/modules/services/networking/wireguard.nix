@@ -674,8 +674,7 @@ in
             (name: value: {
               assertion =
                 (value.privateKey != null) != (value.privateKeyFile != null);
-              message =
-                "Either networking.wireguard.interfaces.${name}.privateKey or networking.wireguard.interfaces.${name}.privateKeyFile must be set.";
+              message = "Either networking.wireguard.interfaces.${name}.privateKey or networking.wireguard.interfaces.${name}.privateKeyFile must be set.";
             })
             cfg.interfaces
         ))
@@ -684,8 +683,7 @@ in
             (name: value: {
               assertion =
                 value.generatePrivateKeyFile -> (value.privateKey == null);
-              message =
-                "networking.wireguard.interfaces.${name}.generatePrivateKeyFile must not be set if networking.wireguard.interfaces.${name}.privateKey is set.";
+              message = "networking.wireguard.interfaces.${name}.generatePrivateKeyFile must not be set if networking.wireguard.interfaces.${name}.privateKey is set.";
             })
             cfg.interfaces
         ))
@@ -701,8 +699,7 @@ in
                 assertion =
                   (peer.presharedKey == null) || (peer.presharedKeyFile == null)
                 ;
-                message =
-                  "networking.wireguard.interfaces.${interfaceName} peer «${peer.publicKey}» has both presharedKey and presharedKeyFile set, but only one can be used.";
+                message = "networking.wireguard.interfaces.${interfaceName} peer «${peer.publicKey}» has both presharedKey and presharedKeyFile set, but only one can be used.";
               }
             )
             all_peers

@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DMAGIC_ENUM_OPT_BUILD_TESTS=OFF" ];
 
   meta = with lib; {
-    description =
-      "Static reflection for enums (to string, from string, iteration) for modern C++";
+    description = "Static reflection for enums (to string, from string, iteration) for modern C++";
     homepage = "https://github.com/Neargye/magic_enum";
     license = licenses.mit;
     maintainers = with maintainers; [ Alper-Celik ];

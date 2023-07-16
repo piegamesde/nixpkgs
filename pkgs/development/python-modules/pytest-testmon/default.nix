@@ -35,11 +35,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "testmon" ];
 
   meta = with lib; {
-    description =
-      "Pytest plug-in which automatically selects and re-executes only tests affected by recent changes";
+    description = "Pytest plug-in which automatically selects and re-executes only tests affected by recent changes";
     homepage = "https://github.com/tarpas/pytest-testmon/";
-    changelog =
-      "https://github.com/tarpas/pytest-testmon/releases/tag/v${version}";
+    changelog = "https://github.com/tarpas/pytest-testmon/releases/tag/v${version}";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ dmvianna ];
   };

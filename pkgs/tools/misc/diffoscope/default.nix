@@ -95,8 +95,7 @@ python3Packages.buildPythonApplication rec {
     ./ignore_links.patch
     # test_text_proper_indentation requires file >= 5.44
     (fetchpatch {
-      url =
-        "https://salsa.debian.org/reproducible-builds/diffoscope/-/commit/9fdb78ec0bbc69f1980499dfdcbf6f1dd5e55cc8.patch";
+      url = "https://salsa.debian.org/reproducible-builds/diffoscope/-/commit/9fdb78ec0bbc69f1980499dfdcbf6f1dd5e55cc8.patch";
       sha256 = "sha256-F0N3L9yymj2NjeIKtSnOEDsxPe+ZTb0m/M4f8LPRHg0=";
     })
   ];
@@ -273,8 +272,7 @@ python3Packages.buildPythonApplication rec {
   };
 
   meta = with lib; {
-    description =
-      "Perform in-depth comparison of files, archives, and directories";
+    description = "Perform in-depth comparison of files, archives, and directories";
     longDescription = ''
       diffoscope will try to get to the bottom of what makes files or directories
       different. It will recursively unpack archives of many kinds and transform

@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
   version = "1.0.6";
 
   src = fetchurl {
-    url =
-      "https://github.com/revoltchat/desktop/releases/download/v${version}/Revolt-linux.AppImage";
+    url = "https://github.com/revoltchat/desktop/releases/download/v${version}/Revolt-linux.AppImage";
     sha256 = "sha256-Wsm6ef2Reenq3/aKGaP2yzlOuLKaxKtRHCLLMxvWUUY=";
   };
 
@@ -51,8 +50,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An open source user-first chat platform";
     homepage = "https://revolt.chat/";
-    changelog =
-      "https://github.com/revoltchat/desktop/releases/tag/v${version}";
+    changelog = "https://github.com/revoltchat/desktop/releases/tag/v${version}";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ heyimnova ];
     platforms = platforms.linux;

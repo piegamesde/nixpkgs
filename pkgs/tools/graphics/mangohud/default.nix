@@ -72,8 +72,7 @@ let
       hash = "sha256-5uyk2nMwV1MjXoa3hK/WUeGLwpINJJEvY16kc5DEaks=";
     };
     patch = fetchurl {
-      url =
-        "https://wrapdb.mesonbuild.com/v2/vulkan-headers_${version}-2/get_patch";
+      url = "https://wrapdb.mesonbuild.com/v2/vulkan-headers_${version}-2/get_patch";
       hash = "sha256-hgNYz15z9FjNHoj4w4EW0SOrQh1c4uQSnsOOrt2CDhc=";
     };
   };
@@ -230,8 +229,7 @@ stdenv.mkDerivation (
     passthru.updateScript = nix-update-script { };
 
     meta = with lib; {
-      description =
-        "A Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/GPU load and more";
+      description = "A Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/GPU load and more";
       homepage = "https://github.com/flightlessmango/MangoHud";
       platforms = platforms.linux;
       license = licenses.mit;

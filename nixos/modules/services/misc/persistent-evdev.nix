@@ -58,8 +58,7 @@ in
 
       serviceConfig = {
         Restart = "on-failure";
-        ExecStart =
-          "${pkgs.persistent-evdev}/bin/persistent-evdev.py ${configFile}";
+        ExecStart = "${pkgs.persistent-evdev}/bin/persistent-evdev.py ${configFile}";
         CacheDirectory = "persistent-evdev";
       };
     };

@@ -1214,8 +1214,9 @@ rec {
       # Attempt to parse input
       parsedInput = fromJSON (head strippedInput);
 
-      generalError =
-        "toIntBase10: Could not convert ${escapeNixString str} to int.";
+      generalError = "toIntBase10: Could not convert ${
+          escapeNixString str
+        } to int.";
     in
     # Error on presence of non digit characters.
     if strippedInput == null then

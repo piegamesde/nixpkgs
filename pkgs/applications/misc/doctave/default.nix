@@ -27,8 +27,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A batteries-included developer documentation site generator";
     homepage = "https://github.com/doctave/doctave";
-    changelog =
-      "https://github.com/doctave/doctave/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/doctave/doctave/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
   };

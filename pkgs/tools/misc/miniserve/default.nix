@@ -50,8 +50,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "CLI tool to serve files and directories over HTTP";
     homepage = "https://github.com/svenstaro/miniserve";
-    changelog =
-      "https://github.com/svenstaro/miniserve/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/svenstaro/miniserve/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ figsoda ];
   };

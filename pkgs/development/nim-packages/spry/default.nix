@@ -35,8 +35,7 @@ buildNimPackage rec {
   meta =
     with lib;
     src.meta // {
-      description =
-        "A Smalltalk and Rebol inspired language implemented as an AST interpreter in Nim";
+      description = "A Smalltalk and Rebol inspired language implemented as an AST interpreter in Nim";
       license = [ licenses.mit ];
       maintainers = [ maintainers.ehmry ];
     }

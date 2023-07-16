@@ -20,8 +20,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "A wrapper to execute a command in a pty, even if redirecting the output";
+    description = "A wrapper to execute a command in a pty, even if redirecting the output";
     homepage = "https://github.com/dtolnay/faketty";
     license = with licenses; [
       asl20 # or

@@ -118,8 +118,7 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "OpenROAD's unified application implementing an RTL-to-GDS flow";
+    description = "OpenROAD's unified application implementing an RTL-to-GDS flow";
     homepage = "https://theopenroadproject.org";
     license = licenses.bsd3;
     maintainers = with maintainers; [ trepetti ];

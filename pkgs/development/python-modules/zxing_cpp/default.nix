@@ -27,8 +27,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/zxing-cpp/zxing-cpp";
-    description =
-      "Python bindings for C++ port of zxing (a Java barcode image processing library)";
+    description = "Python bindings for C++ port of zxing (a Java barcode image processing library)";
     longDescription = ''
       ZXing-C++ ("zebra crossing") is an open-source, multi-format 1D/2D barcode
       image processing library implemented in C++.

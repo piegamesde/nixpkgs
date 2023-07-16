@@ -14,8 +14,7 @@ rec {
   deps = [ args."fiasco" ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/clx/2021-10-20/clx-20211020-git.tgz";
+    url = "http://beta.quicklisp.org/archive/clx/2021-10-20/clx-20211020-git.tgz";
     sha256 = "1mgqcqakbm8s4w2r9831xzhy9lyifcl2b3rhl5p76s5vpnjmp88k";
   };
 

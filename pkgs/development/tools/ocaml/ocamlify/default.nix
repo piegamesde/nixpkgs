@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
   version = "0.0.2";
 
   src = fetchurl {
-    url =
-      "https://forge.ocamlcore.org/frs/download.php/1209/${pname}-${version}.tar.gz";
+    url = "https://forge.ocamlcore.org/frs/download.php/1209/${pname}-${version}.tar.gz";
     sha256 = "1f0fghvlbfryf5h3j4as7vcqrgfjb4c8abl5y0y5h069vs4kp5ii";
   };
 

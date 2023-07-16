@@ -142,8 +142,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "The Linux desktop music player from the future";
     homepage = "https://tauonmusicbox.rocks/";
-    changelog =
-      "https://github.com/Taiko2k/TauonMusicBox/releases/tag/v${version}";
+    changelog = "https://github.com/Taiko2k/TauonMusicBox/releases/tag/v${version}";
     license = licenses.gpl3;
     maintainers = with maintainers; [ jansol ];
     platforms = platforms.linux ++ platforms.darwin;

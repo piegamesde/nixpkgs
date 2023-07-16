@@ -51,8 +51,7 @@ buildDotnetModule rec {
   ];
 
   meta = with lib; {
-    description =
-      "Yet another mod installer for Beat Saber, heavily inspired by ModAssistant";
+    description = "Yet another mod installer for Beat Saber, heavily inspired by ModAssistant";
     homepage = "https://github.com/affederaffe/BeatSaberModManager";
     longDescription = ''
       BeatSaberModManager is yet another mod installer for Beat Saber, heavily inspired by ModAssistant

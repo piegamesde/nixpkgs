@@ -19,8 +19,7 @@ let
     rec {
       x86_64-linux = rec {
         src = fetchurl {
-          url =
-            "https://download.breitbandmessung.de/bbm/Breitbandmessung-${version}-linux.deb";
+          url = "https://download.breitbandmessung.de/bbm/Breitbandmessung-${version}-linux.deb";
           sha256 = "sha256-jSP+H9ej9Wd+swBZSy9uMi2ExSTZ191FGZhqaocTl7w=";
         };
 
@@ -63,8 +62,7 @@ let
 
       x86_64-darwin = {
         src = fetchurl {
-          url =
-            "https://download.breitbandmessung.de/bbm/Breitbandmessung-${version}-mac.dmg";
+          url = "https://download.breitbandmessung.de/bbm/Breitbandmessung-${version}-mac.dmg";
           sha256 = "sha256-2c8mDKJuHDSw7p52EKnJO5vr2kNTLU6r9pmGPANjE20=";
         };
 
@@ -92,8 +90,7 @@ stdenv.mkDerivation (
     passthru.tests = { inherit (nixosTests) breitbandmessung; };
 
     meta = with lib; {
-      description =
-        "Broadband internet speed test app from the german Bundesnetzagentur";
+      description = "Broadband internet speed test app from the german Bundesnetzagentur";
       homepage = "https://www.breitbandmessung.de";
       license = licenses.unfree;
       sourceProvenance = with sourceTypes; [ binaryNativeCode ];

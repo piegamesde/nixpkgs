@@ -90,8 +90,7 @@ let
         env =
           { LUAROCKS_CONFIG = "$PWD/${luarocks_config}"; } // attrs.env or { };
 
-        generatedRockspecFilename =
-          "${rockspecDir}/${pname}-${rockspecVersion}.rockspec";
+        generatedRockspecFilename = "${rockspecDir}/${pname}-${rockspecVersion}.rockspec";
 
         nativeBuildInputs = [
           wrapLua

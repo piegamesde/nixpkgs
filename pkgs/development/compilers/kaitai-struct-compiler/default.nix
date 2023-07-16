@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
   version = "0.10";
 
   src = fetchzip {
-    url =
-      "https://github.com/kaitai-io/kaitai_struct_compiler/releases/download/${version}/kaitai-struct-compiler-${version}.zip";
+    url = "https://github.com/kaitai-io/kaitai_struct_compiler/releases/download/${version}/kaitai-struct-compiler-${version}.zip";
     sha256 = "sha256-oY1OiEq619kLmQPMRQ4sjuBnTXgJ2WfvsEj1JrxUGPA=";
   };
 
@@ -29,8 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/kaitai-io/kaitai_struct_compiler";
-    description =
-      "Compiler to generate binary data parsers in C++ / C# / Go / Java / JavaScript / Lua / Perl / PHP / Python / Ruby ";
+    description = "Compiler to generate binary data parsers in C++ / C# / Go / Java / JavaScript / Lua / Perl / PHP / Python / Ruby ";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ luis ];
     platforms = platforms.unix;

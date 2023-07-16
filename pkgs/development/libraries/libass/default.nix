@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
   version = "0.17.1";
 
   src = fetchurl {
-    url =
-      "https://github.com/libass/libass/releases/download/${version}/${pname}-${version}.tar.xz";
+    url = "https://github.com/libass/libass/releases/download/${version}/${pname}-${version}.tar.xz";
     sha256 = "sha256-8NoLv7pHbBauPhz9hiJW0wkVkR96uqGxbOYu5lMZJ4Q=";
   };
 

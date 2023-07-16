@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/gjs/${
+    url = "mirror://gnome/sources/gjs/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "sha256-pj8VaWSxNgU+q1HqATEU59fBk7dRjSjAQLawLDyTOm0=";

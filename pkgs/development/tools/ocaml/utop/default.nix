@@ -47,8 +47,7 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.03";
 
   src = fetchurl {
-    url =
-      "https://github.com/ocaml-community/utop/releases/download/${version}/utop-${version}.tbz";
+    url = "https://github.com/ocaml-community/utop/releases/download/${version}/utop-${version}.tbz";
     sha256 = switch.sha256;
   };
 

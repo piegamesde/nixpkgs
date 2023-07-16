@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
   ;
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "P7PONA/NfbVNh8iT5pv8Kx9uTUsnkGX/5m2snw/RK00=";
@@ -126,8 +125,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = {
-    description =
-      "A library for storing and retrieving passwords and other secrets";
+    description = "A library for storing and retrieving passwords and other secrets";
     homepage = "https://wiki.gnome.org/Projects/Libsecret";
     license = lib.licenses.lgpl21Plus;
     mainProgram = "secret-tool";

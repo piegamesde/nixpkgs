@@ -18,8 +18,7 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-0INC0LFzlnFnt5pCiU4xePxU8a6GiU1L8bg7zcuFl2k=";
 
   meta = with lib; {
-    description =
-      "A human-friendly and fast alternative to cut and (sometimes) awk";
+    description = "A human-friendly and fast alternative to cut and (sometimes) awk";
     homepage = "https://github.com/theryangeary/choose";
     license = licenses.gpl3;
     maintainers = with maintainers; [ sohalt ];

@@ -26,8 +26,7 @@ let
     }@args:
     let
       package = fetchzip {
-        url =
-          "https://registry.npmjs.org/${name}/-/${
+        url = "https://registry.npmjs.org/${name}/-/${
             baseNameOf name
           }-${version}.tgz";
         inherit hash;
@@ -92,21 +91,15 @@ rustPlatform.buildRustPackage rec {
     lockFile = ./Cargo.lock;
     outputHashes = {
       "criterion-0.3.5" = "sha256-gXhwLw99kC08zxHdY6l5LF5EVzAAFasI4GLnopLwhEU=";
-      "differential-dataflow-0.12.0" =
-        "sha256-sDy4502XqCuXqRtwLWuaHSgfX7v9NNochhfpI6n8DrM=";
+      "differential-dataflow-0.12.0" = "sha256-sDy4502XqCuXqRtwLWuaHSgfX7v9NNochhfpI6n8DrM=";
       "headers-0.3.5" = "sha256-ipxMfuPgoeH2uR4Im/XBdnxT00+LGzTgW7Ed2armYOU=";
       "mzcloud-1.0.0" = "sha256-Nt9YCG+DFCCOMbKaNhOD78WF/z3qB5ymUIp6Wep2A9A=";
-      "parquet-format-async-temp-0.2.0" =
-        "sha256-UUQv/90egmwQK0CZCztinEskvWcZ40rKWbJoWYz2oLQ=";
+      "parquet-format-async-temp-0.2.0" = "sha256-UUQv/90egmwQK0CZCztinEskvWcZ40rKWbJoWYz2oLQ=";
       "postgres-0.19.1" = "sha256-zH7PF4p7wJCSYpuydTL3HPcOjPU9SlTy6IJREOe2l7U=";
-      "postgres_array-0.11.0" =
-        "sha256-M1nMsQfxK0ay4JxoPqm2cl4Cp8mVZlVUAfWDhhv9nA4=";
-      "prometheus-0.10.0" =
-        "sha256-NTnKt1RGiZ8AxsU8UzhLhpfEi24Pos5kR9g22Mmt444=";
-      "protobuf-3.0.0-alpha.2" =
-        "sha256-8gBGQqAtKJelcBCxnDESanlblBLQ1Th7khHxUkDw7To=";
-      "pubnub-core-0.1.0" =
-        "sha256-YuGEFaStfrhb0ygjVFm2a2eJla9ABc5ifXKuvJxUvgk=";
+      "postgres_array-0.11.0" = "sha256-M1nMsQfxK0ay4JxoPqm2cl4Cp8mVZlVUAfWDhhv9nA4=";
+      "prometheus-0.10.0" = "sha256-NTnKt1RGiZ8AxsU8UzhLhpfEi24Pos5kR9g22Mmt444=";
+      "protobuf-3.0.0-alpha.2" = "sha256-8gBGQqAtKJelcBCxnDESanlblBLQ1Th7khHxUkDw7To=";
+      "pubnub-core-0.1.0" = "sha256-YuGEFaStfrhb0ygjVFm2a2eJla9ABc5ifXKuvJxUvgk=";
       "rdkafka-0.28.0" = "sha256-u2gBTzu+IvXTDvcZGzPaVpSVOgAKhTth7GLwob4urDs=";
       "timely-0.12.0" = "sha256-PHaDRNm7MezXJWhILWJHTeiCWO3iLUp94Z0V2dreCMk=";
     };
@@ -161,8 +154,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     homepage = "https://materialize.com";
-    description =
-      "A streaming SQL materialized view engine for real-time applications";
+    description = "A streaming SQL materialized view engine for real-time applications";
     license = licenses.bsl11;
     platforms = [
       "x86_64-linux"

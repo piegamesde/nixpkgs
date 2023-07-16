@@ -708,8 +708,7 @@ let
                 deviceDependency v.local.dev
                 ++ [ "network-addresses-${v.local.dev}.service" ]
               );
-              fouSpec =
-                "port ${toString v.port} ${
+              fouSpec = "port ${toString v.port} ${
                   if v.protocol != null then
                     "ipproto ${toString v.protocol}"
                   else

@@ -30,11 +30,9 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Command Line Tool for generating language files with typeshare";
+    description = "Command Line Tool for generating language files with typeshare";
     homepage = "https://github.com/1password/typeshare";
-    changelog =
-      "https://github.com/1password/typeshare/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/1password/typeshare/blob/v${version}/CHANGELOG.md";
     license = with licenses; [
       asl20 # or
       mit

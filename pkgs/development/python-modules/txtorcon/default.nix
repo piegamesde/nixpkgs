@@ -52,8 +52,7 @@ buildPythonPackage rec {
   doCheck = !(stdenv.isDarwin && stdenv.isAarch64);
 
   meta = with lib; {
-    description =
-      "Twisted-based Tor controller client, with state-tracking and configuration abstractions";
+    description = "Twisted-based Tor controller client, with state-tracking and configuration abstractions";
     homepage = "https://github.com/meejah/txtorcon";
     changelog = "https://github.com/meejah/txtorcon/releases/tag/v${version}";
     maintainers = with maintainers; [

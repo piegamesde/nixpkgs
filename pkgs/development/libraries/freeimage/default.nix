@@ -104,8 +104,7 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   meta = {
-    description =
-      "Open Source library for accessing popular graphics image file formats";
+    description = "Open Source library for accessing popular graphics image file formats";
     homepage = "http://freeimage.sourceforge.net/";
     license = "GPL";
     maintainers = with lib.maintainers; [

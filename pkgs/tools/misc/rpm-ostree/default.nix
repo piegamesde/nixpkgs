@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "https://github.com/coreos/${pname}/releases/download/v${version}/${pname}-${version}.tar.xz";
+    url = "https://github.com/coreos/${pname}/releases/download/v${version}/${pname}-${version}.tar.xz";
     hash = "sha256-qIkGQqU+6EbSKmHwjZe+A1XsIZVnBQyM28DN9GFP/qE=";
   };
 
@@ -123,8 +122,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A hybrid image/package system. It uses OSTree as an image format, and uses RPM as a component model";
+    description = "A hybrid image/package system. It uses OSTree as an image format, and uses RPM as a component model";
     homepage = "https://coreos.github.io/rpm-ostree/";
     license = licenses.lgpl2Plus;
     maintainers = with maintainers; [ copumpkin ];

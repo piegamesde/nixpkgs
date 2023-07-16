@@ -15,8 +15,7 @@ build-idris-package {
   };
 
   meta = {
-    description =
-      "a theorem prover for intuitionistic propositional logic in Idris, with metaprogramming features";
+    description = "a theorem prover for intuitionistic propositional logic in Idris, with metaprogramming features";
     homepage = "https://github.com/joom/hezarfen";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.brainrape ];

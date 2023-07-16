@@ -32,8 +32,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "yappi" ];
 
   meta = with lib; {
-    description =
-      "Python profiler that supports multithreading and measuring CPU time";
+    description = "Python profiler that supports multithreading and measuring CPU time";
     homepage = "https://github.com/sumerc/yappi";
     license = licenses.mit;
     maintainers = with maintainers; [ orivej ];

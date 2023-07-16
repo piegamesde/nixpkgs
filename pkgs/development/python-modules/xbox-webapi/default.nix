@@ -48,8 +48,7 @@ buildPythonPackage rec {
   pytestFlagsArray = [ "--asyncio-mode=auto" ];
 
   meta = with lib; {
-    description =
-      "Library to authenticate with Windows Live/Xbox Live and use their API";
+    description = "Library to authenticate with Windows Live/Xbox Live and use their API";
     homepage = "https://github.com/OpenXbox/xbox-webapi-python";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];

@@ -125,8 +125,7 @@ in
           after = [ "network-online.target" ];
           wantedBy = [ "multi-user.target" ];
           serviceConfig = {
-            ExecStart =
-              "${cfg.package}/bin/minio server --json --address ${cfg.listenAddress} --console-address ${cfg.consoleAddress} --config-dir=${cfg.configDir} ${
+            ExecStart = "${cfg.package}/bin/minio server --json --address ${cfg.listenAddress} --console-address ${cfg.consoleAddress} --config-dir=${cfg.configDir} ${
                 toString cfg.dataDir
               }";
             Type = "simple";

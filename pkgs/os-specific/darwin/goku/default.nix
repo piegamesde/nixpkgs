@@ -13,14 +13,12 @@ stdenv.mkDerivation rec {
   src =
     if stdenv.isAarch64 then
       fetchurl {
-        url =
-          "https://github.com/yqrashawn/GokuRakuJoudo/releases/download/v${version}/goku-arm.zip";
+        url = "https://github.com/yqrashawn/GokuRakuJoudo/releases/download/v${version}/goku-arm.zip";
         hash = "sha256-TIoda2kDckK1FBLAmKudsDs3LXO4J0KWiAD2JlFb4rk=";
       }
     else
       fetchurl {
-        url =
-          "https://github.com/yqrashawn/GokuRakuJoudo/releases/download/v${version}/goku.zip";
+        url = "https://github.com/yqrashawn/GokuRakuJoudo/releases/download/v${version}/goku.zip";
         hash = "sha256-8HdIwtpzR6O2WCbMYIJ6PHcM27Xmb+4Tc5Fmjl0dABQ=";
       }
   ;

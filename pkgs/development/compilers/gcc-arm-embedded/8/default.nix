@@ -20,14 +20,11 @@ stdenv.mkDerivation rec {
       or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   src = fetchurl {
-    url =
-      "https://developer.arm.com/-/media/Files/downloads/gnu-rm/${subdir}/gcc-arm-none-eabi-${release}-${suffix}.tar.bz2";
+    url = "https://developer.arm.com/-/media/Files/downloads/gnu-rm/${subdir}/gcc-arm-none-eabi-${release}-${suffix}.tar.bz2";
     sha256 =
       {
-        x86_64-darwin =
-          "fc235ce853bf3bceba46eff4b95764c5935ca07fc4998762ef5e5b7d05f37085";
-        x86_64-linux =
-          "b50b02b0a16e5aad8620e9d7c31110ef285c1dde28980b1a9448b764d77d8f92";
+        x86_64-darwin = "fc235ce853bf3bceba46eff4b95764c5935ca07fc4998762ef5e5b7d05f37085";
+        x86_64-linux = "b50b02b0a16e5aad8620e9d7c31110ef285c1dde28980b1a9448b764d77d8f92";
       }
       .${stdenv.hostPlatform.system}
         or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
@@ -59,8 +56,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Pre-built GNU toolchain from ARM Cortex-M & Cortex-R processors";
+    description = "Pre-built GNU toolchain from ARM Cortex-M & Cortex-R processors";
     homepage = "https://developer.arm.com/open-source/gnu-toolchain/gnu-rm";
     license = with licenses; [
       bsd2

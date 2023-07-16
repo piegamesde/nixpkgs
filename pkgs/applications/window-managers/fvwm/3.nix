@@ -87,8 +87,7 @@ stdenv.mkDerivation (
 
     meta = with lib; {
       homepage = "http://fvwm.org";
-      description =
-        "A multiple large virtual desktop window manager - Version 3";
+      description = "A multiple large virtual desktop window manager - Version 3";
       license = licenses.gpl2Plus;
       maintainers = with maintainers; [ AndersonTorres ];
       inherit (libX11.meta) platforms;

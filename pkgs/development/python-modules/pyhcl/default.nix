@@ -37,8 +37,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "HCL is a configuration language. pyhcl is a python parser for it";
+    description = "HCL is a configuration language. pyhcl is a python parser for it";
     homepage = "https://github.com/virtuald/pyhcl";
     license = licenses.mpl20;
     maintainers = with maintainers; [ kamadorueda ];

@@ -28,8 +28,7 @@ buildDunePackage rec {
     homepage = "https://deducteam.github.io";
     description = "Logical framework based on the λΠ-calculus modulo rewriting";
     license = licenses.cecill-b;
-    changelog =
-      "https://github.com/Deducteam/Dedukti/raw/${version}/CHANGELOG.md";
+    changelog = "https://github.com/Deducteam/Dedukti/raw/${version}/CHANGELOG.md";
     maintainers = with maintainers; [ bcdarwin ];
   };
 }

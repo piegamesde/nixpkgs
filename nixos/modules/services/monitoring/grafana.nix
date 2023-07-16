@@ -149,8 +149,7 @@ let
     types.coercedTo
       (mkOptionType {
         name = "grafana-provision-submodule";
-        description =
-          "Wrapper-type for backwards compat of Grafana's declarative provisioning";
+        description = "Wrapper-type for backwards compat of Grafana's declarative provisioning";
         check =
           x:
           if builtins.isList x then
@@ -1121,8 +1120,7 @@ in
                 Don't change the value of this option if you are planning to use `services.grafana.provision` options.
               '';
               default = provisionConfDir;
-              defaultText =
-                "directory with links to files generated from services.grafana.provision";
+              defaultText = "directory with links to files generated from services.grafana.provision";
               type = types.path;
             };
           };
@@ -2107,8 +2105,7 @@ in
         doesntUseFileProvider =
           opt: defaultValue:
           let
-            regex =
-              "${
+            regex = "${
                 optionalString (defaultValue != null) "^${defaultValue}$|"
               }^\\$__(file|env)\\{.*}$|^\\$[^_\\$][^ ]+$";
           in
@@ -2197,8 +2194,7 @@ in
             prometheusIsNotDirect
               cfg.provision.datasources.settings.datasources
         ;
-        message =
-          "For datasources of type `prometheus`, the `direct` access mode is not supported anymore (since Grafana 9.2.0)";
+        message = "For datasources of type `prometheus`, the `direct` access mode is not supported anymore (since Grafana 9.2.0)";
       }
       {
         assertion =
@@ -2219,8 +2215,7 @@ in
           cfg.provision.alerting.contactPoints.settings == null
           || cfg.provision.alerting.contactPoints.path == null
         ;
-        message =
-          "Cannot set both contact points settings and contact points path";
+        message = "Cannot set both contact points settings and contact points path";
       }
       {
         assertion =

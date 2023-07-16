@@ -51,8 +51,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/awslabs/aws-crt-python";
-    changelog =
-      "https://github.com/awslabs/aws-crt-python/releases/tag/v${version}";
+    changelog = "https://github.com/awslabs/aws-crt-python/releases/tag/v${version}";
     description = "Python bindings for the AWS Common Runtime";
     license = licenses.asl20;
     maintainers = with maintainers; [ davegallant ];

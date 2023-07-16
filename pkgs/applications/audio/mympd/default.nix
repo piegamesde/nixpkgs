@@ -57,8 +57,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://jcorporation.github.io/myMPD";
-    description =
-      "A standalone and mobile friendly web mpd client with a tiny footprint and advanced features";
+    description = "A standalone and mobile friendly web mpd client with a tiny footprint and advanced features";
     maintainers = [ lib.maintainers.doronbehar ];
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Plus;

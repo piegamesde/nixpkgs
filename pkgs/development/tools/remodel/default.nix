@@ -31,10 +31,8 @@ rustPlatform.buildRustPackage rec {
       Remodel is a command line tool for manipulating Roblox files and the instances contained within them.
     '';
     homepage = "https://github.com/rojo-rbx/remodel";
-    downloadPage =
-      "https://github.com/rojo-rbx/remodel/releases/tag/v${version}";
-    changelog =
-      "https://github.com/rojo-rbx/remodel/raw/v${version}/CHANGELOG.md";
+    downloadPage = "https://github.com/rojo-rbx/remodel/releases/tag/v${version}";
+    changelog = "https://github.com/rojo-rbx/remodel/raw/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ wackbyte ];
   };

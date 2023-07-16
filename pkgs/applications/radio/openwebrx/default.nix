@@ -40,8 +40,7 @@ let
 
     meta = with lib; {
       homepage = "https://github.com/jketterl/js8py";
-      description =
-        "A library to decode the output of the js8 binary of JS8Call";
+      description = "A library to decode the output of the js8 binary of JS8Call";
       license = licenses.gpl3Only;
       maintainers = teams.c3d2.members;
     };
@@ -73,8 +72,7 @@ let
 
     meta = with lib; {
       homepage = "https://github.com/jketterl/owrx_connector";
-      description =
-        "A set of connectors that are used by OpenWebRX to interface with SDR hardware";
+      description = "A set of connectors that are used by OpenWebRX to interface with SDR hardware";
       license = licenses.gpl3Only;
       platforms = platforms.unix;
       maintainers = teams.c3d2.members;
@@ -116,8 +114,7 @@ buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/jketterl/openwebrx";
-    description =
-      "A simple DSP library and command-line tool for Software Defined Radio";
+    description = "A simple DSP library and command-line tool for Software Defined Radio";
     license = licenses.gpl3Only;
     maintainers = teams.c3d2.members;
   };

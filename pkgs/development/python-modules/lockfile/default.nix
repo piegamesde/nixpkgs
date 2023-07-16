@@ -24,8 +24,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://launchpad.net/pylockfile";
-    description =
-      "Platform-independent advisory file locking capability for Python applications";
+    description = "Platform-independent advisory file locking capability for Python applications";
     license = licenses.asl20;
   };
 }

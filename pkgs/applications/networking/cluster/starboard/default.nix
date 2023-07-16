@@ -72,8 +72,7 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/aquasecurity/starboard";
-    changelog =
-      "https://github.com/aquasecurity/starboard/releases/tag/v${version}";
+    changelog = "https://github.com/aquasecurity/starboard/releases/tag/v${version}";
     description = "Kubernetes-native security tool kit";
     longDescription = ''
       Starboard integrates security tools into the Kubernetes environment, so

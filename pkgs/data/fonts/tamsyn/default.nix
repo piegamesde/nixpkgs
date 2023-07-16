@@ -14,8 +14,7 @@ stdenv.mkDerivation {
   inherit version;
 
   src = fetchurl {
-    url =
-      "http://www.fial.com/~scott/tamsyn-font/download/tamsyn-font-${version}.tar.gz";
+    url = "http://www.fial.com/~scott/tamsyn-font/download/tamsyn-font-${version}.tar.gz";
     sha256 = "0kpjzdj8sv5871b8827mjgj9dswk75h94jj5iia2bds18ih1pglp";
   };
 

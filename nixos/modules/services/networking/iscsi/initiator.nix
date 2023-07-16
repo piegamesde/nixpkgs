@@ -61,8 +61,7 @@ in
           EOF
         ''
     ;
-    environment.etc."iscsi/initiatorname.iscsi".text =
-      "InitiatorName=${cfg.name}";
+    environment.etc."iscsi/initiatorname.iscsi".text = "InitiatorName=${cfg.name}";
 
     system.activationScripts.iscsid =
       let

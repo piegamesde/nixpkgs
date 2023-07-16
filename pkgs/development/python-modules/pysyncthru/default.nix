@@ -33,8 +33,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pysyncthru" ];
 
   meta = with lib; {
-    description =
-      "Automated JSON API based communication with Samsung SyncThru Web Service";
+    description = "Automated JSON API based communication with Samsung SyncThru Web Service";
     homepage = "https://github.com/nielstron/pysyncthru";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];

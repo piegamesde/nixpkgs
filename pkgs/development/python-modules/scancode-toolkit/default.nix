@@ -153,8 +153,7 @@ buildPythonPackage rec {
   dontStrip = true;
 
   meta = with lib; {
-    description =
-      "Tool to scan code for license, copyright, package and their documented dependencies and other interesting facts";
+    description = "Tool to scan code for license, copyright, package and their documented dependencies and other interesting facts";
     homepage = "https://github.com/nexB/scancode-toolkit";
     license = with licenses; [
       asl20

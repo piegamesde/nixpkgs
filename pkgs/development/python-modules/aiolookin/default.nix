@@ -44,8 +44,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python client for interacting with LOOKin devices";
     homepage = "https://github.com/ANMalko/aiolookin";
-    changelog =
-      "https://github.com/ANMalko/aiolookin/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/ANMalko/aiolookin/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

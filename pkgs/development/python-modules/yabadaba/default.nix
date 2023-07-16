@@ -48,8 +48,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Abstraction layer allowing for common interactions with databases and records";
+    description = "Abstraction layer allowing for common interactions with databases and records";
     homepage = "https://github.com/usnistgov/yabadaba";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];

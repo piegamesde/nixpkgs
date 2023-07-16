@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
   version = "41.0";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "Stt97JJkKPdCY9V5ZnPPFC5HILbnaPVGio0JM/mMlZc=";
@@ -37,8 +36,7 @@ stdenv.mkDerivation rec {
       # Fix build with meson 0.61
       # https://gitlab.gnome.org/GNOME/gnome-screenshot/-/issues/186
       (fetchpatch {
-        url =
-          "https://gitlab.gnome.org/GNOME/gnome-screenshot/-/commit/b60dad3c2536c17bd201f74ad8e40eb74385ed9f.patch";
+        url = "https://gitlab.gnome.org/GNOME/gnome-screenshot/-/commit/b60dad3c2536c17bd201f74ad8e40eb74385ed9f.patch";
         sha256 = "Js83h/3xxcw2hsgjzGa5lAYFXVrt6MPhXOTh5dZTx/w=";
       })
     ];
@@ -80,8 +78,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/GNOME/gnome-screenshot";
-    description =
-      "Utility used in the GNOME desktop environment for taking screenshots";
+    description = "Utility used in the GNOME desktop environment for taking screenshots";
     maintainers = teams.gnome.members;
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

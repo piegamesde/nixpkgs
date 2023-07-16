@@ -73,8 +73,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "HomeKit Accessory Protocol implementation";
     homepage = "https://github.com/ikalchev/HAP-python";
-    changelog =
-      "https://github.com/ikalchev/HAP-python/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/ikalchev/HAP-python/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ oro ];
   };

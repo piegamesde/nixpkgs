@@ -70,11 +70,9 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   meta = with lib; {
-    description =
-      "A minimalist file manager for those who want to use Linux mobile devices";
+    description = "A minimalist file manager for those who want to use Linux mobile devices";
     homepage = "https://github.com/tchx84/Portfolio";
-    changelog =
-      "https://github.com/tchx84/Portfolio/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/tchx84/Portfolio/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [

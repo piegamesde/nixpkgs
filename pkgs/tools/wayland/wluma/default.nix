@@ -46,8 +46,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Automatic brightness adjustment based on screen contents and ALS";
+    description = "Automatic brightness adjustment based on screen contents and ALS";
     homepage = "https://github.com/maximbaz/wluma";
     license = licenses.isc;
     maintainers = with maintainers; [

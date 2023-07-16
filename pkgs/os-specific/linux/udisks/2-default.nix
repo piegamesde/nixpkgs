@@ -91,8 +91,7 @@ stdenv.mkDerivation rec {
     })
     # Fix crash on exit, remove on upgrade to 2.10.
     (fetchpatch {
-      url =
-        "https://github.com/storaged-project/udisks/commit/6464e3083c27b9e4d97848b9e69e862f265511d5.patch";
+      url = "https://github.com/storaged-project/udisks/commit/6464e3083c27b9e4d97848b9e69e862f265511d5.patch";
       hash = "sha256-XGprXjJLIL8l4P5MRTHV8GOQR1hpaaFiLgexGnO9Lvg=";
     })
   ];
@@ -155,8 +154,7 @@ stdenv.mkDerivation rec {
   passthru.tests.vm = nixosTests.udisks2;
 
   meta = with lib; {
-    description =
-      "A daemon, tools and libraries to access and manipulate disks, storage devices and technologies";
+    description = "A daemon, tools and libraries to access and manipulate disks, storage devices and technologies";
     homepage = "https://www.freedesktop.org/wiki/Software/udisks/";
     license = with licenses; [
       lgpl2Plus

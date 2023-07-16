@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
   name = "${pname}-gtk3-${version}";
 
   src = fetchbzr {
-    url =
-      "https://code.launchpad.net/~indicator-applet-developers/${pname}/trunk.17.04";
+    url = "https://code.launchpad.net/~indicator-applet-developers/${pname}/trunk.17.04";
     rev = "260";
     sha256 = "1f0jdyqqb5g86zdpbcyn16x94yjigsfiv2kf73dvni5rp1vafbq1";
   };
@@ -69,8 +68,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Indicator to take menus from applications and place them in the panel";
+    description = "Indicator to take menus from applications and place them in the panel";
     homepage = "https://launchpad.net/indicator-application";
     license = licenses.gpl3;
     platforms = platforms.linux;

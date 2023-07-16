@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://discord.com/developers/docs/game-sdk/sdk-starter-guide";
-    description =
-      "Library to allow other programs to interact with the Discord desktop application";
+    description = "Library to allow other programs to interact with the Discord desktop application";
     license = licenses.unfree;
     maintainers = with maintainers; [ tomodachi94 ];
     platforms = [

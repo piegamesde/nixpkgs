@@ -17,8 +17,7 @@ let
   veriT' = veriT.overrideAttrs (
     oA: {
       src = fetchurl {
-        url =
-          "https://www.lri.fr/~keller/Documents-recherche/Smtcoq/veriT9f48a98.tar.gz";
+        url = "https://www.lri.fr/~keller/Documents-recherche/Smtcoq/veriT9f48a98.tar.gz";
         sha256 = "sha256-Pe46PxQVHWwWwx5Ei4Bl95A0otCiXZuUZ2nXuZPYnhY=";
       };
       meta.broken = false;
@@ -32,8 +31,7 @@ mkCoqDerivation {
   owner = "smtcoq";
 
   release."2021-09-17".rev = "f36bf11e994cc269c2ec92b061b082e3516f472f";
-  release."2021-09-17".sha256 =
-    "sha256-bF7ES+tXraaAJwVEwAMx3CUESpNlAUerQjr4d2eaGJQ=";
+  release."2021-09-17".sha256 = "sha256-bF7ES+tXraaAJwVEwAMx3CUESpNlAUerQjr4d2eaGJQ=";
 
   inherit version;
   defaultVersion =

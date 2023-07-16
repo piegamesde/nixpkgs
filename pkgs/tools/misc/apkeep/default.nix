@@ -28,8 +28,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
   meta = with lib; {
-    description =
-      "A command-line tool for downloading APK files from various sources";
+    description = "A command-line tool for downloading APK files from various sources";
     homepage = "https://github.com/EFForg/apkeep";
     changelog = "https://github.com/EFForg/apkeep/blob/${version}/CHANGELOG.md";
     license = licenses.mit;

@@ -27,15 +27,13 @@ stdenv.mkDerivation rec {
   patches = [
     # Fix musl build from https://github.com/oneapi-src/oneTBB/pull/899
     (fetchpatch {
-      url =
-        "https://patch-diff.githubusercontent.com/raw/oneapi-src/oneTBB/pull/899.patch";
+      url = "https://patch-diff.githubusercontent.com/raw/oneapi-src/oneTBB/pull/899.patch";
       hash = "sha256-kU6RRX+sde0NrQMKlNtW3jXav6J4QiVIUmD50asmBPU=";
     })
 
     # Fix/suppress warnings on gcc12.1 from https://github.com/oneapi-src/oneTBB/pull/866
     (fetchpatch {
-      url =
-        "https://patch-diff.githubusercontent.com/raw/oneapi-src/oneTBB/pull/866.patch";
+      url = "https://patch-diff.githubusercontent.com/raw/oneapi-src/oneTBB/pull/866.patch";
       hash = "sha256-e44Yv84Hfl5xoxWWTnLJLSGeNA1RBbah4/L43gPLS+c=";
     })
   ];

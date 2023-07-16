@@ -124,8 +124,7 @@ in
               ''
               + cfg.extraInit
             );
-            initshloc =
-              "${anboxloc}/rootfs-overlay/system/etc/init.goldfish.sh";
+            initshloc = "${anboxloc}/rootfs-overlay/system/etc/init.goldfish.sh";
           in
           ''
             mkdir -p ${anboxloc}

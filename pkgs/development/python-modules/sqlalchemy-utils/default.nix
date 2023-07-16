@@ -91,8 +91,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/kvesteri/sqlalchemy-utils/releases/tag/${version}";
+    changelog = "https://github.com/kvesteri/sqlalchemy-utils/releases/tag/${version}";
     homepage = "https://github.com/kvesteri/sqlalchemy-utils";
     description = "Various utility functions and datatypes for SQLAlchemy";
     license = licenses.bsd3;

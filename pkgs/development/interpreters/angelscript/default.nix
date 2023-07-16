@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
   version = "2.36.0";
 
   src = fetchurl {
-    url =
-      "https://www.angelcode.com/angelscript/sdk/files/angelscript_${version}.zip";
+    url = "https://www.angelcode.com/angelscript/sdk/files/angelscript_${version}.zip";
     sha256 = "sha256-M/lfdZe8DYiwl9NeexMg0VQZ/8V3mFHZ0qbMzsV4EbM=";
   };
 

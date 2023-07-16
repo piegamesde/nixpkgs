@@ -55,8 +55,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Reinforcement learning library using PyTorch focusing on readability and simplicity";
+    description = "Reinforcement learning library using PyTorch focusing on readability and simplicity";
     homepage = "https://skrl.readthedocs.io";
     license = licenses.mit;
     maintainers = with maintainers; [ bcdarwin ];

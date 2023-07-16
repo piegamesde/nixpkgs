@@ -34,8 +34,7 @@
 
         patch = fetchpatch {
           name = "bcachefs-${currentCommit}.diff";
-          url =
-            "https://evilpiepirate.org/git/bcachefs.git/rawdiff/?id=${currentCommit}&id2=v${
+          url = "https://evilpiepirate.org/git/bcachefs.git/rawdiff/?id=${currentCommit}&id2=v${
               lib.versions.majorMinor kernel.version
             }";
           sha256 = diffHash;

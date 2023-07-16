@@ -46,8 +46,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "sqlite_utils" ];
 
   meta = with lib; {
-    description =
-      "Python CLI utility and library for manipulating SQLite databases";
+    description = "Python CLI utility and library for manipulating SQLite databases";
     homepage = "https://github.com/simonw/sqlite-utils";
     license = licenses.asl20;
     maintainers = with maintainers; [

@@ -20,8 +20,7 @@ stdenv.mkDerivation (
     inherit version;
 
     src = fetchurl {
-      url =
-        "https://download.oracle.com/berkeley-db/${pname}-${version}.tar.gz";
+      url = "https://download.oracle.com/berkeley-db/${pname}-${version}.tar.gz";
       sha256 = sha256;
     };
 
@@ -60,8 +59,7 @@ stdenv.mkDerivation (
     '';
 
     meta = with lib; {
-      homepage =
-        "https://www.oracle.com/database/technologies/related/berkeleydb.html";
+      homepage = "https://www.oracle.com/database/technologies/related/berkeleydb.html";
       description = "Berkeley DB";
       license = license;
       platforms = platforms.unix;

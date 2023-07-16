@@ -19,8 +19,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Provides a decorator to create thread-safe singleton classes";
+    description = "Provides a decorator to create thread-safe singleton classes";
     homepage = "https://github.com/timofurrer/pysingleton";
     license = licenses.mit;
     maintainers = with maintainers; [ kalbasit ];

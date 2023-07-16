@@ -14,8 +14,7 @@ mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url =
-      "https://github.com/bobthecow/psysh/releases/download/v${version}/psysh-v${version}.tar.gz";
+    url = "https://github.com/bobthecow/psysh/releases/download/v${version}/psysh-v${version}.tar.gz";
     sha256 = "sha256-4FEjMtp7MRTjpdb1ZpKqCa0erxrW90JyGy1ZmMBVdZE=";
   };
 
@@ -34,8 +33,7 @@ mkDerivation {
 
   meta = with lib; {
     changelog = "https://github.com/bobthecow/psysh/releases/tag/v${version}";
-    description =
-      "PsySH is a runtime developer console, interactive debugger and REPL for PHP.";
+    description = "PsySH is a runtime developer console, interactive debugger and REPL for PHP.";
     license = licenses.mit;
     homepage = "https://psysh.org/";
     maintainers = teams.php.members;

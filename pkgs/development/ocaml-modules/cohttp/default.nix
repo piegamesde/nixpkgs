@@ -22,8 +22,7 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url =
-      "https://github.com/mirage/ocaml-cohttp/releases/download/v${version}/cohttp-v${version}.tbz";
+    url = "https://github.com/mirage/ocaml-cohttp/releases/download/v${version}/cohttp-v${version}.tbz";
     sha256 = "sha256-mINgeBO7DSsWd84gYjQNUQFqbh8KBZ+S2bYI/iVWMAc=";
   };
 

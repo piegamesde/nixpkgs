@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   pname = "libe-book";
   version = "0.1.3";
   src = fetchurl {
-    url =
-      "https://kent.dl.sourceforge.net/project/libebook/libe-book-${version}/libe-book-${version}.tar.xz";
+    url = "https://kent.dl.sourceforge.net/project/libebook/libe-book-${version}/libe-book-${version}.tar.xz";
     sha256 = "sha256-fo2P808ngxrKO8b5zFMsL5DSBXx3iWO4hP89HjTf4fk=";
   };
   nativeBuildInputs = [ pkg-config ];

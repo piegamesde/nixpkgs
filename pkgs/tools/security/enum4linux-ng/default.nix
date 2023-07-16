@@ -36,8 +36,7 @@ buildPythonApplication rec {
       enumerating information from Windows and Samba systems.
     '';
     homepage = "https://github.com/cddmp/enum4linux-ng";
-    changelog =
-      "https://github.com/cddmp/enum4linux-ng/releases/tag/v${version}";
+    changelog = "https://github.com/cddmp/enum4linux-ng/releases/tag/v${version}";
     license = with licenses; [ gpl3Plus ];
     maintainers = with maintainers; [ fab ];
   };

@@ -99,11 +99,8 @@ buildPythonPackage rec {
   # script.
   postPatch =
     let
-      tcl_tk_cache =
-        ''
-          "${tk}/lib", "${tcl}/lib", "${
-            lib.strings.substring 0 3 tk.version
-          }"'';
+      tcl_tk_cache = ''
+        "${tk}/lib", "${tcl}/lib", "${lib.strings.substring 0 3 tk.version}"'';
     in
     lib.optionalString enableTk ''
       sed -i '/self.tcl_tk_cache = None/s|None|${tcl_tk_cache}|' setupext.py
@@ -199,8 +196,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python plotting library, making publication quality plots";
     homepage = "https://matplotlib.org/";
-    changelog =
-      "https://github.com/matplotlib/matplotlib/releases/tag/v${version}";
+    changelog = "https://github.com/matplotlib/matplotlib/releases/tag/v${version}";
     license = with licenses; [
       psfl
       bsd0

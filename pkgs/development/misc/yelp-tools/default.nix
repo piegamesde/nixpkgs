@@ -19,8 +19,7 @@ python3.pkgs.buildPythonApplication rec {
   format = "other";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/yelp-tools/${
+    url = "mirror://gnome/sources/yelp-tools/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "PklqQCDUFFuZ/VCKJfoJM2pQOk6JAAKEIecsaksR+QU=";
@@ -53,8 +52,7 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Yelp/Tools";
-    description =
-      "Small programs that help you create, edit, manage, and publish your Mallard or DocBook documentation";
+    description = "Small programs that help you create, edit, manage, and publish your Mallard or DocBook documentation";
     maintainers = teams.gnome.members ++ (with maintainers; [ domenkozar ]);
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

@@ -72,8 +72,7 @@ args@{
             "d /var/lib/nextcloud-data 0750 nextcloud nginx - -"
           ];
 
-          system.stateVersion =
-            "22.11"; # stateVersion >=21.11 to make sure that we use OpenSSL3
+          system.stateVersion = "22.11"; # stateVersion >=21.11 to make sure that we use OpenSSL3
 
           services.nextcloud = {
             enable = true;
@@ -81,8 +80,7 @@ args@{
             hostName = "nextcloud";
             config = {
               # Don't inherit adminuser since "root" is supposed to be the default
-              adminpassFile =
-                "${pkgs.writeText "adminpass"
+              adminpassFile = "${pkgs.writeText "adminpass"
                   adminpass}"; # Don't try this at home!
               dbtableprefix = "nixos_";
             };

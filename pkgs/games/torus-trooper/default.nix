@@ -15,8 +15,7 @@ let
     patchname: hash:
     fetchpatch {
       name = "${patchname}.patch";
-      url =
-        "https://sources.debian.org/data/main/t/torus-trooper/0.22.dfsg1-12/debian/patches/${patchname}.patch";
+      url = "https://sources.debian.org/data/main/t/torus-trooper/0.22.dfsg1-12/debian/patches/${patchname}.patch";
       sha256 = hash;
     }
   ;
@@ -26,8 +25,7 @@ stdenv.mkDerivation rec {
   version = "0.22";
 
   src = fetchurl {
-    url =
-      "http://abagames.sakura.ne.jp/windows/tt${
+    url = "http://abagames.sakura.ne.jp/windows/tt${
         lib.replaceStrings [ "." ] [ "_" ] version
       }.zip";
     sha256 = "1yhki1fdp3fi4y2iq12vca69f6k38dqjaw9z4lwcxky5kbgb7jvg";

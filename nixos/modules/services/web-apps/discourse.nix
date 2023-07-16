@@ -362,8 +362,7 @@ in
       mail = {
         notificationEmailAddress = lib.mkOption {
           type = lib.types.str;
-          default =
-            "${
+          default = "${
               if cfg.mail.incoming.enable then "notifications" else "noreply"
             }@${cfg.hostname}";
           defaultText = lib.literalExpression ''
@@ -562,13 +561,11 @@ in
       {
         assertion =
           (cfg.database.host != null) -> (cfg.database.passwordFile != null);
-        message =
-          "When services.gitlab.database.host is customized, services.discourse.database.passwordFile must be set!";
+        message = "When services.gitlab.database.host is customized, services.discourse.database.passwordFile must be set!";
       }
       {
         assertion = cfg.hostname != "";
-        message =
-          "Could not automatically determine hostname, set service.discourse.hostname manually.";
+        message = "Could not automatically determine hostname, set service.discourse.hostname manually.";
       }
       {
         assertion =
@@ -903,8 +900,7 @@ in
         ProtectSystem = "strict";
         ProtectHome = "read-only";
 
-        ExecStart =
-          "${cfg.package.rubyEnv}/bin/bundle exec config/unicorn_launcher -E production -c config/unicorn.conf.rb";
+        ExecStart = "${cfg.package.rubyEnv}/bin/bundle exec config/unicorn_launcher -E production -c config/unicorn.conf.rb";
       };
     };
 
@@ -1069,8 +1065,9 @@ in
           let
             mail-receiver-environment = {
               MAIL_DOMAIN = cfg.hostname;
-              DISCOURSE_BASE_URL =
-                "http${lib.optionalString tlsEnabled "s"}://${cfg.hostname}";
+              DISCOURSE_BASE_URL = "http${
+                  lib.optionalString tlsEnabled "s"
+                }://${cfg.hostname}";
               DISCOURSE_API_KEY = "@api-key@";
               DISCOURSE_API_USERNAME = "system";
             };
@@ -1161,8 +1158,7 @@ in
       origin = cfg.hostname;
       relayDomains = [ cfg.hostname ];
       config = {
-        smtpd_recipient_restrictions =
-          "check_policy_service unix:private/discourse-policy";
+        smtpd_recipient_restrictions = "check_policy_service unix:private/discourse-policy";
         append_dot_mydomain = lib.mkDefault false;
         compatibility_level = "2";
         smtputf8_enable = false;

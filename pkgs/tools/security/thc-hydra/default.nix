@@ -77,12 +77,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A very fast network logon cracker which support many different services";
-    homepage =
-      "https://github.com/vanhauser-thc/thc-hydra"; # https://www.thc.org/
-    changelog =
-      "https://github.com/vanhauser-thc/thc-hydra/raw/v${version}/CHANGES";
+    description = "A very fast network logon cracker which support many different services";
+    homepage = "https://github.com/vanhauser-thc/thc-hydra"; # https://www.thc.org/
+    changelog = "https://github.com/vanhauser-thc/thc-hydra/raw/v${version}/CHANGES";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ offline ];
     platforms = platforms.unix;

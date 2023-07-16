@@ -54,8 +54,9 @@ in
           ;
         in
         {
-          ExecStart =
-            "${pkgs.vector}/bin/vector --config ${validateConfig conf}";
+          ExecStart = "${pkgs.vector}/bin/vector --config ${
+              validateConfig conf
+            }";
           DynamicUser = true;
           Restart = "no";
           StateDirectory = "vector";

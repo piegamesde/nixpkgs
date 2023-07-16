@@ -11,8 +11,7 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.07";
 
   src = fetchurl {
-    url =
-      "https://github.com/jnavila/plotkicadsch/releases/download/v${version}/plotkicadsch-${version}.tbz";
+    url = "https://github.com/jnavila/plotkicadsch/releases/download/v${version}/plotkicadsch-${version}.tbz";
     sha256 = "sha256-B+vnEPyd3SUzviTdNoyvYk0p7Hrg/XTJm8KxsY8A4jQ=";
   };
 

@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/muffinmad/pidgin-im-gnome-shell-extension";
-    description =
-      "Make Pidgin IM conversations appear in the Gnome Shell message tray";
+    description = "Make Pidgin IM conversations appear in the Gnome Shell message tray";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];

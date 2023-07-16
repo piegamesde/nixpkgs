@@ -54,8 +54,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "yalexs" ];
 
   meta = with lib; {
-    description =
-      "Python API for Yale Access (formerly August) Smart Lock and Doorbell";
+    description = "Python API for Yale Access (formerly August) Smart Lock and Doorbell";
     homepage = "https://github.com/bdraco/yalexs";
     changelog = "https://github.com/bdraco/yalexs/releases/tag/v${version}";
     license = with licenses; [ mit ];

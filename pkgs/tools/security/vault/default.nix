@@ -68,8 +68,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://www.vaultproject.io/";
     description = "A tool for managing secrets";
-    changelog =
-      "https://github.com/hashicorp/vault/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/hashicorp/vault/blob/v${version}/CHANGELOG.md";
     license = licenses.mpl20;
     maintainers = with maintainers; [
       rushmorem

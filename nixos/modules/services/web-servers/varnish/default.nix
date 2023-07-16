@@ -99,8 +99,7 @@ in
       serviceConfig = {
         Type = "simple";
         PermissionsStartOnly = true;
-        ExecStart =
-          "${cfg.package}/sbin/varnishd -a ${cfg.http_address} -n ${cfg.stateDir} -F ${cfg.extraCommandLine} ${commandLine}";
+        ExecStart = "${cfg.package}/sbin/varnishd -a ${cfg.http_address} -n ${cfg.stateDir} -F ${cfg.extraCommandLine} ${commandLine}";
         Restart = "always";
         RestartSec = "5s";
         User = "varnish";

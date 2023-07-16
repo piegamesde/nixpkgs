@@ -21,8 +21,7 @@ let
     .${system} or (throw "Unsupported system: ${system}");
 
   src = fetchurl {
-    url =
-      "https://github.com/vmware-tanzu/octant/releases/download/v${version}/Octant-${version}.${suffix}";
+    url = "https://github.com/vmware-tanzu/octant/releases/download/v${version}/Octant-${version}.${suffix}";
     sha256 =
       {
         x86_64-linux = "sha256-K4z6SVCiuqy3xkWMWpm8KM7iYVXyKcnERljMG3NEFMw=";
@@ -80,10 +79,8 @@ let
 
   meta = with lib; {
     homepage = "https://octant.dev/";
-    changelog =
-      "https://github.com/vmware-tanzu/octant/blob/v${version}/CHANGELOG.md";
-    description =
-      "Highly extensible platform for developers to better understand the complexity of Kubernetes clusters";
+    changelog = "https://github.com/vmware-tanzu/octant/blob/v${version}/CHANGELOG.md";
+    description = "Highly extensible platform for developers to better understand the complexity of Kubernetes clusters";
     longDescription = ''
       Octant is a tool for developers to understand how applications run on a
       Kubernetes cluster.

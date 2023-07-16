@@ -9,32 +9,27 @@
 let
   version_usbdk = "1.0.22";
   src_usbdk_x86 = fetchurl {
-    url =
-      "https://www.spice-space.org/download/windows/UsbDk/UsbDk_${version_usbdk}_x86.msi";
+    url = "https://www.spice-space.org/download/windows/UsbDk/UsbDk_${version_usbdk}_x86.msi";
     sha256 = "1vr8kv37wz6p3xhawyhwxv0g7y89igkvx30zwmyvlgnkv3h5i317";
   };
   src_usbdk_amd64 = fetchurl {
-    url =
-      "https://www.spice-space.org/download/windows/UsbDk/UsbDk_${version_usbdk}_x64.msi";
+    url = "https://www.spice-space.org/download/windows/UsbDk/UsbDk_${version_usbdk}_x64.msi";
     sha256 = "19b64jv6pfimd54y0pphbs1xh25z41bbblz64ih6ag71w6azdxli";
   };
 
   version_qxlwddm = "0.21";
   src_qxlwddm = fetchurl {
-    url =
-      "https://www.spice-space.org/download/windows/qxl-wddm-dod/qxl-wddm-dod-${version_qxlwddm}/spice-qxl-wddm-dod-${version_qxlwddm}.zip";
+    url = "https://www.spice-space.org/download/windows/qxl-wddm-dod/qxl-wddm-dod-${version_qxlwddm}/spice-qxl-wddm-dod-${version_qxlwddm}.zip";
     sha256 = "0yjq54gxw3lcfghsfs4fzwipa9sgx5b1sn3fss6r5dm7pdvjp20q";
   };
 
   version_vdagent = "0.10.0";
   src_vdagent_x86 = fetchurl {
-    url =
-      "https://www.spice-space.org/download/windows/vdagent/vdagent-win-${version_vdagent}/vdagent-win-${version_vdagent}-x86.zip";
+    url = "https://www.spice-space.org/download/windows/vdagent/vdagent-win-${version_vdagent}/vdagent-win-${version_vdagent}-x86.zip";
     sha256 = "142c0lqsqry9dclji2225ppclkn13gbjl1j0pzx8fp6hgy4i02c1";
   };
   src_vdagent_amd64 = fetchurl {
-    url =
-      "https://www.spice-space.org/download/windows/vdagent/vdagent-win-${version_vdagent}/vdagent-win-${version_vdagent}-x64.zip";
+    url = "https://www.spice-space.org/download/windows/vdagent/vdagent-win-${version_vdagent}/vdagent-win-${version_vdagent}-x64.zip";
     sha256 = "1x2wcvld531kv17a4ks7sh67nhzxzv7nkhpx391n5vj6d12i8g3i";
   };
 in

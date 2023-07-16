@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchurl {
       name = "musl.patch";
-      url =
-        "https://git.alpinelinux.org/aports/plain/community/libsmbios/fixes.patch?id=bdc4f67889c958c1266fa5d0cab71c3cd639122f";
+      url = "https://git.alpinelinux.org/aports/plain/community/libsmbios/fixes.patch?id=bdc4f67889c958c1266fa5d0cab71c3cd639122f";
       sha256 = "aVVc52OovDYvqWRyKcRAi62daa9AalkKvnVOGvrTmRk=";
     })
   ];

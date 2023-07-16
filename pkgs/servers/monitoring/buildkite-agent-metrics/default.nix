@@ -28,8 +28,7 @@ buildGoModule rec {
       # the command line. Should be removed upon the next release.
       (fetchpatch {
         name = "BUILDKITE_AGENT_TOKEN-env-var.patch";
-        url =
-          "https://github.com/buildkite/buildkite-agent-metrics/commit/6c40b478b95f0e05fc12b87158222a9ff68169e0.patch";
+        url = "https://github.com/buildkite/buildkite-agent-metrics/commit/6c40b478b95f0e05fc12b87158222a9ff68169e0.patch";
         sha256 = "Y4m9qGyPIROSqOY6G6xRQfFENEG4bFF3q5dZcHI4XiY=";
       })
     ];
@@ -40,8 +39,7 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description =
-      "A command-line tool (and Lambda) for collecting Buildkite agent metrics";
+    description = "A command-line tool (and Lambda) for collecting Buildkite agent metrics";
     homepage = "https://github.com/buildkite/buildkite-agent-metrics";
     license = licenses.mit;
     maintainers = teams.determinatesystems.members;

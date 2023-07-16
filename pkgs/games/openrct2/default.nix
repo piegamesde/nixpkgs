@@ -156,8 +156,7 @@ stdenv.mkDerivation {
   preFixup = "ln -s $out/share/openrct2 $out/bin/data";
 
   meta = with lib; {
-    description =
-      "Open source re-implementation of RollerCoaster Tycoon 2 (original game required)";
+    description = "Open source re-implementation of RollerCoaster Tycoon 2 (original game required)";
     homepage = "https://openrct2.io/";
     downloadPage = "https://github.com/OpenRCT2/OpenRCT2/releases";
     license = licenses.gpl3Only;

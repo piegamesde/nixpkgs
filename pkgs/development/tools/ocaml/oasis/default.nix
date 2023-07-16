@@ -14,8 +14,7 @@ stdenv.mkDerivation {
   pname = "ocaml-oasis";
 
   src = fetchurl {
-    url =
-      "https://download.ocamlcore.org/oasis/oasis/0.4.11/oasis-0.4.11.tar.gz";
+    url = "https://download.ocamlcore.org/oasis/oasis/0.4.11/oasis-0.4.11.tar.gz";
     hash = "sha256-GLc97vTtbpqDM38ks7vi3tZSaLP/cwn8wA0l5X4dwS4=";
   };
 

@@ -56,12 +56,11 @@ in
       ];
       description = "motd generator";
       serviceConfig = {
-        ExecStart =
-          "${pkgs.writeShellScript "update-motd" ''
-            ${pkgs.rust-motd}/bin/rust-motd ${
-              format.generate "motd.conf" cfg.settings
-            } > motd
-          ''}";
+        ExecStart = "${pkgs.writeShellScript "update-motd" ''
+          ${pkgs.rust-motd}/bin/rust-motd ${
+            format.generate "motd.conf" cfg.settings
+          } > motd
+        ''}";
         CapabilityBoundingSet = [ "" ];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;

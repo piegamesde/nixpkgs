@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   src =
     # We need the prepared sources tarball.
     fetchurl {
-      url =
-        "https://github.com/TokTok/c-toxcore/releases/download/v${version}/c-toxcore-${version}.tar.gz";
+      url = "https://github.com/TokTok/c-toxcore/releases/download/v${version}/c-toxcore-${version}.tar.gz";
       sha256 = "sha256-8pQFN5mIY1k+KLxqa19W8JZ19s2KKDJre8MbSDbAiUI=";
     };
 
@@ -67,8 +66,7 @@ stdenv.mkDerivation rec {
   # https://github.com/TokTok/c-toxcore/issues/2334
 
   meta = with lib; {
-    description =
-      "P2P FOSS instant messaging application aimed to replace Skype";
+    description = "P2P FOSS instant messaging application aimed to replace Skype";
     homepage = "https://tox.chat";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [

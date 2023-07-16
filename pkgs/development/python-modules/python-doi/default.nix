@@ -19,8 +19,7 @@ buildPythonPackage rec {
   disabled = !isPy3k;
 
   meta = with lib; {
-    description =
-      "Python library to work with Document Object Identifiers (doi)";
+    description = "Python library to work with Document Object Identifiers (doi)";
     homepage = "https://github.com/alejandrogallo/python-doi";
     maintainers = with maintainers; [ teto ];
   };

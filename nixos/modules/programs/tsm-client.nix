@@ -190,8 +190,8 @@ let
           passwordaccess = if config.genPasswd then "generate" else "prompt";
           passworddir = ''"${config.passwdDir}"'';
         } // optionalAttrs (config.includeExclude != "") {
-          inclexcl =
-            ''"${pkgs.writeText "inclexcl.dsm.sys" config.includeExclude}"'';
+          inclexcl = ''
+            "${pkgs.writeText "inclexcl.dsm.sys" config.includeExclude}"'';
         }
       );
       config.text =

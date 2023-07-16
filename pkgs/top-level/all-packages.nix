@@ -249,8 +249,9 @@ with pkgs;
         name = "auto-patchelf-hook";
         propagatedBuildInputs = [ bintools ];
         substitutions = {
-          pythonInterpreter =
-            "${python3.withPackages (ps: [ ps.pyelftools ])}/bin/python";
+          pythonInterpreter = "${
+              python3.withPackages (ps: [ ps.pyelftools ])
+            }/bin/python";
           autoPatchelfScript = ../build-support/setup-hooks/auto-patchelf.py;
         };
         meta.platforms = lib.platforms.linux;
@@ -19941,8 +19942,7 @@ with pkgs;
           inherit version;
           hash = "sha256-/rHfYXOM/B9eiTtCouwafeMpd9Z+hnB7Retj0MXDwjY=";
         };
-        meta.changelog =
-          "https://github.com/ansible/ansible/blob/v${version}/changelogs/CHANGELOG-v${
+        meta.changelog = "https://github.com/ansible/ansible/blob/v${version}/changelogs/CHANGELOG-v${
             lib.versions.majorMinor version
           }.rst";
       }
@@ -41602,8 +41602,7 @@ with pkgs;
       src = fetchFromGitHub {
         owner = "ElementsProject";
         repo = "elements";
-        rev =
-          "ea318a45094ab3d31dd017d7781a6f28f1ffaa33"; # simplicity branch latest
+        rev = "ea318a45094ab3d31dd017d7781a6f28f1ffaa33"; # simplicity branch latest
         sha256 = "ooe+If3HWaJWpr2ux7DpiCTqB9Hv+aXjquEjplDjvhM=";
       };
     }
@@ -46677,8 +46676,7 @@ with pkgs;
       _: rec {
         version = "1.7.9";
         src = fetchurl {
-          url =
-            "http://www.openfst.org/twiki/pub/FST/FstDownload/openfst-${version}.tar.gz";
+          url = "http://www.openfst.org/twiki/pub/FST/FstDownload/openfst-${version}.tar.gz";
           sha256 = "1pmx1yhn2gknj0an0zwqmzgwjaycapi896244np50a8y3nrsw6ck";
         };
       }

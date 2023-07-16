@@ -54,8 +54,7 @@ in
         glibc # requires getent
       ];
       serviceConfig = {
-        ExecStart =
-          "${package}/bin/evcc --config ${configFile} ${
+        ExecStart = "${package}/bin/evcc --config ${configFile} ${
             escapeShellArgs cfg.extraArgs
           }";
         CapabilityBoundingSet = [ "" ];

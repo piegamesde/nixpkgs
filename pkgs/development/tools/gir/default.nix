@@ -21,8 +21,7 @@ rustPlatform.buildRustPackage {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "rustdoc-stripper-0.1.18" =
-        "sha256-b+RRXJDGULEvkIZDBzU/ZchVF63pX0S9hBupeP12CkU=";
+      "rustdoc-stripper-0.1.18" = "sha256-b+RRXJDGULEvkIZDBzU/ZchVF63pX0S9hBupeP12CkU=";
     };
   };
 
@@ -33,8 +32,7 @@ rustPlatform.buildRustPackage {
   '';
 
   meta = with lib; {
-    description =
-      "Tool to generate rust bindings and user API for glib-based libraries";
+    description = "Tool to generate rust bindings and user API for glib-based libraries";
     homepage = "https://github.com/gtk-rs/gir/";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ ekleog ];

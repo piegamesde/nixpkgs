@@ -62,8 +62,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A command scheduler with extended capabilities over cron and anacron";
+    description = "A command scheduler with extended capabilities over cron and anacron";
     homepage = "http://fcron.free.fr";
     license = licenses.gpl2;
     platforms = lib.platforms.all;

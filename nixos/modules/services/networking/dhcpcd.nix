@@ -233,8 +233,7 @@ in
     networking.dhcpcd.runHook = mkOption {
       type = types.lines;
       default = "";
-      example =
-        "if [[ $reason =~ BOUND ]]; then echo $interface: Routers are $new_routers - were $old_routers; fi";
+      example = "if [[ $reason =~ BOUND ]]; then echo $interface: Routers are $new_routers - were $old_routers; fi";
       description = lib.mdDoc ''
         Shell code that will be run after all other hooks. See
         `man dhcpcd-run-hooks` for details on what is possible.
@@ -328,8 +327,7 @@ in
           Type = "forking";
           PIDFile = "/run/dhcpcd/pid";
           RuntimeDirectory = "dhcpcd";
-          ExecStart =
-            "@${dhcpcd}/sbin/dhcpcd dhcpcd --quiet ${
+          ExecStart = "@${dhcpcd}/sbin/dhcpcd dhcpcd --quiet ${
               optionalString cfg.persistent "--persistent"
             } --config ${dhcpcdConf}";
           ExecReload = "${dhcpcd}/sbin/dhcpcd --rebind";

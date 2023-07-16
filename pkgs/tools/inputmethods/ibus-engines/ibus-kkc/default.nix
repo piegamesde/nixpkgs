@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
   version = "1.5.22";
 
   src = fetchurl {
-    url =
-      "${meta.homepage}/releases/download/v${version}/${pname}-${version}.tar.gz";
+    url = "${meta.homepage}/releases/download/v${version}/${pname}-${version}.tar.gz";
     sha256 = "1kj74c9zy9yxkjx7pz96mzqc13cf10yfmlgprr8sfd4ay192bzi2";
   };
 

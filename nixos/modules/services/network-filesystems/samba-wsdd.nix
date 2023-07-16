@@ -161,8 +161,7 @@ in
         PrivateMounts = true;
         # System Call Filtering
         SystemCallArchitectures = "native";
-        SystemCallFilter =
-          "~@cpu-emulation @debug @mount @obsolete @privileged @resources";
+        SystemCallFilter = "~@cpu-emulation @debug @mount @obsolete @privileged @resources";
       };
     };
   };

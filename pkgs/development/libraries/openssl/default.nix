@@ -41,8 +41,7 @@ let
         inherit version;
 
         src = fetchurl {
-          url =
-            "https://www.openssl.org/source/${finalAttrs.pname}-${version}.tar.gz";
+          url = "https://www.openssl.org/source/${finalAttrs.pname}-${version}.tar.gz";
           inherit sha256;
         };
 
@@ -295,8 +294,7 @@ let
           with lib;
           {
             homepage = "https://www.openssl.org/";
-            description =
-              "A cryptographic library that implements the SSL and TLS protocols";
+            description = "A cryptographic library that implements the SSL and TLS protocols";
             license = licenses.openssl;
             pkgConfigModules = [
               "libcrypto"

@@ -60,8 +60,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Feature-rich interactive Jira command line";
     homepage = "https://github.com/ankitpokhrel/jira-cli";
-    changelog =
-      "https://github.com/ankitpokhrel/jira-cli/releases/tag/v${version}";
+    changelog = "https://github.com/ankitpokhrel/jira-cli/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [
       bryanasdev000

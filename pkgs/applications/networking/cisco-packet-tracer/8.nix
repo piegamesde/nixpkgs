@@ -35,12 +35,10 @@ let
 
     dontUnpack = true;
     src = requireFile {
-      name =
-        "CiscoPacketTracer_${
+      name = "CiscoPacketTracer_${
           builtins.replaceStrings [ "." ] [ "" ] version
         }_Ubuntu_64bit.deb";
-      sha256 =
-        "1b19885d59f6130ee55414fb02e211a1773460689db38bfd1ac7f0d45117ed16";
+      sha256 = "1b19885d59f6130ee55414fb02e211a1773460689db38bfd1ac7f0d45117ed16";
       url = "https://www.netacad.com";
     };
 

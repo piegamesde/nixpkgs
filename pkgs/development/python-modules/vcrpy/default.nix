@@ -43,8 +43,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "vcr" ];
 
   meta = with lib; {
-    description =
-      "Automatically mock your HTTP interactions to simplify and speed up testing";
+    description = "Automatically mock your HTTP interactions to simplify and speed up testing";
     homepage = "https://github.com/kevin1024/vcrpy";
     changelog = "https://github.com/kevin1024/vcrpy/releases/tag/v${version}";
     license = licenses.mit;

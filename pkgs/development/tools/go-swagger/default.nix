@@ -29,11 +29,9 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    description =
-      "Golang implementation of Swagger 2.0, representation of your RESTful API";
+    description = "Golang implementation of Swagger 2.0, representation of your RESTful API";
     homepage = "https://github.com/go-swagger/go-swagger";
-    changelog =
-      "https://github.com/go-swagger/go-swagger/releases/tag/v${version}";
+    changelog = "https://github.com/go-swagger/go-swagger/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ kalbasit ];
     mainProgram = "swagger";

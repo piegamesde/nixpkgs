@@ -23,8 +23,7 @@ let
     passthru = {
       tbdRewrites = {
         const."/usr/lib/libobjc.A.dylib" = "${self}/lib/libobjc.A.dylib";
-        const."/usr/lib/swift/libswiftObjectiveC.dylib" =
-          "${self}/lib/swift/libswiftObjectiveC.dylib";
+        const."/usr/lib/swift/libswiftObjectiveC.dylib" = "${self}/lib/swift/libswiftObjectiveC.dylib";
       };
     };
   };

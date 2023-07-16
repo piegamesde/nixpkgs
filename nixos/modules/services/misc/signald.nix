@@ -47,8 +47,7 @@ in
     };
 
     systemd.services.signald = {
-      description =
-        "A daemon for interacting with the Signal Private Messenger";
+      description = "A daemon for interacting with the Signal Private Messenger";
       wants = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
@@ -56,8 +55,7 @@ in
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        ExecStart =
-          "${pkgs.signald}/bin/signald -d ${dataDir} -s ${cfg.socketPath}";
+        ExecStart = "${pkgs.signald}/bin/signald -d ${dataDir} -s ${cfg.socketPath}";
         Restart = "on-failure";
         StateDirectory = "signald";
         RuntimeDirectory = "signald";

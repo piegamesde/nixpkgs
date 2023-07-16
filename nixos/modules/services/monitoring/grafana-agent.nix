@@ -37,17 +37,12 @@ in
       default = { };
 
       example = {
-        logs_remote_write_password =
-          "/run/keys/grafana_agent_logs_remote_write_password";
+        logs_remote_write_password = "/run/keys/grafana_agent_logs_remote_write_password";
         LOGS_REMOTE_WRITE_URL = "/run/keys/grafana_agent_logs_remote_write_url";
-        LOGS_REMOTE_WRITE_USERNAME =
-          "/run/keys/grafana_agent_logs_remote_write_username";
-        metrics_remote_write_password =
-          "/run/keys/grafana_agent_metrics_remote_write_password";
-        METRICS_REMOTE_WRITE_URL =
-          "/run/keys/grafana_agent_metrics_remote_write_url";
-        METRICS_REMOTE_WRITE_USERNAME =
-          "/run/keys/grafana_agent_metrics_remote_write_username";
+        LOGS_REMOTE_WRITE_USERNAME = "/run/keys/grafana_agent_logs_remote_write_username";
+        metrics_remote_write_password = "/run/keys/grafana_agent_metrics_remote_write_password";
+        METRICS_REMOTE_WRITE_URL = "/run/keys/grafana_agent_metrics_remote_write_url";
+        METRICS_REMOTE_WRITE_USERNAME = "/run/keys/grafana_agent_metrics_remote_write_username";
       };
     };
 
@@ -79,8 +74,7 @@ in
         metrics.global.remote_write = [ {
           url = "\${METRICS_REMOTE_WRITE_URL}";
           basic_auth.username = "\${METRICS_REMOTE_WRITE_USERNAME}";
-          basic_auth.password_file =
-            "\${CREDENTIALS_DIRECTORY}/metrics_remote_write_password";
+          basic_auth.password_file = "\${CREDENTIALS_DIRECTORY}/metrics_remote_write_password";
         } ];
         logs.configs = [ {
           name = "default";
@@ -109,8 +103,7 @@ in
           clients = [ {
             url = "\${LOGS_REMOTE_WRITE_URL}";
             basic_auth.username = "\${LOGS_REMOTE_WRITE_USERNAME}";
-            basic_auth.password_file =
-              "\${CREDENTIALS_DIRECTORY}/logs_remote_write_password";
+            basic_auth.password_file = "\${CREDENTIALS_DIRECTORY}/logs_remote_write_password";
           } ];
         } ];
       };

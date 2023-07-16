@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
   version = "1.26.0";
 
   src = fetchurl {
-    url =
-      "https://pub.mate-desktop.org/releases/${
+    url = "https://pub.mate-desktop.org/releases/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "05bvc220p135l6qnhh3qskljxffds0f7fjbjnrpq524w149rgzd7";
@@ -45,8 +44,7 @@ stdenv.mkDerivation rec {
   passthru.updateScript = mateUpdateScript { inherit pname; };
 
   meta = with lib; {
-    description =
-      "Library to access weather information from online services for MATE";
+    description = "Library to access weather information from online services for MATE";
     homepage = "https://github.com/mate-desktop/libmateweather";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

@@ -38,8 +38,7 @@ let
       meta = with lib; {
         homepage = "https://icculus.org/physfs/";
         description = "Library to provide abstract access to various archives";
-        changelog =
-          "https://github.com/icculus/physfs/releases/tag/release-${version}";
+        changelog = "https://github.com/icculus/physfs/releases/tag/release-${version}";
         license = licenses.zlib;
         platforms = platforms.all;
       };

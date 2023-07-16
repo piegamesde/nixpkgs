@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
   ;
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "HWfyBb/DGMJ6Kc/ftoKFaN9WZ5XfDLUdIYnN5/LVgeg=";
@@ -123,8 +122,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "A library for laying out and rendering of text, with an emphasis on internationalization";
+    description = "A library for laying out and rendering of text, with an emphasis on internationalization";
 
     longDescription = ''
       Pango is a library for laying out and rendering of text, with an

@@ -49,6 +49,5 @@ mkDerivation {
   ];
   # Fix build with cups deprecations etc.
   # See: https://github.com/NixOS/nixpkgs/issues/73334
-  env.NIX_CFLAGS_COMPILE =
-    "-Wno-error=deprecated-declarations -Wno-error=format-security";
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=deprecated-declarations -Wno-error=format-security";
 }

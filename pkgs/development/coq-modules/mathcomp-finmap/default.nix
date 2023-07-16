@@ -87,8 +87,7 @@ mkCoqDerivation {
     "1.5.1".sha256 = "0ryfml4pf1dfya16d8ma80favasmrygvspvb923n06kfw9v986j7";
     "1.5.0".sha256 = "0vx9n1fi23592b3hv5p5ycy7mxc8qh1y5q05aksfwbzkk5zjkwnq";
     "1.4.1".sha256 = "0kx4nx24dml1igk0w0qijmw221r5bgxhwhl5qicnxp7ab3c35s8p";
-    "1.4.0+coq-8.11".sha256 =
-      "1fd00ihyx0kzq5fblh9vr8s5mr1kg7p6pk11c4gr8svl1n69ppmb";
+    "1.4.0+coq-8.11".sha256 = "1fd00ihyx0kzq5fblh9vr8s5mr1kg7p6pk11c4gr8svl1n69ppmb";
     "1.4.0".sha256 = "0mp82mcmrs424ff1vj3cvd8353r9vcap027h3p0iprr1vkkwjbzd";
     "1.3.4".sha256 = "0f5a62ljhixy5d7gsnwd66gf054l26k3m79fb8nz40i2mgp6l9ii";
     "1.2.1".sha256 = "0jryb5dq8js3imbmwrxignlk5zh8gwfb1wr4b1s7jbwz410vp7zf";

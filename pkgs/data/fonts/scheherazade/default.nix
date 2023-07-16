@@ -19,8 +19,7 @@ stdenvNoCC.mkDerivation rec {
   inherit pname version;
 
   src = fetchzip {
-    url =
-      "http://software.sil.org/downloads/r/scheherazade/Scheherazade${
+    url = "http://software.sil.org/downloads/r/scheherazade/Scheherazade${
         lib.optionalString new "New"
       }-${version}.zip";
     inherit hash;
@@ -38,8 +37,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://software.sil.org/scheherazade/";
-    description =
-      "A font designed in a similar style to traditional Naskh typefaces";
+    description = "A font designed in a similar style to traditional Naskh typefaces";
     longDescription = ''
 
       Scheherazade${lib.optionalString new " New"}, named after the heroine of

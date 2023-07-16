@@ -28,8 +28,7 @@ stdenv.mkDerivation (
       fetchpatch {
         # context from https://github.com/google/brotli/pull/655
         # updated patch from https://github.com/google/brotli/pull/655
-        url =
-          "https://github.com/google/brotli/commit/47a554804ceabb899ae924aaee54df806053d0d1.patch";
+        url = "https://github.com/google/brotli/commit/47a554804ceabb899ae924aaee54df806053d0d1.patch";
         sha256 = "sOeXNVsCaBSD9i82GRUDrkyreGeQ7qaJWjjy/uLL0/0=";
       }
     );

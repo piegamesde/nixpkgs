@@ -26,8 +26,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin SystemConfiguration;
 
   meta = with lib; {
-    description =
-      "A tool to easily manage python dependencies and environments";
+    description = "A tool to easily manage python dependencies and environments";
     homepage = "https://github.com/mitsuhiko/rye";
     license = licenses.mit;
     maintainers = with maintainers; [ GaetanLepage ];

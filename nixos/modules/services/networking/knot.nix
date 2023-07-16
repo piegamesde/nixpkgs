@@ -97,8 +97,7 @@ in
     };
 
     systemd.services.knot = {
-      unitConfig.Documentation =
-        "man:knotd(8) man:knot.conf(5) man:knotc(8) https://www.knot-dns.cz/docs/${cfg.package.version}/html/";
+      unitConfig.Documentation = "man:knotd(8) man:knot.conf(5) man:knotc(8) https://www.knot-dns.cz/docs/${cfg.package.version}/html/";
       description = cfg.package.meta.description;
       wantedBy = [ "multi-user.target" ];
       wants = [ "network.target" ];
@@ -106,8 +105,7 @@ in
 
       serviceConfig = {
         Type = "notify";
-        ExecStart =
-          "${cfg.package}/bin/knotd --config=${configFile} --socket=${socketFile} ${
+        ExecStart = "${cfg.package}/bin/knotd --config=${configFile} --socket=${socketFile} ${
             concatStringsSep " " cfg.extraArgs
           }";
         ExecReload = "${knot-cli-wrappers}/bin/knotc reload";

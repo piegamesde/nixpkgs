@@ -64,8 +64,7 @@ stdenv.mkDerivation (
 
     meta = with lib; {
       homepage = "https://hboehm.info/gc/";
-      description =
-        "The Boehm-Demers-Weiser conservative garbage collector for C and C++";
+      description = "The Boehm-Demers-Weiser conservative garbage collector for C and C++";
       longDescription = ''
         The Boehm-Demers-Weiser conservative garbage collector can be used as a
         garbage collecting replacement for C malloc or C++ new.  It allows you
@@ -83,8 +82,7 @@ stdenv.mkDerivation (
         C or C++ programs, though that is not its primary goal.
       '';
       # non-copyleft, X11-style license
-      changelog =
-        "https://github.com/ivmai/bdwgc/blob/v${finalAttrs.version}/ChangeLog";
+      changelog = "https://github.com/ivmai/bdwgc/blob/v${finalAttrs.version}/ChangeLog";
       license = "https://hboehm.info/gc/license.txt";
       maintainers = with maintainers; [ AndersonTorres ];
       platforms = platforms.all;

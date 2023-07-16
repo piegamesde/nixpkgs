@@ -19,8 +19,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/brandon-rhodes/assay";
-    description =
-      "Attempt to write a Python testing framework I can actually stand";
+    description = "Attempt to write a Python testing framework I can actually stand";
     license = licenses.mit;
     maintainers = with maintainers; [ zane ];
   };

@@ -17,8 +17,7 @@ else
     version = "0.9.2";
 
     src = fetchurl {
-      url =
-        "https://github.com/ygrek/ocurl/releases/download/${version}/ocurl-${version}.tar.gz";
+      url = "https://github.com/ygrek/ocurl/releases/download/${version}/ocurl-${version}.tar.gz";
       sha256 = "sha256-4DWXGMh02s1VwLWW5d7h0jtMOUubWmBPGm1hghfWd2M=";
     };
 

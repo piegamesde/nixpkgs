@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "The official Budgie desktop icons application/implementation";
+    description = "The official Budgie desktop icons application/implementation";
     homepage = "https://github.com/BuddiesOfBudgie/budgie-desktop-view";
     mainProgram = "org.buddiesofbudgie.budgie-desktop-view";
     platforms = platforms.linux;

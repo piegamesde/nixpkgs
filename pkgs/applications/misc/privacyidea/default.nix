@@ -54,8 +54,7 @@ let
             src = self.fetchPypi {
               pname = "Flask-SQLAlchemy";
               inherit version;
-              hash =
-                "sha256:2bda44b43e7cacb15d4e05ff3cc1f8bc97936cc464623424102bfc2c35e95912";
+              hash = "sha256:2bda44b43e7cacb15d4e05ff3cc1f8bc97936cc464623424102bfc2c35e95912";
             };
           }
         );
@@ -84,13 +83,11 @@ let
               # python 3.10 compat fixes. In later upstream releases, but these
               # are not compatible with flask 1 which we need here :(
               (fetchpatch {
-                url =
-                  "https://github.com/thmo/jinja/commit/1efb4cc918b4f3d097c376596da101de9f76585a.patch";
+                url = "https://github.com/thmo/jinja/commit/1efb4cc918b4f3d097c376596da101de9f76585a.patch";
                 hash = "sha256-GFaSvYxgzOEFmnnDIfcf0ImScNTh1lR4lxt2Uz1DYdU=";
               })
               (fetchpatch {
-                url =
-                  "https://github.com/mkrizek/jinja/commit/bd8bad37d1c0e2d8995a44fd88e234f5340afec5.patch";
+                url = "https://github.com/mkrizek/jinja/commit/bd8bad37d1c0e2d8995a44fd88e234f5340afec5.patch";
                 hash = "sha256-Uow+gaO+/dH6zavC0X/SsuMAfhTLRWpamVlL87DXDRA=";
                 excludes = [ "CHANGES.rst" ];
               })
@@ -171,8 +168,7 @@ let
                 src = self.fetchPypi {
                   inherit pname;
                   inherit version;
-                  hash =
-                    "sha256:f9faf45cdb2e1a32ea2ec14403587d4295108f35017a7821a2b1acb8cfd9257d";
+                  hash = "sha256:f9faf45cdb2e1a32ea2ec14403587d4295108f35017a7821a2b1acb8cfd9257d";
                 };
               }
             )

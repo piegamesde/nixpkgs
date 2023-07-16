@@ -40,8 +40,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/python-lsp/python-lsp-ruff";
     description = "Ruff linting plugin for pylsp";
-    changelog =
-      "https://github.com/python-lsp/python-lsp-ruff/releases/tag/v${version}";
+    changelog = "https://github.com/python-lsp/python-lsp-ruff/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ linsui ];
   };

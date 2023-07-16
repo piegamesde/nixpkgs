@@ -95,10 +95,8 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
   '';
 
   meta = {
-    description =
-      "The C/C++ extension adds language support for C/C++ to Visual Studio Code, including features such as IntelliSense and debugging.";
-    homepage =
-      "https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools";
+    description = "The C/C++ extension adds language support for C/C++ to Visual Studio Code, including features such as IntelliSense and debugging.";
+    homepage = "https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools";
     license = lib.licenses.unfree;
     maintainers = [
       lib.maintainers.jraygauthier

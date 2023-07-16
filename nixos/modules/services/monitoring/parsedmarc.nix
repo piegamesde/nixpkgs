@@ -620,8 +620,7 @@ in
           MemoryDenyWriteExecute = true;
           LockPersonality = true;
           SystemCallArchitectures = "native";
-          ExecStart =
-            "${pkgs.python3Packages.parsedmarc}/bin/parsedmarc -c /run/parsedmarc/parsedmarc.ini";
+          ExecStart = "${pkgs.python3Packages.parsedmarc}/bin/parsedmarc -c /run/parsedmarc/parsedmarc.ini";
         };
       }
     ;

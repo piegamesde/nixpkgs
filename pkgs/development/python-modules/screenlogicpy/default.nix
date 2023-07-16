@@ -43,8 +43,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python interface for Pentair Screenlogic devices";
     homepage = "https://github.com/dieselrabbit/screenlogicpy";
-    changelog =
-      "https://github.com/dieselrabbit/screenlogicpy/releases/tag/v${version}";
+    changelog = "https://github.com/dieselrabbit/screenlogicpy/releases/tag/v${version}";
     license = with licenses; [ gpl3Only ];
     maintainers = with maintainers; [ fab ];
   };

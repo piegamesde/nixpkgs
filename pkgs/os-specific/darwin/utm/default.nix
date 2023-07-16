@@ -38,8 +38,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Full featured system emulator and virtual machine host for iOS and macOS";
+    description = "Full featured system emulator and virtual machine host for iOS and macOS";
     longDescription = ''
       UTM is a full featured system emulator and virtual machine host for iOS
       and macOS. It is based off of QEMU. In short, it allows you to run

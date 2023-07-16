@@ -61,8 +61,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.shutdownRamfs.contents."/shutdown".source =
-      "${config.systemd.package}/lib/systemd/systemd-shutdown";
+    systemd.shutdownRamfs.contents."/shutdown".source = "${config.systemd.package}/lib/systemd/systemd-shutdown";
     systemd.shutdownRamfs.storePaths = [
       pkgs.runtimeShell
       "${pkgs.coreutils}/bin"
@@ -88,8 +87,7 @@ in
         Type = "oneshot";
         ProtectSystem = "strict";
         ReadWritePaths = "/run/initramfs";
-        ExecStart =
-          "${pkgs.makeInitrdNGTool}/bin/make-initrd-ng ${ramfsContents} /run/initramfs";
+        ExecStart = "${pkgs.makeInitrdNGTool}/bin/make-initrd-ng ${ramfsContents} /run/initramfs";
       };
     };
   };

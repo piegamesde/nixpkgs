@@ -45,11 +45,9 @@ buildGoModule rec {
   ;
 
   meta = {
-    description =
-      "Easy encrypted file, folder, and text sharing between devices";
+    description = "Easy encrypted file, folder, and text sharing between devices";
     homepage = "https://github.com/Jacalz/rymdport";
-    changelog =
-      "https://github.com/Jacalz/rymdport/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/Jacalz/rymdport/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ dotlambda ];
     platforms = lib.platforms.linux;

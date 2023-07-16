@@ -35,8 +35,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "ziamath" ];
 
   meta = with lib; {
-    description =
-      "Render MathML and LaTeX Math to SVG without Latex installation";
+    description = "Render MathML and LaTeX Math to SVG without Latex installation";
     homepage = "https://ziamath.readthedocs.io/en/latest/";
     changelog = "https://ziamath.readthedocs.io/en/latest/changes.html";
     license = licenses.mit;

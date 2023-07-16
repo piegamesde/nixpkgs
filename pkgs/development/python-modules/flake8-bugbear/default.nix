@@ -39,8 +39,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Plugin for Flake8 to find bugs and design problems";
     homepage = "https://github.com/PyCQA/flake8-bugbear";
-    changelog =
-      "https://github.com/PyCQA/flake8-bugbear/blob/${version}/README.rst#change-log";
+    changelog = "https://github.com/PyCQA/flake8-bugbear/blob/${version}/README.rst#change-log";
     longDescription = ''
       A plugin for flake8 finding likely bugs and design problems in your
       program.

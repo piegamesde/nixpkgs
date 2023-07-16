@@ -54,8 +54,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isAarch64 (
       fetchpatch {
         # backport upstream patch for aarch64 glibc 2.34
-        url =
-          "https://gitlab.com/freepascal.org/fpc/source/-/commit/a20a7e3497bccf3415bf47ccc55f133eb9d6d6a0.patch";
+        url = "https://gitlab.com/freepascal.org/fpc/source/-/commit/a20a7e3497bccf3415bf47ccc55f133eb9d6d6a0.patch";
         hash = "sha256-xKTBwuOxOwX9KCazQbBNLhMXCqkuJgIFvlXewHY63GM=";
         stripLen = 1;
         extraPrefix = "fpcsrc/";

@@ -31,15 +31,13 @@ let
   release_version = "12.0.1";
   candidate = ""; # empty or "rcN"
   dash-candidate = lib.optionalString (candidate != "") "-${candidate}";
-  version =
-    "${release_version}${dash-candidate}"; # differentiating these (variables) is important for RCs
+  version = "${release_version}${dash-candidate}"; # differentiating these (variables) is important for RCs
   targetConfig = stdenv.targetPlatform.config;
 
   fetch =
     name: sha256:
     fetchurl {
-      url =
-        "https://github.com/llvm/llvm-project/releases/download/llvmorg-${version}/${name}-${release_version}${candidate}.src.tar.xz";
+      url = "https://github.com/llvm/llvm-project/releases/download/llvmorg-${version}/${name}-${release_version}${candidate}.src.tar.xz";
       inherit sha256;
     }
   ;

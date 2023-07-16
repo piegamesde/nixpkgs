@@ -14,8 +14,7 @@ let
     name = "frogatto";
     exec = "frogatto";
     startupNotify = true;
-    icon =
-      "${data}/share/frogatto/modules/frogatto/images/os/frogatto-icon.png";
+    icon = "${data}/share/frogatto/modules/frogatto/images/os/frogatto-icon.png";
     comment = description;
     desktopName = "Frogatto";
     genericName = "frogatto";

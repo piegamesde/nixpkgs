@@ -49,11 +49,9 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description =
-      "A user-space file system for interacting with Google Cloud Storage";
+    description = "A user-space file system for interacting with Google Cloud Storage";
     homepage = "https://cloud.google.com/storage/docs/gcs-fuse";
-    changelog =
-      "https://github.com/GoogleCloudPlatform/gcsfuse/releases/tag/v${version}";
+    changelog = "https://github.com/GoogleCloudPlatform/gcsfuse/releases/tag/v${version}";
     license = licenses.asl20;
     platforms = platforms.unix;
     maintainers = with maintainers; [ aaronjheng ];

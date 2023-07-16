@@ -70,8 +70,7 @@ buildPythonPackage rec {
       # remove when upgrading past version 0.56
       (fetchpatch {
         name = "fix-test-cache-invalidate-readonly.patch";
-        url =
-          "https://github.com/numba/numba/commit/993e8c424055a7677b2755b184fc9e07549713b9.patch";
+        url = "https://github.com/numba/numba/commit/993e8c424055a7677b2755b184fc9e07549713b9.patch";
         hash = "sha256-IhIqRLmP8gazx+KWIyCxZrNLMT4jZT8CWD3KcH4KjOo=";
       })
       # Backport numpy 1.24 support from https://github.com/numba/numba/pull/8691

@@ -12,8 +12,7 @@ lib.makeScope pkgs.newScope (
       p // {
         buildPhase = "make png-country-320x240-fancy";
         # installPhase = "mkdir -p $out/share && mv build/png-country-4x2-fancy/res-320x240 $out/share/iso-flags-png-320x420";
-        installPhase =
-          "mkdir -p $out/share && mv build/png-country-4x2-fancy/res-320x240 $out/share/iso-flags-png";
+        installPhase = "mkdir -p $out/share && mv build/png-country-4x2-fancy/res-320x240 $out/share/iso-flags-png";
       }
     );
 

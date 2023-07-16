@@ -16,8 +16,7 @@ let
     ."${stdenv.hostPlatform.system}"
       or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
-  baseurl =
-    "https://github.com/firecracker-microvm/firecracker/releases/download";
+  baseurl = "https://github.com/firecracker-microvm/firecracker/releases/download";
 
   dlbin =
     sha256:

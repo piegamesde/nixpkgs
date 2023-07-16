@@ -221,10 +221,8 @@ let
 
   defaultPrefs = {
     "geo.provider.network.url" = {
-      value =
-        "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%";
-      reason =
-        "Use MLS by default for geolocation, since our Google API Keys are not working";
+      value = "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%";
+      reason = "Use MLS by default for geolocation, since our Google API Keys are not working";
     };
   };
 
@@ -271,8 +269,7 @@ buildStdenv.mkDerivation ({
       # https://bugzilla.mozilla.org/show_bug.cgi?id=1830040
       # https://hg.mozilla.org/mozilla-central/rev/cddb250a28d8
       (fetchpatch {
-        url =
-          "https://git.alpinelinux.org/aports/plain/community/firefox/avoid-redefinition.patch?id=2f620d205ed0f9072bbd7714b5ec1b7bf6911c12";
+        url = "https://git.alpinelinux.org/aports/plain/community/firefox/avoid-redefinition.patch?id=2f620d205ed0f9072bbd7714b5ec1b7bf6911c12";
         hash = "sha256-fLUYaJwhrC/wF24HkuWn2PHqz7LlAaIZ1HYjRDB2w9A=";
       })
     ]

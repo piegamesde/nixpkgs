@@ -385,8 +385,7 @@ in
           nameValuePair "syncoid-${escapeUnitName name}" (
             mkMerge [
               {
-                description =
-                  "Syncoid ZFS synchronization from ${c.source} to ${c.target}";
+                description = "Syncoid ZFS synchronization from ${c.source} to ${c.target}";
                 after = [ "zfs.target" ];
                 startAt = cfg.interval;
                 # syncoid may need zpool to get feature@extensible_dataset

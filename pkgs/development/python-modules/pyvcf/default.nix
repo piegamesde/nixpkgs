@@ -20,8 +20,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://pyvcf.readthedocs.io/en/latest/index.html";
-    description =
-      "A VCF (Variant Call Format) Parser for Python, supporting version 4.0 and 4.1";
+    description = "A VCF (Variant Call Format) Parser for Python, supporting version 4.0 and 4.1";
     license = licenses.bsd3;
     maintainers = with maintainers; [ scalavision ];
     longDescription = ''

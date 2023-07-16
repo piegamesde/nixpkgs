@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/venam/2bwm";
-    description =
-      "A fast floating WM written over the XCB library and derived from mcwm";
+    description = "A fast floating WM written over the XCB library and derived from mcwm";
     license = licenses.mit;
     maintainers = [ maintainers.sternenseemann ];
     platforms = platforms.unix;

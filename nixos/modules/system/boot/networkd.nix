@@ -3712,8 +3712,7 @@ let
           serviceConfig = {
             Type = "oneshot";
             RemainAfterExit = true;
-            ExecStart =
-              "${config.systemd.package}/lib/systemd/systemd-networkd-wait-online -i %I ${
+            ExecStart = "${config.systemd.package}/lib/systemd/systemd-networkd-wait-online -i %I ${
                 utils.escapeSystemdExecArgs cfg.wait-online.extraArgs
               }";
           };

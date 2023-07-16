@@ -63,8 +63,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://pyinfra.com";
     downloadPage = "https://pyinfra.com/Fizzadar/pyinfra/releases";
-    changelog =
-      "https://github.com/Fizzadar/pyinfra/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/Fizzadar/pyinfra/blob/v${version}/CHANGELOG.md";
     maintainers = with maintainers; [ totoroot ];
     license = licenses.mit;
   };

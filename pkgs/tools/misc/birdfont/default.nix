@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
   installPhase = "./install.py";
 
   meta = with lib; {
-    description =
-      "Font editor which can generate fonts in TTF, EOT, SVG and BIRDFONT format";
+    description = "Font editor which can generate fonts in TTF, EOT, SVG and BIRDFONT format";
     homepage = "https://birdfont.org";
     license = licenses.gpl3;
     maintainers = with maintainers; [ dtzWill ];

@@ -33,38 +33,32 @@ let
   shlibExt = stdenvNoCC.hostPlatform.extensions.sharedLibrary;
 
   oneapi-mkl = fetchurl {
-    url =
-      "https://yum.repos.intel.com/oneapi/intel-oneapi-mkl-${mklVersion}-${mklVersion}-${rel}.x86_64.rpm";
+    url = "https://yum.repos.intel.com/oneapi/intel-oneapi-mkl-${mklVersion}-${mklVersion}-${rel}.x86_64.rpm";
     hash = "sha256-BeI5zB0rrE6C21dezNc7/WSKmTWpjsZbpg0/y0Y87VQ=";
   };
 
   oneapi-mkl-common = fetchurl {
-    url =
-      "https://yum.repos.intel.com/oneapi/intel-oneapi-mkl-common-${mklVersion}-${mklVersion}-${rel}.noarch.rpm";
+    url = "https://yum.repos.intel.com/oneapi/intel-oneapi-mkl-common-${mklVersion}-${mklVersion}-${rel}.noarch.rpm";
     hash = "sha256-NjIqTeFppwjXFlPYHPHfZa/bWBiHJru3atC4fIMXN0w=";
   };
 
   oneapi-mkl-common-devel = fetchurl {
-    url =
-      "https://yum.repos.intel.com/oneapi/intel-oneapi-mkl-common-devel-${mklVersion}-${mklVersion}-${rel}.noarch.rpm";
+    url = "https://yum.repos.intel.com/oneapi/intel-oneapi-mkl-common-devel-${mklVersion}-${mklVersion}-${rel}.noarch.rpm";
     hash = "sha256-GX19dlvBWRgwSOCmWcEOrnbmp4S2j0448fWpx+iPVWw=";
   };
 
   oneapi-mkl-devel = fetchurl {
-    url =
-      "https://yum.repos.intel.com/oneapi/intel-oneapi-mkl-devel-${mklVersion}-${mklVersion}-${rel}.x86_64.rpm";
+    url = "https://yum.repos.intel.com/oneapi/intel-oneapi-mkl-devel-${mklVersion}-${mklVersion}-${rel}.x86_64.rpm";
     hash = "sha256-F4XxtSPAjNaShEL/l44jJK+JdOOkYI19X/njRB6FkNw=";
   };
 
   oneapi-openmp = fetchurl {
-    url =
-      "https://yum.repos.intel.com/oneapi/intel-oneapi-openmp-${mklVersion}-${mklVersion}-${openmpRel}.x86_64.rpm";
+    url = "https://yum.repos.intel.com/oneapi/intel-oneapi-openmp-${mklVersion}-${mklVersion}-${openmpRel}.x86_64.rpm";
     hash = "sha256-1SlkI01DxFvwGPBJ73phs86ka0SmCrniwiXQ9DJwIXw=";
   };
 
   oneapi-tbb = fetchurl {
-    url =
-      "https://yum.repos.intel.com/oneapi/intel-oneapi-tbb-${tbbVersion}-${tbbVersion}-${tbbRel}.x86_64.rpm";
+    url = "https://yum.repos.intel.com/oneapi/intel-oneapi-tbb-${tbbVersion}-${tbbVersion}-${tbbRel}.x86_64.rpm";
     hash = "sha256-wIktdf1p1SS1KrnUlc8LPkm0r9dhZE6cQNr4ZKTWI6A=";
   };
 in
@@ -240,8 +234,7 @@ stdenvNoCC.mkDerivation (
     };
   } // lib.optionalAttrs stdenvNoCC.isDarwin {
     src = fetchurl {
-      url =
-        "https://registrationcenter-download.intel.com/akdlm/IRC_NAS/087a9190-9d96-4b8c-bd2f-79159572ed89/m_onemkl_p_${mklVersion}.${rel}_offline.dmg";
+      url = "https://registrationcenter-download.intel.com/akdlm/IRC_NAS/087a9190-9d96-4b8c-bd2f-79159572ed89/m_onemkl_p_${mklVersion}.${rel}_offline.dmg";
       hash = "sha256-bUaaJPSaLr60fw0DzDCjPvY/UucHlLbCSLyQxyiAi04=";
     };
   }

@@ -162,8 +162,7 @@ in
       "HAVE_LIGHTREC=1"
     ];
     meta = {
-      description =
-        "Port of Mednafen's PSX Engine (with HW accel) core to libretro";
+      description = "Port of Mednafen's PSX Engine (with HW accel) core to libretro";
       license = lib.licenses.gpl2Only;
     };
   };
@@ -197,8 +196,7 @@ in
     src = getCoreSrc "beetle-supafaust";
     makefile = "Makefile";
     meta = {
-      description =
-        "Port of Mednafen's experimental snes_faust core to libretro";
+      description = "Port of Mednafen's experimental snes_faust core to libretro";
       license = lib.licenses.gpl2Plus;
     };
   };
@@ -293,8 +291,7 @@ in
     makefile = "Makefile";
     makeFlags = [ "PROFILE=accuracy" ];
     meta = {
-      description =
-        "Fork of bsnes with HLE DSP emulation restored (accuracy profile)";
+      description = "Fork of bsnes with HLE DSP emulation restored (accuracy profile)";
       license = lib.licenses.gpl3Only;
     };
   };
@@ -305,8 +302,7 @@ in
     makefile = "Makefile";
     makeFlags = [ "PROFILE=balanced" ];
     meta = {
-      description =
-        "Fork of bsnes with HLE DSP emulation restored (balanced profile)";
+      description = "Fork of bsnes with HLE DSP emulation restored (balanced profile)";
       license = lib.licenses.gpl3Only;
     };
   };
@@ -317,8 +313,7 @@ in
     makefile = "Makefile";
     makeFlags = [ "PROFILE=performance" ];
     meta = {
-      description =
-        "Fork of bsnes with HLE DSP emulation restored (performance profile)";
+      description = "Fork of bsnes with HLE DSP emulation restored (performance profile)";
       license = lib.licenses.gpl3Only;
     };
   };
@@ -587,8 +582,7 @@ in
     makefile = "Makefile";
     makeFlags = lib.optional (!stdenv.hostPlatform.isx86) "IS_X86=0";
     meta = {
-      description =
-        "Port of MAME ~2000 to libretro, compatible with MAME 0.37b5 sets";
+      description = "Port of MAME ~2000 to libretro, compatible with MAME 0.37b5 sets";
       license = "MAME";
     };
   };
@@ -597,8 +591,7 @@ in
     core = "mame2003";
     makefile = "Makefile";
     meta = {
-      description =
-        "Port of MAME ~2003 to libretro, compatible with MAME 0.78 sets";
+      description = "Port of MAME ~2003 to libretro, compatible with MAME 0.78 sets";
       license = "MAME";
     };
   };
@@ -607,8 +600,7 @@ in
     core = "mame2003-plus";
     makefile = "Makefile";
     meta = {
-      description =
-        "Port of MAME ~2003+ to libretro, compatible with MAME 0.78 sets";
+      description = "Port of MAME ~2003+ to libretro, compatible with MAME 0.78 sets";
       license = "MAME";
     };
   };
@@ -623,8 +615,7 @@ in
       "FORCE_DRC_C_BACKEND=1"
     ];
     meta = {
-      description =
-        "Port of MAME ~2010 to libretro, compatible with MAME 0.139 sets";
+      description = "Port of MAME ~2010 to libretro, compatible with MAME 0.139 sets";
       license = "MAME";
     };
   };
@@ -637,8 +628,7 @@ in
     makefile = "Makefile";
     enableParallelBuilding = false;
     meta = {
-      description =
-        "Port of MAME ~2015 to libretro, compatible with MAME 0.160 sets";
+      description = "Port of MAME ~2015 to libretro, compatible with MAME 0.160 sets";
       license = "MAME";
     };
   };
@@ -650,8 +640,7 @@ in
     makeFlags = [ "PYTHON_EXECUTABLE=python3" ];
     enableParallelBuilding = false;
     meta = {
-      description =
-        "Port of MAME ~2016 to libretro, compatible with MAME 0.174 sets";
+      description = "Port of MAME ~2016 to libretro, compatible with MAME 0.174 sets";
       license = with lib.licenses; [
         bsd3
         gpl2Plus
@@ -1033,8 +1022,7 @@ in
     makefile = "Makefile";
     makeFlags = [ "USE_BLARGG_APU=1" ];
     meta = {
-      description =
-        "Optimized port/rewrite of SNES9x 1.43 to Libretro, with Blargg's APU";
+      description = "Optimized port/rewrite of SNES9x 1.43 to Libretro, with Blargg's APU";
       license = "Non-commercial";
     };
   };

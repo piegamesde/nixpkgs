@@ -37,8 +37,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description =
-      "A library for high-performance, modern 2D graphics with SDL written in C";
+    description = "A library for high-performance, modern 2D graphics with SDL written in C";
     homepage = "https://github.com/grimfang4/sdl-gpu";
     license = licenses.mit;
     maintainers = with maintainers; [ pmiddend ];

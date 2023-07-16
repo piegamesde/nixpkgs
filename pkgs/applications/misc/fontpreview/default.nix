@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/sdushantha/fontpreview";
-    description =
-      "Highly customizable and minimal font previewer written in bash";
+    description = "Highly customizable and minimal font previewer written in bash";
     longDescription = ''
       fontpreview is a commandline tool that lets you quickly search for fonts
       that are installed on your machine and preview them. The fuzzy search

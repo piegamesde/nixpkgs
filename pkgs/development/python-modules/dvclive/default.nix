@@ -45,8 +45,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "dvclive" ];
 
   meta = with lib; {
-    description =
-      "Library for logging machine learning metrics and other metadata in simple file formats";
+    description = "Library for logging machine learning metrics and other metadata in simple file formats";
     homepage = "https://github.com/iterative/dvclive";
     changelog = "https://github.com/iterative/dvclive/releases/tag/${version}";
     license = licenses.asl20;

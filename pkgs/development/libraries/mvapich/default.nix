@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
   version = "2.3.7";
 
   src = fetchurl {
-    url =
-      "http://mvapich.cse.ohio-state.edu/download/mvapich/mv2/mvapich2-${version}.tar.gz";
+    url = "http://mvapich.cse.ohio-state.edu/download/mvapich/mv2/mvapich2-${version}.tar.gz";
     sha256 = "sha256-w5pEkvS+UN9hAHhXSLoolOI85FCpQSgYHVFtpXV3Ua4=";
   };
 

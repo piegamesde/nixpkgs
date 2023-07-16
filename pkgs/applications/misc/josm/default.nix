@@ -14,13 +14,11 @@ let
   version = "18721";
   srcs = {
     jar = fetchurl {
-      url =
-        "https://josm.openstreetmap.de/download/josm-snapshot-${version}.jar";
+      url = "https://josm.openstreetmap.de/download/josm-snapshot-${version}.jar";
       hash = "sha256-nc6itoblAzP064xTTF8q990TiRX3+zf5uk+enS+C5Jo=";
     };
     macosx = fetchurl {
-      url =
-        "https://josm.openstreetmap.de/download/macosx/josm-macos-${version}-java17.zip";
+      url = "https://josm.openstreetmap.de/download/macosx/josm-macos-${version}-java17.zip";
       hash = "sha256-uaj32PupxAS5Pa7us9sIeeepGJ6BIljm41e6onB7zxQ=";
     };
     pkg = fetchsvn {

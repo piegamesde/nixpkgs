@@ -7,8 +7,7 @@ rec {
   baseName = "buildnode-xhtml";
   version = "buildnode-20170403-git";
 
-  description =
-    "Tool for building up an xml dom of an excel spreadsheet nicely.";
+  description = "Tool for building up an xml dom of an excel spreadsheet nicely.";
 
   deps = [
     args."alexandria"
@@ -34,8 +33,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/buildnode/2017-04-03/buildnode-20170403-git.tgz";
+    url = "http://beta.quicklisp.org/archive/buildnode/2017-04-03/buildnode-20170403-git.tgz";
     sha256 = "1gb3zsp4g31iscvvhvb99z0i7lfn1g3493q6sgpr46fmn2vdwwb6";
   };
 

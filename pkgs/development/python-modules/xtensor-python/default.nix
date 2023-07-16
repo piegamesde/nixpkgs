@@ -38,8 +38,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/xtensor-stack/xtensor-python";
-    description =
-      "Python bindings for the xtensor C++ multi-dimensional array library";
+    description = "Python bindings for the xtensor C++ multi-dimensional array library";
     license = licenses.bsd3;
     maintainers = with maintainers; [ lsix ];
   };

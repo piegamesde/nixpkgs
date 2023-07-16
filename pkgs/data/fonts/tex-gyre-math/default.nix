@@ -48,8 +48,7 @@ let
       inherit version;
 
       src = fetchzip {
-        url =
-          "http://www.gust.org.pl/projects/e-foundry/tg-math/download/texgyre${variant}-math-${dotless_version}.zip";
+        url = "http://www.gust.org.pl/projects/e-foundry/tg-math/download/texgyre${variant}-math-${dotless_version}.zip";
         inherit sha256;
       };
 

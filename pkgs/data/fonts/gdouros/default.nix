@@ -46,8 +46,7 @@ let
       version = "13.00";
       file = "Symbola.zip";
       hash = "sha256-TsHWmzkEyMa8JOZDyjvk7PDhm239oH/FNllizNFf398=";
-      description =
-        "Basic Latin, Greek, Cyrillic and many Symbol blocks of Unicode";
+      description = "Basic Latin, Greek, Cyrillic and many Symbol blocks of Unicode";
     };
     textfonts = {
       version = "13.00";

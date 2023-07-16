@@ -17,8 +17,7 @@ let
     nativeBuildInputs = [ makeWrapper ];
 
     src = fetchurl {
-      url =
-        "mirror://maven/org/openapitools/${pname}/${version}/${jarfilename}";
+      url = "mirror://maven/org/openapitools/${pname}/${version}/${jarfilename}";
       sha256 = "sha256-8Y13HpjyxbsWnR0ZYd5PlIZtKQGrweFhd91+kpmDRyE=";
     };
 
@@ -36,8 +35,7 @@ let
     '';
 
     meta = with lib; {
-      description =
-        "Allows generation of API client libraries (SDK generation), server stubs and documentation automatically given an OpenAPI Spec";
+      description = "Allows generation of API client libraries (SDK generation), server stubs and documentation automatically given an OpenAPI Spec";
       homepage = "https://github.com/OpenAPITools/openapi-generator";
       sourceProvenance = with sourceTypes; [ binaryBytecode ];
       license = licenses.asl20;

@@ -13,15 +13,13 @@ let
     inherit version;
 
     src = fetchzip {
-      url =
-        "https://lechnology.com/wp-content/uploads/2020/05/KeeAgent_v0.12.0.zip";
+      url = "https://lechnology.com/wp-content/uploads/2020/05/KeeAgent_v0.12.0.zip";
       sha256 = "0fcfbj3yikiv3dmp69236h9r3c416amdq849kn131w1129gb68xd";
       stripRoot = false;
     };
 
     meta = {
-      description =
-        "KeePass plugin to allow other programs to access SSH keys stored in a KeePass database for authentication";
+      description = "KeePass plugin to allow other programs to access SSH keys stored in a KeePass database for authentication";
       homepage = "http://lechnology.com/software/keeagent";
       platforms = with lib.platforms; linux;
       license = lib.licenses.gpl2;

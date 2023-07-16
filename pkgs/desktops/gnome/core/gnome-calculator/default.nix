@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
   version = "44.0";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/gnome-calculator/${
+    url = "mirror://gnome/sources/gnome-calculator/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "FOdjMp+IMJp+FSeA1XNhtUMQDjI5BrNOBlX9wxW3EEM=";
@@ -77,8 +76,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Calculator";
-    description =
-      "Application that solves mathematical equations and is suitable as a default application in a Desktop environment";
+    description = "Application that solves mathematical equations and is suitable as a default application in a Desktop environment";
     maintainers = teams.gnome.members;
     license = licenses.gpl3Plus;
     platforms = platforms.unix;

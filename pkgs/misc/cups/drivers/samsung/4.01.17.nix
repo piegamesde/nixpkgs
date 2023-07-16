@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
   version = "4.01.17";
 
   src = fetchurl {
-    url =
-      "http://www.bchemnet.com/suldr/driver/UnifiedLinuxDriver-${version}.tar.gz";
+    url = "http://www.bchemnet.com/suldr/driver/UnifiedLinuxDriver-${version}.tar.gz";
     sha256 = "1vv3pzvqpg1dq3xjr8161x2yp3v7ca75vil56ranhw5pkjwq66x0";
   };
 
@@ -99,8 +98,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Samsung's Linux printing drivers; includes binaries without source code";
+    description = "Samsung's Linux printing drivers; includes binaries without source code";
     homepage = "http://www.samsung.com/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

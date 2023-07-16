@@ -82,8 +82,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module with keylist/keypath support";
     homepage = "https://github.com/fabiocaccamo/python-benedict";
-    changelog =
-      "https://github.com/fabiocaccamo/python-benedict/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/fabiocaccamo/python-benedict/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

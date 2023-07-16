@@ -131,8 +131,7 @@ in
       after = [ "network.target" ];
 
       serviceConfig = {
-        ExecStart =
-          "${dragonflydb}/bin/dragonfly --alsologtostderr ${
+        ExecStart = "${dragonflydb}/bin/dragonfly --alsologtostderr ${
             builtins.concatStringsSep " " (
               attrsets.mapAttrsToList
                 (n: v: "--${n} ${strings.escapeShellArg v}")

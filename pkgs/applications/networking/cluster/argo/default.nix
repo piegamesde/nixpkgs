@@ -88,8 +88,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Container native workflow engine for Kubernetes";
     homepage = "https://github.com/argoproj/argo";
-    changelog =
-      "https://github.com/argoproj/argo-workflows/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/argoproj/argo-workflows/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ groodt ];
     platforms = platforms.unix;

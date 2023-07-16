@@ -15,8 +15,7 @@ buildDunePackage rec {
   version = "1.2";
 
   src = fetchurl {
-    url =
-      "https://github.com/mirage/prometheus/releases/download/v${version}/prometheus-${version}.tbz";
+    url = "https://github.com/mirage/prometheus/releases/download/v${version}/prometheus-${version}.tbz";
     sha256 = "sha256-g2Q6ApprbecdFANO7i6U/v8dCHVcSkHVg9wVMKtVW8s=";
   };
 

@@ -55,8 +55,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "GraphQL Framework for Python";
     homepage = "https://github.com/graphql-python/graphene";
-    changelog =
-      "https://github.com/graphql-python/graphene/releases/tag/v${version}";
+    changelog = "https://github.com/graphql-python/graphene/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

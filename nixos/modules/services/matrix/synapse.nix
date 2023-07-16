@@ -751,8 +751,7 @@ in
                   else
                     "${cfg.dataDir}/media"
                 ;
-                defaultText =
-                  "${cfg.dataDir}/media_store for when system.stateVersion is at least 22.05, ${cfg.dataDir}/media when lower than 22.05";
+                defaultText = "${cfg.dataDir}/media_store for when system.stateVersion is at least 22.05, ${cfg.dataDir}/media when lower than 22.05";
                 description = lib.mdDoc ''
                   Directory where uploaded images and attachments are stored.
                 '';
@@ -1136,8 +1135,7 @@ in
                 default = [ {
                   server_name = "matrix.org";
                   verify_keys = {
-                    "ed25519:auto" =
-                      "Noi6WqcDj0QmPxCNQqgezwTlBKrfqehY1u2FyWP9uYw";
+                    "ed25519:auto" = "Noi6WqcDj0QmPxCNQqgezwTlBKrfqehY1u2FyWP9uYw";
                   };
                 } ];
                 description = lib.mdDoc ''

@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description =
-      "Modern flat theme with a combination of light and dark elements (GNOME, Unity, Xfce and Openbox)";
+    description = "Modern flat theme with a combination of light and dark elements (GNOME, Unity, Xfce and Openbox)";
     homepage = "https://numixproject.github.io";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;

@@ -35,8 +35,7 @@ buildOctavePackage rec {
     license = licenses.gpl3Plus;
     # Claims to have a freebsd license, but I found none.
     maintainers = with maintainers; [ KarlJoad ];
-    description =
-      "Additional functions for manipulation and analysis of strings";
+    description = "Additional functions for manipulation and analysis of strings";
     # Some pcre symbols claimed to be missing
     broken = stdenv.isDarwin;
   };

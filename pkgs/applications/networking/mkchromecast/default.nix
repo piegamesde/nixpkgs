@@ -94,8 +94,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://mkchromecast.com/";
-    description =
-      "Cast macOS and Linux Audio/Video to your Google Cast and Sonos Devices";
+    description = "Cast macOS and Linux Audio/Video to your Google Cast and Sonos Devices";
     license = licenses.mit;
     maintainers = with maintainers; [ shou ];
     mainProgram = "mkchromecast";

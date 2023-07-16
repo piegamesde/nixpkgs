@@ -32,10 +32,8 @@ stdenv.mkDerivation (
 
     meta = with lib; {
       homepage = "https://gitlab.com/mdds/mdds";
-      description =
-        "A collection of multi-dimensional data structure and indexing algorithms";
-      changelog =
-        "https://gitlab.com/mdds/mdds/-/blob/${finalAttrs.version}/CHANGELOG";
+      description = "A collection of multi-dimensional data structure and indexing algorithms";
+      changelog = "https://gitlab.com/mdds/mdds/-/blob/${finalAttrs.version}/CHANGELOG";
       license = licenses.mit;
       maintainers = [ maintainers.AndersonTorres ];
       platforms = platforms.unix;

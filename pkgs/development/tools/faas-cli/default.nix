@@ -65,8 +65,7 @@ buildGoModule rec {
   '';
 
   passthru.tests.version = testers.testVersion {
-    command =
-      "${faas-cli}/bin/faas-cli version --short-version --warn-update=false";
+    command = "${faas-cli}/bin/faas-cli version --short-version --warn-update=false";
     package = faas-cli;
   };
 

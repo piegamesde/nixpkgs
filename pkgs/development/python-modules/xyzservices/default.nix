@@ -27,8 +27,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/geopandas/xyzservices/releases/tag/${version}";
+    changelog = "https://github.com/geopandas/xyzservices/releases/tag/${version}";
     description = "Source of XYZ tiles providers";
     homepage = "https://github.com/geopandas/xyzservices";
     license = licenses.bsd3;

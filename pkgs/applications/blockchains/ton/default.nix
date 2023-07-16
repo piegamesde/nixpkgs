@@ -44,11 +44,9 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "A fully decentralized layer-1 blockchain designed by Telegram";
+    description = "A fully decentralized layer-1 blockchain designed by Telegram";
     homepage = "https://ton.org/";
-    changelog =
-      "https://github.com/ton-blockchain/ton/blob/v${version}/Changelog.md";
+    changelog = "https://github.com/ton-blockchain/ton/blob/v${version}/Changelog.md";
     license = licenses.lgpl2Only;
     platforms = platforms.all;
     maintainers = with maintainers; [ misuzu ];

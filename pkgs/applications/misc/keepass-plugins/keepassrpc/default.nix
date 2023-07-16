@@ -12,15 +12,12 @@ let
     pname = "keepassrpc";
     inherit version;
     src = fetchurl {
-      url =
-        "https://github.com/kee-org/keepassrpc/releases/download/v${version}/KeePassRPC.plgx";
-      sha256 =
-        "1c410cc93c0252e7cfdb02507b8172c13e18d12c97f08630b721d897dc9b8b24";
+      url = "https://github.com/kee-org/keepassrpc/releases/download/v${version}/KeePassRPC.plgx";
+      sha256 = "1c410cc93c0252e7cfdb02507b8172c13e18d12c97f08630b721d897dc9b8b24";
     };
 
     meta = with lib; {
-      description =
-        "The KeePassRPC plugin that needs to be installed inside KeePass in order for Kee to be able to connect your browser to your passwords";
+      description = "The KeePassRPC plugin that needs to be installed inside KeePass in order for Kee to be able to connect your browser to your passwords";
       homepage = "https://github.com/kee-org/keepassrpc";
       platforms = [ "x86_64-linux" ];
       license = licenses.gpl2;

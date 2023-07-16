@@ -35,8 +35,9 @@ let
         && builtins.match "[0-9]+" minorVersion != null
       ;
       nextMinor = builtins.fromJSON minorVersion + 1;
-      upperBound =
-        "${lib.versions.major packageVersion}.${builtins.toString nextMinor}";
+      upperBound = "${lib.versions.major packageVersion}.${
+          builtins.toString nextMinor
+        }";
     in
     if builtins.isBool freeze then
       lib.optionals (freeze && minorAvailable) [ upperBound ]

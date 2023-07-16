@@ -30,8 +30,7 @@ buildPythonPackage rec {
   };
 
   meta = {
-    description =
-      "Legacy Python client for Sentry (getsentry.com) — replaced by sentry-python";
+    description = "Legacy Python client for Sentry (getsentry.com) — replaced by sentry-python";
     homepage = "https://github.com/getsentry/raven-python";
     license = [ lib.licenses.bsd3 ];
     maintainers = with lib.maintainers; [ primeos ];

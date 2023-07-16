@@ -59,8 +59,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Simple API to access Netatmo weather station data";
     homepage = "https://github.com/jabesq/pyatmo";
-    changelog =
-      "https://github.com/jabesq/pyatmo/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/jabesq/pyatmo/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ delroth ];
   };

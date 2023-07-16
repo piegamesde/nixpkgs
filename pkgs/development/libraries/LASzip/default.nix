@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   meta = {
-    description =
-      "Turn quickly bulky LAS files into compact LAZ files without information loss";
+    description = "Turn quickly bulky LAS files into compact LAZ files without information loss";
     homepage = "https://laszip.org";
     license = lib.licenses.lgpl2;
     maintainers = [ lib.maintainers.michelk ];

@@ -19,8 +19,7 @@ stdenv.mkDerivation {
   version = "104.0";
 
   src = fetchzip rec {
-    url =
-      "https://chromium.googlesource.com/chromiumos/platform2/+archive/${passthru.rev}/vm_tools/sommelier.tar.gz";
+    url = "https://chromium.googlesource.com/chromiumos/platform2/+archive/${passthru.rev}/vm_tools/sommelier.tar.gz";
     passthru.rev = "af5434fd9903936a534e1316cbd22361e67949ec";
     stripRoot = false;
     sha256 = "LungQqHQorHIKpye2SDBLuMHPt45C1cPYcs9o5Hc3cw=";
@@ -50,8 +49,7 @@ stdenv.mkDerivation {
   passthru.updateScript = ./update.py;
 
   meta = with lib; {
-    homepage =
-      "https://chromium.googlesource.com/chromiumos/platform2/+/refs/heads/main/vm_tools/sommelier/";
+    homepage = "https://chromium.googlesource.com/chromiumos/platform2/+/refs/heads/main/vm_tools/sommelier/";
     description = "Nested Wayland compositor with support for X11 forwarding";
     maintainers = with maintainers; [ qyliss ];
     license = licenses.bsd3;

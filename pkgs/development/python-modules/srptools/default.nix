@@ -24,8 +24,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Python-Tools to implement Secure Remote Password (SRP) authentication";
+    description = "Python-Tools to implement Secure Remote Password (SRP) authentication";
     homepage = "https://github.com/idlesign/srptools";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];

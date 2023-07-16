@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://cdrtools.sourceforge.net/private/cdrecord.html";
-    description =
-      "Highly portable CD/DVD/BluRay command line recording software";
+    description = "Highly portable CD/DVD/BluRay command line recording software";
     license = with licenses; [
       cddl
       gpl2

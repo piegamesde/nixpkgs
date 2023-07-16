@@ -67,8 +67,7 @@ in
       default = { };
       example = {
         nuc-server = "hostaddr=192.168.0.100 port=5432 dbname=postgres";
-        mini-server =
-          "hostaddr=127.0.0.1 port=5432 dbname=postgres sslmode=require";
+        mini-server = "hostaddr=127.0.0.1 port=5432 dbname=postgres sslmode=require";
       };
       description = lib.mdDoc ''
         pgmanage requires at least one PostgreSQL server be defined.

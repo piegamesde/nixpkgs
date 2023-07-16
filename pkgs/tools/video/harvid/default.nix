@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
       #   https://github.com/x42/harvid/pull/10
       (fetchpatch {
         name = "parallel-build.patch";
-        url =
-          "https://github.com/x42/harvid/commit/a3f85c57ad2559558706d9b22989de36452704d9.patch";
+        url = "https://github.com/x42/harvid/commit/a3f85c57ad2559558706d9b22989de36452704d9.patch";
         sha256 = "sha256-0aBfM/4XEqM7C1nFw996IVwaeL0tNgMUQ1C3kblOobI=";
       })
     ];
@@ -53,8 +52,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Decodes still images from movie files and serves them via HTTP";
+    description = "Decodes still images from movie files and serves them via HTTP";
     longDescription = ''
       harvid's intended use-case is to efficiently provide frame-accurate data
       and act as second level cache for rendering the video-timeline in Ardour,

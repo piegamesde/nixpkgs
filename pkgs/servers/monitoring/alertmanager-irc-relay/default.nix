@@ -23,8 +23,7 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    description =
-      "Alertmanager IRC Relay is a bot relaying Prometheus alerts to IRC";
+    description = "Alertmanager IRC Relay is a bot relaying Prometheus alerts to IRC";
     longDescription = ''
       Alertmanager IRC Relay is a bot relaying Prometheus alerts to IRC.
       Alerts are received from Prometheus using Webhooks and are relayed to an

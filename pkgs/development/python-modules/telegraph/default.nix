@@ -39,8 +39,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Telegraph API wrapper";
     homepage = "https://github.com/python273/telegraph";
-    changelog =
-      "https://github.com/python273/telegraph/releases/tag/v${version}";
+    changelog = "https://github.com/python273/telegraph/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ gp2112 ];
   };

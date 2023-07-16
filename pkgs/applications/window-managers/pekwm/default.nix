@@ -67,8 +67,7 @@ stdenv.mkDerivation (
           they should when starting applications.
         - Chainable Keygrabber, usability for everyone.
       '';
-      changelog =
-        "https://raw.githubusercontent.com/pekwm/pekwm/release-${finalAttrs.version}/NEWS.md";
+      changelog = "https://raw.githubusercontent.com/pekwm/pekwm/release-${finalAttrs.version}/NEWS.md";
       license = lib.licenses.gpl2Plus;
       maintainers = [ lib.maintainers.AndersonTorres ];
       platforms = lib.platforms.linux;

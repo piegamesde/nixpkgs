@@ -38,8 +38,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Connect to and retrieve data from the unofficial Smart Meter Texas API";
+    description = "Connect to and retrieve data from the unofficial Smart Meter Texas API";
     homepage = "https://github.com/grahamwetzler/smart-meter-texas";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];

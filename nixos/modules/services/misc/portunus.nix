@@ -187,8 +187,7 @@ in
   config = mkIf cfg.enable {
     assertions = [ {
       assertion = cfg.dex.enable -> cfg.ldap.searchUserName != "";
-      message =
-        "services.portunus.dex.enable requires services.portunus.ldap.searchUserName to be set.";
+      message = "services.portunus.dex.enable requires services.portunus.ldap.searchUserName to be set.";
     } ];
 
     # add ldapsearch(1) etc. to interactive shells
@@ -216,8 +215,7 @@ in
           name = "LDAP";
           config = {
             host = "${cfg.domain}:636";
-            bindDN =
-              "uid=${cfg.ldap.searchUserName},ou=users,${cfg.ldap.suffix}";
+            bindDN = "uid=${cfg.ldap.searchUserName},ou=users,${cfg.ldap.suffix}";
             bindPW = "$DEX_SEARCH_USER_PASSWORD";
             userSearch = {
               baseDN = "ou=users,${cfg.ldap.suffix}";
@@ -264,8 +262,7 @@ in
         description = "Self-contained authentication service";
         wantedBy = [ "multi-user.target" ];
         after = [ "network.target" ];
-        serviceConfig.ExecStart =
-          "${cfg.package.out}/bin/portunus-orchestrator";
+        serviceConfig.ExecStart = "${cfg.package.out}/bin/portunus-orchestrator";
         environment = {
           PORTUNUS_LDAP_SUFFIX = cfg.ldap.suffix;
           PORTUNUS_SERVER_BINARY = "${cfg.package}/bin/portunus-server";
@@ -285,8 +282,7 @@ in
               config.security.acme.certs."${cfg.domain}".directory;
           in
           {
-            PORTUNUS_SLAPD_TLS_CA_CERTIFICATE =
-              "/etc/ssl/certs/ca-certificates.crt";
+            PORTUNUS_SLAPD_TLS_CA_CERTIFICATE = "/etc/ssl/certs/ca-certificates.crt";
             PORTUNUS_SLAPD_TLS_CERTIFICATE = "${acmeDirectory}/cert.pem";
             PORTUNUS_SLAPD_TLS_DOMAIN_NAME = cfg.domain;
             PORTUNUS_SLAPD_TLS_PRIVATE_KEY = "${acmeDirectory}/key.pem";

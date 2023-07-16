@@ -61,8 +61,7 @@ import ./make-test-python.nix (
       sudo -u postgres psql -f ${db-seed}
     '';
 
-    test-db-passwd =
-      "SccZOvTGM//BMrpoQj68JJkjDkMGb4pHv2cECWiI+XhVe3uGJTLI0vFV/gDlZ5jJ";
+    test-db-passwd = "SccZOvTGM//BMrpoQj68JJkjDkMGb4pHv2cECWiI+XhVe3uGJTLI0vFV/gDlZ5jJ";
 
     /* For this NixOS test, we *had* to store this secret to the store.
        Keep in mind the store is world-readable, it's the worst place

@@ -101,8 +101,7 @@ let
     dontPatchShebangs = true;
 
     meta = with lib; {
-      description =
-        "Bash scripts that integrate bat with various command line tools";
+      description = "Bash scripts that integrate bat with various command line tools";
       homepage = "https://github.com/eth-p/bat-extras";
       license = with licenses; [ mit ];
       maintainers = with maintainers; [

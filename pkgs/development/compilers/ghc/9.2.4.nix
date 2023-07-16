@@ -226,10 +226,8 @@ stdenv.mkDerivation (
     pname = "${targetPrefix}ghc${variantSuffix}";
 
     src = fetchurl {
-      url =
-        "https://downloads.haskell.org/ghc/${version}/ghc-${version}-src.tar.xz";
-      sha256 =
-        "15213888064a0ec4e7723d075f31b87a678ce0851773d58b44ef7aa3de996458";
+      url = "https://downloads.haskell.org/ghc/${version}/ghc-${version}-src.tar.xz";
+      sha256 = "15213888064a0ec4e7723d075f31b87a678ce0851773d58b44ef7aa3de996458";
     };
 
     enableParallelBuilding = true;
@@ -245,14 +243,12 @@ stdenv.mkDerivation (
         # https://gitlab.haskell.org/ghc/ghc/-/issues/22766
         (fetchpatch {
           name = "ghc-docs-sphinx-6.0.patch";
-          url =
-            "https://gitlab.haskell.org/ghc/ghc/-/commit/10e94a556b4f90769b7fd718b9790d58ae566600.patch";
+          url = "https://gitlab.haskell.org/ghc/ghc/-/commit/10e94a556b4f90769b7fd718b9790d58ae566600.patch";
           sha256 = "0kmhfamr16w8gch0lgln2912r8aryjky1hfcda3jkcwa5cdzgjdv";
         })
         # fix hyperlinked haddock sources: https://github.com/haskell/haddock/pull/1482
         (fetchpatch {
-          url =
-            "https://patch-diff.githubusercontent.com/raw/haskell/haddock/pull/1482.patch";
+          url = "https://patch-diff.githubusercontent.com/raw/haskell/haddock/pull/1482.patch";
           sha256 = "sha256-8w8QUCsODaTvknCDGgTfFNZa8ZmvIKaKS+2ZJZ9foYk=";
           extraPrefix = "utils/haddock/";
           stripLen = 1;
@@ -260,8 +256,7 @@ stdenv.mkDerivation (
         # Don't generate code that doesn't compile when --enable-relocatable is passed to Setup.hs
         # Can be removed if the Cabal library included with ghc backports the linked fix
         (fetchpatch {
-          url =
-            "https://github.com/haskell/cabal/commit/6c796218c92f93c95e94d5ec2d077f6956f68e98.patch";
+          url = "https://github.com/haskell/cabal/commit/6c796218c92f93c95e94d5ec2d077f6956f68e98.patch";
           stripLen = 1;
           extraPrefix = "libraries/Cabal/";
           sha256 = "sha256-yRQ6YmMiwBwiYseC5BsrEtDgFbWvst+maGgDtdD0vAY=";

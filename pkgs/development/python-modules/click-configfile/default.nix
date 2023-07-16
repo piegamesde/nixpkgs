@@ -40,8 +40,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Add support for commands that use configuration files to Click";
+    description = "Add support for commands that use configuration files to Click";
     homepage = "https://github.com/click-contrib/click-configfile";
     license = licenses.bsd3;
     maintainers = with maintainers; [ jtojnar ];

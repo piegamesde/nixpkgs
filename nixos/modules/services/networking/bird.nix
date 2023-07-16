@@ -112,8 +112,7 @@ in
         ProtectControlGroups = true;
         PrivateTmp = true;
         PrivateDevices = true;
-        SystemCallFilter =
-          "~@cpu-emulation @debug @keyring @module @mount @obsolete @raw-io";
+        SystemCallFilter = "~@cpu-emulation @debug @keyring @module @mount @obsolete @raw-io";
         MemoryDenyWriteExecute = "yes";
       };
     };

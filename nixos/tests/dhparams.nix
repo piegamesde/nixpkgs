@@ -81,8 +81,7 @@ import ./make-test-python.nix {
       switchToGeneration =
         gen:
         let
-          switchCmd =
-            "${nodes.machine.config.system.build.toplevel}/specialisation/gen${
+          switchCmd = "${nodes.machine.config.system.build.toplevel}/specialisation/gen${
               toString gen
             }/bin/switch-to-configuration test";
         in

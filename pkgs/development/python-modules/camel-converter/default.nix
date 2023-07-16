@@ -39,8 +39,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Client for the Meilisearch API";
     homepage = "https://github.com/sanders41/camel-converter";
-    changelog =
-      "https://github.com/sanders41/camel-converter/releases/tag/v${version}";
+    changelog = "https://github.com/sanders41/camel-converter/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

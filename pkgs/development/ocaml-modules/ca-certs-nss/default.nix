@@ -21,8 +21,7 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url =
-      "https://github.com/mirage/ca-certs-nss/releases/download/v${version}/ca-certs-nss-${version}.tbz";
+    url = "https://github.com/mirage/ca-certs-nss/releases/download/v${version}/ca-certs-nss-${version}.tbz";
     hash = "sha256-3b20vYBP9T2uR17Vxyilfs/9C72WVUrgR7T582V++lQ=";
   };
 

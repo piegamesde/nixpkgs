@@ -27,8 +27,7 @@ mkDerivation rec {
   version = "12.9.0.0601";
 
   src = fetchurl {
-    url =
-      "https://www.myroom.hpe.com/downloadfiles/${pname}-${version}.x86_64.rpm";
+    url = "https://www.myroom.hpe.com/downloadfiles/${pname}-${version}.x86_64.rpm";
     sha256 = "sha256-1BC4EjCCLAuCIOV+jJn3pfKKW7UJI5tfC+wg0FUgB64=";
   };
 

@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://xboxdrv.gitlab.io/";
-    description =
-      "Xbox/Xbox360 (and more) gamepad driver for Linux that works in userspace";
+    description = "Xbox/Xbox360 (and more) gamepad driver for Linux that works in userspace";
     license = licenses.gpl3Plus;
     maintainers = [ ];
     platforms = platforms.linux;

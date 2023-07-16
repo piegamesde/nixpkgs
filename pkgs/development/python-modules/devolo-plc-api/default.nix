@@ -50,8 +50,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module to interact with Devolo PLC devices";
     homepage = "https://github.com/2Fake/devolo_plc_api";
-    changelog =
-      "https://github.com/2Fake/devolo_plc_api/releases/tag/v${version}";
+    changelog = "https://github.com/2Fake/devolo_plc_api/releases/tag/v${version}";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ fab ];
   };

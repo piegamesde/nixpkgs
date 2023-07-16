@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
       # Use dnnl from nixpkgs instead of submodules
       (fetchpatch {
         name = "system-dnnl.patch";
-        url =
-          "https://aur.archlinux.org/cgit/aur.git/plain/system-dnnl.diff?h=python-onnxruntime&id=9c392fb542979981fe0026e0fe3cc361a5f00a36";
+        url = "https://aur.archlinux.org/cgit/aur.git/plain/system-dnnl.diff?h=python-onnxruntime&id=9c392fb542979981fe0026e0fe3cc361a5f00a36";
         sha256 = "sha256-+kedzJHLFU1vMbKO9cn8fr+9A5+IxIuiqzOfR2AfJ0k=";
       })
     ];
@@ -143,8 +142,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "Cross-platform, high performance scoring engine for ML models";
+    description = "Cross-platform, high performance scoring engine for ML models";
     longDescription = ''
       ONNX Runtime is a performance-focused complete scoring engine
       for Open Neural Network Exchange (ONNX) models, with an open
@@ -155,8 +153,7 @@ stdenv.mkDerivation rec {
       compatibility.
     '';
     homepage = "https://github.com/microsoft/onnxruntime";
-    changelog =
-      "https://github.com/microsoft/onnxruntime/releases/tag/v${version}";
+    changelog = "https://github.com/microsoft/onnxruntime/releases/tag/v${version}";
     # https://github.com/microsoft/onnxruntime/blob/master/BUILD.md#architectures
     platforms = platforms.unix;
     license = licenses.mit;

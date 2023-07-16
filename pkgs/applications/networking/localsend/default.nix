@@ -12,13 +12,11 @@ let
 
   srcs = {
     x86_64-linux = fetchurl {
-      url =
-        "https://github.com/localsend/localsend/releases/download/v${version}/LocalSend-${version}.AppImage";
+      url = "https://github.com/localsend/localsend/releases/download/v${version}/LocalSend-${version}.AppImage";
       hash = "sha256-i5/haQHsw3BAOFGsHO41oiop1JgMISTr1Dw0tAeYupU=";
     };
     x86_64-darwin = fetchurl {
-      url =
-        "https://github.com/localsend/localsend/releases/download/v${version}/LocalSend-${version}.dmg";
+      url = "https://github.com/localsend/localsend/releases/download/v${version}/LocalSend-${version}.dmg";
       hash = "sha256-Ibojcg5To288c+v6IKMOjuLz970osiKJU7/K0VnIs8k=";
     };
   };

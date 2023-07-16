@@ -9,8 +9,7 @@ buildPackage {
   version = "2.3.0.2";
   sha256 = "hxQmkTTwEmUNqsBA5WRjct6lZYucDYmnygO7Kr7E0eg=";
 
-  description =
-    "A set of tiny general Unix utilities optimized for simplicity and small size";
+  description = "A set of tiny general Unix utilities optimized for simplicity and small size";
 
   outputs = [
     "bin"

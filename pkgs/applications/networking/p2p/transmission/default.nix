@@ -52,8 +52,7 @@ stdenv.mkDerivation {
     [
       # fix build with openssl 3.0
       (fetchurl {
-        url =
-          "https://gitweb.gentoo.org/repo/gentoo.git/plain/net-p2p/transmission/files/transmission-3.00-openssl-3.patch";
+        url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/net-p2p/transmission/files/transmission-3.00-openssl-3.patch";
         hash = "sha256-peVrkGck8AfbC9uYNfv1CIu1alIewpca7A6kRXjVlVs=";
       })
     ];

@@ -32,8 +32,7 @@ rustPlatform.buildRustPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "HTTP load generator inspired by rakyll/hey with tui animation";
+    description = "HTTP load generator inspired by rakyll/hey with tui animation";
     homepage = "https://github.com/hatoo/oha";
     changelog = "https://github.com/hatoo/oha/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;

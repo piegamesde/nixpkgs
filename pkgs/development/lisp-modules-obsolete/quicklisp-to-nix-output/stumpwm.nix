@@ -16,8 +16,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/stumpwm/2021-12-09/stumpwm-20211209-git.tgz";
+    url = "http://beta.quicklisp.org/archive/stumpwm/2021-12-09/stumpwm-20211209-git.tgz";
     sha256 = "1n7wj2jn6sydnyrjmic53lqkqigk1cg140b9pcnk09ngsrq3cn60";
   };
 

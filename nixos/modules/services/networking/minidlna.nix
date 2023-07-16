@@ -106,8 +106,7 @@ in
       options.log_level = mkOption {
         type = types.str;
         default = "warn";
-        example =
-          "general,artwork,database,inotify,scanner,metadata,http,ssdp,tivo=warn";
+        example = "general,artwork,database,inotify,scanner,metadata,http,ssdp,tivo=warn";
         description =
           lib.mdDoc
             "Defines the type of messages that should be logged and down to which level of importance."
@@ -259,8 +258,7 @@ in
         CacheDirectory = "minidlna";
         RuntimeDirectory = "minidlna";
         PIDFile = "/run/minidlna/pid";
-        ExecStart =
-          "${pkgs.minidlna}/sbin/minidlnad -S -P /run/minidlna/pid -f ${settingsFile}";
+        ExecStart = "${pkgs.minidlna}/sbin/minidlnad -S -P /run/minidlna/pid -f ${settingsFile}";
       };
     };
   };

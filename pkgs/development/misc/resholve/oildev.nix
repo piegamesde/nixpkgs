@@ -125,8 +125,7 @@ rec {
        later drop this support. See:
        https://github.com/oilshell/oil/blob/46900310c7e4a07a6223eb6c08e4f26460aad285/doctools/cmark.py#L30-L34
     */
-    _NIX_SHELL_LIBCMARK =
-      "${cmark}/lib/libcmark${stdenv.hostPlatform.extensions.sharedLibrary}";
+    _NIX_SHELL_LIBCMARK = "${cmark}/lib/libcmark${stdenv.hostPlatform.extensions.sharedLibrary}";
 
     # See earlier note on glibcLocales TODO: verify needed?
     LOCALE_ARCHIVE =

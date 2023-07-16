@@ -47,8 +47,7 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/NanoVNA-Saver/nanovna-saver";
-    description =
-      "A tool for reading, displaying and saving data from the NanoVNA";
+    description = "A tool for reading, displaying and saving data from the NanoVNA";
     longDescription = ''
       A multiplatform tool to save Touchstone files from the NanoVNA, sweep
       frequency spans in segments to gain more than 101 data points, and

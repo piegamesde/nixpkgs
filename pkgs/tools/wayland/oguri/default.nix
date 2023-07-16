@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/vilhalmer/oguri/";
-    description =
-      "A very nice animated wallpaper daemon for Wayland compositors";
+    description = "A very nice animated wallpaper daemon for Wayland compositors";
     license = licenses.mit;
     maintainers = with maintainers; [ AndersonTorres ];
     inherit (wayland.meta) platforms;

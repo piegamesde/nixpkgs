@@ -25,8 +25,7 @@ mkDerivation rec {
   cmakeFlags = [ ];
 
   meta = with lib; {
-    description =
-      "C++ Qt API for Libre Graph, a free API for cloud collaboration inspired by the MS Graph API";
+    description = "C++ Qt API for Libre Graph, a free API for cloud collaboration inspired by the MS Graph API";
     homepage = "https://owncloud.org";
     maintainers = with maintainers; [
       qknight
@@ -34,7 +33,6 @@ mkDerivation rec {
     ];
     platforms = platforms.unix;
     license = licenses.asl20;
-    changelog =
-      "https://github.com/owncloud/libre-graph-api-cpp-qt-client/releases/tag/v${version}";
+    changelog = "https://github.com/owncloud/libre-graph-api-cpp-qt-client/releases/tag/v${version}";
   };
 }

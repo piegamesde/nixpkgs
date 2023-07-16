@@ -55,8 +55,7 @@ with lib;
       serviceConfig = {
         Type = "forking";
         PIDFile = "/run/pfix-srsd.pid";
-        ExecStart =
-          "${pkgs.pfixtools}/bin/pfix-srsd -p /run/pfix-srsd.pid -I ${config.services.pfix-srsd.domain} ${config.services.pfix-srsd.secretsFile}";
+        ExecStart = "${pkgs.pfixtools}/bin/pfix-srsd -p /run/pfix-srsd.pid -I ${config.services.pfix-srsd.domain} ${config.services.pfix-srsd.secretsFile}";
       };
     };
   };

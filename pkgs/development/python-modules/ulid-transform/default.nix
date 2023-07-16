@@ -41,8 +41,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library to create and transform ULIDs";
     homepage = "https://github.com/bdraco/ulid-transform";
-    changelog =
-      "https://github.com/bdraco/ulid-transform/releases/tag/v${version}";
+    changelog = "https://github.com/bdraco/ulid-transform/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

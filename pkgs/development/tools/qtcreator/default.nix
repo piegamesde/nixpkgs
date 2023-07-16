@@ -41,8 +41,7 @@ mkDerivation rec {
   );
 
   src = fetchurl {
-    url =
-      "http://download.qt-project.org/official_releases/${pname}/${baseVersion}/${version}/qt-creator-opensource-src-${version}.tar.xz";
+    url = "http://download.qt-project.org/official_releases/${pname}/${baseVersion}/${version}/qt-creator-opensource-src-${version}.tar.xz";
     sha256 = "1sz21ijzvhf5avblikffykbqa8zdq3sbg32g2dmyxv5w211v3lvz";
   };
 

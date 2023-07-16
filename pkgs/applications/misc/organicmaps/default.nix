@@ -91,8 +91,7 @@ mkDerivation rec {
     # darwin: "invalid application of 'sizeof' to a function type"
     broken = (stdenv.isLinux && stdenv.isAarch64) || stdenv.isDarwin;
     homepage = "https://organicmaps.app/";
-    description =
-      "Detailed Offline Maps for Travellers, Tourists, Hikers and Cyclists";
+    description = "Detailed Offline Maps for Travellers, Tourists, Hikers and Cyclists";
     license = licenses.asl20;
     maintainers = with maintainers; [ fgaz ];
     platforms = platforms.all;

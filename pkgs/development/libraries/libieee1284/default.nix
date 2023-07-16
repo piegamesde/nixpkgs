@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
     [
       # Fix build on Musl.
       (fetchpatch {
-        url =
-          "https://raw.githubusercontent.com/void-linux/void-packages/861ac185a6b60134292ff93d40e40b5391d0aa8e/srcpkgs/libieee1284/patches/musl.patch";
+        url = "https://raw.githubusercontent.com/void-linux/void-packages/861ac185a6b60134292ff93d40e40b5391d0aa8e/srcpkgs/libieee1284/patches/musl.patch";
         sha256 = "03xivd6z7m51i5brlmzs60pjrlqyr4561qlnh182wa7rrm01x5y6";
       })
     ];

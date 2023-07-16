@@ -57,8 +57,7 @@ let
               # as valid paths in the VM’s Nix store database,
               # and `nix-store --query` commands run as part of the tests
               # (for example when building Flatpak runtimes) will fail.
-              environment.variables.TESTED_PACKAGE_INSTALLED_TESTS =
-                "${tested.installedTests}/share";
+              environment.variables.TESTED_PACKAGE_INSTALLED_TESTS = "${tested.installedTests}/share";
             }
           ;
 

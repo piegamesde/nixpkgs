@@ -15,8 +15,7 @@ let
     (buildOpenRAEngine
       {
         inherit version;
-        description =
-          "Open-source re-implementation of Westwood Studios' 2D Command and Conquer games";
+        description = "Open-source re-implementation of Westwood Studios' 2D Command and Conquer games";
         homepage = "https://www.openra.net/";
         mods = [
           "cnc"

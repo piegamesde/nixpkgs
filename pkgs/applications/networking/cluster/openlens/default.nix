@@ -10,8 +10,7 @@ let
   version = "6.4.15";
 
   src = fetchurl {
-    url =
-      "https://github.com/MuhammedKalkan/OpenLens/releases/download/v${version}/OpenLens-${version}.x86_64.AppImage";
+    url = "https://github.com/MuhammedKalkan/OpenLens/releases/download/v${version}/OpenLens-${version}.x86_64.AppImage";
     sha256 = "sha256-Q7Vh+/SKbnQ7HbDlx1XqBXg1U2DaIvY139VrIIdOX5E=";
   };
 

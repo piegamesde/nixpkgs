@@ -159,8 +159,7 @@ in
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        ExecStart =
-          "${cfg.package}/bin/hbase --config ${configDir} master start";
+        ExecStart = "${cfg.package}/bin/hbase --config ${configDir} master start";
       };
     };
 

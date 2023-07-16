@@ -10,8 +10,7 @@ buildPythonPackage rec {
   version = "0.8";
 
   src = fetchurl {
-    url =
-      "http://code.liw.fi/debian/pool/main/p/python-tracing/python-tracing_${version}.orig.tar.gz";
+    url = "http://code.liw.fi/debian/pool/main/p/python-tracing/python-tracing_${version}.orig.tar.gz";
     sha256 = "1l4ybj5rvrrcxf8csyq7qx52izybd502pmx70zxp46gxqm60d2l0";
   };
 

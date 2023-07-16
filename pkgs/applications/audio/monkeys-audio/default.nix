@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
   pname = "monkeys-audio";
 
   src = fetchzip {
-    url =
-      "https://monkeysaudio.com/files/MAC_${
+    url = "https://monkeysaudio.com/files/MAC_${
         builtins.concatStringsSep "" (lib.strings.splitString "." version)
       }_SDK.zip";
     sha256 = "sha256-fDH7F9xLfR9Q2T3HCirBWdKB7Kb1vxyo8g0PNzHzMCY=";

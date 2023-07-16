@@ -25,8 +25,7 @@ buildFHSEnv {
 
   meta = with lib; {
     description = "Minimal CLI launcher for the Toontown Rewritten MMORPG";
-    homepage =
-      "https://github.com/JonathanHelianthicusDoe/shticker_book_unwritten";
+    homepage = "https://github.com/JonathanHelianthicusDoe/shticker_book_unwritten";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.reedrw ];
     platforms = platforms.linux;

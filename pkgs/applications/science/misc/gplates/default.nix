@@ -60,8 +60,7 @@ mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Desktop software for the interactive visualisation of plate-tectonics";
+    description = "Desktop software for the interactive visualisation of plate-tectonics";
     homepage = "https://www.gplates.org";
     license = licenses.gpl2Only;
     platforms = platforms.all;

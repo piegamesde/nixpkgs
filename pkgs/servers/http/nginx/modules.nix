@@ -74,8 +74,7 @@ let
 
       meta = with lib; {
         description = "Validates Akamai v2 query string tokens";
-        homepage =
-          "https://github.com/kaltura/nginx-akamai-token-validate-module";
+        homepage = "https://github.com/kaltura/nginx-akamai-token-validate-module";
         license = with licenses; [ agpl3 ];
         maintainers = with maintainers; [ ];
       };
@@ -172,8 +171,7 @@ let
       };
 
       meta = with lib; {
-        description =
-          "Adds ability to purge content from FastCGI, proxy, SCGI and uWSGI caches";
+        description = "Adds ability to purge content from FastCGI, proxy, SCGI and uWSGI caches";
         homepage = "https://github.com/nginx-modules/ngx_cache_purge";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ ];
@@ -229,8 +227,7 @@ let
       };
 
       meta = with lib; {
-        description =
-          "Adds additional generic tools that module developers can use in their own modules";
+        description = "Adds additional generic tools that module developers can use in their own modules";
         homepage = "https://github.com/vision5/ngx_devel_kit";
         license = with licenses; [ bsd3 ];
         maintainers = with maintainers; [ ];
@@ -248,8 +245,7 @@ let
       };
 
       meta = with lib; {
-        description =
-          "Brings echo, sleep, time, exec and more shell-style goodies to Nginx";
+        description = "Brings echo, sleep, time, exec and more shell-style goodies to Nginx";
         homepage = "https://github.com/openresty/echo-nginx-module";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ ];
@@ -305,8 +301,7 @@ let
       inputs = [ libmaxminddb ];
 
       meta = with lib; {
-        description =
-          "Creates variables with values from the maxmind geoip2 databases";
+        description = "Creates variables with values from the maxmind geoip2 databases";
         homepage = "https://github.com/leev/ngx_http_geoip2_module";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ pinpox ];
@@ -406,8 +401,7 @@ let
         let
           # fix compilation against nginx 1.23.0
           nginx-1-23-patch = fetchpatch {
-            url =
-              "https://github.com/openresty/lua-nginx-module/commit/b6d167cf1a93c0c885c28db5a439f2404874cb26.patch";
+            url = "https://github.com/openresty/lua-nginx-module/commit/b6d167cf1a93c0c885c28db5a439f2404874cb26.patch";
             sha256 = "sha256-l7GHFNZXg+RG2SIBjYJO1JHdGUtthWnzLIqEORJUNr4=";
           };
         in
@@ -477,8 +471,7 @@ let
       disableIPC = true;
 
       meta = with lib; {
-        description =
-          "Open source, cross platform web application firewall (WAF)";
+        description = "Open source, cross platform web application firewall (WAF)";
         homepage = "https://github.com/SpiderLabs/ModSecurity";
         license = with licenses; [ asl20 ];
         maintainers = with maintainers; [ ];
@@ -535,8 +528,7 @@ let
       ;
 
       meta = with lib; {
-        description =
-          "Open-source, high performance, low rules maintenance WAF";
+        description = "Open-source, high performance, low rules maintenance WAF";
         homepage = "https://github.com/nbs-system/naxsi";
         license = with licenses; [ gpl3 ];
         maintainers = with maintainers; [ ];
@@ -566,8 +558,7 @@ let
       inputs = [ which ];
 
       meta = with lib; {
-        description =
-          "Subset of the JavaScript language that allows extending nginx functionality";
+        description = "Subset of the JavaScript language that allows extending nginx functionality";
         homepage = "https://nginx.org/en/docs/njs/";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ ];
@@ -592,8 +583,7 @@ let
       inputs = [ opentracing-cpp ];
 
       meta = with lib; {
-        description =
-          "Enable requests served by nginx for distributed tracing via The OpenTracing Project";
+        description = "Enable requests served by nginx for distributed tracing via The OpenTracing Project";
         homepage = "https://github.com/opentracing-contrib/nginx-opentracing";
         license = with licenses; [ asl20 ];
         maintainers = with maintainers; [ ];
@@ -616,8 +606,7 @@ let
           {
             meta = {
               description = "PageSpeed module for Nginx";
-              homepage =
-                "https://developers.google.com/speed/pagespeed/module/";
+              homepage = "https://developers.google.com/speed/pagespeed/module/";
               license = lib.licenses.asl20;
             };
           }
@@ -729,8 +718,7 @@ let
       inputs = [ openssl ];
 
       meta = with lib; {
-        description =
-          "Generates CDN tokens, either as a cookie or as a query string parameter";
+        description = "Generates CDN tokens, either as a cookie or as a query string parameter";
         homepage = "https://github.com/kaltura/nginx-secure-token-module";
         license = with licenses; [ agpl3 ];
         maintainers = with maintainers; [ ];
@@ -748,8 +736,7 @@ let
       };
 
       meta = with lib; {
-        description =
-          "Various set_xxx directives added to the rewrite module (md5/sha1, sql/json quoting and many more)";
+        description = "Various set_xxx directives added to the rewrite module (md5/sha1, sql/json quoting and many more)";
         homepage = "https://github.com/openresty/set-misc-nginx-module";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ ];
@@ -785,8 +772,7 @@ let
       };
 
       meta = with lib; {
-        description =
-          "Implements a collection of augmented statistics based on HTTP-codes and upstreams response time";
+        description = "Implements a collection of augmented statistics based on HTTP-codes and upstreams response time";
         homepage = "https://github.com/goldenclone/nginx-sla";
         license = with licenses; [ unfree ]; # no license in repo
         maintainers = with maintainers; [ ];
@@ -823,8 +809,7 @@ let
 
       meta = with lib; {
         description = "Expose querystring parameters sorted in a variable";
-        homepage =
-          "https://github.com/wandenberg/nginx-sorted-querystring-module";
+        homepage = "https://github.com/wandenberg/nginx-sorted-querystring-module";
         license = with licenses; [ mit ];
         maintainers = with maintainers; [ ];
       };
@@ -913,10 +898,8 @@ let
       };
 
       meta = with lib; {
-        description =
-          "Filter module which can do both regular expression and fixed string substitutions";
-        homepage =
-          "https://github.com/yaoweibin/ngx_http_substitutions_filter_module";
+        description = "Filter module which can do both regular expression and fixed string substitutions";
+        homepage = "https://github.com/yaoweibin/ngx_http_substitutions_filter_module";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ ];
       };
@@ -951,8 +934,7 @@ let
       };
 
       meta = with lib; {
-        description =
-          "Handle file uploads using multipart/form-data encoding and resumable uploads";
+        description = "Handle file uploads using multipart/form-data encoding and resumable uploads";
         homepage = "https://github.com/fdintino/nginx-upload-module";
         license = with licenses; [ bsd3 ];
         maintainers = with maintainers; [ ];
@@ -993,8 +975,7 @@ let
       ];
 
       meta = with lib; {
-        description =
-          "Tarantool NginX upstream module (REST, JSON API, websockets, load balancing)";
+        description = "Tarantool NginX upstream module (REST, JSON API, websockets, load balancing)";
         homepage = "https://github.com/tarantool/nginx_upstream_module";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ ];
@@ -1033,8 +1014,7 @@ let
 
       meta = with lib; {
         description = "Extract thumbs from a video file";
-        homepage =
-          "https://github.com/wandenberg/nginx-video-thumbextractor-module";
+        homepage = "https://github.com/wandenberg/nginx-video-thumbextractor-module";
         license = with licenses; [ gpl3 ];
         maintainers = with maintainers; [ ];
       };

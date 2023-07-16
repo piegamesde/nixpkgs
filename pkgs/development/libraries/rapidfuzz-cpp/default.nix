@@ -32,11 +32,9 @@ stdenv.mkDerivation (
     nativeCheckInputs = [ catch2_3 ];
 
     meta = {
-      description =
-        "Rapid fuzzy string matching in C++ using the Levenshtein Distance";
+      description = "Rapid fuzzy string matching in C++ using the Levenshtein Distance";
       homepage = "https://github.com/maxbachmann/rapidfuzz-cpp";
-      changelog =
-        "https://github.com/maxbachmann/rapidfuzz-cpp/blob/${finalAttrs.src.rev}/CHANGELOG.md";
+      changelog = "https://github.com/maxbachmann/rapidfuzz-cpp/blob/${finalAttrs.src.rev}/CHANGELOG.md";
       license = lib.licenses.mit;
       maintainers = with lib.maintainers; [ dotlambda ];
       platforms = lib.platforms.unix;

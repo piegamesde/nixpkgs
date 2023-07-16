@@ -28,8 +28,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/psychopy/pyosf";
-    description =
-      "Pure Python library for simple sync with Open Science Framework";
+    description = "Pure Python library for simple sync with Open Science Framework";
     license = licenses.mit;
     maintainers = with maintainers; [ bcdarwin ];
   };

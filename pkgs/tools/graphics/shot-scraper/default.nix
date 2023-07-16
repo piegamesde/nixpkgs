@@ -28,11 +28,9 @@ python3.pkgs.buildPythonApplication rec {
   pythonImportsCheck = [ "shot_scraper" ];
 
   meta = with lib; {
-    description =
-      "A command-line utility for taking automated screenshots of websites";
+    description = "A command-line utility for taking automated screenshots of websites";
     homepage = "https://github.com/simonw/shot-scraper";
-    changelog =
-      "https://github.com/simonw/shot-scraper/releases/tag/${version}";
+    changelog = "https://github.com/simonw/shot-scraper/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ techknowlogick ];
   };

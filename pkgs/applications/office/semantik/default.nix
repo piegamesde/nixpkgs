@@ -39,8 +39,7 @@ mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "fix-kdelibs4support.patch";
-      url =
-        "https://gitlab.com/ita1024/semantik/-/commit/a991265bd6e3ed6541f8ec099420bc08cc62e30c.patch";
+      url = "https://gitlab.com/ita1024/semantik/-/commit/a991265bd6e3ed6541f8ec099420bc08cc62e30c.patch";
       sha256 = "sha256-E4XjdWfUnqhmFJs9ORznHoXMDS9zHWNXvQIKKkN4AAo=";
     })
     ./qt5.patch

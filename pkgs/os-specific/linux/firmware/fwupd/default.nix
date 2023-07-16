@@ -266,8 +266,7 @@ stdenv.mkDerivation (
 
     # error: “PolicyKit files are missing”
     # https://github.com/NixOS/nixpkgs/pull/67625#issuecomment-525788428
-    PKG_CONFIG_POLKIT_GOBJECT_1_ACTIONDIR =
-      "/run/current-system/sw/share/polkit-1/actions";
+    PKG_CONFIG_POLKIT_GOBJECT_1_ACTIONDIR = "/run/current-system/sw/share/polkit-1/actions";
 
     # Phase hooks
 

@@ -63,8 +63,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "acquire" ];
 
   meta = with lib; {
-    description =
-      "Tool to quickly gather forensic artifacts from disk images or a live system";
+    description = "Tool to quickly gather forensic artifacts from disk images or a live system";
     homepage = "https://github.com/fox-it/acquire";
     changelog = "https://github.com/fox-it/acquire/releases/tag/${version}";
     license = licenses.agpl3Only;

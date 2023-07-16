@@ -41,8 +41,7 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    description =
-      "General purpose file previewer designed for Ranger, Lf to make scope.sh redundant";
+    description = "General purpose file previewer designed for Ranger, Lf to make scope.sh redundant";
     homepage = "https://github.com/doronbehar/pistol";
     license = licenses.mit;
     maintainers = with maintainers; [ doronbehar ];

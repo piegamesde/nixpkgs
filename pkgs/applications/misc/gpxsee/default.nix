@@ -85,8 +85,7 @@ stdenv.mkDerivation rec {
       all common GPS log file formats.
     '';
     homepage = "https://www.gpxsee.org/";
-    changelog =
-      "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes";
+    changelog = "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [
       womfoo

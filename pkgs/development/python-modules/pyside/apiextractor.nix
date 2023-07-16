@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Eases the development of bindings of Qt-based libraries for high level languages by automating most of the process";
+    description = "Eases the development of bindings of Qt-based libraries for high level languages by automating most of the process";
     license = licenses.gpl2;
     homepage = "http://www.pyside.org/docs/apiextractor/";
     maintainers = [ ];

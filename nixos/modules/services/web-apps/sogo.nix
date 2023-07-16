@@ -122,8 +122,7 @@ in
       serviceConfig = {
         Type = "forking";
         ExecStartPre = "+" + preStart + "/bin/sogo-prestart";
-        ExecStart =
-          "${pkgs.sogo}/bin/sogod -WOLogFile - -WOPidFile /run/sogo/sogo.pid";
+        ExecStart = "${pkgs.sogo}/bin/sogod -WOLogFile - -WOPidFile /run/sogo/sogo.pid";
 
         ProtectSystem = "strict";
         ProtectHome = true;
@@ -146,8 +145,7 @@ in
         PrivateMounts = true;
         PrivateUsers = true;
         MemoryDenyWriteExecute = true;
-        SystemCallFilter =
-          "@basic-io @file-system @network-io @system-service @timer";
+        SystemCallFilter = "@basic-io @file-system @network-io @system-service @timer";
         SystemCallArchitectures = "native";
         RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
       };
@@ -210,8 +208,7 @@ in
 
       serviceConfig = {
         Type = "oneshot";
-        ExecStart =
-          "${pkgs.sogo}/bin/sogo-ealarms-notify${
+        ExecStart = "${pkgs.sogo}/bin/sogo-ealarms-notify${
             optionalString (cfg.ealarmsCredFile != null)
               " -p ${cfg.ealarmsCredFile}"
           }";

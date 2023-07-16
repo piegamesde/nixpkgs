@@ -12,8 +12,7 @@ rustPlatform.buildRustPackage rec {
   version = "2.0";
 
   src = fetchurl {
-    url =
-      "https://github.com/mpizenberg/elm-test-rs/archive/v${version}.tar.gz";
+    url = "https://github.com/mpizenberg/elm-test-rs/archive/v${version}.tar.gz";
     sha256 = "sha256:1manr42w613r9vyji7pxx5gb08jcgkdxv29qqylrqlwxa8d5dcid";
   };
 

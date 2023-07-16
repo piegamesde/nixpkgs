@@ -43,8 +43,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "imwatermark" ];
 
   meta = with lib; {
-    description =
-      "A library for creating and decoding invisible image watermarks";
+    description = "A library for creating and decoding invisible image watermarks";
     homepage = "https://github.com/ShieldMnt/invisible-watermark";
     license = licenses.mit;
     maintainers = with maintainers; [ Luflosi ];

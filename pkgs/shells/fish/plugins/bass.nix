@@ -27,8 +27,7 @@ buildFishPlugin rec {
   '';
 
   meta = with lib; {
-    description =
-      "Fish function making it easy to use utilities written for Bash in Fish shell";
+    description = "Fish function making it easy to use utilities written for Bash in Fish shell";
     homepage = "https://github.com/edc/bass";
     license = licenses.mit;
     maintainers = with maintainers; [ beezow ];

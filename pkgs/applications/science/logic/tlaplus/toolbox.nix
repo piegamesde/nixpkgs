@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
   pname = "tla-toolbox";
   version = "1.7.1";
   src = fetchzip {
-    url =
-      "https://tla.msr-inria.inria.fr/tlatoolbox/products/TLAToolbox-${version}-linux.gtk.x86_64.zip";
+    url = "https://tla.msr-inria.inria.fr/tlatoolbox/products/TLAToolbox-${version}-linux.gtk.x86_64.zip";
     sha256 = "02a2y2mkfab5cczw8g604m61h4xr0apir49zbd1aq6mmgcgngw80";
   };
 
@@ -97,8 +96,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage =
-      "http://research.microsoft.com/en-us/um/people/lamport/tla/toolbox.html";
+    homepage = "http://research.microsoft.com/en-us/um/people/lamport/tla/toolbox.html";
     description = "IDE for the TLA+ tools";
     longDescription = ''
       Integrated development environment for the TLA+ tools, based on Eclipse. You can use it

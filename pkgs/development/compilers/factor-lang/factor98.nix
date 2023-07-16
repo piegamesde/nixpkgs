@@ -108,8 +108,7 @@ stdenv.mkDerivation {
   inherit version;
 
   src = fetchurl {
-    url =
-      "https://downloads.factorcode.org/releases/${version}/factor-src-${version}.zip";
+    url = "https://downloads.factorcode.org/releases/${version}/factor-src-${version}.zip";
     sha256 = "01ip9mbnar4sv60d2wcwfz62qaamdvbykxw3gbhzqa25z36vi3ri";
   };
 

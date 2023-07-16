@@ -319,8 +319,7 @@ in
           type = types.str;
           default = "";
           description = lib.mdDoc "MiniMagick font path";
-          example =
-            "/run/current-system/sw/share/X11/fonts/LiberationSans-Regular.ttf";
+          example = "/run/current-system/sw/share/X11/fonts/LiberationSans-Regular.ttf";
         };
       };
     };
@@ -333,32 +332,27 @@ in
       {
         assertion =
           cfg.database.passwordFile != null || cfg.database.socket != null;
-        message =
-          "one of services.redmine.database.socket or services.redmine.database.passwordFile must be set";
+        message = "one of services.redmine.database.socket or services.redmine.database.passwordFile must be set";
       }
       {
         assertion = cfg.database.createLocally -> cfg.database.user == cfg.user;
-        message =
-          "services.redmine.database.user must be set to ${cfg.user} if services.redmine.database.createLocally is set true";
+        message = "services.redmine.database.user must be set to ${cfg.user} if services.redmine.database.createLocally is set true";
       }
       {
         assertion = cfg.database.createLocally -> cfg.database.socket != null;
-        message =
-          "services.redmine.database.socket must be set if services.redmine.database.createLocally is set to true";
+        message = "services.redmine.database.socket must be set if services.redmine.database.createLocally is set to true";
       }
       {
         assertion =
           cfg.database.createLocally -> cfg.database.host == "localhost";
-        message =
-          "services.redmine.database.host must be set to localhost if services.redmine.database.createLocally is set to true";
+        message = "services.redmine.database.host must be set to localhost if services.redmine.database.createLocally is set to true";
       }
       {
         assertion =
           cfg.components.imagemagick
           -> cfg.components.minimagick_font_path != ""
         ;
-        message =
-          "services.redmine.components.minimagick_font_path must be configured with a path to a font file if services.redmine.components.imagemagick is set to true.";
+        message = "services.redmine.components.minimagick_font_path must be configured with a path to a font file if services.redmine.components.imagemagick is set to true.";
       }
     ];
 
@@ -534,8 +528,7 @@ in
         Group = cfg.group;
         TimeoutSec = "300";
         WorkingDirectory = "${cfg.package}/share/redmine";
-        ExecStart =
-          "${bundle} exec rails server webrick -e production -p ${
+        ExecStart = "${bundle} exec rails server webrick -e production -p ${
             toString cfg.port
           } -P '${cfg.stateDir}/redmine.pid'";
       };

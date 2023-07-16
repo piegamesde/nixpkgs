@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   version = "0.8.90";
 
   src = fetchurl {
-    url =
-      "http://tango.freedesktop.org/releases/tango-icon-theme-${version}.tar.gz";
+    url = "http://tango.freedesktop.org/releases/tango-icon-theme-${version}.tar.gz";
     sha256 = "13n8cpml71w6zfm2jz5fa7r1z18qlzk4gv07r6n1in2p5l1xi63f";
   };
 
@@ -43,8 +42,8 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--enable-png-creation" ];
 
-  postInstall =
-    '''${gtk.out}/bin/gtk-update-icon-cache' "$out/share/icons/Tango" '';
+  postInstall = ''
+    '${gtk.out}/bin/gtk-update-icon-cache' "$out/share/icons/Tango" '';
 
   meta = with lib; {
     description = "A basic set of icons";

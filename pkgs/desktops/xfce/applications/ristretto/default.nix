@@ -29,8 +29,7 @@ mkXfceDerivation {
   env.NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
 
   meta = with lib; {
-    description =
-      "A fast and lightweight picture-viewer for the Xfce desktop environment";
+    description = "A fast and lightweight picture-viewer for the Xfce desktop environment";
     maintainers = with maintainers; [ ] ++ teams.xfce.members;
   };
 }

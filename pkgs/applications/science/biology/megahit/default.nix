@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
     "-DSTATIC_BUILD=ON"
   ];
   meta = with lib; {
-    description =
-      "An ultra-fast single-node solution for large and complex metagenomics assembly via succinct de Bruijn graph";
+    description = "An ultra-fast single-node solution for large and complex metagenomics assembly via succinct de Bruijn graph";
     license = licenses.gpl3;
     homepage = "https://github.com/voutcn/megahit";
     maintainers = with maintainers; [ luispedro ];

@@ -27,8 +27,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "azure.data.tables" ];
 
   meta = with lib; {
-    description =
-      "NoSQL data storage service that can be accessed from anywhere";
+    description = "NoSQL data storage service that can be accessed from anywhere";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer ];

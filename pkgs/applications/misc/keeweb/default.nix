@@ -28,18 +28,15 @@ let
 
   srcs = {
     x86_64-linux = fetchurl {
-      url =
-        "https://github.com/keeweb/keeweb/releases/download/v${version}/KeeWeb-${version}.linux.x64.deb";
+      url = "https://github.com/keeweb/keeweb/releases/download/v${version}/KeeWeb-${version}.linux.x64.deb";
       hash = "sha256-/U+vn5TLIU9/J6cRFjuAdyGzlwC04mp4L2X2ETp+ZSE=";
     };
     x86_64-darwin = fetchurl {
-      url =
-        "https://github.com/keeweb/keeweb/releases/download/v${version}/KeeWeb-${version}.mac.x64.dmg";
+      url = "https://github.com/keeweb/keeweb/releases/download/v${version}/KeeWeb-${version}.mac.x64.dmg";
       hash = "sha256-+ZFGrrw0tZ7F6lb/3iBIyGD+tp1puVhkPv10hfp6ATU=";
     };
     aarch64-darwin = fetchurl {
-      url =
-        "https://github.com/keeweb/keeweb/releases/download/v${version}/KeeWeb-${version}.mac.arm64.dmg";
+      url = "https://github.com/keeweb/keeweb/releases/download/v${version}/KeeWeb-${version}.mac.arm64.dmg";
       hash = "sha256-bkhwsWYLkec16vMOfXUce7jfrmI9W2xHiZvU1asebK4=";
     };
   };
@@ -70,11 +67,9 @@ let
   ];
 
   meta = with lib; {
-    description =
-      "Free cross-platform password manager compatible with KeePass";
+    description = "Free cross-platform password manager compatible with KeePass";
     homepage = "https://keeweb.info/";
-    changelog =
-      "https://github.com/keeweb/keeweb/blob/v${version}/release-notes.md";
+    changelog = "https://github.com/keeweb/keeweb/blob/v${version}/release-notes.md";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mit;
     maintainers = with maintainers; [ sikmir ];

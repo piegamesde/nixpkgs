@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
   # Fix clang build
   patches = [
     (fetchpatch {
-      url =
-        "https://github.com/olofson/koboredux/commit/cf92b8a61d002ccaa9fbcda7a96dab08a681dee4.patch";
+      url = "https://github.com/olofson/koboredux/commit/cf92b8a61d002ccaa9fbcda7a96dab08a681dee4.patch";
       sha256 = "0dwhvis7ghf3mgzjd2rwn8hk3ndlgfwwcqaq581yc5rwd73v6vw4";
     })
   ];

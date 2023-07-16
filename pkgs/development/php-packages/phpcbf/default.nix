@@ -14,8 +14,7 @@ mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url =
-      "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcbf.phar";
+    url = "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcbf.phar";
     sha256 = "sha256-yTwOg8vaIcIfhJzPD0tCl50gAEpaYXLtDqJw7Keub6g=";
   };
 
@@ -33,8 +32,7 @@ mkDerivation {
   '';
 
   meta = with lib; {
-    changelog =
-      "https://github.com/squizlabs/PHP_CodeSniffer/releases/tag/${version}";
+    changelog = "https://github.com/squizlabs/PHP_CodeSniffer/releases/tag/${version}";
     description = "PHP coding standard beautifier and fixer";
     license = licenses.bsd3;
     homepage = "https://squizlabs.github.io/PHP_CodeSniffer/";

@@ -84,8 +84,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     inherit platforms;
-    description =
-      "FUSE-based filesystem that allows remote filesystems to be mounted over SSH";
+    description = "FUSE-based filesystem that allows remote filesystems to be mounted over SSH";
     longDescription = macfuse-stubs.warning;
     homepage = "https://github.com/libfuse/sshfs";
     license = licenses.gpl2Plus;

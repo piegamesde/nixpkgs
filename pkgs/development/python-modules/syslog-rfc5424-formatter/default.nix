@@ -25,8 +25,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "syslog_rfc5424_formatter" ];
 
   meta = with lib; {
-    description =
-      "Python logging formatter for emitting RFC5424 Syslog messages";
+    description = "Python logging formatter for emitting RFC5424 Syslog messages";
     homepage = "https://github.com/easypost/syslog-rfc5424-formatter";
     license = with licenses; [ isc ];
     maintainers = with maintainers; [ fab ];

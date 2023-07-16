@@ -123,13 +123,11 @@ stdenv.mkDerivation (
       [
         # backport, fix building rust crates with lto
         (fetchpatch {
-          url =
-            "https://github.com/llvm-mirror/llvm/commit/da1fb72bb305d6bc1f3899d541414146934bf80f.patch";
+          url = "https://github.com/llvm-mirror/llvm/commit/da1fb72bb305d6bc1f3899d541414146934bf80f.patch";
           sha256 = "0p81gkhc1xhcx0hmnkwyhrn8x8l8fd24xgaj1whni29yga466dwc";
         })
         (fetchpatch {
-          url =
-            "https://github.com/llvm-mirror/llvm/commit/cc1f2a595ead516812a6c50398f0f3480ebe031f.patch";
+          url = "https://github.com/llvm-mirror/llvm/commit/cc1f2a595ead516812a6c50398f0f3480ebe031f.patch";
           sha256 = "0k6k1p5yisgwx417a67s7sr9930rqh1n0zv5jvply8vjjy4b3kf8";
         })
 
@@ -144,8 +142,7 @@ stdenv.mkDerivation (
         # Fix invalid std::string(nullptr) for GCC 12
         (fetchpatch {
           name = "nvptx-gcc-12.patch";
-          url =
-            "https://github.com/llvm/llvm-project/commit/99e64623ec9b31def9375753491cc6093c831809.patch";
+          url = "https://github.com/llvm/llvm-project/commit/99e64623ec9b31def9375753491cc6093c831809.patch";
           sha256 = "0zjfjgavqzi2ypqwqnlvy6flyvdz8hi1anwv0ybwnm2zqixg7za3";
           stripLen = 1;
         })
@@ -347,8 +344,7 @@ stdenv.mkDerivation (
     requiredSystemFeatures = [ "big-parallel" ];
     meta = llvm_meta // {
       homepage = "https://llvm.org/";
-      description =
-        "A collection of modular and reusable compiler and toolchain technologies";
+      description = "A collection of modular and reusable compiler and toolchain technologies";
       longDescription = ''
         The LLVM Project is a collection of modular and reusable compiler and
         toolchain technologies. Despite its name, LLVM has little to do with

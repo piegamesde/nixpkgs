@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
   version = "1.39.0";
 
   src = fetchurl {
-    url =
-      "https://github.com/binance/desktop/releases/download/v${version}/${pname}-${version}-amd64-linux.deb";
+    url = "https://github.com/binance/desktop/releases/download/v${version}/${pname}-${version}-amd64-linux.deb";
     sha256 = "sha256-6VQerIzX2u8QGUsa8kvu6Qud3OEn9lrZkQddfkZ1X0g=";
   };
 

@@ -62,8 +62,7 @@ let
 
         configurePlatforms = [ ];
 
-        preBuild =
-          "makeFlagsArray=(dictdir=$out/lib/aspell datadir=$out/lib/aspell)";
+        preBuild = "makeFlagsArray=(dictdir=$out/lib/aspell datadir=$out/lib/aspell)";
 
         meta = {
           description = "Aspell dictionary for ${fullName}";
@@ -87,8 +86,7 @@ let
         shortName = "${language}-${version}";
 
         src = fetchurl {
-          url =
-            "mirror://gnu/aspell/dict/${language}/${filename}-${language}-${version}.tar.bz2";
+          url = "mirror://gnu/aspell/dict/${language}/${filename}-${language}-${version}.tar.bz2";
           inherit sha256;
         };
 
@@ -1011,8 +1009,7 @@ rec {
     installPhase = "aspell-install en_US-science en_GB-science";
 
     meta = {
-      homepage =
-        "http://www.jpetrie.net/scientific-word-list-for-spell-checkersspelling-dictionaries/";
+      homepage = "http://www.jpetrie.net/scientific-word-list-for-spell-checkersspelling-dictionaries/";
     };
   };
 }

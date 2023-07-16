@@ -69,8 +69,7 @@ buildPythonPackage rec {
       lightweight project is needed.
     '';
     homepage = "https://github.com/pymodbus-dev/pymodbus";
-    changelog =
-      "https://github.com/pymodbus-dev/pymodbus/releases/tag/v${version}";
+    changelog = "https://github.com/pymodbus-dev/pymodbus/releases/tag/v${version}";
     license = with licenses; [ bsd3 ];
     maintainers = with maintainers; [ fab ];
   };

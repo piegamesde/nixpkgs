@@ -36,8 +36,7 @@
   useDune = true;
 
   meta = with lib; {
-    description =
-      "Exploration of some properties of Kirby and Paris' hydra battles, with the help of Coq";
+    description = "Exploration of some properties of Kirby and Paris' hydra battles, with the help of Coq";
     longDescription = ''
       An exploration of some properties of Kirby and Paris' hydra
       battles, with the help of the Coq Proof assistant. This

@@ -14,8 +14,7 @@ rec {
   deps = [ args."flexi-streams" ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/cl-who/2019-07-10/cl-who-20190710-git.tgz";
+    url = "http://beta.quicklisp.org/archive/cl-who/2019-07-10/cl-who-20190710-git.tgz";
     sha256 = "0pbigwn38xikdwvjy9696z9f00dwg565y3wh6ja51q681y8zh9ir";
   };
 

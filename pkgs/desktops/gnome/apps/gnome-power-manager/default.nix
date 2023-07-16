@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
   version = "43.0";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/gnome-power-manager/${
+    url = "mirror://gnome/sources/gnome-power-manager/${
         lib.versions.major version
       }/gnome-power-manager-${version}.tar.xz";
     sha256 = "faq0i73bMOnfKrplDLYNBeZnyfiFrOagoeeVDgy90y8=";

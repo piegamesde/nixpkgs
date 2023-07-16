@@ -80,8 +80,7 @@ mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Additional features,plugins etc for CuboCore Application Suite";
+    description = "Additional features,plugins etc for CuboCore Application Suite";
     homepage = "https://gitlab.com/cubocore/coreapps/coretoppings";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ dan4ik605743 ];

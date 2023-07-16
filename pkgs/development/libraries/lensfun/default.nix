@@ -38,8 +38,7 @@ stdenv.mkDerivation {
   patches = [
     (fetchpatch {
       name = "fix-compilation-with-clang.patch";
-      url =
-        "https://github.com/lensfun/lensfun/commit/5c2065685a22f19f8138365c0e5acf0be8329c02.patch";
+      url = "https://github.com/lensfun/lensfun/commit/5c2065685a22f19f8138365c0e5acf0be8329c02.patch";
       sha256 = "sha256-tAOCNL37pKE7hfQCu+hUTKLFnRHWF5Dplqf+GaucG+4=";
     })
   ];
@@ -75,8 +74,7 @@ stdenv.mkDerivation {
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ flokli ];
     license = lib.licenses.lgpl3;
-    description =
-      "An opensource database of photographic lenses and their characteristics";
+    description = "An opensource database of photographic lenses and their characteristics";
     homepage = "https://lensfun.github.io";
   };
 }

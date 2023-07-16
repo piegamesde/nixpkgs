@@ -21,14 +21,12 @@ let
   assets_version = "2.2.5";
 
   assets = fetchurl {
-    url =
-      "https://github.com/mazmazz/SRB2/releases/download/SRB2_assets_220/srb2-${assets_version}-assets.7z";
+    url = "https://github.com/mazmazz/SRB2/releases/download/SRB2_assets_220/srb2-${assets_version}-assets.7z";
     sha256 = "1m9xf3vraq9nipsi09cyvvfa4i37gzfxg970rnqfswd86z9v6v00";
   };
 
   assets_optional = fetchurl {
-    url =
-      "https://github.com/mazmazz/SRB2/releases/download/SRB2_assets_220/srb2-${assets_version}-optional-assets.7z";
+    url = "https://github.com/mazmazz/SRB2/releases/download/SRB2_assets_220/srb2-${assets_version}-optional-assets.7z";
     sha256 = "1j29jrd0r1k2bb11wyyl6yv9b90s2i6jhrslnh77qkrhrwnwcdz4";
   };
 in
@@ -85,8 +83,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Sonic Robo Blast 2 is a 3D Sonic the Hedgehog fangame based on a modified version of Doom Legacy";
+    description = "Sonic Robo Blast 2 is a 3D Sonic the Hedgehog fangame based on a modified version of Doom Legacy";
     homepage = "https://www.srb2.org/";
     platforms = platforms.linux;
     license = licenses.gpl2Plus;

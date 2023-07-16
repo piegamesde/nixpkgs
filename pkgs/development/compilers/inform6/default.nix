@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
   version = "6.41-r4";
 
   src = fetchurl {
-    url =
-      "https://ifarchive.org/if-archive/infocom/compilers/inform6/source/inform-${version}.tar.gz";
+    url = "https://ifarchive.org/if-archive/infocom/compilers/inform6/source/inform-${version}.tar.gz";
     sha256 = "sha256-y55F/zV/99fS4ZITtPsSgkpMNfonFztZEP/QZxSQjfc=";
   };
 
@@ -29,8 +28,7 @@ stdenv.mkDerivation rec {
       (text adventure) games.
     '';
     homepage = "https://gitlab.com/DavidGriffith/inform6unix";
-    changelog =
-      "https://gitlab.com/DavidGriffith/inform6unix/-/raw/${version}/NEWS";
+    changelog = "https://gitlab.com/DavidGriffith/inform6unix/-/raw/${version}/NEWS";
     license = licenses.artistic2;
     maintainers = with lib.maintainers; [ ddelabru ];
     platforms = platforms.all;

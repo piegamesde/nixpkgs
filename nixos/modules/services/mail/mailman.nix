@@ -178,8 +178,7 @@ in
         userSearch = {
           query = mkOption {
             type = types.str;
-            example =
-              "(&(objectClass=inetOrgPerson)(|(uid=%(user)s)(mail=%(user)s)))";
+            example = "(&(objectClass=inetOrgPerson)(|(uid=%(user)s)(mail=%(user)s)))";
             description = lib.mdDoc ''
               Query to find a user in the LDAP database.
             '';
@@ -561,8 +560,7 @@ in
       virtualHosts = lib.genAttrs cfg.webHosts (
         webHost: {
           locations = {
-            ${cfg.serve.virtualRoot}.extraConfig =
-              "uwsgi_pass unix:/run/mailman-web.socket;";
+            ${cfg.serve.virtualRoot}.extraConfig = "uwsgi_pass unix:/run/mailman-web.socket;";
             "${removeSuffix "/" cfg.serve.virtualRoot}/static/".alias =
               webSettings.STATIC_ROOT + "/";
           };
@@ -591,11 +589,9 @@ in
     ];
 
     services.postfix = lib.mkIf cfg.enablePostfix {
-      recipientDelimiter =
-        "+"; # bake recipient addresses in mail envelopes via VERP
+      recipientDelimiter = "+"; # bake recipient addresses in mail envelopes via VERP
       config = {
-        owner_request_special =
-          "no"; # Mailman handles -owner addresses on its own
+        owner_request_special = "no"; # Mailman handles -owner addresses on its own
       };
     };
 
@@ -745,8 +741,7 @@ in
             # Since the mailman-web settings.py obstinately creates a logs
             # dir in the cwd, change to the (writable) runtime directory before
             # starting uwsgi.
-            ExecStart =
-              "${pkgs.coreutils}/bin/env -C $RUNTIME_DIRECTORY ${
+            ExecStart = "${pkgs.coreutils}/bin/env -C $RUNTIME_DIRECTORY ${
                 pkgs.uwsgi.override { plugins = [ "python3" ]; }
               }/bin/uwsgi --json ${uwsgiConfigFile}";
             User = cfg.webUser;

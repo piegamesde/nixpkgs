@@ -39,8 +39,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Jupyter/IPython Kernel Tools";
     homepage = "https://github.com/Calysto/metakernel";
-    changelog =
-      "https://github.com/Calysto/metakernel/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/Calysto/metakernel/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ thomasjm ];
   };

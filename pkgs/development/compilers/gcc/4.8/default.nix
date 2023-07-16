@@ -103,8 +103,7 @@ let
     ++ [
       (fetchpatch {
         name = "libc_name_p.diff"; # needed to build with gcc6
-        url =
-          "https://gcc.gnu.org/git/?p=gcc.git;a=commitdiff_plain;h=ec1cc0263f1";
+        url = "https://gcc.gnu.org/git/?p=gcc.git;a=commitdiff_plain;h=ec1cc0263f1";
         sha256 = "01jd7pdarh54ki498g6sz64ijl9a1l5f9v8q2696aaxalvh2vwzl";
         excludes = [ "gcc/cp/ChangeLog" ];
       })
@@ -117,8 +116,7 @@ let
       # gcc-11 compatibility
       (fetchpatch {
         name = "gcc4-char-reload.patch";
-        url =
-          "https://gcc.gnu.org/git/?p=gcc.git;a=commitdiff_plain;h=d57c99458933a21fdf94f508191f145ad8d5ec58";
+        url = "https://gcc.gnu.org/git/?p=gcc.git;a=commitdiff_plain;h=d57c99458933a21fdf94f508191f145ad8d5ec58";
         includes = [ "gcc/reload.h" ];
         sha256 = "sha256-66AMP7/ajunGKAN5WJz/yPn42URZ2KN51yPrFdsxEuM=";
       })
@@ -351,8 +349,9 @@ stdenv.mkDerivation (
       false; # requires a lot of tools, causes a dependency cycle for stdenv
 
     # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
-    ${if hostPlatform.system == "x86_64-solaris" then "CC" else null} =
-      "gcc -m64";
+    ${
+      if hostPlatform.system == "x86_64-solaris" then "CC" else null
+    } = "gcc -m64";
 
     # Setting $CPATH and $LIBRARY_PATH to make sure both `gcc' and `xgcc' find the
     # library headers and binaries, regarless of the language being compiled.

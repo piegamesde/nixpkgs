@@ -72,8 +72,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "prance" ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/RonnyPfannschmidt/prance/blob/${src.rev}/CHANGES.rst";
+    changelog = "https://github.com/RonnyPfannschmidt/prance/blob/${src.rev}/CHANGES.rst";
     description = "Resolving Swagger/OpenAPI 2.0 and 3.0.0 Parser";
     homepage = "https://github.com/RonnyPfannschmidt/prance";
     license = licenses.mit;

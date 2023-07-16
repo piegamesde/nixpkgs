@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
         [
           # https://trac.macports.org/ticket/59783
           (fetchpatch {
-            url =
-              "https://raw.githubusercontent.com/openembedded/openembedded-core/ce265cf467f1c3e5ba2edbfbef2170df1a727a52/meta/recipes-extended/groff/files/0001-Include-config.h.patch";
+            url = "https://raw.githubusercontent.com/openembedded/openembedded-core/ce265cf467f1c3e5ba2edbfbef2170df1a727a52/meta/recipes-extended/groff/files/0001-Include-config.h.patch";
             sha256 = "1b0mg31xkpxkzlx696nr08rcc7ndpaxdplvysy0hw5099c4n1wyf";
           })
         ]
@@ -190,8 +189,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.gnu.org/software/groff/";
-    description =
-      "GNU Troff, a typesetting package that reads plain text and produces formatted output";
+    description = "GNU Troff, a typesetting package that reads plain text and produces formatted output";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
     maintainers = with maintainers; [ pSub ];

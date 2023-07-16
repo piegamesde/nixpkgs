@@ -27,8 +27,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Allows to declare constraints on function parameters and return values";
+    description = "Allows to declare constraints on function parameters and return values";
     homepage = "https://pypi.python.org/pypi/PyContracts";
     license = licenses.lgpl2;
   };

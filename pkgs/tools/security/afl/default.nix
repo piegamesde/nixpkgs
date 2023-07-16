@@ -79,8 +79,7 @@ let
     passthru.qemu = afl-qemu;
 
     meta = {
-      description =
-        "Powerful fuzzer via genetic algorithms and instrumentation";
+      description = "Powerful fuzzer via genetic algorithms and instrumentation";
       longDescription = ''
         American fuzzy lop is a fuzzer that employs a novel type of
         compile-time instrumentation and genetic algorithms to

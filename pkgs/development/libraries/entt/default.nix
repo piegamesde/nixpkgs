@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/skypjack/entt";
-    description =
-      "A header-only, tiny and easy to use library for game programming and much more written in modern C++";
+    description = "A header-only, tiny and easy to use library for game programming and much more written in modern C++";
     maintainers = with maintainers; [ twey ];
     platforms = platforms.all;
     license = licenses.mit;

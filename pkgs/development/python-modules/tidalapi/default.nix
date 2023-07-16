@@ -27,8 +27,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "tidalapi" ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/tamland/python-tidal/releases/tag/v${version}";
+    changelog = "https://github.com/tamland/python-tidal/releases/tag/v${version}";
     description = "Unofficial Python API for TIDAL music streaming service";
     homepage = "https://github.com/tamland/python-tidal";
     license = licenses.gpl3;

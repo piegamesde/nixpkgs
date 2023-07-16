@@ -25,8 +25,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Python components for parsing HTML, XML and other textual content";
+    description = "Python components for parsing HTML, XML and other textual content";
     longDescription = ''
       Python library that provides an integrated set of components for
       parsing, generating, and processing HTML, XML or other textual

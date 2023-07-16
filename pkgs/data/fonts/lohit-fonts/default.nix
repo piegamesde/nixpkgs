@@ -106,8 +106,7 @@ let
       inherit pname version;
 
       src = fetchurl {
-        url =
-          "https://releases.pagure.org/lohit/lohit-${pname}-ttf-${version}.tar.gz";
+        url = "https://releases.pagure.org/lohit/lohit-${pname}-ttf-${version}.tar.gz";
         inherit hash;
       };
 

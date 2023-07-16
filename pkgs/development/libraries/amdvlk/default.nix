@@ -110,8 +110,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "AMD Open Source Driver For Vulkan";
     homepage = "https://github.com/GPUOpen-Drivers/AMDVLK";
-    changelog =
-      "https://github.com/GPUOpen-Drivers/AMDVLK/releases/tag/v-${version}";
+    changelog = "https://github.com/GPUOpen-Drivers/AMDVLK/releases/tag/v-${version}";
     license = licenses.mit;
     platforms = [
       "x86_64-linux"

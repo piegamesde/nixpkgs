@@ -35,8 +35,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Protobufs for Google Access Context Manager";
     homepage = "https://github.com/googleapis/python-access-context-manager";
-    changelog =
-      "https://github.com/googleapis/python-access-context-manager/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/googleapis/python-access-context-manager/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [
       austinbutler

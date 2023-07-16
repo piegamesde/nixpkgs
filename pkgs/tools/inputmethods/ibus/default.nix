@@ -79,8 +79,7 @@ stdenv.mkDerivation rec {
     # unicode and emoji input are broken before 1.5.29
     # https://github.com/NixOS/nixpkgs/issues/226526
     (fetchpatch {
-      url =
-        "https://github.com/ibus/ibus/commit/7c8abbe89403c2fcb08e3fda42049a97187e53ab.patch";
+      url = "https://github.com/ibus/ibus/commit/7c8abbe89403c2fcb08e3fda42049a97187e53ab.patch";
       hash = "sha256-59HzAdLq8ahrF7K+tFGLjTodwIiTkJGEkFe8quqIkhU=";
     })
   ];

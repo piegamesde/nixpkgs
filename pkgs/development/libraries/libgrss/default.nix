@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "1nalslgyglvhpva3px06fj6lv5zgfg0qmj0sbxyyl5d963vc02b7";
@@ -40,8 +39,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "CVE-2016-20011.patch";
       # https://gitlab.gnome.org/GNOME/libgrss/-/merge_requests/7, not yet merged!
-      url =
-        "https://gitlab.gnome.org/GNOME/libgrss/-/commit/2c6ea642663e2a44efc8583fae7c54b7b98f72b3.patch";
+      url = "https://gitlab.gnome.org/GNOME/libgrss/-/commit/2c6ea642663e2a44efc8583fae7c54b7b98f72b3.patch";
       sha256 = "1ijvq2jl97vphcvrbrqxvszdmv6yyjfygdca9vyaijpafwyzzb18";
     })
   ];
@@ -86,8 +84,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "Glib abstaction to handle feeds in RSS, Atom and other formats";
+    description = "Glib abstaction to handle feeds in RSS, Atom and other formats";
     homepage = "https://wiki.gnome.org/Projects/Libgrss";
     license = licenses.lgpl3Plus;
     maintainers = teams.gnome.members;

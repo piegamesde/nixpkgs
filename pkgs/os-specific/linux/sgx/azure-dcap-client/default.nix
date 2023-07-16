@@ -87,8 +87,7 @@ stdenv.mkDerivation rec {
   passthru.tests.suite = callPackage ./test-suite.nix { };
 
   meta = with lib; {
-    description =
-      "Interfaces between SGX SDKs and the Azure Attestation SGX Certification Cache";
+    description = "Interfaces between SGX SDKs and the Azure Attestation SGX Certification Cache";
     homepage = "https://github.com/microsoft/azure-dcap-client";
     maintainers = with maintainers; [
       trundle

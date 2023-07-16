@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
   passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
-    description =
-      "Backend implementation for xdg-desktop-portal for the Pantheon desktop environment";
+    description = "Backend implementation for xdg-desktop-portal for the Pantheon desktop environment";
     homepage = "https://github.com/elementary/portals";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

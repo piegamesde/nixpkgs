@@ -12,8 +12,7 @@ rec {
   deps = [ args."closer-mop" ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/moptilities/2017-04-03/moptilities-20170403-git.tgz";
+    url = "http://beta.quicklisp.org/archive/moptilities/2017-04-03/moptilities-20170403-git.tgz";
     sha256 = "0az01wx60ll3nybqlp21f5bps3fnpqhvvfg6d9x84969wdj7q4q8";
   };
 

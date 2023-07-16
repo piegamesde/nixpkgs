@@ -23,8 +23,7 @@ stdenv.mkDerivation {
   name = "broadcom-sta-${version}-${kernel.version}";
 
   src = fetchurl {
-    url =
-      "https://docs.broadcom.com/docs-and-downloads/docs/linux_sta/${tarball}";
+    url = "https://docs.broadcom.com/docs-and-downloads/docs/linux_sta/${tarball}";
     sha256 =
       hashes.${stdenv.hostPlatform.system}
         or (throw "Unsupported system: ${stdenv.hostPlatform.system}");

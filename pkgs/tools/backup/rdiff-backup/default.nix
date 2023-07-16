@@ -30,8 +30,7 @@ pypkgs.buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Backup system trying to combine best a mirror and an incremental backup system";
+    description = "Backup system trying to combine best a mirror and an incremental backup system";
     homepage = "https://rdiff-backup.net";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ peterhoeg ];

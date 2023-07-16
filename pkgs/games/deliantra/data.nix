@@ -19,8 +19,7 @@ symlinkJoin rec {
   ];
 
   meta = with lib; {
-    description =
-      "Combined game data (maps + archetypes) for the Deliantra free MMORPG";
+    description = "Combined game data (maps + archetypes) for the Deliantra free MMORPG";
     homepage = "http://www.deliantra.net/";
     license = with licenses; [
       gpl2Plus

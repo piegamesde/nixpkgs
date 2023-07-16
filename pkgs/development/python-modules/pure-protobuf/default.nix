@@ -41,8 +41,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pure_protobuf" ];
 
   meta = with lib; {
-    description =
-      "Python implementation of Protocol Buffers with dataclass-based schemas";
+    description = "Python implementation of Protocol Buffers with dataclass-based schemas";
     homepage = "https://github.com/eigenein/protobuf";
     license = licenses.mit;
     maintainers = with maintainers; [ chuangzhu ];

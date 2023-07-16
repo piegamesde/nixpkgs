@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.flashrom.org";
-    description =
-      "Utility for reading, writing, erasing and verifying flash ROM chips";
+    description = "Utility for reading, writing, erasing and verifying flash ROM chips";
     license = licenses.gpl2;
     maintainers = with maintainers; [
       fpletz

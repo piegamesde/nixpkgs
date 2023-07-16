@@ -45,8 +45,7 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Python tool to backup unifi event clips in realtime";
     homepage = "https://github.com/ep1cman/unifi-protect-backup";
-    changelog =
-      "https://github.com/ep1cman/unifi-protect-backup/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/ep1cman/unifi-protect-backup/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ ajs124 ];
   };

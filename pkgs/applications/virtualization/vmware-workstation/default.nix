@@ -42,8 +42,7 @@ let
 
   # macOS - ISOs
   darwinIsoSrc = fetchurl {
-    url =
-      "https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${fusionVersion}/${fusionBuild}/x86/core/com.vmware.fusion.zip.tar";
+    url = "https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${fusionVersion}/${fusionBuild}/x86/core/com.vmware.fusion.zip.tar";
     sha256 = "sha256-cSboek+nhkVj8rjdic6yzWQfjXiiLlch6gBWn73BzRU=";
   };
 
@@ -120,8 +119,7 @@ stdenv.mkDerivation rec {
   ;
 
   src = fetchurl {
-    url =
-      "https://download3.vmware.com/software/WKST-1700-LX/VMware-Workstation-Full-${version}-${build}.x86_64.bundle";
+    url = "https://download3.vmware.com/software/WKST-1700-LX/VMware-Workstation-Full-${version}-${build}.x86_64.bundle";
     sha256 = "sha256-kBTocGb1tg5i+dvWmOaPfPUHxrWcX8/obeKqRGR+mRA=";
   };
 
@@ -411,8 +409,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Industry standard desktop hypervisor for x86-64 architecture";
+    description = "Industry standard desktop hypervisor for x86-64 architecture";
     homepage = "https://www.vmware.com/products/workstation-pro.html";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

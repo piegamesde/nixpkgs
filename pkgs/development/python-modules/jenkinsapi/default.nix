@@ -46,8 +46,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "A Python API for accessing resources on a Jenkins continuous-integration server";
+    description = "A Python API for accessing resources on a Jenkins continuous-integration server";
     homepage = "https://github.com/salimfadhley/jenkinsapi";
     maintainers = with maintainers; [ drets ];
     license = licenses.mit;

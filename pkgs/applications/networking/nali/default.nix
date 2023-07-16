@@ -29,8 +29,7 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description =
-      "An offline tool for querying IP geographic information and CDN provider";
+    description = "An offline tool for querying IP geographic information and CDN provider";
     homepage = "https://github.com/zu1k/nali";
     license = licenses.mit;
     maintainers = with maintainers; [

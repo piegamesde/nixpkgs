@@ -11,8 +11,7 @@ buildPythonPackage rec {
   pname = "subdownloader";
 
   src = fetchurl {
-    url =
-      "https://launchpad.net/subdownloader/trunk/2.0.18/+download/subdownloader_2.0.18.orig.tar.gz";
+    url = "https://launchpad.net/subdownloader/trunk/2.0.18/+download/subdownloader_2.0.18.orig.tar.gz";
     sha256 = "0manlfdpb585niw23ibb8n21mindd1bazp0pnxvmdjrp2mnw97ig";
   };
 
@@ -63,8 +62,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Tool for automatic download/upload subtitles for videofiles using fast hashing";
+    description = "Tool for automatic download/upload subtitles for videofiles using fast hashing";
     homepage = "https://www.subdownloader.net";
     license = licenses.gpl3;
   };

@@ -18,11 +18,9 @@ buildGoModule rec {
   vendorHash = "sha256-YzcgEQ1S2qn7v2SVSBiodprtc+D4cSZOFBJwpq3jz8Y=";
 
   meta = with lib; {
-    description =
-      "Receives StatsD-style metrics and exports them to Prometheus";
+    description = "Receives StatsD-style metrics and exports them to Prometheus";
     homepage = "https://github.com/prometheus/statsd_exporter";
-    changelog =
-      "https://github.com/prometheus/statsd_exporter/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/prometheus/statsd_exporter/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [
       benley

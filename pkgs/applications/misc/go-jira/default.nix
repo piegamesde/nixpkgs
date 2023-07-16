@@ -20,8 +20,7 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Simple command line client for Atlassian's Jira service written in Go";
+    description = "Simple command line client for Atlassian's Jira service written in Go";
     homepage = "https://github.com/go-jira/jira";
     license = licenses.asl20;
     maintainers = with maintainers; [

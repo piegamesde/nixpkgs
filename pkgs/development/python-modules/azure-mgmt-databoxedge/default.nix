@@ -29,8 +29,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "azure.mgmt.databoxedge" ];
 
   meta = with lib; {
-    description =
-      "Microsoft Azure Databoxedge Management Client Library for Python";
+    description = "Microsoft Azure Databoxedge Management Client Library for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer ];

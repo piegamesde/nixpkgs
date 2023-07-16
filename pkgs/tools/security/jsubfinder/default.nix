@@ -18,8 +18,7 @@ buildGoModule rec {
   vendorSha256 = "sha256-pr4KkszyzEl+yLJousx29tr7UZDJf0arEfXBb7eumww=";
 
   meta = with lib; {
-    description =
-      "Tool to search for in Javascript hidden subdomains and secrets";
+    description = "Tool to search for in Javascript hidden subdomains and secrets";
     homepage = "https://github.com/ThreatUnkown/jsubfinder";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];

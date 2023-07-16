@@ -60,8 +60,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python client for Qdrant vector search engine";
     homepage = "https://github.com/qdrant/qdrant-client";
-    changelog =
-      "https://github.com/qdrant/qdrant-client/releases/tag/v${version}";
+    changelog = "https://github.com/qdrant/qdrant-client/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ happysalada ];
   };

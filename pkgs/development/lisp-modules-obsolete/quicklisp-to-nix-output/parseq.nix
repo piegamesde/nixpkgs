@@ -9,14 +9,12 @@ rec {
 
   parasites = [ "parseq/test" ];
 
-  description =
-    "A library for parsing sequences such as strings and lists using parsing expression grammars.";
+  description = "A library for parsing sequences such as strings and lists using parsing expression grammars.";
 
   deps = [ ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/parseq/2021-05-31/parseq-20210531-git.tgz";
+    url = "http://beta.quicklisp.org/archive/parseq/2021-05-31/parseq-20210531-git.tgz";
     sha256 = "1jh362avz2bbjrg9wwnjisa3ikxjxcgbddc0gqx65l6h9s87gqrg";
   };
 

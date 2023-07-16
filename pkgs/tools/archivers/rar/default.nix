@@ -14,30 +14,25 @@ let
   srcUrl =
     {
       i686-linux = {
-        url =
-          "https://www.rarlab.com/rar/rarlinux-x32-${downloadVersion}.tar.gz";
+        url = "https://www.rarlab.com/rar/rarlinux-x32-${downloadVersion}.tar.gz";
         hash = "sha256-mDeRmLTjF0ZLv4JoLrgI8YBFFulBSKfOPb6hrxDZIkU=";
       };
       x86_64-linux = {
-        url =
-          "https://www.rarlab.com/rar/rarlinux-x64-${downloadVersion}.tar.gz";
+        url = "https://www.rarlab.com/rar/rarlinux-x64-${downloadVersion}.tar.gz";
         hash = "sha256-3fr5aVkh/r6OfBEcZULJSZp5ydakJOLRPlgzMdlwGTM=";
       };
       aarch64-darwin = {
-        url =
-          "https://www.rarlab.com/rar/rarmacos-arm-${downloadVersion}.tar.gz";
+        url = "https://www.rarlab.com/rar/rarmacos-arm-${downloadVersion}.tar.gz";
         hash = "sha256-OR9HBlRteTzuyQ06tyXTSrFTBHFwmZ41kUfvgflogT4=";
       };
       x86_64-darwin = {
-        url =
-          "https://www.rarlab.com/rar/rarmacos-x64-${downloadVersion}.tar.gz";
+        url = "https://www.rarlab.com/rar/rarmacos-x64-${downloadVersion}.tar.gz";
         hash = "sha256-UN3gmEuIpCXwmw3/l+KdarAYLy1DxGoPAOB2bfJTGbw=";
       };
     }
     .${stdenv.system} or (throw "Unsupported system: ${stdenv.system}");
   manSrc = fetchurl {
-    url =
-      "https://aur.archlinux.org/cgit/aur.git/plain/rar.1?h=rar&id=8e39a12e88d8a3b168c496c44c18d443c876dd10";
+    url = "https://aur.archlinux.org/cgit/aur.git/plain/rar.1?h=rar&id=8e39a12e88d8a3b168c496c44c18d443c876dd10";
     name = "rar.1";
     hash = "sha256-93cSr9oAsi+xHUtMsUvICyHJe66vAImS2tLie7nt8Uw=";
   };

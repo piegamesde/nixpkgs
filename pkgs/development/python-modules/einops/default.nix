@@ -65,8 +65,7 @@ buildPythonPackage rec {
   disabledTestPaths = [ "tests/test_layers.py" ];
 
   meta = with lib; {
-    description =
-      "Flexible and powerful tensor operations for readable and reliable code";
+    description = "Flexible and powerful tensor operations for readable and reliable code";
     homepage = "https://github.com/arogozhnikov/einops";
     license = licenses.mit;
     maintainers = with maintainers; [ yl3dy ];

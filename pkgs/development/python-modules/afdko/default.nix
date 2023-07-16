@@ -118,8 +118,7 @@ buildPythonPackage rec {
   passthru.tests = { fullTestsuite = afdko.override { runAllTests = true; }; };
 
   meta = with lib; {
-    changelog =
-      "https://github.com/adobe-type-tools/afdko/blob/${version}/NEWS.md";
+    changelog = "https://github.com/adobe-type-tools/afdko/blob/${version}/NEWS.md";
     description = "Adobe Font Development Kit for OpenType";
     homepage = "https://adobe-type-tools.github.io/afdko";
     license = licenses.asl20;

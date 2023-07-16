@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "chore-do-not-use-hardcode-path.patch";
-      url =
-        "https://github.com/linuxdeepin/dde-device-formatter/commit/b836a498b8e783e0dff3820302957f15ee8416eb.patch";
+      url = "https://github.com/linuxdeepin/dde-device-formatter/commit/b836a498b8e783e0dff3820302957f15ee8416eb.patch";
       sha256 = "sha256-i/VqJ6EmCyhE6weHKUB66bW6b51gLyssIAzb5li4aJM=";
     })
   ];
@@ -62,8 +61,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "A simple graphical interface for creating file system in a block device";
+    description = "A simple graphical interface for creating file system in a block device";
     homepage = "https://github.com/linuxdeepin/dde-device-formatter";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

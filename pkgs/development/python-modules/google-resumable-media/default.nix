@@ -61,10 +61,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Utilities for Google Media Downloads and Resumable Uploads";
-    homepage =
-      "https://github.com/GoogleCloudPlatform/google-resumable-media-python";
-    changelog =
-      "https://github.com/googleapis/google-resumable-media-python/blob/v${version}/CHANGELOG.md";
+    homepage = "https://github.com/GoogleCloudPlatform/google-resumable-media-python";
+    changelog = "https://github.com/googleapis/google-resumable-media-python/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

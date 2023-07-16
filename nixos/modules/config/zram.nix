@@ -118,8 +118,7 @@ in
 
     assertions = [ {
       assertion = cfg.writebackDevice == null || cfg.swapDevices <= 1;
-      message =
-        "A single writeback device cannot be shared among multiple zram devices";
+      message = "A single writeback device cannot be shared among multiple zram devices";
     } ];
 
     system.requiredKernelConfig =

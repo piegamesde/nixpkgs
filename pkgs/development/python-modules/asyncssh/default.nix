@@ -87,8 +87,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Asynchronous SSHv2 Python client and server library";
     homepage = "https://asyncssh.readthedocs.io/";
-    changelog =
-      "https://github.com/ronf/asyncssh/blob/v${version}/docs/changes.rst";
+    changelog = "https://github.com/ronf/asyncssh/blob/v${version}/docs/changes.rst";
     license = licenses.epl20;
     maintainers = with maintainers; [ ];
   };

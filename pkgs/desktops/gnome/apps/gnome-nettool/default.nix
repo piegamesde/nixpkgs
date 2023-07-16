@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
   version = "42.0";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "pU8p7vIDiu5pVRyLGcpPdY5eueIJCkvGtWM9/wGIdR8=";
@@ -37,8 +36,7 @@ stdenv.mkDerivation rec {
       # Fix build with meson 0.61
       # https://gitlab.gnome.org/GNOME/gnome-nettool/-/merge_requests/3
       (fetchpatch {
-        url =
-          "https://gitlab.gnome.org/GNOME/gnome-nettool/-/commit/1124c3e1fdb8472d30b7636500229aa16cdc1244.patch";
+        url = "https://gitlab.gnome.org/GNOME/gnome-nettool/-/commit/1124c3e1fdb8472d30b7636500229aa16cdc1244.patch";
         sha256 = "fbpfL8Xb1GsadpQzAdmu8FSPs++bsGCVdcwnzQWttGY=";
       })
     ];

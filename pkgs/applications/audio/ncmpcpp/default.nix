@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A featureful ncurses based MPD client inspired by ncmpc";
     homepage = "https://rybczak.net/ncmpcpp/";
-    changelog =
-      "https://github.com/ncmpcpp/ncmpcpp/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/ncmpcpp/ncmpcpp/blob/${version}/CHANGELOG.md";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [
       jfrankenau

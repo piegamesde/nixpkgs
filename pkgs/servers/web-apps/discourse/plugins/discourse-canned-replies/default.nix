@@ -16,7 +16,6 @@ mkDiscoursePlugin {
     homepage = "https://github.com/discourse/discourse-canned-replies";
     maintainers = with maintainers; [ talyz ];
     license = licenses.gpl2Only;
-    description =
-      "Adds support for inserting a canned reply into the composer window via a UI";
+    description = "Adds support for inserting a canned reply into the composer window via a UI";
   };
 }

@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
   configureFlags = [ "--disable-more-warnings" ];
 
   meta = with lib; {
-    description =
-      "Openwsman server implementation and client API with bindings";
+    description = "Openwsman server implementation and client API with bindings";
     downloadPage = "https://github.com/Openwsman/openwsman/releases";
     homepage = "https://openwsman.github.io";
     license = licenses.bsd3;

@@ -33,8 +33,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "This is the Microsoft Azure IoTHub Provisioning Services Client Library";
+    description = "This is the Microsoft Azure IoTHub Provisioning Services Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [

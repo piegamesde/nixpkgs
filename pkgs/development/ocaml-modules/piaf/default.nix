@@ -27,8 +27,7 @@ lib.throwIf (lib.versionAtLeast ocaml.version "5.0")
     duneVersion = "3";
 
     src = fetchurl {
-      url =
-        "https://github.com/anmonteiro/piaf/releases/download/${version}/piaf-${version}.tbz";
+      url = "https://github.com/anmonteiro/piaf/releases/download/${version}/piaf-${version}.tbz";
       hash = "sha256-AMO+ptGox33Bi7u/H0SaeCU88XORrRU3UbLof3EwcmU=";
     };
 
@@ -53,8 +52,7 @@ lib.throwIf (lib.versionAtLeast ocaml.version "5.0")
     doCheck = false;
 
     meta = {
-      description =
-        "An HTTP library with HTTP/2 support written entirely in OCaml";
+      description = "An HTTP library with HTTP/2 support written entirely in OCaml";
       homepage = "https://github.com/anmonteiro/piaf";
       license = lib.licenses.bsd3;
       maintainers = with lib.maintainers; [ anmonteiro ];

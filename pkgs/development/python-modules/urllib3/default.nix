@@ -79,8 +79,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Powerful, sanity-friendly HTTP client for Python";
     homepage = "https://github.com/shazow/urllib3";
-    changelog =
-      "https://github.com/urllib3/urllib3/blob/${version}/CHANGES.rst";
+    changelog = "https://github.com/urllib3/urllib3/blob/${version}/CHANGES.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

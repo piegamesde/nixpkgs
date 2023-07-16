@@ -41,8 +41,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python client for the official Notion API";
     homepage = "https://github.com/ramnes/notion-sdk-py";
-    changelog =
-      "https://github.com/ramnes/notion-sdk-py/releases/tag/${version}";
+    changelog = "https://github.com/ramnes/notion-sdk-py/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ jpetrucciani ];
   };

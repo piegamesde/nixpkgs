@@ -41,8 +41,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Telegram MTProto API Client Library and Framework for Python";
+    description = "Telegram MTProto API Client Library and Framework for Python";
     homepage = "https://github.com/pyrogram/pyrogram";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ dotlambda ];

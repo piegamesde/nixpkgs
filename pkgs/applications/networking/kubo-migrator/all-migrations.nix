@@ -41,8 +41,7 @@ let
       doCheck = false;
       meta = kubo-migrator-unwrapped.meta // {
         mainProgram = pname;
-        description =
-          "Individual migration for the filesystem repository of Kubo clients";
+        description = "Individual migration for the filesystem repository of Kubo clients";
       };
     }
   ;

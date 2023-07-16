@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "A game of playing music using a MIDI keyboard following a MIDI file";
+    description = "A game of playing music using a MIDI keyboard following a MIDI file";
     inherit (src.meta) homepage;
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

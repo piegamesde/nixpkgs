@@ -21,8 +21,7 @@ import ./make-test-python.nix (
         systemd.services.dummy-github-com = {
           wantedBy = [ "multi-user.target" ];
           before = [ "github-runner-test.service" ];
-          script =
-            "${pkgs.netcat}/bin/nc -Fl 443 | true && touch /tmp/registration-connect";
+          script = "${pkgs.netcat}/bin/nc -Fl 443 | true && touch /tmp/registration-connect";
         };
         networking.hosts."127.0.0.1" = [ "api.github.com" ];
       }

@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
   version = "1.0.20220627";
 
   src = fetchzip {
-    url =
-      "https://git.zx2c4.com/wireguard-linux-compat/snapshot/wireguard-linux-compat-${version}.tar.xz";
+    url = "https://git.zx2c4.com/wireguard-linux-compat/snapshot/wireguard-linux-compat-${version}.tar.xz";
     sha256 = "sha256-skbho3e49lZ/GLp/JDQpf/yXIEjes86aYtw/dn6e0Uo=";
   };
 

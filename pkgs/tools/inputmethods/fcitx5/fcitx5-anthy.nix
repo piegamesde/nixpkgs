@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
   version = "5.0.14";
 
   src = fetchurl {
-    url =
-      "https://download.fcitx-im.org/fcitx5/fcitx5-anthy/${pname}-${version}.tar.xz";
+    url = "https://download.fcitx-im.org/fcitx5/fcitx5-anthy/${pname}-${version}.tar.xz";
     sha256 = "sha256-CodNcN9O8i8euGjCfq9m4zVOFgnbje05JUT49rxUp7c=";
   };
 

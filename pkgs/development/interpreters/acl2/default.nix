@@ -56,12 +56,10 @@ stdenv.mkDerivation rec {
     (substituteAll {
       src = ./0001-Fix-some-paths-for-Nix-build.patch;
       libipasir = "${libipasir}/lib/${libipasir.libname}";
-      libssl =
-        "${
+      libssl = "${
           lib.getLib openssl
         }/lib/libssl${stdenv.hostPlatform.extensions.sharedLibrary}";
-      libcrypto =
-        "${
+      libcrypto = "${
           lib.getLib openssl
         }/lib/libcrypto${stdenv.hostPlatform.extensions.sharedLibrary}";
     })

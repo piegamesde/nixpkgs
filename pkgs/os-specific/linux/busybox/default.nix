@@ -50,8 +50,7 @@ let
     rev = "debian/1%${debianVersion}";
     sha256 = "sha256-6r0RXtmqGXtJbvLSD1Ma1xpqR8oXL2bBKaUE/cSENL8=";
   };
-  debianDispatcherScript =
-    "${debianSource}/debian/tree/udhcpc/etc/udhcpc/default.script";
+  debianDispatcherScript = "${debianSource}/debian/tree/udhcpc/etc/udhcpc/default.script";
   outDispatchPath = "$out/default.script";
 in
 
@@ -80,14 +79,12 @@ stdenv.mkDerivation rec {
       ./busybox-in-store.patch
       (fetchurl {
         name = "CVE-2022-28391.patch";
-        url =
-          "https://git.alpinelinux.org/aports/plain/main/busybox/0001-libbb-sockaddr2str-ensure-only-printable-characters-.patch?id=ed92963eb55bbc8d938097b9ccb3e221a94653f4";
+        url = "https://git.alpinelinux.org/aports/plain/main/busybox/0001-libbb-sockaddr2str-ensure-only-printable-characters-.patch?id=ed92963eb55bbc8d938097b9ccb3e221a94653f4";
         sha256 = "sha256-yviw1GV+t9tbHbY7YNxEqPi7xEreiXVqbeRyf8c6Awo=";
       })
       (fetchurl {
         name = "CVE-2022-28391.patch";
-        url =
-          "https://git.alpinelinux.org/aports/plain/main/busybox/0002-nslookup-sanitize-all-printed-strings-with-printable.patch?id=ed92963eb55bbc8d938097b9ccb3e221a94653f4";
+        url = "https://git.alpinelinux.org/aports/plain/main/busybox/0002-nslookup-sanitize-all-printed-strings-with-printable.patch?id=ed92963eb55bbc8d938097b9ccb3e221a94653f4";
         sha256 = "sha256-vl1wPbsHtXY9naajjnTicQ7Uj3N+EQ8pRNnrdsiow+w=";
       })
     ]
@@ -188,8 +185,7 @@ stdenv.mkDerivation rec {
   doCheck = false; # tries to access the net
 
   meta = with lib; {
-    description =
-      "Tiny versions of common UNIX utilities in a single small executable";
+    description = "Tiny versions of common UNIX utilities in a single small executable";
     homepage = "https://busybox.net/";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [

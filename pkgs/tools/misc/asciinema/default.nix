@@ -34,8 +34,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description =
-      "Terminal session recorder and the best companion of asciinema.org";
+    description = "Terminal session recorder and the best companion of asciinema.org";
     homepage = "https://asciinema.org/";
     license = with licenses; [ gpl3Plus ];
     maintainers = with maintainers; [ ];

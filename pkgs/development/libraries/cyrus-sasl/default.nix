@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
     ./cyrus-sasl-ac-try-run-fix.patch
     # make compatible with openssl3. can probably be dropped with any release after 2.1.28
     (fetchpatch {
-      url =
-        "https://github.com/cyrusimap/cyrus-sasl/compare/cb549ef71c5bb646fe583697ebdcaba93267a237...c2bd3afbca57f176d8c650670ce371444bb7fcc0.patch";
+      url = "https://github.com/cyrusimap/cyrus-sasl/compare/cb549ef71c5bb646fe583697ebdcaba93267a237...c2bd3afbca57f176d8c650670ce371444bb7fcc0.patch";
       hash = "sha256-bYeIkvle1Ms7Lnoob4eLd4RbPFHtPkKRZvfHNCBJY/s=";
     })
   ];
@@ -89,8 +88,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.cyrusimap.org/sasl";
-    description =
-      "Library for adding authentication support to connection-based protocols";
+    description = "Library for adding authentication support to connection-based protocols";
     platforms = platforms.unix;
     license = licenses.bsdOriginal;
   };

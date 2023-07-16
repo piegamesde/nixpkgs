@@ -135,8 +135,7 @@ mkDerivation rec {
     (substituteAll {
       src = ./set-pyqt-package-dirs.patch;
       pyQt5PackageDir = "${py.pkgs.pyqt5}/${py.pkgs.python.sitePackages}";
-      qsciPackageDir =
-        "${py.pkgs.qscintilla-qt5}/${py.pkgs.python.sitePackages}";
+      qsciPackageDir = "${py.pkgs.qscintilla-qt5}/${py.pkgs.python.sitePackages}";
     })
   ];
 

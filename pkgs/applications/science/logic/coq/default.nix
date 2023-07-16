@@ -68,12 +68,9 @@ let
     "8.13.2".sha256 = "14d4alp35hngvga9m7cfp5d1nl62xdj0nm4811f2jjblk86gxxk4";
     "8.14.0".sha256 = "0yxjx9kq9bfpk31dc1c6a0pz0827fz7jmrcwwd4n7dc07yi0arq8";
     "8.14.1".sha256 = "0xdqiabgm4lrm6d7lw544zd8xwb1cdcavsxvwwlqq6yid2rl2yli";
-    "8.15.0".sha256 =
-      "sha256:0q7jl3bn0d1v9cwdkxykw4frccww6wbh1p8hdrfqw489mkxmh5jh";
-    "8.15.1".sha256 =
-      "sha256:1janvmnk3czimp0j5qmnfwx6509vhpjc2q7lcza1bc6dm6kn8n42";
-    "8.15.2".sha256 =
-      "sha256:0qibbvzrhsvs6w3zpkhyclndp29jnr6bs9i5skjlpp431jdjjfqd";
+    "8.15.0".sha256 = "sha256:0q7jl3bn0d1v9cwdkxykw4frccww6wbh1p8hdrfqw489mkxmh5jh";
+    "8.15.1".sha256 = "sha256:1janvmnk3czimp0j5qmnfwx6509vhpjc2q7lcza1bc6dm6kn8n42";
+    "8.15.2".sha256 = "sha256:0qibbvzrhsvs6w3zpkhyclndp29jnr6bs9i5skjlpp431jdjjfqd";
     "8.16.0".sha256 = "sha256-3V6kL9j2rn5FHBxq1mtmWWTZS9X5cAyvtUsS6DaM+is=";
     "8.16.1".sha256 = "sha256-n7830+zfZeyYHEOGdUo57bH6bb2/SZs8zv8xJhV+iAc=";
     "8.17.0".sha256 = "sha256-TGwm7S6+vkeZ8cidvp8pkiAd9tk008jvvPvYgfEOXhM=";

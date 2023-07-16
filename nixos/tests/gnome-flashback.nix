@@ -36,8 +36,7 @@ import ./make-test-python.nix (
         services.xserver.desktopManager.gnome.enable = true;
         services.xserver.desktopManager.gnome.debug = true;
         services.xserver.desktopManager.gnome.flashback.enableMetacity = true;
-        services.xserver.displayManager.defaultSession =
-          "gnome-flashback-metacity";
+        services.xserver.displayManager.defaultSession = "gnome-flashback-metacity";
       }
     ;
 

@@ -31,8 +31,7 @@ python3Packages.buildPythonApplication rec {
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   meta = with lib; {
-    description =
-      "A tool for compliance with the REUSE Initiative recommendations";
+    description = "A tool for compliance with the REUSE Initiative recommendations";
     homepage = "https://github.com/fsfe/reuse-tool";
     license = with licenses; [
       asl20

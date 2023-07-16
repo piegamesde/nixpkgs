@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
   version = "8.0";
 
   src = fetchurl {
-    url =
-      "https://www.sollya.org/releases/sollya-${version}/sollya-${version}.tar.gz";
+    url = "https://www.sollya.org/releases/sollya-${version}/sollya-${version}.tar.gz";
     sha256 = "sha256-WNc0+aL8jmczwR+W0t+aslvvJNccQBIw4p8KEzmoEZI=";
   };
 

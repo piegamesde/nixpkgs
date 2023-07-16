@@ -15,8 +15,8 @@ let
   verifyRequiredField =
     type: field: n: c: {
       assertion = hasAttr field c;
-      message =
-        ''stunnel: "${n}" ${type} configuration - Field ${field} is required.'';
+      message = ''
+        stunnel: "${n}" ${type} configuration - Field ${field} is required.'';
     }
   ;
 
@@ -216,8 +216,7 @@ in
           (length (attrValues cfg.servers) != 0)
           || ((length (attrValues cfg.clients)) != 0)
         ;
-        message =
-          "stunnel: At least one server- or client-configuration has to be present.";
+        message = "stunnel: At least one server- or client-configuration has to be present.";
       })
 
       (mapAttrsToList verifyChainPathAssert cfg.clients)
@@ -253,8 +252,7 @@ in
       wantedBy = [ "multi-user.target" ];
       restartTriggers = [ config.environment.etc."stunnel.cfg".source ];
       serviceConfig = {
-        ExecStart =
-          "${pkgs.stunnel}/bin/stunnel ${
+        ExecStart = "${pkgs.stunnel}/bin/stunnel ${
             config.environment.etc."stunnel.cfg".source
           }";
         Type = "forking";

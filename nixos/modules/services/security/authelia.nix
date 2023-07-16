@@ -339,8 +339,7 @@ in
         let
           execCommand = "${instance.package}/bin/authelia";
           configFile = format.generate "config.yml" instance.settings;
-          configArg =
-            "--config ${
+          configArg = "--config ${
               builtins.concatStringsSep "," (
                 lib.concatLists [
                   [ configFile ]

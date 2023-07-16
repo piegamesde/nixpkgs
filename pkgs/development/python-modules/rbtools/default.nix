@@ -17,8 +17,7 @@ buildPythonPackage rec {
   disabled = !isPy3k;
 
   src = fetchurl {
-    url =
-      "https://downloads.reviewboard.org/releases/RBTools/${
+    url = "https://downloads.reviewboard.org/releases/RBTools/${
         lib.versions.majorMinor version
       }/RBTools-${version}.tar.gz";
     sha256 = "577c2f8bbf88f77bda84ee95af0310b59111c156f48a5aab56ca481e2f77eaf4";
@@ -37,8 +36,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://www.reviewboard.org/docs/rbtools/dev/";
-    description =
-      "RBTools is a set of command line tools for working with Review Board and RBCommons";
+    description = "RBTools is a set of command line tools for working with Review Board and RBCommons";
     license = licenses.mit;
     maintainers = with maintainers; [ domenkozar ];
   };

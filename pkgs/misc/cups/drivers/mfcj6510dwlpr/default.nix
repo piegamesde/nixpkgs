@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
   version = "3.0.0-1";
 
   src = fetchurl {
-    url =
-      "https://download.brother.com/welcome/dlf006614/mfcj6510dwlpr-${version}.i386.deb";
+    url = "https://download.brother.com/welcome/dlf006614/mfcj6510dwlpr-${version}.i386.deb";
     sha256 = "1ccvx393pqavsgzd8igrzlin5jrsf01d3acyvwqd1d0yz5jgqy6d";
   };
 
@@ -116,8 +115,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Brother MFC-J6510DW LPR driver";
-    downloadPage =
-      "http://support.brother.com/g/b/downloadlist.aspx?c=us&lang=en&prod=mfcj6510dw_all&os=128";
+    downloadPage = "http://support.brother.com/g/b/downloadlist.aspx?c=us&lang=en&prod=mfcj6510dw_all&os=128";
     homepage = "http://www.brother.com/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = with licenses; unfree;

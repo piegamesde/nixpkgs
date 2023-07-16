@@ -52,11 +52,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "aiobiketrax" ];
 
   meta = with lib; {
-    description =
-      "Library for interacting with the PowUnity BikeTrax GPS tracker";
+    description = "Library for interacting with the PowUnity BikeTrax GPS tracker";
     homepage = "https://github.com/basilfx/aiobiketrax";
-    changelog =
-      "https://github.com/basilfx/aiobiketrax/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/basilfx/aiobiketrax/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

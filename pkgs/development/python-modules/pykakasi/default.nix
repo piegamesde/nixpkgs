@@ -54,8 +54,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pykakasi" ];
 
   meta = with lib; {
-    description =
-      "Python converter for Japanese Kana-kanji sentences into Kana-Roman";
+    description = "Python converter for Japanese Kana-kanji sentences into Kana-Roman";
     homepage = "https://github.com/miurahr/pykakasi";
     changelog = "https://github.com/miurahr/pykakasi/releases/tag/v${version}";
     license = licenses.mit;

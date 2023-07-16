@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
   version = "v0.5.3";
 
   src = fetchzip {
-    url =
-      "https://github.com/lwthiker/curl-impersonate/releases/download/${version}/curl-impersonate-${version}.x86_64-linux-gnu.tar.gz";
+    url = "https://github.com/lwthiker/curl-impersonate/releases/download/${version}/curl-impersonate-${version}.x86_64-linux-gnu.tar.gz";
     sha256 = "sha256-+cH1swAIadIrWG9anzf0dcW6qyBjcKsUHFWdv75F49g=";
     stripRoot = false;
   };
@@ -28,8 +27,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "curl-impersonate: A special build of curl that can impersonate Chrome & Firefox ";
+    description = "curl-impersonate: A special build of curl that can impersonate Chrome & Firefox ";
     homepage = "https://github.com/lwthiker/curl-impersonate";
     license = with licenses; [
       curl

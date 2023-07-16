@@ -36,8 +36,7 @@ in
         Type = "simple";
         DynamicUser = true;
         StateDirectory = "prowlarr";
-        ExecStart =
-          "${pkgs.prowlarr}/bin/Prowlarr -nobrowser -data=/var/lib/prowlarr";
+        ExecStart = "${pkgs.prowlarr}/bin/Prowlarr -nobrowser -data=/var/lib/prowlarr";
         Restart = "on-failure";
       };
     };

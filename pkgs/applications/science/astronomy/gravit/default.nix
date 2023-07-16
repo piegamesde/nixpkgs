@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
       #   https://github.com/gak/gravit/pull/100
       (fetchpatch {
         name = "fno-common.patch";
-        url =
-          "https://github.com/gak/gravit/commit/0f848834889212f16201fd404d2d5b9bb5b47d23.patch";
+        url = "https://github.com/gak/gravit/commit/0f848834889212f16201fd404d2d5b9bb5b47d23.patch";
         hash = "sha256-k1aMIg7idMt53o6dFgIKJflOMp0Jp5NwgWEijcIwXrQ=";
       })
     ];

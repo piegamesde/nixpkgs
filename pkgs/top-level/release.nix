@@ -72,8 +72,7 @@ let
       if supportDarwin.x86_64 then
         pkgs.releaseTools.aggregate {
           name = "nixpkgs-darwin-${jobs.tarball.version}";
-          meta.description =
-            "Release-critical builds for the Nixpkgs darwin channel";
+          meta.description = "Release-critical builds for the Nixpkgs darwin channel";
           constituents = [
             jobs.tarball
             jobs.cabal2nix.x86_64-darwin
@@ -123,8 +122,7 @@ let
 
     unstable = pkgs.releaseTools.aggregate {
       name = "nixpkgs-${jobs.tarball.version}";
-      meta.description =
-        "Release-critical builds for the Nixpkgs unstable channel";
+      meta.description = "Release-critical builds for the Nixpkgs unstable channel";
       constituents =
         [
           jobs.tarball

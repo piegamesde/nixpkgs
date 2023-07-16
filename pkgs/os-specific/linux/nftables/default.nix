@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
   pname = "nftables";
 
   src = fetchurl {
-    url =
-      "https://netfilter.org/projects/nftables/files/${pname}-${version}.tar.xz";
+    url = "https://netfilter.org/projects/nftables/files/${pname}-${version}.tar.xz";
     hash = "sha256-wSrJQf/5ra7fFzZ9XOITeJuYoNMUJ3vCKz1x4QiR9BI=";
   };
 
@@ -71,8 +70,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = with lib; {
-    description =
-      "The project that aims to replace the existing {ip,ip6,arp,eb}tables framework";
+    description = "The project that aims to replace the existing {ip,ip6,arp,eb}tables framework";
     homepage = "https://netfilter.org/projects/nftables/";
     license = licenses.gpl2Only;
     platforms = platforms.linux;

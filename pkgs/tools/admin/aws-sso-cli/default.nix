@@ -31,8 +31,7 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/synfinatic/aws-sso-cli";
-    description =
-      "AWS SSO CLI is a secure replacement for using the aws configure sso wizard";
+    description = "AWS SSO CLI is a secure replacement for using the aws configure sso wizard";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ devusb ];
     mainProgram = "aws-sso";

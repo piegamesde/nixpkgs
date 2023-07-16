@@ -78,8 +78,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "fiona" ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/Toblerity/Fiona/blob/${src.rev}/CHANGES.txt";
+    changelog = "https://github.com/Toblerity/Fiona/blob/${src.rev}/CHANGES.txt";
     description = "OGR's neat, nimble, no-nonsense API for Python";
     homepage = "https://fiona.readthedocs.io/";
     license = licenses.bsd3;

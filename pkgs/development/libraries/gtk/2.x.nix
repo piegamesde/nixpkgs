@@ -40,8 +40,7 @@ stdenv.mkDerivation (
     version = "2.24.33";
 
     src = fetchurl {
-      url =
-        "mirror://gnome/sources/gtk+/2.24/${finalAttrs.pname}-${finalAttrs.version}.tar.xz";
+      url = "mirror://gnome/sources/gtk+/2.24/${finalAttrs.pname}-${finalAttrs.version}.tar.xz";
       sha256 = "rCrHV/WULTGKMRpUsMgLXvKV8pnCpzxjL2v7H/Scxto=";
     };
 
@@ -156,8 +155,7 @@ stdenv.mkDerivation (
     };
 
     meta = with lib; {
-      description =
-        "A multi-platform toolkit for creating graphical user interfaces";
+      description = "A multi-platform toolkit for creating graphical user interfaces";
       homepage = "https://www.gtk.org/";
       license = licenses.lgpl2Plus;
       maintainers = with maintainers; [

@@ -37,8 +37,7 @@ rustPlatform.buildRustPackage rec {
   passthru.tests.version = testers.testVersion { package = git-workspace; };
 
   meta = with lib; {
-    description =
-      "Sync personal and work git repositories from multiple providers";
+    description = "Sync personal and work git repositories from multiple providers";
     homepage = "https://github.com/orf/git-workspace";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ misuzu ];

@@ -19,8 +19,7 @@ let
       int
       bool
     ] // {
-      description =
-        "davmail config type (str, int, bool or attribute set thereof)";
+      description = "davmail config type (str, int, bool or attribute set thereof)";
     }
   ;
 

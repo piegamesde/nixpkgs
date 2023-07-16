@@ -62,8 +62,7 @@ in
         serviceConfig = {
           Type = "exec";
           User = "automatic-timezoned";
-          ExecStart =
-            "${cfg.package}/bin/automatic-timezoned --zoneinfo-path=${pkgs.tzdata}/share/zoneinfo/zone1970.tab";
+          ExecStart = "${cfg.package}/bin/automatic-timezoned --zoneinfo-path=${pkgs.tzdata}/share/zoneinfo/zone1970.tab";
         };
         wantedBy = [ "default.target" ];
       };
@@ -75,8 +74,7 @@ in
         serviceConfig = {
           Type = "exec";
           User = "automatic-timezoned";
-          ExecStart =
-            "${pkgs.geoclue2-with-demo-agent}/libexec/geoclue-2.0/demos/agent";
+          ExecStart = "${pkgs.geoclue2-with-demo-agent}/libexec/geoclue-2.0/demos/agent";
           Restart = "on-failure";
           PrivateTmp = true;
         };

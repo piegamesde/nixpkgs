@@ -145,8 +145,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Advanced Power Management for Linux";
-    homepage =
-      "https://linrunner.de/en/tlp/docs/tlp-linux-advanced-power-management.html";
+    homepage = "https://linrunner.de/en/tlp/docs/tlp-linux-advanced-power-management.html";
     platforms = platforms.linux;
     maintainers = with maintainers; [
       abbradar

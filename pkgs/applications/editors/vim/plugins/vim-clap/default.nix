@@ -23,8 +23,7 @@ let
   meta = with lib; {
     description = "A modern performant fuzzy picker for Vim and NeoVim";
     homepage = "https://github.com/liuchengxu/vim-clap";
-    changelog =
-      "https://github.com/liuchengxu/vim-clap/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/liuchengxu/vim-clap/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };
@@ -36,8 +35,7 @@ let
     cargoLock = {
       lockFile = ./Cargo.lock;
       outputHashes = {
-        "subprocess-0.2.10" =
-          "sha256-WcGrJ103ofGlQwi32kRGM3Z+uvKSCFBmFZbZXAtuWwM=";
+        "subprocess-0.2.10" = "sha256-WcGrJ103ofGlQwi32kRGM3Z+uvKSCFBmFZbZXAtuWwM=";
       };
     };
 

@@ -39,8 +39,7 @@ let
   libcbs = callPackage ./libcbs.nix { };
   # get cmake file used to find external ffmpeg from previous sunshine version
   findFfmpeg = fetchurl {
-    url =
-      "https://raw.githubusercontent.com/LizardByte/Sunshine/6702802829869547708dfec98db5b8cbef39be89/cmake/FindFFMPEG.cmake";
+    url = "https://raw.githubusercontent.com/LizardByte/Sunshine/6702802829869547708dfec98db5b8cbef39be89/cmake/FindFFMPEG.cmake";
     sha256 = "sha256:1hl3sffv1z8ghdql5y9flk41v74asvh23y6jmaypll84f1s6k1xa";
   };
 in
@@ -61,8 +60,7 @@ stdenv.mkDerivation rec {
     ./ffmpeg.diff
     # fix for X11 not being added to libraries unless prebuilt FFmpeg is used: https://github.com/LizardByte/Sunshine/pull/1166
     (fetchpatch {
-      url =
-        "https://github.com/LizardByte/Sunshine/commit/a067da6cae72cf36f76acc06fcf1e814032af886.patch";
+      url = "https://github.com/LizardByte/Sunshine/commit/a067da6cae72cf36f76acc06fcf1e814032af886.patch";
       sha256 = "sha256-HMxM7luiFBEmFkvQtkdAMMSjAaYPEFX3LL0T/ActUhM=";
     })
   ];

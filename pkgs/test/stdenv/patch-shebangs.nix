@@ -39,8 +39,8 @@ let
         dontPatchShebangs=
       '';
       passthru = {
-        assertion =
-          ''grep "^#!$NIX_STORE/path/to/bash" $out/bin/test > /dev/null'';
+        assertion = ''
+          grep "^#!$NIX_STORE/path/to/bash" $out/bin/test > /dev/null'';
       };
     };
 
@@ -56,8 +56,7 @@ let
         dontPatchShebangs=
       '';
       passthru = {
-        assertion =
-          "grep -v '^#!${pkgs.coreutils}/bin/env -S ${stdenv.shell} --posix' $out/bin/test > /dev/null";
+        assertion = "grep -v '^#!${pkgs.coreutils}/bin/env -S ${stdenv.shell} --posix' $out/bin/test > /dev/null";
       };
     };
   };

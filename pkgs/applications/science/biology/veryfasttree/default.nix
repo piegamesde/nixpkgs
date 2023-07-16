@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Speeding up the estimation of phylogenetic trees for large alignments through parallelization and vectorization strategies";
+    description = "Speeding up the estimation of phylogenetic trees for large alignments through parallelization and vectorization strategies";
     license = licenses.gpl3Plus;
     homepage = "https://github.com/citiususc/veryfasttree";
     maintainers = with maintainers; [ thyol ];

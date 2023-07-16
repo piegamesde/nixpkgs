@@ -81,8 +81,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://librsb.sourceforge.net/";
-    description =
-      "Shared memory parallel sparse matrix and sparse BLAS library";
+    description = "Shared memory parallel sparse matrix and sparse BLAS library";
     longDescription = ''
       Library for sparse matrix computations featuring the Recursive Sparse
       Blocks (RSB) matrix format. This format allows cache efficient and

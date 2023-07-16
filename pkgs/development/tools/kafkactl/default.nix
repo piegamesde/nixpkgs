@@ -21,8 +21,7 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/deviceinsight/kafkactl";
-    changelog =
-      "https://github.com/deviceinsight/kafkactl/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/deviceinsight/kafkactl/blob/v${version}/CHANGELOG.md";
     description = "Command Line Tool for managing Apache Kafka";
     longDescription = ''
       A command-line interface for interaction with Apache Kafka.

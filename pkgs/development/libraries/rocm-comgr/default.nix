@@ -54,8 +54,7 @@ stdenv.mkDerivation (
 
     meta = with lib; {
       description = "APIs for compiling and inspecting AMDGPU code objects";
-      homepage =
-        "https://github.com/RadeonOpenCompute/ROCm-CompilerSupport/tree/amd-stg-open/lib/comgr";
+      homepage = "https://github.com/RadeonOpenCompute/ROCm-CompilerSupport/tree/amd-stg-open/lib/comgr";
       license = licenses.ncsa;
       maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
       platforms = platforms.linux;

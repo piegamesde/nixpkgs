@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   version = "2.6.4";
 
   src = fetchurl {
-    url =
-      "https://www.openldap.org/software/download/OpenLDAP/openldap-release/${pname}-${version}.tgz";
+    url = "https://www.openldap.org/software/download/OpenLDAP/openldap-release/${pname}-${version}.tgz";
     hash = "sha256-1RcE5QF4QwwGzz2KoXTaZrrfVZdHpH2SC7VLLUqkCZE=";
   };
 
@@ -133,8 +132,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.openldap.org/";
-    description =
-      "An open source implementation of the Lightweight Directory Access Protocol";
+    description = "An open source implementation of the Lightweight Directory Access Protocol";
     license = licenses.openldap;
     maintainers = with maintainers; [
       ajs124

@@ -107,8 +107,7 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart =
-          "${cfg.package}/bin/tmate-ssh-server -h ${cfg.host} -p ${
+        ExecStart = "${cfg.package}/bin/tmate-ssh-server -h ${cfg.host} -p ${
             toString cfg.port
           } -q ${toString cfg.advertisedPort} -k ${keysDir}";
       };

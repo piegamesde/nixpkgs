@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
   version = "0.303.1";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "+UY6BlnGPlfjgf3XU88ZKSJTlcW0kTWYlCR2GDBTBBE=";
@@ -49,8 +48,7 @@ stdenv.mkDerivation rec {
   passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
 
   meta = {
-    description =
-      "Default typeface used in the user interface of GNOME since version 3.0";
+    description = "Default typeface used in the user interface of GNOME since version 3.0";
     platforms = lib.platforms.all;
     license = lib.licenses.ofl;
     maintainers = with lib.maintainers; [ ];

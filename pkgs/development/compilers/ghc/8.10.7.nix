@@ -228,10 +228,8 @@ stdenv.mkDerivation (
     pname = "${targetPrefix}ghc${variantSuffix}";
 
     src = fetchurl {
-      url =
-        "https://downloads.haskell.org/ghc/${version}/ghc-${version}-src.tar.xz";
-      sha256 =
-        "e3eef6229ce9908dfe1ea41436befb0455fefb1932559e860ad4c606b0d03c9d";
+      url = "https://downloads.haskell.org/ghc/${version}/ghc-${version}-src.tar.xz";
+      sha256 = "e3eef6229ce9908dfe1ea41436befb0455fefb1932559e860ad4c606b0d03c9d";
     };
 
     enableParallelBuilding = true;
@@ -247,8 +245,7 @@ stdenv.mkDerivation (
         # https://gitlab.haskell.org/ghc/ghc/-/issues/22766
         (fetchpatch {
           name = "ghc-docs-sphinx-6.0.patch";
-          url =
-            "https://gitlab.haskell.org/ghc/ghc/-/commit/10e94a556b4f90769b7fd718b9790d58ae566600.patch";
+          url = "https://gitlab.haskell.org/ghc/ghc/-/commit/10e94a556b4f90769b7fd718b9790d58ae566600.patch";
           sha256 = "0kmhfamr16w8gch0lgln2912r8aryjky1hfcda3jkcwa5cdzgjdv";
         })
 
@@ -262,8 +259,7 @@ stdenv.mkDerivation (
 
         # fix hyperlinked haddock sources: https://github.com/haskell/haddock/pull/1482
         (fetchpatch {
-          url =
-            "https://patch-diff.githubusercontent.com/raw/haskell/haddock/pull/1482.patch";
+          url = "https://patch-diff.githubusercontent.com/raw/haskell/haddock/pull/1482.patch";
           sha256 = "sha256-8w8QUCsODaTvknCDGgTfFNZa8ZmvIKaKS+2ZJZ9foYk=";
           extraPrefix = "utils/haddock/";
           stripLen = 1;
@@ -272,17 +268,14 @@ stdenv.mkDerivation (
         # cabal passes incorrect --host= when cross-compiling
         # https://github.com/haskell/cabal/issues/5887
         (fetchpatch {
-          url =
-            "https://raw.githubusercontent.com/input-output-hk/haskell.nix/122bd81150386867da07fdc9ad5096db6719545a/overlays/patches/ghc/cabal-host.patch";
-          sha256 =
-            "sha256:0yd0sajgi24sc1w5m55lkg2lp6kfkgpp3lgija2c8y3cmkwfpdc1";
+          url = "https://raw.githubusercontent.com/input-output-hk/haskell.nix/122bd81150386867da07fdc9ad5096db6719545a/overlays/patches/ghc/cabal-host.patch";
+          sha256 = "sha256:0yd0sajgi24sc1w5m55lkg2lp6kfkgpp3lgija2c8y3cmkwfpdc1";
         })
 
         # In order to build ghcjs packages, the Cabal of the ghc used for the ghcjs
         # needs to be patched. Ref https://github.com/haskell/cabal/pull/7575
         (fetchpatch {
-          url =
-            "https://github.com/haskell/cabal/commit/369c4a0a54ad08a9e6b0d3bd303fedd7b5e5a336.patch";
+          url = "https://github.com/haskell/cabal/commit/369c4a0a54ad08a9e6b0d3bd303fedd7b5e5a336.patch";
           sha256 = "120f11hwyaqa0pq9g5l1300crqij49jg0rh83hnp9sa49zfdwx1n";
           stripLen = 3;
           extraPrefix = "libraries/Cabal/Cabal/";
@@ -291,8 +284,7 @@ stdenv.mkDerivation (
       ++ lib.optionals stdenv.isDarwin [
         # Make Block.h compile with c++ compilers. Remove with the next release
         (fetchpatch {
-          url =
-            "https://gitlab.haskell.org/ghc/ghc/-/commit/97d0b0a367e4c6a52a17c3299439ac7de129da24.patch";
+          url = "https://gitlab.haskell.org/ghc/ghc/-/commit/97d0b0a367e4c6a52a17c3299439ac7de129da24.patch";
           sha256 = "0r4zjj0bv1x1m2dgxp3adsf2xkr94fjnyj1igsivd9ilbs5ja0b5";
         })
       ]

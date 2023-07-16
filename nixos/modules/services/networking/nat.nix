@@ -187,14 +187,12 @@ in
       }
       {
         assertion = (cfg.dmzHost != null) -> (cfg.externalInterface != null);
-        message =
-          "networking.nat.dmzHost requires networking.nat.externalInterface";
+        message = "networking.nat.dmzHost requires networking.nat.externalInterface";
       }
       {
         assertion =
           (cfg.forwardPorts != [ ]) -> (cfg.externalInterface != null);
-        message =
-          "networking.nat.forwardPorts requires networking.nat.externalInterface";
+        message = "networking.nat.forwardPorts requires networking.nat.externalInterface";
       }
     ];
 

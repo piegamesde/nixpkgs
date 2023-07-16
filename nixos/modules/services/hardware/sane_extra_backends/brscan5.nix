@@ -109,8 +109,7 @@ in
     environment.etc."opt/brother/scanner/models" = {
       source = "${etcFiles}/etc/opt/brother/scanner/brscan5/models";
     };
-    environment.etc."sane.d/dll.d/brother5.conf".source =
-      "${pkgs.brscan5}/etc/sane.d/dll.d/brother.conf";
+    environment.etc."sane.d/dll.d/brother5.conf".source = "${pkgs.brscan5}/etc/sane.d/dll.d/brother.conf";
 
     assertions = [ {
       assertion = all (x: !(null != x.ip && null != x.nodename)) netDeviceList;

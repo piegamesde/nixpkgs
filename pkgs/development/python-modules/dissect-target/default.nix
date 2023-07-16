@@ -114,11 +114,9 @@ buildPythonPackage rec {
     ];
 
   meta = with lib; {
-    description =
-      "Dissect module that provides a programming API and command line tools";
+    description = "Dissect module that provides a programming API and command line tools";
     homepage = "https://github.com/fox-it/dissect.target";
-    changelog =
-      "https://github.com/fox-it/dissect.target/releases/tag/${version}";
+    changelog = "https://github.com/fox-it/dissect.target/releases/tag/${version}";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ fab ];
   };

@@ -31,11 +31,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "fireflyalgorithm" ];
 
   meta = with lib; {
-    description =
-      "An implementation of the stochastic nature-inspired algorithm for optimization";
+    description = "An implementation of the stochastic nature-inspired algorithm for optimization";
     homepage = "https://github.com/firefly-cpp/FireflyAlgorithm";
-    changelog =
-      "https://github.com/firefly-cpp/FireflyAlgorithm/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/firefly-cpp/FireflyAlgorithm/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ firefly-cpp ];
   };

@@ -34,8 +34,7 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    description =
-      "Tools to use with the Kubernetes controller-runtime libraries";
+    description = "Tools to use with the Kubernetes controller-runtime libraries";
     homepage = "https://github.com/kubernetes-sigs/controller-tools";
     license = licenses.asl20;
     maintainers = with maintainers; [ michojel ];

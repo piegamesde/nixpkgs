@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     # https://clojure.org/releases/tools
-    url =
-      "https://download.clojure.org/install/clojure-tools-${version}.tar.gz";
+    url = "https://download.clojure.org/install/clojure-tools-${version}.tar.gz";
     sha256 = "sha256-X4uvzyS9FIrJvL5gqOe4CTye2OuODzhxmXcOOPDkDOY=";
   };
 

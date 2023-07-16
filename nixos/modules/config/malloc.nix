@@ -40,8 +40,7 @@ let
           );
       in
       {
-        libPath =
-          "${pkgs.llvmPackages_latest.compiler-rt}/lib/linux/libclang_rt.scudo-${systemPlatform}.so";
+        libPath = "${pkgs.llvmPackages_latest.compiler-rt}/lib/linux/libclang_rt.scudo-${systemPlatform}.so";
         description = ''
           A user-mode allocator based on LLVM Sanitizer’s CombinedAllocator,
           which aims at providing additional mitigations against heap based

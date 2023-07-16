@@ -15,8 +15,7 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url =
-      "https://github.com/mirage/${pname}/releases/download/v${version}/${pname}-v${version}.tbz";
+    url = "https://github.com/mirage/${pname}/releases/download/v${version}/${pname}-v${version}.tbz";
     sha256 = "1jmjyb9a4v7l0xxgdwpr9zshzr8xk3hybra6y2dp51anbwk8kv46";
   };
 

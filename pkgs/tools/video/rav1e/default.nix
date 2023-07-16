@@ -20,10 +20,8 @@ let
   # TODO: if another package starts using cargo-c (seems likely),
   # factor this out into a makeCargoChook expression in
   # pkgs/build-support/rust/hooks/default.nix
-  ccForBuild =
-    "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc";
-  cxxForBuild =
-    "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}c++";
+  ccForBuild = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc";
+  cxxForBuild = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}c++";
   ccForHost = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc";
   cxxForHost = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++";
   rustBuildPlatform = rust.toRustTarget stdenv.buildPlatform;

@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
   version = "${majorVersion}.23";
 
   src = fetchurl {
-    url =
-      "https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/${majorVersion}/linux_x86_64/snowflake-snowsql-${version}-1.x86_64.rpm";
+    url = "https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/${majorVersion}/linux_x86_64/snowflake-snowsql-${version}-1.x86_64.rpm";
     sha256 = "16zx30l3g5i5ndgxsqlkmkrfzswbczpb3jcya3psq5170i8cfm8f";
   };
 

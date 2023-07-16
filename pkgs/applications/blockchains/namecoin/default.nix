@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
   configureFlags = [ "--with-boost-libdir=${boost.out}/lib" ];
 
   meta = with lib; {
-    description =
-      "Decentralized open source information registration and transfer system based on the Bitcoin cryptocurrency";
+    description = "Decentralized open source information registration and transfer system based on the Bitcoin cryptocurrency";
     homepage = "https://namecoin.org";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

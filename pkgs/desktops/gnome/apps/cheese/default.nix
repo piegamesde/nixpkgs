@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/cheese/${
+    url = "mirror://gnome/sources/cheese/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "2SJAEnLN1BXCknA+UsazZEZqCyDuHbMgJRZEwoNgb9Q=";
@@ -107,8 +106,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Cheese";
-    description =
-      "Take photos and videos with your webcam, with fun graphical effects";
+    description = "Take photos and videos with your webcam, with fun graphical effects";
     maintainers = teams.gnome.members;
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

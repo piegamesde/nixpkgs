@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
   version = "2.3.4";
 
   src = fetchurl {
-    url =
-      "https://github.com/blueman-project/blueman/releases/download/${version}/${pname}-${version}.tar.xz";
+    url = "https://github.com/blueman-project/blueman/releases/download/${version}/${pname}-${version}.tar.xz";
     sha256 = "sha256-wgYzghQ38yydPRkOzXDR4vclXXSn1pefInEb3C5WAVI=";
   };
 

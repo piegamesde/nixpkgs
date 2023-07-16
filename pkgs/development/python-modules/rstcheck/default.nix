@@ -56,11 +56,9 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Checks syntax of reStructuredText and code blocks nested within it";
+    description = "Checks syntax of reStructuredText and code blocks nested within it";
     homepage = "https://github.com/myint/rstcheck";
-    changelog =
-      "https://github.com/rstcheck/rstcheck/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/rstcheck/rstcheck/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ staccato ];
   };

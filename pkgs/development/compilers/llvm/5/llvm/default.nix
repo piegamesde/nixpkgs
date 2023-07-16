@@ -109,8 +109,7 @@ stdenv.mkDerivation (
         # Fix invalid std::string(nullptr) for GCC 12
         (fetchpatch {
           name = "nvptx-gcc-12.patch";
-          url =
-            "https://github.com/llvm/llvm-project/commit/99e64623ec9b31def9375753491cc6093c831809.patch";
+          url = "https://github.com/llvm/llvm-project/commit/99e64623ec9b31def9375753491cc6093c831809.patch";
           sha256 = "0zjfjgavqzi2ypqwqnlvy6flyvdz8hi1anwv0ybwnm2zqixg7za3";
           stripLen = 1;
         })
@@ -302,8 +301,7 @@ stdenv.mkDerivation (
     requiredSystemFeatures = [ "big-parallel" ];
     meta = llvm_meta // {
       homepage = "https://llvm.org/";
-      description =
-        "A collection of modular and reusable compiler and toolchain technologies";
+      description = "A collection of modular and reusable compiler and toolchain technologies";
       longDescription = ''
         The LLVM Project is a collection of modular and reusable compiler and
         toolchain technologies. Despite its name, LLVM has little to do with

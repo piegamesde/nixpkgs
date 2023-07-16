@@ -18,8 +18,7 @@ let
   dotnet-sdk = dotnetCorePackages.sdk_6_0;
 
   xplat = fetchurl {
-    url =
-      "https://github.com/mono/msbuild/releases/download/v16.9.0/mono_msbuild_6.12.0.137.zip";
+    url = "https://github.com/mono/msbuild/releases/download/v16.9.0/mono_msbuild_6.12.0.137.zip";
     sha256 = "1wnzbdpk4s9bmawlh359ak2b8zi0sgx1qvcjnvfncr1wsck53v7q";
   };
 
@@ -40,8 +39,7 @@ stdenv.mkDerivation rec {
   version = "16.10.1+xamarinxplat.2021.05.26.14.00";
 
   src = fetchurl {
-    url =
-      "https://download.mono-project.com/sources/msbuild/msbuild-${version}.tar.xz";
+    url = "https://download.mono-project.com/sources/msbuild/msbuild-${version}.tar.xz";
     sha256 = "05ghqqkdj4s3d0xkp7mkdzjig5zj3k6ajx71j0g2wv6rdbvg6899";
   };
 
@@ -156,8 +154,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Mono version of Microsoft Build Engine, the build platform for .NET, and Visual Studio";
+    description = "Mono version of Microsoft Build Engine, the build platform for .NET, and Visual Studio";
     homepage = "https://github.com/mono/msbuild";
     sourceProvenance = with sourceTypes; [
       fromSource

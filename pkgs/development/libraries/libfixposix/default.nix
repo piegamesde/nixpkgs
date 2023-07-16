@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/sionescu/libfixposix";
-    description =
-      "Thin wrapper over POSIX syscalls and some replacement functionality";
+    description = "Thin wrapper over POSIX syscalls and some replacement functionality";
     license = licenses.boost;
     maintainers = with maintainers; [
       orivej

@@ -143,8 +143,7 @@ in
 
   config = mkIf cfg.enable {
     systemd.services.mautrix-telegram = {
-      description =
-        "Mautrix-Telegram, a Matrix-Telegram hybrid puppeting/relaybot bridge.";
+      description = "Mautrix-Telegram, a Matrix-Telegram hybrid puppeting/relaybot bridge.";
 
       wantedBy = [ "multi-user.target" ];
       wants = [ "network-online.target" ] ++ cfg.serviceDependencies;

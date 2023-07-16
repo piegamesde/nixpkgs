@@ -9,8 +9,7 @@ stdenv.mkDerivation rec {
   version = "1.7";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/acpiclient/${version}/${pname}-${version}.tar.gz";
+    url = "mirror://sourceforge/acpiclient/${version}/${pname}-${version}.tar.gz";
     sha256 = "01ahldvf0gc29dmbd5zi4rrnrw2i1ajnf30sx2vyaski3jv099fp";
   };
 

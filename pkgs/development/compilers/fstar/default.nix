@@ -88,8 +88,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "ML-like functional programming language aimed at program verification";
+    description = "ML-like functional programming language aimed at program verification";
     homepage = "https://www.fstar-lang.org";
     changelog = "https://github.com/FStarLang/FStar/raw/v${version}/CHANGES.md";
     license = licenses.asl20;

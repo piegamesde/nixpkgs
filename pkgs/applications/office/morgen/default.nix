@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
   version = "2.6.7";
 
   src = fetchurl {
-    url =
-      "https://download.todesktop.com/210203cqcj00tw1/morgen-${version}.deb";
+    url = "https://download.todesktop.com/210203cqcj00tw1/morgen-${version}.deb";
     sha256 = "sha256-DlwAMA/YEnB9Z6Ry1Hvu9R9TgTw737PLtZfAVEKLjPY=";
   };
 

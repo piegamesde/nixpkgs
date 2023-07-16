@@ -73,8 +73,7 @@ in
 
     # Translation from $out/lib/systemd/system/systemd-cockpithttps.slice
     systemd.slices.system-cockpithttps = {
-      description =
-        "Resource limits for all cockpit-ws-https@.service instances";
+      description = "Resource limits for all cockpit-ws-https@.service instances";
       sliceConfig = {
         TasksMax = 200;
         MemoryHigh = "75%";
@@ -110,8 +109,7 @@ in
       documentation = [ "man:cockpit-ws(8)" ];
       serviceConfig = {
         Slice = "system-cockpithttps.slice";
-        ExecStart =
-          "${cfg.package}/libexec/cockpit-ws --for-tls-proxy --port=0";
+        ExecStart = "${cfg.package}/libexec/cockpit-ws --for-tls-proxy --port=0";
         User = "root";
         Group = "";
       };
@@ -183,8 +181,7 @@ in
           ''-${cfg.package}/share/cockpit/motd/update-motd "" localhost''
           "-${pkgs.coreutils}/bin/ln -snf active.motd /run/cockpit/motd"
         ];
-        ExecStopPost =
-          "-${pkgs.coreutils}/bin/ln -snf inactive.motd /run/cockpit/motd";
+        ExecStopPost = "-${pkgs.coreutils}/bin/ln -snf inactive.motd /run/cockpit/motd";
       };
       wantedBy = [ "sockets.target" ];
     };

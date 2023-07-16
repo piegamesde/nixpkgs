@@ -12,8 +12,7 @@ stdenv.mkDerivation {
   version = "2018-01-07";
 
   src = fetchurl {
-    url =
-      "https://www.sqlite.org/sqlar/tarball/4824e73896/sqlar-src-4824e73896.tar.gz";
+    url = "https://www.sqlite.org/sqlar/tarball/4824e73896/sqlar-src-4824e73896.tar.gz";
     sha256 = "09pikkbp93gqypn3da9zi0dzc47jyypkwc9vnmfzhmw7kpyv8nm9";
   };
 

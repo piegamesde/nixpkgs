@@ -36,8 +36,7 @@ mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/vigri/scantailor-advanced";
-    description =
-      "Interactive post-processing tool for scanned pages (vigri's fork)";
+    description = "Interactive post-processing tool for scanned pages (vigri's fork)";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ jfrankenau ];
     platforms = with platforms; gnu ++ linux ++ darwin;

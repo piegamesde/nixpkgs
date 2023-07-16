@@ -26,8 +26,7 @@ buildGoModule rec {
   patches = [ ./skip-external-network-tests.patch ];
 
   meta = with lib; {
-    description =
-      "Checks a Kubernetes cluster for objects using deprecated API versions";
+    description = "Checks a Kubernetes cluster for objects using deprecated API versions";
     homepage = "https://github.com/rikatz/kubepug";
     license = licenses.asl20;
     maintainers = with maintainers; [ mausch ];

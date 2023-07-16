@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
   version = "2.2.0"; # only even minor versions are stable
 
   src = fetchurl {
-    url =
-      "https://ftp.isc.org/isc/${pname}/${version}/${pname}-${version}.tar.gz";
+    url = "https://ftp.isc.org/isc/${pname}/${version}/${pname}-${version}.tar.gz";
     sha256 = "sha256-2n2QymKncmAtrG535QcxkDhCKJWtaO6xQvFIfWfVMdI=";
   };
 

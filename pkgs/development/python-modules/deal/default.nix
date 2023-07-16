@@ -89,8 +89,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "deal" ];
 
   meta = with lib; {
-    description =
-      "Library for design by contract (DbC) and checking values, exceptions, and side-effects";
+    description = "Library for design by contract (DbC) and checking values, exceptions, and side-effects";
     longDescription = ''
       In a nutshell, deal empowers you to write bug-free code.
       By adding a few decorators to your code, you get for free tests, static analysis, formal verification, and much more

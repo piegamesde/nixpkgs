@@ -14,8 +14,7 @@ rec {
   deps = [ args."ptester" ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/puri/2020-10-16/puri-20201016-git.tgz";
+    url = "http://beta.quicklisp.org/archive/puri/2020-10-16/puri-20201016-git.tgz";
     sha256 = "16h7gip6d0564s9yba3jg0rjzndmysv531hcrngvi3j3sandjfzx";
   };
 

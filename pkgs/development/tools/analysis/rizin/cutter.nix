@@ -57,8 +57,7 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Free and Open Source Reverse Engineering Platform powered by rizin";
+    description = "Free and Open Source Reverse Engineering Platform powered by rizin";
     homepage = src.meta.homepage;
     license = licenses.gpl3;
     maintainers = with maintainers; [

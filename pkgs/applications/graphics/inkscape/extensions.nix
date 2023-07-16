@@ -34,8 +34,7 @@
     '';
 
     meta = with lib; {
-      description =
-        "This is an extension for creating hex grids in Inkscape. It can also be used to make brick patterns of staggered rectangles";
+      description = "This is an extension for creating hex grids in Inkscape. It can also be used to make brick patterns of staggered rectangles";
       homepage = "https://github.com/lifelike/hexmapextension";
       license = licenses.gpl2Plus;
       maintainers = [ maintainers.raboof ];

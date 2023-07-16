@@ -23,8 +23,7 @@
 let
   inherit (python3Packages) python gyp six;
   utdic = fetchurl {
-    url =
-      "https://osdn.net/downloads/users/39/39056/mozcdic-ut-20220904.tar.bz2";
+    url = "https://osdn.net/downloads/users/39/39056/mozcdic-ut-20220904.tar.bz2";
     sha256 = "sha256-pmLBCcw2Zsirzl1PjYkviRIZoyfUz5rpESeABDxuhtU=";
   };
   japanese_usage_dictionary = fetchFromGitHub {
@@ -35,13 +34,11 @@ let
   };
   zipcode_rel = "202011";
   jigyosyo = fetchurl {
-    url =
-      "https://osdn.net/projects/ponsfoot-aur/storage/mozc/jigyosyo-${zipcode_rel}.zip";
+    url = "https://osdn.net/projects/ponsfoot-aur/storage/mozc/jigyosyo-${zipcode_rel}.zip";
     sha256 = "j7MkNtd4+QTi91EreVig4/OV0o5y1+KIjEJBEmLK/mY=";
   };
   x-ken-all = fetchurl {
-    url =
-      "https://osdn.net/projects/ponsfoot-aur/storage/mozc/x-ken-all-${zipcode_rel}.zip";
+    url = "https://osdn.net/projects/ponsfoot-aur/storage/mozc/x-ken-all-${zipcode_rel}.zip";
     sha256 = "ExS0Cg3rs0I9IOVbZHLt8UEfk8/LmY9oAHPVVlYuTPw=";
   };
 in
@@ -81,8 +78,7 @@ clangStdenv.mkDerivation rec {
   patches = [
     # Support linking system abseil-cpp
     (fetchpatch {
-      url =
-        "https://salsa.debian.org/debian/mozc/-/raw/debian/sid/debian/patches/0007-Update-src-base-absl.gyp.patch";
+      url = "https://salsa.debian.org/debian/mozc/-/raw/debian/sid/debian/patches/0007-Update-src-base-absl.gyp.patch";
       sha256 = "UiS0UScDKyAusXOhc7Bg8dF8ARQQiVTylEhAOxqaZt8=";
     })
   ];
@@ -155,8 +151,7 @@ clangStdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Fcitx5 Module of A Japanese Input Method for Chromium OS, Windows, Mac and Linux (the Open Source Edition of Google Japanese Input)";
+    description = "Fcitx5 Module of A Japanese Input Method for Chromium OS, Windows, Mac and Linux (the Open Source Edition of Google Japanese Input)";
     homepage = "https://github.com/fcitx/mozc";
     license = licenses.bsd3;
     maintainers = with maintainers; [

@@ -28,8 +28,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pyupgrade" ];
 
   meta = with lib; {
-    description =
-      "Tool to automatically upgrade syntax for newer versions of the language";
+    description = "Tool to automatically upgrade syntax for newer versions of the language";
     homepage = "https://github.com/asottile/pyupgrade";
     license = licenses.mit;
     maintainers = with maintainers; [ lovesegfault ];

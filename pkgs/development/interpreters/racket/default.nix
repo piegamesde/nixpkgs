@@ -71,8 +71,7 @@ stdenv.mkDerivation rec {
         sha256,
       }:
       fetchurl {
-        url =
-          "https://mirror.racket-lang.org/installers/${version}/${name}-src.tgz";
+        url = "https://mirror.racket-lang.org/installers/${version}/${name}-src.tgz";
         inherit sha256;
       }
     ))

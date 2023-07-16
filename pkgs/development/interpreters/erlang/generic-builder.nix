@@ -238,8 +238,7 @@ stdenv.mkDerivation (
         {
           homepage = "https://www.erlang.org/";
           downloadPage = "https://www.erlang.org/download.html";
-          description =
-            "Programming language used for massively scalable soft real-time systems";
+          description = "Programming language used for massively scalable soft real-time systems";
 
           longDescription = ''
             Erlang is a programming language used to build massively scalable

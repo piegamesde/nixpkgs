@@ -34,8 +34,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://pylibftdi.readthedocs.io/";
-    description =
-      "Wrapper to Intra2net's libftdi driver for FTDI's USB devices";
+    description = "Wrapper to Intra2net's libftdi driver for FTDI's USB devices";
     license = licenses.mit;
     maintainers = with maintainers; [ matthuszagh ];
   };

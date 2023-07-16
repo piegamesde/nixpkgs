@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = with lib; {
-    description =
-      "Audio processing plugin system for plugins that extract descriptive information from audio data";
+    description = "Audio processing plugin system for plugins that extract descriptive information from audio data";
     homepage = "https://vamp-plugins.org/";
     license = licenses.bsd3;
     maintainers = [

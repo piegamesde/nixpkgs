@@ -13,8 +13,7 @@ rustPlatform.buildRustPackage rec {
   # This release tarball includes source code for the tree-sitter grammars,
   # which is not ordinarily part of the repository.
   src = fetchzip {
-    url =
-      "https://github.com/helix-editor/helix/releases/download/${version}/helix-${version}-source.tar.xz";
+    url = "https://github.com/helix-editor/helix/releases/download/${version}/helix-${version}-source.tar.xz";
     hash = "sha256-FtY2V7za3WGeUaC2t2f63CcDUEg9zAS2cGUWI0YeGwk=";
     stripRoot = false;
   };
@@ -23,8 +22,7 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "tree-sitter-0.20.9" =
-        "sha256-/PaFaASOT0Z8FpipX5uiRCjnv1kyZtg4B9+TnHA0yTY=";
+      "tree-sitter-0.20.9" = "sha256-/PaFaASOT0Z8FpipX5uiRCjnv1kyZtg4B9+TnHA0yTY=";
     };
   };
 

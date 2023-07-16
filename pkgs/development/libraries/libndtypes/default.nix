@@ -22,8 +22,7 @@ stdenv.mkDerivation {
   doCheck = true;
 
   meta = with lib; {
-    description =
-      "Dynamic types for data description and in-memory computations";
+    description = "Dynamic types for data description and in-memory computations";
     homepage = "https://xnd.io/";
     license = licenses.bsdOriginal;
     maintainers = [ maintainers.costrouc ];

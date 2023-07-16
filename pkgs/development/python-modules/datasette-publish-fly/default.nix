@@ -36,8 +36,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Datasette plugin for publishing data using Fly";
     homepage = "https://datasette.io/plugins/datasette-publish-fly";
-    changelog =
-      "https://github.com/simonw/datasette-publish-fly/releases/tag/${version}";
+    changelog = "https://github.com/simonw/datasette-publish-fly/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

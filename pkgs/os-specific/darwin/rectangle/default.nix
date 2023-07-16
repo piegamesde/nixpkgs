@@ -11,8 +11,7 @@ stdenvNoCC.mkDerivation rec {
   version = "0.68";
 
   src = fetchurl {
-    url =
-      "https://github.com/rxhanson/Rectangle/releases/download/v${version}/Rectangle${version}.dmg";
+    url = "https://github.com/rxhanson/Rectangle/releases/download/v${version}/Rectangle${version}.dmg";
     hash = "sha256-N1zSMmRo6ux/b16K4Og68A5bfht2WWi7S40Yys3QkTY=";
   };
 
@@ -35,8 +34,7 @@ stdenvNoCC.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "Move and resize windows in macOS using keyboard shortcuts or snap areas";
+    description = "Move and resize windows in macOS using keyboard shortcuts or snap areas";
     homepage = "https://rectangleapp.com/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     platforms = platforms.darwin;

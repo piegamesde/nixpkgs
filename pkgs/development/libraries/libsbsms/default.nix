@@ -13,8 +13,7 @@ pkgs: rec {
   libsbsms_2_3_0 = pkgs.callPackage ./common.nix rec {
     inherit pname;
     version = "2.3.0";
-    url =
-      "https://github.com/claytonotey/${pname}/archive/refs/tags/${version}.tar.gz";
+    url = "https://github.com/claytonotey/${pname}/archive/refs/tags/${version}.tar.gz";
     sha256 = "sha256-T4jRUrwG/tvanV1lUX1AJUpzEMkFBgGpMSIwnUWv0sk=";
     homepage = "https://github.com/claytonotey/libsbsms";
   };

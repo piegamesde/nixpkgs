@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
   version = "44.1";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "OJcGDWlvf6LZEudywnYdvlNDOrXxnr+kvE6Jc4X6ulM=";
@@ -138,8 +137,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "Simple GNOME 3 application to access remote or virtual systems";
+    description = "Simple GNOME 3 application to access remote or virtual systems";
     homepage = "https://wiki.gnome.org/Apps/Boxes";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;

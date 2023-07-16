@@ -17,7 +17,6 @@ buildOctavePackage rec {
     homepage = "https://octave.sourceforge.io/bsltl/index.html";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
-    description =
-      "Free collection of OCTAVE/MATLAB routines for working with the biospeckle laser technique";
+    description = "Free collection of OCTAVE/MATLAB routines for working with the biospeckle laser technique";
   };
 }

@@ -58,8 +58,7 @@ else
     src = fetchurl (
       if stdenv.hostPlatform.system == "x86_64-linux" then
         {
-          url =
-            "http://neoload.installers.neotys.com/documents/download/${pname}/v${
+          url = "http://neoload.installers.neotys.com/documents/download/${pname}/v${
               lib.versions.majorMinor version
             }/${pname}_${
               lib.replaceStrings [ "." ] [ "_" ] version
@@ -68,8 +67,7 @@ else
         }
       else
         {
-          url =
-            "http://neoload.installers.neotys.com/documents/download/${pname}/v${
+          url = "http://neoload.installers.neotys.com/documents/download/${pname}/v${
               lib.versions.majorMinor version
             }/${pname}_${
               lib.replaceStrings [ "." ] [ "_" ] version
@@ -121,8 +119,7 @@ else
     '';
 
     meta = {
-      description =
-        "Load testing software for Web applications to realistically simulate user activity and analyze server behavior";
+      description = "Load testing software for Web applications to realistically simulate user activity and analyze server behavior";
 
       homepage = "https://www.neotys.com/product/overview-neoload.html";
 

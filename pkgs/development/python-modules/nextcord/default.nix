@@ -34,8 +34,7 @@ buildPythonPackage rec {
     (substituteAll {
       src = ./paths.patch;
       ffmpeg = "${ffmpeg}/bin/ffmpeg";
-      libopus =
-        "${libopus}/lib/libopus${stdenv.hostPlatform.extensions.sharedLibrary}";
+      libopus = "${libopus}/lib/libopus${stdenv.hostPlatform.extensions.sharedLibrary}";
     })
   ];
 
@@ -58,8 +57,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/nextcord/nextcord/blob/${src.rev}/docs/whats_new.rst";
+    changelog = "https://github.com/nextcord/nextcord/blob/${src.rev}/docs/whats_new.rst";
     description = "Python wrapper for the Discord API forked from discord.py";
     homepage = "https://github.com/nextcord/nextcord";
     license = licenses.mit;

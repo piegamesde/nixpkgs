@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
       # Fix build with primesieve 11, https://github.com/openturns/openturns/pull/2187
       # Remove with next version update.
       (fetchpatch {
-        url =
-          "https://github.com/openturns/openturns/commit/a85061f89a5763061467beac516c1355fe81b9be.patch";
+        url = "https://github.com/openturns/openturns/commit/a85061f89a5763061467beac516c1355fe81b9be.patch";
         hash = "sha256-z28ipBuX3b5UFEnKuDfp+kMI5cUcwXVz/8WZHlICnvE=";
       })
     ];
@@ -89,8 +88,7 @@ stdenv.mkDerivation rec {
   checkTarget = "tests check";
 
   meta = with lib; {
-    description =
-      "Multivariate probabilistic modeling and uncertainty treatment library";
+    description = "Multivariate probabilistic modeling and uncertainty treatment library";
     license = with licenses; [
       lgpl3
       gpl3

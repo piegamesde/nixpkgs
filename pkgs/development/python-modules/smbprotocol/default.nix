@@ -49,8 +49,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python SMBv2 and v3 Client";
     homepage = "https://github.com/jborean93/smbprotocol";
-    changelog =
-      "https://github.com/jborean93/smbprotocol/releases/tag/v${version}";
+    changelog = "https://github.com/jborean93/smbprotocol/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

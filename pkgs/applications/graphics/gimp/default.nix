@@ -67,8 +67,7 @@ stdenv.mkDerivation (
     ];
 
     src = fetchurl {
-      url =
-        "http://download.gimp.org/pub/gimp/v${
+      url = "http://download.gimp.org/pub/gimp/v${
           lib.versions.majorMinor finalAttrs.version
         }/gimp-${finalAttrs.version}.tar.bz2";
       sha256 = "hABGQtNRs5ikKTzX/TWSBEqUTwW7UoUO5gaPJHxleqM=";
@@ -178,8 +177,7 @@ stdenv.mkDerivation (
       ;
 
       # Check if librsvg was built with --disable-pixbuf-loader.
-      PKG_CONFIG_GDK_PIXBUF_2_0_GDK_PIXBUF_MODULEDIR =
-        "${librsvg}/${gdk-pixbuf.moduleDir}";
+      PKG_CONFIG_GDK_PIXBUF_2_0_GDK_PIXBUF_MODULEDIR = "${librsvg}/${gdk-pixbuf.moduleDir}";
     };
 
     preConfigure = ''

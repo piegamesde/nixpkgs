@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A high-capacity 2D color bar code (${subproject})";
-    longDescription =
-      "JAB Code (Just Another Bar Code) is a high-capacity 2D color bar code, which can encode more data than traditional black/white (QR) codes. This is the ${subproject} part.";
+    longDescription = "JAB Code (Just Another Bar Code) is a high-capacity 2D color bar code, which can encode more data than traditional black/white (QR) codes. This is the ${subproject} part.";
     homepage = "https://jabcode.org/";
     license = licenses.lgpl21;
     maintainers = [ maintainers.xaverdh ];

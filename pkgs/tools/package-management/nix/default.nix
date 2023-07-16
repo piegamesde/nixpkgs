@@ -131,24 +131,21 @@ let
   # https://github.com/NixOS/nix/pull/7585
   patch-monitorfdhup = fetchpatch2 {
     name = "nix-7585-monitor-fd-hup.patch";
-    url =
-      "https://github.com/NixOS/nix/commit/1df3d62c769dc68c279e89f68fdd3723ed3bcb5a.patch";
+    url = "https://github.com/NixOS/nix/commit/1df3d62c769dc68c279e89f68fdd3723ed3bcb5a.patch";
     sha256 = "sha256-f+F0fUO+bqyPXjt+IXJtISVr589hdc3y+Cdrxznb+Nk=";
   };
 
   # https://github.com/NixOS/nix/pull/7473
   patch-sqlite-exception = fetchpatch2 {
     name = "nix-7473-sqlite-exception-add-message.patch";
-    url =
-      "https://github.com/hercules-ci/nix/commit/c965f35de71cc9d88f912f6b90fd7213601e6eb8.patch";
+    url = "https://github.com/hercules-ci/nix/commit/c965f35de71cc9d88f912f6b90fd7213601e6eb8.patch";
     sha256 = "sha256-tI5nKU7SZgsJrxiskJ5nHZyfrWf5aZyKYExM0792N80=";
   };
 
   patch-non-existing-output = fetchpatch {
     # https://github.com/NixOS/nix/pull/7283
     name = "fix-requires-non-existing-output.patch";
-    url =
-      "https://github.com/NixOS/nix/commit/3ade5f5d6026b825a80bdcc221058c4f14e10a27.patch";
+    url = "https://github.com/NixOS/nix/commit/3ade5f5d6026b825a80bdcc221058c4f14e10a27.patch";
     sha256 = "sha256-s1ybRFCjQaSGj7LKu0Z5g7UiHqdJGeD+iPoQL0vaiS0=";
   };
 in
@@ -158,8 +155,7 @@ lib.makeExtensible (
       (common rec {
         version = "2.3.16";
         src = fetchurl {
-          url =
-            "https://nixos.org/releases/nix/nix-${version}/nix-${version}.tar.xz";
+          url = "https://nixos.org/releases/nix/nix-${version}/nix-${version}.tar.xz";
           sha256 = "sha256-fuaBtp8FtSVJLSAsO+3Nne4ZYLuBj2JpD2xEk7fCqrw=";
         };
         patches = [ patch-monitorfdhup ];

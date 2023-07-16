@@ -28,8 +28,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "azure.synapse.managedprivateendpoints" ];
 
   meta = with lib; {
-    description =
-      "Microsoft Azure Synapse Managed Private Endpoints Client Library for Python";
+    description = "Microsoft Azure Synapse Managed Private Endpoints Client Library for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer ];

@@ -67,8 +67,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    changelog =
-      "https://github.com/OpenPrinting/foomatic-db-nonfree/blob/${src.rev}/ChangeLog";
+    changelog = "https://github.com/OpenPrinting/foomatic-db-nonfree/blob/${src.rev}/ChangeLog";
     description = "OpenPrinting printer support database (unfree content)";
     downloadPage = "https://www.openprinting.org/download/foomatic/";
     homepage = "https://openprinting.github.io/projects/02-foomatic/";

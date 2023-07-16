@@ -152,8 +152,7 @@ let
                     extName = getExtName ext;
                     phpDeps =
                       (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ]);
-                    type =
-                      "${
+                    type = "${
                         lib.optionalString (ext.zendExtension or false) "zend_"
                       }extension";
                   in

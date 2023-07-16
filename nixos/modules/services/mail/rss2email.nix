@@ -143,8 +143,7 @@ in
         '';
         path = [ pkgs.system-sendmail ];
         serviceConfig = {
-          ExecStart =
-            "${pkgs.rss2email}/bin/r2e -c ${conf} -d /var/rss2email/db.json run";
+          ExecStart = "${pkgs.rss2email}/bin/r2e -c ${conf} -d /var/rss2email/db.json run";
           User = "rss2email";
         };
       }

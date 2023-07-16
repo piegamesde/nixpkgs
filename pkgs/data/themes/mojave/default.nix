@@ -88,8 +88,7 @@ lib.checkListOfEnum "${pname}: button size variants"
       ]
       ++ lib.optional wallpapers (
         fetchurl {
-          url =
-            "https://github.com/vinceliuice/Mojave-gtk-theme/raw/11741a99d96953daf9c27e44c94ae50a7247c0ed/macOS_Mojave_Wallpapers.tar.xz";
+          url = "https://github.com/vinceliuice/Mojave-gtk-theme/raw/11741a99d96953daf9c27e44c94ae50a7247c0ed/macOS_Mojave_Wallpapers.tar.xz";
           sha256 = "18zzkwm1kqzsdaj8swf0xby1n65gxnyslpw4lnxcx1rphip0rwf7";
         }
       )
@@ -181,8 +180,7 @@ lib.checkListOfEnum "${pname}: button size variants"
     passthru.updateScript = gitUpdater { };
 
     meta = with lib; {
-      description =
-        "Mac OSX Mojave like theme for GTK based desktop environments";
+      description = "Mac OSX Mojave like theme for GTK based desktop environments";
       homepage = "https://github.com/vinceliuice/Mojave-gtk-theme";
       license = licenses.gpl3Only;
       platforms = platforms.unix;

@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Cortex M SWO SWV Demux and Postprocess for the ORBTrace";
     homepage = "https://orbcode.org";
-    changelog =
-      "https://github.com/orbcode/orbuculum/blob/V${version}/CHANGES.md";
+    changelog = "https://github.com/orbcode/orbuculum/blob/V${version}/CHANGES.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ newam ];
     platforms = platforms.linux;

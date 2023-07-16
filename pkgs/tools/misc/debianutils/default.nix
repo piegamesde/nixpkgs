@@ -9,8 +9,7 @@ stdenv.mkDerivation rec {
   version = "5.7";
 
   src = fetchurl {
-    url =
-      "mirror://debian/pool/main/d/${pname}/${pname}_${version}.orig.tar.gz";
+    url = "mirror://debian/pool/main/d/${pname}/${pname}_${version}.orig.tar.gz";
     sha256 = "sha256-J+yeDn5E3Iq2EapXYzBHG6ywfkSR/+zw06ppCckvkCI=";
   };
 

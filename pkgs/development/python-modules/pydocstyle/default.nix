@@ -45,8 +45,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python docstring style checker";
     homepage = "https://github.com/PyCQA/pydocstyle";
-    changelog =
-      "https://github.com/PyCQA/pydocstyle/blob/${version}/docs/release_notes.rst";
+    changelog = "https://github.com/PyCQA/pydocstyle/blob/${version}/docs/release_notes.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ dzabraev ];
   };

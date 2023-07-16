@@ -59,8 +59,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/ralphbean/bugwarrior";
-    description =
-      "Sync github, bitbucket, bugzilla, and trac issues with taskwarrior";
+    description = "Sync github, bitbucket, bugzilla, and trac issues with taskwarrior";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
     maintainers = with maintainers; [

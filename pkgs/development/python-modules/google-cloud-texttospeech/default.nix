@@ -53,8 +53,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Google Cloud Text-to-Speech API client library";
     homepage = "https://github.com/googleapis/python-texttospeech";
-    changelog =
-      "https://github.com/googleapis/python-texttospeech/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/googleapis/python-texttospeech/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

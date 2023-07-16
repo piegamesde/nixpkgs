@@ -64,8 +64,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://www.openprinting.org/driver/epson-201401w";
-    description =
-      "Epson printer driver (L456, L455, L366, L365, L362, L360, L312, L310, L222, L220, L132, L130)";
+    description = "Epson printer driver (L456, L455, L366, L365, L362, L360, L312, L310, L222, L220, L132, L130)";
     longDescription = ''
       This software is a filter program used with the Common UNIX Printing
       System (CUPS) under Linux. It supplies high quality printing with

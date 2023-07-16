@@ -40,7 +40,6 @@ stdenvNoCC.mkDerivation rec {
     license = licenses.unlicense;
     maintainers = with maintainers; [ hleboulanger ];
     platforms = platforms.unix;
-    changelog =
-      "https://github.com/joehillen/sysz/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/joehillen/sysz/blob/${version}/CHANGELOG.md";
   };
 }

@@ -14,8 +14,7 @@ mkCoqDerivation {
   pname = "graph-theory";
 
   release."0.9".sha256 = "sha256-Hl3JS9YERD8QQziXqZ9DqLHKp63RKI9HxoFYWSkJQZI=";
-  release."0.9.1".sha256 =
-    "sha256-lRRY+501x+DqNeItBnbwYIqWLDksinWIY4x/iojRNYU=";
+  release."0.9.1".sha256 = "sha256-lRRY+501x+DqNeItBnbwYIqWLDksinWIY4x/iojRNYU=";
 
   releaseRev = v: "v${v}";
 

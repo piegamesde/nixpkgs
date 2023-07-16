@@ -27,8 +27,7 @@ let
   };
 
   _meta = with lib; {
-    description =
-      "A tiling window manager for macOS based on binary space partitioning";
+    description = "A tiling window manager for macOS based on binary space partitioning";
     longDescription = ''
       yabai is a window management utility that is designed to work as an extension to the built-in
       window manager of macOS. yabai allows you to control your windows, spaces and displays freely
@@ -36,8 +35,7 @@ let
       using skhd and other third-party software.
     '';
     homepage = "https://github.com/koekeishiya/yabai";
-    changelog =
-      "https://github.com/koekeishiya/yabai/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/koekeishiya/yabai/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     platforms = platforms.darwin;
     maintainers = with maintainers; [
@@ -54,8 +52,7 @@ in
     inherit pname version;
 
     src = fetchzip {
-      url =
-        "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
+      url = "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
       sha256 = "sha256-wL6N2+mfFISrOFn4zaCQI+oH6ixwUMRKRi1dAOigBro=";
     };
 

@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
     [
       # Fix compilation with OCaml 4.12
       (fetchpatch {
-        url =
-          "https://github.com/OCamlPro/ocp-build/commit/104e4656ca6dba9edb03b62539c9f1e10abcaae8.patch";
+        url = "https://github.com/OCamlPro/ocp-build/commit/104e4656ca6dba9edb03b62539c9f1e10abcaae8.patch";
         sha256 = "0sbyi4acig9q8x1ky4hckfg5pm2nad6zasi51ravaf1spgl148c2";
       })
     ];

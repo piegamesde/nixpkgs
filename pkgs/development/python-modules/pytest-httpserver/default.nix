@@ -45,8 +45,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "HTTP server for pytest to test HTTP clients";
     homepage = "https://www.github.com/csernazs/pytest-httpserver";
-    changelog =
-      "https://github.com/csernazs/pytest-httpserver/blob/${version}/CHANGES.rst";
+    changelog = "https://github.com/csernazs/pytest-httpserver/blob/${version}/CHANGES.rst";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

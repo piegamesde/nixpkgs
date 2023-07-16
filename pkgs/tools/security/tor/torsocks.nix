@@ -21,10 +21,8 @@ stdenv.mkDerivation rec {
 
   patches = lib.optional stdenv.isDarwin (
     fetchurl {
-      url =
-        "https://trac.torproject.org/projects/tor/raw-attachment/ticket/28538/0001-Fix-macros-for-accept4-2.patch";
-      sha256 =
-        "97881f0b59b3512acc4acb58a0d6dfc840d7633ead2f400fad70dda9b2ba30b0";
+      url = "https://trac.torproject.org/projects/tor/raw-attachment/ticket/28538/0001-Fix-macros-for-accept4-2.patch";
+      sha256 = "97881f0b59b3512acc4acb58a0d6dfc840d7633ead2f400fad70dda9b2ba30b0";
     }
   );
 

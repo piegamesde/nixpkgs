@@ -81,8 +81,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/gtk/${
+    url = "mirror://gnome/sources/gtk/${
         lib.versions.majorMinor version
       }/gtk-${version}.tar.xz";
     sha256 = "RUVEGteeN3624KcFAm3HpGiG5GobA020CRKQnagBzqk=";
@@ -266,8 +265,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "A multi-platform toolkit for creating graphical user interfaces";
+    description = "A multi-platform toolkit for creating graphical user interfaces";
     longDescription = ''
       GTK is a highly usable, feature rich toolkit for creating
       graphical user interfaces which boasts cross platform

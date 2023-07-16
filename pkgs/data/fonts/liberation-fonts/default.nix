@@ -43,8 +43,7 @@ let
       '';
 
       meta = with lib; {
-        description =
-          "Liberation Fonts, replacements for Times New Roman, Arial, and Courier New";
+        description = "Liberation Fonts, replacements for Times New Roman, Arial, and Courier New";
         longDescription = ''
           The Liberation Fonts are intended to be replacements for the three most
           commonly used fonts on Microsoft systems: Times New Roman, Arial, and

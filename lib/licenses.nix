@@ -245,36 +245,31 @@ lib.mapAttrs
 
       cc-by-nc-nd-30 = {
         spdxId = "CC-BY-NC-ND-3.0";
-        fullName =
-          "Creative Commons Attribution Non Commercial No Derivative Works 3.0 Unported";
+        fullName = "Creative Commons Attribution Non Commercial No Derivative Works 3.0 Unported";
         free = false;
       };
 
       cc-by-nc-sa-20 = {
         spdxId = "CC-BY-NC-SA-2.0";
-        fullName =
-          "Creative Commons Attribution Non Commercial Share Alike 2.0";
+        fullName = "Creative Commons Attribution Non Commercial Share Alike 2.0";
         free = false;
       };
 
       cc-by-nc-sa-25 = {
         spdxId = "CC-BY-NC-SA-2.5";
-        fullName =
-          "Creative Commons Attribution Non Commercial Share Alike 2.5";
+        fullName = "Creative Commons Attribution Non Commercial Share Alike 2.5";
         free = false;
       };
 
       cc-by-nc-sa-30 = {
         spdxId = "CC-BY-NC-SA-3.0";
-        fullName =
-          "Creative Commons Attribution Non Commercial Share Alike 3.0";
+        fullName = "Creative Commons Attribution Non Commercial Share Alike 3.0";
         free = false;
       };
 
       cc-by-nc-sa-40 = {
         spdxId = "CC-BY-NC-SA-4.0";
-        fullName =
-          "Creative Commons Attribution Non Commercial Share Alike 4.0";
+        fullName = "Creative Commons Attribution Non Commercial Share Alike 4.0";
         free = false;
       };
 
@@ -286,8 +281,7 @@ lib.mapAttrs
 
       cc-by-nc-40 = {
         spdxId = "CC-BY-NC-4.0";
-        fullName =
-          "Creative Commons Attribution Non Commercial 4.0 International";
+        fullName = "Creative Commons Attribution Non Commercial 4.0 International";
         free = false;
       };
 
@@ -397,8 +391,7 @@ lib.mapAttrs
 
       elastic = {
         fullName = "ELASTIC LICENSE";
-        url =
-          "https://github.com/elastic/elasticsearch/blob/master/licenses/ELASTIC-LICENSE.txt";
+        url = "https://github.com/elastic/elasticsearch/blob/master/licenses/ELASTIC-LICENSE.txt";
         free = false;
       };
 
@@ -413,10 +406,8 @@ lib.mapAttrs
       };
 
       epson = {
-        fullName =
-          "Seiko Epson Corporation Software License Agreement for Linux";
-        url =
-          "https://download.ebz.epson.net/dsc/du/02/eula/global/LINUX_EN.html";
+        fullName = "Seiko Epson Corporation Software License Agreement for Linux";
+        url = "https://download.ebz.epson.net/dsc/du/02/eula/global/LINUX_EN.html";
         free = false;
       };
 
@@ -486,8 +477,7 @@ lib.mapAttrs
 
       generaluser = {
         fullName = "GeneralUser GS License v2.0";
-        url =
-          "http://www.schristiancollins.com/generaluser.php"; # license included in sources
+        url = "http://www.schristiancollins.com/generaluser.php"; # license included in sources
       };
 
       gpl1Only = {
@@ -507,20 +497,16 @@ lib.mapAttrs
 
       gpl2Classpath = {
         spdxId = "GPL-2.0-with-classpath-exception";
-        fullName =
-          "GNU General Public License v2.0 only (with Classpath exception)";
+        fullName = "GNU General Public License v2.0 only (with Classpath exception)";
       };
 
       gpl2ClasspathPlus = {
-        fullName =
-          "GNU General Public License v2.0 or later (with Classpath exception)";
-        url =
-          "https://fedoraproject.org/wiki/Licensing/GPL_Classpath_Exception";
+        fullName = "GNU General Public License v2.0 or later (with Classpath exception)";
+        url = "https://fedoraproject.org/wiki/Licensing/GPL_Classpath_Exception";
       };
 
       gpl2Oss = {
-        fullName =
-          "GNU General Public License version 2 only (with OSI approved licenses linking exception)";
+        fullName = "GNU General Public License version 2 only (with OSI approved licenses linking exception)";
         url = "https://www.mysql.com/about/legal/licensing/foss-exception";
       };
 
@@ -540,10 +526,8 @@ lib.mapAttrs
       };
 
       gpl3ClasspathPlus = {
-        fullName =
-          "GNU General Public License v3.0 or later (with Classpath exception)";
-        url =
-          "https://fedoraproject.org/wiki/Licensing/GPL_Classpath_Exception";
+        fullName = "GNU General Public License v3.0 or later (with Classpath exception)";
+        url = "https://fedoraproject.org/wiki/Licensing/GPL_Classpath_Exception";
       };
 
       hpnd = {
@@ -578,8 +562,7 @@ lib.mapAttrs
       };
 
       inria-compcert = {
-        fullName =
-          "INRIA Non-Commercial License Agreement for the CompCert verified compiler";
+        fullName = "INRIA Non-Commercial License Agreement for the CompCert verified compiler";
         url = "https://compcert.org/doc/LICENSE.txt";
         free = false;
       };
@@ -614,8 +597,7 @@ lib.mapAttrs
 
       databricks-dbx = {
         fullName = "DataBricks eXtensions aka dbx License";
-        url =
-          "https://github.com/databrickslabs/dbx/blob/743b579a4ac44531f764c6e522dbe5a81a7dc0e4/LICENSE";
+        url = "https://github.com/databrickslabs/dbx/blob/743b579a4ac44531f764c6e522dbe5a81a7dc0e4/LICENSE";
         free = false;
         redistributable = false;
       };
@@ -628,8 +610,7 @@ lib.mapAttrs
 
       issl = {
         fullName = "Intel Simplified Software License";
-        url =
-          "https://software.intel.com/en-us/license/intel-simplified-software-license";
+        url = "https://software.intel.com/en-us/license/intel-simplified-software-license";
         free = false;
       };
 
@@ -699,8 +680,7 @@ lib.mapAttrs
       };
 
       llgpl21 = {
-        fullName =
-          "Lisp LGPL; GNU Lesser General Public License version 2.1 with Franz Inc. preamble for clarification of LGPL terms in context of Lisp";
+        fullName = "Lisp LGPL; GNU Lesser General Public License version 2.1 with Franz Inc. preamble for clarification of LGPL terms in context of Lisp";
         url = "https://opensource.franz.com/preamble.html";
       };
 
@@ -795,8 +775,7 @@ lib.mapAttrs
 
       ocamlpro_nc = {
         fullName = "OCamlPro Non Commercial license version 1";
-        url =
-          "https://alt-ergo.ocamlpro.com/http/alt-ergo-2.2.0/OCamlPro-Non-Commercial-License.pdf";
+        url = "https://alt-ergo.ocamlpro.com/http/alt-ergo-2.2.0/OCamlPro-Non-Commercial-License.pdf";
         free = false;
       };
 
@@ -947,8 +926,7 @@ lib.mapAttrs
       tsl = {
         shortName = "TSL";
         fullName = "Timescale License Agreegment";
-        url =
-          "https://github.com/timescale/timescaledb/blob/main/tsl/LICENSE-TIMESCALE";
+        url = "https://github.com/timescale/timescaledb/blob/main/tsl/LICENSE-TIMESCALE";
         unfree = true;
       };
 
@@ -1011,8 +989,7 @@ lib.mapAttrs
       };
 
       virtualbox-puel = {
-        fullName =
-          "Oracle VM VirtualBox Extension Pack Personal Use and Evaluation License (PUEL)";
+        fullName = "Oracle VM VirtualBox Extension Pack Personal Use and Evaluation License (PUEL)";
         url = "https://www.virtualbox.org/wiki/VirtualBox_PUEL";
         free = false;
       };
@@ -1039,8 +1016,7 @@ lib.mapAttrs
 
       wadalab = {
         fullName = "Wadalab Font License";
-        url =
-          "https://fedoraproject.org/wiki/Licensing:Wadalab?rd=Licensing/Wadalab";
+        url = "https://fedoraproject.org/wiki/Licensing:Wadalab?rd=Licensing/Wadalab";
       };
 
       wtfpl = {

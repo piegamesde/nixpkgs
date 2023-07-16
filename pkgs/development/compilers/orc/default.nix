@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
   version = "0.4.33";
 
   src = fetchurl {
-    url =
-      "https://gstreamer.freedesktop.org/src/orc/${pname}-${version}.tar.xz";
+    url = "https://gstreamer.freedesktop.org/src/orc/${pname}-${version}.tar.xz";
     sha256 = "sha256-hE5tfbgIb3k/V2GNPUto0p2ZsWA05xQw3zwhz9PDVCo=";
   };
 

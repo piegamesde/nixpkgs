@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
   version = "5.0.1";
 
   src = fetchzip {
-    url =
-      "https://github.com/w3c/epubcheck/releases/download/v${version}/epubcheck-${version}.zip";
+    url = "https://github.com/w3c/epubcheck/releases/download/v${version}/epubcheck-${version}.zip";
     sha256 = "sha256-X4/aIcGd/heNjpTurRHYcawcoZW/utTxYHcUtktsH8o=";
   };
 

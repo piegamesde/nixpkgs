@@ -342,8 +342,7 @@ in
         NotifyAccess = "main";
         BusName = "org.freedesktop.Avahi";
         Type = "dbus";
-        ExecStart =
-          "${pkgs.avahi}/sbin/avahi-daemon --syslog -f ${avahiDaemonConf}";
+        ExecStart = "${pkgs.avahi}/sbin/avahi-daemon --syslog -f ${avahiDaemonConf}";
         ConfigurationDirectory = "avahi/services";
       };
     };

@@ -30,8 +30,7 @@ crystal.buildCrystalPackage rec {
   passthru.tests.version = testers.testVersion { package = amqpcat; };
 
   meta = with lib; {
-    description =
-      "A CLI tool for publishing to and consuming from AMQP servers";
+    description = "A CLI tool for publishing to and consuming from AMQP servers";
     homepage = "https://github.com/cloudamqp/amqpcat";
     license = licenses.mit;
     maintainers = with maintainers; [ aaronjheng ];

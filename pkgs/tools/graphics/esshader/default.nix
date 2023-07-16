@@ -37,8 +37,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description =
-      "Offline ShaderToy-compatible GLSL shader viewer using OpenGL ES 2.0";
+    description = "Offline ShaderToy-compatible GLSL shader viewer using OpenGL ES 2.0";
     homepage = "https://github.com/cmcsun/esshader";
     license = licenses.mit;
     maintainers = with maintainers; [ astro ];

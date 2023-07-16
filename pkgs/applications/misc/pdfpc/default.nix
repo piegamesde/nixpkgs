@@ -63,8 +63,7 @@ stdenv.mkDerivation rec {
       # https://github.com/pdfpc/pdfpc/issues/686
       # https://github.com/pdfpc/pdfpc/pull/687
       (fetchpatch {
-        url =
-          "https://github.com/pdfpc/pdfpc/commit/d38edfac63bec54173b4b31eae5c7fb46cd8f714.diff";
+        url = "https://github.com/pdfpc/pdfpc/commit/d38edfac63bec54173b4b31eae5c7fb46cd8f714.diff";
         hash = "sha256-KC2oyzcwU2fUmxaed8qAsKcePwR5KcXgpVdstJg8KmU=";
       })
     ];
@@ -72,8 +71,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = lib.optional stdenv.isDarwin "-DMOVIES=OFF";
 
   meta = with lib; {
-    description =
-      "A presenter console with multi-monitor support for PDF files";
+    description = "A presenter console with multi-monitor support for PDF files";
     homepage = "https://pdfpc.github.io/";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ pSub ];

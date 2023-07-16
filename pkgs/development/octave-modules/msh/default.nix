@@ -45,8 +45,7 @@ buildOctavePackage rec {
     homepage = "https://octave.sourceforge.io/msh/index.html";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ KarlJoad ];
-    description =
-      "Create and manage triangular and tetrahedral meshes for Finite Element or Finite Volume PDE solvers";
+    description = "Create and manage triangular and tetrahedral meshes for Finite Element or Finite Volume PDE solvers";
     longDescription = ''
       Create and manage triangular and tetrahedral meshes for Finite Element or
       Finite Volume PDE solvers. Use a mesh data structure compatible with

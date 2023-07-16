@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
     [ ./honor-XKB_CONFIG_ROOT.patch ]
     ++ lib.optionals stdenv.isDarwin [
       (fetchpatch {
-        url =
-          "https://gitlab.freedesktop.org/archived-projects/libxklavier/-/commit/1387c21a788ec1ea203c8392ea1460fc29d83f70.patch";
+        url = "https://gitlab.freedesktop.org/archived-projects/libxklavier/-/commit/1387c21a788ec1ea203c8392ea1460fc29d83f70.patch";
         sha256 = "sha256-fyWu7sVfDv/ozjhLSLCVsv+iNFawWgJqHUsQHHSkQn4=";
       })
     ]
@@ -78,8 +77,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Library providing high-level API for X Keyboard Extension known as XKB";
+    description = "Library providing high-level API for X Keyboard Extension known as XKB";
     homepage = "http://freedesktop.org/wiki/Software/LibXklavier";
     license = licenses.lgpl2Plus;
     platforms = platforms.unix;

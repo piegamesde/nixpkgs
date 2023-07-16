@@ -59,8 +59,7 @@ python3.pkgs.buildPythonApplication rec {
       "man"
     ];
     mainProgram = "fabsys";
-    description =
-      "Flexible AFS Backup System for the OpenAFS distributed file system";
+    description = "Flexible AFS Backup System for the OpenAFS distributed file system";
     homepage = "https://github.com/openafs-contrib/fabs";
     license = with licenses; [ isc ];
     maintainers = with maintainers; [ spacefrogg ];

@@ -60,8 +60,7 @@ stdenv.mkDerivation {
       [Kodi]: https://kodi.tv/
       [VLC]: https://www.videolan.org/vlc/
     '';
-    homepage =
-      "https://github.com/javier-lopez/learn/blob/master/sh/tools/simple-dlna-browser";
+    homepage = "https://github.com/javier-lopez/learn/blob/master/sh/tools/simple-dlna-browser";
     license = lib.licenses.fair;
     maintainers = with lib.maintainers; [ loveisgrief ];
   };

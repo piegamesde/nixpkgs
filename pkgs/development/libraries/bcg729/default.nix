@@ -26,11 +26,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Opensource implementation of both encoder and decoder of the ITU G729 Annex A/B speech codec";
+    description = "Opensource implementation of both encoder and decoder of the ITU G729 Annex A/B speech codec";
     homepage = "https://linphone.org/technical-corner/bcg729";
-    changelog =
-      "https://gitlab.linphone.org/BC/public/bcg729/raw/${version}/NEWS";
+    changelog = "https://gitlab.linphone.org/BC/public/bcg729/raw/${version}/NEWS";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ c0bw3b ];
     platforms = platforms.all;

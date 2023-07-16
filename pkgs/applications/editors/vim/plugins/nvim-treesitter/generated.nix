@@ -447,8 +447,7 @@
       rev = "203f7bd3c1bbfbd98fc19add4b8fcb213c059205";
       hash = "sha256-SaZkyy2wKYoK0+pdHLVpQrdXjEeX/uR5XxgahcAdwz0=";
     };
-    meta.homepage =
-      "https://github.com/tree-sitter/tree-sitter-embedded-template";
+    meta.homepage = "https://github.com/tree-sitter/tree-sitter-embedded-template";
   };
   erlang = buildGrammar {
     language = "erlang";
@@ -591,8 +590,7 @@
       rev = "577a075d46ea109905c5cb6179809df88da61ce9";
       hash = "sha256-gBfLmNf7aaqMY3yMF7svFuqif43BAmmY1yYkvVcNUhI=";
     };
-    meta.homepage =
-      "https://github.com/ObserverOfTime/tree-sitter-gitattributes";
+    meta.homepage = "https://github.com/ObserverOfTime/tree-sitter-gitattributes";
   };
   gitcommit = buildGrammar {
     language = "gitcommit";
@@ -669,8 +667,7 @@
       rev = "b6ef0768711086a86b3297056f9ffb5cc1d77b4a";
       hash = "sha256-ws/8nL+HOoPb6Hcdh4pihjPoRw90R1fy7MB0V9Lb9ik=";
     };
-    meta.homepage =
-      "https://github.com/PrestonKnopp/tree-sitter-godot-resource";
+    meta.homepage = "https://github.com/PrestonKnopp/tree-sitter-godot-resource";
   };
   gomod = buildGrammar {
     language = "gomod";
@@ -1710,8 +1707,7 @@
       rev = "90c6d9f777d2b8c4ce497c48b5f270a44bcf3ea0";
       hash = "sha256-YF+JFLcRHrWIRky2aI5s294+G6jSyVUgt/1bnZkYGLw=";
     };
-    meta.homepage =
-      "https://github.com/madskjeldgaard/tree-sitter-supercollider";
+    meta.homepage = "https://github.com/madskjeldgaard/tree-sitter-supercollider";
   };
   surface = buildGrammar {
     language = "surface";

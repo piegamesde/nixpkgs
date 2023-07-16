@@ -55,8 +55,7 @@ with lib; {
         AmbientCapabilities = "CAP_SYS_NICE";
         StateDirectory = "clickhouse";
         LogsDirectory = "clickhouse";
-        ExecStart =
-          "${cfg.package}/bin/clickhouse-server --config-file=/etc/clickhouse-server/config.xml";
+        ExecStart = "${cfg.package}/bin/clickhouse-server --config-file=/etc/clickhouse-server/config.xml";
       };
     };
 

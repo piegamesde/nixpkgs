@@ -25,8 +25,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/lla/2018-03-28/lla-20180328-git.tgz";
+    url = "http://beta.quicklisp.org/archive/lla/2018-03-28/lla-20180328-git.tgz";
     sha256 = "0azljp93ap9lh2gfh1vvl99r18s6a03p880c3wvwpf9valb784hj";
   };
 

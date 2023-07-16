@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
   version = "3.12.0";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/gnome-icon-theme/${
+    url = "mirror://gnome/sources/gnome-icon-theme/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "0fjh9qmmgj34zlgxb09231ld7khys562qxbpsjlaplq2j85p57im";

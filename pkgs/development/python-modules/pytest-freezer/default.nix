@@ -34,11 +34,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pytest_freezer" ];
 
   meta = with lib; {
-    description =
-      "Pytest plugin providing a fixture interface for spulec/freezegun";
+    description = "Pytest plugin providing a fixture interface for spulec/freezegun";
     homepage = "https://github.com/pytest-dev/pytest-freezer";
-    changelog =
-      "https://github.com/pytest-dev/pytest-freezer/releases/tag/${version}";
+    changelog = "https://github.com/pytest-dev/pytest-freezer/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

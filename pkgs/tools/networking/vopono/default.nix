@@ -16,8 +16,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-Y2sw2avmxUY1lHaYt/UX/Nz2BaCFQQ8dmetsVK4eCYc=";
 
   meta = with lib; {
-    description =
-      "Run applications through VPN connections in network namespaces";
+    description = "Run applications through VPN connections in network namespaces";
     homepage = "https://github.com/jamesmcm/vopono";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

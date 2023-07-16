@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
   setupHook = ./setup-hook.sh;
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "81Ks9zZlZpk0JwY2/t5mtS2mgB/iD2OMQEirJnhXey0=";
@@ -46,8 +45,7 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url =
-        "https://gitlab.gnome.org/GNOME/grilo/-/commit/b0d75be00b06cb0163dabbedecf9122a55273349.patch";
+      url = "https://gitlab.gnome.org/GNOME/grilo/-/commit/b0d75be00b06cb0163dabbedecf9122a55273349.patch";
       sha256 = "sha256-Hwnc3TLN6n3w/MAFcprHv7nbTcwRfI0cmfDriNLnAvQ=";
     })
   ];
@@ -89,8 +87,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Projects/Grilo";
-    description =
-      "Framework that provides access to various sources of multimedia content, using a pluggable system";
+    description = "Framework that provides access to various sources of multimedia content, using a pluggable system";
     maintainers = teams.gnome.members;
     license = licenses.lgpl2Plus;
     platforms = platforms.unix;

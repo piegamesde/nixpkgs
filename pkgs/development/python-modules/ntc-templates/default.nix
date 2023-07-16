@@ -41,8 +41,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "TextFSM templates for parsing show commands of network devices";
+    description = "TextFSM templates for parsing show commands of network devices";
     homepage = "https://github.com/networktocode/ntc-templates";
     license = licenses.asl20;
     maintainers = with maintainers; [ hexa ];

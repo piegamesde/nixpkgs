@@ -15,8 +15,7 @@ bundlerApp {
   passthru.updateScript = bundlerUpdateScript "mailcatcher";
 
   meta = with lib; {
-    description =
-      "SMTP server and web interface to locally test outbound emails";
+    description = "SMTP server and web interface to locally test outbound emails";
     homepage = "https://mailcatcher.me/";
     license = licenses.mit;
     maintainers = with maintainers; [

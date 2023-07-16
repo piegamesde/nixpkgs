@@ -22,8 +22,7 @@ stdenv.mkDerivation {
   inherit version;
 
   src = fetchurl {
-    url =
-      "https://github.com/csete/gpredict/releases/download/v${version}/gpredict-${version}.tar.bz2";
+    url = "https://github.com/csete/gpredict/releases/download/v${version}/gpredict-${version}.tar.bz2";
     sha256 = "0hwf97kng1zy8rxyglw04x89p0bg07zq30hgghm20yxiw2xc8ng7";
   };
 
@@ -33,8 +32,7 @@ stdenv.mkDerivation {
       #   https://github.com/csete/gpredict/issues/195
       (fetchpatch {
         name = "fno-common.patch";
-        url =
-          "https://github.com/csete/gpredict/commit/c565bb3d48777bfe17114b5d01cd81150521f056.patch";
+        url = "https://github.com/csete/gpredict/commit/c565bb3d48777bfe17114b5d01cd81150521f056.patch";
         sha256 = "1jhy9hpqlachq32bkij60q3dxkgi1kkr80rm29jjxqpmambf406a";
       })
     ];

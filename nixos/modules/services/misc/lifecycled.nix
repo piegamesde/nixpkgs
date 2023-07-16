@@ -166,8 +166,7 @@ in
         };
         serviceConfig = {
           Type = "oneshot";
-          ExecStart =
-            "${pkgs.lifecycled}/bin/lifecycled-queue-cleaner -parallel ${
+          ExecStart = "${pkgs.lifecycled}/bin/lifecycled-queue-cleaner -parallel ${
               toString cfg.queueCleaner.parallel
             }";
         };

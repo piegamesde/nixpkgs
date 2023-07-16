@@ -39,24 +39,21 @@ in
       };
       vmDerivationName = mkOption {
         type = types.str;
-        default =
-          "nixos-ova-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
+        default = "nixos-ova-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
         description = lib.mdDoc ''
           The name of the derivation for the VirtualBox appliance.
         '';
       };
       vmName = mkOption {
         type = types.str;
-        default =
-          "${config.system.nixos.distroName} ${config.system.nixos.label} (${pkgs.stdenv.hostPlatform.system})";
+        default = "${config.system.nixos.distroName} ${config.system.nixos.label} (${pkgs.stdenv.hostPlatform.system})";
         description = lib.mdDoc ''
           The name of the VirtualBox appliance.
         '';
       };
       vmFileName = mkOption {
         type = types.str;
-        default =
-          "nixos-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.ova";
+        default = "nixos-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.ova";
         description = lib.mdDoc ''
           The file name of the VirtualBox appliance.
         '';

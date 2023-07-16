@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
   version = "4.17.0-1";
 
   src = fetchurl {
-    url =
-      "https://github.com/Mellanox/mstflint/releases/download/v${version}/mstflint-${version}.tar.gz";
+    url = "https://github.com/Mellanox/mstflint/releases/download/v${version}/mstflint-${version}.tar.gz";
     sha256 = "030vpiv44sxmjf0dng91ziq1cggwj33yp0l4xc6cdhnrv2prjs7y";
   };
 

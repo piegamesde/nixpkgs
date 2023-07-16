@@ -79,8 +79,7 @@ buildPythonPackage {
   meta = with lib; {
     description = "Utilities to facilitate the installation of Python packages";
     homepage = "https://github.com/pypa/setuptools";
-    changelog =
-      "https://setuptools.pypa.io/en/stable/history.html#v${
+    changelog = "https://setuptools.pypa.io/en/stable/history.html#v${
         replaceStrings [ "." ] [ "-" ] version
       }";
     license = with licenses; [ mit ];

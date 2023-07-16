@@ -33,8 +33,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/mull-project/FileCheck.py";
     license = licenses.asl20;
-    description =
-      "Python port of LLVM's FileCheck, flexible pattern matching file verifier";
+    description = "Python port of LLVM's FileCheck, flexible pattern matching file verifier";
     maintainers = with maintainers; [ yorickvp ];
   };
 }

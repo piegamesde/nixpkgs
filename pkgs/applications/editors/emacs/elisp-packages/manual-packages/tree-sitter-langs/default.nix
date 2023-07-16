@@ -39,8 +39,7 @@ let
         )
       )
   ;
-  siteDir =
-    "$out/share/emacs/site-lisp/elpa/${tree-sitter-langs.pname}-${tree-sitter-langs.version}";
+  siteDir = "$out/share/emacs/site-lisp/elpa/${tree-sitter-langs.pname}-${tree-sitter-langs.version}";
 in
 melpaStablePackages.tree-sitter-langs.overrideAttrs (
   old: {

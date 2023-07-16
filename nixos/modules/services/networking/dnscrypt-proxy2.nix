@@ -92,8 +92,7 @@ in
         AmbientCapabilities = "CAP_NET_BIND_SERVICE";
         CacheDirectory = "dnscrypt-proxy";
         DynamicUser = true;
-        ExecStart =
-          "${pkgs.dnscrypt-proxy2}/bin/dnscrypt-proxy -config ${cfg.configFile}";
+        ExecStart = "${pkgs.dnscrypt-proxy2}/bin/dnscrypt-proxy -config ${cfg.configFile}";
         LockPersonality = true;
         LogsDirectory = "dnscrypt-proxy";
         MemoryDenyWriteExecute = true;

@@ -17,8 +17,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/simple-tasks/2019-07-10/simple-tasks-20190710-git.tgz";
+    url = "http://beta.quicklisp.org/archive/simple-tasks/2019-07-10/simple-tasks-20190710-git.tgz";
     sha256 = "12y5phnbj9s2fsrz1ab6xj857zf1fv8kjk7jj2mdjs6k2d8gk8v3";
   };
 

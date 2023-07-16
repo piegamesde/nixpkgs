@@ -31,8 +31,7 @@ runCommandLocal "nuget-to-nix"
       ];
     };
 
-    meta.description =
-      "Convert a nuget packages directory to a lockfile for buildDotnetModule";
+    meta.description = "Convert a nuget packages directory to a lockfile for buildDotnetModule";
   }
   ''
     install -Dm755 $script $out/bin/nuget-to-nix

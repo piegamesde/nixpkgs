@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description =
-      "GNU Arch (aka. `tla'), a distributed revision control system";
+    description = "GNU Arch (aka. `tla'), a distributed revision control system";
     homepage = "https://www.gnu.org/software/gnu-arch/";
     license = "GPL";
   };

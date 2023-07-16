@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.xgreeters = linkFarm "lightdm-tiny-greeter-xgreeters" [ {
-    path =
-      "${lightdm-tiny-greeter}/share/xgreeters/lightdm-tiny-greeter.desktop";
+    path = "${lightdm-tiny-greeter}/share/xgreeters/lightdm-tiny-greeter.desktop";
     name = "lightdm-tiny-greeter.desktop";
   } ];
 

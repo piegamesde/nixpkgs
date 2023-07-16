@@ -77,8 +77,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Creole markup tools written in Python";
     homepage = "https://github.com/jedie/python-creole";
-    changelog =
-      "https://github.com/jedie/python-creole/releases/tag/v${version}";
+    changelog = "https://github.com/jedie/python-creole/releases/tag/v${version}";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ hexa ];
   };

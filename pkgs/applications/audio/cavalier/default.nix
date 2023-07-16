@@ -58,8 +58,7 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description =
-      "Audio visualizer based on CAVA with customizable LibAdwaita interface";
+    description = "Audio visualizer based on CAVA with customizable LibAdwaita interface";
     homepage = "https://github.com/fsobolev/cavalier";
     license = licenses.mit;
     platforms = platforms.linux;

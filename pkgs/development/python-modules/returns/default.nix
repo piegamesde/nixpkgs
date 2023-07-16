@@ -54,8 +54,7 @@ buildPythonPackage rec {
   pytestFlagsArray = [ "--ignore=typesafety" ];
 
   meta = with lib; {
-    description =
-      "Make your functions return something meaningful, typed, and safe!";
+    description = "Make your functions return something meaningful, typed, and safe!";
     homepage = "returns.rtfd.io";
     license = licenses.bsd2;
     maintainers = [ maintainers.jessemoore ];

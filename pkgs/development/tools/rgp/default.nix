@@ -27,8 +27,7 @@ stdenv.mkDerivation {
   version = "1.14.1";
 
   src = fetchurl {
-    url =
-      "https://gpuopen.com/download/radeon-developer-tool-suite/RadeonDeveloperToolSuite-${buildNum}.tgz";
+    url = "https://gpuopen.com/download/radeon-developer-tool-suite/RadeonDeveloperToolSuite-${buildNum}.tgz";
     hash = "sha256-1JxW6vXfOYDaCnHWEq8crjuu0QrUCwahm+ipOKVDQPA=";
   };
 
@@ -72,8 +71,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description =
-      "A tool from AMD that allows for deep inspection of GPU workloads";
+    description = "A tool from AMD that allows for deep inspection of GPU workloads";
     homepage = "https://gpuopen.com/rgp/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

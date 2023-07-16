@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
       # build: support evolution-data-server 3.46
       # https://github.com/elementary/calendar/pull/758
       (fetchpatch {
-        url =
-          "https://github.com/elementary/calendar/commit/62c20e5786accd68b96c423b04e32c043e726cac.patch";
+        url = "https://github.com/elementary/calendar/commit/62c20e5786accd68b96c423b04e32c043e726cac.patch";
         sha256 = "sha256-xatxoSwAIHiUA03vvBdM8HSW27vhPLvAxEuGK0gLiio=";
       })
     ];

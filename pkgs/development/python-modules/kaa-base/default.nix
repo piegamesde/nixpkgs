@@ -43,8 +43,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Generic application framework, providing the foundation for other modules";
+    description = "Generic application framework, providing the foundation for other modules";
     homepage = "https://github.com/freevo/kaa-base";
     license = licenses.lgpl21;
     maintainers = with maintainers; [ ];

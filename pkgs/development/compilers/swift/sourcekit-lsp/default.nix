@@ -77,8 +77,7 @@ stdenv.mkDerivation {
   disallowedRequisites = [ swift.swift ];
 
   meta = {
-    description =
-      "Language Server Protocol implementation for Swift and C-based languages";
+    description = "Language Server Protocol implementation for Swift and C-based languages";
     homepage = "https://github.com/apple/sourcekit-lsp";
     platforms = with lib.platforms; linux ++ darwin;
     license = lib.licenses.asl20;

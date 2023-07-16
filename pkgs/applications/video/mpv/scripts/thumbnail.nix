@@ -32,11 +32,9 @@ stdenvNoCC.mkDerivation rec {
   passthru.scriptName = "mpv_thumbnail_script_{client_osc,server}.lua";
 
   meta = with lib; {
-    description =
-      "A lua script to show preview thumbnails in mpv's OSC seekbar";
+    description = "A lua script to show preview thumbnails in mpv's OSC seekbar";
     homepage = "https://github.com/marzzzello/mpv_thumbnail_script";
-    changelog =
-      "https://github.com/marzzzello/mpv_thumbnail_script/releases/tag/${version}";
+    changelog = "https://github.com/marzzzello/mpv_thumbnail_script/releases/tag/${version}";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
     maintainers = with maintainers; [ figsoda ];

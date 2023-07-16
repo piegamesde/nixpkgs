@@ -193,8 +193,7 @@
           ename = "apropospriate-theme";
           version = "0.2.0";
           src = fetchurl {
-            url =
-              "https://elpa.nongnu.org/nongnu/apropospriate-theme-0.2.0.tar";
+            url = "https://elpa.nongnu.org/nongnu/apropospriate-theme-0.2.0.tar";
             sha256 = "1s4cvh24zj3wpdqc3lklvi1dkba3jf87nxrzq0s3l1rzhg21pfpj";
           };
           packageRequires = [ ];
@@ -249,14 +248,12 @@
           ename = "auto-dim-other-buffers";
           version = "2.1.1";
           src = fetchurl {
-            url =
-              "https://elpa.nongnu.org/nongnu/auto-dim-other-buffers-2.1.1.tar";
+            url = "https://elpa.nongnu.org/nongnu/auto-dim-other-buffers-2.1.1.tar";
             sha256 = "0a7xdp25bny5ykf7808jwmziad8myf8yp01p07f20bsrl4m0bzz6";
           };
           packageRequires = [ ];
           meta = {
-            homepage =
-              "https://elpa.gnu.org/packages/auto-dim-other-buffers.html";
+            homepage = "https://elpa.gnu.org/packages/auto-dim-other-buffers.html";
             license = lib.licenses.free;
           };
         }
@@ -657,14 +654,12 @@
           ename = "color-theme-tangotango";
           version = "0.0.6";
           src = fetchurl {
-            url =
-              "https://elpa.nongnu.org/nongnu/color-theme-tangotango-0.0.6.tar";
+            url = "https://elpa.nongnu.org/nongnu/color-theme-tangotango-0.0.6.tar";
             sha256 = "0lfr3xg9xvfjb12kcw80d35a1ayn4f5w1dkd2b0kx0wxkq0bykim";
           };
           packageRequires = [ color-theme ];
           meta = {
-            homepage =
-              "https://elpa.gnu.org/packages/color-theme-tangotango.html";
+            homepage = "https://elpa.gnu.org/packages/color-theme-tangotango.html";
             license = lib.licenses.free;
           };
         }
@@ -1457,8 +1452,7 @@
           ename = "evil-nerd-commenter";
           version = "3.6.0";
           src = fetchurl {
-            url =
-              "https://elpa.nongnu.org/nongnu/evil-nerd-commenter-3.6.0.tar";
+            url = "https://elpa.nongnu.org/nongnu/evil-nerd-commenter-3.6.0.tar";
             sha256 = "0709qlxhvmapdnl8bhqvg39cm6x4659mg0jzz5b9hmis5bpj1kiq";
           };
           packageRequires = [ emacs ];
@@ -2557,14 +2551,12 @@
           ename = "highlight-parentheses";
           version = "2.1.1";
           src = fetchurl {
-            url =
-              "https://elpa.nongnu.org/nongnu/highlight-parentheses-2.1.1.tar";
+            url = "https://elpa.nongnu.org/nongnu/highlight-parentheses-2.1.1.tar";
             sha256 = "1r0sk4da3apgbik8d84vknwna45k1ks3n0s1fspj5c88b4r7xnsx";
           };
           packageRequires = [ emacs ];
           meta = {
-            homepage =
-              "https://elpa.gnu.org/packages/highlight-parentheses.html";
+            homepage = "https://elpa.gnu.org/packages/highlight-parentheses.html";
             license = lib.licenses.free;
           };
         }
@@ -2662,8 +2654,7 @@
           ename = "idle-highlight-mode";
           version = "1.1.4";
           src = fetchurl {
-            url =
-              "https://elpa.nongnu.org/nongnu/idle-highlight-mode-1.1.4.tar";
+            url = "https://elpa.nongnu.org/nongnu/idle-highlight-mode-1.1.4.tar";
             sha256 = "1j7y03b90gf3pl0xbfirm973k31l7nx90is69m3jrfai2f9qnflr";
           };
           packageRequires = [ emacs ];
@@ -4137,8 +4128,7 @@
           ename = "racket-mode";
           version = "1.0.20230321.113335";
           src = fetchurl {
-            url =
-              "https://elpa.nongnu.org/nongnu/racket-mode-1.0.20230321.113335.tar";
+            url = "https://elpa.nongnu.org/nongnu/racket-mode-1.0.20230321.113335.tar";
             sha256 = "0vr030zkgdjwn6kcrdiwsdwbk1x3sk60w60cfs60y7jmwaggqr65";
           };
           packageRequires = [ emacs ];
@@ -5467,8 +5457,7 @@
           };
           packageRequires = [ emacs ];
           meta = {
-            homepage =
-              "https://elpa.gnu.org/packages/with-simulated-input.html";
+            homepage = "https://elpa.gnu.org/packages/with-simulated-input.html";
             license = lib.licenses.free;
           };
         }
@@ -5571,8 +5560,7 @@
           ename = "xah-fly-keys";
           version = "23.10.20230407101020";
           src = fetchurl {
-            url =
-              "https://elpa.nongnu.org/nongnu/xah-fly-keys-23.10.20230407101020.tar";
+            url = "https://elpa.nongnu.org/nongnu/xah-fly-keys-23.10.20230407101020.tar";
             sha256 = "1gdzl5s80hhfnskngjsw1wy18rs6k5hr5cvnj7pdli9ai10alx9y";
           };
           packageRequires = [ emacs ];

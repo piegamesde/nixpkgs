@@ -66,8 +66,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Quick text processing";
-    longDescription =
-      "A small tool for quick text transformations such as checksums, encoding, decoding and so on.";
+    longDescription = "A small tool for quick text transformations such as checksums, encoding, decoding and so on.";
     homepage = "https://github.com/liferooter/textpieces";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

@@ -42,8 +42,7 @@ buildPythonPackage rec {
     ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/netbox-community/pynetbox/releases/tag/v${version}";
+    changelog = "https://github.com/netbox-community/pynetbox/releases/tag/v${version}";
     description = "API client library for Netbox";
     homepage = "https://github.com/netbox-community/pynetbox";
     license = licenses.asl20;

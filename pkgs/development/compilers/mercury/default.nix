@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   version = "22.01.5";
 
   src = fetchurl {
-    url =
-      "https://dl.mercurylang.org/release/mercury-srcdist-${version}.tar.gz";
+    url = "https://dl.mercurylang.org/release/mercury-srcdist-${version}.tar.gz";
     sha256 = "sha256-fhstGxMMCvxlVCvjwuSDmc8sJdegStPEJ+AicVsJig8=";
   };
 

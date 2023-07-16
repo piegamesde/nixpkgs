@@ -37,8 +37,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pydyf" ];
 
   meta = with lib; {
-    description =
-      "Low-level PDF generator written in Python and based on PDF specification 1.7";
+    description = "Low-level PDF generator written in Python and based on PDF specification 1.7";
     homepage = "https://doc.courtbouillon.org/pydyf/stable/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ rprecenth ];

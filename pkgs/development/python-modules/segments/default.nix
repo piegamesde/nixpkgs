@@ -40,8 +40,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Unicode Standard tokenization routines and orthography profile segmentation";
+    description = "Unicode Standard tokenization routines and orthography profile segmentation";
     homepage = "https://github.com/cldf/segments";
     license = licenses.asl20;
     maintainers = with maintainers; [ ];

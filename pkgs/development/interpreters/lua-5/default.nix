@@ -125,8 +125,7 @@ rec {
       ++ [
         (fetchpatch {
           name = "CVE-2022-28805.patch";
-          url =
-            "https://github.com/lua/lua/commit/1f3c6f4534c6411313361697d98d1145a1f030fa.patch";
+          url = "https://github.com/lua/lua/commit/1f3c6f4534c6411313361697d98d1145a1f030fa.patch";
           sha256 = "sha256-YTwoolSnRNJIHFPVijSO6ZDw35BG5oWYralZ8qOb9y8=";
           stripLen = 1;
           extraPrefix = "src/";
@@ -134,8 +133,7 @@ rec {
         })
         (fetchpatch {
           name = "CVE-2022-33099.patch";
-          url =
-            "https://github.com/lua/lua/commit/42d40581dd919fb134c07027ca1ce0844c670daf.patch";
+          url = "https://github.com/lua/lua/commit/42d40581dd919fb134c07027ca1ce0844c670daf.patch";
           sha256 = "sha256-qj1Dq1ojVoknALSa67jhgH3G3Kk4GtJP6ROFElVF+D0=";
           stripLen = 1;
           extraPrefix = "src/";

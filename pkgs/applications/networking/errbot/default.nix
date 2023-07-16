@@ -63,8 +63,7 @@ python3.pkgs.buildPythonApplication rec {
   pythonImportsCheck = [ "errbot" ];
 
   meta = with lib; {
-    description =
-      "Chatbot designed to be simple to extend with plugins written in Python";
+    description = "Chatbot designed to be simple to extend with plugins written in Python";
     homepage = "http://errbot.io/";
     maintainers = with maintainers; [ globin ];
     license = licenses.gpl3Plus;

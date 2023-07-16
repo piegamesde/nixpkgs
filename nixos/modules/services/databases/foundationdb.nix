@@ -474,8 +474,7 @@ in
         fi
       '';
 
-      script =
-        "exec fdbmonitor --lockfile ${cfg.pidfile} --conffile ${configFile}";
+      script = "exec fdbmonitor --lockfile ${cfg.pidfile} --conffile ${configFile}";
 
       postStart = ''
         if [ -e "${cfg.dataDir}/.first_startup" ]; then

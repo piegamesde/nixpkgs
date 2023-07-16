@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
   version = "1.4.2";
 
   src = fetchurl {
-    url =
-      "https://launchpad.net/subunit/trunk/${version}/+download/${pname}-${version}.tar.gz";
+    url = "https://launchpad.net/subunit/trunk/${version}/+download/${pname}-${version}.tar.gz";
     hash = "sha256-hlOOv6kIC97w7ICVsuXeWrsUbVu3tCSzEVKUHXYG2dI=";
   };
 

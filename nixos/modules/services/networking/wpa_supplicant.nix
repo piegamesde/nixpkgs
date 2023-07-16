@@ -567,9 +567,8 @@ in
               auth
             ] <= 1
           ;
-          message =
-            ''
-              options networking.wireless."${name}".{psk,pskRaw,auth} are mutually exclusive'';
+          message = ''
+            options networking.wireless."${name}".{psk,pskRaw,auth} are mutually exclusive'';
         }
       )
       ++ [ {

@@ -75,8 +75,7 @@ stdenv.mkDerivation {
   inherit version;
 
   src = fetchurl {
-    url =
-      "https://download.virtualbox.org/virtualbox/${version}/VirtualBox-${version}.tar.bz2";
+    url = "https://download.virtualbox.org/virtualbox/${version}/VirtualBox-${version}.tar.bz2";
     sha256 = "f146d9a86a35af0abb010e628636fd800cb476cc2ce82f95b0c0ca876e1756ff";
   };
 
@@ -197,8 +196,7 @@ stdenv.mkDerivation {
     ++ optional (!headless && enableHardening) (
       substituteAll {
         src = ./qt-env-vars.patch;
-        qtPluginPath =
-          "${qtbase.bin}/${qtbase.qtPluginPrefix}:${qtsvg.bin}/${qtbase.qtPluginPrefix}:${qtwayland.bin}/${qtbase.qtPluginPrefix}";
+        qtPluginPath = "${qtbase.bin}/${qtbase.qtPluginPrefix}:${qtsvg.bin}/${qtbase.qtPluginPrefix}:${qtwayland.bin}/${qtbase.qtPluginPrefix}";
       }
     )
     ++ [

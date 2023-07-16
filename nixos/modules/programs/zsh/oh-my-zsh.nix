@@ -197,8 +197,7 @@ in
 
     assertions = [ {
       assertion = cfg.custom != null -> cfg.customPkgs == [ ];
-      message =
-        "If `cfg.custom` is set for `ZSH_CUSTOM`, `customPkgs` can't be used!";
+      message = "If `cfg.custom` is set for `ZSH_CUSTOM`, `customPkgs` can't be used!";
     } ];
   };
 

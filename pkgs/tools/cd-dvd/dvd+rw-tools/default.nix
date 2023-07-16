@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
   version = "7.1";
 
   src = fetchurl {
-    url =
-      "http://fy.chalmers.se/~appro/linux/DVD+RW/tools/${pname}-${version}.tar.gz";
+    url = "http://fy.chalmers.se/~appro/linux/DVD+RW/tools/${pname}-${version}.tar.gz";
     sha256 = "1jkjvvnjcyxpql97xjjx0kwvy70kxpiznr2zpjy2hhci5s10zmpq";
   };
 
@@ -32,8 +31,7 @@ stdenv.mkDerivation rec {
             sha256,
           }:
           fetchpatch {
-            url =
-              "https://gitweb.gentoo.org/repo/gentoo.git/plain/app-cdr/dvd+rw-tools/files/${pfile}?id=b510df361241e8f16314b1f14642305f0111dac6";
+            url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/app-cdr/dvd+rw-tools/files/${pfile}?id=b510df361241e8f16314b1f14642305f0111dac6";
             inherit sha256;
           }
         )

@@ -217,8 +217,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://www.wireshark.org/";
-    changelog =
-      "https://www.wireshark.org/docs/relnotes/wireshark-${version}.html";
+    changelog = "https://www.wireshark.org/docs/relnotes/wireshark-${version}.html";
     description = "Powerful network protocol analyzer";
     license = licenses.gpl2Plus;
 

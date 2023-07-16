@@ -67,8 +67,7 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description =
-      "Simple note taking with mobile-first design and Nextcloud sync";
+    description = "Simple note taking with mobile-first design and Nextcloud sync";
     homepage = "https://gitlab.gnome.org/cheywood/iotas";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

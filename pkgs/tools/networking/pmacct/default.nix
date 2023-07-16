@@ -81,8 +81,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "A small set of multi-purpose passive network monitoring tools";
+    description = "A small set of multi-purpose passive network monitoring tools";
     longDescription = ''
       pmacct is a small set of multi-purpose passive network monitoring tools
       [NetFlow IPFIX sFlow libpcap BGP BMP RPKI IGP Streaming Telemetry]

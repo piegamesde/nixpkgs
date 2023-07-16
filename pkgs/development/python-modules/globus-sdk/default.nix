@@ -54,11 +54,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "globus_sdk" ];
 
   meta = with lib; {
-    description =
-      "Interface to Globus REST APIs, including the Transfer API and the Globus Auth API";
+    description = "Interface to Globus REST APIs, including the Transfer API and the Globus Auth API";
     homepage = "https://github.com/globus/globus-sdk-python";
-    changelog =
-      "https://github.com/globus/globus-sdk-python/releases/tag/${version}";
+    changelog = "https://github.com/globus/globus-sdk-python/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ ixxie ];
   };

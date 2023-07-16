@@ -49,8 +49,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module for interacting with CEMM devices";
     homepage = "https://github.com/klaasnicolaas/python-cemm";
-    changelog =
-      "https://github.com/klaasnicolaas/python-cemm/releases/tag/v${version}";
+    changelog = "https://github.com/klaasnicolaas/python-cemm/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

@@ -28,8 +28,7 @@ mkYarnPackage rec {
     sha256 = data.yarnHash;
   };
   packageResolutions = {
-    "@matrix-org/matrix-sdk-crypto-nodejs" =
-      "${matrix-sdk-crypto-nodejs}/lib/node_modules/@matrix-org/matrix-sdk-crypto-nodejs";
+    "@matrix-org/matrix-sdk-crypto-nodejs" = "${matrix-sdk-crypto-nodejs}/lib/node_modules/@matrix-org/matrix-sdk-crypto-nodejs";
   };
 
   nativeBuildInputs = [ makeWrapper ];

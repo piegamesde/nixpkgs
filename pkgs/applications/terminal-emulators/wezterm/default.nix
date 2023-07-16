@@ -53,8 +53,7 @@ rustPlatform.buildRustPackage rec {
     lockFile = ./Cargo.lock;
     outputHashes = {
       "image-0.24.5" = "sha256-fTajVwm88OInqCPZerWcSAm1ga46ansQ3EzAmbT58Js=";
-      "xcb-imdkit-0.2.0" =
-        "sha256-QOT9HLlA26DVPUF4ViKH2ckexUsu45KZMdJwoUhW+hA=";
+      "xcb-imdkit-0.2.0" = "sha256-QOT9HLlA26DVPUF4ViKH2ckexUsu45KZMdJwoUhW+hA=";
     };
   };
 
@@ -144,8 +143,7 @@ rustPlatform.buildRustPackage rec {
   };
 
   meta = with lib; {
-    description =
-      "GPU-accelerated cross-platform terminal emulator and multiplexer written by @wez and implemented in Rust";
+    description = "GPU-accelerated cross-platform terminal emulator and multiplexer written by @wez and implemented in Rust";
     homepage = "https://wezfurlong.org/wezterm";
     license = licenses.mit;
     maintainers = with maintainers; [

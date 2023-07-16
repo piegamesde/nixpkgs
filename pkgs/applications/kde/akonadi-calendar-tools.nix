@@ -11,8 +11,7 @@ mkDerivation {
   pname = "akonadi-calendar-tools";
   meta = {
     homepage = "https://github.com/KDE/akonadi-calendar-tools";
-    description =
-      "Console applications and utilities for managing calendars in Akonadi";
+    description = "Console applications and utilities for managing calendars in Akonadi";
     license = with lib.licenses; [
       gpl2Plus
       cc0

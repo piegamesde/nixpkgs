@@ -23,8 +23,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/jared-hughes/isosurfaces";
-    description =
-      "Construct isolines/isosurfaces of a 2D/3D scalar field defined by a function";
+    description = "Construct isolines/isosurfaces of a 2D/3D scalar field defined by a function";
     longDescription = ''
       Construct isolines/isosurfaces of a 2D/3D scalar field defined by a
       function, i.e. curves over which f(x,y)=0 or surfaces over which

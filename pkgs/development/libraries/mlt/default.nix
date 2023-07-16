@@ -116,8 +116,7 @@ stdenv.mkDerivation rec {
   passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 
   meta = with lib; {
-    description =
-      "Open source multimedia framework, designed for television broadcasting";
+    description = "Open source multimedia framework, designed for television broadcasting";
     homepage = "https://www.mltframework.org";
     license = with licenses; [
       gpl3Only

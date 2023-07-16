@@ -18,8 +18,7 @@ let
       modules.default.metrics =
         (map
           (path: {
-            name =
-              "rspamd_${
+            name = "rspamd_${
                 replaceStrings
                   [
                     "["

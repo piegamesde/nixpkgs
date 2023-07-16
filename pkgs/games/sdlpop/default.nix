@@ -82,8 +82,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Open-source port of Prince of Persia";
     homepage = "https://github.com/NagyD/SDLPoP";
-    changelog =
-      "https://github.com/NagyD/SDLPoP/blob/v${version}/doc/ChangeLog.txt";
+    changelog = "https://github.com/NagyD/SDLPoP/blob/v${version}/doc/ChangeLog.txt";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ iblech ];
     platforms = platforms.unix;

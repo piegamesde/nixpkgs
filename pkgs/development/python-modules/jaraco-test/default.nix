@@ -46,8 +46,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Testing support by jaraco";
     homepage = "https://github.com/jaraco/jaraco.test";
-    changelog =
-      "https://github.com/jaraco/jaraco.test/blob/v${version}/CHANGES.rst";
+    changelog = "https://github.com/jaraco/jaraco.test/blob/v${version}/CHANGES.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

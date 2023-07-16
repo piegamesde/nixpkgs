@@ -45,8 +45,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module for Jewish/Hebrew date and Zmanim";
     homepage = "https://github.com/py-libhdate/py-libhdate";
-    changelog =
-      "https://github.com/py-libhdate/py-libhdate/releases/tag/v${version}";
+    changelog = "https://github.com/py-libhdate/py-libhdate/releases/tag/v${version}";
     license = with licenses; [ gpl3Plus ];
     maintainers = with maintainers; [ fab ];
   };

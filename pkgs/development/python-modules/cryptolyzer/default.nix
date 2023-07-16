@@ -41,8 +41,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Cryptographic protocol analyzer";
     homepage = "https://gitlab.com/coroner/cryptolyzer";
-    changelog =
-      "https://gitlab.com/coroner/cryptolyzer/-/blob/v${version}/CHANGELOG.md";
+    changelog = "https://gitlab.com/coroner/cryptolyzer/-/blob/v${version}/CHANGELOG.md";
     license = licenses.mpl20;
     maintainers = with maintainers; [ kranzes ];
   };

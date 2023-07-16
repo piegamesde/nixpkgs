@@ -132,8 +132,7 @@ in
 
       serviceConfig = {
         Restart = "on-abort";
-        ExecStart =
-          "${pkgs.aria2}/bin/aria2c --enable-rpc --conf-path=${settingsDir}/aria2.conf ${config.services.aria2.extraArguments} --save-session=${sessionFile}";
+        ExecStart = "${pkgs.aria2}/bin/aria2c --enable-rpc --conf-path=${settingsDir}/aria2.conf ${config.services.aria2.extraArguments} --save-session=${sessionFile}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         User = "aria2";
         Group = "aria2";

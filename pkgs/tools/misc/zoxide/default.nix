@@ -42,8 +42,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A fast cd command that learns your habits";
     homepage = "https://github.com/ajeetdsouza/zoxide";
-    changelog =
-      "https://github.com/ajeetdsouza/zoxide/raw/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/ajeetdsouza/zoxide/raw/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [
       ysndr

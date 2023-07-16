@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
       written on Qt/C++
     '';
     homepage = "https://quiterss.org";
-    changelog =
-      "https://github.com/QuiteRSS/quiterss/blob/${version}/CHANGELOG";
+    changelog = "https://github.com/QuiteRSS/quiterss/blob/${version}/CHANGELOG";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ primeos ];

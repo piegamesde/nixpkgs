@@ -36,8 +36,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module for accessing SkyQ boxes";
     homepage = "https://github.com/RogerSelwyn/skyq_remote";
-    changelog =
-      "https://github.com/RogerSelwyn/skyq_remote/releases/tag/${version}";
+    changelog = "https://github.com/RogerSelwyn/skyq_remote/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

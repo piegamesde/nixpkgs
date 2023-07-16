@@ -25,8 +25,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "This project provides a client library in Python that makes it easy to consume Microsoft Azure Storage services";
+    description = "This project provides a client library in Python that makes it easy to consume Microsoft Azure Storage services";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [ maxwilson ];

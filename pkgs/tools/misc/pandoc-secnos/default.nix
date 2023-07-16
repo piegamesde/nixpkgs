@@ -28,8 +28,7 @@ buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Standalone pandoc filter from the pandoc-xnos suite for numbering sections and section references";
+    description = "Standalone pandoc filter from the pandoc-xnos suite for numbering sections and section references";
     homepage = "https://github.com/tomduck/pandoc-secnos";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ ppenguin ];

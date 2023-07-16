@@ -54,8 +54,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/dm-vdo/vdo";
-    description =
-      "A set of userspace tools for managing pools of deduplicated and/or compressed block storage";
+    description = "A set of userspace tools for managing pools of deduplicated and/or compressed block storage";
     platforms = platforms.linux;
     license = with licenses; [ gpl2Plus ];
     maintainers = with maintainers; [ ajs124 ];

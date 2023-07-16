@@ -31,8 +31,7 @@ buildPythonPackage rec {
   patches = [
     (substituteAll {
       src = ./backend-paths.patch;
-      libespeak =
-        "${
+      libespeak = "${
           lib.getLib espeak-ng
         }/lib/libespeak-ng${stdenv.hostPlatform.extensions.sharedLibrary}";
       # FIXME package festival
@@ -53,8 +52,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/bootphon/phonemizer";
-    changelog =
-      "https://github.com/bootphon/phonemizer/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/bootphon/phonemizer/blob/v${version}/CHANGELOG.md";
     description = "Simple text to phones converter for multiple languages";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ ];

@@ -138,8 +138,7 @@ in
     libname = "hxjava";
     version = "3.2.0";
     sha256 = "1vgd7qvsdxlscl3wmrrfi5ipldmr4xlsiwnj46jz7n6izff5261z";
-    meta.description =
-      "Support library for the Java backend of the Haxe compiler";
+    meta.description = "Support library for the Java backend of the Haxe compiler";
     propagatedBuildInputs = [ jdk ];
   };
 
@@ -147,8 +146,7 @@ in
     libname = "hxcs";
     version = "3.4.0";
     sha256 = "0f5vgp2kqnpsbbkn2wdxmjf7xkl0qhk9lgl9kb8d5wdy89nac6q6";
-    meta.description =
-      "Support library for the C# backend of the Haxe compiler";
+    meta.description = "Support library for the C# backend of the Haxe compiler";
     propagatedBuildInputs = [ mono ];
   };
 

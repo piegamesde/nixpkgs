@@ -38,8 +38,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "GRPC Python status proto mapping";
-    homepage =
-      "https://github.com/grpc/grpc/tree/master/src/python/grpcio_status";
+    homepage = "https://github.com/grpc/grpc/tree/master/src/python/grpcio_status";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

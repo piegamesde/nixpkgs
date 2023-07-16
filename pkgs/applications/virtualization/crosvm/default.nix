@@ -55,8 +55,7 @@ rustPlatform.buildRustPackage rec {
   # crosvm mistakenly expects the stable protocols to be in the root
   # of the pkgdatadir path, rather than under the "stable"
   # subdirectory.
-  PKG_CONFIG_WAYLAND_PROTOCOLS_PKGDATADIR =
-    "${wayland-protocols}/share/wayland-protocols/stable";
+  PKG_CONFIG_WAYLAND_PROTOCOLS_PKGDATADIR = "${wayland-protocols}/share/wayland-protocols/stable";
 
   buildFeatures = [
     "default"

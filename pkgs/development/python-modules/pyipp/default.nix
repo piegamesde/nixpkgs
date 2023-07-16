@@ -53,8 +53,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pyipp" ];
 
   meta = with lib; {
-    description =
-      "Asynchronous Python client for Internet Printing Protocol (IPP)";
+    description = "Asynchronous Python client for Internet Printing Protocol (IPP)";
     homepage = "https://github.com/ctalkington/python-ipp";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];

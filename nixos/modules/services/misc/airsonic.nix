@@ -174,8 +174,9 @@ in
       enable = true;
       recommendedProxySettings = true;
       virtualHosts.${cfg.virtualHost} = {
-        locations.${cfg.contextPath}.proxyPass =
-          "http://${cfg.listenAddress}:${toString cfg.port}";
+        locations.${cfg.contextPath}.proxyPass = "http://${cfg.listenAddress}:${
+            toString cfg.port
+          }";
       };
     };
 

@@ -27,8 +27,7 @@
 let
   desktop = fetchurl {
     # de45048 is the last commit when the debian/groestlcoin-qt.desktop file was changed
-    url =
-      "https://raw.githubusercontent.com/Groestlcoin/packaging/de4504844e47cf2c7604789650a5db4f3f7a48aa/debian/groestlcoin-qt.desktop";
+    url = "https://raw.githubusercontent.com/Groestlcoin/packaging/de4504844e47cf2c7604789650a5db4f3f7a48aa/debian/groestlcoin-qt.desktop";
     sha256 = "0mxwq4jvcip44a796iwz7n1ljkhl3a4p47z7qlsxcfxw3zmm0k0k";
   };
 in
@@ -113,8 +112,7 @@ stdenv.mkDerivation rec {
       with each other, with the help of a P2P network to check for double-spending.
     '';
     homepage = "https://groestlcoin.org/";
-    downloadPage =
-      "https://github.com/Groestlcoin/groestlcoin/releases/tag/v{version}/";
+    downloadPage = "https://github.com/Groestlcoin/groestlcoin/releases/tag/v{version}/";
     maintainers = with maintainers; [ gruve-p ];
     license = licenses.mit;
     platforms = platforms.unix;

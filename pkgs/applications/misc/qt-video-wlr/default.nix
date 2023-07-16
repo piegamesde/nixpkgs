@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Qt pip-mode-like video player for wlroots-based wayland compositors";
+    description = "Qt pip-mode-like video player for wlroots-based wayland compositors";
     homepage = "https://github.com/xdavidwu/qt-video-wlr";
     license = licenses.mit;
     maintainers = with maintainers; [ fionera ];

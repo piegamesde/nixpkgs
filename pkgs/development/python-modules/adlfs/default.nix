@@ -40,8 +40,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "adlfs" ];
 
   meta = with lib; {
-    description =
-      "Filesystem interface to Azure-Datalake Gen1 and Gen2 Storage";
+    description = "Filesystem interface to Azure-Datalake Gen1 and Gen2 Storage";
     homepage = "https://github.com/fsspec/adlfs";
     changelog = "https://github.com/fsspec/adlfs/blob/${version}/CHANGELOG.md";
     license = licenses.bsd3;

@@ -46,8 +46,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "High performance graph data structures and algorithms";
     homepage = "https://igraph.org/python/";
-    changelog =
-      "https://github.com/igraph/python-igraph/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/igraph/python-igraph/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [
       MostAwesomeDude

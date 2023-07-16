@@ -9,8 +9,7 @@ stdenv.mkDerivation rec {
   version = "20200115";
 
   src = fetchurl {
-    url =
-      "http://static.jonof.id.au/dl/kenutils/kzipmix-${version}-linux.tar.gz";
+    url = "http://static.jonof.id.au/dl/kenutils/kzipmix-${version}-linux.tar.gz";
     sha256 = "sha256-ePgye0D6/ED53zx6xffLnYhkjed7SPU4BLOZQr9E3yA=";
   };
 
@@ -23,8 +22,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A tool that aggressively optimizes the sizes of Zip archives";
+    description = "A tool that aggressively optimizes the sizes of Zip archives";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     homepage = "http://advsys.net/ken/utils.htm";

@@ -41,8 +41,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python interface for c-ares";
     homepage = "https://github.com/saghul/pycares";
-    changelog =
-      "https://github.com/saghul/pycares/releases/tag/pycares-${version}";
+    changelog = "https://github.com/saghul/pycares/releases/tag/pycares-${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

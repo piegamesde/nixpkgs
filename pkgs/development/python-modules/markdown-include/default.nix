@@ -30,8 +30,7 @@ buildPythonPackage rec {
   doCheck = false; # no tests
 
   meta = with lib; {
-    description =
-      "Extension to Python-Markdown which provides an include function";
+    description = "Extension to Python-Markdown which provides an include function";
     homepage = "https://github.com/cmacmackin/markdown-include";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ hexa ];

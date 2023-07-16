@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   version = "0.10.2";
 
   src = fetchurl {
-    url =
-      "https://github.com/svanderburg/disnix/releases/download/${pname}-${version}/${pname}-${version}.tar.gz";
+    url = "https://github.com/svanderburg/disnix/releases/download/${pname}-${version}/${pname}-${version}.tar.gz";
     sha256 = "0mc0wy8fca60w0d56cljq2cw1xigbp2dklb43fxa5xph94j3i49a";
   };
 

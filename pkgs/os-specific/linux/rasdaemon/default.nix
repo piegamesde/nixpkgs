@@ -130,8 +130,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/mchehab/rasdaemon";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    changelog =
-      "https://github.com/mchehab/rasdaemon/blob/v${version}/ChangeLog";
+    changelog = "https://github.com/mchehab/rasdaemon/blob/v${version}/ChangeLog";
     maintainers = with maintainers; [ evils ];
   };
 }

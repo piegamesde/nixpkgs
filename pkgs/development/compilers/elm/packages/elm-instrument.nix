@@ -46,8 +46,7 @@ mkDerivation {
       # https://github.com/zwilias/elm-instrument/pull/5
       (fetchpatch {
         name = "update-optparse-applicative.patch";
-        url =
-          "https://github.com/mdevlamynck/elm-instrument/commit/c548709d4818aeef315528e842eaf4c5b34b59b4.patch";
+        url = "https://github.com/mdevlamynck/elm-instrument/commit/c548709d4818aeef315528e842eaf4c5b34b59b4.patch";
         sha256 = "0ln7ik09n3r3hk7jmwwm46kz660mvxfa71120rkbbaib2falfhsc";
       })
     ];

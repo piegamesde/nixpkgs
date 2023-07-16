@@ -200,16 +200,14 @@ let
       # https://github.com/bazelbuild/rules_cc/issues/122
       (fetchpatch {
         name = "tensorflow-rules_cc-libtool-path.patch";
-        url =
-          "https://github.com/bazelbuild/rules_cc/commit/8c427ab30bf213630dc3bce9d2e9a0e29d1787db.diff";
+        url = "https://github.com/bazelbuild/rules_cc/commit/8c427ab30bf213630dc3bce9d2e9a0e29d1787db.diff";
         hash = "sha256-C4v6HY5+jm0ACUZ58gBPVejCYCZfuzYKlHZ0m2qDHCk=";
       })
 
       # https://github.com/bazelbuild/rules_cc/pull/124
       (fetchpatch {
         name = "tensorflow-rules_cc-install_name_tool-path.patch";
-        url =
-          "https://github.com/bazelbuild/rules_cc/commit/156497dc89100db8a3f57b23c63724759d431d05.diff";
+        url = "https://github.com/bazelbuild/rules_cc/commit/156497dc89100db8a3f57b23c63724759d431d05.diff";
         hash = "sha256-NES1KeQmMiUJQVoV6dS4YGRxxkZEjOpFSCyOq9HZYO0=";
       })
     ];
@@ -514,8 +512,7 @@ let
           ;
           aarch64-linux = "sha256-g6JUZQQalCTSjvAarkI7+gq13cPhFg/O9LPQDGNvrII=";
           x86_64-darwin = "sha256-7O0zPs+damAjWXZn5C5SSWBp35C8QX3y4kCM7tYkM7s=";
-          aarch64-darwin =
-            "sha256-US7uunEBDo2NKI9UHvgThbQ7rA05HjQlUthw0gIINaI=";
+          aarch64-darwin = "sha256-US7uunEBDo2NKI9UHvgThbQ7rA05HjQlUthw0gIINaI=";
         }
         .${stdenv.hostPlatform.system}
           or (throw "unsupported system ${stdenv.hostPlatform.system}");
@@ -563,10 +560,8 @@ let
     meta =
       with lib;
       {
-        changelog =
-          "https://github.com/tensorflow/tensorflow/releases/tag/v${version}";
-        description =
-          "Computation using data flow graphs for scalable machine learning";
+        changelog = "https://github.com/tensorflow/tensorflow/releases/tag/v${version}";
+        description = "Computation using data flow graphs for scalable machine learning";
         homepage = "http://tensorflow.org";
         license = licenses.asl20;
         maintainers = with maintainers; [ abbradar ];

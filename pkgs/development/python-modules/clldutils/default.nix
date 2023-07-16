@@ -62,8 +62,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Utilities for clld apps without the overhead of requiring pyramid, rdflib et al";
+    description = "Utilities for clld apps without the overhead of requiring pyramid, rdflib et al";
     homepage = "https://github.com/clld/clldutils";
     license = licenses.asl20;
     maintainers = with maintainers; [ melling ];

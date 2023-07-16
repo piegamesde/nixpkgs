@@ -58,8 +58,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Pytest plugin for testing mypy types, stubs, and plugins";
     homepage = "https://github.com/TypedDjango/pytest-mypy-plugins";
-    changelog =
-      "https://github.com/typeddjango/pytest-mypy-plugins/releases/tag/${version}";
+    changelog = "https://github.com/typeddjango/pytest-mypy-plugins/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ SomeoneSerge ];
   };

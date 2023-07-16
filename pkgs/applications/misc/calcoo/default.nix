@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
   version = "2.1.0";
 
   src = fetchzip {
-    url =
-      "mirror://sourceforge/project/calcoo/calcoo/${version}/${pname}-${version}.zip";
+    url = "mirror://sourceforge/project/calcoo/calcoo/${version}/${pname}-${version}.zip";
     hash = "sha256-Bdavj7RaI5CkWiOJY+TPRIRfNelfW5qdl/74J1KZPI0=";
   };
 

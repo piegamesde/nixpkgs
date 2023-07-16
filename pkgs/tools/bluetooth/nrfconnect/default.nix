@@ -10,8 +10,7 @@ let
   version = "4.0.1";
 
   src = fetchurl {
-    url =
-      "https://nsscprodmedia.blob.core.windows.net/prod/software-and-other-downloads/desktop-software/nrf-connect-for-desktop/${
+    url = "https://nsscprodmedia.blob.core.windows.net/prod/software-and-other-downloads/desktop-software/nrf-connect-for-desktop/${
         lib.versions.major version
       }-${lib.versions.minor version}-${
         lib.versions.patch version
@@ -38,8 +37,7 @@ appimageTools.wrapType2 {
 
   meta = with lib; {
     description = "Nordic Semiconductor nRF Connect for Desktop";
-    homepage =
-      "https://www.nordicsemi.com/Products/Development-tools/nRF-Connect-for-desktop";
+    homepage = "https://www.nordicsemi.com/Products/Development-tools/nRF-Connect-for-desktop";
     license = licenses.unfree;
     platforms = platforms.linux;
     maintainers = with maintainers; [ stargate01 ];

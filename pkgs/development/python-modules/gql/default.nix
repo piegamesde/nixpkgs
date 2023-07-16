@@ -118,8 +118,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "GraphQL client in Python";
     homepage = "https://github.com/graphql-python/gql";
-    changelog =
-      "https://github.com/graphql-python/gql/releases/tag/v${version}";
+    changelog = "https://github.com/graphql-python/gql/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

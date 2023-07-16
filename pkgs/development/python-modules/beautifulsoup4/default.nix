@@ -42,8 +42,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "bs4" ];
 
   meta = with lib; {
-    changelog =
-      "https://git.launchpad.net/beautifulsoup/tree/CHANGELOG?h=${version}";
+    changelog = "https://git.launchpad.net/beautifulsoup/tree/CHANGELOG?h=${version}";
     homepage = "http://crummy.com/software/BeautifulSoup/bs4/";
     description = "HTML and XML parser";
     license = licenses.mit;

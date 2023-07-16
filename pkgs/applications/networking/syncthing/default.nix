@@ -70,8 +70,7 @@ let
       meta = with lib; {
         homepage = "https://syncthing.net/";
         description = "Open Source Continuous File Synchronization";
-        changelog =
-          "https://github.com/syncthing/syncthing/releases/tag/v${version}";
+        changelog = "https://github.com/syncthing/syncthing/releases/tag/v${version}";
         license = licenses.mpl20;
         maintainers = with maintainers; [
           joko

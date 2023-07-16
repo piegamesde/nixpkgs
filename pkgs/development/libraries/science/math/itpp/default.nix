@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "IT++ is a C++ library of mathematical, signal processing and communication classes and functions";
+    description = "IT++ is a C++ library of mathematical, signal processing and communication classes and functions";
     homepage = "https://itpp.sourceforge.net/";
     license = licenses.gpl3;
     platforms = platforms.unix;

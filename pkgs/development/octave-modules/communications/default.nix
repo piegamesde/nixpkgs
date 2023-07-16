@@ -23,7 +23,6 @@ buildOctavePackage rec {
     homepage = "https://octave.sourceforge.io/communications/index.html";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
-    description =
-      " Digital Communications, Error Correcting Codes (Channel Code), Source Code functions, Modulation and Galois Fields";
+    description = " Digital Communications, Error Correcting Codes (Channel Code), Source Code functions, Modulation and Galois Fields";
   };
 }

@@ -62,8 +62,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://tukaani.org/xz/";
-    description =
-      "A general-purpose data compression software, successor of LZMA";
+    description = "A general-purpose data compression software, successor of LZMA";
 
     longDescription = ''
       XZ Utils is free general-purpose data compression software with high

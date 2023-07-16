@@ -74,8 +74,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A free, minimal, hardcore audio tool for DJs, live performers and electronic musicians";
+    description = "A free, minimal, hardcore audio tool for DJs, live performers and electronic musicians";
     homepage = "https://giadamusic.com/";
     license = licenses.gpl3;
     maintainers = with maintainers; [ ];

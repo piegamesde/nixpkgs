@@ -60,8 +60,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Type hints for numpy";
     homepage = "https://github.com/ramonhagenaars/nptyping";
-    changelog =
-      "https://github.com/ramonhagenaars/nptyping/blob/v${version}/HISTORY.md";
+    changelog = "https://github.com/ramonhagenaars/nptyping/blob/v${version}/HISTORY.md";
     license = licenses.mit;
     maintainers = with maintainers; [ bcdarwin ];
   };

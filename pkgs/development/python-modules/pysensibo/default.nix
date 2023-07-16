@@ -28,8 +28,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module for interacting with Sensibo";
     homepage = "https://github.com/andrey-git/pysensibo";
-    changelog =
-      "https://github.com/andrey-git/pysensibo/releases/tag/${version}";
+    changelog = "https://github.com/andrey-git/pysensibo/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

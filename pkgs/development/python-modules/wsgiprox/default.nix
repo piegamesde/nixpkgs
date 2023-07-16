@@ -29,8 +29,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Python WSGI Middleware for adding HTTP/S proxy support to any WSGI Application";
+    description = "Python WSGI Middleware for adding HTTP/S proxy support to any WSGI Application";
     homepage = "https://github.com/webrecorder/wsgiprox";
     license = licenses.asl20;
     maintainers = with maintainers; [ Luflosi ];

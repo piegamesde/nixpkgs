@@ -17,8 +17,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "dawg_python" ];
 
   meta = with lib; {
-    description =
-      "Pure Python reader for DAWGs created by dawgdic C++ library or DAWG Python extension";
+    description = "Pure Python reader for DAWGs created by dawgdic C++ library or DAWG Python extension";
     homepage = "https://github.com/pytries/DAWG-Python";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

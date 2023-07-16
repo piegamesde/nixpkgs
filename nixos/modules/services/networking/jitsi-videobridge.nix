@@ -258,8 +258,7 @@ in
         jvbProps = {
           "-Dnet.java.sip.communicator.SC_HOME_DIR_LOCATION" = "/etc/jitsi";
           "-Dnet.java.sip.communicator.SC_HOME_DIR_NAME" = "videobridge";
-          "-Djava.util.logging.config.file" =
-            "/etc/jitsi/videobridge/logging.properties";
+          "-Djava.util.logging.config.file" = "/etc/jitsi/videobridge/logging.properties";
           "-Dconfig.file" = pkgs.writeText "jvb.conf" (toHOCON jvbConfig);
           # Mitigate CVE-2021-44228
           "-Dlog4j2.formatMsgNoLookups" = true;

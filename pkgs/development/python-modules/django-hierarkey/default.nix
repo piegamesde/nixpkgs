@@ -40,8 +40,7 @@ buildPythonPackage rec {
   pytestFlagsArray = [ "tests" ];
 
   meta = with lib; {
-    description =
-      "Flexible and powerful hierarchical key-value store for your Django models";
+    description = "Flexible and powerful hierarchical key-value store for your Django models";
     homepage = "https://github.com/raphaelm/django-hierarkey";
     license = licenses.asl20;
     maintainers = with maintainers; [ hexa ];

@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchgit {
-    url =
-      "https://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git";
+    url = "https://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git";
     rev = "v" + version;
     sha256 = "sha256-vMWAmGMJp0XDuc4sbo6Y7gfCQVAo4rETea0Tkdbg82U=";
   };

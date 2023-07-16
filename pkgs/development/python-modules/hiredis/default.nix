@@ -32,11 +32,9 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Wraps protocol parsing code in hiredis, speeds up parsing of multi bulk replies";
+    description = "Wraps protocol parsing code in hiredis, speeds up parsing of multi bulk replies";
     homepage = "https://github.com/redis/hiredis-py";
-    changelog =
-      "https://github.com/redis/hiredis-py/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/redis/hiredis-py/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ mmai ];
   };

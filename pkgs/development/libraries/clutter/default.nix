@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${name}.tar.xz";
     sha256 = "1rn4cd1an6a9dfda884aqpcwcgq8dgydpqvb19nmagw4b70zlj4b";
@@ -94,8 +93,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = {
-    description =
-      "Library for creating fast, dynamic graphical user interfaces";
+    description = "Library for creating fast, dynamic graphical user interfaces";
 
     longDescription = ''
       Clutter is free software library for creating fast, compelling,

@@ -79,8 +79,7 @@ let
                     );
                   in
                   {
-                    url =
-                      "https://github.com/NixOS/nixpkgs/blob/master/${subpath}";
+                    url = "https://github.com/NixOS/nixpkgs/blob/master/${subpath}";
                     name = subpath;
                   }
                 else

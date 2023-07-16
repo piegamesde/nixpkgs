@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
   pname = "cups-brother-hll3230cdw";
   version = "1.0.2";
   src = fetchurl {
-    url =
-      "https://download.brother.com/welcome/dlf103925/hll3230cdwpdrv-${version}-0.i386.deb";
+    url = "https://download.brother.com/welcome/dlf103925/hll3230cdwpdrv-${version}-0.i386.deb";
     sha256 = "9d49abc584bf22bc381510618a34107ead6ab14562b51831fefd6009947aa5a9";
   };
 
@@ -93,7 +92,6 @@ stdenv.mkDerivation rec {
       "i686-linux"
     ];
     homepage = "http://www.brother.com/";
-    downloadPage =
-      "https://support.brother.com/g/b/downloadend.aspx?c=us&lang=en&prod=hll3230cdw_us_eu_as&os=128&dlid=dlf103925_000&flang=4&type3=10283";
+    downloadPage = "https://support.brother.com/g/b/downloadend.aspx?c=us&lang=en&prod=hll3230cdw_us_eu_as&os=128&dlid=dlf103925_000&flang=4&type3=10283";
   };
 }

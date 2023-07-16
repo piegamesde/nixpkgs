@@ -172,8 +172,7 @@ let
         host = cfg.registry.externalAddress;
         port = cfg.registry.externalPort;
         key = cfg.registry.keyFile;
-        api_url =
-          "http://${config.services.dockerRegistry.listenAddress}:${
+        api_url = "http://${config.services.dockerRegistry.listenAddress}:${
             toString config.services.dockerRegistry.port
           }/";
         issuer = cfg.registry.issuer;
@@ -865,8 +864,9 @@ in
 
             artifacts-server = mkOption {
               type = with types; nullOr str;
-              default =
-                "http${optionalString cfg.https "s"}://${cfg.host}/api/v4";
+              default = "http${
+                  optionalString cfg.https "s"
+                }://${cfg.host}/api/v4";
               defaultText = "http(s)://<services.gitlab.host>/api/v4";
               example = "https://gitlab.example.com/api/v4";
               description = lib.mdDoc ''
@@ -1215,15 +1215,13 @@ in
       {
         assertion =
           databaseActuallyCreateLocally -> (cfg.user == cfg.databaseUsername);
-        message =
-          ''
-            For local automatic database provisioning (services.gitlab.databaseCreateLocally == true) with peer authentication (services.gitlab.databaseHost == "") to work services.gitlab.user and services.gitlab.databaseUsername must be identical.'';
+        message = ''
+          For local automatic database provisioning (services.gitlab.databaseCreateLocally == true) with peer authentication (services.gitlab.databaseHost == "") to work services.gitlab.user and services.gitlab.databaseUsername must be identical.'';
       }
       {
         assertion =
           (cfg.databaseHost != "") -> (cfg.databasePasswordFile != null);
-        message =
-          "When services.gitlab.databaseHost is customized, services.gitlab.databasePasswordFile must be set!";
+        message = "When services.gitlab.databaseHost is customized, services.gitlab.databasePasswordFile must be set!";
       }
       {
         assertion = cfg.initialRootPasswordFile != null;
@@ -1247,8 +1245,7 @@ in
       }
       {
         assertion = versionAtLeast postgresqlPackage.version "12.0.0";
-        message =
-          "PostgreSQL >=12 is required to run GitLab 14. Follow the instructions in the manual section for upgrading PostgreSQL here: https://nixos.org/manual/nixos/stable/index.html#module-services-postgres-upgrading";
+        message = "PostgreSQL >=12 is required to run GitLab 14. Follow the instructions in the manual section for upgrading PostgreSQL here: https://nixos.org/manual/nixos/stable/index.html#module-services-postgres-upgrading";
       }
     ];
 
@@ -1370,8 +1367,7 @@ in
         true; # This must be true, otherwise GitLab won't manage it correctly
       extraConfig = {
         auth.token = {
-          realm =
-            "http${
+          realm = "http${
               optionalString (cfg.https == true) "s"
             }://${cfg.host}/jwt/auth";
           service = cfg.registry.serviceName;
@@ -1650,9 +1646,8 @@ in
         TimeoutSec = "infinity";
         Restart = "always";
         WorkingDirectory = "${cfg.packages.gitlab}/share/gitlab";
-        ExecStart =
-          ''
-            ${cfg.packages.gitlab.rubyEnv}/bin/sidekiq -C "${cfg.packages.gitlab}/share/gitlab/config/sidekiq_queues.yml" -e production'';
+        ExecStart = ''
+          ${cfg.packages.gitlab.rubyEnv}/bin/sidekiq -C "${cfg.packages.gitlab}/share/gitlab/config/sidekiq_queues.yml" -e production'';
       };
     };
 
@@ -1770,8 +1765,7 @@ in
             install -m u=rw ${configFile} /run/gitlab-pages/gitlab-pages.conf
             ${secretReplacements}
           '';
-          ExecStart =
-            "${cfg.packages.pages}/bin/gitlab-pages -config=/run/gitlab-pages/gitlab-pages.conf";
+          ExecStart = "${cfg.packages.pages}/bin/gitlab-pages -config=/run/gitlab-pages/gitlab-pages.conf";
           WorkingDirectory = gitlabEnv.HOME;
           RuntimeDirectory = "gitlab-pages";
           RuntimeDirectoryMode = "0700";
@@ -1842,8 +1836,7 @@ in
 
             User = cfg.user;
             Group = cfg.group;
-            ExecStart =
-              "${cfg.packages.gitlab.rubyEnv}/bin/bundle exec mail_room -c ${cfg.statePath}/config/mail_room.yml";
+            ExecStart = "${cfg.packages.gitlab.rubyEnv}/bin/bundle exec mail_room -c ${cfg.statePath}/config/mail_room.yml";
             WorkingDirectory = gitlabEnv.HOME;
           };
         }

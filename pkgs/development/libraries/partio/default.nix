@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   meta = with lib; {
-    description =
-      "C++ (with python bindings) library for easily reading/writing/manipulating common animation particle formats such as PDB, BGEO, PTC";
+    description = "C++ (with python bindings) library for easily reading/writing/manipulating common animation particle formats such as PDB, BGEO, PTC";
     homepage = "https://www.disneyanimation.com/technology/partio.html";
     license = licenses.bsd3;
     platforms = platforms.linux;

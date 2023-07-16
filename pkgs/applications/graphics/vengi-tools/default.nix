@@ -104,8 +104,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "Tools from the vengi voxel engine, including a thumbnailer, a converter, and the VoxEdit voxel editor";
+    description = "Tools from the vengi voxel engine, including a thumbnailer, a converter, and the VoxEdit voxel editor";
     longDescription = ''
       Tools from the vengi C++ voxel game engine. It includes a voxel editor
       with character animation support and loading/saving into a lot of voxel

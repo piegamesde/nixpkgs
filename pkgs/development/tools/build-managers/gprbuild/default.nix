@@ -47,8 +47,7 @@ stdenv.mkDerivation {
   patches = lib.optional (!stdenv.hostPlatform.isStatic) (
     fetchpatch {
       name = "gprbuild-relocatable-build.patch";
-      url =
-        "https://aur.archlinux.org/cgit/aur.git/plain/relocatable-build.patch?h=gprbuild&id=1d4e8a5cb982e79135a0aaa3ef87654bed1fe4f0";
+      url = "https://aur.archlinux.org/cgit/aur.git/plain/relocatable-build.patch?h=gprbuild&id=1d4e8a5cb982e79135a0aaa3ef87654bed1fe4f0";
       sha256 = "1r3xsp1pk9h666mm8mdravkybmd5gv2f751x2ffb1kxnwq1rwiyn";
     }
   );

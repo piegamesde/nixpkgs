@@ -113,11 +113,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "devito" ];
 
   meta = with lib; {
-    description =
-      "Code generation framework for automated finite difference computation";
+    description = "Code generation framework for automated finite difference computation";
     homepage = "https://www.devitoproject.org/";
-    changelog =
-      "https://github.com/devitocodes/devito/releases/tag/v${version}";
+    changelog = "https://github.com/devitocodes/devito/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ atila ];
   };

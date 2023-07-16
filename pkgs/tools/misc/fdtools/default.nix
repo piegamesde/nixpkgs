@@ -16,8 +16,7 @@ stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url =
-      "https://code.dogmap.org/${pname}/releases/${pname}-${version}.tar.bz2";
+    url = "https://code.dogmap.org/${pname}/releases/${pname}-${version}.tar.bz2";
     inherit sha256;
   };
 

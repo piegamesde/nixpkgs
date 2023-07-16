@@ -41,8 +41,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Typing stubs for Home Assistant Core";
     homepage = "https://github.com/KapJI/homeassistant-stubs";
-    changelog =
-      "https://github.com/KapJI/homeassistant-stubs/releases/tag/${version}";
+    changelog = "https://github.com/KapJI/homeassistant-stubs/releases/tag/${version}";
     license = licenses.mit;
     maintainers = teams.home-assistant.members;
   };

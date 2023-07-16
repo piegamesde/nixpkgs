@@ -24,8 +24,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "The Uncompromising Nix Code Formatter";
     homepage = "https://github.com/kamadorueda/alejandra";
-    changelog =
-      "https://github.com/kamadorueda/alejandra/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/kamadorueda/alejandra/blob/${version}/CHANGELOG.md";
     license = licenses.unlicense;
     maintainers = with maintainers; [
       _0x4A6F

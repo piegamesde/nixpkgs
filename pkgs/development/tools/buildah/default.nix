@@ -74,8 +74,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "A tool which facilitates building OCI images";
     homepage = "https://buildah.io/";
-    changelog =
-      "https://github.com/containers/buildah/releases/tag/v${version}";
+    changelog = "https://github.com/containers/buildah/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ Profpatsch ] ++ teams.podman.members;
   };

@@ -27,8 +27,7 @@ import ./make-test-python.nix (
             address = "0.0.0.0";
             port = 8443;
             openFirewall = true;
-            intermediatePasswordFile =
-              "${test-certificates}/intermediate-password-file";
+            intermediatePasswordFile = "${test-certificates}/intermediate-password-file";
             settings = {
               dnsNames = [ "caserver" ];
               root = "${test-certificates}/root_ca.crt";
@@ -56,8 +55,7 @@ import ./make-test-python.nix (
           ...
         }:
         {
-          security.acme.defaults.server =
-            "https://caserver:8443/acme/acme/directory";
+          security.acme.defaults.server = "https://caserver:8443/acme/acme/directory";
           security.acme.defaults.email = "root@example.org";
           security.acme.acceptTerms = true;
 

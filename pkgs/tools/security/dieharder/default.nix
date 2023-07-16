@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
   version = "3.31.1";
 
   src = fetchurl {
-    url =
-      "http://webhome.phy.duke.edu/~rgb/General/dieharder/dieharder-${version}.tgz";
+    url = "http://webhome.phy.duke.edu/~rgb/General/dieharder/dieharder-${version}.tgz";
     hash = "sha256-bP8P+DlMVTVJrHQzNZzPyVX7JnlCYDFGIN+l5M1Lcn8=";
   };
 

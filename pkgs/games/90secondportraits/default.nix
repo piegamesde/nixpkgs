@@ -32,8 +32,7 @@ stdenv.mkDerivation {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url =
-      "https://github.com/SimonLarsen/90-Second-Portraits/releases/download/${version}/${pname}-${version}.love";
+    url = "https://github.com/SimonLarsen/90-Second-Portraits/releases/download/${version}/${pname}-${version}.love";
     sha256 = "0jj3k953r6vb02212gqcgqpb4ima87gnqgls43jmylxq2mcm33h5";
   };
 

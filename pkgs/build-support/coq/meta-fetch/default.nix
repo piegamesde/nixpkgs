@@ -35,20 +35,17 @@ let
             }
             {
               cond = pr != null && (match "^github.*" domain) != null;
-              out =
-                "https://api.${domain}/repos/${owner}/${repo}/${fmt}/pull/${
+              out = "https://api.${domain}/repos/${owner}/${repo}/${fmt}/pull/${
                   head pr
                 }/head";
             }
             {
               cond = pr == null && (match "^gitlab.*" domain) != null;
-              out =
-                "https://${domain}/${owner}/${repo}/-/archive/${rev}/${repo}-${rev}.${ext}";
+              out = "https://${domain}/${owner}/${repo}/-/archive/${rev}/${repo}-${rev}.${ext}";
             }
             {
               cond = (match "(www.)?mpi-sws.org" domain) != null;
-              out =
-                "https://www.mpi-sws.org/~${owner}/${repo}/download/${repo}-${rev}.${ext}";
+              out = "https://www.mpi-sws.org/~${owner}/${repo}/download/${repo}-${rev}.${ext}";
             }
           ]
           (throw "meta-fetch: no fetcher found for domain ${domain} on ${rev}")

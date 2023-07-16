@@ -39,8 +39,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "azure.mgmt.commerce" ];
 
   meta = with lib; {
-    description =
-      "This is the Microsoft Azure Commerce Management Client Library";
+    description = "This is the Microsoft Azure Commerce Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [
