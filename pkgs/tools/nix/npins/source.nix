@@ -49,9 +49,7 @@ let
     assert repository ? type;
     # At the moment, either it is a plain git repository (which has an url), or it is a GitHub/GitLab repository
     # In the latter case, there we will always be an url to the tarball
-    if
-      url != null
-    then
+    if url != null then
       (fetchzip {
         inherit url;
         sha256 = hash;

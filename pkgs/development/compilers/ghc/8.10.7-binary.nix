@@ -249,6 +249,7 @@ let
       coreutils # for cat
     ]
     ++ lib.optionals useLLVM [ (lib.getBin llvmPackages.llvm) ]
+    # On darwin, we need unwrapped bintools as well (for otool)
     ++ lib.optionals (stdenv.targetPlatform.linker == "cctools") [
         targetPackages.stdenv.cc.bintools.bintools
       ]
@@ -282,48 +283,50 @@ stdenv.mkDerivation rec {
 
   postUnpack =
     # Verify our assumptions of which `libtinfo.so` (ncurses) version is used,
-      # so that we know when ghc bindists upgrade that and we need to update the
-      # version used in `libPath`.
-      lib.optionalString
-      (binDistUsed.exePathForLibraryCheck != null)
-      # Note the `*` glob because some GHCs have a suffix when unpacked, e.g.
-      # the musl bindist has dir `ghc-VERSION-x86_64-unknown-linux/`.
-      # As a result, don't shell-quote this glob when splicing the string.
-      (
-        let
-          buildExeGlob =
-            ''ghc-${version}*/"${binDistUsed.exePathForLibraryCheck}"'';
-        in
-        lib.concatStringsSep "\n" [
-          (''
-            echo "Checking that ghc binary exists in bindist at ${buildExeGlob}"
-            if ! test -e ${buildExeGlob}; then
-              echo >&2 "GHC binary ${binDistUsed.exePathForLibraryCheck} could not be found in the bindist build directory (at ${buildExeGlob}) for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
-            fi
-          '')
-          (lib.concatMapStringsSep "\n"
-            (
-              {
-                fileToCheckFor,
-                nixPackage,
-              }:
-              lib.optionalString (fileToCheckFor != null) ''
-                echo "Checking bindist for ${fileToCheckFor} to ensure that is still used"
-                if ! readelf -d ${buildExeGlob} | grep "${fileToCheckFor}"; then
-                  echo >&2 "File ${fileToCheckFor} could not be found in ${binDistUsed.exePathForLibraryCheck} for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
-                fi
+    # so that we know when ghc bindists upgrade that and we need to update the
+    # version used in `libPath`.
+    lib.optionalString
+    (binDistUsed.exePathForLibraryCheck != null)
+    # Note the `*` glob because some GHCs have a suffix when unpacked, e.g.
+    # the musl bindist has dir `ghc-VERSION-x86_64-unknown-linux/`.
+    # As a result, don't shell-quote this glob when splicing the string.
+    (
+      let
+        buildExeGlob =
+          ''ghc-${version}*/"${binDistUsed.exePathForLibraryCheck}"'';
+      in
+      lib.concatStringsSep "\n" [
+        (''
+          echo "Checking that ghc binary exists in bindist at ${buildExeGlob}"
+          if ! test -e ${buildExeGlob}; then
+            echo >&2 "GHC binary ${binDistUsed.exePathForLibraryCheck} could not be found in the bindist build directory (at ${buildExeGlob}) for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
+          fi
+        '')
+        (lib.concatMapStringsSep "\n"
+          (
+            {
+              fileToCheckFor,
+              nixPackage,
+            }:
+            lib.optionalString (fileToCheckFor != null) ''
+              echo "Checking bindist for ${fileToCheckFor} to ensure that is still used"
+              if ! readelf -d ${buildExeGlob} | grep "${fileToCheckFor}"; then
+                echo >&2 "File ${fileToCheckFor} could not be found in ${binDistUsed.exePathForLibraryCheck} for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
+              fi
 
-                echo "Checking that the nix package ${nixPackage} contains ${fileToCheckFor}"
-                if ! test -e "${
-                  lib.getLib nixPackage
-                }/lib/${fileToCheckFor}"; then
-                  echo >&2 "Nix package ${nixPackage} did not contain ${fileToCheckFor} for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
-                fi
-              ''
-            )
-            binDistUsed.archSpecificLibraries)
-        ]
-      )
+              echo "Checking that the nix package ${nixPackage} contains ${fileToCheckFor}"
+              if ! test -e "${
+                lib.getLib nixPackage
+              }/lib/${fileToCheckFor}"; then
+                echo >&2 "Nix package ${nixPackage} did not contain ${fileToCheckFor} for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
+              fi
+            ''
+          )
+          binDistUsed.archSpecificLibraries)
+      ]
+    )
+    # GHC has dtrace probes, which causes ld to try to open /usr/lib/libdtrace.dylib
+    # during linking
     + lib.optionalString stdenv.isDarwin ''
       export NIX_LDFLAGS+=" -no_dtrace_dof"
       # not enough room in the object files for the full path to libiconv :(
@@ -354,7 +357,7 @@ stdenv.mkDerivation rec {
           -exec sed -i "s@extra-lib-dirs: @extra-lib-dirs: ${libiconv}/lib@" {} \;
     ''
     +
-    # aarch64 does HAVE_NUMA so -lnuma requires it in library-dirs in rts/package.conf.in
+      # aarch64 does HAVE_NUMA so -lnuma requires it in library-dirs in rts/package.conf.in
       # FFI_LIB_DIR is a good indication of places it must be needed.
       lib.optionalString
       (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64)
@@ -363,7 +366,7 @@ stdenv.mkDerivation rec {
             -exec sed -i "s@FFI_LIB_DIR@FFI_LIB_DIR ${numactl.out}/lib@g" {} \;
       ''
     +
-    # Rename needed libraries and binaries, fix interpreter
+      # Rename needed libraries and binaries, fix interpreter
       lib.optionalString stdenv.isLinux ''
         find . -type f -executable -exec patchelf \
             --interpreter ${stdenv.cc.bintools.dynamicLinker} {} \;
@@ -397,6 +400,7 @@ stdenv.mkDerivation rec {
       # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/6124
     ]
     ++ lib.optional stdenv.isDarwin "--with-gcc=${./gcc-clang-wrapper.sh}"
+    # From: https://github.com/NixOS/nixpkgs/pull/43369/commits
     ++ lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override"
     ;
 

@@ -54,35 +54,26 @@ let
     mapAttrsToList streamToOption cfg.streams
     # global options
     ++ [ "--stream.bind_to_address=${cfg.listenAddress}" ]
-    # global options
     ++ [ "--stream.port=${toString cfg.port}" ]
-    # global options
     ++ optionalNull cfg.sampleFormat "--stream.sampleformat=${cfg.sampleFormat}"
-    # global options
     ++ optionalNull cfg.codec "--stream.codec=${cfg.codec}"
-    # global options
     ++ optionalNull cfg.streamBuffer "--stream.stream_buffer=${
         toString cfg.streamBuffer
       }"
-    # global options
     ++ optionalNull cfg.buffer "--stream.buffer=${toString cfg.buffer}"
-    # global options
     ++ optional cfg.sendToMuted "--stream.send_to_muted"
-    # global options
+    # tcp json rpc
     ++ [ "--tcp.enabled=${toString cfg.tcp.enable}" ]
-    # global options
     ++ optionals cfg.tcp.enable [
       "--tcp.bind_to_address=${cfg.tcp.listenAddress}"
       "--tcp.port=${toString cfg.tcp.port}"
     ]
-    # global options
+    # http json rpc
     ++ [ "--http.enabled=${toString cfg.http.enable}" ]
-    # global options
     ++ optionals cfg.http.enable [
       "--http.bind_to_address=${cfg.http.listenAddress}"
       "--http.port=${toString cfg.http.port}"
     ]
-    # global options
     ++ optional (cfg.http.docRoot != null) ''
       --http.doc_root="${toString cfg.http.docRoot}"''
   );

@@ -92,6 +92,11 @@ stdenv.mkDerivation {
           "--enable-shared"
       )
     ]
+    # On darwin, the target triplet from -dumpmachine includes version number,
+    # but skarnet.org software uses the triplet to test binary compatibility.
+    # Explicitly setting target ensures code can be compiled against a skalibs
+    # binary built on a different version of darwin.
+    # http://www.skarnet.org/cgi-bin/archive.cgi?1:mss:623:heiodchokfjdkonfhdph
     ++ (lib.optional stdenv.isDarwin "--build=${stdenv.hostPlatform.system}")
     ;
 

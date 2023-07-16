@@ -16,11 +16,11 @@
   gssSupport ? with stdenv.hostPlatform;
     (!isWindows
       &&
-      # disable gss becuase of: undefined reference to `k5_bcmp'
+        # disable gss becuase of: undefined reference to `k5_bcmp'
         # a very sad story re static: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=439039
         !isStatic
       &&
-      # the "mig" tool does not configure its compiler correctly. This could be
+        # the "mig" tool does not configure its compiler correctly. This could be
         # fixed in mig, but losing gss support on cross compilation to darwin is
         # not worth the effort.
         !(isDarwin && (stdenv.buildPlatform != stdenv.hostPlatform))),
@@ -162,6 +162,7 @@ stdenv.mkDerivation (
         (lib.withFeatureAs wolfsslSupport "wolfssl" (lib.getDev wolfssl))
       ]
       ++ lib.optional gssSupport "--with-gssapi=${lib.getDev libkrb5}"
+      # For the 'urandom', maybe it should be a cross-system option
       ++ lib.optional
         (stdenv.hostPlatform != stdenv.buildPlatform)
         "--with-random=/dev/urandom"

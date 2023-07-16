@@ -49,13 +49,13 @@ stdenv.mkDerivation rec {
       ppx_sexp_conv
     ]
     ++
-    # Coq Support
-    (
-      with coqPackages; [
-        coq
-        flocq
-      ]
-    );
+      # Coq Support
+      (
+        with coqPackages; [
+          coq
+          flocq
+        ]
+      );
 
   propagatedBuildInputs = with ocamlPackages; [
     camlzip

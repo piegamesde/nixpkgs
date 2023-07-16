@@ -354,12 +354,16 @@ in
         ++ utils.removePackagesByName
           optionalPackages
           config.environment.plasma5.excludePackages
+
+        # Phonon audio backend
         ++ lib.optional
           (cfg.phononBackend == "gstreamer")
           libsForQt5.phonon-backend-gstreamer
         ++ lib.optional
           (cfg.phononBackend == "vlc")
           libsForQt5.phonon-backend-vlc
+
+        # Optional hardware support features
         ++ lib.optionals config.hardware.bluetooth.enable [
           bluedevil
           bluez-qt

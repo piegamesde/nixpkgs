@@ -128,13 +128,7 @@ stdenv.mkDerivation rec {
     # pythonEnv for runtime as well. The utilities' runtime dependencies are
     # handled at the environment
     ++ optionals (enableLibuhd_Python_api || enableUtils) [ pythonEnv ]
-    # However, if enableLibuhd_Python_api *or* enableUtils is on, we need
-    # pythonEnv for runtime as well. The utilities' runtime dependencies are
-    # handled at the environment
     ++ optionals (enableLiberio) [ liberio ]
-    # However, if enableLibuhd_Python_api *or* enableUtils is on, we need
-    # pythonEnv for runtime as well. The utilities' runtime dependencies are
-    # handled at the environment
     ++ optionals (enableDpdk) [ dpdk ]
     ;
 

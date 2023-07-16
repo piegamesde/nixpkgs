@@ -237,11 +237,11 @@ in
         db = {
           connectionString =
             "${cfg.database.type}:dbname=${cfg.database.name};host=${
-                if pgsqlLocal then
-                  cfg.database.socket
-                else
-                  cfg.database.host
-              };port=${toString cfg.database.port}"
+              if pgsqlLocal then
+                cfg.database.socket
+              else
+                cfg.database.host
+            };port=${toString cfg.database.port}"
             + optionalString mysqlLocal ";socket=${cfg.database.socket}"
             ;
           username = cfg.database.user;

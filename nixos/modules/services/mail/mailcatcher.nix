@@ -66,8 +66,8 @@ in
         Restart = "always";
         ExecStart =
           "${pkgs.mailcatcher}/bin/mailcatcher --foreground --no-quit --http-ip ${cfg.http.ip} --http-port ${
-              toString cfg.http.port
-            } --smtp-ip ${cfg.smtp.ip} --smtp-port ${toString cfg.smtp.port}"
+            toString cfg.http.port
+          } --smtp-ip ${cfg.smtp.ip} --smtp-port ${toString cfg.smtp.port}"
           + optionalString
             (cfg.http.path != null)
             " --http-path ${cfg.http.path}"

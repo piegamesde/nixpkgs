@@ -317,8 +317,8 @@ let
         ;
     in
     lib.optionals
-      (builtins.pathExists path && builtins.toString path != "/" && !isGitRoot)
-      (findGitIgnores parent)
+    (builtins.pathExists path && builtins.toString path != "/" && !isGitRoot)
+    (findGitIgnores parent)
     ++ gitIgnores
     ;
 

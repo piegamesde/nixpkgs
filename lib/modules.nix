@@ -1093,9 +1093,7 @@ rec {
           # Sort mkOrder properties.
           defs''' =
             # Avoid sorting if we don't have to.
-            if
-              any (def: def.value._type or "" == "order") defs''.values
-            then
+            if any (def: def.value._type or "" == "order") defs''.values then
               sortProperties defs''.values
             else
               defs''.values

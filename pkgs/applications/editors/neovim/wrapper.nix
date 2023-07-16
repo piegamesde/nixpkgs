@@ -58,7 +58,6 @@ let
           ''--cmd "lua ${providerLuaRc}"''
           # (lib.intersperse "|" hostProviderViml)
         ]
-        # vim accepts a limited number of commands so we join them all
         ++ lib.optionals
           (packpathDirs.myNeovimPackages.start != [ ]
             || packpathDirs.myNeovimPackages.opt != [ ])

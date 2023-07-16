@@ -387,7 +387,6 @@ let
         (
           sd:
           hasPrefix "/dev/" sd.device
-          # Don't include zram devices
           && !sd.randomEncryption.enable
           # Don't include zram devices
           && !(hasPrefix "/dev/zram" sd.device)

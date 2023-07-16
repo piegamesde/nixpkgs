@@ -129,8 +129,7 @@ stdenv.mkDerivation rec {
     # OSS library is included in glibc.
     # Must explicitly disable if support is not wanted.
     ++ lib.optional (!ossSupport) "-DOssEnable=OFF"
-    # OSS library is included in glibc.
-    # Must explicitly disable if support is not wanted.
+    # Find FLTK without requiring an OpenGL library in buildInputs
     ++ lib.optional (guiModule == "fltk") "-DFLTK_SKIP_OPENGL=ON"
     ;
 
@@ -145,8 +144,8 @@ stdenv.mkDerivation rec {
     let
       disabledTests =
         # PortChecker test fails when lashSupport is enabled because
-          # zynaddsubfx takes to long to start trying to connect to lash
-          lib.optionals lashSupport [ "PortChecker" ]
+        # zynaddsubfx takes to long to start trying to connect to lash
+        lib.optionals lashSupport [ "PortChecker" ]
 
         # Tests fail on aarch64
         ++ lib.optionals stdenv.isAarch64 [

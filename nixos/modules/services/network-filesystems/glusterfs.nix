@@ -188,8 +188,8 @@ in
         ''
           install -m 0755 -d /var/log/glusterfs
         ''
-        # `glusterfind` needs dirs that upstream installs at `make install` phase
-        # https://github.com/gluster/glusterfs/blob/v3.10.2/tools/glusterfind/Makefile.am#L16-L17
+        # The copying of hooks is due to upstream bug https://bugzilla.redhat.com/show_bug.cgi?id=1452761
+        # Excludes one hook due to missing SELinux binaries.
         + ''
           mkdir -p /var/lib/glusterd/hooks/
           ${rsync}/bin/rsync -a --exclude="S10selinux-label-brick.sh" ${glusterfs}/var/lib/glusterd/hooks/ /var/lib/glusterd/hooks/

@@ -177,13 +177,13 @@ stdenv.mkDerivation (
 
     preConfigure =
       # On FreeBSD, `-ldl' doesn't exist.
-        lib.optionalString stdenv.isFreeBSD ''
-          for i in "util/"*"/Makefile.in" boilerplate/Makefile.in
-                   do
-                     cat "$i" | sed -es/-ldl//g > t
-                     mv t "$i"
-                   done
-        ''
+      lib.optionalString stdenv.isFreeBSD ''
+        for i in "util/"*"/Makefile.in" boilerplate/Makefile.in
+                 do
+                   cat "$i" | sed -es/-ldl//g > t
+                   mv t "$i"
+                 done
+      ''
       + ''
         # Work around broken `Requires.private' that prevents Freetype
         # `-I' flags to be propagated.

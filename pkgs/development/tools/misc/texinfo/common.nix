@@ -97,8 +97,6 @@ stdenv.mkDerivation {
     # Perl XS modules are difficult to cross-compile and texinfo has pure Perl
     # fallbacks.
     ++ optional crossBuildTools "--enable-perl-xs=no"
-    # Perl XS modules are difficult to cross-compile and texinfo has pure Perl
-    # fallbacks.
     ++ lib.optional stdenv.isSunOS "AWK=${gawk}/bin/awk"
     ;
 

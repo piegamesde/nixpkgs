@@ -96,7 +96,7 @@ stdenv.mkDerivation (
           bsd3
         ]
         ++
-        # and CPP/7zip/Compress/Rar* are unfree with the unRAR license restriction
+          # and CPP/7zip/Compress/Rar* are unfree with the unRAR license restriction
           # the unRAR compression code is disabled by default
           lib.optionals enableUnfree [ unfree ];
       maintainers = with maintainers; [

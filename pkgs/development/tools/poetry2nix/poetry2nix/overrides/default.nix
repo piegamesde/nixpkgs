@@ -59,9 +59,7 @@ let
         drv.overridePythonAttrs (
           old:
           # We do not need the build system for wheels.
-          if
-            old ? format && old.format == "wheel"
-          then
+          if old ? format && old.format == "wheel" then
             { }
           else
             {
@@ -381,9 +379,7 @@ lib.composeManyExtensions [
 
       cffi =
         # cffi is bundled with pypy
-        if
-          self.python.implementation == "pypy"
-        then
+        if self.python.implementation == "pypy" then
           null
         else
           (super.cffi.overridePythonAttrs (
@@ -657,6 +653,8 @@ lib.composeManyExtensions [
               pkgs.dbus
               pkgs.dbus-glib
             ]
+            # My guess why it's sometimes trying to -lncurses.
+            # It seems not to retain the dependency anyway.
             ++ lib.optional (!self.python ? modules) pkgs.ncurses
             ;
         }
@@ -881,6 +879,7 @@ lib.composeManyExtensions [
               [
                 pkgs.autoPatchelfHook
               ]
+            # for gdal-config
             ++ [ pkgs.gdal ]
             ;
         }

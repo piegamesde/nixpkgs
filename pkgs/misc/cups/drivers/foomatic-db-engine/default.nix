@@ -42,19 +42,18 @@ perlPackages.buildPerlPackage rec {
 
   buildInputs =
     # provide some "cups-*" commands to `foomatic-{configure,printjob}`
-      # so that they can manage a local cups server (add queues, add jobs...)
-      lib.optionals withCupsAccess [
-        cups
-        cups-filters
-        curl
-      ]
+    # so that they can manage a local cups server (add queues, add jobs...)
+    lib.optionals withCupsAccess [
+      cups
+      cups-filters
+      curl
+    ]
     # the commands `foomatic-{configure,getpjloptions}` need
     # netcat if they are used to query or alter a network
     # printer via AppSocket/HP JetDirect protocol
     ++ lib.optional withSocketAccess netcat-gnu
-    # the commands `foomatic-{configure,getpjloptions}` need
-    # netcat if they are used to query or alter a network
-    # printer via AppSocket/HP JetDirect protocol
+    # `foomatic-configure` can be used to access printers that are
+    # shared via the SMB protocol, but it needs the `smbclient` binary
     ++ lib.optional withSMBAccess samba
     ;
 

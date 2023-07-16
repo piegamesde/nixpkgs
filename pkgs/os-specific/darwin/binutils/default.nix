@@ -78,25 +78,10 @@ stdenv.mkDerivation {
         done
       done
     ''
-    # x86-64 Darwin gnat-bootstrap emits assembly
-    # with MOVQ as the mnemonic for quadword interunit moves
-    # such as `movq %rbp, %xmm0`.
-    # The clang integrated assembler recognises this as valid,
-    # but unfortunately the cctools-port GNU assembler does not;
-    # it instead uses MOVD as the mnemonic.
-    # The assembly that a GCC build emits is determined at build time
-    # and cannot be changed afterwards.
-    #
-    # To build GNAT on x86-64 Darwin, therefore,
-    # we need both the clang _and_ the cctools-port assemblers to be available:
-    # the former to build at least the stage1 compiler,
-    # and the latter at least to be detectable
-    # as the target for the final compiler.
-    #
-    # We choose to match the Aarch64 case above,
-    # wrapping the clang integrated assembler as `as`.
-    # It then seems sensible to wrap the cctools GNU assembler as `gas`.
-    #
+    # On aarch64-darwin we must use clang, because "as" from cctools just doesn't
+    # handle the arch. Proxying calls to clang produces quite a bit of warnings,
+    # and using clang directly here is a better option than relying on cctools.
+    # On x86_64-darwin the Clang version is too old to support this mode.
     + lib.optionalString stdenv.isAarch64 ''
       rm $out/bin/${targetPrefix}as
       makeWrapper "${clang-unwrapped}/bin/clang" "$out/bin/${targetPrefix}as" \

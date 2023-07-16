@@ -185,6 +185,7 @@ in
           ${(
             if settingsProvided || configFileProvided || cfg.persistentKeys then
               "echo "
+
               + (lib.optionalString settingsProvided "'${
                   builtins.toJSON cfg.settings
                 }'")

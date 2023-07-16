@@ -39,6 +39,7 @@ let
   pythonPkgs =
     extraPythonPackages
     ++ [ (unwrapped.python.pkgs.toPythonModule unwrapped) ]
+    # Add the extraPackages as python modules as well
     ++ (builtins.map unwrapped.python.pkgs.toPythonModule extraPackages)
     ++ lib.flatten (
       lib.mapAttrsToList
@@ -86,7 +87,6 @@ let
         ":"
         "${lib.getBin glib}/bin"
       ]
-    # Emulating wrapGAppsHook & wrapQtAppsHook working together
     ++ lib.optionals (unwrapped.hasFeature "gnuradio-companion") [
       "--set"
       "GDK_PIXBUF_MODULE_FILE"
@@ -121,14 +121,12 @@ let
         at-spi2-core
       ]}"
     ]
-    # Emulating wrapGAppsHook & wrapQtAppsHook working together
     ++ lib.optionals (extraPackages != [ ]) [
       "--prefix"
       "GRC_BLOCKS_PATH"
       ":"
       "${lib.makeSearchPath "share/gnuradio/grc/blocks" extraPackages}"
     ]
-    # Emulating wrapGAppsHook & wrapQtAppsHook working together
     ++ lib.optionals
       (unwrapped.hasFeature "gr-qtgui")
       # 3.7 builds with qt4
@@ -158,7 +156,6 @@ let
           # Add here qt4 related environment for 3.7?
           [ ]
       )
-    # Emulating wrapGAppsHook & wrapQtAppsHook working together
     ++ extraMakeWrapperArgs
   );
 

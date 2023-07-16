@@ -260,9 +260,7 @@ let
 
     ${
     # When there is a theme configured, use it, otherwise use the background image.
-    if
-      config.isoImage.grubTheme != null
-    then
+    if config.isoImage.grubTheme != null then
       ''
         # Sets theme.
         set theme=(\$root)/EFI/boot/grub-theme/theme.txt
@@ -536,6 +534,7 @@ in
       default = with pkgs.stdenv.targetPlatform;
         "xz -Xdict-size 100% "
         + lib.optionalString isx86 "-Xbcj x86"
+        # Untested but should also reduce size for these platforms
         + lib.optionalString isAarch "-Xbcj arm"
         + lib.optionalString (isPower && is32bit && isBigEndian) "-Xbcj powerpc"
         + lib.optionalString (isSparc) "-Xbcj sparc";

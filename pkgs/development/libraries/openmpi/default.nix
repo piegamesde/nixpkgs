@@ -100,6 +100,9 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enableSGE "--with-sge"
     ++ lib.optional enablePrefix "--enable-mpirun-prefix-by-default"
+    # TODO: add UCX support, which is recommended to use with cuda for the most robust OpenMPI build
+    # https://github.com/openucx/ucx
+    # https://www.open-mpi.org/faq/?category=buildcuda
     ++ lib.optionals cudaSupport [
       "--with-cuda=${cudatoolkit_joined}"
       "--enable-dlopen"

@@ -57,16 +57,16 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     lib.optionals (!libOnly) [
-        "--with-audio=${
-          lib.strings.concatStringsSep "," (
-            lib.optional withJack "jack"
-            ++ lib.optional withPulse "pulse"
-            ++ lib.optional withAlsa "alsa"
-            ++ lib.optional withCoreAudio "coreaudio"
-            ++ [ "dummy" ]
-          )
-        }"
-      ]
+      "--with-audio=${
+        lib.strings.concatStringsSep "," (
+          lib.optional withJack "jack"
+          ++ lib.optional withPulse "pulse"
+          ++ lib.optional withAlsa "alsa"
+          ++ lib.optional withCoreAudio "coreaudio"
+          ++ [ "dummy" ]
+        )
+      }"
+    ]
     ++ lib.optional
       (stdenv.hostPlatform ? mpg123)
       "--with-cpu=${stdenv.hostPlatform.mpg123.cpu}"

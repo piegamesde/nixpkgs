@@ -101,19 +101,19 @@ runCommand name
   passAsFile = [ "contents" ];
   contents =
     lib.concatMapStringsSep "\n"
-      (
-        {
-          object,
-          symlink,
-          ...
-        }: ''
-          ${object}
-          ${if symlink == null then
-            ""
-          else
-            symlink}''
-      )
-      contents
+    (
+      {
+        object,
+        symlink,
+        ...
+      }: ''
+        ${object}
+        ${if symlink == null then
+          ""
+        else
+          symlink}''
+    )
+    contents
     + "\n"
     ;
 

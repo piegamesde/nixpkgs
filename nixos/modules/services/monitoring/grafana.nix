@@ -2005,7 +2005,8 @@ in
         Notifiers are deprecated upstream and will be removed in Grafana 10.
         Use `services.grafana.provision.alerting.contactPoints` instead.
       '')
-      # Warn about deprecated notifiers.
+      # Ensure that `secureJsonData` of datasources provisioned via `datasources.settings`
+      # only uses file/env providers.
       ++ (optional
         (
           let
@@ -2029,7 +2030,6 @@ in
           Declarations in the `secureJsonData`-block of a datasource will be leaked to the
           Nix store unless a file-provider or an env-var is used!
         '')
-      # Warn about deprecated notifiers.
       ++ (optional
         (any (x: x.secure_settings != null) cfg.provision.notifiers)
         "Notifier secure settings will be stored as plaintext in the Nix store! Use file provider instead.")

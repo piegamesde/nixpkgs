@@ -52,8 +52,6 @@ let
           ''
             patchShebangs Configure
           ''
-          # Move ENGINESDIR into OPENSSLDIR for static builds, in order to move
-          # it to the separate etc output.
           + lib.optionalString (lib.versionOlder version "1.1.1") ''
             patchShebangs test/*
             for a in test/t* ; do
@@ -61,13 +59,10 @@ let
                 --replace /bin/rm rm
             done
           ''
-          # Move ENGINESDIR into OPENSSLDIR for static builds, in order to move
-          # it to the separate etc output.
+          # config is a configure script which is not installed.
           + lib.optionalString (lib.versionAtLeast version "1.1.1") ''
             substituteInPlace config --replace '/usr/bin/env' '${buildPackages.coreutils}/bin/env'
           ''
-          # Move ENGINESDIR into OPENSSLDIR for static builds, in order to move
-          # it to the separate etc output.
           + lib.optionalString
             (lib.versionAtLeast version "1.1.1" && stdenv.hostPlatform.isMusl)
             ''
@@ -92,6 +87,11 @@ let
             "man"
           ]
           ++ lib.optional withDocs "doc"
+          # Separate output for the runtime dependencies of the static build.
+          # Specifically, move OPENSSLDIR into this output, as its path will be
+          # compiled into 'libcrypto.a'. This makes it a runtime dependency of
+          # any package that statically links openssl, so we want to keep that
+          # output minimal.
           ++ lib.optional static "etc"
           ;
         setOutputFlags = false;
@@ -189,6 +189,8 @@ let
           ]
           ++ lib.optional enableSSL2 "enable-ssl2"
           ++ lib.optional enableSSL3 "enable-ssl3"
+          # We select KTLS here instead of the configure-time detection (which we patch out).
+          # KTLS should work on FreeBSD 13+ as well, so we could enable it if someone tests it.
           ++ lib.optional
             (lib.versionAtLeast version "3.0.0" && enableKTLS)
             "enable-ktls"
@@ -196,12 +198,17 @@ let
             (lib.versionAtLeast version "1.1.1"
               && stdenv.hostPlatform.isAarch64)
             "no-afalgeng"
+          # OpenSSL needs a specific `no-shared` configure flag.
+          # See https://wiki.openssl.org/index.php/Compilation_and_Installation#Configure_Options
+          # for a comprehensive list of configuration options.
           ++ lib.optional
             (lib.versionAtLeast version "1.1.1" && static)
             "no-shared"
           ++ lib.optional
             (lib.versionAtLeast version "3.0.0" && static)
             "no-module"
+          # This introduces a reference to the CTLOG_FILE which is undesired when
+          # trying to build binaries statically.
           ++ lib.optional static "no-ct"
           ++ lib.optional withZlib "zlib"
           ;

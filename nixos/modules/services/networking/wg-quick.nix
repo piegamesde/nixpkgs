@@ -258,8 +258,8 @@ let
         ;
       postUp =
         optional
-          (values.privateKeyFile != null)
-          "wg set ${name} private-key <(cat ${values.privateKeyFile})"
+        (values.privateKeyFile != null)
+        "wg set ${name} private-key <(cat ${values.privateKeyFile})"
         ++ (concatMap
           (
             peer:

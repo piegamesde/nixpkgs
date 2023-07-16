@@ -657,10 +657,10 @@ rec {
         }"
         (
           lib.warnIf (deps != [ ])
-            "'deps' argument to makeSetupHook is deprecated and will be removed in release 23.11., Please use propagatedBuildInputs instead. content of deps: ${
-              toString deps
-            }"
-            propagatedBuildInputs
+          "'deps' argument to makeSetupHook is deprecated and will be removed in release 23.11., Please use propagatedBuildInputs instead. content of deps: ${
+            toString deps
+          }"
+          propagatedBuildInputs
           ++ (
             if lib.isList deps then
               deps
@@ -823,7 +823,7 @@ rec {
               x:
               lib.isList x
               &&
-              # If the matched path is in `namedOutputPaths`,
+                # If the matched path is in `namedOutputPaths`,
                 # it's a partial match of an output path where
                 # the output name isn't `out`
                 lib.all (o: !lib.hasPrefix (lib.head x) o) namedOutputPaths

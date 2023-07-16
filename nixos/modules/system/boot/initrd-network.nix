@@ -130,6 +130,7 @@ in
         done
       ''
 
+      # Otherwise, use DHCP.
       + optionalString doDhcp ''
         # Bring up all interfaces.
         for iface in ${dhcpIfShellExpr}; do

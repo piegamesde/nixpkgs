@@ -38,13 +38,13 @@ stdenv.mkDerivation rec {
   # https://bugs.llvm.org/show_bug.cgi?id=45034
   postPatch =
     lib.optionalString
-      (stdenv.hostPlatform.isLinux
-        && stdenv.cc.isClang
-        && lib.versionOlder stdenv.cc.version "10")
-      ''
-        substituteInPlace test/Makefile \
-          --replace "-ffast-math" ""
-      ''
+    (stdenv.hostPlatform.isLinux
+      && stdenv.cc.isClang
+      && lib.versionOlder stdenv.cc.version "10")
+    ''
+      substituteInPlace test/Makefile \
+        --replace "-ffast-math" ""
+    ''
     + lib.optionalString (stdenv.hostPlatform.isDarwin) ''
       substituteInPlace test/Makefile \
         --replace "LD_LIBRARY_PATH" "DYLD_LIBRARY_PATH"

@@ -260,23 +260,15 @@ let
 
           buildInputs =
             # PCRE extension
-              [
-                pcre2
-              ]
+            [ pcre2 ]
 
             # Enable sapis
             ++ lib.optionals pearSupport [ libxml2.dev ]
 
-            # Enable sapis
+            # Misc deps
             ++ lib.optional apxs2Support apacheHttpd
-
-            # Enable sapis
             ++ lib.optional argon2Support libargon2
-
-            # Enable sapis
             ++ lib.optional systemdSupport systemd
-
-            # Enable sapis
             ++ lib.optional valgrindSupport valgrind
             ;
 
@@ -285,69 +277,41 @@ let
 
           configureFlags =
             # Disable all extensions
-              [
-                "--disable-all"
-              ]
+            [ "--disable-all" ]
 
             # PCRE
             ++ [ "--with-external-pcre=${pcre2.dev}" ]
 
-            # PCRE
+            # Enable sapis
             ++ lib.optional (!cgiSupport) "--disable-cgi"
-
-            # PCRE
             ++ lib.optional (!cliSupport) "--disable-cli"
-
-            # PCRE
             ++ lib.optional fpmSupport "--enable-fpm"
-
-            # PCRE
             ++ lib.optionals pearSupport [
               "--with-pear"
               "--enable-xml"
               "--with-libxml"
             ]
-
-            # PCRE
             ++ lib.optional pharSupport "--enable-phar"
-
-            # PCRE
             ++ lib.optional (!phpdbgSupport) "--disable-phpdbg"
 
-            # PCRE
+            # Misc flags
             ++ lib.optional
               apxs2Support
               "--with-apxs2=${apacheHttpd.dev}/bin/apxs"
-
-            # PCRE
             ++ lib.optional argon2Support "--with-password-argon2=${libargon2}"
-
-            # PCRE
             ++ lib.optional cgotoSupport "--enable-re2c-cgoto"
-
-            # PCRE
             ++ lib.optional embedSupport "--enable-embed"
-
-            # PCRE
             ++ lib.optional (!ipv6Support) "--disable-ipv6"
-
-            # PCRE
             ++ lib.optional systemdSupport "--with-fpm-systemd"
-
-            # PCRE
             ++ lib.optional valgrindSupport "--with-valgrind=${valgrind.dev}"
-
-            # PCRE
             ++ lib.optional
               (ztsSupport && (lib.versionOlder version "8.0"))
               "--enable-maintainer-zts"
-
-            # PCRE
             ++ lib.optional
               (ztsSupport && (lib.versionAtLeast version "8.0"))
               "--enable-zts"
 
-            # PCRE
+            # Sendmail
             ++ [ "PROG_SENDMAIL=${system-sendmail}/bin/sendmail" ]
             ;
 

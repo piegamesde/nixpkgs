@@ -123,20 +123,20 @@ let
   userAsserts =
     prefix: users:
     mapAttrsToList
-      (
-        n: _: {
-          assertion =
-            builtins.match
-              ''
-                [^:
-                ]+''
-              n
-            != null
-            ;
-          message = "Invalid user name ${n} in ${prefix}";
-        }
-      )
-      users
+    (
+      n: _: {
+        assertion =
+          builtins.match
+          ''
+            [^:
+            ]+''
+          n
+          != null
+          ;
+        message = "Invalid user name ${n} in ${prefix}";
+      }
+    )
+    users
     ++ mapAttrsToList
       (
         n: u: {
@@ -162,8 +162,8 @@ let
       makeLines =
         store: file:
         mapAttrsToList
-          (n: u: "addLine ${escapeShellArg n} ${escapeShellArg u.${store}}")
-          (filterAttrs (_: u: u.${store} != null) users)
+        (n: u: "addLine ${escapeShellArg n} ${escapeShellArg u.${store}}")
+        (filterAttrs (_: u: u.${store} != null) users)
         ++ mapAttrsToList
           (n: u: "addFile ${escapeShellArg n} ${escapeShellArg "${u.${file}}"}")
           (filterAttrs (_: u: u.${file} != null) users)

@@ -88,7 +88,6 @@ buildPythonPackage rec {
     ]
     # ++ lib.optional withConnectivity qtconnectivity
     ++ lib.optional withMultimedia qtmultimedia
-    # ++ lib.optional withConnectivity qtconnectivity
     ++ lib.optional withWebSockets qtwebsockets
     # ++ lib.optional withLocation qtlocation
     ;

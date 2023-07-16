@@ -71,8 +71,8 @@ stdenv.mkDerivation rec {
 
   cmakeFlags =
     lib.optionals stdenv.isDarwin [
-        "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"
-      ]
+      "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"
+    ]
     ++ lib.optionals withCuda [ "-DWITH_CUDA=true" ]
     ;
 

@@ -68,7 +68,7 @@
 [ "test_Text2Color" "test_PointCloudDot" "test_Torus" ]
 ++
 
-# failing with:
+  # failing with:
   # TypeError: __init__() got an unexpected keyword argument 'msg' - maybe you meant pytest.mark.skipif?
   [
     "test_force_window_opengl_render_with_movies"

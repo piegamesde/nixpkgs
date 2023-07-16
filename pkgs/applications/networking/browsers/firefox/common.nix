@@ -258,16 +258,16 @@ buildStdenv.mkDerivation ({
 
   patches =
     lib.optionals
-      (lib.versionAtLeast version "112.0" && lib.versionOlder version "113.0")
-      [
-        (fetchpatch {
-          # Crash when desktop scaling does not divide window scale on Wayland
-          # https://bugzilla.mozilla.org/show_bug.cgi?id=1803016
-          name = "mozbz1803016.patch";
-          url = "https://hg.mozilla.org/mozilla-central/raw-rev/1068e0955cfb";
-          hash = "sha256-iPqmofsmgvlFNm+mqVPbdgMKmP68ANuzYu+PzfCpoNA=";
-        })
-      ]
+    (lib.versionAtLeast version "112.0" && lib.versionOlder version "113.0")
+    [
+      (fetchpatch {
+        # Crash when desktop scaling does not divide window scale on Wayland
+        # https://bugzilla.mozilla.org/show_bug.cgi?id=1803016
+        name = "mozbz1803016.patch";
+        url = "https://hg.mozilla.org/mozilla-central/raw-rev/1068e0955cfb";
+        hash = "sha256-iPqmofsmgvlFNm+mqVPbdgMKmP68ANuzYu+PzfCpoNA=";
+      })
+    ]
     ++ lib.optionals (lib.versionOlder version "114.0") [
       # https://bugzilla.mozilla.org/show_bug.cgi?id=1830040
       # https://hg.mozilla.org/mozilla-central/rev/cddb250a28d8
@@ -463,16 +463,15 @@ buildStdenv.mkDerivation ({
       "--enable-lto=cross" # Cross-Language LTO
       "--enable-linker=lld"
     ]
-    # LTO is done using clang and lld on Linux.
+    # elf-hack is broken when using clang+lld:
+    # https://bugzilla.mozilla.org/show_bug.cgi?id=1482204
     ++ lib.optional
       (ltoSupport
         && (buildStdenv.isAarch32
           || buildStdenv.isi686
           || buildStdenv.isx86_64))
       "--disable-elf-hack"
-    # LTO is done using clang and lld on Linux.
     ++ lib.optional (!drmSupport) "--disable-eme"
-    # LTO is done using clang and lld on Linux.
     ++ [
       (enableFeature alsaSupport "alsa")
       (enableFeature crashreporterSupport "crashreporter")
@@ -496,16 +495,12 @@ buildStdenv.mkDerivation ({
       (enableFeature (!debugBuild && !stdenv.is32bit) "release")
       (enableFeature enableDebugSymbols "debug-symbols")
     ]
-    # LTO is done using clang and lld on Linux.
     ++ lib.optionals enableDebugSymbols [
       "--disable-strip"
       "--disable-install-strip"
     ]
-    # LTO is done using clang and lld on Linux.
     ++ lib.optional enableOfficialBranding "--enable-official-branding"
-    # LTO is done using clang and lld on Linux.
     ++ lib.optional (branding != null) "--with-branding=${branding}"
-    # LTO is done using clang and lld on Linux.
     ++ extraConfigureFlags
     ;
 

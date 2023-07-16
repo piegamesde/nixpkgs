@@ -110,9 +110,7 @@ let
 
   kernel =
     # Build system doesn't understand BSD, so pretend to be Linux.
-    if
-      stdenv.isBSD
-    then
+    if stdenv.isBSD then
       "linux"
     else if stdenv.isDarwin then
       "darwin${darwinVersion}"

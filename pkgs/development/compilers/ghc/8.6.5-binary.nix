@@ -63,6 +63,7 @@ let
       coreutils # for cat
     ]
     ++ lib.optionals useLLVM [ (lib.getBin llvmPackages.llvm) ]
+    # On darwin, we need unwrapped bintools as well (for otool)
     ++ lib.optionals (stdenv.targetPlatform.linker == "cctools") [
         targetPackages.stdenv.cc.bintools.bintools
       ]
@@ -118,16 +119,16 @@ stdenv.mkDerivation rec {
 
   postUnpack =
     # GHC has dtrace probes, which causes ld to try to open /usr/lib/libdtrace.dylib
-      # during linking
-      lib.optionalString stdenv.isDarwin ''
-        export NIX_LDFLAGS+=" -no_dtrace_dof"
-        # not enough room in the object files for the full path to libiconv :(
-        for exe in $(find . -type f -executable); do
-          isScript $exe && continue
-          ln -fs ${libiconv}/lib/libiconv.dylib $(dirname $exe)/libiconv.dylib
-          install_name_tool -change /usr/lib/libiconv.2.dylib @executable_path/libiconv.dylib -change /usr/local/lib/gcc/6/libgcc_s.1.dylib ${gcc.cc.lib}/lib/libgcc_s.1.dylib $exe
-        done
-      ''
+    # during linking
+    lib.optionalString stdenv.isDarwin ''
+      export NIX_LDFLAGS+=" -no_dtrace_dof"
+      # not enough room in the object files for the full path to libiconv :(
+      for exe in $(find . -type f -executable); do
+        isScript $exe && continue
+        ln -fs ${libiconv}/lib/libiconv.dylib $(dirname $exe)/libiconv.dylib
+        install_name_tool -change /usr/lib/libiconv.2.dylib @executable_path/libiconv.dylib -change /usr/local/lib/gcc/6/libgcc_s.1.dylib ${gcc.cc.lib}/lib/libgcc_s.1.dylib $exe
+      done
+    ''
     +
 
     # Some scripts used during the build need to have their shebangs patched
@@ -147,7 +148,7 @@ stdenv.mkDerivation rec {
           -exec sed -i "s@extra-lib-dirs: @extra-lib-dirs: ${libiconv}/lib@" {} \;
     ''
     +
-    # Rename needed libraries and binaries, fix interpreter
+      # Rename needed libraries and binaries, fix interpreter
       lib.optionalString stdenv.isLinux ''
         find . -type f -perm -0100 \
             -exec patchelf \
@@ -166,7 +167,7 @@ stdenv.mkDerivation rec {
         sed -i "s|/usr/bin/gcc|gcc\x00        |" ghc-${version}/ghc/stage2/build/tmp/ghc-stage2
       ''
     +
-    # We're kludging a glibc bindist into working with non-glibc...
+      # We're kludging a glibc bindist into working with non-glibc...
       # Here we patch up the use of `__strdup` (part of glibc binary ABI)
       # to instead use `strdup` since musl doesn't provide __strdup
       # (`__strdup` is defined to be an alias of `strdup` anyway[1]).

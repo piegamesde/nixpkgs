@@ -35,7 +35,8 @@ stdenvNoLibs.mkDerivation rec {
     ''
       cd "$buildRoot"
     ''
-    # Preparing to configure + build libgcc itself
+
+    # Drop in libiberty, as external builds are not expected
     + ''
       (
         mkdir -p build-${stdenvNoLibs.buildPlatform.config}/libiberty/
@@ -43,7 +44,14 @@ stdenvNoLibs.mkDerivation rec {
         ln -s ${buildPackages.libiberty}/lib/libiberty.a ./
       )
     ''
-    # Preparing to configure + build libgcc itself
+    # A few misc bits of gcc need to be built.
+    #
+    #  - We "shift" the tools over to fake platforms perspective from the previous
+    #    stage.
+    #
+    #  - We define GENERATOR_FILE so nothing bothers looking for GNU GMP.
+    #
+    #  - We remove the `libgcc.mvar` deps so that the bootstrap xgcc isn't built.
     + ''
       mkdir -p "$buildRoot/gcc"
       cd "$buildRoot/gcc"

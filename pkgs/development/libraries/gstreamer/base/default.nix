@@ -133,6 +133,7 @@ stdenv.mkDerivation (
           "-Dtests=disabled"
         ]
       ++ lib.optional (!enableX11) "-Dx11=disabled"
+      # TODO How to disable Wayland?
       ++ lib.optional (!enableGl) "-Dgl=disabled"
       ++ lib.optional (!enableAlsa) "-Dalsa=disabled"
       ++ lib.optional (!enableCdparanoia) "-Dcdparanoia=disabled"

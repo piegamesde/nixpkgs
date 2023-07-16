@@ -183,6 +183,7 @@ in
               ''
                 sed \
               ''
+              # set up mail stats
               + optionalString (opts.type == "mail") ''
                 -e 's|^\(LogType\)=.*$|\1=M|' \
                 -e 's|^\(LevelForBrowsersDetection\)=.*$|\1=0|' \
@@ -228,7 +229,7 @@ in
                 -e 's|^\(LogFormat\)=.*$|\1="${opts.logFormat}"|' \
               ''
               +
-              # extra config
+                # extra config
                 concatStringsSep "\n" (
                   mapAttrsToList
                   (

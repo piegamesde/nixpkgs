@@ -225,9 +225,7 @@ in
       pluginName = "search-guard";
       version =
         # https://docs.search-guard.com/latest/search-guard-versions
-        if
-          esVersion == "7.17.4"
-        then
+        if esVersion == "7.17.4" then
           "${esVersion}-53.4.0"
         else
           throw "unsupported version ${esVersion} for plugin ${pluginName}"

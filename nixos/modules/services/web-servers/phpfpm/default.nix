@@ -290,12 +290,12 @@ in
 
     warnings =
       mapAttrsToList
-        (
-          pool: poolOpts: ''
-            Using config.services.phpfpm.pools.${pool}.listen is deprecated and will become unsupported in a future release. Please reference the read-only option config.services.phpfpm.pools.${pool}.socket to access the path of your socket.
-          ''
-        )
-        (filterAttrs (pool: poolOpts: poolOpts.listen != "") cfg.pools)
+      (
+        pool: poolOpts: ''
+          Using config.services.phpfpm.pools.${pool}.listen is deprecated and will become unsupported in a future release. Please reference the read-only option config.services.phpfpm.pools.${pool}.socket to access the path of your socket.
+        ''
+      )
+      (filterAttrs (pool: poolOpts: poolOpts.listen != "") cfg.pools)
       ++ mapAttrsToList
         (
           pool: poolOpts: ''

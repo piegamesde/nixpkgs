@@ -19,11 +19,9 @@
 let
   enableValgrindTests =
     !stdenv.isDarwin
-    # Valgrind on musl does not hook malloc calls properly, resulting in errors `Invalid free() / delete / delete[] / realloc()`
-    # https://bugs.kde.org/show_bug.cgi?id=435441
     && lib.meta.availableOn stdenv.hostPlatform valgrind
-    # Valgrind on musl does not hook malloc calls properly, resulting in errors `Invalid free() / delete / delete[] / realloc()`
-    # https://bugs.kde.org/show_bug.cgi?id=435441
+    # Apparently valgrind doesn't support some new ARM features on (some) Hydra machines:
+    #  VEX: Mismatch detected between RDMA and atomics features.
     && !stdenv.isAarch64
     # Valgrind on musl does not hook malloc calls properly, resulting in errors `Invalid free() / delete / delete[] / realloc()`
     # https://bugs.kde.org/show_bug.cgi?id=435441

@@ -179,6 +179,7 @@ stdenv.mkDerivation (
       ++ optional wxSupport "--enable-wx"
       ++ optional systemdSupport "--enable-systemd"
       ++ optional stdenv.isDarwin "--enable-darwin-64bit"
+      # make[3]: *** [yecc.beam] Segmentation fault: 11
       ++ optional (stdenv.isDarwin && stdenv.isx86_64) "--disable-jit"
       ++ configureFlags
       ;

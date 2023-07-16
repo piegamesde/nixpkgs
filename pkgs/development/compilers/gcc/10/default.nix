@@ -87,17 +87,25 @@ let
     ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
     ++ optional noSysDirs ../no-sys-dirs.patch
     ++ optional (noSysDirs && hostPlatform.isRiscV) ../no-sys-dirs-riscv.patch
+    /* ++ optional (hostPlatform != buildPlatform) (fetchpatch { # XXX: Refine when this should be applied
+         url = "https://git.busybox.net/buildroot/plain/package/gcc/${version}/0900-remove-selftests.patch?id=11271540bfe6adafbc133caf6b5b902a816f5f02";
+         sha256 = ""; # TODO: uncomment and check hash when available.
+       })
+    */
     ++ optional langAda ../gnat-cflags.patch
     ++ optional langD ../libphobos.patch
     ++ optional langFortran ../gfortran-driving.patch
     ++ optional
       (targetPlatform.libc == "musl" && targetPlatform.isPower)
       ../ppc-musl.patch
+
+    # Obtain latest patch with ../update-mcfgthread-patches.sh
     ++ optional
       (!crossStageStatic
         && targetPlatform.isMinGW
         && threadsCross.model == "mcf")
       ./Added-mcf-thread-model-support-from-mcfgthread.patch
+
     ++ optional
       (buildPlatform.system == "aarch64-darwin"
         && targetPlatform != buildPlatform)
@@ -224,6 +232,8 @@ stdenv.mkDerivation (
           patchShebangs $configureScript
         done
       ''
+      # This should kill all the stdinc frameworks that gcc and friends like to
+      # insert into default search paths.
       + lib.optionalString hostPlatform.isDarwin ''
         substituteInPlace gcc/config/darwin-c.c \
           --replace 'if (stdinc)' 'if (0)'

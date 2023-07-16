@@ -27,8 +27,6 @@ stdenv.mkDerivation rec {
       sed -i s/gcc/cc/g Makefile
       sed -i s%ncursesw/ncurses.h%ncurses.h% stfl_internals.h
     ''
-    # upstream builds shared library unconditionally. Also, it has no
-    # support for cross-compilation.
     + lib.optionalString stdenv.isDarwin ''
       sed -i s/-soname/-install_name/ Makefile
     ''

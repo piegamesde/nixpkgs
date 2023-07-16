@@ -14,9 +14,7 @@
 # This can be fixed by setting a different WM name:
 # http://www.haskell.org/haskellwiki/Xmonad/Frequently_asked_questions#Using_SetWMName
 
-if
-  !licenseAccepted
-then
+if !licenseAccepted then
   throw ''
     You have to accept the neoload EULA at
     https://www.neotys.com/documents/legal/eula/neoload/eula_en.html

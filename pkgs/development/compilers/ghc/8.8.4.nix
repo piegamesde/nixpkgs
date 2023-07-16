@@ -111,9 +111,6 @@ let
       }
       BUILD_SPHINX_PDF = NO
     ''
-    # While split sections are now enabled by default in ghc 8.8 for windows,
-    # they seem to lead to `too many sections` errors when building base for
-    # profiling.
     +
     # Note [HADDOCK_DOCS]:
     # Unfortunately currently `HADDOCK_DOCS` controls both whether the `haddock`
@@ -145,9 +142,12 @@ let
           "integer-gmp"
       }
     ''
-    # While split sections are now enabled by default in ghc 8.8 for windows,
-    # they seem to lead to `too many sections` errors when building base for
-    # profiling.
+    # We only need to build stage1 on most cross-compilation because
+    # we will be running the compiler on the native system. In some
+    # situations, like native Musl compilation, we need the compiler
+    # to actually link to our new Libc. The iOS simulator is a special
+    # exception because we can’t actually run simulators binaries
+    # ourselves.
     + lib.optionalString (targetPlatform != hostPlatform) ''
       Stage1Only = ${
         if
@@ -160,28 +160,16 @@ let
       }
       CrossCompilePrefix = ${targetPrefix}
     ''
-    # While split sections are now enabled by default in ghc 8.8 for windows,
-    # they seem to lead to `too many sections` errors when building base for
-    # profiling.
     + lib.optionalString dontStrip ''
       STRIP_CMD = :
     ''
-    # While split sections are now enabled by default in ghc 8.8 for windows,
-    # they seem to lead to `too many sections` errors when building base for
-    # profiling.
     + lib.optionalString (!enableProfiledLibs) ''
       GhcLibWays = "v dyn"
     ''
-    # While split sections are now enabled by default in ghc 8.8 for windows,
-    # they seem to lead to `too many sections` errors when building base for
-    # profiling.
     + lib.optionalString enableRelocatedStaticLibs ''
       GhcLibHcOpts += -fPIC
       GhcRtsHcOpts += -fPIC
     ''
-    # While split sections are now enabled by default in ghc 8.8 for windows,
-    # they seem to lead to `too many sections` errors when building base for
-    # profiling.
     + lib.optionalString targetPlatform.useAndroidPrebuilt ''
       EXTRA_CC_OPTS += -std=gnu99
     ''
@@ -294,11 +282,11 @@ stdenv.mkDerivation (
     # TODO(@sternenseemann): investigate coreutils dependencies and pass absolute paths
     preConfigure =
       # Aarch64 allow backward bootstrapping since earlier versions are unstable.
-        # Same for musl, as earlier versions do not provide a musl bindist for bootstrapping.
-        lib.optionalString (stdenv.isAarch64 || stdenv.hostPlatform.isMusl) ''
-          find . -name \*\.cabal\* -exec sed -i -e 's/\(base.*\)4.14/\14.16/' {} \; \
-            -exec sed -i -e 's/\(prim.*\)0.6/\10.8/' {} \;
-        ''
+      # Same for musl, as earlier versions do not provide a musl bindist for bootstrapping.
+      lib.optionalString (stdenv.isAarch64 || stdenv.hostPlatform.isMusl) ''
+        find . -name \*\.cabal\* -exec sed -i -e 's/\(base.*\)4.14/\14.16/' {} \; \
+          -exec sed -i -e 's/\(prim.*\)0.6/\10.8/' {} \;
+      ''
       + ''
         for env in $(env | grep '^TARGET_' | sed -E 's|\+?=.*||'); do
           export "''${env#TARGET_}=''${!env}"

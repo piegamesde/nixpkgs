@@ -45,11 +45,11 @@ builtins.concatLists [
   (test.run "Filter empty gemset" { } (
     set:
     functions.filterGemset
-      {
-        inherit ruby;
-        groups = [ "default" ];
-      }
-      set
+    {
+      inherit ruby;
+      groups = [ "default" ];
+    }
+    set
     == { }
   ))
   (
@@ -66,14 +66,14 @@ builtins.concatLists [
     test.run "Filter matches a group" gemSet (
       set:
       functions.filterGemset
-        {
-          inherit ruby;
-          groups = [
-            "y"
-            "z"
-          ];
-        }
-        set
+      {
+        inherit ruby;
+        groups = [
+          "y"
+          "z"
+        ];
+      }
+      set
       == gemSet
     )
   )
@@ -84,11 +84,11 @@ builtins.concatLists [
     test.run "Filter matches empty platforms list" gemSet (
       set:
       functions.filterGemset
-        {
-          inherit ruby;
-          groups = [ ];
-        }
-        set
+      {
+        inherit ruby;
+        groups = [ ];
+      }
+      set
       == gemSet
     )
   )
@@ -106,11 +106,11 @@ builtins.concatLists [
     test.run "Filter matches on platform" gemSet (
       set:
       functions.filterGemset
-        {
-          inherit ruby;
-          groups = [ ];
-        }
-        set
+      {
+        inherit ruby;
+        groups = [ ];
+      }
+      set
       == gemSet
     )
   )
@@ -128,14 +128,14 @@ builtins.concatLists [
     test.run "Filter excludes based on groups" gemSet (
       set:
       functions.filterGemset
-        {
-          inherit ruby;
-          groups = [
-            "a"
-            "b"
-          ];
-        }
-        set
+      {
+        inherit ruby;
+        groups = [
+          "a"
+          "b"
+        ];
+      }
+      set
       == { }
     )
   )

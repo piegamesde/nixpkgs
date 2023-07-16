@@ -143,10 +143,14 @@ qtModule {
         patchShebangs .
       )
     ''
+    # Prevent Chromium build script from making the path to `clang` relative to
+    # the build directory.  `clang_base_path` is the value of `QMAKE_CLANG_DIR`
+    # from `src/core/config/mac_osx.pri`.
     + lib.optionalString stdenv.isDarwin ''
       substituteInPlace ./src/3rdparty/chromium/build/toolchain/mac/BUILD.gn \
         --replace 'prefix = rebase_path("$clang_base_path/bin/", root_build_dir)' 'prefix = "$clang_base_path/bin/"'
     ''
+    # Patch library paths in Qt sources
     + ''
       sed -i \
         -e "s,QLibraryInfo::location(QLibraryInfo::DataPath),QLatin1String(\"$out\"),g" \
@@ -154,6 +158,7 @@ qtModule {
         -e "s,QLibraryInfo::location(QLibraryInfo::LibraryExecutablesPath),QLatin1String(\"$out/libexec\"),g" \
         src/core/web_engine_library_info.cpp
     ''
+    # Patch library paths in Chromium sources
     + lib.optionalString (!stdenv.isDarwin) ''
       sed -i -e '/lib_loader.*Load/s!"\(libudev\.so\)!"${
         lib.getLib systemd
@@ -273,6 +278,9 @@ qtModule {
       # Pipewire
       pipewire_0_2
     ]
+
+    # FIXME These dependencies shouldn't be needed but can't find a way
+    # around it. Chromium pulls this in while bootstrapping GN.
     ++ lib.optionals stdenv.isDarwin [
       libobjc
       cctools

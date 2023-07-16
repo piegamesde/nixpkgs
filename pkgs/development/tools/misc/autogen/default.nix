@@ -111,6 +111,7 @@ stdenv.mkDerivation rec {
       "libopts_cv_with_libregex=yes"
       #"MAKEINFO=${buildPackages.texinfo}/bin/makeinfo"
     ]
+    # See: https://sourceforge.net/p/autogen/bugs/187/
     ++ lib.optionals stdenv.isDarwin [ "ac_cv_func_utimensat=no" ]
     ;
 

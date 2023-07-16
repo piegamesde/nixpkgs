@@ -41,6 +41,7 @@ stdenv.mkDerivation rec {
       CoreFoundation
       IOKit
     ]
+    # acl relies on attr, which I can't get to build on darwin
     ++ lib.optional (!stdenv.isDarwin) acl
     ;
 

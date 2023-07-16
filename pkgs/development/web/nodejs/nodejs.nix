@@ -60,14 +60,14 @@ let
 
   sharedConfigureFlags =
     lib.concatMap
-      (name: [
-        "--shared-${name}"
-        "--shared-${name}-libpath=${lib.getLib sharedLibDeps.${name}}/lib"
-        # Closure notes: we explicitly avoid specifying --shared-*-includes,
-        #  as that would put the paths into bin/nodejs.
-        #  Including pkg-config in build inputs would also have the same effect!
-      ])
-      (builtins.attrNames sharedLibDeps)
+    (name: [
+      "--shared-${name}"
+      "--shared-${name}-libpath=${lib.getLib sharedLibDeps.${name}}/lib"
+      # Closure notes: we explicitly avoid specifying --shared-*-includes,
+      #  as that would put the paths into bin/nodejs.
+      #  Including pkg-config in build inputs would also have the same effect!
+    ])
+    (builtins.attrNames sharedLibDeps)
     ++ [ "--with-intl=system-icu" ]
     ;
 

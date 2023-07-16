@@ -45,6 +45,7 @@ stdenv.mkDerivation rec {
     ''
       patchShebangs Configure
     ''
+    # config is a configure script which is not installed.
     + ''
       substituteInPlace config --replace '/usr/bin/env' '${buildPackages.coreutils}/bin/env'
     ''
@@ -142,11 +143,18 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enableSSL2 "enable-ssl2"
     ++ lib.optional enableSSL3 "enable-ssl3"
+    # We select KTLS here instead of the configure-time detection (which we patch out).
+    # KTLS should work on FreeBSD 13+ as well, so we could enable it if someone tests it.
     ++ lib.optional
       (stdenv.isLinux && lib.versionAtLeast version "3.0.0")
       "enable-ktls"
     ++ lib.optional stdenv.hostPlatform.isAarch64 "no-afalgeng"
+    # OpenSSL needs a specific `no-shared` configure flag.
+    # See https://wiki.openssl.org/index.php/Compilation_and_Installation#Configure_Options
+    # for a comprehensive list of configuration options.
     ++ lib.optional static "no-shared"
+    # This introduces a reference to the CTLOG_FILE which is undesired when
+    # trying to build binaries statically.
     ++ lib.optional static "no-ct"
     ;
 

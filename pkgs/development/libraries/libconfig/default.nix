@@ -21,8 +21,8 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     lib.optional
-      (stdenv.hostPlatform.isWindows || stdenv.hostPlatform.isStatic)
-      "--disable-examples"
+    (stdenv.hostPlatform.isWindows || stdenv.hostPlatform.isStatic)
+    "--disable-examples"
     ++ lib.optional (!doCheck) "--disable-tests"
     ;
 

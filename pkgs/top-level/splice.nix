@@ -90,9 +90,7 @@ let
             in
             # The derivation along with its outputs, which we recur
             # on to splice them together.
-            if
-              lib.isDerivation defaultValue
-            then
+            if lib.isDerivation defaultValue then
               augmentedValue // spliceReal {
                 pkgsBuildBuild = tryGetOutputs valueBuildBuild;
                 pkgsBuildHost = tryGetOutputs valueBuildHost;

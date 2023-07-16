@@ -228,9 +228,7 @@ rec {
           # Applies only nested modification to the input value
           withNestedMods =
             # Return the value directly if we don't have any nested modifications
-            if
-              split.wrong == [ ]
-            then
+            if split.wrong == [ ] then
               if hasValue then
                 value
               else
@@ -243,8 +241,8 @@ rec {
                 in
                 throw (
                   "updateManyAttrsByPath: Path '${
-                      showAttrPath updatePath
-                    }' does "
+                    showAttrPath updatePath
+                  }' does "
                   + "not exist in the given value, but the first update to this "
                   + "path tries to access the existing value."
                 )
@@ -270,8 +268,8 @@ rec {
               in
               throw (
                 "updateManyAttrsByPath: Path '${
-                    showAttrPath updatePath
-                  }' needs to "
+                  showAttrPath updatePath
+                }' needs to "
                 + "be updated, but path '${
                     showAttrPath (take prefixLength updatePath)
                   }' "

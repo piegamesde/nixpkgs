@@ -191,6 +191,7 @@ stdenv.mkDerivation rec {
       perlPackages.XMLXPath
     ]
     ++ lib.optional (!isDarwin) rpcsvc-proto
+    # NOTE: needed for rpcgen
     ++ lib.optional isDarwin darwin.developer_cmds
     ;
 

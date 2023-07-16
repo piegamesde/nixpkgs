@@ -89,13 +89,17 @@ stdenv.mkDerivation rec {
       "--with-libassuan-prefix=${libassuan.dev}"
     ]
     ++ lib.optional pythonSupport "--enable-languages=python"
+    # Tests will try to communicate with gpg-agent instance via a UNIX socket
+    # which has a path length limit. Nix on darwin is using a build directory
+    # that already has quite a long path and the resulting socket path doesn't
+    # fit in the limit. https://github.com/NixOS/nix/pull/1085
     ++ lib.optionals stdenv.isDarwin [ "--disable-gpg-test" ]
     ;
 
   env.NIX_CFLAGS_COMPILE = toString (
     # qgpgme uses Q_ASSERT which retains build inputs at runtime unless
-      # debugging is disabled
-      lib.optional (qtbase != null) "-DQT_NO_DEBUG"
+    # debugging is disabled
+    lib.optional (qtbase != null) "-DQT_NO_DEBUG"
     # https://www.gnupg.org/documentation/manuals/gpgme/Largefile-Support-_0028LFS_0029.html
     ++ lib.optional stdenv.hostPlatform.is32bit "-D_FILE_OFFSET_BITS=64"
   );

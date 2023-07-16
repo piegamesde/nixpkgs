@@ -261,7 +261,6 @@ let
         ++ lib.optionals (container.imageFile == null) [
             "network-online.target"
           ]
-        # if imageFile is not set, the service needs the network to download the image from the registry
         ++ dependsOn
         ;
       requires = dependsOn;

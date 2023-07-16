@@ -77,7 +77,7 @@
     && lib.meta.availableOn stdenv.hostPlatform elfutils
     && lib.meta.availableOn stdenv.targetPlatform elfutils
     &&
-    # HACK: elfutils is marked as broken on static platforms
+      # HACK: elfutils is marked as broken on static platforms
       # which availableOn can't tell.
       !stdenv.targetPlatform.isStatic
     && !stdenv.hostPlatform.isStatic,
@@ -98,6 +98,9 @@
         "no_dynamic_ghc"
       ]
       ++ lib.optionals (!enableProfiledLibs) [ "no_profiled_libs" ]
+      # While split sections are now enabled by default in ghc 8.8 for windows,
+      # they seem to lead to `too many sections` errors when building base for
+      # profiling.
       ++ lib.optionals (!stdenv.targetPlatform.isWindows) [ "split_sections" ]
       ;
   in
@@ -184,12 +187,12 @@ let
 
   hadrianSettings =
     # -fexternal-dynamic-refs apparently (because it's not clear from the
-      # documentation) makes the GHC RTS able to load static libraries, which may
-      # be needed for TemplateHaskell. This solution was described in
-      # https://www.tweag.io/blog/2020-09-30-bazel-static-haskell
-      lib.optionals enableRelocatedStaticLibs [
-        "*.*.ghc.*.opts += -fPIC -fexternal-dynamic-refs"
-      ]
+    # documentation) makes the GHC RTS able to load static libraries, which may
+    # be needed for TemplateHaskell. This solution was described in
+    # https://www.tweag.io/blog/2020-09-30-bazel-static-haskell
+    lib.optionals enableRelocatedStaticLibs [
+      "*.*.ghc.*.opts += -fPIC -fexternal-dynamic-refs"
+    ]
     ++ lib.optionals targetPlatform.useAndroidPrebuilt [
         "*.*.ghc.c.opts += -optc-std=gnu99"
       ]
@@ -208,6 +211,8 @@ let
     platform:
     lib.optional enableTerminfo ncurses
     ++ lib.optionals (!targetPlatform.isGhcjs) [ libffi ]
+    # Bindist configure script fails w/o elfutils in linker search path
+    # https://gitlab.haskell.org/ghc/ghc/-/issues/22081
     ++ lib.optional enableDwarf elfutils
     ++ lib.optional (!enableNativeBignum) gmp
     ++ lib.optional
@@ -248,9 +253,7 @@ let
     # Same goes for strip.
     strip =
       # TODO(@sternenseemann): also use wrapper if linker == "bfd" or "gold"
-      if
-        stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin
-      then
+      if stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin then
         targetCC.bintools
       else
         targetCC.bintools.bintools
@@ -323,74 +326,40 @@ stdenv.mkDerivation (
         export READELF="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}readelf"
         export STRIP="${bintoolsFor.strip}/bin/${bintoolsFor.strip.targetPrefix}strip"
       ''
-      # Create bash array hadrianFlagsArray for use in buildPhase. Do it in
-      # preConfigure, so overrideAttrs can be used to modify it effectively.
-      # hadrianSettings are passed via the command line so they are more visible
-      # in the build log.
       + lib.optionalString (stdenv.targetPlatform.linker == "cctools") ''
         export OTOOL="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}otool"
         export INSTALL_NAME_TOOL="${bintoolsFor.install_name_tool}/bin/${bintoolsFor.install_name_tool.targetPrefix}install_name_tool"
       ''
-      # Create bash array hadrianFlagsArray for use in buildPhase. Do it in
-      # preConfigure, so overrideAttrs can be used to modify it effectively.
-      # hadrianSettings are passed via the command line so they are more visible
-      # in the build log.
       + lib.optionalString useLLVM ''
         export LLC="${lib.getBin buildTargetLlvmPackages.llvm}/bin/llc"
         export OPT="${lib.getBin buildTargetLlvmPackages.llvm}/bin/opt"
       ''
-      # Create bash array hadrianFlagsArray for use in buildPhase. Do it in
-      # preConfigure, so overrideAttrs can be used to modify it effectively.
-      # hadrianSettings are passed via the command line so they are more visible
-      # in the build log.
       + lib.optionalString (useLLVM && stdenv.targetPlatform.isDarwin) ''
         # LLVM backend on Darwin needs clang: https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/codegens.html#llvm-code-generator-fllvm
         export CLANG="${buildTargetLlvmPackages.clang}/bin/${buildTargetLlvmPackages.clang.targetPrefix}clang"
       ''
-      # Create bash array hadrianFlagsArray for use in buildPhase. Do it in
-      # preConfigure, so overrideAttrs can be used to modify it effectively.
-      # hadrianSettings are passed via the command line so they are more visible
-      # in the build log.
       + lib.optionalString (stdenv.isLinux && hostPlatform.libc == "glibc") ''
         export LOCALE_ARCHIVE="${glibcLocales}/lib/locale/locale-archive"
       ''
-      # Create bash array hadrianFlagsArray for use in buildPhase. Do it in
-      # preConfigure, so overrideAttrs can be used to modify it effectively.
-      # hadrianSettings are passed via the command line so they are more visible
-      # in the build log.
       + lib.optionalString (!stdenv.isDarwin) ''
         export NIX_LDFLAGS+=" -rpath $out/lib/ghc-${version}"
       ''
-      # Create bash array hadrianFlagsArray for use in buildPhase. Do it in
-      # preConfigure, so overrideAttrs can be used to modify it effectively.
-      # hadrianSettings are passed via the command line so they are more visible
-      # in the build log.
       + lib.optionalString stdenv.isDarwin ''
         export NIX_LDFLAGS+=" -no_dtrace_dof"
 
         # GHC tries the host xattr /usr/bin/xattr by default which fails since it expects python to be 2.7
         export XATTR=${lib.getBin xattr}/bin/xattr
       ''
-      # Create bash array hadrianFlagsArray for use in buildPhase. Do it in
-      # preConfigure, so overrideAttrs can be used to modify it effectively.
-      # hadrianSettings are passed via the command line so they are more visible
-      # in the build log.
+      # If we are not using release tarballs, some files need to be generated using
+      # the boot script.
       + lib.optionalString (rev != null) ''
         echo ${version} > VERSION
         echo ${rev} > GIT_COMMIT_ID
         ./boot
       ''
-      # Create bash array hadrianFlagsArray for use in buildPhase. Do it in
-      # preConfigure, so overrideAttrs can be used to modify it effectively.
-      # hadrianSettings are passed via the command line so they are more visible
-      # in the build log.
       + lib.optionalString targetPlatform.useAndroidPrebuilt ''
         sed -i -e '5i ,("armv7a-unknown-linux-androideabi", ("e-m:e-p:32:32-i64:64-v128:64:128-a:0:32-n32-S64", "cortex-a8", ""))' llvm-targets
       ''
-      # Create bash array hadrianFlagsArray for use in buildPhase. Do it in
-      # preConfigure, so overrideAttrs can be used to modify it effectively.
-      # hadrianSettings are passed via the command line so they are more visible
-      # in the build log.
       + lib.optionalString targetPlatform.isMusl ''
         echo "patching llvm-targets for musl targets..."
         echo "Cloning these existing '*-linux-gnu*' targets:"
@@ -408,10 +377,8 @@ stdenv.mkDerivation (
                       '*-android*|*-gnueabi*|*-musleabi*)'
         done
       ''
-      # Create bash array hadrianFlagsArray for use in buildPhase. Do it in
-      # preConfigure, so overrideAttrs can be used to modify it effectively.
-      # hadrianSettings are passed via the command line so they are more visible
-      # in the build log.
+      # Need to make writable EM_CACHE for emscripten
+      # https://gitlab.haskell.org/ghc/ghc/-/wikis/javascript-backend#configure-fails-with-sub-word-sized-atomic-operations-not-available
       + lib.optionalString targetPlatform.isGhcjs ''
         export EM_CACHE="$(mktemp -d emcache.XXXXXXXXXX)"
         cp -Lr ${

@@ -85,8 +85,8 @@ in
       } ";
     services.tomcat.sharedLibs =
       optional
-        cfg.useWebServiceInterface
-        "${pkgs.DisnixWebService}/share/java/DisnixConnection.jar"
+      cfg.useWebServiceInterface
+      "${pkgs.DisnixWebService}/share/java/DisnixConnection.jar"
       ++ optional
         cfg.useWebServiceInterface
         "${pkgs.dbus_java}/share/java/dbus.jar"

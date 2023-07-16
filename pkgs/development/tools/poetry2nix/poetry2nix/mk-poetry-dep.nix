@@ -48,19 +48,19 @@ pythonPackages.callPackage
         matchesVersion =
           fname:
           builtins.match
-            ("^.*"
-              + builtins.replaceStrings
-                [
-                  "."
-                  "+"
-                ]
-                [
-                  "\\."
-                  "\\+"
-                ]
-                version
-              + ".*$")
-            fname
+          ("^.*"
+            + builtins.replaceStrings
+              [
+                "."
+                "+"
+              ]
+              [
+                "\\."
+                "\\+"
+              ]
+              version
+            + ".*$")
+          fname
           != null
           ;
         hasSupportedExtension =

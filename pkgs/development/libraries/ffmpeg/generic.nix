@@ -848,8 +848,8 @@ stdenv.mkDerivation (
 
     outputs =
       optionals withBin [
-          "bin"
-        ] # The first output is the one that gets symlinked by default!
+        "bin"
+      ] # The first output is the one that gets symlinked by default!
       ++ optionals withLib [
         "lib"
         "dev"

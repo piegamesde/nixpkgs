@@ -380,8 +380,8 @@ in
                       StateDirectoryMode = "2750";
                       ExecStart =
                         "${cfg.python}/bin/gunicorn ${srvsrht}.app:app --name ${srvsrht} --bind ${cfg.listenAddress}:${
-                            toString srvCfg.port
-                          } "
+                          toString srvCfg.port
+                        } "
                         + concatStringsSep " " srvCfg.gunicorn.extraArgs
                         ;
                     };

@@ -213,11 +213,8 @@ stdenv.mkDerivation rec {
       libXau
       libXmu
     ]
-    # All X related dependencies
     ++ lib.optional (guiSupport == "gtk2") gtk2-x11
-    # All X related dependencies
     ++ lib.optional (guiSupport == "gtk3") gtk3-x11
-    # All X related dependencies
     ++ lib.optionals darwinSupport [
       CoreServices
       CoreData
@@ -225,13 +222,9 @@ stdenv.mkDerivation rec {
       Foundation
       libobjc
     ]
-    # All X related dependencies
     ++ lib.optional luaSupport lua
-    # All X related dependencies
     ++ lib.optional pythonSupport python3
-    # All X related dependencies
     ++ lib.optional tclSupport tcl
-    # All X related dependencies
     ++ lib.optional rubySupport ruby
     ;
 

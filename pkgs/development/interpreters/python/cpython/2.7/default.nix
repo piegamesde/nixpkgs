@@ -243,6 +243,8 @@ let
       "ac_cv_file__dev_ptmx=yes"
       "ac_cv_file__dev_ptc=yes"
     ]
+    # Never even try to use lchmod on linux,
+    # don't rely on detecting glibc-isms.
     ++ lib.optional stdenv.hostPlatform.isLinux "ac_cv_func_lchmod=no"
     ++ lib.optional static "LDFLAGS=-static"
     ;
@@ -312,8 +314,8 @@ stdenv.mkDerivation (
 
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString
-        (stdenv.targetPlatform.system == "x86_64-darwin")
-        "-msse2"
+      (stdenv.targetPlatform.system == "x86_64-darwin")
+      "-msse2"
       + lib.optionalString
         stdenv.hostPlatform.isMusl
         " -DTHREAD_STACK_SIZE=0x100000"

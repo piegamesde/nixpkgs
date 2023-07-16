@@ -1051,9 +1051,7 @@ in
           ]
           ++ optionals (pkgs.stdenv.hostPlatform ? gcc.arch) (
             # a builder can run code for `gcc.arch` and inferior architectures
-              [
-                "gccarch-${pkgs.stdenv.hostPlatform.gcc.arch}"
-              ]
+            [ "gccarch-${pkgs.stdenv.hostPlatform.gcc.arch}" ]
             ++ map (x: "gccarch-${x}") (
               systems.architectures.inferiors.${pkgs.stdenv.hostPlatform.gcc.arch} or [ ]
             )

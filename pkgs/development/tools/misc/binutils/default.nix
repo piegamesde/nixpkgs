@@ -99,6 +99,9 @@ stdenv.mkDerivation (
         ./plugins-no-BINDIR.patch
       ]
       ++ lib.optional targetPlatform.isiOS ./support-ios.patch
+      # Adds AVR-specific options to "size" for compatibility with Atmel's downstream distribution
+      # Patch from arch-community
+      # https://github.com/archlinux/svntogit-community/blob/c8d53dd1734df7ab15931f7fad0c9acb8386904c/trunk/avr-size.patch
       ++ lib.optional targetPlatform.isAvr ./avr-size.patch
       ++ lib.optional stdenv.targetPlatform.isWindows ./windres-locate-gcc.patch
       ++ lib.optional
@@ -118,6 +121,8 @@ stdenv.mkDerivation (
           else
             ./mips64-default-n64.patch
         )
+      # This patch fixes a bug in 2.40 on MinGW, which breaks DXVK when cross-building from Darwin.
+      # See https://sourceware.org/bugzilla/show_bug.cgi?id=30079
       ++ lib.optional stdenv.targetPlatform.isMinGW ./mingw-abort-fix.patch
       ;
 

@@ -373,6 +373,9 @@ stdenv.mkDerivation {
     ++ lib.optional enableDC1394 libdc1394
     ++ lib.optional enableEigen eigen
     ++ lib.optional enableBlas blas.provider
+    # There is seemingly no compile-time flag for Tesseract.  It's
+    # simply enabled automatically if contrib is built, and it detects
+    # tesseract & leptonica.
     ++ lib.optionals enableTesseract [
       tesseract
       leptonica
@@ -458,10 +461,10 @@ stdenv.mkDerivation {
         enableLto
         && (
           # Only clang supports thin LTO, so we must either be using clang through the stdenv,
-            stdenv.cc.isClang
+          stdenv.cc.isClang
           ||
-          # or through the backend stdenv.
-          (enableCuda && backendStdenv.cc.isClang))
+            # or through the backend stdenv.
+            (enableCuda && backendStdenv.cc.isClang))
       ))
     ]
     ++ lib.optionals enableCuda [

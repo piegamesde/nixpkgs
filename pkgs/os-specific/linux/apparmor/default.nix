@@ -186,7 +186,7 @@ let
     prePatch =
       prePatchCommon
       +
-      # Do not build vim file
+        # Do not build vim file
         lib.optionalString stdenv.hostPlatform.isMusl ''
           sed -i ./utils/Makefile -e "/\<vim\>/d"
         ''

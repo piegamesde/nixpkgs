@@ -1221,6 +1221,8 @@ in
         "input_leds"
       ]
       ++ luks.cryptoModules
+      # workaround until https://marc.info/?l=linux-crypto-vger&m=148783562211457&w=4 is merged
+      # remove once 'modprobe --show-depends xts' shows ecb as a dependency
       ++ (
         if builtins.elem "xts" luks.cryptoModules then
           [ "ecb" ]

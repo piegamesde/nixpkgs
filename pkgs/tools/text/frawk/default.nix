@@ -31,10 +31,10 @@ rustPlatform.buildRustPackage rec {
 
   preBuild =
     lib.optionalString
-      (lib.elem "default" features || lib.elem "llvm_backend" features)
-      ''
-        export LLVM_SYS_120_PREFIX=${llvmPackages_12.llvm.dev}
-      ''
+    (lib.elem "default" features || lib.elem "llvm_backend" features)
+    ''
+      export LLVM_SYS_120_PREFIX=${llvmPackages_12.llvm.dev}
+    ''
     + lib.optionalString
       (lib.elem "default" features || lib.elem "unstable" features)
       ''

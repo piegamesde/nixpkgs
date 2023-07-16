@@ -838,24 +838,24 @@ in
 
     environment.systemPackages =
       utils.removePackagesByName
-        [
-          xorg.xorgserver.out
-          xorg.xrandr
-          xorg.xrdb
-          xorg.setxkbmap
-          xorg.iceauth # required for KDE applications (it's called by dcopserver)
-          xorg.xlsclients
-          xorg.xset
-          xorg.xsetroot
-          xorg.xinput
-          xorg.xprop
-          xorg.xauth
-          pkgs.xterm
-          pkgs.xdg-utils
-          xorg.xf86inputevdev.out # get evdev.4 man page
-          pkgs.nixos-icons # needed for gnome and pantheon about dialog, nixos-manual and maybe more
-        ]
-        config.services.xserver.excludePackages
+      [
+        xorg.xorgserver.out
+        xorg.xrandr
+        xorg.xrdb
+        xorg.setxkbmap
+        xorg.iceauth # required for KDE applications (it's called by dcopserver)
+        xorg.xlsclients
+        xorg.xset
+        xorg.xsetroot
+        xorg.xinput
+        xorg.xprop
+        xorg.xauth
+        pkgs.xterm
+        pkgs.xdg-utils
+        xorg.xf86inputevdev.out # get evdev.4 man page
+        pkgs.nixos-icons # needed for gnome and pantheon about dialog, nixos-manual and maybe more
+      ]
+      config.services.xserver.excludePackages
       ++ optional (elem "virtualbox" cfg.videoDrivers) xorg.xrefresh
       ;
 

@@ -80,13 +80,13 @@ let
   matchesDoc =
     v:
     builtins.match
-      (
-        if webdoc then
-          ".*[0-9]_LINUX.sh"
-        else
-          ".*[0-9]_BNDL_LINUX.sh"
-      )
-      v.src.name
+    (
+      if webdoc then
+        ".*[0-9]_LINUX.sh"
+      else
+        ".*[0-9]_BNDL_LINUX.sh"
+    )
+    v.src.name
     != null
     ;
 in

@@ -20,11 +20,10 @@ let
       "cpdef_extern_func"
       "libcpp_algo"
     ]
-    # cython's testsuite is not working very well with libc++
-    # We are however optimistic about things outside of testsuite still working
+    # Some tests in the test suite isn't working on aarch64. Disable them for
+    # now until upstream finds a workaround.
+    # Upstream issue here: https://github.com/cython/cython/issues/2308
     ++ lib.optionals stdenv.isAarch64 [ "numpy_memoryview" ]
-    # cython's testsuite is not working very well with libc++
-    # We are however optimistic about things outside of testsuite still working
     ++ lib.optionals stdenv.isi686 [
       "future_division"
       "overflow_check_longlong"

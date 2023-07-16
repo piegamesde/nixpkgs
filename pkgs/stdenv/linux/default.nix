@@ -675,7 +675,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
       extraNativeBuildInputs =
         [ prevStage.patchelf ]
         ++
-        # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
+          # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
           lib.optional
           (!localSystem.isx86 || localSystem.libc == "musl")
           prevStage.updateAutotoolsGnuConfigScriptsHook
@@ -747,7 +747,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           prevStage.xz
         ]
         ++
-        # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
+          # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
           lib.optional
           (!localSystem.isx86 || localSystem.libc == "musl")
           prevStage.updateAutotoolsGnuConfigScriptsHook
@@ -790,7 +790,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         extraNativeBuildInputs =
           [ prevStage.patchelf ]
           ++
-          # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
+            # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
             lib.optional
             (!localSystem.isx86 || localSystem.libc == "musl")
             prevStage.updateAutotoolsGnuConfigScriptsHook
@@ -813,31 +813,31 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         allowedRequisites = with prevStage;
           with lib;
           # Simple executable tools
-            concatMap
-            (p: [
-              (getBin p)
-              (getLib p)
-            ])
-            [
-              gzip
-              bzip2
-              xz
-              bash
-              binutils.bintools
-              coreutils
-              diffutils
-              findutils
-              gawk
-              gmp
-              gnumake
-              gnused
-              gnutar
-              gnugrep
-              gnupatch
-              patchelf
-              ed
-              file
-            ]
+          concatMap
+          (p: [
+            (getBin p)
+            (getLib p)
+          ])
+          [
+            gzip
+            bzip2
+            xz
+            bash
+            binutils.bintools
+            coreutils
+            diffutils
+            findutils
+            gawk
+            gmp
+            gnumake
+            gnused
+            gnutar
+            gnugrep
+            gnupatch
+            patchelf
+            ed
+            file
+          ]
           # Library dependencies
           ++ map getLib (
             [
@@ -850,13 +850,12 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             ]
             ++ lib.optional (gawk.libsigsegv != null) gawk.libsigsegv
           )
-          # Library dependencies
+          # More complicated cases
           ++ (map (x: getOutput x (getLibc prevStage)) [
             "out"
             "dev"
             "bin"
           ])
-          # Library dependencies
           ++ [
             linuxHeaders # propagated from .dev
             binutils
@@ -867,12 +866,10 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             gcc.cc.libgcc
             glibc.passthru.libgcc
           ]
-          # Library dependencies
           ++ lib.optionals (!localSystem.isx86 || localSystem.libc == "musl") [
             prevStage.updateAutotoolsGnuConfigScriptsHook
             prevStage.gnu-config
           ]
-          # Library dependencies
           ++ (
             with gcc-unwrapped.passthru; [
               gmp

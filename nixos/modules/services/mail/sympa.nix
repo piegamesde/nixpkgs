@@ -520,6 +520,9 @@ in
           "d  ${dataDir}/list_data/${fqdn} 0700 ${user} ${group} - -"
         ]
       ))
+      #++ (flip mapAttrsToList enabledFiles (k: v:
+      #  "L+ ${dataDir}/${k}              -    -       -        - ${v.source}"
+      #))
       ++ (concatLists (
         flip mapAttrsToList enabledFiles (
           k: v: [

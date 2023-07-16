@@ -203,6 +203,9 @@ let
       ++ lib.optional enableOSMesa "osmesa"
       ++ lib.optional stdenv.isLinux "driversdev"
       ++ lib.optional enableOpenCL "opencl"
+      # the Dozen drivers depend on libspirv2dxil, but link it statically, and
+      # libspirv2dxil itself is pretty chonky, so relocate it to its own output
+      # in case anything wants to use it at some point
       ++ lib.optional haveDozen "spirv2dxil"
       ;
 

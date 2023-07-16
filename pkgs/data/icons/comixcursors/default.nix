@@ -107,12 +107,11 @@ stdenvNoCC.mkDerivation rec {
       default = "Opaque_Black";
     in
     # Have the most-traditional variant be the default output (as the first).
-      # Even with outputsToInstall=[], the default/first still has an effect on
-      # some Nix tools (e.g. nix-build).
-      [
-        default
-      ]
+    # Even with outputsToInstall=[], the default/first still has an effect on
+    # some Nix tools (e.g. nix-build).
+    [ default ]
     ++ (lib.remove default variants)
+    # Need a dummy "out" output to prevent the builder scripts from breaking.
     ++ [ "out" ]
     ;
 

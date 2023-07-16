@@ -279,7 +279,7 @@ let
         if
           stdenv.hostPlatform.isMusl
           &&
-          # Except when:
+            # Except when:
             #    - static aarch64, where compilation works, but produces segfaulting dynamically linked binaries.
             #    - static armv7l, where compilation fails.
             !(stdenv.hostPlatform.isAarch && stdenv.hostPlatform.isStatic)

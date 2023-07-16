@@ -149,6 +149,7 @@ buildPythonPackage rec {
     ++ lib.optionals (lib.versionAtLeast matplotlib.version "3.4.0") [
         "test_plot_circuit_layout"
       ]
+    # Disabling slow tests for build constraints
     ++ [
       "test_all_examples"
       "test_controlled_random_unitary"

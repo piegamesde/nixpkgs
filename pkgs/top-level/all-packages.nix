@@ -22309,9 +22309,7 @@ with pkgs;
     name:
     # libc is hackily often used from the previous stage. This `or`
     # hack fixes the hack, *sigh*.
-    if
-      name == "glibc"
-    then
+    if name == "glibc" then
       targetPackages.glibcCross or glibcCross
     else if name == "bionic" then
       targetPackages.bionic or bionic

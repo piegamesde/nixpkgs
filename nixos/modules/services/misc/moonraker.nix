@@ -182,9 +182,7 @@ in
       script = ''
         config_path=${
           # Deprecated separate config dir
-          if
-            cfg.configDir != null
-          then
+          if cfg.configDir != null then
             "${cfg.configDir}/moonraker-temp.cfg"
           # Config in unified data path
           else

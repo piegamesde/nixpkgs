@@ -35,10 +35,10 @@ in
         ;
       preFixupLibGccPhase =
         # delete extra/unused builds of libgcc_s in non-langC builds
-          # (i.e. libgccjit, gnat, etc) to avoid potential confusion
-          lib.optionalString (!langC) ''
-            rm -f $out/lib/libgcc_s.so*
-          ''
+        # (i.e. libgccjit, gnat, etc) to avoid potential confusion
+        lib.optionalString (!langC) ''
+          rm -f $out/lib/libgcc_s.so*
+        ''
 
         # TODO(amjoseph): remove the `libgcc_s.so` symlinks below and replace them
         # with a `-L${gccForLibs.libgcc}/lib` in cc-wrapper's

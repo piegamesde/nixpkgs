@@ -33,6 +33,8 @@ let
     ++ map (sit: sit.dev) (attrValues cfg.sits)
     ++ map (gre: gre.dev) (attrValues cfg.greTunnels)
     ++ map (vlan: vlan.interface) (attrValues cfg.vlans)
+    # add dependency to physical or independently created vswitch member interface
+    # TODO: warn the user that any address configured on those interfaces will be useless
     ++ concatMap
       (
         i:
@@ -49,9 +51,8 @@ let
     let
       gateway =
         optional
-          (cfg.defaultGateway != null
-            && (cfg.defaultGateway.address or "") != "")
-          cfg.defaultGateway.address
+        (cfg.defaultGateway != null && (cfg.defaultGateway.address or "") != "")
+        cfg.defaultGateway.address
         ++ optional
           (cfg.defaultGateway6 != null
             && (cfg.defaultGateway6.address or "") != "")

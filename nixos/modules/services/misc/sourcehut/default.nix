@@ -935,24 +935,24 @@ in
           serviceConfig = {
             BindReadOnlyPaths =
               # Note that those /usr/bin/* paths are hardcoded in multiple places in *.sr.ht,
-                # for instance to get the user from the [git.sr.ht::dispatch] settings.
-                # *srht-keys needs to:
-                # - access a redis-server in [sr.ht] redis-host,
-                # - access the PostgreSQL server in [*.sr.ht] connection-string,
-                # - query metasrht-api (through the HTTP API).
-                # Using this has the side effect of creating empty files in /usr/bin/
-                optionals cfg.builds.enable [
-                  "${
-                    pkgs.writeShellScript "buildsrht-keys-wrapper" ''
-                      set -e
-                      cd /run/sourcehut/buildsrht/subdir
-                      set -x
-                      exec -a "$0" ${pkgs.sourcehut.buildsrht}/bin/buildsrht-keys "$@"
-                    ''
-                  }:/usr/bin/buildsrht-keys"
-                  "${pkgs.sourcehut.buildsrht}/bin/master-shell:/usr/bin/master-shell"
-                  "${pkgs.sourcehut.buildsrht}/bin/runner-shell:/usr/bin/runner-shell"
-                ]
+              # for instance to get the user from the [git.sr.ht::dispatch] settings.
+              # *srht-keys needs to:
+              # - access a redis-server in [sr.ht] redis-host,
+              # - access the PostgreSQL server in [*.sr.ht] connection-string,
+              # - query metasrht-api (through the HTTP API).
+              # Using this has the side effect of creating empty files in /usr/bin/
+              optionals cfg.builds.enable [
+                "${
+                  pkgs.writeShellScript "buildsrht-keys-wrapper" ''
+                    set -e
+                    cd /run/sourcehut/buildsrht/subdir
+                    set -x
+                    exec -a "$0" ${pkgs.sourcehut.buildsrht}/bin/buildsrht-keys "$@"
+                  ''
+                }:/usr/bin/buildsrht-keys"
+                "${pkgs.sourcehut.buildsrht}/bin/master-shell:/usr/bin/master-shell"
+                "${pkgs.sourcehut.buildsrht}/bin/runner-shell:/usr/bin/runner-shell"
+              ]
               ++ optionals cfg.git.enable [
                 # /path/to/gitsrht-keys calls /path/to/gitsrht-shell,
                 # or [git.sr.ht] shell= if set.

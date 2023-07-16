@@ -113,11 +113,14 @@ let
     ++ optional
       (targetPlatform.libc == "musl")
       ../libgomp-dont-force-initial-exec.patch
+
+    # Obtain latest patch with ../update-mcfgthread-patches.sh
     ++ optional
       (!crossStageStatic
         && targetPlatform.isMinGW
         && threadsCross.model == "mcf")
       ./Added-mcf-thread-model-support-from-mcfgthread.patch
+
     ++ [ ../libsanitizer-no-cyclades-9.patch ]
     ;
 
@@ -231,6 +234,8 @@ stdenv.mkDerivation (
           patchShebangs $configureScript
         done
       ''
+      # This should kill all the stdinc frameworks that gcc and friends like to
+      # insert into default search paths.
       + lib.optionalString hostPlatform.isDarwin ''
         substituteInPlace gcc/config/darwin-c.c \
           --replace 'if (stdinc)' 'if (0)'

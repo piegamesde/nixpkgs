@@ -242,6 +242,7 @@ stdenv.mkDerivation rec {
 
       "-DLIBDIR=/does-not-exist"
     ]
+    # Clang doesn't support "-export-dynamic"
     ++ lib.optional stdenv.cc.isClang "-DPYTHON_LINKFLAGS="
     ++ lib.optional jackaudioSupport "-DWITH_JACK=ON"
     ++ lib.optionals cudaSupport [

@@ -112,7 +112,7 @@ rec {
     ;
   postInstall =
     ""
-    # Clang references in InstalledDir
+    # Gcc references
     + lib.optionalString (hasFeature "gnuradio-runtime") ''
       ${removeReferencesTo}/bin/remove-references-to -t ${stdenv.cc} $(readlink -f $out/lib/libgnuradio-runtime${stdenv.hostPlatform.extensions.sharedLibrary})
     ''

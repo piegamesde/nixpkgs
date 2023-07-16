@@ -101,16 +101,10 @@
   withKmod ? true,
   withLibBPF ?
     lib.versionAtLeast buildPackages.llvmPackages.clang.version "10.0"
-    # buildPackages.targetPackages.llvmPackages is the same as llvmPackages,
-    # but we do it this way to avoid taking llvmPackages as an input, and
-    # risking making it too easy to ignore the above comment about llvmPackages.
     && (stdenv.hostPlatform.isAarch
       -> lib.versionAtLeast
         stdenv.hostPlatform.parsed.cpu.version
         "6") # assumes hard floats
-    # buildPackages.targetPackages.llvmPackages is the same as llvmPackages,
-    # but we do it this way to avoid taking llvmPackages as an input, and
-    # risking making it too easy to ignore the above comment about llvmPackages.
     && !stdenv.hostPlatform.isMips64 # see https://github.com/NixOS/nixpkgs/pull/194149#issuecomment-1266642211
     # buildPackages.targetPackages.llvmPackages is the same as llvmPackages,
     # but we do it this way to avoid taking llvmPackages as an input, and
@@ -265,9 +259,6 @@ stdenv.mkDerivation (
           "run_command(cc.cmd_array(), '-print-prog-name=objcopy', check: true).stdout().strip()" \
           "'${stdenv.cc.bintools.targetPrefix}objcopy'"
       ''
-      # Finally, patch shebangs in scripts used at build time. This must not patch
-      # scripts that will end up in the output, to avoid build platform references
-      # when cross-compiling.
       + lib.optionalString withLibBPF ''
         substituteInPlace meson.build \
           --replace "find_program('clang'" "find_program('${stdenv.cc.targetPrefix}clang'"
@@ -275,9 +266,6 @@ stdenv.mkDerivation (
         substituteInPlace src/core/bpf/meson.build \
           --replace "clang_flags = [" "clang_flags = [ '-fno-stack-protector',"
       ''
-      # Finally, patch shebangs in scripts used at build time. This must not patch
-      # scripts that will end up in the output, to avoid build platform references
-      # when cross-compiling.
       + (
         let
           # The following patches references to dynamic libraries to ensure that
@@ -456,9 +444,7 @@ stdenv.mkDerivation (
         # patch all the dlopen calls to contain absolute paths to the libraries
         lib.concatMapStringsSep "\n" patchDlOpen dlopenLibs
       )
-      # Finally, patch shebangs in scripts used at build time. This must not patch
-      # scripts that will end up in the output, to avoid build platform references
-      # when cross-compiling.
+      # finally ensure that there are no left-over dlopen calls (or rather strings pointing to shared libraries) that we didn't handle
       + ''
         if grep -qr '"lib[a-zA-Z0-9-]*\.so[\.0-9a-zA-z]*"' src; then
           echo "Found unhandled dynamic library calls: "
@@ -528,56 +514,33 @@ stdenv.mkDerivation (
         libgcrypt
         libgpg-error
       ]
-
       ++ lib.optional withTests glib
-
       ++ lib.optional withAcl acl
-
       ++ lib.optional withApparmor libapparmor
-
       ++ lib.optional withAudit audit
-
       ++ lib.optional wantCurl (lib.getDev curl)
-
       ++ lib.optionals withCompression [
         bzip2
         lz4
         xz
         zstd
       ]
-
       ++ lib.optional withCoredump elfutils
-
       ++ lib.optional withCryptsetup (lib.getDev cryptsetup.dev)
-
       ++ lib.optional withEfi gnu-efi
-
       ++ lib.optional withKexectools kexec-tools
-
       ++ lib.optional withKmod kmod
-
       ++ lib.optional withLibidn2 libidn2
-
       ++ lib.optional withLibseccomp libseccomp
-
       ++ lib.optional withNetworkd iptables
-
       ++ lib.optional withPam pam
-
       ++ lib.optional withPCRE2 pcre2
-
       ++ lib.optional withSelinux libselinux
-
       ++ lib.optional withRemote libmicrohttpd
-
       ++ lib.optionals (withHomed || withCryptsetup) [ p11-kit ]
-
       ++ lib.optionals (withHomed || withCryptsetup) [ libfido2 ]
-
       ++ lib.optionals withLibBPF [ libbpf ]
-
       ++ lib.optional withTpm2Tss tpm2-tss
-
       ++ lib.optional withUkify (
         python3Packages.python.withPackages (ps: with ps; [ pefile ])
       )

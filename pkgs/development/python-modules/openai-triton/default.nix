@@ -100,7 +100,8 @@ buildPythonPackage {
           '= get_thirdparty_packages(triton_cache_path)' \
           '= os.environ["cmakeFlags"].split()'
     ''
-    # Triton seems to be looking up cuda.h
+    # Wiring triton=2.0.0 with llcmPackages_rocm.llvm=5.4.3
+    # Revisit when updating either triton or llvm
     + ''
       substituteInPlace CMakeLists.txt \
         --replace "nvptx" "NVPTX" \
@@ -117,14 +118,17 @@ buildPythonPackage {
       sed -i '/LINK_LIBS/i NVPTXInfo' lib/Target/PTX/CMakeLists.txt
       sed -i '/LINK_LIBS/i NVPTXCodeGen' lib/Target/PTX/CMakeLists.txt
     ''
-    # Triton seems to be looking up cuda.h
+    # TritonMLIRIR already links MLIRIR. Not transitive?
+    # + ''
+    #   echo "target_link_libraries(TritonPTX PUBLIC MLIRIR)" >> lib/Target/PTX/CMakeLists.txt
+    # ''
+    # Already defined in llvm, when built with -DLLVM_INSTALL_UTILS
     + ''
       substituteInPlace bin/CMakeLists.txt \
         --replace "add_subdirectory(FileCheck)" ""
 
       rm cmake/FindLLVM.cmake
     ''
-    # Triton seems to be looking up cuda.h
     + (
       let
         # Bash was getting weird without linting,

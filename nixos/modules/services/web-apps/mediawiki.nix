@@ -659,8 +659,8 @@ in
       before = [ "phpfpm-mediawiki.service" ];
       after =
         optional
-          (cfg.database.type == "mysql" && cfg.database.createLocally)
-          "mysql.service"
+        (cfg.database.type == "mysql" && cfg.database.createLocally)
+        "mysql.service"
         ++ optional
           (cfg.database.type == "postgres" && cfg.database.createLocally)
           "postgresql.service"
@@ -707,10 +707,10 @@ in
 
     systemd.services.httpd.after =
       optional
-        (cfg.webserver == "apache"
-          && cfg.database.createLocally
-          && cfg.database.type == "mysql")
-        "mysql.service"
+      (cfg.webserver == "apache"
+        && cfg.database.createLocally
+        && cfg.database.type == "mysql")
+      "mysql.service"
       ++ optional
         (cfg.webserver == "apache"
           && cfg.database.createLocally

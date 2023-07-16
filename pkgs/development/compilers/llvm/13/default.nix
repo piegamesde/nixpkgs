@@ -344,9 +344,7 @@ let
           else
             (
               # libcxx >= 13 does not build on gcc9
-              if
-                stdenv.cc.isGNU && lib.versionOlder stdenv.cc.version "10"
-              then
+              if stdenv.cc.isGNU && lib.versionOlder stdenv.cc.version "10" then
                 pkgs.gcc10Stdenv
               else
                 stdenv

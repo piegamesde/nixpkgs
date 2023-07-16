@@ -142,6 +142,8 @@ stdenv.mkDerivation rec {
       install -Dm755 ../lib/${libname} $out/lib/${libname}
       install -Dm755 ../xgboost $out/bin/xgboost
     ''
+    # the R library option builds a completely different binary xgboost.so instead of
+    # libxgboost.so, which isn't full featured for python and CLI
     + lib.optionalString rLibrary ''
       mkdir $out/library
       export R_LIBS_SITE="$out/library:$R_LIBS_SITE''${R_LIBS_SITE:+:}"

@@ -140,6 +140,7 @@ stdenv.mkDerivation rec {
       substituteInPlace druntime/test/coverage/Makefile \
         --replace 'freebsd osx' 'none'
     ''
+
     + lib.optionalString (lib.versionOlder version "2.091.0") ''
       # This one has tested against a hardcoded year, then against a current year on
       # and off again. It just isn't worth it to patch all the historical versions
@@ -155,6 +156,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (lib.versionAtLeast version "2.092.2") ''
       substituteInPlace dmd/test/dshell/test6952.d --replace "/usr/bin/env bash" "${bash}/bin/bash"
     ''
+
     + lib.optionalString stdenv.isLinux ''
       substituteInPlace phobos/std/socket.d --replace "assert(ih.addrList[0] == 0x7F_00_00_01);" ""
     ''

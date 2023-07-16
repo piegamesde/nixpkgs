@@ -22,7 +22,7 @@ let
           (defaultQuotingType != null)
           "default quoting type = ${defaultQuotingType}"
         ++
-        # Newline at end of file
+          # Newline at end of file
           [
             ""
           ]

@@ -83,9 +83,6 @@ lib.warnIf (extraPostFetch != "")
           unpackFile "$renamed"
           chmod -R +w "$unpackDir"
         ''
-
-        # Remove non-owner write permissions
-        # Fixes https://github.com/NixOS/nixpkgs/issues/38649
         + (
           if stripRoot then
             ''
@@ -105,15 +102,9 @@ lib.warnIf (extraPostFetch != "")
               mv "$unpackDir" "$out"
             ''
         )
-
-        # Remove non-owner write permissions
-        # Fixes https://github.com/NixOS/nixpkgs/issues/38649
         + ''
           ${postFetch}
         ''
-
-        # Remove non-owner write permissions
-        # Fixes https://github.com/NixOS/nixpkgs/issues/38649
         + ''
           ${extraPostFetch}
         ''
